@@ -2,9 +2,9 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.41**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.41.md`
-- Prior active deltas: v0.3.40 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.42**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.42.md`
+- Prior active deltas: v0.3.41 through v0.3.26 under `models/lol/rules/`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-08.md`
 - Item-verification suspension: `models/lol/procedures/LOL_ITEM_VERIFICATION_SUSPENSION_2026-08-05.md`
@@ -21,7 +21,7 @@
 Every new chat must load these before its first LoL analysis:
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.41 through v0.3.26 rule deltas
+2. v0.3.42 through v0.3.26 rule deltas
 3. item-verification suspension
 4. v0.3.25 consolidated rules, probation status, calibration handbook
 5. mandatory live verdict execution checklist
@@ -34,7 +34,7 @@ Every new chat must load these before its first LoL analysis:
 12. shared stake policy
 13. latest handoff last
 
-Where conflicts exist, **v0.3.41 controls**.
+Where conflicts exist, **v0.3.42 controls**.
 
 ## Official probation
 
@@ -43,21 +43,25 @@ Where conflicts exist, **v0.3.41 controls**.
 - Net: -0.16425u / -164,250 VND
 - Next official wager after explicit restoration: 14
 - Standard/default stake after restoration: **0.25u**
-- No hard aggregate per-map exposure cap
 - Minimum odds: **1.60**
 - Duration markets official-ineligible through wager 20
 - Official betting remains **paused** until the user explicitly restores it
 
-## Twenty-map shadow circuit breaker — completed
+## Shadow state
 
-The required 20/20 shadow maps are complete. Completion does **not** automatically restore official wagering.
+Official wagering remains paused; tracked recommendations are shadow unless explicitly restored.
 
-Recent breaker sequence remains:
+Recent post-breaker sequence after the completed 20-map circuit breaker:
 
-- CB-17 TH +7.5 kills vs FNC — LOSS; triggered Objective-Control Handicap Veto.
-- CB-18 TH/FNC G3 Under 26.5 thesis correct but line deteriorated before placement => NO BET / 0u.
-- CB-19 T1/HLE G2 — no recorded position; conditional Under expired => NO BET / 0u.
-- CB-20 T1/HLE G3 — no recorded position.
+- DNS +1.5 maps @1.913 vs NS — WIN +0.22825u
+- DNS G2 ML @1.979 vs NS — WIN +0.24475u
+- EDG +10.5 kills @1.810 vs BLG G2 — LOSS -0.25u
+- SK G1 ML @2.239 vs NAVI — LOSS -0.25u
+- NAVI +5.5 kills @1.886 vs SK G2 — LOSS -0.25u
+- SK +7.5 kills @2.124 vs NAVI G3 — WIN +0.281u
+- LNG +9.5 kills @1.970 vs IG G1 — LOSS -0.25u
+
+Current post-breaker shadow record: **3-4, -0.24600u**. Actual exposure remains **0u**.
 
 ## Mandatory verdict discipline
 
@@ -71,12 +75,15 @@ Before every live verdict internally verify:
 
 1. current-frame fingerprint;
 2. recorded-position state versus **position-blind current thesis state**;
-3. independent moneyline scan including v0.3.40 probability gate when pregame/0:00;
-4. phase-aware exact kill-handicap arithmetic + probability gate + cascade test + v0.3.41 mechanistic-resilience and Draft Cascade-Structure Veto + structural controls;
-5. independent total-kills low/central/high projection + v0.3.40 probability/fight-density reserve;
-6. independent duration fast/central/extension projection;
-7. line/price availability, minimum odds, correlation and chasing controls;
-8. settlement state.
+3. verified current lineup and representative team-strength prior when team strength is decision-relevant;
+4. de-vigged market prior and model-vs-market divergence when pregame/0:00;
+5. matchup-adjusted draft function, execution burden and damage-access map;
+6. independent moneyline scan including v0.3.40/v0.3.42 probability gates;
+7. phase-aware exact kill-handicap arithmetic, conditional winner/margin decomposition, cascade test, mechanistic resilience and structural vetoes;
+8. independent total-kills low/central/high projection and fight-density reserve;
+9. independent duration fast/central/extension projection;
+10. line/price availability, minimum odds, correlation and chasing controls;
+11. settlement state.
 
 Missing decision-critical data => fail closed with `PASS` or `HOLD`.
 
@@ -86,92 +93,162 @@ A `TAKE` remains **CONDITIONAL / UNRECORDED** until the user confirms the same q
 
 If the line locks, disappears, or deteriorates before confirmation, the recommendation becomes **NO BET / 0u** and is never graded later.
 
-## v0.3.41 Position-Blind Reassessment and Handicap Resilience
+## v0.3.42 Verified Team-Strength Prior
 
-Recorded positions and current thesis are separate objects. On every material state change, and whenever the user explicitly asks to reassess drafts/compositions, recompute the current thesis from scratch without anchoring to the entry recommendation, recorded position, sunk stake, prior wording, or sportsbook move.
+No numerical team-strength or map-win prior may be issued until the current expected/confirmed five-player lineup is verified or explicitly supplied by the user.
+
+When the roster has materially changed, downweight stale full-year/team-name statistics and prioritize the current five. Build strength in this order: verified lineup -> current-lineup results -> opponent-adjusted quality -> role-by-role strength/fit -> macro/early/objective/lead conversion -> map side/format if verified -> de-vigged market anchor -> uncertainty band.
+
+The role matrix must distinguish material edge / slight edge / even / slight disadvantage / material disadvantage across all five roles and separately score macro coordination, early creation, objective setup, teamfight execution, lead conversion, comeback resistance and volatility.
+
+### Market-divergence sanity gate
+
+The market is an external calibration anchor, not an oracle.
+
+Before draft, if the model central probability differs from the de-vigged market by:
+
+- 0-6pp: normal;
+- >6-10pp: require at least two independent verified reasons;
+- >10pp: require at least three independent verified reasons, including one current-lineup-performance reason and one matchup/role reason.
+
+Absent those reasons, shrink toward the market until divergence is <=6pp and widen uncertainty.
+
+**Uncertainty is not edge.** Do not convert a wide band into automatic underdog value.
+
+Series probability and single-map probability remain separate objects.
+
+## v0.3.42 Matchup-Adjusted Draft Function
+
+Draft scoring is relative. A composition gets credit for a tool only if it remains functional into the opponent's actual answers.
+
+Test:
+
+- safe range vs engage/flank/global access;
+- waveclear vs siege/side pressure/dive;
+- disengage vs reliable multi-axis or repeat engage;
+- peel vs simultaneous dive routes;
+- engage vs anti-engage/terrain/mobility denial;
+- objective access vs poke/zone/choke/face-check burden;
+- return kills vs cleanup/chase/ranged follow-up;
+- scaling vs whether carries can actually deliver damage safely.
+
+A nominal tool directly suppressed by an opposing interaction is weakened/nonfunctional, not a full resilience point.
+
+### Functional Counter Tax
+
+If one opposing tool materially degrades two or more core functions of the other composition, those functions cannot be counted at full value. Apply this by function, not by hard-coded champion name.
+
+### Execution-burden adjustment
+
+Identify the simpler first successful sequence, the side requiring more precise spacing/flank/targeting, independent fight-start channels, and which composition fails first when one role falls behind.
+
+When the stronger team also has the simpler/reliable execution path, increase clean-win and high-margin branches. Underdog theoretical tools receive less weight when accessing them requires materially higher execution precision.
+
+### Damage-access map
+
+Before any post-draft TAKE identify who can hit frontline safely, who can access backline, who must cross enemy control, easiest carry to isolate, main-DPS uptime after first contact, and retreating-side return-kill capability.
+
+Multiple damage champions do not equal handicap resilience if they cannot safely access targets.
+
+## v0.3.42 Conditional Kill-Margin Decomposition
+
+For a positive kill handicap:
+
+`P(dog +H covers) = P(dog wins) + P(favorite wins AND favorite margin <= H)`
+
+Required branches: underdog wins; favorite wins close; favorite wins moderate; favorite wins high-margin.
+
+The close/moderate/high-margin probabilities must be conditional on the favorite winning and must reflect team-strength gap, draft execution asymmetry, expected total kills and cascade architecture.
+
+A high dog-cover estimate is invalid if it simultaneously assumes a large favorite win probability and an unsupported high close-loss rate.
+
+Pregame positive-handicap lower-bound edge requirement remains +5pp over break-even; early-live +4pp; mid/late +3pp.
+
+## v0.3.42 Draft Adjustment Cap
+
+Normal draft move from the verified pre-draft map prior remains **0-4pp**. A move >4pp requires at least three independent **functional** advantages after opponent-counter testing.
+
+Draft should rarely erase a large verified team-strength gap by itself.
+
+## LNG vs IG G1 calibration
+
+Verified lineups supplied by the user:
+
+- LNG: sheer / Weiwei / Nia / 1xn / Missing
+- IG: TheShy / Wei / Rookie / Assum / Meiko
+
+Draft:
+
+- LNG: K'Sante / Naafiri / Akali / Corki / Nautilus
+- IG: Olaf / Jarvan IV / Ryze / Kai'Sa / Poppy
+
+0:00 market included IG ML 1.231, LNG ML 4.032, IG -9.5 kills 1.793, LNG +9.5 kills 1.970. LNG +9.5 was recorded for 0.25u shadow. Final: IG 26-13 LNG; position lost -0.25u.
+
+The failure was process-level, not simply result-level. Team strength moved too far across successive assessments because roster verification and market-divergence controls were weak. Draft analysis then over-counted nominal LNG resilience without sufficiently testing it against IG's mobility denial, multi-axis target access, run-through pressure and cleaner execution path. The model also failed to decompose the dog cover probability into LNG-win probability plus the conditional probability of an IG win staying within nine kills.
+
+Under v0.3.42, this selection is a `PASS` absent a supportable conditional close-loss distribution.
+
+## v0.3.41 Position-Blind Reassessment retained
+
+Recorded positions and current thesis are separate objects. On every material state change, and whenever the user explicitly asks to reassess drafts/compositions, recompute current thesis from scratch without anchoring to the entry recommendation, recorded position, sunk stake, prior wording or sportsbook move.
 
 For the original recorded selection:
 
-- **ACTIVE:** current lower-bound probability still clears original entry break-even by the applicable phase buffer and no hard veto is active;
+- **ACTIVE:** lower bound still clears original entry break-even by the applicable phase buffer and no hard veto is active;
 - **DEGRADED:** lower bound is above break-even but no longer clears the required buffer;
 - **INVALIDATED:** lower bound is at/below break-even or a hard veto is active;
-- **CONFIRMED:** materially strengthened thesis only; settlement rules unchanged.
+- **CONFIRMED:** materially strengthened only.
 
-Positive-handicap resilience must be mechanistic. Explicitly evaluate safe range, disengage/reset, waveclear/base defense, anti-dive/peel, objective-contest access, and return-kill reliability. Generic `scaling`, `late game`, `teamfight`, or `multiple carries` language is not resilience unless it translates into these mechanisms.
+Positive-handicap resilience remains mechanistic: safe range, disengage/reset, waveclear/base defense, anti-dive/peel, objective-contest access and return-kill reliability.
 
-### Draft Cascade-Structure Veto
+### Draft Cascade-Structure Veto retained
 
-For a positive kill handicap, `PASS` unless strong counterevidence exists when the opponent has:
+For a positive kill handicap, `PASS` unless strong counterevidence exists when the opponent has a gold lead, structural lead/repeatable structure access, a clear pick-to-kill-to-objective cascade with at least three meaningful components, while the positive-handicap side lacks demonstrated level-3+ return-kill/contest evidence or at least three credible matchup-adjusted resilience categories.
 
-- current gold lead;
-- current structural lead or demonstrated repeatable structure access;
-- a clear pick-to-kill-to-objective cascade with at least three meaningful components such as reliable engage, layered CC, ranged conversion, chase/global reinforcement, objective-zone denial, or dive continuation;
-- while the positive-handicap side lacks demonstrated level-3+ return-kill/contest evidence or at least three credible mechanistic resilience categories.
+Split neutral-objective control does not cancel this veto.
 
-Split neutral-objective control does **not** cancel this veto. Gold + structural initiative plus a demonstrated cascade architecture can be sufficient.
+## v0.3.40 Pregame ML calibration retained
 
-When the favorite has a repeatable `first contact -> conversion -> numbers advantage -> objective/structure -> second pick` sequence, widen the high-margin branch because future fights are serially dependent rather than independent.
-
-### NAVI vs SK G2 calibration
-
-NAVI +5.5 kills @1.886 was recorded at 14:51 with SK 8-7, SK +1.9k gold, SK 1-0 towers, SK 2-1 Grubs and NAVI 1-0 dragons. Drafts: NAVI Ambessa/Lee Sin/Ryze/Viktor/Alistar; SK Gnar/Pantheon/Syndra/Varus/Leona. Final was SK 18-8 NAVI; position lost -0.25u shadow.
-
-The original 58-63% cover estimate was too high. The model overvalued NAVI's generic extended-fight scaling and underweighted NAVI's short range into Varus/Syndra, SK's Pantheon/Leona first-contact reliability, Gnar zone control, ranged conversion, and SK's existing gold + structural initiative. Under v0.3.41, the Draft Cascade-Structure Veto would have made NAVI +5.5 a `PASS` at entry absent stronger observed return-kill evidence.
-
-When the user explicitly requested a draft reassessment, the current thesis should have been recomputed position-blind and moved to DEGRADED/INVALIDATED rather than being defended for consistency. By 19:51, SK +3k and 3-1 towers with the same demonstrated cascade architecture required **INVALIDATED**, even with dragons tied.
-
-## v0.3.40 Pregame ML Calibration retained
-
-For any pregame / 0:00 moneyline TAKE:
+For pregame/0:00 ML:
 
 - construct baseline map `P_win` range before draft;
 - separate series prior from map prior;
-- apply verified side adjustment;
-- apply disciplined draft/composition adjustment;
+- apply verified side;
+- apply disciplined matchup-adjusted draft adjustment;
 - apply supported execution/form adjustment;
-- calculate `P_break_even = 1 / odds`;
-- require the **lower end** of final `P_win` range to clear break-even by **at least +3 percentage points**.
+- calculate break-even;
+- require lower end of final `P_win` range to clear break-even by at least +3pp.
 
-Draft alone normally moves a map prior by **0–4pp**. A >4pp move requires at least three independent material matchup advantages. One attractive interaction cannot justify a large move by itself.
-
-## v0.3.40 Early Total-Kills Calibration retained
+## v0.3.40 Early Total-Kills calibration retained
 
 For total-kills TAKEs:
 
-- early live: lower end of selection probability range must clear break-even by **+4pp**;
-- mid/late live: lower end must clear by **+3pp**.
+- early live: lower end must clear break-even by +4pp;
+- mid/late: lower end must clear by +3pp.
 
-High early fight-density is active with >=8 kills by 8:00, >=10 by 10:00, repeated early multi-player skirmishes, or multiple globals/engage chains coming online.
+High fight density and multiple fight-creation channels widen the high-kill branch and penalize early Unders.
 
-If high fight-density is active and at least three meaningful future fight windows remain, assign the high-kill branch at least **25–30% probability mass** absent strong suppression evidence.
+## v0.3.39 Phase-Aware Kill-Handicap calibration retained
 
-If both drafts collectively contain four or more meaningful fight-creation channels, apply an additional volatility penalty against early Unders.
+Require lower end of `P_cover` to clear break-even by:
 
-## v0.3.39 Phase-Aware Kill-Handicap Calibration retained
+- +5pp pregame positive handicap;
+- +4pp early live;
+- +3pp mid/late.
 
-Kill handicaps must first be classified as pregame/0:00, early live, or mid/late live.
+Pregame positive handicaps remain high-friction and require projected total kills, final-margin branches, H/T scaling, conditional winner/margin decomposition, explicit probability edge and cascade-tail assessment.
 
-For any handicap TAKE calculate break-even and a reasonable `P_cover` range; require the **lower end** to clear break-even by:
+## Structural controls retained
 
-- +5pp for pregame positive handicaps;
-- +4pp for early-live handicaps;
-- +3pp for mid/late-live handicaps.
-
-Pregame positive handicaps are high-friction. Draft resilience alone is insufficient. Require projected total kills, final-margin branches, H/T scaling, explicit probability edge and cascade-tail assessment.
-
-## Retained Objective-Control Handicap Veto
-
-For a positive kill handicap, aligned opponent **gold lead + meaningful neutral-objective control** cannot be dismissed because the current kill margin is small or the cushion is wide.
-
-Without affirmative repeated contest/trade/return-kill evidence, `PASS` the positive handicap.
-
-## Retained v0.3.38 Favorite Structural Margin-Expansion Ladder
-
-When a leader has aligned **gold + objective pressure + structural conversion/access**, scan smaller favorite negative kill handicaps **before** the next kill conversion. Price each relevant line independently, prefer the least aggressive qualifying line, and do not chase after conversion.
+- Objective-Control Handicap Veto remains active.
+- Favorite Structural Margin-Expansion Ladder remains active.
+- Pick-cascade fights are serially dependent, not independent.
+- Grubs alone do not prove structural acceleration.
+- Current-map hard evidence overrides pregame narratives once synchronized live evidence exists.
 
 ## Total Kills and Duration remain separate
 
-Total Kills requires current kills, whole kills to line, unresolved fight inventory, objective-density reserve, low/central/high branches, and v0.3.40 probability/fight-density controls.
+Total Kills requires current kills, exact kills to line, unresolved fight inventory, objective-density reserve, low/central/high branches and probability controls.
 
 Duration requires fast-close, central and extension branches plus structure/base route, stall evidence and terminal-access/methodical-control checks.
 
@@ -179,33 +256,18 @@ Retained duration corrections remain mandatory: no Over before 10:00 without two
 
 ## Settlement verification
 
-A screenshot marked `Live` or `Pending` is never final evidence by itself. However, the user has established a standing instruction: when they state **`Final`**, treat the attached/latest synchronized scoreboard as authoritative final-state evidence even if the UI still says `Live`.
-
-If `Final` is stated but the exact statistic required to grade the market is absent from all synchronized evidence, request only the missing grading statistic.
-
-## Post-breaker shadow sequence
-
-Recorded post-breaker positions now include:
-
-- DNS +1.5 maps @1.913 vs NS — WIN +0.22825u.
-- DNS G2 ML @1.979 vs NS — WIN +0.24475u.
-- EDG +10.5 kills @1.810 vs BLG G2 — LOSS -0.25u.
-- SK G1 ML @2.239 vs NAVI — LOSS -0.25u.
-- NAVI +5.5 kills @1.886 vs SK G2 — LOSS -0.25u.
-
-Current post-breaker shadow record: **2-3, -0.27700u**. Actual exposure remains 0u.
+A screenshot marked `Live` or `Pending` is never final evidence by itself. User correction controls visual bugs. When the user explicitly states **`Final`**, treat the attached/latest synchronized scoreboard as authoritative final-state evidence even if UI says `Live`, provided the grading statistic is present.
 
 ## Retained controls
 
 - 1u = 1,000,000 VND.
 - Default individual shadow size while official wagering is paused: 0.25u simulated.
-- No hard aggregate LoL per-map exposure cap.
-- No automatic stake escalation, martingale behavior, or loss chasing.
-- No correlated same-map add-ons.
-- Multiple same-map shadow positions require materially distinct theses, synchronized state and qualifying prices.
-- Current-map hard evidence resets every map; prior execution is only a soft prior.
+- No automatic stake escalation, martingale behavior or loss chasing.
+- Minimum odds 1.60.
+- No correlated same-map add-ons unless the user explicitly designates a separate independent bet and it independently qualifies.
+- Multiple same-map shadow positions require distinct theses, synchronized state and qualifying prices.
 - Item verification remains suspended until explicit restoration; unknown items are neutral and never guessed.
-- Apply dominance override, multi-snapshot stabilization, role-gold breadth, observed-execution scoring, late objective-density kill reserves, soul-cascade routing, Baron acquisition/conversion separation, comeback-shape correction and settlement-verification correction.
+- Apply dominance override, multi-snapshot stabilization, role-gold breadth, observed-execution scoring, late objective-density kill reserves, soul-cascade routing, Baron acquisition/conversion separation and comeback-shape correction.
 - For active live maps: checklist -> verdict -> logging/plugins.
 
 ## Connected-stack authority
