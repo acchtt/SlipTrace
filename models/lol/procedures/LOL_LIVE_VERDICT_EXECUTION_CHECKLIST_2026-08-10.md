@@ -1,7 +1,7 @@
 # LoL Live Verdict Execution Checklist — 2026-08-10
 
 **Status:** Mandatory  
-**Authority:** LoL v0.3.49  
+**Authority:** LoL v0.3.50  
 **Purpose:** mechanical pre-verdict gate for every League of Legends post-draft/live snapshot.
 
 Complete internally before every verdict. User-facing output remains brief and verdict-first.
@@ -52,7 +52,7 @@ Before numeric pregame team-strength/map priors:
 
 Unsupported model-market divergence must shrink toward market. Team strength is the pre-draft baseline, not the post-draft conversion engine.
 
-## D. Draft Primacy Gate — v0.3.49 / v0.3.48 / v0.3.47
+## D. Draft Primacy Gate — v0.3.50 / v0.3.49 / v0.3.48 / v0.3.47
 
 Once draft is locked, draft interaction becomes the primary mechanism layer for projecting how the current state converts.
 
@@ -93,7 +93,7 @@ For each team, classify likely conversion mode:
 
 For Kill Handicap ask how much of the win branch is kill-centric versus structure/objective-centric.
 
-For Total Kills, do not infer low future combat merely because conversion is side-lane/structure-oriented; apply G's forward-contact analysis.
+For Total Kills, do not infer low or high future combat merely from conversion style; apply G's OKP/FCI/CRR/CL analysis.
 
 ### D3. CC Scarcity / Proactivity Tax
 
@@ -105,9 +105,9 @@ When active:
 - reduce positive-handicap resilience;
 - increase leader repeat-pick/chase branches;
 - increase leader wide-margin tail when already ahead;
-- for Total Kills, separately test whether this creates compulsory losing contests rather than low combat.
+- for Total Kills, separately test whether engage creates realized contact or merely deters contest.
 
-**Durability is not control. Range is not disengage.**
+**Durability is not control. Range is not disengage. Engage capability is not realized contact.**
 
 ### D4. Distributed Economic Dominance (DED)
 
@@ -130,7 +130,7 @@ Flag DDC when:
 5. >=3 meaningful future fight/pressure windows remain;
 6. no demonstrated hard anti-cascade mechanism is functioning.
 
-DDC expands favorite margin tails subject to v0.3.48 conversion-speed controls and can raise Total Kills if G identifies high Forward Contact Inventory + Contact Lethality.
+DDC expands favorite margin tails subject to v0.3.48 conversion-speed controls. For Total Kills, it raises conditional lethality but can also lower CRR through Threat Deterrence, so G must decide the net effect.
 
 ### D6. Anti-cascade tools are graded
 
@@ -140,7 +140,7 @@ For Kill Handicap classify defensive tools as:
 - `MARGIN-SAVING`;
 - `NONFUNCTIONAL`.
 
-For Total Kills additionally ask whether those tools **avoid contact** or merely generate return kills. Return kills can save +kills while hurting an Under.
+For Total Kills additionally ask whether those tools **avoid contact**, **delay contact**, or merely generate return kills. Return kills can save +kills while hurting an Under.
 
 ### D7. Reassess live
 
@@ -153,7 +153,8 @@ Re-run D after:
 - first Baron;
 - >=2 net-kill swing;
 - repeated failure of waveclear/disengage/anti-dive;
-- repeated first-contact -> objective/structure conversion.
+- repeated first-contact -> objective/structure conversion;
+- repeated objective concession or repeated forced contest.
 
 ## E. Moneyline gate
 
@@ -243,7 +244,7 @@ Lower cover bound must clear break-even by:
 - +6pp early live;
 - +5pp mid/late.
 
-## G. Total Kills Gate — v0.3.49
+## G. Total Kills Gate — v0.3.50
 
 ### G1. Line arithmetic
 
@@ -270,31 +271,65 @@ Set `LOW / MEDIUM / HIGH`.
 
 **Quiet-start non-persistence:** before 15:00, low kills or low kills/minute cannot by themselves increase Under probability.
 
-An early Under upgrade requires low OKP plus limited/declining forward contact, demonstrated low contact lethality, or a clean-close mechanism that removes future contact windows.
+### G3. De-duplicated Forward Contact Inventory (FCI)
 
-### G3. Forward Contact Inventory (FCI)
+List **event windows**, not engage champions.
 
-List meaningful remaining windows and classify:
+Classify distinct remaining events such as:
 
-- `FORCED / HIGH-CONTACT`;
-- `LIKELY CONTACT`;
-- `AVOIDABLE / TRADEABLE`;
-- `STRUCTURE-ONLY PLAUSIBLE`;
-- `UNLIKELY BEFORE END`.
+- dragon / soul-point / soul;
+- Baron / Elder;
+- side-lane collapse;
+- repeat-pick cycle after reset;
+- inhibitor/base defense;
+- terminal chase.
 
-Include objective contests, Baron/Elder, inhibitor/base defense, repeat-pick cycles, side-lane collapses and forced face-checks.
+Multiple champions contributing to the same dragon/Baron setup raise forcing/lethality of that one window; they do not create multiple FCI entries.
 
-Do not count every objective as a fight.
+### G4. Contact Realization Rate (CRR)
 
-### G4. Contest Compulsion
+For every material FCI window set:
 
-Flag when the trailing team is losing the option to concede because of soul/Baron/inhibitor/terminal pressure and must enter enemy-controlled terrain.
+- `HIGH REALIZATION`;
+- `MEDIUM REALIZATION`;
+- `LOW REALIZATION`;
+- `CONDITIONAL / STATE-DEPENDENT`.
 
-When active, increase FCI. Poke/waveclear/global tools only suppress kills if they actually permit safe avoidance or disengage.
+CRR answers: **will this nominal window actually become meaningful combat?**
 
-### G5. Contact Lethality (CL)
+Use objective value, cross-map tradeability, side pressure, wave state, vision, globals, scaling incentive, base state and whether the leader can force the trailer to enter range.
 
-Set `LOW / MEDIUM / HIGH` using:
+### G5. Contest / Concede / Trade / Delay tree
+
+For every major window explicitly test:
+
+1. `CONTEST`;
+2. `CONCEDE`;
+3. `TRADE`;
+4. `DELAY`.
+
+Do not call a window forced/high-contact unless CONTEST materially dominates the alternatives.
+
+### G6. Contest Compulsion refinement
+
+Contest Compulsion activates only when concession/trade/delay are strategically unacceptable or mechanically unavailable — e.g. soul, Elder, terminal Baron/base pressure, inhibitor/Nexus defense.
+
+**Being behind is not enough.**
+
+### G7. Threat Deterrence / Contact Suppression
+
+Flag when the stronger side's engage, zone, siege or choke control makes the weaker side retreat before contact.
+
+When active:
+
+- lower CRR for non-terminal windows;
+- raise Structure Substitution probability;
+- keep CL conditional on contact separate;
+- recognize that superior engage can reduce Total Kills by winning space without fighting.
+
+### G8. Contact Lethality (CL)
+
+Set `LOW / MEDIUM / HIGH` conditional on realized contact using:
 
 - reliable access;
 - hard-CC chain;
@@ -303,51 +338,70 @@ Set `LOW / MEDIUM / HIGH` using:
 - re-engage;
 - disengage/peel;
 - mobility/escape;
-- return-kill capability;
 - current gold concentration.
 
-**Access/disengage mismatch:** reliable hard access versus weak functional disengage raises CL even against a nominal poke/waveclear/side-lane composition.
+Do not conflate high CL with high CRR.
 
-### G6. Forward projection
+### G9. Loser return-kill floor
+
+Set `LOW / MEDIUM / HIGH` after opponent-counter testing.
+
+Ask whether the trailer can enter range, survive first contact, return damage, continue after first spell cycle and prevent leader reset. Aggressive champion names alone do not create return kills.
+
+### G10. CRR-weighted forward projection
 
 Project:
 
-`Final Total Kills = Current Kills + kills from remaining FCI windows + low-contact residual kills`.
+`Final Total Kills = Current Kills + CRR-weighted kills from remaining FCI windows + residual pick/chase kills`.
 
-Answer explicitly:
+For each material window lock:
 
-1. how many meaningful contact windows remain;
-2. which are forced;
-3. expected lethality per contact;
-4. whether acceleration removes windows or creates compulsory defense first;
-5. whether return kills remain likely.
+- CRR;
+- contest/concede/trade/delay branches;
+- CL if contact occurs;
+- winner/loser death split;
+- Threat Deterrence / Structure Substitution branch.
 
-### G7. Under vetoes / surcharge
+### G11. Under vetoes / surcharge
 
-An Under cannot be TAKEN/upgraded merely because current kills are low, towers are low, Grubs/Herald exist, or drafts have generic poke/waveclear/side-lane tools.
+v0.3.49 quiet-start and hard-access Under controls remain active.
 
-If pregame/early Under has all:
+If pregame/early Under has reliable hard access + weak opposing disengage + >=3 meaningful future windows, add +2pp to the normal lower-bound gate, capped at +9pp total cushion.
 
-- >=1 highly reliable hard-access tool plus follow-up on one side;
-- weak functional disengage on the opponent;
-- >=3 meaningful future objective/base-defense windows likely;
+### G12. Over vetoes / surcharge
 
-add **+2pp** to the normal Total Kills lower-bound requirement, capped at +9pp total cushion over break-even.
+**Engage-only Over veto:** if the thesis is essentially `many engage tools => many fights`, PASS.
 
-If FCI has >=3 forced/high-contact windows and CL is HIGH, Under defaults PASS unless explicit window arithmetic still clears the applicable gate.
+**Control-dominance Over surcharge:** add +2pp to the normal Total Kills lower-bound requirement, capped at +9pp total cushion, when all are true:
 
-### G8. Over discipline
+- one side has a material draft/team-strength control edge;
+- it can convert through zoning/siege/side pressure;
+- >=2 future major windows are MEDIUM/LOW CRR because concession/trade remains viable;
+- loser return-kill floor is not clearly HIGH.
 
-High FCI is not an automatic Over. Account for clean close, Structure Substitution, objective trades and LOW CL.
+**Contact-realization veto:** if fewer than two future windows are HIGH REALIZATION and no repeatable neutral-pick/dive mechanism exists, pregame Over defaults PASS unless explicit CRR-weighted arithmetic still clears all gates.
 
-### G9. Probability gates
+### G13. Live CRR confirmation
+
+Across >=2 synchronized snapshots, record whether nominal windows actually resolve through:
+
+- fights;
+- picks;
+- concessions;
+- trades;
+- zoning/structure takes;
+- repeated disengages.
+
+Observed contact realization can upgrade/downgrade totals independently from OKP.
+
+### G14. Probability gates
 
 Base lower-bound gates remain:
 
 - +5pp pregame;
 - +4pp early live;
 - +3pp mid/late;
-- previous high-friction pregame Under conditions remain, with v0.3.49 surcharge layered where applicable.
+- v0.3.49/v0.3.50 surcharges may apply, capped at +9pp total cushion over break-even.
 
 If <=4 kills of Under cushion and a major forced fight/base-defense sequence remains, default existing Under thesis to INVALIDATED absent near-terminal clean close.
 
@@ -359,7 +413,7 @@ If <=4 kills of Under cushion and a major forced fight/base-defense sequence rem
 - 14:00+ requires observed stall/acceleration;
 - dead-zone, survival-horizon and regime-change rules remain mandatory.
 
-## I. Execution / Same-map Add-ons — v0.3.49
+## I. Execution / Same-map Add-ons — v0.3.49 retained
 
 Before TAKE:
 
@@ -415,7 +469,7 @@ If an open position exists, include thesis state separately.
 
 ## L. Fail Closed
 
-Missing decision-critical draft, state, line, NKB, KCV/RFI, OKP/FCI/CL or synchronization input => widen uncertainty and `PASS/HOLD`.
+Missing decision-critical draft, state, line, NKB, KCV/RFI, OKP/FCI/CRR/CL or synchronization input => widen uncertainty and `PASS/HOLD`.
 
 ## M. Tool order
 
