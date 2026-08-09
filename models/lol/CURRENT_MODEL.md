@@ -2,11 +2,12 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.49**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.49.md`
-- Prior deltas: v0.3.48 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.50**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.50.md`
+- Prior deltas: v0.3.49 through v0.3.26 under `models/lol/rules/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
-- Latest Total Kills / add-on correlation review: `models/lol/reviews/KC_FNC_GAME2_TOTAL_KILLS_CORRELATION_REVIEW_2026-08-10.md`
+- Latest Total Kills contact-realization review: `models/lol/reviews/FURIA_FLUXO_G2_OVER_CONTACT_REALIZATION_REVIEW_2026-08-10.md`
+- Prior Total Kills / add-on correlation review: `models/lol/reviews/KC_FNC_GAME2_TOTAL_KILLS_CORRELATION_REVIEW_2026-08-10.md`
 - Latest handicap conversion review: `models/lol/reviews/G2_TH_KILL_HANDICAP_CONVERSION_REVIEW_2026-08-09.md`
 - Draft primacy review: `models/lol/reviews/JDG_WE_GAME2_DRAFT_PRIMACY_REVIEW_2026-08-09.md`
 - Earlier Total Kills review: `models/lol/reviews/BFX_KRX_GAME2_TOTAL_KILLS_REVIEW_2026-08-09.md`
@@ -18,7 +19,7 @@
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.49 through v0.3.26 rule deltas
+2. v0.3.50 through v0.3.26 rule deltas
 3. mandatory live checklist
 4. item-verification suspension
 5. v0.3.25 consolidated rules / probation / calibration handbook
@@ -28,7 +29,7 @@
 9. shared stake policy
 10. latest handoff last
 
-Where conflicts exist, **v0.3.49 controls**.
+Where conflicts exist, **v0.3.50 controls**.
 
 ## Operating state
 
@@ -52,7 +53,124 @@ First visible line on active maps:
 
 Logging/connectors occur after the live verdict and must not delay it.
 
-# v0.3.49 — Forward Contact Inventory + Joint Correlation Calibration
+# v0.3.50 — Contact Realization + Concession Calibration
+
+## Core correction
+
+For Total Kills, **engage capability is not realized combat**.
+
+Every Total Kills evaluation now separates:
+
+1. **Observed Kill Pace (OKP)** — what has happened;
+2. **Forward Contact Inventory (FCI)** — distinct future event windows;
+3. **Contact Realization Rate (CRR)** — probability each window actually becomes meaningful combat;
+4. **Contact Lethality (CL)** — deaths expected conditional on contact.
+
+Use the discipline:
+
+`Expected remaining kills = sum[P(contact_i) * E(kills_i | contact_i)] + residual pick/chase kills`.
+
+Do not manufacture false precision; ranges/lower bounds are preferred when uncertainty is material.
+
+## FCI de-duplication
+
+Count **event windows, not engage champions**.
+
+Multiple champions contributing to one dragon/Baron/side-lane setup raise CRR and/or CL of that window; they do not create multiple independent future fights.
+
+Separate windows must be strategically or temporally distinct: later dragon/soul, Baron, repeat-pick after reset, inhibitor defense, terminal base sequence, etc.
+
+## Contact Realization Rate
+
+For every material future window set:
+
+- `HIGH REALIZATION`;
+- `MEDIUM REALIZATION`;
+- `LOW REALIZATION`;
+- `CONDITIONAL / STATE-DEPENDENT`.
+
+CRR depends on objective value, cross-map tradeability, wave state, side pressure, vision, globals, scaling incentives, base state and whether the leader can force the trailer to enter range.
+
+## Contest / Concede / Trade / Delay
+
+Every major objective/pressure window must explicitly test:
+
+1. `CONTEST`;
+2. `CONCEDE`;
+3. `TRADE`;
+4. `DELAY`.
+
+A window is forced/high-contact only when CONTEST materially dominates the alternatives.
+
+### Contest Compulsion refinement
+
+Contest Compulsion activates only when concede/trade/delay have become strategically unacceptable or mechanically unavailable — typically soul, Elder, terminal Baron/base pressure, inhibitor/Nexus defense.
+
+**Being behind is not sufficient.**
+
+## Threat Deterrence / Contact Suppression
+
+Strong engage/zone control can reduce Total Kills by making the opponent retreat before contact.
+
+Flag **Threat Deterrence (TD)** when the stronger side's initiation, choke control, siege or range wins space without requiring a fight.
+
+When TD is active:
+
+- reduce CRR for non-terminal windows;
+- increase Structure Substitution probability;
+- keep CL conditional on contact separate;
+- recognize that a better draft can produce fewer fights, not more.
+
+## Mutual-contact requirement for Overs
+
+Before pregame/early Over TAKE, answer both:
+
+1. can the team force contact **if the opponent enters**?;
+2. can the team force the opponent **to enter**?
+
+If (1) is yes but (2) is uncertain, the window is not high-contact.
+
+One-sided draft dominance requires an explicit loser-death or loser-return-kill mechanism that does not depend on repeated voluntary contests.
+
+## Loser return-kill floor
+
+Set `LOW / MEDIUM / HIGH` after opponent-counter testing.
+
+Do not credit aggressive champions as automatic return kills. Test whether the trailer can enter range, survive first contact, return damage, continue after first spell cycle and prevent the leader from resetting.
+
+## Over-specific controls
+
+**Engage-only Over veto:** `many engage tools => many fights` is insufficient; default PASS.
+
+**Control-dominance Over surcharge:** add +2pp to the normal Total Kills lower-bound requirement, capped at +9pp total over break-even, when all are true:
+
+- one side has material draft/team-strength control edge;
+- it can convert through zoning/siege/side pressure;
+- >=2 future major windows are MEDIUM/LOW CRR because concession/trade remains viable;
+- loser return-kill floor is not clearly HIGH.
+
+**Contact-realization veto:** if fewer than two future windows are HIGH REALIZATION and no repeatable neutral-pick/dive mechanism exists, pregame Over defaults PASS unless explicit CRR-weighted arithmetic still clears all gates.
+
+## FURIA vs Fluxo W7M G2 calibration
+
+Draft:
+
+FURIA Volibear / Jarvan IV / Galio / Caitlyn / Karma  
+Fluxo W7M Ambessa / Xin Zhao / Ahri / Lucian / Milio
+
+Confirmed Over 24.5 @1.705 lost. Final FURIA 14-3 at 32:53, 17 kills.
+
+The old read correctly identified FURIA's draft/control edge and high conditional lethality, but:
+
+- inflated FCI by counting several engage champions as independent fight creation;
+- overactivated Contest Compulsion;
+- underweighted concede/trade/delay branches;
+- underweighted Threat Deterrence from FURIA's engage + Caitlyn/Karma control shell;
+- overstated Fluxo's return-kill floor.
+
+Correct v0.3.50 interpretation: **PASS pregame Over 24.5 @1.705** unless CRR-weighted branches independently clear the gate.
+
+# v0.3.49 — Forward Contact Inventory + Joint Correlation Calibration retained
 
 ## Core correction
 
@@ -64,7 +182,7 @@ Every Total Kills evaluation must separately model:
 2. **Forward Contact Inventory (FCI)** — how many future matchup-functional contact windows remain;
 3. **Contact Lethality (CL)** — how many deaths are likely when those contacts occur.
 
-A low current kill count cannot by itself support or upgrade an Under. A quiet start can still become a high-contact mid/late game when objective pressure makes contests compulsory.
+v0.3.50 inserts CRR between FCI and CL. A low current kill count cannot by itself support or upgrade an Under. A quiet start can still become a high-contact mid/late game when objective pressure makes contests compulsory.
 
 ## Quiet-start non-persistence
 
@@ -72,7 +190,7 @@ Before 15:00, low kills or low kills/minute cannot by themselves increase Under 
 
 An early Under upgrade requires at least one:
 
-- >=2 synchronized snapshots showing both low OKP and declining/limited FCI;
+- >=2 synchronized snapshots showing both low OKP and declining/limited FCI/CRR;
 - repeated contact resolving with low CL because disengage/peel is demonstrably functional;
 - a clean structure-only/terminal branch that removes future contact windows faster than it creates them.
 
@@ -80,27 +198,11 @@ An early Under upgrade requires at least one:
 
 ## Forward Contact Inventory
 
-For each remaining window, classify actual expected contact:
-
-- `FORCED / HIGH-CONTACT`;
-- `LIKELY CONTACT`;
-- `AVOIDABLE / TRADEABLE`;
-- `STRUCTURE-ONLY PLAUSIBLE`;
-- `UNLIKELY BEFORE END`.
+For each remaining event, classify expected contact under v0.3.50 CRR rules.
 
 Relevant windows include dragon/soul, Baron/Elder, inhibitor/base defense, side-lane collapses, repeat-pick cycles, vision face-checks and terminal chases.
 
 Objectives are not automatically fights.
-
-## Contest Compulsion
-
-A trailing team can become more kill-generating as the map worsens because it loses the option to concede indefinitely.
-
-Flag Contest Compulsion when the leader controls objective terrain and the trailer must eventually enter enemy control to contest soul, Baron, inhibitors or terminal pressure.
-
-When active, increase FCI.
-
-Poke, waveclear and globals only suppress kills if they actually allow safe avoidance or disengage.
 
 ## Contact Lethality
 
@@ -122,13 +224,9 @@ Set CL `LOW / MEDIUM / HIGH` using:
 
 ## Total Kills forward projection
 
-Use:
-
-`Final Total Kills = Current Kills + kills from remaining FCI windows + low-contact residual kills`.
+Use v0.3.50 CRR-weighted projection rather than treating all nominal FCI windows equally.
 
 Internally lock low/central/high final-kill branches, line-cross probability and uncertainty.
-
-For Under, large cushion is arithmetic rather than evidence.
 
 ## Hard-access Under surcharge
 
@@ -140,14 +238,14 @@ For pregame or early-live Under, if all are true:
 
 add **+2pp** to the normal Total Kills lower-bound requirement, capped at a total required cushion of +9pp over break-even.
 
-If FCI contains >=3 forced/high-contact windows and CL is HIGH, Under defaults PASS unless explicit window arithmetic still clears the gate.
+If FCI/CRR leaves >=3 forced/high-contact windows and CL is HIGH, Under defaults PASS unless explicit window arithmetic still clears the gate.
 
 Base Total Kills lower-bound gates remain:
 
 - +5pp pregame;
 - +4pp early live;
 - +3pp mid/late;
-- retained high-friction pregame Under gate from v0.3.46, with v0.3.49 surcharge layered where applicable.
+- v0.3.49/v0.3.50 surcharges where applicable, capped at +9pp total over break-even.
 
 ## Total Kills and Kill Handicap are separate axes
 
@@ -179,28 +277,6 @@ For positions A and B, estimate:
 Identify concrete mechanisms for materially non-zero one-win/one-loss branches.
 
 Each add-on must independently clear its market gate and remain +EV after joint-distribution adjustment. Do not reuse one narrative as two independent edges. No stake escalation.
-
-## KC vs FNC Game 2 calibration
-
-Draft:
-
-KC Yorick / Vi / Viktor / Kalista / Renata  
-FNC Jayce / Olaf / Ryze / Ziggs / Shen
-
-Confirmed positions:
-
-- Under 27.5 @1.955 — LOSS;
-- FNC +13.5 @2.122 — WIN.
-
-Final KC 20-8 at 31:53: T=28, M=+12.
-
-The Under engine correctly saw structure/side-lane conversion routes but underweighted Vi hard access, Renata fight extension, FNC's weak full disengage and later compulsory contests.
-
-Correct v0.3.49 interpretation of the pregame Under is **PASS unless the explicit OKP/FCI/CL projection clears the higher hard-access gate**.
-
-At 10:48, KC 5-1 with only six total kills did **not** justify an Under upgrade by itself because FCI and CL remained substantial.
-
-The FNC +13.5 entry remains correct: KC still needed +10 additional net kills from entry and ultimately won by +12, validating the v0.3.48 handicap-survival framework.
 
 # v0.3.48 — Kill Handicap Conversion Framework retained
 
@@ -321,7 +397,7 @@ Draft is only a mechanism prior for Duration until observed functioning proves t
 
 For +kills positions, do not infer INVALIDATED from favorite map dominance alone. Reprice the signed margin distribution first.
 
-For Total Kills positions, do not infer CONFIRMED from quiet current score alone. Reprice OKP/FCI/CL first.
+For Total Kills positions, do not infer CONFIRMED from quiet/current score or nominal engage inventory alone. Reprice OKP/FCI/CRR/CL first.
 
 # Execution / settlement
 
