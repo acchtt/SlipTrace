@@ -1,7 +1,7 @@
 # LoL Live Verdict Execution Checklist — 2026-08-09
 
 **Status:** Mandatory  
-**Authority:** LoL v0.3.45  
+**Authority:** LoL v0.3.46  
 **Purpose:** mechanical pre-verdict gate for every League of Legends pregame/live snapshot.
 
 Complete internally before every verdict. User-facing output remains brief.
@@ -22,6 +22,8 @@ Verify from newest synchronized evidence:
 - market open / locked / delayed status.
 
 Do not carry forward a prior mutable field unless explicitly reconciled.
+
+For Total Kills, **current kills are always decision-critical**. An objective-only update never proves the previous kill count is unchanged.
 
 ## B. Position-state check
 
@@ -152,25 +154,124 @@ Apply symmetrically. Review after 10 and 20. Directional skew is diagnostic, not
 
 Retain Objective-Control Handicap Veto and Draft Cascade-Structure Veto.
 
-## G. Total-kills gate
+## G. Total-kills gate — v0.3.46
+
+Total Kills is distribution-first and must explicitly price future forced contact.
+
+### G1. Core lock
 
 Calculate:
 
 - current total kills;
-- whole kills to cross line;
-- unresolved major fight triggers;
-- low/central/high remaining-kill branches;
-- objective-density reserve;
-- clean-close/return-kill suppression state;
-- global/engage/cascade fight-creation channels.
+- whole kills to cross the line;
+- low / central / high final-kill branches and probability mass;
+- functional fight-creation channel inventory;
+- unresolved forced-fight window inventory;
+- dragon / soul-point / soul / Elder conflict state;
+- Baron and base-defense kill reserve;
+- clean-close versus kill-inflation branches;
+- break-even and reasonable probability range.
 
-For TAKE, lower probability bound must clear break-even by +4pp early live and +3pp mid/late.
+### G2. Functional fight-creation channels
 
-High early fight density and >=4 collective fight-creation channels widen the high-kill branch and penalize early Unders.
+Count distinct functions, not champion names or repeated descriptions of the same combo:
+
+- reliable first contact;
+- global/semi-global numbers creation;
+- multi-axis engage/flank;
+- repeat/re-engage;
+- displacement/target access;
+- safe cleanup/follow-up;
+- reset/chase;
+- objective forcing;
+- dive/base-entry;
+- return-kill mechanisms.
+
+Interpretation:
+
+- 0–2 low;
+- 3 moderate;
+- 4–5 high;
+- 6+ very high.
+
+For an Under, >=4 channels activates a mandatory volatility penalty.
+
+### G3. Forced-fight windows
+
+Inventory at least:
+
+- remaining dragons;
+- soul-point/soul;
+- Elder;
+- Herald if relevant;
+- Baron cycles;
+- inhibitor/base-defense sequences;
+- exposed Nexus defense;
+- states where a team cannot afford to concede the objective.
+
+If one team leads materially while the opponent owns soul point, increase the high-kill branch. This is an explicit anti-Under state absent observed suppression.
+
+### G4. Probability gates
+
+Lower selection probability bound must clear break-even by:
+
+- **+5pp pregame / 0:00**;
+- **+4pp early live**;
+- **+3pp mid/late live**.
+
+For a pregame Under with **>=4 functional fight channels and >=3 expected major forced-fight windows**, add a **+2pp surcharge**: lower bound must clear break-even by **+7pp**.
+
+If >=6 channels exist, widen the high branch and require explicit suppression evidence before using a narrow Under range.
+
+### G5. Under suppression evidence
+
+Theoretical waveclear/control or 'organized fights' is not enough.
+
+Credible suppression includes repeated low-death objective contests, repeated successful disengage/reset, demonstrated target-access failure, clean cross-map trades, structure conversion without defender deaths, or stable low kill generation across meaningful contest windows.
+
+### G6. Remaining-kill cushion
+
+For half-kill Under line `H` and current total kills `K`:
+
+`C = floor(H) - K`
+
+`C` is arithmetic only, not evidence. Compare it with unresolved forced-fight windows and base-defense kill reserve.
+
+If an existing Under has **<=4 kills of cushion** and at least one major forced contest/base-defense sequence remains, default to `INVALIDATED` unless synchronized evidence shows a near-terminal clean close with minimal defender contact.
+
+### G7. Major-objective ambiguity
+
+For first Baron, soul, Elder or inhibitor access, price both:
+
+1. clean-close / fewer-future-fights branch;
+2. base-defense / chase / dive kill-inflation branch.
+
+Never infer fewer kills merely because expected duration falls.
+
+### G8. Synchronized-kill-state veto
+
+For a live Total Kills position, do not positively upgrade the thesis after an objective-only/timer-only update unless a current kill count is synchronized from the same or newer state.
+
+Without synchronized kills:
+
+- do not assume prior kills unchanged;
+- do not move INVALIDATED -> DEGRADED/ACTIVE;
+- do not move DEGRADED/ACTIVE -> CONFIRMED;
+- preserve or worsen the thesis until kills are synchronized.
+
+### G9. CONFIRMED gate for Total Kills Under
+
+`CONFIRMED` requires at least one:
+
+- two independent observed kill-suppression mechanisms across meaningful windows;
+- line expansion that materially strengthens the lower-bound edge after full repricing;
+- structurally near-terminal state where clean close clearly dominates base-defense kill inflation.
+
+Soul point, Baron, gold lead or a large numeric cushion alone cannot authorize CONFIRMED.
 
 **Total Kills is never inferred from Duration, and Duration is never inferred from Total Kills.**
 
-## H. Duration gate — v0.3.45 rebuild
+## H. Duration gate — v0.3.45 rebuild retained
 
 Duration is a specialized **live-only** market.
 
@@ -284,15 +385,20 @@ Before any Duration TAKE verify all of:
 
 Missing any decision-critical item => `PASS/HOLD`.
 
-## I. Execution and correlation gate
+## I. Execution and correlation gate — v0.3.46
 
 Before TAKE:
 
 - exact line/odds executable;
 - minimum odds clear;
-- no prohibited correlated add-on unless user explicitly designates a separate independent bet and it independently qualifies;
+- state synchronized;
 - no chase/wider-line rescue;
-- state synchronized.
+- same-map add-on, if any, independently qualifies under its own market-family gate;
+- correlation with existing same-map positions is explicitly priced rather than automatically vetoed;
+- every same-map add-on is a distinct position;
+- no automatic stake escalation or rescue logic.
+
+Same-map add-ons are enabled in shadow mode. Correlation may reduce confidence or force a PASS, but is not itself an automatic prohibition.
 
 TAKE remains conditional/unrecorded until user confirms executable line/price. Locked/disappeared/deteriorated before confirmation => NO BET / 0u.
 
