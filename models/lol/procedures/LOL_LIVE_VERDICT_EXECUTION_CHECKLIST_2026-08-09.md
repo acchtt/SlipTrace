@@ -1,7 +1,7 @@
 # LoL Live Verdict Execution Checklist — 2026-08-09
 
 **Status:** Mandatory  
-**Authority:** LoL v0.3.44  
+**Authority:** LoL v0.3.45  
 **Purpose:** mechanical pre-verdict gate for every League of Legends pregame/live snapshot.
 
 Complete internally before every verdict. User-facing output remains brief.
@@ -39,148 +39,83 @@ On every material new snapshot, and whenever the user asks to reassess draft/com
 
 Do not use recorded entry, prior recommendation, sunk stake, desire for consistency, or adverse market movement as supporting evidence.
 
-- ACTIVE: lower-bound probability still clears original break-even by required phase buffer and no hard veto.
+- ACTIVE: lower-bound probability still clears original break-even by required current buffer and no hard veto.
 - DEGRADED: lower bound remains above break-even but no longer clears buffer.
 - INVALIDATED: lower bound at/below break-even or a hard veto applies.
 - CONFIRMED: materially strengthened only.
 
-Mandatory triggers: explicit reassessment request; >=2k meaningful gold swing; tower differential change >=2; first Baron/Elder; inhibitor/base access; material dragon/soul alignment; >=2 net-kill swing; repeated failure of a theoretical defensive mechanism; demonstrated pick-to-objective cascade.
+Mandatory triggers include explicit reassessment request; >=2k meaningful gold swing; tower differential change >=2; first Baron/Elder; inhibitor/base access; material dragon/soul alignment; >=2 net-kill swing; repeated failure of a theoretical defensive mechanism; demonstrated pick-to-objective cascade.
 
 ## C. Verified team-strength gate — v0.3.42+
 
 Before any pregame/0:00 numeric team-strength or map prior:
 
-1. verify or obtain the current five-player lineup;
-2. identify roster discontinuity versus older samples;
-3. use current-lineup results first;
+1. verify/obtain current five-player lineup;
+2. identify roster discontinuity;
+3. prioritize current-lineup results;
 4. adjust for opponent quality;
 5. score role-by-role current strength/fit;
-6. separately score macro coordination, early creation, objective setup, teamfight execution, lead conversion, comeback resistance and volatility;
-7. establish an uncertainty band.
+6. separately score macro, early creation, objective setup, teamfight execution, lead conversion, comeback resistance and volatility;
+7. establish uncertainty band.
 
-If the lineup is uncertain or stale samples dominate, fail closed on a numeric edge.
+If lineup or representative sample is uncertain, fail closed on a numeric edge.
 
 ### C1. Market-divergence sanity gate
 
-Calculate de-vigged market prior when pregame odds are available.
+Calculate de-vigged pregame market prior.
 
-Model central probability vs de-vigged market:
-
-- 0–6pp: normal;
+- 0–6pp model-vs-market difference: normal;
 - >6–10pp: require >=2 independent verified reasons;
-- >10pp: require >=3 independent verified reasons, including one current-lineup-performance reason and one matchup/role reason.
+- >10pp: require >=3 independent verified reasons including current-lineup performance and matchup/role evidence.
 
-If unsupported, shrink model toward market until divergence <=6pp and widen uncertainty.
-
-**Uncertainty is not edge.** Do not turn a wide band into automatic underdog value.
-
-Series prior and map prior must remain separate.
+Unsupported divergence => shrink toward market and widen uncertainty. Uncertainty is not edge.
 
 ## D. Matchup-adjusted draft gate — v0.3.42+
 
-Do not count draft tools additively. For every claimed tool, test whether it remains functional into the opposing draft.
+Do not count draft tools additively. Test:
 
-Test:
-
-- safe range vs engage/flank/global access;
-- waveclear vs siege/side pressure/dive;
-- disengage vs reliable multi-axis/repeat engage;
+- range vs engage/flank/global access;
+- waveclear vs siege/side/dive;
+- disengage vs repeat/multi-axis engage;
 - peel vs simultaneous dive routes;
 - engage vs anti-engage/terrain/mobility denial;
-- objective contest vs poke/zone/choke/face-check burden;
+- objective access vs poke/zone/choke/face-check burden;
 - return kills vs cleanup/chase/ranged follow-up;
 - scaling vs actual safe damage delivery.
 
-A tool directly suppressed by the opponent is weakened/nonfunctional, not a full resilience category.
-
-### D1. Functional counter tax
-
-If one opposing interaction materially degrades two or more core functions, reduce those functions explicitly. Apply by function, not by champion-name hard-coding.
-
-### D2. Execution burden
-
-Identify:
-
-- simpler first successful sequence;
-- side requiring more precise spacing/flank timing/targeting;
-- number of independent reliable fight-start channels;
-- first composition likely to become nonfunctional if one role falls behind.
-
-If the stronger team also has the simpler/reliable execution path, widen its clean-win and high-margin branches.
-
-### D3. Damage-access map
-
-Identify:
-
-1. who can hit frontline safely;
-2. who can access backline;
-3. who must cross enemy control to deal meaningful damage;
-4. easiest carry to isolate;
-5. main-DPS uptime after first contact;
-6. retreating-side return-kill capability.
-
-Multiple carries do not equal resilience if target access is poor.
-
-### D4. Draft adjustment cap
-
-Normal draft adjustment from verified pre-draft map prior: **0–4pp**.
-
-A move >4pp requires >=3 independent **functional** matchup advantages after opponent-counter testing.
-
-Draft should rarely erase a large verified team-strength gap by itself.
+Apply Functional Counter Tax, execution burden and damage-access mapping. Normal draft adjustment is 0–4pp; >4pp requires >=3 independent functional advantages after counter testing.
 
 ## E. Moneyline gate
 
-For all ML:
+For ML:
 
 - odds >=1.60;
-- current-map evidence sufficient;
 - map prior distinct from series prior;
-- no transfer from generic team strength alone;
-- no automatic transfer to handicap confidence.
+- no automatic transfer from team strength to handicap confidence;
+- pregame lower `P_win` bound must clear break-even by >=3pp.
 
-### E1. Pregame / 0:00 ML probability gate
+Failure => `PASS/HOLD`.
 
-Construct:
+## F. Kill-handicap gate — v0.3.44 retained
 
-1. verified baseline map `P_win` range;
-2. market de-vig prior and divergence check;
-3. verified side adjustment;
-4. matchup-adjusted draft adjustment;
-5. supported execution/form adjustment;
-6. final reasonable `P_win` range;
-7. `P_break_even = 1 / odds`.
+Kill-handicap analysis is side-neutral and distribution-first.
 
-Lower end must clear break-even by at least **+3pp**.
+### F1. Phase
 
-Failure => `PASS` or `HOLD`.
-
-## F. Kill-handicap gate — v0.3.44
-
-Kill-handicap analysis is **side-neutral and distribution-first**.
-
-### F1. Phase classification
-
-Set exactly one:
-
-- `PREGAME / 0:00`
-- `EARLY LIVE`
-- `MID/LATE LIVE`
+Set `PREGAME / 0:00`, `EARLY LIVE`, or `MID/LATE LIVE`.
 
 ### F2. Define favorite and signed margin
 
-Define:
+`M = favorite final kills - underdog final kills`.
 
-`M = favorite final kills - underdog final kills`
-
-Pregame/0:00 favorite = de-vigged map favorite after lineup/draft reconciliation. Live favorite = synchronized live ML favorite when available, otherwise position-blind current map-state favorite.
+Pregame favorite = de-vigged map favorite after lineup/draft reconciliation. Live favorite = synchronized live ML favorite when available, otherwise position-blind current-state favorite.
 
 ### F3. Blind fair-margin lock
 
-**Before using the displayed handicap as evidence**, lock:
+Before using displayed handicap as evidence, lock:
 
 1. current kill margin;
-2. projected final total-kill low / central / high range;
+2. final total-kill low / central / high range;
 3. fair central favorite kill margin;
 4. signed final-margin distribution;
 5. favorite map-win probability range;
@@ -188,135 +123,34 @@ Pregame/0:00 favorite = de-vigged map favorite after lineup/draft reconciliation
 7. underdog-win/tie branch;
 8. uncertainty width.
 
-Minimum margin bins:
+Minimum bins: `M<=0`, `+1..3`, `+4..6`, `+7..9`, `+10..14`, `15+`.
 
-- `M <= 0`;
-- `M +1 to +3`;
-- `M +4 to +6`;
-- `M +7 to +9`;
-- `M +10 to +14`;
-- `M >= +15`.
-
-Probabilities must sum to approximately 100% and remain consistent with team strength, draft function, projected total kills and live structure.
-
-### F4. Symmetric price calculation
+### F4. Symmetric pricing
 
 For half-kill line `H`:
 
 - `P(dog +H covers) = P(M < H)`;
 - `P(favorite -H covers) = P(M > H)`.
 
-For whole lines, account explicitly for push rules if applicable.
+Price both displayed sides from the same distribution before selecting either side.
 
-Price **both displayed sides from the same locked distribution** before selecting either side.
+### F5. Wide-win and resilience branches
 
-Do not create one distribution for the positive side and another for the negative side.
+Favorite high-margin tail must price team-strength gap, lead conversion, repeatable engage, target access, structure/objective pressure, chase/cleanup, serial cascades and terminal kill inflation.
 
-### F5. Favorite wide-win branch
+Underdog resilience remains matchup-adjusted: safe range, disengage/reset, waveclear/base defense, anti-dive/peel, objective contest and return-kill reliability. Theoretical tools only count when they plausibly reduce the favorite wide-margin tail.
 
-Apply the same analytical depth to favorite margin expansion as to underdog resilience.
+### F6. v0.3.44 temporary surcharge
 
-Widen the favorite high-margin tail for supported:
+For next 20 settled new v0.3.44+ handicap entries, lower `P_cover` bound must clear break-even by:
 
-- team-strength gap;
-- early creation / lead conversion;
-- simpler or repeatable engage;
-- multi-axis target access;
-- carry concentration;
-- wave/structure pressure;
-- objective forcing / face-check burden;
-- Baron/soul/base access;
-- safe chase/cleanup;
-- serial pick-to-objective-to-structure cascades;
-- end-game kill inflation from forced base defense and terminal chase.
+- +7pp pregame;
+- +6pp early live;
+- +5pp mid/late.
 
-A small current kill margin does **not** imply a narrow final margin when structural conversion is aligned.
+Apply symmetrically. Review after 10 and 20. Directional skew is diagnostic, not a quota.
 
-### F6. Matchup-adjusted underdog resilience
-
-Evaluate:
-
-1. safe range;
-2. disengage/reset;
-3. waveclear/base defense;
-4. anti-dive/peel;
-5. objective-contest access;
-6. return-kill reliability.
-
-Then apply v0.3.42 opponent-counter testing. A theoretical tool only earns close-loss probability if it can realistically reduce the favorite's wide-margin tail in this matchup.
-
-### F7. Conditional winner/margin consistency
-
-Retain:
-
-`P(dog +H covers) = P(dog wins) + P(favorite wins AND favorite margin <= H)`
-
-But all branches must come from the same signed distribution used for the opposite side.
-
-Do not combine a large favorite win probability with a very high dog-cover probability unless affirmative evidence shows favorite wins are usually narrow.
-
-### F8. Live margin-expansion hazard
-
-For live snapshots explicitly assess:
-
-- gold lead and trajectory;
-- tower differential / repeatable structure access;
-- dragon/soul/Baron/Elder alignment;
-- carry concentration and shutdown distribution;
-- reliable engage / pick channels;
-- defender face-check burden;
-- observed return-kill resistance;
-- inhibitor/base access;
-- terminal kill inflation.
-
-If leader has aligned gold + structure/objective pressure + reliable first contact, widen the high-margin tail even if current kills are close.
-
-### F9. Arithmetic is not evidence
-
-Calculate exact current margin and exact future net-kill swing required, but statements such as "the favorite still needs another +7 net kills" are arithmetic only.
-
-A visually large positive cushion is not supporting evidence until the margin distribution prices it.
-
-### F10. v0.3.44 temporary calibration surcharge
-
-For the next 20 settled **new v0.3.44 kill-handicap entries**, lower `P_cover` bound must clear break-even by:
-
-- **+7pp** pregame / 0:00;
-- **+6pp** early live;
-- **+5pp** mid/late live.
-
-This applies symmetrically to positive and negative handicaps.
-
-Review after 10 and 20 settled v0.3.44 handicap positions.
-
-The already-recorded KT +3.5 kills @1.935 vs DK Game 2 remains a v0.3.43 entry. Any future thesis reassessment of that open ticket uses v0.3.44.
-
-### F11. Directional-skew monitor
-
-At each 10-position review window:
-
-- >=80% one sign => mandatory directional-bias audit before relaxing controls;
-- >=90% one sign plus negative ROI => keep/strengthen surcharge and perform explicit process review;
-- never force the next selection to the opposite sign just to balance counts.
-
-### F12. Positive-handicap structural vetoes retained
-
-Retain the Objective-Control Handicap Veto and Draft Cascade-Structure Veto from v0.3.41/v0.3.42.
-
-For positive handicap, cushion alone cannot override aligned gold + structure/objective control + repeatable cascade architecture without demonstrated return-kill/contest resistance.
-
-### F13. Side-neutral scan order
-
-When both sides are visible:
-
-1. locked fair distribution;
-2. positive-side break-even/edge;
-3. negative-side break-even/edge;
-4. uncertainty and surcharge;
-5. vetoes;
-6. choose one qualifying side or `PASS/HOLD`.
-
-If both sides appear to qualify because uncertainty is too wide or distributions conflict, fail closed.
+Retain Objective-Control Handicap Veto and Draft Cascade-Structure Veto.
 
 ## G. Total-kills gate
 
@@ -330,93 +164,144 @@ Calculate:
 - clean-close/return-kill suppression state;
 - global/engage/cascade fight-creation channels.
 
-For a TAKE, lower probability bound must clear break-even by **+4pp early live** and **+3pp mid/late**.
+For TAKE, lower probability bound must clear break-even by +4pp early live and +3pp mid/late.
 
-High early fight-density: >=8 kills by 8:00, >=10 by 10:00, repeated early multi-player skirmishes, or multiple global/engage chains coming online. If active with >=3 fight windows remaining, assign high-kill branch >=25–30% absent strong suppression evidence.
+High early fight density and >=4 collective fight-creation channels widen the high-kill branch and penalize early Unders.
 
-Four or more collective fight-creation channels => extra volatility penalty against early Under.
+**Total Kills is never inferred from Duration, and Duration is never inferred from Total Kills.**
 
-Total Kills is never inferred from Duration.
+## H. Duration gate — v0.3.45 rebuild
 
-## H. Duration gate — v0.3.43 retained
+Duration is a specialized **live-only** market.
 
-Duration is a **survival event**, not a generic pace read.
+### H1. Hard timing gates
 
-Before any duration verdict calculate:
+- Pregame / 0:00 duration: `PASS/HOLD`; no TAKE.
+- Before 12:00: `HOLD`; no TAKE.
+- 12:00–13:59: high-friction; requires all normal evidence plus two synchronized snapshots >=90 seconds apart showing the same mechanism.
+- 14:00 onward: may qualify only through the gates below.
 
-1. current clock `t`;
-2. duration line `L`;
-3. remaining survival horizon `R = L - t`;
-4. fast-close branch;
-5. central closing branch;
-6. extension branch;
-7. leader gold/state trajectory;
-8. Latent Conversion Potential `LCP`;
-9. observed stall-signal count;
-10. first-break elasticity / fastest realistic structure-to-Nexus route;
-11. break-even probability and model probability range;
-12. duration market-divergence check.
+### H2. Survival horizon
 
-### H1. Structural absence is neutral
+Calculate:
 
-From 14:00 onward, 0-0 or low towers is **neutral by default**, not positive Over evidence. Towerlessness becomes stall evidence only with >=2 independent observed stall signals.
+`R = duration line L - current game clock t`.
 
-### H2. Latent Conversion Potential
+Price `P(game survives R more minutes)`.
 
-Score six accelerants: reliable first contact; numbers creation; safe follow-up/chase; wave/structure access; objective leverage; functional suppression of defender waveclear/disengage/peel.
+Lock fast-close interval, central closing interval, extension interval and central expected finish `C`.
 
-`LCP 0-1 = low`, `2 = moderate`, `3-4 = high`, `5-6 = very high`.
+### H3. Correlated quiet-state collapse
 
-### H3. High-friction Over veto
+Low kills, 0-0/low towers, near-even gold, split/low objectives and no Baron/inhibitor at one snapshot count as at most **one generic quiet-state signal** unless separate causal mechanisms are demonstrated.
 
-For a live Over, `PASS/HOLD` when all are true unless exceptional synchronized counterevidence exists:
+Historical quietness is not observed future stall.
 
-- leader >=+1.5k gold after 14:00;
-- Over requires >=15 additional minutes of survival;
-- leader `LCP >=3`;
-- fewer than two observed stall signals.
+### H4. Over requires observed stall
 
-### H4. Duration probability buffers
+Over requires >=2 independent observed stall mechanisms, such as repeated pushes denied, repeated successful waveclear after lost tempo, repeated failed pick/engage conversion, stable/shrinking leader gold despite initiative, demonstrated repeat disengage/reset, cross-map compensation, or major objective buff yielding little/no structure.
 
-Lower end must clear break-even by:
+At least one stall mechanism must persist across temporally separate snapshots unless after 25:00 a major objective conversion failure has just been directly observed.
 
-- **+5pp** before 18:00;
-- **+4pp** from 18:00 through 24:59;
-- **+3pp** from 25:00 onward.
+Theoretical waveclear/peel/scaling/disengage is not enough.
 
-### H5. Duration market-divergence sanity gate
+### H5. Under requires observed acceleration
 
-Model central probability vs market break-even:
+Under requires >=2 independent observed acceleration mechanisms, such as repeated fight-to-structure conversion, first tower unlocking multiple structures, widening gold plus structure access, Herald/Baron/soul forcing base access, deep-vision repeat picks, side-lane overload, inhibitor/base access, or functioning high-LCP conversion.
 
-- 0-5pp: normal;
-- >5-9pp: require >=2 independent current-map reasons;
-- >9pp: require >=3 independent current-map reasons, including >=1 observed stall/acceleration reason.
+At least one acceleration mechanism must persist across temporally separate snapshots unless the post-25 terminal exception applies.
 
-Unsupported divergence => shrink toward market, widen uncertainty, fail closed if buffer is not met.
+Aggressive draft theory alone is not enough.
+
+### H6. Two-snapshot persistence gate
+
+Except for H7, every duration TAKE requires >=2 synchronized snapshots separated by >=90 seconds. The claimed stall/acceleration mechanism must persist or strengthen.
+
+If mechanism reverses, widen uncertainty and `HOLD`.
+
+### H7. Post-25 terminal Under exception
+
+After 25:00, one synchronized snapshot may support an Under without two-snapshot persistence only if multiple terminal features align: inhibitor/base access, Baron/Elder/soul plus major structural/gold lead, exposed Nexus towers, no credible defender reset, reliable first contact/follow-up, and shortest realistic route to Nexus inside the survival horizon.
+
+No equivalent single-snapshot exception exists for Overs.
+
+### H8. Forecast dead zone
+
+Automatic `PASS/HOLD` if:
+
+1. market line `L` lies inside the central closing interval; or
+2. `|L - C| < 2.0 minutes`.
+
+If forecast uncertainty exceeds two minutes, use the wider uncertainty band.
+
+### H9. Regime-change repricing
+
+Immediately recompute duration after first tower, material Herald opening, first Baron, first inhibitor, soul/Elder, >=2-tower swing in one conversion cycle, short-interval >=3k gold swing, or repeated major-objective conversion failure.
+
+Do not carry a pre-break finish forecast through a structural regime change.
+
+### H10. LCP retained but demoted to mechanism prior
+
+Retain LCP components: reliable first contact, numbers creation, safe follow-up/chase, wave/structure access, objective leverage, suppression of defender stall tools.
+
+Before 25:00, LCP alone cannot authorize a TAKE; it must be observed functioning on the current map.
+
+### H11. v0.3.45 probability buffers
+
+Lower probability bound must clear break-even by:
+
+- +6pp from 12:00–17:59;
+- +5pp from 18:00–24:59;
+- +4pp from 25:00 onward.
+
+Market divergence:
+
+- 0–5pp: normal;
+- >5–9pp: require >=2 independent observed current-map mechanisms;
+- >9pp: require >=3 mechanisms including >=1 temporally persistent stall/acceleration mechanism.
+
+Unsupported divergence => shrink toward market, widen uncertainty and `PASS/HOLD`.
+
+### H12. Mandatory duration lock
+
+Before any Duration TAKE verify all of:
+
+1. `t`, `L`, `R`;
+2. fast/central/extension finish intervals;
+3. central expected finish `C`;
+4. dead-zone test;
+5. two-snapshot status;
+6. correlated quiet-state collapse;
+7. observed stall count;
+8. observed acceleration count;
+9. LCP and whether functioning;
+10. structural regime-change state;
+11. shortest structure-to-Nexus route;
+12. break-even and model probability range;
+13. rebuild buffer;
+14. market divergence;
+15. no Total-Kills-to-Duration inference.
+
+Missing any decision-critical item => `PASS/HOLD`.
 
 ## I. Execution and correlation gate
 
-Before `TAKE`:
+Before TAKE:
 
 - exact line/odds executable;
-- minimum odds and market threshold clear;
+- minimum odds clear;
 - no prohibited correlated add-on unless user explicitly designates a separate independent bet and it independently qualifies;
 - no chase/wider-line rescue;
 - state synchronized.
 
-A `TAKE` is CONDITIONAL / UNRECORDED until user confirms same qualifying line/price was available and accepted.
-
-Locked/disappeared/deteriorated before confirmation => NO BET / 0u; never grade later.
-
-If recorded position becomes INVALIDATED: do not add, rescue or automatically flip opposite as repair/chasing.
+TAKE remains conditional/unrecorded until user confirms executable line/price. Locked/disappeared/deteriorated before confirmation => NO BET / 0u.
 
 ## J. Settlement gate
 
-- `Live` screenshot alone => do not settle;
-- `Pending` screenshot alone => do not settle;
-- explicit user correction overrides a visual-status bug;
-- when user states `Final`, treat latest synchronized scoreboard as authoritative final-state evidence if grading statistic is present;
-- unavailable/unconfirmed recommendations remain NO BET even if outcome later wins.
+- `Live`/`Pending` screenshot alone is not final;
+- explicit user correction overrides visual bugs;
+- when user states `Final`, treat latest synchronized scoreboard as authoritative final evidence if grading statistic is present;
+- unconfirmed recommendation is never graded.
 
 ## K. Output gate
 
@@ -426,11 +311,11 @@ First line:
 - `PASS — [selection/market] @[odds] — 0u.`
 - `HOLD — [selection/market] @[odds] — 0u.`
 
-When recorded position exists and reassessment trigger fires, include thesis label separately.
+If a recorded position exists and reassessment trigger fires, include thesis label separately.
 
 ## L. Fail-closed rule
 
-If decision-critical input/calculation is unavailable, ambiguous or incomplete, output `PASS` or `HOLD`. Never fill a missing gate with intuition.
+If decision-critical input/calculation is unavailable, ambiguous or incomplete, `PASS/HOLD`. Never fill a missing gate with intuition.
 
 ## M. Tool order
 
@@ -438,6 +323,6 @@ For active maps:
 
 1. checklist;
 2. verdict;
-3. logging / GitHub / Airtable / Sheets / other connector work.
+3. logging / GitHub / Airtable / other connector work.
 
 No connected-stack operation may delay the live verdict.
