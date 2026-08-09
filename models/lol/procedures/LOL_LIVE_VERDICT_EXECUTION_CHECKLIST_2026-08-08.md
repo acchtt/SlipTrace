@@ -1,7 +1,7 @@
 # LoL Live Verdict Execution Checklist — 2026-08-08
 
 **Status:** Mandatory  
-**Authority:** LoL v0.3.42  
+**Authority:** LoL v0.3.43  
 **Purpose:** mechanical pre-verdict gate for every League of Legends pregame/live snapshot.
 
 Complete internally before every verdict. User-facing output remains brief.
@@ -46,7 +46,7 @@ Do not use recorded entry, prior recommendation, sunk stake, desire for consiste
 
 Mandatory triggers: explicit reassessment request; >=2k meaningful gold swing; tower differential change >=2; first Baron/Elder; inhibitor/base access; material dragon/soul alignment; >=2 net-kill swing; repeated failure of a theoretical defensive mechanism; demonstrated pick-to-objective cascade.
 
-## C. Verified team-strength gate — v0.3.42
+## C. Verified team-strength gate — v0.3.42+
 
 Before any pregame/0:00 numeric team-strength or map prior:
 
@@ -76,7 +76,7 @@ If unsupported, shrink model toward market until divergence <=6pp and widen unce
 
 Series prior and map prior must remain separate.
 
-## D. Matchup-adjusted draft gate — v0.3.42
+## D. Matchup-adjusted draft gate — v0.3.42+
 
 Do not count draft tools additively. For every claimed tool, test whether it remains functional into the opposing draft.
 
@@ -180,7 +180,7 @@ Calculate:
 9. return-kill evidence level;
 10. line-chasing/repair/dominance state.
 
-### F3. Conditional winner/margin decomposition — v0.3.42
+### F3. Conditional winner/margin decomposition — v0.3.42+
 
 For positive handicap:
 
@@ -279,18 +279,96 @@ Four or more collective fight-creation channels => extra volatility penalty agai
 
 Total Kills is never inferred from Duration.
 
-## H. Duration gate
+## H. Duration gate — v0.3.43
 
-Calculate separately:
+Duration is a **survival event**, not a generic pace read.
 
-- fast-close branch;
-- central branch;
-- extension branch;
-- fastest realistic structure-to-Nexus route;
-- genuine stall/anti-conversion signals;
-- terminal access / resets / methodical-control tax.
+Before any duration verdict calculate:
 
-Retained corrections:
+1. current clock `t`;
+2. duration line `L`;
+3. remaining survival horizon `R = L - t`;
+4. fast-close branch;
+5. central closing branch;
+6. extension branch;
+7. leader gold/state trajectory;
+8. Latent Conversion Potential `LCP`;
+9. observed stall-signal count;
+10. first-break elasticity / fastest realistic structure-to-Nexus route;
+11. break-even probability and model probability range;
+12. duration market-divergence check.
+
+### H1. Structural absence is neutral
+
+From 14:00 onward, 0-0 or low towers is **neutral by default**, not positive Over evidence. Turret plates have expired and the first structural break can unlock serial tower/base conversion.
+
+Towerlessness becomes stall evidence only with >=2 independent observed stall signals.
+
+### H2. Latent Conversion Potential
+
+Score the advantaged team for six accelerants:
+
+1. reliable first contact;
+2. numbers creation / fast collapse / globals;
+3. safe follow-up damage / chase;
+4. wave and structure access / side pressure / siege / dive;
+5. objective leverage into structures;
+6. functional suppression of defender waveclear/disengage/peel.
+
+`LCP 0-1 = low`, `2 = moderate`, `3-4 = high`, `5-6 = very high`.
+
+If `LCP >=3`, missing towers cannot by itself support an Over.
+
+### H3. Observed stall evidence
+
+Qualifying stall evidence must be demonstrated on the map, for example:
+
+- >=2 meaningful pushes neutralized without tower loss;
+- repeated waveclear preventing structure access after lost tempo;
+- >=2 failed leader engage/pick sequences with no conversion;
+- leader gold lead stable/shrinking across synchronized snapshots despite initiative;
+- repeated cross-map compensation by the trailer;
+- repeatable disengage/reset preventing second-wave chase;
+- major objective buff producing little/no structural gain.
+
+Theoretical Taliyah-style waveclear, Milio-style peel, split dragons or generic scaling do not count until observed functioning.
+
+### H4. First-break elasticity
+
+Ask: if the leader wins the next pick/objective/first tower, can **two or more** additional structures realistically fall before the defender fully resets?
+
+If yes, widen the fast-close branch. Treat `pick -> numbers -> objective -> structure -> deeper vision -> second pick` as serially dependent.
+
+### H5. High-friction Over veto
+
+For a live Over, `PASS/HOLD` when all are true unless exceptional synchronized counterevidence exists:
+
+- leader >=+1.5k gold after 14:00;
+- Over requires >=15 additional minutes of survival;
+- leader `LCP >=3`;
+- fewer than two observed stall signals.
+
+This veto is independent of current tower count.
+
+### H6. Duration probability buffers
+
+For any duration TAKE, lower end of probability range must clear break-even by:
+
+- **+5pp** before 18:00;
+- **+4pp** from 18:00 through 24:59;
+- **+3pp** from 25:00 onward.
+
+### H7. Duration market-divergence sanity gate
+
+Model central probability vs market break-even:
+
+- 0-5pp: normal;
+- >5-9pp: require >=2 independent current-map reasons;
+- >9pp: require >=3 independent current-map reasons, including >=1 observed stall/acceleration reason rather than draft theory.
+
+If unsupported, shrink toward market and widen uncertainty.
+
+### H8. Retained duration corrections
 
 - no Over before 10:00 without two genuine stall signals beyond towerlessness;
 - >=6 kills by 8:00 widens fast-finish branch;
