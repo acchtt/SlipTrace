@@ -2,9 +2,9 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.45**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.45.md`
-- Prior active deltas: v0.3.44 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.46**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.46.md`
+- Prior active deltas: v0.3.45 through v0.3.26 under `models/lol/rules/`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-09.md`
 - Item-verification suspension: `models/lol/procedures/LOL_ITEM_VERIFICATION_SUSPENSION_2026-08-05.md`
@@ -21,7 +21,7 @@
 Every new chat must load these before its first LoL analysis:
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.45 through v0.3.26 rule deltas
+2. v0.3.46 through v0.3.26 rule deltas
 3. item-verification suspension
 4. v0.3.25 consolidated rules, probation status, calibration handbook
 5. mandatory live verdict execution checklist
@@ -34,7 +34,7 @@ Every new chat must load these before its first LoL analysis:
 12. shared stake policy
 13. latest handoff last
 
-Where conflicts exist, **v0.3.45 controls**.
+Where conflicts exist, **v0.3.46 controls**.
 
 ## Official probation
 
@@ -51,7 +51,7 @@ Where conflicts exist, **v0.3.45 controls**.
 
 Official wagering remains paused; tracked recommendations are shadow unless explicitly restored.
 
-Recent post-breaker settled sequence:
+Recent post-breaker settled sequence retained from prior model state:
 
 - DNS +1.5 maps @1.913 vs NS — WIN +0.22825u
 - DNS G2 ML @1.979 vs NS — WIN +0.24475u
@@ -62,13 +62,7 @@ Recent post-breaker settled sequence:
 - LNG +9.5 kills @1.970 vs IG G1 — LOSS -0.25u
 - Over 33 minutes @2.020 in DK vs KT G1 — LOSS -0.25u
 
-Current post-breaker settled shadow record: **3-5, -0.49600u**. Actual exposure remains **0u**.
-
-Open position at v0.3.45 activation:
-
-- KT +3.5 kills @1.935 vs DK Game 2 — **OPEN**, 0.25u shadow, entered under v0.3.43.
-
-The KT +3.5 entry is grandfathered as a valid v0.3.43 entry. It is not retroactively voided or reclassified. Any future position-blind reassessment uses the current v0.3.45 framework, including v0.3.44 handicap rules.
+The canonical ledger remains Airtable. Do not infer the full current shadow record from this abbreviated sequence; retrieve Airtable when an exact ledger total is required.
 
 ## Mandatory verdict discipline
 
@@ -87,9 +81,9 @@ Before every verdict internally verify:
 5. matchup-adjusted draft function, execution burden and damage-access map;
 6. independent moneyline scan;
 7. v0.3.44 side-neutral kill-margin distribution and symmetric handicap scan;
-8. independent total-kills low/central/high projection and fight-density reserve;
-9. **v0.3.45 live-only duration rebuild: survival horizon, two-snapshot persistence, observed stall/acceleration, correlated quiet-state collapse, dead-zone and regime-change repricing**;
-10. line/price availability, minimum odds, correlation and chasing controls;
+8. **v0.3.46 Total Kills forced-fight inventory, functional channel count, probability gate, objective/base-defense reserve and synchronized-kill-state veto**;
+9. v0.3.45 live-only duration rebuild: survival horizon, two-snapshot persistence, observed stall/acceleration, correlated quiet-state collapse, dead-zone and regime-change repricing;
+10. line/price availability, minimum odds, same-map correlation and chasing controls;
 11. settlement state.
 
 Missing decision-critical data => fail closed with `PASS` or `HOLD`.
@@ -100,13 +94,114 @@ A `TAKE` remains **CONDITIONAL / UNRECORDED** until the user confirms the same q
 
 If the line locks, disappears, or deteriorates before confirmation, the recommendation becomes **NO BET / 0u** and is never graded later.
 
-## v0.3.45 Duration Rebuild
+## v0.3.46 Total Kills Forced-Fight Calibration
+
+Review: `models/lol/reviews/BFX_KRX_GAME2_TOTAL_KILLS_REVIEW_2026-08-09.md`.
+
+Trigger position:
+
+- BFX vs KRX Game 2;
+- Under 31.5 total kills @2.070;
+- confirmed 0.25u shadow;
+- result LOSS -0.25u;
+- correct retrospective process verdict under v0.3.46: **PASS**.
+
+### Pregame Total Kills gate
+
+At pregame / 0:00, lower `P_total` bound must clear break-even by **+5pp**.
+
+For a pregame Under with both:
+
+- >=4 functional collective fight-creation channels; and
+- >=3 expected major forced-fight windows,
+
+apply an additional +2pp surcharge: lower bound must clear break-even by **+7pp**.
+
+Live thresholds retained:
+
+- early live: +4pp;
+- mid/late: +3pp.
+
+### Functional fight-creation inventory
+
+Count distinct functional channels rather than champion names or repeated descriptions of the same combo:
+
+- reliable first contact;
+- globals/semi-globals;
+- multi-axis engage/flank;
+- re-engage/displacement;
+- cleanup/chase;
+- objective forcing;
+- dive/base entry;
+- return-kill mechanisms.
+
+Interpretation:
+
+- 0–2 low;
+- 3 moderate;
+- 4–5 high;
+- 6+ very high.
+
+For an Under, >=4 channels widens the high-kill branch and activates the volatility penalty.
+
+### Forced-fight inventory
+
+Explicitly price remaining dragon/soul/Elder, Baron, inhibitor and base-defense windows.
+
+If one team leads materially in gold/map control while the opponent owns **soul point**, increase the high-kill branch. This state is anti-Under absent observed suppression because the next dragon is structurally difficult for either side to ignore.
+
+### Remaining-kill cushion
+
+For half-kill Under line `H` and current total `K`:
+
+`C = floor(H) - K`
+
+`C` is arithmetic, not evidence. Compare it with unresolved forced-fight windows and base-defense kill reserve.
+
+If an existing Under has **<=4 kills of cushion** and at least one major forced contest/base-defense sequence remains, default to `INVALIDATED` unless synchronized evidence shows a near-terminal clean close with minimal defender contact.
+
+### Major-objective ambiguity
+
+Baron, soul, Elder and inhibitor access have two Total Kills branches:
+
+1. clean close / fewer future fights;
+2. base-defense / chase / dive kill inflation.
+
+Do not transfer Duration logic into Total Kills. **Shorter duration does not imply fewer kills.**
+
+### Synchronized-kill-state veto
+
+For a live Total Kills position, current kills are decision-critical.
+
+After an objective-only/timer-only update without synchronized current kills:
+
+- do not assume the previous kill count is unchanged;
+- do not positively upgrade the thesis;
+- do not move INVALIDATED -> DEGRADED/ACTIVE;
+- do not move DEGRADED/ACTIVE -> CONFIRMED;
+- preserve or worsen state until kills are synchronized.
+
+### Total Kills CONFIRMED gate
+
+For an Under, `CONFIRMED` requires at least one:
+
+- two independent observed suppression mechanisms across meaningful fight windows;
+- sufficient line expansion that materially strengthens the lower-bound edge after full repricing;
+- structurally near-terminal state where clean close clearly dominates base-defense kill inflation.
+
+Soul point, Baron, gold lead or a large numeric cushion alone cannot authorize CONFIRMED.
+
+### Review window
+
+Review after the next 10 settled Total Kills positions entered under v0.3.46. Track direction, phase, functional channel count, forced-fight windows, soul-point conflict, Baron/base-defense state, remaining kill cushion, probability range versus break-even, synchronized-state compliance, final total and ROI.
+
+## v0.3.45 Duration Rebuild retained
 
 Tracked Duration history at activation: **1-5, -1.03425u** among six known settled duration positions.
 
 Review: `models/lol/reviews/DURATION_MARKET_REBUILD_REVIEW_2026-08-09.md`.
 
-Duration is now a **specialized live-only market** until a future explicit revision.
+Duration is a **specialized live-only market** until a future explicit revision.
 
 ### Timing gate
 
@@ -205,12 +300,6 @@ Market divergence:
 
 Unsupported divergence => shrink toward market, widen uncertainty and `PASS/HOLD`.
 
-### Duration rebuild review window
-
-Review after the next 10 settled v0.3.45 duration positions if that many qualify. Track direction, phase, line-to-central-finish distance, two-snapshot compliance, observed mechanisms, regime changes, closing-time calibration error and ROI.
-
-Do not loosen controls merely because few duration bets qualify.
-
 ## v0.3.44 Symmetric Kill-Handicap Margin Calibration retained
 
 Kill handicaps are modeled from a side-neutral signed final kill-margin distribution, not from the attractiveness of a positive cushion.
@@ -267,11 +356,11 @@ Recorded position and current thesis are separate objects. Recompute from scratc
 
 ## Total Kills and Duration remain separate
 
-Total Kills models fight inventory and kill generation.
+Total Kills models fight inventory, forced-contact inventory and kill generation under v0.3.46.
 
-Duration models clock survival and structural conversion efficiency.
+Duration models clock survival and structural conversion efficiency under v0.3.45.
 
-A Total Kills thesis cannot support a Duration TAKE unless independent v0.3.45 duration evidence qualifies.
+A Total Kills thesis cannot support a Duration TAKE unless independent duration evidence qualifies. A shorter expected game cannot by itself support a Total Kills Under.
 
 ## Settlement verification
 
@@ -283,8 +372,10 @@ A screenshot marked `Live` or `Pending` is never final evidence by itself. User 
 - Default individual shadow size while official wagering is paused: 0.25u simulated.
 - No automatic stake escalation, martingale behavior or loss chasing.
 - Minimum odds 1.60.
-- No correlated same-map add-ons unless the user explicitly designates a separate independent bet and it independently qualifies.
-- Multiple same-map shadow positions require distinct theses, synchronized state and qualifying prices.
+- **Same-map add-ons are enabled in shadow mode** when each position independently qualifies.
+- Correlation must be explicitly priced; correlation alone is not an automatic veto.
+- Multiple same-map shadow positions require distinct position records, synchronized state and qualifying prices.
+- No same-map rescue/chasing or automatic doubling.
 - Item verification remains suspended until explicit restoration; unknown items are neutral and never guessed.
 - For active maps: checklist -> verdict -> logging/plugins.
 
