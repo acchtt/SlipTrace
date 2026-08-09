@@ -1,10 +1,10 @@
 # LoL Live Verdict Execution Checklist — 2026-08-08
 
 **Status:** Mandatory  
-**Authority:** LoL v0.3.41  
-**Purpose:** mechanical pre-verdict gate for every live League of Legends snapshot.
+**Authority:** LoL v0.3.42  
+**Purpose:** mechanical pre-verdict gate for every League of Legends pregame/live snapshot.
 
-This checklist must be completed internally before every live verdict. The user-facing reply remains brief.
+Complete internally before every verdict. User-facing output remains brief.
 
 ## A. Current-frame fingerprint
 
@@ -21,7 +21,7 @@ Verify from newest synchronized evidence:
 - exact market line and odds;
 - market open / locked / delayed status.
 
-Do not carry forward a prior state field unless immutable or explicitly reconciled.
+Do not carry forward a prior mutable field unless explicitly reconciled.
 
 ## B. Position-state check
 
@@ -31,55 +31,133 @@ Set exactly one:
 - `CONDITIONAL / UNRECORDED`
 - `RECORDED SHADOW POSITION`
 
-Separately set current thesis state when a position exists: `ACTIVE / DEGRADED / INVALIDATED / CONFIRMED`.
+If a position exists, separately set thesis state: `ACTIVE / DEGRADED / INVALIDATED / CONFIRMED`.
 
 ### B1. Position-blind reassessment
 
-On every material new snapshot, and whenever the user explicitly asks to reassess draft/compositions, recompute the current thesis from scratch.
+On every material new snapshot, and whenever the user asks to reassess draft/compositions, recompute the current thesis from scratch.
 
-Do **not** use the recorded entry, prior recommendation, sunk stake, desire for consistency, or adverse sportsbook movement as supporting evidence.
+Do not use recorded entry, prior recommendation, sunk stake, desire for consistency, or adverse market movement as supporting evidence.
 
-For the original selection:
+- ACTIVE: lower-bound probability still clears original break-even by required phase buffer and no hard veto.
+- DEGRADED: lower bound remains above break-even but no longer clears buffer.
+- INVALIDATED: lower bound at/below break-even or a hard veto applies.
+- CONFIRMED: materially strengthened only.
 
-- ACTIVE: lower-bound probability still clears original entry break-even by the required phase buffer and no hard veto is active;
-- DEGRADED: lower bound is above break-even but no longer clears the phase buffer;
-- INVALIDATED: lower bound is at/below break-even or a hard veto is active;
-- CONFIRMED: materially strengthened thesis only.
+Mandatory triggers: explicit reassessment request; >=2k meaningful gold swing; tower differential change >=2; first Baron/Elder; inhibitor/base access; material dragon/soul alignment; >=2 net-kill swing; repeated failure of a theoretical defensive mechanism; demonstrated pick-to-objective cascade.
 
-A position remains recorded even when thesis state is INVALIDATED.
+## C. Verified team-strength gate — v0.3.42
 
-Mandatory reassessment triggers include: explicit user request; >=2k meaningful gold swing; tower differential change >=2; first Baron/Elder; inhibitor/base access; material dragon/soul alignment change; >=2 net-kill swing; repeated failure of a theoretical defensive mechanism; demonstrated pick-to-objective cascade.
+Before any pregame/0:00 numeric team-strength or map prior:
 
-## C. Moneyline gate
+1. verify or obtain the current five-player lineup;
+2. identify roster discontinuity versus older samples;
+3. use current-lineup results first;
+4. adjust for opponent quality;
+5. score role-by-role current strength/fit;
+6. separately score macro coordination, early creation, objective setup, teamfight execution, lead conversion, comeback resistance and volatility;
+7. establish an uncertainty band.
+
+If the lineup is uncertain or stale samples dominate, fail closed on a numeric edge.
+
+### C1. Market-divergence sanity gate
+
+Calculate de-vigged market prior when pregame odds are available.
+
+Model central probability vs de-vigged market:
+
+- 0–6pp: normal;
+- >6–10pp: require >=2 independent verified reasons;
+- >10pp: require >=3 independent verified reasons, including one current-lineup-performance reason and one matchup/role reason.
+
+If unsupported, shrink model toward market until divergence <=6pp and widen uncertainty.
+
+**Uncertainty is not edge.** Do not turn a wide band into automatic underdog value.
+
+Series prior and map prior must remain separate.
+
+## D. Matchup-adjusted draft gate — v0.3.42
+
+Do not count draft tools additively. For every claimed tool, test whether it remains functional into the opposing draft.
+
+Test:
+
+- safe range vs engage/flank/global access;
+- waveclear vs siege/side pressure/dive;
+- disengage vs reliable multi-axis/repeat engage;
+- peel vs simultaneous dive routes;
+- engage vs anti-engage/terrain/mobility denial;
+- objective contest vs poke/zone/choke/face-check burden;
+- return kills vs cleanup/chase/ranged follow-up;
+- scaling vs actual safe damage delivery.
+
+A tool directly suppressed by the opponent is weakened/nonfunctional, not a full resilience category.
+
+### D1. Functional counter tax
+
+If one opposing interaction materially degrades two or more core functions, reduce those functions explicitly. Apply by function, not by champion-name hard-coding.
+
+### D2. Execution burden
+
+Identify:
+
+- simpler first successful sequence;
+- side requiring more precise spacing/flank timing/targeting;
+- number of independent reliable fight-start channels;
+- first composition likely to become nonfunctional if one role falls behind.
+
+If the stronger team also has the simpler/reliable execution path, widen its clean-win and high-margin branches.
+
+### D3. Damage-access map
+
+Identify:
+
+1. who can hit frontline safely;
+2. who can access backline;
+3. who must cross enemy control to deal meaningful damage;
+4. easiest carry to isolate;
+5. main-DPS uptime after first contact;
+6. retreating-side return-kill capability.
+
+Multiple carries do not equal resilience if target access is poor.
+
+### D4. Draft adjustment cap
+
+Normal draft adjustment from verified pre-draft map prior: **0–4pp**.
+
+A move >4pp requires >=3 independent **functional** matchup advantages after opponent-counter testing.
+
+Draft should rarely erase a large verified team-strength gap by itself.
+
+## E. Moneyline gate
 
 For all ML:
 
-- odds >= 1.60;
-- current-map confirmation sufficient;
+- odds >=1.60;
+- current-map evidence sufficient;
 - map prior distinct from series prior;
 - no transfer from generic team strength alone;
 - no automatic transfer to handicap confidence.
 
-### C1. Pregame / 0:00 ML probability gate
+### E1. Pregame / 0:00 ML probability gate
 
-Before a pregame ML TAKE construct:
+Construct:
 
-1. baseline map `P_win` range before draft;
-2. side adjustment;
-3. draft/composition adjustment;
-4. supported execution/form adjustment;
-5. final reasonable `P_win` range;
-6. `P_break_even = 1 / decimal_odds`.
+1. verified baseline map `P_win` range;
+2. market de-vig prior and divergence check;
+3. verified side adjustment;
+4. matchup-adjusted draft adjustment;
+5. supported execution/form adjustment;
+6. final reasonable `P_win` range;
+7. `P_break_even = 1 / odds`.
 
-The **lower end** of the final `P_win` range must clear break-even by at least **+3 percentage points**.
-
-Draft alone normally moves the baseline by **0–4pp**. A move >4pp requires at least three independent material matchup advantages. One attractive interaction cannot by itself justify a large probability move.
+Lower end must clear break-even by at least **+3pp**.
 
 Failure => `PASS` or `HOLD`.
 
-## D. Kill-handicap gate
+## F. Kill-handicap gate
 
-### D1. Phase classification
+### F1. Phase classification
 
 Set exactly one:
 
@@ -87,7 +165,7 @@ Set exactly one:
 - `EARLY LIVE`
 - `MID/LATE LIVE`
 
-### D2. Exact arithmetic and distribution
+### F2. Exact arithmetic and distribution
 
 Calculate:
 
@@ -97,32 +175,49 @@ Calculate:
 4. projected final total-kill low / central / high range;
 5. low / central / high final kill-margin branches;
 6. handicap magnitude `H`, central projected total kills `T`, and `H/T`;
-7. next two likely forced-fight / objective sequences;
-8. gold / tower / neutral-objective alignment;
+7. next two likely forced-fight/objective sequences;
+8. gold/tower/neutral-objective alignment;
 9. return-kill evidence level;
-10. line-chasing / repair / dominance state.
+10. line-chasing/repair/dominance state.
 
-### D3. Break-even / cover-probability gate
+### F3. Conditional winner/margin decomposition — v0.3.42
 
-For any handicap TAKE calculate `P_break_even`, estimate a reasonable `P_cover` range, and require the **lower end** to clear break-even by:
+For positive handicap:
 
-- **+5pp** for pregame positive handicaps;
-- **+4pp** for early-live handicaps;
-- **+3pp** for mid/late-live handicaps.
+`P(dog +H covers) = P(dog wins) + P(favorite wins AND favorite margin <= H)`
 
-If not supportable => `PASS`/`HOLD`.
+Required branches:
 
-### D4. Pregame positive-handicap high-friction rule
+- underdog wins;
+- favorite wins close;
+- favorite wins moderate;
+- favorite wins high-margin.
 
-Draft resilience, scaling, engage/disengage/global tools, or a visually large cushion are insufficient by themselves. Require projected total kills, final-margin distribution, probability edge and cascade-tail assessment.
+The favorite-win margin branches must be conditional on the favorite winning and reflect team-strength gap, matchup-adjusted draft, execution burden, expected total kills and cascade architecture.
 
-### D5. Cascade-tail penalty
+Do not assume a large favorite win probability and a high dog cover rate simultaneously without explicit close-loss evidence.
 
-Widen the favorite high-margin branch for layered engage, globals, point-and-click initiation, reset/chase, objective forcing, dive/follow-up and safe cleanup DPS. Three or more meaningful factors require an explicit penalty against a positive-handicap TAKE unless strong counterevidence exists.
+### F4. Break-even / cover-probability gate
 
-Do not model repeatable cascade fights as independent events. A successful `pick -> numbers advantage -> objective/structure -> vision denial -> second pick` sequence increases subsequent margin-expansion probability.
+For any handicap TAKE calculate `P_break_even` and a reasonable `P_cover` range. Require lower end to clear break-even by:
 
-### D6. Return-kill evidence hierarchy
+- **+5pp** pregame positive handicap;
+- **+4pp** early-live handicap;
+- **+3pp** mid/late-live handicap.
+
+If unsupported => `PASS` / `HOLD`.
+
+### F5. Pregame positive-handicap high-friction rule
+
+Draft resilience, scaling, engage/disengage, globals or a visually large cushion are insufficient. Require projected total kills, conditional final-margin distribution, probability edge and cascade-tail assessment.
+
+### F6. Cascade-tail penalty
+
+Widen favorite high-margin branch for layered engage, globals, point-and-click initiation, reset/chase, objective forcing, dive/follow-up and safe cleanup DPS.
+
+Do not model repeatable cascade fights as independent. `pick -> numbers advantage -> objective/structure -> vision denial -> second pick` increases subsequent margin-expansion probability.
+
+### F7. Return-kill evidence hierarchy
 
 1. theoretical draft tools;
 2. lane-state survival/parity;
@@ -130,11 +225,11 @@ Do not model repeatable cascade fights as independent events. A successful `pick
 4. objective contest/cross-map trade;
 5. repeated multi-cycle resistance.
 
-Pregame level-1 evidence is supporting only. Mid/late positive handicaps generally require level 3+ when the opponent has aligned structural control.
+Pregame level-1 evidence is supporting only. Mid/late positive handicaps generally require level 3+ when opponent structural control is aligned.
 
-### D7. Mechanistic positive-handicap resilience
+### F8. Matchup-adjusted mechanistic resilience
 
-Explicitly evaluate the positive-handicap composition for:
+Evaluate positive-handicap side for:
 
 1. safe range;
 2. disengage/reset;
@@ -143,69 +238,48 @@ Explicitly evaluate the positive-handicap composition for:
 5. objective-contest access;
 6. return-kill reliability.
 
-`Scaling`, `late game`, `teamfight`, and `multiple carries` are not resilience unless they translate into these mechanisms. A short-range scaling draft may have strong win-condition scaling but poor kill-margin resilience.
+Then apply opponent interaction from Section D. A category that is functionally countered cannot be credited at full strength.
 
 ### Objective-Control Handicap Veto
 
-If the opponent of the positive-handicap side has aligned gold + meaningful neutral-objective control, the cushion alone is not evidence. Without affirmative repeated contest/trade/return-kill evidence, `PASS`.
+If opponent has aligned gold + meaningful neutral-objective control, cushion alone is not evidence. Without affirmative repeated contest/trade/return-kill evidence, `PASS`.
 
-### Draft Cascade-Structure Veto — v0.3.41
+### Draft Cascade-Structure Veto
 
-For a positive handicap, `PASS` unless strong counterevidence exists when all are true:
+For positive handicap, `PASS` unless strong counterevidence exists when:
 
 - opponent leads gold;
-- opponent leads structures or has demonstrated repeatable structure access;
-- opponent has at least three meaningful pick/cascade components: reliable engage, layered CC, ranged conversion/cleanup, chase/global reinforcement, objective-zone denial, dive continuation;
-- positive-handicap side lacks demonstrated level-3+ return-kill/contest evidence or at least three credible mechanistic resilience categories.
+- opponent leads structures or has repeatable structure access;
+- opponent has >=3 meaningful pick/cascade components;
+- positive-handicap side lacks demonstrated level-3+ return-kill/contest evidence or >=3 **matchup-adjusted** resilience categories.
 
-Split neutral-objective control does **not** cancel this veto.
+Split neutral-objective control does not cancel this veto.
 
 ### Favorite Structural Margin-Expansion Ladder
 
-When a leader has aligned gold + objective pressure + structural conversion/access, scan smaller favorite negative handicaps **before** the next kill conversion. Price independently, set thresholds when possible, prefer the least aggressive qualifying line, and do not chase after conversion.
+When a leader has aligned gold + objective pressure + structural conversion/access, scan smaller favorite negative handicaps **before** next kill conversion. Price independently, prefer least aggressive qualifying line, do not chase after conversion.
 
-Never describe a line as widened/tightened unless the prior same-map line was verified.
-
-## E. Total-kills gate
+## G. Total-kills gate
 
 Calculate:
 
 - current total kills;
-- additional whole kills to cross the line;
+- whole kills to cross line;
 - unresolved major fight triggers;
-- low / central / high remaining-kill branches;
+- low/central/high remaining-kill branches;
 - objective-density reserve;
-- clean-close / return-kill suppression state;
-- global / engage / cascade fight-creation channels on both teams.
+- clean-close/return-kill suppression state;
+- global/engage/cascade fight-creation channels.
 
-### E1. Probability edge
+For a TAKE, lower probability bound must clear break-even by **+4pp early live** and **+3pp mid/late**.
 
-For a total-kills TAKE:
+High early fight-density: >=8 kills by 8:00, >=10 by 10:00, repeated early multi-player skirmishes, or multiple global/engage chains coming online. If active with >=3 fight windows remaining, assign high-kill branch >=25–30% absent strong suppression evidence.
 
-- calculate `P_break_even = 1 / decimal_odds`;
-- estimate a reasonable probability range for the selection;
-- require the **lower end** to clear break-even by **+4pp in early live** and **+3pp in mid/late live**.
-
-If not supportable => `PASS`/`HOLD`.
-
-### E2. Early fight-density reserve
-
-High early fight-density is active if any of the following holds:
-
-- >=8 kills by 8:00;
-- >=10 kills by 10:00;
-- repeated multi-player skirmishes before objective cycles mature;
-- both teams have multiple globals / semi-globals / point-and-click engage / layered follow-up coming online.
-
-If high early fight-density is active and at least three meaningful fight windows remain, assign the high-kill branch at least **25–30% probability mass** absent strong suppression evidence.
-
-If the two drafts collectively have **four or more meaningful fight-creation channels**, apply an additional volatility penalty against an early Under.
-
-A later larger Under line may still become value; reprice every new line independently. Never resurrect an expired earlier line.
+Four or more collective fight-creation channels => extra volatility penalty against early Under.
 
 Total Kills is never inferred from Duration.
 
-## F. Duration gate
+## H. Duration gate
 
 Calculate separately:
 
@@ -216,65 +290,57 @@ Calculate separately:
 - genuine stall/anti-conversion signals;
 - terminal access / resets / methodical-control tax.
 
-Mandatory retained corrections:
+Retained corrections:
 
 - no Over before 10:00 without two genuine stall signals beyond towerlessness;
 - >=6 kills by 8:00 widens fast-finish branch;
 - >=14 kills by 16:00 means 0-0 towers is not confirming Over evidence;
 - around 20:00, >=+5k gold and +2 towers invalidates short Overs absent exceptional counterevidence;
 - comeback tools widen distribution;
-- Grubs alone do not prove completed structure acceleration;
+- Grubs alone do not prove completed acceleration;
 - kill suppression != duration compression.
 
-## G. Execution and correlation gate
+## I. Execution and correlation gate
 
 Before `TAKE`:
 
-- exact line and odds are executable;
-- price clears minimum and market-specific threshold;
-- no correlated prohibited add-on;
-- no chase / wider-line rescue;
+- exact line/odds executable;
+- minimum odds and market threshold clear;
+- no prohibited correlated add-on unless user explicitly designates a separate independent bet and it independently qualifies;
+- no chase/wider-line rescue;
 - state synchronized.
 
-A `TAKE` is `CONDITIONAL / UNRECORDED` until user confirms the same qualifying line/price was available and accepted for tracking.
+A `TAKE` is CONDITIONAL / UNRECORDED until user confirms same qualifying line/price was available and accepted.
 
-If price/line locks, disappears, or deteriorates before confirmation => `PASS — NO BET / 0u`. Never grade later.
+Locked/disappeared/deteriorated before confirmation => NO BET / 0u; never grade later.
 
-If a recorded position becomes INVALIDATED:
+If recorded position becomes INVALIDATED: do not add, rescue or automatically flip opposite as repair/chasing.
 
-- do not add to it;
-- do not rescue with a wider same-side line;
-- do not automatically flip to the opposite handicap as repair/chasing;
-- continue scanning genuinely independent markets normally.
-
-## H. Settlement gate
+## J. Settlement gate
 
 - `Live` screenshot alone => do not settle;
 - `Pending` screenshot alone => do not settle;
-- verified final/result state or separate explicit user confirmation required;
-- standing user instruction: when the user states `Final`, treat the attached/latest synchronized scoreboard as authoritative final-state evidence even if UI still says `Live`;
-- if `Final` is stated but exact grading statistic is absent from all synchronized evidence, request only that statistic;
-- unavailable/unconfirmed recommendations remain NO BET even if final result would have won.
+- explicit user correction overrides a visual-status bug;
+- when user states `Final`, treat latest synchronized scoreboard as authoritative final-state evidence if grading statistic is present;
+- unavailable/unconfirmed recommendations remain NO BET even if outcome later wins.
 
-## I. Output gate
+## K. Output gate
 
-First line must be one of:
+First line:
 
 - `TAKE — [selection] @[odds] — shadow 0.25u; actual 0u.`
 - `PASS — [selection/market] @[odds] — 0u.`
 - `HOLD — [selection/market] @[odds] — 0u.`
 
-When a recorded position exists and a mandatory reassessment is triggered, include the current thesis label separately from the recorded-position status.
+When recorded position exists and reassessment trigger fires, include thesis label separately.
 
-Then keep support brief unless detail is requested.
+## L. Fail-closed rule
 
-## J. Fail-closed rule
+If decision-critical input/calculation is unavailable, ambiguous or incomplete, output `PASS` or `HOLD`. Never fill a missing gate with intuition.
 
-If any decision-critical input or calculation is unavailable, ambiguous, or incomplete, output `PASS` or `HOLD`. Never fill a missing gate with intuition.
+## M. Tool order
 
-## K. Tool order
-
-For a live map:
+For active maps:
 
 1. checklist;
 2. verdict;
