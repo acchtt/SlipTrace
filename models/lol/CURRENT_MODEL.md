@@ -2,9 +2,9 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.42**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.42.md`
-- Prior active deltas: v0.3.41 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.43**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.43.md`
+- Prior active deltas: v0.3.42 through v0.3.26 under `models/lol/rules/`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-08.md`
 - Item-verification suspension: `models/lol/procedures/LOL_ITEM_VERIFICATION_SUSPENSION_2026-08-05.md`
@@ -21,7 +21,7 @@
 Every new chat must load these before its first LoL analysis:
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.42 through v0.3.26 rule deltas
+2. v0.3.43 through v0.3.26 rule deltas
 3. item-verification suspension
 4. v0.3.25 consolidated rules, probation status, calibration handbook
 5. mandatory live verdict execution checklist
@@ -34,7 +34,7 @@ Every new chat must load these before its first LoL analysis:
 12. shared stake policy
 13. latest handoff last
 
-Where conflicts exist, **v0.3.42 controls**.
+Where conflicts exist, **v0.3.43 controls**.
 
 ## Official probation
 
@@ -60,8 +60,9 @@ Recent post-breaker sequence after the completed 20-map circuit breaker:
 - NAVI +5.5 kills @1.886 vs SK G2 — LOSS -0.25u
 - SK +7.5 kills @2.124 vs NAVI G3 — WIN +0.281u
 - LNG +9.5 kills @1.970 vs IG G1 — LOSS -0.25u
+- Over 33 minutes @2.020 in DK vs KT G1 — LOSS -0.25u
 
-Current post-breaker shadow record: **3-4, -0.24600u**. Actual exposure remains **0u**.
+Current post-breaker shadow record: **3-5, -0.49600u**. Actual exposure remains **0u**.
 
 ## Mandatory verdict discipline
 
@@ -81,7 +82,7 @@ Before every live verdict internally verify:
 6. independent moneyline scan including v0.3.40/v0.3.42 probability gates;
 7. phase-aware exact kill-handicap arithmetic, conditional winner/margin decomposition, cascade test, mechanistic resilience and structural vetoes;
 8. independent total-kills low/central/high projection and fight-density reserve;
-9. independent duration fast/central/extension projection;
+9. independent duration survival-horizon analysis including `R = line - clock`, latent conversion potential, observed stall evidence, first-break elasticity, fast/central/extension branches and v0.3.43 duration divergence/buffer gates;
 10. line/price availability, minimum odds, correlation and chasing controls;
 11. settlement state.
 
@@ -92,6 +93,78 @@ Missing decision-critical data => fail closed with `PASS` or `HOLD`.
 A `TAKE` remains **CONDITIONAL / UNRECORDED** until the user confirms the same qualifying executable line/price remained available and was accepted for tracking.
 
 If the line locks, disappears, or deteriorates before confirmation, the recommendation becomes **NO BET / 0u** and is never graded later.
+
+## v0.3.43 Live Duration Survival and Latent Conversion
+
+Duration is modeled as a **survival event**. For duration line `L` at current clock `t`, calculate `R = L - t` and price the probability that the map survives at least `R` additional minutes.
+
+Before any duration TAKE, lock fast-close, central and extension branches, the leader's state trajectory, the fastest realistic structure-to-Nexus route, and the first structural break as a possible regime-change event.
+
+### Structural absence is neutral
+
+From 14:00 onward, 0-0 or low towers is neutral by default. It does **not** count as positive Over evidence unless at least two independent observed stall signals show that conversion is actually being denied.
+
+Theoretical waveclear, peel, scaling, split dragons or generic comeback tools are not observed stall evidence until demonstrated on the current map.
+
+### Latent Conversion Potential
+
+Score the advantaged team across six matchup-adjusted accelerants:
+
+1. reliable first contact;
+2. numbers creation / globals / fast collapse;
+3. safe follow-up damage / chase;
+4. wave and structure access / side pressure / siege / dive;
+5. objective leverage into structures;
+6. functional suppression of defender waveclear/disengage/peel.
+
+`LCP 0-1 = low`, `2 = moderate`, `3-4 = high`, `5-6 = very high`.
+
+When `LCP >=3`, towerlessness cannot by itself support an Over.
+
+### Observed stall evidence
+
+Qualifying signals include repeated pushes neutralized without tower loss, repeated successful waveclear after lost tempo, multiple failed leader picks with no conversion, leader gold lead stable/shrinking across synchronized snapshots despite initiative, repeated cross-map compensation, demonstrated repeat disengage/reset, or a major objective buff producing little/no structural gain.
+
+### First-break elasticity
+
+Before an Over, ask whether the next successful pick/objective/first tower can realistically produce **two or more additional structures** before the defender fully resets. If yes, widen the fast-close branch and treat the cascade as serially dependent.
+
+### High-friction Over veto
+
+`PASS/HOLD` a live Over when all are true absent exceptional synchronized counterevidence:
+
+- leader >=+1.5k gold after 14:00;
+- Over requires >=15 additional minutes of survival;
+- leader `LCP >=3`;
+- fewer than two observed stall signals.
+
+This veto is independent of current tower count.
+
+### Duration probability buffers
+
+For a duration TAKE, lower end of the modeled probability range must clear break-even by:
+
+- +5pp before 18:00;
+- +4pp from 18:00 through 24:59;
+- +3pp from 25:00 onward.
+
+### Duration market-divergence sanity gate
+
+Central model probability versus market break-even:
+
+- 0-5pp: normal;
+- >5-9pp: require at least two independent current-map reasons;
+- >9pp: require at least three independent current-map reasons, including at least one observed stall/acceleration reason rather than draft theory.
+
+Unsupported disagreement => shrink toward market, widen uncertainty and fail closed if the lower-bound buffer is not met.
+
+### DK vs KT G1 calibration
+
+At 16:00, KT led 5-3 and +2.1k with 0-0 towers and 1-1 dragons. Over 33 @2.020 required ~17 more minutes and was estimated at 59-66% despite ~49.5% break-even.
+
+KT's Pantheon/Nautilus first contact, Pantheon/Ryze numbers creation, Ezreal/Ryze follow-up and Olaf run-through pressure created high latent conversion potential. DK's Taliyah/Milio stall tools were theoretical rather than demonstrated. Under v0.3.43 the correct verdict is `PASS/HOLD`.
+
+Review: `models/lol/reviews/DK_KT_GAME1_DURATION_REVIEW_2026-08-09.md`.
 
 ## v0.3.42 Verified Team-Strength Prior
 
@@ -250,7 +323,7 @@ Pregame positive handicaps remain high-friction and require projected total kill
 
 Total Kills requires current kills, exact kills to line, unresolved fight inventory, objective-density reserve, low/central/high branches and probability controls.
 
-Duration requires fast-close, central and extension branches plus structure/base route, stall evidence and terminal-access/methodical-control checks.
+Duration requires the v0.3.43 survival-horizon calculation, latent conversion potential, observed stall evidence, first-break elasticity, fast/central/extension branches, structure/base route and phase-aware probability/divergence gates.
 
 Retained duration corrections remain mandatory: no Over before 10:00 without two genuine stall signals beyond towerlessness; >=6 kills by 8:00 widens fast-finish risk; >=14 kills by 16:00 prevents 0-0 towers from confirming an Over; around 20:00 a >=+5k gold and +2-tower leader invalidates short Overs absent exceptional counterevidence; comeback tools widen distribution; Grubs alone do not prove completed acceleration; kill suppression does not equal time compression.
 
