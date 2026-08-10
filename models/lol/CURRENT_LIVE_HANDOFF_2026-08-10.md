@@ -2,16 +2,16 @@
 
 ## Load order
 1. `models/lol/CURRENT_MODEL.md`
-2. `models/lol/rules/MODEL_RULES_LOL_V0.3.50.md`
-3. `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
-4. Latest reviews referenced by `CURRENT_MODEL.md`
-5. `models/lol/context/lol-v0.3.25/ACTIVE_RULES_CONSOLIDATED.md`
-6. `models/lol/context/lol-v0.3.25/PROBATION_STATUS.md`
-7. `models/lol/context/lol-v0.3.25/LIVE_ANALYSIS_CALIBRATION_HANDBOOK.md`
+2. `models/lol/rules/MODEL_RULES_LOL_V0.3.51.md`
+3. retained deltas v0.3.50 through v0.3.26
+4. `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
+5. latest reviews referenced by `CURRENT_MODEL.md`
+6. v0.3.25 baseline context/calibration files
+7. connected-stack / scoreboard / stake procedures
 8. This handoff last
 
 ## Active model
-**LoL v0.3.50**
+**LoL v0.3.51**
 
 GitHub is model authority. Airtable is canonical map/position ledger.
 
@@ -21,144 +21,118 @@ GitHub is model authority. Airtable is canonical map/position ledger.
 - Default shadow stake: 0.25u.
 - Actual exposure: 0u.
 - Minimum odds: 1.60.
-- Same-map shadow add-ons enabled when each independently qualifies and joint correlation is priced.
+- Same-map shadow add-ons enabled when each independently qualifies and joint correlation is explicitly priced.
 - Duration: no pregame TAKE; no TAKE before 12:00.
 - A wager is recorded only after explicit user confirmation of the same executable line.
 - If a recommended line disappears before confirmation: NO BET / 0u; never grade hypothetical.
-- User saying `Final`, `final score`, or `X won` is definitive settlement authority; trust it over buggy UI labels.
+- User saying `Final`, `final score`, or `X won` is definitive settlement authority.
 
-## Mandatory response behavior
-First visible line on live maps must immediately be one of:
+## Mandatory live response
+First visible line on active maps:
 - `TAKE — [selection] @[odds] — shadow 0.25u; actual 0u.`
 - `PASS — [market/selection] @[odds] — 0u.`
 - `HOLD — [market/selection] @[odds] — 0u.`
 
-Do not delay verdict for Airtable/GitHub work. Reasoning follows verdict.
+Do not delay verdict for GitHub/Airtable work.
 
-For open positions, perform position-blind reassessment and state ACTIVE / DEGRADED / INVALIDATED / CONFIRMED.
+## Core model logic
 
-## Core model logic retained
-### Draft primacy
-After draft lock, draft is the most important conditional mechanism layer. Evaluate:
-1. reliable first contact
-2. hard-CC density
-3. CC reliability/range
-4. anti-engage/disengage
-5. frontline access
-6. backline access
-7. carry protection
-8. damage continuation
-9. chase/cleanup
-10. re-engage/repeat forcing
-11. objective/choke control
-12. waveclear/base defense
-13. side-lane/global numbers creation
-14. execution simplicity
+### Draft Primacy
+After draft lock, compare reliable first contact, CC density/reliability, anti-engage, frontline/backline access, carry protection, damage continuation, chase/cleanup, re-engage, objective/choke control, waveclear/base defense, side-lane/global numbers and execution simplicity.
 
-Team strength remains the verified pre-draft baseline. Draft does not erase team-strength uncertainty, but it can materially alter map/market expression.
+### Kill Handicap
+Use a position-blind signed kill-margin distribution, NKB, RFI, KCV and Structure Substitution. Map dominance is not kill-margin dominance. Price +H and -H symmetrically.
 
-### Kill handicap
-- Build one side-neutral signed favorite kill-margin distribution.
-- Price both +H and -H from same distribution.
-- Explicitly model favorite blowout tail and underdog margin-survival tools.
-- Separate map-win probability from handicap-cover probability.
-- Structure Substitution: strong map control can expand towers/objectives without expanding kill margin.
-- Kill Conversion Velocity (KCV): HIGH / MEDIUM / LOW-STRUCTURE-SUBSTITUTED from synchronized live snapshots.
-- Net-Kill Burden (NKB): calculate additional net kills required to beat the line and compare with remaining high-contact windows.
-- Handicap calibration lower-bound surcharge remains: +7pp pregame, +6pp early live, +5pp mid/late.
-
-### Total kills — v0.3.50
-Do not equate engage capability with realized combat.
-
+### Total Kills — v0.3.51
 Model separately:
 1. OKP — Observed Kill Pace
-2. FCI — de-duplicated Forward Contact Inventory; count event windows, not champions
-3. CRR — Contact Realization Rate for each window
-4. CL — Contact Lethality conditional on contact
+2. FCI — de-duplicated objective/event Forward Contact Inventory
+3. CRR — Contact Realization Rate
+4. SRR — Skirmish Recurrence Reserve between formal windows
+5. CL — Contact Lethality conditional on contact
 
-Use conceptual arithmetic:
-`Expected remaining kills = sum[P(contact_i) * E(kills_i | contact_i)] + residual pick/chase kills`
+Conceptual projection:
+`Final kills = current kills + CRR-weighted FCI kills + SRR kills + residual terminal/pick/chase kills`
 
-For each major objective/pressure window explicitly test:
-- CONTEST
-- CONCEDE
-- TRADE
-- DELAY
+#### Hard pre-12:00 Under gate
+Before 12:00, an Under cannot be TAKEN mainly from low current kills or a large cushion.
+Require one of:
+- two synchronized live snapshots >=90 sec apart showing low OKP and stable/declining contact pressure;
+- repeated contact already demonstrating LOW CL through functioning disengage/peel/reset;
+- an observed near-terminal structure-only branch removing future contact windows.
 
-Contest Compulsion only applies when concede/trade/delay become strategically unacceptable or mechanically unavailable. Being behind is not enough.
+One live snapshot + functional repeatable hard access => HOLD/PASS.
 
-Threat Deterrence: superior engage/zone/siege can REDUCE realized fights because the opponent gives ground before contact.
+#### SRR
+Classify LOW / MEDIUM / HIGH from vision/jungle collisions, lane-transition catches, side collapses, roam contact, post-reset re-engage and repeatable neutral picks. Do not count engage champions as independent fights.
 
-For Overs, require evidence the opponent can be forced to enter, not merely punished if they enter.
+#### Bidirectional Forcing
+If both teams can independently start meaningful contact without a voluntary objective-choke entry, BF is ACTIVE. Raise SRR/high-total branch unless live evidence suppresses it.
 
-Quiet-start non-persistence: before 15:00, low kills alone cannot strengthen an Under.
+#### Threat Deterrence
+Classify GLOBAL / LOCAL / NONE. Poke/zone control is only LOCAL if the opponent can bypass it through flank, fog, dash, displacement, point-click engage or transition timing.
 
-Total Kills lower-bound gates:
-- +5pp pregame
-- +4pp early live
-- +3pp mid/late
-- additional v0.3.49/v0.3.50 surcharges where applicable, capped at +9pp total over break-even.
+#### Under cushion stress test
+Calculate current kills, max additional kills that still win, kills required to lose, remaining time range and whether repeated 2-4 kill skirmishes plus objective/base fights can plausibly cross the line.
 
-### Total kills vs handicap
-Project separately:
-- `T = total kills`
-- `M = signed kill margin`
-
-Possible branches:
-- high T / low M = traded fights
-- low T / high M = clean one-sided conversion
-- low T / low M = structure-heavy controlled map
-- high T / high M = true kill cascade
-
-A +kills handicap can win while an Under loses, and vice versa.
-
-### Same-map add-ons
-Do not apply a generic correlation penalty. Estimate branches:
-- both win
-- A only
-- B only
-- neither
-
-Each add-on must independently clear its own gate after joint-distribution adjustment. No stake escalation.
+### Same-map Total Kills + handicap
+Project `T` and `M` separately and price all four joint cells. HIGH SRR/BF materially raises the high-T / low-M branch; a strong +kills position does not imply an Under.
 
 ### Duration
-- No pregame TAKE.
-- No TAKE before 12:00.
-- Normally require >=2 synchronized snapshots >=90 sec apart from 12:00 onward showing same stall/acceleration mechanism.
-- Over requires observed stall; Under requires observed acceleration.
-- First tower / Baron / inhibitor / major structure or gold swing is a regime-change event requiring reprice.
-- Duration and Total Kills are separate.
+No pregame TAKE; none before 12:00. 12:00-13:59 requires two synchronized snapshots >=90 sec apart showing same observed mechanism. 14:00+ still requires observed stall/acceleration. Reprice after regime changes.
 
-## Recent calibration lessons
-### FURIA vs Fluxo W7M G2
-Confirmed Over 24.5 @1.705 lost; final FURIA 14-3, 32:53, 17 kills.
-Lesson: engage tools were double-counted as future fights. FURIA control produced threat deterrence, concession, and structure/objective conversion rather than repeated combat. This produced v0.3.50 CRR/concession update.
+## Latest settled series — HLE.C vs GGA
 
-### KC vs FNC G2
-Under 27.5 @1.955 lost by 0.5 kill; FNC +13.5 @2.122 won.
-Lesson: quiet early pace does not imply low future contact. Model Total Kills and kill margin separately; add-on correlation is not binary.
+### Game 1
+Confirmed shadow: **GGA +9.5 kills @1.802**, 0.25u.
+Final: GGA won 23-14 at 34:12.
+Settlement: **WIN +0.2005u**.
 
-### KT.C vs DNS.C G3 — latest settled map
+### Game 2
 Draft:
-KT.C: Rumble / Wukong / Zeri / Jhin / Karma
-DNS.C: Ornn / Naafiri / Ryze / Yunara / Lulu
+GGA blue — Jayce / Skarner / Syndra / Varus / Leona
+HLE.C — Yorick / Lee Sin / Annie / Jhin / Alistar
 
-At 5:48: DNS 1-0, +328g, 0-0 towers/dragons/Baron/inhibitors.
-Confirmed: **KT.C +7.5 kills @1.864**, 0.25u shadow.
-Final: **KT.C won 13-7 at 31:35**, 20 total kills.
-Settlement: **WIN +0.2160u**.
-Important correction: KT were the underdogs and won outright by 6 kills. +7.5 therefore covered by 13.5 relative to the spread threshold, not by 1.5.
-Unconfirmed/passed totals:
-- Under 32.5 @1.777 would have won, but line disappeared before confirmation => NO BET.
-- Under 29.5 @1.804 was explicitly PASS and would also have won => NO BET.
-Calibration: v0.3.50 low-CRR/concession read was directionally correct; do not weaken safety gates from one unplaced winner.
+Confirmed standalone shadow positions:
+1. **GGA +7.5 kills @2.082**, 0.25u — WIN +0.2705u.
+2. **Under 33.5 kills @1.690**, 0.25u — LOSS -0.25u.
+
+Final: GGA won 20-15 at 30:30, 35 total kills.
+Net Game 2 shadow P/L: **+0.0205u**.
+
+User settlement note: many skirmishes occurred.
+
+### v0.3.51 correction from Game 2
+The Under was a process/model error:
+- early confirmation hard gate should have failed;
+- SRR was HIGH;
+- Bidirectional Forcing was active;
+- Threat Deterrence was only LOCAL;
+- high-T / low-M branch was underweighted.
+
+Review: `models/lol/reviews/HLE_GGA_G2_UNDER_SKIRMISH_RECURRENCE_REVIEW_2026-08-10.md`.
 
 ## Current live state
-No open position carried from KT.C-DNS.C G3. Last confirmed position is settled.
+No open positions. HLE.C-GGA series is complete 2-0 GGA.
+
+## Next target
+LEC 2026 Summer Week 3: **SK Gaming vs Team Vitality**, scheduled 2026-08-10 15:00 UTC / 17:00 CEST / 22:00 ICT, Bo3 Fearless Draft.
+
+Expected current rosters pending lobby confirmation:
+
+SK: Wunder / Skeanz / SlowQ / Jopa / Mikyx
+VIT: Naak Nako / Lyncas / FIESTA / Carzzy / Fleshy
+
+Pre-draft process:
+- Treat roster/lobby confirmation as mandatory.
+- Team-strength prior favors VIT but do not convert it into a kill-margin edge before draft.
+- Re-run Draft Primacy from scratch each game because Fearless Draft changes available mechanisms across the series.
+- v0.3.51 early Under gate is active immediately.
+- If both drafts have reliable independent contact starters, mark BF and SRR before any Total Kills verdict.
 
 ## Output discipline
 - Exact clock, kills, gold, towers, dragons, Grubs, Baron, inhibitors, and executable odds when visible.
 - Never invent missing state.
 - User corrections override screenshot bugs.
-- Verdict first, concise operational reasoning second.
+- Verdict first, compact operational reasoning second.
 - On settlement, compute P/L exactly and update Airtable immediately.
