@@ -2,26 +2,27 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.52**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.52.md`
-- Prior deltas: v0.3.51 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.53**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.53.md`
+- Prior deltas: v0.3.52 through v0.3.26 under `models/lol/rules/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
+- Latest aggregate bias/fade review: `models/lol/reviews/AGGREGATE_ANTI_FAVORITE_FADE_BIAS_REVIEW_2026-08-11.md`
 - Latest live-ML terminal-threat review: `models/lol/reviews/SK_VIT_G1_TERMINAL_THREAT_ANSWERABILITY_REVIEW_2026-08-10.md`
 - Latest Total Kills recurrence review: `models/lol/reviews/HLE_GGA_G2_UNDER_SKIRMISH_RECURRENCE_REVIEW_2026-08-10.md`
 - Prior Total Kills contact-realization review: `models/lol/reviews/FURIA_FLUXO_G2_OVER_CONTACT_REALIZATION_REVIEW_2026-08-10.md`
 - Prior Total Kills / add-on correlation review: `models/lol/reviews/KC_FNC_GAME2_TOTAL_KILLS_CORRELATION_REVIEW_2026-08-10.md`
 - Latest handicap conversion review: `models/lol/reviews/G2_TH_KILL_HANDICAP_CONVERSION_REVIEW_2026-08-09.md`
 - Draft primacy review: `models/lol/reviews/JDG_WE_GAME2_DRAFT_PRIMACY_REVIEW_2026-08-09.md`
-- Earlier Total Kills review: `models/lol/reviews/BFX_KRX_GAME2_TOTAL_KILLS_REVIEW_2026-08-09.md`
 - Duration review: `models/lol/reviews/DURATION_MARKET_REBUILD_REVIEW_2026-08-09.md`
 - Handicap directional review: `models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_REVIEW_2026-08-09.md`
+- Latest handoff: `models/lol/CURRENT_LIVE_HANDOFF_2026-08-11.md`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Shared stake policy: `shared/STAKE_POLICY_V2.json`
 
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.52 through v0.3.26 rule deltas
+2. v0.3.53 through v0.3.26 rule deltas
 3. mandatory live checklist
 4. latest reviews referenced above
 5. item-verification suspension
@@ -30,9 +31,9 @@
 8. connected-stack procedure and addenda
 9. scoreboard protocol
 10. shared stake policy
-11. latest handoff last
+11. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-11.md` last
 
-Where conflicts exist, **v0.3.52 controls**.
+Where conflicts exist, **v0.3.53 controls**.
 
 ## Operating state
 
@@ -43,8 +44,20 @@ Where conflicts exist, **v0.3.52 controls**.
 - Default shadow stake: **0.25u**.
 - Actual exposure while paused: **0u**.
 - Minimum odds: **1.60**.
-- Same-map shadow add-ons are enabled when each independently qualifies and joint correlation is explicitly priced.
+- Same-game multiple shadow bets are enabled **after live eligibility** when each independently qualifies; correlated positions are grouped as one calibration evidence cluster.
+- Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs are disabled** under v0.3.53.
 - Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
+
+## Current calibration alarm
+
+Post-circuit-breaker shadow sample through `POSTCB-SHADOW-25-P01`:
+
+- Record: **10-16**
+- Net: **-1.5255u**
+- Recent five confirmed positions: **0-5, -1.25u**
+- Exact visible opposite-price fade benchmark on those five: approximately **+1.16775u**
+
+This does not authorize blind fading. It activates the v0.3.53 aggregate-bias circuit breaker and market/team-strength anchor.
 
 ## Mandatory verdict format
 
@@ -56,194 +69,126 @@ First visible line on active maps:
 
 Logging/connectors occur after the live verdict and must not delay it.
 
-# v0.3.52 — Terminal Threat Answerability / Live-ML Lead Quality
+# v0.3.53 — Aggregate Bias / Market Anchor / Shared-Failure Correction
 
-## Core correction
+## 1. Live eligibility
 
-A real early lead is not automatically a high-quality closing lead. Before a post-draft/live ML TAKE, identify the opponent's strongest **terminal 20-25+ minute threat** and prove that the current leader can either answer it reliably or close the map before it becomes decisive.
+ML, Kill Handicap and Total Kills require at least **two synchronized live snapshots**, preferably >=90 seconds apart, before any TAKE. Pregame and immediate post-draft are analysis-only.
 
-### Terminal Threat Answerability (TTA)
+Duration retains its stricter existing clock gates.
 
-Classify the leader's answer to the opponent's terminal threat:
+## 2. Market + TEAM anchor
 
-- `ROBUST` — multiple repeatable, opponent-tested answers;
-- `CONDITIONAL` — answer depends on flank, narrow engage, first-spell success, specific side-map state or high execution burden;
-- `UNANSWERED` — no reliable repeatable answer in the threat's preferred state.
+Every probability estimate begins with:
 
-Test access, lockdown, range/zone parity, side-map bypass, threat suppression, close-before-maturity and fallback after failed first engage.
+- `MKT`: current market anchor, conceptually de-vigged;
+- `TEAM`: persistent team-strength / execution prior.
 
-### Execution Burden Gradient (EBG)
+Fearless Draft changes champion mechanisms but does **not** reset TEAM to neutral. Same-series execution evidence persists across maps.
 
-Classify how execution difficulty changes with time:
+Draft theory alone may not create a large departure from MKT/TEAM. A large disagreement requires repeated live proof.
 
-- `FAVORABLE`;
-- `NEUTRAL`;
-- `ADVERSE`.
+## 3. Anti-favorite bias guard
 
-If the leader's engage becomes more angle-dependent while the trailer's standard objective/front-to-back setup becomes easier, EBG is ADVERSE even if the leader's early forcing is functioning.
+Before underdog ML or +kills against a clear favorite, prove with observed live evidence that the favorite's baseline skill/conversion edge is actually being suppressed. Attractive underdog tools or price alone are insufficient.
 
-### Lead quality
+## 4. Mechanism Independence / Shared-Failure Penalty
 
-Classify live leads:
+Classify major survival/forcing tools as:
 
-- `TERMINAL / CLOSING` — structures/objectives/base access/threat suppression demonstrate a real close path;
-- `NON-TERMINAL` — kills/gold lead exists but map remains structurally reversible.
+- `INDEPENDENT`
+- `PARTIALLY COUPLED`
+- `COUPLED`
 
-Kills plus distributed gold alone never make a lead terminal.
+Several champion abilities depending on the same tempo, angle, fog access, first-spell success or economy state count as one shared failure cluster, not several independent answers.
 
-### Hard early-live ML veto
+Coupled mechanisms widen favorite blowout tails and reduce underdog +kills/comeback lower bounds.
 
-Before 15:00, current-leader ML defaults HOLD/PASS when all are true:
+## 5. Handicap Buffer Retention
 
-1. TTA is UNANSWERED or strongly CONDITIONAL;
-2. EBG is ADVERSE;
-3. lead is NON-TERMINAL;
-4. no repeated live evidence proves reliable access onto or suppression of the terminal threat.
+When the thesis is "underdog can lose but keep the margin bounded," do not chase a heavily compressed live +H merely because the underdog temporarily leads.
 
-This veto blocks scoreboard-only ML upgrades.
+If most protective buffer has disappeared and the favorite's latent skill/range/control edge remains, default PASS unless repeated live evidence proves the wide-margin tail has materially collapsed.
 
-### Live ML lower-bound buffers
+## 6. Structure Substitution — two-sided
 
-Lower P(win) bound must clear break-even by:
+Classify structure conversion:
 
-- +5pp early live (<15:00);
-- +4pp mid live (15:00-24:59);
-- +3pp late live (25:00+).
+- `MARGIN-COMPRESSING`
+- `MARGIN-EXPANDING`
+- `MIXED/NEUTRAL`
 
-Add +2pp for CONDITIONAL TTA + ADVERSE EBG; +4pp for UNANSWERED TTA + ADVERSE EBG. Total live-ML surcharge capped at +9pp. Hard veto controls when applicable.
+Structure dominance can compress kill margin when the favorite can close without combat, but can expand it when towers/base pressure forces repeated losing defense.
 
-### Comeback Conversion Reserve (CCR)
+## 7. Total Kills — RKS + KPW
 
-For live ML explicitly retain clean-close, stalled-ahead, terminal-threat stabilization and one-fight reversal branches. If the last two remain materially live, widen uncertainty and reduce the leader ML range.
+Retain OKP / FCI / CRR / SRR / BF / CL, and add:
 
-## SK vs VIT G1 calibration
+- `RKS` — Return-Kill Suppression;
+- `KPW` — Kills Per Realized Window;
+- future-window deletion after structure/Baron/inhibitor acceleration.
 
-Draft:
+High BF/SRR means many contact opportunities, not automatically many kills. Strong-team clean 2-0/3-0 fights plus rapid structures can create a low-kill stomp.
 
-SK: Gnar / Jarvan IV / Ryze / Varus / Shen  
-VIT: Rumble / Pantheon / Viktor / Corki / Bard
+## 8. Fade benchmark audit
 
-At 12:50: SK 5-2, +1.6k, towers 0-0, VIT 1-0 dragons, Grubs SK 2-1.
+For each confirmed shadow TAKE, when the opposite-side price is visible, record it in the position notes as a counterfactual fade benchmark. Do not create a second shadow position from the benchmark.
 
-Confirmed SK ML @1.752 lost; VIT won. User correction: SK threw and had no answer to Viktor.
+Track model ROI versus fade ROI by market, phase and favorite/underdog direction.
 
-Correct v0.3.52 read:
+## 9. Change control
 
-- SK early forcing: functioning;
-- lead: NON-TERMINAL;
-- VIT terminal threat: Viktor-centered control/scaling shell;
-- SK TTA: UNANSWERED / highly CONDITIONAL;
-- EBG: ADVERSE for SK;
-- structural close path: absent;
-- early-live ML hard veto: ACTIVE;
-- verdict: HOLD/PASS, not TAKE.
+Do not promote a new model from one ordinary settled map. Performance-driven promotion requires at least **5 settled positions across at least 3 maps** showing the same mechanism, or a broader aggregate review. Deterministic correctness bugs are the exception.
 
-# v0.3.51 — Early Under + Skirmish Recurrence Calibration
+# Retained v0.3.52 controls
 
-## Core correction
+- Terminal Threat Answerability (TTA)
+- Execution Burden Gradient (EBG)
+- terminal vs non-terminal lead quality
+- early-live ML hard veto
+- live ML lower-bound buffers
+- Comeback Conversion Reserve
+- Draft Primacy functional matrix
 
-v0.3.50 correctly de-duplicates objective/event contact windows, but that must not erase repeatable **between-objective skirmish creation**.
-
-Total Kills separates:
-
-1. **OKP** — Observed Kill Pace;
-2. **FCI** — de-duplicated objective/event Forward Contact Inventory;
-3. **CRR** — Contact Realization Rate for those windows;
-4. **SRR** — Skirmish Recurrence Reserve between formal windows;
-5. **CL** — Contact Lethality conditional on realized contact.
-
-Conceptual projection:
-
-`Final kills = current kills + CRR-weighted event-window kills + SRR kills + residual terminal/pick/chase kills`.
-
-## Hard pre-12:00 Under gate
-
-Before 12:00, an Under may not be TAKEN primarily because the current kill count is low or the line cushion is large.
-
-Require at least one:
-
-- two synchronized live snapshots >=90 seconds apart showing low OKP and stable/declining contact pressure;
-- repeated realized contact already showing LOW CL through functioning disengage/peel/reset;
-- an observed near-terminal structure-only branch removing future contact windows.
-
-If only one live snapshot exists and repeatable hard access remains functional, default **HOLD/PASS**.
-
-## Skirmish Recurrence Reserve (SRR)
-
-Classify `LOW / MEDIUM / HIGH` recurrence from vision/jungle collisions, lane-transition catches, side-lane collapses, support/jungle roam contact, post-reset re-engages, repeatable neutral picks after cooldown reset and flank/contact mechanisms not tied to a major objective.
-
-Do not count engage champions as independent future fights. SRR measures **repeatability of contact triggers**, not champion count.
-
-## Bidirectional Forcing (BF)
-
-Flag `ACTIVE` when both teams can independently start meaningful contact without waiting for a voluntary objective-choke entry.
-
-When active:
-
-- raise SRR unless live evidence suppresses it;
-- do not globally discount CRR from one side's poke/zone control;
-- raise the high-total branch;
-- explicitly increase high-T / low-to-moderate-M probability.
-
-## Threat Deterrence override
-
-Threat Deterrence must be classified `GLOBAL / LOCAL / NONE`.
-
-If the opponent can bypass the zone via flank, fog, dash, displacement, point-click engage or transition timing, TD is only LOCAL and cannot support a broad Under CRR discount.
-
-## Under cushion stress test
-
-For every Under calculate current kills, maximum additional kills that still win, additional kills required to lose, remaining map-time range and whether a plausible high-SRR branch of repeated 2-4 kill skirmishes plus objective/base fights can cross the line.
-
-A large cushion never substitutes for the early confirmation gate.
-
-# Retained Total Kills controls from v0.3.50 / v0.3.49
-
-- Count event windows, not engage champions.
-- For each major window test CONTEST / CONCEDE / TRADE / DELAY.
-- Contest Compulsion only when concession/trade/delay becomes strategically or mechanically unavailable.
-- Threat Deterrence can reduce contact, but v0.3.51 hard-access override applies.
-- Loser return-kill floor must be matchup-functional.
-- Quiet early score is not evidence of quiet future pace.
-- Base Total Kills lower-bound gates remain +5pp pregame, +4pp early live, +3pp mid/late, with applicable surcharges capped at +9pp over break-even.
-- Same-map Total Kills and handicap require separate `T` and `M` projections and an explicit four-cell joint distribution.
+Under v0.3.53, all of these must also pass MKT/TEAM anchoring and shared-failure testing.
 
 # Retained Kill Handicap controls
 
-- Draft Primacy remains the primary post-lock mechanism layer.
-- Build one side-neutral signed favorite kill-margin distribution before viewing directional attractiveness.
-- Price +H and -H from the same distribution.
-- Calculate NKB and Remaining Fight Inventory.
-- Track KCV `HIGH / MEDIUM / LOW-STRUCTURE-SUBSTITUTED` from synchronized snapshots.
-- Structure Substitution can make map dominance diverge from kill-margin dominance.
-- Handicap lower-bound surcharge remains +7pp pregame, +6pp early live, +5pp mid/late.
-- Handicap survival is not map survival.
-- Under v0.3.52, an unanswered terminal threat compresses favorite wide-margin tails until disproven.
+- side-neutral signed kill-margin distribution
+- NKB / RFI / KCV
+- position-blind repricing
+- handicap lower-bound buffers
+- map dominance != margin dominance
+- Buffer Retention and two-sided Structure Substitution now control when they conflict with older interpretation
+
+# Retained Total Kills controls
+
+- OKP / FCI / CRR / SRR / BF / CL
+- event-window de-duplication
+- Contest / Concede / Trade / Delay
+- Threat Deterrence GLOBAL / LOCAL / NONE
+- quiet-start non-persistence
+- Total Kills lower-bound buffers
+- v0.3.53 RKS / KPW / window-deletion overlay is mandatory
 
 # Retained Duration controls
 
-- No pregame TAKE.
-- No TAKE before 12:00.
-- 12:00-13:59 requires two synchronized snapshots >=90 sec apart showing the same observed stall/acceleration mechanism.
-- 14:00+ still requires observed stall/acceleration.
-- Reprice after first tower, Baron, inhibitor, major structure/gold regime change.
-- Duration and Total Kills remain separate.
+- no pregame TAKE
+- no TAKE before 12:00
+- 12:00-13:59 requires two synchronized snapshots >=90 sec apart showing the same mechanism
+- 14:00+ still requires observed stall/acceleration
+- reprice after first tower / Baron / inhibitor / major acceleration
 
-# Position-blind reassessment
+# Same-game shadow testing
 
-- ACTIVE: lower bound clears original break-even by current buffer.
-- DEGRADED: above break-even but below buffer.
-- INVALIDATED: at/below break-even or hard veto.
-- CONFIRMED: materially strengthened under current framework.
-
-Do not defend a recorded position because of entry price, stake, prior verdict or desire for consistency.
+Multiple same-map shadow positions are allowed after eligibility when each independently qualifies. Correlated positions are separate P/L entries but one calibration cluster. Do not add positions merely to increase sample size.
 
 # Execution / settlement
 
-- A TAKE is conditional/unrecorded until explicit confirmation of the same executable line/price.
+- A TAKE is conditional/unrecorded until explicit confirmation of the exact same executable line/price.
 - Disappeared/locked/deteriorated before confirmation => NO BET / 0u.
 - User correction overrides visual scoreboard bugs.
-- User statement `Final`, `final score`, or `X won` controls settlement when latest synchronized grading statistic is available.
+- User statement `Final`, `final score`, or `X won` controls settlement when grading data are sufficient.
 - Unconfirmed recommendations are never graded.
 - No martingale, rescue or loss chasing.
 - Missing decision-critical information => PASS/HOLD.
