@@ -106,6 +106,24 @@ Calibration changes should normally require repeated evidence rather than one ou
 5. overfitting risk;
 6. exact versioned change.
 
+## Active enforcement calibration — 2026-08-10
+
+This is an **application/enforcement correction under existing protected-line rules**, not a new Eredivisie prior and not a model-version change.
+
+Observed problem from the 2026-08-09 Sunday Over comparison: the model correctly identified raw goal-environment rankings, but in PEC Zwolle–Ajax and sc Heerenveen–FC Twente it moved the prematch watch from a short protected Over 2.5 to Over 3.5 largely because Over 2.5 was below the 1.70 minimum-odds floor. That improperly used the odds floor as a reason to worsen the settlement line.
+
+Effective immediately during v0.1 calibration:
+
+- **Minimum odds is a veto, not a line-selection instruction.** If the natural protected total is below 1.70, do not move automatically to a higher total merely to clear the floor.
+- **Preserve the protected line.** A worse line such as Over 2.75, Over 3.0 or Over 3.5 must independently justify its own event budget, probability and settlement-weighted value.
+- **Separate raw Over likelihood from executable Over value.** A match may rank first for expected goals while still producing no eligible shadow candidate.
+- **Market shortness is prior evidence, not an independent scoring channel.** Short Over 2.5 or BTTS prices may inform the baseline but cannot by themselves establish bilateral scoring or a three-/four-goal route.
+- **Bilateral labels require bilateral support.** Calling an Over environment two-sided requires an independent scoring route for each team. A one-team-driven high total is still possible, but the favourite must independently support the required multi-goal event budget.
+- **Do not outcome-fit the correction.** A final score landing Over or Under does not retroactively validate or invalidate the prematch ranking. Grade the process using information available at decision time.
+- **Live repricing remains independent.** If later state changes create a lower, protected total with fresh forward-looking evidence, validate that new line on its own reset epoch rather than carrying the prematch Over thesis forward.
+
+Review this enforcement correction at the 10-match checkpoint. Escalate to an Eredivisie-specific structural rule only if repeated calibration evidence shows a league-specific pattern beyond the already inherited protected-line principle.
+
 ## Priors to estimate as sample grows
 
 Prioritize:
