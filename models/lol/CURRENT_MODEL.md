@@ -2,11 +2,12 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.50**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.50.md`
-- Prior deltas: v0.3.49 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.51**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.51.md`
+- Prior deltas: v0.3.50 through v0.3.26 under `models/lol/rules/`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
-- Latest Total Kills contact-realization review: `models/lol/reviews/FURIA_FLUXO_G2_OVER_CONTACT_REALIZATION_REVIEW_2026-08-10.md`
+- Latest Total Kills recurrence review: `models/lol/reviews/HLE_GGA_G2_UNDER_SKIRMISH_RECURRENCE_REVIEW_2026-08-10.md`
+- Prior Total Kills contact-realization review: `models/lol/reviews/FURIA_FLUXO_G2_OVER_CONTACT_REALIZATION_REVIEW_2026-08-10.md`
 - Prior Total Kills / add-on correlation review: `models/lol/reviews/KC_FNC_GAME2_TOTAL_KILLS_CORRELATION_REVIEW_2026-08-10.md`
 - Latest handicap conversion review: `models/lol/reviews/G2_TH_KILL_HANDICAP_CONVERSION_REVIEW_2026-08-09.md`
 - Draft primacy review: `models/lol/reviews/JDG_WE_GAME2_DRAFT_PRIMACY_REVIEW_2026-08-09.md`
@@ -19,29 +20,30 @@
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.50 through v0.3.26 rule deltas
+2. v0.3.51 through v0.3.26 rule deltas
 3. mandatory live checklist
-4. item-verification suspension
-5. v0.3.25 consolidated rules / probation / calibration handbook
-6. live fast path and main betting procedure
-7. connected-stack procedure and addenda
-8. scoreboard protocol
-9. shared stake policy
-10. latest handoff last
+4. latest reviews referenced above
+5. item-verification suspension
+6. v0.3.25 consolidated rules / probation / calibration handbook
+7. live fast path and main betting procedure
+8. connected-stack procedure and addenda
+9. scoreboard protocol
+10. shared stake policy
+11. latest handoff last
 
-Where conflicts exist, **v0.3.50 controls**.
+Where conflicts exist, **v0.3.51 controls**.
 
 ## Operating state
 
 - Official betting remains **paused** until explicit restoration.
-- Official probation: **13/20 settled/completed**, record 7-6, net -0.16425u / -164,250 VND.
+- Official probation remains **13/20 settled/completed**, record 7-6, net -0.16425u / -164,250 VND.
 - Next official wager after restoration: 14.
 - Duration remains official-ineligible through wager 20.
 - Default shadow stake: **0.25u**.
 - Actual exposure while paused: **0u**.
 - Minimum odds: **1.60**.
 - Same-map shadow add-ons are enabled when each independently qualifies and joint correlation is explicitly priced.
-- Airtable is the canonical position/map ledger; do not infer the full ledger from abbreviated model notes.
+- Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
 
 ## Mandatory verdict format
 
@@ -53,340 +55,131 @@ First visible line on active maps:
 
 Logging/connectors occur after the live verdict and must not delay it.
 
-# v0.3.50 — Contact Realization + Concession Calibration
+# v0.3.51 — Early Under + Skirmish Recurrence Calibration
 
 ## Core correction
 
-For Total Kills, **engage capability is not realized combat**.
+v0.3.50 correctly de-duplicates objective/event contact windows, but that must not erase repeatable **between-objective skirmish creation**.
 
-Every Total Kills evaluation now separates:
+Total Kills now separates:
 
-1. **Observed Kill Pace (OKP)** — what has happened;
-2. **Forward Contact Inventory (FCI)** — distinct future event windows;
-3. **Contact Realization Rate (CRR)** — probability each window actually becomes meaningful combat;
-4. **Contact Lethality (CL)** — deaths expected conditional on contact.
+1. **OKP** — Observed Kill Pace;
+2. **FCI** — de-duplicated objective/event Forward Contact Inventory;
+3. **CRR** — Contact Realization Rate for those windows;
+4. **SRR** — Skirmish Recurrence Reserve between formal windows;
+5. **CL** — Contact Lethality conditional on realized contact.
 
-Use the discipline:
+Conceptual projection:
 
-`Expected remaining kills = sum[P(contact_i) * E(kills_i | contact_i)] + residual pick/chase kills`.
+`Final kills = current kills + CRR-weighted event-window kills + SRR kills + residual terminal/pick/chase kills`.
 
-Do not manufacture false precision; ranges/lower bounds are preferred when uncertainty is material.
+## Hard pre-12:00 Under gate
 
-## FCI de-duplication
-
-Count **event windows, not engage champions**.
-
-Multiple champions contributing to one dragon/Baron/side-lane setup raise CRR and/or CL of that window; they do not create multiple independent future fights.
-
-Separate windows must be strategically or temporally distinct: later dragon/soul, Baron, repeat-pick after reset, inhibitor defense, terminal base sequence, etc.
-
-## Contact Realization Rate
-
-For every material future window set:
-
-- `HIGH REALIZATION`;
-- `MEDIUM REALIZATION`;
-- `LOW REALIZATION`;
-- `CONDITIONAL / STATE-DEPENDENT`.
-
-CRR depends on objective value, cross-map tradeability, wave state, side pressure, vision, globals, scaling incentives, base state and whether the leader can force the trailer to enter range.
-
-## Contest / Concede / Trade / Delay
-
-Every major objective/pressure window must explicitly test:
-
-1. `CONTEST`;
-2. `CONCEDE`;
-3. `TRADE`;
-4. `DELAY`.
-
-A window is forced/high-contact only when CONTEST materially dominates the alternatives.
-
-### Contest Compulsion refinement
-
-Contest Compulsion activates only when concede/trade/delay have become strategically unacceptable or mechanically unavailable — typically soul, Elder, terminal Baron/base pressure, inhibitor/Nexus defense.
-
-**Being behind is not sufficient.**
-
-## Threat Deterrence / Contact Suppression
-
-Strong engage/zone control can reduce Total Kills by making the opponent retreat before contact.
-
-Flag **Threat Deterrence (TD)** when the stronger side's initiation, choke control, siege or range wins space without requiring a fight.
-
-When TD is active:
-
-- reduce CRR for non-terminal windows;
-- increase Structure Substitution probability;
-- keep CL conditional on contact separate;
-- recognize that a better draft can produce fewer fights, not more.
-
-## Mutual-contact requirement for Overs
-
-Before pregame/early Over TAKE, answer both:
-
-1. can the team force contact **if the opponent enters**?;
-2. can the team force the opponent **to enter**?
-
-If (1) is yes but (2) is uncertain, the window is not high-contact.
-
-One-sided draft dominance requires an explicit loser-death or loser-return-kill mechanism that does not depend on repeated voluntary contests.
-
-## Loser return-kill floor
-
-Set `LOW / MEDIUM / HIGH` after opponent-counter testing.
-
-Do not credit aggressive champions as automatic return kills. Test whether the trailer can enter range, survive first contact, return damage, continue after first spell cycle and prevent the leader from resetting.
-
-## Over-specific controls
-
-**Engage-only Over veto:** `many engage tools => many fights` is insufficient; default PASS.
-
-**Control-dominance Over surcharge:** add +2pp to the normal Total Kills lower-bound requirement, capped at +9pp total over break-even, when all are true:
-
-- one side has material draft/team-strength control edge;
-- it can convert through zoning/siege/side pressure;
-- >=2 future major windows are MEDIUM/LOW CRR because concession/trade remains viable;
-- loser return-kill floor is not clearly HIGH.
-
-**Contact-realization veto:** if fewer than two future windows are HIGH REALIZATION and no repeatable neutral-pick/dive mechanism exists, pregame Over defaults PASS unless explicit CRR-weighted arithmetic still clears all gates.
-
-## FURIA vs Fluxo W7M G2 calibration
-
-Draft:
-
-FURIA Volibear / Jarvan IV / Galio / Caitlyn / Karma  
-Fluxo W7M Ambessa / Xin Zhao / Ahri / Lucian / Milio
-
-Confirmed Over 24.5 @1.705 lost. Final FURIA 14-3 at 32:53, 17 kills.
-
-The old read correctly identified FURIA's draft/control edge and high conditional lethality, but:
-
-- inflated FCI by counting several engage champions as independent fight creation;
-- overactivated Contest Compulsion;
-- underweighted concede/trade/delay branches;
-- underweighted Threat Deterrence from FURIA's engage + Caitlyn/Karma control shell;
-- overstated Fluxo's return-kill floor.
-
-Correct v0.3.50 interpretation: **PASS pregame Over 24.5 @1.705** unless CRR-weighted branches independently clear the gate.
-
-# v0.3.49 — Forward Contact Inventory + Joint Correlation Calibration retained
-
-## Core correction
-
-For Total Kills, **observed pace is not future pace**.
-
-Every Total Kills evaluation must separately model:
-
-1. **Observed Kill Pace (OKP)** — what has happened so far;
-2. **Forward Contact Inventory (FCI)** — how many future matchup-functional contact windows remain;
-3. **Contact Lethality (CL)** — how many deaths are likely when those contacts occur.
-
-v0.3.50 inserts CRR between FCI and CL. A low current kill count cannot by itself support or upgrade an Under. A quiet start can still become a high-contact mid/late game when objective pressure makes contests compulsory.
-
-## Quiet-start non-persistence
-
-Before 15:00, low kills or low kills/minute cannot by themselves increase Under probability.
-
-An early Under upgrade requires at least one:
-
-- >=2 synchronized snapshots showing both low OKP and declining/limited FCI/CRR;
-- repeated contact resolving with low CL because disengage/peel is demonstrably functional;
-- a clean structure-only/terminal branch that removes future contact windows faster than it creates them.
-
-`Quiet so far` is not `quiet later`.
-
-## Forward Contact Inventory
-
-For each remaining event, classify expected contact under v0.3.50 CRR rules.
-
-Relevant windows include dragon/soul, Baron/Elder, inhibitor/base defense, side-lane collapses, repeat-pick cycles, vision face-checks and terminal chases.
-
-Objectives are not automatically fights.
-
-## Contact Lethality
-
-Set CL `LOW / MEDIUM / HIGH` using:
-
-- reliable first contact;
-- hard-access reliability;
-- CC chain;
-- damage continuation;
-- chase/cleanup;
-- re-engage;
-- disengage/peel;
-- mobility/escape;
-- return-kill capability;
-- terrain/choke amplification;
-- live economic concentration.
-
-**Range is not disengage.** If the leader has reliable hard access and the trailer cannot escape after contact, raise CL even if the trailer draft is nominally poke/waveclear/side-lane oriented.
-
-## Total Kills forward projection
-
-Use v0.3.50 CRR-weighted projection rather than treating all nominal FCI windows equally.
-
-Internally lock low/central/high final-kill branches, line-cross probability and uncertainty.
-
-## Hard-access Under surcharge
-
-For pregame or early-live Under, if all are true:
-
-- one side has >=1 highly reliable hard-access tool plus follow-up;
-- the opponent has weak functional disengage after first contact;
-- >=3 meaningful future objective/base-defense windows are likely;
-
-add **+2pp** to the normal Total Kills lower-bound requirement, capped at a total required cushion of +9pp over break-even.
-
-If FCI/CRR leaves >=3 forced/high-contact windows and CL is HIGH, Under defaults PASS unless explicit window arithmetic still clears the gate.
-
-Base Total Kills lower-bound gates remain:
-
-- +5pp pregame;
-- +4pp early live;
-- +3pp mid/late;
-- v0.3.49/v0.3.50 surcharges where applicable, capped at +9pp total over break-even.
-
-## Total Kills and Kill Handicap are separate axes
-
-Define:
-
-- `T = favorite kills + underdog kills`;
-- `M = favorite kills - underdog kills`.
-
-Project T and M separately.
-
-Possible branches:
-
-- high T, low/moderate M: traded fights / return kills;
-- low T, high M: clean one-sided kill conversion;
-- low T, low M: structure-heavy controlled map;
-- high T, high M: true kill cascade.
-
-A +kills handicap can be strong while an Under is weak because return kills can raise T while keeping M inside the cushion.
-
-## Same-map add-on joint distribution
-
-For positions A and B, estimate:
-
-- `P(A win, B win)`;
-- `P(A win, B lose)`;
-- `P(A lose, B win)`;
-- `P(A lose, B lose)`.
-
-Identify concrete mechanisms for materially non-zero one-win/one-loss branches.
-
-Each add-on must independently clear its market gate and remain +EV after joint-distribution adjustment. Do not reuse one narrative as two independent edges. No stake escalation.
-
-# v0.3.48 — Kill Handicap Conversion Framework retained
-
-## Draft-to-Conversion
-
-After the Draft Function Matrix, classify likely win/conversion mode:
-
-- Fight Cascade;
-- Pick-and-Reset;
-- Side-Lane / Global Overload;
-- Objective / Structure Snowball;
-- Siege / Choke;
-- Scaling Front-to-Back;
-- Mixed.
-
-For Kill Handicap, estimate how much of the favorite-win branch is kill-centric versus structure/objective-centric.
-
-## Kill Conversion Velocity (KCV)
-
-With >=2 synchronized snapshots track signed margin, gold, structures, objectives, multi-kill conversion and cleanup.
-
-Set:
-
-- `HIGH` — margin expands with lead; repeated 2+ net-kill conversion;
-- `MEDIUM` — mixed kill/structure conversion;
-- `LOW / STRUCTURE-SUBSTITUTED` — map control expands while margin stays flat/slow.
-
-## Structure Substitution
-
-If superiority converts mainly through towers/objectives/side lanes/Baron without corresponding kill-margin expansion:
-
-- compress extreme favorite-margin bins;
-- increase underdog +kills survival;
-- recognize map compression can cannibalize future net kills.
-
-## Net-Kill Burden and Remaining Fight Inventory
-
-For every kill handicap calculate additional net kills required to beat the line, then compare against remaining forced/high-contact, avoidable, structure-only and unlikely windows.
-
-## Wide Favorite Conversion Gate
-
-For favorite -10.5 or wider, DED/DDC alone is insufficient.
+Before 12:00, an Under may not be TAKEN primarily because the current kill count is low or the line cushion is large.
 
 Require at least one:
 
-1. observed HIGH KCV;
-2. NKB <=5 plus a high-contact fight/base-defense sequence;
-3. >=2 high-contact forced windows plus demonstrated multi-kill cleanup/return denial;
-4. early-live fast-path state with no evidence of Structure Substitution.
+- two synchronized live snapshots >=90 seconds apart showing low OKP and stable/declining contact pressure;
+- repeated realized contact already showing LOW CL through functioning disengage/peel/reset;
+- an observed near-terminal structure-only branch removing future contact windows.
 
-Slow-conversion veto remains active when gold expands but margin stays flat/near-flat.
+If only one live snapshot exists and repeatable hard access remains functional, default **HOLD/PASS**.
 
-## Handicap survival != map survival
+## Skirmish Recurrence Reserve (SRR)
 
-For underdog +kills separately estimate map-win probability and cover probability conditional on losing.
+Classify `LOW / MEDIUM / HIGH` recurrence from:
 
-Do not invalidate +kills solely because favorite ML becomes overwhelming, DED appears, or Baron/inhibitors fall.
+- vision/jungle collisions;
+- lane-transition catches;
+- side-lane collapses;
+- support/jungle roam contact;
+- post-reset re-engages;
+- repeatable neutral picks after cooldown reset;
+- flank/contact mechanisms not tied to a major objective.
 
-Defensive tools are graded `MAP-SAVING / MARGIN-SAVING / NONFUNCTIONAL`.
+Do not count engage champions as independent future fights. SRR measures **repeatability of contact triggers**, not champion count.
 
-# v0.3.47 — Draft Primacy retained
+## Bidirectional Forcing (BF)
 
-Before post-draft ML, Kill Handicap or Total Kills TAKE, compare:
+Flag `ACTIVE` when both teams can independently start meaningful contact without waiting for a voluntary objective-choke entry.
 
-1. reliable first contact;
-2. hard-CC density;
-3. CC reliability and range;
-4. anti-engage/disengage;
-5. frontline access;
-6. backline access;
-7. carry protection;
-8. damage continuation;
-9. chase/cleanup;
-10. re-engage/repeat forcing;
-11. objective/choke control;
-12. waveclear/base defense under pressure;
-13. side-lane/global numbers creation;
-14. execution simplicity.
+When active:
 
-Draft remains the most important post-lock conditional mechanism layer. Team strength remains the verified pre-draft baseline.
+- raise SRR unless live evidence suppresses it;
+- do not globally discount CRR from one side's poke/zone control;
+- raise the high-total branch;
+- explicitly increase high-T / low-to-moderate-M probability.
 
-CC Scarcity / Proactivity Tax, Distributed Economic Dominance, Draft-Dominance Cascade and the Early Favorite Handicap Fast Path remain active.
+## Threat Deterrence override
 
-# v0.3.44 Kill Handicap controls retained
+Threat Deterrence must be classified `GLOBAL / LOCAL / NONE`.
 
-Use one side-neutral signed favorite-margin distribution:
+If the opponent can bypass the zone via flank, fog, dash, displacement, point-click engage or transition timing, TD is only LOCAL and cannot support a broad Under CRR discount.
 
-`M = favorite final kills - underdog final kills`.
+## Under cushion stress test
 
-Minimum bins: `M<=0`, `+1..3`, `+4..6`, `+7..9`, `+10..14`, `15+`.
+For every Under calculate:
 
-Price both sides from the same distribution.
+- current kills;
+- maximum additional kills that still win;
+- additional kills required to lose;
+- remaining map-time range;
+- whether a plausible high-SRR branch of repeated 2-4 kill skirmishes plus objective/base fights can cross the line.
 
-Lower-bound cover surcharge remains:
+A large cushion never substitutes for the early confirmation gate.
 
-- +7pp pregame;
-- +6pp early live;
-- +5pp mid/late live.
+## HLE.C vs GGA G2 calibration
 
-# v0.3.45 Duration controls retained
+Draft:
 
-Duration remains live-only:
+GGA Jayce / Skarner / Syndra / Varus / Leona  
+HLE.C Yorick / Lee Sin / Annie / Jhin / Alistar
 
-- no pregame TAKE;
-- no TAKE before 12:00;
-- 12:00-13:59 high-friction two-snapshot gate;
-- 14:00+ requires observed stall/acceleration;
-- dead-zone, survival-horizon and regime-change repricing remain mandatory.
+At 7:47: GGA 2-1, +1.0k, 0-0 towers, HLE.C 1-0 dragons.
 
-Draft is only a mechanism prior for Duration until observed functioning proves the state.
+Confirmed Under 33.5 @1.690 lost; final GGA 20-15 at 30:30, 35 total kills.
+
+Correct v0.3.51 read:
+
+- early Under confirmation gate: FAILED;
+- FCI: medium;
+- SRR: HIGH;
+- BF: ACTIVE;
+- Threat Deterrence: LOCAL only;
+- CL: medium/high;
+- high-T / low-M branch: material;
+- verdict: **HOLD/PASS**, not TAKE.
+
+# Retained Total Kills controls from v0.3.50 / v0.3.49
+
+- Count event windows, not engage champions.
+- For each major window test CONTEST / CONCEDE / TRADE / DELAY.
+- Contest Compulsion only when concession/trade/delay becomes strategically or mechanically unavailable.
+- Threat Deterrence can reduce contact, but v0.3.51 hard-access override applies.
+- Loser return-kill floor must be matchup-functional.
+- Quiet early score is not evidence of quiet future pace.
+- Base Total Kills lower-bound gates remain +5pp pregame, +4pp early live, +3pp mid/late, with applicable surcharges capped at +9pp over break-even.
+- Same-map Total Kills and handicap require separate `T` and `M` projections and an explicit four-cell joint distribution.
+
+# Retained Kill Handicap controls
+
+- Draft Primacy remains the primary post-lock mechanism layer.
+- Build one side-neutral signed favorite kill-margin distribution before viewing directional attractiveness.
+- Price +H and -H from the same distribution.
+- Calculate NKB and Remaining Fight Inventory.
+- Track KCV `HIGH / MEDIUM / LOW-STRUCTURE-SUBSTITUTED` from synchronized snapshots.
+- Structure Substitution can make map dominance diverge from kill-margin dominance.
+- Handicap lower-bound surcharge remains +7pp pregame, +6pp early live, +5pp mid/late.
+- Handicap survival is not map survival.
+
+# Retained Duration controls
+
+- No pregame TAKE.
+- No TAKE before 12:00.
+- 12:00-13:59 requires two synchronized snapshots >=90 sec apart showing the same observed stall/acceleration mechanism.
+- 14:00+ still requires observed stall/acceleration.
+- Reprice after first tower, Baron, inhibitor, major structure/gold regime change.
+- Duration and Total Kills remain separate.
 
 # Position-blind reassessment
 
@@ -395,16 +188,14 @@ Draft is only a mechanism prior for Duration until observed functioning proves t
 - INVALIDATED: at/below break-even or hard veto.
 - CONFIRMED: materially strengthened under current framework.
 
-For +kills positions, do not infer INVALIDATED from favorite map dominance alone. Reprice the signed margin distribution first.
-
-For Total Kills positions, do not infer CONFIRMED from quiet/current score or nominal engage inventory alone. Reprice OKP/FCI/CRR/CL first.
+Do not defend a recorded position because of entry price, stake, prior verdict or desire for consistency.
 
 # Execution / settlement
 
 - A TAKE is conditional/unrecorded until explicit confirmation of the same executable line/price.
 - Disappeared/locked/deteriorated before confirmation => NO BET / 0u.
 - User correction overrides visual scoreboard bugs.
-- User statement `Final` controls settlement when latest synchronized grading statistic is available.
+- User statement `Final`, `final score`, or `X won` controls settlement when latest synchronized grading statistic is available.
 - Unconfirmed recommendations are never graded.
 - No martingale, rescue or loss chasing.
 - Missing decision-critical information => PASS/HOLD.
