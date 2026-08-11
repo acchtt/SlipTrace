@@ -27,6 +27,23 @@ Determine whether the model has measurable edge in any of the following:
 5. favorite/underdog classification;
 6. prematch versus live decisions.
 
+## Historical benchmark arm
+
+The audit now includes a parallel early-totals benchmark reconstructed from the v0.2.6-v0.2.9 era.
+
+Protocol: `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`.
+
+This benchmark is motivated by the strongest explicitly version-tagged positive ledger results currently identified: v0.2.6 Alajuelense-Xelaju Under 1.75 and v0.2.9 O'Higgins-Boca Under 1.25. It does not assume those versions were broadly profitable; v0.2.7 was negative in its identified sample.
+
+The benchmark tests a narrower hypothesis: the model may have had more useful signal in live goal-environment detection plus Asian-total boundary protection than in directional side selection.
+
+For synchronized live decision points, run in parallel:
+
+- Arm A: current v0.2.42 audit model;
+- Arm B: early-totals benchmark, totals only.
+
+Neither arm is executable. Compare selection frequency, settlement-adjusted P/L, ROI, process validity, line protection and NO BET frequency.
+
 ## Reconstruction protocol
 
 For each recent verified bet or counted shadow selection, reconstruct the decision using only information available at the original decision timestamp.
@@ -103,6 +120,8 @@ Official football betting remains paused until all are true:
 - a formal review documents which rules are retained, removed, or simplified;
 - explicit user approval is obtained before any official football execution resumes.
 
+The early-totals benchmark has its own minimum sample and cannot by itself shorten these audit requirements.
+
 ## Model simplification principle
 
 Do not respond to every loss by adding a new narrow rule. Prefer removal, consolidation, or stronger generic gates when multiple losses share the same failure mode.
@@ -111,4 +130,4 @@ The audit should test whether the model is overfit and over-complex rather than 
 
 ## Current conclusion
 
-The recent sample is insufficient to justify an inverse-betting strategy, but it is sufficient to suspend confidence in directional football selections. The model is now in shadow-only audit mode until the exit criteria above are met.
+The recent sample is insufficient to justify an inverse-betting strategy, but it is sufficient to suspend confidence in directional football selections. The model is now in shadow-only audit mode with a parallel early-totals benchmark until the exit criteria above are met.
