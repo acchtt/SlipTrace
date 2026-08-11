@@ -5,11 +5,12 @@
 2. `models/lol/rules/MODEL_RULES_LOL_V0.3.53.md`
 3. retained deltas v0.3.52 through v0.3.26
 4. `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
-5. `models/lol/reviews/AGGREGATE_ANTI_FAVORITE_FADE_BIAS_REVIEW_2026-08-11.md`
-6. latest reviews referenced by `CURRENT_MODEL.md`
-7. v0.3.25 baseline context/calibration files
-8. connected-stack / scoreboard / stake procedures
-9. This handoff last
+5. `models/lol/procedures/LOL_STALE_LIVE_LINE_DETECTION_ADDENDUM_2026-08-11.md`
+6. `models/lol/reviews/AGGREGATE_ANTI_FAVORITE_FADE_BIAS_REVIEW_2026-08-11.md`
+7. latest reviews referenced by `CURRENT_MODEL.md`
+8. v0.3.25 baseline context/calibration files
+9. connected-stack / scoreboard / stake procedures
+10. This handoff last
 
 ## Active model
 **LoL v0.3.53**
@@ -26,6 +27,7 @@ GitHub is model authority. Airtable is canonical map/position ledger.
 - Pregame and immediate post-draft ML / Kill Handicap / Total Kills TAKEs disabled.
 - Duration: no pregame TAKE; no TAKE before 12:00; existing duration gates remain.
 - A wager is recorded only after explicit confirmation of the same executable line.
+- **Frozen / expired / stale displayed quotes are not executable lines. Mandatory stale-line freshness check applies before every TAKE.**
 - User saying `Final`, `final score`, or `X won` is definitive settlement authority.
 
 ## Aggregate calibration alarm
@@ -46,6 +48,14 @@ Before any ML / Kill Handicap / Total Kills TAKE:
 - prefer >=90 seconds separation;
 - require exact executable odds;
 - require observed mechanism evidence, not draft theory alone.
+
+### Live-line freshness gate
+Before every TAKE:
+- compare candidate line/odds with the immediately prior sportsbook snapshot;
+- if exact line and odds remain frozen across material state movement, classify `SUSPECT STALE`;
+- if adjacent markets reprice while one market remains exactly unchanged, the unchanged market fails closed until refreshed;
+- greyed/disabled/frozen/expired/non-clickable lines are `NO BET / 0u`;
+- user identification of an expired/frozen line is authoritative execution evidence.
 
 ### MKT + TEAM anchor
 Start from current market plus persistent team-strength/execution prior. Fearless Draft does not reset team execution to neutral.
@@ -74,42 +84,52 @@ High contact availability does not automatically imply high final kills.
 For each confirmed shadow TAKE, record visible opposite-side price in notes when available. Benchmark only; do not create a second official shadow position.
 
 ### Change control
-No ordinary single-map model promotion. Require >=5 settled positions across >=3 maps showing the same mechanism, or an aggregate review. Deterministic correctness bug is the exception.
+No ordinary single-map model promotion. Require >=5 settled positions across >=3 maps showing the same mechanism, or an aggregate review. Deterministic correctness/data-integrity bugs are the exception.
 
-## Latest completed series — G2 Esports vs Natus Vincere
+## Latest completed validation series — KRX Challengers vs BNK FEARX Youth
+
+### Game 1
+Draft:
+- KRX: Olaf / Lee Sin / Ryze / Jhin / Shen
+- BFX: Ambessa / Jarvan IV / Galio / Kai'Sa / Camille
+
+Market snapshot: KRX 1.672 / BFX 2.141.
+
+Final per user authority: **KRX won 30-10**.
+
+No confirmed position. Qualitative v0.3.53 evidence: respecting the KRX market/team-strength anchor prevented an erroneous draft-only BFX underdog bet.
+
+### Game 2
+Draft:
+- BFX: Sion / Xin Zhao / Orianna / Lucian / Milio
+- KRX: K'Sante / Naafiri / Locke / Caitlyn / Bard
+
+Final per user authority: **BFX won 22-11**.
+
+No confirmed position.
+
+Important execution correction:
+- displayed `BFX +3.5 @1.815` and `Over 33 @1.747` were **expired/frozen quotes**, not missed executable bets;
+- they remained visually unchanged across material state movement while other markets repriced;
+- earlier TAKE outputs on those frozen numbers were execution-layer errors;
+- neither is graded, neither receives P/L, neither counts toward v0.3.53 validation.
+
+## Previous completed series — G2 Esports vs Natus Vincere
 
 Series result: **G2 won 2-0**.
 
 ### Game 1
-G2 blue: Jayce / Xin Zhao / Viktor / Ziggs / Alistar  
-NAVI red: K'Sante / Nocturne / Syndra / Ezreal / Shen
-
 Confirmed position:
 - `POSTCB-SHADOW-23-P01` NAVI +1.5 kills @1.822 — LOSS -0.25u
 
 Final adjusted score after user scoreboard correction: **G2 14-9 NAVI**, 37:32.
 
-Key review:
-- early NAVI catch success was real;
-- G2's range/skill/late-control edge persisted;
-- handicap buffer was destroyed by taking +1.5 after the earlier +6.5/+7.5 protection compressed;
-- NAVI +6.5 would have covered.
-
 ### Game 2
-G2 blue: Galio / Trundle / Orianna / Varus / Rell  
-NAVI red: Rumble / Lee Sin / Cassiopeia / Corki / Leona
-
 Confirmed positions:
 - `POSTCB-SHADOW-24-P01` NAVI +7.5 kills @1.931 — LOSS -0.25u
 - `POSTCB-SHADOW-25-P01` Over 30.5 kills @1.890 — LOSS -0.25u
 
-Final: **G2 15-7 NAVI**, 30:16, 22 total kills, G2 +9.2k, towers 11-2, dragons 2-2, Baron 1-0, inhibitors 3-0.
-
-Key review:
-- NAVI +7.5 lost by 0.5 kill;
-- underdog margin resistance was slightly overstated;
-- BF/SRR contact availability was badly over-converted into kill volume;
-- G2 produced a low-kill structural stomp with strong return-kill suppression and rapid future-window deletion.
+Final: **G2 15-7 NAVI**, 30:16.
 
 ## Open positions
 **NONE.**
@@ -120,15 +140,19 @@ Key review:
 3. Snapshot 1 around 5-7 minutes when available.
 4. Snapshot 2 around 8-10 minutes or >=90 seconds later.
 5. Only then scan ML / Kill Handicap / Total Kills for TAKE.
-6. Multiple same-map shadow TAKEs allowed after eligibility if each qualifies.
-7. Record visible opposite-side fade benchmark on every confirmed TAKE.
-8. Reassess all open positions position-blind after material changes.
-9. No loss chasing; no attempt to recover the recent drawdown in one series.
+6. **Before every TAKE, run the stale-line freshness gate; frozen/expired quotes fail closed.**
+7. Multiple same-map shadow TAKEs allowed after eligibility if each qualifies.
+8. Record visible opposite-side fade benchmark on every confirmed TAKE.
+9. Reassess all open positions position-blind after material changes.
+10. No loss chasing; no attempt to recover the recent drawdown in one series.
 
 ## Mandatory live response
 First visible line on active maps:
 - `TAKE — [selection] @[odds] — shadow 0.25u; actual 0u.`
 - `PASS — [market/selection] @[odds] — 0u.`
 - `HOLD — [market/selection] @[odds] — 0u.`
+
+For stale/expired quotes use:
+- `HOLD — [market] — stale/frozen line — 0u.`
 
 Do not delay verdict for GitHub/Airtable work.
