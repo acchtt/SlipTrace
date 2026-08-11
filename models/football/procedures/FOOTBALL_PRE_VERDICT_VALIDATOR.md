@@ -1,6 +1,6 @@
 # FOOTBALL PRE-VERDICT VALIDATOR
 
-Effective with Football v0.2.40; strengthened by Football v0.2.41.
+Effective with Football v0.2.40; strengthened by Football v0.2.41 and Football v0.2.42.
 
 This procedure is mandatory before any `SHADOW LEAN — DO NOT PLACE`, `LEAN`, or `OFFICIAL BET` output. It is an enforcement layer over all active football rules, not a replacement for them.
 
@@ -129,7 +129,7 @@ If `Underdog Suppression Evidence Count < 2`, `Favorite First-Goal Branch = Fail
 
 If the applicable favourite-fade gate is otherwise unresolved or failed, validation cannot pass.
 
-## Gate 8 — market-family scan
+## Gate 8 — market-family scan and best-expression test
 
 Reassess all currently available major market families relevant to the state, including sides/Asian handicaps, totals and any material derivatives supplied by the user.
 
@@ -137,7 +137,24 @@ Compare the candidate against the best alternative expression.
 
 Do not anchor to the previously discussed market. Invalidating one candidate does not confirm another.
 
-If the major-market scan is incomplete, result = `HOLD`.
+### v0.2.42 live side-versus-total sub-gate
+
+When the match is tied or separated by no more than one goal, one team has sustained attacking/territorial superiority, and the opponent has demonstrated a credible scoring/transition/set-piece route, any proposed live side must be explicitly compared with the best eligible live total at odds >=1.70.
+
+For the comparison:
+
+1. state the exact settlement path of the side;
+2. state the exact settlement path and remaining event budget of the best eligible total;
+3. determine whether one further goal benefits the total regardless of scorer;
+4. classify the opponent threat as isolated/non-repeatable, structurally repeatable, score-state dependent, or likely to increase as the dominant team commits numbers;
+5. identify at least one independent **directional separator** for the side beyond generic pressure/event-generation evidence;
+6. inspect adjacent quarter-goal totals if the nearest half-goal total is below 1.70.
+
+Raw xG, xGOT, SOT, shots, possession and corners do not count as the directional separator by themselves.
+
+If the evidence supports another goal more clearly than it supports which team scores the decisive goal, and an eligible total captures that evidence with less directional dependence, the side fails the best-expression test.
+
+If the major-market scan or applicable side-versus-total comparison is incomplete, result = `HOLD`.
 
 ## Gate 9 — settlement and event-budget integrity
 
