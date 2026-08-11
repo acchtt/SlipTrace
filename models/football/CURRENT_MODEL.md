@@ -10,6 +10,7 @@
 - Airtable control map: `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 - Active rule directory: `models/football/rules/`
 - Active audit: `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
+- Parallel early-totals benchmark: `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
 - Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-06.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
 - Authoritative betting feed: `/ledger.json`
@@ -26,8 +27,9 @@ Load the following in this order, applying newer rules over older conflicts:
 6. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
-9. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-06.md`
-10. `/ledger.json` when official record, bankroll, exposure, placement or settlement status is relevant
+9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
+10. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-06.md`
+11. `/ledger.json` when official record, bankroll, exposure, placement or settlement status is relevant
 
 ## Audit-mode operating values
 
@@ -41,6 +43,17 @@ Load the following in this order, applying newer rules over older conflicts:
 - Ledger writes remain on hold until explicitly approved.
 - Every assessment must continue to scan all major market families and preserve exact timestamp/state synchronization.
 - xG/xGOT remain secondary only, and may be discarded entirely when the provider feed is demonstrably unreliable.
+
+## Parallel benchmark mode
+
+Every suitable synchronized live football checkpoint with an available totals board now supports two shadow-only research outputs:
+
+- **Arm A — Current audit model:** Football v0.2.42 with all active validator and audit controls. It still scans all major market families, but directional markets remain quarantined.
+- **Arm B — Early totals benchmark:** reconstructs the narrower v0.2.6-v0.2.9 live-total philosophy using current synchronization and provider-quality controls. It evaluates totals only and may output `BENCHMARK SHADOW` or `BENCHMARK NO BET`.
+
+The benchmark does **not** roll the active model back to v0.2.6 or v0.2.9. Historical samples are too small, and v0.2.7 itself was negative. The purpose is to test whether live totals plus settlement protection have more stable signal than directional handicap selection.
+
+For Arm B, prioritize exact score/minute, remaining-goal branches, adjacent total lines, boundary protection, state resets, competition utility, reliable non-xG forward evidence and NO BET discipline. Evaluate both Over and Under; do not create a new automatic Under bias.
 
 ## Audit trigger
 
@@ -60,6 +73,8 @@ For each reviewed decision, reconstruct the original timestamp using only inform
 
 Classify failure modes using the audit taxonomy in `FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`.
 
+For new live checkpoints, also score Arm B under `FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md` when the totals board and settlement scope are sufficiently synchronized.
+
 ## Exit criteria
 
 Official football betting cannot resume until all of the following are satisfied:
@@ -72,10 +87,12 @@ Official football betting cannot resume until all of the following are satisfied
 - a formal simplification review states which rules are retained, removed or consolidated;
 - explicit user approval to restore official betting.
 
+The early-totals benchmark cannot shorten the audit. Its first review requires 20 synchronized live decision points and, if naturally generated, at least 10 benchmark shadow selections. Promotion consideration requires a materially larger settled sample as defined in its protocol.
+
 ## Existing model controls retained
 
 - Full synchronization after every material event.
-- Hard pre-verdict validator and Airtable decision-state logging remain required for any shadow candidate.
+- Hard pre-verdict validator and Airtable decision-state logging remain required for any Arm A shadow candidate.
 - One best expression per assessment.
 - Competition-format and utility verification.
 - Side-versus-total comparison under v0.2.42.
@@ -84,8 +101,9 @@ Official football betting cannot resume until all of the following are satisfied
 
 ## Response behavior during audit
 
-- Use `SHADOW LEAN — DO NOT PLACE` only when the candidate clears the validator and is being logged for audit purposes.
-- Otherwise use `NO BET` or `NO BET — HOLD`.
+- Use `SHADOW LEAN — DO NOT PLACE` only when an Arm A candidate clears the validator and is being logged for audit purposes.
+- Otherwise use `NO BET` or `NO BET — HOLD` for Arm A.
+- When enough synchronized total-market information exists, also report the Arm B research verdict separately as `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET`.
 - Do not issue `OFFICIAL BET` while audit mode is active.
 - For directional candidates, explicitly distinguish absolute superiority from relative improvement.
 - If the opponent's decisive-event branch remains credible and a total expresses the evidence more cleanly, the side fails best-expression selection.
