@@ -2,7 +2,7 @@
 
 **Canonical namespace:** `models/football/`
 
-- Active model: **Football v0.2.41**
+- Active model: **Football v0.2.42**
 - Organized loading guide: `models/football/ORGANIZED_FILE_LOADING_GUIDE.md`
 - Main procedure: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 - Procedure addendum: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
@@ -21,7 +21,7 @@ Load the following in this order, applying newer rules over older conflicts:
 2. `models/LEGACY_MODEL_CHANGELOG.md` for the retained pre-v0.2.5 baseline
 3. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
-5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.41.md`, in ascending version order
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.42.md`, in ascending version order
 6. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-06.md`
@@ -35,7 +35,7 @@ Do not load football rules from the repository root. Root model copies were reti
 - Minimum odds: 1.70
 - Every executable or shadow LEAN uses exactly 0.25u = 250,000 VND
 - **Official football betting is paused under the four-match circuit breaker**
-- Circuit breaker: **1/4 completed**; only matches producing an otherwise executable LEAN can count, with at most one designated primary shadow selection per match
+- Circuit breaker: **2/4 completed**; only matches producing an otherwise executable LEAN can count, with at most one designated primary shadow selection per match
 - During the circuit breaker use `SHADOW LEAN — DO NOT PLACE`; do not issue a new `OFFICIAL BET`
 - `NO BET` matches do not consume a circuit-breaker slot
 - After 4/4, review all four shadow matches and require explicit user approval before restoring official betting
@@ -64,6 +64,7 @@ Do not load football rules from the repository root. Root model copies were reti
 - v0.2.39 strengthens **prematch** favourite-fade and margin-risk analysis, vetoes formation/possession narratives as standalone protection evidence, gives friendly H2H near-zero decision weight, and activates the four-match football circuit breaker
 - v0.2.40 adds the **hard pre-verdict validator**, Airtable-backed decision-state write lock, xG enforcement lock, regime-consistency lock, competition-utility propagation lock and mandatory two-channel primary-evidence minimum
 - v0.2.41 strengthens **protected-underdog deep-favourite validation**: at least two affirmative margin-suppression channels, mandatory favourite-first-goal branch testing, exact tiebreak-order propagation, and Airtable margin-branch fields are required before a large protected underdog can pass
+- v0.2.42 strengthens **live market-expression selection**: distinguishes directional superiority from event-generation superiority, requires a side-versus-eligible-total comparison when the opponent retains a credible scoring route, forces adjacent quarter-goal totals into the scan, and requires an independent directional separator before a pressure-driven side can beat a less direction-dependent goal expression
 
 ## Hard pre-verdict enforcement
 
@@ -84,6 +85,15 @@ For any prematch protected-underdog candidate against a material/deep favourite,
 
 Failure of any applicable condition forces `NO BET`.
 
+For any applicable v0.2.42 live pressure-side candidate, the validator must additionally establish:
+
+- the best eligible total expression, including adjacent quarter-goal lines when necessary;
+- exact side and total settlement paths;
+- the opponent threat classification;
+- at least one independent directional separator beyond generic pressure/event-generation evidence.
+
+If another goal is better supported than which team scores it, the side cannot pass the best-expression test.
+
 ## Airtable operational control
 
 - Base: `SlipTrace Football Decision Control`
@@ -103,7 +113,10 @@ Airtable is an operational decision-control log only. `/ledger.json` remains aut
 
 ## Active position and reconciliation state
 
-- Latest completed circuit-breaker shadow: **Singapore +1 @1.75, simulated 0.25u — WON** after user-confirmed final score Singapore 1-1 Indonesia. Simulated P/L: **+0.1875u = +187,500 VND**. Process validity: **Valid**. Exact +1 protection was intentionally preferred to +0.75 because it preserved push protection on an Indonesia one-goal win while still winning on a draw.
+- Latest completed circuit-breaker shadows:
+  - **Slot 1: Singapore +1 @1.75 vs Indonesia — WON**, simulated 0.25u; P/L **+0.1875u = +187,500 VND**; process validity: Valid.
+  - **Slot 3: Deportivo Cuenca -0.5 @2.45 vs Manta — LOST**, simulated 0.25u; final score Cuenca 1-2 Manta; P/L **-0.25u = -250,000 VND**. Review classification: **model-attributed market-expression error**. Cuenca pressure was real, but the model over-promoted directional win probability from evidence that more cleanly supported continued event generation. At the synchronized snapshot, Over 2.75 @1.88 was the superior eligible expression because one further goal produced a half-win regardless of scorer while Manta retained a credible transition/scoring route.
+- Circuit-breaker Slot 2: Wolves vs Port Vale, Port Vale +1 @2.00, remains counted in Airtable but result/process completion is not treated as verified here until reconciled.
 - Portland Timbers vs Puebla: latest user-supplied synchronized snapshot before v0.2.40 activation was Portland 5-1 Puebla at approximately 58:01. The 5-1 goal created a new reset epoch; no post-goal shadow selection was validated and the match did not consume a circuit-breaker slot.
 - Club América vs San Diego FC: **San Diego FC +1.5 @1.89 — user confirmed loss at final score América 3-1 San Diego.** Expected stake 0.25u; ticket ID, actual stake and placement timestamp remain pending. Review classification: **model-attributed prematch selection error**. The pick failed to establish two independent margin-suppression channels, did not pass a favourite-first-goal branch, overvalued nominal 5-3-2/protection and friendly H2H, underweighted San Diego's adverse away margin tail, and incompletely propagated Leagues Cup margin incentives. Ledger not updated.
 - Chicago Fire vs Necaxa: Necaxa +0.5 @1.89 — user confirmed loss. Review classified the selection as a model-attributed market-promotion error: the model reduced protection from the watched +0.75 line and overweighted shots on target without sufficient high-value access. Expected stake 0.25u; ticket details and exact settlement evidence remain pending. Ledger not updated.
@@ -115,8 +128,10 @@ Airtable is an operational decision-control log only. `/ledger.json` remains aut
 
 ## Circuit-breaker state
 
-- Football circuit breaker: **1/4 completed**.
+- Football circuit breaker: **2/4 completed**.
 - Slot 1: **Singapore +1 @1.75 vs Indonesia — WON, +0.1875u simulated P/L, process valid**.
+- Slot 2: **Port Vale +1 @2.00 vs Wolves — counted, result/process completion pending reconciliation**.
+- Slot 3: **Deportivo Cuenca -0.5 @2.45 vs Manta — LOST, -0.25u simulated P/L; market-expression error reviewed under v0.2.42**.
 - New football positions are shadow only.
 - A match counts only if a normal executable LEAN would otherwise clear all active rules, the hard validator returns PASS, the Airtable Decision States write exists, one primary shadow selection is designated, and the result is later verified.
 - Track selection, line, odds, state, result, simulated P/L and process validity in the Airtable `Circuit Breaker` table.
