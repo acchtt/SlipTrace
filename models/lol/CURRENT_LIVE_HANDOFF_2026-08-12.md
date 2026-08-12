@@ -25,6 +25,7 @@ GitHub is model authority. Airtable is canonical map/position ledger.
 - Minimum odds: 1.60.
 - Same-game multiple shadow bets enabled after live eligibility.
 - Pregame/immediate post-draft ML / Kill Handicap / Total Kills TAKEs disabled.
+- **Kill Handicap is enabled for live shadow scanning/TAKEs after normal live eligibility as of 2026-08-12 13:26 UTC+7 by explicit user instruction. No special KH suspension remains active.**
 - Duration: no pregame TAKE; no TAKE before 12:00; existing duration gates remain.
 - A wager is recorded only after explicit confirmation of the same executable line.
 - Frozen/expired/stale quotes fail closed.
@@ -81,19 +82,37 @@ LCK CL — HLE Challengers vs BRO Challengers.
 
 Game 1 complete: **BRO won**.
 
-Prepare Game 2 from scratch under Fearless Draft, carrying TEAM/execution evidence from Game 1. Side/draft/odds not yet supplied.
+### Game 2
+BRO blue / HLE red.
 
-## Next-map procedure
+Draft:
+- BRO: Ambessa / Qiyana / Annie / Caitlyn / Bard
+- HLE: Gnar / Jarvan IV / Ryze / Varus / Nautilus
+
+Scoreboard timer bug: **displayed timer is +3:00; subtract 3:00 for actual game clock unless user says bug clears.**
+
+Corrected live history:
+- baseline displayed 5:09 => actual 2:09, 0-0, BRO +21g, 0-0 towers/objectives.
+- S01 displayed 13:39 => actual 10:39, HLE leads 5-1 and +2.3k, towers 0-0, dragons 0-0.
+- **S02 correction:** displayed 14:59 => actual 11:59, HLE leads 9-2 and +4.3k, towers 0-0, HLE dragon 1-0. Duration and Total Kills were visibly suspended. Earlier assistant output claiming 17:57 / 9-1 / +6.5k / towers 2-1 and Under 31.5 @2.035 was a state-reading error; no position was confirmed and it is void / NO BET.
+- S03 displayed 15:50 => actual 12:50, HLE leads 10-2 and +5.0k, towers 0-0, HLE dragon 1-0. Board: HLE ML 1.049 / BRO 9.345; Duration 29 O1.886/U1.886; Total Kills 30.5 O1.369/U3.032 suspended; KH HLE -17.5 1.604 / BRO +17.5 2.262.
+
+Current G2 verdict at S03:
+- KH enabled from this point forward.
+- HOLD HLE -17.5 @1.604 / BRO +17.5 @2.262. HLE role-gold advantage is broad and the 18+ kill-margin tail remains live; neither side clears edge threshold confidently.
+- No open confirmed G2 positions.
+
+## Next-map/live procedure
 1. Pregame: analysis only.
 2. Post-draft: analysis only; record MKT/TEAM/draft/TTA/EBG/mechanism coupling.
-3. Snapshot 1 around 5-7 minutes when available.
-4. Snapshot 2 around 8-10 minutes or >=90 seconds later.
-5. Only then scan ML / Kill Handicap / Total Kills for TAKE.
-6. Duration follows existing later clock restrictions.
-7. Before every TAKE run stale-line freshness gate.
-8. For ML, parse visible role-level gold before verdict; after 30:00 apply TEI.
-9. Record visible opposite-side fade benchmark on every confirmed TAKE.
-10. Reassess position-blind after material changes.
+3. ML / Kill Handicap / Total Kills require normal two-snapshot live eligibility before TAKE.
+4. Duration follows existing later clock restrictions.
+5. Before every TAKE run stale-line freshness gate.
+6. For ML, parse visible role-level gold before verdict; after 30:00 apply TEI.
+7. **Kill Handicap is live-enabled:** apply signed kill-margin distribution, NKB, RFI, KCV, Buffer Retention, Structure Substitution, and RWE where relevant.
+8. Record visible opposite-side fade benchmark on every confirmed TAKE.
+9. Reassess position-blind after material changes.
+10. Never grade an unconfirmed recommendation.
 
 ## Mandatory live response
 First visible line:
