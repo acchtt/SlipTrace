@@ -5,6 +5,7 @@
 - Active model: **LoL v0.3.57**
 - Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.57.md`
 - Prior deltas: v0.3.56 through v0.3.26 under `models/lol/rules/`
+- **Active operating freeze:** `models/lol/procedures/LOL_SHADOW_AUDIT_FREEZE_2026-08-13.md`
 - Mandatory fallback certification: `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
 - Latest fallback-floor review: `models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`
@@ -27,19 +28,20 @@
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.57 through v0.3.26 rule deltas
-3. mandatory fallback-floor certification procedure
-4. mandatory live checklist
-5. latest reviews referenced above
-6. item-verification suspension
-7. v0.3.25 consolidated rules / probation / calibration handbook
-8. live fast path and main betting procedure
-9. connected-stack procedure and addenda
-10. scoreboard protocol
-11. shared stake policy
-12. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-13.md` last
+2. `models/lol/procedures/LOL_SHADOW_AUDIT_FREEZE_2026-08-13.md`
+3. v0.3.57 through v0.3.26 rule deltas
+4. mandatory fallback-floor certification procedure
+5. mandatory live checklist
+6. latest reviews referenced above
+7. item-verification suspension
+8. v0.3.25 consolidated rules / probation / calibration handbook
+9. live fast path and main betting procedure
+10. connected-stack procedure and addenda
+11. scoreboard protocol
+12. shared stake policy
+13. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-13.md` last
 
-Where conflicts exist, **v0.3.57 controls**.
+Where conflicts exist, **v0.3.57 controls analytically and the active audit-freeze policy controls model-governance changes**.
 
 ## Operating state
 
@@ -53,10 +55,9 @@ Where conflicts exist, **v0.3.57 controls**.
 - Same-game multiple shadow bets are enabled **after live eligibility** when each independently qualifies; correlated positions are grouped as one calibration evidence cluster.
 - Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**. The KT.C-vs-NS.C post-draft ML override idea remains review-only and is not active.
 - Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all v0.3.57 gates.
-- Shadow TAKEs that are visibly executable and qualify are **auto-recorded after the user-facing verdict**; no placement confirmation is required in shadow mode.
+- **Shadow TAKEs remain active during the audit freeze and are auto-recorded after the user-facing verdict when visibly executable and qualified.**
+- **Do not patch, version-bump, add exceptions to, or otherwise alter v0.3.57 from individual map outcomes during the audit freeze.** Reviews may diagnose picks but are observational until the user explicitly authorizes a batch revision.
 - Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
-- Current settled shadow validation after NIP vs WBG G2: **6-8, -0.64850u**.
-- Open shadow position: `LPL-2026-08-13-NIP-WBG-G3-P01` — WBG +8.5 kills @1.951, 0.25u shadow, actual 0u; result pending. Under v0.3.57 the entry thesis is process-invalidated but the recorded position is not deleted or retroactively regraded.
 
 ## Mandatory verdict format
 
@@ -67,6 +68,22 @@ First visible line on active maps:
 - `HOLD — [selection/market] @[odds] — 0u.`
 
 Logging/connectors occur after the live verdict and must not delay it.
+
+# Active Shadow Audit Freeze
+
+The active freeze is defined in `models/lol/procedures/LOL_SHADOW_AUDIT_FREEZE_2026-08-13.md`.
+
+Core governance:
+
+- keep issuing and recording qualified shadow TAKEs;
+- keep the standard 0.25u simulated stake;
+- settle and analyze every pick;
+- do not invert the model because of recent losses;
+- do not skip a qualified shadow TAKE because the prior sample performed poorly;
+- do not change the model, thresholds, draft framework, eligibility gates, or procedures from an individual result;
+- accumulate evidence and revise only when the user explicitly ends the freeze or authorizes a batch audit/model revision.
+
+This freeze changes governance only. **LoL v0.3.57 remains the analytical model under test.**
 
 # v0.3.57 — Fallback Floor Certification / False-Stable Guard
 
