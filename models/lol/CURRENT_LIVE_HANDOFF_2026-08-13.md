@@ -2,11 +2,25 @@
 
 ## Active model
 
-**LoL v0.3.57**
+**LoL v0.3.57 — FROZEN FOR SHADOW AUDIT**
 
 GitHub is model/rules authority. Airtable is canonical map/position ledger.
 
-Official betting remains **paused**. Shadow mode is active.
+Official betting remains **paused**. Shadow TAKEs remain active.
+
+### Active audit-freeze governance
+
+Procedure: `models/lol/procedures/LOL_SHADOW_AUDIT_FREEZE_2026-08-13.md`
+
+- Continue issuing TAKE / PASS / HOLD normally under frozen v0.3.57.
+- Qualified executable shadow TAKEs remain auto-recorded at 0.25u simulated stake; actual exposure remains 0u.
+- **Do not patch, version-bump, add exceptions to, or modify v0.3.57 because of individual map outcomes.**
+- Settle and analyze every shadow pick normally.
+- Reviews during the freeze are observational only; they do not alter the active model.
+- Do not invert the model or skip qualified TAKEs because recent results were poor.
+- The freeze ends only when the user explicitly authorizes a batch audit/model revision or explicitly ends the freeze.
+
+## Core operating state
 
 - Default shadow stake: 0.25u
 - Actual exposure: 0u
@@ -15,9 +29,11 @@ Official betting remains **paused**. Shadow mode is active.
 - Live ML/KH/TK: two synchronized live snapshots plus all retained gates
 - Shadow TAKEs: auto-record after visible verdict when executable and qualified; no confirmation required
 - Duration restrictions unchanged
-- Settled shadow validation after NIP vs WBG G2: **6-8, -0.64850u**
-- Open shadow position: `LPL-2026-08-13-NIP-WBG-G3-P01` — WBG +8.5 kills @1.951, 0.25u shadow, actual 0u, result pending
-- v0.3.57 marks that entry thesis **process-invalidated**; do not delete or retroactively regrade the recorded position
+
+## Current open shadow positions
+
+- `LPL-2026-08-13-NIP-WBG-G3-P01` — WBG +8.5 kills @1.951, 0.25u shadow, actual 0u; result pending in canonical ledger. Entry thesis was later judged process-invalid under v0.3.57; do not delete or retroactively regrade it.
+- `LCK-2026-08-13-KRX-BFX-G3-P01` — KRX +7.5 kills @2.047, 0.25u shadow, actual 0u; result pending in canonical ledger. User has already flagged the selection as another bad call; analyze after settlement but **do not patch the model during the freeze**.
 
 ## Mandatory live output behavior
 
@@ -141,6 +157,4 @@ Over 33:00 @1.857 lost when WBG won 16-6 at 30:46. Settled shadow validation bec
 
 ## Immediate next action
 
-Continue the current live map only from fresh synchronized evidence. The open WBG +8.5 position remains recorded and awaits settlement, but its thesis is invalidated under v0.3.57.
-
-For every new underdog +kills candidate, run the mandatory v0.3.57 certification **before** RIT or signed-margin pricing. No false-STABLE shortcut is allowed.
+Continue the current live map from fresh synchronized evidence under frozen v0.3.57. Shadow TAKEs remain active and must be logged if qualified. **Do not patch the model from the next result; accumulate audit evidence instead.**
