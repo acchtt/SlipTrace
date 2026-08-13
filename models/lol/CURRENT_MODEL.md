@@ -2,11 +2,13 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.56**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.56.md`
-- Prior deltas: v0.3.55 through v0.3.26 under `models/lol/rules/`
+- Active model: **LoL v0.3.57**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.57.md`
+- Prior deltas: v0.3.56 through v0.3.26 under `models/lol/rules/`
+- Mandatory fallback certification: `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
-- Latest draft collapse-risk review: `models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
+- Latest fallback-floor review: `models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`
+- Prior draft collapse-risk review: `models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
 - Prior draft execution-burden review: `models/lol/reviews/KT_NS_G1_DRAFT_EXECUTION_BURDEN_REVIEW_2026-08-13.md`
 - Latest role-weighted economy review: `models/lol/reviews/HLE_BRO_G1_ROLE_WEIGHTED_ECONOMY_REVIEW_2026-08-12.md`
 - Latest aggregate bias/fade review: `models/lol/reviews/AGGREGATE_ANTI_FAVORITE_FADE_BIAS_REVIEW_2026-08-11.md`
@@ -25,18 +27,19 @@
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. v0.3.56 through v0.3.26 rule deltas
-3. mandatory live checklist
-4. latest reviews referenced above
-5. item-verification suspension
-6. v0.3.25 consolidated rules / probation / calibration handbook
-7. live fast path and main betting procedure
-8. connected-stack procedure and addenda
-9. scoreboard protocol
-10. shared stake policy
-11. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-13.md` last
+2. v0.3.57 through v0.3.26 rule deltas
+3. mandatory fallback-floor certification procedure
+4. mandatory live checklist
+5. latest reviews referenced above
+6. item-verification suspension
+7. v0.3.25 consolidated rules / probation / calibration handbook
+8. live fast path and main betting procedure
+9. connected-stack procedure and addenda
+10. scoreboard protocol
+11. shared stake policy
+12. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-13.md` last
 
-Where conflicts exist, **v0.3.56 controls**.
+Where conflicts exist, **v0.3.57 controls**.
 
 ## Operating state
 
@@ -48,11 +51,12 @@ Where conflicts exist, **v0.3.56 controls**.
 - Actual exposure while paused: **0u**.
 - Minimum odds: **1.60**.
 - Same-game multiple shadow bets are enabled **after live eligibility** when each independently qualifies; correlated positions are grouped as one calibration evidence cluster.
-- Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**. The KT.C-vs-NS.C post-draft ML override idea is review-only and is **not an active exception**.
-- Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all v0.3.56 gates.
+- Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**. The KT.C-vs-NS.C post-draft ML override idea remains review-only and is not active.
+- Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all v0.3.57 gates.
 - Shadow TAKEs that are visibly executable and qualify are **auto-recorded after the user-facing verdict**; no placement confirmation is required in shadow mode.
 - Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
-- Current shadow validation after NIP vs WBG G1: **6-7, -0.39850u**; open shadow positions: none.
+- Current settled shadow validation after NIP vs WBG G2: **6-8, -0.64850u**.
+- Open shadow position: `LPL-2026-08-13-NIP-WBG-G3-P01` — WBG +8.5 kills @1.951, 0.25u shadow, actual 0u; result pending. Under v0.3.57 the entry thesis is process-invalidated but the recorded position is not deleted or retroactively regraded.
 
 ## Mandatory verdict format
 
@@ -64,138 +68,99 @@ First visible line on active maps:
 
 Logging/connectors occur after the live verdict and must not delay it.
 
-# v0.3.56 — HARD Draft Collapse Risk / Fallback Floor Veto
+# v0.3.57 — Fallback Floor Certification / False-Stable Guard
 
-## 1. Draft remains primary after lock
+## 1. STABLE is no longer a descriptive label
 
-Retain v0.3.55 DER/shared-failure enforcement and the v0.3.47 Draft Function Matrix. TEAM/MKT remains the pre-draft strength anchor; draft controls the post-lock mechanism and conversion layer.
+For underdog +kills, `FF = STABLE` is a **positive certification**. It requires matchup-relative PASS results on all four critical tests:
 
-Before any live ML / KH / TK TAKE, classify:
+1. `FER` — Failed-Engage Reset;
+2. `PDC` — Protected-DPS Continuation;
+3. `PST` — Pressured Space: objective entry or base/wave defense while behind;
+4. `ARI` — Alternative Route Independence.
 
-- `DER` — Draft Execution Reliability: LOW / MEDIUM / HIGH burden;
-- `DCR` — Draft Collapse Risk: LOW / MEDIUM / HIGH;
-- `FF` — Fallback Floor: STABLE / FRAGILE / ABSENT.
+Any FAIL or UNRESOLVED blocks STABLE.
 
-## 2. Draft Collapse Risk (DCR)
+## 2. Forcing redundancy and survival redundancy are separate
 
-DCR measures the chance that losing first contact or map control produces clustered deaths / repeated forced defenses rather than a bounded loss.
+Mandatory separate scores:
 
-Mandatory checks:
+- `FRI` — Forcing Route Independence;
+- `SRI` — Survival Route Independence.
 
-- frontline durability;
-- disengage after failed engage;
-- protected sustained DPS;
-- objective entry without perfect setup;
-- waveclear/base defense while behind;
-- whether a failed engage exposes one champion or several;
-- reset/re-form ability after first spell cycle;
-- incompatible spacing requirements between poke/dive/pick/front-to-back plans;
-- opponent repeat forcing into the same shared-failure cluster;
-- scheduled dragon/Baron/base-pressure interaction.
+Multiple engage, CC, pick, flank or re-engage tools may raise FRI while SRI remains LOW. **Engage count is never fallback proof.**
 
-## 3. Fallback Floor (FF)
+## 3. False-Stable Guard
 
-`STABLE` = repeatable lower-variance fallback survives opponent-route testing.  
-`FRAGILE` = fallback exists only under narrow setup/spacing/tempo conditions.  
-`ABSENT` = no credible repeatable fallback once preferred plan fails.
+STABLE is forbidden when the fallback is materially another version of the same forward-commit plan, when peel competes with initiation, when carry protection disappears during engage, when behind-state objective entry requires the same all-in, or when opponent range/pick/disengage/re-engage can punish failed contact without a demonstrated reset route.
 
-Generic labels such as waveclear, poke, peel, scaling or pick do not count unless matchup-functional.
+If the guard is ACTIVE, FF is `FRAGILE` or `ABSENT`.
 
-## 4. HARD DRAFT-COLLAPSE VETO — NO LIVE EXCEPTION
+## 4. Fail closed
 
-For **underdog +kills**, activate the hard veto when all are true at draft lock / first complete post-draft assessment:
+For underdog +kills:
 
-1. side is underdog by pregame/draft `MKT + TEAM` anchor;
-2. `DCR = HIGH`;
-3. `FF = FRAGILE` or `ABSENT`;
-4. opponent has materially lower execution burden and either two independent forcing routes or one highly reliable route plus strong continuation/re-engage;
-5. at least one meaningful scheduled objective/base-pressure sequence is expected to matter if the opponent gains control.
+- incomplete certification => PASS/HOLD;
+- ambiguous certification => PASS/HOLD;
+- DCR ambiguity between MEDIUM/HIGH is resolved to HIGH when failed contact can expose multiple members and the opponent has at least two repeatable punish/continuation routes;
+- ordinary live success cannot upgrade `FRAGILE`, `ABSENT` or `UNCERTIFIED` to STABLE;
+- handicap size/odds cannot influence DCR/FF certification.
 
-When active:
+Only a genuine draft-input correction may reopen certification.
 
-**UNDERDOG +KILLS IS TAKE-INELIGIBLE FOR THE ENTIRE MAP.**
+## 5. v0.3.56 hard veto remains controlling after certification
 
-Do not search for an exception.
+Mandatory order before underdog +kills pricing:
 
-The hard veto cannot be removed or softened by:
-
-- current kill lead/parity;
-- current gold lead/parity;
-- tower/dragon parity;
-- widened +kills cushion;
-- one or multiple return kills;
-- two-snapshot eligibility;
-- temporary role-gold improvement;
-- live odds movement;
-- short-term fight success;
-- `resilience proven` language;
-- mechanism-valid live proof that would previously have downgraded a v0.3.55 draft-burden veto.
-
-**v0.3.56 supersedes the v0.3.55 live-proof override for HIGH DCR + FRAGILE/ABSENT FF underdog +kills cases.**
-
-The only permitted removal is a **draft-input correction** that changes champion identity, role assignment, or the original matchup-functional DCR/FF classification. Ordinary live events never remove it.
-
-## 5. Market temptation cannot change DCR/FF
-
-Classify DCR/FF before using the displayed handicap as evidence. A large +8.5/+10.5/+12.5 line is arithmetic, not a resilience mechanism.
-
-If DCR/FF was not completed before an underdog +kills candidate is evaluated: **PASS/HOLD**.
-
-## 6. RIT only runs when hard veto is inactive
-
-Retain v0.3.55 Resilience Independence Test, but only after checking the hard veto.
-
-Order:
-
-1. MKT/TEAM underdog identity;
+1. MKT + TEAM underdog identity;
 2. DER;
-3. DCR;
-4. FF;
-5. shared-failure / forcing independence;
-6. objective schedule interaction;
-7. HARD DRAFT-COLLAPSE VETO ACTIVE/INACTIVE;
-8. if INACTIVE, run RIT;
-9. only then price signed margin / NKB / RFI / KCV / Structure Substitution.
+3. FRI;
+4. SRI;
+5. FER;
+6. PDC;
+7. PST;
+8. ARI;
+9. False-Stable Guard;
+10. DCR;
+11. FF certification;
+12. v0.3.56 HARD Draft-Collapse Veto;
+13. RIT only if veto inactive;
+14. signed-margin / NKB / RFI / KCV / Structure Substitution pricing.
 
-If hard veto is ACTIVE, stop. Verdict is PASS/HOLD for that underdog +kills market.
+If the hard veto is ACTIVE, stop. Do not search for an exception.
 
-## 7. Favorite -kills remains independent
+## 6. Reference correction — NIP vs WBG G3
 
-A blocked underdog +kills bet does not automatically qualify favorite -kills. Favorite handicap must independently clear the retained signed-margin distribution, NKB, RFI, KCV, Structure Substitution and probability gates.
+WBG: Gnar / Lee Sin / Annie / Mel / Rell.  
+NIP: Tristana / Xin Zhao / Twisted Fate / Ashe / Seraphine.
 
-## 8. ML / Total Kills / Duration
+The erroneous v0.3.56 classification credited WBG with STABLE fallback because of multiple engage/peel branches.
 
-- ML: DCR/FF materially affects conversion probability but is not itself a hard ML veto; all retained MKT/TEAM/live/RWE/TEI gates apply.
-- TK: HIGH DCR raises clustered-death tails only conditional on contact; CRR/RKS/KPW/Structure Substitution still control. Do not infer Over from collapse risk alone.
-- Duration: retained clock/stall/acceleration/dead-zone restrictions remain unchanged.
+Correct v0.3.57 classification for underdog +kills:
 
-## 9. Reference correction — NIP vs WBG G1
+- WBG FRI: meaningful;
+- WBG SRI: insufficient;
+- WBG critical fallback certification: not all PASS;
+- False-Stable Guard: ACTIVE;
+- WBG DCR: HIGH for handicap eligibility;
+- WBG FF: FRAGILE;
+- hard draft-collapse veto: ACTIVE.
 
-NIP: Olaf / Qiyana / Ryze / Jhin / Nautilus.  
-WBG: Ambessa / Naafiri / Ahri / Xerath / Camille support.
+Therefore WBG +8.5 kills @1.951 at 20:12 was TAKE-ineligible. Correct verdict:
 
-Correct classification:
+**PASS — WBG +8.5 kills @1.951 — 0u.**
 
-- NIP: lower DER, LOW DCR, STABLE FF, repeatable independent forcing/continuation.
-- WBG: HIGH DER, HIGH DCR, FRAGILE/ABSENT FF, weak conventional frontline/peel, incompatible dive/poke spacing, clustered-death exposure after failed contact.
+Reference review: `models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`.
 
-At 15:05 WBG led 5-3 and WBG +8.5 @1.961 was visible. Under v0.3.56 the hard veto was already active, so the only valid verdict was:
+# Retained controls
 
-**PASS — WBG +8.5 kills @1.961 — 0u.**
+All non-conflicting v0.3.56 and earlier controls remain active, including:
 
-Final user-supplied kill score: NIP 22-10 WBG.
-
-Reference review: `models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`.
-
-# Retained v0.3.55 and earlier controls
-
-All non-conflicting controls remain active, including:
-
+- strict HIGH-DCR + weak-FF underdog +kills hard veto with no live exception;
 - DER and shared-failure clusters;
 - Draft Correction Trigger;
 - objective-schedule x execution burden;
-- RIT when hard veto inactive;
-- scoreboard parity is not mechanism proof;
+- RIT only when the hard veto is inactive;
 - Role-Weighted Economy / TEI;
 - two-snapshot live eligibility;
 - MKT + TEAM anchoring;
@@ -212,4 +177,4 @@ All non-conflicting controls remain active, including:
 - Duration restrictions;
 - no rescue/martingale/loss chasing.
 
-Where any earlier language permits live evidence to override a HIGH-DCR/weak-FF underdog +kills veto, **v0.3.56 controls: no exception.**
+Favorite -kills remains independent. Blocking underdog +kills never creates an automatic reverse bet.
