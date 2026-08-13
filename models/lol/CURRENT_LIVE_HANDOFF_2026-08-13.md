@@ -2,7 +2,7 @@
 
 ## Active model
 
-**LoL v0.3.55**
+**LoL v0.3.56**
 
 GitHub is model/rules authority. Airtable is canonical map/position ledger.
 
@@ -15,6 +15,8 @@ Official betting remains **paused**. Shadow mode is active.
 - Live ML/KH/TK: two synchronized live snapshots plus all retained gates
 - Shadow TAKEs: auto-record after visible verdict when executable and qualified; no confirmation required
 - Duration restrictions unchanged
+- Current shadow validation: **6-7, -0.39850u**
+- Open shadow positions: none
 
 ## Mandatory live output behavior
 
@@ -26,108 +28,125 @@ For every active-map screenshot, the first visible line must be the verdict:
 
 Do not delay the visible verdict for Airtable/GitHub/tool work. Logging occurs after the verdict.
 
-## v0.3.55 correction — draft execution is mandatory
-
-v0.3.55 was promoted after KT Challengers vs NS Challengers Game 1 exposed a process-enforcement failure.
-
-Reference review:
-`models/lol/reviews/KT_NS_G1_DRAFT_EXECUTION_BURDEN_REVIEW_2026-08-13.md`
+## v0.3.56 HARD Draft-Collapse Veto — no exception
 
 Reference rules:
-`models/lol/rules/MODEL_RULES_LOL_V0.3.55.md`
+`models/lol/rules/MODEL_RULES_LOL_V0.3.56.md`
 
-Mandatory additions before live ML/KH/TK TAKE:
+Reference review:
+`models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
 
-- complete Draft Function Matrix;
-- classify Draft Execution Reliability (DER) for both sides: LOW / MEDIUM / HIGH burden;
-- count forcing and survival **shared-failure clusters**, not champion abilities;
-- apply objective-schedule x execution-burden interaction;
-- for underdog +kills, run Resilience Independence Test (RIT);
-- scoreboard parity/two snapshots are not mechanism proof by themselves;
-- if favorite has repeatable independent forcing and underdog margin-saving mechanisms are coupled/high-burden with future forced windows remaining, underdog +kills defaults PASS/HOLD until live mechanism proof appears;
-- blocking underdog +kills does not automatically make favorite -kills a TAKE.
+Before every underdog +kills decision, classify:
 
-A user correction to champion identity, role assignment, or draft difficulty triggers a full position-blind Draft Function Matrix + DER + shared-failure rerun, not a cosmetic adjustment.
+- MKT/TEAM underdog identity at draft lock;
+- DER — Draft Execution Reliability;
+- DCR — Draft Collapse Risk: LOW / MEDIUM / HIGH;
+- FF — Fallback Floor: STABLE / FRAGILE / ABSENT;
+- forcing/shared-failure independence;
+- objective-schedule interaction.
 
-## Current series — KT Challengers vs NS Challengers
+### HARD VETO trigger
 
-Competition: LCK Challengers League 2026 Rounds 3-4  
-Series state: **KT Challengers lead 1-0** after Game 1.
+If the pregame/draft underdog has:
 
-### Game 1 draft
+- DCR = HIGH;
+- FF = FRAGILE or ABSENT;
+- opponent has materially lower execution burden with reliable independent forcing/continuation;
+- a meaningful scheduled objective/base-pressure sequence can matter if opponent gains control;
 
-KT.C:
+then:
+
+**UNDERDOG +KILLS IS TAKE-INELIGIBLE FOR THE ENTIRE MAP.**
+
+No live exception. Do not override from:
+
+- kill/gold lead or parity;
+- objective parity;
+- a wider +kills cushion;
+- one or multiple return kills;
+- two-snapshot eligibility;
+- temporary role-gold improvement;
+- live odds movement;
+- short-term fight success;
+- generic resilience language;
+- prior v0.3.55 mechanism-proof override.
+
+Only a draft-input correction changing champion identity, role assignment, or the original functional DCR/FF classification can remove the hard veto.
+
+If hard veto ACTIVE, stop the +kills analysis and PASS/HOLD. Do not search for an exception. Favorite -kills still must qualify independently.
+
+## Recent correction history
+
+### KT.C vs NS.EA G1
+
+NS +8.5 @1.943 lost. v0.3.55 promoted DER/shared-failure/RIT enforcement after the model underweighted NS execution burden.
+
+### KT.C vs NS.EA G2
+
+Model correctly identified KT's easier draft and KT rolled the map. KT ML was 2.037 at post-draft odds, but current model did not allow a post-draft TAKE. A possible ML-only post-draft override remains **review-only and NOT active**.
+
+### NIP vs WBG G1
+
+Draft:
+
+NIP:
 - Olaf
-- Vi
-- Cassiopeia
-- Ashe
-- Seraphine
+- Qiyana
+- Ryze
+- Jhin
+- Nautilus
 
-NS.EA:
-- Gnar
-- Xin Zhao
-- Anivia
-- Ezreal
-- Blitzcrank
+WBG:
+- Ambessa
+- Naafiri
+- Ahri
+- Xerath
+- Camille support
 
-Initial support correction: NS support was Blitzcrank, not Nautilus.
+TEAM anchor leaned NIP.
 
-### Game 1 shadow position
+Correct draft classification in hindsight / v0.3.56:
 
-`LCKCL-2026-08-13-KTC-NS-G1-P01`
+- NIP: lower DER, LOW DCR, STABLE FF, repeatable forcing/continuation;
+- WBG: HIGH DER, HIGH DCR, FRAGILE/ABSENT FF, weak conventional frontline/peel, incompatible dive/poke spacing, clustered-death exposure.
 
-- Market: Kill Handicap
-- Selection: NS.EA +8.5 kills
-- Odds: 1.943
-- Shadow stake: 0.25u
-- Actual exposure: 0u
-- Entry clock: 15:28
-- Result: **LOSS -0.25u**
-- Thesis: invalidated before settlement, then settled
+Shadow position:
 
-Entry state:
-- KT 3-2 NS;
-- NS about +108g;
-- towers 0-0;
-- KT 2-0 dragons;
-- mixed role economy.
+`LPL-2026-08-13-NIP-WBG-G1-P01`
 
-The position was a model-process error: NS's draft burden/shared-failure structure was underweighted.
+- WBG +8.5 kills @1.961
+- shadow 0.25u
+- actual 0u
+- entry 15:05
+- entry kills: WBG led 5-3
+- entry dragons: 1-1
+- entry towers: 0-0
+- final kill score supplied by user: NIP 22-10 WBG
+- result: **LOSS -0.25u**
 
-### Game 1 final user-authoritative result
+Correct v0.3.56 verdict at entry would have been:
 
-KT Challengers won.
+**PASS — WBG +8.5 kills @1.961 — 0u.**
 
-Latest grading frame at 29:50:
-- KT 19-5 NS;
-- KT +14k gold;
-- towers 10-0;
-- dragons 4-0;
-- Baron 1-0;
-- inhibitors 2-0.
-
-Do not infer exact final duration from the 29:50 grading frame unless separately supplied.
-
-## Current shadow validation
-
-After settling NS +8.5:
-
-- Record: **6-6**
-- Net: **-0.14850u**
-- Open shadow positions: **none**
+The error was allowing short-term return-kill evidence to override a fundamentally HIGH-collapse-risk underdog draft.
 
 ## Immediate next action
 
-Prepare **KT.C vs NS.EA Game 2** with fresh-map evidence reset.
+Prepare **NIP vs WBG Game 2** with fresh-map state reset.
 
-Do not carry Game 1 scoreboard state into Game 2. Series execution evidence may inform TEAM, but draft remains the primary post-lock mechanism layer.
+Carry forward TEAM/current-series execution evidence, but reset map-state evidence.
 
-For Game 2, pay special attention to:
+Draft must be assessed before live price temptation using:
 
-- execution simplicity / DER;
-- independent first-contact routes;
-- shared-failure clusters;
-- objective-setup burden;
-- underdog +kills RIT;
-- role-weighted economy when visible;
-- position-blind reassessment after material state changes.
+1. TEAM + MKT anchor;
+2. full Draft Function Matrix;
+3. DER;
+4. DCR;
+5. FF;
+6. independent forcing / shared-failure clusters;
+7. objective-fight execution;
+8. carry protection / protected DPS;
+9. collapse-tail geometry;
+10. market-specific gates.
+
+For any underdog +kills candidate, check HARD DRAFT-COLLAPSE VETO first. If ACTIVE, there is **no exception** for the rest of the map.
