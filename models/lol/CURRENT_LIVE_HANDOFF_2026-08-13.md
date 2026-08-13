@@ -2,7 +2,7 @@
 
 ## Active model
 
-**LoL v0.3.56**
+**LoL v0.3.57**
 
 GitHub is model/rules authority. Airtable is canonical map/position ledger.
 
@@ -15,8 +15,9 @@ Official betting remains **paused**. Shadow mode is active.
 - Live ML/KH/TK: two synchronized live snapshots plus all retained gates
 - Shadow TAKEs: auto-record after visible verdict when executable and qualified; no confirmation required
 - Duration restrictions unchanged
-- Current shadow validation: **6-7, -0.39850u**
-- Open shadow positions: none
+- Settled shadow validation after NIP vs WBG G2: **6-8, -0.64850u**
+- Open shadow position: `LPL-2026-08-13-NIP-WBG-G3-P01` — WBG +8.5 kills @1.951, 0.25u shadow, actual 0u, result pending
+- v0.3.57 marks that entry thesis **process-invalidated**; do not delete or retroactively regrade the recorded position
 
 ## Mandatory live output behavior
 
@@ -28,125 +29,118 @@ For every active-map screenshot, the first visible line must be the verdict:
 
 Do not delay the visible verdict for Airtable/GitHub/tool work. Logging occurs after the verdict.
 
-## v0.3.56 HARD Draft-Collapse Veto — no exception
+## v0.3.57 Fallback Floor Certification — mandatory
 
-Reference rules:
-`models/lol/rules/MODEL_RULES_LOL_V0.3.56.md`
+Rules:
+`models/lol/rules/MODEL_RULES_LOL_V0.3.57.md`
+
+Procedure:
+`models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 
 Reference review:
-`models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
+`models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`
 
-Before every underdog +kills decision, classify:
+### Core correction
 
-- MKT/TEAM underdog identity at draft lock;
-- DER — Draft Execution Reliability;
-- DCR — Draft Collapse Risk: LOW / MEDIUM / HIGH;
-- FF — Fallback Floor: STABLE / FRAGILE / ABSENT;
-- forcing/shared-failure independence;
-- objective-schedule interaction.
+Do **not** infer fallback resilience from engage redundancy.
 
-### HARD VETO trigger
+Before every underdog +kills decision, separately classify:
 
-If the pregame/draft underdog has:
+- DER;
+- FRI — Forcing Route Independence;
+- SRI — Survival Route Independence;
+- FER — Failed-Engage Reset;
+- PDC — Protected-DPS Continuation;
+- PST — Pressured Space;
+- ARI — Alternative Route Independence;
+- False-Stable Guard ACTIVE/INACTIVE;
+- DCR;
+- FF.
 
-- DCR = HIGH;
-- FF = FRAGILE or ABSENT;
-- opponent has materially lower execution burden with reliable independent forcing/continuation;
-- a meaningful scheduled objective/base-pressure sequence can matter if opponent gains control;
+`FF = STABLE` requires PASS on FER + PDC + PST + ARI and False-Stable Guard INACTIVE.
 
-then:
+Any FAIL or UNRESOLVED means STABLE is forbidden for underdog +kills.
+
+### False-Stable Guard
+
+Activate when the alleged fallback is materially another version of the same forward-commit plan, when peel competes with initiation, when carry protection disappears during engage, when behind-state objective entry repeats the same all-in dependency, or when opponent range/pick/disengage/re-engage can punish failed contact without a demonstrated reset route.
+
+If active, FF = FRAGILE or ABSENT.
+
+### Conservative DCR tie-break
+
+For underdog +kills, if DCR is materially between MEDIUM and HIGH, use HIGH when failed contact can expose multiple members and the opponent has at least two repeatable punish/continuation routes.
+
+### Fail closed
+
+If certification is incomplete or ambiguous: **PASS/HOLD**.
+
+Ordinary live events cannot upgrade FRAGILE/ABSENT/UNCERTIFIED to STABLE. Kill parity, return kills, temporary role-gold gains, objective parity, bigger cushions and two-snapshot eligibility do not create an exception.
+
+Only a genuine draft-input correction may reopen the certification.
+
+## v0.3.56 hard draft-collapse veto remains active
+
+After v0.3.57 certification, if the underdog is HIGH DCR + FRAGILE/ABSENT FF and the opponent has materially easier repeat forcing/continuation with scheduled objective/base pressure, then:
 
 **UNDERDOG +KILLS IS TAKE-INELIGIBLE FOR THE ENTIRE MAP.**
 
-No live exception. Do not override from:
+No live exception. If veto active, stop the handicap analysis. Favorite -kills still must qualify independently.
 
-- kill/gold lead or parity;
-- objective parity;
-- a wider +kills cushion;
-- one or multiple return kills;
-- two-snapshot eligibility;
-- temporary role-gold improvement;
-- live odds movement;
-- short-term fight success;
-- generic resilience language;
-- prior v0.3.55 mechanism-proof override.
+## Triggering correction — NIP vs WBG G3
 
-Only a draft-input correction changing champion identity, role assignment, or the original functional DCR/FF classification can remove the hard veto.
+WBG:
+- Gnar
+- Lee Sin
+- Annie
+- Mel
+- Rell
 
-If hard veto ACTIVE, stop the +kills analysis and PASS/HOLD. Do not search for an exception. Favorite -kills still must qualify independently.
+NIP:
+- Tristana
+- Xin Zhao
+- Twisted Fate
+- Ashe
+- Seraphine
 
-## Recent correction history
+At 20:12:
+
+- NIP led 4-3 kills;
+- NIP +2.7k gold;
+- NIP led towers 2-1;
+- dragons 1-1;
+- WBG +8.5 kills @1.951.
+
+The v0.3.56 entry incorrectly called WBG's fallback STABLE because it had multiple engage/peel branches.
+
+Correct v0.3.57 classification:
+
+- WBG FRI meaningful;
+- WBG SRI insufficient;
+- critical fallback certification not all PASS;
+- False-Stable Guard ACTIVE;
+- DCR HIGH for handicap eligibility;
+- FF FRAGILE;
+- hard veto ACTIVE.
+
+Correct verdict at that entry: `PASS — WBG +8.5 kills @1.951 — 0u.`
+
+## Recent settled corrections
 
 ### KT.C vs NS.EA G1
 
-NS +8.5 @1.943 lost. v0.3.55 promoted DER/shared-failure/RIT enforcement after the model underweighted NS execution burden.
-
-### KT.C vs NS.EA G2
-
-Model correctly identified KT's easier draft and KT rolled the map. KT ML was 2.037 at post-draft odds, but current model did not allow a post-draft TAKE. A possible ML-only post-draft override remains **review-only and NOT active**.
+NS +8.5 @1.943 lost. Draft execution burden was underweighted.
 
 ### NIP vs WBG G1
 
-Draft:
+WBG +8.5 @1.961 lost. v0.3.56 introduced the HIGH-DCR + weak-FF hard veto.
 
-NIP:
-- Olaf
-- Qiyana
-- Ryze
-- Jhin
-- Nautilus
+### NIP vs WBG G2
 
-WBG:
-- Ambessa
-- Naafiri
-- Ahri
-- Xerath
-- Camille support
-
-TEAM anchor leaned NIP.
-
-Correct draft classification in hindsight / v0.3.56:
-
-- NIP: lower DER, LOW DCR, STABLE FF, repeatable forcing/continuation;
-- WBG: HIGH DER, HIGH DCR, FRAGILE/ABSENT FF, weak conventional frontline/peel, incompatible dive/poke spacing, clustered-death exposure.
-
-Shadow position:
-
-`LPL-2026-08-13-NIP-WBG-G1-P01`
-
-- WBG +8.5 kills @1.961
-- shadow 0.25u
-- actual 0u
-- entry 15:05
-- entry kills: WBG led 5-3
-- entry dragons: 1-1
-- entry towers: 0-0
-- final kill score supplied by user: NIP 22-10 WBG
-- result: **LOSS -0.25u**
-
-Correct v0.3.56 verdict at entry would have been:
-
-**PASS — WBG +8.5 kills @1.961 — 0u.**
-
-The error was allowing short-term return-kill evidence to override a fundamentally HIGH-collapse-risk underdog draft.
+Over 33:00 @1.857 lost when WBG won 16-6 at 30:46. Settled shadow validation became 6-8, -0.64850u.
 
 ## Immediate next action
 
-Prepare **NIP vs WBG Game 2** with fresh-map state reset.
+Continue the current live map only from fresh synchronized evidence. The open WBG +8.5 position remains recorded and awaits settlement, but its thesis is invalidated under v0.3.57.
 
-Carry forward TEAM/current-series execution evidence, but reset map-state evidence.
-
-Draft must be assessed before live price temptation using:
-
-1. TEAM + MKT anchor;
-2. full Draft Function Matrix;
-3. DER;
-4. DCR;
-5. FF;
-6. independent forcing / shared-failure clusters;
-7. objective-fight execution;
-8. carry protection / protected DPS;
-9. collapse-tail geometry;
-10. market-specific gates.
-
-For any underdog +kills candidate, check HARD DRAFT-COLLAPSE VETO first. If ACTIVE, there is **no exception** for the rest of the map.
+For every new underdog +kills candidate, run the mandatory v0.3.57 certification **before** RIT or signed-margin pricing. No false-STABLE shortcut is allowed.
