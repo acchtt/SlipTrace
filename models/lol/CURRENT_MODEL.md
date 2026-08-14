@@ -2,13 +2,15 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.58**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
-- Prior deltas: v0.3.57 through v0.3.26 under `models/lol/rules/`
-- **Active audit governance:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
-- Prior freeze procedure: `models/lol/procedures/LOL_SHADOW_AUDIT_FREEZE_2026-08-13.md`
+- Active model: **LoL v0.3.59**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.59.md`
+- Prior deltas: v0.3.58 through v0.3.26 under `models/lol/rules/`
+- **Active audit governance:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
+- Prior audit governance: `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
 - Mandatory fallback certification: `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
+- Latest Duration recurrence review: `models/lol/reviews/DURATION_0_0_TOWER_RECURRENCE_REVIEW_2026-08-15.md`
+- Prior Duration rebuild review: `models/lol/reviews/DURATION_MARKET_REBUILD_REVIEW_2026-08-09.md`
 - Latest favorite-handicap review: `models/lol/reviews/T1_DK_G1_FAVORITE_HANDICAP_FORCED_FIGHT_DENSITY_REVIEW_2026-08-14.md`
 - Latest fallback-floor review: `models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`
 - Prior draft collapse-risk review: `models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
@@ -21,17 +23,16 @@
 - Prior Total Kills / add-on correlation review: `models/lol/reviews/KC_FNC_GAME2_TOTAL_KILLS_CORRELATION_REVIEW_2026-08-10.md`
 - Prior handicap conversion review: `models/lol/reviews/G2_TH_KILL_HANDICAP_CONVERSION_REVIEW_2026-08-09.md`
 - Draft primacy review: `models/lol/reviews/JDG_WE_GAME2_DRAFT_PRIMACY_REVIEW_2026-08-09.md`
-- Duration review: `models/lol/reviews/DURATION_MARKET_REBUILD_REVIEW_2026-08-09.md`
 - Handicap directional review: `models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_REVIEW_2026-08-09.md`
-- Latest handoff: `models/lol/CURRENT_LIVE_HANDOFF_2026-08-14.md`
+- Latest handoff: `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Shared stake policy: `shared/STAKE_POLICY_V2.json`
 
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
-3. v0.3.58 through v0.3.26 rule deltas
+2. `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
+3. v0.3.59 through v0.3.26 rule deltas
 4. mandatory fallback-floor certification procedure
 5. mandatory live checklist
 6. latest reviews referenced above
@@ -41,9 +42,9 @@
 10. connected-stack procedure and addenda
 11. scoreboard protocol
 12. shared stake policy
-13. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-14.md` last
+13. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md` last
 
-Where conflicts exist, **v0.3.58 controls analytically and the active audit-continuation policy controls governance**.
+Where conflicts exist, **v0.3.59 controls analytically and the active audit-continuation policy controls governance**.
 
 ## Operating state
 
@@ -58,8 +59,10 @@ Where conflicts exist, **v0.3.58 controls analytically and the active audit-cont
 - Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**.
 - Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all active gates.
 - **Shadow TAKEs remain active and are auto-recorded after the user-facing verdict when visibly executable and qualified.**
-- v0.3.57 results remain the pre-revision audit sample. New selections are recorded under v0.3.58 as the post-revision sample.
-- The user explicitly authorized the v0.3.58 batch revision on 2026-08-14. **Do not create v0.3.59 or patch v0.3.58 from an individual next map** without further explicit authorization or a later batch-audit decision.
+- v0.3.57 results remain the pre-v0.3.58 audit sample.
+- v0.3.58 results remain the favorite-handicap-corrected / pre-v0.3.59 Duration sample.
+- New selections are recorded under v0.3.59 as the post-Duration-correction sample.
+- The user explicitly authorized the narrow v0.3.59 Duration revision on 2026-08-15. **Do not create v0.3.60 or patch v0.3.59 from an individual next map** without further explicit authorization or a later batch-audit decision.
 - Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
 
 ## Mandatory verdict format
@@ -71,6 +74,58 @@ First visible line on active maps:
 - `HOLD — [selection/market] @[odds] — 0u.`
 
 Logging/connectors occur after the live verdict and must not delay it.
+
+# v0.3.59 — Duration 0-0 Tower Neutralization / Latent Conversion Hazard
+
+## 1. Tower count is not stall evidence
+
+For Duration, `0-0 towers`, no first tower yet, low tower count and no inhibitor are **neutral state descriptors by default**.
+
+They cannot satisfy an Over stall requirement by themselves.
+
+Mandatory distinction:
+
+- `ABSENT CONVERSION` — no meaningful conversion opportunity occurred or no evidence one was denied. Neutral for Over.
+- `FAILED CONVERSION` — a real tempo/objective/push/fight opportunity existed and the defender demonstrably denied expected structure/base access. May support Over.
+
+Only FAILED CONVERSION can satisfy the structure-related stall component of a Duration Over.
+
+## 2. Latent Conversion Hazard (LCH)
+
+Before every Duration Over, classify `LCH = LOW / MEDIUM / HIGH` using:
+
+1. dragon count and Soul/Elder proximity;
+2. Baron/Herald timing;
+3. grubs/tower pressure where relevant;
+4. role-weighted economy / TEI;
+5. lane priority, wave state and siege access;
+6. first-contact/pick/engage reliability;
+7. defender fallback, waveclear, disengage and reset quality;
+8. side-lane pressure and simultaneous defensive assignments;
+9. shortest realistic next-fight -> first tower -> serial structures -> base route;
+10. whether one compulsory objective fight can remove multiple defensive layers.
+
+If LCH is HIGH, Duration Over is TAKE-ineligible unless a high-leverage conversion opportunity has already failed after LCH became high, two independent observed stall mechanisms still persist, and all retained survival-horizon/dead-zone gates pass after repricing.
+
+## 3. Pre-first-tower cascade check
+
+Before an Over, explicitly ask:
+
+**“What happens if the next compulsory fight is lost?”**
+
+Estimate the shortest realistic chain:
+
+`next forced fight/objective -> first tower -> vision depth -> second structure -> base access -> Nexus`
+
+If that branch fits materially inside the survival horizon, 0-0 towers provides no protection.
+
+Soul/Baron/objective schedules can compress clock rather than extend it.
+
+## 4. Under symmetry guard
+
+Do not turn HIGH LCH into an automatic Under bias. Under still requires the retained v0.3.45 observed acceleration, persistence and dead-zone gates.
+
+Reference review: `models/lol/reviews/DURATION_0_0_TOWER_RECURRENCE_REVIEW_2026-08-15.md`.
 
 # v0.3.58 — Favorite -kills Forced-Fight Density
 
@@ -114,11 +169,11 @@ Favorite -kills can qualify before Baron/inhibitor when:
 - NKB / RFI / KCV / Structure Substitution do not negate the cover branch;
 - exact executable odds are >=1.60.
 
-This is not an automatic TAKE. Do not infer HIGH FFD from 3–0 dragons, a large gold lead, TEAM edge, strong engage or imminent Baron by itself.
+This is not an automatic TAKE. Do not infer HIGH FFD from 3-0 dragons, a large gold lead, TEAM edge, strong engage or imminent Baron by itself.
 
 ## 4. T1 vs DK G1 reference correction
 
-At 20:27 T1 led 16–8 kills, approximately +5.4k gold, towers 3–1 and dragons 3–0. Baron and inhibitors were still 0–0. T1 -15.5 @1.617 required `RNE = +8` additional net kills.
+At 20:27 T1 led 16-8 kills, approximately +5.4k gold, towers 3-1 and dragons 3-0. Baron and inhibitors were still 0-0. T1 -15.5 @1.617 required `RNE = +8` additional net kills.
 
 The Soul + imminent Baron schedule, T1 access/continuation, large economy edge and limited DK ability to avoid future contests created HIGH FFD.
 
@@ -126,7 +181,7 @@ v0.3.58 reference verdict:
 
 **TAKE — T1 -15.5 kills @1.617 — shadow 0.25u; actual 0u.**
 
-Final was T1 30–11 DK. This is a diagnostic regrade only; no historical v0.3.57 P/L is altered.
+Final was T1 30-11 DK. This is a diagnostic regrade only; no historical v0.3.57 P/L is altered.
 
 Reference review: `models/lol/reviews/T1_DK_G1_FAVORITE_HANDICAP_FORCED_FIGHT_DENSITY_REVIEW_2026-08-14.md`.
 
@@ -152,17 +207,17 @@ For underdog +kills, after v0.3.57 certification, if:
 - DCR = HIGH;
 - FF = FRAGILE or ABSENT;
 - opponent has materially easier repeat forcing/continuation;
-- scheduled objective/base pressure can matter;
+- objective/base pressure can matter;
 
 then:
 
 **UNDERDOG +KILLS IS TAKE-INELIGIBLE FOR THE ENTIRE MAP. NO LIVE EXCEPTION.**
 
-Favorite -kills remains independent and now uses the v0.3.58 FFD/RNE correction where applicable.
+Favorite -kills remains independent and uses the v0.3.58 FFD/RNE correction where applicable.
 
 # Retained controls
 
-All non-conflicting v0.3.57 and earlier controls remain active, including:
+All non-conflicting v0.3.58 and earlier controls remain active, including:
 
 - DER and shared-failure clusters;
 - Draft Correction Trigger;
@@ -181,7 +236,7 @@ All non-conflicting v0.3.57 and earlier controls remain active, including:
 - position-blind reassessment;
 - stale-line gate;
 - same-game correlation decomposition;
-- Duration restrictions;
+- all v0.3.45 Duration live-only timing, two-snapshot persistence, observed stall/acceleration, dead-zone, probability-buffer and regime-change restrictions, now interpreted through v0.3.59;
 - no rescue/martingale/loss chasing.
 
 Blocking underdog +kills never creates an automatic reverse favorite -kills TAKE.
