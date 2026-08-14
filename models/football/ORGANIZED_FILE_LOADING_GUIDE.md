@@ -1,7 +1,7 @@
 # Football Organized Repository Loading Guide
 
 **Status:** Active immediately  
-**Effective:** 2026-08-06 11:58 UTC+7  
+**Effective:** 2026-08-14  
 **Repository:** `acchtt/SlipTrace`  
 **Canonical namespace:** `models/football/`
 
@@ -11,7 +11,7 @@ Always open:
 
 `models/football/CURRENT_MODEL.md`
 
-The pointer controls the active version and exact load order. Do not search the repository root for football-looking filenames and do not reconstruct the model from memory.
+The pointer controls the active version and exact load order. Do not reconstruct the model from memory or from stale root-level files.
 
 ## 2. Repository map
 
@@ -31,47 +31,33 @@ shared/
 ledger.json
 ```
 
-A football chat uses `models/football/`, the retained baseline in `models/LEGACY_MODEL_CHANGELOG.md`, explicitly required shared files, and `/ledger.json` when accounting is relevant. It must not load `models/lol/`.
+A football chat uses `models/football/`, the retained football baseline in `models/LEGACY_MODEL_CHANGELOG.md`, explicitly required shared files, and `/ledger.json` only when accounting is relevant. Never load `models/lol/` into football context.
 
 ## 3. Folder rules
 
 ### `models/football/rules/`
 
-Contains the complete retained amendment chain. For Football v0.2.34, load v0.2.5 through v0.2.34 in ascending order. Newer versions control where they conflict; earlier rules remain active where later files preserve them.
-
-Do not load only the highest-numbered file. The football model is cumulative.
+Contains the cumulative amendment chain. Load every active football rule from v0.2.5 through the version named by `CURRENT_MODEL.md`, in ascending order. Newer rules control where they conflict; earlier rules remain active where not superseded.
 
 ### `models/football/procedures/`
 
-Contains operational procedures. Load the main procedure and active addenda listed by `CURRENT_MODEL.md` before issuing a recommendation.
-
-### `models/football/context/`
-
-Contains current portable context or status files when present. Load only files identified by `CURRENT_MODEL.md` or an active rule.
+Contains operational procedures and validators. Load all procedure files named by `CURRENT_MODEL.md` before issuing a recommendation.
 
 ### `models/football/handoffs/`
 
-Load only the latest relevant active-match handoff. Do not merge stale handoffs. Explicit user corrections and newer synchronized evidence override a handoff.
+Load the active handoff named by `CURRENT_MODEL.md`. Older handoffs are historical context only and must not override the active handoff or newer rules.
 
 ### `models/football/reviews/`
 
-Reviews are audit and development evidence. They are not part of normal startup unless an active rule or the current task specifically requires one.
+Load active audit/benchmark reviews named by `CURRENT_MODEL.md`. They provide audit evidence and research protocol but do not outrank newer football rules.
 
 ### `models/LEGACY_MODEL_CHANGELOG.md`
 
-Retains the pre-v0.2.5 model baseline referenced by early football amendments. Load its football baseline before the versioned amendment chain. Its historical LoL material does not belong in football analysis.
-
-### `shared/`
-
-Contains cross-sport policies and ledger operating documentation. Load a shared file only when the pointer, an active rule, or the task requires it.
+Retains the pre-v0.2.5 football baseline. Load the football portion before the versioned amendment chain.
 
 ### `/ledger.json`
 
-This is the single authoritative betting record. Read it for official P/L, placement, settlement, bankroll, or portfolio exposure. Do not duplicate it and do not write to it without explicit approval.
-
-### Repository root
-
-The root is reserved for the SlipTrace application, deployment/configuration files, and `/ledger.json`. It is no longer a model-loading location.
+This is the single authoritative official betting record. Read it for official P/L, placement, settlement, bankroll, or exposure. Do not write to it without explicit approval.
 
 ## 4. Current exact sequence
 
@@ -81,19 +67,21 @@ The root is reserved for the SlipTrace application, deployment/configuration fil
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 5. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
 6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md`
-7. Continue sequentially through each version to `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.34.md`
-8. Latest relevant `models/football/handoffs/` file, when present
-9. `/ledger.json` only when accounting or exposure is relevant
+7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.44.md`
+8. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
+9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+10. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
+11. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-14.md`
+13. `/ledger.json` only when official accounting/exposure is relevant
 
 ## 5. Minimal loading by task
 
 - General football analysis: pointer, guide, baseline, procedures, complete active rule chain.
-- Live match: general set plus latest active handoff and current synchronized evidence.
-- Settlement or bankroll: relevant model set plus `/ledger.json`.
-- Historical review: active model plus only the specifically relevant review or historical evidence.
-- Reminder, automation or secondary-thread analysis: the same active football model and evidence gates as the main chat; no reduced recommendation standard is permitted.
-
-Do not load LoL files, application source, unrelated reviews, pending ledger payloads, or GitHub workflow files as model context.
+- Live match: general set plus validator, Airtable control, active reviews, active handoff, and current synchronized evidence.
+- Settlement/bankroll: relevant model set plus `/ledger.json`.
+- Historical review: active model plus specifically relevant historical evidence.
+- Secondary-thread/reminder-style analysis: same active football gates as the main workflow; no reduced standard.
 
 ## 6. Precedence
 
@@ -108,7 +96,7 @@ For official accounting, `/ledger.json` is authoritative unless the user supplie
 
 ## 7. Missing-file rule
 
-If a required canonical file is missing, do not substitute a deleted root path or an unrelated historical copy. Use:
+If a required canonical file is missing, do not substitute a stale copy. Use:
 
 `NO BET — MODEL CONTEXT INCOMPLETE`
 
@@ -126,6 +114,12 @@ After loading, return:
 - ledger loaded or `LEDGER NOT REQUIRED`
 - any missing canonical path
 
-## 9. Compact prompt
+## 9. Current operating emphasis
 
-> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained baseline, football procedures, and the complete v0.2.5–v0.2.34 rule chain in ascending order. Use only `models/football/`, required shared files, and `/ledger.json` when accounting is relevant. Apply the same model and recommendation gates in reminders, automations and secondary threads. Require persistent two-snapshot evidence before directional switches; do not treat invalidation of one side as confirmation of the opposite side. Verify competition format before motivation analysis, separate regulation-win, regulation-draw and shootout utility, and treat xG/xGOT as secondary diagnostics only. Do not load `models/lol/` or search the repository root for model files. Return `FOOTBALL FILES LOADED` before analysis.
+Football v0.2.44 retains the strict v0.2.43 style/post-goal layer and adds a timeliness rule: when a stable pre-goal state already clears the applicable gates, deliver the verdict immediately rather than waiting for the next goal or an unnecessary confirmation snapshot. Any material event before delivery invalidates the pending candidate and requires a fresh reset.
+
+Per user instruction, AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient.
+
+## 10. Compact startup prompt
+
+> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.44 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-14 handoff. Keep official betting paused and ledger writes on hold. Apply strict v0.2.43 style/post-goal resets and v0.2.44 verdict-first timeliness: do not delay a qualified stable pre-goal total merely for extra confirmation, but invalidate and reset immediately on any material event. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
