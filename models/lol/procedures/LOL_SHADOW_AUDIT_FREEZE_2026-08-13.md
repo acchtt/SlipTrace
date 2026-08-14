@@ -1,7 +1,8 @@
 # LoL Shadow Audit Freeze — 2026-08-13
 
-**Status:** ACTIVE operating policy
-**Model under test:** LoL v0.3.57
+**Status:** SUPERSEDED 2026-08-14  
+**Model under test:** LoL v0.3.57  
+**Successor:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
 
 ## Purpose
 
@@ -40,10 +41,14 @@ Collect an unbiased sample of the current model's actual selections without cont
    - The freeze remains active until the user explicitly ends it or explicitly authorizes a batch audit/model revision.
    - Any future revision must be based on the accumulated audit sample, not a single triggering map.
 
+## Supersession note
+
+On 2026-08-14 the user explicitly authorized a narrow batch revision after accumulated audit evidence. LoL v0.3.58 was promoted and the audit continued under `LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`. This file remains the historical governance record for the v0.3.57 audit segment.
+
 ## Live-output rule
 
 The first visible line on every active-map screenshot remains the verdict. Logging and review work happens after the verdict and must not delay it.
 
 ## Authority
 
-This policy changes operating governance only. It does **not** modify LoL v0.3.57's analytical rules. Where this policy conflicts with an impulse to patch the model after a result, **the freeze controls**.
+This policy changed operating governance only. It did **not** modify LoL v0.3.57's analytical rules during its active period.
