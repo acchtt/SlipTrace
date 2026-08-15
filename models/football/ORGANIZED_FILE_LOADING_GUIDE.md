@@ -1,7 +1,7 @@
 # Football Organized Repository Loading Guide
 
 **Status:** Active immediately  
-**Effective:** 2026-08-14  
+**Effective:** 2026-08-15  
 **Repository:** `acchtt/SlipTrace`  
 **Canonical namespace:** `models/football/`
 
@@ -49,7 +49,7 @@ Load the active handoff named by `CURRENT_MODEL.md`. Older handoffs are historic
 
 ### `models/football/reviews/`
 
-Load active audit/benchmark reviews named by `CURRENT_MODEL.md`. They provide audit evidence and research protocol but do not outrank newer football rules.
+Load active audit/benchmark reviews named by `CURRENT_MODEL.md`. They provide audit evidence and research protocol but do not outrank newer football rules. Process reviews may be referenced by the active handoff without becoming mandatory startup files unless `CURRENT_MODEL.md` explicitly adds them to the load order.
 
 ### `models/LEGACY_MODEL_CHANGELOG.md`
 
@@ -67,12 +67,12 @@ This is the single authoritative official betting record. Read it for official P
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 5. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
 6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md`
-7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.44.md`
+7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.45.md`
 8. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 10. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 11. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-14.md`
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-15.md`
 13. `/ledger.json` only when official accounting/exposure is relevant
 
 ## 5. Minimal loading by task
@@ -116,10 +116,16 @@ After loading, return:
 
 ## 9. Current operating emphasis
 
-Football v0.2.44 retains the strict v0.2.43 style/post-goal layer and adds a timeliness rule: when a stable pre-goal state already clears the applicable gates, deliver the verdict immediately rather than waiting for the next goal or an unnecessary confirmation snapshot. Any material event before delivery invalidates the pending candidate and requires a fresh reset.
+Football v0.2.45 retains the strict v0.2.43 style/post-goal layer and v0.2.44 timeliness rule, then adds a terminal-goal halftime bridge and leader-driven Over logic.
+
+When a stable pre-goal state already clears the applicable gates, deliver the verdict immediately rather than waiting for the next goal or an unnecessary confirmation snapshot.
+
+When a goal arrives too close to halftime for the normal post-goal persistence window to exist, do not manufacture an automatic HOLD. Perform the reset, carry forward strong pre-goal process only if v0.2.45's bridge gates pass, and test whether the leader can credibly supply the remaining goal budget itself. Trailer chase is a modifier unless the Over actually depends on trailer contribution.
+
+Any material event before delivery invalidates the pending candidate and requires a fresh reset. Material halftime tactical changes invalidate the terminal-goal bridge until the new regime is synchronized.
 
 Per user instruction, AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient.
 
 ## 10. Compact startup prompt
 
-> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.44 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-14 handoff. Keep official betting paused and ledger writes on hold. Apply strict v0.2.43 style/post-goal resets and v0.2.44 verdict-first timeliness: do not delay a qualified stable pre-goal total merely for extra confirmation, but invalidate and reset immediately on any material event. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
+> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.45 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-15 handoff. Keep official betting paused and ledger writes on hold. Apply strict v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, and v0.2.45 terminal-goal/leader-driven Over logic: do not delay a qualified stable total merely for extra confirmation; when a late first-half goal leaves no valid persistence window, use the halftime bridge only if its evidence gates pass and test whether the leader can fund the remaining goal budget without requiring trailer chase. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
