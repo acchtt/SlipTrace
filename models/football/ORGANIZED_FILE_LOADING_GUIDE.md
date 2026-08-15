@@ -67,7 +67,7 @@ This is the single authoritative official betting record. Read it for official P
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 5. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
 6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md`
-7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.45.md`
+7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.46.md`
 8. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 10. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
@@ -116,16 +116,18 @@ After loading, return:
 
 ## 9. Current operating emphasis
 
-Football v0.2.45 retains the strict v0.2.43 style/post-goal layer and v0.2.44 timeliness rule, then adds a terminal-goal halftime bridge and leader-driven Over logic.
+Football v0.2.46 retains the strict v0.2.43 style/post-goal layer, v0.2.44 verdict-first timeliness, and v0.2.45 terminal-goal/leader-driven fallback, then adds mandatory **pre-goal pressure-inflection detection**.
 
-When a stable pre-goal state already clears the applicable gates, deliver the verdict immediately rather than waiting for the next goal or an unnecessary confirmation snapshot.
+From roughly 35' to halftime, every material live checkpoint must compare the recent interval with the prior synchronized state. When one team's forward threat accelerates through independent direct-threat and structural/territorial channels, immediately rescan the protected totals board.
 
-When a goal arrives too close to halftime for the normal post-goal persistence window to exist, do not manufacture an automatic HOLD. Perform the reset, carry forward strong pre-goal process only if v0.2.45's bridge gates pass, and test whether the leader can credibly supply the remaining goal budget itself. Trailer chase is a modifier unless the Over actually depends on trailer contribution.
+At a tied score, do not wait for a future trailing-team chase condition. A one-team surge may support an `ATTACKER-DRIVEN PRE-GOAL OVER` when the attacking team can plausibly fund the remaining goal budget itself and all market/validator gates clear.
 
-Any material event before delivery invalidates the pending candidate and requires a fresh reset. Material halftime tactical changes invalidate the terminal-goal bridge until the new regime is synchronized.
+If a stable pre-goal state already qualifies, deliver immediately under v0.2.44. If the goal arrives first, invalidate the old state as `STATE-CHANGE RACE — NOT COUNTED`, reset, and only then apply v0.2.45 if a terminal-goal halftime bridge is relevant.
+
+Any material event before delivery invalidates the pending candidate and requires a fresh reset.
 
 Per user instruction, AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient.
 
 ## 10. Compact startup prompt
 
-> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.45 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-15 handoff. Keep official betting paused and ledger writes on hold. Apply strict v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, and v0.2.45 terminal-goal/leader-driven Over logic: do not delay a qualified stable total merely for extra confirmation; when a late first-half goal leaves no valid persistence window, use the halftime bridge only if its evidence gates pass and test whether the leader can fund the remaining goal budget without requiring trailer chase. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
+> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.46 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-15 handoff. Keep official betting paused and ledger writes on hold. Apply v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, v0.2.45 terminal-goal/leader-driven fallback, and v0.2.46 pre-goal pressure-inflection logic: from about 35' onward compare interval deltas, detect attacking acceleration before the scoreboard confirms it, scan protected totals immediately, and do not wait for a future trailer chase when one team can plausibly fund the goal budget itself. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
