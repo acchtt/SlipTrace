@@ -6,6 +6,7 @@
 - Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.59.md`
 - Prior deltas: v0.3.58 through v0.3.26 under `models/lol/rules/`
 - **Active audit governance:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
+- **Mandatory live execution calibration:** `models/lol/procedures/LOL_LIVE_EXECUTION_CALIBRATION_2026-08-15.md`
 - Prior audit governance: `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
 - Mandatory fallback certification: `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
@@ -32,19 +33,20 @@
 
 1. `models/lol/CURRENT_MODEL.md`
 2. `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
-3. v0.3.59 through v0.3.26 rule deltas
-4. mandatory fallback-floor certification procedure
-5. mandatory live checklist
-6. latest reviews referenced above
-7. item-verification suspension
-8. v0.3.25 consolidated rules / probation / calibration handbook
-9. live fast path and main betting procedure
-10. connected-stack procedure and addenda
-11. scoreboard protocol
-12. shared stake policy
-13. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md` last
+3. `models/lol/procedures/LOL_LIVE_EXECUTION_CALIBRATION_2026-08-15.md`
+4. v0.3.59 through v0.3.26 rule deltas
+5. mandatory fallback-floor certification procedure
+6. mandatory live checklist
+7. latest reviews referenced above
+8. item-verification suspension
+9. v0.3.25 consolidated rules / probation / calibration handbook
+10. live fast path and main betting procedure
+11. connected-stack procedure and addenda
+12. scoreboard protocol
+13. shared stake policy
+14. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md` last
 
-Where conflicts exist, **v0.3.59 controls analytically and the active audit-continuation policy controls governance**.
+Where conflicts exist, **v0.3.59 controls analytically, the active audit-continuation policy controls governance, and the live execution calibration controls TAKE/PASS/HOLD posture without changing analytical gates or thresholds**.
 
 ## Operating state
 
@@ -59,6 +61,8 @@ Where conflicts exist, **v0.3.59 controls analytically and the active audit-cont
 - Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**.
 - Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all active gates.
 - **Shadow TAKEs remain active and are auto-recorded after the user-facing verdict when visibly executable and qualified.**
+- **No unwritten extra safety margin:** when every written market gate, veto check and pricing requirement passes, execute TAKE rather than waiting for discretionary extra confirmation.
+- HOLD/PASS after eligibility should identify a specific active gate, veto, pricing failure, stale line, or correlation reason—not generic discomfort or a desire for “one more” snapshot/objective.
 - v0.3.57 results remain the pre-v0.3.58 audit sample.
 - v0.3.58 results remain the favorite-handicap-corrected / pre-v0.3.59 Duration sample.
 - New selections are recorded under v0.3.59 as the post-Duration-correction sample.
