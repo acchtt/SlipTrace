@@ -23,8 +23,9 @@ The Eredivisie model is a fork, not a live child of the general football model. 
 3. `models/eredivisie/rules/MODEL_RULES_EREDIVISIE_V0.1.md`
 4. `models/eredivisie/procedures/EREDIVISIE_PRE_VERDICT_VALIDATOR.md`
 5. `models/eredivisie/calibration/EREDIVISIE_50_MATCH_PROTOCOL.md`
-6. `models/eredivisie/airtable/EREDIVISIE_DECISION_STATE_AIRTABLE.md`
-7. `models/eredivisie/PROJECT_BOOTSTRAP.md` when starting or transferring a chat/project.
+6. `models/eredivisie/calibration/EREDIVISIE_LEAGUE_SIGNATURES.md`
+7. `models/eredivisie/airtable/EREDIVISIE_DECISION_STATE_AIRTABLE.md`
+8. `models/eredivisie/PROJECT_BOOTSTRAP.md` when starting or transferring a chat/project.
 
 Local Eredivisie rules override inherited parent rules only where they explicitly conflict. Otherwise the frozen parent methodology remains in force.
 
@@ -83,6 +84,15 @@ Those may be reviewed as historical lessons, but they are not Eredivisie calibra
 Calibration universe: Dutch Eredivisie only.
 
 Do not mix KNVB Cup, UEFA competitions, friendlies, Eerste Divisie, reserve/youth football or internationals into Eredivisie league priors. Such matches may inform lineup/tactical context when relevant, but must remain separately labeled and excluded from league calibration aggregates.
+
+## League-signature discipline
+
+`models/eredivisie/calibration/EREDIVISIE_LEAGUE_SIGNATURES.md` is the canonical register for observed Eredivisie-specific patterns during calibration.
+
+- Signatures are evidence labels, not automatically stable priors or structural rules.
+- Keep descriptive league-result evidence separate from the completed assessed-match denominator.
+- Promote a signature only with repeated evidence and checkpoint review.
+- When used in an assessment, state whether the signature is contextual/supporting or established enough to count as a primary channel.
 
 ## Development policy
 
