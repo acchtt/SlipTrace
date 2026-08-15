@@ -1,10 +1,10 @@
 # Football Cross-Chat Handoff — 2026-08-15
 
 **Status:** Active cross-chat handoff  
-**Active model:** Football v0.2.45 — AUDIT MODE  
+**Active model:** Football v0.2.46 — AUDIT MODE  
 **Canonical namespace:** `models/football/`
 
-This handoff supersedes `CHAT_TRANSFER_HANDOFF_2026-08-14.md` for normal startup. Older handoffs remain historical context only and must not override v0.2.45.
+This handoff supersedes `CHAT_TRANSFER_HANDOFF_2026-08-14.md` for normal startup. Older handoffs remain historical context only and must not override v0.2.46.
 
 ## Startup state
 
@@ -18,75 +18,73 @@ This handoff supersedes `CHAT_TRANSFER_HANDOFF_2026-08-14.md` for normal startup
 - xG/xGOT remain secondary only and may be discarded if provider quality is unreliable.
 - Exact score/minute/line/odds/settlement synchronization remains mandatory.
 
-## v0.2.45 terminal-goal / leader-driven Over correction
+## v0.2.46 correction — pre-goal pressure inflection
 
-A late first-half goal must not create an impossible confirmation requirement.
+The Willem II vs NEC lesson is now correctly anchored **before halftime**, not primarily at halftime.
 
-When a goal occurs so near halftime that the normal v0.2.43 two-observation post-goal persistence window cannot honestly be completed, label:
+The user clarified that around 42' at 0-0, NEC had already increased pressure. The live board around that state showed approximately Over 1.75 @ 1.84. No prospective shadow verdict was issued.
 
-`POST-GOAL OBSERVATION WINDOW UNAVAILABLE — HALFTIME BRIDGE`
+Primary classification:
 
-The goal still triggers a full reset, but strong pre-goal process may carry into the halftime total assessment when the v0.2.45 bridge gates pass.
+`LATE — PRE-GOAL PRESSURE INFLECTION NOT CONVERTED TO DECISION`
 
-For a terminal-goal halftime assessment, report:
+From approximately 35' to halftime, every material checkpoint must compare the recent 5-10 minute interval with the prior synchronized state and classify:
 
-- `Prematch style expectation:`
-- `Pre-goal process:`
-- `Terminal-goal bridge:` PASS / FAIL / N/A
-- `Leader continuation route:` STRONG / MODERATE / WEAK
-- `Trailer role:` ESSENTIAL / HELPFUL / OPTIONAL
-- `Remaining-goal budget:` exact settlement requirement
-- `Halftime tactical-change risk:` LOW / MODERATE / HIGH / UNRESOLVED
-- `Market implication:`
+- `PRESSURE INFLECTION: YES`
+- `PRESSURE INFLECTION: POSSIBLE / UNRESOLVED`
+- `PRESSURE INFLECTION: NO`
 
-### Leader-driven Over principle
+A valid inflection normally needs at least two independent primary changes, including one direct-threat channel and one structural/territorial channel. xG/xGOT remain secondary.
 
-A live Over does not automatically require both teams to have strong scoring routes.
+At 0-0 or another tied score, do not wait for a future trailing-team chase condition. A one-team surge may support an:
 
-If the leader has a credible route to producing the remaining goal budget itself, the trailer's chase is a modifier rather than a universal gate.
+`ATTACKER-DRIVEN PRE-GOAL OVER`
 
-For a leader-driven Over with a weak trailer route, require at least three independent primary continuation channels, including a direct chance/box-production channel and a separate structural/territorial channel. The goal itself cannot be counted as one of the channels. xG/xGOT remain secondary only.
+when the attacking team can plausibly fund the protected remaining-goal budget itself.
 
-The key question is:
+Opponent contribution must be classified as `ESSENTIAL / HELPFUL / OPTIONAL`.
 
-`Can the leader plausibly fund the remaining goal budget by itself?`
+When the pre-goal gates are complete, v0.2.44 verdict-first timing applies immediately. Do not wait for the first goal, halftime, or another snapshot solely for reassurance.
 
-Do not automatically replace it with:
+If the goal arrives before delivery:
 
-`Has the trailer already proved a chase?`
+`STATE-CHANGE RACE — NOT COUNTED`
 
-### Halftime fast-path
+then reset and reprice.
 
-If the terminal-goal bridge passes, the halftime market is synchronized, adjacent totals are compared, and no material halftime tactical change invalidates the carried process, v0.2.44 verdict-first timing applies immediately. Do not automatically wait 5-10 second-half minutes for reassurance.
+## v0.2.45 remains as post-goal fallback
 
-The opening second-half interval becomes an invalidation/repricing check, not a mandatory confirmation tax.
+The terminal-goal halftime bridge remains active, but it is now explicitly secondary.
 
-## Willem II vs NEC process lesson
+If a goal occurs so near halftime that the normal v0.2.43 post-goal persistence window cannot honestly exist, perform the full reset and use v0.2.45 only as the post-goal fallback.
 
-At halftime NEC led 0-1 after scoring at 45+2. The detailed live screenshots showed a materially stronger NEC first-half attacking process, including multiple shots on target, two big chances, heavy box occupation and territorial control. The halftime board offered approximately Over 2.5 @ 1.73.
+Strong pre-goal process may carry through the bridge when its evidence gates pass. A leader-driven Over may still qualify without requiring the trailer to provide the remaining goals.
 
-The model remained too dependent on proving Willem II's chase and did not issue a prospective shadow Over. NEC later extended the score and the user reported 0-4.
+The operational priority is:
 
-This is classified as:
+1. detect and act on the pre-goal acceleration first;
+2. if a terminal goal beats delivery, invalidate the old state;
+3. then use the v0.2.45 halftime bridge only on the new state.
 
-- `EXCESSIVE POST-GOAL CONFIRMATION / TRAILER-CHASE DEPENDENCY`;
-- `FAILURE TO RECOGNIZE LEADER-DRIVEN REMAINING-GOAL SUFFICIENCY`.
+## Required late-half fields
 
-The later score is a process diagnostic only. The missed halftime Over is **not** a shadow win and must not be added to shadow P/L.
+For serious assessments from 35' to halftime, report:
 
-Canonical review:
+- `Recent interval:`
+- `Pressure inflection:` YES / POSSIBLE / NO
+- `Primary acceleration channels:`
+- `Attacker-driven goal route:` STRONG / MODERATE / WEAK / N/A
+- `Opponent contribution:` ESSENTIAL / HELPFUL / OPTIONAL
+- `Best protected total:` exact line and odds if available
+- `Timing status:` ON TIME / VALID HOLD / LATE / STATE-CHANGE RACE
 
-`models/football/reviews/FOOTBALL_PROCESS_REVIEW_WILLEM_NEC_2026-08-15.md`
+If `PRESSURE INFLECTION: YES` and all candidate gates clear, state the verdict before extended explanation.
 
 ## v0.2.44 timeliness layer remains active
 
-When a stable pre-goal state already clears all applicable gates, output the verdict immediately rather than waiting for an unnecessary extra snapshot or the next goal.
+When any stable pre-goal state already clears all applicable gates, output the verdict immediately rather than waiting for an unnecessary extra snapshot or the next goal.
 
-If a goal, red card, awarded penalty, material VAR event, major injury, or tactical substitution cluster occurs before delivery, invalidate the pending candidate as:
-
-`NOT COUNTED — STATE CHANGED BEFORE DELIVERY`
-
-Then reset and reprice from zero.
+If a goal, red card, awarded penalty, material VAR event, major injury, or tactical substitution cluster occurs before delivery, invalidate the pending candidate and reprice from zero.
 
 Track timing as:
 
@@ -99,13 +97,13 @@ Track timing as:
 
 Before the first serious prematch/live recommendation, profile both teams' base style, expected matchup style, attacking routes, defensive block, transitions, chance-generation signature, lead behaviour, trailing behaviour, and confidence caveat.
 
-After every goal, perform the strict style reset. v0.2.45 provides a bridge only when the post-goal observation window genuinely does not exist before halftime; it does not erase the reset.
+After every goal, perform the strict style reset. v0.2.46 changes how quickly a **pre-goal** pressure acceleration is recognized; it does not erase post-goal discipline.
 
 ## Arm A / Arm B
 
 ### Arm A — current audit model
 
-Apply Football v0.2.45 with the full validator, style layer, v0.2.44 timing layer, v0.2.45 terminal-goal bridge, market-family scan, directional quarantine and best-expression comparison.
+Apply Football v0.2.46 with the full validator, style layer, v0.2.44 timing, v0.2.45 post-goal fallback, v0.2.46 pressure-inflection logic, market-family scan, directional quarantine and best-expression comparison.
 
 Allowed outputs:
 
@@ -113,16 +111,26 @@ Allowed outputs:
 - `NO BET`
 - `NO BET — HOLD`
 
-### Arm B — early-totals benchmark
+### Arm B — early totals benchmark
 
-Continue the v0.2.6-v0.2.9 totals philosophy with current synchronization, provider-quality, settlement, v0.2.43 style, v0.2.44 timeliness and v0.2.45 terminal-goal/leader-driven controls.
+Continue the v0.2.6-v0.2.9 totals philosophy with current synchronization, provider-quality, settlement, v0.2.43 style, v0.2.44 timeliness, v0.2.45 terminal-goal fallback and v0.2.46 pre-goal acceleration controls.
 
 Allowed outputs:
 
 - `BENCHMARK SHADOW — DO NOT PLACE`
 - `BENCHMARK NO BET`
 
-Arm B may decide at halftime without a second-half confirmation snapshot when the terminal-goal bridge, exact-line, primary-channel, adjacent-line, adverse-branch and NO-BET-comparator gates pass.
+Arm B must explicitly test a protected live Over when a late-half pre-goal pressure inflection is detected. Do not wait for the first goal if the exact-line, independent-primary-channel, adjacent-line, adverse-branch and NO-BET gates already pass.
+
+## Willem II vs NEC corrected lesson
+
+The around-42' 0-0 state is the key process lesson. NEC's pressure was already rising before the 45+2 goal. The model should have immediately rescanned the protected totals board instead of waiting for a goal to create a Willem chase narrative.
+
+The later 0-4 score is diagnostic only. The missed around-42' state and missed halftime state are **not** shadow wins and add no P/L.
+
+Canonical review:
+
+`models/football/reviews/FOOTBALL_PROCESS_REVIEW_WILLEM_NEC_2026-08-15.md`
 
 ## Competition/provider exclusion
 
