@@ -4,6 +4,9 @@
 **Model under test:** LoL v0.3.59  
 **Supersedes for active governance:** `LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
 
+Active execution addendum:
+`models/lol/procedures/LOL_MULTI_TAKE_NO_DUPLICATE_POLICY_2026-08-15.md`
+
 ## Revision boundary
 
 The user explicitly authorized a narrow model update on 2026-08-15 after a recurring Duration audit showed that 0-0 tower states were still being treated as positive Over/stall evidence despite the earlier v0.3.45 rebuild warning.
@@ -51,6 +54,15 @@ This authorization does **not** reopen unrestricted map-by-map patching.
    - Favorite -kills still uses v0.3.58 FFD/RNE.
    - v0.3.59 changes Duration interpretation only.
    - HIGH LCH does not automatically create an Under TAKE.
+
+6. **Multiple same-map TAKEs are enabled; duplicates are forbidden.**
+   - More than one distinct qualified position may be taken in the same match/map.
+   - Every additional TAKE must independently pass all applicable gates; a prior TAKE never lowers the threshold.
+   - Do not re-enter the same map + market family + exact selection/line, even at different odds.
+   - A materially different line is a distinct proposition and may qualify separately.
+   - Correlation handling remains mandatory and correlated positions remain one calibration evidence cluster.
+   - Before logging a TAKE, check the map's position ledger for an identical existing position.
+   - Full rule: `models/lol/procedures/LOL_MULTI_TAKE_NO_DUPLICATE_POLICY_2026-08-15.md`.
 
 ## Live-output rule
 
