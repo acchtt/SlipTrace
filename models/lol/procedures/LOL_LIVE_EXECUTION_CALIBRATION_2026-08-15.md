@@ -140,6 +140,12 @@ When loading the project in a new chat, preserve the same decision posture as th
 
 A new chat must not default toward HOLD/PASS simply because compressed context emphasizes safeguards.
 
+## Mandatory compact-output companion rule
+
+`models/lol/procedures/LOL_COMPACT_OUTPUT_FULL_ANALYSIS_RULE_2026-08-15.md` is a **mandatory companion to this procedure and must be loaded and applied whenever this file is loaded, including in a new chat**.
+
+The controlling principle is: **brief visible output never permits brief or partial analysis**. The full applicable model/rules/procedure stack must be completed before every verdict. Response-length preferences affect wording only, never the number of gates checked.
+
 ## Live output
 
 The existing verdict-first requirement remains unchanged. First visible line must be TAKE / PASS / HOLD before any connector or logging work.
