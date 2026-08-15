@@ -2,7 +2,7 @@
 
 **Canonical namespace:** `models/football/`
 
-- Active model: **Football v0.2.45 — AUDIT MODE**
+- Active model: **Football v0.2.46 — AUDIT MODE**
 - Organized loading guide: `models/football/ORGANIZED_FILE_LOADING_GUIDE.md`
 - Main procedure: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 - Procedure addendum: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
@@ -18,13 +18,13 @@
 
 ## Required load order
 
-Load the following in this order, applying the newest active football rule over older conflicts:
+Load in this order, applying the newest active football rule over older conflicts:
 
 1. `models/football/ORGANIZED_FILE_LOADING_GUIDE.md`
-2. `models/LEGACY_MODEL_CHANGELOG.md` for the retained pre-v0.2.5 football baseline
+2. `models/LEGACY_MODEL_CHANGELOG.md` — retained pre-v0.2.5 football baseline
 3. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
-5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.45.md`, ascending
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.46.md`, ascending
 6. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
@@ -32,29 +32,30 @@ Load the following in this order, applying the newest active football rule over 
 10. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-15.md`
 11. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
 
-Older handoffs, including `CHAT_TRANSFER_HANDOFF_2026-08-14.md` and `CHAT_TRANSFER_HANDOFF_2026-08-12.md`, are historical context only and must not override v0.2.45 or the 2026-08-15 handoff.
+Older handoffs are historical context only and must not override v0.2.46 or the active 2026-08-15 handoff.
 
 ## Audit-mode operating values
 
 - 1u = 1,000,000 VND.
 - Minimum odds reference = 1.70.
 - Official football betting is **PAUSED**.
-- Execution mode is **SHADOW CALIBRATION ONLY** until the audit exit criteria are met and the user explicitly approves resumption.
+- Execution mode is **SHADOW CALIBRATION ONLY** until audit exit criteria are met and the user explicitly approves resumption.
 - Ledger writes remain **ON HOLD** until explicitly approved.
+- Normal current audit small-test convention = 0.125u when a simulated shadow stake is needed and no newer rule supersedes it.
 - Directional AH/DNB/ML selections remain quarantined from official promotion.
-- Totals are not automatically approved; they remain subject to synchronization, settlement, provider-quality, style, benchmark and active timing/bridge gates.
-- xG/xGOT are secondary only and may be discarded when the provider feed is unreliable.
+- Totals are not automatically approved; they remain subject to synchronization, settlement, provider-quality, style, benchmark, timing, pressure-inflection and post-goal gates.
+- xG/xGOT are secondary only and may be discarded when provider quality is unreliable.
 - Every material checkpoint must scan the major market families and preserve exact score/minute/line/odds synchronization.
 
-## Mandatory style layer — v0.2.43 retained
+## v0.2.43 style layer — retained
 
-Before every serious preview, and before the first live recommendation in a match, both teams require an evidence-based style profile covering base build-up/tempo, attacking routes, defensive block, transitions, chance-generation signature, lead behaviour, trailing behaviour, expected matchup adaptation, and confidence/sample caveat.
+Before every serious preview and before the first live recommendation in a match, both teams require an evidence-based style profile covering base build-up/tempo, attacking routes, defensive block, transitions, chance-generation signature, lead behaviour, trailing behaviour, expected matchup adaptation, and confidence/sample caveat.
 
 Always distinguish `Base style` from `Expected matchup style`.
 
-If the style profile is materially incomplete, use `STYLE PROFILE INCOMPLETE` and cap the prematch verdict at `NO BET — HOLD`.
+If style is materially incomplete, use `STYLE PROFILE INCOMPLETE` and cap the prematch verdict at `NO BET — HOLD`.
 
-After every goal, perform the full v0.2.43 tactical/state reset. Before a new post-goal candidate, report:
+After every goal, perform the full tactical/state reset and report:
 
 - `Prematch style expectation:`
 - `Leader post-goal behaviour:`
@@ -63,27 +64,33 @@ After every goal, perform the full v0.2.43 tactical/state reset. Before a new po
 - `Post-goal persistence:`
 - `Market implication:`
 
-Normally require two comparable post-goal observations, or one observation plus strong event-level evidence over a meaningful interval, except where the v0.2.45 terminal-goal bridge explicitly applies because the observation window does not exist before halftime.
+Normally require two comparable post-goal observations, or one observation plus strong event-level evidence over a meaningful interval, except where v0.2.45's terminal-goal bridge explicitly applies because the observation window genuinely does not exist.
 
-## Timeliness layer — v0.2.44 retained
+## v0.2.44 timeliness layer — retained
 
 If a synchronized **pre-goal** state is stable and all applicable candidate gates are complete, deliver the verdict immediately. Do not wait for a goal or an extra snapshot solely for reassurance.
 
-The v0.2.43 post-goal persistence requirement applies after a goal or material reset; it must not be misapplied to delay a qualified pre-goal total.
+Required delivery order:
 
-Once gates resolve, use verdict-first delivery: synchronized state -> verdict -> line/odds -> compact reasoning/invalidation.
+1. synchronized score/minute;
+2. verdict;
+3. line/odds;
+4. compact reasoning and invalidation.
 
 If a goal, red card, awarded penalty, material VAR event, major injury, or tactical substitution cluster occurs before delivery, invalidate the pending candidate as:
 
 `NOT COUNTED — STATE CHANGED BEFORE DELIVERY`
 
-Then reset and reprice. Never backfill the old market after the outcome.
+Then reset and reprice.
 
-Track live timing as `ON TIME`, `VALID HOLD`, `LATE`, or `STATE-CHANGE RACE — NOT COUNTED`.
+Timing classifications:
 
-## Terminal-goal / leader-driven Over layer — v0.2.45
+- `ON TIME — DELIVERED IN STATE`
+- `VALID HOLD — GATE INCOMPLETE`
+- `LATE — GATES WERE COMPLETE BUT VERDICT DELAYED`
+- `STATE-CHANGE RACE — NOT COUNTED`
 
-v0.2.45 is STRICT and prospective.
+## v0.2.45 terminal-goal / leader-driven Over layer — retained as fallback
 
 When a goal arrives so close to halftime that the normal post-goal persistence window cannot honestly be completed, label:
 
@@ -91,43 +98,99 @@ When a goal arrives so close to halftime that the normal post-goal persistence w
 
 The goal still triggers the full reset, but high-quality pre-goal process may carry into the halftime total assessment when the bridge gates pass.
 
-A terminal-goal bridge requires sustained pre-goal superiority by the scoring team, at least three independent primary forward channels, at least one direct chance/box-production channel, a separate structural/territorial channel, no unresolved material-event regime break, and a synchronized halftime line/price with adjacent-line comparison. The goal itself cannot count as one of the evidence channels. xG/xGOT remain secondary only.
+A live Over does not universally require both teams to have strong scoring routes. If the leader can credibly supply the remaining goal budget itself, classify the candidate as `LEADER-DRIVEN OVER` and treat trailer chase as a modifier rather than an automatic veto.
 
-A live Over does **not** universally require both teams to have strong scoring routes. If the leader can credibly supply the remaining goal budget itself, classify the candidate as `LEADER-DRIVEN OVER` and treat the trailer's chase as a modifier rather than an automatic veto.
+v0.2.45 is now explicitly a **post-goal fallback**. It must not distract from identifying a valid pre-goal acceleration earlier.
 
-For every terminal-goal halftime assessment report:
+## v0.2.46 pre-goal pressure-inflection layer — ACTIVE EMPHASIS
 
-- `Terminal-goal bridge:` PASS / FAIL / N/A
-- `Leader continuation route:` STRONG / MODERATE / WEAK
-- `Trailer role:` ESSENTIAL / HELPFUL / OPTIONAL
-- `Remaining-goal budget:` exact settlement requirement
-- `Halftime tactical-change risk:` LOW / MODERATE / HIGH / UNRESOLVED
+The corrected Willem II vs NEC lesson is that the key missed window was around **42' at 0-0**, when NEC had already increased pressure, not primarily halftime after the 45+2 goal.
+
+From approximately 35:00 to halftime, every material checkpoint must compare the recent 5-10 minute interval with the prior synchronized state.
+
+Classify:
+
+- `PRESSURE INFLECTION: YES`
+- `PRESSURE INFLECTION: POSSIBLE / UNRESOLVED`
+- `PRESSURE INFLECTION: NO`
+
+A valid inflection normally needs at least two independent primary changes, including:
+
+- at least one direct-threat channel: new SOT, big chance, inside-box shot, repeated box entries/touches, dangerous set-piece sequence, or repeated transitions ending in final actions; and
+- at least one structural/territorial channel: sustained final-third occupation, repeated high recoveries, opponent pinned into clearances, recurring overloads, deteriorating defensive spacing, or possession becoming materially more advanced.
+
+A specific contemporaneous user live observation may support the structural channel when consistent with the synchronized feed, but cannot be the only channel.
+
+xG/xGOT remain secondary.
+
+### Attacker-driven pre-goal Over
+
+At 0-0 or another tied score, do not wait for a future `trailing-team chase` condition that does not yet exist.
+
+A one-team surge may support:
+
+`ATTACKER-DRIVEN PRE-GOAL OVER`
+
+when that team can plausibly fund the remaining goal budget itself.
+
+Classify opponent contribution:
+
+- `ESSENTIAL`
+- `HELPFUL`
+- `OPTIONAL`
+
+For low protected totals, opponent contribution may be `OPTIONAL` if the attacking team can plausibly produce the required goals itself.
+
+### Protected total comparison
+
+When one team is driving the Over, compare adjacent low totals explicitly, including the nearest eligible quarter/full lines such as Over 1.5, 1.75, 2.0 and 2.25.
+
+Prefer the settlement boundary that best preserves value if the attacking team produces only one or two further goals. Quarter-goal protection may be preferable to a larger price on a worse boundary.
+
+### No goal-confirmation tax
+
+If `PRESSURE INFLECTION: YES` and all validator/market/style gates are complete, deliver immediately under v0.2.44.
+
+Do not wait for:
+
+- the first goal;
+- halftime;
+- proof that the opponent will chase after conceding;
+- an extra snapshot used only for reassurance.
+
+If the goal arrives first, invalidate the old state as `STATE-CHANGE RACE — NOT COUNTED`, reset, and only then apply v0.2.45 if a terminal-goal bridge is relevant.
+
+### Required late-half fields
+
+For serious live assessments from 35' to halftime, include:
+
+- `Recent interval:`
+- `Pressure inflection:` YES / POSSIBLE / NO
+- `Primary acceleration channels:`
+- `Attacker-driven goal route:` STRONG / MODERATE / WEAK / N/A
+- `Opponent contribution:` ESSENTIAL / HELPFUL / OPTIONAL
+- `Best protected total:` exact line and odds if available
 - `Timing status:` ON TIME / VALID HOLD / LATE / STATE-CHANGE RACE
-
-If the bridge passes and no material halftime tactical change is unresolved, do not automatically wait 5-10 second-half minutes for confirmation. Apply v0.2.44 verdict-first timing at the synchronized halftime price; the opening second-half interval becomes an invalidation/repricing check rather than a confirmation tax.
-
-Canonical process example: Willem II vs NEC Nijmegen, 2026-08-15. NEC scored at 45+2 after already showing the stronger attacking process. The model over-weighted the need for Willem II chase and failed to recognize NEC's independent continuation route. The later 0-4 state is a process diagnostic only and is **not** a retrospective shadow win.
 
 ## Parallel benchmark mode
 
 Every suitable synchronized live checkpoint with an available totals board supports two shadow-only research outputs:
 
-- **Arm A — Current audit model:** Football v0.2.45 with all active validator, style, timing, terminal-goal bridge, market-scan, and audit controls. Directional markets remain quarantined.
-- **Arm B — Early totals benchmark:** the v0.2.6-v0.2.9 live-total philosophy reconstructed with current synchronization, provider-quality, v0.2.43 style, v0.2.44 timeliness and v0.2.45 leader-driven/terminal-goal controls.
+- **Arm A — Current audit model:** Football v0.2.46 with full validator, style, timing, v0.2.45 fallback, v0.2.46 pressure-inflection, market-scan and audit controls. Directional markets remain quarantined.
+- **Arm B — Early totals benchmark:** v0.2.6-v0.2.9 live-total philosophy reconstructed with current synchronization, provider-quality, v0.2.43 style, v0.2.44 timeliness, v0.2.45 terminal-goal fallback and v0.2.46 pre-goal acceleration logic.
 
-Arm B evaluates totals only. It may output `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET`.
+Arm B evaluates totals only and may output:
 
-For Arm B, prioritize exact score/minute, remaining-goal branches, adjacent totals, boundary protection, competition utility, reliable non-xG forward evidence, team-specific style, and NO BET discipline. Evaluate both Over and Under.
+- `BENCHMARK SHADOW — DO NOT PLACE`
+- `BENCHMARK NO BET`
 
-When a stable pre-goal state already passes the exact-line, two-primary-channel, adjacent-line, adverse-branch and NO-BET comparator gates, Arm B should decide immediately rather than waiting for the next goal.
-
-When a terminal first-half goal leaves no usable post-goal observation window, Arm B may decide at halftime from the v0.2.45 bridge without a second-half confirmation snapshot if all bridge and market gates pass.
+When a stable pre-goal state already passes exact-line, independent-primary-channel, adjacent-line, adverse-branch and NO-BET comparator gates, Arm B should decide immediately rather than waiting for the next goal.
 
 ## Competition/provider exclusion
 
 Per explicit user instruction, **AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient**. Do not use them for current shadow calibration unless the user explicitly reverses this exclusion and adequate synchronized live data is available.
 
-This is not a blanket exclusion of all AFC or Asian competitions; provider quality is assessed separately for other competitions.
+This is not a blanket exclusion of all AFC or Asian competitions.
 
 ## Audit trigger and exit criteria
 
@@ -142,7 +205,7 @@ Official football betting cannot resume until all existing audit exit criteria a
 - formal simplification review;
 - explicit user approval to restore official betting.
 
-The early-totals benchmark cannot shorten the audit. The v0.2.43 style layer also remains subject to its prospective review threshold.
+The early-totals benchmark cannot shorten the audit.
 
 ## Existing controls retained
 
@@ -156,15 +219,20 @@ The early-totals benchmark cannot shorten the audit. The v0.2.43 style layer als
 - Mandatory style/post-goal behaviour profiling under v0.2.43.
 - Timeliness/pre-goal decision completion under v0.2.44.
 - Terminal-goal bridge and leader-driven remaining-goal sufficiency under v0.2.45.
+- Pre-goal pressure-inflection and attacker-driven remaining-goal logic under v0.2.46.
 
 ## Response behavior during audit
 
-- Use `SHADOW LEAN — DO NOT PLACE` only when an Arm A candidate clears the validator and all active style/timing/bridge gates.
+- Use `SHADOW LEAN — DO NOT PLACE` only when an Arm A candidate clears the validator and all active style/timing/pressure/reset gates.
 - Otherwise use `NO BET` or `NO BET — HOLD` for Arm A.
 - Report Arm B separately as `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET` when synchronized totals information is sufficient.
 - Do not issue `OFFICIAL BET` while audit mode is active.
 - State the verdict before extended explanation once the gates are resolved.
 - A market that would have won is not a model win unless it was prospectively selected in the synchronized state.
+
+## Willem II vs NEC corrected audit note
+
+The process review now records the around-42' pre-goal state as the key missed window. The around-42' Over 1.75 price is a **missed synchronized decision state only**, not a retrospective shadow selection. The later 0-4 score adds no shadow P/L.
 
 ## Write boundary
 
