@@ -2,19 +2,49 @@
 
 ## Active model
 
-**LoL v0.3.58 — TEMPORARY USER-REQUESTED OVERRIDE**
+**LoL v0.3.58 — CANONICAL ACTIVE MODEL**
 
-User instruction: **"Temporarily pause latest version, use model v0.3.58".**
+User instruction: **"Discard newer versions, update this version accordingly".**
 
 GitHub is model/rules authority. Airtable is canonical map/position/roster ledger.
 
-Override authority:
-`models/lol/procedures/LOL_TEMPORARY_MODEL_OVERRIDE_V0.3.58_2026-08-16.md`
+Canonical reset authority:
+`models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
 
 Active analytical rules:
 `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 
-**v0.3.59 and v0.3.60 are paused for new analytical verdicts until explicit user restoration/change.** Historical positions, reviews and P/L remain preserved.
+**v0.3.59 and v0.3.60 are retired/discarded from the active analytical hierarchy. Do not load them for new verdicts.** Historical files, positions, reviews and P/L remain preserved for audit only.
+
+The prior temporary override file is superseded and historical only.
+
+## Canonical v0.3.58 Duration correction
+
+KRX vs BRO Game 2 exposed a Duration application error under the temporary v0.3.58 rollback.
+
+At 14:52:
+- BRO 1-0 KRX kills;
+- KRX approximately +860 gold;
+- KRX 1-0 towers;
+- KRX 1-0 dragons;
+- Baron 0-0;
+- Over 33 minutes @1.690 was TAKEN and later LOST.
+
+Review conclusion: **correct verdict was PASS.**
+
+Mandatory v0.3.58 amendment now active:
+
+- low kills are not positive Duration stall evidence by themselves;
+- 0-0 towers / low tower count are neutral descriptors by default;
+- classify structural evidence as `ABSENT CONVERSION` or `FAILED CONVERSION`;
+- only real failed conversion or equivalent observed repeated denial can support the structure portion of an Over thesis;
+- Structure Substitution is mandatory — objective/tower progress can compress clock while kills stay low;
+- Duration Over requires two independent positive clock-consuming mechanisms, with at least one grounded in observed failed conversion or equivalent repeated defense/reset/waveclear;
+- before every Over, test `next compulsory fight/objective -> serial structures -> base -> Nexus`;
+- if the thesis is mainly "little has happened so far," verdict is HOLD/PASS.
+
+Reference review:
+`models/lol/reviews/KRX_BRO_G2_DURATION_STRUCTURE_SUBSTITUTION_REVIEW_2026-08-16.md`
 
 ## Operational governance retained
 
@@ -30,19 +60,7 @@ Active analytical rules:
 - Position-blind reassessment mandatory.
 - Exact signed kill-margin arithmetic mandatory.
 - No rescue/martingale/loss chasing.
-- Draft-locked underdog +kills certification remains fail-closed because it enforces retained v0.3.57 logic.
-
-## Paused analytical additions
-
-Do not apply to new verdicts while override is active:
-
-- v0.3.59 formal 0-0 tower neutralization / ABSENT-vs-FAILED conversion / LCH framework;
-- v0.3.60 FRP;
-- v0.3.60 FCR;
-- v0.3.60 mandatory RL/SL/OSC/CFC gate;
-- v0.3.60 SMR.
-
-Use v0.3.58 plus non-conflicting earlier rules only.
+- Draft-locked underdog +kills certification remains fail-closed.
 
 ## v0.3.58 favorite -kills core
 
@@ -66,38 +84,39 @@ Draft-time chain must already be positively certified:
 
 Ordinary live evidence cannot upgrade an uncertified fallback.
 
-## Latest tracked series
+## Latest tracked map
 
-**LPL — JDG vs LGD, 2026-08-16**
+**LCK — KRX vs BRO Game 2, 2026-08-16**
 
-Game 1 draft:
-- JDG blue: Rumble / Jarvan IV / Syndra / Ezreal / Karma
-- LGD red: Ambessa / Skarner / Ryze / Lucian / Milio
+Draft:
+- KRX blue: K'Sante / Wukong / Viktor / Ezreal / Karma
+- BRO red: Jayce / Xin Zhao / Akali / Lucian / Milio
 
-Game 1 settled:
-- JDG won at 35:25
-- final kills 14-13 JDG
-- towers 9-2 JDG
-- barons 2-0 JDG
-- inhibitors 2-0 JDG
-- LGD ML @4.773 shadow 0.25u — LOSS -0.25u
-- later diagnostic review marked that TAKE as execution/application-invalid under existing controls; historical P/L remains unchanged.
+Draft lock:
+- KRX fallback positively certified.
+- BRO +kills fallback uncertified / TAKE-ineligible for the map.
 
-No position currently open. Prepare Game 2 under **v0.3.58 temporary override**.
+Duration position:
+- Over 33 minutes @1.690, shadow 0.25u — **LOSS -0.25u**.
+- Post-loss review marks the TAKE analytically invalid under the newly amended canonical v0.3.58 Duration interpretation.
+- No open position remains from this map.
 
 ## Model recording
 
-All new selections during this override must be recorded as:
-**LoL v0.3.58 (temporary override)**.
+All new selections must be recorded as:
+**LoL v0.3.58**
+
+Do not append `temporary override` to new positions.
 
 Do not relabel historical v0.3.59/v0.3.60 positions.
 
-## Authority order during override
+## Authority order
 
 1. `CURRENT_MODEL.md`
-2. temporary v0.3.58 override procedure
-3. v0.3.58 analytical rules and earlier non-conflicting deltas
-4. retained operational governance/procedures
-5. this handoff last
+2. `LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
+3. amended `MODEL_RULES_LOL_V0.3.58.md`
+4. retained v0.3.57 through v0.3.26 deltas
+5. retained operational governance/procedures
+6. this handoff last
 
-The override ends only on explicit user instruction to restore the latest model or choose another version.
+Do not auto-promote or restore a newer model without explicit user instruction.
