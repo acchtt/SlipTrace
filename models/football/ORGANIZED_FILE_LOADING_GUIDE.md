@@ -1,7 +1,7 @@
 # Football Organized Repository Loading Guide
 
 **Status:** Active immediately  
-**Effective:** 2026-08-15  
+**Effective:** 2026-08-16  
 **Repository:** `acchtt/SlipTrace`  
 **Canonical namespace:** `models/football/`
 
@@ -72,7 +72,7 @@ This is the single authoritative official betting record. Read it for official P
 9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 10. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 11. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-15.md`
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16.md`
 13. `/ledger.json` only when official accounting/exposure is relevant
 
 ## 5. Minimal loading by task
@@ -126,8 +126,10 @@ If a stable pre-goal state already qualifies, deliver immediately under v0.2.44.
 
 Any material event before delivery invalidates the pending candidate and requires a fresh reset.
 
+The active 2026-08-16 handoff additionally preserves the user's add-on shadow workflow and locks **Racing Santander vs Villarreal CF** as the immediate next target.
+
 Per user instruction, AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient.
 
 ## 10. Compact startup prompt
 
-> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.46 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-15 handoff. Keep official betting paused and ledger writes on hold. Apply v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, v0.2.45 terminal-goal/leader-driven fallback, and v0.2.46 pre-goal pressure-inflection logic: from about 35' onward compare interval deltas, detect attacking acceleration before the scoreboard confirms it, scan protected totals immediately, and do not wait for a future trailer chase when one team can plausibly fund the goal budget itself. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
+> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.46 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-16 handoff. Keep official betting paused and ledger writes on hold. Apply v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, v0.2.45 terminal-goal/leader-driven fallback, and v0.2.46 pre-goal pressure-inflection logic: from about 35' onward compare interval deltas, detect attacking acceleration before the scoreboard confirms it, scan protected totals immediately, and do not wait for a future trailer chase when one team can plausibly fund the goal budget itself. Preserve the user-enabled independent add-on workflow. Treat Racing Santander vs Villarreal CF as the immediate locked target and continue from the newest synchronized lineup/odds/live screenshot without asking the user to repeat the prior chat. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
