@@ -1,6 +1,6 @@
 # FOOTBALL AIRTABLE DECISION-STATE CONTROL
 
-Effective with Football v0.2.40; strengthened by Football v0.2.41.
+Effective with Football v0.2.40; strengthened by Football v0.2.41 and Football v0.2.47.
 
 This document records the canonical operational Airtable control plane for football decision-state validation.
 
@@ -8,7 +8,7 @@ This document records the canonical operational Airtable control plane for footb
 
 - Base name: `SlipTrace Football Decision Control`
 - Base ID: `appWyZJjitSBATXAU`
-- Purpose: enforce structured football decision-state logging and four-match circuit-breaker tracking.
+- Purpose: enforce structured football decision-state logging and circuit-breaker/audit tracking.
 
 This Airtable base is **not** the authoritative financial ledger. `/ledger.json` remains authoritative for official betting accounting when ledger writes are explicitly authorized.
 
@@ -50,6 +50,35 @@ Important field IDs:
 - Fail Reasons — `fldlkav9gyDQI7jKb`
 - Evidence Summary — `fldTAwWTDJvfusgj7`
 
+### v0.2.47 halftime-compression fields
+
+- HT Goals — `fldwssNwjgGXOcmtE`
+- HT Saturation Gate — `fldcdRGbFGhlRqzlY`
+- Conversion Quality Gate — `fldv1u9Hd3eMwckYa`
+- Second-Half Hazard — `fldrRCpTPn0tQjYCy`
+- Remaining Goal Budget — `fldkiqxcL1YRjJNZ6`
+
+Allowed `HT Saturation Gate` values:
+
+- `Not Applicable`
+- `Moderate`
+- `Strong`
+
+Allowed `Conversion Quality Gate` values:
+
+- `Not Applicable`
+- `Pass`
+- `Unresolved`
+- `Fail`
+
+Allowed `Second-Half Hazard` values:
+
+- `Not Applicable`
+- `Re-accelerating`
+- `Persistent but Unproven`
+- `Compressing`
+- `Unresolved`
+
 ### Operational rule
 
 Create one record for every material prematch assessment and material live reassessment that could produce a side, total, derivative or shadow selection.
@@ -66,6 +95,23 @@ For a prematch protected-underdog candidate against a material/deep favourite un
 - `Favorite First-Goal Branch` must be `Pass`;
 - `Margin Incentive Propagated` must be checked whenever competition tiebreak/order or other incentives materially affect margin utility;
 - failure of any applicable condition forces `Validator Result = FAIL`.
+
+### v0.2.47 enforcement
+
+For any serious post-halftime Over assessment after **3+ first-half goals**:
+
+1. write the actual `HT Goals` count;
+2. set `HT Saturation Gate = Moderate` for exactly 3 HT goals or `Strong` for 4+ HT goals;
+3. evaluate only fresh second-half evidence for the new Over promotion; first-half activity is context only;
+4. write `Conversion Quality Gate` based on a fresh second-half conversion-quality channel;
+5. write `Second-Half Hazard` as `Re-accelerating`, `Persistent but Unproven`, `Compressing`, or `Unresolved`;
+6. write the exact settlement burden in `Remaining Goal Budget`;
+7. `Persistent but Unproven`, `Unresolved`, or `Conversion Quality Gate = Unresolved/Fail` cannot coexist with `Validator Result = PASS` for a post-HT Over;
+8. if the candidate needs two or more additional goals for a full win, the Evidence Summary must explain the credible second-half multi-goal route.
+
+For matches with 0-2 HT goals, use `HT Saturation Gate = Not Applicable` unless a later rule specifically requires otherwise.
+
+Historical v0.2.46 decisions are not rewritten merely because v0.2.47 would classify them differently. New fields may be used in a separate process-audit record, but the original historical verdict/line/odds/model version must remain unchanged.
 
 ## Table 2 — Circuit Breaker
 
@@ -92,14 +138,15 @@ Important field IDs:
 
 1. A match does not enter this table merely because it was analyzed.
 2. It enters only when the hard validator returns `PASS` and a normal executable LEAN would otherwise exist.
-3. During the active circuit breaker, record that candidate as `SHADOW LEAN — DO NOT PLACE`, simulated stake 0.25u, and `Result = Pending`.
-4. Exactly one primary shadow selection may count per match.
+3. During a circuit-breaker phase, record the candidate as `SHADOW LEAN — DO NOT PLACE` using the active model's stake convention.
+4. Exactly one primary counted shadow selection may count per match unless an explicit later audit protocol says otherwise.
 5. After verified settlement, update result, simulated P/L, process validity, review notes and completion time.
 6. `NO BET` and `NO BET — HOLD` do not consume a slot.
-7. After four counted and settled slots, perform the four-match review. Official betting remains paused until the user explicitly restores it.
+7. Official betting remains paused until the active audit exit criteria are met and the user explicitly restores it.
 
-## Current state
+## Current operating state
 
-- Circuit breaker: `0/4 complete`.
 - Official football betting: paused.
+- Execution: shadow calibration only.
 - Ledger writes: unauthorized / on hold.
+- Active model: Football v0.2.47 — AUDIT MODE.
