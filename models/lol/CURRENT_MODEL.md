@@ -51,6 +51,10 @@ These controls are active because they are now written into `MODEL_RULES_LOL_V0.
 - Default shadow stake: **0.25u**; actual exposure: **0u**.
 - Minimum odds: **1.60**.
 - Verdict first; no connector/logging work before the visible live verdict.
+- **Immediately after every valid visible live verdict, Airtable map/snapshot logging is mandatory and the expected record must be verified to exist.**
+- `PASS` / `HOLD` still require a snapshot log but never create a position; a qualified executable `TAKE` requires snapshot + exact shadow-position logging after the verdict, subject to the one-TAKE-per-family ledger check.
+- If a map/snapshot/position write is discovered missing, backfill only from the original synchronized evidence and original visible verdict; never invent or upgrade a `PASS`/`HOLD` into a position. Fight-mid-verdict discarded decisions remain unlogged/void.
+- Airtable logging failure is a data-integrity issue only: it must not delay the visible verdict, change analytical gates, or create an extra confirmation requirement.
 - Compact output still requires full underlying analysis.
 - Pregame/immediate post-draft ML/KH/TK TAKEs remain disabled.
 - Live ML/KH/TK retain the two-snapshot eligibility gate.
@@ -61,6 +65,9 @@ These controls are active because they are now written into `MODEL_RULES_LOL_V0.
 - Draft-locked underdog +kills fallback certification remains fail-closed.
 - No rescue, martingale, chasing, or stake escalation.
 - The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+
+Mandatory logging procedure:
+`models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
 
 ## Retired newer analytical versions
 
@@ -78,20 +85,23 @@ Historical positions and P/L remain unchanged and keep their original model labe
 4. v0.3.57 through v0.3.26 rule deltas
 5. mandatory fallback-floor certification procedure
 6. mandatory live verdict checklist
-7. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the two explicit v0.3.58 amendment reviews above
-8. item-verification suspension
-9. v0.3.25 consolidated rules / probation / calibration handbook
-10. live fast path and main betting procedure
-11. connected-stack procedure and addenda
-12. scoreboard protocol
-13. shared stake policy
-14. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
+7. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+8. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the two explicit v0.3.58 amendment reviews above
+9. item-verification suspension
+10. v0.3.25 consolidated rules / probation / calibration handbook
+11. live fast path and main betting procedure
+12. connected-stack procedure and addenda
+13. scoreboard protocol
+14. shared stake policy
+15. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
 ## Recording
 
 - New positions are recorded as **LoL v0.3.58**.
+- Every valid live verdict must be followed by an Airtable snapshot write and verification; `PASS` / `HOLD` produce no position record, while `TAKE` produces the exact shadow position after the verdict when executable.
+- Missing logs must be repaired faithfully from original evidence without creating retrospective decisions.
 - Do not append `temporary override` to new records.
 - Prior v0.3.59/v0.3.60 positions remain labeled historically as they were.
 - Do not create or auto-promote a newer model from an individual outcome unless the user explicitly requests another model change.
