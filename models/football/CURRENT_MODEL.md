@@ -12,7 +12,7 @@
 - Active audit: `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 - Parallel early-totals benchmark: `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
 - Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_WILLEM_NEC_2026-08-15.md`
-- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-15.md`
+- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
 - Authoritative betting feed: `/ledger.json`
 
@@ -29,10 +29,10 @@ Load in this order, applying the newest active football rule over older conflict
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-10. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-15.md`
+10. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16.md`
 11. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
 
-Older handoffs are historical context only and must not override v0.2.46 or the active 2026-08-15 handoff.
+Older handoffs are historical context only and must not override v0.2.46 or the active 2026-08-16 handoff.
 
 ## Audit-mode operating values
 
@@ -232,7 +232,11 @@ The early-totals benchmark cannot shorten the audit.
 
 ## Willem II vs NEC corrected audit note
 
-The process review now records the around-42' pre-goal state as the key missed window. The around-42' Over 1.75 price is a **missed synchronized decision state only**, not a retrospective shadow selection. The later 0-4 score adds no shadow P/L.
+The process review records the around-42' pre-goal state as the key missed window. The around-42' Over 1.75 price is a **missed synchronized decision state only**, not a retrospective shadow selection. The later 0-4 score adds no shadow P/L.
+
+## Active cross-chat continuation
+
+The 2026-08-16 handoff preserves the completed Atlas–Tigres shadow sequence, the user-enabled add-on workflow, and the immediate next-match lock on **Racing Santander vs Villarreal CF**.
 
 ## Write boundary
 
