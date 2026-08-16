@@ -2,16 +2,17 @@
 
 **Canonical namespace:** `models/lol/`
 
-- Active model: **LoL v0.3.59**
-- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.59.md`
-- Prior deltas: v0.3.58 through v0.3.26 under `models/lol/rules/`
-- **Active audit governance:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
+- Active model: **LoL v0.3.60**
+- Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.60.md`
+- Prior deltas: v0.3.59 through v0.3.26 under `models/lol/rules/`
+- **Active audit governance:** `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-16.md`
 - **Mandatory live execution calibration:** `models/lol/procedures/LOL_LIVE_EXECUTION_CALIBRATION_2026-08-15.md`
-- Prior audit governance: `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-14.md`
+- **Mandatory compact-output/full-analysis addendum:** `models/lol/procedures/LOL_COMPACT_OUTPUT_FULL_ANALYSIS_RULE_2026-08-15.md`
+- **Active no-duplicate multi-TAKE policy:** `models/lol/procedures/LOL_MULTI_TAKE_NO_DUPLICATE_POLICY_2026-08-15.md`
 - Mandatory fallback certification: `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
 - Mandatory live checklist: `models/lol/procedures/LOL_LIVE_VERDICT_EXECUTION_CHECKLIST_2026-08-10.md`
+- **Latest batch review:** `models/lol/reviews/SEVEN_LOSS_STREAK_REGIME_PERSISTENCE_ML_CONTROL_REVIEW_2026-08-16.md`
 - Latest Duration recurrence review: `models/lol/reviews/DURATION_0_0_TOWER_RECURRENCE_REVIEW_2026-08-15.md`
-- Prior Duration rebuild review: `models/lol/reviews/DURATION_MARKET_REBUILD_REVIEW_2026-08-09.md`
 - Latest favorite-handicap review: `models/lol/reviews/T1_DK_G1_FAVORITE_HANDICAP_FORCED_FIGHT_DENSITY_REVIEW_2026-08-14.md`
 - Latest fallback-floor review: `models/lol/reviews/NIP_WBG_G3_FALLBACK_FLOOR_MISCLASSIFICATION_REVIEW_2026-08-13.md`
 - Prior draft collapse-risk review: `models/lol/reviews/NIP_WBG_G1_DRAFT_COLLAPSE_RISK_REVIEW_2026-08-13.md`
@@ -25,28 +26,29 @@
 - Prior handicap conversion review: `models/lol/reviews/G2_TH_KILL_HANDICAP_CONVERSION_REVIEW_2026-08-09.md`
 - Draft primacy review: `models/lol/reviews/JDG_WE_GAME2_DRAFT_PRIMACY_REVIEW_2026-08-09.md`
 - Handicap directional review: `models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_REVIEW_2026-08-09.md`
-- Latest handoff: `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md`
+- Latest handoff: `models/lol/CURRENT_LIVE_HANDOFF_2026-08-16.md`
 - Portable baseline context: `models/lol/context/lol-v0.3.25/`
 - Shared stake policy: `shared/STAKE_POLICY_V2.json`
 
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-15.md`
+2. `models/lol/procedures/LOL_SHADOW_AUDIT_CONTINUATION_2026-08-16.md`
 3. `models/lol/procedures/LOL_LIVE_EXECUTION_CALIBRATION_2026-08-15.md`
-4. v0.3.59 through v0.3.26 rule deltas
-5. mandatory fallback-floor certification procedure
-6. mandatory live checklist
-7. latest reviews referenced above
-8. item-verification suspension
-9. v0.3.25 consolidated rules / probation / calibration handbook
-10. live fast path and main betting procedure
-11. connected-stack procedure and addenda
-12. scoreboard protocol
-13. shared stake policy
-14. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-15.md` last
+4. `models/lol/procedures/LOL_COMPACT_OUTPUT_FULL_ANALYSIS_RULE_2026-08-15.md`
+5. v0.3.60 through v0.3.26 rule deltas
+6. mandatory fallback-floor certification procedure
+7. mandatory live checklist
+8. latest reviews referenced above, with the 2026-08-16 seven-loss review first
+9. item-verification suspension
+10. v0.3.25 consolidated rules / probation / calibration handbook
+11. live fast path and main betting procedure
+12. connected-stack procedure and addenda
+13. scoreboard protocol
+14. shared stake policy
+15. `models/lol/CURRENT_LIVE_HANDOFF_2026-08-16.md` last
 
-Where conflicts exist, **v0.3.59 controls analytically, the active audit-continuation policy controls governance, and the live execution calibration controls TAKE/PASS/HOLD posture without changing analytical gates or thresholds**.
+Where conflicts exist, **v0.3.60 controls analytically, the active 2026-08-16 audit-continuation policy controls governance, and the live execution calibration controls TAKE/PASS/HOLD posture without adding unwritten gates**.
 
 ## Operating state
 
@@ -57,17 +59,19 @@ Where conflicts exist, **v0.3.59 controls analytically, the active audit-continu
 - Default shadow stake: **0.25u**.
 - Actual exposure while paused: **0u**.
 - Minimum odds: **1.60**.
-- Same-game multiple shadow bets are enabled **after live eligibility** when each independently qualifies; correlated positions are grouped as one calibration evidence cluster.
+- Same-map multiple shadow bets are enabled across different market families when each independently qualifies.
+- Maximum one TAKE per map in each core family: **ML / Kill Handicap / Total Kills / Duration**.
 - Pregame and immediate post-draft **ML / Kill Handicap / Total Kills TAKEs remain disabled**.
 - Live ML / Kill Handicap / Total Kills require the retained **two-snapshot live gate** plus all active gates.
-- **Shadow TAKEs remain active and are auto-recorded after the user-facing verdict when visibly executable and qualified.**
-- **No unwritten extra safety margin:** when every written market gate, veto check and pricing requirement passes, execute TAKE rather than waiting for discretionary extra confirmation.
-- HOLD/PASS after eligibility should identify a specific active gate, veto, pricing failure, stale line, or correlation reason—not generic discomfort or a desire for “one more” snapshot/objective.
-- v0.3.57 results remain the pre-v0.3.58 audit sample.
-- v0.3.58 results remain the favorite-handicap-corrected / pre-v0.3.59 Duration sample.
-- New selections are recorded under v0.3.59 as the post-Duration-correction sample.
-- The user explicitly authorized the narrow v0.3.59 Duration revision on 2026-08-15. **Do not create v0.3.60 or patch v0.3.59 from an individual next map** without further explicit authorization or a later batch-audit decision.
-- Airtable is the canonical position/map ledger; GitHub is the model/rules authority.
+- Shadow TAKEs auto-record after the user-facing verdict when visibly executable and qualified.
+- **No unwritten extra safety margin:** when every written gate, veto, re-certification check and pricing requirement passes, execute TAKE.
+- HOLD/PASS after eligibility must identify a specific active gate, veto, pricing failure, stale line, no-duplicate rule or correlation reason.
+- v0.3.57 remains the pre-v0.3.58 audit sample.
+- v0.3.58 remains the favorite-handicap-corrected sample.
+- v0.3.59 remains the post-Duration-correction / pre-v0.3.60 batch-review sample.
+- New selections are recorded under **v0.3.60**.
+- The user explicitly authorized v0.3.60 on 2026-08-16 after a batch review of the seven-loss streak. **Do not create v0.3.61 from an individual next result** without further explicit authorization or later batch review.
+- Airtable is canonical position/map/roster ledger; GitHub is model/rules authority.
 
 ## Mandatory verdict format
 
@@ -79,154 +83,123 @@ First visible line on active maps:
 
 Logging/connectors occur after the live verdict and must not delay it.
 
-# v0.3.59 — Duration 0-0 Tower Neutralization / Latent Conversion Hazard
+# v0.3.60 — Forward Regime Persistence / Control-Lead Correction
 
-## 1. Tower count is not stall evidence
+Reference review:
+`models/lol/reviews/SEVEN_LOSS_STREAK_REGIME_PERSISTENCE_ML_CONTROL_REVIEW_2026-08-16.md`
 
-For Duration, `0-0 towers`, no first tower yet, low tower count and no inhibitor are **neutral state descriptors by default**.
+## A. Total Kills Under — Forward Regime Persistence (FRP)
 
-They cannot satisfy an Over stall requirement by themselves.
+A quiet current game is not enough for a TK Under.
 
-Mandatory distinction:
+Retain OKP / FCI / CRR / SRR / BF / CL / RKS / KPW, then classify:
 
-- `ABSENT CONVERSION` — no meaningful conversion opportunity occurred or no evidence one was denied. Neutral for Over.
-- `FAILED CONVERSION` — a real tempo/objective/push/fight opportunity existed and the defender demonstrably denied expected structure/base access. May support Over.
+- next compulsory-contact cycle pressure = LOW / MEDIUM / HIGH;
+- `FRP = PASS / FAIL / UNCERTAIN`.
 
-Only FAILED CONVERSION can satisfy the structure-related stall component of a Duration Over.
+Only FRP PASS is TAKE-eligible.
 
-## 2. Latent Conversion Hazard (LCH)
+Passive quiet between objectives has reduced evidentiary weight. Suppression of an actual compulsory contact window is materially stronger evidence.
 
-Before every Duration Over, classify `LCH = LOW / MEDIUM / HIGH` using:
+Mandatory question:
 
-1. dragon count and Soul/Elder proximity;
-2. Baron/Herald timing;
-3. grubs/tower pressure where relevant;
-4. role-weighted economy / TEI;
-5. lane priority, wave state and siege access;
-6. first-contact/pick/engage reliability;
-7. defender fallback, waveclear, disengage and reset quality;
-8. side-lane pressure and simultaneous defensive assignments;
-9. shortest realistic next-fight -> first tower -> serial structures -> base route;
-10. whether one compulsory objective fight can remove multiple defensive layers.
+**“Why should the next compulsory objective/contact cycle be at least as kill-suppressive as the interval already observed?”**
 
-If LCH is HIGH, Duration Over is TAKE-ineligible unless a high-leverage conversion opportunity has already failed after LCH became high, two independent observed stall mechanisms still persist, and all retained survival-horizon/dead-zone gates pass after repricing.
+After a material recurrence burst, a later quiet patch does not restore FRP without mechanism-relevant evidence.
 
-## 3. Pre-first-tower cascade check
+## B. Duration Under — Fast-Close Robustness (FCR)
 
-Before an Over, explicitly ask:
+Retain all v0.3.45 Duration timing/acceleration/persistence/dead-zone/buffer gates and v0.3.59 LCH/conversion controls.
 
-**“What happens if the next compulsory fight is lost?”**
+Classify `FCR = ROBUST / FRAGILE / UNCERTAIN`.
 
-Estimate the shortest realistic chain:
+Only ROBUST is normally TAKE-eligible outside the retained terminal-state exception.
 
-`next forced fight/objective -> first tower -> vision depth -> second structure -> base access -> Nexus`
+Mandatory one-disruption question:
 
-If that branch fits materially inside the survival horizon, 0-0 towers provides no protection.
+**“If the fastest close route suffers one normal disruption, does the Under thesis still remain materially viable?”**
 
-Soul/Baron/objective schedules can compress clock rather than extend it.
+A shortest plausible route is not enough if one ordinary reset/partial conversion/delayed structure breaks the Under.
 
-## 4. Under symmetry guard
+## C. Live ML — Resource Lead vs Control Lead
 
-Do not turn HIGH LCH into an automatic Under bias. Under still requires the retained v0.3.45 observed acceleration, persistence and dead-zone gates.
+Before every live ML TAKE, decompose:
 
-Reference review: `models/lol/reviews/DURATION_0_0_TOWER_RECURRENCE_REVIEW_2026-08-15.md`.
+- `RL` — Resource Lead;
+- `SL` — Structural Lead;
+- `OSC` — Objective-Schedule Control;
+- `CFC` — Compulsory Fight Control.
 
-# v0.3.58 — Favorite -kills Forced-Fight Density
+Mandatory question:
 
-## 1. Baron / inhibitor requirement removed
+**“If the next two major compulsory fights begin from approximately neutral setup, which side has the easier first contact, re-engage, carry access and reset?”**
 
-For favorite -kills, existing Baron ownership and existing inhibitor destruction are **supporting evidence, not mandatory prerequisites**.
+A candidate can be richer without controlling the next fights. A resource lead with little/no structural separation must be discounted when the opponent owns materially easier first contact/re-engage.
 
-Absence of Baron/inhibitor cannot by itself force PASS/HOLD.
+If RL is positive but CFC materially favors the opponent and independent control evidence is absent, ML is PASS/HOLD.
 
-## 2. Forced-Fight Density (FFD)
+## D. Same-Mechanism Re-certification (SMR)
 
-Before favorite -kills pricing, classify expected remaining **Forced-Fight Density**:
+A previous loss is never a blanket veto.
 
-- `LOW`
-- `MEDIUM`
-- `HIGH`
+But once a same-series loss has a diagnosed mechanism, a later TAKE relying on the same structural thesis must explicitly re-certify that mechanism.
 
-FFD is HIGH only when multiple scheduled windows are materially difficult for the underdog to avoid and the favorite has reliable access/continuation to translate those windows into net kill-margin expansion.
+Material re-certification can come from a changed draft, changed first-contact relationship, stronger structural control, changed objective schedule, demonstrated answer to the prior forcing route, or materially different price after the failed branch is included.
 
-Mandatory inputs:
+Repeating a similar +1k lead / low-kill state / 0-0 tower state is not enough.
 
-1. current signed kill margin;
-2. `RNE` — Required Net Expansion to cover the line;
-3. Role-Weighted Economy / TEI and lead quality;
-4. dragon/Soul schedule;
-5. Baron availability or imminent Baron window, without requiring ownership;
-6. tower/base-pressure schedule;
-7. favorite initiation/access reliability and continuation;
-8. underdog ability to cross-map, waveclear, disengage, trade or safely concede;
-9. underdog reset/survival under pressured entry;
-10. Structure Substitution — whether the favorite can close while deleting the fights needed for the handicap.
+If the prior mechanism remains active and the new TAKE depends on the same assumption, SMR fails.
 
-## 3. Pre-Baron favorite -kills eligibility
+## E. No blanket conservatism
 
-Favorite -kills can qualify before Baron/inhibitor when:
+v0.3.60 is not a command to avoid Unders, ML, or repeated series positions.
 
-- two-snapshot live gate is satisfied;
-- favorite economy/role distribution and lead quality are materially positive;
-- FFD = HIGH;
-- RNE is supportable by expected remaining fight count and signed-margin distribution;
-- NKB / RFI / KCV / Structure Substitution do not negate the cover branch;
-- exact executable odds are >=1.60.
+It adds named gates. If they pass alongside all retained gates at qualifying executable odds, default verdict remains TAKE.
 
-This is not an automatic TAKE. Do not infer HIGH FFD from 3-0 dragons, a large gold lead, TEAM edge, strong engage or imminent Baron by itself.
+Favorite -kills FFD/RNE remains fully active; the seven-loss streak contained no favorite -kills loss.
 
-## 4. T1 vs DK G1 reference correction
+# v0.3.59 retained — Duration 0-0 Tower Neutralization / LCH
 
-At 20:27 T1 led 16-8 kills, approximately +5.4k gold, towers 3-1 and dragons 3-0. Baron and inhibitors were still 0-0. T1 -15.5 @1.617 required `RNE = +8` additional net kills.
+- 0-0 towers/no first tower = neutral by default.
+- Distinguish `ABSENT CONVERSION` from `FAILED CONVERSION`.
+- Only FAILED CONVERSION can satisfy the structure-related stall component of a Duration Over.
+- LCH LOW/MEDIUM/HIGH mandatory before Duration Over.
+- If LCH HIGH, Over is TAKE-ineligible unless high-leverage conversion has already failed after LCH became high and two independent stall mechanisms plus survival/dead-zone gates still pass.
+- Ask: **“What happens if the next compulsory fight is lost?”**
+- HIGH LCH does not automatically create an Under.
 
-The Soul + imminent Baron schedule, T1 access/continuation, large economy edge and limited DK ability to avoid future contests created HIGH FFD.
+# v0.3.58 retained — Favorite -kills Forced-Fight Density
 
-v0.3.58 reference verdict:
+- Baron ownership and inhibitor destruction are supporting evidence, not prerequisites.
+- Compute exact signed margin and RNE.
+- Classify FFD LOW/MEDIUM/HIGH.
+- Pre-Baron favorite -kills can qualify when FFD HIGH, RNE supportable and NKB/RFI/KCV/Structure Substitution do not negate the cover branch.
+- Do not infer FFD HIGH from a large lead/3-0 dragons/strong engage alone.
 
-**TAKE — T1 -15.5 kills @1.617 — shadow 0.25u; actual 0u.**
+# v0.3.57 / v0.3.56 retained — Underdog +kills
 
-Final was T1 30-11 DK. This is a diagnostic regrade only; no historical v0.3.57 P/L is altered.
+Underdog +kills requires draft-time positive certification:
 
-Reference review: `models/lol/reviews/T1_DK_G1_FAVORITE_HANDICAP_FORCED_FIGHT_DENSITY_REVIEW_2026-08-14.md`.
+1. FER PASS
+2. PDC PASS
+3. PST PASS
+4. ARI PASS
+5. False-Stable Guard INACTIVE
+6. FF STABLE
+7. hard Draft-Collapse Veto INACTIVE
 
-# v0.3.57 — Fallback Floor Certification / False-Stable Guard
+Ordinary live evidence cannot upgrade an uncertified fallback. Missing/ambiguous certification = TAKE-INELIGIBLE for the map unless the underlying draft input itself is corrected.
 
-For underdog +kills, `FF = STABLE` remains a positive matchup-relative certification requiring PASS on:
-
-1. `FER` — Failed-Engage Reset;
-2. `PDC` — Protected-DPS Continuation;
-3. `PST` — Pressured Space;
-4. `ARI` — Alternative Route Independence.
-
-Separate `FRI` — Forcing Route Independence from `SRI` — Survival Route Independence. Engage count is never fallback proof.
-
-False-Stable Guard remains active when fallback is another version of the same forward-commit plan, peel competes with initiation, carry protection disappears during engage, behind-state objective entry repeats the same all-in dependency, or opponent range/pick/disengage/re-engage can punish failed contact without a demonstrated reset.
-
-Incomplete or ambiguous certification => PASS/HOLD. Ordinary live events cannot upgrade `FRAGILE`, `ABSENT` or `UNCERTIFIED` to STABLE.
-
-# v0.3.56 — Hard Draft-Collapse Veto
-
-For underdog +kills, after v0.3.57 certification, if:
-
-- DCR = HIGH;
-- FF = FRAGILE or ABSENT;
-- opponent has materially easier repeat forcing/continuation;
-- objective/base pressure can matter;
-
-then:
-
-**UNDERDOG +KILLS IS TAKE-INELIGIBLE FOR THE ENTIRE MAP. NO LIVE EXCEPTION.**
-
-Favorite -kills remains independent and uses the v0.3.58 FFD/RNE correction where applicable.
+SK +7.5 vs FNC G1 remains the reference execution-invalid TAKE; correct historical verdict was PASS.
 
 # Retained controls
 
-All non-conflicting v0.3.58 and earlier controls remain active, including:
+All non-conflicting v0.3.59 and earlier controls remain active, including:
 
-- DER and shared-failure clusters;
+- DER / shared-failure clusters;
 - Draft Correction Trigger;
 - objective-schedule x execution burden;
-- RIT only when the hard veto is inactive;
+- RIT only when hard veto inactive;
 - Role-Weighted Economy / TEI;
 - two-snapshot live eligibility;
 - MKT + TEAM anchoring;
@@ -234,13 +207,14 @@ All non-conflicting v0.3.58 and earlier controls remain active, including:
 - Draft Primacy 14-function matrix;
 - TTA / EBG / lead quality;
 - side-neutral signed kill-margin distribution;
+- exact kill-handicap arithmetic;
 - NKB / RFI / KCV / Structure Substitution;
 - Handicap Buffer Retention;
 - OKP / FCI / CRR / SRR / BF / CL / RKS / KPW;
 - position-blind reassessment;
-- stale-line gate;
+- stale-line/greyed-market gate;
 - same-game correlation decomposition;
-- all v0.3.45 Duration live-only timing, two-snapshot persistence, observed stall/acceleration, dead-zone, probability-buffer and regime-change restrictions, now interpreted through v0.3.59;
+- one TAKE maximum per market family per map;
 - no rescue/martingale/loss chasing.
 
-Blocking underdog +kills never creates an automatic reverse favorite -kills TAKE.
+Blocking one market or side never creates an automatic reverse TAKE.
