@@ -2,19 +2,34 @@
 
 **Canonical namespace:** `models/lol/`
 
-## ACTIVE TEMPORARY OVERRIDE
+## ACTIVE MODEL
 
-- Active analytical model: **LoL v0.3.58 (temporary override)**
+- Active analytical model: **LoL v0.3.58**
 - Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
-- Temporary override authority: `models/lol/procedures/LOL_TEMPORARY_MODEL_OVERRIDE_V0.3.58_2026-08-16.md`
-- **LoL v0.3.59 and v0.3.60 are temporarily paused for new analytical verdicts.**
-- v0.3.60 files/reviews remain preserved for later restoration; no historical P/L is changed.
+- Canonical reset authority: `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
+- **LoL v0.3.59 and v0.3.60 are retired/discarded from the active analytical hierarchy.**
+- Their files may remain only as historical/audit artifacts. Do not load, blend, or auto-restore them.
 
-User instruction on 2026-08-16 UTC+7: **"Temporarily pause latest version, use model v0.3.58".**
+User instruction on 2026-08-16 UTC+7: **"Discard newer versions, update this version accordingly".**
+
+The prior temporary v0.3.58 override is ended. v0.3.58 is now the canonical model, not a temporary rollback.
+
+## Canonical v0.3.58 Duration amendment
+
+The active v0.3.58 file now includes the KRX vs BRO Game 2 correction:
+
+- low kills are not positive Duration stall evidence by themselves;
+- 0-0 towers / no first tower / low absolute tower count are neutral state descriptors by default;
+- conversion evidence must be classified as `ABSENT CONVERSION` or `FAILED CONVERSION`;
+- only actual failed conversion or another clearly observed clock-consuming defense/reset mechanism may support the structure portion of an Over thesis;
+- Structure Substitution is mandatory — objective/tower progress can compress clock even while kills remain low;
+- a Duration Over requires two independent positive clock-consuming mechanisms, with at least one grounded in observed failed conversion or equivalent repeated denial;
+- every Duration Over must test the shortest plausible next compulsory fight/objective -> serial structures -> base -> Nexus cascade.
+
+Reference review:
+`models/lol/reviews/KRX_BRO_G2_DURATION_STRUCTURE_SUBSTITUTION_REVIEW_2026-08-16.md`
 
 ## Active operational governance
-
-Operational rules that do not depend on the paused analytical deltas remain active:
 
 - Official betting remains paused; shadow only.
 - Default shadow stake: **0.25u**; actual exposure: **0u**.
@@ -27,25 +42,21 @@ Operational rules that do not depend on the paused analytical deltas remain acti
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
+- Draft-locked underdog +kills fallback certification remains fail-closed.
 - No rescue, martingale, chasing, or stake escalation.
-- Draft-locked underdog +kills fallback certification remains fail-closed because it enforces retained v0.3.57 logic.
 
-## Paused while override is active
+## Retired newer analytical versions
 
-Do **not** apply v0.3.59 or v0.3.60 analytical additions to new decisions, including:
+Do **not** apply v0.3.59 or v0.3.60 to new analytical verdicts merely because their version numbers are higher.
 
-- v0.3.59 formal 0-0 tower neutralization / ABSENT-vs-FAILED conversion / LCH additions;
-- v0.3.60 FRP;
-- v0.3.60 FCR;
-- v0.3.60 mandatory RL/SL/OSC/CFC gate;
-- v0.3.60 SMR.
+Later-version-only concepts are inactive unless they have been explicitly incorporated into the amended v0.3.58 file or the user separately re-authorizes them.
 
-Use v0.3.58 and all non-conflicting earlier deltas only.
+Historical positions and P/L remain unchanged and keep their original model labels.
 
-## Required load order during temporary override
+## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. `models/lol/procedures/LOL_TEMPORARY_MODEL_OVERRIDE_V0.3.58_2026-08-16.md`
+2. `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
 3. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 4. v0.3.57 through v0.3.26 rule deltas
 5. mandatory fallback-floor certification procedure
@@ -57,16 +68,13 @@ Use v0.3.58 and all non-conflicting earlier deltas only.
 11. connected-stack procedure and addenda
 12. scoreboard protocol
 13. shared stake policy
-14. latest live handoff last, applying this override where conflicts exist
+14. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
-Where conflicts exist, **this temporary override controls analytical model selection; v0.3.58 controls analytically; retained operational governance controls execution.**
+**Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
 ## Recording
 
-- New positions under this override are recorded as **LoL v0.3.58 (temporary override)**.
+- New positions are recorded as **LoL v0.3.58**.
+- Do not append `temporary override` to new records.
 - Prior v0.3.59/v0.3.60 positions remain labeled historically as they were.
-- Do not create v0.3.61 from individual outcomes while this override is active.
-
-## Restoration
-
-This override remains active until the user explicitly says to restore v0.3.60, resume the latest model, or use another version.
+- Do not create or auto-promote a newer model from an individual outcome unless the user explicitly requests another model change.
