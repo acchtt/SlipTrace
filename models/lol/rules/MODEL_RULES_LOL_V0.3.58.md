@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE CANONICAL MODEL  
 **Original effective date:** 2026-08-14 UTC+7  
-**Canonical amendment date:** 2026-08-16 UTC+7  
+**Canonical amendment dates:** 2026-08-16 UTC+7  
 **Supersedes:** v0.3.57 only where stated; later v0.3.59/v0.3.60 analytical versions are retired from active use by current governance
 
 ## Purpose
@@ -14,10 +14,13 @@ Its original purpose was to correct a favorite -kills false-PASS pattern reveale
 Reference review:
 `models/lol/reviews/T1_DK_G1_FAVORITE_HANDICAP_FORCED_FIGHT_DENSITY_REVIEW_2026-08-14.md`
 
-On 2026-08-16, the user explicitly retained v0.3.58 as the canonical version, discarded later analytical versions from active use, and authorized an in-place Duration correction after KRX vs BRO Game 2.
+On 2026-08-16, the user explicitly retained v0.3.58 as the canonical version, discarded later analytical versions from active use, and authorized in-place corrections. The first correction addressed Duration Over / Structure Substitution after KRX vs BRO Game 2. The second daily-audit correction directly incorporated four narrow controls that were missing from the reset: Total Kills Under forward persistence, Duration Under fast-close robustness, live-ML resource-vs-control decomposition, and same-mechanism re-certification.
 
-Duration amendment reference:
-`models/lol/reviews/KRX_BRO_G2_DURATION_STRUCTURE_SUBSTITUTION_REVIEW_2026-08-16.md`
+References:
+- `models/lol/reviews/KRX_BRO_G2_DURATION_STRUCTURE_SUBSTITUTION_REVIEW_2026-08-16.md`
+- `models/lol/reviews/V0.3.58_CANONICAL_GAP_FIX_2026-08-16.md`
+
+These are in-place amendments to **v0.3.58**, not a restoration of v0.3.59/v0.3.60.
 
 ---
 
@@ -120,7 +123,7 @@ Final: T1 30–11 DK, margin +19.
 
 ---
 
-# 7. Canonical Duration amendment — Structure Substitution and real stall evidence
+# 7. Canonical Duration Over amendment — Structure Substitution and real stall evidence
 
 This section is an in-place v0.3.58 correction authorized on 2026-08-16 after the KRX vs BRO Game 2 Over 33 loss.
 
@@ -250,7 +253,178 @@ At 17:52 the game still had only one total kill, yet KRX had progressed to 2-0 d
 
 ---
 
-## 8. Retained controls
+# 8. Total Kills Under — Forward Regime Persistence (FRP)
+
+This section is an in-place v0.3.58 amendment authorized after the 2026-08-16 daily audit.
+
+A Total Kills Under may not qualify merely because the current or elapsed game has been quiet.
+
+Retain the existing OKP / FCI / CRR / SRR / BF / CL / RKS / KPW framework. Add mandatory **Forward Regime Persistence (FRP)**.
+
+Classify:
+
+- `FRP = PASS`
+- `FRP = FAIL`
+- `FRP = UNCERTAIN`
+
+Only `FRP = PASS` is TAKE-eligible.
+
+## 8.1 Next Compulsory Contact Cycle
+
+Explicitly identify the next meaningful compulsory-contact schedule, including as applicable:
+
+1. next dragon and Soul/Elder proximity;
+2. Baron/Herald availability or imminent spawn;
+3. tower/base-defense windows;
+4. objective vision entry and contest incentives;
+5. side-lane pressure forcing grouped response;
+6. role-weighted economy / TEI and death-risk asymmetry;
+7. first-contact reliability;
+8. re-engage availability;
+9. safe-concede, cross-map or trade routes;
+10. whether one fight can chain into chase, objective turn, respawn fight or base defense.
+
+Classify next-cycle contact pressure `LOW / MEDIUM / HIGH`.
+
+No single objective automatically makes pressure HIGH.
+
+## 8.2 Passive quiet vs suppressed compulsory contact
+
+A quiet interval between major objective windows has reduced evidentiary value.
+
+Distinguish:
+
+- **PASSIVE QUIET** — little forced contact existed;
+- **SUPPRESSED COMPULSORY CONTACT** — a real objective/fight window occurred and kill production was actually avoided or contained.
+
+Suppressed compulsory contact is materially stronger Under evidence than passive quiet.
+
+Before every TK Under TAKE answer:
+
+**“Why should the next compulsory objective/contact cycle be at least as kill-suppressive as the interval already observed?”**
+
+Acceptable FRP support includes repeatable safe concession, demonstrated disengage/waveclear after real pressure, low-access drafts at objectives, demonstrated low lethality after actual contact, or Structure Substitution that removes future fights rather than merely replacing past fights.
+
+If the next contact cycle is HIGH pressure and no independent future-suppression mechanism is positively identified, FRP is FAIL/UNCERTAIN and verdict is PASS/HOLD.
+
+## 8.3 Regime-break reset
+
+After a material recurrence burst, prior low-CRR evidence is degraded.
+
+A later quiet interval does not automatically restore FRP. Restoration requires mechanism-relevant evidence such as successful suppression of a compulsory window, a changed objective schedule, changed structural control, changed safe-concession availability, or a genuine reduction in access/re-engage routes.
+
+This is not an arbitrary extra-snapshot rule. It re-certifies the failed mechanism itself.
+
+---
+
+# 9. Duration Under — Fast-Close Robustness (FCR)
+
+The existing shortest-path, acceleration, persistence, dead-zone and probability-buffer controls remain active.
+
+For every normal Duration Under TAKE, classify:
+
+- `FCR = ROBUST`
+- `FCR = FRAGILE`
+- `FCR = UNCERTAIN`
+
+Only `FCR = ROBUST` is TAKE-eligible, except where an independently retained terminal-state exception applies.
+
+## 9.1 Shortest route is necessary, not sufficient
+
+The shortest realistic route remains:
+
+`next fight/objective -> structures -> base -> Nexus`
+
+Also test whether the Under survives **one plausible ordinary disruption**, such as:
+
+- partial instead of full Baron conversion;
+- one defender waveclear/reset cycle;
+- one failed or traded push;
+- a delayed second structure;
+- one objective trade;
+- a won fight without immediate base access;
+- a reset forced by health or wave state.
+
+Mandatory question:
+
+**“If the fastest close route suffers one normal disruption, does the Under thesis still remain materially viable?”**
+
+If no, `FCR = FRAGILE`.
+
+Do not add an arbitrary fixed time penalty. Use the actual line, current clock, observed conversion speed and realistic reset/rotation costs.
+
+---
+
+# 10. Live Moneyline — Resource Lead vs Control Lead
+
+Live ML remains position-blind and retains the two-snapshot gate, pricing, MKT + TEAM, Draft Primacy, role-weighted economy / TEI, terminal-threat and all other applicable controls.
+
+Before every live ML TAKE, perform mandatory **Lead Decomposition**:
+
+1. `RL` — Resource Lead: gold, CS, levels, role-weighted economy;
+2. `SL` — Structural Lead: towers, inhibitors, wave depth, vision depth, base access;
+3. `OSC` — Objective-Schedule Control: dragon/Soul/Elder/Baron timing and who benefits from the next forced windows;
+4. `CFC` — Compulsory Fight Control: who has easier first contact, re-engage, backline access, disengage/reset, protected DPS continuation and objective turn from approximately neutral setup.
+
+A positive RL is **not** automatically a positive control lead.
+
+## 10.1 Neutral-setup fight stress test
+
+Before a live ML TAKE explicitly ask:
+
+**“If the next two major compulsory fights begin from approximately neutral setup, which side has the easier way to dictate first contact, survive the first exchange, re-engage, and reach the opposing carries?”**
+
+Evaluate at minimum:
+
+- initiation reliability;
+- target access;
+- re-engage;
+- disengage/reset;
+- objective turn safety/speed;
+- wave state and arrival angles;
+- protected DPS continuation;
+- side-lane pressure and teleport/global access;
+- terminal threat if one fight is lost.
+
+## 10.2 Resource-only lead discount
+
+When the candidate side has a resource/objective lead but little or no structural separation, and the opponent has materially easier neutral-setup first-contact/re-engage, discount the resource lead in ML pricing.
+
+A candidate ML cannot qualify if its case relies primarily on a modest gold/CS lead, one early dragon, a small kill lead, or lane economy while failing to answer the opponent's easier compulsory-fight architecture.
+
+Independent control evidence can include meaningful structural conversion, a favorable objective schedule, reliable disengage/anti-engage, demonstrated neutral-objective setup control, or a material market misprice that remains after the opponent's compulsory-fight branch is explicitly included.
+
+If `RL positive` but `CFC materially favors opponent` and independent control evidence is absent, verdict is PASS/HOLD.
+
+This is a named analytical gate, not a discretionary safety margin.
+
+---
+
+# 11. Same-Mechanism Re-certification (SMR)
+
+A previous loss does not create an automatic veto and must not create generic conservatism.
+
+However, when a settled loss has been **mechanistically diagnosed**, a later TAKE in the same series that relies on materially the same thesis must pass **SMR**.
+
+Before repeating the thesis, state:
+
+1. the prior diagnosed failure mechanism;
+2. whether the new draft materially changes that mechanism;
+3. whether the new live state directly neutralizes that mechanism;
+4. whether the market family relies on the same structural assumption;
+5. what new evidence makes the new case independent enough to qualify.
+
+SMR passes only when at least one material input actually changes the failed mechanism, such as different draft architecture, changed first-contact/re-engage relationship, materially stronger structural control, different objective schedule, demonstrated answer to the prior forcing route, or materially different price after the failed branch is included.
+
+A repeated +1k gold lead, low early kill count, or 0-0 tower state is not by itself re-certification.
+
+If the prior failure mechanism remains materially active and the new TAKE depends on the same assumption, `SMR = FAIL` and verdict is PASS/HOLD.
+
+SMR is strongest for consecutive maps in the same series. Do not turn it into result-chasing across unrelated matches.
+
+---
+
+## 12. Retained controls and anti-overreaction guard
 
 All non-conflicting v0.3.57 and earlier controls remain active, including:
 
@@ -261,14 +435,22 @@ All non-conflicting v0.3.57 and earlier controls remain active, including:
 - Role-Weighted Economy / TEI;
 - two-snapshot live eligibility for ML/KH/TK;
 - side-neutral signed kill-margin distribution;
+- exact signed kill-margin arithmetic;
 - NKB / RFI / KCV / Structure Substitution;
 - Handicap Buffer Retention;
 - Total Kills OKP/FCI/CRR/SRR/BF/CL/RKS/KPW framework;
-- stale-line gate;
+- stale-line / greyed-market non-executability;
 - same-game correlation decomposition;
-- retained Duration timing, persistence, dead-zone, probability-buffer and regime-change restrictions from earlier rules, as modified by Section 7 above;
+- one TAKE maximum per market family per map;
+- retained Duration timing, persistence, dead-zone, probability-buffer and regime-change restrictions from earlier rules, as modified above;
 - no rescue/martingale/loss chasing.
 
-Favorite -kills remains independent. A blocked underdog +kills position never automatically implies a favorite -kills TAKE.
+The 2026-08-16 amendments are **narrow mechanism checks**, not a global TAKE-threshold increase.
 
-Where this file conflicts with later retired analytical versions, **the current canonical v0.3.58 file controls for new analysis.**
+When FRP/FCR/CFC/SMR and all other applicable gates pass at executable qualifying odds, default execution posture remains TAKE.
+
+Favorite -kills FFD/RNE remains fully active and must not be over-vetoed because recent losses clustered elsewhere.
+
+Blocked underdog +kills never automatically implies favorite -kills TAKE.
+
+Where this file conflicts with later retired analytical versions, **this canonical v0.3.58 file controls for new analysis**.
