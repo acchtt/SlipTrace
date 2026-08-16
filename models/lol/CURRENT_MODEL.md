@@ -14,9 +14,11 @@ User instruction on 2026-08-16 UTC+7: **"Discard newer versions, update this ver
 
 The prior temporary v0.3.58 override is ended. v0.3.58 is now the canonical model, not a temporary rollback.
 
-## Canonical v0.3.58 Duration amendment
+## Canonical v0.3.58 in-place amendments
 
-The active v0.3.58 file now includes the KRX vs BRO Game 2 correction:
+### Duration Over — Structure Substitution / real stall evidence
+
+The active v0.3.58 file includes the KRX vs BRO Game 2 correction:
 
 - low kills are not positive Duration stall evidence by themselves;
 - 0-0 towers / no first tower / low absolute tower count are neutral state descriptors by default;
@@ -26,8 +28,22 @@ The active v0.3.58 file now includes the KRX vs BRO Game 2 correction:
 - a Duration Over requires two independent positive clock-consuming mechanisms, with at least one grounded in observed failed conversion or equivalent repeated denial;
 - every Duration Over must test the shortest plausible next compulsory fight/objective -> serial structures -> base -> Nexus cascade.
 
-Reference review:
+Reference:
 `models/lol/reviews/KRX_BRO_G2_DURATION_STRUCTURE_SUBSTITUTION_REVIEW_2026-08-16.md`
+
+### Daily-audit gap fix — active inside v0.3.58
+
+On 2026-08-16 the user instructed: **"Fix whats lacking and prepare for lec".** The following narrow controls were therefore incorporated directly into canonical v0.3.58:
+
+- **FRP — Forward Regime Persistence** for every Total Kills Under;
+- **FCR — Fast-Close Robustness** / one-disruption stress test for every normal Duration Under;
+- **Lead Decomposition + CFC — Compulsory Fight Control** for every live Moneyline;
+- **SMR — Same-Mechanism Re-certification** when a later same-series TAKE relies on a previously diagnosed failed mechanism.
+
+Reference:
+`models/lol/reviews/V0.3.58_CANONICAL_GAP_FIX_2026-08-16.md`
+
+These controls are active because they are now written into `MODEL_RULES_LOL_V0.3.58.md`. Do not load v0.3.59/v0.3.60 to obtain them.
 
 ## Active operational governance
 
@@ -44,12 +60,13 @@ Reference review:
 - Exact signed kill-margin arithmetic remains mandatory.
 - Draft-locked underdog +kills fallback certification remains fail-closed.
 - No rescue, martingale, chasing, or stake escalation.
+- The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
 
 ## Retired newer analytical versions
 
-Do **not** apply v0.3.59 or v0.3.60 to new analytical verdicts merely because their version numbers are higher.
+Do **not** apply v0.3.59 or v0.3.60 as model layers merely because their version numbers are higher.
 
-Later-version-only concepts are inactive unless they have been explicitly incorporated into the amended v0.3.58 file or the user separately re-authorizes them.
+Later-version-only concepts remain inactive unless they have been explicitly incorporated into the amended v0.3.58 file or the user separately re-authorizes them. FRP/FCR/CFC/SMR are now active only through the canonical v0.3.58 text.
 
 Historical positions and P/L remain unchanged and keep their original model labels.
 
@@ -61,7 +78,7 @@ Historical positions and P/L remain unchanged and keep their original model labe
 4. v0.3.57 through v0.3.26 rule deltas
 5. mandatory fallback-floor certification procedure
 6. mandatory live verdict checklist
-7. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58
+7. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the two explicit v0.3.58 amendment reviews above
 8. item-verification suspension
 9. v0.3.25 consolidated rules / probation / calibration handbook
 10. live fast path and main betting procedure
