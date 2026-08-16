@@ -11,7 +11,7 @@ Always open:
 
 `models/football/CURRENT_MODEL.md`
 
-The pointer controls the active version and exact load order. Do not reconstruct the model from memory or from stale root-level files.
+The pointer controls the active version and exact load order. Do not reconstruct the model from memory or stale root-level files.
 
 ## 2. Repository map
 
@@ -23,6 +23,7 @@ models/
     ORGANIZED_FILE_LOADING_GUIDE.md
     rules/
     procedures/
+    airtable/
     context/
     handoffs/
     reviews/
@@ -43,13 +44,15 @@ Contains the cumulative amendment chain. Load every active football rule from v0
 
 Contains operational procedures and validators. Load all procedure files named by `CURRENT_MODEL.md` before issuing a recommendation.
 
+The pre-verdict validator is an enforcement layer over **all active rules**, including later rules that postdate the validator file. A newer rule's stricter evidence burden cannot be bypassed because the validator document itself has an older effective date.
+
 ### `models/football/handoffs/`
 
 Load the active handoff named by `CURRENT_MODEL.md`. Older handoffs are historical context only and must not override the active handoff or newer rules.
 
 ### `models/football/reviews/`
 
-Load active audit/benchmark reviews named by `CURRENT_MODEL.md`. They provide audit evidence and research protocol but do not outrank newer football rules. Process reviews may be referenced by the active handoff without becoming mandatory startup files unless `CURRENT_MODEL.md` explicitly adds them to the load order.
+Load active audit/benchmark reviews named by `CURRENT_MODEL.md`. Reviews provide audit evidence and research protocol but do not outrank newer football rules.
 
 ### `models/LEGACY_MODEL_CHANGELOG.md`
 
@@ -57,7 +60,7 @@ Retains the pre-v0.2.5 football baseline. Load the football portion before the v
 
 ### `/ledger.json`
 
-This is the single authoritative official betting record. Read it for official P/L, placement, settlement, bankroll, or exposure. Do not write to it without explicit approval.
+This is the single authoritative official betting record. Read it for official P/L, placement, settlement, bankroll or exposure. Do not write to it without explicit approval.
 
 ## 4. Current exact sequence
 
@@ -67,18 +70,18 @@ This is the single authoritative official betting record. Read it for official P
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 5. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
 6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md`
-7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.46.md`
+7. Continue sequentially through `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
 8. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 10. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 11. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16.md`
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
 13. `/ledger.json` only when official accounting/exposure is relevant
 
 ## 5. Minimal loading by task
 
 - General football analysis: pointer, guide, baseline, procedures, complete active rule chain.
-- Live match: general set plus validator, Airtable control, active reviews, active handoff, and current synchronized evidence.
+- Live match: general set plus validator, Airtable control, active reviews, active handoff and current synchronized evidence.
 - Settlement/bankroll: relevant model set plus `/ledger.json`.
 - Historical review: active model plus specifically relevant historical evidence.
 - Secondary-thread/reminder-style analysis: same active football gates as the main workflow; no reduced standard.
@@ -116,20 +119,43 @@ After loading, return:
 
 ## 9. Current operating emphasis
 
-Football v0.2.46 retains the strict v0.2.43 style/post-goal layer, v0.2.44 verdict-first timeliness, and v0.2.45 terminal-goal/leader-driven fallback, then adds mandatory **pre-goal pressure-inflection detection**.
+Football v0.2.47 retains:
 
-From roughly 35' to halftime, every material live checkpoint must compare the recent interval with the prior synchronized state. When one team's forward threat accelerates through independent direct-threat and structural/territorial channels, immediately rescan the protected totals board.
+- v0.2.43 style/post-goal reset requirements;
+- v0.2.44 verdict-first timeliness;
+- v0.2.45 terminal-goal/leader-driven fallback;
+- v0.2.46 pre-goal pressure-inflection detection;
 
-At a tied score, do not wait for a future trailing-team chase condition. A one-team surge may support an `ATTACKER-DRIVEN PRE-GOAL OVER` when the attacking team can plausibly fund the remaining goal budget itself and all market/validator gates clear.
+and adds a mandatory **High-Scoring Halftime Compression / Goal-Saturation Gate**.
 
-If a stable pre-goal state already qualifies, deliver immediately under v0.2.44. If the goal arrives first, invalidate the old state as `STATE-CHANGE RACE — NOT COUNTED`, reset, and only then apply v0.2.45 if a terminal-goal halftime bridge is relevant.
+### High-scoring halftime rule
 
-Any material event before delivery invalidates the pending candidate and requires a fresh reset.
+- 0-2 HT goals: normal halftime reset.
+- 3 HT goals: `HT COMPRESSION GATE — MODERATE`.
+- 4+ HT goals: `HT GOAL-SATURATION GATE — STRONG`.
 
-The active 2026-08-16 handoff additionally preserves the user's add-on shadow workflow and locks **Racing Santander vs Villarreal CF** as the immediate next target.
+After 3+ first-half goals, first-half openness is context only and cannot satisfy fresh second-half promotion evidence.
 
-Per user instruction, AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient.
+A post-HT Over must be supported by **second-half-only** evidence and at least one fresh conversion-quality channel. Generic possession, raw shots/SOT, corners, territory and box touches cannot prove renewed scoring hazard by themselves.
+
+If the candidate needs two or more additional goals for a full win, the second-half evidence must support a credible multi-goal route.
+
+After a meaningful score-stable interval, classify the current second-half scoring regime as:
+
+- `SECOND-HALF HAZARD: RE-ACCELERATING`
+- `SECOND-HALF HAZARD: PERSISTENT BUT UNPROVEN`
+- `SECOND-HALF HAZARD: COMPRESSING`
+
+`PERSISTENT BUT UNPROVEN` cannot promote an Over.
+
+This is not a blanket Under bias. If high-quality second-half evidence appears quickly, v0.2.44 still requires immediate decision delivery once all gates genuinely pass.
+
+### Racing Santander vs Villarreal process correction
+
+At 2-2 HT, v0.2.47's strong saturation gate would have applied. The v0.2.46 shadow Over 5.25 @1.88 issued at 55:51 remains historically unchanged, but under v0.2.47 that state would remain HOLD unless repeated second-half conversion-quality evidence supported the two-goal full-win budget.
+
+The user's Ajax observation remains qualitative corroboration only until formally reconstructed.
 
 ## 10. Compact startup prompt
 
-> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.46 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and the 2026-08-16 handoff. Keep official betting paused and ledger writes on hold. Apply v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, v0.2.45 terminal-goal/leader-driven fallback, and v0.2.46 pre-goal pressure-inflection logic: from about 35' onward compare interval deltas, detect attacking acceleration before the scoreboard confirms it, scan protected totals immediately, and do not wait for a future trailer chase when one team can plausibly fund the goal budget itself. Preserve the user-enabled independent add-on workflow. Treat Racing Santander vs Villarreal CF as the immediate locked target and continue from the newest synchronized lineup/odds/live screenshot without asking the user to repeat the prior chat. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
+> Load the football model from `acchtt/SlipTrace`. Open `models/football/CURRENT_MODEL.md` first and follow its exact canonical load order. Load the retained football baseline, procedures, complete v0.2.5-v0.2.47 rule chain, mandatory validator, Airtable control, active audit/benchmark reviews, and `CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`. Keep official betting paused and ledger writes on hold. Apply v0.2.43 style/post-goal resets, v0.2.44 verdict-first timeliness, v0.2.45 terminal-goal/leader-driven fallback, v0.2.46 pre-goal pressure-inflection logic, and v0.2.47 high-scoring halftime compression logic: after 3+ HT goals, first-half pressure is context only, demand second-half-only conversion-quality evidence for the exact remaining goal budget, and do not equate continued pressure with continued scoring hazard. Preserve the user-enabled independent add-on workflow. Exclude AFC Challenge/AFC Challenge League from current audit calibration. Return `FOOTBALL FILES LOADED` before analysis.
