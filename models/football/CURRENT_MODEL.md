@@ -11,7 +11,8 @@
 - Active rule directory: `models/football/rules/`
 - Active audit: `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 - Parallel early-totals benchmark: `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-- Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_RACING_VILLARREAL_HT_COMPRESSION_2026-08-16.md`
+- Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
+- Prior HT-compression review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_RACING_VILLARREAL_HT_COMPRESSION_2026-08-16.md`
 - Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
 - Authoritative betting feed: `/ledger.json`
@@ -29,8 +30,9 @@ Load in this order, applying the newest active football rule over older conflict
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-10. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
-11. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
+10. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
+11. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
+12. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
 
 Older handoffs are historical context only and must not override v0.2.47 or the active V2 handoff.
 
@@ -46,6 +48,7 @@ Older handoffs are historical context only and must not override v0.2.47 or the 
 - Totals are not automatically approved; they remain subject to synchronization, settlement, provider-quality, style, timing, reset, pressure-inflection, halftime-compression and market-scan gates.
 - xG/xGOT are secondary only.
 - Every material checkpoint must preserve exact score/minute/line/odds synchronization.
+- Existing validator Gate 5 must be enforced literally: raw shots/SOT cannot be relabeled into independent primary channels; the same event cluster cannot count twice; and `Tempo/Persistence` requires comparable score-stable evidence or a clearly repeated event sequence rather than kickoff-zero to one cumulative snapshot.
 
 ## Retained active layers
 
@@ -156,6 +159,8 @@ Arm B outputs only `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET`.
 `FOOTBALL_PRE_VERDICT_VALIDATOR.md` remains the mandatory enforcement layer. Its primary-evidence and regime-consistency gates are explicitly subject to stricter active rules; therefore v0.2.47 is mandatory even though the validator file predates this amendment.
 
 After 3+ HT goals, unresolved conversion-quality evidence or an unsupported remaining-goal budget means validator result cannot be PASS.
+
+The 2026-08-18 Nõmme/Kalju process review clarifies existing Gate 5 enforcement for all live candidates: raw SOT cannot become `Shot Quality/Locations` without location/chance-structure context; one underlying event cluster cannot populate two independent channels; and persistence must be demonstrated rather than inferred from one cumulative early snapshot.
 
 ## Competition/provider exclusion
 
