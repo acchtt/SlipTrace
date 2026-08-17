@@ -45,6 +45,29 @@ Reference:
 
 These controls are active because they are now written into `MODEL_RULES_LOL_V0.3.58.md`. Do not load v0.3.59/v0.3.60 to obtain them.
 
+### Underdog +kills — Kill Production vs Kill-Margin Suppression
+
+After KC vs GIANTX Game 1 on 2026-08-18 UTC+7, the fallback-floor procedure was amended in place to correct a false-`STABLE` underdog +kills certification.
+
+Mandatory distinction:
+
+- **KPA — Kill Production Ability:** can the underdog still generate kills while behind?
+- **KMS — Kill-Margin Suppression:** can the underdog plausibly prevent the favorite from repeatedly converting advantages into net kill-margin expansion?
+
+`STABLE` now requires both KPA and KMS to pass, in addition to the existing FER/PDC/PST/ARI requirements. Engage, scaling, waveclear, safe marksman play or theoretical return-kill tools cannot by themselves prove KMS.
+
+The False-Stable Guard must activate when the favorite has repeatable range/zone/siege/continuation routes and the underdog's kill routes depend on entering the same controlled space without an independent reset/survival route.
+
+Team strength remains a modifier, not a standalone veto. A materially stronger favorite plus superior repeatable control routes increases the proof burden for KMS but does not automatically authorize favorite -kills.
+
+`0-0 towers` remains neutral and must not be used as an implicit anti-control signal. Strong favorite control can exist before structural conversion when multiple mechanism signals jointly support it.
+
+References:
+- `models/lol/reviews/KC_GX_G1_UNDERDOG_KILLS_FALSE_STABLE_REVIEW_2026-08-18.md`
+- `models/lol/procedures/LOL_FALLBACK_FLOOR_CERTIFICATION_2026-08-13.md`
+
+This is an in-place v0.3.58 procedural amendment. Do not create or load v0.3.59/v0.3.60 for it.
+
 ## Active operational governance
 
 - Official betting remains paused; shadow only.
@@ -62,7 +85,7 @@ These controls are active because they are now written into `MODEL_RULES_LOL_V0.
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
-- Draft-locked underdog +kills fallback certification remains fail-closed.
+- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation from the 2026-08-18 amendment.
 - No rescue, martingale, chasing, or stake escalation.
 - The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
 
@@ -83,10 +106,10 @@ Historical positions and P/L remain unchanged and keep their original model labe
 2. `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
 3. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 4. v0.3.57 through v0.3.26 rule deltas
-5. mandatory fallback-floor certification procedure
+5. mandatory fallback-floor certification procedure, including active KPA/KMS amendment
 6. mandatory live verdict checklist
 7. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-8. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the two explicit v0.3.58 amendment reviews above
+8. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the three explicit v0.3.58 amendment reviews above
 9. item-verification suspension
 10. v0.3.25 consolidated rules / probation / calibration handbook
 11. live fast path and main betting procedure
