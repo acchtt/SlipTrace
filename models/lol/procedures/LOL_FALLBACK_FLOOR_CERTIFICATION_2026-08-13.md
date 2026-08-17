@@ -1,6 +1,6 @@
 # LoL Fallback Floor Certification — 2026-08-13
 
-**Status:** Mandatory under LoL v0.3.57
+**Status:** Mandatory under LoL v0.3.57; retained and amended in canonical LoL v0.3.58
 **Purpose:** mechanically prevent false `STABLE` fallback labels before any underdog +kills decision.
 
 Complete internally before pricing the handicap. Do not use the displayed +kills line as evidence.
@@ -27,6 +27,52 @@ For the underdog, mark each `PASS / FAIL / UNRESOLVED`:
 
 Any FAIL or UNRESOLVED => STABLE is forbidden.
 
+## B2. Kill Production vs Kill-Margin Suppression — mandatory v0.3.58 amendment
+
+Before `STABLE`, separately certify both of these questions:
+
+- `KPA` — Kill Production Ability: can the underdog still generate kills while behind?
+- `KMS` — Kill-Margin Suppression: can the underdog plausibly prevent the favorite from repeatedly converting advantages into **net kill-margin expansion**?
+
+Classify each `PASS / FAIL / UNRESOLVED`.
+
+`STABLE` requires **KPA = PASS and KMS = PASS** in addition to FER/PDC/PST/ARI.
+
+Do not infer KMS merely because the underdog has:
+
+- engage or counter-engage;
+- scaling frontline;
+- safe waveclear;
+- one pick champion;
+- a safe marksman;
+- utility/disengage;
+- theoretical return-kill tools.
+
+Those can support kill production without suppressing the favorite's final margin.
+
+For KMS, explicitly test the opponent's repeatable routes:
+
+1. range/zone control;
+2. first-contact reliability;
+3. re-engage and continuation after first contact;
+4. siege/structure conversion that forces later defensive entries;
+5. objective-entry control;
+6. ability to punish the same underdog failure cluster repeatedly;
+7. whether underdog damage access remains conditional on entering controlled space.
+
+If the favorite has multiple independent repeatable routes and the underdog's kill plan shares one fragile entry/reset dependency, KMS is FAIL/UNRESOLVED and `STABLE` is forbidden.
+
+### Team-strength prior modifier
+
+Team strength is a modifier, never a standalone veto.
+
+When the favorite has a materially stronger execution prior **and** also owns superior repeatable control/zone/siege/continuation routes, the burden of proof for KMS increases. Do not neutralize that interaction merely because the underdog draft contains theoretically functional fallback tools.
+
+This does not authorize favorite -kills by itself; favorite -kills still requires its separate FFD/RNE live gates.
+
+Reference:
+`models/lol/reviews/KC_GX_G1_UNDERDOG_KILLS_FALSE_STABLE_REVIEW_2026-08-18.md`
+
 ## C. False-Stable Guard
 
 Set `ACTIVE` if any material condition remains:
@@ -37,6 +83,9 @@ Set `ACTIVE` if any material condition remains:
 - carry protection disappears when initiation starts;
 - behind-state objective entry repeats the same all-in dependency;
 - opponent has repeatable range/pick/disengage/re-engage and the underdog lacks a demonstrated reset route;
+- opponent has repeatable range/zone/siege/continuation while the underdog's kill routes require entering the same controlled space;
+- the analysis shows kill-production tools but cannot independently explain how the underdog suppresses favorite net kill-margin expansion;
+- a materially stronger favorite execution prior combines with superior repeatable control routes and KMS remains unresolved;
 - role/champion-function uncertainty prevents confident certification.
 
 If ACTIVE: classify FF as `FRAGILE` or `ABSENT`.
@@ -60,6 +109,8 @@ Record internally before any underdog +kills verdict:
 - PDC;
 - PST;
 - ARI;
+- KPA;
+- KMS;
 - False-Stable Guard ACTIVE/INACTIVE;
 - DCR;
 - FF;
@@ -72,3 +123,16 @@ If hard veto is ACTIVE: stop. Do not run RIT or handicap pricing looking for an 
 ## F. Lock rule
 
 Ordinary live evidence cannot upgrade `FRAGILE`, `ABSENT`, or `UNCERTIFIED` to `STABLE` for underdog +kills. Only a genuine draft-input correction may reopen the certification.
+
+## G. Pre-structure control note
+
+`0-0 towers` is neutral. It must not be used as an implicit anti-control signal in underdog +kills reassessment.
+
+A favorite may already have a strong control state before the first structure falls. When evaluating whether a previously certified underdog fallback is still behaving as expected, distinguish:
+
+- **no structural conversion yet**, from
+- **absence of favorite control**.
+
+A material economy lead, clean fight/kill lead, role-distributed pressure, superior range/zone/access and favorable compulsory-objective schedule can jointly indicate pre-structure control even at 0-0 towers.
+
+No single signal — including gold lead, kill lead, team strength or 0-0 towers — is decisive by itself.
