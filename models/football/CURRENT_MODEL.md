@@ -11,9 +11,10 @@
 - Active rule directory: `models/football/rules/`
 - Active audit: `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 - Parallel early-totals benchmark: `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
-- Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
+- Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_SETTLEMENT_LESSONS_2026-08-18.md`
+- Nõmme enforcement review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
 - Prior HT-compression review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_RACING_VILLARREAL_HT_COMPRESSION_2026-08-16.md`
-- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
+- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
 - Authoritative betting feed: `/ledger.json`
 
@@ -31,10 +32,11 @@ Load in this order, applying the newest active football rule over older conflict
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
 10. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
-11. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`
-12. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
+11. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_SETTLEMENT_LESSONS_2026-08-18.md`
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md`
+13. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
 
-Older handoffs are historical context only and must not override v0.2.47 or the active V2 handoff.
+Older handoffs are historical context only and must not override v0.2.47 or the active 2026-08-18 handoff.
 
 ## Audit-mode operating values
 
@@ -49,6 +51,9 @@ Older handoffs are historical context only and must not override v0.2.47 or the 
 - xG/xGOT are secondary only.
 - Every material checkpoint must preserve exact score/minute/line/odds synchronization.
 - Existing validator Gate 5 must be enforced literally: raw shots/SOT cannot be relabeled into independent primary channels; the same event cluster cannot count twice; and `Tempo/Persistence` requires comparable score-stable evidence or a clearly repeated event sequence rather than kickoff-zero to one cumulative snapshot.
+- Evidence strength must be proportional to the exact settlement burden. A high total requiring several additional goals for a full win cannot be promoted from one efficient short burst.
+- For live Unders, conservation/motivation is context only. Require affirmative current evidence of actual attacking deceleration or threat suppression; `they do not need another goal` is not equivalent to `they have stopped creating`.
+- When an Over thesis clears all gates, prefer the lowest eligible protected boundary that preserves acceptable price quality and reduces unnecessary event-budget burden.
 
 ## Retained active layers
 
@@ -147,6 +152,23 @@ At 2-2 HT the strong gate would have applied. The v0.2.46 shadow promotion at 55
 
 The user's separate Ajax observation is qualitative corroboration only until reconstructed/audited; it is not counted evidence or P/L.
 
+### Gnistan corroboration note
+
+Gnistan vs Ilves was 2-2 at HT and finished 3-2. The original first-half Over 3.75 @1.83 was a full win, while only one additional goal arrived after the high-scoring halftime. This supports the need to treat first-half openness as history after the break. It is corroborating process evidence, not a universal fixed second-half scoring penalty.
+
+## 2026-08-18 settlement-enforcement clarification
+
+The Copenhagen, San Diego, Gnistan and Nõmme reviews sharpen how existing rules are enforced without changing the model version:
+
+- **Over promotions:** prefer repeated independent threat across comparable windows over isolated efficiency. Two-sided contribution is valuable when the settlement path benefits from either scorer, though a single attacker may still fund the budget where active rules allow it.
+- **Evidence deduplication:** raw SOT cannot become shot-quality evidence without context, and one event cluster cannot populate two independent channels.
+- **Persistence:** one cumulative early snapshot cannot establish a persistent regime.
+- **Goal-budget proportionality:** the larger the full-win remaining-goal requirement, the stronger and more independent the current-regime proof must be.
+- **Under promotions:** a large lead, aggregate cushion or lack of need for another goal cannot substitute for observed deceleration. Require actual current evidence of reduced dangerous entries, transitions, bodies committed, chance quality, or opponent suppression.
+- **Protected totals:** quarter-goal protection remains preferred when it materially improves settlement without sacrificing the evidence standard.
+
+Do not convert these lessons into blanket Over/Under biases or arbitrary waiting rules.
+
 ## Parallel benchmark mode
 
 - **Arm A — Current audit model:** Football v0.2.47 with the full validator and all retained controls.
@@ -156,11 +178,13 @@ Arm B outputs only `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET`.
 
 ## Validator interaction
 
-`FOOTBALL_PRE_VERDICT_VALIDATOR.md` remains the mandatory enforcement layer. Its primary-evidence and regime-consistency gates are explicitly subject to stricter active rules; therefore v0.2.47 is mandatory even though the validator file predates this amendment.
+`FOOTBALL_PRE_VERDICT_VALIDATOR.md` remains the mandatory enforcement layer and was explicitly tightened on 2026-08-18. Its primary-evidence, persistence, utility, settlement and regime-consistency gates are subject to all active v0.2.47 controls.
 
 After 3+ HT goals, unresolved conversion-quality evidence or an unsupported remaining-goal budget means validator result cannot be PASS.
 
-The 2026-08-18 Nõmme/Kalju process review clarifies existing Gate 5 enforcement for all live candidates: raw SOT cannot become `Shot Quality/Locations` without location/chance-structure context; one underlying event cluster cannot populate two independent channels; and persistence must be demonstrated rather than inferred from one cumulative early snapshot.
+The Nõmme/Kalju review clarifies Gate 5 for all live candidates: raw SOT cannot become `Shot Quality/Locations` without location/chance-structure context; one underlying event cluster cannot populate two independent channels; and persistence must be demonstrated rather than inferred from one cumulative early snapshot.
+
+The settlement review further clarifies that live Unders require demonstrated deceleration rather than inferred conservation, and all totals must match evidence quality to the exact remaining-goal burden.
 
 ## Competition/provider exclusion
 
@@ -192,7 +216,7 @@ For serious post-HT Over assessments after 3+ first-half goals, include compactl
 
 ## Active cross-chat continuation
 
-Use `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-16_V2.md`. Racing Santander vs Villarreal remains the active match until the user confirms its final state or moves to another target.
+Use `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md` for the next continuation. No match is currently active; the user said to continue tomorrow after the 2026-08-18 audit/settlement review.
 
 ## Write boundary
 
