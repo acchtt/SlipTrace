@@ -1,6 +1,6 @@
 # FOOTBALL PRE-VERDICT VALIDATOR
 
-Effective with Football v0.2.40; strengthened by Football v0.2.41 and Football v0.2.42.
+Effective with Football v0.2.40; strengthened by Football v0.2.41 and Football v0.2.42. Enforcement clarified on 2026-08-18 under Football v0.2.47 after the Nõmme/Kalju and settlement reviews.
 
 This procedure is mandatory before any `SHADOW LEAN — DO NOT PLACE`, `LEAN`, or `OFFICIAL BET` output. It is an enforcement layer over all active football rules, not a replacement for them.
 
@@ -50,6 +50,8 @@ Verify the **exact order** of relevant standings or qualification tiebreakers. D
 
 If a margin-sensitive tiebreaker applies, do not assume conservation from a lead without accounting for the value and priority of additional margin. Do not overstate goal-difference value if another criterion ranks ahead of it.
 
+**Utility is context, not proof of current behaviour.** A team having little need for another goal, holding a large aggregate lead, or being able to conserve cannot by itself establish a closed/decaying goal regime or justify a live Under. When conservation materially supports an Under, require affirmative current evidence that the team is actually reducing attacking risk or suppressing the opponent.
+
 When competition incentives materially affect the candidate, `Margin Incentive Propagated` must be true in Airtable.
 
 If format, tiebreak order or utility propagation is unresolved, result = `HOLD`.
@@ -87,7 +89,17 @@ Valid channels include:
 
 Possession, pass volume, raw shots, SOT, xG and xGOT cannot by themselves satisfy the minimum.
 
-If fewer than two independent primary channels support the candidate, result = `FAIL` or `HOLD` depending on whether more evidence can reasonably resolve the state.
+### 2026-08-18 evidence-independence enforcement
+
+Apply all of the following literally:
+
+1. **Raw SOT is not `Shot Quality/Locations`.** A shot being on target does not establish strong location or chance structure. Location, inside-box context, big/clear-chance context, meaningful keeper intervention, cutback/one-v-one/free-header context, or equivalent structural evidence is required.
+2. **One event cluster cannot satisfy two channels.** If the same few attacks/shots are the substantive basis for both labels, count them as one channel. Do not manufacture independence by renaming the same evidence.
+3. **`Tempo/Persistence` must be demonstrated.** Require at least two comparable score-stable snapshots showing continuing/repeated threat, or a clearly timestamped repeated event sequence over the interval. Kickoff-zero to one cumulative snapshot is not persistence by itself.
+4. **Shallow provider coverage raises uncertainty.** Missing box-access/chance-location/big-chance data does not permit raw SOT or possession to substitute for those channels.
+5. **Evidence must match the candidate burden.** For unusually high live totals or any candidate requiring several additional goals for a full win, an efficient short burst is insufficient unless independent structural/chance-quality evidence supports a credible multi-goal route.
+
+If fewer than two genuinely independent primary channels support the candidate, result = `FAIL` or `HOLD` depending on whether more evidence can reasonably resolve the state.
 
 ## Gate 6 — directional persistence and regime consistency
 
@@ -101,6 +113,20 @@ Check that:
 - the `Reset Resolved` state is consistent with the classification;
 - a prior Neutral/Closed/Open classification has not been retrospectively rewritten because of one later event;
 - directional switches have persistent post-reset support.
+
+### Live Under deceleration sub-gate
+
+When a live Under thesis depends materially on conservation, aggregate safety, a comfortable lead, or reduced need to attack, require affirmative evidence of **actual current-regime deceleration or suppression**, such as:
+
+- declining high-value box/central entries across comparable windows;
+- fewer dangerous transitions or fewer bodies committed forward;
+- attack-dampening substitutions or an observable shape change;
+- repeated harmless possession replacing penetrative possession;
+- declining chance quality/locations independent of xG;
+- opponent attacks repeatedly suppressed before dangerous final actions;
+- a score-stable interval showing sustained threat decay rather than merely no goal.
+
+If the leader still shows repeatable high-value creation, strong attacking depth, or a credible multi-goal route, conservation language cannot override that evidence. `They do not need another goal` is not equivalent to `they have stopped creating`.
 
 Any contradiction = `HOLD` or `FAIL`.
 
@@ -137,6 +163,8 @@ Compare the candidate against the best alternative expression.
 
 Do not anchor to the previously discussed market. Invalidating one candidate does not confirm another.
 
+When a totals thesis passes, prefer the **lowest eligible protected boundary** that preserves acceptable price quality and reduces unnecessary event-budget burden. Quarter-goal protection is valuable, but it cannot rescue an unsupported thesis.
+
 ### v0.2.42 live side-versus-total sub-gate
 
 When the match is tied or separated by no more than one goal, one team has sustained attacking/territorial superiority, and the opponent has demonstrated a credible scoring/transition/set-piece route, any proposed live side must be explicitly compared with the best eligible live total at odds >=1.70.
@@ -166,7 +194,19 @@ For the exact candidate:
 - verify minimum odds >= 1.70;
 - verify accepted-odds drift <= 0.08 only when the score, minute, line, settlement scope and material state are unchanged and acceptance is within 120 seconds.
 
-Any settlement misunderstanding or unresolved line movement = `FAIL` or `HOLD`.
+### Goal-budget proportionality
+
+For totals, state explicitly how many **additional goals** are required for:
+
+- full win;
+- push;
+- half-win;
+- half-loss;
+- full loss boundary where useful.
+
+The proof burden rises with the full-win requirement. If the candidate needs two or more additional goals for a full win, the current evidence must support a credible multi-goal route. If it needs four or five additional goals, a short efficient SOT burst or historical scoring profile is not enough without strong independent current-regime support.
+
+Any settlement misunderstanding, unsupported event budget, or unresolved line movement = `FAIL` or `HOLD`.
 
 ## Gate 10 — circuit-breaker and output mode
 
@@ -174,9 +214,10 @@ If the four-match circuit breaker is active:
 
 - `PASS` may output only `SHADOW LEAN — DO NOT PLACE`;
 - exactly one primary shadow selection may count per match;
-- simulated stake = 0.25u;
+- simulated stake follows the active `CURRENT_MODEL.md` convention (currently **0.125u** unless a newer explicit user instruction supersedes it);
 - the shadow selection must be written to the Airtable `Circuit Breaker` table;
-- `NO BET` / `NO BET — HOLD` do not consume a slot.
+- `NO BET` / `NO BET — HOLD` do not consume a slot;
+- a later process audit may mark a historical sample `Invalid` without rewriting the original Decision State; invalid samples remain visible but are excluded from valid edge estimation.
 
 Official execution cannot resume after 4/4 until the four-match review is complete and the user explicitly restores official betting.
 
