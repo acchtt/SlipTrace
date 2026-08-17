@@ -24,9 +24,24 @@ Final:
 - final signed kill margin: KC +11
 - GX +9.5 lost
 
-## What went wrong
+## Primary execution breach — the TAKE was not eligible post-draft
 
-The underdog fallback was incorrectly certified from the existence of theoretical survival and return-kill tools.
+Canonical v0.3.58 governance already states:
+
+- pregame/immediate post-draft ML/KH/TK TAKEs are disabled;
+- live ML/KH/TK require the two-snapshot eligibility gate.
+
+Therefore the historical visible post-draft `TAKE` was procedurally invalid **before** any discussion of whether the GX fallback was analytically good or bad.
+
+Correct immediate post-draft action under the written procedure was:
+
+**HOLD/PASS — no position — wait for two clean synchronized live snapshots.**
+
+This review must not let analytical debate hide the execution error. Future compact output must preserve full procedure: a strong draft opinion may identify a preferred live target, but it cannot bypass the two-snapshot gate.
+
+## Analytical error — false-STABLE fallback
+
+Separately from the execution breach, the underdog fallback was incorrectly certified from the existence of theoretical survival and return-kill tools.
 
 The analysis emphasized:
 
@@ -38,7 +53,7 @@ The analysis emphasized:
 
 Those features can help GX **produce some kills while losing**, but they did not establish that GX could **suppress KC's net kill-margin expansion**.
 
-That distinction was the core miss.
+That distinction was the core analytical miss.
 
 ## Draft interaction that should have blocked STABLE
 
@@ -57,7 +72,7 @@ The correct post-draft classification should therefore have been:
 - favorite kill-margin suppression by underdog: UNRESOLVED/INSUFFICIENT;
 - False-Stable Guard: ACTIVE;
 - fallback floor: FRAGILE / UNCERTIFIED, not STABLE;
-- GX +9.5: PASS.
+- GX +9.5: not a valid post-draft TAKE and not a preferred future +kills target absent genuine draft-input correction.
 
 This review does **not** imply KC -9.5 should have been an automatic TAKE. Favorite -kills still requires its own live FFD/RNE gates.
 
@@ -114,6 +129,8 @@ If the underdog genuinely passes FER/PDC/PST/ARI and also demonstrates independe
 
 ## Correct retrospective verdict
 
-**PASS — GX +9.5 kills @1.780 — 0u.**
+**HOLD/PASS post-draft — GX +9.5 kills @1.780 — 0u.**
 
-No change to historical P/L. The original position remains a recorded loss under v0.3.58; this review changes future certification, not history.
+The model should have waited for the mandatory two synchronized live snapshots. Independently, the draft fallback should have been classified FRAGILE/UNCERTIFIED, so the GX +kills thesis should not have become a preferred live target absent a genuine draft-input correction.
+
+No change to historical P/L. The original position remains a recorded loss under v0.3.58; this review changes future execution/certification, not history.
