@@ -7,12 +7,30 @@
 - Active analytical model: **LoL v0.3.58**
 - Active rules: `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 - Canonical reset authority: `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
+- Mandatory new-chat bootstrap: `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`
 - **LoL v0.3.59 and v0.3.60 are retired/discarded from the active analytical hierarchy.**
 - Their files may remain only as historical/audit artifacts. Do not load, blend, or auto-restore them.
 
 User instruction on 2026-08-16 UTC+7: **"Discard newer versions, update this version accordingly".**
 
 The prior temporary v0.3.58 override is ended. v0.3.58 is now the canonical model, not a temporary rollback.
+
+## Mandatory session bootstrap / authority-drift guard
+
+Every new chat/session must fetch this `CURRENT_MODEL.md` first, then immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` before continuing the remaining load order.
+
+Conversation memory, project context, pasted transfer prompts, older handoffs, historical model labels, and prior assistant output are never allowed to override this file's active/retired model hierarchy.
+
+If live evidence arrives before bootstrap is complete, the only valid visible verdict is:
+
+`MODEL NOT LOADED — HOLD`
+
+No tool call may precede that visible HOLD. Bootstrap then completes and the same synchronized evidence may be reassessed if still valid.
+
+A model/version vocabulary mismatch is a hard tripwire: stop model-certified analysis, reload this file + the bootstrap, and fail closed until the authority lock passes.
+
+Reference incident review:
+`models/lol/reviews/DNS_NS_G3_SESSION_BOOTSTRAP_AND_FRP_EXECUTION_REVIEW_2026-08-18.md`
 
 ## Canonical v0.3.58 in-place amendments
 
@@ -73,11 +91,13 @@ This is an in-place v0.3.58 procedural amendment. Do not create or load v0.3.59/
 - Official betting remains paused; shadow only.
 - Default shadow stake: **0.25u**; actual exposure: **0u**.
 - Minimum odds: **1.60**.
+- Every new chat/session must complete `LOL_SESSION_BOOTSTRAP.md`; incomplete bootstrap is fail-closed.
 - Verdict first; no connector/logging work before the visible live verdict.
 - **Immediately after every valid visible live verdict, Airtable map/snapshot logging is mandatory and the expected record must be verified to exist.**
 - `PASS` / `HOLD` still require a snapshot log but never create a position; a qualified executable `TAKE` requires snapshot + exact shadow-position logging after the verdict, subject to the one-TAKE-per-family ledger check.
 - If a map/snapshot/position write is discovered missing, backfill only from the original synchronized evidence and original visible verdict; never invent or upgrade a `PASS`/`HOLD` into a position. Fight-mid-verdict discarded decisions remain unlogged/void.
 - Airtable logging failure is a data-integrity issue only: it must not delay the visible verdict, change analytical gates, or create an extra confirmation requirement.
+- Never claim `logged` or `settled` unless the actual Airtable write succeeded and the expected record was verified.
 - Compact output still requires full underlying analysis.
 - Pregame/immediate post-draft ML/KH/TK TAKEs remain disabled.
 - Live ML/KH/TK retain the two-snapshot eligibility gate.
@@ -86,11 +106,15 @@ This is an in-place v0.3.58 procedural amendment. Do not create or load v0.3.59/
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
 - Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation from the 2026-08-18 amendment.
+- Total Kills Under is never TAKE-eligible unless `FRP = PASS` is actually established; passive quiet alone is insufficient.
 - No rescue, martingale, chasing, or stake escalation.
 - The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
 
 Mandatory logging procedure:
 `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+
+Mandatory session bootstrap:
+`models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`
 
 ## Retired newer analytical versions
 
@@ -103,20 +127,21 @@ Historical positions and P/L remain unchanged and keep their original model labe
 ## Required load order
 
 1. `models/lol/CURRENT_MODEL.md`
-2. `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
-3. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
-4. v0.3.57 through v0.3.26 rule deltas
-5. mandatory fallback-floor certification procedure, including active KPA/KMS amendment
-6. mandatory live verdict checklist
-7. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-8. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the three explicit v0.3.58 amendment reviews above
-9. item-verification suspension
-10. v0.3.25 consolidated rules / probation / calibration handbook
-11. live fast path and main betting procedure
-12. connected-stack procedure and addenda
-13. scoreboard protocol
-14. shared stake policy
-15. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
+2. `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`
+3. `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
+4. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
+5. v0.3.57 through v0.3.26 rule deltas
+6. mandatory fallback-floor certification procedure, including active KPA/KMS amendment
+7. mandatory live verdict checklist
+8. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+9. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above and the 2026-08-18 session-bootstrap/FRP execution review
+10. item-verification suspension
+11. v0.3.25 consolidated rules / probation / calibration handbook
+12. live fast path and main betting procedure
+13. connected-stack procedure and addenda
+14. scoreboard protocol
+15. shared stake policy
+16. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
@@ -125,6 +150,7 @@ Historical positions and P/L remain unchanged and keep their original model labe
 - New positions are recorded as **LoL v0.3.58**.
 - Every valid live verdict must be followed by an Airtable snapshot write and verification; `PASS` / `HOLD` produce no position record, while `TAKE` produces the exact shadow position after the verdict when executable.
 - Missing logs must be repaired faithfully from original evidence without creating retrospective decisions.
+- A visibly issued procedural-error TAKE may be backfilled faithfully but must be audit-labeled with the correct canonical verdict; do not rewrite history by pretending it was a PASS.
 - Do not append `temporary override` to new records.
 - Prior v0.3.59/v0.3.60 positions remain labeled historically as they were.
 - Do not create or auto-promote a newer model from an individual outcome unless the user explicitly requests another model change.
