@@ -40,6 +40,7 @@ Before the first model-certified live verdict of a session, internally verify al
 - active model exactly matches `CURRENT_MODEL.md`;
 - retired versions are identified and excluded;
 - mandatory procedures/reviews required by the current load order were loaded;
+- `LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md` is loaded;
 - latest handoff was loaded last;
 - shadow stake, minimum odds, market-family limits, and live-snapshot eligibility rules are known;
 - Airtable post-verdict logging procedure is loaded.
@@ -85,9 +86,19 @@ Compact output is allowed, but the underlying market-specific gate must be expli
 - two synchronized snapshots required;
 - exact signed kill-margin arithmetic required;
 - draft-locked fallback certification is fail-closed;
+- a complete **UDKC — Underdog +Kills Draft Certificate** must exist before the first live state is used for this market;
+- the UDKC must resolve DER / FRI / SRI / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable Guard / DCR / FF / hard Draft-Collapse Veto;
+- every mandatory PASS field must actually pass, False-Stable Guard must be INACTIVE, FF must be STABLE, and hard veto must be INACTIVE;
+- omitted, implied, narrative-only, or `UNRESOLVED` certification fields force `PASS/HOLD`;
+- if a new chat starts mid-map and no complete persisted pre-live UDKC can be found, underdog +kills is `UNCERTIFIED — HOLD/PASS FOR THIS MAP`;
+- live evidence may preserve or downgrade a pre-live STABLE UDKC, but may never create, fill, or upgrade one;
 - `KPA` and `KMS` must both pass, in addition to retained FER/PDC/PST/ARI requirements;
 - False-Stable Guard applies;
-- theoretical engage, scaling, waveclear, or safe ADC play cannot substitute for KMS.
+- theoretical engage, scaling, waveclear, peel/utility, safe ADC play, small current kill margin, or a large displayed +kills buffer cannot substitute for KMS;
+- exact NKB / additional-net-kill arithmetic describes the hurdle only; it is never certification evidence.
+
+Mandatory guard:
+`models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
 
 ### Missing gate
 
@@ -125,4 +136,4 @@ Future transfer prompts must not hardcode a model version as independent authori
 
 The minimum transfer instruction is:
 
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`.
+> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a persisted pre-live UDKC; if none exists, that family is HOLD/PASS for the map.
