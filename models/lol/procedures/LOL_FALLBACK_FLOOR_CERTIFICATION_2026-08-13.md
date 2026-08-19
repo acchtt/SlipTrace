@@ -95,6 +95,27 @@ Hard interpretation:
 Reference:
 `models/lol/reviews/DNS_BRO_G1_UNDERDOG_KILLS_ROLE_LEVERAGE_AND_DURATION_EXECUTION_REVIEW_2026-08-19.md`
 
+## B4. Pre-live UDKC hard lock — mandatory v0.3.58 enforcement
+
+Before the first live state is used to evaluate an underdog +kills market, create a complete **UDKC — Underdog +Kills Draft Certificate** from draft/team inputs only.
+
+The UDKC consists of the full Eligibility Output in section E and must be completed after draft lock but before live-state reasoning for this market.
+
+Hard rules:
+
+- every field must be explicitly resolved; omitted, implied, narrative-only, or `UNRESOLVED` fields mean `UNCERTIFIED`;
+- the UDKC must be persisted in the map's post-draft audit trail or latest live handoff so a new chat can verify it;
+- if a new chat begins mid-map and cannot locate a complete persisted pre-live UDKC, underdog +kills is `UNCERTIFIED — HOLD/PASS FOR THIS MAP`;
+- do not reconstruct a missing certificate from a live scoreboard after the fact;
+- live evidence may preserve or downgrade a pre-live STABLE classification but may never create, fill, or upgrade one;
+- exact current kill margin, NKB, a large displayed +kills cushion, low current gold separation, 0-0 towers, grubs, safe ADC play, peel, waveclear, scaling, or theoretical return kills cannot create KMS or FF=STABLE.
+
+Mandatory guard:
+`models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+
+Reference incident:
+`models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+
 ## C. False-Stable Guard
 
 Set `ACTIVE` if any material condition remains:
@@ -140,6 +161,13 @@ Record internally before any underdog +kills verdict:
 - FF;
 - v0.3.56 HARD Draft-Collapse Veto ACTIVE/INACTIVE.
 
+For a valid pre-live UDKC:
+
+- FER/PDC/PST/ARI/KPA/KMS/RLD must all be PASS;
+- False-Stable Guard must be INACTIVE;
+- FF must be STABLE;
+- hard Draft-Collapse Veto must be INACTIVE.
+
 If any certification field is missing or unresolved: `PASS/HOLD`.
 
 If hard veto is ACTIVE: stop. Do not run RIT or handicap pricing looking for an exception.
@@ -147,6 +175,10 @@ If hard veto is ACTIVE: stop. Do not run RIT or handicap pricing looking for an 
 ## F. Lock rule
 
 Ordinary live evidence cannot upgrade `FRAGILE`, `ABSENT`, or `UNCERTIFIED` to `STABLE` for underdog +kills. Only a genuine draft-input correction may reopen the certification.
+
+A missing persisted pre-live UDKC is `UNCERTIFIED`, not an invitation to certify from live evidence.
+
+Live evidence may only preserve or downgrade an already-complete pre-live STABLE UDKC.
 
 ## G. Pre-structure control note
 
