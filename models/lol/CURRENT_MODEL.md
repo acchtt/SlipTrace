@@ -86,6 +86,25 @@ References:
 
 This is an in-place v0.3.58 procedural amendment. Do not create or load v0.3.59/v0.3.60 for it.
 
+### Underdog +kills — Role-Leverage Decomposition
+
+After DNS vs BRO Game 1 on 2026-08-19 UTC+7, the fallback-floor procedure was clarified in place to prevent isolated top-side economy or grubs from being treated as generic kill-margin resistance.
+
+Mandatory **RLD — Role-Leverage Decomposition** now asks where meaningful economy is concentrated and whether that location actually converts into the relevant grouped-fight / kill-margin-suppression mechanism.
+
+- mid/ADC carry-centered economy can have higher immediate grouped-fight leverage when paired with protected DPS, objective control and cleaner access;
+- top-side economy is not intrinsically low-value, but it must create an independent suppressive route such as side-lane inevitability, reliable flank/access, durable frontline control or another real KMS mechanism;
+- grubs are structure/tempo assets and are never automatic KMS evidence;
+- if favorite carry leverage + grouped control is materially stronger while the underdog's resistance is mainly isolated top/grubs, `KMS = PASS` is forbidden;
+- `RLD = UNRESOLVED` forbids fallback `STABLE`.
+
+The same incident review also found that the historical Over 33 TAKE was not canonical-eligible: low kills and low tower count were used as stall evidence without documented `FAILED CONVERSION`. The existing Duration Over gate already covered this, so no new Duration rule was required.
+
+Reference:
+`models/lol/reviews/DNS_BRO_G1_UNDERDOG_KILLS_ROLE_LEVERAGE_AND_DURATION_EXECUTION_REVIEW_2026-08-19.md`
+
+This is an in-place v0.3.58 procedural clarification. Do not create v0.3.59 for it.
+
 ## Active operational governance
 
 - Official betting remains paused; shadow only.
@@ -105,7 +124,7 @@ This is an in-place v0.3.58 procedural amendment. Do not create or load v0.3.59/
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
-- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation from the 2026-08-18 amendment.
+- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation and mandatory RLD role-leverage decomposition.
 - Total Kills Under is never TAKE-eligible unless `FRP = PASS` is actually established; passive quiet alone is insufficient.
 - No rescue, martingale, chasing, or stake escalation.
 - The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
@@ -131,7 +150,7 @@ Historical positions and P/L remain unchanged and keep their original model labe
 3. `models/lol/procedures/LOL_V0.3.58_CANONICAL_RESET_2026-08-16.md`
 4. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 5. v0.3.57 through v0.3.26 rule deltas
-6. mandatory fallback-floor certification procedure, including active KPA/KMS amendment
+6. mandatory fallback-floor certification procedure, including active KPA/KMS + RLD amendments
 7. mandatory live verdict checklist
 8. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
 9. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above and the 2026-08-18 session-bootstrap/FRP execution review
