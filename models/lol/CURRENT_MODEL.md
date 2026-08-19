@@ -105,6 +105,29 @@ Reference:
 
 This is an in-place v0.3.58 procedural clarification. Do not create v0.3.59 for it.
 
+### Underdog +kills — Pre-live UDKC hard lock
+
+After DNS vs BRO Game 2 on 2026-08-19 UTC+7, a second procedural error showed that merely writing draft-lock rules was not enough: live evidence was used to assert KMS/RLD even though no complete pre-live fallback certificate had been recorded.
+
+Canonical v0.3.58 now enforces a mandatory **UDKC — Underdog +Kills Draft Certificate**:
+
+- UDKC must be completed after draft lock and before the first live state is used for underdog +kills analysis;
+- it must explicitly resolve DER / FRI / SRI / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable Guard / DCR / FF / hard Draft-Collapse Veto;
+- omitted, implied, narrative-only, or unresolved fields mean `UNCERTIFIED`;
+- the certificate must be persisted in the post-draft audit trail or live handoff so a new chat can verify it;
+- a new chat that starts mid-map without a complete persisted pre-live UDKC must lock underdog +kills to `HOLD/PASS FOR THIS MAP`;
+- live evidence may preserve or downgrade a pre-live STABLE certificate, but can never create, fill, or upgrade one;
+- exact kill-margin / NKB arithmetic is downstream hurdle math only and is never certification evidence;
+- safe ADC play, peel, waveclear, scaling, small current kill margin, 0-0 towers, grubs, isolated lane gold, or a large displayed +kills buffer cannot substitute for KMS.
+
+Mandatory guard:
+`models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+
+Reference review:
+`models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+
+This is an in-place v0.3.58 governance/enforcement amendment. Do not create v0.3.59 for it.
+
 ## Active operational governance
 
 - Official betting remains paused; shadow only.
@@ -124,10 +147,14 @@ This is an in-place v0.3.58 procedural clarification. Do not create v0.3.59 for 
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
-- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation and mandatory RLD role-leverage decomposition.
+- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation, mandatory RLD, and mandatory persisted pre-live UDKC.
+- Missing persisted pre-live UDKC means underdog +kills is HOLD/PASS for that map; ordinary live evidence cannot reopen it.
 - Total Kills Under is never TAKE-eligible unless `FRP = PASS` is actually established; passive quiet alone is insufficient.
 - No rescue, martingale, chasing, or stake escalation.
-- The new FRP/FCR/CFC/SMR gates are mechanism checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+- The FRP/FCR/CFC/SMR/UDKC gates are mechanism/execution checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+
+Mandatory underdog +kills guard:
+`models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
 
 Mandatory logging procedure:
 `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
@@ -151,16 +178,17 @@ Historical positions and P/L remain unchanged and keep their original model labe
 4. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 5. v0.3.57 through v0.3.26 rule deltas
 6. mandatory fallback-floor certification procedure, including active KPA/KMS + RLD amendments
-7. mandatory live verdict checklist
-8. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-9. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above and the 2026-08-18 session-bootstrap/FRP execution review
-10. item-verification suspension
-11. v0.3.25 consolidated rules / probation / calibration handbook
-12. live fast path and main betting procedure
-13. connected-stack procedure and addenda
-14. scoreboard protocol
-15. shared stake policy
-16. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
+7. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+8. mandatory live verdict checklist
+9. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+10. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above, the 2026-08-18 session-bootstrap/FRP execution review, and the 2026-08-19 DNS-BRO G2 draft-lock execution review
+11. item-verification suspension
+12. v0.3.25 consolidated rules / probation / calibration handbook
+13. live fast path and main betting procedure
+14. connected-stack procedure and addenda
+15. scoreboard protocol
+16. shared stake policy
+17. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
