@@ -73,6 +73,28 @@ This does not authorize favorite -kills by itself; favorite -kills still require
 Reference:
 `models/lol/reviews/KC_GX_G1_UNDERDOG_KILLS_FALSE_STABLE_REVIEW_2026-08-18.md`
 
+## B3. Role-Leverage Decomposition — mandatory v0.3.58 clarification
+
+Before `KMS = PASS`, classify **RLD — Role-Leverage Decomposition** as `PASS / FAIL / UNRESOLVED`.
+
+RLD must answer:
+
+1. Where is each side's meaningful gold/level advantage concentrated: top, jungle, mid, ADC, support?
+2. Which pockets convert directly into the next compulsory grouped fights, protected DPS, objective turn, siege or re-engage?
+3. Does an underdog top-side lead create an **independent kill-margin-suppression route**, or is it only isolated lane value?
+4. Are grubs/towers/objective assets creating real kill-margin suppression, or only structure/tempo leverage?
+5. Does the favorite hold carry-centered economy plus cleaner grouped access/control while the underdog's resistance is localized elsewhere?
+
+Hard interpretation:
+
+- if favorite carry leverage + grouped control is materially stronger and the underdog's resistance is mainly isolated top/grubs without an independent suppressive route, `KMS = PASS` is forbidden;
+- `RLD = UNRESOLVED` forbids `FF = STABLE`;
+- grubs are never automatic KMS evidence;
+- no fixed lane-value multiplier is introduced — top gold may be highly valuable when it creates side-lane inevitability, reliable flank/access, durable frontline control or another independent suppressive mechanism.
+
+Reference:
+`models/lol/reviews/DNS_BRO_G1_UNDERDOG_KILLS_ROLE_LEVERAGE_AND_DURATION_EXECUTION_REVIEW_2026-08-19.md`
+
 ## C. False-Stable Guard
 
 Set `ACTIVE` if any material condition remains:
@@ -86,6 +108,7 @@ Set `ACTIVE` if any material condition remains:
 - opponent has repeatable range/zone/siege/continuation while the underdog's kill routes require entering the same controlled space;
 - the analysis shows kill-production tools but cannot independently explain how the underdog suppresses favorite net kill-margin expansion;
 - a materially stronger favorite execution prior combines with superior repeatable control routes and KMS remains unresolved;
+- favorite carry-centered leverage plus cleaner grouped control is being offset mainly by isolated underdog top/grub resistance without an independent suppressive route;
 - role/champion-function uncertainty prevents confident certification.
 
 If ACTIVE: classify FF as `FRAGILE` or `ABSENT`.
@@ -111,6 +134,7 @@ Record internally before any underdog +kills verdict:
 - ARI;
 - KPA;
 - KMS;
+- RLD;
 - False-Stable Guard ACTIVE/INACTIVE;
 - DCR;
 - FF;
