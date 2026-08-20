@@ -2,27 +2,28 @@
 
 **Status:** MANDATORY GOVERNANCE / EXECUTION GUARD  
 **Applies to:** canonical LoL v0.3.58  
-**Purpose:** prevent live-state hindsight, line-buffer anchoring, and incomplete fallback certification from creating false underdog +kills TAKEs.
+**Amended:** 2026-08-20 UTC+7  
+**Purpose:** prevent live-state hindsight, line-buffer anchoring, and incomplete fallback certification from creating false underdog +kills TAKEs without imposing an unnecessary timestamp lock.
 
 This procedure strengthens enforcement of the existing fallback-floor rules. It does not create a new analytical model version.
 
 ## 1. Core hard rule
 
-An underdog +kills market is **not TAKE-eligible** unless a complete draft-locked certification exists **before the first live state is used to evaluate that market**.
+An underdog +kills market is **not TAKE-eligible** unless a complete draft-locked certification exists before the TAKE decision.
 
 The certification must be based on draft/team inputs only. Live score, gold, objectives, market movement, displayed handicap size, and current net-kill burden cannot be used to create or upgrade the draft fallback classification.
 
-If no complete pre-live certificate exists, the underdog +kills family is locked:
+**The certificate does not have to be created before the game clock starts.** If the exact locked draft is first received after live play has begun, including inside a live screenshot or in a new chat that starts mid-map, the analyst may still create the UDKC by running a strict **Draft-Isolation Pass** before using live evidence for the +kills decision.
+
+If the exact draft cannot be established reliably, or the Draft-Isolation Pass is incomplete, the family is locked:
 
 `UNCERTIFIED — HOLD/PASS FOR THIS MAP`
 
-Ordinary live evidence cannot reopen it.
-
-Only a genuine correction to the recorded draft inputs may reopen certification.
+Only a genuine correction to the recorded draft inputs may reopen a failed draft-input certification.
 
 ## 2. Mandatory certificate — UDKC
 
-Create an internal **UDKC — Underdog +Kills Draft Certificate** for the potential underdog before live +kills evaluation.
+Create an internal **UDKC — Underdog +Kills Draft Certificate** for the potential underdog before any +kills TAKE.
 
 Every field must be resolved:
 
@@ -53,20 +54,36 @@ For TAKE eligibility:
 
 Anything else => HOLD/PASS.
 
-## 3. Certification timestamp / persistence
+## 3. Draft-Isolation Pass / late reconstruction
 
-The UDKC must be completed:
+The purpose of draft lock is to keep the certificate **draft-only**, not to make eligibility depend on when the screenshot arrived.
 
-1. after draft is locked; and
-2. before the first live scoreboard state is used for underdog +kills analysis.
+A UDKC may be created after live play has started only when all of the following are true:
 
-The certificate should be persisted in the map's post-draft audit trail or latest live handoff so a new chat can verify it.
+1. the exact ten-champion locked draft and team sides are known from reliable evidence;
+2. the analyst explicitly resets to a **position-blind, line-blind draft read**;
+3. DER / FRI / SRI / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable Guard / DCR / FF / Draft-Collapse Veto are resolved using only draft/team-strength inputs available independently of the current live state;
+4. current kills, gold, objectives, structures, current odds, current handicap size, and current margin are excluded from the certificate;
+5. the completed certificate is persisted before any underdog +kills TAKE is issued.
 
-A new chat that begins mid-map must locate a complete persisted UDKC. If it cannot, it must treat underdog +kills as `UNCERTIFIED — HOLD/PASS` for that map.
+If one screenshot contains both the draft and live state, process it in two phases:
 
-Do not reconstruct a missing certificate from a live scoreboard after the fact.
+**Phase A — Draft Isolation:** certify the draft using champion/team inputs only.  
+**Phase B — Live Reassessment:** apply the live state, two-snapshot gate, exact margin arithmetic, RLD preservation/downgrade, and pricing.
 
-## 4. KMS proof burden — repeatable-route test
+A new chat that begins mid-map may reconstruct a missing UDKC from an exact recorded draft. It must not reconstruct the certificate from the scoreboard itself.
+
+If exact draft evidence is unavailable or ambiguous, use `UNCERTIFIED — HOLD/PASS`.
+
+## 4. Persistence
+
+The UDKC should be persisted in the map audit trail or latest live handoff as soon as it is completed so future chats can reuse the draft-only certificate.
+
+A persisted UDKC is preferred because it reduces repeated work and hindsight risk, but **absence of a persisted pre-live certificate is not itself a market veto** when the exact draft can be recovered and a valid Draft-Isolation Pass can be completed.
+
+Do not let a current +kills line or attractive buffer motivate the certificate. Certification must be completed before line-value reasoning.
+
+## 5. KMS proof burden — repeatable-route test
 
 KMS is not a synonym for "can fight back" or "has safe champions."
 
@@ -101,16 +118,16 @@ The following are **supporting tools only** and cannot independently establish K
 
 If the analysis cannot explain how the underdog suppresses repeated **net kill-margin expansion**, set `KMS = FAIL`.
 
-## 5. Line-blind order of operations
+## 6. Line-blind order of operations
 
 For underdog +kills the order is mandatory:
 
-1. lock draft;
-2. complete UDKC;
+1. establish the exact locked draft;
+2. complete the draft-only UDKC, using Draft Isolation if already live;
 3. persist UDKC;
-4. observe live snapshots;
+4. observe/review live snapshots;
 5. verify two-snapshot eligibility;
-6. reassess whether the pre-certified STABLE fallback is still intact;
+6. reassess whether the certified STABLE fallback is still intact;
 7. calculate exact signed margin and NKB;
 8. only then price the displayed handicap.
 
@@ -118,45 +135,45 @@ Do not start from the displayed line and reason backward toward certification.
 
 Exact kill-margin arithmetic describes the hurdle. **It is never evidence that the hurdle is unlikely enough to bet.**
 
-## 6. Live evidence can only preserve or downgrade
+## 7. Live evidence can preserve or downgrade, not create draft proof
 
-A pre-live `STABLE` UDKC may remain STABLE or be downgraded by live evidence.
+A draft-certified `STABLE` UDKC may remain STABLE or be downgraded by live evidence.
 
 Live evidence may never:
 
-- turn FRAGILE into STABLE;
-- turn ABSENT into STABLE;
-- turn UNCERTIFIED into STABLE;
-- fill a previously missing UDKC field;
-- convert a safe-ADC / peel narrative into KMS proof.
+- turn a draft `FRAGILE` into `STABLE`;
+- turn a draft `ABSENT` into `STABLE`;
+- fill a missing draft field;
+- convert a safe-ADC / peel narrative into KMS proof;
+- be used as evidence inside the Draft-Isolation Pass.
 
-If live play reveals the favorite's repeatable routes are stronger than expected, downgrade immediately.
+If live play reveals the favorite's repeatable routes are stronger than expected, downgrade immediately. Once downgraded for the map, ordinary live evidence cannot re-upgrade it.
 
-## 7. Role-Leverage Decomposition remains mandatory
+## 8. Role-Leverage Decomposition remains mandatory
 
-RLD must distinguish where live economy sits, but RLD is a **live preservation/downgrade check** after the draft certificate, not a live mechanism for creating a missing certificate.
+Draft RLD asks whether the composition has independent suppression routes and where likely grouped leverage sits. Live RLD then checks where the actual economy has concentrated and may preserve or downgrade the certificate.
 
 Carry-centered favorite economy plus cleaner grouped control can invalidate a previously STABLE fallback.
 
 Isolated top/grub resistance cannot create KMS where none was draft-certified.
 
-## 8. Same-series SMR hardening
+## 9. Same-series SMR hardening
 
-If an underdog +kills TAKE in the same series is audit-invalidated because UDKC/KMS was missing or false, the next map's underdog +kills candidate requires a brand-new complete UDKC before live.
+If an underdog +kills TAKE in the same series is audit-invalidated because UDKC/KMS was missing or false, the next map's underdog +kills candidate requires a brand-new complete UDKC before TAKE.
 
 Do not use "different champions" or "healthier-looking fallback" as shorthand certification.
 
-If the full certificate is not completed, HOLD/PASS.
+The UDKC may be completed pre-live or through a valid Draft-Isolation Pass after live starts. If the full certificate is not completed, HOLD/PASS.
 
-## 9. New-chat bootstrap assertion
+## 10. New-chat bootstrap assertion
 
 Every new LoL chat must internally assert before any underdog +kills TAKE:
 
-`UDKC FOUND = YES`
+`UDKC FOUND OR RECONSTRUCTED FROM EXACT DRAFT = YES`
 
 and
 
-`UDKC PRE-LIVE = YES`
+`DRAFT-ISOLATED = YES`
 
 and
 
@@ -174,13 +191,16 @@ If any assertion is NO or unknown:
 
 `HOLD/PASS — UNDERDOG +KILLS UNCERTIFIED`
 
-This guard is fail-closed and overrides narrative confidence.
+This guard is fail-closed on **draft quality and mechanism proof**, not on screenshot timing.
 
-## 10. Reference incident
+## 11. Reference incidents / amendment rationale
 
 DNS vs BRO Game 2, 2026-08-19:
 
-A DNS +7.5 kills TAKE was issued at 5:48 after live evidence was used to say KMS/RLD passed, even though no complete pre-live UDKC had been recorded. That violated the existing draft-lock rule. The correct canonical verdict was HOLD/PASS regardless of outcome.
+A DNS +7.5 kills TAKE was issued at 5:48 after live evidence was used to say KMS/RLD passed even though the draft-only mechanism proof had not actually been completed. The error was the **quality and completeness of certification**, not the mere fact that the clock had started.
 
-Reference review:
-`models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+On 2026-08-20 the user clarified that timing should not override accurate draft and game-state reading. The guard was therefore amended so an exact draft received after live start may be certified through Draft Isolation, while live facts remain forbidden as certification evidence.
+
+References:
+- `models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+- `models/lol/reviews/UDKC_DRAFT_ISOLATION_AMENDMENT_2026-08-20.md`
