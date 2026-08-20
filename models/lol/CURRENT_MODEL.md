@@ -132,6 +132,35 @@ References:
 
 This is an in-place v0.3.58 governance/enforcement amendment. Do not create v0.3.59 for it.
 
+### Draft reading — Draft Interaction Matrix (DIM)
+
+After BLG vs LGD Game 3 on 2026-08-20 UTC+7, the draft process was amended to prevent generic champion utility from being credited as if it directly answered the opponent's actual kill mechanism.
+
+Before any model-certified draft edge or draft-derived fallback classification, complete the mandatory **DIM — Draft Interaction Matrix**:
+
+- exact role assignments first;
+- primary and secondary kill mechanisms for both teams;
+- **TAM — Threat-Answer Matching**: each claimed defensive/reset tool must be mapped to the opponent mechanism it actually answers;
+- **OSG — Objective-Setup Geometry**: range, choke control, vision-entry safety, first move, globals, flank/access and objective-turn geometry;
+- **DAU — Damage Access & Uptime**: realistic target access and protected damage continuation, not theoretical DPS;
+- **SLI — Side-Lane Independence**: split/side routes count only if they survive matchup, globals, catch, waveclear, objective timing and four-man-survival tests;
+- **FNF — Frontline Necessity Fit**: lack of a traditional tank is not a generic weakness when a composition wins pre-contact space and does not require sustained front-to-back;
+- **CAS — Collapse Asymmetry**: after one ordinary favorite advantage, can the underdog actually break repeated kill-margin expansion?
+- **ETS — Execution & Team-Strength modifier** only after interaction geometry is established;
+- mandatory **AFP — Adversarial Favorite Pass** before finalizing the draft edge.
+
+For underdog +kills, DIM is a hard prerequisite to UDKC. `TAM = FAIL/UNRESOLVED` or `CAS = FAIL/UNRESOLVED` forbids `KMS = PASS` and therefore forbids UDKC `STABLE`.
+
+Draft Edge and Underdog +Kills Stability must be output separately. A playable draft can still be a bad +kills draft.
+
+Mandatory procedure:
+`models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
+
+Reference review:
+`models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
+
+This is an in-place v0.3.58 analytical/procedural amendment. Under an already-frozen Session Authority Lock, it activates only when included in the applicable authority commit; otherwise it is pending for the next slate unless the user explicitly authorizes an immediate relock.
+
 ## Active operational governance
 
 - Official betting remains paused; shadow only.
@@ -151,12 +180,16 @@ This is an in-place v0.3.58 governance/enforcement amendment. Do not create v0.3
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
 - Exact signed kill-margin arithmetic remains mandatory.
-- Draft-locked underdog +kills fallback certification remains fail-closed, including KPA/KMS separation, mandatory RLD, and mandatory complete draft-only UDKC.
+- Draft Interaction Matrix is mandatory before any model-certified draft edge/draft-derived fallback classification when the exact draft is available.
+- Draft-locked underdog +kills fallback certification remains fail-closed, including DIM, KPA/KMS separation, mandatory RLD, and mandatory complete draft-only UDKC.
 - Missing persisted UDKC is not itself a veto when the exact locked draft can be recovered; run Draft Isolation before using live state for the market. Missing/ambiguous draft or incomplete UDKC remains HOLD/PASS.
 - Live evidence cannot create draft proof and ordinary live evidence cannot re-upgrade a genuinely FRAGILE/ABSENT or already downgraded fallback.
 - Total Kills Under is never TAKE-eligible unless `FRP = PASS` is actually established; passive quiet alone is insufficient.
 - No rescue, martingale, chasing, or stake escalation.
-- The FRP/FCR/CFC/SMR/UDKC gates are mechanism/execution checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+- The FRP/FCR/CFC/SMR/UDKC/DIM gates are mechanism/execution checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+
+Mandatory draft interaction procedure:
+`models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
 
 Mandatory underdog +kills guard:
 `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
@@ -183,17 +216,18 @@ Historical positions and P/L remain unchanged and keep their original model labe
 4. `models/lol/rules/MODEL_RULES_LOL_V0.3.58.md`
 5. v0.3.57 through v0.3.26 rule deltas
 6. mandatory fallback-floor certification procedure, including active KPA/KMS + RLD amendments
-7. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
-8. mandatory live verdict checklist
-9. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-10. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above, the 2026-08-18 session-bootstrap/FRP execution review, the 2026-08-19 DNS-BRO G2 draft-lock execution review, and the 2026-08-20 UDKC Draft-Isolation amendment
-11. item-verification suspension
-12. v0.3.25 consolidated rules / probation / calibration handbook
-13. live fast path and main betting procedure
-14. connected-stack procedure and addenda
-15. scoreboard protocol
-16. shared stake policy
-17. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
+7. `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
+8. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+9. mandatory live verdict checklist
+10. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+11. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above, the 2026-08-18 session-bootstrap/FRP execution review, the 2026-08-19 DNS-BRO G2 draft-lock execution review, the 2026-08-20 UDKC Draft-Isolation amendment, and `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
+12. item-verification suspension
+13. v0.3.25 consolidated rules / probation / calibration handbook
+14. live fast path and main betting procedure
+15. connected-stack procedure and addenda
+16. scoreboard protocol
+17. shared stake policy
+18. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
