@@ -1,75 +1,78 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-20-E2-2100-UTC7`  
-**Status:** `CIRCUIT_BREAKER`  
-**Effective:** `2026-08-20 21:00 UTC+7`  
+**Lock ID:** `LOL-2026-08-20-E3-2208-UTC7`  
+**Status:** `ACTIVE`  
+**Effective:** `2026-08-20 22:08 UTC+7`  
 **Default expiry:** `2026-08-21 00:00 UTC+7`  
-**Authority commit:** `7098780fb503477483fda68fa10bfc910c49eb3b`  
+**Authority commit:** `c0b06041b8ef59d8d9d932847cc57aa27b1d2577`  
 **Active analytical model:** `LoL v0.3.58`  
-**Circuit breaker:** `ACTIVE`  
+**Circuit breaker:** `CLEAR`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`
 
 ## Authorization
 
-This lock epoch was explicitly authorized by the user on 2026-08-20 UTC+7 after the chat-transition execution-drift review.
+The user explicitly authorized an immediate new session/relock on 2026-08-20 at 22:08 UTC+7 by instructing: `Start new session now`.
 
-The locked authority includes:
+This closes the prior E2 circuit-breaker epoch for future TAKE eligibility without altering any historical result, P/L, invalidation, or audit finding.
 
-- frozen per-slate authority commit;
-- mandatory market-family TAKE gate signatures;
-- procedural circuit breaker;
-- durable-fix write/fetch verification;
-- UCS — Underdog Cushion Sufficiency downstream of UDKC.
+## Activated authority
 
-## Circuit-breaker incident — BLG vs LGD Game 3
+This lock freezes analytical/procedural authority at commit:
 
-The breaker is now ACTIVE because the historical `LGD +12.5 kills @2.060` TAKE was subsequently reviewed as a draft-certification execution error under the already-active v0.3.58 KMS / False-Stable requirements.
+`c0b06041b8ef59d8d9d932847cc57aa27b1d2577`
 
-The original UDKC credited Maokai + Renata as broad anti-cascade protection and Yorick as an independent side-lane suppression route without adequately matching those tools against BLG's repeatable `poke -> zone -> pick -> Pantheon follow-up` kill mechanism.
+The locked authority keeps canonical **LoL v0.3.58** and includes the post-review draft-reading correction:
 
-The locked fallback procedure already required explicit testing of favorite range/zone control, first-contact reliability, objective-entry control, repeated punishment routes, and the False-Stable Guard. Therefore this is not classified merely as a normal losing result: `KMS = PASS` / UDKC `STABLE` was too permissive under the locked authority.
+- mandatory `DIM — Draft Interaction Matrix` before model-certified draft edges / draft-derived fallback classifications;
+- exact role resolution before DIM;
+- primary/secondary kill-mechanism mapping;
+- `TAM — Threat-Answer Matching`;
+- `OSG — Objective-Setup Geometry`;
+- `DAU — Damage Access & Uptime`;
+- `SLI — Side-Lane Independence`;
+- `FNF — Frontline Necessity Fit`;
+- `CAS — Collapse Asymmetry`;
+- `ETS — Execution & Team-Strength modifier`;
+- mandatory `AFP — Adversarial Favorite Pass`;
+- separate Draft Edge and underdog +kills Stability outputs;
+- underdog +kills TAKE signature requires `DIM / TAM / CAS` in addition to UDKC/KMS/RLD/UCS and all retained gates.
 
-Required state:
+Mandatory DIM procedure:
+`models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
 
-- `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`
-- no further positions in this lock epoch;
-- analysis/HOLD logging may continue;
-- historical result/P&L remains unchanged;
-- resume only at the next valid slate lock or after explicit user authorization to relock now.
+## Prior breaker incident retained as history
 
-Reference review committed after the lock:
-`models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
+The prior E2 breaker was triggered by the BLG vs LGD Game 3 `LGD +12.5 kills @2.060` draft-certification error. That position remains historically settled as a Loss with its original P/L and audit-invalidated classification.
 
-## Pending next-slate amendment
-
-The default branch now contains a stronger Draft Interaction Matrix (`DIM`) amendment, but it is **not active inside this frozen authority commit**.
-
-Pending files include:
-
-- `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
-- default-branch `models/lol/CURRENT_MODEL.md` amendment requiring DIM in the load order;
-- default-branch session TAKE-signature amendment requiring `DIM / TAM / CAS` for underdog +kills.
-
-These changes must be included in the next valid authority lock before being described as active for live TAKE decisions.
+Starting E3 does not erase that incident; it only creates the explicitly authorized new authority epoch in which the corrective DIM procedure is now part of the frozen stack.
 
 ## New-chat requirement
 
-A future chat while this lock is still the applicable slate lock must:
+A future chat while this lock is active must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
 3. fetch this lock;
-4. recognize `Status: CIRCUIT_BREAKER` and issue no new TAKES;
-5. re-fetch `CURRENT_MODEL.md` at authority commit `7098780fb503477483fda68fa10bfc910c49eb3b` for any model-certified analysis of the frozen slate;
-6. not silently activate newer default-branch analytical edits.
+4. re-fetch `CURRENT_MODEL.md` at authority commit `c0b06041b8ef59d8d9d932847cc57aa27b1d2577`;
+5. load the locked analytical/procedural stack from that same commit, including DIM;
+6. load the latest live handoff last as state only;
+7. refuse later default-branch analytical edits unless another explicit relock occurs.
 
-If the authority commit cannot be loaded or model hierarchy mismatches, use:
+If the authority commit cannot be loaded or the model hierarchy mismatches, use:
 
 `MODEL LOCK MISMATCH — HOLD`
 
+## Circuit-breaker rule
+
+If any TAKE in this E3 epoch is later found to violate an active hard gate, use draft-only proof incorrectly, omit a required `GATE_SIG[...]` field, or substitute narrative confidence for a required mechanism gate:
+
+- set `Status: CIRCUIT_BREAKER`;
+- set `Circuit breaker: ACTIVE`;
+- issue no further TAKES until the next valid lock or another explicit user-authorized relock.
+
+A fully canonical bet that simply loses does not trigger the breaker.
+
 ## Mid-slate change rule
 
-Normal wins/losses do not change this authority commit.
-
-Any review/fix committed after this lock is `PENDING_NEXT_SLATE` unless the user explicitly authorizes another immediate relock.
+Normal wins/losses do not change this authority commit. Any analytical/procedural fix committed after this lock is pending for the next lock unless the user explicitly authorizes another immediate relock.
