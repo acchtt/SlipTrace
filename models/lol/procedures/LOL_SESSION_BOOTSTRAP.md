@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Prevent authority drift, stale-version blending, skipped market gates, and false logging claims when a LoL audit continues in a new chat or after context compression.
+Prevent authority drift, stale-version blending, skipped market gates, false logging claims, and unnecessary external roster lookup when a LoL audit continues in a new chat or after context compression.
 
 This procedure is governance/execution control. It does not create a new analytical model version.
 
@@ -47,7 +47,21 @@ Before the first model-certified live verdict of a session, internally verify al
 
 If any item is unresolved, fail closed to `MODEL NOT LOADED — HOLD`.
 
-## 4. Market-family hard gates
+## 4. Saved lineup / roster context priority
+
+For named-team match prep, use saved project lineup context before external web roster lookup.
+
+- Search `models/lol/context/lineups/` for the teams/league first.
+- A dated official match-specific lineup card saved there is the preferred starting lineup source.
+- Treat saved lineups as dated evidence, not permanent roster locks; newer official match-specific lineup evidence supersedes older saved entries.
+- If a current lineup is already present in saved project data, do not replace it with generic web roster pages merely because they are easier to find.
+- External web lookup is a fallback for missing/uncertain lineup context or for checking whether a newer official lineup has superseded the saved one.
+- Before applying a numeric team-strength prior, verify the current five-player lineup and any material substitutions/role swaps.
+
+Current saved lineup index:
+`models/lol/context/lineups/LCK_CL_2026_STARTING_LINEUPS.md`
+
+## 5. Market-family hard gates
 
 Compact output is allowed, but the underlying market-specific gate must be explicitly resolved before TAKE.
 
@@ -104,7 +118,7 @@ Mandatory guard:
 
 If any decision-critical gate is missing, ambiguous, or not actually evaluated, the market is **not TAKE-eligible**. Use `PASS/HOLD`.
 
-## 5. Version-vocabulary tripwire
+## 6. Version-vocabulary tripwire
 
 If an assistant begins citing a retired model/version as active, or uses a later-version-only concept that is not explicitly incorporated into the current canonical model:
 
@@ -115,7 +129,7 @@ If an assistant begins citing a retired model/version as active, or uses a later
 
 Do not silently blend the conflicting material.
 
-## 6. Airtable logging truthfulness
+## 7. Airtable logging truthfulness
 
 For every valid visible live verdict, follow the canonical post-verdict logging procedure.
 
@@ -126,14 +140,14 @@ For every valid visible live verdict, follow the canonical post-verdict logging 
 - if logging fails, state: `VERDICT VALID — LOGGING FAILED` and repair the ledger without altering the analytical verdict.
 - a missing historical write may be backfilled only from the original synchronized evidence and original visible verdict.
 
-## 7. No retrospective upgrade
+## 8. No retrospective upgrade
 
 A later outcome cannot turn an earlier `PASS/HOLD` into a position. A procedural-error TAKE may be recorded as the position that was visibly issued, but its audit must clearly state that the correct canonical-model verdict was PASS/HOLD when applicable.
 
-## 8. New-chat prompt rule
+## 9. New-chat prompt rule
 
 Future transfer prompts must not hardcode a model version as independent authority. They should instruct the next chat to fetch `CURRENT_MODEL.md` first and obey this bootstrap.
 
 The minimum transfer instruction is:
 
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a persisted pre-live UDKC; if none exists, that family is HOLD/PASS for the map.
+> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. Use saved lineup context under `models/lol/context/lineups/` before external roster lookup. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a persisted pre-live UDKC; if none exists, that family is HOLD/PASS for the map.
