@@ -2,6 +2,7 @@
 
 **Status:** ACTIVE GOVERNANCE  
 **Effective:** 2026-08-18 UTC+7  
+**Amended:** 2026-08-20 UTC+7  
 **Authority:** `models/lol/CURRENT_MODEL.md`
 
 ## Purpose
@@ -100,12 +101,15 @@ Compact output is allowed, but the underlying market-specific gate must be expli
 - two synchronized snapshots required;
 - exact signed kill-margin arithmetic required;
 - draft-locked fallback certification is fail-closed;
-- a complete **UDKC — Underdog +Kills Draft Certificate** must exist before the first live state is used for this market;
+- a complete **UDKC — Underdog +Kills Draft Certificate** must exist before any underdog +kills TAKE;
 - the UDKC must resolve DER / FRI / SRI / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable Guard / DCR / FF / hard Draft-Collapse Veto;
 - every mandatory PASS field must actually pass, False-Stable Guard must be INACTIVE, FF must be STABLE, and hard veto must be INACTIVE;
 - omitted, implied, narrative-only, or `UNRESOLVED` certification fields force `PASS/HOLD`;
-- if a new chat starts mid-map and no complete persisted pre-live UDKC can be found, underdog +kills is `UNCERTIFIED — HOLD/PASS FOR THIS MAP`;
-- live evidence may preserve or downgrade a pre-live STABLE UDKC, but may never create, fill, or upgrade one;
+- UDKC is **draft-only, not timestamp-locked**: if the exact locked draft is first received after live play begins or a new chat starts mid-map, run the mandatory Draft-Isolation Pass before using the live state for +kills analysis;
+- Draft Isolation must exclude current kills, gold, objectives, structures, current odds, current handicap size, and current margin from the certificate;
+- if one screenshot contains both draft and live state, process **Phase A: draft-only UDKC**, then **Phase B: live reassessment**;
+- missing persisted UDKC alone is not a veto when the exact draft can be recovered and fully certified; missing/ambiguous draft or incomplete UDKC remains fail-closed;
+- live evidence may preserve or downgrade a draft-certified STABLE UDKC, but may never supply missing draft proof or upgrade a genuinely FRAGILE/ABSENT draft;
 - `KPA` and `KMS` must both pass, in addition to retained FER/PDC/PST/ARI requirements;
 - False-Stable Guard applies;
 - theoretical engage, scaling, waveclear, peel/utility, safe ADC play, small current kill margin, or a large displayed +kills buffer cannot substitute for KMS;
@@ -113,6 +117,9 @@ Compact output is allowed, but the underlying market-specific gate must be expli
 
 Mandatory guard:
 `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+
+Reference amendment:
+`models/lol/reviews/UDKC_DRAFT_ISOLATION_AMENDMENT_2026-08-20.md`
 
 ### Missing gate
 
@@ -150,4 +157,4 @@ Future transfer prompts must not hardcode a model version as independent authori
 
 The minimum transfer instruction is:
 
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. Use saved lineup context under `models/lol/context/lineups/` before external roster lookup. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a persisted pre-live UDKC; if none exists, that family is HOLD/PASS for the map.
+> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. Use saved lineup context under `models/lol/context/lineups/` before external roster lookup. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a complete draft-only UDKC; if none is persisted but the exact locked draft is available, reconstruct it with Draft Isolation before applying live state. Missing/ambiguous draft or incomplete mechanism certification remains HOLD/PASS.
