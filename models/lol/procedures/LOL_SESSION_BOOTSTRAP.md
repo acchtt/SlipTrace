@@ -7,7 +7,7 @@
 
 ## Purpose
 
-Prevent authority drift, stale-version blending, skipped market gates, false logging claims, and unnecessary external roster lookup when a LoL audit continues in a new chat or after context compression.
+Prevent authority drift, stale-version blending, skipped market gates, false logging claims, unnecessary external roster lookup, and execution drift that turns named gates into generic HOLD bias when a LoL audit continues in a new chat or after context compression.
 
 This procedure is governance/execution control. It does not create a new analytical model version.
 
@@ -42,6 +42,7 @@ Before the first model-certified live verdict of a session, internally verify al
 - retired versions are identified and excluded;
 - mandatory procedures/reviews required by the current load order were loaded;
 - `LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md` is loaded;
+- `LOL_FRP_POSITIVE_EVIDENCE_EXECUTION_CALIBRATION_2026-08-20.md` is loaded;
 - latest handoff was loaded last;
 - shadow stake, minimum odds, market-family limits, and live-snapshot eligibility rules are known;
 - Airtable post-verdict logging procedure is loaded.
@@ -72,7 +73,20 @@ Compact output is allowed, but the underlying market-specific gate must be expli
 - `FRP = PASS` is mandatory;
 - passive quiet / low historical kill pace cannot by itself satisfy FRP;
 - next compulsory-contact cycle must be identified;
-- if future suppression is not positively demonstrated, `FRP = FAIL/UNCERTAIN` -> `PASS/HOLD`.
+- **FRP is not a default HOLD gate**: once two-snapshot eligibility is satisfied, positively adjudicate PASS / FAIL / UNCERTAIN rather than asking for discretionary extra confirmation;
+- repeated bounded kill recurrence across real objective/contact cycles is positive FRP evidence;
+- a completed objective cycle can count as **suppressed compulsory contact** when the map progresses through concession, zoning, cross-map play, ranged defense, or low-risk objective control with bounded kills;
+- Structure Substitution can support TK Under only when it **removes future fight requirements**, not merely because objectives replaced past fights;
+- engage champions/buttons do not by themselves make next-cycle contact pressure HIGH — test whether the opponent actually must contest and whether re-engage/chase is required;
+- after two distinct meaningful objective/contact cycles with bounded recurrence, explicitly test whether the regime should persist; do not automatically demand a third cycle;
+- if future suppression is not positively demonstrated, `FRP = FAIL/UNCERTAIN` -> `PASS/HOLD`;
+- if `FRP = PASS` and every other retained TK/pricing gate passes, do not add another unwritten confirmation layer.
+
+Mandatory execution calibration:
+`models/lol/procedures/LOL_FRP_POSITIVE_EVIDENCE_EXECUTION_CALIBRATION_2026-08-20.md`
+
+Reference review:
+`models/lol/reviews/TT_JDG_G2_TOTAL_KILLS_FRP_EXECUTION_REVIEW_2026-08-20.md`
 
 ### Duration Under
 
@@ -151,10 +165,12 @@ For every valid visible live verdict, follow the canonical post-verdict logging 
 
 A later outcome cannot turn an earlier `PASS/HOLD` into a position. A procedural-error TAKE may be recorded as the position that was visibly issued, but its audit must clearly state that the correct canonical-model verdict was PASS/HOLD when applicable.
 
+A retrospective review may identify a **missed qualifying TAKE window** for calibration, but that does not create a historical position or rewrite the original visible verdict.
+
 ## 9. New-chat prompt rule
 
 Future transfer prompts must not hardcode a model version as independent authority. They should instruct the next chat to fetch `CURRENT_MODEL.md` first and obey this bootstrap.
 
 The minimum transfer instruction is:
 
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. Use saved lineup context under `models/lol/context/lineups/` before external roster lookup. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. For underdog +kills, require a complete draft-only UDKC; if none is persisted but the exact locked draft is available, reconstruct it with Draft Isolation before applying live state. Missing/ambiguous draft or incomplete mechanism certification remains HOLD/PASS.
+> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md` and follow the exact required load order. GitHub is model authority; latest handoff loads last. Use saved lineup context under `models/lol/context/lineups/` before external roster lookup. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`. Load the FRP positive-evidence execution calibration so Total Kills FRP is positively adjudicated rather than used as a generic HOLD veto. For underdog +kills, require a complete draft-only UDKC; if none is persisted but the exact locked draft is available, reconstruct it with Draft Isolation before applying live state. Missing/ambiguous draft or incomplete mechanism certification remains HOLD/PASS.
