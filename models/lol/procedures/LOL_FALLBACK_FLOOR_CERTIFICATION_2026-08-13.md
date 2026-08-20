@@ -95,26 +95,31 @@ Hard interpretation:
 Reference:
 `models/lol/reviews/DNS_BRO_G1_UNDERDOG_KILLS_ROLE_LEVERAGE_AND_DURATION_EXECUTION_REVIEW_2026-08-19.md`
 
-## B4. Pre-live UDKC hard lock — mandatory v0.3.58 enforcement
+## B4. UDKC draft-isolation hard guard — mandatory v0.3.58 enforcement
 
-Before the first live state is used to evaluate an underdog +kills market, create a complete **UDKC — Underdog +Kills Draft Certificate** from draft/team inputs only.
+Before any underdog +kills TAKE, create a complete **UDKC — Underdog +Kills Draft Certificate** from draft/team inputs only.
 
-The UDKC consists of the full Eligibility Output in section E and must be completed after draft lock but before live-state reasoning for this market.
+The UDKC consists of the full Eligibility Output in section E.
 
 Hard rules:
 
 - every field must be explicitly resolved; omitted, implied, narrative-only, or `UNRESOLVED` fields mean `UNCERTIFIED`;
-- the UDKC must be persisted in the map's post-draft audit trail or latest live handoff so a new chat can verify it;
-- if a new chat begins mid-map and cannot locate a complete persisted pre-live UDKC, underdog +kills is `UNCERTIFIED — HOLD/PASS FOR THIS MAP`;
-- do not reconstruct a missing certificate from a live scoreboard after the fact;
-- live evidence may preserve or downgrade a pre-live STABLE classification but may never create, fill, or upgrade one;
+- UDKC is draft-locked but **not timestamp-locked**;
+- if the exact locked draft is first received after live play begins, including inside a live screenshot or after a new chat starts mid-map, run a strict **Draft-Isolation Pass** before using the current live state for +kills analysis;
+- Draft Isolation must exclude current kills, gold, objectives, structures, current odds, displayed handicap size, and current margin from certification;
+- if one screenshot contains both draft and live state, process Phase A: draft-only UDKC, then Phase B: live reassessment;
+- persist the UDKC as soon as it is completed so later chats can reuse it;
+- absence of a persisted pre-live UDKC is not itself a map-long veto if the exact draft can be recovered and fully certified;
+- if the exact draft is missing/ambiguous, or any certificate field remains unresolved, underdog +kills is `UNCERTIFIED — HOLD/PASS FOR THIS MAP`;
+- live evidence may preserve or downgrade a draft-certified STABLE classification but may never supply missing draft proof or upgrade a genuinely FRAGILE/ABSENT draft;
 - exact current kill margin, NKB, a large displayed +kills cushion, low current gold separation, 0-0 towers, grubs, safe ADC play, peel, waveclear, scaling, or theoretical return kills cannot create KMS or FF=STABLE.
 
 Mandatory guard:
 `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
 
-Reference incident:
-`models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+References:
+- `models/lol/reviews/DNS_BRO_G2_UNDERDOG_PLUSKILLS_DRAFT_LOCK_EXECUTION_REVIEW_2026-08-19.md`
+- `models/lol/reviews/UDKC_DRAFT_ISOLATION_AMENDMENT_2026-08-20.md`
 
 ## C. False-Stable Guard
 
@@ -161,7 +166,7 @@ Record internally before any underdog +kills verdict:
 - FF;
 - v0.3.56 HARD Draft-Collapse Veto ACTIVE/INACTIVE.
 
-For a valid pre-live UDKC:
+For a valid UDKC:
 
 - FER/PDC/PST/ARI/KPA/KMS/RLD must all be PASS;
 - False-Stable Guard must be INACTIVE;
@@ -174,11 +179,11 @@ If hard veto is ACTIVE: stop. Do not run RIT or handicap pricing looking for an 
 
 ## F. Lock rule
 
-Ordinary live evidence cannot upgrade `FRAGILE`, `ABSENT`, or `UNCERTIFIED` to `STABLE` for underdog +kills. Only a genuine draft-input correction may reopen the certification.
+Ordinary live evidence cannot upgrade a draft `FRAGILE` or `ABSENT` classification to `STABLE` for underdog +kills. Only a genuine draft-input correction may reopen a failed draft certification.
 
-A missing persisted pre-live UDKC is `UNCERTIFIED`, not an invitation to certify from live evidence.
+If UDKC is merely missing because the exact draft was not processed earlier, it may be created later through Draft Isolation from the exact locked draft. This is **not** a live upgrade because live state is excluded from the certificate.
 
-Live evidence may only preserve or downgrade an already-complete pre-live STABLE UDKC.
+Live evidence may preserve or downgrade an already-complete draft-certified STABLE UDKC. Once downgraded for the map, ordinary live evidence cannot re-upgrade it.
 
 ## G. Pre-structure control note
 
