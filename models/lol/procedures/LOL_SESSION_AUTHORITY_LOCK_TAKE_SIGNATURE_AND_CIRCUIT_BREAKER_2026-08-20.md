@@ -93,7 +93,9 @@ Exact arithmetic describes the required expansion; it does not itself certify th
 
 Required:
 
-`LOCK | MODEL | EXEC | ODDS | FAMILY | POSBLIND | 2SNAP | UDKC_STABLE | KPA | KMS | RLD | FALSE_STABLE_INACTIVE | UCS | SIGNED_MARGIN | EXACT_NKB | LIVE_PRESERVATION`
+`LOCK | MODEL | EXEC | ODDS | FAMILY | POSBLIND | 2SNAP | DIM | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD | FALSE_STABLE_INACTIVE | UCS | SIGNED_MARGIN | EXACT_NKB | LIVE_PRESERVATION`
+
+`DIM` is the mandatory draft interaction layer from `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`. `DIM = PASS` requires exact-role resolution and completion of the mechanism map, including `TAM — Threat-Answer Matching` and `CAS — Collapse Asymmetry`. `TAM` or `CAS` `FAIL/UNRESOLVED` forbids `KMS = PASS` and therefore forbids UDKC `STABLE`.
 
 `UDKC_STABLE` is draft-only. `UCS` is a separate downstream live cushion gate and cannot be satisfied by UDKC alone.
 
@@ -133,7 +135,7 @@ For every TAKE position, Airtable `Entry Evidence` must include a compact `GATE_
 
 Example:
 
-`GATE_SIG[LOCK=P;MODEL=P;2SNAP=P;UDKC=P;KMS=P;RLD=P;UCS=P;NKB=7;...]`
+`GATE_SIG[LOCK=P;MODEL=P;2SNAP=P;DIM=P;TAM=P;CAS=P;UDKC=P;KMS=P;RLD=P;UCS=P;NKB=7;...]`
 
 The visible verdict remains first. Logging happens after the verdict under the existing Airtable integrity procedure.
 
@@ -149,7 +151,8 @@ Trigger immediately if any of the following occurs:
 - a TAKE was issued without a complete mandatory gate signature;
 - the wrong model/version or unlocked authority was used;
 - draft-only proof was supplied by live state where prohibited;
-- a market-family hard gate was skipped or substituted by narrative confidence.
+- a market-family hard gate was skipped or substituted by narrative confidence;
+- under an authority commit containing DIM, an underdog +kills TAKE was issued without resolving `DIM/TAM/CAS` as required.
 
 When triggered:
 
@@ -208,5 +211,8 @@ They must not override the lock, `CURRENT_MODEL.md`, or bootstrap.
 
 This guard was introduced after the 2026-08-19/20 chat-transition audit found several visible TAKES that were later audit-invalidated and found that a previously discussed underdog-cushion safeguard had not actually been persisted into canonical authority.
 
-Reference review:
-`models/lol/reviews/CHAT_TRANSITION_EXECUTION_DRIFT_AND_SESSION_LOCK_REVIEW_2026-08-20.md`
+The DIM extension was added after BLG vs LGD Game 3 showed that a full-looking UDKC could still be wrong when generic defensive utility was not matched against the favorite's actual kill mechanism.
+
+References:
+- `models/lol/reviews/CHAT_TRANSITION_EXECUTION_DRIFT_AND_SESSION_LOCK_REVIEW_2026-08-20.md`
+- `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
