@@ -161,6 +161,30 @@ Reference review:
 
 This is an in-place v0.3.58 analytical/procedural amendment. Under an already-frozen Session Authority Lock, it activates only when included in the applicable authority commit; otherwise it is pending for the next slate unless the user explicitly authorizes an immediate relock.
 
+### Live Moneyline — Draft Prior Degradation & Live Regime Override (LRO)
+
+After NS vs T1A Game 1 on 2026-08-21 UTC+7, the Live ML process was amended to prevent a CLEAR/STRONG post-draft read from becoming a hidden permanent veto after repeated coherent live evidence shows that the original mechanism is no longer functioning at the current role/economy state.
+
+Mandatory rules:
+
+- draft remains a prior for Live ML, not a permanent veto;
+- classify `DPS — Draft Prior State` as `INTACT / DEGRADED / BROKEN`;
+- the neutral-setup fight stress test uses current live items, levels, role-weighted economy and objective schedule; `neutral` means positioning/entry, not equalized economy or a reset to post-draft;
+- standard Live ML remains two-snapshot eligible when aligned with a CLEAR/STRONG draft prior or when the draft edge was only SLIGHT/EVEN/UNCLEAR;
+- an ML TAKE **against** a CLEAR/STRONG draft prior requires mandatory `LRO = PASS`;
+- that contrary-draft LRO path requires three usable snapshots, at least two meaningful contact/objective cycles, regime persistence, multi-role leverage, `DPS = BROKEN`, `CFC_CURRENT = PASS`, next-cycle stress PASS and `DRP — Draft Recovery Path = PASS`;
+- one fight, one dragon, one gold number, market movement, team reputation or the eventual result cannot satisfy LRO by itself;
+- once `DPS=BROKEN` and `LRO=PASS`, the original draft edge may not remain an unwritten Live ML veto;
+- LRO applies to Moneyline only and cannot upgrade UDKC, create missing draft proof, or bypass another market family's gates.
+
+Mandatory procedure:
+`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
+
+Reference review:
+`models/lol/reviews/NS_T1A_G1_LIVE_ML_DRAFT_PRIOR_ANCHORING_REVIEW_2026-08-21.md`
+
+This is an in-place v0.3.58 analytical/procedural amendment. It may activate mid-slate only under an explicit user-authorized relock/new epoch.
+
 ## Active operational governance
 
 - Official betting remains paused; shadow only.
@@ -175,7 +199,7 @@ This is an in-place v0.3.58 analytical/procedural amendment. Under an already-fr
 - Never claim `logged` or `settled` unless the actual Airtable write succeeded and the expected record was verified.
 - Compact output still requires full underlying analysis.
 - Pregame/immediate post-draft ML/KH/TK TAKEs remain disabled.
-- Live ML/KH/TK retain the two-snapshot eligibility gate.
+- Live ML/KH/TK retain the two-snapshot eligibility gate; Live ML against a CLEAR/STRONG draft prior additionally requires the LRO three-snapshot override certificate.
 - Same-map multiple TAKEs may occur across different market families, maximum one TAKE per family: ML / Kill Handicap / Total Kills / Duration.
 - Greyed/stale markets are non-executable.
 - Position-blind reassessment remains mandatory.
@@ -184,12 +208,16 @@ This is an in-place v0.3.58 analytical/procedural amendment. Under an already-fr
 - Draft-locked underdog +kills fallback certification remains fail-closed, including DIM, KPA/KMS separation, mandatory RLD, and mandatory complete draft-only UDKC.
 - Missing persisted UDKC is not itself a veto when the exact locked draft can be recovered; run Draft Isolation before using live state for the market. Missing/ambiguous draft or incomplete UDKC remains HOLD/PASS.
 - Live evidence cannot create draft proof and ordinary live evidence cannot re-upgrade a genuinely FRAGILE/ABSENT or already downgraded fallback.
+- Live ML must assess Draft Prior State and use current-state CFC; a passing LRO can override the weight of a broken draft prior for ML only.
 - Total Kills Under is never TAKE-eligible unless `FRP = PASS` is actually established; passive quiet alone is insufficient.
 - No rescue, martingale, chasing, or stake escalation.
-- The FRP/FCR/CFC/SMR/UDKC/DIM gates are mechanism/execution checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
+- The FRP/FCR/CFC/LRO/SMR/UDKC/DIM gates are mechanism/execution checks, **not** a blanket increase in conservatism. If all written gates pass, default posture remains TAKE.
 
 Mandatory draft interaction procedure:
 `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
+
+Mandatory Live ML regime procedure:
+`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
 
 Mandatory underdog +kills guard:
 `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
@@ -204,7 +232,7 @@ Mandatory session bootstrap:
 
 Do **not** apply v0.3.59 or v0.3.60 as model layers merely because their version numbers are higher.
 
-Later-version-only concepts remain inactive unless they have been explicitly incorporated into the amended v0.3.58 file or the user separately re-authorizes them. FRP/FCR/CFC/SMR are now active only through the canonical v0.3.58 text.
+Later-version-only concepts remain inactive unless they have been explicitly incorporated into the amended v0.3.58 file or the user separately re-authorizes them. FRP/FCR/CFC/SMR remain active through canonical v0.3.58 rules; LRO is active through the explicit v0.3.58 Live ML procedure when included in the Session Authority Lock.
 
 Historical positions and P/L remain unchanged and keep their original model labels.
 
@@ -218,16 +246,17 @@ Historical positions and P/L remain unchanged and keep their original model labe
 6. mandatory fallback-floor certification procedure, including active KPA/KMS + RLD amendments
 7. `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
 8. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
-9. mandatory live verdict checklist
-10. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-11. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above, the 2026-08-18 session-bootstrap/FRP execution review, the 2026-08-19 DNS-BRO G2 draft-lock execution review, the 2026-08-20 UDKC Draft-Isolation amendment, and `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
-12. item-verification suspension
-13. v0.3.25 consolidated rules / probation / calibration handbook
-14. live fast path and main betting procedure
-15. connected-stack procedure and addenda
-16. scoreboard protocol
-17. shared stake policy
-18. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
+9. `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
+10. mandatory live verdict checklist
+11. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+12. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58 plus the explicit v0.3.58 amendment reviews above, the 2026-08-18 session-bootstrap/FRP execution review, the 2026-08-19 DNS-BRO G2 draft-lock execution review, the 2026-08-20 UDKC Draft-Isolation amendment, `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`, and `models/lol/reviews/NS_T1A_G1_LIVE_ML_DRAFT_PRIOR_ANCHORING_REVIEW_2026-08-21.md`
+13. item-verification suspension
+14. v0.3.25 consolidated rules / probation / calibration handbook
+15. live fast path and main betting procedure
+16. connected-stack procedure and addenda
+17. scoreboard protocol
+18. shared stake policy
+19. latest live handoff last, applying this CURRENT_MODEL authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
