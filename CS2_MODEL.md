@@ -1,7 +1,7 @@
 # SlipTrace CS2 Shadow Model
 
-Effective: 2026-08-20
-Current version: **v1.1**
+Effective: 2026-08-21
+Current version: **v1.2**
 
 Purpose: define the durable pre-match CS2 decision model used for shadow testing. Official placed wagers remain separate from this model and are not written to `ledger.json` unless the user explicitly confirms a real wager and authorizes the ledger write.
 
@@ -23,6 +23,8 @@ Start from series-strength priors, then update for:
 - expected decider strength;
 - direct matchup evidence, downweighted when lineups differ materially;
 - bookmaker price only after the independent model probability is established.
+
+For each map in the final BO3, estimate both teams' win probability independently. Do not infer a map win merely because a team selected that map.
 
 ## v1.1 calibration changes
 
@@ -58,6 +60,64 @@ For top-tier favorites, model P(2-0) separately instead of deriving it mechanica
 
 Downweight old H2H and old map records when either team has changed two or more players or the current five has a small map sample. Current-lineup LAN evidence has priority over long-run team-name history.
 
+## v1.2 calibration changes
+
+Introduced after the full 2026-08-20 EWC review: MOUZ-GamerLegion, FURIA-Aurora, NAVI-Legacy, Falcons-The MongolZ, FaZe-Vitality, B8-Spirit and G2-FURIA.
+
+### 6. Market-disagreement sanity check
+
+A large gap between the independent model and a strong, liquid market must be treated as a warning signal rather than automatic value.
+
+If the model differs from the market by **15 percentage points or more** on series win probability, require at least two strong independent reasons beyond the veto before approving a shadow bet. Examples:
+- material roster/availability information not yet reflected in price;
+- large current-lineup form advantage against comparable opponents;
+- substantial map-pool mismatch across at least two maps;
+- reliable tactical or role mismatch supported by current data.
+
+Without that support, shrink the estimate toward the market or pass. The FaZe 47% estimate versus Vitality at 3.70 is the reference failure.
+
+### 7. Map-quality over map-ownership
+
+For every picked map, record:
+- pick ownership;
+- current-lineup win quality on that map;
+- opponent quality faced in those results;
+- favorite's steal probability on that map.
+
+The key variable is **map win probability**, not who picked it. B8-Spirit is the positive reference case; Falcons-MongolZ is the negative reference case.
+
+### 8. Strong-veto swing threshold
+
+A post-veto move of only 1-3 percentage points is appropriate when the veto largely matches expectations.
+
+When the underdog receives both:
+- a genuinely high-confidence first map, and
+- a favorable or low-sample decider for the favorite,
+
+a **larger 8-15 point swing** is allowed and may cross 50/50. NAVI-Legacy is the reference failure for under-adjustment.
+
+### 9. Conservative edge preference
+
+Prefer modest, explainable edges with strong structural support over spectacular theoretical edges that depend on uncertain assumptions.
+
+Priority order during shadow testing:
+1. map handicap where one-map cover probability is independently strong;
+2. Over/Under 2.5 where map-specific probabilities support the series shape;
+3. match winner with moderate edge and stable priors;
+4. longshot match winner only when the market-disagreement sanity check is satisfied.
+
+### 10. Prediction and price are separate outputs
+
+Always produce both:
+- the most likely series result / exact-score lean;
+- the best available betting decision.
+
+A correct prediction may still be a pass if the price is too short. Spirit 2-0 at 1.20 ML is the reference positive example.
+
+### 11. Veto update discipline
+
+Do not reward or penalize a surprising team pick mechanically. A surprising pick can imply prepared anti-stratting. G2 choosing Ancient versus FURIA is the reference example: weak historical numbers alone were not enough to treat Ancient as a free FURIA map.
+
 ## Market rules
 
 For every candidate market calculate:
@@ -69,6 +129,8 @@ For every candidate market calculate:
 - expected value per 1u = model probability * (odds - 1) - (1 - model probability).
 
 Prefer NO BET when the model edge is weak or depends mainly on uncertain veto assumptions. During the test phase, avoid forcing action merely to increase sample size.
+
+For a longshot ML, explicitly state whether the market-disagreement sanity check passed.
 
 ## Review discipline
 
