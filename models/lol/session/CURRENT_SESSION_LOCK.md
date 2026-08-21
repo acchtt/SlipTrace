@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-21-E1-1151-UTC7`  
+**Lock ID:** `LOL-2026-08-21-E2-1229-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-21 11:51 UTC+7`  
+**Effective:** `2026-08-21 12:29 UTC+7`  
 **Default expiry:** `2026-08-22 00:00 UTC+7`  
-**Authority commit:** `66aebe9c45e0d95721d39b7e3eca443a46472ff7`  
+**Authority commit:** `e2feb481ea9c1f62122b34de50cfe1ab01ddd3dc`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
 **Actual exposure policy:** `0u`  
@@ -12,59 +12,53 @@
 
 ## Authorization
 
-This is the automatic new UTC+7 slate lock required by active governance after the prior `LOL-2026-08-20-E3-2208-UTC7` lock expired at the 2026-08-21 day boundary.
+Explicit user authorization was given for an immediate mid-slate relock so the new Live ML draft-prior degradation / regime-override procedure can be used prospectively for Game 2 and later decisions.
 
-The first 2026-08-21 match context is LCK CL NS vs T1A. The official match-specific starting lineup and user-supplied series pregame prices were saved before this lock at the authority commit.
+The prior `LOL-2026-08-21-E1-1151-UTC7` epoch is superseded for future decisions. Historical Game 1 verdicts and ledger records are not rewritten.
 
 ## Activated authority
 
-This lock freezes analytical/procedural authority at commit:
+Frozen analytical authority:
 
-`66aebe9c45e0d95721d39b7e3eca443a46472ff7`
+`e2feb481ea9c1f62122b34de50cfe1ab01ddd3dc`
 
-Canonical analytical model remains **LoL v0.3.58**.
+Canonical model remains **LoL v0.3.58**.
 
-The frozen stack includes the 2026-08-20 draft-reading correction and all retained gates, including:
+This authority includes:
 
-- mandatory `DIM — Draft Interaction Matrix` before draft edge / draft-derived fallback classification;
-- exact roles before DIM;
-- PKM / SKM mechanism mapping;
-- `TAM — Threat-Answer Matching`;
-- `OSG — Objective-Setup Geometry`;
-- `DAU — Damage Access & Uptime`;
-- `SLI — Side-Lane Independence`;
-- `FNF — Frontline Necessity Fit`;
-- `CAS — Collapse Asymmetry`;
-- `ETS — Execution & Team-Strength modifier`;
-- mandatory `AFP — Adversarial Favorite Pass`;
-- separate Draft Edge and underdog +kills Stability outputs;
-- full UDKC + KPA/KMS/RLD + False-Stable guard;
-- UCS downstream of STABLE UDKC;
-- FRP for TK Under;
+- mandatory Draft Interaction Matrix;
+- UDKC + KPA/KMS/RLD + False-Stable guard;
+- UCS for underdog +kills;
+- FRP for Total Kills Under;
 - FCR for Duration Under;
-- Lead Decomposition/CFC for live ML;
-- FFD/RNE for favorite -kills;
-- complete market-family `GATE_SIG[...]` persistence;
+- Lead Decomposition / CFC for Live ML;
+- `DPS — Draft Prior State` for Live ML;
+- current-state neutral-fight stress using current items, levels, role economy and objective schedule;
+- `LRO — Live Regime Override` for Live ML selections opposing a CLEAR/STRONG draft prior;
+- contrary-draft LRO requires `3SNAP`, `2CYCLE`, regime persistence, multi-role leverage, `DPS=BROKEN`, `CFC_CURRENT`, next-cycle stress and `DRP` all PASS;
+- LRO applies only to ML and cannot create draft proof for another market family;
+- complete market-family `GATE_SIG[...]` persistence and `LRO[...]` persistence when applicable;
 - one TAKE per market family per map;
 - minimum odds 1.60;
-- official betting paused, shadow only.
+- shadow-only execution policy.
 
-## NS vs T1A match-specific context
+Mandatory Live ML procedure:
+`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
 
-Saved official lineup file:
-`models/lol/context/lineups/LCK_CL_2026-08-21_NS_T1A.md`
+Reference review:
+`models/lol/reviews/NS_T1A_G1_LIVE_ML_DRAFT_PRIOR_ANCHORING_REVIEW_2026-08-21.md`
 
-Starting five:
-- NS: Janu / MihawK / SeTab / Lucy / Pleata
-- T1A: Haetae / Painter / Guti / Cypher / Cloud
+## Prospective-only activation
 
-Series pregame prices are context only and are not Map 1 live prices.
+The Game 1 missed-window review remains calibration only and does not create a retrospective position. This E2 authority applies prospectively from this lock forward, including Game 2.
 
 ## Live execution
 
 Pregame/immediate-postdraft ML/KH/TK TAKEs remain disabled.
 
-Live ML/KH/TK require two usable live snapshots. Underdog +kills requires DIM/TAM/CAS + complete draft-only UDKC + live preservation + exact signed margin/NKB + UCS. Favorite -kills requires exact RNE + FFD + remaining forced-fight/Structure Substitution checks.
+Live ML/KH/TK require two usable live snapshots. A Live ML selection opposing a CLEAR/STRONG draft prior additionally requires the LRO three-snapshot/two-cycle certificate.
+
+Underdog +kills still requires DIM/TAM/CAS, complete draft-only UDKC, live preservation, exact signed margin/NKB and UCS. Favorite -kills retains exact RNE, FFD and remaining forced-fight/Structure Substitution checks.
 
 Before every TAKE, every required gate-signature field must be explicit PASS or valid N/A. Missing/FAIL/UNRESOLVED means HOLD/PASS.
 
@@ -75,8 +69,8 @@ A future chat while this lock is active must:
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
 3. fetch this lock;
-4. re-fetch `CURRENT_MODEL.md` at authority commit `66aebe9c45e0d95721d39b7e3eca443a46472ff7`;
-5. load the analytical/procedural stack from that same commit;
+4. re-fetch `CURRENT_MODEL.md` at authority commit `e2feb481ea9c1f62122b34de50cfe1ab01ddd3dc`;
+5. load the analytical/procedural stack from that same commit, including the Live ML LRO procedure;
 6. load the latest live handoff last as state only;
 7. refuse later default-branch analytical edits unless another explicit relock occurs.
 
@@ -84,16 +78,12 @@ If the authority commit cannot be loaded or the model hierarchy mismatches, use:
 
 `MODEL LOCK MISMATCH — HOLD`
 
-## Circuit-breaker rule
+## Circuit breaker
 
-If any TAKE in this E1 epoch is later found to violate an active hard gate, use prohibited live-to-draft proof, omit a required `GATE_SIG[...]` field, or substitute narrative confidence for a required mechanism gate:
+Circuit breaker is CLEAR at E2 activation. A procedural hard-gate violation, missing required signature, authority mismatch, prohibited live-to-draft proof, or contrary-CLEAR/STRONG-draft ML TAKE without the required LRO certificate activates the breaker and blocks further TAKES until a valid relock.
 
-- set `Status: CIRCUIT_BREAKER`;
-- set `Circuit breaker: ACTIVE`;
-- issue no further TAKES until the next valid lock or explicit relock.
-
-A fully canonical bet that simply loses does not trigger the breaker.
+A fully canonical loss does not trigger the breaker.
 
 ## Mid-slate change rule
 
-Normal wins/losses do not change this authority commit. Any analytical/procedural fix committed after this lock is pending for the next lock unless the user explicitly authorizes another immediate relock.
+Normal outcomes do not change this authority commit. Any further analytical/procedural edit is pending until the next lock unless the user explicitly authorizes another immediate relock.
