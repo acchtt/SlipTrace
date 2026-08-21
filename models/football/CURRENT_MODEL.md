@@ -2,7 +2,7 @@
 
 **Canonical namespace:** `models/football/`
 
-- Active model: **Football v0.2.47 — AUDIT MODE**
+- Active model: **Football v0.2.48 — AUDIT MODE**
 - Organized loading guide: `models/football/ORGANIZED_FILE_LOADING_GUIDE.md`
 - Main procedure: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 - Procedure addendum: `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
@@ -16,7 +16,7 @@
 - Prior HT-compression review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_RACING_VILLARREAL_HT_COMPRESSION_2026-08-16.md`
 - Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
-- Authoritative betting feed: `/ledger.json`
+- Authoritative official betting feed: `/ledger.json`
 
 ## Required load order
 
@@ -26,175 +26,155 @@ Load in this order, applying the newest active football rule over older conflict
 2. `models/LEGACY_MODEL_CHANGELOG.md` — retained pre-v0.2.5 football baseline
 3. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 4. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE_ADDENDUM_2026-08-01.md`
-5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.47.md`, ascending
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.5.md` through `MODEL_RULES_FOOTBALL_V0.2.48.md`, ascending
 6. `models/football/procedures/FOOTBALL_PRE_VERDICT_VALIDATOR.md`
 7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 8. `models/football/reviews/FOOTBALL_DIRECTIONAL_AUDIT_2026-08-11.md`
 9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
 10. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
 11. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_SETTLEMENT_LESSONS_2026-08-18.md`
-12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md`
-13. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md` as historical continuation context only when useful
+13. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant and explicitly authorized
 
-Older handoffs are historical context only and must not override v0.2.47 or the active 2026-08-18 handoff.
+Older handoffs are historical context only and must not override v0.2.48.
 
 ## Audit-mode operating values
 
 - 1u = 1,000,000 VND.
-- Minimum odds reference = 1.70.
+- Minimum odds reference = 1.70 unless explicitly overridden.
 - Official football betting is **PAUSED**.
 - Execution mode is **SHADOW CALIBRATION ONLY** until audit exit criteria are met and the user explicitly approves resumption.
 - Ledger writes remain **ON HOLD** until explicitly approved.
 - Normal current audit small-test convention = 0.125u when a simulated shadow stake is needed and no newer user instruction supersedes it.
 - Directional AH/DNB/ML selections remain quarantined from official promotion.
-- Totals are not automatically approved; they remain subject to synchronization, settlement, provider-quality, style, timing, reset, pressure-inflection, halftime-compression and market-scan gates.
+- Totals are not automatically approved; they remain subject to synchronization, settlement, provider-quality, style, timing, reset, pressure-inflection, halftime-compression, goal-budget and market-scan gates.
 - xG/xGOT are secondary only.
 - Every material checkpoint must preserve exact score/minute/line/odds synchronization.
-- Existing validator Gate 5 must be enforced literally: raw shots/SOT cannot be relabeled into independent primary channels; the same event cluster cannot count twice; and `Tempo/Persistence` requires comparable score-stable evidence or a clearly repeated event sequence rather than kickoff-zero to one cumulative snapshot.
-- Evidence strength must be proportional to the exact settlement burden. A high total requiring several additional goals for a full win cannot be promoted from one efficient short burst.
-- For live Unders, conservation/motivation is context only. Require affirmative current evidence of actual attacking deceleration or threat suppression; `they do not need another goal` is not equivalent to `they have stopped creating`.
-- When an Over thesis clears all gates, prefer the lowest eligible protected boundary that preserves acceptable price quality and reduces unnecessary event-budget burden.
+- Airtable Decision State + Validator PASS remain mandatory for every shadow/executable verdict. If decision-state validation is unavailable, output `NO BET — HOLD — decision-state validation unavailable`.
+- Raw shots/SOT cannot be relabeled into independent primary channels; the same event cluster cannot count twice; persistence requires comparable score-stable evidence or a clearly repeated sequence.
+- Evidence strength must match the exact settlement burden.
+- Live Unders require affirmative current deceleration/suppression, not conservation narratives alone.
+- When an Over thesis clears all gates, prefer the lowest eligible protected boundary that preserves acceptable price quality and reduces unnecessary goal-budget burden.
 
 ## Retained active layers
 
 ### v0.2.43 — style/post-goal layer
 
-Before every serious preview and before the first live recommendation, both teams require an evidence-based style profile covering base build-up/tempo, attacking routes, defensive block, transitions, chance-generation signature, lead behaviour, trailing behaviour, expected matchup adaptation, and confidence/sample caveat.
-
-After every goal, perform the full tactical/state reset. Normally require comparable post-goal evidence before re-promoting a thesis unless v0.2.45's genuine terminal-goal bridge applies.
+Before every serious preview and before the first live recommendation, maintain evidence-based style/personnel context. After every goal, perform the full tactical/state reset and require fresh post-goal evidence unless an active fallback explicitly applies.
 
 ### v0.2.44 — timeliness
 
-If a synchronized state is stable and all applicable gates are complete, deliver the verdict immediately. Do not wait for a goal or an extra snapshot solely for reassurance.
+If a synchronized state is stable and all applicable gates are complete, deliver the verdict immediately. Do not add reassurance checkpoints after PASS.
 
-A material event before delivery invalidates the pending quote as `STATE-CHANGE RACE — NOT COUNTED` / `NOT COUNTED — STATE CHANGED BEFORE DELIVERY`, followed by reset and reprice.
+A material event before delivery invalidates the pending quote as `STATE-CHANGE RACE — NOT COUNTED`, followed by reset and reprice.
 
 ### v0.2.45 — terminal-goal / leader-driven fallback
 
-A goal arriving too close to halftime for a genuine post-goal window may use the explicit halftime bridge when its gates pass. A leader may fund the remaining Over goal budget itself; trailer contribution is not universally mandatory.
-
-v0.2.45 is a post-goal fallback, not a reason to miss an earlier pre-goal acceleration.
+A leader may fund the remaining Over goal budget itself where the exact live evidence and protected line support that route. Opponent contribution is not universally mandatory.
 
 ### v0.2.46 — pre-goal pressure inflection
 
-From approximately 35:00 to halftime, every material checkpoint must compare the recent 5-10 minute interval with the prior synchronized state.
+From approximately 35:00 to halftime, compare the recent 5-10 minute interval with the prior synchronized state. A one-team surge may support an attacker-driven Over if it can plausibly fund the protected remaining goal budget. Do not impose a goal-confirmation tax.
 
-Classify `PRESSURE INFLECTION: YES / POSSIBLE / NO` using independent forward-looking direct-threat and structural/territorial channels. At a tied score, a one-team surge may support `ATTACKER-DRIVEN PRE-GOAL OVER` when that team can plausibly fund the protected remaining goal budget.
-
-Do not impose a goal-confirmation tax: if the pre-goal state qualifies, decide immediately.
-
-## v0.2.47 — High-Scoring Halftime Compression / Goal-Saturation Gate — ACTIVE EMPHASIS
-
-The Racing Santander vs Villarreal audit exposed a distinct failure mode: a match can remain visibly active after halftime while **scoring hazard compresses**. Continued pressure is not equivalent to continued goal production.
-
-### Trigger
+## v0.2.47 — High-Scoring Halftime Compression / Goal-Saturation Gate
 
 - 0-2 HT goals: normal halftime reset.
 - 3 HT goals: `HT COMPRESSION GATE — MODERATE`.
 - 4+ HT goals: `HT GOAL-SATURATION GATE — STRONG`.
+- After 3+ HT goals, first-half activity is context only and cannot satisfy new second-half Over evidence.
+- A fresh second-half conversion-quality channel is mandatory for Over promotion.
+- For 4+ HT goals, normally require a resolved reset, score-stable 2H sample, two independent 2H primary channels, at least one conversion-quality channel, exact remaining-goal budget, protected-line comparison and NO-BET comparator.
+- `SECOND-HALF HAZARD: PERSISTENT BUT UNPROVEN` cannot promote an Over.
+- Under also cannot be promoted merely from saturation/conservation; require observed suppression.
 
-This is a model-risk gate, not an automatic Under signal.
+## v0.2.48 — Dominant Goal-Carrier Slate Priority — ACTIVE EMPHASIS
 
-### Hard rule
+The 2026-08-20 European slate review showed a pre-match selection-allocation error: good/notable European teams were being ranked too similarly to elite or near-elite attacking favorites that could realistically score 3+ by themselves against weaker opposition.
 
-After 3+ first-half goals, **first-half openness becomes context only**. First-half goals, pressure, shots, SOT, corners, box touches and pressure inflections cannot satisfy the minimum fresh evidence count for a post-HT Over.
+### Goal-carrier tiers
 
-A post-HT Over must stand on **second-half-only forward-looking evidence**.
+**T1 — Dominant Goal Carrier**
 
-### Conversion-quality requirement
+Matchup-specific profile with a credible solo 3+ goal route. Normally supported by strong attacking talent, lineup quality, material opponent mismatch, suitable tactical access and acceptable competition/format incentives. Ajax-, Benfica-, Beşiktaş-type mismatches are examples of the profile, not permanent hard-coded membership.
 
-Generic possession, raw shots, raw SOT, corners, territory and box touches cannot establish renewed scoring hazard by themselves.
+**T2 — Strong Attacking Side / Secondary Carrier**
 
-At least one fresh conversion-quality channel is required, such as a genuine big chance, repeated high-value inside-box attempts, meaningful keeper interventions from threatening locations, a clear defensive-error chance, strong cutback/one-v-one/free-header sequence, or repeated transitions ending in high-quality final actions.
+Strong team with meaningful attacking quality but a less reliable solo 3+ route in the current matchup. Salzburg-, Copenhagen-, Midtjylland-, Nordsjælland-type situations may fall here depending on opponent, lineup and format.
 
-xG/xGOT cannot substitute for this channel.
+**T3 — Shared-Route / Two-Sided Over**
 
-### Strong 4+ goal halftime gate
+The total depends materially on both teams contributing or on a balanced open-game route.
 
-For 4+ HT goals, a new second-half Over normally requires:
+### Ranking rule
 
-1. halftime reset resolved;
-2. a score-stable second-half sample, normally about 6-10 minutes unless an earlier high-quality event cluster clearly establishes the regime;
-3. at least two independent second-half primary channels;
-4. at least one conversion-quality channel;
-5. evidence from the current interval, not cumulative match appearance;
-6. an exact remaining-goal budget supported by second-half evidence alone;
-7. adjacent protected-line comparison;
-8. NO-BET comparator passed.
+Initial slate monitoring priority is normally:
 
-At tied high-scoring halftime states such as 2-2, apply a `HIGH-SCORE EQUILIBRIUM MODIFIER`: territory alone is insufficient; require evidence of continued meaningful risk acceptance or repeated high-quality chances.
+1. T1 dominant-carrier mismatch with strong/acceptable lineup and low format drag.
+2. T1 with one material uncertainty.
+3. T2 strong favorite with plausible solo route.
+4. High-quality T3 two-sided open match.
+5. Lower-information/provider-quality matches.
 
-### Remaining-goal budget
+Do not rank a T2/T3 match above a clear T1 carrier simply because the lower-tier game looks more balanced or theoretically open.
 
-State exactly how many additional goals are needed for full win and for push/half-win/half-loss.
+### One-team funding rule
 
-If two or more additional goals are required for a full win, the second-half evidence must support a credible **multi-goal route**. Quarter-goal protection cannot rescue an unsupported multi-goal thesis.
+A one-team blowout path is a first-class Over environment. Before penalizing a match for weak underdog attack, ask whether the stronger team can plausibly cash the target total by itself.
 
-### Score-stable decay
+This affects **ranking and monitoring priority only**. It does not replace the live validator.
 
-After a high-scoring halftime, re-check the recent second-half interval approximately every 8-10 score-stable minutes. If 15+ second-half minutes pass without a goal, require a fresh current-quality assessment before any new Over/re-entry.
+### Monitoring allocation / anti-sunk-cost rule
 
-Classify:
+When matches overlap, T1 carriers receive the first checkpoint and primary monitoring slot. Do not keep repeatedly checking an unproven T2/T3 match while a higher-ranked T1 carrier begins, unless the existing match has already reached a materially stronger synchronized live state.
 
-- `SECOND-HALF HAZARD: RE-ACCELERATING`
-- `SECOND-HALF HAZARD: PERSISTENT BUT UNPROVEN`
-- `SECOND-HALF HAZARD: COMPRESSING`
+### Required ranking fields
 
-`PERSISTENT BUT UNPROVEN` cannot promote an Over.
+For serious slate candidates, record:
 
-### Add-ons
+- `Goal-carrier tier:` T1 / T2 / T3
+- `Primary carrier:` team or shared
+- `Solo 3+ route:` STRONG / PLAUSIBLE / WEAK
+- `Opponent mismatch:` STRONG / MODERATE / LOW
+- `Lineup attack status:` FULL / ACCEPTABLE / ROTATED / UNKNOWN
+- `Format/incentive drag:` LOW / MODERATE / HIGH
+- `Initial monitoring priority:` rank number
 
-Any post-HT add-on after 3+ first-half goals must independently clear v0.2.47 using second-half-only evidence and its own remaining-goal budget. Do not add merely because the original thesis is alive, cumulative pressure is high, or the line has become more protected.
+These fields are priors and are not live evidence channels.
 
-### Racing-Villarreal audit note
+### Separate ranking tracker from entry P/L
 
-At 2-2 HT the strong gate would have applied. The v0.2.46 shadow promotion at 55:51 — Over 5.25 @1.88 — remains recorded exactly as issued for audit integrity. Under v0.2.47, that state would remain HOLD unless the second-half evidence showed stronger repeated conversion-quality support for the two-goal full-win budget.
+Track prospectively assigned slate ranking separately from betting results:
 
-The user's separate Ajax observation is qualitative corroboration only until reconstructed/audited; it is not counted evidence or P/L.
+- final total goals;
+- O2.5 hit/miss;
+- T1 carrier final goals where applicable;
+- 3+ and 4+ total-goal hit indicators;
+- assigned tier and rank.
 
-### Gnistan corroboration note
+Shadow P/L continues to include only prospectively issued synchronized PASS entries. A high-scoring ranked match with no entry is a selection success / execution miss, not a betting win.
 
-Gnistan vs Ilves was 2-2 at HT and finished 3-2. The original first-half Over 3.75 @1.83 was a full win, while only one additional goal arrived after the high-scoring halftime. This supports the need to treat first-half openness as history after the break. It is corroborating process evidence, not a universal fixed second-half scoring penalty.
+### Anti-hindsight rule
 
-## 2026-08-18 settlement-enforcement clarification
-
-The Copenhagen, San Diego, Gnistan and Nõmme reviews sharpen how existing rules are enforced without changing the model version:
-
-- **Over promotions:** prefer repeated independent threat across comparable windows over isolated efficiency. Two-sided contribution is valuable when the settlement path benefits from either scorer, though a single attacker may still fund the budget where active rules allow it.
-- **Evidence deduplication:** raw SOT cannot become shot-quality evidence without context, and one event cluster cannot populate two independent channels.
-- **Persistence:** one cumulative early snapshot cannot establish a persistent regime.
-- **Goal-budget proportionality:** the larger the full-win remaining-goal requirement, the stronger and more independent the current-regime proof must be.
-- **Under promotions:** a large lead, aggregate cushion or lack of need for another goal cannot substitute for observed deceleration. Require actual current evidence of reduced dangerous entries, transitions, bodies committed, chance quality, or opponent suppression.
-- **Protected totals:** quarter-goal protection remains preferred when it materially improves settlement without sacrificing the evidence standard.
-
-Do not convert these lessons into blanket Over/Under biases or arbitrary waiting rules.
+Tier labels must be assigned before kickoff or before the result is known. Do not promote a team to T1 because it later scored heavily, and do not demote a T1 carrier solely because one match finished 1-0.
 
 ## Parallel benchmark mode
 
-- **Arm A — Current audit model:** Football v0.2.47 with the full validator and all retained controls.
-- **Arm B — Early totals benchmark:** v0.2.6-v0.2.9 totals philosophy reconstructed with modern synchronization/provider-quality/style/timing controls. After 3+ HT goals, first-half activity cannot count as fresh second-half primary evidence; Arm B may remain more permissive on protected boundaries but must prove the post-HT regime independently.
+- **Arm A — Current audit model:** Football v0.2.48 with the full validator and all retained controls.
+- **Arm B — Early totals benchmark:** reconstructed v0.2.6-v0.2.9 totals philosophy with modern synchronization/provider-quality/style/timing controls and v0.2.47 post-HT separation.
 
-Arm B outputs only `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET`.
+Arm B outputs only `BENCHMARK SHADOW — DO NOT PLACE` or `BENCHMARK NO BET` and cannot shorten the audit.
 
 ## Validator interaction
 
-`FOOTBALL_PRE_VERDICT_VALIDATOR.md` remains the mandatory enforcement layer and was explicitly tightened on 2026-08-18. Its primary-evidence, persistence, utility, settlement and regime-consistency gates are subject to all active v0.2.47 controls.
-
-After 3+ HT goals, unresolved conversion-quality evidence or an unsupported remaining-goal budget means validator result cannot be PASS.
-
-The Nõmme/Kalju review clarifies Gate 5 for all live candidates: raw SOT cannot become `Shot Quality/Locations` without location/chance-structure context; one underlying event cluster cannot populate two independent channels; and persistence must be demonstrated rather than inferred from one cumulative early snapshot.
-
-The settlement review further clarifies that live Unders require demonstrated deceleration rather than inferred conservation, and all totals must match evidence quality to the exact remaining-goal burden.
+`FOOTBALL_PRE_VERDICT_VALIDATOR.md` remains the mandatory execution layer. v0.2.48 does not lower any live PASS burden. Goal-carrier tier is a prematch/slate prior only; synchronized live evidence, conversion quality, independence, persistence, utility, settlement and regime consistency remain mandatory.
 
 ## Competition/provider exclusion
 
-Per explicit user instruction, **AFC Challenge/AFC Challenge League matches are excluded from the current audit workflow because live-stat coverage is insufficient** unless the user explicitly reverses this exclusion and adequate synchronized live data is available.
+AFC Challenge/AFC Challenge League matches remain excluded from the current audit workflow unless explicitly reversed and adequate synchronized live data is available.
 
 ## Audit exit criteria
 
-Official football betting cannot resume until all existing audit exit criteria are satisfied, including at least 20 newly assessed shadow decisions after audit start, at least 10 directional-eligible decision points, no retrospective rewriting, no unresolved repeated structural loss pattern, formal simplification review, and explicit user approval.
-
-The early-totals benchmark cannot shorten the audit.
+Official football betting cannot resume until existing audit exit criteria are satisfied, including the required shadow-decision sample, directional-eligible decision points, no retrospective rewriting, no unresolved repeated structural loss pattern, formal simplification review, and explicit user approval.
 
 ## Response behavior during audit
 
@@ -203,21 +183,8 @@ The early-totals benchmark cannot shorten the audit.
 - Do not issue `OFFICIAL BET` while audit mode is active.
 - State the verdict before extended explanation once gates resolve.
 - A market that later wins is not a model win unless it was prospectively selected in the synchronized state.
+- When ranking a slate, distinguish T1/T2/T3 and put T1 solo-carrier routes first when justified.
 
-For serious post-HT Over assessments after 3+ first-half goals, include compactly:
+## Operating principle
 
-- `HT saturation gate:` MODERATE / STRONG
-- `Second-half-only sample:` interval/deltas
-- `Conversion-quality channel:` PASS / UNRESOLVED / FAIL
-- `Second-half hazard:` RE-ACCELERATING / PERSISTENT BUT UNPROVEN / COMPRESSING
-- `Remaining goal budget:` exact settlement requirement
-- `Best protected total:` exact line/odds
-- `Validator status:` PASS / HOLD / FAIL
-
-## Active cross-chat continuation
-
-Use `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md` for the next continuation. No match is currently active; the user said to continue tomorrow after the 2026-08-18 audit/settlement review.
-
-## Write boundary
-
-All football audit material, reviews, procedures, handoffs and model updates remain under `models/football/`. `/ledger.json` remains authoritative for official accounting when writes are authorized.
+**Rank goal carriers, not badges. Give the strongest prospective solo 3+ goal route first monitoring priority, then let the live validator decide whether the market is playable. A one-team blowout path is a first-class Over environment, but never an automatic bet.**
