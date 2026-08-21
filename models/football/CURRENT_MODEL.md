@@ -14,7 +14,7 @@
 - Latest process review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_SETTLEMENT_LESSONS_2026-08-18.md`
 - Nõmme enforcement review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
 - Prior HT-compression review: `models/football/reviews/FOOTBALL_PROCESS_REVIEW_RACING_VILLARREAL_HT_COMPRESSION_2026-08-16.md`
-- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md`
+- Active cross-chat handoff: `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-21.md`
 - Historical baseline: `models/LEGACY_MODEL_CHANGELOG.md`
 - Authoritative official betting feed: `/ledger.json`
 
@@ -33,7 +33,7 @@ Load in this order, applying the newest active football rule over older conflict
 9. `models/football/reviews/FOOTBALL_V026_V029_BENCHMARK_PROTOCOL_2026-08-11.md`
 10. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_NOMME_KALJU_EARLY_SOT_EFFICIENCY_2026-08-18.md`
 11. `models/football/reviews/FOOTBALL_PROCESS_REVIEW_SETTLEMENT_LESSONS_2026-08-18.md`
-12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-18.md` as historical continuation context only when useful
+12. `models/football/handoffs/CHAT_TRANSFER_HANDOFF_2026-08-21.md` as the active continuation context
 13. `/ledger.json` only when official record, bankroll, exposure, placement, or settlement status is relevant and explicitly authorized
 
 Older handoffs are historical context only and must not override v0.2.49.
