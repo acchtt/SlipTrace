@@ -2,12 +2,12 @@
 
 **Status:** ACTIVE GOVERNANCE  
 **Effective:** 2026-08-18 UTC+7  
-**Amended:** 2026-08-20 UTC+7  
+**Amended:** 2026-08-21 UTC+7  
 **Authority:** `models/lol/CURRENT_MODEL.md`
 
 ## Purpose
 
-Prevent authority drift, stale-version blending, skipped market gates, false logging claims, unnecessary external roster lookup, missing persistence, outcome-driven mid-slate model changes, and execution drift when a LoL audit continues in a new chat or after context compression.
+Prevent authority drift, stale-version blending, skipped market gates, false logging claims, unnecessary external roster lookup, missing persistence, outcome-driven mid-slate model changes, draft-prior anchoring in live ML, and execution drift when a LoL audit continues in a new chat or after context compression.
 
 This procedure is governance/execution control. It does not create a new analytical model version.
 
@@ -69,6 +69,8 @@ Before the first model-certified live verdict of a session, internally verify al
 - mandatory procedures/reviews required by the locked load order were loaded;
 - `LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md` is loaded;
 - `LOL_UNDERDOG_CUSHION_SUFFICIENCY_2026-08-20.md` is loaded;
+- `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md` is loaded;
+- `LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md` is loaded when present in locked authority;
 - `LOL_FRP_POSITIVE_EVIDENCE_EXECUTION_CALIBRATION_2026-08-20.md` is loaded;
 - `LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md` is loaded;
 - latest handoff was loaded last;
@@ -143,9 +145,19 @@ Reference review:
 - two usable live snapshots required;
 - position-blind reassessment required;
 - Lead Decomposition (`RL / SL / OSC / CFC`) required;
-- neutral-setup compulsory-fight stress test required;
+- `CFC_CURRENT` must use current items, levels, role-weighted economy and objective schedule;
+- neutral-setup compulsory-fight stress uses current live leverage and neutral positional setup only — never equalize economy back to the draft;
+- `DRAFT_PRIOR_STATE = INTACT / DEGRADED / BROKEN` must be explicitly assessed;
+- if the contemplated ML selection opposes an original `CLEAR` or `STRONG` draft edge, `LRO = PASS` is mandatory;
+- that contrary-draft LRO path requires three usable snapshots, at least two meaningful contact/objective cycles, regime persistence, multi-role leverage, `DPS = BROKEN`, current CFC PASS, next-cycle stress PASS, and `DRP = PASS`;
+- if the ML aligns with the original CLEAR/STRONG draft edge, or the draft was only SLIGHT/EVEN/UNCLEAR, `LRO=N/A` is valid and the ordinary two-snapshot path remains active;
+- a draft prior cannot remain a hidden permanent live-ML veto once `DPS=BROKEN` and `LRO=PASS` are established;
 - same-series SMR applies where the thesis relies on a previously failed mechanism;
-- team strength and current gold are modifiers/context, not standalone TAKE authorization.
+- team strength and current gold are modifiers/context, not standalone TAKE authorization;
+- Live ML regime override applies only to ML and cannot create or upgrade draft-only UDKC/DIM proof for underdog +kills.
+
+Mandatory Live ML regime procedure:
+`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
 
 ### Favorite -kills
 
@@ -205,6 +217,7 @@ Hard rules:
 - missing or unresolved field -> HOLD/PASS;
 - compact visible commentary does not relax this requirement;
 - the position `Entry Evidence` must persist the compact `GATE_SIG[...]` block after the verdict;
+- Live ML TAKES against CLEAR/STRONG draft priors must also persist the compact `LRO[...]` sub-signature;
 - failure to produce the signature is a procedural circuit-breaker trigger if a TAKE was visibly issued.
 
 ## 7. Procedural circuit breaker
@@ -217,7 +230,8 @@ Trigger conditions include:
 - a TAKE without a complete mandatory gate signature;
 - authority/model mismatch;
 - live evidence used to create prohibited draft proof;
-- skipped/substituted family-specific gate.
+- skipped/substituted family-specific gate;
+- a Live ML TAKE against a CLEAR/STRONG draft prior without the required LRO certificate when that procedure is active in the locked authority.
 
 When active:
 
@@ -247,6 +261,7 @@ For every valid visible live verdict, follow the canonical post-verdict logging 
 - `PASS/HOLD`: write the exact live snapshot after the visible verdict; no position record.
 - executable `TAKE`: write the snapshot and exact shadow position after the visible verdict.
 - for new TAKES after 2026-08-20 governance activation, position Entry Evidence must include `GATE_SIG[...]`.
+- for active-authority Live ML TAKES against CLEAR/STRONG draft priors, Entry Evidence must also include `LRO[...]`.
 - verify the expected record exists after the write.
 - never say `logged`, `settled`, or equivalent unless the corresponding Airtable mutation actually succeeded and the expected record was verified.
 - if logging fails, state: `VERDICT VALID — LOGGING FAILED` and repair the ledger without altering the analytical verdict.
@@ -279,4 +294,4 @@ Future transfer prompts must not hardcode a model version as independent authori
 
 Minimum transfer instruction:
 
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`, then `models/lol/session/CURRENT_SESSION_LOCK.md`. If the lock is ACTIVE, use its authority commit for the analytical stack and do not silently use newer default-branch edits. Load the session authority-lock/TAKE-signature/circuit-breaker procedure, the FRP calibration, the UDKC draft guard, and UCS. Latest handoff loads last and carries state only. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`; if lock authority mismatches, `MODEL LOCK MISMATCH — HOLD`; if the procedural circuit breaker is active, issue no new TAKES. Every TAKE requires a complete market-family `GATE_SIG[...]` and post-verdict Airtable verification.
+> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`, then `models/lol/session/CURRENT_SESSION_LOCK.md`. If the lock is ACTIVE, use its authority commit for the analytical stack and do not silently use newer default-branch edits. Load the session authority-lock/TAKE-signature/circuit-breaker procedure, the Live ML draft-prior degradation/regime-override procedure, the FRP calibration, the UDKC draft guard, and UCS. Latest handoff loads last and carries state only. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`; if lock authority mismatches, `MODEL LOCK MISMATCH — HOLD`; if the procedural circuit breaker is active, issue no new TAKES. Every TAKE requires a complete market-family `GATE_SIG[...]` and post-verdict Airtable verification; Live ML against a CLEAR/STRONG draft prior also requires `LRO[...]`.
