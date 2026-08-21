@@ -2,6 +2,7 @@
 
 **Status:** ACTIVE GOVERNANCE  
 **Effective:** 2026-08-20 UTC+7  
+**Amended:** 2026-08-21 UTC+7  
 **Analytical model:** unchanged; canonical remains LoL v0.3.58  
 **Purpose:** prevent new-chat execution drift, silent mid-slate rule mutation, missing-gate TAKES, and outcome-driven patching.
 
@@ -77,9 +78,23 @@ Every market family must resolve:
 
 Required:
 
-`LOCK | MODEL | EXEC | ODDS | FAMILY | POSBLIND | 2SNAP | LD | CFC | NEUTRAL_FIGHT_STRESS | SMR/N-A`
+`LOCK | MODEL | EXEC | ODDS | FAMILY | POSBLIND | 2SNAP | LD | DRAFT_PRIOR_STATE | CFC_CURRENT | NEUTRAL_FIGHT_STRESS_CURRENT | LRO/N-A | SMR/N-A`
 
-Lead Decomposition must include the retained role/structure/objective-control decomposition. `CFC = PASS` cannot be inferred from gold lead alone.
+Lead Decomposition must include the retained role/structure/objective-control decomposition. `CFC_CURRENT = PASS` cannot be inferred from gold lead alone.
+
+The neutral-fight stress test uses current live items/levels/role economy and treats `neutral` as approximately neutral positioning/entry, not equalized economy or a reset to the post-draft state.
+
+If the contemplated ML selection opposes an original `CLEAR` or `STRONG` draft edge, `LRO = PASS` is mandatory under:
+
+`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
+
+That path requires a compact sub-signature:
+
+`LRO[3SNAP | 2CYCLE | REGIME_PERSISTENCE | MULTI_ROLE_LEVERAGE | DPS=BROKEN | CFC_CURRENT | NEXT_CYCLE_STRESS | DRP]`
+
+All fields must PASS. If the ML aligns with the original CLEAR/STRONG draft edge, or the draft edge was only SLIGHT/EVEN/UNCLEAR, `LRO=N/A` is valid and the retained two-snapshot Live ML path applies.
+
+A draft prior cannot remain a hidden permanent ML veto after `DPS=BROKEN` and `LRO=PASS` are established. Conversely, live ML regime override never creates or upgrades draft-only proof for underdog +kills.
 
 ### Favorite -kills signature
 
@@ -137,6 +152,10 @@ Example:
 
 `GATE_SIG[LOCK=P;MODEL=P;2SNAP=P;DIM=P;TAM=P;CAS=P;UDKC=P;KMS=P;RLD=P;UCS=P;NKB=7;...]`
 
+For a Live ML TAKE against a CLEAR/STRONG draft prior, also persist the compact LRO sub-signature, for example:
+
+`LRO[3SNAP=P;2CYCLE=P;REGIME=P;MULTI_ROLE=P;DPS=BROKEN;CFC_CURRENT=P;NEXT_CYCLE=P;DRP=P]`
+
 The visible verdict remains first. Logging happens after the verdict under the existing Airtable integrity procedure.
 
 A missing historical `GATE_SIG` does not retroactively void old records, but all new TAKES after this governance activation require it.
@@ -152,7 +171,8 @@ Trigger immediately if any of the following occurs:
 - the wrong model/version or unlocked authority was used;
 - draft-only proof was supplied by live state where prohibited;
 - a market-family hard gate was skipped or substituted by narrative confidence;
-- under an authority commit containing DIM, an underdog +kills TAKE was issued without resolving `DIM/TAM/CAS` as required.
+- under an authority commit containing DIM, an underdog +kills TAKE was issued without resolving `DIM/TAM/CAS` as required;
+- under an authority commit containing the Live ML regime override, an ML TAKE against a CLEAR/STRONG draft prior was issued without resolving the required `LRO[...]` fields.
 
 When triggered:
 
@@ -207,12 +227,15 @@ They may include:
 
 They must not override the lock, `CURRENT_MODEL.md`, or bootstrap.
 
-## 9. Reference incident
+## 9. Reference incidents
 
 This guard was introduced after the 2026-08-19/20 chat-transition audit found several visible TAKES that were later audit-invalidated and found that a previously discussed underdog-cushion safeguard had not actually been persisted into canonical authority.
 
 The DIM extension was added after BLG vs LGD Game 3 showed that a full-looking UDKC could still be wrong when generic defensive utility was not matched against the favorite's actual kill mechanism.
 
+The Live ML regime-override extension was added after NS vs T1A Game 1 showed that a CLEAR draft prior could remain an unintended live veto even after repeated current-state role/objective evidence had degraded the mechanisms supporting that prior.
+
 References:
 - `models/lol/reviews/CHAT_TRANSITION_EXECUTION_DRIFT_AND_SESSION_LOCK_REVIEW_2026-08-20.md`
 - `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
+- `models/lol/reviews/NS_T1A_G1_LIVE_ML_DRAFT_PRIOR_ANCHORING_REVIEW_2026-08-21.md`
