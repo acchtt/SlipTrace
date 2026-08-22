@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE GOVERNANCE  
 **Effective:** 2026-08-18 UTC+7  
-**Amended:** 2026-08-21 UTC+7  
+**Amended:** 2026-08-22 UTC+7  
 **Authority:** `models/lol/CURRENT_MODEL.md`
 
 ## Purpose
@@ -92,8 +92,14 @@ For named-team match prep, use saved project lineup context before external web 
 - A dated official match-specific lineup card saved there is the preferred starting lineup source.
 - Treat saved lineups as dated evidence, not permanent roster locks; newer official match-specific lineup evidence supersedes older saved entries.
 - If a current lineup is already present in saved project data, do not replace it with generic web roster pages merely because they are easier to find.
-- External web lookup is a fallback for missing/uncertain lineup context or for checking whether a newer official lineup has superseded the saved one.
-- Before applying a numeric team-strength prior, verify the current five-player lineup and any material substitutions/role swaps.
+- **Fast-path rule:** if the saved lineup is current and the user supplies or confirms the same five starters for the match, treat the lineup as confirmed and do **not** perform an external web roster lookup.
+- A user-supplied current official lineup card, exact five-player lineup, or direct correction supersedes generic roster websites for that match. Do not duplicate-confirm it on the web unless there is a concrete conflict or ambiguity.
+- External web roster lookup is permitted only when the saved/user-confirmed lineup is missing, incomplete, contradictory, materially ambiguous, there is a specific substitution/role-swap concern, or the user explicitly asks for external verification.
+- Do not use external roster lookup merely to add confidence to an already confirmed five. The time cost is not justified and it must not delay pregame/live analysis.
+- Web research for recent results, team-strength context, patch/meta context, or other non-lineup facts is a separate decision and should be used only when it materially improves the analysis; it must not be bundled into lineup confirmation by default.
+- **Odds fast path:** when the user supplies a readable sportsbook screenshot with the relevant ML/handicap prices, treat those displayed prices as the market authority for that decision. Do not search the web for duplicate odds unless the screenshot is missing/unclear, the requested market is not shown, or the user explicitly asks for a cross-book comparison.
+- In live or near-start workflows, saved lineup + user confirmation + readable sportsbook odds is sufficient source evidence to proceed immediately; avoid unnecessary network calls.
+- Before applying a numeric team-strength prior, verify the current five-player lineup and any material substitutions/role swaps using the priority order above.
 
 Current saved lineup index:
 `models/lol/context/lineups/LCK_CL_2026_STARTING_LINEUPS.md`
