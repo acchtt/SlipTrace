@@ -1,28 +1,34 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-22-E1-1438-UTC7`  
-**Status:** `CIRCUIT_BREAKER`  
-**Effective:** `2026-08-22 14:38 UTC+7`  
+**Lock ID:** `LOL-2026-08-22-E2-1633-UTC7`  
+**Status:** `ACTIVE`  
+**Effective:** `2026-08-22 16:33 UTC+7`  
 **Default expiry:** `2026-08-23 00:00 UTC+7`  
 **Authority commit:** `a4d537e2ef06de042397fdab2fa05464c6d242dc`  
 **Active analytical model:** `LoL v0.3.58`  
-**Circuit breaker:** `TRIGGERED — 2026-08-22 16:26 UTC+7`  
+**Circuit breaker:** `CLEAR — explicit user relock at 2026-08-22 16:33 UTC+7`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`
 
-## Authorization / slate transition
+## Authorization / relock
 
-This is the normal new UTC+7 slate lock for 2026-08-22. The prior 2026-08-21 lock expired at the slate boundary and is superseded prospectively only; historical verdicts and ledger records are unchanged.
+The user explicitly authorized an immediate relock for the ongoing **DK vs GEN Game 2** at **2026-08-22 16:33 UTC+7** after the prior lock entered `CIRCUIT_BREAKER` state.
 
-The authority commit includes the 2026-08-22 lineup/odds source fast-path amendment in `LOL_SESSION_BOOTSTRAP.md`. This is a governance/source-efficiency change only; the analytical model remains canonical LoL v0.3.58.
-
-## Frozen authority
-
-All analytical/procedural decisions for this slate use commit:
+This starts a new lock epoch without changing the analytical authority. The frozen authority remains commit:
 
 `a4d537e2ef06de042397fdab2fa05464c6d242dc`
 
-Canonical model remains **LoL v0.3.58**. v0.3.59 and v0.3.60 remain retired/discarded.
+Canonical model remains **LoL v0.3.58**. No new analytical/procedural amendment is activated by this relock.
+
+The prior **DK +10.5 kills @1.734** position remains historically **INVALIDATED / VOID / 0u P&L** and is not resurrected by the relock.
+
+Because the canonical common TAKE signature requires `FAMILY = no prior TAKE in the same map/market family`, the **Kill Handicap family remains consumed for DK vs GEN Game 2** despite the invalidation. The relock restores TAKE eligibility only for otherwise-unused market families that pass every current gate.
+
+## Frozen authority
+
+All analytical/procedural decisions for the remainder of this slate use commit:
+
+`a4d537e2ef06de042397fdab2fa05464c6d242dc`
 
 Active controls include:
 
@@ -49,6 +55,8 @@ Underdog +kills requires DIM/TAM/CAS, complete draft-only UDKC, live preservatio
 
 Before every TAKE, every required gate-signature field must be explicit PASS or valid N/A. Missing/FAIL/UNRESOLVED means HOLD/PASS.
 
+A displayed sportsbook market must be executable at the assessed synchronized state/price pair. If a fight or material state change occurs during the decision/entry window, that candidate is not TAKE-eligible from the pre-change assessment.
+
 ## Source fast path
 
 When saved lineup context and a user-confirmed exact five agree, treat the lineup as confirmed and do not duplicate-check generic roster websites. A readable user sportsbook screenshot is the market authority for displayed odds/lines. External lookup is only for genuine missing/conflicting/ambiguous information, a specific substitution concern, an unshown market, cross-book comparison, or explicit user request.
@@ -69,11 +77,11 @@ If authority cannot be loaded or model hierarchy mismatches, use:
 
 `MODEL LOCK MISMATCH — HOLD`
 
-## Circuit breaker
+## Circuit breaker history
 
-Circuit breaker triggered at **2026-08-22 16:26 UTC+7** after the Game 2 **DK +10.5 @1.734** TAKE was found to have been issued while a fight occurred during the decision/entry window. The sportsbook price and assessed state were therefore not a clean synchronized pair; the execution gate is retrospectively FAIL and the Airtable position is void/invalidated for model audit.
+Prior epoch `LOL-2026-08-22-E1-1438-UTC7` triggered the circuit breaker at **2026-08-22 16:26 UTC+7** after the Game 2 **DK +10.5 @1.734** TAKE was found to have been issued while a fight occurred during the decision/entry window. The sportsbook price and assessed state were not a clean synchronized pair, so the position was voided for model audit.
 
-No further TAKEs are permitted under this lock. Analysis and HOLD snapshot logging may continue. TAKE eligibility resumes only after a valid explicit user relock/new epoch or the next valid slate lock.
+The user explicitly authorized this new epoch at **16:33 UTC+7**. Circuit breaker is therefore `CLEAR` prospectively. Historical invalidation remains unchanged.
 
 A fully canonical loss does not trigger the breaker.
 
