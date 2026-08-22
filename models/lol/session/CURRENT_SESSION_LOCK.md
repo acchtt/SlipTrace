@@ -1,12 +1,12 @@
 # Current LoL Session Lock
 
 **Lock ID:** `LOL-2026-08-22-E1-1438-UTC7`  
-**Status:** `ACTIVE`  
+**Status:** `CIRCUIT_BREAKER`  
 **Effective:** `2026-08-22 14:38 UTC+7`  
 **Default expiry:** `2026-08-23 00:00 UTC+7`  
 **Authority commit:** `a4d537e2ef06de042397fdab2fa05464c6d242dc`  
 **Active analytical model:** `LoL v0.3.58`  
-**Circuit breaker:** `CLEAR`  
+**Circuit breaker:** `TRIGGERED — 2026-08-22 16:26 UTC+7`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`
 
@@ -71,7 +71,9 @@ If authority cannot be loaded or model hierarchy mismatches, use:
 
 ## Circuit breaker
 
-Circuit breaker is CLEAR at activation. A procedural hard-gate violation, missing required signature, authority mismatch, prohibited live-to-draft proof, skipped market-family hard gate, or contrary-CLEAR/STRONG-draft ML TAKE without the required LRO certificate triggers the procedural circuit breaker and blocks further TAKES until a valid relock.
+Circuit breaker triggered at **2026-08-22 16:26 UTC+7** after the Game 2 **DK +10.5 @1.734** TAKE was found to have been issued while a fight occurred during the decision/entry window. The sportsbook price and assessed state were therefore not a clean synchronized pair; the execution gate is retrospectively FAIL and the Airtable position is void/invalidated for model audit.
+
+No further TAKEs are permitted under this lock. Analysis and HOLD snapshot logging may continue. TAKE eligibility resumes only after a valid explicit user relock/new epoch or the next valid slate lock.
 
 A fully canonical loss does not trigger the breaker.
 
