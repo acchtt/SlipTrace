@@ -2,9 +2,9 @@
 
 **Status:** ACTIVE GOVERNANCE  
 **Effective:** 2026-08-20 UTC+7  
-**Amended:** 2026-08-21 UTC+7  
+**Amended:** 2026-08-22 UTC+7  
 **Analytical model:** unchanged; canonical remains LoL v0.3.58  
-**Purpose:** prevent new-chat execution drift, silent mid-slate rule mutation, missing-gate TAKES, and outcome-driven patching.
+**Purpose:** prevent new-chat execution drift, silent mid-slate rule mutation, missing-gate TAKES, outcome-driven patching, and post-outcome hindsight from substituting for pre-entry validation.
 
 This procedure changes governance/execution only. It does not create a new analytical model version.
 
@@ -144,7 +144,101 @@ Required:
 
 Low kills and low tower count are not positive clock mechanisms by themselves.
 
-## 4. Gate-signature persistence
+## 4. Mechanical pre-TAKE interlock
+
+This is a hard execution barrier. It exists specifically so a future real-money workflow cannot depend on the analyst remembering to apply prose rules correctly.
+
+### 4.1 Certificate must exist before the verdict
+
+Before the word `TAKE` may be emitted, construct a complete **PRE_TAKE_CERT** for the contemplated selection from the currently locked authority and the synchronized state/price pair.
+
+The certificate must contain:
+
+- exact map identifier;
+- exact market family and selection;
+- exact displayed odds/line;
+- evidence clock/state identifier;
+- active Lock ID and authority commit;
+- every common and family-specific required gate field;
+- every exact arithmetic field required by that family.
+
+The certificate is pre-entry evidence. It may not be completed from a later fight, later price, result, or postgame interpretation.
+
+### 4.2 Mechanical schema validation
+
+Run a fail-closed validation of PRE_TAKE_CERT before the visible verdict.
+
+Validation passes only when:
+
+1. every required field for that family is present exactly once;
+2. every categorical gate is an allowed terminal value: `PASS` or an explicitly permitted `N/A`;
+3. `FAIL`, `UNRESOLVED`, `UNKNOWN`, omitted, blank, implied, or narrative-only fields fail validation;
+4. exact numeric fields such as signed margin, failure/cover threshold, NKB/RNE, odds and line are actually populated where required;
+5. the Lock ID/model/authority commit match the currently loaded locked stack;
+6. the market family is unused for the map;
+7. the executable price and assessed live state belong to the same usable decision window.
+
+There is no analyst override for a failed certificate.
+
+**Mechanical result:**
+
+- `PRE_TAKE_CERT = PASS` -> the candidate may proceed to a visible TAKE;
+- anything else -> `HOLD/PASS`, with no position created.
+
+### 4.3 State-change expiry
+
+A PRE_TAKE_CERT expires immediately if a material state change occurs before entry, including a fight, meaningful kill change, objective capture, structure change, or other decision-critical live transition.
+
+If the state changes during the decision/entry window:
+
+- `STATE/EXEC = FAIL` for the old certificate;
+- the old certificate cannot be reused;
+- obtain a fresh synchronized state/price pair;
+- rebuild and revalidate PRE_TAKE_CERT from zero before any TAKE.
+
+A stale certificate may never be repaired by editing only the changed fields.
+
+### 4.4 Visible verdict and ledger ordering
+
+The operational order is fixed:
+
+`evidence -> PRE_TAKE_CERT build -> mechanical validation -> visible verdict -> Airtable position write -> exact record verification`
+
+Never use:
+
+`visible TAKE -> fill missing gates afterward`.
+
+If the persisted Airtable `GATE_SIG[...]` does not exactly reflect the already-passed PRE_TAKE_CERT, treat that as an execution failure and trigger the circuit breaker.
+
+### 4.5 Anti-hindsight accounting
+
+Postgame review may diagnose a prediction but cannot rewrite what the model predicted.
+
+Hard rules:
+
+- a settled TAKE remains a recorded model prediction with its actual Win/Loss result and P/L;
+- a later analytical re-read may be labeled `POSTGAME DIAGNOSTIC`, but it cannot convert the historical prediction into a fictional pre-entry HOLD;
+- an audit may classify a TAKE as procedurally invalid only when contemporaneous entry evidence proves that an active pre-entry hard gate or execution rule was actually violated;
+- the final game result by itself is never evidence of a pre-entry gate failure;
+- procedural invalidation does not erase the prediction result from performance accounting; keep prediction outcome/P&L and process-validity as separate dimensions;
+- performance summaries must not improve win rate or model accuracy by removing losing predictions merely because a later review says the analysis should have been different.
+
+Therefore every reviewed TAKE has two independent labels:
+
+1. `PREDICTION_RESULT = WIN / LOSS / PUSH / VOID`; and
+2. `PROCESS_VALIDITY = VALID / INVALIDATED`.
+
+A valid loss is a model miss/variance event. An invalidated loss is still a historical losing prediction plus an execution failure. Neither may be presented as though the model correctly predicted HOLD before the event.
+
+### 4.6 Real-money readiness consequence
+
+The mechanical interlock is mandatory before any future policy could permit actual exposure above `0u`.
+
+No discussion of real-money readiness may treat prose compliance as sufficient. A prerequisite is demonstrated shadow operation with the interlock producing **zero missing-gate, stale-certificate, or post-TAKE certificate-completion violations** over the evaluation sample.
+
+This section does not itself authorize real-money betting or change the current `0u` actual-exposure policy.
+
+## 5. Gate-signature persistence
 
 For every TAKE position, Airtable `Entry Evidence` must include a compact `GATE_SIG[...]` block containing the resolved family signature.
 
@@ -160,7 +254,7 @@ The visible verdict remains first. Logging happens after the verdict under the e
 
 A missing historical `GATE_SIG` does not retroactively void old records, but all new TAKES after this governance activation require it.
 
-## 5. Procedural circuit breaker
+## 6. Procedural circuit breaker
 
 The circuit breaker is triggered by an execution failure, not by ordinary variance.
 
@@ -168,6 +262,8 @@ Trigger immediately if any of the following occurs:
 
 - a visible TAKE is later found to have violated an active hard gate;
 - a TAKE was issued without a complete mandatory gate signature;
+- `PRE_TAKE_CERT` was missing, failed, incomplete, or completed after the visible TAKE;
+- an expired pre-state-change certificate was reused after a material live transition;
 - the wrong model/version or unlocked authority was used;
 - draft-only proof was supplied by live state where prohibited;
 - a market-family hard gate was skipped or substituted by narrative confidence;
@@ -185,7 +281,7 @@ When triggered:
 
 A fully canonical bet that simply loses does **not** trigger the circuit breaker.
 
-## 6. Outcome-driven change prohibition
+## 7. Outcome-driven change prohibition
 
 Do not change the active analytical model because one bet or one short losing run failed.
 
@@ -197,7 +293,9 @@ A valid loss should be classified as one of:
 
 A rule change requires a mechanism-level review, not the result alone. New safeguards that correct a proven procedural omission may be written, but the active slate remains frozen unless explicitly relocked.
 
-## 7. Fix verification standard
+Post-outcome analytical diagnosis must not be used to relabel a historical losing prediction as though the model had issued HOLD before entry. Process validity and prediction result are separate audit dimensions under Section 4.5.
+
+## 8. Fix verification standard
 
 Never say a governance/model fix is durable merely because it was discussed in chat.
 
@@ -211,7 +309,7 @@ A claimed durable fix requires:
 
 This is mandatory for any future statement such as `fixed`, `canonical`, `saved`, or `future chats will inherit this`.
 
-## 8. Handoff rule
+## 9. Handoff rule
 
 Handoffs carry state, not authority.
 
@@ -227,7 +325,7 @@ They may include:
 
 They must not override the lock, `CURRENT_MODEL.md`, or bootstrap.
 
-## 9. Reference incidents
+## 10. Reference incidents
 
 This guard was introduced after the 2026-08-19/20 chat-transition audit found several visible TAKES that were later audit-invalidated and found that a previously discussed underdog-cushion safeguard had not actually been persisted into canonical authority.
 
@@ -235,7 +333,10 @@ The DIM extension was added after BLG vs LGD Game 3 showed that a full-looking U
 
 The Live ML regime-override extension was added after NS vs T1A Game 1 showed that a CLEAR draft prior could remain an unintended live veto even after repeated current-state role/objective evidence had degraded the mechanisms supporting that prior.
 
+The mechanical PRE_TAKE_CERT interlock and anti-hindsight accounting were added after DK vs GEN Game 3 exposed that a visible TAKE could be emitted even though required DIM/TAM/CAS fields were absent, followed by a postgame temptation to describe the loss as something the model 'should have held.' The correction is procedural: block incomplete TAKES before money could be committed, and preserve the actual prediction result afterward.
+
 References:
 - `models/lol/reviews/CHAT_TRANSITION_EXECUTION_DRIFT_AND_SESSION_LOCK_REVIEW_2026-08-20.md`
 - `models/lol/reviews/BLG_LGD_G3_DRAFT_INTERACTION_REVIEW_2026-08-20.md`
 - `models/lol/reviews/NS_T1A_G1_LIVE_ML_DRAFT_PRIOR_ANCHORING_REVIEW_2026-08-21.md`
+- `models/lol/reviews/DK_GEN_G3_GEN_PLUSKILLS_DIM_EXECUTION_REVIEW_2026-08-22.md`
