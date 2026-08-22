@@ -1,16 +1,53 @@
 # SlipTrace CS2 Shadow Model
 
-Effective: 2026-08-21
-Current version: **v1.2**
+Effective: 2026-08-22
+Current version: **v1.3**
 
-Purpose: define the durable pre-match CS2 decision model used for shadow testing. Official placed wagers remain separate from this model and are not written to `ledger.json` unless the user explicitly confirms a real wager and authorizes the ledger write.
+Purpose: define the durable CS2 decision model used for shadow testing. Official placed wagers remain separate from this model and are not written to `ledger.json` unless the user explicitly confirms a real wager and authorizes the ledger write.
 
 ## Operating window
 
 1. Build and preserve a **pre-veto baseline** before map picks are known.
-2. Issue counted shadow selections only **after the complete BO3 veto/map order is known and before round 1 begins**, using the user's actual available odds.
-3. Live prices after the first round starts are analysis-only and must not be retroactively counted as shadow bets.
-4. Airtable `SlipTrace CS2 Decision Control` is the audit layer for pre-veto forecasts, counted shadow bets, and post-match reviews.
+2. A counted **pre-pistol shadow selection** may be issued after the complete BO3 veto/map order is known and before round 1 begins, using the user's actual available odds.
+3. Starting with **v1.3**, a counted **live shadow selection** may also be issued after play has started when the current game state and the user's current live odds are both captured before entry.
+4. Pre-pistol and live shadow bets must be tagged separately in Airtable so their performance can be audited independently.
+5. Nothing may be retroactively promoted into a counted shadow bet. Historical live calls made before v1.3 remain analysis-only.
+6. Airtable `SlipTrace CS2 Decision Control` is the audit layer for pre-veto forecasts, counted shadow bets, and post-match reviews.
+
+## Live shadow protocol
+
+Live shadow bets are permitted only when the state is sufficiently well-defined to recompute the price independently.
+
+Preferred checkpoints:
+- **after round 12 / halftime of a map**;
+- **between maps** after the previous map is final;
+- another live checkpoint only when an exact score, current map, map order and current sportsbook prices are captured clearly enough to avoid stale-state ambiguity.
+
+At a live checkpoint, use:
+- current map and exact score;
+- completed and upcoming side assignment where relevant;
+- remaining map order;
+- pre-veto and pre-pistol map probabilities as priors, not anchors;
+- current economy / loss-bonus / timeout context when reliably visible or supplied;
+- current live market price from the user's sportsbook.
+
+Recompute both **current-map win probability** and **BO3 series probability** from the live state. Do not simply rescale the pre-match series probability.
+
+A live shadow position should normally require:
+- model edge of roughly **4 percentage points or more** versus implied probability;
+- positive EV of roughly **6% or more** per unit;
+- confidence of at least **6.5/10**;
+- a thesis based on more than the current score alone.
+
+These are guardrails, not automatic triggers. PASS remains preferred when the apparent edge depends on uncertain economy information, a stale price, or one unsustainable round-level signal.
+
+### Live staking and exposure
+
+- Pre-pistol shadow default: **1.0u**.
+- Live shadow default: **0.5u** because state estimates are noisier and prices move quickly.
+- A live shadow may use **1.0u** only when the edge is unusually strong and the state is clearly captured.
+- Default maximum total shadow exposure on one BO3 is **2.0u** across pre-pistol and live positions combined.
+- A live add-on must have an independent edge; do not add merely because an existing shadow bet is losing.
 
 ## Probability framework
 
@@ -118,6 +155,24 @@ A correct prediction may still be a pass if the price is too short. Spirit 2-0 a
 
 Do not reward or penalize a surprising team pick mechanically. A surprising pick can imply prepared anti-stratting. G2 choosing Ancient versus FURIA is the reference example: weak historical numbers alone were not enough to treat Ancient as a free FURIA map.
 
+## v1.3 calibration changes
+
+Introduced on 2026-08-22 to extend the shadow test into live markets while preserving clean auditability.
+
+### 12. Live-state re-pricing
+
+At permitted live checkpoints, treat the score and side state as new evidence and rebuild the map/series probability. The pre-pistol model is a prior only.
+
+A halftime lead can be misleading if the leading side has already played the easier side of a strongly side-biased map, or if the opponent has a materially stronger upcoming side. Conversely, a close halftime score can strongly favor the team moving onto its better side.
+
+### 13. No retrospective live selection
+
+A live selection counts only when the exact state and offered odds were observed **before** the subsequent rounds/outcome. Do not score a price that was merely discussed after the state changed.
+
+### 14. Separate live performance audit
+
+Track live shadow W/L, units and ROI separately from pre-pistol shadow results as well as in the combined test record. This prevents a profitable pre-pistol process from masking poor live entries, or vice versa.
+
 ## Market rules
 
 For every candidate market calculate:
@@ -128,7 +183,7 @@ For every candidate market calculate:
 - edge in percentage points = model probability - implied probability;
 - expected value per 1u = model probability * (odds - 1) - (1 - model probability).
 
-Prefer NO BET when the model edge is weak or depends mainly on uncertain veto assumptions. During the test phase, avoid forcing action merely to increase sample size.
+Prefer NO BET when the model edge is weak or depends mainly on uncertain veto or live-state assumptions. During the test phase, avoid forcing action merely to increase sample size.
 
 For a longshot ML, explicitly state whether the market-disagreement sanity check passed.
 
@@ -139,6 +194,7 @@ After each settled series, preserve:
 - whether the series winner thesis was correct;
 - whether the selected market won;
 - whether the veto interpretation was correct independently of outcome;
+- for live positions, the exact entry state and whether the live re-pricing logic was correct independently of result;
 - primary model error;
 - calibration change, if any.
 
