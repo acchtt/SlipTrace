@@ -41,6 +41,22 @@ Reference review:
 
 **Current operational consequence:** no new TAKEs/positions may be issued under this epoch. Analysis and HOLD logging may continue. TAKE eligibility resumes only at the next valid slate lock or after explicit user authorization to relock now.
 
+## Pending procedural amendment — mechanical pre-TAKE interlock
+
+At **2026-08-22 18:00 UTC+7**, the user explicitly instructed: **"Add the mechanical rule now."**
+
+The default branch procedure:
+
+`models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+
+was amended at commit:
+
+`e60e5b96d792ad493d24f29c1795607a271b0f32`
+
+to add a hard `PRE_TAKE_CERT` execution interlock and anti-hindsight accounting. The new rule requires the complete family certificate to mechanically validate **before** the visible word `TAKE` may be emitted; any missing/failed/unknown field forces HOLD/PASS; any material state change expires the certificate; and postgame review may not rewrite a historical prediction result into a fictional pre-entry HOLD.
+
+Because this epoch's frozen authority remains `a4d537e2ef06de042397fdab2fa05464c6d242dc`, this amendment is **PENDING_NEXT_LOCK** and does not silently alter the current locked stack. The current breaker already prohibits new TAKEs. The mechanical interlock becomes active at the next valid authority lock or an explicit user-authorized relock that includes commit `e60e5b96d792ad493d24f29c1795607a271b0f32` or a descendant containing the same verified rule.
+
 ## Frozen authority
 
 All analytical/procedural decisions for this slate continue to reference commit:
@@ -66,7 +82,7 @@ Active controls include:
 
 While this lock remains in `CIRCUIT_BREAKER`, model-certified analysis may continue but all new TAKE issuance is suspended.
 
-If explicitly relocked, the following locked rules remain unchanged:
+If explicitly relocked, the following locked rules remain unchanged unless the new relock authority includes a later verified amendment:
 
 Pregame/immediate-postdraft ML/KH/TK TAKEs remain disabled.
 
@@ -120,4 +136,4 @@ A fully canonical loss does not trigger the breaker.
 
 ## Mid-slate change rule
 
-Normal wins/losses do not change this authority commit. No new analytical rule is added from the GEN +9.5 outcome; the existing locked DIM/TAM/CAS rule already covered the failure. Any future analytical/procedural edit remains pending until the next lock unless the user explicitly authorizes another immediate relock.
+Normal wins/losses do not change this authority commit. No new analytical rule is added from the GEN +9.5 outcome; the existing locked DIM/TAM/CAS rule already covered the failure. The mechanical PRE_TAKE_CERT rule written at 18:00 UTC+7 is a procedural execution safeguard and is explicitly pending the next lock; it does not silently alter the current frozen authority.
