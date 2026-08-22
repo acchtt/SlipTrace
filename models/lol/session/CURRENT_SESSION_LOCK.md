@@ -1,114 +1,100 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-22-E5-2100-UTC7`  
+**Lock ID:** `LOL-2026-08-23-E1-0205-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-22 21:00 UTC+7`  
-**Default expiry:** `2026-08-23 00:00 UTC+7`  
-**Authority commit:** `d53a9809df5bead5eb78a283a727a19d9651f474`  
+**Effective:** `2026-08-23 02:05 UTC+7`  
+**Default expiry:** `2026-08-24 00:00 UTC+7`  
+**Authority commit:** `fa9d8d1670d6156103ff6ae61040f7c767323454`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`
 
-## Authorization / match boundary
+## Authorization
 
-The user explicitly instructed **"Prep for lec first match"** on 2026-08-22 UTC+7 after closing the prior WBG settlement inconsistency. The first scheduled LEC match for 2026-08-22 is **Shifters (SHFT) vs Fnatic (FNC), LEC 2026 Summer Week 5 BO3**.
+After reviewing the FNC–SHFT / SK–MKOI session, the user explicitly instructed **“Adjust accordingly.”** on 2026-08-23 UTC+7.
 
-This starts epoch `LOL-2026-08-22-E5-2100-UTC7` and supersedes E4 prospectively. The relock is a user-authorized match-scope transition, not an outcome-driven analytical mutation. Historical E1-E4 decisions, results, process-validity labels, and P/L remain unchanged.
+That instruction authorizes:
+
+1. the narrow in-place v0.3.58 DOVC/LAC enforcement amendment;
+2. a new Session Authority Lock epoch for the 2026-08-23 slate.
+
+This is an explicit user-authorized relock, not a silent outcome-driven mutation. Historical TAKEs, results and P/L remain unchanged.
 
 ## Frozen authority
 
-All analytical/procedural decisions for this epoch use frozen authority commit:
+All model-certified analysis in this epoch uses frozen authority commit:
 
-`d53a9809df5bead5eb78a283a727a19d9651f474`
+`fa9d8d1670d6156103ff6ae61040f7c767323454`
 
-Canonical model remains **LoL v0.3.58**. Retired v0.3.59/v0.3.60 material remains inactive.
+Canonical model remains **LoL v0.3.58**. v0.3.59/v0.3.60 remain retired.
 
-The frozen authority was checked to contain the mandatory `PRE_TAKE_CERT` interlock in:
+The frozen authority includes:
 
-`models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+- `models/lol/reviews/LEC_FNC_SHFT_SK_MKOI_SESSION_REVIEW_2026-08-23.md`
+- `models/lol/procedures/LOL_DURATION_OVER_AND_UNDERDOG_PLUSKILLS_EXECUTION_HARDENING_2026-08-23.md`
+- updated `models/lol/CURRENT_MODEL.md` manifest and load order.
 
-## Mechanical pre-TAKE interlock — ACTIVE
+## Mechanical pre-TAKE interlock
 
-For every candidate, the required order remains:
+The required order remains:
 
 `evidence -> PRE_TAKE_CERT build -> mechanical validation -> visible verdict -> Airtable write -> exact verification`
 
-Before the word `TAKE` may be emitted:
+Any omitted, implied, unresolved or failed required field forces HOLD/PASS.
 
-- exact map, market family, selection, line/odds, evidence state/clock, Lock ID and authority commit must be populated;
-- all common and family-specific gates must be explicit `PASS` or a specifically permitted `N/A`;
-- any `FAIL`, `UNRESOLVED`, `UNKNOWN`, blank, omitted, implied or narrative-only field forces `HOLD/PASS`;
-- family-use, minimum-odds, model, lock and state/price synchronization checks must pass;
-- required arithmetic fields must be populated exactly;
-- a material fight, kill, objective, structure or other decision-critical transition before entry expires the certificate and requires a fresh synchronized state/price pair plus a full rebuild;
-- there is no analyst override for a failed certificate.
+A material state or executable-price change before verdict/entry expires the certificate and requires a full rebuild from a fresh synchronized frame.
 
-A visible TAKE without a valid pre-entry certificate is a procedural circuit-breaker trigger.
+## New active hardening
 
-## Active controls
+### Duration Over — DOVC
 
-This lock preserves the frozen v0.3.58 stack and retained controls, including:
+Every Duration Over candidate must explicitly pass:
 
-- Draft Interaction Matrix: DIM/TAM/OSG/DAU/SLI/FNF/CAS/ETS/AFP;
-- UDKC / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable / Draft-Collapse controls;
-- UCS and exact signed-margin/NKB handling for underdog +kills;
-- FFD/RNE/Structure Substitution/safe-concede controls for favorite -kills;
-- FRP for Total Kills Under and retained Total Kills Over recurrence/contact framework;
-- FCR for Duration Under and failed-conversion / Structure Substitution / cascade tests for Duration Over;
+`CONVERSION_CLASS | POSITIVE_CLOCK_MECH_1 | POSITIVE_CLOCK_MECH_2 | FAILED_CONVERSION_OR_EQUIVALENT | OBSERVED_STALL_EVIDENCE_ID | CLOCK_CAUSALITY | STRUCTURE_SUBSTITUTION | SHORTEST_CASCADE_TEST | SURVIVAL_HORIZON | PRICE`
+
+`ABSENT CONVERSION`, theoretical waveclear without demonstrated denial, quiet elapsed time, low kills, 0-0 towers, close gold or neutral objectives cannot certify an Over.
+
+### Underdog +kills — LAC
+
+After complete DIM + draft-only UDKC `STABLE`, live preservation and UCS, underdog +kills also requires `LAC = PASS`.
+
+LAC must be based on demonstrated current-regime suppression of repeated favorite net kill-margin expansion. A kill lead, one dragon, small gold edge, 0-0 towers, a large +kills buffer, theoretical scaling/waveclear/peel or attractive odds cannot substitute.
+
+## Preserved controls
+
+All retained v0.3.58 controls remain active, including:
+
+- DIM/TAM/OSG/DAU/SLI/FNF/CAS/ETS/AFP;
+- UDKC / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable;
+- UCS and exact signed-margin/NKB handling;
+- FFD/RNE/Structure Substitution/safe-concede for favorite -kills;
+- FRP for Total Kills Under;
+- retained Total Kills Over recurrence/contact framework;
+- FCR for Duration Under;
 - Lead Decomposition / CFC / neutral-fight stress for Live ML;
-- LRO three-snapshot/two-cycle certificate when opposing a CLEAR/STRONG draft prior;
-- SMR where a same-series thesis reuses a previously diagnosed failed mechanism;
-- one TAKE per market family per map;
+- LRO when opposing a CLEAR/STRONG draft prior;
+- SMR for repeated failed mechanisms;
+- one TAKE per family per map;
 - minimum odds `1.60`;
-- shadow-only policy: `0.25u` simulated, `0u` actual;
+- shadow-only `0.25u`, actual `0u`;
 - synchronized state/price enforcement;
-- saved-lineup/user-confirmed lineup fast path;
-- verdict-first Airtable map/snapshot/position logging with exact verification.
+- verdict-first Airtable logging and exact verification.
 
-## Live execution
-
-Pregame/immediate-postdraft ML/KH/TK TAKEs remain disabled.
-
-Live ML/KH/TK require at least two usable synchronized live snapshots. A Live ML selection against a CLEAR/STRONG draft prior additionally requires `LRO = PASS`.
-
-Underdog +kills requires complete draft-only DIM + UDKC, live preservation, exact signed margin/NKB and UCS before pricing can qualify.
-
-No martingale, rescue, chasing or stake escalation.
-
-## Match prep state
-
-Match scope: `SHFT vs FNC — LEC 2026 Summer Week 5 BO3`, beginning Game 1.
-
-Canonical Airtable check at relock time found no 2026-08-22 SHFT-FNC map, snapshot, or position records, so Game 1 begins fresh.
-
-Current Airtable roster records are provisional and must yield to user confirmation or live scoreboard evidence:
-
-- SHFT: Rooster / Sheo / nuc / Paduck / Stend; subs listed Boukada and Trymbi.
-- FNC: Soboro / Razork / Vladi / Upset / Lospa.
-
-No pregame draft edge is certified at lock creation. Exact Game 1 draft/roles must be read from user/live evidence before draft-sensitive analysis. Immediate-postdraft ML/KH/TK remain HOLD-only until canonical live snapshot gates are met.
+No broad additional conservatism is authorized for Live ML.
 
 ## New-chat requirement
 
-A future chat while E5 is active must:
+While this lock is active, a future chat must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
 3. fetch this lock;
-4. re-fetch `CURRENT_MODEL.md` at authority commit `d53a9809df5bead5eb78a283a727a19d9651f474`;
-5. load the complete analytical/procedural stack from that same commit;
-6. load the latest applicable live handoff last as state only;
-7. verify `PRE_TAKE_CERT` is present in the locked session-authority procedure before any TAKE.
+4. re-fetch `CURRENT_MODEL.md` at authority commit `fa9d8d1670d6156103ff6ae61040f7c767323454`;
+5. load the complete stack in the locked CURRENT_MODEL order from that same commit;
+6. load the latest live handoff last;
+7. verify PRE_TAKE_CERT, DOVC and LAC requirements are present before issuing any applicable TAKE.
 
-If authority cannot be loaded or model hierarchy mismatches, use:
+If authority cannot be loaded or hierarchy mismatches, use:
 
 `MODEL LOCK MISMATCH — HOLD`
-
-## Prior breaker history
-
-E1: DK vs GEN Game 2 DK +10.5 was voided for a fight during the decision/entry window; state and price were not synchronized.
-
-E2: DK vs GEN Game 3 GEN +9.5 was audit-invalidated because mandatory DIM/TAM/CAS fields were omitted from the underdog +kills gate signature. Historical prediction result remains Loss / -0.25u shadow / 0u actual.
-
-E3 and E4 were separate valid match-scope epochs with circuit breaker CLEAR. E5 supersedes E4 prospectively only because the user explicitly requested preparation for the next LEC match.
