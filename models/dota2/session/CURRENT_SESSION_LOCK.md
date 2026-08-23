@@ -14,7 +14,7 @@
 - `live_execution_scope: governed by frozen live rules after first draft action or Map 1 start`
 - `actual_exposure: 0u`
 - `default_simulated_stake: 0.25u`
-- `relock_reason: user clarified that sportsbook may label the event Live before the game and ban/pick have started`
+- `relock_reason: user clarified that sportsbook may label the event Live before the game and ban/pick have not started`
 
 ## Frozen authority rule
 
