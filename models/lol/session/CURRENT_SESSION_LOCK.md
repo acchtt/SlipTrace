@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-23-E4-JDG-EDG-1641-UTC7`  
+**Lock ID:** `LOL-2026-08-23-E5-BFX-NS-1712-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-23 16:41 UTC+7`  
-**Scope:** `LPL — JD Gaming vs EDward Gaming series`  
-**Default expiry:** `JDG–EDG series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
+**Effective:** `2026-08-23 17:12 UTC+7`  
+**Scope:** `LCK — BNK FEARX vs Nongshim RedForce series`  
+**Default expiry:** `BFX–NS series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
 **Authority commit:** `fa9d8d1670d6156103ff6ae61040f7c767323454`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
@@ -13,15 +13,15 @@
 
 ## Authorization
 
-On 2026-08-23 at 16:41 UTC+7 the user explicitly instructed **“Relock lpl”** while providing the live JDG vs EDG Game 1 state.
+On 2026-08-23 at 17:12 UTC+7 the user explicitly instructed **“Lock next lck match, lpl unreliable.”** The next scheduled LCK match is **BNK FEARX vs Nongshim RedForce**.
 
-This supersedes the prior HLE–T1 match-scope lock and freezes the JDG vs EDG LPL series under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority relock only; it does **not** authorize analytical mutation, outcome-driven patching, or a model-version change.
+This supersedes the prior JDG–EDG LPL match-scope lock and freezes the BFX vs NS LCK series under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority relock only; it does **not** authorize analytical mutation, outcome-driven patching, or a model-version change.
 
 Historical TAKEs, results and P/L remain unchanged.
 
 ## Frozen authority
 
-All model-certified analysis for JDG vs EDG uses frozen authority commit:
+All model-certified analysis for BFX vs NS uses frozen authority commit:
 
 `fa9d8d1670d6156103ff6ae61040f7c767323454`
 
