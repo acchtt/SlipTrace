@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-23-E3-HLE-T1-1453-UTC7`  
+**Lock ID:** `LOL-2026-08-23-E4-JDG-EDG-1641-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-23 14:53 UTC+7`  
-**Scope:** `LCK — Hanwha Life Esports vs T1 series`  
-**Default expiry:** `HLE–T1 series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
+**Effective:** `2026-08-23 16:41 UTC+7`  
+**Scope:** `LPL — JD Gaming vs EDward Gaming series`  
+**Default expiry:** `JDG–EDG series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
 **Authority commit:** `fa9d8d1670d6156103ff6ae61040f7c767323454`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
@@ -13,15 +13,15 @@
 
 ## Authorization
 
-On 2026-08-23 at 14:53 UTC+7 the user explicitly instructed **“Relock lck match hle vs t1.”**
+On 2026-08-23 at 16:41 UTC+7 the user explicitly instructed **“Relock lpl”** while providing the live JDG vs EDG Game 1 state.
 
-This supersedes the prior TT–LGD match-scope lock and freezes the HLE vs T1 LCK series under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority relock only; it does **not** authorize analytical mutation, outcome-driven patching, or a model-version change.
+This supersedes the prior HLE–T1 match-scope lock and freezes the JDG vs EDG LPL series under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority relock only; it does **not** authorize analytical mutation, outcome-driven patching, or a model-version change.
 
 Historical TAKEs, results and P/L remain unchanged.
 
 ## Frozen authority
 
-All model-certified analysis for HLE vs T1 uses frozen authority commit:
+All model-certified analysis for JDG vs EDG uses frozen authority commit:
 
 `fa9d8d1670d6156103ff6ae61040f7c767323454`
 
