@@ -38,7 +38,9 @@ Every pregame TAKE requires:
 9. model confidence of at least **MEDIUM** after unresolved draft uncertainty is discounted;
 10. no unresolved decision-critical fact treated as favorable by default;
 11. offered odds at or above the model minimum accepted odds of **1.60**;
-12. no greyed, suspended, stale, materially changed, or already-live pregame price treated as executable.
+12. no greyed, suspended, stale, or materially changed pregame price treated as executable.
+
+**Pregame execution window:** a sportsbook or feed label such as `Live`, `In Play`, or equivalent does **not** by itself terminate pregame eligibility when Map 1 has not started and ban/pick has not begun. A clearly pre-ban/pick, pre-Map-1 state remains a pregame state for Match Moneyline and Match Handicap execution if the exact price is open and executable. Pregame eligibility ends at the **first draft action or Map 1 game start, whichever occurs first**. After that point, the pregame certificate cannot be used and any decision must satisfy the applicable live authority.
 
 If both sides of a market are available, prefer a no-vig market estimate as additional context. If only the selected-side price is available, use raw implied probability `1 / decimal_odds`; the 5 percentage-point edge must clear that more conservative benchmark.
 
