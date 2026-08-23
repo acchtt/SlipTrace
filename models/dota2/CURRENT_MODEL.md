@@ -18,12 +18,12 @@ This is a new, independent Dota 2 shadow-audit model. It does not inherit LoL an
 - Shadow only; actual exposure: **0u**.
 - Default simulated stake: **0.25u**.
 - Default minimum accepted odds: **1.60** unless a later Dota-specific rule changes it.
-- **Pregame TAKEs are enabled for Match Moneyline and Match Handicap (series map handicap) only.**
+- **Pregame TAKEs are enabled for Match Moneyline, Match Handicap (series map handicap), and Total Maps only.**
 - Pregame TAKEs require the dedicated pregame gates/certificates in the active Dota rules, including exact executable price and a conservative probability edge of at least 5 percentage points over price-implied probability.
 - A sportsbook `Live` / `In Play` label alone does not end pregame eligibility while Map 1 has not started and ban/pick has not begun. The pregame execution window ends at the first draft action or Map 1 start, whichever occurs first.
 - Other pregame markets remain observation-only.
 - Live TAKE eligibility, when executable live betting is available, requires at least two usable synchronized snapshots unless a later family-specific rule is stricter.
-- Pregame maximum: one TAKE per match per market family (Match Moneyline / Match Handicap).
+- Pregame maximum: one TAKE per match per market family (Match Moneyline / Match Handicap / Total Maps).
 - Live maximum: one TAKE per map per market family (Moneyline / Kill Handicap / Total Kills / Duration).
 - Position-blind reassessment is mandatory for live decisions.
 - Exact signed arithmetic is mandatory for all handicap markets: series map margin pregame, kill margin live.
@@ -71,7 +71,7 @@ Do not mechanically substitute LoL concepts for Dota 2. Dota analysis must expli
 ## Recording
 
 - New positions are recorded as **Dota 2 v0.1.0-experimental**.
-- Pregame TAKEs are shadow Positions only and require an active Session Authority Lock plus the pregame certificate.
+- Pregame TAKEs are shadow Positions only and require an active Session Authority Lock plus the applicable pregame certificate.
 - Every valid live verdict must be followed by Airtable snapshot logging and verification.
 - HOLD/PASS creates no Position.
 - Qualified executable TAKE creates the exact shadow Position only after the visible verdict.
