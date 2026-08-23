@@ -7,16 +7,84 @@
 
 ## 1. Scope
 
-Initial supported live market families:
+Supported pregame market families:
+
+- Match Moneyline
+- Match Handicap (series map handicap)
+
+Supported live market families remain:
 
 - Moneyline
 - Kill Handicap
 - Total Kills
 - Duration
 
-Pregame TAKEs are disabled during initial calibration. Other markets are observation-only until a dedicated rule is added.
+Pregame TAKEs are enabled only for Match Moneyline and Match Handicap. Other pregame markets remain observation-only until a dedicated rule is added.
 
-## 2. Universal live gates
+Live markets remain governed by the live gates below when executable live betting is available. Current pregame authorization does not weaken or bypass any live gate.
+
+## 2. Universal pregame gates
+
+Every pregame TAKE requires:
+
+1. exact current match line and odds, readable and executable;
+2. confirmed match format (Bo3/Bo5 or other explicit series format);
+3. current expected lineup, including any material stand-ins/substitutions;
+4. current patch and tournament rules known, or explicitly judged non-material to the thesis;
+5. matchup analysis that separates recent form, direct head-to-head, opponent quality, roster continuity, and tournament context rather than treating any one factor as decisive;
+6. explicit series probability estimate for the selected outcome;
+7. explicit price-implied probability calculation;
+8. a conservative probability edge of at least **5 percentage points** over the offered price-implied probability;
+9. model confidence of at least **MEDIUM** after unresolved draft uncertainty is discounted;
+10. no unresolved decision-critical fact treated as favorable by default;
+11. offered odds at or above the model minimum accepted odds of **1.60**;
+12. no greyed, suspended, stale, materially changed, or already-live pregame price treated as executable.
+
+If both sides of a market are available, prefer a no-vig market estimate as additional context. If only the selected-side price is available, use raw implied probability `1 / decimal_odds`; the 5 percentage-point edge must clear that more conservative benchmark.
+
+Exact draft is normally unknown pregame. Missing exact draft is therefore not itself a veto, but draft/side-selection variance must be explicitly discounted rather than assumed favorable.
+
+Maximum pregame exposure remains one TAKE per match per market family. No rescue, martingale, chasing, or stake escalation.
+
+## 3. Pregame Match Moneyline certificate
+
+A Match Moneyline TAKE requires all universal pregame gates plus:
+
+- **Series Win Mechanism:** identify why the selected team is more likely to win the series across multiple plausible drafts rather than only in one ideal draft.
+- **Adaptation Test:** consider whether the opponent has credible map-to-map drafting, side-selection, or strategic adaptation routes.
+- **Loss Path:** state the most realistic way the selected team loses the series.
+- **Format Robustness:** account for Bo3/Bo5 length, recovery after a lost map, and whether the edge is robust to one poor draft or lane outcome.
+- **Price Test:** compare model series-win probability with the exact offered Moneyline price.
+
+Team reputation, a recent streak, or historical head-to-head alone cannot certify a Match Moneyline TAKE.
+
+## 4. Pregame Match Handicap certificate
+
+Match Handicap means **series map handicap**, not live kill handicap.
+
+Use exact signed map-margin arithmetic from the selected team's perspective:
+
+`signed_map_margin = selected_team_maps - opponent_maps`
+
+Evaluate the exact terminal series-score paths that cover or fail the offered handicap. Examples:
+
+- Bo3 selected team -1.5: only a 2-0 series win covers.
+- Bo3 selected team +1.5: every result except a 0-2 series loss covers.
+- Bo5 selected team -1.5: 3-0 or 3-1 covers; 3-2 does not.
+- Bo5 selected team +1.5: every result except a 0-3 series loss covers.
+
+A Match Handicap TAKE requires all universal pregame gates plus:
+
+- explicit probability of the exact covering score set;
+- map-to-map variance and adaptation risk;
+- likelihood of a competitive loss versus a sweep;
+- whether the favorite's advantage is strong enough to produce margin, not merely series victory;
+- whether the underdog has at least one repeatable draft/game-state path that makes +maps materially safer than its Moneyline;
+- exact offered handicap and odds.
+
+Do not infer handicap value from Moneyline preference alone.
+
+## 5. Universal live gates
 
 Every live TAKE requires:
 
@@ -33,7 +101,7 @@ Every live TAKE requires:
 
 A large net-worth lead, kill lead, team reputation, draft label, or low/high current kill count is context only. None is a standalone TAKE gate.
 
-## 3. Draft prior
+## 6. Draft prior
 
 Draft is a prior, not a permanent live veto. When exact draft is available, classify at minimum:
 
@@ -52,9 +120,9 @@ Draft is a prior, not a permanent live veto. When exact draft is available, clas
 
 Live state may degrade or break a draft prior when itemization, levels, buybacks, Aegis, structure state, or repeated observed fight outcomes make the original mechanism no longer representative.
 
-## 4. Moneyline hard gates
+## 7. Moneyline hard gates
 
-A Moneyline TAKE requires all universal gates plus:
+A live Moneyline TAKE requires all universal live gates plus:
 
 - **Lead Decomposition:** distinguish reusable lead from fragile lead. Identify which heroes hold the net worth and whether that economy converts into the next fight/objective.
 - **Conversion Route:** name the realistic path from current advantage to Roshan, high ground, barracks, megas, or Ancient.
@@ -65,9 +133,9 @@ A Moneyline TAKE requires all universal gates plus:
 
 If the thesis requires a clean high-ground conversion but no demonstrated breach mechanism exists, HOLD.
 
-## 5. Kill Handicap hard gates
+## 8. Kill Handicap hard gates
 
-For any kill spread, compute exact signed margin from the selected team's perspective.
+For any live kill spread, compute exact signed margin from the selected team's perspective.
 
 `signed_margin = selected_team_kills - opponent_kills`
 
@@ -84,7 +152,7 @@ A Kill Handicap TAKE additionally requires:
 
 A cushion or current kill lead alone never proves future margin expansion/suppression.
 
-## 6. Total Kills hard gates
+## 9. Total Kills hard gates
 
 ### Under
 
@@ -106,7 +174,7 @@ A Total Kills Over TAKE requires at least two independent positive kill-producin
 
 Theoretical teamfight buttons alone are not enough; at least one mechanism should be observed in the live regime unless the active authority later creates a certified exception.
 
-## 7. Duration hard gates
+## 10. Duration hard gates
 
 ### Under
 
@@ -129,7 +197,7 @@ Quiet time, low kills, or intact barracks are neutral descriptors by default. A 
 
 Always test the shortest plausible sequence from next decisive fight/objective -> Roshan/high ground -> barracks/Ancient. If that route can plausibly beat the line without requiring an unusual event, the Over is not certified.
 
-## 8. High-ground / buyback anti-simplification rule
+## 11. High-ground / buyback anti-simplification rule
 
 Dota 2 high ground and buybacks must not be reduced to generic 'comeback potential.' For any decision where they matter, specify the actual mechanism:
 
@@ -143,7 +211,15 @@ Dota 2 high ground and buybacks must not be reduced to generic 'comeback potenti
 
 If this mechanism cannot be resolved from available evidence, HOLD rather than inventing it.
 
-## 9. Evidence hierarchy
+## 12. Evidence hierarchy
+
+For pregame price and context:
+
+1. readable user-supplied current sportsbook evidence;
+2. user-supplied exact current odds/line;
+3. official tournament/team/roster sources;
+4. reputable match/statistics sources;
+5. generic web pages for secondary context.
 
 For live state and price:
 
@@ -153,14 +229,17 @@ For live state and price:
 4. reputable secondary source;
 5. generic web pages only for non-live context.
 
-Do not replace a readable current user screenshot with a slower generic web source simply to duplicate-confirm it.
+Do not replace readable current user evidence with a slower generic web source simply to duplicate-confirm it.
 
-## 10. Execution discipline
+## 13. Execution discipline
 
-- Verdict first on active maps.
-- Airtable logging immediately after verdict.
+- Pregame verdict first when an executable pregame market is supplied.
 - HOLD/PASS creates no Position.
-- TAKE creates one shadow Position after the verdict only if executable.
+- Pregame TAKE creates one shadow Position only if all pregame gates and the active Session Authority Lock pass.
+- Verdict first on active maps.
+- Airtable live snapshot logging immediately after a live verdict.
+- Live HOLD/PASS creates no Position.
+- Live TAKE creates one shadow Position after the verdict only if executable.
 - Verify every write before claiming success.
 - Ordinary wins/losses do not mutate rules mid-slate.
 - Postgame reviews may recommend changes but may not rewrite historical verdicts.
