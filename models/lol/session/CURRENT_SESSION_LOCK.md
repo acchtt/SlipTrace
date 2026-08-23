@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-23-E2-TT-LGD-1331-UTC7`  
+**Lock ID:** `LOL-2026-08-23-E3-HLE-T1-1453-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-23 13:31 UTC+7`  
-**Scope:** `LPL 2026 Split 3 — TT vs LGD series`  
-**Default expiry:** `TT–LGD series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
+**Effective:** `2026-08-23 14:53 UTC+7`  
+**Scope:** `LCK — Hanwha Life Esports vs T1 series`  
+**Default expiry:** `HLE–T1 series completion or explicit relock; hard stop 2026-08-24 00:00 UTC+7`  
 **Authority commit:** `fa9d8d1670d6156103ff6ae61040f7c767323454`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
@@ -13,15 +13,15 @@
 
 ## Authorization
 
-On 2026-08-23 at 13:31 UTC+7 the user explicitly instructed **“Lock first match.”**
+On 2026-08-23 at 14:53 UTC+7 the user explicitly instructed **“Relock lck match hle vs t1.”**
 
-This freezes the first LPL match of the slate, **TT vs LGD**, under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority lock only; it does **not** authorize any analytical mutation, outcome-driven patch, or model-version change.
+This supersedes the prior TT–LGD match-scope lock and freezes the HLE vs T1 LCK series under the already-canonical 2026-08-23 v0.3.58 authority. This is a match-scope authority relock only; it does **not** authorize analytical mutation, outcome-driven patching, or a model-version change.
 
 Historical TAKEs, results and P/L remain unchanged.
 
 ## Frozen authority
 
-All model-certified analysis for TT vs LGD uses frozen authority commit:
+All model-certified analysis for HLE vs T1 uses frozen authority commit:
 
 `fa9d8d1670d6156103ff6ae61040f7c767323454`
 
@@ -84,7 +84,7 @@ Requires complete **DOVC**:
 
 ## Circuit breaker
 
-Circuit breaker is **CLEAR** at lock creation.
+Circuit breaker is **CLEAR** at relock creation.
 
 Trigger `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER` for an execution failure such as missing/failed PRE_TAKE_CERT, stale-certificate reuse, wrong authority/model, skipped mandatory family gate, or a TAKE issued under an unresolved hard requirement.
 
