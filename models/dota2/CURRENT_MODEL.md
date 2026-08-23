@@ -20,13 +20,14 @@ This is a new, independent Dota 2 shadow-audit model. It does not inherit LoL an
 - Default minimum accepted odds: **1.60** unless a later Dota-specific rule changes it.
 - **Pregame TAKEs are enabled for Match Moneyline and Match Handicap (series map handicap) only.**
 - Pregame TAKEs require the dedicated pregame gates/certificates in the active Dota rules, including exact executable price and a conservative probability edge of at least 5 percentage points over price-implied probability.
+- A sportsbook `Live` / `In Play` label alone does not end pregame eligibility while Map 1 has not started and ban/pick has not begun. The pregame execution window ends at the first draft action or Map 1 start, whichever occurs first.
 - Other pregame markets remain observation-only.
 - Live TAKE eligibility, when executable live betting is available, requires at least two usable synchronized snapshots unless a later family-specific rule is stricter.
 - Pregame maximum: one TAKE per match per market family (Match Moneyline / Match Handicap).
 - Live maximum: one TAKE per map per market family (Moneyline / Kill Handicap / Total Kills / Duration).
 - Position-blind reassessment is mandatory for live decisions.
 - Exact signed arithmetic is mandatory for all handicap markets: series map margin pregame, kill margin live.
-- Greyed, suspended, stale, materially changed, or already-live pregame prices are non-executable.
+- Greyed, suspended, stale, or materially changed prices are non-executable.
 - No rescue, martingale, chasing, or stake escalation.
 
 ## Authority rule
