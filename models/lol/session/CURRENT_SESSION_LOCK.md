@@ -1,11 +1,11 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-24-E9-LEC-SLATE-2207-UTC7`  
+**Lock ID:** `LOL-2026-08-24-E10-NAVI-FNC-2310-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-24 22:07 UTC+7`  
-**Scope:** `LEC 2026 Summer — 2026-08-24 slate: NAVI vs Fnatic; GIANTX vs G2 Esports`  
-**Default expiry:** `completion of the 2026-08-24 LEC slate or explicit relock; hard stop 2026-08-25 06:00 UTC+7`  
-**Authority commit:** `1b6135365edee696cfa4a031f723122b8aed35d2`  
+**Effective:** `2026-08-24 23:10 UTC+7`  
+**Scope:** `LEC 2026 Summer — Natus Vincere vs Fnatic remaining series, beginning Game 2; NAVI leads 1-0`  
+**Default expiry:** `NAVI–FNC series completion or explicit relock; hard stop 2026-08-25 03:30 UTC+7`  
+**Authority commit:** `9f42e5a754181bdcf12c0d938d1d98249ac27247`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
 **Actual exposure policy:** `0u`  
@@ -14,29 +14,40 @@
 
 ## Authorization
 
-On 2026-08-24 at 22:07 UTC+7 the user explicitly instructed **“Lock lec.”**
+On 2026-08-24 at 23:10 UTC+7 the user explicitly instructed **“Relock the match, use updated model”** and then requested continuation in a new chat.
 
-The prior E8 BFXY–HLEC authority epoch expired when BNK FEARX Youth completed the series 3–0. This E9 epoch establishes one frozen authority for the remaining 2026-08-24 LEC slate, beginning with NAVI vs Fnatic and continuing through GIANTX vs G2 Esports unless explicitly relocked.
-
-This instruction authorizes a new session authority epoch only. It does **not** authorize a model-version change or any unapproved analytical mutation. The recent discussion about tower relevance is therefore not silently promoted into canonical rules by this lock; only already-canonical v0.3.58 rules and the execution controls stated here apply.
+This E10 epoch supersedes E9 for the current NAVI–FNC series only. It explicitly authorizes the updated default-branch canonical v0.3.58 authority that includes the professional-play Draft Reading Layer (PDRL). It does not authorize v0.3.59 or v0.3.60; those remain retired.
 
 ## Frozen authority
 
-All model-certified analysis for this LEC slate uses frozen authority commit:
+All model-certified analysis for the remainder of NAVI–FNC uses frozen authority commit:
 
-`1b6135365edee696cfa4a031f723122b8aed35d2`
+`9f42e5a754181bdcf12c0d938d1d98249ac27247`
 
-Canonical model remains **LoL v0.3.58**. v0.3.59 and v0.3.60 remain retired.
+Canonical model remains **LoL v0.3.58**, with the 2026-08-24 pro-play-only PDRL in-place amendment active for this professional series.
 
-The frozen stack includes the active v0.3.58 rules and procedures in `CURRENT_MODEL.md`, including the mandatory mechanical execution validator:
+Mandatory updated pro-draft procedure:
 
-`models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md`
+`models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md`
 
-No default-branch analytical edit made after this authority commit affects this slate unless the user explicitly authorizes another relock/new authority epoch.
+PDRL is additive to DIM and does not bypass UDKC, KPA/KMS, RLD, LAC, UCS, DOVC, FRP, FCR, Live ML DPS/LRO, or any other retained hard gate.
+
+## Series state carried into Game 2+
+
+- Series score: `NAVI 1-0 FNC`.
+- Game 1 final: `NAVI win 15-11`.
+- Source displayed final clock `48:57`; standing user correction for this source is **subtract 50 seconds from displayed game time**, so model ledger final clock is `48:07`.
+- Game 1 exact drafts used for Fearless / series-pool context:
+  - FNC: `Ambessa / Nocturne / Locke / Ezreal / Seraphine`
+  - NAVI: `Rumble / Zaahen / Orianna / Kai'Sa / Shen`
+- Game 1 diagnostic: FNC held a material midgame lead but did not close before NAVI's stronger late coordinated 5v5 state took over. Raw tower lead is not a standalone win or kill-handicap signal.
+- Scoreboard `Barons X-Y` denotes Baron takes, not necessarily a currently active Baron buff. Active buff must be independently current-state confirmed before it is used as conversion pressure.
+
+For Game 2+ professional draft analysis, PDRL must resolve format/Fearless state, current series score, prior-game champion depletion, lane priority, jungle-support coupling, tempo transitions, objective-sequence projection, player fit, execution burden, WCSR, series-pool pressure, adaptation, and the pro adversarial pass before any CLEAR/STRONG draft label.
 
 ## Execution integrity
 
-The visible word `TAKE` remains protected. Every candidate must pass the complete applicable PRE_TAKE_CERT mechanical validator with no failed fields, unresolved fields, or contradictions before a TAKE can be emitted.
+The visible word `TAKE` is protected. Every candidate must pass the complete applicable PRE_TAKE_CERT mechanical validator with no failed fields, unresolved fields, or contradictions before a TAKE can be emitted.
 
 Core controls:
 
@@ -50,8 +61,7 @@ Core controls:
 - exact signed kill-margin arithmetic is mandatory for kill handicap;
 - position-blind reassessment is mandatory;
 - HOLD/PASS creates no Position;
-- qualified TAKEs are shadow-only and are logged only at map-end reconciliation under the batching rule below;
-- no price, numerical cushion, prior result, or narrative confidence may override a failed mandatory mechanism gate.
+- no price, numerical cushion, prior result, tower lead, or narrative confidence may override a failed mandatory mechanism gate.
 
 Any skipped mandatory field, ignored contradiction, stale certificate, wrong authority/model, or narrative/price override of a failed gate triggers the procedural circuit breaker.
 
@@ -63,17 +73,15 @@ Resolve all applicable controls including:
 
 `2SNAP | LEAD_DECOMPOSITION | DPS | CFC_CURRENT | NEUTRAL_FIGHT_STRESS | DRP(if applicable) | LRO(if applicable) | PRICE`
 
-Draft remains a prior, not a permanent veto. A TAKE against an original CLEAR/STRONG draft prior requires the full contrary-draft LRO path.
+For this pro series, the original draft prior is `FINAL_PRO_DRAFT_EDGE` from DIM + PDRL. A TAKE against an original CLEAR/STRONG draft prior requires the full contrary-draft LRO path.
 
 ### Underdog +kills
 
 Resolve the complete sequence without compression:
 
-`2SNAP | DIM | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD_DRAFT | FALSE_STABLE_INACTIVE | LIVE_PRESERVATION | LIVE_RLD | LAC | UCS | SCNE | SIGNED_MARGIN | EXACT_NKB | PRICE`
+`2SNAP | DIM | PDRL | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD_DRAFT | FALSE_STABLE_INACTIVE | LIVE_PRESERVATION | LIVE_RLD | LAC | UCS | SCNE | SIGNED_MARGIN | EXACT_NKB | PRICE`
 
-Carry-centered favorite economy plus cleaner grouped control cannot coexist with `LIVE_PRESERVATION = PASS` or `LAC = PASS` unless strong observed live suppression of those empowered favorite routes is demonstrated.
-
-A large +kills cushion, stable current kill margin, tower parity/lead, theoretical scaling/waveclear/peel, or correct NKB arithmetic cannot override failed KMS/RLD/LAC/UCS.
+Tower parity/lead is not live preservation by itself. Carry-centered favorite economy plus cleaner grouped control cannot coexist with `LIVE_PRESERVATION = PASS` or `LAC = PASS` unless strong observed live suppression of those empowered favorite routes is demonstrated.
 
 ### Favorite -kills
 
@@ -106,6 +114,8 @@ Live execution is strictly **verdict-first**:
 
 ## Airtable map-end batching
 
+Standing user-approved execution override remains active for this lock despite default-branch post-verdict logging language:
+
 During a live map:
 
 - make **no Airtable read/write/search/create/update/verification calls merely to log a live frame or TAKE**;
@@ -124,22 +134,24 @@ If the conversation ends mid-map, preserve buffered evidence in the latest live 
 
 ## Source-specific state handling
 
-Per the user's standing 2026-08-24 instruction for the live scoreboard source, visible **“DELAYED DATA”** and **“FEED NOT UPDATING”** banners are excluded as decision signals by themselves.
-
-This does not waive synchronization integrity. A real state conflict, impossible progression, materially mismatched clock/state, or other independent evidence of staleness still fails closed.
+- For the current live scoreboard source, subtract **50 seconds** from displayed game time when the user has identified that source's clock offset as applicable.
+- Visible `DELAYED DATA` and `FEED NOT UPDATING` banners are excluded as decision signals by themselves.
+- `Barons X-Y` is a historical Baron-take count; do not infer active Baron buff without independent current-state confirmation.
+- A real state conflict, impossible progression, materially mismatched clock/state, or other independent evidence of staleness still fails closed.
 
 ## New-chat requirement
 
 While this lock is active, a future chat must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
-2. fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this lock;
-4. re-fetch `CURRENT_MODEL.md` at authority commit `1b6135365edee696cfa4a031f723122b8aed35d2`;
-5. load the complete stack in the locked CURRENT_MODEL order from that same commit;
-6. additionally load `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md` from the same commit;
-7. load the latest applicable live handoff last;
-8. verify the authority/model match before model-certified analysis.
+2. immediately fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
+3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md`;
+4. re-fetch `CURRENT_MODEL.md` at authority commit `9f42e5a754181bdcf12c0d938d1d98249ac27247`;
+5. load the complete stack in the exact locked CURRENT_MODEL order from that same commit;
+6. explicitly load `models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md` and `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md` from the same commit;
+7. load the latest applicable live handoff last if one exists;
+8. verify authority/model match and `Circuit breaker = CLEAR` before model-certified analysis;
+9. retain NAVI 1-0 FNC series state and Game 1 champion depletion for Game 2+ Fearless/PDRL analysis.
 
 If authority cannot be loaded or hierarchy mismatches, use:
 
