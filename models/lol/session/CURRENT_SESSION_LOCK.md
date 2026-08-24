@@ -50,6 +50,18 @@ Core execution controls remain:
 
 Any skipped mandatory field, ignored contradiction, stale certificate, wrong authority/model, or narrative/price override of a failed gate triggers the procedural circuit breaker.
 
+## Live verdict latency handling
+
+Per the user's 2026-08-24 feedback that a qualified line moved before the verdict arrived, live execution is now strictly **verdict-first**:
+
+- do not call Airtable, GitHub, web, or any other connector in the critical path before emitting the live verdict when the required model/lock context is already loaded;
+- complete the PRE_TAKE_CERT internally from the supplied synchronized screenshots and cached locked authority, then immediately emit `TAKE`, `HOLD`, or `PASS` with the exact visible line and stake;
+- explanations must be compressed until after the verdict; logging and exact verification occur only afterward;
+- if the quoted price/line is already gone or materially moved before the visible verdict reaches the user, the entry is **latency-invalidated** and must not count as an executable shadow bet or P/L event;
+- a latency-invalidated entry is recorded as `Void / Invalidated / 0u` in Airtable and does not consume the market family for subsequent fresh reassessment.
+
+This is an execution-timing control only; it does not change the frozen analytical model or its gates.
+
 ## Source-specific state handling
 
 Per the user's standing 2026-08-24 instructions, the scoreboard source's visible **“DELAYED DATA”** and **“FEED NOT UPDATING”** banners are excluded as decision signals. Do not classify a frame as stale solely because either banner appears.
