@@ -52,9 +52,9 @@ Any skipped mandatory field, ignored contradiction, stale certificate, wrong aut
 
 ## Source-specific state handling
 
-Per the user's standing 2026-08-24 instruction, the scoreboard source's visible **“DELAYED DATA”** banner is excluded as a decision signal. Do not classify a frame as stale solely because that banner appears.
+Per the user's standing 2026-08-24 instructions, the scoreboard source's visible **“DELAYED DATA”** and **“FEED NOT UPDATING”** banners are excluded as decision signals. Do not classify a frame as stale solely because either banner appears.
 
-The underlying state must still be internally coherent and synchronized with the relevant live decision window. A real state conflict, impossible progression, materially mismatched clock/state, or other independent evidence of staleness still fails closed.
+This source-specific exclusion is display-label only. The underlying state must still be internally coherent and synchronized with the relevant live decision window. A real state conflict, impossible progression, materially mismatched clock/state, or other independent evidence of staleness still fails closed.
 
 ## New-chat requirement
 
