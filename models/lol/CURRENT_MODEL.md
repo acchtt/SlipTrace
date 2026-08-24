@@ -148,6 +148,42 @@ Reference review:
 
 This amendment does **not** add a new conservative gate to Live ML. It hardens only the identified failure mechanisms.
 
+## 6. 2026-08-24 professional-play draft reading layer — PDRL
+
+User instruction on 2026-08-24 UTC+7: **“We have to improve our draft reading, especially for proplays only.”**
+
+Canonical v0.3.58 therefore adds a **professional-play-only Draft Reading Layer (`PDRL`)** on top of DIM.
+
+PDRL is required for model-certified draft edges in professional or officially sanctioned semi-professional matches. It does not apply to solo queue or generic tier-list analysis.
+
+PDRL adds mandatory pro-specific treatment of:
+
+- exact competition patch, side/selection rights and series format;
+- Fearless/restricted-pool champion depletion for Game 2+ where applicable;
+- lane-priority matrix and matchup volatility;
+- jungle/support coupling created by lane access;
+- tempo transition windows and dead zones;
+- projected objective-sequence control;
+- player-specific current professional champion fit/proficiency;
+- execution-burden differential;
+- win-condition robustness from even/ahead/behind states;
+- remaining series-pool pressure and same-series adaptation;
+- a mandatory pro adversarial pass before `CLEAR/STRONG` draft labels.
+
+Hard effects:
+
+- a Game 2+ Fearless/restricted-pool draft may not be graded as an isolated full-pool draft;
+- solo-queue win rate, solo-queue pick rate and generic tier lists cannot upgrade a pro draft edge;
+- champion reputation is not player proficiency;
+- `more scaling`, `more engage`, `more tanks`, `three winning lanes`, or `counterpick` are forbidden standalone draft conclusions;
+- `DIM_EDGE`, `PRO_MAP_EDGE`, `PRO_EXEC_EDGE`, `SERIES_DRAFT_EDGE` and `FINAL_PRO_DRAFT_EDGE` must remain conceptually separate;
+- unresolved decision-critical format, lane-priority, flex/role or player-assignment information forbids `CLEAR/STRONG` certainty.
+
+Mandatory procedure:
+`models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md`
+
+Activation governance: any Session Authority Lock already active before this amendment remains frozen. The PDRL becomes active at the next valid slate lock unless the user explicitly authorizes an immediate relock/new epoch.
+
 ---
 
 # Active operational governance
@@ -168,6 +204,7 @@ This amendment does **not** add a new conservative gate to Live ML. It hardens o
 - Exact signed kill-margin arithmetic is mandatory.
 - Every visible TAKE requires a complete mechanically valid **PRE_TAKE_CERT** under the frozen authority commit.
 - Draft Interaction Matrix is mandatory before any model-certified draft edge or draft-derived fallback classification when exact draft is available.
+- For professional / officially sanctioned semi-professional matches, PDRL is additionally mandatory once the authority lock includes the 2026-08-24 amendment.
 - Underdog +kills requires complete DIM + draft-only UDKC + KPA/KMS + RLD + False-Stable checks + live preservation + **LAC** + UCS + exact signed-margin/NKB.
 - Live evidence cannot create missing draft proof or upgrade a genuinely FRAGILE/ABSENT draft fallback.
 - Duration Over requires complete **DOVC**; state descriptors or theoretical waveclear are not observed stall proof.
@@ -180,6 +217,7 @@ This amendment does **not** add a new conservative gate to Live ML. It hardens o
 Mandatory active procedures:
 - `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
 - `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
+- `models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md` for pro / officially sanctioned semi-pro draft analysis once included by the active lock
 - `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
 - `models/lol/procedures/LOL_DURATION_OVER_AND_UNDERDOG_PLUSKILLS_EXECUTION_HARDENING_2026-08-23.md`
 - `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
@@ -192,8 +230,9 @@ Mandatory active procedures:
 A live slate runs against one frozen authority commit.
 
 - Ordinary wins/losses do not silently mutate the active stack.
-- Default-branch edits during an already locked slate are pending unless the user explicitly authorizes an immediate relock/new epoch.
-- The user instruction **“Adjust accordingly”** on 2026-08-23 UTC+7 is explicit authorization for the DOVC/LAC amendment to enter the new 2026-08-23 authority epoch.
+- Default-branch edits during an already locked slate are pending unless the user explicitly authorizes another relock/new epoch.
+- The user instruction **“Adjust accordingly”** on 2026-08-23 UTC+7 is explicit authorization for the DOVC/LAC amendment to enter the 2026-08-23 authority epoch.
+- The 2026-08-24 PDRL amendment is committed to default branch but does **not** alter a Session Authority Lock that was already active before the change; default activation is the next valid slate lock.
 - Historical predictions/results/P&L are preserved; postgame review does not rewrite them.
 
 ---
@@ -216,19 +255,20 @@ Later-version-only concepts remain inactive unless explicitly incorporated into 
 6. v0.3.57 through v0.3.26 rule deltas
 7. mandatory fallback-floor certification procedure, including active KPA/KMS + RLD amendments
 8. `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`
-9. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
-10. `models/lol/procedures/LOL_DURATION_OVER_AND_UNDERDOG_PLUSKILLS_EXECUTION_HARDENING_2026-08-23.md`
-11. `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
-12. mandatory live verdict checklist + `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
-13. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-14. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58, plus explicit v0.3.58 amendment reviews including `models/lol/reviews/LEC_FNC_SHFT_SK_MKOI_SESSION_REVIEW_2026-08-23.md`
-15. item-verification suspension
-16. v0.3.25 consolidated rules / probation / calibration handbook
-17. live fast path and main betting procedure
-18. connected-stack procedure and addenda
-19. scoreboard protocol
-20. shared stake policy
-21. latest live handoff last, applying CURRENT_MODEL + frozen lock authority where conflicts exist
+9. `models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md` when the match is pro / officially sanctioned semi-pro and the active lock includes this amendment
+10. `models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+11. `models/lol/procedures/LOL_DURATION_OVER_AND_UNDERDOG_PLUSKILLS_EXECUTION_HARDENING_2026-08-23.md`
+12. `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
+13. mandatory live verdict checklist + `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+14. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+15. retained pre-v0.3.59 reviews/procedures relevant to v0.3.58, plus explicit v0.3.58 amendment reviews including `models/lol/reviews/LEC_FNC_SHFT_SK_MKOI_SESSION_REVIEW_2026-08-23.md`
+16. item-verification suspension
+17. v0.3.25 consolidated rules / probation / calibration handbook
+18. live fast path and main betting procedure
+19. connected-stack procedure and addenda
+20. scoreboard protocol
+21. shared stake policy
+22. latest live handoff last, applying CURRENT_MODEL + frozen lock authority where conflicts exist
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
