@@ -1,13 +1,14 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-25-E11-NAVI-FNC-0004-UTC7`  
+**Lock ID:** `LOL-2026-08-25-E12-G2-GX-0037-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-25 00:04 UTC+7`  
-**Scope:** `LEC 2026 Summer — Natus Vincere vs Fnatic remaining series / current slate`  
-**Default expiry:** `NAVI–FNC series completion or explicit relock; hard stop 2026-08-25 03:30 UTC+7`  
+**Effective:** `2026-08-25 00:37 UTC+7`  
+**Scope:** `LEC 2026 Summer — GIANTX vs G2 Esports — Game 2 / remaining series`  
+**Default expiry:** `G2–GX series completion or explicit relock; hard stop 2026-08-25 04:00 UTC+7`  
 **Authority commit:** `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
+**PDRL:** `ACTIVE`  
 **KH directional calibration:** `ACTIVE`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`  
@@ -15,28 +16,31 @@
 
 ## Authorization
 
-On 2026-08-25 at approximately 00:04 UTC+7, after a Kill Handicap directional-bias review, the user explicitly instructed:
+On 2026-08-25 at approximately 00:37 UTC+7, after NAVI–FNC was closed, the user explicitly instructed:
 
-**“Lock this slate. And adjust the model with your recommendations.”**
+**“Lock g2 vs gx, prep game 2 under new model changes”**
 
-This explicitly authorizes a new authority epoch for the current slate and immediate activation of the 2026-08-25 Kill Handicap side-neutral margin-engine amendment.
+This explicitly authorizes an immediate relock/new slate epoch for GIANTX vs G2 Esports and carries forward the already-authorized 2026-08-25 Kill Handicap side-neutral margin-engine amendment.
 
-This E11 epoch supersedes E10 for the current NAVI–FNC slate. It does **not** authorize LoL v0.3.59 or v0.3.60; those remain retired. Canonical analytical model remains **LoL v0.3.58**.
+This E12 epoch supersedes E11 for the active slate. It does **not** authorize LoL v0.3.59 or v0.3.60; those remain retired. Canonical analytical model remains **LoL v0.3.58**.
 
 ## Frozen authority
 
-All model-certified analysis under this epoch uses frozen authority commit:
+All model-certified analysis under E12 uses frozen authority commit:
 
 `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`
 
-The frozen authority includes:
+Repository verification before this relock established that the only commit after this authority commit on `main` modified `models/lol/session/CURRENT_SESSION_LOCK.md`; no analytical/procedural file changed. Therefore `67ba101...` remains the correct frozen analytical authority for E12.
 
-- professional-play Draft Reading Layer (PDRL);
-- DIM / UDKC / KPA-KMS / RLD / UCS / LAC controls;
+Frozen authority includes:
+
+- canonical LoL v0.3.58 retained stack;
+- DIM + professional-play Draft Reading Layer (PDRL);
 - DOVC, FRP, FCR and Live ML DPS/LRO controls;
+- UDKC / KPA-KMS / RLD / UCS / LAC controls;
 - PRE_TAKE mechanical validator;
-- **Kill Handicap Side-Neutral Margin Engine (`KH_MARGIN_CERT`)**;
-- **PRE_TAKE_CERT Kill Handicap Margin Extension**;
+- Kill Handicap Side-Neutral Margin Engine (`KH_MARGIN_CERT` / KHMC);
+- PRE_TAKE_CERT Kill Handicap Margin Extension;
 - `KH_DIRECTIONAL_CALIBRATION = ACTIVE`.
 
 Mandatory new KH procedures:
@@ -46,170 +50,168 @@ Mandatory new KH procedures:
 
 Reference review:
 
-`models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_AND_MARGIN_ENGINE_REVIEW_2026-08-25.md`
+- `models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_AND_MARGIN_ENGINE_REVIEW_2026-08-25.md`
 
-## Live / series state carry-forward rule
+## G2–GX Game 2 prep state
 
-This relock changes analytical authority, not historical or live state.
+At lock creation, the exact completed Game 1 draft / Fearless depletion and final series score were **not yet canonicalized in Airtable or the active handoff**.
 
-The last E10 authority-carried series state was:
+Therefore before any Game 2 model-certified draft edge:
 
-- NAVI led the series `1-0` entering Game 2;
-- Game 1 final: NAVI 15-11 FNC;
-- source displayed Game 1 final clock 48:57 with standing source correction of **subtract 50 seconds**, producing model ledger clock 48:07;
-- Game 1 Fearless-used champions:
-  - FNC: `Ambessa / Nocturne / Locke / Ezreal / Seraphine`
-  - NAVI: `Rumble / Zaahen / Orianna / Kai'Sa / Shen`.
+1. restore the exact Game 1 winner / series score from user evidence or a verified current result;
+2. restore all ten Game 1 used champions and exact role assignments;
+3. confirm Game 2 side/selection rights when available;
+4. treat Game 2 as a restricted-pool/Fearless draft — never as an isolated full-pool draft;
+5. do not infer Game 1 champion depletion from generic team pools or historical drafts.
 
-Do **not** assume that 1-0 is still the current series score if a later Game 2 result exists. Before the next live/map verdict, use the latest applicable live handoff, user evidence and canonical Airtable map/snapshot/position state to restore the current series/map state. Authority lock changes never overwrite game state.
+Provisional saved LEC rosters at lock creation:
 
-For Game 2+ professional draft analysis, PDRL must retain format/Fearless state, prior-game champion depletion, lane priority, jungle-support coupling, tempo transitions, objective-sequence projection, player fit, execution burden, WCSR, series-pool pressure, adaptation and the pro adversarial pass before CLEAR/STRONG draft labels.
+**G2 Esports** — BrokenBlade / SkewMond / Caps / Hans Sama / Labrov.  
+**GIANTX** — Oscarinin / Isma / Jackies / Flakked / Jun.
 
-## Execution integrity
+These are prep context only. Live lobby/user-confirmed match evidence controls if a substitution or role change appears.
 
-The visible word `TAKE` is protected.
+## Professional Game 2 draft requirements
 
-Every candidate must pass the complete applicable PRE_TAKE_CERT mechanical validator with no failed fields, unresolved fields or contradictions before TAKE may be emitted.
+For Game 2, run **DIM + PDRL** before assigning any draft-derived prior.
 
-Core controls:
+PDRL must explicitly account for:
 
-- shadow stake `0.25u`; actual exposure `0u`;
-- minimum accepted odds `1.60`;
-- pregame/immediate-postdraft ML/KH/TK TAKEs disabled;
-- live ML/KH/TK require at least two usable synchronized live snapshots;
-- maximum one TAKE per map/market family: ML / Kill Handicap / Total Kills / Duration;
-- current synchronized sportsbook state/price controls;
-- greyed or genuinely stale markets are non-executable;
-- exact signed kill-margin arithmetic is mandatory;
-- position-blind reassessment is mandatory;
-- HOLD/PASS creates no Position;
-- no price, cushion, prior result, tower lead or narrative confidence may override a failed mandatory gate.
+- Fearless/restricted-pool state from Game 1;
+- side/selection rights;
+- lane priority by phase rather than generic counter labels;
+- jungle/support coupling and first two roam/objective windows;
+- tempo transitions and likely objective sequence;
+- player-specific professional champion fit;
+- execution burden under pro coordination;
+- WCSR / fallback robustness;
+- remaining-series pool pressure;
+- same-series adaptation from Game 1;
+- pro adversarial pass.
 
-Any skipped mandatory field, ignored contradiction, stale certificate, wrong authority/model or narrative/price override of a failed gate triggers the procedural circuit breaker.
+Keep `DIM_EDGE`, `PRO_MAP_EDGE`, `PRO_EXEC_EDGE`, `SERIES_DRAFT_EDGE`, and `FINAL_PRO_DRAFT_EDGE` separate.
 
-## Kill Handicap parent enforcement — new E11 rule
+Pregame/immediate-postdraft ML/KH/TK TAKE remains disabled; the completed draft establishes priors and mechanism certificates only.
 
-Before **either** +kills or -kills can be selected, resolve the common parent certificate:
+## Kill Handicap parent enforcement — E12 active
+
+Before **either** +kills or -kills can be selected, resolve the common side-neutral parent certificate:
 
 `2SNAP | KH_MARGIN_CERT | FAVORITE | CURRENT_SIGNED_MARGIN | MAP_WIN_RANGE | TOTAL_KILLS_RANGE | FAIR_CENTRAL_MARGIN | FINAL_MARGIN_BINS | KCV | RFI | STRUCTURE_MODE | WIDE_MARGIN_HAZARD | DIST_LOCKED_BEFORE_LINE | BOTH_SIDES_PRICED/N-A | WMS | SIGN_SELECTED_AFTER_DIST | SELECTED_SIDE_COVER_RANGE | SELECTED_SIDE_LOWER_BOUND | SELECTED_SIDE_BREAK_EVEN | RETAINED_PHASE_BUFFER | EDGE_AFTER_BUFFER`
 
 Hard rules:
 
-1. predict final signed kill margin **before** choosing handicap sign;
-2. use one side-neutral distribution for both sides;
-3. price both executable sides from that same distribution when available;
-4. represent a materially probable serial favorite cascade through WMS inside the distribution;
-5. NKB/RNE are arithmetic only, not probability evidence;
-6. `FAVORITE -H FAIL` gives zero positive evidence for `UNDERDOG +H`, and vice versa;
+1. predict final signed kill margin before choosing handicap sign;
+2. use one side-neutral distribution for both executable sides;
+3. price both sides from the same distribution when both are available;
+4. integrate materially probable serial favorite cascades through WMS;
+5. NKB/RNE are arithmetic only, never probability evidence;
+6. failure of one sign supplies zero positive evidence for the opposite sign;
 7. `SIGN_SELECTED_AFTER_DIST = PASS` is mandatory;
-8. selected-side lower-bound cover probability must clear break-even plus the retained phase/uncertainty buffer;
-9. if side-specific mechanism analysis materially changes the distribution, discard the certificate, rebuild it from zero and re-price both sides;
-10. `KH_DIRECTIONAL_CALIBRATION = ACTIVE` does not force favorites; it forbids sign-first / cushion-first reasoning.
+8. selected-side lower-bound cover probability must clear break-even plus retained phase/uncertainty buffer;
+9. mechanism evidence that materially changes the distribution expires the certificate and requires a full rebuild;
+10. `KH_DIRECTIONAL_CALIBRATION = ACTIVE` is process-neutrality control, not a favorite quota.
+
+Every KH TAKE must persist the compact parent block:
+
+`KHMC[DIST=P;BOTH=P/N-A;WMS=P;SIGN_AFTER_DIST=P;LB=<x>;BE=<y>;BUF=<z>;EDGE=P;DIRCAL=A]`
 
 ### Underdog +kills downstream validator
 
-Only after the common KH parent certificate identifies the dog side as the preliminary qualifying side may the positive-handicap stack run:
+Only after KHMC selects the dog side preliminarily may the positive stack run:
 
-`DIM | PDRL/N-A | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD_DRAFT | FALSE_STABLE_INACTIVE | LIVE_PRESERVATION | LIVE_RLD | LAC | LAC_PRESSURE_CLASS | UCS | SCNE | SIGNED_MARGIN | FAILURE_THRESHOLD | EXACT_NKB | DOG_TAIL_RECONCILED | PRICE`
+`DIM | PDRL | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD_DRAFT | FALSE_STABLE_INACTIVE | LIVE_PRESERVATION | LIVE_RLD | LAC | LAC_PRESSURE_CLASS | UCS | SCNE | SIGNED_MARGIN | FAILURE_THRESHOLD | EXACT_NKB | DOG_TAIL_RECONCILED | PRICE`
 
-`LAC_PRESSURE_CLASS` must distinguish:
-
-- `EXPANSION_OPPORTUNITY_SUPPRESSED` — positive evidence;
-- `NO_EXPANSION_OPPORTUNITY` — neutral;
-- `EXPANSION_OPPORTUNITY_CONVERTED` — negative;
-- `UNRESOLVED` — fail closed.
-
-A flat margin with no representative favorite expansion opportunity is not anti-cascade proof.
+`LAC_PRESSURE_CLASS` must distinguish `EXPANSION_OPPORTUNITY_SUPPRESSED` from `NO_EXPANSION_OPPORTUNITY`; passive flat-margin time is not positive suppression evidence.
 
 ### Favorite -kills downstream validator
 
-Only after the common KH parent certificate identifies favorite -kills as the preliminary qualifying side may the negative-handicap stack run:
+Only after KHMC selects favorite -kills preliminarily may the negative stack run:
 
 `SIGNED_MARGIN | COVER_THRESHOLD | RNE | FFD | KCV | RFI | ROLE_WEIGHTED_LEAD_QUALITY | REMAINING_FORCED_FIGHTS | STRUCTURE_SUBSTITUTION | SAFE_CONCEDE_TEST | CONTINUATION_CLEANUP_ACCESS | retained NKB/RFI/KCV | FAV_TAIL_RECONCILED | PRICE`
 
 A blocked dog side does not create a favorite TAKE.
 
-### Mandatory persisted compact parent block
-
-Every KH TAKE must retain:
-
-`KHMC[DIST=P;BOTH=P/N-A;WMS=P;SIGN_AFTER_DIST=P;LB=<x>;BE=<y>;BUF=<z>;EDGE=P;DIRCAL=A]`
-
-Omission is a mechanical execution failure.
-
 ## Other market-family enforcement
 
 ### Live Moneyline
 
-Resolve all applicable controls including:
+- at least two usable synchronized snapshots;
+- Lead Decomposition + `CFC_CURRENT`;
+- `DPS` / draft-prior state;
+- neutral-fight stress;
+- contrary CLEAR/STRONG draft selection requires full LRO path and three usable snapshots.
 
-`2SNAP | LEAD_DECOMPOSITION | DPS | CFC_CURRENT | NEUTRAL_FIGHT_STRESS | DRP(if applicable) | LRO(if applicable) | PRICE`.
+### Total Kills
 
-For professional play, the original draft prior is `FINAL_PRO_DRAFT_EDGE` from DIM + PDRL. A TAKE against an original CLEAR/STRONG draft prior requires the full contrary-draft LRO path.
+- Under requires `FRP = PASS`;
+- Over requires demonstrated recurrence/contact-pressure support and exact remaining-kill arithmetic;
+- low pace alone is not Under evidence.
 
-### Duration Over
+### Duration
 
-Requires complete DOVC:
+- Over requires complete DOVC with positive clock-consuming mechanisms and observed failed-conversion/equivalent evidence;
+- Under retains FCR and shortest-close-route stress.
 
-`CONVERSION_CLASS | POSITIVE_CLOCK_MECH_1 | POSITIVE_CLOCK_MECH_2 | FAILED_CONVERSION_OR_EQUIVALENT | OBSERVED_STALL_EVIDENCE_ID | CLOCK_CAUSALITY | STRUCTURE_SUBSTITUTION | SHORTEST_CASCADE_TEST | SURVIVAL_HORIZON | PRICE`.
+## Execution integrity
 
-### Total Kills / Duration Under
+The visible word `TAKE` is protected.
 
-- Total Kills Under requires `FRP = PASS`; passive quiet is insufficient.
-- Total Kills Over retains recurrence/contact-pressure requirements.
-- Duration Under retains FCR and shortest-close-route stress.
+- shadow stake `0.25u`; actual exposure `0u`;
+- minimum accepted odds `1.60`;
+- pregame/immediate-postdraft ML/KH/TK TAKEs disabled;
+- live ML/KH/TK require at least two usable synchronized snapshots;
+- maximum one TAKE per map/market family: ML / Kill Handicap / Total Kills / Duration;
+- current synchronized sportsbook state/price controls;
+- greyed/stale markets are non-executable;
+- exact signed kill-margin arithmetic is mandatory;
+- position-blind reassessment is mandatory;
+- HOLD/PASS creates no Position;
+- complete PRE_TAKE_CERT + contradiction scan + mechanical validator required before TAKE.
 
-## Live verdict latency handling
-
-Live execution remains strictly verdict-first:
-
-- when the required model/lock context is already loaded, do not call Airtable, GitHub, web or another connector in the critical path before emitting the live verdict;
-- complete PRE_TAKE_CERT internally from supplied synchronized evidence and cached frozen authority;
-- immediately emit TAKE, HOLD or PASS with exact visible line/stake;
-- if quoted price/line is gone or materially moved before the verdict reaches the user, classify the candidate latency-invalidated;
-- latency-invalidated candidates are Void / Invalidated / 0u and do not consume the family.
+Any skipped mandatory field, ignored contradiction, wrong authority/model, sign-first KH analysis, stale certificate, or narrative/price override of a failed gate triggers the procedural circuit breaker.
 
 ## Airtable map-end batching
 
-The standing user-approved map-end batching override remains active under E11.
+The standing user-approved map-end batching override remains active under E12.
 
-During a live map:
+During Game 2:
 
-- make no Airtable calls merely to log a live frame or TAKE;
-- retain meaningful synchronized snapshots, HOLD/PASS states, TAKE entry clock/line/odds/stake, latency invalidations and user corrections in-session.
+- no Airtable calls merely to log live frames or TAKES;
+- retain meaningful synchronized snapshots, market states, TAKE entry evidence and user corrections in-session.
 
 At map end:
 
 - batch-write meaningful snapshots and qualified TAKES;
 - record final map state and settlement;
-- separate latency-invalidated counterfactuals from executable P/L;
 - duplicate-protect and exact-verify the batch;
-- clear the in-session map buffer only after successful verification.
+- clear the in-session buffer only after successful verification.
 
-If the conversation ends mid-map, preserve buffered evidence in the latest live handoff.
+## Source handling
 
-## Source-specific state handling
+Do **not** automatically inherit NAVI–FNC-specific scoreboard clock corrections into G2–GX.
 
-- For the current live scoreboard source, subtract **50 seconds** from displayed game time when the standing source correction applies.
-- Visible `DELAYED DATA` / `FEED NOT UPDATING` banners are not decision signals by themselves.
-- `Barons X-Y` is historical Baron-take count, not proof of an active Baron buff.
-- Real state conflicts, impossible progression, materially mismatched clock/state or other independent staleness evidence fail closed.
+For G2–GX, use the displayed clock unless the user supplies a source-specific correction. User correction controls immediately.
 
-## New-chat requirement
+Retain the general source rules:
 
-While E11 is active, a future chat must:
+- `Barons X-Y` is historical Baron-take count, not proof of an active Baron buff;
+- `DELAYED DATA / FEED NOT UPDATING` banners are not stale signals by themselves;
+- tower count is not a standalone ML/KH signal;
+- real chronology/state conflicts fail closed.
+
+## New-chat / continuation requirement
+
+While E12 is active, continuation must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
-2. immediately fetch `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md`;
+2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
+3. fetch `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-25-E12-G2-GX-0037-UTC7`;
 4. re-fetch `CURRENT_MODEL.md` at authority commit `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`;
-5. load the complete stack in the exact locked CURRENT_MODEL order from that same commit;
-6. explicitly load `models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md` for pro draft analysis;
-7. explicitly load `models/lol/procedures/LOL_KILL_HANDICAP_SIDE_NEUTRAL_MARGIN_ENGINE_2026-08-25.md`;
-8. explicitly load `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md` and `models/lol/procedures/LOL_PRE_TAKE_CERT_KH_MARGIN_EXTENSION_2026-08-25.md`;
-9. load the latest applicable live handoff last if one exists;
-10. restore the current series/map state from the latest handoff/Airtable/user evidence rather than assuming the E10 pre-Game-2 score is still current;
-11. verify authority/model match, `Circuit breaker = CLEAR`, and `KH directional calibration = ACTIVE` before model-certified analysis.
+5. load the retained stack plus PDRL, KHMC, PRE_TAKE validator and KH margin extension;
+6. load the latest applicable G2–GX handoff last if one exists;
+7. restore Game 1 winner and exact Fearless-used champions before final Game 2 draft certification;
+8. verify `Circuit breaker = CLEAR` and `KH directional calibration = ACTIVE` before model-certified live analysis.
 
 If authority cannot be loaded or hierarchy mismatches, use:
 
