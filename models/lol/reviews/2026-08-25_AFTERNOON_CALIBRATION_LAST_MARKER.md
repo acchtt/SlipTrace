@@ -1,3 +1,0 @@
-# Last marker
-
-Non-authoritative.
