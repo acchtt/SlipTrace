@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-25-E12-G2-GX-0037-UTC7`  
+**Lock ID:** `LOL-2026-08-25-E13-KRXC-BFXY-1542-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-25 00:37 UTC+7`  
-**Scope:** `LEC 2026 Summer — GIANTX vs G2 Esports — Game 2 / remaining series`  
-**Default expiry:** `G2–GX series completion or explicit relock; hard stop 2026-08-25 04:00 UTC+7`  
+**Effective:** `2026-08-25 15:42 UTC+7`  
+**Scope:** `LCK Challengers League 2026 — KRX Challengers vs BNK FEARX Youth — Game 1 / remaining series`  
+**Default expiry:** `KRX.C–BFX.Y series completion or explicit relock; hard stop 2026-08-25 21:30 UTC+7`  
 **Authority commit:** `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`  
 **Active analytical model:** `LoL v0.3.58`  
 **Circuit breaker:** `CLEAR`  
@@ -16,26 +16,26 @@
 
 ## Authorization
 
-On 2026-08-25 at approximately 00:37 UTC+7, after NAVI–FNC was closed, the user explicitly instructed:
+On 2026-08-25 at approximately 15:42 UTC+7, after the user supplied current KRX.C–BFX.Y Game 1 live/draft evidence, the user explicitly instructed:
 
-**“Lock g2 vs gx, prep game 2 under new model changes”**
+**“Lock this series”**
 
-This explicitly authorizes an immediate relock/new slate epoch for GIANTX vs G2 Esports and carries forward the already-authorized 2026-08-25 Kill Handicap side-neutral margin-engine amendment.
+This explicitly authorizes an immediate relock/new slate epoch for KRX Challengers vs BNK FEARX Youth.
 
-This E12 epoch supersedes E11 for the active slate. It does **not** authorize LoL v0.3.59 or v0.3.60; those remain retired. Canonical analytical model remains **LoL v0.3.58**.
+E13 supersedes the expired/completed G2–GX E12 scope. It does **not** authorize LoL v0.3.59 or v0.3.60; those remain retired. Canonical analytical model remains **LoL v0.3.58**.
 
 ## Frozen authority
 
-All model-certified analysis under E12 uses frozen authority commit:
+All model-certified analysis under E13 uses frozen authority commit:
 
 `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`
 
-Repository verification before this relock established that the only commit after this authority commit on `main` modified `models/lol/session/CURRENT_SESSION_LOCK.md`; no analytical/procedural file changed. Therefore `67ba101...` remains the correct frozen analytical authority for E12.
+Repository verification before this relock established that default-branch `main` is ahead of that authority commit only through prior session-state files (`models/lol/session/CURRENT_SESSION_LOCK.md` and the G2–GX live handoff). No analytical/procedural file changed after the frozen authority commit. Therefore `67ba101...` remains the correct frozen analytical authority for E13.
 
 Frozen authority includes:
 
 - canonical LoL v0.3.58 retained stack;
-- DIM + professional-play Draft Reading Layer (PDRL);
+- DIM + professional-play Draft Reading Layer (PDRL), applicable to LCK CL as officially sanctioned professional/semi-professional play;
 - DOVC, FRP, FCR and Live ML DPS/LRO controls;
 - UDKC / KPA-KMS / RLD / UCS / LAC controls;
 - PRE_TAKE mechanical validator;
@@ -48,52 +48,82 @@ Mandatory new KH procedures:
 - `models/lol/procedures/LOL_KILL_HANDICAP_SIDE_NEUTRAL_MARGIN_ENGINE_2026-08-25.md`
 - `models/lol/procedures/LOL_PRE_TAKE_CERT_KH_MARGIN_EXTENSION_2026-08-25.md`
 
-Reference review:
+Mandatory pro-draft procedure:
 
-- `models/lol/reviews/KILL_HANDICAP_DIRECTIONAL_BIAS_AND_MARGIN_ENGINE_REVIEW_2026-08-25.md`
+- `models/lol/procedures/LOL_PRO_PLAY_DRAFT_READING_LAYER_2026-08-24.md`
 
-## G2–GX Game 2 prep state
+Mandatory mechanical interlock:
 
-At lock creation, the exact completed Game 1 draft / Fearless depletion and final series score were **not yet canonicalized in Airtable or the active handoff**.
+- `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md`
 
-Therefore before any Game 2 model-certified draft edge:
+## Match / roster state at lock creation
 
-1. restore the exact Game 1 winner / series score from user evidence or a verified current result;
-2. restore all ten Game 1 used champions and exact role assignments;
-3. confirm Game 2 side/selection rights when available;
-4. treat Game 2 as a restricted-pool/Fearless draft — never as an isolated full-pool draft;
-5. do not infer Game 1 champion depletion from generic team pools or historical drafts.
+Series: `KRX Challengers vs BNK FEARX Youth`, Best-of-5, Hard Fearless context for Game 2+.
 
-Provisional saved LEC rosters at lock creation:
+Current Game 1 user-supplied live evidence at lock creation:
 
-**G2 Esports** — BrokenBlade / SkewMond / Caps / Hans Sama / Labrov.  
-**GIANTX** — Oscarinin / Isma / Jackies / Flakked / Jun.
+- displayed game clock: `35:17`;
+- kills: `BFX.Y 8 – 11 KRX.C`;
+- gold: `KRX.C +1.9k`;
+- towers: `BFX.Y 2 – 4 KRX.C`;
+- dragons: `BFX.Y 3 – 1 KRX.C`;
+- Barons: `0 – 0`;
+- inhibitors: `0 – 0`.
 
-These are prep context only. Live lobby/user-confirmed match evidence controls if a substitution or role change appears.
+Exact Game 1 draft / roles from user evidence:
 
-## Professional Game 2 draft requirements
+**BNK FEARX Youth**
+- Top: Kangin — Olaf
+- Jungle: Grizzly — Vi
+- Mid: MG — Akali
+- ADC: Slayer — Ezreal
+- Support: Luon — Karma
 
-For Game 2, run **DIM + PDRL** before assigning any draft-derived prior.
+**KRX Challengers**
+- Top: Frog — Jax
+- Jungle: Winner — Jarvan IV
+- Mid: AKaJe — Orianna
+- ADC: Vincenzo — Jhin
+- Support: Minous — Bard
 
-PDRL must explicitly account for:
+This user-supplied current match evidence controls over older generic roster pages. No duplicate external roster lookup is required unless a concrete conflict appears.
 
-- Fearless/restricted-pool state from Game 1;
-- side/selection rights;
-- lane priority by phase rather than generic counter labels;
-- jungle/support coupling and first two roam/objective windows;
-- tempo transitions and likely objective sequence;
+## Game 1 draft handling
+
+Because the exact draft was received after Game 1 had already progressed, any draft-only certificate reconstructed from it must use strict Draft Isolation:
+
+- exclude current kills, gold, objectives, structures, current odds, handicap size and current margin from draft-only certification;
+- run DIM + PDRL on the exact locked roles/compositions;
+- keep `DIM_EDGE`, `PRO_MAP_EDGE`, `PRO_EXEC_EDGE`, `SERIES_DRAFT_EDGE`, and `FINAL_PRO_DRAFT_EDGE` conceptually separate;
+- live evidence may preserve or downgrade draft-only underdog +kills proof, never manufacture missing proof.
+
+Pregame/immediate-postdraft ML/KH/TK TAKE remains disabled; Game 1 is already live, so any live candidate must satisfy the normal synchronized-live requirements from this lock.
+
+## Hard Fearless / Game 2+ requirements
+
+For Game 2 and later maps, do not grade drafts as isolated full-pool drafts.
+
+Game 1 depletion is locked as:
+
+**BFX.Y used:** Olaf / Vi / Akali / Ezreal / Karma.  
+**KRX.C used:** Jax / Jarvan IV / Orianna / Jhin / Bard.
+
+For Game 2+ PDRL, explicitly account for:
+
+- all prior used champions in Hard Fearless state;
+- current series score;
+- side/selection rights when available;
+- lane priority by phase;
+- jungle/support coupling and first roam/objective windows;
+- tempo transitions and objective-sequence projection;
 - player-specific professional champion fit;
-- execution burden under pro coordination;
+- execution burden;
 - WCSR / fallback robustness;
 - remaining-series pool pressure;
-- same-series adaptation from Game 1;
+- same-series adaptation;
 - pro adversarial pass.
 
-Keep `DIM_EDGE`, `PRO_MAP_EDGE`, `PRO_EXEC_EDGE`, `SERIES_DRAFT_EDGE`, and `FINAL_PRO_DRAFT_EDGE` separate.
-
-Pregame/immediate-postdraft ML/KH/TK TAKE remains disabled; the completed draft establishes priors and mechanism certificates only.
-
-## Kill Handicap parent enforcement — E12 active
+## Kill Handicap parent enforcement — E13 active
 
 Before **either** +kills or -kills can be selected, resolve the common side-neutral parent certificate:
 
@@ -112,25 +142,9 @@ Hard rules:
 9. mechanism evidence that materially changes the distribution expires the certificate and requires a full rebuild;
 10. `KH_DIRECTIONAL_CALIBRATION = ACTIVE` is process-neutrality control, not a favorite quota.
 
-Every KH TAKE must persist the compact parent block:
+Every KH TAKE must persist:
 
 `KHMC[DIST=P;BOTH=P/N-A;WMS=P;SIGN_AFTER_DIST=P;LB=<x>;BE=<y>;BUF=<z>;EDGE=P;DIRCAL=A]`
-
-### Underdog +kills downstream validator
-
-Only after KHMC selects the dog side preliminarily may the positive stack run:
-
-`DIM | PDRL | TAM | CAS | UDKC_STABLE | KPA | KMS | RLD_DRAFT | FALSE_STABLE_INACTIVE | LIVE_PRESERVATION | LIVE_RLD | LAC | LAC_PRESSURE_CLASS | UCS | SCNE | SIGNED_MARGIN | FAILURE_THRESHOLD | EXACT_NKB | DOG_TAIL_RECONCILED | PRICE`
-
-`LAC_PRESSURE_CLASS` must distinguish `EXPANSION_OPPORTUNITY_SUPPRESSED` from `NO_EXPANSION_OPPORTUNITY`; passive flat-margin time is not positive suppression evidence.
-
-### Favorite -kills downstream validator
-
-Only after KHMC selects favorite -kills preliminarily may the negative stack run:
-
-`SIGNED_MARGIN | COVER_THRESHOLD | RNE | FFD | KCV | RFI | ROLE_WEIGHTED_LEAD_QUALITY | REMAINING_FORCED_FIGHTS | STRUCTURE_SUBSTITUTION | SAFE_CONCEDE_TEST | CONTINUATION_CLEANUP_ACCESS | retained NKB/RFI/KCV | FAV_TAIL_RECONCILED | PRICE`
-
-A blocked dog side does not create a favorite TAKE.
 
 ## Other market-family enforcement
 
@@ -173,9 +187,9 @@ Any skipped mandatory field, ignored contradiction, wrong authority/model, sign-
 
 ## Airtable map-end batching
 
-The standing user-approved map-end batching override remains active under E12.
+The standing user-approved map-end batching override remains active under E13.
 
-During Game 2:
+During live maps:
 
 - no Airtable calls merely to log live frames or TAKES;
 - retain meaningful synchronized snapshots, market states, TAKE entry evidence and user corrections in-session.
@@ -189,29 +203,26 @@ At map end:
 
 ## Source handling
 
-Do **not** automatically inherit NAVI–FNC-specific scoreboard clock corrections into G2–GX.
-
-For G2–GX, use the displayed clock unless the user supplies a source-specific correction. User correction controls immediately.
+No source-specific clock correction is currently locked for KRX.C–BFX.Y. Use displayed game time unless the user supplies a correction.
 
 Retain the general source rules:
 
-- `Barons X-Y` is historical Baron-take count, not proof of an active Baron buff;
-- `DELAYED DATA / FEED NOT UPDATING` banners are not stale signals by themselves;
+- `Barons X-Y` means historical Baron takes, not necessarily active Baron buff;
 - tower count is not a standalone ML/KH signal;
+- `DELAYED DATA / FEED NOT UPDATING` banners alone are not stale signals;
 - real chronology/state conflicts fail closed.
 
-## New-chat / continuation requirement
+## Continuation requirement
 
-While E12 is active, continuation must:
+While E13 is active, continuation must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-25-E12-G2-GX-0037-UTC7`;
+3. fetch `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-25-E13-KRXC-BFXY-1542-UTC7`;
 4. re-fetch `CURRENT_MODEL.md` at authority commit `67ba101919a5b96b0c237dd8abcb0d6a887a6b1d`;
-5. load the retained stack plus PDRL, KHMC, PRE_TAKE validator and KH margin extension;
-6. load the latest applicable G2–GX handoff last if one exists;
-7. restore Game 1 winner and exact Fearless-used champions before final Game 2 draft certification;
-8. verify `Circuit breaker = CLEAR` and `KH directional calibration = ACTIVE` before model-certified live analysis.
+5. load the retained stack plus DIM, PDRL, KHMC, PRE_TAKE validator and KH margin extension;
+6. load the latest applicable KRX.C–BFX.Y handoff last if one exists;
+7. verify `Circuit breaker = CLEAR` and `KH directional calibration = ACTIVE` before model-certified live analysis.
 
 If authority cannot be loaded or hierarchy mismatches, use:
 
