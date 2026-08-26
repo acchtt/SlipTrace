@@ -1,119 +1,120 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-26-E14R1-KT-BRO-1754-UTC7`  
+**Lock ID:** `LOL-2026-08-26-E14R2-KT-BRO-G5-1853-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-26 17:54 UTC+7`  
-**Scope:** `LCK 2026 Play-In — KT Rolster vs HANJIN BRION — remainder of BO5 from Game 4`  
-**Supersedes:** `LOL-2026-08-26-E14-KT-BRO-1432-UTC7` after its procedural circuit breaker  
-**Authority commit:** `0424b09b9a435411fc1c3fb1dc91c2235f31b7bb`  
+**Effective:** `2026-08-26 18:53 UTC+7`  
+**Scope:** `LCK 2026 Play-In — KT Rolster vs HANJIN BRION — Game 5 decider only`  
+**Supersedes:** `LOL-2026-08-26-E14R1-KT-BRO-1754-UTC7` prospectively for Game 5  
+**Authority commit:** `a095385d721ffdcd62e77d6053ab241b5a8b5cdb`  
 **Active analytical model:** `LoL v0.3.58`  
-**Circuit breaker:** `CLEAR — NEW USER-AUTHORIZED AUTHORITY EPOCH`  
+**Circuit breaker:** `CLEAR — USER-AUTHORIZED G5 REBALANCE`  
 **PDRL:** `ACTIVE`  
 **PML:** `ACTIVE`  
 **KH directional calibration:** `ACTIVE`  
-**KH dog directional probation:** `ACTIVE`  
+**KH dog directional probation:** `ACTIVE — E14R2 REBALANCED`  
 **Small-H asymmetry calibration:** `ACTIVE`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`  
 **Minimum accepted odds:** `1.60`
 
-## Authorization and breaker resolution
+## Authorization
 
-The prior E14 authority epoch was placed into `CIRCUIT_BREAKER` after Game 3 KT +9.5 @1.982 was found to have violated the already-active LAC hard gate.
+After Game 4, the user stated that the model appeared too strict because multiple live opportunities produced zero TAKES. The Game 4 strictness review found mixed evidence: several passes were correct, but the E14R1 dog-probation mechanics and lead-concentration handling were over-restrictive for the screenshot-driven evidence stream.
 
-At approximately 17:54 UTC+7 on 2026-08-26, after reviewing the recent Kill Handicap sample, the user explicitly instructed:
+The user then explicitly instructed:
 
-**“Recalibrate now”**
+**“Apply for g5”**
 
-This instruction authorizes immediate prospective recalibration and an immediate new authority epoch for the remaining KT-BRO series. It does not rewrite any prior position, prediction result or P/L.
-
-The previous Game 3 KT +9.5 remains a historical Loss (-0.25u shadow / 0u actual) with process validity separately invalidated.
+This authorizes a new prospective Game 5 authority epoch. It does not rewrite Games 1–4, any historical TAKE/HOLD/PASS, or any P/L.
 
 ## Frozen authority
 
-All model-certified analysis and TAKE execution in E14R1 must use analytical/procedural files frozen at:
+All model-certified analysis and TAKE execution in E14R2 must use analytical/procedural files frozen at:
 
-`0424b09b9a435411fc1c3fb1dc91c2235f31b7bb`
-
-This commit contains the canonical LoL v0.3.58 retained stack plus the user-authorized 2026-08-26 KH recalibration written in place to the already-mandatory KH procedure paths.
+`a095385d721ffdcd62e77d6053ab241b5a8b5cdb`
 
 LoL v0.3.59 and v0.3.60 remain retired and must not be loaded or blended.
 
-## 2026-08-26 KH recalibration — active now
+## Mandatory E14R2 overlay
 
-Reference audit:
+After loading the exact frozen `CURRENT_MODEL.md` stack, explicitly load:
 
-`models/lol/reviews/KH_DIRECTIONAL_RECALIBRATION_2026-08-26.md`
+`models/lol/procedures/LOL_E14R2_G5_KH_ML_STRICTNESS_REBALANCE_2026-08-26.md`
 
-Updated active procedures at this authority commit:
+This overlay is Game-5-only and supersedes conflicting E14R1 lock-scoped strictness mechanics while retaining the global v0.3.58 model.
 
-- `models/lol/procedures/LOL_KILL_HANDICAP_SIDE_NEUTRAL_MARGIN_ENGINE_2026-08-25.md`
-- `models/lol/procedures/LOL_KH_SMALL_HANDICAP_ASYMMETRY_2026-08-25.md`
-- `models/lol/procedures/LOL_PRE_TAKE_CERT_KH_MARGIN_EXTENSION_2026-08-25.md`
+Reference review:
 
-The batch trigger is the Aug 19-26 guard-era underdog +kills sample: 4 wins, 12 losses, -2.0665u on 4.0u settled stake (-51.7% ROI), excluding voids. The latest ten logged KH picks were all positive-handicap selections (2W, 7L, 1 Void).
+`models/lol/reviews/E14R1_GAME4_STRICTNESS_REVIEW_2026-08-26.md`
 
-This batch is calibration evidence only, not a direct empirical probability prior and not a favorite quota.
+### Active Game 5 KH changes
 
-### Active dog +kills probation
+1. `KH_DOG_DIRECTIONAL_PROBATION` remains ACTIVE.
+2. `INSUFFICIENT/THIN` dog +H remains automatic HOLD/PASS.
+3. `MATERIAL` dog +H may qualify only with independent ML support, a passing screenshot-compatible live evidence package, mechanism match, probability-weighted cycle hazard, and full lower-bound pricing clearance.
+4. `LARGE` dog +H remains eligible under retained rules.
+5. Synchronized snapshot transitions may establish `COUNTER_EXPANSION`, `BOUNDED_EXPANSION`, or `SUPPRESSED` live evidence; continuous video is not required.
+6. The rigid “exactly two matched suppression windows” rule is replaced by the overlay evidence package.
+7. Raw one/two-cycle threshold crossability is no longer an automatic veto. `P_CROSS_ONE_CYCLE` and `P_CROSS_TWO_CYCLE` must be probability-classified and integrated into final-margin bins.
+8. HIGH one-cycle cross hazard, or HIGH two-cycle hazard with MATERIAL/HIGH remaining forced-cycle density, remains automatic HOLD/PASS for dog +H.
+9. Dog surcharge becomes evidence/cushion conditional: +3pp / +4pp for LARGE depending on evidence route, +5pp for MATERIAL.
+10. NKB, theoretical tools, cushion size, quiet time, and price remain non-evidence by themselves.
 
-`KH_DOG_DIRECTIONAL_PROBATION = ACTIVE`.
+### Active Game 5 ML/KH lead-concentration changes
 
-For underdog +H, all retained gates still apply. In addition:
+Every live ML/KH distribution must resolve:
 
-1. `DOG_CUSHION_CLASS` must be `LARGE`; INSUFFICIENT / THIN / MATERIAL are automatic PASS during probation.
-2. Identify `FAVORITE_EXPANSION_MECHANISM`, `UNDERDOG_DIRECT_ANSWER`, and require `MECHANISM_MATCH=PASS`.
-3. Require **two distinct mechanism-matched live suppression windows** from representative expansion opportunities; the prior single-event LAC exception is suspended.
-4. WMS must quantify ordinary one-cycle and two-cycle margin expansion.
-5. If a MATERIAL/HIGH ordinary WMS branch can cross the dog failure threshold inside one or two compulsory cycles, dog +H is automatic PASS.
-6. Dog lower-bound cover probability must clear break-even by the retained base phase/uncertainty buffer **plus 5 percentage points**.
-7. NKB, line size, 0-0 towers, quiet time, theoretical waveclear/peel/disengage/scaling/side pressure and attractive price cannot substitute for observed matched suppression.
+`TEAM_GOLD_LEAD | LARGEST_ROLE_GOLD_EDGE | LEAD_CONCENTRATION_RATIO | NON_CONCENTRATED_NET | LEAD_CONCENTRATION_CLASS | CONCENTRATED_ROLE_CONVERSION_ACCESS | OBJECTIVE_OFFSET | COUNTER_EXPANSION_EVIDENCE | LEAD_QUALITY_AFTER_CONCENTRATION`.
 
-### Favorite -kills recalibration
+Concentrated/extreme leads are discounted unless the concentrated role has real near-term conversion access. Opposing objective control plus demonstrated counter-expansion can justify an additional lead-quality downgrade.
 
-Favorite -H is not preferred automatically and uses the normal retained buffer.
+This applies symmetrically to both teams and both KH signs.
 
-The favorite validator now explicitly resolves `COVER_BEFORE_CLOSE`: whether the required kill margin can be banked before terminal structure control causes safe concession or removes compulsory fight inventory.
+## What remains unchanged
 
-Late safe-concede risk may not automatically veto favorite -H when the required margin can credibly be realized earlier. All retained FFD/KCV/RFI/role-weighted lead quality/WMS/pricing gates remain mandatory.
-
-### Parent sign neutrality remains mandatory
-
-Before either sign can TAKE:
-
-`KH_MARGIN_CERT -> both-side pricing -> WMS one/two-cycle stress -> sign selection -> sign-specific validator -> calibration buffer -> PRE_TAKE_CERT`.
-
-No sign inversion, favorite quota or dog quota is permitted.
+- KH parent sign neutrality remains mandatory.
+- `KH_MARGIN_CERT -> both-side pricing -> WMS -> sign selection -> sign-specific validator -> calibration buffer -> PRE_TAKE_CERT` remains the required order.
+- No favorite quota, dog quota, or sign inversion shortcut.
+- Live ML retains 2SNAP, Lead Decomposition/CFC/DPS/PML/LRO where applicable.
+- Total Kills Under retains FRP.
+- Total Kills Over retains recurrence/contact-pressure proof.
+- Duration Over retains full DOVC.
+- Duration Under retains FCR/shortest-close-route testing.
+- Minimum accepted odds remains 1.60.
+- Actual exposure remains 0u; default shadow stake remains 0.25u.
 
 ## Current series state
 
-Series score after Game 3: `KT 1-2 HANJIN BRION`.
+Series after Game 4: `KT 2-2 HANJIN BRION`.
 
-Completed Fearless depletion entering Game 4:
+Game 4 final user-authoritative supplied state: `33:28 | KT 17-8 BRO | KT +6.7k | towers 7-3 | dragons 3-2 | Baron 1-0 | inhibitors 1-0`.
+
+No Game 4 shadow position existed; P/L 0u.
+
+## Completed Fearless depletion entering Game 5
 
 ### KT used
 - Game 1: Olaf / Nocturne / Ryze / Miss Fortune / Nautilus
 - Game 2: Ornn / Naafiri / Syndra / Yunara / Lulu
 - Game 3: Yorick / Wukong / Zoe / Sivir / Bard
+- Game 4: Ambessa / Lee Sin / Lissandra / Ashe / Seraphine
 
 ### BRO used
 - Game 1: Kled / Jarvan IV / Anivia / Lucian / Milio
 - Game 2: Rumble / Vi / Ahri / Kalista / Renata Glasc
 - Game 3: Jayce / Xin Zhao / LeBlanc / Ezreal / Elise
+- Game 4: Gnar / Pantheon / Locke / Jhin / Camille
 
-Fearless archetype-inventory tracking remains mandatory for Game 4+.
+Fearless archetype-inventory tracking is mandatory for Game 5.
 
-## Other market families
+## Game 4 review facts that must not be lost
 
-The E14R1 relock clears the procedural breaker prospectively for all market families, but does not relax any non-KH gate.
-
-- Live ML: retained two-snapshot gate, Lead Decomposition/CFC/DPS and LRO where applicable.
-- Total Kills Under: FRP mandatory.
-- Total Kills Over: retained recurrence/contact-pressure proof.
-- Duration Over: full DOVC mandatory.
-- Duration Under: retained FCR/shortest-close-route testing.
-- Minimum odds remains 1.60.
-- Actual exposure remains 0u; shadow default 0.25u.
+- Several Game 4 passes were correct; zero TAKEs alone is not proof that the entire model was too strict.
+- BRO -3.5 at 18:28 and 21:58 would have lost.
+- displayed Total Kills Overs would have lost with 25 final kills.
+- BRO ML 1.598 at 11:48 was below floor and ultimately lost.
+- key possible over-filtered windows were KT +3.5 and KT ML around 18:28/21:58.
+- at 9:18 and 11:48 the correct dragon state was BRO 0-KT 1; prior live commentary that gave BRO the first dragon was a reading error and must not propagate.
 
 ## Screenshot synchronization
 
@@ -126,7 +127,7 @@ Bookmaker/header/feed clock differences alone are non-authoritative for synchron
 Standing user-approved map-end batching remains active:
 
 - no Airtable calls merely to log live frames or TAKES mid-map;
-- buffer meaningful states and entry evidence during the map;
+- buffer meaningful states and entry evidence during Game 5;
 - batch-write and exact-verify at map end.
 
 ## Continuation / bootstrap requirement
@@ -135,10 +136,11 @@ Every continuation/new chat must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-26-E14R1-KT-BRO-1754-UTC7`;
-4. verify `Status=ACTIVE`, `Circuit breaker=CLEAR`, `KH directional calibration=ACTIVE`, and `KH dog directional probation=ACTIVE`;
-5. re-fetch `CURRENT_MODEL.md` at authority commit `0424b09b9a435411fc1c3fb1dc91c2235f31b7bb`;
-6. follow its exact load order at that same frozen commit, including the updated KH engine, small-H calibration and PRE_TAKE KH extension;
-7. load the latest applicable KT-BRO live handoff last.
+3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-26-E14R2-KT-BRO-G5-1853-UTC7`;
+4. verify `Status=ACTIVE`, `Circuit breaker=CLEAR`, `KH directional calibration=ACTIVE`, and `KH dog directional probation=ACTIVE — E14R2 REBALANCED`;
+5. re-fetch `CURRENT_MODEL.md` at authority commit `a095385d721ffdcd62e77d6053ab241b5a8b5cdb`;
+6. follow its exact load order at that frozen commit;
+7. explicitly load `models/lol/procedures/LOL_E14R2_G5_KH_ML_STRICTNESS_REBALANCE_2026-08-26.md` after the frozen core stack;
+8. load the latest applicable KT-BRO live handoff last.
 
 If the lock/authority cannot be matched, use `MODEL LOCK MISMATCH — HOLD`.
