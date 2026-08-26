@@ -225,3 +225,53 @@ Effective 2026-08-07, live responses should default to a **brief operational for
 - Tool/tracker writes remain **after the verdict** and must not delay the live answer.
 
 **Compact output must never mean compact reasoning. The active model and all mandatory rules remain fully binding.**
+
+## 15. User map-end Airtable batching override — 2026-08-26
+
+**Status:** Active immediately for this project/user workflow. This section supersedes Sections 3–7 and any older procedure/addendum language requiring Airtable writes during an active map.
+
+### Core rule
+
+**Do not call Airtable during a live map. Airtable persistence happens only after the map ends.**
+
+During an active map:
+
+- prioritize live verdict latency;
+- keep all material synchronized snapshots in an in-chat/session buffer;
+- keep every qualified shadow TAKE in the same buffer with exact market, line, odds, entry clock, gate signature/evidence, simulated stake, actual exposure, and visible opposite-side benchmark when available;
+- keep invalidations, corrections, line-expiry events, and process incidents in the buffer;
+- do not create/update `Maps`, `Snapshots`, `Positions`, roster tables, or any other Airtable table mid-map;
+- do not run Airtable startup/audit calls in the middle of live decision flow if a map is already underway.
+
+At verified map end:
+
+1. write/update the `Maps` record;
+2. batch-write all material buffered `Snapshots`;
+3. batch-write every qualified TAKE as a `Positions` row, including settlement when already known;
+4. write any required roster/canonical metadata updates;
+5. verify the exact written rows;
+6. only then clear the buffer.
+
+### Buffered shadow-position semantics
+
+A qualified live `TAKE` still becomes a **model-attributed shadow entry at the moment of the verdict** when the execution/freshness gates pass. Physical Airtable persistence is intentionally deferred until map end.
+
+Before map-end persistence, describe it as:
+
+`BUFFERED SHADOW POSITION — pending map-end Airtable batch`
+
+Do not call a merely discussed lean or an expired/missed line a buffered position. Only an actual qualified `TAKE` gets buffered as an entry.
+
+If a line disappears before the qualified TAKE is delivered, it is **not** a position and must not be backfilled. Log it as an execution/process miss when appropriate.
+
+### Latency precedence
+
+No connector call, tracker audit, record write, repository maintenance, or synchronization bookkeeping may delay a live verdict. The required order is:
+
+`READ SYNCHRONIZED EVIDENCE -> RUN MODEL GATES -> VERDICT -> BUFFER -> CONTINUE LIVE ANALYSIS -> MAP END -> AIRTABLE BATCH/VERIFY`
+
+### User screenshot provenance interaction
+
+For this workflow, same-message scoreboard + sportsbook screenshots are presumed synchronized unless there is a substantive game-state contradiction or the user explicitly marks one stale. Bookmaker/header/feed clock differences alone do not justify a sync HOLD.
+
+Logged calibration incident: KT Rolster vs HANJIN BRION Game 2 on 2026-08-26. A false synchronization HOLD delayed the BRO +11.5 @1.998 verdict until the line disappeared. Future handling must trust same-message provenance and avoid tracker/tool work until map end.
