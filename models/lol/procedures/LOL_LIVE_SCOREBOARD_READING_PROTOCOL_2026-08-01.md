@@ -94,3 +94,18 @@ The GX vs SK Game 1 final screenshot was initially misread by carrying forward a
 - SK 1-0 GX Barons.
 
 This is classified as a state-extraction defect. Future reads must explicitly include dragons and Void Grubs whenever displayed.
+
+## 8. User same-message synchronization override — 2026-08-26
+
+**Status:** Active immediately for this project/user workflow and supersedes Section 4 where conflicting.
+
+When the user supplies a scoreboard screenshot and sportsbook/market screenshot in the **same message**, treat them as a synchronized live evidence bundle by default.
+
+- Do **not** reject or delay certification merely because an in-app sportsbook clock, feed clock, capture clock, device status-bar time, or embedded display time differs from the scoreboard clock.
+- For this workflow, bookmaker/header clock differences are not independent evidence of desynchronization.
+- The user's same-message pairing is an explicit provenance signal that the screenshots belong to the same decision state.
+- Only override that synchronization presumption when there is a **substantive state contradiction** that cannot coexist in one decision state, such as incompatible kill score, tower/objective count, map number, team identity, or the user explicitly says one frame is stale/old/expired.
+- When no substantive contradiction exists, immediately run all applicable model gates using the scoreboard as the factual game-state source and the paired sportsbook screenshot as the executable price source.
+- Do not spend live-action time requesting same-state confirmation for a same-message pair.
+
+Logged calibration incident: KT Rolster vs HANJIN BRION Game 2 on 2026-08-26. A valid same-message pair was incorrectly held because the sportsbook header/feed time differed from the scoreboard clock; the delay caused BRO +11.5 @1.998 to disappear before execution. Correct handling is to accept the pair as synchronized and decide immediately.
