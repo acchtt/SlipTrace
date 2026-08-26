@@ -33,10 +33,28 @@ This addendum changes **shadow calibration only**. Official/real-money execution
 
 - Default shadow stake: 0.25u.
 - Actual exposure: 0u.
-- Record the position in Airtable immediately after the verdict; connector work must not delay the verdict.
 - Record the visible opposite-side price as a fade benchmark when available.
 - Reassess open positions position-blind after material state changes.
 
 ## Precedence
 
 For shadow-calibration execution, this addendum overrides older language stating that a TAKE is conditional/unrecorded until separate user confirmation.
+
+## Map-end persistence override — 2026-08-26
+
+**Status:** Active immediately for this project/user workflow and supersedes the earlier requirement to write Airtable immediately after a live TAKE.
+
+A qualified `TAKE` still becomes a model-attributed shadow entry at the instant the verdict is issued, but the physical Airtable write is deferred until the map ends.
+
+During the map:
+
+- retain the exact entry in the live/session buffer;
+- label it `BUFFERED SHADOW POSITION — pending map-end Airtable batch` when persistence status matters;
+- do not call Airtable merely to create or update the entry;
+- do not allow tracker work to delay any subsequent live verdict.
+
+At verified map end, batch-write the position together with the material snapshots, final map state, and settlement, then verify the exact Airtable rows before clearing the buffer.
+
+If the market disappears before a qualified TAKE is actually delivered, no shadow entry exists. Never backfill that line after the fact; record only the process/execution miss at map end when relevant.
+
+For this user's live workflow, same-message scoreboard + sportsbook screenshots are presumed synchronized unless there is a substantive state contradiction or the user explicitly marks a frame stale. Bookmaker/header/feed clock differences alone do not invalidate the pair.
