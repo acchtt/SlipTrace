@@ -1,58 +1,84 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-27-E15-NS-BFX-1547-UTC7`  
+**Lock ID:** `LOL-2026-08-27-E15R1-NS-BFX-G3PLUS-1641-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-27 15:47 UTC+7`  
-**Scope:** `LCK 2026 Play-In — Nongshim RedForce vs BNK FEARX — full BO5 from Game 1 onward`  
-**Supersedes:** `LOL-2026-08-26-E14R2-KT-BRO-G5-1853-UTC7` by new UTC+7 slate boundary  
-**Authority commit:** `7ac5aa001194406da96ad63c5bbabcfc78496940`  
-**Active analytical model:** `LoL v0.3.58`  
+**Effective:** `2026-08-27 16:41 UTC+7`  
+**Scope:** `LCK 2026 Play-In — Nongshim RedForce vs BNK FEARX — Games 3–5 only`  
+**Supersedes:** `LOL-2026-08-27-E15-NS-BFX-1547-UTC7` prospectively from Game 3 onward  
+**Authority commit:** `d63d372503f3c14ee058464ee77d041399de22ca`  
+**Active analytical model:** `LoL v0.3.58 + E15R1 session speed/decay overlay`  
 **Circuit breaker:** `CLEAR`  
 **PDRL:** `ACTIVE`  
 **PML:** `ACTIVE`  
 **KH directional calibration:** `ACTIVE`  
 **Small-H asymmetry calibration:** `ACTIVE`  
+**E15R1 speed/decay overlay:** `ACTIVE`  
 **Actual exposure policy:** `0u`  
 **Default shadow stake:** `0.25u`  
 **Minimum accepted odds:** `1.60`
 
-## Authorization / slate boundary
+## Authorization
 
-This is a new UTC+7 calendar-day slate, so the prior KT-BRO Game-5-only lock is not applicable. Under the active session-governance rule, the Aug-27 LCK slate is frozen prospectively to the current fully bootstrapped authority before any TAKE-eligible decision.
+User authorization on 2026-08-27 after Game 2: **“Ok lets do that for the rest of the series.”**
+
+This authorizes the prospective Game-3-through-Game-5 live speed/opportunity-decay recalibration described in:
+
+`models/lol/procedures/LOL_E15R1_LIVE_SPEED_AND_OPPORTUNITY_DECAY_OVERLAY_2026-08-27.md`
+
+Historical Game 1 and Game 2 verdicts, positions and P/L remain frozen and must not be rewritten.
 
 ## Frozen authority
 
-All model-certified analysis and TAKE execution for this slate must use analytical/procedural files frozen at:
+All model-certified analysis and TAKE execution from Game 3 onward must use analytical/procedural files frozen at:
 
-`7ac5aa001194406da96ad63c5bbabcfc78496940`
+`d63d372503f3c14ee058464ee77d041399de22ca`
 
 LoL v0.3.59 and v0.3.60 remain retired and must not be loaded or blended.
 
-## Standing execution controls
+## E15R1 execution override
+
+For Games 3–5 only, the hard live `2SNAP` requirement for ML/KH/TK is replaced by **two independent evidence points**.
+
+A certified exact-role professional draft mechanism may count as evidence point 1 when DIM + PDRL + PML pass and the causal mechanism/break condition are explicit. The first meaningful synchronized live snapshot may count as point 2 when it directly confirms that mechanism. No immediate-postdraft TAKE is allowed.
+
+If draft evidence is weak/ambiguous/contradicted, two usable synchronized live snapshots remain the default path.
+
+HOLD is temporary and must resolve on the next meaningful snapshot/objective/contact cycle or material reprice.
+
+Opportunity decay is active:
+
+- preferred causal entry window roughly 8–20 minutes;
+- 20–24 minutes normal but terminal-event scan required;
+- 24–27 minutes: materially stronger edge plus +3pp late-entry buffer where probability pricing applies;
+- >=27 minutes: new TK/Duration presumptive PASS unless exceptional/non-terminal; ML/KH require +5pp buffer and CLEAR non-fragile mechanism.
+
+Mechanism realization may outweigh isolated dragon/tower counters when causally coherent. Lead concentration remains decomposed but a fed role is not automatically discounted if it is the demonstrated conversion engine. Favorite -H may qualify earlier from forward signed-margin distribution rather than waiting for current margin to approach H.
+
+## Standing controls retained
 
 - Official betting remains paused; shadow only.
-- Pregame/immediate-postdraft ML/KH/TK TAKEs disabled.
-- Live ML/KH/TK require two usable synchronized live snapshots.
+- Minimum odds 1.60.
+- No pregame/immediate-postdraft ML/KH/TK TAKE.
 - Same-message user scoreboard + bookmaker screenshot pairs are presumed synchronized unless underlying game state materially contradicts.
 - Ignore bookmaker/header/device clock differences alone for synchronization.
-- No Airtable calls merely to log live frames or TAKES mid-map; buffer during a map and batch-write/exact-verify at map end.
-- Position-blind reassessment remains mandatory.
-- Exact signed kill-margin arithmetic remains mandatory.
-- PDRL + PML are mandatory for this professional Fearless series.
-- Fearless archetype inventory must carry forward game to game.
+- Position-blind reassessment mandatory.
+- Exact signed kill-margin arithmetic mandatory.
+- KH side-neutral distribution/sign-after-distribution remains mandatory.
+- No automatic underdog +kills selection.
+- DOVC / FCR / FRP remain mandatory where applicable.
+- Same-map maximum one TAKE per market family.
+- Greyed/stale markets non-executable.
+- No rescue, martingale, chasing, or stake escalation.
+- No Airtable calls merely to log live frames or TAKES mid-map; buffer and batch-write/exact-verify at map end.
+- Visible live verdict must be first and compact; deeper checks remain internal.
 
-## Series state at lock creation
+## Series state at E15R1 activation
 
-User has supplied Game 1 final:
+Series: `NS 1–1 BFX`.
 
-`27:53 | NS 27-8 BFX | towers NS 9-2 | dragons NS 3-1 | Baron NS 1-0 | inhibitors NS 1-0`
+Game 1: NS won 27–8 in 27:53; no position.
 
-Game 1 draft from the supplied final scoreboard:
-
-- BFX: Jayce / Lee Sin / Galio / Caitlyn / Bard
-- NS: Camille / Jarvan IV / Orianna / Jhin / Shen
-
-No Game 1 shadow position was issued in this chat. Historical Game 1 position count therefore remains 0 unless original contemporaneous evidence elsewhere proves otherwise.
+Game 2: BFX won 27–12 in 30:55. Shadow Total Kills OVER 39.5 @2.086 entered at 24:40 lost on final total 39; P/L -0.25u. This remains a valid model loss and is not reclassified.
 
 ## Continuation / bootstrap requirement
 
@@ -60,9 +86,10 @@ Every continuation/new chat must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-27-E15-NS-BFX-1547-UTC7`;
-4. re-fetch `CURRENT_MODEL.md` at authority commit `7ac5aa001194406da96ad63c5bbabcfc78496940`;
+3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-27-E15R1-NS-BFX-G3PLUS-1641-UTC7`;
+4. re-fetch `CURRENT_MODEL.md` at authority commit `d63d372503f3c14ee058464ee77d041399de22ca`;
 5. follow its exact required load order at that commit;
-6. load the latest applicable NS-BFX live handoff last.
+6. after the canonical frozen stack, explicitly load `models/lol/procedures/LOL_E15R1_LIVE_SPEED_AND_OPPORTUNITY_DECAY_OVERLAY_2026-08-27.md` at the same authority commit;
+7. load the latest applicable NS-BFX live handoff last.
 
 If the lock/authority cannot be matched, use `MODEL LOCK MISMATCH — HOLD`.
