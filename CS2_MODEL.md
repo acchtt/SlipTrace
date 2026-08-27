@@ -1,7 +1,7 @@
 # SlipTrace CS2 Shadow Model
 
-Effective: 2026-08-22
-Current version: **v1.3**
+Effective: 2026-08-27
+Current version: **v1.4**
 
 Purpose: define the durable CS2 decision model used for shadow testing. Official placed wagers remain separate from this model and are not written to `ledger.json` unless the user explicitly confirms a real wager and authorizes the ledger write.
 
@@ -172,6 +172,38 @@ A live selection counts only when the exact state and offered odds were observed
 ### 14. Separate live performance audit
 
 Track live shadow W/L, units and ROI separately from pre-pistol shadow results as well as in the combined test record. This prevents a profitable pre-pistol process from masking poor live entries, or vice versa.
+
+## v1.4 calibration changes
+
+Introduced on 2026-08-27 after two similar underdog map-handicap failures: Legacy +1.5 vs Spirit and paiN +1.5 vs FURIA. M80-NAVI is the counterexample used to avoid overcorrecting against all underdogs.
+
+### 15. Handicap-market disagreement sanity check
+
+Apply a dedicated market sanity check to BO3 map handicaps, not only series ML.
+
+If the model differs from the market by roughly **8 percentage points or more** on underdog +1.5 cover probability, or by roughly **10 percentage points or more** on favorite 2-0 probability, require at least two independent structural reasons before approving the handicap. At least one reason must be current-lineup map-quality evidence against comparable opposition, not merely veto ownership or a small-sample win rate.
+
+If that evidence is absent, shrink toward the market or PASS. Legacy +1.5 vs Spirit and paiN +1.5 vs FURIA are the reference failures.
+
+### 16. Elite-favorite map-steal proof standard
+
+Against a stable elite/top-tier favorite, do not price an underdog above 50% to take at least one map merely because:
+- the underdog receives its preferred pick;
+- the favorite chooses a volatile or low-sample map;
+- the decider appears playable;
+- recent underdog map form comes mostly from weaker opposition.
+
+To justify an aggressive +1.5 position, require evidence that the underdog has at least one genuinely strong map-win route against **multiple comparable top-tier opponents**, or two independent maps that each project competitively after explicitly pricing the favorite's steal chance.
+
+For the underdog's own pick, a model probability above roughly **55%** should normally require demonstrated current-lineup quality against strong opposition rather than pick ownership alone.
+
+### 17. Favorite-stability modifier
+
+Do not apply the elite-favorite restraint blindly. First classify the favorite's current map floor.
+
+When the favorite is unstable — weak recent map conversion, lineup disruption, repeated losses on its own picks, or a shallow current-map sample — an underdog may still receive a large veto upgrade if it has two independent routes. NAVI-M80 is the reference counterexample: M80 had a deliberate comfort pick plus a genuinely playable decider against a NAVI side with an unstable current map floor.
+
+When the favorite is stable and elite across multiple maps, raise its steal probability on the underdog's pick and its independent 2-0 term before considering +1.5 value.
 
 ## Market rules
 
