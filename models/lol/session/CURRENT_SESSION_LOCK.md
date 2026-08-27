@@ -54,6 +54,27 @@ Opportunity decay is active:
 
 Mechanism realization may outweigh isolated dragon/tower counters when causally coherent. Lead concentration remains decomposed but a fed role is not automatically discounted if it is the demonstrated conversion engine. Favorite -H may qualify earlier from forward signed-margin distribution rather than waiting for current margin to approach H.
 
+## User line-existence confirmation gate — ACTIVE
+
+User instruction on 2026-08-27: **“from now on only log the bet when i confirm it still exists.”**
+
+This is a hard execution/logging rule and must be carried into successor LoL session locks unless the user explicitly revokes it.
+
+- A visible model verdict `TAKE` is an analytical/execution candidate only until the user explicitly confirms that the quoted market/line/odds still exist and are executable.
+- Do **not** create an Airtable `Positions` record merely because a TAKE verdict was issued.
+- Do **not** count the candidate in bet history, W/L, or P/L unless the user confirms availability/existence at or after the verdict.
+- User confirmation may be concise, e.g. `exists`, `still there`, `taken`, `yes`, or an updated screenshot clearly showing the same executable line/odds; ambiguity fails closed to unconfirmed.
+- If the user reports the line moved/disappeared or does not confirm it before the market is no longer executable, record no position. The analytical TAKE may remain in snapshot/audit evidence as an unexecuted candidate, but it is not a bet.
+- If the user confirms the market still exists but the price/line has materially changed, reassess the new executable price/line before logging; confirmation of a different market is not confirmation of the original candidate.
+- For this series, live Airtable writes remain map-end batched. At map end, only user-confirmed executable TAKES may be written to `Positions`.
+- This gate changes execution/logging only. It does not relax or tighten analytical TAKE certification.
+
+Required execution state for every visible TAKE candidate:
+
+`USER_LINE_CONFIRMATION = PENDING / CONFIRMED / FAILED`
+
+Only `CONFIRMED` permits Position logging and P/L settlement.
+
 ## Standing controls retained
 
 - Official betting remains paused; shadow only.
@@ -90,6 +111,7 @@ Every continuation/new chat must:
 4. re-fetch `CURRENT_MODEL.md` at authority commit `d63d372503f3c14ee058464ee77d041399de22ca`;
 5. follow its exact required load order at that commit;
 6. after the canonical frozen stack, explicitly load `models/lol/procedures/LOL_E15R1_LIVE_SPEED_AND_OPPORTUNITY_DECAY_OVERLAY_2026-08-27.md` at the same authority commit;
-7. load the latest applicable NS-BFX live handoff last.
+7. apply the active `User line-existence confirmation gate` from this mutable lock before any Position logging;
+8. load the latest applicable NS-BFX live handoff last.
 
 If the lock/authority cannot be matched, use `MODEL LOCK MISMATCH — HOLD`.
