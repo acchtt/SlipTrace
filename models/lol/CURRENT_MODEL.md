@@ -263,7 +263,7 @@ TK Under retains FRP.
 
 ### 8.7 KH speed calibration is NOT loosened
 
-KH retains the side-neutral signed final-margin distribution, two usable live-state requirement, sign-after-distribution, WMS, cover-before-close, cushion/asymmetry, and all sign-specific downstream gates. Do not move from unresolved ML into KH simply because the displayed price is larger.
+KH retains the side-neutral signed final-margin distribution, two usable live-state requirement, sign-after-distribution, WMS, cover-before-close, cushion/asymmetry, and all sign-specific downstream gates. Do not move from unresolved ML into KH simply because the handicap price is larger.
 
 ### 8.8 User line-existence confirmation gate
 
@@ -280,6 +280,55 @@ Required execution state:
 
 This gate is prospective and must carry into successor LoL session locks unless explicitly revoked by the user.
 
+## 9. Live ML structural context + regime-flip repair — ACTIVE
+
+User authorization on 2026-08-28 during EDG–NIP after Game 1: **“Adjust the model now.”**
+
+This is an explicit mid-series analytical relock authorization for Games 2+ and does not rewrite Game 1.
+
+Mandatory:
+`models/lol/procedures/LOL_ML_STRUCTURAL_CONTEXT_AND_REGIME_FLIP_REPAIR_2026-08-28.md`
+
+Reference review:
+`models/lol/reviews/EDG_NIP_G1_ML_STRUCTURAL_CONTEXT_REVIEW_2026-08-28.md`
+
+### 9.1 Towers/structures are context by default
+
+Raw tower count, tower differential, first tower and tower gold are descriptive context unless a complete Structural Causality Map shows how the structure state changes forward control.
+
+Classify:
+`TOWER_STATE_CLASS = CONTEXT_ONLY / CAUSAL_CONTROL / TERMINAL_CONTROL / N-A`.
+
+`CONTEXT_ONLY` cannot independently satisfy ML evidence count, CFC_CURRENT, regime persistence, DPS break, or a regime flip.
+
+Positive structural evidence requires:
+`STRUCTURE_CHANGE -> FORWARD_MAP_EFFECT -> NEXT_CYCLE_EFFECT -> COMPOSITION_EXPLOITABILITY`.
+
+### 9.2 Objective-schedule offset
+
+When the opponent owns a material compulsory objective schedule such as 3 dragons / Soul point, a tower lead may offset that disadvantage only if the structure state demonstrably changes next-objective first move, vision entry, side-lane numbers/timing, cross-map terminal threat, or equivalent control.
+
+Resolve:
+`OBJECTIVE_SCHEDULE_OFFSET = PASS / FAIL / N-A`.
+
+A tower lead that merely coexists with the opponent's Soul-point schedule is not evidence that the objective-control deficit has been repaired.
+
+### 9.3 Same-side PASS -> TAKE requires causal repair
+
+If the same ML side was previously `PASS`, record:
+`PRIOR_PASS_CAUSE`.
+
+A later same-side TAKE requires:
+`PASS_CAUSE_REPAIR = REPAIRED / SUPERSEDED` and `REGIME_FLIP_DELTA = PASS`.
+
+- `REPAIRED`: the exact earlier rejection mechanism materially changed.
+- `SUPERSEDED`: a genuinely new causal thesis now dominates the next compulsory cycles, with explicit `NEW_CAUSAL_THESIS | NEW_EVIDENCE | WHY_OLD_PASS_CAUSE_NO_LONGER_DOMINATES`.
+- raw tower differential, duplicated gold, kill score, or market movement cannot by themselves repair or supersede the prior PASS cause.
+- `PASS_CAUSE_REPAIR = FAIL/UNRESOLVED` or `REGIME_FLIP_DELTA = FAIL/UNRESOLVED` => TAKE forbidden.
+
+For applicable ML TAKES persist:
+`ML_STRUCT[TOWER=...;SC=...;OSO=...;PPC=...;PCR=...;RFD=...]`.
+
 ---
 
 # Active operational governance
@@ -290,6 +339,8 @@ This gate is prospective and must carry into successor LoL session locks unless 
 - Pregame/immediate-postdraft ML/KH/TK TAKEs remain disabled.
 - Market triage defaults to ML first.
 - Ordinary live ML uses the two-independent-evidence path in section 8; contrary CLEAR/STRONG draft ML still requires full LRO.
+- Live ML tower/structure evidence is context-only unless section 9 Structural Causality passes.
+- A same-side Live ML `PASS -> TAKE` transition requires `PASS_CAUSE_REPAIR` plus `REGIME_FLIP_DELTA` under section 9.
 - Live KH requires two usable synchronized live states plus the complete KHMC/downstream stack.
 - TK Over requires two distinct observed contact realizations/cycles; TK Under retains FRP and existing live-state requirements.
 - Same-map maximum one accepted TAKE per market family: ML / Kill Handicap / Total Kills / Duration.
@@ -338,6 +389,7 @@ This gate is prospective and must carry into successor LoL session locks unless 
 - `models/lol/procedures/LOL_DURATION_OVER_AND_UNDERDOG_PLUSKILLS_EXECUTION_HARDENING_2026-08-23.md`
 - `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
 - `models/lol/procedures/LOL_POST_NS_BFX_MARKET_PRIORITY_AND_EXECUTION_CALIBRATION_2026-08-27.md`
+- `models/lol/procedures/LOL_ML_STRUCTURAL_CONTEXT_AND_REGIME_FLIP_REPAIR_2026-08-28.md`
 - `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`, subject to the newer user-confirmation gate above
 
 ---
@@ -375,19 +427,20 @@ A live slate runs against one frozen analytical authority commit.
 18. `models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
 19. `models/lol/procedures/LOL_SCREENSHOT_SYNC_AND_WORKLOAD_CONTEXT_2026-08-25.md`
 20. `models/lol/procedures/LOL_POST_NS_BFX_MARKET_PRIORITY_AND_EXECUTION_CALIBRATION_2026-08-27.md`
-21. `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md`
-22. `models/lol/procedures/LOL_PRE_TAKE_CERT_KH_MARGIN_EXTENSION_2026-08-25.md`
-23. `models/lol/procedures/LOL_PRE_TAKE_CERT_AFTERNOON_CALIBRATION_EXTENSION_2026-08-25.md`
-24. `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
-25. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
-26. retained reviews/procedures relevant to canonical v0.3.58, including the 2026-08-23 session review, 2026-08-25 KH directional review, 2026-08-25 KRXC-BFXY afternoon review, and `models/lol/reviews/NS_BFX_2026-08-27_SERIES_CALIBRATION_REVIEW.md`
-27. item-verification suspension
-28. v0.3.25 consolidated rules / probation / calibration handbook
-29. live fast path and main betting procedure
-30. connected-stack procedure and addenda
-31. scoreboard protocol
-32. shared stake policy
-33. latest applicable live handoff last, with CURRENT_MODEL + frozen lock authority winning conflicts
+21. `models/lol/procedures/LOL_ML_STRUCTURAL_CONTEXT_AND_REGIME_FLIP_REPAIR_2026-08-28.md`
+22. `models/lol/procedures/LOL_PRE_TAKE_CERT_MECHANICAL_VALIDATOR_2026-08-23.md`
+23. `models/lol/procedures/LOL_PRE_TAKE_CERT_KH_MARGIN_EXTENSION_2026-08-25.md`
+24. `models/lol/procedures/LOL_PRE_TAKE_CERT_AFTERNOON_CALIBRATION_EXTENSION_2026-08-25.md`
+25. `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+26. `models/lol/procedures/LOL_AIRTABLE_POST_VERDICT_LOGGING_INTEGRITY_2026-08-16.md`
+27. retained reviews/procedures relevant to canonical v0.3.58, including the 2026-08-23 session review, 2026-08-25 KH directional review, 2026-08-25 KRXC-BFXY afternoon review, `models/lol/reviews/NS_BFX_2026-08-27_SERIES_CALIBRATION_REVIEW.md`, and `models/lol/reviews/EDG_NIP_G1_ML_STRUCTURAL_CONTEXT_REVIEW_2026-08-28.md`
+28. item-verification suspension
+29. v0.3.25 consolidated rules / probation / calibration handbook
+30. live fast path and main betting procedure
+31. connected-stack procedure and addenda
+32. scoreboard protocol
+33. shared stake policy
+34. latest applicable live handoff last, with CURRENT_MODEL + frozen lock authority winning conflicts
 
 **Do not load v0.3.59 or v0.3.60 rule files in the active stack.**
 
