@@ -1,62 +1,88 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-27-E15R1-NS-BFX-G3PLUS-1641-UTC7`  
-**Status:** `CLOSED`  
-**Effective:** `2026-08-27 16:41 UTC+7`  
-**Closed:** `2026-08-27 after Game 4 / series completion`  
-**Scope:** `LCK 2026 Play-In — Nongshim RedForce vs BNK FEARX — Games 3–5 only`  
-**Superseded lock:** `LOL-2026-08-27-E15-NS-BFX-1547-UTC7`  
-**Frozen authority commit:** `d63d372503f3c14ee058464ee77d041399de22ca`  
-**Historical analytical model:** `LoL v0.3.58 + E15R1 session speed/decay overlay`  
-**Circuit breaker at close:** `CLEAR`  
-**Actual exposure:** `0u`
+**Lock ID:** `LOL-2026-08-28-E16-EDG-NIP-1311-UTC7`  
+**Status:** `ACTIVE`  
+**Effective:** `2026-08-28 13:11 UTC+7`  
+**Scope:** `LPL 2026 Split 3 — Knights' Rivals — EDward Gaming vs Ninjas in Pyjamas — BO5`  
+**Authority commit:** `a1039d980cdec8d96f4ffafdfb185c58eabb7c23`  
+**Active analytical model:** `LoL v0.3.58 + post-NS-BFX market-priority/execution calibration`  
+**Circuit breaker:** `CLEAR`  
+**PDRL:** `ACTIVE`  
+**PML:** `ACTIVE`  
+**KH directional calibration:** `ACTIVE`  
+**Small-H asymmetry calibration:** `ACTIVE`  
+**Post-NS-BFX calibration:** `ACTIVE`  
+**Actual exposure policy:** `0u`  
+**Default shadow stake:** `0.25u`  
+**Minimum accepted odds:** `1.60`
 
-## Final series state
+## Authorization
 
-BNK FEARX defeated Nongshim RedForce **3–1**.
+User instruction on 2026-08-28 UTC+7: **“Lock lpl match.”**
 
-- Game 1: NS won 27–8 in 27:53; no position.
-- Game 2: BFX won 27–12 in 30:55; confirmed/logged TK Over 39.5 @2.086 lost, -0.25u.
-- Game 3: NS lost 10–18; TK Over 29.5 @1.863 was logged under the authority then in force and lost, -0.25u.
-- Game 4: BFX won; BFX ML @2.943 was explicitly user-confirmed as still available before acceptance and won, +0.48575u.
+The active match is EDward Gaming vs Ninjas in Pyjamas in the LPL 2026 Split 3 Knights' Rivals BO5. This lock is established before any TAKE-eligible decision for the series.
 
-Series shadow P/L from the logged positions above: `-0.01425u`. Actual exposure remained `0u`.
+## Frozen authority
 
-## Historical E15R1 authority
+All model-certified analysis and TAKE execution for this EDG–NIP slate must use analytical/procedural files frozen at:
 
-Games 3–4 were governed by the frozen authority commit:
-`d63d372503f3c14ee058464ee77d041399de22ca`
+`a1039d980cdec8d96f4ffafdfb185c58eabb7c23`
 
-Historical verdicts and P/L remain frozen under that authority and must not be rewritten by subsequent calibration.
+LoL v0.3.59 and v0.3.60 remain retired/discarded and must not be loaded or blended.
 
-## User line-existence confirmation gate — carried forward
-
-User instruction on 2026-08-27:
-**“from now on only log the bet when i confirm it still exists.”**
-
-This execution rule is now canonicalized prospectively in:
-`models/lol/procedures/LOL_POST_NS_BFX_MARKET_PRIORITY_AND_EXECUTION_CALIBRATION_2026-08-27.md`
-
-Future session locks must retain it unless explicitly revoked by the user.
-
-## Post-series canonical calibration
-
-After series completion the user instructed:
-**“Adjust the model accordingly.”**
-
-The prospective calibration is active on the default branch through:
+Canonical post-NS-BFX calibration is included in the frozen authority through:
 
 - `models/lol/CURRENT_MODEL.md`
 - `models/lol/procedures/LOL_POST_NS_BFX_MARKET_PRIORITY_AND_EXECUTION_CALIBRATION_2026-08-27.md`
 - `models/lol/reviews/NS_BFX_2026-08-27_SERIES_CALIBRATION_REVIEW.md`
 
-Canonical model activation commit containing the new amendment:
-`8480902c6b9d664bccfdbd9cc92f242b16c5c6cf`
+## Active execution controls
 
-A future slate must establish a new ACTIVE lock from current default-branch authority before any TAKE-eligible decision.
+- Market triage at each meaningful synchronized state: `ML -> Kill Handicap -> Total Kills -> Duration`.
+- Ordinary live ML may use two causally independent evidence points under the post-NS-BFX calibration; contrary CLEAR/STRONG draft ML still requires full retained LRO.
+- HOLD expires on the next meaningful synchronized state / major objective-contact-conversion cycle / material reprice.
+- Role-weighted economy, facilitator/carry leverage and mechanism realization outrank raw kill score alone.
+- Opportunity decay is active; late terminal-event-sensitive entries require stronger buffers and one-more-fight/one-clean-end boundary bets must PASS.
+- TK Over requires at least two distinct observed contact realizations/cycles with recurrence persistence; draft contact inventory + one live event is insufficient.
+- KH remains on the full side-neutral distribution / sign-after-distribution / two-live-state stack; KH speed rules are not loosened.
+- Same-message user scoreboard + bookmaker screenshots are presumed synchronized unless underlying game state materially contradicts.
+- Ignore bookmaker/header/device clock differences alone for synchronization.
+- Position-blind reassessment mandatory.
+- Exact signed kill-margin arithmetic mandatory.
+- Greyed/stale markets non-executable.
+- Same-map maximum one accepted TAKE per market family.
+- No rescue, martingale, chasing or stake escalation.
 
-## Continuation requirement
+## User line-existence confirmation gate — ACTIVE
 
-Because this lock is CLOSED, new sessions must bootstrap from default-branch `CURRENT_MODEL.md`, load the bootstrap procedure, observe this closed historical lock, and create a fresh session lock for the next live slate before issuing a TAKE.
+User standing instruction from 2026-08-27: **“from now on only log the bet when i confirm it still exists.”**
 
-Do not freeze future analysis to this closed lock's historical authority commit.
+- A visible `TAKE` is an analytical candidate only until the user explicitly confirms that the quoted market/line/odds still exist and are executable.
+- Required state: `USER_LINE_CONFIRMATION = PENDING / CONFIRMED / FAILED`.
+- `PENDING`: no Position record, no W/L, no P/L.
+- `CONFIRMED`: may become an accepted shadow Position.
+- `FAILED`: no Position exists.
+- A materially changed price/line must be reassessed before acceptance.
+
+## Airtable workflow
+
+Retain the user-approved low-latency live workflow:
+
+- do not call Airtable merely to log live frames or TAKE candidates mid-map;
+- buffer synchronized evidence during the map;
+- only user-confirmed accepted TAKES may become Positions;
+- batch-write and exact-verify map/snapshots/confirmed Positions at map end.
+
+## Bootstrap / continuation requirement
+
+Every continuation/new chat must:
+
+1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
+2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
+3. fetch this `models/lol/session/CURRENT_SESSION_LOCK.md` and verify lock `LOL-2026-08-28-E16-EDG-NIP-1311-UTC7`;
+4. re-fetch `CURRENT_MODEL.md` at authority commit `a1039d980cdec8d96f4ffafdfb185c58eabb7c23`;
+5. follow its exact required load order at that same commit;
+6. explicitly load `models/lol/procedures/LOL_POST_NS_BFX_MARKET_PRIORITY_AND_EXECUTION_CALIBRATION_2026-08-27.md` and all pro-play PRE_TAKE extensions at the same commit;
+7. load the latest applicable EDG–NIP live handoff last if one exists.
+
+If the lock/authority cannot be matched, use `MODEL LOCK MISMATCH — HOLD`.
