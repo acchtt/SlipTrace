@@ -9,30 +9,66 @@
 - Match: `T1 vs BNK FEARX`
 - Format: `Bo5 Fearless Draft`
 - Current series score: `T1 1-1 BNK FEARX`
-- Game 1 winner: `T1`
-- Game 1 final duration: `33:09`
-- Game 1 final kills: `T1 25-8 BNK FEARX`
-- Game 2 winner: `BNK FEARX`
-- Game 2 final duration: `29:07`
-- Game 2 final kills: `BNK FEARX 22-4 T1`
-- Game 2 final macro: `BFX 9-1 towers, 3-1 dragons, 1-0 barons, 1-0 inhibitors`
+- Game 1: `T1 win, 25-8, 33:09`
+- Game 2: `BNK FEARX win, 22-4, 29:07`
+- Game 2 macro: `BFX 9-1 towers, 3-1 dragons, 1-0 barons, 1-0 inhibitors`
 
-## Active model state
+## Active model state — prospective from Game 3
 
-- Model: `LoL v1.1 — Moneyline + Duration Core`
-- Active lock: `LOL-2026-08-29-V11-T1-BFX-1429-UTC7`
-- Frozen authority commit: `f2ee41755508a9286c9a6cb45acacf57dcbe974e`
+- Model: `LoL v1.2 — Strength-Prior Moneyline + Duration Core`
+- Active lock: `LOL-2026-08-29-V12-T1-BFX-G3-1650-UTC7`
+- Frozen authority commit: `18a5c9c6e6e2a7efe820b6da3f0269d2e8e1e18f`
 - Circuit breaker: `CLEAR`
 - Active markets: `Moneyline + Duration Over/Under`
 - Kill Handicap: `RETIRED_FROM_BETTING`
 - Total Kills: `RETIRED_FROM_BETTING`
-- Actual exposure policy: `0u`
-- Default shadow stake: `0.25u`
+- Actual exposure: `0u`
+- Shadow stake: `0.25u`
 - Minimum odds: `1.60`
-- ML required edge: `+5.0pp`
-- Duration required edge: `+7.5pp`
-- Exact live user confirmation gate: `ACTIVE`
-- Accepted v1.1 samples after G2: `ML_SAMPLE_N=0; DURATION_SAMPLE_N=0`
+- ML edge: `+5.0pp`
+- Duration edge: `+7.5pp`
+- Exact live confirmation gate: `ACTIVE`
+- v1.2 accepted samples: `ML_SAMPLE_N=0; DURATION_SAMPLE_N=0`
+
+## v1.2 Moneyline strength prior for this series
+
+Reconstructed only from evidence available before Game 1; sportsbook price and Games 1-2 results were excluded.
+
+From BFX perspective:
+
+`K=-1`
+`P0(BFX)=40%`
+
+From T1 perspective:
+
+`K=+1`
+`P0(T1)=60%`
+
+Basis: T1 had the stronger established top-level baseline/direct playoff path; BFX had enough recent official same-league wins and successful Play-In form that the gap is meaningful but not the maximum tier.
+
+Freeze this `K/P0` for the remainder of the series unless a genuine roster/availability change occurs.
+
+Moneyline probability from Team A perspective:
+
+`S=1.0*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
+
+`P(A)=clamp(P0(A)+3*S pp,15%,85%)`
+
+Price may not choose or modify `K`.
+
+## Duration
+
+Duration is unchanged from v1.1:
+
+`R0=max(5.0,31.0-t)`
+
+`ER=max(2.0,R0-1.5*V+1.0*Q+1.0*H+0.75*T)`
+
+`F=t+ER`
+
+`P(OVER)=clamp(50%+7*(F-L) pp,15%,85%)`
+
+Absent conversion opportunity remains neutral.
 
 ## Fearless consumption through Game 2
 
@@ -66,73 +102,47 @@ Game 2:
 - `Ezreal`
 - `Seraphine`
 
-Treat all twenty champions as consumed for Game 3 draft analysis subject to the exact tournament Fearless rules already resolved for this series.
+Treat all twenty champions as consumed for Game 3 draft analysis subject to the exact tournament Fearless rules.
 
-## Game 1 decision / ledger state
+## Game 1 ledger boundary
 
-At the synchronized 11:32 window two live TAKE CANDIDATEs were issued:
+At the synchronized 11:32 v1.1 window:
 
-1. `BFX ML @4.960`
-   - model probability `35.0%`
-   - raw implied `20.16%`
-   - edge `+14.84pp`
-   - final result `LOSS`
+1. `BFX ML @4.960` — v1.1 candidate, final LOSS.
+2. `Over 31 @1.883` — v1.1 candidate, final WIN at 33:09.
 
-2. `Over 31 @1.883`
-   - locked `F=33.0m`
-   - model Over probability `64.0%`
-   - raw implied `53.11%`
-   - edge `+10.89pp`
-   - final result `WIN` at `33:09`
+The user forgot live confirmation. After the result, both were saved as retroactive user-designated Airtable ledger Positions outside validation:
 
-The user forgot to confirm while the decision window was live. After the final result, the user explicitly requested both be saved in Airtable. They are stored as **retroactive user-designated ledger Positions outside the v1.1 validation sample** with `0.25u` shadow stake and `0u` actual exposure:
+- BFX ML: `-0.25u`
+- Over 31: `+0.22075u`
+- combined retro ledger: `-0.02925u`
+- actual exposure: `0u`
 
-- BFX ML P/L: `-0.25u`
-- Over 31 P/L: `+0.22075u`
-- combined retro ledger P/L: `-0.02925u`
+They do not increment any accepted validation sample.
 
-They do **not** increment `ML_SAMPLE_N` or `DURATION_SAMPLE_N`.
-
-## Game 2 draft and decision record
-
-Side assignment:
-- `BNK FEARX Blue`
-- `T1 Red`
+## Game 2 model boundary
 
 Draft:
-- BNK FEARX: `Rumble / Pantheon / Ahri / Zeri / Yuumi`
+- BFX: `Rumble / Pantheon / Ahri / Zeri / Yuumi`
 - T1: `Ornn / Nocturne / Akali / Ezreal / Seraphine`
 
-Draft-only prior issued: `T1 slight`.
+Draft prior: `T1 slight`.
 
-Important ML architecture issue identified before later live checkpoints:
-- active v1.1 Moneyline has no explicit persistent team-strength prior;
-- draft-only probability must not be treated as a full pregame team win probability;
-- in T1 vs BFX this omission can mechanically overstate BFX when live state is favorable;
-- therefore G2 ML was held rather than certifying a candidate even when the frozen formula mechanically cleared edge;
-- this is a mechanical architecture concern for a future revision, not a mid-series silent model mutation.
-
-G2 live checkpoints:
-- ~04:15: BFX +932g, 1-0 kills; ML held, Duration pass/hold.
-- ~10:05: BFX +828g, 2-0 kills, T1 first dragon; frozen ML formula mechanically favored BFX but certification was withheld due identified team-strength-prior defect; Duration line 32 was PASS.
-
-Final:
-- BNK FEARX won `22-4` in `29:07`.
-- Towers `9-1`, dragons `3-1`, barons `1-0`, inhibitors `1-0` for BFX.
-- No accepted v1.1 Position in Game 2.
-- Airtable map record: `LCK-2026-08-29-T1-BFX-G2`.
+The missing team-strength prior was identified during Game 2 and ML certification was withheld rather than silently mutating v1.1. No accepted Game 2 Position was created. Game 2 remains historical v1.1 evidence and is not relabeled v1.2.
 
 ## Game 3 preparation
 
-1. Series is tied `1-1`.
-2. Resolve Game 3 Blue/Red side assignment.
-3. Apply all twenty consumed champions from Games 1-2.
-4. Resolve exact five/roles if any lineup changes appear.
-5. Produce compact draft prior plus concrete win mechanisms only; no immediate-postdraft TAKE.
-6. For ML, continue under frozen v1.1 authority; do not silently add a team-strength variable mid-series. Because the missing team-strength prior has been identified as a mechanical defect, fail closed on any ML candidate whose qualification materially depends on treating the draft/live formula as the complete matchup prior.
-7. Duration remains active under the frozen v1.1 Duration Core.
-8. Wait for synchronized live state plus executable ML/Duration market.
-9. A TAKE CANDIDATE becomes a Position only after exact user confirmation before material live state change.
+1. Series tied `1-1`.
+2. Resolve Game 3 Blue/Red side.
+3. Apply all twenty consumed champions.
+4. Resolve exact five/roles if lineup changes appear.
+5. Use frozen series strength prior: `BFX K=-1 / P0=40%`, `T1 K=+1 / P0=60%`.
+6. Grade compact map-specific draft prior separately from team strength.
+7. No pregame/immediate-postdraft betting TAKE.
+8. Wait for synchronized live state + executable ML/Duration market.
+9. ML: lock `K/P0`, then score `D/R/X/O/T` price-blind, calculate probability, then read price.
+10. Duration: score `V/Q/H/T`, lock `F`, then read line/price.
+11. TAKE CANDIDATE only through its family threshold; accepted Position only after exact live user confirmation before material state change.
 
 ## Bootstrap next continuation
 
@@ -141,8 +151,8 @@ Every new continuation must:
 1. Fetch default-branch `models/lol/CURRENT_MODEL.md`.
 2. Immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`.
 3. Fetch mutable `models/lol/session/CURRENT_SESSION_LOCK.md`.
-4. Verify lock `LOL-2026-08-29-V11-T1-BFX-1429-UTC7` and authority `f2ee41755508a9286c9a6cb45acacf57dcbe974e`.
+4. Verify lock `LOL-2026-08-29-V12-T1-BFX-G3-1650-UTC7` and authority `18a5c9c6e6e2a7efe820b6da3f0269d2e8e1e18f`.
 5. Re-fetch locked `CURRENT_MODEL.md` at that authority commit.
-6. Load the exact v1.1 stack in locked CURRENT_MODEL order.
+6. Load the exact v1.2 stack in locked CURRENT_MODEL order.
 7. Use Airtable only as canonical map/snapshot/position ledger.
 8. Load this or a newer T1-BFX handoff last.
