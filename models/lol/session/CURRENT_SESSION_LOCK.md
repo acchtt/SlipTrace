@@ -1,10 +1,10 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-29-V1-ML-1341-UTC7`  
+**Lock ID:** `LOL-2026-08-29-V1-T1-BFX-1352-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-29 13:41 UTC+7`  
-**Scope:** `LoL v1.0 — Moneyline Core initial validation epoch; no specific live series selected`  
-**Supersedes:** `LOL-2026-08-28-E18-TH-SHFT-2159-UTC7` prospectively  
+**Effective:** `2026-08-29 13:52 UTC+7`  
+**Scope:** `LCK 2026 Playoffs — Upper Bracket Round 1 — T1 vs BNK FEARX — Bo5 Fearless Draft — scheduled 2026-08-29 15:00 UTC+7 / 17:00 KST`  
+**Supersedes:** `LOL-2026-08-29-V1-ML-1341-UTC7` prospectively  
 **Authority commit:** `1be61970a3b586fd173479a4e591cfe391e03f0f`  
 **Active analytical model:** `LoL v1.0 — Moneyline Core`  
 **Active betting market:** `Moneyline only`  
@@ -16,17 +16,27 @@
 **Default shadow stake:** `0.25u`  
 **Minimum accepted odds:** `1.60`  
 **Required model edge:** `+5.0pp vs raw book implied probability`  
-**Validation sample:** `0 confirmed v1.0 Moneyline Positions at lock creation; review floor 20, preferred 30`
+**Validation sample:** `0 confirmed v1.0 Moneyline Positions at series-lock creation; review floor 20, preferred 30`
 
-## Authorization
+## Series authority
 
-The user explicitly authorized a **new major model generation** on 2026-08-29 UTC+7 and requested a clean rebuild from first principles as **LoL v1.0 — Moneyline Core**.
+This lock scopes the active v1.0 validation epoch to the next scheduled LCK series:
 
-This authorization explicitly retires the old v0.3.58 analytical architecture from active use after v1.0 activation while preserving all historical files, reviews, screenshots, Airtable records, positions, settlements and P/L.
+`T1 vs BNK FEARX`
+
+Competition state:
+
+- LCK 2026 Playoffs;
+- Upper Bracket Round 1;
+- best-of-five;
+- Fearless Draft applies across the series;
+- scheduled start: `2026-08-29 15:00 UTC+7 / 17:00 KST`.
+
+The schedule identity is series-state context only. It does not alter the frozen analytical model.
 
 ## Frozen authority
 
-All v1.0 model-certified live Moneyline analysis during this authority epoch must use analytical/procedural files frozen at:
+All model-certified live Moneyline analysis during this series must use analytical/procedural files frozen at:
 
 `1be61970a3b586fd173479a4e591cfe391e03f0f`
 
@@ -46,20 +56,11 @@ The mutable session lock and Airtable ledgers may be newer than the authority co
 
 LoL v0.3.58 and all v0.x procedures remain preserved as historical/audit/research authority only.
 
-They are **not active v1.0 analytical authority** and must not be blended into current Moneyline analysis.
+They are not active v1.0 analytical authority and must not be blended into T1–BFX Moneyline analysis.
 
-In particular, do not require legacy:
+Do not require legacy DIM/PDRL/PML certificates, CFC/DPS/LRO gate trees, fixed snapshot-count certification, KH/TK/Duration machinery, or derivative-market PRE_TAKE signatures.
 
-- DIM/PDRL/PML certificates;
-- CFC/DPS/LRO named gate tree;
-- fixed 2SNAP/3SNAP/2CYCLE eligibility counts;
-- KHMC/WMS/FFD/RNE/NKB;
-- UDKC/KPA/KMS/RLD/UCS/LAC;
-- FRP/FCR/DOVC;
-- derivative-family PRE_TAKE/GATE_SIG trees;
-- derivative or fixed late-market buffers.
-
-Useful causal ideas already absorbed into v1.0 remain active only through the v1.0 files.
+Professional draft information, exact roles, current patch/context, player fit, and Fearless/restricted-pool consequences may be used only through the compact v1.0 Draft Prior and live `R/X/O/T` framework.
 
 ## v1.0 analytical core
 
@@ -76,7 +77,19 @@ From one team's perspective:
 
 Probability must be estimated before price is used as analytical evidence.
 
-Structures are context by default and matter only through demonstrated forward-control consequences.
+Structures are context only unless they demonstrably change forward map control.
+
+## Series-specific draft handling
+
+Because this is a Bo5 Fearless series:
+
+- Game 1 draft prior uses the full currently legal professional pool;
+- Games 2+ must incorporate champions already consumed in the series where the competition rules restrict reuse;
+- remaining functional archetypes and player execution burden matter when they materially change the concrete win mechanism;
+- Fearless context does not restore the historical PDRL/PML acronym tree;
+- each map still requires its own compact `SIDE A / EVEN / SIDE B` draft prior and concrete win mechanisms.
+
+No pregame or immediate-postdraft TAKE is allowed. Draft remains a prior; betting requires synchronized live state.
 
 ## Active execution controls
 
@@ -94,8 +107,6 @@ Structures are context by default and matter only through demonstrated forward-c
 
 ## User line-existence confirmation gate — ACTIVE
 
-Standing instruction remains:
-
 Only log a bet when the user confirms the exact quoted line/odds still exist.
 
 Required state:
@@ -109,13 +120,13 @@ Required state:
 
 ## Validation freeze
 
-The v1.0 analytical core is frozen for the initial accepted Moneyline sample.
+The v1.0 analytical core remains frozen for the initial accepted Moneyline sample.
 
 - 10 confirmed Positions: diagnostic checkpoint only;
 - 20 confirmed Positions: minimum architectural review point;
 - 30 confirmed Positions: preferred first full calibration review.
 
-Do not mutate the model after one ordinary loss.
+Do not mutate the model because of one result from this series.
 
 Primary error taxonomy only:
 
@@ -129,22 +140,23 @@ Primary error taxonomy only:
 GitHub is model/rules authority. Airtable remains the canonical historical map/snapshot/position ledger.
 
 - preserve all v0.x records unchanged;
+- create/map T1–BFX ledger records only as live evidence arrives or execution is confirmed;
 - HOLD/PASS may be stored as snapshots when useful;
 - unconfirmed TAKE CANDIDATE is not a Position;
-- confirmed v1.0 Position should preserve exact odds, entry state, 0.25u shadow stake, 0u actual exposure and compact `ML_CORE[...]` entry evidence;
+- confirmed v1.0 Position preserves exact odds, entry state, 0.25u shadow stake, 0u actual exposure and compact `ML_CORE[...]` entry evidence;
 - never claim a write/settlement occurred unless the connector action actually succeeded.
 
 ## Bootstrap / continuation requirement
 
-Every continuation/new chat must:
+Every continuation/new chat for this series must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this mutable lock and verify `LOL-2026-08-29-V1-ML-1341-UTC7`;
+3. fetch this mutable lock and verify `LOL-2026-08-29-V1-T1-BFX-1352-UTC7`;
 4. re-fetch `CURRENT_MODEL.md` at authority commit `1be61970a3b586fd173479a4e591cfe391e03f0f`;
 5. load the active v1.0 stack in the exact order specified by locked `CURRENT_MODEL.md`;
 6. use Airtable only as ledger/history authority, not analytical model authority;
-7. load the latest applicable live handoff last.
+7. load the latest applicable T1–BFX live handoff last.
 
 If the lock/authority cannot be matched:
 
