@@ -130,19 +130,39 @@ Draft prior: `T1 slight`.
 
 The missing team-strength prior was identified during Game 2 and ML certification was withheld rather than silently mutating v1.1. No accepted Game 2 Position was created. Game 2 remains historical v1.1 evidence and is not relabeled v1.2.
 
-## Game 3 preparation
+## Game 3 state
 
-1. Series tied `1-1`.
-2. Resolve Game 3 Blue/Red side.
-3. Apply all twenty consumed champions.
-4. Resolve exact five/roles if lineup changes appear.
-5. Use frozen series strength prior: `BFX K=-1 / P0=40%`, `T1 K=+1 / P0=60%`.
-6. Grade compact map-specific draft prior separately from team strength.
-7. No pregame/immediate-postdraft betting TAKE.
-8. Wait for synchronized live state + executable ML/Duration market.
-9. ML: lock `K/P0`, then score `D/R/X/O/T` price-blind, calculate probability, then read price.
-10. Duration: score `V/Q/H/T`, lock `F`, then read line/price.
-11. TAKE CANDIDATE only through its family threshold; accepted Position only after exact live user confirmation before material state change.
+Series entering map: `1-1`.
+
+Exact user-supplied draft:
+- T1: `Olaf / Naafiri / Galio / Jhin / Bard`
+- BNK FEARX: `Kled / Lee Sin / Annie / Kai'Sa / Shen`
+
+Expected roles from listed order:
+- T1: `Olaf top / Naafiri jungle / Galio mid / Jhin bot / Bard support`
+- BFX: `Kled top / Lee Sin jungle / Annie mid / Kai'Sa bot / Shen support`
+
+Game 3 Blue/Red assignment has not yet been explicitly confirmed by the user in the handoff. Do not infer side from sportsbook display colors alone.
+
+Post-draft executable market shown at 00:00:
+- T1 ML `1.475`
+- BFX ML `2.549`
+- Duration Over 31 `1.692`
+- Duration Under 31 `2.086`
+- Total Kills and Kill Handicap are visible but retired from betting.
+
+Draft-only read under v1.2: `BFX slight` (`D=-1` from T1 perspective) because BFX has the cleaner layered hard-engage/global follow-up path through Kled/Lee/Annie/Shen into Kai'Sa, while T1's counter-engage/dive shell through Galio/Olaf/Naafiri/Bard can punish a failed first commit. Team strength remains separate and frozen at T1 `K=+1 / P0=60%`, BFX `K=-1 / P0=40%`.
+
+No immediate-postdraft betting TAKE. Wait for synchronized live state plus executable ML/Duration market.
+
+## Game 3 live workflow
+
+1. Use frozen series strength prior: `T1 K=+1 / P0=60%`, `BFX K=-1 / P0=40%`.
+2. Use Game 3 draft prior separately: BFX slight unless later exact role/side information materially changes the mechanism read.
+3. ML: score `R/X/O/T` and mechanism price-blind, then calculate from `P0`, then read odds.
+4. Duration: score `V/Q/H/T`, lock `F`, then read line/price.
+5. No pregame/immediate-postdraft TAKE.
+6. A TAKE CANDIDATE becomes an accepted Position only after exact user confirmation before material state change.
 
 ## Bootstrap next continuation
 
