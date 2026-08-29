@@ -73,19 +73,22 @@ The user forgot to confirm while the decision window was live. After the final r
 
 These records do **not** increment `ML_SAMPLE_N` or `DURATION_SAMPLE_N` and do not alter the frozen v1.1 model.
 
+## Game 2 state
+
+- Side assignment confirmed by user: `BNK FEARX Blue / T1 Red`.
+- Series score entering map: `T1 1-0 BNK FEARX`.
+- Apply all Game 1 Fearless consumption before grading the Game 2 draft.
+
 ## Game 2 preparation
 
-Before Game 2 draft reading:
-
-1. Identify Blue/Red side assignment.
-2. Apply Fearless consumption from Game 1.
-3. Resolve exact five/roles if any lineup changes appear.
-4. Produce only a compact draft prior `T1 / EVEN / BFX` plus concrete mechanisms.
-5. No pregame or immediate-postdraft betting TAKE.
-6. Wait for synchronized live state plus executable ML/Duration market.
-7. ML: score `R/X/O/T` + mechanism contradiction price-blind, calculate probability, then read price.
-8. Duration: score `V/Q/H/T`, lock `F`, then read line and price.
-9. A TAKE CANDIDATE becomes a Position only after exact user confirmation before a material live event invalidates it.
+1. Apply Fearless consumption from Game 1.
+2. Resolve exact five/roles if any lineup changes appear.
+3. Produce only a compact draft prior `T1 / EVEN / BFX` plus concrete mechanisms.
+4. No pregame or immediate-postdraft betting TAKE.
+5. Wait for synchronized live state plus executable ML/Duration market.
+6. ML: score `R/X/O/T` + mechanism contradiction price-blind, calculate probability, then read price.
+7. Duration: score `V/Q/H/T`, lock `F`, then read line and price.
+8. A TAKE CANDIDATE becomes a Position only after exact user confirmation before a material live event invalidates it.
 
 ## Bootstrap next continuation
 
