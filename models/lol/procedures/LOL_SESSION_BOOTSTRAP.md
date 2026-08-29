@@ -1,303 +1,179 @@
 # LoL Session Bootstrap — Mandatory New-Chat Guardrail
 
 **Status:** ACTIVE GOVERNANCE  
-**Effective:** 2026-08-18 UTC+7  
-**Amended:** 2026-08-22 UTC+7  
+**Original effective:** 2026-08-18 UTC+7  
+**Rebuilt:** 2026-08-29 UTC+7  
 **Authority:** `models/lol/CURRENT_MODEL.md`
 
 ## Purpose
 
-Prevent authority drift, stale-version blending, skipped market gates, false logging claims, unnecessary external roster lookup, missing persistence, outcome-driven mid-slate model changes, draft-prior anchoring in live ML, and execution drift when a LoL audit continues in a new chat or after context compression.
+Prevent authority drift, stale-version blending, false logging claims, unnecessary source lookup, outcome-driven mutation and execution drift across chats.
 
-This procedure is governance/execution control. It does not create a new analytical model version.
+This bootstrap is deliberately **version-neutral**. It loads exactly the analytical/procedural stack declared by `CURRENT_MODEL.md`; it does not hard-code legacy v0.x market gates.
 
-## 1. GitHub authority bootstrap
+---
 
-At the start of every new chat/session for the LoL project:
+# 1. Mandatory GitHub bootstrap order
+
+At the start of every LoL project chat/session:
 
 1. Fetch `models/lol/CURRENT_MODEL.md` first from the repository default branch.
 2. Immediately load this file: `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`.
 3. Immediately fetch `models/lol/session/CURRENT_SESSION_LOCK.md` if it exists.
-4. Load `models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`.
-5. If the session lock is `ACTIVE`, re-fetch `CURRENT_MODEL.md` at the lock's `authority_commit` and treat that locked copy as the effective authority for the slate.
-6. Load all analytical/procedural files for the slate from the same locked authority commit unless a file is explicitly a mutable state ledger such as the session lock or Airtable live ledger.
-7. Follow the exact required load order in the locked `CURRENT_MODEL.md`.
-8. Load the latest applicable live handoff last. Handoffs carry state only; where a handoff conflicts with locked authority, locked authority wins.
-9. Do not trust a model version stated in conversation memory, project context, pasted transfer prompts, older handoffs, or prior assistant output when it conflicts with locked GitHub authority.
-10. Do not load, blend, or revive a retired analytical version merely because it has a higher version number or appears in historical records.
+4. If that lock is `ACTIVE`, read its `authority_commit` and re-fetch `models/lol/CURRENT_MODEL.md` at that exact commit.
+5. Treat the locked `CURRENT_MODEL.md` as the effective analytical authority for the live epoch.
+6. Load every file in the exact required load order declared by the locked `CURRENT_MODEL.md`, from the same authority commit unless the file is explicitly mutable state such as `CURRENT_SESSION_LOCK.md` or Airtable.
+7. Load the latest applicable live handoff last. Handoffs carry state, never analytical authority.
+8. Conversation memory, project context, prompts, prior assistant output, historical files and old handoffs never override locked/current GitHub authority.
+9. Never load or blend a historical model merely because it has a higher version number or familiar gate name.
 
-### Session-lock fail closed
+## Lock mismatch
 
-If an `ACTIVE` lock exists but its authority commit cannot be fetched, the active model cannot be matched, or the loaded files come from a different analytical commit, model-certified analysis is blocked.
-
-Visible status when a live verdict is required:
+If an ACTIVE lock cannot be fetched, its authority commit cannot be matched, or the declared active model conflicts with the loaded stack:
 
 `MODEL LOCK MISMATCH — HOLD`
 
-Do not silently fall back to the default branch.
+Do not silently fall back to default-branch rules.
 
-### No active lock
+## No active lock
 
-If no active lock exists for the current UTC+7 slate, complete bootstrap from current authority and establish a lock before the first TAKE-eligible decision.
+If no valid active lock exists, bootstrap the current authority and establish a fresh lock before the first TAKE-eligible live decision.
 
-Match prep and HOLD analysis may continue while a lock is being established, but no TAKE may be issued without a valid lock.
+Draft preparation and non-betting analysis may occur before the lock exists. No TAKE may be issued without a valid lock.
 
-Default slate boundary is the UTC+7 calendar day. An explicit user instruction may authorize an immediate relock/new epoch.
+---
 
-Mandatory lock procedure:
-`models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+# 2. Authorized rebuild state
 
-## 2. Fail-closed bootstrap rule
+When the user has explicitly authorized a clean model rebuild and the replacement analytical stack is not yet fully activated by `CURRENT_MODEL.md` plus a fresh Session Authority Lock, no live TAKE is permitted.
 
-No model-certified match analysis may begin until the authority bootstrap and mandatory load sequence are complete.
+Visible status if live betting evidence arrives during that interval:
 
-If live evidence arrives before bootstrap is complete, the visible verdict must be:
+`MODEL REBUILD IN PROGRESS — HOLD`
+
+This state takes precedence over trying to blend the old and new models.
+
+---
+
+# 3. Model-lock assertion
+
+Before the first model-certified live betting verdict of a session, verify internally:
+
+- active model exactly matches locked `CURRENT_MODEL.md`;
+- active authority commit is known and fetchable;
+- all mandatory active files in `CURRENT_MODEL.md` were loaded from that commit;
+- retired/historical files are excluded from active analytical authority;
+- current market scope is known;
+- current circuit-breaker state is known;
+- current minimum odds / probability-edge / stake / exposure controls are known;
+- current user execution-confirmation requirement is known;
+- Airtable remains the canonical historical map/snapshot/position ledger;
+- latest applicable handoff was loaded last.
+
+If any decision-critical assertion is unresolved:
 
 `MODEL NOT LOADED — HOLD`
 
-No connector/tool call may precede that visible HOLD. After the visible HOLD, complete bootstrap immediately, then reassess the same evidence if still usable.
-
-This preserves the live rule: **verdict first; no connector/logging work before the visible live verdict.**
-
-## 3. Mandatory model-lock assertion
-
-Before the first model-certified live verdict of a session, internally verify all of the following:
-
-- active model exactly matches the locked `CURRENT_MODEL.md`;
-- active `authority_commit` is known when a lock is active;
-- retired versions are identified and excluded;
-- mandatory procedures/reviews required by the locked load order were loaded;
-- `LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md` is loaded;
-- `LOL_UNDERDOG_CUSHION_SUFFICIENCY_2026-08-20.md` is loaded;
-- `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md` is loaded;
-- `LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md` is loaded when present in locked authority;
-- `LOL_FRP_POSITIVE_EVIDENCE_EXECUTION_CALIBRATION_2026-08-20.md` is loaded;
-- `LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md` is loaded;
-- latest handoff was loaded last;
-- shadow stake, minimum odds, market-family limits, and live-snapshot eligibility rules are known;
-- Airtable post-verdict logging procedure is loaded;
-- procedural circuit-breaker state is known.
-
-If any item is unresolved, fail closed to `MODEL NOT LOADED — HOLD`.
-
-If circuit-breaker state is active, analysis may continue but TAKE issuance is blocked with:
+If the active governance file declares a procedural circuit breaker:
 
 `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`
 
-## 4. Saved lineup / roster context priority
+---
 
-For named-team match prep, use saved project lineup context before external web roster lookup.
+# 4. Saved lineup and match-context priority
 
-- Search `models/lol/context/lineups/` for the teams/league first.
-- A dated official match-specific lineup card saved there is the preferred starting lineup source.
-- Treat saved lineups as dated evidence, not permanent roster locks; newer official match-specific lineup evidence supersedes older saved entries.
-- If a current lineup is already present in saved project data, do not replace it with generic web roster pages merely because they are easier to find.
-- **Fast-path rule:** if the saved lineup is current and the user supplies or confirms the same five starters for the match, treat the lineup as confirmed and do **not** perform an external web roster lookup.
-- A user-supplied current official lineup card, exact five-player lineup, or direct correction supersedes generic roster websites for that match. Do not duplicate-confirm it on the web unless there is a concrete conflict or ambiguity.
-- External web roster lookup is permitted only when the saved/user-confirmed lineup is missing, incomplete, contradictory, materially ambiguous, there is a specific substitution/role-swap concern, or the user explicitly asks for external verification.
-- Do not use external roster lookup merely to add confidence to an already confirmed five. The time cost is not justified and it must not delay pregame/live analysis.
-- Web research for recent results, team-strength context, patch/meta context, or other non-lineup facts is a separate decision and should be used only when it materially improves the analysis; it must not be bundled into lineup confirmation by default.
-- **Odds fast path:** when the user supplies a readable sportsbook screenshot with the relevant ML/handicap prices, treat those displayed prices as the market authority for that decision. Do not search the web for duplicate odds unless the screenshot is missing/unclear, the requested market is not shown, or the user explicitly asks for a cross-book comparison.
-- In live or near-start workflows, saved lineup + user confirmation + readable sportsbook odds is sufficient source evidence to proceed immediately; avoid unnecessary network calls.
-- Before applying a numeric team-strength prior, verify the current five-player lineup and any material substitutions/role swaps using the priority order above.
+For named-team professional match prep:
 
-Current saved lineup index:
-`models/lol/context/lineups/LCK_CL_2026_STARTING_LINEUPS.md`
+1. use saved project/Airtable roster or lineup context first;
+2. use a current user-supplied official lineup/card or exact five-player confirmation over generic roster websites;
+3. external roster lookup is needed only when saved/user evidence is missing, contradictory, ambiguous, or the user explicitly requests verification;
+4. a dated lineup is evidence for that date, not a permanent roster lock;
+5. before using player/team context materially in a draft prior, resolve decision-critical substitutions or role swaps.
 
-## 5. Market-family hard gates
+Do not spend live decision time duplicate-confirming an already reliable five.
 
-Compact output is allowed, but full underlying analysis is mandatory.
+---
 
-Before every TAKE, the mandatory TAKE gate signature from the session-lock procedure must be fully resolved. A narrative summary is never a substitute for the signature.
+# 5. Odds and screenshot fast path
 
-### Total Kills Under
+When the user supplies a readable sportsbook screenshot with the relevant active-market price, treat that displayed price as market authority for that decision window unless:
 
-- full retained TK framework applies;
-- `FRP = PASS` is mandatory;
-- passive quiet / low historical kill pace cannot by itself satisfy FRP;
-- next compulsory-contact cycle must be identified;
-- **FRP is not a default HOLD gate**: once two-snapshot eligibility is satisfied, positively adjudicate PASS / FAIL / UNCERTAIN rather than asking for discretionary extra confirmation;
-- repeated bounded kill recurrence across real objective/contact cycles is positive FRP evidence;
-- a completed objective cycle can count as **suppressed compulsory contact** when the map progresses through concession, zoning, cross-map play, ranged defense, or low-risk objective control with bounded kills;
-- Structure Substitution can support TK Under only when it removes future fight requirements, not merely because objectives replaced past fights;
-- engage champions/buttons do not by themselves make next-cycle contact pressure HIGH — test whether the opponent actually must contest and whether re-engage/chase is required;
-- after two distinct meaningful objective/contact cycles with bounded recurrence, explicitly test whether the regime should persist; do not automatically demand a third cycle;
-- if future suppression is not positively demonstrated, `FRP = FAIL/UNCERTAIN -> PASS/HOLD`;
-- if FRP and every other retained TK/pricing gate pass, do not add another unwritten confirmation layer.
+- the market is unclear;
+- the screenshot is stale/greyed;
+- synchronization is contradicted;
+- the requested market is not shown;
+- or the user explicitly requests a cross-book check.
 
-Mandatory execution calibration:
-`models/lol/procedures/LOL_FRP_POSITIVE_EVIDENCE_EXECUTION_CALIBRATION_2026-08-20.md`
+When the user explicitly confirms paired scoreboard/market screenshots represent the same live state, device/header/capture-time differences alone do not invalidate synchronization. Internal state contradictions still fail closed.
 
-Reference review:
-`models/lol/reviews/TT_JDG_G2_TOTAL_KILLS_FRP_EXECUTION_REVIEW_2026-08-20.md`
+Do not use bookmaker price movement as evidence for the game-state probability unless the active model explicitly says otherwise.
 
-### Duration Under
+---
 
-- shortest realistic close route must be tested;
-- `FCR = ROBUST` is mandatory except an explicitly retained terminal exception;
-- one ordinary disruption must not destroy the Under thesis.
+# 6. Active-market scope comes only from CURRENT_MODEL
 
-### Duration Over
+Never assume legacy market families remain active.
 
-- low kills are not positive stall evidence by themselves;
-- 0-0 towers / low tower count are neutral by default;
-- at least two independent positive clock-consuming mechanisms are required;
-- at least one must be observed `FAILED CONVERSION` or equivalent repeated denial/reset;
-- Structure Substitution is mandatory;
-- shortest plausible compulsory fight/objective -> structures -> base -> Nexus cascade must be tested.
+Before betting analysis, read `CURRENT_MODEL.md` for:
 
-### Live Moneyline
+- active betting market(s);
+- retired/suspended markets;
+- active probability procedure;
+- active execution controls.
 
-- two usable live snapshots required;
-- position-blind reassessment required;
-- Lead Decomposition (`RL / SL / OSC / CFC`) required;
-- `CFC_CURRENT` must use current items, levels, role-weighted economy and objective schedule;
-- neutral-setup compulsory-fight stress uses current live leverage and neutral positional setup only — never equalize economy back to the draft;
-- `DRAFT_PRIOR_STATE = INTACT / DEGRADED / BROKEN` must be explicitly assessed;
-- if the contemplated ML selection opposes an original `CLEAR` or `STRONG` draft edge, `LRO = PASS` is mandatory;
-- that contrary-draft LRO path requires three usable snapshots, at least two meaningful contact/objective cycles, regime persistence, multi-role leverage, `DPS = BROKEN`, current CFC PASS, next-cycle stress PASS, and `DRP = PASS`;
-- if the ML aligns with the original CLEAR/STRONG draft edge, or the draft was only SLIGHT/EVEN/UNCLEAR, `LRO=N/A` is valid and the ordinary two-snapshot path remains active;
-- a draft prior cannot remain a hidden permanent live-ML veto once `DPS=BROKEN` and `LRO=PASS` are established;
-- same-series SMR applies where the thesis relies on a previously failed mechanism;
-- team strength and current gold are modifiers/context, not standalone TAKE authorization;
-- Live ML regime override applies only to ML and cannot create or upgrade draft-only UDKC/DIM proof for underdog +kills.
+If a screenshot includes a retired market, do not revive its historical gates or issue a betting verdict for it.
 
-Mandatory Live ML regime procedure:
-`models/lol/procedures/LOL_LIVE_ML_DRAFT_PRIOR_DEGRADATION_AND_REGIME_OVERRIDE_2026-08-21.md`
+---
 
-### Favorite -kills
+# 7. Position-blind and anti-chasing controls
 
-- two usable live snapshots required;
-- exact signed kill margin required;
-- exact cover threshold and `RNE` required;
-- `FFD` and remaining forced-fight schedule required;
-- Structure Substitution / NKB / KCV / safe-concede routes must be tested;
-- team strength or gold lead alone cannot authorize TAKE.
+Unless explicitly revoked by current authority:
 
-### Underdog +kills
+- reassess each live state position-blind;
+- do not defend a prior selection because it is already logged;
+- no rescue, martingale, chasing, averaging down or stake escalation;
+- actual exposure remains whatever the current lock says, with `0u` as the standing shadow-audit policy unless explicitly changed by the user.
 
-- two usable live snapshots required;
-- exact signed kill-margin arithmetic required;
-- draft-locked fallback certification is fail-closed;
-- a complete **UDKC — Underdog +Kills Draft Certificate** must exist before any underdog +kills TAKE;
-- the UDKC must resolve DER / FRI / SRI / FER / PDC / PST / ARI / KPA / KMS / RLD / False-Stable Guard / DCR / FF / hard Draft-Collapse Veto;
-- every mandatory PASS field must actually pass, False-Stable Guard must be INACTIVE, FF must be STABLE, and hard veto must be INACTIVE;
-- omitted, implied, narrative-only, or `UNRESOLVED` certification fields force `PASS/HOLD`;
-- UDKC is **draft-only, not timestamp-locked**: if the exact locked draft is first received after live play begins or a new chat starts mid-map, run the mandatory Draft-Isolation Pass before using the live state for +kills analysis;
-- Draft Isolation must exclude current kills, gold, objectives, structures, current odds, current handicap size, and current margin from the certificate;
-- if one screenshot contains both draft and live state, process **Phase A: draft-only UDKC**, then **Phase B: live reassessment**;
-- missing persisted UDKC alone is not a veto when the exact draft can be recovered and fully certified; missing/ambiguous draft or incomplete UDKC remains fail-closed;
-- live evidence may preserve or downgrade a draft-certified STABLE UDKC, but may never supply missing draft proof or upgrade a genuinely FRAGILE/ABSENT draft;
-- `KPA` and `KMS` must both pass, in addition to retained FER/PDC/PST/ARI requirements;
-- RLD is mandatory before KMS may pass;
-- False-Stable Guard applies;
-- theoretical engage, scaling, waveclear, peel/utility, safe ADC play, small current kill margin, or a large displayed +kills buffer cannot substitute for KMS;
-- exact NKB / additional-net-kill arithmetic describes the hurdle only; it is never draft certification evidence;
-- after STABLE UDKC, **UCS — Underdog Cushion Sufficiency** is mandatory as a separate live gate;
-- `NKB <= 4` is `THIN` and defaults HOLD; it may pass only under the observed anti-cascade requirements in the UCS procedure;
-- if one ordinary adverse fight + continuation can plausibly cross the failure threshold, `UCS` cannot pass;
-- UDKC STABLE never substitutes for UCS.
+---
 
-Mandatory draft guard:
-`models/lol/procedures/LOL_UNDERDOG_PLUSKILLS_DRAFT_LOCK_GUARD_2026-08-19.md`
+# 8. User confirmation before Position creation
 
-Mandatory cushion guard:
-`models/lol/procedures/LOL_UNDERDOG_CUSHION_SUFFICIENCY_2026-08-20.md`
+If current authority requires user line-existence confirmation:
 
-Reference amendment:
-`models/lol/reviews/UDKC_DRAFT_ISOLATION_AMENDMENT_2026-08-20.md`
+- an analytical TAKE/TAKE CANDIDATE is not a Position;
+- `PENDING` creates no W/L or P/L;
+- only explicit confirmation that the exact quoted market/price still exists may create an accepted Position;
+- if the line materially moves or a material game-state change occurs, reassess under the active model before acceptance;
+- never create a retroactive Position because an unconfirmed candidate later won.
 
-### Missing gate
+---
 
-If any decision-critical gate or any required gate-signature field is missing, ambiguous, or not actually evaluated, the market is **not TAKE-eligible**. Use `PASS/HOLD`.
+# 9. Airtable logging truthfulness
 
-## 6. Mandatory TAKE gate signature
+GitHub is analytical/governance authority. Airtable is canonical historical map/snapshot/position state.
 
-Before every TAKE, execute the family-specific `GATE_SIG[...]` defined in:
+- Do not delete or rewrite historical records to improve model performance.
+- Preserve the model/version actually used for historical positions.
+- A successful analytical verdict does not imply a successful Airtable write.
+- Never claim a Position was logged/settled unless the write actually succeeded under the available workflow.
+- Historical result and process validity remain separate.
 
-`models/lol/procedures/LOL_SESSION_AUTHORITY_LOCK_TAKE_SIGNATURE_AND_CIRCUIT_BREAKER_2026-08-20.md`
+Use the current active model's logging instructions rather than legacy family-specific signatures.
 
-Hard rules:
+---
 
-- every required field must be explicit PASS or valid N/A;
-- missing or unresolved field -> HOLD/PASS;
-- compact visible commentary does not relax this requirement;
-- the position `Entry Evidence` must persist the compact `GATE_SIG[...]` block after the verdict;
-- Live ML TAKES against CLEAR/STRONG draft priors must also persist the compact `LRO[...]` sub-signature;
-- failure to produce the signature is a procedural circuit-breaker trigger if a TAKE was visibly issued.
+# 10. Outcome-driven mutation prohibition
 
-## 7. Procedural circuit breaker
+A normal win or loss does not authorize an analytical rule change.
 
-The circuit breaker triggers on execution failure, not on a normal losing result.
+Follow the validation/change protocol declared by the active `CURRENT_MODEL.md`.
 
-Trigger conditions include:
+If a model change is discussed but not committed, fetched back, activated by `CURRENT_MODEL.md` and frozen by the active/new lock, it is not active authority.
 
-- a TAKE later found to violate an active hard gate;
-- a TAKE without a complete mandatory gate signature;
-- authority/model mismatch;
-- live evidence used to create prohibited draft proof;
-- skipped/substituted family-specific gate;
-- a Live ML TAKE against a CLEAR/STRONG draft prior without the required LRO certificate when that procedure is active in the locked authority.
+---
 
-When active:
+# 11. Minimum transfer instruction
 
-- no new position may be created;
-- analysis and HOLD snapshot logging may continue;
-- proposed fixes may be written but remain pending under the current lock;
-- resume only on next valid slate lock or explicit user authorization to relock now;
-- circuit-breaker state must be persisted in `CURRENT_SESSION_LOCK.md`.
+For a new chat:
 
-A fully canonical loss does not trigger it.
-
-## 8. Version-vocabulary tripwire
-
-If an assistant begins citing a retired model/version as active, or uses a later-version-only concept that is not explicitly incorporated into locked canonical authority:
-
-1. stop model-certified analysis;
-2. visible status becomes `MODEL AUTHORITY MISMATCH — HOLD` if an active live verdict is required;
-3. reload locked `CURRENT_MODEL.md` and this bootstrap;
-4. resume only after the model-lock assertion passes.
-
-Do not silently blend conflicting material.
-
-## 9. Airtable logging truthfulness
-
-For every valid visible live verdict, follow the canonical post-verdict logging procedure.
-
-- `PASS/HOLD`: write the exact live snapshot after the visible verdict; no position record.
-- executable `TAKE`: write the snapshot and exact shadow position after the visible verdict.
-- for new TAKES after 2026-08-20 governance activation, position Entry Evidence must include `GATE_SIG[...]`.
-- for active-authority Live ML TAKES against CLEAR/STRONG draft priors, Entry Evidence must also include `LRO[...]`.
-- verify the expected record exists after the write.
-- never say `logged`, `settled`, or equivalent unless the corresponding Airtable mutation actually succeeded and the expected record was verified.
-- if logging fails, state: `VERDICT VALID — LOGGING FAILED` and repair the ledger without altering the analytical verdict.
-- a missing historical write may be backfilled only from original evidence and the original visible verdict.
-
-## 10. No retrospective upgrade / no outcome patching
-
-A later outcome cannot turn an earlier `PASS/HOLD` into a position.
-
-A procedural-error TAKE may be recorded as the position that was visibly issued, but its audit must clearly state the correct canonical verdict when applicable.
-
-A retrospective review may identify a missed qualifying TAKE window for calibration, but that does not create a historical position or rewrite the original visible verdict.
-
-A valid loss does not authorize an analytical rule change by itself. Mechanism-level batch review is required. During an active session lock, changes remain pending unless the user explicitly authorizes a relock.
-
-## 11. Durable-fix verification
-
-Never claim a fix is durable because it was merely discussed in chat.
-
-Before saying `fixed`, `canonical`, `saved`, or `future chats will inherit this`, require:
-
-1. canonical GitHub write succeeded;
-2. written file fetched back;
-3. exact new requirement verified in fetched content;
-4. change included in the applicable authority lock, or explicitly marked pending for the next slate.
-
-## 12. New-chat prompt rule
-
-Future transfer prompts must not hardcode a model version as independent authority. They should instruct the next chat to fetch `CURRENT_MODEL.md`, this bootstrap, and the session lock.
-
-Minimum transfer instruction:
-
-> Continue the LoL shadow-audit from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, then `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`, then `models/lol/session/CURRENT_SESSION_LOCK.md`. If the lock is ACTIVE, use its authority commit for the analytical stack and do not silently use newer default-branch edits. Load the session authority-lock/TAKE-signature/circuit-breaker procedure, the Live ML draft-prior degradation/regime-override procedure, the FRP calibration, the UDKC draft guard, and UCS. Latest handoff loads last and carries state only. If bootstrap is incomplete, fail closed to `MODEL NOT LOADED — HOLD`; if lock authority mismatches, `MODEL LOCK MISMATCH — HOLD`; if the procedural circuit breaker is active, issue no new TAKES. Every TAKE requires a complete market-family `GATE_SIG[...]` and post-verdict Airtable verification; Live ML against a CLEAR/STRONG draft prior also requires `LRO[...]`.
+> Continue the League of Legends project from `acchtt/SlipTrace`. Fetch `models/lol/CURRENT_MODEL.md` first, immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`, then fetch `models/lol/session/CURRENT_SESSION_LOCK.md`. If the lock is ACTIVE, use its frozen authority commit and follow the exact load order in locked `CURRENT_MODEL.md`. Load the latest applicable handoff last. GitHub is analytical authority; Airtable is the historical map/snapshot/position ledger. Never blend historical model files into active authority. If the stack cannot be matched, fail closed to the status required by the bootstrap/current governance.
