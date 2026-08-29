@@ -95,17 +95,18 @@ Process correction during G4:
 
 ## Game 5 preparation
 
+- Game 5 side assignment: `T1 BLUE / BNK FEARX RED` — user-confirmed.
+
 1. Series is tied `2-2` — deciding map.
-2. Resolve Game 5 Blue/Red side assignment first.
-3. Apply all forty consumed champions from Games 1-4.
-4. Resolve exact five and roles from user draft/screenshot.
-5. Use frozen series strength tier: T1 `K=+1 / P0=55%`, BFX `K=-1 / P0=45%`.
-6. Grade Game 5 draft separately and give draft more weight than team strength, per v1.3.
-7. No pregame/immediate-postdraft TAKE.
-8. Wait for synchronized live state plus executable Moneyline/Duration market.
-9. ML: lock K/P0 + D/R/X/O/T price-blind, then read odds.
-10. Duration: score V/Q/H/T, lock F, then read line/odds.
-11. TAKE CANDIDATE only if family threshold clears; accepted Position only after exact live confirmation before material state change.
+2. Apply all forty consumed champions from Games 1-4.
+3. Resolve exact five and roles from user draft/screenshot.
+4. Use frozen series strength tier: T1 `K=+1 / P0=55%`, BFX `K=-1 / P0=45%`.
+5. Grade Game 5 draft separately and give draft more weight than team strength, per v1.3.
+6. No pregame/immediate-postdraft TAKE.
+7. Wait for synchronized live state plus executable Moneyline/Duration market.
+8. ML: lock K/P0 + D/R/X/O/T price-blind, then read odds.
+9. Duration: score V/Q/H/T, lock F, then read line/odds.
+10. TAKE CANDIDATE only if family threshold clears; accepted Position only after exact live confirmation before material state change.
 
 ## Historical ledger boundary
 
