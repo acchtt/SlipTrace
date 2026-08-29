@@ -46,7 +46,7 @@ From T1 perspective:
 
 Basis: T1 had the stronger established top-level baseline/direct playoff path; BFX had enough recent official same-league wins and successful Play-In form that the gap is meaningful but not the maximum tier.
 
-Freeze this `K/P0` for the remainder of the series unless a genuine roster/availability change occurs.
+Freeze this `K/P0` for the remainder of Game 3 under v1.2 unless a genuine roster/availability change occurs.
 
 Moneyline probability from Team A perspective:
 
@@ -164,6 +164,33 @@ No immediate-postdraft betting TAKE. Wait for synchronized live state plus execu
 5. No pregame/immediate-postdraft TAKE.
 6. A TAKE CANDIDATE becomes an accepted Position only after exact user confirmation before material state change.
 
+## User-authorized next-game Moneyline patch — NOT ACTIVE IN GAME 3
+
+During Game 3 the user explicitly stated the intended causal hierarchy:
+
+`TEAM STRENGTH = STARTING PRIOR`
+`DRAFT = MORE IMPORTANT MAP-SPECIFIC CORRECTION`
+`LIVE STATE = DOMINANT ONCE REAL EVIDENCE EXISTS`
+
+The user explicitly authorized applying this revised weighting **from the next game onward**, while also instructing that the canonical GitHub model/lock update should be performed **after Game 3 ends**.
+
+Therefore:
+
+- Game 3 remains fully governed by active v1.2 authority and must not be silently rescored under the future patch.
+- After Game 3 final, before any Game 4 model-certified betting analysis, create/activate the next model generation and fresh session lock.
+- Planned Moneyline repair for that generation:
+  - retain `K=-2..+2` as the independent team-strength tier;
+  - reduce strength baseline to `P0(A)=50%+5*K pp`;
+  - increase draft weight so `D` is a meaningful map-specific correction;
+  - planned score: `S=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`;
+  - planned probability: `P(A)=clamp(P0(A)+3*S pp,15%,85%)`;
+  - retain ML minimum odds `1.60` and edge threshold `+5.0pp` unless the user separately authorizes a change;
+  - retain price-blind probability locking, synchronization, position-blind execution and exact user confirmation controls.
+- Duration remains unchanged unless separately authorized.
+- Preserve the same pre-series non-price `K` tier evidence logic; only its probability weight changes prospectively.
+
+Until the post-Game-3 GitHub activation and fresh lock are complete, the future patch is **authorized/planned state only**, not active analytical authority.
+
 ## Bootstrap next continuation
 
 Every new continuation must:
@@ -171,8 +198,10 @@ Every new continuation must:
 1. Fetch default-branch `models/lol/CURRENT_MODEL.md`.
 2. Immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`.
 3. Fetch mutable `models/lol/session/CURRENT_SESSION_LOCK.md`.
-4. Verify lock `LOL-2026-08-29-V12-T1-BFX-G3-1650-UTC7` and authority `18a5c9c6e6e2a7efe820b6da3f0269d2e8e1e18f`.
+4. Verify the current active lock and authority.
 5. Re-fetch locked `CURRENT_MODEL.md` at that authority commit.
-6. Load the exact v1.2 stack in locked CURRENT_MODEL order.
+6. Load the exact active stack in locked CURRENT_MODEL order.
 7. Use Airtable only as canonical map/snapshot/position ledger.
 8. Load this or a newer T1-BFX handoff last.
+
+If Game 3 has ended and the authorized next-game patch has not yet been canonically activated with a fresh lock, do not issue Game 4 TAKE CANDIDATEs; first complete the model update and lock transition.
