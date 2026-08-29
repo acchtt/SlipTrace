@@ -9,7 +9,10 @@
 - Match: `T1 vs BNK FEARX`
 - Format: `Bo5 Fearless Draft`
 - Scheduled start: `2026-08-29 15:00 UTC+7 / 17:00 KST`
-- Series state at v1.1 handoff update: `not started / no live evidence supplied in this chat`
+- Current series score: `T1 1-0 BNK FEARX`
+- Game 1 winner: `T1`
+- Game 1 final duration: `33:09`
+- Game 1 final kills: `T1 25-8 BNK FEARX`
 
 ## Active model state
 
@@ -26,7 +29,51 @@
 - ML required edge: `+5.0pp vs raw implied probability`
 - Duration required edge: `+7.5pp vs raw implied probability`
 - User line-existence confirmation: `ACTIVE`
-- v1.1 samples: `ML_SAMPLE_N=0; DURATION_SAMPLE_N=0`
+- v1.1 accepted samples after Game 1: `ML_SAMPLE_N=0; DURATION_SAMPLE_N=0`
+
+## Game 1 draft / Fearless consumption
+
+BNK FEARX Blue:
+- Top: `K'Sante`
+- Jungle: `Jarvan IV`
+- Mid: `Ryze`
+- ADC: `Lucian`
+- Support: `Milio`
+
+T1 Red:
+- Top: `Jayce`
+- Jungle: `Vi`
+- Mid: `Taliyah`
+- ADC: `Yunara`
+- Support: `Lulu`
+
+Treat all ten Game 1 champions as consumed for later Fearless-draft analysis subject to the exact tournament reuse rules already resolved for this series.
+
+## Game 1 v1.1 decision record
+
+At the synchronized 11:32 decision window, two TAKE CANDIDATEs were issued:
+
+1. `BFX Moneyline @4.960`
+   - model BFX probability: `35%`
+   - raw implied probability: `20.2%`
+   - model edge: `+14.8pp`
+   - final outcome: `LOSS` because T1 won.
+
+2. `Over 31.0 @1.883`
+   - locked central final estimate: `F = 33.0m`
+   - model Over probability: `64.0%`
+   - raw implied probability: `53.1%`
+   - model edge: `+10.9pp`
+   - final outcome: `WIN` because map ended `33:09`.
+
+However, exact user line confirmation arrived only after material state changes and after the final result. Under v1.1 governance the candidates had expired, so **no retroactive Position was created**, no v1.1 accepted sample increment occurred, and no shadow or actual P/L is booked from these candidates.
+
+Airtable Maps record logged:
+- `LCK-2026-08-29-T1-BFX-G1`
+- winner `T1`
+- duration `33:09`
+- final kills `33`
+- no accepted Position.
 
 ## Bootstrap next continuation
 
@@ -59,16 +106,7 @@ At current clock `t` in decimal minutes:
 
 `R0 = max(5.0, 31.0 - t)`
 
-Score:
-
-- `V` net conversion velocity;
-- `Q` compulsory-cycle spacing;
-- `H` terminal path depth;
-- `T` terminal trajectory;
-
-all on `-2..+2`.
-
-Then:
+Score `V/Q/H/T` on `-2..+2`, then:
 
 `ER = max(2.0, R0 - 1.5*V + 1.0*Q + 1.0*H + 0.75*T)`
 
@@ -86,25 +124,16 @@ Duration TAKE CANDIDATE requires odds >=1.60 and selected-side edge >=+7.5pp.
 
 Absent conversion opportunity is neutral: low kills, close gold or low towers alone do not prove a slow game.
 
-## Series-specific preparation
+## Game 2+ execution
 
-Before Game 1 draft analysis:
-
-- use canonical saved T1 and BNK FEARX roster context first;
-- reliable user-supplied exact lineup/card overrides generic roster sources;
-- resolve exact five and roles before using player fit materially;
-- resolve current professional patch and applicable Fearless champion-reuse rules.
-
-For each map:
-
-1. resolve compact draft prior `T1 / EVEN / BFX` and concrete win mechanisms;
-2. Games 2+ incorporate actual champions consumed earlier in the Fearless series;
-3. no pregame/immediate-postdraft betting TAKE;
-4. wait for usable synchronized live state plus executable active-family market;
-5. ML: score `R/X/O/T` + mechanism contradiction price-blind, calculate probability, then price;
-6. Duration: score `V/Q/H/T`, lock `F`, then use offered line to calculate Over/Under probability and price;
-7. a family qualifies only through its own threshold;
-8. create a Position only after explicit confirmation of the exact quoted market/line/odds.
+1. Incorporate Game 1 consumed champions into Fearless draft reading.
+2. Resolve compact draft prior `T1 / EVEN / BFX` and concrete win mechanisms.
+3. No pregame/immediate-postdraft betting TAKE.
+4. Wait for usable synchronized live state plus executable active-family market.
+5. ML: score `R/X/O/T` + mechanism contradiction price-blind, calculate probability, then price.
+6. Duration: score `V/Q/H/T`, lock `F`, then use offered line to calculate Over/Under probability and price.
+7. Each family qualifies only through its own threshold.
+8. Create a Position only after explicit confirmation of the exact quoted market/line/odds **before** a material live event invalidates the candidate.
 
 ## Validation freeze
 
@@ -126,5 +155,3 @@ Do not mutate either family after one ordinary result.
 ## Historical boundary
 
 All v0.x files/procedures/reviews/Airtable records remain historical/audit/research authority only. Historical Duration DOVC/FCR/FRP is not active. v1.0 is also historical generation authority; its ML formula is carried forward unchanged in v1.1.
-
-No live betting verdict or Position has been issued for T1–BFX under v1.1 at this handoff update.
