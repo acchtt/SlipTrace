@@ -5,47 +5,49 @@
 
 # ACTIVE MODEL
 
-**LoL v1.1 — Moneyline + Duration Core**
+**LoL v1.2 — Strength-Prior Moneyline + Duration Core**
 
-v1.1 is a controlled scope extension of the clean v1.x architecture. The v1.0 Moneyline analytical formula is carried forward unchanged; Duration is reintroduced as a new small independent core after explicit user authorization.
+v1.2 is a targeted Moneyline architecture repair authorized by the user after v1.1 exposed a clear mechanical omission: persistent team strength was not represented and all maps began from a neutral 50% ML baseline.
 
-It does **not** restore the v0.3.58 decision tree or historical Duration certificate stack.
+Duration remains analytically unchanged from v1.1.
 
 Active Moneyline rules:
 
-`models/lol/rules/MODEL_RULES_LOL_V1.1_MONEYLINE_CORE.md`
+`models/lol/rules/MODEL_RULES_LOL_V1.2_MONEYLINE_STRENGTH_PRIOR_CORE.md`
 
 Active Moneyline live procedure:
 
-`models/lol/procedures/LOL_V1.1_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`
+`models/lol/procedures/LOL_V1.2_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`
 
-Active Duration rules:
+Active Duration rules — unchanged:
 
 `models/lol/rules/MODEL_RULES_LOL_V1.1_DURATION_CORE.md`
 
-Active Duration live procedure:
+Active Duration live procedure — unchanged:
 
 `models/lol/procedures/LOL_V1.1_DURATION_LIVE_PROCEDURE_2026-08-29.md`
 
 Active validation protocol:
 
-`models/lol/procedures/LOL_V1.1_VALIDATION_PROTOCOL_2026-08-29.md`
+`models/lol/procedures/LOL_V1.2_VALIDATION_PROTOCOL_2026-08-29.md`
 
 Active authority/execution governance:
 
-`models/lol/procedures/LOL_V1.1_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`
+`models/lol/procedures/LOL_V1.2_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`
 
 Mandatory version-neutral bootstrap:
 
 `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`
 
-Historical clean-rebuild record:
+Transition review:
 
-`models/lol/reviews/LOL_V1.0_CLEAN_REBUILD_AUDIT_2026-08-29.md`
+`models/lol/reviews/LOL_V1.2_TEAM_STRENGTH_PRIOR_PATCH_2026-08-29.md`
 
-v1.1 Duration enablement/calibration record:
+Historical context when needed:
 
 `models/lol/reviews/LOL_V1.1_DURATION_ENABLEMENT_2026-08-29.md`
+
+`models/lol/reviews/LOL_V1.0_CLEAN_REBUILD_AUDIT_2026-08-29.md`
 
 ---
 
@@ -58,32 +60,52 @@ Retired from betting:
 - Kill Handicap;
 - Total Kills.
 
-No active v1.1 TAKE may be issued for KH or TK.
-
-Historical KH/TK/Duration files and Airtable records remain preserved for audit/research only and do not become active merely because Duration is re-enabled.
-
-There are no pregame/immediate-postdraft betting TAKES. Draft may prepare mechanisms/priors; betting requires synchronized live state.
+No pregame or immediate-postdraft betting TAKE.
 
 ---
 
-# 2. Moneyline Core — unchanged analytical formula
+# 2. Moneyline v1.2
 
-## Draft prior
+## 2.1 Team-strength prior
+
+From Team A perspective:
+
+`K = -2,-1,0,+1,+2`
+
+Interpretation:
+
+- `+2` clear major persistent strength edge;
+- `+1` meaningful persistent strength edge;
+- `0` no robust persistent edge;
+- `-1` meaningful persistent disadvantage;
+- `-2` clear major persistent disadvantage.
+
+Use only pre-series non-price evidence: recent official same-league results, opponent quality/competition path, roster continuity/substitutions and established current form.
+
+Never use sportsbook odds, current-map state, same-series earlier map results or hindsight to choose `K`.
+
+For a series, freeze `K` before Game 1 and keep it fixed unless a genuine roster/availability change occurs. If v1.2 activates mid-series, reconstruct `K` only from evidence that existed before Game 1.
+
+Baseline:
+
+`P0(A) = 50% + 10*K percentage points`
+
+## 2.2 Draft prior
 
 `SIDE A / EVEN / SIDE B`
-
-State concrete professional win mechanisms and relevant exact-role, patch, player-fit and Fearless/restricted-pool context.
 
 From Team A perspective:
 
 `D = +1 / 0 / -1`
 
-## Live state
+Draft remains a small map-specific composition/mechanism prior and must not absorb team reputation.
+
+## 2.3 Live state
 
 `R/X/O/T` each on `-2..+2`:
 
-- `R` role-weighted resources;
-- `X` realized fight/contact execution;
+- `R` role-weighted useful resources;
+- `X` realized meaningful fight/contact execution;
 - `O` objective access/control and next compulsory cycle;
 - `T` composition trajectory.
 
@@ -93,17 +115,19 @@ Mechanism contradiction:
 
 `D_eff = D / 0.5D / 0` for intact / weakening / broken-or-replaced.
 
-## Probability
+## 2.4 Probability
 
 `S = 1.0*D_eff + 1.5*R + 1.5*X + 1.25*O + 1.0*T`
 
-`P(A) = clamp(50% + 3*S pp, 15%, 85%)`
+`P(A) = clamp(P0(A) + 3*S pp, 15%, 85%)`
 
 `P(B) = 100% - P(A)`
 
-Probability is locked before offered ML price is used as analytical evidence.
+Lock `K/P0`, draft/live state and probability before offered Moneyline price is used as analytical evidence.
 
-## ML price rule
+For ML, towers/structures remain contextual unless they demonstrably change forward control.
+
+## 2.5 Price rule
 
 `BOOK IMPLIED = 1/odds`
 
@@ -112,91 +136,69 @@ Probability is locked before offered ML price is used as analytical evidence.
 TAKE CANDIDATE requires:
 
 - odds `>=1.60`;
-- edge `>=+5.0pp`.
-
-For ML, towers/structures remain context by default and matter only through demonstrated forward-control consequences.
+- edge `>=+5.0pp`;
+- synchronized executable live ML;
+- price-independent `K/P0`;
+- probability locked before price use;
+- position-blind reassessment;
+- actual exposure `0u`.
 
 ---
 
-# 3. Duration Core
+# 3. Duration Core — unchanged from v1.1
 
-Duration uses one central final-time estimate to price both Over and Under.
-
-The central estimate is completed **before the offered Duration line or odds are used as analytical evidence**.
-
-## Calibration anchor
-
-Initial neutral final-duration anchor:
+Neutral final-duration anchor:
 
 `31.0 minutes`
 
-Derived from available Airtable August 2026 completed LCK map history at activation: 31 usable durations, median about 30:55, mean about 31:59, standard deviation about 5.0 minutes.
-
-For current clock `t` in decimal minutes:
+At current clock `t`:
 
 `R0(t) = max(5.0, 31.0 - t)`
 
-## Live Duration variables
-
 Score `V/Q/H/T` on `-2..+2`:
 
-- `V` — net conversion velocity; positive means faster terminal conversion, negative means demonstrated stalled/slow conversion;
-- `Q` — compulsory-cycle spacing; positive means more clock before the next decisive cycle, negative means imminent decisive/terminal cycle;
-- `H` — terminal path depth; positive means more real map/base layers remain, negative means short/open Nexus path;
-- `T` — terminal trajectory; positive means current state-usable tools extend the game, negative means current state accelerates closure.
+- `V` net conversion velocity;
+- `Q` compulsory-cycle spacing;
+- `H` terminal path depth;
+- `T` terminal trajectory.
 
 Absent conversion opportunity is neutral, not stall proof.
-
-## Central final estimate
 
 `ER = max(2.0, R0 - 1.5*V + 1.0*Q + 1.0*H + 0.75*T)`
 
 `F = t + ER`
 
-Lock `F` before reading the line as analytical evidence.
+Lock `F` before line/odds are used as analytical evidence.
 
-## Line probability
-
-For Duration line `L`:
+For line `L`:
 
 `P(OVER) = clamp(50% + 7*(F-L) pp, 15%, 85%)`
 
-`P(UNDER) = 100% - P(OVER)`
+`P(UNDER) = 100% - P(OVER)` when settlement semantics are clear.
 
-If settlement rules make push/void handling materially unclear, HOLD.
-
-## Duration price rule
-
-`BOOK IMPLIED = 1/odds`
-
-`EDGE = MODEL SIDE PROBABILITY - BOOK IMPLIED`
-
-TAKE CANDIDATE requires:
+Duration TAKE CANDIDATE requires:
 
 - odds `>=1.60`;
-- selected-side edge `>=+7.5pp`.
-
-The higher Duration buffer reflects greater final-clock uncertainty.
-
-Unlike ML, structures can directly affect Duration through `H` because remaining structural/base layers are literal terminal path length.
+- selected-side edge `>=+7.5pp`;
+- synchronized executable market;
+- position-blind reassessment;
+- actual exposure `0u`.
 
 ---
 
 # 4. Verdict semantics
 
-Active families use only:
-
-- `HOLD` — synchronized current state/market cannot be scored responsibly;
-- `PASS` — usable state, but no executable selection clears its family price/edge requirements or an execution control fails;
-- `TAKE CANDIDATE` — analytical and execution requirements pass, but this is not yet a Position.
+- `HOLD` — state/market/strength prior cannot be scored responsibly;
+- `PASS` — usable state but no executable selection clears its family requirements;
+- `TAKE CANDIDATE` — analytical/execution requirements pass, but no Position yet.
 
 Every TAKE CANDIDATE sets:
 
 `USER_LINE_CONFIRMATION=PENDING`
 
-For ML the user must confirm exact team ML + odds.
+ML confirmation = exact team ML + odds.
 
-For Duration the user must confirm exact Over/Under side + duration line + odds.
+Duration confirmation = exact Over/Under side + line + odds.
 
 No Position, W/L or P/L exists while confirmation is pending.
 
@@ -204,76 +206,65 @@ No Position, W/L or P/L exists while confirmation is pending.
 
 # 5. Shared execution controls
 
-- GitHub is analytical/governance authority;
-- Airtable is canonical historical map/snapshot/position ledger;
-- valid frozen Session Authority Lock required before TAKE CANDIDATE;
-- synchronized live evidence required;
-- executable active-family market required;
-- position-blind reassessment required;
-- model probability / central Duration estimate locked before price evidence;
-- minimum decimal odds 1.60;
-- ML edge requirement +5.0pp;
-- Duration edge requirement +7.5pp;
-- exact user line-existence confirmation before Position logging;
-- default shadow stake 0.25u unless current lock changes it;
-- actual exposure 0u unless explicitly changed by user;
-- no chasing, rescue, martingale, averaging down or stake escalation;
-- no retroactive Position creation;
-- material state change expires a pending candidate;
-- historical prediction result and process validity remain separate.
+- GitHub = analytical/governance authority;
+- Airtable = canonical map/snapshot/position ledger;
+- valid frozen Session Authority Lock required;
+- synchronized live evidence;
+- executable active-family market;
+- position-blind reassessment;
+- probability / Duration `F` locked before price evidence;
+- minimum odds `1.60`;
+- ML edge `+5.0pp`;
+- Duration edge `+7.5pp`;
+- exact user line confirmation before accepted Position;
+- default shadow stake `0.25u` unless lock changes it;
+- actual exposure `0u` unless explicitly changed;
+- no chasing/rescue/martingale/averaging down/stake escalation;
+- no retroactive accepted Position creation;
+- material state change expires pending candidate.
 
-ML and Duration can both qualify on one map only if each independently clears its own model. One family is not evidence for the other.
+ML and Duration qualify independently.
 
 ---
 
-# 6. Frozen validation epoch
+# 6. Validation epoch
 
-The user explicitly authorized Duration activation while the v1.0 Moneyline-only accepted sample was still 0.
+v1.1 closes prospectively at:
 
-The v1.0 Moneyline-only epoch is therefore closed at 0 confirmed Positions and v1.1 starts fresh family-specific counts:
+- `ML_SAMPLE_N=0` accepted Positions;
+- `DURATION_SAMPLE_N=0` accepted Positions.
 
-- `ML_SAMPLE_N = 0`;
-- `DURATION_SAMPLE_N = 0`.
+Game 1 retroactive user-designated ledger entries remain outside validation.
+
+v1.2 begins:
+
+- `ML_SAMPLE_N=0`;
+- `DURATION_SAMPLE_N=0`.
 
 Per family:
 
-- 10 confirmed Positions: diagnostic only;
-- 20: minimum architectural review point;
-- 30: preferred first full calibration review.
+- 10 accepted Positions: diagnostic checkpoint only;
+- 20: minimum architecture review;
+- 30: preferred full calibration review.
 
-Do not mutate either core after one ordinary loss.
-
-Primary error taxonomy remains:
+Primary taxonomy:
 
 - `DRAFT READ ERROR`;
 - `LIVE STATE ERROR`;
 - `PROBABILITY/CALIBRATION ERROR`;
 - `PRICE/EXECUTION ERROR`.
 
-Material analytical changes during the freeze require explicit user authorization and a new calibration epoch when applicable.
+A material future change normally requires repeated evidence, persistent calibration bias, a clear mechanical defect, or explicit user-authorized redesign.
 
 ---
 
 # 7. Historical authority boundary
 
-All v0.x materials remain **HISTORICAL / AUDIT / RESEARCH AUTHORITY ONLY**.
+All v0.x, v1.0 and v1.1 analytical generations remain historical/audit authority after v1.2 activation.
 
-This includes legacy named systems such as:
+Do not blend legacy DIM/PDRL/PML, CFC/DPS/LRO, KHMC/WMS/RNE/NKB, TK recurrence/FRP, historical Duration DOVC/FCR/FRP, PRE_TAKE trees or fixed snapshot/cycle gates into v1.2.
 
-- DIM/PDRL/PML certificates;
-- CFC/DPS/LRO gate trees;
-- fixed snapshot/cycle counts;
-- KHMC/WMS/RNE/NKB and other KH machinery;
-- TK recurrence/FRP machinery;
-- historical Duration DOVC/FCR/FRP and PRE_TAKE certificate trees;
-- family-specific GATE_SIG/PRE_TAKE trees;
-- fixed late-market buffers.
-
-Useful causal lessons may be absorbed only through the compact active v1.1 variables and procedures.
-
-The v1.0 generation remains preserved as historical authority. Its Moneyline analytical formula is carried forward unchanged into the new v1.1 Moneyline files; do not load v1.0 files in parallel with v1.1 active authority unless performing an audit comparison.
-
-Do not delete/rewrite/relabel historical GitHub files, Airtable Maps, Snapshots, Positions, screenshots, reviews, results, model labels or P/L.
+Do not relabel T1–BFX Games 1 or 2 as v1.2. v1.2 is prospective from its fresh lock.
 
 ---
 
@@ -284,30 +275,29 @@ Every new LoL chat/session must:
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
 3. fetch mutable `models/lol/session/CURRENT_SESSION_LOCK.md`;
-4. if lock is ACTIVE, re-fetch `CURRENT_MODEL.md` at its exact `authority_commit`;
+4. if lock ACTIVE, re-fetch `CURRENT_MODEL.md` at exact `authority_commit`;
 5. from that same authority commit load in order:
-   1. `models/lol/rules/MODEL_RULES_LOL_V1.1_MONEYLINE_CORE.md`;
-   2. `models/lol/procedures/LOL_V1.1_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`;
+   1. `models/lol/rules/MODEL_RULES_LOL_V1.2_MONEYLINE_STRENGTH_PRIOR_CORE.md`;
+   2. `models/lol/procedures/LOL_V1.2_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`;
    3. `models/lol/rules/MODEL_RULES_LOL_V1.1_DURATION_CORE.md`;
    4. `models/lol/procedures/LOL_V1.1_DURATION_LIVE_PROCEDURE_2026-08-29.md`;
-   5. `models/lol/procedures/LOL_V1.1_VALIDATION_PROTOCOL_2026-08-29.md`;
-   6. `models/lol/procedures/LOL_V1.1_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`;
-   7. `models/lol/reviews/LOL_V1.1_DURATION_ENABLEMENT_2026-08-29.md` when transition/calibration context is needed;
-   8. `models/lol/reviews/LOL_V1.0_CLEAN_REBUILD_AUDIT_2026-08-29.md` when older transition context is needed;
-6. use Airtable as ledger/history authority, not analytical model authority;
-7. load the latest applicable live handoff last.
-
-Historical v0.x/v1.0 analytical files are excluded from active live authority unless opened explicitly for audit/review.
+   5. `models/lol/procedures/LOL_V1.2_VALIDATION_PROTOCOL_2026-08-29.md`;
+   6. `models/lol/procedures/LOL_V1.2_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`;
+   7. `models/lol/reviews/LOL_V1.2_TEAM_STRENGTH_PRIOR_PATCH_2026-08-29.md` when transition/series prior context is needed;
+   8. `models/lol/reviews/LOL_V1.1_DURATION_ENABLEMENT_2026-08-29.md` when Duration transition context is needed;
+   9. `models/lol/reviews/LOL_V1.0_CLEAN_REBUILD_AUDIT_2026-08-29.md` when older rebuild context is needed;
+6. use Airtable only as ledger/history authority;
+7. load latest applicable live handoff last.
 
 If lock/authority cannot be matched:
 
 `MODEL LOCK MISMATCH — HOLD`
 
-If v1.1 activation/lock construction is incomplete:
+If activation/lock construction is incomplete:
 
 `MODEL REBUILD IN PROGRESS — HOLD`
 
-If procedural circuit breaker is active:
+If procedural breaker active:
 
 `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`
 
@@ -318,6 +308,8 @@ If procedural circuit breaker is active:
 ## Moneyline
 
 `ML — [A vs B]`
+
+`Strength: K [x] | P0 [xx]% — [non-price basis]`
 
 `Draft: [A / EVEN / B] — [mechanism]`
 
@@ -337,16 +329,16 @@ If procedural circuit breaker is active:
 
 `Verdict: HOLD / PASS / TAKE CANDIDATE — [cause]`
 
-For any TAKE CANDIDATE add exact line-confirmation request.
+For TAKE CANDIDATE add exact line-confirmation request.
 
 ---
 
 # 10. Activation statement
 
-The user explicitly authorized the v1.x clean major rebuild and later explicitly authorized Duration activation on 2026-08-29 UTC+7.
+The user explicitly authorized the v1.2 Moneyline strength-prior repair on 2026-08-29 UTC+7.
 
-**LoL v1.1 — Moneyline + Duration Core becomes active only when a fresh Session Authority Lock points to the authority commit containing this completed `CURRENT_MODEL.md` and all required v1.1 files.**
+**LoL v1.2 becomes active only when a fresh Session Authority Lock points to the authority commit containing this completed `CURRENT_MODEL.md` and the complete required stack.**
 
-Until that fresh lock exists:
+Until that lock exists:
 
 `MODEL REBUILD IN PROGRESS — HOLD`
