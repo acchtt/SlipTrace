@@ -93,20 +93,32 @@ Process correction during G4:
 - corrected immediately: header displayed K/D/A plus towers, not team kill totals;
 - corrected state kept BFX at 3-1 kills while T1 had structure/objective control.
 
-## Game 5 preparation
+## Game 5
 
-- Game 5 side assignment: `T1 BLUE / BNK FEARX RED` — user-confirmed.
+- Side assignment: `T1 BLUE / BNK FEARX RED` — user-confirmed.
+- Series score entering map: `2-2`.
 
-1. Series is tied `2-2` — deciding map.
-2. Apply all forty consumed champions from Games 1-4.
-3. Resolve exact five and roles from user draft/screenshot.
-4. Use frozen series strength tier: T1 `K=+1 / P0=55%`, BFX `K=-1 / P0=45%`.
-5. Grade Game 5 draft separately and give draft more weight than team strength, per v1.3.
-6. No pregame/immediate-postdraft TAKE.
-7. Wait for synchronized live state plus executable Moneyline/Duration market.
-8. ML: lock K/P0 + D/R/X/O/T price-blind, then read odds.
-9. Duration: score V/Q/H/T, lock F, then read line/odds.
-10. TAKE CANDIDATE only if family threshold clears; accepted Position only after exact live confirmation before material state change.
+Exact user-supplied draft:
+- T1: `Kennen / Poppy / Yone / Varus / Renata Glasc`
+- BFX: `Lissandra / Xin Zhao / Azir / Kalista / Soraka`
+
+Expected roles from listed order:
+- T1: Kennen top / Poppy jungle / Yone mid / Varus bot / Renata support
+- BFX: Lissandra top / Xin Zhao jungle / Azir mid / Kalista bot / Soraka support
+
+v1.3 draft prior from T1 perspective: `D=+1` (T1 slight).
+
+Draft mechanism notes:
+- T1 has unusually strong anti-entry/anti-dash interactions through Poppy against Xin Zhao, Kalista and Azir movement, while Kennen/Yone provide flank and dive threat and Varus/Renata provide range, pick and counter-engage.
+- BFX has strong anti-dive and front-to-back control through Lissandra lock, Xin Zhao ultimate, Azir peel/DPS and Soraka sustain; this keeps the draft edge only slight rather than large.
+- Player/role fit in the deep Fearless pool appears cleaner for T1 on Poppy/Varus/Renata than BFX's Lissandra top, though exact performance must be judged live.
+
+Pre-live v1.3 reference before any live-state evidence:
+- T1 `K=+1 / P0=55%`
+- intact draft `D=+1` contributes +4.5pp
+- reference `T1 59.5% / BFX 40.5%`
+
+No pregame/immediate-postdraft TAKE. Wait for synchronized live state plus executable Moneyline/Duration market.
 
 ## Historical ledger boundary
 
