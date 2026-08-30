@@ -9,8 +9,8 @@
 - Match: `Dplus KIA vs KT Rolster`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-08-30 15:00 UTC+7 / 17:00 KST`
-- Series score: `not supplied / do not infer`
-- Current map: `not supplied / do not infer`
+- Current series score: `KT Rolster 1-0 Dplus KIA`
+- Current map: `Game 2 — live`
 
 ## Active model
 
@@ -41,7 +41,7 @@ Basis available before the series:
 - DK beat T1 `2-1` on 2026-08-14;
 - KT reached this playoff round through Play-Ins, defeating Hanjin BRION `3-2` on 2026-08-26.
 
-This is a meaningful but not maximum strength tier. Freeze it for the series absent genuine roster/availability change.
+This is a meaningful but not maximum strength tier. Freeze it for the series absent genuine roster/availability change. Game 1 result does not modify K/P0.
 
 ## v1.3 Moneyline hierarchy
 
@@ -68,27 +68,69 @@ Unchanged v1.1 Duration Core:
 
 Absent conversion opportunity is neutral.
 
-## DK vs KT initialization
+## Game 1 — completed before DK-KT relock
 
-- Blue/Red side assignment: `not supplied`.
-- Exact five / substitutions: `not yet resolved in this handoff`.
-- Draft: `not supplied`.
-- Fearless consumed pool: `none recorded yet`.
-- Live scoreboard/market: `not supplied`.
-- No betting verdict or Position has been issued under this DK-KT lock.
+Final screenshot supplied after relock confirms:
+
+- Winner: `KT Rolster`
+- Duration: `38:44`
+- Kills: `KT 15-11 DK`
+- Towers: `KT 10-4 DK`
+- Dragons: `KT 5-1 DK`
+- Barons: `KT 1-0 DK`
+- Inhibitors: `KT 2-0 DK`
+
+Game 1 draft / consumed champions:
+- KT: `Trundle / Jarvan IV / Syndra / Ezreal / Nautilus`
+- DK: `Olaf / Xin Zhao / Orianna / Caitlyn / Bard`
+
+This map completed before the DK-KT-specific lock was created at 16:12 UTC+7, so it is historical context only and is not a certified DK-KT Position/sample under the new lock.
+
+## Game 2 — current
+
+User screenshot at ~3:15 confirms exact five/roles:
+
+### KT Rolster
+- PerfecT — `Rumble` top
+- Cuzz — `Skarner` jungle
+- Bdd — `Ahri` mid
+- Jiwoo — `Kalista` bot
+- Effort — `Renata Glasc` support
+
+### Dplus KIA
+- Siwoo — `Jayce` top
+- Lucid — `Vi` jungle
+- ShowMaker — `Annie` mid
+- Smash — `Taliyah` bot
+- Career — `Alistar` support
+
+Game 2 live state at screenshot:
+- Clock `3:15`
+- Kills `0-0`
+- Gold lead `KT +22`
+- Towers `0-0`
+- Dragons `0-0`
+- Barons `0-0`
+- Inhibitors `0-0`
+
+Blue/Red side assignment has not been explicitly supplied; do not infer from display placement alone.
+
+Fearless consumed entering Game 2:
+- KT: `Trundle, Jarvan IV, Syndra, Ezreal, Nautilus`
+- DK: `Olaf, Xin Zhao, Orianna, Caitlyn, Bard`
+
+Game 2 draft read under v1.3 should be kept separate from the frozen series strength prior. No pregame/immediate-postdraft TAKE. No executable ML/Duration price has yet been supplied for Game 2, so no betting verdict/Position exists for this map under the current lock.
 
 ## Next workflow
 
-1. Resolve current map number / series score if the series has already started.
-2. Resolve Blue/Red side.
-3. Use saved LCK rosters first; user exact lineup/card overrides generic roster context.
-4. Read the completed draft separately from team strength and track Fearless consumption map by map.
-5. No pregame/immediate-postdraft TAKE.
-6. On synchronized live state + executable market:
+1. Resolve Game 2 Blue/Red side when user supplies it.
+2. Keep strength frozen: DK `55%` / KT `45%` before draft/live correction.
+3. Grade Game 2 draft separately and track Fearless consumption.
+4. On synchronized live state + executable market:
    - ML: lock K/P0 + D/R/X/O/T price-blind, then read odds;
    - Duration: score V/Q/H/T, lock F, then read line/odds.
-7. TAKE CANDIDATE only if family threshold clears.
-8. Accepted Position only after exact live user confirmation before material state change.
+5. TAKE CANDIDATE only if family threshold clears.
+6. Accepted Position only after exact live user confirmation before material state change.
 
 ## Bootstrap next continuation
 
