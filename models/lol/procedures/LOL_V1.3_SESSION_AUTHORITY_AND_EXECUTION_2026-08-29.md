@@ -32,19 +32,25 @@ Until complete activation -> `MODEL REBUILD IN PROGRESS — HOLD`.
 
 Resolve before TAKE CANDIDATE:
 
-`ML_CORE[K=...;P0=...;D=...;MC=...;R=...;X=...;O=...;T=...;S=...;P=...;BOOK=...;EDGE=...;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
+`ML_CORE[K=...;P0=...;D=...;MC=...;R=...;X=...;O=...;T=...;C=...;S=...;P=...;BOOK=...;EDGE=...;THESIS=P;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
 
 Requirements:
 
 - `K/P0` frozen from pre-series non-price evidence;
 - `P0=50%+5*K pp`;
-- `S=1.5D_eff+1.5R+1.5X+1.25O+T`;
+- `C=1.5D_eff+1.5R+1.5X+1.25O+T`;
+- `S=C`;
 - probability locked before price evidence;
+- selected-side causal thesis `C>0`;
+- coherent, currently reachable draft/live win mechanism for the selected side;
+- team-strength prior alone cannot satisfy the thesis gate;
 - synchronized executable live ML;
 - odds >=1.60;
 - edge >=+5.0pp;
 - position-blind;
 - actual exposure 0u.
+
+**Price cannot create the bet.** If selected-side `C<=0`, verdict is `PASS` even when the numerical edge clears +5.0pp. A long price is never a substitute for positive draft/live causality.
 
 ---
 
@@ -62,11 +68,11 @@ Requirements remain odds >=1.60 and edge >=+7.5pp, with F locked before line/pri
 
 Material state change expires pending candidate.
 
-ML: retain frozen K/P0, rebuild D_eff/R/X/O/T as needed.
+ML: retain frozen K/P0, rebuild D_eff/R/X/O/T and causal thesis as needed.
 
 Duration: rebuild V/Q/H/T/F.
 
-Price-only movement with unchanged state may reuse locked ML probability or Duration F; changed Duration line requires new side probability.
+Price-only movement with unchanged state may reuse locked ML probability and thesis or Duration F; changed Duration line requires new side probability.
 
 ---
 
@@ -100,7 +106,7 @@ Never claim a write succeeded unless connector mutation succeeded.
 
 ## 10. Circuit breaker
 
-Suspend TAKE CANDIDATE issuance for authority mismatch, actual-exposure violation, Position without timely confirmation, retired-market Position, price contamination of K/probability, stale candidate reuse, or sync/executability failure causing a false accepted entry.
+Suspend TAKE CANDIDATE issuance for authority mismatch, actual-exposure violation, Position without timely confirmation, retired-market Position, price contamination of K/probability, price-only candidate issuance without a positive causal thesis, stale candidate reuse, or sync/executability failure causing a false accepted entry.
 
 Visible: `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`.
 
