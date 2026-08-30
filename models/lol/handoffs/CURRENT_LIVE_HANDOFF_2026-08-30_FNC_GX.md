@@ -7,9 +7,9 @@
 - Stage: `Week 6 / Regular Season`
 - Match: `Fnatic vs GIANTX`
 - Format: `Bo3 Fearless Draft`
-- Series score: `0-0 while Game 1 is underway / do not infer Game 1 result`
-- Current map: `Game 1 underway`
-- Requested workflow: `prepare for Game 2; do not spend live effort on Game 1 betting unless user asks`
+- Series score: `GIANTX 1-0 Fnatic`
+- Current map: `Game 1 complete — GIANTX won`
+- Requested workflow: `prepare for Game 2`
 - Blue/Red Game 2: `not yet supplied`
 
 ## Active authority
@@ -54,7 +54,7 @@ Frozen strength prior:
 - Fnatic `K=0 / P0=50%`
 - GIANTX `K=0 / P0=50%`
 
-Same-series outcomes and sportsbook prices cannot change K/P0.
+**Game 1 result does not change K/P0. Same-series outcomes and sportsbook prices are forbidden benchmark inputs.**
 
 ## Confirmed current lineups from user Game 1 scoreboard
 Fnatic:
@@ -72,8 +72,6 @@ GIANTX:
 - Jun — support
 
 ## Game 1 confirmed draft / Fearless pool
-User-supplied Game 1 scoreboard confirms:
-
 GIANTX:
 - Oscarinin — `Camille`
 - ISMA — `Jarvan IV`
@@ -89,14 +87,18 @@ Fnatic:
 - Lospa — `Lulu`
 
 ### Game 2 Fearless-consumed champions
-These 10 champions are unavailable to **either team** for the remainder of this Bo3 under Fearless Draft:
+Unavailable to either team in Game 2:
 
 `Camille / Jarvan IV / Syndra / Ashe / Seraphine / Olaf / Skarner / Cassiopeia / Yunara / Lulu`
 
-Do not infer Game 1 winner from this snapshot and do not alter frozen `K/P0` from Game 1 state/result.
+## Game 1 result / ledger
+- User reported: `GIANTX won Game 1`.
+- No Game 1 betting Position existed.
+- Final duration/full final scoreboard not supplied.
+- Airtable Map: `LEC-2026-08-30-FNC-GX-G1` / record `rec4cAfXn6Hn7g4Ev`.
+- Airtable prep snapshot at `18:14`: record `recdnY77GZ3xq2aXZ`.
 
-## Game 1 snapshot context — non-betting / prep only
-At user screenshot clock `18:14`:
+At the prep snapshot `18:14`:
 - kills: `GIANTX 4 - 8 Fnatic`
 - towers: `1-1`
 - dragons: `GIANTX 2 - 1 Fnatic`
@@ -104,13 +106,11 @@ At user screenshot clock `18:14`:
 - inhibitors: `0-0`
 - displayed overall gold lead: about `Fnatic +2.5k`
 
-This state is recorded only to identify the exact Game 1 draft and current series context. User requested Game 2 preparation, not a Game 1 betting verdict.
-
 ## Game 2 prep state
+- Series score is `GX 1-0 FNC`, but this does **not** alter benchmark `K/P0`.
 - Freeze strength: `FNC K=0/P0=50%`, `GX K=0/P0=50%`.
-- Game 2 consumed pool is now fully resolved from Game 1.
+- Consumed pool is fully resolved.
 - Once Game 2 sides/draft are known, verify none of the 10 consumed champions are selected and lock map-specific `D` price-blind.
-- Read Game 2 draft with explicit attention to replacements forced by removal of `Skarner / Ashe / Seraphine / Syndra / Yunara / Lulu` and the top/jungle removals `Camille / Jarvan IV / Olaf`.
 - No immediate-postdraft TAKE.
 - On synchronized Game 2 live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
 - If `C<=0`, selected side is PASS regardless of attractive odds.
