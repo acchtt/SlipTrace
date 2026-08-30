@@ -18,25 +18,64 @@ This patch keeps the v1.2 team-strength tier but reduces its probability weight 
 
 # 2. Team-strength prior `K`
 
+`K` is no longer assigned primarily by loose qualitative judgment. It is constructed pre-series by the active benchmark procedure:
+
+`models/lol/procedures/LOL_V1.3_TEAM_BENCHMARK_GOLGG_2026-08-30.md`
+
+Primary source: price-independent Games of Legends / gol.gg league-tournament team data.
+
+### Benchmark construction
+
+Within the same league/tournament peer set, population-standardize:
+
+- WinRate;
+- GDM;
+- GD@15;
+- Tower Diff/Game = Towers killed/game - Towers lost/game;
+- DRA%;
+- NASH%.
+
+Split score:
+
+`B_split = 0.30*z(WinRate) + 0.30*z(GDM) + 0.20*z(GD@15) + 0.10*z(TowerDiff) + 0.05*z(DRA%) + 0.05*z(NASH%)`
+
+Current/previous split blend by current games `G`:
+
+- `G >= 15`: 70% current / 30% previous;
+- `8 <= G <= 14`: 55% current / 45% previous;
+- `G < 8`: 40% current / 60% previous.
+
+Apply the roster-continuity adjustment in the benchmark procedure before using previous-split weight.
+
+Re-standardize all peer-set blended scores to final league-relative `B` values.
+
+For Team A vs Team B:
+
+`GAP = B(A) - B(B)`
+
 From Team A perspective:
+
+- `|GAP| < 0.50` -> `K=0`;
+- `0.50 <= |GAP| < 1.25` -> `K=sign(GAP)*1`;
+- `|GAP| >= 1.25` -> `K=sign(GAP)*2`.
+
+Interpretation:
 
 - `K=+2` clear major persistent team-strength edge;
 - `K=+1` meaningful persistent team-strength edge;
 - `K=0` no robust persistent edge;
 - `K=-1` meaningful persistent disadvantage;
-- `K=-2` clear major persistent disadvantage.
+- `K=-2` clear major disadvantage.
 
-Allowed evidence is pre-series and price-independent only: recent official same-league performance, opponent quality/competition path, roster continuity/substitutions and established current form.
+Forbidden inputs: sportsbook odds, current-map state, same-series map results, hindsight.
 
-Forbidden: sportsbook odds, current-map state, same-series map results, hindsight.
-
-Freeze `K` for a series unless a genuine roster/availability change occurs.
+Freeze `K` for a series after the pre-series benchmark unless a genuine roster/availability change occurs or the user explicitly authorizes a model redesign. Same-series results never update `K`.
 
 ### Light strength baseline
 
 `P0(A)=50%+5*K percentage points`
 
-Discrete baselines are therefore `40/45/50/55/60%` for `K=-2/-1/0/+1/+2`.
+Discrete baselines are `40/45/50/55/60%` for `K=-2/-1/0/+1/+2`.
 
 Team strength is intentionally informative but not dominant.
 
@@ -106,7 +145,7 @@ Final probability:
 
 `P(B)=100%-P(A)`
 
-Lock `K/P0`, draft/live state and both probabilities before using offered ML price as analytical evidence.
+Lock benchmark-derived `K/P0`, draft/live state and both probabilities before using offered ML price as analytical evidence.
 
 ### Weight interpretation
 
@@ -158,7 +197,7 @@ TAKE CANDIDATE requires:
 - synchronized executable live Moneyline;
 - odds `>=1.60`;
 - edge `>=+5.0pp`;
-- price-independent `K/P0`;
+- benchmark-derived price-independent `K/P0`;
 - probability locked before price use;
 - position-blind reassessment;
 - fresh internally consistent evidence;
@@ -184,5 +223,11 @@ No Position exists until exact quoted ML is confirmed before material state chan
 ---
 
 # 10. Compact record
+
+Pre-series strength record:
+
+`TEAM_BENCH[LEAGUE=...;CURRENT=...;PREVIOUS=...;G=...;B_CUR_A=...;B_CUR_B=...;B_PREV_A=...;B_PREV_B=...;BLEND_A=...;BLEND_B=...;B_A=...;B_B=...;GAP=...;K_A=...;K_B=...;ROSTER_ADJ=...;PRICE_USED=N]`
+
+Live record:
 
 `ML_CORE[K=...;P0=...;D=...;MC=...;R=...;X=...;O=...;T=...;C=...;S=...;P=...;BOOK=...;EDGE=...;THESIS=P;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
