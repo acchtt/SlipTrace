@@ -7,10 +7,10 @@
 - Stage: `Week 6 / Regular Season`
 - Match: `Fnatic vs GIANTX`
 - Format: `Bo3 Fearless Draft`
-- Scheduled: `2026-08-30 23:30 UTC+7 / 18:30 CEST`
-- Series score: `0-0 / pre-series`
-- Current map: `Game 1 not started`
-- Blue/Red: `not supplied`
+- Series score: `0-0 while Game 1 is underway / do not infer Game 1 result`
+- Current map: `Game 1 underway`
+- Requested workflow: `prepare for Game 2; do not spend live effort on Game 1 betting unless user asks`
+- Blue/Red Game 2: `not yet supplied`
 
 ## Active authority
 - Model: `LoL v1.3 — Hierarchy Moneyline + Duration Core`
@@ -71,16 +71,19 @@ GIANTX:
 - Flakked — bot
 - Jun — support
 
-## Workflow
-1. Receive Blue/Red and exact Game 1 draft.
-2. Lock map-specific draft `D` price-blind.
-3. No immediate-postdraft TAKE.
-4. On synchronized live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
-5. If `C<=0`, selected side is PASS regardless of attractive odds.
-6. Duration independently scores `V/Q/H/T/F` before line/price.
-7. Verdict first and compact.
-8. Exact user line confirmation required before accepted Position.
-9. Defer Airtable writes until map end.
+## Game 2 prep state
+- Do not use Game 1 result to change `K/P0`.
+- Game 1 champions become Fearless-consumed for Game 2 and must be resolved before final Game 2 draft reading.
+- Current web lookup did not reliably surface the live Game 1 champion draft yet; use user-supplied scoreboard/draft card or a reliable live source when available.
+- Once Game 1 draft is known, build the exact consumed champion pool by team.
+- Once Game 2 sides/draft are known, lock map-specific `D` price-blind.
+- No immediate-postdraft TAKE.
+- On synchronized Game 2 live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
+- If `C<=0`, selected side is PASS regardless of attractive odds.
+- Duration independently scores `V/Q/H/T/F` before line/price.
+- Verdict first and compact.
+- Exact user line confirmation required before accepted Position.
+- Defer Airtable writes until Game 2 map end.
 
 ## Bootstrap next continuation
 Fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, fetch lock `LOL-2026-08-30-V13-FNC-GX-BENCH-2254-UTC7`, re-fetch CURRENT_MODEL at authority `ce84ef31eb743e8002603cdd083c871c28787221`, load exact benchmark-aware v1.3 stack, then this or a newer FNC-GX handoff last.
