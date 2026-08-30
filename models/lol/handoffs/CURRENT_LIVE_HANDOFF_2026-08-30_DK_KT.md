@@ -26,7 +26,7 @@
 - Minimum odds: `1.60`
 - ML required edge: `+5.0pp`
 - Duration required edge: `+7.5pp`
-- Accepted v1.3 samples at relock: `ML_SAMPLE_N=0; DURATION_SAMPLE_N=0`
+- Current accepted v1.3 samples: `ML_SAMPLE_N=1; DURATION_SAMPLE_N=0`
 
 ## Series-frozen Moneyline strength prior
 
@@ -88,7 +88,7 @@ This map completed before the DK-KT-specific lock was created at 16:12 UTC+7, so
 
 ## Game 2 — current
 
-User screenshot at ~3:15 confirms exact five/roles:
+Exact five/roles from user screenshots:
 
 ### KT Rolster
 - PerfecT — `Rumble` top
@@ -104,33 +104,98 @@ User screenshot at ~3:15 confirms exact five/roles:
 - Smash — `Taliyah` bot
 - Career — `Alistar` support
 
-Game 2 live state at screenshot:
-- Clock `3:15`
-- Kills `0-0`
-- Gold lead `KT +22`
-- Towers `0-0`
-- Dragons `0-0`
-- Barons `0-0`
-- Inhibitors `0-0`
-
 Blue/Red side assignment has not been explicitly supplied; do not infer from display placement alone.
 
 Fearless consumed entering Game 2:
 - KT: `Trundle, Jarvan IV, Syndra, Ezreal, Nautilus`
 - DK: `Olaf, Xin Zhao, Orianna, Caitlyn, Bard`
 
-Game 2 draft read under v1.3 should be kept separate from the frozen series strength prior. No pregame/immediate-postdraft TAKE. No executable ML/Duration price has yet been supplied for Game 2, so no betting verdict/Position exists for this map under the current lock.
+### Game 2 draft prior
+
+Under v1.3, from DK perspective:
+- `D=-1` — KT slight draft edge.
+- KT has the cleaner front-to-back / objective shell through `Skarner + Rumble + Kalista + Renata`, with Ahri pick access.
+- DK has stronger execution-dependent pick/poke chains through `Jayce + Vi + Annie + Taliyah + Alistar`.
+
+With DK `P0=55%`, the immediate pre-live draft-adjusted reference was `DK 50.5% / KT 49.5%`.
+
+### Clock correction
+
+User instructed for Game 2: subtract `1:10` from the displayed game clock for model time.
+
+Examples:
+- displayed `9:45` -> effective `8:35`;
+- displayed `14:46` -> effective `13:36`.
+
+Continue applying this `-1:10` offset for Game 2 unless the user says it changes.
+
+### Earlier live checkpoints
+
+At displayed `6:05`:
+- DK led `1-0` kills and about `+1.2k` gold;
+- towers `0-0`, dragons `0-0`;
+- ML prices: DK `1.545`, KT `2.364`;
+- Duration 32: Over `1.688`, Under `2.092`;
+- verdict: `ML PASS / Duration PASS`.
+
+At displayed `9:45` / effective `8:35`:
+- DK led `1-0` kills and about `+1.3k` gold;
+- KT had first dragon, towers `0-0`;
+- ML prices: DK `1.589`, KT `2.268`;
+- Duration 32: Over `1.577`, Under `2.292`;
+- verdict: `ML PASS / Duration PASS`.
+
+### Confirmed Game 2 Position
+
+Decision window at displayed `14:46` / effective `13:36`:
+- kills: `DK 2-0 KT`;
+- gold: `DK +2.8k`;
+- towers: `0-0`;
+- dragons: `1-1`;
+- barons: `0-0`.
+
+Price-blind v1.3 ML state from DK perspective:
+- `K=+1 / P0=55%`;
+- `D=-1`;
+- `MC=INTACT`;
+- `R=+2`;
+- `X=+1`;
+- `O=0`;
+- `T=+1`;
+- `S=4.0`;
+- model `P(DK)=67.0% / P(KT)=33.0%`.
+
+Executable market:
+- DK `1.197`;
+- KT `4.259`.
+
+KT @4.259 raw implied = `23.48%`; model KT = `33.0%`; edge = `+9.52pp`.
+
+User immediately confirmed exact `KT Rolster ML @4.259` before any reported material state change.
+
+Accepted shadow Position:
+- Position ID: `LCK-2026-08-30-DK-KT-G2-ML-KT-1356`;
+- selection: `KT Rolster ML`;
+- odds: `4.259`;
+- entry clock: `13:36 effective (14:46 displayed; -1:10 offset)`;
+- shadow stake: `0.25u`;
+- actual exposure: `0u`;
+- status/result: `CONFIRMED / OPEN`;
+- Airtable record: `recjcpAqK1BGgDCT7`.
+
+Compact entry record:
+`ML_CORE[K(DK)=+1;P0(DK)=55%;D=-1;MC=INTACT;R=+2;X=+1;O=0;T=+1;S=4.0;P(DK)=67.0%;P(KT)=33.0%;BOOK(KT@4.259)=23.48%;EDGE(KT)=+9.52pp;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
+
+Duration at that window remained PASS: effective `13:36`, `V=0,Q=0,H=+2,T=0`, central `F=33.0m`; line 32 did not clear the +7.5pp threshold.
 
 ## Next workflow
 
-1. Resolve Game 2 Blue/Red side when user supplies it.
-2. Keep strength frozen: DK `55%` / KT `45%` before draft/live correction.
-3. Grade Game 2 draft separately and track Fearless consumption.
-4. On synchronized live state + executable market:
-   - ML: lock K/P0 + D/R/X/O/T price-blind, then read odds;
-   - Duration: score V/Q/H/T, lock F, then read line/odds.
-5. TAKE CANDIDATE only if family threshold clears.
-6. Accepted Position only after exact live user confirmation before material state change.
+1. Reassess every fresh Game 2 state position-blind; do not defend KT because the Position exists.
+2. Any material state change requires fresh `R/X/O/T` before a new ML probability.
+3. Keep the confirmed KT ML Position open until final map result, then settle in Airtable.
+4. Continue applying the Game 2 `-1:10` clock correction unless the user changes it.
+5. Duration remains independent and requires a fresh `V/Q/H/T/F` after material state changes.
+6. No rescue, chase, martingale, averaging down or stake escalation.
 
 ## Bootstrap next continuation
 
