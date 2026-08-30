@@ -2,17 +2,26 @@
 
 **Canonical namespace:** `models/lol/`  
 **Activated:** 2026-08-29 UTC+7  
-**Execution patch activated:** 2026-08-30 UTC+7
+**Execution / benchmark patches activated:** 2026-08-30 UTC+7
 
 # ACTIVE MODEL
 
 **LoL v1.3 — Hierarchy Moneyline + Duration Core**
 
-v1.3 is the user-authorized prospective Moneyline weighting repair after T1 vs BNK FEARX Game 3. It keeps the v1.2 independent team-strength tier but makes strength a lighter starting prior, gives draft a meaningful map-specific correction, and lets synchronized live state dominate once real evidence develops.
+v1.3 uses:
 
-On 2026-08-30 the user explicitly added a causal execution constraint: **do not take a bet just because the price looks good**. Moneyline price may validate value only after the selected side already has a positive non-price draft/live thesis.
+`REPRODUCIBLE LEAGUE-RELATIVE TEAM BENCHMARK = LIGHT STARTING PRIOR`
+`DRAFT = MEANINGFUL MAP-SPECIFIC CORRECTION`
+`LIVE STATE = DOMINANT ONCE REAL EVIDENCE EXISTS`
+
+On 2026-08-30 the user explicitly added two prospective controls:
+1. **do not take a bet just because the price looks good** — selected-side non-price causal thesis must already be positive;
+2. construct team-strength `K` from our own **Gol.gg league-relative benchmark**, not loose subjective tiering.
 
 Duration remains analytically unchanged from v1.1/v1.2.
+
+Active team benchmark procedure:
+`models/lol/procedures/LOL_V1.3_TEAM_BENCHMARK_GOLGG_2026-08-30.md`
 
 Active Moneyline rules:
 `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`
@@ -35,13 +44,9 @@ Active authority/execution governance:
 Mandatory bootstrap:
 `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`
 
-Transition review:
-`models/lol/reviews/LOL_V1.3_HIERARCHY_WEIGHT_PATCH_2026-08-29.md`
-
-Historical transition context when needed:
+Transition context when needed:
+- `models/lol/reviews/LOL_V1.3_HIERARCHY_WEIGHT_PATCH_2026-08-29.md`
 - `models/lol/reviews/LOL_V1.2_TEAM_STRENGTH_PRIOR_PATCH_2026-08-29.md`
-- `models/lol/reviews/LOL_V1.1_DURATION_ENABLEMENT_2026-08-29.md`
-- `models/lol/reviews/LOL_V1.0_CLEAN_REBUILD_AUDIT_2026-08-29.md`
 
 ---
 
@@ -59,19 +64,37 @@ No pregame or immediate-postdraft betting TAKE.
 
 # 2. Moneyline v1.3 hierarchy
 
-## Team strength
+## Team benchmark -> K
 
-From Team A perspective:
+Primary statistical source: **Games of Legends / gol.gg** same-league/tournament team tables, frozen before Game 1.
 
-`K=-2,-1,0,+1,+2`
+Within the current league/tournament peer set:
 
-Use only pre-series non-price evidence. Never use sportsbook odds, current-map state, same-series earlier map results or hindsight to choose K.
+`B_split = 0.30*z(WinRate) + 0.30*z(GDM) + 0.20*z(GD@15) + 0.10*z(TowerDiff/Game) + 0.05*z(DRA%) + 0.05*z(NASH%)`
 
-Freeze K for the series absent genuine roster/availability change.
+Current/previous split blend by current games `G`:
+- `G>=15`: 70/30;
+- `8<=G<=14`: 55/45;
+- `G<8`: 40/60;
+subject to roster-continuity adjustment in the benchmark procedure.
+
+Re-standardize blended peer scores to final `B`.
+
+For Team A vs B:
+
+`GAP=B(A)-B(B)`
+
+- `|GAP|<0.50` -> `K=0`
+- `0.50<=|GAP|<1.25` -> `K=sign(GAP)*1`
+- `|GAP|>=1.25` -> `K=sign(GAP)*2`
+
+Sportsbook odds, current-map state and same-series results are forbidden from benchmark construction.
+
+Freeze `K` for the series after the pre-series benchmark unless genuine roster/availability change or explicit model redesign occurs.
 
 Light baseline:
 
-`P0(A)=50%+5*K percentage points`
+`P0(A)=50%+5*K pp`
 
 ## Draft
 
@@ -92,7 +115,7 @@ Mechanism contradiction:
 
 `D_eff=D / 0.5D / 0` for intact / weakening / broken-or-replaced.
 
-## Probability
+## Probability and thesis
 
 `C=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
 
@@ -102,25 +125,20 @@ Mechanism contradiction:
 
 `P(B)=100%-P(A)`
 
-Lock K/P0, draft/live state, causal thesis and probability before offered Moneyline price is used as analytical evidence.
+Lock `TEAM_BENCH`, K/P0, draft/live state, causal thesis and probability before offered ML price is analytical evidence.
 
-Causal hierarchy:
+### Causal thesis gate
 
-`LIGHT TEAM-STRENGTH PRIOR -> MEANINGFUL DRAFT CORRECTION -> LIVE STATE DOMINATES AS EVIDENCE ACCUMULATES`
-
-## Causal thesis gate
-
-For the selected Moneyline side, use its own perspective and require:
+For the selected side:
 
 `C > 0`
 
-There must also be a coherent, currently reachable draft/live win mechanism supporting that side.
+A coherent, currently reachable draft/live win mechanism is also required.
 
 Hard interpretation:
-- team-strength prior alone cannot make a bet;
-- a long price cannot rescue a side whose draft/live causal score is neutral or negative;
-- if selected-side `C<=0`, verdict is `PASS` even if the numerical model-vs-book edge is above threshold;
-- **price cannot create the bet**.
+- team strength alone cannot make a bet;
+- price cannot create the bet;
+- if selected-side `C<=0`, verdict is `PASS` even if apparent numerical edge is large.
 
 ## ML price rule
 
@@ -129,13 +147,12 @@ Hard interpretation:
 `EDGE=MODEL PROBABILITY-BOOK IMPLIED`
 
 TAKE CANDIDATE requires:
-- selected-side causal thesis `C>0`;
-- coherent reachable draft/live mechanism;
+- benchmark-certified price-independent K/P0;
+- selected-side `C>0` and coherent reachable mechanism;
 - synchronized executable live ML;
 - odds >=1.60;
 - edge >=+5.0pp;
-- price-independent K/P0;
-- probability and thesis locked before price use;
+- probability/thesis locked before price;
 - position-blind;
 - actual exposure 0u.
 
@@ -186,9 +203,8 @@ Shared controls:
 - valid active Session Authority Lock;
 - synchronized executable evidence;
 - position-blind reassessment;
-- ML probability/thesis / Duration F locked before price evidence;
-- Moneyline price cannot create the directional thesis;
-- selected-side ML `C>0` required;
+- benchmark and ML probability/thesis / Duration F locked before price evidence;
+- Moneyline price cannot create directional thesis;
 - minimum odds 1.60;
 - ML edge +5.0pp;
 - Duration edge +7.5pp;
@@ -203,16 +219,9 @@ Shared controls:
 
 # 5. Validation epoch
 
-v1.2 remains historical through Game 3 of T1 vs BNK FEARX.
+Earlier v1.3 accepted Positions remain historical under the rules active at entry. Do not retroactively rewrite them.
 
-v1.3 is prospective from the fresh post-Game-3 lock.
-
-Initial v1.3 Moneyline accepted sample:
-`ML_SAMPLE_N=0`
-
-Duration sample continues unchanged and remains family-separated.
-
-The 2026-08-30 causal thesis gate is prospective only. Earlier accepted v1.3 Positions remain valid historical samples under the execution rules active when accepted; do not retroactively relabel them.
+The 2026-08-30 causal-thesis and Gol.gg benchmark patches apply prospectively from the fresh lock that activates this authority commit.
 
 Review cadence per family:
 - 10 accepted: diagnostic only;
@@ -225,15 +234,15 @@ Primary taxonomy only:
 - PROBABILITY/CALIBRATION ERROR
 - PRICE/EXECUTION ERROR
 
+Benchmark/tier construction error is `PROBABILITY/CALIBRATION ERROR`.
+
 ---
 
 # 6. Historical authority boundary
 
-All v0.x/v1.0/v1.1/v1.2 analytical generations remain historical/audit authority only after v1.3 activation.
+All legacy analytical generations remain historical/audit authority only when not declared active here.
 
-Do not blend legacy certificate/gate stacks into v1.3.
-
-Do not relabel earlier T1–BFX maps as v1.3.
+Do not blend historical certificate/gate stacks into v1.3.
 
 ---
 
@@ -246,14 +255,14 @@ Every new LoL chat/session must:
 3. fetch mutable `models/lol/session/CURRENT_SESSION_LOCK.md`;
 4. if lock ACTIVE, re-fetch `CURRENT_MODEL.md` at exact `authority_commit`;
 5. from that same authority commit load in order:
-   1. `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`;
-   2. `models/lol/procedures/LOL_V1.3_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`;
-   3. `models/lol/rules/MODEL_RULES_LOL_V1.1_DURATION_CORE.md`;
-   4. `models/lol/procedures/LOL_V1.1_DURATION_LIVE_PROCEDURE_2026-08-29.md`;
-   5. `models/lol/procedures/LOL_V1.3_VALIDATION_PROTOCOL_2026-08-29.md`;
-   6. `models/lol/procedures/LOL_V1.3_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`;
-   7. `models/lol/reviews/LOL_V1.3_HIERARCHY_WEIGHT_PATCH_2026-08-29.md` when transition context is needed;
-   8. `models/lol/reviews/LOL_V1.2_TEAM_STRENGTH_PRIOR_PATCH_2026-08-29.md` when earlier strength-prior context is needed;
+   1. `models/lol/procedures/LOL_V1.3_TEAM_BENCHMARK_GOLGG_2026-08-30.md`;
+   2. `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`;
+   3. `models/lol/procedures/LOL_V1.3_MONEYLINE_LIVE_PROCEDURE_2026-08-29.md`;
+   4. `models/lol/rules/MODEL_RULES_LOL_V1.1_DURATION_CORE.md`;
+   5. `models/lol/procedures/LOL_V1.1_DURATION_LIVE_PROCEDURE_2026-08-29.md`;
+   6. `models/lol/procedures/LOL_V1.3_VALIDATION_PROTOCOL_2026-08-29.md`;
+   7. `models/lol/procedures/LOL_V1.3_SESSION_AUTHORITY_AND_EXECUTION_2026-08-29.md`;
+   8. transition reviews only when needed;
 6. use Airtable only as ledger/history authority;
 7. load latest applicable live handoff last.
 
@@ -271,7 +280,7 @@ If procedural breaker active:
 # 8. Compact live output
 
 Moneyline:
-`Strength: K [x] | P0 [xx]%`
+`Strength: K [x] | P0 [xx]% | Benchmark gap [x.xx] SD`
 `Draft: [A/EVEN/B] — [mechanism]`
 `Live: R [x] | X [x] | O [x] | T [x] | Mechanism [state]`
 `Thesis: C [x] | PASS/FAIL`
@@ -290,8 +299,10 @@ For any TAKE CANDIDATE add exact line confirmation request.
 
 # 9. Activation statement
 
-The user explicitly authorized the hierarchy weighting repair during T1 vs BNK FEARX Game 3, effective prospectively from the next game.
+The user explicitly authorized the hierarchy weighting repair during T1 vs BNK FEARX Game 3.
 
-The user explicitly authorized the causal thesis execution gate on 2026-08-30 after TH vs MKOI Game 2: **do not take a bet just because the price looks good**.
+The user explicitly authorized the causal-thesis execution gate after TH vs MKOI Game 2.
 
-**LoL v1.3 is active only when a fresh Session Authority Lock points to an authority commit containing this completed `CURRENT_MODEL.md` and the complete v1.3 stack.**
+The user explicitly authorized Gol.gg-derived league-relative team benchmarking on 2026-08-30.
+
+**This benchmark-aware v1.3 stack becomes active only when a fresh Session Authority Lock points to the authority commit containing this completed `CURRENT_MODEL.md` and the complete declared stack.**
