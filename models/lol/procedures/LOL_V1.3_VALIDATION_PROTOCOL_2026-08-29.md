@@ -30,14 +30,23 @@ Do not change during initial validation without new explicit authorization:
 - `R/X/O/T=-2..+2`;
 - mechanism `INTACT / WEAKENING / BROKEN / REPLACED`;
 - `D_eff=D / 0.5D / 0`;
-- `S=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`;
+- `C=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`;
+- `S=C`;
 - `P=clamp(P0+3*S pp,15%,85%)`;
 - raw implied `1/odds`;
 - ML edge >=+5.0pp;
 - minimum odds 1.60;
 - probability locked before price evidence.
 
-Record `K/P0` and all state variables for every accepted ML Position.
+Prospectively from the explicit 2026-08-30 user instruction, Moneyline also has a frozen **causal thesis gate**:
+
+- selected-side `C>0` is required for TAKE CANDIDATE;
+- the selected side must have a coherent, currently reachable draft/live win mechanism;
+- `K/P0` alone cannot satisfy the thesis gate;
+- if `C<=0`, `PASS` even when numerical model-vs-book edge exceeds +5.0pp;
+- price may validate value only after a non-price causal thesis exists; price cannot create the bet.
+
+Record `K/P0`, `C`, and all state variables for every accepted ML Position.
 
 ---
 
@@ -81,7 +90,7 @@ Per family:
 - 20: minimum architecture review;
 - 30: preferred full calibration review.
 
-For ML, explicitly review whether `K` remains light enough and whether draft/live layers dominate at appropriate evidence strength. Do not retune after one upset.
+For ML, explicitly review whether `K` remains light enough, whether draft/live layers dominate at appropriate evidence strength, and whether the causal thesis gate is preventing price-only contrarian entries without suppressing genuinely supported opportunities. Do not retune after one upset.
 
 ---
 
@@ -94,7 +103,7 @@ Only:
 - `PROBABILITY/CALIBRATION ERROR`
 - `PRICE/EXECUTION ERROR`
 
-Wrong hierarchy/weight calibration is `PROBABILITY/CALIBRATION ERROR`; sportsbook contamination is `PRICE/EXECUTION ERROR` plus governance review.
+Wrong hierarchy/weight calibration is `PROBABILITY/CALIBRATION ERROR`; sportsbook contamination or issuance of a price-only candidate without a positive causal thesis is `PRICE/EXECUTION ERROR` plus governance review.
 
 ---
 
@@ -102,4 +111,4 @@ Wrong hierarchy/weight calibration is `PROBABILITY/CALIBRATION ERROR`; sportsboo
 
 Material analytical changes normally require repeated causal failure across independent accepted positions, persistent calibration bias, a clear mechanical defect, or explicit user-authorized redesign.
 
-Historical v0.x/v1.0/v1.1/v1.2 records remain unchanged.
+Historical v0.x/v1.0/v1.1/v1.2 records remain unchanged. Previously accepted v1.3 Positions also remain historical under the rules active at their entry time; do not retroactively invalidate them.
