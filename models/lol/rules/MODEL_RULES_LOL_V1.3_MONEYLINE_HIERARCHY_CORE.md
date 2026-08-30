@@ -120,7 +120,31 @@ Because live variables can each reach ±2 and combine, synchronized in-game evid
 
 ---
 
-# 7. Price decision
+# 7. Causal thesis gate — price cannot create the bet
+
+Effective prospectively from the user instruction on 2026-08-30:
+
+**A favorable price is necessary for value but can never create the directional betting thesis.**
+
+Before using odds as analytical evidence, compute the selected side's non-price causal score:
+
+`C = 1.5*D_eff + 1.5*R + 1.5*X + 1.25*O + 1.0*T`
+
+This deliberately excludes `K/P0` and excludes price.
+
+For a selected side to be TAKE-eligible:
+
+- `C > 0` is required;
+- there must be a coherent, currently reachable draft/live win mechanism supporting that side;
+- team-strength prior alone does not satisfy the gate;
+- a long underdog price cannot rescue a side whose draft/live causal state is neutral or negative;
+- if `C <= 0`, verdict is `PASS` even when model-vs-book edge exceeds the numerical threshold.
+
+This gate does not change the probability formula. It is an execution-quality interlock preventing price-only contrarian entries.
+
+---
+
+# 8. Price decision
 
 For decimal odds `O`:
 
@@ -130,6 +154,7 @@ For decimal odds `O`:
 
 TAKE CANDIDATE requires:
 
+- causal thesis gate `C>0` for the selected side;
 - synchronized executable live Moneyline;
 - odds `>=1.60`;
 - edge `>=+5.0pp`;
@@ -144,11 +169,11 @@ Use raw implied probability during the initial v1.3 validation epoch.
 
 ---
 
-# 8. Verdicts / live-only scope
+# 9. Verdicts / live-only scope
 
 `HOLD` — state/market/prior cannot be scored responsibly.
 
-`PASS` — usable state but no executable side clears requirements.
+`PASS` — usable state but no executable side clears requirements, including the causal thesis gate.
 
 `TAKE CANDIDATE` — requirements pass; set `USER_LINE_CONFIRMATION=PENDING`.
 
@@ -158,6 +183,6 @@ No Position exists until exact quoted ML is confirmed before material state chan
 
 ---
 
-# 9. Compact record
+# 10. Compact record
 
-`ML_CORE[K=...;P0=...;D=...;MC=...;R=...;X=...;O=...;T=...;S=...;P=...;BOOK=...;EDGE=...;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
+`ML_CORE[K=...;P0=...;D=...;MC=...;R=...;X=...;O=...;T=...;C=...;S=...;P=...;BOOK=...;EDGE=...;THESIS=P;SYNC=P;EXEC=P;ODDS=P;POSBLIND=P;EXPOSURE=0u]`
