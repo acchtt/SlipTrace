@@ -56,7 +56,7 @@ Frozen strength prior:
 
 Same-series outcomes and sportsbook prices cannot change K/P0.
 
-## Expected lineups — live card overrides
+## Confirmed current lineups from user Game 1 scoreboard
 Fnatic:
 - Soboro — top
 - Razork — jungle
@@ -71,12 +71,46 @@ GIANTX:
 - Flakked — bot
 - Jun — support
 
+## Game 1 confirmed draft / Fearless pool
+User-supplied Game 1 scoreboard confirms:
+
+GIANTX:
+- Oscarinin — `Camille`
+- ISMA — `Jarvan IV`
+- Jackies — `Syndra`
+- Flakked — `Ashe`
+- Jun — `Seraphine`
+
+Fnatic:
+- Soboro — `Olaf`
+- Razork — `Skarner`
+- Vladi — `Cassiopeia`
+- Upset — `Yunara`
+- Lospa — `Lulu`
+
+### Game 2 Fearless-consumed champions
+These 10 champions are unavailable to **either team** for the remainder of this Bo3 under Fearless Draft:
+
+`Camille / Jarvan IV / Syndra / Ashe / Seraphine / Olaf / Skarner / Cassiopeia / Yunara / Lulu`
+
+Do not infer Game 1 winner from this snapshot and do not alter frozen `K/P0` from Game 1 state/result.
+
+## Game 1 snapshot context — non-betting / prep only
+At user screenshot clock `18:14`:
+- kills: `GIANTX 4 - 8 Fnatic`
+- towers: `1-1`
+- dragons: `GIANTX 2 - 1 Fnatic`
+- barons: `0-0`
+- inhibitors: `0-0`
+- displayed overall gold lead: about `Fnatic +2.5k`
+
+This state is recorded only to identify the exact Game 1 draft and current series context. User requested Game 2 preparation, not a Game 1 betting verdict.
+
 ## Game 2 prep state
-- Do not use Game 1 result to change `K/P0`.
-- Game 1 champions become Fearless-consumed for Game 2 and must be resolved before final Game 2 draft reading.
-- Current web lookup did not reliably surface the live Game 1 champion draft yet; use user-supplied scoreboard/draft card or a reliable live source when available.
-- Once Game 1 draft is known, build the exact consumed champion pool by team.
-- Once Game 2 sides/draft are known, lock map-specific `D` price-blind.
+- Freeze strength: `FNC K=0/P0=50%`, `GX K=0/P0=50%`.
+- Game 2 consumed pool is now fully resolved from Game 1.
+- Once Game 2 sides/draft are known, verify none of the 10 consumed champions are selected and lock map-specific `D` price-blind.
+- Read Game 2 draft with explicit attention to replacements forced by removal of `Skarner / Ashe / Seraphine / Syndra / Yunara / Lulu` and the top/jungle removals `Camille / Jarvan IV / Olaf`.
 - No immediate-postdraft TAKE.
 - On synchronized Game 2 live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
 - If `C<=0`, selected side is PASS regardless of attractive odds.
