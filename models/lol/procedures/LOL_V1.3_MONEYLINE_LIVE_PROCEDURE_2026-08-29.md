@@ -40,7 +40,7 @@ If stale, contradictory, greyed/non-executable, or decision-critical state is mi
 
 ---
 
-## 5. Price-blind probability pass
+## 5. Price-blind probability and thesis pass
 
 Resolve:
 
@@ -48,13 +48,22 @@ Resolve:
 
 `D_eff=D / 0.5D / 0` for `INTACT / WEAKENING / BROKEN-or-REPLACED`.
 
-`S=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
+`C=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
+
+`S=C`
 
 `P(A)=clamp(P0(A)+3*S pp,15%,85%)`
 
 `P(B)=100%-P(A)`
 
 Lock probability before reading offered price as analytical evidence.
+
+For each potential selection, evaluate its own perspective. A selected side is not TAKE-eligible unless:
+
+- its non-price causal score `C>0`;
+- its draft/live win mechanism is coherent and currently reachable.
+
+Team strength alone cannot satisfy this thesis gate. If `C<=0`, the side is `PASS` regardless of how attractive its odds later appear.
 
 ---
 
@@ -67,9 +76,13 @@ Lock probability before reading offered price as analytical evidence.
 
 Do not protect a favorite merely because `K` favors it. Do not erase persistent team quality from one isolated early event either; score the actual live variables.
 
+Most importantly: **price cannot create the thesis**. Never take a side merely because the bookmaker number is long relative to a model probability when the draft/live causal state does not positively support that side.
+
 ---
 
 ## 7. Price pass
+
+Only after probability and thesis are locked:
 
 `BOOK=1/odds`
 
@@ -77,11 +90,14 @@ Do not protect a favorite merely because `K` favors it. Do not erase persistent 
 
 Requirements:
 
+- selected-side causal thesis `C>0`;
 - odds >=1.60;
 - edge >=+5.0pp;
 - synchronized executable ML;
 - position-blind;
 - actual exposure 0u.
+
+If edge passes but thesis fails: `PASS — PRICE ONLY / NO POSITIVE CAUSAL THESIS`.
 
 ---
 
@@ -94,6 +110,8 @@ Requirements:
 `Draft: [A / EVEN / B] — [mechanism]`
 
 `Live: R [x] | X [x] | O [x] | T [x] | Mechanism [state]`
+
+`Thesis: C [x] | PASS/FAIL`
 
 `Model: A [xx]% / B [yy]%`
 
@@ -111,7 +129,7 @@ For candidate:
 
 Material state change expires a pending candidate and requires a fresh live pass while retaining frozen `K/P0`.
 
-Price-only movement with unchanged state may reuse locked probability and reprice.
+Price-only movement with unchanged state may reuse locked probability and thesis state for that decision window, then reprice.
 
 No accepted Position without timely exact user confirmation.
 
