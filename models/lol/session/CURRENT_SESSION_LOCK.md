@@ -1,11 +1,11 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-30-V13-TH-MKOI-BENCH-2248-UTC7`  
+**Lock ID:** `LOL-2026-08-30-V13-FNC-GX-BENCH-2254-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-30 22:48 UTC+7`  
-**Scope:** `LEC 2026 Summer — Week 6 — Team Heretics vs Movistar KOI — Bo3 Fearless Draft`  
-**Scheduled:** `2026-08-30 21:15 UTC+7 / 16:15 CEST`  
-**Supersedes:** `LOL-2026-08-30-V13-TH-MKOI-THESIS-2227-UTC7` prospectively  
+**Effective:** `2026-08-30 22:54 UTC+7`  
+**Scope:** `LEC 2026 Summer — Week 6 — Fnatic vs GIANTX — Bo3 Fearless Draft`  
+**Scheduled:** `2026-08-30 23:30 UTC+7 / 18:30 CEST`  
+**Supersedes:** `LOL-2026-08-30-V13-TH-MKOI-BENCH-2248-UTC7` prospectively  
 **Authority commit:** `ce84ef31eb743e8002603cdd083c871c28787221`  
 **Active analytical model:** `LoL v1.3 — Hierarchy Moneyline + Duration Core`  
 **Team benchmark:** `GOL.GG LEAGUE-RELATIVE BENCHMARK ACTIVE`  
@@ -24,7 +24,7 @@
 
 ## Frozen authority
 
-All model-certified analysis from this relock onward must use the benchmark-aware v1.3 stack frozen at:
+All model-certified analysis for this series must use the benchmark-aware v1.3 stack frozen at:
 
 `ce84ef31eb743e8002603cdd083c871c28787221`
 
@@ -42,52 +42,69 @@ Required stack from that exact commit:
 
 Mutable handoff/Airtable state may be newer than the authority commit.
 
-## TH vs MKOI benchmark reconstruction
+## Fnatic vs GIANTX pre-series benchmark
 
-User explicitly authorized benchmark redesign after Game 2. This relock reconstructs the strength prior from **pre-series-only** Gol.gg data. Game 2 outcome and sportsbook prices are excluded.
+Constructed from pre-series-only Games of Legends / gol.gg LEC 2026 Summer and Spring team tables. Sportsbook prices and same-series outcomes are excluded.
 
 Benchmark formula:
 
 `B_split = 0.30*z(WinRate) + 0.30*z(GDM) + 0.20*z(GD@15) + 0.10*z(TowerDiff/Game) + 0.05*z(DRA%) + 0.05*z(NASH%)`
 
-Current Summer pre-series inputs:
-- MKOI: `G=20; WR=40.0%; GDM=-21; GD@15=+912; Towers=5.6-6.5; DRA%=56.3; NASH%=43.3`
-- TH: `G=17; WR=23.5%; GDM=-176; GD@15=-1262; Towers=3.5-7.8; DRA%=40.0; NASH%=25.0`
+### Current Summer inputs
 
-League-relative current split scores:
-- `B_current(MKOI)=+0.018`
-- `B_current(TH)=-1.355`
+Fnatic:
+- `G=19`
+- `WR=47.4%`
+- `GDM=-54`
+- `GD@15=+320`
+- `Towers=5.6-6.3`
+- `DRA%=47.2`
+- `NASH%=36.8`
+- league-relative `B_current=-0.134`
 
-Previous LEC Spring scores under the same metric construction:
-- `B_previous(MKOI)=+0.758`
-- `B_previous(TH)=-1.696`
+GIANTX:
+- `G=21`
+- `WR=52.4%`
+- `GDM=-58`
+- `GD@15=-792`
+- `Towers=5.7-6.3`
+- `DRA%=41.9`
+- `NASH%=41.7`
+- league-relative `B_current=-0.330`
 
-Both teams had >=15 current-split games, so normal blend is `70% current / 30% previous`. No decision-critical roster discontinuity requiring an adjustment has been established.
+### Previous Spring inputs
 
-Raw blended scores:
-- `B_raw(MKOI)=+0.240`
-- `B_raw(TH)=-1.457`
+- `B_previous(FNC)=-0.261`
+- `B_previous(GX)=-0.283`
 
-After re-standardizing all LEC blended scores:
-- `B(MKOI)=+0.262`
-- `B(TH)=-1.590`
+### Roster continuity adjustment
 
-Pairwise gap from MKOI perspective:
+Fnatic made one decision-critical starter change from Spring to Summer: `Empyros -> Soboro` top. Normal 70/30 weighting is adjusted by halving previous-split weight, giving `85% current / 15% previous`.
 
-`GAP = +1.852 SD`
+GIANTX made two decision-critical starter changes from Spring to Summer: `Lot -> Oscarinin` top and `Noah -> Flakked` bot. Under the benchmark procedure, previous split is descriptive context only; use current split for the blended score. Current sample exceeds 15 games.
 
-This clears the `>=1.25 SD` major-strength threshold.
+Resulting raw blends:
+- `B_raw(FNC)=-0.153`
+- `B_raw(GX)=-0.330`
 
-### Prospectively frozen strength prior from this relock
+After re-standardizing the LEC peer-set blended scores under the active roster-adjustment rules:
+- `B(FNC)≈-0.165`
+- `B(GX)≈-0.361`
 
-- Movistar KOI: `K=+2 / P0=60%`
-- Team Heretics: `K=-2 / P0=40%`
+Pairwise gap from Fnatic perspective:
 
-Do not use sportsbook favoritism as justification. The classification is derived from the independent benchmark.
+`GAP = B(FNC)-B(GX) ≈ +0.196 SD`
 
-Same-series results do not update this reconstructed K/P0. It is frozen prospectively for the remainder of this series unless a genuine roster/availability change occurs.
+This is below the `0.50 SD` meaningful-strength threshold.
 
-The earlier confirmed TH ML @3.396 position remains a historical v1.3 sample under the prior strength-construction/execution rules. Do not retroactively rewrite or invalidate it.
+### Frozen strength prior
+
+- Fnatic: `K=0 / P0=50%`
+- GIANTX: `K=0 / P0=50%`
+
+This is a statistically EVEN team-strength benchmark. Draft and live evidence must separate the teams.
+
+Freeze this K/P0 for the full series unless a genuine roster/availability change occurs. Same-series results never update it.
 
 ## Moneyline v1.3 core
 
@@ -101,26 +118,9 @@ From selected-side perspective:
 - `D_eff=D / 0.5D / 0`;
 - `C=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`;
 - `S=C`;
-- `P=clamp(P0+3*S pp,15%,85%)`;
-- raw implied `1/odds`.
+- `P=clamp(P0+3*S pp,15%,85%)`.
 
-### Hard causal thesis gate
-
-`PRICE CANNOT CREATE THE BET`.
-
-Before price evidence, selected side must have:
-- `C>0`;
-- coherent, currently reachable draft/live win mechanism.
-
-Team strength alone does not satisfy this gate. If selected-side `C<=0`, verdict is `PASS` regardless of apparent numerical edge.
-
-TAKE CANDIDATE additionally requires:
-- odds `>=1.60`;
-- edge `>=+5.0pp`;
-- synchronized executable market;
-- benchmark/probability/thesis locked before price;
-- position-blind reassessment;
-- actual exposure `0u`.
+Before price evidence, selected side must have `C>0` plus a coherent reachable draft/live win mechanism. Price cannot create the bet.
 
 ## Duration — unchanged
 
@@ -134,21 +134,38 @@ TAKE CANDIDATE additionally requires:
 
 Duration TAKE CANDIDATE requires odds `>=1.60` and selected-side edge `>=+7.5pp`.
 
-Absent conversion opportunity remains neutral.
+## Series initialization
 
-## Current series state at relock
+- Series score at relock: `0-0 / pre-series`.
+- Current map: `Game 1 not started`.
+- Blue/Red assignment: `not supplied`.
+- Draft: `not supplied`.
+- Live state/market: `not supplied`.
+- No FNC-GX Position exists under this lock.
+- Format: `Bo3 Fearless Draft`.
 
-- Game 2 completed: `Movistar KOI won`.
-- Series score: `not explicitly supplied / do not infer`.
-- Final Game 2 duration/full scoreboard: `not supplied`.
-- Confirmed Game 2 position `TH ML @3.396` settled LOSS and remains historical.
+Expected current lineups from reliable pre-series roster evidence, subject to user/live-card override:
+
+Fnatic:
+- Soboro — top
+- Razork — jungle
+- Vladi — mid
+- Upset — bot
+- Lospa — support
+
+GIANTX:
+- Oscarinin — top
+- ISMA — jungle
+- Jackies — mid
+- Flakked — bot
+- Jun — support
 
 ## User workflow preference
 
 - `VERDICT FIRST` and compact live output.
 - No Airtable writes during a map; perform snapshot/position/map logging at map end.
 - Exact user confirmation required for any TAKE CANDIDATE before accepted Position.
-- Do not issue a TAKE merely because odds look generous.
+- Never issue a TAKE merely because odds look generous.
 
 ## Bootstrap / continuation
 
@@ -156,11 +173,11 @@ Every new continuation must:
 
 1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
 2. load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
-3. fetch this mutable lock and verify `LOL-2026-08-30-V13-TH-MKOI-BENCH-2248-UTC7`;
+3. fetch this mutable lock and verify `LOL-2026-08-30-V13-FNC-GX-BENCH-2254-UTC7`;
 4. re-fetch `CURRENT_MODEL.md` at authority commit `ce84ef31eb743e8002603cdd083c871c28787221`;
 5. load exact benchmark-aware v1.3 stack in locked CURRENT_MODEL order;
 6. use Airtable as ledger/history authority only and defer in-map writes until map end;
-7. load latest TH-MKOI handoff last.
+7. load latest FNC-GX handoff last.
 
 Mismatch -> `MODEL LOCK MISMATCH — HOLD`.
 
