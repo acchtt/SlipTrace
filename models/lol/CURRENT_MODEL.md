@@ -1,13 +1,16 @@
 # Current League of Legends Model
 
 **Canonical namespace:** `models/lol/`  
-**Activated:** 2026-08-29 UTC+7
+**Activated:** 2026-08-29 UTC+7  
+**Execution patch activated:** 2026-08-30 UTC+7
 
 # ACTIVE MODEL
 
 **LoL v1.3 — Hierarchy Moneyline + Duration Core**
 
 v1.3 is the user-authorized prospective Moneyline weighting repair after T1 vs BNK FEARX Game 3. It keeps the v1.2 independent team-strength tier but makes strength a lighter starting prior, gives draft a meaningful map-specific correction, and lets synchronized live state dominate once real evidence develops.
+
+On 2026-08-30 the user explicitly added a causal execution constraint: **do not take a bet just because the price looks good**. Moneyline price may validate value only after the selected side already has a positive non-price draft/live thesis.
 
 Duration remains analytically unchanged from v1.1/v1.2.
 
@@ -91,17 +94,33 @@ Mechanism contradiction:
 
 ## Probability
 
-`S=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
+`C=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`
+
+`S=C`
 
 `P(A)=clamp(P0(A)+3*S pp,15%,85%)`
 
 `P(B)=100%-P(A)`
 
-Lock K/P0, draft/live state and probability before offered Moneyline price is used as analytical evidence.
+Lock K/P0, draft/live state, causal thesis and probability before offered Moneyline price is used as analytical evidence.
 
 Causal hierarchy:
 
 `LIGHT TEAM-STRENGTH PRIOR -> MEANINGFUL DRAFT CORRECTION -> LIVE STATE DOMINATES AS EVIDENCE ACCUMULATES`
+
+## Causal thesis gate
+
+For the selected Moneyline side, use its own perspective and require:
+
+`C > 0`
+
+There must also be a coherent, currently reachable draft/live win mechanism supporting that side.
+
+Hard interpretation:
+- team-strength prior alone cannot make a bet;
+- a long price cannot rescue a side whose draft/live causal score is neutral or negative;
+- if selected-side `C<=0`, verdict is `PASS` even if the numerical model-vs-book edge is above threshold;
+- **price cannot create the bet**.
 
 ## ML price rule
 
@@ -110,11 +129,13 @@ Causal hierarchy:
 `EDGE=MODEL PROBABILITY-BOOK IMPLIED`
 
 TAKE CANDIDATE requires:
+- selected-side causal thesis `C>0`;
+- coherent reachable draft/live mechanism;
 - synchronized executable live ML;
 - odds >=1.60;
 - edge >=+5.0pp;
 - price-independent K/P0;
-- probability locked before price use;
+- probability and thesis locked before price use;
 - position-blind;
 - actual exposure 0u.
 
@@ -165,7 +186,9 @@ Shared controls:
 - valid active Session Authority Lock;
 - synchronized executable evidence;
 - position-blind reassessment;
-- ML probability / Duration F locked before price evidence;
+- ML probability/thesis / Duration F locked before price evidence;
+- Moneyline price cannot create the directional thesis;
+- selected-side ML `C>0` required;
 - minimum odds 1.60;
 - ML edge +5.0pp;
 - Duration edge +7.5pp;
@@ -188,6 +211,8 @@ Initial v1.3 Moneyline accepted sample:
 `ML_SAMPLE_N=0`
 
 Duration sample continues unchanged and remains family-separated.
+
+The 2026-08-30 causal thesis gate is prospective only. Earlier accepted v1.3 Positions remain valid historical samples under the execution rules active when accepted; do not retroactively relabel them.
 
 Review cadence per family:
 - 10 accepted: diagnostic only;
@@ -249,6 +274,7 @@ Moneyline:
 `Strength: K [x] | P0 [xx]%`
 `Draft: [A/EVEN/B] — [mechanism]`
 `Live: R [x] | X [x] | O [x] | T [x] | Mechanism [state]`
+`Thesis: C [x] | PASS/FAIL`
 `Model: A [xx]% / B [yy]%`
 `Price: [side] @[odds] -> book [q]% | edge [e]pp`
 `Verdict: HOLD / PASS / TAKE CANDIDATE`
@@ -264,6 +290,8 @@ For any TAKE CANDIDATE add exact line confirmation request.
 
 # 9. Activation statement
 
-The user explicitly authorized this hierarchy weighting repair during T1 vs BNK FEARX Game 3, effective prospectively from the next game.
+The user explicitly authorized the hierarchy weighting repair during T1 vs BNK FEARX Game 3, effective prospectively from the next game.
 
-**LoL v1.3 becomes active only when a fresh Session Authority Lock points to the authority commit containing this completed `CURRENT_MODEL.md` and the complete v1.3 stack.**
+The user explicitly authorized the causal thesis execution gate on 2026-08-30 after TH vs MKOI Game 2: **do not take a bet just because the price looks good**.
+
+**LoL v1.3 is active only when a fresh Session Authority Lock points to an authority commit containing this completed `CURRENT_MODEL.md` and the complete v1.3 stack.**
