@@ -6,7 +6,9 @@
 
 ## 1. Scope
 
-Use `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`.
+Use:
+- `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`;
+- `models/lol/procedures/LOL_V1.3_TEAM_BENCHMARK_GOLGG_2026-08-30.md`.
 
 Duration remains independently governed by the unchanged v1.1 Duration Core and procedure.
 
@@ -14,11 +16,22 @@ Duration remains independently governed by the unchanged v1.1 Duration Core and 
 
 ## 2. Strength prior
 
-Before live pricing, assign/freeze `K=-2..+2` from pre-series non-price evidence only.
+Before Game 1 and before live pricing, construct/freeze `K=-2..+2` with the active Gol.gg league-relative benchmark.
 
-`P0=50%+5*K pp`
+Required sequence:
+1. obtain the pre-series current-tournament peer table and applicable previous split;
+2. calculate split scores from standardized WinRate/GDM/GD@15/TowerDiff/DRA%/NASH%;
+3. apply sample-size blend and roster-continuity adjustment;
+4. re-standardize blended peer scores;
+5. convert pairwise benchmark gap to `K`;
+6. preserve `TEAM_BENCH[...]`;
+7. set `P0=50%+5*K pp`.
 
-For a mid-series activation, reconstruct/freeze the same `K` tier from evidence that existed before Game 1. Same-series results and sportsbook prices cannot choose `K`.
+Sportsbook prices are forbidden from benchmark construction.
+
+For a mid-series benchmark activation explicitly authorized by the user, reconstruct the benchmark only from data that existed before Game 1. Earlier accepted positions remain historical under the rules active when accepted. Same-series results cannot enter the reconstructed benchmark.
+
+If benchmark-critical source data or roster continuity is unresolved: `HOLD` for model-certified ML.
 
 ---
 
@@ -56,7 +69,7 @@ Resolve:
 
 `P(B)=100%-P(A)`
 
-Lock probability before reading offered price as analytical evidence.
+Lock benchmark-derived probability before reading offered price as analytical evidence.
 
 For each potential selection, evaluate its own perspective. A selected side is not TAKE-eligible unless:
 
@@ -69,7 +82,7 @@ Team strength alone cannot satisfy this thesis gate. If `C<=0`, the side is `PAS
 
 ## 6. Interpretation hierarchy
 
-- `K`: light persistent starting prior only.
+- `K`: light persistent starting prior constructed from a reproducible league-relative benchmark.
 - `D`: map-specific composition/mechanism correction.
 - `R/X/O/T`: dominant as synchronized live evidence accumulates.
 - structures: contextual for ML unless forward control changes.
@@ -94,6 +107,7 @@ Requirements:
 - odds >=1.60;
 - edge >=+5.0pp;
 - synchronized executable ML;
+- benchmark-derived `K/P0` with `PRICE_USED=N`;
 - position-blind;
 - actual exposure 0u.
 
@@ -105,7 +119,7 @@ If edge passes but thesis fails: `PASS — PRICE ONLY / NO POSITIVE CAUSAL THESI
 
 `ML — [A vs B]`
 
-`Strength: K [x] | P0 [xx]%`
+`Strength: K [x] | P0 [xx]% | Benchmark gap [x.xx] SD`
 
 `Draft: [A / EVEN / B] — [mechanism]`
 
@@ -127,7 +141,7 @@ For candidate:
 
 ## 9. State change / confirmation
 
-Material state change expires a pending candidate and requires a fresh live pass while retaining frozen `K/P0`.
+Material state change expires a pending candidate and requires a fresh live pass while retaining frozen benchmark-derived `K/P0`.
 
 Price-only movement with unchanged state may reuse locked probability and thesis state for that decision window, then reprice.
 
@@ -139,6 +153,8 @@ No retroactive accepted Position creation.
 
 ## 10. Controls
 
+- benchmark frozen pre-series or reconstructed from pre-series-only data after explicit model authorization;
+- same-series results never update benchmark `K`;
 - shadow stake from current lock;
 - actual exposure 0u;
 - no martingale/rescue/chasing/averaging down/stake escalation;
