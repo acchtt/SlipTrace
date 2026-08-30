@@ -8,7 +8,7 @@
 - Match: `Dplus KIA vs KT Rolster`
 - Format: `Bo5 Fearless Draft`
 - Current series score: `KT Rolster 2-0 Dplus KIA`
-- Current map: `Game 3 — prep`
+- Current map: `Game 3 — draft complete / pre-live`
 - Game 3 side assignment: `KT Rolster BLUE / Dplus KIA RED` (explicitly supplied by user)
 
 ## Active model
@@ -87,23 +87,32 @@ DK consumed:
 
 All 20 champions above are consumed entering Game 3 subject to tournament Fearless rules.
 
-## Game 3 prep
-- Side: `KT BLUE / DK RED`.
-- Keep frozen strength prior: `DK 55% / KT 45%` before draft/live correction.
-- Deep-pool draft emphasis: identify forced/comfortable role picks, engage/disengage balance, protected damage, waveclear, side-lane pressure, objective setup, and whether either team is pushed onto low-agency or off-role-looking combinations.
-- KT is on series point, but series score is not allowed to modify K/P0.
-- No pregame or immediate-postdraft TAKE.
-- Once full draft is supplied, lock `D` price-blind.
-- On synchronized live state + executable market, rebuild `R/X/O/T` price-blind before pricing.
-- Duration is independent; do not infer slow pace from low early kills alone.
-- No Game 2 clock offset carries into Game 3 unless the user explicitly says so.
+## Game 3 — draft complete
+Side: `KT BLUE / DK RED`.
+
+Exact user-supplied role-order draft:
+- KT: `Gnar / Cho'Gath / Ryze / Ashe / Seraphine`
+- DK: `Ambessa / Naafiri / Aurora / Yunara / Lulu`
+
+Game 3 draft prior under v1.3, from DK perspective:
+- `D=-1` — KT slight draft edge.
+- KT has the cleaner first-contact / front-to-back shell: Ashe arrow and Ryze/Seraphine follow-up can start fights, while Gnar + Cho'Gath provide layered CC, zone denial, objective durability, and anti-dive disruption.
+- Cho'Gath silence/knock-up plus Gnar/Seraphine control can punish Ambessa/Naafiri if DK dives predictably.
+- DK has stronger backline access and a higher-damage protected carry setup through Ambessa/Naafiri/Aurora reaching KT's immobile Ashe/Seraphine/Ryze while Lulu enables Yunara.
+- DK's win condition is more execution- and angle-dependent; KT's is easier to organize in pro play, but Cho'Gath jungle is a real tempo/agency risk and keeps the draft edge only slight.
+- Mechanism starts `INTACT`.
+
+With frozen DK `P0=55%`, the immediate draft-adjusted pre-live reference is `DK 50.5% / KT 49.5%`.
+
+No pregame or immediate-postdraft TAKE. No Game 2 clock offset carries into Game 3 unless the user explicitly says so.
 
 ## Next workflow
-1. Receive exact Game 3 five champions/roles.
-2. Lock Game 3 draft prior under v1.3.
-3. Wait for synchronized live state + executable ML/Duration price.
-4. TAKE CANDIDATE only if threshold clears; accepted Position requires exact user confirmation before any material state change.
-5. No rescue, chase, martingale, averaging down, or stake escalation.
+1. Wait for synchronized Game 3 live state + executable ML/Duration price.
+2. Rebuild `R/X/O/T` price-blind before reading ML price.
+3. Keep `D=-1` unless the actual roles differ from the supplied role order or the mechanism materially changes.
+4. Duration is independent; score `V/Q/H/T`, lock `F`, then read line/odds.
+5. TAKE CANDIDATE only if threshold clears; accepted Position requires exact user confirmation before any material state change.
+6. No rescue, chase, martingale, averaging down, or stake escalation.
 
 ## Bootstrap next continuation
 Every new continuation must fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, verify lock `LOL-2026-08-30-V13-DK-KT-1612-UTC7` and authority `083a7a97c04e9fb4fd40b74c3dd931643539aaa0`, load the exact v1.3 authority stack, use Airtable only as ledger/history authority, and load this or a newer DK-KT handoff last.
