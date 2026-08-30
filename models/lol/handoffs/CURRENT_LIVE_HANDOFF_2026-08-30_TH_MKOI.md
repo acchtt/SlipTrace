@@ -9,8 +9,8 @@
 - Format: `Bo3 Fearless Draft`
 - Scheduled: `2026-08-30 21:15 UTC+7 / 16:15 CEST`
 - Series score: `not supplied / do not infer`
-- Current map: `not supplied`
-- Blue/Red: `not supplied`
+- Current map: `Game 2 completed — Movistar KOI won`
+- Blue/Red: `not explicitly supplied; do not infer from scoreboard orientation`
 
 ## Active model
 - Model: `LoL v1.3 — Hierarchy Moneyline + Duration Core`
@@ -24,7 +24,7 @@
 - Minimum odds: `1.60`
 - ML edge threshold: `+5.0pp`
 - Duration edge threshold: `+7.5pp`
-- Accepted v1.3 samples entering match: `ML_SAMPLE_N=2; DURATION_SAMPLE_N=0`
+- Accepted v1.3 samples after Game 2: `ML_SAMPLE_N=3; DURATION_SAMPLE_N=0`
 
 ## Series-frozen strength prior
 Price-independent and frozen before same-series results:
@@ -40,11 +40,76 @@ Basis:
 
 Same-series results and prices must not change K/P0.
 
-## Current roster context
-Decision-critical lineup is not yet user-confirmed in this handoff. Resolve from user-supplied draft/scoreboard first. Current public 2026 LEC references commonly show:
-- TH: `Tracyn / Daglas / Serin / Hype / Way`;
-- MKOI: `Myrwn / Elyoya / Jojopyun / Supa / Alvaro`.
-Do not use this roster materially if the live card contradicts it.
+## Confirmed live lineups from Game 2 scoreboard
+TH:
+- Tracyn — top
+- Daglas — jungle
+- Serin — mid
+- Hype — ADC
+- Way — support
+
+MKOI:
+- Myrwn — top
+- Elyoya — jungle
+- Jojopyun — mid
+- Supa — ADC
+- Alvaro — support
+
+## Game 2 draft
+TH:
+- Aatrox / Xin Zhao / Syndra / Ezreal / Karma
+
+MKOI:
+- Ambessa / Skarner / Viktor / Ashe / Seraphine
+
+Game 2 draft prior used from TH perspective:
+- `D=-1` — MKOI draft edge.
+- Mechanism initially `INTACT`.
+
+## Game 2 confirmed position and settlement
+Decision window at `03:50`:
+- kills `0-0`
+- towers `0-0`
+- dragons `0-0`
+- barons `0-0`
+- MKOI held about `+322g` overall
+
+Price-blind ML state from TH perspective:
+- `K=-1 / P0=45%`
+- `D=-1`
+- `MC=INTACT`
+- `R=-1`
+- `X=0`
+- `O=0`
+- `T=0`
+- model `TH 36.0% / MKOI 64.0%`
+
+Market:
+- MKOI `1.289`
+- TH `3.396` -> book implied `29.45%`
+- TH edge `+6.55pp`
+
+Verdict:
+- `TAKE CANDIDATE — TH ML @3.396`
+- User explicitly confirmed exact line before any reported material state change.
+- Accepted shadow Position ID: `LEC-2026-08-30-TH-MKOI-G2-ML-TH-0350`
+- Shadow stake `0.25u`; actual exposure `0u`
+- Result: `LOSS`; shadow P/L `-0.25u`
+
+Airtable map-end logging completed:
+- Position record: `recxJWOaEYGhaf0N4`
+- Map record: `recaTAM7cHvQAZOmC`
+- Snapshot record: `receTc67nmlpfuhhW`
+
+No audit-error classification assigned solely from the loss. Final duration/kills/structures were not supplied.
+
+## Validation running context
+Known v1.3 accepted ML positions through this Game 2:
+1. KT ML @4.259 vs DK — WIN `+0.81475u`
+2. DK ML @3.114 vs KT — LOSS `-0.25u`
+3. TH ML @3.396 vs MKOI — LOSS `-0.25u`
+
+Running known v1.3 ML shadow P/L: `+0.31475u`.
 
 ## Core formulas
 Moneyline:
@@ -64,8 +129,8 @@ Duration:
 - Exact user confirmation still required for any TAKE CANDIDATE before it becomes an accepted shadow Position.
 
 ## Next workflow
-1. Receive current map number/series score if available.
-2. Resolve Blue/Red and exact five roles.
+1. If series continues, receive current series score/map and Blue/Red.
+2. Resolve Fearless consumed pool from Games 1-2; Game 1 draft/result still need user supply if not already available elsewhere.
 3. Lock map-specific `D` price-blind after draft.
 4. No immediate-postdraft TAKE.
 5. On synchronized live state + executable market, score ML `R/X/O/T` and Duration `V/Q/H/T/F` before price evidence.
