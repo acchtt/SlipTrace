@@ -9,8 +9,8 @@
 - Match: `Dplus KIA vs KT Rolster`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-08-30 15:00 UTC+7 / 17:00 KST`
-- Current series score: `KT Rolster 1-0 Dplus KIA`
-- Current map: `Game 2 — live`
+- Current series score: `KT Rolster 2-0 Dplus KIA`
+- Current map: `Game 3 — prep / not yet supplied`
 
 ## Active model
 
@@ -41,7 +41,7 @@ Basis available before the series:
 - DK beat T1 `2-1` on 2026-08-14;
 - KT reached this playoff round through Play-Ins, defeating Hanjin BRION `3-2` on 2026-08-26.
 
-This is a meaningful but not maximum strength tier. Freeze it for the series absent genuine roster/availability change. Game 1 result does not modify K/P0.
+This is a meaningful but not maximum strength tier. Freeze it for the series absent genuine roster/availability change. Games 1-2 results do not modify K/P0.
 
 ## v1.3 Moneyline hierarchy
 
@@ -71,7 +71,6 @@ Absent conversion opportunity is neutral.
 ## Game 1 — completed before DK-KT relock
 
 Final screenshot supplied after relock confirms:
-
 - Winner: `KT Rolster`
 - Duration: `38:44`
 - Kills: `KT 15-11 DK`
@@ -86,9 +85,9 @@ Game 1 draft / consumed champions:
 
 This map completed before the DK-KT-specific lock was created at 16:12 UTC+7, so it is historical context only and is not a certified DK-KT Position/sample under the new lock.
 
-## Game 2 — current
+## Game 2 — completed
 
-Exact five/roles from user screenshots:
+Exact draft:
 
 ### KT Rolster
 - PerfecT — `Rumble` top
@@ -104,46 +103,27 @@ Exact five/roles from user screenshots:
 - Smash — `Taliyah` bot
 - Career — `Alistar` support
 
-Blue/Red side assignment has not been explicitly supplied; do not infer from display placement alone.
-
-Fearless consumed entering Game 2:
-- KT: `Trundle, Jarvan IV, Syndra, Ezreal, Nautilus`
-- DK: `Olaf, Xin Zhao, Orianna, Caitlyn, Bard`
+Blue/Red side assignment was not explicitly supplied; do not infer from display placement alone.
 
 ### Game 2 draft prior
 
 Under v1.3, from DK perspective:
 - `D=-1` — KT slight draft edge.
-- KT has the cleaner front-to-back / objective shell through `Skarner + Rumble + Kalista + Renata`, with Ahri pick access.
-- DK has stronger execution-dependent pick/poke chains through `Jayce + Vi + Annie + Taliyah + Alistar`.
+- KT had the cleaner front-to-back / objective shell through `Skarner + Rumble + Kalista + Renata`, with Ahri pick access.
+- DK had more execution-dependent pick/poke chains through `Jayce + Vi + Annie + Taliyah + Alistar`.
 
 With DK `P0=55%`, the immediate pre-live draft-adjusted reference was `DK 50.5% / KT 49.5%`.
 
-### Clock correction
+### Game 2 clock correction
 
 User instructed for Game 2: subtract `1:10` from the displayed game clock for model time.
 
 Examples:
 - displayed `9:45` -> effective `8:35`;
-- displayed `14:46` -> effective `13:36`.
+- displayed `14:46` -> effective `13:36`;
+- final displayed `43:11` -> effective `42:01`.
 
-Continue applying this `-1:10` offset for Game 2 unless the user says it changes.
-
-### Earlier live checkpoints
-
-At displayed `6:05`:
-- DK led `1-0` kills and about `+1.2k` gold;
-- towers `0-0`, dragons `0-0`;
-- ML prices: DK `1.545`, KT `2.364`;
-- Duration 32: Over `1.688`, Under `2.092`;
-- verdict: `ML PASS / Duration PASS`.
-
-At displayed `9:45` / effective `8:35`:
-- DK led `1-0` kills and about `+1.3k` gold;
-- KT had first dragon, towers `0-0`;
-- ML prices: DK `1.589`, KT `2.268`;
-- Duration 32: Over `1.577`, Under `2.292`;
-- verdict: `ML PASS / Duration PASS`.
+This correction was specific to Game 2 unless the user extends it.
 
 ### Confirmed Game 2 Position
 
@@ -180,7 +160,8 @@ Accepted shadow Position:
 - entry clock: `13:36 effective (14:46 displayed; -1:10 offset)`;
 - shadow stake: `0.25u`;
 - actual exposure: `0u`;
-- status/result: `CONFIRMED / OPEN`;
+- result: `WIN`;
+- shadow P/L: `+0.81475u`;
 - Airtable record: `recjcpAqK1BGgDCT7`.
 
 Compact entry record:
@@ -188,14 +169,43 @@ Compact entry record:
 
 Duration at that window remained PASS: effective `13:36`, `V=0,Q=0,H=+2,T=0`, central `F=33.0m`; line 32 did not clear the +7.5pp threshold.
 
+### Game 2 final
+
+User final screenshot confirms:
+- Winner: `KT Rolster`
+- Displayed duration: `43:11`
+- Effective duration under the user-specified Game 2 clock correction: `42:01`
+- Kills: `KT 15-13 DK`
+- Towers: `KT 6-9 DK`
+- Dragons: `3-3`
+- Barons: `KT 1-2 DK`
+- Inhibitors: `1-1`
+
+The confirmed KT ML Position won despite DK finishing ahead in structures and barons. No audit error classification is assigned at settlement.
+
+## Fearless consumed entering Game 3
+
+KT consumed:
+- Game 1: `Trundle, Jarvan IV, Syndra, Ezreal, Nautilus`
+- Game 2: `Rumble, Skarner, Ahri, Kalista, Renata Glasc`
+
+DK consumed:
+- Game 1: `Olaf, Xin Zhao, Orianna, Caitlyn, Bard`
+- Game 2: `Jayce, Vi, Annie, Taliyah, Alistar`
+
+All twenty champions above are consumed entering Game 3 subject to tournament Fearless rules.
+
 ## Next workflow
 
-1. Reassess every fresh Game 2 state position-blind; do not defend KT because the Position exists.
-2. Any material state change requires fresh `R/X/O/T` before a new ML probability.
-3. Keep the confirmed KT ML Position open until final map result, then settle in Airtable.
-4. Continue applying the Game 2 `-1:10` clock correction unless the user changes it.
-5. Duration remains independent and requires a fresh `V/Q/H/T/F` after material state changes.
-6. No rescue, chase, martingale, averaging down or stake escalation.
+1. Current series is `KT 2-0 DK`; prepare Game 3 without changing the frozen strength prior.
+2. Resolve Game 3 Blue/Red side when supplied.
+3. Read completed Game 3 draft separately from team strength and Fearless history.
+4. No pregame/immediate-postdraft TAKE.
+5. On synchronized live state + executable market:
+   - ML: lock K/P0 + D/R/X/O/T price-blind, then read odds;
+   - Duration: score V/Q/H/T, lock F, then read line/odds.
+6. TAKE CANDIDATE only if family threshold clears; accepted Position only after exact live confirmation before material state change.
+7. No rescue, chase, martingale, averaging down or stake escalation.
 
 ## Bootstrap next continuation
 
