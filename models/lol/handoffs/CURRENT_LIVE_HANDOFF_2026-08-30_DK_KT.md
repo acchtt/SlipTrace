@@ -8,7 +8,7 @@
 - Match: `Dplus KIA vs KT Rolster`
 - Format: `Bo5 Fearless Draft`
 - Current series score: `KT Rolster 2-0 Dplus KIA`
-- Current map: `Game 3 — draft complete / pre-live`
+- Current map: `Game 3 — live`
 - Game 3 side assignment: `KT Rolster BLUE / Dplus KIA RED` (explicitly supplied by user)
 
 ## Active model
@@ -105,6 +105,44 @@ Game 3 draft prior under v1.3, from DK perspective:
 With frozen DK `P0=55%`, the immediate draft-adjusted pre-live reference is `DK 50.5% / KT 49.5%`.
 
 No pregame or immediate-postdraft TAKE. No Game 2 clock offset carries into Game 3 unless the user explicitly says so.
+
+### Game 3 live checkpoint — 06:50
+User-supplied detailed state and executable market are treated as the same decision window because both show `1-1` kills and no contradictory objective/structure event.
+
+State:
+- Clock: `06:50` (no G2 offset carried into G3)
+- Kills: `KT 1-1 DK`
+- Gold: `KT +643`
+- Towers: `0-0`
+- Dragons: `0-0`
+- Barons: `0-0`
+- Role-weighted gold is modestly KT-favored: Gnar, Cho'Gath and especially Ashe are ahead; DK support has the only visible small counter-edge.
+
+Price-blind ML state from DK perspective:
+- `K=+1 / P0=55%`
+- `D=-1`
+- `MC=INTACT`
+- `R=-1`
+- `X=0`
+- `O=0`
+- `T=0`
+- `S=-3.0`
+- Model: `DK 46.0% / KT 54.0%`
+
+Market:
+- DK `2.313` -> implied `43.23%`, edge `+2.77pp`
+- KT `1.567` -> below `1.60` minimum odds
+- Verdict: `ML PASS`
+
+Duration at 06:50:
+- `V=0,Q=0,H=+2,T=0`
+- `F=33.0m`
+- line 32: Over `1.575`, Under `2.297`
+- model Over `57.0%`, Under `43.0%`
+- Over is below minimum odds; Under has no edge
+- Verdict: `Duration PASS`
+
+Airtable snapshot: `LCK-2026-08-30-DK-KT-G3-0650` / record `rec3mTMFoNZRoaTWQ`.
 
 ## Next workflow
 1. Wait for synchronized Game 3 live state + executable ML/Duration price.
