@@ -1,10 +1,11 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-29-V13-T1-BFX-G4-1757-UTC7`  
+**Lock ID:** `LOL-2026-08-30-V13-DK-KT-1612-UTC7`  
 **Status:** `ACTIVE`  
-**Effective:** `2026-08-29 17:57 UTC+7 — prospective from Game 4 before any v1.3 certified betting verdict`  
-**Scope:** `LCK 2026 Playoffs — Upper Bracket Round 1 — T1 vs BNK FEARX — Bo5 Fearless Draft`  
-**Supersedes:** `LOL-2026-08-29-V12-T1-BFX-G3-1650-UTC7` prospectively  
+**Effective:** `2026-08-30 16:12 UTC+7`  
+**Scope:** `LCK 2026 Playoffs — Round 1 — Dplus KIA vs KT Rolster — Bo5 Fearless Draft`  
+**Scheduled:** `2026-08-30 15:00 UTC+7 / 17:00 KST`  
+**Supersedes:** `LOL-2026-08-29-V13-T1-BFX-G4-1757-UTC7` prospectively  
 **Authority commit:** `083a7a97c04e9fb4fd40b74c3dd931643539aaa0`  
 **Active analytical model:** `LoL v1.3 — Hierarchy Moneyline + Duration Core`  
 **Active betting markets:** `Moneyline + Duration Over/Under`  
@@ -16,20 +17,12 @@
 **Minimum accepted odds:** `1.60`  
 **Moneyline required edge:** `+5.0pp vs raw book implied probability`  
 **Duration required edge:** `+7.5pp vs raw book implied probability`  
-**v1.3 ML validation sample at activation:** `ML_SAMPLE_N=0`  
-**Duration sample at activation:** `DURATION_SAMPLE_N=0`
-
-## Authorization / transition
-
-During Game 3 the user explicitly authorized a prospective weighting repair for the next game onward: persistent team strength should remain a starting prior, but draft and realized in-game advantage should carry more weight.
-
-Game 3 remains v1.2 historical evidence and is not rescored under v1.3.
-
-The Game 3 final result was not required to choose the new weights and is not used as analytical calibration evidence in this lock.
+**v1.3 ML validation sample at relock:** `ML_SAMPLE_N=0`  
+**Duration sample at relock:** `DURATION_SAMPLE_N=0`
 
 ## Frozen authority
 
-All v1.3-certified analysis from Game 4 onward must use the complete stack at:
+All model-certified analysis for this DK vs KT series must use the complete v1.3 stack frozen at:
 
 `083a7a97c04e9fb4fd40b74c3dd931643539aaa0`
 
@@ -47,19 +40,23 @@ Required stack from that exact commit:
 
 Mutable handoff/Airtable state may be newer than the authority commit.
 
-## T1 vs BNK FEARX strength tier
+## DK vs KT series-frozen strength prior
 
-Retain the same pre-series non-price tier reconstructed under v1.2:
+Assigned only from pre-series, non-price evidence. Sportsbook prices and any live/current-series result are excluded.
 
-- T1 `K=+1`;
-- BFX `K=-1`.
+From Dplus KIA perspective:
 
-Only the probability weight changes under v1.3:
+- `K=+1`
+- `P0(DK)=55%`
 
-- `P0(T1)=55%`;
-- `P0(BFX)=45%`.
+From KT Rolster perspective:
 
-Same-series map results and sportsbook prices do not modify K.
+- `K=-1`
+- `P0(KT)=45%`
+
+Basis: DK won both recent August LCK head-to-head series against KT (`2-1` on Aug 9 and `2-0` on Aug 12) and also beat T1 `2-1` on Aug 14. KT entered this playoff round through the Play-In path after a `3-2` win over Hanjin BRION. The edge is meaningful but not the maximum `K=±2` tier.
+
+Freeze this `K/P0` for the full series unless there is a genuine roster/availability change. Same-series maps do not modify it.
 
 ## Moneyline v1.3 core
 
@@ -74,9 +71,9 @@ From Team A perspective:
 - `S=1.5*D_eff+1.5*R+1.5*X+1.25*O+1.0*T`;
 - `P(A)=clamp(P0(A)+3*S pp,15%,85%)`;
 - raw implied `1/odds`;
-- TAKE CANDIDATE requires odds >=1.60 and edge >=+5.0pp.
+- TAKE CANDIDATE requires odds `>=1.60` and edge `>=+5.0pp`.
 
-Probability is locked before price evidence.
+Probability must be locked before price evidence.
 
 ## Duration — unchanged
 
@@ -88,38 +85,20 @@ Probability is locked before price evidence.
 
 `P(OVER)=clamp(50%+7*(F-L) pp,15%,85%)`
 
-Duration candidate requires odds >=1.60 and selected-side edge >=+7.5pp.
+Duration TAKE CANDIDATE requires odds `>=1.60` and selected-side edge `>=+7.5pp`.
 
 Absent conversion opportunity remains neutral.
 
-## Fearless state entering Game 4
+## Series initialization
 
-Consumed through Game 1:
-- BFX: `K'Sante, Jarvan IV, Ryze, Lucian, Milio`
-- T1: `Jayce, Vi, Taliyah, Yunara, Lulu`
+- Series score at relock: `not supplied / do not infer`.
+- Current map number at relock: `not supplied / do not infer`.
+- Blue/Red side assignment: `not supplied`.
+- Draft: `not supplied`.
+- Live state/market: `not supplied`.
+- No DK vs KT betting verdict or Position exists under this lock yet.
 
-Consumed through Game 2:
-- BFX: `Rumble, Pantheon, Ahri, Zeri, Yuumi`
-- T1: `Ornn, Nocturne, Akali, Ezreal, Seraphine`
-
-Consumed in Game 3:
-- BFX: `Kled, Lee Sin, Annie, Kai'Sa, Shen`
-- T1: `Olaf, Naafiri, Galio, Jhin, Bard`
-
-Apply all thirty consumed champions to Game 4 draft reading subject to tournament Fearless rules.
-
-## Game 4 supplied draft
-
-User screenshot at ~1:50 confirms:
-
-- BFX: `Yorick / Maokai / Viktor / Corki / Nami`
-- T1: `Nasus / Skarner / Anivia / Miss Fortune / Neeko`
-
-Expected roles from listed order:
-- BFX: Yorick top / Maokai jungle / Viktor mid / Corki bot / Nami support;
-- T1: Nasus top / Skarner jungle / Anivia mid / Miss Fortune bot / Neeko support.
-
-Blue/Red side is not explicitly locked from this screenshot alone.
+Before player-fit or live certification, use saved LCK roster context first and resolve any current substitutions from user-supplied lineup/card or reliable evidence.
 
 ## Shared controls
 
@@ -128,16 +107,24 @@ Blue/Red side is not explicitly locked from this screenshot alone.
 - position-blind reassessment;
 - material state change expires candidate;
 - exact live user confirmation before accepted Position;
-- actual exposure 0u;
-- shadow stake 0.25u;
+- actual exposure `0u`;
+- shadow stake `0.25u`;
 - no rescue/martingale/chasing/averaging down/stake escalation;
-- ML and Duration independent;
+- ML and Duration qualify independently;
 - no retroactive accepted Position creation.
 
-## Bootstrap
+## Bootstrap / continuation
 
-Every new continuation must fetch default CURRENT_MODEL, bootstrap procedure, this mutable lock, then re-fetch CURRENT_MODEL and required stack at authority commit `083a7a97c04e9fb4fd40b74c3dd931643539aaa0`, use Airtable as ledger/history only, and load latest handoff last.
+Every new continuation must:
+
+1. fetch default-branch `models/lol/CURRENT_MODEL.md` first;
+2. immediately load `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
+3. fetch this mutable lock and verify `LOL-2026-08-30-V13-DK-KT-1612-UTC7`;
+4. re-fetch `CURRENT_MODEL.md` at authority commit `083a7a97c04e9fb4fd40b74c3dd931643539aaa0`;
+5. load the exact v1.3 stack in locked CURRENT_MODEL order;
+6. use Airtable as ledger/history authority only;
+7. load the latest DK-KT handoff last.
 
 Mismatch -> `MODEL LOCK MISMATCH — HOLD`.
 
-Breaker -> `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`.
+Procedural breaker -> `TAKE SUSPENDED — PROCEDURAL CIRCUIT BREAKER`.
