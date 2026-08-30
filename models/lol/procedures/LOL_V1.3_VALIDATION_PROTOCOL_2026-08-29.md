@@ -13,10 +13,16 @@ The repair reduces the persistent team-strength weight and increases draft weigh
 
 Game 3 remains v1.2 historical evidence and is not rescored as v1.3.
 
-v1.3 begins prospectively with:
+v1.3 began prospectively with:
 
 - `ML_SAMPLE_N=0` accepted v1.3 Positions;
-- Duration sample carries forward at its current count (0 at activation unless updated by canonical ledger before lock creation).
+- Duration sample carrying forward independently.
+
+On 2026-08-30, after TH vs MKOI Game 2, the user explicitly authorized two prospective execution/calibration repairs:
+1. price cannot create the bet; selected-side causal thesis `C>0` is required;
+2. team-strength `K` is to be constructed from a reproducible Gol.gg league-relative benchmark rather than loose subjective tiering.
+
+Earlier accepted positions remain historical under the rules active at their entry time.
 
 ---
 
@@ -24,7 +30,7 @@ v1.3 begins prospectively with:
 
 Do not change during initial validation without new explicit authorization:
 
-- `K=-2..+2` using pre-series non-price evidence;
+- `K=-2..+2` constructed by `LOL_V1.3_TEAM_BENCHMARK_GOLGG_2026-08-30.md`;
 - `P0=50%+5*K pp`;
 - `D=-1/0/+1`;
 - `R/X/O/T=-2..+2`;
@@ -38,15 +44,38 @@ Do not change during initial validation without new explicit authorization:
 - minimum odds 1.60;
 - probability locked before price evidence.
 
-Prospectively from the explicit 2026-08-30 user instruction, Moneyline also has a frozen **causal thesis gate**:
+### Frozen team benchmark
+
+Primary data source: gol.gg same-league/tournament team tables, frozen pre-series.
+
+Split benchmark:
+
+`B_split = 0.30*z(WinRate) + 0.30*z(GDM) + 0.20*z(GD@15) + 0.10*z(TowerDiff/Game) + 0.05*z(DRA%) + 0.05*z(NASH%)`
+
+Current/previous split weighting by current games:
+- 15+: 70/30;
+- 8-14: 55/45;
+- under 8: 40/60;
+subject to the active roster-continuity adjustment.
+
+Re-standardize blended peer scores. Pairwise final benchmark gap maps to K:
+- `<0.50 SD`: K=0;
+- `0.50-<1.25 SD`: K=±1;
+- `>=1.25 SD`: K=±2.
+
+No sportsbook price and no same-series result may enter benchmark construction.
+
+Metrics, weights, blending rules, roster adjustment and K thresholds are frozen for the initial benchmark-validation epoch.
+
+### Frozen causal thesis gate
 
 - selected-side `C>0` is required for TAKE CANDIDATE;
-- the selected side must have a coherent, currently reachable draft/live win mechanism;
+- selected side must have a coherent, currently reachable draft/live win mechanism;
 - `K/P0` alone cannot satisfy the thesis gate;
 - if `C<=0`, `PASS` even when numerical model-vs-book edge exceeds +5.0pp;
 - price may validate value only after a non-price causal thesis exists; price cannot create the bet.
 
-Record `K/P0`, `C`, and all state variables for every accepted ML Position.
+Record `TEAM_BENCH[...]`, `K/P0`, `C`, and all live state variables for every accepted ML Position.
 
 ---
 
@@ -90,7 +119,13 @@ Per family:
 - 20: minimum architecture review;
 - 30: preferred full calibration review.
 
-For ML, explicitly review whether `K` remains light enough, whether draft/live layers dominate at appropriate evidence strength, and whether the causal thesis gate is preventing price-only contrarian entries without suppressing genuinely supported opportunities. Do not retune after one upset.
+For ML, explicitly review:
+- benchmark tier accuracy and whether K=±2 is being assigned at the right frequency;
+- whether `K` remains light enough in P0;
+- whether draft/live layers dominate at appropriate evidence strength;
+- whether causal thesis gate prevents price-only contrarian entries without suppressing genuinely supported opportunities.
+
+Do not retune after one upset.
 
 ---
 
@@ -103,7 +138,9 @@ Only:
 - `PROBABILITY/CALIBRATION ERROR`
 - `PRICE/EXECUTION ERROR`
 
-Wrong hierarchy/weight calibration is `PROBABILITY/CALIBRATION ERROR`; sportsbook contamination or issuance of a price-only candidate without a positive causal thesis is `PRICE/EXECUTION ERROR` plus governance review.
+Incorrect benchmark/tier construction or hierarchy/weight calibration is `PROBABILITY/CALIBRATION ERROR`.
+
+Sportsbook contamination or issuance of a price-only candidate without positive causal thesis is `PRICE/EXECUTION ERROR` plus governance review.
 
 ---
 
