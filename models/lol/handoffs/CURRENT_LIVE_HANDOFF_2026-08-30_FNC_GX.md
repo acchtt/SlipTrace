@@ -7,10 +7,11 @@
 - Stage: `Week 6 / Regular Season`
 - Match: `Fnatic vs GIANTX`
 - Format: `Bo3 Fearless Draft`
-- Series score: `GIANTX 1-0 Fnatic`
-- Current map: `Game 1 complete — GIANTX won`
-- Requested workflow: `prepare for Game 2`
-- Blue/Red Game 2: `not yet supplied`
+- Series score: `1-1`
+- Game 1 winner: `GIANTX`
+- Game 2 winner: `Fnatic`
+- Current map: `Game 2 complete; prepare for deciding Game 3`
+- Blue/Red Game 3: `not yet supplied`
 
 ## Active authority
 - Model: `LoL v1.3 — Hierarchy Moneyline + Duration Core`
@@ -26,7 +27,7 @@
 - Minimum odds: `1.60`
 - ML edge threshold: `+5.0pp`
 - Duration edge threshold: `+7.5pp`
-- Accepted v1.3 samples entering series: `ML_SAMPLE_N=3; DURATION_SAMPLE_N=0`
+- Accepted v1.3 samples remain: `ML_SAMPLE_N=3; DURATION_SAMPLE_N=0`
 
 ## Frozen team benchmark
 Pre-series-only Gol.gg LEC Summer + Spring data, with roster-continuity adjustment.
@@ -54,9 +55,9 @@ Frozen strength prior:
 - Fnatic `K=0 / P0=50%`
 - GIANTX `K=0 / P0=50%`
 
-**Game 1 result does not change K/P0. Same-series outcomes and sportsbook prices are forbidden benchmark inputs.**
+**Game 1 and Game 2 results do not change K/P0. Same-series outcomes and sportsbook prices are forbidden benchmark inputs.**
 
-## Confirmed current lineups from user Game 1 scoreboard
+## Confirmed lineups
 Fnatic:
 - Soboro — top
 - Razork — jungle
@@ -71,53 +72,83 @@ GIANTX:
 - Flakked — bot
 - Jun — support
 
-## Game 1 confirmed draft / Fearless pool
+## Game 1 draft
 GIANTX:
-- Oscarinin — `Camille`
-- ISMA — `Jarvan IV`
-- Jackies — `Syndra`
-- Flakked — `Ashe`
-- Jun — `Seraphine`
+- Camille / Jarvan IV / Syndra / Ashe / Seraphine
 
 Fnatic:
-- Soboro — `Olaf`
-- Razork — `Skarner`
-- Vladi — `Cassiopeia`
-- Upset — `Yunara`
-- Lospa — `Lulu`
+- Olaf / Skarner / Cassiopeia / Yunara / Lulu
 
-### Game 2 Fearless-consumed champions
-Unavailable to either team in Game 2:
+## Game 2 draft
+GIANTX:
+- K'Sante / Maokai / Orianna / Kalista / Renata
 
-`Camille / Jarvan IV / Syndra / Ashe / Seraphine / Olaf / Skarner / Cassiopeia / Yunara / Lulu`
+Fnatic:
+- Jayce / Wukong / Viktor / Xayah / Rakan
 
-## Game 1 result / ledger
-- User reported: `GIANTX won Game 1`.
-- No Game 1 betting Position existed.
+Game 2 draft prior used from GX perspective:
+- `D=+1` — slight GIANTX draft edge.
+- Main GX mechanism: Maokai + Orianna engage/control with Kalista/Renata follow-through and K'Sante frontline.
+- Main FNC mechanism: Jayce/Viktor ranged resource pressure plus Xayah/Rakan counter-engage and scaling.
+
+## Game 3 Fearless-consumed pool
+Unavailable to either team in deciding Game 3:
+
+`Camille / Jarvan IV / Syndra / Ashe / Seraphine / Olaf / Skarner / Cassiopeia / Yunara / Lulu / K'Sante / Maokai / Orianna / Kalista / Renata / Jayce / Wukong / Viktor / Xayah / Rakan`
+
+## Game 2 observed decision windows
+No Game 2 Position was accepted; every supplied ML state was PASS.
+
+At `01:42`:
+- 0-0 kills, no objectives, gold even.
+- GX ML `1.791`, FNC `1.954`.
+- GX state: `K=0; P0=50%; D=+1; R=0; X=0; O=0; T=0; C=+1.5`.
+- Model GX `54.5%`; implied `55.83%`; edge `-1.33pp` -> PASS.
+
+At `07:11`:
+- 0-0 kills, GX first dragon, FNC about +0.6k gold.
+- GX ML `2.037`, FNC `1.726`.
+- GX state: `D=+1; R=-1; X=0; O=+1; T=0; C=+1.25`.
+- Model GX `53.75%`; implied `49.09%`; edge `+4.66pp` -> PASS below +5.0pp threshold.
+
+At `08:42`:
+- GX 1-0 kills, GX 1-0 dragons, total gold effectively even.
+- GX ML `1.708`, FNC `2.063`.
+- GX state: `D=+1; R=0; X=+1; O=+1; T=0; C=+4.25`.
+- Model GX `62.75%`; implied `58.55%`; edge `+4.20pp` -> PASS.
+
+At `11:31`:
+- GX 2-0 kills, 2-0 dragons, about +0.3k gold.
+- GX ML `1.442`, FNC `2.654`.
+- GX state: `D=+1; R=+1; X=+1; O=+1; T=+1; C=+6.75`.
+- Model GX `70.25%`; implied `69.35%`; edge about `+0.9pp` -> PASS.
+
+User later reported: `Fnatic won Game 2`.
+
+Do not assign an audit taxonomy error solely because Fnatic won. No accepted Position existed. The observed GX early-state probabilities should remain available for later calibration review.
+
+## Airtable Game 2 ledger
+- Map ID: `LEC-2026-08-30-FNC-GX-G2`
+- Map record: `recqLiwJDuZ2VjUHg`
+- Snapshot 01:42: `recfVdzgeWRQZT7ZA`
+- Snapshot 07:11: `rec2rH8IbZDtEGGVh`
+- Snapshot 08:42: `recXLSDsw8MXV4Z8y`
+- Snapshot 11:31: `recIsguUvkHH8hjf7`
+- No Game 2 Position record exists.
 - Final duration/full final scoreboard not supplied.
-- Airtable Map: `LEC-2026-08-30-FNC-GX-G1` / record `rec4cAfXn6Hn7g4Ev`.
-- Airtable prep snapshot at `18:14`: record `recdnY77GZ3xq2aXZ`.
 
-At the prep snapshot `18:14`:
-- kills: `GIANTX 4 - 8 Fnatic`
-- towers: `1-1`
-- dragons: `GIANTX 2 - 1 Fnatic`
-- barons: `0-0`
-- inhibitors: `0-0`
-- displayed overall gold lead: about `Fnatic +2.5k`
-
-## Game 2 prep state
-- Series score is `GX 1-0 FNC`, but this does **not** alter benchmark `K/P0`.
+## Game 3 prep state
+- Series is `1-1`.
 - Freeze strength: `FNC K=0/P0=50%`, `GX K=0/P0=50%`.
-- Consumed pool is fully resolved.
-- Once Game 2 sides/draft are known, verify none of the 10 consumed champions are selected and lock map-specific `D` price-blind.
+- All 20 champions used in Games 1-2 are Fearless-consumed and unavailable to either side in Game 3.
+- Once Game 3 sides/draft are known, verify none of the 20 consumed champions are selected and lock map-specific `D` price-blind.
 - No immediate-postdraft TAKE.
-- On synchronized Game 2 live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
+- On synchronized Game 3 live state + market, score ML `D_eff/R/X/O/T`, selected-side `C`, probability, then price.
 - If `C<=0`, selected side is PASS regardless of attractive odds.
 - Duration independently scores `V/Q/H/T/F` before line/price.
 - Verdict first and compact.
 - Exact user line confirmation required before accepted Position.
-- Defer Airtable writes until Game 2 map end.
+- Defer Airtable writes until Game 3 map end.
 
 ## Bootstrap next continuation
 Fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, fetch lock `LOL-2026-08-30-V13-FNC-GX-BENCH-2254-UTC7`, re-fetch CURRENT_MODEL at authority `ce84ef31eb743e8002603cdd083c871c28787221`, load exact benchmark-aware v1.3 stack, then this or a newer FNC-GX handoff last.
