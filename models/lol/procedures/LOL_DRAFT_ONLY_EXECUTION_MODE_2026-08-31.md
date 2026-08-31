@@ -68,9 +68,9 @@ Required ML edge remains `+5.0pp` unless the lock changes it.
 
 ### User-specified ML minimum odds
 
-`MIN_ML_ODDS = 0.5` exactly as supplied by the user.
+`MIN_ML_ODDS = 1.50`.
 
-Because valid decimal odds are normally >=1.00, this acts as **no practical minimum decimal-price floor**. Do not silently reinterpret 0.5 as 1.50 or as 50% probability.
+This is the corrected value supplied by the user immediately after the initial draft-only mode activation. It supersedes the mistakenly recorded `0.5` value. Do not reinterpret it as probability; it is a decimal-odds floor.
 
 ## 5. Kill Handicap — postdraft distribution mode
 
