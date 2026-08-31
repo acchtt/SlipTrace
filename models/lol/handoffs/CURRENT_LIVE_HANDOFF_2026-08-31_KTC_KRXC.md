@@ -12,7 +12,7 @@
 
 ## Active authority
 - Active lock: `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`
-- Authority commit: `af332d377dae5f17f51f8e2155298ecb28c32096`
+- Authority commit: `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`
 - Execution mode: `POSTDRAFT_ONLY / NO LIVE PREDICTIONS`
 - Lock-scoped overlay: `models/lol/procedures/LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md`
 - Team benchmark: `Gol.gg league-relative benchmark ACTIVE`
@@ -27,7 +27,7 @@
 - Total Kills Over/Under
 
 Thresholds:
-- ML minimum odds `0.5` exactly as user specified; practically no decimal-price floor
+- ML minimum odds `1.50` — corrected from the mistakenly recorded `0.5`
 - ML edge `+5.0pp`
 - KH minimum odds `1.60`, initial reactivation edge `+7.5pp`
 - Duration minimum odds `1.60`, edge `+7.5pp`
@@ -77,4 +77,4 @@ Visible postdraft board supplied by user:
 7. Airtable only at map end.
 
 ## Bootstrap next continuation
-Fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, fetch lock `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`, re-fetch CURRENT_MODEL at authority `af332d377dae5f17f51f8e2155298ecb28c32096`, load the benchmark-aware v1.3 stack plus `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md` and finally the lock-scoped `LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md`, then this or a newer handoff last.
+Fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, fetch lock `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`, re-fetch CURRENT_MODEL at authority `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`, load the benchmark-aware v1.3 stack plus `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md` and finally the lock-scoped `LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md`, then this or a newer handoff last.
