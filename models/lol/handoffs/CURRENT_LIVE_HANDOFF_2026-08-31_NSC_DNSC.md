@@ -109,15 +109,23 @@ Duration:
 Total Kills:
 - pre-series Rounds 3-4 team environments: NS `19.0 kills + 17.0 deaths = 36.0`; DNS `17.4 + 20.4 = 37.8`; neutral `TK0≈36.9` from Gol.gg.
 - draft has multiple genuine contact generators (Qiyana, Locke, Kalista/Renata, Alistar/Syndra/Jhin) but also some poke/split spacing; lock Over 31.5 at approximately `69%` before price.
-- Over 31.5 @1.653 book 60.50%; edge ~+8.5pp -> `TAKE CANDIDATE`.
+- Over 31.5 @1.653 book 60.50%; edge ~+8.5pp -> TAKE.
 - Under 31.5 PASS.
 
-## Game 3 execution status
-- `Over 31.5 total kills @1.653` — TAKE CANDIDATE; exact user confirmation pending.
-- ML — PASS.
-- Kill Handicap — PASS both sides.
-- Duration — PASS (Under narrowly misses threshold).
-- Airtable only at map end.
+## Game 3 accepted shadow position
+- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G3-TK-O31.5`
+- Market: `Total Kills`
+- Selection: `Over 31.5 total kills`
+- Odds: `1.653`
+- Model probability at decision: `~69%`
+- Book implied: `60.50%`
+- Estimated edge: `~+8.5pp`
+- Shadow stake: `0.25u`
+- Actual exposure: `0u`
+- User line confirmation: `CONFIRMED`
+- Status: `OPEN / PENDING SETTLEMENT`
+
+Other Game 3 markets remain PASS. Airtable only at map end.
 
 ## Audit cadence
 - Micro-review every settled map.
