@@ -11,7 +11,7 @@
 - Series score: `NS.C 1-1 DNS.C`
 - Game 1 winner: `NS Challengers`
 - Game 2 winner: `DNS Challengers`
-- Next map: `Game 3 prep`
+- Current map: `Game 3`
 
 ## Active authority
 - Lock: `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7`
@@ -49,52 +49,75 @@ Final Barons: `1-0`
 Final inhibitors: `1-0`
 
 Draft:
-NS.C:
-- Janus — Olaf
-- MihawK — Jarvan IV
-- SeTab — Orianna
-- Lucy — Ashe
-- Pleata — Seraphine
+NS.C: Janus Olaf / MihawK Jarvan IV / SeTab Orianna / Lucy Ashe / Pleata Seraphine
+DNS.C: Lancer Camille / DDoiV Lee Sin / Flip Galio / Enosh Yunara / Quantum Lulu
 
-DNS.C:
-- Lancer — Camille
-- DDoiV — Lee Sin
-- Flip — Galio
-- Enosh — Yunara
-- Quantum — Lulu
-
-## Game 2 — result known
-Winner: `DNS Challengers`
-User confirmed DNS won Game 2.
-The supplied screenshot was at `38:33` while still marked live, with DNS leading 23-21 kills, 10-8 towers, 4-2 dragons, 1-1 Barons, 1-1 inhibitors. Do **not** treat `38:33` as final duration or those live values as final settlement values.
+## Game 2
+Winner: `DNS Challengers`.
+Final duration/final detailed scoreboard not supplied. A screenshot at 38:33 while live showed DNS leading 23-21 kills; do not treat live values as final settlement values.
 
 Draft:
-DNS.C:
-- Lancer — Rumble
-- DDoiV — Skarner
-- Flip — Tristana
-- Enosh — Ezreal
-- Quantum — Nautilus
-
-NS.C:
-- Janus — K'Sante
-- MihawK — Cho'Gath
-- SeTab — Ryze
-- Lucy — Lucian
-- Pleata — Milio
+DNS.C: Lancer Rumble / DDoiV Skarner / Flip Tristana / Enosh Ezreal / Quantum Nautilus
+NS.C: Janus K'Sante / MihawK Cho'Gath / SeTab Ryze / Lucy Lucian / Pleata Milio
 
 ## Fearless consumed after Games 1-2
-Unavailable to either side in Game 3:
 `Olaf / Jarvan IV / Orianna / Ashe / Seraphine / Camille / Lee Sin / Galio / Yunara / Lulu / Rumble / Skarner / Tristana / Ezreal / Nautilus / K'Sante / Cho'Gath / Ryze / Lucian / Milio`
 
-## Game 3 workflow
-1. Receive final Game 3 draft/roles plus exact board.
-2. Ignore displayed match clock and all live-state stats.
-3. Complete price-blind DIM + ML/KH/Duration/TK projections.
-4. Compare exact offered lines/odds.
-5. Compact verdict first.
-6. Exact user confirmation before accepted shadow Position.
-7. Airtable only at map end.
+## Game 3 final draft
+NS.C:
+- Janus — Yorick
+- MihawK — Qiyana
+- SeTab — Locke
+- Lucy — Kalista
+- Pleata — Renata Glasc
+
+DNS.C:
+- Lancer — Jayce
+- DDoiV — Trundle
+- Flip — Syndra
+- Enosh — Jhin
+- Quantum — Alistar
+
+Locke is the 2026 assassin/mage champion; Riot ability profile confirms mobile burst/execute identity. Live state shown at 1:44 is ignored analytically.
+
+Price-blind draft verdict: `SLIGHT NS.C` (`D=+1` from NS perspective). Mechanism: NS has multiple direct access threats onto DNS's relatively immobile Jayce/Syndra/Jhin core through Qiyana + Locke, plus Kalista/Renata objective/fight control and Yorick side pressure. DNS retains meaningful counterplay via range/poke, Syndra/Jhin pick, Trundle disruption, and Alistar peel, so edge is not major.
+
+## Game 3 supplied board
+- ML: `NS.EA 1.569 / DNS.C 2.338`
+- Duration: `Over 32 @1.995 / Under 32 @1.822`
+- Total Kills: `Over 31.5 @1.653 / Under 31.5 @2.246`
+- Kill Handicap: `NS.EA -4.5 @1.776 / DNS.C +4.5 @1.991`
+
+## Game 3 postdraft assessment
+Moneyline:
+- frozen `P0(NS)=55%`, `D=+1` -> `NS 59.5% / DNS 40.5%` before price.
+- NS @1.569 book 63.73% -> PASS.
+- DNS @2.338 book 42.77% -> PASS and selected-side draft thesis is negative.
+
+Kill Handicap:
+- side-neutral distribution explicitly stress-tests clean-cascade risk due the prior KT/KRX KH misses.
+- NS has real blowout access through Qiyana/Locke/Kalista onto immobile DNS carries, while DNS has enough peel/pick to prevent a dominant cover projection.
+- Approximate locked distribution: `NS by 5+ 45% / NS by 1-4 18% / DNS by 0-4 17% / DNS by 5+ 20%`.
+- NS -4.5 ~45% vs 56.31% book -> PASS.
+- DNS +4.5 ~37% vs 50.23% book -> PASS.
+
+Duration:
+- draft-only score `V=+1, Q=0, H=0, T=+1` -> `F≈30.25m`.
+- Under 32 model ~62.25%; book 54.88%; edge ~+7.37pp -> PASS, narrowly below +7.5pp threshold.
+- Over 32 PASS.
+
+Total Kills:
+- pre-series Rounds 3-4 team environments: NS `19.0 kills + 17.0 deaths = 36.0`; DNS `17.4 + 20.4 = 37.8`; neutral `TK0≈36.9` from Gol.gg.
+- draft has multiple genuine contact generators (Qiyana, Locke, Kalista/Renata, Alistar/Syndra/Jhin) but also some poke/split spacing; lock Over 31.5 at approximately `69%` before price.
+- Over 31.5 @1.653 book 60.50%; edge ~+8.5pp -> `TAKE CANDIDATE`.
+- Under 31.5 PASS.
+
+## Game 3 execution status
+- `Over 31.5 total kills @1.653` — TAKE CANDIDATE; exact user confirmation pending.
+- ML — PASS.
+- Kill Handicap — PASS both sides.
+- Duration — PASS (Under narrowly misses threshold).
+- Airtable only at map end.
 
 ## Audit cadence
 - Micro-review every settled map.
