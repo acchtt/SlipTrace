@@ -67,6 +67,55 @@ Visible postdraft board supplied by user:
 - Total Kills: `Over 30.5 @1.822 / Under 30.5 @1.956`
 - Kill Handicap: `KT.C -6.5 @1.944 / KDRX.C +6.5 @1.816`
 
+## Game 1 postdraft reassessment
+
+Price-blind / pre-price outputs used for the reassessment:
+- Moneyline draft-only probability: `KRX 55.5% / KT 44.5%` from frozen benchmark plus `SLIGHT KT.C` draft correction.
+- KRX +6.5 kill-handicap cover estimate: approximately `76%` from the locked side-neutral final-margin distribution.
+- Duration point estimate: approximately `30.25m`, implying `Under 31 ≈55.25%`.
+- Total-kill environment baseline: approximately `TK0=34.5`, with draft-adjusted `Over 30.5 ≈68%`.
+
+Postdraft verdicts at the supplied board:
+- `KRX ML @2.332` — PASS; selected-side draft thesis negative despite benchmark/price.
+- `KT ML @1.571` — PASS.
+- `KRX +6.5 kills @1.816` — TAKE CANDIDATE.
+- `Under 31 minutes @2.558` — TAKE CANDIDATE.
+- `Over 30.5 total kills @1.822` — TAKE CANDIDATE.
+
+## User confirmation / recorded shadow positions
+
+User instruction: `record all takes`.
+
+Recorded as accepted **shadow** positions from the unchanged postdraft decision window:
+
+1. `LCKCL-2026-08-31-KTC-KRXC-G1-KH-KRX+6.5`
+   - Market: Kill Handicap
+   - Selection: `KRX.C +6.5 kills`
+   - Odds: `1.816`
+   - Shadow stake: `0.25u`
+   - Actual exposure: `0u`
+   - Status: `OPEN / PENDING SETTLEMENT`
+
+2. `LCKCL-2026-08-31-KTC-KRXC-G1-DUR-U31`
+   - Market: Duration
+   - Selection: `Under 31 minutes`
+   - Odds: `2.558`
+   - Shadow stake: `0.25u`
+   - Actual exposure: `0u`
+   - Status: `OPEN / PENDING SETTLEMENT`
+
+3. `LCKCL-2026-08-31-KTC-KRXC-G1-TK-O30.5`
+   - Market: Total Kills
+   - Selection: `Over 30.5 total kills`
+   - Odds: `1.822`
+   - Shadow stake: `0.25u`
+   - Actual exposure: `0u`
+   - Status: `OPEN / PENDING SETTLEMENT`
+
+Correlation note: Duration Under 31 and Total Kills Over 30.5 share a high-contact/fast-clock branch and must be reviewed as a correlated pair after settlement; they are not independent calibration evidence merely because they are separate market families.
+
+Airtable write remains deferred until Game 1 ends, per workflow preference.
+
 ## Workflow
 1. Complete DIM / mechanism read before price use.
 2. Build ML/KH/Duration/TK projections or distributions price-blind.
