@@ -75,14 +75,27 @@ Displayed scoreboard time `2:09` is ignored for eligibility. The 0-0/even live s
 
 ## Game 2 postdraft assessment
 - ML: `KRX 60% / KT 40%` from frozen benchmark and `D=0`. Both PASS for execution because selected-side positive draft thesis is absent; KT also fails min odds at 1.410.
-- KH: clean-cascade stress explicitly increased KT blowout branch versus G1 methodology, but KRX still has Lulu/Yunara protection, Camille side-lane and Pantheon/Orianna return-kill routes. Price-blind estimate `KRX +7.5 cover ~68%`. At 1.928 (51.87% break-even), this is a **TAKE CANDIDATE** under the timing override.
+- KH: clean-cascade stress explicitly increased KT blowout branch versus G1 methodology, but KRX still has Lulu/Yunara protection, Camille side-lane and Pantheon/Orianna return-kill routes. Price-blind estimate `KRX +7.5 cover ~68%`. At 1.928 (51.87% break-even), this is a TAKE.
 - Duration: draft-only `V=0,Q=0,H=0,T=+1`, `F≈31.75m`. At line 32: Over ~48.25%, Under ~51.75%; both PASS.
 - Total Kills: retain pre-series `TK0≈34.5` but apply downward draft adjustment for Renata/Lulu peel plus plausible clean objective-control branches; locked Over 30.5 estimate ~61%. At 1.807 (55.34% break-even), edge ~+5.7pp, below +7.5pp => PASS.
 
 ## Game 2 execution status
-- `KRX.C +7.5 kills @1.928` — TAKE CANDIDATE, exact user confirmation pending.
-- Other supplied markets — PASS.
-- Airtable only at map end.
+User said `take other markets as well` immediately after being asked to confirm KRX +7.5 @1.928. Treat this as confirmation of the already-specified KH candidate, but **do not convert PASS markets into model takes** without an explicit prospective governance change.
+
+Accepted shadow position:
+- `LCKCL-2026-08-31-KTC-KRXC-G2-KH-KRX+7.5`
+- Selection: `KRX.C +7.5 kills`
+- Odds: `1.928`
+- Shadow stake: `0.25u`
+- Actual exposure: `0u`
+- Status: `OPEN / PENDING SETTLEMENT`
+
+Not recorded:
+- Moneyline — PASS
+- Duration — PASS both sides
+- Total Kills — PASS (Over edge only ~+5.7pp vs required +7.5pp)
+
+Airtable only at map end.
 
 ## Audit cadence
 - Micro-review every settled map.
