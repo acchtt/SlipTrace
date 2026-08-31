@@ -7,9 +7,10 @@
 - Stage: `Playoffs — Upper Round 1`
 - Match: `KT Rolster Challengers vs KRX Challengers`
 - Format: `Bo5 Fearless Draft`
-- Series score: `KT.C 1-0 KRX.C`
+- Series score: `KT.C 2-0 KRX.C`
 - Game 1: KT.C win, `31:59`, kills `19-6`
-- Current map: `Game 2`
+- Game 2: KT.C win, `24:19`, kills `22-9`, towers `10-2`, dragons `3-0`, Barons `1-0`, inhibitors `2-0`
+- Next map: `Game 3 postdraft prep`
 
 ## Active authority
 - Lock: `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`
@@ -45,9 +46,6 @@ For this session:
 - G1 shadow P/L `-0.75u`
 - Primary review: `PROBABILITY/CALIBRATION ERROR`; KT clean-cascade branch and low-KRX-return-kill branch were underweighted.
 
-## Fearless consumed after Game 1
-`Rumble / Wukong / Ahri / Xayah / Milio / Olaf / Qiyana / Viktor / Lucian / Nautilus`
-
 ## Game 2 final draft
 KT.C:
 - Sero — K'Sante
@@ -63,7 +61,7 @@ KRX.C:
 - Vincenzo — Yunara
 - Minous — Lulu
 
-Price-blind draft verdict: `EVEN` — KT has cleaner early objective/engage structure and front line; KRX has stronger side-lane + scaling/ball-delivery ceiling. Neither side gets a discrete ML draft edge.
+Price-blind draft verdict: `EVEN` — KT had cleaner early objective/engage structure and front line; KRX had stronger side-lane + scaling/ball-delivery ceiling. Neither side got a discrete ML draft edge.
 
 ## Game 2 supplied board
 - ML: `KT.C 1.410 / KRX.C 2.809`
@@ -71,33 +69,55 @@ Price-blind draft verdict: `EVEN` — KT has cleaner early objective/engage stru
 - Total Kills: `Over 30.5 @1.807 / Under 30.5 @1.973`
 - Kill Handicap: `KT.C -7.5 @1.829 / KRX.C +7.5 @1.928`
 
-Displayed scoreboard time `2:09` is ignored for eligibility. The 0-0/even live state is also ignored analytically.
-
 ## Game 2 postdraft assessment
-- ML: `KRX 60% / KT 40%` from frozen benchmark and `D=0`. Both PASS for execution because selected-side positive draft thesis is absent; KT also fails min odds at 1.410.
-- KH: clean-cascade stress explicitly increased KT blowout branch versus G1 methodology, but KRX still has Lulu/Yunara protection, Camille side-lane and Pantheon/Orianna return-kill routes. Price-blind estimate `KRX +7.5 cover ~68%`. At 1.928 (51.87% break-even), this is a TAKE.
-- Duration: draft-only `V=0,Q=0,H=0,T=+1`, `F≈31.75m`. At line 32: Over ~48.25%, Under ~51.75%; both PASS.
-- Total Kills: retain pre-series `TK0≈34.5` but apply downward draft adjustment for Renata/Lulu peel plus plausible clean objective-control branches; locked Over 30.5 estimate ~61%. At 1.807 (55.34% break-even), edge ~+5.7pp, below +7.5pp => PASS.
+- ML: `KRX 60% / KT 40%` from frozen benchmark and `D=0`. Both PASS for execution because selected-side positive draft thesis was absent; KT also failed min odds at 1.410.
+- KH: price-blind estimate `KRX +7.5 cover ~68%`. At 1.928 this qualified and was accepted.
+- Duration: draft-only `V=0,Q=0,H=0,T=+1`, `F≈31.75m`. Both sides PASS at line 32.
+- Total Kills: locked Over 30.5 estimate ~61%. At 1.807 edge ~+5.7pp, below +7.5pp => PASS.
 
-## Game 2 execution status
-User said `take other markets as well` immediately after being asked to confirm KRX +7.5 @1.928. Treat this as confirmation of the already-specified KH candidate, but **do not convert PASS markets into model takes** without an explicit prospective governance change.
-
-Accepted shadow position:
+## Game 2 accepted shadow position — SETTLED
 - `LCKCL-2026-08-31-KTC-KRXC-G2-KH-KRX+7.5`
-- Selection: `KRX.C +7.5 kills`
-- Odds: `1.928`
+- Selection: `KRX.C +7.5 kills @1.928`
 - Shadow stake: `0.25u`
 - Actual exposure: `0u`
-- Status: `OPEN / PENDING SETTLEMENT`
+- Final kills: `KT 22-9 KRX` (KT margin +13)
+- Result: `LOSS`, P/L `-0.25u`
 
-Not recorded:
-- Moneyline — PASS
-- Duration — PASS both sides
-- Total Kills — PASS (Over edge only ~+5.7pp vs required +7.5pp)
+Game 2 shadow P/L: `-0.25u`.
+Cumulative draft-only shadow P/L after G2: `-1.00u`.
 
-Airtable only at map end.
+## Game 2 review
+Primary audit label: `PROBABILITY/CALIBRATION ERROR`.
 
-## Audit cadence
-- Micro-review every settled map.
-- Checkpoint audit after 10 accepted postdraft bets total.
-- Formal calibration/model audit after 20-30 accepted bets per market family unless a procedural bug requires immediate repair.
+Reason:
+- This was the second consecutive KRX positive-kill-handicap projection to materially underweight a KT clean-cascade branch.
+- G2 model estimated KRX +7.5 cover around 68%, yet KT again won by 13 kills.
+- Final map control was decisive: towers 10-2, dragons 3-0, Baron 1-0, inhibitors 2-0.
+- The clean-cascade stress adjustment added after G1 was still insufficient.
+- This is a strong calibration warning, but not yet enough by itself to rewrite parameters before the scheduled checkpoint unless a procedural bug is identified.
+
+Airtable map + settled G2 KH position written at map end.
+
+## Fearless consumed after Games 1-2
+Unavailable to either side in Game 3:
+`Rumble / Wukong / Ahri / Xayah / Milio / Olaf / Qiyana / Viktor / Lucian / Nautilus / K'Sante / Maokai / Tristana / Kalista / Renata / Camille / Pantheon / Orianna / Yunara / Lulu`
+
+## Audit count
+Accepted postdraft bets in this temporary mode: `4` total.
+- Kill Handicap: `2` settled, `0-2`
+- Duration: `1` settled, `0-1`
+- Total Kills: `1` settled, `0-1`
+- Moneyline: `0`
+- Total shadow P/L: `-1.00u`
+
+Audit cadence remains:
+- micro-review every settled map;
+- checkpoint audit after `10` accepted postdraft bets total;
+- formal calibration/model audit after `20-30` accepted bets per market family unless a procedural bug requires immediate repair.
+
+## Game 3 workflow
+1. Receive final Game 3 draft/roles + exact board.
+2. Complete DIM and price-blind projections/distributions.
+3. Compare ML / KH / Duration / Total Kills.
+4. Displayed map clock may be ignored for eligibility, but live-state variables remain analytically forbidden.
+5. Airtable only at map end.
