@@ -8,8 +8,10 @@
 - Match: `Nongshim Esports Academy vs DN SOOPers Challengers`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-08-31 17:30 KST / 15:30 UTC+7`
-- Series score: `not supplied / do not infer`
-- Current map: `not supplied / do not infer`
+- Series score: `NS.C 1-1 DNS.C`
+- Game 1 winner: `NS Challengers`
+- Game 2 winner: `DNS Challengers`
+- Next map: `Game 3 prep`
 
 ## Active authority
 - Lock: `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7`
@@ -37,30 +39,56 @@
 
 Same-series results/prices do not update K/P0.
 
-## Roster context
-Expected current fives from public pre-series listings:
+## Game 1 — final
+Winner: `NS Challengers`
+Final duration: `26:37`
+Final kills: `NS 26-5 DNS`
+Final towers: `9-1`
+Final dragons: `2-1`
+Final Barons: `1-0`
+Final inhibitors: `1-0`
 
+Draft:
 NS.C:
-- Janus
-- MihawK
-- SeTab
-- Lucy
-- Pleata
+- Janus — Olaf
+- MihawK — Jarvan IV
+- SeTab — Orianna
+- Lucy — Ashe
+- Pleata — Seraphine
 
 DNS.C:
-- Lancer
-- DDoiV
-- Flip
-- Enosh
-- Quantum
+- Lancer — Camille
+- DDoiV — Lee Sin
+- Flip — Galio
+- Enosh — Yunara
+- Quantum — Lulu
 
-User-supplied draft/scoreboard overrides public roster context if different.
+## Game 2 — result known
+Winner: `DNS Challengers`
+User confirmed DNS won Game 2.
+The supplied screenshot was at `38:33` while still marked live, with DNS leading 23-21 kills, 10-8 towers, 4-2 dragons, 1-1 Barons, 1-1 inhibitors. Do **not** treat `38:33` as final duration or those live values as final settlement values.
 
-## Fearless pool
-Not supplied yet. Do not infer prior-map consumed champions without a reliable draft source or user screenshot.
+Draft:
+DNS.C:
+- Lancer — Rumble
+- DDoiV — Skarner
+- Flip — Tristana
+- Enosh — Ezreal
+- Quantum — Nautilus
 
-## Workflow
-1. Receive final current-map draft/roles plus exact board.
+NS.C:
+- Janus — K'Sante
+- MihawK — Cho'Gath
+- SeTab — Ryze
+- Lucy — Lucian
+- Pleata — Milio
+
+## Fearless consumed after Games 1-2
+Unavailable to either side in Game 3:
+`Olaf / Jarvan IV / Orianna / Ashe / Seraphine / Camille / Lee Sin / Galio / Yunara / Lulu / Rumble / Skarner / Tristana / Ezreal / Nautilus / K'Sante / Cho'Gath / Ryze / Lucian / Milio`
+
+## Game 3 workflow
+1. Receive final Game 3 draft/roles plus exact board.
 2. Ignore displayed match clock and all live-state stats.
 3. Complete price-blind DIM + ML/KH/Duration/TK projections.
 4. Compare exact offered lines/odds.
