@@ -7,8 +7,10 @@
 - Stage: `Playoffs — Upper Round 1`
 - Match: `KT Rolster Challengers vs DRX/KRX Challengers`
 - Format: `Bo5 Fearless Draft`
-- Series score: `not supplied / do not infer`
-- Current map: `Game 1 final draft known`
+- Series score: `KT.C 1-0 KRX.C`
+- Game 1 winner: `KT Challengers`
+- Game 1 final: `31:59`, kills `KT 19-6 KRX`, towers `9-3`, dragons `3-1`, Barons `2-0`, inhibitors `1-0`
+- Next map: `Game 2 postdraft prep`
 
 ## Active authority
 - Active lock: `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`
@@ -27,7 +29,7 @@
 - Total Kills Over/Under
 
 Thresholds:
-- ML minimum odds `1.50` — corrected from the mistakenly recorded `0.5`
+- ML minimum odds `1.50`
 - ML edge `+5.0pp`
 - KH minimum odds `1.60`, initial reactivation edge `+7.5pp`
 - Duration minimum odds `1.60`, edge `+7.5pp`
@@ -44,7 +46,7 @@ Once a map starts, do not create or update predictions from live state. In-map e
 
 Same-series results/prices do not update K/P0.
 
-## Game 1 confirmed lineups/draft
+## Game 1 draft
 KT.C:
 - Sero — Rumble
 - Sylvie — Wukong
@@ -61,69 +63,56 @@ KRX.C:
 
 Price-blind draft verdict: `SLIGHT KT.C`.
 
-Visible postdraft board supplied by user:
+Visible postdraft board:
 - ML: `KT.C 1.571 / KDRX.C 2.332`
 - Duration: `Over 31 @1.494 / Under 31 @2.558`
 - Total Kills: `Over 30.5 @1.822 / Under 30.5 @1.956`
 - Kill Handicap: `KT.C -6.5 @1.944 / KDRX.C +6.5 @1.816`
 
-## Game 1 postdraft reassessment
-
-Price-blind / pre-price outputs used for the reassessment:
-- Moneyline draft-only probability: `KRX 55.5% / KT 44.5%` from frozen benchmark plus `SLIGHT KT.C` draft correction.
-- KRX +6.5 kill-handicap cover estimate: approximately `76%` from the locked side-neutral final-margin distribution.
-- Duration point estimate: approximately `30.25m`, implying `Under 31 ≈55.25%`.
-- Total-kill environment baseline: approximately `TK0=34.5`, with draft-adjusted `Over 30.5 ≈68%`.
-
-Postdraft verdicts at the supplied board:
-- `KRX ML @2.332` — PASS; selected-side draft thesis negative despite benchmark/price.
-- `KT ML @1.571` — PASS.
-- `KRX +6.5 kills @1.816` — TAKE CANDIDATE.
-- `Under 31 minutes @2.558` — TAKE CANDIDATE.
-- `Over 30.5 total kills @1.822` — TAKE CANDIDATE.
-
-## User confirmation / recorded shadow positions
-
-User instruction: `record all takes`.
-
-Recorded as accepted **shadow** positions from the unchanged postdraft decision window:
+## Game 1 recorded shadow positions — SETTLED
 
 1. `LCKCL-2026-08-31-KTC-KRXC-G1-KH-KRX+6.5`
-   - Market: Kill Handicap
-   - Selection: `KRX.C +6.5 kills`
-   - Odds: `1.816`
-   - Shadow stake: `0.25u`
-   - Actual exposure: `0u`
-   - Status: `OPEN / PENDING SETTLEMENT`
+   - `KRX.C +6.5 kills @1.816`
+   - Shadow `0.25u`, actual `0u`
+   - Final kill margin: KT +13
+   - Result: `LOSS`, P/L `-0.25u`
 
 2. `LCKCL-2026-08-31-KTC-KRXC-G1-DUR-U31`
-   - Market: Duration
-   - Selection: `Under 31 minutes`
-   - Odds: `2.558`
-   - Shadow stake: `0.25u`
-   - Actual exposure: `0u`
-   - Status: `OPEN / PENDING SETTLEMENT`
+   - `Under 31 minutes @2.558`
+   - Shadow `0.25u`, actual `0u`
+   - Final duration: `31:59`
+   - Result: `LOSS`, P/L `-0.25u`
 
 3. `LCKCL-2026-08-31-KTC-KRXC-G1-TK-O30.5`
-   - Market: Total Kills
-   - Selection: `Over 30.5 total kills`
-   - Odds: `1.822`
-   - Shadow stake: `0.25u`
-   - Actual exposure: `0u`
-   - Status: `OPEN / PENDING SETTLEMENT`
+   - `Over 30.5 total kills @1.822`
+   - Shadow `0.25u`, actual `0u`
+   - Final total kills: `25`
+   - Result: `LOSS`, P/L `-0.25u`
 
-Correlation note: Duration Under 31 and Total Kills Over 30.5 share a high-contact/fast-clock branch and must be reviewed as a correlated pair after settlement; they are not independent calibration evidence merely because they are separate market families.
+Game 1 draft-only shadow P/L: `-0.75u`.
 
-Airtable write remains deferred until Game 1 ends, per workflow preference.
+## Game 1 review
+Primary audit label: `PROBABILITY/CALIBRATION ERROR`.
 
-## Workflow
-1. Complete DIM / mechanism read before price use.
-2. Build ML/KH/Duration/TK projections or distributions price-blind.
-3. Compare exact postdraft board.
-4. Verdict first and compact.
-5. Exact user confirmation for any TAKE CANDIDATE before map start.
-6. No live prediction updates after map start.
-7. Airtable only at map end.
+Reason:
+- KH distribution materially underweighted the KT clean-cascade branch; final margin was 13 kills versus the prior estimate assigning only about 24% to KT winning by 7+.
+- Total Kills baseline/draft adjustment overestimated KRX return-kill participation; KRX produced only 6 kills and final total was 25 versus an Over-lean central environment around 35-37.
+- Duration Under 31 was a much smaller calibration miss: final 31:59, just 59 seconds beyond the line.
+- No price/execution error identified from settlement alone.
+
+Airtable map and all three settled positions were written at map end.
+
+## Fearless consumed after Game 1
+Unavailable to either side in Game 2:
+`Rumble / Wukong / Ahri / Xayah / Milio / Olaf / Qiyana / Viktor / Lucian / Nautilus`
+
+## Game 2 workflow
+1. Receive final Game 2 draft/roles plus exact board.
+2. Complete DIM and price-blind market projections/distributions.
+3. Compare ML / KH / Duration / Total Kills.
+4. Exact user confirmation before any accepted shadow position.
+5. No predictive updates after Game 2 starts.
+6. Airtable only at map end.
 
 ## Bootstrap next continuation
 Fetch default `models/lol/CURRENT_MODEL.md`, load `LOL_SESSION_BOOTSTRAP.md`, fetch lock `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`, re-fetch CURRENT_MODEL at authority `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`, load the benchmark-aware v1.3 stack plus `LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md` and finally the lock-scoped `LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md`, then this or a newer handoff last.
