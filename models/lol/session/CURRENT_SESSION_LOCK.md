@@ -4,7 +4,7 @@
 **Status:** `ACTIVE`  
 **Scope:** `LCK CL 2026 Season — Playoffs Upper Round 1 — KT Rolster Challengers vs DRX/KRX Challengers — Bo5 Fearless Draft`  
 **Supersedes:** `LOL-2026-08-31-V13-KTC-KRXC-BENCH-1205-UTC7` prospectively  
-**Authority commit:** `af332d377dae5f17f51f8e2155298ecb28c32096`  
+**Authority commit:** `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`  
 **Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Execution Mode`  
 **Execution mode:** `POSTDRAFT_ONLY / NO LIVE PREDICTIONS`  
 **Circuit breaker / actual exposure:** `CLEAR / 0u actual`  
@@ -12,7 +12,7 @@
 
 ## Required authority stack
 
-Load from authority commit `af332d377dae5f17f51f8e2155298ecb28c32096`:
+Load from authority commit `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`:
 
 1. `models/lol/CURRENT_MODEL.md`;
 2. `models/lol/procedures/LOL_SESSION_BOOTSTRAP.md`;
@@ -31,8 +31,8 @@ User instruction on 2026-08-31:
 - no live predictions at the moment;
 - evaluate only after final draft + exact odds/line;
 - enabled families: `Moneyline + Kill Handicap + Duration + Total Kills`;
-- ML minimum odds: `0.5` exactly as supplied;
-- because valid decimal odds are normally >=1.00, the 0.5 ML floor functions as no practical decimal-price minimum;
+- corrected ML minimum decimal odds: `1.50`;
+- the earlier `0.5` entry was a transcription/misunderstanding and is superseded;
 - KH / Duration / Total Kills retain minimum decimal odds `1.60` unless user changes them;
 - exact line confirmation is still required before an accepted shadow Position;
 - once a map starts, do not update predictions from live kills/gold/objectives/structures. In-map evidence is settlement/context only.
@@ -100,6 +100,7 @@ With no live variables:
 Selected-side positive draft thesis is still required. Team strength or attractive price alone cannot create an ML TAKE.
 
 ML required edge remains `+5.0pp`.
+ML minimum decimal odds: `1.50`.
 
 ## Kill Handicap
 
