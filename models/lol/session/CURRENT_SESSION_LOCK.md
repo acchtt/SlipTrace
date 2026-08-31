@@ -1,14 +1,14 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7`  
+**Lock ID:** `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-FORCEDCHOICE`  
 **Status:** `ACTIVE`  
 **Scope:** `LCK CL 2026 Season — Playoffs Upper Round 1 — Nongshim Esports Academy vs DN SOOPers Challengers — Bo5 Fearless Draft`  
-**Supersedes:** `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY` prospectively  
+**Supersedes:** `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7` prospectively  
 **Authority commit:** `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`  
-**Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Execution Mode`  
-**Execution mode:** `POSTDRAFT-ONLY INPUTS / IGNORE DISPLAYED MATCH CLOCK`  
+**Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Forced-Choice Execution Mode`  
+**Execution mode:** `POSTDRAFT-ONLY INPUTS / IGNORE DISPLAYED MATCH CLOCK / FORCE ONE SIDE PER OFFERED MARKET`  
 **Circuit breaker / actual exposure:** `CLEAR / 0u actual`  
-**Default shadow stake:** `0.25u`
+**Default shadow stake:** `0.25u per market`
 
 ## Required authority stack
 
@@ -20,101 +20,93 @@ Load from authority commit `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`:
 4. `models/lol/rules/MODEL_RULES_LOL_V1.3_MONEYLINE_HIERARCHY_CORE.md`;
 5. `models/lol/rules/MODEL_RULES_LOL_V1.1_DURATION_CORE.md`;
 6. `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`;
-7. `models/lol/procedures/LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md` last as the base lock-scoped execution overlay.
+7. `models/lol/procedures/LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md` as the base draft-only overlay;
+8. this mutable lock's forced-choice override last.
 
-The mutable session timing override remains active. All non-conflicting benchmark, anti-price-only, confirmation, position-blind, and anti-chasing controls remain active.
+## User-directed forced-choice override — prospective from this lock
 
-## Temporary user-directed market mode
+The user explicitly instructed:
 
-User instructions carried prospectively into this series:
+`From now on, take all available markets, no more pass. If you pass under then the over will be taken.`
+
+Operational interpretation for shadow tracking:
 
 - no live-state predictions;
 - enabled families: `Moneyline + Kill Handicap + Duration + Total Kills`;
-- ML minimum decimal odds: `1.50`;
-- KH / Duration / Total Kills minimum decimal odds: `1.60`;
-- ML edge threshold `+5.0pp`; KH / Duration / Total Kills initial edge threshold `+7.5pp`;
-- exact user confirmation required before an accepted shadow Position;
+- when an offered board contains a binary market in an enabled family, choose **exactly one side** and record it as a `FORCED-CHOICE` shadow Position;
+- `PASS` is disabled for offered binary markets in this mode;
+- if the initially preferred side is rejected by the old selective gate, the opposite side is still evaluated and one side must ultimately be selected;
+- minimum-odds and edge thresholds remain diagnostic metadata only and are **not execution vetoes** in forced-choice mode;
+- selected-side causal-thesis gate remains diagnostic only and is **not an execution veto** in forced-choice mode;
+- price still must not alter the benchmark, draft read, ML probability, kill-margin distribution, duration F, or total-kill distribution;
+- after price-blind projections are locked, choose the side with the better model-vs-book expected value / fit among the two offered sides; if both are negative EV, choose the less-negative side;
+- if odds are missing for one side or settlement semantics are unclear, HOLD that market until an executable two-sided quote/clear settlement is supplied — this is an execution-data HOLD, not a model PASS;
+- the user's standing instruction counts as blanket line authorization for supplied boards: no extra `Confirm` message is required for each forced-choice shadow Position;
+- shadow stake stays `0.25u` per selected market; actual exposure remains `0u`;
+- no chasing, rescue, martingale, averaging down, or stake escalation.
+
+## Validation separation
+
+Forced-choice positions are a distinct experimental cohort:
+
+- tag every such Position `FORCED-CHOICE` in evidence/thesis text;
+- do **not** blend forced-choice results with threshold-qualified selective TAKE calibration when estimating whether the old +5pp / +7.5pp gates were calibrated;
+- audit forced-choice results separately by market family and direction;
+- micro-review every settled map;
+- checkpoint audit after 10 forced-choice Positions total;
+- architecture changes still require explicit user authorization, except procedural bugs which are fixed immediately.
+
+## Timing / information controls
+
 - ignore displayed match time for execution eligibility when the user supplies final draft + board;
 - do not use in-map kills, gold, objectives, structures, role resources, or other live-state evidence in prediction;
 - prediction inputs remain frozen to pre-series benchmark + final draft/mechanisms + supplied market board only.
-
-## Series identification
-
-Current LCK CL playoff series identified from public schedule as:
-- `Nongshim Esports Academy / Nongshim Challengers (NS.C)` vs `DN SOOPers Challengers (DNS.C)`;
-- scheduled `2026-08-31 17:30 KST`, equivalent to `15:30 UTC+7`;
-- format `Bo5 Fearless Draft`.
-
-Series score/current map at lock: `not supplied / do not infer`.
 
 ## Frozen NS.C vs DNS.C benchmark
 
 Primary source: Games of Legends / gol.gg, using completed LCK CL 2026 Rounds 3-4 as current window and Rounds 1-2 as previous comparable window. Sportsbook prices and same-series results excluded.
 
-Core split inputs relevant to the two teams:
+- `B_current(NS)=+0.317`
+- `B_current(DNS)=-0.690`
+- `B_previous(NS)=+0.733`
+- `B_previous(DNS)=+0.495`
+- normal `70/30` current/previous blend
+- `B_raw(NS)=+0.442`
+- `B_raw(DNS)=-0.334`
+- `B(NS)=+0.550`
+- `B(DNS)=-0.417`
+- `GAP(NS-DNS)=+0.967 SD`
+- `NS.C K=+1 / P0=55%`
+- `DNS.C K=-1 / P0=45%`
 
-Current — Rounds 3-4:
-- `NS.C`: 21 games, WinRate `47.6%`, GDM `+37`, GD@15 `+1076`, Towers `5.6-5.9`, DRA% `59.1`, NASH% `50.0`;
-- `DNS.C`: 21 games, WinRate `38.1%`, GDM `-103`, GD@15 `-152`, Towers `5.3-7.2`, DRA% `50.6`, NASH% `41.3`.
+Same-series results and sportsbook prices never change K/P0.
 
-Previous — Rounds 1-2:
-- `NS.C`: 45 games, WinRate `55.6%`, GDM `+66`, GD@15 `+967`, Towers `6.4-5.4`, DRA% `56.5`, NASH% `57.0`;
-- `DNS.C`: 45 games, WinRate `57.8%`, GDM `+63`, GD@15 `-75`, Towers `6.7-5.2`, DRA% `60.7`, NASH% `59.5`.
+## Price-blind projections
 
-League-relative split scores from the frozen benchmark formula:
-- `B_current(NS)=+0.317`;
-- `B_current(DNS)=-0.690`;
-- `B_previous(NS)=+0.733`;
-- `B_previous(DNS)=+0.495`.
-
-Roster continuity:
-- NS expected five `Janus / MihawK / SeTab / Lucy / Pleata` matches the established prior-window core;
-- DNS expected five `Lancer / DDoiV / Flip / Enosh / Quantum` matches the established prior-window core, despite earlier support rotation during Rounds 1-2;
-- treat both as no decision-critical roster change for blend purposes.
-
-With `G>=15`, both use normal `70/30 current/previous` blend:
-- `B_raw(NS)=+0.442`;
-- `B_raw(DNS)=-0.334`.
-
-After re-standardizing the full LCK CL peer set:
-- `B(NS)=+0.550`;
-- `B(DNS)=-0.417`;
-- `GAP(NS-DNS)=+0.967 SD`.
-
-Frozen series prior:
-- `NS.C K=+1 / P0=55%`;
-- `DNS.C K=-1 / P0=45%`.
-
-Same-series results and sportsbook prices never change this K/P0.
-
-## Draft-only Moneyline
-
+### Moneyline
 With no live variables: `R=X=O=T=0`.
 
 `P(A)=clamp(P0(A)+4.5*D pp,15%,85%)`
 
-Selected-side positive draft thesis remains required. Team strength or attractive price alone cannot create an ML TAKE.
+Lock P before price. In forced-choice mode, compare both quoted sides after the lock and select one even if the old selective thesis/edge gate would have produced PASS.
 
-## Kill Handicap
+### Kill Handicap
+Construct the side-neutral final kill-margin distribution before line/price. Explicitly stress-test clean-cascade and return-kill branches. Then select one quoted handicap side.
 
-Postdraft KH uses the locked side-neutral final kill-margin distribution before line/price. Favorite -5.5 or wider retains CoverShare protection; underdog +H requires real resilience/return-kill mechanisms and clean-cascade stress. Better price cannot repair a failed thesis.
+### Duration
+Use the v1.1 core at `t=0`; lock `F` before line/price. Then select Over or Under.
 
-## Duration
-
-Postdraft Duration uses the v1.1 core at `t=0`; lock `F` before line/price.
-
-## Total Kills
-
-Postdraft Total Kills uses price-independent `TK0` plus draft-adjusted kill distribution before line/price. HOLD if TK0 cannot be reconstructed reliably.
+### Total Kills
+Use price-independent `TK0` plus draft-adjusted kill distribution before line/price. Then select Over or Under. If TK0 cannot be reconstructed reliably, execution-data HOLD until a reliable baseline is available.
 
 ## Workflow
 
 1. Final draft/roles.
-2. Draft Interaction Matrix and price-blind ML/KH/Duration/TK projections.
+2. Price-blind DIM + ML/KH/Duration/TK projections.
 3. Exact offered board.
-4. Ignore displayed match clock; ignore all live-state statistics.
-5. Compact verdicts for ML / KH / Duration / Total Kills.
-6. Exact user confirmation before accepted shadow Position.
+4. Ignore displayed match clock and all live-state statistics.
+5. For every executable offered enabled market, choose exactly one side.
+6. Record each as `FORCED-CHOICE`, 0.25u shadow / 0u actual, without additional confirmation.
 7. Airtable writes remain deferred to map end.
 
-If authority/overlay mismatch outside the explicit timing override: `MODEL LOCK MISMATCH — HOLD`.
+If authority/overlay mismatch outside this explicit override: `MODEL LOCK MISMATCH — HOLD`.
