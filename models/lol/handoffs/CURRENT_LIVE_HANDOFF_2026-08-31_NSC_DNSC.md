@@ -7,7 +7,6 @@
 - Stage: `Playoffs — Upper Round 1`
 - Match: `Nongshim Esports Academy vs DN SOOPers Challengers`
 - Format: `Bo5 Fearless Draft`
-- Scheduled: `2026-08-31 17:30 KST / 15:30 UTC+7`
 - Series score: `NS.C 2-1 DNS.C`
 - Game 1 winner: `NS Challengers`
 - Game 2 winner: `DNS Challengers`
@@ -15,14 +14,26 @@
 - Next map: `Game 4 prep`
 
 ## Active authority
-- Lock: `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7`
+- Lock: `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-FORCEDCHOICE`
 - Authority commit: `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`
-- Mode: `POSTDRAFT-ONLY INPUTS / IGNORE DISPLAYED MATCH CLOCK`
+- Mode: `POSTDRAFT-ONLY / IGNORE DISPLAYED CLOCK / FORCE ONE SIDE PER OFFERED MARKET`
 - Actual exposure: `0u`
-- Shadow stake: `0.25u`
-- ML min odds `1.50`, edge `+5.0pp`
-- KH / Duration / Total Kills min odds `1.60`, edge `+7.5pp`
-- Price cannot create the bet.
+- Shadow stake: `0.25u per market`
+
+## Forced-choice rule — ACTIVE prospectively
+User instruction: `take all available markets, no more pass`.
+
+For every executable offered enabled market:
+- Moneyline: choose one side;
+- Kill Handicap: choose one side;
+- Duration: choose Over or Under;
+- Total Kills: choose Over or Under.
+
+`PASS` is disabled. Old minimum-odds, edge, and selected-side thesis gates remain diagnostic metadata only, not execution vetoes. Price-blind projections are still locked before odds. After odds are seen, choose the better model-vs-book side; if both sides are negative EV, choose the less-negative side.
+
+Standing authorization: a supplied board is enough to record all forced-choice shadow positions; no extra per-line confirmation required. Tag these positions `FORCED-CHOICE`. Keep them separate from threshold-qualified selective TAKE calibration. Airtable only at map end.
+
+If a market lacks a clear two-sided executable quote or settlement semantics are unclear, use execution-data HOLD until clarified; do not substitute a model PASS.
 
 ## Frozen benchmark
 - `B_current(NS)=+0.317`
@@ -71,36 +82,15 @@ Final Barons: `1-0`
 Final inhibitors: `2-0`
 
 Draft:
-NS.C:
-- Janus — Yorick
-- MihawK — Qiyana
-- SeTab — Locke
-- Lucy — Kalista
-- Pleata — Renata Glasc
+NS.C: Janus Yorick / MihawK Qiyana / SeTab Locke / Lucy Kalista / Pleata Renata Glasc
+DNS.C: Lancer Jayce / DDoiV Trundle / Flip Syndra / Enosh Jhin / Quantum Alistar
 
-DNS.C:
-- Lancer — Jayce
-- DDoiV — Trundle
-- Flip — Syndra
-- Enosh — Jhin
-- Quantum — Alistar
-
-Price-blind draft verdict was `SLIGHT NS.C` (`D=+1` from NS perspective).
-
-### Game 3 settled position
-- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G3-TK-O31.5`
-- Market: `Total Kills`
-- Selection: `Over 31.5 total kills`
-- Odds: `1.653`
-- Model probability at decision: `~69%`
-- Book implied: `60.50%`
-- Estimated edge: `~+8.5pp`
-- Shadow stake: `0.25u`
-- Actual exposure: `0u`
+### Game 3 settled position — pre-forced-choice cohort
+- `Over 31.5 total kills @1.653`
+- 0.25u shadow / 0u actual
 - Result: `LOSS`
 - P/L: `-0.25u`
-
-Primary review: `PROBABILITY/CALIBRATION ERROR` — the Total Kills model over-weighted expected two-sided contact/return kills and underweighted a fast one-sided NS clean-cascade branch. Final was only 29 kills despite the high TK0 baseline.
+- Primary review: `PROBABILITY/CALIBRATION ERROR`
 
 ## Fearless consumed after Games 1-3
 Unavailable to either side in Game 4:
@@ -109,13 +99,13 @@ Unavailable to either side in Game 4:
 ## Game 4 workflow
 1. Receive final Game 4 draft/roles plus exact board.
 2. Ignore displayed match clock and all live-state stats.
-3. Complete price-blind DIM + ML/KH/Duration/TK projections.
-4. Compare exact offered lines/odds.
-5. Compact verdict first.
-6. Exact user confirmation before accepted shadow Position.
+3. Lock price-blind ML probability, KH margin distribution, duration F, and TK distribution.
+4. Compare both sides of every offered enabled market.
+5. Choose exactly one side for each executable offered market — no PASS.
+6. Record all selected sides as `FORCED-CHOICE`, 0.25u shadow each / 0u actual, without additional confirmation.
 7. Airtable only at map end.
 
 ## Audit cadence
 - Micro-review every settled map.
-- Checkpoint audit after 10 accepted postdraft bets total.
-- Formal calibration/model audit after 20-30 accepted bets per market family unless procedural bug requires immediate repair.
+- Forced-choice checkpoint audit after 10 forced-choice Positions total.
+- Keep forced-choice cohort separate from old threshold-qualified selective calibration.
