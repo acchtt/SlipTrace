@@ -1,9 +1,9 @@
 # Current LoL Session Lock
 
-**Lock ID:** `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY`  
+**Lock ID:** `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-1715-UTC7`  
 **Status:** `ACTIVE`  
-**Scope:** `LCK CL 2026 Season — Playoffs Upper Round 1 — KT Rolster Challengers vs DRX/KRX Challengers — Bo5 Fearless Draft`  
-**Supersedes:** `LOL-2026-08-31-V13-KTC-KRXC-BENCH-1205-UTC7` prospectively  
+**Scope:** `LCK CL 2026 Season — Playoffs Upper Round 1 — Nongshim Esports Academy vs DN SOOPers Challengers — Bo5 Fearless Draft`  
+**Supersedes:** `LOL-2026-08-31-V13-KTC-KRXC-DRAFTONLY` prospectively  
 **Authority commit:** `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`  
 **Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Execution Mode`  
 **Execution mode:** `POSTDRAFT-ONLY INPUTS / IGNORE DISPLAYED MATCH CLOCK`  
@@ -22,40 +22,70 @@ Load from authority commit `3e11a3a2b94a710dbc2d9ef16d88c3ac4ea0335c`:
 6. `models/lol/procedures/LOL_DRAFT_INTERACTION_MATRIX_2026-08-20.md`;
 7. `models/lol/procedures/LOL_DRAFT_ONLY_EXECUTION_MODE_2026-08-31.md` last as the base lock-scoped execution overlay.
 
-This mutable session lock carries the user's later timing override below. All non-conflicting benchmark, anti-price-only, confirmation, position-blind, and anti-chasing controls remain active.
+The mutable session timing override remains active. All non-conflicting benchmark, anti-price-only, confirmation, position-blind, and anti-chasing controls remain active.
 
 ## Temporary user-directed market mode
 
-User instructions on 2026-08-31:
+User instructions carried prospectively into this series:
 
-- no live-state predictions at the moment;
+- no live-state predictions;
 - enabled families: `Moneyline + Kill Handicap + Duration + Total Kills`;
 - ML minimum decimal odds: `1.50`;
 - KH / Duration / Total Kills minimum decimal odds: `1.60`;
 - ML edge threshold `+5.0pp`; KH / Duration / Total Kills initial edge threshold `+7.5pp`;
-- exact user confirmation is still required before an accepted shadow Position;
-- **ignore displayed match time for execution eligibility** when the user supplies a final draft + board;
-- a board shown after the map clock has begun may still be evaluated and recorded as the intended postdraft decision snapshot;
-- **do not use any in-map kills, gold, objectives, structures, role gold, or other live-state evidence in the prediction**;
-- prediction inputs remain frozen to pre-series benchmark + final draft/mechanisms + the supplied market board only.
+- exact user confirmation required before an accepted shadow Position;
+- ignore displayed match time for execution eligibility when the user supplies final draft + board;
+- do not use in-map kills, gold, objectives, structures, role resources, or other live-state evidence in prediction;
+- prediction inputs remain frozen to pre-series benchmark + final draft/mechanisms + supplied market board only.
 
-Thus, `match clock > 0` is no longer a veto in this session. This overrides only the overlay's `before map start` / `no new position after start` timing clauses. It does **not** re-enable live prediction updates.
+## Series identification
 
-## Price-independence
+Current LCK CL playoff series identified from public schedule as:
+- `Nongshim Esports Academy / Nongshim Challengers (NS.C)` vs `DN SOOPers Challengers (DNS.C)`;
+- scheduled `2026-08-31 17:30 KST`, equivalent to `15:30 UTC+7`;
+- format `Bo5 Fearless Draft`.
 
-For all enabled markets, construct the benchmark + draft mechanism + family projection/distribution before odds are analytical evidence.
+Series score/current map at lock: `not supplied / do not infer`.
 
-`PRICE CANNOT CREATE THE BET` remains hard.
+## Frozen NS.C vs DNS.C benchmark
 
-## Frozen KT.C vs KRX.C benchmark
+Primary source: Games of Legends / gol.gg, using completed LCK CL 2026 Rounds 3-4 as current window and Rounds 1-2 as previous comparable window. Sportsbook prices and same-series results excluded.
 
-- `B(KRX)=+1.623`
-- `B(KT)=+0.069`
-- `GAP(KRX-KT)=+1.554 SD`
-- `KRX/DRX.C K=+2 / P0=60%`
-- `KT.C K=-2 / P0=40%`
+Core split inputs relevant to the two teams:
 
-Same-series results never change K/P0.
+Current — Rounds 3-4:
+- `NS.C`: 21 games, WinRate `47.6%`, GDM `+37`, GD@15 `+1076`, Towers `5.6-5.9`, DRA% `59.1`, NASH% `50.0`;
+- `DNS.C`: 21 games, WinRate `38.1%`, GDM `-103`, GD@15 `-152`, Towers `5.3-7.2`, DRA% `50.6`, NASH% `41.3`.
+
+Previous — Rounds 1-2:
+- `NS.C`: 45 games, WinRate `55.6%`, GDM `+66`, GD@15 `+967`, Towers `6.4-5.4`, DRA% `56.5`, NASH% `57.0`;
+- `DNS.C`: 45 games, WinRate `57.8%`, GDM `+63`, GD@15 `-75`, Towers `6.7-5.2`, DRA% `60.7`, NASH% `59.5`.
+
+League-relative split scores from the frozen benchmark formula:
+- `B_current(NS)=+0.317`;
+- `B_current(DNS)=-0.690`;
+- `B_previous(NS)=+0.733`;
+- `B_previous(DNS)=+0.495`.
+
+Roster continuity:
+- NS expected five `Janus / MihawK / SeTab / Lucy / Pleata` matches the established prior-window core;
+- DNS expected five `Lancer / DDoiV / Flip / Enosh / Quantum` matches the established prior-window core, despite earlier support rotation during Rounds 1-2;
+- treat both as no decision-critical roster change for blend purposes.
+
+With `G>=15`, both use normal `70/30 current/previous` blend:
+- `B_raw(NS)=+0.442`;
+- `B_raw(DNS)=-0.334`.
+
+After re-standardizing the full LCK CL peer set:
+- `B(NS)=+0.550`;
+- `B(DNS)=-0.417`;
+- `GAP(NS-DNS)=+0.967 SD`.
+
+Frozen series prior:
+- `NS.C K=+1 / P0=55%`;
+- `DNS.C K=-1 / P0=45%`.
+
+Same-series results and sportsbook prices never change this K/P0.
 
 ## Draft-only Moneyline
 
@@ -87,4 +117,4 @@ Postdraft Total Kills uses price-independent `TK0` plus draft-adjusted kill dist
 6. Exact user confirmation before accepted shadow Position.
 7. Airtable writes remain deferred to map end.
 
-If authority/overlay mismatch outside this explicit timing override: `MODEL LOCK MISMATCH — HOLD`.
+If authority/overlay mismatch outside the explicit timing override: `MODEL LOCK MISMATCH — HOLD`.
