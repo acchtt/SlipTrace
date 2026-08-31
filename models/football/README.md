@@ -1,23 +1,16 @@
-# Football Model Namespace
+# Football Model
 
-Canonical entry point: `models/football/CURRENT_MODEL.md`
+This directory contains only the files required to operate the current **Football v0.2.47-R** workflow.
 
-## Structure
+## Active files
 
-- `rules/` — cumulative football amendments v0.2.5 through the active version
-- `procedures/` — operational betting procedures and active addenda
-- `context/` — portable operating context and status files
-- `handoffs/` — current match-state transfers between chats
-- `reviews/` — audits and model-development evidence
-- `ORGANIZED_FILE_LOADING_GUIDE.md` — repository navigation and loading rules
+- `CURRENT_MODEL.md` — active version, load order, and operating state.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.47-R.md` — consolidated model rules.
+- `procedures/FOOTBALL_BETTING_PROCEDURE.md` — daily slate, XI, odds, live, and settlement workflow.
+- `airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md` — current decision-state logging contract.
 
-## Active version
+Historical incremental rule files, old audit/shadow procedures, dated handoffs, benchmarks, and process-review documents are intentionally not part of the active directory. Git history is the archive.
 
-Football v0.2.28. The model is cumulative: load the retained baseline and procedures, then apply v0.2.5 through v0.2.28 in ascending order.
+## Principle
 
-## Boundaries
-
-- New football files must stay inside `models/football/`.
-- Root application files are not football model context.
-- `models/lol/` must not be loaded by a football chat.
-- `/ledger.json` remains the sole authoritative betting record and is written only after explicit approval.
+Use one canonical model, one operating procedure, and one decision-state control plane. Do not reconstruct the current workflow by stacking old model versions.
