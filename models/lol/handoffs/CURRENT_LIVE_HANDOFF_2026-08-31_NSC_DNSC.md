@@ -11,7 +11,7 @@
 - Game 1 winner: `NS Challengers`
 - Game 2 winner: `DNS Challengers`
 - Game 3 winner: `NS Challengers`
-- Next map: `Game 4 prep`
+- Current map: `Game 4`
 
 ## Active authority
 - Lock: `LOL-2026-08-31-V13-NSC-DNSC-DRAFTONLY-FORCEDCHOICE`
@@ -96,14 +96,89 @@ DNS.C: Lancer Jayce / DDoiV Trundle / Flip Syndra / Enosh Jhin / Quantum Alistar
 Unavailable to either side in Game 4:
 `Olaf / Jarvan IV / Orianna / Ashe / Seraphine / Camille / Lee Sin / Galio / Yunara / Lulu / Rumble / Skarner / Tristana / Ezreal / Nautilus / K'Sante / Cho'Gath / Ryze / Lucian / Milio / Yorick / Qiyana / Locke / Kalista / Renata Glasc / Jayce / Trundle / Syndra / Jhin / Alistar`
 
-## Game 4 workflow
-1. Receive final Game 4 draft/roles plus exact board.
-2. Ignore displayed match clock and all live-state stats.
-3. Lock price-blind ML probability, KH margin distribution, duration F, and TK distribution.
-4. Compare both sides of every offered enabled market.
-5. Choose exactly one side for each executable offered market — no PASS.
-6. Record all selected sides as `FORCED-CHOICE`, 0.25u shadow each / 0u actual, without additional confirmation.
-7. Airtable only at map end.
+## Game 4 final draft
+DNS.C (Blue):
+- Lancer — Renekton
+- DDoiV — Sylas
+- Flip — Viktor
+- Enosh — Kai'Sa
+- Quantum — Neeko
+
+NS.C (Red):
+- Janus — Gnar
+- MihawK — Maokai
+- SeTab — Yone
+- Lucy — Caitlyn
+- Pleata — Karma
+
+All ten Game 4 champions are outside the Games 1-3 consumed Fearless pool.
+
+### Game 4 price-blind draft read
+Verdict: `SLIGHT NS.C` (`D=+1` from NS perspective).
+
+Mechanism:
+- NS has the cleaner objective/siege shell through Caitlyn + Karma range, Maokai setup and vision control, with Gnar/Yone providing layered engage and backline access.
+- DNS has strong midgame counterplay through Neeko engage, Kai'Sa follow-up and Sylas access to several premium enemy ultimates, so the NS edge is only slight rather than major.
+
+Moneyline before price:
+- frozen `P0(NS)=55%`
+- `D=+1`
+- `P(NS)=59.5% / P(DNS)=40.5%`
+
+Kill Handicap before price:
+- side-neutral stress test retains substantial DNS close-loss/return-kill mass because of Neeko/Sylas/Kai'Sa counter-engage and NS's relatively range-oriented Caitlyn/Karma shell.
+- approximate locked distribution: `NS by 6+ 39% / NS by 1-5 21% / DNS by 0-5 18% / DNS by 6+ 22%`.
+- therefore `DNS +5.5 cover ≈61%`; `NS -5.5 cover ≈39%`.
+
+Duration before price:
+- draft-only score `V=+1, Q=0, H=0, T=+1`
+- `F≈30.25m`
+- at line 32: `Under ≈62.25% / Over ≈37.75%`.
+
+Total Kills before price:
+- pre-series neutral `TK0≈36.9` from the same frozen LCK CL Rounds 3-4 team environments.
+- this draft has many contact tools, but Caitlyn/Karma/Viktor range and waveclear lower two-sided kill realization versus the raw baseline.
+- lock `Over 31.5 ≈65% / Under 31.5 ≈35%`.
+
+## Game 4 supplied board
+- ML: `NS.EA 1.640 / DNS.C 2.195`
+- Duration: `Over 32 @2.205 / Under 32 @1.648`
+- Total Kills: `Over 31.5 @1.602 / Under 31.5 @2.293`
+- Kill Handicap: `NS.EA -5.5 @1.972 / DNS.C +5.5 @1.791`
+
+## Game 4 FORCED-CHOICE positions — OPEN
+All are `0.25u shadow / 0u actual` and accepted under the standing forced-choice authorization.
+
+1. Moneyline
+- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G4-ML-NS`
+- Selection: `NS.EA ML @1.640`
+- Model: `59.5%`
+- Book implied: `60.98%`
+- Edge: `-1.48pp`
+- Reason selected: less-negative model-vs-book fit than DNS ML after the price-blind slight-NS draft read.
+
+2. Kill Handicap
+- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G4-KH-DNS+5.5`
+- Selection: `DNS.C +5.5 kills @1.791`
+- Model cover: `~61%`
+- Book implied: `55.83%`
+- Edge: `~+5.17pp`
+
+3. Duration
+- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G4-DUR-U32`
+- Selection: `Under 32 @1.648`
+- Model: `~62.25%`
+- Book implied: `60.68%`
+- Edge: `~+1.57pp`
+
+4. Total Kills
+- Position ID: `LCKCL-2026-08-31-NSC-DNSC-G4-TK-O31.5`
+- Selection: `Over 31.5 @1.602`
+- Model: `~65%`
+- Book implied: `62.42%`
+- Edge: `~+2.58pp`
+
+Airtable remains deferred until map end.
 
 ## Audit cadence
 - Micro-review every settled map.
