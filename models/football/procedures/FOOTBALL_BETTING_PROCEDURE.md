@@ -19,8 +19,9 @@ Run the full fixture slate before ranking individual matches.
 5. Evaluate Two-Sided and Elite Carrier routes.
 6. Apply chance-quality and failure-mode priors where available.
 7. Assign structural band: A1 / A2 / B+ / B-PASS.
-8. Rank by structural quality, not price and not kickoff time.
-9. Freeze the shortlist and its structural grades before confirmed XI or live information.
+8. Apply the reserve/youth cap before finalizing A1.
+9. Rank by structural quality, not price and not kickoff time.
+10. Freeze the shortlist and its structural grades before confirmed XI or live information.
 
 When the user asks for today's/upcoming matches, display only the filtered Over-friendly board. Do not dump the full fixture list and do not omit earlier kickoff blocks.
 
@@ -33,6 +34,15 @@ Structural type should distinguish at least:
 - Two-Sided
 - Elite Carrier
 - Elite Carrier / secondary route
+
+### Reserve / youth handling
+
+For Jong, U21, reserve, B-team, academy, or comparable development-team matches:
+
+- do not promote to A1 from four-match GF/GA, recent high-total rates, or league stereotype alone;
+- require stable chance-quality evidence plus XI/role continuity;
+- if that evidence is missing or shallow, cap at A2;
+- treat unusually large recent scorelines as possible outliers until supported by repeatable creation.
 
 ---
 
@@ -63,6 +73,8 @@ Before final promotion, inspect as available:
 - competition-specific profile where useful.
 
 If the profile materially conflicts with the proposed total, cap the grade or HOLD.
+
+Short early-season samples are provisional. Do not treat four-match GF/GA as a complete profile.
 
 ### Chance quality
 
@@ -110,6 +122,19 @@ Heavy rotation can downgrade a carrier even if the overall team remains stronger
 
 If a screenshot is ambiguous, state uncertainty rather than guessing.
 
+### XI evidence enforcement
+
+Do not create a new scoring route solely because:
+
+- a recognizable/new striker starts;
+- a defensive starter is absent for the opponent;
+- attacking names appear on the bench;
+- the formation looks more aggressive on paper.
+
+An XI upgrade must strengthen a route already supported by underlying creation, or show a credible tactical/role change that directly removes the prior failure mode.
+
+For a previously weak secondary route, require evidence of service structure, box access, repeatable creation, or comparable-role production before materially promoting it.
+
 ---
 
 ## 5. Odds and goal-burden selection
@@ -128,6 +153,30 @@ Prefer the lowest protected boundary that still represents the thesis at an acce
 Do not stretch a total solely for a small odds gain.
 
 Price can break a tie between similarly sound expressions; it cannot rescue weak structure.
+
+### A2 burden enforcement
+
+If the match is A2 and the secondary scoring route is weak/uncertain:
+
+- do not lock O3.5+ simply because the price looks good;
+- prefer O3 or O3.25 if those lines still clear;
+- if protected alternatives do not clear, HOLD.
+
+A2 may clear O3.5 only when the carrier has an exceptional independent 4+ route and failure-mode resistance is unusually strong.
+
+### O3.75 hard gate
+
+Before locking O3.75, explicitly answer:
+
+1. How likely is exactly four goals?
+2. How likely is five or more?
+3. Can one carrier plausibly fund four/five, or is there a stable two-sided route?
+4. Does confirmed XI support the full burden?
+5. Is a lower protected line available for a reasonable price sacrifice?
+
+O3.75 should normally require exceptional A1 evidence. If four looks plausible but five is not strongly supported, choose O3.5/O3.25 or HOLD.
+
+Reserve/youth matches cannot clear O3.75 unless they first satisfy the stricter A1 stability and XI-continuity requirements.
 
 ---
 
@@ -173,9 +222,11 @@ When the user submits lineup/odds screenshots:
 4. Match the extracted information to the frozen assessment.
 5. Run XI rerank.
 6. Re-run team-profile and failure-mode checks if the XI changes the route.
-7. Compare available protected totals.
-8. Issue LOCK or HOLD.
-9. Log the material state.
+7. Apply XI evidence enforcement: names/absences may strengthen demonstrated routes, not invent unsupported ones.
+8. Compare available protected totals.
+9. Apply A2 burden and O3.75 hard gates where relevant.
+10. Issue LOCK or HOLD.
+11. Log the material state.
 
 For future website automation, vision extraction should return structured data plus confidence and permit manual correction before the verdict engine runs.
 
@@ -231,7 +282,22 @@ If the user explicitly asks to activate an already-live match that was not froze
 
 ---
 
-## 9. Settlement
+## 9. H2H handling
+
+Historical H2H suppression is secondary evidence.
+
+Use it to identify a persistent matchup mechanism, but do not let old low-scoring meetings veto a materially stronger current structural case when:
+
+- current XI differs substantially;
+- tactical identity has changed;
+- defensive personnel/resistance has changed;
+- the present carrier is demonstrably stronger.
+
+Current structure and current chance quality take precedence. H2H is a modifier, not a default veto.
+
+---
+
+## 10. Settlement
 
 For standard full-match Asian totals, use 90 minutes plus stoppage time only.
 
@@ -251,7 +317,7 @@ A user-confirmed final score may be used for settlement unless reliable evidence
 
 ---
 
-## 10. Process review
+## 11. Process review
 
 After settlement, evaluate the process separately from the result.
 
@@ -261,9 +327,12 @@ Questions:
 - Did the GF/GA profile support the burden?
 - Was chance quality correctly assessed?
 - Did the XI rerank overreact or underreact?
+- Did we accidentally manufacture a secondary route from names/absences?
 - Was the failure mode identified?
 - Was too much line protection surrendered?
+- If O3.75 was selected, did the explicit 4/5-goal burden test actually clear?
 - Did live evidence actually validate the thesis at the decision point?
+- Was H2H used only as a modifier rather than a veto?
 
 Do not call a HOLD wrong solely because the match later went Over.
 
@@ -271,7 +340,7 @@ Do not call a poor process good solely because the bet won.
 
 ---
 
-## 11. Counterfactual simulations
+## 12. Counterfactual simulations
 
 If simulating a prematch decision after kickoff or after FT:
 
@@ -282,7 +351,7 @@ If simulating a prematch decision after kickoff or after FT:
 
 ---
 
-## 12. Data-quality fallback
+## 13. Data-quality fallback
 
 If required lineup, profile, odds, or competition information is materially incomplete, do not invent it.
 
