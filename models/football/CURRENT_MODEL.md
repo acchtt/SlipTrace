@@ -1,11 +1,13 @@
 # Current Football Model
 
 **Active model:** Football **v0.2.47-R**  
-**Status:** Operational / official-lock mode  
+**Status:** Operational / official-lock mode / enforcement-hardened  
 **Timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Canonical namespace:** `models/football/`
 
 `v0.2.47-R` is the consolidated operational revision used by the current Football v1.0 workflow. It replaces the old audit/shadow stack and the historical incremental-load chain that previously required loading many rule files in sequence.
+
+The Sep 1 process audit did **not** create a new model version. It hardened enforcement of existing v0.2.47-R principles after the Aug31/Sep1 slate.
 
 ## Canonical load order
 
@@ -49,6 +51,16 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
 - Counterfactual simulations never enter official P/L.
 - Every material decision state is logged to Airtable.
+
+## Enforcement hardening — Sep 1, 2026
+
+The following are now explicit hard gates inside v0.2.47-R:
+
+1. **Reserve/youth A1 cap:** Jong/U21/reserve/B-team matches cannot reach A1 from short-run GF/GA or recent high-total rates alone. Stable chance quality and XI continuity are required; otherwise cap at A2.
+2. **O3.75 hard gate:** O3.75 requires exceptional A1 evidence plus an explicit exactly-4 vs 5+ goal-burden check. It is not a routine expression of an Over-friendly match.
+3. **A2 burden gate:** A2 with a weak/uncertain secondary scoring route should not lock O3.5+ merely for better odds. Prefer O3/O3.25 or HOLD unless the carrier has an exceptional independent 4+ route.
+4. **XI evidence rule:** attacking names or opponent defensive absences may strengthen a demonstrated scoring route, but cannot create one without underlying chance evidence.
+5. **H2H weighting:** historical suppression is a failure-mode modifier, not a structural veto. Current structure, XI, tactical identity, and chance quality take precedence when materially different.
 
 ## Anti-hindsight rule
 
