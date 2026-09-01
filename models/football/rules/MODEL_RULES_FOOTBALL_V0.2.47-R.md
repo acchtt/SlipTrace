@@ -52,6 +52,19 @@ Use when the route is fragile, opponent resistance is too strong, cohesion is po
 
 Two-Sided A and Elite Carrier A are peers. Do not automatically rank a balanced two-sided game above a superior one-team carrier.
 
+### Reserve / youth-team ceiling
+
+Reserve, U21, Jong, B-team, and similar development-side matches must not reach **A1** from short-run GF/GA, recent high-total rates, or league reputation alone.
+
+To reach A1 they require all of:
+
+- stable repeatable chance-quality evidence across more than a tiny recent sample;
+- credible XI continuity / role continuity;
+- no material goalkeeper or defensive suppression downgrade;
+- evidence that recent high totals are not primarily outlier-driven.
+
+If those conditions are not established, cap the match at **A2** regardless of recent spectacular scorelines.
+
 ---
 
 ## 3. Elite Carrier ceiling
@@ -98,6 +111,8 @@ Explicitly compare:
 League stereotype, competition reputation, or team names cannot override the actual profile.
 
 If required profile data is unavailable or materially unreliable, cap confidence or return `NO BET — HOLD`.
+
+Short early-season samples must be treated as provisional evidence, not a complete profile. Four-match GF/GA or high-total rates cannot by themselves justify A1 or a stretched total.
 
 ---
 
@@ -149,6 +164,20 @@ Heavy rotation and poor cohesion are active penalties, especially in cups and co
 
 Do not over-promote because recognizable attacking names start. Evaluate how the XI creates and finishes chances as a unit.
 
+### XI evidence rule
+
+A starting attacker, new striker, or opponent defensive absence cannot by itself create an independent scoring route that the underlying team profile has not demonstrated.
+
+To upgrade a weak secondary route after XI, require supporting evidence such as:
+
+- prior chance creation with comparable roles;
+- demonstrated box/central access;
+- credible service structure;
+- multi-match scoring/chance evidence;
+- a genuine tactical/role change that directly addresses the prior failure mode.
+
+Names and absences can strengthen an existing route; they cannot manufacture one from nothing.
+
 ---
 
 ## 7. Failure-mode resistance
@@ -172,6 +201,14 @@ A structurally attractive match can remain HOLD if the failure mode is too stron
 
 Game-state slowdown risk should influence **goal burden**. It does not automatically disqualify an otherwise valid carrier.
 
+### H2H weighting rule
+
+Historical head-to-head suppression is a **secondary failure-mode modifier**, not a structural veto by itself.
+
+Current team quality, current XI, current tactical identity, present defensive personnel, and current carrier strength take precedence when they materially differ from older meetings.
+
+Use H2H as stronger evidence only when the suppression mechanism itself appears persistent and still relevant to the current matchup.
+
 ---
 
 ## 8. Goal burden and protected Asian totals
@@ -194,6 +231,32 @@ Preferred principle:
 **Strong structure + protected line > slightly higher odds at an unnecessarily stretched line.**
 
 The higher the full-win goal burden, the stronger the required team profile, chance quality, and failure-mode resistance.
+
+### A2 burden gate
+
+For an **A2** match with an uncertain or weak secondary scoring route:
+
+- do not lock **O3.5 or higher** merely because the price is attractive;
+- prefer O3 / O3.25 if those lines still express the thesis;
+- if the protected line is unavailable or too short, HOLD rather than force the higher burden.
+
+A2 can clear O3.5 only when the carrier has an exceptional independent 4+ route and the remaining failure modes are unusually low.
+
+### O3.75 hard gate
+
+**O3.75 is exceptional, not routine.**
+
+Before locking O3.75, explicitly assess:
+
+- probability of reaching exactly 4 goals;
+- probability of reaching 5+ goals;
+- whether four goals are likely to be funded by one carrier or genuinely two-sided creation;
+- whether XI continuity and chance quality support that burden;
+- whether a lower protected line is available at a reasonable price sacrifice.
+
+O3.75 should normally require **A1 with exceptional evidence**. Reserve/youth matches are not eligible for O3.75 unless the stable chance-quality and XI-continuity requirements for A1 are clearly satisfied.
+
+If four goals appear plausible but five goals are not strongly supported, prefer O3.5/O3.25 or HOLD.
 
 ---
 
@@ -342,4 +405,4 @@ over false precision.
 
 ## 17. Operating principle
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Demand repeatable chance quality. Let XI change the grade, not erase the freeze. Identify the failure mode. Minimize unnecessary goal burden. Use price last. Lock automatically only when the current state actually clears.**
+**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Demand repeatable chance quality. Treat short youth/reserve samples cautiously. Let XI strengthen demonstrated routes, not invent them. Identify the failure mode. Use H2H as a modifier, not a veto. Minimize unnecessary goal burden. Treat O3.75 as exceptional. Use price last. Lock automatically only when the current state actually clears.**
