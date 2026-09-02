@@ -32,7 +32,8 @@ Standing user instruction remains:
 Operational interpretation for shadow tracking:
 - no live-state predictions;
 - enabled families: `Moneyline + Kill Handicap + Duration + Total Kills`;
-- for every executable binary offered market in an enabled family, choose exactly one side and record it as a `FORCED-CHOICE` shadow Position;
+- for each enabled market family, record exactly one canonical forced-choice Position per map;
+- if the sportsbook offers multiple alternate lines within the same family (for example Total Kills 28.5 and 29.5), evaluate all supplied lines but log only the single line/side with the best model-vs-book expected value / fit; do not double-count alternate lines;
 - `PASS` is disabled for offered binary markets;
 - old minimum-odds, edge, and selected-side thesis gates are diagnostic only, not execution vetoes;
 - price cannot alter benchmark, draft read, ML probability, kill-margin distribution, duration F, or total-kill distribution;
@@ -136,8 +137,8 @@ Use price-independent `TK0` plus draft-adjusted kill distribution before line/pr
 1. Receive final current-map draft/roles plus exact board.
 2. Ignore displayed match clock and all live-state statistics.
 3. Lock price-blind DIM + ML probability + KH margin distribution + duration F + TK distribution.
-4. Compare both sides of each offered enabled market.
-5. Choose exactly one side for each executable offered market — no PASS.
+4. Compare both sides and any supplied alternate lines inside each enabled market family.
+5. Choose exactly one canonical line/side per executable enabled family — no PASS and no duplicate alternate-line Positions.
 6. Record each as `FORCED-CHOICE`, 0.25u shadow / 0u actual, without additional confirmation.
 7. Airtable writes remain deferred to map end.
 
