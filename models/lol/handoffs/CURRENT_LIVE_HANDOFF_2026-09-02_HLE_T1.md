@@ -8,10 +8,11 @@
 - Match: `Hanwha Life Esports vs T1`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-09-02 08:00 UTC / 15:00 UTC+7`
-- Series score: `T1 2-0 HLE`
+- Series score: `T1 2-1 HLE`
 - Game 1 winner: `T1`
 - Game 2 winner: `T1`
-- Current map: `Game 3`
+- Game 3 winner: `HLE`
+- Current map: `Game 4 prep`
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -46,123 +47,65 @@ Canonical G1 FORCED-CHOICE positions, one line per market family:
 G1: `3W-1L`, net `+0.38075u`.
 Micro-review: `DRAFT READ ERROR` — T1 tempo/map-pressure branches were underweighted.
 
-## Game 2 final draft
-T1 Blue:
-- Gwen
-- Qiyana
-- Anivia
-- Jhin
-- Blitzcrank
-
-HLE Red:
-- K'Sante
-- Jarvan IV
-- Ahri
-- Yunara
-- Lulu
+## Game 2 final
+T1 Blue: `Gwen / Qiyana / Anivia / Jhin / Blitzcrank`
+HLE Red: `K'Sante / Jarvan IV / Ahri / Yunara / Lulu`
 
 Price-blind draft verdict: `SLIGHT HLE`.
-Locked pre-price projections:
-- HLE ML `59.5%`
-- T1 +5.5 cover `~56%`
-- duration `F≈32.75m`
-- total kills central `~29`
+Final: `T1 win`, `29:23`, kills `26-6` (`32 total`).
 
-Supplied board:
-- ML: `HLE 1.590 / T1 2.265`
-- Duration: `Over 32 @1.908 / Under 32 @1.831`
-- Total Kills: `Over 30.5 @1.858 / Under 30.5 @1.880`
-- Kill Handicap: `HLE -5.5 @1.787 / T1 +5.5 @1.959`
-
-## Game 2 final
-User supplied final screenshot:
-- Winner: `T1`
-- Displayed final-state clock: `29:23`
-- Kills: `T1 26-6 HLE` (`32 total`)
-- T1 gold lead: `~15k`
-- Towers: `10-0`
-- Dragons: `2-1`
-- Barons: `1-0`
-- Inhibitors: `2-0`
-
-### Game 2 FORCED-CHOICE settlement
-All `0.25u shadow / 0u actual`:
+Canonical G2 FORCED-CHOICE positions:
 1. `HLE ML @1.590` — LOSS `-0.25u`
 2. `T1 +5.5 kills @1.959` — WIN `+0.23975u`
 3. `Over 32 minutes @1.908` — LOSS `-0.25u`
 4. `Under 30.5 total kills @1.880` — LOSS `-0.25u`
 
 G2: `1W-3L`, net `-0.51025u`.
-HLE-T1 series forced-choice net through G2: `-0.12950u`.
-
 Micro-review: `DRAFT READ ERROR` — HLE front-to-back was overcredited; T1 Blitzcrank/Qiyana/Anivia pick/choke control plus Gwen side-lane pressure produced a much larger clean-cascade branch than projected.
 
-## Fearless consumed through Games 1-2
-Unavailable in Game 3:
-`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine / Gwen / Qiyana / Anivia / Jhin / Blitzcrank / K'Sante / Jarvan IV / Ahri / Yunara / Lulu`.
-
 ## Game 3 final draft
-HLE Blue:
-- Camille
-- Sejuani
-- Akali
-- Miss Fortune
-- Shen
+HLE Blue: `Camille / Sejuani / Akali / Miss Fortune / Shen`
+T1 Red: `Kennen / Maokai / Yone / Kai'Sa / Alistar`
 
-T1 Red:
-- Kennen
-- Maokai
-- Yone
-- Kai'Sa
-- Alistar
+Price-blind draft verdict: `SLIGHT T1` (`D=-1` from HLE perspective).
+Locked pre-price projections:
+- ML: `HLE 50.5% / T1 49.5%`
+- `T1 +5.5 cover ≈63%`
+- duration `F≈29.5m`
+- total kills central `~30.5`
 
-Fearless legality: all ten champions are outside the Games 1-2 consumed pool.
-
-## Game 3 price-blind read
-Draft verdict: `SLIGHT T1` (`D=-1` from HLE perspective).
-
-Mechanism:
-- HLE has strong single-target dive and pick layering through Camille + Sejuani + Shen with Akali follow-up, while Miss Fortune can punish stationary front-to-back setups.
-- T1 has the easier neutral 5v5 execution through Maokai + Alistar engage/counter-engage, Kennen/Yone layered AoE, and Kai'Sa follow-up.
-- T1 has more reliable multi-target control in compulsory objective fights; HLE is more dependent on finding a clean first target or flank before T1's layered AoE lands.
-- Therefore T1 receives only a slight draft edge rather than a major one.
-
-Moneyline before price:
-- `P0(HLE)=55%`
-- `D=-1`
-- `P(HLE)=50.5% / P(T1)=49.5%`
-
-Kill Handicap before price:
-- locked approximation favors T1 +5.5 because the map is near coin-flip after draft adjustment and both sides have meaningful clean-cascade branches.
-- `T1 +5.5 cover ≈63% / HLE -5.5 cover ≈37%`.
-
-Duration before price:
-- draft-only score `V=+1, Q=0, H=0, T=0`
-- `F≈29.5m`
-- at line 32: `Under ≈67.5% / Over ≈32.5%`.
-
-Total Kills before price:
-- both compositions have strong engage, but the line is high and both drafts can produce a fast one-sided cascade rather than sustained two-sided trading.
-- locked central total-kill expectation `~30.5`.
-- at line 32.5: `Under ≈58% / Over ≈42%`.
-
-## Game 3 supplied board
+Supplied board:
 - ML: `HLE 1.586 / T1 2.275`
 - Duration: `Over 32 @1.837 / Under 32 @1.902`
 - Total Kills: `Over 32.5 @1.712 / Under 32.5 @2.056`
 - Kill Handicap: `HLE -5.5 @1.733 / T1 +5.5 @2.027`
 
-## Game 3 FORCED-CHOICE positions — OPEN
-All `0.25u shadow / 0u actual` under standing authorization.
+## Game 3 final
+User supplied final screenshot:
+- Winner: `HLE`
+- Duration: `25:41`
+- Kills: `HLE 18-9 T1` (`27 total`)
+- HLE gold lead: `~9.7k`
+- Towers: `8-3`
+- Dragons: `4-0`
+- Barons: `1-0`
+- Inhibitors: `1-0`
 
-1. `T1 ML @2.275`
-2. `T1 +5.5 kills @2.027`
-3. `Under 32 minutes @1.902`
-4. `Under 32.5 total kills @2.056`
+### Game 3 FORCED-CHOICE settlement
+All `0.25u shadow / 0u actual`:
+1. `T1 ML @2.275` — LOSS `-0.25u`
+2. `T1 +5.5 kills @2.027` — LOSS `-0.25u`
+3. `Under 32 minutes @1.902` — WIN `+0.2255u`
+4. `Under 32.5 total kills @2.056` — WIN `+0.264u`
 
-Total Game 3 shadow stake: `1.00u`; actual exposure `0u`.
+G3: `2W-2L`, net `-0.0105u`.
+HLE-T1 series forced-choice net through G3: `-0.1400u`.
 
-Airtable deferred to map end.
+Micro-review: `DRAFT READ ERROR` — T1's nominal neutral 5v5 ease was overcredited; HLE's Camille/Sejuani/Shen multi-angle dive, Akali follow-up, and Miss Fortune zone damage produced a stronger decisive-fight branch than projected.
+
+## Fearless consumed through Games 1-3
+Unavailable in Game 4:
+`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine / Gwen / Qiyana / Anivia / Jhin / Blitzcrank / K'Sante / Jarvan IV / Ahri / Yunara / Lulu / Camille / Sejuani / Akali / Miss Fortune / Shen / Kennen / Maokai / Yone / Kai'Sa / Alistar`.
 
 ## Standing execution rule
 - Enabled families: ML / Kill Handicap / Duration / Total Kills.
@@ -176,5 +119,5 @@ Airtable deferred to map end.
 ## Audit cadence
 - Micro-review every settled map.
 - Forced-choice checkpoint audit threshold of 10 positions has been exceeded; cohort checkpoint audit is due before making structural model changes.
-- No structural model changes have been made for Game 3; current lock remains frozen.
+- No structural model changes have been made; current lock remains frozen.
 - Keep forced-choice cohort separate from old threshold-qualified selective calibration.
