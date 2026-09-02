@@ -15,16 +15,19 @@ This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 
 1. Collect the full relevant-day fixture slate.
 2. Convert kickoff times to ICT.
-3. Remove hard exclusions, including K League.
-4. Build the mandatory team profile for credible candidates.
-5. Evaluate Two-Sided and Elite Carrier routes.
-6. Use chance quality and failure modes as supporting evidence.
-7. Assign structural band: A1 / A2 / B+ / B-PASS.
-8. Rank by structural quality, not price and not kickoff time.
-9. Aggressively shorten the board to the best few matches worth focusing on.
-10. Freeze that shortlist and its structural grades before confirmed XI or live information.
+3. Remove all cup / knockout competition matches except **English domestic cups** and Germany's **DFB-Pokal**.
+4. Remove other hard exclusions, including K League.
+5. Build the mandatory team profile for credible candidates.
+6. Evaluate Two-Sided and Elite Carrier routes.
+7. Use chance quality and failure modes as supporting evidence.
+8. Assign structural band: A1 / A2 / B+ / B-PASS.
+9. Rank by structural quality, not price and not kickoff time.
+10. Aggressively shorten the board to the best few matches worth focusing on.
+11. Freeze that shortlist and its structural grades before confirmed XI or live information.
 
 When the user asks for today's/upcoming matches, show only the focused Over-friendly board and do not omit earlier kickoff blocks.
+
+The cup exclusion is applied **before ranking**. Do not surface an excluded cup fixture as a backup candidate or rescue it later because of lineup, odds, or live evidence.
 
 Recommended board columns:
 
@@ -148,15 +151,16 @@ A conditional price threshold is not an official lock until the current market r
 
 When the user submits lineup/odds screenshots:
 
-1. Confirm match identity.
-2. Read visible lineup, bench, absences, formation, and total/odds.
-3. Do not infer invisible names or numbers.
-4. Match the extracted information to the frozen assessment.
-5. Run XI rerank.
-6. Re-run team-profile and failure-mode checks if the XI changes the route.
-7. Compare available Asian totals and protection.
-8. Issue LOCK or HOLD.
-9. Log the material state.
+1. Confirm match identity and competition.
+2. If the match is an excluded cup competition, stop the normal betting workflow and mark it excluded. Do not issue an official lock.
+3. Read visible lineup, bench, absences, formation, and total/odds.
+4. Do not infer invisible names or numbers.
+5. Match the extracted information to the frozen assessment.
+6. Run XI rerank.
+7. Re-run team-profile and failure-mode checks if the XI changes the route.
+8. Compare available Asian totals and protection.
+9. Issue LOCK or HOLD.
+10. Log the material state.
 
 Do **not** run or revive the Sep 1 hardened gates as hidden checks.
 
@@ -188,6 +192,8 @@ A just-started match may still be treated as a normal prematch lock only while i
 ### Manual live override
 
 If the user explicitly asks to activate an already-live match that was not frozen, label it `MANUAL LIVE OVERRIDE` and keep it separate from normal prematch-led accounting/process review.
+
+The manual-live mechanism does **not** override the competition exclusion. Excluded cup matches remain excluded.
 
 ---
 
