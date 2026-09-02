@@ -12,7 +12,7 @@
 - Game 1 winner: `T1`
 - Game 2 winner: `T1`
 - Game 3 winner: `HLE`
-- Current map: `Game 4 prep`
+- Current map: `Game 4`
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -31,77 +31,45 @@
 
 Same-series results and sportsbook prices do not update K/P0.
 
-## Game 1 final
+## Games 1-3 summary
+
+### Game 1
 T1 Blue: `Jayce / Pantheon / Ryze / Kalista / Renata Glasc`
 HLE Red: `Olaf / Lee Sin / Annie / Ashe / Seraphine`
-
-Price-blind draft verdict: `SLIGHT HLE`.
+Draft verdict: `SLIGHT HLE`.
 Final: `T1 win`, `29:47`, kills `23-17` (`40 total`).
-
-Canonical G1 FORCED-CHOICE positions, one line per market family:
+Canonical positions:
 1. `HLE ML @1.640` — LOSS `-0.25u`
 2. `T1 +5.5 kills @1.860` — WIN `+0.215u`
 3. `Under 33 minutes @1.692` — WIN `+0.173u`
 4. `Over 29.5 total kills @1.971` — WIN `+0.24275u`
+G1 net: `+0.38075u`.
 
-G1: `3W-1L`, net `+0.38075u`.
-Micro-review: `DRAFT READ ERROR` — T1 tempo/map-pressure branches were underweighted.
-
-## Game 2 final
+### Game 2
 T1 Blue: `Gwen / Qiyana / Anivia / Jhin / Blitzcrank`
 HLE Red: `K'Sante / Jarvan IV / Ahri / Yunara / Lulu`
-
-Price-blind draft verdict: `SLIGHT HLE`.
+Draft verdict: `SLIGHT HLE`.
 Final: `T1 win`, `29:23`, kills `26-6` (`32 total`).
-
-Canonical G2 FORCED-CHOICE positions:
+Canonical positions:
 1. `HLE ML @1.590` — LOSS `-0.25u`
 2. `T1 +5.5 kills @1.959` — WIN `+0.23975u`
 3. `Over 32 minutes @1.908` — LOSS `-0.25u`
 4. `Under 30.5 total kills @1.880` — LOSS `-0.25u`
+G2 net: `-0.51025u`.
 
-G2: `1W-3L`, net `-0.51025u`.
-Micro-review: `DRAFT READ ERROR` — HLE front-to-back was overcredited; T1 Blitzcrank/Qiyana/Anivia pick/choke control plus Gwen side-lane pressure produced a much larger clean-cascade branch than projected.
-
-## Game 3 final draft
+### Game 3
 HLE Blue: `Camille / Sejuani / Akali / Miss Fortune / Shen`
 T1 Red: `Kennen / Maokai / Yone / Kai'Sa / Alistar`
-
-Price-blind draft verdict: `SLIGHT T1` (`D=-1` from HLE perspective).
-Locked pre-price projections:
-- ML: `HLE 50.5% / T1 49.5%`
-- `T1 +5.5 cover ≈63%`
-- duration `F≈29.5m`
-- total kills central `~30.5`
-
-Supplied board:
-- ML: `HLE 1.586 / T1 2.275`
-- Duration: `Over 32 @1.837 / Under 32 @1.902`
-- Total Kills: `Over 32.5 @1.712 / Under 32.5 @2.056`
-- Kill Handicap: `HLE -5.5 @1.733 / T1 +5.5 @2.027`
-
-## Game 3 final
-User supplied final screenshot:
-- Winner: `HLE`
-- Duration: `25:41`
-- Kills: `HLE 18-9 T1` (`27 total`)
-- HLE gold lead: `~9.7k`
-- Towers: `8-3`
-- Dragons: `4-0`
-- Barons: `1-0`
-- Inhibitors: `1-0`
-
-### Game 3 FORCED-CHOICE settlement
-All `0.25u shadow / 0u actual`:
+Draft verdict: `SLIGHT T1`.
+Final: `HLE win`, `25:41`, kills `18-9` (`27 total`).
+Canonical positions:
 1. `T1 ML @2.275` — LOSS `-0.25u`
 2. `T1 +5.5 kills @2.027` — LOSS `-0.25u`
 3. `Under 32 minutes @1.902` — WIN `+0.2255u`
 4. `Under 32.5 total kills @2.056` — WIN `+0.264u`
+G3 net: `-0.0105u`.
 
-G3: `2W-2L`, net `-0.0105u`.
-HLE-T1 series forced-choice net through G3: `-0.1400u`.
-
-Micro-review: `DRAFT READ ERROR` — T1's nominal neutral 5v5 ease was overcredited; HLE's Camille/Sejuani/Shen multi-angle dive, Akali follow-up, and Miss Fortune zone damage produced a stronger decisive-fight branch than projected.
+HLE-T1 forced-choice net through G3: `-0.1400u`.
 
 ## Fearless consumed through Games 1-3
 Unavailable in Game 4:
@@ -110,32 +78,125 @@ Unavailable in Game 4:
 ## Forced-choice checkpoint audit — COMPLETE 2026-09-02
 Canonical review: `models/lol/reviews/LOL_FORCED_CHOICE_CHECKPOINT_AUDIT_2026-09-02.md`.
 
-Data hygiene:
-- duplicate HLE-T1 G1 Airtable map/Position rows were removed during the audit;
-- canonical forced-choice sample is exactly `20 Positions / 5 maps / 5 samples per family`.
+Canonical forced-choice sample through G3:
+- `20 Positions / 5 maps / 5 samples per family`
+- overall `10W-10L`, `-0.3340u` on `5.00u` shadow stake, ROI `-6.68%`
+- ML `0-5 / -1.2500u`
+- KH `3-2 / +0.1525u`
+- Duration `4-1 / +0.5795u`
+- Total Kills `3-2 / +0.1840u`
 
-Cohort through HLE-T1 G3:
-- overall `10W-10L`, `-0.3340u` on `5.00u` shadow stake, ROI `-6.68%`;
-- ML `0-5 / -1.2500u`;
-- KH `3-2 / +0.1525u`;
-- Duration `4-1 / +0.5795u`;
-- Total Kills `3-2 / +0.1840u`.
+Audit enforcement for new maps:
+1. full DIM required;
+2. `D=+/-1` only when at least two independent mechanism advantages survive DIM/AFP; otherwise `D=0 / EVEN-STYLE-DEPENDENT`;
+3. full KH signed margin bins and TK total-kill bins before price;
+4. store raw implied probability, selected-side `MODEL_EDGE`, and `FORCED_NEG_EV=YES/NO` after price;
+5. no structural coefficient changes yet.
 
-Primary alarm:
-- the price-blind draft-edge side (`D`) lost all five audited maps;
-- do not fit coefficients from only five maps, but treat draft classification as under review.
+## Game 4 final draft
+T1 Blue:
+- Top: `Aatrox`
+- Jungle: `Skarner`
+- Mid: `Orianna`
+- ADC: `Lucian`
+- Support: `Milio`
 
-Audit decision — no structural model changes yet:
-1. enforce the existing full DIM before every draft verdict;
-2. persist `TAM / OSG / DAU / SLI / FNF / CAS / ETS / AFP` and complete adversarial pass;
-3. certify `D=+/-1` only when at least two independent mechanism advantages survive DIM/AFP; otherwise `D=0 / EVEN-STYLE-DEPENDENT`;
-4. persist full KH margin bins and TK total-kill bins before price, not only central estimates;
-5. store raw implied probability, selected-side `MODEL_EDGE`, and `FORCED_NEG_EV=YES/NO` after price;
-6. keep forced-choice cohort separate from threshold-qualified history.
+HLE Red:
+- Top: `Gragas`
+- Jungle: `Xin Zhao`
+- Mid: `Cassiopeia`
+- ADC: `Varus`
+- Support: `Nautilus`
 
-Next checkpoint:
-- after `5 more maps / 20 more forced-choice Positions`, reaching `10 samples per family / 40 total`;
-- prefer at least `20 samples per family / 80 total` before structural coefficient review, absent a mechanical implementation bug.
+Fearless legality: `PASS`; all ten champions are outside the Games 1-3 consumed pool.
+
+## Game 4 price-blind DIM
+
+HLE mechanisms:
+- PKM: `Varus poke/root or Nautilus catch -> Xin Zhao/Gragas collapse -> Cassiopeia sustained zone/DPS`.
+- SKM: `Gragas flank/displacement plus Cassiopeia choke control to force a front-to-back objective fight`.
+
+T1 mechanisms:
+- PKM: `Skarner catch/drag -> Orianna control/burst -> Aatrox follow-up and Lucian burst`.
+- SKM: `Lucian+Milio ranged pressure with Orianna zone; Aatrox flank/side pressure`.
+
+`DIM[ROLES=P; TAM=EVEN; OSG=SLIGHT_HLE; DAU=EVEN; SLI=EVEN; FNF=PASS_BOTH; CAS=EVEN; ETS=SLIGHT_HLE; AFP=P; EDGE=EVEN_STYLE_DEPENDENT]`
+
+Interaction notes:
+- HLE has strong pre-contact objective geometry from Varus range, Cassiopeia choke denial and Nautilus threat.
+- T1 directly answers committed HLE catch with Milio cleanse/reset, Skarner counter-entry, Orianna zone and a durable Aatrox front.
+- HLE directly answers T1's forward access with Gragas displacement, Xin Zhao ultimate, Cassiopeia Miasma and Nautilus hard CC.
+- T1's Aatrox side route is not independent enough to certify a draft edge because Gragas can neutralize/waveclear and HLE can contest through ranged objective setup.
+- AFP finds a repeatable route for each side but also a direct answer for each; fewer than two independent uncompensated advantages survive.
+
+Draft certification: `D=0 / EVEN-STYLE-DEPENDENT`.
+
+### Moneyline pre-price
+- `P0(HLE)=55%`
+- `D=0`
+- `P(HLE)=55% / P(T1)=45%`
+
+### Kill Handicap pre-price signed HLE-minus-T1 final kill-margin distribution
+- `<= -7`: `14%`
+- `-6 to -1`: `31%`
+- `0 to +6`: `27%`
+- `+7 to +12`: `18%`
+- `+13 or more`: `10%`
+
+Derived at `HLE -6.5 / T1 +6.5`:
+- `P(T1 +6.5 cover)=72%`
+- `P(HLE -6.5 cover)=28%`
+
+### Duration pre-price
+Draft-only clock scoring:
+- `V=0`
+- `Q=0`
+- `H=+1`
+- `T=0`
+- `F=32.0m`
+
+Mechanism: both sides have reliable waveclear/reset and durable objective-fight structures, creating meaningful terminal path depth rather than a certified fast-close profile.
+
+At line `32`:
+- `P(Over 32)=50%`
+- `P(Under 32)=50%`
+
+### Total Kills pre-price
+Gol.gg current-window environments used pre-series:
+- HLE: `13.9 kills/game + 16.9 deaths/game = 30.8`
+- T1: `14.7 + 12.3 = 27.0`
+- `TK0=28.9`
+
+Draft-adjusted total-kill bins:
+- `<20`: `8%`
+- `20-24`: `15%`
+- `25-29`: `27%`
+- `30-34`: `28%`
+- `35-39`: `15%`
+- `40+`: `7%`
+
+Approximate central expectation: `~29.5`.
+Using uniform interpolation inside the `30-34` bin:
+- at `31.5`: `Under ≈61.2% / Over ≈38.8%`
+- at `30.5`: `Under ≈55.6% / Over ≈44.4%`
+
+## Game 4 supplied board and forced-choice selections
+
+Board:
+- ML: `HLE 1.631 / T1 2.188`
+- Duration: `Over 32 @1.902 / Under 32 @1.837`
+- Total Kills: `Over 31.5 @2.086 / Under 31.5 @1.692`; alternate `Over 30.5 @1.971 / Under 30.5 @1.776`
+- Kill Handicap: `HLE -6.5 @1.908 / T1 +6.5 @1.831`
+
+Exactly one canonical line per family:
+1. `T1 ML @2.188` — model `45.0%`, implied `45.70%`, `MODEL_EDGE=-0.70pp`, `FORCED_NEG_EV=YES`.
+2. `T1 +6.5 kills @1.831` — model `72.0%`, implied `54.62%`, `MODEL_EDGE=+17.38pp`, `FORCED_NEG_EV=NO`.
+3. `Over 32 minutes @1.902` — model `50.0%`, implied `52.58%`, `MODEL_EDGE=-2.58pp`, `FORCED_NEG_EV=YES`; selected over Under because the locked clock is exactly 32.0 and Over is the less-negative side at the supplied prices.
+4. `Under 31.5 total kills @1.692` — model `61.2%`, implied `59.10%`, `MODEL_EDGE=+2.10pp`, `FORCED_NEG_EV=NO`; this is the canonical TK line versus the weaker 30.5 alternatives.
+
+All positions: `0.25u shadow / 0u actual`.
+Total Game 4 shadow stake: `1.00u`.
+Airtable deferred until map end.
 
 ## Standing execution rule
 - Enabled families: ML / Kill Handicap / Duration / Total Kills.
@@ -145,11 +206,9 @@ Next checkpoint:
 - Final draft + board is standing authorization.
 - `0.25u shadow` per selected market / `0u actual`.
 - Airtable only at map end.
-- For all new maps, enforce the checkpoint-audit persistence requirements above before price comparison.
+- Persist full post-audit distributions and forced-negative-EV flag before settlement.
 
 ## Audit cadence
 - Micro-review every settled map.
-- Checkpoint audit completed at 20 canonical forced-choice Positions.
-- Next checkpoint at 40 canonical forced-choice Positions / 10 samples per family.
+- Next checkpoint at `40 canonical forced-choice Positions / 10 samples per family`.
 - No structural model changes have been made; current lock remains frozen.
-- Keep forced-choice cohort separate from old threshold-qualified selective calibration.
