@@ -8,8 +8,10 @@
 - Match: `Hanwha Life Esports vs T1`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-09-02 08:00 UTC / 15:00 UTC+7`
-- Series score: `T1 1-0 HLE`
-- Current map: `Game 2`
+- Series score: `T1 2-0 HLE`
+- Game 1 winner: `T1`
+- Game 2 winner: `T1`
+- Current map: `Game 3 prep`
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -28,34 +30,21 @@
 
 Same-series results and sportsbook prices do not update K/P0.
 
-## Game 1 final draft
+## Game 1 final
 T1 Blue: `Jayce / Pantheon / Ryze / Kalista / Renata Glasc`
-
 HLE Red: `Olaf / Lee Sin / Annie / Ashe / Seraphine`
 
-Game 1 price-blind draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
+Price-blind draft verdict: `SLIGHT HLE`.
+Final: `T1 win`, `29:47`, kills `23-17` (`40 total`).
 
-## Game 1 final
-- Winner: `T1`
-- Duration: `29:47`
-- Final kills: `T1 23-17 HLE` (`40 total`)
-
-### Game 1 FORCED-CHOICE settlement
-User clarified that alternate lines in the same Total Kills family should not both be logged for Game 1. Keep only the better-EV canonical line, `Over 29.5 @1.971`; remove `Over 28.5 @1.719` from the ledger.
-
-Canonical G1 positions, all `0.25u shadow / 0u actual`:
+Canonical G1 FORCED-CHOICE positions, one line per market family:
 1. `HLE ML @1.640` — LOSS `-0.25u`
 2. `T1 +5.5 kills @1.860` — WIN `+0.215u`
 3. `Under 33 minutes @1.692` — WIN `+0.173u`
 4. `Over 29.5 total kills @1.971` — WIN `+0.24275u`
 
-Game 1 result: `3W-1L`, net `+0.38075u`.
-
-Micro-review: `DRAFT READ ERROR` — HLE was graded slight draft edge, but T1's Pantheon/Ryze/Kalista/Renata tempo and ranged pressure converted better than expected against HLE's catch-oriented structure.
-
-## Fearless consumed after Game 1
-Unavailable in Game 2:
-`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine`.
+G1: `3W-1L`, net `+0.38075u`.
+Micro-review: `DRAFT READ ERROR` — T1 tempo/map-pressure branches were underweighted.
 
 ## Game 2 final draft
 T1 Blue:
@@ -72,54 +61,56 @@ HLE Red:
 - Yunara
 - Lulu
 
-All ten champions are outside the Game 1 consumed pool.
+Price-blind draft verdict: `SLIGHT HLE`.
+Locked pre-price projections:
+- HLE ML `59.5%`
+- T1 +5.5 cover `~56%`
+- duration `F≈32.75m`
+- total kills central `~29`
 
-## Game 2 price-blind read
-Draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
-
-Mechanism:
-- HLE has the cleaner front-to-back structure through K'Sante + Jarvan IV, with Ahri pick access and Yunara/Lulu as the protected sustained-damage core.
-- T1 has dangerous pick/choke control through Blitzcrank + Qiyana + Anivia and strong side-lane scaling through Gwen, but Jhin provides less sustained tank damage into HLE's front line and the composition is more execution/pick dependent.
-- Anivia can materially disrupt Jarvan engage and T1 can win through catches before setup, so HLE's edge is slight rather than major.
-
-Moneyline before price:
-- `P0(HLE)=55%`
-- `D=+1`
-- `P(HLE)=59.5% / P(T1)=40.5%`
-
-Kill Handicap before price:
-- locked approximation: `HLE by 6+ ~44% / HLE by 1-5 ~23% / T1 by 0-5 ~22% / T1 by 6+ ~11%`.
-- therefore `T1 +5.5 cover ~56%`; `HLE -5.5 cover ~44%`.
-
-Duration before price:
-- draft-only score `V=0, Q=+1, H=0, T=+1`
-- `F≈32.75m`
-- at line 32: `Over ≈55.25% / Under ≈44.75%`.
-
-Total Kills before price:
-- baseline remains high-20s, but Anivia waveclear/control and HLE's durable front line suppress pure two-sided brawl realization despite Blitz/Qiyana/Ahri pick access.
-- locked central total-kill expectation `~29`.
-- at line 30.5: `Under ≈58% / Over ≈42%`.
-
-## Game 2 supplied board
+Supplied board:
 - ML: `HLE 1.590 / T1 2.265`
 - Duration: `Over 32 @1.908 / Under 32 @1.831`
 - Total Kills: `Over 30.5 @1.858 / Under 30.5 @1.880`
 - Kill Handicap: `HLE -5.5 @1.787 / T1 +5.5 @1.959`
 
-## Game 2 FORCED-CHOICE positions — OPEN
-All `0.25u shadow / 0u actual` under standing authorization.
+## Game 2 final
+User supplied final screenshot:
+- Winner: `T1`
+- Displayed final-state clock: `29:23`
+- Kills: `T1 26-6 HLE` (`32 total`)
+- T1 gold lead: `~15k`
+- Towers: `10-0`
+- Dragons: `2-1`
+- Barons: `1-0`
+- Inhibitors: `2-0`
 
-1. `HLE ML @1.590`
-2. `T1 +5.5 kills @1.959`
-3. `Over 32 minutes @1.908`
-4. `Under 30.5 total kills @1.880`
+### Game 2 FORCED-CHOICE settlement
+All `0.25u shadow / 0u actual`:
+1. `HLE ML @1.590` — LOSS `-0.25u`
+2. `T1 +5.5 kills @1.959` — WIN `+0.23975u`
+3. `Over 32 minutes @1.908` — LOSS `-0.25u`
+4. `Under 30.5 total kills @1.880` — LOSS `-0.25u`
 
-Total Game 2 shadow stake: `1.00u`; actual exposure `0u`.
+G2: `1W-3L`, net `-0.51025u`.
+HLE-T1 series forced-choice net through G2: `-0.12950u`.
 
-Airtable deferred to map end.
+Micro-review: `DRAFT READ ERROR` — HLE front-to-back was overcredited; T1 Blitzcrank/Qiyana/Anivia pick/choke control plus Gwen side-lane pressure produced a much larger clean-cascade branch than projected.
+
+## Fearless consumed through Games 1-2
+Unavailable in Game 3:
+`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine / Gwen / Qiyana / Anivia / Jhin / Blitzcrank / K'Sante / Jarvan IV / Ahri / Yunara / Lulu`.
+
+## Standing execution rule
+- Enabled families: ML / Kill Handicap / Duration / Total Kills.
+- Exactly one canonical line per market family; if alternate lines exist within the same family, evaluate all but log only the best model-vs-book line.
+- No PASS in forced-choice mode.
+- Ignore displayed match clock and all in-map state for prediction.
+- Final draft + board is standing authorization.
+- `0.25u shadow` per selected market / `0u actual`.
+- Airtable only at map end.
 
 ## Audit cadence
 - Micro-review every settled map.
-- Forced-choice checkpoint audit after 10 forced-choice Positions total.
+- Forced-choice checkpoint audit threshold of 10 positions has now been exceeded; cohort checkpoint audit is due before making structural model changes.
 - Keep forced-choice cohort separate from old threshold-qualified selective calibration.
