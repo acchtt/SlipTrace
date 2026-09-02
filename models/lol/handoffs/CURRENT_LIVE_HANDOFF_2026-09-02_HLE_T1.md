@@ -11,7 +11,7 @@
 - Series score: `T1 2-0 HLE`
 - Game 1 winner: `T1`
 - Game 2 winner: `T1`
-- Current map: `Game 3 prep`
+- Current map: `Game 3`
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -101,6 +101,69 @@ Micro-review: `DRAFT READ ERROR` — HLE front-to-back was overcredited; T1 Blit
 Unavailable in Game 3:
 `Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine / Gwen / Qiyana / Anivia / Jhin / Blitzcrank / K'Sante / Jarvan IV / Ahri / Yunara / Lulu`.
 
+## Game 3 final draft
+HLE Blue:
+- Camille
+- Sejuani
+- Akali
+- Miss Fortune
+- Shen
+
+T1 Red:
+- Kennen
+- Maokai
+- Yone
+- Kai'Sa
+- Alistar
+
+Fearless legality: all ten champions are outside the Games 1-2 consumed pool.
+
+## Game 3 price-blind read
+Draft verdict: `SLIGHT T1` (`D=-1` from HLE perspective).
+
+Mechanism:
+- HLE has strong single-target dive and pick layering through Camille + Sejuani + Shen with Akali follow-up, while Miss Fortune can punish stationary front-to-back setups.
+- T1 has the easier neutral 5v5 execution through Maokai + Alistar engage/counter-engage, Kennen/Yone layered AoE, and Kai'Sa follow-up.
+- T1 has more reliable multi-target control in compulsory objective fights; HLE is more dependent on finding a clean first target or flank before T1's layered AoE lands.
+- Therefore T1 receives only a slight draft edge rather than a major one.
+
+Moneyline before price:
+- `P0(HLE)=55%`
+- `D=-1`
+- `P(HLE)=50.5% / P(T1)=49.5%`
+
+Kill Handicap before price:
+- locked approximation favors T1 +5.5 because the map is near coin-flip after draft adjustment and both sides have meaningful clean-cascade branches.
+- `T1 +5.5 cover ≈63% / HLE -5.5 cover ≈37%`.
+
+Duration before price:
+- draft-only score `V=+1, Q=0, H=0, T=0`
+- `F≈29.5m`
+- at line 32: `Under ≈67.5% / Over ≈32.5%`.
+
+Total Kills before price:
+- both compositions have strong engage, but the line is high and both drafts can produce a fast one-sided cascade rather than sustained two-sided trading.
+- locked central total-kill expectation `~30.5`.
+- at line 32.5: `Under ≈58% / Over ≈42%`.
+
+## Game 3 supplied board
+- ML: `HLE 1.586 / T1 2.275`
+- Duration: `Over 32 @1.837 / Under 32 @1.902`
+- Total Kills: `Over 32.5 @1.712 / Under 32.5 @2.056`
+- Kill Handicap: `HLE -5.5 @1.733 / T1 +5.5 @2.027`
+
+## Game 3 FORCED-CHOICE positions — OPEN
+All `0.25u shadow / 0u actual` under standing authorization.
+
+1. `T1 ML @2.275`
+2. `T1 +5.5 kills @2.027`
+3. `Under 32 minutes @1.902`
+4. `Under 32.5 total kills @2.056`
+
+Total Game 3 shadow stake: `1.00u`; actual exposure `0u`.
+
+Airtable deferred to map end.
+
 ## Standing execution rule
 - Enabled families: ML / Kill Handicap / Duration / Total Kills.
 - Exactly one canonical line per market family; if alternate lines exist within the same family, evaluate all but log only the best model-vs-book line.
@@ -112,5 +175,6 @@ Unavailable in Game 3:
 
 ## Audit cadence
 - Micro-review every settled map.
-- Forced-choice checkpoint audit threshold of 10 positions has now been exceeded; cohort checkpoint audit is due before making structural model changes.
+- Forced-choice checkpoint audit threshold of 10 positions has been exceeded; cohort checkpoint audit is due before making structural model changes.
+- No structural model changes have been made for Game 3; current lock remains frozen.
 - Keep forced-choice cohort separate from old threshold-qualified selective calibration.
