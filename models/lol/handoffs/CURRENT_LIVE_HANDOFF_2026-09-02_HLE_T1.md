@@ -9,7 +9,7 @@
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-09-02 08:00 UTC / 15:00 UTC+7`
 - Series score: `0-0`
-- Current map: `pre-series / Game 1 prep`
+- Current map: `Game 1`
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -20,65 +20,80 @@
 - Shadow stake: `0.25u per market`
 
 ## Frozen benchmark
-Current window: `LCK 2026 Rounds 3-4`; previous: `LCK 2026 Rounds 1-2`; normal 70/30 roster-continuous blend.
-
-- `B_current(HLE)=+0.502`
-- `B_current(T1)=-0.178`
-- `B_previous(HLE)=+1.135`
-- `B_previous(T1)=+0.902`
-- `B_raw(HLE)=+0.692`
-- `B_raw(T1)=+0.146`
 - `B(HLE)=+0.941`
 - `B(T1)=+0.199`
 - `GAP(HLE-T1)=+0.742 SD`
 - `HLE K=+1 / P0=55%`
 - `T1 K=-1 / P0=45%`
 
-Current core inputs:
-- HLE: 21 games, WR 52.4%, GDM +56, GD@15 +596, towers 6.3-5.4, DRA 48.7%, NASH 49.1%.
-- T1: 19 games, WR 42.1%, GDM +5, GD@15 +222, towers 5.7-6.1, DRA 50.3%, NASH 50.9%.
-
-Previous core inputs:
-- HLE: 43 games, WR 74.4%, GDM +188, GD@15 +883, towers 7.5-3.7, DRA 54.4%, NASH 71.7%.
-- T1: 40 games, WR 75.0%, GDM +139, GD@15 +674, towers 6.9-4.4, DRA 53.9%, NASH 54.2%.
-
 Same-series results and sportsbook prices do not update K/P0.
 
-## Expected current fives
-HLE:
-- Zeus
-- Kanavi
-- Zeka
-- Gumayusi
-- Delight
+## Game 1 final draft
+T1 Blue:
+- Jayce
+- Pantheon
+- Ryze
+- Kalista
+- Renata Glasc
 
-T1:
-- Doran
-- Oner
-- Faker
-- Peyz
-- Keria
+HLE Red (user typed "geng" for second side; board is HLE vs T1, so interpreted as HLE):
+- Olaf
+- Lee Sin
+- Annie
+- Ashe
+- Seraphine
 
-User-supplied draft/scoreboard overrides public roster context if different.
+## Game 1 price-blind read
+Draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
 
-## Forced-choice execution rule
-For every executable offered enabled market, choose exactly one side:
-- Moneyline
-- Kill Handicap
-- Duration
-- Total Kills
+Mechanism:
+- HLE has the more reliable layered catch/teamfight chain through Ashe arrow, Annie stun, Seraphine follow-up and Lee Sin displacement, with Olaf difficult for T1's CC-heavy composition to contain once committed.
+- T1 has strong early skirmish/tempo through Pantheon + Kalista + Renata, Jayce poke, and Ryze global access, so HLE's edge is slight rather than major.
+- T1 lacks a durable conventional frontline, increasing its clean-collapse risk if the first engage is absorbed or turned.
 
-No PASS. Price-blind projections are locked before odds. If both quoted sides are negative EV, choose the less-negative side. A supplied final draft + board is standing authorization for all selected positions. Tag each `FORCED-CHOICE`; 0.25u shadow / 0u actual. Airtable only at map end.
+Moneyline before price:
+- `P0(HLE)=55%`
+- `D=+1`
+- `P(HLE)=59.5% / P(T1)=40.5%`
 
-## Game 1 Fearless pool
-Empty before Game 1. Track all 10 selected champions after settlement for Game 2.
+Kill Handicap before price:
+- locked approximation: `HLE by 6+ 46% / HLE by 1-5 21% / T1 by 0-5 20% / T1 by 6+ 13%`.
+- therefore `T1 +5.5 cover ≈54%`; `HLE -5.5 cover ≈46%`.
 
-## Workflow
-1. Receive final G1 draft/roles + exact board.
-2. Ignore displayed match clock and all live-state stats.
-3. Lock draft/DIM, ML probability, KH margin distribution, duration F, TK distribution.
-4. Choose one side in every executable offered market.
-5. Record positions in handoff immediately; Airtable at map end.
+Duration before price:
+- draft-only score `V=+1, Q=0, H=0, T=+1`
+- `F≈30.25m`
+- at line 33: `Under ≈69.25% / Over ≈30.75%`.
+
+Total Kills before price:
+- baseline centered around high-20s using available LCK team kill/death environments, then adjusted upward for Pantheon/Kalista/Renata early forcing plus Ashe/Annie/Lee catch frequency.
+- locked central total-kill expectation `~30.5`.
+- line 29.5: `Over ≈57% / Under ≈43%`.
+- line 28.5: `Over ≈62% / Under ≈38%`.
+
+## Game 1 supplied board
+- ML: `HLE 1.640 / T1 2.171`
+- Duration: `Over 33 @2.086 / Under 33 @1.692`
+- Total Kills 29.5: `Over @1.971 / Under @1.776`
+- Total Kills 28.5: `Over @1.719 / Under @2.047`
+- Kill Handicap: `HLE -5.5 @1.877 / T1 +5.5 @1.860`
+
+## Game 1 FORCED-CHOICE positions — OPEN
+All `0.25u shadow / 0u actual` under standing authorization.
+
+1. `HLE ML @1.640`
+2. `T1 +5.5 kills @1.860`
+3. `Under 33 minutes @1.692`
+4. `Over 29.5 total kills @1.971`
+5. `Over 28.5 total kills @1.719`
+
+Total shadow stake this map: `1.25u`; actual exposure `0u`.
+
+Airtable deferred to map end.
+
+## Fearless tracking
+Game 1 consumes after settlement:
+`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine`.
 
 ## Audit cadence
 - Micro-review every settled map.
