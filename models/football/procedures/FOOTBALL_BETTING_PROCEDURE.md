@@ -1,48 +1,36 @@
 # Football Betting Procedure — v0.2.47-R
 
 **Status:** Active operational procedure  
+**Operating profile:** **PRE-HARDENING**  
 **Timezone:** Asia/Ho_Chi_Minh / ICT (UTC+7)  
 **Applies to:** Daily slate ranking, prematch totals, confirmed-XI rerank, live validation, settlement, and process review.
 
 This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 
+> **Safeguard:** Do not apply the Sep 1, 2026 hardened gates in official selection. Hardened analysis is shadow-only unless the model is explicitly changed again.
+
 ---
 
 ## 1. Daily slate workflow
 
-Run the full fixture slate before ranking individual matches.
-
-1. Collect the relevant day's fixtures.
+1. Collect the full relevant-day fixture slate.
 2. Convert kickoff times to ICT.
 3. Remove hard exclusions, including K League.
 4. Build the mandatory team profile for credible candidates.
 5. Evaluate Two-Sided and Elite Carrier routes.
-6. Apply chance-quality and failure-mode priors where available.
+6. Use chance quality and failure modes as supporting evidence.
 7. Assign structural band: A1 / A2 / B+ / B-PASS.
-8. Apply the reserve/youth cap before finalizing A1.
-9. Rank by structural quality, not price and not kickoff time.
-10. Freeze the shortlist and its structural grades before confirmed XI or live information.
+8. Rank by structural quality, not price and not kickoff time.
+9. Aggressively shorten the board to the best few matches worth focusing on.
+10. Freeze that shortlist and its structural grades before confirmed XI or live information.
 
-When the user asks for today's/upcoming matches, display only the filtered Over-friendly board. Do not dump the full fixture list and do not omit earlier kickoff blocks.
+When the user asks for today's/upcoming matches, show only the focused Over-friendly board and do not omit earlier kickoff blocks.
 
 Recommended board columns:
 
 `Rank | ICT kickoff | Match | Frozen grade | Structural type`
 
-Structural type should distinguish at least:
-
-- Two-Sided
-- Elite Carrier
-- Elite Carrier / secondary route
-
-### Reserve / youth handling
-
-For Jong, U21, reserve, B-team, academy, or comparable development-team matches:
-
-- do not promote to A1 from four-match GF/GA, recent high-total rates, or league stereotype alone;
-- require stable chance-quality evidence plus XI/role continuity;
-- if that evidence is missing or shallow, cap at A2;
-- treat unusually large recent scorelines as possible outliers until supported by repeatable creation.
+There is no active reserve/youth hard ceiling. Development-team matches are judged from their actual profile, with sample size treated as normal confidence context.
 
 ---
 
@@ -61,7 +49,7 @@ Do not use odds to determine structural rank.
 
 ### Mandatory team profile
 
-Before final promotion, inspect as available:
+Inspect as available:
 
 - season GF/GA;
 - recent GF/GA;
@@ -72,27 +60,22 @@ Before final promotion, inspect as available:
 - home/away splits;
 - competition-specific profile where useful.
 
-If the profile materially conflicts with the proposed total, cap the grade or HOLD.
-
-Short early-season samples are provisional. Do not treat four-match GF/GA as a complete profile.
+Short early-season samples are usable but provisional; they do not impose automatic grade caps.
 
 ### Chance quality
 
-Before A1 promotion, inspect repeatable high-quality creation where data exists: big chances, central/box access, box touches, SOT quality, xG/xGOT as modifiers, and repeated high-value sequences.
-
-Raw shot count is not enough.
+Where available, inspect big chances, central/box access, box touches, SOT quality, and xG/xGOT as modifiers. Do not let raw possession or shot volume substitute for actual threat.
 
 ---
 
 ## 3. Prematch freeze
-
-A frozen assessment records what was knowable before the XI/market decision.
 
 Store:
 
 - match;
 - competition;
 - model version `v0.2.47-R`;
+- operating profile `PRE-HARDENING`;
 - frozen structural grade/type;
 - primary carrier/route;
 - profile summary;
@@ -118,22 +101,7 @@ Once confirmed lineups are supplied or reliably available:
 
 Normal promotion cap is one structural band unless a genuine role/shape change removes a known failure mode.
 
-Heavy rotation can downgrade a carrier even if the overall team remains stronger.
-
-If a screenshot is ambiguous, state uncertainty rather than guessing.
-
-### XI evidence enforcement
-
-Do not create a new scoring route solely because:
-
-- a recognizable/new striker starts;
-- a defensive starter is absent for the opponent;
-- attacking names appear on the bench;
-- the formation looks more aggressive on paper.
-
-An XI upgrade must strengthen a route already supported by underlying creation, or show a credible tactical/role change that directly removes the prior failure mode.
-
-For a previously weak secondary route, require evidence of service structure, box access, repeatable creation, or comparable-role production before materially promoting it.
+Recognizable attackers, new starters, or opponent defensive absences may materially improve a route when the overall XI and matchup support it. There is no active hard prohibition against XI creating or strengthening a scoring route.
 
 ---
 
@@ -148,53 +116,21 @@ For every candidate line:
 - compare adjacent lines;
 - identify whether the extra odds justify the extra goal burden.
 
-Prefer the lowest protected boundary that still represents the thesis at an acceptable price.
+Prefer a protected boundary when it reasonably expresses the thesis, but do not impose a mandatory A2 ceiling or O3.75 ban.
 
-Do not stretch a total solely for a small odds gain.
-
-Price can break a tie between similarly sound expressions; it cannot rescue weak structure.
-
-### A2 burden enforcement
-
-If the match is A2 and the secondary scoring route is weak/uncertain:
-
-- do not lock O3.5+ simply because the price looks good;
-- prefer O3 or O3.25 if those lines still clear;
-- if protected alternatives do not clear, HOLD.
-
-A2 may clear O3.5 only when the carrier has an exceptional independent 4+ route and failure-mode resistance is unusually strong.
-
-### O3.75 hard gate
-
-Before locking O3.75, explicitly answer:
-
-1. How likely is exactly four goals?
-2. How likely is five or more?
-3. Can one carrier plausibly fund four/five, or is there a stable two-sided route?
-4. Does confirmed XI support the full burden?
-5. Is a lower protected line available for a reasonable price sacrifice?
-
-O3.75 should normally require exceptional A1 evidence. If four looks plausible but five is not strongly supported, choose O3.5/O3.25 or HOLD.
-
-Reserve/youth matches cannot clear O3.75 unless they first satisfy the stricter A1 stability and XI-continuity requirements.
+Higher totals remain eligible when structure, carrier/two-sided route, XI, failure modes, and price justify them.
 
 ---
 
 ## 6. Final verdict
 
-### Official selection
-
-If all active gates clear and the response gives an affirmative final betting selection, the selection is immediately an **OFFICIAL LOCK**.
+If all active gates clear and the response gives an affirmative final betting selection, it is immediately an **OFFICIAL LOCK**.
 
 Preferred output:
 
 `OFFICIAL LOCK — O<line> @ <odds>`
 
 Log it immediately to Airtable.
-
-The user does not need to separately confirm “lock”.
-
-### No bet
 
 If one or more important gates do not clear:
 
@@ -204,11 +140,7 @@ or
 
 `PASS`
 
-No official P/L exposure is created.
-
-### Conditional price threshold
-
-A statement such as `O2.75 clears at >=1.90` is conditional only. It becomes an official lock only after the current/showed price reaches the threshold and no adverse material information invalidates the state.
+A conditional price threshold is not an official lock until the current market reaches it and the state is reassessed.
 
 ---
 
@@ -222,13 +154,11 @@ When the user submits lineup/odds screenshots:
 4. Match the extracted information to the frozen assessment.
 5. Run XI rerank.
 6. Re-run team-profile and failure-mode checks if the XI changes the route.
-7. Apply XI evidence enforcement: names/absences may strengthen demonstrated routes, not invent unsupported ones.
-8. Compare available protected totals.
-9. Apply A2 burden and O3.75 hard gates where relevant.
-10. Issue LOCK or HOLD.
-11. Log the material state.
+7. Compare available Asian totals and protection.
+8. Issue LOCK or HOLD.
+9. Log the material state.
 
-For future website automation, vision extraction should return structured data plus confidence and permit manual correction before the verdict engine runs.
+Do **not** run or revive the Sep 1 hardened gates as hidden checks.
 
 ---
 
@@ -245,32 +175,11 @@ At each material checkpoint record:
 - current total and odds if supplied;
 - whether the frozen thesis is validating or failing.
 
-### What can validate
+What can validate: repeated dangerous box/central access, big chances, meaningful post-sub attacking improvement, high-value transitions/cutbacks, defensive degradation, score-stable persistence.
 
-Examples:
+What cannot validate by itself: “must chase”, possession, raw shots, raw SOT, corners, attacker names entering, or a favourable live score alone.
 
-- repeated dangerous central/box access;
-- big chances;
-- meaningful post-sub attacking improvement;
-- repeated high-value transitions/cutbacks;
-- defensive degradation;
-- score-stable persistence.
-
-### What cannot validate by itself
-
-- “must chase”;
-- possession;
-- raw shots;
-- raw SOT;
-- corners;
-- attacker names entering;
-- a favourable live score alone.
-
-If possession is sterile or chance quality is poor, HOLD even when the score state appears Over-friendly.
-
-### Material reset
-
-After a goal, red card, major injury, or significant substitution/tactical cluster, reassess rather than carrying the previous verdict forward automatically.
+After a goal, red card, major injury, or significant tactical shift, reassess the current state.
 
 ### Just-kicked grace
 
@@ -284,16 +193,9 @@ If the user explicitly asks to activate an already-live match that was not froze
 
 ## 9. H2H handling
 
-Historical H2H suppression is secondary evidence.
+Historical H2H may be used as normal supporting or warning evidence. There is no active mandatory de-weighting rule and no automatic veto.
 
-Use it to identify a persistent matchup mechanism, but do not let old low-scoring meetings veto a materially stronger current structural case when:
-
-- current XI differs substantially;
-- tactical identity has changed;
-- defensive personnel/resistance has changed;
-- the present carrier is demonstrably stronger.
-
-Current structure and current chance quality take precedence. H2H is a modifier, not a default veto.
+Judge whether the matchup mechanism remains relevant to the current teams and XI.
 
 ---
 
@@ -303,13 +205,7 @@ For standard full-match Asian totals, use 90 minutes plus stoppage time only.
 
 Extra time is excluded unless the market explicitly states otherwise.
 
-Settle correctly as:
-
-- WIN
-- HALF WIN
-- PUSH
-- HALF LOSS
-- LOSS
+Settle correctly as WIN, HALF WIN, PUSH, HALF LOSS, or LOSS.
 
 Do not double-count multiple decision-state rows for one official bet.
 
@@ -319,24 +215,19 @@ A user-confirmed final score may be used for settlement unless reliable evidence
 
 ## 11. Process review
 
-After settlement, evaluate the process separately from the result.
-
-Questions:
+After settlement, evaluate process separately from result:
 
 - Was structural rank correct at the time?
 - Did the GF/GA profile support the burden?
-- Was chance quality correctly assessed?
+- Was chance quality used appropriately?
 - Did the XI rerank overreact or underreact?
-- Did we accidentally manufacture a secondary route from names/absences?
 - Was the failure mode identified?
 - Was too much line protection surrendered?
-- If O3.75 was selected, did the explicit 4/5-goal burden test actually clear?
 - Did live evidence actually validate the thesis at the decision point?
-- Was H2H used only as a modifier rather than a veto?
 
-Do not call a HOLD wrong solely because the match later went Over.
+Do not call a HOLD wrong solely because the match later went Over. Do not call poor process good solely because the bet won.
 
-Do not call a poor process good solely because the bet won.
+Hardened-model comparisons may be recorded only as **SHADOW** observations and must not retroactively alter official decisions.
 
 ---
 
@@ -355,8 +246,17 @@ If simulating a prematch decision after kickoff or after FT:
 
 If required lineup, profile, odds, or competition information is materially incomplete, do not invent it.
 
-Use:
+Use `NO BET — HOLD — data incomplete` when appropriate.
 
-`NO BET — HOLD — data incomplete`
+---
 
-Selectivity is a feature of the model.
+## 14. Shadow hardening benchmark
+
+If we continue studying the hardened framework, it must be kept explicitly separate:
+
+- label all rows / outputs `SHADOW — HARDENED`;
+- no official locks from that framework;
+- no influence on official shortlist ordering;
+- no hidden rerank penalties;
+- no automatic reactivation from past audits;
+- only reactivate through an explicit future model change.
