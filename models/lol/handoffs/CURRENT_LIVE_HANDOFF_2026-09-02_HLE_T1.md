@@ -8,8 +8,8 @@
 - Match: `Hanwha Life Esports vs T1`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-09-02 08:00 UTC / 15:00 UTC+7`
-- Series score: `0-0`
-- Current map: `Game 1`
+- Current map: `Game 2`
+- Current screenshot indicates `T1 leads 1-0`; exact Game 1 final settlement details are not fully supplied, so keep G1 duration settlement pending.
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -29,27 +29,50 @@
 Same-series results and sportsbook prices do not update K/P0.
 
 ## Game 1 final draft
+T1 Blue: `Jayce / Pantheon / Ryze / Kalista / Renata Glasc`
+
+HLE Red: `Olaf / Lee Sin / Annie / Ashe / Seraphine`
+
+Game 1 price-blind draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
+
+### Game 1 FORCED-CHOICE positions — settlement not fully completed
+All `0.25u shadow / 0u actual`:
+1. `HLE ML @1.640`
+2. `T1 +5.5 kills @1.860`
+3. `Under 33 minutes @1.692`
+4. `Over 29.5 total kills @1.971`
+5. `Over 28.5 total kills @1.719`
+
+The Game 2 board screenshot appears to show T1 leading the series 1-0 and prior-game kill totals consistent with HLE 17 / T1 23, but exact Game 1 duration was not supplied; do not fabricate the missing settlement field.
+
+## Fearless consumed after Game 1
+Unavailable in Game 2:
+`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine`.
+
+## Game 2 final draft
 T1 Blue:
-- Jayce
-- Pantheon
-- Ryze
-- Kalista
-- Renata Glasc
+- Gwen
+- Qiyana
+- Anivia
+- Jhin
+- Blitzcrank
 
-HLE Red (user typed "geng" for second side; board is HLE vs T1, so interpreted as HLE):
-- Olaf
-- Lee Sin
-- Annie
-- Ashe
-- Seraphine
+HLE Red:
+- K'Sante
+- Jarvan IV
+- Ahri
+- Yunara
+- Lulu
 
-## Game 1 price-blind read
+All ten champions are outside the Game 1 consumed pool.
+
+## Game 2 price-blind read
 Draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
 
 Mechanism:
-- HLE has the more reliable layered catch/teamfight chain through Ashe arrow, Annie stun, Seraphine follow-up and Lee Sin displacement, with Olaf difficult for T1's CC-heavy composition to contain once committed.
-- T1 has strong early skirmish/tempo through Pantheon + Kalista + Renata, Jayce poke, and Ryze global access, so HLE's edge is slight rather than major.
-- T1 lacks a durable conventional frontline, increasing its clean-collapse risk if the first engage is absorbed or turned.
+- HLE has the cleaner front-to-back structure through K'Sante + Jarvan IV, with Ahri pick access and Yunara/Lulu as the protected sustained-damage core.
+- T1 has dangerous pick/choke control through Blitzcrank + Qiyana + Anivia and strong side-lane scaling through Gwen, but Jhin provides less sustained tank damage into HLE's front line and the composition is more execution/pick dependent.
+- Anivia can materially disrupt Jarvan engage and T1 can win through catches before setup, so HLE's edge is slight rather than major.
 
 Moneyline before price:
 - `P0(HLE)=55%`
@@ -57,43 +80,36 @@ Moneyline before price:
 - `P(HLE)=59.5% / P(T1)=40.5%`
 
 Kill Handicap before price:
-- locked approximation: `HLE by 6+ 46% / HLE by 1-5 21% / T1 by 0-5 20% / T1 by 6+ 13%`.
-- therefore `T1 +5.5 cover ≈54%`; `HLE -5.5 cover ≈46%`.
+- locked approximation: `HLE by 6+ ~44% / HLE by 1-5 ~23% / T1 by 0-5 ~22% / T1 by 6+ ~11%`.
+- therefore `T1 +5.5 cover ~56%`; `HLE -5.5 cover ~44%`.
 
 Duration before price:
-- draft-only score `V=+1, Q=0, H=0, T=+1`
-- `F≈30.25m`
-- at line 33: `Under ≈69.25% / Over ≈30.75%`.
+- draft-only score `V=0, Q=+1, H=0, T=+1`
+- `F≈32.75m`
+- at line 32: `Over ≈55.25% / Under ≈44.75%`.
 
 Total Kills before price:
-- baseline centered around high-20s using available LCK team kill/death environments, then adjusted upward for Pantheon/Kalista/Renata early forcing plus Ashe/Annie/Lee catch frequency.
-- locked central total-kill expectation `~30.5`.
-- line 29.5: `Over ≈57% / Under ≈43%`.
-- line 28.5: `Over ≈62% / Under ≈38%`.
+- baseline remains high-20s, but Anivia waveclear/control and HLE's durable front line suppress pure two-sided brawl realization despite Blitz/Qiyana/Ahri pick access.
+- locked central total-kill expectation `~29`.
+- at line 30.5: `Under ≈58% / Over ≈42%`.
 
-## Game 1 supplied board
-- ML: `HLE 1.640 / T1 2.171`
-- Duration: `Over 33 @2.086 / Under 33 @1.692`
-- Total Kills 29.5: `Over @1.971 / Under @1.776`
-- Total Kills 28.5: `Over @1.719 / Under @2.047`
-- Kill Handicap: `HLE -5.5 @1.877 / T1 +5.5 @1.860`
+## Game 2 supplied board
+- ML: `HLE 1.590 / T1 2.265`
+- Duration: `Over 32 @1.908 / Under 32 @1.831`
+- Total Kills: `Over 30.5 @1.858 / Under 30.5 @1.880`
+- Kill Handicap: `HLE -5.5 @1.787 / T1 +5.5 @1.959`
 
-## Game 1 FORCED-CHOICE positions — OPEN
+## Game 2 FORCED-CHOICE positions — OPEN
 All `0.25u shadow / 0u actual` under standing authorization.
 
-1. `HLE ML @1.640`
-2. `T1 +5.5 kills @1.860`
-3. `Under 33 minutes @1.692`
-4. `Over 29.5 total kills @1.971`
-5. `Over 28.5 total kills @1.719`
+1. `HLE ML @1.590`
+2. `T1 +5.5 kills @1.959`
+3. `Over 32 minutes @1.908`
+4. `Under 30.5 total kills @1.880`
 
-Total shadow stake this map: `1.25u`; actual exposure `0u`.
+Total Game 2 shadow stake: `1.00u`; actual exposure `0u`.
 
 Airtable deferred to map end.
-
-## Fearless tracking
-Game 1 consumes after settlement:
-`Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine`.
 
 ## Audit cadence
 - Micro-review every settled map.
