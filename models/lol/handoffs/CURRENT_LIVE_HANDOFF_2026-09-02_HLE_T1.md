@@ -8,8 +8,8 @@
 - Match: `Hanwha Life Esports vs T1`
 - Format: `Bo5 Fearless Draft`
 - Scheduled: `2026-09-02 08:00 UTC / 15:00 UTC+7`
+- Series score: `T1 1-0 HLE`
 - Current map: `Game 2`
-- Current screenshot indicates `T1 leads 1-0`; exact Game 1 final settlement details are not fully supplied, so keep G1 duration settlement pending.
 
 ## Active authority
 - Lock: `LOL-2026-09-02-V13-HLE-T1-DRAFTONLY-FORCEDCHOICE-1459-UTC7`
@@ -35,15 +35,23 @@ HLE Red: `Olaf / Lee Sin / Annie / Ashe / Seraphine`
 
 Game 1 price-blind draft verdict: `SLIGHT HLE` (`D=+1` from HLE perspective).
 
-### Game 1 FORCED-CHOICE positions — settlement not fully completed
-All `0.25u shadow / 0u actual`:
-1. `HLE ML @1.640`
-2. `T1 +5.5 kills @1.860`
-3. `Under 33 minutes @1.692`
-4. `Over 29.5 total kills @1.971`
-5. `Over 28.5 total kills @1.719`
+## Game 1 final
+- Winner: `T1`
+- Duration: `29:47`
+- Final kills: `T1 23-17 HLE` (`40 total`)
 
-The Game 2 board screenshot appears to show T1 leading the series 1-0 and prior-game kill totals consistent with HLE 17 / T1 23, but exact Game 1 duration was not supplied; do not fabricate the missing settlement field.
+### Game 1 FORCED-CHOICE settlement
+User clarified that alternate lines in the same Total Kills family should not both be logged for Game 1. Keep only the better-EV canonical line, `Over 29.5 @1.971`; remove `Over 28.5 @1.719` from the ledger.
+
+Canonical G1 positions, all `0.25u shadow / 0u actual`:
+1. `HLE ML @1.640` — LOSS `-0.25u`
+2. `T1 +5.5 kills @1.860` — WIN `+0.215u`
+3. `Under 33 minutes @1.692` — WIN `+0.173u`
+4. `Over 29.5 total kills @1.971` — WIN `+0.24275u`
+
+Game 1 result: `3W-1L`, net `+0.38075u`.
+
+Micro-review: `DRAFT READ ERROR` — HLE was graded slight draft edge, but T1's Pantheon/Ryze/Kalista/Renata tempo and ranged pressure converted better than expected against HLE's catch-oriented structure.
 
 ## Fearless consumed after Game 1
 Unavailable in Game 2:
