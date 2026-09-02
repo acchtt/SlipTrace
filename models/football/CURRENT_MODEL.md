@@ -1,13 +1,28 @@
 # Current Football Model
 
 **Active model:** Football **v0.2.47-R**  
-**Status:** Operational / official-lock mode / enforcement-hardened  
+**Active operating profile:** **PRE-HARDENING**  
+**Status:** Operational / official-lock mode  
 **Timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Canonical namespace:** `models/football/`
 
-`v0.2.47-R` is the consolidated operational revision used by the current Football v1.0 workflow. It replaces the old audit/shadow stack and the historical incremental-load chain that previously required loading many rule files in sequence.
+`v0.2.47-R` remains the consolidated operational revision used by Football v1.0.
 
-The Sep 1 process audit did **not** create a new model version. It hardened enforcement of existing v0.2.47-R principles after the Aug31/Sep1 slate.
+## Critical regime directive
+
+The Sep 1, 2026 enforcement-hardening experiment is **INACTIVE for official selection**.
+
+Do **not** automatically apply, restore, or infer any of the former hardening gates in official decision-making. In particular, the following are not active hard caps:
+
+- reserve/youth A1 cap;
+- O3.75 exceptional hard gate;
+- A2 O3.5+ burden prohibition;
+- XI "names cannot create a route" hard prohibition;
+- H2H de-weighting as a mandatory override rule.
+
+Those ideas may be studied only in a clearly labeled **SHADOW / BENCHMARK** context and must not affect the official shortlist, XI rerank, line choice, or lock unless the active model is explicitly changed again.
+
+If any future document, note, memory, audit, or prior commit conflicts with this directive, **this file wins**.
 
 ## Canonical load order
 
@@ -39,9 +54,8 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 
 - Confirmed XI is the first legitimate rerank gate.
 - Team GF/GA and scoring/conceding-frequency profile is mandatory.
-- Repeatable chance quality is mandatory before A1 promotion.
-- xG is a modifier, not the primary engine or a veto by itself.
-- Failure modes must be stated before selection.
+- Chance quality is assessed as supporting evidence, not as a rigid promotion veto.
+- Failure modes must be identified before selection.
 - Protected Asian totals are preferred when they preserve the thesis at reasonable price.
 - An affirmative final betting selection is automatically an **OFFICIAL LOCK**.
 - `PASS` / `NO BET — HOLD` means no bet.
@@ -52,18 +66,21 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - Counterfactual simulations never enter official P/L.
 - Every material decision state is logged to Airtable.
 
-## Enforcement hardening — Sep 1, 2026
+## Board policy
 
-The following are now explicit hard gates inside v0.2.47-R:
+For daily/upcoming requests:
 
-1. **Reserve/youth A1 cap:** Jong/U21/reserve/B-team matches cannot reach A1 from short-run GF/GA or recent high-total rates alone. Stable chance quality and XI continuity are required; otherwise cap at A2.
-2. **O3.75 hard gate:** O3.75 requires exceptional A1 evidence plus an explicit exactly-4 vs 5+ goal-burden check. It is not a routine expression of an Over-friendly match.
-3. **A2 burden gate:** A2 with a weak/uncertain secondary scoring route should not lock O3.5+ merely for better odds. Prefer O3/O3.25 or HOLD unless the carrier has an exceptional independent 4+ route.
-4. **XI evidence rule:** attacking names or opponent defensive absences may strengthen a demonstrated scoring route, but cannot create one without underlying chance evidence.
-5. **H2H weighting:** historical suppression is a failure-mode modifier, not a structural veto. Current structure, XI, tactical identity, and chance quality take precedence when materially different.
+1. scan the full ICT slate;
+2. use the **pre-hardening** structural ranking logic;
+3. aggressively shorten to the best few matches worth focusing on;
+4. freeze those matches before XI;
+5. rerank from confirmed XI and market;
+6. lock only the strongest expressions.
+
+The inactive hardened framework may be tracked in parallel only as a shadow benchmark.
 
 ## Anti-hindsight rule
 
 Never rewrite a prematch grade, XI rerank, line, price, or verdict after the result is known. A later winning score does not convert a prior HOLD into a model win, and a losing score does not by itself prove that the original process was wrong.
 
-Historical versions remain recoverable from Git history but are not part of the active model tree.
+Historical versions and the Sep 1 hardening experiment remain recoverable from Git history but are not part of the active official-selection regime.
