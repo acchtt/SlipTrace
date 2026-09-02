@@ -107,6 +107,36 @@ Micro-review: `DRAFT READ ERROR` — T1's nominal neutral 5v5 ease was overcredi
 Unavailable in Game 4:
 `Jayce / Pantheon / Ryze / Kalista / Renata Glasc / Olaf / Lee Sin / Annie / Ashe / Seraphine / Gwen / Qiyana / Anivia / Jhin / Blitzcrank / K'Sante / Jarvan IV / Ahri / Yunara / Lulu / Camille / Sejuani / Akali / Miss Fortune / Shen / Kennen / Maokai / Yone / Kai'Sa / Alistar`.
 
+## Forced-choice checkpoint audit — COMPLETE 2026-09-02
+Canonical review: `models/lol/reviews/LOL_FORCED_CHOICE_CHECKPOINT_AUDIT_2026-09-02.md`.
+
+Data hygiene:
+- duplicate HLE-T1 G1 Airtable map/Position rows were removed during the audit;
+- canonical forced-choice sample is exactly `20 Positions / 5 maps / 5 samples per family`.
+
+Cohort through HLE-T1 G3:
+- overall `10W-10L`, `-0.3340u` on `5.00u` shadow stake, ROI `-6.68%`;
+- ML `0-5 / -1.2500u`;
+- KH `3-2 / +0.1525u`;
+- Duration `4-1 / +0.5795u`;
+- Total Kills `3-2 / +0.1840u`.
+
+Primary alarm:
+- the price-blind draft-edge side (`D`) lost all five audited maps;
+- do not fit coefficients from only five maps, but treat draft classification as under review.
+
+Audit decision — no structural model changes yet:
+1. enforce the existing full DIM before every draft verdict;
+2. persist `TAM / OSG / DAU / SLI / FNF / CAS / ETS / AFP` and complete adversarial pass;
+3. certify `D=+/-1` only when at least two independent mechanism advantages survive DIM/AFP; otherwise `D=0 / EVEN-STYLE-DEPENDENT`;
+4. persist full KH margin bins and TK total-kill bins before price, not only central estimates;
+5. store raw implied probability, selected-side `MODEL_EDGE`, and `FORCED_NEG_EV=YES/NO` after price;
+6. keep forced-choice cohort separate from threshold-qualified history.
+
+Next checkpoint:
+- after `5 more maps / 20 more forced-choice Positions`, reaching `10 samples per family / 40 total`;
+- prefer at least `20 samples per family / 80 total` before structural coefficient review, absent a mechanical implementation bug.
+
 ## Standing execution rule
 - Enabled families: ML / Kill Handicap / Duration / Total Kills.
 - Exactly one canonical line per market family; if alternate lines exist within the same family, evaluate all but log only the best model-vs-book line.
@@ -115,9 +145,11 @@ Unavailable in Game 4:
 - Final draft + board is standing authorization.
 - `0.25u shadow` per selected market / `0u actual`.
 - Airtable only at map end.
+- For all new maps, enforce the checkpoint-audit persistence requirements above before price comparison.
 
 ## Audit cadence
 - Micro-review every settled map.
-- Forced-choice checkpoint audit threshold of 10 positions has been exceeded; cohort checkpoint audit is due before making structural model changes.
+- Checkpoint audit completed at 20 canonical forced-choice Positions.
+- Next checkpoint at 40 canonical forced-choice Positions / 10 samples per family.
 - No structural model changes have been made; current lock remains frozen.
 - Keep forced-choice cohort separate from old threshold-qualified selective calibration.
