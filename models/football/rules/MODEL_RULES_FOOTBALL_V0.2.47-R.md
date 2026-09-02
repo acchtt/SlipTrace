@@ -252,6 +252,17 @@ Do not automatically upgrade a match because attackers start or because one side
 
 ## 12. Competition exclusion
 
+### Cup competitions
+
+Exclude **all cup / knockout competition matches** from the normal shortlist, XI workflow, live rescue, and official locks **except**:
+
+- **English domestic cup competitions** (for example FA Cup and EFL/Carabao Cup);
+- Germany's **DFB-Pokal**.
+
+This exclusion includes domestic cups in all other countries and European/continental cup competitions. League fixtures are unaffected.
+
+Do not re-add an excluded cup match because its scoring profile, lineup, price, or live state looks attractive.
+
 ### K League
 
 Permanent hard exclusion.
@@ -270,7 +281,9 @@ When generating the daily/upcoming list:
 
 - scan the full slate first;
 - convert all times to ICT;
-- apply hard exclusions and structural filters;
+- remove all excluded cup competitions before structural ranking;
+- retain only English domestic cups and the DFB-Pokal as cup exceptions;
+- apply other hard exclusions and structural filters;
 - use the **pre-hardening** ranking logic only;
 - aggressively shorten to the best few matches worth focusing on;
 - do not omit earlier kickoff blocks;
@@ -307,4 +320,4 @@ If required data is materially unreliable, reduce confidence or use `NO BET — 
 
 ## 17. Operating principle
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
+**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude non-English/non-German cup matches before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
