@@ -20,10 +20,11 @@ This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 5. Build the mandatory team profile for credible candidates.
 6. Evaluate Two-Sided and Elite Carrier routes.
 7. Use chance quality and failure modes as supporting evidence.
-8. Assign structural band: A1 / A2 / B+ / B-PASS.
-9. Rank by structural quality, not price and not kickoff time.
-10. Aggressively shorten the board to the best few matches worth focusing on.
-11. Freeze that shortlist and its structural grades before confirmed XI or live information.
+8. Apply the **recent-total / leakage confirmation rule** to candidates whose apparent strength is driven heavily by extreme recent totals or repeated defensive leakage.
+9. Assign structural band: A1 / A2 / B+ / B-PASS.
+10. Rank by structural quality, not price and not kickoff time.
+11. Aggressively shorten the board to the best few matches worth focusing on.
+12. Freeze that shortlist and its structural grades before confirmed XI or live information.
 
 When the user asks for today's/upcoming matches, show only the focused Over-friendly board and do not omit earlier kickoff blocks.
 
@@ -65,6 +66,19 @@ Inspect as available:
 
 Short early-season samples are usable but provisional; they do not impose automatic grade caps.
 
+### Recent-total / leakage confirmation
+
+If a candidate is being promoted mainly because of an extreme recent run of high totals or repeated multi-goal concessions:
+
+1. Mark the thesis as **scoreline/leakage-driven**.
+2. Identify which scoring routes are actually required for the proposed total.
+3. Seek supporting evidence that those routes are producing repeatable good chances: multi-match big chances, central/box access, box touches, SOT quality, xG/xGOT trend, or stable multi-goal scoring/conceding frequency beyond one anomalous match.
+4. If one required secondary route has weak or unproven chance creation, do not let the recent totals alone promote the match into top focus.
+5. Respond by reducing priority, choosing a more protected total, or using `NO BET — HOLD`.
+6. If detailed chance-quality data is unavailable, lower confidence rather than assuming the high-total run will persist.
+
+This is a narrow confirmation rule only. It does **not** revive the Sep 1 hardened youth cap, burden gates, XI prohibition, H2H rule, or any general short-sample cap.
+
 ### Chance quality
 
 Where available, inspect big chances, central/box access, box touches, SOT quality, and xG/xGOT as modifiers. Do not let raw possession or shot volume substitute for actual threat.
@@ -81,7 +95,9 @@ Store:
 - operating profile `PRE-HARDENING`;
 - frozen structural grade/type;
 - primary carrier/route;
+- whether the case is materially scoreline/leakage-driven;
 - profile summary;
+- chance-quality confirmation when the recent-total/leakage rule is triggered;
 - failure modes;
 - evidence timestamp.
 
@@ -100,7 +116,8 @@ Once confirmed lineups are supplied or reliably available:
 5. Check rotation and cohesion.
 6. Check bench attacking depth.
 7. Reassess the original failure modes.
-8. Assign the post-XI grade.
+8. If the match was scoreline/leakage-driven, verify that XI changes do not substitute for missing evidence of repeatable chance creation.
+9. Assign the post-XI grade.
 
 Normal promotion cap is one structural band unless a genuine role/shape change removes a known failure mode.
 
@@ -122,6 +139,8 @@ For every candidate line:
 Prefer a protected boundary when it reasonably expresses the thesis, but do not impose a mandatory A2 ceiling or O3.75 ban.
 
 Higher totals remain eligible when structure, carrier/two-sided route, XI, failure modes, and price justify them.
+
+For a scoreline/leakage-driven candidate with incomplete chance-quality confirmation, prefer more protection or HOLD rather than stretching the burden based on recent totals alone.
 
 ---
 
@@ -158,9 +177,10 @@ When the user submits lineup/odds screenshots:
 5. Match the extracted information to the frozen assessment.
 6. Run XI rerank.
 7. Re-run team-profile and failure-mode checks if the XI changes the route.
-8. Compare available Asian totals and protection.
-9. Issue LOCK or HOLD.
-10. Log the material state.
+8. If the frozen case was recent-total/leakage-driven, confirm the supporting chance-quality evidence before final promotion.
+9. Compare available Asian totals and protection.
+10. Issue LOCK or HOLD.
+11. Log the material state.
 
 Do **not** run or revive the Sep 1 hardened gates as hidden checks.
 
@@ -225,6 +245,8 @@ After settlement, evaluate process separately from result:
 
 - Was structural rank correct at the time?
 - Did the GF/GA profile support the burden?
+- Was the candidate overly dependent on an extreme recent total/leakage run?
+- If so, was there enough evidence of repeatable good chance creation for every necessary route?
 - Was chance quality used appropriately?
 - Did the XI rerank overreact or underreact?
 - Was the failure mode identified?
