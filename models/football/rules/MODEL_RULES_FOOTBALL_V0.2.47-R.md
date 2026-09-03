@@ -268,12 +268,22 @@ Do not automatically upgrade a match because attackers start or because one side
 
 Exclude **all cup / knockout competition matches** from the normal shortlist, XI workflow, live rescue, and official locks **except**:
 
-- **English domestic cup competitions** (for example FA Cup and EFL/Carabao Cup);
+- the **English FA Cup**;
 - Germany's **DFB-Pokal**.
 
-This exclusion includes domestic cups in all other countries and European/continental cup competitions. League fixtures are unaffected.
+### League Cup competitions
 
-Do not re-add an excluded cup match because its scoring profile, lineup, price, or live state looks attractive.
+All competitions classified as a **League Cup** are excluded in every country, with no exception. This explicitly includes:
+
+- English **EFL Cup / Carabao Cup**;
+- J.League / Levain Cup;
+- Scottish League Cup;
+- Portuguese League Cup;
+- any other domestic League Cup format.
+
+League Cup matches cannot be re-added because their scoring profile, lineup, price, or live state looks attractive.
+
+This exclusion also leaves European/continental cup competitions excluded. League fixtures are unaffected.
 
 ### K League
 
@@ -293,8 +303,8 @@ When generating the daily/upcoming list:
 
 - scan the full slate first;
 - convert all times to ICT;
-- remove all excluded cup competitions before structural ranking;
-- retain only English domestic cups and the DFB-Pokal as cup exceptions;
+- remove every League Cup competition before structural ranking;
+- remove all other excluded cup competitions, retaining only the English FA Cup and DFB-Pokal as cup exceptions;
 - apply other hard exclusions and structural filters;
 - use the **pre-hardening** ranking logic only;
 - apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
@@ -333,4 +343,4 @@ If required data is materially unreliable, reduce confidence or use `NO BET — 
 
 ## 17. Operating principle
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Do not let extreme recent totals or leakage complete the proof by themselves. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude non-English/non-German cup matches before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
+**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Do not let extreme recent totals or leakage complete the proof by themselves. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude every League Cup and all other cup matches except the English FA Cup and DFB-Pokal before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
