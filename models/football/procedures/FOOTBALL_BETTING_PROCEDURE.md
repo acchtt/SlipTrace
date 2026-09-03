@@ -15,8 +15,8 @@ This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 
 1. Collect the full relevant-day fixture slate.
 2. Convert kickoff times to ICT.
-3. Remove **all League Cup competitions**, including the English EFL/Carabao Cup.
-4. Remove all other cup / knockout competition matches except the **English FA Cup** and Germany's **DFB-Pokal**.
+3. Retain league fixtures plus these approved cup exceptions: **English domestic cups** (including FA Cup and EFL/Carabao Cup), Germany's **DFB-Pokal**, and the **North American Leagues Cup (MLS/Liga MX)**.
+4. Remove all other cup / knockout competitions, including other domestic League Cup formats and European/continental cups.
 5. Remove other hard exclusions, including K League.
 6. Build the mandatory team profile for credible candidates.
 7. Evaluate Two-Sided and Elite Carrier routes.
@@ -29,7 +29,7 @@ This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 
 When the user asks for today's/upcoming matches, show only the focused Over-friendly board and do not omit earlier kickoff blocks.
 
-Competition exclusions are applied **before ranking**. Do not surface an excluded League Cup or other excluded cup fixture as a backup candidate or rescue it later because of lineup, odds, or live evidence.
+Competition exclusions are applied **before ranking**. The North American **Leagues Cup** is an explicit approved exception and must not be removed by a generic “League Cup” filter. Do not surface other excluded cup fixtures as backups or rescue them later because of lineup, odds, or live evidence.
 
 Recommended board columns:
 
@@ -172,7 +172,7 @@ A conditional price threshold is not an official lock until the current market r
 When the user submits lineup/odds screenshots:
 
 1. Confirm match identity and competition.
-2. If the match is a League Cup or another excluded cup competition, stop the normal betting workflow and mark it excluded. Do not issue an official lock.
+2. Confirm the competition is either a league fixture or one of the approved cup exceptions: English domestic cups, DFB-Pokal, or North American Leagues Cup. If not, stop the normal betting workflow and mark it excluded.
 3. Read visible lineup, bench, absences, formation, and total/odds.
 4. Do not infer invisible names or numbers.
 5. Match the extracted information to the frozen assessment.
@@ -214,7 +214,7 @@ A just-started match may still be treated as a normal prematch lock only while i
 
 If the user explicitly asks to activate an already-live match that was not frozen, label it `MANUAL LIVE OVERRIDE` and keep it separate from normal prematch-led accounting/process review.
 
-The manual-live mechanism does **not** override the competition exclusion. League Cups and other excluded cup matches remain excluded.
+The manual-live mechanism does **not** override the competition exclusion. Only league fixtures and the approved cup exceptions remain eligible.
 
 ---
 
