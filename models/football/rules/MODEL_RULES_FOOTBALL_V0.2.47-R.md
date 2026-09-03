@@ -97,6 +97,18 @@ League stereotype, competition reputation, or team names cannot override the act
 
 Short samples are allowed as evidence but should be identified as such. They do **not** impose an automatic grade cap.
 
+### Recent-total / leakage confirmation rule
+
+When a candidate's apparent A1/A2 case is driven heavily by an extreme recent sequence of high totals, repeated multi-goal concessions, or leakage-heavy scorelines:
+
+- use those scorelines to **identify** the candidate, not to complete the proof;
+- before top-board promotion or an official lock, require supporting evidence that every scoring route needed by the thesis is generating repeatable good chances;
+- useful support can include multi-match big-chance production, central/box access, box touches, SOT quality, xG/xGOT trends, or stable multi-goal scoring/conceding frequencies that are not dependent on one anomalous match;
+- if the secondary route is necessary for the selected burden but its chance creation is weak or unproven, reduce priority, choose a more protected line, or HOLD;
+- if detailed chance-quality data is unavailable, do not invent it: treat the scoreline-driven grade with lower confidence rather than assuming the recent totals will repeat.
+
+This is a **narrow calibration**, not a return to the Sep 1 hardened framework. It does not create a youth/reserve cap, short-sample hard cap, O3.75 gate, A2 burden prohibition, XI route-creation prohibition, or H2H override.
+
 ---
 
 ## 5. Chance quality
@@ -285,6 +297,7 @@ When generating the daily/upcoming list:
 - retain only English domestic cups and the DFB-Pokal as cup exceptions;
 - apply other hard exclusions and structural filters;
 - use the **pre-hardening** ranking logic only;
+- apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
 - aggressively shorten to the best few matches worth focusing on;
 - do not omit earlier kickoff blocks;
 - rank by structural quality before kickoff time;
@@ -320,4 +333,4 @@ If required data is materially unreliable, reduce confidence or use `NO BET — 
 
 ## 17. Operating principle
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude non-English/non-German cup matches before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
+**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Do not let extreme recent totals or leakage complete the proof by themselves. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude non-English/non-German cup matches before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
