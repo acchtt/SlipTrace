@@ -264,26 +264,28 @@ Do not automatically upgrade a match because attackers start or because one side
 
 ## 12. Competition exclusion
 
-### Cup competitions
+### Eligible cup competitions
 
-Exclude **all cup / knockout competition matches** from the normal shortlist, XI workflow, live rescue, and official locks **except**:
+Cup / knockout matches are excluded from the normal shortlist, XI workflow, live rescue, and official locks **unless they belong to one of these explicit exceptions**:
 
-- the **English FA Cup**;
-- Germany's **DFB-Pokal**.
+- **English domestic cups**, including the **FA Cup** and **EFL Cup / Carabao Cup**;
+- Germany's **DFB-Pokal**;
+- the **North American Leagues Cup (MLS/Liga MX)**.
 
-### League Cup competitions
+The North American **Leagues Cup** is a named cross-border competition and is an explicit exception. Do **not** remove it with a generic “League Cup” exclusion rule.
 
-All competitions classified as a **League Cup** are excluded in every country, with no exception. This explicitly includes:
+### Other League Cup competitions
 
-- English **EFL Cup / Carabao Cup**;
+League Cup competitions outside the explicit English exception remain excluded, including:
+
 - J.League / Levain Cup;
 - Scottish League Cup;
 - Portuguese League Cup;
-- any other domestic League Cup format.
+- other domestic League Cup formats not explicitly approved above.
 
-League Cup matches cannot be re-added because their scoring profile, lineup, price, or live state looks attractive.
+Other domestic cups and European/continental cup competitions also remain excluded unless explicitly added later. League fixtures are unaffected.
 
-This exclusion also leaves European/continental cup competitions excluded. League fixtures are unaffected.
+Do not re-add an excluded cup match because its scoring profile, lineup, price, or live state looks attractive.
 
 ### K League
 
@@ -303,8 +305,8 @@ When generating the daily/upcoming list:
 
 - scan the full slate first;
 - convert all times to ICT;
-- remove every League Cup competition before structural ranking;
-- remove all other excluded cup competitions, retaining only the English FA Cup and DFB-Pokal as cup exceptions;
+- retain league fixtures and the approved cup exceptions: English domestic cups, DFB-Pokal, and North American Leagues Cup;
+- remove all other excluded cup competitions before structural ranking;
 - apply other hard exclusions and structural filters;
 - use the **pre-hardening** ranking logic only;
 - apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
@@ -343,4 +345,4 @@ If required data is materially unreliable, reduce confidence or use `NO BET — 
 
 ## 17. Operating principle
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Do not let extreme recent totals or leakage complete the proof by themselves. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Exclude every League Cup and all other cup matches except the English FA Cup and DFB-Pokal before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
+**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Use chance quality as support. Do not let extreme recent totals or leakage complete the proof by themselves. Let XI rerank the real route. Identify the failure mode. Choose the Asian total with sensible protection. Use price last. Retain English domestic cups, DFB-Pokal, and North American Leagues Cup; exclude other cup competitions before ranking. Keep the Sep 1 hardened gates inactive unless they are explicitly reactivated in a future model change.**
