@@ -63,9 +63,9 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - `PASS` / `NO BET — HOLD` means no bet.
 - Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite history.
 - Manual live overrides are allowed only as a separately labelled state.
-- **Cup exclusion:** exclude all cup/knockout competitions from the normal board and official locks except the **English FA Cup** and Germany's **DFB-Pokal**.
-- **League Cup exclusion:** all League Cup competitions are excluded in every country, including the English EFL/Carabao Cup. League Cup matches cannot be restored by XI, price, or live evidence.
-- European/continental cup competitions remain excluded under this cup rule.
+- **Cup scope:** the only cup/knockout competitions eligible for the normal board and official locks are **English domestic cups** (including FA Cup and EFL/Carabao Cup), Germany's **DFB-Pokal**, and the **North American Leagues Cup (MLS/Liga MX)**.
+- All other domestic, continental, and League Cup competitions remain excluded unless explicitly added later.
+- The North American **Leagues Cup** is an explicit named exception and must not be removed by a generic “League Cup” filter.
 - K League is a permanent hard exclusion.
 - Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
 - Counterfactual simulations never enter official P/L.
@@ -76,13 +76,14 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 For daily/upcoming requests:
 
 1. scan the full ICT slate;
-2. remove excluded competitions, including every League Cup and all other cup matches except the English FA Cup and DFB-Pokal;
-3. use the **pre-hardening** structural ranking logic;
-4. apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
-5. aggressively shorten to the best few matches worth focusing on;
-6. freeze those matches before XI;
-7. rerank from confirmed XI and market;
-8. lock only the strongest expressions.
+2. retain league fixtures plus the eligible cup exceptions: English domestic cups, DFB-Pokal, and North American Leagues Cup;
+3. remove all other excluded cup competitions and other hard exclusions;
+4. use the **pre-hardening** structural ranking logic;
+5. apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
+6. aggressively shorten to the best few matches worth focusing on;
+7. freeze those matches before XI;
+8. rerank from confirmed XI and market;
+9. lock only the strongest expressions.
 
 The inactive hardened framework may be tracked in parallel only as a shadow benchmark.
 
