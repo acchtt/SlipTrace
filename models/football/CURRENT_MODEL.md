@@ -55,6 +55,8 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - Confirmed XI is the first legitimate rerank gate.
 - Team GF/GA and scoring/conceding-frequency profile is mandatory.
 - Chance quality is assessed as supporting evidence, not as a rigid promotion veto.
+- **Recent-total / leakage confirmation rule:** when a candidate's high grade is driven heavily by an extreme recent run of high totals or defensive leakage, those scorelines may identify the candidate but cannot by themselves justify top-board promotion or an official lock. Require supporting evidence that the necessary scoring routes are producing repeatable good chances; if that support is weak or unavailable, reduce priority or HOLD.
+- This calibration is narrow: it is **not** a reserve/youth cap, short-sample hard cap, burden gate, XI prohibition, or revival of the Sep 1 hardened framework.
 - Failure modes must be identified before selection.
 - Protected Asian totals are preferred when they preserve the thesis at reasonable price.
 - An affirmative final betting selection is automatically an **OFFICIAL LOCK**.
@@ -75,10 +77,11 @@ For daily/upcoming requests:
 1. scan the full ICT slate;
 2. remove excluded competitions, including all cup matches except English domestic cups and the DFB-Pokal;
 3. use the **pre-hardening** structural ranking logic;
-4. aggressively shorten to the best few matches worth focusing on;
-5. freeze those matches before XI;
-6. rerank from confirmed XI and market;
-7. lock only the strongest expressions.
+4. apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
+5. aggressively shorten to the best few matches worth focusing on;
+6. freeze those matches before XI;
+7. rerank from confirmed XI and market;
+8. lock only the strongest expressions.
 
 The inactive hardened framework may be tracked in parallel only as a shadow benchmark.
 
