@@ -15,20 +15,21 @@ This procedure implements `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
 
 1. Collect the full relevant-day fixture slate.
 2. Convert kickoff times to ICT.
-3. Remove all cup / knockout competition matches except **English domestic cups** and Germany's **DFB-Pokal**.
-4. Remove other hard exclusions, including K League.
-5. Build the mandatory team profile for credible candidates.
-6. Evaluate Two-Sided and Elite Carrier routes.
-7. Use chance quality and failure modes as supporting evidence.
-8. Apply the **recent-total / leakage confirmation rule** to candidates whose apparent strength is driven heavily by extreme recent totals or repeated defensive leakage.
-9. Assign structural band: A1 / A2 / B+ / B-PASS.
-10. Rank by structural quality, not price and not kickoff time.
-11. Aggressively shorten the board to the best few matches worth focusing on.
-12. Freeze that shortlist and its structural grades before confirmed XI or live information.
+3. Remove **all League Cup competitions**, including the English EFL/Carabao Cup.
+4. Remove all other cup / knockout competition matches except the **English FA Cup** and Germany's **DFB-Pokal**.
+5. Remove other hard exclusions, including K League.
+6. Build the mandatory team profile for credible candidates.
+7. Evaluate Two-Sided and Elite Carrier routes.
+8. Use chance quality and failure modes as supporting evidence.
+9. Apply the **recent-total / leakage confirmation rule** to candidates whose apparent strength is driven heavily by extreme recent totals or repeated defensive leakage.
+10. Assign structural band: A1 / A2 / B+ / B-PASS.
+11. Rank by structural quality, not price and not kickoff time.
+12. Aggressively shorten the board to the best few matches worth focusing on.
+13. Freeze that shortlist and its structural grades before confirmed XI or live information.
 
 When the user asks for today's/upcoming matches, show only the focused Over-friendly board and do not omit earlier kickoff blocks.
 
-The cup exclusion is applied **before ranking**. Do not surface an excluded cup fixture as a backup candidate or rescue it later because of lineup, odds, or live evidence.
+Competition exclusions are applied **before ranking**. Do not surface an excluded League Cup or other excluded cup fixture as a backup candidate or rescue it later because of lineup, odds, or live evidence.
 
 Recommended board columns:
 
@@ -171,7 +172,7 @@ A conditional price threshold is not an official lock until the current market r
 When the user submits lineup/odds screenshots:
 
 1. Confirm match identity and competition.
-2. If the match is an excluded cup competition, stop the normal betting workflow and mark it excluded. Do not issue an official lock.
+2. If the match is a League Cup or another excluded cup competition, stop the normal betting workflow and mark it excluded. Do not issue an official lock.
 3. Read visible lineup, bench, absences, formation, and total/odds.
 4. Do not infer invisible names or numbers.
 5. Match the extracted information to the frozen assessment.
@@ -213,7 +214,7 @@ A just-started match may still be treated as a normal prematch lock only while i
 
 If the user explicitly asks to activate an already-live match that was not frozen, label it `MANUAL LIVE OVERRIDE` and keep it separate from normal prematch-led accounting/process review.
 
-The manual-live mechanism does **not** override the competition exclusion. Excluded cup matches remain excluded.
+The manual-live mechanism does **not** override the competition exclusion. League Cups and other excluded cup matches remain excluded.
 
 ---
 
