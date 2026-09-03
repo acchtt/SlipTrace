@@ -63,7 +63,8 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - `PASS` / `NO BET — HOLD` means no bet.
 - Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite history.
 - Manual live overrides are allowed only as a separately labelled state.
-- **Cup exclusion:** exclude all cup/knockout competitions from the normal board and official locks, except **English domestic cups** and Germany's **DFB-Pokal**.
+- **Cup exclusion:** exclude all cup/knockout competitions from the normal board and official locks except the **English FA Cup** and Germany's **DFB-Pokal**.
+- **League Cup exclusion:** all League Cup competitions are excluded in every country, including the English EFL/Carabao Cup. League Cup matches cannot be restored by XI, price, or live evidence.
 - European/continental cup competitions remain excluded under this cup rule.
 - K League is a permanent hard exclusion.
 - Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
@@ -75,7 +76,7 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 For daily/upcoming requests:
 
 1. scan the full ICT slate;
-2. remove excluded competitions, including all cup matches except English domestic cups and the DFB-Pokal;
+2. remove excluded competitions, including every League Cup and all other cup matches except the English FA Cup and DFB-Pokal;
 3. use the **pre-hardening** structural ranking logic;
 4. apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
 5. aggressively shorten to the best few matches worth focusing on;
