@@ -1,6 +1,6 @@
 # Current Live Handoff — Dplus KIA vs BNK FearX — 2026-09-03
 
-**Status:** ACTIVE SERIES HANDOFF — GAME 3 PREP READY / NO NEW POSITION RECORDED YET UNDER THIS LOCK  
+**Status:** ACTIVE SERIES HANDOFF — GAME 3 PREP READY / BFX LEADS 2-0 / NO NEW POSITION RECORDED YET UNDER THIS LOCK  
 **Session lock:** `LOL-2026-09-03-V13-DK-BFX-DRAFTONLY-FORCEDCHOICE-1644-UTC7`  
 **Authority commit:** `7420942bee48a943a076239d2b9acf074fb833f0`  
 **Lock persistence commit:** `4d28d7665092b5e43afafa0af99d4f1e13c5d279`
@@ -12,9 +12,10 @@
 - Lower Bracket Round 1
 - 2026-09-03
 - Bo5 Fearless Draft
+- **Current series score entering Game 3: BFX 2-0 DK.**
 - Games 1 and 2 are complete; Game 3 is the next eligible map for this chat workflow.
 
-The session lock was established after the scheduled series start. Same-series outcomes are quarantined from the benchmark and must not update K/P0.
+The session lock was established after the scheduled series start. Same-series outcomes are quarantined from the benchmark and must not update K/P0. The user-confirmed `BFX 2-0` score is retained only as series-state / Fearless context and is not analytical strength evidence.
 
 Neither Game 1 nor Game 2 had a final draft + exact board supplied to this chat for forced-choice execution. Therefore no retroactive Position may be created for either map and Airtable remains untouched for them in this workflow.
 
