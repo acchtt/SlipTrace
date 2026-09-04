@@ -1,6 +1,6 @@
 # Current Live Handoff — KT Rolster vs Dplus KIA — 2026-09-04
 
-**Status:** CLOSED — SERIES COMPLETE / GAME 4 SETTLED / DATA-INTEGRITY FLAG  
+**Status:** CLOSED — SERIES COMPLETE / G4 BOARD-TRANSCRIPTION CORRECTION APPLIED / RETROSPECTIVE DRAFT CORRECTION SEPARATE  
 **Session lock:** `LOL-2026-09-04-V13-KT-DK-DRAFTONLY-FORCEDCHOICE-Q2-1955-UTC7`  
 **Authority commit:** `6018e7706772554d6318c1af4a9548ca4f25cd95`  
 **Execution:** `POSTDRAFT-ONLY / FORCED-CHOICE / Q2 QUARANTINE / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -10,10 +10,9 @@
 - LCK 2026 Season Playoffs — Lower Bracket Round 2 — KT Rolster vs Dplus KIA.
 - G1-G2 had no prospective canonical Positions in this chat; no retroactive Positions were created.
 - G3: DK won `19-4` in `26:56`; positions `3-1 / +0.40125u`.
-- G4: user designated the supplied `31:13` scoreboard as final; DK won `17-10`.
-- Series score after G4: **Dplus KIA 3-1 KT Rolster**; series complete.
-- G4 map + four canonical Positions are settled in Airtable.
-- No further KT-DK Position may be created under this handoff/lock.
+- G4 final: DK won `17-10` in `31:13`.
+- Series final: **Dplus KIA 3-1 KT Rolster**.
+- KT-DK lock remains closed; no further Position may be created under it.
 
 ## 2. Frozen benchmark used for series
 
@@ -26,65 +25,72 @@
 
 Same-series results never changed K/P0/TK0.
 
-## 3. G4 entered draft / board
+## 3. G4 source-truth board correction
 
-Entered user draft, TOP / JUNGLE / MID / ADC / SUPPORT:
-- DK blue: `Jax / Vi / Annie / Miss Fortune / Neeko`
-- KT red: `Gwen / Skarner / Akali / Kalista / Renata`
+The pre-entry sportsbook screenshot was readable and existed before the G4 card. The assistant transcribed all four families incorrectly. Source-truth board:
 
-Board:
-- ML: DK `1.650` / KT `2.205`
-- KH: DK `-5.5 @1.930` / KT `+5.5 @1.826`
-- Duration `31.5`: Over `1.780` / Under `1.968`
-- TK `27.5`: Over `1.909` / Under `1.861`
+- ML: **DK `1.719` / KT `2.047`**
+- Duration `33.0`: **Over `1.869` / Under `1.869`**
+- Total Kills `26.5`: **Over `2.086` / Under `1.692`**
+- Kill Handicap: **DK `-4.5 @1.932` / KT `+4.5 @1.810`**
 
-Locked Q2 selections:
-1. DK ML @1.650
-2. KT +5.5 @1.826
-3. Under 31.5 @1.968
-4. Over 27.5 @1.909
+This is an operator transcription correction, not retroactive market creation, because the exact screenshot was supplied before the card.
 
-## 4. G4 settlement
+Under the frozen Q2 rules, the corrected canonical card is:
+1. **DK ML @1.719**
+2. **DK -4.5 @1.932** — mandatory `<5` alignment with DK ML
+3. **Under 33 @1.869**
+4. **Over 26.5 @2.086**
 
-Final user-designated scoreboard:
-- winner: **Dplus KIA**
-- kills: **DK 17-10 KT**
-- duration: **31:13**
-- total kills: `27`
-- DK kill margin: `+7`
+Corrected price notes:
+- DK ML: model `60%`, implied `58.17%`, `MODEL_EDGE=+1.83pp`, `FORCED_NEG_EV=NO`.
+- DK -4.5: corrected-input cover estimate `42%`, implied `51.76%`, `MODEL_EDGE=-9.76pp`, `FORCED_NEG_EV=YES`; selected because `<5` KH must align with ML.
+- Under 33: frozen `F=30.25m`, model `69.25%`, implied `53.50%`, `MODEL_EDGE=+15.75pp`, `FORCED_NEG_EV=NO`.
+- Over 26.5: corrected-input estimate about `58%`, implied `47.94%`, `MODEL_EDGE≈+10.06pp`, `FORCED_NEG_EV=NO`.
 
-Results:
-- DK ML — WIN — `+0.1625u`
-- KT +5.5 — LOSS — `-0.2500u`
-- Under 31.5 — WIN — `+0.2420u`
-- Over 27.5 — LOSS — `-0.2500u`
+## 4. G4 corrected settlement
 
-G4 total: `2W-2L / -0.0955u`; actual exposure `0u`.
+Final result: DK `17-10`, duration `31:13`, total kills `27`, DK kill margin `+7`.
 
-## 5. Mandatory data-integrity exception
+Corrected source-truth card settlement:
+- DK ML @1.719 — **WIN** — `+0.17975u`
+- DK -4.5 @1.932 — **WIN** — `+0.23300u`
+- Under 33 @1.869 — **WIN** — `+0.21725u`
+- Over 26.5 @2.086 — **WIN** — `+0.27150u`
 
-**Clear draft-input mismatch:** the locked user draft listed DK top **Jax**, but the final scoreboard shows **Siwoo on Renekton**.
+**G4 corrected: `4W-0L / +0.90150u`; actual exposure `0u`.**
 
-Treatment:
-- settle the four G4 Positions exactly as entered because map identity, market lines, and final settlement are unambiguous;
-- count the Positions in the historical forced-choice ledger/P&L;
-- tag G4 as `DATA-INTEGRITY MISMATCH`;
-- **exclude G4 from clean draft-mechanism / DIM calibration evidence**;
-- do not use the apparent G4 diagnostic `D=DK`, KH distribution, Duration draft scores, or TK draft distribution as clean champion-draft validation evidence;
-- this is an implementation/input integrity incident, not evidence for or against a coefficient change.
+Airtable Positions were updated in place to these source-truth lines/results. No duplicate Positions were created.
 
-## 6. Cohort after series
+## 5. Separate draft-input correction: Jax -> Renekton
 
-After G4:
+The user-entered G4 draft said DK top **Jax**, while the final scoreboard shows **Siwoo on Renekton**. This champion correction was learned only from the later final scoreboard, so it remains a **retrospective corrected-input draft audit**, distinct from the pre-entry board-transcription correction above.
+
+Corrected actual draft:
+- DK: `Renekton / Vi / Annie / Miss Fortune / Neeko`
+- KT: `Gwen / Skarner / Akali / Kalista / Renata`
+
+Retrospective DIM with Renekton:
+- DK still has deterministic `Vi -> Annie/Neeko -> MF` grouped access and Renekton follow-up/frontline.
+- Replacing Jax with Renekton removes the cleaner independent late side-lane/cleanup route and makes DK more reliant on first-contact 5v5 conversion.
+- KT retains Skarner/Renata disruption plus Akali/Gwen counter-dive and side pressure.
+- corrected diagnostic draft label: **`D=0 / EVEN-STYLE-DEPENDENT`** rather than the original `D=+1 DK`.
+- under Q2, `D_PROBABILITY_CONTRIBUTION=0`, so ML remains frozen DK `60%` either way.
+
+Do not use the original Jax-based DIM as clean champion-draft calibration evidence. The corrected Renekton audit may be retained as retrospective mechanism review, but it does not prove what was knowable at entry.
+
+## 6. Corrected cohort after series
+
+After replacing the operator-misread G4 board with source truth:
 - `48 Positions / 12 per family`
-- overall `22W-26L / -1.76975u`
-- ML `3-9 / -1.7315u`
-- KH `5-7 / -0.6505u`
-- Duration `9-3 / +1.26175u`
-- TK `5-7 / -0.6495u`
+- overall **`24W-24L / -0.77275u`**
+- ML **`3-9 / -1.71425u`**
+- KH **`6-6 / -0.16750u`**
+- Duration **`9-3 / +1.23700u`**
+- TK **`6-6 / -0.12800u`**
 - actual exposure `0u`.
 
-Preferred structural checkpoint remains `80 total / 20 per family`, but G4 is flagged contaminated for draft-calibration analysis.
+Preferred structural checkpoint remains `80 total / 20 per family`.
 
 ## 7. Next-session requirement
 
