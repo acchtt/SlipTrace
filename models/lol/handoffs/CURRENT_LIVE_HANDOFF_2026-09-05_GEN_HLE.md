@@ -1,6 +1,6 @@
 # Current Live Handoff — Gen.G vs Hanwha Life Esports — 2026-09-05
 
-**Status:** ACTIVE SERIES HANDOFF — PRE-GAME 1 / Q2 VALIDATION  
+**Status:** ACTIVE SERIES HANDOFF — GAME 2 POSITIONS LOCKED / Q2 VALIDATION  
 **Session lock:** `LOL-2026-09-05-V13-GEN-HLE-DRAFTONLY-FORCEDCHOICE-Q2-1306-UTC7`  
 **Authority commit:** `6018e7706772554d6318c1af4a9548ca4f25cd95`  
 **Execution:** `POSTDRAFT-ONLY / FORCED-CHOICE / Q2 QUARANTINE / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -8,10 +8,10 @@
 ## Series state
 
 - Gen.G vs Hanwha Life Esports — LCK 2026 Season Playoffs Upper Bracket Final, Bo5 Fearless Draft.
-- Scheduled 2026-09-05 08:00 UTC / 15:00 UTC+7.
-- No current-series Position exists yet.
-- No Airtable write before map end.
-- Same-series results never update K/P0/TK0; they may affect only Fearless champion availability.
+- G1 had no prospective canonical Position in this chat; do not create retroactive G1 Positions.
+- G2 final draft + exact board were supplied prospectively and four canonical forced-choice Positions are locked.
+- No Airtable write until G2 ends.
+- Same-series results never update K/P0/TK0; only Fearless champion availability may carry forward.
 
 ## Frozen benchmark
 
@@ -21,63 +21,145 @@
 - `GEN K=+1 / P0=55%`
 - `HLE K=-1 / P0=45%`
 - `TK0=26.95`
-- Current benchmark windows: completed LCK 2026 Rounds 3-4 plus Rounds 1-2.
-- GEN and HLE both use normal 70/30 current/previous roster-continuity blend.
-- Prior playoff results, sportsbook prices and current-series results are excluded from benchmark construction.
+- benchmark windows: completed LCK 2026 Rounds 3-4 + Rounds 1-2; no playoff result or sportsbook price used.
 
-Current-window core inputs:
-- GEN: 19 games, WR 63.2%, GDM +91, GD@15 +638, Towers 6.5-5.3, DRA 55.6%, NASH 48.0%; TK environment 23.6.
-- HLE: 21 games, WR 52.4%, GDM +56, GD@15 +596, Towers 6.3-5.4, DRA 48.7%, NASH 49.1%; TK environment 30.3.
+## Game 2 draft
 
-Previous-window split scores / current-window split scores:
-- `B_current(GEN)=+1.043999`, `B_previous(GEN)=+1.253139`, raw 70/30 `+1.106741`.
-- `B_current(HLE)=+0.501517`, `B_previous(HLE)=+1.135456`, raw 70/30 `+0.691699`.
+Role order TOP / JUNGLE / MID / ADC / SUPPORT.
 
-## Expected primary rosters
+GEN blue:
+- Rumble
+- Jarvan IV
+- Locke
+- Jhin
+- Shen
 
-GEN: Kiin / Canyon / Chovy / Ruler / Duro.  
-HLE: Zeus / Kanavi / Zeka / Gumayusi / Delight.
+HLE red:
+- Ambessa
+- Qiyana
+- Syndra
+- Caitlyn
+- Bard
 
-HLE Bluffing is a support sub in Gol.gg data; Delight remains the primary starter. User-supplied final map roles/lineup override saved context if contradictory.
+Locke is treated as the mid-lane champion named by the user; exact role is resolved.
 
-## Q2 forced-choice controls
+## Game 2 source-truth board
 
-- exactly one canonical position in each family: ML / KH / Duration / Total Kills;
-- 0.25u shadow each / 0u actual;
-- final draft + exact board are the only prediction inputs; ignore displayed live state;
-- full DIM mandatory;
-- diagnostic `D` persists but `D_PROBABILITY_CONTRIBUTION=0` for forced-choice ML;
-- ML forced-choice probability = frozen P0 only;
-- KH full signed margin bins before price, both 10+ tails explicit, execution probability capped at 70%;
-- KH `<5` kills must align with selected ML side; `±5.5+` may be independent;
-- Duration v1.1 anchor/formula frozen; selected Over gets `OVER_BRANCH_WARNING=YES`;
-- TK full bins must include explicit numeric `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` branch;
-- price cannot change any price-blind projection;
-- every selected side tagged `MODEL_EDGE` and `FORCED_NEG_EV=YES/NO`;
-- Airtable only at map end.
+- Moneyline: GEN `1.678` / HLE `2.109`
+- Duration `32.0`: Over `1.756` / Under `1.996`
+- Total Kills `26.5`: Over `2.026` / Under `1.734`
+- Kill Handicap: GEN `-3.5 @1.753` / HLE `+3.5 @2.001`
 
-## Cohort entering series
+## Game 2 price-blind draft audit
 
-Corrected forced-choice cohort:
+Diagnostic DIM only; Q2 sets `D_PROBABILITY_CONTRIBUTION=0` for forced-choice ML.
+
+Mechanisms:
+- GEN PKM: Jarvan engage/terrain confinement -> Shen reinforcement -> Rumble choke damage -> Locke/Jhin cleanup.
+- GEN SKM: ranged catch/finish through Jhin plus Locke follow-up around isolated targets and objective entries.
+- HLE PKM: Syndra/Bard pick and zone -> Caitlyn trap/range control -> Qiyana/Ambessa collapse.
+- HLE SKM: long-range objective setup with Caitlyn/Syndra/Bard creating forced entry angles for Qiyana terrain burst and Ambessa follow-through.
+
+DIM rows:
+- TAM: mixed; Shen can directly blunt HLE dive/burst on one target, while Bard/Syndra can disrupt GEN's committed engage.
+- OSG: slight HLE due Caitlyn/Syndra/Bard pre-contact space plus Qiyana terrain leverage; GEN Equalizer/Jarvan remains dangerous in chokes.
+- DAU: mixed/slight HLE at range, GEN stronger once hard contact is achieved.
+- SLI: no certified independent decisive side-lane mechanism.
+- FNF: both compositions can function without classic tank front-to-back; GEN has more deterministic first-contact body access through Jarvan/Shen.
+- CAS: both have clean-cascade branches; neither side receives reliable margin-suppression certification.
+- ETS: GEN benchmark strength modestly higher, but team strength does not alter diagnostic draft sign.
+- AFP: each side retains a second route after first mechanism denial; no two-independent-mechanism superiority survives strongly enough for nonzero D.
+
+`D=0 / EVEN-STYLE-DEPENDENT`  
+`D_DIAGNOSTIC_ONLY=YES`  
+`D_PROBABILITY_CONTRIBUTION=0`
+
+## Game 2 locked forced-choice card
+
+### Moneyline
+Frozen probability:
+- GEN `55%`
+- HLE `45%`
+
+Price comparison:
+- GEN @1.678 -> implied `59.59%` -> edge `-4.59pp`
+- HLE @2.109 -> implied `47.42%` -> edge `-2.42pp`
+
+Canonical ML: **HLE ML @2.109**  
+`MODEL_EDGE=-2.42pp`  
+`FORCED_NEG_EV=YES`
+
+### Kill Handicap
+Portfolio rule applies because absolute handicap is `<5`; KH must align with selected HLE ML.
+
+Pre-price signed margin bins:
+- HLE wins by 10+: `10%`
+- HLE wins by 5-9: `12%`
+- HLE wins by 1-4: `23%`
+- GEN wins by 1-3: `17%`
+- GEN wins by 4-9: `23%`
+- GEN wins by 10+: `15%`
+
+HLE +3.5 raw cover = `62%`; capped execution probability = `62%` (below 70% cap).  
+HLE +3.5 @2.001 -> implied `49.98%` -> `MODEL_EDGE=+12.02pp`.  
+Canonical KH: **HLE +3.5 @2.001**  
+`FORCED_NEG_EV=NO`
+
+### Duration
+Draft-only scores:
+- `V=0`
+- `Q=0`
+- `H=0`
+- `T=-1`
+- `F=30.25m`
+
+At line 32.0:
+- Under model `62.25%`
+- Under @1.996 implied `50.10%`
+- `MODEL_EDGE=+12.15pp`
+
+Canonical Duration: **Under 32 @1.996**  
+`FORCED_NEG_EV=NO`  
+`OVER_BRANCH_WARNING=NO`
+
+### Total Kills
+Frozen `TK0=26.95`.
+
+Pre-price bins:
+- `<20`: `9%`
+- `20-24`: `20%`
+- `25-26`: `17%`
+- `27-31`: `28%`
+- `32-36`: `16%`
+- `37+`: `10%`
+
+Explicit `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` branch: `23%` of total scenario mass, concentrated primarily below 27 total kills; separate two-sided-brawl continuation keeps upper-tail mass meaningful.
+
+Over 26.5 model = `54%`; Over @2.026 implied `49.36%`; `MODEL_EDGE=+4.64pp`.
+
+Canonical TK: **Over 26.5 @2.026**  
+`FORCED_NEG_EV=NO`
+
+## Game 2 execution lock
+
+Four canonical Positions, standing authorization from supplied final draft + exact board:
+1. HLE ML @2.109 — 0.25u shadow
+2. HLE +3.5 @2.001 — 0.25u shadow
+3. Under 32 @1.996 — 0.25u shadow
+4. Over 26.5 @2.026 — 0.25u shadow
+
+Total: `1.00u shadow / 0u actual`.
+
+Do not update from live score/state. Await final map result, then write map + four Positions to Airtable and run map micro-audit.
+
+## Cohort entering G2
+
 - `48 Positions / 12 per family`
 - `24W-24L / -0.77275u`
 - ML `3-9 / -1.71425u`
 - KH `6-6 / -0.16750u`
 - Duration `9-3 / +1.23700u`
 - TK `6-6 / -0.12800u`
-- actual exposure `0u`.
+- actual exposure `0u`
 
-Next preferred checkpoint:
-- `80 Positions / 20 per family`;
-- `8 fully recorded maps / 32 Positions` remaining.
-
-KT-DK G4 no longer carries a DATA-INTEGRITY MISMATCH tag; the later Renekton reassessment left all corrected canonical picks unchanged. The sportsbook line-transcription correction remains historical documentation only.
-
-## Game workflow
-
-1. Receive final map draft in exact role order plus exact sportsbook board.
-2. Build DIM and all four price-blind projections first.
-3. Select exactly one canonical side/line per family.
-4. First visible line: `[Map]: ML / KH / Duration / Total Kills — 1.00u shadow total.`
-5. Persist compact audit state.
-6. Do not write Airtable until map final.
+Next preferred checkpoint: `80 total / 20 per family`.
