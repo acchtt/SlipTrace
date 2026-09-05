@@ -1,6 +1,6 @@
 # Current Live Handoff — KT Rolster vs Dplus KIA — 2026-09-04
 
-**Status:** CLOSED — SERIES COMPLETE / G4 BOARD-TRANSCRIPTION CORRECTION APPLIED / RETROSPECTIVE DRAFT CORRECTION SEPARATE  
+**Status:** CLOSED — SERIES COMPLETE / G4 BOARD-TRANSCRIPTION CORRECTION APPLIED / RENEKTON REASSESSMENT NO PICK CHANGE  
 **Session lock:** `LOL-2026-09-04-V13-KT-DK-DRAFTONLY-FORCEDCHOICE-Q2-1955-UTC7`  
 **Authority commit:** `6018e7706772554d6318c1af4a9548ca4f25cd95`  
 **Execution:** `POSTDRAFT-ONLY / FORCED-CHOICE / Q2 QUARANTINE / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -62,22 +62,19 @@ Corrected source-truth card settlement:
 
 Airtable Positions were updated in place to these source-truth lines/results. No duplicate Positions were created.
 
-## 5. Separate draft-input correction: Jax -> Renekton
+## 5. Top-lane correction and reassessment: Jax -> Renekton
 
-The user-entered G4 draft said DK top **Jax**, while the final scoreboard shows **Siwoo on Renekton**. This champion correction was learned only from the later final scoreboard, so it remains a **retrospective corrected-input draft audit**, distinct from the pre-entry board-transcription correction above.
-
-Corrected actual draft:
+The entered G4 draft said DK top **Jax**, while the final scoreboard showed **Siwoo on Renekton**. Reassessment was completed using the actual draft:
 - DK: `Renekton / Vi / Annie / Miss Fortune / Neeko`
-- KT: `Gwen / Skarner / Akali / Kalista / Renata`
+- KT: `Gwen / Skarner / Akali / Kalista / Renata`.
 
-Retrospective DIM with Renekton:
-- DK still has deterministic `Vi -> Annie/Neeko -> MF` grouped access and Renekton follow-up/frontline.
-- Replacing Jax with Renekton removes the cleaner independent late side-lane/cleanup route and makes DK more reliant on first-contact 5v5 conversion.
-- KT retains Skarner/Renata disruption plus Akali/Gwen counter-dive and side pressure.
-- corrected diagnostic draft label: **`D=0 / EVEN-STYLE-DEPENDENT`** rather than the original `D=+1 DK`.
-- under Q2, `D_PROBABILITY_CONTRIBUTION=0`, so ML remains frozen DK `60%` either way.
+Reassessed interaction read:
+- DK retains deterministic `Vi -> Annie/Neeko -> MF` grouped access with Renekton follow-up/frontline.
+- Replacing Jax with Renekton removes the cleaner independent late side-lane/cleanup route and shifts the diagnostic DIM from `D=+1 DK` to **`D=0 / EVEN-STYLE-DEPENDENT`**.
+- Under Q2, `D_PROBABILITY_CONTRIBUTION=0`, so ML remains frozen DK `60%`.
+- The corrected source-truth canonical selections remain exactly **DK ML / DK -4.5 / Under 33 / Over 26.5**.
 
-Do not use the original Jax-based DIM as clean champion-draft calibration evidence. The corrected Renekton audit may be retained as retrospective mechanism review, but it does not prove what was knowable at entry.
+Because the full corrected-draft reassessment leaves all four canonical selections unchanged, **no `DATA-INTEGRITY MISMATCH` tag applies to G4**. Retain the Jax->Renekton note only as a neutral retrospective input correction and use the Renekton-based DIM, not the obsolete Jax-based DIM, for any later draft-mechanism review.
 
 ## 6. Corrected cohort after series
 
