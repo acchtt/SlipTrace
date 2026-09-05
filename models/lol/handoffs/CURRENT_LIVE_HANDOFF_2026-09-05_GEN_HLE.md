@@ -1,6 +1,6 @@
 # Current Live Handoff — Gen.G vs Hanwha Life Esports — 2026-09-05
 
-**Status:** ACTIVE SERIES HANDOFF — GAME 2 SETTLED / READY FOR GAME 3  
+**Status:** ACTIVE SERIES HANDOFF — GAME 3 POSITIONS LOCKED / Q2 VALIDATION  
 **Session lock:** `LOL-2026-09-05-V13-GEN-HLE-DRAFTONLY-FORCEDCHOICE-Q2-1306-UTC7`  
 **Authority commit:** `6018e7706772554d6318c1af4a9548ca4f25cd95`  
 **Execution:** `POSTDRAFT-ONLY / FORCED-CHOICE / Q2 QUARANTINE / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -8,10 +8,11 @@
 ## Series state
 
 - Gen.G vs Hanwha Life Esports — LCK 2026 Season Playoffs Upper Bracket Final, Bo5 Fearless Draft.
-- G1 had no prospective canonical Position in this chat; do not create retroactive G1 Positions.
-- G2 is settled and written to Airtable: GEN won `34-27` in `45:43`.
-- Same-series results do not update K/P0/TK0; only Fearless champion availability may carry forward.
-- Await G3 final draft + exact board before any new Position.
+- G1 had no prospective canonical Position in this chat; no retroactive G1 Positions.
+- G2 settled: GEN won `34-27` in `45:43`; G2 card `1-3 / -0.4935u`; Airtable written.
+- G3 final draft + exact board supplied prospectively; four canonical forced-choice Positions are locked.
+- No Airtable write until G3 ends.
+- Same-series results do not update `K/P0/TK0`; only Fearless champion availability may carry forward.
 
 ## Frozen benchmark
 
@@ -21,77 +22,131 @@
 - `GEN K=+1 / P0=55%`
 - `HLE K=-1 / P0=45%`
 - `TK0=26.95`
-- benchmark windows: completed LCK 2026 Rounds 3-4 + Rounds 1-2; no playoff result or sportsbook price used.
 
-## Game 2 draft and source-truth board
+## Game 3 draft
 
-Role order TOP / JUNGLE / MID / ADC / SUPPORT.
+Role order TOP / JUNGLE / MID / ADC / SUPPORT, following the user's established list convention.
 
-GEN blue: `Rumble / Jarvan IV / Locke / Jhin / Shen`  
-HLE red: `Ambessa / Qiyana / Syndra / Caitlyn / Bard`
+HLE blue: `Camille / Pantheon / Ahri / Ziggs / Pyke`  
+GEN red: `Gwen / Aatrox / Akali / Ashe / Seraphine`
 
-Board:
-- ML: GEN `1.678` / HLE `2.109`
-- Duration `32.0`: Over `1.756` / Under `1.996`
-- Total Kills `26.5`: Over `2.026` / Under `1.734`
-- KH: GEN `-3.5 @1.753` / HLE `+3.5 @2.001`
+## Game 3 source-truth board
 
-Diagnostic draft label: `D=0 / EVEN-STYLE-DEPENDENT`; `D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`.
+- ML: GEN `1.703` / HLE `2.069`
+- Duration `32.0`: Over `1.803` / Under `1.939`
+- Total Kills `27.5`: Over `1.674` / Under `2.114`
+- KH: GEN `-3.5 @1.816` / HLE `+3.5 @1.924`
 
-Locked card:
-1. HLE ML @2.109 — `MODEL_EDGE=-2.42pp` — `FORCED_NEG_EV=YES`
-2. HLE +3.5 @2.001 — raw/capped cover `62%`, edge `+12.02pp` — `FORCED_NEG_EV=NO`
-3. Under 32 @1.996 — `V=0 Q=0 H=0 T=-1 F=30.25m`, edge `+12.15pp` — `FORCED_NEG_EV=NO`
-4. Over 26.5 @2.026 — model `54%`, edge `+4.64pp`, one-sided-fast-close / return-kill-suppression branch `23%` — `FORCED_NEG_EV=NO`
+## Game 3 price-blind DIM
 
-## Game 2 final and settlement
+HLE mechanisms:
+- PKM: Pantheon/Ahri/Pyke pick -> Camille lockdown/collapse -> Ziggs ranged follow-up and structure conversion.
+- SKM: Camille side pressure + Pantheon semi-global reinforcement while Ziggs/Ahri/Pyke hold or create objective-entry space.
 
-User explicitly designated the supplied scoreboard as final.
+GEN mechanisms:
+- PKM: Ashe arrow / Seraphine catch -> Aatrox/Akali/Gwen multi-angle melee continuation.
+- SKM: Gwen side-lane pressure while Ashe/Seraphine form a four-man catch/kite shell and Akali threatens backline access.
 
-Final:
-- winner: **GEN**
-- kills: **GEN 34-27 HLE**
-- duration: **45:43**
-- total kills: `61`
-- GEN kill margin: `+7`
+DIM rows:
+- TAM: mixed; Seraphine/Ashe can punish direct HLE commitment, but do not generically suppress Pantheon/Camille/Pyke multi-angle pick chains; HLE has no universal answer to GEN sustained melee continuation either.
+- OSG: HLE advantage from Ahri/Pyke vision-entry threat, Pantheon reinforcement and Ziggs pre-contact zone/structure pressure.
+- DAU: mixed; HLE gains safer pre-contact/ranged damage through Ziggs while GEN has stronger sustained melee damage if it reaches stable contact.
+- SLI: HLE slight; Camille side route is strengthened by Pantheon reinforcement, although Gwen remains a real direct lane answer.
+- FNF: HLE's limited traditional frontline is not a major penalty because its primary identity is pick/collapse/siege rather than long front-to-back occupancy.
+- CAS: HLE slight; Pyke execute/chase plus Ziggs conversion can turn one ordinary pick into repeat control, but GEN retains return-fight damage and is not certified as cascade-fragile.
+- ETS: GEN benchmark strength is modestly higher; team strength does not alter the mechanical draft sign.
+- AFP: HLE retains two distinct routes after denial of the first — pick/global collapse and side-pressure/structure conversion — while GEN must more often obtain clean contact to unlock its melee damage.
 
-Settlement:
-- HLE ML @2.109 — **LOSS** — `-0.2500u`
-- HLE +3.5 @2.001 — **LOSS** — `-0.2500u`
-- Under 32 @1.996 — **LOSS** — `-0.2500u`
-- Over 26.5 @2.026 — **WIN** — `+0.2565u`
+Diagnostic result: `D=+1 HLE`.  
+`D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`.
 
-**G2 total: `1W-3L / -0.4935u`; actual exposure `0u`.**
+## Game 3 locked forced-choice card
 
-Airtable map record `LCK-2026-09-05-GEN-HLE-G2` and four canonical Position records were created at map end.
+### Moneyline
+Q2 frozen probabilities: GEN `55%` / HLE `45%`.
 
-## Game 2 micro-audit
+- GEN @1.703 -> implied `58.72%` -> edge `-3.72pp`
+- HLE @2.069 -> implied `48.33%` -> edge `-3.33pp`
 
-- ML: diagnostic `D=0` was non-directional; Q2 benchmark-only HLE forced choice lost. No inference about draft coefficient because `D` contributed 0pp.
-- KH: HLE +3.5 lost by a 7-kill GEN margin. The raw 62% cover read overestimated HLE margin resilience on this map, but the loss is not a 10+ tail miss.
-- Duration: the principal miss. Draft-only `F=30.25m` and Under 32 were far below the realized `45:43`; repeated contact and game extension were materially underweighted in the pre-price clock read.
-- TK: Over 26.5 won emphatically with `61` total kills; the high-contact / two-sided-brawl upper tail was realized rather than the one-sided fast-close suppression branch.
-- No coefficient or architecture change before the preferred 80-position checkpoint absent a clear implementation bug.
+Canonical ML: **HLE ML @2.069**  
+`MODEL_EDGE=-3.33pp`  
+`FORCED_NEG_EV=YES`
 
-## Cohort after Game 2
+### Kill Handicap
+Absolute line is `<5`, so KH must align with selected HLE ML.
+
+Pre-price signed margin bins:
+- HLE wins by 10+: `10%`
+- HLE wins by 5-9: `12%`
+- HLE wins by 1-4: `23%`
+- GEN wins by 1-3: `18%`
+- GEN wins by 4-9: `22%`
+- GEN wins by 10+: `15%`
+
+HLE win mass remains `45%`, consistent with frozen Q2 ML probability.  
+HLE +3.5 raw cover = `63%`; capped execution probability = `63%`.  
+HLE +3.5 @1.924 -> implied `51.98%` -> edge `+11.02pp`.
+
+Canonical KH: **HLE +3.5 @1.924**  
+`MODEL_EDGE=+11.02pp`  
+`FORCED_NEG_EV=NO`
+
+### Duration
+Draft-only scores:
+- `V=+1` — HLE has credible pick-to-Ziggs structure conversion.
+- `Q=0` — no reliable pre-map compulsory-cycle spacing edge.
+- `H=0` — do not double-count Ziggs structure compression already credited in V.
+- `T=0` — HLE acceleration is balanced by GEN's Seraphine/Ashe defensive reset and scaling tools.
+- `F=29.50m`.
+
+At line 32.0:
+- Under model `67.50%`
+- Under @1.939 implied `51.57%`
+- `MODEL_EDGE=+15.93pp`
+
+Canonical Duration: **Under 32 @1.939**  
+`FORCED_NEG_EV=NO`  
+`OVER_BRANCH_WARNING=NO`
+
+### Total Kills
+Frozen `TK0=26.95`.
+
+Price-blind bins:
+- `<20`: `6%`
+- `20-24`: `14%`
+- `25-27`: `18%`
+- `28-32`: `29%`
+- `33-37`: `19%`
+- `38+`: `14%`
+
+Over 27.5 model = `62%`.  
+Explicit `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` branch = `18%` of scenario mass, concentrated below 28 kills. A separate high-contact/two-sided-brawl branch is large because both drafts contain repeatable catch, dive and chase access.
+
+Over 27.5 @1.674 -> implied `59.74%` -> `MODEL_EDGE=+2.26pp`.
+
+Canonical TK: **Over 27.5 @1.674**  
+`FORCED_NEG_EV=NO`
+
+## Game 3 execution lock
+
+Four canonical positions are prospectively locked from the supplied final draft + exact board:
+1. **HLE ML @2.069** — `0.25u shadow`
+2. **HLE +3.5 @1.924** — `0.25u shadow`
+3. **Under 32 @1.939** — `0.25u shadow`
+4. **Over 27.5 @1.674** — `0.25u shadow`
+
+Total: `1.00u shadow / 0u actual`.
+
+Do not update predictions from live state. Await final G3 result, then write map + four Positions to Airtable and run map micro-audit.
+
+## Cohort entering G3
 
 - `52 Positions / 13 per family`
-- overall **`25W-27L / -1.26625u`**
-- ML **`3-10 / -1.96425u`**
-- KH **`6-7 / -0.41750u`**
-- Duration **`9-4 / +0.98700u`**
-- TK **`7-6 / +0.12850u`**
+- `25W-27L / -1.26625u`
+- ML `3-10 / -1.96425u`
+- KH `6-7 / -0.41750u`
+- Duration `9-4 / +0.98700u`
+- TK `7-6 / +0.12850u`
 - actual exposure `0u`
 
-Preferred next structural checkpoint remains `80 total Positions / 20 per family`.
-
-## Game 3 workflow
-
-1. Receive final G3 draft/roles + exact board.
-2. Complete full DIM and all four price-blind projections first.
-3. ML uses frozen P0 only; D remains diagnostic.
-4. KH signed bins include both 10+ tails, 70% cap, and `<5 => ML-aligned` rule.
-5. Duration keeps frozen v1.1 formula; Over selection gets warning tag.
-6. TK keeps frozen TK0 and explicit one-sided-fast-close / return-kill-suppression mass.
-7. Select exactly one ML/KH/Duration/TK line; `0.25u` shadow each / `0u` actual.
-8. Airtable only at map end.
+Preferred next structural checkpoint remains `80 total / 20 per family`.
