@@ -1,6 +1,6 @@
 # Current Live Handoff — Team Vitality vs G2 Esports — 2026-09-05
 
-**Status:** ACTIVE SERIES HANDOFF — GAME 3 POSITIONS LOCKED / Q2 VALIDATION  
+**Status:** ACTIVE SERIES HANDOFF — GAME 3 SETTLED / AWAIT NEXT MAP OR SERIES-END CONFIRMATION  
 **Session lock:** `LOL-2026-09-05-V13-LEC-VIT-G2-DRAFTONLY-FORCEDCHOICE-Q2-1903-UTC7`  
 **Authority commit:** `6018e7706772554d6318c1af4a9548ca4f25cd95`  
 **Execution:** `POSTDRAFT-ONLY / FORCED-CHOICE / Q2 QUARANTINE / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -9,9 +9,9 @@
 
 - Team Vitality vs G2 Esports — LEC 2026 Summer Playoffs Upper Bracket Round 1, Bo5 Fearless Draft.
 - G1/G2 occurred before this lock and remain same-series history only; no retroactive positions.
-- G3 final draft + exact board were supplied prospectively; four canonical positions are locked.
+- G3 was prospectively locked and is now settled; Airtable map + four canonical positions are written.
 - Same-series results do not update `K/P0/TK0`; prior maps may inform only Fearless champion availability where structurally needed.
-- Airtable remains untouched until G3 ends.
+- Do not infer final series score from the G3 result alone; await next-map or explicit series-end confirmation.
 
 ## Frozen benchmark
 
@@ -22,129 +22,76 @@
 - `VIT K=0 / P0=50%`
 - `TK0=29.25`
 
-## Game 3 final draft
+## Game 3 draft and board
 
 Role order TOP / JUNGLE / MID / ADC / SUPPORT.
 
 G2 blue: `Olaf / Pantheon / LeBlanc / Xayah / Rakan`  
 VIT red: `Trundle / Cho'Gath / Hwei / Lucian / Milio`
 
-## Game 3 source-truth board
-
+Board:
 - ML: G2 `1.446` / VIT `2.640`
 - Duration `33.0`: Over `2.047` / Under `1.719`
 - Total Kills `26.5`: Over `1.832` / Under `1.889`
 - KH: G2 `-6.5 @1.876` / VIT `+6.5 @1.862`
 
-## Game 3 price-blind DIM
+Diagnostic draft: `D=+1 VIT`; `D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`.
 
-G2 mechanisms:
-- PKM: Pantheon point-and-click/global access -> LeBlanc/Rakan collapse -> Xayah follow-up, with Olaf running through disrupted front lines.
-- SKM: Olaf side pressure and Pantheon semi-global reinforcement create side-to-center collapse while LeBlanc/Rakan threaten fog picks.
+Locked card:
+1. VIT ML @2.640 — model `50%`, edge `+12.12pp` — `FORCED_NEG_EV=NO`
+2. VIT +6.5 @1.862 — raw cover `76%`, Q2 capped `70%`, edge `+16.29pp` — `FORCED_NEG_EV=NO`
+3. Under 33 @1.719 — `V=+1 Q=0 H=0 T=+1 F=30.25m`, edge `+11.08pp` — `FORCED_NEG_EV=NO`
+4. Over 26.5 @1.832 — model `66%`, edge `+11.41pp`, one-sided-fast-close / return-kill-suppression mass `17%` — `FORCED_NEG_EV=NO`
 
-VIT mechanisms:
-- PKM: Trundle pillar / Cho'Gath knock-up-silence / Hwei control layers stop or isolate first contact -> Lucian damage -> Milio reset and spacing.
-- SKM: double-frontline objective/choke occupation with Hwei ranged zone and Milio range support lets VIT deny G2's preferred entry before turning onto the committing diver.
+## Game 3 final and settlement
 
-DIM rows:
-- TAM: VIT advantage; Cho/Hwei/Milio provide multiple independent answers to Pantheon/Rakan/Olaf/LeBlanc commitment.
-- OSG: VIT slight; pillar + Cho/Hwei zone + Milio range support make choke entry costly.
-- DAU: mixed; G2 has excellent target access but VIT has stronger layered denial and sustained front-to-back structure.
-- SLI: G2 slight theoretical Olaf/Pantheon side-collapse route, but VIT can answer rotations with Trundle/Cho front occupation and Hwei wave control.
-- FNF: VIT advantage from reliable double-frontline occupancy; G2 relies more on successful first contact.
-- CAS: mixed; G2 can cascade rapidly from one pick, while VIT can convert denied engage into objective control.
-- ETS: effectively even from the frozen benchmark.
-- AFP: VIT retains two distinct surviving routes after adversarial denial — anti-dive front-to-back and ranged objective/choke control — while G2's routes more often require successful forward commitment.
+User explicitly designated supplied scoreboard as final.
 
-Diagnostic result: `D=+1 VIT`.  
-`D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`.
+Final:
+- winner: **G2 Esports**
+- kills: **G2 15-10 VIT**
+- duration: **29:07**
+- total kills: `25`
+- G2 kill margin: `+5`
+- scoreboard also showed towers `10-3 G2`, dragons `2-2`, barons `2-0 G2`, inhibitors `2-0 G2`.
 
-## Game 3 locked forced-choice card
+Settlement:
+- VIT ML @2.640 — **LOSS** — `-0.25000u`
+- VIT +6.5 @1.862 — **WIN** — `+0.21550u`
+- Under 33 @1.719 — **WIN** — `+0.17975u`
+- Over 26.5 @1.832 — **LOSS** — `-0.25000u`
 
-### Moneyline
-Frozen Q2 probabilities: G2 `50%` / VIT `50%`.
+**G3 total: `2W-2L / -0.10475u`; actual exposure `0u`.**
 
-- G2 @1.446 -> implied `69.16%` -> edge `-19.16pp`
-- VIT @2.640 -> implied `37.88%` -> edge `+12.12pp`
+Airtable map `LEC-2026-09-05-VIT-G2-G3` and four canonical position records were created at map end.
 
-Canonical ML: **VIT ML @2.640**  
-`MODEL_EDGE=+12.12pp`  
-`FORCED_NEG_EV=NO`
+## Game 3 micro-audit
 
-### Kill Handicap
-Absolute line is `6.5`, so KH may be evaluated independently of ML under the portfolio rule.
+- ML: diagnostic `D=+1 VIT` was directionally wrong as G2 won. Q2 still kept draft from moving ML probability, but frozen `P0=50%` plus price selected VIT and lost.
+- KH: VIT +6.5 covered despite losing the map because the final kill margin was only `5`; the wide-handicap margin-compression branch was realized.
+- Duration: Under 33 won comfortably at `29:07`; `F=30.25m` was directionally sound.
+- TK: Over 26.5 missed narrowly with `25` total kills; the lower one-sided-fast-close / return-kill-suppression side of the distribution was realized.
+- No coefficient or architecture change before the planned 80-position checkpoint absent a clear implementation bug.
 
-Pre-price signed margin bins:
-- G2 wins by 10+: `16%`
-- G2 wins by 7-9: `8%`
-- G2 wins by 1-6: `26%`
-- VIT wins by 1-6: `25%`
-- VIT wins by 7-9: `9%`
-- VIT wins by 10+: `16%`
+## Cohort after Game 3
 
-Each side retains `50%` win mass, consistent with frozen P0.  
-VIT +6.5 raw cover = `76%`; Q2 capped execution probability = `70%`.  
-VIT +6.5 @1.862 -> implied `53.71%` -> edge `+16.29pp`.
-
-Canonical KH: **VIT +6.5 @1.862**  
-`MODEL_EDGE=+16.29pp`  
-`FORCED_NEG_EV=NO`
-
-### Duration
-Draft-only scores:
-- `V=+1` — G2 has direct Pantheon/Rakan pick-to-fight acceleration and both sides can convert won contact quickly.
-- `Q=0` — no reliable pre-map compulsory-cycle delay or acceleration edge.
-- `H=0` — ordinary terminal-path depth.
-- `T=+1` — VIT's Cho/Hwei/Milio reset/zone package can extend failed G2 commits and prevent immediate terminal conversion.
-- `F=30.25m`.
-
-At line 33.0:
-- Under model `69.25%`
-- Under @1.719 implied `58.17%`
-- `MODEL_EDGE=+11.08pp`
-
-Canonical Duration: **Under 33 @1.719**  
-`FORCED_NEG_EV=NO`  
-`OVER_BRANCH_WARNING=NO`
-
-### Total Kills
-Frozen `TK0=29.25`.
-
-Price-blind bins:
-- `<20`: `8%`
-- `20-24`: `11%`
-- `25-26`: `15%`
-- `27-31`: `28%`
-- `32-36`: `21%`
-- `37+`: `17%`
-
-Over 26.5 model = `66%`.  
-Explicit `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` branch = `17%` of scenario mass, concentrated below 27 kills. The upper branch remains substantial because G2 has repeatable dive/collapse while VIT has enough peel and return damage to generate two-sided contact rather than purely suppressing fights.
-
-Over 26.5 @1.832 -> implied `54.59%` -> edge `+11.41pp`.
-
-Canonical TK: **Over 26.5 @1.832**  
-`FORCED_NEG_EV=NO`
-
-## Game 3 execution lock
-
-1. **VIT ML @2.640** — `0.25u shadow`
-2. **VIT +6.5 @1.862** — `0.25u shadow`
-3. **Under 33 @1.719** — `0.25u shadow`
-4. **Over 26.5 @1.832** — `0.25u shadow`
-
-Total: `1.00u shadow / 0u actual`.
-
-Do not update predictions from displayed live state. Await final G3 result, then write map + four canonical Positions to Airtable and run map micro-audit.
-
-## Cohort entering G3
-
-- `60 Positions / 15 per family`
-- `31W-29L / -0.53825u`
-- ML `4-11 / -2.01775u`
-- KH `7-8 / -0.45225u`
-- Duration `11-4 / +1.43075u`
-- TK `9-6 / +0.50100u`
+- `64 Positions / 16 per family`
+- overall **`33W-31L / -0.64300u`**
+- ML **`4-12 / -2.26775u`**
+- KH **`8-8 / -0.23675u`**
+- Duration **`12-4 / +1.61050u`**
+- TK **`9-7 / +0.25100u`**
 - actual exposure `0u`
 
-Preferred next checkpoint remains `80 total / 20 per family`.
+Preferred next structural checkpoint remains `80 total / 20 per family`, requiring **4 additional fully recorded maps / 16 positions**.
+
+## Next-map workflow
+
+1. Receive final next-map draft/roles + exact board.
+2. Complete full price-blind DIM and all four family projections.
+3. ML uses frozen `P0`; D remains diagnostic only.
+4. KH signed bins include both 10+ tails and 70% cap; `<5` must align with ML, `±5.5+` may diverge.
+5. Duration keeps frozen 31m-anchor formula.
+6. TK keeps frozen `TK0=29.25` with explicit one-sided-fast-close / return-kill-suppression mass.
+7. Select exactly one ML/KH/Duration/TK line; `0.25u` shadow each / `0u` actual.
+8. Airtable only at map end.
