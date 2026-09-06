@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0c1020">
+  <meta name="description" content="SlipTrace football: ranked ChatGPT shortlists, confirmed lineups, reviewed odds and traceable model decisions.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Football workspace · SlipTrace</title>
+  <link rel="icon" href="../assets/sliptrace-app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to workspace</a>
+  <header class="topbar">
+    <a class="brand" href="../index.html"><img src="../assets/sliptrace-mark.svg" alt=""><span>SLIP<span class="accent">TRACE</span><small>FOOTBALL WORKSPACE</small></span></a>
+    <div class="top-actions"><span id="connection-state" class="pill">Not connected</span><button id="connection-open" class="secondary">Connect workspace</button></div>
+  </header>
+  <main id="main">
+    <div class="heading"><div><p class="eyebrow">FROM SHORTLIST TO DECISION</p><h1>Your football board.</h1><p>Bring your ranked matches. Check the XI. Review the price.</p></div><div class="model"><span>ACTIVE MODEL</span><a href="https://github.com/acchtt/SlipTrace/blob/979c955667d63e913cb7eb2ecff915fc1f83920b/models/football/CURRENT_MODEL.md" target="_blank" rel="noreferrer">v0.2.47-R ↗</a><small>PRE-HARDENING · All times ICT</small></div></div>
+    <ol class="steps" aria-label="Workflow"><li><b>01</b> Import shortlist</li><li><b>02</b> Confirm lineups</li><li><b>03</b> Review odds</li><li><b>04</b> Get verdict</li></ol>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section class="panel import-panel" aria-labelledby="import-title">
+      <div class="section-heading"><div><p class="eyebrow">01 / YOUR STARTING POINT</p><h2 id="import-title">Import from ChatGPT</h2></div><button id="template" class="text-button">Copy table format</button></div>
+      <div class="import-grid"><div>
+        <label for="table-input">Ranked matches table</label>
+        <textarea id="table-input" rows="6" placeholder="Paste the ranked table from your chat here…&#10;&#10;Rank | ICT kickoff | Match | Frozen grade | Structural type"></textarea>
+        <p class="hint">Accepts Markdown, copied table cells or JSON. Home team first. Nothing is imported from your chats automatically.</p>
+      </div><div class="import-side">
+        <label for="slate-date">Slate date · ICT</label><input type="date" id="slate-date" required>
+        <label for="board-title">Board name</label><input id="board-title" maxlength="120" placeholder="Evening shortlist">
+        <div class="import-actions"><button id="preview-import" class="primary">Review matches</button><label class="file-button secondary" for="json-file">Import JSON<input type="file" id="json-file" accept=".json,application/json"></label></div>
+      </div></div>
+      <details class="context"><summary>Add the structural analysis from your chat</summary><label for="context-input">Team profiles, primary scoring routes, expected XI and failure modes</label><textarea id="context-input" rows="5" maxlength="60000" placeholder="Paste the supporting analysis, including sources and timestamps. A ranked table alone may not contain enough evidence for a final selection."></textarea></details>
+      <div id="import-preview" hidden></div>
+    </section>
+    <div class="board-heading"><div><p class="eyebrow">FROZEN SHORTLIST</p><h2 id="board-heading">Match board</h2></div><div class="board-controls"><label class="sr-only" for="board-select">Saved board</label><select id="board-select"><option value="">Saved boards</option></select><button id="refresh-board" class="secondary">Refresh</button></div></div>
+    <div class="workspace">
+      <section class="panel board" aria-label="Ranked matches"><div id="board-empty" class="empty"><span class="empty-mark">01</span><h3>Your shortlist starts here</h3><p>Paste a ranked table above to review its teams, kickoff times and frozen grades.</p></div><div id="match-list"></div></section>
+      <section id="match-detail" class="panel detail" aria-label="Match assessment"><div class="empty"><span class="empty-mark">02—04</span><h3>Keep every decision connected</h3><p>Select an imported match to check its lineups, attach odds images and read the model’s verdict.</p></div></section>
+    </div>
+    <footer><span>Structure first. Price last.</span><a href="../index.html">Back to SlipTrace</a><span>No bets are placed by this workspace.</span></footer>
+  </main>
+  <dialog id="connection-dialog" aria-labelledby="connection-title"><form id="connection-form"><div class="section-heading"><h2 id="connection-title">Connect your workspace</h2><button type="button" id="connection-close" class="icon-button" aria-label="Close">×</button></div><p>Connect once per session to retrieve lineups, read odds images and save decisions.</p><label for="api-url">Private backend URL</label><input type="url" id="api-url" placeholder="https://your-football-api.workers.dev" required><label for="access-key">Workspace access key</label><input type="password" id="access-key" autocomplete="off" minlength="32" required><p class="hint">The access key stays in memory until this tab closes. BSD, OpenAI and Airtable keys belong only on your backend.</p><p id="connection-error" class="error" role="alert"></p><button class="primary" type="submit">Connect</button><button id="disconnect" class="secondary" type="button">Disconnect</button></form></dialog>
+  <template id="detail-template">
+    <div class="detail-header"><p class="eyebrow" data-field="competition"></p><h2 data-field="match-name"></h2><p data-field="kickoff" class="hint"></p><div data-field="grades"></div></div>
+    <section class="detail-section"><div class="section-heading"><h3><span class="step-number">02</span> Lineups & evidence</h3><button data-action="find" class="secondary">Find BSD fixture</button></div><div data-field="fixture"></div><div data-field="lineups"></div></section>
+    <section class="detail-section"><h3><span class="step-number">03</span> Odds images</h3><p class="hint">PNG, JPG or WebP · Up to 3 images, 2 MB each. Reading sends these images to OpenAI through your private backend.</p><label class="upload-zone" for="odds-images"><strong>Choose odds screenshots</strong><span>Include team names, full-match market and prices.</span><input id="odds-images" type="file" accept="image/png,image/jpeg,image/webp" multiple></label><div data-field="image-preview" class="image-preview"></div><button data-action="extract" class="primary" disabled>Read odds images</button><div data-field="odds-review"></div></section>
+    <section class="detail-section"><h3><span class="step-number">04</span> Model verdict</h3><div data-field="verdict"><p class="hint">A verdict appears after you confirm the extracted odds.</p></div></section>
+    <details class="history"><summary>Decision history</summary><div data-field="history"></div></details>
+  </template>
+</body>
+</html>
