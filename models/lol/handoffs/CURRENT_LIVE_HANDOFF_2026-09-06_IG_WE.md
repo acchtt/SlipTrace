@@ -1,6 +1,6 @@
 # Current Live Handoff — Invictus Gaming vs Team WE — 2026-09-06
 
-**Status:** ACTIVE SERIES HANDOFF — PRE-G1 / NO POSITIONS YET  
+**Status:** ACTIVE SERIES HANDOFF — G1 LOCKED / AWAIT FINAL  
 **Session lock:** `LOL-2026-09-06-V13-LPL-IG-WE-DRAFTONLY-FORCEDCHOICE-Q3-1227-UTC7`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / Q3 / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -9,9 +9,8 @@
 
 Invictus Gaming vs Team WE — LPL 2026 Split 3 Playoffs Lower Bracket Quarterfinal 1, Bo5 Fearless Draft. Scheduled start `2026-09-06 13:00 UTC+7`.
 
-- No map has been entered under this lock.
-- No IG-WE Position exists yet.
-- Airtable is untouched for this series.
+- G1 has four prospective canonical shadow selections locked below.
+- Airtable remains untouched until G1 map end.
 - Same-series results must not alter frozen `K/P0/TK0`; prior maps may affect only Fearless champion availability.
 
 ## Frozen benchmark
@@ -33,23 +32,7 @@ Roster adjustments used in the frozen benchmark:
 
 ## Pre-series market board — context only / excluded from benchmark
 
-User supplied a readable sportsbook screenshot pre-G1. The book UI labels the event `LPL 2026 Grand Finals`; independent schedule sources identify this IG-WE match as the LPL Split 3 Playoffs Lower Bracket Quarterfinal 1, so the active series scope remains unchanged.
-
-Captured series markets:
-- Series winner: `IG 1.475 / WE 2.616`;
-- IG -1.5 maps: `IG 2.057 / WE +1.5 1.712`;
-- WE -1.5 maps: `IG +1.5 1.254 / WE 3.663`;
-- IG -2.5 maps: `IG 4.158 / WE +2.5 1.205`;
-- WE -2.5 maps: `IG +2.5 1.070 / WE 7.376`;
-- Total maps 3.5: `Over 1.329 / Under 3.145`;
-- Total maps 4.5: `Over 2.496 / Under 1.493`;
-- Exact score: `IG 3-0 3.889 / WE 3-0 6.406 / IG 3-1 3.677 / WE 3-1 5.555 / IG 3-2 3.952 / WE 3-2 5.050`.
-
-Governance:
-- these series prices are NOT inputs to `B/K/P0/TK0`;
-- no series-market Position is created;
-- do not use pre-series odds as causal evidence for any map pick;
-- map positions still require final draft + exact Game market board.
+User supplied a readable sportsbook screenshot pre-G1. Captured series winner `IG 1.475 / WE 2.616` plus map handicaps/totals/exact score. These prices are context only and are NOT inputs to `B/K/P0/TK0`; no series-market Position was created.
 
 ## Q3 overlay
 
@@ -60,6 +43,55 @@ Governance:
 - TK: persist both `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` and `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY` numeric branches.
 - Four-family validation remains `0.25u shadow each / 0u actual`.
 - Airtable writes only at map end; no retroactive positions.
+
+## Game 1 — canonical prospective lock
+
+Final draft supplied by user:
+- IG blue: `Gwen / Nocturne / Syndra / Yunara / Lulu`
+- WE red: `K'Sante / Lee Sin / Ryze / Caitlyn / Bard`
+
+Exact board:
+- ML: `IG 1.693 / WE 2.085`
+- Duration 32: `Over 2.030 / Under 1.731`
+- Total Kills 31.5: `Over 2.120 / Under 1.671`
+- Total Kills 30.5: `Over 1.895 / Under 1.843`
+- Total Kills 29.5: `Over 1.714 / Under 2.054`
+- KH: `IG -4.5 1.861 / WE +4.5 1.859`
+
+Canonical four-family card:
+1. `IG ML @1.693`
+2. `IG -4.5 kills @1.861`
+3. `Over 32 minutes @2.030`
+4. `Over 31.5 total kills @2.120`
+
+Shadow stake: `0.25u each / 1.00u total`; actual exposure `0u`.
+
+### G1 price-blind analytical lock
+
+Moneyline:
+- frozen P0 `IG 60% / WE 40%`;
+- full DIM diagnostic `D=+1 IG`, but `D_PROBABILITY_CONTRIBUTION=0`;
+- IG independent mechanisms: (1) Nocturne darkness/target isolation into Syndra burst and Yunara follow-up; (2) Gwen side/late scaling plus Yunara-Lulu front-to-back insurance;
+- WE counter-routes: Lee/Bard pick creation, Caitlyn range/siege, Ryze side-map pressure;
+- selected ML model `IG 60%`; book implied `59.07%`; edge `+0.93pp`; `FORCED_NEG_EV=NO`.
+
+Kill Handicap:
+- `<5` portfolio rule requires alignment with selected IG ML;
+- signed IG-minus-WE margin bins before price: `WE 10+ 12% / WE 5-9 11% / WE 1-4 17% / IG 1-4 18% / IG 5-9 20% / IG 10+ 22%`;
+- IG -4.5 raw cover `42%`; cap not binding; implied `53.73%`; edge `-11.73pp`; `FORCED_NEG_EV=YES`.
+
+Duration:
+- draft-only `V=0 / Q=+1 / H=+1 / T=+1`;
+- `F=33.75m` from 31.0m anchor;
+- Over 32 model `62.25%`; implied `49.26%`; edge `+12.99pp`;
+- `OVER_BRANCH_WARNING=YES`; `DURATION_OVER_SHADOW_ONLY=YES`; `FORCED_NEG_EV=NO` for validation bookkeeping.
+
+Total Kills:
+- frozen `TK0=33.40`;
+- pre-price bins: `<20 7% / 20-24 11% / 25-29 20% / 30-34 24% / 35-39 20% / 40+ 18%`;
+- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION=18%`;
+- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY=12%`;
+- Over 31.5 model approximately `52.5%`; implied `47.17%`; edge approximately `+5.33pp`; `FORCED_NEG_EV=NO`.
 
 ## Cohort entering series
 
@@ -74,6 +106,6 @@ Next preferred structural checkpoint: `120 positions / 30 per family`.
 
 ## Next action
 
-**READY FOR GAME 1 FINAL DRAFT + EXACT BOARD.**
+**AWAIT G1 FINAL RESULT.**
 
-Do not create any Position from schedule/market alone.
+Do not write Airtable until map end.
