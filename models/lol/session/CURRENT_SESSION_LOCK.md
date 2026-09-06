@@ -5,7 +5,7 @@
 **Scope:** `LEC 2026 Summer Playoffs — Upper Bracket Final — G2 Esports vs Karmine Corp — Bo5 Fearless Draft`  
 **Scheduled start:** `2026-09-06 15:00 UTC / 22:00 UTC+7`  
 **Activation:** `2026-09-06 18:59 UTC+7`  
-**Current target:** `Game 3 prospectively locked; G1/G2/G3 unsettled`  
+**Current target:** `Game 4 prospectively locked; G1/G2/G3/G4 unsettled in canonical ledger pending explicit map-end evidence`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Forced-Choice Validation Block Q3`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / 0.25u EACH / 0u ACTUAL`
@@ -52,61 +52,76 @@ Draft G2 blue: Camille / Jarvan IV / Galio / Yunara / Lulu.
 KC: Olaf / Lee Sin / Orianna / Lucian / Milio.
 
 Card:
-- KC ML `@1.838` — model 55%, implied 54.41%, edge `+0.59pp`
-- KC +3.5 `@1.832` — raw/model 69%, implied 54.59%, edge `+14.41pp`
-- Under 33 `@1.748` — `V0/Q0/H0/T-1`, `F=30.25m`, model 69.25%, implied 57.21%, edge `+12.04pp`
-- Over 27.5 `@1.897` — model 65%, implied 52.71%, edge `+12.29pp`
+- KC ML `@1.838`
+- KC +3.5 `@1.832`
+- Under 33 `@1.748`
+- Over 27.5 `@1.897`
 
-Diagnostic draft: `D=+1 G2`, probability contribution `0pp`.
+Diagnostic: `D=+1 G2`, probability contribution `0pp`.
 
 ### Game 3 — UNSETTLED
-**Source-truth board label:** sportsbook screenshot says `Ván 3` / Game 3. User text said `game 4`; because the board itself is explicitly Game 3 and no separate G4 board was supplied, this position is canonically recorded as **Game 3** unless the user later corrects the source.
+Source-truth board was labeled Game 3.  
+Draft KC blue: Zaahen / Cho'Gath / Syndra / Xayah / Rakan.  
+G2: Ambessa / Qiyana / Ryze / Varus / Alistar.
+
+Card:
+- KC ML `@1.965`
+- KC +3.5 `@1.822`
+- Under 33 `@1.711`
+- Over 27.5 `@1.792`
+
+Diagnostic: `D=+1 KC`, probability contribution `0pp`.
+
+### Game 4 — UNSETTLED
+At the supplied G4 board, the series display shows G2 leading `2-1`; this same-series score is context only and does not update the frozen benchmark.
 
 Draft:
-- KC blue: Zaahen / Cho'Gath / Syndra / Xayah / Rakan
-- G2: Ambessa / Qiyana / Ryze / Varus / Alistar
+- KC blue: Gnar / Trundle / Sylas / Ashe / Seraphine
+- G2: Rumble / Maokai / Tristana / Miss Fortune / Nautilus
 
 Board:
-- ML G2 `1.782` / KC `1.965`
-- Duration 33: Over `2.058` / Under `1.711`
-- Total Kills 27.5: Over `1.792` / Under `1.933`
-- KH G2 -3.5 `1.917` / KC +3.5 `1.822`
+- ML G2 `2.016` / KC `1.741`
+- Duration 32: Over `1.833` / Under `1.906`
+- Total Kills 27.5: Over `1.919` / Under `1.804`
+- KH G2 +3.5 `1.817` / KC -3.5 `1.924`
 
 Canonical card:
-- KC ML `@1.965` — model 55%, implied 50.89%, edge `+4.11pp`, `FORCED_NEG_EV=NO`
-- KC +3.5 `@1.822` — raw/model 70% (Q3 cap binds), implied 54.88%, edge `+15.12pp`
-- Under 33 `@1.711` — `V0/Q0/H0/T-1`, `F=30.25m`, model 69.25%, implied 58.45%, edge `+10.80pp`
-- Over 27.5 `@1.792` — model 65%, implied 55.80%, edge `+9.20pp`
+- KC ML `@1.741` — model 55%, implied 57.44%, edge `-2.44pp`, `FORCED_NEG_EV=YES`; actual execution `PASS`
+- KC -3.5 `@1.924` — raw cover 38%, implied 51.98%, edge `-13.98pp`, `FORCED_NEG_EV=YES`; selected because abs handicap `<5` must align with selected ML
+- Under 32 `@1.906` — `V0/Q0/H0/T-1`, `F=30.25m`, model 62.25%, implied 52.47%, edge `+9.78pp`
+- Over 27.5 `@1.919` — model 66%, implied 52.11%, edge `+13.89pp`
 
-Full DIM diagnostic: `D=+1 KC`, probability contribution `0pp`.
-- KC mechanism 1: Rakan/Cho'Gath/Syndra force-and-catch into Xayah cleanup.
-- KC mechanism 2: Xayah self-peel plus Cho'Gath/Syndra control gives a separate anti-dive front-to-back route into G2's Ambessa/Qiyana/Alistar access.
-- G2 mechanism 1: Alistar/Qiyana/Ambessa hard force with Varus/Ryze follow-through.
-- G2 mechanism 2: Ryze side/collapse pressure with Varus ranged setup.
-- Adversarial pass: G2 has real engage and side routes, but KC retains two independent surviving advantages: anti-dive/front-to-back resilience and pick/control layering. `AFP=PASS_KC_EDGE`.
+Full DIM diagnostic: `D=+1 G2`, probability contribution `0pp`.
+- G2 PKM: Maokai/Nautilus hard force layers Rumble Equalizer and Miss Fortune Bullet Time, with Tristana cleanup.
+- G2 SKM: Nautilus/Maokai pick pressure can create a separate numbers advantage and immediate objective/structure conversion through Tristana.
+- KC PKM: Ashe arrow / Trundle pillar / Seraphine control into Sylas follow-up with Gnar flank pressure.
+- KC SKM: Ashe-Seraphine kite/disengage plus Trundle disruption can blunt G2's first engage and enable front-to-back recovery.
+- Adversarial pass: KC has real anti-engage and stolen-ultimate counterplay, but G2 retains two independent advantages — layered unavoidable initiation and high AoE conversion after first contact. `AFP=PASS_G2_EDGE`.
 
 KH signed-margin bins from KC perspective:
-- KC by 10+: `19%`
-- KC by 4-9: `19%`
-- KC by 1-3: `17%`
-- G2 by 1-3: `15%`
-- G2 by 4-9: `17%`
-- G2 by 10+: `13%`
+- KC 10+ `16%`
+- KC 4-9 `22%`
+- KC 1-3 `17%`
+- G2 1-3 `16%`
+- G2 4-9 `17%`
+- G2 10+ `12%`
 
-Thus KC +3.5 raw cover = `70%`; Q3 reporting cap = `70%`. Explicit 10+ clean-cascade tails: KC `19%`, G2 `13%`.
+KC -3.5 raw cover = `38%`. Explicit 10+ tails: KC `16%`, G2 `12%`.
 
-TK pre-price bins:
+Duration pre-price: `V0/Q0/H0/T-1`, `F=30.25m`.
+
+TK bins:
 - `<20`: `6%`
-- `20-24`: `11%`
+- `20-24`: `10%`
 - `25-27`: `18%`
-- `28-32`: `29%`
+- `28-32`: `28%`
 - `33-37`: `22%`
-- `38+`: `14%`
+- `38+`: `16%`
 
-Over 27.5 model = `65%`.
+Over 27.5 model = `66%`.
 Suppression scenario masses:
-- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION = 15%`
-- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY = 8%`
+- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION = 16%`
+- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY = 5%`
 
 ## Settled cohort entering G2-KC
 
@@ -127,4 +142,4 @@ Preferred structural checkpoint: `120 settled positions / 30 per family`.
 
 ## Next action
 
-**AWAIT EXPLICIT G1/G2/G3 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
+**AWAIT EXPLICIT G1/G2/G3/G4 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
