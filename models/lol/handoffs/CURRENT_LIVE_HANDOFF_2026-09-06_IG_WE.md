@@ -1,6 +1,6 @@
 # Current Live Handoff — Invictus Gaming vs Team WE — 2026-09-06
 
-**Status:** ACTIVE SERIES HANDOFF — G1/G2/G3 SETTLED / IG LEADS 2-1 / READY FOR G4  
+**Status:** ACTIVE SERIES HANDOFF — G1/G2/G3 SETTLED / IG LEADS 2-1 / G4 LOCKED / AWAIT FINAL  
 **Session lock:** `LOL-2026-09-06-V13-LPL-IG-WE-DRAFTONLY-FORCEDCHOICE-Q3-1227-UTC7`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / Q3 / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -16,103 +16,88 @@
 - same-series results never update `K/P0/TK0`; prior maps may affect only Fearless champion availability.
 
 Q3 overlay remains active:
-- ML: `D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`; P0-only forced-choice probability; ML floor 1.45 is execution eligibility only.
-- KH: signed margin bins, explicit 10+ tails, 70% cap; `<5` must align with ML; `±5.5+` may be independent.
-- Duration: v1.1 formula / 31.0m anchor unchanged; Over has `OVER_BRANCH_WARNING=YES` and `DURATION_OVER_SHADOW_ONLY=YES`.
+- ML: `D_DIAGNOSTIC_ONLY=YES`; `D_PROBABILITY_CONTRIBUTION=0`; forced-choice ML probability uses P0 only; ML floor 1.45 is execution eligibility only.
+- KH: signed margin bins, explicit 10+ tails, 70% cap; `<5` aligns with ML; `±5.5+` may be independent.
+- Duration: v1.1 formula / 31.0m anchor unchanged; Over is warning + shadow-only; Under remains eligible under normal comparison.
 - TK: persist separate `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION` and `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY` branches.
 - Airtable writes only at map end; no retroactive positions; actual exposure `0u`.
 
-## Game 1 — SETTLED
+## Settled series state through G3
 
-Draft:
-- IG blue: `Gwen / Nocturne / Syndra / Yunara / Lulu`
-- WE red: `K'Sante / Lee Sin / Ryze / Caitlyn / Bard`
+### Game 1 — SETTLED
+- IG win `18-7`, `23:27`, total kills `25`.
+- Card: IG ML W `+0.17325u`; IG -4.5 W `+0.21525u`; Over 32 L `-0.25u`; Over 31.5 kills L `-0.25u`.
+- G1: `2-2 / -0.11150u`.
 
-Canonical card:
-1. `IG ML @1.693`
-2. `IG -4.5 kills @1.861`
-3. `Over 32 minutes @2.030`
-4. `Over 31.5 total kills @2.120`
+### Game 2 — SETTLED
+- WE win `16-7`, `31:30`, total kills `23`.
+- Card: IG ML L `-0.25u`; WE +5.5 W `+0.24025u`; Under 31 L `-0.25u`; Over 30.5 kills L `-0.25u`.
+- G2: `1-3 / -0.50975u`.
 
-Final user evidence:
-- **IG win**
-- kills `18-7`
-- duration `23:27`
-- total kills `25`
-
-Settlement:
-- IG ML — WIN `+0.17325u`
-- IG -4.5 — WIN `+0.21525u`
-- Over 32 — LOSS `-0.25000u`
-- Over 31.5 kills — LOSS `-0.25000u`
-- **G1: 2-2 / -0.11150u**
-
-Audit note: very fast one-sided close realized the Q3 fast-close / return-kill-suppression branch. Airtable map + four positions written.
-
-## Game 2 — SETTLED
-
-Draft:
-- WE blue: `Galio / Wukong / Akali / Lucian / Milio`
-- IG red: `Rumble / Naafiri / Orianna / Xayah / Rakan`
-
-Canonical card:
-1. `IG ML @1.598`
-2. `WE +5.5 kills @1.961`
-3. `Under 31 minutes @1.797`
-4. `Over 30.5 total kills @1.771`
-
-Final user evidence:
-- **WE win**
-- kills `16-7`
-- duration `31:30`
-- total kills `23`
-
-Settlement:
-- IG ML — LOSS `-0.25000u`
-- WE +5.5 — WIN `+0.24025u`
-- Under 31 — LOSS `-0.25000u`
-- Over 30.5 kills — LOSS `-0.25000u`
-- **G2: 1-3 / -0.50975u**
-
-Audit note: forced-negative IG ML lost; Under missed by 0:30; TK Over missed with only 23 kills, consistent with low-contact / suppressed fight-frequency risk. Airtable map + four positions written.
-
-## Game 3 — SETTLED
-
-Draft:
-- WE blue: `Jayce / Maokai / Corki / Ashe / Camille`
-- IG red: `Yorick / Trundle / Twisted Fate / Jhin / Seraphine`
-
-Canonical card:
-1. `IG ML @1.653`
-2. `WE +5.5 kills @1.820`
-3. `Over 31 minutes @1.763`
-4. `Over 29.5 total kills @1.708`
-
-Final user evidence:
-- **IG win**
-- kills `WE 22 - 18 IG`
-- duration `33:42`
-- total kills `40`
-
-Settlement:
-- IG ML — WIN `+0.16325u`
-- WE +5.5 — WIN `+0.20500u`
-- Over 31 — WIN `+0.19075u`
-- Over 29.5 kills — WIN `+0.17700u`
-- **G3: 4-0 / +0.73600u**
-
-Important settlement nuance: IG won the map despite WE leading kills 22-18, so WE +5.5 also covered. Airtable map + four positions written.
-
-## Series / Q3 block after G3
+### Game 3 — SETTLED
+- IG win despite WE leading kills `22-18`, duration `33:42`, total kills `40`.
+- Card: IG ML W `+0.16325u`; WE +5.5 W `+0.20500u`; Over 31 W `+0.19075u`; Over 29.5 kills W `+0.17700u`.
+- G3: `4-0 / +0.73600u`.
 
 Series score: **IG 2-1 WE**.
+IG-WE tracked block through G3: `7W-5L / +0.11475u`.
 
-IG-WE tracked block:
-- `7W-5L / +0.11475u`
-- shadow stake `3.00u`
-- actual exposure `0u`
+## Game 4 — canonical prospective lock
 
-Cohort after G3:
+Final draft supplied by user:
+- IG blue: `Kled / Qiyana / Viktor / Kalista / Alistar`
+- WE red: `Olaf / Pantheon / Annie / Sivir / Karma`
+
+Exact board:
+- ML: `IG 1.616 / WE 2.215`
+- Duration 32: `Over 2.086 / Under 1.692`
+- Total Kills 31.5: `Over 1.929 / Under 1.812`
+- KH: `IG -4.5 1.864 / WE +4.5 1.855`
+
+Canonical four-family card:
+1. `IG ML @1.616`
+2. `IG -4.5 kills @1.864`
+3. `Under 32 minutes @1.692`
+4. `Over 31.5 total kills @1.929`
+
+Shadow stake: `0.25u each / 1.00u total`; actual exposure `0u`.
+
+### G4 price-blind analytical lock
+
+Moneyline:
+- frozen P0 `IG 60% / WE 40%`;
+- diagnostic DIM `D=+1 IG`, but `D_PROBABILITY_CONTRIBUTION=0`;
+- IG primary mechanism: Kled/Alistar force first contact into Qiyana terrain burst with Viktor/Kalista cleanup;
+- IG secondary mechanism: Kalista objective tempo plus Kled side pressure gives Qiyana/Viktor favorable compulsory-fight geometry;
+- WE primary counter-route: Pantheon/Annie point-click start into Olaf access and Sivir follow-up, amplified by Karma speed/shields;
+- WE secondary route: Sivir/Karma wave control plus Pantheon cross-map punish if IG splits setup poorly;
+- adversarial pass: IG retains at least two independent mechanisms, but WE's direct point-click access keeps the draft from being a large edge;
+- IG model `60%`; implied `61.88%`; edge `-1.88pp`;
+- WE model `40%`; implied `45.15%`; edge `-5.15pp`;
+- forced-choice selects the less-negative eligible side `IG`; `FORCED_NEG_EV=YES`; any actual/non-shadow layer would PASS.
+
+Kill Handicap:
+- line is `<5`, therefore selected KH team must align with selected IG ML;
+- signed IG-minus-WE margin bins before price: `WE 10+ 13% / WE 5-9 11% / WE 1-4 16% / IG 1-4 17% / IG 5-9 20% / IG 10+ 23%`;
+- IG -4.5 raw cover `43%`; cap not binding;
+- implied `53.65%`; edge `-10.65pp`; `FORCED_NEG_EV=YES`.
+
+Duration:
+- draft-only `V=+1 / Q=0 / H=+1 / T=-1`;
+- `F=29.75m` from 31.0m anchor;
+- Under 32 model `65.75%`; implied `59.10%`; edge `+6.65pp`;
+- selected branch is Under, so `OVER_BRANCH_WARNING=NO`; `DURATION_OVER_SHADOW_ONLY` not applicable;
+- `FORCED_NEG_EV=NO` for validation bookkeeping.
+
+Total Kills:
+- frozen `TK0=33.40`;
+- pre-price bins: `<20 4% / 20-24 8% / 25-29 14% / 30-34 25% / 35-39 24% / 40+ 25%`;
+- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION=17%`;
+- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY=5%`;
+- Over 31.5 model approximately `64%`; implied `51.84%`; edge approximately `+12.16pp`; `FORCED_NEG_EV=NO`.
+
+## Cohort entering G4
+
 - `92 positions / 23 per family / 23 maps`
 - overall `46W-46L / -1.38275u`
 - ML `7-16 / -2.35500u`
@@ -124,6 +109,6 @@ Next preferred structural checkpoint remains `120 positions / 30 per family`.
 
 ## Next action
 
-**READY FOR GAME 4 FINAL DRAFT + EXACT BOARD.**
+**AWAIT G4 FINAL RESULT.**
 
-No G4 Position exists yet.
+Do not write Airtable until map end.
