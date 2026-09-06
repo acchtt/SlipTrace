@@ -5,7 +5,7 @@
 **Scope:** `LEC 2026 Summer Playoffs — Upper Bracket Final — G2 Esports vs Karmine Corp — Bo5 Fearless Draft`  
 **Scheduled start:** `2026-09-06 15:00 UTC / 22:00 UTC+7`  
 **Activation:** `2026-09-06 18:59 UTC+7`  
-**Current target:** `Game 2 prospectively locked; G1/G2 unsettled`  
+**Current target:** `Game 3 prospectively locked; G1/G2/G3 unsettled`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Forced-Choice Validation Block Q3`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / 0.25u EACH / 0u ACTUAL`
@@ -51,12 +51,6 @@ Diagnostic: `D=+1 KC`, probability contribution `0pp`.
 Draft G2 blue: Camille / Jarvan IV / Galio / Yunara / Lulu.  
 KC: Olaf / Lee Sin / Orianna / Lucian / Milio.
 
-Board:
-- G2 ML `1.901` / KC ML `1.838`
-- Duration 33: O `2.007` / U `1.748`
-- TK 27.5: O `1.897` / U `1.825`
-- KH G2 -3.5 `1.906` / KC +3.5 `1.832`
-
 Card:
 - KC ML `@1.838` — model 55%, implied 54.41%, edge `+0.59pp`
 - KC +3.5 `@1.832` — raw/model 69%, implied 54.59%, edge `+14.41pp`
@@ -65,10 +59,54 @@ Card:
 
 Diagnostic draft: `D=+1 G2`, probability contribution `0pp`.
 
-KH signed-margin bins from G2 perspective: G2 10+ `13%`, G2 4-9 `18%`, G2 1-3 `14%`, KC 1-3 `15%`, KC 4-9 `19%`, KC 10+ `21%`.
+### Game 3 — UNSETTLED
+**Source-truth board label:** sportsbook screenshot says `Ván 3` / Game 3. User text said `game 4`; because the board itself is explicitly Game 3 and no separate G4 board was supplied, this position is canonically recorded as **Game 3** unless the user later corrects the source.
 
-TK bins: `<20 8% / 20-24 11% / 25-27 16% / 28-32 27% / 33-37 21% / 38+ 17%`.  
-Fast-close suppression `17%`; low-contact extended-game branch `8%`.
+Draft:
+- KC blue: Zaahen / Cho'Gath / Syndra / Xayah / Rakan
+- G2: Ambessa / Qiyana / Ryze / Varus / Alistar
+
+Board:
+- ML G2 `1.782` / KC `1.965`
+- Duration 33: Over `2.058` / Under `1.711`
+- Total Kills 27.5: Over `1.792` / Under `1.933`
+- KH G2 -3.5 `1.917` / KC +3.5 `1.822`
+
+Canonical card:
+- KC ML `@1.965` — model 55%, implied 50.89%, edge `+4.11pp`, `FORCED_NEG_EV=NO`
+- KC +3.5 `@1.822` — raw/model 70% (Q3 cap binds), implied 54.88%, edge `+15.12pp`
+- Under 33 `@1.711` — `V0/Q0/H0/T-1`, `F=30.25m`, model 69.25%, implied 58.45%, edge `+10.80pp`
+- Over 27.5 `@1.792` — model 65%, implied 55.80%, edge `+9.20pp`
+
+Full DIM diagnostic: `D=+1 KC`, probability contribution `0pp`.
+- KC mechanism 1: Rakan/Cho'Gath/Syndra force-and-catch into Xayah cleanup.
+- KC mechanism 2: Xayah self-peel plus Cho'Gath/Syndra control gives a separate anti-dive front-to-back route into G2's Ambessa/Qiyana/Alistar access.
+- G2 mechanism 1: Alistar/Qiyana/Ambessa hard force with Varus/Ryze follow-through.
+- G2 mechanism 2: Ryze side/collapse pressure with Varus ranged setup.
+- Adversarial pass: G2 has real engage and side routes, but KC retains two independent surviving advantages: anti-dive/front-to-back resilience and pick/control layering. `AFP=PASS_KC_EDGE`.
+
+KH signed-margin bins from KC perspective:
+- KC by 10+: `19%`
+- KC by 4-9: `19%`
+- KC by 1-3: `17%`
+- G2 by 1-3: `15%`
+- G2 by 4-9: `17%`
+- G2 by 10+: `13%`
+
+Thus KC +3.5 raw cover = `70%`; Q3 reporting cap = `70%`. Explicit 10+ clean-cascade tails: KC `19%`, G2 `13%`.
+
+TK pre-price bins:
+- `<20`: `6%`
+- `20-24`: `11%`
+- `25-27`: `18%`
+- `28-32`: `29%`
+- `33-37`: `22%`
+- `38+`: `14%`
+
+Over 27.5 model = `65%`.
+Suppression scenario masses:
+- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION = 15%`
+- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY = 8%`
 
 ## Settled cohort entering G2-KC
 
@@ -89,4 +127,4 @@ Preferred structural checkpoint: `120 settled positions / 30 per family`.
 
 ## Next action
 
-**AWAIT EXPLICIT G1/G2 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
+**AWAIT EXPLICIT G1/G2/G3 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
