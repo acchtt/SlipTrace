@@ -1,6 +1,6 @@
 # Current Live Handoff — Invictus Gaming vs Team WE — 2026-09-06
 
-**Status:** ACTIVE SERIES HANDOFF — G1 UNSETTLED / G2 LOCKED / AWAIT FINALS  
+**Status:** ACTIVE SERIES HANDOFF — G1/G2 UNSETTLED / G3 LOCKED / AWAIT FINALS  
 **Session lock:** `LOL-2026-09-06-V13-LPL-IG-WE-DRAFTONLY-FORCEDCHOICE-Q3-1227-UTC7`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / Q3 / 0.25u SHADOW PER FAMILY / 0u ACTUAL`
@@ -9,9 +9,9 @@
 
 Invictus Gaming vs Team WE — LPL 2026 Split 3 Playoffs Lower Bracket Quarterfinal 1, Bo5 Fearless Draft.
 
-- G1 has four prospective canonical shadow selections locked below but remains unsettled because the user has not supplied explicit final-result evidence.
-- G2 now has four prospective canonical shadow selections locked below.
-- Do not infer or retroactively settle G1 merely because a G2 board now exists.
+- G1 and G2 each have four prospective canonical shadow selections locked but remain unsettled because the user has not supplied explicit final-result evidence.
+- G3 now has four prospective canonical shadow selections locked below.
+- Do not infer or retroactively settle earlier maps merely because later-game boards exist.
 - Airtable remains untouched until explicit map-end evidence is supplied for each map.
 - Same-series results must not alter frozen `K/P0/TK0`; prior maps may affect only Fearless champion availability.
 
@@ -116,30 +116,74 @@ Shadow stake: `0.25u each / 1.00u total`; actual exposure `0u`.
 Moneyline:
 - frozen P0 `IG 60% / WE 40%`;
 - full DIM diagnostic `D=+1 IG`, but `D_PROBABILITY_CONTRIBUTION=0`;
-- IG mechanisms: Rumble/Rakan/Naafiri initiation layered into Orianna AoE with Xayah self-peel; secondary route is Rumble zone control plus Xayah/Orianna front-to-back around objectives;
-- WE mechanisms: Galio/Wukong/Akali multi-angle dive with Lucian follow-up; secondary route is Wukong/Galio first contact enabling Akali side access;
 - IG model `60%`; implied `62.58%`; edge `-2.58pp`;
 - WE model `40%`; implied `44.44%`; edge `-4.44pp`;
-- forced-choice selects less-negative eligible side `IG`; `FORCED_NEG_EV=YES`; any actual/non-shadow layer would PASS because neither side has positive edge.
+- forced-choice selects less-negative eligible side `IG`; `FORCED_NEG_EV=YES`; any actual/non-shadow layer would PASS.
 
 Kill Handicap:
 - line is wide (`±5.5`), so independent side selection is allowed;
 - signed IG-minus-WE margin bins before price: `WE 10+ 11% / WE 5-9 12% / WE 1-4 17% / IG 1-4 18% / IG 5-9 21% / IG 10+ 21%`;
-- WE +5.5 raw cover approximately `62%`; cap not binding;
-- implied `50.99%`; edge approximately `+11.01pp`; `FORCED_NEG_EV=NO`.
+- WE +5.5 raw cover approximately `62%`; implied `50.99%`; edge approximately `+11.01pp`; `FORCED_NEG_EV=NO`.
 
 Duration:
-- draft-only `V=+1 / Q=0 / H=0 / T=0`;
-- `F=29.50m` from 31.0m anchor;
+- draft-only `V=+1 / Q=0 / H=0 / T=0`; `F=29.50m`;
 - Under 31 model `60.50%`; implied `55.65%`; edge `+4.85pp`;
-- `OVER_BRANCH_WARNING=NO`; `FORCED_NEG_EV=NO` for validation bookkeeping (below canonical live execution edge gate, but this is the forced-choice shadow overlay).
+- `OVER_BRANCH_WARNING=NO`; `FORCED_NEG_EV=NO` for validation bookkeeping.
 
 Total Kills:
-- frozen `TK0=33.40`;
 - pre-price bins: `<20 5% / 20-24 9% / 25-30 22% / 31-35 28% / 36-40 20% / 41+ 16%`;
 - `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION=18%`;
 - `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY=8%`;
 - Over 30.5 model `64%`; implied `56.47%`; edge `+7.53pp`; `FORCED_NEG_EV=NO`.
+
+## Game 3 — canonical prospective lock
+
+Final draft supplied by user:
+- WE blue: `Jayce / Maokai / Corki / Ashe / Camille`
+- IG red: `Yorick / Trundle / Twisted Fate / Jhin / Seraphine`
+
+Exact board:
+- ML: `IG 1.653 / WE 2.149`
+- Duration 31: `Over 1.763 / Under 1.988`
+- Total Kills 29.5: `Over 1.708 / Under 2.063`
+- KH: `IG -5.5 1.902 / WE +5.5 1.820`
+
+Canonical four-family card:
+1. `IG ML @1.653`
+2. `WE +5.5 kills @1.820`
+3. `Over 31 minutes @1.763`
+4. `Over 29.5 total kills @1.708`
+
+Shadow stake: `0.25u each / 1.00u total`; actual exposure `0u`.
+
+### G3 price-blind analytical lock
+
+Moneyline:
+- frozen P0 `IG 60% / WE 40%`;
+- full DIM diagnostic `D=0 / EVEN-STYLE-DEPENDENT`, with IG split/catch routes offset by WE poke/engage range control;
+- `D_PROBABILITY_CONTRIBUTION=0`;
+- IG model `60%`; implied `60.50%`; edge `-0.50pp`;
+- WE model `40%`; implied `46.53%`; edge `-6.53pp`;
+- forced-choice selects less-negative eligible side `IG`; `FORCED_NEG_EV=YES`; any actual/non-shadow layer would PASS.
+
+Kill Handicap:
+- line is wide (`±5.5`), so independent side selection is allowed;
+- signed IG-minus-WE margin bins before price: `WE 10+ 10% / WE 5-9 13% / WE 1-4 18% / IG 1-4 17% / IG 5-9 21% / IG 10+ 21%`;
+- WE +5.5 raw cover `63%`; Q3 cap not binding;
+- implied `54.95%`; edge `+8.05pp`; `FORCED_NEG_EV=NO`.
+
+Duration:
+- draft-only `V=0 / Q=+1 / H=+1 / T=-1`;
+- `F=32.25m` from 31.0m anchor;
+- Over 31 model `58.75%`; implied `56.72%`; edge `+2.03pp`;
+- `OVER_BRANCH_WARNING=YES`; `DURATION_OVER_SHADOW_ONLY=YES`; `FORCED_NEG_EV=NO` for validation bookkeeping.
+
+Total Kills:
+- frozen `TK0=33.40`;
+- pre-price bins: `<20 8% / 20-24 11% / 25-29 19% / 30-34 25% / 35-39 20% / 40+ 17%`;
+- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION=16%`;
+- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY=15%`;
+- Over 29.5 model `62%`; implied `58.55%`; edge `+3.45pp`; `FORCED_NEG_EV=NO`.
 
 ## Cohort entering series
 
@@ -154,6 +198,6 @@ Next preferred structural checkpoint: `120 positions / 30 per family`.
 
 ## Next action
 
-**AWAIT EXPLICIT G1/G2 FINAL RESULT EVIDENCE.**
+**AWAIT EXPLICIT G1/G2/G3 FINAL RESULT EVIDENCE.**
 
 Do not write Airtable until each map end is explicitly supplied.
