@@ -1,6 +1,6 @@
 # Current Live Handoff — G2 Esports vs Karmine Corp — 2026-09-06
 
-**Status:** ACTIVE SERIES HANDOFF — G1/G2 PROSPECTIVELY LOCKED / UNSETTLED  
+**Status:** ACTIVE SERIES HANDOFF — G1/G2/G3 PROSPECTIVELY LOCKED / UNSETTLED  
 **Session lock:** `LOL-2026-09-06-V13-LEC-G2-KC-DRAFTONLY-FORCEDCHOICE-Q3-1859-UTC7`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / Q3 / 0.25u EACH / 0u ACTUAL`
@@ -59,48 +59,61 @@ Canonical card:
 - `Over 27.5 @1.897`
 - `0.25u each / 1.00u total shadow / 0u actual`
 
-G2 draft mechanisms:
-1. Jarvan IV + Galio primary force with Camille/Yunara follow-through.
-2. Camille side assignment with Galio reinforcement creates a separate collapse route.
+Full DIM diagnostic: `D=+1 G2`; probability contribution `0pp`.
 
-KC draft mechanisms:
-1. Lee Sin/Orianna access into Lucian burst while Olaf disrupts the back line.
-2. Lucian-Milio ranged pressure with Olaf side/front pressure.
+KH signed margin bins from G2 perspective: G2 10+ `13%`, G2 4-9 `18%`, G2 1-3 `14%`, KC 1-3 `15%`, KC 4-9 `19%`, KC 10+ `21%`. KC +3.5 raw cover `69%`.
 
-Full DIM diagnostic resolves `D=+1 G2`; this is diagnostic only and adds `0pp` to ML probability.
+Duration pre-price: `V0/Q0/H0/T-1`, `F=30.25m`, Under 33 model `69.25%`.
 
-G2 signed margin bins used for KH, expressed from G2 perspective:
-- G2 by 10+: `13%`
-- G2 by 4-9: `18%`
-- G2 by 1-3: `14%`
-- KC by 1-3: `15%`
-- KC by 4-9: `19%`
-- KC by 10+: `21%`
+TK bins: `<20 8% / 20-24 11% / 25-27 16% / 28-32 27% / 33-37 21% / 38+ 17%`; Over 27.5 model `65%`. Fast-close suppression `17%`; low-contact extended game `8%`.
 
-Thus KC +3.5 raw cover = `69%`, below the Q3 70% cap. Explicit 10+ clean-cascade tails: G2 `13%`, KC `21%`.
+## Game 3 — PROSPECTIVE / UNSETTLED
 
-Duration pre-price state:
-`V=0 / Q=0 / H=0 / T=-1 / F=30.25m`.
-At line 33: Under model `69.25%`.
+**Source-truth numbering note:** the sportsbook screenshot is explicitly labeled `Ván 3` / Game 3. User text said `game 4`; absent a separate G4 board, this is recorded canonically as **Game 3** unless later corrected.
 
-TK pre-price bins:
-- `<20`: `8%`
-- `20-24`: `11%`
-- `25-27`: `16%`
-- `28-32`: `27%`
-- `33-37`: `21%`
-- `38+`: `17%`
+Draft:
+- KC blue: Zaahen / Cho'Gath / Syndra / Xayah / Rakan
+- G2: Ambessa / Qiyana / Ryze / Varus / Alistar
 
-Over 27.5 model = `65%`.
-Suppression scenario masses persisted separately:
-- `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION = 17%`
-- `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY = 8%`
+Board:
+- ML G2 `1.782` / KC `1.965`
+- Duration 33: Over `2.058` / Under `1.711`
+- Total Kills 27.5: Over `1.792` / Under `1.933`
+- KH G2 -3.5 `1.917` / KC +3.5 `1.822`
 
-Price comparison:
-- KC ML model `55%` vs implied `54.41%` => `+0.59pp`, `FORCED_NEG_EV=NO`
-- KC +3.5 model `69%` vs implied `54.59%` => `+14.41pp`
-- Under 33 model `69.25%` vs implied `57.21%` => `+12.04pp`
-- Over 27.5 model `65%` vs implied `52.71%` => `+12.29pp`
+Canonical card:
+- `KC ML @1.965`
+- `KC +3.5 @1.822`
+- `Under 33 @1.711`
+- `Over 27.5 @1.792`
+- `0.25u each / 1.00u total shadow / 0u actual`
+
+Model/price:
+- KC ML model `55%` vs implied `50.89%` => `+4.11pp`, `FORCED_NEG_EV=NO`
+- KC +3.5 model `70%` vs implied `54.88%` => `+15.12pp`
+- Under 33 model `69.25%` vs implied `58.45%` => `+10.80pp`
+- Over 27.5 model `65%` vs implied `55.80%` => `+9.20pp`
+
+Full DIM diagnostic: `D=+1 KC`, probability contribution `0pp`.
+- KC PKM: Rakan/Cho'Gath/Syndra catch/force into Xayah cleanup.
+- KC SKM: Xayah self-peel plus Cho'Gath/Syndra control gives an anti-dive front-to-back route.
+- G2 PKM: Alistar/Qiyana/Ambessa hard force with Varus/Ryze follow-through.
+- G2 SKM: Ryze side/collapse pressure with Varus ranged setup.
+- Adversarial pass leaves two independent KC advantages alive: anti-dive/front-to-back resilience and layered pick/control. `AFP=PASS_KC_EDGE`.
+
+KH signed margin bins from KC perspective:
+- KC 10+ `19%`
+- KC 4-9 `19%`
+- KC 1-3 `17%`
+- G2 1-3 `15%`
+- G2 4-9 `17%`
+- G2 10+ `13%`
+
+KC +3.5 raw cover = `70%`; Q3 cap binds at `70%`. Explicit 10+ tails: KC `19%`, G2 `13%`.
+
+Duration pre-price: `V0/Q0/H0/T-1`, `F=30.25m`.
+
+TK bins: `<20 6% / 20-24 11% / 25-27 18% / 28-32 29% / 33-37 22% / 38+ 14%`; Over 27.5 model `65%`. Suppression scenarios: fast-close return-kill suppression `15%`; low-contact extended game `8%`.
 
 ## Cohort entering G2-KC
 
@@ -112,8 +125,8 @@ Price comparison:
 - TK `13-11 / +0.13050u`
 - actual exposure `0u`
 
-No G2-KC Airtable write occurs until explicit map-end final evidence. G1 and G2 remain unsettled.
+No G2-KC Airtable write occurs until explicit map-end final evidence. G1/G2/G3 remain unsettled.
 
 ## Next action
 
-**AWAIT EXPLICIT G1/G2 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
+**AWAIT EXPLICIT G1/G2/G3 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
