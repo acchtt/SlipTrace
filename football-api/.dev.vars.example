@@ -1,0 +1,6 @@
+BSD_API_KEY=
+OPENAI_API_KEY=
+APP_TOKEN=
+# At least 32 random characters; this is your private workspace access key.
+# Optional: required for official locks under the model's audit policy.
+AIRTABLE_TOKEN=

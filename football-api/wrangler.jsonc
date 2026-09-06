@@ -1,0 +1,15 @@
+{
+  "name": "sliptrace-football-api",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-01",
+  "vars": {
+    "ALLOWED_ORIGIN": "https://acchtt.github.io",
+    "OPENAI_MODEL": "gpt-5.4-mini"
+  },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "sliptrace-football",
+    "database_id": "REPLACE_WITH_CREATED_D1_DATABASE_ID",
+    "migrations_dir": "migrations"
+  }]
+}
