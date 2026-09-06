@@ -67,6 +67,7 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - All other domestic, continental, and League Cup competitions remain excluded unless explicitly added later.
 - The North American **Leagues Cup** is an explicit named exception and must not be removed by a generic “League Cup” filter.
 - K League is a permanent hard exclusion.
+- **Belgian Pro League / Jupiler Pro League is a permanent hard exclusion.** Do not rank, shortlist, lock, rescue, or live-override Belgian top-flight league matches in the normal model.
 - Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
 - Counterfactual simulations never enter official P/L.
 - Every material decision state is logged to Airtable.
@@ -77,7 +78,7 @@ For daily/upcoming requests:
 
 1. scan the full ICT slate;
 2. retain league fixtures plus the eligible cup exceptions: English domestic cups, DFB-Pokal, and North American Leagues Cup;
-3. remove all other excluded cup competitions and other hard exclusions;
+3. remove all other excluded cup competitions and hard exclusions, including K League and the Belgian Pro League / Jupiler Pro League;
 4. use the **pre-hardening** structural ranking logic;
 5. apply the recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
 6. aggressively shorten to the best few matches worth focusing on;
