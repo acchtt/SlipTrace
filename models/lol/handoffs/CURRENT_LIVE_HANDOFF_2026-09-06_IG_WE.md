@@ -31,6 +31,26 @@ Roster adjustments used in the frozen benchmark:
 - IG current-only due at least three material Split 2 -> Split 3 starter changes;
 - WE normal 70/30 blend with lineup continuity.
 
+## Pre-series market board — context only / excluded from benchmark
+
+User supplied a readable sportsbook screenshot pre-G1. The book UI labels the event `LPL 2026 Grand Finals`; independent schedule sources identify this IG-WE match as the LPL Split 3 Playoffs Lower Bracket Quarterfinal 1, so the active series scope remains unchanged.
+
+Captured series markets:
+- Series winner: `IG 1.475 / WE 2.616`;
+- IG -1.5 maps: `IG 2.057 / WE +1.5 1.712`;
+- WE -1.5 maps: `IG +1.5 1.254 / WE 3.663`;
+- IG -2.5 maps: `IG 4.158 / WE +2.5 1.205`;
+- WE -2.5 maps: `IG +2.5 1.070 / WE 7.376`;
+- Total maps 3.5: `Over 1.329 / Under 3.145`;
+- Total maps 4.5: `Over 2.496 / Under 1.493`;
+- Exact score: `IG 3-0 3.889 / WE 3-0 6.406 / IG 3-1 3.677 / WE 3-1 5.555 / IG 3-2 3.952 / WE 3-2 5.050`.
+
+Governance:
+- these series prices are NOT inputs to `B/K/P0/TK0`;
+- no series-market Position is created;
+- do not use pre-series odds as causal evidence for any map pick;
+- map positions still require final draft + exact Game market board.
+
 ## Q3 overlay
 
 - ML: `D_DIAGNOSTIC_ONLY=YES`, `D_PROBABILITY_CONTRIBUTION=0`; frozen P0 only.
