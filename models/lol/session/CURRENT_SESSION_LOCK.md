@@ -4,110 +4,71 @@
 **Status:** `ACTIVE`  
 **Scope:** `LEC 2026 Summer Playoffs — Upper Bracket Final — G2 Esports vs Karmine Corp — Bo5 Fearless Draft`  
 **Scheduled start:** `2026-09-06 15:00 UTC / 22:00 UTC+7`  
-**Activation:** `2026-09-06 18:59 UTC+7`, before the scheduled series start.  
-**Current target:** `Game 1`  
-**Supersedes as current target only:** `LOL-2026-09-06-V13-LCK-T1-DK-DRAFTONLY-FORCEDCHOICE-Q3-1704-UTC7`; T1-DK G3 is settled and no T1-DK G4 Position existed at the switch.  
+**Activation:** `2026-09-06 18:59 UTC+7`  
+**Current target:** `Game 2 prospectively locked; G1/G2 unsettled`  
 **Authority commit:** `979c955667d63e913cb7eb2ecff915fc1f83920b`  
 **Active analytical model:** `LoL v1.3 — benchmark-aware core + lock-scoped Draft-Only Forced-Choice Validation Block Q3`  
 **Execution:** `POSTDRAFT-ONLY / FOUR-FAMILY SHADOW VALIDATION / 0.25u EACH / 0u ACTUAL`
 
 ## Authority boundary
 
-Canonical `models/lol/CURRENT_MODEL.md` remains unchanged. This lock activates the experimental Q3 forced-choice validation overlay prospectively for G2-KC beginning with Game 1.
+Canonical `models/lol/CURRENT_MODEL.md` remains unchanged. Q3 forced-choice overlay is active prospectively for this series.
 
-No sportsbook price, Sep 5 playoff result, same-series result, or current-map state is used in the frozen benchmark below. Same-series outcomes never update `B/K/P0/TK0`; prior maps may affect only Fearless champion availability.
-
-## Expected current lineups
-
-G2 Esports:
-- BrokenBlade — TOP
-- SkewMond — JUNGLE
-- Caps — MID
-- Hans Sama — ADC
-- Labrov — SUPPORT
-
-Karmine Corp:
-- Canna — TOP
-- Yike — JUNGLE
-- kyeahoo — MID
-- Caliste — ADC
-- Busio — SUPPORT
-
-User-supplied final map roles/draft override saved context if contradictory.
-
-## Fresh frozen pre-series Gol.gg benchmark
-
-Primary current peer set: completed `LEC 2026 Summer Season`; previous comparable split: completed `LEC 2026 Spring Season`.
-
-Roster continuity:
-- G2: `NORMAL70_30`.
-- KC: `NORMAL70_30`.
-
-Target split scores under the active benchmark formula:
-- `B_current(G2)=+0.838442`
-- `B_previous(G2)=+1.099925`
-- `B_raw(G2)=+0.916887`
+Frozen pre-series benchmark:
 - `B(G2)=+1.000135`
-- `B_current(KC)=+1.802032`
-- `B_previous(KC)=+0.766645`
-- `B_raw(KC)=+1.491416`
 - `B(KC)=+1.625030`
-
-Pairwise frozen prior:
 - `GAP(KC-G2)=+0.624895 SD`
 - `KC K=+1 / P0=55%`
 - `G2 K=-1 / P0=45%`
+- `TK0=30.15 kills`
 
-Compact record:
-`TEAM_BENCH[LEAGUE=LEC2026;CURRENT=SUMMER_SEASON;PREVIOUS=SPRING_SEASON;B_CUR_G2=0.838442;B_PREV_G2=1.099925;BLEND_G2=0.916887;B_G2=1.000135;B_CUR_KC=1.802032;B_PREV_KC=0.766645;BLEND_KC=1.491416;B_KC=1.625030;GAP_KC_G2=0.624895;K_KC=+1;K_G2=-1;ROSTER_ADJ_G2=NORMAL70_30;ROSTER_ADJ_KC=NORMAL70_30;PRICE_USED=N;PLAYOFF_RESULT_USED=N;SAME_SERIES_USED=N]`.
+No sportsbook price or same-series result alters `B/K/P0/TK0`; prior maps may affect only Fearless champion availability.
 
-## Frozen Total Kills baseline
+Q3 controls remain:
+- `D_DIAGNOSTIC_ONLY=YES`, `D_PROBABILITY_CONTRIBUTION=0`;
+- ML floor `1.45` is execution eligibility only;
+- KH requires full signed margin bins, explicit 10+ tails, 70% reporting cap; abs handicap `<5` aligns with selected ML;
+- Duration v1.1 formula and 31m anchor unchanged; selected Over is shadow-only;
+- TK persists explicit fast-close suppression and low-contact extended-game branches;
+- exactly one ML/KH/Duration/TK shadow position per fully supplied map; `0.25u each / 0u actual`;
+- Airtable only at map end; no retroactive positions; displayed live state ignored for draft-only prediction.
 
-Current Summer environments:
-- G2: `16.5 kills + 13.0 deaths = 29.5`.
-- KC: `19.1 kills + 11.7 deaths = 30.8`.
+## Prospective positions
 
-`TK0=(29.5+30.8)/2=30.15 kills`.
+### Game 1 — UNSETTLED
+Draft KC blue: Jayce / Vi / Ahri / Caitlyn / Bard.  
+G2: K'Sante / Xin Zhao / Viktor / Ezreal / Karma.
 
-## Q3 validation overlay — ACTIVE
+Card:
+- KC ML `@1.908`
+- KC +3.5 `@1.825`
+- Under 33 `@1.817`
+- Under 27.5 kills `@1.739`
 
-### Moneyline
-- full DIM mandatory and persisted;
-- `D_DIAGNOSTIC_ONLY=YES`;
-- `D_PROBABILITY_CONTRIBUTION=0`;
-- forced-choice ML probability uses frozen `P0` only;
-- `ML_PRICE_FLOOR=1.45` is execution eligibility only and does not transfer probability/edge to the opposite side;
-- a dog above 1.45 may be selected only if it independently wins the model-vs-price comparison;
-- shadow forced-choice bookkeeping may record the less-negative eligible side with `FORCED_NEG_EV=YES` if required;
-- actual/non-shadow execution PASSES if no eligible positive-edge ML exists.
+Diagnostic: `D=+1 KC`, probability contribution `0pp`.
 
-### Kill Handicap
-- full signed margin bins before price;
-- explicit numeric 10+ clean-cascade tails for both sides;
-- `KH_MODEL_PROB_CAP=70%` for reporting;
-- absolute handicap `<5` => selected KH team must align with selected ML team;
-- `±5.5` or wider may be independent.
+### Game 2 — UNSETTLED
+Draft G2 blue: Camille / Jarvan IV / Galio / Yunara / Lulu.  
+KC: Olaf / Lee Sin / Orianna / Lucian / Milio.
 
-### Duration
-- v1.1 formula and `31.0m` neutral anchor unchanged;
-- persist `V/Q/H/T/F` before price;
-- selected Over => `OVER_BRANCH_WARNING=YES` and `DURATION_OVER_SHADOW_ONLY=YES`;
-- Under remains eligible under the normal model-vs-price test.
+Board:
+- G2 ML `1.901` / KC ML `1.838`
+- Duration 33: O `2.007` / U `1.748`
+- TK 27.5: O `1.897` / U `1.825`
+- KH G2 -3.5 `1.906` / KC +3.5 `1.832`
 
-### Total Kills
-- frozen `TK0=30.15`;
-- persist full pre-price bins;
-- separately persist numeric:
-  1. `ONE_SIDED_FAST_CLOSE / RETURN_KILL_SUPPRESSION`;
-  2. `LOW_CONTACT_EXTENDED_GAME / LOW_FIGHT_FREQUENCY`.
+Card:
+- KC ML `@1.838` — model 55%, implied 54.41%, edge `+0.59pp`
+- KC +3.5 `@1.832` — raw/model 69%, implied 54.59%, edge `+14.41pp`
+- Under 33 `@1.748` — `V0/Q0/H0/T-1`, `F=30.25m`, model 69.25%, implied 57.21%, edge `+12.04pp`
+- Over 27.5 `@1.897` — model 65%, implied 52.71%, edge `+12.29pp`
 
-Execution controls:
-- exactly one canonical ML/KH/Duration/TK shadow selection per fully supplied map under validation;
-- `0.25u shadow each / 1.00u total / 0u actual`;
-- final draft + exact board supplied before material state change is standing authorization for the four shadow positions;
-- Airtable writes only at map end;
-- no retroactive positions;
-- displayed live state is ignored for draft-only prediction.
+Diagnostic draft: `D=+1 G2`, probability contribution `0pp`.
+
+KH signed-margin bins from G2 perspective: G2 10+ `13%`, G2 4-9 `18%`, G2 1-3 `14%`, KC 1-3 `15%`, KC 4-9 `19%`, KC 10+ `21%`.
+
+TK bins: `<20 8% / 20-24 11% / 25-27 16% / 28-32 27% / 33-37 21% / 38+ 17%`.  
+Fast-close suppression `17%`; low-contact extended-game branch `8%`.
 
 ## Settled cohort entering G2-KC
 
@@ -123,13 +84,9 @@ Preferred structural checkpoint: `120 settled positions / 30 per family`.
 
 ## Historical outstanding state
 
-- T1-DK G3 is settled; T1 leads 2-1. No T1-DK G4 Position existed when this lock became current.
-- IG-WE G4 remains prospectively locked but unsettled in its own historical handoff; this current-target switch does not cancel it.
-
-## Activation state
-
-No G2-KC Position exists yet. Airtable is untouched for G2-KC.
+- T1-DK G3 settled; no T1-DK G4 position existed at switch.
+- IG-WE G4 remains prospectively locked but unsettled in its historical handoff.
 
 ## Next action
 
-**AWAIT G2-KC GAME 1 FINAL DRAFT + EXACT BOARD.**
+**AWAIT EXPLICIT G1/G2 FINAL EVIDENCE OR NEXT FULLY SUPPLIED MAP DRAFT + BOARD.**
