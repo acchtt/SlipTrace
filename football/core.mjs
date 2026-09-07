@@ -1,109 +1,55 @@
-export const GRADES = ['A1', 'A2', 'B+', 'B', 'PASS'];
-export function requireValue(condition, message) { if (!condition) throw new Error(message); }
-export const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-const plain = value => String(value ?? '').replace(/\*\*|__/g, '').trim();
-
-export function kickoffISO(value, date) {
-  value = plain(value).replace(/\s*(ICT|UTC\+7)\s*/ig, '').trim();
-  if (/^\d{1,2}:\d{2}$/.test(value)) {
-    requireValue(/^\d{4}-\d{2}-\d{2}$/.test(date || ''), 'Choose the ICT slate date for time-only kickoffs.');
-    value = `${date}T${value.padStart(5, '0')}:00+07:00`;
+export const API='https://sports.bzzoiro.com/api/v2/';
+export const SOCKET='wss://sports.bzzoiro.com/live/football/';
+export const LIVE=new Set(['live','inprogress','1st_half','2nd_half','halftime','extratime','extra_time','penalties']);
+export const DONE=new Set(['finished','aet','FT','ft']);
+export function rows(data){const list=Array.isArray(data)?data:data?.events??data?.results??data?.data;if(!Array.isArray(list))throw new Error('BSD returned an unexpected match list.');return list;}
+export const number=value=>Number.isFinite(value)&&typeof value==='number'?value:null;
+export function normalize(e){
+  if(!Number.isSafeInteger(e.id)||e.id<=0)throw new Error('BSD returned an invalid match ID.');
+  return {...e,home_team:typeof e.home_team==='string'?e.home_team:'Home team',away_team:typeof e.away_team==='string'?e.away_team:'Away team',home_score:number(e.home_score),away_score:number(e.away_score),current_minute:number(e.current_minute)};
+}
+export function isLive(e){return LIVE.has(e.status)&&!DONE.has(e.period);}
+export function statusText(e){
+  if(e.checking)return 'CHECK';
+  if(e.status==='penalties'||e.period==='penalties')return 'PEN';
+  if(DONE.has(e.status)||DONE.has(e.period))return e.status==='aet'?'AET':'FT';
+  if(e.status==='halftime'||e.period==='halftime')return 'HT';
+  if(['postponed','cancelled','delayed','unresolved'].includes(e.status))return ({postponed:'POSTP.',cancelled:'CANC.',delayed:'DELAY',unresolved:'TBC'})[e.status];
+  if(isLive(e))return e.displayMinute || (e.current_minute===null||e.current_minute===undefined?'LIVE':`${e.current_minute}′`);
+  return Number.isFinite(Date.parse(e.event_date))?new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Ho_Chi_Minh',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(e.event_date)):'TBC';
+}
+export function score(e){
+  if(e.streamScore)return e.streamScore;
+  return ['home','away'].map(side=>e[`${side}_score`]===null||e[`${side}_score`]===undefined?'—':e[`${side}_score`]+(number(e.extra_time_score?.[side])??0));
+}
+export function mergeRest(previous,next,requestStarted,time=Date.now()){
+  const e=normalize(next);
+  if(previous?.pushAt && (previous.pushAt>requestStarted || (time-previous.pushAt<35000 && (!Date.parse(e.last_updated)||Date.parse(e.last_updated)<previous.pushAt)))){
+    return {...e,status:previous.status,period:previous.period,current_minute:previous.current_minute,displayMinute:previous.displayMinute,streamScore:previous.streamScore,pushAt:previous.pushAt,actionTs:previous.actionTs,checking:false};
   }
-  requireValue(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})$/.test(value) && Number.isFinite(Date.parse(value)), 'Kickoff must be HH:MM (ICT) or an ISO timestamp with timezone.');
-  return new Date(value).toISOString();
+  return {...e,checking:false};
 }
-
-export function validateMatches(matches, date) {
-  requireValue(Array.isArray(matches) && matches.length > 0 && matches.length <= 30, 'Import between 1 and 30 ranked matches.');
-  const ranks = new Set(), identities = new Set();
-  return matches.map((item, index) => {
-    const rank = Number(item.rank), home = plain(item.home), away = plain(item.away);
-    const grade = plain(item.grade).toUpperCase().replace('B / PASS', 'B');
-    requireValue(Number.isInteger(rank) && rank > 0 && !ranks.has(rank), `Row ${index + 1}: use a unique positive rank.`);
-    requireValue(home && away && normalize(home) !== normalize(away), `Row ${index + 1}: provide both different team names.`);
-    requireValue(GRADES.includes(grade), `Row ${index + 1}: frozen grade must be A1, A2, B+, B or PASS.`);
-    const kickoff = kickoffISO(item.kickoff, date);
-    const key = `${normalize(home)}|${normalize(away)}|${kickoff}`;
-    requireValue(!identities.has(key), `Row ${index + 1}: duplicate match.`);
-    ranks.add(rank); identities.add(key);
-    const match = {rank, home, away, kickoff, grade, competition: plain(item.competition), structuralType: plain(item.structuralType), evidence: plain(item.evidence)};
-    requireValue(Object.values(match).every(v => typeof v !== 'string' || v.length <= 15000), 'A match field is too long.');
-    return match;
-  }).sort((a, b) => a.rank - b.rank);
-}
-
-export function parseBoard(text, date) {
-  text = text.trim().replace(/^```(?:json|markdown)?\s*\n?/, '').replace(/\n?```$/, '');
-  if (text.startsWith('{') || text.startsWith('[')) {
-    const json = JSON.parse(text);
-    return validateMatches(Array.isArray(json) ? json : json.matches, json.date || date);
+export function applyFrame(previous,frame,time=Date.now()){
+  const f=frame.type==='subscribed'?frame.event:frame;
+  if(!f||!previous||Number(frame.event_id??f.event_id)!==previous.id)return previous;
+  if(frame.type==='action'){
+    if(!['goal','deleted_event'].includes(frame.action_type)||!Number.isFinite(frame.ts)||frame.ts<(previous.actionTs||0))return previous;
+    if(number(frame.score?.home)===null||number(frame.score?.away)===null)return previous;
+    return {...previous,streamScore:[frame.score.home,frame.score.away],actionTs:frame.ts,pushAt:time};
   }
-  const lines = text.split(/\r?\n/).filter(line => line.includes('|') || line.includes('\t'));
-  requireValue(lines.length >= 2, 'Paste a Markdown table, a tab-separated table, or a JSON match list.');
-  const split = row => row.includes('\t') ? row.split('\t').map(plain) : row.trim().replace(/^\||\|$/g, '').split(/(?<!\\)\|/).map(v => plain(v).replace(/\\\|/g, '|'));
-  const headers = split(lines[0]).map(normalize);
-  const aliases = {rank:['rank','#','stt'], kickoff:['ict kickoff','kickoff ict','kickoff','time','gio ict'], match:['match','fixture','tran dau'], home:['home','home team'], away:['away','away team'], grade:['frozen grade','grade','band'], competition:['competition','league','giai dau'], structuralType:['structural type','type'], evidence:['evidence','profile','notes','structural evidence']};
-  const column = key => headers.findIndex(h => aliases[key].map(normalize).includes(h));
-  requireValue(column('rank') >= 0 && column('kickoff') >= 0 && column('grade') >= 0, 'The table needs Rank, ICT kickoff and Frozen grade columns.');
-  return validateMatches(lines.slice(1).filter(line => !/^\s*\|?\s*:?-{2,}/.test(line)).map(line => {
-    const cells = split(line), get = key => cells[column(key)] || '';
-    let home = get('home'), away = get('away');
-    if (!home || !away) {
-      const parts = get('match').split(/\s+(?:vs\.?|v\.?|–|—|-)\s+/i);
-      requireValue(parts.length === 2, 'Separate teams with “vs”, or use Home and Away columns.');
-      [home, away] = parts;
-    }
-    return {rank:get('rank'), kickoff:get('kickoff'), home, away, grade:get('grade'), competition:get('competition'), structuralType:get('structuralType'), evidence:get('evidence')};
-  }), date);
+  if(!['event','subscribed'].includes(frame.type)||!f.score)return previous;
+  const s=[number(f.score.home),number(f.score.away)];if(s.includes(null))return previous;
+  const status=f.time?.status;
+  return {...previous,streamScore:s,pushAt:time,checking:false,status:status==='live'?'inprogress':status||previous.status,displayMinute:f.time?.display||undefined,current_minute:number(f.time?.minute)??previous.current_minute,period:({1:'1st_half',2:'2nd_half',3:'extra_time',4:'extra_time',5:'penalties'})[f.time?.period]||previous.period};
 }
-
-export function competitionExclusion(league) {
-  const name = normalize(league?.name), country = normalize(league?.country);
-  if (!name) return 'Competition identity is unavailable.';
-  if (/\bk league\b|\bkleague\b/.test(name)) return 'K League is excluded by the active model.';
-  if (name === 'leagues cup') return null;
-  if (/\bdfb pokal\b/.test(name) && /germany|deutschland/.test(country)) return null;
-  if (country === 'england' && /\bcup\b|\bfa trophy\b|\bfa vase\b/.test(name)) return null;
-  if (/\bcup\b|\bpokal\b|\bcopa\b|\bcoupe\b|champions league|europa league|conference league|libertadores|sudamericana|nations league/.test(name)) return 'This cup or international competition is outside the active model scope.';
-  return null;
+export function ictDate(time=Date.now()){return Number.isFinite(time)?new Date(time+7*3600000).toISOString().slice(0,10):'';}
+export function dayWindow(date){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Choose a valid date.');
+  const start=new Date(`${date}T00:00:00+07:00`).getTime();if(!Number.isFinite(start))throw new Error('Choose a valid date.');
+  return {date_from:new Date(start).toISOString(),date_to:new Date(start+86400000-1).toISOString()};
 }
-
-export function validateOffers(offers) {
-  requireValue(Array.isArray(offers) && offers.length > 0 && offers.length <= 20, 'Review between 1 and 20 visible Over lines.');
-  const lines = new Set();
-  return offers.map(o => {
-    requireValue(typeof o.line === 'number' && o.line > 0 && o.line <= 15 && Number.isInteger(o.line * 4), 'Asian totals must use quarter-goal increments.');
-    requireValue(typeof o.odds === 'number' && o.odds > 1 && o.odds <= 100, 'Use decimal odds greater than 1.');
-    requireValue(!lines.has(o.line), 'Keep one reviewed price for each line.'); lines.add(o.line);
-    return {line:o.line, odds:o.odds};
-  });
+export function visibleEvents(events,{tab='live',query='',pins=new Set(),date=ictDate()}={}){
+  const q=query.toLowerCase().trim();
+  return events.filter(e=>(tab==='live'?(isLive(e)||e.checking):tab==='pinned'?pins.has(e.id):ictDate(Date.parse(e.event_date))===date&&(tab!=='finished'||DONE.has(e.status)||DONE.has(e.period)))&&(!q||`${e.home_team} ${e.away_team} ${e.league_name||''}`.toLowerCase().includes(q))).sort((a,b)=>Number(pins.has(b.id))-Number(pins.has(a.id))||String(a.league_name||a.league_id||'').localeCompare(String(b.league_name||b.league_id||''))||Date.parse(a.event_date)-Date.parse(b.event_date)||a.id-b.id);
 }
-
-export function settlement(line, goals) {
-  const quarter = Math.round(line * 4);
-  const halves = quarter % 2 ? [line - .25, line + .25] : [line, line];
-  const result = halves.reduce((n, x) => n + Math.sign(goals - x), 0) / 2;
-  return ({1:'WIN', '0.5':'HALF WIN', 0:'PUSH', '-0.5':'HALF LOSS', '-1':'LOSS'})[String(result)];
-}
-export function protection(line) {
-  const boundary = line % 1 === .75 ? Math.ceil(line) : Math.floor(line);
-  return `${Math.floor(line) + (line % 1 === .75 ? 2 : 1)}+ goals: full win; exactly ${boundary}: ${settlement(line, boundary).toLowerCase()}. 90 minutes + stoppage time.`;
-}
-
-export function profileFromEvents(events, teamId, cutoff) {
-  const rows = events.filter(e => ['finished','aet','penalties'].includes(e.status) && Date.parse(e.event_date) < Date.parse(cutoff) && Number.isInteger(e.home_score) && Number.isInteger(e.away_score) && [e.home_team_id,e.away_team_id].includes(teamId)).sort((a,b) => Date.parse(b.event_date)-Date.parse(a.event_date));
-  const summarize = list => list.length ? {
-    matches:list.length, gf:list.reduce((s,e)=>s+(e.home_team_id===teamId?e.home_score:e.away_score),0), ga:list.reduce((s,e)=>s+(e.home_team_id===teamId?e.away_score:e.home_score),0),
-    scored2:list.filter(e=>(e.home_team_id===teamId?e.home_score:e.away_score)>=2).length, scored3:list.filter(e=>(e.home_team_id===teamId?e.home_score:e.away_score)>=3).length,
-    conceded2:list.filter(e=>(e.home_team_id===teamId?e.away_score:e.home_score)>=2).length, conceded3:list.filter(e=>(e.home_team_id===teamId?e.away_score:e.home_score)>=3).length,
-    cleanSheets:list.filter(e=>(e.home_team_id===teamId?e.away_score:e.home_score)===0).length
-  } : null;
-  return {sample:summarize(rows), recent10:summarize(rows.slice(0,10)), home:summarize(rows.filter(e=>e.home_team_id===teamId)), away:summarize(rows.filter(e=>e.away_team_id===teamId)), recentEventIds:rows.slice(0,3).map(e=>e.id)};
-}
-
-export function confirmedXI(lineups, event) {
-  return lineups?.lineup_status === 'confirmed' && ['home','away'].every(side => {
-    const team = lineups.lineups?.[side];
-    return team?.team_id === event[`${side}_team_id`] && team.players?.length === 11 && team.players.every(p=>typeof p.name === 'string' && p.name.trim()) && new Set(team.players.map(p=>p.id ?? normalize(p.name))).size === 11;
-  });
-}
+export function subscriptions(events,pins,selected){return events.filter(e=>isLive(e)&&e.live_websocket).sort((a,b)=>Number(b.id===selected)-Number(a.id===selected)||Number(pins.has(b.id))-Number(pins.has(a.id))||a.id-b.id).slice(0,10).map(e=>e.id);}

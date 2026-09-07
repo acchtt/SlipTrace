@@ -6,7 +6,7 @@ SlipTrace is a local-first betting journal designed for GitHub Pages. It tracks 
 
 ## Features
 
-- [Football workspace](football/): import ranked ChatGPT tables, confirm BSD lineups, review odds images and apply the pinned football model. Live API features require the private backend described in [football-api/README.md](football-api/README.md).
+- [Touchline live football](football/): lightweight BSD live scores, optional WebSocket push, fixtures, results, lineups and statistics. Connect your BSD key directly; no AI service or backend deployment is required. See [setup and speed details](football/README.md).
 
 - Parses pasted Vietnamese and English betslip text.
 - Reads betslip screenshots with browser-based OCR.
