@@ -1,483 +1,283 @@
 # MODEL RULES — FOOTBALL v0.2.48-SHADOW
 
 **Status:** SHADOW CANDIDATE  
-**Parent:** Football v0.2.47-R  
+**Parent:** Football v0.2.47 — clean original  
 **Operating profile:** **SURGICAL GATE HARDENING / SHADOW ONLY**  
-**Scope:** Football Asian-total Over selection, prematch ranking, XI rerank, live validation, and settlement review.
+**Scope:** Apply the clean v0.2.47 base together with the current prematch operating layer in `CURRENT_MODEL.md`, then apply only the shadow deltas below.
 
-This file is a duplicated candidate derived from `MODEL_RULES_FOOTBALL_V0.2.47-R.md`.
+This candidate is rebased from the clean historical `MODEL_RULES_FOOTBALL_V0.2.47.md`. The archived `v0.2.47-R` variant is not a parent and must not be imported into this candidate.
 
-**The parent v0.2.47-R file remains unchanged and remains the official source of truth until this shadow candidate is explicitly promoted.**
+**Official decisions remain on v0.2.47. This file is counterfactual/shadow only until explicitly promoted.**
 
-> **Regime safeguard:** This candidate does **not** reactivate the old Sep 1, 2026 hardened framework. Only the explicit v0.2.48 shadow patches below are active inside this candidate. No other old hardened gates, memories, audits, or historical commits may be silently imported.
+> **Regime safeguard:** This candidate does not reactivate the old Sep 1, 2026 hardened framework. Only the explicit v0.2.48 shadow patches below are added to the clean v0.2.47 base plus the current operating layer.
 
 ---
 
 ## 0. v0.2.48 shadow patch delta
 
-This candidate introduces four surgical changes while preserving the v0.2.47 core:
+### Patch 1 — Protection cannot rescue structure
 
-1. **Protection cannot rescue structure.** Asian-total protection is chosen only after the match has independently cleared the structural, profile, chance-quality, XI, and failure-resistance gates.
-2. **Recent-total / leakage evidence is capped.** Extreme recent GF/GA or total sequences may identify a candidate, but cannot by themselves complete an A1/A2 LOCK case. When they are a major reason for promotion, at least one independent repeatable-chance confirmation is required.
-3. **Carrier-led totals of O2.75+ require a stronger secondary-route test.** A merely acceptable secondary route is not enough unless the carrier has a proven independent 3+ route with sufficiently low resistance.
-4. **Final / knockout compression is an explicit soft downgrade.** It is never an automatic veto, but the possibility of score-protection and tactical compression must be incorporated into failure resistance before locking a high total.
+Asian-total protection is considered only after the match independently clears the structural, team-profile, chance-quality, confirmed-XI, and failure-resistance tests in the current operating layer.
 
-Operationally, the Belgian Pro League / Jupiler Pro League is also treated as a permanent hard exclusion in this shadow candidate.
+A protected O2.75/O3/O3.25 expression may improve settlement geometry, but it may not turn a B+/borderline thesis into a LOCK.
 
----
+If the core argument is effectively “the structure is marginal, but the protected line makes it acceptable,” the v0.2.48 shadow verdict is `NO BET — HOLD`.
 
-## 1. Decision hierarchy
+### Patch 2 — Recent-total / leakage evidence is capped
 
-Evaluate in this order:
+Extreme recent GF/GA, repeated multi-goal concessions, or high-total sequences may identify a candidate, but cannot by themselves complete an A1/A2 LOCK case.
 
-1. Structural quality
-2. Carrier ceiling
-3. Failure-mode resistance
-4. Team scoring/conceding profile
-5. Chance-quality support
-6. Confirmed XI
-7. Goal burden / settlement protection
-8. Price
+When recent totals/leakage are a major reason for promotion, require at least one independent repeatable-chance confirmation, such as multi-match big-chance production, central/box access, SOT quality, xG/xGOT trend support, or stable multi-goal frequencies not dominated by one anomalous game.
 
-**Price is a tiebreaker only.** Never promote a structurally weaker match because the odds are larger.
+If that confirmation is unavailable, reduce LOCK confidence rather than assuming the scoreline sequence will repeat.
 
-### v0.2.48 structural-clearance rule
+### Patch 3 — Carrier-led O2.75+ burden hardening
 
-A match must clear steps 1-6 on its own merits before goal-burden protection is considered.
+For a carrier-led total of O2.75 or higher, require either:
 
-A protected line such as O2.75 or O3 may improve the **expression** of a valid thesis, but it may not convert a B+/borderline thesis into an official LOCK.
+- a **strong secondary route** with genuinely repeatable independent scoring evidence; or
+- an **elite self-funding carrier** with proven independent 3+ capacity, repeatable high-quality creation, sufficient attacking depth, and no strong suppression resistance in the matchup.
 
-If the internal reasoning is effectively:
+“Strong carrier + acceptable secondary route” is not enough by itself for an O2.75+ shadow LOCK.
 
-> “the structure is marginal, but O2.75 protects us at exactly three,”
+After a meaningful XI downgrade, re-test this requirement. If neither condition survives, shadow verdict = `NO BET — HOLD`.
 
-then the correct v0.2.48 outcome is **HOLD**, unless the structural case independently clears without reference to that protection.
+### Patch 4 — Final / knockout compression soft downgrade
 
----
+Finals and knockout states where score protection can reduce risk-taking receive an explicit soft failure-resistance downgrade.
 
-## 2. Structural ranking bands
+This is not an automatic veto. Increase concern when one side has demonstrated strong suppression, both teams can tolerate controlled phases, or a level score can produce tactical compression. Require stronger independent contribution evidence before a carrier-led O2.75+ shadow LOCK.
 
-### A1
-Use for either:
+### Failure-mode resolution requirement
 
-- a genuine Two-Sided Tier A environment; or
-- a proven Elite Carrier with a credible independent 3+ route, sustained attacking depth, repeatable creation, and acceptable opponent resistance.
-
-### A2
-Use for:
-
-- a strong A- two-sided environment; or
-- a strong carrier with one meaningful weakness.
-
-### B+
-Use when the environment is good but materially dependent on opponent contribution, rotation, game state, uncertain finishing/creation quality, or another identifiable failure mode.
-
-### B / PASS
-Use when the route is fragile, opponent resistance is too strong, cohesion is poor, chance quality is weak, or the required goal burden is excessive.
-
-Two-Sided A and Elite Carrier A are peers. Do not automatically rank a balanced two-sided game above a superior one-team carrier.
-
-There is **no active reserve/youth A1 hard cap**. Development-team matches may still be graded from their actual structural profile, with sample quality treated as a normal confidence consideration rather than a mandatory ceiling.
-
-### v0.2.48 carrier-led burden rule
-
-When the selected market burden is **O2.75 or higher**, a carrier-led candidate must satisfy one of the following before LOCK:
-
-- **Strong secondary route:** the opponent has a genuinely repeatable independent scoring route supported by more than isolated recent goals; or
-- **Elite self-funding carrier:** the carrier has a proven independent 3+ route, repeatable high-quality creation, sufficient attacking depth, and the opponent does not present strong suppression resistance.
-
-A description such as **“strong carrier + acceptable secondary route”** is not, by itself, sufficient for an O2.75+ LOCK.
-
-If the secondary route is merely plausible/acceptable and the carrier is not clearly capable of self-funding three goals against the specific resistance profile, cap the match at **B+ / HOLD**.
-
-This rule does not prohibit carrier Overs. It raises the proof requirement when the selected total asks the thesis to produce at least three goals.
-
----
-
-## 3. Elite Carrier ceiling
-
-A favourite can rank near the top by itself when it has:
-
-- credible independent 3+ scoring capacity;
-- sustained attacking depth;
-- repeatable chance creation;
-- acceptable opponent resistance;
-- a matchup that permits repeated access to dangerous areas.
-
-Opponent scoring is a bonus, not a requirement.
-
-Before penalizing weak underdog attack, ask whether the primary carrier can plausibly fund the target total alone.
-
-Do not confuse badge/reputation with carrier capacity. The route must be supported by demonstrated production and matchup evidence.
-
-### v0.2.48 elite-carrier confirmation
-
-For O2.75+ carrier-led LOCKs, “can plausibly score three” is not enough. The carrier must have evidence of **repeatable** 3+ capacity against relevant resistance, not just one or two recent blowouts.
-
-Useful confirmation includes:
-
-- stable 3+ scoring frequency over a meaningful sample;
-- repeated big-chance / box-access dominance;
-- attacking depth that survives normal substitution/rotation variance;
-- opponent concession patterns that arise from repeatable structural weakness rather than isolated collapses.
-
-If this proof is missing, the candidate may remain A2 for ranking purposes but should be **HOLD** at O2.75+ unless the secondary route is independently strong.
-
----
-
-## 4. Mandatory team-profile gate
-
-For every serious candidate, evaluate as available:
-
-- season goals for and goals against;
-- relevant recent GF/GA;
-- scoring 2+ frequency;
-- scoring 3+ frequency when carrier status matters;
-- conceding 2+ frequency;
-- conceding 3+ frequency when relevant;
-- clean-sheet / one-goal suppression tendency;
-- home and away splits;
-- competition-specific profile where useful;
-- post-lead behavior where reliable evidence exists.
-
-Explicitly compare:
-
-1. primary carrier GF vs opponent GA;
-2. opponent GF vs primary carrier GA;
-3. carrier multi-goal frequency vs opponent multi-goal concession frequency;
-4. one-team carrier route vs two-sided contribution route.
-
-League stereotype, competition reputation, or team names cannot override the actual profile.
-
-Short samples are allowed as evidence but should be identified as such. They do **not** impose an automatic grade cap.
-
-### Recent-total / leakage confirmation rule — v0.2.48 hardened
-
-When a candidate's apparent A1/A2 case is driven heavily by an extreme recent sequence of high totals, repeated multi-goal concessions, or leakage-heavy scorelines:
-
-- use those scorelines to **identify** the candidate, not to complete the proof;
-- before top-board promotion or an official LOCK, require supporting evidence that every scoring route needed by the thesis is generating repeatable good chances;
-- at least **one independent repeatable-chance confirmation** must be present when recent totals/leakage are a major promotion reason;
-- valid confirmation can include multi-match big-chance production, central/box access, box touches, SOT quality, xG/xGOT trends, or stable multi-goal frequencies that are not dependent on one anomalous match;
-- a second recent high-scoring result is **not** independent confirmation if it comes from the same leakage/finishing pattern;
-- if the secondary route is necessary for the selected burden but its chance creation is weak or unproven, reduce priority or HOLD;
-- choosing a more protected line does **not** satisfy the missing structural/chance-quality proof;
-- if detailed chance-quality data is unavailable and the A1/A2 promotion depends materially on recent-total/leakage evidence, reduce confidence one level for LOCK purposes rather than assuming the sequence will repeat.
-
-For reserve/youth/development-team matches, volatile recent totals may still support ranking, but they require the same independent confirmation before A1/A2 LOCK promotion.
-
-This is a **narrow v0.2.48 calibration**, not a return to the Sep 1 hardened framework. It does not create a general youth/reserve hard cap, short-sample hard cap, O3.75 gate, A2 burden prohibition, XI route-creation prohibition, or H2H override.
-
----
-
-## 5. Chance quality
-
-GF/GA and scorelines are the core profile; chance quality is a major supporting layer.
-
-Where data exists, inspect:
-
-- big chances;
-- central / penalty-area access;
-- opposition-box touches;
-- cutbacks, one-v-ones, free headers, and other clear chance structures;
-- shots on target quality rather than count alone;
-- xG / xGOT as supporting evidence;
-- repeated high-value sequences over time.
-
-Raw shots, possession, corners, or one recent high-scoring result should not be mistaken for elite chance quality.
-
-### xG rule
-
-xG/xGOT are modifiers, not the primary engine and not automatic vetoes. The thesis should remain intelligible if xG is removed.
-
-### v0.2.48 confirmation standard
-
-When chance-quality evidence is being used to confirm a scoreline-driven candidate, prefer **repeatability** over one-match peak numbers.
-
-One explosive xG or big-chance match can support the case, but should not by itself certify a route that otherwise appears weak.
-
----
-
-## 6. Confirmed-XI rerank
-
-Confirmed XI is the first legitimate rerank gate after the structural freeze.
-
-Check:
-
-- creators;
-- finishers;
-- defensive absences;
-- formation and role changes;
-- starters vs bench;
-- attacking depth;
-- rotation;
-- cohesion;
-- likely substitution quality.
-
-Normal XI promotion is capped at one structural band unless a genuine role/shape change clearly removes the original failure mode.
-
-Heavy rotation and poor cohesion are active penalties, especially in cups and congested schedules.
-
-Recognizable attacking names, new starters, or opponent defensive absences **can** materially improve the scoring route when the overall XI and matchup make that plausible. There is no active hard prohibition against XI creating or strengthening a route; judge it in context.
-
-### v0.2.48 XI downgrade discipline
-
-If a carrier-led O2.75+ candidate suffers a meaningful XI downgrade to its primary carrier or to the secondary route needed for contribution, do not preserve the LOCK merely because the original PRE grade was A2/A1.
-
-Re-test the v0.2.48 carrier-led burden rule after XI. If neither a strong secondary route nor an elite self-funding carrier remains, downgrade to **HOLD**.
-
----
-
-## 7. Failure-mode resistance
-
-Before a final selection, state how the Over thesis can fail.
-
-Common failure modes include:
-
-- carrier reaches 2-0 and materially slows;
-- opponent has almost no independent scoring route;
-- favourite has sterile possession without central/box access;
-- a team is forced to chase but still creates poor-quality chances;
-- heavy rotation reduces cohesion;
-- opponent can suppress central access;
-- an early lead reduces urgency;
-- thesis relies excessively on late goals;
-- dead-rubber or qualification incentives allow game management.
-
-A structurally attractive match can remain HOLD if the failure mode is too strong.
-
-Historical H2H can be used normally as supporting or warning evidence. It is neither a mandatory veto nor subject to a special de-weighting rule.
-
-### v0.2.48 failure-mode acknowledgement rule
-
-If the pre-bet analysis names a failure mode that is both **highly plausible and sufficient on its own to kill the selected line**, the match must explicitly demonstrate why that failure branch is still outweighed by the surviving scoring routes.
-
-Do not simply state the failure mode and then LOCK without resolving it.
-
-### Final / knockout compression — soft downgrade
-
-In finals and knockout states where score protection can materially reduce tempo or risk-taking:
-
-- treat tactical compression as a **soft resistance modifier**, not an automatic veto;
-- increase concern when one side has already shown strong suppression, both teams can accept long controlled phases, or the match can become risk-averse while level;
-- require stronger independent contribution evidence before promoting a carrier-led O2.75+ total;
-- do not automatically downgrade an obviously elite two-sided environment solely because it is a final.
-
----
-
-## 8. Goal burden and protected Asian totals
-
-Choose the Asian total only after structure, profile, chance quality, and XI.
-
-Settlement protection matters:
-
-- **O2.75:** exactly 3 = half win
-- **O3:** exactly 3 = push
-- **O3.25:** exactly 3 = half loss; 4+ = full win
-- **O3.5:** 4+ = full win
-- **O3.75:** exactly 4 = half win
-- **O4:** exactly 4 = push
-
-Do not stretch to a higher total merely for a small price increase.
-
-Preferred principle:
-
-**Strong structure + sensible protection > slightly higher odds at an unnecessarily stretched line.**
-
-There is **no active A2 O3.5+ prohibition** and **no active O3.75 hard gate**. Higher totals remain eligible when the structural grade, carrier/two-sided route, XI, failure modes, and price collectively justify them.
-
-### v0.2.48 no-rescue rule
-
-Protection may improve settlement geometry only **after** the match has cleared.
-
-- O2.75 half-win protection at exactly three does not make a weak secondary route acceptable.
-- O3 push protection at exactly three does not validate a carrier that is unlikely to reach three without help.
-- O3.25 half-loss protection at exactly three does not justify asking a borderline match for four goals.
-
-If lowering the line is the main argument for turning HOLD into LOCK, re-check structure. If the structural thesis still depends materially on uncertain contribution, weak chance-quality confirmation, or a fragile carrier route, remain **HOLD**.
-
----
-
-## 9. Verdict semantics / auto-lock
-
-Final affirmative selection syntax:
-
-`OFFICIAL LOCK — <line> @ <odds>`
-
-Equivalent affirmative final wording that clearly selects a bet is also treated as an official lock.
-
-The user does not need to separately say “lock”.
-
-Non-bet syntax:
-
-- `NO BET — HOLD`
-- `PASS`
-
-A conditional future threshold is not an official lock until the shown/current market actually meets the condition and the state is reassessed.
-
-Never rewrite a verdict after the result.
+If the analysis itself names a highly plausible failure mode that would independently kill the selected total, the shadow model must explicitly show why surviving scoring routes outweigh that branch. Merely naming the failure mode and locking anyway is insufficient.
 
 ### Shadow accounting
 
-While this file remains SHADOW, its verdicts must be labelled clearly as shadow/counterfactual and must not replace v0.2.47-R official accounting unless the user explicitly promotes this candidate to active status.
+Every v0.2.48 verdict must remain clearly labelled SHADOW / COUNTERFACTUAL and must not enter official P/L until this candidate is explicitly promoted.
 
 ---
 
-## 10. Live validation
+# Inherited clean base — Football v0.2.47
 
-Normal live analysis validates or invalidates the frozen prematch thesis.
+The following clean source is inherited without modification.
 
-It cannot create or promote an unfrozen match after kickoff merely because the live score or market looks attractive.
+# Football Model Rules v0.2.47 — High-Scoring Halftime Compression and Goal-Saturation Gate
 
-### Manual live override
+**Effective date:** 2026-08-16  
+**Status:** Active audit rule  
+**Supersedes:** v0.2.46 only where post-halftime Over continuation was allowed to lean too heavily on first-half openness or generic second-half pressure persistence. All synchronization, reset, style, settlement, provider-quality, no-retrofit, v0.2.44 timeliness, v0.2.45 fallback and v0.2.46 pre-goal inflection controls remain active.
 
-If the user explicitly activates an already-live match, label it `MANUAL LIVE OVERRIDE` and keep it separate from the normal prematch-led workflow.
+## Trigger and process correction
 
-### Just-kicked grace
+The Racing Santander vs Villarreal live audit exposed a recurring failure mode already noticed by the user in other matches, including an Ajax example:
 
-A just-started match may still receive a normal prematch lock when all are true:
+`HIGH-SCORING FIRST HALF -> SECOND-HALF PRESSURE STILL LOOKS OPEN -> MODEL TREATS PRESSURE PERSISTENCE AS GOAL PERSISTENCE -> SECOND-HALF GOALS FAIL TO FOLLOW`
 
-- score remains 0-0;
-- no material event has occurred;
-- no meaningful live evidence has accumulated;
-- the market is effectively still pre-kick.
+This is not yet treated as a universal statistical law. It is treated as a **model-risk condition** that requires a stricter second-half proof standard.
 
-### Live evidence rule
+The core correction is:
 
-“Must chase” is not itself chance quality.
+**Pressure persistence is not the same as scoring-hazard persistence.**
 
-Prefer evidence such as repeated dangerous box/central access, big chances, meaningful attacking substitutions plus actual post-sub improvement, high-value transitions/cutbacks, defensive degradation, and score-stable persistence.
+A high-scoring first half can be followed by continued shots, possession, corners and box touches while the actual conversion-quality regime compresses after halftime because of tactical repair, more selective risk-taking, finishing regression, balanced-score incentives, fatigue, substitutions or improved defensive spacing.
 
-Possession without penetration is not enough.
+Therefore halftime after a high-scoring first half is now a **hard scoring-regime reset**.
 
-After a goal, red card, major injury, or material tactical shift, reassess the current state.
+## 1. Halftime goal-count trigger
 
----
+Classify the halftime score by total first-half goals:
 
-## 11. Incentive / dead-rubber rule
+- **0-2 HT goals:** normal halftime reset; no special saturation burden beyond existing rules.
+- **3 HT goals:** `HT COMPRESSION GATE — MODERATE`.
+- **4+ HT goals:** `HT GOAL-SATURATION GATE — STRONG`.
 
-Dead rubber means the result has little or no effect on qualification/progression.
+The gate applies to any post-halftime full-match Over, second-half Over, or Over add-on whose thesis depends materially on continued scoring.
 
-Do not automatically upgrade a match because attackers start or because one side “must win”. An early goal can reduce rather than increase sustained urgency.
+The trigger is a caution burden, not an automatic Under signal.
 
----
+## 2. First-half openness cannot satisfy second-half promotion evidence
 
-## 12. Competition exclusion
+After a 3+ goal first half:
 
-### Eligible cup competitions
+- first-half goals;
+- first-half shot volume;
+- first-half SOT;
+- first-half corners;
+- first-half box touches;
+- first-half pressure inflections;
+- first-half xG/xGOT;
+- first-half attacking style execution
 
-Cup / knockout matches are excluded from the normal shortlist, XI workflow, live rescue, and official locks **unless they belong to one of these explicit exceptions**:
+may be retained as **context/prior information only**.
 
-- **English domestic cups**, including the **FA Cup** and **EFL Cup / Carabao Cup**;
-- Germany's **DFB-Pokal**;
-- the **North American Leagues Cup (MLS/Liga MX)**.
+They cannot satisfy the minimum primary-evidence count for a new second-half Over promotion.
 
-The North American **Leagues Cup** is a named cross-border competition and is an explicit exception. Do **not** remove it with a generic “League Cup” exclusion rule.
+The second-half candidate must stand on **second-half-only forward-looking evidence** after the halftime reset.
 
-### Other League Cup competitions
+Ask:
 
-League Cup competitions outside the explicit English exception remain excluded, including:
+`If every first-half event were hidden, would the current second-half evidence still justify the remaining goal budget?`
 
-- J.League / Levain Cup;
-- Scottish League Cup;
-- Portuguese League Cup;
-- other domestic League Cup formats not explicitly approved above.
+If no, result = `NO BET — HOLD` or `NO BET`.
 
-Other domestic cups and European/continental cup competitions also remain excluded unless explicitly added later. League fixtures are unaffected.
+## 3. Conversion-quality channel becomes mandatory
 
-Do not re-add an excluded cup match because its scoring profile, lineup, price, or live state looks attractive.
+For any 3+ goal HT Over promotion, generic pressure channels are insufficient by themselves.
 
-### K League
+Raw or cumulative versions of the following do **not** establish renewed scoring hazard:
 
-Permanent hard exclusion.
+- possession;
+- pass volume;
+- raw shots;
+- raw SOT count without location/context;
+- corners;
+- territory;
+- box touches without chance quality;
+- cumulative first-half + second-half totals.
 
-Never rank, promote, rescue, or live-override K League matches in the normal model.
+A promoted second-half Over must include at least one fresh **conversion-quality channel**, such as:
 
-Reason: substitution, rotation, and tactical-management variance.
+- a genuine big/clear chance;
+- repeated central or high-value inside-box attempts;
+- a one-v-one, cutback, free header, close-range chance or equivalent clear finishing situation;
+- repeated threatening SOT that force meaningful goalkeeper interventions;
+- a defensive error/degradation sequence directly producing a high-quality attempt;
+- repeated transition entries ending in strong final actions rather than merely entries;
+- a dangerous set-piece sequence producing a clear shot/chance rather than only a corner count.
 
-Do not imply integrity concerns.
+xG/xGOT remain secondary only and cannot substitute for this channel.
 
-### Belgian Pro League / Jupiler Pro League
+## 4. Strong gate for 4+ HT goals
 
-Permanent hard exclusion in this shadow candidate.
+When halftime contains **4 or more goals**, a new second-half Over candidate normally requires all of the following:
 
-Do not rank, shortlist, promote, rescue, or live-override Belgian Pro League / Jupiler Pro League league fixtures.
+1. the halftime reset is explicitly resolved;
+2. a score-stable second-half sample has developed, normally about **6-10 minutes**, unless an earlier high-quality event cluster clearly establishes the new regime;
+3. at least **two independent second-half primary channels** support renewed scoring;
+4. at least one of those channels is a conversion-quality channel from Section 3;
+5. the current interval, not merely the cumulative match, shows continuing or increasing threat;
+6. the exact remaining goal budget is plausible from the new second-half evidence alone;
+7. adjacent protected totals are compared explicitly;
+8. the NO-BET comparator is passed.
 
-Existing historical official bets from before this exclusion remain part of historical accounting and are settled normally.
+For a tied high-scoring halftime state such as 2-2 or 3-3, apply an additional:
 
----
+`HIGH-SCORE EQUILIBRIUM MODIFIER`
 
-## 13. Daily board behavior
+A tied game can remain territorially active while both teams become more selective about exposing the decisive transition. Territory alone cannot clear the gate. Require evidence that at least one team is still accepting meaningful defensive risk or repeatedly creating high-quality finishing situations.
 
-When generating the daily/upcoming list:
+## 5. Remaining-goal budget burden
 
-- scan the full slate first;
-- convert all times to ICT;
-- retain league fixtures and the approved cup exceptions: English domestic cups, DFB-Pokal, and North American Leagues Cup;
-- remove all other excluded cup competitions before structural ranking;
-- remove K League and Belgian Pro League / Jupiler Pro League fixtures before ranking;
-- apply other hard exclusions and structural filters;
-- use the **v0.2.48 shadow** ranking logic for shadow comparison only;
-- apply the hardened recent-total/leakage confirmation rule before promoting scoreline-driven candidates into the top focus group;
-- apply the carrier-led O2.75+ burden rule before final LOCK qualification;
-- aggressively shorten to the best few matches worth focusing on;
-- do not omit earlier kickoff blocks;
-- rank by structural quality before kickoff time;
-- preserve the frozen prematch rank/grade before XI or live data.
+After a high-scoring halftime, do not treat a lower-looking live total as automatically attractive simply because many goals have already occurred.
 
-The official board remains governed by v0.2.47-R until this candidate is promoted.
+For the exact candidate, state:
 
----
+- current total goals;
+- goals needed for full win;
+- goals needed for push/half-win/half-loss where applicable;
+- whether the second-half-only evidence supports **one more goal**, **two more goals**, or a true multi-goal sequence.
 
-## 14. Settlement
+The proof burden rises with the remaining goal budget.
 
-Full-match Asian totals settle on 90 minutes plus stoppage time only, unless the market explicitly states that extra time is included.
+### Practical rule
 
-Track full win, half win, push, half loss, and full loss.
+- If only **one additional goal** is needed for a full win, a strong single-team route may be enough when all other gates pass.
+- If **two or more additional goals** are needed for a full win, the candidate must show a credible multi-goal second-half route. Generic persistence is not enough.
+- Quarter-goal protection remains valuable, but protection cannot rescue an unsupported multi-goal thesis.
 
----
+## 6. Score-stable decay after a high-scoring halftime
 
-## 15. Simulations and official accounting
+When 3+ goals were scored before halftime and the second half remains score-stable for a meaningful interval, the model must not keep carrying an `OPEN` label merely because the cumulative match still looks open.
 
-Counterfactual / prematch simulations performed after kickoff or after the result is known must be clearly labelled as simulations and never added to official P/L.
+At approximately every 8-10 score-stable minutes, compare the recent interval with the previous second-half snapshot.
 
-A missed winner after a prospective HOLD is a process observation, not a betting win.
+If 15+ second-half minutes pass without a goal, require a fresh current-interval quality check before any new Over or re-entry.
 
-Shadow v0.2.48 decisions must be logged separately from official v0.2.47-R accounting until promotion.
+Classify:
 
----
+- `SECOND-HALF HAZARD: RE-ACCELERATING`
+- `SECOND-HALF HAZARD: PERSISTENT BUT UNPROVEN`
+- `SECOND-HALF HAZARD: COMPRESSING`
 
-## 16. Data-quality rule
+`PERSISTENT BUT UNPROVEN` cannot by itself produce a shadow/executable Over.
 
-Never invent missing statistics, lineups, odds, or injuries.
+## 7. Add-on restriction after high-scoring halftime
 
-If required data is materially unreliable, reduce confidence or use `NO BET — HOLD — data incomplete`.
+A post-halftime add-on after a 3+ goal first half must be justified as a **new independent decision**.
 
-Under v0.2.48, unavailable chance-quality data is especially important when recent-total/leakage evidence is doing most of the work. In that situation, missing confirmation should reduce LOCK confidence rather than be treated as neutral.
+Do not add because:
 
----
+- the first-half Over thesis was correct;
+- the match has already produced many goals;
+- the base position remains live;
+- the new line looks lower relative to the score;
+- first-half pressure was strong;
+- cumulative second-half stats still look active.
 
-## 17. Shadow validation / promotion test
+The add-on must independently clear the compression/saturation gate using second-half-only evidence and its own remaining-goal budget.
 
-Before promoting v0.2.48-SHADOW to the official model, compare it against v0.2.47-R over a forward sample of approximately **15-20 eligible official decision opportunities**.
+## 8. Racing Santander vs Villarreal process audit
 
-Track at minimum:
+Observed sequence:
 
-- v0.2.47 official verdict;
-- v0.2.48 shadow verdict;
-- bets removed by the patch;
-- winning bets removed by the patch;
-- losing bets avoided by the patch;
-- average selected line;
-- full/half win, push, half/full loss distribution;
-- P/L and ROI for both decision streams.
+- HT score: **2-2**.
+- The first half was genuinely high-event and both teams had demonstrated scoring routes.
+- Around 55:51 the model promoted `SHADOW LEAN — DO NOT PLACE: Over 5.25 @1.88` after second-half shots, box touches and a Racing big chance increased.
+- Around 63:57 the game was still 2-2 while both teams had added SOT and Villarreal had added a big chance; the current protected reference improved to Over 5 @1.86.
+- By 82' the score was still 2-2.
 
-Promotion should require evidence that the shadow patches improve decision quality without merely shrinking volume after the fact.
+Under v0.2.47, the **55:51 Over 5.25 promotion would remain HOLD** unless the second-half sample showed stronger repeated conversion-quality evidence sufficient to justify a two-goal remaining full-win budget.
 
-A useful working benchmark is that the patch should avoid roughly **3 materially bad locks for each clearly good lock it suppresses**, but this is a review benchmark rather than an automatic promotion formula.
+The observed second-half activity was enough to say the game remained active, but not enough to equate activity with a renewed multi-goal scoring regime.
 
----
+This is a **process correction only**. The original 55:51 shadow selection remains recorded exactly as issued. Do not rewrite its timestamp, line, verdict or eventual settlement.
 
-## 18. Operating principle
+## 9. Ajax corroboration note
 
-**Rank structure first. Respect elite carrier ceiling. Verify the GF/GA route. Require independent repeatable-chance confirmation when recent totals/leakage are doing major promotional work. Do not let Asian-total protection rescue marginal structure. For carrier-led O2.75+ bets, require either a strong secondary route or an elite self-funding 3+ carrier against acceptable resistance. Let XI rerank the real route. Explicitly resolve the primary failure mode before LOCK. Treat final/knockout compression as a soft resistance modifier. Choose the Asian total with sensible protection only after the match clears. Use price last. Retain English domestic cups, DFB-Pokal, and North American Leagues Cup; exclude other cup competitions before ranking. Exclude K League and Belgian Pro League / Jupiler Pro League fixtures. Keep the old Sep 1 hardened gates inactive.**
+The user separately identified an Ajax match with the same qualitative direction: a high-scoring first half, continued-looking second-half pressure, but materially fewer second-half goals than the pressure suggested.
+
+Because the exact synchronized Ajax state is not reconstructed here, it is retained as **qualitative corroboration only**, not counted evidence or shadow P/L.
+
+Future reviews should explicitly test whether this failure mode repeats across a larger sample before converting the gate into a fixed empirical scoring penalty.
+
+## 10. Required user-facing fields after 3+ HT goals
+
+For any serious post-halftime Over assessment after 3+ first-half goals, include compactly:
+
+- `HT saturation gate:` MODERATE / STRONG
+- `Second-half-only sample:` brief interval/deltas
+- `Conversion-quality channel:` PASS / UNRESOLVED / FAIL
+- `Second-half hazard:` RE-ACCELERATING / PERSISTENT BUT UNPROVEN / COMPRESSING
+- `Remaining goal budget:` exact settlement requirement
+- `Best protected total:` exact line/odds
+- `Validator status:` PASS / HOLD / FAIL
+
+If the conversion-quality channel or remaining-goal budget is unresolved, output `NO BET — HOLD`.
+
+## 11. Arm A / Arm B
+
+### Arm A — current audit model
+
+This gate is mandatory. A high-scoring first half can no longer promote a post-HT Over through cumulative openness plus generic pressure persistence.
+
+### Arm B — early totals benchmark
+
+Arm B must also separate first-half context from second-half promotion evidence after a 3+ goal halftime. It may remain more permissive about protected boundaries, but it cannot count first-half pressure as one of the fresh second-half primary channels.
+
+This preserves benchmark usefulness without allowing the same first-half carryover error to contaminate both arms.
+
+## 12. Relationship to v0.2.44-v0.2.46
+
+This rule does **not** make the model generally slower or more conservative.
+
+- v0.2.44 still requires immediate delivery when the current state genuinely clears all gates.
+- v0.2.45 still handles terminal-goal halftime bridges.
+- v0.2.46 still requires pre-goal pressure-inflection detection and immediate action before a goal when the protected total qualifies.
+- v0.2.47 specifically prevents a different error: **carrying first-half scoring intensity through halftime without proving that the second-half scoring regime survived the reset.**
+
+If high-quality second-half evidence appears quickly, promote quickly. Do not delay for reassurance. The stricter requirement is about **evidence type**, not arbitrary waiting.
+
+## Operating principle
+
+After a high-scoring first half, reset the scoring process—not just the scoreboard state. Treat first-half goals as history. Demand fresh second-half conversion-quality evidence for the exact remaining goal budget. Continued pressure without renewed finishing-quality evidence is `PERSISTENT BUT UNPROVEN`, not an Over signal.
