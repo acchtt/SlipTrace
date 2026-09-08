@@ -1,203 +1,198 @@
-# Football Airtable Decision-State Control
+# Football Decision States — Airtable Contract
 
-This document describes the Airtable decision-state control plane used by Football v1.0.
+**Status:** ACTIVE  
+**Base:** `SlipTrace Football Decision Control`  
+**Table:** `Decision States`  
+**Official model:** Football v0.2.49  
+**Shadow comparison models:** v0.2.47 CLEAN and v0.2.48-SHADOW
 
-## Base
-
-- **Base:** `SlipTrace Football Decision Control`
-- **Base ID:** `appWyZJjitSBATXAU`
-
-## Decision States table
-
-- **Table:** `Decision States`
-- **Table ID:** `tblQmUpd5WjBLQ38X`
-
-Current core field IDs:
-
-| Field | ID |
-|---|---|
-| Assessment ID | `fldw5PxzbUDRxPTN6` |
-| Match | `fldOhDnn8HJx4cv5H` |
-| Competition | `fldHMLKkm2qToiZ1O` |
-| Model Version | `fldEozpHKiyLBvou9` |
-| Assessment Time | `fld3FF6oSQjdYFOAy` |
-| Minute | `fldGl8MD1MDJETVyZ` |
-| Score | `fldTN65kHAyUj7TyW` |
-| Assessment Period | `fldhnnmkvbUvEFH52` |
-| Verdict | `fldKHk8vNQMYGx0GU` |
-| Candidate | `fld9xNR6kkR8oYISu` |
-| Line | `fldLrWtsOoe503UTv` |
-| Odds | `fldvslKY49svSlXCx` |
-| Evidence Summary | `fldTAwWTDJvfusgj7` |
-
-The separate `Daily Coverage Ledger` is documented in `FOOTBALL_COVERAGE_AIRTABLE.md` and is authoritative for fixture-universe completeness. Decision States is authoritative for model-state history.
+This table records material football assessment states after the frozen coverage/PRE stage. It must preserve version fidelity and must not rewrite historical PRE state.
 
 ---
 
-## Active model versions
+## 1. Model/version rule
 
-New active rows use their actual track version:
+Every material record must identify the model version that actually produced it.
 
-- official track: `v0.2.47`
-- shadow track: `v0.2.48-SHADOW`
+Current tracks:
 
-Historical rows keep the version they were created with, including `v0.2.47-R`. Never rewrite historical model-version labels.
+- **Official:** `Football v0.2.49`
+- **Shadow:** `Football v0.2.47 CLEAN`
+- **Shadow:** `Football v0.2.48-SHADOW`
 
----
+Do not label a v0.2.49 official decision as v0.2.47 merely because v0.2.47 is the inherited clean base.
 
-## Mandatory logging rule
-
-Create a new Decision States record for every material state transition that is worth reconstructing later:
-
-`PRE FREEZE → XI RERANK → FINAL LINE/PRICE → LIVE VALIDATION → FT SETTLEMENT / PROCESS REVIEW`
-
-Do not overwrite earlier states to make them agree with later information.
-
-Typical `Assessment Period` values:
-
-- `PRE`
-- `XI`
-- `LIVE`
-- `FT`
-- `SIM-PRE` for counterfactual simulation
-
-Use distinct Assessment IDs for distinct material states and distinct model tracks.
-
-Recommended model suffix in Assessment ID:
-
-- `-V247`
-- `-V248S`
+Do not import the v0.2.49 Two-Sided Priority patch into either shadow track.
 
 ---
 
-## Verdict semantics
+## 2. Frozen PRE dependency
 
-Current Airtable Verdict choices include:
+Before a later XI/market assessment is written, resolve the fixture against the frozen Work PRE state persisted in `Daily Coverage Ledger`.
 
-- `OFFICIAL BET`
-- `SHADOW LEAN — DO NOT PLACE`
-- `NO BET — HOLD`
-- `NO BET`
+Preserve:
 
-### Official v0.2.47
+- original PRE grade;
+- original structural archetype;
+- original FOCUS/WATCHLIST/PASS/UNRESOLVED state;
+- original primary/secondary routes and failure mode where available.
 
-User-facing affirmative selection:
+A Decision State may record a later downgrade/rerank, but it must not imply that the later state was the original PRE.
 
-`OFFICIAL LOCK — <line> @ <odds>`
-
-Airtable Verdict:
-
-`OFFICIAL BET`
-
-This creates official exposure and must also be written to the official picks control according to the active workflow.
-
-Official HOLD/PASS creates no exposure.
-
-### v0.2.48-SHADOW
-
-User-facing affirmative selection:
-
-`SHADOW LOCK — <line> @ <odds> — DO NOT PLACE`
-
-Airtable Verdict:
-
-`SHADOW LEAN — DO NOT PLACE`
-
-A shadow hold uses Airtable Verdict `NO BET — HOLD` with Model Version `v0.2.48-SHADOW`.
-
-Shadow rows never enter official P/L unless the model is explicitly promoted in the future; historical shadow rows remain shadow even after promotion.
+If the coverage row demonstrably conflicts with the original Work artifact, classify a persistence sync fault and use the original frozen Work thesis until the bridge is corrected.
 
 ---
 
-## Evidence synchronization
+## 3. Material assessment fields
 
-When both tracks evaluate the same match, they must use the same:
+Use the existing schema to record material state, including where applicable:
 
-- PRE evidence timestamp;
-- confirmed XI snapshot;
-- score/minute if live;
-- Asian-total market snapshot.
+- `Assessment ID`;
+- `Match`;
+- `Competition`;
+- `Model Version`;
+- `Assessment Time`;
+- `Minute`;
+- `Score`;
+- `Reset Epoch`;
+- `Assessment Period`;
+- `Verdict`;
+- `Candidate`;
+- `Line`;
+- `Odds`;
+- `Goal Environment`;
+- synchronized/reset fields;
+- competition-format / utility checks when relevant;
+- xG/chance-quality role;
+- primary evidence channels;
+- failure-mode / favorite-fade / directional-persistence fields where applicable;
+- market scan status where applicable;
+- validator result;
+- fail reasons;
+- evidence summary.
 
-Differences between the two records should therefore reflect model logic, not different input states.
-
-If the evidence state differs materially, do not compare the verdicts as a clean model-vs-model test.
-
----
-
-## Evidence Summary
-
-The Evidence Summary should be concise but sufficient to reconstruct why the state existed at that moment. Include material items such as:
-
-- frozen structural band/type;
-- FOCUS/WATCHLIST context when relevant;
-- carrier and secondary route;
-- mandatory GF/GA/profile findings;
-- confirmed-XI changes;
-- chance-quality findings;
-- failure modes;
-- selected Asian total / protection rationale;
-- track-specific patch reason for v0.2.48 when it differs;
-- live substitutions or material events;
-- settlement/process lesson.
-
-Do not use result knowledge to rewrite earlier evidence.
+Use provider/evidence-version fields when the decision depends on an external normalized evidence snapshot.
 
 ---
 
-## Live records
+## 4. User-supplied XI + odds workflow
 
-For material live reassessments, record the current score and minute/phase plus evidence that validated or invalidated the frozen thesis.
+Current normal prematch execution expects the user to supply confirmed XI and odds.
 
-Examples:
+When a user screenshot/text is the current evidence:
 
-- early goal that changes intended burden-decay entry;
-- HT chance-quality review;
-- significant substitution cluster;
-- red card;
-- material line/price change tied to a new decision;
-- later live validation/HOLD.
+- treat it as the evidence input for that assessment epoch;
+- match it to the frozen PRE fixture;
+- record the actual line/odds evaluated;
+- do not fabricate missing market data;
+- do not automatically search for missing XI/odds unless the user explicitly requests external verification.
 
-A live HOLD that later finishes Over remains a HOLD. Do not retroactively create a bet.
+If either required final input is missing:
 
-The clean v0.2.47 high-scoring-halftime compression fields may be used where relevant.
-
----
-
-## Simulations
-
-Counterfactual simulations must be identifiable in Assessment ID / Assessment Period / Candidate text.
-
-They must not be counted in official P/L even if the simulated selection would have won.
-
-Keep clean and shadow simulation rows separate.
+`WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`
 
 ---
 
-## Settlement and audit
+## 5. Current decision order
 
-For standard full-match Asian totals, settlement uses 90 minutes plus stoppage time only unless the market explicitly includes extra time.
+Official v0.2.49 material decisions follow:
 
-When auditing performance:
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN → PRICE → LOCK / HOLD`
 
-- collapse multiple PRE/XI/LIVE/FT state rows into the underlying unique official bet;
-- do not double-count a bet because it has both lock and settlement records;
-- exclude official `NO BET — HOLD` states from P/L;
-- exclude all v0.2.48-SHADOW rows from official P/L;
-- exclude counterfactual simulations from official P/L;
-- preserve half-win, push, half-loss, win, and loss settlement semantics.
+For comparable official grades:
 
-Shadow performance may be calculated separately for model comparison.
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-All audit dates/times are interpreted in `Asia/Ho_Chi_Minh` / ICT unless explicitly stated otherwise.
+Price cannot rescue weaker structure.
 
 ---
 
-## Authority
+## 6. Price policy in final assessment
 
-Use:
+Current user overlay:
 
-- `Daily Coverage Ledger` for fixture coverage, screen status, and FOCUS/WATCHLIST survival;
-- `Decision States` for PRE/XI/live model-state reconstruction;
-- `Website Picks` for official lock accounting and settlement.
+- hard minimum decimal odds = `1.65`;
+- preferred = `1.70+`;
+- below 1.65 = `NO BET — HOLD — PRICE TOO SHORT`;
+- do not stretch the Asian-total line merely to obtain a better price;
+- higher burden must be independently supported by structure + XI.
 
-Search Airtable before reconstructing prior betting history from chat memory or archived repository documents.
+Record the line actually selected/evaluated, not merely the bookmaker’s headline total.
+
+---
+
+## 7. Official verdict semantics
+
+### Official v0.2.49
+
+- affirmative final selection = **OFFICIAL LOCK**;
+- HOLD/PASS = no official exposure.
+
+### Shadows
+
+Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.49 verdict.
+
+When all three tracks are materially assessed, create/version the states so the evidence snapshot is comparable but each model remains identifiable.
+
+---
+
+## 8. Synchronization rule
+
+For a material three-track comparison, all tracks should use the same underlying fixture/XI/market evidence epoch where possible.
+
+Synchronize:
+
+- match identity;
+- assessment time;
+- score/minute for live assessments;
+- XI evidence;
+- evaluated line and current price snapshot;
+- relevant team/chance-quality evidence.
+
+Version-specific conclusions may differ. Evidence synchronization does not mean verdict synchronization.
+
+---
+
+## 9. Live-state rules
+
+Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite PRE history.
+
+Use reset/synchronization fields when score/minute/market state materially changes.
+
+For inherited v0.2.47 halftime logic, use the existing HT fields where applicable:
+
+- `HT Goals`;
+- `HT Saturation Gate`;
+- `Conversion Quality Gate`;
+- `Second-Half Hazard`;
+- `Remaining Goal Budget`.
+
+Manual live overrides must be separately labelled.
+
+---
+
+## 10. Result/P&L boundary
+
+Only official selections that actually became official exposure belong in official result/P&L accounting.
+
+Do not convert:
+
+- HOLD;
+- PASS;
+- shadow;
+- counterfactual;
+- missed-opportunity review
+
+into official P/L.
+
+Standard full-match Asian totals settle on 90 minutes + stoppage time unless the market explicitly includes extra time.
+
+---
+
+## 11. Coverage vs Decision States
+
+`Daily Coverage Ledger` = fixture coverage + frozen PRE bridge.
+
+`Decision States` = material later assessment epochs and official/shadow verdict evidence.
+
+Do not use a later Decision State to overwrite what the frozen Work PRE originally was.
