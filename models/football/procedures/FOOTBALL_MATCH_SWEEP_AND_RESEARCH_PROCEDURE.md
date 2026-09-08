@@ -1,252 +1,216 @@
-# Football Match Sweep & Research Procedure
+# Football Match Sweep and Research Procedure
 
-**Status:** ACTIVE / mandatory fixture-source and model-routing procedure  
-**Effective:** 2026-09-08 ICT  
-**Timezone:** Asia/Ho_Chi_Minh / ICT (UTC+7)  
+**Status:** ACTIVE  
 **Official model:** Football v0.2.49  
-**Shadow comparison models:** Football v0.2.47 CLEAN and Football v0.2.48-SHADOW
+**Fixture authority:** AiScore only  
+**Timezone:** Asia/Ho_Chi_Minh (ICT)
 
-This procedure defines two things that must stay separate:
-
-1. how the fixture universe is built; and
-2. how an already-discovered match is researched and routed through the models.
-
-The separation is deliberate: **AiScore controls fixture discovery; research remains source-flexible.**
+This procedure separates **fixture discovery** from **match research**. It also enforces the current senior-quality actionable overlay and prevents overnight/date-boundary omissions.
 
 ---
 
-## 1. Fixture sweep authority — AiScore only
+## 1. Authority boundary
 
-For any daily slate, upcoming-match request, or requested time window, the fixture universe must be swept from **AiScore only**.
+### Fixture discovery
 
-Allowed fixture-discovery source family:
+Only AiScore may establish a fixture in the requested slate:
 
 - `aiscore.com`
 - `m.aiscore.com`
-- AiScore daily/live fixture listings and AiScore match pages
+- AiScore daily/live listings
+- AiScore match pages
 
-No other source may add a fixture to the slate.
+Do not build a fixture union from Soccerway, FotMob, Google/web search, BSD/Bzzoiro, league sites, bookmaker pages, or another schedule provider.
 
-Do **not** build a union from Soccerway, FotMob, Google/web search, Bzzoiro/BSD, Flashscore, league sites, bookmaker pages, or any other schedule source.
+If another source shows a match, it may enter the slate only after the same fixture is verified on AiScore.
 
-If another source reveals a match that is not present in the AiScore sweep, do not silently add it. Verify whether it exists on AiScore first. If it cannot be verified on AiScore, it is outside the active fixture universe for that sweep.
+### Match research
 
-If AiScore is unavailable or cannot be traversed sufficiently for the requested window, state:
+After AiScore establishes the fixture, research is source-flexible. Use the strongest available match-level evidence, including official competition/club sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistics/news sources, and user-supplied screenshots.
+
+Research may refine the thesis; it may not expand the fixture universe.
+
+---
+
+## 2. Requested-window traversal
+
+1. Resolve the exact requested ICT start and end.
+2. Determine every **ICT calendar date touched by that window**.
+3. Traverse the corresponding AiScore date listings explicitly.
+4. Normalize every discovered kickoff to ICT.
+5. Keep only fixtures whose normalized kickoff falls inside the requested window.
+6. Deduplicate the same fixture if AiScore exposes it through more than one listing/view.
+7. Do not stop when enough attractive matches have been found.
+
+### Cross-midnight rule
+
+If the window crosses midnight, browsing only the starting date is incomplete. Every date touched by the window must be traversed.
+
+Example: an evening slate that continues through 03:00 ICT requires explicit traversal of both the evening date and the following date.
+
+A last-found kickoff before the requested cutoff is **not evidence that no later block exists**. Verify the terminal interval/date listing itself.
+
+---
+
+## 3. Completeness audit before filtering
+
+Before the raw AiScore handoff can say `audit.complete = true`, verify:
+
+- all AiScore date listings touched by the ICT window were traversed;
+- the start and terminal cutoff blocks were checked;
+- every discovered fixture was normalized and counted once;
+- no known AiScore competition block inside the window is unaccounted for;
+- no pagination/lazy-loading/league-section traversal remains unresolved.
+
+If any item is unresolved, state:
 
 `COVERAGE INCOMPLETE — AiScore sweep incomplete`
 
-Do not backfill the missing universe with another schedule provider.
+and set completeness false. Do not backfill from another provider.
+
+A sweep ending at 03:00 ICT cannot infer completeness merely because its latest captured fixture is 02:00. The 03:00 interval must be explicitly verified.
 
 ---
 
-## 2. Sweep window and traversal
+## 4. Current actionable competition overlay
 
-1. Resolve the requested window in ICT.
-2. Traverse the relevant AiScore daily/live listing completely for that window.
-3. Include the established overnight continuation when the requested slate spans past midnight.
-4. Record every discovered fixture before attractiveness filtering.
-5. Normalize team names, competition names, and kickoff times to ICT.
-6. Deduplicate only obvious duplicate representations of the same AiScore fixture.
-7. Apply competition eligibility only after the AiScore universe is captured.
+Apply the user’s **senior-quality-only** overlay after the raw AiScore universe is complete.
 
-The visible board may be compact. The AiScore universe must still be screened completely.
+Exclude:
 
-**SHORTEN THE DISPLAY, NEVER THE SCREENED UNIVERSE.**
+- U17/U18/U19/U20/U21/U23 and other youth/Uxx competitions;
+- academy/junior competitions;
+- reserve/B-team/development competitions;
+- amateur/semi-professional competitions;
+- regional/state/provincial leagues;
+- very small/obscure weak-data leagues;
+- domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted.
 
----
+Do not weaken this overlay to fill the slate.
 
-## 3. Coverage meaning under a single-source sweep
+Do **not** apply an old generic “continental competitions excluded” rule. Senior first-team continental competitions remain actionable when they otherwise clear the overlay, explicitly including UEFA Champions League, UEFA Europa League, and UEFA Conference League.
 
-The previous multi-source-union concept is no longer the active fixture-source policy.
+Do not exclude an otherwise qualifying senior competition merely because its name contains `Cup`, `League Cup`, or `continental` terminology.
 
-For this workflow, coverage completeness means:
-
-- the relevant AiScore listing/window was traversed completely;
-- every AiScore fixture in the requested window was accounted for;
-- eligibility/exclusion was applied explicitly;
-- every eligible fixture received a PRE disposition;
-- coverage counts reconcile.
-
-`Reconciled = true` may be used when the AiScore sweep itself was fully traversed and normalized for the requested window. It does **not** require agreement from an independent schedule source.
-
-Recommended coverage-source fields:
-
-- `Source 1 = AiScore`
-- `Source 2 = blank` unless used only as a research/reference note
-
-A non-AiScore research source must never become a second fixture-universe authority.
+Every removal must remain auditable as an explicit exclusion rather than a silent omission.
 
 ---
 
-## 4. Eligibility and screening
+## 5. Handoff contract
 
-After the AiScore universe is frozen for the window:
+A fixture handoff used by Work must identify at minimum:
 
-1. apply the active competition eligibility rules;
-2. mark excluded fixtures explicitly rather than omitting them;
-3. screen every eligible fixture structurally;
-4. assign PRE grade and structural type;
-5. assign FOCUS / WATCHLIST / PASS / UNRESOLVED;
-6. preserve all FOCUS and relevant WATCHLIST fixtures through the XI stage.
+- requested ICT window;
+- source = AiScore;
+- raw fixture count;
+- actionable eligible count;
+- excluded count and exclusion reasons/categories;
+- `actionable_overlay = senior_quality_only`;
+- `audit.complete`;
+- the complete actionable fixture list with ICT kickoffs and competition names.
 
-The active official ranking priority is defined by Football v0.2.49 and its current operating documents.
+Required invariant:
 
----
+`Raw AiScore universe = Actionable eligible + Excluded`
 
-## 5. Match research runs normally
-
-Once AiScore has established that a fixture belongs to the universe, research may proceed normally using the best available sources.
-
-Research sources may include, where useful:
-
-- official club, league, and competition sources;
-- Soccerway for confirmed lineups or match information;
-- FotMob;
-- FBref;
-- Bzzoiro/BSD where supported;
-- reputable statistical databases;
-- reliable news/team sources;
-- user-supplied lineup, market, and match screenshots;
-- general web research when needed.
-
-Use normal source-quality judgment for the research task.
-
-Research may establish or refine:
-
-- GF/GA profile;
-- scoring/conceding frequencies;
-- home/away splits;
-- chance quality;
-- xG/xGA/xGOT where available;
-- big chances / box access / SOT quality;
-- injuries, suspensions, rotation, and incentives;
-- confirmed XI and bench depth;
-- tactical shape;
-- failure modes;
-- Asian-total market expression.
-
-**Research source flexibility does not change fixture-universe authority.**
+If the invariant fails, the handoff is provisional and must not be treated as a complete board input.
 
 ---
 
-## 6. Metadata corrections
+## 6. Structural research stage
 
-A research source may flag that an AiScore kickoff, team alias, or competition label appears wrong.
+The Work structural sweep processes **every actionable fixture** before display shortening.
 
-When this happens:
+Research/evaluate:
 
-1. verify the fixture identity against AiScore;
-2. correct the working metadata only when the same AiScore fixture is clearly identified;
-3. record the correction in coverage notes when material;
-4. do not use the correction as a reason to add a non-AiScore fixture.
+- structural matchup quality;
+- credible independent scoring routes;
+- two-sided contribution;
+- carrier/favorite ceiling;
+- opponent contribution;
+- failure-mode resistance;
+- team GF/GA and scoring/conceding frequencies;
+- home/away and competition-specific context where useful;
+- chance-quality support;
+- format/incentive/game-state risk;
+- lineup sensitivity as a future rerank item;
+- structural goal-burden ceiling/range.
 
-AiScore remains the discovery authority even when another source provides better match-level detail.
+The Work PRE stage is **price-blind**. Do not use bookmaker price to improve a structural grade or ranking.
 
----
-
-## 7. Model routing — one official + two shadows
-
-Every eligible match that reaches a material model verdict should be evaluated from the **same frozen evidence snapshot** through three tracks:
-
-### Official
-
-**Football v0.2.49**
-
-- active official selection model;
-- includes the v0.2.49 two-sided-priority patch;
-- only this track may create official P/L.
-
-### Shadow 1
-
-**Football v0.2.47 CLEAN**
-
-- run as a legacy clean-model comparison;
-- evaluate the same evidence state without the v0.2.49 two-sided-priority patch;
-- never enters official P/L.
-
-### Shadow 2
-
-**Football v0.2.48-SHADOW**
-
-- run as its own shadow-model comparison on the same evidence state;
-- apply its documented v0.2.48 shadow deltas;
-- do not silently import the v0.2.49 priority patch unless a future rule explicitly says so;
-- never enters official P/L.
-
-The shadows are comparison tracks, not vetoes. A shadow HOLD/PASS does not suppress an official v0.2.49 decision.
+Under the current user workflow, do not automatically fetch confirmed XI or bookmaker odds during this structural stage. The user supplies them later.
 
 ---
 
-## 8. User-facing pick output
+## 7. Board output and freeze
 
-For a material final evaluation, show all three tracks when useful:
+Give every actionable fixture exactly one PRE disposition:
 
-### Official v0.2.49
-
-- `OFFICIAL LOCK — O<line> @ <odds>`
-- `NO BET — HOLD`
+- `FOCUS`
+- `WATCHLIST`
 - `PASS`
+- `UNRESOLVED`
 
-### Shadow v0.2.47
+Use the current PRE grades/types defined by the active model.
 
-- `SHADOW v0.2.47 LOCK — O<line> @ <odds> — DO NOT PLACE`
-- `SHADOW v0.2.47 HOLD`
-- `SHADOW v0.2.47 PASS`
+Rank surviving FOCUS + WATCHLIST candidates under v0.2.49. For comparable grades:
 
-### Shadow v0.2.48
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-- `SHADOW v0.2.48 LOCK — O<line> @ <odds> — DO NOT PLACE`
-- `SHADOW v0.2.48 HOLD`
-- `SHADOW v0.2.48 PASS`
+The Work output is a **frozen structural PRE board**, not an official betting card.
 
-Only the official v0.2.49 affirmative selection is an actual bet.
+Until user-supplied XI + odds arrive:
 
----
-
-## 9. Airtable / decision logging
-
-- Official v0.2.49 LOCKs go to the official Website Picks/P&L workflow.
-- Official v0.2.49 material states must be logged with model version `v0.2.49`.
-- v0.2.47 shadow material states must be logged with model version `v0.2.47` and treated as shadow/comparison only.
-- v0.2.48 shadow material states must be logged with model version `v0.2.48-SHADOW` and treated as shadow/comparison only.
-- Shadow states never enter official P/L.
-- Existing Daily Coverage Ledger fields named for v0.2.47 and v0.2.48 remain shadow-comparison fields; do not overwrite their meaning with the v0.2.49 official verdict.
-
-If a dedicated v0.2.49 PRE field does not yet exist, preserve the official v0.2.49 state in the material Decision State / notes workflow rather than relabeling a v0.2.47 field.
+- XI status = user will supply later;
+- market status = user will supply later;
+- price status = not evaluated;
+- no official line;
+- no OFFICIAL LOCK.
 
 ---
 
-## 10. Late discovery under AiScore-only policy
+## 8. Frozen-state persistence
 
-If an eligible fixture was present on AiScore for the requested window but was omitted by the sweep process and is found before kickoff:
+Persist the Work screen to the Daily Coverage Ledger without re-screening it.
 
-`LATE-DISCOVERED BUT SCREENED`
+Publishing is a state-copy/upsert operation:
 
-If it was on AiScore but was never properly assessed before kickoff:
+- preserve PRE grade;
+- preserve structural type;
+- preserve FOCUS/WATCHLIST/PASS/UNRESOLVED exactly;
+- preserve the frozen thesis/failure mode in the available summary/notes fields;
+- mark XI/market pending as appropriate.
 
-`TRUE MISSED SCREEN`
+A downstream publish step must not independently downgrade a Work WATCHLIST/FOCUS row to PASS.
 
-A fixture discovered only through a non-AiScore research source is not added until its presence on AiScore is verified.
-
----
-
-## 11. Conflict precedence
-
-This procedure is the active authority for fixture-source policy and three-track routing.
-
-Where an older file instructs the workflow to:
-
-- build a multi-source fixture union;
-- require an independent schedule source for reconciliation;
-- allow another provider to add fixtures; or
-- output only v0.2.49 official + one v0.2.48 shadow track,
-
-this procedure supersedes those instructions.
-
-The betting/model rules themselves remain governed by their respective canonical model files.
+If persisted Airtable state conflicts with the original frozen Work board, flag a synchronization fault and preserve the original frozen thesis until the persistence error is corrected.
 
 ---
 
-## Operating principle
+## 9. Coverage reconciliation
 
-**Sweep with AiScore only. Research the match normally. Route the same evidence through v0.2.49 official, v0.2.47 shadow, and v0.2.48 shadow. Only v0.2.49 enters official P/L.**
+Before claiming the structural board is complete, verify:
+
+`Universe = Actionable eligible + Excluded`
+
+`Actionable eligible = Focus + Watchlist + Pass + Unresolved`
+
+Also verify:
+
+- no skipped actionable fixture;
+- no duplicate processing;
+- no excluded youth/reserve/lower/small fixture survived;
+- all FOCUS/WATCHLIST candidates are persisted for the later XI stage;
+- cross-midnight/date-page completeness remains true.
+
+If any check fails, state:
+
+`COVERAGE INCOMPLETE — board provisional`
+
+---
+
+## 10. Research-source rule after freeze
+
+Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence. That evidence may validate, downgrade, or rerank the frozen thesis according to the current model, but it must not silently rewrite what PRE originally was.
+
+Live evidence validates or invalidates history; it does not rewrite history.
