@@ -1,57 +1,139 @@
 # SlipTrace Football Chat Operating Protocol
 
-Effective: 2026-08-08
+**Status:** ACTIVE  
+**Authoritative model entry point:** `models/football/CURRENT_MODEL.md`
 
-Purpose: enforce consistent record keeping and model discipline across ChatGPT football-analysis chats.
+Purpose: enforce the same current football state across ChatGPT chats without reconstructing rules or boards from memory.
 
-## Required sources
+---
 
-1. **GitHub (`acchtt/SlipTrace`) is the authoritative model/ledger source.**
-   - Resolve the active football model version and exact commit before relying on rules.
-   - Read the applicable model file from that commit/ref; do not assume the default branch contains the active historical model file.
-   - `ledger.json` is the authoritative official betting record.
-   - **Ledger writes are on hold unless the user explicitly authorizes them.**
+## 1. Authority order
 
-2. **Airtable (`SlipTrace Football Decision Control`) is the operational discipline/audit layer.**
-   - Use `Decision States` for material football assessments.
-   - Use `Circuit Breaker` for counted shadow selections.
-   - Airtable does not replace `ledger.json` for official bankroll accounting.
+For current football work:
 
-## Pre-verdict discipline
+1. **GitHub `acchtt/SlipTrace`** — model rules, procedures, and durable operating policy.
+2. **Frozen Work PRE artifact persisted to Airtable Daily Coverage Ledger** — current slate/board bridge.
+3. **Airtable Decision States** — later material XI/market/live assessments.
+4. **User-supplied current screenshots/text** — XI, odds, and live market evidence when supplied.
 
-Before issuing an actionable football verdict, use the operational control layer where applicable and record the material assessment state rather than relying only on conversational memory.
+Always load `models/football/CURRENT_MODEL.md` first. Do not select an old model version from memory or an old chat handoff.
 
-At minimum preserve:
-- match / competition;
-- model version;
-- assessment time and minute;
-- score and reset epoch;
-- assessment period;
-- candidate market, line and odds;
-- goal-environment classification;
-- synchronized-state / reset resolution;
-- competition-format and utility checks;
-- xG role and independent primary evidence channels;
-- favorite-fade / directional-persistence checks;
-- market scan;
-- circuit-breaker status;
-- validator result, fail reasons and evidence summary.
+If a current Airtable coverage row demonstrably conflicts with the original frozen Work board, treat it as a persistence synchronization fault and preserve the original frozen Work PRE until corrected.
 
-## Circuit breaker
+---
 
-When circuit-breaker mode is active:
-- counted selections are SHADOW only unless the active model explicitly says otherwise;
-- track the exact selection, odds, simulated stake, result, simulated P/L, process validity and review notes in Airtable;
-- preserve procedural violations separately from outcome;
-- do not erase a counted sample because the process grade was poor;
-- do not convert shadow P/L into official bankroll P/L.
+## 2. Current model routing
 
-## Cross-chat rule
+- **Official:** Football v0.2.49
+- **Base:** v0.2.47 CLEAN
+- **Shadow:** v0.2.47 CLEAN
+- **Shadow:** v0.2.48-SHADOW
 
-Any ChatGPT chat working on SlipTrace football should first consult this protocol plus the current GitHub model state and Airtable decision-control state. Do not reconstruct authoritative state from chat memory when the connected sources can be queried.
+For comparable official grades:
 
-## Separation of records
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-- **Official placed wagers / bankroll P&L:** `ledger.json` only, after confirmed placement and only when ledger writes are authorized.
-- **Decision-state audit, NO BET, watch, lean, shadow and circuit-breaker tracking:** Airtable.
-- **Model rules and durable operating protocol:** GitHub.
+Do not apply the v0.2.49 priority patch to the shadow models.
+
+---
+
+## 3. Fixture coverage rule
+
+Fixture discovery is **AiScore only**.
+
+Do not use a multi-source fixture union. Other providers may support match research only after AiScore establishes the fixture.
+
+For any ICT window that crosses midnight, explicitly traverse every AiScore date listing touched by the window and verify the terminal cutoff block before claiming completeness.
+
+If traversal is incomplete:
+
+`COVERAGE INCOMPLETE — AiScore sweep incomplete`
+
+---
+
+## 4. Current actionable competition overlay
+
+Exclude from the normal actionable board:
+
+- youth/Uxx (U17/U18/U19/U20/U21/U23);
+- academy/junior;
+- reserve/B-team/development;
+- amateur/semi-pro;
+- regional/state/provincial;
+- very small/obscure weak-data leagues;
+- domestic lower divisions below top flight unless explicitly approved/whitelisted.
+
+Do not weaken the overlay to fill the slate.
+
+Do not inherit old generic continental/cup exclusions. Senior first-team competitions such as UEFA Champions League, UEFA Europa League and UEFA Conference League are actionable when otherwise eligible.
+
+---
+
+## 5. Current production workflow
+
+`AiScore universe → quality filter → Work price/XI-blind structural screen → frozen FOCUS/WATCHLIST board → Airtable publish → user supplies XI + odds → Normal Chat final rerank → official v0.2.49 LOCK/HOLD/PASS`
+
+Work publication to Airtable is a state copy/upsert, **not a second structural model run**.
+
+---
+
+## 6. User-supplied XI + odds policy
+
+Normal Chat does not automatically fetch confirmed XI or bookmaker odds.
+
+- user supplies XI + odds;
+- only search externally when the user explicitly asks for verification;
+- no OFFICIAL LOCK without required current XI + executable price;
+- if missing, state `WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`.
+
+Current executable price policy:
+
+- hard floor 1.65;
+- preferred 1.70+;
+- never stretch the total merely to improve price.
+
+---
+
+## 7. Pre-verdict discipline
+
+Before a material verdict:
+
+- resolve the fixture against frozen PRE;
+- verify official model version;
+- review team GF/GA/profile and chance-quality support as required by the active rules;
+- rerank from confirmed XI;
+- identify the main failure mode;
+- choose goal burden before price;
+- apply current price policy;
+- log the material assessment under the model version that produced it.
+
+Price cannot rescue weaker structure.
+
+---
+
+## 8. Record separation
+
+- **Daily Coverage Ledger:** complete-slate coverage + frozen PRE bridge.
+- **Decision States:** later material XI/market/live assessment epochs and official/shadow evidence.
+- **Official picks/ledger path:** actual official LOCK exposure and settlement according to the current repository contract.
+- **GitHub:** current model and durable procedures.
+
+Do not rewrite frozen PRE with a later assessment.
+
+---
+
+## 9. Live and settlement boundary
+
+Live evidence validates or invalidates the frozen thesis; it does not rewrite prematch history.
+
+Shadow/counterfactual/HOLD selections never enter official P/L.
+
+Standard full-match Asian totals settle on 90 minutes + stoppage time unless the market explicitly includes extra time.
+
+---
+
+## 10. Cross-chat non-negotiable
+
+When connected sources can be queried, do not reconstruct authoritative football state from conversational memory.
+
+Load the current repo, read the persisted frozen slate, then apply the user’s current evidence.
