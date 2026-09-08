@@ -42,6 +42,8 @@ Do not infer current rules from historical chat handoffs or old model files. His
 The current user-level overlays are now part of the canonical operating state:
 
 - exclude youth/Uxx, academy, reserve/B-team/development, amateur/semi-pro, regional/state/provincial, weak small-data leagues, and unapproved domestic lower divisions;
+- **exclude Finland Veikkausliiga from the actionable board from 2026-09-09 ICT onward**; keep it in raw AiScore coverage as an explicit exclusion;
+- the Veikkausliiga rule applies to the Finnish top-flight league only; Finnish Cup and UEFA club competitions involving Finnish clubs remain governed by the normal eligibility overlay;
 - senior first-team continental competitions are not generically excluded; UCL, UEL and UECL are actionable when otherwise eligible;
 - hard executable odds floor 1.65, preferred 1.70+;
 - never stretch the total merely to improve price;
