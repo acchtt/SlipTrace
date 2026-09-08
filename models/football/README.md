@@ -1,52 +1,57 @@
-# Football Model
+# SlipTrace Football Model
 
-This directory contains the files required to operate the current **Football v0.2.47 CLEAN official + v0.2.48-SHADOW** workflow.
+This directory contains the **current executable football model stack**.
 
-## Active files
+## Active stack
 
-- `CURRENT_MODEL.md` — active versions, load order, coverage directive, and operating state.
-- `procedures/FOOTBALL_COVERAGE_CONTROLLER.md` — mandatory full-slate reconciliation and screen-every-fixture controller shared by both models.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` — clean original v0.2.47 rule source restored from Aug 16, 2026 Git history.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md` — forward-test candidate; parallel only, never official P/L unless explicitly promoted.
-- `procedures/FOOTBALL_BETTING_PROCEDURE.md` — PRE, XI, market, dual-model verdict, live, settlement, and audit workflow.
-- `airtable/FOOTBALL_COVERAGE_AIRTABLE.md` — Daily Coverage Ledger contract.
-- `airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md` — official/shadow decision-state logging contract.
+- **Official model:** Football v0.2.49
+- **Base:** Football v0.2.47 CLEAN
+- **Official patch:** `rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
+- **Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW
+- **Fixture authority:** AiScore only
+- **Actionable scope:** senior-quality overlay
+- **Execution workflow:** frozen structural PRE → user-supplied XI + odds → official verdict
 
-## Coverage control plane
+The authoritative entry point is:
 
-The active workflow no longer begins by selecting a few `credible candidates`.
+`models/football/CURRENT_MODEL.md`
 
-It now requires:
+Do not infer current rules from historical chat handoffs or old model files. Historical versions remain available through Git history rather than the active football tree.
 
-`RECONCILED FIXTURE UNIVERSE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → FOCUS/WATCHLIST/PASS → XI RERANK → MARKET → TWO MODEL OUTCOMES`
+## Canonical files
 
-Daily coverage is persisted to Airtable `Daily Coverage Ledger` so FOCUS/WATCHLIST matches cannot silently disappear when the visible board is shortened or when the user later asks `what's next?`.
+### Rules
 
-The user-facing board may remain concise. The internal screened universe must reconcile completely.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` — immutable clean base inherited by the official model.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — active official Two-Sided Priority patch.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md` — active shadow comparison rules.
 
-## Model tracks
+### Procedures
 
-### Official
+- `procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md` — AiScore-only universe creation, cross-midnight completeness, research separation, and senior-quality filtering.
+- `procedures/FOOTBALL_COVERAGE_CONTROLLER.md` — complete-slate screening, FOCUS/WATCHLIST/PASS state, frozen PRE, and coverage invariants.
+- `procedures/FOOTBALL_BETTING_PROCEDURE.md` — XI/goal-burden/price/LOCK workflow and live/settlement boundary.
 
-Football **v0.2.47 CLEAN**
+### Airtable contracts
 
-- can issue official LOCK/HOLD/PASS;
-- official locks enter Website Picks and official P/L.
+- `airtable/FOOTBALL_COVERAGE_AIRTABLE.md` — Daily Coverage Ledger contract and frozen Work-board persistence.
+- `airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md` — material decision-state logging for official and shadow tracks.
 
-### Shadow
+## Current operating overlays
 
-Football **v0.2.48-SHADOW**
+The current user-level overlays are now part of the canonical operating state:
 
-- uses the same fixture universe, PRE evidence, XI, and market snapshot;
-- can issue SHADOW LOCK/HOLD/PASS;
-- never enters official P/L unless explicitly promoted.
+- exclude youth/Uxx, academy, reserve/B-team/development, amateur/semi-pro, regional/state/provincial, weak small-data leagues, and unapproved domestic lower divisions;
+- senior first-team continental competitions are not generically excluded; UCL, UEL and UECL are actionable when otherwise eligible;
+- hard executable odds floor 1.65, preferred 1.70+;
+- never stretch the total merely to improve price;
+- confirmed XI and odds are normally supplied by the user; no official lock without the required current XI + price;
+- Work produces and freezes the structural board; later stages must preserve that PRE state rather than reconstruct it.
 
-## Archive
+## Core hierarchy
 
-- `archive/rules/MODEL_RULES_FOOTBALL_V0.2.47-R.md` — archived consolidated/restored-core variant. Retained for provenance only; never load it into active decisions.
+For comparable official v0.2.49 grades:
 
-Historical incremental rule files, old audit/shadow procedures, dated handoffs, benchmarks, and process-review documents remain available through Git history rather than the active load order.
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-## Principle
-
-**Coverage first, selection second. Every eligible fixture gets a disposition. Shorten the display, not the screened universe. Persist FOCUS and WATCHLIST. Keep clean v0.2.47 official and v0.2.48 shadow separate.**
+Price is downstream of structure and cannot rescue a structurally weaker candidate.
