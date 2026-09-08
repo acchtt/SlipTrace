@@ -1,15 +1,17 @@
 # Current Football Model
 
-**Active official model:** Football **v0.2.47 CLEAN**  
+**Active official model:** Football **v0.2.49**  
+**Official base:** Football **v0.2.47 CLEAN**  
+**Active official patch:** `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
 **Parallel shadow model:** Football **v0.2.48-SHADOW**  
-**Active operating profile:** **CLEAN ORIGINAL BASE + COVERAGE-CONTROLLED OFFICIAL-LOCK OPERATING LAYER**  
+**Active operating profile:** **CLEAN ORIGINAL BASE + TWO-SIDED PRIORITY + COVERAGE-CONTROLLED OFFICIAL-LOCK OPERATING LAYER**  
 **Status:** Operational / official-lock mode  
 **Timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Canonical namespace:** `models/football/`
 
-The clean original `v0.2.47` rules file is the official base rule source. `v0.2.47-R` is archived and must not be loaded into official decisions. `v0.2.48-SHADOW` runs in parallel as a forward-test candidate and never enters official P/L unless explicitly promoted.
+Football v0.2.49 is the active official operating model. It inherits the clean original `v0.2.47` rules and adds the narrow prospective two-sided-priority patch in `rules/MODEL_RULES_FOOTBALL_V0.2.49.md`. `v0.2.47-R` remains archived and must not be loaded into official decisions. `v0.2.48-SHADOW` continues in parallel as a forward-test model and never enters official P/L unless explicitly promoted.
 
-The original v0.2.47 file is an incremental rules file focused on the high-scoring halftime compression / goal-saturation gate and explicitly retains earlier v0.2.44-v0.2.46 controls. The current prematch board, structural ranking, XI, market, competition-scope, coverage, and Airtable instructions in this file and the procedure files are the operating layer around that clean base. They do not rewrite the clean source file.
+The original v0.2.47 file remains the immutable clean base rule source. The v0.2.49 patch changes only ranking priority and related same-window attention; it does not rewrite historical v0.2.47 decisions and does not revive the Sep 1 hardening experiment.
 
 ---
 
@@ -21,7 +23,7 @@ The system must not start by choosing a few `credible candidates`. It must first
 
 The mandatory shared sequence is:
 
-`FIXTURE UNIVERSE → RECONCILE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → FOCUS/WATCHLIST/PASS → XI WINDOW RERANK → MARKET → v0.2.47 OFFICIAL + v0.2.48 SHADOW`
+`FIXTURE UNIVERSE → RECONCILE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → FOCUS/WATCHLIST/PASS → XI WINDOW RERANK → MARKET → v0.2.49 OFFICIAL + v0.2.48 SHADOW`
 
 The visible board may be aggressively shortened. The internal screened universe may not.
 
@@ -41,9 +43,9 @@ Do **not** automatically apply, restore, or infer any of the former hardening ga
 - XI "names cannot create a route" hard prohibition;
 - H2H de-weighting as a mandatory override rule.
 
-Those ideas may be studied only in a clearly labeled SHADOW/BENCHMARK context and must not affect the official v0.2.47 shortlist, XI rerank, line choice, or lock unless the active model is explicitly changed again.
+Those ideas may be studied only in a clearly labeled SHADOW/BENCHMARK context and must not affect the official v0.2.49 shortlist, XI rerank, line choice, or lock unless the active model is explicitly changed again.
 
-If any future document, note, memory, audit, or prior commit conflicts with this directive, **this file wins for the operating layer**, while `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` remains immutable as the clean base rule source.
+If any future document, note, memory, audit, or prior commit conflicts with this directive, **this file wins for the operating layer**, while `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` remains immutable as the clean base rule source and `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` is the active official ranking patch.
 
 ---
 
@@ -54,10 +56,11 @@ Load these files for the active workflow:
 1. `models/football/CURRENT_MODEL.md`
 2. `models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md`
 3. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
-4. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-5. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-6. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-7. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+4. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+6. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+7. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+8. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Do **not** load `models/football/archive/rules/MODEL_RULES_FOOTBALL_V0.2.47-R.md` into active decisions.
 
@@ -75,7 +78,7 @@ Daily coverage is persisted to Airtable:
 
 For every requested slate/window:
 
-1. reconcile a fixture union from the available canonical feed plus an independent schedule source when possible;
+1. reconcile the fixture universe according to the active Coverage Controller and current source policy;
 2. convert all kickoffs to ICT;
 3. write/upsert every discovered fixture to the coverage ledger;
 4. mark exclusions explicitly instead of omitting them;
@@ -103,18 +106,24 @@ After coverage completion, the official structural decision order is:
 
 `STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN → PRICE → LOCK / HOLD`
 
-Price is a tiebreaker only. It must not promote a structurally weaker match.
+**v0.2.49 clarification:** structural archetype is part of `STRUCTURAL QUALITY`. When grades are comparable, apply:
+
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+
+Carrier ceiling may break ties only after that structural preference has been respected. Price is a tiebreaker only. It must not promote a structurally weaker match.
 
 ---
 
 ## Active ranking bands
 
-- **A1** — genuine Two-Sided Tier A, or proven Elite Carrier with a credible independent 3+ route and acceptable opponent resistance.
-- **A2** — strong two-sided environment or strong carrier with one meaningful weakness.
+- **A1** — genuine Two-Sided Tier A, or an exceptional Elite Carrier that clearly clears the v0.2.49 exception standard.
+- **A2** — strong two-sided environment, or a strong carrier with one meaningful weakness.
 - **B+** — good environment but materially dependent on opponent contribution, rotation, game state, or another failure mode.
 - **B / PASS** — fragile route, strong resistance, cohesion problem, weak chance quality, or excessive goal burden.
 
-Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely because the opponent contributes less.
+**Two-Sided A is the default priority over same-grade Elite Carrier A.** An Elite Carrier may leapfrog a genuine same-grade Two-Sided candidate only when it is clearly superior on both repeatable chance quality / self-funding 3+ capacity and failure-mode resistance. Carrier reputation, raw GF, recent explosions, or theoretical ceiling alone are not enough.
+
+This ordering controls ranking and attention; it does **not** automatically promote a B+ two-sided match to A2 or force a lock.
 
 ---
 
@@ -123,6 +132,8 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - Confirmed XI is the first legitimate rerank gate after frozen PRE.
 - Team GF/GA and scoring/conceding-frequency profile is mandatory.
 - Chance quality is assessed as supporting evidence, not as a rigid promotion veto.
+- **Two-sided priority rule:** when grades are comparable, rank `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`. A genuine two-sided label requires credible independent scoring routes from both teams; mere leakage does not qualify.
+- **Elite-carrier exception:** an elite carrier may outrank a genuine same-grade two-sided match only when clearly superior on both repeatable chance quality / self-funding capacity and failure-mode resistance.
 - **Recent-total / leakage confirmation rule:** when a candidate's high grade is driven heavily by an extreme recent run of high totals or defensive leakage, those scorelines may identify the candidate but cannot by themselves justify top-board promotion or an official lock. Require supporting evidence that the necessary scoring routes are producing repeatable good chances; if that support is weak or unavailable, reduce priority or HOLD.
 - This calibration is narrow: it is **not** a reserve/youth cap, short-sample hard cap, burden gate, XI prohibition, or revival of the Sep 1 hardened framework.
 - Failure modes must be identified before selection.
@@ -134,7 +145,7 @@ Two-Sided A and Elite Carrier A are peers. Do not demote an elite carrier merely
 - Manual live overrides are allowed only as a separately labelled state.
 - Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
 - Counterfactual simulations never enter official P/L.
-- Every material official/shadow decision state is logged to Airtable with its actual model version.
+- Every material official/shadow decision state is logged to Airtable with its actual model version. Future official states after this patch use `v0.2.49`.
 
 ---
 
@@ -168,9 +179,10 @@ For daily/upcoming requests:
 5. preserve all FOCUS + WATCHLIST matches internally through XI unless explicitly downgraded;
 6. do not omit earlier kickoff blocks;
 7. when matches overlap, compare all surviving FOCUS/WATCHLIST fixtures in the same practical kickoff window;
-8. if a leading candidate is downgraded by XI or market, immediately promote the next strongest surviving candidate;
-9. use the persisted coverage ledger for `what's next?`;
-10. mark newly discovered fixtures with the coverage taxonomy rather than silently inserting or ignoring them.
+8. for comparable grades, apply the v0.2.49 archetype priority `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER` before using carrier ceiling as a tiebreak;
+9. if a leading candidate is downgraded by XI or market, immediately promote the next strongest surviving candidate;
+10. use the persisted coverage ledger for `what's next?`;
+11. mark newly discovered fixtures with the coverage taxonomy rather than silently inserting or ignoring them.
 
 A user-facing board should include a compact coverage line, e.g.:
 
@@ -184,7 +196,7 @@ Every eligible match that survives far enough for a model verdict uses the same 
 
 ### Official track
 
-**Football v0.2.47 CLEAN**
+**Football v0.2.49**
 
 Allowed final outcomes:
 
@@ -206,7 +218,7 @@ Allowed final outcomes:
 
 Shadow outcomes are logged separately and never enter official P/L until explicit promotion.
 
-A shadow HOLD must not suppress an official v0.2.47 candidate. An official HOLD/PASS must not erase the shadow result for an eligible screened match.
+Both tracks receive the same v0.2.49 structural archetype ordering before the shadow-specific deltas are applied. A shadow HOLD must not suppress an official v0.2.49 candidate. An official HOLD/PASS must not erase the shadow result for an eligible screened match.
 
 ---
 
@@ -228,5 +240,7 @@ Do not infer missed-lock status from the final score alone.
 ## Anti-hindsight rule
 
 Never rewrite a prematch grade, XI rerank, line, price, coverage status, or verdict after the result is known. A later winning score does not convert a prior HOLD into a model win, and a losing score does not by itself prove that the original process was wrong.
+
+The v0.2.49 patch is prospective from 2026-09-08 ICT. Historical v0.2.47 decisions and P/L remain recorded under the model version that actually produced them.
 
 Historical versions and the Sep 1 hardening experiment remain recoverable from Git history but are not part of the active official-selection regime.
