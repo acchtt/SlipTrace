@@ -79,9 +79,9 @@ Exclude from the actionable board:
 - regional/state/provincial leagues;
 - very small/obscure weak-data leagues;
 - domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
-- **Finland Veikkausliiga (Finnish top-flight league) — hard exclusion effective 2026-09-09 ICT onward.**
+- **all Finnish domestic league competitions at every tier/category, including men's and women's leagues — hard exclusion effective 2026-09-09 ICT onward.**
 
-The Veikkausliiga exclusion is prospective and does not rewrite historical decisions. It applies to Veikkausliiga league fixtures; Finnish Cup or UEFA club competitions involving Finnish clubs are not excluded by this rule unless they fail another active eligibility rule.
+The Finnish-league exclusion is prospective and does not rewrite historical decisions. It applies to every domestic league competition in Finland, including Veikkausliiga and all lower-tier Finnish leagues. Keep such fixtures in the raw AiScore universe for reconciliation, but classify them as excluded before structural screening. This is a competition rule, not a club-nationality rule: Finnish Cup and UEFA club competitions involving Finnish clubs are not excluded by this rule unless they fail another active eligibility rule.
 
 Do not weaken this overlay to fill the slate. Excluded fixtures must not appear as FOCUS, WATCHLIST, or official betting candidates.
 
