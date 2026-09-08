@@ -53,9 +53,9 @@ For the normal actionable betting board, exclude:
 - regional/state/provincial leagues;
 - very small/obscure weak-data leagues;
 - domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
-- **Finland Veikkausliiga (Finnish top-flight league) — hard exclusion effective 2026-09-09 ICT onward.**
+- **all Finnish domestic league competitions at every tier/category, including men's and women's leagues — hard exclusion effective 2026-09-09 ICT onward.**
 
-The Veikkausliiga rule is prospective. Veikkausliiga fixtures remain in the raw AiScore universe but must be marked `EXCLUDED`; they must never receive FOCUS/WATCHLIST status or reach official betting evaluation. Finnish Cup and UEFA club competitions involving Finnish clubs are not excluded by this rule unless another active eligibility rule removes them.
+The Finnish-league rule is prospective. All Finnish domestic league fixtures remain in the raw AiScore universe but must be marked `EXCLUDED`; they must never receive FOCUS/WATCHLIST status or reach official betting evaluation. This includes Veikkausliiga and all lower-tier Finnish leagues. Finnish Cup and UEFA club competitions involving Finnish clubs are not excluded by this rule unless another active eligibility rule removes them.
 
 These fixtures remain part of the raw AiScore universe but must be marked excluded rather than silently omitted.
 
@@ -160,7 +160,7 @@ Also verify:
 - all actionable fixtures have a PRE disposition;
 - all FOCUS + WATCHLIST rows are persisted;
 - no youth/reserve/lower/small fixture survives the actionable overlay;
-- no Veikkausliiga fixture survives the actionable overlay from 2026-09-09 ICT onward;
+- no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
 - no date/competition block within the requested AiScore window is unaccounted for.
 
 If counts or coverage fail:
