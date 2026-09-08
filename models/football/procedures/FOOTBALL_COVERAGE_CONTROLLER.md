@@ -1,338 +1,213 @@
 # Football Coverage Controller
 
-**Status:** Active mandatory pre-ranking controller  
-**Timezone:** Asia/Ho_Chi_Minh / ICT (UTC+7)  
-**Applies to:** Football v0.2.49 official, v0.2.47 CLEAN shadow, and v0.2.48-SHADOW  
-**Purpose:** Prevent silent omission of worthwhile fixtures before structural ranking.
+**Status:** ACTIVE  
+**Official model:** Football v0.2.49  
+**Coverage authority:** AiScore fixture universe + current senior-quality overlay
 
-This controller sits above the model tracks. It is not a betting rule. Its job is to ensure the models receive the same screened fixture universe and evidence state.
-
-**Fixture-source authority is defined by `FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`: sweep AiScore only; research sources remain flexible.**
-
-Core sequence:
-
-`AISCORE FIXTURE UNIVERSE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → PRE DISPOSITION → FOCUS/WATCHLIST/PASS → XI WINDOW RERANK → MARKET → MODEL VERDICTS`
-
-The visible shortlist is allowed to be small. The internal screened universe is not.
+The coverage controller prevents silent fixture omission and prevents downstream stages from replacing a frozen Work PRE state with a second screen.
 
 ---
 
-## 1. Coverage invariant
+## 1. Production sequence
 
-Before publishing a daily/upcoming board, every AiScore fixture in the requested time window must be accounted for as one of:
+The required sequence is:
 
-- `SCREENED`
-- `LATE-DISCOVERED BUT SCREENED`
-- `EXCLUDED`
-- `PENDING SCREEN / DATA INCOMPLETE`
+`AISCORE UNIVERSE → SENIOR-QUALITY ELIGIBILITY → SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK → GOAL BURDEN → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
 
-A board is coverage-complete only when the relevant AiScore window was traversed and:
-
-`eligible fixtures = screened eligible fixtures + pending/data-incomplete eligible fixtures`
-
-with no unexplained AiScore fixture gaps.
-
-If this cannot be established, label the slate:
-
-`COVERAGE INCOMPLETE — AiScore sweep incomplete`
-
----
-
-## 2. Fixture-universe sweep — AiScore only
-
-For every daily or user-requested fixture window:
-
-1. Build the fixture list only from AiScore daily/live listings and AiScore match pages.
-2. Normalize team names, competition names, dates, and kickoff times to ICT.
-3. Traverse the full relevant AiScore window before exclusions.
-4. Reconcile duplicate representations of the same AiScore fixture.
-5. Only after the AiScore list is stable, apply competition eligibility.
-
-Do **not** build a union with an independent schedule source.
-
-Do **not** allow Soccerway, FotMob, Google/web search, Bzzoiro/BSD, league sites, bookmaker pages, or any other provider to add fixtures to the universe.
-
-If another source reveals a possible fixture, verify it on AiScore before adding it. If it cannot be verified on AiScore, it is not part of the active sweep universe.
-
-Under this policy, `Reconciled = true` means the requested AiScore listing/window was fully traversed, normalized, and accounted for. It does not require cross-provider agreement.
-
-Do not use model attractiveness, odds, team reputation, or kickoff convenience to decide whether an AiScore fixture enters the universe.
-
----
-
-## 3. Eligibility gate
-
-Apply exclusions before structural ranking.
-
-Eligible normal competition universe:
-
-- league fixtures except hard-excluded leagues;
-- English domestic cups: FA Cup and EFL/Carabao Cup;
-- DFB-Pokal;
-- North American Leagues Cup (MLS/Liga MX).
-
-Hard exclusions currently include:
-
-- K League;
-- Belgian Pro League / Jupiler Pro League;
-- all other domestic/continental/League Cup competitions unless explicitly added later.
-
-Every excluded AiScore fixture still receives a ledger row with `Eligibility = EXCLUDED` and an explicit exclusion reason. Exclusion is not omission.
-
----
-
-## 4. Mandatory screen-every-fixture rule
-
-There is no undefined `credible candidate` prefilter before PRE screening.
-
-Every eligible fixture must receive at least a lightweight structural disposition using the current operating layer:
-
-- team GF/GA profile;
-- 2+/3+ scoring and conceding frequency where relevant;
-- home/away context when useful;
-- structural archetype;
-- carrier ceiling;
-- secondary route;
-- suppression/resistance;
-- recent-total/leakage flag;
-- chance-quality support when required/available;
-- obvious competition/incentive drag;
-- primary failure mode.
-
-Assign one PRE band:
-
-- `A1`
-- `A2`
-- `B+`
-- `B / PASS`
-- `DATA INCOMPLETE`
-
-No eligible fixture may disappear before receiving a disposition.
-
----
-
-## 5. Board tiers
-
-After all eligible fixtures are screened, assign a board tier.
-
-### FOCUS
-Use for the strongest A1/A2 candidates and any B+ candidate genuinely close enough to become a lock after XI/market.
-
-### WATCHLIST
-Use for other A2/B+ fixtures whose routes are real but currently carry material uncertainty, weaker priority, uncertain XI, or market dependency.
-
-### PASS
-Use for B/PASS fixtures whose route is too fragile for normal XI follow-up absent genuinely new prematch information.
-
-### UNRESOLVED
-Use when data is materially incomplete.
-
-Shortening applies only to the user-facing display. FOCUS and WATCHLIST rows remain alive internally until kickoff, explicit downgrade, or exclusion.
-
----
-
-## 6. Display-compression rule
-
-The instruction to aggressively shorten the board means:
-
-- show the best few FOCUS fixtures prominently;
-- optionally summarize WATCHLIST compactly;
-- do not dump every PASS fixture into the normal user-facing board.
-
-It does not mean:
-
-- stop screening after finding a few good matches;
-- discard A2/B+ fixtures because another match looks better;
-- forget an overlapping match once a primary focus match is selected.
+Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first.
 
 **SHORTEN THE DISPLAY, NEVER THE SCREENED UNIVERSE.**
 
 ---
 
-## 7. Coverage-count reconciliation
+## 2. AiScore traversal gate
 
-For every completed daily screen, maintain:
+Coverage cannot pass until the entire requested ICT window is accounted for on AiScore.
 
-`Universe | Eligible | Excluded | Screened | Focus | Watchlist | Pass | Unresolved`
+Required checks:
 
-Required invariants:
+- every AiScore calendar-date listing touched by the window is traversed;
+- overnight continuation is explicitly traversed rather than inferred;
+- terminal requested kickoff interval/cutoff is checked;
+- every discovered fixture is normalized to ICT and counted once;
+- no known AiScore competition/league block inside the window remains unvisited or unresolved.
 
-`Eligible = Focus + Watchlist + Pass + Unresolved`
+If a window crosses midnight, both calendar dates are mandatory traversal targets. If the cutoff is 03:00 ICT, verify the 03:00 interval even when the latest discovered fixture is earlier.
 
-`Universe = Eligible + Excluded`
-
-If the numbers do not reconcile, search the AiScore sweep for the missing row before publishing the board as complete.
-
----
-
-## 8. Persistence and Airtable
-
-Persist the daily universe to Airtable table:
-
-- Base: `SlipTrace Football Decision Control`
-- Base ID: `appWyZJjitSBATXAU`
-- Table: `Daily Coverage Ledger`
-- Table ID: `tblcl1UAyMqZT6Ub0`
-
-Use one row per fixture per slate date.
-
-Recommended stable `Coverage ID`:
-
-`YYYYMMDD-COMPETITION-HOME-AWAY`
-
-Upsert rather than duplicate when the same AiScore fixture is seen again.
-
-Recommended source fields:
-
-- `Source 1 = AiScore`
-- `Source 2 = blank` unless used only as a research/reference note
-
-The coverage ledger is the authoritative source for `what's next?` within an already-screened slate. Do not rebuild a fresh partial board from memory when the ledger exists.
-
-If the requested window changes materially or the ledger is stale/incomplete, rerun the affected AiScore sweep and update it.
-
----
-
-## 9. Same-window monitoring / anti-sunk-cost rule
-
-Matches starting in the same practical monitoring block must remain comparable.
-
-Before kickoff and again at confirmed XI:
-
-1. collect all FOCUS + WATCHLIST fixtures in the relevant kickoff window;
-2. rerank them head-to-head;
-3. on the official v0.2.49 track, apply its current structural ordering, including two-sided priority for comparable grades;
-4. if the top match is downgraded by XI/market, immediately promote the next strongest surviving match;
-5. do not keep monitoring a weakened first-choice match simply because it was selected earlier.
-
-Suggested comparison window: roughly 90 minutes either side of the current next kickoff, adjusted when the slate is sparse.
-
----
-
-## 10. XI-stage survival rule
-
-Every FOCUS match and every WATCHLIST match that can still plausibly reach LOCK must receive XI attention when reliable confirmed lineups become available.
-
-At XI:
-
-- preserve frozen PRE;
-- rerank rather than rebuild;
-- update `XI Status` in the coverage ledger;
-- compare surviving candidates in the same kickoff block;
-- only then move to Asian-total market expression.
-
----
-
-## 11. Research after sweep
-
-Once AiScore establishes the fixture, match research runs normally using the best available sources.
-
-Research may use official team/league sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistical/news sources, and user-supplied screenshots.
-
-These sources may improve lineup, profile, chance-quality, tactical, injury, incentive, and market evidence. They may not add a non-AiScore fixture to the sweep universe.
-
----
-
-## 12. Three-track routing
-
-The coverage controller is shared. All three model tracks receive:
-
-- the same AiScore fixture universe;
-- the same competition eligibility;
-- the same PRE evidence timestamp;
-- the same confirmed XI snapshot;
-- the same Asian-total market snapshot.
-
-Then the tracks diverge by model logic:
-
-- **Official:** Football v0.2.49
-- **Shadow 1:** Football v0.2.47 CLEAN, run without the v0.2.49 patch
-- **Shadow 2:** Football v0.2.48-SHADOW, run with its own documented shadow deltas and without silently importing the v0.2.49 patch
-
-Only v0.2.49 enters official P/L.
-
-Store v0.2.47 and v0.2.48 comparison dispositions in their existing coverage fields where applicable. Do not overwrite those fields with the v0.2.49 official state.
-
-A shadow HOLD/PASS must not remove a match from the official v0.2.49 workflow.
-
----
-
-## 13. Late discovery
-
-If an eligible fixture that was present on AiScore is found after the first board was published:
-
-### Before kickoff
-Label:
-
-`LATE-DISCOVERED BUT SCREENED`
-
-Screen it immediately and insert it into FOCUS/WATCHLIST/PASS normally.
-
-### After kickoff
-Label:
-
-`TRUE MISSED SCREEN` if it was on AiScore but was never properly assessed before kickoff.
-
-A fixture found only through a non-AiScore research source is not added until verified on AiScore.
-
-A just-kicked grace or explicit manual-live override remains governed by the betting procedure.
-
----
-
-## 14. Audit taxonomy
-
-Use these coverage labels consistently:
-
-- `SCREENED`
-- `LATE-DISCOVERED BUT SCREENED`
-- `TRUE MISSED SCREEN`
-- `RANKING MISS`
-- `HOLD/PASS`
-- `FALSE-NEGATIVE HOLD`
-- `BAD LOCK`
-- `CORRECT HOLD, OVER LANDED`
-
-Do not classify a match as a missed lock from final score alone.
-
----
-
-## 15. User-facing board contract
-
-For normal `list upcoming matches`, `what's next?`, or daily-board requests, output:
-
-1. coverage status/count line;
-2. FOCUS board;
-3. WATCHLIST only when useful or requested;
-4. next-match designation based on the persisted coverage ledger.
-
-Example:
-
-`Coverage: 42 universe | 27 eligible | 27 screened | 5 focus | 8 watch | 14 pass | 0 unresolved`
-
-If any eligible row remains unresolved, say so explicitly.
-
----
-
-## 16. Fail-closed rules
-
-Do not claim `full slate screened` when:
-
-- the relevant AiScore listing/window was not fully traversed;
-- eligible fixture counts do not reconcile;
-- a known AiScore league block is missing;
-- timezone conversion is unresolved;
-- newly discovered eligible AiScore fixtures have not yet been screened.
-
-Use:
+If this gate fails:
 
 `COVERAGE INCOMPLETE — AiScore sweep incomplete`
 
-or, when the sweep is complete but screening/counts are not:
+No other schedule provider may backfill the universe.
+
+---
+
+## 3. Current eligibility gate — senior-quality overlay
+
+For the normal actionable betting board, exclude:
+
+- youth/Uxx: U17, U18, U19, U20, U21, U23 and equivalent youth competitions;
+- academy/junior competitions;
+- reserve/B-team/development competitions;
+- amateur/semi-professional competitions;
+- regional/state/provincial leagues;
+- very small/obscure weak-data leagues;
+- domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted.
+
+These fixtures remain part of the raw AiScore universe but must be marked excluded rather than silently omitted.
+
+Do not inherit legacy blanket exclusions for continental football or cup labels. Senior first-team continental competitions are actionable when otherwise eligible, including UEFA Champions League, UEFA Europa League, and UEFA Conference League.
+
+Do not weaken the overlay because the slate is small.
+
+---
+
+## 4. Screening requirement
+
+Every actionable fixture receives:
+
+- competition and kickoff ICT;
+- PRE grade;
+- structural archetype;
+- primary scoring route;
+- secondary route/opponent contribution where relevant;
+- main failure mode;
+- XI sensitivity;
+- structural total range/ceiling when supportable;
+- one board state: `FOCUS`, `WATCHLIST`, `PASS`, or `UNRESOLVED`.
+
+Use the current official model hierarchy. For comparable v0.2.49 grades:
+
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+
+Price is not part of PRE ranking.
+
+---
+
+## 5. FOCUS / WATCHLIST / PASS semantics
+
+### FOCUS
+
+The strongest provisional candidates deserving first XI/market attention. FOCUS is not automatically a bet.
+
+### WATCHLIST
+
+Structurally live candidates with one or more material failure modes or sensitivity points. WATCHLIST survives to the confirmed-XI stage unless explicitly downgraded by new material evidence.
+
+### PASS
+
+The structural route did not clear the current PRE standard. Price or recognizable XI names may not resurrect a genuine PRE PASS without a documented material structural change.
+
+### UNRESOLVED
+
+Required information is insufficient to classify confidently. Do not convert uncertainty into PASS merely to reconcile counts.
+
+---
+
+## 6. Frozen PRE rule
+
+When Work completes the structural screen, that board becomes the **frozen PRE artifact** for the later user-supplied XI/odds workflow.
+
+The frozen record includes at least:
+
+- PRE grade;
+- structural archetype;
+- board tier/state;
+- primary/secondary routes;
+- main failure mode;
+- XI sensitivity;
+- structural burden/range.
+
+Downstream stages may rerank or downgrade based on new evidence, but they must start from this frozen state and must not reconstruct a different PRE from scratch.
+
+---
+
+## 7. Airtable publication rule
+
+Publishing the Work screen to `Daily Coverage Ledger` is a **copy/upsert of the frozen screen**, not another model run.
+
+The publish step must preserve Work output exactly in the fields available in the Airtable contract.
+
+Forbidden behavior:
+
+- Work says `WATCHLIST` but Airtable publisher independently writes `PASS`;
+- Work says `A2` but publisher independently rewrites `B / PASS`;
+- publisher substitutes a fresh secondary-source thesis for the frozen Work thesis.
+
+If the persisted row conflicts with the original Work board, classify:
+
+`PERSISTENCE SYNC FAULT — frozen PRE preserved`
+
+Correct the persistence layer rather than treating the bad row as decision authority.
+
+---
+
+## 8. Count invariants
+
+The board cannot be called complete until both equations reconcile:
+
+`Universe = Actionable eligible + Excluded`
+
+`Actionable eligible = Focus + Watchlist + Pass + Unresolved`
+
+Also verify:
+
+- each fixture appears once;
+- all exclusions have a reason;
+- all actionable fixtures have a PRE disposition;
+- all FOCUS + WATCHLIST rows are persisted;
+- no youth/reserve/lower/small fixture survives the actionable overlay;
+- no date/competition block within the requested AiScore window is unaccounted for.
+
+If counts or coverage fail:
 
 `COVERAGE INCOMPLETE — board provisional`
 
 ---
 
-## Operating principle
+## 9. Same-window survival and rerank
 
-**Sweep AiScore only. Screen every eligible AiScore fixture. Research each match normally. Shorten the display, not the screened universe. Route the same evidence state through v0.2.49 official, v0.2.47 shadow, and v0.2.48 shadow.**
+At confirmed XI, compare all surviving FOCUS/WATCHLIST candidates in the same practical kickoff window rather than reviewing them in isolation.
+
+The official v0.2.49 order remains:
+
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN → PRICE`
+
+At comparable grades, keep the v0.2.49 structural archetype priority.
+
+Confirmed XI is the first legitimate rerank gate after frozen PRE.
+
+---
+
+## 10. Current user-supplied-input boundary
+
+Normal pre-kickoff execution does not automatically fetch XI or bookmaker odds.
+
+Until the user supplies the required current XI + odds:
+
+- FOCUS/WATCHLIST remains provisional;
+- market/price remains unevaluated;
+- no official line is selected;
+- no OFFICIAL LOCK is issued.
+
+Only search externally for XI/odds when the user explicitly asks for external verification.
+
+---
+
+## 11. Missed-fixture recovery
+
+If an eligible fixture is discovered after a board was claimed complete:
+
+1. classify the original coverage claim as a coverage failure;
+2. determine which traversal/filter/persistence step failed;
+3. if still prematch, screen it immediately and compare it against the full frozen board;
+4. if already started, label it a `MISSED PREMATCH OPPORTUNITY` and do not rewrite history;
+5. fix the root cause before the next board is called complete.
+
+A live result must never be used to pretend the omitted match would certainly have been selected prematch.
+
+---
+
+## 12. Authority
+
+This controller is subordinate to `CURRENT_MODEL.md` and the active rule files, but it supersedes old coverage instructions that rely on multi-source fixture unions, legacy competition whitelists, or a second structural screen during Airtable publication.
