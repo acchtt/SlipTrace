@@ -1,507 +1,254 @@
-# Football Betting Procedure — v0.2.47 CLEAN + v0.2.48 SHADOW
+# Football Betting Procedure
 
-**Status:** Active operational procedure  
-**Timezone:** Asia/Ho_Chi_Minh / ICT (UTC+7)  
-**Official model:** Football v0.2.47 CLEAN  
-**Shadow model:** Football v0.2.48-SHADOW  
-**Applies to:** Daily slate coverage, prematch ranking, confirmed-XI rerank, Asian-total selection, live validation, settlement, and process review.
+**Status:** ACTIVE  
+**Official model:** Football v0.2.49  
+**Base:** v0.2.47 CLEAN  
+**Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW  
+**Fixture authority:** AiScore only
 
-This procedure operates the clean `MODEL_RULES_FOOTBALL_V0.2.47.md` as the official model and runs `MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md` in parallel. `MODEL_RULES_FOOTBALL_V0.2.47-R.md` is archived and is not part of the active workflow.
-
-`FOOTBALL_COVERAGE_CONTROLLER.md` is a mandatory precondition before ranking or publishing a daily/upcoming board.
-
-> **Safeguard:** Do not silently reactivate the Sep 1, 2026 hardened gates. Only the explicit v0.2.48 shadow patches are active on the shadow track.
+This is the current execution procedure from frozen PRE through official LOCK/HOLD/PASS. Detailed structural rules remain in the active rule files; this procedure defines ordering and operating boundaries.
 
 ---
 
-## 1. Daily slate workflow
+## 1. Preconditions
 
-### Phase A — coverage first
+Do not issue an official prematch verdict unless:
 
-1. Run `FOOTBALL_COVERAGE_CONTROLLER.md` for the requested time window.
-2. Build the union of fixture sources, normalize to ICT, and persist the universe to Airtable `Daily Coverage Ledger`.
-3. Apply competition eligibility and hard exclusions.
-4. Do **not** prefilter by attractiveness, team reputation, market odds, or convenience.
-5. Give every eligible fixture a PRE structural disposition.
-6. Assign FOCUS / WATCHLIST / PASS / UNRESOLVED.
-7. Reconcile coverage counts before claiming the board is complete.
-8. If counts do not reconcile, use `COVERAGE INCOMPLETE — board provisional`.
+1. the requested AiScore fixture window passed coverage reconciliation;
+2. the fixture is actionable under the current senior-quality overlay;
+3. the fixture has a frozen Work PRE state or a clearly documented equivalent current PRE state;
+4. the required current confirmed XI and executable Asian-total price are available from the user, unless the user explicitly requested external verification.
 
-### Phase B — structural ranking
+If XI or price is missing under the normal workflow:
 
-For every eligible fixture, assess as available:
+`WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`
 
-- team GF/GA profile;
-- recent GF/GA;
-- 2+/3+ scoring and conceding frequency;
-- home/away context;
-- carrier ceiling;
-- secondary contribution route;
-- opponent resistance/suppression;
-- competition/format incentives;
-- recent-total/leakage dependence;
-- chance-quality support where required/available;
-- primary failure mode.
-
-Assign official clean PRE grade:
-
-- A1
-- A2
-- B+
-- B / PASS
-- DATA INCOMPLETE
-
-Record both model PRE dispositions in the coverage ledger.
-
-### Phase C — display
-
-Only after all eligible fixtures are screened:
-
-- show the best FOCUS matches prominently;
-- optionally show WATCHLIST compactly;
-- keep PASS fixtures out of the normal visible board unless the user requests full coverage;
-- preserve FOCUS and WATCHLIST internally.
-
-**Display shortening is not screening shortening.**
-
-Recommended visible columns:
-
-`Rank | ICT kickoff | Match | v0.2.47 PRE | v0.2.48 PRE | Structural type | Tier`
-
-Include a coverage line:
-
-`Coverage: Universe | Eligible | Screened | Focus | Watch | Pass | Unresolved`
+Do not reconstruct a new structural PRE merely because later evidence is available.
 
 ---
 
-## 2. Competition eligibility
+## 2. Frozen structural state
 
-Retain:
+Start from the frozen Work artifact:
 
-- league fixtures except hard-excluded leagues;
-- English domestic cups: FA Cup and EFL/Carabao Cup;
-- DFB-Pokal;
-- North American Leagues Cup (MLS/Liga MX).
+- PRE grade;
+- structural archetype;
+- FOCUS/WATCHLIST/PASS/UNRESOLVED;
+- primary route;
+- secondary route/opponent contribution;
+- main failure mode;
+- XI sensitivity;
+- structural total range/ceiling.
 
-Exclude:
+FOCUS and WATCHLIST are provisional candidates, not bets.
 
-- K League;
-- Belgian Pro League / Jupiler Pro League;
-- all other domestic/continental/League Cup competitions unless explicitly added later.
+A genuine frozen PRE PASS is not rescued by attractive price. A documented material structural change may justify a new assessment epoch, but it must be labelled rather than silently rewriting PRE.
 
-The North American **Leagues Cup** is an explicit exception and must not be removed by a generic “League Cup” filter.
-
-Excluded fixtures remain in the coverage ledger with an explicit reason. Exclusion is not omission.
+If Airtable conflicts with the original Work board, use the original frozen Work state and classify the discrepancy as a persistence sync fault until corrected.
 
 ---
 
-## 3. Structural assessment
+## 3. Official structural hierarchy
 
-For every eligible fixture, establish:
+Official v0.2.49 order:
 
-- primary goal route;
-- whether one side has a credible solo 3+ route;
-- opponent resistance;
-- secondary contribution route;
-- competition/format incentives;
-- major failure modes.
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN → PRICE → LOCK / HOLD`
 
-Do not use odds to determine structural rank.
+For comparable grades:
 
-### Mandatory team profile
+`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-Inspect as available:
+A genuine TWO-SIDED profile requires credible independent scoring routes from both teams.
 
-- season goals for and against;
-- recent GF/GA;
-- scoring 2+ frequency;
-- scoring 3+ frequency when carrier status matters;
-- conceding 2+ frequency;
-- conceding 3+ frequency when relevant;
-- clean-sheet / one-goal suppression tendency;
+An ELITE CARRIER may outrank a genuine same-grade TWO-SIDED candidate only when clearly superior on both repeatable chance quality/self-funding 3+ capacity and failure-mode resistance.
+
+Price cannot create structure.
+
+---
+
+## 4. Confirmed-XI rerank
+
+Confirmed XI is the first legitimate rerank gate after frozen PRE.
+
+Review:
+
+- creators;
+- finishers;
+- defensive absences;
+- formation and attacking shape;
+- rotation;
+- starter/bench quality;
+- cohesion;
+- whether the frozen primary and secondary routes remain intact;
+- whether the frozen failure mode strengthens or weakens.
+
+For TWO-SIDED profiles, verify both independent routes still exist.
+
+For carrier profiles, verify the carrier still has credible self-funding capacity and that the opponent/suppression failure branch remains acceptable.
+
+XI can downgrade or rerank a thesis. Do not over-promote solely because recognizable attackers start.
+
+---
+
+## 5. Team-profile and chance-quality check
+
+Before final promotion, retain the current model’s mandatory team-profile review:
+
+- season GF/GA;
+- recent relevant GF/GA;
+- scoring/conceding 2+ frequencies;
+- clean-sheet/suppression tendency;
 - home/away splits;
-- competition-specific profile where useful;
-- post-lead behavior where reliable evidence exists.
+- competition-specific context where useful.
 
-Short early-season samples are usable but provisional; they do not impose automatic grade caps.
+Where data exists, use repeatable chance-quality evidence such as big chances, central/box access, shots-on-target quality, box touches, xG/xGA/xGOT and comparable indicators.
 
-### Recent-total / leakage confirmation
-
-If a candidate is being promoted mainly because of an extreme recent run of high totals or repeated multi-goal concessions:
-
-1. mark the thesis as scoreline/leakage-driven;
-2. identify which scoring routes are required for the proposed total;
-3. seek supporting evidence that those routes are producing repeatable good chances: multi-match big chances, central/box access, box touches, SOT quality, xG/xGOT trend, or stable multi-goal frequencies beyond one anomalous match;
-4. if one required secondary route has weak or unproven creation, do not let recent totals alone complete the promotion;
-5. if detailed chance-quality data is unavailable, lower confidence rather than inventing evidence.
-
-On the official v0.2.47 track this remains a narrow confirmation rule, not a general hard cap.
-
-The shadow v0.2.48 track applies its explicit stronger recent-total/leakage patch separately after receiving the same evidence state.
-
-### Chance quality
-
-Where available, inspect big chances, central/box access, box touches, SOT quality, and xG/xGOT as supporting evidence. Do not let raw possession or raw shot volume substitute for actual threat.
+Chance quality is a modifier/supporting gate, not a rigid universal veto.
 
 ---
 
-## 4. Prematch freeze
+## 6. Failure-mode check
 
-For every FOCUS and relevant WATCHLIST match, freeze the PRE state before XI.
+Before any LOCK, state how the Over thesis can fail and decide whether the selected line survives that branch well enough.
 
-Store:
+Common branches:
 
-- match;
-- competition;
-- evidence timestamp;
-- coverage status;
-- official model version `v0.2.47`;
-- shadow model version `v0.2.48-SHADOW`;
-- frozen structural grade/type;
-- board tier;
-- primary carrier/route;
-- secondary route;
-- whether the case is materially scoreline/leakage-driven;
-- profile summary;
-- chance-quality support where relevant;
-- failure modes.
+- favorite/carrier reaches 1-0 or 2-0 and slows;
+- opponent has little independent scoring route;
+- strong defensive opponent suppresses central access;
+- possession is sterile despite volume;
+- rotation damages cohesion;
+- game-state incentives compress rather than expand;
+- the total relies too heavily on late goals;
+- attacker names are present but service/shape is weak.
 
-Later XI, market, live, or FT information must not rewrite the frozen PRE state.
+A structurally attractive match may remain HOLD when the failure branch is too live.
 
 ---
 
-## 5. Same-window rerank / anti-sunk-cost
+## 7. Goal-burden selection
 
-Before confirmed XI and again after confirmed XI:
+Choose the Asian-total burden **after structure and XI, before price**.
 
-1. collect all surviving FOCUS + WATCHLIST matches in the practical kickoff window;
-2. compare them head-to-head by structure;
-3. preserve each frozen PRE state;
-4. rerank from XI without rebuilding from scratch;
-5. if the previous top match is downgraded, promote the next strongest surviving match immediately;
-6. do not keep a weakened candidate on top simply because monitoring already started.
+Prefer the lowest protected line that faithfully expresses the frozen thesis and remains inside the model-supported burden/range.
 
-A WATCHLIST match remains alive until explicit downgrade, kickoff, or exclusion.
+Do not move from O2.5 to O2.75, O3.0, O3.25, etc. merely to obtain a better price.
 
-This step is mandatory when multiple plausible matches overlap.
+A higher total is permitted only when the structural/XI evidence independently supports the extra goal burden.
 
----
+Settlement examples for standard Asian totals:
 
-## 6. Confirmed-XI rerank
-
-Once confirmed lineups are supplied or reliably available:
-
-1. compare starters with expected/strongest personnel;
-2. identify creators and finishers starting vs benched;
-3. check defensive absences and role changes;
-4. check formation/shape;
-5. check rotation and cohesion;
-6. check bench attacking depth;
-7. reassess the original failure mode;
-8. if the match was scoreline/leakage-driven, do not let lineup names substitute for missing repeatable chance-quality evidence;
-9. assign the post-XI official grade;
-10. run the v0.2.48 shadow delta on the same XI state;
-11. update XI Status in the coverage ledger.
-
-Normal official XI promotion is capped at one structural band unless a genuine role/shape change removes a known failure mode.
-
-Recognizable attackers, new starters, or opponent defensive absences may materially improve a route when the overall XI and matchup support it. There is no active official hard prohibition against XI creating or strengthening a route.
+- O2.5: 3+ goals win;
+- O2.75: exactly 3 = half win / half push; 4+ = full win;
+- O3.0: exactly 3 = push; 4+ = win;
+- O3.25: exactly 3 = half loss / half push; 4+ = win.
 
 ---
 
-## 7. Odds and goal-burden selection
+## 8. Executable price policy
 
-Only after structure and XI are resolved should the Asian total be chosen.
+Current user overlay:
 
-For every candidate line:
+- hard minimum decimal odds: **1.65**;
+- preferred decimal odds: **1.70+**;
+- below 1.65 → `NO BET — HOLD — PRICE TOO SHORT`;
+- never stretch the line just to clear 1.65/1.70;
+- structural ranking is price-independent.
 
-- state the full-win requirement;
-- state push/half-win/half-loss protection where applicable;
-- compare adjacent lines;
-- identify whether extra odds justify extra goal burden.
-
-Official v0.2.47 principle:
-
-**Strong structure + sensible protection > slightly higher odds at an unnecessarily stretched line.**
-
-There is no official A2 O3.5+ hard prohibition and no official O3.75 hard gate.
-
-The shadow v0.2.48 track separately applies its no-rescue and carrier-led O2.75+ hardening patches.
-
-Use the exact same market snapshot for both tracks.
+Price is evaluated only after the correct model-supported line is chosen.
 
 ---
 
-## 8. Dual-model verdict
+## 9. Official verdict semantics
 
-For a match that reaches final evaluation, output both tracks.
+### OFFICIAL LOCK
 
-### Official v0.2.47 CLEAN
+Issue only when all required gates clear:
 
-If all official gates clear:
+- actionable competition;
+- valid frozen FOCUS/WATCHLIST structural thesis;
+- XI does not invalidate the thesis;
+- main failure mode is acceptable for the proposed burden;
+- selected Asian total is model-supported;
+- price meets the current executable policy.
 
-`OFFICIAL LOCK — O<line> @ <odds>`
+An affirmative official v0.2.49 final selection is an **OFFICIAL LOCK**.
 
-Otherwise:
+### HOLD
 
-- `NO BET — HOLD`
-- `PASS`
+Use when the thesis remains live but one or more final gates do not clear: unresolved contribution, XI sensitivity, failure-mode risk, goal burden, short price, or missing current input.
 
-Any affirmative official selection is immediately an official lock and must be logged to `Website Picks` / decision-state control according to the active Airtable contract.
+### PASS
 
-### v0.2.48-SHADOW
+Use when the structural route is no longer sufficient or new evidence materially invalidates it.
 
-If the shadow candidate clears:
-
-`SHADOW LOCK — O<line> @ <odds> — DO NOT PLACE`
-
-Otherwise:
-
-- `SHADOW HOLD`
-- `SHADOW PASS`
-
-Shadow outcomes do not enter official P/L.
-
-Do not let one track's verdict suppress the other track's output.
+HOLD/PASS creates no official exposure.
 
 ---
 
-## 9. Airtable logging
+## 10. Shadow tracks
 
-### Coverage
+When a material final comparison is required, run the same frozen evidence state through:
 
-Use `Daily Coverage Ledger` for:
+- official v0.2.49;
+- shadow v0.2.47 CLEAN;
+- shadow v0.2.48-SHADOW.
 
-- fixture-universe membership;
-- eligibility/exclusion;
-- coverage status;
-- PRE grade/type;
-- FOCUS/WATCHLIST/PASS state;
-- v0.2.47 PRE disposition;
-- v0.2.48 PRE disposition;
-- XI/market stage status.
+Keep each version faithful to its own rules. Do not import the v0.2.49 Two-Sided Priority patch into the shadow tracks.
 
-### Decision States
-
-Use `Decision States` for material model states.
-
-Official rows use model version:
-
-`v0.2.47`
-
-Shadow rows use:
-
-`v0.2.48-SHADOW`
-
-For a shadow lock use verdict `SHADOW LEAN — DO NOT PLACE` in Airtable while user-facing wording remains `SHADOW LOCK — ... — DO NOT PLACE`.
-
-For a shadow hold use `NO BET — HOLD` with model version `v0.2.48-SHADOW`.
-
-Do not rewrite historical `v0.2.47-R` records.
+Shadow decisions never suppress an official v0.2.49 decision and never enter official P/L.
 
 ---
 
-## 10. Screenshot workflow
+## 11. User-supplied screenshot workflow
 
-When the user submits lineup/odds screenshots:
+When the user sends XI/odds screenshots or text:
 
-1. confirm match identity and competition;
-2. verify it exists in the coverage ledger or immediately classify it as late-discovered;
-3. confirm competition eligibility;
-4. read visible lineup, bench, absences, formation, and total/odds precisely;
-5. do not infer invisible names or numbers;
-6. match extracted information to frozen PRE;
-7. run XI rerank;
-8. rerank same-window surviving FOCUS/WATCHLIST candidates if relevant;
-9. re-run team-profile/failure-mode checks if XI changes a route;
-10. compare available Asian totals and protection;
-11. issue both official and shadow verdicts;
-12. log both material states.
+1. identify the fixture;
+2. retrieve the frozen PRE state from the current Work/Airtable bridge;
+3. read the supplied XI;
+4. read the supplied Asian-total lines/prices;
+5. rerank from frozen PRE using the current official order;
+6. choose the correct burden before comparing prices;
+7. apply the 1.65 hard floor / 1.70+ preference;
+8. issue LOCK/HOLD/PASS.
 
-Do not run or revive Sep 1 hardened gates as hidden official checks.
+Do not automatically search missing XI/price unless the user explicitly asks for external verification.
+
+If the screenshot shows only 1X2 or handicap markets and no usable Asian total, wait for the total rather than inventing one.
 
 ---
 
-## 11. `What's next?` workflow
+## 12. Same-window comparison
 
-When the user asks `what's next?`, `upcoming matches`, or similar after a daily slate was already screened:
+When multiple FOCUS/WATCHLIST fixtures overlap in the same practical kickoff window, rerank them together after XI rather than promoting each in isolation.
 
-1. read the persisted `Daily Coverage Ledger` for that slate;
-2. select the earliest future FOCUS match;
-3. if no FOCUS match remains, surface the strongest future WATCHLIST match;
-4. include other same-window FOCUS/WATCHLIST candidates that remain relevant;
-5. do not rebuild a fresh partial fixture list from memory;
-6. if the ledger is stale or coverage-incomplete, reconcile the affected window before answering.
+Grade and structural quality remain ahead of price. For comparable grades, apply the official v0.2.49 archetype priority before price selection.
 
 ---
 
-## 12. Late discovery
+## 13. Live review
 
-If a new eligible fixture appears before kickoff:
+Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite PRE history.
 
-`LATE-DISCOVERED BUT SCREENED`
+For inherited v0.2.47 logic, apply the documented halftime compression/saturation gate when relevant, especially after high-scoring first halves.
 
-Screen it immediately and insert it normally into FOCUS/WATCHLIST/PASS.
-
-If first discovered after kickoff and it was never properly assessed before kickoff:
-
-`TRUE MISSED SCREEN`
-
-Do not retroactively pretend it was screened.
-
-A just-kicked grace or explicit manual-live override remains a separate betting-state rule; late discovery does not automatically authorize a live bet.
+A manual live override must be separately labelled. Do not convert a missed prematch opportunity into a retroactive prematch lock based on the live score.
 
 ---
 
-## 13. Live validation
+## 14. Settlement
 
-Normal live analysis validates or invalidates the frozen prematch thesis; it is not free-form opportunity creation.
+Unless the specific market says otherwise, full-match Asian totals settle on:
 
-At each material checkpoint record:
+**90 minutes + stoppage time only.**
 
-- score;
-- minute/phase;
-- substitutions/cards/material events;
-- current chance quality;
-- current total and odds if supplied;
-- whether the frozen thesis is validating or failing.
+Extra time is excluded unless explicitly included by the market.
 
-What can validate:
-
-- repeated dangerous box/central access;
-- big chances;
-- meaningful post-sub attacking improvement;
-- high-value transitions/cutbacks;
-- defensive degradation;
-- score-stable persistence when supported by quality.
-
-What cannot validate by itself:
-
-- “must chase”;
-- possession;
-- raw shots;
-- raw SOT;
-- corners;
-- attacker names entering;
-- a favourable live score alone.
-
-After a goal, red card, major injury, or significant tactical shift, reassess the current state.
-
-### Just-kicked grace
-
-A just-started match may still be treated as a normal prematch lock only while:
-
-- score remains 0-0;
-- no material event has occurred;
-- no meaningful live evidence has accumulated;
-- the market remains effectively pre-kick.
-
-### Manual live override
-
-If the user explicitly activates an already-live match that was not frozen, label it `MANUAL LIVE OVERRIDE` and keep it separate from normal prematch-led accounting/process review.
-
-Competition exclusions still apply.
-
-### v0.2.47 halftime compression
-
-The clean v0.2.47 high-scoring halftime compression / goal-saturation rule remains active for relevant post-HT decisions.
-
-The v0.2.48 shadow track inherits that clean rule and then applies its own explicit shadow deltas.
+Record official results and P/L only for actually official selections under the model/version that produced them. HOLD, PASS, shadow, and counterfactual selections do not enter official P/L.
 
 ---
 
-## 14. H2H handling
+## 15. Authority
 
-Historical H2H may be used as normal supporting or warning evidence. There is no active official mandatory de-weighting rule and no automatic veto.
-
-Judge whether the matchup mechanism remains relevant to the current teams and XI.
-
----
-
-## 15. Settlement
-
-For standard full-match Asian totals, use 90 minutes plus stoppage time only unless the market explicitly includes extra time.
-
-Settle correctly as:
-
-- WIN
-- HALF WIN
-- PUSH
-- HALF LOSS
-- LOSS
-- VOID when applicable
-
-Do not double-count multiple decision-state rows for one official bet.
-
-Shadow settlement is tracked separately for model comparison and never enters official P/L.
-
----
-
-## 16. Process review
-
-Audit three separate layers:
-
-### Coverage
-
-- Was every eligible fixture discovered?
-- Did counts reconcile?
-- Was a worthwhile match lost before PRE?
-- Was a WATCHLIST candidate forgotten when the top choice weakened?
-
-### Ranking / model
-
-- Was structural rank correct at the time?
-- Did GF/GA support the burden?
-- Was the thesis overly dependent on recent totals/leakage?
-- Was chance quality used appropriately?
-- Did XI rerank overreact or underreact?
-- Was the failure mode identified and resolved?
-- Was the line expression appropriate?
-
-### Result
-
-- Did the bet win or lose?
-- Was outcome variance consistent with the prematch process?
-
-Use these labels:
-
-- SCREENED
-- LATE-DISCOVERED BUT SCREENED
-- TRUE MISSED SCREEN
-- RANKING MISS
-- FALSE-NEGATIVE HOLD
-- BAD LOCK
-- CORRECT HOLD, OVER LANDED
-
-Do not call a HOLD wrong solely because the match later went Over. Do not call poor process good solely because the bet won.
-
----
-
-## 17. Counterfactual simulations
-
-If simulating a prematch decision after kickoff or FT:
-
-- label it `SIMULATION` / `SIM-PRE`;
-- use only information that would have been available at the simulated timestamp;
-- keep post-kick observations out of the simulated verdict;
-- never include the simulated result in official P/L;
-- keep official and shadow simulated tracks distinct.
-
----
-
-## 18. Data-quality fallback
-
-If required fixture reconciliation, lineup, profile, odds, or competition information is materially incomplete, do not invent it.
-
-Use one of:
-
-- `COVERAGE INCOMPLETE — board provisional`
-- `NO BET — HOLD — data incomplete`
-
-as appropriate.
-
----
-
-## Operating principle
-
-**Coverage first. Every eligible fixture gets a disposition. Shorten the display, not the screened universe. Persist FOCUS and WATCHLIST. Rerank same-window survivors at XI. Use identical evidence snapshots for v0.2.47 CLEAN and v0.2.48-SHADOW. Keep official P/L separate from shadow comparison.**
+`CURRENT_MODEL.md` plus the current active rule files are authoritative. This procedure intentionally contains no legacy fixture-union rule, no old competition whitelist, and no obsolete “v0.2.47 is official” routing.
