@@ -78,7 +78,10 @@ Exclude from the actionable board:
 - amateur/semi-professional competitions;
 - regional/state/provincial leagues;
 - very small/obscure weak-data leagues;
-- domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted.
+- domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
+- **Finland Veikkausliiga (Finnish top-flight league) — hard exclusion effective 2026-09-09 ICT onward.**
+
+The Veikkausliiga exclusion is prospective and does not rewrite historical decisions. It applies to Veikkausliiga league fixtures; Finnish Cup or UEFA club competitions involving Finnish clubs are not excluded by this rule unless they fail another active eligibility rule.
 
 Do not weaken this overlay to fill the slate. Excluded fixtures must not appear as FOCUS, WATCHLIST, or official betting candidates.
 
