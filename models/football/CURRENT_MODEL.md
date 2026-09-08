@@ -3,15 +3,41 @@
 **Active official model:** Football **v0.2.49**  
 **Official base:** Football **v0.2.47 CLEAN**  
 **Active official patch:** `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
-**Parallel shadow model:** Football **v0.2.48-SHADOW**  
-**Active operating profile:** **CLEAN ORIGINAL BASE + TWO-SIDED PRIORITY + COVERAGE-CONTROLLED OFFICIAL-LOCK OPERATING LAYER**  
+**Shadow comparison models:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
+**Active operating profile:** **AISCORE-ONLY SWEEP + NORMAL MATCH RESEARCH + v0.2.49 OFFICIAL + v0.2.47/v0.2.48 SHADOWS**  
 **Status:** Operational / official-lock mode  
 **Timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Canonical namespace:** `models/football/`
 
-Football v0.2.49 is the active official operating model. It inherits the clean original `v0.2.47` rules and adds the narrow prospective two-sided-priority patch in `rules/MODEL_RULES_FOOTBALL_V0.2.49.md`. `v0.2.47-R` remains archived and must not be loaded into official decisions. `v0.2.48-SHADOW` continues in parallel as a forward-test model and never enters official P/L unless explicitly promoted.
+Football v0.2.49 is the active official operating model. It inherits the clean original `v0.2.47` rules and adds the narrow prospective two-sided-priority patch in `rules/MODEL_RULES_FOOTBALL_V0.2.49.md`.
 
-The original v0.2.47 file remains the immutable clean base rule source. The v0.2.49 patch changes only ranking priority and related same-window attention; it does not rewrite historical v0.2.47 decisions and does not revive the Sep 1 hardening experiment.
+For forward comparison, the clean legacy v0.2.47 logic is also run as a shadow track, and `v0.2.48-SHADOW` continues as a separate shadow track. Neither shadow enters official P/L.
+
+`v0.2.47-R` remains archived and must not be loaded into active decisions.
+
+---
+
+## Critical fixture-source directive
+
+**Fixture sweep authority is AiScore only.**
+
+For daily slates, upcoming-match lists, and requested fixture windows, build the fixture universe only from:
+
+- `aiscore.com`
+- `m.aiscore.com`
+- AiScore daily/live listings and AiScore match pages
+
+Do not build a multi-source fixture union and do not allow Soccerway, FotMob, Google/web search, BSD/Bzzoiro, league sites, bookmaker pages, or any other schedule provider to add fixtures to the slate.
+
+After AiScore establishes a fixture, **match research runs normally** using the best available sources.
+
+`procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md` is the authority for this separation and supersedes older multi-source reconciliation instructions.
+
+If the relevant AiScore window cannot be traversed sufficiently, state:
+
+`COVERAGE INCOMPLETE — AiScore sweep incomplete`
+
+Do not backfill the universe from another provider.
 
 ---
 
@@ -19,15 +45,17 @@ The original v0.2.47 file remains the immutable clean base rule source. The v0.2
 
 **Coverage control is mandatory before model ranking.**
 
-The system must not start by choosing a few `credible candidates`. It must first build and reconcile the fixture universe, apply eligibility, and give **every eligible fixture** a PRE disposition.
+The system must not start by choosing a few `credible candidates`. It must first sweep the full requested AiScore fixture window, apply eligibility, and give **every eligible fixture** a PRE disposition.
 
 The mandatory shared sequence is:
 
-`FIXTURE UNIVERSE → RECONCILE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → FOCUS/WATCHLIST/PASS → XI WINDOW RERANK → MARKET → v0.2.49 OFFICIAL + v0.2.48 SHADOW`
+`AISCORE FIXTURE UNIVERSE → ELIGIBILITY → SCREEN EVERY ELIGIBLE FIXTURE → FOCUS/WATCHLIST/PASS → XI WINDOW RERANK → MARKET → v0.2.49 OFFICIAL + v0.2.47 SHADOW + v0.2.48 SHADOW`
 
 The visible board may be aggressively shortened. The internal screened universe may not.
 
-`procedures/FOOTBALL_COVERAGE_CONTROLLER.md` is the authority for fixture completeness, same-window survival, late discovery, and coverage reconciliation.
+**SHORTEN THE DISPLAY, NEVER THE SCREENED UNIVERSE.**
+
+`procedures/FOOTBALL_COVERAGE_CONTROLLER.md` remains the authority for screening completeness, same-window survival, late discovery, and coverage counts, subject to the AiScore-only source policy above.
 
 ---
 
@@ -35,7 +63,7 @@ The visible board may be aggressively shortened. The internal screened universe 
 
 The Sep 1, 2026 enforcement-hardening experiment is **INACTIVE for official selection**.
 
-Do **not** automatically apply, restore, or infer any of the former hardening gates in official decision-making. In particular, the following are not active hard caps:
+Do **not** automatically apply, restore, or infer any of the former hardening gates in official decision-making. In particular, the following are not active official hard caps:
 
 - reserve/youth A1 cap;
 - O3.75 exceptional hard gate;
@@ -43,9 +71,7 @@ Do **not** automatically apply, restore, or infer any of the former hardening ga
 - XI "names cannot create a route" hard prohibition;
 - H2H de-weighting as a mandatory override rule.
 
-Those ideas may be studied only in a clearly labeled SHADOW/BENCHMARK context and must not affect the official v0.2.49 shortlist, XI rerank, line choice, or lock unless the active model is explicitly changed again.
-
-If any future document, note, memory, audit, or prior commit conflicts with this directive, **this file wins for the operating layer**, while `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` remains immutable as the clean base rule source and `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` is the active official ranking patch.
+If any historical note conflicts with this file, this file wins for the operating layer. `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` remains the immutable clean base, and `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` is the active official ranking patch.
 
 ---
 
@@ -54,17 +80,16 @@ If any future document, note, memory, audit, or prior commit conflicts with this
 Load these files for the active workflow:
 
 1. `models/football/CURRENT_MODEL.md`
-2. `models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md`
-3. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
-4. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
-5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-6. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-7. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-8. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+2. `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
+3. `models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md`
+4. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
+6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+7. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+8. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Do **not** load `models/football/archive/rules/MODEL_RULES_FOOTBALL_V0.2.47-R.md` into active decisions.
-
-No historical handoff, review, benchmark, addendum, or prior version is required to operate the current model.
 
 ---
 
@@ -78,9 +103,9 @@ Daily coverage is persisted to Airtable:
 
 For every requested slate/window:
 
-1. reconcile the fixture universe according to the active Coverage Controller and current source policy;
-2. convert all kickoffs to ICT;
-3. write/upsert every discovered fixture to the coverage ledger;
+1. traverse the relevant AiScore fixture listing completely for the requested ICT window;
+2. normalize kickoffs to ICT;
+3. write/upsert every discovered AiScore fixture to the coverage ledger;
 4. mark exclusions explicitly instead of omitting them;
 5. screen every eligible fixture to A1 / A2 / B+ / B-PASS / DATA INCOMPLETE;
 6. assign FOCUS / WATCHLIST / PASS / UNRESOLVED;
@@ -88,15 +113,29 @@ For every requested slate/window:
 8. persist FOCUS and WATCHLIST so `what's next?` does not rebuild a partial board from memory;
 9. rerank all surviving same-window candidates at confirmed XI.
 
+Under the current single-source policy, `Reconciled = true` means the relevant AiScore window itself was fully traversed, normalized, and accounted for. It does not require an independent schedule provider.
+
 Required count invariants:
 
 `Universe = Eligible + Excluded`
 
 `Eligible = Focus + Watchlist + Pass + Unresolved`
 
-If reconciliation fails, state:
+If counts fail, state:
 
 `COVERAGE INCOMPLETE — board provisional`
+
+---
+
+## Research policy
+
+Once AiScore has established the fixture, research runs normally.
+
+Use the best available evidence from official sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistics/news sources, and user-supplied screenshots as appropriate.
+
+Research may refine team profile, chance quality, incentives, XI, tactical shape, failure modes, and market expression.
+
+A research source may not add a fixture to the universe unless that same fixture is verified on AiScore.
 
 ---
 
@@ -110,7 +149,7 @@ After coverage completion, the official structural decision order is:
 
 `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-Carrier ceiling may break ties only after that structural preference has been respected. Price is a tiebreaker only. It must not promote a structurally weaker match.
+Carrier ceiling may break ties only after that structural preference has been respected. Price is a tiebreaker only and must not promote a structurally weaker match.
 
 ---
 
@@ -121,9 +160,9 @@ Carrier ceiling may break ties only after that structural preference has been re
 - **B+** — good environment but materially dependent on opponent contribution, rotation, game state, or another failure mode.
 - **B / PASS** — fragile route, strong resistance, cohesion problem, weak chance quality, or excessive goal burden.
 
-**Two-Sided A is the default priority over same-grade Elite Carrier A.** An Elite Carrier may leapfrog a genuine same-grade Two-Sided candidate only when it is clearly superior on both repeatable chance quality / self-funding 3+ capacity and failure-mode resistance. Carrier reputation, raw GF, recent explosions, or theoretical ceiling alone are not enough.
+**Two-Sided A is the default priority over same-grade Elite Carrier A.** An Elite Carrier may leapfrog a genuine same-grade Two-Sided candidate only when it is clearly superior on both repeatable chance quality / self-funding 3+ capacity and failure-mode resistance.
 
-This ordering controls ranking and attention; it does **not** automatically promote a B+ two-sided match to A2 or force a lock.
+This ordering controls ranking and attention; it does not automatically promote a B+ two-sided match to A2 or force a lock.
 
 ---
 
@@ -131,21 +170,20 @@ This ordering controls ranking and attention; it does **not** automatically prom
 
 - Confirmed XI is the first legitimate rerank gate after frozen PRE.
 - Team GF/GA and scoring/conceding-frequency profile is mandatory.
-- Chance quality is assessed as supporting evidence, not as a rigid promotion veto.
-- **Two-sided priority rule:** when grades are comparable, rank `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`. A genuine two-sided label requires credible independent scoring routes from both teams; mere leakage does not qualify.
+- Chance quality is supporting evidence, not a rigid universal veto.
+- **Two-sided priority rule:** when grades are comparable, rank `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER` on the v0.2.49 official track.
 - **Elite-carrier exception:** an elite carrier may outrank a genuine same-grade two-sided match only when clearly superior on both repeatable chance quality / self-funding capacity and failure-mode resistance.
-- **Recent-total / leakage confirmation rule:** when a candidate's high grade is driven heavily by an extreme recent run of high totals or defensive leakage, those scorelines may identify the candidate but cannot by themselves justify top-board promotion or an official lock. Require supporting evidence that the necessary scoring routes are producing repeatable good chances; if that support is weak or unavailable, reduce priority or HOLD.
-- This calibration is narrow: it is **not** a reserve/youth cap, short-sample hard cap, burden gate, XI prohibition, or revival of the Sep 1 hardened framework.
+- **Recent-total / leakage confirmation rule:** extreme recent totals or leakage may identify a candidate but cannot alone justify top-board promotion or an official lock. Require supporting evidence that the necessary scoring routes are repeatable; if weak/unavailable, reduce priority or HOLD.
 - Failure modes must be identified before selection.
 - Protected Asian totals are preferred when they preserve the thesis at reasonable price.
-- An affirmative final betting selection on the official track is automatically an **OFFICIAL LOCK**.
+- An affirmative final selection on the official track is automatically an **OFFICIAL LOCK**.
 - `PASS` / `NO BET — HOLD` means no official bet.
 - Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite history.
-- The clean v0.2.47 high-scoring halftime compression / saturation gate remains active for relevant post-HT live decisions.
-- Manual live overrides are allowed only as a separately labelled state.
-- Full-match Asian totals settle on 90 minutes plus stoppage time only unless the market explicitly includes extra time.
+- The clean v0.2.47 halftime compression / saturation gate remains active where applicable on models that inherit it.
+- Manual live overrides must be separately labelled.
+- Full-match Asian totals settle on 90 minutes plus stoppage time unless the market explicitly includes extra time.
 - Counterfactual simulations never enter official P/L.
-- Every material official/shadow decision state is logged to Airtable with its actual model version. Future official states after this patch use `v0.2.49`.
+- Every material official/shadow decision state is logged with its actual model version.
 
 ---
 
@@ -172,17 +210,17 @@ The North American **Leagues Cup** is an explicit named exception and must not b
 
 For daily/upcoming requests:
 
-1. run the Coverage Controller first;
-2. do not publish the board as complete until fixture counts reconcile;
+1. sweep AiScore only;
+2. do not publish the board as complete until the requested AiScore window and coverage counts reconcile;
 3. screen every eligible fixture before display shortening;
 4. show the strongest FOCUS matches prominently;
 5. preserve all FOCUS + WATCHLIST matches internally through XI unless explicitly downgraded;
 6. do not omit earlier kickoff blocks;
 7. when matches overlap, compare all surviving FOCUS/WATCHLIST fixtures in the same practical kickoff window;
-8. for comparable grades, apply the v0.2.49 archetype priority `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER` before using carrier ceiling as a tiebreak;
+8. on the official v0.2.49 track, apply `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER` for comparable grades;
 9. if a leading candidate is downgraded by XI or market, immediately promote the next strongest surviving candidate;
 10. use the persisted coverage ledger for `what's next?`;
-11. mark newly discovered fixtures with the coverage taxonomy rather than silently inserting or ignoring them.
+11. mark AiScore fixtures missed by the first sweep with the coverage taxonomy rather than silently inserting or ignoring them.
 
 A user-facing board should include a compact coverage line, e.g.:
 
@@ -190,13 +228,11 @@ A user-facing board should include a compact coverage line, e.g.:
 
 ---
 
-## Dual-model output
+## Three-track output
 
-Every eligible match that survives far enough for a model verdict uses the same information state for both tracks.
+Every eligible match that survives far enough for a material verdict uses the **same evidence snapshot** for all three tracks.
 
-### Official track
-
-**Football v0.2.49**
+### Official track — Football v0.2.49
 
 Allowed final outcomes:
 
@@ -206,27 +242,45 @@ Allowed final outcomes:
 
 Only this track enters official P/L.
 
-### Shadow track
+### Shadow track 1 — Football v0.2.47 CLEAN
 
-**Football v0.2.48-SHADOW**
+Run the clean legacy v0.2.47 logic on the same evidence state **without** applying the v0.2.49 two-sided-priority patch.
 
-Allowed final outcomes:
+Allowed outcomes:
 
-- `SHADOW LOCK — <line> @ <odds> — DO NOT PLACE`
-- `SHADOW HOLD`
-- `SHADOW PASS`
+- `SHADOW v0.2.47 LOCK — <line> @ <odds> — DO NOT PLACE`
+- `SHADOW v0.2.47 HOLD`
+- `SHADOW v0.2.47 PASS`
 
-Shadow outcomes are logged separately and never enter official P/L until explicit promotion.
+### Shadow track 2 — Football v0.2.48-SHADOW
 
-Both tracks receive the same v0.2.49 structural archetype ordering before the shadow-specific deltas are applied. A shadow HOLD must not suppress an official v0.2.49 candidate. An official HOLD/PASS must not erase the shadow result for an eligible screened match.
+Run the documented v0.2.48 shadow rules on the same evidence state. Do not silently import the v0.2.49 priority patch into this comparison track unless a later rule explicitly changes that.
+
+Allowed outcomes:
+
+- `SHADOW v0.2.48 LOCK — <line> @ <odds> — DO NOT PLACE`
+- `SHADOW v0.2.48 HOLD`
+- `SHADOW v0.2.48 PASS`
+
+Both shadows are comparison tracks only and never enter official P/L. A shadow HOLD/PASS cannot suppress an official v0.2.49 decision.
+
+---
+
+## Airtable routing
+
+- Official v0.2.49 material states use model version `v0.2.49`.
+- Official v0.2.49 LOCKs are the only picks that enter Website Picks / official P/L.
+- v0.2.47 material comparison states use model version `v0.2.47` and are shadow only.
+- v0.2.48 material comparison states use model version `v0.2.48-SHADOW` and are shadow only.
+- Existing Daily Coverage Ledger v0.2.47 and v0.2.48 PRE fields remain comparison/shadow fields; do not relabel them as v0.2.49 official states.
 
 ---
 
 ## Coverage/audit taxonomy
 
 - **SCREENED** — actually assessed before/around kickoff, regardless of visible board placement.
-- **LATE-DISCOVERED BUT SCREENED** — omitted initially, found and assessed in time.
-- **TRUE MISSED SCREEN** — never properly assessed before kickoff.
+- **LATE-DISCOVERED BUT SCREENED** — present on AiScore, omitted initially, then found and assessed in time.
+- **TRUE MISSED SCREEN** — present on AiScore but never properly assessed before kickoff.
 - **RANKING MISS** — screened but another match was prioritized incorrectly.
 - **HOLD/PASS** — screened and deliberately rejected.
 - **FALSE-NEGATIVE HOLD** — screened correctly, but rejected despite prematch evidence likely justifying a lock.
