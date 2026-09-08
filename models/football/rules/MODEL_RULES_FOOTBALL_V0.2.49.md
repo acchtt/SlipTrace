@@ -3,7 +3,7 @@
 **Status:** ACTIVE OFFICIAL PATCH  
 **Effective:** 2026-09-08 ICT  
 **Base:** Football v0.2.47 CLEAN  
-**Shadow:** Football v0.2.48-SHADOW continues in parallel after receiving the same evidence state  
+**Shadow comparisons:** Football v0.2.47 CLEAN and Football v0.2.48-SHADOW run independently on the same evidence state  
 
 This file is a narrow official ranking patch. It does not rewrite historical v0.2.47 decisions and does not revive the archived Sep 1 hardening framework.
 
@@ -44,7 +44,7 @@ If suppression resistance, weak secondary contribution, or a realistic 1-0 / 2-0
 
 ## 4. Board and research priority
 
-For FOCUS/WATCHLIST ordering and same-window attention:
+For FOCUS/WATCHLIST ordering and same-window attention on the **official v0.2.49 track**:
 
 - compare grade first;
 - within the same grade, apply `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`;
@@ -58,7 +58,7 @@ The hierarchy determines **priority**, not automatic LOCK status.
 
 ## 5. XI and market stages
 
-Confirmed XI and market still rerank the same surviving candidates.
+Confirmed XI and market still rerank the same surviving candidates on the official v0.2.49 track.
 
 At XI:
 
@@ -74,13 +74,18 @@ At market:
 
 ---
 
-## 6. Interaction with v0.2.48-SHADOW
+## 6. Shadow comparison boundary
 
-Both tracks receive the same structural ordering and evidence state.
+The v0.2.49 priority patch applies to the **official v0.2.49 track only**.
 
-The shadow model then applies its existing explicit deltas, including carrier hardening and no-rescue logic.
+For forward comparison, use the same frozen evidence snapshot to run:
 
-A shadow HOLD does not suppress an official v0.2.49 decision, and an official HOLD does not erase the shadow result.
+- **Shadow v0.2.47 CLEAN:** clean legacy v0.2.47 logic without this patch;
+- **Shadow v0.2.48-SHADOW:** its documented v0.2.48 shadow logic without silently importing this patch.
+
+This keeps the comparison meaningful. A future rule may explicitly promote part of v0.2.49 into a shadow model, but until then the shadow tracks remain version-faithful.
+
+A shadow HOLD/PASS does not suppress an official v0.2.49 decision, and an official HOLD/PASS does not erase either shadow result.
 
 ---
 
