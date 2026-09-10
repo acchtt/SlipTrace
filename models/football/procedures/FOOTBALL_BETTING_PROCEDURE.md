@@ -1,8 +1,9 @@
 # Football Betting Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.49  
+**Official model:** Football v0.2.50  
 **Base:** v0.2.47 CLEAN  
+**Active patches:** v0.2.49 Two-Sided Priority + v0.2.50 Extreme Goal Environment  
 **Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW  
 **Fixture authority:** AiScore only
 
@@ -14,7 +15,7 @@ This is the current execution procedure from frozen PRE through official LOCK/HO
 
 Do not issue an official prematch verdict unless:
 
-1. the requested AiScore fixture window passed coverage reconciliation;
+1. the requested AiScore fixture window passed coverage and time/schedule reconciliation;
 2. the fixture is actionable under the current senior-quality overlay;
 3. the fixture has a frozen Work PRE state or a clearly documented equivalent current PRE state;
 4. the required current confirmed XI and executable Asian-total price are available from the user, unless the user explicitly requested external verification.
@@ -50,11 +51,11 @@ If Airtable conflicts with the original Work board, use the original frozen Work
 
 ## 3. Official structural hierarchy
 
-Official v0.2.49 order:
+Official v0.2.50 order:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN → PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN / REGIME → PRICE → LOCK / HOLD`
 
-For comparable grades:
+For comparable grades, the active v0.2.49 rule remains:
 
 `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
@@ -86,7 +87,12 @@ For TWO-SIDED profiles, verify both independent routes still exist.
 
 For carrier profiles, verify the carrier still has credible self-funding capacity and that the opponent/suppression failure branch remains acceptable.
 
-XI can downgrade or rerank a thesis. Do not over-promote solely because recognizable attackers start.
+Do not treat rotation as automatically negative. Classify it as either:
+
+- `ROTATION — ATTACKING DEPTH PRESERVED`; or
+- `ROTATION — COHESION / ROUTE DAMAGE`.
+
+Only the second is an automatic burden downgrade.
 
 ---
 
@@ -126,26 +132,80 @@ A structurally attractive match may remain HOLD when the failure branch is too l
 
 ---
 
-## 7. Goal-burden selection
+## 7. Goal-burden regime
 
 Choose the Asian-total burden **after structure and XI, before price**.
+
+First classify:
+
+- `STANDARD`; or
+- `EGE — EXTREME GOAL ENVIRONMENT` under `MODEL_RULES_FOOTBALL_V0.2.50.md`.
+
+### STANDARD
 
 Prefer the lowest protected line that faithfully expresses the frozen thesis and remains inside the model-supported burden/range.
 
 Do not move from O2.5 to O2.75, O3.0, O3.25, etc. merely to obtain a better price.
 
-A higher total is permitted only when the structural/XI evidence independently supports the extra goal burden.
+A higher total is permitted only when structural/XI evidence independently supports the extra goal burden.
 
-Settlement examples for standard Asian totals:
+### EGE
+
+When EGE independently clears after XI:
+
+1. preserve the frozen PRE burden as historical state;
+2. create and record a new post-XI `EGE supported burden`;
+3. state the structural/team/XI reasons for the higher burden;
+4. compare the market line against the EGE burden only after that burden is fixed.
+
+The market total may corroborate calibration but may not create EGE.
+
+If the current total lies inside the EGE burden and price clears the floor, a prematch OFFICIAL LOCK is allowed. Do not wait for an arbitrary absolute decay target merely because the number looks high.
+
+If the line is only 0.25 above the EGE ceiling, HOLD for a relative quarter-line improvement.
+
+---
+
+## 8. Persistent high-line / no-chase boundary
+
+For confirmed EGE matches, a stubborn high total is not automatically a reason to HOLD forever.
+
+A 0-0 opening around 8–15 minutes with no structural veto may corroborate the already-established EGE calibration if the total remains elevated.
+
+However, an early goal that expands the line is different:
+
+- do not chase the expansion;
+- do not raise burden because the bookmaker raised it;
+- wait for post-goal normalization;
+- compare the normalized line to the previously documented supported burden.
+
+Use audit labels where useful:
+
+- `STANDARD DIRECT`
+- `STANDARD DECAY`
+- `EGE DIRECT`
+- `EGE RELATIVE DECAY`
+- `NON-DECAY HOLD`
+- `GOAL-EXPANSION HOLD`
+
+---
+
+## 9. Asian-total settlement references
+
+Standard examples:
 
 - O2.5: 3+ goals win;
 - O2.75: exactly 3 = half win / half push; 4+ = full win;
 - O3.0: exactly 3 = push; 4+ = win;
-- O3.25: exactly 3 = half loss / half push; 4+ = win.
+- O3.25: exactly 3 = half loss / half push; 4+ = win;
+- O3.5: 4+ = win;
+- O3.75: exactly 4 = half win / half push; 5+ = full win;
+- O4.0: exactly 4 = push; 5+ = win;
+- O4.25: exactly 4 = half loss / half push; 5+ = full win.
 
 ---
 
-## 8. Executable price policy
+## 10. Executable price policy
 
 Current user overlay:
 
@@ -155,11 +215,11 @@ Current user overlay:
 - never stretch the line just to clear 1.65/1.70;
 - structural ranking is price-independent.
 
-Price is evaluated only after the correct model-supported line is chosen.
+Price is evaluated only after the correct STANDARD or EGE burden is chosen.
 
 ---
 
-## 9. Official verdict semantics
+## 11. Official verdict semantics
 
 ### OFFICIAL LOCK
 
@@ -169,14 +229,14 @@ Issue only when all required gates clear:
 - valid frozen FOCUS/WATCHLIST structural thesis;
 - XI does not invalidate the thesis;
 - main failure mode is acceptable for the proposed burden;
-- selected Asian total is model-supported;
+- selected Asian total is model-supported under STANDARD or EGE;
 - price meets the current executable policy.
 
-An affirmative official v0.2.49 final selection is an **OFFICIAL LOCK**.
+An affirmative official v0.2.50 final selection is an **OFFICIAL LOCK**.
 
 ### HOLD
 
-Use when the thesis remains live but one or more final gates do not clear: unresolved contribution, XI sensitivity, failure-mode risk, goal burden, short price, or missing current input.
+Use when the thesis remains live but one or more final gates do not clear: unresolved contribution, XI sensitivity, failure-mode risk, goal burden, short price, missing current input, or line still above supported EGE burden.
 
 ### PASS
 
@@ -186,32 +246,34 @@ HOLD/PASS creates no official exposure.
 
 ---
 
-## 10. Shadow tracks
+## 12. Shadow tracks
 
 When a material final comparison is required, run the same frozen evidence state through:
 
-- official v0.2.49;
+- official v0.2.50;
 - shadow v0.2.47 CLEAN;
 - shadow v0.2.48-SHADOW.
 
-Keep each version faithful to its own rules. Do not import the v0.2.49 Two-Sided Priority patch into the shadow tracks.
+Keep each version faithful to its own rules. Do not import the v0.2.49 or v0.2.50 patches into the shadow tracks.
 
-Shadow decisions never suppress an official v0.2.49 decision and never enter official P/L.
+Shadow decisions never suppress an official v0.2.50 decision and never enter official P/L.
 
 ---
 
-## 11. User-supplied screenshot workflow
+## 13. User-supplied screenshot workflow
 
 When the user sends XI/odds screenshots or text:
 
 1. identify the fixture;
 2. retrieve the frozen PRE state from the current Work/Airtable bridge;
-3. read the supplied XI;
-4. read the supplied Asian-total lines/prices;
-5. rerank from frozen PRE using the current official order;
-6. choose the correct burden before comparing prices;
-7. apply the 1.65 hard floor / 1.70+ preference;
-8. issue LOCK/HOLD/PASS.
+3. verify the fixture time/status if near kickoff under the time-integrity procedure;
+4. read the supplied XI;
+5. read the supplied Asian-total lines/prices;
+6. rerank from frozen PRE using the current official order;
+7. classify STANDARD vs EGE;
+8. choose the correct burden before comparing prices;
+9. apply the 1.65 hard floor / 1.70+ preference;
+10. issue LOCK/HOLD/PASS.
 
 Do not automatically search missing XI/price unless the user explicitly asks for external verification.
 
@@ -219,15 +281,15 @@ If the screenshot shows only 1X2 or handicap markets and no usable Asian total, 
 
 ---
 
-## 12. Same-window comparison
+## 14. Same-window comparison
 
 When multiple FOCUS/WATCHLIST fixtures overlap in the same practical kickoff window, rerank them together after XI rather than promoting each in isolation.
 
-Grade and structural quality remain ahead of price. For comparable grades, apply the official v0.2.49 archetype priority before price selection.
+Use corrected ICT kickoff from the time/schedule integrity procedure. Grade and structural quality remain ahead of price.
 
 ---
 
-## 13. Live review
+## 15. Live review
 
 Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite PRE history.
 
@@ -235,9 +297,11 @@ For inherited v0.2.47 logic, apply the documented halftime compression/saturatio
 
 A manual live override must be separately labelled. Do not convert a missed prematch opportunity into a retroactive prematch lock based on the live score.
 
+EGE does not bypass the no-chase rule after goal-driven market expansion.
+
 ---
 
-## 14. Settlement
+## 16. Settlement
 
 Unless the specific market says otherwise, full-match Asian totals settle on:
 
@@ -249,6 +313,6 @@ Record official results and P/L only for actually official selections under the 
 
 ---
 
-## 15. Authority
+## 17. Authority
 
-`CURRENT_MODEL.md` plus the current active rule files are authoritative. This procedure intentionally contains no legacy fixture-union rule, no old competition whitelist, and no obsolete “v0.2.47 is official” routing.
+`CURRENT_MODEL.md` plus the current active rule files and `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` are authoritative. This procedure intentionally contains no legacy fixture-union rule, no old competition whitelist, and no obsolete version routing.
