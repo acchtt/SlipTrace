@@ -16,7 +16,7 @@ For this stage, also load:
 
 `models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
 
-This is the active operational scope filter for national leagues. `CURRENT_MODEL.md` remains higher authority if there is ever a direct conflict.
+This is the active operational scope filter for domestic league goal environments. `CURRENT_MODEL.md` remains higher authority if there is ever a direct conflict.
 
 For this stage, load only the current files relevant to fixture discovery, time/schedule integrity, coverage, sweep scope, and eligibility. At minimum include the active time/schedule integrity procedure, `FOOTBALL_SWEEP_SCOPE.md`, and coverage contract declared by the current model. Do not load downstream betting/live files unless a genuine integrity fault requires them.
 
@@ -72,15 +72,18 @@ If the requested AiScore window cannot be fully traversed:
 ## Sweep scope
 Apply `FOOTBALL_SWEEP_SCOPE.md` before any deep structural research.
 
+The scope is **goal-environment driven, not size driven**.
+
 For domestic national leagues:
-- only the explicit core national-league set in `FOOTBALL_SWEEP_SCOPE.md` is actionable by default;
-- all other domestic national leagues are excluded as `NON-CORE NATIONAL LEAGUE` unless the user explicitly approves a temporary override;
-- top-flight/professional status alone does not bypass this filter;
-- all Finnish domestic leagues remain a hard exclusion at every tier/category.
+- exclude every competition currently listed in `FOOTBALL_SWEEP_SCOPE.md` as `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`;
+- currently this includes Vietnam V.League 1, South Korea K League 1, and Argentina Liga Profesional / Primera Division;
+- all Finnish domestic leagues remain a separate hard exclusion at every tier/category;
+- do **not** exclude a senior top-flight league merely because it is small if it otherwise clears the current model's quality/data rules and is not on the low-goal exclusion list;
+- do not re-audit league-wide scoring baselines during each daily fixture fetch. The scope file is the deterministic league-level decision authority until it is explicitly updated after a separate audit.
 
-Do not silently promote a league because it produced good results in a prior slate or was manually reviewed once.
+The raw AiScore fixture universe must still include excluded fixtures for reconciliation; they simply must not be sent to Work.
 
-The raw AiScore fixture universe must still include these excluded fixtures for reconciliation; they simply must not be sent to Work.
+Do not silently promote a low-goal excluded league because one matchup looks attractive or because a prior slate went Over.
 
 ## Eligibility
 After sweep-scope filtering, apply the current competition overlay from `CURRENT_MODEL.md` and current coverage contract.
@@ -134,8 +137,9 @@ Before `complete:true`:
 Verify every fixture is accounted for exactly once and every touched AiScore date block/terminal interval was checked.
 
 Also verify:
-- no non-core national league survived into the Work handoff without an explicit temporary override;
-- no Finnish domestic league survived the sweep scope.
+- no low-goal national league in `FOOTBALL_SWEEP_SCOPE.md` survived into the Work handoff without an explicit temporary override;
+- no Finnish domestic league survived the sweep scope;
+- no otherwise eligible senior top flight was removed solely because it was considered "small".
 
 ## Output
 Reply compactly:
