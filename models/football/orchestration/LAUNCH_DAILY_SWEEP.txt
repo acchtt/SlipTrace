@@ -1,0 +1,26 @@
+use heavy route.
+
+Run the football orchestrated daily sweep for the attached/current AiScore fixture handoff.
+
+Read first:
+1. models/football/CURRENT_MODEL.md
+2. models/football/orchestration/README.md
+3. models/football/orchestration/WORKER_CONTRACTS.md
+4. models/football/orchestration/DAILY_SWEEP_HEAVY_ROUTE.md
+
+Follow the active CURRENT_MODEL load order and current scope/registry files.
+
+CRITICAL:
+- AiScore is the fixture authority.
+- Preserve the requested Asia/Ho_Chi_Minh window.
+- Workers are evidence-only.
+- Workers must not grade, rank, classify EGE, choose lines, or issue LOCK/HOLD/PASS.
+- Main Agent is the only football judge.
+- PRE is price/XI blind.
+- Do not reintroduce fixtures removed by the current scope gate.
+- Every Work-admitted fixture must receive exactly one Main-Agent frozen PRE disposition before ranking.
+- Use Tester for coverage/process verification.
+- Persist only the Main-Agent-finalized frozen state to Airtable under the active contract.
+- Do not weaken deep research quality merely to save usage.
+
+Return only the compact ranked board, counts, tester status, persistence status, and material faults.
