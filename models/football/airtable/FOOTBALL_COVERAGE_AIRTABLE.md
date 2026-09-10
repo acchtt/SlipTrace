@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
 **Table ID:** `tblcl1UAyMqZT6Ub0`  
-**Official model:** Football v0.2.49
+**Official model:** Football v0.2.50
 
 This table is the coverage-control and cross-chat bridge for the current football workflow. It records every fixture in the reconciled AiScore slate and preserves the **frozen Work PRE state** for later user-supplied XI/odds review.
 
@@ -18,13 +18,13 @@ Recommended source fields:
 
 - `Source 1` = AiScore / AiScore verified handoff;
 - `Source 2` = optional research/reference source only;
-- `Reconciled = true` means the requested AiScore window itself was fully traversed, normalized, filtered, and accounted for.
+- `Reconciled = true` means the requested AiScore window itself was fully traversed, normalized, time/date checked, filtered, and accounted for.
 
 Do not write that a multi-source fixture union was built. Other providers may support research but may not establish extra fixtures.
 
 ---
 
-## 2. Coverage identity fields
+## 2. Coverage identity and datetime fields
 
 Use the existing fields to preserve:
 
@@ -39,7 +39,23 @@ Use the existing fields to preserve:
 - `Source 1` / `Source 2`;
 - `Coverage Status`.
 
-Excluded fixtures remain in the ledger for audit. Do not silently omit them.
+Where the handoff supports it, preserve AiScore fixture identity in notes/ID material so the row can be revalidated later.
+
+### Airtable timestamp semantics
+
+Airtable/API may return a datetime with a trailing `Z` even when the field is configured to display in `Asia/Ho_Chi_Minh`.
+
+Therefore:
+
+- trailing `Z` always means UTC;
+- never display a raw `Z` value as ICT;
+- convert UTC to `Asia/Ho_Chi_Minh` exactly once for human-facing schedules;
+- derive `Slate Date` from the ICT-converted kickoff, not from the raw UTC date;
+- never add +7 to a value already explicitly expressed as ICT.
+
+The field name `Kickoff ICT` describes intended display meaning; it does not change UTC serialization semantics.
+
+Excluded and schedule-integrity-unresolved fixtures remain in the ledger for audit. Do not silently omit them.
 
 ---
 
@@ -47,13 +63,37 @@ Excluded fixtures remain in the ledger for audit. Do not silently omit them.
 
 The actionable overlay excludes youth/Uxx, academy/junior, reserve/B-team/development, amateur/semi-pro, regional/state/provincial, very small/obscure weak-data competitions, and domestic lower divisions below top flight unless explicitly approved/whitelisted.
 
+All Finnish domestic league competitions at every tier/category are excluded from 2026-09-09 ICT onward. Finnish Cup and UEFA fixtures involving Finnish clubs are not automatically excluded.
+
 Senior first-team continental competitions are **not** generically excluded. UCL, UEL, and UECL are eligible when they otherwise clear the overlay.
 
 A row excluded under the overlay should carry an explicit exclusion reason.
 
 ---
 
-## 4. Frozen PRE fields
+## 4. Schedule-integrity state
+
+Before a row is treated as a valid current-board fixture, its normalized kickoff must pass `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
+
+If date/time/identity is contradictory, preserve the row for audit but classify it operationally as:
+
+`UNRESOLVED — SCHEDULE INTEGRITY`
+
+A fixture outside the requested corrected ICT window must not receive an active FOCUS/WATCHLIST board role for that slate.
+
+For discovered historical faults, preserve PRE history and append a clear correction label in `Coverage Notes`, such as:
+
+- `TIMEZONE NORMALIZATION FAULT`;
+- `SCHEDULE DATE MISMATCH`;
+- `STALE UPCOMING STATE`;
+- `KICKOFF CHANGE`;
+- `FIXTURE IDENTITY / HOME-AWAY MISMATCH`.
+
+Do not silently rewrite history.
+
+---
+
+## 5. Frozen PRE fields
 
 The current official shared coverage state is represented by:
 
@@ -73,11 +113,13 @@ The existing comparison fields:
 - `v0.2.47 PRE`;
 - `v0.2.48 PRE`;
 
-are shadow/comparison fields only. They do not define the official board tier and must not overwrite the official v0.2.49 frozen PRE state.
+are shadow/comparison fields only. They do not define the official board tier and must not overwrite the official frozen PRE state.
+
+v0.2.50 EGE is a later post-XI assessment and does not rewrite these frozen PRE fields.
 
 ---
 
-## 5. Publish = copy/upsert, not re-screen
+## 6. Publish = copy/upsert, not re-screen
 
 The Work structural sweep is the model run that creates the frozen PRE board.
 
@@ -86,21 +128,23 @@ When publishing to Airtable:
 1. upsert the same fixture row;
 2. copy the Work PRE grade exactly;
 3. copy the Work structural type exactly;
-4. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier`;
+4. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
 5. preserve the Work thesis/failure-mode summary in `Frozen PRE Summary` / `Coverage Notes`;
 6. set XI/market status to pending/user-supplied as appropriate;
-7. do **not** run another structural screen during publication.
+7. preserve canonical kickoff semantics;
+8. do **not** run another structural screen during publication.
 
-Forbidden example:
+Forbidden examples:
 
-- Work board = `B+ / WATCHLIST`
-- publisher independently writes = `B / PASS`
+- Work board = `B+ / WATCHLIST`, publisher independently writes = `B / PASS`;
+- raw UTC `10:30Z` is displayed as `10:30 ICT` instead of converted to `17:30 ICT`;
+- a Sep 15/16 fixture is copied into a Sep 9 slate because the wrong date representation was trusted.
 
-That is a persistence failure, not a legitimate rerank.
+Those are persistence/schedule failures, not legitimate reranks.
 
 ---
 
-## 6. Persistence conflict rule
+## 7. Persistence conflict rule
 
 If the original frozen Work board and Airtable row disagree, classify:
 
@@ -112,11 +156,28 @@ Until corrected:
 - do not let the conflicting Airtable row auto-PASS or auto-promote the match;
 - correct the Airtable record so the bridge again represents the frozen Work state.
 
-Later XI/price reranks should be logged as later assessment states, not by rewriting what PRE originally was.
+Later XI/price/EGE reranks should be logged as later assessment states, not by rewriting what PRE originally was.
 
 ---
 
-## 7. Coverage reconciliation
+## 8. Upcoming-schedule reads
+
+The Daily Coverage Ledger is a frozen-board bridge, not sufficient by itself to declare a match upcoming.
+
+When reading it for `next matches` / `upcoming`:
+
+- convert serialized UTC to ICT exactly once;
+- resolve current ICT time;
+- revalidate near-term AiScore status/time;
+- remove LIVE/HT/FT/postponed/cancelled rows from the upcoming display;
+- correct stale kickoff data operationally and annotate the correction;
+- sort by corrected ICT kickoff.
+
+Do not present an already-live fixture as upcoming simply because its stored timestamp is stale or misconverted.
+
+---
+
+## 9. Coverage reconciliation
 
 Before claiming a board is fully frozen/published, verify:
 
@@ -131,7 +192,9 @@ Also verify:
 - all exclusions have reasons;
 - all FOCUS/WATCHLIST candidates are persisted;
 - no excluded youth/reserve/lower/small fixture survived;
-- the underlying AiScore handoff has `audit.complete = true` and passed cross-midnight/date-page checks.
+- no Finnish domestic league fixture survived the overlay from its effective date;
+- the underlying AiScore handoff has `audit.complete = true` and passed cross-midnight/date-page checks;
+- every active board fixture passed normalized ICT window/date integrity.
 
 If publication or counts fail:
 
@@ -139,20 +202,20 @@ If publication or counts fail:
 
 ---
 
-## 8. Cross-chat bridge
+## 10. Cross-chat bridge
 
 The intended current workflow is:
 
-`AiScore handoff → Work structural sweep → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review`
+`AiScore handoff → Work structural sweep → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.50 STANDARD/EGE assessment`
 
 Normal Chat should read the persisted frozen state rather than reconstructing the board from conversational memory.
 
-However, the bridge is only authoritative when it faithfully mirrors the Work artifact. A demonstrated persistence conflict triggers the sync-fault rule above.
+However, the bridge is only authoritative when it faithfully mirrors the Work artifact **and** its kickoff has passed time/schedule integrity. A demonstrated persistence or schedule conflict triggers the corresponding fault rule above.
 
 ---
 
-## 9. Do not overload the coverage table
+## 11. Do not overload the coverage table
 
-The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
+The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market/EGE verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
 
 Do not turn the coverage row into a mutable history that erases earlier PRE state.
