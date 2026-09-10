@@ -3,7 +3,7 @@
 **Use in:** Normal Chat, high reasoning.
 
 ## Purpose
-Build the complete AiScore fixture universe for the requested ICT window, apply the current competition-eligibility rules, persist the minimal coverage skeleton to Airtable, and export only actionable fixtures to Work.
+Build the complete AiScore fixture universe for the requested ICT window, apply the current competition-eligibility rules and active sweep-scope filter, persist the minimal coverage skeleton to Airtable, and export only actionable fixtures to Work.
 
 ## Source of truth
 Repository: `acchtt/SlipTrace`
@@ -12,7 +12,13 @@ Always read `models/football/CURRENT_MODEL.md` first.
 
 Do **not** infer the active model version from this prompt. Use the official model, active patches, canonical timezone, fixture authority, competition rules, and load order declared by `CURRENT_MODEL.md` at execution time.
 
-For this stage, load only the current files relevant to fixture discovery, time/schedule integrity, coverage, and eligibility. At minimum include the active time/schedule integrity procedure and coverage contract declared by the current model. Do not load downstream betting/live files unless a genuine integrity fault requires them.
+For this stage, also load:
+
+`models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
+
+This is the active operational scope filter for national leagues. `CURRENT_MODEL.md` remains higher authority if there is ever a direct conflict.
+
+For this stage, load only the current files relevant to fixture discovery, time/schedule integrity, coverage, sweep scope, and eligibility. At minimum include the active time/schedule integrity procedure, `FOOTBALL_SWEEP_SCOPE.md`, and coverage contract declared by the current model. Do not load downstream betting/live files unless a genuine integrity fault requires them.
 
 ## Airtable
 Base: `SlipTrace Football Decision Control`
@@ -29,9 +35,10 @@ This stage:
 1. traverses every AiScore calendar-date block touched by the requested ICT window;
 2. normalizes fixture identity and time under the current time/schedule integrity procedure;
 3. deduplicates once;
-4. applies the competition overlay from `CURRENT_MODEL.md` exactly;
-5. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
-6. creates a compact actionable handoff for Work.
+4. applies `FOOTBALL_SWEEP_SCOPE.md`;
+5. applies the competition overlay from `CURRENT_MODEL.md` exactly;
+6. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
+7. creates a compact actionable handoff for Work.
 
 This stage does **not**:
 - research match quality;
@@ -62,8 +69,21 @@ If time/date/identity remains inconsistent, keep the row for audit and classify 
 If the requested AiScore window cannot be fully traversed:
 `COVERAGE INCOMPLETE — AiScore sweep incomplete`
 
+## Sweep scope
+Apply `FOOTBALL_SWEEP_SCOPE.md` before any deep structural research.
+
+For domestic national leagues:
+- only the explicit core national-league set in `FOOTBALL_SWEEP_SCOPE.md` is actionable by default;
+- all other domestic national leagues are excluded as `NON-CORE NATIONAL LEAGUE` unless the user explicitly approves a temporary override;
+- top-flight/professional status alone does not bypass this filter;
+- all Finnish domestic leagues remain a hard exclusion at every tier/category.
+
+Do not silently promote a league because it produced good results in a prior slate or was manually reviewed once.
+
+The raw AiScore fixture universe must still include these excluded fixtures for reconciliation; they simply must not be sent to Work.
+
 ## Eligibility
-Apply only the current competition overlay from `CURRENT_MODEL.md` and current coverage contract.
+After sweep-scope filtering, apply the current competition overlay from `CURRENT_MODEL.md` and current coverage contract.
 
 Do not use attractiveness or match-level research to decide eligibility.
 
@@ -99,6 +119,7 @@ Use compact JSON-compatible text. Include:
 - ICT slate date/window;
 - model version read from `CURRENT_MODEL.md`;
 - source = AiScore;
+- sweep scope = `FOOTBALL_SWEEP_SCOPE.md`;
 - actionable fixtures;
 - AiScore identity/time fields where available;
 - audit counts: raw, actionable, excluded, duplicates, unresolved, complete, coverage skeleton published.
@@ -111,6 +132,10 @@ Before `complete:true`:
 `Universe = Actionable eligible + Excluded`
 
 Verify every fixture is accounted for exactly once and every touched AiScore date block/terminal interval was checked.
+
+Also verify:
+- no non-core national league survived into the Work handoff without an explicit temporary override;
+- no Finnish domestic league survived the sweep scope.
 
 ## Output
 Reply compactly:
