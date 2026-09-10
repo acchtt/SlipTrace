@@ -28,6 +28,8 @@ For comparable UYL matches:
 - a 0.25-higher line with only slightly longer price can still indicate the stronger environment;
 - structural research should override the market ordering only when there is a clear XI/route defect, not merely because another team's recent scoreline sample looks more explosive.
 
+Important: the opening-round results show that the market prior is useful but not infallible. Do not treat one same-slate price comparison as deterministic evidence.
+
 This differs intentionally from the official senior model, where price comes much later.
 
 ---
@@ -53,40 +55,77 @@ Never stretch upward merely for a better decimal price.
 
 ---
 
-## 3. Repeated market-ranking lesson — 10 Sep 2026
+## 3. Correct opening-round results — 8–10 Sep 2026
+
+User-supplied Soccerway results screenshot is the current authoritative reconciliation source for this trial record.
+
+| Date | Match | Final | Total goals |
+|---|---|---:|---:|
+| 8 Sep | AEK U19 vs LASK U19 | 0–0 | 0 |
+| 8 Sep | FC Porto U19 vs Manchester City U19 | 3–1 | 4 |
+| 8 Sep | Club Brugge U19 vs Aston Villa U19 | 5–3 | 8 |
+| 8 Sep | Lille U19 vs Betis U19 | 0–0 | 0 |
+| 8 Sep | Real Madrid U19 vs Inter U19 | 3–0 | 3 |
+| 8 Sep | Dortmund U19 vs Villarreal U19 | 2–3 | 5 |
+| 9 Sep | Stuttgart U19 vs Viking U19 | 5–0 | 5 |
+| 9 Sep | Napoli U19 vs Arsenal U19 | 1–2 | 3 |
+| 9 Sep | PSG U19 vs Slovan Bratislava U19 | 6–1 | 7 |
+| 9 Sep | Sporting CP U19 vs Galatasaray U19 | 2–2 | 4 |
+| 9 Sep | Liverpool U19 vs Atletico Madrid U19 | 2–2 | 4 |
+| 10 Sep | Barcelona U19 vs Feyenoord U19 | 1–2 | 3 |
+| 10 Sep | Fenerbahce U19 vs AS Roma U19 | 2–4 | 6 |
+| 10 Sep | PSV U19 vs Shakhtar Donetsk U19 | 1–0 | 1 |
+| 10 Sep | Slavia Prague U19 vs Lens U19 | 2–1 | 3 |
+| 10 Sep | Manchester United U19 vs Sabah Baku U19 | 5–0 | 5 |
+| 10 Sep | Como U19 vs RB Leipzig U19 | 1–1 | 2 |
+| 10 Sep | Bayern U19 vs Bodo/Glimt U19 | 6–1 | 7 |
+
+Opening-round aggregate from these 18 reconciled results:
+
+- 70 total goals
+- 3.89 goals per match
+- Over 2.5: 14/18 (77.8%)
+- Over 3.5: 10/18 (55.6%)
+- Over 4.5: 7/18 (38.9%)
+
+These league-phase opening results confirm a high overall goal environment, but the distribution remains uneven enough that match selection and line burden still matter.
+
+---
+
+## 4. Market-ranking lessons — evidence is mixed
 
 ### PSV U19 vs Shakhtar U19 versus Slavia Prague U19 vs Lens U19
 
-Observed prematch/live early market:
+Observed early market:
 
 - PSV–Shakhtar O3.75 approximately 1.77
 - Slavia–Lens O3.75 approximately 1.88
 
-Same line, shorter PSV Over price = market assigned the stronger 4+ goal prior to PSV.
+Same line, shorter PSV Over price indicated the stronger market-implied 4+ goal prior.
 
-Finals:
+Correct finals:
 
-- PSV–Shakhtar 2–2 = 4 goals
+- PSV–Shakhtar 1–0 = 1 goal
 - Slavia–Lens 2–1 = 3 goals
 
-This does not prove market infallibility, but it is a clean same-slate example where the market ordering was directionally better than the trial's structural ranking.
+Therefore this comparison **did not validate** the shorter-Over-price ordering in realized goals. Preserve it as a caution that market strength is informative but not deterministic.
 
 ### Como U19 vs RB Leipzig U19 versus Manchester United U19 vs Sabah U19
 
-The user observed the same directional pattern: the Manchester United match carried the stronger goal-market signal than Como, while the trial research promoted Como too aggressively.
+The user observed that Manchester United–Sabah carried the stronger goal-market signal than Como–Leipzig, while the trial's structural research promoted Como too aggressively.
 
-Finals:
+Correct finals:
 
-- Como–RB Leipzig 0–2 = 2 goals
-- Manchester United–Sabah 2–1 = 3 goals
+- Como–RB Leipzig 1–1 = 2 goals
+- Manchester United–Sabah 5–0 = 5 goals
 
-Exact comparative line/price for the Manchester United example should be reverified from the original screenshot before quantitative use, but the qualitative ranking lesson is retained.
+This comparison **did** support the market-ordering hypothesis. Exact comparative line/price for Manchester United should be reverified from the original screenshot before quantitative modelling.
 
-**Current conclusion:** UYL public team-form data is noisy enough that the bookmaker total/Over price should receive more weight when ranking otherwise viable matches against each other.
+**Current conclusion:** use market-implied goal environment as a meaningful UYL ranking input, but require repeated evidence across slates before increasing its weight further.
 
 ---
 
-## 4. Model-issued UYL trial verdict log
+## 5. Model-issued UYL trial verdict log
 
 These are **trial verdicts**, not official Football v0.2.50 Website Picks. Do not mix them into official P/L unless the repository later creates an explicit trial accounting contract.
 
@@ -94,10 +133,12 @@ These are **trial verdicts**, not official Football v0.2.50 Website Picks. Do no
 |---|---:|---:|---:|
 | Sporting CP U19 vs Galatasaray U19 | O3.5 @1.77 | 2–2 | WIN |
 | Liverpool U19 vs Atletico Madrid U19 | O3.25 @1.88 | 2–2 | WIN |
-| Barcelona U19 vs Feyenoord U19 | O3.25 @1.95 around 70' | user-reported 1–2 | HALF LOSS |
-| Fenerbahce U19 vs Roma U19 | O3.5 @1.74 | 0–2 | LOSS |
+| Barcelona U19 vs Feyenoord U19 | O3.25 @1.95 around 70' | 1–2 | HALF LOSS |
+| Fenerbahce U19 vs Roma U19 | O3.5 @1.74 | 2–4 | WIN |
 | Slavia Prague U19 vs Lens U19 | O3.75 @1.88 | 2–1 | LOSS |
-| Como U19 vs RB Leipzig U19 | O3.5 @1.88 | 0–2 | LOSS |
+| Como U19 vs RB Leipzig U19 | O3.5 @1.88 | 1–1 | LOSS |
+
+Flat 1u trial P/L for these six executed verdicts: **-0.11u**.
 
 ### Missed / no-entry case
 
@@ -105,13 +146,13 @@ PSG U19 vs Slovan Bratislava U19 finished 6–1. The trial did not count an exec
 
 ### Result-integrity note
 
-For Barcelona U19 vs Feyenoord U19, preserve the user's reported final 1–2 as the trial record unless a later explicit reconciliation is performed. A separate fetched feed previously showed 0–2, so the historical source discrepancy should not be silently overwritten.
+Earlier third-party result fetching produced multiple incorrect scores. For this opening-round record, the user's Soccerway results screenshot supersedes those fetched values.
 
-Feyenoord also received a red card in that match; red-card timing was not preserved and must not be invented.
+Feyenoord received a red card in Barcelona–Feyenoord; red-card timing was not preserved and must not be invented.
 
 ---
 
-## 5. Match-specific audit notes
+## 6. Match-specific audit notes
 
 ### Slavia Prague U19 vs Lens U19
 
@@ -125,41 +166,56 @@ The loss does not automatically mean the matchup thesis was structurally poor. H
 
 ### Barcelona U19 vs Feyenoord U19
 
+Final reconciled as 1–2.
+
 Live process error occurred: the score column was misread more than once. Future live UYL assessments must explicitly confirm score, minute, cards, and current total before interpreting line movement.
 
 The late O3.25 @1.95 entry illustrated another key point: a line can look low in absolute UYL terms while still requiring two additional goals for a full win. Competition-relative decay alone is not enough; always calculate exact remaining-goal burden.
 
+### Fenerbahce U19 vs Roma U19
+
+Correct final 2–4. The O3.5 @1.74 trial lock was a full win. Previous 0–2 result was erroneous and must not be reused.
+
+### Como U19 vs RB Leipzig U19
+
+Correct final 1–1. The O3.5 @1.88 trial lock lost. Previous 0–2 result was erroneous; settlement remains a full loss either way, but the scoreline matters for future structural audit.
+
 ---
 
-## 6. Early high-scoring / high-event team watch flags
+## 7. Early high-scoring / high-event team watch flags
 
-These are **one-slate watch flags only**, not permanent team classifications. Revalidate current season form, XI and market next time.
+These are **one-round watch flags only**, not permanent team classifications. Revalidate current season form, XI and market next time.
 
-### Strong individual scoring output observed in the opening slate
+### Strong individual scoring output in opening round
 
+- Bayern U19 — scored 6
 - PSG U19 — scored 6
 - Club Brugge U19 — scored 5
 - Stuttgart U19 — scored 5
+- Manchester United U19 — scored 5
+- AS Roma U19 — scored 4
 - Porto U19 — scored 3
 - Real Madrid U19 — scored 3
 - Villarreal U19 — scored 3
 
-### High-event opening-slate participants worth early attention
+### High-event opening-round participants worth early attention
 
-- PSG U19
-- Club Brugge U19
-- Stuttgart U19
-- Porto U19
-- Villarreal U19
-- Liverpool U19
-- Sporting CP U19
-- PSV U19
+- Club Brugge U19 / Aston Villa U19 — 8 total
+- Bayern U19 / Bodo/Glimt U19 — 7 total
+- PSG U19 / Slovan Bratislava U19 — 7 total
+- Fenerbahce U19 / Roma U19 — 6 total
+- Dortmund U19 / Villarreal U19 — 5 total
+- Stuttgart U19 / Viking U19 — 5 total
+- Manchester United U19 / Sabah U19 — 5 total
+- Porto U19 / Manchester City U19 — 4 total
+- Liverpool U19 / Atletico Madrid U19 — 4 total
+- Sporting CP U19 / Galatasaray U19 — 4 total
 
-Other teams from the same high-total games may also deserve attention, but no team should be promoted solely from one result.
+PSV U19 should **not** be flagged as high-event from this round; PSV–Shakhtar finished 1–0.
 
 ---
 
-## 7. Future UYL workflow
+## 8. Future UYL workflow
 
 When a new UYL slate appears:
 
@@ -170,6 +226,7 @@ When a new UYL slate appears:
 5. calculate exact burden at the proposed Asian total;
 6. prefer protection when the match is strong but not truly extreme;
 7. never chase a line expanded by an early goal;
-8. record trial decision, price, final, chance-quality notes if supplied, and any market-ordering lesson back into this file.
+8. record trial decision, price, final, chance-quality notes if supplied, and any market-ordering lesson back into this file;
+9. prefer user-supplied/competition-source reconciliation for result settlement when third-party feeds conflict.
 
 The goal of the trial is not to prove that UYL is always high scoring. It is to learn which UYL matches and market states reliably separate ordinary 2–3 goal games from genuine 4+ environments.
