@@ -1,12 +1,14 @@
 # Current Football Model
 
-**Active official model:** Football **v0.2.49**  
+**Active official model:** Football **v0.2.50**  
 **Official base:** Football **v0.2.47 CLEAN**  
-**Active official patch:** `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
+**Active official patches:**  
+- `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
+- `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — **EXTREME GOAL ENVIRONMENT / PERSISTENT HIGH-LINE**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **AiScore fixture handoff → price/XI-blind Work structural sweep → frozen FOCUS/WATCHLIST board → user-supplied XI + odds → v0.2.49 official verdict**  
-**Timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
+**Operating workflow:** **AiScore fixture handoff → price/XI-blind Work structural sweep → frozen FOCUS/WATCHLIST board → user-supplied XI + odds → v0.2.50 official verdict**  
+**Canonical timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
 
 This file is the operating authority for Football. Historical rules are recoverable from Git history and must not be inferred into current decisions.
 
@@ -17,16 +19,20 @@ This file is the operating authority for Football. Historical rules are recovera
 Load only the current active stack:
 
 1. `models/football/CURRENT_MODEL.md`
-2. `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
-3. `models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md`
-4. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
-5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
-6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-7. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-8. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-9. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+2. `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
+3. `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
+4. `models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md`
+5. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.47.md`
+6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
+7. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.50.md`
+8. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+9. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+10. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+11. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Do not load superseded rule files from chat memory, old handoffs, or Git history into a current decision.
+
+Where older active procedure text still names v0.2.49, treat it as inherited procedure text and apply the current v0.2.50 patches and this file as the higher authority.
 
 ---
 
@@ -66,7 +72,30 @@ If the requested window ends at 03:00 ICT, for example, the absence of a 03:00 b
 
 ---
 
-## 3. Actionable competition quality — current user overlay
+## 3. Time and schedule integrity — mandatory
+
+All football fixture times follow `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
+
+Canonical invariant:
+
+`AISCORE IDENTITY → kickoff_utc → ONE conversion to Asia/Ho_Chi_Minh → kickoff_ict → slate_date_ict → status revalidation → schedule display`
+
+Critical rules:
+
+- a timestamp ending in `Z` is UTC, never ICT;
+- Airtable may serialize a date field as UTC `Z` even when the field displays in ICT;
+- convert a raw UTC value to ICT **exactly once**;
+- never add +7 to a timestamp already expressed in ICT;
+- derive `Slate Date` from the ICT-converted kickoff, not from the raw UTC date;
+- a fixture outside the requested normalized ICT window cannot enter that board;
+- before an `upcoming` / `next matches` schedule is shown, near-term fixtures must be revalidated against AiScore status so LIVE/FT/postponed fixtures are not presented as upcoming;
+- a date/time mismatch is `UNRESOLVED — SCHEDULE INTEGRITY` until corrected.
+
+Historical schedule faults are annotated; they do not rewrite frozen PRE history.
+
+---
+
+## 4. Actionable competition quality — current user overlay
 
 The normal actionable board is governed by a **senior-quality overlay**, not a legacy competition whitelist.
 
@@ -95,11 +124,11 @@ Competition-name legacy filters must never remove an otherwise qualifying senior
 
 ---
 
-## 4. Mandatory coverage sequence
+## 5. Mandatory coverage sequence
 
 The shared production sequence is:
 
-`AISCORE FIXTURE UNIVERSE → SENIOR-QUALITY ELIGIBILITY → SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → USER-SUPPLIED XI RERANK → GOAL BURDEN → USER-SUPPLIED PRICE → v0.2.49 OFFICIAL VERDICT + SHADOW COMPARISONS`
+`AISCORE FIXTURE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → USER-SUPPLIED XI RERANK → GOAL BURDEN / EGE REGIME → USER-SUPPLIED PRICE → v0.2.50 OFFICIAL VERDICT + SHADOW COMPARISONS`
 
 Every actionable fixture must receive a PRE disposition before the visible board is shortened.
 
@@ -115,15 +144,15 @@ If counts fail, state:
 
 ---
 
-## 5. Core decision order
+## 6. Core decision order
 
-Official v0.2.49 decision order:
+Official v0.2.50 decision order:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → CONFIRMED XI RERANK → GOAL BURDEN → PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → CONFIRMED XI RERANK → GOAL BURDEN / REGIME → PRICE → LOCK / HOLD`
 
 Price never promotes a structurally weaker match.
 
-For comparable grades, v0.2.49 applies:
+For comparable grades, v0.2.49 remains active inside v0.2.50:
 
 `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
@@ -136,7 +165,7 @@ An ELITE CARRIER may leapfrog a genuine same-grade TWO-SIDED candidate only when
 
 ---
 
-## 6. Active structural bands
+## 7. Active structural bands
 
 - **A1** — genuine Two-Sided Tier A, or an exceptional Elite Carrier that clearly meets the v0.2.49 exception standard.
 - **A2** — strong two-sided environment, or strong carrier with one meaningful weakness.
@@ -147,7 +176,7 @@ Archetype priority controls ranking and attention; it does not automatically cha
 
 ---
 
-## 7. Mandatory evidence rules
+## 8. Mandatory evidence rules
 
 Before final promotion, evaluate the actual team profile, including where available:
 
@@ -165,7 +194,7 @@ Before selection, explicitly identify the main failure mode. Examples include ca
 
 ---
 
-## 8. Frozen PRE and confirmed-XI rerank
+## 9. Frozen PRE and confirmed-XI rerank
 
 **Confirmed XI is the first legitimate rerank gate after frozen PRE.**
 
@@ -182,6 +211,15 @@ At XI, inspect:
 
 Do not rebuild PRE from scratch merely because XI or price is now available.
 
+### Rotation interpretation — v0.2.50
+
+Do not downgrade merely because a lineup is rotated. Distinguish:
+
+- `ROTATION — ATTACKING DEPTH PRESERVED` — equivalent senior attacking quality and coherent roles remain;
+- `ROTATION — COHESION / ROUTE DAMAGE` — important routes or service materially weaken.
+
+Only the second is an automatic burden downgrade.
+
 ### Frozen-state persistence rule
 
 The Work structural board is a frozen PRE artifact. Publishing it to Airtable must be a **state copy/upsert, not a second structural screen**. Normal Chat should read that persisted frozen state for the later user-supplied XI/odds review.
@@ -190,7 +228,37 @@ If an Airtable row conflicts with the original frozen Work board, classify it as
 
 ---
 
-## 9. User-supplied XI + odds — current execution policy
+## 10. v0.2.50 Extreme Goal Environment (EGE)
+
+After confirmed XI, classify the goal-burden regime as either:
+
+- `STANDARD`; or
+- `EGE — EXTREME GOAL ENVIRONMENT`.
+
+EGE normally requires **A1 FOCUS TWO-SIDED or A1 FOCUS ELITE CARRIER**. An A2 FOCUS may qualify only under the strict exception defined in `MODEL_RULES_FOOTBALL_V0.2.50.md`.
+
+EGE must be supported independently by structure + team profile + XI. A high bookmaker line alone cannot create EGE.
+
+If EGE clears:
+
+- preserve the frozen PRE burden as history;
+- create a documented post-XI `EGE supported burden`;
+- the new burden may be above the frozen PRE band when structural evidence independently supports it;
+- compare price only after this burden is set.
+
+### Persistent High-Line Acceptance
+
+A confirmed EGE match does **not** have to wait for an arbitrary absolute decay target.
+
+If the current total is inside the independently supported EGE burden and odds are at least 1.65, the match may be locked prematch.
+
+If the line is only 0.25 above EGE support, wait for a relative quarter-line improvement rather than requiring a return to the old frozen PRE range.
+
+An early-goal expansion is never a reason to raise burden. Do not chase goal-driven line expansion.
+
+---
+
+## 11. User-supplied XI + odds — current execution policy
 
 For the normal pre-kickoff workflow:
 
@@ -204,7 +272,7 @@ User screenshots/text are valid current evidence and should be matched to the fr
 
 ---
 
-## 10. Executable price policy — current user overlay
+## 12. Executable price policy — current user overlay
 
 - **Hard minimum decimal odds:** `1.65`
 - **Preferred decimal odds:** `1.70+`
@@ -214,19 +282,21 @@ User screenshots/text are valid current evidence and should be matched to the fr
 - structural ranking remains price-independent;
 - protected Asian totals are preferred when they preserve the thesis at a reasonable price.
 
-Goal burden is chosen **after structure and XI** and **before price**.
+Goal burden/regime is chosen **after structure and XI** and **before price**.
+
+v0.2.50 does not weaken this rule: EGE is a documented structural/XI burden re-open, not a price-driven stretch.
 
 ---
 
-## 11. Official and shadow tracks
+## 13. Official and shadow tracks
 
 Use the same frozen evidence snapshot for all tracks:
 
-- **Official:** Football v0.2.49
+- **Official:** Football v0.2.50
 - **Shadow:** Football v0.2.47 CLEAN
 - **Shadow:** Football v0.2.48-SHADOW
 
-The v0.2.49 structural-priority patch applies only to the official track. Shadow tracks remain version-faithful.
+The v0.2.49 structural-priority patch and v0.2.50 EGE patch apply only to the official track. Shadow tracks remain version-faithful.
 
 An affirmative final selection on the official track is an **OFFICIAL LOCK**. HOLD/PASS creates no official exposure. Shadow selections never enter official P/L.
 
@@ -234,19 +304,21 @@ Every material state must be logged with the model version that actually produce
 
 ---
 
-## 12. Research policy
+## 14. Research policy
 
 Once AiScore establishes a fixture, normal research may use the best available evidence from official sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistics/news sources, and user-supplied screenshots.
 
-Research can refine team profile, chance quality, incentives, tactical shape, confirmed XI, failure modes, and market expression. Research sources cannot add a fixture to the universe without AiScore verification.
+Research can refine team profile, chance quality, incentives, tactical shape, confirmed XI, failure modes, EGE qualification, and market expression. Research sources cannot add a fixture to the universe without AiScore verification.
 
 ---
 
-## 13. Live and settlement boundary
+## 15. Live and settlement boundary
 
 Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite history.
 
 The clean v0.2.47 halftime compression/saturation gate remains active where inherited and applicable. Manual live overrides must be separately labelled.
+
+For EGE, a quiet 0-0 opening may corroborate persistent high-line calibration but does not create EGE by itself. An early goal never licenses immediate line chasing.
 
 Standard full-match Asian totals settle on **90 minutes plus stoppage time** unless the market explicitly includes extra time.
 
@@ -254,7 +326,25 @@ Counterfactual simulations never enter official P/L.
 
 ---
 
-## 14. Authority and history
+## 16. Schedule-output rule
+
+When the user asks for upcoming/next matches or a schedule:
+
+- resolve current ICT time;
+- read the frozen board;
+- revalidate near-term AiScore status;
+- exclude matches already LIVE/HT/FT/postponed/cancelled;
+- convert raw UTC `Z` timestamps to ICT exactly once;
+- sort by corrected ICT kickoff;
+- show the date when crossing midnight or multiple ICT dates.
+
+If the schedule cannot be reconciled, state:
+
+`SCHEDULE INTEGRITY CHECK FAILED — revalidation required`
+
+---
+
+## 17. Authority and history
 
 For current football decisions, this file and its canonical load order win over stale handoffs, old chat text, archived screenshots, or superseded documentation.
 
