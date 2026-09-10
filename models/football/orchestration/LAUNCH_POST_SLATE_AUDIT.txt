@@ -1,0 +1,23 @@
+use heavy route.
+
+Run the football orchestrated post-slate audit for the requested slate/date.
+
+Read first:
+1. models/football/CURRENT_MODEL.md
+2. models/football/orchestration/README.md
+3. models/football/orchestration/WORKER_CONTRACTS.md
+4. models/football/orchestration/POST_SLATE_AUDIT_HEAVY_ROUTE.md
+5. the active audit/persistence files required by CURRENT_MODEL.md
+
+CRITICAL:
+- Preserve the historical model version that produced each decision.
+- Frozen PRE is historical truth; do not rewrite it with hindsight.
+- Workers retrieve results, perform settlement math, and research selected anomalies only.
+- Workers do not decide model lessons or rule changes.
+- Main Agent alone assigns final audit taxonomy and TEST / KEEP / MODIFY / REJECT conclusions.
+- Website Picks is used only for actual official exposure/results.
+- HOLD/PASS/shadow/counterfactual states never enter official P/L.
+- Do not deep-research every routine fixture again.
+- No model/rule/registry edit without explicit user instruction.
+
+Return a compact audit with official results/P&L, meaningful anomalies, final taxonomy, repeated patterns, recommendations, tester status, and orchestration usage if available.
