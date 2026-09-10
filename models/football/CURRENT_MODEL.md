@@ -30,6 +30,12 @@ Load only the current active stack:
 10. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
 11. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
+**Conditional auxiliary trial load:** when the user explicitly asks to assess, continue, review, audit, fetch, or rank UEFA Youth League / U19 trial matches, additionally load:
+
+`models/football/trials/UEFA_YOUTH_LEAGUE_TRIAL.md`
+
+That file is persistent cross-chat trial memory only. It may define UYL-specific experimental calibration and preserve trial results/lessons, but it does **not** whitelist youth football for the normal actionable board, does not create official Football v0.2.50 exposure, and does not override the official senior model outside an explicitly invoked UYL trial.
+
 Do not load superseded rule files from chat memory, old handoffs, or Git history into a current decision.
 
 Where older active procedure text still names v0.2.49, treat it as inherited procedure text and apply the current v0.2.50 patches and this file as the higher authority.
