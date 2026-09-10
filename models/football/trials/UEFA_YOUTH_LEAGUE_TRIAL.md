@@ -2,64 +2,22 @@
 
 **Status:** ACTIVE MANUAL TRIAL — NON-OFFICIAL  
 **Competition:** UEFA Youth League / U19  
-**Purpose:** Persistent cross-chat record for UYL-specific observations, trial decisions, results, calibration lessons, and early team flags.  
+**Last full audit:** 2026-09-10 ICT  
 **Official-model boundary:** U19/youth remains excluded from the normal Football v0.2.50 actionable board unless a later repo change explicitly promotes it.
 
-This file exists so UYL trial knowledge is not trapped inside one chat. When the user explicitly asks to assess, continue, review, audit, or fetch UEFA Youth League / U19 trial matches, load this file in addition to the official stack.
+This file is the persistent cross-chat record for UYL-specific results, trial decisions, calibration and audit lessons. When the user explicitly asks to assess, continue, review, audit, or fetch UEFA Youth League / U19 trial matches, load this file in addition to the official stack.
 
 Do not use this file to silently whitelist youth football for the normal production sweep.
 
 ---
 
-## 1. Trial decision philosophy
+## 1. Result authority for this trial
 
-UYL is a separate competition-relative experiment. Do not blindly apply senior-football absolute total thresholds.
+For the 2026/27 opening round, the user's Soccerway results screenshot is the reconciled result authority. Earlier third-party web result fetching returned several incorrect scores and must not be reused for settlement or audit.
 
-Current trial ordering:
+Correct opening-round results:
 
-`XI / STRUCTURAL VIABILITY -> MARKET GOAL PRIOR -> TEAM-PROFILE REFINEMENT -> LINE SELECTION`
-
-The market goal prior is a ranking/calibration signal, not a standalone reason to bet.
-
-For comparable UYL matches:
-
-- same total line + shorter Over price = stronger market-implied goal environment;
-- higher total at a similar Over price = stronger market-implied goal environment;
-- a 0.25-higher line with only slightly longer price can still indicate the stronger environment;
-- structural research should override the market ordering only when there is a clear XI/route defect, not merely because another team's recent scoreline sample looks more explosive.
-
-Important: the opening-round results show that the market prior is useful but not infallible. Do not treat one same-slate price comparison as deterministic evidence.
-
-This differs intentionally from the official senior model, where price comes much later.
-
----
-
-## 2. Current UYL burden calibration
-
-Do **not** treat O3.5 as an automatic or universally safe UYL baseline.
-
-Working interpretation:
-
-- O2.5 = very protected / low
-- O3.0 = low
-- O3.25 = protected
-- O3.5 = common but still requires genuine 4-goal support
-- O3.75 = demanding enough that market strength matters materially
-- O4.0 = high
-- O4.25 = high / extreme matchup
-- O4.5+ = demanding; requires independently supported extreme environment
-
-Protected lines matter. If a match has strong-but-not-extreme UYL structure, O3.25 may be preferable to O3.5/O3.75 when the price sacrifice is reasonable because exactly 3 goals materially reduces damage.
-
-Never stretch upward merely for a better decimal price.
-
----
-
-## 3. Correct opening-round results — 8–10 Sep 2026
-
-User-supplied Soccerway results screenshot is the current authoritative reconciliation source for this trial record.
-
-| Date | Match | Final | Total goals |
+| Date | Match | Final | Total |
 |---|---|---:|---:|
 | 8 Sep | AEK U19 vs LASK U19 | 0–0 | 0 |
 | 8 Sep | FC Porto U19 vs Manchester City U19 | 3–1 | 4 |
@@ -80,56 +38,108 @@ User-supplied Soccerway results screenshot is the current authoritative reconcil
 | 10 Sep | Como U19 vs RB Leipzig U19 | 1–1 | 2 |
 | 10 Sep | Bayern U19 vs Bodo/Glimt U19 | 6–1 | 7 |
 
-Opening-round aggregate from these 18 reconciled results:
+Opening-round aggregate:
 
-- 70 total goals
+- 18 matches
+- 70 goals
 - 3.89 goals per match
-- Over 2.5: 14/18 (77.8%)
-- Over 3.5: 10/18 (55.6%)
-- Over 4.5: 7/18 (38.9%)
+- Over 2.5: 14/18 = 77.8%
+- Over 3.5: 10/18 = 55.6%
+- Over 4.5: 7/18 = 38.9%
+- exactly 3 goals: 4/18 = 22.2%
+- exactly 4 goals: 3/18 = 16.7%
+- 5+ goals: 7/18 = 38.9%
+- 0–2 goals: 4/18 = 22.2%
 
-These league-phase opening results confirm a high overall goal environment, but the distribution remains uneven enough that match selection and line burden still matter.
-
----
-
-## 4. Market-ranking lessons — evidence is mixed
-
-### PSV U19 vs Shakhtar U19 versus Slavia Prague U19 vs Lens U19
-
-Observed early market:
-
-- PSV–Shakhtar O3.75 approximately 1.77
-- Slavia–Lens O3.75 approximately 1.88
-
-Same line, shorter PSV Over price indicated the stronger market-implied 4+ goal prior.
-
-Correct finals:
-
-- PSV–Shakhtar 1–0 = 1 goal
-- Slavia–Lens 2–1 = 3 goals
-
-Therefore this comparison **did not validate** the shorter-Over-price ordering in realized goals. Preserve it as a caution that market strength is informative but not deterministic.
-
-### Como U19 vs RB Leipzig U19 versus Manchester United U19 vs Sabah U19
-
-The user observed that Manchester United–Sabah carried the stronger goal-market signal than Como–Leipzig, while the trial's structural research promoted Como too aggressively.
-
-Correct finals:
-
-- Como–RB Leipzig 1–1 = 2 goals
-- Manchester United–Sabah 5–0 = 5 goals
-
-This comparison **did** support the market-ordering hypothesis. Exact comparative line/price for Manchester United should be reverified from the original screenshot before quantitative modelling.
-
-**Current conclusion:** use market-implied goal environment as a meaningful UYL ranking input, but require repeated evidence across slates before increasing its weight further.
+**Audit interpretation:** UYL is genuinely high-scoring, but the distribution is highly volatile. The 3.89 average must not be treated as a stable per-match baseline: the same round contained four 0–2 goal matches and seven 5+ goal matches.
 
 ---
 
-## 5. Model-issued UYL trial verdict log
+## 2. Most important opening-round discovery — carrier ceiling
 
-These are **trial verdicts**, not official Football v0.2.50 Website Picks. Do not mix them into official P/L unless the repository later creates an explicit trial accounting contract.
+High UYL totals were often created by one dominant attack rather than requiring a perfectly balanced two-sided game.
 
-| Match | Trial line | Final | Trial settlement |
+Opening-round evidence:
+
+- 9/18 matches had at least one team score 3+
+- 6/18 matches had at least one team score 4+
+- of the 10 matches that reached 4+ total goals, 6 had a team score 4+
+- of the 7 matches that reached 5+ total goals, 6 had a team score 4+
+
+The six 4+ individual outputs were Club Brugge 5, Stuttgart 5, PSG 6, Roma 4, Manchester United 5, and Bayern 6.
+
+**Trial conclusion:** for UYL, `CARRIER CEILING` deserves at least equal attention to two-sided structure, especially at O3.75+ burdens. Do not automatically rank a merely balanced two-sided matchup above an elite youth carrier with a credible independent 4+ ceiling.
+
+For a proposed O3.75 or higher line, explicitly ask:
+
+`CAN ONE TEAM PLAUSIBLY SCORE 4 BY ITSELF?`
+
+A strong YES materially improves the case. A NO does not automatically kill the match, but then the two-sided route must be exceptionally strong.
+
+---
+
+## 3. Trial decision order after re-audit
+
+Current UYL trial ordering:
+
+`XI / STRUCTURAL VIABILITY -> ARCHETYPE + CARRIER CEILING -> MARKET GOAL PRIOR -> TEAM-PROFILE REFINEMENT -> SUPPORTED BURDEN -> LINE SELECTION`
+
+This is a competition-specific trial ordering and intentionally differs from the official senior model.
+
+### Market goal prior
+
+The market remains useful, but the corrected results show it is not deterministic.
+
+For comparable viable UYL matches:
+
+- same total + shorter Over price = stronger market-implied goal prior;
+- higher total at similar price = stronger market-implied goal prior;
+- use this to rank close candidates and detect information not visible in noisy public youth data;
+- do not allow market strength alone to override a clear XI/route defect;
+- do not infer that the shorter-priced Over must realize more goals in one match.
+
+Corrected same-slate examples are mixed:
+
+- PSV–Shakhtar O3.75 ~1.77 vs Slavia–Lens O3.75 ~1.88: PSV had the stronger market prior but finished 1–0 while Slavia finished 2–1. Both stayed under the burden.
+- Manchester United–Sabah carried the stronger observed goal-market signal than Como–Leipzig and finished 5–0 vs Como's 1–1. This supports the hypothesis directionally, but the exact Manchester United line/price should be reverified before quantitative modelling.
+- Barcelona–Feyenoord carried an extreme O4.5 ~1.78 market yet finished 1–2; the trial's prematch HOLD at that burden was therefore correct.
+
+**Conclusion:** market information should calibrate and break ties; it should not become a standalone selection engine.
+
+---
+
+## 4. Current UYL burden calibration
+
+Do not treat O3.5 as an automatic UYL baseline merely because the competition average is high.
+
+Working interpretation:
+
+- O2.5 = very protected / low
+- O3.0 = low
+- O3.25 = protected and often useful for strong-but-not-extreme matches
+- O3.5 = requires a genuine 4-goal route
+- O3.75 = demanding; needs strong market + structure and preferably carrier support
+- O4.0 = high
+- O4.25 = high / extreme
+- O4.5+ = demanding extreme burden; needs independently supported elite carrier/EGE-like conditions
+
+Opening-round empirical break-even prices, using only this 18-match distribution and therefore **not** a forward fair-price model:
+
+- blind O3.25: approximately 1.60
+- blind O3.5: approximately 1.80
+- blind O3.75: approximately 1.94
+
+These numbers are descriptive only. They show why quarter-line protection mattered in this round and why O3.75 near the high-1.80s can still be demanding despite a 3.89 league average.
+
+**Protected-line rule:** when structure is strong but the 4+ tail is not independently proven, prefer O3.25 over O3.5/O3.75 when the price sacrifice is reasonable. Never stretch upward merely for a prettier decimal price.
+
+---
+
+## 5. Executed UYL trial verdicts
+
+These are trial verdicts only, not official Football v0.2.50 Website Picks.
+
+| Match | Trial line | Final | Settlement |
 |---|---:|---:|---:|
 | Sporting CP U19 vs Galatasaray U19 | O3.5 @1.77 | 2–2 | WIN |
 | Liverpool U19 vs Atletico Madrid U19 | O3.25 @1.88 | 2–2 | WIN |
@@ -138,95 +148,160 @@ These are **trial verdicts**, not official Football v0.2.50 Website Picks. Do no
 | Slavia Prague U19 vs Lens U19 | O3.75 @1.88 | 2–1 | LOSS |
 | Como U19 vs RB Leipzig U19 | O3.5 @1.88 | 1–1 | LOSS |
 
-Flat 1u trial P/L for these six executed verdicts: **-0.11u**.
+Flat 1u P/L: **3W – 2L – 1HL = -0.11u**.
 
-### Missed / no-entry case
+The six selected matches produced 22 goals = 3.67 goals/match. Five of six reached 3+ goals, but only three of six reached 4+.
 
-PSG U19 vs Slovan Bratislava U19 finished 6–1. The trial did not count an executed entry because PSG scored while the verdict was being formed and the market reset. Preserve as a validated missed opportunity / NO BET, not P/L.
+**Selection audit:** the trial has been better at identifying matches likely to reach the general 3-goal zone than at separating the true 4+ tail. Since most selected lines were 3.25–3.75, that missing 3→4 separation is currently the main weakness.
 
-### Result-integrity note
+### Missed/no-entry
 
-Earlier third-party result fetching produced multiple incorrect scores. For this opening-round record, the user's Soccerway results screenshot supersedes those fetched values.
-
-Feyenoord received a red card in Barcelona–Feyenoord; red-card timing was not preserved and must not be invented.
+PSG U19 vs Slovan Bratislava U19 finished 6–1. No executed entry is counted because PSG scored while the verdict was being formed and the market reset. Keep as a validated missed opportunity / NO BET, not P/L.
 
 ---
 
-## 6. Match-specific audit notes
+## 6. Match-by-match audit
 
-### Slavia Prague U19 vs Lens U19
+### Sporting CP U19 vs Galatasaray U19 — WIN
 
-Final 2–1. User reported many big chances missed.
+O3.5 @1.77, final 2–2.
 
-Audit tag:
+`GOOD TWO-SIDED SELECTION / APPROPRIATE 4-GOAL BURDEN`
 
-`STRUCTURE BROADLY VALIDATED / CONVERSION UNDERPERFORMED`
+Both sides contributed and the line matched the realized route.
 
-The loss does not automatically mean the matchup thesis was structurally poor. However, line selection was aggressive: O3.75 required four goals for meaningful success, while a protected O3.25 would have reduced damage at exactly three goals.
+### Liverpool U19 vs Atletico Madrid U19 — WIN
 
-### Barcelona U19 vs Feyenoord U19
+O3.25 @1.88, final 2–2.
 
-Final reconciled as 1–2.
+`GOOD STRUCTURE + GOOD PROTECTION`
 
-Live process error occurred: the score column was misread more than once. Future live UYL assessments must explicitly confirm score, minute, cards, and current total before interpreting line movement.
+This remains the cleanest example of the benefit of O3.25: four goals won fully, while the quarter-line protected the downside if the game had stopped at three.
 
-The late O3.25 @1.95 entry illustrated another key point: a line can look low in absolute UYL terms while still requiring two additional goals for a full win. Competition-relative decay alone is not enough; always calculate exact remaining-goal burden.
+### Barcelona U19 vs Feyenoord U19 — HALF LOSS
 
-### Fenerbahce U19 vs Roma U19
+Late O3.25 @1.95 around 70', final 1–2.
 
-Correct final 2–4. The O3.5 @1.74 trial lock was a full win. Previous 0–2 result was erroneous and must not be reused.
+`LIVE DECAY SPOT — MARGINAL BURDEN / PROTECTION LIMITED DAMAGE`
 
-### Como U19 vs RB Leipzig U19
+The entry was not a goal-expansion chase, but competition-relative decay alone was given too much weight. At entry, with two goals already scored, one more goal still produced a half-loss and two more were required for a full win.
 
-Correct final 1–1. The O3.5 @1.88 trial lock lost. Previous 0–2 result was erroneous; settlement remains a full loss either way, but the scoreline matters for future structural audit.
+Future rule: after roughly 60', do not promote a UYL Over merely because the line has decayed into a visually low number. Require current live chance-quality/territory evidence and calculate exact remaining-goal burden before LOCK.
 
----
+Also preserve the process fault: the score column was misread more than once. Future live UYL review must confirm `SCORE / MINUTE / CARDS / CURRENT TOTAL / PRICE` before analysis.
 
-## 7. Early high-scoring / high-event team watch flags
+### Fenerbahce U19 vs Roma U19 — WIN
 
-These are **one-round watch flags only**, not permanent team classifications. Revalidate current season form, XI and market next time.
+O3.5 @1.74, final 2–4.
 
-### Strong individual scoring output in opening round
+`GOOD CARRIER-LED SELECTION / MARKET + ROUTE ALIGNED`
 
-- Bayern U19 — scored 6
-- PSG U19 — scored 6
-- Club Brugge U19 — scored 5
-- Stuttgart U19 — scored 5
-- Manchester United U19 — scored 5
-- AS Roma U19 — scored 4
-- Porto U19 — scored 3
-- Real Madrid U19 — scored 3
-- Villarreal U19 — scored 3
+Roma produced four themselves and Fener contributed two. This is a strong example of why UYL carrier ceiling must not be subordinated automatically to two-sided labels.
 
-### High-event opening-round participants worth early attention
+### Slavia Prague U19 vs Lens U19 — LOSS
 
-- Club Brugge U19 / Aston Villa U19 — 8 total
-- Bayern U19 / Bodo/Glimt U19 — 7 total
-- PSG U19 / Slovan Bratislava U19 — 7 total
-- Fenerbahce U19 / Roma U19 — 6 total
-- Dortmund U19 / Villarreal U19 — 5 total
-- Stuttgart U19 / Viking U19 — 5 total
-- Manchester United U19 / Sabah U19 — 5 total
-- Porto U19 / Manchester City U19 — 4 total
-- Liverpool U19 / Atletico Madrid U19 — 4 total
-- Sporting CP U19 / Galatasaray U19 — 4 total
+O3.75 @1.88, final 2–1. User reported many big chances missed.
 
-PSV U19 should **not** be flagged as high-event from this round; PSV–Shakhtar finished 1–0.
+`STRUCTURE BROADLY VALIDATED / CONVERSION UNDERPERFORMED / LINE TOO AGGRESSIVE`
+
+The chance route apparently survived, so this is not a pure structural miss. But O3.75 exposed the trial to a full loss at exactly three goals. A protected O3.25 would have reduced settlement damage if available at an acceptable price.
+
+### Como U19 vs RB Leipzig U19 — LOSS
+
+O3.5 @1.88, final 1–1.
+
+`RANKING / MATCH-SELECTION MISS`
+
+The trial promoted Como too aggressively from noisy recent youth form and matchup research. The user observed that Manchester United–Sabah carried the stronger goal-market signal; United then finished 5–0 while Como finished 1–1.
+
+This is the clearest opening-round example that public youth-form research should refine rather than dominate cross-match ranking.
 
 ---
 
-## 8. Future UYL workflow
+## 7. What the audit changes
 
-When a new UYL slate appears:
+### A. High average does not justify high burden by itself
 
-1. keep it outside the official senior board unless explicitly running the manual trial;
-2. identify confirmed XI and basic structural viability;
-3. compare the market-implied goal environment across the slate, especially equivalent total lines;
-4. use team form/profile to refine rather than dominate cross-match ranking;
-5. calculate exact burden at the proposed Asian total;
-6. prefer protection when the match is strong but not truly extreme;
-7. never chase a line expanded by an early goal;
-8. record trial decision, price, final, chance-quality notes if supplied, and any market-ordering lesson back into this file;
-9. prefer user-supplied/competition-source reconciliation for result settlement when third-party feeds conflict.
+3.89 goals/match is real, but the round was highly dispersed. Do not turn the league average into a universal O3.5 or O3.75 permission slip.
 
-The goal of the trial is not to prove that UYL is always high scoring. It is to learn which UYL matches and market states reliably separate ordinary 2–3 goal games from genuine 4+ environments.
+### B. Separate 3+ detection from 4+ detection
+
+Current trial screening is reasonably good at finding 3-goal environments but not yet good enough at isolating the 4+ tail. Before O3.5+, require an explicit 4+ mechanism rather than generic youth volatility.
+
+### C. Carrier ceiling becomes a first-class UYL signal
+
+For O3.75+ in particular, a credible independent 4+ team ceiling is highly valuable. Elite carrier routes may outrank merely balanced two-sided games.
+
+### D. Market prior stays important but secondary to viable mechanism
+
+Use it to compare close matches and expose hidden information. Do not elevate it into a deterministic rule after one round.
+
+### E. Downweight tiny recent-form samples
+
+Recent 4–2, 5–3, 7–1 type youth scores are useful context but are too noisy to dominate ranking. Team form should confirm a route, not manufacture one.
+
+### F. Late live entries need live evidence
+
+After 60', line decay is not enough. Require current chance quality plus exact remaining-goal burden.
+
+### G. Result integrity is part of the model process
+
+For settlement/audit, prefer user-supplied Soccerway or competition-source reconciliation when web feeds conflict. Do not let an unverified result overwrite the trial record.
+
+---
+
+## 8. Early team watch flags
+
+These are one-round watch flags, not permanent classifications. Revalidate current form, XI and market next time.
+
+### Individual 4+ carrier outputs
+
+- Bayern U19 — 6
+- PSG U19 — 6
+- Club Brugge U19 — 5
+- Stuttgart U19 — 5
+- Manchester United U19 — 5
+- AS Roma U19 — 4
+
+### Other useful 3+ outputs
+
+- Porto U19 — 3
+- Real Madrid U19 — 3
+- Villarreal U19 — 3
+
+### High-event opening-round fixtures
+
+- Club Brugge / Aston Villa — 8 total
+- Bayern / Bodo/Glimt — 7
+- PSG / Slovan Bratislava — 7
+- Fenerbahce / Roma — 6
+- Dortmund / Villarreal — 5
+- Stuttgart / Viking — 5
+- Manchester United / Sabah — 5
+- Porto / Manchester City — 4
+- Liverpool / Atletico Madrid — 4
+- Sporting CP / Galatasaray — 4
+
+PSV U19 is **not** a high-event flag from this round; PSV–Shakhtar finished 1–0.
+
+---
+
+## 9. Future UYL workflow
+
+For the next UYL slate:
+
+1. keep the competition outside the official senior board unless explicitly running this trial;
+2. confirm fixture/result identity carefully;
+3. inspect XI and basic structural viability;
+4. classify `TWO-SIDED`, `ELITE CARRIER`, `CARRIER-LED`, or `FRAGILE`;
+5. explicitly assess independent 4+ carrier ceiling when considering O3.75+;
+6. compare market goal priors across otherwise viable matches;
+7. use recent team form as refinement, not dominant ranking evidence;
+8. set a supported burden before choosing price;
+9. prefer O3.25 protection for strong-but-not-extreme profiles when price remains usable;
+10. require a genuine 4-goal mechanism for O3.5 and stronger evidence again for O3.75+;
+11. after 60' live, require current chance-quality evidence plus exact remaining-goal burden;
+12. never chase early-goal line expansion;
+13. record final, settlement, chance-quality notes and market-ordering lessons back into this file.
+
+The trial objective is to identify which UYL matches reliably reach the 4+ tail, not merely to observe that the competition is high scoring overall.
