@@ -3,7 +3,11 @@
 **Use in:** Normal Chat, high reasoning.
 
 ## Purpose
-Build the complete AiScore fixture universe for the requested ICT window, apply the current competition-eligibility rules and active sweep-scope filter, persist the minimal coverage skeleton to Airtable, and export only actionable fixtures to Work.
+Build the complete AiScore fixture universe for the requested ICT window, apply the active quality/sweep filters cheaply, persist the minimal coverage skeleton to Airtable, and export only genuinely actionable fixtures to Work.
+
+The main operational objective is to save Work usage:
+
+`DISCOVER BROADLY -> FILTER CHEAPLY -> DEEP-RESEARCH NARROWLY`
 
 ## Source of truth
 Repository: `acchtt/SlipTrace`
@@ -14,11 +18,12 @@ Do **not** infer the active model version from this prompt. Use the official mod
 
 For this stage, also load:
 
-`models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
+- `models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
+- `models/football/procedures/FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`
 
-This is the active operational scope filter for domestic league goal environments. `CURRENT_MODEL.md` remains higher authority if there is ever a direct conflict.
+These are the active operational filters controlling which domestic leagues are allowed to consume Work research. `CURRENT_MODEL.md` remains higher authority if there is a direct conflict.
 
-For this stage, load only the current files relevant to fixture discovery, time/schedule integrity, coverage, sweep scope, and eligibility. At minimum include the active time/schedule integrity procedure, `FOOTBALL_SWEEP_SCOPE.md`, and coverage contract declared by the current model. Do not load downstream betting/live files unless a genuine integrity fault requires them.
+Load only the files relevant to fixture discovery, time/schedule integrity, coverage, sweep scope, league admission, and eligibility. Do not load downstream betting/live files unless a genuine integrity fault requires them.
 
 ## Airtable
 Base: `SlipTrace Football Decision Control`
@@ -35,16 +40,17 @@ This stage:
 1. traverses every AiScore calendar-date block touched by the requested ICT window;
 2. normalizes fixture identity and time under the current time/schedule integrity procedure;
 3. deduplicates once;
-4. applies `FOOTBALL_SWEEP_SCOPE.md`;
-5. applies the competition overlay from `CURRENT_MODEL.md` exactly;
-6. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
-7. creates a compact actionable handoff for Work.
+4. applies the active senior-quality exclusions;
+5. applies `FOOTBALL_SWEEP_SCOPE.md` and `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
+6. runs only the cheap conditional-league admission test where required;
+7. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
+8. creates a compact **scope-pruned actionable handoff** for Work.
 
 This stage does **not**:
-- research match quality;
+- perform full match structural research;
 - assign PRE grades or board ranks;
-- fetch XI or bookmaker odds;
-- evaluate goal burden, regime, or price;
+- fetch confirmed XI or bookmaker odds;
+- evaluate official goal burden, regime, or price;
 - create Decision States;
 - read/write Website Picks;
 - run shadow verdicts;
@@ -69,31 +75,48 @@ If time/date/identity remains inconsistent, keep the row for audit and classify 
 If the requested AiScore window cannot be fully traversed:
 `COVERAGE INCOMPLETE — AiScore sweep incomplete`
 
-## Sweep scope
-Apply `FOOTBALL_SWEEP_SCOPE.md` before any deep structural research.
+## Quality exclusions
+Apply the current senior-quality overlay before league-environment admission.
 
-The scope is **goal-environment driven, not size driven**.
+Do not spend cheap conditional checks on fixtures already excluded as youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, unapproved lower division, or very weak/obscure data environment.
 
-For domestic national leagues:
-- exclude every competition currently listed in `FOOTBALL_SWEEP_SCOPE.md` as `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`;
-- currently this includes Vietnam V.League 1, South Korea K League 1, and Argentina Liga Profesional / Primera Division;
-- all Finnish domestic leagues remain a separate hard exclusion at every tier/category;
-- do **not** exclude a senior top-flight league merely because it is small if it otherwise clears the current model's quality/data rules and is not on the low-goal exclusion list;
-- do not re-audit league-wide scoring baselines during each daily fixture fetch. The scope file is the deterministic league-level decision authority until it is explicitly updated after a separate audit.
+## League environment admission
+Use `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
 
-The raw AiScore fixture universe must still include excluded fixtures for reconciliation; they simply must not be sent to Work.
+### PRIORITY / NORMAL
+Send surviving fixtures directly to the Work handoff.
 
-Do not silently promote a low-goal excluded league because one matchup looks attractive or because a prior slate went Over.
+### CONDITIONAL
+Do **not** send the whole league to Work.
 
-## Eligibility
-After sweep-scope filtering, apply the current competition overlay from `CURRENT_MODEL.md` and current coverage contract.
+Use only the cheap admission criteria in the registry. The purpose is to decide whether a fixture deserves expensive Work research without performing that research here.
 
-Do not use attractiveness or match-level research to decide eligibility.
+If the cheap signal passes, admit the fixture to Work.
 
-If the user explicitly requests a temporary test competition that conflicts with the repo, do not silently alter the canonical model. Either follow an already-versioned repo exception or label the request as a temporary user override for that run.
+If it fails, or the necessary cheap evidence is not readily obtainable, retain the row in coverage but exclude it from Work as:
+
+`CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
+
+Do not turn this into a PRE PASS; no full structural verdict has been made.
+
+### LOW-GOAL EXCLUDE
+Keep in raw coverage, exclude before Work as:
+
+`LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
+
+### HARD EXCLUDE
+All Finnish domestic leagues remain hard excluded under the active registry and existing model rule:
+
+`FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
+
+## Important survival rule
+Do not accidentally remove Norway Eliteserien, Sweden Allsvenskan, Denmark Superliga, Iceland top flight, or Scotland Premiership merely because they are smaller competitions. They are directly admitted by the current registry when otherwise eligible.
+
+## Continental/cup boundary
+The domestic-league registry does not automatically exclude independently eligible senior cups or continental competitions. Apply `CURRENT_MODEL.md` and `FOOTBALL_SWEEP_SCOPE.md` to those competitions.
 
 ## Airtable coverage skeleton
-Batch-upsert **every raw AiScore fixture**, including excluded and schedule-integrity-unresolved rows, so coverage remains auditable.
+Batch-upsert **every raw AiScore fixture**, including scope-excluded and schedule-integrity-unresolved rows, so coverage remains auditable.
 
 Populate only coverage-stage fields needed now, including where supported:
 - Coverage ID
@@ -107,11 +130,13 @@ Populate only coverage-stage fields needed now, including where supported:
 - Source 1 = AiScore
 - Coverage Status
 
-For actionable rows, leave official PRE fields for Work. XI/market remain pending/user-supplied later.
+For Work-admitted rows, leave official PRE fields for Work. XI/market remain pending/user-supplied later.
 
 Efficiency:
 - batch upserts up to connector limit;
 - no per-row readback;
+- no deep research for excluded leagues;
+- no deep research for conditional fixtures unless they first clear the cheap gate;
 - one final reconciliation is enough;
 - do not touch Decision States or Website Picks.
 
@@ -123,27 +148,30 @@ Use compact JSON-compatible text. Include:
 - model version read from `CURRENT_MODEL.md`;
 - source = AiScore;
 - sweep scope = `FOOTBALL_SWEEP_SCOPE.md`;
-- actionable fixtures;
+- league registry = `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
+- only fixtures admitted to Work;
 - AiScore identity/time fields where available;
-- audit counts: raw, actionable, excluded, duplicates, unresolved, complete, coverage skeleton published.
+- audit counts: raw, direct-admit, conditional-checked, conditional-admit, conditional-excluded, low-goal-excluded, Finnish-hard-excluded, other-quality-excluded, duplicates, unresolved, complete, coverage skeleton published.
 
-Only actionable and schedule-integrity-cleared fixtures go in the Work fixture array.
+The Work fixture array must contain only schedule-integrity-cleared fixtures that survived the active scope.
 
 ## Reconciliation
 Before `complete:true`:
 
-`Universe = Actionable eligible + Excluded`
+`Universe = Work-admitted actionable + Excluded`
 
-Verify every fixture is accounted for exactly once and every touched AiScore date block/terminal interval was checked.
+Verify every raw fixture is accounted for exactly once and every touched AiScore date block/terminal interval was checked.
 
 Also verify:
-- no low-goal national league in `FOOTBALL_SWEEP_SCOPE.md` survived into the Work handoff without an explicit temporary override;
-- no Finnish domestic league survived the sweep scope;
-- no otherwise eligible senior top flight was removed solely because it was considered "small".
+- no LOW-GOAL EXCLUDE league survived into Work;
+- no Finnish domestic league survived into Work;
+- no CONDITIONAL league fixture survived without a recorded cheap-gate PASS;
+- no quality-excluded youth/reserve/lower/weak-data fixture survived;
+- Nordic/Scottish direct-admit leagues were not removed merely for league size.
 
 ## Output
 Reply compactly:
 
-`AiScore ready — X actionable / Y raw; Z excluded; N unresolved; Airtable coverage skeleton PASS/FAIL.`
+`AiScore ready — X to Work / Y raw; Z excluded; C conditional checked (A admitted); N unresolved; Airtable coverage skeleton PASS/FAIL.`
 
 Attach the handoff file. Do not print the full fixture list unless the user asks.
