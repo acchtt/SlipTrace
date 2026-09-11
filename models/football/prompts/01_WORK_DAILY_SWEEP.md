@@ -4,11 +4,25 @@ Read `models/football/CURRENT_MODEL.md` first and treat it as the version author
 
 Use the attached `AISCORE_FIXTURES_YYYY-MM-DD.txt` as the already-reconciled, **scope-pruned Work handoff** produced by Step 0. Validate its source, ICT window, completeness flag, count consistency, time/identity consistency, and scope metadata. Do not rebuild the raw fixture universe.
 
+## Hard Work-usage boundary
+
+Step 0 Normal Chat already owns fixture discovery, scope filtering, cheap league admission, and coverage skeleton publication.
+
+Therefore Work must **not**:
+- traverse AiScore date pages again;
+- run a second fixture sweep;
+- search for fixtures omitted from the handoff unless the handoff itself fails integrity checks;
+- reconsider low-goal/Finnish/conditional-no-pass/model-quality exclusions;
+- fetch opening odds, prematch odds, confirmed XI, or current bookmaker prices;
+- spend deep-research usage on matches that Step 0 already filtered out.
+
+If the handoff passes integrity checks, treat its admitted fixture array as the complete Work research universe for that run.
+
 The handoff should already have removed model-quality exclusions, low-goal domestic leagues, Finnish domestic leagues, and conditional-league fixtures that failed/no-data'd the cheap admission gate. **Do not reintroduce those fixtures and do not spend deep research usage reconsidering them.**
 
 Process every fixture that actually survived into the Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
-This stage is price/XI blind. Do not use downstream Decision States or Website Picks. Do not run live, settlement, post-slate audit, or shadow comparison work here.
+This stage is price/XI blind. Do not use downstream Decision States or Website Picks. Do not run opening-odds watch, confirmed-XI review, live, settlement, post-slate audit, or shadow comparison work here.
 
 If the current model contains a later post-XI goal-environment/regime gate, preserve the structural evidence needed for it but do not classify that later regime during PRE unless `CURRENT_MODEL.md` explicitly moves the gate earlier.
 
