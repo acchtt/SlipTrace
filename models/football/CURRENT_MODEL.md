@@ -7,7 +7,7 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — **EXTREME GOAL ENVIRONMENT / PERSISTENT HIGH-LINE**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **AiScore fixture handoff → price/XI-blind Work structural sweep → frozen FOCUS/WATCHLIST board → user-supplied XI + odds → v0.2.50 official verdict**  
+**Operating workflow:** **Normal Chat AiScore fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board → Normal Chat confirmed-XI first pass → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank → goal burden/regime → user-supplied current executable odds → v0.2.50 official verdict**  
 **Canonical timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
 
 This file is the operating authority for Football. Historical rules are recoverable from Git history and must not be inferred into current decisions.
@@ -134,15 +134,19 @@ Competition-name legacy filters must never remove an otherwise qualifying senior
 
 The shared production sequence is:
 
-`AISCORE FIXTURE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → USER-SUPPLIED XI RERANK → GOAL BURDEN / EGE REGIME → USER-SUPPLIED PRICE → v0.2.50 OFFICIAL VERDICT + SHADOW COMPARISONS`
+`NORMAL CHAT AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY/SCOPE FILTER → SCOPE-PRUNED WORK HANDOFF → WORK STRUCTURAL SCREEN OF EVERY ADMITTED FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI RERANK → MARKET-HISTORY CONFLICT CHECK → FINAL XI RERANK → GOAL BURDEN / EGE REGIME → USER-SUPPLIED CURRENT PRICE → v0.2.50 OFFICIAL VERDICT + SHADOW COMPARISONS`
 
-Every actionable fixture must receive a PRE disposition before the visible board is shortened.
+Step 0 Normal Chat owns fixture discovery, cheap scope/league filtering, and handoff creation. Work must not rebuild the raw fixture universe or repeat the AiScore sweep when the handoff passes integrity checks.
 
-Required count invariants:
+Every **Work-admitted** fixture must receive a PRE disposition before the visible Work board is shortened.
 
-`Universe = Actionable eligible + Excluded`
+Required count invariants at the Normal Chat coverage stage:
 
-`Actionable eligible = Focus + Watchlist + Pass + Unresolved`
+`Universe = Work-admitted actionable + Excluded`
+
+At the Work stage:
+
+`Work-admitted actionable = Focus + Watchlist + Pass + Unresolved`
 
 If counts fail, state:
 
@@ -154,9 +158,9 @@ If counts fail, state:
 
 Official v0.2.50 decision order:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → CONFIRMED XI RERANK → GOAL BURDEN / REGIME → PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS CONFIRMED XI RERANK → MARKET-HISTORY CONFLICT CHECK → FINAL XI RERANK → GOAL BURDEN / REGIME → CURRENT PRICE → LOCK / HOLD`
 
-Price never promotes a structurally weaker match.
+Price never promotes a structurally weaker match. Historical market movement cannot create structure or extra goal burden by itself.
 
 For comparable grades, v0.2.49 remains active inside v0.2.50:
 
@@ -226,9 +230,23 @@ Do not downgrade merely because a lineup is rotated. Distinguish:
 
 Only the second is an automatic burden downgrade.
 
+### Market-history conflict check
+
+After the first-pass XI rerank, Normal Chat should attempt a lightweight total-market history check:
+
+`OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
+
+This is contextual research only. It does not replace the user's current executable odds.
+
+If a first-pass XI downgrade conflicts with a material bullish market move, re-inspect whether the rotation is actually `ATTACKING DEPTH PRESERVED` rather than true route damage. If a first-pass XI upgrade conflicts with a material bearish move, re-inspect for missing football/context evidence or source mismatch.
+
+The market does not automatically win a disagreement. Movement may corroborate or challenge an XI interpretation, but may not rewrite frozen PRE, create a stronger structural grade, create TWO-SIDED/EGE, or raise goal burden beyond independent structure + XI support.
+
+If usable historical snapshots are unavailable, record `MARKET HISTORY UNAVAILABLE` and proceed without a movement signal.
+
 ### Frozen-state persistence rule
 
-The Work structural board is a frozen PRE artifact. Publishing it to Airtable must be a **state copy/upsert, not a second structural screen**. Normal Chat should read that persisted frozen state for the later user-supplied XI/odds review.
+The Work structural board is a frozen PRE artifact. Publishing it to Airtable must be a **state copy/upsert, not a second structural screen**. Normal Chat should read that persisted frozen state for the later XI/market review.
 
 If an Airtable row conflicts with the original frozen Work board, classify it as a persistence/synchronization fault; do not silently replace the frozen thesis with a newly reconstructed PRE.
 
@@ -236,21 +254,21 @@ If an Airtable row conflicts with the original frozen Work board, classify it as
 
 ## 10. v0.2.50 Extreme Goal Environment (EGE)
 
-After confirmed XI, classify the goal-burden regime as either:
+After final confirmed-XI rerank, classify the goal-burden regime as either:
 
 - `STANDARD`; or
 - `EGE — EXTREME GOAL ENVIRONMENT`.
 
 EGE normally requires **A1 FOCUS TWO-SIDED or A1 FOCUS ELITE CARRIER**. An A2 FOCUS may qualify only under the strict exception defined in `MODEL_RULES_FOOTBALL_V0.2.50.md`.
 
-EGE must be supported independently by structure + team profile + XI. A high bookmaker line alone cannot create EGE.
+EGE must be supported independently by structure + team profile + XI. A high bookmaker line or bullish market move alone cannot create EGE.
 
 If EGE clears:
 
 - preserve the frozen PRE burden as history;
 - create a documented post-XI `EGE supported burden`;
 - the new burden may be above the frozen PRE band when structural evidence independently supports it;
-- compare price only after this burden is set.
+- compare current price only after this burden is set.
 
 ### Persistent High-Line Acceptance
 
@@ -268,13 +286,17 @@ An early-goal expansion is never a reason to raise burden. Do not chase goal-dri
 
 For the normal pre-kickoff workflow:
 
-- do **not** automatically fetch confirmed lineups or bookmaker odds;
-- the user supplies XI and odds later;
-- until both required inputs are supplied, keep surviving candidates PROVISIONAL / HOLD;
-- only search externally for XI/odds if the user explicitly asks for external verification;
+- do **not** automatically fetch missing confirmed lineups or substitute an externally found current price for the user's executable odds;
+- the user supplies confirmed XI and current odds later;
+- until both required final inputs are supplied, keep surviving candidates PROVISIONAL / HOLD;
+- only search externally for missing confirmed XI/current executable odds if the user explicitly asks for external verification;
 - do not issue an OFFICIAL LOCK without the required current XI + executable price.
 
-User screenshots/text are valid current evidence and should be matched to the frozen PRE state.
+**Historical market-history exception:** for a FOCUS/WATCHLIST fixture at Step 2, Normal Chat should automatically attempt lightweight research for opening/PRE-XI/post-XI total snapshots from a same-source history or reputable odds-history source. This research is a conflict/corroboration layer, not current-price authority, and it must not delay the decision if history is unavailable.
+
+Prefer same-bookmaker/source histories. Cross-book differences are `CROSS-BOOK — CONTEXT ONLY` unless the provider explicitly supplies a normalized market history.
+
+User screenshots/text remain valid current evidence and should be matched to the frozen PRE state.
 
 ---
 
@@ -288,9 +310,9 @@ User screenshots/text are valid current evidence and should be matched to the fr
 - structural ranking remains price-independent;
 - protected Asian totals are preferred when they preserve the thesis at a reasonable price.
 
-Goal burden/regime is chosen **after structure and XI** and **before price**.
+Goal burden/regime is chosen **after structure, the final XI rerank, and the market-history conflict check** and **before current executable price**.
 
-v0.2.50 does not weaken this rule: EGE is a documented structural/XI burden re-open, not a price-driven stretch.
+v0.2.50 does not weaken this rule: EGE is a documented structural/XI burden re-open, not a price- or movement-driven stretch.
 
 ---
 
@@ -312,9 +334,11 @@ Every material state must be logged with the model version that actually produce
 
 ## 14. Research policy
 
-Once AiScore establishes a fixture, normal research may use the best available evidence from official sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistics/news sources, and user-supplied screenshots.
+Once AiScore establishes a fixture, normal research may use the best available evidence from official sources, Soccerway, FotMob, FBref, BSD/Bzzoiro where supported, reputable statistics/news sources, historical odds/market-history sources, and user-supplied screenshots.
 
-Research can refine team profile, chance quality, incentives, tactical shape, confirmed XI, failure modes, EGE qualification, and market expression. Research sources cannot add a fixture to the universe without AiScore verification.
+Research can refine team profile, chance quality, incentives, tactical shape, confirmed XI, failure modes, EGE qualification, market-history conflict checks, and market expression. Research sources cannot add a fixture to the universe without AiScore verification.
+
+Historical odds research does not make an external current price executable. The user's supplied current line/price remains execution authority unless the user explicitly requests external current-price verification.
 
 ---
 
