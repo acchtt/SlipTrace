@@ -117,17 +117,44 @@ Use audit labels where useful:
 
 ---
 
-## 6. User-supplied XI + odds workflow
+## 6. User-supplied XI + odds + market-history workflow
 
-Current normal prematch execution expects the user to supply confirmed XI and odds.
+Current normal prematch execution expects the user to supply confirmed XI and the **current executable odds**.
 
 When a user screenshot/text is the current evidence:
 
-- treat it as the evidence input for that assessment epoch;
+- treat it as the execution-price input for that assessment epoch;
 - match it to the frozen PRE fixture;
-- record the actual line/odds evaluated;
-- do not fabricate missing market data;
-- do not automatically search for missing XI/odds unless the user explicitly requests external verification.
+- record the actual current line/odds evaluated;
+- do not fabricate missing current market data;
+- do not automatically search for missing confirmed XI/current executable odds unless the user explicitly requests external verification.
+
+For FOCUS/WATCHLIST final review, Normal Chat should also attempt the contextual market-history series:
+
+`OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
+
+Historical odds research is allowed automatically because it is a conflict/corroboration layer, not a substitute executable price.
+
+Where available, preserve in `Evidence Summary` / `Fail Reasons` / provider fields:
+
+- opening total + Over price;
+- PRE-XI total + Over price;
+- POST-XI/current total + Over price;
+- source/bookmaker and snapshot time;
+- line delta;
+- movement label (`BULLISH LINE`, `BEARISH LINE`, `BULLISH PRICE`, `BEARISH PRICE`, `STABLE`, `MIXED`);
+- whether the market signal agreed or conflicted with the first-pass XI interpretation;
+- how that conflict was resolved.
+
+Recommended compact format:
+
+`MARKET WATCH: OPEN O2.5 @1.85 → PRE-XI O2.5 @1.76 → POST-XI O2.75 @1.89 | signal=BULLISH LINE | XI conflict=resolved as ATTACKING DEPTH PRESERVED | source=...`
+
+If a historical series is unavailable, write:
+
+`MARKET HISTORY UNAVAILABLE — no movement signal used`
+
+Do not compare different bookmakers as a single continuous move unless the source explicitly normalizes them. Otherwise label `CROSS-BOOK — CONTEXT ONLY`.
 
 If either required final input is missing:
 
@@ -139,13 +166,13 @@ If either required final input is missing:
 
 Official v0.2.50 material decisions follow:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN / REGIME → PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI RERANK → MARKET-HISTORY CONFLICT CHECK → FINAL XI RERANK → GOAL BURDEN / REGIME → CURRENT PRICE → LOCK / HOLD`
 
 For comparable official grades:
 
 `TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
 
-Price cannot rescue weaker structure.
+Historical market movement may challenge an XI interpretation, but it cannot rescue weaker structure, create EGE, or raise burden beyond independent structure + XI support.
 
 ---
 
@@ -158,9 +185,11 @@ Current user overlay:
 - below 1.65 = `NO BET — HOLD — PRICE TOO SHORT`;
 - do not stretch the Asian-total line merely to obtain a better price;
 - higher burden must be independently supported by structure + XI;
-- under EGE, the reopened burden must be set before price is evaluated.
+- under EGE, the reopened burden must be set before current price is evaluated.
 
 Record the line actually selected/evaluated, not merely the bookmaker’s headline total.
+
+Historical price/line movement is contextual evidence; the user-supplied current executable price is the final price gate.
 
 ---
 
@@ -190,6 +219,7 @@ Synchronize:
 - score/minute for live assessments;
 - XI evidence;
 - evaluated line and current price snapshot;
+- market-history snapshot when used;
 - relevant team/chance-quality evidence.
 
 Version-specific conclusions may differ. Evidence synchronization does not mean verdict synchronization.
@@ -238,6 +268,6 @@ Standard full-match Asian totals settle on 90 minutes + stoppage time unless the
 
 `Daily Coverage Ledger` = fixture coverage + frozen PRE bridge.
 
-`Decision States` = material later assessment epochs, including v0.2.50 STANDARD/EGE state, plus official/shadow verdict evidence.
+`Decision States` = material later assessment epochs, including market-history conflict checks, v0.2.50 STANDARD/EGE state, plus official/shadow verdict evidence.
 
 Do not use a later Decision State to overwrite what the frozen Work PRE originally was.
