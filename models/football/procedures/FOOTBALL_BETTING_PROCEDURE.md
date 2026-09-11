@@ -20,11 +20,13 @@ Do not issue an official prematch verdict unless:
 3. the fixture has a frozen Work PRE state or a clearly documented equivalent current PRE state;
 4. the required current confirmed XI and executable Asian-total price are available from the user, unless the user explicitly requested external verification.
 
-If XI or price is missing under the normal workflow:
+If XI or current executable price is missing under the normal workflow:
 
 `WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`
 
 Do not reconstruct a new structural PRE merely because later evidence is available.
+
+A historical odds snapshot is useful context but is not a required precondition. If opening/pre-XI history cannot be recovered quickly, record `MARKET HISTORY UNAVAILABLE` and continue with the valid frozen PRE + XI + current executable price.
 
 ---
 
@@ -53,7 +55,7 @@ If Airtable conflicts with the original Work board, use the original frozen Work
 
 Official v0.2.50 order:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN / REGIME → PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → MARKET-HISTORY CONFLICT CHECK → GOAL BURDEN / REGIME → CURRENT PRICE → LOCK / HOLD`
 
 For comparable grades, the active v0.2.49 rule remains:
 
@@ -63,7 +65,7 @@ A genuine TWO-SIDED profile requires credible independent scoring routes from bo
 
 An ELITE CARRIER may outrank a genuine same-grade TWO-SIDED candidate only when clearly superior on both repeatable chance quality/self-funding 3+ capacity and failure-mode resistance.
 
-Price cannot create structure.
+Price cannot create structure. Historical market movement cannot create structure either.
 
 ---
 
@@ -94,9 +96,90 @@ Do not treat rotation as automatically negative. Classify it as either:
 
 Only the second is an automatic burden downgrade.
 
+Make this **first-pass XI classification from football evidence before consulting market movement**.
+
 ---
 
-## 5. Team-profile and chance-quality check
+## 5. Prematch market-history watch
+
+For every FOCUS/WATCHLIST fixture reaching final Normal Chat review, make a lightweight attempt to recover the total-market path:
+
+`OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
+
+This is a Normal Chat task. Work remains price/XI blind and must not spend usage on opening-odds research.
+
+### 5.1 Evidence priority
+
+Prefer:
+
+1. user-supplied history from the same bookmaker/source;
+2. same-bookmaker opening/history data;
+3. a reputable odds-history source with timestamped totals;
+4. consensus history only when a same-source sequence is unavailable.
+
+The user's supplied current line/price remains the execution authority unless the user explicitly asks for external current-price verification.
+
+Do not fabricate missing history. Do not compare different bookmakers as if they were one continuous series. Mixed-source comparisons must be labelled:
+
+`CROSS-BOOK — CONTEXT ONLY`
+
+### 5.2 Snapshot fields
+
+Where available preserve:
+
+- opening Asian total;
+- opening Over price;
+- PRE-XI Asian total and Over price;
+- POST-XI/current prematch Asian total and Over price;
+- bookmaker/source;
+- snapshot times;
+- line delta;
+- same-line price direction.
+
+### 5.3 Movement labels
+
+Use:
+
+- `BULLISH LINE` — total rises by at least 0.25;
+- `BEARISH LINE` — total falls by at least 0.25;
+- `BULLISH PRICE` — same total with materially shorter Over price;
+- `BEARISH PRICE` — same total with materially longer Over price;
+- `STABLE` — no meaningful move;
+- `MIXED` — line/price/source evidence conflicts.
+
+A quarter-line move is stronger evidence than a small price-only shift.
+
+### 5.4 XI/market conflict check
+
+After the first-pass XI rerank, compare it with market history.
+
+If XI appears to be `COHESION / ROUTE DAMAGE` but the total market strengthens materially, re-inspect whether the supposed downgrade is actually `ATTACKING DEPTH PRESERVED` or otherwise overstated.
+
+If XI appears stronger but the total falls materially, re-inspect for missing context such as tactical shape, additional absences, incentives, weather/data faults, or source mismatch.
+
+The market does **not** automatically win the disagreement. A conflict triggers reinspection.
+
+Market history may:
+
+- corroborate or weaken confidence in an already-supported burden;
+- challenge an XI upgrade/downgrade interpretation;
+- justify a cautious HOLD when a sharp unexplained bearish move conflicts with the football thesis;
+- reveal that a perceived XI downgrade was not priced as meaningful route damage.
+
+Market history may **not**:
+
+- rewrite frozen PRE;
+- create a stronger structural grade;
+- create a TWO-SIDED route;
+- create EGE by itself;
+- raise supported burden above what structure + XI independently justify;
+- justify selecting a higher line simply for a better price.
+
+Finalize the XI rerank only after this conflict check.
+
+---
+
+## 6. Team-profile and chance-quality check
 
 Before final promotion, retain the current model’s mandatory team-profile review:
 
@@ -113,7 +196,7 @@ Chance quality is a modifier/supporting gate, not a rigid universal veto.
 
 ---
 
-## 6. Failure-mode check
+## 7. Failure-mode check
 
 Before any LOCK, state how the Over thesis can fail and decide whether the selected line survives that branch well enough.
 
@@ -132,9 +215,9 @@ A structurally attractive match may remain HOLD when the failure branch is too l
 
 ---
 
-## 7. Goal-burden regime
+## 8. Goal-burden regime
 
-Choose the Asian-total burden **after structure and XI, before price**.
+Choose the Asian-total burden **after structure, XI, and the market-history conflict check, but before current execution price**.
 
 First classify:
 
@@ -145,7 +228,7 @@ First classify:
 
 Prefer the lowest protected line that faithfully expresses the frozen thesis and remains inside the model-supported burden/range.
 
-Do not move from O2.5 to O2.75, O3.0, O3.25, etc. merely to obtain a better price.
+Do not move from O2.5 to O2.75, O3.0, O3.25, etc. merely to obtain a better price or because the market itself moved upward.
 
 A higher total is permitted only when structural/XI evidence independently supports the extra goal burden.
 
@@ -166,7 +249,7 @@ If the line is only 0.25 above the EGE ceiling, HOLD for a relative quarter-line
 
 ---
 
-## 8. Persistent high-line / no-chase boundary
+## 9. Persistent high-line / no-chase boundary
 
 For confirmed EGE matches, a stubborn high total is not automatically a reason to HOLD forever.
 
@@ -190,7 +273,7 @@ Use audit labels where useful:
 
 ---
 
-## 9. Asian-total settlement references
+## 10. Asian-total settlement references
 
 Standard examples:
 
@@ -205,7 +288,7 @@ Standard examples:
 
 ---
 
-## 10. Executable price policy
+## 11. Executable price policy
 
 Current user overlay:
 
@@ -215,11 +298,13 @@ Current user overlay:
 - never stretch the line just to clear 1.65/1.70;
 - structural ranking is price-independent.
 
-Price is evaluated only after the correct STANDARD or EGE burden is chosen.
+Current executable price is evaluated only after the correct STANDARD or EGE burden is chosen.
+
+Historical movement is a calibration/conflict signal, not the execution-price gate.
 
 ---
 
-## 11. Official verdict semantics
+## 12. Official verdict semantics
 
 ### OFFICIAL LOCK
 
@@ -227,16 +312,16 @@ Issue only when all required gates clear:
 
 - actionable competition;
 - valid frozen FOCUS/WATCHLIST structural thesis;
-- XI does not invalidate the thesis;
+- XI does not invalidate the thesis after conflict recheck;
 - main failure mode is acceptable for the proposed burden;
 - selected Asian total is model-supported under STANDARD or EGE;
-- price meets the current executable policy.
+- current price meets the executable policy.
 
 An affirmative official v0.2.50 final selection is an **OFFICIAL LOCK**.
 
 ### HOLD
 
-Use when the thesis remains live but one or more final gates do not clear: unresolved contribution, XI sensitivity, failure-mode risk, goal burden, short price, missing current input, or line still above supported EGE burden.
+Use when the thesis remains live but one or more final gates do not clear: unresolved contribution, XI sensitivity, failure-mode risk, goal burden, short price, missing current input, line still above supported EGE burden, or a material unexplained bearish market-history conflict.
 
 ### PASS
 
@@ -246,7 +331,7 @@ HOLD/PASS creates no official exposure.
 
 ---
 
-## 12. Shadow tracks
+## 13. Shadow tracks
 
 When a material final comparison is required, run the same frozen evidence state through:
 
@@ -260,7 +345,7 @@ Shadow decisions never suppress an official v0.2.50 decision and never enter off
 
 ---
 
-## 13. User-supplied screenshot workflow
+## 14. User-supplied screenshot workflow
 
 When the user sends XI/odds screenshots or text:
 
@@ -268,28 +353,30 @@ When the user sends XI/odds screenshots or text:
 2. retrieve the frozen PRE state from the current Work/Airtable bridge;
 3. verify the fixture time/status if near kickoff under the time-integrity procedure;
 4. read the supplied XI;
-5. read the supplied Asian-total lines/prices;
-6. rerank from frozen PRE using the current official order;
-7. classify STANDARD vs EGE;
-8. choose the correct burden before comparing prices;
-9. apply the 1.65 hard floor / 1.70+ preference;
-10. issue LOCK/HOLD/PASS.
+5. make a first-pass XI rerank without using the market;
+6. attempt the OPEN → PRE-XI → POST-XI/current market-history watch;
+7. resolve any XI/market conflict and finalize the XI rerank;
+8. read the supplied current Asian-total lines/prices;
+9. classify STANDARD vs EGE;
+10. choose the correct burden before comparing current prices;
+11. apply the 1.65 hard floor / 1.70+ preference;
+12. issue LOCK/HOLD/PASS.
 
-Do not automatically search missing XI/price unless the user explicitly asks for external verification.
+Do not automatically search missing XI/current executable price unless the user explicitly asks for external verification. Historical market lookup is the exception and may be attempted automatically because it is contextual research rather than execution-price substitution.
 
 If the screenshot shows only 1X2 or handicap markets and no usable Asian total, wait for the total rather than inventing one.
 
 ---
 
-## 14. Same-window comparison
+## 15. Same-window comparison
 
 When multiple FOCUS/WATCHLIST fixtures overlap in the same practical kickoff window, rerank them together after XI rather than promoting each in isolation.
 
-Use corrected ICT kickoff from the time/schedule integrity procedure. Grade and structural quality remain ahead of price.
+Use corrected ICT kickoff from the time/schedule integrity procedure. Grade and structural quality remain ahead of market movement and price.
 
 ---
 
-## 15. Live review
+## 16. Live review
 
 Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite PRE history.
 
@@ -301,7 +388,7 @@ EGE does not bypass the no-chase rule after goal-driven market expansion.
 
 ---
 
-## 16. Settlement
+## 17. Settlement
 
 Unless the specific market says otherwise, full-match Asian totals settle on:
 
@@ -313,6 +400,6 @@ Record official results and P/L only for actually official selections under the 
 
 ---
 
-## 17. Authority
+## 18. Authority
 
 `CURRENT_MODEL.md` plus the current active rule files and `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` are authoritative. This procedure intentionally contains no legacy fixture-union rule, no old competition whitelist, and no obsolete version routing.
