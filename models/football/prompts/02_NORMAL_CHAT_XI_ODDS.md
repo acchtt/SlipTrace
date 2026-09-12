@@ -19,12 +19,30 @@ The user normally supplies confirmed XI and **current executable Asian-total lin
 
 Do not automatically fetch missing confirmed XI or substitute an externally found current price unless the user explicitly asks.
 
-### Market-history exception
-For every FOCUS/WATCHLIST fixture reaching this stage, automatically attempt a lightweight total-history check before the final verdict:
+## Mandatory market-history attempt — ALL Step-2 fixtures
+For **every fixture the user brings to this Step 2 review**, automatically attempt a lightweight total-history check before issuing the final LOCK/HOLD/PASS verdict, including fixtures whose frozen PRE is already PASS:
 
 `OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
 
-Historical lookup is calibration/context, not current execution-price authority. It must not block assessment if unavailable.
+Do not short-circuit the market-history step merely because frozen PRE is PASS.
+
+Why:
+- for FOCUS/WATCHLIST, history is part of XI-conflict resolution and MCE testing;
+- for frozen PASS, history is still required for calibration/audit and to detect whether the market strongly disagreed with the structural read, even though market movement alone cannot resurrect a genuine PRE PASS.
+
+Historical lookup is calibration/context, not current execution-price authority.
+
+### Market-history completion status
+Before any final verdict, set exactly one status:
+- `MARKET HISTORY FOUND`;
+- `MARKET HISTORY UNAVAILABLE — ATTEMPTED`;
+- `MARKET HISTORY SKIPPED — USER REQUEST`.
+
+`MARKET HISTORY NOT CHECKED` is **not** a valid final-assessment state.
+
+If history is unavailable after a reasonable lightweight attempt, do not stall the assessment; use `MARKET HISTORY UNAVAILABLE — ATTEMPTED` and continue.
+
+Keep this lookup lightweight and targeted. Do not turn it into broad deep research.
 
 Preferred evidence order:
 1. user-supplied same-source history;
@@ -59,7 +77,7 @@ Movement labels:
 ## Decision sequence
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST IF ELIGIBLE → CURRENT PRICE → LOCK/HOLD/PASS`
+`FROZEN PRE → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST IF ELIGIBLE → CURRENT PRICE → LOCK/HOLD/PASS`
 
 First-pass XI must be football-led and market-blind.
 
@@ -71,12 +89,27 @@ Classify rotation as:
 
 If both teams lose important attacking creators/finishers, or both scoring routes are materially weakened, apply `DUAL-ROUTE XI DAMAGE` from v0.2.51. In that state, protection alone cannot create an official lock.
 
+### Frozen PRE PASS handling
+A genuine frozen PRE PASS remains non-actionable unless there is a **documented material football change** that legitimately creates a new assessment epoch under the active model.
+
+Market movement by itself cannot resurrect PASS, and MCE cannot rescue PASS.
+
+However, even for PASS:
+- complete the market-history attempt;
+- record the opening→current signal if found;
+- note whether the market materially agreed/disagreed with the frozen structural read;
+- preserve that information for later audit/model calibration.
+
+Do not respond `PASS` before the market-history attempt has resolved to FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
+
 ### XI/market conflict rule
 If XI appears damaged but the same-source total strengthens by +0.25 or more, explicitly recheck whether the downgrade is overstated and the lineup is actually `ATTACKING DEPTH PRESERVED`.
 
 If XI appears stronger but the total moves down materially, recheck for missing absences, tactical shape, competition incentives, weather/data faults or source mismatch.
 
 The market does not automatically win. It triggers reinspection.
+
+For frozen PASS, a strong bullish move is an **audit flag**, not an automatic promotion.
 
 ## v0.2.51 chance-quality hardening
 For STANDARD **O3.0+** from A1/A2 TWO-SIDED, verify repeatable high-value chance support across both routes where data exists: big chances, central/box access, quality SOT, xG/xGOT or a strong data-poor substitute using scoring/conceding 2+ frequencies and credible tactical routes.
@@ -120,7 +153,11 @@ For material final assessments, update only later-stage coverage fields and writ
 
 Persist market history compactly, e.g.:
 
-`MARKET WATCH: OPEN O2.5 @1.85 → PRE-XI O2.5 @1.76 → POST-XI O2.75 @1.89 | signal=BULLISH LINE | source=...`
+`MARKET WATCH: OPEN O2.5 @1.85 → PRE-XI O2.5 @1.76 → POST-XI O2.75 @1.89 | signal=BULLISH LINE | source=... | status=FOUND`
+
+If unavailable:
+
+`MARKET WATCH: unavailable after targeted attempt | status=UNAVAILABLE-ATTEMPTED`
 
 Add v0.2.51 tags when relevant:
 - `CQ HARDENED`
@@ -132,4 +169,4 @@ Add v0.2.51 tags when relevant:
 Use Website Picks only for an actual official final selection.
 
 ## Output
-Compactly return: match, frozen PRE, first-pass XI, market-history signal, conflict resolution, final XI, chance-quality status, regime/burden, MCE status, best supported supplied line, price class, final action, concise reason and Airtable persistence PASS/FAIL.
+Compactly return: match, frozen PRE, first-pass XI, **market-history completion status**, opening→current signal if found, conflict resolution, final XI, chance-quality status, regime/burden, MCE status, best supported supplied line, price class, final action, concise reason and Airtable persistence PASS/FAIL.
