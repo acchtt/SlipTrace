@@ -264,3 +264,53 @@ Do not compare only grades. Compare:
 A nominal B+ TWO-SIDED candidate must not outrank a materially stronger CC+ carrier solely because it has two theoretical scoring routes.
 
 Price remains a tie-breaker/execution factor after structural ranking, not the primary sorter.
+
+---
+
+## 13. v0.2.53 execution validators
+
+### Non-compensatory order
+
+For prospective official decisions, apply:
+
+`SCOPE / LEAGUE REGIME → ROUTE PAIR → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ → BURDEN FIT → EVIDENCE CONFIDENCE → XI / MARKET VALIDATION → CURRENT PRICE`
+
+An earlier hard failure cannot be offset by price, market movement, raw GF/GA, familiar attackers, or lineup preservation.
+
+### MCE validator
+
+Before using `MCE +0.25`, record every v0.2.53 validator field. MCE is valid only for a prematch post-XI A2 FOCUS or B+ WATCHLIST whose route pair is at least `SUPPORTED + SUPPORTED`, with all original v0.2.51 conditions satisfied.
+
+Hard-fail MCE when any of the following applies:
+
+- PRE grade is A1, B/PASS, or UNRESOLVED;
+- the assessment is live/in-play;
+- the claimed signal is same-line price decay after scoreless minutes;
+- there is no verified same-source/normalized OPEN → post-XI prematch line move of at least +0.25;
+- the current line is not exactly +0.25 above the frozen burden;
+- price is below 1.75;
+- route proof, XI preservation, chance quality, failure mode, or a league-specific gate is unresolved or failed.
+
+On any failure use:
+
+`MCE INVALID — STANDARD BURDEN OR HOLD`
+
+Live price decay is `STANDARD DECAY`, never MCE.
+
+### Live Over gate
+
+An official live Over requires one synchronized evidence epoch containing score, minute, executable line/odds, current chance-quality evidence, conversion-quality assessment, and remaining-goal-budget assessment.
+
+If current live chance quality is missing, stale, or unsynchronized:
+
+`LIVE CHANCE QUALITY UNAVAILABLE — HOLD`
+
+Score/minute/price alone cannot produce a live LOCK. Goal-driven line expansion remains a no-chase state.
+
+### CSL high-burden gate
+
+China Super League remains CONDITIONAL. Before O3.0+ or MCE, require both relevant home/away environments to support 3+ or one true CC+ carrier whose burden survives weak opponent contribution. Otherwise HOLD/PASS.
+
+### Same-window final rerank
+
+Rerank surviving matches by route pair, chance quality, CC+, failure-mode resistance, lower supported burden, and evidence confidence. Price is considered only after this football order is stable.
