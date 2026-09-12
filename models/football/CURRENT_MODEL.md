@@ -9,7 +9,7 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — **CARRIER CEILING + B+ EVIDENCE HARDENING**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **Normal Chat AiScore fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board with route-quality + CC+ audit → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank / carrier reopen test → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.52 verdict**  
+**Operating workflow:** **Normal Chat AiScore actionable-senior fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board with route-quality + CC+ audit → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank / carrier reopen test → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.52 verdict**  
 **Canonical timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
 
 This file is the operating authority for Football. Historical rules are recoverable from Git history and must not be inferred into current decisions.
@@ -44,11 +44,23 @@ Do not load superseded rule files from memory, old handoffs, or Git history into
 
 **AiScore is the sole fixture-discovery authority.** Other sources may research an AiScore-established fixture but may not add fixtures to the universe.
 
-Normal Chat Step 0 owns fixture discovery, time normalization, cheap league/scope filtering, and the handoff. Work must **not** repeat the AiScore sweep when the handoff passes integrity checks.
+Normal Chat Step 0 owns fixture discovery, time normalization, cheap league/scope filtering, and the handoff. Work must **not** repeat the AiScore sweep when the handoff passes the actionable-completeness gate.
 
 The normal actionable board uses the current senior-quality overlay. Exclude youth/Uxx, academy, reserves/B/development, amateur/semi-pro, regional/state/provincial, unapproved lower divisions, weak obscure competitions, all Finnish domestic leagues, and the current low-goal hard/cheap-gate exclusions defined by the scope/league registry. Senior continental and domestic cup matches are not excluded merely because they are cups.
 
-If the AiScore universe cannot be reconciled, state `COVERAGE INCOMPLETE — board provisional`.
+### Actionable completeness vs raw audit completeness
+
+For production, `complete=true` means **actionable senior completeness** for the requested ICT window. Step 0 must prove that every potentially actionable senior league/cup/continental block in scope was checked, the terminal requested interval was checked, and every admitted fixture is accounted for.
+
+Exact one-by-one enumeration of already-excluded youth/reserve/lower/amateur/regional/hard-excluded fixtures is a separate audit dimension. If AiScore exposes those only through fragmented dynamic snapshots, Step 0 may set:
+
+- `raw_audit_complete=false`;
+- `raw_count_mode=lower_bound`;
+- explicit `nonblocking_raw_gaps`.
+
+Those raw gaps do not block Work when they are confined to categories already excluded from the actionable model scope.
+
+If the **actionable senior universe** cannot be reconciled, state `COVERAGE INCOMPLETE — ACTIONABLE SENIOR GAP` and do not send the handoff to Work.
 
 ---
 
@@ -66,9 +78,9 @@ Never add +7 twice. A `Z` timestamp is UTC. Near-term upcoming schedules must be
 
 ## 4. Production sequence
 
-`NORMAL CHAT AISCORE UNIVERSE → TIME/SCOPE FILTER → WORK STRUCTURAL SCREEN → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → TIME/SCOPE FILTER → ACTIONABLE_COMPLETENESS / WORK_READY GATE → WORK STRUCTURAL SCREEN → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
 
-Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, and live review.
+Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, and live review. Work must not repair non-blocking raw-audit gaps.
 
 ---
 
