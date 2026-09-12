@@ -4,19 +4,45 @@
 **Purpose:** Reduce Work usage by deciding league-level admission before deep structural research.  
 **Scope:** Senior domestic national leagues only.  
 **Fixture authority:** AiScore only  
-**Timezone:** Asia/Ho_Chi_Minh (ICT)
+**Timezone:** source timezone preserved at Step 0; ICT conversion later for scheduling
 
 This registry is an operational cost-control layer. It does **not** decide bets and does **not** replace match-level structural research for fixtures that reach Work.
 
 The goal is simple:
 
-`AISCORE RAW UNIVERSE -> CHEAP LEAGUE ADMISSION -> SMALLER ACTIONABLE HANDOFF -> WORK DEEP RESEARCH`
+`AISCORE RAW UNIVERSE -> QUALITY/SCOPE EXCLUSION -> CHEAP LEAGUE ADMISSION -> SMALLER ACTIONABLE HANDOFF -> WORK DEEP RESEARCH`
 
 Work should spend tokens on plausible Over environments, not on repeatedly proving that low-value domestic leagues are PASS.
 
 ---
 
-## 1. Admission classes
+## 1. Admission prerequisite — quality/scope first
+
+A competition must first survive the active senior-quality overlay before this registry can classify it as PRIORITY, NORMAL, or CONDITIONAL.
+
+Exclude **before any conditional cheap gate**:
+
+- youth/Uxx, academy and junior competitions;
+- reserve/B-team/development competitions;
+- amateur/semi-professional competitions;
+- regional/state/provincial competitions;
+- domestic lower divisions unless explicitly approved;
+- very small/obscure weak-data senior leagues or competitions;
+- any competition whose data environment is too weak to support reliable cheap-gate evidence.
+
+Use:
+
+`SMALL / OBSCURE WEAK-DATA LEAGUE — SCOPE EXCLUSION`
+
+when that is the operative reason.
+
+**Important:** small league size by itself is not the test. A smaller but established, well-covered professional top flight can remain actionable. The exclusion targets weak/obscure/data-poor environments, not merely countries or leagues with fewer clubs.
+
+A league that fails this prerequisite is **not CONDITIONAL** and must not consume cheap-gate research.
+
+---
+
+## 2. Admission classes
 
 ### PRIORITY
 
@@ -31,6 +57,8 @@ Automatically eligible to enter the Work handoff when the fixture clears the nor
 These leagues are worth screening, but are not given any structural advantage merely because of league status.
 
 ### CONDITIONAL
+
+CONDITIONAL is only for **credible senior professional national top flights with adequate data quality** that survive Section 1 but are not currently direct-to-Work or excluded.
 
 Do **not** send the entire league to Work by default.
 
@@ -65,7 +93,7 @@ Absolute operational exclusion under the active user rule. No automatic override
 
 ---
 
-## 2. Current direct-to-Work registry
+## 3. Current direct-to-Work registry
 
 ### PRIORITY
 
@@ -97,11 +125,13 @@ These classes control **admission to Work only**. They do not award a PRE grade,
 
 ---
 
-## 3. Current CONDITIONAL registry
+## 4. Current CONDITIONAL pool
 
-Any senior domestic national league not listed as PRIORITY, NORMAL, LOW-GOAL EXCLUDE, or HARD EXCLUDE is **CONDITIONAL by default**.
+A league is **not automatically CONDITIONAL merely because it is a senior top flight**.
 
-Common examples include:
+To enter the CONDITIONAL pool it must first be an established senior professional national top flight with sufficient current data quality for the cheap gate. Unknown, obscure, weak-data, semi-pro-like, or otherwise marginal environments stay scope-excluded without a cheap-gate attempt.
+
+Recognized examples that may be treated as CONDITIONAL when otherwise eligible include:
 
 - Czech Republic — First League
 - Poland — Ekstraklasa
@@ -118,13 +148,21 @@ Common examples include:
 - India — Indian Super League
 - UAE — Pro League
 - Qatar — Stars League
-- comparable smaller senior top flights not otherwise classified
+- Peru — Liga 1
+- Bolivia — Primera División / División Profesional
+- Chile — Primera División
+- Colombia — Primera A
+- Ecuador — LigaPro Serie A
+- Uruguay — Primera División
+- Russia — Premier League
 
-Do not turn these examples into a hidden hard blacklist. A specific fixture may still reach Work if it clears the cheap conditional gate.
+These examples are **not a whitelist** and do not create a hidden hard blacklist for other established, well-covered professional top flights. But the burden is now reversed: an unlisted league must clearly pass the quality/data prerequisite before it can be called CONDITIONAL.
+
+Do not research a genuinely small/obscure weak-data league merely to determine whether it might pass the cheap Over signal.
 
 ---
 
-## 4. Current LOW-GOAL EXCLUDE registry
+## 5. Current LOW-GOAL EXCLUDE registry
 
 - Vietnam — V.League 1
 - South Korea — K League 1
@@ -136,7 +174,7 @@ Club nationality does not transfer the exclusion to continental or cup competiti
 
 ---
 
-## 5. Current HARD EXCLUDE registry
+## 6. Current HARD EXCLUDE registry
 
 ### Finland — all domestic leagues, every tier/category
 
@@ -162,7 +200,7 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 ---
 
-## 6. Existing quality exclusions still apply first
+## 7. Existing quality exclusions still apply first
 
 The registry does not revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
@@ -170,7 +208,7 @@ The UEFA Youth League remains a separate manual trial and is not made official b
 
 ---
 
-## 7. Promotion / demotion policy
+## 8. Promotion / demotion policy
 
 Do not move a league between classes because of one slate.
 
@@ -180,14 +218,20 @@ Changes should be written here once, so future daily sweeps benefit without repe
 
 ---
 
-## 8. Work-usage invariant
+## 9. Work-usage invariant
 
 The raw AiScore universe may be large. That is acceptable.
 
 The Work handoff should contain only:
 
-`PRIORITY + NORMAL + CONDITIONAL fixtures that passed the cheap gate + separately eligible cups/continental fixtures`
+`PRIORITY + NORMAL + QUALIFIED CONDITIONAL fixtures that passed the cheap gate + separately eligible cups/continental fixtures`
 
-It must not contain LOW-GOAL EXCLUDE, HARD EXCLUDE, or conditional fixtures that failed/no-data'd the cheap gate.
+It must not contain:
 
-**DISCOVER BROADLY; DEEP-RESEARCH NARROWLY.**
+- youth/reserve/lower/amateur/regional fixtures;
+- small/obscure weak-data leagues;
+- LOW-GOAL EXCLUDE;
+- HARD EXCLUDE;
+- conditional fixtures that failed/no-data'd the cheap gate.
+
+**DISCOVER BROADLY; EXCLUDE WEAK ENVIRONMENTS EARLY; DEEP-RESEARCH NARROWLY.**
