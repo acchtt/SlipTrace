@@ -21,7 +21,12 @@ Do not issue an official prematch verdict unless:
 
 If XI/current price is missing: `WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`.
 
-Historical odds are useful but not required. If unavailable, record `MARKET HISTORY UNAVAILABLE` and continue.
+Market history is contextual rather than executable-price authority, but a Step-2 final verdict must not be issued with `MARKET HISTORY NOT CHECKED`. Normal Chat must first attempt a lightweight lookup and resolve to one of:
+- `MARKET HISTORY FOUND`;
+- `MARKET HISTORY UNAVAILABLE — ATTEMPTED`;
+- `MARKET HISTORY SKIPPED — USER REQUEST`.
+
+Unavailability does not block the assessment once the attempt has been made.
 
 ---
 
@@ -38,11 +43,13 @@ Start from frozen Work PRE:
 
 Do not rebuild PRE later. Airtable sync conflicts are persistence faults, not permission to reconstruct history.
 
+A genuine frozen PRE PASS remains non-actionable unless a documented material football change creates a valid new assessment epoch under the active model. Market movement alone cannot resurrect PASS.
+
 ---
 
 ## 3. Official order
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD / PASS`
 
 Comparable-grade hierarchy:
 
@@ -68,9 +75,11 @@ If both sides lose important attacking routes, or primary + secondary route are 
 
 ## 5. Market-history watch
 
-Normal Chat attempts:
+For **every fixture the user brings to the normal Step-2 XI/odds review**, including frozen PASS, Normal Chat must make a lightweight attempt to recover:
 
 `OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
+
+Do not skip this step merely because the frozen structural verdict is PASS.
 
 Prefer same-source/bookmaker history. Cross-book comparisons are `CROSS-BOOK — CONTEXT ONLY`.
 
@@ -85,6 +94,18 @@ Movement labels:
 If a first-pass XI downgrade conflicts with a bullish +0.25 move, explicitly recheck whether attacking depth is actually preserved. If an XI upgrade conflicts with a bearish move, recheck hidden route loss/context.
 
 The market does not automatically win; it forces reinspection.
+
+### 5.1 Frozen PASS handling
+
+For frozen PASS, market history is still captured for audit/calibration and to identify strong market disagreement with the structural read.
+
+However:
+- MCE cannot rescue PASS;
+- a bullish move cannot create a scoring route;
+- a line move cannot by itself create a new structural assessment epoch;
+- final PASS may be reaffirmed after market history is FOUND or UNAVAILABLE-AFTER-ATTEMPT.
+
+A response that says `PASS` while also saying opening odds were never checked is procedurally incomplete unless the user explicitly requested the market-history step be skipped.
 
 ---
 
@@ -169,7 +190,9 @@ Require actionable scope, valid frozen candidate, surviving XI, acceptable failu
 Use when thesis remains live but one or more gates fail: XI uncertainty, dual-route damage, chance-quality hardening, failure-mode risk, burden, price, missing input or unexplained bearish market conflict.
 
 ### PASS
-Use when the structure is materially invalidated.
+Use when the structure is materially invalidated or the frozen PRE was already a genuine PASS and no valid material football change creates a new assessment epoch.
+
+Before final PASS in Step 2, market-history status must be FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
 
 HOLD/PASS = no exposure.
 
@@ -178,50 +201,3 @@ HOLD/PASS = no exposure.
 ## 12. Same-window rerank
 
 When multiple FOCUS/WATCHLIST matches overlap, rerank together after XI/market-history review. Grade and structural quality remain ahead of price.
-
----
-
-## 13. Live review
-
-Live evidence validates/invalidates frozen PRE; it does not rewrite it.
-
-Keep:
-- no chase after goal-driven total expansion;
-- post-goal normalization;
-- HT compression/saturation/remaining-goal-budget logic;
-- fresh chance-quality requirement after a strong first half that stalls.
-
-A quiet half does not retroactively invalidate a protected prematch bet if carrier route and escalation capacity remain intact, but it may make a new live entry inappropriate.
-
----
-
-## 14. Audit classification
-
-Use where relevant:
-- `CLEAN TWO-SIDED VALIDATION`;
-- `CARRIER VALIDATION — NOT CLEAN TWO-SIDED`;
-- `CHANCE-QUALITY MISS`;
-- `CONVERSION VARIANCE`;
-- `COMPRESSION FAILURE`;
-- `FAILURE MODE TEMPORARILY ACTIVE`;
-- `CQ HARDENED`;
-- `DUAL-ROUTE XI DAMAGE`;
-- `MCE +0.25`.
-
-A 3-0/4-0/5-0 total win validates carrier ceiling, not automatically the losing side's scoring route.
-
----
-
-## 15. Settlement and persistence
-
-Standard full-match Asian totals settle on 90 minutes + stoppage unless explicitly stated otherwise.
-
-Record official P/L only for actual official selections under the version that produced them. HOLD/PASS/shadow/counterfactual outcomes never enter official P/L.
-
-Persist material Decision States and market-history evidence without rewriting frozen PRE.
-
----
-
-## 16. Shadows
-
-Official: v0.2.51. Shadows: v0.2.47 CLEAN and v0.2.48-SHADOW. Do not import v0.2.49/50/51 patches into shadows.
