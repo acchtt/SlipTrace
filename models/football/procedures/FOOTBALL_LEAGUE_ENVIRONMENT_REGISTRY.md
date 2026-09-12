@@ -91,7 +91,6 @@ Absolute operational exclusion under the active user rule. No automatic override
 - Switzerland — Super League
 - Brazil — Serie A
 - Mexico — Liga MX
-- Japan — J1 League
 - Saudi Arabia — Saudi Pro League
 
 These classes control **admission to Work only**. They do not award a PRE grade, archetype, burden, or betting preference.
@@ -148,6 +147,18 @@ Use:
 `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
 
 Finnish Cup and senior continental fixtures involving Finnish clubs are not excluded solely by this rule.
+
+### Japan — all domestic league competitions, every tier/category
+
+**Effective:** 2026-09-12 ICT onward, by explicit user directive.
+
+Includes J1 League and any other Japanese men's or women's domestic league competition that would otherwise survive the quality overlay.
+
+Use:
+
+`JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
+
+Japanese domestic cups and senior continental fixtures involving Japanese clubs are **not** excluded solely by this rule.
 
 ---
 
