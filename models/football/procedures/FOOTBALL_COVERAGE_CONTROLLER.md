@@ -381,3 +381,46 @@ A live result must never be used to pretend the omitted match would certainly ha
 ## 14. Authority
 
 This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that require exact enumeration of every excluded micro/youth/raw fixture before Work, allow Work to research a genuinely incomplete actionable handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, old automatic TWO-SIDED ranking, or a second structural screen during Airtable publication.
+
+---
+
+## 15. v0.2.53 coverage and ranking controls
+
+### Required route fields
+
+Every admitted fixture must carry:
+
+- `Home Route State`: PROVEN / SUPPORTED / NOMINAL / FAILED;
+- `Away Route State`: PROVEN / SUPPORTED / NOMINAL / FAILED;
+- combined route pair;
+- evidence confidence;
+- league regime and any applicable high-burden gate result.
+
+Apply the PRE caps and non-compensatory order in `MODEL_RULES_FOOTBALL_V0.2.53.md`. A tier cannot exceed its route-pair ceiling.
+
+### Unique identity and conflict block
+
+Use `AISCORE:<fixture_id>` as the canonical unique key when the ID exists. Use competition + normalized home + normalized away + kickoff_utc only as a fallback.
+
+Before `work_ready:true`, frozen PRE publication, and schedule display:
+
+1. collapse exact duplicate keys;
+2. identify same-match rows with conflicting kickoff, slate date, grade, tier, eligibility, or completeness;
+3. stop active publication/ranking for every unresolved conflict;
+4. preserve the conflict rows for audit.
+
+Required state:
+
+`COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
+
+A conflicting row may not be treated as a second fixture, placed on two slate dates, or silently chosen by last-write-wins behavior.
+
+### League controls
+
+The registry hard exclusion for Japanese domestic leagues, including J1, is mandatory from 2026-09-12 ICT onward.
+
+China Super League stays CONDITIONAL. A CSL O3.0+ or MCE candidate must also pass the v0.2.53 home/away-or-CC+ high-burden gate.
+
+### Rolling calibration fields
+
+For completed FOCUS/WATCHLIST rows retain route pair, chance-quality result, CC+ state, burden/regime, MCE validator result, contribution pattern, and final threshold result. The post-slate audit uses these fields to test whether FOCUS separates from WATCHLIST without reconstructing PRE.
