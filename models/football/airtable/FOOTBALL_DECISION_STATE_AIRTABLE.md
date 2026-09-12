@@ -3,7 +3,7 @@
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
-**Official model:** Football v0.2.50  
+**Official model:** Football v0.2.52  
 **Shadow comparison models:** v0.2.47 CLEAN and v0.2.48-SHADOW
 
 This table records material football assessment states after the frozen coverage/PRE stage. It must preserve version fidelity and must not rewrite historical PRE state.
@@ -16,13 +16,13 @@ Every material record must identify the model version that actually produced it.
 
 Current tracks:
 
-- **Official:** `Football v0.2.50`
+- **Official:** `Football v0.2.52`
 - **Shadow:** `Football v0.2.47 CLEAN`
 - **Shadow:** `Football v0.2.48-SHADOW`
 
-Historical v0.2.49 decisions remain v0.2.49. Do not relabel them as v0.2.50.
+Historical v0.2.49/v0.2.50/v0.2.51 decisions remain under the version that actually produced them. Do not relabel them as v0.2.52.
 
-Do not import the v0.2.49 Two-Sided Priority or v0.2.50 EGE patch into either shadow track.
+Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52 patches into either shadow track.
 
 ---
 
@@ -35,10 +35,11 @@ Preserve:
 - original PRE grade;
 - original structural archetype;
 - original FOCUS/WATCHLIST/PASS/UNRESOLVED state;
-- original primary/secondary routes and failure mode where available;
+- original route-quality / CC+ candidate state where available;
+- original primary/secondary routes and failure mode;
 - original frozen structural burden.
 
-A Decision State may record a later downgrade/rerank or v0.2.50 EGE burden re-open, but it must not imply that the later state was the original PRE.
+A Decision State may record a later downgrade/rerank, v0.2.50 EGE reopen, v0.2.51 MCE state, or v0.2.52 `CARRIER REOPEN — XI CONFIRMED`, but it must not imply that the later state was the original PRE.
 
 If the coverage row demonstrably conflicts with the original Work artifact, classify a persistence sync fault and use the original frozen Work thesis until the bridge is corrected.
 
@@ -88,23 +89,27 @@ Use provider/evidence-version fields when the decision depends on an external no
 
 ---
 
-## 5. v0.2.50 STANDARD / EGE recording
+## 5. v0.2.52 regime / route / carrier recording
 
-For material official v0.2.50 decisions, record in `Evidence Summary` and/or available environment fields whether the goal-burden regime is:
+For material official v0.2.52 decisions, preserve the burden regime:
 
 - `STANDARD`; or
 - `EGE — EXTREME GOAL ENVIRONMENT`.
 
-For EGE, preserve explicitly:
+Also preserve route/carrier state where relevant:
 
-- frozen PRE burden;
-- new post-XI EGE supported burden;
-- structural/team/XI reasons for reopening the burden;
-- current market line/price;
-- whether execution is `EGE DIRECT` or `EGE RELATIVE DECAY`;
-- main failure mode and why it remains acceptable.
+- `TWO-SIDED — QUALITY PROVEN`;
+- `TWO-SIDED — NOMINAL / WEAK SECONDARY`;
+- `CC+ — CARRIER CEILING`;
+- `CC+ CANDIDATE — XI SENSITIVE`;
+- `CARRIER REOPEN — XI CONFIRMED`;
+- `B+ PRESERVATION-ONLY HOLD`.
 
-A high market line alone must never be documented as the reason EGE was created.
+For EGE, preserve frozen PRE burden, post-XI EGE burden, structural/team/XI reasons, current market line/price, execution mode and failure mode.
+
+For carrier reopen, preserve why the original PASS was not a hard structural rejection, what carrier ceiling already existed, what confirmed XI evidence created the new football epoch, and the conservative burden selected.
+
+A high market line alone must never be documented as the reason EGE or carrier reopen was created.
 
 Use audit labels where useful:
 
@@ -114,6 +119,8 @@ Use audit labels where useful:
 - `EGE RELATIVE DECAY`
 - `NON-DECAY HOLD`
 - `GOAL-EXPANSION HOLD`
+- `RELATIVE-RANKING MISS`
+- `RECENT-SCORE SUPPRESSION OVERWEIGHTED`
 
 ---
 
@@ -129,13 +136,13 @@ When a user screenshot/text is the current evidence:
 - do not fabricate missing current market data;
 - do not automatically search for missing confirmed XI/current executable odds unless the user explicitly requests external verification.
 
-For FOCUS/WATCHLIST final review, Normal Chat should also attempt the contextual market-history series:
+For every Step-2 review, including frozen PASS, Normal Chat must attempt the contextual market-history series:
 
 `OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
 
 Historical odds research is allowed automatically because it is a conflict/corroboration layer, not a substitute executable price.
 
-Where available, preserve in `Evidence Summary` / `Fail Reasons` / provider fields:
+Where available, preserve:
 
 - opening total + Over price;
 - PRE-XI total + Over price;
@@ -150,11 +157,11 @@ Recommended compact format:
 
 `MARKET WATCH: OPEN O2.5 @1.85 → PRE-XI O2.5 @1.76 → POST-XI O2.75 @1.89 | signal=BULLISH LINE | XI conflict=resolved as ATTACKING DEPTH PRESERVED | source=...`
 
-If a historical series is unavailable, write:
+If unavailable, write:
 
-`MARKET HISTORY UNAVAILABLE — no movement signal used`
+`MARKET HISTORY UNAVAILABLE — ATTEMPTED — no movement signal used`
 
-Do not compare different bookmakers as a single continuous move unless the source explicitly normalizes them. Otherwise label `CROSS-BOOK — CONTEXT ONLY`.
+Do not compare different bookmakers as one continuous move unless the source explicitly normalizes them. Otherwise label `CROSS-BOOK — CONTEXT ONLY`.
 
 If either required final input is missing:
 
@@ -164,15 +171,17 @@ If either required final input is missing:
 
 ## 7. Current decision order
 
-Official v0.2.50 material decisions follow:
+Official v0.2.52 material decisions follow:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI RERANK → MARKET-HISTORY CONFLICT CHECK → FINAL XI RERANK → GOAL BURDEN / REGIME → CURRENT PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
 
-For comparable official grades:
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
 
-`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
 
-Historical market movement may challenge an XI interpretation, but it cannot rescue weaker structure, create EGE, or raise burden beyond independent structure + XI support.
+Historical market movement may challenge an XI interpretation, but it cannot create structure, create EGE, or rescue a genuine PASS by itself.
+
+For a fragile B+ with a named compression branch, `ATTACKING DEPTH PRESERVED` plus a protected line is not enough for LOCK; record `B+ PRESERVATION-ONLY HOLD` unless an independent positive gate clears.
 
 ---
 
@@ -182,6 +191,7 @@ Current user overlay:
 
 - hard minimum decimal odds = `1.65`;
 - preferred = `1.70+`;
+- MCE +0.25 requires `1.75+`;
 - below 1.65 = `NO BET — HOLD — PRICE TOO SHORT`;
 - do not stretch the Asian-total line merely to obtain a better price;
 - higher burden must be independently supported by structure + XI;
@@ -195,14 +205,16 @@ Historical price/line movement is contextual evidence; the user-supplied current
 
 ## 9. Official verdict semantics
 
-### Official v0.2.50
+### Official v0.2.52
 
 - affirmative final selection = **OFFICIAL LOCK**;
 - HOLD/PASS = no official exposure.
 
+A frozen PASS can become actionable only through a valid material football epoch such as the strict v0.2.52 `CARRIER REOPEN — XI CONFIRMED`; never from market movement alone.
+
 ### Shadows
 
-Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.50 verdict.
+Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.52 verdict.
 
 When all three tracks are materially assessed, create/version the states so the evidence snapshot is comparable but each model remains identifiable.
 
@@ -262,12 +274,14 @@ into official P/L.
 
 Standard full-match Asian totals settle on 90 minutes + stoppage time unless the market explicitly includes extra time.
 
+Historical decisions remain settled under the model version that produced them. v0.2.52 never retroactively rewrites v0.2.51 P/L.
+
 ---
 
 ## 13. Coverage vs Decision States
 
 `Daily Coverage Ledger` = fixture coverage + frozen PRE bridge.
 
-`Decision States` = material later assessment epochs, including market-history conflict checks, v0.2.50 STANDARD/EGE state, plus official/shadow verdict evidence.
+`Decision States` = material later assessment epochs, including market-history conflict checks, STANDARD/EGE, MCE, carrier-reopen states, official/shadow verdict evidence and audits.
 
 Do not use a later Decision State to overwrite what the frozen Work PRE originally was.
