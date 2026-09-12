@@ -3,7 +3,7 @@
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
-**Official model:** Football v0.2.52  
+**Official model:** Football v0.2.53  
 **Shadow comparison models:** v0.2.47 CLEAN and v0.2.48-SHADOW
 
 This table records material football assessment states after the frozen coverage/PRE stage. It must preserve version fidelity and must not rewrite historical PRE state.
@@ -16,13 +16,13 @@ Every material record must identify the model version that actually produced it.
 
 Current tracks:
 
-- **Official:** `Football v0.2.52`
+- **Official:** `Football v0.2.53`
 - **Shadow:** `Football v0.2.47 CLEAN`
 - **Shadow:** `Football v0.2.48-SHADOW`
 
-Historical v0.2.49/v0.2.50/v0.2.51 decisions remain under the version that actually produced them. Do not relabel them as v0.2.52.
+Historical v0.2.49/v0.2.50/v0.2.51/v0.2.52 decisions remain under the version that actually produced them. Do not relabel them as v0.2.53.
 
-Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52 patches into either shadow track.
+Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53 patches into either shadow track.
 
 ---
 
@@ -171,7 +171,7 @@ If either required final input is missing:
 
 ## 7. Current decision order
 
-Official v0.2.52 material decisions follow:
+Official v0.2.53 material decisions follow:
 
 `STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
 
@@ -205,7 +205,7 @@ Historical price/line movement is contextual evidence; the user-supplied current
 
 ## 9. Official verdict semantics
 
-### Official v0.2.52
+### Official v0.2.53
 
 - affirmative final selection = **OFFICIAL LOCK**;
 - HOLD/PASS = no official exposure.
@@ -214,7 +214,7 @@ A frozen PASS can become actionable only through a valid material football epoch
 
 ### Shadows
 
-Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.52 verdict.
+Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.53 verdict.
 
 When all three tracks are materially assessed, create/version the states so the evidence snapshot is comparable but each model remains identifiable.
 
@@ -285,3 +285,44 @@ Historical decisions remain settled under the model version that produced them. 
 `Decision States` = material later assessment epochs, including market-history conflict checks, STANDARD/EGE, MCE, carrier-reopen states, official/shadow verdict evidence and audits.
 
 Do not use a later Decision State to overwrite what the frozen Work PRE originally was.
+
+---
+
+## 14. v0.2.53 ranking and execution record
+
+For every material prospective official assessment, preserve:
+
+- home and away route states;
+- combined route pair;
+- evidence confidence;
+- league regime and league high-burden result;
+- named dominant failure mode and whether the burden survives it;
+- same-window relative-rank position and reason;
+- MCE validator result, including every required field when MCE is considered;
+- live evidence synchronization state when a live Over is considered.
+
+Use the v0.2.53 non-compensatory order. A failed scope, route, failure-mode, chance-quality, CC+, burden, or evidence-confidence gate cannot be repaired by later market or price evidence.
+
+### MCE recording
+
+The validator must hard-fail MCE outside A2 FOCUS/B+ WATCHLIST prematch eligibility, for a route pair below SUPPORTED + SUPPORTED, without a verified same-source/normalized +0.25 OPEN → post-XI prematch line move, or when any other required field is failed/unknown.
+
+Record:
+
+`MCE INVALID — STANDARD BURDEN OR HOLD`
+
+Live price decay is `STANDARD DECAY`, not MCE.
+
+### Live recording
+
+A live official Over requires synchronized score, minute, line/odds, current chance-quality evidence, conversion-quality assessment, and remaining-goal-budget assessment.
+
+If missing:
+
+`LIVE CHANCE QUALITY UNAVAILABLE — HOLD`
+
+### Coverage identity
+
+Resolve the Decision State to one canonical AiScore fixture ID. If multiple conflicting coverage rows exist, do not choose one silently or publish a material verdict. Record:
+
+`COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
