@@ -1,11 +1,11 @@
 # Football Coverage Controller
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.50  
+**Official model:** Football v0.2.51  
 **Coverage authority:** AiScore fixture universe + current senior-quality overlay  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
-The coverage controller prevents silent fixture omission, wrong-date schedule contamination, timezone drift, and downstream replacement of a frozen Work PRE state with a second screen.
+The coverage controller prevents silent fixture omission, wrong-date schedule contamination, timezone drift, wasteful Work research on incomplete fixture universes, and downstream replacement of a frozen Work PRE state with a second screen.
 
 ---
 
@@ -13,9 +13,9 @@ The coverage controller prevents silent fixture omission, wrong-date schedule co
 
 The required sequence is:
 
-`AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK → GOAL BURDEN / EGE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
+`AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → STEP-0 RECONCILIATION / WORK_READY GATE → WORK SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK → GOAL BURDEN / EGE / MCE WHEN ELIGIBLE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
 
-Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first.
+Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first, **but Work screening cannot begin until Step 0 has produced a complete reconciled universe.**
 
 **SHORTEN THE DISPLAY, NEVER THE SCREENED UNIVERSE.**
 
@@ -41,6 +41,28 @@ If this gate fails:
 
 No other schedule provider may backfill the universe.
 
+### 2.1 Work-readiness hard gate
+
+Step 0 may not export a normal Work handoff until traversal and reconciliation pass.
+
+A Work handoff is valid only when it explicitly carries:
+
+- `complete = true`;
+- `work_ready = true`;
+- reconciliation PASS;
+- terminal date/interval traversal PASS;
+- scope/registry audit PASS;
+- no schedule-integrity unresolved fixture inside the Work array;
+- admitted count equal to the actual Work fixture array.
+
+If any item is false, absent, contradictory or provisional:
+
+`HANDOFF INCOMPLETE — RERUN NORMAL CHAT STEP 0`
+
+This is a **hard downstream stop**. Work must research **zero fixtures** and must not publish a provisional PRE board from the confirmed subset. It must not perform its own fixture sweep or broad web backfill.
+
+The purpose of this gate is both integrity and usage control: expensive Work research begins only once the cheap Normal Chat discovery/filter stage is complete.
+
 ---
 
 ## 3. Time and schedule integrity gate
@@ -61,7 +83,7 @@ If identity/date/time remain contradictory:
 
 `UNRESOLVED — SCHEDULE INTEGRITY`
 
-That fixture remains accounted for in coverage reconciliation but cannot become FOCUS/WATCHLIST until corrected.
+That fixture remains accounted for in coverage reconciliation but cannot enter the Work actionable array until corrected or excluded with a valid reason.
 
 ---
 
@@ -88,7 +110,7 @@ Do not weaken the overlay because the slate is small.
 
 ## 5. Screening requirement
 
-Every actionable fixture receives:
+After the Work-readiness hard gate passes, every Work-admitted actionable fixture receives:
 
 - canonical fixture identity;
 - corrected kickoff ICT;
@@ -108,7 +130,7 @@ Use the current official model hierarchy. For comparable grades:
 
 Price is not part of PRE ranking.
 
-EGE is a post-XI regime and is not assigned during the frozen PRE sweep.
+EGE and MCE are later-stage gates and are not assigned during the frozen PRE sweep.
 
 ---
 
@@ -128,7 +150,7 @@ The structural route did not clear the current PRE standard. Price or recognizab
 
 ### UNRESOLVED
 
-Required information is insufficient to classify confidently. This includes unresolved schedule identity/time faults. Do not convert uncertainty into PASS merely to reconcile counts.
+Required information is insufficient to classify confidently. Do not convert uncertainty into PASS merely to reconcile counts.
 
 ---
 
@@ -147,7 +169,7 @@ The frozen record includes at least:
 - structural burden/range;
 - canonical corrected kickoff semantics.
 
-Downstream stages may rerank or downgrade based on new evidence, and v0.2.50 may open a documented post-XI EGE burden epoch, but neither may reconstruct a different frozen PRE from scratch.
+Downstream stages may rerank or downgrade based on new evidence, and active post-XI rules may open documented EGE/MCE assessment epochs, but neither may reconstruct a different frozen PRE from scratch.
 
 ---
 
@@ -181,27 +203,35 @@ Correct the persistence layer rather than treating the bad row as decision autho
 
 ## 9. Count invariants
 
-The board cannot be called complete until both equations reconcile:
+Before Step 0 can set `complete:true` / `work_ready:true`:
 
-`Universe = Actionable eligible + Excluded`
+`Universe = Work-admitted actionable + Excluded`
 
-`Actionable eligible = Focus + Watchlist + Pass + Unresolved`
+After Work research begins, the Work board cannot be called complete until:
+
+`Work-admitted actionable = Focus + Watchlist + Pass + Unresolved`
 
 Also verify:
 
 - each fixture appears once;
 - all exclusions have a reason;
-- all actionable fixtures have a PRE disposition;
+- all Work-admitted fixtures have a PRE disposition;
 - all FOCUS + WATCHLIST rows are persisted;
 - no youth/reserve/lower/small fixture survives the actionable overlay;
 - no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
 - no date/competition block within the requested AiScore window is unaccounted for;
 - no fixture outside the requested corrected ICT window appears on the board;
-- schedule-integrity unresolved rows remain explicit rather than silently omitted.
+- no schedule-integrity unresolved fixture appears in the Work array.
 
-If counts or coverage fail:
+If Step-0 counts or coverage fail:
 
-`COVERAGE INCOMPLETE — board provisional`
+`HANDOFF INCOMPLETE — RERUN NORMAL CHAT STEP 0`
+
+**Do not start Work PRE research.**
+
+If Step 0 passed but the Work disposition counts fail after research:
+
+`WORK RECONCILIATION FAILED — frozen board incomplete`
 
 ---
 
@@ -211,9 +241,7 @@ At confirmed XI, compare all surviving FOCUS/WATCHLIST candidates in the same pr
 
 Use corrected `kickoff_ict`, not raw Airtable `Z` timestamps, to define the window.
 
-The official v0.2.50 order remains:
-
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → XI RERANK → GOAL BURDEN / EGE → PRICE`
+The official v0.2.51 order is governed by `CURRENT_MODEL.md` and the active patches, including chance-quality hardening and the post-XI market-history/MCE logic where eligible.
 
 Confirmed XI is the first legitimate rerank gate after frozen PRE.
 
@@ -221,7 +249,7 @@ Confirmed XI is the first legitimate rerank gate after frozen PRE.
 
 ## 11. Current user-supplied-input boundary
 
-Normal pre-kickoff execution does not automatically fetch XI or bookmaker odds.
+Normal pre-kickoff execution does not automatically fetch XI or bookmaker current odds.
 
 Until the user supplies the required current XI + odds:
 
@@ -230,7 +258,7 @@ Until the user supplies the required current XI + odds:
 - no official line is selected;
 - no OFFICIAL LOCK is issued.
 
-Only search externally for XI/odds when the user explicitly asks for external verification.
+Only search externally for XI/current executable odds when the user explicitly asks for external verification. The separate historical market-watch exception is governed by the active Normal Chat XI/odds procedure.
 
 ---
 
@@ -261,7 +289,7 @@ If an eligible fixture is discovered after a board was claimed complete:
 
 1. classify the original coverage claim as a coverage failure;
 2. determine which traversal/filter/persistence step failed;
-3. if still prematch, screen it immediately and compare it against the full frozen board;
+3. if still prematch, return to Step 0 and rebuild/reconcile the Work handoff before additional Work deep research;
 4. if already started, label it a `MISSED PREMATCH OPPORTUNITY` and do not rewrite history;
 5. fix the root cause before the next board is called complete.
 
@@ -278,4 +306,4 @@ A live result must never be used to pretend the omitted match would certainly ha
 
 ## 14. Authority
 
-This controller is subordinate to `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, or a second structural screen during Airtable publication.
+This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that allow Work to research a provisional/incomplete handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, or a second structural screen during Airtable publication.
