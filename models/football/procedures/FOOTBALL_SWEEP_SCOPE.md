@@ -74,9 +74,22 @@ Current examples include V.League 1, K League 1, and Argentina Liga Profesional 
 
 ### HARD EXCLUDE
 
-Do not send to Work. Current Finnish domestic-league rule remains absolute and uses:
+Do not send to Work.
+
+Current hard exclusions are:
+
+- Finland — all domestic leagues, every tier/category;
+- Japan — all domestic league competitions, every tier/category, effective 2026-09-12 ICT onward.
+
+Use the applicable reason:
 
 `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
+
+or
+
+`JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
+
+The Japanese rule is an explicit user scope directive. It excludes league play from the normal sweep; it does not by itself exclude Japanese domestic cups or senior continental fixtures involving Japanese clubs.
 
 ---
 
@@ -92,7 +105,7 @@ The registry currently keeps these directly actionable when the normal quality o
 - Iceland top flight;
 - Scotland Premiership.
 
-Finland remains the explicit exception and is hard-excluded for domestic league play.
+Finland remains the explicit Nordic exception and is hard-excluded for domestic league play.
 
 ---
 
@@ -115,6 +128,7 @@ Every fixture removed before Work must remain auditable in the coverage ledger w
 - `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
 - `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
 - `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
+- `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
 - the existing model-quality exclusion reasons.
 
 Only fixtures that survive all scope and quality gates enter the compact Work handoff.
