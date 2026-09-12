@@ -1,7 +1,7 @@
 # Football Match Sweep and Research Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.50  
+**Official model:** Football v0.2.52  
 **Fixture authority:** AiScore only  
 **Timezone:** Asia/Ho_Chi_Minh (ICT)  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
@@ -52,8 +52,6 @@ A timestamp ending in `Z` is UTC, not ICT.
 
 If the window crosses midnight, browsing only the starting date is incomplete. Every ICT date touched by the window must be traversed.
 
-Example: an evening slate that continues through 03:00 ICT requires explicit traversal of both the evening date and the following date.
-
 A last-found kickoff before the requested cutoff is **not evidence that no later block exists**. Verify the terminal interval/date listing itself.
 
 ---
@@ -74,8 +72,6 @@ If any of these fail or remain contradictory:
 
 Do not send that fixture into FOCUS/WATCHLIST betting evaluation until corrected.
 
-This gate specifically prevents future-date fixtures from being inserted into a current daily board.
-
 ---
 
 ## 4. Completeness audit before filtering
@@ -95,8 +91,6 @@ If any item is unresolved, state:
 
 and set completeness false. Do not backfill from another provider.
 
-A sweep ending at 03:00 ICT cannot infer completeness merely because its latest captured fixture is 02:00. The 03:00 interval must be explicitly verified.
-
 ---
 
 ## 5. Current actionable competition overlay
@@ -114,13 +108,11 @@ Exclude:
 - domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
 - **all Finnish domestic league competitions at every tier/category, including men's and women's leagues — hard exclusion effective 2026-09-09 ICT onward.**
 
-The Finnish-league exclusion is prospective. Keep all Finnish domestic league fixtures in the raw AiScore universe for reconciliation, but classify them as excluded before structural screening. Do not surface them as FOCUS/WATCHLIST or send them to XI/market evaluation. Finnish Cup and UEFA club competitions involving Finnish clubs remain governed by the normal overlay and are not automatically removed by this league-only rule.
+The Finnish-league exclusion is prospective. Keep all Finnish domestic league fixtures in the raw AiScore universe for reconciliation, but classify them as excluded before structural screening. Finnish Cup and UEFA club competitions involving Finnish clubs remain governed by the normal overlay.
 
 Do not weaken this overlay to fill the slate.
 
-Do **not** apply an old generic “continental competitions excluded” rule. Senior first-team continental competitions remain actionable when they otherwise clear the overlay, explicitly including UEFA Champions League, UEFA Europa League, and UEFA Conference League.
-
-Do not exclude an otherwise qualifying senior competition merely because its name contains `Cup`, `League Cup`, or `continental` terminology.
+Senior first-team continental competitions remain actionable when they otherwise clear the overlay, explicitly including UEFA Champions League, UEFA Europa League, and UEFA Conference League.
 
 Every removal must remain auditable as an explicit exclusion rather than a silent omission.
 
@@ -162,8 +154,9 @@ Research/evaluate:
 
 - structural matchup quality;
 - credible independent scoring routes;
-- two-sided contribution;
-- carrier/favorite ceiling;
+- whether two-sidedness is `QUALITY PROVEN` or only `NOMINAL / WEAK SECONDARY`;
+- carrier/favorite self-funded ceiling;
+- `CC+ — CARRIER CEILING` eligibility or `CC+ CANDIDATE — XI SENSITIVE` status;
 - opponent contribution;
 - failure-mode resistance;
 - team GF/GA and scoring/conceding frequencies;
@@ -173,11 +166,29 @@ Research/evaluate:
 - lineup sensitivity as a future rerank item;
 - structural goal-burden ceiling/range.
 
+### 7.1 Mandatory carrier-ceiling audit before B/PASS
+
+Before assigning `B / PASS` to a fixture containing a strong favorite/carrier, explicitly answer:
+
+1. Does either team have credible independent 3+ team-goal potential?
+2. Is the recent low-scoring profile supported by true chance suppression, or could it be score outcome / finishing / schedule noise?
+3. Is the ceiling repeatable enough to survive a weak opponent-contribution route?
+
+If credible independent 3+ potential exists but XI uncertainty prevents promotion, tag:
+
+`CC+ CANDIDATE — XI SENSITIVE`
+
+and keep the match eligible for the later post-XI carrier review unless a separate dominant structural failure requires PASS.
+
+Do not use a single historical 3+ result as CC+ proof.
+
+### 7.2 Price/XI boundary
+
 The Work PRE stage is **price-blind**. Do not use bookmaker price to improve a structural grade or ranking.
 
 Under the current user workflow, do not automatically fetch confirmed XI or bookmaker odds during this structural stage. The user supplies them later.
 
-The EGE regime introduced in v0.2.50 is a **post-XI** classification and must not be manufactured at PRE from bookmaker totals.
+The EGE regime is post-XI and must not be manufactured at PRE from bookmaker totals.
 
 ---
 
@@ -192,9 +203,13 @@ Give every actionable fixture exactly one PRE disposition:
 
 Use the current PRE grades/types defined by the active model.
 
-Rank surviving FOCUS + WATCHLIST candidates under the active official hierarchy. For comparable grades:
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A candidates rank:
 
-`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
+
+Do **not** automatically rank a B+ nominal two-sided match above a carrier with a materially stronger self-funded ceiling.
+
+For every FOCUS/WATCHLIST row, preserve whether the route label is quality-proven or nominal. For every strong-carrier B/PASS row, preserve why CC+ failed or whether it remains `CC+ CANDIDATE — XI SENSITIVE`.
 
 The Work output is a **frozen structural PRE board**, not an official betting card.
 
@@ -217,7 +232,8 @@ Publishing is a state-copy/upsert operation:
 - preserve PRE grade;
 - preserve structural type;
 - preserve FOCUS/WATCHLIST/PASS/UNRESOLVED exactly;
-- preserve the frozen thesis/failure mode in the available summary/notes fields;
+- preserve route-quality label and CC+/CC+ candidate state in summary/notes;
+- preserve the frozen thesis/failure mode;
 - preserve canonical fixture identity and normalized kickoff semantics;
 - mark XI/market pending as appropriate.
 
@@ -242,6 +258,7 @@ Also verify:
 - no excluded youth/reserve/lower/small fixture survived;
 - no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
 - all FOCUS/WATCHLIST candidates are persisted for the later XI stage;
+- every strong-carrier PASS has a documented CC+ audit result;
 - cross-midnight/date-page completeness remains true;
 - every actionable row has a schedule-integrity-safe kickoff;
 - no future-date fixture outside the requested window survives.
@@ -270,6 +287,6 @@ Do not assume a stored kickoff is still future simply because Airtable says so.
 
 ## 12. Research-source rule after freeze
 
-Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence. That evidence may validate, downgrade, rerank, or qualify a post-XI EGE burden according to the current model, but it must not silently rewrite what PRE originally was.
+Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence. That evidence may validate, downgrade, rerank, or qualify a strict `CARRIER REOPEN — XI CONFIRMED`, post-XI EGE burden, or MCE state according to the current model, but it must not silently rewrite what PRE originally was.
 
 Live evidence validates or invalidates history; it does not rewrite history.
