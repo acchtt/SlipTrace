@@ -1,9 +1,9 @@
 # Football Betting Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.51  
+**Official model:** Football v0.2.52  
 **Base:** v0.2.47 CLEAN  
-**Active patches:** v0.2.49 TWO-SIDED PRIORITY + v0.2.50 EGE + v0.2.51 CHANCE-QUALITY / MARKET-CONFIRMATION  
+**Active patches:** v0.2.49 TWO-SIDED PRIORITY + v0.2.50 EGE + v0.2.51 CHANCE-QUALITY / MARKET-CONFIRMATION + v0.2.52 CARRIER CEILING / B+ EVIDENCE HARDENING  
 **Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW  
 **Fixture authority:** AiScore only
 
@@ -36,6 +36,8 @@ Start from frozen Work PRE:
 - grade;
 - archetype;
 - board tier;
+- route-quality label where available;
+- CC+/CC+ candidate state where available;
 - primary/secondary routes;
 - main failure mode;
 - XI sensitivity;
@@ -49,11 +51,11 @@ A genuine frozen PRE PASS remains non-actionable unless a documented material fo
 
 ## 3. Official order
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD / PASS`
+`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD / PASS`
 
-Comparable-grade hierarchy:
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
 
-`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
 
 Price and market history cannot create structure.
 
@@ -63,13 +65,33 @@ Price and market history cannot create structure.
 
 First-pass XI is football-led and market-blind.
 
-Review creators, finishers, shape, defensive absences, rotation, cohesion, starter/bench quality, route survival and failure-mode changes.
+Review creators, finishers, shape, defensive absences, rotation, cohesion, starter/bench quality, route survival, carrier ceiling and failure-mode changes.
 
 Classify rotation as:
 - `ROTATION — ATTACKING DEPTH PRESERVED`;
 - `ROTATION — COHESION / ROUTE DAMAGE`.
 
+Under v0.2.52, `ATTACKING DEPTH PRESERVED` is **neutral baseline confirmation**, not a positive upgrade. Use `XI UPGRADE` only when the confirmed lineup materially improves the attacking case relative to the frozen uncertainty.
+
 If both sides lose important attacking routes, or primary + secondary route are both materially weakened, apply `DUAL-ROUTE XI DAMAGE`. A lower protected line cannot by itself rescue an A2/B+ under this tag.
+
+### 4.1 Carrier reopen — XI confirmed
+
+A frozen B/PASS may enter a narrow new assessment epoch only as:
+
+`CARRIER REOPEN — XI CONFIRMED`
+
+All must be true:
+
+1. the frozen PASS was not a hard structural rejection such as severe chance-quality failure, elite suppression, deep control/format risk, or scope exclusion;
+2. PRE already contained a plausible self-funded carrier ceiling or `CC+ CANDIDATE — XI SENSITIVE` signal;
+3. the PASS was driven mainly by recent-score suppression, weak opponent contribution, or lineup uncertainty;
+4. confirmed XI preserves the principal carrier creators/finishers or equivalent senior replacements;
+5. independent football evidence still supports a 3-goal team ceiling;
+6. the proposed burden is conservative, normally no higher than O2.5 unless the active model independently supports more;
+7. price is evaluated only after this football gate clears.
+
+Market movement alone cannot trigger this reopen.
 
 ---
 
@@ -103,19 +125,27 @@ However:
 - MCE cannot rescue PASS;
 - a bullish move cannot create a scoring route;
 - a line move cannot by itself create a new structural assessment epoch;
+- only the strict v0.2.52 `CARRIER REOPEN — XI CONFIRMED` football gate may reopen a qualifying carrier PASS;
 - final PASS may be reaffirmed after market history is FOUND or UNAVAILABLE-AFTER-ATTEMPT.
 
 A response that says `PASS` while also saying opening odds were never checked is procedurally incomplete unless the user explicitly requested the market-history step be skipped.
 
 ---
 
-## 6. Chance-quality hardening
+## 6. Chance-quality and route-quality hardening
 
 Before final promotion, retain team-profile review: season/recent GF-GA, scoring/conceding 2+, suppression, home/away and competition context.
 
 For **STANDARD O3.0+ from A1/A2 TWO-SIDED**, v0.2.51 requires repeatable high-value chance support across both routes where available: big chances, central/box access, quality SOT, xG/xGOT, or a strong data-poor substitute.
 
-If the thesis is mostly names, raw goals, possession or generic attacking reputation, cap burden lower, downgrade confidence or reclassify.
+Under v0.2.52, also decide whether the matchup is:
+
+- `TWO-SIDED — QUALITY PROVEN`; or
+- `TWO-SIDED — NOMINAL / WEAK SECONDARY`.
+
+If the second route is mainly theoretical, lineup-preserved, or inferred from defensive leakage, it does not receive the full Two-Sided Priority premium.
+
+For a carrier case, separately test `CC+ — CARRIER CEILING`: credible independent 3+ team-goal potential, repeatable attacking evidence, enough depth to sustain pressure, and no dominant opponent suppression.
 
 ---
 
@@ -132,7 +162,25 @@ Common branches:
 - derby/first-leg control;
 - late-goal dependence.
 
-For **B+** with an explicit derby/first-leg/1-0/1-1/control or weak-secondary branch, protection alone is insufficient under v0.2.51. Require an extra positive gate before LOCK.
+For **B+** with an explicit derby/first-leg/1-0/1-1/control/weak-secondary/late-goal-dependence branch, v0.2.52 hardens the rule:
+
+- XI preservation is neutral;
+- protected line is execution protection, not football evidence;
+- price is not a structural gate.
+
+Therefore **XI preservation + protected line alone cannot LOCK**.
+
+Require at least one independent positive gate beyond preservation:
+
+- fresh chance-quality evidence materially stronger than the frozen uncertainty;
+- a genuine `XI UPGRADE`;
+- verified same-source bullish market corroboration that agrees with intact football evidence;
+- material opponent defensive weakening;
+- strong `CC+` self-funded carrier evidence that survives the named compression branch.
+
+If none clears:
+
+`B+ PRESERVATION-ONLY HOLD`
 
 ---
 
@@ -184,13 +232,15 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 ## 11. Verdicts
 
 ### OFFICIAL LOCK
-Require actionable scope, valid frozen candidate, surviving XI, acceptable failure mode, supported STANDARD/EGE/MCE burden, and current price clearing policy.
+Require actionable scope, valid frozen candidate or strict carrier reopen, surviving XI, acceptable failure mode, supported STANDARD/EGE/MCE burden, and current price clearing policy.
+
+A fragile B+ may not LOCK from preservation + protection alone.
 
 ### HOLD
-Use when thesis remains live but one or more gates fail: XI uncertainty, dual-route damage, chance-quality hardening, failure-mode risk, burden, price, missing input or unexplained bearish market conflict.
+Use when thesis remains live but one or more gates fail: XI uncertainty, dual-route damage, nominal secondary route, chance-quality hardening, failure-mode risk, burden, price, missing input, unexplained bearish market conflict, or `B+ PRESERVATION-ONLY HOLD`.
 
 ### PASS
-Use when the structure is materially invalidated or the frozen PRE was already a genuine PASS and no valid material football change creates a new assessment epoch.
+Use when the structure is materially invalidated or the frozen PRE was already a genuine PASS and no valid `CARRIER REOPEN — XI CONFIRMED` epoch exists.
 
 Before final PASS in Step 2, market-history status must be FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
 
@@ -200,4 +250,17 @@ HOLD/PASS = no exposure.
 
 ## 12. Same-window rerank
 
-When multiple FOCUS/WATCHLIST matches overlap, rerank together after XI/market-history review. Grade and structural quality remain ahead of price.
+When multiple FOCUS/WATCHLIST/eligible carrier-reopen matches overlap, rerank them together after XI/market-history review.
+
+Do not compare only grades. Compare:
+
+- quality-proven vs nominal two-sidedness;
+- self-funded carrier ceiling / CC+;
+- chance-quality support;
+- failure-mode resistance;
+- dependence on the weaker team's contribution;
+- burden required by the executable total.
+
+A nominal B+ TWO-SIDED candidate must not outrank a materially stronger CC+ carrier solely because it has two theoretical scoring routes.
+
+Price remains a tie-breaker/execution factor after structural ranking, not the primary sorter.
