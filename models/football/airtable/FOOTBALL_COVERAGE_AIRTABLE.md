@@ -39,7 +39,7 @@ Use the existing fields to preserve:
 - `Source 1` / `Source 2`;
 - `Coverage Status`.
 
-Where the handoff supports it, preserve AiScore fixture identity in notes/ID material so the row can be revalidated later.
+Use `AISCORE:<fixture_id>` as the preferred `Coverage ID` whenever AiScore supplies an ID. Preserve that identity in notes/ID material so the row can be revalidated later. Only when the ID is unavailable may the fallback key use competition + normalized teams + kickoff_utc.
 
 ### Airtable timestamp semantics
 
@@ -227,3 +227,39 @@ However, the bridge is only authoritative when it faithfully mirrors the Work ar
 The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market/EGE/MCE/carrier-reopen verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
 
 Do not turn the coverage row into a mutable history that erases earlier PRE state.
+
+---
+
+## 12. v0.2.53 coverage integrity fields
+
+For prospective v0.2.53 rows, preserve in existing structured fields or `Frozen PRE Summary` / `Coverage Notes`:
+
+- home route state: PROVEN / SUPPORTED / NOMINAL / FAILED;
+- away route state: PROVEN / SUPPORTED / NOMINAL / FAILED;
+- combined route pair;
+- evidence confidence;
+- league regime;
+- league high-burden gate result where applicable;
+- CC+ state and named dominant failure mode.
+
+The publisher must verify that the assigned PRE grade and board tier do not exceed the route-pair cap in `MODEL_RULES_FOOTBALL_V0.2.53.md`.
+
+### Duplicate/conflict validator
+
+Before upsert and before any board read:
+
+1. group by canonical AiScore ID;
+2. use the fallback key only for rows genuinely missing an AiScore ID;
+3. collapse exact duplicates;
+4. detect conflicting slate date, kickoff, match orientation, grade, tier, eligibility, or completeness;
+5. block active publication until each conflict is resolved.
+
+Required fault label:
+
+`COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
+
+Do not resolve a conflict through last-write-wins or allow one fixture to occupy two slate dates. Preserve the conflict for audit, correct the canonical record, then publish.
+
+### League overlay
+
+Japanese domestic leagues, including J1, must not survive the active board from 2026-09-12 ICT onward. China Super League O3.0+/MCE candidates must preserve the v0.2.53 home/away-or-CC+ high-burden gate result.
