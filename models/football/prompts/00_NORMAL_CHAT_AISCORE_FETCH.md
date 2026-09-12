@@ -12,9 +12,11 @@ The main operational objective is to save Work usage:
 ## Source of truth
 Repository: `acchtt/SlipTrace`
 
-Always read `models/football/CURRENT_MODEL.md` first.
+Always read the **upstream/default-branch** `models/football/CURRENT_MODEL.md` first.
 
-Do **not** infer the active model version from this prompt. Use the official model, active patches, canonical timezone, fixture authority, competition rules, and load order declared by `CURRENT_MODEL.md` at execution time.
+Do **not** infer the active model version from this prompt or a stale local/cache copy. If local/cache differs from upstream, upstream wins immediately.
+
+Use the official model, active patches, canonical timezone, fixture authority, competition rules, and load order declared by `CURRENT_MODEL.md` at execution time.
 
 For this stage, also load:
 
@@ -44,7 +46,7 @@ This stage:
 5. applies `FOOTBALL_SWEEP_SCOPE.md` and `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
 6. runs only the cheap conditional-league admission test where required;
 7. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
-8. creates a compact **scope-pruned actionable handoff** for Work.
+8. creates a compact **scope-pruned actionable handoff** for Work **only after reconciliation passes**.
 
 This stage does **not**:
 - perform full match structural research;
@@ -73,7 +75,20 @@ A trailing `Z` is UTC. Never add +7 twice. Never derive Slate Date from raw UTC 
 If time/date/identity remains inconsistent, keep the row for audit and classify it as schedule-integrity unresolved. Do not send it to Work as actionable.
 
 If the requested AiScore window cannot be fully traversed:
+
 `COVERAGE INCOMPLETE — AiScore sweep incomplete`
+
+### Hard export rule
+
+If coverage traversal, terminal interval verification, time/identity reconciliation, count reconciliation, scope audit, or coverage-skeleton publication fails, then:
+
+- set `complete = false`;
+- set `work_ready = false`;
+- **do not create or attach the normal `AISCORE_FIXTURES_YYYY-MM-DD.txt` Work handoff**;
+- do not tell the user the slate is ready for Work;
+- stop with a compact instruction to continue/rerun Step 0 in Normal Chat.
+
+An incomplete/provisional universe must never be passed onward for partial Work research.
 
 ## Quality exclusions
 Apply the current senior-quality overlay before league-environment admission.
@@ -141,22 +156,27 @@ Efficiency:
 - do not touch Decision States or Website Picks.
 
 ## Compact Work handoff
-Create `AISCORE_FIXTURES_YYYY-MM-DD.txt`.
+Create `AISCORE_FIXTURES_YYYY-MM-DD.txt` **only when `complete:true` and `work_ready:true`.**
 
 Use compact JSON-compatible text. Include:
 - ICT slate date/window;
-- model version read from `CURRENT_MODEL.md`;
+- model version read from upstream `CURRENT_MODEL.md`;
 - source = AiScore;
 - sweep scope = `FOOTBALL_SWEEP_SCOPE.md`;
 - league registry = `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
+- `complete:true`;
+- `work_ready:true`;
+- reconciliation result;
+- terminal interval/date traversal result;
+- coverage skeleton publication result;
 - only fixtures admitted to Work;
 - AiScore identity/time fields where available;
-- audit counts: raw, direct-admit, conditional-checked, conditional-admit, conditional-excluded, low-goal-excluded, Finnish-hard-excluded, other-quality-excluded, duplicates, unresolved, complete, coverage skeleton published.
+- audit counts: raw, direct-admit, conditional-checked, conditional-admit, conditional-excluded, low-goal-excluded, Finnish-hard-excluded, other-quality-excluded, duplicates, unresolved.
 
 The Work fixture array must contain only schedule-integrity-cleared fixtures that survived the active scope.
 
 ## Reconciliation
-Before `complete:true`:
+Before `complete:true` and `work_ready:true`:
 
 `Universe = Work-admitted actionable + Excluded`
 
@@ -167,11 +187,20 @@ Also verify:
 - no Finnish domestic league survived into Work;
 - no CONDITIONAL league fixture survived without a recorded cheap-gate PASS;
 - no quality-excluded youth/reserve/lower/weak-data fixture survived;
-- Nordic/Scottish direct-admit leagues were not removed merely for league size.
+- Nordic/Scottish direct-admit leagues were not removed merely for league size;
+- admitted count equals the actual Work fixture array;
+- no unresolved schedule-integrity fixture appears in the Work array.
 
 ## Output
-Reply compactly:
 
-`AiScore ready — X to Work / Y raw; Z excluded; C conditional checked (A admitted); N unresolved; Airtable coverage skeleton PASS/FAIL.`
+If complete:
 
-Attach the handoff file. Do not print the full fixture list unless the user asks.
+`AiScore ready — X to Work / Y raw; Z excluded; C conditional checked (A admitted); 0 unresolved-in-Work; Airtable coverage skeleton PASS; work_ready=true.`
+
+Attach the normal Work handoff file.
+
+If incomplete:
+
+`STEP 0 INCOMPLETE — do not send to Work. Continue/rerun Normal Chat fixture traversal until complete=true and work_ready=true.`
+
+Do **not** attach a normal Work handoff and do not print the full fixture list unless the user asks.
