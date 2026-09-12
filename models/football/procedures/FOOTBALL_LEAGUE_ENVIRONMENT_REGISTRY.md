@@ -235,3 +235,28 @@ It must not contain:
 - conditional fixtures that failed/no-data'd the cheap gate.
 
 **DISCOVER BROADLY; EXCLUDE WEAK ENVIRONMENTS EARLY; DEEP-RESEARCH NARROWLY.**
+
+---
+
+## 10. v0.2.53 ranking and burden modifiers
+
+These modifiers are prospective from 2026-09-12 ICT and operate after the admission class is known.
+
+### Japan domestic leagues
+
+The HARD EXCLUDE in Section 6 remains absolute for the normal daily board, including J1 League. Do not reopen the pool from an isolated winner or high-scoring exception. Only a later explicit user directive and registry update may change this class.
+
+### China Super League
+
+China Super League remains CONDITIONAL at the admission stage.
+
+A CSL fixture that clears the cheap admission gate is not automatically eligible for an O3.0+ burden or MCE. For either state require:
+
+- both teams' relevant current home/away evidence independently supports a credible 3+ match environment; or
+- one team qualifies as true `CC+ — CARRIER CEILING` and the proposed burden survives weak opponent contribution.
+
+Otherwise record:
+
+`CSL HIGH-BURDEN GATE FAILED — HOLD/PASS`
+
+All-venue recent averages alone do not clear this final burden gate.
