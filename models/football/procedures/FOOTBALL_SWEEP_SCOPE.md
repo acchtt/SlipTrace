@@ -3,7 +3,7 @@
 **Status:** ACTIVE  
 **Purpose:** Narrow fixture screening before Work so deep research is spent only on plausible Over environments.  
 **Fixture authority:** AiScore only  
-**Timezone:** Asia/Ho_Chi_Minh (ICT)
+**Timezone:** source timezone preserved at Step 0; ICT conversion later for scheduling
 
 This file controls the operational scope of the daily AiScore sweep. It is a screening-scope layer, not a scoring-model patch. `CURRENT_MODEL.md` remains the higher authority if there is ever a direct conflict.
 
@@ -17,11 +17,11 @@ The league-level admission registry is:
 
 The daily sweep is broad at discovery and narrow before Work.
 
-`RAW AISCORE UNIVERSE -> TIME INTEGRITY -> MODEL QUALITY EXCLUSIONS -> LEAGUE ENVIRONMENT REGISTRY -> WORK HANDOFF`
+`RAW AISCORE UNIVERSE -> SOURCE-TIME INTEGRITY -> MODEL QUALITY EXCLUSIONS -> LEAGUE ENVIRONMENT REGISTRY -> WORK HANDOFF`
 
 The objective is to reduce Work usage. Work should not repeatedly deep-research large numbers of marginal domestic-league fixtures whose competition environment is already known to be poor or uncertain for the Over model.
 
-**DISCOVER BROADLY; DEEP-RESEARCH NARROWLY.**
+**DISCOVER BROADLY; EXCLUDE WEAK ENVIRONMENTS EARLY; DEEP-RESEARCH NARROWLY.**
 
 Small league size alone is not an exclusion reason. Goal-environment usefulness and data quality are what matter.
 
@@ -36,7 +36,18 @@ Before league-environment admission, continue to exclude fixtures removed by the
 - amateur/semi-professional competitions;
 - regional/state/provincial leagues;
 - domestic lower divisions unless explicitly approved;
-- very small/obscure weak-data environments.
+- very small/obscure weak-data environments;
+- senior leagues whose data quality/coverage is too weak to support reliable cheap admission.
+
+Use:
+
+`SMALL / OBSCURE WEAK-DATA LEAGUE — SCOPE EXCLUSION`
+
+where applicable.
+
+These fixtures are excluded **before** the league registry's CONDITIONAL gate. Do not fetch recent-five statistics or run a cheap Over test merely to rescue an environment that already fails the quality/scope prerequisite.
+
+A league being a national top flight does **not by itself** guarantee CONDITIONAL status.
 
 The separate UEFA Youth League trial remains a manual user override until the repository explicitly promotes it into official scope.
 
@@ -44,7 +55,7 @@ The separate UEFA Youth League trial remains a manual user override until the re
 
 ## 3. League-environment admission
 
-For senior domestic national leagues that survive the quality overlay, apply `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
+For senior domestic national leagues that survive the quality/data overlay, apply `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
 
 ### PRIORITY
 
@@ -56,6 +67,8 @@ Send to Work automatically.
 
 ### CONDITIONAL
 
+Only established, sufficiently covered professional senior top flights may reach this class.
+
 Do not send the whole competition to Work.
 
 Run only the cheap Step-0 admission test defined in the registry. If the fixture passes, send it to Work. If it fails or the required cheap evidence is not readily available, exclude it before Work as:
@@ -63,6 +76,8 @@ Run only the cheap Step-0 admission test defined in the registry. If the fixture
 `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
 
 This is a scope decision, not a structural PASS.
+
+Do not reinterpret a genuinely small/obscure weak-data league as CONDITIONAL just because it is not named elsewhere in the registry.
 
 ### LOW-GOAL EXCLUDE
 
@@ -117,19 +132,24 @@ Senior UCL, UEL and UECL remain actionable when they clear the active model. Oth
 
 A club from a low-goal or hard-excluded domestic league is not automatically excluded when playing in an independently eligible cup or continental competition.
 
+Weak/obscure cup or continental environments can still fail the quality/data overlay; senior status alone does not force admission.
+
 ---
 
 ## 6. Coverage accounting
 
-AiScore discovery still records the complete raw fixture universe for the requested window.
+AiScore discovery does not need exact one-by-one enumeration of every raw excluded fixture before Work readiness.
 
-Every fixture removed before Work must remain auditable in the coverage ledger with an explicit reason, including where applicable:
+Every fixture actually discovered and removed before Work should remain auditable with an explicit reason, including where applicable:
 
+- `SMALL / OBSCURE WEAK-DATA LEAGUE — SCOPE EXCLUSION`
 - `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
 - `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
 - `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
 - `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
 - the existing model-quality exclusion reasons.
+
+Unenumerated blocks that are unambiguously youth/reserve/lower/amateur/regional/weak-data/hard-excluded may remain `raw_audit_complete=false` nonblocking gaps.
 
 Only fixtures that survive all scope and quality gates enter the compact Work handoff.
 
@@ -143,9 +163,11 @@ A healthy run may discover 100+ raw fixtures but send only a fraction of them to
 
 The intended behavior is:
 
-`RAW AISCORE -> CHEAP FILTERING -> SMALL ACTIONABLE HANDOFF -> DEEP WORK SWEEP`
+`RAW AISCORE -> EARLY QUALITY EXCLUSION -> CHEAP CONDITIONAL FILTERING -> SMALL ACTIONABLE HANDOFF -> DEEP WORK SWEEP`
 
 If a conditional fixture needs full match research merely to decide whether it deserves Work research, it has failed the purpose of the cheap gate and should remain excluded for that run.
+
+If a weak/obscure league needs research merely to decide whether it deserves CONDITIONAL status, it is already outside normal Step-0 scope for that run.
 
 ---
 
