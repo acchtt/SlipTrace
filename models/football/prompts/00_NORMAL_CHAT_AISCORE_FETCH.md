@@ -3,11 +3,11 @@
 **Use in:** Normal Chat, high reasoning.
 
 ## Purpose
-Build the complete AiScore fixture universe for the requested ICT window, apply the active quality/sweep filters cheaply, persist the minimal coverage skeleton to Airtable, and export only genuinely actionable fixtures to Work.
+Build a trustworthy **actionable senior AiScore universe** for the requested ICT window, apply the active quality/sweep filters cheaply, persist the minimal coverage skeleton to Airtable, and export only genuinely actionable fixtures to Work.
 
-The main operational objective is to save Work usage:
+The main operational objective is to save Work usage without making Step 0 impossible when AiScore exposes excluded youth/lower/reserve fixtures only through fragmented dynamic snapshots:
 
-`DISCOVER BROADLY -> FILTER CHEAPLY -> DEEP-RESEARCH NARROWLY`
+`DISCOVER BROADLY -> PROVE ACTIONABLE COMPLETENESS -> FILTER CHEAPLY -> DEEP-RESEARCH NARROWLY`
 
 ## Source of truth
 Repository: `acchtt/SlipTrace`
@@ -39,14 +39,15 @@ Use these IDs directly unless one actually fails.
 
 ## Strict stage boundary
 This stage:
-1. traverses every AiScore calendar-date block touched by the requested ICT window;
-2. normalizes fixture identity and time under the current time/schedule integrity procedure;
-3. deduplicates once;
-4. applies the active senior-quality exclusions;
-5. applies `FOOTBALL_SWEEP_SCOPE.md` and `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
-6. runs only the cheap conditional-league admission test where required;
-7. batch-upserts the cheap coverage skeleton to Daily Coverage Ledger;
-8. creates a compact **scope-pruned actionable handoff** for Work **only after reconciliation passes**.
+1. traverses the AiScore date/time blocks needed to account for the requested ICT window;
+2. proves coverage of every **potentially actionable senior block** in scope;
+3. normalizes fixture identity and time under the current time/schedule integrity procedure;
+4. deduplicates once;
+5. applies the active senior-quality exclusions;
+6. applies `FOOTBALL_SWEEP_SCOPE.md` and `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
+7. runs only the cheap conditional-league admission test where required;
+8. batch-upserts the cheap coverage skeleton for fixtures actually discovered;
+9. creates a compact **scope-pruned actionable handoff** for Work once the actionable-completeness gate passes.
 
 This stage does **not**:
 - perform full match structural research;
@@ -72,23 +73,69 @@ For every discovered fixture, preserve where available:
 
 A trailing `Z` is UTC. Never add +7 twice. Never derive Slate Date from raw UTC when the ICT date differs.
 
-If time/date/identity remains inconsistent, keep the row for audit and classify it as schedule-integrity unresolved. Do not send it to Work as actionable.
+If time/date/identity remains inconsistent, keep the discovered row for audit and classify it as schedule-integrity unresolved. Do not send it to Work as actionable.
 
-If the requested AiScore window cannot be fully traversed:
+## Two-tier completeness contract
 
-`COVERAGE INCOMPLETE — AiScore sweep incomplete`
+AiScore may expose the date index through fragmented/dynamic search snapshots. Therefore distinguish:
 
-### Hard export rule
+- `actionable_complete` — every potentially actionable **senior** competition/block in the requested ICT window has been checked and every actionable fixture found is accounted for;
+- `raw_audit_complete` — every raw AiScore fixture on the touched date pages, including youth/reserve/lower/amateur/regional/hard-excluded blocks, has been individually enumerated.
 
-If coverage traversal, terminal interval verification, time/identity reconciliation, count reconciliation, scope audit, or coverage-skeleton publication fails, then:
+`raw_audit_complete=false` is **not automatically a blocker** for Work.
 
-- set `complete = false`;
-- set `work_ready = false`;
-- **do not create or attach the normal `AISCORE_FIXTURES_YYYY-MM-DD.txt` Work handoff**;
-- do not tell the user the slate is ready for Work;
-- stop with a compact instruction to continue/rerun Step 0 in Normal Chat.
+### Blocking gaps
 
-An incomplete/provisional universe must never be passed onward for partial Work research.
+Step 0 must remain `work_ready=false` if any of these remain:
+
+- a PRIORITY or NORMAL senior league block in the requested window is unverified;
+- an eligible senior continental/cup block is unverified;
+- a senior CONDITIONAL league block is visible/relevant but its cheap gate was not resolved;
+- the requested terminal kickoff interval/date boundary was not checked;
+- a known potentially actionable senior fixture has unresolved identity/time;
+- scope/registry filtering is contradictory;
+- admitted count does not match the Work fixture array.
+
+In that case return:
+
+`STEP 0 INCOMPLETE — ACTIONABLE COVERAGE GAP — do not send to Work.`
+
+### Non-blocking raw gaps
+
+Do **not** hold the entire workflow hostage merely because AiScore will not expose an exact one-by-one count for fixtures that are already outside model scope, such as:
+
+- youth/Uxx;
+- reserves/B/development;
+- amateur/semi-pro;
+- regional/state/provincial;
+- unapproved lower divisions;
+- very weak/obscure competitions;
+- LOW-GOAL EXCLUDE domestic leagues;
+- Finnish domestic leagues;
+- other blocks that are unambiguously hard-excluded before Work.
+
+When such exact raw enumeration is unavailable, record:
+
+- `raw_audit_complete=false`;
+- `raw_count_mode=lower_bound`;
+- `nonblocking_raw_gaps=[...]` describing the excluded block/category.
+
+Do **not** fabricate an exact raw count.
+
+## Work-readiness gate
+
+A normal Work handoff may be created when all of the following are true:
+
+- `actionable_complete=true`;
+- `work_ready=true`;
+- all potentially actionable senior blocks in the requested window were checked;
+- terminal interval/date verification passed;
+- scope/registry audit passed;
+- no schedule-integrity unresolved fixture appears in the Work array;
+- every admitted fixture is accounted for exactly once;
+- admitted count equals the Work fixture array.
+
+For backward compatibility, set `complete=true` when **actionable completeness** passes. Also include `raw_audit_complete` separately so `complete=true` is never misread as a claim that every excluded micro/youth fixture was individually enumerated.
 
 ## Quality exclusions
 Apply the current senior-quality overlay before league-environment admission.
@@ -108,14 +155,14 @@ Use only the cheap admission criteria in the registry. The purpose is to decide 
 
 If the cheap signal passes, admit the fixture to Work.
 
-If it fails, or the necessary cheap evidence is not readily obtainable, retain the row in coverage but exclude it from Work as:
+If it fails, or the necessary cheap evidence is not readily obtainable, retain the discovered row in coverage but exclude it from Work as:
 
 `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
 
 Do not turn this into a PRE PASS; no full structural verdict has been made.
 
 ### LOW-GOAL EXCLUDE
-Keep in raw coverage, exclude before Work as:
+Keep discovered fixtures in coverage, exclude before Work as:
 
 `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
 
@@ -131,7 +178,9 @@ Do not accidentally remove Norway Eliteserien, Sweden Allsvenskan, Denmark Super
 The domestic-league registry does not automatically exclude independently eligible senior cups or continental competitions. Apply `CURRENT_MODEL.md` and `FOOTBALL_SWEEP_SCOPE.md` to those competitions.
 
 ## Airtable coverage skeleton
-Batch-upsert **every raw AiScore fixture**, including scope-excluded and schedule-integrity-unresolved rows, so coverage remains auditable.
+Batch-upsert every fixture actually discovered in Step 0, including discovered scope-excluded and schedule-integrity-unresolved rows, so coverage remains auditable.
+
+Do not invent unseen raw fixtures solely to satisfy an exact total count.
 
 Populate only coverage-stage fields needed now, including where supported:
 - Coverage ID
@@ -152,11 +201,10 @@ Efficiency:
 - no per-row readback;
 - no deep research for excluded leagues;
 - no deep research for conditional fixtures unless they first clear the cheap gate;
-- one final reconciliation is enough;
 - do not touch Decision States or Website Picks.
 
 ## Compact Work handoff
-Create `AISCORE_FIXTURES_YYYY-MM-DD.txt` **only when `complete:true` and `work_ready:true`.**
+Create `AISCORE_FIXTURES_YYYY-MM-DD.txt` when `complete:true`, `actionable_complete:true`, and `work_ready:true`.
 
 Use compact JSON-compatible text. Include:
 - ICT slate date/window;
@@ -164,43 +212,48 @@ Use compact JSON-compatible text. Include:
 - source = AiScore;
 - sweep scope = `FOOTBALL_SWEEP_SCOPE.md`;
 - league registry = `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`;
-- `complete:true`;
+- `complete:true` meaning actionable completeness;
+- `actionable_complete:true`;
 - `work_ready:true`;
-- reconciliation result;
+- `raw_audit_complete:true|false`;
+- `raw_count_mode=exact|lower_bound`;
+- `nonblocking_raw_gaps` when applicable;
 - terminal interval/date traversal result;
+- actionable-block audit result;
 - coverage skeleton publication result;
 - only fixtures admitted to Work;
 - AiScore identity/time fields where available;
-- audit counts: raw, direct-admit, conditional-checked, conditional-admit, conditional-excluded, low-goal-excluded, Finnish-hard-excluded, other-quality-excluded, duplicates, unresolved.
+- counts for the actionable senior universe and discovered excluded fixtures.
 
 The Work fixture array must contain only schedule-integrity-cleared fixtures that survived the active scope.
 
 ## Reconciliation
-Before `complete:true` and `work_ready:true`:
+Before `complete:true` / `actionable_complete:true` / `work_ready:true`:
 
-`Universe = Work-admitted actionable + Excluded`
+`ACTIONABLE SENIOR UNIVERSE = WORK-ADMITTED + ACTIONABLE-EXCLUDED/UNRESOLVED`
 
-Verify every raw fixture is accounted for exactly once and every touched AiScore date block/terminal interval was checked.
+Verify every **potentially actionable senior** fixture/block in the requested window is accounted for exactly once.
 
 Also verify:
 - no LOW-GOAL EXCLUDE league survived into Work;
 - no Finnish domestic league survived into Work;
 - no CONDITIONAL league fixture survived without a recorded cheap-gate PASS;
-- no quality-excluded youth/reserve/lower/weak-data fixture survived;
+- no quality-excluded youth/reserve/lower/weak-data fixture survived into Work;
 - Nordic/Scottish direct-admit leagues were not removed merely for league size;
 - admitted count equals the actual Work fixture array;
-- no unresolved schedule-integrity fixture appears in the Work array.
+- no unresolved schedule-integrity fixture appears in the Work array;
+- any `raw_audit_complete=false` gaps are confined to categories already excluded from Work and are listed explicitly.
 
 ## Output
 
-If complete:
+If actionable-complete:
 
-`AiScore ready — X to Work / Y raw; Z excluded; C conditional checked (A admitted); 0 unresolved-in-Work; Airtable coverage skeleton PASS; work_ready=true.`
+`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true.`
 
 Attach the normal Work handoff file.
 
-If incomplete:
+If an actionable gap remains:
 
-`STEP 0 INCOMPLETE — do not send to Work. Continue/rerun Normal Chat fixture traversal until complete=true and work_ready=true.`
+`STEP 0 INCOMPLETE — ACTIONABLE COVERAGE GAP — do not send to Work.`
 
-Do **not** attach a normal Work handoff and do not print the full fixture list unless the user asks.
+Do not print the full fixture list unless the user asks.
