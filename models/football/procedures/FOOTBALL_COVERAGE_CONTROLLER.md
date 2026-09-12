@@ -2,10 +2,10 @@
 
 **Status:** ACTIVE  
 **Official model:** Football v0.2.52  
-**Coverage authority:** AiScore fixture universe + current senior-quality overlay  
+**Coverage authority:** AiScore actionable senior universe + current senior-quality overlay  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
-The coverage controller prevents silent fixture omission, wrong-date schedule contamination, timezone drift, wasteful Work research on incomplete fixture universes, and downstream replacement of a frozen Work PRE state with a second screen.
+The coverage controller prevents silent actionable-fixture omission, wrong-date schedule contamination, timezone drift, wasteful Work research on incomplete actionable universes, and downstream replacement of a frozen Work PRE state with a second screen.
 
 ---
 
@@ -13,57 +13,92 @@ The coverage controller prevents silent fixture omission, wrong-date schedule co
 
 The required sequence is:
 
-`AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → STEP-0 RECONCILIATION / WORK_READY GATE → WORK SCREEN EVERY ACTIONABLE FIXTURE → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK / CARRIER REOPEN TEST → GOAL BURDEN / EGE / MCE WHEN ELIGIBLE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
+`AISCORE DISCOVERY → TIME/SCHEDULE INTEGRITY → ACTIONABLE SENIOR BLOCK AUDIT → SENIOR-QUALITY ELIGIBILITY → STEP-0 ACTIONABLE RECONCILIATION / WORK_READY GATE → WORK SCREEN EVERY ADMITTED FIXTURE → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK / CARRIER REOPEN TEST → GOAL BURDEN / EGE / MCE WHEN ELIGIBLE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
 
-Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first, **but Work screening cannot begin until Step 0 has produced a complete reconciled universe.**
+Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first, **but Work screening can begin once Step 0 has proved actionable completeness even when exact enumeration of already-excluded micro/youth/raw fixtures is unavailable.**
 
-**SHORTEN THE DISPLAY, NEVER THE SCREENED UNIVERSE.**
+**SHORTEN THE DISPLAY, NEVER THE ACTIONABLE SCREENED UNIVERSE.**
 
 ---
 
-## 2. AiScore traversal gate
+## 2. AiScore traversal and completeness gate
 
-Coverage cannot pass until the entire requested ICT window is accounted for on AiScore.
+AiScore remains the sole fixture-discovery authority.
 
-Required checks:
+The system distinguishes two levels of completeness:
 
-- every AiScore calendar-date listing touched by the window is traversed;
-- overnight continuation is explicitly traversed rather than inferred;
-- terminal requested kickoff interval/cutoff is checked;
-- every discovered fixture is normalized and counted once;
-- no known AiScore competition/league block inside the window remains unvisited or unresolved.
+- `actionable_complete` — every potentially actionable senior competition/block in the requested ICT window has been checked and every actionable fixture found is accounted for;
+- `raw_audit_complete` — every raw AiScore fixture on touched date pages, including excluded youth/reserve/lower/amateur/regional/hard-excluded blocks, has been individually enumerated.
+
+Exact raw enumeration is desirable for audit but is **not required for Work readiness** when AiScore exposes excluded blocks only through fragmented/dynamic snapshots.
+
+### 2.1 Required actionable checks
+
+Before `actionable_complete=true`, verify:
+
+- every PRIORITY/NORMAL senior league block that falls inside the requested window;
+- every eligible senior continental/cup block visible/relevant to the window;
+- every relevant senior CONDITIONAL block, with its cheap gate resolved;
+- overnight continuation where applicable;
+- terminal requested kickoff interval/cutoff;
+- every discovered potentially actionable senior fixture normalized and counted once;
+- no known actionable senior competition block remains unvisited or unresolved.
 
 If this gate fails:
 
-`COVERAGE INCOMPLETE — AiScore sweep incomplete`
+`COVERAGE INCOMPLETE — ACTIONABLE SENIOR GAP`
 
 No other schedule provider may backfill the universe.
 
-### 2.1 Work-readiness hard gate
+### 2.2 Non-blocking raw gaps
 
-Step 0 may not export a normal Work handoff until traversal and reconciliation pass.
+The following do not block Work merely because AiScore will not expose an exact one-by-one date-page count:
 
-A Work handoff is valid only when it explicitly carries:
+- youth/Uxx;
+- academy/junior;
+- reserve/B/development;
+- amateur/semi-pro;
+- regional/state/provincial;
+- unapproved lower divisions;
+- very weak/obscure competitions;
+- LOW-GOAL EXCLUDE domestic leagues;
+- Finnish domestic leagues;
+- other blocks unambiguously excluded before Work.
 
-- `complete = true`;
+When exact enumeration is unavailable, Step 0 must record:
+
+- `raw_audit_complete=false`;
+- `raw_count_mode=lower_bound`;
+- `nonblocking_raw_gaps=[...]`.
+
+Do not fabricate an exact raw count.
+
+### 2.3 Work-readiness gate
+
+A Work handoff is valid when it explicitly carries:
+
+- `complete = true` meaning actionable completeness;
+- `actionable_complete = true`;
 - `work_ready = true`;
-- reconciliation PASS;
-- terminal date/interval traversal PASS;
+- actionable senior block audit PASS;
+- terminal date/interval verification PASS;
 - scope/registry audit PASS;
 - no schedule-integrity unresolved fixture inside the Work array;
 - admitted count equal to the actual Work fixture array.
 
-If any item is false, absent, contradictory or provisional:
+`raw_audit_complete=false` is non-blocking when every listed raw gap is already outside model scope.
 
-`HANDOFF INCOMPLETE — RERUN NORMAL CHAT STEP 0`
+If any **actionable** requirement is false, absent, contradictory, or provisional:
 
-This is a **hard downstream stop**. Work must research **zero fixtures** and must not publish a provisional PRE board from the confirmed subset. It must not perform its own fixture sweep or broad web backfill.
+`HANDOFF INCOMPLETE — ACTIONABLE COVERAGE GAP — RERUN NORMAL CHAT STEP 0`
+
+Work must then research zero fixtures and must not perform its own fixture sweep or broad web backfill.
 
 ---
 
 ## 3. Time and schedule integrity gate
 
-Before eligibility or PRE screening, every fixture must satisfy the authoritative timestamp contract:
+Before eligibility or PRE screening, every potentially actionable fixture must satisfy the authoritative timestamp contract:
 
 - preserve AiScore fixture identity;
 - normalize to `kickoff_utc`;
@@ -79,7 +114,7 @@ If identity/date/time remain contradictory:
 
 `UNRESOLVED — SCHEDULE INTEGRITY`
 
-That fixture remains accounted for in coverage reconciliation but cannot enter the Work actionable array until corrected or excluded with a valid reason.
+A potentially actionable unresolved fixture blocks actionable completeness until corrected or validly excluded. An unresolved raw fixture already belonging to a hard-excluded category does not enter the Work array and may remain a non-blocking raw-audit gap.
 
 ---
 
@@ -96,7 +131,7 @@ For the normal actionable betting board, exclude:
 - domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
 - **all Finnish domestic league competitions at every tier/category, including men's and women's leagues — hard exclusion effective 2026-09-09 ICT onward.**
 
-The Finnish-league rule is prospective. All Finnish domestic league fixtures remain in the raw AiScore universe but must be marked `EXCLUDED`; they must never receive FOCUS/WATCHLIST status or reach official betting evaluation. Finnish Cup and UEFA club competitions involving Finnish clubs are not excluded by this rule unless another active eligibility rule removes them.
+The Finnish-league rule is prospective. Discovered Finnish domestic league fixtures remain auditable but must never receive FOCUS/WATCHLIST status or reach official betting evaluation. Exact enumeration of every Finnish/lower/youth fixture is not required to unlock Work once the block is unambiguously classified outside model scope.
 
 Do not inherit legacy blanket exclusions for continental football or cup labels. Senior first-team continental competitions are actionable when otherwise eligible, including UEFA Champions League, UEFA Europa League, and UEFA Conference League.
 
@@ -106,7 +141,7 @@ Do not weaken the overlay because the slate is small.
 
 ## 5. Screening requirement
 
-After the Work-readiness hard gate passes, every Work-admitted actionable fixture receives:
+After the Work-readiness actionable gate passes, every Work-admitted actionable fixture receives:
 
 - canonical fixture identity;
 - corrected kickoff ICT;
@@ -195,6 +230,8 @@ Downstream stages may rerank or downgrade based on new evidence, and active post
 
 ## 8. Airtable publication rule
 
+Step 0 publishes the coverage skeleton for fixtures actually discovered; it must not fabricate unseen raw rows merely to satisfy a total count.
+
 Publishing the Work screen to `Daily Coverage Ledger` is a **copy/upsert of the frozen screen**, not another model run.
 
 The publish step must preserve Work output exactly in the fields available in the Airtable contract, including route-quality and CC+ context in summary/notes.
@@ -223,9 +260,13 @@ Correct the persistence layer rather than treating the bad row as decision autho
 
 ## 9. Count invariants
 
-Before Step 0 can set `complete:true` / `work_ready:true`:
+Before Step 0 can set `complete:true` / `actionable_complete:true` / `work_ready:true`:
 
-`Universe = Work-admitted actionable + Excluded`
+`ACTIONABLE SENIOR UNIVERSE = WORK-ADMITTED + ACTIONABLE-EXCLUDED/UNRESOLVED`
+
+The exact all-raw equation is required only when `raw_audit_complete=true`.
+
+When `raw_audit_complete=false`, discovered raw counts are a documented lower bound and all gaps must be confined to pre-excluded categories.
 
 After Work research begins, the Work board cannot be called complete until:
 
@@ -233,20 +274,21 @@ After Work research begins, the Work board cannot be called complete until:
 
 Also verify:
 
-- each fixture appears once;
-- all exclusions have a reason;
+- each actionable fixture appears once;
+- all actionable exclusions have a reason;
 - all Work-admitted fixtures have a PRE disposition;
 - all FOCUS + WATCHLIST rows are persisted;
 - no youth/reserve/lower/small fixture survives the actionable overlay;
-- no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
+- no Finnish domestic league fixture survives the actionable overlay;
 - every strong-carrier B/PASS has a documented CC+ audit result;
-- no date/competition block within the requested AiScore window is unaccounted for;
+- no potentially actionable senior block in the requested window is unaccounted for;
 - no fixture outside the requested corrected ICT window appears on the board;
-- no schedule-integrity unresolved fixture appears in the Work array.
+- no schedule-integrity unresolved fixture appears in the Work array;
+- any raw gaps are explicitly marked non-blocking and outside model scope.
 
-If Step-0 counts or coverage fail:
+If Step-0 actionable counts or coverage fail:
 
-`HANDOFF INCOMPLETE — RERUN NORMAL CHAT STEP 0`
+`HANDOFF INCOMPLETE — ACTIONABLE COVERAGE GAP — RERUN NORMAL CHAT STEP 0`
 
 **Do not start Work PRE research.**
 
@@ -315,13 +357,15 @@ and use the live state operationally.
 
 ## 13. Missed-fixture and schedule-fault recovery
 
-If an eligible fixture is discovered after a board was claimed complete:
+If an eligible fixture is discovered after a board was claimed actionable-complete:
 
-1. classify the original coverage claim as a coverage failure;
+1. classify the original actionable coverage claim as a coverage failure;
 2. determine which traversal/filter/persistence step failed;
 3. if still prematch, return to Step 0 and rebuild/reconcile the Work handoff before additional Work deep research;
 4. if already started, label it a `MISSED PREMATCH OPPORTUNITY` and do not rewrite history;
-5. fix the root cause before the next board is called complete.
+5. fix the root cause before the next board is called actionable-complete.
+
+A later-discovered youth/reserve/lower/hard-excluded fixture does **not** retroactively invalidate actionable completeness; add it to raw audit if useful.
 
 If a historical board contains the wrong fixture date/time:
 
@@ -336,4 +380,4 @@ A live result must never be used to pretend the omitted match would certainly ha
 
 ## 14. Authority
 
-This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that allow Work to research a provisional/incomplete handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, old automatic TWO-SIDED ranking, or a second structural screen during Airtable publication.
+This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that require exact enumeration of every excluded micro/youth/raw fixture before Work, allow Work to research a genuinely incomplete actionable handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, old automatic TWO-SIDED ranking, or a second structural screen during Airtable publication.
