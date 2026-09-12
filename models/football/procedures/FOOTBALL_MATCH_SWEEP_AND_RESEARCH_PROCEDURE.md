@@ -290,3 +290,46 @@ Do not assume a stored kickoff is still future simply because Airtable says so.
 Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence. That evidence may validate, downgrade, rerank, or qualify a strict `CARRIER REOPEN — XI CONFIRMED`, post-XI EGE burden, or MCE state according to the current model, but it must not silently rewrite what PRE originally was.
 
 Live evidence validates or invalidates history; it does not rewrite history.
+
+---
+
+## 13. v0.2.53 ranking-integrity overlay
+
+This section is mandatory for every prospective sweep under Football v0.2.53.
+
+### Route proof before tier
+
+Grade the home and away scoring routes separately as `PROVEN`, `SUPPORTED`, `NOMINAL`, or `FAILED`. Preserve the combined pair in the frozen output.
+
+Apply the v0.2.53 PRE caps:
+
+- `PROVEN + PROVEN` — A1 / FOCUS eligible;
+- `PROVEN + SUPPORTED` — A2 / FOCUS eligible;
+- `SUPPORTED + SUPPORTED` — A2 / FOCUS only with strong chance quality and failure resistance;
+- `PROVEN + NOMINAL` — WATCHLIST unless the proven route is true CC+;
+- `SUPPORTED + NOMINAL` — B+ / WATCHLIST;
+- `NOMINAL + NOMINAL` — PASS;
+- any `FAILED` route — WATCHLIST at most and normally PASS unless true CC+ survives the failure branch;
+- any data-poor substitute — A2 maximum.
+
+FOCUS additionally requires that the supported burden survives the named dominant failure mode. Raw GF/GA, names, opponent leakage, XI preservation, or price may not compensate for a failed route gate.
+
+### Relative ranking
+
+Within each practical kickoff window, rerank by route pair, chance quality, CC+ ceiling, failure-mode resistance, lower supported burden, and evidence confidence. The previously printed grade is not an automatic tiebreaker.
+
+### League gates
+
+Apply the active league registry before promotion. Japanese domestic leagues, including J1, are hard-excluded from 2026-09-12 ICT onward.
+
+For China Super League O3.0+ candidates, require both relevant home/away route environments to support 3+ or one true CC+ carrier. Otherwise record `CSL HIGH-BURDEN GATE FAILED`.
+
+### Identity gate
+
+Use `AISCORE:<fixture_id>` as the preferred unique key. If no ID exists, use competition + normalized teams + kickoff_utc.
+
+Before freezing or publishing, block conflicting duplicate identities:
+
+`COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
+
+No unresolved duplicate may appear twice in a ranking pool or on two slate dates.
