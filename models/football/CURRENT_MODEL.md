@@ -1,14 +1,15 @@
 # Current Football Model
 
-**Active official model:** Football **v0.2.51**  
+**Active official model:** Football **v0.2.52**  
 **Official base:** Football **v0.2.47 CLEAN**  
 **Active official patches:**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — **EXTREME GOAL ENVIRONMENT / PERSISTENT HIGH-LINE**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — **CHANCE-QUALITY + MARKET-CONFIRMATION CALIBRATION**  
+- `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — **CARRIER CEILING + B+ EVIDENCE HARDENING**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **Normal Chat AiScore fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.51 verdict**  
+**Operating workflow:** **Normal Chat AiScore fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board with route-quality + CC+ audit → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank / carrier reopen test → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.52 verdict**  
 **Canonical timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
 
 This file is the operating authority for Football. Historical rules are recoverable from Git history and must not be inferred into current decisions.
@@ -27,12 +28,13 @@ Load only the current active stack:
 6. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.49.md`
 7. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.50.md`
 8. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.51.md`
-9. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-10. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-11. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-12. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+9. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.52.md`
+10. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+11. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+12. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+13. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
-**Conditional auxiliary trial load:** when the user explicitly invokes UEFA Youth League / U19 trial work, additionally load `models/football/trials/UEFA_YOUTH_LEAGUE_TRIAL.md`. It is trial memory only and does not whitelist youth football for the normal senior board or create official v0.2.51 exposure.
+**Conditional auxiliary trial load:** when the user explicitly invokes UEFA Youth League / U19 trial work, additionally load `models/football/trials/UEFA_YOUTH_LEAGUE_TRIAL.md`. It is trial memory only and does not whitelist youth football for the normal senior board or create official v0.2.52 exposure.
 
 Do not load superseded rule files from memory, old handoffs, or Git history into current decisions.
 
@@ -64,7 +66,7 @@ Never add +7 twice. A `Z` timestamp is UTC. Near-term upcoming schedules must be
 
 ## 4. Production sequence
 
-`NORMAL CHAT AISCORE UNIVERSE → TIME/SCOPE FILTER → WORK STRUCTURAL SCREEN → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
+`NORMAL CHAT AISCORE UNIVERSE → TIME/SCOPE FILTER → WORK STRUCTURAL SCREEN → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
 
 Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, and live review.
 
@@ -72,21 +74,21 @@ Work is structural and price/XI/market-history blind. Normal Chat owns XI, openi
 
 ## 5. Official decision order
 
-Official v0.2.51 order:
+Official v0.2.52 order:
 
-`STRUCTURAL QUALITY → CARRIER CEILING → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
+`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
 
-For comparable grades:
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases use:
 
-`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
 
-A genuine TWO-SIDED label requires independent credible scoring routes from both teams. An ELITE CARRIER can outrank only when clearly superior on self-funded ceiling and failure-mode resistance.
+A genuine TWO-SIDED label requires independent credible scoring routes from both teams. Mere lineup preservation does not prove route quality.
 
 ---
 
 ## 6. Structural bands
 
-- **A1** — genuine Tier-A TWO-SIDED, or exceptional ELITE CARRIER.
+- **A1** — genuine Tier-A quality-proven TWO-SIDED, or exceptional ELITE CARRIER.
 - **A2** — strong two-sided environment, or strong carrier with one meaningful weakness.
 - **B+** — good environment but materially dependent on contribution, rotation, game state, or another failure mode.
 - **B / PASS** — fragile route, strong resistance, cohesion issue, weak chance quality, or excessive burden.
@@ -95,15 +97,34 @@ Grade and structure rank ahead of market and price.
 
 ---
 
-## 7. Chance quality and v0.2.51 hardening
+## 7. Chance quality and route-quality hardening
 
 Before promotion, evaluate season/recent GF-GA, scoring/conceding 2+ frequency, suppression tendency, home/away splits and competition context. Where available use big chances, central/box access, SOT quality, xG/xGA/xGOT and comparable creation evidence.
 
-For **STANDARD O3.0+** from A1/A2 TWO-SIDED, apply `MODEL_RULES_FOOTBALL_V0.2.51.md`: both routes together need repeatable high-value chance support or a strong data-poor substitute. Raw goals, names, possession, or generic attacking reputation are not enough by themselves. If evidence is weak, cap burden lower, downgrade confidence, or reclassify the archetype.
+For **STANDARD O3.0+** from A1/A2 TWO-SIDED, apply v0.2.51: both routes together need repeatable high-value chance support or a strong data-poor substitute. Raw goals, names, possession, or generic attacking reputation are not enough by themselves.
+
+Under v0.2.52, also distinguish:
+
+- `TWO-SIDED — QUALITY PROVEN`; and
+- `TWO-SIDED — NOMINAL / WEAK SECONDARY`.
+
+A nominal second route does not receive the full Two-Sided Priority ranking premium.
 
 ---
 
-## 8. Frozen PRE and XI rerank
+## 8. Carrier Ceiling / CC+
+
+Use `CC+ — CARRIER CEILING` for a team with credible independent 3+ team-goal potential supported by repeatable scoring/chance evidence and enough attacking depth to sustain pressure after the first goal.
+
+At PRE, before burying a strong favorite/carrier as B/PASS, explicitly audit whether recent low scoring is true chance suppression or merely outcome/finishing/schedule noise. If a credible self-funded ceiling exists but XI uncertainty blocks promotion, tag:
+
+`CC+ CANDIDATE — XI SENSITIVE`
+
+At final XI, a narrow football-led `CARRIER REOPEN — XI CONFIRMED` is allowed for a frozen B/PASS only under the strict v0.2.52 conditions. Market movement alone still cannot rescue PASS.
+
+---
+
+## 9. Frozen PRE and XI rerank
 
 Frozen Work PRE remains history. Confirmed XI is the first legitimate rerank gate.
 
@@ -114,11 +135,13 @@ Classify rotation as:
 
 Only the second is an automatic burden downgrade.
 
+Under v0.2.52, **ATTACKING DEPTH PRESERVED is baseline confirmation, not a positive upgrade**. A genuine `XI UPGRADE` requires materially stronger attacking evidence than the frozen uncertainty.
+
 If both teams lose important creators/finishers, or the primary route plus opponent contribution are both materially weakened, apply `DUAL-ROUTE XI DAMAGE` under v0.2.51. A protected line alone cannot rescue that state.
 
 ---
 
-## 9. Mandatory market-history conflict check
+## 10. Mandatory market-history conflict check
 
 Normal Chat should attempt:
 
@@ -136,13 +159,13 @@ Movement labels:
 
 First-pass XI must be football-led. Market history then challenges/corroborates it. A bullish line move against an apparent XI downgrade requires explicit reinspection before finalizing route damage.
 
-Market history cannot rewrite frozen PRE, create TWO-SIDED, create EGE, or rescue PASS.
+Market history cannot rewrite frozen PRE, create TWO-SIDED, create EGE, or rescue PASS by itself.
 
 ---
 
-## 10. Goal-burden regimes
+## 11. Goal-burden regimes
 
-After final XI, classify:
+After final XI choose:
 
 - `STANDARD`; or
 - `EGE — EXTREME GOAL ENVIRONMENT` under v0.2.50.
@@ -153,9 +176,9 @@ Persistent high-line acceptance and the no-chase rule remain active: a goal-driv
 
 ---
 
-## 11. v0.2.51 Market-Confirmed Edge (MCE)
+## 12. v0.2.51 Market-Confirmed Edge (MCE)
 
-For eligible STANDARD A2/B+ TWO-SIDED cases, v0.2.51 permits the narrow tag:
+For eligible STANDARD A2/B+ TWO-SIDED cases, v0.2.51 permits:
 
 `MCE +0.25 — MARKET-CONFIRMED EDGE`
 
@@ -165,13 +188,25 @@ MCE does not create EGE or structural quality and cannot override DUAL-ROUTE XI 
 
 ---
 
-## 12. B+ compression hardening
+## 13. B+ compression hardening
 
-For B+ with an explicit derby/first-leg/1-0/1-1/control or weak-secondary-route failure mode, protection alone is not enough. Require an additional positive gate from XI improvement, strong market corroboration with intact football evidence, fresh chance-quality evidence, or clearly intact two-sided routes at a materially protected line.
+For B+ with an explicit derby/first-leg/1-0/1-1/control/weak-secondary/late-goal-dependence failure mode, protection alone is not enough.
+
+Under v0.2.52:
+
+- XI preservation is neutral;
+- line protection is execution protection, not football evidence;
+- price is not a structural positive gate.
+
+Require at least one independent positive gate beyond preservation: fresh chance-quality support, a genuine XI upgrade, verified same-source market corroboration that agrees with intact football evidence, material opponent defensive weakening, or a strong CC+ self-funded ceiling.
+
+If none exists:
+
+`B+ PRESERVATION-ONLY HOLD`
 
 ---
 
-## 13. User-supplied XI + current odds
+## 14. User-supplied XI + current odds
 
 The user normally supplies confirmed XI and current executable Asian-total odds. Do not substitute an external current price unless explicitly asked.
 
@@ -181,7 +216,7 @@ Do not issue an OFFICIAL LOCK without required current XI + executable price.
 
 ---
 
-## 14. Executable price policy
+## 15. Executable price policy
 
 - hard minimum decimal odds: **1.65**;
 - preferred: **1.70+**;
@@ -192,29 +227,31 @@ Do not issue an OFFICIAL LOCK without required current XI + executable price.
 
 ---
 
-## 15. Official and shadow tracks
+## 16. Official and shadow tracks
 
 Use the same frozen evidence snapshot:
 
-- **Official:** Football v0.2.51
+- **Official:** Football v0.2.52
 - **Shadow:** Football v0.2.47 CLEAN
 - **Shadow:** Football v0.2.48-SHADOW
 
-v0.2.49/v0.2.50/v0.2.51 patches apply only to the official track. Shadows remain version-faithful and never enter official P/L.
+v0.2.49/v0.2.50/v0.2.51/v0.2.52 patches apply only to the official track. Shadows remain version-faithful and never enter official P/L.
 
 ---
 
-## 16. Live and audit boundary
+## 17. Live and audit boundary
 
 Live evidence validates or invalidates frozen PRE; it does not rewrite it. Keep v0.2.50 no-chase and HT compression/remaining-goal-budget logic.
 
-Audit high-scoring one-team results carefully:
+Audit outcomes carefully:
 
 - both routes contribute → `CLEAN TWO-SIDED VALIDATION`;
 - one carrier supplies the total → `CARRIER VALIDATION — NOT CLEAN TWO-SIDED`;
 - expected chance quality never appears → `CHANCE-QUALITY MISS`;
 - chances appear but goals do not → `CONVERSION VARIANCE`;
-- named control branch dominates → `COMPRESSION FAILURE`.
+- named control branch dominates → `COMPRESSION FAILURE`;
+- a nominal two-sided candidate was ranked above a materially stronger self-funded carrier and failed → `RELATIVE-RANKING MISS`;
+- a carrier was buried because low recent scores were overweighted despite preserved ceiling → `RECENT-SCORE SUPPRESSION OVERWEIGHTED`.
 
 A temporarily active failure mode is not automatically a model invalidation if the protected prematch line, carrier route and second-half escalation capacity remain intact.
 
@@ -222,6 +259,6 @@ Standard full-match Asian totals settle on 90 minutes + stoppage unless stated o
 
 ---
 
-## 17. Authority and history
+## 18. Authority and history
 
-For current decisions, this file and the canonical load order win over stale chat text, old handoffs, archived screenshots and superseded documentation. v0.2.51 is prospective from 2026-09-11 ICT; historical decisions remain settled under the model/version that produced them.
+For current decisions, this file and the canonical load order win over stale chat text, old handoffs, archived screenshots and superseded documentation. v0.2.52 is prospective from 2026-09-12 ICT. The Sep 12 Tijuana–Querétaro official loss remains settled under v0.2.51 and Atlante–Pachuca remains a historical PASS with no retrospective P/L rewrite.
