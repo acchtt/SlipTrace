@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
 **Table ID:** `tblcl1UAyMqZT6Ub0`  
-**Official model:** Football v0.2.50
+**Official model:** Football v0.2.52
 
 This table is the coverage-control and cross-chat bridge for the current football workflow. It records every fixture in the reconciled AiScore slate and preserves the **frozen Work PRE state** for later user-supplied XI/odds review.
 
@@ -115,7 +115,14 @@ The existing comparison fields:
 
 are shadow/comparison fields only. They do not define the official board tier and must not overwrite the official frozen PRE state.
 
-v0.2.50 EGE is a later post-XI assessment and does not rewrite these frozen PRE fields.
+Post-XI v0.2.50 EGE, v0.2.51 MCE, and v0.2.52 carrier-reopen/execution states do not rewrite these frozen PRE fields.
+
+Under v0.2.52, preserve route-quality and carrier-ceiling context in `Frozen PRE Summary` / `Coverage Notes` where relevant, including:
+
+- `TWO-SIDED — QUALITY PROVEN`;
+- `TWO-SIDED — NOMINAL / WEAK SECONDARY`;
+- `CC+ — CARRIER CEILING`;
+- `CC+ CANDIDATE — XI SENSITIVE`.
 
 ---
 
@@ -129,7 +136,7 @@ When publishing to Airtable:
 2. copy the Work PRE grade exactly;
 3. copy the Work structural type exactly;
 4. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
-5. preserve the Work thesis/failure-mode summary in `Frozen PRE Summary` / `Coverage Notes`;
+5. preserve the Work thesis/failure-mode plus route-quality / CC+ summary in `Frozen PRE Summary` / `Coverage Notes`;
 6. set XI/market status to pending/user-supplied as appropriate;
 7. preserve canonical kickoff semantics;
 8. do **not** run another structural screen during publication.
@@ -156,7 +163,7 @@ Until corrected:
 - do not let the conflicting Airtable row auto-PASS or auto-promote the match;
 - correct the Airtable record so the bridge again represents the frozen Work state.
 
-Later XI/price/EGE reranks should be logged as later assessment states, not by rewriting what PRE originally was.
+Later XI/price/EGE/MCE/carrier-reopen reranks should be logged as later assessment states, not by rewriting what PRE originally was.
 
 ---
 
@@ -194,7 +201,8 @@ Also verify:
 - no excluded youth/reserve/lower/small fixture survived;
 - no Finnish domestic league fixture survived the overlay from its effective date;
 - the underlying AiScore handoff has `audit.complete = true` and passed cross-midnight/date-page checks;
-- every active board fixture passed normalized ICT window/date integrity.
+- every active board fixture passed normalized ICT window/date integrity;
+- every strong-carrier B/PASS has a documented CC+ audit result under v0.2.52.
 
 If publication or counts fail:
 
@@ -206,7 +214,7 @@ If publication or counts fail:
 
 The intended current workflow is:
 
-`AiScore handoff → Work structural sweep → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.50 STANDARD/EGE assessment`
+`AiScore handoff → Work structural sweep + route-quality/CC+ audit → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.52 STANDARD/EGE/MCE/carrier-reopen assessment`
 
 Normal Chat should read the persisted frozen state rather than reconstructing the board from conversational memory.
 
@@ -216,6 +224,6 @@ However, the bridge is only authoritative when it faithfully mirrors the Work ar
 
 ## 11. Do not overload the coverage table
 
-The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market/EGE verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
+The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market/EGE/MCE/carrier-reopen verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
 
 Do not turn the coverage row into a mutable history that erases earlier PRE state.
