@@ -1,7 +1,7 @@
 # Football Coverage Controller
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.51  
+**Official model:** Football v0.2.52  
 **Coverage authority:** AiScore fixture universe + current senior-quality overlay  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
@@ -13,7 +13,7 @@ The coverage controller prevents silent fixture omission, wrong-date schedule co
 
 The required sequence is:
 
-`AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → STEP-0 RECONCILIATION / WORK_READY GATE → WORK SCREEN EVERY ACTIONABLE FIXTURE → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK → GOAL BURDEN / EGE / MCE WHEN ELIGIBLE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
+`AISCORE UNIVERSE → TIME/SCHEDULE INTEGRITY → SENIOR-QUALITY ELIGIBILITY → STEP-0 RECONCILIATION / WORK_READY GATE → WORK SCREEN EVERY ACTIONABLE FIXTURE → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → PERSIST → USER-SUPPLIED XI RERANK / CARRIER REOPEN TEST → GOAL BURDEN / EGE / MCE WHEN ELIGIBLE → USER-SUPPLIED PRICE → OFFICIAL/SHADOW VERDICTS`
 
 Do not begin by selecting a few credible candidates. Every actionable fixture must be screened first, **but Work screening cannot begin until Step 0 has produced a complete reconciled universe.**
 
@@ -32,8 +32,6 @@ Required checks:
 - terminal requested kickoff interval/cutoff is checked;
 - every discovered fixture is normalized and counted once;
 - no known AiScore competition/league block inside the window remains unvisited or unresolved.
-
-If a window crosses midnight, both calendar dates are mandatory traversal targets. If the cutoff is 03:00 ICT, verify the 03:00 interval even when the latest discovered fixture is earlier.
 
 If this gate fails:
 
@@ -60,8 +58,6 @@ If any item is false, absent, contradictory or provisional:
 `HANDOFF INCOMPLETE — RERUN NORMAL CHAT STEP 0`
 
 This is a **hard downstream stop**. Work must research **zero fixtures** and must not publish a provisional PRE board from the confirmed subset. It must not perform its own fixture sweep or broad web backfill.
-
-The purpose of this gate is both integrity and usage control: expensive Work research begins only once the cheap Normal Chat discovery/filter stage is complete.
 
 ---
 
@@ -117,6 +113,8 @@ After the Work-readiness hard gate passes, every Work-admitted actionable fixtur
 - competition;
 - PRE grade;
 - structural archetype;
+- route-quality state: `TWO-SIDED — QUALITY PROVEN` or `TWO-SIDED — NOMINAL / WEAK SECONDARY` where relevant;
+- carrier-ceiling state: `CC+ — CARRIER CEILING`, `CC+ CANDIDATE — XI SENSITIVE`, or documented reason CC+ failed where relevant;
 - primary scoring route;
 - secondary route/opponent contribution where relevant;
 - main failure mode;
@@ -124,13 +122,31 @@ After the Work-readiness hard gate passes, every Work-admitted actionable fixtur
 - structural total range/ceiling when supportable;
 - one board state: `FOCUS`, `WATCHLIST`, `PASS`, or `UNRESOLVED`.
 
-Use the current official model hierarchy. For comparable grades:
+### 5.1 Mandatory CC+ audit before strong-carrier PASS
 
-`TWO-SIDED > ELITE CARRIER > CARRIER-LED > FRAGILE / OTHER`
+Before assigning B/PASS to a fixture containing a strong favorite/carrier, Work must explicitly answer:
+
+1. Does the carrier possess credible independent 3+ team-goal potential?
+2. Are recent low scores supported by true chance suppression, or could they reflect finishing/outcome/schedule noise?
+3. Does the carrier have enough repeatable attacking quality to survive weak opponent contribution?
+
+If yes but XI uncertainty blocks promotion, use:
+
+`CC+ CANDIDATE — XI SENSITIVE`
+
+rather than silently burying the match.
+
+### 5.2 PRE ranking hierarchy
+
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A grades:
+
+`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
+
+A B+ nominal two-sided candidate must not automatically outrank a materially stronger self-funded carrier.
 
 Price is not part of PRE ranking.
 
-EGE and MCE are later-stage gates and are not assigned during the frozen PRE sweep.
+EGE, MCE and `CARRIER REOPEN — XI CONFIRMED` are later-stage gates and are not assigned as final execution states during the frozen PRE sweep.
 
 ---
 
@@ -146,7 +162,9 @@ Structurally live candidates with one or more material failure modes or sensitiv
 
 ### PASS
 
-The structural route did not clear the current PRE standard. Price or recognizable XI names may not resurrect a genuine PRE PASS without a documented material structural change.
+The structural route did not clear the current PRE standard. Price or recognizable XI names may not resurrect a genuine PRE PASS.
+
+A strong-carrier PASS must contain a documented CC+ audit result. If PRE identified a plausible carrier ceiling but XI uncertainty prevented promotion, preserve `CC+ CANDIDATE — XI SENSITIVE` so the later strict v0.2.52 carrier-reopen test can distinguish it from a genuine hard PASS.
 
 ### UNRESOLVED
 
@@ -162,6 +180,8 @@ The frozen record includes at least:
 
 - PRE grade;
 - structural archetype;
+- route-quality state;
+- CC+/CC+ candidate state where relevant;
 - board tier/state;
 - primary/secondary routes;
 - main failure mode;
@@ -169,7 +189,7 @@ The frozen record includes at least:
 - structural burden/range;
 - canonical corrected kickoff semantics.
 
-Downstream stages may rerank or downgrade based on new evidence, and active post-XI rules may open documented EGE/MCE assessment epochs, but neither may reconstruct a different frozen PRE from scratch.
+Downstream stages may rerank or downgrade based on new evidence, and active post-XI rules may open documented EGE/MCE or strict carrier-reopen assessment epochs, but none may reconstruct a different frozen PRE from scratch.
 
 ---
 
@@ -177,7 +197,7 @@ Downstream stages may rerank or downgrade based on new evidence, and active post
 
 Publishing the Work screen to `Daily Coverage Ledger` is a **copy/upsert of the frozen screen**, not another model run.
 
-The publish step must preserve Work output exactly in the fields available in the Airtable contract.
+The publish step must preserve Work output exactly in the fields available in the Airtable contract, including route-quality and CC+ context in summary/notes.
 
 For datetime fields:
 
@@ -219,6 +239,7 @@ Also verify:
 - all FOCUS + WATCHLIST rows are persisted;
 - no youth/reserve/lower/small fixture survives the actionable overlay;
 - no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
+- every strong-carrier B/PASS has a documented CC+ audit result;
 - no date/competition block within the requested AiScore window is unaccounted for;
 - no fixture outside the requested corrected ICT window appears on the board;
 - no schedule-integrity unresolved fixture appears in the Work array.
@@ -237,13 +258,22 @@ If Step 0 passed but the Work disposition counts fail after research:
 
 ## 10. Same-window survival and rerank
 
-At confirmed XI, compare all surviving FOCUS/WATCHLIST candidates in the same practical kickoff window rather than reviewing them in isolation.
+At confirmed XI, compare all surviving FOCUS/WATCHLIST candidates and any qualifying `CC+ CANDIDATE — XI SENSITIVE` carrier-reopen cases in the same practical kickoff window rather than reviewing them in isolation.
 
 Use corrected `kickoff_ict`, not raw Airtable `Z` timestamps, to define the window.
 
-The official v0.2.51 order is governed by `CURRENT_MODEL.md` and the active patches, including chance-quality hardening and the post-XI market-history/MCE logic where eligible.
+The official v0.2.52 order is governed by `CURRENT_MODEL.md` and active patches.
 
-Confirmed XI is the first legitimate rerank gate after frozen PRE.
+Explicitly compare:
+
+- quality-proven vs nominal two-sidedness;
+- CC+ self-funded carrier ceiling;
+- chance-quality support;
+- failure-mode resistance;
+- dependence on weaker-team contribution;
+- required burden.
+
+Confirmed XI is the first legitimate rerank gate after frozen PRE. Under v0.2.52, `ATTACKING DEPTH PRESERVED` is neutral baseline confirmation and does not by itself create an upgrade.
 
 ---
 
@@ -306,4 +336,4 @@ A live result must never be used to pretend the omitted match would certainly ha
 
 ## 14. Authority
 
-This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that allow Work to research a provisional/incomplete handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, or a second structural screen during Airtable publication.
+This controller is subordinate to upstream `CURRENT_MODEL.md`, `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`, and the active rule files, but it supersedes old coverage instructions that allow Work to research a provisional/incomplete handoff, rely on multi-source fixture unions, raw-UTC schedule display, stale upcoming timestamps, legacy competition whitelists, old automatic TWO-SIDED ranking, or a second structural screen during Airtable publication.
