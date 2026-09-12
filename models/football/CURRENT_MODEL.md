@@ -9,8 +9,9 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — **CARRIER CEILING + B+ EVIDENCE HARDENING**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **Normal Chat AiScore actionable-senior fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board with route-quality + CC+ audit → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank / carrier reopen test → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.52 verdict**  
-**Canonical timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)
+**Operating workflow:** **Normal Chat AiScore actionable-senior fetch/filter → scope-pruned Work handoff → price/XI/market-history-blind Work structural sweep → frozen FOCUS/WATCHLIST board with route-quality + CC+ audit → later schedule-time timezone normalization when needed → Normal Chat first-pass XI → OPEN/PRE-XI/POST-XI market-history conflict check → final XI rerank / carrier reopen test → chance-quality hardening / burden regime → MCE test when eligible → user-supplied current executable odds → v0.2.52 verdict**  
+**Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
+**Step-0 time policy:** **preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling**
 
 This file is the operating authority for Football. Historical rules are recoverable from Git history and must not be inferred into current decisions.
 
@@ -44,13 +45,13 @@ Do not load superseded rule files from memory, old handoffs, or Git history into
 
 **AiScore is the sole fixture-discovery authority.** Other sources may research an AiScore-established fixture but may not add fixtures to the universe.
 
-Normal Chat Step 0 owns fixture discovery, time normalization, cheap league/scope filtering, and the handoff. Work must **not** repeat the AiScore sweep when the handoff passes the actionable-completeness gate.
+Normal Chat Step 0 owns fixture discovery, **source-time capture**, cheap league/scope filtering, and the handoff. Step 0 preserves AiScore kickoff time in its source timezone/offset and does **not** need to calculate `kickoff_ict` for every discovered fixture. Work must **not** repeat the AiScore sweep when the handoff passes the actionable-completeness gate.
 
 The normal actionable board uses the current senior-quality overlay. Exclude youth/Uxx, academy, reserves/B/development, amateur/semi-pro, regional/state/provincial, unapproved lower divisions, weak obscure competitions, all Finnish domestic leagues, and the current low-goal hard/cheap-gate exclusions defined by the scope/league registry. Senior continental and domestic cup matches are not excluded merely because they are cups.
 
 ### Actionable completeness vs raw audit completeness
 
-For production, `complete=true` means **actionable senior completeness** for the requested ICT window. Step 0 must prove that every potentially actionable senior league/cup/continental block in scope was checked, the terminal requested interval was checked, and every admitted fixture is accounted for.
+For production, `complete=true` means **actionable senior completeness** for the requested sweep. Step 0 must prove that every potentially actionable senior league/cup/continental block relevant to the requested period was checked and every admitted fixture is accounted for. Fixtures near timezone/date boundaries may carry `window_status=pending_conversion`; this does not block Step 0 merely because final ICT conversion has been deferred.
 
 Exact one-by-one enumeration of already-excluded youth/reserve/lower/amateur/regional/hard-excluded fixtures is a separate audit dimension. If AiScore exposes those only through fragmented dynamic snapshots, Step 0 may set:
 
@@ -70,17 +71,21 @@ Follow `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
 
 Canonical invariant:
 
-`AISCORE IDENTITY → kickoff_utc → ONE conversion to Asia/Ho_Chi_Minh → kickoff_ict → slate_date_ict → status revalidation → schedule display`
+`AISCORE IDENTITY → PRESERVE SOURCE LOCAL TIME + TIMEZONE/OFFSET → ACTIONABLE FILTER / WORK HANDOFF → LATER ONE-TIME CONVERSION TO Asia/Ho_Chi_Minh WHEN SCHEDULING → slate_date_ict → status revalidation → schedule display`
 
-Never add +7 twice. A `Z` timestamp is UTC. Near-term upcoming schedules must be revalidated against AiScore status.
+At Step 0, preserve the source kickoff and timezone/offset exactly. Do not guess a timezone from geography and do not write a foreign-zone source time into Airtable's `Kickoff ICT` field. `kickoff_ict` is normally derived later only when scheduling, same-window ranking, countdowns, or final window pruning requires it.
+
+A `Z` timestamp still means UTC. Never convert the same timestamp twice. Near-term upcoming schedules must be revalidated against AiScore status.
+
+This source-time-preservation policy overrides older subordinate instructions that still require every fixture to be converted to ICT during discovery.
 
 ---
 
 ## 4. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → TIME/SCOPE FILTER → ACTIONABLE_COMPLETENESS / WORK_READY GATE → WORK STRUCTURAL SCREEN → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → SOURCE-TIME PRESERVATION + SCOPE FILTER → ACTIONABLE_COMPLETENESS / WORK_READY GATE → WORK STRUCTURAL SCREEN → ROUTE-QUALITY + CC+ AUDIT → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → LATER ICT SCHEDULE NORMALIZATION WHEN NEEDED → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
 
-Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, and live review. Work must not repair non-blocking raw-audit gaps.
+Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, schedule conversion/display, and live review. Work must not repair non-blocking raw-audit gaps.
 
 ---
 
