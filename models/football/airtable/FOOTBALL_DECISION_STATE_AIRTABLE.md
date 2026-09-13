@@ -3,7 +3,7 @@
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
-**Official model:** Football v0.2.53  
+**Official model:** Football v0.2.54  
 **Shadow comparison models:** v0.2.47 CLEAN and v0.2.48-SHADOW
 
 This table records material football assessment states after the frozen coverage/PRE stage. It must preserve version fidelity and must not rewrite historical PRE state.
@@ -16,13 +16,13 @@ Every material record must identify the model version that actually produced it.
 
 Current tracks:
 
-- **Official:** `Football v0.2.53`
+- **Official:** `Football v0.2.54`
 - **Shadow:** `Football v0.2.47 CLEAN`
 - **Shadow:** `Football v0.2.48-SHADOW`
 
-Historical v0.2.49/v0.2.50/v0.2.51/v0.2.52 decisions remain under the version that actually produced them. Do not relabel them as v0.2.53.
+Historical v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53 decisions remain under the version that actually produced them. Do not relabel them as v0.2.54.
 
-Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53 patches into either shadow track.
+Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54 patches into either shadow track.
 
 ---
 
@@ -171,7 +171,7 @@ If either required final input is missing:
 
 ## 7. Current decision order
 
-Official v0.2.53 material decisions follow:
+Official v0.2.54 material decisions follow:
 
 `STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
 
@@ -205,7 +205,7 @@ Historical price/line movement is contextual evidence; the user-supplied current
 
 ## 9. Official verdict semantics
 
-### Official v0.2.53
+### Official v0.2.54
 
 - affirmative final selection = **OFFICIAL LOCK**;
 - HOLD/PASS = no official exposure.
@@ -326,3 +326,23 @@ If missing:
 Resolve the Decision State to one canonical AiScore fixture ID. If multiple conflicting coverage rows exist, do not choose one silently or publish a material verdict. Record:
 
 `COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
+
+
+---
+
+## 15. v0.2.54 execution-class and shadow recording
+
+For each material final assessment preserve separately:
+
+- `Structural Rank` and same-window position;
+- supported target burden;
+- actual offered line/price;
+- `Execution Class`: DIRECT LOCK ELIGIBLE / QUALIFIED — WAIT FOR DECAY / STRUCTURAL HOLD / SHADOW ONLY;
+- reason the execution class differs from the structural rank;
+- any lower-rank exposure exception and its football reason.
+
+Use `QUALIFIED — WAIT FOR DECAY` only when football gates clear at a recorded target burden but the offered line is higher or the target-line price is below the floor. Use `STRUCTURAL HOLD` for failed or unresolved football gates. Never collapse these states.
+
+MCE/+0.25 and all new live/relative-decay Over entries are shadow-only under v0.2.54. Record the contemporaneous line, odds, minute/evidence epoch and later settlement in Decision States, but never write them to Website Picks or official P/L.
+
+For completed FOCUS/WATCHLIST rows retain final score and target-burden outcome even without official exposure. These outcomes are counterfactual calibration only and must remain separate from official betting results.
