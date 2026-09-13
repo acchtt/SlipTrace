@@ -332,12 +332,16 @@ Resolve the Decision State to one canonical AiScore fixture ID. If multiple conf
 
 ## 15. v0.2.54 execution-class and shadow recording
 
-For each material final assessment preserve separately:
+For each material final assessment preserve separately using the dedicated fields:
 
-- `Structural Rank` and same-window position;
-- supported target burden;
+- `Structural Rank` (`fldSNhIWdJlVezjAo`) and same-window position;
+- `Execution Class` (`fldZcms9JtuDejyFf`);
+- `Supported Target Line` (`fldiO8CMqfNsXEElI`);
+- `Target Min Odds` (`fldJaMBKCbHQEwzbY`);
+- `Calibration Track` (`fldmyYyCfrPWdBlkc`);
+- `Calibration Result` (`fldJ3vArND9brP7Yz`);
+- `Calibration P/L u` (`fldLG8esTF1a3xYMe`);
 - actual offered line/price;
-- `Execution Class`: DIRECT LOCK ELIGIBLE / QUALIFIED — WAIT FOR DECAY / STRUCTURAL HOLD / SHADOW ONLY;
 - reason the execution class differs from the structural rank;
 - any lower-rank exposure exception and its football reason.
 
