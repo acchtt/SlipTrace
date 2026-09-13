@@ -1,7 +1,7 @@
 # Football Match Sweep and Research Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.52  
+**Official model:** Football v0.2.54  
 **Fixture authority:** AiScore only  
 **Timezone:** Asia/Ho_Chi_Minh (ICT)  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
@@ -211,7 +211,7 @@ Do **not** automatically rank a B+ nominal two-sided match above a carrier with 
 
 For every FOCUS/WATCHLIST row, preserve whether the route label is quality-proven or nominal. For every strong-carrier B/PASS row, preserve why CC+ failed or whether it remains `CC+ CANDIDATE — XI SENSITIVE`.
 
-The Work output is a **frozen structural PRE board**, not an official betting card.
+Assign every surviving FOCUS/WATCHLIST candidate a stable same-window Structural Rank plus supported burden/range. The Work output is a **frozen structural PRE board**, not an official betting card.
 
 Until user-supplied XI + odds arrive:
 
@@ -333,3 +333,12 @@ Before freezing or publishing, block conflicting duplicate identities:
 `COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
 
 No unresolved duplicate may appear twice in a ranking pool or on two slate dates.
+
+
+---
+
+## 14. v0.2.54 structural-rank output
+
+Within every practical kickoff window, freeze the full candidate order—not only FOCUS/WATCHLIST labels. For each surviving candidate record Structural Rank, route pair, chance-quality state, CC+ state, dominant failure mode, supported burden/range and evidence confidence.
+
+Do not create a price-derived HOLD during Work. At Step 2, a structurally qualified candidate with an unavailable/too-short target offer becomes `QUALIFIED — WAIT FOR DECAY`; a candidate with failed football gates becomes `STRUCTURAL HOLD`. These states must remain distinct for ranking and audit.
