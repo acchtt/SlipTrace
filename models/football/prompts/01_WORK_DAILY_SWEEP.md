@@ -94,7 +94,7 @@ Only after the actionable pre-flight gate passes, treat the admitted fixture arr
 
 The handoff should already have removed model-quality exclusions, low-goal domestic leagues, Finnish domestic leagues, and conditional-league fixtures that failed/no-data'd the cheap admission gate. **Do not reintroduce those fixtures and do not spend deep research usage reconsidering them.**
 
-Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
+Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model. Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
 This stage is price/XI/market-history blind. Do not use downstream Decision States or Website Picks. Do not run opening-odds watch, confirmed-XI review, live, settlement, post-slate audit, or shadow comparison work here.
 
@@ -106,4 +106,6 @@ Reconcile the complete **Work-admitted actionable universe** once at the end. Pu
 
 If actionable pre-flight fails, stop with the applicable handoff failure code and **zero fixtures researched**.
 
-If actionable pre-flight passes, return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST, Airtable publish PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
+If actionable pre-flight passes, return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST with structural rank + route pair + supported burden, Airtable publish PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
+
+Under v0.2.54, Work remains price-blind and does not assign final execution class. It must preserve the ranked candidate pool so Step 2 can distinguish `QUALIFIED — WAIT FOR DECAY` from `STRUCTURAL HOLD` without reconstructing PRE or burying a high-ranked qualified candidate.
