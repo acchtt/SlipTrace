@@ -1,6 +1,6 @@
 # Current Football Model
 
-**Active official model:** Football **v0.2.53**  
+**Active official model:** Football **v0.2.54**  
 **Official base:** Football **v0.2.47 CLEAN**  
 **Active official patches:**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — **TWO-SIDED PRIORITY**  
@@ -8,9 +8,10 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — **CHANCE-QUALITY + MARKET-CONFIRMATION CALIBRATION**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — **CARRIER CEILING + B+ EVIDENCE HARDENING**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — **RANKING INTEGRITY + EXECUTION VALIDATION**  
+- `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — **SELECTION INVERSION GUARD + PROMOTION QUARANTINE**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
-**Operating workflow:** **Normal Chat AiScore actionable-senior fetch/filter → unique-identity + scope gate → price/XI/market-history-blind Work structural sweep → per-team route proof + non-compensatory PRE caps → frozen FOCUS/WATCHLIST board → same-window relative rerank → later ICT normalization when needed → Normal Chat first-pass XI → market-history conflict check → final XI / carrier reopen → chance-quality + league burden gate → MCE hard validator when eligible → synchronized live-evidence gate if applicable → user-supplied current executable odds → v0.2.53 verdict**  
+**Operating workflow:** **Normal Chat AiScore actionable-senior fetch/filter → unique-identity + scope gate → price/XI/market-history-blind Work structural sweep → per-team route proof + non-compensatory PRE caps → frozen FOCUS/WATCHLIST board → same-window relative rerank → later ICT normalization when needed → Normal Chat first-pass XI → market-history conflict check → final XI / carrier reopen → chance-quality + league burden gate → MCE shadow validator when eligible → live/relative-decay shadow gate if applicable → user-supplied current executable odds → structural rank + v0.2.54 execution class → direct official verdict / shadows**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Step-0 time policy:** **preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling**
 
@@ -32,10 +33,11 @@ Load only the current active stack:
 8. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.51.md`
 9. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.52.md`
 10. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.53.md`
-11. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-12. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-13. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-14. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+11. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.54.md`
+12. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+13. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+14. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+15. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 **Conditional auxiliary trial load:** when the user explicitly invokes UEFA Youth League / U19 trial work, additionally load `models/football/trials/UEFA_YOUTH_LEAGUE_TRIAL.md`. It is trial memory only and does not whitelist youth football for the normal senior board or create official v0.2.53 exposure.
 
@@ -85,7 +87,7 @@ This source-time-preservation policy overrides older subordinate instructions th
 
 ## 4. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE_COMPLETENESS / WORK_READY GATE → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW RELATIVE RERANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → LATER ICT NORMALIZATION WHEN NEEDED → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE-QUALITY + LEAGUE BURDEN GATE → STANDARD/EGE → MCE HARD VALIDATOR WHEN ELIGIBLE → CURRENT PRICE → OFFICIAL VERDICT + SHADOWS`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE_COMPLETENESS / WORK_READY GATE → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW RELATIVE RERANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → LATER ICT NORMALIZATION WHEN NEEDED → NORMAL CHAT FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE-QUALITY + LEAGUE BURDEN GATE → STANDARD/EGE → MCE SHADOW VALIDATOR WHEN ELIGIBLE → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → DIRECT OFFICIAL VERDICT + SHADOWS`
 
 Work is structural and price/XI/market-history blind. Normal Chat owns XI, opening-to-close odds watch, execution, schedule conversion/display, and live review. Work must not repair non-blocking raw-audit gaps.
 
@@ -93,9 +95,9 @@ Work is structural and price/XI/market-history blind. Normal Chat owns XI, openi
 
 ## 5. Official decision order
 
-Official v0.2.53 order:
+Official v0.2.54 order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CARRIER CEILING / CC+ → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → MCE HARD VALIDATOR → CURRENT PRICE → LOCK / HOLD`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CARRIER CEILING / CC+ → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → MCE SHADOW VALIDATOR → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → DIRECT LOCK / QUALIFIED WAIT / STRUCTURAL HOLD / SHADOW`
 
 Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases use:
 
@@ -203,7 +205,7 @@ For eligible STANDARD A2/B+ TWO-SIDED cases, v0.2.51 permits:
 
 Use only when all v0.2.51 conditions clear: preserved XI, credible 3-goal ceiling, same-source/normalized bullish +0.25 move, current line only +0.25 above frozen burden, price at least 1.75, and no dominant compression/suppression branch.
 
-Under v0.2.53 this is a hard validator: only prematch post-XI A2 FOCUS or B+ WATCHLIST with at least `SUPPORTED + SUPPORTED` route proof can qualify. A1, B/PASS, UNRESOLVED, live/in-play, cross-book pseudo-history, or ordinary live price decay hard-fails MCE.
+v0.2.53 hardened this validator. Under v0.2.54, even a fully valid MCE state is shadow-only: only prematch post-XI A2 FOCUS or B+ WATCHLIST with at least `SUPPORTED + SUPPORTED` route proof may be recorded as `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`. A1, B/PASS, UNRESOLVED, live/in-play, cross-book pseudo-history, or ordinary live price decay hard-fails MCE.
 
 MCE does not create EGE or structural quality and cannot override DUAL-ROUTE XI DAMAGE.
 
@@ -252,17 +254,17 @@ Do not issue an OFFICIAL LOCK without required current XI + executable price.
 
 Use the same frozen evidence snapshot:
 
-- **Official:** Football v0.2.53
+- **Official:** Football v0.2.54
 - **Shadow:** Football v0.2.47 CLEAN
 - **Shadow:** Football v0.2.48-SHADOW
 
-v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53 patches apply only to the official track. Shadows remain version-faithful and never enter official P/L.
+v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54 patches apply only to the official track. Shadows remain version-faithful and never enter official P/L.
 
 ---
 
 ## 17. Live and audit boundary
 
-Live evidence validates or invalidates frozen PRE; it does not rewrite it. Keep v0.2.50 no-chase and HT compression/remaining-goal-budget logic.
+Live evidence validates or invalidates frozen PRE; it does not rewrite it. Keep v0.2.50 no-chase and HT compression/remaining-goal-budget logic. Under v0.2.54 every new live/relative-decay Over is shadow-only and creates no official exposure.
 
 Audit outcomes carefully:
 
@@ -288,7 +290,7 @@ The existing Japanese domestic-league HARD EXCLUDE, including J1, remains active
 
 AiScore fixture ID is the preferred unique key. Conflicting duplicate identity/date/kickoff/grade/tier rows block active publication and ranking until resolved.
 
-A live official Over requires synchronized current chance-quality evidence with score, minute, line/odds, conversion quality, and remaining-goal budget. Otherwise use `LIVE CHANCE QUALITY UNAVAILABLE — HOLD`.
+v0.2.53 required synchronized current chance-quality evidence for a live official Over. v0.2.54 supersedes that eligibility: every new live/relative-decay Over is shadow-only; missing synchronized evidence still uses `LIVE CHANCE QUALITY UNAVAILABLE — HOLD`.
 
 Rolling FOCUS vs WATCHLIST calibration becomes evaluative only after at least 30 finished combined fixtures and 10 in each compared tier. If FOCUS does not outperform WATCHLIST on the predeclared metric, declare `RANKING CALIBRATION HOLD` and tighten admission; do not outcome-fit isolated winners.
 
@@ -296,4 +298,37 @@ Rolling FOCUS vs WATCHLIST calibration becomes evaluative only after at least 30
 
 ## 19. Authority and history
 
-For current decisions, this file and the canonical load order win over stale chat text, old handoffs, archived screenshots and superseded documentation. v0.2.53 is prospective from 2026-09-12 ICT after activation and does not rewrite earlier frozen PRE, verdicts, or P/L. The Sep 12 Tijuana–Querétaro official loss remains settled under v0.2.51 and Atlante–Pachuca remains a historical PASS with no retrospective P/L rewrite.
+For current decisions, this file and the canonical load order win over stale chat text, old handoffs, archived screenshots and superseded documentation. v0.2.54 is prospective from 2026-09-13 ICT after activation and does not rewrite earlier frozen PRE, verdicts, or P/L. v0.2.53 remains the historical version for decisions it actually produced. The Sep 12 Tijuana–Querétaro official loss remains settled under v0.2.51 and Atlante–Pachuca remains a historical PASS with no retrospective P/L rewrite.
+
+---
+
+## 20. v0.2.54 selection-inversion controls
+
+Every material final review must preserve two independent outputs:
+
+- `Structural Rank` — football quality within the same practical kickoff window;
+- `Execution Class` — DIRECT LOCK ELIGIBLE / QUALIFIED — WAIT FOR DECAY / STRUCTURAL HOLD / SHADOW ONLY.
+
+Price, market movement, a higher offered total and elapsed match time cannot increase Structural Rank.
+
+### Qualified wait vs structural hold
+
+Use `QUALIFIED — WAIT FOR DECAY` only when football gates clear at a recorded supported burden but the available line is higher or the price at the target burden is below 1.65. Record target line and minimum price and keep the match in the active ranked watch list.
+
+Use `STRUCTURAL HOLD` when route proof, chance quality, dominant failure mode, league regime, XI integrity, burden fit or evidence confidence fails/remains materially unresolved. Clock/price cannot promote it.
+
+### Official exposure pool
+
+Only `DIRECT LOCK ELIGIBLE` candidates enter the official exposure pool. They require a prematch actual line no higher than the supported burden, acceptable price and no quarantined mechanism. A lower structural candidate may receive exposure ahead of a higher qualified-wait candidate only because the latter is not executable; preserve both ranks and classes.
+
+### Quarantined promotion mechanisms
+
+- MCE/+0.25: `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`.
+- STANDARD DECAY, EGE RELATIVE DECAY and every new live Over: `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`.
+- A strict prematch football-led `CARRIER REOPEN — XI CONFIRMED` remains eligible only at an independently supported burden.
+
+Track all shadow observations contemporaneously. MCE and live/decay are evaluated separately and require the release gate in v0.2.54 plus explicit user approval in a later model version before official reactivation.
+
+### Audit separation
+
+For every completed FOCUS/WATCHLIST candidate, retain final score, structural-threshold result, supported target-burden result and execution class. Report official DIRECT P/L separately from qualified-wait counterfactuals, structural holds, MCE shadows and live/decay shadows. Counterfactual results never enter official P/L.
