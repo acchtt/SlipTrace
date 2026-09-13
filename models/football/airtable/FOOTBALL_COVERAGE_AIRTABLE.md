@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
 **Table ID:** `tblcl1UAyMqZT6Ub0`  
-**Official model:** Football v0.2.52
+**Official model:** Football v0.2.54
 
 This table is the coverage-control and cross-chat bridge for the current football workflow. It records every fixture in the reconciled AiScore slate and preserves the **frozen Work PRE state** for later user-supplied XI/odds review.
 
@@ -214,7 +214,7 @@ If publication or counts fail:
 
 The intended current workflow is:
 
-`AiScore handoff → Work structural sweep + route-quality/CC+ audit → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.52 STANDARD/EGE/MCE/carrier-reopen assessment`
+`AiScore handoff → Work structural sweep + route-quality/CC+ audit + structural rank → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.54 structural-rank/execution-class assessment`
 
 Normal Chat should read the persisted frozen state rather than reconstructing the board from conversational memory.
 
@@ -263,3 +263,20 @@ Do not resolve a conflict through last-write-wins or allow one fixture to occupy
 ### League overlay
 
 Japanese domestic leagues, including J1, must not survive the active board from 2026-09-12 ICT onward. China Super League O3.0+/MCE candidates must preserve the v0.2.53 home/away-or-CC+ high-burden gate result.
+
+
+---
+
+## 13. v0.2.54 structural-rank bridge
+
+For every prospective FOCUS/WATCHLIST row, preserve in existing fields or `Frozen PRE Summary` / `Coverage Notes`:
+
+- same-window Structural Rank position;
+- route pair and chance-quality state;
+- supported structural burden/range;
+- CC+ and dominant-failure-mode state;
+- evidence confidence.
+
+Work does not assign final execution class because it is price-blind. Step 2 derives DIRECT LOCK ELIGIBLE / QUALIFIED — WAIT FOR DECAY / STRUCTURAL HOLD / SHADOW ONLY without overwriting frozen PRE rank.
+
+A later price/burden wait must not rewrite FOCUS/WATCHLIST as structural PASS. Final scores and target-burden outcomes for qualified non-exposures belong in Decision States/audit calibration, not official P/L.
