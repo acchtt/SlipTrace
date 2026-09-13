@@ -77,7 +77,7 @@ Movement labels:
 ## Decision sequence
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE TEST IF ELIGIBLE → CURRENT PRICE → LOCK/HOLD/PASS`
+`FROZEN PRE → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE SHADOW TEST IF ELIGIBLE → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → LOCK/WAIT/HOLD`
 
 First-pass XI must be football-led and market-blind.
 
@@ -116,8 +116,8 @@ For STANDARD **O3.0+** from A1/A2 TWO-SIDED, verify repeatable high-value chance
 
 If the O3+ thesis rests mainly on names, raw goals, possession or generic attacking reputation, cap burden lower, downgrade confidence or reclassify the archetype.
 
-## v0.2.51 MCE +0.25 test
-After final XI and STANDARD burden, test `MCE +0.25 — MARKET-CONFIRMED EDGE` only if all active v0.2.51 conditions clear.
+## v0.2.54 MCE +0.25 shadow test
+After final XI and STANDARD burden, test `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE` only if all legacy v0.2.51/v0.2.53 validator conditions clear. It is tracked for calibration but cannot create an official LOCK under v0.2.54.
 
 Core requirements:
 - A2 FOCUS or B+ WATCHLIST, structurally TWO-SIDED;
@@ -129,7 +129,7 @@ Core requirements:
 - current Over price at higher line is at least 1.75;
 - no dominant compression/suppression branch.
 
-MCE cannot create TWO-SIDED, EGE, rescue PASS, jump more than +0.25, override DUAL-ROUTE XI DAMAGE, or override a dominant derby/first-leg/control branch.
+MCE cannot create TWO-SIDED, EGE, rescue PASS, jump more than +0.25, override DUAL-ROUTE XI DAMAGE, or override a dominant derby/first-leg/control branch. If only the higher line is offered, retain the supported lower burden as `QUALIFIED — WAIT FOR DECAY`.
 
 ## B+ compression hardening
 If frozen B+ explicitly names derby control, first-leg compression, 1-0/1-1 suppression or weak secondary contribution, protection alone is insufficient. Require an additional positive gate under v0.2.51 before LOCK.
@@ -140,6 +140,17 @@ Classify `STANDARD` vs `EGE` after final XI. EGE remains governed by v0.2.50 and
 For STANDARD, use the protected-line principle unless the narrow v0.2.51 MCE rule clears.
 
 For EGE, preserve frozen PRE burden, document post-XI EGE burden and independent reasons, then compare current price.
+
+## v0.2.54 structural rank and execution class
+
+After burden is fixed, preserve the same-window structural rank and assign exactly one execution class:
+
+- `DIRECT LOCK ELIGIBLE` — actual prematch line is no higher than the supported burden, price clears the floor, and no quarantined mechanism is required;
+- `QUALIFIED — WAIT FOR DECAY` — football clears at a recorded target burden, but the offered line is higher or target-line price is too short;
+- `STRUCTURAL HOLD` — a football/evidence gate fails or remains materially unresolved;
+- `SHADOW ONLY` — MCE/+0.25 or any live/decay Over under v0.2.54.
+
+Price or market movement may change execution class but must not increase structural rank. Keep qualified waiting candidates visible in the active same-window comparison instead of grouping them with structural HOLD.
 
 ## Price
 Apply the active current model after burden is fixed:
@@ -162,11 +173,13 @@ If unavailable:
 Add v0.2.51 tags when relevant:
 - `CQ HARDENED`
 - `DUAL-ROUTE XI DAMAGE`
-- `MCE +0.25`
+- `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`
+- `QUALIFIED — WAIT FOR DECAY`
+- `STRUCTURAL HOLD`
 - `FAILURE MODE TEMPORARILY ACTIVE`
 - `CARRIER VALIDATION — NOT CLEAN TWO-SIDED`
 
-Use Website Picks only for an actual official final selection.
+Use Website Picks only for an actual direct official final selection. Persist shadow/counterfactual states in Decision States without official P/L.
 
 ## Output
-Compactly return: match, frozen PRE, first-pass XI, **market-history completion status**, opening→current signal if found, conflict resolution, final XI, chance-quality status, regime/burden, MCE status, best supported supplied line, price class, final action, concise reason and Airtable persistence PASS/FAIL.
+Compactly return: match, frozen PRE, structural rank, first-pass XI, **market-history completion status**, opening→current signal if found, conflict resolution, final XI, chance-quality status, regime/burden, MCE shadow status, target supported line, supplied line/price class, execution class, final action, concise reason and Airtable persistence PASS/FAIL.
