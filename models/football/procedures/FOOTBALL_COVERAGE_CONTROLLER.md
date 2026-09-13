@@ -1,7 +1,7 @@
 # Football Coverage Controller
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.52  
+**Official model:** Football v0.2.54  
 **Coverage authority:** AiScore actionable senior universe + current senior-quality overlay  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
@@ -304,7 +304,7 @@ At confirmed XI, compare all surviving FOCUS/WATCHLIST candidates and any qualif
 
 Use corrected `kickoff_ict`, not raw Airtable `Z` timestamps, to define the window.
 
-The official v0.2.52 order is governed by `CURRENT_MODEL.md` and active patches.
+The official v0.2.54 order is governed by `CURRENT_MODEL.md` and active patches.
 
 Explicitly compare:
 
@@ -424,3 +424,14 @@ China Super League stays CONDITIONAL. A CSL O3.0+ or MCE candidate must also pas
 ### Rolling calibration fields
 
 For completed FOCUS/WATCHLIST rows retain route pair, chance-quality result, CC+ state, burden/regime, MCE validator result, contribution pattern, and final threshold result. The post-slate audit uses these fields to test whether FOCUS separates from WATCHLIST without reconstructing PRE.
+
+
+---
+
+## 16. v0.2.54 rank preservation
+
+The frozen Work board must assign and persist a same-window Structural Rank for every surviving FOCUS/WATCHLIST candidate. Rank is based on route pair, chance quality, CC+, failure-mode resistance, lower supported burden and evidence confidence; price is absent.
+
+At Step 2, keep Structural Rank separate from Execution Class. A candidate whose football clears but whose supplied line is too high or target-line price is too short becomes `QUALIFIED — WAIT FOR DECAY` and remains in the active ranked pool. A failed football/evidence gate becomes `STRUCTURAL HOLD`.
+
+MCE/+0.25 and live/relative-decay Over states are shadow-only under v0.2.54 and cannot enter Website Picks or official P/L. They remain visible in Decision States for prospective audit.
