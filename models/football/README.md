@@ -4,13 +4,15 @@ This directory contains the **current executable football model stack**.
 
 ## Active stack
 
-- **Official model:** Football v0.2.52
+- **Official model:** Football v0.2.54
 - **Base:** Football v0.2.47 CLEAN
 - **Official patches:**
   - `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — Two-Sided Priority
   - `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — Extreme Goal Environment / Persistent High-Line
   - `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — Chance-Quality + Market-Confirmation Calibration
   - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — Carrier Ceiling + B+ Evidence Hardening
+  - `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — Ranking Integrity + Execution Validation
+  - `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — Selection Inversion Guard + Promotion Quarantine
 - **Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW
 - **Fixture authority:** AiScore only
 - **Canonical timezone:** Asia/Ho_Chi_Minh (ICT, UTC+7)
@@ -32,6 +34,8 @@ Do not infer current rules from historical chat handoffs or old model files. His
 - `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — active official Extreme Goal Environment / Persistent High-Line patch.
 - `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — active official chance-quality / market-confirmation calibration.
 - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — active official carrier-ceiling / B+ evidence-hardening calibration.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — active official ranking-integrity / execution-validation calibration.
+- `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — active official selection-inversion guard and MCE/live promotion quarantine.
 - `rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md` — active shadow comparison rules.
 
 ### Procedures
@@ -63,13 +67,16 @@ The current user-level overlays are part of the canonical operating state:
 - **v0.2.52 CC+:** preserve a secondary `CC+ — CARRIER CEILING` lane for credible self-funded 3+ team-goal potential;
 - **v0.2.52 B+ hardening:** XI preservation plus a protected line is not enough to LOCK a fragile B+ compression case; require an independent positive gate;
 - **v0.2.52 carrier reopen:** a frozen B/PASS may reopen only through a strict football-led `CARRIER REOPEN — XI CONFIRMED`, never market movement alone;
+- **v0.2.53 ranking integrity:** per-team route states, non-compensatory gates, relative reranking and duplicate-identity blocking;
+- **v0.2.54 two-axis state:** keep Structural Rank separate from DIRECT / QUALIFIED WAIT / STRUCTURAL HOLD / SHADOW execution class;
+- **v0.2.54 quarantine:** MCE/+0.25 and all new live/relative-decay Over entries are shadow-only; no official exposure;
 - early goal-driven line expansion remains a no-chase state;
 - Airtable `Z` timestamps are UTC and must be converted exactly once to ICT for display/scheduling;
 - upcoming schedules require AiScore status revalidation so already-live or wrong-date fixtures are not presented as upcoming.
 
 ## Core hierarchy
 
-Two-Sided Tier A remains the primary lane. For comparable non-Tier-A official v0.2.52 candidates:
+Two-Sided Tier A remains the primary lane. For comparable non-Tier-A official v0.2.54 candidates:
 
 `QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
 
