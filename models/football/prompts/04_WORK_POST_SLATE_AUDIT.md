@@ -22,7 +22,7 @@ Do not rebuild the original PRE with hindsight and do not re-research every rout
 
 Spend deep Work effort on meaningful anomalies:
 - losing official selections;
-- repeated false-negative HOLD/PASS patterns;
+- repeated false-negative HOLD/PASS patterns, separating qualified price/burden waits from structural holds;
 - ranking misses;
 - fixture-filter/time-integrity failures;
 - price or burden/regime errors;
@@ -38,6 +38,21 @@ Never relabel an older decision as the current model. A later patch can be used 
 If the current model defines STANDARD/EGE or similar execution labels, audit them exactly as declared. Distinguish direct execution, relative decay, non-decay holds, and goal-expansion/no-chase holds where applicable.
 
 A high-scoring result after a HOLD is not automatically a model error. Determine whether the evidence available at the time actually satisfied the current/then-active gate.
+
+## v0.2.54 audit separation
+
+For prospective v0.2.54 records, use the dedicated Decision States fields for Structural Rank, Execution Class, Supported Target Line, Target Min Odds, Calibration Track, Calibration Result and Calibration P/L u.
+
+Never aggregate all HOLD states. Report separately:
+
+- official DIRECT exposure and P/L;
+- QUALIFIED — WAIT FOR DECAY target-burden counterfactuals;
+- STRUCTURAL HOLD outcomes;
+- MCE/+0.25 shadow outcomes;
+- live/relative-decay shadow outcomes;
+- FOCUS vs WATCHLIST structural-threshold performance.
+
+Flag any official MCE/+0.25 or new live/decay exposure under v0.2.54 as `PROMOTION QUARANTINE BREACH`. Flag a lower-ranked official exposure ahead of a higher-ranked directly executable candidate without a documented football reason as `SELECTION INVERSION`.
 
 ## Error taxonomy
 Classify meaningful issues using the active audit taxonomy where defined. Otherwise use:
@@ -56,4 +71,4 @@ Do not propose a model change because of one outcome. Recommend change only when
 Do not edit model files automatically unless the user explicitly asks.
 
 ## Output
-Compact audit summary: model versions audited, official results/exposure summary, what worked, meaningful misses, error taxonomy, repeated structural patterns, schedule/price/persistence issues, recommended TEST/KEEP/MODIFY items, and no-change areas.
+Compact audit summary: model versions audited, official DIRECT results/exposure, qualified-wait counterfactuals, structural holds, MCE/live shadows, FOCUS-vs-WATCHLIST separation, quarantine compliance, meaningful misses, error taxonomy, repeated structural patterns, schedule/price/persistence issues, recommended TEST/KEEP/MODIFY items, and no-change areas.
