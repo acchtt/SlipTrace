@@ -18,7 +18,7 @@ Therefore:
 ## Canonical stages
 1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — AiScore discovery, time integrity, actionable-senior completeness, cheap scope/league filtering, coverage skeleton, and the **only normal fixture sweep** used to create the Work handoff. Exact enumeration of already-excluded youth/reserve/lower raw blocks is best-effort and does not block Work when actionable coverage is complete.
 2. `01_WORK_DAILY_SWEEP.md` — deep price/XI/market-history-blind structural PRE research on the already-pruned handoff; hard-stop only for an **actionable coverage** fault; no second fixture sweep; frozen Airtable publication.
-3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/market conflict check, final XI rerank, goal burden/regime/MCE where eligible, current executable price, and final material assessment.
+3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/market conflict check, final XI rerank, goal burden/regime, MCE shadow test, current executable price, Structural Rank + Execution Class, and final material assessment.
 4. `03_NORMAL_CHAT_LIVE.md` — targeted live validation, current no-chase/halftime logic, material live-state logging.
 5. `04_WORK_POST_SLATE_AUDIT.md` — historical/version-faithful post-slate audit.
 
@@ -36,7 +36,7 @@ The boundary is strict but practical:
 - Work must never research only a confirmed subset of a genuinely incomplete actionable slate.
 - Work must not traverse AiScore again, backfill omitted fixtures, repair non-blocking raw gaps, or spend deep-research usage on opening-odds watch.
 
-The Normal Chat market-history layer is contextual. It may challenge an XI interpretation and, under the active model, may support a narrowly defined MCE exception, but it cannot rewrite frozen PRE or manufacture unsupported structure/EGE.
+The Normal Chat market-history layer is contextual. It may challenge an XI interpretation and support an MCE shadow observation, but under v0.2.54 it cannot create MCE/live-decay official exposure, rewrite frozen PRE, or manufacture unsupported structure/EGE.
 
 ## Permanent launchers
 Keep these tiny launchers in your normal chats/Work. They reference GitHub and should not need redownloading.
