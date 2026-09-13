@@ -32,5 +32,8 @@ Apply any inherited halftime compression/saturation gate when the current model 
 ## Logging
 Do not create a Decision State for routine commentary or every minute update. Persist only genuinely material live states required by the current Decision States contract, such as a new executable action, a material closure/invalidation, or an explicitly requested checkpoint.
 
+## v0.2.54 quarantine
+All new live/relative-decay Over entries are shadow-only. With synchronized evidence record `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`; without it use `LIVE CHANCE QUALITY UNAVAILABLE — HOLD`. Do not write Website Picks or official P/L for either state.
+
 ## Output
 Very compact: LIVE STATUS, best supplied/supported line, price class, confidence, action, and a short reason. Do not repeat the entire PRE research.
