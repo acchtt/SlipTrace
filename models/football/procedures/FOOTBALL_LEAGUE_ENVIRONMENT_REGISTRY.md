@@ -40,6 +40,8 @@ when that is the operative reason.
 
 A league that fails this prerequisite is **not CONDITIONAL** and must not consume cheap-gate research.
 
+The Netherlands **Eerste Divisie** is an explicit approved lower-division exception and is governed by its NORMAL listing in Section 3.
+
 ---
 
 ## 2. Admission classes
@@ -110,6 +112,7 @@ Absolute operational exclusion under the active user rule. No automatic override
 
 ### NORMAL
 
+- Netherlands — Eerste Divisie **(explicit approved lower division)**
 - England — Premier League
 - Spain — LaLiga
 - Italy — Serie A
@@ -204,6 +207,8 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 The registry does not revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
+**Explicit lower-division approval:** Netherlands Eerste Divisie. It enters through the NORMAL lane in Section 3 and is not filtered out merely for being a second division.
+
 The UEFA Youth League remains a separate manual trial and is not made official by this registry.
 
 ---
@@ -228,7 +233,7 @@ The Work handoff should contain only:
 
 It must not contain:
 
-- youth/reserve/lower/amateur/regional fixtures;
+- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie;
 - small/obscure weak-data leagues;
 - LOW-GOAL EXCLUDE;
 - HARD EXCLUDE;
