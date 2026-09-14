@@ -49,6 +49,8 @@ These fixtures are excluded **before** the league registry's CONDITIONAL gate. D
 
 A league being a national top flight does **not by itself** guarantee CONDITIONAL status.
 
+**Explicit approved lower division:** Netherlands Eerste Divisie. It is whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because it is the Dutch second tier.
+
 The separate UEFA Youth League trial remains a manual user override until the repository explicitly promotes it into official scope.
 
 ---
@@ -65,9 +67,11 @@ Send to Work automatically.
 
 Send to Work automatically.
 
+This includes explicitly approved lower divisions listed as NORMAL in the registry, currently Netherlands Eerste Divisie.
+
 ### CONDITIONAL
 
-Only established, sufficiently covered professional senior top flights may reach this class.
+Only established, sufficiently covered professional senior top flights may reach this class unless a lower division is separately and explicitly approved elsewhere in the registry.
 
 Do not send the whole competition to Work.
 
@@ -104,7 +108,7 @@ or
 
 `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
 
-The Japanese rule is an explicit user scope directive. It excludes league play from the normal sweep; it does not by itself exclude Japanese domestic cups or senior continental fixtures involving Japanese clubs.
+The Japanese rule is an explicit user scope directive. It excludes league play from the normal sweep; it does not by itself exclude Japanese domestic cups or other separately eligible senior continental fixtures.
 
 ---
 
@@ -128,28 +132,23 @@ Finland remains the explicit Nordic exception and is hard-excluded for domestic 
 
 The domestic-league registry does not automatically exclude senior first-team continental competitions or domestic cups.
 
-Senior UCL, UEL and UECL remain actionable when they clear the active model. Other senior continental competitions and cups remain governed by `CURRENT_MODEL.md` and the normal quality overlay.
+Senior UCL, UEL and UECL remain actionable when they clear the active model. Other senior continental competitions and cups remain governed by `CURRENT_MODEL.md` and the normal quality overlay **except where this scope file explicitly excludes a competition**.
 
-### AFC Champions League Elite — notable-team gate
+### AFC Champions League Elite — removed from normal sweep
 
-AFC Champions League Elite fixtures are **not automatic direct-to-Work admissions** merely because the competition is senior continental.
+AFC Champions League Elite is excluded from the normal daily Work handoff by explicit user directive, effective 2026-09-15 ICT onward.
 
-Admit an AFC Champions League Elite fixture to Work only when **at least one participating club is clearly notable** at current senior level. The Step-0 notability check is intentionally cheap and may be satisfied by one or more of:
+Do **not** apply the previous notable-team gate. Do **not** send AFC Champions League Elite fixtures to Work automatically, even when one or both clubs are notable.
 
-- established domestic title-contender / major-club status;
-- repeated qualification for top-level Asian continental competition;
-- meaningful recent AFC Champions League / AFC Champions League Elite pedigree;
-- a clearly high-profile senior squad or current top-level regional standing.
+Use:
 
-Do not require both teams to be notable. One clearly notable team is sufficient for the fixture to survive the continental scope gate.
+`AFC ELITE — USER SCOPE EXCLUSION`
 
-If neither team clears this notability check, exclude before Work as:
+This is a scope exclusion only. It makes no statement about the football quality, goal environment, or betting value of the excluded match.
 
-`AFC ELITE — NO NOTABLE TEAM — SCOPE EXCLUSION`
+AFC Champions League Elite may be included only when the user explicitly requests a temporary one-run override after this exclusion.
 
-This is only an admission rule. Passing the notable-team gate gives no PRE grade, route credit, carrier status, burden upgrade, or betting preference. Work must still perform the normal structural screen.
-
-A club from a low-goal or hard-excluded domestic league is not automatically excluded when playing in an independently eligible cup or continental competition.
+A club from a low-goal or hard-excluded domestic league is not automatically excluded when playing in another independently eligible cup or continental competition.
 
 Weak/obscure cup or continental environments can still fail the quality/data overlay; senior status alone does not force admission.
 
@@ -166,7 +165,7 @@ Every fixture actually discovered and removed before Work should remain auditabl
 - `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
 - `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
 - `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
-- `AFC ELITE — NO NOTABLE TEAM — SCOPE EXCLUSION`
+- `AFC ELITE — USER SCOPE EXCLUSION`
 - the existing model-quality exclusion reasons.
 
 Unenumerated blocks that are unambiguously youth/reserve/lower/amateur/regional/weak-data/hard-excluded may remain `raw_audit_complete=false` nonblocking gaps.
@@ -189,10 +188,12 @@ If a conditional fixture needs full match research merely to decide whether it d
 
 If a weak/obscure league needs research merely to decide whether it deserves CONDITIONAL status, it is already outside normal Step-0 scope for that run.
 
+Explicitly approved lower divisions such as Netherlands Eerste Divisie bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus.
+
 ---
 
 ## 8. Temporary override and registry maintenance
 
-If the user explicitly asks to trial a normally excluded or conditional league, include it only for that requested run unless the repository is deliberately updated.
+If the user explicitly asks to trial a normally excluded or conditional league or competition, include it only for that requested run unless the repository is deliberately updated.
 
 Do not promote/demote a league from one slate. Use league-level audits and repeated model evidence, then update `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` once so later sweeps inherit the result cheaply.
