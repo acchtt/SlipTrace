@@ -130,6 +130,25 @@ The domestic-league registry does not automatically exclude senior first-team co
 
 Senior UCL, UEL and UECL remain actionable when they clear the active model. Other senior continental competitions and cups remain governed by `CURRENT_MODEL.md` and the normal quality overlay.
 
+### AFC Champions League Elite — notable-team gate
+
+AFC Champions League Elite fixtures are **not automatic direct-to-Work admissions** merely because the competition is senior continental.
+
+Admit an AFC Champions League Elite fixture to Work only when **at least one participating club is clearly notable** at current senior level. The Step-0 notability check is intentionally cheap and may be satisfied by one or more of:
+
+- established domestic title-contender / major-club status;
+- repeated qualification for top-level Asian continental competition;
+- meaningful recent AFC Champions League / AFC Champions League Elite pedigree;
+- a clearly high-profile senior squad or current top-level regional standing.
+
+Do not require both teams to be notable. One clearly notable team is sufficient for the fixture to survive the continental scope gate.
+
+If neither team clears this notability check, exclude before Work as:
+
+`AFC ELITE — NO NOTABLE TEAM — SCOPE EXCLUSION`
+
+This is only an admission rule. Passing the notable-team gate gives no PRE grade, route credit, carrier status, burden upgrade, or betting preference. Work must still perform the normal structural screen.
+
 A club from a low-goal or hard-excluded domestic league is not automatically excluded when playing in an independently eligible cup or continental competition.
 
 Weak/obscure cup or continental environments can still fail the quality/data overlay; senior status alone does not force admission.
@@ -147,6 +166,7 @@ Every fixture actually discovered and removed before Work should remain auditabl
 - `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
 - `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
 - `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
+- `AFC ELITE — NO NOTABLE TEAM — SCOPE EXCLUSION`
 - the existing model-quality exclusion reasons.
 
 Unenumerated blocks that are unambiguously youth/reserve/lower/amateur/regional/weak-data/hard-excluded may remain `raw_audit_complete=false` nonblocking gaps.
