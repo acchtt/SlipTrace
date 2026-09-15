@@ -3,11 +3,15 @@
 Use Normal Chat with high reasoning.
 
 ## Authority
+
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including the betting procedure, active official rule files, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_A.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+
+For all new decisions after activation, persist `Model Version = Football A`.
 
 ## Airtable
+
 Base ID `appWyZJjitSBATXAU`.
 Daily Coverage Ledger `tblcl1UAyMqZT6Ub0`.
 Decision States `tblQmUpd5WjBLQ38X`.
@@ -15,171 +19,214 @@ Website Picks `tblg3J5sbJYbzuTYD`.
 Use direct IDs unless one fails.
 
 ## Input
+
 The user normally supplies confirmed XI and **current executable Asian-total line(s)/price(s)**.
 
-Do not automatically fetch missing confirmed XI or substitute an externally found current price unless the user explicitly asks.
+Do not automatically replace a user-supplied current price with an external price. Historical market research may be fetched for calibration/context.
 
-## Mandatory market-history attempt — ALL Step-2 fixtures
-For **every fixture the user brings to this Step 2 review**, automatically attempt a lightweight total-history check before issuing the final LOCK/HOLD/PASS verdict, including fixtures whose frozen PRE is already PASS:
+## Mandatory market-history attempt
+
+For every Step-2 fixture, attempt a lightweight total-history check before final action:
 
 `OPEN → PRE-XI → POST-XI / CURRENT PREMATCH`
 
-Do not short-circuit the market-history step merely because frozen PRE is PASS.
+Set exactly one completion status:
 
-Why:
-- for FOCUS/WATCHLIST, history is part of XI-conflict resolution and MCE testing;
-- for frozen PASS, history is still required for calibration/audit and to detect whether the market strongly disagreed with the structural read, even though market movement alone cannot resurrect a genuine PRE PASS.
-
-Historical lookup is calibration/context, not current execution-price authority.
-
-### Market-history completion status
-Before any final verdict, set exactly one status:
 - `MARKET HISTORY FOUND`;
 - `MARKET HISTORY UNAVAILABLE — ATTEMPTED`;
 - `MARKET HISTORY SKIPPED — USER REQUEST`.
 
-`MARKET HISTORY NOT CHECKED` is **not** a valid final-assessment state.
+If unavailable after a reasonable targeted attempt, continue. Never fabricate snapshots.
 
-If history is unavailable after a reasonable lightweight attempt, do not stall the assessment; use `MARKET HISTORY UNAVAILABLE — ATTEMPTED` and continue.
+Prefer:
 
-Keep this lookup lightweight and targeted. Do not turn it into broad deep research.
-
-Preferred evidence order:
 1. user-supplied same-source history;
-2. same-bookmaker opening/history;
-3. reputable timestamped odds-history source;
-4. normalized/consensus history only when same-source history is unavailable.
+2. same-bookmaker history;
+3. reputable timestamped odds history;
+4. normalized/consensus history only as context.
 
-Mixed-source evidence is `CROSS-BOOK — CONTEXT ONLY`. Never fabricate missing snapshots.
+Mixed-source evidence is `CROSS-BOOK — CONTEXT ONLY`.
 
-## Targeted read
-Retrieve only the fixture's frozen PRE from Daily Coverage Ledger unless same-window reranking is required. Preserve original grade, structural type, board tier, primary/secondary routes, failure mode, XI sensitivity, frozen burden and schedule context.
+## Targeted frozen-state read
+
+Retrieve the fixture's frozen PRE from Daily Coverage Ledger. Preserve:
+
+- structural rank;
+- PRE grade and board tier;
+- home/away route states and route pair;
+- chance-quality state;
+- CC+ state;
+- dominant failure mode;
+- supported burden/range;
+- evidence confidence;
+- schedule identity.
 
 Do not rebuild Work PRE from scratch.
 
-## Mandatory market watch
-Capture where available:
-- opening total + Over price;
-- PRE-XI total + Over price;
-- POST-XI/current prematch total + Over price;
-- source and snapshot time;
-- line delta;
-- comparable same-line price direction.
-
-Movement labels:
-- `BULLISH LINE` — total rises 0.25+;
-- `BEARISH LINE` — total falls 0.25+;
-- `BULLISH PRICE` — same line, Over shortens materially;
-- `BEARISH PRICE` — same line, Over drifts materially;
-- `STABLE`;
-- `MIXED`.
+When Model A same-window comparison is required, retrieve the other active higher-ranked candidates in the same practical exposure window so the priority-inversion guard can be evaluated.
 
 ## Decision sequence
+
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE SHADOW TEST IF ELIGIBLE → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → LOCK/WAIT/HOLD`
+`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE/+0.25 SHADOW TESTS → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
 
-First-pass XI must be football-led and market-blind.
+First-pass XI is football-led and market-blind.
 
 At XI assess creators, finishers, shape, defensive absences, rotation/cohesion, bench quality, route survival and failure-mode changes.
 
 Classify rotation as:
+
 - `ROTATION — ATTACKING DEPTH PRESERVED`; or
 - `ROTATION — COHESION / ROUTE DAMAGE`.
 
-If both teams lose important attacking creators/finishers, or both scoring routes are materially weakened, apply `DUAL-ROUTE XI DAMAGE` from v0.2.51. In that state, protection alone cannot create an official lock.
+If both routes are materially weakened, apply the active DUAL-ROUTE XI DAMAGE rule. Protection alone cannot rescue it.
 
-### Frozen PRE PASS handling
-A genuine frozen PRE PASS remains non-actionable unless there is a **documented material football change** that legitimately creates a new assessment epoch under the active model.
+## Market-history conflict rule
 
-Market movement by itself cannot resurrect PASS, and MCE cannot rescue PASS.
+If XI appears damaged but the same-source total strengthens by +0.25 or more, explicitly recheck whether the downgrade is overstated.
 
-However, even for PASS:
-- complete the market-history attempt;
-- record the opening→current signal if found;
-- note whether the market materially agreed/disagreed with the frozen structural read;
-- preserve that information for later audit/model calibration.
+If XI appears stronger but the total weakens materially, recheck for missing absences, tactical changes, incentives, weather/data faults or source mismatch.
 
-Do not respond `PASS` before the market-history attempt has resolved to FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
+The market triggers reinspection; it does not automatically win and cannot create structural quality.
 
-### XI/market conflict rule
-If XI appears damaged but the same-source total strengthens by +0.25 or more, explicitly recheck whether the downgrade is overstated and the lineup is actually `ATTACKING DEPTH PRESERVED`.
+## Chance quality / burden
 
-If XI appears stronger but the total moves down materially, recheck for missing absences, tactical shape, competition incentives, weather/data faults or source mismatch.
+For STANDARD O3.0+ A1/A2 TWO-SIDED candidates, require repeatable high-value chance support across the relevant routes where data exists. Raw goals, names or possession alone are insufficient.
 
-The market does not automatically win. It triggers reinspection.
+Classify `STANDARD` vs `EGE` after final XI. EGE remains governed by the active v0.2.50 rules and cannot be created by market movement.
 
-For frozen PASS, a strong bullish move is an **audit flag**, not an automatic promotion.
+Supported burden is fixed **before** current price.
 
-## v0.2.51 chance-quality hardening
-For STANDARD **O3.0+** from A1/A2 TWO-SIDED, verify repeatable high-value chance support across both routes where data exists: big chances, central/box access, quality SOT, xG/xGOT or a strong data-poor substitute using scoring/conceding 2+ frequencies and credible tactical routes.
+## Execution class
 
-If the O3+ thesis rests mainly on names, raw goals, possession or generic attacking reputation, cap burden lower, downgrade confidence or reclassify the archetype.
+After burden is fixed, assign exactly one technical Execution Class:
 
-## v0.2.54 MCE +0.25 shadow test
-After final XI and STANDARD burden, test `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE` only if all legacy v0.2.51/v0.2.53 validator conditions clear. It is tracked for calibration but cannot create an official LOCK under v0.2.54.
+- `DIRECT LOCK ELIGIBLE` — actual prematch line is no higher than supported burden, price clears the active floor, and no quarantined mechanism is required;
+- `QUALIFIED — WAIT FOR DECAY` — football clears at a supported target burden, but offered line is higher or target-line price is below floor;
+- `STRUCTURAL HOLD` — football/evidence gate fails or remains materially unresolved;
+- `SHADOW ONLY` — quarantined mechanism.
 
-Core requirements:
-- A2 FOCUS or B+ WATCHLIST, structurally TWO-SIDED;
-- frozen burden at least O2.5;
-- final XI = `ATTACKING DEPTH PRESERVED` or stronger;
-- football evidence independently supports a credible 3-goal ceiling;
-- same-source/normalized OPEN → post-XI line rises at least +0.25;
-- current line is only +0.25 above frozen burden;
-- current Over price at higher line is at least 1.75;
-- no dominant compression/suppression branch.
+For qualified waits, persist one of:
 
-MCE cannot create TWO-SIDED, EGE, rescue PASS, jump more than +0.25, override DUAL-ROUTE XI DAMAGE, or override a dominant derby/first-leg/control branch. If only the higher line is offered, retain the supported lower burden as `QUALIFIED — WAIT FOR DECAY`.
+- `PRICE-ONLY WAIT — LINE ABOVE BURDEN`;
+- `PRICE-ONLY WAIT — PRICE BELOW FLOOR`;
+- `PRICE-ONLY WAIT — BOTH`.
 
-## B+ compression hardening
-If frozen B+ explicitly names derby control, first-leg compression, 1-0/1-1 suppression or weak secondary contribution, protection alone is insufficient. Require an additional positive gate under v0.2.51 before LOCK.
+Price or market movement may change Execution Class but may not increase Structural Rank.
 
-## Goal regime
-Classify `STANDARD` vs `EGE` after final XI. EGE remains governed by v0.2.50 and cannot be created by market movement.
+## Football A exposure gate
 
-For STANDARD, use the protected-line principle unless the narrow v0.2.51 MCE rule clears.
+**DIRECT LOCK ELIGIBLE is not an automatic official bet.**
 
-For EGE, preserve frozen PRE burden, document post-XI EGE burden and independent reasons, then compare current price.
+Every DIRECT candidate must pass the exposure gate before a Website Pick is created.
 
-## v0.2.54 structural rank and execution class
+### 1. A2 upper-tail gate
 
-After burden is fixed, preserve the same-window structural rank and assign exactly one execution class:
+If an **A2** candidate is executable at the **top of its supported burden/range**, require at least one:
 
-- `DIRECT LOCK ELIGIBLE` — actual prematch line is no higher than the supported burden, price clears the floor, and no quarantined mechanism is required;
-- `QUALIFIED — WAIT FOR DECAY` — football clears at a recorded target burden, but the offered line is higher or target-line price is too short;
-- `STRUCTURAL HOLD` — a football/evidence gate fails or remains materially unresolved;
-- `SHADOW ONLY` — MCE/+0.25 or any live/decay Over under v0.2.54.
+- `4+ TOTAL PATH — QUALITY PROVEN`;
+- `TRUE CC+ PATH` with credible support for the additional goal(s);
+- `ELITE TWO-SIDED PATH` with strong chance quality and failure resistance.
 
-Price or market movement may change execution class but must not increase structural rank. Keep qualified waiting candidates visible in the active same-window comparison instead of grouping them with structural HOLD.
+If none clears:
+
+- Execution Class stays `DIRECT LOCK ELIGIBLE`;
+- Exposure Decision = `NO BET — EXPOSURE HOLD`;
+- persist `UPPER-TAIL INSUFFICIENT`.
+
+Do not mislabel this as STRUCTURAL HOLD.
+
+A clean-XI A1 PROVEN+PROVEN candidate normally clears the upper-tail exposure requirement unless a named compression/failure branch, chance-quality downgrade or burden-specific rule blocks it.
+
+B+ receives no relaxation.
+
+### 2. Priority-inversion guard
+
+Before issuing an OFFICIAL LOCK, compare against higher-ranked active candidates in the same practical exposure window.
+
+If a higher-ranked **clean-XI A1/A2 FOCUS** is still structurally qualified and is withheld **only** because its line is above supported burden or target price is below floor, do not expose a materially weaker lower-ranked candidate merely because its lower total is easier to execute.
+
+A lower-ranked candidate can override only with a documented football-led reason, such as:
+
+- clearly stronger upper-tail proof at the actual burden;
+- materially stronger post-XI route quality;
+- genuine failure-mode deterioration in the higher-ranked fixture;
+- another recognized football-led model change.
+
+Price, nominally easier line, and simple availability are not valid overrides.
+
+If blocked:
+
+- keep `Execution Class = DIRECT LOCK ELIGIBLE`;
+- Exposure Decision = `NO BET — EXPOSURE HOLD`;
+- persist `PRIORITY INVERSION GUARD`.
+
+### 3. Exposure ordering
+
+When multiple DIRECT candidates survive, prioritize:
+
+`STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
+
+Do not let market accessibility become the primary selector.
+
+## Quarantined mechanisms
+
+Keep active quarantines unchanged:
+
+- qualifying A1/A2 FOCUS exact +0.25 above supported ceiling: `HIGH-SCORING +0.25 ACCEPTANCE BAND — SHADOW ONLY`;
+- MCE: `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`;
+- ordinary live/relative-decay Over: `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`.
+
+The +0.25 acceptance band remains shadow-only until the full release gate clears, including at least 20 valid settled predeclared observations and explicit user approval of a later model version.
+
+B+ / CC+ remains a separate audit lane with no automatic promotion.
 
 ## Price
-Apply the active current model after burden is fixed:
-- hard floor 1.65;
-- preferred 1.70+;
-- MCE +0.25 requires 1.75+;
-- never stretch merely to get a better price.
+
+Apply the active model after burden is fixed:
+
+- hard floor **1.65**;
+- preferred **1.70+**;
+- MCE +0.25 shadow validator requires **1.75+**;
+- never stretch burden merely to get a better price.
 
 ## Persistence
-For material final assessments, update only later-stage coverage fields and write Decision States. Do not rewrite frozen PRE.
 
-Persist market history compactly, e.g.:
+For every material Football A final review, persist:
 
-`MARKET WATCH: OPEN O2.5 @1.85 → PRE-XI O2.5 @1.76 → POST-XI O2.75 @1.89 | signal=BULLISH LINE | source=... | status=FOUND`
+- `Model Version = Football A`;
+- Structural Rank;
+- Execution Class;
+- supported burden;
+- supplied actual line/price;
+- `UPPER-TAIL = PASS / FAIL / NOT REQUIRED`;
+- `PRIORITY INVERSION = CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
+- Exposure Decision;
+- exact blocker/reason.
 
-If unavailable:
+Without a schema migration:
 
-`MARKET WATCH: unavailable after targeted attempt | status=UNAVAILABLE-ATTEMPTED`
+- keep the existing Execution Class as technically true;
+- use Airtable `Verdict = NO BET — HOLD` for `NO BET — EXPOSURE HOLD`;
+- write `UPPER-TAIL INSUFFICIENT` or `PRIORITY INVERSION GUARD` into Candidate/Evidence Summary;
+- create Website Picks **only** for actual `OFFICIAL LOCK` exposure.
 
-Add v0.2.51 tags when relevant:
-- `CQ HARDENED`
-- `DUAL-ROUTE XI DAMAGE`
-- `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`
-- `QUALIFIED — WAIT FOR DECAY`
-- `STRUCTURAL HOLD`
-- `FAILURE MODE TEMPORARILY ACTIVE`
-- `CARRIER VALIDATION — NOT CLEAN TWO-SIDED`
+Do not rewrite frozen PRE.
 
-Use Website Picks only for an actual direct official final selection. Persist shadow/counterfactual states in Decision States without official P/L.
+For every QUALIFIED — WAIT candidate, continue market-path logging whenever observable: target line/min price, first offered line/price, lowest pre-kick line, best target-line price, whether/when target became obtainable, first-goal-before-target state and final score.
 
 ## Output
-Compactly return: match, frozen PRE, structural rank, first-pass XI, **market-history completion status**, opening→current signal if found, conflict resolution, final XI, chance-quality status, regime/burden, MCE shadow status, target supported line, supplied line/price class, execution class, final action, concise reason and Airtable persistence PASS/FAIL.
+
+Compactly return:
+
+match; active model `Football A`; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; regime; supported burden; supplied line/price; Execution Class; **upper-tail gate**; **priority-inversion state**; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+
+Use exact final labels where applicable:
+
+- `OFFICIAL LOCK`
+- `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
+- `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD`
+- `QUALIFIED — WAIT FOR DECAY`
+- `STRUCTURAL HOLD`
+- `SHADOW ONLY`
