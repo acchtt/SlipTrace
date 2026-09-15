@@ -11,7 +11,7 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — **RANKING INTEGRITY + EXECUTION VALIDATION**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — **SELECTION INVERSION GUARD + PROMOTION QUARANTINE**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.55.md` — **EXECUTION CALIBRATION ADDENDUM**  
-- `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE**  
+- `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
@@ -73,9 +73,9 @@ Work remains structural and price/XI/market-history blind. Normal Chat owns XI, 
 
 ---
 
-## 4. Structural model remains v0.2.55-compatible
+## 4. Structural model: v0.2.55-compatible with one narrow Football A FOCUS cap
 
-Football A does **not** change the structural board.
+Football A does **not** broadly rebuild the structural board. It adds one prospective board-tier quality-control rule from **2026-09-15 18:09 ICT onward**.
 
 Continue the active standards:
 
@@ -83,6 +83,24 @@ Continue the active standards:
 - **A2:** normal maximum for `PROVEN + SUPPORTED`; `SUPPORTED + SUPPORTED` reaches A2/FOCUS only with strong chance quality and failure resistance.
 - **B+:** normal ceiling for `SUPPORTED + NOMINAL`; `PROVEN + NOMINAL` is WATCHLIST unless the proven route is true CC+.
 - **B / PASS:** weak/failed route combinations, strong resistance, cohesion damage, weak chance quality, or unsupported burden.
+
+### Football A fragile SUPPORTED-route FOCUS guard
+
+For a `PROVEN + SUPPORTED` matchup, the A2 grade may remain valid, but **A2 FOCUS is not allowed** when the SUPPORTED route is materially dependent on score/form-proxy evidence, away/venue-sensitive contribution, meaningful XI sensitivity, or defensive-leakage inference **unless** at least one hardener clears:
+
+- `SUPPORTED-ROUTE CHANCE QUALITY — STRONG`; or
+- `TRUE CC+` on the PROVEN side with a genuine independent 3+ team-goal ceiling that survives weak opponent contribution.
+
+If neither hardener clears:
+
+- keep `A2` if the route pair still merits A2;
+- cap the board tier at `WATCHLIST`;
+- persist `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`;
+- do not use recent Over/BTTS frequency by itself to clear the cap.
+
+If confirmed XI later damages the SUPPORTED route into NOMINAL, apply the normal active downgrade path, ordinarily toward `B+ WATCHLIST` unless TRUE CC+ independently supports the carrier case.
+
+This rule is prospective. Do not rewrite already frozen PRE boards.
 
 Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
 
@@ -226,6 +244,8 @@ For every material final review, persist:
 - Exposure Decision;
 - exact reason for any DIRECT-eligible exposure hold.
 
+For Work PRE after the new FOCUS-guard activation, also persist the cap trigger and hardener state when applicable.
+
 Without a schema migration, keep technical DIRECT eligibility in the existing Execution Class field. Use `NO BET — HOLD` as the Airtable verdict for `NO BET — EXPOSURE HOLD`, with the Model A blocker written in Candidate/Evidence Summary.
 
 Create Website Picks only for actual `OFFICIAL LOCK` exposure.
@@ -239,6 +259,7 @@ Post-slate audit must report separately:
 - official Football A locks and P/L;
 - DIRECT candidates suppressed by the upper-tail gate;
 - DIRECT candidates suppressed by the priority-inversion guard;
+- `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE` cases;
 - QUALIFIED — WAIT target-burden outcomes;
 - STRUCTURAL HOLD outcomes;
 - +0.25 acceptance-band shadows;
@@ -253,7 +274,7 @@ Counterfactual/shadow outcomes never enter official P/L.
 
 ## 12. Authority and history
 
-Football A is prospective from **2026-09-15 11:01 ICT** onward. It does not retroactively reclassify earlier locks, waits, holds, shadows, or P/L.
+Football A is prospective from **2026-09-15 11:01 ICT** onward. Its narrow A2 FOCUS guard is prospective from **2026-09-15 18:09 ICT** onward. Neither change retroactively reclassifies earlier frozen boards, locks, waits, holds, shadows, or P/L.
 
 Historical order:
 
