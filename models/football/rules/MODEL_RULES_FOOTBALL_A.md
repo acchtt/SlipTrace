@@ -4,21 +4,21 @@
 **Model version:** **Football A**  
 **Base:** Football v0.2.55  
 **Effective:** 2026-09-15 11:01 ICT onward  
-**Purpose:** correct repeated execution-selection inversion by separating technical execution eligibility from final official exposure selection.
+**Structural-focus refinement effective:** 2026-09-15 18:09 ICT onward  
+**Purpose:** correct repeated execution-selection inversion by separating technical execution eligibility from final official exposure selection, while adding a narrow prospective A2 FOCUS guard for fragile SUPPORTED routes.
 
 This patch is prospective. It does not rewrite frozen PRE states, historical verdicts, settled P/L, or prior shadow/counterfactual outcomes.
 
 ---
 
-## 1. Scope lock — structural model unchanged
+## 1. Scope lock — structural model unchanged except the narrow A2 FOCUS guard
 
-Model A does **not** rebuild the structural model.
+Model A does **not** broadly rebuild the structural model.
 
 The following remain governed by v0.2.55 and its active dependencies:
 
 - fixture/scope and league-regime rules;
-- A1 / A2 / B+ structural grading;
-- FOCUS / WATCHLIST assignment;
+- A1 / A2 / B+ structural grading, except the narrow A2 FOCUS board-tier cap in Section 1.1;
 - home/away route proof;
 - chance-quality requirements;
 - CC+ / carrier-ceiling proof;
@@ -29,7 +29,36 @@ The following remain governed by v0.2.55 and its active dependencies:
 - MCE, +0.25 acceptance-band, and live/decay quarantines;
 - official settlement and P/L accounting.
 
-Model A changes **which technically executable candidates are allowed to become official exposure**.
+Model A changes **which technically executable candidates are allowed to become official exposure** and, prospectively from the structural-focus refinement timestamp above, applies one narrow quality-control cap to A2 FOCUS assignment.
+
+### 1.1 Fragile SUPPORTED-route A2 FOCUS guard
+
+For a `PROVEN + SUPPORTED` matchup, the **A2 structural grade may remain valid** when the SUPPORTED route still meets the active route-proof standard.
+
+However, the match must **not** be assigned `A2 FOCUS` when the SUPPORTED route is materially dependent on one or more of the following:
+
+- recent scoreline / Over / BTTS sequence as the main proof rather than independent chance-quality evidence;
+- away-only or venue-sensitive contribution that is not independently robust;
+- meaningful XI sensitivity, where one or two attacking personnel decisions can readily collapse the route;
+- defensive-leakage inference without enough direct evidence that the SUPPORTED team can generate its own high-value chances.
+
+A fragile SUPPORTED route may still receive `A2 FOCUS` only if at least one independent hardener clears:
+
+1. **SUPPORTED-ROUTE CHANCE QUALITY — STRONG:** repeatable big chances, xG/xGOT, central/box access, quality SOT, or an equivalent strong data-poor substitute materially supports that team's own scoring route; or
+2. **TRUE CC+ ON THE PROVEN SIDE:** the PROVEN team has a genuine independent 3+ team-goal ceiling that survives weak opponent contribution and satisfies the active CC+ proof standard.
+
+If neither hardener clears:
+
+- keep the structural grade at `A2` if the route pair still merits A2;
+- cap the board tier at `WATCHLIST`;
+- persist `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`;
+- do not rank the fixture above cleaner A1/A2 FOCUS environments merely because recent Over/BTTS results are strong.
+
+If confirmed XI later damages that SUPPORTED route enough to become `NOMINAL`, the normal active rules apply: ordinarily downgrade toward `B+ WATCHLIST` unless a TRUE CC+ carrier independently satisfies the existing carrier rules.
+
+**Recent Over/BTTS frequency by itself cannot clear this guard.** It is supporting context, not independent route-quality proof.
+
+This guard is prospective only. Do not retroactively rewrite already frozen boards; audit historical examples under the model version/state that actually produced them.
 
 ---
 
@@ -232,6 +261,12 @@ For every Model A final review, persist:
 - final Exposure Decision;
 - exact reason for any DIRECT-eligible exposure hold.
 
+For Work PRE after the Section 1.1 activation time, also persist when applicable:
+
+- `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`;
+- which fragility trigger(s) applied: `SCORE/FORM-PROXY`, `AWAY-DEPENDENT`, `XI-SENSITIVE`, and/or `LEAKAGE-INFERRED`;
+- whether the hardener was `SUPPORTED-ROUTE CHANCE QUALITY — STRONG`, `TRUE CC+`, or `NONE`.
+
 Existing Airtable fields may be used without schema migration:
 
 - keep `Execution Class = DIRECT LOCK ELIGIBLE` when technically true;
@@ -250,6 +285,7 @@ Post-slate audit must report separately:
 - official Model A LOCK results and P/L;
 - `DIRECT LOCK ELIGIBLE` candidates suppressed by the upper-tail gate;
 - `DIRECT LOCK ELIGIBLE` candidates suppressed by the priority-inversion guard;
+- `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE` cases and their FOCUS-vs-WATCHLIST counterfactual threshold outcomes;
 - QUALIFIED — WAIT target-burden outcomes;
 - STRUCTURAL HOLD outcomes;
 - +0.25 acceptance-band shadows;
@@ -258,7 +294,7 @@ Post-slate audit must report separately:
 - live/decay shadows;
 - FOCUS vs WATCHLIST threshold and 4+ upper-tail performance.
 
-The primary Model A diagnostic is whether the new exposure gate improves **official selection quality** without degrading the structural board.
+The primary Model A diagnostic is whether the new exposure gate improves **official selection quality** without degrading the structural board, and whether the narrow A2 FOCUS guard improves FOCUS concentration without suppressing genuinely strong PROVEN+SUPPORTED environments.
 
 Do not outcome-fit isolated winners. Review the gate prospectively over a meaningful settled sample.
 
@@ -268,6 +304,7 @@ Do not outcome-fit isolated winners. Review the gate prospectively over a meanin
 
 Model A overrides v0.2.55/v0.2.54 only where necessary to:
 
+- apply the prospective `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE` in Section 1.1;
 - separate DIRECT eligibility from official exposure permission;
 - require upper-tail proof for A2 exposure at the supported ceiling;
 - block materially weaker lower-ranked exposure when a higher-ranked A1/A2 FOCUS is withheld only by line/price, absent a football-led override;
