@@ -77,6 +77,57 @@ Do **not**:
 - create PRE grades before the gate passes;
 - touch Decision States or Website Picks.
 
+## Published board identity — mandatory
+
+After the actionable pre-flight gate passes and **before structural research begins**, assign one stable identity to the entire Work board.
+
+Use a deterministic time-window ID instead of a manually incremented counter so board references remain unambiguous across chats, reruns, and cross-midnight windows.
+
+### Board ID
+
+Format:
+
+`B-STARTDATE-STARTTIME-ENDDATE-ENDTIME`
+
+where dates/times are the exact requested **ICT** window in compact form:
+
+- date = `YYYYMMDD`;
+- time = `HHMM` (24-hour ICT).
+
+Example:
+
+`B-20260915-0300-20260915-1200`
+
+Cross-midnight example:
+
+`B-20260915-1800-20260916-0300`
+
+### Board Name
+
+Also create a human-readable display name from the same window:
+
+`15 Sep 2026 · 03:00–12:00 ICT`
+
+For a cross-midnight board, show both dates:
+
+`15 Sep 18:00 – 16 Sep 03:00 ICT`
+
+### Identity rules
+
+- The same exact ICT window always keeps the same Board ID. A rerun/correction of that window updates the same board identity; it does **not** create a new board.
+- A materially different requested window gets a different Board ID.
+- Do not derive Board ID from model version, fixture count, Airtable record count, or chat title.
+- Board ID identifies the published slate/window; `Coverage ID` continues to identify an individual fixture. Never replace or overload `Coverage ID` with Board ID.
+- Freeze Board ID + Board Name into the PRE artifact before Airtable publication.
+- Every Airtable row written by this Work board must preserve the Board ID and Board Name. Until dedicated Airtable board fields exist, prefix `Coverage Notes` (or the equivalent non-destructive notes field) with:
+
+  `[BOARD: <Board ID>] [BOARD NAME: <Board Name>]`
+
+  Preserve existing notes after that prefix; do not erase structural evidence.
+- Every Work final response must begin with the Board ID and Board Name so later Normal Chat/XI/audit requests can refer to the board directly.
+
+Preferred shorthand in later conversation is the Board ID, e.g. `load B-20260915-0300-20260915-1200`.
+
 ## Hard Work-usage boundary
 
 Step 0 Normal Chat owns fixture discovery, scope filtering, cheap league admission, and coverage skeleton publication.
@@ -96,6 +147,8 @@ The handoff should already have removed model-quality exclusions, low-goal domes
 
 Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model. Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
+The frozen PRE artifact and every Airtable row written from it must carry the Board ID + Board Name assigned above. Publication remains a copy/upsert of the frozen state; board identity must not trigger a second structural screen.
+
 This stage is price/XI/market-history blind. Do not use downstream Decision States or Website Picks. Do not run opening-odds watch, confirmed-XI review, live, settlement, post-slate audit, or shadow comparison work here.
 
 If the current model contains a later post-XI goal-environment/regime gate, preserve the structural evidence needed for it but do not classify that later regime during PRE unless `CURRENT_MODEL.md` explicitly moves the gate earlier.
@@ -106,6 +159,10 @@ Reconcile the complete **Work-admitted actionable universe** once at the end. Pu
 
 If actionable pre-flight fails, stop with the applicable handoff failure code and **zero fixtures researched**.
 
-If actionable pre-flight passes, return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST with structural rank + route pair + supported burden, Airtable publish PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
+If actionable pre-flight passes, begin with:
 
-Under v0.2.54, Work remains price-blind and does not assign final execution class. It must preserve the ranked candidate pool so Step 2 can distinguish `QUALIFIED — WAIT FOR DECAY` from `STRUCTURAL HOLD` without reconstructing PRE or burying a high-ranked qualified candidate.
+`BOARD: <Board ID> — <Board Name>`
+
+Then return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST with structural rank + route pair + supported burden, Airtable publish PASS/FAIL, Board ID persistence PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
+
+Under the current official model, Work remains price-blind and does not assign final execution class unless `CURRENT_MODEL.md` explicitly changes that stage boundary. It must preserve the ranked candidate pool so Step 2 can distinguish `QUALIFIED — WAIT FOR DECAY` from `STRUCTURAL HOLD` without reconstructing PRE or burying a high-ranked qualified candidate.
