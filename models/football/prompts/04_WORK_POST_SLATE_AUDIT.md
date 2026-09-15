@@ -3,59 +3,102 @@
 Use Work mode with high reasoning.
 
 ## Authority
-Read `models/football/CURRENT_MODEL.md` first. Use the official model, active patches, time/schedule rules, and audit semantics declared there at execution time. Never infer the active version from this prompt.
 
-Load only the current files needed to interpret frozen PRE, later material states, live/audit labels, and settlement. Historical assessments remain tied to the model version that actually produced them.
+Read `models/football/CURRENT_MODEL.md` first. Use the official model, active patches, time/schedule rules and audit semantics declared there at execution time. Never infer the active version from this prompt.
+
+Load only the current files needed to interpret frozen PRE, later material states, exposure decisions, shadows and settlement. Historical assessments remain tied to the model version that actually produced them.
 
 ## Airtable
+
 Base ID `appWyZJjitSBATXAU`.
 Daily Coverage Ledger `tblcl1UAyMqZT6Ub0`.
 Decision States `tblQmUpd5WjBLQ38X`.
 Website Picks `tblg3J5sbJYbzuTYD`.
 
-Read only the requested slate/date and the records needed for that audit.
+Read only the requested slate/board and records needed for that audit.
 
 ## Audit boundary
-Use frozen PRE from Daily Coverage Ledger as historical truth. Use Decision States for later XI/market/live assessment epochs. Use Website Picks only for actual official exposure/results when needed.
+
+Use frozen PRE from Daily Coverage Ledger as historical truth. Use Decision States for later XI/market/execution/live epochs. Use Website Picks only for actual official exposure/results.
 
 Do not rebuild the original PRE with hindsight and do not re-research every routine fixture from scratch.
 
-Spend deep Work effort on meaningful anomalies:
+Spend deep effort on meaningful anomalies:
+
 - losing official selections;
-- repeated false-negative HOLD/PASS patterns, separating qualified price/burden waits from structural holds;
-- ranking misses;
+- repeated false-negative waits/holds;
+- `DIRECT LOCK ELIGIBLE` candidates suppressed by Model A exposure gates;
+- ranking and priority-inversion misses;
 - fixture-filter/time-integrity failures;
-- price or burden/regime errors;
+- price/burden/regime errors;
 - persistence/synchronization faults;
 - repeated failure modes;
-- missed opportunities where the current model's later regime logic is relevant.
+- missed opportunities where carrier/upper-tail evidence mattered.
 
-For normal wins and correctly handled routine HOLD/PASS states, summarize briefly from stored evidence.
+Routine wins and correctly handled non-exposures can be summarized from stored evidence.
 
 ## Historical/version fidelity
-Never relabel an older decision as the current model. A later patch can be used for counterfactual audit only if clearly labelled; it must not rewrite historical exposure/P&L.
 
-If the current model defines STANDARD/EGE or similar execution labels, audit them exactly as declared. Distinguish direct execution, relative decay, non-decay holds, and goal-expansion/no-chase holds where applicable.
+Never relabel an older decision as Football A. A later model may be used only as a clearly labelled counterfactual audit and must not rewrite historical exposure/P&L.
 
-A high-scoring result after a HOLD is not automatically a model error. Determine whether the evidence available at the time actually satisfied the current/then-active gate.
+A high-scoring result after a HOLD/WAIT is not automatically a model error. Determine whether the contemporaneous state actually satisfied the then-active rules.
 
-## v0.2.54 audit separation
+## Football A audit separation
 
-For prospective v0.2.54 records, use the dedicated Decision States fields for Structural Rank, Execution Class, Supported Target Line, Target Min Odds, Calibration Track, Calibration Result and Calibration P/L u.
+For prospective Football A records, preserve three axes:
 
-Never aggregate all HOLD states. Report separately:
+1. Structural Rank;
+2. Execution Class;
+3. Exposure Decision.
 
-- official DIRECT exposure and P/L;
-- QUALIFIED — WAIT FOR DECAY target-burden counterfactuals;
+Report separately:
+
+- official Football A LOCK exposure and P/L;
+- `DIRECT LOCK ELIGIBLE` + `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT` outcomes;
+- `DIRECT LOCK ELIGIBLE` + `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD` outcomes;
+- QUALIFIED — WAIT FOR DECAY target-burden outcomes;
 - STRUCTURAL HOLD outcomes;
-- MCE/+0.25 shadow outcomes;
-- live/relative-decay shadow outcomes;
-- FOCUS vs WATCHLIST structural-threshold performance.
+- A1/A2 FOCUS +0.25 acceptance-band shadows;
+- B+ / CC+ audit-lane outcomes;
+- MCE shadows;
+- live/relative-decay shadows;
+- FOCUS vs WATCHLIST 3+ and 4+ threshold performance.
 
-Flag any official MCE/+0.25 or new live/decay exposure under v0.2.54 as `PROMOTION QUARANTINE BREACH`. Flag a lower-ranked official exposure ahead of a higher-ranked directly executable candidate without a documented football reason as `SELECTION INVERSION`.
+Counterfactual and shadow lanes never enter official P/L.
+
+### Model A core diagnostics
+
+For every DIRECT candidate, audit whether:
+
+- upper-tail state was correctly classified `PASS / FAIL / NOT REQUIRED`;
+- priority-inversion state was correctly classified `CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
+- the final Exposure Decision followed the ordering:
+
+`STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`.
+
+Flag:
+
+- `EXPOSURE GATE FALSE POSITIVE` — official lock failed while the contemporaneous upper-tail/priority evidence did not truly justify exposure;
+- `EXPOSURE GATE FALSE NEGATIVE` — exposure hold won and contemporaneous evidence shows the Model A gate should have passed;
+- `PRIORITY INVERSION BREACH` — materially weaker lower-ranked official exposure was taken ahead of a higher-ranked price-only wait without valid football override;
+- `UPPER-TAIL GATE BREACH` — A2 at supported ceiling was officially exposed without required upper-tail proof;
+- `STRUCTURAL RANK PRESERVED` — result miss does not invalidate the frozen structural ordering;
+- `EXECUTION SELECTION ERROR` — football board was useful but official exposure selection was wrong.
+
+Do not label every losing lock a gate error; distinguish variance, conversion miss and genuine selection fault.
+
+## Existing quarantine checks
+
+Continue to flag official MCE/+0.25 or ordinary new live/decay exposure as a quarantine breach unless an explicit active-model/user exception applied.
+
+The A1/A2 +0.25 acceptance band remains shadow-only until its release gate is explicitly removed by a later approved model.
+
+Keep B+ / CC+ separate from that acceptance-band sample.
 
 ## Error taxonomy
-Classify meaningful issues using the active audit taxonomy where defined. Otherwise use:
+
+Classify meaningful issues with the active model taxonomy where available. Otherwise use:
+
 - PROCESS ERROR
 - MODEL ERROR
 - INFORMATION ERROR
@@ -66,9 +109,33 @@ Classify meaningful issues using the active audit taxonomy where defined. Otherw
 - PERSISTENCE / SYNC ERROR
 
 ## Learning rule
-Do not propose a model change because of one outcome. Recommend change only when repeated evidence supports it. For each proposed change state: exact rule/workflow affected, evidence pattern, expected benefit, downside, and TEST / KEEP / MODIFY / REJECT.
+
+Do not propose another model change from one outcome. Recommend changes only when repeated prospective evidence supports them.
+
+For each proposed change state:
+
+- exact rule/workflow affected;
+- evidence pattern;
+- expected benefit;
+- downside;
+- `TEST / KEEP / MODIFY / REJECT`.
 
 Do not edit model files automatically unless the user explicitly asks.
 
 ## Output
-Compact audit summary: model versions audited, official DIRECT results/exposure, qualified-wait counterfactuals, structural holds, MCE/live shadows, FOCUS-vs-WATCHLIST separation, quarantine compliance, meaningful misses, error taxonomy, repeated structural patterns, schedule/price/persistence issues, recommended TEST/KEEP/MODIFY items, and no-change areas.
+
+Compact audit summary:
+
+- board ID/name when available;
+- model versions audited;
+- official LOCK results/P&L;
+- DIRECT-eligible exposure holds by blocker;
+- qualified-wait target outcomes;
+- structural holds;
+- acceptance-band/B+/MCE/live shadow lanes;
+- FOCUS-vs-WATCHLIST 3+/4+ separation;
+- priority-inversion compliance;
+- upper-tail gate performance;
+- meaningful misses and error taxonomy;
+- recommended `TEST / KEEP / MODIFY / REJECT` items;
+- no-change areas.
