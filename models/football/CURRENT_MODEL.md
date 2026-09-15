@@ -12,12 +12,13 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — **SELECTION INVERSION GUARD + PROMOTION QUARANTINE**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.55.md` — **EXECUTION CALIBRATION ADDENDUM**  
 - `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
+- `rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md` — **PREDECLARED LIVE-DECAY EXECUTION / NO PLANNED PREMATCH LINE-DECAY WAIT**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Fixture authority:** **AiScore only**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Step-0 time policy:** preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling.
 
-This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version that actually produced them.
+This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
 ---
 
@@ -38,10 +39,11 @@ Load only the current active stack:
 11. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.54.md`
 12. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.55.md`
 13. `models/football/rules/MODEL_RULES_FOOTBALL_A.md`
-14. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-15. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-16. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-17. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+14. `models/football/rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`
+15. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+16. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+17. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+18. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -67,40 +69,31 @@ A `Z` timestamp means UTC. Never convert the same timestamp twice.
 
 ## 3. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED PRICE → EXECUTION CLASS → MODEL A EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / QUALIFIED WAIT / STRUCTURAL HOLD / SHADOW`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED PRICE → EXECUTION PATH → MODEL A EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
 
-Work remains structural and price/XI/market-history blind. Normal Chat owns XI, market-history checks, current price, exposure selection, schedule display, and live review.
+Work remains structural and price/XI/market-history blind. Normal Chat owns XI, market-history checks, current price, exposure selection, planned live-decay execution, schedule display, and live review.
 
 ---
 
-## 4. Structural model: v0.2.55-compatible with one narrow Football A FOCUS cap
+## 4. Structural model
 
-Football A does **not** broadly rebuild the structural board. It adds one prospective board-tier quality-control rule from **2026-09-15 18:09 ICT onward**.
-
-Continue the active standards:
+Football A remains v0.2.55-compatible with one narrow FOCUS cap.
 
 - **A1:** maximum for `PROVEN + PROVEN`; data-poor substitutes are never A1.
 - **A2:** normal maximum for `PROVEN + SUPPORTED`; `SUPPORTED + SUPPORTED` reaches A2/FOCUS only with strong chance quality and failure resistance.
 - **B+:** normal ceiling for `SUPPORTED + NOMINAL`; `PROVEN + NOMINAL` is WATCHLIST unless the proven route is true CC+.
 - **B / PASS:** weak/failed route combinations, strong resistance, cohesion damage, weak chance quality, or unsupported burden.
 
-### Football A fragile SUPPORTED-route FOCUS guard
+### Fragile SUPPORTED-route FOCUS guard
 
-For a `PROVEN + SUPPORTED` matchup, the A2 grade may remain valid, but **A2 FOCUS is not allowed** when the SUPPORTED route is materially dependent on score/form-proxy evidence, away/venue-sensitive contribution, meaningful XI sensitivity, or defensive-leakage inference **unless** at least one hardener clears:
+For `PROVEN + SUPPORTED`, A2 may remain valid, but **A2 FOCUS is not allowed** when the SUPPORTED route is materially dependent on score/form-proxy evidence, away/venue-sensitive contribution, meaningful XI sensitivity, or defensive-leakage inference unless at least one hardener clears:
 
 - `SUPPORTED-ROUTE CHANCE QUALITY — STRONG`; or
 - `TRUE CC+` on the PROVEN side with a genuine independent 3+ team-goal ceiling that survives weak opponent contribution.
 
-If neither hardener clears:
+If neither clears, cap at `A2 WATCHLIST` and persist `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`.
 
-- keep `A2` if the route pair still merits A2;
-- cap the board tier at `WATCHLIST`;
-- persist `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`;
-- do not use recent Over/BTTS frequency by itself to clear the cap.
-
-If confirmed XI later damages the SUPPORTED route into NOMINAL, apply the normal active downgrade path, ordinarily toward `B+ WATCHLIST` unless TRUE CC+ independently supports the carrier case.
-
-This rule is prospective. Do not rewrite already frozen PRE boards.
+Recent Over/BTTS frequency by itself cannot clear the cap.
 
 Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
 
@@ -110,145 +103,167 @@ Supported burden is chosen before current price. Price cannot create structural 
 
 ---
 
-## 5. Current official decision order
+## 5. Current decision order
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → MCE SHADOW TEST IF ELIGIBLE → CURRENT PRICE → STRUCTURAL RANK + EXECUTION CLASS → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → MCE SHADOW TEST IF ELIGIBLE → CURRENT PRICE → STRUCTURAL RANK + EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
 
-Three outputs are mandatory:
+Three outputs remain mandatory:
 
 1. **Structural Rank**
-2. **Execution Class**
+2. **Execution Class / Plan**
 3. **Exposure Decision**
 
-Execution Class remains:
+Execution states now include:
 
 - `DIRECT LOCK ELIGIBLE`
-- `QUALIFIED — WAIT FOR DECAY`
+- `QUALIFIED — LIVE DECAY PLAN`
+- `QUALIFIED — PRICE BELOW FLOOR`
 - `STRUCTURAL HOLD`
 - `SHADOW ONLY`
 
-Under Football A:
-
 `DIRECT LOCK ELIGIBLE != AUTOMATIC OFFICIAL LOCK`
-
-A DIRECT candidate can remain technically executable while receiving:
-
-`NO BET — EXPOSURE HOLD`
-
-because of the Model A exposure gate.
 
 ---
 
-## 6. Model A exposure gate
+## 6. Football A exposure gate
 
 ### A2 upper-tail gate
 
-When an A2 candidate is executable at the **supported-burden ceiling**, official exposure requires a genuine upper-tail pass through at least one of:
+When an A2 candidate is executable at the top of its supported burden/range, official exposure requires at least one of:
 
 - `4+ TOTAL PATH — QUALITY PROVEN`;
 - `TRUE CC+ PATH` with credible additional-goal support;
 - `ELITE TWO-SIDED PATH` with strong chance quality and failure resistance.
 
-If none clears, preserve `DIRECT LOCK ELIGIBLE` but final action becomes:
+If none clears:
 
-`NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
+`DIRECT LOCK ELIGIBLE — NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
 
-A1 remains the strongest primary lane and normally clears this exposure requirement when PROVEN+PROVEN, clean XI, chance quality, failure mode, and burden rules remain intact.
-
-B+ is **not relaxed** by Football A.
+A1 remains the strongest primary lane. B+ receives no relaxation.
 
 ### Priority-inversion guard
 
-Before any official exposure, compare the candidate with higher-ranked active candidates in the same practical kickoff/exposure window.
+Before any official exposure, compare against higher-ranked active candidates in the same practical exposure window.
 
-If a higher-ranked clean-XI A1/A2 FOCUS is still structurally qualified and is withheld **only** because its offered line is above burden or its target price is below floor, a materially weaker lower-ranked DIRECT candidate must not become official merely because its lower line is easier to execute.
+A materially weaker lower-ranked DIRECT candidate must not become official merely because its lower total is easier to execute when a higher-ranked clean-XI A1/A2 FOCUS remains structurally qualified and is withheld only by line/price.
 
-A lower-ranked exposure requires a documented football-led override: materially stronger upper-tail proof, materially stronger route quality after XI, a genuine failure-mode downgrade to the higher-ranked match, or another active-model football change.
+A lower-ranked override requires a documented football-led reason.
 
-Price, nominally lower total, or simple availability is not a valid override.
-
-If blocked:
-
-- keep `Execution Class = DIRECT LOCK ELIGIBLE`;
-- set `Exposure Decision = NO BET — EXPOSURE HOLD`;
-- persist `PRIORITY INVERSION GUARD`.
-
-Official exposure priority is:
+Official exposure priority remains:
 
 `STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
 
 ---
 
-## 7. Qualified waits and structural holds
+## 7. Live-decay execution policy
 
-Use `QUALIFIED — WAIT FOR DECAY` when football/XI/evidence gates clear at a supported burden and the only blocker is line or price.
+Football A no longer plans around a prematch quarter-line drop.
 
-Required blocker labels remain:
+### 7.1 No planned prematch line-decay wait
 
-- `PRICE-ONLY WAIT — LINE ABOVE BURDEN`
-- `PRICE-ONLY WAIT — PRICE BELOW FLOOR`
-- `PRICE-ONLY WAIT — BOTH`
+If the prematch market is above supported burden, do **not** treat a lower line as something expected to appear before kickoff.
 
-Keep these candidates visible at their structural rank and continue market-path logging.
+Instead use:
 
-Use `STRUCTURAL HOLD` only when football structure fails or remains materially unresolved. Do not collapse price-only waits into structural holds.
+`QUALIFIED — LIVE DECAY PLAN`
+
+Prematch movement can still be accepted if the user supplies it, but the model must never require or expect it as the normal execution route.
+
+### 7.2 Predeclared live decay can become official
+
+A predeclared `QUALIFIED — LIVE DECAY PLAN` may become official after kickoff when:
+
+- the plan was frozen before kickoff;
+- the user supplies a current executable live line/price;
+- the live line is at or below the supported target burden;
+- price clears the hard floor;
+- the original football/XI thesis remains substantially intact;
+- score/time state has not created a materially different thesis;
+- no red card, major injury, tactical collapse, or route damage invalidates the plan;
+- Model A upper-tail and priority-inversion gates are re-run at the actual live burden.
+
+If all clear:
+
+`DIRECT LOCK ELIGIBLE — PREDECLARED LIVE DECAY`
+
+and, after exposure approval:
+
+`OFFICIAL LOCK — LIVE DECAY PLAN`
+
+A first goal does not automatically cancel the plan; it triggers a state-integrity recheck.
+
+### 7.3 Opportunistic live remains quarantined
+
+If no live-decay plan was frozen before kickoff, an attractive live Over remains:
+
+`SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`
+
+unless the user grants a match-specific exception.
+
+`PREDECLARED LIVE DECAY != OPPORTUNISTIC LIVE BET`
+
+### 7.4 Same-line price wait
+
+If the line is already at supported burden but price is below the hard floor, use:
+
+`QUALIFIED — PRICE BELOW FLOOR`
+
+This can become directly executable before kickoff if the same supported line later clears the floor.
 
 ---
 
 ## 8. Price and user-supplied execution authority
 
-The user normally supplies confirmed XI and current executable Asian-total odds. Do not substitute externally found current prices unless explicitly asked.
+The user normally supplies confirmed XI and current executable Asian-total odds. Do not replace those current prices with external prices unless explicitly asked.
 
-Historical odds research is permitted for calibration/context.
-
-Active prematch price policy remains:
+Active price policy:
 
 - hard minimum decimal odds: **1.65**;
 - preferred: **1.70+**;
 - MCE +0.25 shadow validator threshold: **1.75+**;
 - never stretch burden merely to improve price.
 
-Do not issue an official lock without required current XI, executable price, and Model A exposure approval.
-
 ---
 
-## 9. Quarantined mechanisms remain quarantined
-
-Football A does not reactivate quarantined promotion mechanisms.
+## 9. Quarantined mechanisms
 
 Continue:
 
-- `HIGH-SCORING +0.25 ACCEPTANCE BAND — SHADOW ONLY` for qualifying A1/A2 FOCUS observations;
+- `HIGH-SCORING +0.25 ACCEPTANCE BAND — SHADOW ONLY`;
 - `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`;
-- `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`.
+- opportunistic/non-predeclared `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`.
 
-The +0.25 acceptance band remains quarantined until the full v0.2.55 release gate clears, including at least 20 valid settled predeclared observations, positive quarter-line-aware ROI, diversified sample, two consecutive release audits, and explicit user approval of a later model version.
-
-B+ / CC+ remains a separate audit lane with no automatic promotion.
+The +0.25 acceptance band remains quarantined until its existing release gate clears. B+ / CC+ remains a separate audit lane with no automatic promotion.
 
 ---
 
-## 10. Persistence under Football A
+## 10. Persistence
 
-For every material final review, persist:
+For every material Football A review, persist:
 
 - `Model Version = Football A`;
 - Structural Rank;
-- Execution Class;
 - supported burden;
-- current line/price;
-- upper-tail state: `PASS / FAIL / NOT REQUIRED`;
-- priority-inversion state: `CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
+- prematch/current line and price;
+- Execution Class / Plan;
+- upper-tail state;
+- priority-inversion state;
 - Exposure Decision;
-- exact reason for any DIRECT-eligible exposure hold.
+- exact blocker/reason.
 
-For Work PRE after the new FOCUS-guard activation, also persist the cap trigger and hardener state when applicable.
+For `QUALIFIED — LIVE DECAY PLAN`, also persist:
 
-Without a schema migration, keep technical DIRECT eligibility in the existing Execution Class field. Use `NO BET — HOLD` as the Airtable verdict for `NO BET — EXPOSURE HOLD`, with the Model A blocker written in Candidate/Evidence Summary.
+- target line and minimum price;
+- prematch offered line/price;
+- cancellation triggers;
+- first target-line timestamp, score and minute;
+- actual target price;
+- state integrity: `CLEAR / DAMAGED / NEW THESIS`;
+- final live exposure decision.
 
-Create Website Picks only for actual `OFFICIAL LOCK` exposure.
+Create Website Picks only when an actual `OFFICIAL LOCK` is approved at that moment. Never create retroactive exposure.
 
 ---
 
@@ -256,16 +271,18 @@ Create Website Picks only for actual `OFFICIAL LOCK` exposure.
 
 Post-slate audit must report separately:
 
-- official Football A locks and P/L;
-- DIRECT candidates suppressed by the upper-tail gate;
-- DIRECT candidates suppressed by the priority-inversion guard;
+- official Football A prematch locks and P/L;
+- official predeclared live-decay locks and P/L;
+- predeclared live-decay plans that never reached target;
+- target reached but state damaged/new thesis;
+- target reached but exposure suppressed by Model A;
+- opportunistic live shadows;
+- DIRECT candidates suppressed by upper-tail/priority-inversion gates;
 - `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE` cases;
-- QUALIFIED — WAIT target-burden outcomes;
-- STRUCTURAL HOLD outcomes;
+- structural holds;
 - +0.25 acceptance-band shadows;
 - B+ / CC+ audit lane;
 - MCE shadows;
-- live/decay shadows;
 - FOCUS vs WATCHLIST 3+ and 4+ performance.
 
 Counterfactual/shadow outcomes never enter official P/L.
@@ -274,13 +291,6 @@ Counterfactual/shadow outcomes never enter official P/L.
 
 ## 12. Authority and history
 
-Football A is prospective from **2026-09-15 11:01 ICT** onward. Its narrow A2 FOCUS guard is prospective from **2026-09-15 18:09 ICT** onward. Neither change retroactively reclassifies earlier frozen boards, locks, waits, holds, shadows, or P/L.
-
-Historical order:
-
-- v0.2.53 remains historical for decisions it actually produced;
-- v0.2.54 remains historical for its activation period;
-- v0.2.55 remains historical for decisions from 2026-09-14 ICT until Football A activation;
-- **Football A is the active official model for new decisions after activation.**
+Football A is the active official model. The fragile A2 FOCUS guard and the predeclared live-decay patch are prospective from their activation commits and do not retroactively reclassify earlier decisions or P/L.
 
 For current decisions, this file plus the canonical active stack wins over stale chat text, old handoffs, archived screenshots, and superseded documentation.
