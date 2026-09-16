@@ -40,7 +40,7 @@ when that is the operative reason.
 
 A league that fails this prerequisite is **not CONDITIONAL** and must not consume cheap-gate research.
 
-The Netherlands **Eerste Divisie** is an explicit approved lower-division exception and is governed by its NORMAL listing in Section 3.
+The Netherlands **Eerste Divisie** and Mexico **Liga de Expansión MX / Ascenso MX** are explicit approved lower-division exceptions and are governed by their NORMAL listings in Section 3.
 
 ---
 
@@ -122,6 +122,7 @@ Absolute operational exclusion under the active user rule. No automatic override
 - Switzerland — Super League
 - Brazil — Serie A
 - Mexico — Liga MX
+- Mexico — Liga de Expansión MX / Ascenso MX **(explicit approved lower division)**
 - Saudi Arabia — Saudi Pro League
 
 These classes control **admission to Work only**. They do not award a PRE grade, archetype, burden, or betting preference.
@@ -207,7 +208,7 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 The registry does not revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
-**Explicit lower-division approval:** Netherlands Eerste Divisie. It enters through the NORMAL lane in Section 3 and is not filtered out merely for being a second division.
+**Explicit lower-division approvals:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
 
 The UEFA Youth League remains a separate manual trial and is not made official by this registry.
 
@@ -233,7 +234,7 @@ The Work handoff should contain only:
 
 It must not contain:
 
-- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie;
+- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX;
 - small/obscure weak-data leagues;
 - LOW-GOAL EXCLUDE;
 - HARD EXCLUDE;
