@@ -11,10 +11,12 @@
 - `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — **RANKING INTEGRITY + EXECUTION VALIDATION**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — **SELECTION INVERSION GUARD + PROMOTION QUARANTINE**  
 - `rules/MODEL_RULES_FOOTBALL_V0.2.55.md` — **EXECUTION CALIBRATION ADDENDUM**  
+- `rules/MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` — **SHARED A/B MARKET-ALIGNMENT + PROTECTED-LINE INTEGRITY**  
 - `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
 - `rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md` — **PREDECLARED LIVE-DECAY EXECUTION / NO PLANNED PREMATCH LINE-DECAY WAIT**  
 - `rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` — **FOOTBALL A-ONLY HIGH-MARKET ACCEPTANCE / EARLY SAME-LINE PRICE EXECUTION**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
+**Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`; its existing participation behavior otherwise remains unchanged.  
 **Fixture authority:** **AiScore only**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Step-0 time policy:** preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling.
@@ -39,13 +41,14 @@ Load only the current active stack:
 10. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.53.md`
 11. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.54.md`
 12. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.55.md`
-13. `models/football/rules/MODEL_RULES_FOOTBALL_A.md`
-14. `models/football/rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`
-15. `models/football/rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`
-16. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-17. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-18. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-19. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+13. `models/football/rules/MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`
+14. `models/football/rules/MODEL_RULES_FOOTBALL_A.md`
+15. `models/football/rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`
+16. `models/football/rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`
+17. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+18. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+19. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+20. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -71,9 +74,9 @@ A `Z` timestamp means UTC. Never convert the same timestamp twice.
 
 ## 3. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED PRICE → HMA TEST → EXECUTION PATH → MODEL A EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / EARLY SAME-LINE PRICE PLAN / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED MARKET CENTER + LINES/PRICES → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA / MODEL B PARTICIPATION RULE → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / EARLY SAME-LINE PRICE PLAN / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
 
-Work remains structural and price/XI/market-history blind. Normal Chat owns XI, market-history checks, current price, HMA testing, exposure selection, planned live-decay execution, schedule display, and live review.
+Work remains structural and price/XI/market-history blind. Normal Chat owns XI, market-history checks, market-center/alignment checks, current price, HMA testing, Model B participation testing, exposure selection, planned live-decay execution, schedule display, and live review.
 
 ---
 
@@ -111,7 +114,9 @@ Supported burden is chosen before current price. Price cannot create structural 
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → CURRENT PRICE → STRUCTURAL RANK → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → STRUCTURAL RANK → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+
+When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
 
 Three outputs remain mandatory:
 
@@ -119,10 +124,13 @@ Three outputs remain mandatory:
 2. **Execution Class / Plan**
 3. **Exposure Decision**
 
-Execution states now include:
+Execution/blocker states now include:
 
 - `DIRECT LOCK ELIGIBLE`
 - `DIRECT LOCK ELIGIBLE — HIGH-MARKET ACCEPTANCE`
+- `MARKET UNDERCUT — RE-SCREEN REQUIRED`
+- `SEVERE MARKET UNDERCUT — NO INSTANT LOCK`
+- `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN`
 - `QUALIFIED — EARLY SAME-LINE PRICE PLAN`
 - `QUALIFIED — LIVE DECAY PLAN`
 - `QUALIFIED — PRICE BELOW FLOOR`
@@ -130,6 +138,26 @@ Execution states now include:
 - `SHADOW ONLY`
 
 `DIRECT LOCK ELIGIBLE != AUTOMATIC OFFICIAL LOCK`
+
+### Shared A/B market-alignment gate
+
+A lower Over total is mechanically more protected, but it is **not automatically evidence of value**.
+
+Before any instant/direct decision for either model, identify the current market center and compare it with the frozen structural burden.
+
+- market center `0.25+` below the lower edge / single frozen burden → `MARKET UNDERCUT — RE-SCREEN REQUIRED`;
+- market center `0.50+` below → `SEVERE MARKET UNDERCUT — NO INSTANT LOCK` unless a specific football-led override is documented;
+- a B/PASS or materially lower-ranked fixture carrying a market center `0.50+` above the model's implied burden, or among the slate's clearly highest goal totals, triggers `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN` rather than an ordinary silent PASS.
+
+The market may force reinspection but cannot create structural quality.
+
+Line hierarchy is explicit:
+
+`LOWEST ACCEPTABLE BURDEN → PRICE FLOOR → PRICE AS TIE-BREAKER`
+
+A higher total with a higher payout is a **higher-price / higher-burden alternative**, not a better protected line.
+
+Detailed authority: `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`.
 
 ---
 
@@ -173,7 +201,7 @@ A lower-ranked override requires a documented football-led reason.
 
 Official exposure priority remains:
 
-`STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
+`STRUCTURAL RANK → MARKET ALIGNMENT → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
 
 ---
 
@@ -181,15 +209,18 @@ Official exposure priority remains:
 
 Football A no longer plans around a prematch quarter-line drop, and it no longer forces every strong high-market match to decay all the way back to the raw structural ceiling.
 
-### 7.1 Test HMA before assigning live decay
+### 7.1 Test market alignment, then HMA before assigning live decay
+
+If the prematch market is below frozen burden, resolve the shared A/B market-undercut gate first.
 
 If the prematch market is above supported burden:
 
-1. test whether the offered line is inside the Football A HMA band;
-2. if HMA clears and price/exposure gates clear, execute prematch;
-3. if HMA clears but only price blocks, use `QUALIFIED — EARLY SAME-LINE PRICE PLAN`;
-4. if the line is outside HMA, use `QUALIFIED — LIVE DECAY PLAN` toward the **nearest independently qualified HMA boundary**;
-5. do not automatically wait all the way back to the raw structural ceiling.
+1. complete the market-alignment / high-market conflict re-screen;
+2. test whether the offered line is inside the Football A HMA band;
+3. if HMA clears and price/exposure gates clear, execute prematch;
+4. if HMA clears but only price blocks, use `QUALIFIED — EARLY SAME-LINE PRICE PLAN`;
+5. if the line is outside HMA, use `QUALIFIED — LIVE DECAY PLAN` toward the **nearest independently qualified HMA boundary**;
+6. do not automatically wait all the way back to the raw structural ceiling.
 
 ### 7.2 Early same-line price plan
 
@@ -253,9 +284,13 @@ Active price policy:
 
 - hard minimum decimal odds: **1.65**;
 - preferred: **1.70+**;
-- never stretch burden merely to improve price.
+- never stretch burden merely to improve price;
+- never call a higher total a better line merely because the price is higher;
+- once structure/XI/market alignment clear, prefer the **lowest acceptable burden that clears the floor**, then use price as a tie-breaker.
 
-HMA does not change the price floor. Price cannot create HMA eligibility or upper-tail proof.
+Example: `O2.0 @1.69` is more protected than `O2.25 @2.01`; O2.25 may have the better price, but it is a higher-burden alternative.
+
+HMA does not change the price floor. Price cannot create HMA eligibility, market alignment, or upper-tail proof.
 
 ---
 
@@ -267,7 +302,9 @@ Continue:
 - `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE` where not otherwise superseded by a valid Football A HMA case;
 - opportunistic/non-predeclared `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`.
 
-The new HMA lane is **not** a blanket release of the old +0.25 shadow sample. It is a narrower Football A-only official lane with explicit class and upper-tail gates. Model B remains unchanged.
+The new HMA lane is **not** a blanket release of the old +0.25 shadow sample. It is a narrower Football A-only official lane with explicit class and upper-tail gates. Model B remains unchanged by HMA.
+
+Model B **is** changed prospectively by the shared A/B market-alignment patch: its existing participation lane must clear market alignment before direct participation.
 
 B+ / CC+ remains a separate audit lane with no automatic promotion unless the match is actually A2 FOCUS under the active structural rules.
 
@@ -275,13 +312,19 @@ B+ / CC+ remains a separate audit lane with no automatic promotion unless the ma
 
 ## 10. Persistence
 
-For every material Football A review, persist:
+For every material Football A review, and every side-by-side Model B execution review, persist when observable:
 
-- `Model Version = Football A`;
+- model / track;
 - Structural Rank;
 - supported burden and structural ceiling;
+- current market center;
+- market-center delta vs frozen lower edge / burden;
+- `MARKET ALIGNMENT = CLEAR / UNDERCUT / SEVERE UNDERCUT / HIGH-MARKET CONFLICT / UNCLEAR`;
+- market re-screen result and any football-led override;
+- selected protected line;
+- higher-price / higher-burden alternatives where relevant;
 - prematch/current line and price;
-- HMA excess burden: `+0.25 / +0.50 / OUTSIDE BAND / N/A`;
+- HMA excess burden for Football A: `+0.25 / +0.50 / OUTSIDE BAND / N/A`;
 - HMA eligibility and hardener when relevant;
 - Execution Class / Plan;
 - upper-tail state;
@@ -335,7 +378,13 @@ Post-slate audit must report separately:
 - legacy +0.25 acceptance-band shadows;
 - B+ / CC+ audit lane;
 - MCE shadows;
-- FOCUS vs WATCHLIST 3+ and 4+ performance.
+- FOCUS vs WATCHLIST 3+ and 4+ performance;
+- market-undercut fixtures rejected by the shared A/B gate;
+- market-undercut fixtures overridden with explicit football evidence;
+- low-line instant-lock candidates prevented by the patch;
+- high-market PASS/WATCHLIST fixtures reopened by mandatory re-screen;
+- selected protected line vs higher-price/higher-burden alternative outcomes;
+- Model A vs Model B outcomes separately.
 
 For HMA cases, track both the frozen structural target outcome and the actual HMA line outcome.
 
@@ -345,10 +394,12 @@ Counterfactual/shadow outcomes never enter official P/L.
 
 ## 12. Authority and history
 
-Football A is the active official model. The fragile A2 FOCUS guard, predeclared live-decay patch, and Football A-only HMA patch are prospective from their activation commits and do not retroactively reclassify earlier decisions or P/L.
+Football A is the active official model. The fragile A2 FOCUS guard, predeclared live-decay patch, Football A-only HMA patch, and shared A/B market-alignment patch are prospective from their activation commits and do not retroactively reclassify earlier decisions or P/L.
+
+`MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` overrides earlier Football A/Model B wording wherever a lower-than-structural market line was treated as automatically favorable or directly executable without first resolving the market disagreement. It also requires a mandatory re-screen when a structurally weak/pass fixture carries a materially higher market center than the model expected.
 
 `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` overrides earlier Football A/v0.2.55/live-decay wording only where those rules forced a qualifying high-ranked FOCUS candidate to wait for the raw structural ceiling despite a valid HMA line or targeted live decay farther than the nearest independently qualified HMA boundary.
 
-**Model B is unchanged by the HMA patch.**
+**Model B is unchanged by the HMA patch. Model B is prospectively governed by the shared A/B market-alignment patch before its own participation rules.**
 
 For current decisions, this file plus the canonical active stack wins over stale chat text, old handoffs, archived screenshots, and superseded documentation.
