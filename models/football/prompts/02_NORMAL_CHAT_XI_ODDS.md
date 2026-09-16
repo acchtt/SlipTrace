@@ -6,9 +6,11 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For all new decisions after activation, persist `Model Version = Football A`.
+
+**HMA is Football A-only. Do not apply it to Model B or any shadow comparison track.**
 
 ## Airtable
 
@@ -50,7 +52,7 @@ When Model A same-window comparison is required, retrieve higher-ranked active c
 
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → MCE/+0.25 SHADOW TESTS → CURRENT PREMATCH PRICE → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT PREMATCH PRICE → FOOTBALL A HMA TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
 
 First-pass XI is football-led and market-blind.
 
@@ -77,25 +79,95 @@ For STANDARD O3.0+ A1/A2 TWO-SIDED candidates, require repeatable high-value cha
 
 Supported burden is fixed **before** current price.
 
+**Do not rewrite the structural ceiling upward after seeing the market. HMA is an execution overlay only.**
+
+## Football A High-Market Acceptance test
+
+Run HMA **before** assigning a live-decay plan when the actual market is above the frozen structural ceiling.
+
+### A1 FOCUS
+
+- up to `+0.25` above frozen ceiling under normal clean A1 integrity;
+- up to `+0.50` only with a strong upper-tail hardener: `4+ TOTAL PATH — QUALITY PROVEN`, `ELITE TWO-SIDED PATH`, or TRUE CC+/equivalent carrier support.
+
+### A2 FOCUS
+
+- up to `+0.25` only when the A2 upper-tail gate clears at the actual offered burden;
+- up to `+0.50` only with exceptional TRUE CC+ / repeatable 4+ / elite two-sided proof.
+
+### No HMA extension
+
+No automatic HMA extension for:
+
+- A2 WATCHLIST;
+- B+ WATCHLIST;
+- PASS / unresolved;
+- fragile A2 cases capped to WATCHLIST.
+
+A line `+0.75` or more above frozen ceiling is outside immediate HMA.
+
+If HMA passes, persist the structural ceiling separately from the actual HMA line.
+
 ## Execution path
 
-After burden is fixed, assign the technical execution path.
+After burden is fixed and HMA is tested, assign the technical execution path.
 
 ### DIRECT LOCK ELIGIBLE
 
 Use when the actual prematch line is no higher than supported burden, price clears the active floor, and no quarantined mechanism is required.
 
+### DIRECT LOCK ELIGIBLE — HIGH-MARKET ACCEPTANCE
+
+Use when:
+
+- the match is a qualifying Football A A1/A2 FOCUS case;
+- the offered line is inside its permitted HMA band;
+- price clears the active floor;
+- confirmed XI remains sufficiently intact;
+- required upper-tail hardener clears;
+- priority-inversion review does not block exposure.
+
+If exposure is approved:
+
+`OFFICIAL LOCK — HIGH-MARKET ACCEPTANCE`
+
+Do not wait for the raw structural line merely because the HMA line is higher.
+
+### QUALIFIED — EARLY SAME-LINE PRICE PLAN
+
+Use when the line is already inside a valid HMA band but price is below the hard floor.
+
+Freeze before kickoff:
+
+- HMA line;
+- minimum acceptable price;
+- frozen structural ceiling;
+- HMA excess burden (`+0.25` or `+0.50`);
+- upper-tail hardener;
+- cancellation triggers.
+
+During approximately `0'–12'` at `0-0`, the frozen PRE + XI remain primary and live stats are veto/context rather than a required promotion signal. If the **same HMA line** clears the floor with no material state damage, execute promptly.
+
+A goal, red card, major attacking injury, tactical collapse or route damage ends the simple trigger and requires a fresh state-integrity review. Do not chase a goal-driven line expansion.
+
 ### QUALIFIED — LIVE DECAY PLAN
 
-Use when football/XI/evidence clears at a supported target burden but the **prematch line is above that burden**.
+Use when football/XI/evidence clears but the **prematch line remains outside the permitted HMA band**.
 
-This replaces the old assumption that the total will conveniently drop by 0.25 before kickoff.
+Do **not** automatically wait all the way back to the raw structural ceiling.
 
-Do **not** plan around prematch line decay. Prematch movement may still be accepted if the user supplies it, but it is not the expected route.
+Predeclare the **nearest independently qualified HMA boundary** as the live-decay target when HMA rules allow one.
+
+Examples:
+
+- strong A1 with ceiling O3.0 and valid +0.50 hardener: O3.75 market may target O3.5;
+- exceptional A2 FOCUS/TRUE CC+ with ceiling O3.0: O3.75 market may target O3.5;
+- ordinary A2 FOCUS with ceiling O3.0: O3.75 market may target no higher than O3.25.
 
 Before kickoff persist:
 
-- target supported line;
+- target line;
+- whether target is raw structural burden or HMA boundary;
 - minimum price;
 - current prematch line/price;
 - cancellation triggers / dominant failure mode;
@@ -113,7 +185,7 @@ Use only when football/evidence fails or remains materially unresolved.
 
 ### SHADOW ONLY
 
-Use for quarantined mechanisms.
+Use for quarantined mechanisms not promoted by the Football A-only HMA patch.
 
 Price or market movement may change execution state but may not increase Structural Rank.
 
@@ -123,7 +195,7 @@ Price or market movement may change execution state but may not increase Structu
 
 ### A2 upper-tail gate
 
-If an A2 candidate is executable at the top of its supported burden/range, require at least one:
+If an A2 candidate is executable at the top of its supported burden/range **or above the structural ceiling through HMA**, require at least one:
 
 - `4+ TOTAL PATH — QUALITY PROVEN`;
 - `TRUE CC+ PATH` with credible additional-goal support;
@@ -131,7 +203,7 @@ If an A2 candidate is executable at the top of its supported burden/range, requi
 
 If none clears:
 
-- Execution Class stays `DIRECT LOCK ELIGIBLE`;
+- Execution Class stays technically direct where applicable;
 - Exposure Decision = `NO BET — EXPOSURE HOLD`;
 - persist `UPPER-TAIL INSUFFICIENT`.
 
@@ -140,6 +212,8 @@ If none clears:
 Before an OFFICIAL LOCK, compare against higher-ranked active candidates in the same practical exposure window.
 
 Do not expose a materially weaker lower-ranked candidate merely because its lower total is easier to execute when a higher-ranked clean-XI A1/A2 FOCUS remains structurally qualified and is withheld only by line/price.
+
+A higher-ranked candidate that is validly executable under HMA must be treated as **available**, not artificially stranded at the raw structural ceiling.
 
 A lower-ranked override requires a documented football-led reason.
 
@@ -154,12 +228,12 @@ A fixture with a frozen `QUALIFIED — LIVE DECAY PLAN` may become official afte
 At each user-supplied live line/price, recheck:
 
 1. plan existed before kickoff;
-2. live line is at or below target supported burden;
+2. live line is at or below the predeclared target, which may be a valid HMA boundary;
 3. price clears the floor;
 4. score/time state has not materially invalidated the original thesis;
 5. no red card, major injury, tactical collapse or route damage;
 6. the target was reached by ordinary clock decay rather than a completely new match thesis;
-7. upper-tail and priority-inversion gates clear at the actual live burden.
+7. HMA/upper-tail and priority-inversion gates clear at the actual live burden.
 
 A first goal does **not automatically cancel** the plan. It triggers a state-integrity recheck.
 
@@ -175,7 +249,7 @@ Create the Website Pick only at the moment of approval. Never backfill after the
 
 ## Opportunistic live quarantine
 
-If there was **no predeclared live-decay plan before kickoff**, an attractive live Over remains:
+If there was **no predeclared HMA same-line plan or live-decay plan before kickoff**, an attractive live Over remains:
 
 `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`
 
@@ -185,19 +259,22 @@ unless the user grants a separate match-specific exception.
 
 ## Other quarantined mechanisms
 
-Keep unchanged:
+Keep quarantined:
 
-- qualifying A1/A2 FOCUS exact +0.25 above supported ceiling: `HIGH-SCORING +0.25 ACCEPTANCE BAND — SHADOW ONLY`;
-- MCE: `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`.
+- generic/historical +0.25 acceptance cases that **do not satisfy the Football A HMA conditions**: `HIGH-SCORING +0.25 ACCEPTANCE BAND — SHADOW ONLY`;
+- MCE outside a valid HMA case: `SHADOW MCE +0.25 — NO OFFICIAL EXPOSURE`.
 
-B+ / CC+ remains a separate audit lane with no automatic promotion.
+The HMA patch is **not** a blanket release of the legacy +0.25 shadow sample.
+
+B+ / CC+ remains a separate audit lane with no automatic HMA promotion unless the fixture is actually A2 FOCUS under the active structural rules.
 
 ## Price
 
 - hard floor **1.65**;
 - preferred **1.70+**;
-- MCE +0.25 shadow validator **1.75+**;
 - never stretch burden merely to get a better price.
+
+Price cannot create HMA eligibility or upper-tail proof.
 
 ## Persistence
 
@@ -205,18 +282,30 @@ For every material Football A review persist:
 
 - `Model Version = Football A`;
 - Structural Rank;
-- supported burden;
+- supported burden / frozen structural ceiling;
 - supplied line/price;
+- HMA excess burden: `+0.25 / +0.50 / OUTSIDE BAND / N/A`;
+- HMA eligibility and hardener where relevant;
 - Execution Class / Plan;
 - `UPPER-TAIL = PASS / FAIL / NOT REQUIRED`;
 - `PRIORITY INVERSION = CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
 - Exposure Decision;
 - exact blocker/reason.
 
+For every `QUALIFIED — EARLY SAME-LINE PRICE PLAN`, additionally log whenever observable:
+
+- accepted HMA line;
+- minimum price;
+- first same-line floor-clear timestamp;
+- score/minute at trigger;
+- `STATE INTEGRITY = CLEAR / DAMAGED / NEW THESIS`;
+- final execution decision.
+
 For every `QUALIFIED — LIVE DECAY PLAN`, additionally log whenever observable:
 
 - prematch offered line/price;
 - target line/minimum price;
+- whether target is raw structural burden or HMA boundary;
 - first target-line timestamp;
 - score and minute when target first appears;
 - target price;
@@ -229,14 +318,16 @@ Do not rewrite frozen PRE.
 
 Compactly return:
 
-match; active model `Football A`; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden; supplied line/price; Execution Class / Plan; upper-tail gate; priority-inversion state; state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+match; active model `Football A`; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; supplied line/price; HMA band/eligibility; Execution Class / Plan; upper-tail gate; priority-inversion state; state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
 
 Use exact final labels where applicable:
 
 - `OFFICIAL LOCK`
+- `OFFICIAL LOCK — HIGH-MARKET ACCEPTANCE`
 - `OFFICIAL LOCK — LIVE DECAY PLAN`
 - `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
 - `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD`
+- `QUALIFIED — EARLY SAME-LINE PRICE PLAN`
 - `QUALIFIED — LIVE DECAY PLAN`
 - `QUALIFIED — PRICE BELOW FLOOR`
 - `STRUCTURAL HOLD`
