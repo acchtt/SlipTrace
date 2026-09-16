@@ -49,7 +49,7 @@ These fixtures are excluded **before** the league registry's CONDITIONAL gate. D
 
 A league being a national top flight does **not by itself** guarantee CONDITIONAL status.
 
-**Explicit approved lower division:** Netherlands Eerste Divisie. It is whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because it is the Dutch second tier.
+**Explicit approved lower divisions:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They are whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because they are second-tier competitions.
 
 The separate UEFA Youth League trial remains a manual user override until the repository explicitly promotes it into official scope.
 
@@ -67,7 +67,7 @@ Send to Work automatically.
 
 Send to Work automatically.
 
-This includes explicitly approved lower divisions listed as NORMAL in the registry, currently Netherlands Eerste Divisie.
+This includes explicitly approved lower divisions listed as NORMAL in the registry, currently Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX.
 
 ### CONDITIONAL
 
@@ -188,7 +188,7 @@ If a conditional fixture needs full match research merely to decide whether it d
 
 If a weak/obscure league needs research merely to decide whether it deserves CONDITIONAL status, it is already outside normal Step-0 scope for that run.
 
-Explicitly approved lower divisions such as Netherlands Eerste Divisie bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus.
+Explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus.
 
 ---
 
