@@ -6,11 +6,11 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
-For all new decisions after activation, persist `Model Version = Football A`.
+For all new official Model A decisions after activation, persist `Model Version = Football A`.
 
-**HMA is Football A-only. Do not apply it to Model B or any shadow comparison track.**
+**The market-alignment patch applies to both Football A and Model B. HMA remains Football A-only. Do not apply HMA to Model B or any shadow comparison track.**
 
 ## Airtable
 
@@ -52,7 +52,7 @@ When Model A same-window comparison is required, retrieve higher-ranked active c
 
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT PREMATCH PRICE → FOOTBALL A HMA TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA OR MODEL B PARTICIPATION TEST → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → EXPOSURE DECISION`
 
 First-pass XI is football-led and market-blind.
 
@@ -73,17 +73,71 @@ If XI appears stronger but the total weakens materially, recheck for missing abs
 
 The market triggers reinspection; it does not automatically win and cannot create structural quality.
 
+## Shared A/B market-alignment gate
+
+This gate is mandatory **before any instant/direct lock or Model B direct participation decision**.
+
+### Determine the market center
+
+Use the current main Asian total / line nearest balanced Over-Under pricing as the **market center**. Adjacent alternate totals may confirm the distribution, but do not cherry-pick the lowest alternate line and call it value.
+
+Persist the market center and compare it with the frozen supported burden/range.
+
+### MARKET UNDERCUT — RE-SCREEN REQUIRED
+
+If the market center is `0.25+` below the lower edge of the frozen supported range, or `0.25+` below a single-point frozen burden:
+
+`MARKET UNDERCUT — RE-SCREEN REQUIRED — NO INSTANT LOCK`
+
+Re-screen for attacking absences, tactical suppression, competition incentives, opponent resistance, stale/misleading goal evidence, source/time mismatch, lineup quality and any other football-led explanation for the lower market.
+
+A lower total is mechanically safer but is **not automatically value**.
+
+### SEVERE MARKET UNDERCUT
+
+If the market center is `0.50+` below the frozen lower edge / single burden:
+
+`SEVERE MARKET UNDERCUT — NO INSTANT LOCK`
+
+A direct decision can be restored only with a specific football-led explanation plus independent corroboration. Otherwise HOLD.
+
+### HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN
+
+If a B/PASS, unsupported, or materially lower-ranked fixture carries a market center `0.50+` above the model's implied burden, or is among the slate's clearly highest total environments, do not silently retain an ordinary PASS.
+
+Trigger:
+
+`HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN`
+
+Recheck carrier depth, class-gap/cross-league context, competition volatility, lineup quality, misleading suppression from a small recent-score sample, and two-sided chance quality.
+
+The market may force reinspection but cannot create structure by itself.
+
+### Protected-line integrity
+
+Keep these concepts separate:
+
+- **best protected line** = lowest acceptable burden;
+- **best price** = highest decimal payout;
+- **best execution** = strongest combination after football + market-alignment + model-specific gates.
+
+Example: `O2.0 @1.69` is more protected than `O2.25 @2.01`. O2.25 has a better price but is a **higher-price / higher-burden alternative**, not a better line.
+
+After all gates clear, line-selection order is:
+
+`LOWEST ACCEPTABLE BURDEN → PRICE FLOOR → PRICE AS TIE-BREAKER`
+
 ## Chance quality / burden
 
 For STANDARD O3.0+ A1/A2 TWO-SIDED candidates, require repeatable high-value chance support across the relevant routes where data exists. Raw goals, names or possession alone are insufficient.
 
 Supported burden is fixed **before** current price.
 
-**Do not rewrite the structural ceiling upward after seeing the market. HMA is an execution overlay only.**
+**Do not rewrite the structural ceiling upward or downward merely after seeing the market. Market disagreement triggers re-screening; it does not rewrite frozen PRE. HMA is an execution overlay only.**
 
 ## Football A High-Market Acceptance test
 
-Run HMA **before** assigning a live-decay plan when the actual market is above the frozen structural ceiling.
+Run HMA **after market alignment/re-screening** and before assigning a live-decay plan when the actual market is above the frozen structural ceiling.
 
 ### A1 FOCUS
 
@@ -108,19 +162,36 @@ A line `+0.75` or more above frozen ceiling is outside immediate HMA.
 
 If HMA passes, persist the structural ceiling separately from the actual HMA line.
 
+## Model B participation test
+
+When Model B is explicitly run side-by-side, preserve its existing participation behavior and +0.25 allowance where otherwise valid.
+
+However, **Model B must clear the shared A/B market-alignment gate first**.
+
+A bearish market undercut cannot be treated as free value or as an automatic reason for direct participation.
+
 ## Execution path
 
-After burden is fixed and HMA is tested, assign the technical execution path.
+After burden is fixed, market alignment is resolved, and the relevant model-specific HMA/participation test is complete, assign the technical execution path.
 
 ### DIRECT LOCK ELIGIBLE
 
-Use when the actual prematch line is no higher than supported burden, price clears the active floor, and no quarantined mechanism is required.
+Use only when:
+
+- football/XI structure remains valid;
+- `MARKET ALIGNMENT = CLEAR` or `MARKET UNDERCUT OVERRIDE — FOOTBALL EXPLAINED`;
+- the selected prematch line is no higher than supported burden;
+- price clears the active floor;
+- no quarantined mechanism is required.
+
+**The old shortcut `line <= supported burden + price floor = direct` is invalid.**
 
 ### DIRECT LOCK ELIGIBLE — HIGH-MARKET ACCEPTANCE
 
 Use when:
 
 - the match is a qualifying Football A A1/A2 FOCUS case;
+- market-alignment / high-market re-screen is complete;
 - the offered line is inside its permitted HMA band;
 - price clears the active floor;
 - confirmed XI remains sufficiently intact;
@@ -177,7 +248,7 @@ Before kickoff persist:
 
 Use when the line is already at supported burden but its price is below the hard floor.
 
-A same-line prematch price improvement can still make it directly executable.
+A same-line prematch price improvement can still make it directly executable, subject to market alignment still being clear.
 
 ### STRUCTURAL HOLD
 
@@ -219,7 +290,7 @@ A lower-ranked override requires a documented football-led reason.
 
 Exposure order:
 
-`STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
+`STRUCTURAL RANK → MARKET ALIGNMENT → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
 
 ## Predeclared live-decay execution
 
@@ -272,23 +343,31 @@ B+ / CC+ remains a separate audit lane with no automatic HMA promotion unless th
 
 - hard floor **1.65**;
 - preferred **1.70+**;
-- never stretch burden merely to get a better price.
+- never stretch burden merely to get a better price;
+- never describe a higher total as a better line merely because its odds are higher;
+- after structure/XI/market alignment clear, prefer the lowest acceptable burden that clears the floor, then use price as a tie-breaker.
 
-Price cannot create HMA eligibility or upper-tail proof.
+Price cannot create HMA eligibility, market alignment, upper-tail proof or Model B participation eligibility.
 
 ## Persistence
 
-For every material Football A review persist:
+For every material Football A review, and every side-by-side Model B review, persist when observable:
 
-- `Model Version = Football A`;
+- model / track;
 - Structural Rank;
 - supported burden / frozen structural ceiling;
+- current market center;
+- market-center delta vs frozen lower edge / burden;
+- `MARKET ALIGNMENT = CLEAR / UNDERCUT / SEVERE UNDERCUT / HIGH-MARKET CONFLICT / UNCLEAR`;
+- re-screen result and `MARKET UNDERCUT OVERRIDE = NONE / FOOTBALL EXPLAINED`;
+- selected protected line;
+- higher-price / higher-burden alternative(s) where relevant;
 - supplied line/price;
-- HMA excess burden: `+0.25 / +0.50 / OUTSIDE BAND / N/A`;
+- HMA excess burden for Football A: `+0.25 / +0.50 / OUTSIDE BAND / N/A`;
 - HMA eligibility and hardener where relevant;
 - Execution Class / Plan;
-- `UPPER-TAIL = PASS / FAIL / NOT REQUIRED`;
-- `PRIORITY INVERSION = CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
+- `UPPER-TAIL = PASS / FAIL / NOT REQUIRED` where applicable;
+- `PRIORITY INVERSION = CLEAR / BLOCKED / FOOTBALL OVERRIDE` where applicable;
 - Exposure Decision;
 - exact blocker/reason.
 
@@ -318,13 +397,17 @@ Do not rewrite frozen PRE.
 
 Compactly return:
 
-match; active model `Football A`; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; supplied line/price; HMA band/eligibility; Execution Class / Plan; upper-tail gate; priority-inversion state; state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+match; model/track; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; priority-inversion state; state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
 
 Use exact final labels where applicable:
 
 - `OFFICIAL LOCK`
 - `OFFICIAL LOCK — HIGH-MARKET ACCEPTANCE`
 - `OFFICIAL LOCK — LIVE DECAY PLAN`
+- `MARKET UNDERCUT — RE-SCREEN REQUIRED`
+- `SEVERE MARKET UNDERCUT — NO INSTANT LOCK`
+- `MARKET UNDERCUT OVERRIDE — FOOTBALL EXPLAINED`
+- `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN`
 - `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
 - `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD`
 - `QUALIFIED — EARLY SAME-LINE PRICE PLAN`
