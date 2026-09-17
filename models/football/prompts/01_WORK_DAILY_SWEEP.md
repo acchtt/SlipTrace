@@ -13,11 +13,31 @@ Before any football research:
 
 A stale local model is a cache fault, not a reason to run on old rules.
 
-Use the attached `AISCORE_FIXTURES_YYYY-MM-DD.txt` as the already-screened, **scope-pruned Work handoff** produced by Step 0. Do not rebuild the raw fixture universe.
+Use the attached `AISCORE_FIXTURES_*.zip` as the already-screened, **scope-pruned Work handoff package** produced by Step 0. Do not rebuild the raw fixture universe.
+
+## ZIP handoff intake — mandatory
+
+Before validating football coverage, validate the archive itself.
+
+Required package contract:
+
+- input is a ZIP archive named `AISCORE_FIXTURES_*.zip`;
+- the archive contains exactly one canonical `AISCORE_FIXTURES_*.txt` handoff at archive root;
+- no nested copy of the canonical handoff may compete with the root file;
+- ignore harmless non-handoff metadata only if present, but the normal producer should not create `__MACOSX`, `.DS_Store`, hidden temp files, or duplicate handoffs;
+- extract/read the canonical text handoff and treat that inner text as the semantic authority for the board;
+- do not treat the ZIP filename itself as proof of date, window, count, or completeness;
+- do not research any match until both archive validation and the actionable-completeness preflight pass.
+
+If the ZIP is unreadable, contains zero canonical handoffs, or contains more than one competing `AISCORE_FIXTURES_*.txt` handoff, stop with:
+
+`HANDOFF PACKAGE INVALID — RERUN NORMAL CHAT STEP 0`
+
+Legacy loose `.txt` handoffs are no longer the normal production input. Accept one only when the user explicitly requests legacy compatibility; otherwise request/rerun the ZIP-producing Step 0 flow.
 
 ## HARD PRE-FLIGHT GATE — ACTIONABLE COMPLETENESS
 
-Validate the handoff **before any match research or broad web search**.
+Validate the extracted handoff **before any match research or broad web search**.
 
 The handoff must explicitly show all of the following:
 
@@ -116,7 +136,7 @@ For a cross-midnight board, show both dates:
 
 - The same exact ICT window always keeps the same Board ID. A rerun/correction of that window updates the same board identity; it does **not** create a new board.
 - A materially different requested window gets a different Board ID.
-- Do not derive Board ID from model version, fixture count, Airtable record count, or chat title.
+- Do not derive Board ID from model version, fixture count, Airtable record count, chat title, ZIP filename, or archive metadata.
 - Board ID identifies the published slate/window; `Coverage ID` continues to identify an individual fixture. Never replace or overload `Coverage ID` with Board ID.
 - Freeze Board ID + Board Name into the PRE artifact before Airtable publication.
 - Every Airtable row written by this Work board must preserve the Board ID and Board Name. Until dedicated Airtable board fields exist, prefix `Coverage Notes` (or the equivalent non-destructive notes field) with:
@@ -130,7 +150,7 @@ Preferred shorthand in later conversation is the Board ID, e.g. `load B-20260915
 
 ## Hard Work-usage boundary
 
-Step 0 Normal Chat owns fixture discovery, scope filtering, cheap league admission, and coverage skeleton publication.
+Step 0 Normal Chat owns fixture discovery, scope filtering, cheap league admission, coverage skeleton publication, and ZIP packaging.
 
 Therefore Work must **not**:
 - traverse AiScore date pages again;
@@ -139,9 +159,10 @@ Therefore Work must **not**:
 - reconsider low-goal/Finnish/conditional-no-pass/model-quality exclusions;
 - fetch opening odds, prematch odds, confirmed XI, or current bookmaker prices;
 - spend deep-research usage on matches that Step 0 already filtered out;
-- repair `raw_audit_complete=false` when the gaps are explicitly non-blocking.
+- repair `raw_audit_complete=false` when the gaps are explicitly non-blocking;
+- infer additional fixtures from filenames or other files in the archive.
 
-Only after the actionable pre-flight gate passes, treat the admitted fixture array as the complete **Work research universe for the model's actionable scope**.
+Only after the ZIP intake gate and actionable pre-flight gate pass, treat the admitted fixture array as the complete **Work research universe for the model's actionable scope**.
 
 The handoff should already have removed model-quality exclusions, low-goal domestic leagues, Finnish domestic leagues, and conditional-league fixtures that failed/no-data'd the cheap admission gate. **Do not reintroduce those fixtures and do not spend deep research usage reconsidering them.**
 
@@ -157,9 +178,11 @@ Reconcile the complete **Work-admitted actionable universe** once at the end. Pu
 
 ## Final response
 
+If ZIP intake fails, stop with `HANDOFF PACKAGE INVALID — RERUN NORMAL CHAT STEP 0` and **zero fixtures researched**.
+
 If actionable pre-flight fails, stop with the applicable handoff failure code and **zero fixtures researched**.
 
-If actionable pre-flight passes, begin with:
+If both gates pass, begin with:
 
 `BOARD: <Board ID> — <Board Name>`
 
