@@ -47,7 +47,8 @@ Step 0:
 9. applies sweep scope and league registry;
 10. runs only the cheap conditional-league admission test where required;
 11. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-12. creates a compact scope-pruned Work handoff **only after the date-envelope and terminal sentinel gates pass**.
+12. creates a compact scope-pruned Work handoff **only after the date-envelope and terminal sentinel gates pass**;
+13. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
 
 Step 0 does **not**:
 
@@ -257,10 +258,37 @@ A Work handoff may be created only when:
 
 A bare assertion such as `terminal_interval_date_verification=PASS` is **not sufficient** unless the handoff also names the terminal interval and the date/listing blocks actually checked.
 
-## Compact Work handoff
-Create `AISCORE_FIXTURES_YYYY-MM-DD.txt` when the actionable-completeness gate passes.
+## Compact Work handoff + ZIP packaging
+When the actionable-completeness gate passes, create the canonical UTF-8 text handoff first, then package it into a ZIP archive.
 
-Include:
+Canonical inner handoff name:
+
+`AISCORE_FIXTURES_YYYY-MM-DD.txt`
+
+When the user window needs additional disambiguation, a more specific existing basename is allowed, for example:
+
+`AISCORE_FIXTURES_2026-09-17_2043_TO_2026-09-18_1200_ICT.txt`
+
+Required user-facing archive name:
+
+`<canonical handoff basename>.zip`
+
+Example:
+
+`AISCORE_FIXTURES_2026-09-17_2043_TO_2026-09-18_1200_ICT.zip`
+
+ZIP contract:
+
+- the archive must contain exactly one canonical `AISCORE_FIXTURES_*.txt` Work handoff at archive root;
+- do not nest the handoff inside a folder;
+- do not add duplicate handoff files;
+- do not add OS metadata such as `__MACOSX`, `.DS_Store`, or hidden temp files;
+- compression method may be normal DEFLATE;
+- the text handoff remains the semantic authority; ZIP is the transport/package format;
+- attach **only the ZIP** as the normal sweep artifact; do not also attach the loose `.txt` unless the user explicitly asks for it;
+- if ZIP creation or validation fails, report `HANDOFF PACKAGING FAILED — DO NOT SEND TO WORK` rather than silently falling back to a loose text artifact.
+
+The inner text handoff must include:
 
 - requested user window and timezone;
 - model version;
@@ -324,14 +352,18 @@ If an actionable fixture is later found inside a window that had already been ma
 5. publish a repaired handoff only after the coverage proof passes again.
 
 ## Output
-If actionable-complete:
+If actionable-complete and ZIP validation passes:
 
-`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true; fixture ICT conversion deferred.`
+`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true; fixture ICT conversion deferred; handoff_package=ZIP.`
 
-Attach the normal Work handoff.
+Attach the ZIP Work handoff only.
 
 If an actionable gap remains:
 
 `STEP 0 INCOMPLETE — ACTIONABLE COVERAGE GAP — do not send to Work.`
+
+If the handoff text is valid but ZIP packaging fails:
+
+`HANDOFF PACKAGING FAILED — DO NOT SEND TO WORK.`
 
 Do not print the full fixture list unless the user asks.
