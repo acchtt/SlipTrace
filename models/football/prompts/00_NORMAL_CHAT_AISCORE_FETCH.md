@@ -7,9 +7,9 @@ Build a trustworthy **actionable senior AiScore universe** for the requested win
 
 Operational principle:
 
-`DISCOVER BROADLY -> PRESERVE SOURCE TIMEZONE -> EXCLUDE CHEAPLY -> PROVE ACTIONABLE COMPLETENESS -> DEEP-RESEARCH NARROWLY`
+`NORMALIZE WINDOW BOUNDARIES ONCE -> DISCOVER BROADLY -> PROVE DATE/TERMINAL COVERAGE -> PRESERVE FIXTURE SOURCE TIMEZONE -> EXCLUDE CHEAPLY -> PROVE ACTIONABLE COMPLETENESS -> DEEP-RESEARCH NARROWLY`
 
-Do not turn Step 0 into a timezone-conversion exercise.
+Do not turn Step 0 into a per-fixture timezone-conversion exercise. However, **requested-window boundary normalization, deterministic date-envelope traversal, and terminal-interval verification are mandatory Step-0 work.**
 
 ## Source of truth
 Repository: `acchtt/SlipTrace`
@@ -21,7 +21,7 @@ Always read upstream/default-branch:
 3. `models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
 4. `models/football/procedures/FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`
 
-The active time procedure uses **source-time preservation at Step 0 and later ICT conversion**. If an older subordinate file still says every fixture must be converted to ICT during discovery, the active time procedure wins.
+The active time procedure uses **source-time preservation for fixtures plus mandatory one-time normalization of the requested window boundaries**. If an older subordinate file says every fixture must be converted to ICT during discovery, the active time procedure wins.
 
 ## Airtable
 Base: `SlipTrace Football Decision Control`
@@ -36,25 +36,77 @@ Use these IDs directly unless one actually fails.
 ## Strict stage boundary
 Step 0:
 
-1. traverses AiScore date/competition blocks needed to cover the requested window, including reasonable timezone-boundary spillover;
-2. proves coverage of every **potentially actionable senior block**;
-3. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
-4. deduplicates once;
-5. applies senior-quality exclusions;
-6. applies sweep scope and league registry;
-7. runs only the cheap conditional-league admission test where required;
-8. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-9. creates a compact scope-pruned Work handoff when actionable completeness passes.
+1. resolves the requested window start/end in ICT and UTC **once**;
+2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
+3. traverses every AiScore date/competition block needed to cover that envelope;
+4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
+5. proves coverage of every **potentially actionable senior block**;
+6. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
+7. deduplicates once;
+8. applies senior-quality exclusions;
+9. applies sweep scope and league registry;
+10. runs only the cheap conditional-league admission test where required;
+11. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
+12. creates a compact scope-pruned Work handoff **only after the date-envelope and terminal sentinel gates pass**.
 
 Step 0 does **not**:
 
-- convert every kickoff to ICT;
+- convert every fixture kickoff to ICT;
 - perform full structural match research;
 - assign PRE grades or board ranks;
 - fetch confirmed XI or bookmaker odds;
 - create Decision States;
 - touch Website Picks;
 - issue betting decisions.
+
+## Mandatory window boundary + discovery-envelope proof
+
+Before discovery begins, resolve and record:
+
+- `window_start_ict`;
+- `window_end_ict`;
+- `window_start_utc`;
+- `window_end_utc`;
+- `ict_dates_touched`;
+- `utc_dates_touched`.
+
+Then build the discovery-date envelope as required by the time procedure:
+
+`ICT dates touched + UTC dates touched + one UTC date before + one UTC date after`
+
+Traverse the relevant AiScore date/listing blocks across that envelope. The buffer dates are for discovery only; they do not expand the user's requested window.
+
+For any window that crosses midnight or ends between `00:00` and `06:00` ICT, explicitly inspect:
+
+- the terminal ICT calendar date; and
+- the UTC date containing `window_end_utc`.
+
+A start-date-only sweep is automatically incomplete.
+
+## Mandatory terminal-interval sentinel
+
+Define:
+
+`terminal_interval_ict = max(window_start_ict, window_end_ict - 6 hours) -> window_end_ict`
+
+Run a **second independent AiScore-only discovery pass** specifically for that interval after the broad pass.
+
+The terminal sentinel must record:
+
+- `terminal_interval_ict`;
+- terminal ICT date(s) checked;
+- terminal UTC date(s) checked;
+- AiScore listing/date blocks checked;
+- potentially actionable senior competition blocks found;
+- admitted count from the terminal pass;
+- actionable excluded/unresolved count from the terminal pass;
+- `terminal_scan_complete=true|false`.
+
+If the terminal pass returns zero actionable fixtures, that is valid only when the pass itself is documented as complete.
+
+**Never infer terminal completeness from the latest kickoff already found.** A file whose last listed fixture is at 22:30 cannot claim a 03:00 cutoff is covered merely because nothing later appeared in the first pass.
+
+Do not use another provider to add fixtures. Web search may be used only as a way to locate AiScore pages; every fixture entering the universe must resolve to AiScore identity.
 
 ## Source-time capture
 For every discovered fixture preserve where available:
@@ -73,6 +125,8 @@ Do **not** calculate `kickoff_ict` during normal discovery. If the fixture lies 
 
 `WINDOW STATUS = PENDING CONVERSION`
 
+When AiScore directly supplies UTC, compare it to `window_start_utc -> window_end_utc` for cheap membership testing without converting the fixture to ICT. If AiScore supplies only an explicit offset, an ephemeral normalized UTC value may be used only for the in/out-of-window test while the source fields remain unchanged.
+
 The later schedule-normalization stage converts the surviving actionable set to ICT and removes out-of-window boundary fixtures.
 
 A missing `kickoff_ict` is therefore **not** a Step-0 integrity failure.
@@ -82,14 +136,17 @@ Use `UNRESOLVED — SOURCE TIME INTEGRITY` only when the AiScore source timestam
 ## Two-tier completeness contract
 Distinguish:
 
-- `actionable_complete` — every potentially actionable senior competition/block relevant to the requested sweep has been checked and every admitted fixture is accounted for;
+- `actionable_complete` — every potentially actionable senior competition/block relevant to the requested sweep has been checked and every admitted fixture is accounted for **with date-envelope and terminal-sentinel proof**;
 - `raw_audit_complete` — every raw AiScore fixture, including already excluded youth/lower/reserve/amateur/regional blocks, was individually enumerated.
 
 `raw_audit_complete=false` is non-blocking when gaps are confined to categories already outside model scope.
 
 ### Blocking gaps
-`work_ready=false` only when an **actionable** requirement remains unresolved, for example:
+`work_ready=false` when any actionable requirement remains unresolved, including:
 
+- discovery date envelope not fully traversed;
+- terminal sentinel not explicitly completed;
+- terminal ICT date or UTC end-date block not checked for a cross-midnight/early-morning window;
 - PRIORITY/NORMAL senior block not checked;
 - eligible senior cup/continental block not checked;
 - relevant CONDITIONAL senior block not cheap-gated;
@@ -183,17 +240,22 @@ During Step 0:
 For Work-admitted rows, leave official PRE fields untouched. XI/market remain pending.
 
 ## Work-readiness gate
-A Work handoff may be created when:
+A Work handoff may be created only when:
 
 - `complete=true` meaning actionable completeness;
 - `actionable_complete=true`;
 - `work_ready=true`;
+- `discovery_date_envelope_complete=true`;
+- `terminal_scan_complete=true`;
+- all required discovery/listing dates are named in the handoff;
 - all potentially actionable senior blocks were checked;
 - scope/registry audit passed;
 - no source-time/identity unresolved fixture appears in the Work array;
 - admitted count equals the Work fixture array.
 
 `kickoff_ict` is **not required** at this stage.
+
+A bare assertion such as `terminal_interval_date_verification=PASS` is **not sufficient** unless the handoff also names the terminal interval and the date/listing blocks actually checked.
 
 ## Compact Work handoff
 Create `AISCORE_FIXTURES_YYYY-MM-DD.txt` when the actionable-completeness gate passes.
@@ -204,6 +266,15 @@ Include:
 - model version;
 - source = AiScore;
 - sweep scope + league registry;
+- `window_start_ict` / `window_end_ict`;
+- `window_start_utc` / `window_end_utc`;
+- `ict_dates_touched`;
+- `utc_dates_touched`;
+- `discovery_listing_dates_checked`;
+- `discovery_date_envelope_complete:true`;
+- `terminal_interval_ict`;
+- `terminal_listing_dates_checked`;
+- `terminal_scan_complete:true`;
 - `complete:true`;
 - `actionable_complete:true`;
 - `work_ready:true`;
@@ -229,6 +300,9 @@ Before `work_ready=true`:
 
 Verify:
 
+- discovery date envelope is complete;
+- terminal sentinel is complete;
+- every required terminal date/listing block is named;
 - no LOW-GOAL EXCLUDE fixture survived into Work;
 - no hard-excluded domestic-league fixture survived;
 - no CONDITIONAL fixture survived without a cheap-gate PASS;
@@ -239,10 +313,20 @@ Verify:
 
 Boundary fixtures may remain `pending_conversion`; they are pruned during the later ICT schedule-normalization pass.
 
+## Missed-fixture recovery
+
+If an actionable fixture is later found inside a window that had already been marked complete:
+
+1. invalidate the old completeness claim;
+2. classify the root cause as one of: `DATE ENVELOPE MISS`, `TERMINAL SENTINEL MISS`, `ACTIONABLE BLOCK MISS`, `FILTER/PERSISTENCE MISS`, or `SOURCE TIME FAULT`;
+3. rerun the whole Step 0 envelope + terminal sentinel;
+4. do **not** merely append the one discovered fixture and preserve the old `complete=true` claim;
+5. publish a repaired handoff only after the coverage proof passes again.
+
 ## Output
 If actionable-complete:
 
-`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true; ICT conversion deferred.`
+`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true; fixture ICT conversion deferred.`
 
 Attach the normal Work handoff.
 
