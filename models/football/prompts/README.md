@@ -16,8 +16,8 @@ Therefore:
 - old downloaded prompt packs and stale local caches are no longer the source of truth.
 
 ## Canonical stages
-1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — AiScore discovery, time integrity, actionable-senior completeness, cheap scope/league filtering, coverage skeleton, and the **only normal fixture sweep** used to create the Work handoff. Exact enumeration of already-excluded youth/reserve/lower raw blocks is best-effort and does not block Work when actionable coverage is complete.
-2. `01_WORK_DAILY_SWEEP.md` — deep price/XI/market-history-blind structural PRE research on the already-pruned handoff; hard-stop only for an **actionable coverage** fault; no second fixture sweep; frozen Airtable publication.
+1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — AiScore discovery, time integrity, actionable-senior completeness, cheap scope/league filtering, coverage skeleton, and the **only normal fixture sweep** used to create the Work handoff. Normal production output is an `AISCORE_FIXTURES_*.zip` archive containing exactly one canonical `AISCORE_FIXTURES_*.txt` handoff at archive root. Exact enumeration of already-excluded youth/reserve/lower raw blocks is best-effort and does not block Work when actionable coverage is complete.
+2. `01_WORK_DAILY_SWEEP.md` — validates/extracts the ZIP-packaged Step-0 handoff, then performs deep price/XI/market-history-blind structural PRE research on the already-pruned handoff; hard-stop for an invalid package or **actionable coverage** fault; no second fixture sweep; frozen Airtable publication.
 3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/market conflict check, final XI rerank, goal burden/regime, MCE shadow test, current executable price, Structural Rank + Execution Class, and final material assessment.
 4. `03_NORMAL_CHAT_LIVE.md` — targeted live validation, current no-chase/halftime logic, material live-state logging.
 5. `04_WORK_POST_SLATE_AUDIT.md` — historical/version-faithful post-slate audit.
@@ -26,11 +26,14 @@ Therefore:
 
 To control Work usage:
 
-`NORMAL CHAT ACTIONABLE DISCOVERY/FILTER → WORK DEEP STRUCTURE ONLY → NORMAL CHAT XI + MARKET HISTORY + CURRENT PRICE → NORMAL CHAT LIVE → WORK AUDIT`
+`NORMAL CHAT ACTIONABLE DISCOVERY/FILTER → ZIP HANDOFF → WORK DEEP STRUCTURE ONLY → NORMAL CHAT XI + MARKET HISTORY + CURRENT PRICE → NORMAL CHAT LIVE → WORK AUDIT`
 
 The boundary is strict but practical:
 
 - Step 0 must prove `actionable_complete=true` and `work_ready=true` before Work starts.
+- Step 0 must package the canonical text handoff into `AISCORE_FIXTURES_*.zip`; normal production returns the ZIP rather than a loose text file.
+- The ZIP contains exactly one root-level `AISCORE_FIXTURES_*.txt` canonical handoff. The inner text remains the semantic authority; ZIP is transport only.
+- Work validates the archive before validating football coverage. An unreadable archive, zero canonical handoffs, or multiple competing canonical handoffs returns `HANDOFF PACKAGE INVALID — RERUN NORMAL CHAT STEP 0` with zero fixtures researched.
 - `raw_audit_complete=false` is allowed when the only missing exact enumeration belongs to categories already excluded from Work, and those gaps are explicitly recorded as non-blocking.
 - If the handoff has a missing/unverified PRIORITY/NORMAL senior block, eligible senior cup/continental block, unresolved senior conditional block, terminal-window fault, or Work-array count mismatch, Work researches **zero fixtures** and returns `HANDOFF INCOMPLETE — ACTIONABLE COVERAGE GAP`.
 - Work must never research only a confirmed subset of a genuinely incomplete actionable slate.
@@ -42,10 +45,10 @@ The Normal Chat market-history layer is contextual. It may challenge an XI inter
 Keep these tiny launchers in your normal chats/Work. They reference GitHub and should not need redownloading.
 
 ### Step 0 — Normal Chat
-`Load and execute models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md from acchtt/SlipTrace. Read upstream CURRENT_MODEL.md first and follow the current active model. Execute now for the ICT window I request. Prove actionable_complete/work_ready; exact enumeration of already-excluded raw micro/youth blocks is best-effort.`
+`Load and execute models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md from acchtt/SlipTrace. Read upstream CURRENT_MODEL.md first and follow the current active model. Execute now for the ICT window I request. Prove actionable_complete/work_ready; exact enumeration of already-excluded raw micro/youth blocks is best-effort. Return the Work handoff as AISCORE_FIXTURES_*.zip.`
 
 ### Step 1 — Work High
-`Load and execute models/football/prompts/01_WORK_DAILY_SWEEP.md from acchtt/SlipTrace. Read upstream CURRENT_MODEL.md first, then validate the attached AiScore handoff before any deep research. Stop only for an actionable coverage/scope fault; do not rerun the fixture sweep or repair non-blocking raw-audit gaps.`
+`Load and execute models/football/prompts/01_WORK_DAILY_SWEEP.md from acchtt/SlipTrace. Read upstream CURRENT_MODEL.md first, then validate and extract the attached AISCORE_FIXTURES_*.zip before any deep research. Stop for an invalid package or actionable coverage/scope fault; do not rerun the fixture sweep or repair non-blocking raw-audit gaps.`
 
 ### Step 2 — Normal Chat XI + odds
 `Load and execute models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first, use my supplied XI/current odds as executable evidence, run the opening-to-prematch market-history watch, then execute immediately.`
