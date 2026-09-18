@@ -39,16 +39,16 @@ Step 0:
 1. resolves the requested window start/end in ICT and UTC **once**;
 2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
 3. traverses every AiScore date/competition block needed to cover that envelope;
-4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
-5. proves coverage of every **potentially actionable senior block**;
-6. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
-7. deduplicates once;
-8. applies senior-quality exclusions;
-9. applies sweep scope and league registry;
-10. runs only the cheap conditional-league admission test where required;
-11. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-12. creates a compact scope-pruned Work handoff **only after the date-envelope and terminal sentinel gates pass**;
-13. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
+4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);\n5. performs a separate European domestic-cup audit across the touched date envelope;
+6. proves coverage of every **potentially actionable senior block**;
+7. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
+8. deduplicates once;
+9. applies senior-quality exclusions;
+10. applies sweep scope and league registry;
+11. runs only the cheap conditional-league admission test where required;
+12. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
+13. creates a compact scope-pruned Work handoff **only after the date-envelope, European-cup audit and terminal sentinel gates pass**;
+14. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
 
 Step 0 does **not**:
 
@@ -109,6 +109,22 @@ If the terminal pass returns zero actionable fixtures, that is valid only when t
 
 Do not use another provider to add fixtures. Web search may be used only as a way to locate AiScore pages; every fixture entering the universe must resolve to AiScore identity.
 
+## Mandatory European domestic-cup audit
+
+After the broad date-envelope pass and before actionable completeness, run a separate **AiScore-only European domestic-cup audit** across every touched ICT/UTC listing date.
+
+This pass exists because domestic cup blocks can be omitted from generic league traversal even when senior first-team fixtures fall inside the requested window.
+
+At minimum:
+
+- inspect senior domestic cup blocks under UEFA-member associations that can place fixtures inside the window;
+- treat Norway NM Cup, Danish Cup and equivalent UEFA national/league cups as actionable competition blocks unless another independent exclusion applies;
+- record every European cup block checked, plus admitted/excluded/unresolved counts;
+- do not infer "no cup fixtures" merely because the main pass returned none;
+- if a relevant European domestic cup block was not checked, set `actionable_complete=false` and `work_ready=false`.
+
+A European cup fixture may be excluded for youth/reserve/amateur status, out-of-window time, a direct user hard exclusion, or a resolved current AiScore status. It may not be silently omitted because the competition is a cup.
+
 ## Source-time capture
 For every discovered fixture preserve where available:
 
@@ -146,7 +162,7 @@ Distinguish:
 `work_ready=false` when any actionable requirement remains unresolved, including:
 
 - discovery date envelope not fully traversed;
-- terminal sentinel not explicitly completed;
+- terminal sentinel not explicitly completed;\n- European domestic-cup audit not explicitly completed;
 - terminal ICT date or UTC end-date block not checked for a cross-midnight/early-morning window;
 - PRIORITY/NORMAL senior block not checked;
 - eligible senior cup/continental block not checked;
@@ -247,7 +263,7 @@ A Work handoff may be created only when:
 - `actionable_complete=true`;
 - `work_ready=true`;
 - `discovery_date_envelope_complete=true`;
-- `terminal_scan_complete=true`;
+- `terminal_scan_complete=true`;\n- `european_cup_audit_complete=true`;
 - all required discovery/listing dates are named in the handoff;
 - all potentially actionable senior blocks were checked;
 - scope/registry audit passed;
@@ -329,7 +345,7 @@ Before `work_ready=true`:
 Verify:
 
 - discovery date envelope is complete;
-- terminal sentinel is complete;
+- terminal sentinel is complete;\n- European domestic-cup audit is complete;
 - every required terminal date/listing block is named;
 - no LOW-GOAL EXCLUDE fixture survived into Work;
 - no hard-excluded domestic-league fixture survived;
