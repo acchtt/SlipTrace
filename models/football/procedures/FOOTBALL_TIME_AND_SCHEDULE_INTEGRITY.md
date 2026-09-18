@@ -43,7 +43,7 @@ For every Work-admitted fixture, preserve where available:
 - `kickoff_source_local`;
 - `source_timezone` and/or `source_utc_offset`;
 - `kickoff_utc_source` only if directly supplied by AiScore;
-- status at fetch: `NOT STARTED`, `LIVE`, `HT`, `FT`, `POSTPONED`, `CANCELLED`, or `UNKNOWN`.
+- status at fetch: `NOT STARTED`, `LIVE`, `HT`, `FT`, `POSTPONED`, `CANCELLED`, `UNKNOWN`, or `STATUS CONFLICT`.
 
 At Step 0, `kickoff_ict` and `slate_date_ict` are optional and normally left unset.
 
@@ -59,7 +59,7 @@ Verify:
 2. the preserved kickoff text/time is internally consistent with the AiScore source being used;
 3. the page's timezone/offset label is preserved when shown;
 4. the fixture is not duplicated under another identity;
-5. obvious stale/live/finished status contradictions are resolved when practical.
+5. obvious stale/live/finished status contradictions are resolved; a potentially actionable in-window status conflict must follow Section 3.1 and cannot be waived as merely practical.
 
 Do **not** block actionable completeness merely because fixtures come from different local zones or because `kickoff_ict` has not yet been calculated.
 
@@ -68,6 +68,24 @@ If the source timestamp itself is contradictory or lacks enough timezone informa
 `UNRESOLVED — SOURCE TIME INTEGRITY`
 
 ---
+
+## 3.1 Current-status conflict gate
+
+A status from one AiScore surface is not enough to exclude an otherwise in-window actionable fixture when another current AiScore surface conflicts.
+
+If a competition/date listing shows `POSTPONED`, `CANCELLED`, `FT`, or another non-upcoming state but the canonical AiScore match page or current team fixture page still shows the same identity as scheduled/upcoming, classify:
+
+`UNRESOLVED — AISCORE STATUS CONFLICT`
+
+Then revalidate the canonical match page and at least one current AiScore fixture/team surface. Until the conflict is resolved:
+
+- do not exclude the fixture as postponed/cancelled;
+- do not admit it as normally scheduled;
+- do not set `actionable_complete=true` or `work_ready=true` if the fixture is potentially actionable and inside the requested window.
+
+When the current canonical match page and a second current AiScore surface agree, use that resolved state operationally and record the conflicting stale surface in notes.
+
+A stale competition-schedule snapshot must never by itself remove an otherwise actionable European domestic cup fixture.
 
 ## 4. Requested-window handling during discovery
 
