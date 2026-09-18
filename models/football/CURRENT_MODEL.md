@@ -23,6 +23,15 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## TEMPORARY SESSION OVERRIDE — 2026-09-18 ONLY
+
+For **decision timestamps from 2026-09-18 12:24 ICT through 2026-09-19 05:59:59 ICT**, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-18_EXECUTION_RELAXATION.md`
+
+This is a **session-only experiment, not a permanent official model patch**. It does not change the Football A version, frozen PRE structure, B+/PASS rules, or historical decisions. Its narrow execution relaxations override conflicting permanent execution wording only inside the stated time window. At **2026-09-19 06:00 ICT**, it expires automatically and must be ignored.
+
+
 ---
 
 ## 1. Canonical load order
