@@ -3,7 +3,7 @@
 **Status:** TEMPORARY SESSION EXPERIMENT — NOT A PERMANENT MODEL PATCH
 **Model:** Football A
 **Valid from:** 2026-09-18 12:24 ICT (UTC+7)
-**Expires:** 2026-09-19 06:00 ICT (UTC+7), end-exclusive
+**Expires:** 2026-09-19 12:00 ICT (UTC+7), end-exclusive
 **Scope:** Normal Chat XI / odds / live-execution decisions made inside the validity window
 **Purpose:** Test execution corrections from the Sep 17–18 hold/wait/pass audit without changing the permanent Football A structural model.
 
@@ -215,7 +215,7 @@ Website Picks created under this override are real session-authorized official e
 
 ## 10. Expiry
 
-At **2026-09-19 06:00 ICT**, this override expires automatically.
+At **2026-09-19 12:00 ICT**, this override expires automatically.
 
 After expiry:
 - do not load or apply this file;
