@@ -14,7 +14,8 @@
 - `rules/MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` — **SHARED A/B MARKET-ALIGNMENT + PROTECTED-LINE INTEGRITY**  
 - `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
 - `rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md` — **PREDECLARED LIVE-DECAY EXECUTION / NO PLANNED PREMATCH LINE-DECAY WAIT**  
-- `rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` — **FOOTBALL A-ONLY HIGH-MARKET ACCEPTANCE / EARLY SAME-LINE PRICE EXECUTION**  
+- `rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` — **FOOTBALL A-ONLY HIGH-MARKET ACCEPTANCE / EARLY SAME-LINE PRICE EXECUTION**
+- `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`; its existing participation behavior otherwise remains unchanged.  
 **Fixture authority:** **AiScore only**  
@@ -68,10 +69,11 @@ Load only the current active stack:
 14. `models/football/rules/MODEL_RULES_FOOTBALL_A.md`
 15. `models/football/rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`
 16. `models/football/rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`
-17. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-18. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-19. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-20. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+17. `models/football/rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`
+18. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+19. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+20. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+21. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -137,7 +139,7 @@ Supported burden is chosen before current price. Price cannot create structural 
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → STRUCTURAL RANK → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → MODEL A PRIORITY-INVERSION GUARD → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → STRUCTURAL RANK → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
 
 When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
 
@@ -212,19 +214,25 @@ HMA applies to **Football A only** and never changes the frozen structural ceili
 
 The detailed authority is `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`.
 
-### Priority-inversion guard
+### Cross-match exposure suppression removed
 
-Before any official exposure, compare against higher-ranked active candidates in the same practical exposure window.
+Effective 2026-09-19 ICT, Football A no longer blocks an otherwise valid exposure because a higher-ranked match exists in the same practical kickoff/exposure window.
 
-A materially weaker lower-ranked DIRECT candidate must not become official merely because its lower total is easier to execute when a higher-ranked clean-XI A1/A2 FOCUS remains structurally qualified and is withheld only by line/price.
+Structural Rank remains an ordering/audit field, but each fixture is approved or held on its own football, XI, market-alignment, burden, upper-tail and price evidence.
 
-A higher-ranked match that is validly executable under HMA must be treated as available for this comparison rather than artificially stranded at its raw structural ceiling.
+A higher-ranked match being active, waiting, executable or already exposed is **not** a blocker for another match.
 
-A lower-ranked override requires a documented football-led reason.
+Use:
 
-Official exposure priority remains:
+`PRIORITY INVERSION = NOT APPLICABLE — PATCH REMOVED`
 
-`STRUCTURAL RANK → MARKET ALIGNMENT → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
+for compatibility where that field is still persisted.
+
+Detailed authority: `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`.
+
+Official exposure evaluation now uses:
+
+`STRUCTURAL VALIDITY → MARKET ALIGNMENT → UPPER-TAIL / ROUTE PROOF → BURDEN PROTECTION → PRICE FLOOR → EXPOSURE DECISION`
 
 ---
 
@@ -351,7 +359,7 @@ For every material Football A review, and every side-by-side Model B execution r
 - HMA eligibility and hardener when relevant;
 - Execution Class / Plan;
 - upper-tail state;
-- priority-inversion state;
+- priority-inversion state (`NOT APPLICABLE — PATCH REMOVED` for new decisions);
 - Exposure Decision;
 - exact blocker/reason.
 
@@ -395,7 +403,7 @@ Post-slate audit must report separately:
 - HMA candidates invalidated by early goal/state change;
 - A2 WATCHLIST/B+ cases correctly denied HMA;
 - opportunistic live shadows;
-- DIRECT candidates suppressed by upper-tail/priority-inversion gates;
+- DIRECT candidates suppressed by upper-tail or other fixture-specific gates;
 - `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE` cases;
 - structural holds;
 - legacy +0.25 acceptance-band shadows;
