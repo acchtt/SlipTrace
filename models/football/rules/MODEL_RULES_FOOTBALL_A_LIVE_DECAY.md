@@ -9,6 +9,19 @@ This patch is prospective. It does not create retroactive Website Picks, stakes,
 
 ---
 
+## DECAY-FIRST TARGET OVERRIDE
+
+Effective prospectively from 2026-09-20 ICT, `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` is final authority on target selection.
+
+When the prematch market is above frozen supported burden, the live-decay target is the **lowest acceptable frozen supported burden**, not a higher HMA boundary. HMA strength may keep the plan alive for monitoring, but may not raise the official entry target.
+
+Examples:
+- frozen O2.75 / market O3.25 → WAIT O2.75;
+- frozen O3.0 / market O3.5 → WAIT O3.0;
+- frozen range O3.0–3.25 / market O3.75 → target the lowest independently supported line, normally O3.0.
+
+---
+
 ## 1. Core correction
 
 Football A must no longer plan around the assumption that an Asian total will conveniently fall by 0.25 before kickoff.
