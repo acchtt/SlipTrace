@@ -229,6 +229,21 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 
 ---
 
+## 10A. Decay-first burden protection
+
+Effective prospectively from 2026-09-20 ICT, direct execution above frozen supported burden is disabled as an automatic path.
+
+- HMA may not convert a line above supported burden into a prematch official lock.
+- Model B participation allowances may not do so either.
+- If football/XI/evidence clears but the market is above burden: `QUALIFIED — LIVE DECAY PLAN`.
+- Freeze the lowest acceptable supported target line and minimum price.
+- Stronger structural rank keeps the plan qualified to wait; it does not increase the entry burden.
+- If target line is already present but price is short: `QUALIFIED — PRICE BELOW FLOOR`.
+- Model B rank/cap logic counts only actual executable exposures; do not preallocate slots to high-ranked above-burden fixtures.
+- O3.0+ execution requires an explicit recent same-venue H2H / compression re-screen before exposure.
+
+This section overrides older procedure text that used `QUALIFIED — WAIT FOR DECAY` at a higher HMA boundary or allowed direct HMA exposure above structural burden.
+
 ## 11. Verdicts
 
 ### 11.0 Mandatory execution-path completeness
