@@ -6,7 +6,7 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For all new official Model A decisions after activation, persist `Model Version = Football A`.
 
@@ -46,7 +46,7 @@ Retrieve the fixture's frozen PRE from Daily Coverage Ledger. Preserve structura
 
 Do not rebuild Work PRE from scratch.
 
-When Model A same-window comparison is required, retrieve higher-ranked active candidates in the same practical exposure window for the priority-inversion guard.
+Do not retrieve higher-ranked matches for exposure suppression. Structural Rank remains useful for board context only; the active no-cross-match patch requires each fixture to be decided independently.
 
 ## Decision sequence
 
@@ -196,7 +196,7 @@ Use when:
 - price clears the active floor;
 - confirmed XI remains sufficiently intact;
 - required upper-tail hardener clears;
-- priority-inversion review does not block exposure.
+- cross-match / same-window priority inversion is not an exposure blocker under the active patch.
 
 If exposure is approved:
 
@@ -278,19 +278,21 @@ If none clears:
 - Exposure Decision = `NO BET — EXPOSURE HOLD`;
 - persist `UPPER-TAIL INSUFFICIENT`.
 
-### Priority-inversion guard
+### Cross-match exposure suppression removed
 
-Before an OFFICIAL LOCK, compare against higher-ranked active candidates in the same practical exposure window.
+The active Football A patch removes the old same-window / priority-inversion exposure blocker.
 
-Do not expose a materially weaker lower-ranked candidate merely because its lower total is easier to execute when a higher-ranked clean-XI A1/A2 FOCUS remains structurally qualified and is withheld only by line/price.
+Do not suppress an otherwise valid candidate because another match is higher-ranked, waiting, executable, or already exposed in the same window.
 
-A higher-ranked candidate that is validly executable under HMA must be treated as **available**, not artificially stranded at the raw structural ceiling.
+Evaluate each fixture independently after its own structural, XI, market-alignment, burden, upper-tail and price gates.
 
-A lower-ranked override requires a documented football-led reason.
+For compatibility, persist:
 
-Exposure order:
+`PRIORITY INVERSION = NOT APPLICABLE — PATCH REMOVED`
 
-`STRUCTURAL RANK → MARKET ALIGNMENT → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`
+Exposure order within a fixture:
+
+`STRUCTURAL VALIDITY → MARKET ALIGNMENT → UPPER-TAIL / ROUTE PROOF → BURDEN PROTECTION → PRICE FLOOR → EXPOSURE DECISION`
 
 ## Predeclared live-decay execution
 
@@ -304,7 +306,7 @@ At each user-supplied live line/price, recheck:
 4. score/time state has not materially invalidated the original thesis;
 5. no red card, major injury, tactical collapse or route damage;
 6. the target was reached by ordinary clock decay rather than a completely new match thesis;
-7. HMA/upper-tail and priority-inversion gates clear at the actual live burden.
+7. HMA/upper-tail and all remaining fixture-specific exposure gates clear at the actual live burden.
 
 A first goal does **not automatically cancel** the plan. It triggers a state-integrity recheck.
 
@@ -367,7 +369,7 @@ For every material Football A review, and every side-by-side Model B review, per
 - HMA eligibility and hardener where relevant;
 - Execution Class / Plan;
 - `UPPER-TAIL = PASS / FAIL / NOT REQUIRED` where applicable;
-- `PRIORITY INVERSION = CLEAR / BLOCKED / FOOTBALL OVERRIDE` where applicable;
+- `PRIORITY INVERSION = NOT APPLICABLE — PATCH REMOVED` for new decisions;
 - Exposure Decision;
 - exact blocker/reason.
 
@@ -397,7 +399,7 @@ Do not rewrite frozen PRE.
 
 Compactly return:
 
-match; model/track; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; priority-inversion state; state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+match; model/track; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; cross-match suppression state (`NOT APPLICABLE — PATCH REMOVED`); state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
 
 Use exact final labels where applicable:
 
@@ -409,7 +411,6 @@ Use exact final labels where applicable:
 - `MARKET UNDERCUT OVERRIDE — FOOTBALL EXPLAINED`
 - `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN`
 - `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
-- `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD`
 - `QUALIFIED — EARLY SAME-LINE PRICE PLAN`
 - `QUALIFIED — LIVE DECAY PLAN`
 - `QUALIFIED — PRICE BELOW FLOOR`
