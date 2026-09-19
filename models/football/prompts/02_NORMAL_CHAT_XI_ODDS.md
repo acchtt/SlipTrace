@@ -8,6 +8,8 @@ Read `models/football/CURRENT_MODEL.md` first. It defines the active official mo
 
 Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
+For decisions inside an active temporary-session window declared by `CURRENT_MODEL.md`, load and apply the referenced session override before final exposure selection. During 2026-09-19/20 this includes the temporary burden-specific prematch upper-tail rule: O2.5 may use a quality-proven 3+ path; O2.75 may use a robust 3+ path plus non-trivial fourth-goal support; O3.0+ retains the permanent 4+ standard. A2 WATCHLIST may use this temporary O2.5/O2.75 exposure relaxation without being structurally promoted; B+/B/PASS do not.
+
 For all new official Model A decisions after activation, persist `Model Version = Football A`.
 
 **The market-alignment patch applies to both Football A and Model B. HMA remains Football A-only. Do not apply HMA to Model B or any shadow comparison track.**
