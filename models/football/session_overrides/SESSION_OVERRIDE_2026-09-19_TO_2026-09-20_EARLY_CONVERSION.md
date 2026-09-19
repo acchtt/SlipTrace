@@ -13,6 +13,16 @@ All permanent Football A rules remain active except where this file explicitly c
 
 ---
 
+## DECAY-FIRST INTERACTION — effective 2026-09-20
+
+The permanent `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` now governs execution inside this temporary window.
+
+This override may make O2.5/O2.75 football-qualified under the temporary 3+ / fourth-goal standards, but it may **not** be used to auto-lock a higher market total. If the current market is above the qualified protected burden, freeze a live-decay WAIT at the protected burden.
+
+The Early-Conversion score-epoch rules still apply if a goal arrives before the 0-0 decay target. The old target expires; reprice the new score epoch rather than chasing the expanded market.
+
+---
+
 ## 0A. TEMP PREMATCH BURDEN-SPECIFIC UPPER-TAIL RELAXATION — effective 2026-09-19 23:10 ICT
 
 This temporary rule is active for the remainder of the Sep 19–20 window and overrides the permanent Football A A2 upper-tail requirement **only for prematch protected totals at O2.5 and O2.75**.
