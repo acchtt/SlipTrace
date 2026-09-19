@@ -172,6 +172,17 @@ However, **Model B must clear the shared A/B market-alignment gate first**.
 
 A bearish market undercut cannot be treated as free value or as an automatic reason for direct participation.
 
+## Decay-first burden protection — mandatory
+
+Before assigning any direct prematch lock, apply `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`.
+
+- If current selected line is **above frozen supported burden**, do not use HMA or Model B participation expansion to auto-lock it.
+- Assign `WAIT — LIVE DECAY` at the lowest acceptable supported burden and show target line + minimum price.
+- If the supported line is present but price is below floor, assign `WAIT — PRICE BELOW FLOOR`.
+- Structural strength determines whether the fixture remains worth waiting for; it does not justify a worse burden.
+- For Model B, do not pre-reserve rank-first exposure slots for above-burden fixtures. WAITs remain active; slots count only actual executable exposures.
+- Before O3.0+ execution, explicitly screen recent same-venue H2H / matchup compression and conversion stability.
+
 ## Execution path
 
 ### EXECUTION-PATH COMPLETENESS — NO SILENT HOLD
