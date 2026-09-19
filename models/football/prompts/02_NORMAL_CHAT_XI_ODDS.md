@@ -6,7 +6,7 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For all new official Model A decisions after activation, persist `Model Version = Football A`.
 
@@ -22,7 +22,7 @@ Use direct IDs unless one fails.
 
 ## Input
 
-The user normally supplies confirmed XI and **current executable Asian-total line(s)/price(s)**.
+The user normally supplies confirmed XI and **current executable Asian-total line(s)/price(s)**. Any user-supplied prematch odds screenshot/text is treated as currently available and executable for that assessment epoch; do not ask for a second confirmation that the line/price is still available.
 
 Do not automatically replace a user-supplied current price with an external price. Historical market research may be fetched for calibration/context.
 
@@ -400,6 +400,14 @@ Do not rewrite frozen PRE.
 Compactly return:
 
 match; model/track; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; cross-match suppression state (`NOT APPLICABLE — PATCH REMOVED`); state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+
+## AUTO-PUBLISH RULE
+
+For the prematch XI/odds workflow, if all gates clear and no exposure blocker remains, do not stop at `DIRECT LOCK ELIGIBLE`. Finalize the Exposure Decision as `OFFICIAL LOCK` and immediately create/update the Website Picks record using the user-supplied line/price, default 1u unless the user specified otherwise.
+
+Do not ask for "take it", "publish it", "still available", or any second confirmation. The user's prematch odds submission is the availability authority for that evidence epoch.
+
+Do not retroactively backfill after kickoff.
 
 Use exact final labels where applicable:
 
