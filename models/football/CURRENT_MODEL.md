@@ -15,6 +15,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
 - `rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md` — **PREDECLARED LIVE-DECAY EXECUTION / NO PLANNED PREMATCH LINE-DECAY WAIT**  
 - `rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` — **FOOTBALL A-ONLY HIGH-MARKET ACCEPTANCE / EARLY SAME-LINE PRICE EXECUTION**
+- `rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — **DECAY-FIRST BURDEN PROTECTION / NO AUTOMATIC ABOVE-BURDEN PREMATCH LOCK**
 - `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**
 - `rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md` — **AUTO-PUBLISH OFFICIAL LOCKS FROM USER PREMATCH ODDS**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
@@ -24,6 +25,29 @@
 **Step-0 time policy:** preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling.
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
+
+## DECAY-FIRST EXECUTION AUTHORITY — ACTIVE
+
+Effective prospectively from 2026-09-20 ICT, load and apply:
+
+`models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`
+
+This rule is authoritative over conflicting HMA / participation language.
+
+Core invariant:
+
+`STRONGER STRUCTURE = MORE CONFIDENCE TO WAIT, NOT PERMISSION TO BUY A HIGHER TOTAL`
+
+- Direct prematch official exposure requires the selected line to be at or below the frozen supported execution burden.
+- If the market is above supported burden, use `QUALIFIED — LIVE DECAY PLAN` and freeze the supported target line + minimum price.
+- Football A HMA may no longer auto-lock +0.25/+0.50 above burden; it is monitoring/audit tolerance only.
+- Model B participation expansion may no longer create direct exposure above burden; those cases become Model B live-decay waits.
+- Model B exposure slots are not pre-reserved by rank for fixtures whose markets are still above burden.
+- Recent same-venue H2H / suppression re-screen is mandatory before O3.0+ execution.
+
+The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualify the lower protected burden first, then WAIT if the market is higher.
+
+---
 
 ## TEMPORARY SESSION OVERRIDES — 2026-09-19 / 2026-09-20
 
@@ -82,10 +106,11 @@ Load only the current active stack:
 16. `models/football/rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`
 17. `models/football/rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`
 18. `models/football/rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`
-19. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-20. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-21. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-22. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+19. `models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — load after HMA/live-decay; final authority on above-burden execution
+20. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+21. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+22. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+23. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
