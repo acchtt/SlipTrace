@@ -1,5 +1,12 @@
 # Football A — High-Market Acceptance Execution Patch
 
+## DECAY-FIRST SUPERSESSION NOTICE
+
+Effective prospectively from 2026-09-20 ICT, `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` overrides this file anywhere HMA would create a direct prematch exposure **above frozen supported burden**.
+
+HMA is now monitoring/audit tolerance only for above-burden markets. A strong A1/A2/TRUE-CC+ fixture remains qualified to wait, but must wait for the supported burden rather than auto-locking +0.25/+0.50. Existing historical HMA decisions remain unchanged.
+
+
 **Status:** ACTIVE OFFICIAL PATCH — FOOTBALL A ONLY  
 **Model:** Football A  
 **Effective:** 2026-09-16 ICT onward  
