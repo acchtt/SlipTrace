@@ -5,11 +5,98 @@
 **Valid from:** 2026-09-19 10:40 ICT (UTC+7)  
 **Expires:** 2026-09-21 00:00 ICT (UTC+7), end-exclusive  
 **Scope:** Normal Chat XI / odds / live execution on Saturday 2026-09-19 and Sunday 2026-09-20 only  
-**Purpose:** Test the 3-day early-goal / decay-latency audit finding without changing permanent Football A structure.
+**Purpose:** Test the 3-day early-goal / decay-latency audit finding plus a temporary burden-specific prematch upper-tail relaxation for protected O2.5/O2.75 execution, without changing permanent Football A structure.
 
 This file does **not** increment the Football model version, rewrite frozen PRE, promote B+/PASS, or retroactively create exposure. Outside the validity window, ignore it completely.
 
 All permanent Football A rules remain active except where this file explicitly changes post-goal execution handling for the eligible lane below.
+
+---
+
+## 0A. TEMP PREMATCH BURDEN-SPECIFIC UPPER-TAIL RELAXATION — effective 2026-09-19 23:10 ICT
+
+This temporary rule is active for the remainder of the Sep 19–20 window and overrides the permanent Football A A2 upper-tail requirement **only for prematch protected totals at O2.5 and O2.75**.
+
+### Eligible structural lane
+
+This relaxation applies to:
+
+- **A1 FOCUS**;
+- **A2 FOCUS**;
+- **A2 WATCHLIST** when the frozen A2 grade remains valid and the confirmed XI preserves the qualifying route(s).
+
+It does **not** automatically apply to:
+
+- B+ / B / PASS;
+- unresolved fixtures;
+- route-damaged A2 states;
+- youth/Uxx/exception-only lanes unless separately authorized.
+
+A2 WATCHLIST remains A2 WATCHLIST. This rule changes only the prematch exposure gate at protected low burdens; it does not promote the structural rank or board tier.
+
+### Burden-specific approval standard
+
+When the user supplies a prematch executable total and all normal scope/XI/market-alignment/price gates clear:
+
+#### O2.5
+
+O2.5 may become an **OFFICIAL LOCK** when there is a **QUALITY-PROVEN 3+ TOTAL PATH**.
+
+A 3+ path may be established by one or more of:
+
+- two usable scoring routes with adequate chance quality;
+- one strong carrier plus credible opponent contribution;
+- strong carrier self-funding toward 2–3 team goals plus matchup leakage;
+- persistent market support consistent with the football evidence;
+- confirmed XI preserving the relevant attacking routes.
+
+Do **not** require separate 4+ proof merely to approve O2.5.
+
+#### O2.75
+
+O2.75 may become an **OFFICIAL LOCK** when there is:
+
+- a **ROBUST 3+ TOTAL PATH**; and
+- **NON-TRIVIAL FOURTH-GOAL SUPPORT**.
+
+The fourth-goal support may come from repeatable two-sided chance creation, carrier ceiling, opponent defensive leakage, game-state chase potential, or strong market corroboration that agrees with the football evidence.
+
+Do **not** require the full permanent 4+ upper-tail standard merely to approve O2.75.
+
+#### O3.0 and above
+
+For O3.0+ supported ceilings, retain the permanent Football A upper-tail requirement:
+
+- `4+ TOTAL PATH — QUALITY PROVEN`;
+- `TRUE CC+ PATH`; or
+- `ELITE TWO-SIDED PATH`.
+
+This temporary rule does not relax O3.0+.
+
+### Additional safeguards
+
+- Recent-H2H suppression must be explicitly screened when the latest 2–3 same-opponent meetings are consistently far below the proposed burden.
+- A recent-H2H suppression signal is a **mandatory re-screen / burden warning**, not an automatic PASS by itself.
+- Market history may corroborate but cannot create structure.
+- If the current market center materially undercuts the frozen burden, the shared market-undercut gate still applies.
+- Lowest acceptable burden first; price floor second; price only as tie-breaker.
+- User-supplied prematch odds remain executable by default under the active auto-publish patch.
+- One exposure per match remains mandatory.
+
+### Persistence labels
+
+For decisions using this rule, persist:
+
+- `TEMP BURDEN-SPECIFIC UPPER-TAIL 2026-09-19/20 = YES`;
+- structural grade / board tier;
+- selected line;
+- `3+ PATH = PROVEN / NOT PROVEN`;
+- `4TH-GOAL SUPPORT = PRESENT / ABSENT / N/A`;
+- recent-H2H suppression screen;
+- market-alignment state;
+- final exposure decision.
+
+This rule is prospective from activation. Do not retroactively backfill already-started or completed fixtures.
 
 ---
 
