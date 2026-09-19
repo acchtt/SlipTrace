@@ -131,6 +131,7 @@ Current normal prematch execution expects the user to supply confirmed XI and th
 When a user screenshot/text is the current evidence:
 
 - treat it as the execution-price input for that assessment epoch;
+- when it is prematch, treat the displayed line/price as currently available and executable; do not request a second confirmation;
 - match it to the frozen PRE fixture;
 - record the actual current line/odds evaluated;
 - do not fabricate missing current market data;
@@ -208,7 +209,9 @@ Historical price/line movement is contextual evidence; the user-supplied current
 ### Official v0.2.54
 
 - affirmative final selection = **OFFICIAL LOCK**;
-- HOLD/PASS = no official exposure.
+- HOLD/PASS = no official exposure;
+- for user-supplied prematch odds, an OFFICIAL LOCK must be written to Website Picks immediately in the same assessment; no separate "take/publish" confirmation is required;
+- if a candidate is technically DIRECT and no exposure blocker remains, finalize the exposure decision as OFFICIAL LOCK rather than stopping at DIRECT LOCK ELIGIBLE.
 
 A frozen PASS can become actionable only through a valid material football epoch such as the strict v0.2.52 `CARRIER REOPEN — XI CONFIRMED`; never from market movement alone.
 
