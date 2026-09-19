@@ -58,6 +58,8 @@ A league being a national top flight does **not by itself** guarantee CONDITIONA
 
 **Explicit approved lower divisions:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They are whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because they are second-tier competitions.
 
+**Netherlands Eerste Divisie participant exception — effective 2026-09-19 ICT:** official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are included. The generic youth/Uxx/reserve/development team exclusion does not remove an official Eerste Divisie league fixture solely because a participant is named Jong or U21. This exception is confined to the Eerste Divisie competition itself and does not admit separate youth, reserve, development, cup, or friendly competitions.
+
 The separate UEFA Youth League trial remains a manual user override until the repository explicitly promotes it into official scope.
 
 ---
@@ -230,7 +232,7 @@ If a weak/obscure league needs research merely to decide whether it deserves CON
 
 Likewise, if a marginal non-European domestic cup requires substantial research merely to decide whether it is important enough to include, it should be excluded under the small-national-cup rule for that run.
 
-Explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus.
+Explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus. Within official Netherlands Eerste Divisie league fixtures, Jong/U21/reserve-branded participant teams are included under the explicit 2026-09-19 competition-scoped exception and must not be removed by the generic participant-name youth/reserve filter.
 
 ---
 
