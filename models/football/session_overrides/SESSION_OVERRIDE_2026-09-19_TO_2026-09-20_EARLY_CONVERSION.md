@@ -95,6 +95,50 @@ If the only available board remains materially above the newly supported score-e
 
 ---
 
+## 4A. Repeated-score escape hatch — stop waiting for an unavailable protected line
+
+This section is active for the Sep 19–20 trial after the Monterrey W–Necaxa W audit showed that repeated carrier goals can outrun every protected decay trigger while the sportsbook total never returns to the frozen target.
+
+For an **EARLY-CONVERSION ELIGIBLE** fixture only, activate **REPEATED-SCORE ESCAPE HATCH** when either condition occurs:
+
+1. **two goals arrive before the first protected decay trigger can execute**; or
+2. **two consecutive score-epoch triggers expire because another goal arrives before the target line is ever quoted**.
+
+Once active, do **not** keep waiting indefinitely for a lower total that the market may never print.
+
+At the next stable score epoch, a one-time **CURRENT-MARKET CONTINUATION ENTRY** may execute if all are true:
+
+- the original A1/A2 FOCUS TRUE CC+ / elite two-sided thesis remains intact;
+- the qualifying carrier / route has already converted at least twice, or both elite routes have activated;
+- score time is normally **55' or earlier**; later use requires exceptional continuation evidence;
+- no red card, major attacking injury, tactical shutdown, or route-damage veto exists;
+- price is **>=1.65** (preferred **>=1.70**);
+- the **lowest currently available Over line** requires **no more than three additional goals to avoid a full loss** from the current score state;
+- the current line is not selected merely because it pays more than a lower protected alternative;
+- one-exposure-per-match remains mandatory.
+
+Examples:
+
+- at **2-0**, O5.0 can qualify because three further goals produce a push; O5.25/O5.5 normally does not;
+- at **3-0**, O6.0 can qualify because three further goals produce a push; prefer any lower available protected line first;
+- at **4-0**, O7.0 can qualify on the same logic, but O7.25+ normally does not.
+
+This is deliberately more aggressive than the normal protected-decay path and exists only for the two-day experiment. It is **not** a blanket permission to chase every expanding total.
+
+If this escape hatch fires, persist:
+
+- `REPEATED-SCORE ESCAPE HATCH = YES`;
+- count of expired score-epoch triggers;
+- current score/minute;
+- lowest available Over line/price;
+- additional goals required to avoid full loss;
+- state-integrity result;
+- final action.
+
+A further goal after an escape-hatch entry does not create another exposure. If no qualifying current-market line exists, HOLD; do not fabricate one.
+
+---
+
 ## 5. Route activation — useful but not sufficient
 
 An early goal may improve state integrity when:
