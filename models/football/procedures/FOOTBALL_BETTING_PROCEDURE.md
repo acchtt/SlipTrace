@@ -17,7 +17,7 @@ Do not issue an official prematch verdict unless:
 1. AiScore coverage/time reconciliation passed;
 2. the fixture is actionable under current scope;
 3. frozen Work PRE exists or a documented equivalent current PRE exists;
-4. required confirmed XI and current executable Asian-total price are available from the user, unless external verification was explicitly requested.
+4. required confirmed XI and current executable Asian-total price are available from the user, unless external verification was explicitly requested. A user-supplied prematch price is presumed currently available at that evidence epoch and requires no second confirmation.
 
 If XI/current price is missing: `WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`.
 
@@ -233,6 +233,8 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 
 ### OFFICIAL LOCK
 Require actionable scope, valid frozen candidate or strict prematch carrier reopen, surviving XI, acceptable failure mode, a directly offered supported STANDARD/EGE burden, current prematch price clearing policy, and no dependence on a quarantined mechanism.
+
+When the qualifying current price was supplied by the user in the prematch workflow, the price is executable by default. If no exposure blocker remains, finalize immediately as `OFFICIAL LOCK` and publish the Website Pick in the same assessment. No second user authorization is required.
 
 A fragile B+ may not LOCK from preservation + protection alone.
 
