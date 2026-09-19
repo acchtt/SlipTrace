@@ -66,6 +66,10 @@ and every listed gap is confined to categories already excluded from Work, accep
 
 Work must **not** spend usage investigating non-blocking raw gaps.
 
+### Netherlands Eerste Divisie Jong/U21 intake exception
+
+Effective 2026-09-19 ICT, an admitted official Netherlands Eerste Divisie league fixture must **not** be rejected merely because one or both participants are Jong/U21/reserve-branded. These fixtures are valid NORMAL-lane Work inputs under the competition-scoped sweep exception. This does not admit separate youth/U21/reserve/development competitions, cups, or friendlies.
+
 ### Blocking handoff fault
 
 STOP immediately only when the handoff has an **actionable coverage fault**, such as:
