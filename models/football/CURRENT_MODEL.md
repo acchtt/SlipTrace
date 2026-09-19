@@ -23,13 +23,27 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
-## TEMPORARY SESSION OVERRIDE — 2026-09-18 ONLY
+## TEMPORARY SESSION OVERRIDES — 2026-09-19 / 2026-09-20
 
-For **decision timestamps from 2026-09-18 12:24 ICT through 2026-09-19 05:59:59 ICT**, load and apply:
+### A. Sep-18 execution-relaxation experiment — extended to noon Sep 19
+
+For **decision timestamps from 2026-09-18 12:24 ICT through 2026-09-19 11:59:59 ICT**, load and apply:
 
 `models/football/session_overrides/SESSION_OVERRIDE_2026-09-18_EXECUTION_RELAXATION.md`
 
-This is a **session-only experiment, not a permanent official model patch**. It does not change the Football A version, frozen PRE structure, B+/PASS rules, or historical decisions. Its narrow execution relaxations override conflicting permanent execution wording only inside the stated time window. At **2026-09-19 06:00 ICT**, it expires automatically and must be ignored.
+This remains a **session-only experiment, not a permanent official model patch**. The user explicitly extended its expiry to **2026-09-19 12:00 ICT**. At noon Sep 19 it expires automatically; none of its O2.5/O2.75, -0.25 undercut, or general session relaxations survive beyond noon unless separately authorized.
+
+### B. Early-Conversion trial — Saturday + Sunday
+
+For **decision timestamps from 2026-09-19 10:40 ICT through 2026-09-20 23:59:59 ICT**, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-19_TO_2026-09-20_EARLY_CONVERSION.md`
+
+This is a **temporary two-day execution experiment**, not a permanent model patch. It adds the narrow `EARLY-CONVERSION ELIGIBLE` lane for qualifying **A1/A2 FOCUS TRUE CC+ / elite two-sided** profiles when a goal arrives before planned decay. It does **not** rewrite frozen PRE, promote B+/PASS, or create a blanket early-goal Over rule.
+
+From **10:40–11:59:59 ICT on Sep 19**, both temporary files may apply. If both apply, use the interaction rules in the Early-Conversion override. From **12:00 ICT Sep 19 through Sunday**, only the Early-Conversion override remains active.
+
+At **2026-09-21 00:00 ICT**, all listed temporary overrides have expired and must be ignored unless the user explicitly promotes a tested rule after audit.
 
 
 ---
