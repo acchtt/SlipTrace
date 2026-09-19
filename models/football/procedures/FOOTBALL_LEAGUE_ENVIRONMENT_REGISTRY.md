@@ -42,6 +42,14 @@ A league that fails this prerequisite is **not CONDITIONAL** and must not consum
 
 The Netherlands **Eerste Divisie** and Mexico **Liga de Expansión MX / Ascenso MX** are explicit approved lower-division exceptions and are governed by their NORMAL listings in Section 3.
 
+### Netherlands Eerste Divisie Jong/U21 participant exception — effective 2026-09-19 ICT
+
+Official Netherlands Eerste Divisie league fixtures remain NORMAL/direct-to-Work even when one or both participant teams are Jong/U21/reserve-branded. The generic youth/Uxx/reserve/development exclusion is overridden **only for participant identity inside this approved competition**.
+
+Examples include Jong Ajax, Jong PSV, Jong AZ, Jong FC Utrecht, and equivalent U21-labelled participants when they are playing an official Eerste Divisie fixture.
+
+Do not extend this exception to separate youth/U21 leagues, reserve/development competitions, friendlies, cups, or other competitions involving those clubs. No structural or ranking bonus is implied.
+
 ---
 
 ## 2. Admission classes
@@ -206,9 +214,11 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 ## 7. Existing quality exclusions still apply first
 
-The registry does not revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
+The registry does not generally revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
 **Explicit lower-division approvals:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
+
+**Scoped participant override:** official Netherlands Eerste Divisie league fixtures involving Jong/U21/reserve-branded teams are included under the 2026-09-19 exception. Do not classify those official league fixtures as youth/reserve exclusions solely from the participant name.
 
 The UEFA Youth League remains a separate manual trial and is not made official by this registry.
 
@@ -234,7 +244,7 @@ The Work handoff should contain only:
 
 It must not contain:
 
-- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX;
+- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX; official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are specifically allowed;
 - small/obscure weak-data leagues;
 - LOW-GOAL EXCLUDE;
 - HARD EXCLUDE;
