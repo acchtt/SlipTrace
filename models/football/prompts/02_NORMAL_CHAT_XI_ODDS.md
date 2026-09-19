@@ -174,6 +174,25 @@ A bearish market undercut cannot be treated as free value or as an automatic rea
 
 ## Execution path
 
+### EXECUTION-PATH COMPLETENESS — NO SILENT HOLD
+
+This classification is mandatory for every structurally qualified fixture after XI/market review.
+
+If the football/XI thesis still clears and the only blocker is **current line height or target-line price**, do **not** collapse the fixture into `STRUCTURAL HOLD` or omit it from the active board.
+
+Use exactly one executable-path state:
+
+- current supported/HMA line available and price clears → `DIRECT LOCK ELIGIBLE`;
+- supported line is available but price is below floor → `QUALIFIED — PRICE BELOW FLOOR`;
+- valid HMA line is already present but its price is below floor → `QUALIFIED — EARLY SAME-LINE PRICE PLAN`;
+- current market is above the supported/HMA boundary → `QUALIFIED — LIVE DECAY PLAN` with a frozen target line + minimum price;
+- only when football/evidence itself fails → `STRUCTURAL HOLD`.
+
+**Never use HOLD merely because the sportsbook line is too high.** High line = execution-path problem, not structural failure, when the football thesis remains qualified.
+
+Every user-facing final assessment must explicitly display any active LIVE DECAY / PRICE WAIT target alongside LOCK/HOLD decisions. Do not let a WAIT disappear from the board simply because no current executable line exists.
+
+
 After burden is fixed, market alignment is resolved, and the relevant model-specific HMA/participation test is complete, assign the technical execution path.
 
 ### DIRECT LOCK ELIGIBLE
