@@ -108,6 +108,21 @@ Exclude:
 - domestic lower divisions below top flight unless explicitly user-approved or explicitly whitelisted;
 - **all Finnish domestic league competitions at every tier/category, including men's and women's leagues — hard exclusion effective 2026-09-09 ICT onward.**
 
+### Netherlands Eerste Divisie Jong/U21 participant exception — effective 2026-09-19 ICT
+
+The Netherlands **Eerste Divisie** is an explicitly approved lower division. Official Eerste Divisie fixtures involving participant teams whose names contain **Jong**, **U21**, or equivalent reserve/development branding are now **included in the normal actionable sweep**.
+
+This includes, where they are official Eerste Divisie participants, teams such as Jong Ajax, Jong PSV, Jong AZ, Jong FC Utrecht, and equivalent U21-labelled entrants.
+
+This is a **competition-scoped participant exception only**:
+
+- it applies only when the fixture itself is an official Netherlands Eerste Divisie league match;
+- it overrides the generic youth/Uxx/reserve/development exclusion for those Eerste Divisie participants;
+- it does **not** whitelist separate youth/U21/reserve/development competitions, friendlies, cups, or reserve leagues;
+- it provides no PRE grade, structural, ranking, or betting bonus. Normal match-level screening still applies.
+
+An official Eerste Divisie fixture must not be excluded merely because one or both clubs are Jong/U21/reserve-branded.
+
 The Finnish-league exclusion is prospective. Keep all Finnish domestic league fixtures in the raw AiScore universe for reconciliation, but classify them as excluded before structural screening. Finnish Cup and UEFA club competitions involving Finnish clubs remain governed by the normal overlay.
 
 Do not weaken this overlay to fill the slate.
@@ -255,7 +270,7 @@ Also verify:
 
 - no skipped actionable fixture;
 - no duplicate processing;
-- no excluded youth/reserve/lower/small fixture survived;
+- no excluded youth/reserve/lower/small fixture survived, except the explicit Netherlands Eerste Divisie Jong/U21 participant exception for official Eerste Divisie league fixtures;
 - no Finnish domestic league fixture survives the actionable overlay from 2026-09-09 ICT onward;
 - all FOCUS/WATCHLIST candidates are persisted for the later XI stage;
 - every strong-carrier PASS has a documented CC+ audit result;
