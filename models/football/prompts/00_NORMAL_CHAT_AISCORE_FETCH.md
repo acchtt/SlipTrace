@@ -176,9 +176,9 @@ Do **not** block Work because excluded micro/youth/lower fixtures were not indiv
 ### Non-blocking raw gaps
 Examples:
 
-- youth/Uxx;
+- youth/Uxx, except official Netherlands Eerste Divisie Jong/U21 participant fixtures under the explicit competition-scoped exception;
 - academy/junior;
-- reserves/B/development;
+- reserves/B/development, except official Netherlands Eerste Divisie Jong/U21 participant fixtures under the explicit competition-scoped exception;
 - amateur/semi-pro;
 - regional/state/provincial;
 - unapproved lower divisions;
@@ -204,7 +204,15 @@ Before any conditional cheap gate, remove fixtures already excluded by the activ
 - domestic lower divisions unless explicitly approved;
 - very small/obscure weak-data environments.
 
-Do not waste conditional-gate work on these.
+### Netherlands Eerste Divisie Jong/U21 exception
+
+Effective 2026-09-19 ICT, **official Netherlands Eerste Divisie league fixtures involving Jong/U21/reserve-branded participant teams are actionable candidates**. Do not exclude an official Eerste Divisie fixture solely because a participant name contains Jong, U21, reserve, or equivalent development branding.
+
+This exception is competition-scoped only. Separate youth/U21/reserve/development competitions, cups, friendlies, and other reserve leagues remain excluded under the normal overlay.
+
+For actionable completeness, every official Eerste Divisie fixture in the requested window — including Jong/U21 participant fixtures — must be enumerated and passed through the normal NORMAL-lane handoff rules. Omitting them makes `actionable_complete=false`.
+
+Do not waste conditional-gate work on excluded categories.
 
 ## League environment admission
 Use `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` plus current sweep-scope hard exclusions.
@@ -350,7 +358,7 @@ Verify:
 - no LOW-GOAL EXCLUDE fixture survived into Work;
 - no hard-excluded domestic-league fixture survived;
 - no CONDITIONAL fixture survived without a cheap-gate PASS;
-- no youth/reserve/lower/weak-data fixture survived;
+- no excluded youth/reserve/lower/weak-data fixture survived, except official Netherlands Eerste Divisie Jong/U21 participant fixtures admitted by the explicit 2026-09-19 exception;
 - admitted count equals the Work array;
 - no source-time integrity unresolved fixture appears in Work;
 - raw gaps are explicitly non-blocking and already outside scope.
