@@ -15,7 +15,8 @@
 - `rules/MODEL_RULES_FOOTBALL_A.md` — **EXECUTION SELECTION CORRECTION / EXPOSURE GATE + FRAGILE SUPPORTED-ROUTE A2 FOCUS GUARD**  
 - `rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md` — **PREDECLARED LIVE-DECAY EXECUTION / NO PLANNED PREMATCH LINE-DECAY WAIT**  
 - `rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` — **FOOTBALL A-ONLY HIGH-MARKET ACCEPTANCE / EARLY SAME-LINE PRICE EXECUTION**
-- `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**  
+- `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**
+- `rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md` — **AUTO-PUBLISH OFFICIAL LOCKS FROM USER PREMATCH ODDS**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`; its existing participation behavior otherwise remains unchanged.  
 **Fixture authority:** **AiScore only**  
@@ -70,10 +71,11 @@ Load only the current active stack:
 15. `models/football/rules/MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`
 16. `models/football/rules/MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`
 17. `models/football/rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`
-18. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-19. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-20. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-21. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+18. `models/football/rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`
+19. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+20. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+21. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+22. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -309,7 +311,7 @@ This can become directly executable before kickoff if the same supported line la
 
 ## 8. Price and user-supplied execution authority
 
-The user normally supplies confirmed XI and current executable Asian-total odds. Do not replace those current prices with external prices unless explicitly asked.
+The user normally supplies confirmed XI and current executable Asian-total odds. A user-supplied prematch odds screenshot/text is deemed currently available and executable at that evidence epoch. Do not ask for a second availability/placement confirmation. Do not replace those current prices with external prices unless explicitly asked.
 
 Active price policy:
 
@@ -384,7 +386,7 @@ For `QUALIFIED — LIVE DECAY PLAN`, also persist:
 - state integrity: `CLEAR / DAMAGED / NEW THESIS`;
 - final live exposure decision.
 
-Create Website Picks only when an actual `OFFICIAL LOCK` is approved at that moment. Never create retroactive exposure.
+Create Website Picks immediately when an actual `OFFICIAL LOCK` is approved from user-supplied prematch odds. No second confirmation is required. If `DIRECT LOCK ELIGIBLE` has no remaining exposure blocker, finalize it as `OFFICIAL LOCK` and publish in the same assessment. Never create retroactive exposure after kickoff.
 
 ---
 
