@@ -41,7 +41,17 @@ For **decision timestamps from 2026-09-19 10:40 ICT through 2026-09-20 23:59:59 
 
 `models/football/session_overrides/SESSION_OVERRIDE_2026-09-19_TO_2026-09-20_EARLY_CONVERSION.md`
 
-This is a **temporary two-day execution experiment**, not a permanent model patch. It adds the narrow `EARLY-CONVERSION ELIGIBLE` lane for qualifying **A1/A2 FOCUS TRUE CC+ / elite two-sided** profiles when a goal arrives before planned decay. It does **not** rewrite frozen PRE, promote B+/PASS, or create a blanket early-goal Over rule.
+This is a **temporary two-day execution experiment**, not a permanent model patch. It adds:
+- the narrow `EARLY-CONVERSION ELIGIBLE` lane for qualifying **A1/A2 FOCUS TRUE CC+ / elite two-sided** profiles when a goal arrives before planned decay; and
+- from **2026-09-19 23:10 ICT**, a temporary **burden-specific prematch upper-tail relaxation** for **A1/A2 FOCUS and A2 WATCHLIST** at protected **O2.5/O2.75** only.
+
+For the temporary prematch relaxation:
+- O2.5 requires a **QUALITY-PROVEN 3+ path** rather than separate 4+ proof;
+- O2.75 requires a **ROBUST 3+ path + non-trivial fourth-goal support**;
+- O3.0+ keeps the permanent 4+ upper-tail standard;
+- B+/B/PASS remain outside this automatic relaxation.
+
+It does **not** rewrite frozen PRE, promote A2 WATCHLIST/B+/PASS, or create a blanket Over rule.
 
 From **10:40–11:59:59 ICT on Sep 19**, both temporary files may apply. If both apply, use the interaction rules in the Early-Conversion override. From **12:00 ICT Sep 19 through Sunday**, only the Early-Conversion override remains active.
 
