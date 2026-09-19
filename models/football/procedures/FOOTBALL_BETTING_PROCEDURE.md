@@ -231,6 +231,28 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 
 ## 11. Verdicts
 
+### 11.0 Mandatory execution-path completeness
+
+For every structurally qualified post-XI fixture, the execution state must remain explicit until kickoff or invalidation.
+
+If football/XI/evidence clears but current market execution does not, preserve the candidate as an active plan rather than converting it to HOLD:
+
+- target line present, price below floor → `QUALIFIED — PRICE BELOW FLOOR`;
+- line inside valid HMA band, price below floor → `QUALIFIED — EARLY SAME-LINE PRICE PLAN`;
+- market above supported / valid HMA boundary → `QUALIFIED — LIVE DECAY PLAN`;
+- direct supported/HMA execution available → `DIRECT LOCK ELIGIBLE` and then exposure decision.
+
+`STRUCTURAL HOLD` is reserved for football/evidence/XI/failure-mode problems. It must not be used when the only problem is that the market has not yet decayed to the predeclared target.
+
+Every active live-decay/price-wait plan must be shown in the user-facing board with:
+- target line;
+- minimum price;
+- current offered line/price when known;
+- cancellation trigger / state-integrity note.
+
+No active WAIT may silently disappear from the board before kickoff. It ends only when it executes, is invalidated by state/football change, expires at kickoff under a non-live-authorized plan, or the match completes.
+
+
 ### OFFICIAL LOCK
 Require actionable scope, valid frozen candidate or strict prematch carrier reopen, surviving XI, acceptable failure mode, a directly offered supported STANDARD/EGE burden, current prematch price clearing policy, and no dependence on a quarantined mechanism.
 
