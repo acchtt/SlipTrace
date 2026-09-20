@@ -22,6 +22,18 @@ Decision States `tblQmUpd5WjBLQ38X`.
 Website Picks `tblg3J5sbJYbzuTYD`.
 Use direct IDs unless one fails.
 
+## JUST-STARTED / LIVE VERDICT-FIRST FAST PATH
+
+If a Step-2 screenshot arrives after kickoff or within a just-started live window, switch to latency-sensitive execution behavior:
+
+- surface the actionable verdict in the first line before market-history research or extended explanation;
+- if the exact supported burden is available at/above the active floor and all already-known gates clear, say `TAKE ... NOW` immediately, then persist/research;
+- if current market is above supported burden, say `WAIT ...` immediately;
+- if a goal/state change occurs before execution, mark the old quote VOID and reprice the new score epoch;
+- do not delay a clear live verdict for non-essential external research.
+
+This fast path does not lower model standards; it only changes the order of operations so execution is not lost to response latency.
+
 ## Input
 
 The user normally supplies confirmed XI and **current executable Asian-total line(s)/price(s)**. Any user-supplied prematch odds screenshot/text is treated as currently available and executable for that assessment epoch; do not ask for a second confirmation that the line/price is still available.
