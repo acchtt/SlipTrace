@@ -15,6 +15,27 @@ Website Picks `tblg3J5sbJYbzuTYD`.
 
 Read only the requested fixture's frozen PRE plus the latest material Decision State unless the user explicitly asks for broader comparison. Do not read Website Picks by default unless existing exposure is necessary to answer the current live question.
 
+## LIVE VERDICT-FIRST FAST PATH — MANDATORY
+
+For live screenshots/updates, **execution latency has priority over explanation**.
+
+When the user supplies a current score/minute plus an executable total line/price and the frozen PRE/latest decision is already known or can be retrieved with one minimal state read:
+
+1. emit a one-line actionable verdict **immediately** in the response before web research, H2H research, extended explanation, or persistence work;
+2. format it as one of:
+   - `TAKE OX @Y NOW — official/exception/direct eligible`
+   - `WAIT OX >=Y — do not take current higher burden`
+   - `HOLD — no executable edge`
+   - `PASS — closed`
+   - `GOAL/STATE CHANGED — OLD VERDICT VOID, REPRICE`;
+3. only after the action line is surfaced, perform any needed research, Airtable write, website publish, or explanation;
+4. never delay an otherwise-clear live verdict for external web research. External research is secondary unless the current evidence is insufficient to decide safely;
+5. if the score changes before the user can act, the prior line/price is automatically VOID and must not be chased.
+
+If frozen PRE is not available, do the smallest possible state lookup first, then surface the verdict before any deeper work.
+
+The target response latency objective is **verdict first, evidence second**. Do not make the user wait through tool-heavy explanation while a live line is moving.
+
 ## User-supplied live state
 Use the user's current score, minute, live Asian-total line/price, and any supplied stats/cards/substitutions/injuries. Do not automatically fetch bookmaker markets unless explicitly asked.
 
