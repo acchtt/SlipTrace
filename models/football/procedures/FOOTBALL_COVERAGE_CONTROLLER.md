@@ -1,7 +1,7 @@
 # Football Coverage Controller
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.54  
+**Official model:** Football A — active v0.2.55 stack  
 **Coverage authority:** AiScore actionable senior universe + current senior-quality overlay  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
@@ -24,6 +24,27 @@ Do not begin by selecting a few credible candidates. Every actionable fixture mu
 ## 2. AiScore traversal and completeness gate
 
 AiScore remains the sole fixture-discovery authority.
+
+### 2.0 Durable staged sweep checkpoints
+
+Step 0 is restart-safe. A long sweep must not depend on one uninterrupted chat/tool execution.
+
+Run-level checkpoint authority is Airtable table `Sweep Runs` (`tblUnGHHe0MVaalDL`). Keep the existing `Daily Coverage Ledger` fixture-only; do not create synthetic run rows there.
+
+Create one stable `Run ID` per requested sweep window and checkpoint these stages independently:
+
+1. `CORE DISCOVERY` — requested-window normalization, discovery envelope, PRIORITY/NORMAL/direct senior blocks, fixture identity/source-time capture, early quality/scope exclusion, fixture-ledger batch upsert.
+2. `CONDITIONAL GATES` — cheap registry admission for every relevant conditional senior block; persist pass/fail before continuing.
+3. `EUROPEAN CUP AUDIT` — separate AiScore-only UEFA domestic-cup traversal; persist checked cup blocks, admitted/excluded/unresolved counts.
+4. `TERMINAL SENTINEL` — independent final-six-hours AiScore pass; persist terminal ICT/UTC dates and listing blocks checked.
+5. `RECONCILIATION` — dedupe, identity/source-time conflict audit, counts, admitted-array equality and actionable completeness.
+6. `PACKAGING` — canonical handoff text then one-file ZIP validation.
+
+After each completed stage, update the same Sweep Runs row immediately. A later execution must resume from the first incomplete stage and must not repeat earlier completed stages unless a missed-fixture recovery rule invalidates them.
+
+A timeout/interruption is therefore a transport interruption, not a coverage reset. Do not silently promote a partial stage to complete, but also do not discard already checkpointed prior stages.
+
+The Sweep Runs row must carry at minimum: requested window, discovery envelope, current stage, per-stage completion flags, running discovered/admitted/excluded/unresolved counts, listing blocks checked, checkpoint notes, and handoff package when created.
 
 The system distinguishes two levels of completeness:
 
@@ -98,17 +119,22 @@ Work must then research zero fixtures and must not perform its own fixture sweep
 
 ## 3. Time and schedule integrity gate
 
-Before eligibility or PRE screening, every potentially actionable fixture must satisfy the authoritative timestamp contract:
+Step 0 follows `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` and preserves fixture source time rather than converting every fixture during discovery.
+
+Before eligibility or PRE screening, every potentially actionable fixture must satisfy the authoritative Step-0 timestamp contract:
 
 - preserve AiScore fixture identity;
-- normalize to `kickoff_utc`;
-- convert exactly once to `kickoff_ict` using `Asia/Ho_Chi_Minh`;
-- derive `slate_date_ict` from the converted kickoff;
-- verify the normalized kickoff lies inside the requested ICT window;
-- verify AiScore listing identity and match-page date/time are consistent;
-- reject stale/future fixtures outside the requested window.
+- preserve raw/source kickoff text;
+- preserve `kickoff_source_local`;
+- preserve AiScore timezone/UTC offset when supplied;
+- preserve AiScore-supplied UTC when explicitly available;
+- normalize only the **requested window boundaries** to ICT and UTC once;
+- when AiScore supplies UTC or an explicit offset, use an ephemeral UTC value only for cheap in/out-of-window membership testing;
+- do not calculate or persist `kickoff_ict` merely to perform discovery;
+- carry boundary cases as `WINDOW STATUS = PENDING CONVERSION` when later conversion is required;
+- reject contradictory source-time/identity states that cannot safely be interpreted later.
 
-A trailing `Z` means UTC. It must never be displayed as ICT without conversion.
+A trailing `Z` means UTC. It must never be displayed as ICT without conversion. Exact fixture ICT conversion belongs to the later schedule-normalization stage.
 
 If identity/date/time remain contradictory:
 
@@ -236,12 +262,13 @@ Publishing the Work screen to `Daily Coverage Ledger` is a **copy/upsert of the 
 
 The publish step must preserve Work output exactly in the fields available in the Airtable contract, including route-quality and CC+ context in summary/notes.
 
-For datetime fields:
+For datetime fields during Step 0:
 
-- write canonical UTC ISO where required by the API;
+- never write a foreign/source local time into `Kickoff ICT`;
+- leave `Kickoff ICT` blank unless a genuine ICT conversion was independently required;
+- preserve source local time + zone/offset and AiScore-supplied UTC in coverage notes;
 - interpret any returned trailing-`Z` value as UTC;
-- convert to ICT exactly once for human display;
-- derive Slate Date from the ICT kickoff.
+- perform the one-time ICT fixture conversion later during schedule normalization and derive the final Slate Date there.
 
 Forbidden behavior:
 
