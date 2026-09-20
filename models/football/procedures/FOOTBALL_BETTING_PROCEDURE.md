@@ -229,6 +229,21 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 
 ---
 
+## LIVE EXECUTION LATENCY CONTROL
+
+For any user-supplied live or just-started market:
+
+`MINIMAL STATE READ -> VERDICT FIRST -> PERSIST/RESEARCH/EXPLAIN SECOND`
+
+The assistant must not make a user wait for H2H research, web verification, Airtable writes, or long-form reasoning when the current frozen state plus supplied market already supports a clear action.
+
+- Clear executable line: surface `TAKE ... NOW` first.
+- Above-burden market: surface `WAIT ...` first.
+- Structural blocker: surface `HOLD/PASS` first.
+- Goal/card/material state change before action: old quote is VOID; reprice.
+
+Any subsequent research may validate, annotate, or persist the verdict but must not be the cause of a preventable missed live window.
+
 ## 10A. Decay-first burden protection
 
 Effective prospectively from 2026-09-20 ICT, direct execution above frozen supported burden is disabled as an automatic path.
