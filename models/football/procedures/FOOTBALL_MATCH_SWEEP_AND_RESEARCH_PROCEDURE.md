@@ -1,12 +1,12 @@
 # Football Match Sweep and Research Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football v0.2.54  
+**Official model:** Football A — active v0.2.55 stack  
 **Fixture authority:** AiScore only  
 **Timezone:** Asia/Ho_Chi_Minh (ICT)  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
-This procedure separates **fixture discovery** from **match research**, enforces the current senior-quality actionable overlay, prevents overnight/date-boundary omissions, and routes every timestamp through the canonical UTC→ICT integrity layer.
+This procedure separates **fixture discovery** from **match research**, enforces the current senior-quality actionable overlay, prevents overnight/date-boundary omissions, and uses durable staged checkpoints so long AiScore sweeps can resume after a tool/chat interruption without restarting completed work.
 
 ---
 
@@ -35,24 +35,50 @@ Research may refine the thesis; it may not expand the fixture universe.
 
 ## 2. Requested-window traversal
 
-1. Resolve the exact requested ICT start and end.
-2. Determine every **ICT calendar date touched by that window**.
-3. Traverse the corresponding AiScore date listings explicitly.
-4. For each discovered fixture, preserve AiScore identity, raw/source kickoff text and listing date where available.
-5. Normalize to canonical `kickoff_utc`.
-6. Convert `kickoff_utc` exactly once to `kickoff_ict` using `Asia/Ho_Chi_Minh`.
-7. Derive `slate_date_ict` from `kickoff_ict`.
-8. Keep only fixtures whose corrected `kickoff_ict` falls inside the requested window.
-9. Deduplicate by AiScore fixture ID where available; otherwise use competition + normalized teams + kickoff_utc.
-10. Do not stop when enough attractive matches have been found.
+Follow `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` exactly.
 
-A timestamp ending in `Z` is UTC, not ICT.
+1. Resolve `window_start_ict`, `window_end_ict`, `window_start_utc`, and `window_end_utc` once.
+2. Record every ICT and UTC calendar date touched.
+3. Build the deterministic discovery envelope: ICT dates touched + UTC dates touched + one UTC date before + one UTC date after.
+4. Traverse all relevant AiScore date/listing blocks across that envelope.
+5. For every discovered fixture preserve AiScore identity, discovery listing date, raw/source kickoff text, source local time, timezone/offset, AiScore-supplied UTC when explicitly available, and fetch status.
+6. Do **not** convert every fixture to ICT during normal discovery.
+7. If AiScore supplies UTC, compare it directly to the normalized requested UTC window for cheap membership testing.
+8. If AiScore supplies an explicit offset, an ephemeral UTC value may be used only for membership testing while preserving source fields.
+9. Carry boundary cases as `WINDOW STATUS = PENDING CONVERSION` when later schedule normalization is required.
+10. Deduplicate by AiScore fixture ID where available; otherwise use competition + normalized teams + safe source-time identity.
+11. Do not stop when enough attractive matches have been found.
+
+A timestamp ending in `Z` is UTC, not ICT. Exact fixture ICT conversion belongs to the later scheduling stage.
 
 ### Cross-midnight rule
 
-If the window crosses midnight, browsing only the starting date is incomplete. Every ICT date touched by the window must be traversed.
+If the window crosses midnight or ends between 00:00 and 06:00 ICT, explicitly inspect the terminal ICT calendar date and the UTC date containing `window_end_utc`.
 
-A last-found kickoff before the requested cutoff is **not evidence that no later block exists**. Verify the terminal interval/date listing itself.
+A last-found kickoff before the requested cutoff is **not evidence that no later block exists**. Run the independent terminal sentinel described below.
+
+---
+
+## 2.1 Durable restart-safe stage sequence
+
+Use Airtable `Sweep Runs` (`tblUnGHHe0MVaalDL`) as the run-level checkpoint store.
+
+For each requested sweep create/reuse one stable Run ID and execute:
+
+`CORE DISCOVERY → CONDITIONAL GATES → EUROPEAN CUP AUDIT → TERMINAL SENTINEL → RECONCILIATION → PACKAGING`
+
+Checkpoint each completed stage before beginning the next. Persist fixture rows discovered by that stage to `Daily Coverage Ledger` in batches. If execution stops, resume from the first incomplete Sweep Runs stage; do not repeat completed stages.
+
+Stage boundaries:
+
+- **CORE DISCOVERY:** boundary math, discovery envelope, direct senior blocks, early exclusions, source-time/identity capture, fixture-ledger upserts.
+- **CONDITIONAL GATES:** cheap current registry tests only; persist pass/fail.
+- **EUROPEAN CUP AUDIT:** separate AiScore-only UEFA domestic-cup traversal over touched dates.
+- **TERMINAL SENTINEL:** independent `max(window_start, window_end - 6h) -> window_end` AiScore pass.
+- **RECONCILIATION:** identity/dedupe/source-time conflicts, actionable equations, admitted-array equality, completeness flags.
+- **PACKAGING:** canonical UTF-8 handoff text followed by exactly-one-file ZIP validation.
+
+A timeout never converts an incomplete stage to complete, but it also never invalidates previously completed checkpoint stages unless a later missed-fixture audit triggers the formal recovery rule.
 
 ---
 
@@ -60,10 +86,10 @@ A last-found kickoff before the requested cutoff is **not evidence that no later
 
 Before a discovered fixture can proceed to eligibility or structural screening, verify:
 
-- the normalized kickoff falls inside the requested ICT window;
+- source-time identity is interpretable under the active time procedure;
+- when AiScore supplies UTC/offset, cheap membership testing places the fixture inside the requested normalized window or marks it pending conversion;
 - AiScore daily-listing identity and match-page identity agree;
-- the match-page date/time is compatible with the normalized `kickoff_ict`;
-- `slate_date_ict` is derived from the converted kickoff rather than copied blindly from a page label;
+- no contradictory source-time state prevents later one-time ICT conversion;
 - the fixture is not a stale/future match surfaced through a competition page outside the requested window.
 
 If any of these fail or remain contradictory:
@@ -146,10 +172,13 @@ A fixture handoff used by Work must identify at minimum:
 - `audit.complete`;
 - complete actionable fixture list with competition names;
 - AiScore fixture ID or canonical match identity where available;
-- `kickoff_utc`;
-- `kickoff_ict`;
-- `slate_date_ict`;
+- source kickoff local time/text;
+- source timezone/offset where supplied;
+- AiScore-supplied UTC when explicitly available;
+- `window_status=confirmed|pending_conversion`;
 - status at fetch.
+
+`kickoff_ict` is not required in the Step-0 handoff.
 
 Required invariant:
 
