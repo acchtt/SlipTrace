@@ -1,0 +1,43 @@
+FOOTBALL V2.0 — STEP 01 RESUME LAUNCHER
+=========================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+
+EXECUTE IN THIS ORDER:
+
+1. Load and read:
+   handoffs/football/CURRENT_CHAT_HANDOFF.md
+
+2. Load and read:
+   models/football/CURRENT_MODEL.md
+
+3. Load and execute:
+   models/football/prompts/01_WORK_DAILY_SWEEP.md
+
+4. If an AISCORE_FIXTURES_*.zip is attached:
+   - validate the package exactly as Step 01 requires;
+   - extract the canonical root AISCORE_FIXTURES_*.txt;
+   - run Work structural ranking;
+   - preserve existing Airtable/Website decisions from the handoff;
+   - do not rerun Step 0 or silently repair non-blocking raw-audit gaps.
+
+5. If no fresh fixture ZIP is attached:
+   - do NOT fabricate a new Step 0 sweep;
+   - confirm Step 01 is loaded and ready;
+   - preserve the current board B-20260920-1401-20260921-0300 and all existing Step-2/live/audit state.
+
+6. If the user immediately sends XI/odds/live screenshots instead of a new fixture ZIP:
+   - continue the existing slate from Airtable;
+   - use frozen PRE;
+   - apply the current canonical Football A rules;
+   - live verdict first;
+   - do not make the user repeat context already preserved in CURRENT_CHAT_HANDOFF.md.
+
+CRITICAL:
+- WAIT != HOLD.
+- Stronger structure does not automatically justify a higher total.
+- Never retroactively backfill a missed execution.
+- User prematch odds that clear all gates auto-publish immediately.
+- One exposure per match.
+- Do not infer a live score from an AiScore lineup page thumbnail/overlay.
