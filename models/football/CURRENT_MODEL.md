@@ -26,6 +26,20 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## LIVE VERDICT-FIRST / EXECUTION LATENCY CONTROL — ACTIVE
+
+Effective 2026-09-20 ICT:
+
+For live and just-started user-supplied markets, execution order is:
+
+`MINIMAL STATE READ -> ACTIONABLE VERDICT -> PERSIST / RESEARCH / EXPLANATION`
+
+Do not delay a clear live action for web research, H2H lookup, Airtable writes, or explanatory prose. If a goal/state change occurs before action, the old quote is VOID and requires a new score-epoch reprice.
+
+This changes response order only; it does not lower structural, burden, price, suppression, or state-integrity standards.
+
+---
+
 ## DECAY-FIRST EXECUTION AUTHORITY — ACTIVE
 
 Effective prospectively from 2026-09-20 ICT, load and apply:
