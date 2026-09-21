@@ -18,6 +18,7 @@
 - `rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — **DECAY-FIRST BURDEN PROTECTION / NO AUTOMATIC ABOVE-BURDEN PREMATCH LOCK**
 - `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**
 - `rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md` — **AUTO-PUBLISH OFFICIAL LOCKS FROM USER PREMATCH ODDS**  
+- `rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — **B+ EXACT-SUPPORTED-BURDEN EXECUTION LANE**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -121,10 +122,11 @@ Load only the current active stack:
 17. `models/football/rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`
 18. `models/football/rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`
 19. `models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — load after HMA/live-decay; final authority on above-burden execution
-20. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-21. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-22. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-23. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+20. `models/football/rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — Football A B+ exact-supported-burden exposure authority
+21. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+22. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+23. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+24. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -251,7 +253,21 @@ If none clears:
 
 `DIRECT LOCK ELIGIBLE — NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
 
-A1 remains the strongest primary lane. B+ receives no relaxation.
+A1 remains the strongest primary lane.
+
+### B+ protected-line lane — ACTIVE
+
+For Football A, a frozen `B+ WATCHLIST` candidate may now become directly executable at the **exact frozen supported burden** without an extra positive hardener when:
+
+- confirmed XI preserves the frozen route construction;
+- the exact frozen supported line is available;
+- price is **>=1.65**;
+- market alignment is acceptable; and
+- there is no strong current, mechanism-compatible negative veto.
+
+Use `B+ PROTECTED-LINE — DIRECT LOCK ELIGIBLE`, then finalize `B+ PROTECTED-LINE — OFFICIAL LOCK` when no other blocker remains.
+
+This does **not** structurally promote B+ and does not create automatic B+ HMA. A strong negative veto still blocks exposure. For `CARRIER-LED / PROVEN+NOMINAL`, +0.25 above burden is allowed only with independent self-funded 3+ carrier evidence; +0.50 or more remains non-automatic.
 
 ### High-Market Acceptance overlay
 
@@ -260,7 +276,7 @@ HMA applies to **Football A only** and never changes the frozen structural ceili
 - `A1 FOCUS`: up to `+0.25` normally; up to `+0.50` only with a strong upper-tail hardener.
 - `A2 FOCUS`: up to `+0.25` only with the A2 upper-tail gate cleared at the offered burden.
 - `A2 FOCUS` with exceptional TRUE CC+ / repeatable 4+ / elite two-sided proof: up to `+0.50`.
-- `A2 WATCHLIST`, `B+`, PASS, unresolved, and fragile capped cases: **no automatic HMA extension**.
+- `A2 WATCHLIST`, `B+`, PASS, unresolved, and fragile capped cases: **no automatic HMA extension**. The separate B+ protected-line patch may authorize the exact frozen supported burden, and a narrow carrier-specific +0.25 extension only under its explicit hardener.
 - `+0.75` or more above the frozen structural ceiling: no immediate HMA exposure.
 
 The detailed authority is `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`.
@@ -388,7 +404,7 @@ The new HMA lane is **not** a blanket release of the old +0.25 shadow sample. It
 
 Model B **is** changed prospectively by the shared A/B market-alignment patch: its existing participation lane must clear market alignment before direct participation.
 
-B+ / CC+ remains a separate audit lane with no automatic promotion unless the match is actually A2 FOCUS under the active structural rules.
+B+ / CC+ remains a separate audit lane with no automatic structural promotion unless the match is actually A2 FOCUS under the active structural rules. Separately, Football A may execute a B+ WATCHLIST fixture at its exact frozen supported burden under `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`.
 
 ---
 
@@ -459,6 +475,7 @@ Post-slate audit must report separately:
 - structural holds;
 - legacy +0.25 acceptance-band shadows;
 - B+ / CC+ audit lane;
+- B+ PROTECTED-LINE exact-burden official locks, negative-veto holds, carrier-specific +0.25 extensions, and above-burden waits;
 - MCE shadows;
 - FOCUS vs WATCHLIST 3+ and 4+ performance;
 - market-undercut fixtures rejected by the shared A/B gate;
@@ -482,6 +499,8 @@ Football A is the active official model. The fragile A2 FOCUS guard, predeclared
 
 `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` overrides earlier Football A/v0.2.55/live-decay wording only where those rules forced a qualifying high-ranked FOCUS candidate to wait for the raw structural ceiling despite a valid HMA line or targeted live decay farther than the nearest independently qualified HMA boundary.
 
-**Model B is unchanged by the HMA patch. Model B is prospectively governed by the shared A/B market-alignment patch before its own participation rules.**
+`MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` is prospective from 2026-09-21 ICT and overrides earlier Football A wording that required an additional positive hardener for every B+ exposure when the **exact frozen supported burden** is already available at >=1.65 and no strong mechanism-compatible negative veto exists. It does not retroactively change Sep 19–20 official P/L.
+
+**Model B is unchanged by the HMA patch and by the Football A B+ protected-line patch. Model B is prospectively governed by the shared A/B market-alignment patch before its own participation rules.**
 
 For current decisions, this file plus the canonical active stack wins over stale chat text, old handoffs, archived screenshots, and superseded documentation.
