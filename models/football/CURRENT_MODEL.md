@@ -66,6 +66,16 @@ The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualif
 
 ---
 
+## TEMPORARY BLOCK OVERRIDE — ROMANIAN LIGA III — 2026-09-22
+
+For the exact 12-fixture Romanian Liga III block authorized by the user on 2026-09-22, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-22_ROMANIAN_LIGA_III_BLOCK.md`
+
+This is an identity-limited, one-block scope exception only. It bypasses the normal lower-division / reserve-team scope exclusion for those listed fixtures and changes nothing else. It expires after settlement and does not whitelist Romanian Liga III generally.
+
+---
+
 ## TEMPORARY SCOPE OVERRIDE — 2026-09-22 THROUGH 2026-09-27
 
 For **2026-09-22 14:26 ICT through 2026-09-27 23:59:59 ICT**, load and apply:
