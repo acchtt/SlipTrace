@@ -174,6 +174,8 @@ Process every fixture that survived into the valid Work handoff with full deep s
 
 When the Practical Ceiling Ranking patch is active, every carrier-priority candidate must be explicitly classified as `PRACTICAL CARRIER CEILING — VERIFIED`, `CANDIDATE`, or `UNVERIFIED`. `CARRIER-LED` alone is not rank-positive. Only `VERIFIED` may receive first-order practical 3+ ceiling credit or cross-grade B+ > A2 ranking authority. Persist the carrier-verification label and supporting mechanism in the frozen PRE summary.
 
+Before freezing any `B / PASS`, apply the active PASS Rescue Screen. If at least one route is PROVEN/SUPPORTED, or a plausible class-gap/carrier route exists, explicitly test whether a VERIFIED self-funded 3+ carrier plus compatible opponent failure rescues the fixture to `B+ WATCHLIST / CARRIER-LED`. If only CANDIDATE/UNVERIFIED evidence exists, or a strong current suppression veto remains, keep PASS and persist the specific PASS label from the rescue patch. Do not send a fixture to PASS solely because the second route is weak.
+
 Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
 The frozen PRE artifact and every Airtable row written from it must carry the Board ID + Board Name assigned above. Publication remains a copy/upsert of the frozen state; board identity must not trigger a second structural screen.
