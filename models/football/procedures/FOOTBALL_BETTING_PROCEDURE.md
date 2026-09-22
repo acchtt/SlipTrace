@@ -280,6 +280,18 @@ Every active live-decay/price-wait plan must be shown in the user-facing board w
 - current offered line/price when known;
 - cancellation trigger / state-integrity note.
 
+### B+ no-bet reason taxonomy
+
+For every B+ WATCHLIST fixture that does not become an official exposure, record one primary reason:
+
+- `LINE NEVER REACHED — NO EXECUTION OPPORTUNITY`;
+- `EXECUTABLE LINE AVAILABLE — MODEL HELD`;
+- `+0.25 AVAILABLE — WAITED FOR LOWER BURDEN`;
+- `STRONG VETO HOLD — EXECUTABLE PRICE REJECTED`;
+- `ABOVE BURDEN — NO QUALIFIED EXTENSION`.
+
+Absence of an actual ticket is not evidence that the target line never appeared. `LINE NEVER REACHED` requires observed market-path support. This taxonomy exists so future audits separate market non-arrival from model-policy false negatives and intentional veto holds.
+
 No active WAIT may silently disappear from the board before kickoff. It ends only when it executes, is invalidated by state/football change, expires at kickoff under a non-live-authorized plan, or the match completes.
 
 
