@@ -65,6 +65,25 @@ The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualif
 
 ---
 
+## TEMPORARY SCOPE OVERRIDE — 2026-09-22 THROUGH 2026-09-27
+
+For **2026-09-22 14:26 ICT through 2026-09-27 23:59:59 ICT**, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-22_TO_2026-09-27_AGS_U23_QATAR_STARS_CUP.md`
+
+This is a **temporary scope exception only**, not a permanent model/registry promotion.
+
+During the active interval:
+
+- official **OCA Asian Games U23 football** bypasses the generic youth/Uxx scope exclusion;
+- official **Qatar Stars Cup / Qatari Stars Cup** bypasses the small non-European domestic-cup exclusion;
+- both competition families enter Work for normal Football A structural assessment when in-window;
+- all normal source-time, status, structural, burden, XI, market-alignment and execution gates remain unchanged.
+
+The override expires automatically at **2026-09-28 00:00 ICT**.
+
+---
+
 ## TEMPORARY SESSION OVERRIDES — 2026-09-19 / 2026-09-20
 
 ### A. Sep-18 execution-relaxation experiment — extended to noon Sep 19
