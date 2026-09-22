@@ -66,6 +66,16 @@ The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualif
 
 ---
 
+## TEMPORARY BLOCK OVERRIDE — ROMANIA LIGA II + UAE PRESIDENT CUP — 2026-09-22
+
+For the exact four-match block authorized by the user on 2026-09-22, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-22_ROMANIA_LIGA2_UAE_PRESIDENT_CUP_BLOCK.md`
+
+This is an identity-limited one-block exception only. It bypasses the normal lower-division / small non-European cup scope exclusions for those four fixtures and changes nothing else. Normal XI, burden and execution gates remain active.
+
+---
+
 ## TEMPORARY SCOPE OVERRIDE — 2026-09-22 THROUGH 2026-09-27
 
 For **2026-09-22 14:26 ICT through 2026-09-27 23:59:59 ICT**, load and apply:
