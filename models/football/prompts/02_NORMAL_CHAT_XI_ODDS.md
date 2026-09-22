@@ -6,7 +6,7 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`, `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For decisions inside an active temporary-session window declared by `CURRENT_MODEL.md`, load and apply the referenced session override before final exposure selection. During 2026-09-19/20 this includes the temporary burden-specific prematch upper-tail rule: O2.5 may use a quality-proven 3+ path; O2.75 may use a robust 3+ path plus non-trivial fourth-goal support; O3.0+ retains the permanent 4+ standard. A2 WATCHLIST may use this temporary O2.5/O2.75 exposure relaxation without being structurally promoted; B+/B/PASS do not.
 
@@ -214,6 +214,18 @@ Use exactly one executable-path state:
 **Never use HOLD merely because the sportsbook line is too high.** High line = execution-path problem, not structural failure, when the football thesis remains qualified.
 
 Every user-facing final assessment must explicitly display any active LIVE DECAY / PRICE WAIT target alongside LOCK/HOLD decisions. Do not let a WAIT disappear from the board simply because no current executable line exists.
+
+### B+ no-bet reason — mandatory
+
+For every B+ fixture that is not locked, persist one primary reason from the active protected-line taxonomy:
+
+- `LINE NEVER REACHED — NO EXECUTION OPPORTUNITY`;
+- `EXECUTABLE LINE AVAILABLE — MODEL HELD`;
+- `+0.25 AVAILABLE — WAITED FOR LOWER BURDEN`;
+- `STRONG VETO HOLD — EXECUTABLE PRICE REJECTED`;
+- `ABOVE BURDEN — NO QUALIFIED EXTENSION`.
+
+Do not infer `LINE NEVER REACHED` merely because no ticket exists. Use the actual observed market path. For +0.25 B+ execution, require `PRACTICAL CARRIER CEILING — VERIFIED`; generic `CARRIER-LED` or `CANDIDATE` is insufficient.
 
 
 After burden is fixed, market alignment is resolved, and the relevant model-specific HMA/participation test is complete, assign the technical execution path.
