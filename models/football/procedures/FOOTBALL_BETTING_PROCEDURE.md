@@ -314,6 +314,8 @@ Use for MCE/+0.25 and all new live/decay Over entries under v0.2.54. Record the 
 ### PASS
 Use when the structure is materially invalidated or the frozen PRE was already a genuine PASS and no valid `CARRIER REOPEN — XI CONFIRMED` epoch exists.
 
+Before a new PRE is frozen as B/PASS, apply the active `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` screen. A fixture must not be finalized as PASS solely because the second route is weak if a `PRACTICAL CARRIER CEILING — VERIFIED` route can independently fund 3+ and no strong current suppression veto remains. A successful rescue becomes `B+ WATCHLIST / CARRIER-LED`; candidate-only evidence remains PASS / re-screen eligible.
+
 Before final PASS in Step 2, market-history status must be FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
 
 HOLD/PASS = no exposure.
