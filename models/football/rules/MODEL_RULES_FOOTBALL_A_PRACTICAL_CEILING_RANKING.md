@@ -3,7 +3,7 @@
 **Status:** ACTIVE OFFICIAL PATCH  
 **Model:** Football A  
 **Effective:** 2026-09-22 12:38 ICT onward  
-**Basis:** settled 7-day rank-separation audit, 2026-09-16 through 2026-09-22 ICT  
+**Basis:** settled rank-separation audit plus actual sportsbook-ledger audit, 2026-09-14 through 2026-09-22 ICT  
 **Purpose:** correct repeated PRE ranking inversion where ordinary two-route A2 fixtures outrank lower-grade carrier-led fixtures with a stronger practical path to 3+ total goals.
 
 This patch is prospective. It does not rewrite frozen PRE grades, historical ranks, historical verdicts, settled P/L, or prior shadow/counterfactual outcomes.
@@ -70,6 +70,32 @@ Give first-order rank credit when one team has a credible independent route to t
 Use the existing TRUE CC+ / carrier-ceiling evidence standard where available. In data-poor leagues, a strong substitute may be used only when the evidence is current, repeatable, and mechanism-compatible.
 
 Do not award this flag from one isolated 3+ scoreline.
+
+### 3.1.1 VERIFIED carrier hardener — mandatory
+
+The structural label `CARRIER-LED` by itself receives **no first-order ranking boost**.
+
+Classify every proposed carrier-priority case as exactly one of:
+
+- `PRACTICAL CARRIER CEILING — VERIFIED`
+- `PRACTICAL CARRIER CEILING — CANDIDATE`
+- `PRACTICAL CARRIER CEILING — UNVERIFIED`
+
+Only **VERIFIED** may receive the first-order self-funded-ceiling rank credit or trigger a cross-grade B+ > A2 inversion.
+
+To mark **VERIFIED**, the evidence must show that the carrier can plausibly fund three team goals **without needing the secondary route**, using a current and repeatable football mechanism. Require the strongest available combination of:
+
+1. **repeatability** — more than one recent demonstration of 3+ team-goal capacity, or one such demonstration plus strong repeated underlying chance creation;
+2. **mechanism proof** — chance quality, box access, transition volume, set-piece pressure, territory/second phases, shot quality, or an equivalent route signal consistent with the goals;
+3. **independence** — the 3+ path does not depend on the nominal/weak opponent route scoring first or creating an abnormal game state;
+4. **opponent compatibility** — the opponent repeatedly permits the same mechanism or has a current defensive failure that materially supports it;
+5. **current integrity** — no XI/rotation/tactical change materially damages the carrier mechanism.
+
+In data-poor leagues, score-form substitutes may be used only when the sample is recent, repeated, and reinforced by class-gap, lineup, opponent-leakage, or tactical evidence. A single scoreline, favorite status, market line, or generic goals-against statistic is insufficient.
+
+`CANDIDATE` may improve evidence confidence or monitoring priority but **must not** leapfrog a stronger A2 solely because it is carrier-led.
+
+`UNVERIFIED` receives no carrier-ceiling priority and is ranked on the remaining factors normally.
 
 Persist when applicable:
 
