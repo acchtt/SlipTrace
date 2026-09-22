@@ -51,7 +51,7 @@ A historical H2H pattern alone is not sufficient. The suppression must be **rece
 This patch does **not** authorize automatic HMA for B+.
 
 - Exact frozen supported burden: eligible under the core rule.
-- `+0.25` above burden: allowed only for `CARRIER-LED / PROVEN+NOMINAL` when there is independent evidence that the carrier owns a credible self-funded 3+ team-goal path and no strong negative veto.
+- `+0.25` above burden: allowed only for `CARRIER-LED / PROVEN+NOMINAL` when `PRACTICAL CARRIER CEILING — VERIFIED` is explicitly cleared under `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` and no strong negative veto is present. `CANDIDATE` or generic `CARRIER-LED` is not enough.
 - `+0.50` or more above burden: **never automatic** for B+; use WAIT/live-decay or HOLD.
 - Price may never justify a higher burden.
 
@@ -80,6 +80,34 @@ It does not override:
 - the prohibition on automatic B+ HMA extension.
 
 Structural ranking remains unchanged. B+ stays B+ WATCHLIST.
+
+## Mandatory no-bet / wait reason taxonomy
+
+Every B+ fixture that does not become an official exposure must persist **one primary execution reason**. Absence of a sportsbook ticket is never enough to infer why the bet was missed.
+
+Use exactly one of:
+
+1. `LINE NEVER REACHED — NO EXECUTION OPPORTUNITY`
+   - the frozen/allowed target line at the required minimum price was not observed before the score epoch changed or the market closed;
+   - use only when market-path evidence actually supports non-arrival.
+
+2. `EXECUTABLE LINE AVAILABLE — MODEL HELD`
+   - an exact supported or otherwise explicitly allowed line/price was observed, but the model withheld exposure for a structural/evidence rule;
+   - this is the primary bucket for execution-policy false-negative auditing.
+
+3. `+0.25 AVAILABLE — WAITED FOR LOWER BURDEN`
+   - a +0.25 line was actually available at an acceptable price, but the model waited for the exact/lower burden;
+   - record whether `PRACTICAL CARRIER CEILING — VERIFIED` was present. This is an opportunity-cost bucket, not automatic evidence that +0.25 should have been taken.
+
+4. `STRONG VETO HOLD — EXECUTABLE PRICE REJECTED`
+   - an otherwise executable line existed, but a current mechanism-compatible negative veto intentionally blocked exposure;
+   - keep this separate from ordinary model-held cases so valid vetoes are not misclassified as missed bets.
+
+5. `ABOVE BURDEN — NO QUALIFIED EXTENSION`
+   - only +0.50 or larger, or an unqualified +0.25, was available;
+   - do not call this a missed execution merely because the match later went Over.
+
+When a goal or red card occurs before a waiting trigger, close the old score epoch and persist whether the target was reached **before** that state change.
 
 ## Audit
 
