@@ -19,6 +19,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md` — **REMOVE SAME-WINDOW / CROSS-MATCH EXPOSURE SUPPRESSION**
 - `rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md` — **AUTO-PUBLISH OFFICIAL LOCKS FROM USER PREMATCH ODDS**  
 - `rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — **B+ EXACT-SUPPORTED-BURDEN EXECUTION LANE**  
+- `rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — **PRACTICAL 3+ CEILING / CROSS-GRADE STRUCTURAL RANKING**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -123,10 +124,11 @@ Load only the current active stack:
 18. `models/football/rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`
 19. `models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — load after HMA/live-decay; final authority on above-burden execution
 20. `models/football/rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — Football A B+ exact-supported-burden exposure authority
-21. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-22. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-23. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-24. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+21. `models/football/rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — final Football A authority on PRE Structural Rank ordering
+22. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+23. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+24. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+25. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -178,11 +180,17 @@ If neither clears, cap at `A2 WATCHLIST` and persist `A2 FOCUS CAP — FRAGILE S
 
 Recent Over/BTTS frequency by itself cannot clear the cap.
 
-Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
+PRE Structural Rank is now governed by `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`.
 
-`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
+**Route symmetry no longer receives automatic ranking priority.** Rank the most reliable practical path to the supported total using:
 
-Supported burden is chosen before current price. Price cannot create structural quality.
+`PRACTICAL SELF-FUNDED 3+ CEILING > OPPONENT FAILURE/LEAKAGE COMPATIBILITY > CHANCE QUALITY/URGENCY > FAILURE-MODE RESISTANCE > SECONDARY-ROUTE QUALITY > ROUTE SYMMETRY/GRADE AS TIE-BREAKER`
+
+A `B+ WATCHLIST / CARRIER-LED` fixture with a verified independent 3+ carrier path and compatible opponent failure may rank above an ordinary `A2 FOCUS / TWO-SIDED` fixture. Preserve the original grade/tier; do not promote B+ to A2 merely to justify the rank.
+
+B/PASS remains outside the ranked exposure board unless a legitimate structural re-screen changes the grade. Strong current, mechanism-compatible negative vetoes remain authoritative.
+
+Supported burden is chosen before current price. **PRE Structural Rank is price/market blind.** Price cannot create structural quality or improve rank.
 
 **HMA does not change the structural burden or structural ceiling.** It is an execution overlay only.
 
@@ -192,7 +200,7 @@ Supported burden is chosen before current price. Price cannot create structural 
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → CHANCE QUALITY → CC+ / CARRIER CEILING → BURDEN FIT → EVIDENCE CONFIDENCE → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → STRUCTURAL RANK → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / FOOTBALL-ONLY RERANK IF STRUCTURE CHANGES → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
 
 When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
 
@@ -500,6 +508,8 @@ Football A is the active official model. The fragile A2 FOCUS guard, predeclared
 `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md` overrides earlier Football A/v0.2.55/live-decay wording only where those rules forced a qualifying high-ranked FOCUS candidate to wait for the raw structural ceiling despite a valid HMA line or targeted live decay farther than the nearest independently qualified HMA boundary.
 
 `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` is prospective from 2026-09-21 ICT and overrides earlier Football A wording that required an additional positive hardener for every B+ exposure when the **exact frozen supported burden** is already available at >=1.65 and no strong mechanism-compatible negative veto exists. It does not retroactively change Sep 19–20 official P/L.
+
+`MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` is prospective from 2026-09-22 12:38 ICT and is the final Football A authority on PRE Structural Rank. It removes automatic rank privilege from route symmetry / A2 FOCUS labels and explicitly permits a verified B+ carrier-led 3+ path to rank above an ordinary A2 two-sided fixture. It changes ranking only; historical grades/ranks/P&L remain frozen and execution still follows the active burden, veto, market-alignment, decay-first, upper-tail, and B+ protected-line rules.
 
 **Model B is unchanged by the HMA patch and by the Football A B+ protected-line patch. Model B is prospectively governed by the shared A/B market-alignment patch before its own participation rules.**
 
