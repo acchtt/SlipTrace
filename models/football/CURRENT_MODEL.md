@@ -205,7 +205,9 @@ PRE Structural Rank is now governed by `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING
 
 `PRACTICAL SELF-FUNDED 3+ CEILING > OPPONENT FAILURE/LEAKAGE COMPATIBILITY > CHANCE QUALITY/URGENCY > FAILURE-MODE RESISTANCE > SECONDARY-ROUTE QUALITY > ROUTE SYMMETRY/GRADE AS TIE-BREAKER`
 
-A `B+ WATCHLIST / CARRIER-LED` fixture with a verified independent 3+ carrier path and compatible opponent failure may rank above an ordinary `A2 FOCUS / TWO-SIDED` fixture. Preserve the original grade/tier; do not promote B+ to A2 merely to justify the rank.
+A `B+ WATCHLIST / CARRIER-LED` fixture with a `PRACTICAL CARRIER CEILING — VERIFIED` independent 3+ carrier path and compatible opponent failure may rank above an ordinary `A2 FOCUS / TWO-SIDED` fixture. Preserve the original grade/tier; do not promote B+ to A2 merely to justify the rank.
+
+**Carrier verification hardener:** `CARRIER-LED` alone receives no ranking bonus. Every carrier-priority candidate must be tagged `VERIFIED`, `CANDIDATE`, or `UNVERIFIED`; only `VERIFIED` receives first-order practical-ceiling rank credit or cross-grade inversion authority.
 
 B/PASS remains outside the ranked exposure board unless a legitimate structural re-screen changes the grade. Strong current, mechanism-compatible negative vetoes remain authoritative.
 
@@ -294,7 +296,9 @@ For Football A, a frozen `B+ WATCHLIST` candidate may now become directly execut
 
 Use `B+ PROTECTED-LINE — DIRECT LOCK ELIGIBLE`, then finalize `B+ PROTECTED-LINE — OFFICIAL LOCK` when no other blocker remains.
 
-This does **not** structurally promote B+ and does not create automatic B+ HMA. A strong negative veto still blocks exposure. For `CARRIER-LED / PROVEN+NOMINAL`, +0.25 above burden is allowed only with independent self-funded 3+ carrier evidence; +0.50 or more remains non-automatic.
+This does **not** structurally promote B+ and does not create automatic B+ HMA. A strong negative veto still blocks exposure. For `CARRIER-LED / PROVEN+NOMINAL`, +0.25 above burden is allowed only when `PRACTICAL CARRIER CEILING — VERIFIED` clears; generic carrier-led or candidate-only evidence is insufficient. +0.50 or more remains non-automatic.
+
+For every B+ no-bet/wait, persist one primary reason from the active B+ taxonomy: `LINE NEVER REACHED — NO EXECUTION OPPORTUNITY`, `EXECUTABLE LINE AVAILABLE — MODEL HELD`, `+0.25 AVAILABLE — WAITED FOR LOWER BURDEN`, `STRONG VETO HOLD — EXECUTABLE PRICE REJECTED`, or `ABOVE BURDEN — NO QUALIFIED EXTENSION`. Never infer line non-arrival merely from the absence of a ticket.
 
 ### High-Market Acceptance overlay
 
