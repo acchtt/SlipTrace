@@ -170,7 +170,11 @@ Only after the ZIP intake gate and actionable pre-flight gate pass, treat the ad
 
 The handoff should already have removed model-quality exclusions, low-goal domestic leagues, Finnish domestic leagues, and conditional-league fixtures that failed/no-data'd the cheap admission gate. **Do not reintroduce those fixtures and do not spend deep research usage reconsidering them.**
 
-Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model. Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
+Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model.
+
+When the Practical Ceiling Ranking patch is active, every carrier-priority candidate must be explicitly classified as `PRACTICAL CARRIER CEILING — VERIFIED`, `CANDIDATE`, or `UNVERIFIED`. `CARRIER-LED` alone is not rank-positive. Only `VERIFIED` may receive first-order practical 3+ ceiling credit or cross-grade B+ > A2 ranking authority. Persist the carrier-verification label and supporting mechanism in the frozen PRE summary.
+
+Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
 The frozen PRE artifact and every Airtable row written from it must carry the Board ID + Board Name assigned above. Publication remains a copy/upsert of the frozen state; board identity must not trigger a second structural screen.
 
