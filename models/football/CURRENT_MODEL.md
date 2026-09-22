@@ -66,16 +66,6 @@ The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualif
 
 ---
 
-## TEMPORARY BLOCK OVERRIDE — ROMANIAN LIGA III — 2026-09-22
-
-For the exact 12-fixture Romanian Liga III block authorized by the user on 2026-09-22, load and apply:
-
-`models/football/session_overrides/SESSION_OVERRIDE_2026-09-22_ROMANIAN_LIGA_III_BLOCK.md`
-
-This is an identity-limited, one-block scope exception only. It bypasses the normal lower-division / reserve-team scope exclusion for those listed fixtures and changes nothing else. It expires after settlement and does not whitelist Romanian Liga III generally.
-
----
-
 ## TEMPORARY SCOPE OVERRIDE — 2026-09-22 THROUGH 2026-09-27
 
 For **2026-09-22 14:26 ICT through 2026-09-27 23:59:59 ICT**, load and apply:
@@ -111,7 +101,7 @@ For **decision timestamps from 2026-09-19 10:40 ICT through 2026-09-20 23:59:59 
 
 `models/football/session_overrides/SESSION_OVERRIDE_2026-09-19_TO_2026-09-20_EARLY_CONVERSION.md`
 
-This is a **temporary two-day execution experiment**, not a permanent model patch. It adds:
+This is a **temporary two-day execution experiment, not a permanent model patch**. It adds:
 - the narrow `EARLY-CONVERSION ELIGIBLE` lane for qualifying **A1/A2 FOCUS TRUE CC+ / elite two-sided** profiles when a goal arrives before planned decay; and
 - from **2026-09-19 23:10 ICT**, a temporary **burden-specific prematch upper-tail relaxation** for **A1/A2 FOCUS and A2 WATCHLIST** at protected **O2.5/O2.75** only.
 
@@ -233,7 +223,7 @@ Supported burden is chosen before current price. **PRE Structural Rank is price/
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → PASS RESCUE SCREEN IF PROVISIONAL PASS → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / FOOTBALL-ONLY RERANK IF STRUCTURE CHANGES → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → PASS RESCUE SCREEN IF PROVISIONAL PASS → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA OR MODEL B PARTICIPATION TEST → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → EXPOSURE DECISION`
 
 When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
 
