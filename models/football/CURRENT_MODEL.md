@@ -20,6 +20,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md` — **AUTO-PUBLISH OFFICIAL LOCKS FROM USER PREMATCH ODDS**  
 - `rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — **B+ EXACT-SUPPORTED-BURDEN EXECUTION LANE**  
 - `rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — **PRACTICAL 3+ CEILING / CROSS-GRADE STRUCTURAL RANKING**  
+- `rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — **B/PASS PRACTICAL-CEILING RESCUE / VERIFIED-CARRIER RE-SCREEN**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -144,10 +145,11 @@ Load only the current active stack:
 19. `models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` — load after HMA/live-decay; final authority on above-burden execution
 20. `models/football/rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — Football A B+ exact-supported-burden exposure authority
 21. `models/football/rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — final Football A authority on PRE Structural Rank ordering
-22. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-23. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-24. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-25. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+22. `models/football/rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — final Football A authority on provisional B/PASS practical-ceiling rescue
+23. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+24. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+25. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+26. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -209,7 +211,7 @@ A `B+ WATCHLIST / CARRIER-LED` fixture with a `PRACTICAL CARRIER CEILING — VER
 
 **Carrier verification hardener:** `CARRIER-LED` alone receives no ranking bonus. Every carrier-priority candidate must be tagged `VERIFIED`, `CANDIDATE`, or `UNVERIFIED`; only `VERIFIED` receives first-order practical-ceiling rank credit or cross-grade inversion authority.
 
-B/PASS remains outside the ranked exposure board unless a legitimate structural re-screen changes the grade. Strong current, mechanism-compatible negative vetoes remain authoritative.
+Before freezing B/PASS, apply `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md`. A provisional PASS with at least one usable route must receive the practical-ceiling rescue screen. If `PRACTICAL CARRIER CEILING — VERIFIED` plus compatible opponent failure clears and no strong veto remains, rescue to `B+ WATCHLIST / CARRIER-LED`. Candidate-only or unverified carriers remain PASS. Strong current, mechanism-compatible negative vetoes remain authoritative.
 
 Supported burden is chosen before current price. **PRE Structural Rank is price/market blind.** Price cannot create structural quality or improve rank.
 
@@ -221,7 +223,7 @@ Supported burden is chosen before current price. **PRE Structural Rank is price/
 
 Football A order:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / FOOTBALL-ONLY RERANK IF STRUCTURE CHANGES → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
+`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → PASS RESCUE SCREEN IF PROVISIONAL PASS → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / FOOTBALL-ONLY RERANK IF STRUCTURE CHANGES → STANDARD/EGE → CURRENT MARKET CENTER + PRICE BOARD → MARKET-ALIGNMENT GATE → HMA BAND TEST → EXECUTION PATH → MODEL A UPPER-TAIL GATE → EXPOSURE DECISION`
 
 When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
 
