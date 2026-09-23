@@ -21,6 +21,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — **B+ EXACT-SUPPORTED-BURDEN EXECUTION LANE**  
 - `rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — **PRACTICAL 3+ CEILING / CROSS-GRADE STRUCTURAL RANKING**  
 - `rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — **B/PASS PRACTICAL-CEILING RESCUE / VERIFIED-CARRIER RE-SCREEN**  
+- `rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — **A2 TWO-ROUTE INDEPENDENCE / FOCUS HARDENING**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -156,10 +157,11 @@ Load only the current active stack:
 20. `models/football/rules/MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md` — Football A B+ exact-supported-burden exposure authority
 21. `models/football/rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — final Football A authority on PRE Structural Rank ordering
 22. `models/football/rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — final Football A authority on provisional B/PASS practical-ceiling rescue
-23. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-24. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-25. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-26. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+23. `models/football/rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — final Football A authority on A2 two-route independence / FOCUS privilege
+24. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+25. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+26. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+27. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -210,6 +212,15 @@ For `PROVEN + SUPPORTED`, A2 may remain valid, but **A2 FOCUS is not allowed** w
 If neither clears, cap at `A2 WATCHLIST` and persist `A2 FOCUS CAP — FRAGILE SUPPORTED ROUTE`.
 
 Recent Over/BTTS frequency by itself cannot clear the cap.
+
+### A2 two-route independence hardening — ACTIVE
+
+Prospective from 2026-09-23 10:27 ICT, every A2 TWO-SIDED candidate must classify the weaker route as `INDEPENDENT SECOND ROUTE` or `CONDITIONAL SECOND ROUTE` under `MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md`.
+
+- `PROVEN + SUPPORTED` with a conditional weaker route is capped at `A2 WATCHLIST` unless TRUE CC+ / VERIFIED practical carrier ceiling independently supports the required total or direct chance-quality evidence upgrades the weaker route.
+- `SUPPORTED + SUPPORTED` defaults to `A2 WATCHLIST`; FOCUS requires both routes to have independent current chance-quality/creation proof and XI preservation.
+- Opponent leakage, BTTS/Over frequency, H2H scorelines, score/form proxy, or merely naming expected attackers in the XI cannot by themselves harden a second route.
+- Supported burden must come from the reliable 3+ mechanism; do not raise burden by adding two weak one-goal routes together.
 
 PRE Structural Rank is now governed by `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`.
 
@@ -536,7 +547,7 @@ Counterfactual/shadow outcomes never enter official P/L.
 
 ## 12. Authority and history
 
-Football A is the active official model. The fragile A2 FOCUS guard, predeclared live-decay patch, Football A-only HMA patch, and shared A/B market-alignment patch are prospective from their activation commits and do not retroactively reclassify earlier decisions or P/L.
+Football A is the active official model. The fragile A2 FOCUS guard, A2 two-route independence hardening patch, predeclared live-decay patch, Football A-only HMA patch, and shared A/B market-alignment patch are prospective from their activation commits and do not retroactively reclassify earlier decisions or P/L.
 
 `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` overrides earlier Football A/Model B wording wherever a lower-than-structural market line was treated as automatically favorable or directly executable without first resolving the market disagreement. It also requires a mandatory re-screen when a structurally weak/pass fixture carries a materially higher market center than the model expected.
 
