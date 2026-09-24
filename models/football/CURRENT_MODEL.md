@@ -22,6 +22,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — **PRACTICAL 3+ CEILING / CROSS-GRADE STRUCTURAL RANKING**  
 - `rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — **B/PASS PRACTICAL-CEILING RESCUE / VERIFIED-CARRIER RE-SCREEN**  
 - `rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — **A2 TWO-ROUTE INDEPENDENCE / FOCUS HARDENING**  
+- `rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **AH + TOTAL + 1X2 CARRIER DECOMPOSITION / MARKET-CALIBRATED CURRENT PRE**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -41,6 +42,32 @@ For live and just-started user-supplied markets, execution order is:
 Do not delay a clear live action for web research, H2H lookup, Airtable writes, or explanatory prose. If a goal/state change occurs before action, the old quote is VOID and requires a new score-epoch reprice.
 
 This changes response order only; it does not lower structural, burden, price, suppression, or state-integrity standards.
+
+---
+
+
+## CARRIER MARKET DECOMPOSITION / MARKET-CALIBRATED CURRENT PRE — ACTIVE
+
+Effective prospectively from **2026-09-24 ICT**, load and apply:
+
+`models/football/rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md`
+
+This is the final Football A authority when its ELITE/EXTREME carrier screen clears.
+
+Core changes:
+
+- Asian handicap, total and 1X2 are mandatory carrier-identification inputs at XI+odds stage.
+- Preserve frozen Work PRE historically, but create a separate **MARKET-CALIBRATED CURRENT PRE** for the active decision epoch.
+- Use `MCL ≈ (Total + |AH|)/2` and `MOS ≈ max(0,(Total-|AH|)/2)` as carrier-decomposition heuristics.
+- Extreme favorite + large AH + high total + intact attacking mechanism triggers an elite-carrier re-screen even when recent raw scorelines are muted.
+- When the carrier lane clears, the current PRE may move materially above frozen PRE; the old fixed +0.25/+0.50 HMA caps and raw-burden decay requirement do not constrain this lane.
+- Preferred current PRE normally anchors around one quarter-goal below the verified market center; the market-center line itself may be the upper execution boundary when football/XI support it and price clears.
+- A WAIT with a decay gap of 1.0+ goals requires an unreachable-decay review; 1.5+ goals may not remain a raw-burden WAIT without documented market distortion.
+- XI/absence downgrades are mechanism-based, not headcount-based.
+- Cup/first-leg status is not a generic suppression veto.
+- B+ leakage-only matches require stronger carrier failure-resistance and must not outrank elite carrier environments merely because their lower line is easier to execute.
+
+Historical frozen states remain unchanged.
 
 ---
 
@@ -158,10 +185,11 @@ Load only the current active stack:
 21. `models/football/rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — final Football A authority on PRE Structural Rank ordering
 22. `models/football/rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — final Football A authority on provisional B/PASS practical-ceiling rescue
 23. `models/football/rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — final Football A authority on A2 two-route independence / FOCUS privilege
-24. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-25. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-26. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-27. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+24. `models/football/rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **final Football A authority on carrier identification, market-calibrated current PRE, and unreachable-decay override**
+25. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+26. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+27. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+28. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
