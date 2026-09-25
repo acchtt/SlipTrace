@@ -31,6 +31,15 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## MATCH-SPECIFIC LIVE EXCEPTION — ICELAND U21 vs FRANCE U21 — ACTIVE UNTIL FT
+
+For the exact UEFA U21 Qualification fixture **Iceland U21 vs France U21** currently in progress on 2026-09-25 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-25_ICELAND_U21_FRANCE_U21.md`
+
+This is a one-fixture prospective exception only. It bypasses the normal U21 scope exclusion and the opportunistic-live shadow quarantine for this fixture, and permits a fresh live structural epoch despite no frozen PRE. All normal price-floor, burden, market-alignment, carrier, state-integrity, no-chase and publication-timing rules remain active. The exception expires automatically at full time and does not retroactively upgrade earlier shadow quotes.
+
+
 ## LIVE VERDICT-FIRST / EXECUTION LATENCY CONTROL — ACTIVE
 
 Effective 2026-09-20 ICT:
