@@ -7,9 +7,9 @@ Build a trustworthy **actionable senior AiScore universe** for the requested win
 
 Operational principle:
 
-`NORMALIZE WINDOW BOUNDARIES ONCE -> DISCOVER BROADLY -> PROVE DATE/TERMINAL COVERAGE -> PRESERVE FIXTURE SOURCE TIMEZONE -> EXCLUDE CHEAPLY -> PROVE ACTIONABLE COMPLETENESS -> DEEP-RESEARCH NARROWLY`
+`NORMALIZE WINDOW BOUNDARIES ONCE -> DISCOVER BROADLY -> PRESERVE RAW AISCORE TIME -> EXCLUDE CHEAPLY -> REVALIDATE EVERY WORK-ADMITTED FIXTURE AGAINST AUTHORITATIVE AISCORE UTC/OFFSET -> CONVERT ADMITTED SET ONCE TO ICT -> PROVE WINDOW MEMBERSHIP -> PACKAGE HANDOFF`
 
-Do not turn Step 0 into a per-fixture timezone-conversion exercise. However, **requested-window boundary normalization, deterministic date-envelope traversal, and terminal-interval verification are mandatory Step-0 work.**
+Do not convert every raw discovered fixture. However, **requested-window boundary normalization, deterministic date-envelope traversal, terminal-interval verification, and one final authoritative time normalization pass over the surviving Work-admitted set are mandatory Step-0 work.**
 
 ## Source of truth
 Repository: `acchtt/SlipTrace`
@@ -47,12 +47,14 @@ Step 0:
 10. applies sweep scope and league registry;
 11. runs only the cheap conditional-league admission test where required;
 12. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-13. creates a compact scope-pruned Work handoff **only after the date-envelope, European-cup audit and terminal sentinel gates pass**;
-14. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
+13. revalidates every surviving Work-admitted fixture against an authoritative AiScore timestamp with explicit UTC/offset provenance;
+14. normalizes the admitted set once to verified UTC and ICT, prunes true out-of-window fixtures, and blocks unresolved time/identity conflicts;
+15. creates a compact scope-pruned Work handoff **only after the coverage and admitted-set time-integrity gates pass**;
+16. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
 
 Step 0 does **not**:
 
-- convert every fixture kickoff to ICT;
+- convert every **raw discovered** fixture kickoff to ICT; it must convert the final Work-admitted set before handoff packaging;
 - perform full structural match research;
 - assign PRE grades or board ranks;
 - fetch confirmed XI or bookmaker odds;
@@ -125,8 +127,9 @@ At minimum:
 
 A European cup fixture may be excluded for youth/reserve/amateur status, out-of-window time, a direct user hard exclusion, or a resolved current AiScore status. It may not be silently omitted because the competition is a cup.
 
-## Source-time capture
-For every discovered fixture preserve where available:
+## Source-time capture + final admitted-set time proof
+
+During broad discovery, preserve for every fixture where available:
 
 - AiScore fixture ID/canonical match URL;
 - listing date used for discovery;
@@ -136,19 +139,29 @@ For every discovered fixture preserve where available:
 - AiScore-supplied UTC only when explicitly present;
 - status at fetch.
 
-Do **not** guess a timezone from geography.
+Do **not** guess a timezone from geography and do **not** append `UTC` to a bare AiScore display clock.
 
-Do **not** calculate `kickoff_ict` during normal discovery. If the fixture lies near a date/window boundary, carry it as:
+A localized/display heading such as `Competition YYYY/MM/DD HH:mm:ss`, a date-listing clock, team-fixture clock, or search snippet without an explicit timezone is **discovery evidence only**. It is not authoritative UTC.
 
-`WINDOW STATUS = PENDING CONVERSION`
+Before the final Work handoff is created, revalidate **every surviving Work-admitted fixture** using the current canonical AiScore match identity and accept time only from:
 
-When AiScore directly supplies UTC, compare it to `window_start_utc -> window_end_utc` for cheap membership testing without converting the fixture to ICT. If AiScore supplies only an explicit offset, an ephemeral normalized UTC value may be used only for the in/out-of-window test while the source fields remain unchanged.
+1. Match Info / About The Match explicitly labeled `UTC`;
+2. AiScore machine-readable epoch / ISO timestamp with explicit zone;
+3. AiScore timestamp with an explicit UTC offset.
 
-The later schedule-normalization stage converts the surviving actionable set to ICT and removes out-of-window boundary fixtures.
+Persist for every admitted fixture:
 
-A missing `kickoff_ict` is therefore **not** a Step-0 integrity failure.
+- `kickoff_time_provenance = MATCH_INFO_UTC | API_EPOCH | EXPLICIT_OFFSET`;
+- `kickoff_utc_verified`;
+- `kickoff_ict_verified`;
+- `time_verified_at`;
+- canonical AiScore fixture ID/URL used.
 
-Use `UNRESOLVED — SOURCE TIME INTEGRITY` only when the AiScore source timestamp/zone itself is contradictory or cannot be interpreted later.
+Convert the verified instant exactly once to `Asia/Ho_Chi_Minh`. Then prove the converted kickoff is inside `window_start_ict -> window_end_ict`.
+
+During broad discovery a fixture may temporarily be `WINDOW STATUS = PENDING CONVERSION`; **no Work-admitted fixture may remain pending at handoff packaging**.
+
+If the canonical match identity/time conflicts with a listing/team surface, use `UNRESOLVED — SOURCE TIME INTEGRITY` until the current AiScore authority is resolved. Do not guess, average, or silently choose the convenient time.
 
 ## Two-tier completeness contract
 Distinguish:
@@ -168,7 +181,10 @@ Distinguish:
 - eligible senior cup/continental block not checked;
 - relevant CONDITIONAL senior block not cheap-gated;
 - scope/registry contradiction;
-- fixture identity/source-time contradiction that prevents later interpretation;
+- fixture identity/source-time contradiction;
+- any Work-admitted fixture lacks `kickoff_time_provenance`, `kickoff_utc_verified`, or `kickoff_ict_verified`;
+- any Work-admitted fixture converts outside the requested ICT window;
+- any Work-admitted fixture remains `PENDING CONVERSION`;
 - admitted count does not match the Work array.
 
 Do **not** block Work because excluded micro/youth/lower fixtures were not individually enumerated.
@@ -254,13 +270,15 @@ Populate where supported:
 - source kickoff/timezone details in notes
 
 ### Important datetime rule
-The table field `Kickoff ICT` must **not** receive a foreign-zone/local source time.
+The table field `Kickoff ICT` must **never** receive a foreign-zone/local source time or a bare clock copied from an AiScore display surface.
 
-During Step 0:
+During broad discovery, leave it blank.
 
-- leave `Kickoff ICT` blank unless a genuine ICT conversion has already been performed for another reason;
-- preserve source local time + zone/offset in the handoff/coverage notes;
-- fill `Kickoff ICT` later during schedule normalization.
+After the final admitted-set time proof:
+
+- write the verified kickoff instant corresponding to `kickoff_ict_verified`;
+- preserve raw source text, `kickoff_utc_verified`, `kickoff_ict_verified`, provenance and verification timestamp in the handoff/coverage notes;
+- never reconstruct `Kickoff ICT` later by regex-parsing an unverified note.
 
 For Work-admitted rows, leave official PRE fields untouched. XI/market remain pending.
 
@@ -276,9 +294,11 @@ A Work handoff may be created only when:
 - all potentially actionable senior blocks were checked;
 - scope/registry audit passed;
 - no source-time/identity unresolved fixture appears in the Work array;
+- every admitted fixture has authoritative time provenance + verified UTC + verified ICT;
+- every verified ICT kickoff lies inside the requested window;
 - admitted count equals the Work fixture array.
 
-`kickoff_ict` is **not required** at this stage.
+`kickoff_ict_verified` is **required for every Work-admitted fixture at final handoff packaging**.
 
 A bare assertion such as `terminal_interval_date_verification=PASS` is **not sufficient** unless the handoff also names the terminal interval and the date/listing blocks actually checked.
 
@@ -340,7 +360,11 @@ The inner text handoff must include:
 - source kickoff local time;
 - source timezone/offset;
 - AiScore-supplied UTC if explicitly available;
-- `window_status=confirmed|pending_conversion`;
+- `kickoff_time_provenance`;
+- `kickoff_utc_verified`;
+- `kickoff_ict_verified`;
+- `time_verified_at`;
+- `window_status=confirmed`;
 - counts.
 
 Do not require `kickoff_ict` in the Step-0 handoff.
@@ -363,7 +387,7 @@ Verify:
 - no source-time integrity unresolved fixture appears in Work;
 - raw gaps are explicitly non-blocking and already outside scope.
 
-Boundary fixtures may remain `pending_conversion`; they are pruned during the later ICT schedule-normalization pass.
+Boundary fixtures may be pending only during broad discovery. Before packaging, every Work-admitted fixture must be normalized and either `window_status=confirmed` or removed/blocked.
 
 ## Missed-fixture recovery
 
@@ -378,7 +402,7 @@ If an actionable fixture is later found inside a window that had already been ma
 ## Output
 If actionable-complete and ZIP validation passes:
 
-`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; raw_audit_complete=true/false; Airtable coverage skeleton PASS; work_ready=true; fixture ICT conversion deferred; handoff_package=ZIP.`
+`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; admitted_time_integrity=PASS; raw_audit_complete=true/false; Airtable coverage PASS; work_ready=true; admitted ICT kickoffs verified; handoff_package=ZIP.`
 
 Attach the ZIP Work handoff only.
 
