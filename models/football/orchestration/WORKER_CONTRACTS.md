@@ -208,6 +208,50 @@ The Tester may reject a malformed run but may not change a football verdict.
 
 ---
 
+## Contract D2 — Step-2 / Live Execution QA Tester
+
+### Input
+
+- frozen PRE and canonical fixture identity;
+- latest material Decision State;
+- user-supplied XI/market/live quote;
+- active carrier, decay, price-floor, time-integrity and persistence rules.
+
+### Job
+
+Run deterministic compliance assertions after the Main Agent has formed the football judgment. This tester checks **process**, not whether the match later wins.
+
+### Mandatory assertions
+
+1. **Identity gate:** an official lock inside 30 minutes of kickoff has current AiScore fixture ID/home/away/kickoff/status revalidation. Any unresolved mismatch forces QA FAIL / HOLD.
+2. **Carrier precedence:** a cleared ELITE/EXTREME carrier cannot receive generic raw-burden WAIT before market-calibrated PRE and unreachable-decay checks are recorded.
+3. **Unreachable-decay:** if ELITE/EXTREME and `Decay Gap >= 1.00`, direct market-calibrated execution was explicitly evaluated; if `>= 1.50`, raw-burden WAIT has a documented distortion reason or QA FAIL.
+4. **Goal semantics:** after a goal, the old quote/verdict is VOID, while a predeclared plan is explicitly `SURVIVES / MODIFIED / CLOSED`; a first goal alone may not mechanically set `PLAN VOID`.
+5. **Price floor:** no official line below the active hard floor.
+6. **Market-only protection:** market strength alone did not create structural PRE, VERIFIED carrier status, or official exposure.
+7. **Persistence transaction:** an official exposure has synchronized Decision State + Website Pick, required timestamps, matching line/odds/model/fixture identity, and no duplicate active pick.
+8. **Historical integrity:** a correction or QA fault did not rewrite frozen PRE or backfill an exposure after the executable quote moved.
+
+### Return
+
+```yaml
+execution_qa: PASS|FAIL
+identity_gate: PASS|FAIL|NA
+carrier_precedence: PASS|FAIL|NA
+decay_reachability: PASS|FAIL|NA
+goal_plan_semantics: PASS|FAIL|NA
+price_floor: PASS|FAIL
+market_only_protection: PASS|FAIL
+persistence_transaction: PASS|FAIL|NA
+historical_integrity: PASS|FAIL
+faults:
+  - <fault or NONE>
+```
+
+A QA FAIL may block a new official publication or mark persistence/identity unresolved, but it must not rewrite an already-frozen historical decision.
+
+---
+
 ## Contract E — Airtable Persistence Executor
 
 ### Input
@@ -225,7 +269,11 @@ Construct and write/update the appropriate Airtable records. This is a persisten
 - do not read Website Picks during structural PRE;
 - do not create Decision States during structural PRE unless the active contract explicitly requires it;
 - never mutate frozen PRE based on later XI/price/live information;
-- if the persisted row differs from the Main-Agent artifact, report `PERSISTENCE / SYNC ERROR`.
+- if the persisted row differs from the Main-Agent artifact, report `PERSISTENCE / SYNC ERROR`;
+- for an official exposure, treat the material Decision State and Website Pick as one **logical persistence transaction**;
+- require Decision State `Assessment Time` and Website Pick `Recorded At`;
+- reconcile fixture identity/key, model version, line, odds, stake/exposure state and decision epoch across the two records;
+- if either write or reconciliation fails, do not return PASS; report `PERSISTENCE SYNC FAULT — EXPOSURE STATE UNCERTAIN` and preserve the football verdict for repair.
 
 ### Return
 
