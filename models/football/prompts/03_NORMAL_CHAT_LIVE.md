@@ -30,7 +30,7 @@ When the user supplies a current score/minute plus an executable total line/pric
    - `GOAL/STATE CHANGED — OLD VERDICT VOID, REPRICE`;
 3. only after the action line is surfaced, perform any needed research, Airtable write, website publish, or explanation;
 4. never delay an otherwise-clear live verdict for external web research. External research is secondary unless the current evidence is insufficient to decide safely;
-5. if the score changes before the user can act, the prior line/price is automatically VOID and must not be chased.
+5. if the score changes before the user can act, the prior line/price and verdict are automatically VOID and must not be chased; **a predeclared decay plan is not automatically void** and must receive a state-integrity recheck.
 
 If frozen PRE is not available, do the smallest possible state lookup first, then surface the verdict before any deeper work.
 
@@ -46,6 +46,15 @@ Validate or invalidate the frozen thesis; do not rewrite PRE.
 
 Assess current route survival, carrier ceiling, opponent contribution, failure-mode evolution, conversion quality/current scoring hazard, exact remaining-goal burden, and the current model's price rules.
 
+After any goal/state change, explicitly separate:
+
+- `QUOTE STATUS = CURRENT / VOID`;
+- `PLAN STATUS = SURVIVES / MODIFIED / CLOSED / NOT PREDECLARED`.
+
+A first goal voids the old quote/verdict but does **not** automatically cancel a predeclared live-decay plan. Recheck the original scoring routes, remaining-goal requirement, dominant failure mode, cards/injuries/tactical state and whether the target can still be reached without creating a new thesis. Only then classify the plan.
+
+Do not raise supported burden merely because a goal occurred.
+
 If the active model contains an EGE/high-environment regime, preserve the already-documented pre-goal/post-XI supported burden. A quiet opening may corroborate an already-established high-line calibration if the current rules allow it, but a goal-driven line expansion must never create or raise the supported burden. After an early goal, follow the current no-chase/post-goal-normalization rule and use the model's corresponding audit label.
 
 Apply any inherited halftime compression/saturation gate when the current model says it remains active. Do not project a high-scoring first half forward automatically.
@@ -53,8 +62,11 @@ Apply any inherited halftime compression/saturation gate when the current model 
 ## Logging
 Do not create a Decision State for routine commentary or every minute update. Persist only genuinely material live states required by the current Decision States contract, such as a new executable action, a material closure/invalidation, or an explicitly requested checkpoint.
 
-## v0.2.54 quarantine
-All new live/relative-decay Over entries are shadow-only. With synchronized evidence record `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`; without it use `LIVE CHANCE QUALITY UNAVAILABLE — HOLD`. Do not write Website Picks or official P/L for either state.
+## Live-exposure boundary
+
+An **opportunistic** live/relative-decay Over with no predeclared qualifying plan remains shadow-only. With synchronized evidence record `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`; without it use `LIVE CHANCE QUALITY UNAVAILABLE — HOLD`.
+
+A live Over reached through a valid predeclared `QUALIFIED — LIVE DECAY PLAN` may become official only when the active live-decay rule's state-integrity, target-line, price, route and exposure gates all clear. Create Website Picks only at the actual approval epoch; never backfill after the quote moves or another goal occurs.
 
 ## Output
-Very compact: LIVE STATUS, best supplied/supported line, price class, confidence, action, and a short reason. Do not repeat the entire PRE research.
+Very compact: LIVE STATUS, QUOTE STATUS, PLAN STATUS, best supplied/supported line, price class, confidence, action, and a short reason. Do not repeat the entire PRE research.
