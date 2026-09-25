@@ -6,7 +6,7 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`, `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`, `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`, `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`, `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md`, `MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For decisions inside an active temporary-session window declared by `CURRENT_MODEL.md`, load and apply the referenced session override before final exposure selection. During 2026-09-19/20 this includes the temporary burden-specific prematch upper-tail rule: O2.5 may use a quality-proven 3+ path; O2.75 may use a robust 3+ path plus non-trivial fourth-goal support; O3.0+ retains the permanent 4+ standard. A2 WATCHLIST may use this temporary O2.5/O2.75 exposure relaxation without being structurally promoted; B+/B/PASS do not.
 
@@ -21,6 +21,26 @@ Daily Coverage Ledger `tblcl1UAyMqZT6Ub0`.
 Decision States `tblQmUpd5WjBLQ38X`.
 Website Picks `tblg3J5sbJYbzuTYD`.
 Use direct IDs unless one fails.
+
+## Mandatory near-kickoff fixture-identity gate
+
+Before any final Step-2 exposure decision, revalidate the current AiScore fixture identity under `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
+
+Inside 90 minutes of kickoff, and **mandatorily inside 30 minutes when an official lock is being considered**, verify:
+
+- AiScore fixture/match ID where available;
+- competition;
+- normalized home team;
+- normalized away team;
+- current kickoff/status.
+
+Compare those fields with the frozen board identity and the user-supplied XI/market surface.
+
+If home/away, fixture ID, kickoff, or status materially conflicts:
+
+`FIXTURE IDENTITY / HOME-AWAY MISMATCH — HOLD`
+
+Preserve frozen PRE and the supplied quote, but do **not** issue or publish an official lock until current AiScore authority resolves the discrepancy. A side-symmetric Over market does not waive this gate because venue/home-away assumptions may have influenced structural PRE.
 
 ## JUST-STARTED / LIVE VERDICT-FIRST FAST PATH
 
@@ -66,7 +86,7 @@ Do not retrieve higher-ranked matches for exposure suppression. Structural Rank 
 
 Use:
 
-`FROZEN PRE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA OR MODEL B PARTICIPATION TEST → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → EXPOSURE DECISION`
+`FROZEN PRE → NEAR-KICKOFF IDENTITY GATE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A CARRIER DECOMPOSITION / MARKET-CALIBRATED PRE → UNREACHABLE-DECAY TEST → HMA / DECAY-FIRST EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → TRANSACTIONAL PERSISTENCE → EXPOSURE DECISION`
 
 First-pass XI is football-led and market-blind.
 
@@ -184,16 +204,40 @@ However, **Model B must clear the shared A/B market-alignment gate first**.
 
 A bearish market undercut cannot be treated as free value or as an automatic reason for direct participation.
 
-## Decay-first burden protection — mandatory
+## Carrier precedence + decay-first burden protection — mandatory
 
-Before assigning any direct prematch lock, apply `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`.
+Generic decay-first is **not** evaluated before the active Football A carrier-decomposition override.
 
-- If current selected line is **above frozen supported burden**, do not use HMA or Model B participation expansion to auto-lock it.
-- Assign `WAIT — LIVE DECAY` at the lowest acceptable supported burden and show target line + minimum price.
-- If the supported line is present but price is below floor, assign `WAIT — PRICE BELOW FLOOR`.
-- Structural strength determines whether the fixture remains worth waiting for; it does not justify a worse burden.
-- For Model B, do not pre-reserve rank-first exposure slots for above-burden fixtures. WAITs remain active; slots count only actual executable exposures.
-- Before O3.0+ execution, explicitly screen recent same-venue H2H / matchup compression and conversion stability.
+For Football A, after market alignment and XI integrity:
+
+1. run `MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md`;
+2. classify `MARKET CARRIER = ELITE / EXTREME / NOT CLEARED`;
+3. if ELITE/EXTREME clears, establish the market-calibrated current PRE allowed by that rule and run the unreachable-decay guard **before** issuing WAIT;
+4. only if the carrier override does not authorize the current market-calibrated burden should ordinary decay-first determine the target.
+
+For ordinary non-ELITE/non-EXTREME lanes, apply `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` normally:
+
+- if current selected line is above the independently supported burden, assign `WAIT — LIVE DECAY` at the lowest acceptable supported burden;
+- if the supported line is present but price is below floor, assign `WAIT — PRICE BELOW FLOOR`;
+- structural strength determines whether the fixture remains worth waiting for; it does not by itself justify a worse burden;
+- for Model B, do not pre-reserve rank-first exposure slots for above-burden fixtures. WAITs remain active; slots count only actual executable exposures;
+- before O3.0+ execution, explicitly screen recent same-venue H2H / matchup compression and conversion stability.
+
+### WAIT feasibility / unreachable-decay assertion
+
+Every WAIT must persist:
+
+- `Decay Gap = current market center - target line`;
+- `Reachability = REACHABLE / BORDERLINE / UNREACHABLE`;
+- the exact reason waiting is preferable to current execution.
+
+For a cleared ELITE/EXTREME Football A carrier:
+
+- if `Decay Gap >= 1.00`, evaluate market-calibrated direct execution before WAIT;
+- if `Decay Gap >= 1.50`, a raw-burden WAIT is prohibited unless a specific market-distortion reason is documented;
+- do not recreate an Ajax/Wolfsburg/Korea-W style unreachable-decay wait by defaulting to a cosmetically safer line.
+
+This section does **not** loosen the 1.65 hard price floor and does not allow the market to create structural quality by itself.
 
 ## Execution path
 
@@ -296,9 +340,12 @@ Examples:
 Before kickoff persist:
 
 - target line;
-- whether target is raw structural burden or HMA boundary;
+- whether target is raw structural burden, HMA boundary, or carrier-market-calibrated boundary;
 - minimum price;
 - current prematch line/price;
+- `Decay Gap`;
+- `Reachability = REACHABLE / BORDERLINE / UNREACHABLE`;
+- reason WAIT remains preferable to current execution;
 - cancellation triggers / dominant failure mode;
 - `Execution Plan = LIVE DECAY`.
 
@@ -368,6 +415,13 @@ At each user-supplied live line/price, recheck:
 
 A first goal does **not automatically cancel** the plan. It triggers a state-integrity recheck.
 
+Keep quote state and plan state separate:
+
+- `OLD QUOTE / VERDICT = VOID` after a score change;
+- `PLAN STATUS = SURVIVES / MODIFIED / CLOSED` only after route survival, remaining-goal burden, failure mode and current state are rechecked.
+
+Never write `PLAN VOID` merely because the score changed once.
+
 If all clear:
 
 `DIRECT LOCK ELIGIBLE — PREDECLARED LIVE DECAY`
@@ -410,6 +464,23 @@ B+ / CC+ remains a separate audit lane with no automatic HMA promotion unless th
 Price cannot create HMA eligibility, market alignment, upper-tail proof or Model B participation eligibility.
 
 ## Persistence
+
+Official exposure persistence is a **logical transaction**, even when Airtable requires multiple writes.
+
+For an official prematch or predeclared-live lock:
+
+1. write/update the material Decision State with `Assessment Time`;
+2. write/update Website Picks with `Recorded At`;
+3. reconcile fixture identity, model version, line, odds, stake/exposure state and decision epoch across both records;
+4. verify required timestamps are non-empty;
+5. only then report persistence `PASS`.
+
+If either write or reconciliation fails, return:
+
+`PERSISTENCE SYNC FAULT — EXPOSURE STATE UNCERTAIN`
+
+Do not claim successful website publication merely because one table write succeeded. Preserve the football verdict/history and repair the persistence state separately.
+
 
 For every material Football A review, and every side-by-side Model B review, persist when observable:
 
