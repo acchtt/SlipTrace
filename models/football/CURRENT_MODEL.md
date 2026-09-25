@@ -27,7 +27,7 @@
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
-**Step-0 time policy:** preserve AiScore source local time + timezone/offset; convert to ICT later when scheduling.
+**Step-0 time policy:** preserve raw AiScore source time during broad discovery; before a Work handoff is finalized, every Work-admitted fixture must have one authoritative explicitly-zoned AiScore kickoff (explicit Match-Info UTC, machine timestamp/epoch, or explicit offset), one verified UTC value, and one one-time ICT conversion. Localized/display-only clocks are not UTC authority. Work validates the verified handoff time and must not guess or reconvert from display text.
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
