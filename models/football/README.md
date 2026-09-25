@@ -44,6 +44,7 @@ Do not infer current rules from historical chat handoffs or old model files. His
 - `procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md` — AiScore-only universe creation, cross-midnight completeness, structural research, route-quality split and mandatory CC+ audit before strong-carrier PASS states.
 - `procedures/FOOTBALL_COVERAGE_CONTROLLER.md` — complete-slate screening, FOCUS/WATCHLIST/PASS state, frozen PRE, and coverage invariants.
 - `procedures/FOOTBALL_BETTING_PROCEDURE.md` — XI/market-history/carrier-reopen/goal-burden/price/LOCK workflow and live/settlement boundary.
+- `procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md` — prospective champion/challenger validation, holdout integrity, uncertainty, and permanent-rule promotion gate.
 
 ### Airtable contracts
 
@@ -87,3 +88,7 @@ For goal-burden execution, classify after XI:
 `STANDARD` or `EGE — EXTREME GOAL ENVIRONMENT`
 
 EGE changes the supported burden only through documented structural/XI evidence; it is not a price shortcut.
+
+## Model-change governance
+
+Permanent Football rule changes are evaluated through the project-local `football-model-qa` skill at `.agents/skills/football-model-qa/SKILL.md` and the QA/promotion procedure above. Discovery matches may motivate a rule but do not count as prospective validation. The QA workflow is not part of normal match-decision latency and must not delay live verdicts.
