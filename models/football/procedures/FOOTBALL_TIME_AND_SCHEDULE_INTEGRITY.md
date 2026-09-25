@@ -261,9 +261,20 @@ This is the stage where cross-zone conversion becomes operationally mandatory.
 
 ## 9. Near-kickoff revalidation
 
-For a candidate inside **90 minutes of converted kickoff**, recheck AiScore before using the time for lineup timing, countdowns, next-match answers, or market review. Revalidate again inside **30 minutes** when practical if the user is actively preparing XI/odds.
+For a candidate inside **90 minutes of converted kickoff**, recheck AiScore before using the time for lineup timing, countdowns, next-match answers, or market review.
 
-If AiScore status conflicts with the converted schedule, the current AiScore status wins.
+Inside **30 minutes**, revalidation is **mandatory before an official Step-2 exposure decision**. Verify the current AiScore:
+
+- fixture/match ID where available;
+- competition;
+- home team;
+- away team;
+- kickoff;
+- status.
+
+Compare this identity with the frozen board and the user-supplied lineup/market surface.
+
+If AiScore status conflicts with the converted schedule, the current AiScore status wins. If the user surface or another current source exposes a home/away, identity, kickoff or status discrepancy, resolve it against current AiScore authority before official exposure.
 
 ---
 
@@ -296,6 +307,18 @@ If no stable ID is available, use a fallback identity built from:
 `competition + normalized home + normalized away + preserved source kickoff/timezone`
 
 Do not let another schedule provider silently reverse home/away or change the fixture date. Secondary sources may flag a discrepancy, but AiScore remains fixture authority.
+
+### Official-exposure identity block
+
+A visible unresolved discrepancy in fixture ID, home/away orientation, kickoff or status is a hard Step-2 exposure blocker.
+
+Use:
+
+`FIXTURE IDENTITY / HOME-AWAY MISMATCH — HOLD`
+
+until current AiScore authority resolves the identity. Preserve frozen PRE, source-time capture, user-supplied XI/odds and any earlier historical decision; annotate the correction rather than rewriting history.
+
+An Over market being side-symmetric does **not** waive this block because venue/home-away assumptions may have affected structural evidence.
 
 ---
 
