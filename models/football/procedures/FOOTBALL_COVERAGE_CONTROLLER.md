@@ -119,7 +119,7 @@ Work must then research zero fixtures and must not perform its own fixture sweep
 
 ## 3. Time and schedule integrity gate
 
-Step 0 follows `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` and preserves fixture source time rather than converting every fixture during discovery.
+Step 0 follows `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`. Broad discovery preserves raw fixture source time, but the final Work-admitted set must pass authoritative AiScore time verification and one-time ICT normalization before `work_ready=true`.
 
 Before eligibility or PRE screening, every potentially actionable fixture must satisfy the authoritative Step-0 timestamp contract:
 
@@ -127,14 +127,15 @@ Before eligibility or PRE screening, every potentially actionable fixture must s
 - preserve raw/source kickoff text;
 - preserve `kickoff_source_local`;
 - preserve AiScore timezone/UTC offset when supplied;
-- preserve AiScore-supplied UTC when explicitly available;
-- normalize only the **requested window boundaries** to ICT and UTC once;
-- when AiScore supplies UTC or an explicit offset, use an ephemeral UTC value only for cheap in/out-of-window membership testing;
-- do not calculate or persist `kickoff_ict` merely to perform discovery;
-- carry boundary cases as `WINDOW STATUS = PENDING CONVERSION` when later conversion is required;
-- reject contradictory source-time/identity states that cannot safely be interpreted later.
+- preserve AiScore-supplied UTC only when explicitly labeled or machine-zoned;
+- normalize the **requested window boundaries** to ICT and UTC once;
+- during raw discovery, use explicit UTC/offset only for cheap preliminary membership testing;
+- never append `UTC` to a bare localized/display clock;
+- before final handoff packaging, require `kickoff_time_provenance`, `kickoff_utc_verified`, `kickoff_ict_verified`, and `time_verified_at` for every Work-admitted fixture;
+- allow `WINDOW STATUS = PENDING CONVERSION` only during broad discovery; no admitted fixture may remain pending at handoff;
+- reject contradictory source-time/identity states rather than guessing.
 
-A trailing `Z` means UTC. It must never be displayed as ICT without conversion. Exact fixture ICT conversion belongs to the later schedule-normalization stage.
+A trailing `Z` means UTC. It must never be displayed as ICT without conversion. The final admitted-set ICT conversion happens once before Work handoff packaging; downstream stages reuse the verified ICT value and must not reinterpret raw display text.
 
 If identity/date/time remain contradictory:
 
@@ -264,11 +265,12 @@ The publish step must preserve Work output exactly in the fields available in th
 
 For datetime fields during Step 0:
 
-- never write a foreign/source local time into `Kickoff ICT`;
-- leave `Kickoff ICT` blank unless a genuine ICT conversion was independently required;
-- preserve source local time + zone/offset and AiScore-supplied UTC in coverage notes;
-- interpret any returned trailing-`Z` value as UTC;
-- perform the one-time ICT fixture conversion later during schedule normalization and derive the final Slate Date there.
+- never write a foreign/source local time or bare localized AiScore clock into `Kickoff ICT`;
+- during raw discovery, leave `Kickoff ICT` blank;
+- after the final admitted-set time-integrity pass, write the verified kickoff instant corresponding to `kickoff_ict_verified`;
+- preserve source local time + zone/offset, `kickoff_utc_verified`, `kickoff_ict_verified`, provenance and verification time in coverage notes/source fields;
+- interpret any returned trailing-`Z` value as UTC serialization of the same instant;
+- never reconstruct `Kickoff ICT` later by parsing unverified Coverage Notes.
 
 Forbidden behavior:
 
@@ -310,6 +312,8 @@ Also verify:
 - every strong-carrier B/PASS has a documented CC+ audit result;
 - no potentially actionable senior block in the requested window is unaccounted for;
 - no fixture outside the requested corrected ICT window appears on the board;
+- every Work-admitted fixture has authoritative time provenance + verified UTC + verified ICT;
+- no Work-admitted fixture remains pending conversion;
 - no schedule-integrity unresolved fixture appears in the Work array;
 - any raw gaps are explicitly marked non-blocking and outside model scope.
 
