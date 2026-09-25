@@ -384,13 +384,28 @@ and use the live state operationally.
 
 ## 13. Missed-fixture and schedule-fault recovery
 
-If an eligible fixture is discovered after a board was claimed actionable-complete:
+If an eligible fixture is discovered **inside the original requested board window** after that board was claimed actionable-complete:
 
 1. classify the original actionable coverage claim as a coverage failure;
 2. determine which traversal/filter/persistence step failed;
 3. if still prematch, return to Step 0 and rebuild/reconcile the Work handoff before additional Work deep research;
 4. if already started, label it a `MISSED PREMATCH OPPORTUNITY` and do not rewrite history;
 5. fix the root cause before the next board is called actionable-complete.
+
+### 13.1 Supplemental board for an extended future horizon
+
+If the user asks to continue beyond the **original board end time**, that is not automatically a missed-fixture fault. Do not append later fixtures to the old frozen board and do not perform Step-2-only structural reconstruction.
+
+Instead:
+
+1. open a **supplemental/new board** whose start is at or after the prior board boundary;
+2. run normal Step 0 discovery/coverage for that newly requested future window;
+3. run normal Step 1 structural research and freeze PRE for every admitted fixture;
+4. assign a new deterministic Board ID/window and preserve the prior board unchanged;
+5. only then admit those fixtures to Step 2 XI/odds execution;
+6. publish normalized kickoff fields so the website/schedule layer can consume the new board.
+
+If a fixture reaches XI/odds without a canonical PRE solely because the active horizon was never extended, classify it as a **board-window process fault** and keep it shadow-only; do not retrofit an official structural state from the market.
 
 A later-discovered youth/reserve/lower/hard-excluded fixture does **not** retroactively invalidate actionable completeness; add it to raw audit if useful.
 
