@@ -50,6 +50,9 @@ The handoff must explicitly show all of the following:
 - terminal AiScore interval/date verification passed;
 - scope/registry audit passed;
 - no schedule-integrity unresolved fixture appears in the Work fixture array;
+- `admitted_time_integrity = PASS` (or equivalent explicit proof);
+- every admitted fixture carries `kickoff_time_provenance`, `kickoff_utc_verified`, `kickoff_ict_verified`, and `time_verified_at`;
+- every `kickoff_ict_verified` lies inside the requested ICT window;
 - admitted fixture count matches the actual Work fixture array.
 
 ### Raw-audit exception
@@ -81,6 +84,10 @@ STOP immediately only when the handoff has an **actionable coverage fault**, suc
 - an unresolved senior CONDITIONAL block/cheap gate;
 - terminal interval/date not checked;
 - known potentially actionable senior fixture unresolved;
+- missing/invalid admitted-fixture time provenance;
+- verified UTC/ICT mismatch;
+- admitted fixture outside the requested ICT window;
+- any admitted fixture still marked pending conversion;
 - scope/count mismatch inside the Work array.
 
 Return only a compact failure such as:
@@ -100,6 +107,27 @@ Do **not**:
 - try to backfill the missing actionable universe;
 - create PRE grades before the gate passes;
 - touch Decision States or Website Picks.
+
+## HARD KICKOFF-INTEGRITY INTAKE GATE — BEFORE RESEARCH
+
+After the normal handoff pre-flight passes and before assigning Board ID or doing structural research, validate the **already supplied** admitted-fixture time proof. This is not a second fixture sweep.
+
+For every admitted fixture:
+
+1. require `kickoff_time_provenance = MATCH_INFO_UTC | API_EPOCH | EXPLICIT_OFFSET`;
+2. require `kickoff_utc_verified` and `kickoff_ict_verified`;
+3. independently perform the deterministic timezone conversion from the verified UTC/offset value to `Asia/Ho_Chi_Minh`;
+4. confirm it equals the handoff's `kickoff_ict_verified`;
+5. confirm it lies within the exact requested ICT board window;
+6. confirm no fixture remains `PENDING CONVERSION`.
+
+Do **not** recover a missing timestamp by reading a localized AiScore page heading, guessing geography, parsing a coverage note, or appending `UTC` to a bare clock.
+
+If any admitted row fails, stop with zero fixtures researched:
+
+`HANDOFF TIME INTEGRITY FAULT — RERUN NORMAL CHAT STEP 0`
+
+Work must not repair the timestamp itself. Step 0 owns authoritative AiScore time capture.
 
 ## Published board identity — mandatory
 
@@ -178,6 +206,8 @@ Before freezing any `B / PASS`, apply the active PASS Rescue Screen. If at least
 
 Assign a stable same-window structural rank and supported burden/range to every surviving FOCUS/WATCHLIST candidate, then freeze the PRE artifact and batch-publish the exact frozen state to Airtable Daily Coverage Ledger `tblcl1UAyMqZT6Ub0` in base `appWyZJjitSBATXAU`.
 
+For every published row, copy the already-verified handoff kickoff instant into `Kickoff ICT`. Never infer kickoff from Coverage Notes, a localized display string, or a new ad-hoc conversion. Preserve the verified UTC/ICT/provenance in notes or available source fields for audit.
+
 The frozen PRE artifact and every Airtable row written from it must carry the Board ID + Board Name assigned above. Publication remains a copy/upsert of the frozen state; board identity must not trigger a second structural screen.
 
 This stage is price/XI/market-history blind. Do not use downstream Decision States or Website Picks. Do not run opening-odds watch, confirmed-XI review, live, settlement, post-slate audit, or shadow comparison work here.
@@ -190,12 +220,12 @@ Reconcile the complete **Work-admitted actionable universe** once at the end. Pu
 
 If ZIP intake fails, stop with `HANDOFF PACKAGE INVALID — RERUN NORMAL CHAT STEP 0` and **zero fixtures researched**.
 
-If actionable pre-flight fails, stop with the applicable handoff failure code and **zero fixtures researched**.
+If actionable pre-flight or kickoff-integrity intake fails, stop with the applicable handoff failure code and **zero fixtures researched**.
 
 If both gates pass, begin with:
 
 `BOARD: <Board ID> — <Board Name>`
 
-Then return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST with structural rank + route pair + supported burden, Airtable publish PASS/FAIL, Board ID persistence PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
+Then return: current official model version, number of Work-admitted fixtures processed, PRE counts, ranked FOCUS/WATCHLIST with structural rank + route pair + supported burden, `kickoff_time_integrity=PASS`, Airtable publish PASS/FAIL, Board ID persistence PASS/FAIL, actionable reconciliation PASS/FAIL, and note `raw_audit_complete=false — NONBLOCKING` when applicable.
 
 Under the current official model, Work remains price-blind and does not assign final execution class unless `CURRENT_MODEL.md` explicitly changes that stage boundary. It must preserve the ranked candidate pool so Step 2 can distinguish `QUALIFIED — WAIT FOR DECAY` from `STRUCTURAL HOLD` without reconstructing PRE or burying a high-ranked qualified candidate.
