@@ -5,7 +5,7 @@
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  
 **Fixture authority:** AiScore only
 
-This procedure separates **fixture-time capture** from **schedule-time conversion**. Step 0 must preserve the kickoff exactly in the timezone/offset supplied by AiScore and must not spend discovery time converting every fixture to ICT. Conversion to ICT happens later, when an operational schedule, same-window comparison, countdown, or kickoff-order view is actually needed.
+This procedure separates **raw discovery-time capture** from **final Work-handoff time normalization**. Step 0 must preserve the kickoff exactly as supplied by AiScore during broad discovery and must not spend discovery time converting every raw fixture. However, before the final Work handoff is packaged, every Work-admitted fixture must be revalidated against an authoritative explicitly-zoned AiScore time source, normalized once to UTC, converted once to ICT, and proven inside the requested ICT window.
 
 **Important distinction:** deferring per-fixture ICT conversion does **not** allow Step 0 to defer requested-window boundary math. Step 0 must normalize the user-requested start/end boundaries once, build a deterministic discovery-date envelope, and perform an independent terminal-interval sweep before it may claim actionable completeness.
 
@@ -26,7 +26,36 @@ For every AiScore fixture, preserve the strongest available source-time represen
 
 Do **not** invent a timezone from geography when AiScore does not establish it. If the page gives an offset but no named zone, keep the offset. If it gives UTC, keep UTC. If it gives only a local-looking timestamp with no reliable zone/offset, record `SOURCE TIMEZONE UNRESOLVED` rather than guessing.
 
-Do not calculate `kickoff_ict` during normal Step 0 discovery.
+Do not calculate `kickoff_ict` during broad raw discovery.
+
+### 1.1 Authoritative AiScore time hierarchy
+
+For **Work-admitted fixtures**, use the strongest available current AiScore timestamp in this order:
+
+1. canonical match-page **Match Info / About The Match** timestamp that explicitly says `UTC`;
+2. AiScore machine-readable Unix epoch / ISO timestamp with an explicit zone;
+3. AiScore timestamp with an explicit UTC offset.
+
+The following are **not** UTC authority by themselves:
+
+- page headings such as `Competition YYYY/MM/DD HH:mm:ss`;
+- date-listing clocks;
+- team-fixture-list clocks;
+- localized language/page display times;
+- search-result snippets that omit an explicit timezone label;
+- a bare date/time inferred from the page locale.
+
+AiScore pages may render a localized display clock separately from the underlying Match Info UTC timestamp. Never append `UTC` to a bare display time.
+
+Persist:
+
+- `kickoff_time_provenance = MATCH_INFO_UTC | API_EPOCH | EXPLICIT_OFFSET`;
+- `kickoff_utc_verified`;
+- `kickoff_ict_verified`;
+- `time_verified_at`;
+- canonical AiScore fixture/match ID or URL used for the verification.
+
+If none of the authoritative forms is available, classify `UNRESOLVED — SOURCE TIME INTEGRITY` and do not admit the fixture to the Work handoff.
 
 ---
 
@@ -45,7 +74,7 @@ For every Work-admitted fixture, preserve where available:
 - `kickoff_utc_source` only if directly supplied by AiScore;
 - status at fetch: `NOT STARTED`, `LIVE`, `HT`, `FT`, `POSTPONED`, `CANCELLED`, `UNKNOWN`, or `STATUS CONFLICT`.
 
-At Step 0, `kickoff_ict` and `slate_date_ict` are optional and normally left unset.
+During broad discovery, `kickoff_ict` and `slate_date_ict` may remain unset. Before final Work-handoff packaging, every Work-admitted fixture must additionally carry `kickoff_time_provenance`, `kickoff_utc_verified`, `kickoff_ict_verified`, and `time_verified_at`.
 
 ---
 
@@ -61,7 +90,7 @@ Verify:
 4. the fixture is not duplicated under another identity;
 5. obvious stale/live/finished status contradictions are resolved; a potentially actionable in-window status conflict must follow Section 3.1 and cannot be waived as merely practical.
 
-Do **not** block actionable completeness merely because fixtures come from different local zones or because `kickoff_ict` has not yet been calculated.
+Different local zones do not themselves block coverage. However, final `actionable_complete=true` / `work_ready=true` is forbidden until every Work-admitted fixture has passed the authoritative-time normalization gate and has a verified ICT kickoff inside the requested window.
 
 If the source timestamp itself is contradictory or lacks enough timezone information to be interpreted later, classify:
 
@@ -163,17 +192,25 @@ The following are never acceptable evidence that the terminal interval is empty:
 - absence of results from a generic search query;
 - a previously generated handoff that already claims completeness.
 
-### 4.5 Window membership without full ICT conversion
+### 4.5 Window membership and admitted-set normalization
 
-During Step 0, fixture membership can be decided cheaply when AiScore supplies a directly comparable timestamp:
+During broad discovery, fixture membership can be decided cheaply when AiScore supplies a directly comparable timestamp:
 
-- if AiScore supplies UTC, compare that UTC timestamp directly with `window_start_utc -> window_end_utc`;
-- if AiScore supplies an explicit offset, an ephemeral normalized UTC value may be calculated solely for in/out-of-window testing, while preserving the original source fields unchanged;
-- if the timestamp cannot yet be interpreted safely, carry it as `WINDOW STATUS = PENDING CONVERSION` or `UNRESOLVED — SOURCE TIME INTEGRITY` as appropriate.
+- if AiScore supplies explicit UTC, compare it directly with `window_start_utc -> window_end_utc`;
+- if AiScore supplies an explicit offset, an ephemeral normalized UTC value may be calculated for preliminary in/out-of-window testing while preserving the original source fields;
+- if the timestamp cannot yet be interpreted safely, carry it as `WINDOW STATUS = PENDING CONVERSION` or `UNRESOLVED — SOURCE TIME INTEGRITY` during discovery.
 
-Do not calculate or persist `kickoff_ict` merely to perform discovery.
+Before the final Work handoff is packaged, run a **canonical admitted-set time pass** over every surviving Work-admitted fixture:
 
-The later schedule-normalization pass converts only the surviving actionable set and removes any boundary fixtures that fall outside the requested ICT window.
+1. open/revalidate the canonical AiScore match identity;
+2. obtain an authoritative timestamp using Section 1.1;
+3. normalize to `kickoff_utc_verified`;
+4. convert exactly once to `kickoff_ict_verified`;
+5. prove `window_start_ict <= kickoff_ict_verified <= window_end_ict`;
+6. remove true out-of-window fixtures;
+7. mark unresolved timestamp/identity conflicts as blocking.
+
+No Work-admitted fixture may leave Step 0 as `PENDING CONVERSION`.
 
 ---
 
@@ -198,34 +235,35 @@ Required fields:
 - admitted count;
 - actionable excluded/unresolved count.
 
-`complete=true`, `actionable_complete=true`, or `work_ready=true` is forbidden when either:
+`complete=true`, `actionable_complete=true`, or `work_ready=true` is forbidden when any of the following holds:
 
-- `discovery_date_envelope_complete != true`; or
-- `terminal_scan_complete != true`.
+- `discovery_date_envelope_complete != true`;
+- `terminal_scan_complete != true`;
+- any Work-admitted fixture lacks authoritative `kickoff_time_provenance`;
+- any Work-admitted fixture lacks `kickoff_utc_verified` or `kickoff_ict_verified`;
+- any Work-admitted fixture converts outside the requested ICT window;
+- any admitted fixture remains `PENDING CONVERSION`.
 
 A self-reported terminal/date verification flag without the underlying checked-date evidence is invalid.
 
 ---
 
-## 6. Later ICT conversion gate
+## 6. Final Work-handoff ICT normalization gate
 
-Convert a fixture to ICT only when required for:
+Broad raw discovery may defer conversion, but the final Work-admitted set may not.
 
-- a FOCUS/WATCHLIST schedule;
-- same-window ranking;
-- lineup-review timing;
-- countdowns / next-match answers;
-- market-review scheduling;
-- final requested-window pruning;
-- human-facing chronological display.
+For every admitted fixture before ZIP packaging:
 
-At that point:
+1. use only the authoritative time hierarchy in Section 1.1;
+2. derive one `kickoff_utc_verified`;
+3. convert exactly once to `Asia/Ho_Chi_Minh` as `kickoff_ict_verified`;
+4. derive `slate_date_ict` from that verified ICT kickoff;
+5. verify requested-window membership;
+6. preserve the original source/display fields separately;
+7. never derive UTC from a localized display heading;
+8. never reconvert an already verified UTC/ICT pair.
 
-1. use the preserved source local time plus its explicit timezone/offset, or AiScore-supplied UTC;
-2. convert exactly once to `Asia/Ho_Chi_Minh`;
-3. derive `slate_date_ict` from the converted kickoff;
-4. record the derived `kickoff_ict` separately from the original source time;
-5. never overwrite or discard the preserved source-time fields.
+Downstream scheduling, same-window ranking, lineup timing, countdowns and market review reuse `kickoff_ict_verified`; they do not reinterpret raw display text.
 
 A trailing `Z` always means UTC.
 
@@ -233,13 +271,17 @@ A trailing `Z` always means UTC.
 
 ## 7. Airtable datetime rule
 
-The Daily Coverage Ledger currently has a `Kickoff ICT` datetime field. During Step 0:
+The Daily Coverage Ledger currently has a `Kickoff ICT` datetime field.
 
-- do **not** write a locally displayed foreign-zone kickoff into `Kickoff ICT`;
-- leave `Kickoff ICT` unset until an actual ICT conversion has been performed;
-- preserve source kickoff/timezone information in the handoff and, where needed, in coverage notes/source fields.
+During raw discovery, do not write a locally displayed foreign-zone kickoff into `Kickoff ICT`.
 
-When ICT conversion is later performed, write the API datetime in the canonical timestamp form expected by Airtable. If Airtable returns a trailing `Z`, treat it as UTC serialization and convert once for human display.
+After the final admitted-set normalization gate:
+
+- write the verified instant corresponding to `kickoff_ict_verified` into `Kickoff ICT` using Airtable's canonical datetime format;
+- preserve `kickoff_utc_verified`, `kickoff_ict_verified`, provenance and raw source text in the handoff/coverage notes;
+- never populate `Kickoff ICT` by copying a bare source clock or by parsing a note that merely contains the word `UTC` without provenance.
+
+If Airtable returns a trailing `Z`, that is UTC serialization of the same instant. Convert once for human ICT display; do not add seven hours twice.
 
 ---
 
