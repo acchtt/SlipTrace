@@ -183,7 +183,42 @@ Never rewrite historical model decisions to match a newer rule.
 Permanent promotion is prospective from its declared effective timestamp.
 Historical records remain bound to the model/version that produced them.
 
-## 11. Live execution boundary
+## 11. Operational compliance fixes vs model changes
+
+Not every QA failure requires a new model challenger.
+
+A change that merely enforces an already-active authoritative rule is a **PROCESS COMPLIANCE FIX** and may be applied immediately without pretending it is a newly validated predictive edge. Examples:
+
+- enforcing carrier-decomposition precedence that the current carrier patch already requires;
+- distinguishing old-quote invalidation from predeclared-plan invalidation after a goal;
+- enforcing the existing 1.65 price floor;
+- enforcing near-kickoff AiScore identity checks;
+- requiring complete synchronized persistence fields.
+
+A change that alters a predictive threshold, expands exposure eligibility, changes a carrier trigger, lowers the price floor, changes supported burden, or materially changes promotion/exposure logic remains a **MODEL CHANGE** and must use the champion/challenger procedure above.
+
+Operational QA should therefore classify every proposed repair as exactly one of:
+
+- `PROCESS COMPLIANCE FIX`;
+- `RISK-TIGHTENING QUARANTINE`;
+- `MODEL CHALLENGER REQUIRED`.
+
+### Deterministic execution-QA assertions
+
+The active execution tester should fail process compliance when any of the following occurs:
+
+- ELITE/EXTREME carrier + unreachable decay gap is sent to generic WAIT without the carrier override review;
+- first goal mechanically voids the entire predeclared decay plan rather than triggering state-integrity recheck;
+- official exposure is published with unresolved fixture/home-away/kickoff/status conflict;
+- official line is below the active price floor;
+- market strength creates structure without football/PRE support;
+- Decision State or Website Pick lacks its required timestamp;
+- Decision State and Website Pick disagree on fixture, model, line or odds;
+- an exposure is backfilled after the executable quote/state has changed.
+
+These assertions judge whether the active model was followed; they do not use final score as proof that a bet should or should not have been placed.
+
+## 12. Live execution boundary
 
 QA work must not delay a current live verdict. The active model's
 `LIVE VERDICT-FIRST / EXECUTION LATENCY CONTROL` remains authoritative.
