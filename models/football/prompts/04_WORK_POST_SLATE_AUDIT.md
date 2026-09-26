@@ -30,6 +30,8 @@ Spend deep effort on meaningful anomalies:
 - `DIRECT LOCK ELIGIBLE` candidates suppressed by Model A exposure gates;
 - ranking and priority-inversion misses;
 - fixture-filter/time-integrity failures;
+- missing or skipped mandatory post-XI football web research;
+- cases where market-history lookup was incorrectly treated as football research;
 - price/burden/regime errors;
 - persistence/synchronization faults;
 - repeated failure modes;
@@ -107,6 +109,28 @@ Classify meaningful issues with the active model taxonomy where available. Other
 - FIXTURE-FILTER / SCHEDULE-INTEGRITY ERROR
 - PRICE / BURDEN / REGIME ERROR
 - PERSISTENCE / SYNC ERROR
+- POST-XI RESEARCH COMPLIANCE ERROR
+
+## Step-2 post-XI research compliance audit
+
+For every material Step-2 XI+odds assessment in the audited slate, inspect the Decision State evidence for a separate post-XI football research status and market-history status.
+
+A compliant post-XI status is one of:
+
+- `FOUND`;
+- `LIMITED`;
+- `UNAVAILABLE — ATTEMPTED`;
+- `SKIPPED — EXPLICIT USER WAIVER`.
+
+Flag `POST-XI RESEARCH COMPLIANCE ERROR` when:
+
+- status is absent / `NOT CHECKED`;
+- no fresh fixture-specific football research was attempted after the XI first pass;
+- odds/market-history research was counted as satisfying football research;
+- a prematch Website Pick was published before the research gate completed;
+- live verdict-first was used as a reason never to perform the same-assessment research attempt.
+
+Do not retroactively change historical P/L solely because of a process-compliance fault. Preserve the original decision and classify the workflow defect separately.
 
 ## Learning rule
 
