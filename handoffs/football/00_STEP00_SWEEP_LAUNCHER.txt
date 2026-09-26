@@ -1,0 +1,42 @@
+FOOTBALL V2.0 — STEP 00 SWEEP LAUNCHER
+========================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+
+EXECUTE IN THIS ORDER:
+
+1. Load and read upstream/default-branch:
+   models/football/CURRENT_MODEL.md
+
+2. Load and execute upstream/default-branch:
+   models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md
+
+3. Apply it to the user's requested ICT sweep window.
+
+4. Treat Airtable Sweep Runs as authoritative execution state.
+   - Base: SlipTrace Football Decision Control
+   - Sweep Runs: tblUnGHHe0MVaalDL
+   - Do not reconstruct progress from chat history.
+
+5. If a matching RUNNING or BLOCKED sweep exists:
+   - RESUME it from the persisted Current Stage + Resume Cursor;
+   - preserve completed stage flags and Listing Blocks Checked;
+   - retry Retry Queue items as defined by the Step-0 prompt;
+   - do not restart completed stages.
+
+6. If no matching run exists:
+   - START a new deterministic SWEEP-START-END run;
+   - checkpoint exactly as required by the Step-0 prompt.
+
+7. If the user says "report" or "status":
+   - read Sweep Runs only;
+   - do not run new AiScore discovery.
+
+CRITICAL:
+- Upstream/default-branch prompt is always authoritative.
+- AiScore remains fixture authority.
+- Preserve the exact requested Asia/Ho_Chi_Minh window.
+- Never mark work_ready=true with an unresolved actionable coverage or source-time fault.
+- Do not perform Work structural ranking, XI/odds review, live analysis, or betting decisions in Step 0.
+- Return the validated AISCORE_FIXTURES_*.zip only when Step-0 gates pass.
