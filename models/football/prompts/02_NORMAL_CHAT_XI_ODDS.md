@@ -6,7 +6,7 @@ Use Normal Chat with high reasoning.
 
 Read `models/football/CURRENT_MODEL.md` first. It defines the active official model, active patches, time rules and load order. Never infer the version from this prompt.
 
-Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`, `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`, `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md`, `MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
+Then load the stage-relevant execution files declared by `CURRENT_MODEL.md`, including `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`, `MODEL_RULES_FOOTBALL_A.md`, `MODEL_RULES_FOOTBALL_A_LIVE_DECAY.md`, `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`, `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`, `MODEL_RULES_FOOTBALL_A_AUTO_PUBLISH_USER_PREMATCH_ODDS.md`, `MODEL_RULES_FOOTBALL_A_BPLUS_PROTECTED_LINE.md`, `MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md`, `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md`, `MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md`, `MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md`, the betting procedure, time/schedule integrity, coverage contract and Decision States contract.
 
 For decisions inside an active temporary-session window declared by `CURRENT_MODEL.md`, load and apply the referenced session override before final exposure selection. During 2026-09-19/20 this includes the temporary burden-specific prematch upper-tail rule: O2.5 may use a quality-proven 3+ path; O2.75 may use a robust 3+ path plus non-trivial fourth-goal support; O3.0+ retains the permanent 4+ standard. A2 WATCHLIST may use this temporary O2.5/O2.75 exposure relaxation without being structurally promoted; B+/B/PASS do not.
 
@@ -42,23 +42,55 @@ If home/away, fixture ID, kickoff, or status materially conflicts:
 
 Preserve frozen PRE and the supplied quote, but do **not** issue or publish an official lock until current AiScore authority resolves the discrepancy. A side-symmetric Over market does not waive this gate because venue/home-away assumptions may have influenced structural PRE.
 
+## Mandatory post-XI football web-research gate
+
+After reading the supplied XI and forming the first-pass football interpretation, run a targeted fixture-specific **web research attempt before any final prematch action**.
+
+This is separate from market-history research. Odds/history lookup does **not** satisfy the football-research gate.
+
+Target current evidence that can change or harden the XI thesis, including where available:
+
+- starter roles / likely shape;
+- late injuries, suspensions, illness, rotation or unexpected omissions;
+- attacking creators/finishers and route survival;
+- defensive absences that change leakage;
+- recent chance creation / chance concession;
+- relevant current home/away or venue evidence;
+- competition incentives / qualification state / tactical context;
+- manager/team news;
+- same-venue H2H or matchup compression when the active burden rule requires it;
+- football-led explanations for a material PRE-vs-market conflict.
+
+Set exactly one status:
+
+- `POST-XI RESEARCH = FOUND`;
+- `POST-XI RESEARCH = LIMITED`;
+- `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`;
+- `POST-XI RESEARCH = SKIPPED — EXPLICIT USER WAIVER`.
+
+`POST-XI RESEARCH = NOT CHECKED`, a missing status, or relying only on frozen PRE/Airtable/GitHub/model files is a **PROCESS COMPLIANCE FAILURE**.
+
+An ordinary prematch official lock may not be issued or published until this gate has been attempted and its status recorded.
+
 ## JUST-STARTED / LIVE VERDICT-FIRST FAST PATH
 
 If a Step-2 screenshot arrives after kickoff or within a just-started live window, switch to latency-sensitive execution behavior:
 
-- surface the actionable verdict in the first line before market-history research or extended explanation;
-- if the exact supported burden is available at/above the active floor and all already-known gates clear, say `TAKE ... NOW` immediately, then persist/research;
+- surface the actionable verdict in the first line before extended explanation;
+- if the exact supported burden is available at/above the active floor and all already-known gates clear, say `TAKE ... NOW` immediately;
 - if current market is above supported burden, say `WAIT ...` immediately;
+- then, in the **same assessment**, run the mandatory post-XI football web-research attempt unless it was already completed for the current XI epoch, record its status, and complete market-history/context work;
+- if material contradictory research appears while the quote/state is still current, correct the verdict immediately;
 - if a goal/state change occurs before execution, mark the old quote VOID and reprice the new score epoch;
-- do not delay a clear live verdict for non-essential external research.
+- do not delay the first live verdict for non-essential research, but do not let verdict-first become research-skipped.
 
-This fast path does not lower model standards; it only changes the order of operations so execution is not lost to response latency.
+This fast path changes ordering only. It does **not** waive the post-XI football research gate or any model standard.
 
 ## Input
 
 The user normally supplies confirmed XI and **current executable Asian-total line(s)/price(s)**. Any user-supplied prematch odds screenshot/text is treated as currently available and executable for that assessment epoch; do not ask for a second confirmation that the line/price is still available.
 
-Do not automatically replace a user-supplied current price with an external price. Historical market research may be fetched for calibration/context.
+Do not automatically replace a user-supplied current price with an external price. **Post-XI football web research is mandatory under the active research gate.** Historical market research remains a separate calibration/context obligation.
 
 ## Mandatory market-history attempt
 
@@ -86,7 +118,7 @@ Do not retrieve higher-ranked matches for exposure suppression. Structural Rank 
 
 Use:
 
-`FROZEN PRE → NEAR-KICKOFF IDENTITY GATE → FIRST-PASS XI → MARKET-HISTORY ATTEMPT → CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A CARRIER DECOMPOSITION / MARKET-CALIBRATED PRE → UNREACHABLE-DECAY TEST → HMA / DECAY-FIRST EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → TRANSACTIONAL PERSISTENCE → EXPOSURE DECISION`
+`FROZEN PRE → NEAR-KICKOFF IDENTITY GATE → FIRST-PASS XI → MANDATORY POST-XI FOOTBALL WEB RESEARCH → MARKET-HISTORY ATTEMPT → XI/RESEARCH/MARKET CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A CARRIER DECOMPOSITION / MARKET-CALIBRATED PRE → UNREACHABLE-DECAY TEST → HMA / DECAY-FIRST EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → TRANSACTIONAL PERSISTENCE → EXPOSURE DECISION`
 
 First-pass XI is football-led and market-blind.
 
@@ -467,6 +499,8 @@ Price cannot create HMA eligibility, market alignment, upper-tail proof or Model
 
 Official exposure persistence is a **logical transaction**, even when Airtable requires multiple writes.
 
+Before persistence, the Decision State evidence must include the separate `POST-XI FOOTBALL RESEARCH STATUS` and `MARKET HISTORY STATUS`. A missing post-XI research status is a process fault and blocks ordinary prematch Website Pick publication.
+
 For an official prematch or predeclared-live lock:
 
 1. write/update the material Decision State with `Assessment Time`;
@@ -528,7 +562,7 @@ Do not rewrite frozen PRE.
 
 Compactly return:
 
-match; model/track; frozen PRE; structural rank; first-pass/final XI; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; cross-match suppression state (`NOT APPLICABLE — PATCH REMOVED`); state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
+match; model/track; frozen PRE; structural rank; first-pass/final XI; **post-XI football research status + concise fresh findings**; market-history completion status; chance-quality state; supported burden/structural ceiling; **market center + delta + alignment state**; supplied line/price; protected-line hierarchy; HMA/Model-B participation eligibility; Execution Class / Plan; upper-tail gate; cross-match suppression state (`NOT APPLICABLE — PATCH REMOVED`); state-integrity result when live; final Exposure Decision; concise reason; Airtable persistence PASS/FAIL.
 
 ## AUTO-PUBLISH RULE
 
