@@ -32,6 +32,16 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## MATCH-SPECIFIC PREMATCH EXCEPTION — AJAX WOMEN vs ADO DEN HAAG WOMEN — ACTIVE UNTIL FT
+
+For the exact Netherlands Eredivisie Women fixture **Ajax Women vs ADO Den Haag Women** on 2026-09-26 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-26_AJAX_W_ADO_DEN_HAAG_W.md`
+
+This one-fixture exception bypasses the prior Step-0 cheap-gate exclusion and missing frozen Work PRE, and permits a fresh prematch structural epoch. It does **not** waive confirmed XI, mandatory post-XI football research, market-history/context review, burden protection, the 1.65 floor, carrier/market-alignment, upper-tail checks, state integrity, or persistence. It expires automatically at full time.
+
+---
+
 ## MATCH-SPECIFIC LIVE EXCEPTION — VIETNAM vs PHILIPPINES — ACTIVE UNTIL FT
 
 For the exact FIFA ASEAN Cup Division 1 fixture **Vietnam vs Philippines** on 2026-09-26 ICT, load and apply:
