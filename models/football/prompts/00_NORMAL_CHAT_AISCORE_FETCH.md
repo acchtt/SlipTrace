@@ -163,7 +163,8 @@ Step 0:
 1. resolves the requested window start/end in ICT and UTC **once**;
 2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
 3. traverses every AiScore date/competition block needed to cover that envelope;
-4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);\n5. performs a separate European domestic-cup audit across the touched date envelope;
+4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
+5. performs a separate European domestic-cup audit across the touched date envelope;
 6. proves coverage of every **potentially actionable senior block**;
 7. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
 8. deduplicates once;
@@ -299,7 +300,8 @@ Distinguish:
 `work_ready=false` when any actionable requirement remains unresolved, including:
 
 - discovery date envelope not fully traversed;
-- terminal sentinel not explicitly completed;\n- European domestic-cup audit not explicitly completed;
+- terminal sentinel not explicitly completed;
+- European domestic-cup audit not explicitly completed;
 - terminal ICT date or UTC end-date block not checked for a cross-midnight/early-morning window;
 - PRIORITY/NORMAL senior block not checked;
 - eligible senior cup/continental block not checked;
@@ -413,7 +415,8 @@ A Work handoff may be created only when:
 - `actionable_complete=true`;
 - `work_ready=true`;
 - `discovery_date_envelope_complete=true`;
-- `terminal_scan_complete=true`;\n- `european_cup_audit_complete=true`;
+- `terminal_scan_complete=true`;
+- `european_cup_audit_complete=true`;
 - all required discovery/listing dates are named in the handoff;
 - all potentially actionable senior blocks were checked;
 - scope/registry audit passed;
@@ -501,7 +504,8 @@ Before `work_ready=true`:
 Verify:
 
 - discovery date envelope is complete;
-- terminal sentinel is complete;\n- European domestic-cup audit is complete;
+- terminal sentinel is complete;
+- European domestic-cup audit is complete;
 - every required terminal date/listing block is named;
 - no LOW-GOAL EXCLUDE fixture survived into Work;
 - no hard-excluded domestic-league fixture survived;
