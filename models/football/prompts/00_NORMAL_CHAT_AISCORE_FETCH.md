@@ -120,6 +120,8 @@ Checkpoint state to `Sweep Runs` **sparingly**:
 
 Do **not** checkpoint after every small web/AiScore batch, every fixture, or every retry. Within a stage, keep working in-memory between checkpoints and use the persisted cursor only at the cadence above.
 
+A stage-entry checkpoint satisfies any required "before stage" checkpoint, and the stage-completion checkpoint satisfies the corresponding "after stage" checkpoint. Never perform duplicate adjacent Airtable writes for the same boundary.
+
 Every checkpoint must persist, where applicable:
 
 - `Run Status`;
