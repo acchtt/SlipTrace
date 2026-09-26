@@ -193,7 +193,8 @@ A change that merely enforces an already-active authoritative rule is a **PROCES
 - distinguishing old-quote invalidation from predeclared-plan invalidation after a goal;
 - enforcing the existing 1.65 price floor;
 - enforcing near-kickoff AiScore identity checks;
-- requiring complete synchronized persistence fields.
+- requiring complete synchronized persistence fields;
+- restoring the mandatory post-XI football web-research gate and keeping it separate from market-history research.
 
 A change that alters a predictive threshold, expands exposure eligibility, changes a carrier trigger, lowers the price floor, changes supported burden, or materially changes promotion/exposure logic remains a **MODEL CHANGE** and must use the champion/challenger procedure above.
 
@@ -214,9 +215,35 @@ The active execution tester should fail process compliance when any of the follo
 - market strength creates structure without football/PRE support;
 - Decision State or Website Pick lacks its required timestamp;
 - Decision State and Website Pick disagree on fixture, model, line or odds;
-- an exposure is backfilled after the executable quote/state has changed.
+- an exposure is backfilled after the executable quote/state has changed;
+- a Step-2 prematch final verdict is issued with missing / `POST-XI RESEARCH NOT CHECKED` status;
+- market-history lookup is treated as satisfying the post-XI football research gate;
+- a just-started/live verdict-first path never performs the mandatory same-assessment post-XI research attempt when it had not already been completed for the current XI epoch.
 
 These assertions judge whether the active model was followed; they do not use final score as proof that a bet should or should not have been placed.
+
+### Post-XI research workflow regression guard
+
+For every operational QA pass that touches Step 2, verify that all of these canonical files still explicitly preserve the mandatory post-XI football web-research gate:
+
+- `models/football/CURRENT_MODEL.md`;
+- `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`;
+- `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`;
+- `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`.
+
+QA must fail with:
+
+`WORKFLOW REGRESSION — POST-XI RESEARCH GATE MISSING/OPTIONAL`
+
+if any edit:
+
+- changes prematch `must` / mandatory semantics back to optional `may`;
+- merges post-XI football research into market-history research;
+- permits ordinary prematch Website Pick publication with missing/`NOT CHECKED` post-XI research status;
+- interprets `LIVE VERDICT-FIRST` as permission to omit the same-assessment research attempt;
+- removes the separate persisted post-XI research status.
+
+This guard is process compliance. It does not create a new predictive edge or require champion/challenger promotion.
 
 ## 12. Live execution boundary
 
