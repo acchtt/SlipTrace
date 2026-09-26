@@ -13,6 +13,9 @@ EXECUTE IN THIS ORDER:
    models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md
 
 3. Apply it to the user's requested ICT sweep window.
+   - If the start is relative (`now` / `from now`), first reuse the newest compatible RUNNING/BLOCKED run with the same requested end boundary.
+   - Do not create another overlapping run merely because the current clock minute changed.
+   - Create a fresh overlapping run only if the user explicitly requests a new/restarted sweep.
 
 4. Treat Airtable Sweep Runs as authoritative execution state.
    - Base: SlipTrace Football Decision Control
@@ -25,9 +28,10 @@ EXECUTE IN THIS ORDER:
    - retry Retry Queue items as defined by the Step-0 prompt;
    - do not restart completed stages.
 
-6. If no matching run exists:
+6. If no compatible run exists:
    - START a new deterministic SWEEP-START-END run;
-   - checkpoint exactly as required by the Step-0 prompt.
+   - checkpoint exactly as required by the Step-0 prompt;
+   - do not checkpoint more frequently than the prompt's 20-block/stage-boundary cadence.
 
 7. If the user says "report" or "status":
    - read Sweep Runs only;
