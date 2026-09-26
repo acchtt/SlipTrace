@@ -32,6 +32,16 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## MATCH-SPECIFIC LIVE EXCEPTION — VIETNAM vs PHILIPPINES — ACTIVE UNTIL FT
+
+For the exact FIFA ASEAN Cup Division 1 fixture **Vietnam vs Philippines** on 2026-09-26 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-26_VIETNAM_PHILIPPINES.md`
+
+This is a one-fixture prospective exception. It permits a fresh live structural epoch despite the missing frozen Work PRE and bypasses the opportunistic-live shadow quarantine for this fixture only. All normal research, price-floor, burden, market-alignment, carrier, state-integrity, no-chase and publication-timing rules remain active. Historical quotes are not retroactively upgraded.
+
+---
+
 ## MATCH-SPECIFIC PREMATCH EXCEPTION — JAPAN U23 vs NORTH KOREA U23 — ACTIVE UNTIL FT
 
 For the exact OCA Asian Games fixture **Japan U23 vs North Korea U23** on 2026-09-26 ICT, load and apply:
