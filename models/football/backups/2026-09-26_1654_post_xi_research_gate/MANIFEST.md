@@ -12,4 +12,6 @@ Purpose: preserve the canonical football workflow immediately before restoring a
 
 - `models/football/backups/2026-09-26_1654_post_xi_research_gate/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md` — source blob `09ea4da8e9baa6a3b8615509c5c3dc95490b3e83`
 
+- `models/football/backups/2026-09-26_1654_post_xi_research_gate/prompts/04_WORK_POST_SLATE_AUDIT.md` — source blob `cdc8cb0b419c5c9a933997e48e2e6dfe92cb1bc2`
+
 This backup is historical only. Do not load it for current decisions.
