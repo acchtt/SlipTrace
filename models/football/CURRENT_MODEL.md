@@ -32,6 +32,16 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## MATCH-SPECIFIC PREMATCH EXCEPTION — JAPAN U23 vs NORTH KOREA U23 — ACTIVE UNTIL FT
+
+For the exact OCA Asian Games fixture **Japan U23 vs North Korea U23** on 2026-09-26 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-26_JAPAN_U23_NORTH_KOREA_U23.md`
+
+This is a one-fixture exception. It permits a fresh prematch structural epoch despite the missing frozen Work PRE caused by the earlier time-integrity/completeness block. All normal research, price-floor, burden, market-alignment, carrier, upper-tail, state-integrity and persistence rules remain active. It expires automatically at full time.
+
+---
+
 ## MATCH-SPECIFIC LIVE EXCEPTION — ICELAND U21 vs FRANCE U21 — ACTIVE UNTIL FT
 
 For the exact UEFA U21 Qualification fixture **Iceland U21 vs France U21** currently in progress on 2026-09-25 ICT, load and apply:
