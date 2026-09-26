@@ -331,7 +331,13 @@ Do not assume a stored kickoff is still future simply because Airtable says so.
 
 ## 12. Research-source rule after freeze
 
-Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence. That evidence may validate, downgrade, rerank, or qualify a strict `CARRIER REOPEN — XI CONFIRMED`, post-XI EGE burden, or MCE state according to the current model, but it must not silently rewrite what PRE originally was.
+Once a fixture is in the frozen PRE board, later XI/odds/live stages may use user screenshots and normal research evidence, but **Step 2 XI+odds has an additional mandatory post-XI football web-research gate** under `MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md`.
+
+For Step 2, after the supplied confirmed XI is read and before the final prematch verdict, Normal Chat must make a targeted fixture-specific web-research attempt. This is separate from the market-history watch and cannot be satisfied by frozen PRE/Airtable/model files alone.
+
+That fresh evidence may validate, downgrade, rerank, or qualify a strict `CARRIER REOPEN — XI CONFIRMED`, post-XI EGE burden, carrier state, or other current assessment according to the active model, but it must not silently rewrite what PRE originally was.
+
+For just-started/live Step-2 states, verdict-first changes ordering only: surface the first action, then run the mandatory targeted research attempt in the same assessment unless it was already completed for the current XI epoch.
 
 Live evidence validates or invalidates history; it does not rewrite history.
 
