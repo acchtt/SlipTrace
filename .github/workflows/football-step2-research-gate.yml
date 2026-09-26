@@ -1,0 +1,36 @@
+name: Football Step-2 research gate
+
+on:
+  push:
+    paths:
+      - "models/football/CURRENT_MODEL.md"
+      - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
+      - "models/football/prompts/README.md"
+      - "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md"
+      - "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md"
+      - "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md"
+      - "models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md"
+      - "models/football/qa/check_post_xi_research_gate.py"
+      - ".github/workflows/football-step2-research-gate.yml"
+  pull_request:
+    paths:
+      - "models/football/CURRENT_MODEL.md"
+      - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
+      - "models/football/prompts/README.md"
+      - "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md"
+      - "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md"
+      - "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md"
+      - "models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md"
+      - "models/football/qa/check_post_xi_research_gate.py"
+      - ".github/workflows/football-step2-research-gate.yml"
+
+jobs:
+  enforce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Check canonical Step-2 research invariants
+        run: python models/football/qa/check_post_xi_research_gate.py
