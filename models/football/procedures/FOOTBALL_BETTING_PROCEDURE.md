@@ -17,11 +17,20 @@ Do not issue an official prematch verdict unless:
 1. AiScore coverage/time reconciliation passed;
 2. the fixture is actionable under current scope;
 3. frozen Work PRE exists or a documented equivalent current PRE exists;
-4. required confirmed XI and current executable Asian-total price are available from the user, unless external verification was explicitly requested. A user-supplied prematch price is presumed currently available at that evidence epoch and requires no second confirmation.
+4. required confirmed XI and current executable Asian-total price are available from the user, unless external verification was explicitly requested. A user-supplied prematch price is presumed currently available at that evidence epoch and requires no second confirmation;
+5. the mandatory post-XI football web-research gate has been attempted and its status is recorded.
 
 If XI/current price is missing: `WAITING FOR USER XI/ODDS — NO OFFICIAL DECISION`.
 
-Market history is contextual rather than executable-price authority, but a Step-2 final verdict must not be issued with `MARKET HISTORY NOT CHECKED`. Normal Chat must first attempt a lightweight lookup and resolve to one of:
+Post-XI football research and market-history research are separate required evidence stages. A Step-2 final verdict must not be issued with `POST-XI RESEARCH NOT CHECKED` or `MARKET HISTORY NOT CHECKED`.
+
+Post-XI football research must resolve to one of:
+- `POST-XI RESEARCH = FOUND`;
+- `POST-XI RESEARCH = LIMITED`;
+- `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`;
+- `POST-XI RESEARCH = SKIPPED — EXPLICIT USER WAIVER`.
+
+Market history is contextual rather than executable-price authority. It must resolve to one of:
 - `MARKET HISTORY FOUND`;
 - `MARKET HISTORY UNAVAILABLE — ATTEMPTED`;
 - `MARKET HISTORY SKIPPED — USER REQUEST`.
@@ -51,13 +60,13 @@ A genuine frozen PRE PASS remains non-actionable unless a documented material fo
 
 ## 3. Official order
 
-`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MANDATORY MARKET-HISTORY ATTEMPT → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD / PASS`
+`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE-QUALITY HARDENING → FIRST-PASS XI → MANDATORY POST-XI FOOTBALL WEB RESEARCH → MANDATORY MARKET-HISTORY ATTEMPT → XI/RESEARCH/MARKET CONFLICT CHECK → FINAL XI / CARRIER REOPEN TEST → BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD / PASS`
 
 Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
 
 `QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
 
-Price and market history cannot create structure.
+Market price/history cannot create structure. Fresh football research may validate, downgrade, or materially update the current XI interpretation only when supported by actual football evidence.
 
 ---
 
@@ -92,6 +101,38 @@ All must be true:
 7. price is evaluated only after this football gate clears.
 
 Market movement alone cannot trigger this reopen.
+
+### 4.2 Mandatory post-XI football web research
+
+For **every fixture the user brings to normal Step-2 XI/odds review**, perform a fresh targeted web-research attempt after reading the confirmed XI.
+
+This is a separate obligation from market history. Opening/current odds research does not satisfy it.
+
+Target only material current football evidence, including where available:
+
+- confirmed roles and shape;
+- late injuries/suspensions/illness/rotation/omissions;
+- creator/finisher route survival;
+- defensive absences;
+- current chance creation and chance concession;
+- relevant home/away or venue evidence;
+- competition incentives / qualification context;
+- tactical or manager/team news;
+- same-venue H2H / compression where required by the active burden rule;
+- a football explanation for a material frozen-PRE/current-market disagreement.
+
+Use source-flexible research after AiScore establishes the fixture. Prefer official team/competition sources, reputable reporting, and reputable current statistics sources.
+
+Record exactly one:
+
+- `POST-XI RESEARCH = FOUND`;
+- `POST-XI RESEARCH = LIMITED`;
+- `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`;
+- `POST-XI RESEARCH = SKIPPED — EXPLICIT USER WAIVER`.
+
+A missing status or `NOT CHECKED` is a process-compliance failure. Ordinary prematch Website Pick publication is blocked until the attempt is complete.
+
+If the search is limited or yields no useful result, do not invent evidence. Continue with the limitation explicitly recorded after the attempt.
 
 ---
 
@@ -233,16 +274,16 @@ MCE cannot rescue PASS, create TWO-SIDED/EGE, jump more than +0.25, override DUA
 
 For any user-supplied live or just-started market:
 
-`MINIMAL STATE READ -> VERDICT FIRST -> PERSIST/RESEARCH/EXPLAIN SECOND`
+`MINIMAL STATE READ -> VERDICT FIRST -> MANDATORY POST-XI RESEARCH ATTEMPT -> PERSIST/EXPLAIN`
 
-The assistant must not make a user wait for H2H research, web verification, Airtable writes, or long-form reasoning when the current frozen state plus supplied market already supports a clear action.
+The assistant must not make a user wait for non-essential research, Airtable writes, or long-form reasoning before the **first** live verdict when the current frozen state plus supplied market already supports a clear action. This latency rule changes order only; it does not waive the mandatory post-XI football research attempt.
 
 - Clear executable line: surface `TAKE ... NOW` first.
 - Above-burden market: surface `WAIT ...` first.
 - Structural blocker: surface `HOLD/PASS` first.
 - Goal/card/material state change before action: old quote is VOID; reprice.
 
-Any subsequent research may validate, annotate, or persist the verdict but must not be the cause of a preventable missed live window.
+Immediately after the first live verdict, run the mandatory targeted post-XI football research in the **same assessment** unless it was already completed for the current XI epoch. Record the status before normal persistence. If material contradictory evidence appears while the quote/state remains current, correct the verdict immediately. A goal/card/material state change voids the old quote and starts a new epoch. Verdict-first must never become research-skipped.
 
 ## 10A. Decay-first burden protection
 
@@ -296,7 +337,7 @@ No active WAIT may silently disappear from the board before kickoff. It ends onl
 
 
 ### OFFICIAL LOCK
-Require actionable scope, valid frozen candidate or strict prematch carrier reopen, surviving XI, acceptable failure mode, a directly offered supported STANDARD/EGE burden, current prematch price clearing policy, and no dependence on a quarantined mechanism.
+Require actionable scope, valid frozen candidate or strict prematch carrier reopen, surviving XI, **completed post-XI football research status**, acceptable failure mode, a directly offered supported STANDARD/EGE burden, current prematch price clearing policy, and no dependence on a quarantined mechanism.
 
 When the qualifying current price was supplied by the user in the prematch workflow, the price is executable by default. If no exposure blocker remains, finalize immediately as `OFFICIAL LOCK` and publish the Website Pick in the same assessment. No second user authorization is required.
 
@@ -316,7 +357,7 @@ Use when the structure is materially invalidated or the frozen PRE was already a
 
 Before a new PRE is frozen as B/PASS, apply the active `MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` screen. A fixture must not be finalized as PASS solely because the second route is weak if a `PRACTICAL CARRIER CEILING — VERIFIED` route can independently fund 3+ and no strong current suppression veto remains. A successful rescue becomes `B+ WATCHLIST / CARRIER-LED`; candidate-only evidence remains PASS / re-screen eligible.
 
-Before final PASS in Step 2, market-history status must be FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
+Before final PASS in Step 2, post-XI football research status must be FOUND / LIMITED / UNAVAILABLE-ATTEMPTED / EXPLICIT-USER-WAIVER, and market-history status must be FOUND / UNAVAILABLE-ATTEMPTED / USER-SKIPPED.
 
 HOLD/PASS = no exposure.
 
