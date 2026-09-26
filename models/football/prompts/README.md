@@ -18,7 +18,7 @@ Therefore:
 ## Canonical stages
 1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — AiScore discovery, time integrity, actionable-senior completeness, cheap scope/league filtering, coverage skeleton, and the **only normal fixture sweep** used to create the Work handoff. Normal production output is an `AISCORE_FIXTURES_*.zip` archive containing exactly one canonical `AISCORE_FIXTURES_*.txt` handoff at archive root. Exact enumeration of already-excluded youth/reserve/lower raw blocks is best-effort and does not block Work when actionable coverage is complete.
 2. `01_WORK_DAILY_SWEEP.md` — validates/extracts the ZIP-packaged Step-0 handoff, then performs deep price/XI/market-history-blind structural PRE research on the already-pruned handoff; hard-stop for an invalid package or **actionable coverage** fault; no second fixture sweep; frozen Airtable publication.
-3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/market conflict check, final XI rerank, goal burden/regime, MCE shadow test, current executable price, Structural Rank + Execution Class, and final material assessment.
+3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, **mandatory fresh post-XI football web research**, separate mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/research/market conflict check, final XI rerank, goal burden/regime, carrier/market-alignment review, current executable price, Structural Rank + Execution Class, and final material assessment.
 4. `03_NORMAL_CHAT_LIVE.md` — targeted live validation, current no-chase/halftime logic, material live-state logging.
 5. `04_WORK_POST_SLATE_AUDIT.md` — historical/version-faithful post-slate audit.
 
@@ -26,7 +26,7 @@ Therefore:
 
 To control Work usage:
 
-`NORMAL CHAT ACTIONABLE DISCOVERY/FILTER → ZIP HANDOFF → WORK DEEP STRUCTURE ONLY → NORMAL CHAT XI + MARKET HISTORY + CURRENT PRICE → NORMAL CHAT LIVE → WORK AUDIT`
+`NORMAL CHAT ACTIONABLE DISCOVERY/FILTER → ZIP HANDOFF → WORK DEEP STRUCTURE ONLY → NORMAL CHAT XI + POST-XI FOOTBALL WEB RESEARCH + MARKET HISTORY + CURRENT PRICE → NORMAL CHAT LIVE → WORK AUDIT`
 
 The boundary is strict but practical:
 
@@ -39,7 +39,7 @@ The boundary is strict but practical:
 - Work must never research only a confirmed subset of a genuinely incomplete actionable slate.
 - Work must not traverse AiScore again, backfill omitted fixtures, repair non-blocking raw gaps, or spend deep-research usage on opening-odds watch.
 
-The Normal Chat market-history layer is contextual. It may challenge an XI interpretation and support an MCE shadow observation, but under v0.2.54 it cannot create MCE/live-decay official exposure, rewrite frozen PRE, or manufacture unsupported structure/EGE.
+The Normal Chat post-XI football-research layer and market-history layer are separate. Fresh football research is mandatory after the XI first pass; market history remains contextual. Neither may rewrite frozen PRE, and market evidence cannot manufacture unsupported structure.
 
 ## Permanent launchers
 Keep these tiny launchers in your normal chats/Work. They reference GitHub and should not need redownloading.
@@ -51,7 +51,7 @@ Keep these tiny launchers in your normal chats/Work. They reference GitHub and s
 `Load and execute models/football/prompts/01_WORK_DAILY_SWEEP.md from acchtt/SlipTrace. Read upstream CURRENT_MODEL.md first, then validate and extract the attached AISCORE_FIXTURES_*.zip before any deep research. Stop for an invalid package or actionable coverage/scope fault; do not rerun the fixture sweep or repair non-blocking raw-audit gaps.`
 
 ### Step 2 — Normal Chat XI + odds
-`Load and execute models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first, use my supplied XI/current odds as executable evidence, run the opening-to-prematch market-history watch, then execute immediately.`
+`Load and execute models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first, use my supplied XI/current odds as executable evidence, run the mandatory post-XI football web-research gate and the separate opening-to-prematch market-history watch, then execute immediately.`
 
 ### Step 3 — Normal Chat live
 `Load and execute models/football/prompts/03_NORMAL_CHAT_LIVE.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first and use my supplied live state/market. Execute immediately.`
