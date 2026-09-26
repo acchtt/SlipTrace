@@ -38,11 +38,25 @@ Use these IDs directly unless one actually fails.
 
 `Sweep Runs` is the **source of truth for Step-0 execution progress**. Chat history is not an execution checkpoint and must never be used as the sole basis for deciding where to resume.
 
-For every requested ICT window, derive one deterministic run ID:
+For an **explicit absolute ICT window**, derive one deterministic run ID:
 
 `SWEEP-YYYYMMDD-HHMM-YYYYMMDD-HHMM`
 
-using the exact requested ICT start/end minute. The same exact window reuses the same Run ID.
+using the exact requested ICT start/end minute. The same exact absolute window reuses the same Run ID.
+
+### Relative-start coalescing — mandatory
+
+For requests whose start is relative, such as `now`, `from now`, or equivalent, **do not immediately create a new Run ID from the new clock minute**.
+
+Before creating a run:
+
+1. search `Sweep Runs` for non-complete `RUNNING` or `BLOCKED` rows whose requested end boundary matches the newly requested end boundary and whose window overlaps the current time;
+2. if exactly one compatible active run exists, reuse/resume it;
+3. if multiple compatible active runs exist, use the **most recently Updated At** row as the canonical run and do not create another;
+4. older compatible rows with no validated handoff package may be marked `ABANDONED` with `SUPERSEDED BY <canonical Run ID>` in Checkpoint Notes;
+5. create a fresh relative-start Run ID only when no compatible active run exists, or when the user explicitly says `new sweep`, `restart from now`, `discard the old run`, or equivalent.
+
+This rule prevents repeated `from now till 03:00` launches from spawning overlapping sweeps every time the chat is restarted.
 
 ### START behavior
 
@@ -93,15 +107,18 @@ When the user asks `report`, `status`, or equivalent during a sweep, **do not ru
 
 ### Mandatory checkpoint cadence
 
-Checkpoint state to `Sweep Runs`:
+Checkpoint state to `Sweep Runs` **sparingly**:
 
-- after every 5 successfully processed listing/competition blocks, or sooner at a natural block boundary;
+- after every 20 successfully processed listing/competition blocks;
 - immediately after every stage transition;
 - immediately before and after the European cup audit;
 - immediately before and after the terminal sentinel;
 - immediately before admitted-set time proof/reconciliation;
 - immediately before packaging;
-- immediately after packaging.
+- immediately after packaging;
+- immediately when a genuinely blocking fault is discovered.
+
+Do **not** checkpoint after every small web/AiScore batch, every fixture, or every retry. Within a stage, keep working in-memory between checkpoints and use the persisted cursor only at the cadence above.
 
 Every checkpoint must persist, where applicable:
 
@@ -115,6 +132,8 @@ Every checkpoint must persist, where applicable:
 - `Retry Queue`;
 - `Checkpoint Notes`;
 - `Updated At`.
+
+Keep checkpoint payloads compact. `Listing Blocks Checked` should use canonical block identifiers rather than repeated narrative prose. `Checkpoint Notes` should contain only the material delta/fault since the previous checkpoint, not a full sweep recap.
 
 A checkpoint is committed **after** a block's Airtable coverage writes succeed. This makes replay idempotent and prevents the cursor from advancing past unpersisted work.
 
