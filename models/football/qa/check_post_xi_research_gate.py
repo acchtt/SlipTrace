@@ -32,6 +32,10 @@ REQUIRED = {
         "mandatory fresh post-XI football web research",
         "run the mandatory post-XI football web-research gate",
     ],
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
+        "Step-2 post-XI research compliance audit",
+        "POST-XI RESEARCH COMPLIANCE ERROR",
+    ],
 }
 
 failures = []
