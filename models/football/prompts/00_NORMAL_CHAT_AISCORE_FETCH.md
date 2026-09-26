@@ -30,10 +30,134 @@ Base: `SlipTrace Football Decision Control`
 - Daily Coverage Ledger: `tblcl1UAyMqZT6Ub0`
 - Decision States: `tblQmUpd5WjBLQ38X`
 - Website Picks: `tblg3J5sbJYbzuTYD`
+- Sweep Runs: `tblUnGHHe0MVaalDL`
 
 Use these IDs directly unless one actually fails.
 
+## Authoritative resumable execution state
+
+`Sweep Runs` is the **source of truth for Step-0 execution progress**. Chat history is not an execution checkpoint and must never be used as the sole basis for deciding where to resume.
+
+For every requested ICT window, derive one deterministic run ID:
+
+`SWEEP-YYYYMMDD-HHMM-YYYYMMDD-HHMM`
+
+using the exact requested ICT start/end minute. The same exact window reuses the same Run ID.
+
+### START behavior
+
+Before any AiScore traversal:
+
+1. find the `Sweep Runs` row for the deterministic Run ID;
+2. if none exists, create it with:
+   - `Run Status = RUNNING`;
+   - `Current Stage = CORE DISCOVERY`;
+   - exact Window Start/End ICT;
+   - active Model Version;
+   - zeroed counts;
+   - all completion flags false;
+   - deterministic discovery envelope;
+   - `Resume Cursor` set to the first required discovery block;
+   - empty `Retry Queue`;
+3. if a row exists with `RUNNING` or `BLOCKED`, continue from its persisted state instead of starting over;
+4. if a row is already `COMPLETE`, do not silently rerun it. Return/report the completed package unless the user explicitly requests a rerun/rebuild.
+
+### RESUME / CONTINUE behavior
+
+When the user says `resume`, `resume the sweep`, `continue`, or equivalent:
+
+1. load the matching current-window `Sweep Runs` row first;
+2. if the current chat does not contain an explicit window, use the newest non-complete `Sweep Runs` row only when it is unambiguous;
+3. trust persisted stage flags, `Listing Blocks Checked`, `Resume Cursor`, `Retry Queue`, counts and checkpoint notes over conversational recollection;
+4. continue from the exact `Resume Cursor`;
+5. never restart an already-completed stage merely because the conversation was interrupted;
+6. never infer a missing cursor from prose if Airtable has a persisted cursor.
+
+If no resumable row can be identified, report `NO RESUMABLE SWEEP RUN FOUND` rather than inventing state.
+
+### REPORT / STATUS behavior
+
+When the user asks `report`, `status`, or equivalent during a sweep, **do not run AiScore discovery**. Read the `Sweep Runs` row and return only:
+
+- Run ID;
+- requested ICT window;
+- Run Status;
+- Current Stage;
+- completed stage flags;
+- discovered/admitted/excluded/unresolved counts;
+- current `Resume Cursor`;
+- retry-queue count/content summary;
+- last checkpoint time;
+- handoff package if already produced;
+- blocking fault, if any.
+
+### Mandatory checkpoint cadence
+
+Checkpoint state to `Sweep Runs`:
+
+- after every 5 successfully processed listing/competition blocks, or sooner at a natural block boundary;
+- immediately after every stage transition;
+- immediately before and after the European cup audit;
+- immediately before and after the terminal sentinel;
+- immediately before admitted-set time proof/reconciliation;
+- immediately before packaging;
+- immediately after packaging.
+
+Every checkpoint must persist, where applicable:
+
+- `Run Status`;
+- `Current Stage`;
+- all stage completion flags;
+- counts;
+- `Discovery Envelope`;
+- cumulative `Listing Blocks Checked`;
+- `Resume Cursor` = exact next unprocessed block;
+- `Retry Queue`;
+- `Checkpoint Notes`;
+- `Updated At`.
+
+A checkpoint is committed **after** a block's Airtable coverage writes succeed. This makes replay idempotent and prevents the cursor from advancing past unpersisted work.
+
+### Retry and transient-failure behavior
+
+A single failed web/AiScore/tool call must not terminate the whole sweep.
+
+For a transient failure:
+
+1. retry that block once when safe;
+2. if it still fails, append the exact block + reason to `Retry Queue`;
+3. keep enough cursor information to revisit it;
+4. continue with independent blocks when completeness is not yet being asserted;
+5. drain `Retry Queue` before marking the current stage complete.
+
+If a queued block remains unresolved and could contain actionable senior fixtures, set `Run Status = BLOCKED`, keep the exact `Current Stage` and cursor, persist the blocker, and do not set `work_ready=true`.
+
+Excluded/non-blocking raw categories may remain documented raw gaps under the existing two-tier completeness contract.
+
+### Idempotence rules
+
+- `Sweep Runs` upserts by deterministic Run ID.
+- Daily Coverage Ledger continues to upsert by Coverage ID.
+- Reprocessing the current cursor after an interruption must be harmless.
+- Counts must be recomputed/reconciled from persisted fixture state rather than blindly incremented on retries.
+- `Listing Blocks Checked` is cumulative and must not duplicate the same canonical block.
+- Stage completion flags move false -> true only after the stage's persistence/checks pass.
+
+### Stage machine
+
+Use the existing `Current Stage` values in this order:
+
+`CORE DISCOVERY -> CONDITIONAL GATES -> EUROPEAN CUP AUDIT -> TERMINAL SENTINEL -> RECONCILIATION -> PACKAGING -> COMPLETE`
+
+The final admitted-set authoritative time proof belongs to `RECONCILIATION`.
+
+Do not enter a later stage until its prerequisite stage is complete. `Run Status = COMPLETE` is allowed only when packaging is validated and all mandatory stage flags are true.
+
+On a genuine missed-fixture recovery, preserve the existing missed-fixture rules below **and** reopen the same deterministic Run ID: set `Run Status = RUNNING`, reset `Current Stage = CORE DISCOVERY`, clear affected/downstream completion flags, rebuild the required envelope/sentinel proof, and replace the old package only after the repaired run passes all gates.
+
 ## Strict stage boundary
+Step 0 is executed through the persisted stage machine above. The conversational session is only the controller; `Sweep Runs` is execution memory.
+
 Step 0:
 
 1. resolves the requested window start/end in ICT and UTC **once**;
@@ -400,9 +524,11 @@ If an actionable fixture is later found inside a window that had already been ma
 5. publish a repaired handoff only after the coverage proof passes again.
 
 ## Output
-If actionable-complete and ZIP validation passes:
+If actionable-complete and ZIP validation passes, first persist `Packaging Complete=true`, `Current Stage=COMPLETE`, `Run Status=COMPLETE`, final counts, cleared `Resume Cursor`, empty `Retry Queue`, package name and final checkpoint timestamp.
 
-`AiScore actionable coverage ready — X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; admitted_time_integrity=PASS; raw_audit_complete=true/false; Airtable coverage PASS; work_ready=true; admitted ICT kickoffs verified; handoff_package=ZIP.`
+Then return:
+
+`AiScore actionable coverage ready — run_id=<RUN_ID>; X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; admitted_time_integrity=PASS; raw_audit_complete=true/false; Airtable coverage PASS; work_ready=true; admitted ICT kickoffs verified; handoff_package=ZIP.`
 
 Attach the ZIP Work handoff only.
 
