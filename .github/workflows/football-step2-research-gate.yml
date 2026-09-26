@@ -18,6 +18,7 @@ on:
       - "models/football/CURRENT_MODEL.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
       - "models/football/prompts/README.md"
+      - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
       - "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md"
       - "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md"
       - "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md"
