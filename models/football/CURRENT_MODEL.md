@@ -23,6 +23,7 @@
 - `rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — **B/PASS PRACTICAL-CEILING RESCUE / VERIFIED-CARRIER RE-SCREEN**  
 - `rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — **A2 TWO-ROUTE INDEPENDENCE / FOCUS HARDENING**  
 - `rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **AH + TOTAL + 1X2 CARRIER DECOMPOSITION / MARKET-CALIBRATED CURRENT PRE**  
+- `rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md` — **MANDATORY POST-XI FOOTBALL WEB-RESEARCH / WORKFLOW REGRESSION GUARD**  
 **Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
@@ -46,14 +47,39 @@ Effective 2026-09-20 ICT:
 
 For live and just-started user-supplied markets, execution order is:
 
-`MINIMAL STATE READ -> ACTIONABLE VERDICT -> PERSIST / RESEARCH / EXPLANATION`
+`MINIMAL STATE READ -> ACTIONABLE VERDICT -> MANDATORY POST-XI FOOTBALL RESEARCH ATTEMPT -> PERSIST / EXPLANATION`
 
-Do not delay a clear live action for web research, H2H lookup, Airtable writes, or explanatory prose. If a goal/state change occurs before action, the old quote is VOID and requires a new score-epoch reprice.
+Do not delay the **first** clear live action for non-essential research, Airtable writes, or explanatory prose. Immediately after that first verdict, complete the mandatory targeted post-XI football web-research attempt in the same assessment unless already completed for the current XI epoch. If a goal/state change occurs first, the old quote is VOID and requires a new score-epoch reprice.
 
-This changes response order only; it does not lower structural, burden, price, suppression, or state-integrity standards.
+This changes response order only; it does not lower structural, burden, price, suppression, state-integrity, or research-compliance standards. **Verdict-first must never be interpreted as research-skipped.**
 
 ---
 
+## POST-XI FOOTBALL WEB-RESEARCH GATE — ACTIVE
+
+Effective prospectively from **2026-09-26 ICT**, load and apply:
+
+`models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md`
+
+This is a **PROCESS COMPLIANCE FIX**, not a predictive model change.
+
+For every Step-2 XI+odds fixture:
+
+- read the confirmed XI and form a first-pass football interpretation;
+- run a fresh targeted fixture-specific football web-research attempt;
+- record `POST-XI RESEARCH = FOUND / LIMITED / UNAVAILABLE — ATTEMPTED / SKIPPED — EXPLICIT USER WAIVER`;
+- run market-history research separately;
+- resolve XI + fresh football evidence + market-history/current-market conflicts before the final prematch verdict.
+
+A market-history lookup does **not** satisfy the football-research gate. Frozen PRE/Airtable/GitHub/model files alone do **not** satisfy it.
+
+An ordinary prematch official lock may not be published when post-XI research status is missing or `NOT CHECKED`.
+
+For just-started/live states, verdict-first still applies, but the research attempt must follow immediately in the same assessment unless already completed for the current XI epoch.
+
+Any future workflow edit that silently removes, merges, or makes this gate optional is a **WORKFLOW REGRESSION** and must fail deterministic operational QA.
+
+---
 
 ## CARRIER MARKET DECOMPOSITION / MARKET-CALIBRATED CURRENT PRE — ACTIVE
 
@@ -195,10 +221,11 @@ Load only the current active stack:
 22. `models/football/rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — final Football A authority on provisional B/PASS practical-ceiling rescue
 23. `models/football/rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — final Football A authority on A2 two-route independence / FOCUS privilege
 24. `models/football/rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **final Football A authority on carrier identification, market-calibrated current PRE, and unreachable-decay override**
-25. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-26. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-27. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-28. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+25. `models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md` — **mandatory Step-2 post-XI football research + regression guard**
+26. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+27. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+28. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+29. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -224,9 +251,9 @@ A `Z` timestamp means UTC. Never convert the same timestamp twice.
 
 ## 3. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED MARKET CENTER + LINES/PRICES → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA / MODEL B PARTICIPATION RULE → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / EARLY SAME-LINE PRICE PLAN / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MANDATORY POST-XI FOOTBALL WEB RESEARCH → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED MARKET CENTER + LINES/PRICES → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A CARRIER/HMA/DECAY PATH → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / EARLY SAME-LINE PRICE PLAN / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
 
-Work remains structural and price/XI/market-history blind. Normal Chat owns XI, market-history checks, market-center/alignment checks, current price, HMA testing, Model B participation testing, exposure selection, planned live-decay execution, schedule display, and live review.
+Work remains structural and price/XI/market-history blind. Normal Chat owns XI, **mandatory post-XI football web research**, market-history checks, market-center/alignment checks, current price, carrier/HMA testing, Model B participation testing, exposure selection, planned live-decay execution, schedule display, and live review.
 
 ---
 
