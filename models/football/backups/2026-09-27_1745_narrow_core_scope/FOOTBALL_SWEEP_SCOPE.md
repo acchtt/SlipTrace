@@ -1,0 +1,243 @@
+# Football Sweep Scope
+
+**Status:** ACTIVE  
+**Purpose:** Narrow fixture screening before Work so deep research is spent only on plausible Over environments.  
+**Fixture authority:** AiScore only  
+**Timezone:** source timezone preserved at Step 0; ICT conversion later for scheduling
+
+This file controls the operational scope of the daily AiScore sweep. It is a screening-scope layer, not a scoring-model patch. `CURRENT_MODEL.md` remains the higher authority if there is ever a direct conflict.
+
+The league-level admission registry is:
+
+`models/football/procedures/FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`
+
+---
+
+## 1. Core principle
+
+The daily sweep is broad at discovery and narrow before Work.
+
+`RAW AISCORE UNIVERSE -> SOURCE-TIME INTEGRITY -> MODEL QUALITY EXCLUSIONS -> LEAGUE ENVIRONMENT REGISTRY -> WORK HANDOFF`
+
+The objective is to reduce Work usage. Work should not repeatedly deep-research large numbers of marginal domestic-league fixtures whose competition environment is already known to be poor or uncertain for the Over model.
+
+**DISCOVER BROADLY; EXCLUDE WEAK ENVIRONMENTS EARLY; DEEP-RESEARCH NARROWLY.**
+
+Small league size alone is not an exclusion reason. Goal-environment usefulness and data quality are what matter.
+
+---
+
+## 2. Apply the active model-quality exclusions first
+
+Before league-environment admission, continue to exclude fixtures removed by the active senior-quality overlay, including:
+
+- youth/Uxx, academy and junior competitions;
+- reserve/B-team/development competitions;
+- amateur/semi-professional competitions;
+- regional/state/provincial leagues;
+- domestic lower divisions unless explicitly approved;
+- very small/obscure weak-data environments;
+- senior leagues whose data quality/coverage is too weak to support reliable cheap admission;
+- small/obscure **non-European domestic national cups** under the explicit cup rule in Section 5.
+
+Use:
+
+`SMALL / OBSCURE WEAK-DATA LEAGUE — SCOPE EXCLUSION`
+
+where applicable to leagues.
+
+Use:
+
+`SMALL NON-EUROPEAN NATIONAL CUP — USER SCOPE EXCLUSION`
+
+for the cup-specific exclusion defined in Section 5.
+
+These fixtures are excluded **before** the league registry's CONDITIONAL gate. Do not fetch recent-five statistics or run a cheap Over test merely to rescue an environment that already fails the quality/scope prerequisite.
+
+A league being a national top flight does **not by itself** guarantee CONDITIONAL status.
+
+**Explicit approved lower divisions:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They are whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because they are second-tier competitions.
+
+**Netherlands Eerste Divisie participant exception — effective 2026-09-19 ICT:** official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are included. The generic youth/Uxx/reserve/development team exclusion does not remove an official Eerste Divisie league fixture solely because a participant is named Jong or U21. This exception is confined to the Eerste Divisie competition itself and does not admit separate youth, reserve, development, cup, or friendly competitions.
+
+The separate UEFA Youth League trial remains a manual user override until the repository explicitly promotes it into official scope.
+
+---
+
+## 3. League-environment admission
+
+For senior domestic national leagues that survive the quality/data overlay, apply `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
+
+### PRIORITY
+
+Send to Work automatically.
+
+### NORMAL
+
+Send to Work automatically.
+
+This includes explicitly approved lower divisions listed as NORMAL in the registry, currently Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX.
+
+### CONDITIONAL
+
+Only established, sufficiently covered professional senior top flights may reach this class unless a lower division is separately and explicitly approved elsewhere in the registry.
+
+Do not send the whole competition to Work.
+
+Run only the cheap Step-0 admission test defined in the registry. If the fixture passes, send it to Work. If it fails or the required cheap evidence is not readily available, exclude it before Work as:
+
+`CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
+
+This is a scope decision, not a structural PASS.
+
+Do not reinterpret a genuinely small/obscure weak-data league as CONDITIONAL just because it is not named elsewhere in the registry.
+
+### LOW-GOAL EXCLUDE
+
+Do not send to Work during the normal sweep. Use:
+
+`LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
+
+Current examples include V.League 1, K League 1, and Argentina Liga Profesional / Primera División as defined in the registry.
+
+### HARD EXCLUDE
+
+Do not send to Work.
+
+Current hard exclusions are:
+
+- Finland — all domestic leagues, every tier/category;
+- Japan — all domestic league competitions, every tier/category, effective 2026-09-12 ICT onward.
+
+Use the applicable reason:
+
+`FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
+
+or
+
+`JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
+
+The Japanese rule is an explicit user scope directive. It excludes league play from the normal sweep; it does not by itself exclude Japanese domestic cups or other separately eligible senior continental fixtures. Japanese domestic cups are still subject to the non-European national-cup rule in Section 5.
+
+---
+
+## 4. Nordic and Scottish survival rule
+
+Do not accidentally remove useful northern-European leagues merely because they are smaller than the major five.
+
+The registry currently keeps these directly actionable when the normal quality overlay is satisfied:
+
+- Norway Eliteserien;
+- Sweden Allsvenskan;
+- Denmark Superliga;
+- Iceland top flight;
+- Scotland Premiership.
+
+Finland remains the explicit Nordic exception and is hard-excluded for domestic league play.
+
+---
+
+## 5. Continental competitions and cups
+
+The domestic-league registry does not automatically exclude senior first-team continental competitions. Domestic national cups are now split by the explicit user cup-scope rule below.
+
+### European domestic cups — retained
+
+Senior first-team **European domestic national cups** remain actionable even when the country/competition is relatively small. This is the explicit exception to the small-national-cup exclusion.
+
+For this rule, European means a domestic senior cup under a UEFA-member association. Examples include national FA cups and league cups in UEFA countries.
+
+This exception does **not** revive fixtures already excluded for another independent reason such as:
+
+- youth/Uxx;
+- reserve/B/development;
+- amateur/semi-professional-only competition status;
+- unresolved fixture identity/source time;
+- a direct user hard exclusion.
+
+Use the normal senior-quality overlay after the European-cup exception is recognized.
+
+### Small non-European domestic national cups — excluded
+
+Effective 2026-09-17 ICT, exclude **small/obscure non-European domestic national cup competitions** from the normal sweep before Work.
+
+Use:
+
+`SMALL NON-EUROPEAN NATIONAL CUP — USER SCOPE EXCLUSION`
+
+Operationally, treat a non-European domestic cup as small/obscure and exclude it when it is not a clearly major, established, well-covered senior national cup with reliable AiScore identity/data and sufficient normal research support. Do not spend Work usage trying to prove that a marginal cup deserves inclusion.
+
+Major, established, well-covered non-European national cups may remain actionable unless separately excluded. The rule is intended to remove marginal small-country/small-data domestic cup blocks, not to ban every non-European cup automatically.
+
+**European domestic cups are exempt from this small-cup exclusion.**
+
+### Continental competitions
+
+Senior UCL, UEL and UECL remain actionable when they clear the active model. Other senior continental competitions remain governed by `CURRENT_MODEL.md` and the normal quality overlay **except where this scope file explicitly excludes a competition**.
+
+### AFC Champions League Elite — removed from normal sweep
+
+AFC Champions League Elite is excluded from the normal daily Work handoff by explicit user directive, effective 2026-09-15 ICT onward.
+
+Do **not** apply the previous notable-team gate. Do **not** send AFC Champions League Elite fixtures to Work automatically, even when one or both clubs are notable.
+
+Use:
+
+`AFC ELITE — USER SCOPE EXCLUSION`
+
+This is a scope exclusion only. It makes no statement about the football quality, goal environment, or betting value of the excluded match.
+
+AFC Champions League Elite may be included only when the user explicitly requests a temporary one-run override after this exclusion.
+
+A club from a low-goal or hard-excluded domestic league is not automatically excluded when playing in another independently eligible cup or continental competition.
+
+Weak/obscure continental environments can still fail the quality/data overlay; senior status alone does not force admission.
+
+---
+
+## 6. Coverage accounting
+
+AiScore discovery does not need exact one-by-one enumeration of every raw excluded fixture before Work readiness.
+
+Every fixture actually discovered and removed before Work should remain auditable with an explicit reason, including where applicable:
+
+- `SMALL / OBSCURE WEAK-DATA LEAGUE — SCOPE EXCLUSION`
+- `SMALL NON-EUROPEAN NATIONAL CUP — USER SCOPE EXCLUSION`
+- `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
+- `LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
+- `FINNISH DOMESTIC LEAGUE — HARD EXCLUSION`
+- `JAPANESE DOMESTIC LEAGUE — HARD EXCLUSION`
+- `AFC ELITE — USER SCOPE EXCLUSION`
+- the existing model-quality exclusion reasons.
+
+Unenumerated blocks that are unambiguously youth/reserve/lower/amateur/regional/weak-data/hard-excluded may remain `raw_audit_complete=false` nonblocking gaps. Small non-European domestic cup blocks that are unambiguously covered by the explicit cup exclusion may also remain nonblocking raw gaps after the competition block itself has been identified and classified.
+
+Only fixtures that survive all scope and quality gates enter the compact Work handoff.
+
+---
+
+## 7. Work-usage target
+
+Do not optimize for sending the largest possible slate to Work.
+
+A healthy run may discover 100+ raw fixtures but send only a fraction of them to deep research.
+
+The intended behavior is:
+
+`RAW AISCORE -> EARLY QUALITY EXCLUSION -> CHEAP CONDITIONAL FILTERING -> SMALL ACTIONABLE HANDOFF -> DEEP WORK SWEEP`
+
+If a conditional fixture needs full match research merely to decide whether it deserves Work research, it has failed the purpose of the cheap gate and should remain excluded for that run.
+
+If a weak/obscure league needs research merely to decide whether it deserves CONDITIONAL status, it is already outside normal Step-0 scope for that run.
+
+Likewise, if a marginal non-European domestic cup requires substantial research merely to decide whether it is important enough to include, it should be excluded under the small-national-cup rule for that run.
+
+Explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus. Within official Netherlands Eerste Divisie league fixtures, Jong/U21/reserve-branded participant teams are included under the explicit 2026-09-19 competition-scoped exception and must not be removed by the generic participant-name youth/reserve filter.
+
+---
+
+## 8. Temporary override and registry maintenance
+
+If the user explicitly asks to trial a normally excluded or conditional league or competition, include it only for that requested run unless the repository is deliberately updated.
+
+Do not promote/demote a league from one slate. Use league-level audits and repeated model evidence, then update `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` once so later sweeps inherit the result cheaply.
