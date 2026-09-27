@@ -1,7 +1,7 @@
 # Football Orchestration Worker Contracts
 
 **Status:** EXPERIMENTAL  
-**Authority:** `models/football/CURRENT_MODEL.md` and its active load order.  
+**Authority:** `models/football/CURRENT_MODEL.md` and its active load order. For Step-1 PRE evidence/judgment separation, `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` defines the fixed evidence schema and Main-Agent decision trace.  
 **Purpose:** constrain delegated workers so parallelism reduces usage without creating multiple competing football judges.
 
 ## Universal worker rules
@@ -88,7 +88,18 @@ A small batch of Work-admitted fixtures, ideally 3–6 when independent research
 
 ### Job
 
-Collect the strongest available price/XI-blind evidence needed by the active model.
+Collect the same fixed price/XI-blind evidence channels for every fixture. Do not choose a different evidence bundle because one source is easier to find.
+
+Required route channels are defined by `FOOTBALL_PRE_DECISION_SPEC.md`:
+
+- CQ — chance quality / creation;
+- REP — repeatability;
+- MECH — independent scoring mechanism;
+- CTX — relevant context;
+- OPP / FORM / NAME / H2H / STATE — supporting-only evidence;
+- SUPPRESS / MECH_BREAK / ROLE_RISK / FATIGUE_ROTATION / DATA_CONFLICT — negative evidence.
+
+Return `UNKNOWN` when a channel cannot be established. Do not grade the channel into an official route state; the Main Agent owns the compiler.
 
 ### Return per fixture
 
@@ -109,12 +120,29 @@ team_profile:
   home_conceding_2plus_frequency: <fact or UNKNOWN>
   away_conceding_2plus_frequency: <fact or UNKNOWN>
   relevant_home_away_splits: <fact or UNKNOWN>
+pre_evidence_channels:
+  home:
+    cq: <facts or UNKNOWN>
+    rep: <facts or UNKNOWN>
+    mech: <facts or UNKNOWN>
+    ctx: <facts or UNKNOWN>
+    opp_support: <facts or UNKNOWN>
+    form_proxy: <facts or UNKNOWN>
+    name_reputation: <facts or UNKNOWN>
+    h2h: <facts or UNKNOWN>
+    state_assumption: <facts or UNKNOWN>
+    suppress: <facts or NONE>
+    mech_break: <facts or NONE>
+    role_risk: <facts or NONE>
+    fatigue_rotation: <facts or NONE>
+    data_conflict: <facts or NONE>
+  away: <same schema>
 route_evidence:
   home_independent_scoring_route:
-    evidence: <compact facts>
+    evidence: <compact synthesis, no official state>
     confidence: HIGH|MEDIUM|LOW|UNKNOWN
   away_independent_scoring_route:
-    evidence: <compact facts>
+    evidence: <compact synthesis, no official state>
     confidence: HIGH|MEDIUM|LOW|UNKNOWN
 carrier_evidence:
   home_self_funding_3plus_evidence: <compact facts or NONE>
@@ -188,9 +216,14 @@ Verify process integrity after Main-Agent judgment.
 2. No pre-Work exclusion appears in FOCUS/WATCHLIST/PASS as a structurally screened fixture.
 3. `Work-admitted = Focus + Watchlist + Pass + Unresolved`.
 4. No bookmaker price or confirmed-XI evidence influenced PRE.
-5. Each FOCUS/WATCHLIST item has route evidence, main failure mode, and XI-sensitivity state required by the active model.
-6. Fixture identity/time is consistent with the AiScore handoff.
-7. No worker decision was copied as an official Main-Agent verdict without Main-Agent judgment.
+5. Every actionable fixture has a complete `FOOTBALL_PRE_DECISION_SPEC_V1` trace, including route-channel states, route pair, carrier state, veto severity, grade/tier, burden and rank factors.
+6. No SUPPORTED+SUPPORTED fixture is Step-1 FOCUS.
+7. No CARRIER CANDIDATE receives VERIFIED carrier ranking privilege.
+8. No HARD VETO is averaged away by later positives.
+9. Every provisional PASS eligible for rescue received exactly one PASS Rescue Screen.
+10. PRE Structural Rank follows the compiled lexicographic Practical Ceiling order; every cross-grade inversion is explicitly justified.
+11. Fixture identity/time is consistent with the AiScore handoff.
+12. No worker decision was copied as an official Main-Agent verdict without Main-Agent judgment.
 
 ### Return
 
@@ -200,6 +233,12 @@ count_reconciliation: PASS|FAIL
 pre_leakage_test: PASS|FAIL
 identity_time_test: PASS|FAIL
 required_fields_test: PASS|FAIL
+pre_compiler_trace_test: PASS|FAIL
+route_tier_consistency_test: PASS|FAIL
+carrier_rank_privilege_test: PASS|FAIL
+hard_veto_test: PASS|FAIL
+pass_rescue_test: PASS|FAIL
+rank_order_test: PASS|FAIL
 faults:
   - <fault or NONE>
 ```
