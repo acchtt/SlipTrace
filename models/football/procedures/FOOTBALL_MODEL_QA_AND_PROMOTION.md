@@ -7,6 +7,12 @@ This procedure is **model-governance only**. It is not part of normal
 match-by-match decision latency and does not override
 `models/football/CURRENT_MODEL.md` during execution.
 
+For any audit of the **current production workflow**, first load and execute:
+
+`models/football/procedures/FOOTBALL_DECISION_SURFACE_QA.md`
+
+A contradiction-only audit is insufficient. Production QA must reach 100% material decision-surface coverage before it may be called complete.
+
 ## 1. Scope
 
 Apply this procedure to any proposed permanent change to:
@@ -24,6 +30,27 @@ Apply this procedure to any proposed permanent change to:
 
 Temporary user-authorized session overrides remain temporary unless separately
 tested here.
+
+## 1A. Operational decision-surface QA gate
+
+Before evaluating whether a current production rule is internally correct, build the complete stage input inventory and trace matrix required by `FOOTBALL_DECISION_SURFACE_QA.md`.
+
+Mandatory gates:
+
+- zero untraced verdict-changing inputs;
+- explicit precedence for every overlapping active authority;
+- explicit missing-data behavior;
+- explicit persistence destination;
+- negative-space scan for under-specified words such as recent/strong/material/relevant;
+- deterministic replay of all required branch cases;
+- H2H as a dedicated surface whenever totals/burden/suppression are assessed;
+- stale production text / expired override scan.
+
+If this gate fails, do not proceed as though the QA were complete. Record:
+
+`QA INCOMPLETE — DECISION SURFACE GAP`
+
+or the more specific contradiction/under-specification/persistence failure from the decision-surface procedure.
 
 ## 2. Champion / challenger rule
 
