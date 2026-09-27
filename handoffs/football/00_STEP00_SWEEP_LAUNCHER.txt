@@ -12,7 +12,9 @@ EXECUTE IN THIS ORDER:
 2. Load and execute upstream/default-branch:
    models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md
 
-3. Apply it to the user's requested ICT sweep window.
+3. Apply it to the user's requested ICT sweep window in FAST_PRODUCTION mode by default.
+   - Use FULL_AUDIT only if the user explicitly asks for a full/exhaustive/coverage audit.
+   - Before fresh discovery, reuse the newest COMPLETE same-end run when it covers the new requested window.
    - If the start is relative (`now` / `from now`), first reuse the newest compatible RUNNING/BLOCKED run with the same requested end boundary.
    - Do not create another overlapping run merely because the current clock minute changed.
    - Create a fresh overlapping run only if the user explicitly requests a new/restarted sweep.
@@ -44,7 +46,10 @@ CRITICAL:
 - Use DATE-FIRST BATCH discovery: fetch each required AiScore date surface once and filter locally.
 - Do not loop through competitions one by one to prove absence.
 - Reuse authoritative AiScore epoch/ISO/offset timestamps already captured; open individual match pages only for missing/conflicting time or identity.
-- CONDITIONAL gates may use batch/cached evidence or at most one direct AiScore surface per fixture; no broad research.
+- FAST_PRODUCTION does not run CONDITIONAL gates unless the user explicitly names the competition.
+- Repeated same-end sweeps must reuse verified Airtable coverage from the latest covering COMPLETE run instead of rediscovering the slate.
+- FAST_PRODUCTION uses at most the ICT date surface(s) touched by the window; no automatic +/-1 buffer-date crawl.
+- Do not independently refetch the terminal date if it was already fetched in the same run and covers the interval.
 - Preserve the exact requested Asia/Ho_Chi_Minh window.
 - Never mark work_ready=true with an unresolved actionable coverage or source-time fault.
 - Do not perform Work structural ranking, XI/odds review, live analysis, or betting decisions in Step 0.
