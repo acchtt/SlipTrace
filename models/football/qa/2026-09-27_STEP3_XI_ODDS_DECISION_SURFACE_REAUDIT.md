@@ -357,3 +357,60 @@ not:
 because this re-audit achieved complete input coverage: all 46 material surfaces were inventoried and traced.
 
 Do not trust Step 3 to be fully repeatable across chats until the compiled execution spec resolves the failed replay branches above.
+
+
+## 9. Post-fix verification — IMPLEMENTED
+
+**Repair authority added:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
+
+The production prompt, betting procedure, Current Model, Decision States contract, coverage bridge and launchers were aligned to the compiler. Conflicting legacy rule files now carry explicit Step-2 compiler supersession/clarification notices.
+
+### Decision-surface result after repair
+
+- material decision surfaces: **46**
+- traced: **46**
+- untraced: **0**
+- persistence model label for new states: **Football A**
+- canonical Step-2 compiler loaded last: **YES**
+- stale v0.2.54 official header in active persistence contracts: **REMOVED**
+- generic HMA ordinary above-burden official path: **DISABLED**
+- EGE-alone above-frozen direct path: **DISABLED**
+- exact B+ protected line: **PRESERVED**
+- ordinary B+ +0.25 direct ambiguity: **RESOLVED TO WAIT**
+- ELITE/EXTREME market-calibrated current PRE exception: **PRESERVED**
+- H2H decision protocol: **COMPILED**
+- XI role/mechanism protocol: **COMPILED**
+- provisional fast verdict vs final publish state: **SEPARATED**
+- opportunistic just-started live TAKE: **BLOCKED WITHOUT PREDECLARED PLAN/EXCEPTION**
+- frozen-PRE alignment vs current-PRE fit: **SEPARATED**
+- official exposure persistence transaction: **COMPILED**
+
+### Replay verification
+
+All 18 required branches now have one canonical current answer:
+
+1. exact supported burden + price clears -> OFFICIAL LOCK;
+2. exact supported burden + price short -> PRICE BELOW FLOOR;
+3. ordinary +0.25 above frozen burden -> LIVE DECAY WAIT;
+4. ordinary +0.50+ above frozen burden -> LIVE DECAY WAIT;
+5. severe market undercut -> mandatory re-screen / no instant lock without compiled override evidence;
+6. B+ exact frozen burden + gates clear -> B+ OFFICIAL LOCK;
+7. B+ +0.25 + PRE VERIFIED carrier only -> WAIT;
+8. ELITE/EXTREME carrier clears -> market-calibrated current PRE before WAIT;
+9. EGE above frozen burden without ELITE/EXTREME current-PRE carrier -> WAIT;
+10. EGE + ELITE/EXTREME carrier -> carrier current-PRE authority controls;
+11. transferable suppressive H2H + independent current suppression -> veto contribution / O3+ blocked unless same mechanism is defeated;
+12. suppressive H2H without current corroboration -> SOFT PENALTY at most;
+13. open H2H + current suppression -> current suppression controls;
+14. just-started with no predeclared plan/exception -> SHADOW / no official live entry;
+15. just-started with valid plan/exception -> PROVISIONAL FAST VERDICT -> research -> final/persist if still clear;
+16. score/card/material change before finalization -> old quote VOID / new epoch;
+17. Decision State succeeds but Website Pick fails -> PERSISTENCE SYNC FAULT;
+18. duplicate official pick attempt -> block duplicate / preserve original exposure.
+
+### Post-fix QA result
+
+`QA PASS — DECISION SURFACE COMPLETE`
+
+This PASS is a **process-consistency result**. It does not claim that the predictive model is optimal or that newly introduced predictive thresholds were validated. The repair compiles the already-active rule stack into one deterministic execution path and resolves contradictory production semantics conservatively.
+
