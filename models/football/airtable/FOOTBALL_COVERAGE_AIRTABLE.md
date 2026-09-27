@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
 **Table ID:** `tblcl1UAyMqZT6Ub0`  
-**Official model:** Football v0.2.54
+**Official model:** Football A
 
 This table is the coverage-control and cross-chat bridge for the current football workflow. It records every fixture in the reconciled AiScore slate and preserves the **frozen Work PRE state** for later user-supplied XI/odds review.
 
@@ -117,6 +117,8 @@ are shadow/comparison fields only. They do not define the official board tier an
 
 Post-XI v0.2.50 EGE, v0.2.51 MCE, and v0.2.52 carrier-reopen/execution states do not rewrite these frozen PRE fields.
 
+For new Football A decisions, the current Step-2 state is compiled by `FOOTBALL_STEP2_EXECUTION_SPEC.md`. Daily Coverage Ledger remains frozen PRE history only. Current XI mechanism, H2H state, frozen-PRE market alignment, current-PRE execution fit, EGE/carrier/current PRE, upper-tail, execution class and final exposure belong in Decision States / Website Picks, not by mutating frozen PRE.
+
 For every new Step-1 board produced under the compiled PRE authority, `Frozen PRE Summary` / `Coverage Notes` must also preserve a compact `FOOTBALL_PRE_DECISION_SPEC_V1` trace sufficient to reconstruct:
 
 - HOME/AWAY CQ/REP/MECH/CTX states and final route states;
@@ -228,7 +230,7 @@ If publication or counts fail:
 
 The intended current workflow is:
 
-`AiScore handoff → Work structural sweep + route-quality/CC+ audit + structural rank → Daily Coverage Ledger → Normal Chat user-supplied XI/odds review → v0.2.54 structural-rank/execution-class assessment`
+`AiScore handoff → Work structural sweep through FOOTBALL_PRE_DECISION_SPEC_V1 → Daily Coverage Ledger → Normal Chat XI/odds review through FOOTBALL_STEP2_EXECUTION_SPEC.md → Decision States / Website Picks`
 
 Normal Chat should read the persisted frozen state rather than reconstructing the board from conversational memory.
 
