@@ -15,15 +15,30 @@ The league-level admission registry is:
 
 ## 1. Core principle
 
-The daily sweep is broad at discovery and narrow before Work.
+The daily sweep uses **NARROW CORE discovery**. Step 0 should search the model's retained competition universe directly instead of crawling the raw AiScore world and proving most of it irrelevant.
 
-`RAW AISCORE UNIVERSE -> SOURCE-TIME INTEGRITY -> MODEL QUALITY EXCLUSIONS -> LEAGUE ENVIRONMENT REGISTRY -> WORK HANDOFF`
+`NARROW CORE ALLOWLIST -> SOURCE-TIME INTEGRITY -> CHEAP CONDITIONAL GATE -> WORK HANDOFF`
 
-The objective is to reduce Work usage. Work should not repeatedly deep-research large numbers of marginal domestic-league fixtures whose competition environment is already known to be poor or uncertain for the Over model.
+The objective is to reduce both Normal Chat execution cost and Work usage. A competition already outside normal scope should not consume discovery traversal, timezone resolution, cup auditing, or cheap-gate research merely so it can be excluded later.
 
-**DISCOVER BROADLY; EXCLUDE WEAK ENVIRONMENTS EARLY; DEEP-RESEARCH NARROWLY.**
+**DISCOVER THE RETAINED UNIVERSE; DO NOT DISCOVER GLOBALLY AND FILTER AFTERWARD.**
 
 Small league size alone is not an exclusion reason. Goal-environment usefulness and data quality are what matter.
+
+### NARROW CORE discovery allowlist
+
+Normal Step-0 discovery is limited to:
+
+1. domestic leagues explicitly listed as `PRIORITY` or `NORMAL` in the active league registry;
+2. explicit approved lower divisions already listed as `NORMAL`;
+3. leagues explicitly listed in the registry's `CONDITIONAL` pool, but only under the restricted conditional-discovery rule below;
+4. retained senior continental competitions under Section 5;
+5. retained European domestic cups under the restricted cup rule below;
+6. explicit temporary user/session overrides declared by `CURRENT_MODEL.md` or this scope file.
+
+Everything else is outside normal discovery unless the user explicitly requests a broader one-run sweep.
+
+A block outside this allowlist may remain an unenumerated non-blocking raw gap. Step 0 does not need to visit it merely to prove exclusion.
 
 ---
 
@@ -38,6 +53,8 @@ Before league-environment admission, continue to exclude fixtures removed by the
 - domestic lower divisions unless explicitly approved;
 - very small/obscure weak-data environments;
 - senior leagues whose data quality/coverage is too weak to support reliable cheap admission;
+- club friendlies and senior national-team friendlies unless explicitly requested for a one-run override;
+- lower-division-only challenge/trophy competitions and cup preliminary/qualifying rounds dominated by amateur, regional, reserve or unapproved lower-tier clubs;
 - small/obscure **non-European domestic national cups** under the explicit cup rule in Section 5.
 
 Use:
@@ -80,17 +97,22 @@ This includes explicitly approved lower divisions listed as NORMAL in the regist
 
 ### CONDITIONAL
 
-Only established, sufficiently covered professional senior top flights may reach this class unless a lower division is separately and explicitly approved elsewhere in the registry.
+CONDITIONAL is **explicit-list only**. Only competitions named in the active registry's CONDITIONAL pool may receive the cheap gate. Do not discover or research an unlisted competition merely to decide whether it deserves CONDITIONAL status.
 
-Do not send the whole competition to Work.
+For listed CONDITIONAL leagues:
 
-Run only the cheap Step-0 admission test defined in the registry. If the fixture passes, send it to Work. If it fails or the required cheap evidence is not readily available, exclude it before Work as:
+- do not run a separate global hunt for the competition;
+- inspect it only when its block is directly available on the required AiScore date/listing surface for the requested window, or when a cached/current competition locator already exists;
+- do not send the whole competition to Work;
+- run only the cheap Step-0 admission test defined in the registry.
+
+If the fixture passes, send it to Work. If it fails or the required cheap evidence is not readily available, exclude it before Work as:
 
 `CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
 
 This is a scope decision, not a structural PASS.
 
-Do not reinterpret a genuinely small/obscure weak-data league as CONDITIONAL just because it is not named elsewhere in the registry.
+An unlisted league is outside normal sweep scope unless explicitly promoted in the registry or included by a one-run user override.
 
 ### LOW-GOAL EXCLUDE
 
@@ -141,11 +163,23 @@ Finland remains the explicit Nordic exception and is hard-excluded for domestic 
 
 The domestic-league registry does not automatically exclude senior first-team continental competitions. Domestic national cups are now split by the explicit user cup-scope rule below.
 
-### European domestic cups — retained
+### European domestic cups — retained, narrow audit
 
-Senior first-team **European domestic national cups** remain actionable even when the country/competition is relatively small. This is the explicit exception to the small-national-cup exclusion.
+European cups are no longer audited across every UEFA association.
 
-For this rule, European means a domestic senior cup under a UEFA-member association. Examples include national FA cups and league cups in UEFA countries.
+Normal Step-0 cup discovery is limited to **senior first-team national FA cups and top-level league cups in countries that currently contain a PRIORITY or NORMAL domestic league in the registry**.
+
+For those retained countries:
+
+- search the senior main draw / normal professional cup stage;
+- skip preliminary/qualifying rounds that are entirely amateur, regional, reserve, or unapproved lower-division participants;
+- skip lower-division-only challenge/trophy competitions;
+- if a preliminary or lower-round fixture contains a PRIORITY/NORMAL top-flight club or an explicitly approved lower-division club, it may still be inspected;
+- do not perform a separate association-wide cup crawl for countries outside the PRIORITY/NORMAL registry footprint.
+
+Cups from CONDITIONAL-registry countries are **not proactively audited**. They may be considered only when directly surfaced in the requested AiScore date block with a clearly eligible senior professional participant, or under an explicit user override.
+
+Senior women's top-flight/cup fixtures are not globally crawled. They may remain actionable when they are directly surfaced, clearly senior/well-covered, and otherwise satisfy the quality rules, but Step 0 must not run a separate all-association women's competition search.
 
 This exception does **not** revive fixtures already excluded for another independent reason such as:
 
@@ -155,7 +189,7 @@ This exception does **not** revive fixtures already excluded for another indepen
 - unresolved fixture identity/source time;
 - a direct user hard exclusion.
 
-Use the normal senior-quality overlay after the European-cup exception is recognized.
+Use the normal senior-quality overlay after the retained-cup rule is recognized.
 
 ### Small non-European domestic national cups — excluded
 
@@ -197,7 +231,7 @@ Weak/obscure continental environments can still fail the quality/data overlay; s
 
 ## 6. Coverage accounting
 
-AiScore discovery does not need exact one-by-one enumeration of every raw excluded fixture before Work readiness.
+AiScore discovery does not need exact one-by-one enumeration of every raw excluded fixture before Work readiness, and under NARROW CORE it must not enumerate out-of-scope competition blocks merely to prove they are excluded.
 
 Every fixture actually discovered and removed before Work should remain auditable with an explicit reason, including where applicable:
 
@@ -220,11 +254,11 @@ Only fixtures that survive all scope and quality gates enter the compact Work ha
 
 Do not optimize for sending the largest possible slate to Work.
 
-A healthy run may discover 100+ raw fixtures but send only a fraction of them to deep research.
+A healthy run should normally discover **only the retained competition universe**, not 100+ globally sourced fixtures that are later discarded.
 
 The intended behavior is:
 
-`RAW AISCORE -> EARLY QUALITY EXCLUSION -> CHEAP CONDITIONAL FILTERING -> SMALL ACTIONABLE HANDOFF -> DEEP WORK SWEEP`
+`NARROW CORE AISCORE BLOCKS -> CHEAP CONDITIONAL FILTERING -> SMALL ACTIONABLE HANDOFF -> DEEP WORK SWEEP`
 
 If a conditional fixture needs full match research merely to decide whether it deserves Work research, it has failed the purpose of the cheap gate and should remain excluded for that run.
 
