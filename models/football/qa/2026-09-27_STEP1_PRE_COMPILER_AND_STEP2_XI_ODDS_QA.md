@@ -190,3 +190,93 @@ It should explicitly compile:
 - transactional Decision State + Website Pick publication.
 
 This should be operational compilation, not a predictive-model change.
+
+
+## D. H2H assessment QA
+
+### HIGH 11 — H2H has execution authority but no deterministic assessment protocol
+
+Current active behavior is directionally correct but under-specified:
+
+- Step-1 compiled PRE treats H2H as a **supporting-only** channel. H2H cannot independently create PROVEN/SUPPORTED, cannot harden a second route by itself, and historical H2H alone is never a HARD VETO.
+- `CURRENT_MODEL.md` requires a **recent same-venue H2H / suppression re-screen before O3.0+ execution**.
+- The XI/odds prompt and betting procedure repeat that same-venue requirement.
+- The B+ protected-line rule allows recent same-venue H2H suppression to contribute to a negative veto **only when it matches the current tactical/control mechanism**.
+
+The inconsistency risk is that there is no active canonical definition of:
+
+- what counts as "recent";
+- how many H2Hs to inspect;
+- when same-venue H2H is comparable to the current tactical/managerial era;
+- how to treat promoted/relegated sides or major class changes;
+- when all-venue H2H may supplement same-venue evidence;
+- when long-run H2H becomes too stale to matter;
+- how scoreline history differs from mechanism evidence;
+- exactly when H2H can lower burden, create a SOFT PENALTY, or contribute to a HARD VETO.
+
+A previous historical handoff used the useful sequence:
+
+`RECENT SAME-VENUE H2H -> RECENT ALL-VENUE H2H -> LONG-RUN H2H`
+
+but that sequence is not currently compiled into active canonical Step-2 authority and must not be relied on as a hidden session rule.
+
+### Recommended H2H compiler semantics
+
+The future `FOOTBALL_STEP2_EXECUTION_SPEC.md` should use:
+
+`CURRENT MECHANISM FIRST -> SAME-VENUE RECENT H2H -> ALL-VENUE RECENT H2H -> LONG-RUN BACKGROUND`
+
+with these fixed semantics:
+
+1. **Current football mechanism has priority.**
+   - Start from frozen PRE + confirmed XI + fresh current research.
+   - Determine the relevant mechanism: control/compression, transition openness, carrier dominance, weak-secondary absence, set-piece exposure, etc.
+   - H2H is evaluated only for whether it reproduces that mechanism.
+
+2. **Same-venue recent H2H is the strongest H2H layer.**
+   - Use it when venue/home-away roles materially affect the mechanism.
+   - Scoreline alone is insufficient; look for repeatable mechanism-compatible evidence when available.
+   - If personnel, manager, division/class or tactical context changed materially, label the H2H `LOW TRANSFERABILITY`.
+
+3. **Recent all-venue H2H is secondary.**
+   - Use only after same-venue review.
+   - It can corroborate a mechanism but should not erase contrary current same-venue/current-team evidence.
+
+4. **Long-run H2H is background only.**
+   - Never creates a veto, route upgrade, burden upgrade, or direct execution permission.
+   - It may be cited as context only when the same mechanism persists across eras.
+
+5. **H2H result labels should be explicit:**
+   - `H2H = MECHANISM-CORROBORATING`
+   - `H2H = MECHANISM-CONTRADICTING`
+   - `H2H = MIXED`
+   - `H2H = LOW TRANSFERABILITY`
+   - `H2H = INSUFFICIENT / NONE`
+
+6. **H2H cannot act alone.**
+   - H2H alone = context / SOFT PENALTY at most.
+   - A HARD VETO requires H2H suppression **plus an independent current negative channel** such as current chance suppression, current tactical control, route damage, or mechanism-specific opponent resistance.
+   - This matches the Step-1 compiler's two-channel HARD VETO discipline.
+
+7. **O3.0+ gate.**
+   - Mandatory recent same-venue H2H review remains.
+   - If H2H is mechanism-corroborating for suppression, the current upper-tail/4+ case must explicitly defeat that mechanism before O3.0+ execution.
+   - If H2H is stale/low-transferability/mixed, record that and do not automatically lower burden.
+   - If H2H is open but current football is suppressive, H2H cannot rescue the execution.
+
+8. **B+ exact protected burden.**
+   - The B+ protected-line rule remains primary.
+   - H2H may block exact-burden execution only when recent/relevant/mechanism-compatible **and** independently corroborated by a current negative channel.
+   - H2H may not reintroduce a generic extra positive hardener.
+
+9. **Persistence.**
+   Persist:
+   - same-venue H2H sample/result;
+   - all-venue H2H result when checked;
+   - transferability;
+   - current mechanism being tested;
+   - H2H classification;
+   - whether H2H changed burden/execution and the independent corroborating channel.
+
+This is an execution-consistency clarification, not a predictive-model promotion.
+
