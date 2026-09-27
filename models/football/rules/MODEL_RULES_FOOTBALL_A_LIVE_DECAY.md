@@ -1,5 +1,9 @@
 # Football A — Predeclared Live-Decay Execution Patch
 
+> **STEP-2 COMPILER SUPERSESSION — CURRENT**
+> For new XI/odds/live assessments, `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is final. Ordinary decay targets the frozen supported execution burden, not a generic HMA boundary. Official post-kick exposure requires a **predeclared live plan or active exact-match exception**; otherwise the live quote is shadow-only. A latency-first verdict may be provisional, but final publication follows same-epoch research/persistence clearance.
+
+
 **Status:** ACTIVE OFFICIAL PATCH  
 **Model:** Football A  
 **Effective:** immediately from this commit  
