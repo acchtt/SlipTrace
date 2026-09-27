@@ -1,7 +1,7 @@
 # Football Match Sweep and Research Procedure
 
 **Status:** ACTIVE  
-**Official model:** Football A — active v0.2.55 stack  
+**Official model:** Football A — current active stack  
 **Fixture authority:** AiScore only  
 **Timezone:** Asia/Ho_Chi_Minh (ICT)  
 **Time authority:** `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
@@ -194,45 +194,40 @@ If the invariant fails, the handoff is provisional and must not be treated as a 
 
 The Work structural sweep processes **every actionable fixture** before display shortening.
 
-Research/evaluate:
+The research stage must populate the fixed evidence channels required by:
 
-- structural matchup quality;
-- credible independent scoring routes;
-- whether two-sidedness is `QUALITY PROVEN` or only `NOMINAL / WEAK SECONDARY`;
-- carrier/favorite self-funded ceiling;
-- `CC+ — CARRIER CEILING` eligibility or `CC+ CANDIDATE — XI SENSITIVE` status;
-- opponent contribution;
-- failure-mode resistance;
-- team GF/GA and scoring/conceding frequencies;
-- home/away and competition-specific context where useful;
-- chance-quality support;
-- format/incentive/game-state risk;
-- lineup sensitivity as a future rerank item;
-- structural goal-burden ceiling/range.
+`models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md`
 
-### 7.1 Mandatory carrier-ceiling audit before B/PASS
+For each team collect, where available:
 
-Before assigning `B / PASS` to a fixture containing a strong favorite/carrier, explicitly answer:
+- CQ — chance quality / creation;
+- REP — current repeatability;
+- MECH — independent scoring mechanism;
+- CTX — relevant home/away/competition context;
+- supporting-only OPP / FORM / NAME / H2H / STATE evidence;
+- negative SUPPRESS / MECH_BREAK / ROLE_RISK / FATIGUE_ROTATION / DATA_CONFLICT evidence;
+- source quality and explicit UNKNOWN items.
 
-1. Does either team have credible independent 3+ team-goal potential?
-2. Is the recent low-scoring profile supported by true chance suppression, or could it be score outcome / finishing / schedule noise?
-3. Is the ceiling repeatable enough to survive a weak opponent-contribution route?
+Do not assign the route state while research is still incomplete. Evidence collection and football judgment remain separate operations.
 
-If credible independent 3+ potential exists but XI uncertainty prevents promotion, tag:
+### 7.1 Compiled PRE judgment — mandatory
 
-`CC+ CANDIDATE — XI SENSITIVE`
+After the evidence packet is frozen, execute `FOOTBALL_PRE_DECISION_SPEC.md` exactly:
 
-and keep the match eligible for the later post-XI carrier review unless a separate dominant structural failure requires PASS.
+`HOME ROUTE -> AWAY ROUTE -> SECOND-ROUTE INDEPENDENCE -> PRACTICAL CARRIER -> FAILURE/VETO -> GRADE -> BOARD TIER -> PASS RESCUE -> SUPPORTED BURDEN -> RANK FACTORS`
 
-Do not use a single historical 3+ result as CC+ proof.
+The compiled spec is final Step-1 authority where older procedure/rule wording conflicts or is ambiguous.
 
 ### 7.2 Price/XI boundary
 
-The Work PRE stage is **price-blind**. Do not use bookmaker price to improve a structural grade or ranking.
+The Work PRE stage is **price-blind and confirmed-XI-blind**.
 
-Under the current user workflow, do not automatically fetch confirmed XI or bookmaker odds during this structural stage. The user supplies them later.
+- do not use bookmaker price/line/market movement to improve PRE;
+- do not fetch or use confirmed XI to clear a Step-1 tier;
+- do not manufacture post-XI EGE/current-PRE states at Work;
+- preserve XI sensitivity as a later-rerank field.
 
-The EGE regime is post-XI and must not be manufactured at PRE from bookmaker totals.
+A `SUPPORTED + SUPPORTED` A2 is therefore Step-1 WATCHLIST maximum under the compiled spec. Step 2 may create a fresh current state only under its active XI/post-XI rules.
 
 ---
 
@@ -245,15 +240,15 @@ Give every actionable fixture exactly one PRE disposition:
 - `PASS`
 - `UNRESOLVED`
 
-Use the current PRE grades/types defined by the active model.
+Every actionable fixture must freeze the complete `FOOTBALL_PRE_DECISION_SPEC_V1` trace before ranking.
 
-Two-Sided Tier A remains the primary lane. For comparable non-Tier-A candidates rank:
+PRE Structural Rank uses only the compiled Practical Ceiling order:
 
-`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
+`PRACTICAL SELF-FUNDED 3+ CEILING -> OPPONENT FAILURE COMPATIBILITY -> CHANCE QUALITY/URGENCY -> FAILURE RESISTANCE -> SECONDARY-ROUTE QUALITY -> ROUTE SYMMETRY/GRADE -> SUPPORTED-BURDEN FIT -> EVIDENCE CONFIDENCE`
 
-Do **not** automatically rank a B+ nominal two-sided match above a carrier with a materially stronger self-funded ceiling.
+Do **not** use the superseded automatic hierarchy `QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > ...` as an independent rank rule.
 
-For every FOCUS/WATCHLIST row, preserve whether the route label is quality-proven or nominal. For every strong-carrier B/PASS row, preserve why CC+ failed or whether it remains `CC+ CANDIDATE — XI SENSITIVE`.
+A VERIFIED B+ carrier may rank above an ordinary A2 when the practical 3+ path is stronger. A CANDIDATE carrier may not receive that rank privilege.
 
 Assign every surviving FOCUS/WATCHLIST candidate a stable same-window Structural Rank plus supported burden/range. The Work output is a **frozen structural PRE board**, not an official betting card.
 
@@ -343,38 +338,22 @@ Live evidence validates or invalidates history; it does not rewrite history.
 
 ---
 
-## 13. v0.2.53 ranking-integrity overlay
+## 13. PRE compiler authority
 
-This section is mandatory for every prospective sweep under Football v0.2.53.
+For all new Work boards, `FOOTBALL_PRE_DECISION_SPEC.md` replaces duplicated in-procedure route/tier/ranking matrices.
 
-### Route proof before tier
+Mandatory consistency assertions before publication:
 
-Grade the home and away scoring routes separately as `PROVEN`, `SUPPORTED`, `NOMINAL`, or `FAILED`. Preserve the combined pair in the frozen output.
-
-Apply the v0.2.53 PRE caps:
-
-- `PROVEN + PROVEN` — A1 / FOCUS eligible;
-- `PROVEN + SUPPORTED` — A2 / FOCUS eligible;
-- `SUPPORTED + SUPPORTED` — A2 / FOCUS only with strong chance quality and failure resistance;
-- `PROVEN + NOMINAL` — WATCHLIST unless the proven route is true CC+;
-- `SUPPORTED + NOMINAL` — B+ / WATCHLIST;
-- `NOMINAL + NOMINAL` — PASS;
-- any `FAILED` route — WATCHLIST at most and normally PASS unless true CC+ survives the failure branch;
-- any data-poor substitute — A2 maximum.
-
-FOCUS additionally requires that the supported burden survives the named dominant failure mode. Raw GF/GA, names, opponent leakage, XI preservation, or price may not compensate for a failed route gate.
-
-### Relative ranking
-
-Within each practical kickoff window, rerank by route pair, chance quality, CC+ ceiling, failure-mode resistance, lower supported burden, and evidence confidence. The previously printed grade is not an automatic tiebreaker.
-
-### League gates
-
-Apply the active league registry before promotion. Japanese domestic leagues, including J1, are hard-excluded from 2026-09-12 ICT onward.
-
-For China Super League O3.0+ candidates, require both relevant home/away route environments to support 3+ or one true CC+ carrier. Otherwise record `CSL HIGH-BURDEN GATE FAILED`.
-
-### Identity gate
+1. each team has an explicit route state from the compiler;
+2. no supporting-only proxy creates SUPPORTED/PROVEN by itself;
+3. every A2 two-route case has INDEPENDENT or CONDITIONAL weaker-route state;
+4. SUPPORTED+SUPPORTED is Step-1 WATCHLIST maximum;
+5. VERIFIED/CANDIDATE/UNVERIFIED carrier state is explicit;
+6. every provisional PASS eligible for rescue received exactly one rescue screen;
+7. HARD VETO cannot be averaged away;
+8. LOW evidence/burden confidence cannot produce FOCUS;
+9. PRE Structural Rank follows the compiled lexicographic order;
+10. no price or confirmed-XI evidence contaminated PRE.
 
 Use `AISCORE:<fixture_id>` as the preferred unique key. If no ID exists, use competition + normalized teams + kickoff_utc.
 
@@ -384,11 +363,22 @@ Before freezing or publishing, block conflicting duplicate identities:
 
 No unresolved duplicate may appear twice in a ranking pool or on two slate dates.
 
-
 ---
 
-## 14. v0.2.54 structural-rank output
+## 14. Frozen structural-rank output
 
-Within every practical kickoff window, freeze the full candidate order—not only FOCUS/WATCHLIST labels. For each surviving candidate record Structural Rank, route pair, chance-quality state, CC+ state, dominant failure mode, supported burden/range and evidence confidence.
+Within every practical kickoff window, freeze the full candidate order only **after** all fixture compiler traces are complete.
 
-Do not create a price-derived HOLD during Work. At Step 2, a structurally qualified candidate with an unavailable/too-short target offer becomes `QUALIFIED — WAIT FOR DECAY`; a candidate with failed football gates becomes `STRUCTURAL HOLD`. These states must remain distinct for ranking and audit.
+For each surviving candidate record:
+
+- Structural Rank;
+- route pair;
+- weaker-route independence state;
+- practical-carrier state;
+- chance-quality state;
+- dominant failure mode + severity;
+- supported burden/range + basis;
+- evidence confidence;
+- exact cross-grade inversion reason when applicable.
+
+Do not create a price-derived HOLD during Work. At Step 2, a structurally qualified candidate with an unavailable/too-short target offer may become a qualified execution wait under the active Step-2 rules; a candidate with failed football gates becomes STRUCTURAL HOLD. Those later states must not rewrite frozen PRE.
