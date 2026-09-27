@@ -142,11 +142,23 @@ Build a discovery envelope from the union of:
 3. one date before the earliest UTC date touched;
 4. one date after the latest UTC date touched.
 
-Traverse all relevant AiScore date/listing blocks in that envelope far enough to establish whether potentially actionable senior competition blocks can place fixtures inside the requested window.
+### 4.2.1 Date-first batch traversal — mandatory default
 
-The one-day buffer exists because AiScore surfaces fixtures through date/listing contexts that can differ from the user's ICT slate date. The buffer is discovery insurance only; out-of-window fixtures are pruned later.
+Traverse the envelope **date-first, not competition-first**.
 
-Do **not** stop traversal because the latest fixture found so far is well before the requested cutoff.
+For each required AiScore listing date:
+
+1. open/fetch the date/listing surface once;
+2. extract the visible competition blocks and fixture identities in one batch;
+3. locally filter that batch against the active sweep-scope allowlist;
+4. persist only the retained candidates and material exclusions;
+5. do **not** separately open every PRIORITY/NORMAL/CONDITIONAL competition merely to prove that it has zero fixtures.
+
+A targeted competition lookup is allowed only when there is concrete current evidence that an in-scope competition has an in-window fixture that the date surface failed to expose, or when a discovered fixture has an identity/time/status conflict that cannot be resolved from the batch surface.
+
+The one-day buffer exists because AiScore surfaces fixtures through date/listing contexts that can differ from the user's ICT slate date. Buffer dates are scanned at **date level only**. Do not run a full per-competition traversal on buffer dates.
+
+Do **not** stop date traversal because the latest fixture found so far is well before the requested cutoff.
 
 ### 4.3 Cross-midnight and early-morning hard rule
 
@@ -168,9 +180,9 @@ Define:
 
 `terminal_interval_ict = max(window_start_ict, window_end_ict - 6 hours) -> window_end_ict`
 
-Before `actionable_complete=true`, perform a **second, dedicated AiScore-only discovery pass** targeted specifically at this terminal interval and its relevant date/listing blocks.
+Before `actionable_complete=true`, perform a **second, dedicated AiScore-only date-level discovery pass** targeted specifically at this terminal interval and its relevant date/listing surfaces.
 
-The terminal sentinel is independent of the main pass. Its job is to catch late-night/next-date blocks that the broad traversal may have skipped.
+The terminal sentinel is independent of the main pass, but it must remain **date-first**: refetch/reinspect the terminal date surface(s) once and filter the returned batch against the active allowlist. Do not re-open every competition individually unless the second pass exposes a concrete discrepancy.
 
 Record:
 
@@ -200,15 +212,20 @@ During broad discovery, fixture membership can be decided cheaply when AiScore s
 - if AiScore supplies an explicit offset, an ephemeral normalized UTC value may be calculated for preliminary in/out-of-window testing while preserving the original source fields;
 - if the timestamp cannot yet be interpreted safely, carry it as `WINDOW STATUS = PENDING CONVERSION` or `UNRESOLVED — SOURCE TIME INTEGRITY` during discovery.
 
-Before the final Work handoff is packaged, run a **canonical admitted-set time pass** over every surviving Work-admitted fixture:
+Before the final Work handoff is packaged, run a **canonical admitted-set time pass** over every surviving Work-admitted fixture.
 
-1. open/revalidate the canonical AiScore match identity;
-2. obtain an authoritative timestamp using Section 1.1;
-3. normalize to `kickoff_utc_verified`;
-4. convert exactly once to `kickoff_ict_verified`;
-5. prove `window_start_ict <= kickoff_ict_verified <= window_end_ict`;
-6. remove true out-of-window fixtures;
-7. mark unresolved timestamp/identity conflicts as blocking.
+Use the cheapest authoritative evidence already captured first:
+
+1. if the date/listing batch already supplied the fixture's stable AiScore identity plus a machine-readable Unix epoch / ISO timestamp with explicit zone, reuse it directly as authoritative Section-1.1 evidence;
+2. if an authoritative explicit-offset timestamp was already captured, reuse it directly;
+3. open the individual canonical AiScore match page **only** when the batch lacks authoritative zoned time, or when identity/time/status is conflicting;
+4. normalize to `kickoff_utc_verified`;
+5. convert exactly once to `kickoff_ict_verified`;
+6. prove `window_start_ict <= kickoff_ict_verified <= window_end_ict`;
+7. remove true out-of-window fixtures;
+8. mark unresolved timestamp/identity conflicts as blocking.
+
+Do not reopen a fixture page merely to rediscover the same authoritative epoch/ISO timestamp already captured from AiScore.
 
 No Work-admitted fixture may leave Step 0 as `PENDING CONVERSION`.
 
