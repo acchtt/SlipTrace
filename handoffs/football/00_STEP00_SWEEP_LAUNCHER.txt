@@ -40,6 +40,7 @@ EXECUTE IN THIS ORDER:
 CRITICAL:
 - Upstream/default-branch prompt is always authoritative.
 - AiScore remains fixture authority.
+- Use the active NARROW CORE allowlist; do not perform a global competition crawl.
 - Preserve the exact requested Asia/Ho_Chi_Minh window.
 - Never mark work_ready=true with an unresolved actionable coverage or source-time fault.
 - Do not perform Work structural ranking, XI/odds review, live analysis, or betting decisions in Step 0.
