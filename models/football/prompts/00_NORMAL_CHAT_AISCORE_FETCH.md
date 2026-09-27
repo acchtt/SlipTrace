@@ -137,7 +137,7 @@ Every checkpoint must persist, where applicable:
 
 Keep checkpoint payloads compact. `Listing Blocks Checked` should use canonical block identifiers rather than repeated narrative prose. `Checkpoint Notes` should contain only the material delta/fault since the previous checkpoint, not a full sweep recap.
 
-A checkpoint is committed **after** a block's Airtable coverage writes succeed. This makes replay idempotent and prevents the cursor from advancing past unpersisted work.
+A checkpoint is committed **after** a batch's Airtable coverage writes succeed. The normal batch unit is an AiScore listing date or a compact group of surfaced conditional fixtures, not an individual competition. This makes replay idempotent and prevents the cursor from advancing past unpersisted work.
 
 ### Retry and transient-failure behavior
 
@@ -176,6 +176,21 @@ Do not enter a later stage until its prerequisite stage is complete. `Run Status
 
 On a genuine missed-fixture recovery, preserve the existing missed-fixture rules below **and** reopen the same deterministic Run ID: set `Run Status = RUNNING`, reset `Current Stage = CORE DISCOVERY`, clear affected/downstream completion flags, rebuild the required envelope/sentinel proof, and replace the old package only after the repaired run passes all gates.
 
+## Fast-path execution contract
+
+The normal Step-0 performance path is:
+
+`DATE SURFACE BATCH -> LOCAL ALLOWLIST FILTER -> SURFACED CONDITIONAL GATES -> CONFLICT-ONLY DETAIL LOOKUPS -> TERMINAL DATE BATCH -> REUSE AUTHORITATIVE TIMES -> PACKAGE`
+
+Hard performance rules:
+
+- no one-query-per-competition discovery loop;
+- no targeted lookup for a competition that produced no evidence on the date surface;
+- no broad web search for conditional-gate statistics;
+- no individual match-page reopen when authoritative AiScore epoch/ISO/offset was already captured;
+- no second European-cup web crawl when the retained cup audit can be completed from the captured date batch;
+- batch Airtable fixture upserts and checkpoint only at the existing sparse cadence.
+
 ## Strict stage boundary
 Step 0 is executed through the persisted stage machine above. The conversational session is only the controller; `Sweep Runs` is execution memory.
 
@@ -183,7 +198,7 @@ Step 0:
 
 1. resolves the requested window start/end in ICT and UTC **once**;
 2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
-3. traverses only AiScore date/competition blocks inside the active NARROW CORE allowlist needed to cover that envelope;
+3. fetches each required AiScore date/listing surface once, batch-extracts visible fixtures, and filters locally to the active NARROW CORE allowlist; it does not traverse every competition separately;
 4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
 5. performs a separate European domestic-cup audit across the touched date envelope;
 6. proves coverage of every **in-scope NARROW CORE competition block**;
@@ -191,9 +206,9 @@ Step 0:
 8. deduplicates once;
 9. applies senior-quality exclusions;
 10. applies sweep scope and league registry;
-11. runs only the cheap conditional-league admission test where required;
+11. runs the cheap conditional-league admission test only for surfaced whitelisted CONDITIONAL fixtures, using batch/cached evidence or at most one direct AiScore surface per fixture when needed;
 12. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-13. revalidates every surviving Work-admitted fixture against an authoritative AiScore timestamp with explicit UTC/offset provenance;
+13. reuses authoritative AiScore epoch/ISO/explicit-offset timestamps captured in the batch when available, and opens individual canonical match pages only for admitted fixtures lacking authoritative zoned time or carrying identity/time/status conflicts;
 14. normalizes the admitted set once to verified UTC and ICT, prunes true out-of-window fixtures, and blocks unresolved time/identity conflicts;
 15. creates a compact scope-pruned Work handoff **only after the coverage and admitted-set time-integrity gates pass**;
 16. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
@@ -238,7 +253,7 @@ Define:
 
 `terminal_interval_ict = max(window_start_ict, window_end_ict - 6 hours) -> window_end_ict`
 
-Run a **second independent AiScore-only discovery pass** specifically for that interval after the broad pass.
+Run a **second independent AiScore-only date-level discovery pass** specifically for that interval after the main pass. Refetch the relevant terminal date surface(s) once and filter the returned batch; do not repeat a per-competition crawl.
 
 The terminal sentinel must record:
 
@@ -259,11 +274,12 @@ Do not use another provider to add fixtures. Web search may be used only as a wa
 
 ## Mandatory European domestic-cup audit
 
-After the retained date-envelope pass and before actionable completeness, run a separate **restricted AiScore-only European domestic-cup audit**.
+After the retained date-envelope pass and before actionable completeness, run a separate **restricted European domestic-cup audit over the already captured date-level batch**. This is normally a logical audit of the batch, not another web traversal.
 
 The audit footprint is defined by `FOOTBALL_SWEEP_SCOPE.md`:
 
-- proactively inspect senior first-team national FA cups/top-level league cups only in countries represented by PRIORITY/NORMAL domestic leagues;
+- inspect retained senior first-team national FA cup/top-level league-cup blocks already surfaced in the date batch for countries represented by PRIORITY/NORMAL domestic leagues;
+- perform a targeted cup lookup only when there is concrete evidence that a retained in-window cup fixture was omitted from the batch;
 - inspect main professional cup stages, not every preliminary/amateur/lower-tier round;
 - skip lower-division-only challenge/trophy competitions;
 - do not crawl every UEFA association;
