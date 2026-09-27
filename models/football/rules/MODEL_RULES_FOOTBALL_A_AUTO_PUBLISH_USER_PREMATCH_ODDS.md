@@ -1,5 +1,9 @@
 # Football A — Auto-Publish User-Supplied Prematch Odds
 
+> **STEP-2 COMPILER SUPERSESSION — CURRENT**
+> For new Step-2 assessments, auto-publish applies only to a **final** current Football A official verdict after all mandatory Step-2 gates, including post-XI football research, have cleared. A `PROVISIONAL FAST VERDICT` is not publishable by itself. Prematch user-supplied odds remain executable evidence for their epoch and require no second confirmation once the final verdict is clear.
+
+
 **Status:** ACTIVE OFFICIAL PATCH  
 **Effective:** 2026-09-19 20:50 ICT  
 **Scope:** Normal Chat prematch XI/odds execution and Website Picks persistence  
