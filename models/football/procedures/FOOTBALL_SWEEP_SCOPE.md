@@ -13,6 +13,22 @@ The league-level admission registry is:
 
 ---
 
+## 0. Operational mode precedence
+
+Normal user sweeps run in `FAST_PRODUCTION` unless the user explicitly requests `FULL_AUDIT`.
+
+In FAST_PRODUCTION:
+
+- proactive domestic-league discovery is PRIORITY + NORMAL only;
+- CONDITIONAL leagues are not searched or cheap-gated unless the user explicitly names one;
+- cup discovery is surface-only: retain clearly eligible senior cup fixtures visible in the date batch, but do not launch a separate cup crawl;
+- raw omissions outside the direct retained footprint are non-blocking;
+- repeated same-end sweeps should reuse verified Daily Coverage Ledger rows from the latest covering COMPLETE run.
+
+FULL_AUDIT uses the broader NARROW CORE rules in the rest of this file.
+
+---
+
 ## 1. Core principle
 
 The daily sweep uses **NARROW CORE discovery**. Step 0 should search the model's retained competition universe directly instead of crawling the raw AiScore world and proving most of it irrelevant.
