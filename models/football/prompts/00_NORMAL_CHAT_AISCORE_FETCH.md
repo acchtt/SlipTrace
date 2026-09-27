@@ -11,6 +11,77 @@ Operational principle:
 
 Do not convert every raw discovered fixture. However, **requested-window boundary normalization, deterministic date-envelope traversal, terminal-interval verification, and one final authoritative time normalization pass over the surviving Work-admitted set are mandatory Step-0 work.**
 
+## Sweep modes
+
+Default mode is **FAST_PRODUCTION**.
+
+Use **FULL_AUDIT** only when the user explicitly asks for `full audit`, `exhaustive sweep`, `coverage audit`, or equivalent.
+
+### FAST_PRODUCTION — default
+
+FAST_PRODUCTION is optimized for the user's normal repeated operational sweeps.
+
+Rules:
+
+1. **Incremental reuse first.**
+   - Before any AiScore discovery, look for the newest COMPLETE Sweep Run whose end boundary matches the requested end boundary and whose completed window covers the new requested window.
+   - If found, reuse its verified Daily Coverage Ledger rows for fixtures whose verified `Kickoff ICT` lies inside the new window.
+   - Revalidate only current status for fixtures already near kickoff/live-risk and any rows with stale/conflicting identity/time.
+   - Do not rediscover the whole slate.
+   - Create a new run record for the new exact window, but classify it as an incremental derivative in Checkpoint Notes.
+
+2. **Fresh discovery is date-level only.**
+   - If no reusable completed run exists, fetch only the ICT calendar date(s) touched by the requested window plus the UTC end-date only when it is not already represented.
+   - Do not add automatic day-before/day-after buffer dates in FAST_PRODUCTION.
+   - Maximum normal discovery footprint for a same-night cross-midnight sweep is two AiScore date surfaces.
+
+3. **Direct leagues only.**
+   - Discover PRIORITY + NORMAL registry leagues.
+   - Do not run CONDITIONAL gates in FAST_PRODUCTION.
+   - CONDITIONAL leagues are FULL_AUDIT-only unless the user explicitly names one.
+
+4. **Cups/continental.**
+   - Retain UCL / UEL / UECL and clearly surfaced main senior cup fixtures from the date batch.
+   - No proactive European cup crawl in FAST_PRODUCTION.
+   - No lower-round/preliminary cup hunt.
+   - A cup not visible in the date batch is a non-blocking omission in FAST_PRODUCTION.
+
+5. **No duplicate terminal fetch.**
+   - If the terminal ICT date surface was already fetched during the same run and covers the requested terminal interval, that same batch satisfies the terminal check.
+   - Refetch only when the terminal date was not already fetched or the first batch produced a concrete inconsistency.
+
+6. **Time verification by exception.**
+   - Reuse authoritative AiScore epoch / zoned ISO / explicit-offset timestamps from the batch or Airtable cache.
+   - Open individual match pages only for:
+     - missing authoritative zoned time;
+     - identity/status conflict;
+     - kickoff within 60 minutes of either requested window boundary.
+   - Do not reopen every admitted fixture.
+
+7. **Minimal persistence.**
+   - One run-start write.
+   - One post-discovery/incremental-reuse checkpoint.
+   - One final completion/package write.
+   - Additional writes only for a genuine blocker.
+
+8. **Immediate finish.**
+   - Once `Run Status=COMPLETE`, `Current Stage=COMPLETE`, final counts and `Handoff Package` are persisted, return the compact result immediately.
+   - Do not continue with extra audit narration or post-completion verification.
+
+FAST_PRODUCTION may set:
+
+- `raw_audit_complete=false`;
+- `raw_count_mode=lower_bound`;
+- `sweep_scope_mode=FAST_PRODUCTION`.
+
+That is non-blocking by design.
+
+### FULL_AUDIT
+
+FULL_AUDIT retains the stricter date-envelope buffers, whitelisted CONDITIONAL gates, independent terminal refetch, retained-cup audit, and complete coverage proof described elsewhere in this prompt and the active procedures.
+
+FULL_AUDIT is not the default operational sweep.
+
 ## Source of truth
 Repository: `acchtt/SlipTrace`
 
@@ -166,21 +237,31 @@ Excluded/non-blocking raw categories may remain documented raw gaps under the ex
 
 ### Stage machine
 
-Use the existing `Current Stage` values in this order:
+Use the existing `Current Stage` values.
+
+FULL_AUDIT order:
 
 `CORE DISCOVERY -> CONDITIONAL GATES -> EUROPEAN CUP AUDIT -> TERMINAL SENTINEL -> RECONCILIATION -> PACKAGING -> COMPLETE`
 
+FAST_PRODUCTION order:
+
+`CORE DISCOVERY -> RECONCILIATION -> PACKAGING -> COMPLETE`
+
+In FAST_PRODUCTION, mark `Conditional Gates Complete=true`, `European Cup Audit Complete=true`, and `Terminal Sentinel Complete=true` only as **FAST-PATH NOT REQUIRED / SATISFIED BY BATCH RULE**, documented in Checkpoint Notes. Do not execute those stages as separate web-research phases.
+
 The final admitted-set authoritative time proof belongs to `RECONCILIATION`.
 
-Do not enter a later stage until its prerequisite stage is complete. `Run Status = COMPLETE` is allowed only when packaging is validated and all mandatory stage flags are true.
+Do not enter a later required stage until its prerequisite is complete. `Run Status = COMPLETE` is allowed only when packaging is validated and all mode-required gates are satisfied.
 
 On a genuine missed-fixture recovery, preserve the existing missed-fixture rules below **and** reopen the same deterministic Run ID: set `Run Status = RUNNING`, reset `Current Stage = CORE DISCOVERY`, clear affected/downstream completion flags, rebuild the required envelope/sentinel proof, and replace the old package only after the repaired run passes all gates.
 
 ## Fast-path execution contract
 
-The normal Step-0 performance path is:
+The normal FAST_PRODUCTION path is:
 
-`DATE SURFACE BATCH -> LOCAL ALLOWLIST FILTER -> SURFACED CONDITIONAL GATES -> CONFLICT-ONLY DETAIL LOOKUPS -> TERMINAL DATE BATCH -> REUSE AUTHORITATIVE TIMES -> PACKAGE`
+`REUSE COMPLETE SAME-END RUN IF AVAILABLE -> OTHERWISE 1-2 DATE SURFACES -> PRIORITY/NORMAL FILTER -> CONFLICT/BOUNDARY DETAIL LOOKUPS ONLY -> PACKAGE`
+
+The FULL_AUDIT path remains available explicitly and may include conditional gates and independent terminal/cup verification.
 
 Hard performance rules:
 
