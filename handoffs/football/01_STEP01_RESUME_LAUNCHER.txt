@@ -34,9 +34,11 @@ EXECUTE IN THIS ORDER:
    - otherwise confirm Step 01 is loaded and ready for the next fixture package.
 
 7. If the user immediately sends XI/odds/live screenshots instead of a new fixture ZIP:
+   - load models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md;
+   - load models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md;
    - continue the identified current board from frozen Airtable PRE;
    - preserve the original FOOTBALL_PRE_DECISION_SPEC_V1 trace/history when present;
-   - apply the current canonical Step-2/live rules;
+   - execute XI/odds through the compiled Step-2 authority;
    - do not make the user repeat context already available from current state.
 
 CRITICAL:
@@ -48,6 +50,9 @@ CRITICAL:
 - WAIT != HOLD.
 - Stronger structure does not automatically justify a higher total.
 - Never retroactively backfill a missed execution.
-- User prematch odds that clear all active Step-2 gates auto-publish immediately.
+- User prematch odds that clear all compiled Step-2 gates auto-publish immediately.
+- Generic HMA/EGE alone cannot bypass Decay-First.
+- Ordinary B+ +0.25 remains WAIT unless ELITE/EXTREME current-PRE carrier independently authorizes it.
+- Post-kick official exposure requires a predeclared plan or active exact-match exception.
 - One exposure per match.
 - Do not infer a live score from an AiScore lineup page thumbnail/overlay.
