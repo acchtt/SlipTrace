@@ -36,7 +36,7 @@ This file is the operating authority for Football. **Football A is the main acti
 
 For all new Step-1 / Work structural assessments, `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` is the compiled final operational authority. It does not change the predictive model; it resolves overlapping active PRE wording into one deterministic decision sequence. Older route-symmetry, PRE-XI, carrier, PASS-rescue, burden, or rank wording must not be executed independently when the compiled spec gives the Step-1 rule.
 
-Step 2 remains governed by the later XI/market/execution authorities and must preserve frozen PRE history separately from any fresh post-XI/current assessment.
+For all new Step-2 XI/odds assessments (the user's workflow Step 3), `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is the compiled final operational authority. It preserves frozen PRE history while resolving H2H, XI mechanism integrity, EGE/Decay-First, HMA, B+, carrier-current-PRE, live eligibility, verdict finality and persistence order into one deterministic sequence. Older Step-2 wording must not be executed independently when the compiled spec defines the outcome.
 
 ## MATCH-SPECIFIC LIVE EXCEPTION — MIDTJYLLAND WOMEN vs FC COPENHAGEN WOMEN — ACTIVE UNTIL FT
 
@@ -99,15 +99,15 @@ This is a one-fixture prospective exception only. It bypasses the normal U21 sco
 
 ## LIVE VERDICT-FIRST / EXECUTION LATENCY CONTROL — ACTIVE
 
-Effective 2026-09-20 ICT:
+For just-started/live user-supplied markets, first classify live eligibility under `FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-For live and just-started user-supplied markets, execution order is:
+- predeclared live plan or active match-specific exception: a latency-first **PROVISIONAL FAST VERDICT** may be surfaced before extended research;
+- no predeclared plan/exception: immediate result is `NO OFFICIAL LIVE ENTRY — NO PREDECLARED PLAN` / shadow only;
+- mandatory post-XI football research still follows immediately in the same assessment;
+- Website Pick publication waits for the final same-epoch verdict after the research attempt;
+- a goal/card/material state change voids the old quote and starts a new evidence epoch.
 
-`MINIMAL STATE READ -> ACTIONABLE VERDICT -> MANDATORY POST-XI FOOTBALL RESEARCH ATTEMPT -> PERSIST / EXPLANATION`
-
-Do not delay the **first** clear live action for non-essential research, Airtable writes, or explanatory prose. Immediately after that first verdict, complete the mandatory targeted post-XI football web-research attempt in the same assessment unless already completed for the current XI epoch. If a goal/state change occurs first, the old quote is VOID and requires a new score-epoch reprice.
-
-This changes response order only; it does not lower structural, burden, price, suppression, state-integrity, or research-compliance standards. **Verdict-first must never be interpreted as research-skipped.**
+Verdict-first changes response order only. It never creates opportunistic official live exposure.
 
 ---
 
@@ -164,24 +164,17 @@ Historical frozen states remain unchanged.
 
 ## DECAY-FIRST EXECUTION AUTHORITY — ACTIVE
 
-Effective prospectively from 2026-09-20 ICT, load and apply:
+`MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` remains the ordinary execution anchor and is compiled by `FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-`models/football/rules/MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`
+Current compiled meaning:
 
-This rule is authoritative over conflicting HMA / participation language.
-
-Core invariant:
-
-`STRONGER STRUCTURE = MORE CONFIDENCE TO WAIT, NOT PERMISSION TO BUY A HIGHER TOTAL`
-
-- Direct prematch official exposure requires the selected line to be at or below the frozen supported execution burden.
-- If the market is above supported burden, use `QUALIFIED — LIVE DECAY PLAN` and freeze the supported target line + minimum price.
-- Football A HMA may no longer auto-lock +0.25/+0.50 above burden; it is monitoring/audit tolerance only.
-- Model B participation expansion may no longer create direct exposure above burden; those cases become Model B live-decay waits.
-- Model B exposure slots are not pre-reserved by rank for fixtures whose markets are still above burden.
-- Recent same-venue H2H / suppression re-screen is mandatory before O3.0+ execution.
-
-The active Sep19–20 O2.5/O2.75 temporary relaxation remains compatible: qualify the lower protected burden first, then WAIT if the market is higher.
+- ordinary direct prematch exposure may not buy a line above frozen supported burden;
+- generic HMA is monitoring/audit only above frozen burden;
+- EGE may remain a current football-regime diagnostic but does not itself create above-frozen direct execution;
+- ordinary B+ +0.25 is WAIT/live-decay despite older direct-label text;
+- exact B+ frozen supported burden remains directly eligible under the B+ protected-line rule;
+- ELITE/EXTREME `MARKET-CALIBRATED CURRENT PRE` under Carrier Market Decomposition is the explicit later current-PRE exception that may create a different executable burden;
+- O3.0+ still requires the compiled H2H/suppression and upper-tail gates.
 
 ---
 
@@ -214,38 +207,9 @@ The override expires automatically at **2026-09-28 00:00 ICT**.
 
 ---
 
-## TEMPORARY SESSION OVERRIDES — 2026-09-19 / 2026-09-20
+## EXPIRED TEMPORARY SESSION OVERRIDES — HISTORICAL ONLY
 
-### A. Sep-18 execution-relaxation experiment — extended to noon Sep 19
-
-For **decision timestamps from 2026-09-18 12:24 ICT through 2026-09-19 11:59:59 ICT**, load and apply:
-
-`models/football/session_overrides/SESSION_OVERRIDE_2026-09-18_EXECUTION_RELAXATION.md`
-
-This remains a **session-only experiment, not a permanent official model patch**. The user explicitly extended its expiry to **2026-09-19 12:00 ICT**. At noon Sep 19 it expires automatically; none of its O2.5/O2.75, -0.25 undercut, or general session relaxations survive beyond noon unless separately authorized.
-
-### B. Early-Conversion trial — Saturday + Sunday
-
-For **decision timestamps from 2026-09-19 10:40 ICT through 2026-09-20 23:59:59 ICT**, load and apply:
-
-`models/football/session_overrides/SESSION_OVERRIDE_2026-09-19_TO_2026-09-20_EARLY_CONVERSION.md`
-
-This is a **temporary two-day execution experiment, not a permanent model patch**. It adds:
-- the narrow `EARLY-CONVERSION ELIGIBLE` lane for qualifying **A1/A2 FOCUS TRUE CC+ / elite two-sided** profiles when a goal arrives before planned decay; and
-- from **2026-09-19 23:10 ICT**, a temporary **burden-specific prematch upper-tail relaxation** for **A1/A2 FOCUS and A2 WATCHLIST** at protected **O2.5/O2.75** only.
-
-For the temporary prematch relaxation:
-- O2.5 requires a **QUALITY-PROVEN 3+ path** rather than separate 4+ proof;
-- O2.75 requires a **ROBUST 3+ path + non-trivial fourth-goal support**;
-- O3.0+ keeps the permanent 4+ upper-tail standard;
-- B+/B/PASS remain outside this automatic relaxation.
-
-It does **not** rewrite frozen PRE, promote A2 WATCHLIST/B+/PASS, or create a blanket Over rule.
-
-From **10:40–11:59:59 ICT on Sep 19**, both temporary files may apply. If both apply, use the interaction rules in the Early-Conversion override. From **12:00 ICT Sep 19 through Sunday**, only the Early-Conversion override remains active.
-
-At **2026-09-21 00:00 ICT**, all listed temporary overrides have expired and must be ignored unless the user explicitly promotes a tested rule after audit.
-
+The Sep-18/19 execution-relaxation and Sep-19/20 Early-Conversion experiments are expired. They remain in Git history/session-override files for audit only and must not enter current production decisions unless the user explicitly starts a new tested override.
 
 ---
 
@@ -283,6 +247,7 @@ Load only the current active stack:
 28. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
 29. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
 30. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+31. `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` — **compiled final Step-2 XI/odds execution authority; loaded last for current verdict semantics**
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
@@ -308,9 +273,9 @@ A `Z` timestamp means UTC. Never convert the same timestamp twice.
 
 ## 3. Production sequence
 
-`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE → UNIQUE IDENTITY + SCOPE / LEAGUE GATE → ACTIONABLE COMPLETENESS → WORK ROUTE PROOF + STRUCTURAL SCREEN → NON-COMPENSATORY PRE CAPS → SAME-WINDOW STRUCTURAL RANK → FOCUS/WATCHLIST/PASS/UNRESOLVED → FREEZE PRE → NORMAL CHAT XI → MANDATORY POST-XI FOOTBALL WEB RESEARCH → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → CHANCE QUALITY + REGIME/BURDEN → CURRENT USER-SUPPLIED MARKET CENTER + LINES/PRICES → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A CARRIER/HMA/DECAY PATH → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → OFFICIAL LOCK / EXPOSURE HOLD / EARLY SAME-LINE PRICE PLAN / QUALIFIED LIVE-DECAY PLAN / STRUCTURAL HOLD / SHADOW`
+`NORMAL CHAT AISCORE ACTIONABLE SENIOR UNIVERSE -> UNIQUE IDENTITY + SCOPE / LEAGUE GATE -> ACTIONABLE COMPLETENESS -> WORK PRE COMPILER -> FREEZE PRE -> NORMAL CHAT STEP-2 EXECUTION COMPILER -> OFFICIAL LOCK / QUALIFIED WAIT / STRUCTURAL HOLD / SHADOW`
 
-Work remains structural and price/XI/market-history blind. Normal Chat owns XI, **mandatory post-XI football web research**, market-history checks, market-center/alignment checks, current price, carrier/HMA testing, Model B participation testing, exposure selection, planned live-decay execution, schedule display, and live review.
+Work remains structural and price/XI/market-history blind. Normal Chat Step 2 executes `FOOTBALL_STEP2_EXECUTION_SPEC.md`, which owns XI, post-XI football research, H2H, market-history, frozen-PRE alignment, carrier/current-PRE, burden authority, execution, publication and live-state handling.
 
 ---
 
@@ -361,191 +326,57 @@ Supported burden is chosen before current price. **PRE Structural Rank is price/
 
 ---
 
-## 5. Current decision order
+## 5. Compiled Step-2 decision order
 
-Football A order:
+For all new XI/odds assessments use:
 
-`SCOPE / LEAGUE REGIME → HOME + AWAY ROUTE STATES → DOMINANT FAILURE MODE → PRACTICAL 3+ CEILING → PASS RESCUE SCREEN IF PROVISIONAL PASS → OPPONENT FAILURE/LEAKAGE COMPATIBILITY → CHANCE QUALITY / URGENCY → BURDEN FIT → EVIDENCE CONFIDENCE → STRUCTURAL RANK (PRE, PRICE-BLIND) → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI → CHANCE-QUALITY HARDENING → STANDARD/EGE BURDEN → CURRENT MARKET CENTER + LINE/PRICE BOARD → SHARED A/B MARKET-ALIGNMENT GATE → FOOTBALL A HMA OR MODEL B PARTICIPATION TEST → EXECUTION PATH → MODEL-SPECIFIC EXPOSURE GATE → EXPOSURE DECISION`
+`FROZEN PRE TRACE -> IDENTITY/STATUS -> EPOCH CLASS -> XI ROLE-MECHANISM MATRIX -> POST-XI FOOTBALL RESEARCH -> H2H/MATCHUP GATE -> CURRENT CQ/FAILURE UPDATE -> MARKET HISTORY -> FROZEN_PRE_MARKET_ALIGNMENT -> EGE/CARRIER CURRENT-EPOCH COMPILER -> CURRENT_PRE_EXECUTION_FIT -> BURDEN AUTHORITY -> B+/UPPER-TAIL GATES -> DECAY/REACHABILITY -> PRICE -> LIVE/PREMATCH ELIGIBILITY -> PROVISIONAL/FINAL VERDICT -> PERSISTENCE TRANSACTION`
 
-When Model B is run side-by-side, the same market-alignment gate runs before Model B's participation lane.
+Detailed authority: `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-Three outputs remain mandatory:
+Three outputs remain separate:
 
-1. **Structural Rank**
-2. **Execution Class / Plan**
-3. **Exposure Decision**
+1. frozen **Structural Rank / PRE**;
+2. current **Execution Class / Plan**;
+3. final **Exposure Decision**.
 
-Execution/blocker states now include:
+Current execution invariants:
 
-- `DIRECT LOCK ELIGIBLE`
-- `DIRECT LOCK ELIGIBLE — HIGH-MARKET ACCEPTANCE`
-- `MARKET UNDERCUT — RE-SCREEN REQUIRED`
-- `SEVERE MARKET UNDERCUT — NO INSTANT LOCK`
-- `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN`
-- `QUALIFIED — EARLY SAME-LINE PRICE PLAN`
-- `QUALIFIED — LIVE DECAY PLAN`
-- `QUALIFIED — PRICE BELOW FLOOR`
-- `STRUCTURAL HOLD`
-- `SHADOW ONLY`
-
-`DIRECT LOCK ELIGIBLE != AUTOMATIC OFFICIAL LOCK`
-
-### Shared A/B market-alignment gate
-
-A lower Over total is mechanically more protected, but it is **not automatically evidence of value**.
-
-Before any instant/direct decision for either model, identify the current market center and compare it with the frozen structural burden.
-
-- market center `0.25+` below the lower edge / single frozen burden → `MARKET UNDERCUT — RE-SCREEN REQUIRED`;
-- market center `0.50+` below → `SEVERE MARKET UNDERCUT — NO INSTANT LOCK` unless a specific football-led override is documented;
-- a B/PASS or materially lower-ranked fixture carrying a market center `0.50+` above the model's implied burden, or among the slate's clearly highest goal totals, triggers `HIGH-MARKET CONFLICT — MANDATORY RE-SCREEN` rather than an ordinary silent PASS.
-
-The market may force reinspection but cannot create structural quality.
-
-Line hierarchy is explicit:
-
-`LOWEST ACCEPTABLE BURDEN → PRICE FLOOR → PRICE AS TIE-BREAKER`
-
-A higher total with a higher payout is a **higher-price / higher-burden alternative**, not a better protected line.
-
-Detailed authority: `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md`.
+- frozen PRE is never overwritten;
+- `FROZEN_PRE_MARKET_ALIGNMENT` and `CURRENT_PRE_EXECUTION_FIT` are separate;
+- generic HMA never creates ordinary above-burden direct exposure;
+- EGE alone does not bypass Decay-First;
+- exact B+ frozen burden may execute under the protected-line rule;
+- ordinary B+ +0.25 waits unless an ELITE/EXTREME current-PRE carrier independently authorizes that burden;
+- opportunistic live without a predeclared plan/active exception remains shadow-only;
+- H2H can corroborate a current mechanism but cannot create a route or hard veto alone.
 
 ---
 
 ## 6. Football A exposure gate
 
-### A2 upper-tail gate
+Use the compiled B+/upper-tail/H2H/current-failure gates in `FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-When an A2 candidate is executable at the top of its supported burden/range, or above the structural ceiling through HMA, official exposure requires at least one of:
+Official ordinary prematch exposure requires:
 
-- `4+ TOTAL PATH — QUALITY PROVEN`;
-- `TRUE CC+ PATH` with credible additional-goal support;
-- `ELITE TWO-SIDED PATH` with strong chance quality and failure resistance.
+`IDENTITY CLEAR -> XI MECHANISM VALID -> RESEARCH COMPLETE -> MARKET ALIGNMENT RESOLVED -> EXECUTION BURDEN AUTHORIZED -> REQUIRED H2H/UPPER-TAIL GATES CLEAR -> PRICE >=1.65 -> NO HARD VETO`
 
-If none clears:
-
-`DIRECT LOCK ELIGIBLE — NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT`
-
-A1 remains the strongest primary lane.
-
-### B+ protected-line lane — ACTIVE
-
-For Football A, a frozen `B+ WATCHLIST` candidate may now become directly executable at the **exact frozen supported burden** without an extra positive hardener when:
-
-- confirmed XI preserves the frozen route construction;
-- the exact frozen supported line is available;
-- price is **>=1.65**;
-- market alignment is acceptable; and
-- there is no strong current, mechanism-compatible negative veto.
-
-Use `B+ PROTECTED-LINE — DIRECT LOCK ELIGIBLE`, then finalize `B+ PROTECTED-LINE — OFFICIAL LOCK` when no other blocker remains.
-
-This does **not** structurally promote B+ and does not create automatic B+ HMA. A strong negative veto still blocks exposure. For `CARRIER-LED / PROVEN+NOMINAL`, +0.25 above burden is allowed only when `PRACTICAL CARRIER CEILING — VERIFIED` clears; generic carrier-led or candidate-only evidence is insufficient. +0.50 or more remains non-automatic.
-
-For every B+ no-bet/wait, persist one primary reason from the active B+ taxonomy: `LINE NEVER REACHED — NO EXECUTION OPPORTUNITY`, `EXECUTABLE LINE AVAILABLE — MODEL HELD`, `+0.25 AVAILABLE — WAITED FOR LOWER BURDEN`, `STRONG VETO HOLD — EXECUTABLE PRICE REJECTED`, or `ABOVE BURDEN — NO QUALIFIED EXTENSION`. Never infer line non-arrival merely from the absence of a ticket.
-
-### High-Market Acceptance overlay
-
-HMA applies to **Football A only** and never changes the frozen structural ceiling.
-
-- `A1 FOCUS`: up to `+0.25` normally; up to `+0.50` only with a strong upper-tail hardener.
-- `A2 FOCUS`: up to `+0.25` only with the A2 upper-tail gate cleared at the offered burden.
-- `A2 FOCUS` with exceptional TRUE CC+ / repeatable 4+ / elite two-sided proof: up to `+0.50`.
-- `A2 WATCHLIST`, `B+`, PASS, unresolved, and fragile capped cases: **no automatic HMA extension**. The separate B+ protected-line patch may authorize the exact frozen supported burden, and a narrow carrier-specific +0.25 extension only under its explicit hardener.
-- `+0.75` or more above the frozen structural ceiling: no immediate HMA exposure.
-
-The detailed authority is `MODEL_RULES_FOOTBALL_A_HIGH_MARKET_ACCEPTANCE.md`.
-
-### Cross-match exposure suppression removed
-
-Effective 2026-09-19 ICT, Football A no longer blocks an otherwise valid exposure because a higher-ranked match exists in the same practical kickoff/exposure window.
-
-Structural Rank remains an ordering/audit field, but each fixture is approved or held on its own football, XI, market-alignment, burden, upper-tail and price evidence.
-
-A higher-ranked match being active, waiting, executable or already exposed is **not** a blocker for another match.
-
-Use:
-
-`PRIORITY INVERSION = NOT APPLICABLE — PATCH REMOVED`
-
-for compatibility where that field is still persisted.
-
-Detailed authority: `MODEL_RULES_FOOTBALL_A_NO_CROSS_MATCH_EXPOSURE_SUPPRESSION.md`.
-
-Official exposure evaluation now uses:
-
-`STRUCTURAL VALIDITY → MARKET ALIGNMENT → UPPER-TAIL / ROUTE PROOF → BURDEN PROTECTION → PRICE FLOOR → EXPOSURE DECISION`
+Carrier Market Decomposition may create a separate current-PRE execution burden only when its ELITE/EXTREME screen clears. Price/market alone cannot create that state.
 
 ---
 
 ## 7. High-market and live-decay execution policy
 
-Football A no longer plans around a prematch quarter-line drop, and it no longer forces every strong high-market match to decay all the way back to the raw structural ceiling.
+For current production:
 
-### 7.1 Test market alignment, then HMA before assigning live decay
-
-If the prematch market is below frozen burden, resolve the shared A/B market-undercut gate first.
-
-If the prematch market is above supported burden:
-
-1. complete the market-alignment / high-market conflict re-screen;
-2. test whether the offered line is inside the Football A HMA band;
-3. if HMA clears and price/exposure gates clear, execute prematch;
-4. if HMA clears but only price blocks, use `QUALIFIED — EARLY SAME-LINE PRICE PLAN`;
-5. if the line is outside HMA, use `QUALIFIED — LIVE DECAY PLAN` toward the **nearest independently qualified HMA boundary**;
-6. do not automatically wait all the way back to the raw structural ceiling.
-
-### 7.2 Early same-line price plan
-
-When the line is already inside a valid HMA band but price is below the hard floor, freeze the same line and minimum price before kickoff.
-
-During approximately the first **0'–12' at 0-0**:
-
-- PRE structure and confirmed XI remain primary;
-- live stats are veto/context, not a mandatory promotion gate;
-- if the same line clears the price floor and all exposure gates remain clear, execute promptly;
-- a goal, red card, major injury, tactical collapse, or route damage expires the simple trigger and requires a fresh state-integrity reassessment.
-
-Do not chase goal-driven line expansion.
-
-### 7.3 Predeclared live decay can become official
-
-A predeclared `QUALIFIED — LIVE DECAY PLAN` may become official after kickoff when:
-
-- the plan was frozen before kickoff;
-- the user supplies a current executable live line/price;
-- the live line is at or below the predeclared target, which may be a valid HMA boundary rather than only the raw structural ceiling;
-- price clears the hard floor;
-- the original football/XI thesis remains substantially intact;
-- score/time state has not created a materially different thesis;
-- no red card, major injury, tactical collapse, or route damage invalidates the plan;
-- Model A HMA, upper-tail and priority-inversion gates are re-run at the actual live burden.
-
-If all clear:
-
-`DIRECT LOCK ELIGIBLE — PREDECLARED LIVE DECAY`
-
-and, after exposure approval:
-
-`OFFICIAL LOCK — LIVE DECAY PLAN`
-
-A first goal does not automatically cancel the plan; it triggers a state-integrity recheck.
-
-### 7.4 Opportunistic live remains quarantined
-
-If no HMA same-line plan or live-decay plan was frozen before kickoff, an attractive live Over remains:
-
-`SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`
-
-unless the user grants a match-specific exception.
-
-### 7.5 Same-line price wait at raw supported burden
-
-If the line is already at the raw supported burden but price is below the hard floor, use:
-
-`QUALIFIED — PRICE BELOW FLOOR`
-
-This can become directly executable before kickoff if the same supported line later clears the floor.
+- **HMA = monitoring/audit only** above frozen supported burden;
+- ordinary market above supported burden -> `QUALIFIED — LIVE DECAY PLAN` to the supported burden;
+- EGE above frozen burden without ELITE/EXTREME current-PRE carrier -> WAIT;
+- ELITE/EXTREME carrier -> evaluate market-calibrated current PRE before WAIT;
+- just-started/live official exposure requires a predeclared plan or active exact-match exception;
+- no predeclared plan/exception -> `SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`;
+- latency-first live verdict is provisional until the mandatory research attempt completes;
+- score/card/material state change voids the old quote and starts a new epoch.
 
 ---
 
