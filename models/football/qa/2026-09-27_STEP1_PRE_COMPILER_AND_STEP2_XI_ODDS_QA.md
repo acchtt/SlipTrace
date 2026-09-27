@@ -1,5 +1,8 @@
 # Football Model QA — Step 1 PRE Consistency + Step 2 XI/Odds Audit
 
+> **SUPERSEDED QA STATUS — STEP-3 PORTION INCOMPLETE**
+> The original XI/odds audit did not satisfy the later mandatory decision-surface QA framework because it did not begin with a complete verdict-changing input inventory. Its Step-1 implementation history remains valid, but its Step-3 findings are superseded by `2026-09-27_STEP3_XI_ODDS_DECISION_SURFACE_REAUDIT.md`.
+
 **Date:** 2026-09-27 ICT  
 **User workflow ordinal:** Step 1 = sweep, Step 2 = Work/PRE assessment, Step 3 = XI+odds assessment  
 **Repo internal naming:** `01_WORK_DAILY_SWEEP.md` = Work/PRE; `02_NORMAL_CHAT_XI_ODDS.md` = XI+odds.
