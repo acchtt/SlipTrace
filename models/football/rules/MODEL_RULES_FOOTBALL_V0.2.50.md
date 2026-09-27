@@ -1,5 +1,9 @@
 # Football v0.2.50 — Extreme Goal Environment / Persistent High-Line Patch
 
+> **STEP-2 COMPILER SUPERSESSION — CURRENT**
+> For new XI/odds assessments, `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is final operational authority. EGE remains a current football-regime/ceiling diagnostic, but **EGE alone no longer authorizes direct execution above frozen supported burden** under later Decay-First precedence. Above-frozen direct execution requires the later ELITE/EXTREME Market-Calibrated Current PRE carrier exception. Historical EGE decisions retain their original semantics.
+
+
 **Status:** ACTIVE OFFICIAL PATCH  
 **Effective:** 2026-09-10 ICT  
 **Base:** Football v0.2.47 CLEAN + active v0.2.49 Two-Sided Priority patch  
