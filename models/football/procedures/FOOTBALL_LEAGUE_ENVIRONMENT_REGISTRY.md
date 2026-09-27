@@ -143,7 +143,7 @@ A league is **not automatically CONDITIONAL merely because it is a senior top fl
 
 To enter the CONDITIONAL pool it must first be an established senior professional national top flight with sufficient current data quality for the cheap gate. Unknown, obscure, weak-data, semi-pro-like, or otherwise marginal environments stay scope-excluded without a cheap-gate attempt.
 
-Recognized examples that may be treated as CONDITIONAL when otherwise eligible include:
+The following competitions are the **complete normal-sweep CONDITIONAL whitelist**. Only these may receive the cheap conditional gate unless this registry is deliberately updated or the user grants a one-run override:
 
 - Czech Republic — First League
 - Poland — Ekstraklasa
@@ -168,9 +168,11 @@ Recognized examples that may be treated as CONDITIONAL when otherwise eligible i
 - Uruguay — Primera División
 - Russia — Premier League
 
-These examples are **not a whitelist** and do not create a hidden hard blacklist for other established, well-covered professional top flights. But the burden is now reversed: an unlisted league must clearly pass the quality/data prerequisite before it can be called CONDITIONAL.
+This list **is a whitelist** for normal Step-0 execution.
 
-Do not research a genuinely small/obscure weak-data league merely to determine whether it might pass the cheap Over signal.
+Any unlisted domestic league is outside the normal sweep, even if it is a senior top flight, until it is deliberately promoted into PRIORITY, NORMAL, or CONDITIONAL through a registry update or explicit one-run user override.
+
+Do not research an unlisted league merely to determine whether it might deserve CONDITIONAL status.
 
 ---
 
