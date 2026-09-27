@@ -8,6 +8,8 @@ Read `models/football/CURRENT_MODEL.md` first. Use the official model, active pa
 
 Load only the current files needed to interpret frozen PRE, later material states, exposure decisions, shadows and settlement. Historical assessments remain tied to the model version that actually produced them.
 
+When the user asks for **model/workflow QA** rather than ordinary outcome review, additionally load `models/football/procedures/FOOTBALL_DECISION_SURFACE_QA.md` and complete its input inventory + trace matrix before declaring the QA complete.
+
 ## Airtable
 
 Base ID `appWyZJjitSBATXAU`.
@@ -16,6 +18,19 @@ Decision States `tblQmUpd5WjBLQ38X`.
 Website Picks `tblg3J5sbJYbzuTYD`.
 
 Read only the requested slate/board and records needed for that audit.
+
+## Decision-surface QA completeness
+
+For any audit that evaluates the correctness/consistency of Step 1, Step 2, live execution, or persistence logic:
+
+1. inventory every material decision input;
+2. trace collection -> interpretation -> threshold -> allowed/forbidden effect -> precedence -> missing-data behavior -> persistence;
+3. run the mandatory deterministic replay branches;
+4. audit H2H separately whenever it can affect a total/burden/verdict;
+5. scan production files for stale/expired active-looking rules;
+6. report decision-surface coverage counts.
+
+Do not mark the audit complete with any untraced material input.
 
 ## Audit boundary
 
