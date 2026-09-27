@@ -3,7 +3,8 @@
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
-**Official model:** Football v0.2.54  
+**Official model:** Football A  
+**Current execution authority:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`  
 **Shadow comparison models:** v0.2.47 CLEAN and v0.2.48-SHADOW
 
 This table records material football assessment states after the frozen coverage/PRE stage. It must preserve version fidelity and must not rewrite historical PRE state.
@@ -16,15 +17,15 @@ Every material record must identify the model version that actually produced it.
 
 Current tracks:
 
-- **Official:** `Football v0.2.54`
+- **Official:** `Football A`
 - **Shadow:** `Football v0.2.47 CLEAN`
 - **Shadow:** `Football v0.2.48-SHADOW`
 
-Historical v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53 decisions remain under the version that actually produced them. Do not relabel them as v0.2.54.
+For every new XI/odds assessment, `FOOTBALL_STEP2_EXECUTION_SPEC.md` is the final semantic authority.
 
-Do not import v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54 patches into either shadow track.
+Historical v0.2.49/v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54/v0.2.55 Decision States retain the version that actually produced them. Do not relabel historical decisions as Football A.
 
----
+Older version-numbered sections later in this contract are **historical compatibility guidance only** when they conflict with the current compiled Step-2 specification.
 
 ## 2. Frozen PRE dependency
 
@@ -86,6 +87,25 @@ Use the existing schema to record material state, including where applicable:
 - evidence summary.
 
 Use provider/evidence-version fields when the decision depends on an external normalized evidence snapshot.
+
+For new Football A Step-2 states, also preserve in dedicated fields where available, otherwise in `Evidence Summary`:
+
+- frozen PRE compiler reference / frozen burden;
+- XI mechanism state for each material route/carrier;
+- post-XI football research status;
+- H2H transferability/state + tested mechanism when material;
+- CURRENT CQ / CURRENT FAILURE;
+- market-history status;
+- `FROZEN_PRE_MARKET_ALIGNMENT`;
+- current market center, AH and 1X2;
+- market carrier state;
+- EGE current regime/burden when assessed;
+- market-calibrated current PRE when applicable;
+- `CURRENT_PRE_EXECUTION_FIT`;
+- execution burden authority/source;
+- upper-tail state;
+- decay target/gap/reachability when waiting;
+- final canonical execution state and exact blocker.
 
 ---
 
@@ -172,56 +192,50 @@ If either required final input is missing:
 
 ## 7. Current decision order
 
-Official v0.2.54 material decisions follow:
+New Football A material decisions follow only:
 
-`STRUCTURAL QUALITY → ROUTE QUALITY PROOF → CARRIER CEILING / CC+ → FAILURE-MODE RESISTANCE → TEAM GF/GA PROFILE → CHANCE QUALITY → FIRST-PASS XI → MARKET-HISTORY CONFLICT CHECK → FINAL XI / CARRIER REOPEN → GOAL BURDEN / REGIME → MCE TEST → CURRENT PRICE → LOCK / HOLD`
+`FROZEN PRE TRACE -> IDENTITY/STATUS -> EPOCH CLASS -> XI ROLE-MECHANISM MATRIX -> POST-XI FOOTBALL RESEARCH -> H2H/MATCHUP GATE -> CURRENT CQ/FAILURE UPDATE -> MARKET-HISTORY ATTEMPT -> FROZEN_PRE_MARKET_ALIGNMENT -> EGE/CARRIER CURRENT-EPOCH COMPILER -> CURRENT_PRE_EXECUTION_FIT -> BURDEN AUTHORITY -> B+/UPPER-TAIL GATES -> DECAY/REACHABILITY -> PRICE -> LIVE/PREMATCH ELIGIBILITY -> PROVISIONAL/FINAL VERDICT -> PERSISTENCE TRANSACTION`
 
-Two-Sided Tier A remains the primary lane. For comparable non-Tier-A cases:
+Detailed authority: `FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
-
-Historical market movement may challenge an XI interpretation, but it cannot create structure, create EGE, or rescue a genuine PASS by itself.
-
-For a fragile B+ with a named compression branch, `ATTACKING DEPTH PRESERVED` plus a protected line is not enough for LOCK; record `B+ PRESERVATION-ONLY HOLD` unless an independent positive gate clears.
-
----
+Do not use the old v0.2.54 two-sided-first ranking hierarchy, preservation-only B+ hardener, generic HMA direct lane, or MCE official execution as current decision authority.
 
 ## 8. Price policy in final assessment
 
-Current user overlay:
+Current Football A:
 
 - hard minimum decimal odds = `1.65`;
 - preferred = `1.70+`;
-- MCE +0.25 requires `1.75+`;
-- below 1.65 = `NO BET — HOLD — PRICE TOO SHORT`;
-- do not stretch the Asian-total line merely to obtain a better price;
-- higher burden must be independently supported by structure + XI;
-- under EGE, the reopened burden must be set before current price is evaluated.
+- burden before price;
+- lowest authorized burden first;
+- price as tie-breaker only;
+- higher payout never compensates for higher burden;
+- MCE-specific historical price thresholds do not create current official exposure.
 
-Record the line actually selected/evaluated, not merely the bookmaker’s headline total.
-
-Historical price/line movement is contextual evidence; the user-supplied current executable price is the final price gate.
-
----
+Record the line actually selected/evaluated and the user-supplied current executable price for that evidence epoch.
 
 ## 9. Official verdict semantics
 
-### Official v0.2.54
+### Current Football A official states
 
-- affirmative final selection = **OFFICIAL LOCK**;
-- HOLD/PASS = no official exposure;
-- for user-supplied prematch odds, an OFFICIAL LOCK must be written to Website Picks immediately in the same assessment; no separate "take/publish" confirmation is required;
-- if a candidate is technically DIRECT and no exposure blocker remains, finalize the exposure decision as OFFICIAL LOCK rather than stopping at DIRECT LOCK ELIGIBLE.
+- `OFFICIAL LOCK`
+- `B+ PROTECTED-LINE — OFFICIAL LOCK`
+- `OFFICIAL LOCK — MARKET-CALIBRATED ELITE CARRIER`
+- `OFFICIAL LOCK — LIVE DECAY PLAN` only from a valid predeclared plan/active exact-match exception
 
-A frozen PASS can become actionable only through a valid material football epoch such as the strict v0.2.52 `CARRIER REOPEN — XI CONFIRMED`; never from market movement alone.
+Qualified non-exposure:
+- `QUALIFIED — LIVE DECAY PLAN`
+- `QUALIFIED — PRICE BELOW FLOOR`
 
-### Shadows
+Hold/shadow states follow the compiled specification.
 
-Shadow selections are comparison states only. They do not enter official P/L and do not suppress the official v0.2.53 verdict.
+For user-supplied **prematch** odds, a final OFFICIAL LOCK is published in the same assessment after all mandatory research/execution gates clear. No second "take/publish" confirmation is required.
 
-When all three tracks are materially assessed, create/version the states so the evidence snapshot is comparable but each model remains identifiable.
+A `PROVISIONAL FAST VERDICT` is not by itself sufficient for Website Pick publication.
 
----
+A frozen PASS/current weak state can become actionable only through a documented material football/current-PRE epoch allowed by the active compiler. Market movement alone cannot resurrect PASS.
+
+Historical shadow/versioned states keep their original labels and do not enter current official P/L.
 
 ## 10. Synchronization rule
 
@@ -243,23 +257,21 @@ Version-specific conclusions may differ. Evidence synchronization does not mean 
 
 ## 11. Live-state rules
 
-Live evidence validates or invalidates the frozen prematch thesis; it does not rewrite PRE history.
+Live evidence validates or invalidates the current thesis without rewriting frozen PRE history.
 
-Use reset/synchronization fields when score/minute/market state materially changes.
+Before any official live exposure classify:
 
-For inherited v0.2.47 halftime logic, use the existing HT fields where applicable:
+- `JUST-STARTED/LIVE — PREDECLARED PLAN EXISTS`;
+- `JUST-STARTED/LIVE — ACTIVE MATCH-SPECIFIC EXCEPTION`;
+- `JUST-STARTED/LIVE — NO PREDECLARED PLAN`.
 
-- `HT Goals`;
-- `HT Saturation Gate`;
-- `Conversion Quality Gate`;
-- `Second-Half Hazard`;
-- `Remaining Goal Budget`.
+No predeclared plan/exception:
 
-For EGE, a quiet opening may corroborate a previously established high-line calibration, but an early goal must not be used to justify chasing an expanded line. Record such states as `GOAL-EXPANSION HOLD` when applicable.
+`SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE`
 
-Manual live overrides must be separately labelled.
+A plan/exception may use a latency-first `PROVISIONAL FAST VERDICT`, followed immediately by the mandatory research attempt. Final Website Pick publication occurs only after final same-epoch clearance.
 
----
+A goal, red card or material state change voids the old quote and creates a new reset/evidence epoch. Preserve old decision history; never backfill the prior quote.
 
 ## 12. Result/P&L boundary
 
@@ -333,23 +345,27 @@ Resolve the Decision State to one canonical AiScore fixture ID. If multiple conf
 
 ---
 
-## 15. v0.2.54 execution-class and shadow recording
+## 15. Current Football A execution-state recording
 
-For each material final assessment preserve separately using the dedicated fields:
+For every new material Football A assessment preserve separately using the existing dedicated fields where available:
 
-- `Structural Rank` (`fldSNhIWdJlVezjAo`) and same-window position;
+- `Structural Rank` (`fldSNhIWdJlVezjAo`);
 - `Execution Class` (`fldZcms9JtuDejyFf`);
 - `Supported Target Line` (`fldiO8CMqfNsXEElI`);
 - `Target Min Odds` (`fldJaMBKCbHQEwzbY`);
-- `Calibration Track` (`fldmyYyCfrPWdBlkc`);
-- `Calibration Result` (`fldJ3vArND9brP7Yz`);
-- `Calibration P/L u` (`fldLG8esTF1a3xYMe`);
 - actual offered line/price;
-- reason the execution class differs from the structural rank;
-- any lower-rank exposure exception and its football reason.
+- frozen supported burden;
+- current execution burden authority;
+- frozen-PRE market alignment;
+- current-PRE execution fit;
+- market carrier/current PRE;
+- H2H/current-failure/upper-tail state when material;
+- exact reason the execution state differs from frozen PRE.
 
-Use `QUALIFIED — WAIT FOR DECAY` only when football gates clear at a recorded target burden but the offered line is higher or the target-line price is below the floor. Use `STRUCTURAL HOLD` for failed or unresolved football gates. Never collapse these states.
+Current canonical semantics come from `FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 
-MCE/+0.25 and all new live/relative-decay Over entries are shadow-only under v0.2.54. Record the contemporaneous line, odds, minute/evidence epoch and later settlement in Decision States, but never write them to Website Picks or official P/L.
+Historical v0.2.54 fields such as Calibration Track/Result/P&L remain valid for historical/shadow records but do not override the current Football A execution taxonomy.
 
-For completed FOCUS/WATCHLIST rows retain final score and target-burden outcome even without official exposure. These outcomes are counterfactual calibration only and must remain separate from official betting results.
+MCE remains shadow/audit for new decisions unless a future explicit active authority promotes it.
+
+Completed FOCUS/WATCHLIST rows may retain target-burden outcomes without official exposure; these remain counterfactual calibration only and separate from official P/L.
