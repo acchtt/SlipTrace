@@ -1,5 +1,9 @@
 # Football A — B+ Protected-Line Execution Lane
 
+> **STEP-2 COMPILER SUPERSESSION — CURRENT**
+> For new XI/odds assessments, `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` resolves the old +0.25 ambiguity. **Exact frozen supported burden remains directly eligible when the B+ gates clear. Ordinary B+ +0.25 above frozen burden is WAIT/live-decay under Decay-First.** The historical `B+ +0.25 CARRIER EXTENSION — DIRECT LOCK ELIGIBLE` body label is superseded unless the later ELITE/EXTREME Market-Calibrated Current PRE carrier authority independently includes that line.
+
+
 **Status:** ACTIVE OFFICIAL PATCH  
 **Track:** Football A only  
 **Effective:** 2026-09-21 ICT, prospectively only  
