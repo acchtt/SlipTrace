@@ -27,6 +27,8 @@ Small league size alone is not an exclusion reason. Goal-environment usefulness 
 
 ### NARROW CORE discovery allowlist
 
+Normal Step-0 discovery is **date-first batch discovery**: fetch the required AiScore date surface once, then retain only blocks that match this allowlist. Do not query every allowlisted competition separately to prove absence.
+
 Normal Step-0 discovery is limited to:
 
 1. domestic leagues explicitly listed as `PRIORITY` or `NORMAL` in the active league registry;
@@ -171,7 +173,9 @@ Normal Step-0 cup discovery is limited to **senior first-team national FA cups a
 
 For those retained countries:
 
-- search the senior main draw / normal professional cup stage;
+- first reuse cup blocks already visible in the date-level batch snapshot;
+- do not launch a country-by-country cup search when no retained cup block is visible and there is no concrete evidence of an omitted in-window fixture;
+- search a senior main draw / normal professional cup stage only as a targeted fallback when needed;
 - skip preliminary/qualifying rounds that are entirely amateur, regional, reserve, or unapproved lower-division participants;
 - skip lower-division-only challenge/trophy competitions;
 - if a preliminary or lower-round fixture contains a PRIORITY/NORMAL top-flight club or an explicitly approved lower-division club, it may still be inspected;
