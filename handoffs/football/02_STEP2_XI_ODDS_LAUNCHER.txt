@@ -1,0 +1,68 @@
+FOOTBALL V2.0 — STEP 02 XI/ODDS LAUNCHER
+=======================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+
+USER WORKFLOW:
+- Step 1 = AiScore sweep
+- Step 2 = Work/PRE assessment
+- Step 3 = XI + odds assessment
+This launcher is for the user's Step 3 / repo Step 2.
+
+EXECUTE IN THIS ORDER:
+
+1. Load upstream/default-branch:
+   models/football/CURRENT_MODEL.md
+
+2. Load:
+   models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md
+
+3. Load:
+   models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md
+
+4. Load and execute:
+   models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md
+
+5. Resolve the exact fixture from:
+   - the current chat when already identified;
+   - otherwise Airtable Daily Coverage Ledger frozen PRE / current board state.
+   Do not reconstruct PRE from memory and do not use stale hard-coded handoff boards.
+
+6. Preserve:
+   - FOOTBALL_PRE_DECISION_SPEC_V1 frozen trace;
+   - frozen supported burden;
+   - frozen Structural Rank;
+   - original failure mode/history.
+
+7. Execute the current XI/odds decision only through:
+   FOOTBALL_STEP2_EXECUTION_SPEC.md
+
+8. For prematch user-supplied odds:
+   - complete mandatory post-XI football research;
+   - complete market-history attempt;
+   - resolve H2H gate when material / mandatory for O3.0+;
+   - apply frozen-PRE market alignment;
+   - apply carrier/current-PRE compiler;
+   - apply burden / B+ / upper-tail / decay / price gates;
+   - persist final official exposure transaction when cleared.
+
+9. For just-started/live screenshots:
+   - first classify whether a predeclared plan or active exact-match exception exists;
+   - no plan/exception = NO OFFICIAL LIVE ENTRY / SHADOW;
+   - plan/exception = provisional fast verdict allowed, then mandatory research, then final same-epoch persistence if still clear.
+
+CRITICAL CURRENT SEMANTICS:
+- Football A is the current model.
+- Generic HMA = monitoring/audit only above frozen burden.
+- EGE alone does not bypass Decay-First.
+- Exact B+ frozen supported burden may execute when compiled gates clear.
+- Ordinary B+ +0.25 = WAIT unless ELITE/EXTREME market-calibrated current PRE independently authorizes it.
+- FROZEN_PRE_MARKET_ALIGNMENT and CURRENT_PRE_EXECUTION_FIT are separate.
+- H2H corroborates current mechanisms; it never creates a route or HARD VETO alone.
+- O3.0+ requires the compiled H2H/suppression + upper-tail gates.
+- Market price cannot create football structure.
+- Price floor = 1.65.
+- One official exposure per match.
+- Never backfill a missed quote.
+- Do not infer a live score from a lineup thumbnail/overlay alone.
