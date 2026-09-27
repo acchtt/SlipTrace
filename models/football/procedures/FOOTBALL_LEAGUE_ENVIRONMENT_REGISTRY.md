@@ -72,7 +72,9 @@ CONDITIONAL is only for **credible senior professional national top flights with
 
 Do **not** send the entire league to Work by default.
 
-A fixture from a CONDITIONAL league may enter Work only when Step 0 can establish a cheap, current Over signal without deep research. Use AiScore-level fixture/team information or another already-cached registry note only; do not perform the full structural research here.
+A fixture from a CONDITIONAL league may enter Work only when Step 0 can establish a cheap, current Over signal without deep research. Use AiScore-level fixture/team information already present in the date/fixture batch, one directly related AiScore team/fixture surface, or another already-cached registry note only; do not perform the full structural research here.
+
+**Operation bound:** do not run broad web search for a conditional gate. Batch fixtures from the same competition/team surface where possible. If the required recent-form evidence is not immediately available from the batch/cached evidence or one direct AiScore surface, exclude the fixture for that run rather than expanding research.
 
 Cheap conditional admission requires at least one of the following, with no obvious contradictory low-goal signal:
 
