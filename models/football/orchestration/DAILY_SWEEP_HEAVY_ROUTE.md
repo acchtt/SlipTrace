@@ -20,8 +20,9 @@ Before spawning workers, the Main Agent reads:
 
 1. `models/football/CURRENT_MODEL.md`;
 2. every stage-relevant current procedure/rule required by its load order;
-3. `models/football/orchestration/README.md`;
-4. `models/football/orchestration/WORKER_CONTRACTS.md`.
+3. `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` as the compiled final Step-1 PRE authority;
+4. `models/football/orchestration/README.md`;
+5. `models/football/orchestration/WORKER_CONTRACTS.md`.
 
 The Main Agent records the active official model version in the run manifest. Never infer it from this file.
 
@@ -77,18 +78,11 @@ Batch by competition or data-source overlap when that reduces duplicated browsin
 
 Spawn as many Investigators as needed, within efficient batching limits, using Contract B.
 
-Each Investigator researches its assigned batch deeply enough to support the active model, including where available:
+Each Investigator researches its assigned batch using the **same fixed evidence-channel schema** from Contract B / `FOOTBALL_PRE_DECISION_SPEC.md`.
 
-- season and relevant recent GF/GA;
-- scoring 2+ and conceding 2+ frequency;
-- home/away splits;
-- independent scoring-route evidence for each side;
-- self-funding 3+ / carrier-ceiling evidence;
-- chance-quality support;
-- competition/incentive context;
-- likely structural failure evidence;
-- XI sensitivity from normal team structure, without using confirmed XI;
-- source quality and unknowns.
+For both teams, collect CQ / REP / MECH / CTX plus supporting-only OPP / FORM / NAME / H2H / STATE and negative SUPPRESS / MECH_BREAK / ROLE_RISK / FATIGUE_ROTATION / DATA_CONFLICT evidence. Also preserve source quality and explicit UNKNOWN fields.
+
+Season/recent GF/GA, scoring/conceding frequency and home/away splits remain useful inputs, but they must be mapped into the fixed channels rather than becoming ad-hoc substitute proof.
 
 ### Hard prohibitions
 
@@ -120,7 +114,7 @@ If a material evidence hole remains on a potentially strong candidate, the Main 
 
 Only now does the Main Agent perform football-model reasoning.
 
-For every Work-admitted fixture, apply the current official structural order exactly as defined by `CURRENT_MODEL.md` and its active rules.
+For every Work-admitted fixture, execute `FOOTBALL_PRE_DECISION_SPEC.md` exactly. The Main Agent must not choose between older overlapping ranking/tier formulations.
 
 The Main Agent must assign every admitted fixture exactly one frozen PRE disposition, including all required active fields such as:
 
@@ -132,6 +126,7 @@ The Main Agent must assign every admitted fixture exactly one frozen PRE disposi
 - main failure mode;
 - XI sensitivity;
 - structural burden/ceiling fields required by the active model;
+- full `FOOTBALL_PRE_DECISION_SPEC_V1` decision trace;
 - official model version.
 
 ### Ranking
@@ -157,6 +152,8 @@ Required PASS before persistence:
 - no excluded fixture leaked back in;
 - no odds/confirmed-XI contamination of PRE;
 - required evidence/fields present;
+- compiled PRE trace present for every fixture;
+- route/tier/carrier/veto/PASS-rescue/rank consistency assertions pass;
 - AiScore identity/time preserved.
 
 If Tester returns FAIL, the Main Agent fixes only the identified process gap. Do not re-run the whole slate unless necessary.
