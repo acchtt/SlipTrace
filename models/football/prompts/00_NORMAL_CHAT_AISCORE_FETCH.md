@@ -3,11 +3,11 @@
 **Use in:** Normal Chat, high reasoning.
 
 ## Purpose
-Build a trustworthy **actionable senior AiScore universe** for the requested window, apply the active quality/sweep filters cheaply, persist the minimal coverage skeleton, and export only genuinely actionable fixtures to Work.
+Build a trustworthy **NARROW CORE actionable AiScore universe** for the requested window, search only competition blocks retained by the active sweep scope/league registry, persist the minimal coverage skeleton, and export only genuinely actionable fixtures to Work.
 
 Operational principle:
 
-`NORMALIZE WINDOW BOUNDARIES ONCE -> DISCOVER BROADLY -> PRESERVE RAW AISCORE TIME -> EXCLUDE CHEAPLY -> REVALIDATE EVERY WORK-ADMITTED FIXTURE AGAINST AUTHORITATIVE AISCORE UTC/OFFSET -> CONVERT ADMITTED SET ONCE TO ICT -> PROVE WINDOW MEMBERSHIP -> PACKAGE HANDOFF`
+`NORMALIZE WINDOW BOUNDARIES ONCE -> LOAD NARROW CORE ALLOWLIST -> DISCOVER RETAINED BLOCKS ONLY -> PRESERVE RAW AISCORE TIME -> CHEAP-GATE LISTED CONDITIONALS -> REVALIDATE WORK-ADMITTED FIXTURES -> CONVERT ADMITTED SET ONCE TO ICT -> PACKAGE HANDOFF`
 
 Do not convert every raw discovered fixture. However, **requested-window boundary normalization, deterministic date-envelope traversal, terminal-interval verification, and one final authoritative time normalization pass over the surviving Work-admitted set are mandatory Step-0 work.**
 
@@ -183,10 +183,10 @@ Step 0:
 
 1. resolves the requested window start/end in ICT and UTC **once**;
 2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
-3. traverses every AiScore date/competition block needed to cover that envelope;
+3. traverses only AiScore date/competition blocks inside the active NARROW CORE allowlist needed to cover that envelope;
 4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
 5. performs a separate European domestic-cup audit across the touched date envelope;
-6. proves coverage of every **potentially actionable senior block**;
+6. proves coverage of every **in-scope NARROW CORE competition block**;
 7. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
 8. deduplicates once;
 9. applies senior-quality exclusions;
@@ -259,19 +259,20 @@ Do not use another provider to add fixtures. Web search may be used only as a wa
 
 ## Mandatory European domestic-cup audit
 
-After the broad date-envelope pass and before actionable completeness, run a separate **AiScore-only European domestic-cup audit** across every touched ICT/UTC listing date.
+After the retained date-envelope pass and before actionable completeness, run a separate **restricted AiScore-only European domestic-cup audit**.
 
-This pass exists because domestic cup blocks can be omitted from generic league traversal even when senior first-team fixtures fall inside the requested window.
+The audit footprint is defined by `FOOTBALL_SWEEP_SCOPE.md`:
 
-At minimum:
+- proactively inspect senior first-team national FA cups/top-level league cups only in countries represented by PRIORITY/NORMAL domestic leagues;
+- inspect main professional cup stages, not every preliminary/amateur/lower-tier round;
+- skip lower-division-only challenge/trophy competitions;
+- do not crawl every UEFA association;
+- CONDITIONAL-country cups are opportunistic/direct-surface only unless explicitly overridden;
+- senior women's cup blocks may be admitted when directly surfaced and well-covered, but do not run a separate association-wide women's cup crawl.
 
-- inspect senior domestic cup blocks under UEFA-member associations that can place fixtures inside the window;
-- treat Norway NM Cup, Danish Cup and equivalent UEFA national/league cups as actionable competition blocks unless another independent exclusion applies;
-- record every European cup block checked, plus admitted/excluded/unresolved counts;
-- do not infer "no cup fixtures" merely because the main pass returned none;
-- if a relevant European domestic cup block was not checked, set `actionable_complete=false` and `work_ready=false`.
+Record every retained cup block actually checked, plus admitted/excluded/unresolved counts.
 
-A European cup fixture may be excluded for youth/reserve/amateur status, out-of-window time, a direct user hard exclusion, or a resolved current AiScore status. It may not be silently omitted because the competition is a cup.
+If a cup block required by the **restricted retained-cup footprint** was not checked, set `actionable_complete=false` and `work_ready=false`. Out-of-footprint cup blocks are non-blocking raw gaps, not coverage failures.
 
 ## Source-time capture + final admitted-set time proof
 
@@ -324,9 +325,9 @@ Distinguish:
 - terminal sentinel not explicitly completed;
 - European domestic-cup audit not explicitly completed;
 - terminal ICT date or UTC end-date block not checked for a cross-midnight/early-morning window;
-- PRIORITY/NORMAL senior block not checked;
-- eligible senior cup/continental block not checked;
-- relevant CONDITIONAL senior block not cheap-gated;
+- in-scope PRIORITY/NORMAL senior block not checked;
+- retained senior cup/continental block not checked;
+- explicitly whitelisted CONDITIONAL block that was surfaced for the window was not cheap-gated;
 - scope/registry contradiction;
 - fixture identity/source-time contradiction;
 - any Work-admitted fixture lacks `kickoff_time_provenance`, `kickoff_utc_verified`, or `kickoff_ict_verified`;
@@ -439,7 +440,7 @@ A Work handoff may be created only when:
 - `terminal_scan_complete=true`;
 - `european_cup_audit_complete=true`;
 - all required discovery/listing dates are named in the handoff;
-- all potentially actionable senior blocks were checked;
+- all NARROW CORE in-scope blocks were checked;
 - scope/registry audit passed;
 - no source-time/identity unresolved fixture appears in the Work array;
 - every admitted fixture has authoritative time provenance + verified UTC + verified ICT;
@@ -486,6 +487,7 @@ The inner text handoff must include:
 - model version;
 - source = AiScore;
 - sweep scope + league registry;
+- `sweep_scope_mode=NARROW_CORE`;
 - `window_start_ict` / `window_end_ict`;
 - `window_start_utc` / `window_end_utc`;
 - `ict_dates_touched`;
@@ -501,7 +503,7 @@ The inner text handoff must include:
 - `raw_audit_complete:true|false`;
 - `raw_count_mode=exact|lower_bound`;
 - `nonblocking_raw_gaps` when applicable;
-- actionable-block audit result;
+- NARROW CORE actionable-block audit result;
 - coverage publication result;
 - only fixtures admitted to Work;
 - AiScore identity;
@@ -524,9 +526,9 @@ Before `work_ready=true`:
 
 Verify:
 
-- discovery date envelope is complete;
-- terminal sentinel is complete;
-- European domestic-cup audit is complete;
+- discovery date envelope is complete for the NARROW CORE allowlist;
+- terminal sentinel is complete for the NARROW CORE allowlist;
+- restricted European domestic-cup audit is complete;
 - every required terminal date/listing block is named;
 - no LOW-GOAL EXCLUDE fixture survived into Work;
 - no hard-excluded domestic-league fixture survived;
