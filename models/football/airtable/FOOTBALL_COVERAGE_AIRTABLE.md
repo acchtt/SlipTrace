@@ -117,6 +117,20 @@ are shadow/comparison fields only. They do not define the official board tier an
 
 Post-XI v0.2.50 EGE, v0.2.51 MCE, and v0.2.52 carrier-reopen/execution states do not rewrite these frozen PRE fields.
 
+For every new Step-1 board produced under the compiled PRE authority, `Frozen PRE Summary` / `Coverage Notes` must also preserve a compact `FOOTBALL_PRE_DECISION_SPEC_V1` trace sufficient to reconstruct:
+
+- HOME/AWAY CQ/REP/MECH/CTX states and final route states;
+- weaker-route INDEPENDENT/CONDITIONAL state when applicable;
+- HOME/AWAY VERIFIED/CANDIDATE/UNVERIFIED carrier states;
+- dominant failure mode + severity;
+- PASS-rescue result when applicable;
+- structural grade + board tier + cap reason;
+- supported burden + burden basis/confidence;
+- evidence confidence;
+- rank-factor summary and cross-grade inversion reason when applicable.
+
+This is frozen PRE history. Later XI/market states may reference it but must not overwrite it.
+
 Under v0.2.52, preserve route-quality and carrier-ceiling context in `Frozen PRE Summary` / `Coverage Notes` where relevant, including:
 
 - `TWO-SIDED — QUALITY PROVEN`;
@@ -242,7 +256,7 @@ For prospective v0.2.53 rows, preserve in existing structured fields or `Frozen 
 - league high-burden gate result where applicable;
 - CC+ state and named dominant failure mode.
 
-The publisher must verify that the assigned PRE grade and board tier do not exceed the route-pair cap in `MODEL_RULES_FOOTBALL_V0.2.53.md`.
+The publisher must verify that the assigned PRE grade and board tier match the final `FOOTBALL_PRE_DECISION_SPEC.md` compiler trace. Older v0.2.53 caps remain historical inputs to that compiler but are not a separate competing publication authority.
 
 ### Duplicate/conflict validator
 
