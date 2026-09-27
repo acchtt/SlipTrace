@@ -38,6 +38,26 @@ For all new Step-1 / Work structural assessments, `models/football/procedures/FO
 
 For all new Step-2 XI/odds assessments (the user's workflow Step 3), `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is the compiled final operational authority. It preserves frozen PRE history while resolving H2H, XI mechanism integrity, EGE/Decay-First, HMA, B+, carrier-current-PRE, live eligibility, verdict finality and persistence order into one deterministic sequence. Older Step-2 wording must not be executed independently when the compiled spec defines the outcome.
 
+## MATCH-SPECIFIC PREMATCH EXCEPTION — PUMAS UNAM vs ATLETICO SAN LUIS — ACTIVE UNTIL FT
+
+For the exact Mexico Liga MX fixture **Pumas UNAM vs Atletico San Luis** on 2026-09-28 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-28_PUMAS_ATLETICO_SAN_LUIS.md`
+
+This one-fixture exception permits a fresh prematch structural epoch despite no frozen Work PRE for this exact fixture. It does not waive XI review, mandatory post-XI research, market-history, H2H/suppression, burden/carrier/upper-tail rules, the 1.65 floor, no-chase/state integrity, one-exposure-per-match, or persistence. It expires at FT.
+
+---
+
+## MATCH-SPECIFIC PREMATCH EXCEPTION — PUEBLA WOMEN vs MONTERREY WOMEN — ACTIVE UNTIL FT
+
+For the exact Mexico Liga MX Femenil fixture **Puebla Women vs Monterrey Women** on 2026-09-28 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-28_PUEBLA_W_MONTERREY_W.md`
+
+This one-fixture exception permits a fresh prematch structural epoch despite no frozen Work PRE for this exact fixture. It does not waive XI review, mandatory post-XI research, same-venue/recent H2H, market-history, carrier/upper-tail rules, the 1.65 floor, no-chase/state integrity, one-exposure-per-match, or persistence. It expires at FT.
+
+---
+
 ## MATCH-SPECIFIC PREMATCH EXCEPTION — CHELSEA WOMEN vs ARSENAL WOMEN — ACTIVE UNTIL FT
 
 For the exact English FA Women's Super League fixture **Chelsea Women vs Arsenal Women** on 2026-09-27 ICT, load and apply:
