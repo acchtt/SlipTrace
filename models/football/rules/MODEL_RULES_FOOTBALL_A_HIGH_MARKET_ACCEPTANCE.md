@@ -1,5 +1,9 @@
 # Football A — High-Market Acceptance Execution Patch
 
+> **STEP-2 COMPILER SUPERSESSION — CURRENT**
+> For new XI/odds assessments, `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is final. Generic HMA above frozen supported burden is **monitoring/audit only**. It does not create new ordinary prematch `DIRECT LOCK ELIGIBLE — HIGH-MARKET ACCEPTANCE`, `OFFICIAL LOCK — HIGH-MARKET ACCEPTANCE`, early same-line above-burden exposure, or an HMA-boundary decay target. Historical HMA decisions remain historical.
+
+
 ## DECAY-FIRST SUPERSESSION NOTICE
 
 Effective prospectively from 2026-09-20 ICT, `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md` overrides this file anywhere HMA would create a direct prematch exposure **above frozen supported burden**.
