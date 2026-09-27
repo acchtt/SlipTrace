@@ -1,7 +1,7 @@
 # Football v2.0 — CURRENT CHAT HANDOFF — 2026-09-20 ICT
 
 > **HISTORICAL SNAPSHOT WARNING — NOT CURRENT MODEL AUTHORITY**
-> This file preserves Sep-20 state/history. On any new run, load upstream `CURRENT_MODEL.md` and `FOOTBALL_PRE_DECISION_SPEC.md` first. Expired session overrides and hard-coded historical boards below must never be reactivated merely because they remain in this snapshot.
+> This file preserves Sep-20 state/history. On any new run, load upstream `CURRENT_MODEL.md`, `FOOTBALL_PRE_DECISION_SPEC.md`, and for XI/odds `FOOTBALL_STEP2_EXECUTION_SPEC.md` first. Expired session overrides and hard-coded historical boards below must never be reactivated merely because they remain in this snapshot.
 
 **Purpose:** preserve the full operational state of the current Football v2.0 chat and make the next chat start from **Step 01 / Work structural ranking** without losing the Step-2/live/audit state accumulated here.
 
@@ -18,6 +18,7 @@ When this handoff is opened in a new chat:
 
 1. Read upstream `models/football/CURRENT_MODEL.md`.
 2. Read `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md`.
+3. For XI/odds/live continuation, read `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`.
 3. Load and execute `models/football/prompts/01_WORK_DAILY_SWEEP.md`.
 4. Read this handoff only for historical/session context after current authority is loaded.
 4. If the user attached a fresh `AISCORE_FIXTURES_*.zip`, validate/extract it exactly as Step 01 requires and run structural ranking.
