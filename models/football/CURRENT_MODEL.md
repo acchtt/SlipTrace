@@ -32,6 +32,12 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+### Step-1 PRE compiler authority
+
+For all new Step-1 / Work structural assessments, `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` is the compiled final operational authority. It does not change the predictive model; it resolves overlapping active PRE wording into one deterministic decision sequence. Older route-symmetry, PRE-XI, carrier, PASS-rescue, burden, or rank wording must not be executed independently when the compiled spec gives the Step-1 rule.
+
+Step 2 remains governed by the later XI/market/execution authorities and must preserve frozen PRE history separately from any fresh post-XI/current assessment.
+
 ## MATCH-SPECIFIC LIVE EXCEPTION — MIDTJYLLAND WOMEN vs FC COPENHAGEN WOMEN — ACTIVE UNTIL FT
 
 For the exact Denmark A-Liga Women fixture **Midtjylland Women vs FC Copenhagen Women** on 2026-09-27 ICT, load and apply:
@@ -270,12 +276,13 @@ Load only the current active stack:
 21. `models/football/rules/MODEL_RULES_FOOTBALL_A_PRACTICAL_CEILING_RANKING.md` — final Football A authority on PRE Structural Rank ordering
 22. `models/football/rules/MODEL_RULES_FOOTBALL_A_PASS_RESCUE.md` — final Football A authority on provisional B/PASS practical-ceiling rescue
 23. `models/football/rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — final Football A authority on A2 two-route independence / FOCUS privilege
-24. `models/football/rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **final Football A authority on carrier identification, market-calibrated current PRE, and unreachable-decay override**
-25. `models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md` — **mandatory Step-2 post-XI football research + regression guard**
-26. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
-27. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-28. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
-29. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
+24. `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` — **compiled final Step-1 PRE authority; deterministic route/carrier/veto/grade/tier/burden/rank execution**
+25. `models/football/rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **final Football A authority on post-XI carrier identification, market-calibrated current PRE, and unreachable-decay override**
+26. `models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md` — **mandatory Step-2 post-XI football research + regression guard**
+27. `models/football/rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md`
+28. `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
+29. `models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md`
+30. `models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md`
 
 Conditional auxiliary trials remain opt-in only and do not change the normal senior board.
 
