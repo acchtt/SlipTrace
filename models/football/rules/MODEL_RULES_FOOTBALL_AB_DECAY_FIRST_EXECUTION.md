@@ -1,5 +1,9 @@
 # Football A/B — Decay-First Execution / Burden Protection
 
+> **STEP-2 COMPILER CLARIFICATION — CURRENT**
+> `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` compiles this rule with later active authorities. Ordinary above-frozen-burden execution remains WAIT. Generic HMA and EGE alone do not bypass this rule; ordinary B+ +0.25 also waits. The explicit later exception is ELITE/EXTREME `MARKET-CALIBRATED CURRENT PRE` under Carrier Market Decomposition, which may create a different authorized current execution burden when its own football/XI/market gates clear.
+
+
 **Status:** ACTIVE OFFICIAL PATCH  
 **Effective:** 2026-09-20 ICT, prospective from commit  
 **Applies to:** Football A official track and Model B side-by-side/shadow execution  
