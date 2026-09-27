@@ -32,6 +32,26 @@
 
 This file is the operating authority for Football. **Football A is the main active model.** Historical assessments remain tied to the model version/state that actually produced them.
 
+## MATCH-SPECIFIC LIVE EXCEPTION — MIDTJYLLAND WOMEN vs FC COPENHAGEN WOMEN — ACTIVE UNTIL FT
+
+For the exact Denmark A-Liga Women fixture **Midtjylland Women vs FC Copenhagen Women** on 2026-09-27 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-27_MIDTJYLLAND_W_FC_COPENHAGEN_W.md`
+
+This is a one-fixture live exception. It permits a fresh live structural epoch despite no frozen Work PRE and bypasses opportunistic-live shadow quarantine for this match only. All normal research, price, burden, carrier, state-integrity and persistence rules remain active. It expires at full time.
+
+---
+
+## MATCH-SPECIFIC LIVE EXCEPTION — INTER WOMEN vs FIORENTINA WOMEN — ACTIVE UNTIL FT
+
+For the exact Italy Serie A Women fixture **Inter Women vs Fiorentina Women** on 2026-09-27 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-27_INTER_W_FIORENTINA_W.md`
+
+This is a one-fixture live exception. It prospectively bypasses the earlier missed-screen/unresolved state, permits a fresh live structural epoch, and bypasses opportunistic-live shadow quarantine for this match only. All normal research, price, burden, carrier, state-integrity and persistence rules remain active. It expires at full time.
+
+---
+
 ## MATCH-SPECIFIC PREMATCH EXCEPTION — AJAX WOMEN vs ADO DEN HAAG WOMEN — ACTIVE UNTIL FT
 
 For the exact Netherlands Eredivisie Women fixture **Ajax Women vs ADO Den Haag Women** on 2026-09-26 ICT, load and apply:
