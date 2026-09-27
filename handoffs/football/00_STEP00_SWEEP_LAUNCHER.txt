@@ -41,6 +41,10 @@ CRITICAL:
 - Upstream/default-branch prompt is always authoritative.
 - AiScore remains fixture authority.
 - Use the active NARROW CORE allowlist; do not perform a global competition crawl.
+- Use DATE-FIRST BATCH discovery: fetch each required AiScore date surface once and filter locally.
+- Do not loop through competitions one by one to prove absence.
+- Reuse authoritative AiScore epoch/ISO/offset timestamps already captured; open individual match pages only for missing/conflicting time or identity.
+- CONDITIONAL gates may use batch/cached evidence or at most one direct AiScore surface per fixture; no broad research.
 - Preserve the exact requested Asia/Ho_Chi_Minh window.
 - Never mark work_ready=true with an unresolved actionable coverage or source-time fault.
 - Do not perform Work structural ranking, XI/odds review, live analysis, or betting decisions in Step 0.
