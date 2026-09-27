@@ -38,6 +38,16 @@ For all new Step-1 / Work structural assessments, `models/football/procedures/FO
 
 For all new Step-2 XI/odds assessments (the user's workflow Step 3), `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md` is the compiled final operational authority. It preserves frozen PRE history while resolving H2H, XI mechanism integrity, EGE/Decay-First, HMA, B+, carrier-current-PRE, live eligibility, verdict finality and persistence order into one deterministic sequence. Older Step-2 wording must not be executed independently when the compiled spec defines the outcome.
 
+## MATCH-SPECIFIC PREMATCH EXCEPTION — CHELSEA WOMEN vs ARSENAL WOMEN — ACTIVE UNTIL FT
+
+For the exact English FA Women's Super League fixture **Chelsea Women vs Arsenal Women** on 2026-09-27 ICT, load and apply:
+
+`models/football/session_overrides/SESSION_OVERRIDE_2026-09-27_CHELSEA_W_ARSENAL_W.md`
+
+This one-fixture exception permits a fresh prematch structural epoch despite no frozen Work PRE for this exact fixture. It does not waive confirmed-XI review, mandatory post-XI football research, market-history attempt, H2H/suppression checks, burden/carrier/upper-tail rules, the 1.65 floor, no-chase/state integrity, one-exposure-per-match, or persistence. It expires automatically at full time.
+
+---
+
 ## MATCH-SPECIFIC LIVE EXCEPTION — MIDTJYLLAND WOMEN vs FC COPENHAGEN WOMEN — ACTIVE UNTIL FT
 
 For the exact Denmark A-Liga Women fixture **Midtjylland Women vs FC Copenhagen Women** on 2026-09-27 ICT, load and apply:
