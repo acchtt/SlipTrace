@@ -2,6 +2,8 @@
 
 Read the **upstream/default-branch** `models/football/CURRENT_MODEL.md` from `acchtt/SlipTrace` first and treat it as the version authority. Follow the current official load order and the stage-relevant procedures/rules it declares. Never infer the active model version from this file or from a locally cached repository copy.
 
+For Step 1 / Work structural PRE, load `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md` and treat it as the **compiled final PRE execution authority**. It resolves overlapping active wording without changing the model. Do not independently apply an older route-symmetry hierarchy, confirmed-XI promotion condition, carrier test, PASS-rescue interpretation, or rank order when the compiled spec defines the Step-1 outcome.
+
 ## Upstream authority preflight
 
 Before any football research:
@@ -200,6 +202,25 @@ The handoff should already have removed model-quality exclusions, low-goal domes
 
 Process every fixture that survived into the valid Work handoff with full deep structural research under the current model. Produce and rank the current PRE states, including route-quality and CC+/carrier-ceiling auditing required by the active model.
 
+### Deterministic PRE compiler gate
+
+For **every** Work-admitted fixture, execute the fixed compiler order from `FOOTBALL_PRE_DECISION_SPEC.md` and freeze its complete `pre_compiler: FOOTBALL_PRE_DECISION_SPEC_V1` decision trace before cross-match ranking.
+
+The Work run is invalid if any actionable fixture lacks:
+- HOME and AWAY CQ/REP/MECH/CTX states;
+- HOME and AWAY route states;
+- weaker-route independence state when applicable;
+- HOME/AWAY carrier state;
+- dominant failure mode + HARD_VETO/SOFT_PENALTY/NONE/UNRESOLVED severity;
+- structural grade;
+- board tier + exact cap reason;
+- PASS-rescue state where required;
+- supported burden + basis + confidence;
+- evidence confidence;
+- frozen rank-factor states.
+
+`UNKNOWN` remains unknown. Missing evidence may lower confidence, cap the tier, or create UNRESOLVED; it must never be silently filled by intuition.
+
 When the Practical Ceiling Ranking patch is active, every carrier-priority candidate must be explicitly classified as `PRACTICAL CARRIER CEILING — VERIFIED`, `CANDIDATE`, or `UNVERIFIED`. `CARRIER-LED` alone is not rank-positive. Only `VERIFIED` may receive first-order practical 3+ ceiling credit or cross-grade B+ > A2 ranking authority. Persist the carrier-verification label and supporting mechanism in the frozen PRE summary.
 
 Before freezing any `B / PASS`, apply the active PASS Rescue Screen. If at least one route is PROVEN/SUPPORTED, or a plausible class-gap/carrier route exists, explicitly test whether a VERIFIED self-funded 3+ carrier plus compatible opponent failure rescues the fixture to `B+ WATCHLIST / CARRIER-LED`. If only CANDIDATE/UNVERIFIED evidence exists, or a strong current suppression veto remains, keep PASS and persist the specific PASS label from the rescue patch. Do not send a fixture to PASS solely because the second route is weak.
@@ -215,6 +236,17 @@ This stage is price/XI/market-history blind. Do not use downstream Decision Stat
 If the current model contains a later post-XI goal-environment/regime gate, preserve the structural evidence needed for it but do not classify that later regime during PRE unless `CURRENT_MODEL.md` explicitly moves the gate earlier.
 
 Reconcile the complete **Work-admitted actionable universe** once at the end. Publishing is a copy/upsert, not a second structural screen. If Airtable differs from the frozen Work artifact, preserve the Work artifact and report a persistence sync fault.
+
+Before persistence, run a PRE consistency assertion:
+- the compiled decision trace is present for every actionable fixture;
+- no SUPPORTED+SUPPORTED fixture is Step-1 FOCUS;
+- no CARRIER CANDIDATE receives VERIFIED carrier rank credit;
+- no HARD VETO is averaged away by later positives;
+- no price/confirmed-XI input entered PRE;
+- rank order follows the compiled lexicographic Practical Ceiling sequence;
+- any cross-grade inversion has an explicit VERIFIED-carrier/practical-path reason.
+
+If any assertion fails, correct the affected fixture trace before publishing; do not rerun the entire slate unless the evidence packet itself is incomplete.
 
 ## Final response
 
