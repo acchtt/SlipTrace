@@ -13,6 +13,28 @@ This procedure overrides older football instructions that require Step 0 to conv
 
 ---
 
+## 0. Operational mode precedence
+
+### FAST_PRODUCTION — default
+
+For normal operational sweeps:
+
+- requested-window boundary normalization remains mandatory;
+- discovery dates are the ICT date(s) touched by the requested window, plus the UTC end-date only when it is not already represented;
+- do not add automatic UTC day-before/day-after buffer dates;
+- a terminal date batch already fetched in the same run satisfies terminal coverage; do not automatically refetch it;
+- authoritative batch/cache epoch, zoned ISO, or explicit-offset timestamps may be reused directly;
+- individual match-page time verification is exception-only: missing zoned time, identity/status conflict, or kickoff within 60 minutes of a requested boundary;
+- a covering COMPLETE same-end sweep may supply the baseline fixture universe from Daily Coverage Ledger; only the new current-status delta needs checking.
+
+### FULL_AUDIT
+
+When explicitly requested, use the stricter buffer-date envelope, independent terminal sentinel, and broader proof rules below.
+
+FAST_PRODUCTION mode-specific rules override generic wording below that would otherwise force redundant buffer dates, duplicate terminal fetches, or per-fixture page reopening.
+
+---
+
 ## 1. Source-time preservation contract
 
 For every AiScore fixture, preserve the strongest available source-time representation without changing its timezone:
