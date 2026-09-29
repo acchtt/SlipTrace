@@ -1,667 +1,175 @@
-# 00 — Normal Chat: AiScore Fetch + Coverage
+# 00 — Normal Chat: AiScore Broad Senior Intake
 
 **Use in:** Normal Chat, high reasoning.
 
+Read upstream `models/football/CURRENT_MODEL.md` first.
+
+Football C is the active official model.
+
 ## Purpose
-Build a trustworthy **NARROW CORE actionable AiScore universe** for the requested window, search only competition blocks retained by the active sweep scope/league registry, persist the minimal coverage skeleton, and export only genuinely actionable fixtures to Work.
+
+Build a trustworthy **BROAD SENIOR** AiScore universe for the requested window, apply only hard identity/scope exclusions, and send every remaining reasonable senior first-team fixture to Football C.
+
+Step 0 must not pre-rank football quality and must not recreate the old Football A narrow-core league allowlist.
 
 Operational principle:
 
-`NORMALIZE WINDOW BOUNDARIES ONCE -> LOAD NARROW CORE ALLOWLIST -> DISCOVER RETAINED BLOCKS ONLY -> PRESERVE RAW AISCORE TIME -> CHEAP-GATE LISTED CONDITIONALS -> REVALIDATE WORK-ADMITTED FIXTURES -> CONVERT ADMITTED SET ONCE TO ICT -> PACKAGE HANDOFF`
+`NORMALIZE WINDOW -> DISCOVER COMPLETE SENIOR BLOCKS -> PRESERVE AISCORE IDENTITY/TIME -> APPLY HARD EXCLUSIONS ONLY -> VERIFY ADMITTED TIMES -> PACKAGE ALL SURVIVING SENIOR FIXTURES -> FOOTBALL C SCREENS THEM`
 
-Do not convert every raw discovered fixture. However, **requested-window boundary normalization, deterministic date-envelope traversal, terminal-interval verification, and one final authoritative time normalization pass over the surviving Work-admitted set are mandatory Step-0 work.**
+Measure the whole funnel:
 
-## Sweep modes
+`RAW SENIOR -> HARD EXCLUDED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
 
-Default mode is **FAST_PRODUCTION**.
+## Default mode
 
-Use **FULL_AUDIT** only when the user explicitly asks for `full audit`, `exhaustive sweep`, `coverage audit`, or equivalent.
+Default:
+`BROAD_SENIOR_PRODUCTION`
 
-### FAST_PRODUCTION — default
+Do not use the legacy `FAST_PRODUCTION / NARROW_CORE` allowlist behavior.
 
-FAST_PRODUCTION is optimized for the user's normal repeated operational sweeps.
+A prior sweep may be reused only if it was itself completed under BROAD_SENIOR_PRODUCTION for a window fully covering the request. A narrow-core run cannot prove broad-senior completeness.
 
-Rules:
+## Source authority
 
-1. **Incremental reuse first.**
-   - Before any AiScore discovery, look for the newest COMPLETE Sweep Run whose end boundary matches the requested end boundary and whose completed window covers the new requested window.
-   - If found, reuse its verified Daily Coverage Ledger rows for fixtures whose verified `Kickoff ICT` lies inside the new window.
-   - Revalidate only current status for fixtures already near kickoff/live-risk and any rows with stale/conflicting identity/time.
-   - Do not rediscover the whole slate.
-   - Create a new run record for the new exact window, but classify it as an incremental derivative in Checkpoint Notes.
+AiScore is the fixture-discovery authority. Other sources may research a known AiScore fixture later, but may not add fixtures to the production universe.
 
-2. **Fresh discovery is date-level only.**
-   - If no reusable completed run exists, fetch only the ICT calendar date(s) touched by the requested window plus the UTC end-date only when it is not already represented.
-   - Do not add automatic day-before/day-after buffer dates in FAST_PRODUCTION.
-   - Maximum normal discovery footprint for a same-night cross-midnight sweep is two AiScore date surfaces.
+## Time integrity
 
-3. **Direct leagues only.**
-   - Discover PRIORITY + NORMAL registry leagues.
-   - Do not run CONDITIONAL gates in FAST_PRODUCTION.
-   - CONDITIONAL leagues are FULL_AUDIT-only unless the user explicitly names one.
+Resolve the requested ICT/UTC boundaries once and follow `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
 
-4. **Cups/continental.**
-   - Retain UCL / UEL / UECL and clearly surfaced main senior cup fixtures from the date batch.
-   - No proactive European cup crawl in FAST_PRODUCTION.
-   - No lower-round/preliminary cup hunt.
-   - A cup not visible in the date batch is a non-blocking omission in FAST_PRODUCTION.
+Before packaging, every admitted fixture must have an authoritative zoned AiScore time from explicit Match Info UTC, an AiScore epoch/zoned ISO timestamp, or an explicit offset. Convert exactly once to Asia/Ho_Chi_Minh and prove it lies inside the requested window.
 
-5. **No duplicate terminal fetch.**
-   - If the terminal ICT date surface was already fetched during the same run and covers the requested terminal interval, that same batch satisfies the terminal check.
-   - Refetch only when the terminal date was not already fetched or the first batch produced a concrete inconsistency.
+Do not guess timezone from geography or treat a bare display clock as UTC.
 
-6. **Time verification by exception.**
-   - Reuse authoritative AiScore epoch / zoned ISO / explicit-offset timestamps from the batch or Airtable cache.
-   - Open individual match pages only for:
-     - missing authoritative zoned time;
-     - identity/status conflict;
-     - kickoff within 60 minutes of either requested window boundary.
-   - Do not reopen every admitted fixture.
+## Broad senior discovery — mandatory
 
-7. **Minimal persistence.**
-   - One run-start write.
-   - One post-discovery/incremental-reuse checkpoint.
-   - One final completion/package write.
-   - Additional writes only for a genuine blocker.
+Inspect every AiScore competition block visible on the touched date surfaces and account for every potentially reasonable senior first-team fixture in-window.
 
-8. **Immediate finish.**
-   - Once `Run Status=COMPLETE`, `Current Stage=COMPLETE`, final counts and `Handoff Package` are persisted, return the compact result immediately.
-   - Do not continue with extra audit narration or post-completion verification.
+Do not restrict discovery to PRIORITY/NORMAL registry entries.
 
-FAST_PRODUCTION may set:
+Normally admit to Football C:
+- senior top divisions;
+- professional senior lower divisions;
+- senior international qualifiers/tournaments;
+- senior continental club competitions;
+- senior national FA cups;
+- senior league/professional cups;
+- senior women's first-team competitions when identity/data are usable;
+- other reasonable senior first-team fixtures.
 
-- `raw_audit_complete=false`;
-- `raw_count_mode=lower_bound`;
-- `sweep_scope_mode=FAST_PRODUCTION`.
+A fixture being unfamiliar, historically low-scoring, outside a legacy registry, or previously CONDITIONAL is not enough to remove it at Step 0. Those are Football C screening questions.
 
-That is non-blocking by design.
+## Hard exclusions only
 
-### FULL_AUDIT
+Exclude before Football C only when clearly outside production scope or unsafe to identify:
 
-FULL_AUDIT retains the stricter date-envelope buffers, whitelisted CONDITIONAL gates, independent terminal refetch, retained-cup audit, and complete coverage proof described elsewhere in this prompt and the active procedures.
+- youth/Uxx-only competitions;
+- academy/junior competitions;
+- reserve/B/development-only competitions;
+- amateur or clearly semi-professional micro competitions with unreliable identity/data;
+- regional/state/provincial competitions outside the intended senior professional universe;
+- school/university/military/company competitions;
+- friendlies/exhibitions unless explicitly requested;
+- cancelled/postponed/abandoned/already-finished fixtures for an upcoming sweep;
+- unresolved fixture/home-away identity;
+- unresolved authoritative kickoff time;
+- duplicate identities.
 
-FULL_AUDIT is not the default operational sweep.
+### Professional reserve-brand exception
 
-## Source of truth
-Repository: `acchtt/SlipTrace`
+If a reserve/Jong/U21-branded side is an official participant in a normal professional senior league, do not exclude solely because of the team name. Treat the competition as the scope authority.
 
-Always read upstream/default-branch:
+## No longer Step-0 exclusions
 
-1. `models/football/CURRENT_MODEL.md`
-2. `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
-3. `models/football/procedures/FOOTBALL_SWEEP_SCOPE.md`
-4. `models/football/procedures/FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`
+Do not exclude solely because a fixture is:
+- from a legacy LOW-GOAL league;
+- from a legacy HARD-EXCLUDE country;
+- from Finland or Japan;
+- from a professional lower division;
+- from a senior cup previously considered small;
+- from a legacy CONDITIONAL league;
+- unfamiliar or absent from a priority list.
 
-The active time procedure uses **source-time preservation for fixtures plus mandatory one-time normalization of the requested window boundaries**. If an older subordinate file says every fixture must be converted to ICT during discovery, the active time procedure wins.
+If it is a reasonable senior first-team fixture with usable identity, send it to Football C.
 
-## Airtable
-Base: `SlipTrace Football Decision Control`
+## Completeness
 
-- Base ID: `appWyZJjitSBATXAU`
-- Daily Coverage Ledger: `tblcl1UAyMqZT6Ub0`
-- Decision States: `tblQmUpd5WjBLQ38X`
-- Website Picks: `tblg3J5sbJYbzuTYD`
-- Sweep Runs: `tblUnGHHe0MVaalDL`
+Production completeness means every potentially reasonable senior first-team block in the requested window has been accounted for.
 
-Use these IDs directly unless one actually fails.
+A visible senior block skipped because it is not in a registry makes the handoff incomplete.
 
-## Authoritative resumable execution state
+For cross-midnight/early-morning windows, independently inspect the terminal ICT date and UTC date containing the end boundary.
 
-`Sweep Runs` is the **source of truth for Step-0 execution progress**. Chat history is not an execution checkpoint and must never be used as the sole basis for deciding where to resume.
+`terminal_interval_ict = max(window_start_ict, window_end_ict - 6h) -> window_end_ict`
 
-For an **explicit absolute ICT window**, derive one deterministic run ID:
+Record `terminal_scan_complete=true|false`. Never infer terminal completeness from the latest kickoff already found.
 
-`SWEEP-YYYYMMDD-HHMM-YYYYMMDD-HHMM`
+Every visibly surfaced senior cup/continental block must be accounted for. No legacy "main cups only" filter.
 
-using the exact requested ICT start/end minute. The same exact absolute window reuses the same Run ID.
+## Persistence skeleton
 
-### Relative-start coalescing — mandatory
+Use the existing football Airtable coverage contract.
 
-For requests whose start is relative, such as `now`, `from now`, or equivalent, **do not immediately create a new Run ID from the new clock minute**.
+For every discovered in-window fixture preserve enough to distinguish:
+- `ADMITTED_TO_C`
+- `HARD_EXCLUDED`
+- `UNRESOLVED`
 
-Before creating a run:
+For admitted fixtures preserve Match, Competition, AiScore identity, verified UTC/ICT kickoff, time provenance, status, and `BROAD_SENIOR_PRODUCTION` in notes.
 
-1. search `Sweep Runs` for non-complete `RUNNING` or `BLOCKED` rows whose requested end boundary matches the newly requested end boundary and whose window overlaps the current time;
-2. if exactly one compatible active run exists, reuse/resume it;
-3. if multiple compatible active runs exist, use the **most recently Updated At** row as the canonical run and do not create another;
-4. older compatible rows with no validated handoff package may be marked `ABANDONED` with `SUPERSEDED BY <canonical Run ID>` in Checkpoint Notes;
-5. create a fresh relative-start Run ID only when no compatible active run exists, or when the user explicitly says `new sweep`, `restart from now`, `discard the old run`, or equivalent.
-
-This rule prevents repeated `from now till 03:00` launches from spawning overlapping sweeps every time the chat is restarted.
-
-### START behavior
-
-Before any AiScore traversal:
-
-1. find the `Sweep Runs` row for the deterministic Run ID;
-2. if none exists, create it with:
-   - `Run Status = RUNNING`;
-   - `Current Stage = CORE DISCOVERY`;
-   - exact Window Start/End ICT;
-   - active Model Version;
-   - zeroed counts;
-   - all completion flags false;
-   - deterministic discovery envelope;
-   - `Resume Cursor` set to the first required discovery block;
-   - empty `Retry Queue`;
-3. if a row exists with `RUNNING` or `BLOCKED`, continue from its persisted state instead of starting over;
-4. if a row is already `COMPLETE`, do not silently rerun it. Return/report the completed package unless the user explicitly requests a rerun/rebuild.
-
-### RESUME / CONTINUE behavior
-
-When the user says `resume`, `resume the sweep`, `continue`, or equivalent:
-
-1. load the matching current-window `Sweep Runs` row first;
-2. if the current chat does not contain an explicit window, use the newest non-complete `Sweep Runs` row only when it is unambiguous;
-3. trust persisted stage flags, `Listing Blocks Checked`, `Resume Cursor`, `Retry Queue`, counts and checkpoint notes over conversational recollection;
-4. continue from the exact `Resume Cursor`;
-5. never restart an already-completed stage merely because the conversation was interrupted;
-6. never infer a missing cursor from prose if Airtable has a persisted cursor.
-
-If no resumable row can be identified, report `NO RESUMABLE SWEEP RUN FOUND` rather than inventing state.
-
-### REPORT / STATUS behavior
-
-When the user asks `report`, `status`, or equivalent during a sweep, **do not run AiScore discovery**. Read the `Sweep Runs` row and return only:
-
-- Run ID;
-- requested ICT window;
-- Run Status;
-- Current Stage;
-- completed stage flags;
-- discovered/admitted/excluded/unresolved counts;
-- current `Resume Cursor`;
-- retry-queue count/content summary;
-- last checkpoint time;
-- handoff package if already produced;
-- blocking fault, if any.
-
-### Mandatory checkpoint cadence
-
-Checkpoint state to `Sweep Runs` **sparingly**:
-
-- after every 20 successfully processed listing/competition blocks;
-- immediately after every stage transition;
-- immediately before and after the European cup audit;
-- immediately before and after the terminal sentinel;
-- immediately before admitted-set time proof/reconciliation;
-- immediately before packaging;
-- immediately after packaging;
-- immediately when a genuinely blocking fault is discovered.
-
-Do **not** checkpoint after every small web/AiScore batch, every fixture, or every retry. Within a stage, keep working in-memory between checkpoints and use the persisted cursor only at the cadence above.
-
-A stage-entry checkpoint satisfies any required "before stage" checkpoint, and the stage-completion checkpoint satisfies the corresponding "after stage" checkpoint. Never perform duplicate adjacent Airtable writes for the same boundary.
-
-Every checkpoint must persist, where applicable:
-
-- `Run Status`;
-- `Current Stage`;
-- all stage completion flags;
-- counts;
-- `Discovery Envelope`;
-- cumulative `Listing Blocks Checked`;
-- `Resume Cursor` = exact next unprocessed block;
-- `Retry Queue`;
-- `Checkpoint Notes`;
-- `Updated At`.
-
-Keep checkpoint payloads compact. `Listing Blocks Checked` should use canonical block identifiers rather than repeated narrative prose. `Checkpoint Notes` should contain only the material delta/fault since the previous checkpoint, not a full sweep recap.
-
-A checkpoint is committed **after** a batch's Airtable coverage writes succeed. The normal batch unit is an AiScore listing date or a compact group of surfaced conditional fixtures, not an individual competition. This makes replay idempotent and prevents the cursor from advancing past unpersisted work.
-
-### Retry and transient-failure behavior
-
-A single failed web/AiScore/tool call must not terminate the whole sweep.
-
-For a transient failure:
-
-1. retry that block once when safe;
-2. if it still fails, append the exact block + reason to `Retry Queue`;
-3. keep enough cursor information to revisit it;
-4. continue with independent blocks when completeness is not yet being asserted;
-5. drain `Retry Queue` before marking the current stage complete.
-
-If a queued block remains unresolved and could contain actionable senior fixtures, set `Run Status = BLOCKED`, keep the exact `Current Stage` and cursor, persist the blocker, and do not set `work_ready=true`.
-
-Excluded/non-blocking raw categories may remain documented raw gaps under the existing two-tier completeness contract.
-
-### Idempotence rules
-
-- `Sweep Runs` upserts by deterministic Run ID.
-- Daily Coverage Ledger continues to upsert by Coverage ID.
-- Reprocessing the current cursor after an interruption must be harmless.
-- Counts must be recomputed/reconciled from persisted fixture state rather than blindly incremented on retries.
-- `Listing Blocks Checked` is cumulative and must not duplicate the same canonical block.
-- Stage completion flags move false -> true only after the stage's persistence/checks pass.
-
-### Stage machine
-
-Use the existing `Current Stage` values.
-
-FULL_AUDIT order:
-
-`CORE DISCOVERY -> CONDITIONAL GATES -> EUROPEAN CUP AUDIT -> TERMINAL SENTINEL -> RECONCILIATION -> PACKAGING -> COMPLETE`
-
-FAST_PRODUCTION order:
-
-`CORE DISCOVERY -> RECONCILIATION -> PACKAGING -> COMPLETE`
-
-In FAST_PRODUCTION, mark `Conditional Gates Complete=true`, `European Cup Audit Complete=true`, and `Terminal Sentinel Complete=true` only as **FAST-PATH NOT REQUIRED / SATISFIED BY BATCH RULE**, documented in Checkpoint Notes. Do not execute those stages as separate web-research phases.
-
-The final admitted-set authoritative time proof belongs to `RECONCILIATION`.
-
-Do not enter a later required stage until its prerequisite is complete. `Run Status = COMPLETE` is allowed only when packaging is validated and all mode-required gates are satisfied.
-
-On a genuine missed-fixture recovery, preserve the existing missed-fixture rules below **and** reopen the same deterministic Run ID: set `Run Status = RUNNING`, reset `Current Stage = CORE DISCOVERY`, clear affected/downstream completion flags, rebuild the required envelope/sentinel proof, and replace the old package only after the repaired run passes all gates.
-
-## Fast-path execution contract
-
-The normal FAST_PRODUCTION path is:
-
-`REUSE COMPLETE SAME-END RUN IF AVAILABLE -> OTHERWISE 1-2 DATE SURFACES -> PRIORITY/NORMAL FILTER -> CONFLICT/BOUNDARY DETAIL LOOKUPS ONLY -> PACKAGE`
-
-The FULL_AUDIT path remains available explicitly and may include conditional gates and independent terminal/cup verification.
-
-Hard performance rules:
-
-- no one-query-per-competition discovery loop;
-- no targeted lookup for a competition that produced no evidence on the date surface;
-- no broad web search for conditional-gate statistics;
-- no individual match-page reopen when authoritative AiScore epoch/ISO/offset was already captured;
-- no second European-cup web crawl when the retained cup audit can be completed from the captured date batch;
-- batch Airtable fixture upserts and checkpoint only at the existing sparse cadence.
-
-## Strict stage boundary
-Step 0 is executed through the persisted stage machine above. The conversational session is only the controller; `Sweep Runs` is execution memory.
-
-Step 0:
-
-1. resolves the requested window start/end in ICT and UTC **once**;
-2. builds the deterministic discovery-date envelope required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`;
-3. fetches each required AiScore date/listing surface once, batch-extracts visible fixtures, and filters locally to the active NARROW CORE allowlist; it does not traverse every competition separately;
-4. performs a second dedicated AiScore terminal-interval sentinel sweep covering the final six hours of the requested window (or the entire window if shorter);
-5. performs a separate European domestic-cup audit across the touched date envelope;
-6. proves coverage of every **in-scope NARROW CORE competition block**;
-7. preserves fixture identity and source kickoff/timezone/offset exactly as supplied by AiScore;
-8. deduplicates once;
-9. applies senior-quality exclusions;
-10. applies sweep scope and league registry;
-11. runs the cheap conditional-league admission test only for surfaced whitelisted CONDITIONAL fixtures, using batch/cached evidence or at most one direct AiScore surface per fixture when needed;
-12. batch-upserts the cheap coverage skeleton for actually discovered fixtures;
-13. reuses authoritative AiScore epoch/ISO/explicit-offset timestamps captured in the batch when available, and opens individual canonical match pages only for admitted fixtures lacking authoritative zoned time or carrying identity/time/status conflicts;
-14. normalizes the admitted set once to verified UTC and ICT, prunes true out-of-window fixtures, and blocks unresolved time/identity conflicts;
-15. creates a compact scope-pruned Work handoff **only after the coverage and admitted-set time-integrity gates pass**;
-16. packages the canonical handoff text file into the required ZIP archive and returns the ZIP as the user-facing sweep artifact.
-
-Step 0 does **not**:
-
-- convert every **raw discovered** fixture kickoff to ICT; it must convert the final Work-admitted set before handoff packaging;
-- perform full structural match research;
-- assign PRE grades or board ranks;
-- fetch confirmed XI or bookmaker odds;
-- create Decision States;
-- touch Website Picks;
-- issue betting decisions.
-
-## Mandatory window boundary + discovery-envelope proof
-
-Before discovery begins, resolve and record:
-
-- `window_start_ict`;
-- `window_end_ict`;
-- `window_start_utc`;
-- `window_end_utc`;
-- `ict_dates_touched`;
-- `utc_dates_touched`.
-
-Then build the discovery-date envelope as required by the time procedure:
-
-`ICT dates touched + UTC dates touched + one UTC date before + one UTC date after`
-
-Traverse the relevant AiScore date/listing blocks across that envelope. The buffer dates are for discovery only; they do not expand the user's requested window.
-
-For any window that crosses midnight or ends between `00:00` and `06:00` ICT, explicitly inspect:
-
-- the terminal ICT calendar date; and
-- the UTC date containing `window_end_utc`.
-
-A start-date-only sweep is automatically incomplete.
-
-## Mandatory terminal-interval sentinel
-
-Define:
-
-`terminal_interval_ict = max(window_start_ict, window_end_ict - 6 hours) -> window_end_ict`
-
-Run a **second independent AiScore-only date-level discovery pass** specifically for that interval after the main pass. Refetch the relevant terminal date surface(s) once and filter the returned batch; do not repeat a per-competition crawl.
-
-The terminal sentinel must record:
-
-- `terminal_interval_ict`;
-- terminal ICT date(s) checked;
-- terminal UTC date(s) checked;
-- AiScore listing/date blocks checked;
-- potentially actionable senior competition blocks found;
-- admitted count from the terminal pass;
-- actionable excluded/unresolved count from the terminal pass;
-- `terminal_scan_complete=true|false`.
-
-If the terminal pass returns zero actionable fixtures, that is valid only when the pass itself is documented as complete.
-
-**Never infer terminal completeness from the latest kickoff already found.** A file whose last listed fixture is at 22:30 cannot claim a 03:00 cutoff is covered merely because nothing later appeared in the first pass.
-
-Do not use another provider to add fixtures. Web search may be used only as a way to locate AiScore pages; every fixture entering the universe must resolve to AiScore identity.
-
-## Mandatory European domestic-cup audit
-
-After the retained date-envelope pass and before actionable completeness, run a separate **restricted European domestic-cup audit over the already captured date-level batch**. This is normally a logical audit of the batch, not another web traversal.
-
-The audit footprint is defined by `FOOTBALL_SWEEP_SCOPE.md`:
-
-- inspect retained senior first-team national FA cup/top-level league-cup blocks already surfaced in the date batch for countries represented by PRIORITY/NORMAL domestic leagues;
-- perform a targeted cup lookup only when there is concrete evidence that a retained in-window cup fixture was omitted from the batch;
-- inspect main professional cup stages, not every preliminary/amateur/lower-tier round;
-- skip lower-division-only challenge/trophy competitions;
-- do not crawl every UEFA association;
-- CONDITIONAL-country cups are opportunistic/direct-surface only unless explicitly overridden;
-- senior women's cup blocks may be admitted when directly surfaced and well-covered, but do not run a separate association-wide women's cup crawl.
-
-Record every retained cup block actually checked, plus admitted/excluded/unresolved counts.
-
-If a cup block required by the **restricted retained-cup footprint** was not checked, set `actionable_complete=false` and `work_ready=false`. Out-of-footprint cup blocks are non-blocking raw gaps, not coverage failures.
-
-## Source-time capture + final admitted-set time proof
-
-During broad discovery, preserve for every fixture where available:
-
-- AiScore fixture ID/canonical match URL;
-- listing date used for discovery;
-- raw/source kickoff text;
-- `kickoff_source_local`;
-- `source_timezone` and/or `source_utc_offset`;
-- AiScore-supplied UTC only when explicitly present;
-- status at fetch.
-
-Do **not** guess a timezone from geography and do **not** append `UTC` to a bare AiScore display clock.
-
-A localized/display heading such as `Competition YYYY/MM/DD HH:mm:ss`, a date-listing clock, team-fixture clock, or search snippet without an explicit timezone is **discovery evidence only**. It is not authoritative UTC.
-
-Before the final Work handoff is created, revalidate **every surviving Work-admitted fixture** using the current canonical AiScore match identity and accept time only from:
-
-1. Match Info / About The Match explicitly labeled `UTC`;
-2. AiScore machine-readable epoch / ISO timestamp with explicit zone;
-3. AiScore timestamp with an explicit UTC offset.
-
-Persist for every admitted fixture:
-
-- `kickoff_time_provenance = MATCH_INFO_UTC | API_EPOCH | EXPLICIT_OFFSET`;
-- `kickoff_utc_verified`;
-- `kickoff_ict_verified`;
-- `time_verified_at`;
-- canonical AiScore fixture ID/URL used.
-
-Convert the verified instant exactly once to `Asia/Ho_Chi_Minh`. Then prove the converted kickoff is inside `window_start_ict -> window_end_ict`.
-
-During broad discovery a fixture may temporarily be `WINDOW STATUS = PENDING CONVERSION`; **no Work-admitted fixture may remain pending at handoff packaging**.
-
-If the canonical match identity/time conflicts with a listing/team surface, use `UNRESOLVED — SOURCE TIME INTEGRITY` until the current AiScore authority is resolved. Do not guess, average, or silently choose the convenient time.
-
-## Two-tier completeness contract
-Distinguish:
-
-- `actionable_complete` — every potentially actionable senior competition/block relevant to the requested sweep has been checked and every admitted fixture is accounted for **with date-envelope and terminal-sentinel proof**;
-- `raw_audit_complete` — every raw AiScore fixture, including already excluded youth/lower/reserve/amateur/regional blocks, was individually enumerated.
-
-`raw_audit_complete=false` is non-blocking when gaps are confined to categories already outside model scope.
-
-### Blocking gaps
-`work_ready=false` when any actionable requirement remains unresolved, including:
-
-- discovery date envelope not fully traversed;
-- terminal sentinel not explicitly completed;
-- European domestic-cup audit not explicitly completed;
-- terminal ICT date or UTC end-date block not checked for a cross-midnight/early-morning window;
-- in-scope PRIORITY/NORMAL senior block not checked;
-- retained senior cup/continental block not checked;
-- explicitly whitelisted CONDITIONAL block that was surfaced for the window was not cheap-gated;
-- scope/registry contradiction;
-- fixture identity/source-time contradiction;
-- any Work-admitted fixture lacks `kickoff_time_provenance`, `kickoff_utc_verified`, or `kickoff_ict_verified`;
-- any Work-admitted fixture converts outside the requested ICT window;
-- any Work-admitted fixture remains `PENDING CONVERSION`;
-- admitted count does not match the Work array.
-
-Do **not** block Work because excluded micro/youth/lower fixtures were not individually enumerated.
-
-### Non-blocking raw gaps
-Examples:
-
-- youth/Uxx, except official Netherlands Eerste Divisie Jong/U21 participant fixtures under the explicit competition-scoped exception;
-- academy/junior;
-- reserves/B/development, except official Netherlands Eerste Divisie Jong/U21 participant fixtures under the explicit competition-scoped exception;
-- amateur/semi-pro;
-- regional/state/provincial;
-- unapproved lower divisions;
-- very weak/obscure competitions;
-- LOW-GOAL EXCLUDE leagues;
-- HARD EXCLUDE domestic leagues.
-
-Record:
-
-- `raw_audit_complete=false`;
-- `raw_count_mode=lower_bound`;
-- `nonblocking_raw_gaps=[...]`.
-
-Never fabricate an exact raw count.
-
-## Quality exclusions first
-Before any conditional cheap gate, remove fixtures already excluded by the active senior-quality overlay:
-
-- youth/Uxx / academy / junior;
-- reserve/B/development;
-- amateur/semi-pro;
-- regional/state/provincial;
-- domestic lower divisions unless explicitly approved;
-- very small/obscure weak-data environments.
-
-### Netherlands Eerste Divisie Jong/U21 exception
-
-Effective 2026-09-19 ICT, **official Netherlands Eerste Divisie league fixtures involving Jong/U21/reserve-branded participant teams are actionable candidates**. Do not exclude an official Eerste Divisie fixture solely because a participant name contains Jong, U21, reserve, or equivalent development branding.
-
-This exception is competition-scoped only. Separate youth/U21/reserve/development competitions, cups, friendlies, and other reserve leagues remain excluded under the normal overlay.
-
-For actionable completeness, every official Eerste Divisie fixture in the requested window — including Jong/U21 participant fixtures — must be enumerated and passed through the normal NORMAL-lane handoff rules. Omitting them makes `actionable_complete=false`.
-
-Do not waste conditional-gate work on excluded categories.
-
-## League environment admission
-Use `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` plus current sweep-scope hard exclusions.
-
-### PRIORITY / NORMAL
-Send surviving fixtures directly to Work.
-
-### CONDITIONAL
-Use only the cheap registry gate. If it passes, admit to Work. If it fails or evidence is not readily available, exclude before Work as:
-
-`CONDITIONAL LEAGUE — NO CHEAP OVER SIGNAL`
-
-This is a scope exclusion, not a PRE PASS.
-
-### LOW-GOAL EXCLUDE
-Exclude before Work:
-
-`LOW-GOAL NATIONAL LEAGUE — EXCLUDED`
-
-### HARD EXCLUDE
-Apply the current sweep scope, including Finnish domestic leagues and the current Japanese domestic-league exclusion. Do not convert those blocks match-by-match merely for completeness.
-
-Senior cups and continental competitions are evaluated independently; club nationality does not automatically transfer a domestic-league exclusion.
-
-## Airtable coverage skeleton
-Batch-upsert fixtures actually discovered in Step 0.
-
-Populate where supported:
-
-- Coverage ID
-- provisional Slate Date / discovery date as appropriate
-- Match
-- Competition
-- Eligibility
-- Exclusion Reason
-- Reconciled
-- Source 1 = AiScore
-- Coverage Status
-- source kickoff/timezone details in notes
-
-### Important datetime rule
-The table field `Kickoff ICT` must **never** receive a foreign-zone/local source time or a bare clock copied from an AiScore display surface.
-
-During broad discovery, leave it blank.
-
-After the final admitted-set time proof:
-
-- write the verified kickoff instant corresponding to `kickoff_ict_verified`;
-- preserve raw source text, `kickoff_utc_verified`, `kickoff_ict_verified`, provenance and verification timestamp in the handoff/coverage notes;
-- never reconstruct `Kickoff ICT` later by regex-parsing an unverified note.
-
-For Work-admitted rows, leave official PRE fields untouched. XI/market remain pending.
+Do not populate Football C rank/routes/burden here. Step 1 owns football-quality screening.
 
 ## Work-readiness gate
-A Work handoff may be created only when:
 
-- `complete=true` meaning actionable completeness;
-- `actionable_complete=true`;
-- `work_ready=true`;
-- `discovery_date_envelope_complete=true`;
-- `terminal_scan_complete=true`;
-- `european_cup_audit_complete=true`;
-- all required discovery/listing dates are named in the handoff;
-- all NARROW CORE in-scope blocks were checked;
-- scope/registry audit passed;
-- no source-time/identity unresolved fixture appears in the Work array;
-- every admitted fixture has authoritative time provenance + verified UTC + verified ICT;
-- every verified ICT kickoff lies inside the requested window;
-- admitted count equals the Work fixture array.
+Package only when:
+- `complete=true`
+- `actionable_complete=true`
+- `work_ready=true`
+- every touched senior block is accounted for
+- terminal scan is complete
+- every admitted fixture has resolved identity/time
+- every admitted fixture lies inside the ICT window
+- admitted count matches the handoff array
+- no legacy registry/narrow-core filter removed a reasonable senior fixture
 
-`kickoff_ict_verified` is **required for every Work-admitted fixture at final handoff packaging**.
+If not:
 
-A bare assertion such as `terminal_interval_date_verification=PASS` is **not sufficient** unless the handoff also names the terminal interval and the date/listing blocks actually checked.
+`HANDOFF INCOMPLETE — BROAD SENIOR COVERAGE GAP`
 
-## Compact Work handoff + ZIP packaging
-When the actionable-completeness gate passes, create the canonical UTF-8 text handoff first, then package it into a ZIP archive.
+## ZIP handoff
 
-Canonical inner handoff name:
+Create one canonical UTF-8 `AISCORE_FIXTURES_*.txt` at ZIP root and attach only the ZIP normally.
 
-`AISCORE_FIXTURES_YYYY-MM-DD.txt`
+Required handoff metadata:
+- `model=Football C`
+- `sweep_scope_mode=BROAD_SENIOR_PRODUCTION`
+- requested ICT/UTC window
+- listing dates checked
+- terminal interval/listing dates
+- `terminal_scan_complete=true`
+- `complete=true`
+- `actionable_complete=true`
+- `work_ready=true`
+- `raw_senior_count`
+- `hard_excluded_count`
+- `admitted_to_c_count`
+- hard-exclusion reason counts
+- all admitted fixtures with AiScore identity, competition, source kickoff, verified UTC/ICT and time provenance
 
-When the user window needs additional disambiguation, a more specific existing basename is allowed, for example:
+Do not include only "interesting" matches. This is the complete C-eligible senior universe.
 
-`AISCORE_FIXTURES_2026-09-17_2043_TO_2026-09-18_1200_ICT.txt`
+## Step-0 boundary
 
-Required user-facing archive name:
+Step 0 does not research scoring mechanisms, judge Over quality, assign C-PASS/WATCH/FOCUS, choose supported burden, rank fixtures, inspect confirmed XI, fetch bookmaker odds, create Decision States, or issue betting decisions.
 
-`<canonical handoff basename>.zip`
-
-Example:
-
-`AISCORE_FIXTURES_2026-09-17_2043_TO_2026-09-18_1200_ICT.zip`
-
-ZIP contract:
-
-- the archive must contain exactly one canonical `AISCORE_FIXTURES_*.txt` Work handoff at archive root;
-- do not nest the handoff inside a folder;
-- do not add duplicate handoff files;
-- do not add OS metadata such as `__MACOSX`, `.DS_Store`, or hidden temp files;
-- compression method may be normal DEFLATE;
-- the text handoff remains the semantic authority; ZIP is the transport/package format;
-- attach **only the ZIP** as the normal sweep artifact; do not also attach the loose `.txt` unless the user explicitly asks for it;
-- if ZIP creation or validation fails, report `HANDOFF PACKAGING FAILED — DO NOT SEND TO WORK` rather than silently falling back to a loose text artifact.
-
-The inner text handoff must include:
-
-- requested user window and timezone;
-- model version;
-- source = AiScore;
-- sweep scope + league registry;
-- `sweep_scope_mode=NARROW_CORE`;
-- `window_start_ict` / `window_end_ict`;
-- `window_start_utc` / `window_end_utc`;
-- `ict_dates_touched`;
-- `utc_dates_touched`;
-- `discovery_listing_dates_checked`;
-- `discovery_date_envelope_complete:true`;
-- `terminal_interval_ict`;
-- `terminal_listing_dates_checked`;
-- `terminal_scan_complete:true`;
-- `complete:true`;
-- `actionable_complete:true`;
-- `work_ready:true`;
-- `raw_audit_complete:true|false`;
-- `raw_count_mode=exact|lower_bound`;
-- `nonblocking_raw_gaps` when applicable;
-- NARROW CORE actionable-block audit result;
-- coverage publication result;
-- only fixtures admitted to Work;
-- AiScore identity;
-- source kickoff local time;
-- source timezone/offset;
-- AiScore-supplied UTC if explicitly available;
-- `kickoff_time_provenance`;
-- `kickoff_utc_verified`;
-- `kickoff_ict_verified`;
-- `time_verified_at`;
-- `window_status=confirmed`;
-- counts.
-
-Do not require `kickoff_ict` in the Step-0 handoff.
-
-## Reconciliation
-Before `work_ready=true`:
-
-`ACTIONABLE SENIOR UNIVERSE = WORK-ADMITTED + ACTIONABLE-EXCLUDED/UNRESOLVED`
-
-Verify:
-
-- discovery date envelope is complete for the NARROW CORE allowlist;
-- terminal sentinel is complete for the NARROW CORE allowlist;
-- restricted European domestic-cup audit is complete;
-- every required terminal date/listing block is named;
-- no LOW-GOAL EXCLUDE fixture survived into Work;
-- no hard-excluded domestic-league fixture survived;
-- no CONDITIONAL fixture survived without a cheap-gate PASS;
-- no excluded youth/reserve/lower/weak-data fixture survived, except official Netherlands Eerste Divisie Jong/U21 participant fixtures admitted by the explicit 2026-09-19 exception;
-- admitted count equals the Work array;
-- no source-time integrity unresolved fixture appears in Work;
-- raw gaps are explicitly non-blocking and already outside scope.
-
-Boundary fixtures may be pending only during broad discovery. Before packaging, every Work-admitted fixture must be normalized and either `window_status=confirmed` or removed/blocked.
-
-## Missed-fixture recovery
-
-If an actionable fixture is later found inside a window that had already been marked complete:
-
-1. invalidate the old completeness claim;
-2. classify the root cause as one of: `DATE ENVELOPE MISS`, `TERMINAL SENTINEL MISS`, `ACTIONABLE BLOCK MISS`, `FILTER/PERSISTENCE MISS`, or `SOURCE TIME FAULT`;
-3. rerun the whole Step 0 envelope + terminal sentinel;
-4. do **not** merely append the one discovered fixture and preserve the old `complete=true` claim;
-5. publish a repaired handoff only after the coverage proof passes again.
+Football C Step 1 owns all football-quality screening.
 
 ## Output
-If actionable-complete and ZIP validation passes, first persist `Packaging Complete=true`, `Current Stage=COMPLETE`, `Run Status=COMPLETE`, final counts, cleared `Resume Cursor`, empty `Retry Queue`, package name and final checkpoint timestamp.
 
-Then return:
+Return:
 
-`AiScore actionable coverage ready — run_id=<RUN_ID>; X to Work; Y actionable senior checked; Z discovered excluded; date_envelope=PASS; terminal_scan=PASS; admitted_time_integrity=PASS; raw_audit_complete=true/false; Airtable coverage PASS; work_ready=true; admitted ICT kickoffs verified; handoff_package=ZIP.`
+`BROAD SENIOR HANDOFF COMPLETE`
 
-Attach the ZIP Work handoff only.
+with requested window, raw senior count, hard-excluded count, admitted-to-C count, unresolved count, and ZIP filename.
 
-If an actionable gap remains:
-
-`STEP 0 INCOMPLETE — ACTIONABLE COVERAGE GAP — do not send to Work.`
-
-If the handoff text is valid but ZIP packaging fails:
-
-`HANDOFF PACKAGING FAILED — DO NOT SEND TO WORK.`
-
-Do not print the full fixture list unless the user asks.
+If incomplete, report the blocker and do not send a partial production handoff.
