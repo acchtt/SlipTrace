@@ -1,97 +1,114 @@
 # SlipTrace Football DeepEval QA
 
 This directory is the executable regression layer for the football model.
+
 It is **QA only**: adding or changing tests here does not alter
-`models/football/CURRENT_MODEL.md`, model rules, execution procedures, or any
-historical decision.
+`models/football/CURRENT_MODEL.md`, model rules, execution procedures, launchers,
+or any historical decision.
 
-## Why this exists
+## Layers
 
-The existing Football Model QA procedure governs whether a challenger earns
-promotion. DeepEval adds repeatable executable checks so workflow regressions
-can be caught before a candidate rule or procedure is promoted.
+### Layer A — deterministic DeepEval contracts
 
-Phase 1 intentionally starts with deterministic process contracts. These run
-without an LLM judge and therefore without an API key. They are implemented as
-a custom DeepEval metric, not as ad-hoc shell assertions.
+Runs automatically in GitHub Actions and needs no LLM API key.
 
-Initial protected invariants:
+It currently protects hard workflow invariants such as:
 
-1. no opportunistic official live exposure without a predeclared plan or active
-   match-specific exception;
-2. no ordinary prematch official lock when the mandatory post-XI football
-   research gate has not been satisfied;
-3. no live-decay execution when state integrity is materially damaged.
+- no opportunistic official live exposure without a predeclared plan/exception;
+- no ordinary prematch official lock before the mandatory post-XI research gate;
+- no live-decay execution when state integrity is damaged;
+- frozen historical-corpus privacy and hindsight separation.
 
-These are harness seed cases, not evidence that the predictive model is good.
-They exist to prove that the QA machinery rejects known workflow violations.
-
-## Local run
-
-From the repository root:
+Local run:
 
 ```bash
 python -m pip install -r models/football/qa/deepeval/requirements.txt
 deepeval test run models/football/qa/deepeval/tests
+python models/football/qa/deepeval/historical_audit.py --summary --fail-on-blocking
 ```
 
-The dependency is pinned to DeepEval 4.2.6 so CI and local runs use the same
-metric/test-case API.
+### Layer B — frozen historical corpus
 
-## Case format
+`cases/historical_2026-09-24_to_2026-09-29.json` is a sanitized snapshot of real
+Football A Decision States joined to the closest frozen Daily Coverage/PRE row.
 
-Saved cases use a DeepEval `LLMTestCase` plus a deterministic contract stored in
-`metadata.contract`.
+Snapshot properties:
 
-Supported checks:
+- 99 real assessment states;
+- 96 retain enough decision-time evidence for semantic QA;
+- 12 have a settled outcome label kept in a separate `audit_outcome` object;
+- actual betslip-audit rows are excluded;
+- cash amounts, ticket identifiers and long external IDs are not retained;
+- appended FT/settlement text is removed from `decision.decision_evidence`;
+- a case whose original reasoning was overwritten by settlement text is marked
+  `semantic_eligible=false` instead of reconstructing the missing decision with hindsight.
 
-- `required_all`: every phrase must appear;
-- `forbidden_any`: none of the phrases may appear;
-- `required_any`: each group requires at least one member;
-- `required_regex`: every regex must match;
-- `forbidden_regex`: no regex may match.
+Historical findings are split into:
 
-Checks are case-insensitive. Phrase checks normalize whitespace.
+- `BLOCKING_*` — privacy/hindsight/corpus integrity faults; CI fails;
+- `SIGNAL_*` — historical workflow QA signals; reported but do not rewrite the
+  original verdict or automatically fail CI.
 
-## Next phase: historical regression dataset
+This distinction is deliberate: old decisions stay bound to the authority that
+actually produced them.
 
-Do **not** rewrite old decisions to match the current model. Each imported case
-must retain the original information clock and model/version that produced it.
-For a real historical regression case, preserve at minimum:
+### Layer C — semantic G-Eval judge
+
+`run_semantic.py` evaluates decision-time reasoning with DeepEval `GEval`.
+
+The judge can assess:
+
+- evidence ↔ verdict consistency;
+- live-plan adherence;
+- H2H discipline;
+- XI mechanism reasoning.
+
+**Final scores and settlement outcomes are never included in the judge input.**
+The semantic layer is manual because it consumes an external model API.
+
+Local run after configuring `OPENAI_API_KEY`:
+
+```bash
+python models/football/qa/deepeval/run_semantic.py --limit 12
+```
+
+Optional judge model:
+
+```bash
+set DEEPEVAL_JUDGE_MODEL=<model-name>
+```
+
+GitHub also contains the manually triggered
+`Football DeepEval Semantic QA` workflow. It requires an
+`OPENAI_API_KEY` repository secret. The ordinary deterministic QA workflow
+does not need any secret.
+
+## Historical audit policy
+
+Do **not** rewrite old decisions to make them conform to the current model.
+The corpus exists to answer questions such as:
+
+- did the process follow the authority active at the time?
+- where do HOLD/PASS decisions and executable plans fail in different ways?
+- did a later model change fix a process failure without introducing another?
+- does a challenger improve decision quality on a frozen opportunity universe?
+
+A final score is an audit label, never a decision-time feature.
+
+## Adding future cases
+
+For each imported historical case preserve, when available:
 
 - Board ID / match identity / kickoff;
-- model version and commit;
+- model version and assessment timestamp;
 - frozen PRE state and supported burden;
 - H2H state used at that time;
-- confirmed XI state when applicable;
-- supplied market line/price and quote timestamp;
+- confirmed XI state;
+- supplied market line/price and quote epoch;
 - post-XI research status;
 - market-history/current-market state;
-- predeclared plan and target, if any;
-- score/minute/red-card/injury state for live epochs;
-- original model output/verdict;
-- final settlement separately from the decision-time evidence.
+- predeclared plan and target;
+- live score/minute/card/injury state when applicable;
+- original verdict/output.
 
-The final score is an audit label, not an input to the decision-time model.
-
-## Planned metric layers
-
-### Layer A — deterministic process contracts
-
-Hard invariants such as gates, required fields, forbidden state transitions,
-no-hindsight constraints, and persistence/output schema. These should fail CI.
-
-### Layer B — semantic DeepEval judge metrics
-
-Later, add `GEval`/custom judge criteria for evidence-verdict consistency,
-quality of H2H interpretation, XI mechanism reasoning, market conflict
-resolution, and whether the explanation actually supports the stated plan.
-These require a configured judge model and should initially report separately
-from the deterministic gate.
-
-### Layer C — outcome/decision analytics
-
-Champion-vs-challenger coverage, yield/settlement deltas, drawdown, route and
-regime stability, decay-target reachability, and paired decision differences.
-These remain governed by `FOOTBALL_MODEL_QA_AND_PROMOTION.md`; DeepEval does not
-turn a small retrospective sample into promotion evidence.
+Store the final settlement separately from decision-time evidence.

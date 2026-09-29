@@ -32,3 +32,7 @@ jobs:
 
       - name: Run deterministic football contracts
         run: deepeval test run models/football/qa/deepeval/tests
+
+      - name: Print historical QA signal summary
+        run: |
+          python models/football/qa/deepeval/historical_audit.py --summary --fail-on-blocking
