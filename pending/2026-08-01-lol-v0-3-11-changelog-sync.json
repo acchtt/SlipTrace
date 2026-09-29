@@ -1,8 +1,0 @@
-{
-  "type": "model-changelog-sync",
-  "modelVersion": "lol-v0.3.11",
-  "effectiveAt": "2026-08-01T15:31:00+07:00",
-  "retriedAt": "2026-08-01T15:33:00+07:00",
-  "triggeringWagerSyncId": "eval-20260801-al-tt-g2-under-29-5-kills",
-  "reason": "Record the immediate price-only execution tolerance and qualifying probation attribution."
-}
