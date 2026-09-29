@@ -24,7 +24,8 @@
 - `rules/MODEL_RULES_FOOTBALL_A_TWO_ROUTE_HARDENING.md` — **A2 TWO-ROUTE INDEPENDENCE / FOCUS HARDENING**  
 - `rules/MODEL_RULES_FOOTBALL_A_CARRIER_MARKET_DECOMPOSITION.md` — **AH + TOTAL + 1X2 CARRIER DECOMPOSITION / MARKET-CALIBRATED CURRENT PRE**  
 - `rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md` — **MANDATORY POST-XI FOOTBALL WEB-RESEARCH / WORKFLOW REGRESSION GUARD**  
-**Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**  
+**Shadow comparison tracks:** Football **v0.2.47 CLEAN** and Football **v0.2.48-SHADOW**
+**Prospective architecture challenger:** Football **C — SHADOW**, defined only by `models/football/challengers/football-c/FOOTBALL_C_SPEC.md` and its frozen test protocol. Football C is NOT part of the active Football A load order and may not create official exposure during its prospective trial.  
 **Model B comparison rule:** when Model B is explicitly run side-by-side, it inherits `MODEL_RULES_FOOTBALL_AB_MARKET_ALIGNMENT.md` **and** `MODEL_RULES_FOOTBALL_AB_DECAY_FIRST_EXECUTION.md`. Its structural participation bands remain available for audit/qualification, but they may not create direct prematch exposure above frozen supported burden or pre-reserve exposure slots by rank.  
 **Fixture authority:** **AiScore only**  
 **Operational display timezone:** `Asia/Ho_Chi_Minh` (ICT, UTC+7)  

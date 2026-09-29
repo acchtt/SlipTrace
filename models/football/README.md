@@ -1,94 +1,63 @@
 # SlipTrace Football Model
 
-This directory contains the **current executable football model stack**.
+This directory contains the football model, its production workflow, and prospective challenger tests.
 
-## Active stack
+## Production
 
-- **Official model:** Football v0.2.54
-- **Base:** Football v0.2.47 CLEAN
-- **Official patches:**
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — Two-Sided Priority
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — Extreme Goal Environment / Persistent High-Line
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — Chance-Quality + Market-Confirmation Calibration
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — Carrier Ceiling + B+ Evidence Hardening
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — Ranking Integrity + Execution Validation
-  - `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — Selection Inversion Guard + Promotion Quarantine
-- **Shadow comparisons:** v0.2.47 CLEAN and v0.2.48-SHADOW
-- **Fixture authority:** AiScore only
-- **Canonical timezone:** Asia/Ho_Chi_Minh (ICT, UTC+7)
-- **Actionable scope:** senior-quality overlay
-- **Execution workflow:** frozen structural PRE + route-quality/CC+ audit → user-supplied XI + odds → market-history conflict check → final XI / carrier reopen → burden/MCE → official verdict
+**Official model:** Football A  
+**Canonical authority:** `CURRENT_MODEL.md`
 
-The authoritative entry point is:
+Football A remains the only production model. Its active rule/procedure load order is declared in `CURRENT_MODEL.md`; do not infer production state from older rule filenames.
 
-`models/football/CURRENT_MODEL.md`
+Main production entry points:
+- `procedures/FOOTBALL_PRE_DECISION_SPEC.md`
+- `procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
+- `procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
+- `procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
+- `procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md`
+- `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
+- `prompts/01_WORK_DAILY_SWEEP.md`
+- `prompts/02_NORMAL_CHAT_XI_ODDS.md`
+- `prompts/03_NORMAL_CHAT_LIVE.md`
+- `prompts/04_WORK_POST_SLATE_AUDIT.md`
 
-Do not infer current rules from historical chat handoffs or old model files. Historical versions remain available through Git history rather than the active football tree.
+## Prospective challenger
 
-## Canonical files
+**Football C — SHADOW** is an integrated architecture challenger inspired by the simpler v0.2.47 operating philosophy while preserving lessons learned about XI mechanism, fresh web research, H2H, protected lines and thesis-aware waiting.
 
-### Rules
+Start here:
+- `challengers/football-c/FOOTBALL_C_SPEC.md`
+- `challengers/football-c/TEST_PROTOCOL.md`
+- `prompts/05_NORMAL_CHAT_FOOTBALL_C.md`
+- `trials/FOOTBALL_C_VS_A_2026-09-29.md`
 
-- `rules/MODEL_RULES_FOOTBALL_V0.2.47.md` — immutable clean base inherited by the official model.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.49.md` — active official Two-Sided Priority patch.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.50.md` — active official Extreme Goal Environment / Persistent High-Line patch.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.51.md` — active official chance-quality / market-confirmation calibration.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.52.md` — active official carrier-ceiling / B+ evidence-hardening calibration.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.53.md` — active official ranking-integrity / execution-validation calibration.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.54.md` — active official selection-inversion guard and MCE/live promotion quarantine.
-- `rules/MODEL_RULES_FOOTBALL_V0.2.48-SHADOW.md` — active shadow comparison rules.
+Football C is **not** part of Football A's load order and must not create official exposure during the trial.
 
-### Procedures
+## Directory map
 
-- `procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md` — authoritative UTC↔ICT normalization, slate-date integrity, near-kickoff status revalidation, and upcoming-schedule rules.
-- `procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md` — AiScore-only universe creation, cross-midnight completeness, structural research, route-quality split and mandatory CC+ audit before strong-carrier PASS states.
-- `procedures/FOOTBALL_COVERAGE_CONTROLLER.md` — complete-slate screening, FOCUS/WATCHLIST/PASS state, frozen PRE, and coverage invariants.
-- `procedures/FOOTBALL_BETTING_PROCEDURE.md` — XI/market-history/carrier-reopen/goal-burden/price/LOCK workflow and live/settlement boundary.
-- `procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md` — prospective champion/challenger validation, holdout integrity, uncertainty, and permanent-rule promotion gate.
+```text
+models/football/
+├── CURRENT_MODEL.md
+├── challengers/
+├── rules/
+├── procedures/
+├── prompts/
+├── airtable/
+├── qa/
+├── orchestration/
+├── session_overrides/
+├── trials/
+└── backups/
+```
 
-### Airtable contracts
+## Governance
 
-- `airtable/FOOTBALL_COVERAGE_AIRTABLE.md` — Daily Coverage Ledger contract and frozen Work-board persistence, including route-quality/CC+ notes.
-- `airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md` — material decision-state logging for official and shadow tracks, including v0.2.52 carrier-reopen and B+ hold states.
+Permanent model changes follow `procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md`.
 
-## Current operating overlays
+Discovery examples may motivate a challenger but do not validate it. Freeze the challenger before prospective outcomes, run it on the same information clock as the champion, preserve non-bets as well as bets, and do not rewrite historical decisions.
 
-The current user-level overlays are part of the canonical operating state:
+## Safety / restore point
 
-- exclude youth/Uxx, academy, reserve/B-team/development, amateur/semi-pro, regional/state/provincial, weak small-data leagues, and unapproved domestic lower divisions;
-- **exclude every Finnish domestic league competition at every tier/category from 2026-09-09 ICT onward**, including men's and women's leagues; keep these fixtures in raw AiScore coverage as explicit exclusions;
-- senior first-team continental competitions are not generically excluded; UCL, UEL and UECL are actionable when otherwise eligible;
-- hard executable odds floor 1.65, preferred 1.70+;
-- never stretch the total merely to improve price;
-- confirmed XI and odds are normally supplied by the user; no official lock without the required current XI + price;
-- Work produces and freezes the structural board; later stages preserve PRE history rather than reconstruct it;
-- **v0.2.50 EGE:** exceptional high-end goal environments may reopen the supported burden after XI when structure + team profile + XI independently justify it;
-- **v0.2.51 MCE:** narrow +0.25 market-confirmed exception only for already-supported A2/B+ TWO-SIDED cases;
-- **v0.2.52 route-quality split:** distinguish `TWO-SIDED — QUALITY PROVEN` from `TWO-SIDED — NOMINAL / WEAK SECONDARY`;
-- **v0.2.52 CC+:** preserve a secondary `CC+ — CARRIER CEILING` lane for credible self-funded 3+ team-goal potential;
-- **v0.2.52 B+ hardening:** XI preservation plus a protected line is not enough to LOCK a fragile B+ compression case; require an independent positive gate;
-- **v0.2.52 carrier reopen:** a frozen B/PASS may reopen only through a strict football-led `CARRIER REOPEN — XI CONFIRMED`, never market movement alone;
-- **v0.2.53 ranking integrity:** per-team route states, non-compensatory gates, relative reranking and duplicate-identity blocking;
-- **v0.2.54 two-axis state:** keep Structural Rank separate from DIRECT / QUALIFIED WAIT / STRUCTURAL HOLD / SHADOW execution class;
-- **v0.2.54 quarantine:** MCE/+0.25 and all new live/relative-decay Over entries are shadow-only; no official exposure;
-- early goal-driven line expansion remains a no-chase state;
-- Airtable `Z` timestamps are UTC and must be converted exactly once to ICT for display/scheduling;
-- upcoming schedules require AiScore status revalidation so already-live or wrong-date fixtures are not presented as upcoming.
+The pre-Football-C production stack remains recoverable from Git history and from:
 
-## Core hierarchy
-
-Two-Sided Tier A remains the primary lane. For comparable non-Tier-A official v0.2.54 candidates:
-
-`QUALITY-PROVEN TWO-SIDED > CC+ ELITE CARRIER > NOMINAL / WEAK-SECONDARY TWO-SIDED > ordinary CARRIER-LED > FRAGILE / OTHER`
-
-Price is downstream of structure and cannot rescue a structurally weaker candidate.
-
-For goal-burden execution, classify after XI:
-
-`STANDARD` or `EGE — EXTREME GOAL ENVIRONMENT`
-
-EGE changes the supported burden only through documented structural/XI evidence; it is not a price shortcut.
-
-## Model-change governance
-
-Permanent Football rule changes are evaluated through the project-local `football-model-qa` skill at `.agents/skills/football-model-qa/SKILL.md` and the QA/promotion procedure above. Discovery matches may motivate a rule but do not count as prospective validation. The QA workflow is not part of normal match-decision latency and must not delay live verdicts.
+`backups/2026-09-29_2038_current_model_snapshot/`

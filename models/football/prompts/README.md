@@ -21,6 +21,7 @@ Therefore:
 3. `02_NORMAL_CHAT_XI_ODDS.md` — targeted frozen-PRE read, confirmed-XI first pass, **mandatory fresh post-XI football web research**, separate mandatory lightweight `OPEN → PRE-XI → POST-XI/current` total-market watch, XI/research/market conflict check, final XI rerank, goal burden/regime, carrier/market-alignment review, current executable price, Structural Rank + Execution Class, and final material assessment.
 4. `03_NORMAL_CHAT_LIVE.md` — targeted live validation, current no-chase/halftime logic, material live-state logging.
 5. `04_WORK_POST_SLATE_AUDIT.md` — historical/version-faithful post-slate audit.
+6. `05_NORMAL_CHAT_FOOTBALL_C.md` — prospective Football C shadow challenger; one integrated board/decision launcher, never official exposure.
 
 ## Usage split
 
@@ -76,3 +77,6 @@ When `CURRENT_MODEL.md` moves to a new version, do not edit these launchers mere
 
 ## Authority
 Upstream `CURRENT_MODEL.md` and its declared active files outrank stale chat memory, old downloaded packs, locally cached repository copies, and version labels embedded in older historical artifacts.
+
+### Football C shadow challenger
+`Load and execute models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md from acchtt/SlipTrace. Football C is shadow-only. Use the same fixture/XI/odds evidence epoch as Football A, but make C's decision independently and freeze it before comparison.`

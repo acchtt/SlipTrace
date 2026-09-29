@@ -15,6 +15,7 @@ That file defines the active Football A stack and the authoritative load order. 
 ## Main entry points
 
 - **Current model:** `models/football/CURRENT_MODEL.md`
+- **Prospective challenger:** `models/football/challengers/football-c/FOOTBALL_C_SPEC.md` (shadow-only)
 - **Compiled PRE / Step 1:** `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md`
 - **Compiled XI + odds / Step 2:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
 - **Sweep process:** `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
@@ -43,6 +44,7 @@ That file defines the active Football A stack and the authoritative load order. 
         ├── procedures/
         ├── prompts/
         ├── airtable/
+        ├── challengers/
         ├── qa/
         ├── orchestration/
         ├── session_overrides/
