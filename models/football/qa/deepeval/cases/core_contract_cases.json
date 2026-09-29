@@ -29,8 +29,10 @@
         ]
       ],
       "forbidden_any": [
-        "OFFICIAL LOCK",
         "WEBSITE PICK — PUBLISHED"
+      ],
+      "forbidden_regex": [
+        "^\\s*(?:OFFICIAL LOCK|DIRECT LOCK ELIGIBLE)\\b"
       ]
     }
   },
