@@ -36,10 +36,13 @@ Snapshot properties:
 
 - 99 real assessment states;
 - 96 retain enough decision-time evidence for semantic QA;
-- 12 have a settled outcome label kept in a separate `audit_outcome` object;
+- 13 have a settled outcome label kept in a separate `audit_outcome` object;
 - actual betslip-audit rows are excluded;
 - cash amounts, ticket identifiers and long external IDs are not retained;
 - appended FT/settlement text is removed from `decision.decision_evidence`;
+- an Airtable score field overwritten by a later FT value is excluded from judge
+  input unless the original score is explicitly recoverable from the preserved
+  pre-result evidence;
 - a case whose original reasoning was overwritten by settlement text is marked
   `semantic_eligible=false` instead of reconstructing the missing decision with hindsight.
 

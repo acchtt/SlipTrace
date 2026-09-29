@@ -20,15 +20,15 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 CORPUS_PATH = ROOT / "cases" / "historical_2026-09-24_to_2026-09-29.json"
 
-OUTCOME_MARKERS = (
-    "final result:",
-    "settled ft:",
-    "user later reported ft",
-    "user later supplied ft",
-    "ft was",
-    "counterfactual",
-    "official p/l",
-    "audit classification",
+OUTCOME_PATTERNS = (
+    re.compile(r"\bFINAL RESULT\s*:", re.IGNORECASE),
+    re.compile(r"\bSETTLED FT\s*:", re.IGNORECASE),
+    re.compile(r"\bUSER LATER (?:REPORTED|SUPPLIED) FT\b", re.IGNORECASE),
+    re.compile(r"\bFT WAS\b", re.IGNORECASE),
+    re.compile(r"\bFT\s+\d+\s*-\s*\d+\s*(?:=>|=|—|-)", re.IGNORECASE),
+    re.compile(r"\bCOUNTERFACTUAL\b", re.IGNORECASE),
+    re.compile(r"\bOFFICIAL P/L\b", re.IGNORECASE),
+    re.compile(r"\bAUDIT CLASSIFICATION\b", re.IGNORECASE),
 )
 
 PRIVACY_PATTERNS = (
@@ -48,6 +48,8 @@ def load_corpus(path: Path = CORPUS_PATH) -> dict[str, Any]:
 def decision_text(case: dict[str, Any]) -> str:
     decision = case.get("decision") or {}
     parts = [
+        case.get("assessment_period"),
+        ((case.get("frozen_pre") or {}).get("coverage_notes")),
         decision.get("verdict"),
         decision.get("candidate"),
         decision.get("execution_class"),
@@ -106,10 +108,13 @@ def audit_case(case: dict[str, Any]) -> list[str]:
 
     evidence = ((case.get("decision") or {}).get("decision_evidence") or "")
     if case.get("semantic_eligible"):
-        lowered = evidence.casefold()
-        for marker in OUTCOME_MARKERS:
-            if marker in lowered:
-                findings.append(f"BLOCKING_HINDSIGHT_LEAK:{marker}")
+        for pattern in OUTCOME_PATTERNS:
+            if pattern.search(evidence):
+                findings.append(f"BLOCKING_HINDSIGHT_LEAK:{pattern.pattern}")
+
+        score = str(case.get("score_at_assessment") or "")
+        if "FT" in score.upper():
+            findings.append("BLOCKING_SETTLEMENT_SCORE_IN_DECISION_INPUT")
 
         decision = case.get("decision") or {}
         if not (decision.get("verdict") or decision.get("candidate")):
@@ -127,6 +132,7 @@ def audit_case(case: dict[str, Any]) -> list[str]:
             for token in (
                 "PREDECLARED",
                 "LIVE DECAY PLAN",
+                "MATCH-SPECIFIC LIVE EXCEPTION",
                 "MATCH-SPECIFIC EXCEPTION",
                 "ACTIVE EXCEPTION",
             )
@@ -143,11 +149,18 @@ def audit_case(case: dict[str, Any]) -> list[str]:
         and "XI" in period
     ):
         if "POST-XI RESEARCH" not in upper:
-            findings.append("SIGNAL_OFFICIAL_PREMATCH_MISSING_POST_XI_RESEARCH_STATUS")
+            if "FRESH RESEARCH" in upper:
+                findings.append("SIGNAL_POST_XI_RESEARCH_STATUS_NONCANONICAL")
+            else:
+                findings.append("SIGNAL_OFFICIAL_PREMATCH_MISSING_POST_XI_RESEARCH_STATUS")
 
     burden = selected_burden(case)
     if is_official(case) and burden is not None and burden >= 3.0:
-        if "H2H" not in upper:
+        h2h_trace = any(
+            token in upper
+            for token in ("H2H", "SAME-VENUE", "HEAD-TO-HEAD", "HEAD TO HEAD")
+        )
+        if not h2h_trace:
             findings.append("SIGNAL_O3PLUS_OFFICIAL_WITHOUT_EXPLICIT_H2H_TRACE")
 
     return findings

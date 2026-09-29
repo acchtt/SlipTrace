@@ -1,13 +1,13 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "generated_from": "Airtable SlipTrace Football Decision Control",
-  "generated_at_utc": "2026-09-29T15:12:00Z",
+  "generated_at_utc": "2026-09-29T15:26:00Z",
   "window_ict": "2026-09-24 through 2026-09-29",
   "privacy": "Actual betslip audit rows excluded; cash amounts, ticket identifiers, and long external IDs are not retained.",
-  "hindsight_policy": "Decision evidence is separated from appended result/settlement text. Cases whose original decision evidence was overwritten are kept but marked semantic_eligible=false.",
+  "hindsight_policy": "Decision evidence is separated from appended result/settlement text. Overwritten FT score fields are excluded from judge input unless the original decision-state score is explicitly recoverable from the preserved pre-result evidence.",
   "case_count": 99,
   "semantic_eligible_count": 96,
-  "settled_case_count": 12,
+  "settled_case_count": 13,
   "cases": [
     {
       "assessment_id": "20260924-0008-SERVETTE-LYON-LIVE-GOAL",
@@ -19,6 +19,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "21:44",
       "score_at_assessment": "0-1 Lyon",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — NEW SCORE EPOCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWCL-SERVETTE-LYON",
@@ -59,6 +60,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWEL-AJAX-AKTOBE",
@@ -99,6 +101,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "40:58",
       "score_at_assessment": "4-0 Wolfsburg",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — NEW SCORE EPOCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWEL-WOLFSBURG-STURM",
@@ -139,6 +142,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "HT",
       "score_at_assessment": "0-4 Lyon",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — NEW SCORE EPOCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWCL-SERVETTE-LYON",
@@ -179,6 +183,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "13:19",
       "score_at_assessment": "2-0 Ajax",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — NEW SCORE EPOCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWEL-AJAX-AKTOBE",
@@ -219,6 +224,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-FAWLC-TOTTENHAM-WESTHAM",
@@ -259,6 +265,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-FAWLC-LIVERPOOL-SUNDERLAND",
@@ -299,6 +306,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-FAWLC-MANUTD-SHEFFUTD",
@@ -339,6 +347,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWCL-CHELSEA-AUSTRIA",
@@ -379,6 +388,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-FAWLC-LEICESTER-LONDONCITY",
@@ -419,6 +429,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260923-UWCL-BARCELONA-PARISFC",
@@ -459,6 +470,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "FT",
       "score_at_assessment": "2-2",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "EARLY LIVE — STRUCTURAL HOLD",
       "frozen_pre": {
         "coverage_id": "20260924-SLV-ALIANZA-FUERTE",
@@ -499,6 +511,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "FT",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "EARLY LIVE — XI/ODDS PENDING",
       "frozen_pre": {
         "coverage_id": "20260924-SLV-FIRPO-CACAHUATIQUE",
@@ -536,9 +549,10 @@
       "model_version": "Football A v0.2.55 + active patches",
       "assessment_time_utc": "2026-09-24T01:12:00.000Z",
       "assessment_date_ict": "2026-09-24",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "UNSETTLED",
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI / CURRENT PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260924-MLS-SEATTLE-RSL",
@@ -579,6 +593,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "POST-SETTLEMENT AUDIT",
       "frozen_pre": null,
       "decision": {
@@ -606,6 +621,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PRE — XI/USER ODDS PENDING",
       "frozen_pre": null,
       "decision": {
@@ -633,6 +649,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PRE — XI/USER ODDS PENDING",
       "frozen_pre": {
         "coverage_id": "20260924-ASEAN-LAO-BRU",
@@ -673,6 +690,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI+ODDS",
       "frozen_pre": {
         "coverage_id": "20260925-MEX2-OAX-LAP",
@@ -716,6 +734,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI+ODDS",
       "frozen_pre": {
         "coverage_id": "20260925-MEX2-ZAC-PIR",
@@ -759,6 +778,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "14'",
       "score_at_assessment": "0-1",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — EARLY GOAL REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-MEX2-OAX-LAP",
@@ -802,6 +822,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "HT / 46'",
       "score_at_assessment": "2-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — EXCLUDED FIXTURE AUDIT",
       "frozen_pre": {
         "coverage_id": "20260925-GUA-MUN-SUC",
@@ -845,6 +866,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI+ODDS — PASS RESCUE RE-SCREEN",
       "frozen_pre": {
         "coverage_id": "20260925-AGS-UZB-KSA",
@@ -888,6 +910,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH — UNFROZEN 13:00 BLOCK",
       "frozen_pre": null,
       "decision": {
@@ -918,6 +941,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "POSTMATCH SHADOW AUDIT",
       "frozen_pre": null,
       "decision": {
@@ -945,9 +969,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-25T08:44:00.000Z",
       "assessment_date_ict": "2026-09-25",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PREMATCH — ~42 min to kickoff",
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH — UNFROZEN BOARD GAP",
       "frozen_pre": null,
       "decision": {
@@ -975,6 +1000,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH — UNFROZEN 17:30 BLOCK",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-KOR-UZB",
@@ -1015,6 +1041,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH — UNFROZEN 17:30 BLOCK",
       "frozen_pre": {
         "coverage_id": "20260925-AGS-KORU23-VIEU23",
@@ -1055,6 +1082,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH — UNFROZEN 17:30 BLOCK",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-JPN-PHI",
@@ -1095,6 +1123,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "6:00",
       "score_at_assessment": "1-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — EARLY GOAL REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-JPN-PHI",
@@ -1135,6 +1164,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "6:40",
       "score_at_assessment": "1-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — EARLY GOAL REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-KOR-UZB",
@@ -1175,6 +1205,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "11:36",
       "score_at_assessment": "1-1",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — 1-1 EPOCH REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-KOR-UZB",
@@ -1215,6 +1246,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "15:27",
       "score_at_assessment": "1-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — EARLY GOAL REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-AGS-KORU23-VIEU23",
@@ -1255,6 +1287,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "20:28",
       "score_at_assessment": "2-1",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — 2-1 EPOCH REPRICE",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-KOR-UZB",
@@ -1295,6 +1328,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": null,
       "score_at_assessment": "4-1",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — SCORE EPOCH CHANGED",
       "frozen_pre": {
         "coverage_id": "20260925-AGSW-KOR-UZB",
@@ -1332,9 +1366,10 @@
       "model_version": "Football A — v0.2.47 CLEAN base / v0.2.55 active stack",
       "assessment_time_utc": "2026-09-25T12:42:00.000Z",
       "assessment_date_ict": "2026-09-25",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PREMATCH — ~18 min to kickoff",
-      "score_at_assessment": "1-1 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "PREMATCH XI + ODDS — BOARD PRE UNRESOLVED",
       "frozen_pre": {
         "coverage_id": "20260925-ASEAN-IDN-SGP",
@@ -1374,7 +1409,8 @@
       "assessment_date_ict": "2026-09-25",
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
-      "score_at_assessment": "1-1 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260925-CAF-SEN-MOZ",
@@ -1418,6 +1454,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "QA — FIXTURE IDENTITY REVALIDATION",
       "frozen_pre": {
         "coverage_id": "20260925-CAF-SEN-MOZ",
@@ -1458,6 +1495,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "00:51",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "JUST-STARTED LIVE — USER XI + ODDS",
       "frozen_pre": null,
       "decision": {
@@ -1485,6 +1523,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": null,
       "score_at_assessment": null,
+      "score_integrity_status": "MISSING",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260925-CAF-NGA-MDG",
@@ -1525,6 +1564,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — NO FROZEN WORK PRE",
       "frozen_pre": {
         "coverage_id": "20260926-AGS-JPN-PRK",
@@ -1564,7 +1604,8 @@
       "assessment_date_ict": "2026-09-26",
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
-      "score_at_assessment": "Japan U23 1-0 North Korea U23 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — FRESH STRUCTURAL EPOCH",
       "frozen_pre": {
         "coverage_id": "20260926-AGS-JPN-PRK",
@@ -1608,6 +1649,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "17:51 screenshot epoch",
       "score_at_assessment": "0-0 (historical supplied state)",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC LIVE EXCEPTION — ACTIVATED AFTER SUPPLIED QUOTE",
       "frozen_pre": {
         "coverage_id": "20260926-ASEAN-VIE-PHI",
@@ -1648,6 +1690,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — O3 COMPRESSION HOLD",
       "frozen_pre": {
         "coverage_id": "20260926-NIR-GLE-CAR",
@@ -1688,6 +1731,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260926-NIR-CRU-BAN",
@@ -1728,6 +1772,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — CURRENT USER O/U REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-NED2-HER-VIT",
@@ -1768,6 +1813,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — ABOVE-BURDEN WAIT",
       "frozen_pre": {
         "coverage_id": "20260926-NED2-HER-VIT",
@@ -1808,6 +1854,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH ODDS — NO FROZEN PRE / NO EXCEPTION",
       "frozen_pre": {
         "coverage_id": "20260926-NED-W-AJA-ADO",
@@ -1848,6 +1895,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH ODDS — XI CONFIRMATION REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-NED-W-FEY-ZWO",
@@ -1888,6 +1936,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — XI REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-NED-W-AJA-ADO",
@@ -1928,6 +1977,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — FRESH STRUCTURAL EPOCH",
       "frozen_pre": {
         "coverage_id": "20260926-NED-W-AJA-ADO",
@@ -1968,6 +2018,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260926-NED-W-FEY-ZWO",
@@ -2008,6 +2059,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — ABOVE-BURDEN WAIT",
       "frozen_pre": {
         "coverage_id": "20260926-POLW-KAT-LEG",
@@ -2048,6 +2100,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "EARLY LIVE (~6')",
       "score_at_assessment": "Early goal occurred; exact side not visible in crop",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE REPRICE — GOAL-DRIVEN LINE EXPANSION",
       "frozen_pre": {
         "coverage_id": "20260926-POLW-KAT-LEG",
@@ -2088,6 +2141,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "42:42",
       "score_at_assessment": "0-1 Barcelona",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE XI + ODDS — NO FROZEN PRE / NO EXCEPTION",
       "frozen_pre": {
         "coverage_id": "20260926-ESP-W-LOG-BAR",
@@ -2128,6 +2182,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "HT",
       "score_at_assessment": "2-0 Heracles",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "HT — PREDECLARED DECAY PLAN CLOSED",
       "frozen_pre": {
         "coverage_id": "20260926-NED2-HER-VIT",
@@ -2168,6 +2223,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "LIVE — exact minute not supplied",
       "score_at_assessment": "2-0 GKS Katowice",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — PREDECLARED DECAY PLAN CLOSED",
       "frozen_pre": {
         "coverage_id": "20260926-POLW-KAT-LEG",
@@ -2208,6 +2264,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-UNL-SMR-FIN",
@@ -2248,6 +2305,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-UNL-ISL-EST",
@@ -2288,6 +2346,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260926-WSL-LCL-BHA",
@@ -2328,6 +2387,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — ELITE CARRIER RE-SCREEN",
       "frozen_pre": {
         "coverage_id": "20260926-UNL-SMR-FIN",
@@ -2368,6 +2428,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH — EARLY SAME-LINE PRICE PLAN",
       "frozen_pre": {
         "coverage_id": "20260926-WSL-LCL-BHA",
@@ -2408,6 +2469,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260926-UNL-ISL-EST",
@@ -2448,6 +2510,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER EXECUTABLE ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-VOL-VVV",
@@ -2488,6 +2551,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER EXECUTABLE ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-EMM-OSS",
@@ -2528,6 +2592,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER EXECUTABLE ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-NAC-EIN",
@@ -2568,6 +2633,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER EXECUTABLE ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-ROD-RKC",
@@ -2608,6 +2674,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI — USER EXECUTABLE ODDS REQUIRED",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-MVV-HEL",
@@ -2648,6 +2715,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "47:25 1H",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC LIVE EXCEPTION — USER LIVE O/U REQUIRED",
       "frozen_pre": null,
       "decision": {
@@ -2675,6 +2743,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "25:07",
       "score_at_assessment": "1-0 Midtjylland Women",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC LIVE EXCEPTION — USER LIVE O/U REQUIRED",
       "frozen_pre": null,
       "decision": {
@@ -2702,6 +2771,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "29:42",
       "score_at_assessment": "1-0 Midtjylland Women",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC LIVE EXCEPTION — CURRENT SCORE EPOCH",
       "frozen_pre": null,
       "decision": {
@@ -2728,7 +2798,8 @@
       "assessment_date_ict": "2026-09-27",
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "30:27",
-      "score_at_assessment": "2-0 FT",
+      "score_at_assessment": "0-0",
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "MATCH-SPECIFIC LIVE EXCEPTION — CURRENT SCORE EPOCH",
       "frozen_pre": null,
       "decision": {
@@ -2740,10 +2811,13 @@
         "supplied_odds": 2.07,
         "supported_target_line": 2,
         "target_min_odds": 1.65,
-        "decision_evidence": "MATCH-SPECIFIC LIVE EXCEPTION. Model official selection was O2.0 @2.07 at 0-0, 30:27. FT 2-0 => PUSH, 0.00u model P/L.",
+        "decision_evidence": "MATCH-SPECIFIC LIVE EXCEPTION. Model official selection was O2.0 @2.07 at 0-0, 30:27.",
         "evidence_separation_status": "SEPARATED"
       },
-      "audit_outcome": null,
+      "audit_outcome": {
+        "result": "PUSH",
+        "calibration_track": "QUALIFIED NOW"
+      },
       "semantic_eligible": true
     },
     {
@@ -2756,6 +2830,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "36:38",
       "score_at_assessment": "2-0 Midtjylland Women",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE REPRICE — GOAL-DRIVEN EXPANSION",
       "frozen_pre": null,
       "decision": {
@@ -2782,7 +2857,8 @@
       "assessment_date_ict": "2026-09-27",
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
-      "score_at_assessment": "2-1 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "PREMATCH XI + ODDS — NO FROZEN PRE",
       "frozen_pre": null,
       "decision": {
@@ -2812,7 +2888,8 @@
       "assessment_date_ict": "2026-09-27",
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "36:24",
-      "score_at_assessment": "1-0 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "LIVE XI + ODDS — QUALIFIED DECAY",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-GRA-DEN",
@@ -2853,9 +2930,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-27T14:21:37.000Z",
       "assessment_date_ict": "2026-09-27",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "FT",
-      "score_at_assessment": "1-0 FT",
+      "score_at_assessment": null,
+      "score_integrity_status": "OVERWRITTEN_BY_SETTLEMENT",
       "assessment_period": "POST-MATCH QA — MISSED H2H COMPRESSION SCREEN",
       "frozen_pre": {
         "coverage_id": "20260927-NED2-GRA-DEN",
@@ -2896,6 +2974,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260927-UNL-AUT-KOS",
@@ -2936,6 +3015,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — FRESH STRUCTURAL EPOCH",
       "frozen_pre": null,
       "decision": {
@@ -2960,9 +3040,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-27T15:25:11.000Z",
       "assessment_date_ict": "2026-09-27",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — PREDECLARED LIVE DECAY",
       "frozen_pre": {
         "coverage_id": "20260927-UNL-SRB-NED",
@@ -3003,6 +3084,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — FINAL",
       "frozen_pre": {
         "coverage_id": "20260927-UNL-DEN-WAL",
@@ -3043,6 +3125,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — EXTREME CARRIER",
       "frozen_pre": null,
       "decision": {
@@ -3070,6 +3153,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — CURRENT BURDEN DOWNGRADE",
       "frozen_pre": {
         "coverage_id": "20260928-GULF-BHR-UAE",
@@ -3110,6 +3194,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "MATCH-SPECIFIC PREMATCH EXCEPTION — FRESH STRUCTURAL EPOCH",
       "frozen_pre": null,
       "decision": {
@@ -3137,6 +3222,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — PASS RE-SCREEN",
       "frozen_pre": {
         "coverage_id": "20260928-UNL-GER-GRE",
@@ -3177,6 +3263,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — EXACT-LINE PRICE TRIGGER",
       "frozen_pre": {
         "coverage_id": "20260928-UNL-NOR-POR",
@@ -3217,6 +3304,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE",
       "score_at_assessment": "0-0 PRE",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH XI + ODDS — NO FROZEN PRE",
       "frozen_pre": null,
       "decision": {
@@ -3244,6 +3332,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "1H 06:43",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "1H",
       "frozen_pre": {
         "coverage_id": "20260928-ASEAN-IDN-MAS",
@@ -3287,6 +3376,7 @@
       "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PREMATCH",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260928-CAF-CAR-BFA",
@@ -3324,9 +3414,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-28T15:36:00.000Z",
       "assessment_date_ict": "2026-09-28",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — 24m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260928-CAF-ZIM-COD",
@@ -3364,9 +3455,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-28T15:36:00.000Z",
       "assessment_date_ict": "2026-09-28",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — 24m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260928-UNL-ARM-MNE",
@@ -3407,6 +3499,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "LATE 2H — exact minute not supplied",
       "score_at_assessment": "0-0 (user-reported immediately prior)",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — PREDECLARED PLAN",
       "frozen_pre": {
         "coverage_id": "20260928-CAF-CAR-BFA",
@@ -3444,9 +3537,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-28T18:04:00.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~41m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-UNL-NIR-HUN",
@@ -3484,9 +3578,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-28T18:04:00.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~41m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-UNL-SWE-POL",
@@ -3524,9 +3619,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-28T18:04:00.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~41m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-UNL-BEL-FRA",
@@ -3564,9 +3660,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-29T12:28:00.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~2m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-ASEAN-THA-VIE",
@@ -3604,9 +3701,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-29T12:55:38.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~4m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-CAF-BDI-ALG",
@@ -3644,9 +3742,10 @@
       "model_version": "Football A",
       "assessment_time_utc": "2026-09-29T12:55:38.000Z",
       "assessment_date_ict": "2026-09-29",
-      "evidence_epoch": "LIVE_OR_JUST_STARTED",
+      "evidence_epoch": "PREMATCH_OR_AUDIT",
       "minute": "PRE — ~4m to KO",
       "score_at_assessment": "NOT STARTED",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "PREMATCH",
       "frozen_pre": {
         "coverage_id": "20260929-CAF-LES-MAR",
@@ -3687,6 +3786,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "1H 04:17",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "JUST-STARTED/LIVE — NO PREDECLARED PLAN",
       "frozen_pre": {
         "coverage_id": "20260929-CAF-LES-MAR",
@@ -3727,6 +3827,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "1H 04:31",
       "score_at_assessment": "0-0",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "JUST-STARTED/LIVE — NO PREDECLARED PLAN",
       "frozen_pre": {
         "coverage_id": "20260929-CAF-BDI-ALG",
@@ -3767,6 +3868,7 @@
       "evidence_epoch": "LIVE_OR_JUST_STARTED",
       "minute": "2H ~70'",
       "score_at_assessment": "0-1",
+      "score_integrity_status": "SOURCE_FIELD",
       "assessment_period": "LIVE — SHADOW FOLLOW-UP",
       "frozen_pre": {
         "coverage_id": "20260929-CAF-LES-MAR",
