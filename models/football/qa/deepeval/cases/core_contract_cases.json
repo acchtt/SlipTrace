@@ -1,0 +1,58 @@
+[
+  {
+    "id": "live_without_predeclared_plan_stays_shadow",
+    "purpose": "Prevent opportunistic live exposure when no predeclared plan or match-specific exception exists.",
+    "input": "The match is live. A user supplies an attractive Over line, but there was no predeclared live-decay/same-line plan and no active match-specific exception.",
+    "actual_output": "NO OFFICIAL LIVE ENTRY — NO PREDECLARED PLAN. SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE.",
+    "contract": {
+      "required_all": [
+        "NO OFFICIAL LIVE ENTRY — NO PREDECLARED PLAN",
+        "SHADOW LIVE/DECAY — NO OFFICIAL EXPOSURE"
+      ],
+      "forbidden_any": [
+        "OFFICIAL LOCK",
+        "DIRECT LOCK ELIGIBLE — PREDECLARED LIVE DECAY"
+      ]
+    }
+  },
+  {
+    "id": "prematch_lock_requires_post_xi_research",
+    "purpose": "Protect the mandatory post-XI football-research gate before ordinary prematch publication.",
+    "input": "Confirmed XI and prematch odds are available, but fresh fixture-specific post-XI football research has not been attempted and there is no explicit user waiver.",
+    "actual_output": "POST-XI RESEARCH = NOT CHECKED. STRUCTURAL HOLD. No ordinary prematch official lock may be published.",
+    "contract": {
+      "required_any": [
+        [
+          "STRUCTURAL HOLD",
+          "NO BET",
+          "NO OFFICIAL"
+        ]
+      ],
+      "forbidden_any": [
+        "OFFICIAL LOCK",
+        "WEBSITE PICK — PUBLISHED"
+      ]
+    }
+  },
+  {
+    "id": "damaged_decay_state_cannot_execute",
+    "purpose": "A predeclared decay target is not enough when the current evidence epoch has materially damaged the original thesis.",
+    "input": "A QUALIFIED live-decay plan existed before kickoff and the target line is now available at a floor-clearing price, but a material state change has damaged the original scoring route.",
+    "actual_output": "STATE INTEGRITY = DAMAGED. The frozen live-decay plan does not execute at this epoch. NO BET — EXPOSURE HOLD.",
+    "contract": {
+      "required_all": [
+        "STATE INTEGRITY = DAMAGED"
+      ],
+      "required_any": [
+        [
+          "NO BET — EXPOSURE HOLD",
+          "NO OFFICIAL LIVE ENTRY",
+          "STRUCTURAL HOLD"
+        ]
+      ],
+      "forbidden_any": [
+        "OFFICIAL LOCK — LIVE DECAY PLAN"
+      ]
+    }
+  }
+]
