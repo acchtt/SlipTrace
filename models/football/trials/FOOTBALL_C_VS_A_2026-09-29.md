@@ -5,10 +5,10 @@
 - **Experiment ID:** FC-C-20260929-INTEGRATED-01
 - **Created at (ICT):** 2026-09-29; exact freeze commit is authoritative
 - **Champion:** Football A
-- **Champion commit/version:** Football A current production state at experiment freeze
+- **Champion commit/version:** `e68011fe4146fa67f83c448db4c2e2e09a2596e6` / Football A
 - **Challenger:** Football C — SHADOW
 - **Owner:** SlipTrace football model
-- **Status:** DRAFT — becomes FROZEN when the model-spec commit is recorded below
+- **Status:** FROZEN
 
 ## Rule delta
 
@@ -97,7 +97,7 @@ For every eligible case preserve fixture identity, decision timestamp, C rank/st
 
 ## Freeze record
 
-- **Football C model-spec freeze commit:** TO_BE_FILLED_AFTER_FIRST_COMMIT
+- **Football C model-spec freeze commit:** `7ac7ac1b69c0b741cd742b45481d88a04cdf0a08`
 - **Rules may change after this commit:** NO for experiment FC-C-20260929-INTEGRATED-01
 - **First five-board checkpoint:** boards beginning strictly after the freeze commit
 
