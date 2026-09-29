@@ -1,180 +1,72 @@
-# 04 — Work High: Post-Slate Audit
+# 04 — Work: Football C Post-Slate Audit
 
-Use Work mode with high reasoning.
+Read `models/football/CURRENT_MODEL.md` first.
 
-## Authority
+For decisions made after Football C activation, use `models/football/production/FOOTBALL_C.md` as the production authority.
 
-Read `models/football/CURRENT_MODEL.md` first. Use the official model, active patches, time/schedule rules and audit semantics declared there at execution time. Never infer the active version from this prompt.
+For older decisions, use the model/version that actually produced them. Never relabel Football A history as Football C.
 
-Load only the current files needed to interpret frozen PRE, later material states, exposure decisions, shadows and settlement. Historical assessments remain tied to the model version that actually produced them.
+## Source hierarchy
 
-When the user asks for **model/workflow QA** rather than ordinary outcome review, additionally load `models/football/procedures/FOOTBALL_DECISION_SURFACE_QA.md` and complete its input inventory + trace matrix before declaring the QA complete.
+1. user bet slip = physical execution truth;
+2. Decision States = model decision history;
+3. Website Picks = official model exposure/persistence surface;
+4. Daily Coverage Ledger = frozen board/structural history.
 
-## Airtable
+Reconcile disagreements explicitly rather than silently choosing one.
 
-Base ID `appWyZJjitSBATXAU`.
-Daily Coverage Ledger `tblcl1UAyMqZT6Ub0`.
-Decision States `tblQmUpd5WjBLQ38X`.
-Website Picks `tblg3J5sbJYbzuTYD`.
+## Football C audit groups
 
-Read only the requested slate/board and records needed for that audit.
+Separate:
+- C-BET direct;
+- C-WAIT reached + executed;
+- C-WAIT cancelled — thesis decay;
+- C-WAIT never reached;
+- C-PASS;
+- actual user execution deviations.
 
-## Decision-surface QA completeness
+Settle exact recorded line/odds only.
 
-For any audit that evaluates the correctness/consistency of Step 1, Step 2, live execution, or persistence logic:
+Do not assign hypothetical P/L to held/pass cases merely because FT crossed an imagined line. A counterfactual is valid only when an exact contemporaneous quote and frozen counterfactual action were recorded.
 
-1. inventory every material decision input;
-2. trace collection -> interpretation -> threshold -> allowed/forbidden effect -> precedence -> missing-data behavior -> persistence;
-3. run the mandatory deterministic replay branches;
-4. audit H2H separately whenever it can affect a total/burden/verdict;
-5. scan production files for stale/expired active-looking rules;
-6. report decision-surface coverage counts.
+## Required checks
 
-Do not mark the audit complete with any untraced material input.
+For each material case:
+- fixture/time identity;
+- frozen C rank/state;
+- routes/carrier/supported burden;
+- H2H handling;
+- XI mechanism;
+- mandatory post-XI football research compliance;
+- current line/price;
+- action;
+- WAIT target/reach/cancellation and thesis-health check;
+- persistence agreement;
+- final settlement.
 
-## Audit boundary
+Audit operational performance too:
+- board size and followability;
+- time to complete board;
+- time from XI/odds to action;
+- resumptions/retries;
+- persistence corrections;
+- verdict reversals.
 
-Use frozen PRE from Daily Coverage Ledger as historical truth. Use Decision States for later XI/market/execution/live epochs. Use Website Picks only for actual official exposure/results.
+## Model-change boundary
 
-Do not rebuild the original PRE with hindsight and do not re-research every routine fixture from scratch.
+Do not patch Football C from one slate or a memorable result.
 
-Spend deep effort on meaningful anomalies:
-
-- losing official selections;
-- repeated false-negative waits/holds;
-- `DIRECT LOCK ELIGIBLE` candidates suppressed by Model A exposure gates;
-- ranking and priority-inversion misses;
-- fixture-filter/time-integrity failures;
-- missing or skipped mandatory post-XI football web research;
-- cases where market-history lookup was incorrectly treated as football research;
-- price/burden/regime errors;
-- persistence/synchronization faults;
-- repeated failure modes;
-- missed opportunities where carrier/upper-tail evidence mattered.
-
-Routine wins and correctly handled non-exposures can be summarized from stored evidence.
-
-## Historical/version fidelity
-
-Never relabel an older decision as Football A. A later model may be used only as a clearly labelled counterfactual audit and must not rewrite historical exposure/P&L.
-
-A high-scoring result after a HOLD/WAIT is not automatically a model error. Determine whether the contemporaneous state actually satisfied the then-active rules.
-
-## Football A audit separation
-
-For prospective Football A records, preserve three axes:
-
-1. Structural Rank;
-2. Execution Class;
-3. Exposure Decision.
-
-Report separately:
-
-- official Football A LOCK exposure and P/L;
-- `DIRECT LOCK ELIGIBLE` + `NO BET — EXPOSURE HOLD — UPPER-TAIL INSUFFICIENT` outcomes;
-- `DIRECT LOCK ELIGIBLE` + `NO BET — EXPOSURE HOLD — PRIORITY INVERSION GUARD` outcomes;
-- QUALIFIED — WAIT FOR DECAY target-burden outcomes;
-- STRUCTURAL HOLD outcomes;
-- A1/A2 FOCUS +0.25 acceptance-band shadows;
-- B+ / CC+ audit-lane outcomes;
-- MCE shadows;
-- live/relative-decay shadows;
-- FOCUS vs WATCHLIST 3+ and 4+ threshold performance.
-
-Counterfactual and shadow lanes never enter official P/L.
-
-### Model A core diagnostics
-
-For every DIRECT candidate, audit whether:
-
-- upper-tail state was correctly classified `PASS / FAIL / NOT REQUIRED`;
-- priority-inversion state was correctly classified `CLEAR / BLOCKED / FOOTBALL OVERRIDE`;
-- the final Exposure Decision followed the ordering:
-
-`STRUCTURAL RANK → UPPER-TAIL PROOF → ROUTE QUALITY / FAILURE RESISTANCE → BURDEN PROTECTION → PRICE AS TIE-BREAKER`.
-
-Flag:
-
-- `EXPOSURE GATE FALSE POSITIVE` — official lock failed while the contemporaneous upper-tail/priority evidence did not truly justify exposure;
-- `EXPOSURE GATE FALSE NEGATIVE` — exposure hold won and contemporaneous evidence shows the Model A gate should have passed;
-- `PRIORITY INVERSION BREACH` — materially weaker lower-ranked official exposure was taken ahead of a higher-ranked price-only wait without valid football override;
-- `UPPER-TAIL GATE BREACH` — A2 at supported ceiling was officially exposed without required upper-tail proof;
-- `STRUCTURAL RANK PRESERVED` — result miss does not invalidate the frozen structural ordering;
-- `EXECUTION SELECTION ERROR` — football board was useful but official exposure selection was wrong.
-
-Do not label every losing lock a gate error; distinguish variance, conversion miss and genuine selection fault.
-
-## Existing quarantine checks
-
-Continue to flag official MCE/+0.25 or ordinary new live/decay exposure as a quarantine breach unless an explicit active-model/user exception applied.
-
-The A1/A2 +0.25 acceptance band remains shadow-only until its release gate is explicitly removed by a later approved model.
-
-Keep B+ / CC+ separate from that acceptance-band sample.
-
-## Error taxonomy
-
-Classify meaningful issues with the active model taxonomy where available. Otherwise use:
-
-- PROCESS ERROR
-- MODEL ERROR
-- INFORMATION ERROR
-- EXECUTION ERROR
-- VARIANCE
-- FIXTURE-FILTER / SCHEDULE-INTEGRITY ERROR
-- PRICE / BURDEN / REGIME ERROR
-- PERSISTENCE / SYNC ERROR
-- POST-XI RESEARCH COMPLIANCE ERROR
-
-## Step-2 post-XI research compliance audit
-
-For every material Step-2 XI+odds assessment in the audited slate, inspect the Decision State evidence for a separate post-XI football research status and market-history status.
-
-A compliant post-XI status is one of:
-
-- `FOUND`;
-- `LIMITED`;
-- `UNAVAILABLE — ATTEMPTED`;
-- `SKIPPED — EXPLICIT USER WAIVER`.
-
-Flag `POST-XI RESEARCH COMPLIANCE ERROR` when:
-
-- status is absent / `NOT CHECKED`;
-- no fresh fixture-specific football research was attempted after the XI first pass;
-- odds/market-history research was counted as satisfying football research;
-- a prematch Website Pick was published before the research gate completed;
-- live verdict-first was used as a reason never to perform the same-assessment research attempt.
-
-Do not retroactively change historical P/L solely because of a process-compliance fault. Preserve the original decision and classify the workflow defect separately.
-
-## Learning rule
-
-Do not propose another model change from one outcome. Recommend changes only when repeated prospective evidence supports them.
-
-For each proposed change state:
-
-- exact rule/workflow affected;
-- evidence pattern;
-- expected benefit;
-- downside;
-- `TEST / KEEP / MODIFY / REJECT`.
-
-Do not edit model files automatically unless the user explicitly asks.
+If repeated evidence suggests a permanent threshold/rule change, create a new challenger/version prospectively under the QA procedure.
 
 ## Output
 
-Compact audit summary:
+Report:
+- actual exposure P/L;
+- model official P/L;
+- direct vs WAIT results;
+- C-PASS/C-WAIT opportunity observations separately;
+- process/compliance faults;
+- repeated failure modes;
+- whether evidence is sufficient to propose a new challenger.
 
-- board ID/name when available;
-- model versions audited;
-- official LOCK results/P&L;
-- DIRECT-eligible exposure holds by blocker;
-- qualified-wait target outcomes;
-- structural holds;
-- acceptance-band/B+/MCE/live shadow lanes;
-- FOCUS-vs-WATCHLIST 3+/4+ separation;
-- priority-inversion compliance;
-- upper-tail gate performance;
-- meaningful misses and error taxonomy;
-- recommended `TEST / KEEP / MODIFY / REJECT` items;
-- no-change areas.
+Historical Football A audits must remain version-faithful.

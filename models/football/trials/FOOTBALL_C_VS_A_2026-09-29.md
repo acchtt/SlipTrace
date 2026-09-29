@@ -8,7 +8,7 @@
 - **Champion commit/version:** `e68011fe4146fa67f83c448db4c2e2e09a2596e6` / Football A
 - **Challenger:** Football C — SHADOW
 - **Owner:** SlipTrace football model
-- **Status:** FROZEN
+- **Status:** TERMINATED — USER-DIRECTED PRODUCTION ACTIVATION BEFORE HOLDOUT
 
 ## Rule delta
 
@@ -120,7 +120,16 @@ Do not fill until prospective boards run.
 Initial state before prospective evidence.
 
 ### Exact next action
-Freeze the challenger, then run the next 5 complete boards side-by-side with Football A.
+Experiment FC-C-20260929-INTEGRATED-01 is terminated without prospective results because the user explicitly activated Football C as the production model before the first planned five-board checkpoint. Do not use the activation itself as validation evidence. Future Football C changes require a new prospective challenger/version.
 
 ### Proposed effective timestamp if promoted
 Not applicable.
+
+
+## Termination record
+
+- **Reason:** explicit user directive to make Football C the current active model.
+- **Prospective five-board checkpoint completed:** NO.
+- **Promotion evidence claim:** NONE.
+- **Production activation:** user-directed, operational.
+- **Historical challenger spec remains frozen for audit:** YES.

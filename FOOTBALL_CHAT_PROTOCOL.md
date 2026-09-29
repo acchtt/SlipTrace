@@ -1,28 +1,31 @@
 # Football Chat Operating Protocol
 
 **Status:** ACTIVE  
-**Canonical model entry point:** `models/football/CURRENT_MODEL.md`
-
-This file is intentionally small. It must not duplicate version-specific rules from the model stack.
+**Canonical model entry point:** `models/football/CURRENT_MODEL.md`  
+**Current official model:** Football C
 
 ## Authority order
 
 1. `models/football/CURRENT_MODEL.md`
-2. The active procedures/rules referenced by its canonical load order
-3. Frozen Work PRE persisted to the Daily Coverage Ledger
-4. Airtable Decision States for later XI/market/live assessments
-5. User-supplied current XI, odds, and live-state evidence
+2. `models/football/production/FOOTBALL_C.md`
+3. current stage launcher under `models/football/prompts/`
+4. frozen Football C board state in Daily Coverage Ledger
+5. Football C Decision States
+6. user-supplied current XI/odds/live evidence
+7. user bet slip for physical execution truth
 
-For current work, load `CURRENT_MODEL.md` first. Do not reconstruct the active model from old handoffs, backups, Git history, or memory.
+Do not load Football A's rule stack into a new Football C decision.
+
+Historical decisions remain governed by the model/version that actually produced them.
 
 ## Workflow
 
-- Sweep / discovery: use the current sweep and time-integrity procedures referenced by `CURRENT_MODEL.md`.
-- PRE / Step 1: `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md`
-- XI + odds / Step 2: `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
-- QA / promotion: `models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md`
-- Launchers and resumable handoffs: `handoffs/football/`
+- Step 0: AiScore handoff
+- Step 1: integrated C board
+- Step 2: integrated XI + fresh web research + H2H + odds decision
+- Live: predeclared WAIT resolution
+- Audit: version-faithful settlement/process audit
 
-Frozen historical PRE remains immutable. Current execution decisions and actual exposure must be persisted separately.
+Frozen historical states remain immutable.
 
 If this protocol conflicts with `CURRENT_MODEL.md`, `CURRENT_MODEL.md` wins.

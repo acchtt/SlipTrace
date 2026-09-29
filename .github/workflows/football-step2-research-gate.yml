@@ -1,28 +1,24 @@
-name: Football Step-2 research gate
+name: Football C production invariants
 
 on:
   push:
     paths:
       - "models/football/CURRENT_MODEL.md"
+      - "models/football/production/FOOTBALL_C.md"
+      - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
-      - "models/football/prompts/README.md"
+      - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
-      - "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md"
-      - "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md"
-      - "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md"
-      - "models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - ".github/workflows/football-step2-research-gate.yml"
   pull_request:
     paths:
       - "models/football/CURRENT_MODEL.md"
+      - "models/football/production/FOOTBALL_C.md"
+      - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
-      - "models/football/prompts/README.md"
+      - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
-      - "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md"
-      - "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md"
-      - "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md"
-      - "models/football/rules/MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
@@ -34,5 +30,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Check canonical Step-2 research invariants
+      - name: Check Football C production invariants
         run: python models/football/qa/check_post_xi_research_gate.py

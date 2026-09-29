@@ -4,37 +4,28 @@ import sys
 
 REQUIRED = {
     "models/football/CURRENT_MODEL.md": [
-        "MODEL_RULES_FOOTBALL_A_POST_XI_WEB_RESEARCH_GATE.md",
-        "POST-XI FOOTBALL WEB-RESEARCH GATE — ACTIVE",
-        "Verdict-first must never be interpreted as research-skipped.",
+        "Active official model:** Football **C**",
+        "fresh post-XI public-web football research mandatory",
+        "H2H mandatory when usable",
+    ],
+    "models/football/production/FOOTBALL_C.md": [
+        "one mandatory fresh fixture-specific public-web football research pass",
+        "Market-history/odds lookup does not satisfy the football-research requirement",
+        "H2H is mandatory context when usable",
+        "PRICE DECAY != THESIS DECAY",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
-        "Mandatory post-XI football web-research gate",
-        "POST-XI RESEARCH = FOUND",
-        "MANDATORY POST-XI FOOTBALL WEB RESEARCH",
+        "MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH",
         "Odds/history lookup does **not** satisfy the football-research gate.",
+        "perform/recheck relevant H2H/matchup context",
     ],
-    "models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md": [
-        "Mandatory post-XI football web research",
-        "POST-XI RESEARCH = FOUND",
-        "MANDATORY POST-XI FOOTBALL WEB RESEARCH",
-        "Verdict-first must never become research-skipped.",
-    ],
-    "models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md": [
-        "Step 2 XI+odds has an additional mandatory post-XI football web-research gate",
-        "This is separate from the market-history watch",
-    ],
-    "models/football/procedures/FOOTBALL_MODEL_QA_AND_PROMOTION.md": [
-        "WORKFLOW REGRESSION — POST-XI RESEARCH GATE MISSING/OPTIONAL",
-        "market-history lookup is treated as satisfying the post-XI football research gate",
-    ],
-    "models/football/prompts/README.md": [
-        "mandatory fresh post-XI football web research",
-        "run the mandatory post-XI football web-research gate",
+    "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
+        "TARGET REACHED + THESIS STILL HEALTHY?",
+        "C-WAIT CANCELLED — THESIS DECAY",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
-        "Step-2 post-XI research compliance audit",
-        "POST-XI RESEARCH COMPLIANCE ERROR",
+        "mandatory post-XI football research compliance",
+        "Historical Football A audits must remain version-faithful.",
     ],
 }
 
@@ -50,9 +41,9 @@ for file_name, needles in REQUIRED.items():
             failures.append(f"{file_name}: missing invariant: {needle}")
 
 if failures:
-    print("WORKFLOW REGRESSION — POST-XI RESEARCH GATE MISSING/OPTIONAL")
+    print("WORKFLOW REGRESSION — FOOTBALL C PRODUCTION INVARIANT MISSING")
     for failure in failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — post-XI football web-research gate is present in all canonical workflow surfaces.")
+print("PASS — Football C production research/H2H/decay invariants are present.")

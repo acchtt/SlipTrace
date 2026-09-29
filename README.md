@@ -2,68 +2,67 @@
 
 This repository is dedicated to the **SlipTrace football model**.
 
-It no longer contains the SlipTrace website or models for other sports. The repository exists for football-model development, execution procedures, QA, launchers, persistence contracts, session overrides, and backups.
+## Active model
 
-## Canonical authority
+**Football C** is the current official production model.
 
-Always start with:
+Start here:
 
 `models/football/CURRENT_MODEL.md`
 
-That file defines the active Football A stack and the authoritative load order. Do not infer the active model from old commits, archived backups, or chat memory.
+Production specification:
 
-## Main entry points
+`models/football/production/FOOTBALL_C.md`
 
-- **Current model:** `models/football/CURRENT_MODEL.md`
-- **Prospective challenger:** `models/football/challengers/football-c/FOOTBALL_C_SPEC.md` (shadow-only)
-- **Compiled PRE / Step 1:** `models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md`
-- **Compiled XI + odds / Step 2:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
-- **Sweep process:** `models/football/procedures/FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md`
-- **Time integrity:** `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
-- **Betting procedure:** `models/football/procedures/FOOTBALL_BETTING_PROCEDURE.md`
-- **Normal-chat launchers / handoffs:** `handoffs/football/`
-- **Model QA skill:** `.agents/skills/football-model-qa/SKILL.md`
+Football A is retired from new decisions and retained only for historical audit and rollback.
+
+## Main workflow
+
+- Step 0 fixture handoff: `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
+- Integrated Football C board: `models/football/prompts/01_WORK_DAILY_SWEEP.md`
+- XI + odds decision: `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
+- Live / WAIT resolution: `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
+- Post-slate audit: `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
+
+## Football C philosophy
+
+Football C deliberately replaces Football A's large multi-stage gate stack with an integrated flow:
+
+`AISCORE -> SCREEN -> RESEARCH/ASSESS -> RANK -> XI CONFIRM -> BET/WAIT/PASS -> AUDIT`
+
+H2H and fresh post-XI football research remain mandatory where relevant. Market evidence informs the football judgment but does not become an independent veto machine.
 
 ## Repository layout
 
 ```text
-.
-├── README.md
-├── AGENTS.md
-├── FOOTBALL_CHAT_PROTOCOL.md
-├── .agents/
-│   └── skills/football-model-qa/
-├── .github/
-│   └── workflows/football-step2-research-gate.yml
-├── handoffs/
-│   └── football/
-└── models/
-    └── football/
-        ├── CURRENT_MODEL.md
-        ├── rules/
-        ├── procedures/
-        ├── prompts/
-        ├── airtable/
-        ├── challengers/
-        ├── qa/
-        ├── orchestration/
-        ├── session_overrides/
-        ├── trials/
-        └── backups/
+models/football/
+├── CURRENT_MODEL.md
+├── production/
+│   └── FOOTBALL_C.md
+├── prompts/
+├── airtable/
+├── procedures/
+├── rules/          # historical Football A/versioned logic
+├── challengers/    # historical/prospective experiment artifacts
+├── qa/
+├── trials/
+└── backups/
 ```
+
+## Validation status
+
+Football C was activated by explicit user directive before completion of its planned five-board shadow test. Do not describe this activation as a statistically validated QA promotion.
 
 ## Historical safety
 
-Before this repository was reduced to football-only, a full restore branch was created:
+Pre-C production restore branch:
 
-`archive/pre-football-only-2026-09-29`
+`archive/pre-football-c-active-2026-09-29`
 
-The current Football A stack was also snapshotted at:
+Football A model snapshot:
 
 `models/football/backups/2026-09-29_2038_current_model_snapshot/`
 
-Git history remains the source for removed website code and non-football models.
+Earlier pre-cleanup repository:
 
-## Scope
-
-This repository is **not a website repository** and has no GitHub Pages application. It is the working source of truth for the football model and its operational workflow.
+`archive/pre-football-only-2026-09-29`
