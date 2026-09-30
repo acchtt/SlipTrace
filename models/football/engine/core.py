@@ -29,6 +29,12 @@ class BoardState(IntEnum):
     FOCUS = 2
 
 
+class FollowLane(Enum):
+    STOP = "STOP"
+    RESERVE = "RESERVE"
+    FOLLOW = "FOLLOW"
+
+
 class ThesisState(IntEnum):
     BROKEN = 0
     DEGRADED = 1
@@ -156,6 +162,62 @@ def rank_assessments(items: Iterable[MatchAssessment]) -> list[MatchAssessment]:
         key=lambda item: (ranking_key(item), item.match_id),
         reverse=True,
     )
+
+
+def follow_through_lane(
+    a: MatchAssessment,
+    board_state: BoardState,
+) -> FollowLane:
+    """Operational follow-through gate.
+
+    This does not alter the Football C board state. It limits which frozen
+    candidates consume XI/odds/live attention.
+
+    FOLLOW requires:
+    - official C-FOCUS;
+    - two usable routes with at least one strong route;
+    - STRONG carrier;
+    - HIGH route reliability, independent route quality, chance quality,
+      failure resistance and evidence confidence;
+    - supported burden <= 3.0;
+    - no material suppression / route-attacking failure.
+
+    RESERVE is the same core structure but permits MEDIUM failure resistance
+    when burden protection is HIGH.
+
+    Everything else remains frozen for audit but stops routine follow-through.
+    """
+
+    if board_state != BoardState.FOCUS:
+        return FollowLane.STOP
+
+    structural = (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier == CarrierStrength.STRONG
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.evidence_confidence == Grade.HIGH
+        and a.supported_line <= 3.0
+        and not a.failure_attacks_route
+        and not a.material_suppression
+    )
+
+    if not structural:
+        return FollowLane.STOP
+
+    if a.failure_resistance == Grade.HIGH:
+        return FollowLane.FOLLOW
+
+    if (
+        a.failure_resistance == Grade.MEDIUM
+        and a.burden_protection == Grade.HIGH
+    ):
+        return FollowLane.RESERVE
+
+    return FollowLane.STOP
 
 
 def c2_selection_floor(

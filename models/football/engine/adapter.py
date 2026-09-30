@@ -7,6 +7,7 @@ from core import (
     BoardState,
     CarrierStrength,
     DecisionContext,
+    FollowLane,
     Grade,
     MatchAssessment,
     Quote,
@@ -15,12 +16,15 @@ from core import (
     c2_selection_floor,
     decide_c,
     decide_c2,
+    follow_through_lane,
     rank_assessments,
     ranking_key,
 )
 
 
 SCHEMA_VERSION = "football-engine-v1"
+MAX_FOLLOW = 6
+MAX_RESERVE = 4
 
 
 class ContractError(ValueError):
@@ -149,6 +153,9 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     ranked = rank_assessments(parsed)
 
     output = []
+    follow_used = 0
+    reserve_used = 0
+
     for rank, item in enumerate(ranked, start=1):
         raw = next(x for x in raw_matches if str(x["match_id"]) == item.match_id)
         row: dict[str, Any] = {
@@ -158,9 +165,27 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "supported_line": item.supported_line,
         }
 
+        state = None
         if "board_state" in raw:
             state = _enum(BoardState, raw["board_state"], "board_state")
             row["board_state"] = state.name
+
+        if model == "c" and state is not None:
+            base_lane = follow_through_lane(item, state)
+            lane = FollowLane.STOP
+
+            if base_lane == FollowLane.FOLLOW:
+                if follow_used < MAX_FOLLOW:
+                    lane = FollowLane.FOLLOW
+                    follow_used += 1
+                elif reserve_used < MAX_RESERVE:
+                    lane = FollowLane.RESERVE
+                    reserve_used += 1
+            elif base_lane == FollowLane.RESERVE and reserve_used < MAX_RESERVE:
+                lane = FollowLane.RESERVE
+                reserve_used += 1
+
+            row["follow_lane"] = lane.value
 
         if model == "c2":
             floor, reasons = c2_selection_floor(item)
@@ -169,13 +194,28 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
         output.append(row)
 
-    return {
+    result = {
         "schema_version": SCHEMA_VERSION,
         "stage": "board_result",
         "model": model,
         "match_count": len(output),
         "matches": output,
     }
+
+    if model == "c":
+        result["follow_count"] = sum(
+            row.get("follow_lane") == FollowLane.FOLLOW.value for row in output
+        )
+        result["reserve_count"] = sum(
+            row.get("follow_lane") == FollowLane.RESERVE.value for row in output
+        )
+        result["stop_count"] = sum(
+            row.get("follow_lane") == FollowLane.STOP.value for row in output
+        )
+        result["follow_capacity"] = MAX_FOLLOW
+        result["reserve_capacity"] = MAX_RESERVE
+
+    return result
 
 
 def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
