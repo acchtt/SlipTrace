@@ -1,0 +1,28 @@
+{
+  "schema_version": "football-engine-v1",
+  "stage": "board",
+  "model": "c2",
+  "matches": [
+    {
+      "match_id": "example-home-v-example-away",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "HIGH",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "HIGH",
+      "supported_line": 2.5,
+      "carrier_self_fund": false,
+      "independent_upper_tail": false,
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "board_state": "C2-FOCUS",
+      "main_failure": "opponent can compress after taking the lead",
+      "h2h_state": "mixed / medium transferability"
+    }
+  ]
+}
