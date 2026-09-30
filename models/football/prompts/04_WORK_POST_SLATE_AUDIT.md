@@ -1,53 +1,75 @@
-# 04 — Work: Football C Post-Slate Audit
+# 04 — Work: Football C / C2 / Engine Post-Slate Audit
 
-Read `models/football/CURRENT_MODEL.md` first. Use the model/version that actually produced each decision.
+Read `models/football/CURRENT_MODEL.md` first.
+
+Use the model/version that actually produced each historical decision.
 
 ## Source hierarchy
 
 1. user bet slip = physical execution truth;
 2. Decision States = model decision history;
-3. Website Picks = official model exposure;
+3. Website Picks = official Football C exposure;
 4. Daily Coverage Ledger = frozen board/funnel history.
 
-## Full intake funnel
+## Full funnel
 
-For each Football C board report:
+For every new dual-track board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
+`RAW SENIOR -> HARD EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
 
 Track separately:
-- reasonable senior fixtures missing from the handoff;
+- coverage failures;
 - high-scoring C-PASS false negatives;
 - low-scoring C-FOCUS false positives;
-- C-BET direct;
-- C-WAIT reached + executed;
-- C-WAIT cancelled — thesis decay;
-- C-WAIT never reached;
+- C vs C2 ranking differences;
+- C vs C2 exposure differences;
+- C2 selection-floor blocks;
+- C2 bridge attempts;
+- text C vs code C disagreements;
+- text C2 vs code C2 disagreements;
+- direct C-BET;
+- C-WAIT executed/cancelled/not reached;
 - actual user execution deviations.
 
-A missing reasonable senior fixture is a **COVERAGE FAILURE**, not a model-ranking miss.
+## Confirmatory C2 boundary
 
-Use FT only after frozen decisions. Never retro-change original C states.
+Only C2 decisions produced **after the dual-track fix commit** count toward the restarted confirmatory C-vs-C2 comparison.
 
-Do not assign hypothetical P/L to C-PASS/C-WAIT-no-entry merely because FT crossed an imagined line. Counterfactual P/L requires an exact contemporaneous frozen quote/action.
+Earlier C2 records remain debugging/history only because the workflow mixed a C2 Step-1 board with Football C Step-2 and named the wrong champion.
 
-## Required checks
+## Settlement
 
-- fixture/time identity;
-- broad-senior Step-0 completeness;
-- C rank/state;
-- routes/carrier/supported burden;
-- H2H handling;
-- XI mechanism;
+Settle exact recorded line/odds only.
+
+Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed an imagined line.
+
+## Required process checks
+
+- broad-senior completeness;
+- common evidence freeze present;
+- C official board preserved;
+- C2 shadow board preserved separately;
+- no C2 overwrite of C fields;
 - mandatory post-XI football research;
-- current line/price;
-- action;
-- WAIT target/reach/cancellation/thesis-health;
+- H2H handling;
+- exact quote epoch;
+- C official action;
+- C2 shadow action;
+- Python C/C2 comparison;
+- live wait state integrity;
 - persistence agreement;
-- final settlement.
+- actual bet-slip reconciliation.
 
-Also report board size/followability, processing time, resumptions/retries, persistence corrections and verdict reversals.
+## Output
 
-Do not patch Football C from one slate. Repeated evidence for a permanent rule change requires a new prospectively frozen challenger/version.
+Report:
+- Football C official P/L;
+- actual user P/L;
+- C2 shadow counterfactual P/L on exact shadow entries;
+- paired C-vs-C2 action matrix;
+- text-vs-code disagreement counts;
+- missed/avoided cases;
+- processing time / resumptions / corrections;
+- whether C2 remains worth continuing.
 
-Historical Football A audits remain version-faithful.
+Historical Football A/C1 audits remain version-faithful.

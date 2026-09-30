@@ -1,30 +1,34 @@
-# 02 — Normal Chat: Football C XI + Odds
+# 02 — Normal Chat: Football C Official + C2 Shadow XI/Odds
 
-Read upstream `models/football/CURRENT_MODEL.md` first, then load `models/football/production/FOOTBALL_C.md`.
+Read upstream:
+- `models/football/CURRENT_MODEL.md`
+- `models/football/production/FOOTBALL_C.md`
+- `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 
-Football C is the active official model.
+Football C is the only active official model. C2 is shadow-only.
 
-The user normally supplies confirmed XI and current executable Asian-total odds. Treat that supplied quote as the executable evidence for the current epoch; do not ask for a second price confirmation.
+Use the user's confirmed XI and current executable Asian-total odds as the current evidence epoch.
 
-## Intake
+## 1. Retrieve both frozen board states
 
-For each supplied match:
-1. retrieve the frozen Football C board state only;
-2. verify identity/status;
-3. inspect the confirmed XI and map changes to route functions;
-4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH** for the current XI epoch;
-5. perform/recheck relevant H2H/matchup context;
-6. interpret the current executable market;
-7. issue exactly one final action:
-   - `C-BET`
-   - `C-WAIT`
-   - `C-PASS`
+For each supplied fixture retrieve:
+- Football C official board state/rank/support line;
+- Football C2 shadow state/rank if present;
+- the frozen common board evidence.
 
-Do not run Football A's PRE compiler or Step-2 compiler.
+If C2 shadow state is missing, continue Football C officially and mark C2 comparison unavailable. Never replace the C board with a C2 board.
 
-## Mandatory research invariant
+## 2. Common XI/research evidence freeze
 
-A final prematch `C-BET` requires a fresh fixture-specific public-web football research attempt after the XI first pass.
+Perform this **once** for the fixture:
+
+1. verify fixture/status;
+2. inspect confirmed XI and map changes to route functions;
+3. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
+4. perform/recheck relevant H2H/matchup context;
+5. update the structured common semantic evidence;
+6. classify thesis state = PRESERVED / DEGRADED / BROKEN;
+7. freeze current quote.
 
 Persist one of:
 - `POST-XI RESEARCH = FOUND`
@@ -33,122 +37,129 @@ Persist one of:
 
 Odds/history lookup does **not** satisfy the football-research gate.
 
-Research should target football information that can change the mechanism: current form with context, chance quality, role/absence effects, tactical/incentive state, current lineup news and transferable matchup evidence.
+Once this common XI evidence is frozen, C and C2 apply their policies independently. Do not change shared evidence because one track disagrees.
 
-## Integrated decision
+## 3. Football C official action
 
-Use the C-supported burden as the anchor.
+Apply Football C production rules to:
+- C official board state;
+- common frozen XI/research/H2H state;
+- current executable quote.
 
-### Market above burden
-Do not buy unsupported extra burden. WAIT only if the protected target can realistically arrive without requiring thesis deterioration; otherwise PASS.
+Issue exactly one:
+- `C-BET`
+- `C-WAIT`
+- `C-PASS`
 
-### Market below burden
-Treat the undercut as a warning. Look for a football reason. If a current mechanism supports the pessimism, downgrade/PASS. If not, the lower line may be valuable protection.
+Only Football C may create official exposure.
 
-### Price
-- >=1.65 normal zone;
-- 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material football veto;
-- <1.60 normally WAIT/PASS.
+For C-BET:
+1. persist Decision State;
+2. publish/reconcile Website Pick;
+3. verify no duplicate official pick.
 
-## C-WAIT
+For C-WAIT/C-PASS:
+- Decision State only.
 
-Every WAIT must state:
+## 4. Football C2 shadow action
+
+Apply C2 rules independently to:
+- C2 shadow board state;
+- the same common XI/research/H2H evidence;
+- the same current quote.
+
+Evaluate:
+- C2 selection-quality floor;
+- protected-line inversion guard;
+- Focus Market-Gap Bridge when eligible;
+- unreachable-WAIT condition.
+
+Issue:
+- `C2-BET — SHADOW`
+- `C2-WAIT — SHADOW`
+- `C2-PASS — SHADOW`
+
+C2 must never:
+- publish Website Pick;
+- authorize user exposure;
+- replace the official C action.
+
+Persist C2 in Decision States under:
+`Football C2 — SHADOW`
+
+## 5. Python engine comparison — both tracks
+
+Build two decision payloads from the **same common semantic evidence**:
+
+- `model = c`, using C board_state;
+- `model = c2`, using C2 board_state.
+
+Run:
+
+`python models/football/engine/cli.py decision --input <payload.json>`
+
+Compare four outputs:
+- C text official;
+- C code shadow;
+- C2 text shadow;
+- C2 code shadow.
+
+If disagreement:
+
+`ENGINE DISAGREEMENT — PRESERVE BOTH`
+
+Never edit frozen input fields after seeing code output.
+
+## 6. C-WAIT
+
+Every official C-WAIT must state:
 - target line;
 - minimum odds;
 - cancellation event;
 - thesis-health evidence required at target.
 
-Do not create a wait plan that is expected to become executable only after the match supplies negative football information.
+Do not create a wait that is expected to become executable only after negative football information.
 
-## Output
+C2-WAIT must preserve its own separate target/cancel conditions.
+
+## 7. Output
 
 Use:
 
-`#<rank> MATCH — C-BET / C-WAIT / C-PASS`
+`#<C rank> MATCH`
 
 Then:
-- XI: PRESERVED / DEGRADED / BROKEN
+
+- **OFFICIAL C:** C-BET / C-WAIT / C-PASS
+- **SHADOW C2:** C2-BET / C2-WAIT / C2-PASS
+- XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
-- H2H: compact material state
-- Supported line
+- H2H material state
+- C supported line
+- C2 supported line if different
 - Current line/odds
-- Integrated reason
-- WAIT target/cancellation/thesis-health requirement if applicable
+- C reason
+- C2 difference/reason
+- C WAIT plan if applicable
+- C2 shadow WAIT plan if applicable
+- Engine C result
+- Engine C2 result
 
-## Persistence
+## 8. Required machine appendix
 
-Model identifier: `Football C`.
+Include:
+- `FOOTBALL_ENGINE_C_DECISION_INPUT`
+- `FOOTBALL_ENGINE_C_DECISION_RESULT`
+- `FOOTBALL_ENGINE_C2_DECISION_INPUT`
+- `FOOTBALL_ENGINE_C2_DECISION_RESULT`
 
-Every material C decision goes to Decision States.
-
-For `C-BET`:
-1. persist Decision State;
-2. publish Website Pick;
-3. reconcile fixture/model/line/odds/stake/timestamp/evidence epoch;
-4. verify no duplicate active official pick.
-
-For C-WAIT/C-PASS: Decision State only.
-
-Do not modify historical Football A records.
-
-If persistence surfaces disagree after a C-BET, report:
-`PERSISTENCE SYNC FAULT — EXPOSURE STATE UNCERTAIN`
-
-Actual user bet slips remain authoritative for what was physically placed.
-
-
-## Deterministic engine comparison — mandatory shadow validation
-
-After XI/research/H2H judgments and the current quote are frozen, serialize the same match into:
-
-`models/football/engine/schema.json`
-
-Use:
-- `schema_version = football-engine-v1`
-- `stage = decision`
-- `model = c`
-
-The `match` object must use the same structured football fields frozen by the research layer.
-
-The `context` object must contain:
-- board_state
-- thesis_state = PRESERVED / DEGRADED / BROKEN
-- quote.line
-- quote.odds
-- top_ranked_focus
-- primary_mechanism_intact
-- wait_reachable
-- wait_requires_negative_info
-- material_veto
-
-The research layer decides these football/context inputs. The code only applies deterministic execution rules.
-
-When a Python/runtime surface is available, execute:
-
-`python models/football/engine/cli.py decision --input <decision_input.json>`
-
-Then compare:
-- prose action: C-BET / C-WAIT / C-PASS
-- coded action: BET / WAIT / PASS
-
-If they disagree, do **not** silently make them agree. Report:
-
-`ENGINE DISAGREEMENT — TEXT=<...> CODE=<...>`
-
-and preserve the exact structured input for audit.
-
-During this initial validation phase, the coded result is a shadow validator. The active text Football C decision remains the production decision until a separate promotion decision explicitly changes authority.
-
-### Required machine-readable appendix
-
-For every Step-2 assessment include:
-
-`FOOTBALL_ENGINE_DECISION_INPUT`
-
-and, when executed:
-
-`FOOTBALL_ENGINE_DECISION_RESULT`
-
-If runtime execution is unavailable:
-
+If execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
+
+## 9. Authority
+
+In any conflict:
+- Football C text decision = current production authority;
+- C2 = shadow challenger;
+- Python = shadow validator;
+- user bet slip = physical execution truth.

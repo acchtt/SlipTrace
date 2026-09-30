@@ -1,204 +1,153 @@
-# 01 — Work: Football C2 Integrated Board
+# 01 — Work: Football C Official + C2 Shadow Board
 
 Read upstream:
 - `models/football/CURRENT_MODEL.md`
+- `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
-
-Do **not** load the legacy `models/football/production/FOOTBALL_C.md` for this Work ranking pass.
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
 Require:
 `sweep_scope_mode=BROAD_SENIOR_PRODUCTION`
 
-If the package is invalid, incomplete, or still uses legacy narrow-core filtering, stop:
-
+If package/completeness fails:
 `HANDOFF INCOMPLETE — BROAD SENIOR COVERAGE GAP`
 
 Do not rebuild the raw universe in Work.
 
-## Task
+## 1. Common evidence freeze — mandatory
 
-Run **one integrated Football C2 screen/research/rank pass over every admitted senior fixture**.
+Research each admitted senior fixture **once**.
 
-Do not re-apply league registries, low-goal country exclusions, small-cup exclusions, conditional gates, or Football A rules.
+Freeze one common semantic evidence state before either model ranks the slate:
 
-For every fixture:
-1. verify identity/time/status;
-2. research current football evidence;
-3. routes = STRONG / USABLE / WEAK;
-4. carrier = STRONG / USABLE / NONE;
-5. assess chance quality;
-6. run relevant H2H/matchup check, prioritizing recent same-venue transferable evidence;
-7. state dominant failure mode;
-8. choose initial supported burden before price;
-9. run the **C2 selection-quality floor**;
-10. rank against the full admitted slate;
-11. assign `C2-FOCUS / C2-WATCH / C2-PASS`;
-12. run the **protected-line inversion guard** before any WATCH can later become exposure;
-13. for high-quality FOCUS candidates whose market is +0.25/+0.50 above the initial burden, flag them for the **Focus Market-Gap Bridge** at XI/odds rather than defaulting to an unreachable WAIT.
+- match_id / identity / kickoff;
+- home_route = WEAK / USABLE / STRONG;
+- away_route = WEAK / USABLE / STRONG;
+- carrier = NONE / USABLE / STRONG;
+- carrier_self_fund;
+- route_reliability = LOW / MEDIUM / HIGH;
+- independent_route_quality = LOW / MEDIUM / HIGH;
+- chance_quality = LOW / MEDIUM / HIGH;
+- failure_resistance = LOW / MEDIUM / HIGH;
+- evidence_confidence = LOW / MEDIUM / HIGH;
+- burden_protection = LOW / MEDIUM / HIGH;
+- failure_attacks_route;
+- material_suppression;
+- independent_upper_tail;
+- relevant H2H state/transferability;
+- main failure mode;
+- initial supported_line.
 
-No fixed board-size cap. Quality first.
+At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
 
-## C2 ranking order
+**Do not run separate C and C2 research passes.**  
+The experiment compares model policy, not two independently drifting research interpretations.
 
-Rank survivors by:
-1. route reliability;
-2. independent route quality / self-funded carrier strength;
-3. current chance quality;
-4. failure-mode resistance;
-5. XI robustness when known;
-6. evidence confidence;
-7. burden protection.
+Once frozen, do not edit common evidence after seeing either model's ranking or the Python output.
 
-**Price does not create rank.**
+## 2. Football C official board
 
-A lower protected line must not push a weaker match above a stronger football environment.
+Apply `models/football/production/FOOTBALL_C.md` to the common evidence.
 
-## Selection-quality floor
+Produce:
+- C-PASS
+- C-WATCH
+- C-FOCUS
+- official C ordinal rank
+- C supported burden / failure summary
 
-A future direct C2-BET must eventually satisfy one of:
+This is the **only official board** for Step 2.
 
-### Two-route floor
-- both routes at least USABLE;
-- at least one route STRONG;
-- no unresolved failure mode directly attacks either scoring route.
+Persist Football C as the canonical Daily Coverage state.
 
-### Carrier floor
-- one STRONG CARRIER;
-- independent current upper-tail proof;
-- opponent route may be WEAK only if the carrier can plausibly self-fund the selected burden.
+## 3. Football C2 shadow board
 
-During Work ranking, record whether the fixture currently looks:
-- `FLOOR CLEAR`
-- `FLOOR BORDERLINE`
-- `FLOOR FAIL`
+Apply the C2 challenger rules to the **same frozen common evidence**.
 
-A low O2.0/O2.25 burden does not waive the floor.
+Compute:
+- C2-PASS / C2-WATCH / C2-FOCUS;
+- C2 ordinal rank;
+- selection-quality floor;
+- protected-line inversion diagnostics;
+- bridge readiness.
 
-## Focus Market-Gap readiness
-
-For each C2-FOCUS, record whether independent football evidence could support a future +0.25 or +0.50 bridge if the XI/odds market sits above the initial burden.
-
-Classify:
-- `BRIDGE READY +0.25`
-- `BRIDGE READY +0.50`
-- `BRIDGE NOT PROVEN`
-
-This is football-only evidence. Market magnitude itself can never prove the bridge.
-
-## Persistence
-
-Persist **every admitted fixture**, including C2-PASS, to Daily Coverage Ledger.
-
-Preserve:
-- Football C2 model identity;
-- ordinal C2 rank where applicable;
-- C2-PASS/WATCH/FOCUS;
-- routes;
-- carrier;
-- initial supported line;
-- failure mode;
-- H2H state;
-- evidence confidence;
-- selection-floor state;
-- bridge-readiness state.
-
-Do not overwrite historical Football A or Football C1 rows.
-
-Football C2 is **SHADOW ONLY**:
-- no official exposure;
+C2 is shadow-only:
 - no Website Pick;
-- no real-bet instruction from Work ranking.
+- no official exposure;
+- do not overwrite Football C official fields.
 
-## Output
+Persist C2 shadow in dedicated shadow fields/notes when available. If only one canonical coverage row exists, preserve official C fields and store C2 state as clearly labelled `C2_SHADOW` metadata rather than replacing C.
 
-Return:
+## 4. Python engine — both tracks
 
-`FOOTBALL C2 BOARD <window>`
-
-| Rank | Match | C2 state | Routes | Carrier | Supported line | Selection floor | Bridge readiness | Main failure | Initial action |
-|---|---|---|---|---|---|---|---|---|---|
-
-Initial action is normally `REVIEW AT XI` or `PASS`.
-
-Also report:
-
-`ADMITTED TO C2 -> C2-PASS -> C2-WATCH -> C2-FOCUS`
-
-And explicitly flag:
-- any **selection inversion risk** where a weaker protected-line match could outrank a stronger football environment;
-- any **potential unreachable-WAIT risk** where a C2-FOCUS looks likely to open +0.50 or more above supported burden.
-
-Keep the report compact while preserving the full rejected-fixture ledger for false-negative audit.
-
-
-## Deterministic engine bridge — mandatory shadow validation
-
-After the football research judgments are frozen, serialize **every admitted fixture** into the schema:
+Serialize the same frozen evidence twice using:
 
 `models/football/engine/schema.json`
 
-Use:
+Run:
 
-`schema_version = football-engine-v1`
-`stage = board`
+`model = c`
+
+and
+
 `model = c2`
 
-For every match, emit these machine fields exactly:
+Board command:
 
-- match_id
-- home_route = WEAK / USABLE / STRONG
-- away_route = WEAK / USABLE / STRONG
-- carrier = NONE / USABLE / STRONG
-- route_reliability = LOW / MEDIUM / HIGH
-- independent_route_quality = LOW / MEDIUM / HIGH
-- chance_quality = LOW / MEDIUM / HIGH
-- failure_resistance = LOW / MEDIUM / HIGH
-- xi_robustness = LOW / MEDIUM / HIGH
-- evidence_confidence = LOW / MEDIUM / HIGH
-- burden_protection = LOW / MEDIUM / HIGH
-- supported_line
-- carrier_self_fund
-- independent_upper_tail
-- failure_attacks_route
-- material_suppression
-- board_state = C2-PASS / C2-WATCH / C2-FOCUS
+`python models/football/engine/cli.py board --input <payload.json>`
 
-The research layer owns those judgments. **Do not change them to make the code agree with the prose ranking.**
+The assessment fields must be identical across C and C2 payloads except for model-specific `board_state` after each text policy has classified the fixture.
 
-When a Python/runtime surface is available, execute:
+Python is shadow validation only.
 
-`python models/football/engine/cli.py board --input <board_input.json>`
-
-The coded output provides:
-- deterministic ordinal rank;
-- ranking key;
-- C2 selection-floor state/reasons.
-
-Compare the coded rank/floor with the prose C2 board.
-
-If they disagree, report:
+If text/code disagree:
 
 `ENGINE DISAGREEMENT — PRESERVE BOTH`
 
-and identify the exact fields causing the difference. During this validation phase, do not silently rewrite either side.
+Do not mutate the frozen semantic evidence.
 
-### Required machine-readable appendix
+## 5. Output
 
-At the end of every board response include one JSON block titled:
+Primary table — official production board:
 
-`FOOTBALL_ENGINE_INPUT`
+`FOOTBALL C OFFICIAL BOARD <window>`
 
-containing the exact board payload. Also include:
+| C Rank | Match | C state | Routes | Carrier | Supported line | Main failure | Initial action |
+|---|---|---|---|---|---|---|---|
 
-`FOOTBALL_ENGINE_RESULT`
+Then comparison table:
 
-when the engine was executed.
+`FOOTBALL C2 SHADOW DELTA`
 
-If engine execution is unavailable, state:
+| Match | C rank/state | C2 rank/state | C2 floor | Bridge readiness | Material difference |
+|---|---|---|---|---|---|
 
+Report funnel:
+
+`ADMITTED -> C-PASS/C-WATCH/C-FOCUS -> C2-PASS/C2-WATCH/C2-FOCUS`
+
+Also report any:
+- C vs C2 rank inversion;
+- C2 selection-floor block;
+- potential unreachable-WAIT risk;
+- text-vs-code disagreement.
+
+## 6. Required machine appendix
+
+Include:
+- `FOOTBALL_ENGINE_C_INPUT`
+- `FOOTBALL_ENGINE_C_RESULT`
+- `FOOTBALL_ENGINE_C2_INPUT`
+- `FOOTBALL_ENGINE_C2_RESULT`
+
+If runtime execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
 
-The structured payload is mandatory even when the engine cannot run.
+## 7. Non-negotiable separation
+
+- Football C official board feeds official Step 2.
+- C2 shadow board never substitutes for C.
+- C2 may not create real-bet instructions.
+- Both tracks use the same frozen common evidence epoch.

@@ -1,9 +1,9 @@
 # Football C2 — Prospective Test Protocol
 
-**Champion:** Football A
+**Champion:** Football C
 **Challenger:** Football C2 — SHADOW
-**Parent:** Football C1
-**Status:** new prospective window; C1 stopped because predictive selection rules changed.
+**Parent:** Football C production
+**Status:** RESTARTED prospective window after dual-track workflow correction.
 
 ## 1. Initial run
 
@@ -15,9 +15,9 @@ Do not edit C2 during the five-board window.
 
 ## 2. Shared universe
 
-A and C2 must start from the same AiScore fixture handoff/window.
+Football C and C2 must start from the same AiScore broad-senior handoff/window.
 
-C2 independently screens/ranks the eligible universe.
+A single common semantic evidence state is frozen before either model applies ranking/selection policy. C2 then applies its own policy independently to that frozen evidence.
 
 ## 3. Information clock
 
@@ -28,7 +28,7 @@ For XI/odds:
 - same user odds;
 - same public-information window.
 
-If C2 has seen A's final judgment first:
+If C2 has seen Football C's final judgment before freezing its own policy output:
 `C2 CONTAMINATION RISK — EXCLUDE FROM CONFIRMATORY PAIRED DECISION METRIC`.
 
 ## 4. Exposure
@@ -42,7 +42,7 @@ No Website Pick or real exposure.
 
 ## 5. Primary metric
 
-`FLAT-STAKE UNIT RETURN DELTA ON SETTLED A-vs-C2 EXPOSURE DIFFERENCES`
+`FLAT-STAKE UNIT RETURN DELTA ON SETTLED C-vs-C2 EXPOSURE DIFFERENCES`
 
 Use exact contemporaneous lines/odds.
 
@@ -116,7 +116,7 @@ Any predictive change requires a new challenger ID.
 ## 10. Five-board report
 
 Report:
-- board-by-board A vs C2;
+- board-by-board Football C vs C2;
 - C2 shadow P/L;
 - FOCUS vs WATCH exposure quality;
 - direct vs WAIT;
@@ -125,5 +125,17 @@ Report:
 - average exposure rank;
 - processing/runtime burden;
 - strongest C2 failure;
-- strongest A failure;
+- strongest Football C failure;
 - CONTINUE SHADOW / STOP-REJECT / RESTART NEW CHALLENGER.
+
+
+## 11. Restart boundary
+
+The prior C2 workflow was not a clean C-vs-C2 comparison because:
+- Step 1 was C2-only;
+- Step 2 remained Football C;
+- the protocol incorrectly named Football A as champion.
+
+Therefore all confirmatory C2 counting restarts from the dual-track fix commit.
+
+Pre-fix C2 records may be used for debugging only and carry zero confirmatory weight in the restarted comparison.

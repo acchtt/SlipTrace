@@ -1,77 +1,141 @@
 # Current Football Model
 
 **Active official model:** Football **C**  
+**Shadow challenger:** Football **C2**  
 **Effective:** 2026-09-29 ICT  
-**Previous official model:** Football A — historical/rollback only  
 **Fixture authority:** AiScore  
 **Operational timezone:** Asia/Ho_Chi_Minh (ICT, UTC+7)
 
 This file is the canonical entry point for all new football work.
 
-## Active load order
+## Model authority
 
-1. `models/football/CURRENT_MODEL.md`
-2. `models/football/production/FOOTBALL_C.md`
-3. `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
-4. football Airtable contracts
-5. the current stage launcher under `models/football/prompts/`
+- **Football C** is the only official production model.
+- **Football C2** is a shadow challenger only. It may never create a Website Pick or authorize real exposure.
+- **Python deterministic engine** is a shadow validation layer for both C and C2.
+- Historical Football A decisions remain historical/rollback only.
 
-Do not load Football A's versioned rules, PRE compiler, Step-2 compiler, HMA/decay/carrier patches, or old session overrides into new Football C decisions.
+Do not use a C2 board as the official input to a Football C decision.
 
-## Production sequence
+## Active production sequence
 
-`BROAD SENIOR AISCORE HANDOFF -> C INTEGRATED SCREEN/RESEARCH/RANK -> XI+ODDS ONE-PASS CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
+`BROAD SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
-### Step 0
+The comparison must isolate **policy differences**, not accidental research differences.
+
+## Shared evidence rule
+
+For each fixture/epoch, perform the football research once and freeze a common semantic evidence object before either model applies its policy.
+
+Common evidence includes:
+- fixture identity/status;
+- home/away route strength;
+- carrier strength/self-fund state;
+- chance quality;
+- failure mode / suppression state;
+- relevant H2H transferability;
+- evidence confidence;
+- supported burden;
+- XI mechanism state at Step 2;
+- current executable quote at Step 2.
+
+Once frozen, neither C nor C2 may change those shared evidence fields merely because the other model or Python engine disagrees.
+
+## Step 0 — broad senior intake
+
+Use:
 `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
 
-Default intake is **BROAD_SENIOR_PRODUCTION**.
+Default intake is `BROAD_SENIOR_PRODUCTION`.
 
-All reasonable senior first-team fixtures in the requested AiScore window are sent to Football C after **hard scope/identity/time exclusions only**.
+All reasonable senior first-team fixtures in the requested AiScore window are sent forward after hard scope/identity/time exclusions only.
 
-Legacy NARROW_CORE, PRIORITY/NORMAL/CONDITIONAL, LOW-GOAL, Finland/Japan, professional-lower-division, and small-cup prefilters are not allowed to remove an otherwise reasonable senior fixture before Football C sees it.
+## Step 1 — dual-track board
 
-### Step 1
+Use:
 `models/football/prompts/01_WORK_DAILY_SWEEP.md`
 
-Football C itself screens every admitted fixture and records C-PASS / C-WATCH / C-FOCUS.
+One common research/evidence pass is frozen first.
 
-### Step 2
+Then:
+- Football C creates the **official** C-PASS / C-WATCH / C-FOCUS board.
+- Football C2 independently applies its shadow selection/ranking rules to the same frozen evidence and creates C2-PASS / C2-WATCH / C2-FOCUS.
+- Python runs model=`c` and model=`c2` against the same structured evidence.
+
+Football C's board is the only board that can feed official Step-2 exposure.
+
+## Step 2 — dual-track XI + odds
+
+Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
 
-One integrated XI/odds confirmation with mandatory fresh post-XI football web research and relevant H2H/matchup context.
+Perform one common XI + mandatory fresh post-XI web-research + H2H update, freeze it, then derive:
 
-### Live
+- **Football C official:** C-BET / C-WAIT / C-PASS.
+- **Football C2 shadow:** C2-BET / C2-WAIT / C2-PASS.
+- **Python C shadow validation.**
+- **Python C2 shadow validation.**
+
+Only Football C may publish an official Website Pick.
+
+## Live
+
+Use:
 `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
 
-Resolve predeclared C-WAIT with target + thesis-health check.
+Resolve Football C official WAITs normally.
 
-### Audit
+If the same fixture also has a predeclared C2-WAIT, resolve the C2 wait from the same live state as a shadow comparison only.
+
+## Audit
+
+Use:
 `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
 
-Audit full funnel and preserve the model/version that actually produced each historical decision.
+Audit:
 
-## Football C invariants
+`RAW SENIOR -> HARD EXCLUDED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
 
-- Step 0 broad senior intake; football-quality screening belongs to C.
+Separate:
+- coverage failures;
+- C screening/ranking errors;
+- C2 shadow differences;
+- text-vs-code disagreements;
+- execution/persistence errors.
+
+## Football C production invariants
+
+- Football-quality screening belongs to the model, not Step 0.
 - No fixed board-size target.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.
-- Market evidence informs but does not independently create/veto football structure.
 - Supported burden chosen before price.
-- No higher burden merely for better odds.
+- Market evidence informs but does not independently manufacture football quality.
 - >=1.65 normal price zone.
-- 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material football veto.
+- 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material veto.
 - WAIT requires a healthy realistic path.
 - Target reached never auto-executes; thesis health must still be positive.
-- Actual bet slips are physical execution truth.
-- Historical Football A decisions remain immutable.
+- Actual user bet slips are physical execution truth.
 
-## Validation status
+## Deterministic engine status
 
-Football C is active by explicit user direction before completion of its original planned shadow holdout.
+`models/football/engine/` is a shadow validator.
 
-The broad-senior intake change is being tried prospectively. Track the full funnel rather than judging it from one prior Africa block.
+It receives the frozen common semantic evidence and applies deterministic ranking/execution/settlement rules.
+
+On disagreement:
+- preserve text result;
+- preserve code result;
+- preserve exact JSON;
+- do not mutate the frozen evidence to force agreement.
+
+## C2 comparison reset
+
+The previous C2 workflow incorrectly named Football A as champion and allowed Step 1 to become C2-only while Step 2 remained Football C.
+
+That workflow is invalid for confirmatory C-vs-C2 comparison.
+
+Prospective C2 comparison restarts from the dual-track fix commit. Earlier C2 rows may remain for debugging but do not count toward the new confirmatory comparison window.
 
 ## Rollback
 
@@ -81,15 +145,5 @@ Pre-C:
 Pre-broad-intake C:
 `archive/pre-football-c-broad-senior-intake-2026-09-29`
 
-
-## Deterministic engine status
-
-`models/football/engine/` is the active **shadow validation layer** for Football C/C2.
-
-It does not replace semantic football research. Research must first freeze structured judgments (routes, carrier, chance quality, suppression, supported burden, XI/thesis state). The engine then applies deterministic ranking/execution/settlement rules.
-
-Until explicitly promoted:
-- text Football C remains production authority;
-- C2 remains a shadow challenger where declared;
-- engine outputs are shadow validation;
-- text/code disagreement must be preserved and reported, never silently reconciled.
+Pre-dual-track fix:
+`archive/pre-c-c2-dual-track-fix-2026-09-30`

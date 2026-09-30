@@ -1,8 +1,8 @@
 # Football C2 — Selection-First Challenger Specification
 
 **Status:** PROSPECTIVE SHADOW CHALLENGER — ACTIVE AFTER FOOTBALL C1 STOP
-**Champion:** Football A
-**Parent challenger:** Football C1
+**Champion:** Football C
+**Parent:** Football C production
 **Purpose:** preserve Football C's compact architecture while fixing the observed selection-inversion failure: marginal protected-line matches were promoted into bets while stronger football environments were left unexposed because the market sat modestly above the initial supported burden.
 
 Football C2 is shadow-only. It may never create an official Website Pick or authorize real exposure.
@@ -18,9 +18,10 @@ The architecture remains integrated and simple. Do not recreate Football A's mul
 ## 2. Fair-comparison boundary
 
 - fixture discovery remains common and AiScore-authoritative;
-- C2 receives the same common fixture universe as A;
-- C2 must not read A's rank/verdict/result before freezing its own state;
-- C2 may use contemporaneous XI, odds and public web evidence;
+- C2 receives the same broad-senior fixture universe as Football C;
+- one common semantic research state is frozen before C or C2 applies policy;
+- C2 must not read Football C's rank/verdict/result before freezing its own policy output;
+- C2 uses the same contemporaneous XI, odds and public web evidence epoch as Football C;
 - historical C1 cases may motivate this design but have zero C2 validation weight.
 
 ## 3. C2 screen
@@ -301,3 +302,19 @@ Record enough information for rank/state, routes/carrier, supported line, select
 ## 19. What C2 is testing
 
 > A compact football model performs better when exposure is selected primarily by match quality, with protected burden as risk control rather than a promotion mechanism, while top-quality FOCUS matches receive a narrowly bounded football-proven bridge when the market is modestly above the initial burden.
+
+
+## 20. Dual-track operational boundary
+
+Effective from the dual-track workflow fix:
+
+- Football C is the production champion.
+- C2 is a shadow policy challenger.
+- C and C2 consume the same frozen semantic football evidence at board and XI epochs.
+- Football C fields remain canonical production fields.
+- C2 shadow persistence must never overwrite C.
+- C2 may not create Website Picks or real exposure.
+- Python validates both tracks from the same structured evidence.
+- pre-fix C2 results are excluded from the restarted confirmatory C-vs-C2 window because the old workflow mixed C2 Step 1 with Football C Step 2.
+
+This section changes experiment plumbing/authority, not C2's predictive selection thresholds.
