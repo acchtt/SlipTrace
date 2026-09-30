@@ -2,23 +2,36 @@
 
 **Status:** ACTIVE OFFICIAL MODEL  
 **Architecture:** integrated end-to-end football screening, ranking and execution  
-**Intake:** BROAD_SENIOR_PRODUCTION
+**Intake:** RESEARCHABLE_SENIOR_PRODUCTION
 
 ## 1. Production flow
 
-`AISCORE BROAD SENIOR UNIVERSE -> C SCREEN -> C RESEARCH/ASSESS -> C RANK -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
+`AISCORE RESEARCHABLE SENIOR UNIVERSE -> C SCREEN -> C RESEARCH/ASSESS -> C RANK -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
 
 Football C is deliberately integrated. Do not rebuild Football A's multi-gate architecture inside C.
 
-## 2. Broad-senior intake
+## 2. Researchable-senior intake
 
-Step 0 must send every reasonable senior first-team fixture in the requested window to Football C after only hard scope/identity/time exclusions.
+Step 0 must first discover the senior slate broadly, then apply:
 
-Legacy league registries, LOW-GOAL exclusions, country-wide exclusions, professional-lower-division exclusions and small-cup filters may not remove an otherwise reasonable senior fixture before C sees it.
+1. hard scope/identity/time exclusions;
+2. a cheap **researchability gate** for ordinary domestic/small competition blocks.
 
-Professional lower divisions, senior cup blocks, senior women's first-team blocks and unfamiliar senior competitions are C-screenable unless they fail a hard scope/identity rule.
+Protected senior international qualifiers/tournaments and major continental club competitions are admitted when identity/time are valid and do not fail the hard scope rules.
 
-Football C owns football-quality rejection and records it as C-PASS.
+Ordinary domestic/small competition fixtures are admitted only when current evidence is sufficient to support the Football C research schema:
+
+- recent team evidence for both sides;
+- meaningful current competition context;
+- at least one usable mechanism/stat/news layer beyond bare final scores.
+
+A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. If it is sufficiently researchable, Football C should see it.
+
+Conversely, a small/obscure competition with inadequate current evidence should be excluded as:
+
+`INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED`
+
+Football C still owns **football-quality** rejection and records that as C-PASS.
 
 ## 3. Integrated screen
 

@@ -3,6 +3,11 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md": [
+        "RESEARCHABLE_SENIOR_PRODUCTION",
+        "INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED",
+        "Protected senior competition classes",
+    ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
         "Shadow challenger:** Football **C2**",
@@ -11,12 +16,15 @@ REQUIRED = {
         "models/football/engine/",
     ],
     "models/football/production/FOOTBALL_C.md": [
+        "**Intake:** RESEARCHABLE_SENIOR_PRODUCTION",
+        "INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED",
         "one mandatory fresh fixture-specific public-web football research pass",
         "Market-history/odds lookup does not satisfy the football-research requirement",
         "H2H is mandatory context when usable",
         "PRICE DECAY != THESIS DECAY",
     ],
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
+        "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
         "Football C Official + C2 Shadow Board",
         "Common evidence freeze",
         "Football C official board",
