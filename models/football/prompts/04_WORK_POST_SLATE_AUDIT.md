@@ -15,13 +15,17 @@ Use the model/version that actually produced each historical decision.
 
 For every new dual-track board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
+`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
 
 Track separately:
 - coverage failures;
 - researchability exclusions that should have been admitted;
 - Work time wasted on weak-data competitions that should have failed the Step-0 researchability gate;
 - high-scoring C-PASS false negatives;
+- FOLLOW/RESERVE/STOP allocation;
+- FOLLOW candidates that failed at XI/price;
+- RESERVE candidates activated or left unused;
+- STOP matches that later scored highly, reported as operational opportunity cost rather than retroactive model error;
 - low-scoring C-FOCUS false positives;
 - C vs C2 ranking differences;
 - C vs C2 exposure differences;
@@ -50,6 +54,9 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 - broad-senior completeness;
 - common evidence freeze present;
 - C official board preserved;
+- follow-through lane preserved separately from C state;
+- max 6 FOLLOW / max 4 RESERVE respected;
+- routine Step 2 did not process STOP matches without explicit exception;
 - C2 shadow board preserved separately;
 - no C2 overwrite of C fields;
 - mandatory post-XI football research;

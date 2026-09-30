@@ -7,8 +7,8 @@ Every stage reads upstream `models/football/CURRENT_MODEL.md` first.
 ## Canonical stages
 
 1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — build the RESEARCHABLE_SENIOR AiScore fixture ZIP handoff: protected major/international blocks plus ordinary senior fixtures that pass the cheap current-data researchability gate.
-2. `01_WORK_DAILY_SWEEP.md` — one common research freeze, then Football C official board + Football C2 shadow board + Python validation.
-3. `02_NORMAL_CHAT_XI_ODDS.md` — one common XI/research freeze, then Football C official action + Football C2 shadow action + Python validation.
+2. `01_WORK_DAILY_SWEEP.md` — one common research freeze, Football C official board + C2 shadow board + Python validation, then a FOLLOW/RESERVE/STOP operational guard (max 6 routine FOLLOW, max 4 RESERVE).
+3. `02_NORMAL_CHAT_XI_ODDS.md` — process FOLLOW normally; RESERVE only when activated; STOP only by explicit exception, then run common XI/research and C/C2/Python decisions.
 4. `03_NORMAL_CHAT_LIVE.md` — resolve a predeclared C-WAIT using thesis health.
 5. `04_WORK_POST_SLATE_AUDIT.md` — settle/audit Football C and preserve historical model fidelity.
 
