@@ -79,6 +79,29 @@ Persist:
 
 If none of the authoritative forms is available, classify `UNRESOLVED — SOURCE TIME INTEGRITY` and do not admit the fixture to the Work handoff.
 
+
+### 1.2 Competition-block timestamp collision sentinel
+
+A parser/cache may accidentally stamp one kickoff across an entire competition block. Treat this as a distinct integrity hazard.
+
+Before final Work handoff, calculate a per-competition/per-date kickoff histogram for admitted fixtures. If **3 or more distinct fixtures share the exact same verified UTC timestamp**, do not accept the values merely because they are zoned or machine-readable. Revalidate the affected block fixture-by-fixture against the current canonical AiScore match identity and timestamp.
+
+Also force fixture-level revalidation when the same two teams (including reversed home/away) meet again within 14 days and the new fixture inherits the prior leg's UTC kickoff. Two-legged ties are especially vulnerable to stale match/time reuse.
+
+Required checks for the affected fixture:
+- current canonical match ID differs appropriately from the prior leg;
+- current fixture date is correct;
+- home/away orientation is correct;
+- current Match Info UTC/API epoch belongs to that exact fixture;
+- no timestamp was copied from a sibling fixture or previous leg.
+
+On mismatch, label:
+
+`SOURCE TIME / BLOCK PARSER FAULT`
+
+Invalidate `actionable_complete=true` and `work_ready=true` until the entire affected competition/date block is repaired.
+
+
 ---
 
 ## 2. Required Step-0 fixture-time fields
@@ -356,6 +379,12 @@ Inside **30 minutes**, revalidation is **mandatory before an official Step-2 exp
 Compare this identity with the frozen board and the user-supplied lineup/market surface.
 
 If AiScore status conflicts with the converted schedule, the current AiScore status wins. If the user surface or another current source exposes a home/away, identity, kickoff or status discrepancy, resolve it against current AiScore authority before official exposure.
+
+If a user-supplied current match surface or official competition source shows a fixture already LIVE/HT while the stored verified kickoff says it is still materially in the future, treat that as a **block-level time-integrity incident**, not merely a single-match correction. Immediately:
+1. mark the fixture `SOURCE TIME / BLOCK PARSER FAULT`;
+2. revalidate every admitted fixture from the same competition/date block;
+3. correct downstream schedule rows before giving another upcoming-match list.
+
 
 ---
 
