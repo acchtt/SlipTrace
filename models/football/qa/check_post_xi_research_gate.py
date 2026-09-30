@@ -5,8 +5,9 @@ import sys
 REQUIRED = {
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
-        "Fresh post-XI public-web football research mandatory before final prematch C-BET.",
-        "H2H mandatory when usable",
+        "Shadow challenger:** Football **C2**",
+        "COMMON FOOTBALL EVIDENCE FREEZE",
+        "Football C's board is the only board that can feed official Step-2 exposure.",
         "models/football/engine/",
     ],
     "models/football/production/FOOTBALL_C.md": [
@@ -15,20 +16,47 @@ REQUIRED = {
         "H2H is mandatory context when usable",
         "PRICE DECAY != THESIS DECAY",
     ],
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
+        "Football C Official + C2 Shadow Board",
+        "Common evidence freeze",
+        "Football C official board",
+        "Football C2 shadow board",
+        "C2 shadow board never substitutes for C",
+        "FOOTBALL_ENGINE_C_INPUT",
+        "FOOTBALL_ENGINE_C2_INPUT",
+    ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
+        "Football C Official + C2 Shadow XI/Odds",
         "MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH",
         "Odds/history lookup does **not** satisfy the football-research gate.",
-        "perform/recheck relevant H2H/matchup context",
-        "FOOTBALL_ENGINE_DECISION_INPUT",
+        "Football C official action",
+        "Football C2 shadow action",
+        "Only Football C may create official exposure.",
+        "FOOTBALL_ENGINE_C_DECISION_INPUT",
+        "FOOTBALL_ENGINE_C2_DECISION_INPUT",
         "ENGINE DISAGREEMENT",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
+        "Football C Official Live + C2 Shadow Wait",
         "TARGET REACHED + THESIS STILL HEALTHY?",
         "C-WAIT CANCELLED — THESIS DECAY",
+        "C2 may never create Website Pick or real exposure.",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
+        "C OFFICIAL BOARD -> C2 SHADOW BOARD",
         "mandatory post-XI football research",
-        "Historical Football A audits remain version-faithful.",
+        "Only C2 decisions produced **after the dual-track fix commit**",
+        "Historical Football A/C1 audits remain version-faithful.",
+    ],
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md": [
+        "**Champion:** Football C",
+        "Dual-track operational boundary",
+        "C2 may not create Website Picks or real exposure.",
+    ],
+    "models/football/challengers/football-c2/TEST_PROTOCOL.md": [
+        "**Champion:** Football C",
+        "C-vs-C2",
+        "Restart boundary",
     ],
     "models/football/engine/schema.json": [
         "football-engine-v1",
@@ -55,9 +83,9 @@ for file_name, needles in REQUIRED.items():
             failures.append(f"{file_name}: missing invariant: {needle}")
 
 if failures:
-    print("WORKFLOW REGRESSION — FOOTBALL C PRODUCTION INVARIANT MISSING")
+    print("WORKFLOW REGRESSION — FOOTBALL C/C2 DUAL-TRACK INVARIANT MISSING")
     for failure in failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C research/H2H/decay and structured-engine invariants are present.")
+print("PASS — Football C official / C2 shadow / engine dual-track invariants are present.")
