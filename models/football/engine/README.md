@@ -65,10 +65,41 @@ The first coded ranking intentionally uses a lexicographic tuple matching the de
 
 This avoids pretending that an unvalidated coefficient such as "route = 35%" is meaningful.
 
+## Structured bridge
+
+Files:
+- `schema.json` — contract for board and XI/odds inputs.
+- `adapter.py` — strict parser from JSON to engine dataclasses.
+- `cli.py` — stdin/file CLI for deterministic board ranking and decisions.
+- `examples/board_input.json` — minimal example.
+
+Board:
+
+`python models/football/engine/cli.py board --input models/football/engine/examples/board_input.json`
+
+Decision:
+
+`python models/football/engine/cli.py decision --input decision.json`
+
+The launcher must preserve the structured input even when runtime execution is unavailable. This creates an auditable boundary between semantic research judgments and deterministic rules.
+
+## Validation authority
+
+The coded engine is currently a **shadow validator**, not production authority.
+
+On disagreement:
+- preserve prose output;
+- preserve coded output;
+- preserve exact JSON input;
+- label the disagreement;
+- do not edit structured fields after seeing the coded result.
+
+This is how we determine whether inconsistency comes from semantic research inputs or from deterministic rule application.
+
 ## Next milestones
 
-1. Feed real frozen board assessments into this schema.
-2. Compare coded output with the text-model decision on several boards.
-3. Measure disagreement causes.
-4. Only then decide whether to add numerical football features (xG, big chances, box entries, SOT quality, opponent xGA, etc.).
-5. Train statistical probability models only after we have enough clean historical feature rows.
+1. Run structured text-vs-code comparisons on real boards.
+2. Measure disagreement frequency and causes.
+3. Add board/decision audit storage for the JSON payload/result.
+4. Only then consider making deterministic code authoritative for ranking/execution.
+5. After enough clean rows, add numerical football features and separately test a statistical probability model.

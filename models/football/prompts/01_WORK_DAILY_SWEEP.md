@@ -132,3 +132,73 @@ And explicitly flag:
 - any **potential unreachable-WAIT risk** where a C2-FOCUS looks likely to open +0.50 or more above supported burden.
 
 Keep the report compact while preserving the full rejected-fixture ledger for false-negative audit.
+
+
+## Deterministic engine bridge — mandatory shadow validation
+
+After the football research judgments are frozen, serialize **every admitted fixture** into the schema:
+
+`models/football/engine/schema.json`
+
+Use:
+
+`schema_version = football-engine-v1`
+`stage = board`
+`model = c2`
+
+For every match, emit these machine fields exactly:
+
+- match_id
+- home_route = WEAK / USABLE / STRONG
+- away_route = WEAK / USABLE / STRONG
+- carrier = NONE / USABLE / STRONG
+- route_reliability = LOW / MEDIUM / HIGH
+- independent_route_quality = LOW / MEDIUM / HIGH
+- chance_quality = LOW / MEDIUM / HIGH
+- failure_resistance = LOW / MEDIUM / HIGH
+- xi_robustness = LOW / MEDIUM / HIGH
+- evidence_confidence = LOW / MEDIUM / HIGH
+- burden_protection = LOW / MEDIUM / HIGH
+- supported_line
+- carrier_self_fund
+- independent_upper_tail
+- failure_attacks_route
+- material_suppression
+- board_state = C2-PASS / C2-WATCH / C2-FOCUS
+
+The research layer owns those judgments. **Do not change them to make the code agree with the prose ranking.**
+
+When a Python/runtime surface is available, execute:
+
+`python models/football/engine/cli.py board --input <board_input.json>`
+
+The coded output provides:
+- deterministic ordinal rank;
+- ranking key;
+- C2 selection-floor state/reasons.
+
+Compare the coded rank/floor with the prose C2 board.
+
+If they disagree, report:
+
+`ENGINE DISAGREEMENT — PRESERVE BOTH`
+
+and identify the exact fields causing the difference. During this validation phase, do not silently rewrite either side.
+
+### Required machine-readable appendix
+
+At the end of every board response include one JSON block titled:
+
+`FOOTBALL_ENGINE_INPUT`
+
+containing the exact board payload. Also include:
+
+`FOOTBALL_ENGINE_RESULT`
+
+when the engine was executed.
+
+If engine execution is unavailable, state:
+
+`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
+
+The structured payload is mandatory even when the engine cannot run.

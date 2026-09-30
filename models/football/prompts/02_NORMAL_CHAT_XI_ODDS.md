@@ -95,3 +95,60 @@ If persistence surfaces disagree after a C-BET, report:
 `PERSISTENCE SYNC FAULT — EXPOSURE STATE UNCERTAIN`
 
 Actual user bet slips remain authoritative for what was physically placed.
+
+
+## Deterministic engine comparison — mandatory shadow validation
+
+After XI/research/H2H judgments and the current quote are frozen, serialize the same match into:
+
+`models/football/engine/schema.json`
+
+Use:
+- `schema_version = football-engine-v1`
+- `stage = decision`
+- `model = c`
+
+The `match` object must use the same structured football fields frozen by the research layer.
+
+The `context` object must contain:
+- board_state
+- thesis_state = PRESERVED / DEGRADED / BROKEN
+- quote.line
+- quote.odds
+- top_ranked_focus
+- primary_mechanism_intact
+- wait_reachable
+- wait_requires_negative_info
+- material_veto
+
+The research layer decides these football/context inputs. The code only applies deterministic execution rules.
+
+When a Python/runtime surface is available, execute:
+
+`python models/football/engine/cli.py decision --input <decision_input.json>`
+
+Then compare:
+- prose action: C-BET / C-WAIT / C-PASS
+- coded action: BET / WAIT / PASS
+
+If they disagree, do **not** silently make them agree. Report:
+
+`ENGINE DISAGREEMENT — TEXT=<...> CODE=<...>`
+
+and preserve the exact structured input for audit.
+
+During this initial validation phase, the coded result is a shadow validator. The active text Football C decision remains the production decision until a separate promotion decision explicitly changes authority.
+
+### Required machine-readable appendix
+
+For every Step-2 assessment include:
+
+`FOOTBALL_ENGINE_DECISION_INPUT`
+
+and, when executed:
+
+`FOOTBALL_ENGINE_DECISION_RESULT`
+
+If runtime execution is unavailable:
+
+`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`

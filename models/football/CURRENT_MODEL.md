@@ -80,3 +80,16 @@ Pre-C:
 
 Pre-broad-intake C:
 `archive/pre-football-c-broad-senior-intake-2026-09-29`
+
+
+## Deterministic engine status
+
+`models/football/engine/` is the active **shadow validation layer** for Football C/C2.
+
+It does not replace semantic football research. Research must first freeze structured judgments (routes, carrier, chance quality, suppression, supported burden, XI/thesis state). The engine then applies deterministic ranking/execution/settlement rules.
+
+Until explicitly promoted:
+- text Football C remains production authority;
+- C2 remains a shadow challenger where declared;
+- engine outputs are shadow validation;
+- text/code disagreement must be preserved and reported, never silently reconciled.
