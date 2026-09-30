@@ -50,21 +50,27 @@ def assessment(**overrides):
 class FollowThroughTests(unittest.TestCase):
     def test_strong_two_route_high_resistance_is_follow(self):
         lane = follow_through_lane(
-            assessment(),
+            assessment(carrier=CarrierStrength.STRONG),
             BoardState.FOCUS,
         )
         self.assertEqual(lane, FollowLane.FOLLOW)
 
     def test_medium_resistance_high_protection_is_reserve(self):
         lane = follow_through_lane(
-            assessment(failure_resistance=Grade.MEDIUM),
+            assessment(
+                carrier=CarrierStrength.STRONG,
+                failure_resistance=Grade.MEDIUM,
+            ),
             BoardState.FOCUS,
         )
         self.assertEqual(lane, FollowLane.RESERVE)
 
     def test_weak_second_route_stops_routine_followthrough(self):
         lane = follow_through_lane(
-            assessment(away_route=RouteStrength.WEAK),
+            assessment(
+                carrier=CarrierStrength.STRONG,
+                away_route=RouteStrength.WEAK,
+            ),
             BoardState.FOCUS,
         )
         self.assertEqual(lane, FollowLane.STOP)
