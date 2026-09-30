@@ -56,7 +56,7 @@ REQUIRED = {
         "C2 may never create Website Pick or real exposure.",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
-        "C OFFICIAL BOARD -> C2 SHADOW BOARD",
+        "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
         "mandatory post-XI football research",
         "Only C2 decisions produced **after the dual-track fix commit**",
         "Historical Football A/C1 audits remain version-faithful.",
