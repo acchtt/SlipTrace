@@ -151,3 +151,71 @@ If runtime execution is unavailable:
 - C2 shadow board never substitutes for C.
 - C2 may not create real-bet instructions.
 - Both tracks use the same frozen common evidence epoch.
+
+
+## 5. Operational follow-through guard — mandatory
+
+The Football C board itself remains uncapped for audit. **Operational follow-through is capacity-limited.**
+
+After the official C board is frozen, assign every official C fixture one operational lane using `models/football/engine/core.py::follow_through_lane`:
+
+### FOLLOW
+Routine XI/odds follow-through is allowed only when all are true:
+- C-FOCUS;
+- both routes at least USABLE;
+- at least one route STRONG;
+- carrier STRONG;
+- route reliability HIGH;
+- independent route quality HIGH;
+- chance quality HIGH;
+- failure resistance HIGH;
+- evidence confidence HIGH;
+- supported line <= O3.0;
+- no route-attacking failure or material suppression.
+
+### RESERVE
+A C-FOCUS may be RESERVE when the same core structure clears but:
+- failure resistance is MEDIUM; and
+- burden protection is HIGH.
+
+RESERVE does not consume routine Step-2 attention. Activate it only when:
+- FOLLOW candidates collapse at XI/price; or
+- the user explicitly asks for the reserve match.
+
+### STOP
+All other C-FOCUS, every C-WATCH and every C-PASS remain frozen for audit but do not receive routine XI/odds/live follow-through.
+
+This is an **operational capacity rule**, not a reclassification of C-PASS/WATCH/FOCUS.
+
+### Capacity
+
+After quality gating:
+- maximum routine `FOLLOW = 6`;
+- maximum retained `RESERVE = 4`.
+
+If more qualify, preserve official C rank and demote overflow in rank order:
+`FOLLOW overflow -> RESERVE -> STOP`.
+
+Never alter the underlying C state to satisfy the capacity limit.
+
+## 6. Revised output
+
+Show the operational queue first:
+
+`FOOTBALL C FOLLOW-THROUGH QUEUE`
+
+| Queue | C rank | Match | C state | Routes | Carrier | Supported line | Why |
+|---|---:|---|---|---|---|---:|---|
+
+Order:
+1. FOLLOW
+2. RESERVE
+3. compact count only for STOP unless the user asks for the full board.
+
+Then keep the full board persisted for audit.
+
+Report:
+
+`SERIOUS CANDIDATES -> FOLLOW -> RESERVE -> STOP`
+
+The normal user-facing schedule should contain only FOLLOW fixtures. RESERVE may be shown separately but is not part of routine monitoring.

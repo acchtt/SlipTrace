@@ -19,7 +19,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`RESEARCHABLE SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`RESEARCHABLE SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -67,6 +67,8 @@ Then:
 - Python runs model=`c` and model=`c2` against the same structured evidence.
 
 Football C's board is the only board that can feed official Step-2 exposure.
+
+After the board is frozen, a separate operational follow-through guard assigns `FOLLOW / RESERVE / STOP`. This does not change the C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
 
 ## Step 2 — dual-track XI + odds
 
@@ -151,3 +153,23 @@ Pre-broad-intake C:
 
 Pre-dual-track fix:
 `archive/pre-c-c2-dual-track-fix-2026-09-30`
+
+
+## Follow-through capacity
+
+The model board remains complete and uncapped for audit, but routine operational attention is bounded:
+
+- max 6 FOLLOW;
+- max 4 RESERVE;
+- every other frozen candidate is STOP for routine follow-through.
+
+Quality gate before capacity:
+- C-FOCUS only;
+- two usable routes with at least one STRONG;
+- STRONG carrier;
+- HIGH route reliability / independent route quality / chance quality / evidence confidence;
+- supported burden <= O3.0;
+- FOLLOW requires HIGH failure resistance;
+- RESERVE permits MEDIUM failure resistance only with HIGH burden protection.
+
+This is a followability rule, not a predictive board-size cap.

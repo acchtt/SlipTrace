@@ -18,6 +18,18 @@ For each supplied fixture retrieve:
 
 If C2 shadow state is missing, continue Football C officially and mark C2 comparison unavailable. Never replace the C board with a C2 board.
 
+## 1A. Follow-through lane authority
+
+Before spending Step-2 research time, retrieve the frozen official operational lane.
+
+- `FOLLOW` — normal Step-2 processing.
+- `RESERVE` — process only when activated because FOLLOW candidates collapsed or the user explicitly requests it.
+- `STOP` — do not run routine Step-2; require an explicit exception request.
+
+A WATCH/STOP fixture becoming attractive merely because of price does not automatically reopen it.
+
+This lane is operational only; it does not rewrite the official C board state.
+
 ## 2. Common XI/research evidence freeze
 
 Perform this **once** for the fixture:
