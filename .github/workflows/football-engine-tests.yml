@@ -1,0 +1,22 @@
+name: Football deterministic engine tests
+
+on:
+  push:
+    paths:
+      - "models/football/engine/**"
+      - ".github/workflows/football-engine-tests.yml"
+  pull_request:
+    paths:
+      - "models/football/engine/**"
+      - ".github/workflows/football-engine-tests.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run deterministic engine tests
+        run: python -m unittest discover -s models/football/engine/tests -v
