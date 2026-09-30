@@ -1,4 +1,4 @@
-# 00 — Normal Chat: AiScore Broad Senior Intake
+# 00 — Normal Chat: AiScore Researchable Senior Intake
 
 **Use in:** Normal Chat, high reasoning.
 
@@ -8,168 +8,243 @@ Football C is the active official model.
 
 ## Purpose
 
-Build a trustworthy **BROAD SENIOR** AiScore universe for the requested window, apply only hard identity/scope exclusions, and send every remaining reasonable senior first-team fixture to Football C.
+Build a trustworthy **RESEARCHABLE SENIOR** AiScore universe for the requested window.
 
-Step 0 must not pre-rank football quality and must not recreate the old Football A narrow-core league allowlist.
+The objective is the middle ground between the old narrow allowlist and the later over-broad senior sweep:
+
+- do not miss meaningful senior blocks such as international qualifiers;
+- do not send obscure, weak-data competitions to Work when there is not enough current evidence to assess them responsibly.
 
 Operational principle:
 
-`NORMALIZE WINDOW -> DISCOVER COMPLETE SENIOR BLOCKS -> PRESERVE AISCORE IDENTITY/TIME -> APPLY HARD EXCLUSIONS ONLY -> VERIFY ADMITTED TIMES -> PACKAGE ALL SURVIVING SENIOR FIXTURES -> FOOTBALL C SCREENS THEM`
+`AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> RESEARCHABILITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
 
-Measure the whole funnel:
-
-`RAW SENIOR -> HARD EXCLUDED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
+This gate is about **information quality**, not whether a competition is historically high-scoring.
 
 ## Default mode
 
-Default:
-`BROAD_SENIOR_PRODUCTION`
+`sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
 
-Do not use the legacy `FAST_PRODUCTION / NARROW_CORE` allowlist behavior.
+Do not use:
+- legacy `NARROW_CORE` / PRIORITY-NORMAL-CONDITIONAL as the primary admission rule;
+- unrestricted `BROAD_SENIOR_PRODUCTION`.
 
-A prior sweep may be reused only if it was itself completed under BROAD_SENIOR_PRODUCTION for a window fully covering the request. A narrow-core run cannot prove broad-senior completeness.
+A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_PRODUCTION for a covering window.
 
 ## Source authority
 
-AiScore is the fixture-discovery authority. Other sources may research a known AiScore fixture later, but may not add fixtures to the production universe.
+AiScore remains the fixture-discovery authority.
 
-## Time integrity
+Other public sources may be used only to determine whether a discovered AiScore fixture is sufficiently researchable. They may not create new fixtures.
 
-Resolve the requested ICT/UTC boundaries once and follow `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
+## Time / identity integrity
 
-Before packaging, every admitted fixture must have an authoritative zoned AiScore time from explicit Match Info UTC, an AiScore epoch/zoned ISO timestamp, or an explicit offset. Convert exactly once to Asia/Ho_Chi_Minh and prove it lies inside the requested window.
+Resolve the requested ICT/UTC window once and follow:
+
+`models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
+
+Every admitted fixture must have:
+- resolved AiScore identity;
+- authoritative zoned kickoff;
+- verified UTC;
+- verified ICT;
+- in-window proof.
 
 Do not guess timezone from geography or treat a bare display clock as UTC.
 
-## Broad senior discovery — mandatory
+## 1. Hard scope exclusions
 
-Inspect every AiScore competition block visible on the touched date surfaces and account for every potentially reasonable senior first-team fixture in-window.
-
-Do not restrict discovery to PRIORITY/NORMAL registry entries.
-
-Normally admit to Football C:
-- senior top divisions;
-- professional senior lower divisions;
-- senior international qualifiers/tournaments;
-- senior continental club competitions;
-- senior national FA cups;
-- senior league/professional cups;
-- senior women's first-team competitions when identity/data are usable;
-- other reasonable senior first-team fixtures.
-
-A fixture being unfamiliar, historically low-scoring, outside a legacy registry, or previously CONDITIONAL is not enough to remove it at Step 0. Those are Football C screening questions.
-
-## Hard exclusions only
-
-Exclude before Football C only when clearly outside production scope or unsafe to identify:
+Exclude before the researchability gate:
 
 - youth/Uxx-only competitions;
 - academy/junior competitions;
-- reserve/B/development-only competitions;
+- reserve/B/development-only competitions, except reserve-branded teams participating in a normal professional senior league;
 - amateur or clearly semi-professional micro competitions with unreliable identity/data;
 - regional/state/provincial competitions outside the intended senior professional universe;
 - school/university/military/company competitions;
 - friendlies/exhibitions unless explicitly requested;
 - cancelled/postponed/abandoned/already-finished fixtures for an upcoming sweep;
-- unresolved fixture/home-away identity;
-- unresolved authoritative kickoff time;
-- duplicate identities.
+- unresolved fixture identity/home-away;
+- unresolved authoritative kickoff;
+- duplicates.
 
-### Professional reserve-brand exception
+## 2. Protected senior competition classes
 
-If a reserve/Jong/U21-branded side is an official participant in a normal professional senior league, do not exclude solely because of the team name. Treat the competition as the scope authority.
+The following classes bypass the ordinary domestic researchability exclusion and are sent to Football C when identity/time are valid:
 
-## No longer Step-0 exclusions
+- FIFA senior World Cup qualifiers/finals;
+- senior continental national-team qualifiers/finals (AFCON, EURO, Asian Cup, Copa America/CONMEBOL, Gold Cup/CONCACAF, OFC equivalents);
+- senior Nations League-style official national-team competitions;
+- major senior continental club competitions administered by UEFA/AFC/CAF/CONMEBOL/CONCACAF/OFC;
+- other clearly major senior international tournament blocks explicitly requested by the user.
 
-Do not exclude solely because a fixture is:
-- from a legacy LOW-GOAL league;
-- from a legacy HARD-EXCLUDE country;
-- from Finland or Japan;
-- from a professional lower division;
-- from a senior cup previously considered small;
-- from a legacy CONDITIONAL league;
-- unfamiliar or absent from a priority list.
+These are protected because the previous narrow sweep missed meaningful national-team blocks.
 
-If it is a reasonable senior first-team fixture with usable identity, send it to Football C.
+They still receive normal Football C PASS/WATCH/FOCUS screening later.
 
-## Completeness
+## 3. Researchability gate — ordinary domestic / small competition blocks
 
-Production completeness means every potentially reasonable senior first-team block in the requested window has been accounted for.
+For all other senior domestic league/cup fixtures, run a **cheap researchability check** before admitting them to Work.
 
-A visible senior block skipped because it is not in a registry makes the handoff incomplete.
+A fixture is `RESEARCHABLE` only when a quick preflight can establish enough current evidence for both teams to support the Football C evidence schema.
 
-For cross-midnight/early-morning windows, independently inspect the terminal ICT date and UTC date containing the end boundary.
+Minimum required evidence:
 
-`terminal_interval_ict = max(window_start_ict, window_end_ict - 6h) -> window_end_ict`
+### Required A — recent team evidence
+For **both teams**, at least one reliable source exposes a usable recent-match sequence/current form with opponents and scores.
 
-Record `terminal_scan_complete=true|false`. Never infer terminal completeness from the latest kickoff already found.
+### Required B — competition/context evidence
+At least one reliable source exposes meaningful current competition context such as standings, phase/table, recent competition results, or equivalent tournament state.
 
-Every visibly surfaced senior cup/continental block must be accounted for. No legacy "main cups only" filter.
+### Required C — mechanism evidence
+At least one of the following must be available without deep/manual hunting:
 
-## Persistence skeleton
+- team-level goal/chance profile;
+- shots/SOT/box/chance-quality/xG-type statistics;
+- reliable match/team statistical profiles;
+- credible current team news/lineup/absence information that can materially inform routes;
+- another repeatable quantitative or qualitative source sufficient to assess scoring mechanisms rather than only final scores.
 
-Use the existing football Airtable coverage contract.
+### Required D — matchup/H2H availability
+H2H is preferred when usable, but absence of H2H alone does **not** exclude a fixture.
 
-For every discovered in-window fixture preserve enough to distinguish:
+However, if H2H is absent **and** mechanism evidence is weak, exclude.
+
+### Admission rule
+
+Admit when:
+- Required A = PASS;
+- Required B = PASS;
+- Required C = PASS;
+- fixture identity/time = PASS.
+
+Otherwise exclude as:
+
+`INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED`
+
+Do not spend deep Work research trying to rescue a competition that fails this cheap preflight.
+
+## 4. What researchability is NOT
+
+Do not exclude a fixture merely because:
+
+- it is expected to be low scoring;
+- its league was historically LOW-GOAL;
+- it is from Japan or Finland;
+- it is a professional lower division;
+- it is a women's senior competition;
+- it is unfamiliar;
+- it is a cup.
+
+If adequate current evidence exists, admit it and let Football C decide football quality.
+
+Likewise, do not admit an obscure league merely because it is senior/professional if usable evidence is absent.
+
+## 5. Efficiency rule
+
+The researchability check must stay cheap.
+
+Normal limit per unfamiliar competition block:
+- one AiScore competition/fixture surface;
+- up to two quick public-web searches for current team/competition evidence.
+
+If those checks cannot establish A+B+C, exclude.
+
+Do not turn Step 0 into the full Step-1 research process.
+
+## 6. Completeness
+
+Production completeness means:
+
+> every potentially relevant senior block in the requested window was discovered, then either hard-excluded, researchability-excluded, or admitted.
+
+A skipped visible senior block with no recorded disposition makes the handoff incomplete.
+
+For cross-midnight/early-morning windows, perform the normal terminal-interval recheck.
+
+## 7. Persistence / counts
+
+For every discovered in-window senior fixture preserve one disposition:
+
 - `ADMITTED_TO_C`
 - `HARD_EXCLUDED`
+- `RESEARCHABILITY_EXCLUDED`
 - `UNRESOLVED`
 
-For admitted fixtures preserve Match, Competition, AiScore identity, verified UTC/ICT kickoff, time provenance, status, and `BROAD_SENIOR_PRODUCTION` in notes.
+Record researchability reason compactly.
 
-Do not populate Football C rank/routes/burden here. Step 1 owns football-quality screening.
+Required funnel counts:
 
-## Work-readiness gate
+`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED TO C`
+
+## 8. Work-readiness gate
 
 Package only when:
+
 - `complete=true`
 - `actionable_complete=true`
 - `work_ready=true`
-- every touched senior block is accounted for
-- terminal scan is complete
-- every admitted fixture has resolved identity/time
-- every admitted fixture lies inside the ICT window
-- admitted count matches the handoff array
-- no legacy registry/narrow-core filter removed a reasonable senior fixture
+- every visible senior block has a disposition;
+- protected senior blocks were not removed by the researchability gate;
+- every admitted fixture has resolved identity/time;
+- terminal scan is complete where required;
+- admitted count equals handoff array count.
 
 If not:
 
-`HANDOFF INCOMPLETE — BROAD SENIOR COVERAGE GAP`
+`HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
-## ZIP handoff
+## 9. Canonical ZIP handoff
 
-Create one canonical UTF-8 `AISCORE_FIXTURES_*.txt` at ZIP root and attach only the ZIP normally.
+Create one root-level canonical `AISCORE_FIXTURES_*.txt` inside the ZIP.
 
-Required handoff metadata:
+Required metadata:
+
 - `model=Football C`
-- `sweep_scope_mode=BROAD_SENIOR_PRODUCTION`
-- requested ICT/UTC window
-- listing dates checked
-- terminal interval/listing dates
-- `terminal_scan_complete=true`
-- `complete=true`
-- `actionable_complete=true`
-- `work_ready=true`
-- `raw_senior_count`
-- `hard_excluded_count`
-- `admitted_to_c_count`
-- hard-exclusion reason counts
-- all admitted fixtures with AiScore identity, competition, source kickoff, verified UTC/ICT and time provenance
+- `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
+- requested ICT/UTC window;
+- listing dates checked;
+- terminal scan state;
+- `complete=true`;
+- `actionable_complete=true`;
+- `work_ready=true`;
+- `raw_senior_count`;
+- `hard_excluded_count`;
+- `researchability_excluded_count`;
+- `admitted_to_c_count`;
+- protected-block audit result;
+- admitted fixtures with identity/time provenance.
 
-Do not include only "interesting" matches. This is the complete C-eligible senior universe.
+Do not include researchability-excluded fixtures in the Work array.
 
-## Step-0 boundary
+## 10. Step-0 boundary
 
-Step 0 does not research scoring mechanisms, judge Over quality, assign C-PASS/WATCH/FOCUS, choose supported burden, rank fixtures, inspect confirmed XI, fetch bookmaker odds, create Decision States, or issue betting decisions.
+Step 0 may determine whether enough evidence exists.
 
-Football C Step 1 owns all football-quality screening.
+It must **not** decide:
+
+- route strength;
+- carrier strength;
+- chance quality;
+- supported burden;
+- C-PASS/WATCH/FOCUS;
+- rank;
+- BET/WAIT/PASS.
+
+Those remain Football C/C2 Step-1/Step-2 decisions.
 
 ## Output
 
 Return:
 
-`BROAD SENIOR HANDOFF COMPLETE`
+`RESEARCHABLE SENIOR HANDOFF COMPLETE`
 
-with requested window, raw senior count, hard-excluded count, admitted-to-C count, unresolved count, and ZIP filename.
+with:
 
-If incomplete, report the blocker and do not send a partial production handoff.
+- requested window;
+- raw senior count;
+- hard excluded;
+- researchability excluded;
+- admitted to Football C;
+- unresolved = 0;
+- ZIP filename.

@@ -15,10 +15,12 @@ Use the model/version that actually produced each historical decision.
 
 For every new dual-track board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
+`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
 
 Track separately:
 - coverage failures;
+- researchability exclusions that should have been admitted;
+- Work time wasted on weak-data competitions that should have failed the Step-0 researchability gate;
 - high-scoring C-PASS false negatives;
 - low-scoring C-FOCUS false positives;
 - C vs C2 ranking differences;

@@ -9,16 +9,16 @@ Read upstream:
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
 Require:
-`sweep_scope_mode=BROAD_SENIOR_PRODUCTION`
+`sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
 
 If package/completeness fails:
-`HANDOFF INCOMPLETE — BROAD SENIOR COVERAGE GAP`
+`HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
 Do not rebuild the raw universe in Work.
 
 ## 1. Common evidence freeze — mandatory
 
-Research each admitted senior fixture **once**.
+Research each **researchability-admitted** senior fixture **once**. Do not reopen Step-0 researchability-excluded obscure blocks unless the user explicitly overrides that exclusion.
 
 Freeze one common semantic evidence state before either model ranks the slate:
 

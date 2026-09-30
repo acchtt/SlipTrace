@@ -19,7 +19,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`BROAD SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`RESEARCHABLE SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -41,14 +41,18 @@ Common evidence includes:
 
 Once frozen, neither C nor C2 may change those shared evidence fields merely because the other model or Python engine disagrees.
 
-## Step 0 — broad senior intake
+## Step 0 — researchable senior intake
 
 Use:
 `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
 
-Default intake is `BROAD_SENIOR_PRODUCTION`.
+Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
-All reasonable senior first-team fixtures in the requested AiScore window are sent forward after hard scope/identity/time exclusions only.
+Step 0 discovers the senior slate, applies hard scope exclusions, then applies a cheap **researchability gate** to ordinary domestic/small competition blocks.
+
+Protected senior international qualifiers/tournaments and major continental club competitions bypass this data-availability exclusion when identity/time are valid.
+
+For ordinary domestic/small blocks, admit only when current evidence is sufficient for both teams to support Football C's research schema: recent form, competition context, and at least one usable mechanism/stat/news layer.
 
 ## Step 1 — dual-track board
 
@@ -94,7 +98,7 @@ Use:
 
 Audit:
 
-`RAW SENIOR -> HARD EXCLUDED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
+`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
 
 Separate:
 - coverage failures;
@@ -105,7 +109,7 @@ Separate:
 
 ## Football C production invariants
 
-- Football-quality screening belongs to the model, not Step 0.
+- Football-quality screening belongs to the model, not Step 0. Step 0 may exclude only for hard scope/identity/time or insufficient researchability.
 - No fixed board-size target.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.
