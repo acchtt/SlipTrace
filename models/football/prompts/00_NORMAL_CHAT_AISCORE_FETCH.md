@@ -152,6 +152,24 @@ If those checks cannot establish A+B+C, exclude.
 
 Do not turn Step 0 into the full Step-1 research process.
 
+
+### Block timestamp collision sentinel — mandatory
+
+Before `work_ready=true`, inspect admitted fixtures within each competition/date block for suspicious timestamp reuse.
+
+Trigger a hard revalidation when either condition holds:
+- 3 or more distinct fixtures in the same competition/date have the exact same verified UTC kickoff; or
+- a two-legged/repeat pairing within 14 days receives the same UTC kickoff as the previous leg without a current canonical match-page proof.
+
+When triggered:
+1. do not trust the batch timestamp;
+2. reopen the current AiScore canonical match page for every affected admitted fixture;
+3. verify current match ID, date, home/away and Match Info UTC/API epoch individually;
+4. rebuild the affected kickoff fields before packaging;
+5. label any mismatch `SOURCE TIME / BLOCK PARSER FAULT`.
+
+A uniform competition-block timestamp is never sufficient proof by itself.
+
 ## 6. Completeness
 
 Production completeness means:
