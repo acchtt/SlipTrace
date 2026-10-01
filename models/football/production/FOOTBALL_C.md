@@ -61,6 +61,14 @@ Prefer high-value chances, box/central access, quality SOT, xG/xGOT in context, 
 ### Main failure
 State the primary failure mechanism: compression, resistance, route disappearance, class-gap control, incentive, venue-specific suppression, or creation/finishing weakness.
 
+### Tournament format & incentive
+For any cup, tournament, qualifier, two-leg tie, final-round group/league state, or user-declared exception, run:
+`models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
+
+Explicitly separate route quality from incentive/persistence. Verify draw resolution, aggregate/table state, qualification conditions, tiebreak/margin incentives, and whether a likely score state actually forces either side to chase.
+
+A strong XI does not by itself justify a higher total when parity, aggregate protection, direct penalties, or another control state is strategically acceptable.
+
 ### H2H
 H2H is mandatory context when usable.
 
@@ -77,6 +85,8 @@ Question:
 > What is the highest total the football evidence supports without requiring an optimistic tail?
 
 Never raise burden for better price.
+
+For tournament/cup contexts, a post-XI burden increase is allowed only when the XI/mechanism evidence supports it **and** the verified tournament incentive does not materially suppress persistence. If format/incentive is UNKNOWN, keep the protected burden or reduce confidence; do not make an aggressive burden upgrade.
 
 ## 6. Ranking
 
@@ -102,10 +112,11 @@ When XI/current odds arrive:
 1. verify fixture/status;
 2. map XI changes to route functions;
 3. run one mandatory fresh fixture-specific public-web football research pass;
-4. re-check relevant H2H/matchup evidence;
-5. classify thesis PRESERVED / DEGRADED / BROKEN;
-6. interpret the executable market;
-7. issue C-BET / C-WAIT / C-PASS.
+4. verify/recheck tournament format and incentive state when applicable;
+5. re-check relevant H2H/matchup evidence;
+6. classify thesis PRESERVED / DEGRADED / BROKEN;
+7. interpret the executable market;
+8. issue C-BET / C-WAIT / C-PASS.
 
 Market-history/odds lookup does not satisfy the football-research requirement.
 
@@ -153,6 +164,8 @@ If price improved because attack went stale:
 ## 12. Live boundary
 
 Normal live use resolves a predeclared C-WAIT. A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
+
+For tournament/cup fixtures, every new epoch must also recompute score/aggregate/table incentive: whether a draw is acceptable, whether penalties/extra time are reachable, whether margin is still required, and which side is genuinely forced to chase.
 
 ## 13. Persistence
 
