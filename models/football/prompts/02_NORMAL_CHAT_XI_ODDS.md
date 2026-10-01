@@ -51,6 +51,17 @@ Persist one of:
 
 Odds/history lookup does **not** satisfy the football-research gate.
 
+Carry forward `tournament_incentive_required` for **every fixture**.
+
+- If false: record `Tournament incentive = NOT APPLICABLE`.
+- If true: perform the fresh current-format/current-table incentive recheck regardless of whether XI changed, and set `tournament_incentive_rechecked = true`.
+
+If an applicable fixture has not been rechecked:
+
+`DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING`
+
+Do not issue C or C2 action from that incomplete epoch.
+
 For tournament/cup/qualifier/two-leg/final-round contexts persist:
 - `TOURNAMENT FORMAT = VERIFIED / LIMITED / UNKNOWN`;
 - `INCENTIVE STATE = <home> / <away>`;
@@ -110,6 +121,8 @@ Persist C2 in Decision States under:
 
 ## 5. Python engine comparison — both tracks
 
+Every decision payload must explicitly include `tournament_incentive_rechecked`. For an applicable fixture the deterministic adapter fails closed unless it is true.
+
 Build two decision payloads from the **same common semantic evidence**:
 
 - `model = c`, using C board_state;
@@ -156,7 +169,7 @@ Then:
 - XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
 - H2H material state
-- Tournament format/incentive state when applicable
+- Tournament incentive requirement + recheck status **always**; when applicable, also show format, draw/aggregate state, home/away incentive, margin relevance, and incentive effect
 - C supported line
 - C2 supported line if different
 - Current line/odds

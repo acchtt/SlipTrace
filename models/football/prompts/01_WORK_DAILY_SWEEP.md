@@ -21,6 +21,32 @@ Do not rebuild the raw universe in Work.
 
 Research each **researchability-admitted** senior fixture **once**. Do not reopen Step-0 researchability-excluded obscure blocks unless the user explicitly overrides that exclusion.
 
+### Tournament-incentive applicability gate — mandatory first
+
+For **every fixture**, explicitly set:
+
+- `tournament_incentive_required = true / false`.
+
+If false, persist all tournament fields as `NOT_APPLICABLE`.
+
+If true, complete the mandatory tournament-format/incentive procedure **before** route/failure/supported-burden classification is finalized. Persist:
+
+- `tournament_format_status = VERIFIED / LIMITED / UNKNOWN`;
+- `competition_stage`;
+- `competition_format`;
+- `draw_resolution`;
+- `aggregate_state`;
+- `home_incentive`;
+- `away_incentive`;
+- `tiebreak_margin_relevance = YES / NO / UNKNOWN`;
+- `incentive_effect = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`.
+
+If an applicable fixture is missing any field:
+
+`ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING`
+
+Do not issue C/C2 board state or supported burden for that fixture. Unknown facts must be recorded as UNKNOWN, never silently omitted.
+
 Freeze one common semantic evidence state before either model ranks the slate:
 
 - match_id / identity / kickoff;
@@ -122,8 +148,8 @@ Primary table — official production board:
 
 `FOOTBALL C OFFICIAL BOARD <window>`
 
-| C Rank | Match | C state | Routes | Carrier | Supported line | Main failure | Initial action |
-|---|---|---|---|---|---|---|---|
+| C Rank | Match | C state | Routes | Carrier | Incentive | Supported line | Main failure | Initial action |
+|---|---|---|---|---|---|---|---|---|
 
 Then comparison table:
 
@@ -143,6 +169,8 @@ Also report any:
 - text-vs-code disagreement.
 
 ## 6. Required machine appendix
+
+Every machine assessment object must include the explicit tournament-incentive contract. The engine must reject omission instead of defaulting it away.
 
 Include:
 - `FOOTBALL_ENGINE_C_INPUT`

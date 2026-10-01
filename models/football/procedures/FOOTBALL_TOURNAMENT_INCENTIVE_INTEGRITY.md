@@ -37,6 +37,42 @@ Establish from a current authoritative source when available:
 
 Do not infer "must win" from tournament branding. Verify the actual state.
 
+## 2A. Assessment completion hard gate
+
+Every fixture must explicitly set:
+
+`tournament_incentive_required = true / false`
+
+before Football C/C2 can classify it.
+
+- If false, the structured incentive fields must explicitly be `NOT_APPLICABLE`.
+- If true, the complete format/incentive block in Sections 2–3 must be present.
+- Unknown facts are recorded as `UNKNOWN`; they are never silently omitted.
+
+At Step 1, if an applicable fixture is missing the block:
+
+`ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING`
+
+Do not issue C-PASS / C-WATCH / C-FOCUS or C2 state for that fixture until the block exists.
+
+At Step 2, an applicable fixture must explicitly record:
+
+`tournament_incentive_rechecked = true`
+
+after the fresh post-XI/current-table recheck. Otherwise:
+
+`DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING`
+
+Do not issue C-BET/C-WAIT/C-PASS or C2-BET/C2-WAIT/C2-PASS from an incomplete epoch.
+
+At live state, every goal/red card/material simultaneous-table change creates a new incentive epoch. If the incentive epoch cannot be recomputed:
+
+`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
+
+No live Over execution is allowed from the stale incentive state.
+
+These are evidence-completeness gates, not predictive threshold changes.
+
 ## 3. Freeze incentive state
 
 Record for each team one or more:

@@ -42,6 +42,21 @@ A goal/red card/major injury/material mechanism change invalidates the old quote
 
 For tournament/cup fixtures, every new epoch must recompute incentive before resolving the Over. A level score does **not** imply continued chase if parity can lead directly to penalties, protect an aggregate/table objective, or otherwise remain strategically acceptable.
 
+For an applicable tournament fixture, explicitly output the current incentive epoch:
+- score + aggregate/table state;
+- home incentive;
+- away incentive;
+- draw/penalty/extra-time consequence;
+- margin/tiebreak relevance;
+- incentive effect;
+- side genuinely forced to chase.
+
+If this recomputation is missing or cannot be established:
+
+`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
+
+Do not execute C or C2 live exposure from a stale incentive state. Record UNKNOWN where necessary, but never silently skip the check.
+
 Official C may produce:
 - `C-BET — <line> @ <odds>`
 - `C-WAIT — TARGET NOT YET READY`

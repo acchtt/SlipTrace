@@ -34,6 +34,9 @@ Common evidence includes:
 - chance quality;
 - failure mode / suppression state;
 - relevant H2H transferability;
+- `tournament_incentive_required`;
+- competition stage/format, draw resolution, aggregate/table state when applicable;
+- home/away incentive state, margin/tiebreak relevance and incentive effect;
 - evidence confidence;
 - supported burden;
 - XI mechanism state at Step 2;
@@ -115,6 +118,9 @@ Separate:
 - No fixed board-size target.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.
+- Every fixture explicitly declares `tournament_incentive_required=true/false`; applicable fixtures cannot receive C/C2 classification until the complete tournament block is present.
+- Applicable Step-2 fixtures require `tournament_incentive_rechecked=true` before any C/C2 action.
+- Applicable live fixtures recompute the incentive epoch after every goal/red card/material simultaneous-table change before execution.
 - Supported burden chosen before price.
 - Market evidence informs but does not independently manufacture football quality.
 - >=1.65 normal price zone.
