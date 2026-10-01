@@ -30,3 +30,13 @@ Every stage reads upstream `models/football/CURRENT_MODEL.md` first.
 
 ### Audit
 `Load and execute models/football/prompts/04_WORK_POST_SLATE_AUDIT.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first and audit the requested slate.`
+
+
+## Tournament incentive hard gate
+
+Tournament incentive is a hard evidence gate, not an optional annotation.
+
+- Step 1 explicitly declares applicability for every fixture and completes the format/incentive block before C/C2 classification.
+- Step 2 rechecks applicable fixtures before any C/C2 action.
+- Live recomputes applicable incentive state on every material new epoch.
+- Missing incentive evidence blocks the relevant assessment/decision instead of silently defaulting.

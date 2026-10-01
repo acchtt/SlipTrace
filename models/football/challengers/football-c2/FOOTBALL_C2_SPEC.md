@@ -318,3 +318,12 @@ Effective from the dual-track workflow fix:
 - pre-fix C2 results are excluded from the restarted confirmatory C-vs-C2 window because the old workflow mixed C2 Step 1 with Football C Step 2.
 
 This section changes experiment plumbing/authority, not C2's predictive selection thresholds.
+
+
+## Tournament-incentive evidence completeness
+
+C2 consumes the same mandatory tournament-format/incentive block as Football C.
+
+For every fixture the common evidence must explicitly declare `tournament_incentive_required`. If true, the complete tournament block must exist before C2 board state is assigned, and Step 2 must record `tournament_incentive_rechecked=true` before any C2 shadow action.
+
+This is an evidence-completeness guard only. It does not alter the frozen C2 selection floor, bridge cap, price rules, or shadow-only authority.

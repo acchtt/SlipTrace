@@ -3,6 +3,12 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md": [
+        "Assessment completion hard gate",
+        "ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING",
+        "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING",
+        "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
+    ],
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md": [
         "RESEARCHABLE_SENIOR_PRODUCTION",
         "INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED",
@@ -12,6 +18,7 @@ REQUIRED = {
         "Active official model:** Football **C**",
         "Shadow challenger:** Football **C2**",
         "COMMON FOOTBALL EVIDENCE FREEZE",
+        "tournament_incentive_required",
         "Football C's board is the only board that can feed official Step-2 exposure.",
         "models/football/engine/",
     ],
@@ -33,6 +40,8 @@ REQUIRED = {
         "FOOTBALL_ENGINE_C_INPUT",
         "FOOTBALL_ENGINE_C2_INPUT",
         "Operational follow-through guard",
+        "ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING",
+        "tournament_incentive_required",
         "maximum routine `FOLLOW = 6`",
         "maximum retained `RESERVE = 4`",
     ],
@@ -48,12 +57,15 @@ REQUIRED = {
         "FOOTBALL_ENGINE_C_DECISION_INPUT",
         "FOOTBALL_ENGINE_C2_DECISION_INPUT",
         "ENGINE DISAGREEMENT",
+        "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING",
+        "tournament_incentive_rechecked",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2 Shadow Wait",
         "TARGET REACHED + THESIS STILL HEALTHY?",
         "C-WAIT CANCELLED — THESIS DECAY",
         "C2 may never create Website Pick or real exposure.",
+        "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
         "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
@@ -61,6 +73,7 @@ REQUIRED = {
         "Only C2 decisions produced **after the dual-track fix commit**",
         "Historical Football A/C1 audits remain version-faithful.",
         "FOLLOW/RESERVE/STOP allocation",
+        "tournament-incentive completeness",
     ],
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md": [
         "**Champion:** Football C",
@@ -77,6 +90,8 @@ REQUIRED = {
         "\"stage\"",
         "\"matches\"",
         "\"context\"",
+        "\"tournament_incentive_required\"",
+        "\"tournament_incentive_rechecked\"",
     ],
     "models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md": [
         "PROSPECTIVE OBSERVER ONLY — NO PRODUCTION AUTHORITY",
@@ -90,6 +105,8 @@ REQUIRED = {
         "MAX_RESERVE = 4",
         "def run_decision",
         "SCHEMA_VERSION = \"football-engine-v1\"",
+        "validate_tournament_incentive",
+        "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING",
     ],
 }
 

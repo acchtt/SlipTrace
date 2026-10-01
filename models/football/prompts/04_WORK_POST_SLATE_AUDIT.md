@@ -60,6 +60,10 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 - C2 shadow board preserved separately;
 - no C2 overwrite of C fields;
 - mandatory post-XI football research;
+- tournament-incentive completeness at Step 1;
+- tournament-incentive recheck at Step 2;
+- live incentive-epoch recomputation after every goal/red card/material table change;
+- count and classify `TOURNAMENT INCENTIVE MISS` / `FORMAT DATA MISSING` / `STALE INCENTIVE EPOCH`;
 - H2H handling;
 - exact quote epoch;
 - C official action;
@@ -97,3 +101,20 @@ For prospective `ELITE_UPPER_TAIL_OBSERVER` rows, report separately:
 - cases where buying extra burden would have helped or hurt.
 
 Do not use the 2026-09-30 motivating cases as confirmatory observations. They are retrospective hypothesis-generation only.
+
+
+## Tournament-incentive integrity audit
+
+For every fixture where `tournament_incentive_required=true`, verify:
+
+1. Step 1 contained the complete frozen format/incentive block before C/C2 classification;
+2. Step 2 explicitly recorded `tournament_incentive_rechecked=true` before any action;
+3. every material live epoch recomputed incentive before execution;
+4. no supported-burden upgrade was justified solely by XI strength while incentive was suppressive/unknown.
+
+Any missing stage is a **process failure even if the eventual result was profitable**.
+
+Classify as:
+- `TOURNAMENT INCENTIVE MISS`;
+- `FORMAT DATA MISSING`;
+- `STALE INCENTIVE EPOCH`.
