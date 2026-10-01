@@ -4,6 +4,7 @@ Read:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
+- `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 
 Football C is official. C2 is shadow-only.
 
@@ -14,7 +15,12 @@ For a supplied live fixture, freeze one current live state:
 - cards/injuries;
 - material tactical/mechanism changes;
 - current quote;
-- attacking-quality indicators relevant to the original thesis.
+- attacking-quality indicators relevant to the original thesis;
+- current tournament/aggregate/table state when applicable;
+- whether a draw is acceptable;
+- whether extra time/direct penalties are reachable;
+- whether goal difference/margin still matters;
+- which side is genuinely forced to chase.
 
 Use this same live state for C and C2.
 
@@ -33,6 +39,8 @@ If price improved because the attack has gone stale:
 `C-WAIT CANCELLED — THESIS DECAY`
 
 A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
+
+For tournament/cup fixtures, every new epoch must recompute incentive before resolving the Over. A level score does **not** imply continued chase if parity can lead directly to penalties, protect an aggregate/table objective, or otherwise remain strategically acceptable.
 
 Official C may produce:
 - `C-BET — <line> @ <odds>`
