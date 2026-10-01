@@ -4,6 +4,7 @@ Read upstream:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
+- `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 
 Football C is the only active official model. C2 is shadow-only.
 
@@ -37,10 +38,11 @@ Perform this **once** for the fixture:
 1. verify fixture/status;
 2. inspect confirmed XI and map changes to route functions;
 3. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
-4. perform/recheck relevant H2H/matchup context;
-5. update the structured common semantic evidence;
-6. classify thesis state = PRESERVED / DEGRADED / BROKEN;
-7. freeze current quote.
+4. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
+5. perform/recheck relevant H2H/matchup context;
+6. update the structured common semantic evidence;
+7. classify thesis state = PRESERVED / DEGRADED / BROKEN;
+8. freeze current quote.
 
 Persist one of:
 - `POST-XI RESEARCH = FOUND`
@@ -48,6 +50,13 @@ Persist one of:
 - `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`
 
 Odds/history lookup does **not** satisfy the football-research gate.
+
+For tournament/cup/qualifier/two-leg/final-round contexts persist:
+- `TOURNAMENT FORMAT = VERIFIED / LIMITED / UNKNOWN`;
+- `INCENTIVE STATE = <home> / <away>`;
+- `INCENTIVE EFFECT = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`.
+
+Before any post-XI supported-line upgrade, apply the burden-upgrade veto from the tournament procedure. Stronger XI alone cannot raise burden if draw/aggregate/penalty/table incentives make control or parity strategically acceptable.
 
 Once this common XI evidence is frozen, C and C2 apply their policies independently. Do not change shared evidence because one track disagrees.
 
@@ -147,6 +156,7 @@ Then:
 - XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
 - H2H material state
+- Tournament format/incentive state when applicable
 - C supported line
 - C2 supported line if different
 - Current line/odds
