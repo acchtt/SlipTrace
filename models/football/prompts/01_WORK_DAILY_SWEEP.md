@@ -5,6 +5,7 @@ Read upstream:
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
+- `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -37,10 +38,17 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - material_suppression;
 - independent_upper_tail;
 - relevant H2H state/transferability;
+- competition stage/format when applicable;
+- draw_resolution / aggregate_state;
+- home_incentive / away_incentive;
+- tiebreak_margin_relevance;
+- incentive_effect = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN;
 - main failure mode;
 - initial supported_line.
 
 At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
+
+For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the format is UNKNOWN, reduce evidence confidence and do not use an aggressive burden assumption.
 
 **Do not run separate C and C2 research passes.**  
 The experiment compares model policy, not two independently drifting research interpretations.
