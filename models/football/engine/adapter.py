@@ -75,9 +75,143 @@ def _number(obj: dict[str, Any], key: str) -> float:
     return float(value)
 
 
+def _string(obj: dict[str, Any], key: str) -> str:
+    value = _required(obj, key)
+    if not isinstance(value, str) or not value.strip():
+        raise ContractError(f"{key} must be a non-empty string")
+    return value.strip()
+
+
+def _choice(obj: dict[str, Any], key: str, allowed: set[str]) -> str:
+    value = _string(obj, key).upper().replace("-", "_").replace(" ", "_")
+    if value not in allowed:
+        choices = ", ".join(sorted(allowed))
+        raise ContractError(f"invalid {key}={value!r}; allowed: {choices}")
+    return value
+
+
+def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
+    """Fail closed when the tournament-incentive assessment is skipped.
+
+    Every structured assessment must explicitly say whether the tournament
+    incentive procedure applies. Non-applicable fixtures use NOT_APPLICABLE.
+    Applicable fixtures must persist the complete format/incentive block.
+    """
+
+    required = _bool(obj, "tournament_incentive_required")
+    if "tournament_incentive_required" not in obj:
+        raise ContractError("missing required field: tournament_incentive_required")
+
+    format_status = _choice(
+        obj,
+        "tournament_format_status",
+        {"NOT_APPLICABLE", "VERIFIED", "LIMITED", "UNKNOWN"},
+    )
+    competition_stage = _string(obj, "competition_stage")
+    competition_format = _string(obj, "competition_format")
+    draw_resolution = _string(obj, "draw_resolution")
+    aggregate_state = _string(obj, "aggregate_state")
+    home_incentive = _choice(
+        obj,
+        "home_incentive",
+        {
+            "NOT_APPLICABLE",
+            "MUST_WIN",
+            "WIN_PREFERRED",
+            "DRAW_ACCEPTABLE",
+            "MARGIN_NEEDED",
+            "PROTECT_AGGREGATE",
+            "PROTECT_RESULT",
+            "DEAD_RUBBER",
+            "PLACEMENT_ONLY",
+            "UNKNOWN",
+        },
+    )
+    away_incentive = _choice(
+        obj,
+        "away_incentive",
+        {
+            "NOT_APPLICABLE",
+            "MUST_WIN",
+            "WIN_PREFERRED",
+            "DRAW_ACCEPTABLE",
+            "MARGIN_NEEDED",
+            "PROTECT_AGGREGATE",
+            "PROTECT_RESULT",
+            "DEAD_RUBBER",
+            "PLACEMENT_ONLY",
+            "UNKNOWN",
+        },
+    )
+    tiebreak_margin_relevance = _choice(
+        obj,
+        "tiebreak_margin_relevance",
+        {"NOT_APPLICABLE", "YES", "NO", "UNKNOWN"},
+    )
+    incentive_effect = _choice(
+        obj,
+        "incentive_effect",
+        {
+            "NOT_APPLICABLE",
+            "EXPANSIVE",
+            "NEUTRAL",
+            "SUPPRESSIVE",
+            "MIXED",
+            "UNKNOWN",
+        },
+    )
+
+    if required:
+        forbidden = {
+            "tournament_format_status": format_status,
+            "home_incentive": home_incentive,
+            "away_incentive": away_incentive,
+            "tiebreak_margin_relevance": tiebreak_margin_relevance,
+            "incentive_effect": incentive_effect,
+        }
+        bad = [key for key, value in forbidden.items() if value == "NOT_APPLICABLE"]
+        if bad:
+            raise ContractError(
+                "tournament incentive required but fields are NOT_APPLICABLE: "
+                + ", ".join(bad)
+            )
+    else:
+        expected_na = {
+            "tournament_format_status": format_status,
+            "home_incentive": home_incentive,
+            "away_incentive": away_incentive,
+            "tiebreak_margin_relevance": tiebreak_margin_relevance,
+            "incentive_effect": incentive_effect,
+        }
+        bad = [key for key, value in expected_na.items() if value != "NOT_APPLICABLE"]
+        if bad:
+            raise ContractError(
+                "non-tournament assessment must use NOT_APPLICABLE for: "
+                + ", ".join(bad)
+            )
+        for key, value in {
+            "competition_stage": competition_stage,
+            "competition_format": competition_format,
+            "draw_resolution": draw_resolution,
+            "aggregate_state": aggregate_state,
+        }.items():
+            if value.upper().replace("-", "_").replace(" ", "_") != "NOT_APPLICABLE":
+                raise ContractError(
+                    f"non-tournament assessment must use NOT_APPLICABLE for {key}"
+                )
+
+    return {
+        "required": required,
+        "format_status": format_status,
+        "incentive_effect": incentive_effect,
+    }
+
+
 def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
     if not isinstance(obj, dict):
         raise ContractError("match must be an object")
+
+    validate_tournament_incentive(obj)
 
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
@@ -158,11 +292,15 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
     for rank, item in enumerate(ranked, start=1):
         raw = next(x for x in raw_matches if str(x["match_id"]) == item.match_id)
+        incentive_gate = validate_tournament_incentive(raw)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(ranking_key(item)),
             "supported_line": item.supported_line,
+            "tournament_incentive_required": incentive_gate["required"],
+            "tournament_format_status": incentive_gate["format_status"],
+            "incentive_effect": incentive_gate["incentive_effect"],
         }
 
         state = None
@@ -232,6 +370,19 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(ctx_obj, dict):
         raise ContractError("context must be an object")
 
+    if "tournament_incentive_rechecked" not in ctx_obj:
+        raise ContractError(
+            "missing required field: tournament_incentive_rechecked"
+        )
+    tournament_incentive_rechecked = _bool(
+        ctx_obj, "tournament_incentive_rechecked"
+    )
+    tournament_gate = validate_tournament_incentive(raw_match)
+    if tournament_gate["required"] and not tournament_incentive_rechecked:
+        raise ContractError(
+            "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING"
+        )
+
     board_state = _enum(
         BoardState, _required(ctx_obj, "board_state"), "board_state"
     )
@@ -269,6 +420,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "tournament_incentive_required": tournament_gate["required"],
+        "tournament_format_status": tournament_gate["format_status"],
+        "incentive_effect": tournament_gate["incentive_effect"],
+        "tournament_incentive_rechecked": tournament_incentive_rechecked,
     }
 
     if model == "c2":

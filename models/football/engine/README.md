@@ -103,3 +103,23 @@ This is how we determine whether inconsistency comes from semantic research inpu
 3. Add board/decision audit storage for the JSON payload/result.
 4. Only then consider making deterministic code authoritative for ranking/execution.
 5. After enough clean rows, add numerical football features and separately test a statistical probability model.
+
+
+## Tournament-incentive contract gate
+
+Every structured assessment must explicitly declare whether
+`FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md` applies.
+
+The engine fails closed if `tournament_incentive_required` is omitted.
+Applicable tournament/cup/qualifier/final-round fixtures must carry the complete
+format/incentive block; ordinary fixtures must explicitly use
+`NOT_APPLICABLE`.
+
+At decision time an applicable fixture also requires
+`tournament_incentive_rechecked=true`. Otherwise the deterministic adapter
+returns:
+
+`DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING`
+
+This is an evidence-completeness guard. It does not alter C/C2 predictive
+thresholds or make the Python engine production authority.

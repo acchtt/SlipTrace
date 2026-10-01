@@ -22,7 +22,17 @@
       "material_suppression": false,
       "board_state": "C2-FOCUS",
       "main_failure": "opponent can compress after taking the lead",
-      "h2h_state": "mixed / medium transferability"
+      "h2h_state": "mixed / medium transferability",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE"
     }
   ]
 }
