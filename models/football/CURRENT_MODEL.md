@@ -173,3 +173,12 @@ Quality gate before capacity:
 - RESERVE permits MEDIUM failure resistance only with HIGH burden protection.
 
 This is a followability rule, not a predictive board-size cap.
+
+
+## Elite upper-tail observer
+
+`models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md` is active as a non-predictive prospective observer.
+
+It tracks a narrow all-HIGH two-route / self-funded STRONG-carrier class to test whether Football C's supported burden is systematically too conservative.
+
+It has no production authority and does not change C/C2 actions or bridge limits.

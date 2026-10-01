@@ -175,3 +175,16 @@ In any conflict:
 - C2 = shadow challenger;
 - Python = shadow validator;
 - user bet slip = physical execution truth.
+
+
+## Prospective elite upper-tail observer — quote capture only
+
+If a fixture entered Step 2 with `ELITE_UPPER_TAIL_OBSERVER` already frozen at Step 1:
+
+- preserve the tag;
+- record the exact executable main/alternate Over lines and odds available at the decision epoch;
+- record the gap from Football C supported burden;
+- do not change C or C2 action because of the observer;
+- do not create a hypothetical live plan solely for the observer.
+
+The observer is data collection, not a betting rule.

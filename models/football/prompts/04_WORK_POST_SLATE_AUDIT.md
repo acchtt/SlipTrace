@@ -82,3 +82,18 @@ Report:
 - whether C2 remains worth continuing.
 
 Historical Football A/C1 audits remain version-faithful.
+
+
+## Elite upper-tail observer audit
+
+For prospective `ELITE_UPPER_TAIL_OBSERVER` rows, report separately:
+
+- count of tagged fixtures;
+- support line vs recorded market line gaps;
+- exact recorded quote settlement;
+- frozen-support settlement;
+- FT goal distribution;
+- failures where the carrier did not self-fund;
+- cases where buying extra burden would have helped or hurt.
+
+Do not use the 2026-09-30 motivating cases as confirmatory observations. They are retrospective hypothesis-generation only.

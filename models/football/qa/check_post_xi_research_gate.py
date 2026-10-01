@@ -78,6 +78,11 @@ REQUIRED = {
         "\"matches\"",
         "\"context\"",
     ],
+    "models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md": [
+        "PROSPECTIVE OBSERVER ONLY — NO PRODUCTION AUTHORITY",
+        "ELITE_UPPER_TAIL_OBSERVER",
+        "does not extend the C2 bridge",
+    ],
     "models/football/engine/adapter.py": [
         "def run_board",
         "follow_through_lane",

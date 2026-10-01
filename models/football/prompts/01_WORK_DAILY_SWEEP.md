@@ -219,3 +219,17 @@ Report:
 `SERIOUS CANDIDATES -> FOLLOW -> RESERVE -> STOP`
 
 The normal user-facing schedule should contain only FOLLOW fixtures. RESERVE may be shown separately but is not part of routine monitoring.
+
+
+## Prospective elite upper-tail observer — non-predictive
+
+Read:
+`models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md`
+
+After the common evidence freeze, tag `ELITE_UPPER_TAIL_OBSERVER` when the frozen fixture satisfies every observer trigger.
+
+The tag:
+- must be assigned before outcome;
+- does not alter C state, rank, supported burden or follow-through lane;
+- does not authorize exposure;
+- is carried forward only for prospective audit.
