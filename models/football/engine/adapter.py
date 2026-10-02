@@ -306,6 +306,7 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
     if not isinstance(obj, dict):
         raise ContractError("match must be an object")
 
+    validate_operational_viability(obj)
     validate_tournament_incentive(obj)
 
     return MatchAssessment(
@@ -387,12 +388,17 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
     for rank, item in enumerate(ranked, start=1):
         raw = next(x for x in raw_matches if str(x["match_id"]) == item.match_id)
+        operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(ranking_key(item)),
             "supported_line": item.supported_line,
+            "operational_viability_grade": operational_gate["grade"],
+            "xi_expected": operational_gate["xi_expected"],
+            "market_observability": operational_gate["market_observability"],
+            "team_news_observability": operational_gate["team_news_observability"],
             "tournament_incentive_required": incentive_gate["required"],
             "tournament_format_status": incentive_gate["format_status"],
             "incentive_effect": incentive_gate["incentive_effect"],
@@ -409,7 +415,14 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             base_lane = follow_through_lane(item, state)
             lane = FollowLane.STOP
 
-            if base_lane == FollowLane.FOLLOW:
+            if operational_gate["grade"] == "B":
+                if (
+                    base_lane in {FollowLane.FOLLOW, FollowLane.RESERVE}
+                    and reserve_used < MAX_RESERVE
+                ):
+                    lane = FollowLane.RESERVE
+                    reserve_used += 1
+            elif base_lane == FollowLane.FOLLOW:
                 if follow_used < MAX_FOLLOW:
                     lane = FollowLane.FOLLOW
                     follow_used += 1
