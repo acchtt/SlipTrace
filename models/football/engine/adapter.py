@@ -112,7 +112,7 @@ def validate_operational_viability(obj: dict[str, Any]) -> dict[str, Any]:
     manual_override = _choice(
         obj,
         "competition_reliability_manual_override",
-        {"NONE", "UNPROVEN", "TRUSTED", "NEUTRAL", "CAUTION", "DEMOTED"},
+        {"NONE", "TRUSTED", "NEUTRAL", "CAUTION", "DEMOTED"},
     )
     demoted_probation = _bool(obj, "demoted_probation")
 
