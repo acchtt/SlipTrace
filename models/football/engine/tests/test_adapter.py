@@ -11,6 +11,7 @@ from adapter import ContractError, run_board, run_decision  # noqa: E402
 def match(match_id="m1", **overrides):
     row = {
         "match_id": match_id,
+        "kickoff_ict": "2026-10-02T01:45:00+07:00",
         "operational_viability_grade": "A",
         "raw_operational_viability_grade": "A",
         "competition_reliability_state": "UNPROVEN",
@@ -31,6 +32,11 @@ def match(match_id="m1", **overrides):
         "xi_robustness": "MEDIUM",
         "evidence_confidence": "HIGH",
         "burden_protection": "HIGH",
+        "completion_mode": "TWO_SIDED",
+        "burden_completion_quality": "HIGH",
+        "continuation_quality": "HIGH",
+        "opponent_leakage": "MEDIUM",
+        "burden_stall_risk": "LOW",
         "supported_line": 2.5,
         "tournament_incentive_required": False,
         "tournament_format_status": "NOT_APPLICABLE",
@@ -222,6 +228,119 @@ class BoardContractTests(unittest.TestCase):
                             competition_reliability_state="DEMOTED",
                             competition_reliability_reason="three consecutive critical failures",
                             demoted_probation=True,
+                        )
+                    ],
+                }
+            )
+
+    def test_carrier_led_weak_second_route_can_follow(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        home_route="STRONG",
+                        away_route="WEAK",
+                        carrier="STRONG",
+                        completion_mode="CARRIER_LED",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                        opponent_leakage="HIGH",
+                        independent_route_quality="MEDIUM",
+                        board_state="C-FOCUS",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["follow_lane"], "FOLLOW")
+
+    def test_high_stall_risk_blocks_two_sided_follow(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        carrier="STRONG",
+                        burden_stall_risk="HIGH",
+                        board_state="C-FOCUS",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
+
+    def test_lower_burden_wins_equal_completion_comparison(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c2",
+                "matches": [
+                    match("o275", supported_line=2.75),
+                    match("o250", supported_line=2.5),
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["match_id"], "o250")
+
+    def test_same_kickoff_follow_is_capped_at_two_best_candidates(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        "high_burden",
+                        carrier="STRONG",
+                        supported_line=3.0,
+                        board_state="C-FOCUS",
+                    ),
+                    match(
+                        "mid_burden",
+                        carrier="STRONG",
+                        supported_line=2.75,
+                        board_state="C-FOCUS",
+                    ),
+                    match(
+                        "low_burden",
+                        carrier="STRONG",
+                        supported_line=2.5,
+                        board_state="C-FOCUS",
+                    ),
+                ],
+            }
+        )
+        lanes = {row["match_id"]: row["follow_lane"] for row in result["matches"]}
+        self.assertEqual(lanes["low_burden"], "FOLLOW")
+        self.assertEqual(lanes["mid_burden"], "FOLLOW")
+        self.assertEqual(lanes["high_burden"], "RESERVE")
+        self.assertEqual(result["max_follow_per_exact_kickoff"], 2)
+
+    def test_high_completion_carrier_path_cannot_be_c_pass(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "C-PASS CONTRADICTION",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            home_route="STRONG",
+                            away_route="WEAK",
+                            carrier="STRONG",
+                            completion_mode="CARRIER_LED",
+                            carrier_self_fund=True,
+                            independent_upper_tail=True,
+                            opponent_leakage="HIGH",
+                            board_state="C-PASS",
                         )
                     ],
                 }

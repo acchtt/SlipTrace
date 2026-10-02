@@ -6,15 +6,19 @@ Read upstream:
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
+- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 
 Football C is the only active official model. C2 is shadow-only.
 
 Use the user's confirmed XI and current executable Asian-total odds as the current evidence epoch.
 
+A preserved scoring route is not enough. Recheck the burden-completion layer after XI/research: where the clearing goal now comes from, whether the carrier can still self-fund, whether opponent leakage remains active, whether continuation after 1-0 / 1-1 / 2-0 is still credible, and whether stall risk has risen to HIGH. If stall risk becomes HIGH or completion/continuation materially degrades, a frozen FOLLOW lane does not force C-BET.
+
 ## 1. Retrieve both frozen board states
 
 For each supplied fixture retrieve:
 - frozen operational viability grade and Step-0 XI/market/team-news observability;
+- frozen completion mode, burden-completion quality, continuation quality, opponent leakage and burden-stall risk;
 - Football C official board state/rank/support line;
 - Football C2 shadow state/rank if present;
 - the frozen common board evidence.
@@ -43,7 +47,7 @@ Perform this **once** for the fixture:
 4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
 5. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
 6. perform/recheck relevant H2H/matchup context;
-7. update the structured common semantic evidence;
+7. update the structured common semantic evidence, including current completion mode/quality, continuation quality, opponent leakage and stall risk;
 8. classify thesis state = PRESERVED / DEGRADED / BROKEN;
 9. freeze current quote.
 
@@ -95,6 +99,8 @@ Issue exactly one:
 - `C-PASS`
 
 Only Football C may create official exposure.
+
+For every C-BET/C-WAIT/C-PASS Decision State persist `Current Completion Mode`, `Current Completion Quality`, `Current Continuation Quality`, `Current Opponent Leakage`, and `Current Stall Risk`.
 
 For C-BET:
 1. persist Decision State;
@@ -180,6 +186,8 @@ Then:
 - XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
 - H2H material state
+- Completion mode + current burden-completion quality
+- Current continuation quality + opponent leakage + stall risk
 - Tournament incentive requirement + recheck status **always**; when applicable, also show format, draw/aggregate state, home/away incentive, margin relevance, and incentive effect
 - C supported line
 - C2 supported line if different

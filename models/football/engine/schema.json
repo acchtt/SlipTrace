@@ -88,7 +88,13 @@
         "incentive_effect",
         "qualification_state",
         "simultaneous_results_status",
-        "simultaneous_results_note"
+        "simultaneous_results_note",
+        "kickoff_ict",
+        "completion_mode",
+        "burden_completion_quality",
+        "continuation_quality",
+        "opponent_leakage",
+        "burden_stall_risk"
       ],
       "properties": {
         "match_id": {
@@ -283,6 +289,52 @@
         },
         "demoted_probation": {
           "type": "boolean"
+        },
+        "kickoff_ict": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completion_mode": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "TWO_SIDED",
+            "CARRIER_LED",
+            "FORCED_CHAOS",
+            "MIXED"
+          ]
+        },
+        "burden_completion_quality": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "continuation_quality": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "opponent_leakage": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "burden_stall_risk": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
         }
       }
     },

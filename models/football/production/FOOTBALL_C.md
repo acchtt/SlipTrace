@@ -6,7 +6,7 @@
 
 ## 1. Production flow
 
-`AISCORE SENIOR UNIVERSE -> OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY -> C SCREEN -> C RESEARCH/ASSESS -> C RANK -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
+`AISCORE SENIOR UNIVERSE -> OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY -> C SCREEN -> C RESEARCH/ASSESS -> BURDEN-COMPLETION FREEZE -> C RANK -> SAME-KICKOFF COMPARISON -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
 
 Football C is deliberately integrated. Do not rebuild Football A's multi-gate architecture inside C.
 
@@ -39,9 +39,15 @@ Football C still owns **football-quality** rejection and records that as C-PASS.
 
 ## 3. Integrated screen
 
-A fixture survives serious consideration when there is at least one credible current scoring route to a useful Over environment and enough evidence to assess it.
+A fixture survives serious consideration when there is at least one credible current scoring route **and a credible path to completing the protected burden**.
 
-C-PASS when dominated by weak/uncertain routes, strong current suppression without a credible carrier, poor evidence quality, matchup/incentive compression, or unsupported burden.
+Read and apply `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`.
+
+Do not equate "both teams can score" with an Over thesis. Explicitly identify where the goal that clears the supported burden comes from.
+
+A WEAK second scoring route is not automatically suppressive when a STRONG carrier can self-fund and the opponent materially leaks.
+
+C-PASS when dominated by weak/uncertain routes, strong current suppression without a credible carrier, poor evidence quality, matchup/incentive compression, unsupported burden, or LOW burden-completion/continuation quality.
 
 Do not keep weak fixtures merely to fill a board. There is no predictive target board size; the upstream operational handoff is separately capped at 15 to control research workload.
 
@@ -61,6 +67,16 @@ Carrier is football evidence, not market-derived.
 
 ### Chance quality
 Prefer high-value chances, box/central access, quality SOT, xG/xGOT in context, dangerous transitions or credible data-poor equivalents. Possession/corners/raw shots do not substitute for chance quality.
+
+### Burden completion / continuation
+Freeze:
+- completion mode = NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED;
+- burden completion quality = LOW / MEDIUM / HIGH;
+- continuation quality = LOW / MEDIUM / HIGH;
+- opponent leakage = LOW / MEDIUM / HIGH;
+- burden stall risk = LOW / MEDIUM / HIGH.
+
+A plausible 1-1 is not HIGH completion for O2.5+. A carrier-led 3-0/4-0 path may be stronger than a balanced two-route match when the carrier can self-fund and the opponent leaks.
 
 ### Main failure
 State the primary failure mechanism: compression, resistance, route disappearance, class-gap control, incentive, venue-specific suppression, or creation/finishing weakness.
@@ -99,13 +115,22 @@ If tournament incentive is LIMITED/UNKNOWN, there is no actionable protected bur
 ## 6. Ranking
 
 Rank survivors by:
-1. reliable path to supported total;
-2. independent routes/self-funded carrier;
-3. current chance quality;
-4. failure resistance;
-5. XI robustness when known;
-6. burden protection;
-7. evidence confidence.
+1. burden-completion quality;
+2. continuation quality;
+3. lower stall risk;
+4. self-funded independent upper-tail path;
+5. carrier strength;
+6. opponent leakage;
+7. burden protection;
+8. lower supported burden when completion quality is otherwise comparable;
+9. route reliability;
+10. current chance quality;
+11. failure resistance;
+12. evidence confidence;
+13. XI robustness;
+14. independent-route quality.
+
+Two-sidedness is one completion mode, not a ranking advantage by itself.
 
 States:
 - `C-FOCUS`
@@ -113,6 +138,10 @@ States:
 - `C-PASS`
 
 Persist every admitted fixture, including C-PASS, so false negatives can be audited.
+
+Before finalizing C-PASS, apply the carrier-contradiction check from the burden-completion procedure. A HIGH-completion/HIGH-continuation STRONG self-funded carrier with upper-tail proof and opponent leakage cannot be passed solely because the second scoring route is weak.
+
+After ranking, compare fixtures sharing the exact kickoff minute. At most two may receive routine FOLLOW at that kickoff; otherwise-qualified overflow falls to RESERVE subject to capacity.
 
 ## 7. XI confirmation
 
@@ -122,9 +151,10 @@ When XI/current odds arrive:
 3. run one mandatory fresh fixture-specific public-web football research pass;
 4. verify/recheck tournament format and incentive state when applicable;
 5. re-check relevant H2H/matchup evidence;
-6. classify thesis PRESERVED / DEGRADED / BROKEN;
-7. interpret the executable market;
-8. issue C-BET / C-WAIT / C-PASS.
+6. recheck completion mode, burden-completion quality, continuation quality, opponent leakage and stall risk;
+7. classify thesis PRESERVED / DEGRADED / BROKEN;
+8. interpret the executable market;
+9. issue C-BET / C-WAIT / C-PASS.
 
 Market-history/odds lookup does not satisfy the football-research requirement.
 
