@@ -12,6 +12,11 @@ def match(match_id="m1", **overrides):
     row = {
         "match_id": match_id,
         "operational_viability_grade": "A",
+        "raw_operational_viability_grade": "A",
+        "competition_reliability_state": "UNPROVEN",
+        "competition_reliability_reason": "fewer than 3 countable observations",
+        "competition_reliability_manual_override": "NONE",
+        "demoted_probation": False,
         "xi_expected": "YES",
         "market_observability": "HIGH",
         "team_news_observability": "HIGH",
@@ -91,6 +96,7 @@ class BoardContractTests(unittest.TestCase):
                     "matches": [
                         match(
                             operational_viability_grade="C",
+                            raw_operational_viability_grade="C",
                             xi_expected="NO",
                             market_observability="LOW",
                             team_news_observability="LOW",
@@ -122,6 +128,7 @@ class BoardContractTests(unittest.TestCase):
                 "matches": [
                     match(
                         operational_viability_grade="B",
+                        raw_operational_viability_grade="B",
                         xi_expected="UNCERTAIN",
                         market_observability="MEDIUM",
                         carrier="STRONG",
@@ -133,6 +140,92 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(result["matches"][0]["follow_lane"], "RESERVE")
         self.assertEqual(result["follow_count"], 0)
         self.assertEqual(result["reserve_count"], 1)
+
+    def test_caution_caps_raw_a_to_b(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        operational_viability_grade="B",
+                        raw_operational_viability_grade="A",
+                        competition_reliability_state="CAUTION",
+                        competition_reliability_reason="XI usable rate below 75%",
+                        carrier="STRONG",
+                        board_state="C-FOCUS",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["operational_viability_grade"], "B")
+        self.assertEqual(result["matches"][0]["follow_lane"], "RESERVE")
+
+    def test_caution_a_bypass_is_blocked(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "COMPETITION RELIABILITY CAP BYPASS",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            operational_viability_grade="A",
+                            raw_operational_viability_grade="A",
+                            competition_reliability_state="CAUTION",
+                            competition_reliability_reason="market usable rate below 75%",
+                        )
+                    ],
+                }
+            )
+
+    def test_demoted_probation_raw_a_may_enter_as_b(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        operational_viability_grade="B",
+                        raw_operational_viability_grade="A",
+                        competition_reliability_state="DEMOTED",
+                        competition_reliability_reason="three consecutive critical failures",
+                        demoted_probation=True,
+                        carrier="STRONG",
+                        board_state="C-FOCUS",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["follow_lane"], "RESERVE")
+        self.assertTrue(result["matches"][0]["demoted_probation"])
+
+    def test_demoted_probation_cannot_rescue_raw_b(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "COMPETITION RELIABILITY CAP BYPASS",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            operational_viability_grade="B",
+                            raw_operational_viability_grade="B",
+                            competition_reliability_state="DEMOTED",
+                            competition_reliability_reason="three consecutive critical failures",
+                            demoted_probation=True,
+                        )
+                    ],
+                }
+            )
 
     def test_missing_tournament_gate_fails(self):
         row = match()

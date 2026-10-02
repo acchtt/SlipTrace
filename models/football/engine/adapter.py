@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from competition_reliability import apply_reliability_cap, effective_state
+
 from core import (
     BoardState,
     CarrierStrength,
@@ -96,8 +98,36 @@ def _is_unresolved_text(value: str) -> bool:
     return any(marker in normalized for marker in markers)
 
 
-def validate_operational_viability(obj: dict[str, Any]) -> dict[str, str]:
+def validate_operational_viability(obj: dict[str, Any]) -> dict[str, Any]:
     grade = _choice(obj, "operational_viability_grade", {"A", "B", "C", "D"})
+    raw_grade = _choice(
+        obj, "raw_operational_viability_grade", {"A", "B", "C", "D"}
+    )
+    reliability_state = _choice(
+        obj,
+        "competition_reliability_state",
+        {"UNPROVEN", "TRUSTED", "NEUTRAL", "CAUTION", "DEMOTED"},
+    )
+    reliability_reason = _string(obj, "competition_reliability_reason")
+    manual_override = _choice(
+        obj,
+        "competition_reliability_manual_override",
+        {"NONE", "TRUSTED", "NEUTRAL", "CAUTION", "DEMOTED"},
+    )
+    demoted_probation = _bool(obj, "demoted_probation")
+
+    state = effective_state(reliability_state, manual_override)
+    expected_grade = apply_reliability_cap(
+        raw_grade,
+        state,
+        demoted_probation=demoted_probation,
+    )
+    if grade != expected_grade:
+        raise ContractError(
+            "ASSESSMENT BLOCKED — COMPETITION RELIABILITY CAP BYPASS: "
+            f"raw={raw_grade} state={state} expected={expected_grade} final={grade}"
+        )
+
     xi_expected = _choice(obj, "xi_expected", {"YES", "UNCERTAIN", "NO"})
     market = _choice(obj, "market_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
     news = _choice(obj, "team_news_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
@@ -125,6 +155,12 @@ def validate_operational_viability(obj: dict[str, Any]) -> dict[str, str]:
 
     return {
         "grade": grade,
+        "raw_grade": raw_grade,
+        "competition_reliability_state": reliability_state,
+        "competition_reliability_effective_state": state,
+        "competition_reliability_reason": reliability_reason,
+        "competition_reliability_manual_override": manual_override,
+        "demoted_probation": demoted_probation,
         "xi_expected": xi_expected,
         "market_observability": market,
         "team_news_observability": news,
@@ -396,6 +432,12 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "ranking_key": list(ranking_key(item)),
             "supported_line": item.supported_line,
             "operational_viability_grade": operational_gate["grade"],
+            "raw_operational_viability_grade": operational_gate["raw_grade"],
+            "competition_reliability_state": operational_gate["competition_reliability_state"],
+            "competition_reliability_effective_state": operational_gate["competition_reliability_effective_state"],
+            "competition_reliability_reason": operational_gate["competition_reliability_reason"],
+            "competition_reliability_manual_override": operational_gate["competition_reliability_manual_override"],
+            "demoted_probation": operational_gate["demoted_probation"],
             "xi_expected": operational_gate["xi_expected"],
             "market_observability": operational_gate["market_observability"],
             "team_news_observability": operational_gate["team_news_observability"],

@@ -55,6 +55,11 @@
       "additionalProperties": true,
       "required": [
         "match_id",
+        "demoted_probation",
+        "competition_reliability_manual_override",
+        "competition_reliability_reason",
+        "competition_reliability_state",
+        "raw_operational_viability_grade",
         "operational_viability_reason",
         "team_news_observability",
         "market_observability",
@@ -242,6 +247,42 @@
         "operational_viability_reason": {
           "type": "string",
           "minLength": 1
+        },
+        "raw_operational_viability_grade": {
+          "type": "string",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        "competition_reliability_state": {
+          "type": "string",
+          "enum": [
+            "UNPROVEN",
+            "TRUSTED",
+            "NEUTRAL",
+            "CAUTION",
+            "DEMOTED"
+          ]
+        },
+        "competition_reliability_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "competition_reliability_manual_override": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "TRUSTED",
+            "NEUTRAL",
+            "CAUTION",
+            "DEMOTED"
+          ]
+        },
+        "demoted_probation": {
+          "type": "boolean"
         }
       }
     },
