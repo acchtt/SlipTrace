@@ -19,7 +19,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> BURDEN-COMPLETION FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -31,6 +31,10 @@ Common evidence includes:
 - fixture identity/status;
 - home/away route strength;
 - carrier strength/self-fund state;
+- burden completion mode/quality;
+- continuation quality;
+- opponent leakage;
+- burden stall risk;
 - chance quality;
 - failure mode / suppression state;
 - relevant H2H transferability;
@@ -80,7 +84,7 @@ Then:
 
 Football C's board is the only board that can feed official Step-2 exposure.
 
-After the board is frozen, a separate operational follow-through guard assigns `FOLLOW / RESERVE / STOP`. This does not change the C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
+After the board is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
 
 ## Step 2 — dual-track XI + odds
 
@@ -138,6 +142,10 @@ Separate:
 - A user-declared exception never waives tournament-incentive resolution; it only permits reassessment/reopening.
 - Applicable live fixtures recompute the incentive epoch after every goal/red card/material simultaneous-table change before execution; unresolved epochs block action.
 - Supported burden chosen before price.
+- Burden-completion/continuation fields are frozen before outcome and before price selection.
+- Two-sidedness is not a FOLLOW prerequisite; a verified carrier-led path may qualify with a weak second scoring route.
+- HIGH burden stall risk blocks routine FOLLOW.
+- A HIGH-completion carrier-led row cannot become C-PASS solely because the second route is weak.
 - Market evidence informs but does not independently manufacture football quality.
 - >=1.65 normal price zone.
 - 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material veto.
@@ -188,12 +196,15 @@ The model board remains complete and uncapped for audit, but routine operational
 Quality gate before capacity:
 - operational grade A for routine FOLLOW; grade B is capped at RESERVE;
 - C-FOCUS only;
-- two usable routes with at least one STRONG;
+- credible TWO_SIDED, CARRIER_LED, FORCED_CHAOS or MIXED completion path;
 - STRONG carrier;
-- HIGH route reliability / independent route quality / chance quality / evidence confidence;
+- HIGH route reliability and evidence confidence;
+- chance quality at least MEDIUM;
+- HIGH burden completion + HIGH continuation + LOW stall risk for FOLLOW;
 - supported burden <= O3.0;
 - FOLLOW requires HIGH failure resistance;
-- RESERVE permits MEDIUM failure resistance only with HIGH burden protection.
+- RESERVE may absorb MEDIUM completion/continuation, MEDIUM stall risk or MEDIUM failure resistance when burden protection remains HIGH;
+- exact-same-kickoff FOLLOW cap = 2 before global capacity overflow.
 
 This is a followability rule, not a predictive board-size cap.
 
