@@ -12,6 +12,8 @@ REQUIRED = {
         "Normal DEMOTED treatment is **C / operational exclusion**",
         "one B-grade probation fixture per sweep",
         "must **never** use:",
+        "Activation / no-backfill boundary",
+        "starts `UNPROVEN`",
     ],
     "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md": [
         "tbl1KShXxXErUdVKW",
@@ -146,6 +148,14 @@ REQUIRED = {
         "C-vs-C2",
         "Restart boundary",
     ],
+    "models/football/engine/competition_reliability.py": [
+        "def evaluate_competition_reliability",
+        "def apply_reliability_cap",
+        "def effective_state",
+        "COUNTABLE_TYPES",
+        "DEMOTED",
+        "CAUTION",
+    ],
     "models/football/engine/schema.json": [
         "football-engine-v1",
         "\"stage\"",
@@ -158,6 +168,11 @@ REQUIRED = {
         "\"xi_expected\"",
         "\"market_observability\"",
         "\"team_news_observability\"",
+        "\"raw_operational_viability_grade\"",
+        "\"competition_reliability_state\"",
+        "\"competition_reliability_reason\"",
+        "\"competition_reliability_manual_override\"",
+        "\"demoted_probation\"",
         "\"qualification_state\"",
         "\"simultaneous_results_status\"",
     ],
@@ -178,6 +193,9 @@ REQUIRED = {
         "validate_operational_viability",
         "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY",
         "operational_gate[\"grade\"] == \"B\"",
+        "apply_reliability_cap",
+        "effective_state",
+        "COMPETITION RELIABILITY CAP BYPASS",
     ],
 }
 
