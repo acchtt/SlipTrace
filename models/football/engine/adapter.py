@@ -388,6 +388,7 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
 
     validate_operational_viability(obj)
     validate_tournament_incentive(obj)
+    _kickoff_block(obj)
 
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
