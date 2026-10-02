@@ -36,6 +36,9 @@ If true, complete the mandatory tournament-format/incentive procedure **before**
 - `competition_format`;
 - `draw_resolution`;
 - `aggregate_state`;
+- `qualification_state` — exact current advancement/elimination requirement;
+- `simultaneous_results_status = VERIFIED / NOT_APPLICABLE / LIMITED / UNKNOWN`;
+- `simultaneous_results_note`;
 - `home_incentive`;
 - `away_incentive`;
 - `tiebreak_margin_relevance = YES / NO / UNKNOWN`;
@@ -45,7 +48,15 @@ If an applicable fixture is missing any field:
 
 `ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING`
 
-Do not issue C/C2 board state or supported burden for that fixture. Unknown facts must be recorded as UNKNOWN, never silently omitted.
+If fields are present but any material incentive element remains LIMITED / UNKNOWN / unresolved:
+
+`ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
+A tournament fixture is resolved for Step 1 only if format status is VERIFIED, qualification state is explicit, home/away incentives are resolved, tiebreak/margin relevance is YES/NO, simultaneous-result impact is VERIFIED or genuinely NOT_APPLICABLE, and incentive effect is resolved.
+
+Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
+
+A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
 Freeze one common semantic evidence state before either model ranks the slate:
 
@@ -74,7 +85,7 @@ Freeze one common semantic evidence state before either model ranks the slate:
 
 At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
 
-For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the format is UNKNOWN, reduce evidence confidence and do not use an aggressive burden assumption.
+For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the incentive state is LIMITED/UNKNOWN, do not freeze an official supported burden at all; keep the fixture INCENTIVE-INCOMPLETE until resolved.
 
 **Do not run separate C and C2 research passes.**  
 The experiment compares model policy, not two independently drifting research interpretations.
