@@ -69,6 +69,8 @@ Explicitly separate route quality from incentive/persistence. Verify draw resolu
 
 A strong XI does not by itself justify a higher total when parity, aggregate protection, direct penalties, or another control state is strategically acceptable.
 
+For an applicable tournament fixture, `LIMITED` or `UNKNOWN` incentive resolution is a **hard incompleteness state**, not a downgrade. Do not assign C-PASS/WATCH/FOCUS, C2 state, or an official supported burden until the exact qualification/tiebreak/margin/simultaneous-result implications are resolved.
+
 ### H2H
 H2H is mandatory context when usable.
 
@@ -86,7 +88,9 @@ Question:
 
 Never raise burden for better price.
 
-For tournament/cup contexts, a post-XI burden increase is allowed only when the XI/mechanism evidence supports it **and** the verified tournament incentive does not materially suppress persistence. If format/incentive is UNKNOWN, keep the protected burden or reduce confidence; do not make an aggressive burden upgrade.
+For tournament/cup contexts, a post-XI burden increase is allowed only when the XI/mechanism evidence supports it **and** the verified tournament incentive does not materially suppress persistence.
+
+If tournament incentive is LIMITED/UNKNOWN, there is no actionable protected burden. Block the fixture as `INCENTIVE-INCOMPLETE` until the state is resolved; do not carry a provisional burden into Step 2.
 
 ## 6. Ranking
 
