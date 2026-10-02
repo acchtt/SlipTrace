@@ -84,7 +84,14 @@ Use the existing schema to record material state, including where applicable:
 - market scan status where applicable;
 - validator result;
 - fail reasons;
-- evidence summary.
+- evidence summary;
+- `Current Completion Mode`;
+- `Current Completion Quality`;
+- `Current Continuation Quality`;
+- `Current Opponent Leakage`;
+- `Current Stall Risk`.
+
+For Football C decisions after the burden-completion selector activation, these five fields preserve the Step-2 XI/research recheck. They are current-epoch fields and must not overwrite the frozen Step-1 completion fields in Daily Coverage.
 
 Use provider/evidence-version fields when the decision depends on an external normalized evidence snapshot.
 
