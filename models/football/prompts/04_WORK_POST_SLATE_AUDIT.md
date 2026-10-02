@@ -107,8 +107,8 @@ Do not use the 2026-09-30 motivating cases as confirmatory observations. They ar
 
 For every fixture where `tournament_incentive_required=true`, verify:
 
-1. Step 1 contained the complete frozen format/incentive block before C/C2 classification;
-2. Step 2 explicitly recorded `tournament_incentive_rechecked=true` before any action;
+1. Step 1 contained a **VERIFIED, resolved** format/incentive block before C/C2 classification — merely present LIMITED/UNKNOWN fields fail this check;
+2. Step 2 explicitly recorded `tournament_incentive_rechecked=true` **and** `tournament_incentive_recheck_status=VERIFIED` before any action;
 3. every material live epoch recomputed incentive before execution;
 4. no supported-burden upgrade was justified solely by XI strength while incentive was suppressive/unknown.
 
@@ -117,4 +117,5 @@ Any missing stage is a **process failure even if the eventual result was profita
 Classify as:
 - `TOURNAMENT INCENTIVE MISS`;
 - `FORMAT DATA MISSING`;
-- `STALE INCENTIVE EPOCH`.
+- `STALE INCENTIVE EPOCH`;
+- `INCENTIVE RESOLUTION BYPASS` — C/C2 state, rank, follow lane, supported burden, or action created while the applicable block was LIMITED/UNKNOWN.
