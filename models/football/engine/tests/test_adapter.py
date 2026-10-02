@@ -11,6 +11,11 @@ from adapter import ContractError, run_board, run_decision  # noqa: E402
 def match(match_id="m1", **overrides):
     row = {
         "match_id": match_id,
+        "operational_viability_grade": "A",
+        "xi_expected": "YES",
+        "market_observability": "HIGH",
+        "team_news_observability": "HIGH",
+        "operational_viability_reason": "reliable XI/news and executable totals expected",
         "home_route": "STRONG",
         "away_route": "USABLE",
         "carrier": "USABLE",
@@ -59,6 +64,75 @@ class BoardContractTests(unittest.TestCase):
             result["matches"][0]["selection_floor"],
             "CLEAR",
         )
+
+    def test_missing_operational_gate_fails(self):
+        row = match()
+        row.pop("operational_viability_grade")
+        with self.assertRaises(ContractError):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [row],
+                }
+            )
+
+    def test_low_observability_fixture_is_blocked(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            operational_viability_grade="C",
+                            xi_expected="NO",
+                            market_observability="LOW",
+                            team_news_observability="LOW",
+                        )
+                    ],
+                }
+            )
+
+    def test_grade_a_requires_expected_xi(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "operational grade A requires xi_expected=YES",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [match(xi_expected="UNCERTAIN")],
+                }
+            )
+
+    def test_grade_b_is_capped_at_reserve(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        operational_viability_grade="B",
+                        xi_expected="UNCERTAIN",
+                        market_observability="MEDIUM",
+                        carrier="STRONG",
+                        board_state="C-FOCUS",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["follow_lane"], "RESERVE")
+        self.assertEqual(result["follow_count"], 0)
+        self.assertEqual(result["reserve_count"], 1)
 
     def test_missing_tournament_gate_fails(self):
         row = match()

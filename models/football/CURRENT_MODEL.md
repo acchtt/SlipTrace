@@ -19,7 +19,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`RESEARCHABLE SENIOR AISCORE HANDOFF -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -51,11 +51,18 @@ Use:
 
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
-Step 0 discovers the senior slate, applies hard scope exclusions, then applies a cheap **researchability gate** to ordinary domestic/small competition blocks.
+Step 0 discovers the senior slate, applies hard scope exclusions, then applies the mandatory **operational viability gate** from `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md` before the cheap researchability gate.
 
-Protected senior international qualifiers/tournaments and major continental club competitions bypass this data-availability exclusion when identity/time are valid.
+Every surviving fixture receives A/B/C/D viability plus explicit XI expectation, market observability and team-news observability.
 
-For ordinary domestic/small blocks, admit only when current evidence is sufficient for both teams to support Football C's research schema: recent form, competition context, and at least one usable mechanism/stat/news layer.
+- A = executable and eligible for normal follow-through.
+- B = conditional and may be admitted, but is capped at RESERVE at board time.
+- C/D = excluded before Work unless explicitly reopened by the user.
+- Normal Work admission is capped at 15 A/B fixtures; overflow is preserved as `OPERATIONAL CAPACITY DEFERRED — STEP0`.
+
+Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but not the operational viability declaration.
+
+For ordinary domestic/small blocks, admit only when operational viability is A/B **and** current evidence is sufficient for both teams to support Football C's research schema: recent form, competition context, and at least one usable mechanism/stat/news layer.
 
 ## Step 1 — dual-track board
 
@@ -103,7 +110,7 @@ Use:
 
 Audit:
 
-`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
 
 Separate:
 - coverage failures;
@@ -114,8 +121,10 @@ Separate:
 
 ## Football C production invariants
 
-- Football-quality screening belongs to the model, not Step 0. Step 0 may exclude only for hard scope/identity/time or insufficient researchability.
-- No fixed board-size target.
+- Football-quality screening belongs to the model, not Step 0. Step 0 may exclude for hard scope/identity/time, low operational observability, or insufficient researchability.
+- Every admitted fixture must carry operational viability A/B plus XI/market/team-news observability.
+- Normal Work admission is capped at 15 A/B fixtures; overflow is `OPERATIONAL CAPACITY DEFERRED — STEP0`, not C-PASS.
+- There is no fixed **predictive** board-size target after admission.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.
 - Every fixture explicitly declares `tournament_incentive_required=true/false`.
@@ -173,6 +182,7 @@ The model board remains complete and uncapped for audit, but routine operational
 - every other frozen candidate is STOP for routine follow-through.
 
 Quality gate before capacity:
+- operational grade A for routine FOLLOW; grade B is capped at RESERVE;
 - C-FOCUS only;
 - two usable routes with at least one STRONG;
 - STRONG carrier;

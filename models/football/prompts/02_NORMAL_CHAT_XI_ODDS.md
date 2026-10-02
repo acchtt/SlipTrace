@@ -5,6 +5,7 @@ Read upstream:
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
+- `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 
 Football C is the only active official model. C2 is shadow-only.
 
@@ -13,6 +14,7 @@ Use the user's confirmed XI and current executable Asian-total odds as the curre
 ## 1. Retrieve both frozen board states
 
 For each supplied fixture retrieve:
+- frozen operational viability grade and Step-0 XI/market/team-news observability;
 - Football C official board state/rank/support line;
 - Football C2 shadow state/rank if present;
 - the frozen common board evidence.
@@ -24,7 +26,7 @@ If C2 shadow state is missing, continue Football C officially and mark C2 compar
 Before spending Step-2 research time, retrieve the frozen official operational lane.
 
 - `FOLLOW` — normal Step-2 processing.
-- `RESERVE` — process only when activated because FOLLOW candidates collapsed or the user explicitly requests it.
+- `RESERVE` — process only when activated because FOLLOW candidates collapsed or the user explicitly requests it. This includes B-grade operational candidates, which were intentionally prevented from routine FOLLOW.
 - `STOP` — do not run routine Step-2; require an explicit exception request.
 
 A WATCH/STOP fixture becoming attractive merely because of price does not automatically reopen it.
@@ -36,13 +38,14 @@ This lane is operational only; it does not rewrite the official C board state.
 Perform this **once** for the fixture:
 
 1. verify fixture/status;
-2. inspect confirmed XI and map changes to route functions;
-3. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
-4. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
-5. perform/recheck relevant H2H/matchup context;
-6. update the structured common semantic evidence;
-7. classify thesis state = PRESERVED / DEGRADED / BROKEN;
-8. freeze current quote.
+2. require an actual confirmed/reliable XI for a routine final prematch decision; Step-0 `xi_expected` is not a substitute;
+3. inspect confirmed XI and map changes to route functions;
+4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
+5. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
+6. perform/recheck relevant H2H/matchup context;
+7. update the structured common semantic evidence;
+8. classify thesis state = PRESERVED / DEGRADED / BROKEN;
+9. freeze current quote.
 
 Persist one of:
 - `POST-XI RESEARCH = FOUND`

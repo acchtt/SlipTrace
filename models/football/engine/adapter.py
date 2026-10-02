@@ -96,6 +96,42 @@ def _is_unresolved_text(value: str) -> bool:
     return any(marker in normalized for marker in markers)
 
 
+def validate_operational_viability(obj: dict[str, Any]) -> dict[str, str]:
+    grade = _choice(obj, "operational_viability_grade", {"A", "B", "C", "D"})
+    xi_expected = _choice(obj, "xi_expected", {"YES", "UNCERTAIN", "NO"})
+    market = _choice(obj, "market_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
+    news = _choice(obj, "team_news_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
+    reason = _string(obj, "operational_viability_reason")
+
+    if grade in {"C", "D"}:
+        raise ContractError(
+            "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY: "
+            f"grade={grade}"
+        )
+    if grade == "A":
+        if xi_expected != "YES":
+            raise ContractError("operational grade A requires xi_expected=YES")
+        if market != "HIGH":
+            raise ContractError("operational grade A requires market_observability=HIGH")
+        if news not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade A requires team_news_observability HIGH/MEDIUM")
+    if grade == "B":
+        if xi_expected == "NO":
+            raise ContractError("operational grade B cannot use xi_expected=NO")
+        if market not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade B requires market_observability HIGH/MEDIUM")
+        if news not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade B requires team_news_observability HIGH/MEDIUM")
+
+    return {
+        "grade": grade,
+        "xi_expected": xi_expected,
+        "market_observability": market,
+        "team_news_observability": news,
+        "reason": reason,
+    }
+
+
 def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     """Fail closed when the tournament-incentive assessment is skipped.
 
@@ -270,6 +306,7 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
     if not isinstance(obj, dict):
         raise ContractError("match must be an object")
 
+    validate_operational_viability(obj)
     validate_tournament_incentive(obj)
 
     return MatchAssessment(
@@ -351,12 +388,17 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
     for rank, item in enumerate(ranked, start=1):
         raw = next(x for x in raw_matches if str(x["match_id"]) == item.match_id)
+        operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(ranking_key(item)),
             "supported_line": item.supported_line,
+            "operational_viability_grade": operational_gate["grade"],
+            "xi_expected": operational_gate["xi_expected"],
+            "market_observability": operational_gate["market_observability"],
+            "team_news_observability": operational_gate["team_news_observability"],
             "tournament_incentive_required": incentive_gate["required"],
             "tournament_format_status": incentive_gate["format_status"],
             "incentive_effect": incentive_gate["incentive_effect"],
@@ -373,7 +415,14 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             base_lane = follow_through_lane(item, state)
             lane = FollowLane.STOP
 
-            if base_lane == FollowLane.FOLLOW:
+            if operational_gate["grade"] == "B":
+                if (
+                    base_lane in {FollowLane.FOLLOW, FollowLane.RESERVE}
+                    and reserve_used < MAX_RESERVE
+                ):
+                    lane = FollowLane.RESERVE
+                    reserve_used += 1
+            elif base_lane == FollowLane.FOLLOW:
                 if follow_used < MAX_FOLLOW:
                     lane = FollowLane.FOLLOW
                     follow_used += 1

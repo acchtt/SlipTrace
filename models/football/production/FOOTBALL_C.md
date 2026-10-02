@@ -6,7 +6,7 @@
 
 ## 1. Production flow
 
-`AISCORE RESEARCHABLE SENIOR UNIVERSE -> C SCREEN -> C RESEARCH/ASSESS -> C RANK -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
+`AISCORE SENIOR UNIVERSE -> OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY -> C SCREEN -> C RESEARCH/ASSESS -> C RANK -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
 
 Football C is deliberately integrated. Do not rebuild Football A's multi-gate architecture inside C.
 
@@ -15,9 +15,13 @@ Football C is deliberately integrated. Do not rebuild Football A's multi-gate ar
 Step 0 must first discover the senior slate broadly, then apply:
 
 1. hard scope/identity/time exclusions;
-2. a cheap **researchability gate** for ordinary domestic/small competition blocks.
+2. the mandatory **operational viability gate** in `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`;
+3. a cheap **researchability gate**;
+4. the 15-fixture normal Work admission cap.
 
-Protected senior international qualifiers/tournaments and major continental club competitions are admitted when identity/time are valid and do not fail the hard scope rules.
+Only operational grade A/B fixtures enter the normal Football C board. A can receive normal FOLLOW/RESERVE treatment. B is conditional and is capped at RESERVE at board time. C/D are excluded before Work unless explicitly reopened by the user.
+
+Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but they do not bypass the operational viability declaration.
 
 Ordinary domestic/small competition fixtures are admitted only when current evidence is sufficient to support the Football C research schema:
 
@@ -25,7 +29,7 @@ Ordinary domestic/small competition fixtures are admitted only when current evid
 - meaningful current competition context;
 - at least one usable mechanism/stat/news layer beyond bare final scores.
 
-A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. If it is sufficiently researchable, Football C should see it.
+A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. It should reach Football C only when it is both sufficiently researchable **and operationally viable**.
 
 Conversely, a small/obscure competition with inadequate current evidence should be excluded as:
 
@@ -39,7 +43,7 @@ A fixture survives serious consideration when there is at least one credible cur
 
 C-PASS when dominated by weak/uncertain routes, strong current suppression without a credible carrier, poor evidence quality, matchup/incentive compression, or unsupported burden.
 
-Do not keep weak fixtures merely to fill a board. No target board size.
+Do not keep weak fixtures merely to fill a board. There is no predictive target board size; the upstream operational handoff is separately capped at 15 to control research workload.
 
 ## 4. Football assessment
 
@@ -188,8 +192,8 @@ Never overwrite historical Football A records.
 ## 14. Audit
 
 Audit:
-`RAW SENIOR -> HARD EXCLUDED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
 
-A missing reasonable senior fixture is a coverage failure. A high-scoring C-PASS is a model-screen false negative. Keep those categories separate.
+A skipped visible senior fixture with no disposition is a coverage failure. A documented operational exclusion or capacity deferral is not automatically a model-screen error. A high-scoring admitted C-PASS remains a model-screen false negative. Keep those categories separate.
 
 Never retro-change states from FT.
