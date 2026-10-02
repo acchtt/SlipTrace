@@ -4,7 +4,8 @@ Read `models/football/CURRENT_MODEL.md` first.
 
 Also read:
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
-- `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`.
+- `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
+- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`.
 
 Use the model/version that actually produced each historical decision.
 
@@ -30,6 +31,10 @@ Track separately:
 - researchability exclusions that should have been admitted;
 - Work time wasted on low-observability competitions that should have failed the Step-0 operational/researchability gates;
 - high-scoring C-PASS false negatives;
+- C-PASS carrier contradictions where a weak second route hid a high-completion carrier path;
+- two-sided stall failures, especially 0-0 / 1-1 / 2-0 outcomes;
+- carrier-led clears and carrier-led failures;
+- exact-same-kickoff priority inversions;
 - FOLLOW/RESERVE/STOP allocation;
 - FOLLOW candidates that failed at XI/price;
 - RESERVE candidates activated or left unused;
@@ -93,6 +98,9 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 - C official board preserved;
 - follow-through lane preserved separately from C state;
 - max 6 FOLLOW / max 4 RESERVE respected;
+- max 2 routine FOLLOW per exact scheduled kickoff minute respected;
+- burden-completion/continuation/stall fields were frozen prospectively before outcome;
+- no retrospective assignment of the new completion fields;
 - routine Step 2 did not process STOP matches without explicit exception;
 - C2 shadow board preserved separately;
 - no C2 overwrite of C fields;
