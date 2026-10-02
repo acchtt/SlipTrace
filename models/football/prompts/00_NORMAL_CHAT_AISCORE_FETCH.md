@@ -8,7 +8,7 @@ Football C is the active official model.
 
 ## Purpose
 
-Build a trustworthy **RESEARCHABLE SENIOR** AiScore universe for the requested window.
+Build a trustworthy **OPERATIONALLY VIABLE, RESEARCHABLE SENIOR** AiScore universe for the requested window.
 
 The objective is the middle ground between the old narrow allowlist and the later over-broad senior sweep:
 
@@ -17,9 +17,14 @@ The objective is the middle ground between the old narrow allowlist and the late
 
 Operational principle:
 
-`AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> RESEARCHABILITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
+`AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY GATE -> CAPACITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
 
-This gate is about **information quality**, not whether a competition is historically high-scoring.
+This intake is about **information quality and later executability**, not whether a competition is historically high-scoring.
+
+Read and apply:
+`models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
+
+The operational gate is mandatory for every surviving senior fixture before deep Work research.
 
 ## Default mode
 
@@ -68,9 +73,28 @@ Exclude before the researchability gate:
 - unresolved authoritative kickoff;
 - duplicates.
 
-## 2. Protected senior competition classes
+## 2. Operational viability gate — mandatory
 
-The following classes bypass the ordinary domestic researchability exclusion and are sent to Football C when identity/time are valid:
+For every fixture surviving hard scope/identity/time checks, persist:
+
+- `operational_viability_grade = A / B / C / D`;
+- `xi_expected = YES / UNCERTAIN / NO`;
+- `market_observability = HIGH / MEDIUM / LOW / NONE`;
+- `team_news_observability = HIGH / MEDIUM / LOW / NONE`;
+- `operational_viability_reason`.
+
+Apply the procedure exactly:
+
+- A = normal executable candidate.
+- B = conditional candidate; may be admitted after A but cannot be routine FOLLOW at board time.
+- C = `LOW OPERATIONAL OBSERVABILITY — STEP0 EXCLUDED`.
+- D = `NON-OPERATIONAL FIXTURE — STEP0 EXCLUDED`.
+
+Do not upgrade a fixture because its score history looks attractive. Small-league status alone is not a rejection; missing XI/market/team-news observability is.
+
+## 3. Protected senior competition classes
+
+The following classes bypass the ordinary domestic researchability exclusion when identity/time are valid, but they still require an explicit operational viability grade:
 
 - FIFA senior World Cup qualifiers/finals;
 - senior continental national-team qualifiers/finals (AFCON, EURO, Asian Cup, Copa America/CONMEBOL, Gold Cup/CONCACAF, OFC equivalents);
@@ -82,7 +106,7 @@ These are protected because the previous narrow sweep missed meaningful national
 
 They still receive normal Football C PASS/WATCH/FOCUS screening later.
 
-## 3. Researchability gate — ordinary domestic / small competition blocks
+## 4. Researchability gate — ordinary domestic / small competition blocks
 
 For all other senior domestic league/cup fixtures, run a **cheap researchability check** before admitting them to Work.
 
@@ -124,7 +148,7 @@ Otherwise exclude as:
 
 Do not spend deep Work research trying to rescue a competition that fails this cheap preflight.
 
-## 4. What researchability is NOT
+## 5. What researchability is NOT
 
 Do not exclude a fixture merely because:
 
@@ -140,7 +164,7 @@ If adequate current evidence exists, admit it and let Football C decide football
 
 Likewise, do not admit an obscure league merely because it is senior/professional if usable evidence is absent.
 
-## 5. Efficiency rule
+## 6. Efficiency rule
 
 The researchability check must stay cheap.
 
@@ -170,32 +194,51 @@ When triggered:
 
 A uniform competition-block timestamp is never sufficient proof by itself.
 
-## 6. Completeness
+## 7. Operational capacity gate
+
+After A/B viability and researchability are known, cap the normal Work handoff at **15 fixtures**.
+
+Order by operational quality only:
+1. A before B;
+2. stronger XI/market/team-news observability first;
+3. protected major competition class only as an otherwise-equal tie-break.
+
+Never use Over profile, expected goals, C/C2 state, or attractive odds to choose the 15.
+
+Overflow remains recorded as:
+
+`OPERATIONAL CAPACITY DEFERRED — STEP0`
+
+It may be reopened only by explicit user exception.
+
+## 8. Completeness
 
 Production completeness means:
 
-> every potentially relevant senior block in the requested window was discovered, then either hard-excluded, researchability-excluded, or admitted.
+> every potentially relevant senior block in the requested window was discovered, then hard-excluded, operationally excluded, researchability-excluded, capacity-deferred, or admitted.
 
 A skipped visible senior block with no recorded disposition makes the handoff incomplete.
 
 For cross-midnight/early-morning windows, perform the normal terminal-interval recheck.
 
-## 7. Persistence / counts
+## 9. Persistence / counts
 
 For every discovered in-window senior fixture preserve one disposition:
 
 - `ADMITTED_TO_C`
 - `HARD_EXCLUDED`
+- `OPERATIONAL_EXCLUDED`
 - `RESEARCHABILITY_EXCLUDED`
+- `OPERATIONAL_CAPACITY_DEFERRED`
 - `UNRESOLVED`
 
 Record researchability reason compactly.
 
 Required funnel counts:
 
-`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED TO C`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C`
 
-## 8. Work-readiness gate
+## 10. Work-readiness gate
 
 Package only when:
 
@@ -203,7 +246,9 @@ Package only when:
 - `actionable_complete=true`
 - `work_ready=true`
 - every visible senior block has a disposition;
-- protected senior blocks were not removed by the researchability gate;
+- every admitted fixture is operational grade A or B;
+- admitted fixture count is <= 15;
+- protected senior blocks were not removed by the researchability gate without an explicit operational disposition;
 - every admitted fixture has resolved identity/time;
 - terminal scan is complete where required;
 - admitted count equals handoff array count.
@@ -212,7 +257,7 @@ If not:
 
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
-## 9. Canonical ZIP handoff
+## 11. Canonical ZIP handoff
 
 Create one root-level canonical `AISCORE_FIXTURES_*.txt` inside the ZIP.
 
@@ -228,14 +273,17 @@ Required metadata:
 - `work_ready=true`;
 - `raw_senior_count`;
 - `hard_excluded_count`;
+- `operational_excluded_count`;
 - `researchability_excluded_count`;
+- `capacity_deferred_count`;
 - `admitted_to_c_count`;
 - protected-block audit result;
-- admitted fixtures with identity/time provenance.
+- admitted fixtures with identity/time provenance;
+- per admitted fixture: operational grade, XI expectation, market observability, team-news observability and reason.
 
-Do not include researchability-excluded fixtures in the Work array.
+Do not include hard-excluded, operationally excluded, researchability-excluded, or capacity-deferred fixtures in the Work array.
 
-## 10. Step-0 boundary
+## 12. Step-0 boundary
 
 Step 0 may determine whether enough evidence exists.
 
@@ -262,7 +310,9 @@ with:
 - requested window;
 - raw senior count;
 - hard excluded;
+- operationally excluded;
 - researchability excluded;
+- capacity deferred;
 - admitted to Football C;
 - unresolved = 0;
 - ZIP filename.
