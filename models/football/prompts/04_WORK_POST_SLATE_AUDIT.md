@@ -15,12 +15,16 @@ Use the model/version that actually produced each historical decision.
 
 For every new dual-track board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> RESEARCHABILITY EXCLUDED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
 
 Track separately:
 - coverage failures;
+- operational exclusions that should have been admitted;
+- `xi_expected` predictions that proved wrong;
+- competitions repeatedly producing no usable XI/market despite A/B grading;
+- capacity-deferred fixtures that would have been operationally useful;
 - researchability exclusions that should have been admitted;
-- Work time wasted on weak-data competitions that should have failed the Step-0 researchability gate;
+- Work time wasted on low-observability competitions that should have failed the Step-0 operational/researchability gates;
 - high-scoring C-PASS false negatives;
 - FOLLOW/RESERVE/STOP allocation;
 - FOLLOW candidates that failed at XI/price;
@@ -52,6 +56,10 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 ## Required process checks
 
 - broad-senior completeness;
+- operational A/B/C/D disposition present for every surviving senior fixture;
+- admitted count <= 15 and capacity overflow explicitly deferred;
+- no C/D fixture entered routine Work without a user exception;
+- B-grade fixtures did not receive routine FOLLOW;
 - common evidence freeze present;
 - C official board preserved;
 - follow-through lane preserved separately from C state;
