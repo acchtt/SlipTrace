@@ -55,6 +55,11 @@
       "additionalProperties": true,
       "required": [
         "match_id",
+        "operational_viability_reason",
+        "team_news_observability",
+        "market_observability",
+        "xi_expected",
+        "operational_viability_grade",
         "home_route",
         "away_route",
         "carrier",
@@ -196,6 +201,45 @@
           ]
         },
         "simultaneous_results_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operational_viability_grade": {
+          "type": "string",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ]
+        },
+        "xi_expected": {
+          "type": "string",
+          "enum": [
+            "YES",
+            "UNCERTAIN",
+            "NO"
+          ]
+        },
+        "market_observability": {
+          "type": "string",
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "NONE"
+          ]
+        },
+        "team_news_observability": {
+          "type": "string",
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "NONE"
+          ]
+        },
+        "operational_viability_reason": {
           "type": "string",
           "minLength": 1
         }
