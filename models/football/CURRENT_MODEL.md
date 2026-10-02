@@ -118,9 +118,12 @@ Separate:
 - No fixed board-size target.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.
-- Every fixture explicitly declares `tournament_incentive_required=true/false`; applicable fixtures cannot receive C/C2 classification until the complete tournament block is present.
-- Applicable Step-2 fixtures require `tournament_incentive_rechecked=true` before any C/C2 action.
-- Applicable live fixtures recompute the incentive epoch after every goal/red card/material simultaneous-table change before execution.
+- Every fixture explicitly declares `tournament_incentive_required=true/false`.
+- For applicable fixtures, **presence is not enough**: format, qualification state, home/away incentive, tiebreak/margin relevance, simultaneous-result impact, and incentive effect must be resolved/VERIFIED before C/C2 state, rank, follow lane, or supported burden exists.
+- LIMITED/UNKNOWN applicable fixtures are `INCENTIVE-INCOMPLETE`, not C-PASS/WATCH/FOCUS.
+- Applicable Step-2 fixtures require `tournament_incentive_rechecked=true` and `tournament_incentive_recheck_status=VERIFIED` before any C/C2 action.
+- A user-declared exception never waives tournament-incentive resolution; it only permits reassessment/reopening.
+- Applicable live fixtures recompute the incentive epoch after every goal/red card/material simultaneous-table change before execution; unresolved epochs block action.
 - Supported burden chosen before price.
 - Market evidence informs but does not independently manufacture football quality.
 - >=1.65 normal price zone.
