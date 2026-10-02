@@ -3,6 +3,24 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md": [
+        "mandatory persistent Step-0 memory",
+        "Competition Reliability",
+        "Competition Reliability Events",
+        "latest 10 countable observations",
+        "CAUTION caps a current A fixture to **B**",
+        "Normal DEMOTED treatment is **C / operational exclusion**",
+        "one B-grade probation fixture per sweep",
+        "must **never** use:",
+    ],
+    "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md": [
+        "tbl1KShXxXErUdVKW",
+        "tblD0ZHqT772H25Uv",
+        "Operational Grade",
+        "Competition Reliability State",
+        "Operational Excluded Count",
+        "Capacity Deferred Count",
+    ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
         "operational_viability_grade = A / B / C / D",
@@ -10,6 +28,8 @@ REQUIRED = {
         "MAX_WORK_ADMISSIONS = 15",
         "OPERATIONAL CAPACITY DEFERRED — STEP0",
         "B-grade C-FOCUS: maximum routine lane is RESERVE",
+        "Persistent competition reliability cap",
+        "history may never promote B->A or C->B",
     ],
     "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md": [
         "Assessment completion hard gate",
@@ -30,6 +50,9 @@ REQUIRED = {
         "Operational viability gate — mandatory",
         "OPERATIONAL CAPACITY DEFERRED — STEP0",
         "admitted fixture count is <= 15",
+        "Competition reliability memory — mandatory",
+        "competition_reliability_state",
+        "DEMOTED: default C",
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
@@ -40,6 +63,8 @@ REQUIRED = {
         "models/football/engine/",
         "operational viability gate",
         "Normal Work admission is capped at 15",
+        "COMPETITION RELIABILITY MEMORY",
+        "Historical competition reliability may only cap/demote current viability",
     ],
     "models/football/production/FOOTBALL_C.md": [
         "**Intake:** RESEARCHABLE_SENIOR_PRODUCTION",
@@ -71,6 +96,8 @@ REQUIRED = {
         "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY",
         "operational viability grade A",
         "grade B can never receive routine FOLLOW",
+        "competition_reliability_state",
+        "CAUTION is never above B",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "Football C Official + C2 Shadow XI/Odds",
@@ -105,6 +132,9 @@ REQUIRED = {
         "Historical Football A/C1 audits remain version-faithful.",
         "FOLLOW/RESERVE/STOP allocation",
         "tournament-incentive completeness",
+        "Competition reliability memory update — mandatory",
+        "Competition Reliability Events",
+        "never write FT goals, C/C2 result, settlement or P/L",
     ],
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md": [
         "**Champion:** Football C",
