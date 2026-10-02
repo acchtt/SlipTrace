@@ -103,6 +103,12 @@ The current official shared coverage state is represented by:
 - `Competition Reliability State`;
 - `Competition Reliability Reason`;
 - `Operational Disposition`;
+- `Completion Mode`;
+- `Burden Completion Quality`;
+- `Continuation Quality`;
+- `Opponent Leakage`;
+- `Burden Stall Risk`;
+- `Same Kickoff Rank`;
 
 - `PRE Grade`;
 - `Structural Type`;
@@ -157,13 +163,14 @@ When publishing to Airtable:
 
 1. upsert the same fixture row;
 2. copy the frozen Step-0 operational grade/disposition and competition-reliability snapshot exactly;
-3. copy the Work PRE grade exactly;
-4. copy the Work structural type exactly;
-5. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
-6. preserve the Work thesis/failure-mode plus route-quality / CC+ summary in `Frozen PRE Summary` / `Coverage Notes`;
-7. set XI/market status to pending/user-supplied as appropriate;
-8. preserve canonical kickoff semantics;
-9. do **not** run another structural screen during publication.
+3. copy the frozen completion mode/quality, continuation quality, opponent leakage, stall risk and same-kickoff rank exactly;
+4. copy the Work PRE grade exactly;
+5. copy the Work structural type exactly;
+6. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
+7. preserve the Work thesis/failure-mode plus route-quality / CC+ summary in `Frozen PRE Summary` / `Coverage Notes`;
+8. set XI/market status to pending/user-supplied as appropriate;
+9. preserve canonical kickoff semantics;
+10. do **not** run another structural screen during publication.
 
 Forbidden examples:
 
