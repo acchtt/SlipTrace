@@ -96,6 +96,8 @@ Persist:
 - `competition_reliability_state`;
 - `competition_reliability_reason`;
 - `competition_reliability_sample` when available;
+- `competition_reliability_manual_override = NONE / <explicit override>`;
+- `demoted_probation = true / false`;
 - `operational_viability_grade` after the history cap.
 
 Do not use FT score, goals, C/C2 result, betting result or P/L to set this state.
