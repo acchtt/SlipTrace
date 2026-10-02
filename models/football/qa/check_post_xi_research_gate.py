@@ -3,6 +3,14 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md": [
+        "mandatory Football C Step-1 selection layer",
+        "Where does the goal that clears the supported burden come from?",
+        "CARRIER_LED",
+        "Burden stall risk",
+        "C-PASS carrier contradiction",
+        "maximum routine FOLLOW fixtures per exact kickoff minute",
+    ],
     "models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md": [
         "mandatory persistent Step-0 memory",
         "Competition Reliability",
@@ -77,6 +85,8 @@ REQUIRED = {
         "PRICE DECAY != THESIS DECAY",
         "operational viability gate",
         "Only operational grade A/B fixtures enter the normal Football C board",
+        "burden-completion",
+        "Two-sidedness is one completion mode",
     ],
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
         "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
@@ -100,6 +110,10 @@ REQUIRED = {
         "grade B can never receive routine FOLLOW",
         "competition_reliability_state",
         "CAUTION is never above B",
+        "burden_completion_quality",
+        "continuation_quality",
+        "burden_stall_risk",
+        "maximum routine `FOLLOW = 2`",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "Football C Official + C2 Shadow XI/Odds",
@@ -119,6 +133,8 @@ REQUIRED = {
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "frozen operational viability grade",
         "actual confirmed/reliable XI",
+        "Recheck the burden-completion layer",
+        "Current continuation quality + opponent leakage + stall risk",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2 Shadow Wait",
@@ -175,6 +191,12 @@ REQUIRED = {
         "\"demoted_probation\"",
         "\"qualification_state\"",
         "\"simultaneous_results_status\"",
+        "\"kickoff_ict\"",
+        "\"completion_mode\"",
+        "\"burden_completion_quality\"",
+        "\"continuation_quality\"",
+        "\"opponent_leakage\"",
+        "\"burden_stall_risk\"",
     ],
     "models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md": [
         "PROSPECTIVE OBSERVER ONLY — NO PRODUCTION AUTHORITY",
@@ -196,6 +218,9 @@ REQUIRED = {
         "apply_reliability_cap",
         "effective_state",
         "COMPETITION RELIABILITY CAP BYPASS",
+        "MAX_FOLLOW_PER_KICKOFF = 2",
+        "C-PASS CONTRADICTION",
+        "same_kickoff_rank",
     ],
 }
 
