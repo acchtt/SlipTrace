@@ -31,6 +31,13 @@ REQUIRED = {
         "Operational Excluded Count",
         "Capacity Deferred Count",
     ],
+    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
+        "Current Completion Mode",
+        "Current Completion Quality",
+        "Current Continuation Quality",
+        "Current Opponent Leakage",
+        "Current Stall Risk",
+    ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
         "operational_viability_grade = A / B / C / D",
@@ -135,6 +142,8 @@ REQUIRED = {
         "actual confirmed/reliable XI",
         "Recheck the burden-completion layer",
         "Current continuation quality + opponent leakage + stall risk",
+        "Current Completion Mode",
+        "Current Stall Risk",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2 Shadow Wait",
