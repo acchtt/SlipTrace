@@ -7,6 +7,7 @@ Read upstream:
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
+- `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -25,6 +26,8 @@ Before full football research, verify the Step-0 contract:
 - admitted fixture count <= 15;
 - every admitted fixture has `operational_viability_grade = A / B`;
 - every admitted fixture has `xi_expected`, `market_observability`, `team_news_observability`, and `operational_viability_reason`;
+- every admitted fixture has `competition_reliability_state` and `competition_reliability_reason`;
+- CAUTION is never above B and DEMOTED is present only as an allowed B probation fixture;
 - no C/D fixture appears in the normal Work array.
 
 If a C/D fixture leaks in:
@@ -86,6 +89,8 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - market_observability = HIGH / MEDIUM;
 - team_news_observability = HIGH / MEDIUM;
 - operational_viability_reason;
+- competition_reliability_state;
+- competition_reliability_reason;
 - home_route = WEAK / USABLE / STRONG;
 - away_route = WEAK / USABLE / STRONG;
 - carrier = NONE / USABLE / STRONG;
