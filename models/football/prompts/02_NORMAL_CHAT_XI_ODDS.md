@@ -47,7 +47,7 @@ Perform this **once** for the fixture:
 4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
 5. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
 6. perform/recheck relevant H2H/matchup context;
-7. update the structured common semantic evidence;
+7. update the structured common semantic evidence, including current completion mode/quality, continuation quality, opponent leakage and stall risk;
 8. classify thesis state = PRESERVED / DEGRADED / BROKEN;
 9. freeze current quote.
 
@@ -99,6 +99,8 @@ Issue exactly one:
 - `C-PASS`
 
 Only Football C may create official exposure.
+
+For every C-BET/C-WAIT/C-PASS Decision State persist `Current Completion Mode`, `Current Completion Quality`, `Current Continuation Quality`, `Current Opponent Leakage`, and `Current Stall Risk`.
 
 For C-BET:
 1. persist Decision State;
