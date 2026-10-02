@@ -89,8 +89,11 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - market_observability = HIGH / MEDIUM;
 - team_news_observability = HIGH / MEDIUM;
 - operational_viability_reason;
+- raw_operational_viability_grade;
 - competition_reliability_state;
 - competition_reliability_reason;
+- competition_reliability_manual_override;
+- demoted_probation;
 - home_route = WEAK / USABLE / STRONG;
 - away_route = WEAK / USABLE / STRONG;
 - carrier = NONE / USABLE / STRONG;
@@ -211,7 +214,7 @@ Also report any:
 
 ## 6. Required machine appendix
 
-Every machine assessment object must include the explicit tournament-incentive contract. The engine must reject omission instead of defaulting it away.
+Every machine assessment object must include the explicit operational-viability / competition-reliability contract **and** the tournament-incentive contract. The engine must reject omission instead of defaulting it away.
 
 Include:
 - `FOOTBALL_ENGINE_C_INPUT`
