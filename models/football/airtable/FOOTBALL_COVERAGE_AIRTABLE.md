@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
 **Table ID:** `tblcl1UAyMqZT6Ub0`  
-**Official model:** Football A
+**Official model:** Football C
 
 This table is the coverage-control and cross-chat bridge for the current football workflow. It records every fixture in the reconciled AiScore slate and preserves the **frozen Work PRE state** for later user-supplied XI/odds review.
 
@@ -97,6 +97,13 @@ Do not silently rewrite history.
 
 The current official shared coverage state is represented by:
 
+- `Operational Grade`;
+- `XI Expected`;
+- `Team News Observability`;
+- `Competition Reliability State`;
+- `Competition Reliability Reason`;
+- `Operational Disposition`;
+
 - `PRE Grade`;
 - `Structural Type`;
 - `Board Tier`;
@@ -149,13 +156,14 @@ The Work structural sweep is the model run that creates the frozen PRE board.
 When publishing to Airtable:
 
 1. upsert the same fixture row;
-2. copy the Work PRE grade exactly;
-3. copy the Work structural type exactly;
-4. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
-5. preserve the Work thesis/failure-mode plus route-quality / CC+ summary in `Frozen PRE Summary` / `Coverage Notes`;
-6. set XI/market status to pending/user-supplied as appropriate;
-7. preserve canonical kickoff semantics;
-8. do **not** run another structural screen during publication.
+2. copy the frozen Step-0 operational grade/disposition and competition-reliability snapshot exactly;
+3. copy the Work PRE grade exactly;
+4. copy the Work structural type exactly;
+5. copy `FOCUS` / `WATCHLIST` / `PASS` / `UNRESOLVED` exactly into `Board Tier` where supported;
+6. preserve the Work thesis/failure-mode plus route-quality / CC+ summary in `Frozen PRE Summary` / `Coverage Notes`;
+7. set XI/market status to pending/user-supplied as appropriate;
+8. preserve canonical kickoff semantics;
+9. do **not** run another structural screen during publication.
 
 Forbidden examples:
 
@@ -242,7 +250,7 @@ However, the bridge is only authoritative when it faithfully mirrors the Work ar
 
 The Daily Coverage Ledger controls **coverage and frozen PRE**. Material final XI/market/EGE/MCE/carrier-reopen verdicts belong in `Decision States`, and official website LOCK records belong in the appropriate official picks/ledger path.
 
-Do not turn the coverage row into a mutable history that erases earlier PRE state.
+Do not turn the coverage row into a mutable history that erases earlier PRE state. Competition-level rolling history belongs in `Competition Reliability` / `Competition Reliability Events`; Daily Coverage keeps only the fixture's frozen Step-0 snapshot.
 
 ---
 
