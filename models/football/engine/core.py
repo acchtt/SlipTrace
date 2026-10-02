@@ -23,6 +23,14 @@ class CarrierStrength(IntEnum):
     STRONG = 2
 
 
+class CompletionMode(Enum):
+    NONE = "NONE"
+    TWO_SIDED = "TWO_SIDED"
+    CARRIER_LED = "CARRIER_LED"
+    FORCED_CHAOS = "FORCED_CHAOS"
+    MIXED = "MIXED"
+
+
 class BoardState(IntEnum):
     PASS = 0
     WATCH = 1
@@ -85,6 +93,16 @@ class MatchAssessment:
     evidence_confidence: Grade
     burden_protection: Grade
 
+    # Burden-completion layer. These are frozen football judgments, not
+    # market-derived scores. HIGH completion means there is a credible path to
+    # the goal that clears the protected line; continuation asks whether the
+    # match has a reason to keep producing after the first exchange of goals.
+    completion_mode: CompletionMode
+    burden_completion_quality: Grade
+    continuation_quality: Grade
+    opponent_leakage: Grade
+    burden_stall_risk: Grade
+
     supported_line: float
 
     carrier_self_fund: bool = False
@@ -140,19 +158,30 @@ def _validate_quarter_line(line: float) -> None:
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic lexicographic Football C ranking key.
 
-    Higher is better. This mirrors the text model's stated ordering instead of
-    inventing a weighted probability score.
+    Higher is better. Selection is now burden-completion first: a credible path
+    to clearing the actual protected line outranks cosmetic two-sidedness.
+    Lower supported burden is a comparator only after completion/continuation
+    quality has already cleared; it never creates a route by itself.
     """
 
+    upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
+    lower_burden = -round(a.supported_line * 4)
+
     return (
-        int(a.route_reliability),
-        int(a.independent_route_quality),
+        int(a.burden_completion_quality),
+        int(a.continuation_quality),
+        -int(a.burden_stall_risk),
+        upper_tail_self_fund,
         int(a.carrier),
+        int(a.opponent_leakage),
+        int(a.burden_protection),
+        lower_burden,
+        int(a.route_reliability),
         int(a.chance_quality),
         int(a.failure_resistance),
-        int(a.xi_robustness),
         int(a.evidence_confidence),
-        int(a.burden_protection),
+        int(a.xi_robustness),
+        int(a.independent_route_quality),
     )
 
 
@@ -168,51 +197,76 @@ def follow_through_lane(
     a: MatchAssessment,
     board_state: BoardState,
 ) -> FollowLane:
-    """Operational follow-through gate.
+    """Burden-completion follow-through gate.
 
-    This does not alter the Football C board state. It limits which frozen
-    candidates consume XI/odds/live attention.
+    FOLLOW no longer requires two usable scoring routes. A match may clear via:
+    - TWO_SIDED: two usable routes with at least one STRONG route;
+    - CARRIER_LED: one STRONG route plus a self-funding STRONG carrier,
+      independent upper-tail proof and opponent leakage;
+    - FORCED_CHAOS: verified football/incentive persistence that gives the
+      match a credible continuation path.
 
-    FOLLOW requires:
-    - official C-FOCUS;
-    - two usable routes with at least one strong route;
-    - STRONG carrier;
-    - HIGH route reliability, independent route quality, chance quality,
-      failure resistance and evidence confidence;
-    - supported burden <= 3.0;
-    - no material suppression / route-attacking failure.
-
-    RESERVE is the same core structure but permits MEDIUM failure resistance
-    when burden protection is HIGH.
-
-    Everything else remains frozen for audit but stops routine follow-through.
+    In every case the selector asks where the goal that clears the protected
+    burden comes from. HIGH stall risk is a hard STOP for routine follow-up.
     """
 
     if board_state != BoardState.FOCUS:
         return FollowLane.STOP
 
-    structural = (
-        a.home_route >= RouteStrength.USABLE
-        and a.away_route >= RouteStrength.USABLE
-        and max(a.home_route, a.away_route) == RouteStrength.STRONG
-        and a.carrier == CarrierStrength.STRONG
-        and a.route_reliability == Grade.HIGH
-        and a.independent_route_quality == Grade.HIGH
-        and a.chance_quality == Grade.HIGH
-        and a.evidence_confidence == Grade.HIGH
-        and a.supported_line <= 3.0
-        and not a.failure_attacks_route
-        and not a.material_suppression
-    )
-
-    if not structural:
+    if a.material_suppression or a.failure_attacks_route:
         return FollowLane.STOP
 
-    if a.failure_resistance == Grade.HIGH:
+    if a.burden_stall_risk == Grade.HIGH:
+        return FollowLane.STOP
+
+    if a.supported_line > 3.0:
+        return FollowLane.STOP
+
+    common = (
+        a.carrier == CarrierStrength.STRONG
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.evidence_confidence == Grade.HIGH
+    )
+    if not common:
+        return FollowLane.STOP
+
+    two_sided = (
+        a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+    )
+
+    carrier_led = (
+        a.completion_mode in {CompletionMode.CARRIER_LED, CompletionMode.MIXED}
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.opponent_leakage >= Grade.MEDIUM
+    )
+
+    forced_chaos = (
+        a.completion_mode in {CompletionMode.FORCED_CHAOS, CompletionMode.MIXED}
+        and max(a.home_route, a.away_route) >= RouteStrength.USABLE
+        and a.continuation_quality == Grade.HIGH
+    )
+
+    if not (two_sided or carrier_led or forced_chaos):
+        return FollowLane.STOP
+
+    if (
+        a.burden_completion_quality == Grade.HIGH
+        and a.continuation_quality == Grade.HIGH
+        and a.failure_resistance == Grade.HIGH
+        and a.burden_stall_risk == Grade.LOW
+    ):
         return FollowLane.FOLLOW
 
     if (
-        a.failure_resistance == Grade.MEDIUM
+        a.burden_completion_quality >= Grade.MEDIUM
+        and a.continuation_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
         and a.burden_protection == Grade.HIGH
     ):
         return FollowLane.RESERVE
