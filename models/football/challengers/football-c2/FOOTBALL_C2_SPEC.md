@@ -327,3 +327,12 @@ C2 consumes the same mandatory tournament-format/incentive block as Football C.
 For every fixture the common evidence must explicitly declare `tournament_incentive_required`. If true, the complete tournament block must exist before C2 board state is assigned, and Step 2 must record `tournament_incentive_rechecked=true` before any C2 shadow action.
 
 This is an evidence-completeness guard only. It does not alter the frozen C2 selection floor, bridge cap, price rules, or shadow-only authority.
+
+
+### Incentive resolution gate
+
+LIMITED/UNKNOWN tournament evidence is not a C2 policy input. It is an incomplete common-evidence state.
+
+An applicable fixture receives no C2-PASS/WATCH/FOCUS, selection floor, bridge readiness, or shadow action until qualification/tiebreak/margin/simultaneous-result consequences are resolved and VERIFIED.
+
+A user-declared exception does not waive this common-evidence gate.
