@@ -9,6 +9,7 @@ from core import (  # noqa: E402
     Action,
     BoardState,
     CarrierStrength,
+    CompletionMode,
     DecisionContext,
     FollowLane,
     Grade,
@@ -41,6 +42,11 @@ def assessment(**overrides):
         xi_robustness=Grade.HIGH,
         evidence_confidence=Grade.HIGH,
         burden_protection=Grade.HIGH,
+        completion_mode=CompletionMode.TWO_SIDED,
+        burden_completion_quality=Grade.HIGH,
+        continuation_quality=Grade.HIGH,
+        opponent_leakage=Grade.MEDIUM,
+        burden_stall_risk=Grade.LOW,
         supported_line=2.5,
     )
     base.update(overrides)
@@ -70,6 +76,31 @@ class FollowThroughTests(unittest.TestCase):
             assessment(
                 carrier=CarrierStrength.STRONG,
                 away_route=RouteStrength.WEAK,
+            ),
+            BoardState.FOCUS,
+        )
+        self.assertEqual(lane, FollowLane.STOP)
+
+    def test_carrier_led_weak_second_route_can_follow(self):
+        lane = follow_through_lane(
+            assessment(
+                away_route=RouteStrength.WEAK,
+                carrier=CarrierStrength.STRONG,
+                completion_mode=CompletionMode.CARRIER_LED,
+                carrier_self_fund=True,
+                independent_upper_tail=True,
+                opponent_leakage=Grade.HIGH,
+                independent_route_quality=Grade.MEDIUM,
+            ),
+            BoardState.FOCUS,
+        )
+        self.assertEqual(lane, FollowLane.FOLLOW)
+
+    def test_high_stall_risk_blocks_follow(self):
+        lane = follow_through_lane(
+            assessment(
+                carrier=CarrierStrength.STRONG,
+                burden_stall_risk=Grade.HIGH,
             ),
             BoardState.FOCUS,
         )
