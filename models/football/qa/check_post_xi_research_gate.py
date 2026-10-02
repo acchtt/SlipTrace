@@ -3,6 +3,14 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
+        "mandatory Step-0 production gate",
+        "operational_viability_grade = A / B / C / D",
+        "LOW OPERATIONAL OBSERVABILITY — STEP0 EXCLUDED",
+        "MAX_WORK_ADMISSIONS = 15",
+        "OPERATIONAL CAPACITY DEFERRED — STEP0",
+        "B-grade C-FOCUS: maximum routine lane is RESERVE",
+    ],
     "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md": [
         "Assessment completion hard gate",
         "ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING",
@@ -19,6 +27,9 @@ REQUIRED = {
         "RESEARCHABLE_SENIOR_PRODUCTION",
         "INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED",
         "Protected senior competition classes",
+        "Operational viability gate — mandatory",
+        "OPERATIONAL CAPACITY DEFERRED — STEP0",
+        "admitted fixture count is <= 15",
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
@@ -27,6 +38,8 @@ REQUIRED = {
         "tournament_incentive_required",
         "Football C's board is the only board that can feed official Step-2 exposure.",
         "models/football/engine/",
+        "operational viability gate",
+        "Normal Work admission is capped at 15",
     ],
     "models/football/production/FOOTBALL_C.md": [
         "**Intake:** RESEARCHABLE_SENIOR_PRODUCTION",
@@ -35,6 +48,8 @@ REQUIRED = {
         "Market-history/odds lookup does not satisfy the football-research requirement",
         "H2H is mandatory context when usable",
         "PRICE DECAY != THESIS DECAY",
+        "operational viability gate",
+        "Only operational grade A/B fixtures enter the normal Football C board",
     ],
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
         "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
@@ -52,6 +67,10 @@ REQUIRED = {
         "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "maximum routine `FOLLOW = 6`",
         "maximum retained `RESERVE = 4`",
+        "Operational handoff gate — fail closed",
+        "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY",
+        "operational viability grade A",
+        "grade B can never receive routine FOLLOW",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "Football C Official + C2 Shadow XI/Odds",
@@ -69,6 +88,8 @@ REQUIRED = {
         "tournament_incentive_rechecked",
         "tournament_incentive_recheck_status",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
+        "frozen operational viability grade",
+        "actual confirmed/reliable XI",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2 Shadow Wait",
@@ -103,6 +124,10 @@ REQUIRED = {
         "\"tournament_incentive_required\"",
         "\"tournament_incentive_rechecked\"",
         "\"tournament_incentive_recheck_status\"",
+        "\"operational_viability_grade\"",
+        "\"xi_expected\"",
+        "\"market_observability\"",
+        "\"team_news_observability\"",
         "\"qualification_state\"",
         "\"simultaneous_results_status\"",
     ],
@@ -120,6 +145,9 @@ REQUIRED = {
         "SCHEMA_VERSION = \"football-engine-v1\"",
         "validate_tournament_incentive",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING",
+        "validate_operational_viability",
+        "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY",
+        "operational_gate[\"grade\"] == \"B\"",
     ],
 }
 
