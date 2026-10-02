@@ -19,7 +19,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> FOLLOW-THROUGH GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -51,13 +51,15 @@ Use:
 
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
-Step 0 discovers the senior slate, applies hard scope exclusions, then applies the mandatory **operational viability gate** from `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md` before the cheap researchability gate.
+Step 0 discovers the senior slate, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.
 
-Every surviving fixture receives A/B/C/D viability plus explicit XI expectation, market observability and team-news observability.
+Every surviving fixture receives a raw current A/B/C/D viability plus explicit XI expectation, market observability and team-news observability. The persistent competition state may only cap/demote that raw grade; it may never promote it.
 
 - A = executable and eligible for normal follow-through.
 - B = conditional and may be admitted, but is capped at RESERVE at board time.
 - C/D = excluded before Work unless explicitly reopened by the user.
+- CAUTION competition history caps raw A to B.
+- DEMOTED competition history defaults the fixture to C, with at most one fully clean raw-A probation fixture per competition per sweep admitted as B.
 - Normal Work admission is capped at 15 A/B fixtures; overflow is preserved as `OPERATIONAL CAPACITY DEFERRED — STEP0`.
 
 Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but not the operational viability declaration.
@@ -122,7 +124,9 @@ Separate:
 ## Football C production invariants
 
 - Football-quality screening belongs to the model, not Step 0. Step 0 may exclude for hard scope/identity/time, low operational observability, or insufficient researchability.
-- Every admitted fixture must carry operational viability A/B plus XI/market/team-news observability.
+- Every admitted fixture must carry operational viability A/B plus XI/market/team-news observability and a frozen competition-reliability state/reason snapshot.
+- Competition reliability uses only operational observability/process evidence; FT goals, model results and P/L are forbidden inputs.
+- Historical competition reliability may only cap/demote current viability; it may never promote a current fixture.
 - Normal Work admission is capped at 15 A/B fixtures; overflow is `OPERATIONAL CAPACITY DEFERRED — STEP0`, not C-PASS.
 - There is no fixed **predictive** board-size target after admission.
 - H2H mandatory when usable.
