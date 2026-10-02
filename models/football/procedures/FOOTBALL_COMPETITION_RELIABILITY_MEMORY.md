@@ -5,6 +5,8 @@
 **Airtable summary:** `Competition Reliability` (`tbl1KShXxXErUdVKW`)  
 **Airtable events:** `Competition Reliability Events` (`tblD0ZHqT772H25Uv`)
 
+**Activation boundary:** prospective from the merge that activates this procedure.
+
 ## 1. Purpose
 
 Prevent the same competitions from repeatedly consuming board capacity when they repeatedly fail operationally near kickoff.
@@ -28,7 +30,17 @@ It must **never** use:
 
 Competition reliability is therefore separate from `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
 
-## 2. Append-only reliability events
+## 2. Activation / no-backfill boundary
+
+Do not manufacture historical reliability events from older boards that did not persist the required operational channels consistently.
+
+Older notes may explain why this system was added, but they do not count toward the rolling classifier unless the exact XI/market/team-news/identity/Step-2 operational state was prospectively frozen under this contract.
+
+Therefore a competition with no compliant post-activation events starts `UNPROVEN`.
+
+This prevents outcome-aware or incomplete retrospective backfill.
+
+## 3. Append-only reliability events
 
 Post-slate audit owns the canonical event write.
 
@@ -58,7 +70,7 @@ Critical failures are:
 
 Do not mark a fixture critical merely because it was C-PASS, lost, finished low-scoring, or had unattractive odds.
 
-## 3. Rolling memory
+## 4. Rolling memory
 
 Evaluate the **latest 10 countable observations** for a normalized competition key.
 
@@ -73,7 +85,7 @@ Metric denominators ignore `NOT_CHECKED` / `NOT_APPLICABLE`.
 
 Use `models/football/engine/competition_reliability.py` as the deterministic classifier.
 
-## 4. Reliability states
+## 5. Reliability states
 
 ### UNPROVEN
 
@@ -131,7 +143,7 @@ A rate trigger requires at least 3 checked observations in that channel.
 
 Normal DEMOTED treatment is **C / operational exclusion**.
 
-## 5. Recovery / probation
+## 6. Recovery / probation
 
 DEMOTED is not a permanent blacklist.
 
@@ -149,7 +161,7 @@ The post-slate event from that probation fixture then enters the rolling sample.
 
 A user-declared exception may also reopen a fixture, but does not waive any other integrity gate.
 
-## 6. Step-0 application order
+## 7. Step-0 application order
 
 For each discovered senior fixture:
 
@@ -164,7 +176,7 @@ History may only **cap/demote** the current raw grade. It may never promote C->B
 
 Manual Override in Airtable applies only when it reflects an explicit user/maintainer decision. `NONE` is the normal state.
 
-## 7. Audit update
+## 8. Audit update
 
 After the slate:
 
@@ -187,7 +199,7 @@ After the slate:
 
 No retroactive mutation of historical board states.
 
-## 8. Invariant
+## 9. Invariant
 
 The operational-memory question is:
 
