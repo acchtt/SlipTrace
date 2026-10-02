@@ -180,6 +180,10 @@ Persist:
 
 For an applicable fixture, the recheck must be VERIFIED before any final C/C2 action.
 
+If the recheck was performed but remains LIMITED / UNKNOWN:
+
+`DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
 **A user-declared exception does not waive this gate.** It may reopen a STOP/RESERVE fixture for research, but the tournament state still must be resolved before an actionable verdict.
 
 ## 8. Live requirement
@@ -195,6 +199,12 @@ Recompute:
 - who is genuinely forced to chase.
 
 A live Over target is not executable merely because the line decays. The incentive state must still support persistence.
+
+If the new live incentive epoch exists but qualification/tiebreak/margin/simultaneous-result consequences remain LIMITED / UNKNOWN:
+
+`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
+Do not reuse the prior verified incentive epoch after a material state change.
 
 ## 9. H2H boundary
 
