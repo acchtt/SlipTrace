@@ -28,6 +28,9 @@ def match(match_id="m1", **overrides):
         "competition_format": "NOT_APPLICABLE",
         "draw_resolution": "NOT_APPLICABLE",
         "aggregate_state": "NOT_APPLICABLE",
+        "qualification_state": "NOT_APPLICABLE",
+        "simultaneous_results_status": "NOT_APPLICABLE",
+        "simultaneous_results_note": "NOT_APPLICABLE",
         "home_incentive": "NOT_APPLICABLE",
         "away_incentive": "NOT_APPLICABLE",
         "tiebreak_margin_relevance": "NOT_APPLICABLE",
@@ -81,6 +84,64 @@ class BoardContractTests(unittest.TestCase):
                 }
             )
 
+    def test_limited_tournament_block_is_blocked(self):
+        row = match(
+            tournament_incentive_required=True,
+            tournament_format_status="LIMITED",
+            competition_stage="GROUP D ROUND 6",
+            competition_format="GROUP",
+            draw_resolution="90-minute group result",
+            aggregate_state="NOT A TWO-LEG TIE",
+            qualification_state="UNKNOWN",
+            simultaneous_results_status="UNKNOWN",
+            simultaneous_results_note="qualification and tiebreak impact unresolved",
+            home_incentive="UNKNOWN",
+            away_incentive="UNKNOWN",
+            tiebreak_margin_relevance="UNKNOWN",
+            incentive_effect="UNKNOWN",
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [row],
+                }
+            )
+
+    def test_verified_format_with_unknown_tiebreak_is_blocked(self):
+        row = match(
+            tournament_incentive_required=True,
+            tournament_format_status="VERIFIED",
+            competition_stage="GROUP D ROUND 6",
+            competition_format="GROUP",
+            draw_resolution="90-minute group result",
+            aggregate_state="NOT A TWO-LEG TIE",
+            qualification_state="top two advance; current exact need verified",
+            simultaneous_results_status="VERIFIED",
+            simultaneous_results_note="other group match impact checked",
+            home_incentive="WIN_PREFERRED",
+            away_incentive="MUST_WIN",
+            tiebreak_margin_relevance="UNKNOWN",
+            incentive_effect="MIXED",
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [row],
+                }
+            )
+
     def test_complete_tournament_block_passes(self):
         row = match(
             tournament_incentive_required=True,
@@ -89,6 +150,9 @@ class BoardContractTests(unittest.TestCase):
             competition_format="GROUP",
             draw_resolution="draw qualifies home",
             aggregate_state="NOT A TWO-LEG TIE",
+            qualification_state="home qualifies with draw; away must win",
+            simultaneous_results_status="VERIFIED",
+            simultaneous_results_note="simultaneous group result impact checked",
             home_incentive="DRAW_ACCEPTABLE",
             away_incentive="MUST_WIN",
             tiebreak_margin_relevance="YES",
@@ -131,6 +195,7 @@ class DecisionContractTests(unittest.TestCase):
                     "quote": {"line": 2.5, "odds": 1.70},
                     "top_ranked_focus": True,
                     "tournament_incentive_rechecked": False,
+                    "tournament_incentive_recheck_status": "NOT_APPLICABLE",
                 },
             }
         )
@@ -145,6 +210,9 @@ class DecisionContractTests(unittest.TestCase):
             competition_format="TWO_LEG",
             draw_resolution="extra time if aggregate level",
             aggregate_state="home trails by one",
+            qualification_state="winner on aggregate advances",
+            simultaneous_results_status="NOT_APPLICABLE",
+            simultaneous_results_note="no simultaneous result affects this tie",
             home_incentive="MUST_WIN",
             away_incentive="PROTECT_AGGREGATE",
             tiebreak_margin_relevance="NO",
@@ -162,6 +230,44 @@ class DecisionContractTests(unittest.TestCase):
                         "thesis_state": "PRESERVED",
                         "quote": {"line": 2.5, "odds": 1.70},
                         "tournament_incentive_rechecked": False,
+                        "tournament_incentive_recheck_status": "VERIFIED",
+                    },
+                }
+            )
+
+    def test_tournament_decision_limited_recheck_is_blocked(self):
+        row = match(
+            board_state="C-FOCUS",
+            tournament_incentive_required=True,
+            tournament_format_status="VERIFIED",
+            competition_stage="KNOCKOUT",
+            competition_format="TWO_LEG",
+            draw_resolution="extra time if aggregate level",
+            aggregate_state="home trails by one",
+            qualification_state="winner on aggregate advances",
+            simultaneous_results_status="NOT_APPLICABLE",
+            simultaneous_results_note="no simultaneous result affects this tie",
+            home_incentive="MUST_WIN",
+            away_incentive="PROTECT_AGGREGATE",
+            tiebreak_margin_relevance="NO",
+            incentive_effect="MIXED",
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": {
+                        "board_state": "C-FOCUS",
+                        "thesis_state": "PRESERVED",
+                        "quote": {"line": 2.5, "odds": 1.70},
+                        "tournament_incentive_rechecked": True,
+                        "tournament_incentive_recheck_status": "LIMITED",
                     },
                 }
             )
@@ -191,6 +297,7 @@ class DecisionContractTests(unittest.TestCase):
                     "thesis_state": "PRESERVED",
                     "quote": {"line": 2.5, "odds": 1.70},
                     "tournament_incentive_rechecked": True,
+                    "tournament_incentive_recheck_status": "VERIFIED",
                 },
             }
         )
@@ -212,6 +319,7 @@ class DecisionContractTests(unittest.TestCase):
                     "thesis_state": "PRESERVED",
                     "quote": {"line": 2.0, "odds": 1.90},
                     "tournament_incentive_rechecked": False,
+                    "tournament_incentive_recheck_status": "NOT_APPLICABLE",
                 },
             }
         )

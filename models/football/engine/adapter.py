@@ -90,6 +90,12 @@ def _choice(obj: dict[str, Any], key: str, allowed: set[str]) -> str:
     return value
 
 
+def _is_unresolved_text(value: str) -> bool:
+    normalized = value.strip().upper().replace("-", "_").replace(" ", "_")
+    markers = ("UNKNOWN", "LIMITED", "UNRESOLVED", "TBD", "NOT_VERIFIED")
+    return any(marker in normalized for marker in markers)
+
+
 def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     """Fail closed when the tournament-incentive assessment is skipped.
 
@@ -111,6 +117,13 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     competition_format = _string(obj, "competition_format")
     draw_resolution = _string(obj, "draw_resolution")
     aggregate_state = _string(obj, "aggregate_state")
+    qualification_state = _string(obj, "qualification_state")
+    simultaneous_results_status = _choice(
+        obj,
+        "simultaneous_results_status",
+        {"NOT_APPLICABLE", "VERIFIED", "LIMITED", "UNKNOWN"},
+    )
+    simultaneous_results_note = _string(obj, "simultaneous_results_note")
     home_incentive = _choice(
         obj,
         "home_incentive",
@@ -162,18 +175,59 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     )
 
     if required:
-        forbidden = {
-            "tournament_format_status": format_status,
+        if format_status != "VERIFIED":
+            raise ContractError(
+                "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED: "
+                f"tournament_format_status={format_status}"
+            )
+
+        resolved_choices = {
             "home_incentive": home_incentive,
             "away_incentive": away_incentive,
             "tiebreak_margin_relevance": tiebreak_margin_relevance,
             "incentive_effect": incentive_effect,
         }
-        bad = [key for key, value in forbidden.items() if value == "NOT_APPLICABLE"]
-        if bad:
+        bad_na = [
+            key for key, value in resolved_choices.items()
+            if value == "NOT_APPLICABLE"
+        ]
+        if bad_na:
             raise ContractError(
                 "tournament incentive required but fields are NOT_APPLICABLE: "
-                + ", ".join(bad)
+                + ", ".join(bad_na)
+            )
+
+        unresolved_choices = [
+            key for key, value in resolved_choices.items()
+            if value == "UNKNOWN"
+        ]
+        if unresolved_choices:
+            raise ContractError(
+                "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED: "
+                + ", ".join(unresolved_choices)
+            )
+
+        if simultaneous_results_status in {"LIMITED", "UNKNOWN"}:
+            raise ContractError(
+                "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED: "
+                f"simultaneous_results_status={simultaneous_results_status}"
+            )
+
+        unresolved_text = []
+        for key, value in {
+            "competition_stage": competition_stage,
+            "competition_format": competition_format,
+            "draw_resolution": draw_resolution,
+            "aggregate_state": aggregate_state,
+            "qualification_state": qualification_state,
+            "simultaneous_results_note": simultaneous_results_note,
+        }.items():
+            if _is_unresolved_text(value):
+                unresolved_text.append(key)
+        if unresolved_text:
+            raise ContractError(
+                "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED: "
+                + ", ".join(unresolved_text)
             )
     else:
         expected_na = {
@@ -182,6 +236,7 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
             "away_incentive": away_incentive,
             "tiebreak_margin_relevance": tiebreak_margin_relevance,
             "incentive_effect": incentive_effect,
+            "simultaneous_results_status": simultaneous_results_status,
         }
         bad = [key for key, value in expected_na.items() if value != "NOT_APPLICABLE"]
         if bad:
@@ -194,6 +249,8 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
             "competition_format": competition_format,
             "draw_resolution": draw_resolution,
             "aggregate_state": aggregate_state,
+            "qualification_state": qualification_state,
+            "simultaneous_results_note": simultaneous_results_note,
         }.items():
             if value.upper().replace("-", "_").replace(" ", "_") != "NOT_APPLICABLE":
                 raise ContractError(
@@ -204,6 +261,8 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
         "required": required,
         "format_status": format_status,
         "incentive_effect": incentive_effect,
+        "resolution_status": "VERIFIED" if required else "NOT_APPLICABLE",
+        "simultaneous_results_status": simultaneous_results_status,
     }
 
 
@@ -301,6 +360,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "tournament_incentive_required": incentive_gate["required"],
             "tournament_format_status": incentive_gate["format_status"],
             "incentive_effect": incentive_gate["incentive_effect"],
+            "tournament_incentive_resolution": incentive_gate["resolution_status"],
+            "simultaneous_results_status": incentive_gate["simultaneous_results_status"],
         }
 
         state = None
@@ -377,10 +438,26 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     tournament_incentive_rechecked = _bool(
         ctx_obj, "tournament_incentive_rechecked"
     )
+    tournament_incentive_recheck_status = _choice(
+        ctx_obj,
+        "tournament_incentive_recheck_status",
+        {"NOT_APPLICABLE", "VERIFIED", "LIMITED", "UNKNOWN"},
+    )
     tournament_gate = validate_tournament_incentive(raw_match)
-    if tournament_gate["required"] and not tournament_incentive_rechecked:
+    if tournament_gate["required"]:
+        if not tournament_incentive_rechecked:
+            raise ContractError(
+                "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING"
+            )
+        if tournament_incentive_recheck_status != "VERIFIED":
+            raise ContractError(
+                "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED: "
+                f"recheck_status={tournament_incentive_recheck_status}"
+            )
+    elif tournament_incentive_recheck_status != "NOT_APPLICABLE":
         raise ContractError(
-            "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING"
+            "non-tournament decision must use "
+            "tournament_incentive_recheck_status=NOT_APPLICABLE"
         )
 
     board_state = _enum(
@@ -424,6 +501,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "tournament_format_status": tournament_gate["format_status"],
         "incentive_effect": tournament_gate["incentive_effect"],
         "tournament_incentive_rechecked": tournament_incentive_rechecked,
+        "tournament_incentive_recheck_status": tournament_incentive_recheck_status,
+        "tournament_incentive_resolution": tournament_gate["resolution_status"],
     }
 
     if model == "c2":

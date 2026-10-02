@@ -75,7 +75,10 @@
         "home_incentive",
         "away_incentive",
         "tiebreak_margin_relevance",
-        "incentive_effect"
+        "incentive_effect",
+        "qualification_state",
+        "simultaneous_results_status",
+        "simultaneous_results_note"
       ],
       "properties": {
         "match_id": {
@@ -178,6 +181,23 @@
         },
         "incentive_effect": {
           "$ref": "#/$defs/incentiveEffect"
+        },
+        "qualification_state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "simultaneous_results_status": {
+          "type": "string",
+          "enum": [
+            "NOT_APPLICABLE",
+            "VERIFIED",
+            "LIMITED",
+            "UNKNOWN"
+          ]
+        },
+        "simultaneous_results_note": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -245,7 +265,8 @@
             "board_state",
             "thesis_state",
             "quote",
-            "tournament_incentive_rechecked"
+            "tournament_incentive_rechecked",
+            "tournament_incentive_recheck_status"
           ],
           "properties": {
             "board_state": {
@@ -299,6 +320,15 @@
             },
             "tournament_incentive_rechecked": {
               "type": "boolean"
+            },
+            "tournament_incentive_recheck_status": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE",
+                "VERIFIED",
+                "LIMITED",
+                "UNKNOWN"
+              ]
             }
           }
         }
