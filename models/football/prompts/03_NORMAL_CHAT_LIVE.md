@@ -51,11 +51,15 @@ For an applicable tournament fixture, explicitly output the current incentive ep
 - incentive effect;
 - side genuinely forced to chase.
 
-If this recomputation is missing or cannot be established:
+If this recomputation is missing:
 
 `LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
 
-Do not execute C or C2 live exposure from a stale incentive state. Record UNKNOWN where necessary, but never silently skip the check.
+If it exists but qualification/tiebreak/margin/simultaneous-result consequences remain LIMITED/UNKNOWN:
+
+`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
+Do not issue a normal live C/C2 action from either state. A user-declared exception may authorize reassessment of the fixture but does **not** waive the requirement to resolve the current incentive epoch first.
 
 Official C may produce:
 - `C-BET — <line> @ <odds>`
