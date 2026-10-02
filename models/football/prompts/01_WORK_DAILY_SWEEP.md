@@ -8,6 +8,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
+- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -104,6 +105,11 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - failure_resistance = LOW / MEDIUM / HIGH;
 - evidence_confidence = LOW / MEDIUM / HIGH;
 - burden_protection = LOW / MEDIUM / HIGH;
+- completion_mode = NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED;
+- burden_completion_quality = LOW / MEDIUM / HIGH;
+- continuation_quality = LOW / MEDIUM / HIGH;
+- opponent_leakage = LOW / MEDIUM / HIGH;
+- burden_stall_risk = LOW / MEDIUM / HIGH;
 - failure_attacks_route;
 - material_suppression;
 - independent_upper_tail;
@@ -128,6 +134,14 @@ Once frozen, do not edit common evidence after seeing either model's ranking or 
 ## 2. Football C official board
 
 Apply `models/football/production/FOOTBALL_C.md` to the common evidence.
+
+Before final C state/rank, answer for every fixture:
+
+`WHERE DOES THE GOAL THAT CLEARS THE SUPPORTED BURDEN COME FROM?`
+
+Two-sided route labels are insufficient. A HIGH carrier-led completion path may survive with a WEAK second scoring route. Conversely, a balanced TWO_SIDED profile with HIGH stall risk must not receive routine preference merely because both teams can plausibly score once.
+
+If a proposed C-PASS has HIGH completion + HIGH continuation + STRONG self-funded carrier + independent upper-tail proof + MEDIUM/HIGH opponent leakage and no suppression, re-open the screen. Do not finalize C-PASS solely from the weak second route.
 
 Produce:
 - C-PASS
@@ -243,23 +257,28 @@ After the official C board is frozen, assign every official C fixture one operat
 Routine XI/odds follow-through is allowed only when all are true:
 - operational viability grade A;
 - C-FOCUS;
-- both routes at least USABLE;
-- at least one route STRONG;
+- completion mode TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED;
 - carrier STRONG;
 - route reliability HIGH;
-- independent route quality HIGH;
-- chance quality HIGH;
+- burden completion HIGH;
+- continuation HIGH;
+- burden stall risk LOW;
+- chance quality at least MEDIUM;
 - failure resistance HIGH;
 - evidence confidence HIGH;
 - supported line <= O3.0;
 - no route-attacking failure or material suppression.
 
+TWO_SIDED requires two usable routes and at least one STRONG route.
+
+CARRIER_LED permits a WEAK second route only when the STRONG carrier can self-fund, independent upper-tail proof is present, and opponent leakage is at least MEDIUM.
+
+Two-sidedness alone is not a FOLLOW advantage.
+
 ### RESERVE
 Operational grade B can never receive routine FOLLOW at board time; when football structure clears it is capped at RESERVE.
 
-An A-grade C-FOCUS may also be RESERVE when the same core structure clears but:
-- failure resistance is MEDIUM; and
-- burden protection is HIGH.
+An A-grade C-FOCUS may also be RESERVE when the completion path remains credible and burden protection is HIGH but failure resistance, completion or continuation is MEDIUM, or stall risk is MEDIUM rather than LOW.
 
 RESERVE does not consume routine Step-2 attention. Activate it only when:
 - FOLLOW candidates collapse at XI/price; or
@@ -274,7 +293,10 @@ This is an **operational capacity rule**, not a reclassification of C-PASS/WATCH
 
 After quality gating:
 - maximum routine `FOLLOW = 6`;
-- maximum retained `RESERVE = 4`.
+- maximum retained `RESERVE = 4`;
+- maximum routine `FOLLOW = 2` for fixtures sharing the exact scheduled kickoff minute.
+
+Rank exact-same-kickoff candidates by the burden-completion key before consuming FOLLOW capacity. Otherwise-qualified same-kickoff overflow goes to RESERVE, then STOP.
 
 If more qualify, preserve official C rank and demote overflow in rank order:
 `FOLLOW overflow -> RESERVE -> STOP`.
@@ -287,8 +309,8 @@ Show the operational queue first:
 
 `FOOTBALL C FOLLOW-THROUGH QUEUE`
 
-| Queue | C rank | Match | Op grade | C state | Routes | Carrier | Supported line | Why |
-|---|---:|---|---|---|---|---|---:|---|
+| Queue | C rank | Same-KO rank | Match | Op grade | C state | Completion mode | Completion | Continuation | Stall risk | Carrier | Supported line | Why |
+|---|---:|---:|---|---|---|---|---|---|---|---|---:|---|
 
 Order:
 1. FOLLOW
