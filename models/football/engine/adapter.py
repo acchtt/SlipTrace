@@ -96,6 +96,42 @@ def _is_unresolved_text(value: str) -> bool:
     return any(marker in normalized for marker in markers)
 
 
+def validate_operational_viability(obj: dict[str, Any]) -> dict[str, str]:
+    grade = _choice(obj, "operational_viability_grade", {"A", "B", "C", "D"})
+    xi_expected = _choice(obj, "xi_expected", {"YES", "UNCERTAIN", "NO"})
+    market = _choice(obj, "market_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
+    news = _choice(obj, "team_news_observability", {"HIGH", "MEDIUM", "LOW", "NONE"})
+    reason = _string(obj, "operational_viability_reason")
+
+    if grade in {"C", "D"}:
+        raise ContractError(
+            "ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY: "
+            f"grade={grade}"
+        )
+    if grade == "A":
+        if xi_expected != "YES":
+            raise ContractError("operational grade A requires xi_expected=YES")
+        if market != "HIGH":
+            raise ContractError("operational grade A requires market_observability=HIGH")
+        if news not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade A requires team_news_observability HIGH/MEDIUM")
+    if grade == "B":
+        if xi_expected == "NO":
+            raise ContractError("operational grade B cannot use xi_expected=NO")
+        if market not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade B requires market_observability HIGH/MEDIUM")
+        if news not in {"HIGH", "MEDIUM"}:
+            raise ContractError("operational grade B requires team_news_observability HIGH/MEDIUM")
+
+    return {
+        "grade": grade,
+        "xi_expected": xi_expected,
+        "market_observability": market,
+        "team_news_observability": news,
+        "reason": reason,
+    }
+
+
 def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     """Fail closed when the tournament-incentive assessment is skipped.
 
