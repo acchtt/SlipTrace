@@ -96,6 +96,7 @@ class BoardContractTests(unittest.TestCase):
                     "matches": [
                         match(
                             operational_viability_grade="C",
+                            raw_operational_viability_grade="C",
                             xi_expected="NO",
                             market_observability="LOW",
                             team_news_observability="LOW",
@@ -127,6 +128,7 @@ class BoardContractTests(unittest.TestCase):
                 "matches": [
                     match(
                         operational_viability_grade="B",
+                        raw_operational_viability_grade="B",
                         xi_expected="UNCERTAIN",
                         market_observability="MEDIUM",
                         carrier="STRONG",
