@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime
 from typing import Any
 
 from competition_reliability import apply_reliability_cap, effective_state
@@ -8,6 +9,7 @@ from competition_reliability import apply_reliability_cap, effective_state
 from core import (
     BoardState,
     CarrierStrength,
+    CompletionMode,
     DecisionContext,
     FollowLane,
     Grade,
@@ -27,6 +29,7 @@ from core import (
 SCHEMA_VERSION = "football-engine-v1"
 MAX_FOLLOW = 6
 MAX_RESERVE = 4
+MAX_FOLLOW_PER_KICKOFF = 2
 
 
 class ContractError(ValueError):
@@ -96,6 +99,47 @@ def _is_unresolved_text(value: str) -> bool:
     normalized = value.strip().upper().replace("-", "_").replace(" ", "_")
     markers = ("UNKNOWN", "LIMITED", "UNRESOLVED", "TBD", "NOT_VERIFIED")
     return any(marker in normalized for marker in markers)
+
+
+def _kickoff_block(obj: dict[str, Any]) -> str:
+    value = _string(obj, "kickoff_ict")
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise ContractError("kickoff_ict must be ISO-8601") from exc
+    if parsed.tzinfo is None:
+        raise ContractError("kickoff_ict must include timezone offset")
+    return parsed.isoformat(timespec="minutes")
+
+
+def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
+    """Fail closed on an obvious carrier-led C-PASS contradiction."""
+
+    if state != BoardState.PASS:
+        return
+
+    carrier_rescue = (
+        a.completion_mode in {
+            CompletionMode.CARRIER_LED,
+            CompletionMode.FORCED_CHAOS,
+            CompletionMode.MIXED,
+        }
+        and a.burden_completion_quality == Grade.HIGH
+        and a.continuation_quality == Grade.HIGH
+        and a.carrier == CarrierStrength.STRONG
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.opponent_leakage >= Grade.MEDIUM
+        and a.burden_stall_risk != Grade.HIGH
+        and not a.failure_attacks_route
+        and not a.material_suppression
+    )
+    if carrier_rescue:
+        raise ContractError(
+            "C-PASS CONTRADICTION — HIGH BURDEN-COMPLETION CARRIER PATH "
+            "REQUIRES WATCH/FOCUS REVIEW"
+        )
 
 
 def validate_operational_viability(obj: dict[str, Any]) -> dict[str, Any]:
@@ -385,6 +429,23 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
             _required(obj, "burden_protection"),
             "burden_protection",
         ),
+        completion_mode=_enum(
+            CompletionMode, _required(obj, "completion_mode"), "completion_mode"
+        ),
+        burden_completion_quality=_enum(
+            Grade,
+            _required(obj, "burden_completion_quality"),
+            "burden_completion_quality",
+        ),
+        continuation_quality=_enum(
+            Grade, _required(obj, "continuation_quality"), "continuation_quality"
+        ),
+        opponent_leakage=_enum(
+            Grade, _required(obj, "opponent_leakage"), "opponent_leakage"
+        ),
+        burden_stall_risk=_enum(
+            Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk"
+        ),
         supported_line=_number(obj, "supported_line"),
         carrier_self_fund=_bool(obj, "carrier_self_fund"),
         independent_upper_tail=_bool(obj, "independent_upper_tail"),
@@ -418,19 +479,37 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     parsed = [parse_assessment(item) for item in raw_matches]
     ranked = rank_assessments(parsed)
 
+    raw_by_id = {str(item["match_id"]): item for item in raw_matches}
+    block_rank_by_id: dict[str, int] = {}
+    block_counts: dict[str, int] = {}
+    for item in ranked:
+        raw = raw_by_id[item.match_id]
+        block = _kickoff_block(raw)
+        block_counts[block] = block_counts.get(block, 0) + 1
+        block_rank_by_id[item.match_id] = block_counts[block]
+
     output = []
     follow_used = 0
     reserve_used = 0
+    follow_by_block: dict[str, int] = {}
 
     for rank, item in enumerate(ranked, start=1):
-        raw = next(x for x in raw_matches if str(x["match_id"]) == item.match_id)
+        raw = raw_by_id[item.match_id]
+        kickoff_block = _kickoff_block(raw)
         operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(ranking_key(item)),
+            "kickoff_ict": raw["kickoff_ict"],
+            "same_kickoff_rank": block_rank_by_id[item.match_id],
             "supported_line": item.supported_line,
+            "completion_mode": item.completion_mode.value,
+            "burden_completion_quality": item.burden_completion_quality.name,
+            "continuation_quality": item.continuation_quality.name,
+            "opponent_leakage": item.opponent_leakage.name,
+            "burden_stall_risk": item.burden_stall_risk.name,
             "operational_viability_grade": operational_gate["grade"],
             "raw_operational_viability_grade": operational_gate["raw_grade"],
             "competition_reliability_state": operational_gate["competition_reliability_state"],
@@ -452,6 +531,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         if "board_state" in raw:
             state = _enum(BoardState, raw["board_state"], "board_state")
             row["board_state"] = state.name
+            if model == "c":
+                validate_c_screen_state(item, state)
 
         if model == "c" and state is not None:
             base_lane = follow_through_lane(item, state)
@@ -465,9 +546,14 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
                     lane = FollowLane.RESERVE
                     reserve_used += 1
             elif base_lane == FollowLane.FOLLOW:
-                if follow_used < MAX_FOLLOW:
+                block_follow_used = follow_by_block.get(kickoff_block, 0)
+                if (
+                    follow_used < MAX_FOLLOW
+                    and block_follow_used < MAX_FOLLOW_PER_KICKOFF
+                ):
                     lane = FollowLane.FOLLOW
                     follow_used += 1
+                    follow_by_block[kickoff_block] = block_follow_used + 1
                 elif reserve_used < MAX_RESERVE:
                     lane = FollowLane.RESERVE
                     reserve_used += 1
@@ -504,6 +590,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         )
         result["follow_capacity"] = MAX_FOLLOW
         result["reserve_capacity"] = MAX_RESERVE
+        result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
 
     return result
 
