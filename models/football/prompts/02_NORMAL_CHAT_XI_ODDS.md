@@ -54,18 +54,26 @@ Odds/history lookup does **not** satisfy the football-research gate.
 Carry forward `tournament_incentive_required` for **every fixture**.
 
 - If false: record `Tournament incentive = NOT APPLICABLE`.
-- If true: perform the fresh current-format/current-table incentive recheck regardless of whether XI changed, and set `tournament_incentive_rechecked = true`.
+- If true: perform the fresh current-format/current-table incentive recheck regardless of whether XI changed, set `tournament_incentive_rechecked = true`, and persist `tournament_incentive_recheck_status = VERIFIED / LIMITED / UNKNOWN`.
 
 If an applicable fixture has not been rechecked:
 
 `DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING`
 
-Do not issue C or C2 action from that incomplete epoch.
+If it was rechecked but any material qualification/tiebreak/margin/simultaneous-result item remains LIMITED / UNKNOWN:
+
+`DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
+Do not issue C-BET/C-WAIT/C-PASS or C2 action from either incomplete state. An explicit user exception does not waive this requirement.
 
 For tournament/cup/qualifier/two-leg/final-round contexts persist:
 - `TOURNAMENT FORMAT = VERIFIED / LIMITED / UNKNOWN`;
+- `QUALIFICATION STATE = <exact current requirement>`;
+- `TIEBREAK/MARGIN = YES / NO / UNKNOWN`;
+- `SIMULTANEOUS RESULTS = VERIFIED / NOT_APPLICABLE / LIMITED / UNKNOWN`;
 - `INCENTIVE STATE = <home> / <away>`;
-- `INCENTIVE EFFECT = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`.
+- `INCENTIVE EFFECT = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`;
+- `INCENTIVE RECHECK STATUS = VERIFIED / LIMITED / UNKNOWN`.
 
 Before any post-XI supported-line upgrade, apply the burden-upgrade veto from the tournament procedure. Stronger XI alone cannot raise burden if draw/aggregate/penalty/table incentives make control or parity strategically acceptable.
 
@@ -121,7 +129,7 @@ Persist C2 in Decision States under:
 
 ## 5. Python engine comparison — both tracks
 
-Every decision payload must explicitly include `tournament_incentive_rechecked`. For an applicable fixture the deterministic adapter fails closed unless it is true.
+Every decision payload must explicitly include both `tournament_incentive_rechecked` and `tournament_incentive_recheck_status`. For an applicable fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
 
 Build two decision payloads from the **same common semantic evidence**:
 
