@@ -2,6 +2,10 @@
 
 Read `models/football/CURRENT_MODEL.md` first.
 
+Also read:
+- `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
+- `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`.
+
 Use the model/version that actually produced each historical decision.
 
 ## Source hierarchy
@@ -41,6 +45,28 @@ Track separately:
 - C-WAIT executed/cancelled/not reached;
 - actual user execution deviations.
 
+## Competition reliability memory update — mandatory
+
+After process reconstruction and **before** using the audit for future Step-0 selection:
+
+1. write one canonical operational event per observed fixture/epoch to Airtable `Competition Reliability Events` (`tblD0ZHqT772H25Uv`);
+2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
+3. never write FT goals, C/C2 result, settlement or P/L into the reliability event;
+4. for each affected competition, load the latest 10 countable events;
+5. run `models/football/engine/competition_reliability.py`;
+6. upsert the `Competition Reliability` summary row (`tbl1KShXxXErUdVKW`);
+7. preserve Manual Override unless the user explicitly changed it.
+
+Report state transitions explicitly, for example:
+
+`NEUTRAL -> CAUTION — XI usable 67% over latest 6 checked observations`
+
+or:
+
+`CAUTION -> DEMOTED — third consecutive critical operational failure`
+
+A profitable or high-scoring match cannot rescue a competition from an operational demotion. A losing/low-scoring match cannot cause one.
+
 ## Confirmatory C2 boundary
 
 Only C2 decisions produced **after the dual-track fix commit** count toward the restarted confirmatory C-vs-C2 comparison.
@@ -57,6 +83,9 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 
 - broad-senior completeness;
 - operational A/B/C/D disposition present for every surviving senior fixture;
+- frozen competition reliability state/reason present for every admitted fixture;
+- reliability events contain no FT/predictive/P&L leakage;
+- latest affected competition summaries were recomputed from the rolling operational sample;
 - admitted count <= 15 and capacity overflow explicitly deferred;
 - no C/D fixture entered routine Work without a user exception;
 - B-grade fixtures did not receive routine FOLLOW;
