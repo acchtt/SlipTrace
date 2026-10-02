@@ -15,7 +15,7 @@ Every in-scope senior fixture that survives hard identity/time exclusions must r
 - `team_news_observability = HIGH / MEDIUM / LOW / NONE`;
 - `operational_viability_reason = <compact evidence-based reason>`.
 
-Use the competition's current accessible information plus recent operational history when known. Do not claim that XI is expected merely because the fixture is senior.
+Use the competition's current accessible information to assign the **raw current grade**. Then apply `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md` as a separate historical cap. Do not blend predictive results into either layer, and do not claim that XI is expected merely because the fixture is senior.
 
 ## 2. Grades
 
@@ -76,7 +76,24 @@ Do exclude or demote it when the **observable execution ecosystem** is poor.
 
 A small league with dependable XI, team news, market and current data can still be A/B. A famous competition with materially unavailable execution evidence can still be B/C for the affected fixture.
 
-## 4. Step-0 capacity cap
+## 4. Persistent competition reliability cap
+
+Before capacity selection, retrieve the current competition state:
+
+`UNPROVEN / TRUSTED / NEUTRAL / CAUTION / DEMOTED`
+
+Rules:
+
+- UNPROVEN / TRUSTED / NEUTRAL: no historical cap; current raw grade stands.
+- CAUTION: raw A is capped to B.
+- DEMOTED: raw A/B becomes C by default.
+- DEMOTED recovery: at most one fixture from that competition per sweep may enter as B probation when the current fixture independently clears every raw A requirement. A raw B fixture is not sufficient for probation.
+- history may never promote B->A or C->B.
+- an explicit user exception may reopen a fixture but does not waive any other integrity gate.
+
+Persist the reliability state and reason with the fixture so later audit can reconstruct why the final operational grade differed from the raw current grade.
+
+## 5. Step-0 capacity cap
 
 The normal production handoff to Work is capped at:
 
@@ -95,23 +112,23 @@ If more than 15 A/B fixtures clear, preserve the overflow as:
 
 A capacity-deferred fixture is not a Football C PASS and is not a coverage failure. It remains recoverable by explicit user exception.
 
-## 5. Protected competition classes
+## 6. Protected competition classes
 
 Protected international/continental classes may bypass the ordinary domestic **researchability exclusion**, but they do **not** bypass this operational viability declaration.
 
 If a protected fixture is temporarily B, it may be retained subject to the 15-match cap. If it is C/D because XI/market/team-news observability is materially inadequate, keep the explicit operational disposition rather than pretending it is executable.
 
-## 6. Handoff contract
+## 7. Handoff contract
 
 The normal Step-0 funnel is:
 
 `RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C`
 
-Every admitted Work fixture must be A or B and carry all five operational fields.
+Every admitted Work fixture must be A or B and carry all five current operational fields plus `competition_reliability_state` and `competition_reliability_reason`.
 
 Work must fail closed if a C/D fixture leaks into the board payload.
 
-## 7. Follow-through boundary
+## 8. Follow-through boundary
 
 Operational viability does not change Football C's predictive state.
 
@@ -120,7 +137,7 @@ Operational viability does not change Football C's predictive state.
 - C/D: must not enter the normal board.
 - User exception: may reopen research/Step 2, but does not waive tournament-incentive, XI, market, or evidence-integrity rules.
 
-## 8. Audit
+## 9. Audit
 
 Audit these separately:
 
@@ -130,4 +147,4 @@ Audit these separately:
 - cases where `xi_expected` proved wrong;
 - competitions repeatedly producing B/C because XI, team news or executable totals are unavailable.
 
-Repeated operational failures should lower future competition preflight confidence. Do not retroactively alter historical board states.
+Repeated operational failures update the persistent competition reliability memory through the post-slate audit. The memory may cap future fixtures, but it must not retroactively alter historical board states.
