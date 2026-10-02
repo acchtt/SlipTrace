@@ -9,7 +9,7 @@ REQUIRED = {
         "CARRIER_LED",
         "Burden stall risk",
         "C-PASS carrier contradiction",
-        "maximum routine FOLLOW fixtures per exact kickoff minute",
+        "at most **2 routine FOLLOW fixtures per exact kickoff minute**",
     ],
     "models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md": [
         "mandatory persistent Step-0 memory",
