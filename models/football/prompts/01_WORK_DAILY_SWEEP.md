@@ -6,6 +6,7 @@ Read upstream:
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
+- `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -16,6 +17,25 @@ If package/completeness fails:
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
 Do not rebuild the raw universe in Work.
+
+## 0. Operational handoff gate — fail closed
+
+Before full football research, verify the Step-0 contract:
+
+- admitted fixture count <= 15;
+- every admitted fixture has `operational_viability_grade = A / B`;
+- every admitted fixture has `xi_expected`, `market_observability`, `team_news_observability`, and `operational_viability_reason`;
+- no C/D fixture appears in the normal Work array.
+
+If a C/D fixture leaks in:
+
+`ASSESSMENT BLOCKED — LOW OPERATIONAL OBSERVABILITY`
+
+If the handoff contains more than 15 normal admissions:
+
+`HANDOFF INCOMPLETE — OPERATIONAL CAPACITY BREACH`
+
+Do not rescue Step-0 operational exclusions or capacity-deferred fixtures with deep Work research unless the user explicitly declares an exception.
 
 ## 1. Common evidence freeze — mandatory
 
@@ -61,6 +81,11 @@ A user-declared exception may reopen research but **never bypasses the incentive
 Freeze one common semantic evidence state before either model ranks the slate:
 
 - match_id / identity / kickoff;
+- operational_viability_grade = A / B;
+- xi_expected = YES / UNCERTAIN;
+- market_observability = HIGH / MEDIUM;
+- team_news_observability = HIGH / MEDIUM;
+- operational_viability_reason;
 - home_route = WEAK / USABLE / STRONG;
 - away_route = WEAK / USABLE / STRONG;
 - carrier = NONE / USABLE / STRONG;
@@ -208,6 +233,7 @@ After the official C board is frozen, assign every official C fixture one operat
 
 ### FOLLOW
 Routine XI/odds follow-through is allowed only when all are true:
+- operational viability grade A;
 - C-FOCUS;
 - both routes at least USABLE;
 - at least one route STRONG;
@@ -221,7 +247,9 @@ Routine XI/odds follow-through is allowed only when all are true:
 - no route-attacking failure or material suppression.
 
 ### RESERVE
-A C-FOCUS may be RESERVE when the same core structure clears but:
+Operational grade B can never receive routine FOLLOW at board time; when football structure clears it is capped at RESERVE.
+
+An A-grade C-FOCUS may also be RESERVE when the same core structure clears but:
 - failure resistance is MEDIUM; and
 - burden protection is HIGH.
 
@@ -251,8 +279,8 @@ Show the operational queue first:
 
 `FOOTBALL C FOLLOW-THROUGH QUEUE`
 
-| Queue | C rank | Match | C state | Routes | Carrier | Supported line | Why |
-|---|---:|---|---|---|---|---:|---|
+| Queue | C rank | Match | Op grade | C state | Routes | Carrier | Supported line | Why |
+|---|---:|---|---|---|---|---|---:|---|
 
 Order:
 1. FOLLOW
