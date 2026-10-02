@@ -48,12 +48,33 @@ before Football C/C2 can classify it.
 - If false, the structured incentive fields must explicitly be `NOT_APPLICABLE`.
 - If true, the complete format/incentive block in Sections 2–3 must be present.
 - Unknown facts are recorded as `UNKNOWN`; they are never silently omitted.
+- **Presence is not resolution.** A populated block with material `LIMITED` / `UNKNOWN` values is still incomplete for action.
 
-At Step 1, if an applicable fixture is missing the block:
+For an applicable fixture, Step 1 is resolved only when all are true:
+- `tournament_format_status = VERIFIED`;
+- competition stage and format are verified;
+- draw resolution is verified;
+- aggregate/tie state is verified or explicitly not applicable;
+- `qualification_state` states exactly what each side needs;
+- home and away incentive are not UNKNOWN;
+- `tiebreak_margin_relevance = YES / NO`;
+- `incentive_effect` is resolved;
+- `simultaneous_results_status = VERIFIED / NOT_APPLICABLE`, with the impact recorded.
+
+If the block is absent:
 
 `ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING`
 
-Do not issue C-PASS / C-WATCH / C-FOCUS or C2 state for that fixture until the block exists.
+If the block exists but any material item remains LIMITED / UNKNOWN / unresolved:
+
+`ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+
+In either case:
+- do not freeze an official supported burden;
+- do not issue C-PASS / C-WATCH / C-FOCUS;
+- do not issue a C2 board state;
+- do not assign FOLLOW / RESERVE;
+- retain the fixture separately as `INCENTIVE-INCOMPLETE` for resolution.
 
 At Step 2, an applicable fixture must explicitly record:
 
@@ -89,10 +110,15 @@ Record for each team one or more:
 
 Also freeze:
 
-- `draw_resolution`
+- `draw_resolution`;
 - `aggregate_state` when applicable;
+- `qualification_state` — exact advancement/elimination/placement condition for each side;
 - `tiebreak_margin_relevance = YES / NO / UNKNOWN`;
+- `simultaneous_results_status = VERIFIED / NOT_APPLICABLE / LIMITED / UNKNOWN`;
+- `simultaneous_results_note` — what other result(s) can change the incentive, or why none can;
 - `incentive_effect = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`.
+
+For an applicable fixture, UNKNOWN/LIMITED in a material incentive field blocks action rather than merely reducing confidence.
 
 ## 4. Route strength is not incentive strength
 
@@ -120,7 +146,7 @@ If post-XI evidence would raise the supported total above the frozen PRE burden,
 
 If `DRAW_ACCEPTABLE`, `PROTECT_AGGREGATE`, direct-penalty access, or another control state is materially relevant, do not upgrade burden solely from XI strength.
 
-If format/incentive is `UNKNOWN`, no aggressive burden upgrade is allowed. Reduce evidence confidence or keep the prior protected burden.
+If format/incentive is `LIMITED` or `UNKNOWN`, the fixture is **not actionable**. Do not freeze/retain an official supported burden for betting purposes and do not issue C/C2 action until the incentive state is resolved.
 
 ## 6. Score-state matrix
 
@@ -152,7 +178,9 @@ Persist:
 - `INCENTIVE STATE = <home> / <away>`
 - `INCENTIVE EFFECT = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN`
 
-No final official BET in a tournament exception without this check unless the user explicitly overrides the missing-format uncertainty.
+For an applicable fixture, the recheck must be VERIFIED before any final C/C2 action.
+
+**A user-declared exception does not waive this gate.** It may reopen a STOP/RESERVE fixture for research, but the tournament state still must be resolved before an actionable verdict.
 
 ## 8. Live requirement
 
@@ -191,3 +219,16 @@ Never retro-change the frozen PRE state after FT.
 This procedure is an evidence-completeness requirement for the already-existing matchup/incentive concept. It does **not** change C2 selection thresholds, bridge caps, price rules, or shadow-only authority.
 
 Any future change to C2 predictive thresholds still requires the normal challenger-version rule.
+
+
+## 12. Blooming-type failure guard
+
+The following is explicitly invalid:
+
+`tournament block present -> LIMITED/UNKNOWN qualification or tiebreak state -> C-FOCUS / supported O-line -> normal Step 2`
+
+Correct handling:
+
+`LIMITED/UNKNOWN -> INCENTIVE-INCOMPLETE -> resolve qualification/tiebreak/margin/simultaneous-result state -> new frozen evidence epoch -> only then C/C2 classification`
+
+Do not interpret “we checked the tournament” as equivalent to “the tournament incentive is resolved.”
