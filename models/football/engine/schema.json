@@ -416,6 +416,9 @@
         "c3_control_endpoint_basis": {
           "type": "string",
           "minLength": 1
+        },
+        "c3_forced_chaos_verified": {
+          "type": "boolean"
         }
       }
     },
