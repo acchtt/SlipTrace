@@ -75,6 +75,10 @@ class BoardContractTests(unittest.TestCase):
             result["matches"][0]["selection_floor"],
             "CLEAR",
         )
+        self.assertEqual(
+            result["ranking_policy"],
+            "FOOTBALL_C2_FROZEN_ROUTE_QUALITY",
+        )
 
     def test_missing_operational_gate_fails(self):
         row = match()
@@ -312,6 +316,20 @@ class BoardContractTests(unittest.TestCase):
             }
         )
         self.assertEqual(result["matches"][0]["match_id"], "z_high")
+
+    def test_c_board_reports_burden_completion_ranking_policy(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [match(carrier="STRONG", board_state="C-FOCUS")],
+            }
+        )
+        self.assertEqual(
+            result["ranking_policy"],
+            "FOOTBALL_C_BURDEN_COMPLETION",
+        )
 
     def test_same_kickoff_follow_is_capped_at_two_best_candidates(self):
         result = run_board(
