@@ -199,7 +199,7 @@ REQUIRED = {
         "Shadow challengers:** Football **C2** and Football **C3**",
         "COMMON FOOTBALL FACT FREEZE",
         "tournament_incentive_required",
-        "Football C's board is the only board that can feed official Step-2 exposure.",
+        "Football C's board/lane is the only board that controls routine Step-2 workload or official exposure.",
         "models/football/engine/",
         "operational viability gate",
         "Normal Work admission is capped at 15",
