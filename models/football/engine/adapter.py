@@ -593,11 +593,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
             "supported_line": item.supported_line,
-            "completion_mode": item.completion_mode.value,
-            "burden_completion_quality": item.burden_completion_quality.name,
-            "continuation_quality": item.continuation_quality.name,
-            "opponent_leakage": item.opponent_leakage.name,
-            "burden_stall_risk": item.burden_stall_risk.name,
             "operational_viability_grade": operational_gate["grade"],
             "raw_operational_viability_grade": operational_gate["raw_grade"],
             "competition_reliability_state": operational_gate["competition_reliability_state"],
@@ -615,8 +610,15 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "simultaneous_results_status": incentive_gate["simultaneous_results_status"],
         }
 
+        if model != "c3":
+            row["completion_mode"] = item.completion_mode.value
+            row["burden_completion_quality"] = item.burden_completion_quality.name
+            row["continuation_quality"] = item.continuation_quality.name
+            row["opponent_leakage"] = item.opponent_leakage.name
+            row["burden_stall_risk"] = item.burden_stall_risk.name
+
         state = None
-        if "board_state" in raw:
+        if model != "c3" and "board_state" in raw:
             state = _enum(BoardState, raw["board_state"], "board_state")
             row["board_state"] = state.name
             if model == "c":
