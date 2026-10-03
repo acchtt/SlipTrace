@@ -100,6 +100,7 @@ REQUIRED = {
     ],
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
         "Official model:** Football C",
+        "C Action",
         "Current Completion Mode",
         "Current Completion Quality",
         "Current Continuation Quality",
