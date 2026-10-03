@@ -131,6 +131,16 @@ Resolve Football C official WAITs normally.
 
 If the same fixture also has a predeclared C2-WAIT, resolve the C2 wait from the same live state as a shadow comparison only.
 
+## Factor calibration observer
+
+`models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md` is active as a **prospective diagnostic observer only**.
+
+It records frozen factor vectors before outcome and appends outcome labels after FT to diagnose possible over/underweighting.
+
+It has zero authority over Football C/C2 production. No trace score, bucket result, ablation result, or historical settlement may directly change a rank, state, lane, supported burden or action.
+
+Any stable signal must be promoted into a separately versioned challenger and tested prospectively.
+
 ## Audit
 
 Use:

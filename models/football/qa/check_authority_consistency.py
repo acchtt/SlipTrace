@@ -206,6 +206,51 @@ require(
     "test_published_model_exposure_does_not_require_user_bet",
 )
 
+# 6. Factor calibration observer must remain non-authoritative.
+require(
+    "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md",
+    "PROSPECTIVE DIAGNOSTIC OBSERVER — ZERO PRODUCTION AUTHORITY",
+    "Diagnostic contribution trace",
+    "Same-kickoff priority inversion",
+    "Ablation replay",
+    "OVERWEIGHT CANDIDATE",
+    "UNDERWEIGHT CANDIDATE",
+    "No silent coefficient tuning inside Football C",
+)
+require(
+    "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md",
+    "tblz2s2KR4BRyAaVo",
+    "Outcome fields remain blank before FT",
+    "must never be read by",
+)
+require(
+    "models/football/engine/factor_calibration.py",
+    "def trace_contributions",
+    "def c_ranking_key",
+    "def ablated_ranking_key",
+    "def factor_bucket_stats",
+    "def same_kickoff_ablation",
+)
+require(
+    "models/football/engine/factor_calibration_cli.py",
+    "parse_observation",
+    "analyze",
+)
+require(
+    "models/football/engine/tests/test_factor_calibration.py",
+    "test_trace_score_is_transparent_and_non_market",
+    "test_continuation_ablation_can_expose_priority_inversion",
+    "test_analyzer_excludes_ineligible_rows_from_buckets",
+)
+forbid(
+    "models/football/engine/core.py",
+    "factor_calibration",
+)
+forbid(
+    "models/football/engine/adapter.py",
+    "factor_calibration",
+)
+
 # 4. Persistence must have named current C/C2 separation.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",

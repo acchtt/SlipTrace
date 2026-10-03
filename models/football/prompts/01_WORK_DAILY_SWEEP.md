@@ -230,6 +230,25 @@ If text/code disagree:
 
 Do not mutate the frozen semantic evidence.
 
+## Factor calibration observer — prospective write
+
+Read:
+- `models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md`;
+- `models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md`.
+
+After the final Football C board/rank/lane/support is frozen and before any FT result is known, append one `Factor Calibration Observations` row per ranked C fixture when the full required factor vector is available.
+
+Freeze only prospectively established fields. Outcome columns remain blank.
+
+This observer is diagnostic only. Its Trace Score or historical performance must never alter:
+- C/C2 state;
+- C rank;
+- supported line;
+- FOLLOW/RESERVE/STOP;
+- Step-2 eligibility.
+
+If a required factor was not prospectively frozen, do not infer it for calibration. Mark the observation ineligible or omit it with an explicit calibration note.
+
 ## 5. Output
 
 Primary table — official production board:
