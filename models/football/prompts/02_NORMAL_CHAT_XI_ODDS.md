@@ -1,5 +1,7 @@
 # 02 — Normal Chat: Football C Official + C2 Shadow XI/Odds
 
+**Command alias:** `/xi`
+
 Read upstream:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
