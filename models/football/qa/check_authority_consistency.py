@@ -108,7 +108,7 @@ require(
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "independently frozen C2 supported line",
-    "Do not reuse C's supported line in the C2 payload",
+    "Do not reuse C's supported line in C2 or C3 payloads",
 )
 require(
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
