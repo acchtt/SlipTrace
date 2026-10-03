@@ -313,7 +313,7 @@ Record enough information for rank/state, routes/carrier, supported line, select
 
 ## 20. Dual-track operational boundary
 
-Effective from the dual-track workflow fix:
+Effective from the QA authority/C2 validation repair:
 
 - Football C is the production champion.
 - C2 is a shadow policy challenger.
@@ -321,8 +321,9 @@ Effective from the dual-track workflow fix:
 - Football C fields remain canonical production fields.
 - C2 shadow persistence must never overwrite C.
 - C2 may not create Website Picks or real exposure.
-- Python validates both tracks from the same structured evidence.
-- pre-fix C2 results are excluded from the restarted confirmatory C-vs-C2 window because the old workflow mixed C2 Step 1 with Football C Step 2.
+- Python validates both tracks from the same factual evidence but uses model-specific policy: Football C burden-completion ranking for C, frozen route-quality ranking for C2.
+- C2 independently freezes its supported burden; C's line is never substituted.
+- all earlier C2 results before the QA authority/C2 validation repair are excluded from the restarted confirmatory window because comparison plumbing was contaminated.
 
 This section changes experiment plumbing/authority, not C2's predictive selection thresholds.
 
