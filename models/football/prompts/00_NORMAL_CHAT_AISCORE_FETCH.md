@@ -1,5 +1,7 @@
 # 00 — Normal Chat: AiScore Researchable Senior Intake
 
+**Command alias:** `/sweep`
+
 **Use in:** Normal Chat, high reasoning.
 
 Read upstream `models/football/CURRENT_MODEL.md` first.
