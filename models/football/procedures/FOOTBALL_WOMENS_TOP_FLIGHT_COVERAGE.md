@@ -76,6 +76,15 @@ Required equality:
 
 `women_top_flight_raw_count = admitted + operational_excluded + researchability_excluded + capacity_deferred + unresolved`
 
+Also persist a fixture-level `women_top_flight_disposition_manifest` containing every discovered fixture in this class with:
+- AiScore ID;
+- competition;
+- match;
+- kickoff ICT;
+- final Step-0 disposition;
+- operational grade when applicable;
+- compact exclusion/defer reason when not admitted.
+
 If the equality fails, or a visible women's top-flight block has no fixture/disposition record:
 
 `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`
