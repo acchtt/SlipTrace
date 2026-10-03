@@ -1,4 +1,4 @@
-# 03 — Normal Chat: Football C Official Live + C2 Shadow Wait
+# 03 — Normal Chat: Football C Official Live + C2/C3 Shadow Wait
 
 **Command alias:** `/live`
 
@@ -6,9 +6,10 @@ Read:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
+- `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 
-Football C is official. C2 is shadow-only.
+Football C is official. C2 and C3 are shadow-only.
 
 ## Common live evidence
 
@@ -24,7 +25,7 @@ For a supplied live fixture, freeze one current live state:
 - whether goal difference/margin still matters;
 - which side is genuinely forced to chase.
 
-Use this same live state for C and C2.
+Use this same live state for C, C2 and C3 when a corresponding predeclared shadow WAIT exists.
 
 ## Football C official WAIT resolution
 
@@ -61,7 +62,7 @@ If it exists but qualification/tiebreak/margin/simultaneous-result consequences 
 
 `LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
 
-Do not issue a normal live C/C2 action from either state. A user-declared exception may authorize reassessment of the fixture but does **not** waive the requirement to resolve the current incentive epoch first.
+Do not issue a normal live C/C2/C3 action from any unresolved state. A user-declared exception may authorize reassessment of the fixture but does **not** waive the requirement to resolve the current incentive epoch first.
 
 Official C may produce:
 - `C-BET — <line> @ <odds>`
@@ -83,8 +84,27 @@ C2 may produce:
 
 C2 may never create Website Pick or real exposure.
 
+## Football C3 shadow WAIT resolution
+
+If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch.
+
+Recheck:
+- required clearing-goal funding;
+- funding source integrity;
+- control-endpoint risk;
+- primary funding mechanism;
+- tournament incentive epoch when applicable.
+
+C3 may produce:
+- `C3-BET — SHADOW`
+- `C3-WAIT — SHADOW`
+- `C3-WAIT CANCELLED — FUNDING DECAY — SHADOW`
+- `C3-PASS — NEW EPOCH — SHADOW`
+
+Do not start C3-only live monitoring for a fixture Football C is not otherwise following.
+
 ## Output
 
-Report official C first, then C2 shadow comparison if one exists.
+Report official C first, then C2 and C3 shadow comparisons when they exist.
 
-Never allow a C2 live state to overwrite or substitute for the official C live plan.
+Never allow a C2/C3 live state to overwrite or substitute for the official C live plan.
