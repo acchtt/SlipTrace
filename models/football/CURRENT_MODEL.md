@@ -8,6 +8,24 @@
 
 This file is the canonical entry point for all new football work.
 
+## Short command router
+
+Read `models/football/prompts/COMMAND_ALIASES.md`.
+
+When the first token of a user message is a recognized short alias, route it directly:
+
+- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`
+- `/rank` -> `01_WORK_DAILY_SWEEP.md`
+- `/xi` -> `02_NORMAL_CHAT_XI_ODDS.md`
+- `/live` -> `03_NORMAL_CHAT_LIVE.md`
+- `/audit` -> `04_WORK_POST_SLATE_AUDIT.md`
+- `/report` -> `06_NORMAL_CHAT_REPORT.md`
+- `/help` -> show the alias cheat sheet only
+
+Everything after the alias is an argument to that launcher and same-message attachments are launcher inputs.
+
+The aliases are an ergonomic routing layer only. All canonical model/integrity rules remain unchanged, and the old explicit launcher-file form remains valid.
+
 ## Model authority
 
 - **Football C** is the only official production model.
