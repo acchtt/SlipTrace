@@ -50,7 +50,10 @@
         "C-FOCUS",
         "C2-PASS",
         "C2-WATCH",
-        "C2-FOCUS"
+        "C2-FOCUS",
+        "C3-PASS",
+        "C3-WATCH",
+        "C3-FOCUS"
       ]
     },
     "assessment": {
@@ -346,6 +349,73 @@
             "MEDIUM",
             "HIGH"
           ]
+        },
+        "c3_second_route_role": {
+          "type": "string",
+          "enum": [
+            "BURDEN_CONTRIBUTING",
+            "EXCHANGE_ONLY",
+            "STATE_DEPENDENT",
+            "NONE"
+          ]
+        },
+        "c3_goal3_funding": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "PARTIAL",
+            "NONE",
+            "NOT_REQUIRED"
+          ]
+        },
+        "c3_goal3_funding_source": {
+          "type": "string",
+          "enum": [
+            "CARRIER",
+            "SECOND_ROUTE",
+            "FORCED_CHAOS",
+            "MIXED",
+            "NONE"
+          ]
+        },
+        "c3_goal3_funding_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "c3_goal4_funding": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "PARTIAL",
+            "NONE",
+            "NOT_REQUIRED"
+          ]
+        },
+        "c3_goal4_funding_source": {
+          "type": "string",
+          "enum": [
+            "CARRIER",
+            "SECOND_ROUTE",
+            "FORCED_CHAOS",
+            "MIXED",
+            "NONE"
+          ]
+        },
+        "c3_goal4_funding_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "c3_control_endpoint_risk": {
+          "type": "string",
+          "enum": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ]
+        },
+        "c3_control_endpoint_basis": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -368,7 +438,8 @@
         "model": {
           "enum": [
             "c",
-            "c2"
+            "c2",
+            "c3"
           ]
         },
         "matches": {
@@ -400,7 +471,8 @@
         "model": {
           "enum": [
             "c",
-            "c2"
+            "c2",
+            "c3"
           ]
         },
         "match": {
