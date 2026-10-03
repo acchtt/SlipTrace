@@ -3,6 +3,31 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/prompts/COMMAND_ALIASES.md": [
+        "ACTIVE ROUTER CONTRACT",
+        "/sweep",
+        "/rank",
+        "/xi",
+        "/live",
+        "/audit",
+        "/report",
+        "/help",
+        "first non-whitespace token",
+        "project-level text commands",
+    ],
+    "models/football/prompts/06_NORMAL_CHAT_REPORT.md": [
+        "Command alias:** `/report`",
+        "read/report launcher only",
+        "must not",
+        "Default `/report`",
+        "Refresh modifier",
+    ],
+    "models/football/prompts/sweep.md": ["# /sweep", "00_NORMAL_CHAT_AISCORE_FETCH.md"],
+    "models/football/prompts/rank.md": ["# /rank", "01_WORK_DAILY_SWEEP.md"],
+    "models/football/prompts/xi.md": ["# /xi", "02_NORMAL_CHAT_XI_ODDS.md"],
+    "models/football/prompts/live.md": ["# /live", "03_NORMAL_CHAT_LIVE.md"],
+    "models/football/prompts/audit.md": ["# /audit", "04_WORK_POST_SLATE_AUDIT.md"],
+    "models/football/prompts/report.md": ["# /report", "06_NORMAL_CHAT_REPORT.md"],
     "models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md": [
         "mandatory Step-0 coverage invariant",
         "Mandatory discovery class",
@@ -51,6 +76,7 @@ REQUIRED = {
         "Current Continuation Quality",
         "Current Opponent Leakage",
         "Current Stall Risk",
+        "Command alias:** `/xi`",
     ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
@@ -70,6 +96,7 @@ REQUIRED = {
         "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
+        "Command alias:** `/live`",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
@@ -90,6 +117,10 @@ REQUIRED = {
         "women_top_flight_raw_count",
         "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
+        "Short command router",
+        "/sweep",
+        "/rank",
+        "/report",
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
@@ -143,6 +174,7 @@ REQUIRED = {
         "continuation_quality",
         "burden_stall_risk",
         "maximum routine `FOLLOW = 2`",
+        "Command alias:** `/rank`",
         "FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md",
         "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
@@ -189,6 +221,7 @@ REQUIRED = {
         "never write FT goals, C/C2 result, settlement or P/L",
         "women\'s senior top-flight discovery/accounting misses",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
+        "Command alias:** `/audit`",
     ],
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md": [
         "**Champion:** Football C",
