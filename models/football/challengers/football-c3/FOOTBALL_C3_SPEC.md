@@ -94,10 +94,14 @@ A VERIFIED second-route-funded clearing goal requires:
 
 ### FORCED_CHAOS
 
+C3 independently freezes `c3_forced_chaos_verified = true/false`.
+
 A VERIFIED forced-chaos clearing goal requires:
-- tournament/game-state mechanism prospectively verified;
-- continuation evidence HIGH;
+- `c3_forced_chaos_verified = true`;
+- tournament/game-state mechanism prospectively verified from the common factual evidence;
 - no unresolved incentive-integrity state.
+
+Do not inherit Football C's `completion_mode` or `continuation_quality` labels to satisfy this rule.
 
 ### MIXED
 
