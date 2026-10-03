@@ -58,8 +58,16 @@ These results are recorded as **historical calibration signals only**. They do n
 | Leyton Orient vs Plymouth Argyle | C-FOCUS / RESERVE; MIXED; completion HIGH; continuation HIGH; stall MEDIUM; O2.5 | 0-2 | LOSS | Strong direct signal for the two-goal stall problem. The frozen continuation path did not produce goal three. |
 | Fiorentina vs Sassuolo | continuation HIGH; stall LOW; O2.5 | 2-0 | LOSS | Strong signal that LOW frozen stall risk / HIGH continuation can still terminate at a common 2-0 endpoint. No retrospective re-grade. |
 | Reading vs Bradford City | C-WATCH / STOP; O2.25 | 1-1 | HALF_LOSS | Supports the general two-goal endpoint concern, but does **not** show selection over-promotion because Football C already kept it STOP. |
+| Bosnia and Herzegovina vs Sweden | C-FOCUS / RESERVE; O2.75; board reasoning explicitly credited two viable routes | 1-1 | LOSS | Direct descriptive signal against assuming that two viable routes reliably complete goal three. |
+| Faroe Islands vs Slovakia | C-FOCUS / RESERVE; O2.25; carrier-led construction with explicit stall concern | 1-1 | HALF_LOSS | Shows that even a carrier-led case can still terminate at the same two-goal endpoint when continuation is insufficient. |
 
-Observed commonality: all three matches finished on exactly two goals.
+Observed commonality: all five matches finished on exactly two goals.
+
+Among the fixtures with a known operational lane here:
+- Leyton–Plymouth: RESERVE -> LOSS;
+- Bosnia–Sweden: RESERVE -> LOSS;
+- Faroe–Slovakia: RESERVE -> HALF_LOSS;
+- Reading–Bradford: STOP -> HALF_LOSS.
 
 This strengthens the working hypothesis:
 
@@ -69,7 +77,7 @@ It also sharpens the distinction between:
 - a second route that can help create a 1-1 exchange; and
 - a second route that materially helps complete the third-goal burden.
 
-The three rows are also indexed in Airtable `Factor Calibration Observations` with `Calibration Eligible = false`, so they remain visible for descriptive audit without contaminating prospective factor-weight statistics.
+The five rows are also indexed in Airtable `Factor Calibration Observations` with `Calibration Eligible = false`, so they remain visible for descriptive audit without contaminating prospective factor-weight statistics.
 
 The eligible prospective calibration count remains:
 
