@@ -39,10 +39,10 @@ class SecondRouteRole(IntEnum):
 
 
 class FundingState(IntEnum):
+    NOT_REQUIRED = -1
     NONE = 0
     PARTIAL = 1
     VERIFIED = 2
-    NOT_REQUIRED = 3
 
 
 class FundingSource(Enum):
@@ -180,6 +180,7 @@ class C3PolicyAssessment:
     goal4_funding_basis: str
     control_endpoint_risk: Grade
     control_endpoint_basis: str
+    forced_chaos_verified: bool
 
     def __post_init__(self) -> None:
         for name, value in (
@@ -252,12 +253,9 @@ class C3PolicyAssessment:
                 )
 
         if source == FundingSource.FORCED_CHAOS:
-            if not (
-                base.completion_mode in {CompletionMode.FORCED_CHAOS, CompletionMode.MIXED}
-                and base.continuation_quality == Grade.HIGH
-            ):
+            if not self.forced_chaos_verified:
                 raise ValueError(
-                    f"{label} VERIFIED FORCED_CHAOS source lacks verified continuation mechanism"
+                    f"{label} VERIFIED FORCED_CHAOS source lacks C3 forced-chaos verification"
                 )
 
         if source == FundingSource.MIXED:
@@ -273,10 +271,7 @@ class C3PolicyAssessment:
                 and weaker_route >= RouteStrength.USABLE
             ):
                 contributors += 1
-            if (
-                base.completion_mode in {CompletionMode.FORCED_CHAOS, CompletionMode.MIXED}
-                and base.continuation_quality == Grade.HIGH
-            ):
+            if self.forced_chaos_verified:
                 contributors += 1
             if contributors < 2:
                 raise ValueError(
@@ -472,7 +467,15 @@ def c3_board_state(a: C3PolicyAssessment) -> BoardState:
     if required == FundingState.NONE:
         return BoardState.PASS
     if a.control_endpoint_risk == Grade.HIGH:
-        return BoardState.PASS
+        forced_chaos_escape = (
+            a.forced_chaos_verified
+            and required == FundingState.VERIFIED
+            and (
+                a.goal3_funding_source in {FundingSource.FORCED_CHAOS, FundingSource.MIXED}
+                or a.goal4_funding_source in {FundingSource.FORCED_CHAOS, FundingSource.MIXED}
+            )
+        )
+        return BoardState.WATCH if forced_chaos_escape else BoardState.PASS
 
     if (
         required == FundingState.VERIFIED
