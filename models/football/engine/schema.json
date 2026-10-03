@@ -9,6 +9,9 @@
     },
     {
       "$ref": "#/$defs/decisionInput"
+    },
+    {
+      "$ref": "#/$defs/auditInput"
     }
   ],
   "$defs": {
@@ -563,6 +566,300 @@
         "NO",
         "UNKNOWN"
       ]
+    },
+    "auditInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "stage",
+        "match_id",
+        "model_version",
+        "frozen",
+        "observed",
+        "diagnosis",
+        "pnl_status"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "football-engine-v1"
+        },
+        "stage": {
+          "const": "audit_record"
+        },
+        "match_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frozen": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "c_board_state",
+            "follow_lane",
+            "supported_line",
+            "completion_mode",
+            "burden_completion_quality",
+            "continuation_quality",
+            "opponent_leakage",
+            "burden_stall_risk",
+            "c_action",
+            "quote_line",
+            "quote_odds"
+          ],
+          "properties": {
+            "c_board_state": {
+              "type": "string",
+              "enum": [
+                "C-PASS",
+                "C-WATCH",
+                "C-FOCUS",
+                "NONE"
+              ]
+            },
+            "follow_lane": {
+              "type": "string",
+              "enum": [
+                "FOLLOW",
+                "RESERVE",
+                "STOP",
+                "NONE"
+              ]
+            },
+            "supported_line": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "multipleOf": 0.25
+            },
+            "completion_mode": {
+              "type": "string",
+              "enum": [
+                "NONE",
+                "TWO_SIDED",
+                "CARRIER_LED",
+                "FORCED_CHAOS",
+                "MIXED"
+              ]
+            },
+            "burden_completion_quality": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "continuation_quality": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "opponent_leakage": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "burden_stall_risk": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            },
+            "c_action": {
+              "type": "string",
+              "enum": [
+                "C-BET",
+                "C-WAIT",
+                "C-PASS",
+                "NONE"
+              ]
+            },
+            "quote_line": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "multipleOf": 0.25
+            },
+            "quote_odds": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 1
+            }
+          }
+        },
+        "observed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ht_score",
+            "ft_score",
+            "settlement",
+            "completion_materialized",
+            "continuation_materialized",
+            "carrier_self_fund_materialized",
+            "opponent_route_materialized"
+          ],
+          "properties": {
+            "ht_score": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "ft_score": {
+              "type": "string",
+              "minLength": 1
+            },
+            "settlement": {
+              "type": "string",
+              "enum": [
+                "WIN",
+                "HALF_WIN",
+                "PUSH",
+                "HALF_LOSS",
+                "LOSS",
+                "NO_OFFICIAL_EXPOSURE",
+                "NOT_APPLICABLE"
+              ]
+            },
+            "completion_materialized": {
+              "type": "string",
+              "enum": [
+                "YES",
+                "NO",
+                "UNKNOWN"
+              ]
+            },
+            "continuation_materialized": {
+              "type": "string",
+              "enum": [
+                "YES",
+                "NO",
+                "UNKNOWN"
+              ]
+            },
+            "carrier_self_fund_materialized": {
+              "type": "string",
+              "enum": [
+                "YES",
+                "NO",
+                "UNKNOWN",
+                "NOT_APPLICABLE"
+              ]
+            },
+            "opponent_route_materialized": {
+              "type": "string",
+              "enum": [
+                "YES",
+                "NO",
+                "UNKNOWN",
+                "NOT_APPLICABLE"
+              ]
+            }
+          }
+        },
+        "diagnosis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "tags",
+            "pre_freeze_evidence_miss",
+            "pre_freeze_evidence_note",
+            "retrospective_hypothesis_only"
+          ],
+          "properties": {
+            "tags": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "MODEL_FALSE_POSITIVE",
+                  "MODEL_FALSE_NEGATIVE",
+                  "FOLLOW_PRIORITY_MISS",
+                  "PROCESS_MISS",
+                  "EXECUTION_MISS",
+                  "OPERATIONAL_OPPORTUNITY_COST",
+                  "NO_OFFICIAL_EXPOSURE",
+                  "NO_RETROSPECTIVE_MODEL_CHANGE",
+                  "TOURNAMENT_INCENTIVE_MISS",
+                  "FORMAT_DATA_MISSING",
+                  "STALE_INCENTIVE_EPOCH",
+                  "INCENTIVE_RESOLUTION_BYPASS"
+                ]
+              }
+            },
+            "pre_freeze_evidence_miss": {
+              "type": "boolean"
+            },
+            "pre_freeze_evidence_note": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "minLength": 1
+            },
+            "retrospective_hypothesis_only": {
+              "type": "boolean"
+            }
+          }
+        },
+        "pnl_status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "official_c_exposure",
+            "official_c_model_pnl",
+            "user_executed",
+            "user_pnl",
+            "c2_shadow_only"
+          ],
+          "properties": {
+            "official_c_exposure": {
+              "type": "boolean"
+            },
+            "official_c_model_pnl": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "user_executed": {
+              "type": "boolean"
+            },
+            "user_pnl": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "c2_shadow_only": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
     }
   }
 }
