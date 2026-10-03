@@ -179,6 +179,21 @@ For every material fixture, first report:
 - `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
 - `P&L STATUS:` official C model exposure/P&L, actual user execution/P&L, C2 shadow separately.
 
+Then include one `FOOTBALL_AUDIT_RECORD` JSON object using the deterministic audit schema and validate it with:
+
+`python models/football/engine/cli.py audit --input <payload.json>`
+
+The audit is not complete until the machine record passes. If it fails:
+
+`AUDIT RECORD INVALID — DO NOT FINALIZE DIAGNOSIS`
+
+The machine record is specifically intended to reject:
+- non-canonical grades such as `MEDIUM-HIGH`;
+- retrospective field rewrites;
+- ungrounded pre-freeze evidence-miss claims;
+- official model P/L without official exposure;
+- user P/L without user execution.
+
 Then report slate totals:
 - Football C official model P/L;
 - actual user P/L;
