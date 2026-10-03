@@ -237,7 +237,7 @@ C3 direct shadow BET requires:
 - quote at/below C3 supported line;
 - normal price >=1.65, or the same 1.60–1.64 top-focus soft-zone rule used by Football C.
 
-No C2-style market-gap bridge.
+C3 has no C2-style market-gap bridge.
 
 If the current quote is above C3 supported burden, C3 may WAIT — SHADOW only when the original funding mechanism remains intact and a realistic target is reachable.
 
