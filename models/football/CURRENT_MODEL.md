@@ -38,7 +38,7 @@ Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> BURDEN-COMPLETION FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> [C BURDEN-COMPLETION + C2 OWN SUPPORTED BURDEN] -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -46,14 +46,12 @@ The comparison must isolate **policy differences**, not accidental research diff
 
 For each fixture/epoch, perform the football research once and freeze a common semantic evidence object before either model applies its policy.
 
-Common evidence includes:
+Common factual evidence includes:
 - fixture identity/status;
 - home/away route strength;
 - carrier strength/self-fund state;
-- burden completion mode/quality;
-- continuation quality;
+- continuation evidence;
 - opponent leakage;
-- burden stall risk;
 - chance quality;
 - failure mode / suppression state;
 - relevant H2H transferability;
@@ -61,11 +59,16 @@ Common evidence includes:
 - competition stage/format, draw resolution, aggregate/table state when applicable;
 - home/away incentive state, margin/tiebreak relevance and incentive effect;
 - evidence confidence;
-- supported burden;
 - XI mechanism state at Step 2;
 - current executable quote at Step 2.
 
-Once frozen, neither C nor C2 may change those shared evidence fields merely because the other model or Python engine disagrees.
+Once frozen, neither C nor C2 may change those shared factual fields merely because the other model or Python engine disagrees.
+
+Model-owned policy fields are then derived separately:
+- Football C: completion mode/quality, continuation grade, stall risk and C supported line;
+- Football C2: independently frozen C2 supported line and frozen C2 route-quality ranking policy.
+
+C2 must not inherit C's supported line or C's burden-completion ranking key.
 
 ## Step 0 — researchable senior intake
 
