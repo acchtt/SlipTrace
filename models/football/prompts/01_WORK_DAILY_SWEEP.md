@@ -1,5 +1,7 @@
 # 01 — Work: Football C Official + C2 Shadow Board
 
+**Command alias:** `/rank`
+
 Read upstream:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`

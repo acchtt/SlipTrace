@@ -1,5 +1,7 @@
 # 03 — Normal Chat: Football C Official Live + C2 Shadow Wait
 
+**Command alias:** `/live`
+
 Read:
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`

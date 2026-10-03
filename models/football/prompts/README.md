@@ -4,6 +4,24 @@ Every stage reads upstream `models/football/CURRENT_MODEL.md` first.
 
 **Active model: Football C.**
 
+## Short commands — preferred
+
+Use these in normal conversation:
+
+| Command | Meaning | Example |
+|---|---|---|
+| `/sweep` | Step 0 AiScore intake | `/sweep now to 3am` |
+| `/rank` | Step 1 Football C/C2 board | attach ZIP, then `/rank` |
+| `/xi` | Step 2 XI + odds | attach screenshots, then `/xi` |
+| `/live` | live/wait assessment | attach live state, then `/live` |
+| `/audit` | post-slate audit | `/audit yesterday` |
+| `/report` | read current state without rerunning model stages | `/report next matches` |
+| `/help` | show the command cheat sheet | `/help` |
+
+Canonical routing rules live in `COMMAND_ALIASES.md`.
+
+You no longer need to type the long launcher filename for normal use. The explicit filename form remains supported for compatibility.
+
 ## Canonical stages
 
 1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — build the RESEARCHABLE_SENIOR AiScore fixture ZIP handoff: protected major/international blocks plus ordinary senior fixtures that pass the cheap current-data researchability gate.
@@ -11,6 +29,7 @@ Every stage reads upstream `models/football/CURRENT_MODEL.md` first.
 3. `02_NORMAL_CHAT_XI_ODDS.md` — process FOLLOW normally; RESERVE only when activated; STOP only by explicit exception, then run common XI/research and C/C2/Python decisions.
 4. `03_NORMAL_CHAT_LIVE.md` — resolve a predeclared C-WAIT using thesis health.
 5. `04_WORK_POST_SLATE_AUDIT.md` — settle/audit Football C and preserve historical model fidelity.
+6. `06_NORMAL_CHAT_REPORT.md` — report current persisted board/decision/schedule state without rerunning predictive stages.
 
 `05_NORMAL_CHAT_FOOTBALL_C.md` is the original shadow-test launcher and is retained for experiment history. It is **not** the production launcher now.
 
