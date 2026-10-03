@@ -464,7 +464,7 @@ def c3_board_state(a: C3PolicyAssessment) -> BoardState:
 
     if base.material_suppression or base.failure_attacks_route:
         return BoardState.PASS
-    if required == FundingState.NONE:
+    if required in {FundingState.NONE, FundingState.NOT_REQUIRED}:
         return BoardState.PASS
     if a.control_endpoint_risk == Grade.HIGH:
         forced_chaos_escape = (
