@@ -76,6 +76,8 @@ Do exclude or demote it when the **observable execution ecosystem** is poor.
 
 A small league with dependable XI, team news, market and current data can still be A/B. A famous competition with materially unavailable execution evidence can still be B/C for the affected fixture.
 
+For senior women's domestic top-flight fixtures, grade the actual XI/market/team-news ecosystem. Do not infer LOW/NONE observability from the competition being women's football or from audience size alone.
+
 ## 4. Persistent competition reliability cap
 
 Before capacity selection, retrieve the current competition state:
