@@ -1,4 +1,10 @@
-# Football A — Compiled PRE Decision Specification
+# Football A — Compiled PRE Decision Specification (Historical)
+
+**Status:** RETIRED FOR NEW FOOTBALL C PRODUCTION — HISTORICAL FOOTBALL A ONLY
+**Current authority:** `models/football/CURRENT_MODEL.md` + `models/football/production/FOOTBALL_C.md` + `models/football/prompts/01_WORK_DAILY_SWEEP.md`
+
+> This file is retained only to reconstruct historical Football A/v0.2.x decisions. It must not be loaded as predictive or execution authority for a new Football C board, XI/odds assessment, live decision, or persistence transaction.
+
 
 **Status:** ACTIVE OPERATIONAL COMPILER  
 **Stage:** Step 1 / Work structural PRE only  
