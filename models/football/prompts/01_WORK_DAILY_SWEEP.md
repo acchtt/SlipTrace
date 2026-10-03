@@ -9,6 +9,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
+- `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -29,7 +30,11 @@ Before full football research, verify the Step-0 contract:
 - every admitted fixture has `xi_expected`, `market_observability`, `team_news_observability`, and `operational_viability_reason`;
 - every admitted fixture has `competition_reliability_state` and `competition_reliability_reason`;
 - CAUTION is never above B and DEMOTED is present only as an allowed B probation fixture;
-- no C/D fixture appears in the normal Work array.
+- no C/D fixture appears in the normal Work array;
+- all six women's-top-flight counters are present;
+- `women_top_flight_unresolved_count = 0`;
+- `women_top_flight_raw_count` equals admitted + operational excluded + researchability excluded + capacity deferred + unresolved;
+- `women_top_flight_disposition_manifest` is present and contains every discovered senior women's domestic top-flight fixture.
 
 If a C/D fixture leaks in:
 
@@ -38,6 +43,10 @@ If a C/D fixture leaks in:
 If the handoff contains more than 15 normal admissions:
 
 `HANDOFF INCOMPLETE — OPERATIONAL CAPACITY BREACH`
+
+If women's-top-flight counters/manifest are absent, inconsistent, unresolved, or omit a visible block:
+
+`HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`
 
 Do not rescue Step-0 operational exclusions or capacity-deferred fixtures with deep Work research unless the user explicitly declares an exception.
 

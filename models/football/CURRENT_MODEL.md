@@ -55,7 +55,7 @@ Use:
 
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
-Step 0 discovers the senior slate, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.
+Step 0 discovers the senior slate, including the mandatory senior women's domestic top-flight class defined by `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.
 
 Every surviving fixture receives a raw current A/B/C/D viability plus explicit XI expectation, market observability and team-news observability. The persistent competition state may only cap/demote that raw grade; it may never promote it.
 
@@ -132,6 +132,8 @@ Separate:
 - Competition reliability uses only operational observability/process evidence; FT goals, model results and P/L are forbidden inputs.
 - Historical competition reliability may only cap/demote current viability; it may never promote a current fixture.
 - Normal Work admission is capped at 15 A/B fixtures; overflow is `OPERATIONAL CAPACITY DEFERRED — STEP0`, not C-PASS.
+- Senior women's domestic top-flight blocks are mandatory discovery/accounting; they use the same operational/researchability rules as men's top flights and may not disappear because of gender/category labeling.
+- A missing visible women's top-flight block is `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`, not a valid completed sweep.
 - There is no fixed **predictive** board-size target after admission.
 - H2H mandatory when usable.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET.

@@ -29,7 +29,7 @@ Ordinary domestic/small competition fixtures are admitted only when current evid
 - meaningful current competition context;
 - at least one usable mechanism/stat/news layer beyond bare final scores.
 
-A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. It should reach Football C only when it is both sufficiently researchable **and operationally viable**.
+A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. Senior women's domestic top-flight leagues are a mandatory Step-0 discovery class and use the same viability/researchability standard as men's senior top flights. They should reach Football C only when they are both sufficiently researchable **and operationally viable**.
 
 Conversely, a small/obscure competition with inadequate current evidence should be excluded as:
 

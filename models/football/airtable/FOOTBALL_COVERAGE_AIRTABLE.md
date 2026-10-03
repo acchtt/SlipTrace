@@ -61,13 +61,19 @@ Excluded and schedule-integrity-unresolved fixtures remain in the ledger for aud
 
 ## 3. Current senior-quality eligibility
 
-The actionable overlay excludes youth/Uxx, academy/junior, reserve/B-team/development, amateur/semi-pro, regional/state/provincial, very small/obscure weak-data competitions, and domestic lower divisions below top flight unless explicitly approved/whitelisted.
+Current Football C eligibility is controlled by `CURRENT_MODEL.md`, `00_NORMAL_CHAT_AISCORE_FETCH.md`, the operational-viability gate and the researchability gate.
 
-All Finnish domestic league competitions at every tier/category are excluded from 2026-09-09 ICT onward. Finnish Cup and UEFA fixtures involving Finnish clubs are not automatically excluded.
+Hard scope excludes youth/Uxx, academy/junior, reserve/B-team/development, amateur/semi-professional micro, regional/state/provincial and other non-target senior-professional classes as defined by the active Step-0 contract.
 
-Senior first-team continental competitions are **not** generically excluded. UCL, UEL, and UECL are eligible when they otherwise clear the overlay.
+**Senior women's domestic top-flight leagues are first-class senior top-flight blocks.** Every visible AiScore fixture in that class must be represented in Daily Coverage, including when its final Step-0 disposition is operational exclusion, researchability exclusion or capacity deferral.
 
-A row excluded under the overlay should carry an explicit exclusion reason.
+Set `Senior Women's Top Flight = true` on those rows.
+
+Do not apply historical country/league blanket exclusions from archived Football A/v0.2.x overlays to current Football C unless the current Step-0 authority explicitly reinstates them. Gender, audience size or unfamiliarity alone is never an exclusion reason.
+
+Senior first-team continental competitions remain eligible when they otherwise clear current rules.
+
+Every excluded row must carry the exact current exclusion/disposition reason.
 
 ---
 
@@ -103,6 +109,7 @@ The current official shared coverage state is represented by:
 - `Competition Reliability State`;
 - `Competition Reliability Reason`;
 - `Operational Disposition`;
+- `Senior Women's Top Flight`;
 - `Completion Mode`;
 - `Burden Completion Quality`;
 - `Continuation Quality`;
@@ -225,12 +232,13 @@ Before claiming a board is fully frozen/published, verify:
 
 Also verify:
 
+- every visible senior women's domestic top-flight fixture has a Daily Coverage row and one explicit Step-0 disposition;
+- women's-top-flight raw count reconciles to admitted + operational excluded + researchability excluded + capacity deferred + unresolved;
 - every actionable fixture has one PRE state;
 - no fixture is duplicated;
 - all exclusions have reasons;
 - all FOCUS/WATCHLIST candidates are persisted;
 - no excluded youth/reserve/lower/small fixture survived;
-- no Finnish domestic league fixture survived the overlay from its effective date;
 - the underlying AiScore handoff has `audit.complete = true` and passed cross-midnight/date-page checks;
 - every active board fixture passed normalized ICT window/date integrity;
 - every strong-carrier B/PASS has a documented CC+ audit result under v0.2.52.
@@ -291,9 +299,11 @@ Required fault label:
 
 Do not resolve a conflict through last-write-wins or allow one fixture to occupy two slate dates. Preserve the conflict for audit, correct the canonical record, then publish.
 
-### League overlay
+### Historical league overlay note
 
-Japanese domestic leagues, including J1, must not survive the active board from 2026-09-12 ICT onward. China Super League O3.0+/MCE candidates must preserve the v0.2.53 home/away-or-CC+ high-burden gate result.
+Historical v0.2.x country/league blanket overlays remain historical audit context only. They are not current Football C eligibility authority. Current Step-0 scope and operational/researchability rules control new boards.
+
+For current Football C, do not silently exclude a senior women's top-flight block because an older overlay targeted a country or domestic-league class.
 
 
 ---

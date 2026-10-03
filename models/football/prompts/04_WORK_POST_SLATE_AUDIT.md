@@ -24,6 +24,8 @@ For every new dual-track board report:
 
 Track separately:
 - coverage failures;
+- women's senior top-flight discovery/accounting misses;
+- women's top-flight incorrect hard/operational/researchability exclusions versus legitimate capacity deferrals;
 - operational exclusions that should have been admitted;
 - `xi_expected` predictions that proved wrong;
 - competitions repeatedly producing no usable XI/market despite A/B grading;
@@ -87,6 +89,9 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 ## Required process checks
 
 - broad-senior completeness;
+- every visible senior women's domestic top-flight block was discovered and given a fixture-level disposition;
+- women's-top-flight raw/admitted/excluded/deferred/unresolved counters reconcile exactly;
+- missing women's top-flight coverage is classified `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`;
 - operational A/B/C/D disposition present for every surviving senior fixture;
 - frozen competition reliability state/reason present for every admitted fixture;
 - reliability events contain no FT/predictive/P&L leakage;
