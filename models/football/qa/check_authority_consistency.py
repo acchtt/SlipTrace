@@ -36,8 +36,10 @@ def forbid(rel: str, *needles: str) -> None:
 require(
     "models/football/CURRENT_MODEL.md",
     "Active official model:** Football **C**",
+    "Shadow challengers:** Football **C2** and Football **C3**",
     "retired historical Football A/shadow artifacts",
     "Step-2 fail-closed validator repair",
+    "C3 burden-funding prospective test",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
@@ -119,6 +121,66 @@ require(
     "Step-2 fail-closed validator repair",
     "five-board checkpoint restarts at zero",
     "zero Python C2 agreement weight",
+)
+
+# 4. C3 must be a separate burden-funding shadow policy.
+require(
+    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
+    "PROSPECTIVE SHADOW CHALLENGER",
+    "two plausible scoring routes is descriptive only",
+    "BURDEN_CONTRIBUTING",
+    "EXCHANGE_ONLY",
+    "STATE_DEPENDENT",
+    "Who prospectively funds the goal",
+    "C3-FOCUS requires LOW control-endpoint risk",
+    "C3 has no C2-style market-gap bridge",
+    "FOOTBALL C3 — SHADOW ONLY",
+)
+require(
+    "models/football/challengers/football-c3/TEST_PROTOCOL.md",
+    "next **5 complete clean boards**",
+    "C2 continues its current five-board window",
+    "C3 gets a separate 1/5 ... 5/5 counter",
+    "Historical boards have zero confirmatory C3 weight",
+)
+require(
+    "models/football/engine/core.py",
+    "class C3PolicyAssessment",
+    "def c3_ranking_key",
+    "def c3_board_state",
+    "def c3_shadow_lane",
+    "def decide_c3",
+    "Two-sidedness has no direct bonus",
+)
+require(
+    "models/football/engine/adapter.py",
+    "parse_c3_policy",
+    "FOOTBALL_C3_CLEARING_GOAL_FUNDING",
+    'model not in {"c", "c2", "c3"}',
+    "c3_goal3_funding",
+    "c3_control_endpoint_risk",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_c_board_does_not_require_c3_fields",
+    "test_c2_board_does_not_require_c3_fields",
+    "test_changing_c3_fields_cannot_change_c_ranking",
+    "test_c3_board_ignores_two_route_label_without_goal3_funding",
+    "test_c3_carrier_led_goal3_can_focus_without_second_route",
+)
+require(
+    "models/football/airtable/FOOTBALL_C3_AIRTABLE.md",
+    "C3 role:** shadow-only burden-funding challenger",
+    "tblcl1UAyMqZT6Ub0",
+    "tblQmUpd5WjBLQ38X",
+    "tblUnGHHe0MVaalDL",
+    "C3 Test Board Number",
+    "C3 COMPARISON INCOMPLETE",
+)
+forbid(
+    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
+    "authorize real exposure",
+    "create an official Website Pick",
 )
 
 # 5. Step-2 deterministic validation must fail closed.
@@ -251,11 +313,13 @@ forbid(
     "factor_calibration",
 )
 
-# 4. Persistence must have named current C/C2 separation.
+# 7. Persistence must have named current C/C2/C3 separation.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
     "C supported burden",
     "C2 supported burden",
+    "C3 Supported Line",
+    "C3 Second Route Role",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
@@ -263,6 +327,8 @@ require(
     "C supported line",
     "C2 supported line",
     "C2 shadow action",
+    "C3 Supported Line",
+    "C3 Shadow Action",
     "legacy generic",
 )
 
@@ -272,4 +338,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C authority and C2 comparison semantics are internally consistent.")
+print("PASS — Football C authority and C2/C3 comparison semantics are internally consistent.")
