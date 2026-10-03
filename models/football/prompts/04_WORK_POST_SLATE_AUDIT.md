@@ -1,5 +1,7 @@
 # 04 — Work: Football C / C2 / Engine Post-Slate Audit
 
+**Command alias:** `/audit`
+
 Read `models/football/CURRENT_MODEL.md` first.
 
 Also read:
