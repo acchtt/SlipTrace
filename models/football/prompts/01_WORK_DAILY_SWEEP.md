@@ -1,4 +1,4 @@
-# 01 — Work: Football C Official + C2 Shadow Board
+# 01 — Work: Football C Official + C2/C3 Shadow Boards
 
 **Command alias:** `/rank`
 
@@ -7,6 +7,8 @@ Read upstream:
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
+- `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
+- `models/football/challengers/football-c3/TEST_PROTOCOL.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
@@ -89,13 +91,13 @@ If fields are present but any material incentive element remains LIMITED / UNKNO
 
 A tournament fixture is resolved for Step 1 only if format status is VERIFIED, qualification state is explicit, home/away incentives are resolved, tiebreak/margin relevance is YES/NO, simultaneous-result impact is VERIFIED or genuinely NOT_APPLICABLE, and incentive effect is resolved.
 
-Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
+Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2/C3 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
 
 A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
-Freeze one common **football-fact** evidence state before either model applies policy.
+Freeze one common **football-fact** evidence state before any model applies policy.
 
-Shared facts stop before model-owned supported-burden selection. Football C and C2 may consume the same routes/carrier/chance/failure/H2H/incentive evidence but must independently derive any policy-owned supported burden.
+Shared facts stop before model-owned policy. Football C, C2 and C3 consume the same routes/carrier/chance/failure/H2H/incentive evidence, then independently derive model-owned burden/selection fields.
 
 Freeze these shared facts:
 
@@ -138,16 +140,17 @@ Do **not** freeze one shared `supported_line` as common policy evidence.
 After the common facts are frozen:
 - Football C derives and freezes `c_supported_line` plus its model-owned machine fields `completion_mode`, `burden_completion_quality`, `continuation_quality`, and `burden_stall_risk` under the active burden-completion procedure;
 - Football C2 independently derives and freezes `c2_supported_line` under Section 5 of its frozen challenger specification;
+- Football C3 independently derives `c3_supported_line`, second-route role, goal-3/goal-4 funding source/basis, control-endpoint risk and `c3_forced_chaos_verified`.
 - neither model may copy the other model's line simply for payload/persistence convenience.
 
-At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
+At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for all three tracks.
 
 For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the incentive state is LIMITED/UNKNOWN, do not freeze an official supported burden at all; keep the fixture INCENTIVE-INCOMPLETE until resolved.
 
-**Do not run separate C and C2 research passes.**  
+**Do not run separate C, C2 and C3 research passes.**  
 The experiment compares model policy, not two independently drifting research interpretations.
 
-Once frozen, do not edit common evidence after seeing either model's ranking or the Python output.
+Once frozen, do not edit common evidence after seeing any model's ranking or the Python output.
 
 ## 2. Football C official board
 
@@ -197,9 +200,60 @@ C2 is shadow-only:
 
 Persist C2 shadow in dedicated shadow fields/notes when available. If only one canonical coverage row exists, preserve official C fields and store C2 state as clearly labelled `C2_SHADOW` metadata rather than replacing C.
 
-## 4. Python engine — both tracks
+## 4. Football C3 burden-funding shadow board
 
-Serialize the same frozen evidence twice using:
+Apply `FOOTBALL_C3_SPEC.md` to the same frozen common facts **without reading C/C2 rank/state/line first**.
+
+For every admitted fixture independently freeze:
+- `c3_supported_line`;
+- `c3_second_route_role = BURDEN_CONTRIBUTING / EXCHANGE_ONLY / STATE_DEPENDENT / NONE`;
+- `c3_goal3_funding = VERIFIED / PARTIAL / NONE / NOT_REQUIRED`;
+- `c3_goal3_funding_source = CARRIER / SECOND_ROUTE / FORCED_CHAOS / MIXED / NONE`;
+- `c3_goal3_funding_basis`;
+- `c3_goal4_funding` + source/basis;
+- `c3_control_endpoint_risk = LOW / MEDIUM / HIGH`;
+- `c3_control_endpoint_basis`;
+- `c3_forced_chaos_verified = true/false`.
+
+Then derive:
+- C3-PASS / C3-WATCH / C3-FOCUS;
+- C3 ordinal rank;
+- C3-FOLLOW / C3-RESERVE / C3-STOP — SHADOW.
+
+Hard C3 semantics:
+- two usable routes alone create **zero** positive C3 value;
+- EXCHANGE_ONLY/STATE_DEPENDENT cannot be treated as burden-completing;
+- O2.0–O2.75 needs a real goal-3 path;
+- O3.0+ needs goal-3 and goal-4 paths;
+- MEDIUM control-endpoint risk caps C3 at WATCH/RESERVE;
+- HIGH control-endpoint risk normally PASS/STOP.
+
+If C3 supported burden cannot be independently frozen:
+`C3 COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`
+
+C3 is shadow-only and does not create extra routine Step-2 workload.
+
+### C3 prospective-board counter
+
+After the complete C3 shadow board is frozen, evaluate the test-protocol integrity state.
+
+If clean:
+- set `C3 Test Board Eligible = true`;
+- assign the next sequential `C3 Test Board Number = 1..5`;
+- leave `C3 Contamination Reason` blank.
+
+If contaminated:
+- set `C3 Test Board Eligible = false`;
+- do not advance the C3 board counter;
+- persist the exact `C3 Contamination Reason`.
+
+A board is not clean when any C3 policy field was assigned after outcome knowledge, the C3 line was copied from C/C2, a required funding basis is missing, or a mandatory integrity gate was bypassed.
+
+This counter is independent of the C2 five-board test.
+
+## 5. Python engine — three tracks
+
+Serialize the same frozen factual evidence for all three model payloads using:
 
 `models/football/engine/schema.json`
 
@@ -211,16 +265,21 @@ and
 
 `model = c2`
 
-Board command:
+and
+
+`model = c3`
+
+Board command for each payload:
 
 `python models/football/engine/cli.py board --input <payload.json>`
 
-The factual assessment fields must be identical across C and C2 payloads. The following are explicitly model-owned and may differ:
+The factual assessment fields must be identical across C/C2/C3 payloads. The following are explicitly model-owned and may differ:
 - `model`;
 - `board_state`;
-- `supported_line` (C payload = `c_supported_line`; C2 payload = `c2_supported_line`).
+- `supported_line` (C = `c_supported_line`; C2 = `c2_supported_line`; C3 = `c3_supported_line`);
+- C3-only burden-funding fields listed above.
 
-The engine schema still carries Football C completion diagnostics in the shared assessment object. They are non-operative for C2 deterministic ranking/action and must never be used to overwrite C2's own supported line.
+The engine schema still carries Football C completion diagnostics in the common assessment object. They are non-operative for C2 and are deliberately omitted from C3 machine output; C3 must use only its own burden-funding fields.
 
 Python is shadow validation only.
 
@@ -241,7 +300,7 @@ After the final Football C board/rank/lane/support is frozen and before any FT r
 Freeze only prospectively established fields. Outcome columns remain blank.
 
 This observer is diagnostic only. Its Trace Score or historical performance must never alter:
-- C/C2 state;
+- C/C2/C3 state;
 - C rank;
 - supported line;
 - FOLLOW/RESERVE/STOP;
@@ -249,7 +308,7 @@ This observer is diagnostic only. Its Trace Score or historical performance must
 
 If a required factor was not prospectively frozen, do not infer it for calibration. Mark the observation ineligible or omit it with an explicit calibration note.
 
-## 5. Output
+## 6. Output
 
 Primary table — official production board:
 
@@ -265,17 +324,25 @@ Then comparison table:
 | Match | C rank/state | C line | C2 rank/state | C2 line | C2 floor | Bridge readiness | Material difference |
 |---|---|---:|---|---:|---|---|---|
 
+`FOOTBALL C3 BURDEN-FUNDING DELTA — BOARD <N>/5`
+
+| Match | C rank/state/lane | C3 rank/state/lane | C3 line | 2nd-route role | Goal-3 funding | Goal-4 funding | Control risk | Material difference |
+|---|---|---|---:|---|---|---|---|---|
+
 Report funnel:
 
-`ADMITTED -> C-PASS/C-WATCH/C-FOCUS -> C2-PASS/C2-WATCH/C2-FOCUS`
+`ADMITTED -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow`
 
 Also report any:
 - C vs C2 rank inversion;
+- C vs C3 rank/lane inversion;
+- C3 two-route demotion caused by EXCHANGE_ONLY / STATE_DEPENDENT;
+- C3 goal-3/goal-4 funding blocker;
 - C2 selection-floor block;
 - potential unreachable-WAIT risk;
 - text-vs-code disagreement.
 
-## 6. Required machine appendix
+## 7. Required machine appendix
 
 Every machine assessment object must include the explicit operational-viability / competition-reliability contract **and** the tournament-incentive contract. The engine must reject omission instead of defaulting it away.
 
@@ -284,19 +351,21 @@ Include:
 - `FOOTBALL_ENGINE_C_RESULT`
 - `FOOTBALL_ENGINE_C2_INPUT`
 - `FOOTBALL_ENGINE_C2_RESULT`
+- `FOOTBALL_ENGINE_C3_INPUT`
+- `FOOTBALL_ENGINE_C3_RESULT`
 
 If runtime execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
 
-## 7. Non-negotiable separation
+## 8. Non-negotiable separation
 
 - Football C official board feeds official Step 2.
-- C2 shadow board never substitutes for C.
-- C2 may not create real-bet instructions.
-- Both tracks use the same frozen common evidence epoch.
+- C2/C3 shadow boards never substitute for C.
+- C2/C3 may not create real-bet instructions.
+- All three tracks use the same frozen common factual evidence epoch.
 
 
-## 5. Operational follow-through guard — mandatory
+## 9. Operational follow-through guard — mandatory
 
 The Football C board itself remains uncapped for audit. **Operational follow-through is capacity-limited.**
 
@@ -352,7 +421,7 @@ If more qualify, preserve official C rank and demote overflow in rank order:
 
 Never alter the underlying C state to satisfy the capacity limit.
 
-## 6. Revised output
+## 10. Revised output
 
 Show the operational queue first:
 

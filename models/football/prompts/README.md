@@ -11,8 +11,8 @@ Use these in normal conversation:
 | Command | Meaning | Example |
 |---|---|---|
 | `/sweep` | Step 0 AiScore intake | `/sweep now to 3am` |
-| `/rank` | Step 1 Football C/C2 board | attach ZIP, then `/rank` |
-| `/xi` | Step 2 XI + odds | attach screenshots, then `/xi` |
+| `/rank` | Step 1 Football C official + C2/C3 shadow board | attach ZIP, then `/rank` |
+| `/xi` | Step 2 XI + odds (C official, C2/C3 shadow) | attach screenshots, then `/xi` |
 | `/live` | live/wait assessment | attach live state, then `/live` |
 | `/audit` | post-slate audit | `/audit yesterday` |
 | `/report` | read current state without rerunning model stages | `/report next matches` |

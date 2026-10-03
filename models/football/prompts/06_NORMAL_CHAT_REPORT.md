@@ -19,7 +19,9 @@ It may retrieve and summarize:
 - current Decision States;
 - current Website Picks;
 - current C-WAIT plans;
+- C2/C3 shadow waits when they exist on the same fixtures;
 - C2 shadow state when useful;
+- C3 burden-funding shadow state/rank/lane and Board N/5 when useful;
 - Step-0 coverage/disposition summaries.
 
 It must not:

@@ -1,7 +1,7 @@
 # Current Football Model
 
 **Active official model:** Football **C**  
-**Shadow challenger:** Football **C2**  
+**Shadow challengers:** Football **C2** and Football **C3**  
 **Effective:** 2026-09-29 ICT  
 **Fixture authority:** AiScore  
 **Operational timezone:** Asia/Ho_Chi_Minh (ICT, UTC+7)
@@ -29,22 +29,23 @@ The aliases are an ergonomic routing layer only. All canonical model/integrity r
 ## Model authority
 
 - **Football C** is the only official production model.
-- **Football C2** is a shadow challenger only. It may never create a Website Pick or authorize real exposure.
-- **Python deterministic engine** is a shadow validation layer for both C and C2.
+- **Football C2** is a frozen shadow challenger only. It may never create a Website Pick or authorize real exposure.
+- **Football C3** is a separate burden-funding shadow challenger only. It may never create a Website Pick or authorize real exposure.
+- **Python deterministic engine** is a shadow validation layer for C, C2 and C3.
 - Historical Football A decisions remain historical/rollback only.
 - `FOOTBALL_PRE_DECISION_SPEC.md`, `FOOTBALL_STEP2_EXECUTION_SPEC.md`, and `05_NORMAL_CHAT_FOOTBALL_C.md` are retired historical Football A/shadow artifacts and must not control new production.
 
-Do not use a C2 board as the official input to a Football C decision.
+Do not use a C2 or C3 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> [C BURDEN-COMPLETION + C2 OWN SUPPORTED BURDEN] -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> [C BURDEN-COMPLETION + C2 OWN BURDEN + C3 CLEARING-GOAL FUNDING] -> [C OFFICIAL BOARD + C2 SHADOW BOARD + C3 SHADOW BOARD] -> C SAME-KICKOFF FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION + C3 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2/C3 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
 ## Shared evidence rule
 
-For each fixture/epoch, perform the football research once and freeze a common semantic evidence object before either model applies its policy.
+For each fixture/epoch, perform the football research once and freeze a common semantic evidence object before any model applies its policy.
 
 Common factual evidence includes:
 - fixture identity/status;
@@ -62,13 +63,15 @@ Common factual evidence includes:
 - XI mechanism state at Step 2;
 - current executable quote at Step 2.
 
-Once frozen, neither C nor C2 may change those shared factual fields merely because the other model or Python engine disagrees.
+Once frozen, C, C2 and C3 may not change those shared factual fields merely because another model or Python engine disagrees.
 
 Model-owned policy fields are then derived separately:
 - Football C: completion mode/quality, continuation grade, stall risk and C supported line;
 - Football C2: independently frozen C2 supported line and frozen C2 route-quality ranking policy.
+- Football C3: independently frozen C3 supported line, second-route role, goal-3/goal-4 funding source/basis, control-endpoint risk and C3 forced-chaos verification.
 
 C2 must not inherit C's supported line or C's burden-completion ranking key.
+C3 must not inherit C/C2 supported lines, C completion labels, or C2 route-quality ranking. Two-sidedness has no positive C3 value by itself.
 
 ## Step 0 — researchable senior intake
 
@@ -92,7 +95,7 @@ Protected senior international qualifiers/tournaments and major continental club
 
 For ordinary domestic/small blocks, admit only when operational viability is A/B **and** current evidence is sufficient for both teams to support Football C's research schema: recent form, competition context, and at least one usable mechanism/stat/news layer.
 
-## Step 1 — dual-track board
+## Step 1 — three-track board
 
 Use:
 `models/football/prompts/01_WORK_DAILY_SWEEP.md`
@@ -101,14 +104,15 @@ One common research/evidence pass is frozen first.
 
 Then:
 - Football C creates the **official** C-PASS / C-WATCH / C-FOCUS board.
-- Football C2 independently applies its shadow selection/ranking rules to the same frozen evidence and creates C2-PASS / C2-WATCH / C2-FOCUS.
-- Python runs model=`c` and model=`c2` against the same structured evidence.
+- Football C2 independently applies its frozen shadow route-quality rules.
+- Football C3 independently applies its burden-funding rules and creates C3-PASS / C3-WATCH / C3-FOCUS plus a shadow C3 lane.
+- Python runs model=`c`, model=`c2` and model=`c3` against the same common factual evidence plus each model's owned policy fields.
 
-Football C's board is the only board that can feed official Step-2 exposure.
+Football C's board/lane is the only board that controls routine Step-2 workload or official exposure. C2/C3 shadow lanes never create extra mandatory monitoring.
 
 After the board is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
 
-## Step 2 — dual-track XI + odds
+## Step 2 — three-track XI + odds
 
 Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
@@ -117,8 +121,8 @@ Perform one common XI + mandatory fresh post-XI web-research + H2H update, freez
 
 - **Football C official:** C-BET / C-WAIT / C-PASS.
 - **Football C2 shadow:** C2-BET / C2-WAIT / C2-PASS.
-- **Python C shadow validation.**
-- **Python C2 shadow validation.**
+- **Football C3 shadow:** C3-BET / C3-WAIT / C3-PASS when the fixture already receives normal XI/odds assessment.
+- **Python C/C2/C3 shadow validation.**
 
 Only Football C may publish an official Website Pick.
 
@@ -129,7 +133,7 @@ Use:
 
 Resolve Football C official WAITs normally.
 
-If the same fixture also has a predeclared C2-WAIT, resolve the C2 wait from the same live state as a shadow comparison only.
+If the same fixture also has a predeclared C2-WAIT and/or C3-WAIT, resolve each from the same live state as shadow comparison only. Do not create C3-only live monitoring.
 
 ## Factor calibration observer
 
@@ -151,7 +155,7 @@ Also apply:
 
 Audit:
 
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C3 shadow board -> C official action -> C2/C3 shadow action -> Python C/C2/C3 -> result`
 
 Audit state is immutable after the fact:
 - preserve exact frozen grades/states/lines;
@@ -165,6 +169,7 @@ Separate:
 - coverage failures;
 - C screening/ranking errors;
 - C2 shadow differences;
+- C3 burden-funding/selection differences;
 - text-vs-code disagreements;
 - execution/persistence errors.
 
@@ -202,7 +207,7 @@ Separate:
 
 `models/football/engine/` is a shadow validator.
 
-It receives the frozen common semantic evidence and applies deterministic ranking/execution/settlement rules.
+It receives frozen common factual evidence plus model-owned policy fields and applies deterministic C/C2/C3 ranking/execution/settlement rules.
 
 On disagreement:
 - preserve text result;
@@ -273,3 +278,20 @@ This is a followability rule, not a predictive board-size cap.
 It tracks a narrow all-HIGH two-route / self-funded STRONG-carrier class to test whether Football C's supported burden is systematically too conservative.
 
 It has no production authority and does not change C/C2 actions or bridge limits.
+
+
+## C3 burden-funding prospective test
+
+Use:
+- `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
+- `models/football/challengers/football-c3/TEST_PROTOCOL.md`
+
+C3 is a new shadow selection experiment. Its five-board counter is independent of C2.
+
+C3's primary question is whether the clearing goal is prospectively funded:
+- O2.0–O2.75 -> goal 3;
+- O3.0+ -> goal 3 and goal 4.
+
+A second route is classified `BURDEN_CONTRIBUTING / EXCHANGE_ONLY / STATE_DEPENDENT / NONE`. Only BURDEN_CONTRIBUTING has positive selection value.
+
+The recent two-goal cluster motivated C3 but has zero confirmatory C3 weight.

@@ -1,4 +1,4 @@
-# 04 — Work: Football C / C2 / Engine Post-Slate Audit
+# 04 — Work: Football C / C2 / C3 / Engine Post-Slate Audit
 
 **Command alias:** `/audit`
 
@@ -23,7 +23,7 @@ Use the model/version that actually produced each historical decision.
 
 For every new dual-track board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C OFFICIAL ACTION -> C2 SHADOW ACTION -> PYTHON C/C2 -> FT`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C3 SHADOW BOARD -> C OFFICIAL ACTION -> C2/C3 SHADOW ACTION -> PYTHON C/C2/C3 -> FT`
 
 Track separately:
 - coverage failures;
@@ -48,6 +48,12 @@ Track separately:
 - C vs C2 ranking differences under their separate ranking policies;
 - C vs C2 supported-line differences;
 - C vs C2 exposure differences;
+- C vs C3 ranking/lane differences;
+- C vs C3 supported-line differences;
+- C3 second-route-role disagreements;
+- C3 goal-3/goal-4 funding blocks;
+- C3 two-goal endpoint rate;
+- C3 false negatives;
 - C2 selection-floor blocks;
 - C2 bridge attempts;
 - text C vs code C disagreements;
@@ -62,7 +68,7 @@ After process reconstruction and **before** using the audit for future Step-0 se
 
 1. write one canonical operational event per observed fixture/epoch to Airtable `Competition Reliability Events` (`tblD0ZHqT772H25Uv`);
 2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
-3. never write FT goals, C/C2 result, settlement or P/L into the reliability event;
+3. never write FT goals, C/C2/C3 result, settlement or P/L into the reliability event;
 4. for each affected competition, load the latest 10 countable events;
 5. run `models/football/engine/competition_reliability.py`;
 6. upsert the `Competition Reliability` summary row (`tbl1KShXxXErUdVKW`);
@@ -77,6 +83,26 @@ or:
 `CAUTION -> DEMOTED — third consecutive critical operational failure`
 
 A profitable or high-scoring match cannot rescue a competition from an operational demotion. A losing/low-scoring match cannot cause one.
+
+## Prospective C3 boundary
+
+C3 confirmatory counting starts from the C3 activation merge commit.
+
+C3 has its **own** five-board counter and does not reset or alter C2's current test.
+
+Historical two-goal examples are design motivation only and carry zero C3 confirmatory weight.
+
+For each C3 board audit:
+- verify C3 fields were frozen before outcome;
+- verify C3 supported line was independent of C/C2;
+- verify second-route role and funding basis were complete;
+- compare C vs C3 same-kickoff ordering;
+- count two-goal endpoints among C3-FOLLOW/C3-RESERVE;
+- count cases where C/C2 promoted a two-route shape but C3 classified the second route EXCHANGE_ONLY/STATE_DEPENDENT;
+- count C3 false negatives where C3 STOP/PASS and the frozen C support cleared;
+- preserve C2 metrics separately.
+
+A contaminated C3 board does not advance C3 Board N/5.
 
 ## Confirmatory C2 boundary
 
@@ -102,7 +128,7 @@ Every fixture audit must separate:
 1. `FROZEN` — immutable prospective state;
 2. `OBSERVED` — HT/FT and what actually materialized;
 3. `DIAGNOSIS` — evidence-bounded audit classification;
-4. `P&L STATUS` — official C model exposure, actual user execution, and C2 shadow separately.
+4. `P&L STATUS` — official C model exposure, actual user execution, C2 shadow and C3 shadow separately.
 
 Never retroactively rewrite a frozen grade after seeing the result.
 
@@ -154,7 +180,8 @@ Official C model P/L and actual user P/L are separate:
 - no retrospective assignment of the new completion fields;
 - routine Step 2 did not process STOP matches without explicit exception;
 - C2 shadow board preserved separately;
-- no C2 overwrite of C fields;
+- C3 shadow board preserved separately;
+- no C2/C3 overwrite of C fields;
 - mandatory post-XI football research;
 - tournament-incentive completeness at Step 1;
 - tournament-incentive recheck at Step 2;
@@ -164,9 +191,11 @@ Official C model P/L and actual user P/L are separate:
 - exact quote epoch;
 - C official action;
 - C2 shadow action;
+- C3 shadow action when fixture received Step 2;
+- C3 burden-funding fields and shadow lane;
 - Python C uses C ranking and Python C2 uses frozen C2 ranking;
 - C2 supported burden was independently frozen before paired evaluation;
-- Python C/C2 comparison;
+- Python C/C2/C3 comparison;
 - live wait state integrity;
 - persistence agreement;
 - actual bet-slip reconciliation.
@@ -203,7 +232,7 @@ For every material fixture, first report:
 - `FROZEN:` exact state/line/grades/action;
 - `OBSERVED:` HT/FT and materialization/settlement facts;
 - `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
-- `P&L STATUS:` official C model exposure/P&L, actual user execution/P&L, C2 shadow separately.
+- `P&L STATUS:` official C model exposure/P&L, actual user execution/P&L, C2 and C3 shadows separately.
 
 Then include one `FOOTBALL_AUDIT_RECORD` JSON object using the deterministic audit schema and validate it with:
 
@@ -224,11 +253,14 @@ Then report slate totals:
 - Football C official model P/L;
 - actual user P/L;
 - C2 shadow counterfactual P/L on exact shadow entries;
+- C3 shadow counterfactual P/L only on exact shadow entries actually produced at Step 2;
 - paired C-vs-C2 action matrix;
+- paired C-vs-C3 selection matrix;
 - text-vs-code disagreement counts;
 - missed/avoided cases;
 - processing time / resumptions / corrections;
-- whether C2 remains worth continuing.
+- whether C2 remains worth continuing;
+- C3 board counter and whether the burden-funding hypothesis remains worth continuing.
 
 Historical Football A/C1 audits remain version-faithful.
 
@@ -252,7 +284,7 @@ Do not use the 2026-09-30 motivating cases as confirmatory observations. They ar
 
 For every fixture where `tournament_incentive_required=true`, verify:
 
-1. Step 1 contained a **VERIFIED, resolved** format/incentive block before C/C2 classification — merely present LIMITED/UNKNOWN fields fail this check;
+1. Step 1 contained a **VERIFIED, resolved** format/incentive block before C/C2/C3 classification — merely present LIMITED/UNKNOWN fields fail this check;
 2. Step 2 explicitly recorded `tournament_incentive_rechecked=true` **and** `tournament_incentive_recheck_status=VERIFIED` before any action;
 3. every material live epoch recomputed incentive before execution;
 4. no supported-burden upgrade was justified solely by XI strength while incentive was suppressive/unknown.
@@ -263,4 +295,4 @@ Classify as:
 - `TOURNAMENT INCENTIVE MISS`;
 - `FORMAT DATA MISSING`;
 - `STALE INCENTIVE EPOCH`;
-- `INCENTIVE RESOLUTION BYPASS` — C/C2 state, rank, follow lane, supported burden, or action created while the applicable block was LIMITED/UNKNOWN.
+- `INCENTIVE RESOLUTION BYPASS` — C/C2/C3 state, rank, lane, supported burden, or action created while the applicable block was LIMITED/UNKNOWN.
