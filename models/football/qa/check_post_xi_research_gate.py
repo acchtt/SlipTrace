@@ -143,6 +143,9 @@ REQUIRED = {
         "continuation_quality",
         "burden_stall_risk",
         "maximum routine `FOLLOW = 2`",
+        "FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md",
+        "women_top_flight_disposition_manifest",
+        "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "Football C Official + C2 Shadow XI/Odds",
