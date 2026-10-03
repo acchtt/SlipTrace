@@ -522,6 +522,7 @@ def parse_c3_policy(
             "c3_control_endpoint_risk",
         ),
         control_endpoint_basis=_string(obj, "c3_control_endpoint_basis"),
+        forced_chaos_verified=_required_bool(obj, "c3_forced_chaos_verified"),
     )
 
 
@@ -669,6 +670,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["c3_goal4_funding_basis"] = c3_item.goal4_funding_basis
             row["c3_control_endpoint_risk"] = c3_item.control_endpoint_risk.name
             row["c3_control_endpoint_basis"] = c3_item.control_endpoint_basis
+            row["c3_forced_chaos_verified"] = c3_item.forced_chaos_verified
 
         output.append(row)
 
@@ -852,6 +854,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         result["c3_goal4_funding"] = c3_a.goal4_funding.name
         result["c3_goal4_funding_source"] = c3_a.goal4_funding_source.value
         result["c3_control_endpoint_risk"] = c3_a.control_endpoint_risk.name
+        result["c3_forced_chaos_verified"] = c3_a.forced_chaos_verified
 
     return result
 
