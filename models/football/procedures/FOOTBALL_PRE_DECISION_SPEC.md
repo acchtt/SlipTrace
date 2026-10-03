@@ -6,17 +6,11 @@
 > This file is retained only to reconstruct historical Football A/v0.2.x decisions. It must not be loaded as predictive or execution authority for a new Football C board, XI/odds assessment, live decision, or persistence transaction.
 
 
-**Status:** ACTIVE OPERATIONAL COMPILER  
-**Stage:** Step 1 / Work structural PRE only  
-**Model:** Football A current official stack  
-**Purpose:** make repeated PRE assessments deterministic without changing the football model.  
-**Price policy:** PRICE-BLIND  
-**Confirmed-XI policy:** CONFIRMED-XI-BLIND  
-**Authority:** final operational authority for Step-1 PRE classification, board tier, supported-burden construction discipline, PASS rescue, and PRE Structural Rank where older active files overlap or use ambiguous ordering.
+**Historical stage:** Football A Step 1 / Work structural PRE  
+**Historical model:** Football A  
+**Historical policies:** PRICE-BLIND / CONFIRMED-XI-BLIND
 
-This file **compiles** the active rules. It is not a new predictive patch and does not retroactively change any frozen historical PRE state, rank, verdict, exposure, or P/L.
-
-If this file conflicts with older Step-1 wording about route-symmetry priority, carrier ranking, PRE use of confirmed XI, PASS rescue, or the order of PRE judgment, use this file for Step 1. Later Step-2 XI/market execution rules remain governed by their own active authorities.
+The rules below describe the Football A authority that existed at that historical epoch. They remain valid only for reconstructing records actually created under that authority. They do not govern a new Football C Step 1.
 
 ---
 
