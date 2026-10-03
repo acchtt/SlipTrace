@@ -191,12 +191,13 @@ On disagreement:
 
 ## C2 comparison reset
 
-Two plumbing faults invalidate earlier confirmatory C2 comparison windows:
+Three plumbing faults invalidate earlier confirmatory C2 comparison windows:
 
 1. the original workflow named Football A as champion and mixed C2 Step 1 with Football C Step 2;
-2. after Football C's burden-completion ranking patch, the Python C2 validator accidentally inherited Football C's ranking key, and the workflow did not guarantee an independently frozen C2 supported burden.
+2. after Football C's burden-completion ranking patch, the Python C2 validator accidentally inherited Football C's ranking key, and the workflow did not guarantee an independently frozen C2 supported burden;
+3. the Step-2 deterministic contract could previously produce a decision without proving confirmed/reliable XI, fresh post-XI research, H2H recheck, current burden-completion recheck, or explicit negative safety booleans.
 
-Therefore confirmatory C-vs-C2 counting restarts again from the merge that activates the **QA authority/C2 validation repair**.
+Therefore confirmatory C-vs-C2 counting remains at zero until the merge that activates the **Step-2 fail-closed validator repair**, and the five-board window starts from that activation boundary.
 
 Before that boundary:
 - rows remain available for debugging;
@@ -204,7 +205,9 @@ Before that boundary:
 - do not count Python C2 text/code agreement;
 - if C2 supported burden was copied/not independently frozen, mark the paired observation contaminated.
 
-This reset changes comparison plumbing only. It does not change C2's frozen predictive thresholds.
+This reset changes comparison/validation plumbing only. It does not change C2's frozen predictive thresholds.
+
+After the Step-2 fail-closed validator repair activates, C2 is frozen again for the restarted five-board window.
 
 ## Rollback
 
