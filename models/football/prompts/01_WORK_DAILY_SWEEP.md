@@ -93,7 +93,11 @@ Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no
 
 A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
-Freeze one common semantic evidence state before either model ranks the slate:
+Freeze one common **football-fact** evidence state before either model applies policy.
+
+Shared facts stop before model-owned supported-burden selection. Football C and C2 may consume the same routes/carrier/chance/failure/H2H/incentive evidence but must independently derive any policy-owned supported burden.
+
+Freeze these shared facts:
 
 - match_id / identity / kickoff;
 - operational_viability_grade = A / B;
@@ -116,11 +120,8 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - failure_resistance = LOW / MEDIUM / HIGH;
 - evidence_confidence = LOW / MEDIUM / HIGH;
 - burden_protection = LOW / MEDIUM / HIGH;
-- completion_mode = NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED;
-- burden_completion_quality = LOW / MEDIUM / HIGH;
-- continuation_quality = LOW / MEDIUM / HIGH;
 - opponent_leakage = LOW / MEDIUM / HIGH;
-- burden_stall_risk = LOW / MEDIUM / HIGH;
+- continuation evidence sufficient to let each model apply its own policy;
 - failure_attacks_route;
 - material_suppression;
 - independent_upper_tail;
@@ -130,8 +131,14 @@ Freeze one common semantic evidence state before either model ranks the slate:
 - home_incentive / away_incentive;
 - tiebreak_margin_relevance;
 - incentive_effect = EXPANSIVE / NEUTRAL / SUPPRESSIVE / MIXED / UNKNOWN;
-- main failure mode;
-- initial supported_line.
+- main failure mode.
+
+Do **not** freeze one shared `supported_line` as common policy evidence.
+
+After the common facts are frozen:
+- Football C derives and freezes `c_supported_line` plus C completion mode/quality, continuation grade and stall risk under the active burden-completion procedure;
+- Football C2 independently derives and freezes `c2_supported_line` under Section 5 of its frozen challenger specification;
+- neither model may copy the other model's line simply for payload/persistence convenience.
 
 At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
 
@@ -146,7 +153,7 @@ Once frozen, do not edit common evidence after seeing either model's ranking or 
 
 Apply `models/football/production/FOOTBALL_C.md` to the common evidence.
 
-Before final C state/rank, answer for every fixture:
+Before final C state/rank, derive the Football C-owned completion fields and `c_supported_line`, then answer for every fixture:
 
 `WHERE DOES THE GOAL THAT CLEARS THE SUPPORTED BURDEN COME FROM?`
 
@@ -169,12 +176,19 @@ Persist Football C as the canonical Daily Coverage state.
 
 Apply the C2 challenger rules to the **same frozen common evidence**.
 
+First derive and freeze `c2_supported_line` independently from the shared football facts. Do not read or copy `c_supported_line` while creating it.
+
 Compute:
 - C2-PASS / C2-WATCH / C2-FOCUS;
-- C2 ordinal rank;
+- C2 ordinal rank under the frozen C2 ranking policy;
+- C2 supported line;
 - selection-quality floor;
 - protected-line inversion diagnostics;
 - bridge readiness.
+
+If an independent C2 supported line cannot be frozen:
+`C2 COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`
+and exclude that fixture from confirmatory C-vs-C2 action metrics while continuing Football C normally.
 
 C2 is shadow-only:
 - no Website Pick;
@@ -201,7 +215,12 @@ Board command:
 
 `python models/football/engine/cli.py board --input <payload.json>`
 
-The assessment fields must be identical across C and C2 payloads except for model-specific `board_state` after each text policy has classified the fixture.
+The factual assessment fields must be identical across C and C2 payloads. The following are explicitly model-owned and may differ:
+- `model`;
+- `board_state`;
+- `supported_line` (C payload = `c_supported_line`; C2 payload = `c2_supported_line`).
+
+The engine schema still carries Football C completion diagnostics in the shared assessment object. They are non-operative for C2 deterministic ranking/action and must never be used to overwrite C2's own supported line.
 
 Python is shadow validation only.
 
@@ -224,8 +243,8 @@ Then comparison table:
 
 `FOOTBALL C2 SHADOW DELTA`
 
-| Match | C rank/state | C2 rank/state | C2 floor | Bridge readiness | Material difference |
-|---|---|---|---|---|---|
+| Match | C rank/state | C line | C2 rank/state | C2 line | C2 floor | Bridge readiness | Material difference |
+|---|---|---:|---|---:|---|---|---|
 
 Report funnel:
 
