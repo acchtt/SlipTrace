@@ -54,8 +54,17 @@ Every visible fixture in that class requires a row/disposition even when exclude
 
 ## 4. Frozen Football C board fields
 
-Preserve current official board state exactly:
+Preserve current official board state exactly.
 
+Dedicated current fields now include:
+- `C Board State`;
+- `C Rank`;
+- `C Supported Line`;
+- `C2 Shadow State`;
+- `C2 Shadow Rank`;
+- `C2 Supported Line`.
+
+Also preserve:
 - Operational Grade;
 - XI Expected;
 - Market Observability where available;
