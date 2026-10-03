@@ -79,6 +79,11 @@ Persist where applicable:
 - engine C result;
 - engine C2 result where valid.
 
+Dedicated C/C2 separation fields:
+- `C Supported Line`;
+- `C2 Supported Line`;
+- `C2 Shadow Action`.
+
 Burden-completion Step-2 fields:
 
 - `Current Completion Mode`;
