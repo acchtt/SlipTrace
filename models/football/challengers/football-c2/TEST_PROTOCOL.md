@@ -11,7 +11,9 @@ Run C2 for the next **5 complete boards** after the QA authority/C2 validation r
 
 This is a feasibility checkpoint, not automatic promotion.
 
-Do not edit C2 during the five-board window.
+The QA authority/C2 validation repair fixes implementation and comparison plumbing only: model-specific deterministic ranking, independent C2 burden persistence, authority cleanup and reset accounting. It does not change C2 Sections 3-14 predictive thresholds.
+
+From the repair activation commit onward, C2 is frozen again. Do not edit C2 predictive rules during the five-board window; any predictive change requires C3.
 
 ## 2. Shared universe
 
