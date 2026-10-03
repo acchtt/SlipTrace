@@ -282,7 +282,7 @@ After the final Football C board/rank/lane/support is frozen and before any FT r
 Freeze only prospectively established fields. Outcome columns remain blank.
 
 This observer is diagnostic only. Its Trace Score or historical performance must never alter:
-- C/C2 state;
+- C/C2/C3 state;
 - C rank;
 - supported line;
 - FOLLOW/RESERVE/STOP;
@@ -304,12 +304,12 @@ Then comparison table:
 `FOOTBALL C2 SHADOW DELTA`
 
 | Match | C rank/state | C line | C2 rank/state | C2 line | C2 floor | Bridge readiness | Material difference |
+|---|---|---:|---|---:|---|---|---|
 
 `FOOTBALL C3 BURDEN-FUNDING DELTA`
 
 | Match | C rank/state/lane | C3 rank/state/lane | C3 line | 2nd-route role | Goal-3 funding | Goal-4 funding | Control risk | Material difference |
 |---|---|---|---:|---|---|---|---|---|
-|---|---|---:|---|---:|---|---|---|
 
 Report funnel:
 
@@ -324,7 +324,7 @@ Also report any:
 - potential unreachable-WAIT risk;
 - text-vs-code disagreement.
 
-## 6. Required machine appendix
+## 7. Required machine appendix
 
 Every machine assessment object must include the explicit operational-viability / competition-reliability contract **and** the tournament-incentive contract. The engine must reject omission instead of defaulting it away.
 
@@ -339,15 +339,15 @@ Include:
 If runtime execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
 
-## 7. Non-negotiable separation
+## 8. Non-negotiable separation
 
 - Football C official board feeds official Step 2.
 - C2/C3 shadow boards never substitute for C.
 - C2/C3 may not create real-bet instructions.
-- Both tracks use the same frozen common evidence epoch.
+- All three tracks use the same frozen common factual evidence epoch.
 
 
-## 5. Operational follow-through guard — mandatory
+## 9. Operational follow-through guard — mandatory
 
 The Football C board itself remains uncapped for audit. **Operational follow-through is capacity-limited.**
 
@@ -403,7 +403,7 @@ If more qualify, preserve official C rank and demote overflow in rank order:
 
 Never alter the underlying C state to satisfy the capacity limit.
 
-## 7. Revised output
+## 10. Revised output
 
 Show the operational queue first:
 
