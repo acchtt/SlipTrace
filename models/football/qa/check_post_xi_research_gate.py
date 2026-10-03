@@ -3,6 +3,14 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md": [
+        "mandatory Step-0 coverage invariant",
+        "Mandatory discovery class",
+        "HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP",
+        "women_top_flight_raw_count",
+        "Researchability parity",
+        "Senior Women's Top Flight = true",
+    ],
     "models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md": [
         "mandatory Football C Step-1 selection layer",
         "Where does the goal that clears the supported burden come from?",
@@ -31,6 +39,11 @@ REQUIRED = {
         "Operational Excluded Count",
         "Capacity Deferred Count",
     ],
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md": [
+        "Senior Women's Top Flight",
+        "women's domestic top-flight",
+        "historical country/league blanket exclusions",
+    ],
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
         "Current Completion Mode",
         "Current Completion Quality",
@@ -47,6 +60,7 @@ REQUIRED = {
         "B-grade C-FOCUS: maximum routine lane is RESERVE",
         "Persistent competition reliability cap",
         "history may never promote B->A or C->B",
+        "senior women\'s domestic top-flight",
     ],
     "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md": [
         "Assessment completion hard gate",
@@ -70,6 +84,10 @@ REQUIRED = {
         "Competition reliability memory — mandatory",
         "competition_reliability_state",
         "DEMOTED: default C",
+        "Mandatory senior-block discovery",
+        "senior women\'s domestic top-flight",
+        "women_top_flight_raw_count",
+        "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
@@ -82,6 +100,8 @@ REQUIRED = {
         "Normal Work admission is capped at 15",
         "COMPETITION RELIABILITY MEMORY",
         "Historical competition reliability may only cap/demote current viability",
+        "women\'s domestic top-flight",
+        "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/production/FOOTBALL_C.md": [
         "**Intake:** RESEARCHABLE_SENIOR_PRODUCTION",
@@ -162,6 +182,8 @@ REQUIRED = {
         "Competition reliability memory update — mandatory",
         "Competition Reliability Events",
         "never write FT goals, C/C2 result, settlement or P/L",
+        "women\'s senior top-flight discovery/accounting misses",
+        "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md": [
         "**Champion:** Football C",
