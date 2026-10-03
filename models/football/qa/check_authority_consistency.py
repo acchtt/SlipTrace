@@ -165,6 +165,47 @@ require(
     "test_low_current_continuation_cannot_bet",
 )
 
+# 5. Audit hindsight integrity must be deterministic.
+require(
+    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
+    "Three-layer audit record",
+    "FROZEN STATE — immutable",
+    "OBSERVED OUTCOME — descriptive, not a re-grade",
+    "AUDIT DIAGNOSIS — evidence-bounded",
+    "MEDIUM-HIGH",
+    "RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE",
+    "OFFICIAL C MODEL P&L != ACTUAL USER P&L",
+    "FOOTBALL_AUDIT_RECORD",
+)
+require(
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
+    "Audit hindsight integrity — mandatory",
+    "FROZEN:",
+    "OBSERVED:",
+    "DIAGNOSIS:",
+    "P&L STATUS:",
+    "AUDIT RECORD INVALID — DO NOT FINALIZE DIAGNOSIS",
+)
+require(
+    "models/football/engine/adapter.py",
+    "def run_audit_record",
+    "AUDIT_DIAGNOSIS_TAGS",
+    "official_c_model_pnl must be null when official_c_exposure=false",
+    "user_pnl must be null when user_executed=false",
+)
+require(
+    "models/football/engine/cli.py",
+    'choices=("board", "decision", "audit")',
+    "run_audit_record",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_compound_grade_is_rejected",
+    "test_pre_freeze_miss_requires_contemporaneous_note",
+    "test_no_official_exposure_cannot_have_model_pnl",
+    "test_published_model_exposure_does_not_require_user_bet",
+)
+
 # 4. Persistence must have named current C/C2 separation.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
