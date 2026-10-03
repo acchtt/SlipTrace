@@ -24,6 +24,7 @@ This intake is about **information quality and later executability**, not whethe
 Read and apply:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
+- `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`
 
 The operational gate is mandatory for every surviving senior fixture before deep Work research.
@@ -59,7 +60,19 @@ Every admitted fixture must have:
 
 Do not guess timezone from geography or treat a bare display clock as UTC.
 
-## 1. Hard scope exclusions
+## 1. Mandatory senior-block discovery
+
+Before applying hard scope exclusions, enumerate all visible senior competition blocks in the requested AiScore window.
+
+Senior women's domestic top-flight leagues are a **mandatory discovery class**. Every visible fixture from the country's highest senior women's domestic league must enter the raw senior accounting before any later operational/researchability/capacity disposition.
+
+Do not skip a block because its competition label contains Women / Women's / Ladies / Frauen / Féminine / Femenina / Dam / Kvinner or equivalent.
+
+If a visible women's senior top-flight block has no recorded fixture/disposition:
+
+`HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`
+
+## 2. Hard scope exclusions
 
 Exclude before the researchability gate:
 
@@ -75,7 +88,7 @@ Exclude before the researchability gate:
 - unresolved authoritative kickoff;
 - duplicates.
 
-## 2. Competition reliability memory — mandatory
+## 3. Competition reliability memory — mandatory
 
 After senior discovery/hard scope filtering and before final operational grading:
 
@@ -102,7 +115,7 @@ Persist:
 
 Do not use FT score, goals, C/C2 result, betting result or P/L to set this state.
 
-## 3. Operational viability gate — mandatory
+## 4. Operational viability gate — mandatory
 
 For every fixture surviving hard scope/identity/time checks, persist:
 
@@ -121,7 +134,7 @@ Apply the procedure exactly:
 
 Do not upgrade a fixture because its score history looks attractive. Small-league status alone is not a rejection; missing XI/market/team-news observability is.
 
-## 4. Protected senior competition classes
+## 5. Protected senior competition classes
 
 The following classes bypass the ordinary domestic researchability exclusion when identity/time are valid, but they still require an explicit operational viability grade:
 
@@ -135,9 +148,11 @@ These are protected because the previous narrow sweep missed meaningful national
 
 They still receive normal Football C PASS/WATCH/FOCUS screening later.
 
-## 5. Researchability gate — ordinary domestic / small competition blocks
+## 6. Researchability gate — ordinary domestic / small competition blocks
 
-For all other senior domestic league/cup fixtures, run a **cheap researchability check** before admitting them to Work.
+For all other senior domestic league/cup fixtures, including men's and women's senior domestic top flights, run a **cheap researchability check** before admitting them to Work.
+
+For senior women's top-flight fixtures, apply the same evidence standard as men's senior top-flight fixtures. Do not reinterpret "small/unfamiliar" as a gender proxy.
 
 A fixture is `RESEARCHABLE` only when a quick preflight can establish enough current evidence for both teams to support the Football C evidence schema.
 
@@ -177,10 +192,11 @@ Otherwise exclude as:
 
 Do not spend deep Work research trying to rescue a competition that fails this cheap preflight.
 
-## 6. What researchability is NOT
+## 7. What researchability is NOT
 
 Do not exclude a fixture merely because:
 
+- it is a senior women's domestic top-flight fixture;
 - it is expected to be low scoring;
 - its league was historically LOW-GOAL;
 - it is from Japan or Finland;
@@ -193,7 +209,7 @@ If adequate current evidence exists, admit it and let Football C decide football
 
 Likewise, do not admit an obscure league merely because it is senior/professional if usable evidence is absent.
 
-## 7. Efficiency rule
+## 8. Efficiency rule
 
 The researchability check must stay cheap.
 
@@ -223,7 +239,7 @@ When triggered:
 
 A uniform competition-block timestamp is never sufficient proof by itself.
 
-## 8. Operational capacity gate
+## 9. Operational capacity gate
 
 After A/B viability and researchability are known, cap the normal Work handoff at **15 fixtures**.
 
@@ -240,17 +256,19 @@ Overflow remains recorded as:
 
 It may be reopened only by explicit user exception.
 
-## 9. Completeness
+## 10. Completeness
 
 Production completeness means:
 
 > every potentially relevant senior block in the requested window was discovered, then hard-excluded, operationally excluded, researchability-excluded, capacity-deferred, or admitted.
 
+Additionally, every visible senior women's domestic top-flight block must reconcile under `FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`. Missing one is a coverage failure even when the overall raw/admitted totals otherwise balance.
+
 A skipped visible senior block with no recorded disposition makes the handoff incomplete.
 
 For cross-midnight/early-morning windows, perform the normal terminal-interval recheck.
 
-## 10. Persistence / counts
+## 11. Persistence / counts
 
 For every discovered in-window senior fixture preserve one disposition:
 
@@ -267,7 +285,17 @@ Required funnel counts:
 
 `RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C`
 
-## 11. Work-readiness gate
+Required women's-top-flight counts:
+- `women_top_flight_raw_count`;
+- `women_top_flight_admitted_count`;
+- `women_top_flight_operational_excluded_count`;
+- `women_top_flight_researchability_excluded_count`;
+- `women_top_flight_capacity_deferred_count`;
+- `women_top_flight_unresolved_count`.
+
+The women's-top-flight raw count must equal the sum of its dispositions.
+
+## 12. Work-readiness gate
 
 Package only when:
 
@@ -281,6 +309,9 @@ Package only when:
 - no DEMOTED fixture is admitted except the allowed B-grade probation rule;
 - admitted fixture count is <= 15;
 - protected senior blocks were not removed by the researchability gate without an explicit operational disposition;
+- every visible senior women's domestic top-flight block has a fixture-level disposition;
+- women's-top-flight counts reconcile exactly;
+- `women_top_flight_unresolved_count = 0` before `work_ready=true`;
 - every admitted fixture has resolved identity/time;
 - terminal scan is complete where required;
 - admitted count equals handoff array count.
@@ -289,7 +320,7 @@ If not:
 
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
-## 12. Canonical ZIP handoff
+## 13. Canonical ZIP handoff
 
 Create one root-level canonical `AISCORE_FIXTURES_*.txt` inside the ZIP.
 
@@ -310,12 +341,14 @@ Required metadata:
 - `capacity_deferred_count`;
 - `admitted_to_c_count`;
 - protected-block audit result;
+- women's-top-flight coverage audit result;
+- all six women's-top-flight counters;
 - admitted fixtures with identity/time provenance;
 - per admitted fixture: raw operational grade, final operational grade, XI expectation, market observability, team-news observability, competition reliability state/sample/reason and operational reason.
 
 Do not include hard-excluded, operationally excluded, researchability-excluded, or capacity-deferred fixtures in the Work array.
 
-## 13. Step-0 boundary
+## 14. Step-0 boundary
 
 Step 0 may determine whether enough evidence exists.
 
@@ -341,6 +374,7 @@ with:
 
 - requested window;
 - raw senior count;
+- women's top-flight raw / admitted / operational excluded / researchability excluded / capacity deferred / unresolved counts;
 - hard excluded;
 - operationally excluded;
 - researchability excluded;
