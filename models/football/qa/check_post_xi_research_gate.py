@@ -358,7 +358,7 @@ REQUIRED = {
         "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
         "DECISION BLOCKED — H2H RECHECK MISSING",
         "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
-        "_required_bool(ctx_obj, \"primary_mechanism_intact\")",
+        "primary_mechanism_intact=_required_bool",
         "_required_bool(obj, \"material_suppression\")",
     ],
 }
