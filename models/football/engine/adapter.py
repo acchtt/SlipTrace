@@ -583,6 +583,11 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "stage": "board_result",
         "model": model,
+        "ranking_policy": (
+            "FOOTBALL_C_BURDEN_COMPLETION"
+            if model == "c"
+            else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
+        ),
         "match_count": len(output),
         "matches": output,
     }
