@@ -32,6 +32,7 @@ The aliases are an ergonomic routing layer only. All canonical model/integrity r
 - **Football C2** is a shadow challenger only. It may never create a Website Pick or authorize real exposure.
 - **Python deterministic engine** is a shadow validation layer for both C and C2.
 - Historical Football A decisions remain historical/rollback only.
+- `FOOTBALL_PRE_DECISION_SPEC.md`, `FOOTBALL_STEP2_EXECUTION_SPEC.md`, and `05_NORMAL_CHAT_FOOTBALL_C.md` are retired historical Football A/shadow artifacts and must not control new production.
 
 Do not use a C2 board as the official input to a Football C decision.
 
@@ -187,11 +188,20 @@ On disagreement:
 
 ## C2 comparison reset
 
-The previous C2 workflow incorrectly named Football A as champion and allowed Step 1 to become C2-only while Step 2 remained Football C.
+Two plumbing faults invalidate earlier confirmatory C2 comparison windows:
 
-That workflow is invalid for confirmatory C-vs-C2 comparison.
+1. the original workflow named Football A as champion and mixed C2 Step 1 with Football C Step 2;
+2. after Football C's burden-completion ranking patch, the Python C2 validator accidentally inherited Football C's ranking key, and the workflow did not guarantee an independently frozen C2 supported burden.
 
-Prospective C2 comparison restarts from the dual-track fix commit. Earlier C2 rows may remain for debugging but do not count toward the new confirmatory comparison window.
+Therefore confirmatory C-vs-C2 counting restarts again from the merge that activates the **QA authority/C2 validation repair**.
+
+Before that boundary:
+- rows remain available for debugging;
+- do not count them toward confirmatory C-vs-C2 exposure-return metrics;
+- do not count Python C2 text/code agreement;
+- if C2 supported burden was copied/not independently frozen, mark the paired observation contaminated.
+
+This reset changes comparison plumbing only. It does not change C2's frozen predictive thresholds.
 
 ## Rollback
 
