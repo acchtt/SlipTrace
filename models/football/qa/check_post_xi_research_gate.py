@@ -8,6 +8,7 @@ REQUIRED = {
         "Mandatory discovery class",
         "HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP",
         "women_top_flight_raw_count",
+        "women_top_flight_disposition_manifest",
         "Researchability parity",
         "Senior Women's Top Flight = true",
     ],
@@ -87,6 +88,7 @@ REQUIRED = {
         "Mandatory senior-block discovery",
         "senior women\'s domestic top-flight",
         "women_top_flight_raw_count",
+        "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/CURRENT_MODEL.md": [
