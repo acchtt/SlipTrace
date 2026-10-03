@@ -8,24 +8,33 @@ from competition_reliability import apply_reliability_cap, effective_state
 
 from core import (
     BoardState,
+    C3PolicyAssessment,
     CarrierStrength,
     CompletionMode,
     DecisionContext,
     FollowLane,
+    FundingSource,
+    FundingState,
     Grade,
     H2HReviewStatus,
     MatchAssessment,
     PostXiResearchStatus,
     Quote,
     RouteStrength,
+    SecondRouteRole,
     ThesisState,
     XiStatus,
     c2_selection_floor,
+    c3_board_state,
+    c3_ranking_key,
+    c3_shadow_lane,
+    decide_c3,
     decide_c,
     decide_c2,
     follow_through_lane,
     rank_assessments,
     rank_assessments_c2,
+    rank_assessments_c3,
     ranking_key,
     c2_ranking_key,
 )
@@ -469,6 +478,50 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
     )
 
 
+def parse_c3_policy(
+    obj: dict[str, Any],
+    base: MatchAssessment,
+) -> C3PolicyAssessment:
+    """Parse C3-only policy fields without changing common C/C2 evidence."""
+
+    return C3PolicyAssessment(
+        base=base,
+        second_route_role=_enum(
+            SecondRouteRole,
+            _required(obj, "c3_second_route_role"),
+            "c3_second_route_role",
+        ),
+        goal3_funding=_enum(
+            FundingState,
+            _required(obj, "c3_goal3_funding"),
+            "c3_goal3_funding",
+        ),
+        goal3_funding_source=_enum(
+            FundingSource,
+            _required(obj, "c3_goal3_funding_source"),
+            "c3_goal3_funding_source",
+        ),
+        goal3_funding_basis=_string(obj, "c3_goal3_funding_basis"),
+        goal4_funding=_enum(
+            FundingState,
+            _required(obj, "c3_goal4_funding"),
+            "c3_goal4_funding",
+        ),
+        goal4_funding_source=_enum(
+            FundingSource,
+            _required(obj, "c3_goal4_funding_source"),
+            "c3_goal4_funding_source",
+        ),
+        goal4_funding_basis=_string(obj, "c3_goal4_funding_basis"),
+        control_endpoint_risk=_enum(
+            Grade,
+            _required(obj, "c3_control_endpoint_risk"),
+            "c3_control_endpoint_risk",
+        ),
+        control_endpoint_basis=_string(obj, "c3_control_endpoint_basis"),
+    )
+
+
 def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
     if not isinstance(payload, dict):
         raise ContractError("payload must be a JSON object")
@@ -484,24 +537,28 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
 
     model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2"}:
-        raise ContractError("model must be 'c' or 'c2'")
+    if model not in {"c", "c2", "c3"}:
+        raise ContractError("model must be 'c', 'c2', or 'c3'")
 
     raw_matches = _required(payload, "matches")
     if not isinstance(raw_matches, list) or not raw_matches:
         raise ContractError("matches must be a non-empty array")
 
     parsed = [parse_assessment(item) for item in raw_matches]
-    ranked = (
-        rank_assessments(parsed)
-        if model == "c"
-        else rank_assessments_c2(parsed)
-    )
+    if model == "c":
+        ranked = rank_assessments(parsed)
+    elif model == "c2":
+        ranked = rank_assessments_c2(parsed)
+    else:
+        ranked = rank_assessments_c3(
+            [parse_c3_policy(raw, base) for raw, base in zip(raw_matches, parsed)]
+        )
 
     raw_by_id = {str(item["match_id"]): item for item in raw_matches}
     block_rank_by_id: dict[str, int] = {}
     block_counts: dict[str, int] = {}
-    for item in ranked:
+    for ranked_item in ranked:
+        item = ranked_item.base if model == "c3" else ranked_item
         raw = raw_by_id[item.match_id]
         block = _kickoff_block(raw)
         block_counts[block] = block_counts.get(block, 0) + 1
@@ -512,7 +569,9 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     reserve_used = 0
     follow_by_block: dict[str, int] = {}
 
-    for rank, item in enumerate(ranked, start=1):
+    for rank, ranked_item in enumerate(ranked, start=1):
+        c3_item = ranked_item if model == "c3" else None
+        item = ranked_item.base if model == "c3" else ranked_item
         raw = raw_by_id[item.match_id]
         kickoff_block = _kickoff_block(raw)
         operational_gate = validate_operational_viability(raw)
@@ -521,7 +580,11 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(
-                ranking_key(item) if model == "c" else c2_ranking_key(item)
+                ranking_key(item)
+                if model == "c"
+                else c2_ranking_key(item)
+                if model == "c2"
+                else c3_ranking_key(c3_item)
             ),
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
@@ -589,6 +652,21 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["selection_floor"] = floor.value
             row["selection_floor_reasons"] = list(reasons)
 
+        if model == "c3":
+            state = c3_board_state(c3_item)
+            lane = c3_shadow_lane(c3_item, state)
+            row["board_state"] = f"C3-{state.name}"
+            row["c3_shadow_lane"] = lane.value
+            row["c3_second_route_role"] = c3_item.second_route_role.name
+            row["c3_goal3_funding"] = c3_item.goal3_funding.name
+            row["c3_goal3_funding_source"] = c3_item.goal3_funding_source.value
+            row["c3_goal3_funding_basis"] = c3_item.goal3_funding_basis
+            row["c3_goal4_funding"] = c3_item.goal4_funding.name
+            row["c3_goal4_funding_source"] = c3_item.goal4_funding_source.value
+            row["c3_goal4_funding_basis"] = c3_item.goal4_funding_basis
+            row["c3_control_endpoint_risk"] = c3_item.control_endpoint_risk.name
+            row["c3_control_endpoint_basis"] = c3_item.control_endpoint_basis
+
         output.append(row)
 
     result = {
@@ -599,6 +677,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "FOOTBALL_C_BURDEN_COMPLETION"
             if model == "c"
             else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
+            if model == "c2"
+            else "FOOTBALL_C3_CLEARING_GOAL_FUNDING"
         ),
         "match_count": len(output),
         "matches": output,
@@ -625,11 +705,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "decision")
 
     model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2"}:
-        raise ContractError("model must be 'c' or 'c2'")
+    if model not in {"c", "c2", "c3"}:
+        raise ContractError("model must be 'c', 'c2', or 'c3'")
 
     raw_match = _required(payload, "match")
     a = parse_assessment(raw_match)
+    c3_a = parse_c3_policy(raw_match, a) if model == "c3" else None
 
     ctx_obj = _required(payload, "context")
     if not isinstance(ctx_obj, dict):
@@ -725,7 +806,13 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         material_veto=_required_bool(ctx_obj, "material_veto"),
     )
 
-    decision = decide_c(a, ctx) if model == "c" else decide_c2(a, ctx)
+    decision = (
+        decide_c(a, ctx)
+        if model == "c"
+        else decide_c2(a, ctx)
+        if model == "c2"
+        else decide_c3(c3_a, ctx)
+    )
     result: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "stage": "decision_result",
@@ -754,6 +841,14 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         floor, reasons = c2_selection_floor(a)
         result["selection_floor"] = floor.value
         result["selection_floor_reasons"] = list(reasons)
+
+    if model == "c3":
+        result["c3_second_route_role"] = c3_a.second_route_role.name
+        result["c3_goal3_funding"] = c3_a.goal3_funding.name
+        result["c3_goal3_funding_source"] = c3_a.goal3_funding_source.value
+        result["c3_goal4_funding"] = c3_a.goal4_funding.name
+        result["c3_goal4_funding_source"] = c3_a.goal4_funding_source.value
+        result["c3_control_endpoint_risk"] = c3_a.control_endpoint_risk.name
 
     return result
 
