@@ -31,7 +31,7 @@ You no longer need to type the long launcher filename for normal use. The explic
 5. `04_WORK_POST_SLATE_AUDIT.md` — settle/audit Football C and preserve historical model fidelity.
 6. `06_NORMAL_CHAT_REPORT.md` — report current persisted board/decision/schedule state without rerunning predictive stages.
 
-`05_NORMAL_CHAT_FOOTBALL_C.md` is the original shadow-test launcher and is retained for experiment history. It is **not** the production launcher now.
+`05_NORMAL_CHAT_FOOTBALL_C.md` is **hard-retired**. It is retained for experiment history only and must return `LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER` if invoked for new production.
 
 ## Simple commands
 
