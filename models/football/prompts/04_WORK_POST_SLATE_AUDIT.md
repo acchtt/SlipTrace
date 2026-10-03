@@ -7,7 +7,8 @@ Read `models/football/CURRENT_MODEL.md` first.
 Also read:
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
-- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`.
+- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
+- `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`.
 
 Use the model/version that actually produced each historical decision.
 
@@ -95,11 +96,41 @@ Before the repair boundary:
 
 The five-board C2 checkpoint remains at zero until that repair activation, then restarts from board 1.
 
+## Audit hindsight integrity — mandatory
+
+Every fixture audit must separate:
+1. `FROZEN` — immutable prospective state;
+2. `OBSERVED` — HT/FT and what actually materialized;
+3. `DIAGNOSIS` — evidence-bounded audit classification;
+4. `P&L STATUS` — official C model exposure, actual user execution, and C2 shadow separately.
+
+Never retroactively rewrite a frozen grade after seeing the result.
+
+Use only canonical frozen enums. For current Football C:
+- `LOW / MEDIUM / HIGH`;
+- `WEAK / USABLE / STRONG`;
+- `NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED`.
+
+Never invent `MEDIUM-HIGH`, `LOW-MEDIUM`, `HIGH+`, or similar compound grades.
+
+FT/HT alone may show that a frozen continuation/completion thesis failed to materialize. It does **not** prove what the grade "should have been".
+
+A statement that the pre-match read was wrong requires a specific contemporaneous pre-freeze evidence miss. Otherwise use:
+`RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE`
+
+Scoreline alone also does not prove causal claims such as "they stopped pushing" or "the second route disappeared"; such mechanism claims require contemporaneous match evidence.
+
 ## Settlement
 
 Settle exact recorded line/odds only.
 
 Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed an imagined line.
+
+Official C model P/L and actual user P/L are separate:
+- official C model P/L uses an official published/reconciled Website Pick/exposure with exact line/odds;
+- actual user P/L uses the user's exact bet slip;
+- a user not placing an already-published official C pick does not erase the model win/loss;
+- a C-BET that failed official publication is an official decision but `NO OFFICIAL EXPOSURE / NO MODEL P&L`.
 
 ## Required process checks
 
@@ -142,8 +173,14 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 
 ## Output
 
-Report:
-- Football C official P/L;
+For every material fixture, first report:
+- `FROZEN:` exact state/line/grades/action;
+- `OBSERVED:` HT/FT and materialization/settlement facts;
+- `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
+- `P&L STATUS:` official C model exposure/P&L, actual user execution/P&L, C2 shadow separately.
+
+Then report slate totals:
+- Football C official model P/L;
 - actual user P/L;
 - C2 shadow counterfactual P/L on exact shadow entries;
 - paired C-vs-C2 action matrix;
