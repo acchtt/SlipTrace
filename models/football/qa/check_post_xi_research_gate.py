@@ -5,7 +5,7 @@ import sys
 REQUIRED = {
     "models/football/qa/check_authority_consistency.py": [
         "FOOTBALL AUTHORITY QA FAIL",
-        "Football C authority and C2 comparison semantics are internally consistent",
+        "Football C authority and C2/C3 comparison semantics are internally consistent",
         "def c2_ranking_key",
         "SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN",
     ],
@@ -137,6 +137,8 @@ REQUIRED = {
         "Historical Football A/v0.2.x country/league blanket overlays are **not** current authority",
         "C Supported Line",
         "C2 Supported Line",
+        "C3 Supported Line",
+        "C3 Second Route Role",
     ],
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
         "Official model:** Football C",
@@ -149,6 +151,8 @@ REQUIRED = {
         "C supported line",
         "C2 supported line",
         "C2 shadow action",
+        "C3 Supported Line",
+        "C3 Shadow Action",
     ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
@@ -192,7 +196,7 @@ REQUIRED = {
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
-        "Shadow challenger:** Football **C2**",
+        "Shadow challengers:** Football **C2** and Football **C3**",
         "COMMON FOOTBALL FACT FREEZE",
         "tournament_incentive_required",
         "Football C's board is the only board that can feed official Step-2 exposure.",
@@ -218,13 +222,18 @@ REQUIRED = {
     ],
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
         "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
-        "Football C Official + C2 Shadow Board",
+        "Football C Official + C2/C3 Shadow Boards",
         "Common evidence freeze",
         "Football C official board",
         "Football C2 shadow board",
-        "C2 shadow board never substitutes for C",
+        "C2/C3 shadow boards never substitute for C",
         "FOOTBALL_ENGINE_C_INPUT",
         "FOOTBALL_ENGINE_C2_INPUT",
+        "FOOTBALL_ENGINE_C3_INPUT",
+        "Football C3 burden-funding shadow board",
+        "EXCHANGE_ONLY",
+        "c3_goal3_funding",
+        "c3_control_endpoint_risk",
         "Operational follow-through guard",
         "ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING",
         "tournament_incentive_required",
@@ -250,7 +259,7 @@ REQUIRED = {
         "WOMEN TOP-FLIGHT COVERAGE GAP",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
-        "Football C Official + C2 Shadow XI/Odds",
+        "Football C Official + C2/C3 Shadow XI/Odds",
         "MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH",
         "Odds/history lookup does **not** satisfy the football-research gate.",
         "Football C official action",
@@ -260,6 +269,9 @@ REQUIRED = {
         "Only Football C may create official exposure.",
         "FOOTBALL_ENGINE_C_DECISION_INPUT",
         "FOOTBALL_ENGINE_C2_DECISION_INPUT",
+        "FOOTBALL_ENGINE_C3_DECISION_INPUT",
+        "Football C3 burden-funding shadow action",
+        "C3 has **no C2 market-gap bridge**",
         "ENGINE DISAGREEMENT",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING",
         "tournament_incentive_rechecked",
@@ -279,23 +291,27 @@ REQUIRED = {
         "Command alias:** `/xi`",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
-        "Football C Official Live + C2 Shadow Wait",
+        "Football C Official Live + C2/C3 Shadow Wait",
         "TARGET REACHED + THESIS STILL HEALTHY?",
         "C-WAIT CANCELLED — THESIS DECAY",
         "C2 may never create Website Pick or real exposure.",
+        "Football C3 shadow WAIT resolution",
+        "C3-WAIT CANCELLED — FUNDING DECAY — SHADOW",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
         "Command alias:** `/live`",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
-        "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
+        "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C3 SHADOW BOARD",
         "mandatory post-XI football research",
         "Confirmatory C-vs-C2 counting restarts",
+        "Prospective C3 boundary",
+        "C3 Board N/5",
         "Historical Football A/C1 audits remain version-faithful.",
         "FOLLOW/RESERVE/STOP allocation",
         "tournament-incentive completeness",
         "Competition reliability memory update — mandatory",
         "Competition Reliability Events",
-        "never write FT goals, C/C2 result, settlement or P/L",
+        "never write FT goals, C/C2/C3 result, settlement or P/L",
         "women\'s senior top-flight discovery/accounting misses",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
         "Audit hindsight integrity — mandatory",
@@ -320,6 +336,28 @@ REQUIRED = {
         "Restart boundary",
         "HELD AT ZERO",
         "Step-2 fail-closed validator repair",
+    ],
+    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md": [
+        "PROSPECTIVE SHADOW CHALLENGER",
+        "BURDEN_CONTRIBUTING",
+        "EXCHANGE_ONLY",
+        "STATE_DEPENDENT",
+        "Who prospectively funds the goal",
+        "C3 has no C2-style market-gap bridge",
+        "FOOTBALL C3 — SHADOW ONLY",
+    ],
+    "models/football/challengers/football-c3/TEST_PROTOCOL.md": [
+        "next **5 complete clean boards**",
+        "C2 continues its current five-board window",
+        "C3 gets a separate 1/5 ... 5/5 counter",
+        "Historical boards have zero confirmatory C3 weight",
+    ],
+    "models/football/airtable/FOOTBALL_C3_AIRTABLE.md": [
+        "C3 role:** shadow-only burden-funding challenger",
+        "C3 Shadow State",
+        "C3 Supported Line",
+        "C3 Second Route Role",
+        "C3 Test Board Number",
     ],
     "models/football/engine/competition_reliability.py": [
         "def evaluate_competition_reliability",
@@ -367,6 +405,12 @@ REQUIRED = {
         "\"completion_rechecked\"",
         "\"primary_mechanism_intact\"",
         "\"material_veto\"",
+        "\"c3_second_route_role\"",
+        "\"c3_goal3_funding\"",
+        "\"c3_goal3_funding_source\"",
+        "\"c3_goal4_funding\"",
+        "\"c3_control_endpoint_risk\"",
+        "\"c3_forced_chaos_verified\"",
     ],
     "models/football/trials/FOOTBALL_C_ELITE_UPPER_TAIL_OBSERVER_2026-10-01.md": [
         "PROSPECTIVE OBSERVER ONLY — NO PRODUCTION AUTHORITY",
@@ -384,6 +428,11 @@ REQUIRED = {
         "test_high_current_stall_risk_cannot_bet",
         "test_low_current_completion_cannot_bet",
         "test_low_current_continuation_cannot_bet",
+        "test_c_board_does_not_require_c3_fields",
+        "test_c2_board_does_not_require_c3_fields",
+        "test_changing_c3_fields_cannot_change_c_ranking",
+        "test_c3_board_ignores_two_route_label_without_goal3_funding",
+        "test_c3_carrier_led_goal3_can_focus_without_second_route",
         "test_compound_grade_is_rejected",
         "test_pre_freeze_miss_requires_contemporaneous_note",
         "test_no_official_exposure_cannot_have_model_pnl",
@@ -414,6 +463,10 @@ REQUIRED = {
         "same_kickoff_rank",
         "rank_assessments_c2",
         "c2_ranking_key(item)",
+        "parse_c3_policy",
+        "FOOTBALL_C3_CLEARING_GOAL_FUNDING",
+        "c3_goal3_funding",
+        "c3_control_endpoint_risk",
         "def run_audit_record",
         "AUDIT_DIAGNOSIS_TAGS",
         "official_c_model_pnl must be null when official_c_exposure=false",
@@ -439,9 +492,9 @@ for file_name, needles in REQUIRED.items():
             failures.append(f"{file_name}: missing invariant: {needle}")
 
 if failures:
-    print("WORKFLOW REGRESSION — FOOTBALL C/C2 DUAL-TRACK INVARIANT MISSING")
+    print("WORKFLOW REGRESSION — FOOTBALL C/C2/C3 THREE-TRACK INVARIANT MISSING")
     for failure in failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C official / C2 shadow / engine dual-track invariants are present.")
+print("PASS — Football C official / C2+C3 shadow / engine three-track invariants are present.")
