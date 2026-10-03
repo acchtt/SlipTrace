@@ -136,9 +136,19 @@ If the same fixture also has a predeclared C2-WAIT, resolve the C2 wait from the
 Use:
 `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
 
+Also apply:
+`models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`
+
 Audit:
 
 `RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C official action -> C2 shadow action -> Python C/C2 -> result`
+
+Audit state is immutable after the fact:
+- preserve exact frozen grades/states/lines;
+- separate FROZEN / OBSERVED / DIAGNOSIS / P&L STATUS;
+- never create retrospective compound grades such as MEDIUM-HIGH;
+- FT alone cannot prove what a prospectively frozen grade should have been;
+- official C model P/L is separate from actual user P/L.
 
 Separate:
 - coverage failures;
