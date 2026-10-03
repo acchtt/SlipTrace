@@ -37,7 +37,7 @@ require(
     "models/football/CURRENT_MODEL.md",
     "Active official model:** Football **C**",
     "retired historical Football A/shadow artifacts",
-    "QA authority/C2 validation repair",
+    "Step-2 fail-closed validator repair",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
@@ -115,9 +115,54 @@ require(
 )
 require(
     "models/football/challengers/football-c2/TEST_PROTOCOL.md",
-    "RESTARTED AGAIN",
+    "HELD AT ZERO",
+    "Step-2 fail-closed validator repair",
     "five-board checkpoint restarts at zero",
     "zero Python C2 agreement weight",
+)
+
+# 5. Step-2 deterministic validation must fail closed.
+require(
+    "models/football/engine/schema.json",
+    "\"main_failure\"",
+    "\"h2h_state\"",
+    "\"carrier_self_fund\"",
+    "\"failure_attacks_route\"",
+    "\"material_suppression\"",
+    "\"xi_status\"",
+    "\"post_xi_research_status\"",
+    "\"h2h_review_status\"",
+    "\"h2h_rechecked\"",
+    "\"completion_rechecked\"",
+    "\"primary_mechanism_intact\"",
+)
+require(
+    "models/football/engine/adapter.py",
+    "def _required_bool",
+    "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
+    "DECISION BLOCKED — H2H RECHECK MISSING",
+    "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
+    "_required_bool(ctx_obj, \"primary_mechanism_intact\")",
+    "_required_bool(obj, \"material_suppression\")",
+)
+require(
+    "models/football/engine/core.py",
+    "current burden stall risk is HIGH",
+    "current burden-completion quality is LOW",
+    "current continuation quality is LOW",
+    "primary scoring mechanism not intact",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_missing_xi_status_fails_closed",
+    "test_missing_post_xi_research_status_fails_closed",
+    "test_h2h_recheck_missing_blocks_decision",
+    "test_completion_recheck_missing_blocks_decision",
+    "test_missing_suppression_boolean_fails_closed",
+    "test_missing_failure_attack_boolean_fails_closed",
+    "test_high_current_stall_risk_cannot_bet",
+    "test_low_current_completion_cannot_bet",
+    "test_low_current_continuation_cannot_bet",
 )
 
 # 4. Persistence must have named current C/C2 separation.
