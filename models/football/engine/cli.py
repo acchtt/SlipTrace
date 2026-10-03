@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from adapter import ContractError, dumps, run_board, run_decision
+from adapter import ContractError, dumps, run_audit_record, run_board, run_decision
 
 
 def _load(path: str | None) -> dict:
@@ -20,8 +20,8 @@ def main() -> int:
     )
     parser.add_argument(
         "command",
-        choices=("board", "decision"),
-        help="run board ranking or one XI/odds decision",
+        choices=("board", "decision", "audit"),
+        help="run board ranking, one XI/odds decision, or validate one audit record",
     )
     parser.add_argument(
         "--input",
@@ -31,11 +31,12 @@ def main() -> int:
 
     try:
         payload = _load(args.input)
-        result = (
-            run_board(payload)
-            if args.command == "board"
-            else run_decision(payload)
-        )
+        if args.command == "board":
+            result = run_board(payload)
+        elif args.command == "decision":
+            result = run_decision(payload)
+        else:
+            result = run_audit_record(payload)
     except (ContractError, ValueError, KeyError, json.JSONDecodeError) as exc:
         print(
             json.dumps(
