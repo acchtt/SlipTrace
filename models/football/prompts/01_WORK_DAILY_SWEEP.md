@@ -95,7 +95,7 @@ Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no
 
 A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
-Freeze one common **football-fact** evidence state before either model applies policy.
+Freeze one common **football-fact** evidence state before any model applies policy.
 
 Shared facts stop before model-owned policy. Football C, C2 and C3 consume the same routes/carrier/chance/failure/H2H/incentive evidence, then independently derive model-owned burden/selection fields.
 
@@ -143,14 +143,14 @@ After the common facts are frozen:
 - Football C3 independently derives `c3_supported_line`, second-route role, goal-3/goal-4 funding source/basis, control-endpoint risk and `c3_forced_chaos_verified`.
 - neither model may copy the other model's line simply for payload/persistence convenience.
 
-At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for both tracks.
+At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for all three tracks.
 
 For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the incentive state is LIMITED/UNKNOWN, do not freeze an official supported burden at all; keep the fixture INCENTIVE-INCOMPLETE until resolved.
 
 **Do not run separate C, C2 and C3 research passes.**  
 The experiment compares model policy, not two independently drifting research interpretations.
 
-Once frozen, do not edit common evidence after seeing either model's ranking or the Python output.
+Once frozen, do not edit common evidence after seeing any model's ranking or the Python output.
 
 ## 2. Football C official board
 
@@ -235,7 +235,7 @@ C3 is shadow-only and does not create extra routine Step-2 workload.
 
 ## 5. Python engine — three tracks
 
-Serialize the same frozen evidence twice using:
+Serialize the same frozen factual evidence for all three model payloads using:
 
 `models/football/engine/schema.json`
 
@@ -247,7 +247,11 @@ and
 
 `model = c2`
 
-Board command:
+and
+
+`model = c3`
+
+Board command for each payload:
 
 `python models/football/engine/cli.py board --input <payload.json>`
 
