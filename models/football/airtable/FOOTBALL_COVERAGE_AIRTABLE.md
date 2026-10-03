@@ -62,7 +62,12 @@ Dedicated current fields now include:
 - `C Supported Line`;
 - `C2 Shadow State`;
 - `C2 Shadow Rank`;
-- `C2 Supported Line`.
+- `C2 Supported Line`;
+- `C3 Shadow State`;
+- `C3 Shadow Rank`;
+- `C3 Lane`;
+- `C3 Supported Line`;
+- C3 second-route / goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`.
 
 Also preserve:
 - Operational Grade;
@@ -92,7 +97,15 @@ C2 shadow fields/notes must be clearly separate:
 - C2 supported burden;
 - C2 diagnostics.
 
-C2 must never overwrite official C fields.
+C3 shadow fields/notes must also be separate:
+- C3 state/rank/lane;
+- C3 supported burden;
+- second-route role;
+- goal-3 / goal-4 funding source and basis;
+- control-endpoint risk/basis;
+- C3 forced-chaos verification.
+
+C2/C3 must never overwrite official C fields.
 
 ## 5. Publish = exact copy, never re-screen
 
@@ -109,13 +122,17 @@ If publisher output conflicts with the frozen board:
 
 `PERSISTENCE SYNC FAULT — FROZEN FOOTBALL C BOARD PRESERVED`
 
-## 6. C / C2 burden separation
+## 6. C / C2 / C3 policy separation
 
 The underlying football evidence epoch is shared, but model policy is separate.
 
-Persist C and C2 supported burdens independently when C2 comparison is active.
+Persist C, C2 and C3 supported burdens independently.
 
-A C2 row without an independently frozen C2 burden is incomplete for confirmatory paired evaluation.
+A C2 row without an independently frozen C2 burden is incomplete for C-vs-C2 paired evaluation.
+
+A C3 row without an independently frozen C3 burden/funding block is incomplete for C-vs-C3 paired evaluation.
+
+Do not populate C3 fields from Football C completion labels or C2 route-quality output.
 
 ## 7. Women's top-flight reconciliation
 
@@ -142,7 +159,7 @@ Also verify:
 - every active fixture lies inside the corrected ICT window;
 - no unresolved schedule identity is treated as active;
 - women's-top-flight counts reconcile;
-- C2 shadow data never replaced C.
+- C2/C3 shadow data never replaced C.
 
 If these fail:
 
