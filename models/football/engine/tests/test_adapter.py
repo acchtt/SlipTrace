@@ -5,7 +5,7 @@ import unittest
 ENGINE_DIR = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE_DIR))
 
-from adapter import ContractError, run_board, run_decision  # noqa: E402
+from adapter import ContractError, run_audit_record, run_board, run_decision  # noqa: E402
 
 
 def match(match_id="m1", **overrides):
@@ -536,6 +536,129 @@ class BoardContractTests(unittest.TestCase):
                     "model": "c",
                     "matches": [match()],
                 }
+            )
+
+
+class AuditRecordContractTests(unittest.TestCase):
+    def audit_record(self, **overrides):
+        payload = {
+            "schema_version": "football-engine-v1",
+            "stage": "audit_record",
+            "match_id": "fiorentina-sassuolo",
+            "model_version": "Football C",
+            "frozen": {
+                "c_board_state": "C-FOCUS",
+                "follow_lane": "FOLLOW",
+                "supported_line": 2.5,
+                "completion_mode": "TWO_SIDED",
+                "burden_completion_quality": "HIGH",
+                "continuation_quality": "HIGH",
+                "opponent_leakage": "MEDIUM",
+                "burden_stall_risk": "LOW",
+                "c_action": "C-BET",
+                "quote_line": 2.5,
+                "quote_odds": 1.80,
+            },
+            "observed": {
+                "ht_score": "2-0",
+                "ft_score": "2-0",
+                "settlement": "LOSS",
+                "completion_materialized": "NO",
+                "continuation_materialized": "NO",
+                "carrier_self_fund_materialized": "UNKNOWN",
+                "opponent_route_materialized": "NO",
+            },
+            "diagnosis": {
+                "tags": ["MODEL_FALSE_POSITIVE"],
+                "pre_freeze_evidence_miss": False,
+                "pre_freeze_evidence_note": None,
+                "retrospective_hypothesis_only": True,
+            },
+            "pnl_status": {
+                "official_c_exposure": True,
+                "official_c_model_pnl": -1.0,
+                "user_executed": False,
+                "user_pnl": None,
+                "c2_shadow_only": False,
+            },
+        }
+        for key, value in overrides.items():
+            if key in {"frozen", "observed", "diagnosis", "pnl_status"}:
+                payload[key].update(value)
+            else:
+                payload[key] = value
+        return payload
+
+    def test_canonical_hindsight_safe_record_passes(self):
+        result = run_audit_record(self.audit_record())
+        self.assertEqual(result["frozen"]["continuation_quality"], "HIGH")
+        self.assertFalse(result["pnl_status"]["user_executed"])
+        self.assertEqual(result["pnl_status"]["official_c_model_pnl"], -1.0)
+
+    def test_compound_grade_is_rejected(self):
+        with self.assertRaisesRegex(ContractError, "continuation_quality"):
+            run_audit_record(
+                self.audit_record(
+                    frozen={"continuation_quality": "MEDIUM-HIGH"}
+                )
+            )
+
+    def test_pre_freeze_miss_requires_contemporaneous_note(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "pre_freeze_evidence_note is required",
+        ):
+            run_audit_record(
+                self.audit_record(
+                    diagnosis={
+                        "pre_freeze_evidence_miss": True,
+                        "pre_freeze_evidence_note": None,
+                        "retrospective_hypothesis_only": False,
+                    }
+                )
+            )
+
+    def test_no_official_exposure_cannot_have_model_pnl(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "official_c_model_pnl must be null",
+        ):
+            run_audit_record(
+                self.audit_record(
+                    observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
+                    pnl_status={
+                        "official_c_exposure": False,
+                        "official_c_model_pnl": -1.0,
+                    },
+                )
+            )
+
+    def test_published_model_exposure_does_not_require_user_bet(self):
+        result = run_audit_record(
+            self.audit_record(
+                pnl_status={
+                    "official_c_exposure": True,
+                    "official_c_model_pnl": -1.0,
+                    "user_executed": False,
+                    "user_pnl": None,
+                }
+            )
+        )
+        self.assertTrue(result["pnl_status"]["official_c_exposure"])
+        self.assertFalse(result["pnl_status"]["user_executed"])
+
+    def test_user_pnl_requires_user_execution(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "user_pnl must be null when user_executed=false",
+        ):
+            run_audit_record(
+                self.audit_record(
+                    pnl_status={
+                        "user_executed": False,
+                        "user_pnl": -1.0,
+                    }
+                )
             )
 
 
