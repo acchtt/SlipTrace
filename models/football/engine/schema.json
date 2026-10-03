@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "football-engine-v1",
   "title": "SlipTrace Football Engine Input",
-  "description": "Structured bridge between LLM football research and deterministic Football C/C2 rules.",
+  "description": "Structured bridge between LLM football research and deterministic Football C/C2/C3 rules.",
   "oneOf": [
     {
       "$ref": "#/$defs/boardInput"
