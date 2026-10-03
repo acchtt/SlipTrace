@@ -165,11 +165,18 @@ Target reached does not auto-execute.
 
 ## 9. Official exposure semantics
 
-Current official exposure exists only from a persisted Football C `C-BET` that is reconciled to Website Picks / user execution.
+A persisted Football C `C-BET` is the official model decision.
+
+Official Football C model exposure/P&L exists only when that decision is successfully published/reconciled to an official Website Pick/exposure record with exact line/odds.
+
+Actual user execution/P&L is separate and comes only from the user's bet slip. User placement is not required to settle an already-published official model exposure.
+
+If C-BET exists but official exposure publication failed:
+`OFFICIAL C DECISION — NO OFFICIAL EXPOSURE / NO MODEL P&L`
 
 C2 may never create official exposure.
 
-Do not count these as official P/L:
+Do not count these as official model P/L:
 - C-PASS;
 - C-WAIT with no entry;
 - C2 shadow;
@@ -177,7 +184,7 @@ Do not count these as official P/L:
 - missed opportunity;
 - historical calibration-only states.
 
-User bet slip remains physical execution truth.
+User bet slip remains physical execution truth for **actual user P/L**, not a switch that turns official model exposure on/off after publication.
 
 ## 10. Historical fidelity
 

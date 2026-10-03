@@ -760,3 +760,203 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
 
 def dumps(result: dict[str, Any]) -> str:
     return json.dumps(result, indent=2, sort_keys=True)
+
+
+
+AUDIT_DIAGNOSIS_TAGS = {
+    "MODEL_FALSE_POSITIVE",
+    "MODEL_FALSE_NEGATIVE",
+    "FOLLOW_PRIORITY_MISS",
+    "PROCESS_MISS",
+    "EXECUTION_MISS",
+    "OPERATIONAL_OPPORTUNITY_COST",
+    "NO_OFFICIAL_EXPOSURE",
+    "NO_RETROSPECTIVE_MODEL_CHANGE",
+    "TOURNAMENT_INCENTIVE_MISS",
+    "FORMAT_DATA_MISSING",
+    "STALE_INCENTIVE_EPOCH",
+    "INCENTIVE_RESOLUTION_BYPASS",
+}
+
+
+def _nullable_number(obj: dict[str, Any], key: str) -> float | None:
+    value = _required(obj, key)
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ContractError(f"{key} must be numeric or null")
+    return float(value)
+
+
+def _nullable_string(obj: dict[str, Any], key: str) -> str | None:
+    value = _required(obj, key)
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise ContractError(f"{key} must be a non-empty string or null")
+    return value.strip()
+
+
+def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate one hindsight-safe material fixture audit record."""
+
+    _check_envelope(payload, "audit_record")
+
+    match_id = _string(payload, "match_id")
+    model_version = _string(payload, "model_version")
+
+    frozen = _required(payload, "frozen")
+    observed = _required(payload, "observed")
+    diagnosis = _required(payload, "diagnosis")
+    pnl = _required(payload, "pnl_status")
+    for name, obj in (
+        ("frozen", frozen),
+        ("observed", observed),
+        ("diagnosis", diagnosis),
+        ("pnl_status", pnl),
+    ):
+        if not isinstance(obj, dict):
+            raise ContractError(f"{name} must be an object")
+
+    frozen_out = {
+        "c_board_state": _choice(
+            frozen, "c_board_state", {"C_PASS", "C_WATCH", "C_FOCUS", "NONE"}
+        ),
+        "follow_lane": _choice(
+            frozen, "follow_lane", {"FOLLOW", "RESERVE", "STOP", "NONE"}
+        ),
+        "supported_line": _nullable_number(frozen, "supported_line"),
+        "completion_mode": _choice(
+            frozen,
+            "completion_mode",
+            {"NONE", "TWO_SIDED", "CARRIER_LED", "FORCED_CHAOS", "MIXED"},
+        ),
+        "burden_completion_quality": _choice(
+            frozen, "burden_completion_quality", {"LOW", "MEDIUM", "HIGH"}
+        ),
+        "continuation_quality": _choice(
+            frozen, "continuation_quality", {"LOW", "MEDIUM", "HIGH"}
+        ),
+        "opponent_leakage": _choice(
+            frozen, "opponent_leakage", {"LOW", "MEDIUM", "HIGH"}
+        ),
+        "burden_stall_risk": _choice(
+            frozen, "burden_stall_risk", {"LOW", "MEDIUM", "HIGH"}
+        ),
+        "c_action": _choice(
+            frozen, "c_action", {"C_BET", "C_WAIT", "C_PASS", "NONE"}
+        ),
+        "quote_line": _nullable_number(frozen, "quote_line"),
+        "quote_odds": _nullable_number(frozen, "quote_odds"),
+    }
+
+    observed_out = {
+        "ht_score": _nullable_string(observed, "ht_score"),
+        "ft_score": _string(observed, "ft_score"),
+        "settlement": _choice(
+            observed,
+            "settlement",
+            {
+                "WIN",
+                "HALF_WIN",
+                "PUSH",
+                "HALF_LOSS",
+                "LOSS",
+                "NO_OFFICIAL_EXPOSURE",
+                "NOT_APPLICABLE",
+            },
+        ),
+        "completion_materialized": _choice(
+            observed, "completion_materialized", {"YES", "NO", "UNKNOWN"}
+        ),
+        "continuation_materialized": _choice(
+            observed, "continuation_materialized", {"YES", "NO", "UNKNOWN"}
+        ),
+        "carrier_self_fund_materialized": _choice(
+            observed,
+            "carrier_self_fund_materialized",
+            {"YES", "NO", "UNKNOWN", "NOT_APPLICABLE"},
+        ),
+        "opponent_route_materialized": _choice(
+            observed,
+            "opponent_route_materialized",
+            {"YES", "NO", "UNKNOWN", "NOT_APPLICABLE"},
+        ),
+    }
+
+    tags = _required(diagnosis, "tags")
+    if not isinstance(tags, list) or not tags:
+        raise ContractError("diagnosis.tags must be a non-empty array")
+    normalized_tags: list[str] = []
+    for tag in tags:
+        if not isinstance(tag, str):
+            raise ContractError("diagnosis.tags entries must be strings")
+        norm = tag.strip().upper().replace("-", "_").replace(" ", "_")
+        if norm not in AUDIT_DIAGNOSIS_TAGS:
+            allowed = ", ".join(sorted(AUDIT_DIAGNOSIS_TAGS))
+            raise ContractError(
+                f"invalid audit diagnosis tag={tag!r}; allowed: {allowed}"
+            )
+        normalized_tags.append(norm)
+
+    pre_freeze_miss = _required_bool(diagnosis, "pre_freeze_evidence_miss")
+    pre_freeze_note = _nullable_string(diagnosis, "pre_freeze_evidence_note")
+    retrospective = _required_bool(diagnosis, "retrospective_hypothesis_only")
+
+    if pre_freeze_miss and not pre_freeze_note:
+        raise ContractError(
+            "pre_freeze_evidence_note is required when pre_freeze_evidence_miss=true"
+        )
+    if not pre_freeze_miss and pre_freeze_note is not None:
+        raise ContractError(
+            "pre_freeze_evidence_note must be null when pre_freeze_evidence_miss=false"
+        )
+
+    official_exposure = _required_bool(pnl, "official_c_exposure")
+    official_pnl = _nullable_number(pnl, "official_c_model_pnl")
+    user_executed = _required_bool(pnl, "user_executed")
+    user_pnl = _nullable_number(pnl, "user_pnl")
+    c2_shadow_only = _required_bool(pnl, "c2_shadow_only")
+
+    if not official_exposure and official_pnl is not None:
+        raise ContractError(
+            "official_c_model_pnl must be null when official_c_exposure=false"
+        )
+    if official_exposure and observed_out["settlement"] in {
+        "NO_OFFICIAL_EXPOSURE",
+        "NOT_APPLICABLE",
+    }:
+        raise ContractError(
+            "official exposure requires a real exact-line settlement"
+        )
+    if not official_exposure and observed_out["settlement"] not in {
+        "NO_OFFICIAL_EXPOSURE",
+        "NOT_APPLICABLE",
+    }:
+        raise ContractError(
+            "non-exposure audit must not assign an official settlement"
+        )
+    if not user_executed and user_pnl is not None:
+        raise ContractError("user_pnl must be null when user_executed=false")
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "stage": "audit_record_result",
+        "match_id": match_id,
+        "model_version": model_version,
+        "frozen": frozen_out,
+        "observed": observed_out,
+        "diagnosis": {
+            "tags": normalized_tags,
+            "pre_freeze_evidence_miss": pre_freeze_miss,
+            "pre_freeze_evidence_note": pre_freeze_note,
+            "retrospective_hypothesis_only": retrospective,
+        },
+        "pnl_status": {
+            "official_c_exposure": official_exposure,
+            "official_c_model_pnl": official_pnl,
+            "user_executed": user_executed,
+            "user_pnl": user_pnl,
+            "c2_shadow_only": c2_shadow_only,
+        },
+    }
