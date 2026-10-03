@@ -80,9 +80,12 @@ Persist where applicable:
 - engine C2 result where valid.
 
 Dedicated C/C2 separation fields:
+- `C Action`;
 - `C Supported Line`;
 - `C2 Supported Line`;
 - `C2 Shadow Action`.
+
+The legacy generic `Verdict` field remains historical compatibility only. Do not encode a new Football C action by reusing Football A-era verdict labels.
 
 Burden-completion Step-2 fields:
 
@@ -189,6 +192,8 @@ Do not relabel or recompute them under Football C.
 Legacy Airtable columns may remain populated for historical records. For a new Football C record, leave obsolete Football A-only fields blank unless they are reused by an explicitly documented current mapping.
 
 ## 11. Persistence transaction
+
+For every new current assessment, persist `C Action` explicitly.
 
 For C-BET:
 1. persist Decision State;
