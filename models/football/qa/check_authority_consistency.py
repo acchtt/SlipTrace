@@ -179,8 +179,9 @@ require(
 )
 forbid(
     "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
-    "authorize real exposure",
-    "create an official Website Pick",
+    "**Official model:** Football C3",
+    "C3 may create Website Picks",
+    "C3 may authorize real exposure",
 )
 
 # 5. Step-2 deterministic validation must fail closed.
