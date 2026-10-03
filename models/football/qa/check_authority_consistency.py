@@ -128,9 +128,11 @@ require(
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
+    "C Action",
     "C supported line",
     "C2 supported line",
     "C2 shadow action",
+    "legacy generic",
 )
 
 if failures:
