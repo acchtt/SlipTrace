@@ -212,7 +212,23 @@ Then choose one:
 
 The second form is the default when only outcome information reveals the failure.
 
-## 7. No-backfill rule
+## 7. Deterministic audit record
+
+Every material fixture audit must also produce a structured `FOOTBALL_AUDIT_RECORD` and pass:
+
+`python models/football/engine/cli.py audit --input <payload.json>`
+
+The validator enforces:
+- exact canonical frozen grades;
+- no compound grade vocabulary;
+- explicit official C exposure state;
+- official C model P/L only when official exposure exists;
+- actual user P/L only when user execution exists;
+- contemporaneous evidence note whenever `pre_freeze_evidence_miss=true`.
+
+A failing machine record blocks finalization of the prose audit.
+
+## 8. No-backfill rule
 
 Never overwrite Airtable frozen Step-1/Step-2 fields because of an audit.
 
