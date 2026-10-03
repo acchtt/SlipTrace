@@ -233,6 +233,24 @@ If C3 supported burden cannot be independently frozen:
 
 C3 is shadow-only and does not create extra routine Step-2 workload.
 
+### C3 prospective-board counter
+
+After the complete C3 shadow board is frozen, evaluate the test-protocol integrity state.
+
+If clean:
+- set `C3 Test Board Eligible = true`;
+- assign the next sequential `C3 Test Board Number = 1..5`;
+- leave `C3 Contamination Reason` blank.
+
+If contaminated:
+- set `C3 Test Board Eligible = false`;
+- do not advance the C3 board counter;
+- persist the exact `C3 Contamination Reason`.
+
+A board is not clean when any C3 policy field was assigned after outcome knowledge, the C3 line was copied from C/C2, a required funding basis is missing, or a mandatory integrity gate was bypassed.
+
+This counter is independent of the C2 five-board test.
+
 ## 5. Python engine — three tracks
 
 Serialize the same frozen factual evidence for all three model payloads using:
@@ -306,7 +324,7 @@ Then comparison table:
 | Match | C rank/state | C line | C2 rank/state | C2 line | C2 floor | Bridge readiness | Material difference |
 |---|---|---:|---|---:|---|---|---|
 
-`FOOTBALL C3 BURDEN-FUNDING DELTA`
+`FOOTBALL C3 BURDEN-FUNDING DELTA — BOARD <N>/5`
 
 | Match | C rank/state/lane | C3 rank/state/lane | C3 line | 2nd-route role | Goal-3 funding | Goal-4 funding | Control risk | Material difference |
 |---|---|---|---:|---|---|---|---|---|
