@@ -73,6 +73,8 @@ Suppressive H2H matters only when reasonably transferable and corroborated by cu
 
 ## 5. Initial supported burden
 
+**C2 owns this field independently.** Shared football evidence does not mean shared model burden.
+
 Choose one protected Asian-total line or narrow range before looking at price.
 
 Question:
@@ -84,6 +86,11 @@ Record:
 - one-sentence basis.
 
 This is the initial football burden, not an immutable execution line.
+
+Hard comparison rule:
+- do not read/copy Football C's supported line while freezing C2's line;
+- persist the C2 line separately;
+- if an independent C2 line is unavailable, mark the paired comparison incomplete rather than substituting C's line.
 
 ## 6. Selection quality and ranking
 
