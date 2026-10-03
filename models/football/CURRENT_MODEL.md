@@ -148,7 +148,8 @@ Audit state is immutable after the fact:
 - separate FROZEN / OBSERVED / DIAGNOSIS / P&L STATUS;
 - never create retrospective compound grades such as MEDIUM-HIGH;
 - FT alone cannot prove what a prospectively frozen grade should have been;
-- official C model P/L is separate from actual user P/L.
+- official C model P/L is separate from actual user P/L;
+- every material fixture audit emits and validates a deterministic `FOOTBALL_AUDIT_RECORD`; invalid audit records block finalization.
 
 Separate:
 - coverage failures;
