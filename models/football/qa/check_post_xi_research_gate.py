@@ -3,6 +3,16 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/prompts/README.md": [
+        "Short commands — preferred",
+        "/sweep",
+        "/rank",
+        "/xi",
+        "/live",
+        "/audit",
+        "/report",
+        "/help",
+    ],
     "models/football/prompts/COMMAND_ALIASES.md": [
         "ACTIVE ROUTER CONTRACT",
         "/sweep",
@@ -76,7 +86,6 @@ REQUIRED = {
         "Current Continuation Quality",
         "Current Opponent Leakage",
         "Current Stall Risk",
-        "Command alias:** `/xi`",
     ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
@@ -96,7 +105,6 @@ REQUIRED = {
         "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
-        "Command alias:** `/live`",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
         "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
@@ -117,10 +125,7 @@ REQUIRED = {
         "women_top_flight_raw_count",
         "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
-        "Short command router",
-        "/sweep",
-        "/rank",
-        "/report",
+        "Command alias:** `/sweep`",
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
@@ -201,6 +206,7 @@ REQUIRED = {
         "Current continuation quality + opponent leakage + stall risk",
         "Current Completion Mode",
         "Current Stall Risk",
+        "Command alias:** `/xi`",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2 Shadow Wait",
@@ -208,6 +214,7 @@ REQUIRED = {
         "C-WAIT CANCELLED — THESIS DECAY",
         "C2 may never create Website Pick or real exposure.",
         "LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING",
+        "Command alias:** `/live`",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
         "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
