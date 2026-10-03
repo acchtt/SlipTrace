@@ -549,6 +549,82 @@ class BoardContractTests(unittest.TestCase):
             )
 
 
+class C3IsolationTests(unittest.TestCase):
+    C3_KEYS = (
+        "c3_second_route_role",
+        "c3_goal3_funding",
+        "c3_goal3_funding_source",
+        "c3_goal3_funding_basis",
+        "c3_goal4_funding",
+        "c3_goal4_funding_source",
+        "c3_goal4_funding_basis",
+        "c3_control_endpoint_risk",
+        "c3_control_endpoint_basis",
+        "c3_forced_chaos_verified",
+    )
+
+    def without_c3(self, row):
+        row = dict(row)
+        for key in self.C3_KEYS:
+            row.pop(key, None)
+        return row
+
+    def test_c_board_does_not_require_c3_fields(self):
+        row = self.without_c3(match(carrier="STRONG", board_state="C-FOCUS"))
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [row],
+            }
+        )
+        self.assertEqual(result["model"], "c")
+
+    def test_c2_board_does_not_require_c3_fields(self):
+        row = self.without_c3(match(board_state="C2-FOCUS"))
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c2",
+                "matches": [row],
+            }
+        )
+        self.assertEqual(result["model"], "c2")
+
+    def test_changing_c3_fields_cannot_change_c_ranking(self):
+        a1 = match("a", carrier="STRONG", board_state="C-FOCUS")
+        b1 = match("b", carrier="STRONG", board_state="C-FOCUS")
+        first = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [a1, b1],
+            }
+        )
+        a2 = dict(a1)
+        b2 = dict(b1)
+        a2["c3_second_route_role"] = "NONE"
+        a2["c3_goal3_funding"] = "NONE"
+        a2["c3_goal3_funding_source"] = "NONE"
+        b2["c3_second_route_role"] = "BURDEN_CONTRIBUTING"
+        b2["c3_control_endpoint_risk"] = "HIGH"
+        second = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [a2, b2],
+            }
+        )
+        self.assertEqual(
+            [(x["match_id"], x["ranking_key"]) for x in first["matches"]],
+            [(x["match_id"], x["ranking_key"]) for x in second["matches"]],
+        )
+
+
 class C3ContractTests(unittest.TestCase):
     def test_c3_board_ignores_two_route_label_without_goal3_funding(self):
         result = run_board(
