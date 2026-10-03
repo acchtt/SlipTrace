@@ -267,7 +267,7 @@ Do not create a wait that is expected to become executable only after negative f
 
 C2-WAIT and C3-WAIT must each preserve separate target/cancel conditions.
 
-## 9. Output
+## 8. Output
 
 Use:
 
@@ -291,12 +291,14 @@ Then:
 - C2 difference/reason
 - C WAIT plan if applicable
 - C2 shadow WAIT plan if applicable
+- C3 shadow WAIT plan if applicable
 - Engine C result
 - Engine C2 result
 - C3 supported line + second-route/funding/control delta
+- C3 Board N/5 comparison status
 - Engine C3 result
 
-## 8. Required machine appendix
+## 9. Required machine appendix
 
 Include:
 - `FOOTBALL_ENGINE_C_DECISION_INPUT`
@@ -311,7 +313,7 @@ The machine appendix must preserve all required Step-2 gate fields above so QA c
 If execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
 
-## 9. Authority
+## 10. Authority
 
 In any conflict:
 - Football C text decision = current production authority;
