@@ -155,7 +155,42 @@ Persist C2 in Decision States under:
 
 ## 5. Python engine comparison — both tracks
 
-Every decision payload must explicitly include both `tournament_incentive_rechecked` and `tournament_incentive_recheck_status`. For an applicable fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
+Every decision payload must explicitly prove the current Step-2 evidence epoch.
+
+Required context fields:
+- `xi_status = CONFIRMED / RELIABLE / UNAVAILABLE`; `UNAVAILABLE` blocks a final decision;
+- `post_xi_research_status = FOUND / LIMITED / UNAVAILABLE_ATTEMPTED`;
+- `h2h_review_status = REVIEWED_USABLE / REVIEWED_LIMITED / NOT_USABLE / UNAVAILABLE`;
+- `h2h_rechecked = true`;
+- `completion_rechecked = true`;
+- `top_ranked_focus`;
+- `primary_mechanism_intact`;
+- `wait_reachable`;
+- `wait_requires_negative_info`;
+- `material_veto`;
+- `tournament_incentive_rechecked`;
+- `tournament_incentive_recheck_status`.
+
+Required current assessment fields include:
+- non-empty `main_failure`;
+- non-empty `h2h_state`;
+- explicit `carrier_self_fund`;
+- explicit `independent_upper_tail`;
+- explicit `failure_attacks_route`;
+- explicit `material_suppression`;
+- current completion/continuation/stall fields.
+
+Do not omit a boolean because the expected answer is false. Missing safety fields are contract failures, never favorable defaults.
+
+For an applicable tournament fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
+
+For Football C code validation:
+- HIGH current stall risk cannot BET;
+- LOW current burden-completion quality cannot BET;
+- LOW current continuation quality cannot BET;
+- a non-intact primary mechanism cannot BET.
+
+These are validation of the current Football C text state, not new predictive screening rules.
 
 Build two decision payloads from the same factual evidence epoch:
 
@@ -225,6 +260,8 @@ Include:
 - `FOOTBALL_ENGINE_C_DECISION_RESULT`
 - `FOOTBALL_ENGINE_C2_DECISION_INPUT`
 - `FOOTBALL_ENGINE_C2_DECISION_RESULT`
+
+The machine appendix must preserve all required Step-2 gate fields above so QA can distinguish an actual negative declaration from an omitted field.
 
 If execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
