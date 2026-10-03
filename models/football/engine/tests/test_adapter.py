@@ -37,7 +37,13 @@ def match(match_id="m1", **overrides):
         "continuation_quality": "HIGH",
         "opponent_leakage": "MEDIUM",
         "burden_stall_risk": "LOW",
+        "main_failure": "no unresolved material failure",
+        "h2h_state": "REVIEWED_NOT_MATERIAL",
         "supported_line": 2.5,
+        "carrier_self_fund": False,
+        "independent_upper_tail": False,
+        "failure_attacks_route": False,
+        "material_suppression": False,
         "tournament_incentive_required": False,
         "tournament_format_status": "NOT_APPLICABLE",
         "competition_stage": "NOT_APPLICABLE",
@@ -52,6 +58,28 @@ def match(match_id="m1", **overrides):
         "tiebreak_margin_relevance": "NOT_APPLICABLE",
         "incentive_effect": "NOT_APPLICABLE",
         "board_state": "C2-FOCUS",
+    }
+    row.update(overrides)
+    return row
+
+
+def decision_context(**overrides):
+    row = {
+        "board_state": "C-FOCUS",
+        "thesis_state": "PRESERVED",
+        "quote": {"line": 2.5, "odds": 1.70},
+        "xi_status": "CONFIRMED",
+        "post_xi_research_status": "FOUND",
+        "h2h_review_status": "REVIEWED_USABLE",
+        "h2h_rechecked": True,
+        "completion_rechecked": True,
+        "top_ranked_focus": False,
+        "primary_mechanism_intact": True,
+        "wait_reachable": False,
+        "wait_requires_negative_info": False,
+        "material_veto": False,
+        "tournament_incentive_rechecked": False,
+        "tournament_incentive_recheck_status": "NOT_APPLICABLE",
     }
     row.update(overrides)
     return row
@@ -519,17 +547,182 @@ class DecisionContractTests(unittest.TestCase):
                 "stage": "decision",
                 "model": "c",
                 "match": match(board_state="C-FOCUS"),
-                "context": {
-                    "board_state": "C-FOCUS",
-                    "thesis_state": "PRESERVED",
-                    "quote": {"line": 2.5, "odds": 1.70},
-                    "top_ranked_focus": True,
-                    "tournament_incentive_rechecked": False,
-                    "tournament_incentive_recheck_status": "NOT_APPLICABLE",
-                },
+                "context": decision_context(top_ranked_focus=True),
             }
         )
         self.assertEqual(result["action"], "BET")
+
+    def test_missing_xi_status_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("xi_status")
+        with self.assertRaisesRegex(ContractError, "missing required field: xi_status"):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_unavailable_xi_blocks_decision(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(xi_status="UNAVAILABLE"),
+                }
+            )
+
+    def test_missing_post_xi_research_status_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("post_xi_research_status")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: post_xi_research_status",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_h2h_recheck_missing_blocks_decision(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "DECISION BLOCKED — H2H RECHECK MISSING",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(h2h_rechecked=False),
+                }
+            )
+
+    def test_completion_recheck_missing_blocks_decision(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(completion_rechecked=False),
+                }
+            )
+
+    def test_missing_suppression_boolean_fails_closed(self):
+        row = match(board_state="C-FOCUS")
+        row.pop("material_suppression")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: material_suppression",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": decision_context(),
+                }
+            )
+
+    def test_missing_failure_attack_boolean_fails_closed(self):
+        row = match(board_state="C-FOCUS")
+        row.pop("failure_attacks_route")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: failure_attacks_route",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": decision_context(),
+                }
+            )
+
+    def test_missing_primary_mechanism_flag_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("primary_mechanism_intact")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: primary_mechanism_intact",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_high_current_stall_risk_cannot_bet(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    burden_stall_risk="HIGH",
+                ),
+                "context": decision_context(),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+
+    def test_low_current_completion_cannot_bet(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    burden_completion_quality="LOW",
+                ),
+                "context": decision_context(),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+
+    def test_low_current_continuation_cannot_bet(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    continuation_quality="LOW",
+                ),
+                "context": decision_context(),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
 
     def test_tournament_decision_requires_recheck(self):
         row = match(
@@ -555,13 +748,10 @@ class DecisionContractTests(unittest.TestCase):
                     "stage": "decision",
                     "model": "c",
                     "match": row,
-                    "context": {
-                        "board_state": "C-FOCUS",
-                        "thesis_state": "PRESERVED",
-                        "quote": {"line": 2.5, "odds": 1.70},
-                        "tournament_incentive_rechecked": False,
-                        "tournament_incentive_recheck_status": "VERIFIED",
-                    },
+                    "context": decision_context(
+                        tournament_incentive_rechecked=False,
+                        tournament_incentive_recheck_status="VERIFIED",
+                    ),
                 }
             )
 
@@ -592,13 +782,10 @@ class DecisionContractTests(unittest.TestCase):
                     "stage": "decision",
                     "model": "c",
                     "match": row,
-                    "context": {
-                        "board_state": "C-FOCUS",
-                        "thesis_state": "PRESERVED",
-                        "quote": {"line": 2.5, "odds": 1.70},
-                        "tournament_incentive_rechecked": True,
-                        "tournament_incentive_recheck_status": "LIMITED",
-                    },
+                    "context": decision_context(
+                        tournament_incentive_rechecked=True,
+                        tournament_incentive_recheck_status="LIMITED",
+                    ),
                 }
             )
 
@@ -622,13 +809,10 @@ class DecisionContractTests(unittest.TestCase):
                 "stage": "decision",
                 "model": "c",
                 "match": row,
-                "context": {
-                    "board_state": "C-FOCUS",
-                    "thesis_state": "PRESERVED",
-                    "quote": {"line": 2.5, "odds": 1.70},
-                    "tournament_incentive_rechecked": True,
-                    "tournament_incentive_recheck_status": "VERIFIED",
-                },
+                "context": decision_context(
+                    tournament_incentive_rechecked=True,
+                    tournament_incentive_recheck_status="VERIFIED",
+                ),
             }
         )
         self.assertTrue(result["tournament_incentive_rechecked"])
@@ -644,13 +828,10 @@ class DecisionContractTests(unittest.TestCase):
                     away_route="WEAK",
                     carrier="USABLE",
                 ),
-                "context": {
-                    "board_state": "C2-WATCH",
-                    "thesis_state": "PRESERVED",
-                    "quote": {"line": 2.0, "odds": 1.90},
-                    "tournament_incentive_rechecked": False,
-                    "tournament_incentive_recheck_status": "NOT_APPLICABLE",
-                },
+                "context": decision_context(
+                    board_state="C2-WATCH",
+                    quote={"line": 2.0, "odds": 1.90},
+                ),
             }
         )
         self.assertEqual(result["action"], "PASS")
