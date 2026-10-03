@@ -136,7 +136,7 @@ Freeze these shared facts:
 Do **not** freeze one shared `supported_line` as common policy evidence.
 
 After the common facts are frozen:
-- Football C derives and freezes `c_supported_line` plus C completion mode/quality, continuation grade and stall risk under the active burden-completion procedure;
+- Football C derives and freezes `c_supported_line` plus its model-owned machine fields `completion_mode`, `burden_completion_quality`, `continuation_quality`, and `burden_stall_risk` under the active burden-completion procedure;
 - Football C2 independently derives and freezes `c2_supported_line` under Section 5 of its frozen challenger specification;
 - neither model may copy the other model's line simply for payload/persistence convenience.
 
