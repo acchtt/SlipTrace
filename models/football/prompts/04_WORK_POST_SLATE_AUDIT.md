@@ -44,7 +44,8 @@ Track separately:
 - RESERVE candidates activated or left unused;
 - STOP matches that later scored highly, reported as operational opportunity cost rather than retroactive model error;
 - low-scoring C-FOCUS false positives;
-- C vs C2 ranking differences;
+- C vs C2 ranking differences under their separate ranking policies;
+- C vs C2 supported-line differences;
 - C vs C2 exposure differences;
 - C2 selection-floor blocks;
 - C2 bridge attempts;
@@ -78,9 +79,20 @@ A profitable or high-scoring match cannot rescue a competition from an operation
 
 ## Confirmatory C2 boundary
 
-Only C2 decisions produced **after the dual-track fix commit** count toward the restarted confirmatory C-vs-C2 comparison.
+Confirmatory C-vs-C2 counting restarts from the **QA authority/C2 validation repair activation commit**.
 
-Earlier C2 records remain debugging/history only because the workflow mixed a C2 Step-1 board with Football C Step-2 and named the wrong champion.
+Earlier C2 records remain debugging/history only because at least one comparison-era plumbing fault applied:
+- original C2 Step-1 / Football C Step-2 mixing;
+- wrong champion declaration;
+- Python C2 inheriting Football C's burden-completion ranking;
+- C2 supported burden not guaranteed to be independently frozen.
+
+Before the repair boundary:
+- paired-return metrics = excluded;
+- Python C2 agreement metrics = excluded;
+- independently unproven C2 burden = `C2 COMPARISON CONTAMINATED`.
+
+The five-board C2 checkpoint restarts at zero.
 
 ## Settlement
 
@@ -120,6 +132,8 @@ Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed
 - exact quote epoch;
 - C official action;
 - C2 shadow action;
+- Python C uses C ranking and Python C2 uses frozen C2 ranking;
+- C2 supported burden was independently frozen before paired evaluation;
 - Python C/C2 comparison;
 - live wait state integrity;
 - persistence agreement;
