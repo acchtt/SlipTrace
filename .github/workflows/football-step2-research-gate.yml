@@ -24,6 +24,7 @@ on:
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
       - "models/football/qa/check_post_xi_research_gate.py"
+      - "models/football/qa/check_authority_consistency.py"
       - ".github/workflows/football-step2-research-gate.yml"
   pull_request:
     paths:
@@ -48,6 +49,7 @@ on:
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
       - "models/football/qa/check_post_xi_research_gate.py"
+      - "models/football/qa/check_authority_consistency.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
 jobs:
@@ -60,3 +62,5 @@ jobs:
           python-version: "3.x"
       - name: Check Football C production invariants
         run: python models/football/qa/check_post_xi_research_gate.py
+      - name: Check Football C authority semantics
+        run: python models/football/qa/check_authority_consistency.py
