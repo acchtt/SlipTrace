@@ -214,6 +214,13 @@ Post-slate audit must separate:
 - carrier-led clears;
 - carrier-led failures where self-fund/upper-tail did not materialize.
 
-Never assign the new fields retrospectively after seeing FT.
+Never assign or change the new fields retrospectively after seeing HT/FT.
+
+Audit wording must preserve the exact frozen enum. For example:
+- valid: `frozen continuation=HIGH; observed continuation did not materialize`;
+- invalid: `continuation should have been MEDIUM`;
+- invalid: `continuation was MEDIUM-HIGH`.
+
+If only the result reveals the possible failure mechanism, label it `RETROSPECTIVE HYPOTHESIS ONLY` and test it prospectively on future boards.
 
 Historical boards motivate this procedure but are not confirmatory samples.
