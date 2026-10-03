@@ -49,6 +49,32 @@ The full exact observer vector still was not prospectively written into one immu
 
 Therefore these boards are not imported as fully eligible observations.
 
+## 3 October descriptive result addendum
+
+These results are recorded as **historical calibration signals only**. They do not increase the fully eligible prospective calibration count because the complete observer vector was not written prospectively before outcome.
+
+| Match | Frozen state available | FT | Frozen support result | Interpretation |
+|---|---|---:|---|---|
+| Leyton Orient vs Plymouth Argyle | C-FOCUS / RESERVE; MIXED; completion HIGH; continuation HIGH; stall MEDIUM; O2.5 | 0-2 | LOSS | Strong direct signal for the two-goal stall problem. The frozen continuation path did not produce goal three. |
+| Fiorentina vs Sassuolo | continuation HIGH; stall LOW; O2.5 | 2-0 | LOSS | Strong signal that LOW frozen stall risk / HIGH continuation can still terminate at a common 2-0 endpoint. No retrospective re-grade. |
+| Reading vs Bradford City | C-WATCH / STOP; O2.25 | 1-1 | HALF_LOSS | Supports the general two-goal endpoint concern, but does **not** show selection over-promotion because Football C already kept it STOP. |
+
+Observed commonality: all three matches finished on exactly two goals.
+
+This strengthens the working hypothesis:
+
+`continuation x control-endpoint risk` may be under-penalized when the supported burden requires a third goal.
+
+It also sharpens the distinction between:
+- a second route that can help create a 1-1 exchange; and
+- a second route that materially helps complete the third-goal burden.
+
+The three rows are also indexed in Airtable `Factor Calibration Observations` with `Calibration Eligible = false`, so they remain visible for descriptive audit without contaminating prospective factor-weight statistics.
+
+The eligible prospective calibration count remains:
+
+**0 historical complete-vector observations.**
+
 ## Existing hypotheses retained as hypotheses only
 
 These are not factor-weight conclusions:
