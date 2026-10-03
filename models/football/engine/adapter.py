@@ -660,7 +660,34 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
         if model == "c3":
             state = c3_board_state(c3_item)
-            lane = c3_shadow_lane(c3_item, state)
+            base_lane = c3_shadow_lane(c3_item, state)
+            lane = FollowLane.STOP
+
+            # Fair C-vs-C3 lane comparison uses the same operational/capacity
+            # constraints. C3 remains shadow-only and never creates workload.
+            if operational_gate["grade"] == "B":
+                if (
+                    base_lane in {FollowLane.FOLLOW, FollowLane.RESERVE}
+                    and reserve_used < MAX_RESERVE
+                ):
+                    lane = FollowLane.RESERVE
+                    reserve_used += 1
+            elif base_lane == FollowLane.FOLLOW:
+                block_follow_used = follow_by_block.get(kickoff_block, 0)
+                if (
+                    follow_used < MAX_FOLLOW
+                    and block_follow_used < MAX_FOLLOW_PER_KICKOFF
+                ):
+                    lane = FollowLane.FOLLOW
+                    follow_used += 1
+                    follow_by_block[kickoff_block] = block_follow_used + 1
+                elif reserve_used < MAX_RESERVE:
+                    lane = FollowLane.RESERVE
+                    reserve_used += 1
+            elif base_lane == FollowLane.RESERVE and reserve_used < MAX_RESERVE:
+                lane = FollowLane.RESERVE
+                reserve_used += 1
+
             row["board_state"] = f"C3-{state.name}"
             row["c3_shadow_lane"] = lane.value
             row["c3_second_route_role"] = c3_item.second_route_role.name
@@ -704,6 +731,20 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["follow_capacity"] = MAX_FOLLOW
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
+
+    if model == "c3":
+        result["c3_shadow_follow_count"] = sum(
+            row.get("c3_shadow_lane") == FollowLane.FOLLOW.value for row in output
+        )
+        result["c3_shadow_reserve_count"] = sum(
+            row.get("c3_shadow_lane") == FollowLane.RESERVE.value for row in output
+        )
+        result["c3_shadow_stop_count"] = sum(
+            row.get("c3_shadow_lane") == FollowLane.STOP.value for row in output
+        )
+        result["c3_shadow_follow_capacity"] = MAX_FOLLOW
+        result["c3_shadow_reserve_capacity"] = MAX_RESERVE
+        result["c3_max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
 
     return result
 
