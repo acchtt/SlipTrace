@@ -17,7 +17,7 @@ Use the user's confirmed XI and current executable Asian-total odds as the curre
 
 A preserved scoring route is not enough. Recheck the burden-completion layer after XI/research: where the clearing goal now comes from, whether the carrier can still self-fund, whether opponent leakage remains active, whether continuation after 1-0 / 1-1 / 2-0 is still credible, and whether stall risk has risen to HIGH. If stall risk becomes HIGH or completion/continuation materially degrades, a frozen FOLLOW lane does not force C-BET.
 
-## 1. Retrieve both frozen board states
+## 1. Retrieve all frozen board states
 
 For each supplied fixture retrieve:
 - frozen operational viability grade and Step-0 XI/market/team-news observability;
@@ -83,7 +83,7 @@ If it was rechecked but any material qualification/tiebreak/margin/simultaneous-
 
 `DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
 
-Do not issue C-BET/C-WAIT/C-PASS or C2 action from either incomplete state. An explicit user exception does not waive this requirement.
+Do not issue C-BET/C-WAIT/C-PASS or C2/C3 shadow action from an unresolved mandatory integrity state. An explicit user exception does not waive this requirement.
 
 For tournament/cup/qualifier/two-leg/final-round contexts persist:
 - `TOURNAMENT FORMAT = VERIFIED / LIMITED / UNKNOWN`;
@@ -229,7 +229,7 @@ For Football C code validation:
 
 These are validation of the current Football C text state, not new predictive screening rules.
 
-Build two decision payloads from the same factual evidence epoch:
+Build three decision payloads from the same factual evidence epoch:
 
 - `model = c`, using C board_state and C supported line;
 - `model = c2`, using C2 board_state and independently frozen C2 supported line.
@@ -245,7 +245,9 @@ Compare six outputs:
 - C text official;
 - C code shadow;
 - C2 text shadow;
-- C2 code shadow.
+- C2 code shadow;
+- C3 text shadow;
+- C3 code shadow.
 
 If disagreement:
 
@@ -253,7 +255,7 @@ If disagreement:
 
 Never edit frozen input fields after seeing code output.
 
-## 6. C-WAIT
+## 7. C-WAIT
 
 Every official C-WAIT must state:
 - target line;
@@ -265,7 +267,7 @@ Do not create a wait that is expected to become executable only after negative f
 
 C2-WAIT and C3-WAIT must each preserve separate target/cancel conditions.
 
-## 8. Output
+## 9. Output
 
 Use:
 
