@@ -679,6 +679,64 @@ class C3ContractTests(unittest.TestCase):
         self.assertEqual(row["board_state"], "C3-FOCUS")
         self.assertEqual(row["c3_shadow_lane"], "FOLLOW")
 
+    def test_c3_b_grade_is_capped_at_reserve(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [
+                    match(
+                        "c3_b",
+                        operational_viability_grade="B",
+                        raw_operational_viability_grade="B",
+                        xi_expected="UNCERTAIN",
+                        market_observability="MEDIUM",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["board_state"], "C3-FOCUS")
+        self.assertEqual(result["matches"][0]["c3_shadow_lane"], "RESERVE")
+        self.assertEqual(result["c3_shadow_follow_count"], 0)
+        self.assertEqual(result["c3_shadow_reserve_count"], 1)
+
+    def test_c3_same_kickoff_follow_is_capped_at_two(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [
+                    match(
+                        "a",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                    ),
+                    match(
+                        "b",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                    ),
+                    match(
+                        "c",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                    ),
+                ],
+            }
+        )
+        lanes = [row["c3_shadow_lane"] for row in result["matches"]]
+        self.assertEqual(lanes.count("FOLLOW"), 2)
+        self.assertEqual(lanes.count("RESERVE"), 1)
+        self.assertEqual(result["c3_max_follow_per_exact_kickoff"], 2)
+
     def test_c3_missing_policy_field_fails_closed(self):
         row = match()
         row.pop("c3_goal3_funding")
