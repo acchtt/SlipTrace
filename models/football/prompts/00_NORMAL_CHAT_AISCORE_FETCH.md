@@ -295,6 +295,8 @@ Required women's-top-flight counts:
 
 The women's-top-flight raw count must equal the sum of its dispositions.
 
+Persist `women_top_flight_disposition_manifest` with every fixture in the class, including excluded/deferred fixtures. This manifest is audit metadata and does not add non-admitted fixtures to the Work array.
+
 ## 12. Work-readiness gate
 
 Package only when:
@@ -343,6 +345,7 @@ Required metadata:
 - protected-block audit result;
 - women's-top-flight coverage audit result;
 - all six women's-top-flight counters;
+- `women_top_flight_disposition_manifest` listing every discovered women's top-flight fixture and disposition;
 - admitted fixtures with identity/time provenance;
 - per admitted fixture: raw operational grade, final operational grade, XI expectation, market observability, team-news observability, competition reliability state/sample/reason and operational reason.
 
