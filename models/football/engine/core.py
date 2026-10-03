@@ -49,6 +49,25 @@ class ThesisState(IntEnum):
     PRESERVED = 2
 
 
+class XiStatus(Enum):
+    CONFIRMED = "CONFIRMED"
+    RELIABLE = "RELIABLE"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+class PostXiResearchStatus(Enum):
+    FOUND = "FOUND"
+    LIMITED = "LIMITED"
+    UNAVAILABLE_ATTEMPTED = "UNAVAILABLE_ATTEMPTED"
+
+
+class H2HReviewStatus(Enum):
+    REVIEWED_USABLE = "REVIEWED_USABLE"
+    REVIEWED_LIMITED = "REVIEWED_LIMITED"
+    NOT_USABLE = "NOT_USABLE"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
 class SelectionFloor(Enum):
     FAIL = "FAIL"
     BORDERLINE = "BORDERLINE"
@@ -103,14 +122,23 @@ class MatchAssessment:
     opponent_leakage: Grade
     burden_stall_risk: Grade
 
+    # Required failure/H2H declarations. Empty or omitted evidence must never
+    # become an implicit favorable state in the deterministic validator.
+    main_failure: str
+    h2h_state: str
+
     supported_line: float
 
-    carrier_self_fund: bool = False
-    independent_upper_tail: bool = False
-    failure_attacks_route: bool = False
-    material_suppression: bool = False
+    carrier_self_fund: bool
+    independent_upper_tail: bool
+    failure_attacks_route: bool
+    material_suppression: bool
 
     def __post_init__(self) -> None:
+        if not self.main_failure.strip():
+            raise ValueError("main_failure must be non-empty")
+        if not self.h2h_state.strip():
+            raise ValueError("h2h_state must be non-empty")
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
@@ -133,13 +161,17 @@ class DecisionContext:
     thesis_state: ThesisState
     quote: Quote
 
-    top_ranked_focus: bool = False
-    primary_mechanism_intact: bool = True
+    xi_status: XiStatus
+    post_xi_research_status: PostXiResearchStatus
+    h2h_review_status: H2HReviewStatus
+    h2h_rechecked: bool
+    completion_rechecked: bool
 
-    wait_reachable: bool = False
-    wait_requires_negative_info: bool = False
-
-    material_veto: bool = False
+    top_ranked_focus: bool
+    primary_mechanism_intact: bool
+    wait_reachable: bool
+    wait_requires_negative_info: bool
+    material_veto: bool
 
 
 @dataclass(frozen=True)
@@ -401,8 +433,20 @@ def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
 
+    if not ctx.primary_mechanism_intact:
+        return Decision(Action.PASS, "primary scoring mechanism not intact")
+
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
+
+    if a.burden_stall_risk == Grade.HIGH:
+        return Decision(Action.PASS, "current burden stall risk is HIGH")
+
+    if a.burden_completion_quality == Grade.LOW:
+        return Decision(Action.PASS, "current burden-completion quality is LOW")
+
+    if a.continuation_quality == Grade.LOW:
+        return Decision(Action.PASS, "current continuation quality is LOW")
 
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
 
@@ -484,6 +528,9 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
 
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
+
+    if not ctx.primary_mechanism_intact:
+        return Decision(Action.PASS, "primary scoring mechanism not intact")
 
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
