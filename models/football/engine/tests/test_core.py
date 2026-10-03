@@ -314,6 +314,39 @@ class C3BurdenFundingTests(unittest.TestCase):
                 )
             )
 
+    def test_o3_requires_both_goal3_and_goal4_funding(self):
+        base = assessment(
+            supported_line=3.0,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+        )
+        a = c3_assessment(
+            base=base,
+            goal3_funding=FundingState.NONE,
+            goal3_funding_source=FundingSource.NONE,
+            goal3_funding_basis="no credible goal-three mechanism",
+            goal4_funding=FundingState.VERIFIED,
+            goal4_funding_source=FundingSource.CARRIER,
+            goal4_funding_basis="carrier has verified fourth-goal tail conditional on reaching three",
+        )
+        self.assertEqual(c3_board_state(a), BoardState.PASS)
+
+    def test_current_c3_degradation_blocks_frozen_focus_bet(self):
+        base = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            evidence_confidence=Grade.MEDIUM,
+        )
+        a = c3_assessment(base=base)
+        decision = decide_c3(
+            a,
+            context(board_state=BoardState.FOCUS),
+        )
+        self.assertEqual(c3_board_state(a), BoardState.WATCH)
+        self.assertEqual(decision.action, Action.PASS)
+
     def test_medium_control_endpoint_caps_at_watch(self):
         a = c3_assessment(control_endpoint_risk=Grade.MEDIUM)
         self.assertEqual(c3_board_state(a), BoardState.WATCH)
