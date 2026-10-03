@@ -4,7 +4,7 @@
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
 **Official model:** Football C  
-**Shadow comparison model:** Football C2 — SHADOW  
+**Shadow comparison models:** Football C2 — SHADOW; Football C3 — SHADOW  
 **Current execution authority:** `models/football/CURRENT_MODEL.md` + `models/football/production/FOOTBALL_C.md` + `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` + `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
 
 This table stores material post-board assessment epochs. It must preserve the model/version that actually produced each historical record and must never reinterpret a historical Football A/v0.2.x record as Football C.
@@ -14,9 +14,9 @@ This table stores material post-board assessment epochs. It must preserve the mo
 For every **new** assessment:
 
 - official model identifier = `Football C`;
-- shadow identifier = `Football C2 — SHADOW`;
+- shadow identifiers = `Football C2 — SHADOW` and `Football C3 — SHADOW`;
 - only Football C may create official exposure / Website Picks;
-- C2 is comparison-only;
+- C2 and C3 are comparison-only;
 - the Python engine is a validator, not decision authority;
 - the current Football C/C2 launcher stack controls semantics.
 
@@ -37,6 +37,7 @@ Preserve:
 - C board state/rank;
 - C supported burden;
 - C2 board state/rank and C2 supported burden when available;
+- C3 board state/rank/lane, C3 supported burden and frozen funding/control fields when available;
 - frozen completion mode/quality, continuation, leakage and stall risk;
 - operational viability/reliability snapshot;
 - tournament-incentive state;
@@ -69,6 +70,7 @@ Persist where applicable:
 - Minute / Score / epoch;
 - official C verdict = `C-BET / C-WAIT / C-PASS`;
 - shadow C2 verdict = `C2-BET — SHADOW / C2-WAIT — SHADOW / C2-PASS — SHADOW`;
+- shadow C3 verdict = `C3-BET — SHADOW / C3-WAIT — SHADOW / C3-PASS — SHADOW`;
 - evaluated line / odds;
 - XI state;
 - post-XI research status;
@@ -79,11 +81,14 @@ Persist where applicable:
 - engine C result;
 - engine C2 result where valid.
 
-Dedicated C/C2 separation fields:
+Dedicated C/C2/C3 separation fields:
 - `C Action`;
 - `C Supported Line`;
 - `C2 Supported Line`;
-- `C2 Shadow Action`.
+- `C2 Shadow Action`;
+- `C3 Supported Line`;
+- `C3 Shadow Action`;
+- current C3 second-route / goal-3 / goal-4 / control fields defined in `FOOTBALL_C3_AIRTABLE.md`.
 
 The legacy generic `Verdict` field remains historical compatibility only. Do not encode a new Football C action by reusing Football A-era verdict labels.
 
@@ -97,9 +102,9 @@ Burden-completion Step-2 fields:
 
 These are current-epoch fields. They do not overwrite frozen Step-1 completion fields in Daily Coverage.
 
-## 5. Separate C and C2 burden state
+## 5. Separate C, C2 and C3 policy state
 
-Football C and Football C2 may share the same underlying football evidence but they do **not** share model policy.
+Football C, Football C2 and Football C3 share the same underlying football facts but they do **not** share model policy.
 
 Persist separately when available:
 
@@ -108,15 +113,24 @@ Persist separately when available:
 - C board state;
 - C2 board state;
 - C action;
-- C2 shadow action.
+- C2 shadow action;
+- C3 supported line;
+- C3 shadow action;
+- C3 current funding/control block.
 
-Never copy C's supported burden into C2 merely to simplify persistence.
+Never copy C's supported burden into C2 or C3 merely to simplify persistence.
 
 If C2's independently frozen supported burden is unavailable:
 
 `C2 COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`
 
 Do not count that row in confirmatory C-vs-C2 exposure metrics.
+
+If C3's independent burden/funding state is unavailable:
+
+`C3 COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`
+
+Do not count that row in confirmatory C-vs-C3 metrics.
 
 ## 6. User-supplied XI + current odds
 
@@ -128,7 +142,7 @@ The user's confirmed XI and current executable odds are the current execution ep
 - perform the mandatory fresh post-XI football research pass;
 - perform the mandatory tournament-incentive recheck when applicable;
 - recheck completion/continuation/leakage/stall risk;
-- issue the Football C official action and C2 shadow action from the same factual evidence epoch.
+- issue the Football C official action plus C2/C3 shadow actions from the same factual evidence epoch when the fixture is already being assessed.
 
 If a required final input is missing:
 
@@ -143,6 +157,10 @@ Football C:
 Football C2:
 
 `FROZEN C2 BOARD + INDEPENDENT C2 SUPPORTED BURDEN -> SAME CURRENT EVIDENCE -> C2 FLOOR/BRIDGE POLICY -> C2-BET/C2-WAIT/C2-PASS — SHADOW -> PERSIST`
+
+Football C3:
+
+`FROZEN C3 BOARD + INDEPENDENT C3 FUNDING/CONTROL STATE -> SAME CURRENT EVIDENCE -> C3 FUNDING RECHECK -> C3-BET/C3-WAIT/C3-PASS — SHADOW -> PERSIST`
 
 The old Football A PRE/EGE/MCE/CC+/OFFICIAL LOCK compiler is not part of this order.
 
@@ -174,12 +192,13 @@ Actual user execution/P&L is separate and comes only from the user's bet slip. U
 If C-BET exists but official exposure publication failed:
 `OFFICIAL C DECISION — NO OFFICIAL EXPOSURE / NO MODEL P&L`
 
-C2 may never create official exposure.
+C2/C3 may never create official exposure.
 
 Do not count these as official model P/L:
 - C-PASS;
 - C-WAIT with no entry;
 - C2 shadow;
+- C3 shadow;
 - counterfactual;
 - missed opportunity;
 - historical calibration-only states.
@@ -210,7 +229,7 @@ For C-BET:
 For C-WAIT/C-PASS:
 - Decision State only.
 
-For C2:
+For C2/C3:
 - Decision State/shadow metadata only;
 - never Website Pick.
 
