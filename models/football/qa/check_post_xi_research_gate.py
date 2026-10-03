@@ -152,7 +152,7 @@ REQUIRED = {
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
         "Shadow challenger:** Football **C2**",
-        "COMMON FOOTBALL EVIDENCE FREEZE",
+        "COMMON FOOTBALL FACT FREEZE",
         "tournament_incentive_required",
         "Football C's board is the only board that can feed official Step-2 exposure.",
         "models/football/engine/",
@@ -241,7 +241,7 @@ REQUIRED = {
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
         "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
         "mandatory post-XI football research",
-        "confirmatory C-vs-C2 counting restarts",
+        "Confirmatory C-vs-C2 counting restarts",
         "Historical Football A/C1 audits remain version-faithful.",
         "FOLLOW/RESERVE/STOP allocation",
         "tournament-incentive completeness",
