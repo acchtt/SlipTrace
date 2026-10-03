@@ -3,6 +3,22 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/qa/check_authority_consistency.py": [
+        "FOOTBALL AUTHORITY QA FAIL",
+        "Football C authority and C2 comparison semantics are internally consistent",
+        "def c2_ranking_key",
+        "SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN",
+    ],
+    "models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md": [
+        "RETIRED FOR NEW FOOTBALL C PRODUCTION",
+    ],
+    "models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md": [
+        "RETIRED FOR NEW FOOTBALL C PRODUCTION",
+    ],
+    "models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md": [
+        "RETIRED — DO NOT USE FOR NEW PRODUCTION",
+        "LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER",
+    ],
     "models/football/prompts/README.md": [
         "Short commands — preferred",
         "/sweep",
@@ -77,15 +93,21 @@ REQUIRED = {
     ],
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md": [
         "Senior Women's Top Flight",
-        "women's domestic top-flight",
-        "historical country/league blanket exclusions",
+        "Senior women's domestic top-flight",
+        "Historical Football A/v0.2.x country/league blanket overlays are **not** current authority",
+        "C Supported Line",
+        "C2 Supported Line",
     ],
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
+        "Official model:** Football C",
         "Current Completion Mode",
         "Current Completion Quality",
         "Current Continuation Quality",
         "Current Opponent Leakage",
         "Current Stall Risk",
+        "C supported line",
+        "C2 supported line",
+        "C2 shadow action",
     ],
     "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md": [
         "mandatory Step-0 production gate",
@@ -219,7 +241,7 @@ REQUIRED = {
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
         "C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD",
         "mandatory post-XI football research",
-        "Only C2 decisions produced **after the dual-track fix commit**",
+        "confirmatory C-vs-C2 counting restarts",
         "Historical Football A/C1 audits remain version-faithful.",
         "FOLLOW/RESERVE/STOP allocation",
         "tournament-incentive completeness",
@@ -297,6 +319,8 @@ REQUIRED = {
         "MAX_FOLLOW_PER_KICKOFF = 2",
         "C-PASS CONTRADICTION",
         "same_kickoff_rank",
+        "rank_assessments_c2",
+        "c2_ranking_key(item)",
     ],
 }
 
