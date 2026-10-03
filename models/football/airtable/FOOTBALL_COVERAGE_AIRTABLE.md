@@ -67,7 +67,8 @@ Dedicated current fields now include:
 - `C3 Shadow Rank`;
 - `C3 Lane`;
 - `C3 Supported Line`;
-- C3 second-route / goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`.
+- `C3 Second Route Role`;
+- C3 goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`.
 
 Also preserve:
 - Operational Grade;
