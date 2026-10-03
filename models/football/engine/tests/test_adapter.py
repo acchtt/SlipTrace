@@ -58,6 +58,16 @@ def match(match_id="m1", **overrides):
         "tiebreak_margin_relevance": "NOT_APPLICABLE",
         "incentive_effect": "NOT_APPLICABLE",
         "board_state": "C2-FOCUS",
+        "c3_second_route_role": "BURDEN_CONTRIBUTING",
+        "c3_goal3_funding": "VERIFIED",
+        "c3_goal3_funding_source": "CARRIER",
+        "c3_goal3_funding_basis": "strong self-funded carrier can fund goal three",
+        "c3_goal4_funding": "NOT_REQUIRED",
+        "c3_goal4_funding_source": "NONE",
+        "c3_goal4_funding_basis": "not required below O3.0",
+        "c3_control_endpoint_risk": "LOW",
+        "c3_control_endpoint_basis": "continued pressure remains supported beyond two goals",
+        "c3_forced_chaos_verified": False,
     }
     row.update(overrides)
     return row
@@ -537,6 +547,126 @@ class BoardContractTests(unittest.TestCase):
                     "matches": [match()],
                 }
             )
+
+
+class C3ContractTests(unittest.TestCase):
+    def test_c3_board_ignores_two_route_label_without_goal3_funding(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [
+                    match(
+                        "two_route",
+                        carrier="USABLE",
+                        carrier_self_fund=False,
+                        independent_upper_tail=False,
+                        c3_second_route_role="EXCHANGE_ONLY",
+                        c3_goal3_funding="NONE",
+                        c3_goal3_funding_source="NONE",
+                        c3_goal3_funding_basis="both can score once but no third-goal mechanism",
+                    )
+                ],
+            }
+        )
+        row = result["matches"][0]
+        self.assertEqual(row["board_state"], "C3-PASS")
+        self.assertEqual(row["c3_shadow_lane"], "STOP")
+        self.assertEqual(
+            result["ranking_policy"],
+            "FOOTBALL_C3_CLEARING_GOAL_FUNDING",
+        )
+        self.assertNotIn("completion_mode", row)
+
+    def test_c3_carrier_led_goal3_can_focus_without_second_route(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [
+                    match(
+                        "carrier",
+                        away_route="WEAK",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                        c3_second_route_role="NONE",
+                        c3_goal3_funding="VERIFIED",
+                        c3_goal3_funding_source="CARRIER",
+                    )
+                ],
+            }
+        )
+        row = result["matches"][0]
+        self.assertEqual(row["board_state"], "C3-FOCUS")
+        self.assertEqual(row["c3_shadow_lane"], "FOLLOW")
+
+    def test_c3_missing_policy_field_fails_closed(self):
+        row = match()
+        row.pop("c3_goal3_funding")
+        with self.assertRaisesRegex(ContractError, "missing required field: c3_goal3_funding"):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c3",
+                    "matches": [row],
+                }
+            )
+
+    def test_c3_o3_requires_goal4_funding(self):
+        with self.assertRaisesRegex(ValueError, "goal4 funding cannot be NOT_REQUIRED"):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c3",
+                    "matches": [
+                        match(
+                            supported_line=3.0,
+                            carrier="STRONG",
+                            carrier_self_fund=True,
+                            independent_upper_tail=True,
+                        )
+                    ],
+                }
+            )
+
+    def test_c3_decision_requires_focus_verified_funding_and_low_control(self):
+        good = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c3",
+                "match": match(
+                    board_state="C3-FOCUS",
+                    carrier="STRONG",
+                    carrier_self_fund=True,
+                    independent_upper_tail=True,
+                ),
+                "context": decision_context(board_state="C3-FOCUS"),
+            }
+        )
+        self.assertEqual(good["action"], "BET")
+
+        blocked = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c3",
+                "match": match(
+                    board_state="C3-WATCH",
+                    carrier="STRONG",
+                    carrier_self_fund=True,
+                    independent_upper_tail=True,
+                    c3_control_endpoint_risk="MEDIUM",
+                ),
+                "context": decision_context(board_state="C3-WATCH"),
+            }
+        )
+        self.assertEqual(blocked["action"], "PASS")
 
 
 class AuditRecordContractTests(unittest.TestCase):
