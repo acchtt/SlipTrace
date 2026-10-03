@@ -75,6 +75,10 @@ class BoardContractTests(unittest.TestCase):
             result["matches"][0]["selection_floor"],
             "CLEAR",
         )
+        self.assertEqual(
+            result["ranking_policy"],
+            "FOOTBALL_C2_FROZEN_ROUTE_QUALITY",
+        )
 
     def test_missing_operational_gate_fails(self):
         row = match()
@@ -273,19 +277,59 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
 
-    def test_lower_burden_wins_equal_completion_comparison(self):
+    def test_c2_does_not_inherit_c_burden_completion_ranking(self):
         result = run_board(
             {
                 "schema_version": "football-engine-v1",
                 "stage": "board",
                 "model": "c2",
                 "matches": [
-                    match("o275", supported_line=2.75),
-                    match("o250", supported_line=2.5),
+                    match(
+                        "completion_first",
+                        burden_completion_quality="HIGH",
+                        continuation_quality="HIGH",
+                        route_reliability="MEDIUM",
+                        independent_route_quality="MEDIUM",
+                    ),
+                    match(
+                        "route_first",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        route_reliability="HIGH",
+                        independent_route_quality="HIGH",
+                    ),
                 ],
             }
         )
-        self.assertEqual(result["matches"][0]["match_id"], "o250")
+        self.assertEqual(result["matches"][0]["match_id"], "route_first")
+
+    def test_c2_equal_quality_is_not_ranked_by_lower_supported_line(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c2",
+                "matches": [
+                    match("z_high", supported_line=3.0),
+                    match("a_low", supported_line=2.5),
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["match_id"], "z_high")
+
+    def test_c_board_reports_burden_completion_ranking_policy(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [match(carrier="STRONG", board_state="C-FOCUS")],
+            }
+        )
+        self.assertEqual(
+            result["ranking_policy"],
+            "FOOTBALL_C_BURDEN_COMPLETION",
+        )
 
     def test_same_kickoff_follow_is_capped_at_two_best_candidates(self):
         result = run_board(

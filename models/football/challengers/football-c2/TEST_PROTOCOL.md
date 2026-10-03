@@ -3,15 +3,17 @@
 **Champion:** Football C
 **Challenger:** Football C2 — SHADOW
 **Parent:** Football C production
-**Status:** RESTARTED prospective window after dual-track workflow correction.
+**Status:** RESTARTED AGAIN — prospective window begins after QA authority/C2 validation repair.
 
 ## 1. Initial run
 
-Run C2 for the next **5 complete boards** after the activation commit.
+Run C2 for the next **5 complete boards** after the QA authority/C2 validation repair activation commit.
 
 This is a feasibility checkpoint, not automatic promotion.
 
-Do not edit C2 during the five-board window.
+The QA authority/C2 validation repair fixes implementation and comparison plumbing only: model-specific deterministic ranking, independent C2 burden persistence, authority cleanup and reset accounting. It does not change C2 Sections 3-14 predictive thresholds.
+
+From the repair activation commit onward, C2 is frozen again. Do not edit C2 predictive rules during the five-board window; any predictive change requires C3.
 
 ## 2. Shared universe
 
@@ -131,11 +133,27 @@ Report:
 
 ## 11. Restart boundary
 
-The prior C2 workflow was not a clean C-vs-C2 comparison because:
+There are two invalid comparison eras.
+
+### Era 1 — original dual-track fault
+The workflow was not clean because:
 - Step 1 was C2-only;
 - Step 2 remained Football C;
 - the protocol incorrectly named Football A as champion.
 
-Therefore all confirmatory C2 counting restarts from the dual-track fix commit.
+### Era 2 — validator/burden contamination
+After the Football C burden-completion selector was activated:
+- Python `model=c2` incorrectly used Football C's burden-completion ranking key instead of C2's frozen ranking hierarchy;
+- the workflow did not guarantee that C2 independently froze its supported burden before comparison.
 
-Pre-fix C2 records may be used for debugging only and carry zero confirmatory weight in the restarted comparison.
+These are implementation/plumbing faults, not new C2 predictive rules.
+
+Therefore all **confirmatory** C-vs-C2 counting restarts from the QA authority/C2 validation repair activation commit.
+
+Anything before that boundary:
+- may be used for debugging only;
+- carries zero confirmatory paired-return weight;
+- carries zero Python C2 agreement weight;
+- must be labelled contaminated if C2 burden independence cannot be proven.
+
+The five-board checkpoint restarts at zero.

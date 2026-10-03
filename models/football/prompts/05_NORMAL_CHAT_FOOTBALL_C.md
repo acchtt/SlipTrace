@@ -1,3 +1,25 @@
+# 05 — RETIRED Historical Football C Shadow Launcher
+
+**Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION
+
+This file is retained only to reconstruct the original Football C-vs-Football A shadow experiment.
+
+For any new football work:
+- read `models/football/CURRENT_MODEL.md`;
+- use `/sweep`, `/rank`, `/xi`, `/live`, `/audit`, or `/report`;
+- Football C is the production model;
+- Football C2 is shadow-only.
+
+If this file is invoked for a current production task, stop with:
+
+`LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER`
+
+Do not execute the historical shadow instructions below as current authority.
+
+---
+
+## Historical snapshot
+
 # Football C — Single Shadow Launcher
 
 Use this launcher only for the prospective Football C challenger test.
@@ -78,3 +100,4 @@ After FT:
 ## Simple launch command
 
 `Load and execute models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md from acchtt/SlipTrace. Football C is shadow-only. Use the same fixture/XI/odds evidence epoch as Football A, but make C's decision independently and freeze it before comparison.`
+

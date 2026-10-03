@@ -22,7 +22,9 @@ from core import (
     decide_c2,
     follow_through_lane,
     rank_assessments,
+    rank_assessments_c2,
     ranking_key,
+    c2_ranking_key,
 )
 
 
@@ -478,7 +480,11 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         raise ContractError("matches must be a non-empty array")
 
     parsed = [parse_assessment(item) for item in raw_matches]
-    ranked = rank_assessments(parsed)
+    ranked = (
+        rank_assessments(parsed)
+        if model == "c"
+        else rank_assessments_c2(parsed)
+    )
 
     raw_by_id = {str(item["match_id"]): item for item in raw_matches}
     block_rank_by_id: dict[str, int] = {}
@@ -502,7 +508,9 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
-            "ranking_key": list(ranking_key(item)),
+            "ranking_key": list(
+                ranking_key(item) if model == "c" else c2_ranking_key(item)
+            ),
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
             "supported_line": item.supported_line,
@@ -575,6 +583,11 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         "schema_version": SCHEMA_VERSION,
         "stage": "board_result",
         "model": model,
+        "ranking_policy": (
+            "FOOTBALL_C_BURDEN_COMPLETION"
+            if model == "c"
+            else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
+        ),
         "match_count": len(output),
         "matches": output,
     }

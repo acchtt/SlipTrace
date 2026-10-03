@@ -73,6 +73,8 @@ Suppressive H2H matters only when reasonably transferable and corroborated by cu
 
 ## 5. Initial supported burden
 
+**C2 owns this field independently.** Shared football evidence does not mean shared model burden.
+
 Choose one protected Asian-total line or narrow range before looking at price.
 
 Question:
@@ -84,6 +86,11 @@ Record:
 - one-sentence basis.
 
 This is the initial football burden, not an immutable execution line.
+
+Hard comparison rule:
+- do not read/copy Football C's supported line while freezing C2's line;
+- persist the C2 line separately;
+- if an independent C2 line is unavailable, mark the paired comparison incomplete rather than substituting C's line.
 
 ## 6. Selection quality and ranking
 
@@ -306,7 +313,7 @@ Record enough information for rank/state, routes/carrier, supported line, select
 
 ## 20. Dual-track operational boundary
 
-Effective from the dual-track workflow fix:
+Effective from the QA authority/C2 validation repair:
 
 - Football C is the production champion.
 - C2 is a shadow policy challenger.
@@ -314,8 +321,9 @@ Effective from the dual-track workflow fix:
 - Football C fields remain canonical production fields.
 - C2 shadow persistence must never overwrite C.
 - C2 may not create Website Picks or real exposure.
-- Python validates both tracks from the same structured evidence.
-- pre-fix C2 results are excluded from the restarted confirmatory C-vs-C2 window because the old workflow mixed C2 Step 1 with Football C Step 2.
+- Python validates both tracks from the same factual evidence but uses model-specific policy: Football C burden-completion ranking for C, frozen route-quality ranking for C2.
+- C2 independently freezes its supported burden; C's line is never substituted.
+- all earlier C2 results before the QA authority/C2 validation repair are excluded from the restarted confirmatory window because comparison plumbing was contaminated.
 
 This section changes experiment plumbing/authority, not C2's predictive selection thresholds.
 

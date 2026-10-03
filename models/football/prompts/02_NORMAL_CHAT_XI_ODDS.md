@@ -21,11 +21,15 @@ A preserved scoring route is not enough. Recheck the burden-completion layer aft
 For each supplied fixture retrieve:
 - frozen operational viability grade and Step-0 XI/market/team-news observability;
 - frozen completion mode, burden-completion quality, continuation quality, opponent leakage and burden-stall risk;
-- Football C official board state/rank/support line;
-- Football C2 shadow state/rank if present;
+- Football C official board state/rank and independently frozen C supported line;
+- Football C2 shadow state/rank and independently frozen C2 supported line if present;
 - the frozen common board evidence.
 
 If C2 shadow state is missing, continue Football C officially and mark C2 comparison unavailable. Never replace the C board with a C2 board.
+
+If C2 state exists but its supported line was not independently frozen:
+`C2 COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`
+Continue Football C; do not manufacture C2's line from C.
 
 ## 1A. Follow-through lane authority
 
@@ -102,7 +106,18 @@ Issue exactly one:
 
 Only Football C may create official exposure.
 
-For every C-BET/C-WAIT/C-PASS Decision State persist `Current Completion Mode`, `Current Completion Quality`, `Current Continuation Quality`, `Current Opponent Leakage`, and `Current Stall Risk`.
+For every C-BET/C-WAIT/C-PASS Decision State persist:
+- `C Action` = exact current official action;
+- `C Supported Line`;
+- `C2 Supported Line` when independently frozen;
+- `C2 Shadow Action` when available;
+- `Current Completion Mode`;
+- `Current Completion Quality`;
+- `Current Continuation Quality`;
+- `Current Opponent Leakage`;
+- `Current Stall Risk`.
+
+Do not map current C actions onto legacy Football A `Verdict` choices.
 
 For C-BET:
 1. persist Decision State;
@@ -142,10 +157,12 @@ Persist C2 in Decision States under:
 
 Every decision payload must explicitly include both `tournament_incentive_rechecked` and `tournament_incentive_recheck_status`. For an applicable fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
 
-Build two decision payloads from the **same common semantic evidence**:
+Build two decision payloads from the same factual evidence epoch:
 
-- `model = c`, using C board_state;
-- `model = c2`, using C2 board_state.
+- `model = c`, using C board_state and C supported line;
+- `model = c2`, using C2 board_state and independently frozen C2 supported line.
+
+Do not reuse C's supported line in the C2 payload.
 
 Run:
 

@@ -186,9 +186,58 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
 
 
 def rank_assessments(items: Iterable[MatchAssessment]) -> list[MatchAssessment]:
+    """Rank Football C with the active burden-completion-first policy."""
     return sorted(
         items,
         key=lambda item: (ranking_key(item), item.match_id),
+        reverse=True,
+    )
+
+
+def c2_ranking_key(a: MatchAssessment) -> tuple[int, ...]:
+    """Return the frozen Football C2 lexicographic ranking key.
+
+    C2 deliberately does NOT inherit Football C's burden-completion-first
+    selector. Its frozen challenger specification ranks:
+      1. route reliability;
+      2. independent route quality / self-funded carrier;
+      3. current chance quality;
+      4. failure-mode resistance;
+      5. XI robustness;
+      6. evidence confidence;
+      7. burden protection.
+
+    The slash in factor 2 is represented as one combined dimension: whichever
+    is stronger between independent-route quality and a genuinely self-funded
+    carrier. Market price and supported-line magnitude do not create rank.
+    """
+
+    self_funded_carrier_quality = (
+        int(a.carrier) if a.carrier_self_fund else int(CarrierStrength.NONE)
+    )
+    independent_or_carrier = max(
+        int(a.independent_route_quality),
+        self_funded_carrier_quality,
+    )
+
+    return (
+        int(a.route_reliability),
+        independent_or_carrier,
+        int(a.chance_quality),
+        int(a.failure_resistance),
+        int(a.xi_robustness),
+        int(a.evidence_confidence),
+        int(a.burden_protection),
+    )
+
+
+def rank_assessments_c2(
+    items: Iterable[MatchAssessment],
+) -> list[MatchAssessment]:
+    """Rank Football C2 under its frozen challenger policy."""
+    return sorted(
+        items,
+        key=lambda item: (c2_ranking_key(item), item.match_id),
         reverse=True,
     )
 

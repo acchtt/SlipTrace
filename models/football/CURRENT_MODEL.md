@@ -32,12 +32,13 @@ The aliases are an ergonomic routing layer only. All canonical model/integrity r
 - **Football C2** is a shadow challenger only. It may never create a Website Pick or authorize real exposure.
 - **Python deterministic engine** is a shadow validation layer for both C and C2.
 - Historical Football A decisions remain historical/rollback only.
+- `FOOTBALL_PRE_DECISION_SPEC.md`, `FOOTBALL_STEP2_EXECUTION_SPEC.md`, and `05_NORMAL_CHAT_FOOTBALL_C.md` are retired historical Football A/shadow artifacts and must not control new production.
 
 Do not use a C2 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL EVIDENCE FREEZE -> BURDEN-COMPLETION FREEZE -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH EVIDENCE FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> [C BURDEN-COMPLETION + C2 OWN SUPPORTED BURDEN] -> [C OFFICIAL BOARD + C2 SHADOW BOARD] -> SAME-KICKOFF COMPARATIVE FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -45,14 +46,12 @@ The comparison must isolate **policy differences**, not accidental research diff
 
 For each fixture/epoch, perform the football research once and freeze a common semantic evidence object before either model applies its policy.
 
-Common evidence includes:
+Common factual evidence includes:
 - fixture identity/status;
 - home/away route strength;
 - carrier strength/self-fund state;
-- burden completion mode/quality;
-- continuation quality;
+- continuation evidence;
 - opponent leakage;
-- burden stall risk;
 - chance quality;
 - failure mode / suppression state;
 - relevant H2H transferability;
@@ -60,11 +59,16 @@ Common evidence includes:
 - competition stage/format, draw resolution, aggregate/table state when applicable;
 - home/away incentive state, margin/tiebreak relevance and incentive effect;
 - evidence confidence;
-- supported burden;
 - XI mechanism state at Step 2;
 - current executable quote at Step 2.
 
-Once frozen, neither C nor C2 may change those shared evidence fields merely because the other model or Python engine disagrees.
+Once frozen, neither C nor C2 may change those shared factual fields merely because the other model or Python engine disagrees.
+
+Model-owned policy fields are then derived separately:
+- Football C: completion mode/quality, continuation grade, stall risk and C supported line;
+- Football C2: independently frozen C2 supported line and frozen C2 route-quality ranking policy.
+
+C2 must not inherit C's supported line or C's burden-completion ranking key.
 
 ## Step 0 — researchable senior intake
 
@@ -187,11 +191,20 @@ On disagreement:
 
 ## C2 comparison reset
 
-The previous C2 workflow incorrectly named Football A as champion and allowed Step 1 to become C2-only while Step 2 remained Football C.
+Two plumbing faults invalidate earlier confirmatory C2 comparison windows:
 
-That workflow is invalid for confirmatory C-vs-C2 comparison.
+1. the original workflow named Football A as champion and mixed C2 Step 1 with Football C Step 2;
+2. after Football C's burden-completion ranking patch, the Python C2 validator accidentally inherited Football C's ranking key, and the workflow did not guarantee an independently frozen C2 supported burden.
 
-Prospective C2 comparison restarts from the dual-track fix commit. Earlier C2 rows may remain for debugging but do not count toward the new confirmatory comparison window.
+Therefore confirmatory C-vs-C2 counting restarts again from the merge that activates the **QA authority/C2 validation repair**.
+
+Before that boundary:
+- rows remain available for debugging;
+- do not count them toward confirmatory C-vs-C2 exposure-return metrics;
+- do not count Python C2 text/code agreement;
+- if C2 supported burden was copied/not independently frozen, mark the paired observation contaminated.
+
+This reset changes comparison plumbing only. It does not change C2's frozen predictive thresholds.
 
 ## Rollback
 

@@ -1,15 +1,15 @@
-# Football A — Compiled Step-2 XI/Odds Execution Specification
+# Football A — Compiled Step-2 Execution Specification (Historical)
 
-**Status:** ACTIVE OPERATIONAL COMPILER  
-**User workflow ordinal:** Step 3 — XI + odds assessment  
-**Repo stage:** Step 2 / `02_NORMAL_CHAT_XI_ODDS.md`  
-**Model:** Football A current official stack  
-**Purpose:** make repeated XI/odds assessments deterministic without changing frozen PRE history.  
-**Authority:** final operational authority for the Step-2/Step-3 execution sequence wherever older active files overlap, contradict, or leave ordering ambiguous.
+**Status:** RETIRED FOR NEW FOOTBALL C PRODUCTION — HISTORICAL FOOTBALL A ONLY
+**Current authority:** `models/football/CURRENT_MODEL.md` + `models/football/production/FOOTBALL_C.md` + `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` + `03_NORMAL_CHAT_LIVE.md`
 
-This file compiles existing active intent. It is not a new predictive model patch. Historical decisions remain bound to the authority active at their original evidence epoch.
+> This file is retained only to reconstruct historical Football A/v0.2.x decisions. It must not be loaded as predictive or execution authority for a new Football C board, XI/odds assessment, live decision, or persistence transaction.
 
-If this specification conflicts with older executable wording about generic HMA, EGE direct burden expansion, B+ +0.25, just-started execution, H2H usage, current-PRE alignment, Decision States versioning, or publication order, use this specification for new Step-2/Step-3 assessments.
+
+**Historical workflow:** Football A XI + odds / live execution compiler  
+**Historical model:** Football A
+
+The rules below describe the Football A execution authority that existed at that historical epoch. They remain valid only for reconstructing decisions actually created under that authority. They do not govern a new Football C XI/odds or live assessment.
 
 ---
 

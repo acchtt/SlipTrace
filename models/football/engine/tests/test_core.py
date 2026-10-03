@@ -25,6 +25,7 @@ from core import (  # noqa: E402
     decide_c2,
     follow_through_lane,
     rank_assessments,
+    rank_assessments_c2,
     settle_over,
 )
 
@@ -147,6 +148,36 @@ class RankingTests(unittest.TestCase):
         )
         ranked = rank_assessments([weak, strong])
         self.assertEqual([x.match_id for x in ranked], ["strong", "weak"])
+
+    def test_c_and_c2_can_rank_same_evidence_differently(self):
+        completion_first = assessment(
+            match_id="completion_first",
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+        )
+        route_first = assessment(
+            match_id="route_first",
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+        )
+
+        c_ranked = rank_assessments([route_first, completion_first])
+        c2_ranked = rank_assessments_c2([route_first, completion_first])
+
+        self.assertEqual(c_ranked[0].match_id, "completion_first")
+        self.assertEqual(c2_ranked[0].match_id, "route_first")
+
+    def test_c2_ranking_does_not_use_supported_line_as_rank_factor(self):
+        high_line = assessment(match_id="z_high", supported_line=3.0)
+        low_line = assessment(match_id="a_low", supported_line=2.5)
+        ranked = rank_assessments_c2([low_line, high_line])
+
+        # Equal C2 football factors fall through to stable match_id only.
+        self.assertEqual(ranked[0].match_id, "z_high")
 
 
 class FootballCExecutionTests(unittest.TestCase):
