@@ -171,6 +171,32 @@ Official C model P/L and actual user P/L are separate:
 - persistence agreement;
 - actual bet-slip reconciliation.
 
+## Factor calibration update — mandatory for eligible frozen rows
+
+Read:
+- `models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md`;
+- `models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md`.
+
+For each audited fixture with an eligible prospective calibration row:
+1. read the immutable frozen factor vector;
+2. append FT Total Goals;
+3. settle the exact frozen supported line;
+4. append only observed materialization labels;
+5. compute Trace Score from the frozen vector;
+6. never rewrite any frozen factor.
+
+For calibration runs, analyze only eligible rows. Keep process faults and missing-factor rows out of factor-weight conclusions.
+
+Always report:
+- eligible calibration N;
+- factor buckets with N < 5 as `INSUFFICIENT SAMPLE`;
+- no `OVERWEIGHT CANDIDATE` or `UNDERWEIGHT CANDIDATE` until the observer's prospective thresholds are met.
+
+Use:
+`python models/football/engine/factor_calibration_cli.py --input <observations.json>`
+
+The analyzer has zero production authority.
+
 ## Output
 
 For every material fixture, first report:
