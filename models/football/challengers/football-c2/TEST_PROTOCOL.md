@@ -165,3 +165,16 @@ Anything before that boundary:
 - must be labelled contaminated if C2 burden independence cannot be proven.
 
 The five-board checkpoint restarts at zero.
+
+
+## C3 independence
+
+Football C3 is a separate prospective burden-funding challenger.
+
+Its activation:
+- does not reset C2's current five-board counter;
+- does not edit C2 predictive Sections 3-14;
+- does not merge C3 outcomes into C2 confirmatory statistics;
+- does not change C2's frozen route-quality ranking.
+
+C2 and C3 must be reported separately against Football C.
