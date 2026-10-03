@@ -1,4 +1,10 @@
-# Football A — Compiled Step-2 XI/Odds Execution Specification
+# Football A — Compiled Step-2 Execution Specification (Historical)
+
+**Status:** RETIRED FOR NEW FOOTBALL C PRODUCTION — HISTORICAL FOOTBALL A ONLY
+**Current authority:** `models/football/CURRENT_MODEL.md` + `models/football/production/FOOTBALL_C.md` + `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` + `03_NORMAL_CHAT_LIVE.md`
+
+> This file is retained only to reconstruct historical Football A/v0.2.x decisions. It must not be loaded as predictive or execution authority for a new Football C board, XI/odds assessment, live decision, or persistence transaction.
+
 
 **Status:** ACTIVE OPERATIONAL COMPILER  
 **User workflow ordinal:** Step 3 — XI + odds assessment  
