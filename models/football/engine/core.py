@@ -410,8 +410,14 @@ def rank_assessments_c2(
 
 
 def c3_required_funding(a: C3PolicyAssessment) -> FundingState:
-    """Return funding for the goal that clears the C3 supported burden."""
-    return a.goal4_funding if a.base.supported_line >= 3.0 else a.goal3_funding
+    """Return the weakest funding state required to clear the C3 burden.
+
+    O3.0+ requires a credible path through both goal 3 and goal 4, so the
+    weaker of the two funding states governs.
+    """
+    if a.base.supported_line >= 3.0:
+        return min(a.goal3_funding, a.goal4_funding)
+    return a.goal3_funding
 
 
 def c3_ranking_key(a: C3PolicyAssessment) -> tuple[int, ...]:
@@ -837,7 +843,9 @@ def decide_c3(a: C3PolicyAssessment, ctx: DecisionContext) -> Decision:
     if a.control_endpoint_risk != Grade.LOW:
         return Decision(Action.PASS, "control-endpoint risk is not LOW")
     if ctx.board_state != BoardState.FOCUS:
-        return Decision(Action.PASS, "C3 direct shadow BET requires C3-FOCUS")
+        return Decision(Action.PASS, "frozen C3 direct shadow BET requires C3-FOCUS")
+    if c3_board_state(a) != BoardState.FOCUS:
+        return Decision(Action.PASS, "current C3 burden-funding state is not FOCUS")
 
     at_or_below = ctx.quote.line <= base.supported_line + 1e-9
 
