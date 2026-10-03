@@ -106,7 +106,18 @@ Issue exactly one:
 
 Only Football C may create official exposure.
 
-For every C-BET/C-WAIT/C-PASS Decision State persist `Current Completion Mode`, `Current Completion Quality`, `Current Continuation Quality`, `Current Opponent Leakage`, and `Current Stall Risk`.
+For every C-BET/C-WAIT/C-PASS Decision State persist:
+- `C Action` = exact current official action;
+- `C Supported Line`;
+- `C2 Supported Line` when independently frozen;
+- `C2 Shadow Action` when available;
+- `Current Completion Mode`;
+- `Current Completion Quality`;
+- `Current Continuation Quality`;
+- `Current Opponent Leakage`;
+- `Current Stall Risk`.
+
+Do not map current C actions onto legacy Football A `Verdict` choices.
 
 For C-BET:
 1. persist Decision State;
