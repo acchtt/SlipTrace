@@ -79,20 +79,21 @@ A profitable or high-scoring match cannot rescue a competition from an operation
 
 ## Confirmatory C2 boundary
 
-Confirmatory C-vs-C2 counting restarts from the **QA authority/C2 validation repair activation commit**.
+Confirmatory C-vs-C2 counting restarts from the **Step-2 fail-closed validator repair activation commit**.
 
 Earlier C2 records remain debugging/history only because at least one comparison-era plumbing fault applied:
 - original C2 Step-1 / Football C Step-2 mixing;
 - wrong champion declaration;
 - Python C2 inheriting Football C's burden-completion ranking;
-- C2 supported burden not guaranteed to be independently frozen.
+- C2 supported burden not guaranteed to be independently frozen;
+- Step-2 machine decision created without mandatory XI/research/H2H/completion recheck proof or with omitted safety booleans.
 
 Before the repair boundary:
 - paired-return metrics = excluded;
 - Python C2 agreement metrics = excluded;
 - independently unproven C2 burden = `C2 COMPARISON CONTAMINATED`.
 
-The five-board C2 checkpoint restarts at zero.
+The five-board C2 checkpoint remains at zero until that repair activation, then restarts from board 1.
 
 ## Settlement
 

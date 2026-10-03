@@ -13,10 +13,13 @@ from core import (
     DecisionContext,
     FollowLane,
     Grade,
+    H2HReviewStatus,
     MatchAssessment,
+    PostXiResearchStatus,
     Quote,
     RouteStrength,
     ThesisState,
+    XiStatus,
     c2_selection_floor,
     decide_c,
     decide_c2,
@@ -70,6 +73,13 @@ def _enum(enum_cls, value: Any, field: str):
 
 def _bool(obj: dict[str, Any], key: str, default: bool = False) -> bool:
     value = obj.get(key, default)
+    if not isinstance(value, bool):
+        raise ContractError(f"{key} must be boolean")
+    return value
+
+
+def _required_bool(obj: dict[str, Any], key: str) -> bool:
+    value = _required(obj, key)
     if not isinstance(value, bool):
         raise ContractError(f"{key} must be boolean")
     return value
@@ -449,11 +459,13 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
         burden_stall_risk=_enum(
             Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk"
         ),
+        main_failure=_string(obj, "main_failure"),
+        h2h_state=_string(obj, "h2h_state"),
         supported_line=_number(obj, "supported_line"),
-        carrier_self_fund=_bool(obj, "carrier_self_fund"),
-        independent_upper_tail=_bool(obj, "independent_upper_tail"),
-        failure_attacks_route=_bool(obj, "failure_attacks_route"),
-        material_suppression=_bool(obj, "material_suppression"),
+        carrier_self_fund=_required_bool(obj, "carrier_self_fund"),
+        independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
+        failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
+        material_suppression=_required_bool(obj, "material_suppression"),
     )
 
 
@@ -652,6 +664,34 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
             "tournament_incentive_recheck_status=NOT_APPLICABLE"
         )
 
+    xi_status = _enum(
+        XiStatus, _required(ctx_obj, "xi_status"), "xi_status"
+    )
+    if xi_status == XiStatus.UNAVAILABLE:
+        raise ContractError(
+            "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING"
+        )
+
+    post_xi_research_status = _enum(
+        PostXiResearchStatus,
+        _required(ctx_obj, "post_xi_research_status"),
+        "post_xi_research_status",
+    )
+    h2h_review_status = _enum(
+        H2HReviewStatus,
+        _required(ctx_obj, "h2h_review_status"),
+        "h2h_review_status",
+    )
+    h2h_rechecked = _required_bool(ctx_obj, "h2h_rechecked")
+    if not h2h_rechecked:
+        raise ContractError("DECISION BLOCKED — H2H RECHECK MISSING")
+
+    completion_rechecked = _required_bool(ctx_obj, "completion_rechecked")
+    if not completion_rechecked:
+        raise ContractError(
+            "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING"
+        )
+
     board_state = _enum(
         BoardState, _required(ctx_obj, "board_state"), "board_state"
     )
@@ -669,15 +709,20 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
             line=_number(quote_obj, "line"),
             odds=_number(quote_obj, "odds"),
         ),
-        top_ranked_focus=_bool(ctx_obj, "top_ranked_focus"),
-        primary_mechanism_intact=_bool(
-            ctx_obj, "primary_mechanism_intact", True
+        xi_status=xi_status,
+        post_xi_research_status=post_xi_research_status,
+        h2h_review_status=h2h_review_status,
+        h2h_rechecked=h2h_rechecked,
+        completion_rechecked=completion_rechecked,
+        top_ranked_focus=_required_bool(ctx_obj, "top_ranked_focus"),
+        primary_mechanism_intact=_required_bool(
+            ctx_obj, "primary_mechanism_intact"
         ),
-        wait_reachable=_bool(ctx_obj, "wait_reachable"),
-        wait_requires_negative_info=_bool(
+        wait_reachable=_required_bool(ctx_obj, "wait_reachable"),
+        wait_requires_negative_info=_required_bool(
             ctx_obj, "wait_requires_negative_info"
         ),
-        material_veto=_bool(ctx_obj, "material_veto"),
+        material_veto=_required_bool(ctx_obj, "material_veto"),
     )
 
     decision = decide_c(a, ctx) if model == "c" else decide_c2(a, ctx)
@@ -695,6 +740,14 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "tournament_incentive_rechecked": tournament_incentive_rechecked,
         "tournament_incentive_recheck_status": tournament_incentive_recheck_status,
         "tournament_incentive_resolution": tournament_gate["resolution_status"],
+        "xi_status": xi_status.value,
+        "post_xi_research_status": post_xi_research_status.value,
+        "h2h_review_status": h2h_review_status.value,
+        "h2h_rechecked": h2h_rechecked,
+        "completion_rechecked": completion_rechecked,
+        "current_burden_completion_quality": a.burden_completion_quality.name,
+        "current_continuation_quality": a.continuation_quality.name,
+        "current_burden_stall_risk": a.burden_stall_risk.name,
     }
 
     if model == "c2":

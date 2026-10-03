@@ -94,7 +94,13 @@
         "burden_completion_quality",
         "continuation_quality",
         "opponent_leakage",
-        "burden_stall_risk"
+        "burden_stall_risk",
+        "main_failure",
+        "h2h_state",
+        "carrier_self_fund",
+        "independent_upper_tail",
+        "failure_attacks_route",
+        "material_suppression"
       ],
       "properties": {
         "match_id": {
@@ -156,10 +162,12 @@
           "$ref": "#/$defs/boardState"
         },
         "main_failure": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "h2h_state": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "evidence_note": {
           "type": "string"
@@ -403,7 +411,17 @@
             "thesis_state",
             "quote",
             "tournament_incentive_rechecked",
-            "tournament_incentive_recheck_status"
+            "tournament_incentive_recheck_status",
+            "xi_status",
+            "post_xi_research_status",
+            "h2h_review_status",
+            "h2h_rechecked",
+            "completion_rechecked",
+            "top_ranked_focus",
+            "primary_mechanism_intact",
+            "wait_reachable",
+            "wait_requires_negative_info",
+            "material_veto"
           ],
           "properties": {
             "board_state": {
@@ -466,6 +484,37 @@
                 "LIMITED",
                 "UNKNOWN"
               ]
+            },
+            "xi_status": {
+              "type": "string",
+              "enum": [
+                "CONFIRMED",
+                "RELIABLE",
+                "UNAVAILABLE"
+              ]
+            },
+            "post_xi_research_status": {
+              "type": "string",
+              "enum": [
+                "FOUND",
+                "LIMITED",
+                "UNAVAILABLE_ATTEMPTED"
+              ]
+            },
+            "h2h_review_status": {
+              "type": "string",
+              "enum": [
+                "REVIEWED_USABLE",
+                "REVIEWED_LIMITED",
+                "NOT_USABLE",
+                "UNAVAILABLE"
+              ]
+            },
+            "h2h_rechecked": {
+              "type": "boolean"
+            },
+            "completion_rechecked": {
+              "type": "boolean"
             }
           }
         }

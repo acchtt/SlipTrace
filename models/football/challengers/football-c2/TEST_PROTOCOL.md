@@ -3,17 +3,17 @@
 **Champion:** Football C
 **Challenger:** Football C2 — SHADOW
 **Parent:** Football C production
-**Status:** RESTARTED AGAIN — prospective window begins after QA authority/C2 validation repair.
+**Status:** HELD AT ZERO — prospective window begins after Step-2 fail-closed validator repair.
 
 ## 1. Initial run
 
-Run C2 for the next **5 complete boards** after the QA authority/C2 validation repair activation commit.
+Run C2 for the next **5 complete boards** after the Step-2 fail-closed validator repair activation commit.
 
 This is a feasibility checkpoint, not automatic promotion.
 
-The QA authority/C2 validation repair fixes implementation and comparison plumbing only: model-specific deterministic ranking, independent C2 burden persistence, authority cleanup and reset accounting. It does not change C2 Sections 3-14 predictive thresholds.
+The authority/C2 and Step-2 fail-closed repairs fix implementation and comparison plumbing only: model-specific deterministic ranking, independent C2 burden persistence, authority cleanup, mandatory current evidence declarations and fail-closed safety validation. They do not change C2 Sections 3-14 predictive thresholds.
 
-From the repair activation commit onward, C2 is frozen again. Do not edit C2 predictive rules during the five-board window; any predictive change requires C3.
+From the Step-2 fail-closed repair activation commit onward, C2 is frozen again. Do not edit C2 predictive rules during the five-board window; any predictive change requires C3.
 
 ## 2. Shared universe
 
@@ -141,14 +141,22 @@ The workflow was not clean because:
 - Step 2 remained Football C;
 - the protocol incorrectly named Football A as champion.
 
-### Era 2 — validator/burden contamination
+### Era 2 — ranking/burden contamination
 After the Football C burden-completion selector was activated:
 - Python `model=c2` incorrectly used Football C's burden-completion ranking key instead of C2's frozen ranking hierarchy;
 - the workflow did not guarantee that C2 independently froze its supported burden before comparison.
 
+### Era 3 — Step-2 fail-open validation
+After the authority/C2 repair but before the Step-2 fail-closed validator repair:
+- confirmed/reliable XI was not a required machine field;
+- post-XI research status was not a required machine field;
+- H2H/current completion rechecks were not required machine fields;
+- omitted suppression/failure/mechanism booleans could fall through favorable defaults;
+- Football C code could BET despite HIGH current stall risk or LOW current completion/continuation.
+
 These are implementation/plumbing faults, not new C2 predictive rules.
 
-Therefore all **confirmatory** C-vs-C2 counting restarts from the QA authority/C2 validation repair activation commit.
+Therefore all **confirmatory** C-vs-C2 counting restarts from the Step-2 fail-closed validator repair activation commit.
 
 Anything before that boundary:
 - may be used for debugging only;

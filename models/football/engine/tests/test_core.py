@@ -13,12 +13,15 @@ from core import (  # noqa: E402
     DecisionContext,
     FollowLane,
     Grade,
+    H2HReviewStatus,
     MatchAssessment,
+    PostXiResearchStatus,
     Quote,
     RouteStrength,
     SelectionFloor,
     Settlement,
     ThesisState,
+    XiStatus,
     c2_bridge_eligibility,
     c2_selection_floor,
     decide_c,
@@ -48,10 +51,41 @@ def assessment(**overrides):
         continuation_quality=Grade.HIGH,
         opponent_leakage=Grade.MEDIUM,
         burden_stall_risk=Grade.LOW,
+        main_failure="no unresolved material failure",
+        h2h_state="REVIEWED_NOT_MATERIAL",
         supported_line=2.5,
+        carrier_self_fund=False,
+        independent_upper_tail=False,
+        failure_attacks_route=False,
+        material_suppression=False,
     )
     base.update(overrides)
     return MatchAssessment(**base)
+
+
+def context(
+    board_state=BoardState.FOCUS,
+    thesis_state=ThesisState.PRESERVED,
+    quote=None,
+    **overrides,
+):
+    base = dict(
+        board_state=board_state,
+        thesis_state=thesis_state,
+        quote=quote or Quote(2.5, 1.70),
+        xi_status=XiStatus.CONFIRMED,
+        post_xi_research_status=PostXiResearchStatus.FOUND,
+        h2h_review_status=H2HReviewStatus.REVIEWED_USABLE,
+        h2h_rechecked=True,
+        completion_rechecked=True,
+        top_ranked_focus=False,
+        primary_mechanism_intact=True,
+        wait_reachable=False,
+        wait_requires_negative_info=False,
+        material_veto=False,
+    )
+    base.update(overrides)
+    return DecisionContext(**base)
 
 
 class FollowThroughTests(unittest.TestCase):
@@ -184,7 +218,7 @@ class FootballCExecutionTests(unittest.TestCase):
     def test_normal_price_at_supported_line_bets(self):
         decision = decide_c(
             assessment(),
-            DecisionContext(
+            context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.5, 1.70),
@@ -195,7 +229,7 @@ class FootballCExecutionTests(unittest.TestCase):
     def test_soft_zone_requires_top_focus(self):
         top = decide_c(
             assessment(),
-            DecisionContext(
+            context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.5, 1.62),
@@ -204,7 +238,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         not_top = decide_c(
             assessment(),
-            DecisionContext(
+            context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.5, 1.62),
@@ -214,10 +248,38 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(top.action, Action.BET)
         self.assertEqual(not_top.action, Action.PASS)
 
+    def test_high_current_stall_risk_passes(self):
+        decision = decide_c(
+            assessment(burden_stall_risk=Grade.HIGH),
+            context(),
+        )
+        self.assertEqual(decision.action, Action.PASS)
+
+    def test_low_current_completion_passes(self):
+        decision = decide_c(
+            assessment(burden_completion_quality=Grade.LOW),
+            context(),
+        )
+        self.assertEqual(decision.action, Action.PASS)
+
+    def test_low_current_continuation_passes(self):
+        decision = decide_c(
+            assessment(continuation_quality=Grade.LOW),
+            context(),
+        )
+        self.assertEqual(decision.action, Action.PASS)
+
+    def test_broken_primary_mechanism_passes(self):
+        decision = decide_c(
+            assessment(),
+            context(primary_mechanism_intact=False),
+        )
+        self.assertEqual(decision.action, Action.PASS)
+
     def test_above_burden_waits_only_when_healthy_and_reachable(self):
         healthy = decide_c(
             assessment(),
-            DecisionContext(
+            context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.75, 1.85),
@@ -227,7 +289,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         stale = decide_c(
             assessment(),
-            DecisionContext(
+            context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.75, 1.85),
@@ -245,7 +307,7 @@ class C2BridgeTests(unittest.TestCase):
             carrier=CarrierStrength.STRONG,
             independent_upper_tail=True,
         )
-        ctx = DecisionContext(
+        ctx = context(
             BoardState.FOCUS,
             ThesisState.PRESERVED,
             Quote(2.75, 1.72),
@@ -261,7 +323,7 @@ class C2BridgeTests(unittest.TestCase):
             carrier=CarrierStrength.STRONG,
             independent_upper_tail=False,
         )
-        ctx = DecisionContext(
+        ctx = context(
             BoardState.FOCUS,
             ThesisState.PRESERVED,
             Quote(2.75, 2.10),
