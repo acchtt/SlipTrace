@@ -69,6 +69,9 @@ def _enum(enum_cls, value: Any, field: str):
         ("BoardState", "C2_FOCUS"): "FOCUS",
         ("BoardState", "C2_WATCH"): "WATCH",
         ("BoardState", "C2_PASS"): "PASS",
+        ("BoardState", "C3_FOCUS"): "FOCUS",
+        ("BoardState", "C3_WATCH"): "WATCH",
+        ("BoardState", "C3_PASS"): "PASS",
     }
     key = aliases.get((enum_cls.__name__, key), key)
     try:
