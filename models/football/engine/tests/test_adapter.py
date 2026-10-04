@@ -105,6 +105,7 @@ def decision_context(**overrides):
         "official_follow_lane": "FOLLOW",
         "step2_authorization": "ROUTINE_FOLLOW",
         "thesis_state": "PRESERVED",
+        "thesis_state_basis": "Confirmed XI and current research preserve the frozen scoring thesis.",
         "quote": {"line": 2.5, "odds": 1.70},
         "xi_status": "CONFIRMED",
         "post_xi_research_status": "FOUND",
@@ -1132,6 +1133,23 @@ class DecisionContractTests(unittest.TestCase):
         ctx = decision_context()
         ctx.pop("h2h_basis")
         with self.assertRaisesRegex(ContractError, "missing required field: h2h_basis"):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_missing_thesis_state_basis_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("thesis_state_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: thesis_state_basis",
+        ):
             run_decision(
                 {
                     "schema_version": "football-engine-v1",
