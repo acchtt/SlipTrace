@@ -31,7 +31,7 @@ The aliases are an ergonomic routing layer only. All canonical model/integrity r
 - **Football C** is the only official production model.
 - **Football C2** is a frozen shadow challenger only. It may never create a Website Pick or authorize real exposure.
 - **Football C3** is a separate burden-funding shadow challenger only. It may never create a Website Pick or authorize real exposure.
-- **Football C4** is a prospective structured-evidence challenger for Step 1 only. It may never create Step-2 workload, a Website Pick, live exposure, or real exposure.
+- **Football C4** is a prospective structured-evidence challenger for Step 1 only. It may never create Step-2 workload, a Website Pick, live exposure, or real exposure. When a fixture reaches `/xi`, its prospectively frozen C4 Step-1 snapshot must still be shown for comparison; this visibility is not a C4 Step-2 action.
 - **Python deterministic engine** is a shadow validation layer for C, C2 and C3; C4 uses the separate deterministic structured-evidence compiler.
 - Historical Football A decisions remain historical/rollback only.
 - `FOOTBALL_PRE_DECISION_SPEC.md`, `FOOTBALL_STEP2_EXECUTION_SPEC.md`, and `05_NORMAL_CHAT_FOOTBALL_C.md` are retired historical Football A/shadow artifacts and must not control new production.
@@ -40,7 +40,7 @@ Do not use a C2, C3 or C4 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> C4 STRUCTURED ANCHOR FREEZE -> [C BURDEN-COMPLETION + C2 OWN BURDEN + C3 CLEARING-GOAL FUNDING + C4 STRUCTURED COMPILATION] -> [C OFFICIAL BOARD + C2 SHADOW BOARD + C3 SHADOW BOARD + C4 STEP1 SHADOW] -> C SAME-KICKOFF FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION + C3 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2/C3 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> C4 STRUCTURED ANCHOR FREEZE -> [C BURDEN-COMPLETION + C2 OWN BURDEN + C3 CLEARING-GOAL FUNDING + C4 STRUCTURED COMPILATION] -> [C OFFICIAL BOARD + C2 SHADOW BOARD + C3 SHADOW BOARD + C4 STEP1 SHADOW] -> C SAME-KICKOFF FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION + C3 SHADOW ACTION + C4 FROZEN STEP1 SNAPSHOT VISIBILITY] -> C OFFICIAL LIVE/WAIT + C2/C3 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
