@@ -159,6 +159,8 @@ Football C:
 - WATCH accounting does **not** create a Website Pick;
 - C-BET/C-WAIT operational exposure behavior remains governed by their existing persistence rules.
 
+C2/C3/C4 are shadow-only for model accounting.
+
 C2/C3/C4:
 - accounting is shadow-only;
 - never create Website Picks;
