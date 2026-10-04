@@ -380,6 +380,9 @@ require(
 require(
     "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
     "ACTIVE STEP-0 INPUT AUTHORITY",
+    "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
+    "final_step0_disposition",
+    "women_top_flight_disposition_manifest",
     "REPAIRED HANDOFF AUTHORITY: ACCEPTED",
     "structural compatibility",
     "file-local",
@@ -387,6 +390,20 @@ require(
     "search the web to re-verify fixture kickoff",
     "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
     "REPAIRED HANDOFF INCOMPLETE — STEP0 REPAIR REQUIRED",
+)
+require(
+    "models/football/engine/repaired_handoff_normalize.py",
+    "def normalize_repaired_handoff",
+    "final_step0_disposition",
+    "women_top_flight_disposition_manifest",
+    "women_top_flight_raw_count",
+    "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
+)
+require(
+    "models/football/engine/tests/test_repaired_handoff_normalize.py",
+    "test_final_disposition_wins_and_counts_are_recomputed",
+    "test_women_boolean_is_derived_from_manifest_membership",
+    "test_unresolved_women_still_fails_closed",
 )
 require(
     "models/football/prompts/rank.md",
