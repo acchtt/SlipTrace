@@ -407,7 +407,11 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
+def parse_assessment(
+    obj: dict[str, Any],
+    *,
+    require_c_completion: bool = True,
+) -> MatchAssessment:
     if not isinstance(obj, dict):
         raise ContractError("match must be an object")
 
@@ -455,23 +459,6 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
             _required(obj, "burden_protection"),
             "burden_protection",
         ),
-        completion_mode=_enum(
-            CompletionMode, _required(obj, "completion_mode"), "completion_mode"
-        ),
-        burden_completion_quality=_enum(
-            Grade,
-            _required(obj, "burden_completion_quality"),
-            "burden_completion_quality",
-        ),
-        continuation_quality=_enum(
-            Grade, _required(obj, "continuation_quality"), "continuation_quality"
-        ),
-        opponent_leakage=_enum(
-            Grade, _required(obj, "opponent_leakage"), "opponent_leakage"
-        ),
-        burden_stall_risk=_enum(
-            Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk"
-        ),
         main_failure=_string(obj, "main_failure"),
         h2h_state=_string(obj, "h2h_state"),
         supported_line=_number(obj, "supported_line"),
@@ -479,6 +466,26 @@ def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
         independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
         material_suppression=_required_bool(obj, "material_suppression"),
+        completion_mode=(
+            _enum(CompletionMode, _required(obj, "completion_mode"), "completion_mode")
+            if require_c_completion else None
+        ),
+        burden_completion_quality=(
+            _enum(Grade, _required(obj, "burden_completion_quality"), "burden_completion_quality")
+            if require_c_completion else None
+        ),
+        continuation_quality=(
+            _enum(Grade, _required(obj, "continuation_quality"), "continuation_quality")
+            if require_c_completion else None
+        ),
+        opponent_leakage=(
+            _enum(Grade, _required(obj, "opponent_leakage"), "opponent_leakage")
+            if require_c_completion else None
+        ),
+        burden_stall_risk=(
+            _enum(Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk")
+            if require_c_completion else None
+        ),
     )
 
 
@@ -549,7 +556,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(raw_matches, list) or not raw_matches:
         raise ContractError("matches must be a non-empty array")
 
-    parsed = [parse_assessment(item) for item in raw_matches]
+    parsed = [
+        parse_assessment(item, require_c_completion=(model == "c"))
+        for item in raw_matches
+    ]
     if model == "c":
         ranked = rank_assessments(parsed)
     elif model == "c2":
@@ -611,7 +621,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "simultaneous_results_status": incentive_gate["simultaneous_results_status"],
         }
 
-        if model != "c3":
+        if model == "c":
             row["completion_mode"] = item.completion_mode.value
             row["burden_completion_quality"] = item.burden_completion_quality.name
             row["continuation_quality"] = item.continuation_quality.name
@@ -758,7 +768,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         raise ContractError("model must be 'c', 'c2', or 'c3'")
 
     raw_match = _required(payload, "match")
-    a = parse_assessment(raw_match)
+    a = parse_assessment(raw_match, require_c_completion=(model == "c"))
     c3_a = parse_c3_policy(raw_match, a) if model == "c3" else None
 
     ctx_obj = _required(payload, "context")
@@ -935,10 +945,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
         "completion_rechecked": completion_rechecked,
-        "current_burden_completion_quality": a.burden_completion_quality.name,
-        "current_continuation_quality": a.continuation_quality.name,
-        "current_burden_stall_risk": a.burden_stall_risk.name,
     }
+
+    if model == "c":
+        result["current_burden_completion_quality"] = a.burden_completion_quality.name
+        result["current_continuation_quality"] = a.continuation_quality.name
+        result["current_burden_stall_risk"] = a.burden_stall_risk.name
 
     if model == "c2":
         floor, reasons = c2_selection_floor(a)

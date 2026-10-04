@@ -73,6 +73,8 @@ Model-owned policy fields are then derived separately:
 C2 must not inherit C's supported line or C's burden-completion ranking key.
 C3 must not inherit C/C2 supported lines, C completion labels, or C2 route-quality ranking. Two-sidedness has no positive C3 value by itself.
 
+The deterministic adapter enforces the same ownership boundary: C-owned `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk` are mandatory for `model=c` but are not parser requirements or output fields for `model=c2` / `model=c3`.
+
 ## Required competition coverage invariant
 
 Step 0 must run `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md` in addition to broad discovery.

@@ -64,7 +64,7 @@ Perform this **once** for the fixture:
 6. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
 7. perform/recheck relevant H2H/matchup context;
 8. run the market-history conflict recheck when movement/current market materially disagrees with XI or frozen support;
-9. update the structured common semantic evidence, including current completion mode/quality, continuation quality, opponent leakage and stall risk;
+9. update the shared route/mechanism facts once, then derive each model's owned current policy fields separately: Football C completion/continuation/stall diagnostics, C2 route-quality/selection-floor state, and C3 funding/control state;
 10. classify thesis state = PRESERVED / DEGRADED / BROKEN;
 11. freeze current executable user quote.
 
@@ -222,14 +222,17 @@ Required context fields:
 - `tournament_incentive_rechecked`;
 - `tournament_incentive_recheck_status`.
 
-Required current assessment fields include:
+Required shared current assessment fields include:
 - non-empty `main_failure`;
 - non-empty `h2h_state`;
 - explicit `carrier_self_fund`;
 - explicit `independent_upper_tail`;
 - explicit `failure_attacks_route`;
-- explicit `material_suppression`;
-- current completion/continuation/stall fields.
+- explicit `material_suppression`.
+
+Football C's payload additionally requires current `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk`.
+
+C2 and C3 payloads must not carry those C-owned diagnostics merely to satisfy the deterministic parser. C2 uses its route-quality/selection-floor policy; C3 uses its own second-route/funding/control fields.
 
 Do not omit a boolean because the expected answer is false. Missing safety fields are contract failures, never favorable defaults.
 
@@ -245,9 +248,9 @@ These are validation of the current Football C text state, not new predictive sc
 
 Build three decision payloads from the same factual evidence epoch:
 
-- `model = c`, using C board_state and C supported line;
-- `model = c2`, using C2 board_state and independently frozen C2 supported line.
-- `model = c3`, using C3 board_state, independent C3 supported line and current C3 funding/control fields.
+- `model = c`, using C board_state, C supported line, and C-owned completion/continuation/stall diagnostics;
+- `model = c2`, using C2 board_state and independently frozen C2 supported line, without C-owned completion diagnostics;
+- `model = c3`, using C3 board_state, independent C3 supported line and current C3 funding/control fields, without C-owned completion diagnostics.
 
 Do not reuse C's supported line in C2 or C3 payloads.
 
