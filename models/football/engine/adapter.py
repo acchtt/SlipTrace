@@ -7,6 +7,7 @@ from typing import Any
 from competition_reliability import apply_reliability_cap, effective_state
 
 from core import (
+    Action,
     BoardState,
     C3PolicyAssessment,
     CarrierStrength,
@@ -38,6 +39,7 @@ from core import (
     rank_assessments_c3,
     ranking_key,
     c2_ranking_key,
+    wait_accounting_target,
 )
 
 
@@ -1064,6 +1066,28 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         if model == "c2"
         else decide_c3(c3_a, ctx)
     )
+
+    wait_target_line = None
+    wait_min_odds = None
+    accounting_line = None
+    accounting_odds = None
+    if decision.action == Action.WAIT:
+        wait_target_line, wait_min_odds = wait_accounting_target(a, ctx)
+        accounting_line = wait_target_line
+        accounting_odds = wait_min_odds
+        accounting_status = (
+            "WAIT_ASSUMED" if model == "c" else "SHADOW_WAIT_ASSUMED"
+        )
+        wait_resolution_default = "ASSUMED_REACHED"
+    elif decision.action == Action.BET:
+        accounting_line = ctx.quote.line
+        accounting_odds = ctx.quote.odds
+        accounting_status = "DIRECT_BET" if model == "c" else "SHADOW_BET"
+        wait_resolution_default = "NOT_APPLICABLE"
+    else:
+        accounting_status = "NONE"
+        wait_resolution_default = "NOT_APPLICABLE"
+
     result: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "stage": "decision_result",
@@ -1078,6 +1102,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "wait_target_line": wait_target_line,
+        "wait_min_odds": wait_min_odds,
+        "model_accounting_status": accounting_status,
+        "model_accounting_line": accounting_line,
+        "model_accounting_odds": accounting_odds,
+        "wait_resolution_default": wait_resolution_default,
         "tournament_incentive_required": tournament_gate["required"],
         "tournament_format_status": tournament_gate["format_status"],
         "incentive_effect": tournament_gate["incentive_effect"],
