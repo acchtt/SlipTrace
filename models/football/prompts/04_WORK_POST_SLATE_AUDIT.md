@@ -205,6 +205,22 @@ Official C model P/L and actual user P/L are separate:
 - persistence agreement;
 - actual bet-slip reconciliation.
 
+## Step-2 deterministic execution audit
+
+For every completed Step-2 decision, verify:
+- `Engine Execution Status = EXECUTED_ALL_THREE`; or
+- `Engine Execution Status = FAILED_AFTER_ATTEMPT` with an exact technical failure reason and preserved C/C2/C3 inputs.
+
+If a completed Step-2 decision has neither:
+
+`PROCESS MISS — MANDATORY ENGINE VALIDATION NOT EXECUTED`
+
+If the recorded reason is merely no local checkout / GitHub-only access / runtime not prepared, the fallback is invalid:
+
+`PROCESS MISS — ENGINE SETUP SKIPPED, NOT UNAVAILABLE`
+
+Do not change the historical text verdict from this process finding. Preserve any later rerun as a separate audit/validation repair.
+
 ## Factor calibration update — mandatory for eligible frozen rows
 
 Read:
