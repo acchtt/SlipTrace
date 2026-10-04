@@ -261,7 +261,7 @@ Do not satisfy C2/C3 by copying Football C's completion-recheck flag.
 
 Required shared current assessment fields include:
 - non-empty `main_failure`;
-- non-empty `h2h_state` + non-empty `h2h_basis`;
+- non-empty `h2h_state` + `h2h_effect` + `h2h_transferability` + `h2h_current_corroboration` + explicit `h2h_material_effect` + non-empty `h2h_basis`;
 - explicit `carrier_self_fund` + non-empty `carrier_self_fund_basis`;
 - explicit `independent_upper_tail` + non-empty `independent_upper_tail_basis`;
 - explicit `failure_attacks_route` + non-empty `failure_attacks_route_basis`;
@@ -274,6 +274,8 @@ C2 and C3 payloads must not carry those C-owned diagnostics merely to satisfy th
 Do not omit a boolean because the expected answer is false. Missing safety fields are contract failures, never favorable defaults. A semantic Boolean without its contemporaneous evidence basis is also incomplete and must not be treated as a valid false/true declaration.
 
 For an applicable tournament fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
+
+For H2H, a material suppressive effect is fail-closed unless `h2h_effect=SUPPRESSIVE`, transferability is VERIFIED, and current corroboration is VERIFIED. `recent` remains review priority only; no numerical H2H recency cutoff is active.
 
 For Football C code validation:
 - HIGH current stall risk cannot BET;
