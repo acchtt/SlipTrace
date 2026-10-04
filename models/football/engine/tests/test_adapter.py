@@ -40,6 +40,10 @@ def match(match_id="m1", **overrides):
         "burden_stall_risk": "LOW",
         "main_failure": "no unresolved material failure",
         "h2h_state": "REVIEWED_NOT_MATERIAL",
+        "h2h_effect": "NOT_MATERIAL",
+        "h2h_transferability": "VERIFIED",
+        "h2h_current_corroboration": "NOT_APPLICABLE",
+        "h2h_material_effect": False,
         "h2h_basis": "Reviewed current and historical matchup evidence; no transferable suppressive mechanism was material.",
         "supported_line": 2.5,
         "carrier_self_fund": False,
@@ -1080,6 +1084,50 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
+    def test_material_h2h_effect_requires_verified_transferability_and_corroboration(self):
+        row = match(
+            board_state="C-FOCUS",
+            h2h_effect="SUPPRESSIVE",
+            h2h_transferability="LIMITED",
+            h2h_current_corroboration="VERIFIED",
+            h2h_material_effect=True,
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "transferability must be VERIFIED",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": decision_context(),
+                }
+            )
+
+    def test_material_h2h_effect_requires_current_corroboration(self):
+        row = match(
+            board_state="C-FOCUS",
+            h2h_effect="SUPPRESSIVE",
+            h2h_transferability="VERIFIED",
+            h2h_current_corroboration="NOT_FOUND",
+            h2h_material_effect=True,
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "current corroboration must be VERIFIED",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": decision_context(),
+                }
+            )
+
     def test_missing_h2h_basis_fails_closed(self):
         ctx = decision_context()
         ctx.pop("h2h_basis")
