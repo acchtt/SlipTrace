@@ -29,6 +29,7 @@ Read and apply:
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
+- `models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md`
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`
 
 The operational gate is mandatory for every surviving senior fixture before deep Work research.
