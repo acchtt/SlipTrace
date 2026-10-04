@@ -58,6 +58,12 @@ Skip rows only when:
 - identity/time became invalid;
 - a genuine Step-0 operational fact changed so it no longer qualifies A/B.
 
+Serialize the current state and run:
+
+`python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`
+
+The selector validates unique queue ranks and returns the next wave strictly in ascending queue order.
+
 Pull at most:
 
 `10 - active_lane_count`
