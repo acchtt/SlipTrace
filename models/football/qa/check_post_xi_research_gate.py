@@ -5,7 +5,7 @@ import sys
 REQUIRED = {
     "models/football/qa/check_authority_consistency.py": [
         "FOOTBALL AUTHORITY QA FAIL",
-        "Football C authority and C2/C3 comparison semantics are internally consistent",
+        "Football C authority and C2/C3/C4 comparison semantics are internally consistent",
         "def c2_ranking_key",
         "SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN",
     ],
@@ -170,6 +170,8 @@ REQUIRED = {
         "C2 Supported Line",
         "C3 Supported Line",
         "C3 Second Route Role",
+        "C4 Shadow State",
+        "C4 Supported Line",
     ],
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md": [
         "Official model:** Football C",
@@ -229,7 +231,7 @@ REQUIRED = {
     ],
     "models/football/CURRENT_MODEL.md": [
         "Active official model:** Football **C**",
-        "Shadow challengers:** Football **C2** and Football **C3**",
+        "Shadow challengers:** Football **C2**, Football **C3**, and Football **C4**",
         "COMMON FOOTBALL FACT FREEZE",
         "tournament_incentive_required",
         "Football C's board/lane is the only board that controls routine Step-2 workload or official exposure.",
@@ -260,7 +262,7 @@ REQUIRED = {
     ],
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
         "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
-        "Football C Official + C2/C3 Shadow Boards",
+        "Football C Official + C2/C3 + C4 Step-1 Shadow",
         "Common evidence freeze",
         "Football C official board",
         "Football C2 shadow board",
@@ -364,7 +366,7 @@ REQUIRED = {
         "tournament-incentive completeness",
         "Competition reliability memory update — mandatory",
         "Competition Reliability Events",
-        "never write FT goals, C/C2/C3 result, settlement or P/L",
+        "never write FT goals, C/C2/C3/C4 result, settlement or P/L",
         "women\'s senior top-flight discovery/accounting misses",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
         "Audit hindsight integrity — mandatory",
@@ -417,6 +419,35 @@ REQUIRED = {
         "C3 Test Board Number",
         "ranked-universe",
         "prospectively quarantined HOLD/exclusion",
+    ],
+    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md": [
+        "PROSPECTIVE STEP-1 SHADOW CHALLENGER",
+        "Step 1 `/rank` only",
+        "Deterministic route compiler",
+        "Clearing-goal funding",
+        "next **5 complete clean Step-1 boards**",
+    ],
+    "models/football/challengers/football-c4/TEST_PROTOCOL.md": [
+        "ACTIVE PROSPECTIVE SHADOW TEST",
+        "C4 Test Board Number = 1..5",
+        "Historical boards have zero confirmatory weight",
+    ],
+    "models/football/airtable/FOOTBALL_C4_AIRTABLE.md": [
+        "C4 role:** Step-1-only structured-evidence challenger",
+        "C4 Shadow State",
+        "C4 Supported Line",
+        "C4 Test Board Number",
+    ],
+    "models/football/engine/c4_semantic.py": [
+        "football-c4-semantic-v1",
+        "def compile_route",
+        "def compile_funding",
+        "def reconcile_with_c_board",
+    ],
+    "models/football/engine/tests/test_c4_semantic.py": [
+        "test_strong_route_carrier_and_goal4_focus",
+        "test_reconcile_blocks_ranked_universe_mismatch",
+        "test_input_order_cannot_change_ranking",
     ],
     "models/football/engine/coverage_manifest.py": [
         "MANIFEST_VERSION = \"required-competition-manifest-v1\"",
@@ -575,9 +606,9 @@ for file_name, needles in REQUIRED.items():
             failures.append(f"{file_name}: missing invariant: {needle}")
 
 if failures:
-    print("WORKFLOW REGRESSION — FOOTBALL C/C2/C3 THREE-TRACK INVARIANT MISSING")
+    print("WORKFLOW REGRESSION — FOOTBALL STAGE-ROSTER INVARIANT MISSING")
     for failure in failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C official / C2+C3 shadow / engine three-track invariants are present.")
+print("PASS — Football C official / C2+C3 Step-2 shadows / C4 Step-1 shadow invariants are present.")
