@@ -162,12 +162,30 @@ def main() -> int:
         )
         return 0
     except Exception as exc:
+        error_type = type(exc).__name__
+        contract_types = {
+            "ContractError",
+            "Step2ReconciliationError",
+            "ValueError",
+            "KeyError",
+            "JSONDecodeError",
+        }
+        is_contract = error_type in contract_types
         print(
             json.dumps(
                 {
                     "ok": False,
-                    "status": "XI PORTABLE RUNTIME: EXECUTION FAILED",
-                    "error_type": type(exc).__name__,
+                    "status": (
+                        "XI ENGINE CONTRACT REJECTED"
+                        if is_contract
+                        else "XI PORTABLE RUNTIME: EXECUTION FAILED"
+                    ),
+                    "failure_class": (
+                        "PAYLOAD_OR_MODEL_CONTRACT"
+                        if is_contract
+                        else "PYTHON_OR_RUNTIME"
+                    ),
+                    "error_type": error_type,
                     "error": str(exc),
                 },
                 indent=2,
