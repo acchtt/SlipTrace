@@ -107,9 +107,9 @@ Before discovery, apply:
 
 Step 0 must acquire a complete AiScore date universe before fixture-level discovery. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
 
-When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and every plausible A/B senior candidate fixture-exact; summarize obvious youth/reserve/regional/amateur/non-operational blocks instead of enumerating the entire all-level date page. This is an efficiency/audit-granularity rule only and does not weaken the 15-fixture cap or Work preflight.
+When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and **every plausible A/B senior candidate fixture-exact**; summarize only blocks already demonstrably below the A/B candidate threshold. This is an efficiency/audit-granularity rule only.
 
-After the 15-slot cap is saturated by maximum-profile A-grade admissions, fallback mode may block-defer later equal-or-lower non-protected/non-required/non-women competition blocks without fixture-level enumeration. Required/protected/women blocks remain fixture-exact. Women's rows that started during a prolonged Step-0 repair remain in the women raw manifest as `OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`.
+The 15-fixture limit applies only to the **initial Work wave**. It must not short-circuit discovery of later A/B candidates. Build and persist the complete deterministic A/B capacity queue first; ranks 16+ remain available for mandatory Step-1 replenishment. Women's rows that started during a prolonged Step-0 repair remain in the women raw manifest as `OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`.
 
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
