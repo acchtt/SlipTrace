@@ -14,6 +14,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
+- `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -24,6 +25,27 @@ If package/completeness fails:
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
 Do not rebuild the raw universe in Work.
+
+## 0A. Required competition coverage preflight — fail closed
+
+Before ranking, require:
+- `required_competition_manifest_version = required-competition-manifest-v1`;
+- protected block `NED_EERSTE_DIVISIE` present exactly once;
+- status = CHECKED_WITH_FIXTURES or CHECKED_NO_IN_WINDOW_FIXTURES;
+- no SOURCE_BLOCKED protected block;
+- fixture_count equals the listed fixture array;
+- every listed fixture has a normal Step-0 disposition;
+- `Required Competition Blocks Complete = true`.
+
+If absent, stale, unresolved or inconsistent:
+
+`HANDOFF INCOMPLETE — REQUIRED COMPETITION COVERAGE GAP`
+
+For a missing Eerste block:
+
+`HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP`
+
+Do not silently rebuild/rank around the missing block. Repair Step 0 first.
 
 ## 0. Operational handoff gate — fail closed
 
