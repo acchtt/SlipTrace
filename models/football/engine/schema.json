@@ -567,7 +567,8 @@
             "primary_mechanism_basis",
             "wait_reachability_basis",
             "wait_negative_info_basis",
-            "material_veto_basis"
+            "material_veto_basis",
+            "thesis_state_basis"
           ],
           "properties": {
             "board_state": {
@@ -752,6 +753,10 @@
               "minLength": 1
             },
             "material_veto_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thesis_state_basis": {
               "type": "string",
               "minLength": 1
             }
