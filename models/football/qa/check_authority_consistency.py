@@ -138,9 +138,12 @@ require(
 )
 require(
     "models/football/challengers/football-c3/TEST_PROTOCOL.md",
-    "next **5 complete clean boards**",
+    "next **5 complete clean ranked boards**",
     "C2 continues its current five-board window",
     "C3 gets a separate 1/5 ... 5/5 counter",
+    "ranked eligible universe",
+    "one isolated HOLD does not hold back an otherwise complete board",
+    "missing Netherlands Eerste Divisie block",
     "Historical boards have zero confirmatory C3 weight",
 )
 require(
@@ -175,6 +178,8 @@ require(
     "tblQmUpd5WjBLQ38X",
     "tblUnGHHe0MVaalDL",
     "C3 Test Board Number",
+    "ranked-universe",
+    "prospectively quarantined HOLD/exclusion",
     "C3 COMPARISON INCOMPLETE",
 )
 forbid(
