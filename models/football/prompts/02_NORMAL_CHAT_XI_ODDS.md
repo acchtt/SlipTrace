@@ -377,7 +377,11 @@ Only if both portable and multi-file triplet runners cannot be used, run the thr
 
 A missing local checkout is **not** engine unavailability. If GitHub/files source plus a Python runtime are available, fetch the exact-current portable XI runner and execute it.
 
-A deterministic payload/contract rejection is not a Python error. Report the exact rejected field/rule and preserve the frozen payload. Only a portable self-check/runtime failure may trigger the multi-file fallback.
+A deterministic payload/contract rejection is not a Python error. Report:
+
+`XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`
+
+Preserve the frozen payload and correct only serialization/contract fields supported by already-frozen evidence. Do not use `ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT` for a contract rejection. Only a portable self-check/runtime failure may trigger the multi-file fallback.
 
 Before any terminal failure claim, follow `FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` and make both the required portable attempt and documented repair/fallback attempt when applicable.
 
