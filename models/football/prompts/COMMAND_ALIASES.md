@@ -53,6 +53,25 @@ The supplied time expression defines the requested sweep window in ICT unless th
 
 The output remains the canonical AiScore handoff/ZIP defined by Step 0.
 
+### `/sweep repair [window]`
+
+Runs the bounded repair path in:
+`models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md`
+
+Examples:
+- `/sweep repair 15:00 to 00:00`
+- `/sweep repair 15:00 to 00:00, exclude already-started matches`
+
+Repair mode:
+- targets the latest matching prior sweep unless a Run ID is supplied;
+- reuses complete persisted rows instead of restarting discovery;
+- repairs only missing/conflicting/block-deferred items;
+- excludes started fixtures before deep verification;
+- uses at most two authoritative verification attempts per unresolved competition block;
+- terminates with an explicit unresolved list instead of continuing open-ended web search.
+
+Do not silently route `/sweep repair` through the normal fresh-sweep discovery loop.
+
 ### `/rank`
 
 Runs Step 1 against the attached/current canonical AiScore handoff.
