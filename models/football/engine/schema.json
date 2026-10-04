@@ -101,7 +101,16 @@
         "carrier_self_fund",
         "independent_upper_tail",
         "failure_attacks_route",
-        "material_suppression"
+        "material_suppression",
+        "h2h_basis",
+        "carrier_self_fund_basis",
+        "independent_upper_tail_basis",
+        "failure_attacks_route_basis",
+        "material_suppression_basis",
+        "h2h_effect",
+        "h2h_transferability",
+        "h2h_current_corroboration",
+        "h2h_material_effect"
       ],
       "properties": {
         "match_id": {
@@ -414,6 +423,57 @@
         },
         "c3_forced_chaos_verified": {
           "type": "boolean"
+        },
+        "h2h_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "carrier_self_fund_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independent_upper_tail_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "failure_attacks_route_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_suppression_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "h2h_effect": {
+          "type": "string",
+          "enum": [
+            "SUPPRESSIVE",
+            "OPEN",
+            "MIXED",
+            "NOT_MATERIAL",
+            "UNAVAILABLE"
+          ]
+        },
+        "h2h_transferability": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "LIMITED",
+            "NOT_TRANSFERABLE",
+            "UNAVAILABLE"
+          ]
+        },
+        "h2h_current_corroboration": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "NOT_FOUND",
+            "NOT_APPLICABLE",
+            "UNKNOWN"
+          ]
+        },
+        "h2h_material_effect": {
+          "type": "boolean"
         }
       }
     },
@@ -502,7 +562,13 @@
             "market_history_note",
             "post_xi_research_note",
             "fixture_status",
-            "quote_revalidated"
+            "quote_revalidated",
+            "h2h_basis",
+            "primary_mechanism_basis",
+            "wait_reachability_basis",
+            "wait_negative_info_basis",
+            "material_veto_basis",
+            "thesis_state_basis"
           ],
           "properties": {
             "board_state": {
@@ -669,6 +735,30 @@
             },
             "c3_funding_rechecked": {
               "type": "boolean"
+            },
+            "h2h_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "primary_mechanism_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "wait_reachability_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "wait_negative_info_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "material_veto_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "thesis_state_basis": {
+              "type": "string",
+              "minLength": 1
             }
           }
         }

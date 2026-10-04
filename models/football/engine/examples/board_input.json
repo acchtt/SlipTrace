@@ -5,6 +5,17 @@
   "matches": [
     {
       "match_id": "example-home-v-example-away",
+      "kickoff_ict": "2026-10-04T19:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "fewer than 3 countable operational observations",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "reliable XI/news and executable totals expected",
       "home_route": "STRONG",
       "away_route": "USABLE",
       "carrier": "USABLE",
@@ -17,12 +28,21 @@
       "burden_protection": "HIGH",
       "supported_line": 2.5,
       "carrier_self_fund": false,
+      "carrier_self_fund_basis": "carrier is usable but not independently verified to self-fund the protected burden",
       "independent_upper_tail": false,
+      "independent_upper_tail_basis": "no separate non-market upper-tail route is frozen",
       "failure_attacks_route": false,
+      "failure_attacks_route_basis": "main failure does not directly remove the current scoring route",
       "material_suppression": false,
+      "material_suppression_basis": "no current material suppression trigger is present",
       "board_state": "C2-FOCUS",
       "main_failure": "opponent can compress after taking the lead",
-      "h2h_state": "mixed / medium transferability",
+      "h2h_state": "REVIEWED_NOT_MATERIAL",
+      "h2h_effect": "NOT_MATERIAL",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_APPLICABLE",
+      "h2h_material_effect": false,
+      "h2h_basis": "historical meetings were reviewed but are not being used as a material current suppressive input",
       "tournament_incentive_required": false,
       "tournament_format_status": "NOT_APPLICABLE",
       "competition_stage": "NOT_APPLICABLE",
@@ -32,7 +52,10 @@
       "home_incentive": "NOT_APPLICABLE",
       "away_incentive": "NOT_APPLICABLE",
       "tiebreak_margin_relevance": "NOT_APPLICABLE",
-      "incentive_effect": "NOT_APPLICABLE"
+      "incentive_effect": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE"
     }
   ]
 }
