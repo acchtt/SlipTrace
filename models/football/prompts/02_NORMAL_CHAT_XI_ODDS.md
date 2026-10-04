@@ -14,6 +14,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 - `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 - `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
@@ -210,7 +211,7 @@ For C-WAIT:
 6. publish/reconcile one Website Pick immediately at target/minimum, normally 1u;
 7. verify no duplicate official pick.
 
-A C-WAIT does **not** wait for later market confirmation before becoming a model-accounting bet.
+A C-WAIT does **not** wait for later market confirmation before becoming a model-accounting bet. In the all-model accounting ledger it replaces any prior C-WATCH accounting entry for the same fixture while countable.
 
 Only update that assumed WAIT exposure when:
 - the user provides an actual corresponding bet slip -> `WAIT_USER_CONFIRMED / USER_CONFIRMED` and reconcile to exact actual line/odds/stake; or
@@ -218,6 +219,8 @@ Only update that assumed WAIT exposure when:
 
 For C-PASS:
 - Decision State only with `C Exposure Basis = NONE`.
+
+A C-PASS does not erase a prospectively frozen C-WATCH accounting bet. The action/persistence state remains PASS while the Step-1 WATCH accounting result remains independently countable.
 
 Do not auto-cancel a WAIT exposure because later market history is missing, live odds differ, or no user slip appears.
 
@@ -239,7 +242,7 @@ Issue:
 - `C2-WAIT — SHADOW`
 - `C2-PASS — SHADOW`
 
-For audit accounting, C2-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds`. It remains shadow-only and never creates a Website Pick.
+For audit accounting, C2-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds` and replaces C2-WATCH accounting while countable. If the WAIT target is explicitly declared not reached, the WAIT layer is removed and a frozen C2-WATCH remains countable. It remains shadow-only and never creates a Website Pick.
 
 C2 must never:
 - publish Website Pick;
@@ -276,9 +279,36 @@ Persist:
 - `C3-WAIT — SHADOW`;
 - `C3-PASS — SHADOW`.
 
-For audit accounting, C3-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds`.
+For audit accounting, C3-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds` and replaces C3-WATCH accounting while countable. If the WAIT target is explicitly declared not reached, the WAIT layer is removed and a frozen C3-WATCH remains countable.
 
 Never create a Website Pick or extra mandatory monitoring from C3.
+
+## 5A. All-model accounting reconciliation
+
+After C/C2/C3 text + deterministic Step-2 actions are frozen, combine:
+- C board state/supported line + current C action/quote/WAIT terms;
+- C2 board state/supported line + C2 shadow action/quote/WAIT terms;
+- C3 board state/supported line + C3 shadow action/quote/WAIT terms;
+- frozen C4 Step-1 state/supported line.
+
+Run:
+
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
+
+Required one-accounting-entry precedence per model/fixture:
+
+`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
+
+Rules:
+- C/C2/C3 direct BET uses exact quote;
+- C/C2/C3 WAIT uses that model's own target/minimum odds;
+- C/C2/C3/C4 WATCH uses that model's own supported line @1.65, 1u;
+- C2/C3/C4 remain shadow-only;
+- C4 has no Step-2 action, but C4-WATCH is still a shadow accounting bet;
+- Step-2 PASS does not erase a frozen WATCH accounting entry;
+- no WATCH creates a Website Pick.
+
+Persist exact result in `All Model Accounting Result` + `Model Accounting Revision`, and update the per-model Daily Coverage accounting JSON.
 
 ## 6. Python engine comparison — three tracks
 
@@ -499,6 +529,8 @@ For every model result also preserve:
 
 Also include:
 - `FOOTBALL_C4_FROZEN_STEP1_SNAPSHOT`
+- `FOOTBALL_MODEL_ACCOUNTING_INPUT`
+- `FOOTBALL_MODEL_ACCOUNTING_RESULT`
 - `FOOTBALL_STEP2_RECONCILIATION_INPUT`
 - `FOOTBALL_STEP2_RECONCILIATION_RESULT`
 
