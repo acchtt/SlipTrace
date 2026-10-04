@@ -184,7 +184,10 @@ Only if portable self-check fails after exact-current retrieval, materialize fal
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
 - `models/football/engine/decision_triplet_cli.py`
+- `models/football/engine/step2_reconcile.py`
 - `models/football/engine/step2_reconcile_cli.py`
+- `models/football/engine/model_bet_accounting.py`
+- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
 
 ### Audit
