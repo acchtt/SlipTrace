@@ -97,6 +97,20 @@ require(
     "rank_assessments_c2",
     'if model == "c"',
     "c2_ranking_key(item)",
+    'require_c_completion=(model == "c")',
+)
+require(
+    "models/football/engine/core.py",
+    "FOOTBALL C COMPLETION DIAGNOSTICS MISSING",
+    "def require_c_completion",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_c2_board_does_not_require_c_completion_diagnostics",
+    "test_c3_board_does_not_require_c_completion_diagnostics",
+    "test_c_board_still_requires_c_completion_diagnostics",
+    "test_c2_decision_does_not_require_c_completion_diagnostics",
+    "test_c3_decision_does_not_require_c_completion_diagnostics",
 )
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
