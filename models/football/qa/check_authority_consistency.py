@@ -590,7 +590,7 @@ require(
 require(
     "models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md",
     "ACTIVE PROCESS COMPLIANCE CONTROL",
-    "research-priority label",
+    "\"Recent\" is priority, not a hidden numeric threshold",
     "H2H never creates a scoring route",
     "carrier_self_fund_basis",
     "primary_mechanism_basis",
