@@ -10,6 +10,8 @@
 
 Prevent Step 0 from spending repeated resumes reconstructing a supposedly complete fixture universe from search snippets, league pages, or partial caches when the authoritative AiScore date universe is unavailable.
 
+For `/sweep repair ...`, this source gate is applied through `FOOTBALL_SWEEP_REPAIR_MODE.md`: a valid previously acquired target sweep may be reused as the source base, and only the finite repair set is revalidated. Repair mode must not restart broad acquisition/discovery when the target run already has a valid acquired universe.
+
 The gate is deliberately **bounded**:
 
 `SOURCE ACQUISITION -> DISCOVERY`
@@ -89,6 +91,8 @@ Set:
 If no valid alternate date-level universe can be established, stop as SOURCE_BLOCKED.
 
 ## 3. Bounded retry budget
+
+This section governs fresh acquisition. Repair-mode verification has the stricter per-competition budget in `FOOTBALL_SWEEP_REPAIR_MODE.md` and must not expand into a fresh search loop.
 
 Per run + source epoch, the normal acquisition budget is:
 
