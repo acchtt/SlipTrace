@@ -587,16 +587,20 @@ After freezing C state/rank/lane for the current wave, compute:
 
 If `active_lane_count < 10` and prematch `OPERATIONAL_CAPACITY_DEFERRED` A/B fixtures remain:
 
-1. read the deferred fixtures in ascending `Step0 Capacity Queue Rank`;
-2. skip only fixtures that have already started/left prematch, preserving that reason;
-3. pull at most `10 - active_lane_count` fixtures into the next replenishment wave;
-4. set `Step1 Replenished = true`;
-5. set `Replenishment Wave = 1, 2, ...`;
-6. persist `Replenishment Reason = ACTIVE LANE CAPACITY UNDERFILLED`;
-7. run the full common-evidence + C/C2/C3/C4 Step-1 process on those fixtures;
-8. merge them into the already-frozen board without rewriting earlier evidence;
-9. recompute official C ranking/lane allocation across all still-prematch assessed fixtures;
-10. repeat until FOLLOW+RESERVE reaches 10 or the deferred prematch A/B queue is exhausted.
+1. load the deferred A/B queue from Daily Coverage for the same sweep; the initial ZIP Work array is not the complete replenishment pool;
+2. serialize current lane counts + queued candidates and run:
+   `python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`;
+3. require `capacity_replenishment_status = REPLENISHMENT_REQUIRED` before opening a new wave;
+4. read the returned fixtures in ascending immutable `Step0 Capacity Queue Rank`;
+5. skip only fixtures that have already started/left prematch, preserving that reason;
+6. pull only the selector-returned fixtures into the next replenishment wave;
+7. set `Step1 Replenished = true`;
+8. set `Replenishment Wave = 1, 2, ...`;
+9. persist `Replenishment Reason = ACTIVE LANE CAPACITY UNDERFILLED`;
+10. run the full common-evidence + C/C2/C3/C4 Step-1 process on those fixtures;
+11. merge them into the already-frozen board without rewriting earlier evidence;
+12. recompute official C ranking/lane allocation across all still-prematch assessed fixtures;
+13. repeat until FOLLOW+RESERVE reaches 10 or the deferred prematch A/B queue is exhausted.
 
 A STOP/PASS does not permanently consume one of the original 15 research slots.
 
