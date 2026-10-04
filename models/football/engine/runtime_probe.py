@@ -22,6 +22,8 @@ STAGE_FILES = {
         "models/football/engine/c4_semantic.py",
         "models/football/engine/c4_semantic_cli.py",
         "models/football/engine/c4_schema.json",
+        "models/football/engine/capacity_replenishment.py",
+        "models/football/engine/capacity_replenishment_cli.py",
         "models/football/engine/runtime_probe.py",
     ),
     "xi": (
