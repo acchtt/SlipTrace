@@ -149,6 +149,12 @@ Required result:
 Preferred runner:
 `python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
+Each triplet freezes the same official C workload authorization:
+- `official_follow_lane`;
+- `step2_authorization = ROUTINE_FOLLOW / RESERVE_ACTIVATED / USER_EXCEPTION`.
+
+The deterministic layer fails closed when authorization and the official C lane disagree. Shadow C2/C3 may compare only an officially authorized Step-2 fixture and never create extra workload.
+
 Lack of an existing local checkout is not execution unavailability. When current engine source can be retrieved and a Python runtime exists, materialize/setup the engine and run it.
 
 The old generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.
