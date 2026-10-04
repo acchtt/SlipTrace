@@ -376,7 +376,43 @@ require(
     "Board Triplet Common-Evidence Reconciliation Status",
 )
 
-# 4C. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
+# 4C. Sweep repair must be bounded and reuse persisted state.
+require(
+    "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md",
+    "ACTIVE BOUNDED REPAIR CONTROL",
+    "/sweep repair",
+    "at most **2 independent authoritative verification attempts**",
+    "Do not open third/fourth/fifth websites",
+    "SWEEP REPAIR COMPLETE — READY FOR /RANK",
+    "SWEEP REPAIR COMPLETE WITH UNRESOLVED ITEMS — /RANK BLOCKED",
+    "fldjFlyBEoQ2N92t9",
+    "fld1EptBTr3b4AfIK",
+    "fldgTZ1NpMOk4yilt",
+    "fld1PLeqyX9fdWSDi",
+)
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "/sweep repair [window]",
+    "bounded repair path",
+    "Do not silently route `/sweep repair` through the normal fresh-sweep discovery loop",
+)
+require(
+    "models/football/prompts/sweep.md",
+    "If the preserved user arguments begin with `repair`",
+    "FOOTBALL_SWEEP_REPAIR_MODE.md",
+)
+require(
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "repair_mode=true",
+    "finite repair set",
+    "never keep browsing beyond the repair verification budget",
+)
+require(
+    "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md",
+    "Repair mode must not restart broad acquisition/discovery",
+)
+
+# 4D. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
 require(
     "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
     "ACTIVE OPERATIONAL CAPACITY CONTROL",
@@ -428,7 +464,7 @@ require(
     "fldUxHPEnQpGSJVmC",
 )
 
-# 4D. Required competition coverage must fail closed before Work.
+# 4E. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
     "MANDATORY STEP-0 COVERAGE INVARIANT",
@@ -550,7 +586,7 @@ require(
     "test_unavailable_market_history_can_continue_after_attempt",
 )
 
-# 4E. Execution-required stages must probe current runtime/repository state.
+# 4F. Execution-required stages must probe current runtime/repository state.
 require(
     "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
     "MANDATORY EXECUTION PRECHECK",
