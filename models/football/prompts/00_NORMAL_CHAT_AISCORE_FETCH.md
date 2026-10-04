@@ -255,33 +255,47 @@ A uniform competition-block timestamp is never sufficient proof by itself.
 
 ## 9. Operational capacity gate
 
-After A/B viability and researchability are known, cap the normal Work handoff at **15 fixtures**.
+After A/B viability and researchability are known, build the **complete fixture-level A/B capacity queue first**.
 
-### Fallback capacity-saturation short circuit
+The 15-fixture limit is an **initial Work batch cap**, not a terminal slate exclusion.
 
-When `coverage_mode=FALLBACK_PRODUCTION_SCOPE` and 15 fixtures already fill the Work cap with the maximum current operational profile available in the run (A-grade, XI expected YES, market HIGH, team-news HIGH/MEDIUM, reliable identity/time, researchability PASS), later non-protected/non-required/non-women competition blocks that cannot exceed that profile may be recorded at **block level** as capacity overflow instead of enumerated fixture-by-fixture.
+### Global capacity queue
 
-Requirements:
-- scan the remaining carrier competition headings so no protected/required/women block is skipped;
-- do not use goal profile, odds attractiveness, C state, or expected scoring;
-- a block with materially stronger operational observability than the lowest selected admission must reopen capacity comparison;
-- equal-or-lower operational blocks may be summarized as `BLOCK CAPACITY DEFERRED — STEP0`;
-- protected competition blocks, required competition blocks, and women's top-flight blocks remain fixture-exact regardless of saturation.
-
-This short circuit exists only to avoid fixture-level bookkeeping after the Work cap is already saturated; it does not make unseen fixtures eligible for Work.
+Every plausible A/B fixture must receive a deterministic `Step0 Capacity Queue Rank` before the first 15 are chosen.
 
 Order by operational quality only:
 1. A before B;
-2. stronger XI/market/team-news observability first;
-3. protected major competition class only as an otherwise-equal tie-break.
+2. stronger XI expectation;
+3. stronger market observability;
+4. stronger team-news observability;
+5. protected/required/major senior competition class only as an otherwise-equal operational tie-break;
+6. canonical match identity as the final deterministic tie-break.
 
-Never use Over profile, expected goals, C/C2 state, or attractive odds to choose the 15.
+Kickoff discovery order, source-page order and block arrival order must never decide admission.
+
+Never use Over profile, expected goals, C/C2/C3/C4 state, supported line, attractive odds or outcome knowledge to build the queue.
+
+Initial Work handoff:
+- queue ranks 1–15 -> `ADMITTED_TO_C`;
+- queue ranks 16+ -> `OPERATIONAL_CAPACITY_DEFERRED`, **retained as the Step-1 replenishment queue**.
+
+Persist queue rank for both admitted and deferred A/B fixtures.
+
+### Fallback capacity short circuit
+
+In `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, block-level short-circuiting is allowed only for blocks that are already demonstrably **below the A/B candidate threshold**.
+
+Do **not** short-circuit a block merely because 15 slots are already occupied.
+
+Any block that could plausibly contain an A/B fixture must still be enumerated fixture-by-fixture and inserted into the global capacity queue. Protected competition blocks, required competition blocks and women's top-flight blocks remain fixture-exact regardless.
+
+This prevents early blocks from permanently taking the 15 slots before later equal/stronger fixtures are seen.
 
 Overflow remains recorded as:
 
 `OPERATIONAL CAPACITY DEFERRED — STEP0`
 
-It may be reopened only by explicit user exception.
+but it is now a normal deterministic replenishment pool under Step 1 and does not require a user exception to reopen.
 
 ## 9A. Required competition-block manifest — mandatory
 
