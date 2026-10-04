@@ -21,10 +21,12 @@ on:
       - "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_C3_AIRTABLE.md"
+      - "models/football/airtable/FOOTBALL_C4_AIRTABLE.md"
       - "models/football/prompts/**"
       - "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md"
       - "models/football/challengers/football-c2/**"
       - "models/football/challengers/football-c3/**"
+      - "models/football/challengers/football-c4/**"
       - "models/football/engine/adapter.py"
       - "models/football/engine/core.py"
       - "models/football/engine/tests/**"
@@ -34,6 +36,10 @@ on:
       - "models/football/engine/factor_calibration.py"
       - "models/football/engine/factor_calibration_cli.py"
       - "models/football/engine/decision_triplet_cli.py"
+      - "models/football/engine/step2_reconcile.py"
+      - "models/football/engine/step2_reconcile_cli.py"
+      - "models/football/engine/runtime_probe.py"
+      - "models/football/engine/xi_portable.py"
       - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
@@ -41,6 +47,7 @@ on:
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
+      - "models/football/qa/check_xi_portable_runtime.py"
       - ".github/workflows/football-step2-research-gate.yml"
   pull_request:
     paths:
@@ -62,10 +69,12 @@ on:
       - "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_C3_AIRTABLE.md"
+      - "models/football/airtable/FOOTBALL_C4_AIRTABLE.md"
       - "models/football/prompts/**"
       - "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md"
       - "models/football/challengers/football-c2/**"
       - "models/football/challengers/football-c3/**"
+      - "models/football/challengers/football-c4/**"
       - "models/football/engine/adapter.py"
       - "models/football/engine/core.py"
       - "models/football/engine/tests/**"
@@ -75,6 +84,10 @@ on:
       - "models/football/engine/factor_calibration.py"
       - "models/football/engine/factor_calibration_cli.py"
       - "models/football/engine/decision_triplet_cli.py"
+      - "models/football/engine/step2_reconcile.py"
+      - "models/football/engine/step2_reconcile_cli.py"
+      - "models/football/engine/runtime_probe.py"
+      - "models/football/engine/xi_portable.py"
       - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
@@ -82,6 +95,7 @@ on:
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
+      - "models/football/qa/check_xi_portable_runtime.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
 jobs:
@@ -98,3 +112,7 @@ jobs:
         run: python models/football/qa/check_authority_consistency.py
       - name: Check Football runtime execution contract
         run: python models/football/qa/check_runtime_execution_contract.py
+      - name: Check XI portable runtime freshness
+        run: python models/football/qa/check_xi_portable_runtime.py
+      - name: Self-check XI portable runtime
+        run: python models/football/engine/xi_portable.py self-check

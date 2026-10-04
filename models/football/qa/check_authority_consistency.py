@@ -218,6 +218,8 @@ require(
     "C4-WATCH",
     "C4-PASS",
     "next **5 complete clean Step-1 boards**",
+    "SHADOW C4 (STEP1) — NO STEP2 ACTION",
+    "create a Step-2 action or require extra `/xi` work",
 )
 require(
     "models/football/challengers/football-c4/TEST_PROTOCOL.md",
@@ -397,7 +399,7 @@ require(
     "Required Competition Blocks Complete",
 )
 
-# 5. New-chat handoff freshness must preserve current three-track authority.
+# 5. New-chat handoff freshness must preserve current C/C2/C3 authority and C4 snapshot visibility.
 require(
     "models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md",
     "MANDATORY ROUTER PRECHECK",
@@ -406,13 +408,18 @@ require(
     "OFFICIAL C",
     "SHADOW C2",
     "SHADOW C3",
+    "SHADOW C4 (STEP1)",
+    "read-only frozen C4 snapshot visibility",
     "may never be silently absent",
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "Mandatory three-track visibility",
+    "Mandatory four-model visibility",
     "SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE",
     "SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE",
+    "SHADOW C4 (STEP1): UNAVAILABLE — NO PROSPECTIVE C4 FREEZE",
+    "FOOTBALL_C4_FROZEN_STEP1_SNAPSHOT",
+    "NO STEP2 ACTION",
 )
 require(
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
@@ -479,6 +486,8 @@ require(
     "REPOSITORY PROBE: PASS",
     "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
+    "XI PORTABLE RUNTIME: PASS",
+    "xi_portable.py self-check",
     "runtime_probe.py --stage <rank|xi|audit>",
 )
 require(
@@ -503,7 +512,10 @@ require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "MANDATORY STEP-2 EXECUTION PRECHECK",
     "Lack of an already-existing local repository checkout is **not** engine unavailability",
+    "xi_portable.py self-check",
+    "xi_portable.py triplet",
     "decision_triplet_cli.py",
+    "payload/model contract rejection from the portable runner is **not** a Python/runtime failure",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
     "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
 )
@@ -511,8 +523,11 @@ require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
     "Engine execution is **mandatory** for a completed Step-2 decision",
+    "xi_portable.py self-check",
+    "xi_portable.py triplet",
     "decision_triplet_cli.py",
     "A missing local checkout is **not** engine unavailability",
+    "deterministic payload/contract rejection is not a Python error",
     "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
     "ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>",
     "legacy generic no-execution fallback is forbidden",

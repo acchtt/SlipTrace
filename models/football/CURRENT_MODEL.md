@@ -31,7 +31,7 @@ The aliases are an ergonomic routing layer only. All canonical model/integrity r
 - **Football C** is the only official production model.
 - **Football C2** is a frozen shadow challenger only. It may never create a Website Pick or authorize real exposure.
 - **Football C3** is a separate burden-funding shadow challenger only. It may never create a Website Pick or authorize real exposure.
-- **Football C4** is a prospective structured-evidence challenger for Step 1 only. It may never create Step-2 workload, a Website Pick, live exposure, or real exposure.
+- **Football C4** is a prospective structured-evidence challenger for Step 1 only. It may never create Step-2 workload, a Website Pick, live exposure, or real exposure. When a fixture reaches `/xi`, its prospectively frozen C4 Step-1 snapshot must still be shown for comparison; this visibility is not a C4 Step-2 action.
 - **Python deterministic engine** is a shadow validation layer for C, C2 and C3; C4 uses the separate deterministic structured-evidence compiler.
 - Historical Football A decisions remain historical/rollback only.
 - `FOOTBALL_PRE_DECISION_SPEC.md`, `FOOTBALL_STEP2_EXECUTION_SPEC.md`, and `05_NORMAL_CHAT_FOOTBALL_C.md` are retired historical Football A/shadow artifacts and must not control new production.
@@ -40,7 +40,7 @@ Do not use a C2, C3 or C4 board as the official input to a Football C decision.
 
 ## Active production sequence
 
-`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> C4 STRUCTURED ANCHOR FREEZE -> [C BURDEN-COMPLETION + C2 OWN BURDEN + C3 CLEARING-GOAL FUNDING + C4 STRUCTURED COMPILATION] -> [C OFFICIAL BOARD + C2 SHADOW BOARD + C3 SHADOW BOARD + C4 STEP1 SHADOW] -> C SAME-KICKOFF FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION + C3 SHADOW ACTION] -> C OFFICIAL LIVE/WAIT + C2/C3 SHADOW WAIT -> AUDIT`
+`SENIOR AISCORE DISCOVERY -> COMPETITION RELIABILITY MEMORY -> CURRENT OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY GATE -> COMMON FOOTBALL FACT FREEZE -> C4 STRUCTURED ANCHOR FREEZE -> [C BURDEN-COMPLETION + C2 OWN BURDEN + C3 CLEARING-GOAL FUNDING + C4 STRUCTURED COMPILATION] -> [C OFFICIAL BOARD + C2 SHADOW BOARD + C3 SHADOW BOARD + C4 STEP1 SHADOW] -> C SAME-KICKOFF FOLLOW GUARD -> COMMON XI/RESEARCH FACT FREEZE -> [C OFFICIAL ACTION + C2 SHADOW ACTION + C3 SHADOW ACTION + C4 FROZEN STEP1 SNAPSHOT VISIBILITY] -> C OFFICIAL LIVE/WAIT + C2/C3 SHADOW WAIT -> AUDIT`
 
 The comparison must isolate **policy differences**, not accidental research differences.
 
@@ -174,8 +174,8 @@ For every execution-required `/rank`, `/xi`, or `/audit` stage, first apply:
 Tool/repository availability is a **current-turn observed state**, never an inference from environment shape or a prior handoff. The workflow must:
 - run a real Python probe;
 - probe the connected current repository source for `acchtt/SlipTrace`;
-- materialize the exact-current stage source when no matching checkout exists;
-- run `runtime_probe.py --stage <rank|xi|audit>`;
+- for `/xi`, fetch the exact-current single-file `xi_portable.py`, run `self-check`, then execute the triplet/reconciliation through it;
+- for `/rank` / `/audit`, or XI portable fallback only, materialize the exact-current stage source and run `runtime_probe.py --stage <rank|xi|audit>`;
 - attempt the actual stage command;
 - preserve a `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
@@ -190,8 +190,13 @@ Required result:
 - C2 validator executed;
 - C3 validator executed.
 
-Preferred runner:
-`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+Preferred XI runner:
+`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Before it:
+`python xi_portable.py self-check`
+
+Use `decision_triplet_cli.py` only on the documented multi-file fallback path.
 
 Each triplet freezes the same official C workload authorization:
 - `official_follow_lane`;
@@ -214,7 +219,7 @@ Only an actual failed setup/execution attempt with a complete `FOOTBALL_RUNTIME_
 
 This is execution plumbing only. Python remains a shadow validator; Football C text remains production authority.
 
-## Step 2 — three-track XI + odds
+## Step 2 — C/C2/C3 XI actions + C4 frozen Step-1 visibility
 
 Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
@@ -230,7 +235,8 @@ Perform one common XI + mandatory fresh post-XI web-research + H2H update, freez
 - **Football C official:** C-BET / C-WAIT / C-PASS.
 - **Football C2 shadow:** C2-BET / C2-WAIT / C2-PASS.
 - **Football C3 shadow:** C3-BET / C3-WAIT / C3-PASS when the fixture already receives normal XI/odds assessment.
-- **Python C/C2/C3 shadow validation.**
+- **Football C4 Step-1 snapshot:** always display the prospectively frozen C4 state/rank/supported line when available, labeled no Step-2 action.
+- **Python C/C2/C3 shadow validation** through the portable XI runtime.
 
 Accounting convention:
 - C-BET = direct official model exposure;

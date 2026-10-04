@@ -30,6 +30,7 @@ STAGE_FILES = {
         "models/football/engine/core.py",
         "models/football/engine/competition_reliability.py",
         "models/football/engine/schema.json",
+        "models/football/engine/xi_portable.py",
         "models/football/engine/decision_triplet_cli.py",
         "models/football/engine/step2_reconcile_cli.py",
         "models/football/engine/runtime_probe.py",

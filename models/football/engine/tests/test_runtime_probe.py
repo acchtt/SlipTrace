@@ -23,6 +23,7 @@ class RuntimeProbeTests(unittest.TestCase):
 
     def test_xi_manifest_contains_triplet_and_reconciliation(self):
         files = required_files("xi")
+        self.assertIn("models/football/engine/xi_portable.py", files)
         self.assertIn("models/football/engine/decision_triplet_cli.py", files)
         self.assertIn("models/football/engine/step2_reconcile_cli.py", files)
 

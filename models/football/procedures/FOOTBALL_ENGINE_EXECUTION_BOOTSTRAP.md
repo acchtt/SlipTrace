@@ -16,6 +16,24 @@ A completed Step-2 decision requires deterministic execution for all three track
 - `model=c2`
 - `model=c3`
 
+Primary execution surface:
+`models/football/engine/xi_portable.py`
+
+Fetch the exact-current portable bundle and run:
+
+`python xi_portable.py self-check`
+
+Required:
+`XI PORTABLE RUNTIME: PASS`
+
+Then use the same file for triplet execution and session reconciliation. The portable bundle embeds the exact C/C2/C3 Step-2 modules, so a missing checkout or missing local import tree cannot block the normal XI path.
+
+The multi-file engine path below is fallback only when the exact-current portable bundle itself fails self-check. A payload/model contract rejection from the portable runner is **not** a Python/runtime failure and must be reported as:
+
+`XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`
+
+A contract rejection blocks completion until the frozen payload is corrected from already-supported evidence; it does not justify `FAILED_AFTER_ATTEMPT`.
+
 Lack of an already-existing local repository checkout is **not** engine unavailability.
 
 If the current engine source is accessible through GitHub/files/connectors and a Python runtime is available, the assistant must first create a runnable temporary workspace from the exact current engine source, then execute the validators.
@@ -24,7 +42,10 @@ Do not choose a fallback merely because setup has not yet been performed.
 
 ## 2. Required source set
 
-For Step-2 decision validation, materialize the exact current revision of:
+Primary Step-2 source:
+- `models/football/engine/xi_portable.py`
+
+Only if the portable self-check fails after exact-current retrieval, materialize the fallback exact current revision of:
 
 - `models/football/engine/cli.py`
 - `models/football/engine/adapter.py`
@@ -70,6 +91,14 @@ Never edit a payload after seeing an engine result.
 
 Preferred one-command execution:
 
+`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Preferred session reconciliation:
+
+`python xi_portable.py reconcile --input <step2_reconcile.json>`
+
+Multi-file fallback only:
+
 `python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
 The triplet runner must:
@@ -79,7 +108,7 @@ The triplet runner must:
 - fail non-zero if any payload is missing, malformed or rejected;
 - emit all three results together.
 
-Direct individual CLI calls are acceptable only when the triplet runner itself cannot be used:
+Direct individual CLI calls are acceptable only when both the portable runner and multi-file triplet runner cannot be used:
 
 `python models/football/engine/cli.py decision --input <c.json>`
 
@@ -93,6 +122,7 @@ Fallback is permitted only after the common runtime bootstrap proves an actual s
 
 Examples, each requiring recorded actual probes:
 - all available Python execution probes failed;
+- exact-current `xi_portable.py` failed self-check and the repaired multi-file fallback also failed;
 - the connected GitHub/current Project source probe failed and no exact-current source can be retrieved/materialized;
 - required engine source is corrupt/unreadable;
 - runtime dependency/import failure remains after reasonable setup;
@@ -151,10 +181,11 @@ Python remains shadow validation; Football C text remains production authority.
 A fresh chat must not treat lack of local files as a reason to skip validation.
 
 After the handoff freshness bootstrap:
-1. retrieve current engine source;
-2. materialize a runnable workspace;
+1. retrieve exact-current `xi_portable.py`;
+2. run `xi_portable.py self-check`;
 3. write the three frozen payloads;
-4. run the triplet validator;
-5. preserve results.
+4. run `xi_portable.py triplet`;
+5. preserve results;
+6. use multi-file materialization only if the portable self-check itself fails.
 
 This requirement applies whether the user typed `/xi` explicitly or clearly requested the equivalent XI/odds reassessment.

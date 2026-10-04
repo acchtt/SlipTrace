@@ -289,9 +289,19 @@ For every ranked eligible fixture emit:
 
 C4 is Step-1 shadow only.
 
+For any fixture that reaches `/xi`, the launcher must **display the prospectively frozen C4 Step-1 snapshot** when one exists:
+- C4 state/rank;
+- C4 supported line;
+- route/carrier/funding/control summary;
+- compiler revision;
+- C4 Board N/5 status.
+
+This visibility is read-only. It is not a C4 Step-2 assessment and must be labeled:
+`SHADOW C4 (STEP1) — NO STEP2 ACTION`
+
 C4 must never:
 - create FOLLOW/RESERVE/STOP workload;
-- enter `/xi` automatically;
+- create a Step-2 action or require extra `/xi` work;
 - create a Website Pick;
 - authorize real exposure;
 - modify C/C2/C3 fields;
