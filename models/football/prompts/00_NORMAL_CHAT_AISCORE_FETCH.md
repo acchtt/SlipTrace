@@ -25,6 +25,7 @@ This intake is about **information quality and later executability**, not whethe
 
 Read and apply:
 - `models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
+- `models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md` when the command is `/sweep repair ...`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
@@ -37,6 +38,14 @@ The operational gate is mandatory for every surviving senior fixture before deep
 ## Default mode
 
 `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
+
+If the command is `/sweep repair ...`:
+- set `repair_mode=true`;
+- do **not** execute the normal full discovery path for rows/blocks already complete in the target sweep;
+- follow `FOOTBALL_SWEEP_REPAIR_MODE.md`;
+- reuse the target run's source-acquisition state when still valid;
+- build a finite repair set and stop when it is resolved/closed/unresolved;
+- never keep browsing beyond the repair verification budget.
 
 Do not use:
 - legacy `NARROW_CORE` / PRIORITY-NORMAL-CONDITIONAL as the primary admission rule;
@@ -52,6 +61,8 @@ Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
 
 A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
 
+In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
+
 If the source gate is `SOURCE_BLOCKED`, stop immediately with:
 
 `HANDOFF INCOMPLETE — AISCORE SOURCE BLOCKED`
@@ -65,13 +76,15 @@ Resolve the requested ICT/UTC window once and follow:
 `models/football/procedures/FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`
 
 Every admitted fixture must have:
-- resolved AiScore identity;
+- resolved AiScore/provider identity;
 - authoritative zoned kickoff;
 - verified UTC;
 - verified ICT;
 - in-window proof.
 
 Do not guess timezone from geography or treat a bare display clock as UTC.
+
+In repair mode, verify only fixtures with missing/conflicting time/identity or fixtures expanded from a previously block-deferred A/B block. Once a known fixture's identity and zoned kickoff are authoritatively resolved with no contradiction, stop searching for that fixture.
 
 ## 1. Mandatory senior-block discovery
 
