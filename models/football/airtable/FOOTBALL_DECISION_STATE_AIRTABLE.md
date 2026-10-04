@@ -82,6 +82,12 @@ Persist where applicable:
 - engine C result;
 - engine C2 result where valid.
 
+Semantic evidence-basis persistence:
+- persist non-empty H2H basis whenever H2H is reviewed;
+- persist the basis for primary-mechanism integrity, WAIT reachability, negative-information dependence and material veto in the current Decision State evidence summary and deterministic result;
+- persist common assessment bases for carrier self-funding, independent upper-tail, failure-route attack and material suppression in the current evidence summary / machine result;
+- a bare Boolean without its same-epoch basis is an incomplete current Decision State.
+
 Dedicated C/C2/C3 separation fields:
 - `C Action`;
 - `C Supported Line`;
@@ -276,6 +282,15 @@ Every completed Step-2 Decision State must persist one execution status:
 
 The serialized engine result/evidence summary must also preserve:
 - `fixture_status`;
+- `h2h_basis`;
+- `primary_mechanism_basis`;
+- `wait_reachability_basis`;
+- `wait_negative_info_basis`;
+- `material_veto_basis`;
+- `carrier_self_fund_basis`;
+- `independent_upper_tail_basis`;
+- `failure_attacks_route_basis`;
+- `material_suppression_basis`;
 - `quote_revalidated`;
 - `post_xi_research_note`;
 - C `completion_rechecked` or shadow-owned `c2_route_quality_rechecked` / `c3_funding_rechecked`;
