@@ -110,6 +110,13 @@ On disagreement:
 
 This is how we determine whether inconsistency comes from semantic research inputs or from deterministic rule application.
 
+## Policy-field isolation
+
+The shared assessment carries common route/mechanism evidence. Football C's completion diagnostics are C-owned policy fields:
+`completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk`.
+
+The adapter requires them for `model=c` and deliberately does not parse or emit them for `model=c2` / `model=c3`. C2 therefore cannot accidentally inherit C's burden-completion labels through the generic parser, while C3 relies on its own funding/control fields.
+
 ## Next milestones
 
 1. Run structured text-vs-code comparisons on real boards.
