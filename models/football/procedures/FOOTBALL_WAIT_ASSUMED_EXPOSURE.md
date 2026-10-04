@@ -1,12 +1,17 @@
 # Football WAIT Assumed-Exposure Accounting
 
-**Status:** ACTIVE ACCOUNTING / AUDIT CONVENTION  
-**Applies to:** Football C official WAITs; C2/C3 WAITs as shadow counterfactual accounting  
+**Status:** ACTIVE C-WAIT OPERATIONAL PERSISTENCE COMPATIBILITY  
+**Applies to:** C/C2/C3 WAIT operational fields; all-model audit accounting is governed by `FOOTBALL_MODEL_BET_ACCOUNTING.md`  
 **Predictive effect:** none — this does not change BET/WAIT/PASS selection logic
 
 ## 1. Purpose
 
-A Football C `C-WAIT` is a model instruction with a predeclared target line and minimum odds. For audit simplicity, an unresolved WAIT is now treated as if that target entry was taken unless the user supplies stronger execution truth.
+Read first:
+`models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
+
+This file preserves the existing C-WAIT Website Pick / Decision State mechanics. The all-model accounting ledger now additionally handles C2/C3 WAITs and C/C2/C3/C4 WATCHs with one-accounting-bet precedence.
+
+A Football C `C-WAIT` is a model instruction with a predeclared target line and minimum odds. For audit simplicity, an unresolved WAIT is treated as if that target entry was taken unless the user supplies stronger execution truth.
 
 The frozen model decision remains `C-WAIT`. This procedure changes only exposure/accounting semantics.
 
@@ -60,19 +65,23 @@ A corresponding user bet may differ from the original WAIT target. Do not erase 
 
 ## 5. Explicit line-never-reached override
 
-Only an explicit user statement that the target line never reached may cancel the assumed WAIT exposure.
+Only an explicit user statement that the target line never reached may cancel the WAIT layer.
+
+Under the all-model policy, removing a WAIT layer does not erase an independently frozen WATCH accounting bet for the same model/fixture.
 
 When the user says the line never reached:
 
 - preserve the original `C-WAIT` decision;
 - set `Exposure Basis = WAIT_NOT_REACHED`;
 - set `WAIT Resolution = USER_DECLARED_NOT_REACHED`;
-- remove official model exposure/P&L for that WAIT;
+- remove operational C-WAIT exposure/P&L and the WAIT accounting layer;
 - keep the Website Pick/exposure record as an audit trail and settle it `VOID` / 0u where the persistence layer requires a record.
 
 For audit language:
 
-`WAIT NOT REACHED — USER DECLARED — NO MODEL EXPOSURE`
+`WAIT NOT REACHED — USER DECLARED — NO WAIT LAYER`
+
+If the frozen board state was C-WATCH, model accounting falls back to WATCH_ASSUMED at C supported line @1.65, 1u.
 
 ## 6. What does not cancel an assumed WAIT
 
@@ -140,7 +149,9 @@ C2/C3 remain shadow-only and never create Website Picks.
 
 For model-comparison audit:
 - C2-WAIT and C3-WAIT default to shadow assumed bets at their deterministic target/minimum odds;
-- settle them counterfactually unless the user explicitly states the corresponding target line never reached;
+- settle them through `FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- if the corresponding WAIT is explicitly declared not reached, remove the WAIT layer;
+- if that model's board state was WATCH, the WATCH accounting bet remains;
 - this never creates official exposure or user P/L.
 
 ## 10. Audit rule
@@ -157,7 +168,9 @@ Override only with:
 
 or:
 
-`explicit user "line never reached" -> WAIT_NOT_REACHED -> NO MODEL EXPOSURE`
+`explicit user "line never reached" -> WAIT_NOT_REACHED -> REMOVE WAIT LAYER`
+
+A frozen WATCH accounting bet, if any, remains under `FOOTBALL_MODEL_BET_ACCOUNTING.md`.
 
 Actual user P/L remains separate from model P/L.
 

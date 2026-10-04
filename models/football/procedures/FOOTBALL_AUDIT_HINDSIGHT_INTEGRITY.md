@@ -4,7 +4,9 @@
 **Scope:** Football C official, Football C2 shadow, engine comparison, and historical version-faithful audits  
 **Purpose:** prevent outcome knowledge from rewriting frozen football judgments or exposure semantics.
 
-Also apply `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+Also apply:
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
 
 ## 1. Three-layer audit record
 
@@ -130,7 +132,11 @@ Do not invent causal match narratives from the final score.
 
 ## 4. Exposure and P/L separation
 
-Keep three concepts distinct.
+Keep these concepts distinct:
+- model-accounting bet/P&L;
+- operational official C exposure/Website Pick;
+- actual user execution/P&L;
+- C2/C3/C4 shadow accounting.
 
 ### Model decision
 
@@ -232,7 +238,7 @@ Every material fixture audit must also produce a structured `FOOTBALL_AUDIT_RECO
 
 `python models/football/engine/cli.py audit --input <payload.json>`
 
-The validator enforces:
+The legacy C audit validator enforces:
 - exact canonical frozen grades;
 - no compound grade vocabulary;
 - explicit official C exposure state and basis;
@@ -242,7 +248,18 @@ The validator enforces:
 - actual user P/L only when user execution exists;
 - contemporaneous evidence note whenever `pre_freeze_evidence_miss=true`.
 
-A failing machine record blocks finalization of the prose audit.
+In addition, every current C/C2/C3/C4 fixture must pass:
+
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
+
+The all-model accounting validator enforces:
+- WATCH = own supported line @1.65, 1u;
+- WAIT = own target/minimum odds;
+- direct BET = exact quote;
+- one accounting bet per model/fixture;
+- C official model-accounting vs C2/C3/C4 shadow separation.
+
+A failing legacy audit record or all-model accounting record blocks finalization of the prose audit.
 
 ## 8. No-backfill rule
 

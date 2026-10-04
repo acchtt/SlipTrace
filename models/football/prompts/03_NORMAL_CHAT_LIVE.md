@@ -8,6 +8,7 @@ Read:
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 - `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 
 Football C is official. C2 and C3 are shadow-only.
@@ -97,13 +98,15 @@ Persist official material live state.
 
 If a live C-BET recommendation occurs from a prior C-WAIT, do not automatically replace the existing WAIT assumed-exposure line/odds. Reconcile the Website Pick to actual line/odds/stake only when the user supplies the corresponding bet.
 
-If the user explicitly says the WAIT target line never reached, mark the existing assumed exposure `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`, Result=`VOID`, P/L=0, and remove it from official model P/L.
+If the user explicitly says the WAIT target line never reached, mark the operational C-WAIT exposure `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`, Result=`VOID`, P/L=0, and remove the WAIT layer from C model-accounting.
+
+If the frozen C board state was C-WATCH, retain the independent C-WATCH accounting bet at C supported line @1.65, 1u. Do not erase WATCH accounting merely because the later WAIT target never reached.
 
 ## Football C2 shadow WAIT resolution
 
 If a predeclared C2-WAIT exists, resolve it separately using the same common live evidence and its own target/cancellation conditions. Do not require live-stat confirmation.
 
-Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached.
+Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached. If that occurs and the frozen C2 board state was C2-WATCH, remove only the WAIT layer and retain C2-WATCH accounting at C2 supported line @1.65, 1u.
 
 C2 may produce:
 - `C2-BET — SHADOW`
@@ -117,7 +120,7 @@ C2 may never create Website Pick or real exposure.
 
 If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch. Do not require live-stat confirmation.
 
-Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached.
+Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached. If that occurs and the frozen C3 board state was C3-WATCH, remove only the WAIT layer and retain C3-WATCH accounting at C3 supported line @1.65, 1u.
 
 Recheck:
 - required clearing-goal funding;
@@ -153,5 +156,7 @@ Do not ask the user for live-stat screenshots before assessing. Score/minute/odd
 ## Output
 
 Report official C first, then C2 and C3 shadow comparisons when they exist.
+
+When a WAIT resolution changes accounting precedence, also report the resulting accounting basis for that model (`DIRECT_BET / WAIT_ASSUMED / WATCH_ASSUMED / shadow equivalents / NONE`).
 
 Never allow a C2/C3 live state to overwrite or substitute for the official C live plan.

@@ -9,6 +9,7 @@ Also read:
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
 - `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
 - `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`;
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
 - `models/football/challengers/football-c4/TEST_PROTOCOL.md`;
@@ -114,11 +115,12 @@ For each C4 board audit:
 - identify C-FOCUS -> C4-WATCH/PASS false-positive candidates;
 - identify C-PASS/WATCH -> C4-FOCUS false-negative candidates;
 - track carrier-led winners retained/lost;
-- replay the frozen structured input and require the same C4 output.
+- replay the frozen structured input and require the same C4 output;
+- settle every prospectively frozen C4-WATCH at its own supported line @1.65, 1u as shadow accounting.
 
 A board advances the C4 counter only when its full ranked eligible universe was prospectively complete.
 
-C4 has no Step-2 action and therefore no counterfactual betting P/L in this test.
+C4 still has no Step-2 action or real exposure; its WATCH P/L is shadow model-accounting only.
 
 ## Prospective C3 boundary
 
@@ -189,33 +191,47 @@ Scoreline alone also does not prove causal claims such as "they stopped pushing"
 
 ## Settlement
 
-Settle exact recorded accounting line/odds only.
+Settle all four models through `FOOTBALL_MODEL_BET_ACCOUNTING.md`.
 
-### Football C WAIT default
+For every material fixture build one C/C2/C3/C4 accounting payload and run:
 
-For every C-WAIT with recoverable frozen target/minimum odds:
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
-`WAIT_ASSUMED -> official model exposure=true -> settle target line @ minimum odds`
+Per-model precedence:
 
-Do **not** require proof from later market history that the line was reached. Absence of a user slip does not cancel the model bet.
+`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
 
-Change that default only when:
-- the user supplies an actual corresponding bet -> `WAIT_USER_CONFIRMED`, use exact actual line/odds/stake for the reconciled exposure while preserving original WAIT target; or
-- the user explicitly says the line never reached -> `WAIT_NOT_REACHED`, `NO OFFICIAL EXPOSURE / NO MODEL P&L`.
+### WATCH default — all models
 
-Do not infer `WAIT_NOT_REACHED` yourself from missing data, later screenshots, or unreconstructed market history.
+For C/C2/C3/C4 WATCH with a recoverable frozen supported line:
+- line = that model's supported line;
+- odds = 1.65 assumed audit price;
+- stake = 1u;
+- C basis = `WATCH_ASSUMED`;
+- C2/C3/C4 basis = `SHADOW_WATCH_ASSUMED`.
 
-C2/C3 WAITs use the same assumed-target convention for **shadow counterfactual P/L only** and never become official Website Picks.
+WATCH is model-accounting only. It does not imply a Website Pick or user execution.
 
-C-PASS still has no model P/L.
+### WAIT default — C/C2/C3
 
-Official C model P/L and actual user P/L remain separate:
-- C-BET uses its exact direct exposure quote;
-- unresolved C-WAIT uses its exact target/minimum assumed exposure;
-- user-confirmed C-WAIT uses the exact corresponding user execution for reconciled exposure;
-- actual user P/L uses the user's exact bet slip;
-- a user not placing an assumed/published official C model exposure does not erase model P/L unless the user explicitly says the WAIT target line never reached;
-- a C-BET that failed official publication is an official decision but `NO OFFICIAL EXPOSURE / NO MODEL P&L`.
+For every countable WAIT with recoverable target/minimum odds:
+- C -> `WAIT_ASSUMED`;
+- C2/C3 -> `SHADOW_WAIT_ASSUMED`;
+- line/odds = that model's own target/minimum.
+
+Do **not** require later market-history proof that the line was reached.
+
+If the user explicitly says a WAIT target never reached, remove that WAIT layer only. If the same model had frozen WATCH, WATCH remains countable.
+
+A corresponding actual user bet may reconcile official C WAIT to exact actual line/odds/stake as `WAIT_USER_CONFIRMED`; actual user P/L remains separate.
+
+### Direct BET
+
+C/C2/C3 direct BET uses exact Step-2 quote and supersedes WATCH/WAIT accounting for that model/fixture.
+
+C4 has no Step-2 action; only C4-WATCH can create a C4 accounting bet.
+
+FOCUS/PASS behavior is otherwise unchanged by this policy.
 
 ## Required process checks
 
@@ -258,7 +274,10 @@ Official C model P/L and actual user P/L remain separate:
 - C2 supported burden was independently frozen before paired evaluation;
 - Python C/C2/C3 comparison;
 - live wait state integrity;
-- WAIT assumed-exposure accounting integrity;
+- all-model WATCH/WAIT accounting integrity;
+- one accounting bet per model/fixture;
+- WATCH @ supported line / 1.65 consistency;
+- WAIT model-specific target/minimum consistency;
 - no automatic WAIT_NOT_REACHED inference without an explicit user statement;
 - persistence agreement;
 - actual bet-slip reconciliation.
@@ -334,7 +353,8 @@ For every material fixture, first report:
 - `FROZEN:` exact state/line/grades/action, including WAIT target/minimum odds when applicable;
 - `OBSERVED:` HT/FT and materialization/settlement facts;
 - `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
-- `P&L STATUS:` official C model exposure/P&L + exposure basis (`DIRECT_BET / WAIT_ASSUMED / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED`), actual user execution/P&L, C2 and C3 shadows separately.
+- `MODEL ACCOUNTING:` C/C2/C3/C4 basis, line, odds, stake, settlement and P/L;
+- `P&L STATUS:` C model-accounting P/L, actual user execution/P&L, C2/C3/C4 shadow model-accounting P/L separately.
 
 Then include one `FOOTBALL_AUDIT_RECORD` JSON object using the deterministic audit schema and validate it with:
 
@@ -352,11 +372,11 @@ The machine record is specifically intended to reject:
 - user P/L without user execution.
 
 Then report slate totals:
-- Football C official model P/L;
+- Football C model-accounting P/L (DIRECT BET + WAIT + WATCH under precedence);
 - actual user P/L;
-- C2 shadow counterfactual P/L on exact shadow entries;
-- C3 shadow counterfactual P/L only on exact shadow entries actually produced at Step 2;
-- C4 **no P/L** — Step-1 comparison only;
+- C2 shadow model-accounting P/L;
+- C3 shadow model-accounting P/L;
+- C4 shadow model-accounting P/L from C4-WATCH;
 - paired C-vs-C2 action matrix;
 - paired C-vs-C3 selection matrix;
 - paired C-vs-C4 Step-1 state/rank/line matrix;

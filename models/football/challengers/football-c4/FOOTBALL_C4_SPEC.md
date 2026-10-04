@@ -299,6 +299,8 @@ For any fixture that reaches `/xi`, the launcher must **display the prospectivel
 This visibility is read-only. It is not a C4 Step-2 assessment and must be labeled:
 `SHADOW C4 (STEP1) — NO STEP2 ACTION`
 
+Under `FOOTBALL_MODEL_BET_ACCOUNTING.md`, a frozen C4-WATCH is nevertheless a shadow accounting bet at C4's own supported line, assumed odds 1.65, 1u. This is audit/model-performance accounting only and does not create Step-2 authority.
+
 C4 must never:
 - create FOLLOW/RESERVE/STOP workload;
 - create a Step-2 action or require extra `/xi` work;
@@ -312,6 +314,7 @@ C4 must never:
 Run C4 on the next **5 complete clean Step-1 boards**.
 
 Primary endpoints:
+- C4 shadow accounting settlement/P&L for C4-WATCH at its frozen supported line @1.65;
 - C4 vs C rank inversion;
 - C4 vs C supported-line disagreement;
 - two-goal endpoint rate among C4-FOCUS vs C-FOCUS;

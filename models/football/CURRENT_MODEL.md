@@ -254,7 +254,8 @@ Use:
 
 Also apply:
 - `models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md`;
-- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md` for legacy C-WAIT operational persistence compatibility.
 
 At each Step-2 session freeze the due set from official C workload: every due FOLLOW, each activated RESERVE, and each explicit user exception. Every due fixture must receive one recorded disposition; silent omission blocks session completion.
 
@@ -266,11 +267,14 @@ Perform one common XI + mandatory fresh post-XI web-research + H2H update, freez
 - **Football C4 Step-1 snapshot:** always display the prospectively frozen C4 state/rank/supported line when available, labeled no Step-2 action.
 - **Python C/C2/C3 shadow validation** through the portable XI runtime.
 
-Accounting convention:
-- C-BET = direct official model exposure;
-- C-WAIT = immediate assumed official model exposure at its deterministic WAIT target/minimum odds;
-- C2/C3 WAIT = assumed shadow exposure for challenger P/L only;
-- only a matching user slip or an explicit user statement that the line never reached may replace/cancel the C-WAIT assumed exposure.
+Model-accounting convention:
+- C/C2/C3/C4 WATCH = model-accounting bet at each model's own supported line, assumed odds 1.65, 1u;
+- C/C2/C3 WAIT = model-accounting bet at each model's own deterministic WAIT target/minimum odds;
+- C/C2/C3 direct BET = exact quote accounting;
+- per model/fixture use one accounting entry with `DIRECT BET > WAIT > WATCH > NONE`;
+- C is official model-accounting; C2/C3/C4 are shadow-only;
+- WATCH accounting never creates a Website Pick;
+- a matching user slip reconciles official C WAIT execution; an explicit "line never reached" removes that WAIT layer only.
 
 Only Football C may publish an official Website Pick. Under the current accounting convention both C-BET and C-WAIT publish/reconcile one official Website Pick; C-WAIT retains `Origin C Action = C-WAIT`.
 
@@ -307,7 +311,7 @@ Audit:
 
 `RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C3 shadow board -> C official action -> C2/C3 shadow action -> Python C/C2/C3 -> result`
 
-Audit WAIT accounting under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`: unresolved C-WAITs count as model bets at target/minimum odds; C2/C3 WAITs count as shadow bets. Do not infer a missed line from absent market history.
+Audit all-model accounting under `FOOTBALL_MODEL_BET_ACCOUNTING.md`: WATCHs count at supported line @1.65; C/C2/C3 WAITs count at model-specific target/minimum odds; direct BETs use exact quote; C2/C3/C4 remain shadow-only. Do not infer a missed WAIT line from absent market history.
 
 Audit state is immutable after the fact:
 - preserve exact frozen grades/states/lines;

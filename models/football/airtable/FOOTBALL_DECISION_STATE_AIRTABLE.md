@@ -97,7 +97,9 @@ Dedicated C/C2/C3 separation fields:
 - `C2 Shadow Action`;
 - `C3 Supported Line`;
 - `C3 Shadow Action`;
-- current C3 second-route / goal-3 / goal-4 / control fields defined in `FOOTBALL_C3_AIRTABLE.md`.
+- current C3 second-route / goal-3 / goal-4 / control fields defined in `FOOTBALL_C3_AIRTABLE.md`;
+- `All Model Accounting Result`;
+- `Model Accounting Revision`.
 
 The legacy generic `Verdict` field remains historical compatibility only. Do not encode a new Football C action by reusing Football A-era verdict labels.
 
@@ -179,7 +181,10 @@ The old Football A PRE/EGE/MCE/CC+/OFFICIAL LOCK compiler is not part of this or
 ## 8. Price / wait policy
 
 Apply:
-`models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+
+C/C2/C3/C4 WATCH accounting is handled separately from operational exposure. A frozen WATCH counts at that model's supported line @1.65, 1u.
 
 Football C current price policy:
 
@@ -222,9 +227,9 @@ A matching user slip may reconcile a C-WAIT to exact actual line/odds/stake whil
 If the user explicitly says the target line never reached, the C-WAIT decision remains frozen but official exposure is removed:
 `WAIT_NOT_REACHED — USER_DECLARED — NO MODEL EXPOSURE / NO MODEL P&L`
 
-C2/C3 may never create official exposure; their WAITs may be counted only as shadow assumed exposures for model-comparison audit.
+C2/C3 may never create official exposure; their WAITs and WATCHs are shadow model-accounting only. C4-WATCH is also shadow model-accounting despite C4 having no Step-2 action.
 
-Do not count C-PASS as official model P/L.
+Do not count C-PASS as operational official exposure. A prior C-WATCH may still remain countable in the separate model-accounting ledger.
 
 A missing user slip, missing market-history proof, or lack of later mention does not erase a WAIT_ASSUMED model result.
 
@@ -286,7 +291,14 @@ Dedicated Decision State fields:
 - `WAIT Resolution` — `fldhATXMaqVDB4KpO`
 - `WAIT Reconciliation Note` — `fldbQgbncu2XIXydA`
 
-These fields control audit/exposure bookkeeping only. They do not overwrite `C Action` or the frozen model target.
+These fields control legacy C operational WAIT bookkeeping only. They do not overwrite `C Action` or the frozen model target.
+
+## 11B. All-model accounting fields
+
+- `All Model Accounting Result` — `fldOEt6DO20U9Yyab`
+- `Model Accounting Revision` — `fldIAqPB03Oian4Fw`
+
+Persist the exact C/C2/C3/C4 accounting result after Step-2 reconciliation. The accounting result uses `DIRECT BET > COUNTABLE WAIT > WATCH > NONE`.
 
 ## 12. Market-history fields
 

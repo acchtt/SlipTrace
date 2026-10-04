@@ -5,7 +5,7 @@
 **Official model:** Football C  
 **C4 role:** Step-1-only structured-evidence challenger
 
-C4 fields are comparison metadata only. They must never overwrite C/C2/C3 fields, create Step-2 workload, create Website Picks, or authorize exposure.
+C4 fields are comparison metadata only. They must never overwrite C/C2/C3 fields, create Step-2 workload, create Website Picks, or authorize real exposure. C4-WATCH may create a shadow model-accounting result under `FOOTBALL_MODEL_BET_ACCOUNTING.md`.
 
 ## 1. Daily Coverage Ledger
 
@@ -25,6 +25,8 @@ Dedicated C4 fields:
 - `C4 Structured Evidence` — `fldmP7tAWb2oLXXvy`
 - `C4 Compiler Result` — `fldzWguzzVpUkJE2D`
 - `C4 Compiler Revision` — `fldKvXHBq2P4nlutL`
+- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
+- `Model Accounting Revision` — `fldAt3A1bZW4QSGbF`
 
 Freeze C4 structured evidence and compiler output before outcome knowledge.
 
@@ -78,6 +80,8 @@ Label:
 
 Do not create a C4 Decision State or recompute C4 from XI evidence.
 
+If the frozen state is C4-WATCH, keep the prospectively frozen C4 shadow accounting entry (supported line @1.65, 1u) visible through XI/audit. This does not become a Step-2 action.
+
 ## 5. Independence
 
 Never:
@@ -90,7 +94,7 @@ Never:
 
 ## 6. Audit
 
-Post-slate audit may compare C4 with C for:
+Post-slate audit settles C4-WATCH as shadow model-accounting and may compare C4 with C for:
 - state/rank inversions;
 - supported-line disagreement;
 - two-goal endpoints;

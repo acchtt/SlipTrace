@@ -117,7 +117,27 @@ Each decision payload also carries the official Football C workload lane plus it
 
 Routine FOLLOW and activated RESERVE must match the persisted official lane. STOP requires `USER_EXCEPTION`. The triplet runner rejects mixed authorization across C/C2/C3, preventing a shadow model from silently creating its own Step-2 workload.
 
-### WAIT accounting output
+### All-model WATCH/WAIT accounting
+
+Run:
+
+`python models/football/engine/model_bet_accounting_cli.py --input model_accounting.json`
+
+One fixture payload contains C/C2/C3/C4. The deterministic ledger applies:
+
+`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
+
+- WATCH: model's own supported line @1.65, 1u;
+- WAIT: C/C2/C3 model-specific target/minimum odds;
+- direct BET: exact Step-2 quote;
+- C official model-accounting; C2/C3/C4 shadow-only;
+- C4 participates through WATCH only because C4 has no Step-2 action policy.
+
+The portable XI runtime exposes the same compiler:
+
+`python xi_portable.py accounting --input model_accounting.json`
+
+### WAIT engine output
 
 A deterministic WAIT keeps `action=WAIT` but also emits:
 - `wait_target_line`;
@@ -127,9 +147,9 @@ A deterministic WAIT keeps `action=WAIT` but also emits:
 - `model_accounting_odds`;
 - `wait_resolution_default`.
 
-For Football C, the default is `WAIT_ASSUMED / ASSUMED_REACHED`: model audit treats the WAIT as an exposure at target/minimum odds until a matching user bet reconciles the exact execution or the user explicitly says the target line never reached. C2/C3 use `SHADOW_WAIT_ASSUMED` for comparison P/L only.
+For Football C, the default is `WAIT_ASSUMED / ASSUMED_REACHED`; C2/C3 use `SHADOW_WAIT_ASSUMED`. The all-model ledger resolves these together with prospectively frozen WATCH state.
 
-This is accounting only and does not change the deterministic BET/WAIT/PASS decision.
+This is accounting only and does not change deterministic state/action selection.
 
 Lack of an already-existing local checkout is not runtime unavailability. If current source is accessible and Python is available, materialize/setup a runnable workspace first.
 

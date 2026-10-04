@@ -139,11 +139,17 @@ XI primary:
 XI session reconciliation primary:
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
 
+XI all-model accounting primary:
+`python xi_portable.py accounting --input <model_accounting.json>`
+
 XI multi-file fallback only:
 `python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
 Audit:
 `python models/football/engine/cli.py audit --input <audit.json>`
+
+All-model accounting:
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
 and when factor calibration is due:
 `python models/football/engine/factor_calibration_cli.py --input <observations.json>`
@@ -162,12 +168,14 @@ Materialize:
 - `models/football/engine/c4_semantic.py`
 - `models/football/engine/c4_semantic_cli.py`
 - `models/football/engine/c4_schema.json`
+- `models/football/engine/model_bet_accounting.py`
+- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
 
 ### XI
 
 Primary source:
-- `models/football/engine/xi_portable.py`
+- `models/football/engine/xi_portable.py` (includes Step-2 triplet, reconciliation, and all-model accounting)
 
 Only if portable self-check fails after exact-current retrieval, materialize fallback files:
 - `models/football/engine/cli.py`
@@ -176,7 +184,10 @@ Only if portable self-check fails after exact-current retrieval, materialize fal
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
 - `models/football/engine/decision_triplet_cli.py`
+- `models/football/engine/step2_reconcile.py`
 - `models/football/engine/step2_reconcile_cli.py`
+- `models/football/engine/model_bet_accounting.py`
+- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
 
 ### Audit
@@ -189,6 +200,8 @@ Materialize:
 - `models/football/engine/schema.json`
 - `models/football/engine/factor_calibration.py`
 - `models/football/engine/factor_calibration_cli.py`
+- `models/football/engine/model_bet_accounting.py`
+- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
 
 Materialize additional imported files if the current revision adds a dependency. A missing import after materialization is a setup task first, not immediate proof of unavailability.

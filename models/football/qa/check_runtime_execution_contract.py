@@ -44,6 +44,7 @@ require(
     "XI PORTABLE RUNTIME: PASS",
     "xi_portable.py self-check",
     "xi_portable.py triplet",
+    "xi_portable.py accounting",
     "runtime_probe.py --stage <rank|xi|audit>",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "Do not write \"Python unavailable\" before a real probe fails.",
@@ -69,6 +70,8 @@ require(
     "def self_check",
     "def run_triplet_files",
     "def run_reconcile_file",
+    "def run_accounting_file",
+    "model_bet_accounting",
 )
 require(
     "models/football/qa/check_xi_portable_runtime.py",
@@ -82,6 +85,7 @@ require(
     "test_rank_manifest_contains_both_board_engines",
     "test_xi_manifest_contains_triplet_and_reconciliation",
     "test_audit_manifest_contains_factor_calibration",
+    "test_all_stages_include_model_accounting",
 )
 
 for rel in (
@@ -119,6 +123,7 @@ require(
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "xi_portable.py self-check",
     "xi_portable.py triplet",
+    "xi_portable.py accounting",
     "portable bundle itself fails self-check",
     "raw-network failure while GitHub connector source remains accessible",
 )
