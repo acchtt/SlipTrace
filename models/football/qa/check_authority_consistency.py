@@ -82,6 +82,17 @@ for rel in (
         failures.append(f"{rel}: legacy compiler is not visibly retired at file top")
 
 require(
+    "models/football/prompts/xi.md",
+    "On **every invocation**",
+    "current repository authority",
+    "current authority revision/runtime status",
+)
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "C4 prospectively frozen Step-1 snapshot",
+    "Every invocation must reload the current launcher",
+)
+require(
     "models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md",
     "Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION",
     "LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER",
@@ -421,6 +432,8 @@ require(
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "XI AUTHORITY REVISION:",
+    "XI RUNTIME: PORTABLE PASS",
     "Mandatory four-model visibility",
     "SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE",
     "SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE",
