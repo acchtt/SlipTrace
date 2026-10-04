@@ -110,6 +110,8 @@ Every H2H declaration must carry a non-empty `h2h_basis`. If transferability/cur
 
 Choose one protected Asian-total line or narrow range before current price.
 
+Persist a non-empty `supported_line_basis` explaining why this is the highest burden supported without requiring an optimistic tail. The basis is audit evidence only and has no independent ranking weight.
+
 Question:
 > What is the highest total the football evidence supports without requiring an optimistic tail?
 
@@ -143,6 +145,8 @@ States:
 - `C-FOCUS`
 - `C-WATCH`
 - `C-PASS`
+
+Persist a non-empty `board_state_basis` for the frozen state. This makes the existing semantic screen auditable; it does not create a new numerical FOCUS/WATCH/PASS threshold.
 
 Persist every admitted fixture, including C-PASS, so false negatives can be audited.
 
