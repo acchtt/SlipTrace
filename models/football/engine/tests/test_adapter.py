@@ -1033,6 +1033,8 @@ class AuditRecordContractTests(unittest.TestCase):
                 "c_action": "C-BET",
                 "quote_line": 2.5,
                 "quote_odds": 1.80,
+                "wait_target_line": None,
+                "wait_min_odds": None,
             },
             "observed": {
                 "ht_score": "2-0",
@@ -1052,6 +1054,10 @@ class AuditRecordContractTests(unittest.TestCase):
             "pnl_status": {
                 "official_c_exposure": True,
                 "official_c_model_pnl": -1.0,
+                "official_c_exposure_basis": "DIRECT_BET",
+                "official_c_exposure_line": 2.5,
+                "official_c_exposure_odds": 1.80,
+                "wait_resolution": "NOT_APPLICABLE",
                 "user_executed": False,
                 "user_pnl": None,
                 "c2_shadow_only": False,
@@ -1069,6 +1075,87 @@ class AuditRecordContractTests(unittest.TestCase):
         self.assertEqual(result["frozen"]["continuation_quality"], "HIGH")
         self.assertFalse(result["pnl_status"]["user_executed"])
         self.assertEqual(result["pnl_status"]["official_c_model_pnl"], -1.0)
+
+    def test_wait_assumed_counts_as_official_model_exposure(self):
+        result = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-WAIT",
+                    "quote_line": 2.75,
+                    "quote_odds": 1.85,
+                    "wait_target_line": 2.5,
+                    "wait_min_odds": 1.65,
+                },
+                observed={"settlement": "LOSS"},
+                pnl_status={
+                    "official_c_exposure": True,
+                    "official_c_model_pnl": -1.0,
+                    "official_c_exposure_basis": "WAIT_ASSUMED",
+                    "official_c_exposure_line": 2.5,
+                    "official_c_exposure_odds": 1.65,
+                    "wait_resolution": "ASSUMED_REACHED",
+                    "user_executed": False,
+                    "user_pnl": None,
+                },
+            )
+        )
+        self.assertTrue(result["pnl_status"]["official_c_exposure"])
+        self.assertEqual(
+            result["pnl_status"]["official_c_exposure_basis"],
+            "WAIT_ASSUMED",
+        )
+
+    def test_wait_not_reached_requires_user_declared_no_exposure(self):
+        result = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-WAIT",
+                    "quote_line": 2.75,
+                    "quote_odds": 1.85,
+                    "wait_target_line": 2.5,
+                    "wait_min_odds": 1.65,
+                },
+                observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
+                pnl_status={
+                    "official_c_exposure": False,
+                    "official_c_model_pnl": None,
+                    "official_c_exposure_basis": "WAIT_NOT_REACHED",
+                    "official_c_exposure_line": None,
+                    "official_c_exposure_odds": None,
+                    "wait_resolution": "USER_DECLARED_NOT_REACHED",
+                    "user_executed": False,
+                    "user_pnl": None,
+                },
+            )
+        )
+        self.assertFalse(result["pnl_status"]["official_c_exposure"])
+
+    def test_wait_user_confirmed_requires_user_execution(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "WAIT_USER_CONFIRMED requires user_executed=true",
+        ):
+            run_audit_record(
+                self.audit_record(
+                    frozen={
+                        "c_action": "C-WAIT",
+                        "quote_line": 2.75,
+                        "quote_odds": 1.85,
+                        "wait_target_line": 2.5,
+                        "wait_min_odds": 1.65,
+                    },
+                    pnl_status={
+                        "official_c_exposure": True,
+                        "official_c_model_pnl": -1.0,
+                        "official_c_exposure_basis": "WAIT_USER_CONFIRMED",
+                        "official_c_exposure_line": 2.25,
+                        "official_c_exposure_odds": 1.90,
+                        "wait_resolution": "USER_CONFIRMED",
+                        "user_executed": False,
+                        "user_pnl": None,
+                    },
+                )
+            )
 
     def test_compound_grade_is_rejected(self):
         with self.assertRaisesRegex(ContractError, "continuation_quality"):
@@ -1138,6 +1225,80 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
+    def test_c_wait_emits_assumed_exposure_target(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    supported_line=2.5,
+                ),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 2.75, "odds": 1.85},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "WAIT")
+        self.assertEqual(result["wait_target_line"], 2.5)
+        self.assertEqual(result["wait_min_odds"], 1.65)
+        self.assertEqual(result["model_accounting_status"], "WAIT_ASSUMED")
+        self.assertEqual(result["model_accounting_line"], 2.5)
+        self.assertEqual(result["model_accounting_odds"], 1.65)
+        self.assertEqual(result["wait_resolution_default"], "ASSUMED_REACHED")
+
+    def test_top_focus_wait_uses_soft_zone_minimum(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    supported_line=2.5,
+                ),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 2.75, "odds": 1.85},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=True,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "WAIT")
+        self.assertEqual(result["wait_target_line"], 2.5)
+        self.assertEqual(result["wait_min_odds"], 1.60)
+
+    def test_shadow_wait_emits_shadow_assumed_exposure(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c2",
+                "match": without_c_completion(
+                    match(
+                        board_state="C2-FOCUS",
+                        supported_line=2.5,
+                    )
+                ),
+                "context": decision_context(
+                    board_state="C2-FOCUS",
+                    quote={"line": 3.0, "odds": 1.80},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "WAIT")
+        self.assertEqual(result["model_accounting_status"], "SHADOW_WAIT_ASSUMED")
+
     def test_material_h2h_effect_requires_verified_transferability_and_corroboration(self):
         row = match(
             board_state="C-FOCUS",
