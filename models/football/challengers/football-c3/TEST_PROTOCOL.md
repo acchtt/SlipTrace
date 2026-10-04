@@ -7,9 +7,9 @@
 
 ## 1. Window
 
-Run C3 for the next **5 complete clean boards** after activation.
+Run C3 for the next **5 complete clean ranked boards** after activation.
 
-C3 Board 1 is the first board fully frozen after the activation commit.
+C3 Board 1 is the first post-activation board whose **ranked eligible universe** is fully frozen. Raw handoff items that are correctly quarantined before ranking do not prevent a board from counting.
 
 Historical boards have zero confirmatory C3 weight.
 
@@ -52,14 +52,33 @@ C2 continues its current five-board window under its frozen route-quality policy
 
 C3 gets a separate 1/5 ... 5/5 counter.
 
-## 6. Contamination
+## 6. Board eligibility and contamination
 
-A C3 board is contaminated when:
+Judge eligibility on the **ranked eligible universe**, not on whether every raw handoff item received a model rank.
+
+A correctly quarantined fixture does **not** contaminate the board when all of the following are true:
+- the unresolved identity/time/status/incentive issue was detected before C/C2/C3 ranking;
+- the fixture received no model state, rank, line or lane;
+- it is explicitly preserved as HOLD / INCENTIVE-INCOMPLETE / hard exclusion / operational exclusion;
+- no future/result evidence was used to decide the quarantine;
+- every remaining ranked fixture has a complete prospective C/C2/C3 freeze;
+- there is no evidence that a required competition block or otherwise eligible fixture disappeared from discovery.
+
+Therefore one isolated HOLD does not hold back an otherwise complete board.
+
+A C3 board **is contaminated** when:
 - C3 fields were assigned after outcome knowledge;
 - C3 copied C/C2 supported line instead of deriving its own;
-- required funding basis is missing;
+- a required C3 funding basis is missing on a ranked fixture;
 - common evidence differs materially between models without documentation;
-- tournament/identity/XI integrity gates were bypassed.
+- a mandatory integrity gate was bypassed on a ranked fixture;
+- an unresolved fixture was nevertheless ranked;
+- a required competition/coverage block is missing, leaving the eligible universe incomplete;
+- an eligible fixture was silently dropped rather than explicitly quarantined.
+
+Examples:
+- one Veraguas–Tauro-type identity/time HOLD outside all ranked boards -> **board may still count**;
+- missing Netherlands Eerste Divisie block -> **board contaminated**, because the eligible universe is incomplete.
 
 Contaminated boards do not advance the five-board counter.
 
@@ -73,7 +92,7 @@ Plumbing/QA fixes may be made only when they do not change C3 predictive semanti
 
 ## 8. Evaluation checkpoint
 
-After 5 clean boards report:
+After 5 clean ranked boards report:
 - C vs C3 support-value difference;
 - C vs C3 priority inversions;
 - C vs C3 two-goal endpoint rate;
