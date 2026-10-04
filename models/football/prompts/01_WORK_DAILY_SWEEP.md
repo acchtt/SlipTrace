@@ -3,6 +3,7 @@
 **Command alias:** `/rank`
 
 Read upstream:
+- `models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md`
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
@@ -463,7 +464,15 @@ Then comparison table:
 
 Report funnel:
 
-`ADMITTED -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow`
+`INITIAL ADMITTED -> STEP1 WAVE(S) -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow -> FOLLOW/RESERVE CAPACITY SATURATED OR QUEUE EXHAUSTED`
+
+Also report:
+- initial Step-0 batch size;
+- deferred A/B queue size;
+- replenishment waves used;
+- replenished fixtures;
+- remaining deferred prematch queue count;
+- final FOLLOW / RESERVE / STOP counts.
 
 Also report any:
 - C vs C2 rank inversion;
@@ -568,6 +577,39 @@ If more qualify, preserve official C rank and demote overflow in rank order:
 `FOLLOW overflow -> RESERVE -> STOP`.
 
 Never alter the underlying C state to satisfy the capacity limit.
+
+### Deterministic replenishment — mandatory
+
+The Step-0 15-fixture handoff is the **first research wave only**.
+
+After freezing C state/rank/lane for the current wave, compute:
+`active_lane_count = FOLLOW + RESERVE`.
+
+If `active_lane_count < 10` and prematch `OPERATIONAL_CAPACITY_DEFERRED` A/B fixtures remain:
+
+1. load the deferred A/B queue from Daily Coverage for the same sweep; the initial ZIP Work array is not the complete replenishment pool;
+2. serialize current lane counts + queued candidates and run:
+   `python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`;
+3. require `capacity_replenishment_status = REPLENISHMENT_REQUIRED` before opening a new wave;
+4. read the returned fixtures in ascending immutable `Step0 Capacity Queue Rank`;
+5. skip only fixtures that have already started/left prematch, preserving that reason;
+6. pull only the selector-returned fixtures into the next replenishment wave;
+7. set `Step1 Replenished = true`;
+8. set `Replenishment Wave = 1, 2, ...`;
+9. persist `Replenishment Reason = ACTIVE LANE CAPACITY UNDERFILLED`;
+10. run the full common-evidence + C/C2/C3/C4 Step-1 process on those fixtures;
+11. merge them into the already-frozen board without rewriting earlier evidence;
+12. recompute official C ranking/lane allocation across all still-prematch assessed fixtures;
+13. repeat until FOLLOW+RESERVE reaches 10 or the deferred prematch A/B queue is exhausted.
+
+A STOP/PASS does not permanently consume one of the original 15 research slots.
+
+A fixture that started before its replenishment turn is recorded:
+`REPLENISHMENT SKIPPED — PREMATCH WINDOW CLOSED`
+
+Do not jump ahead in the queue because a later fixture looks more attractive. Do not use model result, price, goals profile, or FT knowledge to choose replenishment order.
+
+This is an operational utilization rule only. It does not require Football C to manufacture 10 non-STOP selections.
 
 ## 10. Revised output
 

@@ -107,9 +107,9 @@ Before discovery, apply:
 
 Step 0 must acquire a complete AiScore date universe before fixture-level discovery. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
 
-When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and every plausible A/B senior candidate fixture-exact; summarize obvious youth/reserve/regional/amateur/non-operational blocks instead of enumerating the entire all-level date page. This is an efficiency/audit-granularity rule only and does not weaken the 15-fixture cap or Work preflight.
+When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and **every plausible A/B senior candidate fixture-exact**; summarize only blocks already demonstrably below the A/B candidate threshold. This is an efficiency/audit-granularity rule only.
 
-After the 15-slot cap is saturated by maximum-profile A-grade admissions, fallback mode may block-defer later equal-or-lower non-protected/non-required/non-women competition blocks without fixture-level enumeration. Required/protected/women blocks remain fixture-exact. Women's rows that started during a prolonged Step-0 repair remain in the women raw manifest as `OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`.
+The 15-fixture limit applies only to the **initial Work wave**. It must not short-circuit discovery of later A/B candidates. Build and persist the complete deterministic A/B capacity queue first; ranks 16+ remain available for mandatory Step-1 replenishment. Women's rows that started during a prolonged Step-0 repair remain in the women raw manifest as `OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`.
 
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
@@ -122,7 +122,8 @@ Every surviving fixture receives a raw current A/B/C/D viability plus explicit X
 - C/D = excluded before Work unless explicitly reopened by the user.
 - CAUTION competition history caps raw A to B.
 - DEMOTED competition history defaults the fixture to C, with at most one fully clean raw-A probation fixture per competition per sweep admitted as B.
-- Normal Work admission is capped at 15 A/B fixtures; overflow is preserved as `OPERATIONAL CAPACITY DEFERRED — STEP0`.
+- Step 0 globally ranks the complete A/B operational candidate pool and sends only the first 15 as the **initial Work batch**; overflow is preserved as `OPERATIONAL CAPACITY DEFERRED — STEP0` with a deterministic queue rank.
+- The 15-fixture limit is not a terminal slate exclusion. Step 1 must replenish from the deferred queue when STOP/PASS/started/invalid fixtures leave unused FOLLOW/RESERVE capacity.
 
 Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but not the operational viability declaration.
 
@@ -154,7 +155,24 @@ C4 must then run:
 
 The first C4 confirmatory window is the next **5 complete clean Step-1 boards** after the C4 activation merge. C4 starts at **0/5**. C4 counter eligibility is independent of C2/C3.
 
-After the board is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
+After each Step-1 wave is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
+
+### Step-1 capacity replenishment
+
+Operational lane capacity is:
+- max FOLLOW = 6;
+- max retained RESERVE = 4.
+
+If `FOLLOW + RESERVE < 10` after a completed wave and prematch A/B fixtures remain in the Step0 capacity queue, Step 1 must pull the next deferred fixtures in ascending `Step0 Capacity Queue Rank` and assess them as the next replenishment wave.
+
+Continue until one of these becomes true:
+1. FOLLOW + RESERVE reaches 10;
+2. no prematch A/B deferred candidate remains;
+3. all remaining queued fixtures have started/left the prematch window.
+
+Never choose replenishment candidates using C/C2/C3/C4 score, expected goals, betting appeal, or result knowledge. Queue order was frozen at Step 0 from operational quality only.
+
+This is a workload utilization rule, not a predictive board-size target.
 
 ## Mandatory Step-2 market-history attempt
 
