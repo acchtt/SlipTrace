@@ -849,67 +849,113 @@ require(
     "test_low_current_continuation_cannot_bet",
 )
 
-# 5. WAIT accounting must treat unresolved model WAITs as assumed bets.
+# 5. All-model accounting must count WATCH/WAIT consistently.
 require(
-    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
-    "ACTIVE ACCOUNTING / AUDIT CONVENTION",
-    "C-WAIT -> WAIT_ASSUMED",
-    "WAIT_USER_CONFIRMED",
-    "USER_DECLARED_NOT_REACHED",
-    "The default remains: **WAIT counted as model bet**",
-    "C2-WAIT and C3-WAIT default to shadow assumed bets",
+    "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md",
+    "ACTIVE AUDIT / MODEL-ACCOUNTING CONVENTION",
+    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
+    "C-WATCH",
+    "C2-WATCH",
+    "C3-WATCH",
+    "C4-WATCH",
+    "odds = **1.65** assumed audit price",
+    "C2/C3/C4 are shadow-only",
+    "C4 has no Step-2 action policy",
+)
+require(
+    "models/football/engine/model_bet_accounting.py",
+    "WATCH_ASSUMED_ODDS = 1.65",
+    "DEFAULT_STAKE_U = 1.0",
+    "def compile_model_bet",
+    "def compile_fixture_accounting",
+    "DIRECT_BET",
+    "WAIT_ASSUMED",
+    "SHADOW_WAIT_ASSUMED",
+    "WATCH_ASSUMED",
+    "SHADOW_WATCH_ASSUMED",
+    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
+)
+require(
+    "models/football/engine/model_bet_accounting_cli.py",
+    "compile_fixture_accounting",
+    "MODEL ACCOUNTING FAILED",
+)
+require(
+    "models/football/engine/tests/test_model_bet_accounting.py",
+    "test_watch_counts_for_all_four_models",
+    "test_wait_replaces_watch_for_c_c2_c3",
+    "test_direct_bet_replaces_wait_and_watch",
+    "test_line_never_reached_removes_wait_but_watch_remains_countable",
+    "test_c4_watch_never_creates_website_pick",
+    "test_step2_pass_does_not_erase_frozen_watch_accounting",
+    "test_asian_quarter_settlement",
+    "test_all_model_fixture_output",
 )
 require(
     "models/football/production/FOOTBALL_C.md",
-    "C-WAIT immediately creates an assumed 1u model exposure",
-    "matching user bet slip",
-    "target line never reached",
+    "every frozen `C-WATCH` is also a model-accounting bet",
+    "C-WAIT creates the higher-priority C model-accounting entry",
+    "C-WATCH accounting is audit/model-performance only",
+)
+require(
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
+    "every frozen `C2-WATCH` is a shadow accounting bet",
+    "C2-WAIT is a shadow accounting bet",
+)
+require(
+    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
+    "every frozen C3-WATCH is a shadow accounting bet",
+    "A C3-WAIT is a shadow accounting bet",
+)
+require(
+    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
+    "a frozen C4-WATCH is nevertheless a shadow accounting bet",
+    "does not create Step-2 authority",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "All-model WATCH accounting — mandatory",
+    "model_bet_accounting_cli.py",
+    "C Model Accounting",
+    "C4 Shadow Accounting",
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "C Exposure Basis = WAIT_ASSUMED",
-    "WAIT Resolution = ASSUMED_REACHED",
-    "wait_target_line",
-    "wait_min_odds",
-    "does **not** wait for later market confirmation",
+    "All-model accounting reconciliation",
+    "xi_portable.py accounting",
+    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
+    "Step-2 PASS does not erase a frozen WATCH accounting entry",
 )
 require(
-    "models/football/engine/core.py",
-    "def wait_accounting_target",
-    "min(ctx.quote.line, a.supported_line)",
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
+    "WATCH default — all models",
+    "WATCH_ASSUMED",
+    "SHADOW_WATCH_ASSUMED",
+    "C4 shadow model-accounting P/L from C4-WATCH",
 )
 require(
-    "models/football/engine/adapter.py",
-    "model_accounting_status",
-    "WAIT_ASSUMED",
-    "SHADOW_WAIT_ASSUMED",
-    "wait_resolution_default",
-    "WAIT_USER_CONFIRMED",
-    "WAIT_NOT_REACHED",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_c_wait_emits_assumed_exposure_target",
-    "test_top_focus_wait_uses_soft_zone_minimum",
-    "test_shadow_wait_emits_shadow_assumed_exposure",
-    "test_wait_assumed_counts_as_official_model_exposure",
-    "test_wait_not_reached_requires_user_declared_no_exposure",
-    "test_wait_user_confirmed_requires_user_execution",
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "fldND2leUXgAq9UQl",
+    "fldlWroOrJdYF3lHn",
+    "fldEMKp5LzS5IZQpJ",
+    "fldNvPrq9WTW9118X",
+    "fldAt3A1bZW4QSGbF",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "C Exposure Basis",
-    "fldf6w7o7yi8KPr2G",
-    "WAIT Resolution",
-    "fldhATXMaqVDB4KpO",
+    "fldOEt6DO20U9Yyab",
+    "fldIAqPB03Oian4Fw",
+    "All Model Accounting Result",
+)
+require(
+    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
+    "ACTIVE C-WAIT OPERATIONAL PERSISTENCE COMPATIBILITY",
+    "FOOTBALL_MODEL_BET_ACCOUNTING.md",
+    "removing a WAIT layer does not erase an independently frozen WATCH accounting bet",
 )
 require(
     "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md",
     "WAIT_ASSUMED",
-    "fldMXXFFBRvvP8oY0",
-    "fldqiojwbqh9YbjpE",
-    "fldevFLmEr1Ph329Q",
-    "fldbi330Zr4hQXVkO",
     "Actual User Bet Confirmed",
 )
 
