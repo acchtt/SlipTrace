@@ -144,6 +144,10 @@ class MatchAssessment:
     # become an implicit favorable state in the deterministic validator.
     main_failure: str
     h2h_state: str
+    h2h_effect: str
+    h2h_transferability: str
+    h2h_current_corroboration: str
+    h2h_material_effect: bool
     h2h_basis: str
 
     supported_line: float
