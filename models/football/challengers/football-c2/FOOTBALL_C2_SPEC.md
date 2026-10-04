@@ -112,6 +112,8 @@ Board states:
 
 Persist a non-empty `board_state_basis` for the frozen C2 state. This is traceability for the existing challenger classification, not a new state threshold.
 
+Under `FOOTBALL_MODEL_BET_ACCOUNTING.md`, every frozen `C2-WATCH` is a shadow accounting bet at C2's own supported line, assumed odds 1.65, 1u.
+
 ### 6.1 Selection-quality floor
 
 A direct C2-BET requires one of:
@@ -242,6 +244,8 @@ A WAIT must declare:
 - cancellation condition;
 - thesis-health requirement.
 
+C2-WAIT is a shadow accounting bet at C2's deterministic target/minimum odds and replaces C2-WATCH accounting for the same fixture while countable. If the user explicitly states that C2's target never reached, the WAIT layer is removed and a frozen C2-WATCH remains countable.
+
 ### C2-PASS
 Use when football quality is inadequate, failure risk remains mechanism-level, burden is unsupported, or WAIT is structurally unrealistic.
 
@@ -302,7 +306,7 @@ Model identifier:
 
 Never create an official Website Pick.
 
-Record enough information for rank/state, routes/carrier, supported line, selection-floor result, bridge result, XI state, current quote, action, wait resolution, final score and counterfactual settlement.
+Record enough information for rank/state, routes/carrier, supported line, selection-floor result, bridge result, XI state, current quote, action, wait resolution, all-model accounting basis/line/odds, final score and counterfactual settlement.
 
 ## 18. Trial integrity
 
