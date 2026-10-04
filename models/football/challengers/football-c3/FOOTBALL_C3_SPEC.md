@@ -158,6 +158,8 @@ Use when:
 - evidence confidence = MEDIUM; or
 - mechanism is credible but one material uncertainty remains.
 
+Under `FOOTBALL_MODEL_BET_ACCOUNTING.md`, every frozen C3-WATCH is a shadow accounting bet at C3's own supported line, assumed odds 1.65, 1u.
+
 ### C3-PASS
 
 Use when:
@@ -241,6 +243,8 @@ C3 has no C2-style market-gap bridge.
 
 If the current quote is above C3 supported burden, C3 may WAIT — SHADOW only when the original funding mechanism remains intact and a realistic target is reachable.
 
+A C3-WAIT is a shadow accounting bet at C3's deterministic target/minimum odds and replaces C3-WATCH accounting for the same fixture while countable. If the user explicitly states that C3's target never reached, the WAIT layer is removed and a frozen C3-WATCH remains countable.
+
 ## 12. Live
 
 C3 live handling is comparison-only and only for a predeclared C3-WAIT on a fixture already in the normal live workflow.
@@ -253,7 +257,7 @@ No opportunistic C3-only live exposure.
 
 ## 13. Primary experiment
 
-The primary C3 endpoint is **selection quality**, not extra exposure.
+The primary C3 endpoint is **selection quality**, not real exposure. WATCH/WAIT accounting is shadow model-performance bookkeeping only and creates no Website Pick or real exposure.
 
 Measure:
 - two-goal endpoint rate;
