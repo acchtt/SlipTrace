@@ -68,7 +68,11 @@ Dedicated current fields now include:
 - `C3 Lane`;
 - `C3 Supported Line`;
 - `C3 Second Route Role`;
-- C3 goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`.
+- C3 goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`;
+- `C4 Shadow State`;
+- `C4 Shadow Rank`;
+- `C4 Supported Line`;
+- C4 structured compiler fields defined in `FOOTBALL_C4_AIRTABLE.md`.
 
 Also preserve:
 - Common Evidence Basis;
@@ -111,7 +115,9 @@ C3 shadow fields/notes must also be separate:
 - C3 forced-chaos verification and basis.
 - Board Triplet Common-Evidence Reconciliation Status / engine revision where available.
 
-C2/C3 must never overwrite official C fields.
+C2/C3/C4 must never overwrite official C fields.
+
+C4 is Step-1-only. C4 persistence belongs in Daily Coverage + Sweep Runs only; do not create C4 Decision States or Website Picks.
 
 ## 5. Publish = exact copy, never re-screen
 
@@ -128,17 +134,19 @@ If publisher output conflicts with the frozen board:
 
 `PERSISTENCE SYNC FAULT — FROZEN FOOTBALL C BOARD PRESERVED`
 
-## 6. C / C2 / C3 policy separation
+## 6. C / C2 / C3 / C4 policy separation
 
-The underlying football evidence epoch is shared, but model policy is separate.
+The underlying football research epoch is shared, but model policy/compilation is separate.
 
-Persist C, C2 and C3 supported burdens independently.
+Persist C, C2, C3 and C4 supported burdens independently.
 
 A C2 row without an independently frozen C2 burden is incomplete for C-vs-C2 paired evaluation.
 
 A C3 row without an independently frozen C3 burden/funding block is incomplete for C-vs-C3 paired evaluation.
 
-Do not populate C3 fields from Football C completion labels or C2 route-quality output.
+A C4 row without complete structured evidence anchors and deterministic compiler output is incomplete for C-vs-C4 paired evaluation. C4 incompleteness does not invalidate an otherwise clean official C/C2/C3 board, but it makes that board ineligible for the C4 0/5 counter.
+
+Do not populate C3 fields from Football C completion labels or C2 route-quality output. Do not populate C4 compiled fields by copying C/C2/C3 semantic grades.
 
 ## 7. Women's top-flight reconciliation
 
@@ -165,7 +173,7 @@ Also verify:
 - every active fixture lies inside the corrected ICT window;
 - no unresolved schedule identity is treated as active;
 - women's-top-flight counts reconcile;
-- C2/C3 shadow data never replaced C.
+- C2/C3/C4 shadow data never replaced C.
 
 If these fail:
 
