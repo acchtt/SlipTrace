@@ -136,6 +136,11 @@ For ordinary domestic/small blocks, admit only when operational viability is A/B
 
 ## Step 1 — official board + three shadow comparisons
 
+If the user supplies a completed repaired Step-0 handoff, first apply:
+`models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
+
+Once accepted, the repaired handoff is authoritative for fixture identity, kickoff, Step-0 dispositions and capacity queue. /rank must not re-verify or repair those fields on the web. Step-1 web research is for football/model evidence only.
+
 Use:
 `models/football/prompts/01_WORK_DAILY_SWEEP.md`
 
