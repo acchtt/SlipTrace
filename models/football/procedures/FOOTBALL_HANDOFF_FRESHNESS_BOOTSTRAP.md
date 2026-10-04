@@ -17,7 +17,7 @@ Before executing /rank, /xi, /live, /audit, /report, or an equivalent natural-la
 
 If a handoff names an older model roster or older launcher behavior, the current repository authority wins for **current execution semantics**.
 
-Do not silently continue an old model roster after newer shadow challengers become active. C4 is Step-1-only; its activation changes current `/rank` semantics but does not add a fourth `/xi` or `/live` track.
+Do not silently continue an old model roster after newer shadow challengers become active. C4 is Step-1-only; its activation changes current `/rank` semantics and adds **read-only frozen C4 snapshot visibility** to `/xi`, but it does not create a fourth Step-2 or `/live` action track.
 
 ## 2. Preserve historical fidelity
 
@@ -45,14 +45,20 @@ For `/rank`, current output must account for:
 - **SHADOW C3**
 - **SHADOW C4 — STEP 1 ONLY**
 
-For `/xi` and `/live`, the visible execution roster remains exactly:
+For `/xi`, visible output must contain:
+- **OFFICIAL C**
+- **SHADOW C2**
+- **SHADOW C3**
+- **SHADOW C4 (STEP1) — NO STEP2 ACTION**
+
+For `/live`, the visible execution roster remains:
 - **OFFICIAL C**
 - **SHADOW C2**
 - **SHADOW C3**
 
-C4 must not be synthesized at Step 2/live because it has no execution policy.
+C4 must not be synthesized into a Step-2/live action because it has no execution policy. In `/xi`, only retrieve/display its prospectively frozen Step-1 snapshot.
 
-Never omit C2 or C3 merely because:
+Never omit C2, C3, or the required C4 XI snapshot line merely because:
 - the handoff predates the challenger;
 - the handoff only mentions older tracks;
 - a frozen challenger line is missing;
@@ -68,6 +74,8 @@ Examples:
 `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`
 
 `SHADOW C3: COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`
+
+`SHADOW C4 (STEP1): UNAVAILABLE — NO PROSPECTIVE C4 FREEZE`
 
 ## 4. Natural-language continuation
 
@@ -94,13 +102,19 @@ Runtime availability is also never inherited from a handoff. A previous "Python 
 
 ## 6. Output invariant
 
-For /xi and /live, every material match block must contain all three visible track lines:
+For /xi, every material match block must contain all four visible model lines:
 
 - `OFFICIAL C: ...`
 - `SHADOW C2: ...`
 - `SHADOW C3: ...`
+- `SHADOW C4 (STEP1): ... — NO STEP2 ACTION` or an explicit C4 UNAVAILABLE/COMPARISON INCOMPLETE reason.
 
-The shadow lines may be BET/WAIT/PASS, UNAVAILABLE, or COMPARISON INCOMPLETE.
+For /live, every material match block must contain:
+- `OFFICIAL C: ...`
+- `SHADOW C2: ...`
+- `SHADOW C3: ...`
+
+The shadow lines may be BET/WAIT/PASS, UNAVAILABLE, or COMPARISON INCOMPLETE. C4's XI line is read-only frozen Step-1 context.
 
 They may never be silently absent.
 
@@ -109,7 +123,7 @@ They may never be silently absent.
 Any new handoff must:
 - identify Football C as official;
 - identify C2 and C3 as Step-2-capable shadow challengers;
-- identify C4 as a Step-1-only structured-evidence shadow challenger when C4 is active;
+- identify C4 as a Step-1-only structured-evidence shadow challenger when C4 is active and state that /xi must display its frozen Step-1 snapshot without creating a C4 Step-2 action;
 - state that future chats must reload `CURRENT_MODEL.md` and the current stage launcher before execution;
 - state that execution-required stages must re-probe Python/repository availability and may not inherit an old runtime-failure claim;
 - distinguish frozen historical state from current execution semantics.
