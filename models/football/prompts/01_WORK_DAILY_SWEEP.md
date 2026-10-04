@@ -24,7 +24,11 @@ Read upstream:
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
-If the attached file is a completed repaired sweep, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` **before any web research**. Once accepted, its fixture identity, kickoff, Step-0 dispositions and capacity queue are frozen for /rank.
+If the attached file is a completed repaired sweep, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` **before any web research**.
+
+First run the local repaired-handoff metadata normalizer. Duplicate `disposition` vs `final_step0_disposition`, stale women counters, or non-boolean `women_top_flight` values must be normalized locally when the complete fixture-level manifest makes the canonical value deterministic.
+
+Once accepted, its fixture identity, kickoff, canonical Step-0 dispositions and capacity queue are frozen for /rank.
 
 Require:
 `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
@@ -40,7 +44,11 @@ If package/completeness fails:
 
 Do not rebuild the raw universe in Work.
 
-For an accepted repaired handoff, do not re-verify kickoff/fixture identity on the web and do not run Step-0 repair inside /rank. If a material contradiction is discovered incidentally during Step-1 research, emit `REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR` rather than repairing it here.
+For an accepted repaired handoff, do not re-verify kickoff/fixture identity on the web and do not run Step-0 repair inside /rank.
+
+Metadata alias/counter normalization under `repaired_handoff_normalize.py` is explicitly allowed because it changes no fixture identity, kickoff, operational evidence, queue rank, or final disposition.
+
+If a material non-metadata contradiction is discovered incidentally during Step-1 research, emit `REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR` rather than repairing it here.
 
 ## 0A. Required competition coverage preflight — fail closed
 
