@@ -244,6 +244,7 @@ Required common context fields:
 - `h2h_review_status = REVIEWED_USABLE / REVIEWED_LIMITED / NOT_USABLE / UNAVAILABLE`;
 - `h2h_rechecked = true`;
 - non-empty `h2h_basis`;
+- `thesis_state` + non-empty `thesis_state_basis`;
 - `top_ranked_focus`;
 - `primary_mechanism_intact` + non-empty `primary_mechanism_basis`;
 - `wait_reachable` + non-empty `wait_reachability_basis`;
