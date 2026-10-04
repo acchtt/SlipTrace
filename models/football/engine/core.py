@@ -65,6 +65,12 @@ class FollowLane(Enum):
     FOLLOW = "FOLLOW"
 
 
+class Step2Authorization(Enum):
+    ROUTINE_FOLLOW = "ROUTINE_FOLLOW"
+    RESERVE_ACTIVATED = "RESERVE_ACTIVATED"
+    USER_EXCEPTION = "USER_EXCEPTION"
+
+
 class ThesisState(IntEnum):
     BROKEN = 0
     DEGRADED = 1
@@ -293,6 +299,8 @@ class Quote:
 @dataclass(frozen=True)
 class DecisionContext:
     board_state: BoardState
+    official_follow_lane: FollowLane
+    step2_authorization: Step2Authorization
     thesis_state: ThesisState
     quote: Quote
 
@@ -671,8 +679,38 @@ def _healthy_wait(ctx: DecisionContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
+def _validate_step2_authorization(
+    ctx: DecisionContext,
+    *,
+    require_c_focus: bool,
+) -> None:
+    """Fail closed when Step-2 workload authorization does not match C's lane."""
+
+    if ctx.step2_authorization == Step2Authorization.USER_EXCEPTION:
+        return
+
+    expected_lane = (
+        FollowLane.FOLLOW
+        if ctx.step2_authorization == Step2Authorization.ROUTINE_FOLLOW
+        else FollowLane.RESERVE
+    )
+    if ctx.official_follow_lane != expected_lane:
+        raise ValueError(
+            "DECISION BLOCKED — STEP2 AUTHORIZATION/LANE MISMATCH: "
+            f"authorization={ctx.step2_authorization.value}, "
+            f"official_follow_lane={ctx.official_follow_lane.value}"
+        )
+
+    if require_c_focus and ctx.board_state != BoardState.FOCUS:
+        raise ValueError(
+            "DECISION BLOCKED — ROUTINE/RESERVE C STEP2 REQUIRES C-FOCUS"
+        )
+
+
 def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     """Deterministic Football C execution policy."""
+
+    _validate_step2_authorization(ctx, require_c_focus=True)
 
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
@@ -770,6 +808,8 @@ def c2_bridge_eligibility(
 def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     """Deterministic C2 shadow execution policy."""
 
+    _validate_step2_authorization(ctx, require_c_focus=False)
+
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
 
@@ -830,6 +870,8 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
 
 def decide_c3(a: C3PolicyAssessment, ctx: DecisionContext) -> Decision:
     """C3 shadow execution: funding integrity first, same price policy as C."""
+
+    _validate_step2_authorization(ctx, require_c_focus=False)
 
     base = a.base
     if ctx.thesis_state == ThesisState.BROKEN:
