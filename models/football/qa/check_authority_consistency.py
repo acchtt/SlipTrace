@@ -36,10 +36,12 @@ def forbid(rel: str, *needles: str) -> None:
 require(
     "models/football/CURRENT_MODEL.md",
     "Active official model:** Football **C**",
-    "Shadow challengers:** Football **C2** and Football **C3**",
+    "Shadow challengers:** Football **C2**, Football **C3**, and Football **C4**",
     "retired historical Football A/shadow artifacts",
     "Step-2 fail-closed validator repair",
     "C3 burden-funding prospective test",
+    "Football C4",
+    "Step-1-only structured-evidence challenger",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
