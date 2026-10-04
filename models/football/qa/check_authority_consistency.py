@@ -376,7 +376,42 @@ require(
     "Board Triplet Common-Evidence Reconciliation Status",
 )
 
-# 4C. Sweep repair must be bounded and reuse persisted state.
+# 4C. Repaired handoffs must be frozen Step-0 authority for /rank.
+require(
+    "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
+    "ACTIVE STEP-0 INPUT AUTHORITY",
+    "REPAIRED HANDOFF AUTHORITY: ACCEPTED",
+    "structural compatibility",
+    "file-local",
+    "must not",
+    "search the web to re-verify fixture kickoff",
+    "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
+    "REPAIRED HANDOFF INCOMPLETE — STEP0 REPAIR REQUIRED",
+)
+require(
+    "models/football/prompts/rank.md",
+    "FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
+    "Do not re-run fixture discovery, kickoff verification, or Step-0 repair in /rank",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "If the attached file is a completed repaired sweep",
+    "do not re-verify kickoff/fixture identity on the web",
+    "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
+)
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "structurally complete repaired handoff",
+    "Do not use /rank to repair Step 0",
+)
+require(
+    "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md",
+    "step0_fixture_universe_frozen = true",
+    "capacity_queue_complete = true",
+    "repair_status = COMPLETE",
+)
+
+# 4D. Sweep repair must be bounded and reuse persisted state.
 require(
     "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md",
     "ACTIVE BOUNDED REPAIR CONTROL",
@@ -412,7 +447,7 @@ require(
     "Repair mode must not restart broad acquisition/discovery",
 )
 
-# 4D. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
+# 4E. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
 require(
     "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
     "ACTIVE OPERATIONAL CAPACITY CONTROL",
@@ -464,7 +499,7 @@ require(
     "fldUxHPEnQpGSJVmC",
 )
 
-# 4E. Required competition coverage must fail closed before Work.
+# 4F. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
     "MANDATORY STEP-0 COVERAGE INVARIANT",
@@ -586,7 +621,7 @@ require(
     "test_unavailable_market_history_can_continue_after_attempt",
 )
 
-# 4F. Execution-required stages must probe current runtime/repository state.
+# 4G. Execution-required stages must probe current runtime/repository state.
 require(
     "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
     "MANDATORY EXECUTION PRECHECK",
