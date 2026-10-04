@@ -463,7 +463,15 @@ Then comparison table:
 
 Report funnel:
 
-`ADMITTED -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow`
+`INITIAL ADMITTED -> STEP1 WAVE(S) -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow -> FOLLOW/RESERVE CAPACITY SATURATED OR QUEUE EXHAUSTED`
+
+Also report:
+- initial Step-0 batch size;
+- deferred A/B queue size;
+- replenishment waves used;
+- replenished fixtures;
+- remaining deferred prematch queue count;
+- final FOLLOW / RESERVE / STOP counts.
 
 Also report any:
 - C vs C2 rank inversion;
@@ -568,6 +576,35 @@ If more qualify, preserve official C rank and demote overflow in rank order:
 `FOLLOW overflow -> RESERVE -> STOP`.
 
 Never alter the underlying C state to satisfy the capacity limit.
+
+### Deterministic replenishment — mandatory
+
+The Step-0 15-fixture handoff is the **first research wave only**.
+
+After freezing C state/rank/lane for the current wave, compute:
+`active_lane_count = FOLLOW + RESERVE`.
+
+If `active_lane_count < 10` and prematch `OPERATIONAL_CAPACITY_DEFERRED` A/B fixtures remain:
+
+1. read the deferred fixtures in ascending `Step0 Capacity Queue Rank`;
+2. skip only fixtures that have already started/left prematch, preserving that reason;
+3. pull at most `10 - active_lane_count` fixtures into the next replenishment wave;
+4. set `Step1 Replenished = true`;
+5. set `Replenishment Wave = 1, 2, ...`;
+6. persist `Replenishment Reason = ACTIVE LANE CAPACITY UNDERFILLED`;
+7. run the full common-evidence + C/C2/C3/C4 Step-1 process on those fixtures;
+8. merge them into the already-frozen board without rewriting earlier evidence;
+9. recompute official C ranking/lane allocation across all still-prematch assessed fixtures;
+10. repeat until FOLLOW+RESERVE reaches 10 or the deferred prematch A/B queue is exhausted.
+
+A STOP/PASS does not permanently consume one of the original 15 research slots.
+
+A fixture that started before its replenishment turn is recorded:
+`REPLENISHMENT SKIPPED — PREMATCH WINDOW CLOSED`
+
+Do not jump ahead in the queue because a later fixture looks more attractive. Do not use model result, price, goals profile, or FT knowledge to choose replenishment order.
+
+This is an operational utilization rule only. It does not require Football C to manufacture 10 non-STOP selections.
 
 ## 10. Revised output
 
