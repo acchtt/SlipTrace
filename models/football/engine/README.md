@@ -81,7 +81,15 @@ Decision:
 
 `python models/football/engine/cli.py decision --input decision.json`
 
-The launcher must preserve the structured input even when runtime execution is unavailable. This creates an auditable boundary between semantic research judgments and deterministic rules.
+Mandatory Step-2 triplet:
+
+`python models/football/engine/decision_triplet_cli.py --c c.json --c2 c2.json --c3 c3.json`
+
+For completed Step-2 decisions, the launcher must execute C/C2/C3 through the deterministic engine. Use `decision_triplet_cli.py` to run all three payloads as one fail-closed unit.
+
+Lack of an already-existing local checkout is not runtime unavailability. If current source is accessible and Python is available, materialize/setup a runnable workspace first.
+
+Only after an actual setup/execution attempt fails may the workflow fall back, and the exact technical reason must be preserved. The generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.
 
 ## Validation authority
 
