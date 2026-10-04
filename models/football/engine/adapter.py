@@ -22,6 +22,7 @@ from core import (
     Quote,
     RouteStrength,
     SecondRouteRole,
+    Step2Authorization,
     ThesisState,
     XiStatus,
     c2_selection_floor,
@@ -860,6 +861,16 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     board_state = _enum(
         BoardState, _required(ctx_obj, "board_state"), "board_state"
     )
+    official_follow_lane = _enum(
+        FollowLane,
+        _required(ctx_obj, "official_follow_lane"),
+        "official_follow_lane",
+    )
+    step2_authorization = _enum(
+        Step2Authorization,
+        _required(ctx_obj, "step2_authorization"),
+        "step2_authorization",
+    )
     thesis_state = _enum(
         ThesisState, _required(ctx_obj, "thesis_state"), "thesis_state"
     )
@@ -869,6 +880,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
 
     ctx = DecisionContext(
         board_state=board_state,
+        official_follow_lane=official_follow_lane,
+        step2_authorization=step2_authorization,
         thesis_state=thesis_state,
         quote=Quote(
             line=_number(quote_obj, "line"),
@@ -902,6 +915,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "decision_result",
         "model": model,
         "match_id": a.match_id,
+        "official_follow_lane": official_follow_lane.value,
+        "step2_authorization": step2_authorization.value,
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
