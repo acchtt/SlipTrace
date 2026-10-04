@@ -1065,6 +1065,42 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
+    def test_c2_decision_does_not_require_c_completion_diagnostics(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c2",
+                "match": without_c_completion(match(board_state="C2-FOCUS")),
+                "context": decision_context(board_state="C2-FOCUS"),
+            }
+        )
+        self.assertEqual(result["action"], "BET")
+        self.assertNotIn("current_burden_completion_quality", result)
+        self.assertNotIn("current_continuation_quality", result)
+        self.assertNotIn("current_burden_stall_risk", result)
+
+    def test_c3_decision_does_not_require_c_completion_diagnostics(self):
+        row = without_c_completion(
+            match(
+                board_state="C3-FOCUS",
+                carrier="STRONG",
+                carrier_self_fund=True,
+                independent_upper_tail=True,
+            )
+        )
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c3",
+                "match": row,
+                "context": decision_context(board_state="C3-FOCUS"),
+            }
+        )
+        self.assertEqual(result["action"], "BET")
+        self.assertNotIn("current_burden_completion_quality", result)
+
     def test_c_decision_is_computed_from_structured_input(self):
         result = run_decision(
             {
