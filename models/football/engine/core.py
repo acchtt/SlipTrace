@@ -320,6 +320,7 @@ class DecisionContext:
     official_follow_lane: FollowLane
     step2_authorization: Step2Authorization
     thesis_state: ThesisState
+    thesis_state_basis: str
     quote: Quote
 
     xi_status: XiStatus
