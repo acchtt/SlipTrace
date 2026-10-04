@@ -78,9 +78,14 @@ Runs Step 1 against the attached/current canonical AiScore handoff.
 
 Examples:
 - attach the sweep ZIP, then type `/rank`;
+- attach a completed repaired sweep ZIP, then type `/rank`;
 - `/rank reassess` means rerun the current attached board input under the current model authority.
 
+When a repaired sweep file is attached, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` before web research. A structurally complete repaired handoff freezes Step-0 fixture identity, kickoff, dispositions and capacity queue for /rank.
+
 Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2/C3/C4 Step-1 shadow board workflow.
+
+Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or reconstruct a repaired queue from the web.
 
 ### `/xi`
 
