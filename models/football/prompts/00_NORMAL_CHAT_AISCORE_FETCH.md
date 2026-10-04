@@ -25,6 +25,7 @@ This intake is about **information quality and later executability**, not whethe
 
 Read and apply:
 - `models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
+- `models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`
 - `models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md` when the command is `/sweep repair ...`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
@@ -52,6 +53,38 @@ Do not use:
 - unrestricted `BROAD_SENIOR_PRODUCTION`.
 
 A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_PRODUCTION for a covering window.
+
+## Checkpointed execution — mandatory
+
+Fresh Step 0 is resumable.
+
+For a new sweep:
+- create/update the Sweep Runs row immediately after resolving the stable Run ID/window;
+- set `Run Status = RUNNING`;
+- initialize `Checkpoint Version = football-sweep-checkpoint-v1`;
+- initialize `Sweep Chunk Number = 1`;
+- persist `Resume Cursor` before opening expensive external research.
+
+For `/sweep resume`:
+- load the matching RUNNING Sweep Run first;
+- continue from its `Resume Cursor`;
+- reuse completed Daily Coverage rows and block evidence;
+- never restart an unchanged ACQUIRED source epoch;
+- never create a replacement Run ID merely because the previous chat turn ended.
+
+External targeted verification is limited to **6 competition/date blocks per invocation**. Use:
+
+`python models/football/engine/sweep_checkpoint_cli.py select --input <checkpoint.json>`
+
+when deterministic execution is available.
+
+After each externally verified block, persist its result and advance the cursor. When six external blocks have been processed and work remains, stop cleanly with:
+
+`SWEEP CHECKPOINT SAVED — /sweep resume`
+
+This is a normal RUNNING checkpoint, not `BLOCKED`, and no provisional Work ZIP is emitted.
+
+Cheap source-local enumeration, hard exclusions, already-supported C/D block classifications, and persisted-state reads do not consume the six-block external budget.
 
 ## Source authority
 
@@ -239,15 +272,23 @@ Likewise, do not admit an obscure league merely because it is senior/professiona
 
 ## 8. Efficiency rule
 
-The researchability check must stay cheap.
+The researchability check must stay cheap and **competition-block shared**.
 
-Normal limit per unfamiliar competition block:
-- one AiScore competition/fixture surface;
+Normal limit per unfamiliar competition/date block:
+- one acquired/provider competition/fixture surface;
 - up to two quick public-web searches for current team/competition evidence.
+
+Acquire those evidence surfaces once for the block and reuse them for every fixture/team they actually cover. Do not repeat the same standings/form/news/market search separately for each fixture in one league/date block.
+
+Open a team- or fixture-specific source only when the shared block evidence does not cover that fixture's required A/B/C evidence.
+
+The fixture-level admission standard is unchanged; only duplicate evidence acquisition is removed.
 
 If those checks cannot establish A+B+C, exclude.
 
 Do not turn Step 0 into the full Step-1 research process.
+
+Under `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`, at most six blocks requiring external verification may be researched in one invocation. Batch independent web queries in the same tool call where supported.
 
 
 ### Block timestamp collision sentinel — mandatory
@@ -388,6 +429,22 @@ For cross-midnight/early-morning windows, perform the normal terminal-interval r
 
 ## 11. Persistence / counts
 
+Checkpoint persistence is part of normal execution, not only final packaging.
+
+For every RUNNING sweep keep current:
+- `Checkpoint Version`;
+- `Sweep Chunk Number`;
+- `Resume Cursor`;
+- `Retry Queue`;
+- `Pending Verification Blocks`;
+- `Last Completed Block`;
+- `Checkpoint Notes`;
+- `Updated At`.
+
+After each external block, persist completed fixture rows/dispositions before moving to the next block. A timeout after a successful checkpoint must not force already-completed blocks to be re-researched.
+
+At the start of each resume chunk, close already-started/finished pending fixtures before spending external research budget on them.
+
 For every discovered in-window senior fixture preserve one disposition:
 
 - `ADMITTED_TO_C`
@@ -490,7 +547,24 @@ Those remain Football C/C2 Step-1/Step-2 decisions.
 
 ## Output
 
-Return:
+If the bounded chunk ends while external verification remains, return:
+
+`SWEEP CHECKPOINT SAVED — /sweep resume`
+
+with:
+- Run ID;
+- completed chunk number;
+- current phase;
+- blocks completed this chunk;
+- pending verification block count;
+- retry queue count;
+- next block key;
+- current counts when available;
+- source acquisition state/transport.
+
+Do not emit a ZIP in this state.
+
+Only after final reconciliation + packaging pass, return:
 
 `RESEARCHABLE SENIOR HANDOFF COMPLETE`
 
