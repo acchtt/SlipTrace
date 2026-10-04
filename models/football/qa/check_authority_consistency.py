@@ -189,6 +189,29 @@ forbid(
     "C3 may authorize real exposure",
 )
 
+# 5. New-chat handoff freshness must preserve current three-track authority.
+require(
+    "models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md",
+    "MANDATORY ROUTER PRECHECK",
+    "historical state snapshot",
+    "HANDOFF AUTHORITY STALE — CURRENT MODEL/LAUNCHER RELOADED",
+    "OFFICIAL C",
+    "SHADOW C2",
+    "SHADOW C3",
+    "may never be silently absent",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "Mandatory three-track visibility",
+    "SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE",
+    "SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE",
+)
+require(
+    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
+    "Mandatory three-track visibility",
+    "Never omit a shadow row",
+)
+
 # 5. Step-2 deterministic validation must fail closed.
 require(
     "models/football/engine/schema.json",

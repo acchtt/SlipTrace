@@ -280,6 +280,24 @@ It tracks a narrow all-HIGH two-route / self-funded STRONG-carrier class to test
 It has no production authority and does not change C/C2 actions or bridge limits.
 
 
+## New-chat / handoff freshness
+
+Any football stage resumed from a handoff, prior-chat summary, copied response, or stale board artifact must first read:
+
+- `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`;
+- this `CURRENT_MODEL.md`;
+- `models/football/prompts/COMMAND_ALIASES.md`;
+- the current canonical launcher for the requested stage.
+
+A handoff is historical state, not current execution authority.
+
+Current visible Step-2/live outputs must account for:
+- OFFICIAL C;
+- SHADOW C2;
+- SHADOW C3.
+
+If a historical challenger state was never prospectively frozen, show it as UNAVAILABLE / COMPARISON INCOMPLETE. Never silently omit the track and never backfill it retrospectively.
+
 ## C3 burden-funding prospective test
 
 Use:

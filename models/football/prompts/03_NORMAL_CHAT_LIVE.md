@@ -103,6 +103,20 @@ C3 may produce:
 
 Do not start C3-only live monitoring for a fixture Football C is not otherwise following.
 
+## Mandatory three-track visibility
+
+For every material live match, visibly report:
+- `OFFICIAL C: ...`
+- `SHADOW C2: ...`
+- `SHADOW C3: ...`
+
+If a shadow track has no valid prospective frozen state/plan, show:
+- `SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE`; or
+- `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`; or
+- the applicable `COMPARISON INCOMPLETE` reason.
+
+Never omit a shadow row just because the handoff is stale or the match is already live.
+
 ## Output
 
 Report official C first, then C2 and C3 shadow comparisons when they exist.
