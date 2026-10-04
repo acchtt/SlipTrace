@@ -84,7 +84,7 @@ Persist where applicable:
 
 Semantic evidence-basis persistence:
 - persist H2H state/effect/transferability/current-corroboration/material-effect plus a non-empty H2H basis whenever H2H is reviewed;
-- persist the basis for primary-mechanism integrity, WAIT reachability, negative-information dependence and material veto in the current Decision State evidence summary and deterministic result;
+- persist the basis for thesis state, primary-mechanism integrity, WAIT reachability, negative-information dependence and material veto in the current Decision State evidence summary and deterministic result;
 - persist common assessment bases for carrier self-funding, independent upper-tail, failure-route attack and material suppression in the current evidence summary / machine result;
 - a bare Boolean without its same-epoch basis is an incomplete current Decision State.
 
@@ -288,6 +288,7 @@ The serialized engine result/evidence summary must also preserve:
 - `h2h_current_corroboration`;
 - `h2h_material_effect`;
 - `h2h_basis`;
+- `thesis_state_basis`;
 - `primary_mechanism_basis`;
 - `wait_reachability_basis`;
 - `wait_negative_info_basis`;
