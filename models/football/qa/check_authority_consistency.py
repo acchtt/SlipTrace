@@ -82,6 +82,17 @@ for rel in (
         failures.append(f"{rel}: legacy compiler is not visibly retired at file top")
 
 require(
+    "models/football/prompts/xi.md",
+    "On **every invocation**",
+    "current repository authority",
+    "current authority revision/runtime status",
+)
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "C4 prospectively frozen Step-1 snapshot",
+    "Every invocation must reload the current launcher",
+)
+require(
     "models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md",
     "Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION",
     "LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER",
@@ -269,10 +280,17 @@ require(
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
     "Football C4 structured-evidence Step-1 shadow",
+    "FOOTBALL_C4_AIRTABLE.md",
     "c4_semantic_cli.py",
     "C4 Test Board Eligible",
     "C4 Test Board Number = 1..5",
     "C4 is Step-1 shadow only",
+    "C4 persistence — mandatory before /rank completion",
+    "C4 Shadow State",
+    "C4 Compiler Result",
+    "C4 Compiler Revision",
+    "C4 PERSISTENCE SYNC FAULT — /RANK INCOMPLETE",
+    "Never reconstruct C4 at Step 2",
 )
 require(
     "models/football/airtable/FOOTBALL_C4_AIRTABLE.md",
@@ -414,6 +432,8 @@ require(
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "XI AUTHORITY REVISION:",
+    "XI RUNTIME: PORTABLE PASS",
     "Mandatory four-model visibility",
     "SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE",
     "SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE",
