@@ -1,4 +1,4 @@
-# 02 — Normal Chat: Football C Official + C2/C3 Shadow XI/Odds
+# 02 — Normal Chat: Football C Official + C2/C3 Shadow XI/Odds + C4 Step-1 Snapshot
 
 **Command alias:** `/xi`
 
@@ -8,6 +8,8 @@ Read upstream:
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
+- `models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md`
+- `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
@@ -16,7 +18,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 - `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
 
-Football C is the only active official model. C2 and C3 are shadow-only.
+Football C is the only active official model. C2 and C3 are Step-2 shadow models. C4 remains Step-1-only, but its prospectively frozen Step-1 snapshot is mandatory visibility in every material `/xi` match block.
 
 Use the user's confirmed XI and current executable Asian-total odds as the current evidence epoch.
 
@@ -30,6 +32,7 @@ For each supplied fixture retrieve:
 - Football C official board state/rank and independently frozen C supported line;
 - Football C2 shadow state/rank and independently frozen C2 supported line if present;
 - Football C3 shadow state/rank/lane, independently frozen C3 supported line and burden-funding fields if present;
+- Football C4 frozen Step-1 shadow state/rank/supported line, route/carrier/funding/control summary, compiler revision, and C4 Board N/5 status if present;
 - the frozen common board evidence.
 
 If C2 shadow state is missing, continue Football C officially and mark C2 comparison unavailable. Never replace the C board with a C2 board.
@@ -41,6 +44,14 @@ Continue Football C; do not manufacture C2's line from C.
 If C3 exists without an independently frozen supported line/funding block:
 `C3 COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`
 Continue Football C/C2 normally; do not reconstruct C3 from their outputs.
+
+If no prospective C4 Step-1 freeze exists for this fixture:
+`SHADOW C4 (STEP1): UNAVAILABLE — NO PROSPECTIVE C4 FREEZE`
+
+If C4 fields exist but the compiler/result block is incomplete:
+`SHADOW C4 (STEP1): COMPARISON INCOMPLETE — STRUCTURED EVIDENCE / COMPILER OUTPUT INCOMPLETE`
+
+Never synthesize a C4 Step-2 action from XI evidence. C4 visibility is a read-only frozen Step-1 comparison.
 
 ## 1A. Follow-through lane authority
 
@@ -64,12 +75,24 @@ Include:
 - every RESERVE explicitly activated for this session;
 - every user-declared exception.
 
-C2/C3 never add fixtures to this set.
+C2/C3/C4 never add fixtures to this set.
 
-Before any Step-2 Python command, execute the common runtime bootstrap with stage=`xi`. Probe Python and the current GitHub repository source in this turn; materialize the current engine source when needed. A missing checkout or container network/DNS failure is not GitHub/repository unavailability.
+Before any Step-2 Python command, execute the common runtime bootstrap with stage=`xi`. Probe Python and the current GitHub repository source in this turn.
+
+Primary XI runtime:
+1. fetch exact-current `models/football/engine/xi_portable.py`;
+2. write that single file locally;
+3. run `python xi_portable.py self-check`;
+4. require `XI PORTABLE RUNTIME: PASS`;
+5. write the frozen C/C2/C3 payloads;
+6. execute the portable triplet.
+
+Do not use multi-file materialization when the portable self-check passes. A missing checkout or container network/DNS failure is not GitHub/repository unavailability.
 
 At the end of the session run:
-`python models/football/engine/step2_reconcile_cli.py --input <step2_reconcile.json>`
+`python xi_portable.py reconcile --input <step2_reconcile.json>`
+
+Use `step2_reconcile_cli.py` only on the documented multi-file fallback path.
 
 Do not call the Step-2 session complete unless:
 `STEP2 RECONCILIATION STATUS: PASS`
@@ -337,11 +360,14 @@ Engine execution is **mandatory** for a completed Step-2 decision.
 
 Preferred execution:
 
-`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
 This must execute all three frozen payloads as one fail-closed unit.
 
-If the triplet runner itself cannot be used, run the three individual commands:
+Only if exact-current `xi_portable.py self-check` itself fails may the workflow materialize the full engine tree and use:
+`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Only if both portable and multi-file triplet runners cannot be used, run the three individual commands:
 
 `python models/football/engine/cli.py decision --input <c.json>`
 
@@ -349,17 +375,20 @@ If the triplet runner itself cannot be used, run the three individual commands:
 
 `python models/football/engine/cli.py decision --input <c3.json>`
 
-A missing local checkout is **not** engine unavailability. If GitHub/files source plus a Python runtime are available, materialize the exact current engine revision into a temporary runnable workspace and execute it.
+A missing local checkout is **not** engine unavailability. If GitHub/files source plus a Python runtime are available, fetch the exact-current portable XI runner and execute it.
 
-Before fallback, follow `FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` and make an actual setup/execution attempt.
+A deterministic payload/contract rejection is not a Python error. Report the exact rejected field/rule and preserve the frozen payload. Only a portable self-check/runtime failure may trigger the multi-file fallback.
 
-Compare six outputs:
+Before any terminal failure claim, follow `FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` and make both the required portable attempt and documented repair/fallback attempt when applicable.
+
+Compare six Step-2 decision outputs plus the frozen C4 Step-1 snapshot:
 - C text official;
 - C code shadow;
 - C2 text shadow;
 - C2 code shadow;
 - C3 text shadow;
-- C3 code shadow.
+- C3 code shadow;
+- C4 frozen Step-1 state/rank/line — no Step-2 action.
 
 If disagreement:
 
@@ -381,11 +410,11 @@ C2-WAIT and C3-WAIT must each preserve separate target/cancel conditions.
 
 ## 8. Output
 
-### Mandatory three-track visibility
+### Mandatory four-model visibility
 
-Every material match block must visibly account for all three current tracks, even when the fixture/handoff lacks a legal prospective shadow freeze.
+Every material match block must visibly account for Football C, C2, C3, and the frozen C4 Step-1 snapshot, even when the fixture/handoff lacks a legal prospective shadow freeze.
 
-Never omit C2 or C3.
+Never omit C2, C3, or C4 visibility.
 
 Use one of:
 - `SHADOW C2: C2-BET / C2-WAIT / C2-PASS`;
@@ -393,9 +422,12 @@ Use one of:
 - `SHADOW C2: COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`;
 - `SHADOW C3: C3-BET / C3-WAIT / C3-PASS`;
 - `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`;
-- `SHADOW C3: COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`.
+- `SHADOW C3: COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`;
+- `SHADOW C4 (STEP1): C4-FOCUS / C4-WATCH / C4-PASS — NO STEP2 ACTION`;
+- `SHADOW C4 (STEP1): UNAVAILABLE — NO PROSPECTIVE C4 FREEZE`;
+- `SHADOW C4 (STEP1): COMPARISON INCOMPLETE — STRUCTURED EVIDENCE / COMPILER OUTPUT INCOMPLETE`.
 
-A handoff that only names C/C2 is not permission to suppress C3 from the current output.
+A handoff that only names C/C2/C3 is not permission to suppress C4 snapshot visibility from the current output.
 
 Use:
 
@@ -406,6 +438,7 @@ Then:
 - **OFFICIAL C:** C-BET / C-WAIT / C-PASS
 - **SHADOW C2:** C2-BET / C2-WAIT / C2-PASS
 - **SHADOW C3:** C3-BET / C3-WAIT / C3-PASS
+- **SHADOW C4 (STEP1):** C4-FOCUS / C4-WATCH / C4-PASS — NO STEP2 ACTION
 - XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
 - MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace + movement + conflict-recheck result
@@ -427,6 +460,8 @@ Then:
 - C3 supported line + second-route/funding/control delta
 - C3 Board N/5 comparison status
 - Engine C3 result
+- C4 frozen Step-1 rank/state/supported line + route/carrier/funding/control summary
+- C4 compiler revision + C4 Board N/5 status
 - Engine failure reason when FAILED_AFTER_ATTEMPT
 
 ## 9. Required machine appendix
@@ -450,6 +485,7 @@ For every model result also preserve:
 - `wait_resolution_default`.
 
 Also include:
+- `FOOTBALL_C4_FROZEN_STEP1_SNAPSHOT`
 - `FOOTBALL_STEP2_RECONCILIATION_INPUT`
 - `FOOTBALL_STEP2_RECONCILIATION_RESULT`
 
@@ -460,7 +496,7 @@ On success:
 
 The legacy generic no-execution fallback is forbidden.
 
-Only after a genuine setup/execution attempt fails for an unresolved technical reason may the assessment use:
+Only after exact-current portable self-check/execution plus any applicable documented repair/fallback genuinely fails for an unresolved technical reason may the assessment use:
 
 `ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>`
 
@@ -477,8 +513,9 @@ Preserve all three structured inputs, the source revision, attempted command/set
 In any conflict:
 - Football C text decision = current production authority;
 - C2 = frozen route-quality shadow challenger;
-- C3 = burden-funding shadow challenger;
-- Python = shadow validator;
+- C3 = burden-funding Step-2 shadow challenger;
+- C4 = frozen Step-1 structured-evidence snapshot only; no Step-2 action;
+- Python = shadow validator for C/C2/C3;
 - user bet slip = physical execution truth.
 
 
