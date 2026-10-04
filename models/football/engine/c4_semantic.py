@@ -58,6 +58,15 @@ class MatchEvidence:
     upper_tail_repeatability: Anchor
 
 
+def _exact_keys(obj: dict[str, Any], allowed: set[str], field: str) -> None:
+    extra = sorted(set(obj) - allowed)
+    missing = sorted(allowed - set(obj))
+    if missing:
+        raise C4ContractError(f"{field} missing required fields: {', '.join(missing)}")
+    if extra:
+        raise C4ContractError(f"{field} has unexpected fields: {', '.join(extra)}")
+
+
 def _nonempty(value: Any, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
         raise C4ContractError(f"{field} must be a non-empty string")
@@ -67,6 +76,7 @@ def _nonempty(value: Any, field: str) -> str:
 def _anchor(obj: Any, field: str, allowed: set[str]) -> Anchor:
     if not isinstance(obj, dict):
         raise C4ContractError(f"{field} must be an object with state+basis")
+    _exact_keys(obj, {"state", "basis"}, field)
     state = _nonempty(obj.get("state"), f"{field}.state").upper()
     basis = _nonempty(obj.get("basis"), f"{field}.basis")
     if state not in allowed:
@@ -79,6 +89,19 @@ def _anchor(obj: Any, field: str, allowed: set[str]) -> Anchor:
 def _side(obj: Any, side: str) -> SideEvidence:
     if not isinstance(obj, dict):
         raise C4ContractError(f"{side} must be an object")
+    _exact_keys(
+        obj,
+        {
+            "creation_repeatability",
+            "dangerous_access",
+            "service_finishing_continuity",
+            "matched_opponent_leakage",
+            "personnel_integrity",
+            "route_suppression",
+            "multi_goal_repeatability",
+        },
+        side,
+    )
     return SideEvidence(
         creation_repeatability=_anchor(
             obj.get("creation_repeatability"),
@@ -121,6 +144,25 @@ def _side(obj: Any, side: str) -> SideEvidence:
 def parse_match(obj: Any) -> MatchEvidence:
     if not isinstance(obj, dict):
         raise C4ContractError("match must be an object")
+    _exact_keys(
+        obj,
+        {
+            "match_id",
+            "common_evidence_basis",
+            "home",
+            "away",
+            "mechanism_evidence_coverage",
+            "team_news_coverage",
+            "competition_context_coverage",
+            "continuation_after_first_goal",
+            "lead_control_tendency",
+            "draw_utility",
+            "mechanism_failure",
+            "match_suppression",
+            "upper_tail_repeatability",
+        },
+        "match",
+    )
 
     return MatchEvidence(
         match_id=_nonempty(obj.get("match_id"), "match_id"),
@@ -552,6 +594,7 @@ def reconcile_with_c_board(
 def compile_board(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise C4ContractError("payload must be an object")
+    _exact_keys(payload, {"schema_version", "stage", "matches"}, "payload")
     if payload.get("schema_version") != SCHEMA_VERSION:
         raise C4ContractError(f"schema_version must be {SCHEMA_VERSION!r}")
     if payload.get("stage") != "board":
