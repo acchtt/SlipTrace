@@ -102,6 +102,11 @@ For each C3 board audit:
 - count C3 false negatives where C3 STOP/PASS and the frozen C support cleared;
 - preserve C2 metrics separately.
 
+For C3 Board N/5, judge cleanliness on the **ranked eligible universe**:
+- an isolated prospectively quarantined HOLD/exclusion outside C/C2/C3 ranking does not block the counter;
+- an unresolved fixture that was ranked does block it;
+- a missing required competition block / silently omitted eligible fixture does block it because the ranked universe is incomplete.
+
 A contaminated C3 board does not advance C3 Board N/5.
 
 ## Confirmatory C2 boundary
