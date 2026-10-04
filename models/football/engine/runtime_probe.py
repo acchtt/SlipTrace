@@ -63,6 +63,8 @@ STAGE_IMPORTS = {
         "board_triplet_cli",
         "c4_semantic",
         "c4_semantic_cli",
+        "model_bet_accounting",
+        "model_bet_accounting_cli",
     ),
     "xi": (
         "core",
