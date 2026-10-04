@@ -240,6 +240,13 @@ require(
     "C4 RECONCILIATION FAILED — COMMON EVIDENCE BASIS DRIFT",
 )
 require(
+    "models/football/engine/c4_schema.json",
+    "\"football-c4-semantic-v1\"",
+    "\"additionalProperties\": false",
+    "\"creation_repeatability\"",
+    "\"upper_tail_repeatability\"",
+)
+require(
     "models/football/engine/c4_semantic_cli.py",
     "--c-board",
     "c4_reconciled_with_c",
@@ -251,6 +258,8 @@ require(
     "test_partial_goal3_maps_to_o2",
     "test_verified_suppression_forces_pass",
     "test_missing_anchor_basis_fails_closed",
+    "test_unexpected_anchor_field_fails_closed",
+    "test_goal4_partial_maps_to_o275",
     "test_reconcile_blocks_ranked_universe_mismatch",
     "test_reconcile_blocks_common_evidence_basis_drift",
     "test_input_order_cannot_change_ranking",
