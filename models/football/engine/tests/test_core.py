@@ -63,11 +63,16 @@ def assessment(**overrides):
         burden_stall_risk=Grade.LOW,
         main_failure="no unresolved material failure",
         h2h_state="REVIEWED_NOT_MATERIAL",
+        h2h_basis="reviewed matchup history with no material transferable suppressive mechanism",
         supported_line=2.5,
         carrier_self_fund=False,
+        carrier_self_fund_basis="usable carrier but not independently self-funding the protected burden",
         independent_upper_tail=False,
+        independent_upper_tail_basis="no separate non-market upper-tail path frozen",
         failure_attacks_route=False,
+        failure_attacks_route_basis="main failure does not directly remove the current scoring route",
         material_suppression=False,
+        material_suppression_basis="no current material suppression trigger present",
     )
     base.update(overrides)
     return MatchAssessment(**base)
@@ -111,11 +116,16 @@ def context(
         post_xi_research_status=PostXiResearchStatus.FOUND,
         h2h_review_status=H2HReviewStatus.REVIEWED_USABLE,
         h2h_rechecked=True,
+        h2h_basis="reviewed against current mechanism evidence",
         top_ranked_focus=False,
         primary_mechanism_intact=True,
+        primary_mechanism_basis="confirmed XI preserves the primary mechanism",
         wait_reachable=False,
+        wait_reachability_basis="no protected target is expected to become executable before kickoff",
         wait_requires_negative_info=False,
+        wait_negative_info_basis="no proposed wait depends on adverse football information",
         material_veto=False,
+        material_veto_basis="no current material veto condition is present",
     )
     base.update(overrides)
     return DecisionContext(**base)
