@@ -87,6 +87,12 @@ Mandatory Step-2 triplet:
 
 For completed Step-2 decisions, the launcher must execute C/C2/C3 through the deterministic engine. Use `decision_triplet_cli.py` to run all three payloads as one fail-closed unit.
 
+Each decision payload also carries the official Football C workload lane plus its authorization:
+- `official_follow_lane = FOLLOW / RESERVE / STOP`;
+- `step2_authorization = ROUTINE_FOLLOW / RESERVE_ACTIVATED / USER_EXCEPTION`.
+
+Routine FOLLOW and activated RESERVE must match the persisted official lane. STOP requires `USER_EXCEPTION`. The triplet runner rejects mixed authorization across C/C2/C3, preventing a shadow model from silently creating its own Step-2 workload.
+
 Lack of an already-existing local checkout is not runtime unavailability. If current source is accessible and Python is available, materialize/setup a runnable workspace first.
 
 Only after an actual setup/execution attempt fails may the workflow fall back, and the exact technical reason must be preserved. The generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.

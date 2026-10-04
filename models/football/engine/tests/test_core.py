@@ -24,6 +24,7 @@ from core import (  # noqa: E402
     SecondRouteRole,
     SelectionFloor,
     Settlement,
+    Step2Authorization,
     ThesisState,
     XiStatus,
     c2_bridge_eligibility,
@@ -102,6 +103,8 @@ def context(
 ):
     base = dict(
         board_state=board_state,
+        official_follow_lane=FollowLane.FOLLOW,
+        step2_authorization=Step2Authorization.ROUTINE_FOLLOW,
         thesis_state=thesis_state,
         quote=quote or Quote(2.5, 1.70),
         xi_status=XiStatus.CONFIRMED,
@@ -386,6 +389,36 @@ class C3BurdenFundingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
+    def test_routine_follow_rejects_stop_lane(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "STEP2 AUTHORIZATION/LANE MISMATCH",
+        ):
+            decide_c(
+                assessment(),
+                context(official_follow_lane=FollowLane.STOP),
+            )
+
+    def test_stop_lane_is_allowed_only_by_user_exception(self):
+        decision = decide_c(
+            assessment(),
+            context(
+                official_follow_lane=FollowLane.STOP,
+                step2_authorization=Step2Authorization.USER_EXCEPTION,
+            ),
+        )
+        self.assertEqual(decision.action, Action.BET)
+
+    def test_reserve_activation_requires_reserve_lane(self):
+        decision = decide_c(
+            assessment(),
+            context(
+                official_follow_lane=FollowLane.RESERVE,
+                step2_authorization=Step2Authorization.RESERVE_ACTIVATED,
+            ),
+        )
+        self.assertEqual(decision.action, Action.BET)
+
     def test_normal_price_at_supported_line_bets(self):
         decision = decide_c(
             assessment(),

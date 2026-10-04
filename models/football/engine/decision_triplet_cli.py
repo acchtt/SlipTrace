@@ -40,6 +40,18 @@ def run_triplet(
                 f"triplet payload model={expected_model} must use stage=decision"
             )
 
+    authorization_pairs = {
+        (
+            str(payloads[model].get("context", {}).get("official_follow_lane", "")),
+            str(payloads[model].get("context", {}).get("step2_authorization", "")),
+        )
+        for model in EXPECTED_MODELS
+    }
+    if len(authorization_pairs) != 1:
+        raise ContractError(
+            "triplet payloads must share the same official_follow_lane and step2_authorization"
+        )
+
     results: dict[str, Any] = {}
     for model in EXPECTED_MODELS:
         results[model] = run_decision(payloads[model])
