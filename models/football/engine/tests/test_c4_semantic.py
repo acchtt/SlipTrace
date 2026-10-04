@@ -165,6 +165,21 @@ class C4StructuredEvidenceTests(unittest.TestCase):
         self.assertEqual(out["c4_failure_resistance"], "LOW")
         self.assertEqual(out["c4_state"], "C4-PASS")
 
+    def test_goal4_partial_maps_to_o275(self):
+        row = match()
+        row["upper_tail_repeatability"] = a("PARTIAL")
+        result = compile_board(payload(row))
+        out = result["matches"][0]
+        self.assertEqual(out["c4_goal3_funding"], "VERIFIED")
+        self.assertEqual(out["c4_goal4_funding"], "PARTIAL")
+        self.assertEqual(out["c4_supported_line"], 2.75)
+
+    def test_unexpected_anchor_field_fails_closed(self):
+        row = match()
+        row["home"]["dangerous_access"]["typo"] = True
+        with self.assertRaisesRegex(C4ContractError, "unexpected fields: typo"):
+            compile_board(payload(row))
+
     def test_missing_anchor_basis_fails_closed(self):
         row = match()
         row["home"]["dangerous_access"] = {"state": "VERIFIED", "basis": ""}
