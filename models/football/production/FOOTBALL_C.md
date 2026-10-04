@@ -148,6 +148,8 @@ States:
 
 Persist a non-empty `board_state_basis` for the frozen state. This makes the existing semantic screen auditable; it does not create a new numerical FOCUS/WATCH/PASS threshold.
 
+Under `FOOTBALL_MODEL_BET_ACCOUNTING.md`, every frozen `C-WATCH` is also a model-accounting bet at C's own supported line, assumed odds 1.65, 1u. This accounting convention does not promote WATCH to C-BET and does not create a Website Pick.
+
 Persist every admitted fixture, including C-PASS, so false negatives can be audited.
 
 Before finalizing C-PASS, apply the carrier-contradiction check from the burden-completion procedure. A HIGH-completion/HIGH-continuation STRONG self-funded carrier with upper-tail proof and opponent leakage cannot be passed solely because the second scoring route is weak.
@@ -189,7 +191,9 @@ No standalone market-undercut HOLD state.
 
 ## 10. Final action
 
-Apply `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+Apply:
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md` for legacy operational C-WAIT persistence.
 
 ### C-BET
 Football thesis survives; line at/below supported burden; price acceptable; no material football veto.
@@ -199,7 +203,7 @@ Thesis already good enough; current line/price is blocker; protected target real
 
 Predeclare target line, minimum odds, cancellation event, and thesis-health evidence required.
 
-For accounting/audit, C-WAIT immediately creates an assumed 1u model exposure at the target line/minimum odds. The action remains C-WAIT. Only a matching user bet slip or an explicit user statement that the target line never reached may reconcile/cancel that assumed exposure.
+For accounting/audit, C-WAIT creates the higher-priority C model-accounting entry at the target line/minimum odds. It replaces a C-WATCH accounting entry for the same fixture while the WAIT is countable. A matching user bet slip reconciles the WAIT to exact actual terms; an explicit "line never reached" removes the WAIT layer, after which a frozen C-WATCH remains independently countable under the all-model accounting policy.
 
 ### C-PASS
 Thesis inadequate, burden unsupported, price unacceptable without healthy wait path, or wait depends on thesis deterioration.
@@ -236,7 +240,7 @@ Daily Coverage Ledger must retain the full C funnel, including C-PASS.
 
 Decision States store material Step-2/live decisions.
 
-Website Picks store official C-BET direct exposure and C-WAIT assumed exposure.
+Website Picks store operational C-BET direct exposure and C-WAIT assumed exposure. C-WATCH accounting is audit/model-performance only and does not create a Website Pick.
 
 User bet slip remains physical execution truth and may reconcile a corresponding C-WAIT to exact actual line/odds/stake. Explicit user "line never reached" removes model exposure for that WAIT.
 
@@ -245,7 +249,7 @@ Never overwrite historical Football A records.
 ## 14. Audit
 
 Audit:
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C -> C-PASS -> C-WATCH -> C-FOCUS -> C-BET/C-WAIT`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C -> C-PASS -> C-WATCH(accounted) -> C-FOCUS -> C-BET/C-WAIT(accounted)`
 
 A skipped visible senior fixture with no disposition is a coverage failure. A documented operational exclusion or capacity deferral is not automatically a model-screen error. A high-scoring admitted C-PASS remains a model-screen false negative. Keep those categories separate.
 
