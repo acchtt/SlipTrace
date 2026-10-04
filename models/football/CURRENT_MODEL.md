@@ -161,9 +161,25 @@ Attempt:
 
 Persist FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED plus movement/conflict-recheck status. Market history is a reinspection signal only; it does not create football structure or replace fresh post-XI football research.
 
+## Mandatory deterministic runtime bootstrap
+
+For every execution-required `/rank`, `/xi`, or `/audit` stage, first apply:
+
+`models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
+
+Tool/repository availability is a **current-turn observed state**, never an inference from environment shape or a prior handoff. The workflow must:
+- run a real Python probe;
+- probe the connected current repository source for `acchtt/SlipTrace`;
+- materialize the exact-current stage source when no matching checkout exists;
+- run `runtime_probe.py --stage <rank|xi|audit>`;
+- attempt the actual stage command;
+- preserve a `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
+
+A missing local checkout or container `git clone`/DNS/network failure is not a valid "GitHub unavailable" reason while connector/project source remains accessible.
+
 ## Mandatory Step-2 deterministic execution
 
-Before finalizing any completed `/xi` decision, run the deterministic validator for all three tracks under `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`.
+Before finalizing any completed `/xi` decision, run the deterministic validator for all three tracks under `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` after the common runtime bootstrap.
 
 Required result:
 - C validator executed;
@@ -185,11 +201,11 @@ Before deterministic execution, prematch Step 2 also requires:
 - non-empty `post_xi_research_note`;
 - model-owned recheck proof: C `completion_rechecked`, C2 `c2_route_quality_rechecked`, C3 `c3_funding_rechecked`.
 
-Lack of an existing local checkout is not execution unavailability. When current engine source can be retrieved and a Python runtime exists, materialize/setup the engine and run it.
+Lack of an existing local checkout is not execution unavailability. Container network failure is not repository unavailability. The common runtime bootstrap governs source retrieval/materialization and failure evidence.
 
 The old generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.
 
-Only an actual failed setup/execution attempt may use:
+Only an actual failed setup/execution attempt with a complete `FOOTBALL_RUNTIME_EXECUTION_RECORD` may use:
 `ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
 
 This is execution plumbing only. Python remains a shadow validator; Football C text remains production authority.
