@@ -3,6 +3,7 @@
 **Command alias:** `/xi`
 
 Read upstream:
+- `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
@@ -268,6 +269,22 @@ Do not create a wait that is expected to become executable only after negative f
 C2-WAIT and C3-WAIT must each preserve separate target/cancel conditions.
 
 ## 8. Output
+
+### Mandatory three-track visibility
+
+Every material match block must visibly account for all three current tracks, even when the fixture/handoff lacks a legal prospective shadow freeze.
+
+Never omit C2 or C3.
+
+Use one of:
+- `SHADOW C2: C2-BET / C2-WAIT / C2-PASS`;
+- `SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE`;
+- `SHADOW C2: COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN`;
+- `SHADOW C3: C3-BET / C3-WAIT / C3-PASS`;
+- `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`;
+- `SHADOW C3: COMPARISON INCOMPLETE — BURDEN-FUNDING STATE NOT INDEPENDENTLY FROZEN`.
+
+A handoff that only names C/C2 is not permission to suppress C3 from the current output.
 
 Use:
 
