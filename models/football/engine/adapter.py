@@ -459,23 +459,6 @@ def parse_assessment(
             _required(obj, "burden_protection"),
             "burden_protection",
         ),
-        completion_mode=_enum(
-            CompletionMode, _required(obj, "completion_mode"), "completion_mode"
-        ),
-        burden_completion_quality=_enum(
-            Grade,
-            _required(obj, "burden_completion_quality"),
-            "burden_completion_quality",
-        ),
-        continuation_quality=_enum(
-            Grade, _required(obj, "continuation_quality"), "continuation_quality"
-        ),
-        opponent_leakage=_enum(
-            Grade, _required(obj, "opponent_leakage"), "opponent_leakage"
-        ),
-        burden_stall_risk=_enum(
-            Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk"
-        ),
         main_failure=_string(obj, "main_failure"),
         h2h_state=_string(obj, "h2h_state"),
         supported_line=_number(obj, "supported_line"),
@@ -483,6 +466,26 @@ def parse_assessment(
         independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
         material_suppression=_required_bool(obj, "material_suppression"),
+        completion_mode=(
+            _enum(CompletionMode, _required(obj, "completion_mode"), "completion_mode")
+            if require_c_completion else None
+        ),
+        burden_completion_quality=(
+            _enum(Grade, _required(obj, "burden_completion_quality"), "burden_completion_quality")
+            if require_c_completion else None
+        ),
+        continuation_quality=(
+            _enum(Grade, _required(obj, "continuation_quality"), "continuation_quality")
+            if require_c_completion else None
+        ),
+        opponent_leakage=(
+            _enum(Grade, _required(obj, "opponent_leakage"), "opponent_leakage")
+            if require_c_completion else None
+        ),
+        burden_stall_risk=(
+            _enum(Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk")
+            if require_c_completion else None
+        ),
     )
 
 
