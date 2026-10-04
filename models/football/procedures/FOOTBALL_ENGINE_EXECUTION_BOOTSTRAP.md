@@ -28,7 +28,11 @@ Required:
 
 Then use the same file for triplet execution and session reconciliation. The portable bundle embeds the exact C/C2/C3 Step-2 modules, so a missing checkout or missing local import tree cannot block the normal XI path.
 
-The multi-file engine path below is fallback only when the exact-current portable bundle itself fails self-check. A payload/contract rejection from the portable runner is **not** a Python/runtime failure.
+The multi-file engine path below is fallback only when the exact-current portable bundle itself fails self-check. A payload/model contract rejection from the portable runner is **not** a Python/runtime failure and must be reported as:
+
+`XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`
+
+A contract rejection blocks completion until the frozen payload is corrected from already-supported evidence; it does not justify `FAILED_AFTER_ATTEMPT`.
 
 Lack of an already-existing local repository checkout is **not** engine unavailability.
 
