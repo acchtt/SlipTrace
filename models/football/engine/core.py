@@ -144,13 +144,18 @@ class MatchAssessment:
     # become an implicit favorable state in the deterministic validator.
     main_failure: str
     h2h_state: str
+    h2h_basis: str
 
     supported_line: float
 
     carrier_self_fund: bool
+    carrier_self_fund_basis: str
     independent_upper_tail: bool
+    independent_upper_tail_basis: str
     failure_attacks_route: bool
+    failure_attacks_route_basis: str
     material_suppression: bool
+    material_suppression_basis: str
 
     # Football C-owned burden-completion diagnostics. These are deliberately
     # optional in the shared assessment object so C2/C3 do not need to carry
@@ -167,6 +172,15 @@ class MatchAssessment:
             raise ValueError("main_failure must be non-empty")
         if not self.h2h_state.strip():
             raise ValueError("h2h_state must be non-empty")
+        for name, value in (
+            ("h2h_basis", self.h2h_basis),
+            ("carrier_self_fund_basis", self.carrier_self_fund_basis),
+            ("independent_upper_tail_basis", self.independent_upper_tail_basis),
+            ("failure_attacks_route_basis", self.failure_attacks_route_basis),
+            ("material_suppression_basis", self.material_suppression_basis),
+        ):
+            if not value.strip():
+                raise ValueError(f"{name} must be non-empty")
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
@@ -308,12 +322,17 @@ class DecisionContext:
     post_xi_research_status: PostXiResearchStatus
     h2h_review_status: H2HReviewStatus
     h2h_rechecked: bool
+    h2h_basis: str
 
     top_ranked_focus: bool
     primary_mechanism_intact: bool
+    primary_mechanism_basis: str
     wait_reachable: bool
+    wait_reachability_basis: str
     wait_requires_negative_info: bool
+    wait_negative_info_basis: str
     material_veto: bool
+    material_veto_basis: str
 
 
 @dataclass(frozen=True)
