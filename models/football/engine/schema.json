@@ -499,7 +499,11 @@
             "primary_mechanism_intact",
             "wait_reachable",
             "wait_requires_negative_info",
-            "material_veto"
+            "material_veto",
+            "market_history_status",
+            "market_history_movement",
+            "market_history_conflict_recheck",
+            "market_history_note"
           ],
           "properties": {
             "board_state": {
@@ -593,6 +597,39 @@
             },
             "completion_rechecked": {
               "type": "boolean"
+            },
+            "market_history_status": {
+              "type": "string",
+              "enum": [
+                "FOUND",
+                "PARTIAL",
+                "UNAVAILABLE_ATTEMPTED"
+              ]
+            },
+            "market_history_movement": {
+              "type": "string",
+              "enum": [
+                "UP_0.50_PLUS",
+                "UP_0.25",
+                "STABLE",
+                "DOWN_0.25",
+                "DOWN_0.50_PLUS",
+                "MIXED",
+                "UNCLEAR"
+              ]
+            },
+            "market_history_conflict_recheck": {
+              "type": "string",
+              "enum": [
+                "NOT_REQUIRED",
+                "RECHECKED_FOOTBALL_EXPLAINED",
+                "RECHECKED_UNEXPLAINED",
+                "LIMITED"
+              ]
+            },
+            "market_history_note": {
+              "type": "string",
+              "minLength": 1
             }
           }
         }
