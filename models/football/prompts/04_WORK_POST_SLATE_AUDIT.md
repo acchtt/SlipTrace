@@ -205,6 +205,25 @@ Official C model P/L and actual user P/L are separate:
 - persistence agreement;
 - actual bet-slip reconciliation.
 
+## Required competition coverage audit
+
+For every audited board, verify the Step-0 required competition manifest.
+
+Current protected block:
+- `NED_EERSTE_DIVISIE`.
+
+If the block was omitted, SOURCE_BLOCKED, or fixtures disappeared before disposition:
+
+`PROCESS MISS — REQUIRED COMPETITION COVERAGE GAP`
+
+and specifically:
+
+`HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP`
+
+A missing protected block contaminates the board-level C2/C3 confirmation sample because the eligible ranked universe is incomplete.
+
+A correctly enumerated fixture that was later hard/operational/researchability/capacity excluded with an explicit disposition is not a coverage miss.
+
 ## Step-2 deterministic execution audit
 
 For every completed Step-2 decision, verify:

@@ -73,6 +73,22 @@ Model-owned policy fields are then derived separately:
 C2 must not inherit C's supported line or C's burden-completion ranking key.
 C3 must not inherit C/C2 supported lines, C completion labels, or C2 route-quality ranking. Two-sidedness has no positive C3 value by itself.
 
+## Required competition coverage invariant
+
+Step 0 must run `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md` in addition to broad discovery.
+
+Current protected manifest version:
+`required-competition-manifest-v1`
+
+Protected block:
+- `NED_EERSTE_DIVISIE`.
+
+The block must be explicitly checked for every relevant sweep window even when broad discovery does not surface it.
+
+A missing required competition block makes `work_ready=false` and contaminates the board for challenger clean-board counting.
+
+This is coverage plumbing only and does not promote a fixture into Football C.
+
 ## Step 0 — researchable senior intake
 
 Use:

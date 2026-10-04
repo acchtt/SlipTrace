@@ -189,6 +189,47 @@ forbid(
     "C3 may authorize real exposure",
 )
 
+# 4A. Required competition coverage must fail closed before Work.
+require(
+    "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
+    "MANDATORY STEP-0 COVERAGE INVARIANT",
+    "required-competition-manifest-v1",
+    "NED_EERSTE_DIVISIE",
+    "CHECKED_WITH_FIXTURES",
+    "CHECKED_NO_IN_WINDOW_FIXTURES",
+    "SOURCE_BLOCKED",
+    "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
+)
+require(
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "Required competition-block manifest — mandatory",
+    "NED_EERSTE_DIVISIE",
+    "Required Competition Blocks Complete = true",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "Required competition coverage preflight — fail closed",
+    "HANDOFF INCOMPLETE — REQUIRED COMPETITION COVERAGE GAP",
+    "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
+)
+require(
+    "models/football/engine/coverage_manifest.py",
+    'REQUIRED_BLOCKS = ("NED_EERSTE_DIVISIE",)',
+    "SOURCE_BLOCKED",
+    "required_blocks_complete",
+)
+require(
+    "models/football/engine/tests/test_coverage_manifest.py",
+    "test_missing_eerste_block_fails_closed",
+    "test_source_blocked_fails_closed",
+    "test_count_mismatch_fails_closed",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "Required Competition Manifest Version",
+    "Required Competition Blocks Complete",
+)
+
 # 5. New-chat handoff freshness must preserve current three-track authority.
 require(
     "models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md",
