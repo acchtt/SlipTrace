@@ -24,6 +24,8 @@ WOMEN_COUNT_KEYS = {
     "UNRESOLVED": "women_top_flight_unresolved_count",
 }
 
+WOMEN_DISPOSITIONS = set(WOMEN_COUNT_KEYS)
+
 
 class RepairedHandoffNormalizationError(ValueError):
     pass
@@ -48,15 +50,27 @@ def _manifest(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _all_fixture_arrays(payload: dict[str, Any]) -> list[list[dict[str, Any]]]:
     arrays: list[list[dict[str, Any]]] = []
-    for key, value in payload.items():
-        if not isinstance(value, list) or not value:
-            continue
-        if all(isinstance(item, dict) for item in value):
+
+    def walk(value: Any) -> None:
+        if isinstance(value, dict):
+            for child in value.values():
+                walk(child)
+            return
+
+        if not isinstance(value, list):
+            return
+
+        if value and all(isinstance(item, dict) for item in value):
             keys = set().union(*(item.keys() for item in value))
             if keys.intersection({"match_id", "aiscore_id", "fixture_id"}) and keys.intersection(
                 {"disposition", "final_step0_disposition", "operational_viability_grade"}
             ):
                 arrays.append(value)
+
+        for child in value:
+            walk(child)
+
+    walk(payload)
     return arrays
 
 
@@ -78,7 +92,7 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
         women_ids.add(match_id)
 
         final_disp = row.get("final_step0_disposition", row.get("disposition"))
-        if final_disp not in VALID_DISPOSITIONS:
+        if final_disp not in WOMEN_DISPOSITIONS:
             raise RepairedHandoffNormalizationError(
                 f"women fixture {match_id}: invalid final disposition {final_disp!r}"
             )
@@ -122,7 +136,7 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
                 row["final_step0_disposition"] = alias_disp
 
             expected_women = match_id in women_ids
-            if row.get("women_top_flight") is not expected_women:
+            if row.get("women_top_flight") != expected_women:
                 bool_repairs += 1
             row["women_top_flight"] = expected_women
             touched_ids.add(match_id)
