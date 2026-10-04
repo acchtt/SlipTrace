@@ -407,7 +407,11 @@ def validate_tournament_incentive(obj: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def parse_assessment(obj: dict[str, Any]) -> MatchAssessment:
+def parse_assessment(
+    obj: dict[str, Any],
+    *,
+    require_c_completion: bool = True,
+) -> MatchAssessment:
     if not isinstance(obj, dict):
         raise ContractError("match must be an object")
 
