@@ -25,6 +25,8 @@ STAGE_FILES = {
         "models/football/engine/capacity_replenishment.py",
         "models/football/engine/capacity_replenishment_cli.py",
         "models/football/engine/repaired_handoff_normalize.py",
+        "models/football/engine/model_bet_accounting.py",
+        "models/football/engine/model_bet_accounting_cli.py",
         "models/football/engine/runtime_probe.py",
     ),
     "xi": (
@@ -34,6 +36,7 @@ STAGE_FILES = {
         "models/football/engine/competition_reliability.py",
         "models/football/engine/schema.json",
         "models/football/engine/xi_portable.py",
+        "models/football/engine/model_bet_accounting.py",
         "models/football/engine/decision_triplet_cli.py",
         "models/football/engine/step2_reconcile_cli.py",
         "models/football/engine/runtime_probe.py",
@@ -46,6 +49,8 @@ STAGE_FILES = {
         "models/football/engine/schema.json",
         "models/football/engine/factor_calibration.py",
         "models/football/engine/factor_calibration_cli.py",
+        "models/football/engine/model_bet_accounting.py",
+        "models/football/engine/model_bet_accounting_cli.py",
         "models/football/engine/runtime_probe.py",
     ),
 }
@@ -65,6 +70,7 @@ STAGE_IMPORTS = {
         "adapter",
         "decision_triplet_cli",
         "step2_reconcile_cli",
+        "model_bet_accounting",
     ),
     "audit": (
         "core",
@@ -72,6 +78,8 @@ STAGE_IMPORTS = {
         "adapter",
         "factor_calibration",
         "factor_calibration_cli",
+        "model_bet_accounting",
+        "model_bet_accounting_cli",
     ),
 }
 
