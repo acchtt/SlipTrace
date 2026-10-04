@@ -247,7 +247,13 @@ If contaminated:
 - do not advance the C3 board counter;
 - persist the exact `C3 Contamination Reason`.
 
-A board is not clean when any C3 policy field was assigned after outcome knowledge, the C3 line was copied from C/C2, a required funding basis is missing, or a mandatory integrity gate was bypassed.
+Board eligibility is judged on the **ranked eligible universe**.
+
+A prospectively quarantined HOLD / INCENTIVE-INCOMPLETE / exclusion does not block the counter when it received no C/C2/C3 state/rank/line/lane and every remaining ranked fixture is complete.
+
+A board is not clean when any C3 policy field was assigned after outcome knowledge, the C3 line was copied from C/C2, a required funding basis is missing on a ranked fixture, a mandatory integrity gate was bypassed, an unresolved fixture was ranked, or a required competition/eligible-fixture block is missing from discovery.
+
+**One isolated quarantine does not invalidate the whole board. A coverage gap does.**
 
 This counter is independent of the C2 five-board test.
 
