@@ -1069,6 +1069,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "decision_result",
         "model": model,
         "match_id": a.match_id,
+        "common_evidence_basis": a.common_evidence_basis,
+        "supported_line_basis": a.supported_line_basis,
         "official_follow_lane": official_follow_lane.value,
         "step2_authorization": step2_authorization.value,
         "thesis_state": thesis_state.name,
@@ -1124,12 +1126,14 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     if model == "c3":
         result["c3_funding_rechecked"] = c3_funding_rechecked
         result["c3_second_route_role"] = c3_a.second_route_role.name
+        result["c3_second_route_role_basis"] = c3_a.second_route_role_basis
         result["c3_goal3_funding"] = c3_a.goal3_funding.name
         result["c3_goal3_funding_source"] = c3_a.goal3_funding_source.value
         result["c3_goal4_funding"] = c3_a.goal4_funding.name
         result["c3_goal4_funding_source"] = c3_a.goal4_funding_source.value
         result["c3_control_endpoint_risk"] = c3_a.control_endpoint_risk.name
         result["c3_forced_chaos_verified"] = c3_a.forced_chaos_verified
+        result["c3_forced_chaos_basis"] = c3_a.forced_chaos_basis
 
     return result
 
