@@ -19,11 +19,12 @@ The objective is the middle ground between the old narrow allowlist and the late
 
 Operational principle:
 
-`AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY GATE -> CAPACITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
+`AISCORE SOURCE ACQUISITION -> AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY GATE -> CAPACITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
 
 This intake is about **information quality and later executability**, not whether a competition is historically high-scoring.
 
 Read and apply:
+- `models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
@@ -46,7 +47,15 @@ A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_P
 
 AiScore remains the fixture-discovery authority.
 
-Other public sources may be used only to determine whether a discovered AiScore fixture is sufficiently researchable. They may not create new fixtures.
+Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
+
+The complete AiScore date universe must be acquired through a valid AiScore-native or AiScore-derived transport before broad discovery/reconciliation begins. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
+
+If the source gate is `SOURCE_BLOCKED`, stop immediately with:
+
+`HANDOFF INCOMPLETE — AISCORE SOURCE BLOCKED`
+
+Do not spend later resumes repeating competition-by-competition reconstruction unless the persisted blocker fingerprint materially changed.
 
 ## Time / identity integrity
 
@@ -64,6 +73,8 @@ Every admitted fixture must have:
 Do not guess timezone from geography or treat a bare display clock as UTC.
 
 ## 1. Mandatory senior-block discovery
+
+This section runs only after `source_acquisition_state=ACQUIRED` or a valid covering COMPLETE AiScore universe has been reused.
 
 Before applying hard scope exclusions, enumerate all visible senior competition blocks in the requested AiScore window.
 
