@@ -873,7 +873,7 @@ require(
     "SHADOW_WAIT_ASSUMED",
     "WATCH_ASSUMED",
     "SHADOW_WATCH_ASSUMED",
-    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
+    "creates_website_pick=model == \"c\"",
 )
 require(
     "models/football/engine/model_bet_accounting_cli.py",
