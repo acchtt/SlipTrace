@@ -4,10 +4,13 @@
 **Table:** `Website Picks` — `tblg3J5sbJYbzuTYD`  
 **Official model:** Football C
 
-Website Picks stores both direct C-BET exposure and assumed/reconciled C-WAIT exposure.
+Website Picks stores operational direct C-BET exposure and assumed/reconciled C-WAIT exposure.
 
 Read with:
-`models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+
+**C-WATCH accounting does not create a Website Pick.** WATCH is model-performance accounting only and is stored in Daily Coverage/all-model accounting fields.
 
 ## Core fields
 
@@ -38,6 +41,12 @@ WAIT accounting fields:
 - `Actual User Odds` — `fldzXHyrSYBDGLZPh`
 - `Actual User Stake u` — `fldoGOSn1im61Snuu`
 - `WAIT Reconciliation Note` — `fldg6Px4yir0BYc7W`
+
+## WATCH boundary
+
+C-WATCH, C2-WATCH, C3-WATCH and C4-WATCH may count as model-accounting bets, but none creates a Website Pick solely because it is WATCH.
+
+C2/C3/C4 never create Website Picks.
 
 ## Direct C-BET mapping
 
