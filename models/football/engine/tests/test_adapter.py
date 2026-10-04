@@ -77,6 +77,8 @@ def match(match_id="m1", **overrides):
 def decision_context(**overrides):
     row = {
         "board_state": "C-FOCUS",
+        "official_follow_lane": "FOLLOW",
+        "step2_authorization": "ROUTINE_FOLLOW",
         "thesis_state": "PRESERVED",
         "quote": {"line": 2.5, "odds": 1.70},
         "xi_status": "CONFIRMED",
@@ -148,6 +150,20 @@ class DecisionTripletRunnerTests(unittest.TestCase):
                 triplet_payload("c"),
                 triplet_payload("c2"),
                 wrong,
+            )
+
+    def test_triplet_rejects_mixed_step2_authorization(self):
+        c3 = triplet_payload("c3")
+        c3["context"]["official_follow_lane"] = "STOP"
+        c3["context"]["step2_authorization"] = "USER_EXCEPTION"
+        with self.assertRaisesRegex(
+            ContractError,
+            "must share the same official_follow_lane and step2_authorization",
+        ):
+            run_triplet(
+                triplet_payload("c"),
+                triplet_payload("c2"),
+                c3,
             )
 
 
@@ -1109,6 +1125,55 @@ class DecisionContractTests(unittest.TestCase):
                     "context": decision_context(h2h_rechecked=False),
                 }
             )
+
+    def test_missing_step2_lane_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("official_follow_lane")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: official_follow_lane",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_stop_lane_without_exception_is_blocked(self):
+        with self.assertRaisesRegex(
+            ValueError,
+            "STEP2 AUTHORIZATION/LANE MISMATCH",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(official_follow_lane="STOP"),
+                }
+            )
+
+    def test_stop_lane_user_exception_can_reopen(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(board_state="C-WATCH"),
+                "context": decision_context(
+                    board_state="C-WATCH",
+                    official_follow_lane="STOP",
+                    step2_authorization="USER_EXCEPTION",
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "BET")
+        self.assertEqual(result["step2_authorization"], "USER_EXCEPTION")
 
     def test_completion_recheck_missing_blocks_decision(self):
         with self.assertRaisesRegex(
