@@ -2,10 +2,13 @@
 
 **Status:** MANDATORY STEP-2 EXECUTION PRECHECK  
 **Applies to:** `/xi` deterministic validation  
+**Common runtime precheck:** `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`  
 **Models:** Football C, C2, C3  
 **Engine authority:** shadow validator only
 
 ## 1. Core rule
+
+Before this Step-2-specific procedure, complete the common runtime bootstrap with stage=`xi` and preserve its `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
 A completed Step-2 decision requires deterministic execution for all three tracks:
 
@@ -86,16 +89,17 @@ Direct individual CLI calls are acceptable only when the triplet runner itself c
 
 ## 6. What counts as genuine execution unavailability
 
-Fallback is permitted only after an actual setup/execution attempt fails for a technical reason that cannot be resolved in the current turn.
+Fallback is permitted only after the common runtime bootstrap proves an actual setup/execution attempt failed for a technical reason that cannot be resolved in the current turn. A failure claim without `FOOTBALL_RUNTIME_EXECUTION_RECORD` is invalid.
 
-Examples:
-- no Python execution tool/runtime is available;
-- repository source cannot be retrieved/materialized;
+Examples, each requiring recorded actual probes:
+- all available Python execution probes failed;
+- the connected GitHub/current Project source probe failed and no exact-current source can be retrieved/materialized;
 - required engine source is corrupt/unreadable;
 - runtime dependency/import failure remains after reasonable setup;
 - exact current revision cannot be established safely.
 
 The following are **not** valid unavailability reasons:
+- container `git clone` / DNS / raw-network failure while GitHub connector source remains accessible;
 - "the repo is only visible through GitHub";
 - "there is no local checkout yet";
 - "the engine files have not been downloaded/materialized yet";
@@ -113,6 +117,7 @@ If execution genuinely fails after an attempted setup, report:
 `ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
 
 Also preserve:
+- the `FOOTBALL_RUNTIME_EXECUTION_RECORD`;
 - all three structured payloads;
 - source revision;
 - attempted command/setup path;
