@@ -22,6 +22,7 @@ It may retrieve and summarize:
 - C2/C3 shadow waits when they exist on the same fixtures;
 - C2 shadow state when useful;
 - C3 burden-funding shadow state/rank/lane and Board N/5 when useful;
+- C4 Step-1 structured shadow state/rank/line and Board N/5 when useful;
 - Step-0 coverage/disposition summaries.
 
 It must not:
@@ -51,6 +52,7 @@ When no scope is supplied, return a compact operational report containing:
 - RESERVE count/list when relevant;
 - next upcoming matches in ICT;
 - active C-WAIT / official C-BET states;
+- C2/C3/C4 prospective board counters when relevant;
 - unresolved process faults, if any.
 
 Do not rerun model research.
@@ -58,7 +60,7 @@ Do not rerun model research.
 ## Scoped examples
 
 ### `/report current board`
-Show the latest frozen official Football C board and operational lanes.
+Show the latest frozen official Football C board and operational lanes. When a prospective C4 freeze exists, show the compact C-vs-C4 Step-1 delta separately; never merge C4 state into the official queue.
 
 ### `/report next matches`
 Show upcoming Football C FOLLOW schedule first, then RESERVE if useful. Revalidate current fixture time/status before calling a match upcoming.
