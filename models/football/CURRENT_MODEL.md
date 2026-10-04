@@ -75,7 +75,7 @@ C3 must not inherit C/C2 supported lines, C completion labels, or C2 route-quali
 
 The deterministic adapter enforces the same ownership boundary: C-owned `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk` are mandatory for `model=c` but are not parser requirements or output fields for `model=c2` / `model=c3`.
 
-Semantic verdict-changing declarations must also follow `models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`. Bare booleans/states are insufficient: H2H, carrier self-funding, independent upper-tail, failure-route attack, material suppression, primary-mechanism integrity, WAIT reachability/negative-info dependence and material veto each carry a contemporaneous non-empty evidence basis. These basis fields have zero independent predictive weight.
+Semantic verdict-changing declarations must also follow `models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`. Bare booleans/states are insufficient: H2H, carrier self-funding, independent upper-tail, failure-route attack, material suppression, thesis state, primary-mechanism integrity, WAIT reachability/negative-info dependence and material veto each carry a contemporaneous non-empty evidence basis. These basis fields have zero independent predictive weight.
 
 ## Required competition coverage invariant
 
