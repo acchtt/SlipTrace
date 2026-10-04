@@ -174,8 +174,8 @@ For every execution-required `/rank`, `/xi`, or `/audit` stage, first apply:
 Tool/repository availability is a **current-turn observed state**, never an inference from environment shape or a prior handoff. The workflow must:
 - run a real Python probe;
 - probe the connected current repository source for `acchtt/SlipTrace`;
-- materialize the exact-current stage source when no matching checkout exists;
-- run `runtime_probe.py --stage <rank|xi|audit>`;
+- for `/xi`, fetch the exact-current single-file `xi_portable.py`, run `self-check`, then execute the triplet/reconciliation through it;
+- for `/rank` / `/audit`, or XI portable fallback only, materialize the exact-current stage source and run `runtime_probe.py --stage <rank|xi|audit>`;
 - attempt the actual stage command;
 - preserve a `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
@@ -190,8 +190,13 @@ Required result:
 - C2 validator executed;
 - C3 validator executed.
 
-Preferred runner:
-`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+Preferred XI runner:
+`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Before it:
+`python xi_portable.py self-check`
+
+Use `decision_triplet_cli.py` only on the documented multi-file fallback path.
 
 Each triplet freezes the same official C workload authorization:
 - `official_follow_lane`;
@@ -214,7 +219,7 @@ Only an actual failed setup/execution attempt with a complete `FOOTBALL_RUNTIME_
 
 This is execution plumbing only. Python remains a shadow validator; Football C text remains production authority.
 
-## Step 2 — three-track XI + odds
+## Step 2 — C/C2/C3 XI actions + C4 frozen Step-1 visibility
 
 Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
@@ -230,7 +235,8 @@ Perform one common XI + mandatory fresh post-XI web-research + H2H update, freez
 - **Football C official:** C-BET / C-WAIT / C-PASS.
 - **Football C2 shadow:** C2-BET / C2-WAIT / C2-PASS.
 - **Football C3 shadow:** C3-BET / C3-WAIT / C3-PASS when the fixture already receives normal XI/odds assessment.
-- **Python C/C2/C3 shadow validation.**
+- **Football C4 Step-1 snapshot:** always display the prospectively frozen C4 state/rank/supported line when available, labeled no Step-2 action.
+- **Python C/C2/C3 shadow validation** through the portable XI runtime.
 
 Accounting convention:
 - C-BET = direct official model exposure;
