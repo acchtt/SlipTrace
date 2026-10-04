@@ -189,6 +189,8 @@ No standalone market-undercut HOLD state.
 
 ## 10. Final action
 
+Apply `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+
 ### C-BET
 Football thesis survives; line at/below supported burden; price acceptable; no material football veto.
 
@@ -196,6 +198,8 @@ Football thesis survives; line at/below supported burden; price acceptable; no m
 Thesis already good enough; current line/price is blocker; protected target realistically reachable without expected negative football information.
 
 Predeclare target line, minimum odds, cancellation event, and thesis-health evidence required.
+
+For accounting/audit, C-WAIT immediately creates an assumed 1u model exposure at the target line/minimum odds. The action remains C-WAIT. Only a matching user bet slip or an explicit user statement that the target line never reached may reconcile/cancel that assumed exposure.
 
 ### C-PASS
 Thesis inadequate, burden unsupported, price unacceptable without healthy wait path, or wait depends on thesis deterioration.
@@ -211,8 +215,10 @@ Do **not** require positive live-stat confirmation for a scoreless Over wait. Sh
 
 No-goal clock decay by itself is not thesis decay.
 
-Cancel only when concrete football information materially damages the frozen mechanism or incentive state:
+Live thesis decay may change the current football recommendation:
 `C-WAIT CANCELLED — THESIS DECAY`
+
+It does **not** retroactively erase the WAIT assumed-exposure accounting record. Accounting changes only from a matching user slip or explicit user declaration that the target line never reached.
 
 ## 12. Live boundary
 
@@ -230,9 +236,9 @@ Daily Coverage Ledger must retain the full C funnel, including C-PASS.
 
 Decision States store material Step-2/live decisions.
 
-Website Picks store official C-BET exposure.
+Website Picks store official C-BET direct exposure and C-WAIT assumed exposure.
 
-User bet slip remains physical execution truth.
+User bet slip remains physical execution truth and may reconcile a corresponding C-WAIT to exact actual line/odds/stake. Explicit user "line never reached" removes model exposure for that WAIT.
 
 Never overwrite historical Football A records.
 
