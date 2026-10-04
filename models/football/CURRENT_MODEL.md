@@ -142,6 +142,8 @@ Use:
 
 Resolve Football C official WAITs normally.
 
+Live assessment is independent of provider live-stat telemetry. Do not require or request shots, xG, big chances, dangerous attacks, possession, corners, box entries or momentum before a verdict. Use score/minute/current line/odds, preserved prematch/XI football evidence, concrete material events and tournament incentive when applicable.
+
 If the same fixture also has a predeclared C2-WAIT and/or C3-WAIT, resolve each from the same live state as shadow comparison only. Do not create C3-only live monitoring.
 
 ## Factor calibration observer
@@ -209,7 +211,8 @@ Separate:
 - >=1.65 normal price zone.
 - 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material veto.
 - WAIT requires a healthy realistic path.
-- Target reached never auto-executes; thesis health must still be positive.
+- Target reached never auto-executes; the prematch/XI thesis must remain materially intact.
+- Provider live stats are not required for live assessment and are not execution/cancellation gates.
 - Actual user bet slips are physical execution truth.
 
 ## Deterministic engine status
