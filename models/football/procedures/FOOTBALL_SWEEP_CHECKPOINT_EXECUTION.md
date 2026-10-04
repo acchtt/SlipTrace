@@ -250,6 +250,15 @@ This prevents a long sweep from wasting later chunks on matches that became unus
 
 Table: `Sweep Runs` (`tblUnGHHe0MVaalDL`)
 
+The existing `Current Stage` single-select uses legacy broad stage names. Map the checkpoint phase without changing its option set:
+- `SOURCE_ACQUISITION` / `DISCOVERY_CLASSIFICATION` -> `CORE DISCOVERY`;
+- `TARGETED_VERIFICATION` -> `CONDITIONAL GATES`;
+- `RECONCILIATION` -> `RECONCILIATION`;
+- `PACKAGING` -> `PACKAGING`;
+- `COMPLETE` -> `COMPLETE`.
+
+The exact modern phase always lives in `Resume Cursor`; do not invent new single-select values.
+
 Existing checkpoint fields:
 - `Run Status` — `fldm0iEQqUrfsTqKS`
 - `Current Stage` — `fldUT0GEsWas15Ljt`
