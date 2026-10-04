@@ -94,10 +94,17 @@ For an applicable tournament fixture, `LIMITED` or `UNKNOWN` incentive resolutio
 ### H2H
 H2H is mandatory context when usable.
 
+Read and apply:
+`models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`
+
 Priority:
 `CURRENT MECHANISM -> RECENT SAME-VENUE TRANSFERABLE H2H -> RECENT ALL-VENUE TRANSFERABLE H2H -> OLD BACKGROUND`
 
-H2H never creates a route. Suppressive H2H materially downgrades only when transferable and corroborated by current football evidence.
+Here, `recent` is a research-priority label, not a hidden numerical pass/fail cutoff. Football C has no active fixed match-count/year recency threshold.
+
+H2H never creates a route. Suppressive H2H materially downgrades only when the researcher records both why it is transferable to the current matchup and which current football evidence independently corroborates the same suppressive mechanism.
+
+Every H2H declaration must carry a non-empty `h2h_basis`. If transferability/current corroboration is not established, H2H may remain LIMITED / NOT_USABLE / not material but may not silently create `material_suppression=true`.
 
 ## 5. Supported burden
 
