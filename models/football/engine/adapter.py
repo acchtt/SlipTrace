@@ -461,11 +461,16 @@ def parse_assessment(
         ),
         main_failure=_string(obj, "main_failure"),
         h2h_state=_string(obj, "h2h_state"),
+        h2h_basis=_string(obj, "h2h_basis"),
         supported_line=_number(obj, "supported_line"),
         carrier_self_fund=_required_bool(obj, "carrier_self_fund"),
+        carrier_self_fund_basis=_string(obj, "carrier_self_fund_basis"),
         independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
+        independent_upper_tail_basis=_string(obj, "independent_upper_tail_basis"),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
+        failure_attacks_route_basis=_string(obj, "failure_attacks_route_basis"),
         material_suppression=_required_bool(obj, "material_suppression"),
+        material_suppression_basis=_string(obj, "material_suppression_basis"),
         completion_mode=(
             _enum(CompletionMode, _required(obj, "completion_mode"), "completion_mode")
             if require_c_completion else None
@@ -887,6 +892,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     h2h_rechecked = _required_bool(ctx_obj, "h2h_rechecked")
     if not h2h_rechecked:
         raise ContractError("DECISION BLOCKED — H2H RECHECK MISSING")
+    h2h_basis = _string(ctx_obj, "h2h_basis")
 
     completion_rechecked = None
     c2_route_quality_rechecked = None
@@ -945,15 +951,20 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         post_xi_research_status=post_xi_research_status,
         h2h_review_status=h2h_review_status,
         h2h_rechecked=h2h_rechecked,
+        h2h_basis=h2h_basis,
         top_ranked_focus=_required_bool(ctx_obj, "top_ranked_focus"),
         primary_mechanism_intact=_required_bool(
             ctx_obj, "primary_mechanism_intact"
         ),
+        primary_mechanism_basis=_string(ctx_obj, "primary_mechanism_basis"),
         wait_reachable=_required_bool(ctx_obj, "wait_reachable"),
+        wait_reachability_basis=_string(ctx_obj, "wait_reachability_basis"),
         wait_requires_negative_info=_required_bool(
             ctx_obj, "wait_requires_negative_info"
         ),
+        wait_negative_info_basis=_string(ctx_obj, "wait_negative_info_basis"),
         material_veto=_required_bool(ctx_obj, "material_veto"),
+        material_veto_basis=_string(ctx_obj, "material_veto_basis"),
     )
 
     decision = (
@@ -990,6 +1001,15 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "market_history_note": market_history_note,
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
+        "h2h_basis": h2h_basis,
+        "primary_mechanism_basis": ctx.primary_mechanism_basis,
+        "wait_reachability_basis": ctx.wait_reachability_basis,
+        "wait_negative_info_basis": ctx.wait_negative_info_basis,
+        "material_veto_basis": ctx.material_veto_basis,
+        "failure_attacks_route_basis": a.failure_attacks_route_basis,
+        "material_suppression_basis": a.material_suppression_basis,
+        "carrier_self_fund_basis": a.carrier_self_fund_basis,
+        "independent_upper_tail_basis": a.independent_upper_tail_basis,
     }
 
     if model == "c":
