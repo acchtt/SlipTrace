@@ -11,6 +11,7 @@ Read upstream:
 - `models/football/challengers/football-c3/TEST_PROTOCOL.md`
 - `models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md`
 - `models/football/challengers/football-c4/TEST_PROTOCOL.md`
+- `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
@@ -337,6 +338,43 @@ If incomplete/contaminated:
 
 C4 eligibility is independent of C2/C3 counters.
 
+### C4 persistence — mandatory before /rank completion
+
+After the C4 compiler result is frozen, persist the prospectively generated C4 snapshot under `FOOTBALL_C4_AIRTABLE.md`.
+
+For **every ranked eligible fixture**, write to its existing Daily Coverage row:
+- `C4 Shadow State`;
+- `C4 Shadow Rank`;
+- `C4 Supported Line`;
+- `C4 Home Route`;
+- `C4 Away Route`;
+- `C4 Carrier`;
+- `C4 Goal3 Funding`;
+- `C4 Goal4 Funding`;
+- `C4 Control Risk`;
+- `C4 Structured Evidence` as the exact/lossless frozen anchor JSON;
+- `C4 Compiler Result` as the exact/lossless deterministic result;
+- `C4 Compiler Revision`.
+
+For the board's Sweep Runs row, write:
+- `C4 Test Board Number` when eligible;
+- `C4 Test Board Eligible`;
+- `C4 Contamination Reason` when ineligible.
+
+Then read back the same rows and reconcile:
+- C4 ranked eligible fixture count equals the C ranked eligible fixture count;
+- every eligible fixture has C4 state/rank/compiler revision;
+- every non-null C4 supported line matches the frozen compiler result;
+- Sweep Runs C4 eligibility/counter state matches the current test protocol.
+
+If any required C4 field write/readback is missing:
+
+`C4 PERSISTENCE SYNC FAULT — /RANK INCOMPLETE`
+
+Do not report the board as a complete C4 prospective board and do not advance the C4 counter. The official Football C board remains valid, but the C4 comparison for that board is explicitly incomplete.
+
+This persistence is what later `/xi` reads. Never reconstruct C4 at Step 2.
+
 ## 5. Python engine — C/C2/C3 board reconciliation + C4 compiler
 
 Serialize the frozen Step-1 evidence into three model-owned payloads using:
@@ -367,6 +405,8 @@ The following are model-owned and may differ:
 Do not run three unrelated board commands and assume the evidence remained identical.
 
 After the C/C2/C3 triplet passes, run the C4 structured compiler against the frozen Football C board payload. C4 comparison is invalid if ranked universe or common evidence basis differs.
+
+After compiler success, perform the mandatory C4 Airtable persistence + readback reconciliation above **before** declaring /rank complete.
 
 Python remains shadow validation only.
 
