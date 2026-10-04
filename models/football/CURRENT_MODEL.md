@@ -252,7 +252,7 @@ Separate:
 - Senior women's domestic top-flight blocks are mandatory discovery/accounting; they use the same operational/researchability rules as men's top flights and may not disappear because of gender/category labeling.
 - A missing visible women's top-flight block is `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`, not a valid completed sweep.
 - There is no fixed **predictive** board-size target after admission.
-- H2H mandatory when usable; `recent` is review priority rather than a hidden numeric cutoff, and any material H2H effect requires explicit transferability + current-corroboration basis.
+- H2H mandatory when usable; `recent` is review priority rather than a hidden numeric cutoff. Any material H2H effect requires `h2h_effect=SUPPRESSIVE`, `h2h_transferability=VERIFIED`, `h2h_current_corroboration=VERIFIED`, `h2h_material_effect=true`, plus a non-empty basis.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET, with a non-empty post-XI research trace.
 - Prematch Step 2 requires current fixture status to be confirmed and the executable quote to be revalidated immediately before deterministic execution.
 - Every due Step-2 FOLLOW/activated RESERVE/user-exception fixture must reconcile to one explicit disposition; a silent omission is a process failure.
