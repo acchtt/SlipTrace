@@ -106,4 +106,4 @@ The next candidate is always the lowest remaining Step0 queue rank.
 
 Do not retroactively rewrite a frozen historical board merely because this rule was added later.
 
-A still-open current sweep may be explicitly reopened and replenished prospectively if the affected fixtures have not started and their Step-0 evidence/queue can be reconstructed without outcome knowledge.
+A still-open current sweep may be replenished prospectively only when a complete Step-0 queue already exists in the attached/persisted handoff. /rank must never reconstruct or repair the Step-0 queue itself. If the queue is incomplete, return to `/sweep repair`.
