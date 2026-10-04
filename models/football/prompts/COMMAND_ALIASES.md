@@ -61,11 +61,17 @@ Examples:
 - attach the sweep ZIP, then type `/rank`;
 - `/rank reassess` means rerun the current attached board input under the current model authority.
 
-Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2/C3 shadow board workflow.
+Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2/C3/C4 Step-1 shadow board workflow.
 
 ### `/xi`
 
-Runs Step 2 for the supplied/referenced match(es).
+Runs Step 2 for the supplied/referenced match(es). Every invocation must reload the current launcher from repository authority rather than reuse previously loaded launcher text.
+
+Visible model roster:
+- Football C official Step-2 action;
+- C2 Step-2 shadow action;
+- C3 Step-2 shadow action;
+- C4 prospectively frozen Step-1 snapshot, explicitly labeled `NO STEP2 ACTION`.
 
 Examples:
 - attach XI + odds screenshots, then type `/xi`;
@@ -135,7 +141,7 @@ Aliases change ergonomics only. They do not weaken or replace:
 - tournament incentive integrity;
 - burden-completion selection;
 - XI/post-XI research;
-- C official / C2/C3 shadow separation;
+- C official / C2/C3 Step-2 shadow separation + C4 frozen Step-1 XI visibility;
 - new-chat / handoff freshness bootstrap;
 - persistence and audit rules.
 
@@ -148,4 +154,4 @@ When a command is invoked in a new chat that contains a handoff or copied prior 
 
 Always reload the current model roster and launcher semantics first. An older handoff that only mentions C/C2 must not cause C3 to disappear from a current /xi or /live response.
 
-For /xi and /live, C2 and C3 must be visible even when their correct status is UNAVAILABLE / COMPARISON INCOMPLETE.
+For /xi, C2 and C3 actions plus the C4 frozen Step-1 snapshot must be visible even when the correct status is UNAVAILABLE / COMPARISON INCOMPLETE. For /live, C2 and C3 remain the visible shadow action tracks.
