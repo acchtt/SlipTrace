@@ -69,6 +69,8 @@ require(
     "def self_check",
     "def run_triplet_files",
     "def run_reconcile_file",
+    "def run_accounting_file",
+    "model_bet_accounting",
 )
 require(
     "models/football/qa/check_xi_portable_runtime.py",
@@ -82,6 +84,7 @@ require(
     "test_rank_manifest_contains_both_board_engines",
     "test_xi_manifest_contains_triplet_and_reconciliation",
     "test_audit_manifest_contains_factor_calibration",
+    "test_all_stages_include_model_accounting",
 )
 
 for rel in (
