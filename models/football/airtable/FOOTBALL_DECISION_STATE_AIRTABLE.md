@@ -256,3 +256,24 @@ Dedicated Decision State fields:
 - `Market History Note` — `fldDPLEXFDLH58Xdu`
 
 These fields are common evidence for C/C2/C3. They do not grant exposure authority.
+
+
+## 13. Deterministic engine execution fields
+
+Dedicated Decision State fields:
+- `Engine Execution Status` — `fldhU9rA7EITaYxuM`
+- `Engine Source Revision` — `fld5ZVej5DSbZhPi4`
+- `Engine C Result` — `fldUktpv7mWLBzvGh`
+- `Engine C2 Result` — `fldpKcoEQ5zqA1knO`
+- `Engine C3 Result` — `fldg9oq2g3PiAe53d`
+- `Engine Failure Reason` — `fldznzspLsOuIHn2F`
+
+Every completed Step-2 Decision State must persist one execution status:
+- `EXECUTED_ALL_THREE`
+- `FAILED_AFTER_ATTEMPT`
+
+`FAILED_AFTER_ATTEMPT` requires a non-empty exact technical reason and preserved structured C/C2/C3 inputs.
+
+No-local-checkout / GitHub-only source access is not a failure reason. Follow `FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` and materialize/setup the current engine first.
+
+The old generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` state is not valid for current production.

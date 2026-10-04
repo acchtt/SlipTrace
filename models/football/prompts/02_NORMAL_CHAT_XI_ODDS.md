@@ -12,6 +12,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`
+- `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
 
 Football C is the only active official model. C2 and C3 are shadow-only.
 
@@ -250,9 +251,25 @@ Build three decision payloads from the same factual evidence epoch:
 
 Do not reuse C's supported line in C2 or C3 payloads.
 
-Run:
+Engine execution is **mandatory** for a completed Step-2 decision.
 
-`python models/football/engine/cli.py decision --input <payload.json>`
+Preferred execution:
+
+`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+This must execute all three frozen payloads as one fail-closed unit.
+
+If the triplet runner itself cannot be used, run the three individual commands:
+
+`python models/football/engine/cli.py decision --input <c.json>`
+
+`python models/football/engine/cli.py decision --input <c2.json>`
+
+`python models/football/engine/cli.py decision --input <c3.json>`
+
+A missing local checkout is **not** engine unavailability. If GitHub/files source plus a Python runtime are available, materialize the exact current engine revision into a temporary runnable workspace and execute it.
+
+Before fallback, follow `FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md` and make an actual setup/execution attempt.
 
 Compare six outputs:
 - C text official;
@@ -322,11 +339,13 @@ Then:
 - C WAIT plan if applicable
 - C2 shadow WAIT plan if applicable
 - C3 shadow WAIT plan if applicable
+- Engine execution status + source revision
 - Engine C result
 - Engine C2 result
 - C3 supported line + second-route/funding/control delta
 - C3 Board N/5 comparison status
 - Engine C3 result
+- Engine failure reason when FAILED_AFTER_ATTEMPT
 
 ## 9. Required machine appendix
 
@@ -340,8 +359,24 @@ Include:
 
 The machine appendix must preserve all required Step-2 gate fields above so QA can distinguish an actual negative declaration from an omitted field.
 
-If execution is unavailable:
-`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
+Execution status is mandatory.
+
+On success:
+`ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE`
+
+The generic fallback `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` is forbidden.
+
+Only after a genuine setup/execution attempt fails for an unresolved technical reason may the assessment use:
+
+`ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>`
+
+and
+
+`ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
+
+Preserve all three structured inputs, the source revision, attempted command/setup path, and the available error output.
+
+"Lack of local checkout", "repo only available through GitHub", or "runtime not prepared yet" are not valid failure reasons.
 
 ## 10. Authority
 

@@ -110,6 +110,13 @@ REQUIRED = {
         "MARKET HISTORY UNAVAILABLE — ATTEMPTED",
         "Market history is a reinspection trigger, not a model",
     ],
+    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md": [
+        "MANDATORY STEP-2 EXECUTION PRECHECK",
+        "not** engine unavailability",
+        "decision_triplet_cli.py",
+        "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
+        "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
+    ],
     "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md": [
         "mandatory post-slate audit contract",
         "FROZEN STATE — immutable",
@@ -314,6 +321,10 @@ REQUIRED = {
         "h2h_rechecked = true",
         "completion_rechecked = true",
         "Missing safety fields are contract failures",
+        "Engine execution is **mandatory** for a completed Step-2 decision",
+        "decision_triplet_cli.py",
+        "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
+        "FAILED_AFTER_ATTEMPT — <exact technical reason>",
         "Command alias:** `/xi`",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
@@ -468,6 +479,9 @@ REQUIRED = {
         "test_missing_suppression_boolean_fails_closed",
         "test_missing_failure_attack_boolean_fails_closed",
         "test_missing_primary_mechanism_flag_fails_closed",
+        "test_triplet_executes_all_three_models",
+        "test_triplet_rejects_model_mismatch",
+        "test_triplet_rejects_non_decision_stage",
         "test_high_current_stall_risk_cannot_bet",
         "test_low_current_completion_cannot_bet",
         "test_low_current_continuation_cannot_bet",
@@ -485,6 +499,11 @@ REQUIRED = {
     "models/football/engine/cli.py": [
         "choices=(\"board\", \"decision\", \"audit\")",
         "run_audit_record",
+    ],
+    "models/football/engine/decision_triplet_cli.py": [
+        "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
+        "EXECUTED_ALL_THREE",
+        "run_triplet",
     ],
     "models/football/engine/adapter.py": [
         "def run_board",

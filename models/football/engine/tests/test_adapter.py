@@ -6,6 +6,7 @@ ENGINE_DIR = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE_DIR))
 
 from adapter import ContractError, run_audit_record, run_board, run_decision  # noqa: E402
+from decision_triplet_cli import run_triplet  # noqa: E402
 
 
 def match(match_id="m1", **overrides):
@@ -97,6 +98,57 @@ def decision_context(**overrides):
     }
     row.update(overrides)
     return row
+
+
+def triplet_payload(model):
+    state = {
+        "c": "C-FOCUS",
+        "c2": "C2-FOCUS",
+        "c3": "C3-FOCUS",
+    }[model]
+    return {
+        "schema_version": "football-engine-v1",
+        "stage": "decision",
+        "model": model,
+        "match": match(
+            board_state=state,
+            carrier="STRONG",
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+        ),
+        "context": decision_context(board_state=state),
+    }
+
+
+class DecisionTripletRunnerTests(unittest.TestCase):
+    def test_triplet_executes_all_three_models(self):
+        result = run_triplet(
+            triplet_payload("c"),
+            triplet_payload("c2"),
+            triplet_payload("c3"),
+        )
+        self.assertEqual(result["engine_execution_status"], "EXECUTED_ALL_THREE")
+        self.assertEqual(result["models_executed"], ["c", "c2", "c3"])
+        self.assertEqual(set(result["results"]), {"c", "c2", "c3"})
+
+    def test_triplet_rejects_model_mismatch(self):
+        wrong = triplet_payload("c2")
+        with self.assertRaisesRegex(ContractError, "expected model=c"):
+            run_triplet(
+                wrong,
+                triplet_payload("c2"),
+                triplet_payload("c3"),
+            )
+
+    def test_triplet_rejects_non_decision_stage(self):
+        wrong = triplet_payload("c3")
+        wrong["stage"] = "board"
+        with self.assertRaisesRegex(ContractError, "must use stage=decision"):
+            run_triplet(
+                triplet_payload("c"),
+                triplet_payload("c2"),
+                wrong,
+            )
 
 
 class BoardContractTests(unittest.TestCase):

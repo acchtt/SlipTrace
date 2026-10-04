@@ -263,6 +263,50 @@ require(
     "test_unavailable_market_history_can_continue_after_attempt",
 )
 
+# 5. Completed Step-2 decisions must attempt deterministic execution.
+require(
+    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
+    "MANDATORY STEP-2 EXECUTION PRECHECK",
+    "Lack of an already-existing local repository checkout is **not** engine unavailability",
+    "decision_triplet_cli.py",
+    "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
+    "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "Engine execution is **mandatory** for a completed Step-2 decision",
+    "decision_triplet_cli.py",
+    "A missing local checkout is **not** engine unavailability",
+    "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
+    "ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>",
+    "generic fallback `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` is forbidden",
+)
+forbid(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "If execution is unavailable:",
+)
+require(
+    "models/football/engine/decision_triplet_cli.py",
+    "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
+    "EXECUTED_ALL_THREE",
+    "triplet payload mismatch",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_triplet_executes_all_three_models",
+    "test_triplet_rejects_model_mismatch",
+    "test_triplet_rejects_non_decision_stage",
+)
+require(
+    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
+    "Engine Execution Status",
+    "Engine Source Revision",
+    "Engine C Result",
+    "Engine C2 Result",
+    "Engine C3 Result",
+    "Engine Failure Reason",
+)
+
 # 5. Step-2 deterministic validation must fail closed.
 require(
     "models/football/engine/schema.json",

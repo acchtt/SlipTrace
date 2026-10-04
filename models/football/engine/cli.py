@@ -16,7 +16,7 @@ def _load(path: str | None) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Deterministic Football C/C2 validation engine"
+        description="Deterministic Football C/C2/C3 validation engine"
     )
     parser.add_argument(
         "command",
