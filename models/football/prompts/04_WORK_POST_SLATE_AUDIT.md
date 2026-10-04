@@ -223,7 +223,7 @@ Do **not** require later market-history proof that the line was reached.
 
 If the user explicitly says a WAIT target never reached, remove that WAIT layer only. If the same model had frozen WATCH, WATCH remains countable.
 
-A corresponding actual user bet may reconcile official C WAIT to exact actual line/odds/stake; actual user P/L remains separate.
+A corresponding actual user bet may reconcile official C WAIT to exact actual line/odds/stake as `WAIT_USER_CONFIRMED`; actual user P/L remains separate.
 
 ### Direct BET
 
