@@ -115,6 +115,7 @@ def context(
         official_follow_lane=FollowLane.FOLLOW,
         step2_authorization=Step2Authorization.ROUTINE_FOLLOW,
         thesis_state=thesis_state,
+        thesis_state_basis="current XI/research preserves the frozen scoring thesis",
         quote=quote or Quote(2.5, 1.70),
         xi_status=XiStatus.CONFIRMED,
         post_xi_research_status=PostXiResearchStatus.FOUND,
