@@ -66,20 +66,37 @@ Do not write "GitHub unavailable" unless the actual GitHub connector/source call
 
 ### C. Source materialization
 
-If a matching local checkout is absent, fetch the exact current stage-required files through the repository source and write them into a temporary runnable workspace while preserving relative paths.
+For stage=`xi`, use the portable fast path first:
+
+1. fetch only `models/football/engine/xi_portable.py` from the exact current repository revision;
+2. write it to a temporary runnable workspace;
+3. run `python xi_portable.py self-check` (or the available Python execution surface);
+4. if it passes, use the same file for both triplet execution and Step-2 reconciliation;
+5. do **not** materialize the full engine tree or run the multi-file XI runtime probe on a successful portable path.
+
+Required portable success:
+
+`XI PORTABLE RUNTIME: PASS`
+
+The portable bundle embeds the exact current C/C2/C3 Step-2 engine modules and is source-freshness guarded by CI. This is the preferred XI path because it removes the common missing-checkout / missing-import failure mode.
+
+Only if the portable bundle itself fails self-check after exact-current retrieval may XI fall back to the generic multi-file materialization path below.
+
+For `rank` / `audit`, or XI portable fallback, if a matching local checkout is absent, fetch the exact current stage-required files through the repository source and write them into a temporary runnable workspace while preserving relative paths.
 
 ### Concrete connector-to-runtime recipe
 
 When operating in ChatGPT with a connected GitHub source and a separate Python/container runtime:
 
 1. query the connected GitHub source for `acchtt/SlipTrace` current `main` SHA;
-2. fetch each required source file from that exact SHA through the GitHub connector/API;
-3. create the destination directories in the local Python/container workspace;
-4. write the connector-returned file text **verbatim** to the corresponding local path;
-5. do not require the GitHub connector itself to create a local file;
-6. run `runtime_probe.py`;
-7. materialize payload JSON;
-8. run the actual stage command.
+2. for XI, fetch/write `xi_portable.py` first and run its self-check;
+3. for rank/audit or XI portable fallback, fetch each required source file from that exact SHA through the GitHub connector/API;
+4. create the destination directories in the local Python/container workspace;
+5. write the connector-returned file text **verbatim** to the corresponding local path;
+6. do not require the GitHub connector itself to create a local file;
+7. run the relevant portable self-check or `runtime_probe.py`;
+8. materialize payload JSON;
+9. run the actual stage command.
 
 A connector returning source text is sufficient source access. "The GitHub tool does not automatically download into the container" is a setup detail, not unavailability.
 
@@ -116,7 +133,13 @@ Rank:
 then:
 `python models/football/engine/c4_semantic_cli.py --input <c4.json> --c-board <c.json>`
 
-XI:
+XI primary:
+`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+XI session reconciliation primary:
+`python xi_portable.py reconcile --input <step2_reconcile.json>`
+
+XI multi-file fallback only:
 `python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
 Audit:
@@ -143,7 +166,10 @@ Materialize:
 
 ### XI
 
-Materialize:
+Primary source:
+- `models/football/engine/xi_portable.py`
+
+Only if portable self-check fails after exact-current retrieval, materialize fallback files:
 - `models/football/engine/cli.py`
 - `models/football/engine/adapter.py`
 - `models/football/engine/core.py`
@@ -181,7 +207,8 @@ with:
 - Python probe result;
 - repository-source probe result;
 - local materialization result;
-- runtime source probe result;
+- XI portable self-check result when stage=xi;
+- runtime source probe result when the multi-file path is used;
 - exact execution command;
 - exact exit code/error;
 - remediation attempted.
@@ -214,7 +241,9 @@ When a command fails:
 
 1. inspect exact stderr;
 2. distinguish payload rejection from runtime/setup failure;
-3. if a source/import file is missing, fetch the exact current-revision file and retry;
+3. for XI, if the portable command reports a payload/contract error, report that exact contract error — do **not** call it a Python error;
+4. for XI, only switch to full multi-file materialization when `xi_portable.py self-check` itself fails after exact-current retrieval;
+5. if a fallback source/import file is missing, fetch the exact current-revision file and retry;
 4. if `python` command is missing, try the available Python execution surface or `python3`;
 5. if container network fails, use the GitHub connector source rather than retrying raw network;
 6. if payload validation fails, fix only serialization/contract omissions that are already supported by frozen evidence; never invent evidence;
@@ -230,7 +259,7 @@ When execution succeeds, record:
 - `python_probe = PASS`
 - `repository_probe = PASS @ <sha>`
 - `materialization = PASS`
-- `runtime_source_probe = PASS`
+- `xi_portable_self_check = PASS` for stage=xi, otherwise `runtime_source_probe = PASS`
 - `command_execution = PASS`
 
 Then report the stage-specific engine status normally.
