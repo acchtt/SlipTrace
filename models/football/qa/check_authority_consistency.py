@@ -36,10 +36,12 @@ def forbid(rel: str, *needles: str) -> None:
 require(
     "models/football/CURRENT_MODEL.md",
     "Active official model:** Football **C**",
-    "Shadow challengers:** Football **C2** and Football **C3**",
+    "Shadow challengers:** Football **C2**, Football **C3**, and Football **C4**",
     "retired historical Football A/shadow artifacts",
     "Step-2 fail-closed validator repair",
     "C3 burden-funding prospective test",
+    "Football C4",
+    "Step-1-only structured-evidence challenger",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
@@ -203,7 +205,92 @@ forbid(
     "C3 may authorize real exposure",
 )
 
-# 4A. Step-1 board comparison must reconcile the common evidence epoch.
+# 4A. C4 must remain a separate deterministic Step-1-only challenger.
+require(
+    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
+    "PROSPECTIVE STEP-1 SHADOW CHALLENGER",
+    "Step 1 `/rank` only",
+    "structured evidence anchors",
+    "Deterministic route compiler",
+    "Clearing-goal funding",
+    "NO_SUPPORTED_LINE",
+    "C4-FOCUS",
+    "C4-WATCH",
+    "C4-PASS",
+    "next **5 complete clean Step-1 boards**",
+)
+require(
+    "models/football/challengers/football-c4/TEST_PROTOCOL.md",
+    "ACTIVE PROSPECTIVE SHADOW TEST",
+    "C4 Test Board Number = 1..5",
+    "STRUCTURED EVIDENCE INCOMPLETE",
+    "RANKED UNIVERSE MISMATCH",
+    "Historical boards have zero confirmatory weight",
+)
+require(
+    "models/football/engine/c4_semantic.py",
+    'SCHEMA_VERSION = "football-c4-semantic-v1"',
+    "def compile_route",
+    "def compile_carrier",
+    "def compile_funding",
+    "def compile_supported_line",
+    "def compile_state",
+    "def reconcile_with_c_board",
+    "C4 RECONCILIATION FAILED — RANKED UNIVERSE MISMATCH",
+    "C4 RECONCILIATION FAILED — COMMON EVIDENCE BASIS DRIFT",
+)
+require(
+    "models/football/engine/c4_schema.json",
+    "\"football-c4-semantic-v1\"",
+    "\"additionalProperties\": false",
+    "\"creation_repeatability\"",
+    "\"upper_tail_repeatability\"",
+)
+require(
+    "models/football/engine/c4_semantic_cli.py",
+    "--c-board",
+    "c4_reconciled_with_c",
+    "c4_execution_status",
+)
+require(
+    "models/football/engine/tests/test_c4_semantic.py",
+    "test_strong_route_carrier_and_goal4_focus",
+    "test_partial_goal3_maps_to_o2",
+    "test_verified_suppression_forces_pass",
+    "test_missing_anchor_basis_fails_closed",
+    "test_unexpected_anchor_field_fails_closed",
+    "test_goal4_partial_maps_to_o275",
+    "test_reconcile_blocks_ranked_universe_mismatch",
+    "test_reconcile_blocks_common_evidence_basis_drift",
+    "test_input_order_cannot_change_ranking",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "Football C4 structured-evidence Step-1 shadow",
+    "c4_semantic_cli.py",
+    "C4 Test Board Eligible",
+    "C4 Test Board Number = 1..5",
+    "C4 is Step-1 shadow only",
+)
+require(
+    "models/football/airtable/FOOTBALL_C4_AIRTABLE.md",
+    "C4 role:** Step-1-only structured-evidence challenger",
+    "fldLftJ8ven7qffll",
+    "fldjy4ObqqXKtU9ud",
+    "fldmP7tAWb2oLXXvy",
+    "fldzWguzzVpUkJE2D",
+    "fldBGuZhpboeMUGtz",
+    "fld6qcujbINz3vwYK",
+    "fldkzj2yENYGNN18O",
+)
+forbid(
+    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
+    "C4 may create a Website Pick",
+    "C4 may authorize real exposure",
+    "C4 feeds official Step 2",
+)
+
+# 4B. Step-1 board comparison must reconcile the common evidence epoch.
 require(
     "models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md",
     "ACTIVE PROCESS COMPLIANCE CONTROL",
@@ -269,7 +356,7 @@ require(
     "Board Triplet Common-Evidence Reconciliation Status",
 )
 
-# 4B. Required competition coverage must fail closed before Work.
+# 4C. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
     "MANDATORY STEP-0 COVERAGE INVARIANT",
@@ -687,4 +774,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C authority and C2/C3 comparison semantics are internally consistent.")
+print("PASS — Football C authority and C2/C3/C4 comparison semantics are internally consistent.")

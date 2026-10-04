@@ -77,11 +77,17 @@ Single board:
 
 `python models/football/engine/cli.py board --input models/football/engine/examples/board_input.json`
 
-Mandatory Step-1 three-board reconciliation:
+Mandatory Step-1 C/C2/C3 board reconciliation:
 
 `python models/football/engine/board_triplet_cli.py --c c.json --c2 c2.json --c3 c3.json`
 
 The triplet runner requires the same ranked eligible universe and exact equality of the common factual evidence across C/C2/C3. Model-owned supported burden/state/funding fields may differ. It rejects common-evidence drift and policy-field leakage before running the three board validators.
+
+Step-1-only C4 structured compiler:
+
+`python models/football/engine/c4_semantic_cli.py --input c4.json --c-board c.json`
+
+C4 consumes prospectively frozen lower-level evidence anchors from the same research epoch, reconciles its match universe and `common_evidence_basis` with Football C, and deterministically compiles route/carrier/quality/control/funding/state/rank. C4 has no Step-2 or exposure authority.
 
 Every board assessment also carries:
 - non-empty `common_evidence_basis`;
@@ -127,6 +133,14 @@ On disagreement:
 - do not edit structured fields after seeing the coded result.
 
 This is how we determine whether inconsistency comes from semantic research inputs or from deterministic rule application.
+
+## C4 structured-evidence boundary
+
+C4 does not receive Football C/C2/C3 semantic grades as its authoritative input. It freezes explicit route evidence anchors (creation repeatability, dangerous access, service/finishing continuity, matched leakage, personnel integrity, suppression, multi-goal repeatability) plus match-level coverage/continuation/control/failure/upper-tail anchors.
+
+The C4 compiler contains no weighted score. Its state, supported burden and rank are deterministic decision-tree outputs defined by `FOOTBALL_C4_SPEC.md`.
+
+C4 is intentionally excluded from `decision_triplet_cli.py`, `step2_reconcile_cli.py`, live execution and Website Picks.
 
 ## Policy-field isolation
 

@@ -16,20 +16,20 @@ Before executing /rank, /xi, /live, /audit, /report, or an equivalent natural-la
 
 If a handoff names an older model roster or older launcher behavior, the current repository authority wins for **current execution semantics**.
 
-Do not silently continue an old "C + C2 only" authority snapshot after C3 has become an active shadow challenger.
+Do not silently continue an old model roster after newer shadow challengers become active. C4 is Step-1-only; its activation changes current `/rank` semantics but does not add a fourth `/xi` or `/live` track.
 
 ## 2. Preserve historical fidelity
 
 Freshness does **not** permit retrospective rewriting.
 
 Keep immutable:
-- historical C/C2/C3 board states actually frozen at the time;
+- historical C/C2/C3/C4 board states actually frozen at the time;
 - historical supported lines;
 - historical model availability;
 - historical actions/exposures;
 - timestamps and evidence epochs.
 
-If a historical board predates C3, do not manufacture a historical C3 rank/line for it.
+If a historical board predates C3, do not manufacture a historical C3 rank/line for it. If it predates C4, do not manufacture a historical C4 structured compilation for it.
 
 Instead show:
 `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`
@@ -38,11 +38,18 @@ Likewise for a missing historical C2 freeze.
 
 ## 3. Current-stage roster
 
-Under the current model authority, stage outputs must visibly account for:
-
+For `/rank`, current output must account for:
 - **OFFICIAL C**
 - **SHADOW C2**
 - **SHADOW C3**
+- **SHADOW C4 — STEP 1 ONLY**
+
+For `/xi` and `/live`, the visible execution roster remains exactly:
+- **OFFICIAL C**
+- **SHADOW C2**
+- **SHADOW C3**
+
+C4 must not be synthesized at Step 2/live because it has no execution policy.
 
 Never omit C2 or C3 merely because:
 - the handoff predates the challenger;
@@ -98,7 +105,8 @@ They may never be silently absent.
 
 Any new handoff must:
 - identify Football C as official;
-- identify C2 and C3 as shadow challengers;
+- identify C2 and C3 as Step-2-capable shadow challengers;
+- identify C4 as a Step-1-only structured-evidence shadow challenger when C4 is active;
 - state that future chats must reload `CURRENT_MODEL.md` and the current stage launcher before execution;
 - distinguish frozen historical state from current execution semantics.
 

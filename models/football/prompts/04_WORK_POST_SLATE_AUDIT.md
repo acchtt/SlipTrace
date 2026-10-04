@@ -1,4 +1,4 @@
-# 04 — Work: Football C / C2 / C3 / Engine Post-Slate Audit
+# 04 — Work: Football C / C2 / C3 / C4 / Engine Post-Slate Audit
 
 **Command alias:** `/audit`
 
@@ -8,7 +8,9 @@ Also read:
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
-- `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`.
+- `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
+- `models/football/challengers/football-c4/TEST_PROTOCOL.md`;
+- `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`.
 
 Use the model/version that actually produced each historical decision.
 
@@ -21,9 +23,9 @@ Use the model/version that actually produced each historical decision.
 
 ## Full funnel
 
-For every new dual-track board report:
+For every current board report:
 
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C3 SHADOW BOARD -> C OFFICIAL ACTION -> C2/C3 SHADOW ACTION -> PYTHON C/C2/C3 -> FT`
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C3 SHADOW BOARD -> C4 STEP1 SHADOW -> C OFFICIAL ACTION -> C2/C3 SHADOW ACTION -> PYTHON C/C2/C3 + C4 COMPILER -> FT`
 
 Track separately:
 - coverage failures;
@@ -54,6 +56,13 @@ Track separately:
 - C3 goal-3/goal-4 funding blocks;
 - C3 two-goal endpoint rate;
 - C3 false negatives;
+- C4 vs C rank/state inversions;
+- C4 vs C supported-line disagreement;
+- C4-FOCUS two-goal endpoint rate;
+- C-FOCUS -> C4-WATCH/PASS false-positive candidates;
+- C-PASS/WATCH -> C4-FOCUS false-negative candidates;
+- carrier-led winners retained or lost by C4;
+- C4 deterministic replay reproducibility;
 - C2 selection-floor blocks;
 - C2 bridge attempts;
 - text C vs code C disagreements;
@@ -68,7 +77,7 @@ After process reconstruction and **before** using the audit for future Step-0 se
 
 1. write one canonical operational event per observed fixture/epoch to Airtable `Competition Reliability Events` (`tblD0ZHqT772H25Uv`);
 2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
-3. never write FT goals, C/C2/C3 result, settlement or P/L into the reliability event;
+3. never write FT goals, C/C2/C3/C4 result, settlement or P/L into the reliability event;
 4. for each affected competition, load the latest 10 countable events;
 5. run `models/football/engine/competition_reliability.py`;
 6. upsert the `Competition Reliability` summary row (`tbl1KShXxXErUdVKW`);
@@ -83,6 +92,30 @@ or:
 `CAUTION -> DEMOTED — third consecutive critical operational failure`
 
 A profitable or high-scoring match cannot rescue a competition from an operational demotion. A losing/low-scoring match cannot cause one.
+
+## Prospective C4 boundary
+
+C4 confirmatory counting starts from the C4 activation merge commit.
+
+C4 has its own five-board Step-1 counter and does not reset or alter C2/C3.
+
+Historical boards have zero confirmatory C4 weight.
+
+For each C4 board audit:
+- verify the structured anchors were frozen before outcome;
+- verify every anchor carried a non-empty basis;
+- verify C4 ranked universe/common evidence basis reconciled with Football C;
+- verify the deterministic compiler revision was preserved;
+- compare C vs C4 rank/state/supported line;
+- count C4-FOCUS two-goal endpoints;
+- identify C-FOCUS -> C4-WATCH/PASS false-positive candidates;
+- identify C-PASS/WATCH -> C4-FOCUS false-negative candidates;
+- track carrier-led winners retained/lost;
+- replay the frozen structured input and require the same C4 output.
+
+A board advances the C4 counter only when its full ranked eligible universe was prospectively complete.
+
+C4 has no Step-2 action and therefore no counterfactual betting P/L in this test.
 
 ## Prospective C3 boundary
 
@@ -186,7 +219,9 @@ Official C model P/L and actual user P/L are separate:
 - routine Step 2 did not process STOP matches without explicit exception;
 - C2 shadow board preserved separately;
 - C3 shadow board preserved separately;
-- no C2/C3 overwrite of C fields;
+- C4 Step-1 structured shadow preserved separately when prospectively available;
+- no C2/C3/C4 overwrite of C fields;
+- C4 did not create Step-2 workload, Decision States, Website Picks, live exposure or P/L;
 - mandatory post-XI football research;
 - tournament-incentive completeness at Step 1;
 - tournament-incentive recheck at Step 2;
@@ -294,13 +329,17 @@ Then report slate totals:
 - actual user P/L;
 - C2 shadow counterfactual P/L on exact shadow entries;
 - C3 shadow counterfactual P/L only on exact shadow entries actually produced at Step 2;
+- C4 **no P/L** — Step-1 comparison only;
 - paired C-vs-C2 action matrix;
 - paired C-vs-C3 selection matrix;
+- paired C-vs-C4 Step-1 state/rank/line matrix;
+- C4 replay reproducibility count;
 - text-vs-code disagreement counts;
 - missed/avoided cases;
 - processing time / resumptions / corrections;
 - whether C2 remains worth continuing;
-- C3 board counter and whether the burden-funding hypothesis remains worth continuing.
+- C3 board counter and whether the burden-funding hypothesis remains worth continuing;
+- C4 board counter and whether structured semantic compilation remains worth continuing.
 
 Historical Football A/C1 audits remain version-faithful.
 
