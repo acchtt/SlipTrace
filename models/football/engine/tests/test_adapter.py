@@ -74,6 +74,22 @@ def match(match_id="m1", **overrides):
     return row
 
 
+C_COMPLETION_FIELDS = (
+    "completion_mode",
+    "burden_completion_quality",
+    "continuation_quality",
+    "opponent_leakage",
+    "burden_stall_risk",
+)
+
+
+def without_c_completion(row):
+    row = dict(row)
+    for field in C_COMPLETION_FIELDS:
+        row.pop(field, None)
+    return row
+
+
 def decision_context(**overrides):
     row = {
         "board_state": "C-FOCUS",
@@ -168,6 +184,56 @@ class DecisionTripletRunnerTests(unittest.TestCase):
 
 
 class BoardContractTests(unittest.TestCase):
+    def test_c2_board_does_not_require_c_completion_diagnostics(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c2",
+                "matches": [without_c_completion(match("c2-isolated"))],
+            }
+        )
+        row = result["matches"][0]
+        self.assertEqual(row["match_id"], "c2-isolated")
+        self.assertNotIn("completion_mode", row)
+        self.assertNotIn("burden_completion_quality", row)
+
+    def test_c3_board_does_not_require_c_completion_diagnostics(self):
+        row = without_c_completion(
+            match(
+                "c3-isolated",
+                board_state="C3-FOCUS",
+                carrier="STRONG",
+                carrier_self_fund=True,
+                independent_upper_tail=True,
+            )
+        )
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [row],
+            }
+        )
+        self.assertEqual(result["matches"][0]["match_id"], "c3-isolated")
+        self.assertNotIn("completion_mode", result["matches"][0])
+
+    def test_c_board_still_requires_c_completion_diagnostics(self):
+        with self.assertRaisesRegex(ContractError, "missing required field: completion_mode"):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        without_c_completion(
+                            match("c-missing", board_state="C-FOCUS", carrier="STRONG")
+                        )
+                    ],
+                }
+            )
+
     def test_board_is_ranked_and_floor_is_computed(self):
         result = run_board(
             {
