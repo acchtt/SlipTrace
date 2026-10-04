@@ -49,9 +49,20 @@ If transferability or current corroboration cannot be established, record the re
 
 Required fields:
 - `h2h_state`;
+- `h2h_effect = SUPPRESSIVE / OPEN / MIXED / NOT_MATERIAL / UNAVAILABLE`;
+- `h2h_transferability = VERIFIED / LIMITED / NOT_TRANSFERABLE / UNAVAILABLE`;
+- `h2h_current_corroboration = VERIFIED / NOT_FOUND / NOT_APPLICABLE / UNKNOWN`;
+- `h2h_material_effect = true/false`;
 - `h2h_review_status`;
 - `h2h_rechecked` at Step 2;
 - non-empty `h2h_basis`.
+
+If `h2h_material_effect=true`, the deterministic contract requires all three:
+- `h2h_effect=SUPPRESSIVE`;
+- `h2h_transferability=VERIFIED`;
+- `h2h_current_corroboration=VERIFIED`.
+
+This compiles the already-active "transferable and corroborated" rule; it does not add a new predictive threshold.
 
 Missing/unreliable H2H does not create favorable evidence. It remains unavailable/limited and the decision must rely on the current football evidence permitted by the active model.
 
