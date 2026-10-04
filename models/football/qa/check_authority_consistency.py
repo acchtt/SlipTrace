@@ -515,7 +515,7 @@ require(
     "xi_portable.py self-check",
     "xi_portable.py triplet",
     "decision_triplet_cli.py",
-    "payload/contract rejection from the portable runner is **not** a Python/runtime failure",
+    "payload/model contract rejection from the portable runner is **not** a Python/runtime failure",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
     "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
 )
