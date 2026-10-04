@@ -414,6 +414,15 @@ C2-WAIT and C3-WAIT must each preserve separate target/cancel conditions.
 
 ## 8. Output
 
+Before match blocks, print runtime/authority provenance:
+
+- `XI AUTHORITY REVISION: <current acchtt/SlipTrace revision>`
+- `XI RUNTIME: PORTABLE PASS` when `xi_portable.py self-check` passed;
+- or `XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`;
+- only use `XI RUNTIME: FAILED_AFTER_ATTEMPT — <exact technical reason>` for a genuine portable/runtime + required fallback failure.
+
+This provenance must be current-turn evidence, never copied from a prior message.
+
 ### Mandatory four-model visibility
 
 Every material match block must visibly account for Football C, C2, C3, and the frozen C4 Step-1 snapshot, even when the fixture/handoff lacks a legal prospective shadow freeze.
