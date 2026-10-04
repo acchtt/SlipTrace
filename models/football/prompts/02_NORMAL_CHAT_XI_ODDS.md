@@ -291,9 +291,11 @@ After C/C2/C3 text + deterministic Step-2 actions are frozen, combine:
 - C3 board state/supported line + C3 shadow action/quote/WAIT terms;
 - frozen C4 Step-1 state/supported line.
 
-Run:
+Run through the already-loaded portable XI runtime:
 
-`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
+`python xi_portable.py accounting --input <model_accounting.json>`
+
+Do not materialize a second accounting runtime when `xi_portable.py self-check` already passed.
 
 Required one-accounting-entry precedence per model/fixture:
 
