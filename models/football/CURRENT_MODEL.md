@@ -102,6 +102,11 @@ This is coverage plumbing only and does not promote a fixture into Football C.
 Use:
 `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
 
+Before discovery, apply:
+`models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
+
+Step 0 must acquire a complete AiScore date universe before fixture-level discovery. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
+
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
 Step 0 discovers the senior slate, including the mandatory senior women's domestic top-flight class defined by `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.
