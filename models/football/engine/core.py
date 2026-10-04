@@ -140,6 +140,10 @@ class MatchAssessment:
     evidence_confidence: Grade
     burden_protection: Grade
 
+    # Common Step-1 research basis. This is shared across C/C2/C3 and must
+    # describe the frozen football evidence epoch used for the common grades.
+    common_evidence_basis: str
+
     # Required failure/H2H declarations. Empty or omitted evidence must never
     # become an implicit favorable state in the deterministic validator.
     main_failure: str
@@ -151,6 +155,7 @@ class MatchAssessment:
     h2h_basis: str
 
     supported_line: float
+    supported_line_basis: str
 
     carrier_self_fund: bool
     carrier_self_fund_basis: str
@@ -172,6 +177,8 @@ class MatchAssessment:
     burden_stall_risk: Grade | None = None
 
     def __post_init__(self) -> None:
+        if not self.common_evidence_basis.strip():
+            raise ValueError("common_evidence_basis must be non-empty")
         if not self.main_failure.strip():
             raise ValueError("main_failure must be non-empty")
         if not self.h2h_state.strip():
@@ -185,6 +192,8 @@ class MatchAssessment:
         ):
             if not value.strip():
                 raise ValueError(f"{name} must be non-empty")
+        if not self.supported_line_basis.strip():
+            raise ValueError("supported_line_basis must be non-empty")
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
@@ -196,6 +205,7 @@ class C3PolicyAssessment:
 
     base: MatchAssessment
     second_route_role: SecondRouteRole
+    second_route_role_basis: str
     goal3_funding: FundingState
     goal3_funding_source: FundingSource
     goal3_funding_basis: str
@@ -205,12 +215,15 @@ class C3PolicyAssessment:
     control_endpoint_risk: Grade
     control_endpoint_basis: str
     forced_chaos_verified: bool
+    forced_chaos_basis: str
 
     def __post_init__(self) -> None:
         for name, value in (
+            ("second_route_role_basis", self.second_route_role_basis),
             ("goal3_funding_basis", self.goal3_funding_basis),
             ("goal4_funding_basis", self.goal4_funding_basis),
             ("control_endpoint_basis", self.control_endpoint_basis),
+            ("forced_chaos_basis", self.forced_chaos_basis),
         ):
             if not value.strip():
                 raise ValueError(f"{name} must be non-empty")
