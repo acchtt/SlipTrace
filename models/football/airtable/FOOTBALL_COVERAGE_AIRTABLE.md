@@ -205,3 +205,26 @@ If two active rows disagree on date, kickoff, orientation, C state, supported bu
 `COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
 
 Do not resolve by last-write-wins.
+
+
+## Required competition coverage manifest
+
+Sweep Runs must persist the protected Step-0 block check defined by:
+`models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`.
+
+Fields:
+- `Required Competition Manifest Version` — `fldYxv9Oljrkq4lZf`
+- `Required Competition Blocks` — `fldvIsy67dwIvarf2`
+- `Required Competition Blocks Complete` — `fldFcVeFIAikCWBj2`
+
+Current version:
+`required-competition-manifest-v1`
+
+Current protected block:
+- `NED_EERSTE_DIVISIE`
+
+Set completion true only when every protected block is explicitly checked and resolved.
+
+`SOURCE_BLOCKED`, a missing block, count/list mismatch, or missing fixture disposition means the sweep is not work-ready.
+
+This metadata never promotes a fixture or changes C/C2/C3 predictive state.
