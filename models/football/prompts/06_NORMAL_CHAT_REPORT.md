@@ -24,7 +24,8 @@ It may retrieve and summarize:
 - C2 shadow state when useful;
 - C3 burden-funding shadow state/rank/lane and Board N/5 when useful;
 - C4 Step-1 structured shadow state/rank/line and Board N/5 when useful;
-- Step-0 coverage/disposition summaries.
+- Step-0 coverage/disposition summaries;
+- active RUNNING sweep checkpoint status, including chunk/phase/pending block count.
 
 It must not:
 - run a new AiScore sweep;
@@ -54,7 +55,8 @@ When no scope is supplied, return a compact operational report containing:
 - next upcoming matches in ICT;
 - active C-WAIT / official C-BET states;
 - C2/C3/C4 prospective board counters when relevant;
-- unresolved process faults, if any.
+- unresolved process faults, if any;
+- if a Step-0 sweep is RUNNING, its Run ID, chunk number, phase and pending verification-block count.
 
 Do not rerun model research.
 
@@ -73,6 +75,18 @@ For WATCH show `WATCH_ASSUMED O<supported line> @1.65 1u` (shadow equivalent for
 
 ### `/report coverage`
 Show latest Step-0 funnel, including women's top-flight coverage counts/disposition integrity.
+
+If the newest matching sweep is still RUNNING, show:
+- Run ID;
+- `Checkpoint Version`;
+- `Sweep Chunk Number`;
+- cursor phase;
+- `Pending Verification Blocks`;
+- `Last Completed Block`;
+- retry queue count;
+- source acquisition state/transport.
+
+Do not call a normal chunk boundary BLOCKED.
 
 ### `/report waits`
 Show C/C2/C3 WAIT plans with target, minimum odds, accounting basis and current status if known. Default unresolved WAIT accounting is assumed; do not label a WAIT "not reached" unless the user explicitly said so. When a WAIT is not reached and that model had frozen WATCH, show the surviving WATCH accounting bet.
