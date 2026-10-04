@@ -1187,10 +1187,21 @@ class AuditRecordContractTests(unittest.TestCase):
         ):
             run_audit_record(
                 self.audit_record(
+                    frozen={
+                        "c_action": "C-PASS",
+                        "quote_line": None,
+                        "quote_odds": None,
+                        "wait_target_line": None,
+                        "wait_min_odds": None,
+                    },
                     observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
                     pnl_status={
                         "official_c_exposure": False,
                         "official_c_model_pnl": -1.0,
+                        "official_c_exposure_basis": "NONE",
+                        "official_c_exposure_line": None,
+                        "official_c_exposure_odds": None,
+                        "wait_resolution": "NOT_APPLICABLE",
                     },
                 )
             )
