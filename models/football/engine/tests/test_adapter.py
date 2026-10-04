@@ -80,6 +80,10 @@ def decision_context(**overrides):
         "quote": {"line": 2.5, "odds": 1.70},
         "xi_status": "CONFIRMED",
         "post_xi_research_status": "FOUND",
+        "market_history_status": "FOUND",
+        "market_history_movement": "STABLE",
+        "market_history_conflict_recheck": "NOT_REQUIRED",
+        "market_history_note": "open O2.5 -> pre-XI O2.5 -> current O2.5",
         "h2h_review_status": "REVIEWED_USABLE",
         "h2h_rechecked": True,
         "completion_rechecked": True,
@@ -984,6 +988,60 @@ class DecisionContractTests(unittest.TestCase):
                     "context": ctx,
                 }
             )
+
+    def test_missing_market_history_status_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("market_history_status")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: market_history_status",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_unavailable_market_history_must_be_unclear(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "UNAVAILABLE_ATTEMPTED market history requires movement=UNCLEAR",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(
+                        market_history_status="UNAVAILABLE_ATTEMPTED",
+                        market_history_movement="STABLE",
+                        market_history_note="history source unavailable after targeted attempt",
+                    ),
+                }
+            )
+
+    def test_unavailable_market_history_can_continue_after_attempt(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(board_state="C-FOCUS"),
+                "context": decision_context(
+                    market_history_status="UNAVAILABLE_ATTEMPTED",
+                    market_history_movement="UNCLEAR",
+                    market_history_conflict_recheck="LIMITED",
+                    market_history_note="targeted history search attempted; no reliable snapshots found",
+                ),
+            }
+        )
+        self.assertEqual(result["market_history_status"], "UNAVAILABLE_ATTEMPTED")
+        self.assertEqual(result["market_history_movement"], "UNCLEAR")
 
     def test_h2h_recheck_missing_blocks_decision(self):
         with self.assertRaisesRegex(
