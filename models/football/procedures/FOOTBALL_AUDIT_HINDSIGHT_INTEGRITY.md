@@ -4,6 +4,8 @@
 **Scope:** Football C official, Football C2 shadow, engine comparison, and historical version-faithful audits  
 **Purpose:** prevent outcome knowledge from rewriting frozen football judgments or exposure semantics.
 
+Also apply `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+
 ## 1. Three-layer audit record
 
 Every audited fixture must keep three layers separate.
@@ -27,6 +29,7 @@ Copy the exact prospectively frozen values. Never edit them after HT/FT:
 - H2H state;
 - tournament-incentive state;
 - Step-2 C action and exact quote;
+- frozen WAIT target line/minimum odds when C action is C-WAIT;
 - C2 shadow action and exact quote where applicable;
 - engine outputs.
 
@@ -131,13 +134,23 @@ Keep three concepts distinct.
 
 ### Model decision
 
-A persisted `C-BET` is an official Football C decision.
+A persisted `C-BET` or `C-WAIT` is an official Football C decision. The action label remains immutable.
 
 ### Official Football C exposure / model P&L
 
-Count official C model P&L only when an official C-BET was successfully published/reconciled as an official Website Pick/exposure record with exact line/odds.
+Count:
+- C-BET as direct model exposure at its exact published quote;
+- unresolved C-WAIT as assumed model exposure at its frozen target line/minimum odds;
+- user-confirmed C-WAIT at the exact corresponding user line/odds/stake while preserving the original WAIT target.
 
-User personal execution is **not required** for model P&L once official model exposure exists.
+The default C-WAIT exposure basis is `WAIT_ASSUMED`. It remains official model exposure unless the user explicitly states that the target line never reached.
+
+If the user states the target line never reached:
+`WAIT_NOT_REACHED — USER_DECLARED — NO MODEL EXPOSURE / NO MODEL P&L`
+
+Do not infer this state from absent market-history data or lack of a bet slip.
+
+User personal execution is **not required** for model P&L under the WAIT-assumed convention.
 
 If a C-BET exists but official publication/exposure failed:
 
@@ -155,14 +168,15 @@ A user may:
 Therefore:
 `OFFICIAL C MODEL P&L != ACTUAL USER P&L`
 
-Never use "the user did not bet" to erase an already-published official model loss/win.
+Never use "the user did not bet" to erase an already-published or WAIT-assumed official model loss/win.
 
 Never assign official model P&L to:
 - C-PASS;
-- unexecuted C-WAIT;
-- C2 shadow;
-- counterfactual lines;
+- C-WAIT explicitly marked `WAIT_NOT_REACHED`;
+- C2/C3 shadow;
 - assessment-only cases.
+
+C2/C3 WAITs may receive **shadow counterfactual P&L** at their frozen target/minimum odds under the same assumed-reach convention; this is never official exposure.
 
 ## 5. Required fixture audit format
 
@@ -186,9 +200,9 @@ For every material audited fixture use:
 - otherwise `RETROSPECTIVE HYPOTHESIS ONLY`.
 
 `P&L STATUS:`
-- official C model exposure/P&L;
+- official C model exposure/P&L + exposure basis;
 - actual user execution/P&L;
-- C2 shadow separately.
+- C2/C3 shadow separately.
 
 ## 6. Example — 2-0 stall
 
@@ -221,7 +235,9 @@ Every material fixture audit must also produce a structured `FOOTBALL_AUDIT_RECO
 The validator enforces:
 - exact canonical frozen grades;
 - no compound grade vocabulary;
-- explicit official C exposure state;
+- explicit official C exposure state and basis;
+- C-WAIT default `WAIT_ASSUMED` consistency;
+- explicit user-confirmed or user-declared-not-reached WAIT reconciliation;
 - official C model P/L only when official exposure exists;
 - actual user P/L only when user execution exists;
 - contemporaneous evidence note whenever `pre_freeze_evidence_miss=true`.
