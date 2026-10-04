@@ -149,14 +149,16 @@ When XI/current odds arrive:
 1. verify fixture/status;
 2. map XI changes to route functions;
 3. run one mandatory fresh fixture-specific public-web football research pass;
-4. verify/recheck tournament format and incentive state when applicable;
-5. re-check relevant H2H/matchup evidence;
-6. recheck completion mode, burden-completion quality, continuation quality, opponent leakage and stall risk;
-7. classify thesis PRESERVED / DEGRADED / BROKEN;
-8. interpret the executable market;
-9. issue C-BET / C-WAIT / C-PASS.
+4. run the mandatory Asian-total market-history attempt from `FOOTBALL_MARKET_HISTORY_RECHECK.md`;
+5. verify/recheck tournament format and incentive state when applicable;
+6. re-check relevant H2H/matchup evidence;
+7. recheck completion mode, burden-completion quality, continuation quality, opponent leakage and stall risk;
+8. run any market-history conflict reinspection;
+9. classify thesis PRESERVED / DEGRADED / BROKEN;
+10. interpret the executable market;
+11. issue C-BET / C-WAIT / C-PASS.
 
-Market-history/odds lookup does not satisfy the football-research requirement.
+Market-history/odds lookup does not satisfy the football-research requirement. The market-history attempt is nevertheless mandatory and must be declared FOUND / PARTIAL / UNAVAILABLE-ATTEMPTED.
 
 ## 8. Market interpretation
 
