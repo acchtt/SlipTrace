@@ -261,6 +261,8 @@ Required model-owned recheck fields:
 Do not satisfy C2/C3 by copying Football C's completion-recheck flag.
 
 Required shared current assessment fields include:
+- non-empty frozen `common_evidence_basis`;
+- non-empty model-owned `supported_line_basis`;
 - non-empty `main_failure`;
 - non-empty `h2h_state` + `h2h_effect` + `h2h_transferability` + `h2h_current_corroboration` + explicit `h2h_material_effect` + non-empty `h2h_basis`;
 - explicit `carrier_self_fund` + non-empty `carrier_self_fund_basis`;
