@@ -17,6 +17,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
+- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -444,8 +445,18 @@ Include:
 - `FOOTBALL_C4_INPUT`
 - `FOOTBALL_C4_RESULT`
 
-If runtime execution is unavailable:
-`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
+Deterministic execution is mandatory for a completed ranked board.
+
+Before any engine command, execute `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` for stage=`rank`. A missing local checkout or container network failure is not engine/repository unavailability.
+
+The board output must include a `FOOTBALL_RUNTIME_EXECUTION_RECORD` showing:
+- Python probe;
+- current repository revision/source probe;
+- local materialization result;
+- `runtime_probe.py --stage rank` result;
+- actual board-triplet/C4 command status.
+
+The legacy generic no-execution fallback is forbidden. Do not say Python/GitHub/repository is unavailable without the bootstrap's failed-attempt evidence record.
 
 ## 8. Non-negotiable separation
 

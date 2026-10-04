@@ -471,6 +471,33 @@ require(
     "test_unavailable_market_history_can_continue_after_attempt",
 )
 
+# 4D. Execution-required stages must probe current runtime/repository state.
+require(
+    "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
+    "MANDATORY EXECUTION PRECHECK",
+    "PYTHON PROBE: PASS",
+    "REPOSITORY PROBE: PASS",
+    "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
+    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
+    "runtime_probe.py --stage <rank|xi|audit>",
+)
+require(
+    "models/football/engine/runtime_probe.py",
+    "STAGE_FILES",
+    "def probe_stage",
+    "RUNTIME SOURCE PROBE: PASS",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
+    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
+)
+require(
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
+    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
+    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
+)
+
 # 5. Completed Step-2 decisions must attempt deterministic execution.
 require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
@@ -482,12 +509,13 @@ require(
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
     "Engine execution is **mandatory** for a completed Step-2 decision",
     "decision_triplet_cli.py",
     "A missing local checkout is **not** engine unavailability",
     "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
     "ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>",
-    "generic fallback `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` is forbidden",
+    "legacy generic no-execution fallback is forbidden",
 )
 forbid(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
