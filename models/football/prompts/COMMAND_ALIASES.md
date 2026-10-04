@@ -27,11 +27,12 @@ The old `@filename` / explicit launcher-path form remains valid for compatibilit
 When the first non-whitespace token of the user's message is one of the aliases above:
 
 1. treat it as an explicit request to run the mapped launcher;
-2. read `models/football/CURRENT_MODEL.md` first;
-3. preserve all remaining user text after the command as launcher arguments/instructions;
-4. treat files/images attached to the same message as inputs to that launcher;
-5. do not ask the user to restate the canonical filename;
-6. do not reinterpret the alias as a generic conversational slash command.
+2. read `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`;
+3. read `models/football/CURRENT_MODEL.md` and the current mapped launcher before trusting any handoff/prior-chat authority text;
+4. preserve all remaining user text after the command as launcher arguments/instructions;
+5. treat files/images attached to the same message as inputs to that launcher;
+6. do not ask the user to restate the canonical filename;
+7. do not reinterpret the alias as a generic conversational slash command.
 
 Aliases are case-insensitive, but the canonical display form is lowercase.
 
@@ -60,7 +61,7 @@ Examples:
 - attach the sweep ZIP, then type `/rank`;
 - `/rank reassess` means rerun the current attached board input under the current model authority.
 
-Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2 shadow board workflow.
+Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2/C3 shadow board workflow.
 
 ### `/xi`
 
@@ -134,7 +135,17 @@ Aliases change ergonomics only. They do not weaken or replace:
 - tournament incentive integrity;
 - burden-completion selection;
 - XI/post-XI research;
-- C official / C2 shadow separation;
+- C official / C2/C3 shadow separation;
+- new-chat / handoff freshness bootstrap;
 - persistence and audit rules.
 
 If alias text conflicts with a mandatory model integrity gate, the gate wins.
+
+
+## Handoff freshness
+
+When a command is invoked in a new chat that contains a handoff or copied prior response, the handoff is context only.
+
+Always reload the current model roster and launcher semantics first. An older handoff that only mentions C/C2 must not cause C3 to disappear from a current /xi or /live response.
+
+For /xi and /live, C2 and C3 must be visible even when their correct status is UNAVAILABLE / COMPARISON INCOMPLETE.
