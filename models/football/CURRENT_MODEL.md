@@ -216,7 +216,8 @@ Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
 
 Also apply:
-`models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md`
+- `models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
 
 At each Step-2 session freeze the due set from official C workload: every due FOLLOW, each activated RESERVE, and each explicit user exception. Every due fixture must receive one recorded disposition; silent omission blocks session completion.
 
@@ -227,14 +228,20 @@ Perform one common XI + mandatory fresh post-XI web-research + H2H update, freez
 - **Football C3 shadow:** C3-BET / C3-WAIT / C3-PASS when the fixture already receives normal XI/odds assessment.
 - **Python C/C2/C3 shadow validation.**
 
-Only Football C may publish an official Website Pick.
+Accounting convention:
+- C-BET = direct official model exposure;
+- C-WAIT = immediate assumed official model exposure at its deterministic WAIT target/minimum odds;
+- C2/C3 WAIT = assumed shadow exposure for challenger P/L only;
+- only a matching user slip or an explicit user statement that the line never reached may replace/cancel the C-WAIT assumed exposure.
+
+Only Football C may publish an official Website Pick. Under the current accounting convention both C-BET and C-WAIT publish/reconcile one official Website Pick; C-WAIT retains `Origin C Action = C-WAIT`.
 
 ## Live
 
 Use:
 `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
 
-Resolve Football C official WAITs normally.
+Resolve Football C official WAITs normally for live advisory/action purposes, but do not use later market observation to erase the already-created WAIT assumed exposure. Exposure accounting changes only under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`: matching user slip or explicit user "line never reached".
 
 Live assessment is independent of provider live-stat telemetry. Do not require or request shots, xG, big chances, dangerous attacks, possession, corners, box entries or momentum before a verdict. Use score/minute/current line/odds, preserved prematch/XI football evidence, concrete material events and tournament incentive when applicable.
 
@@ -261,6 +268,8 @@ Also apply:
 Audit:
 
 `RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C board -> C2 shadow board -> C3 shadow board -> C official action -> C2/C3 shadow action -> Python C/C2/C3 -> result`
+
+Audit WAIT accounting under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`: unresolved C-WAITs count as model bets at target/minimum odds; C2/C3 WAITs count as shadow bets. Do not infer a missed line from absent market history.
 
 Audit state is immutable after the fact:
 - preserve exact frozen grades/states/lines;
