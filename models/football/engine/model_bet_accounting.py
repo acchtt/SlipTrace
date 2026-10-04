@@ -184,12 +184,17 @@ def compile_model_bet(row: dict[str, Any]) -> BetTerms:
     )
 
 
+def _money(value: float) -> float:
+    """Keep deterministic accounting output free of binary-float artifacts."""
+    return round(float(value), 6)
+
+
 def _single_over_pnl(total_goals: int, line: float, odds: float, stake: float) -> tuple[str, float]:
     if total_goals > line:
-        return "WIN", stake * (odds - 1.0)
+        return "WIN", _money(stake * (odds - 1.0))
     if total_goals == line:
         return "PUSH", 0.0
-    return "LOSS", -stake
+    return "LOSS", _money(-stake)
 
 
 def settle_over(total_goals: int, line: float, odds: float, stake_u: float) -> tuple[str, float]:
@@ -220,7 +225,7 @@ def settle_over(total_goals: int, line: float, odds: float, stake_u: float) -> t
         # This should be unreachable for adjacent quarter components.
         raise ModelBetAccountingError(f"unexpected split settlement {pair}")
 
-    return settlement, low_pnl + high_pnl
+    return settlement, _money(low_pnl + high_pnl)
 
 
 def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
