@@ -144,7 +144,16 @@ Persist:
 - `Repair Verification Attempts`;
 - compact `Repair Notes`.
 
-If unresolved count = 0 and required coverage/queue fields are complete:
+If unresolved count = 0 and required coverage/queue fields are complete, write these handoff markers into the repaired package:
+- `repair_mode = true`;
+- `repair_status = COMPLETE`;
+- `repair_unresolved_count = 0`;
+- `step0_fixture_universe_frozen = true`;
+- `capacity_queue_complete = true`;
+- `repair_target_run_id`;
+- `repair_completed_at`.
+
+Then emit:
 
 `SWEEP REPAIR COMPLETE — READY FOR /RANK`
 
