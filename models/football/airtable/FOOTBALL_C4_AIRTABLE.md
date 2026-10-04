@@ -63,7 +63,22 @@ If C4 fails but C/C2/C3 are clean, preserve the normal official board. C4 become
 
 and the C4 counter does not advance.
 
-## 4. Independence
+## 4. XI read-only visibility
+
+When a fixture reaches `/xi`, retrieve these already-frozen Daily Coverage values and show them in the match block:
+- `C4 Shadow State`;
+- `C4 Shadow Rank`;
+- `C4 Supported Line`;
+- C4 route/carrier/funding/control summary;
+- `C4 Compiler Revision`;
+- current board's C4 test number/eligibility from Sweep Runs.
+
+Label:
+`SHADOW C4 (STEP1) — NO STEP2 ACTION`
+
+Do not create a C4 Decision State or recompute C4 from XI evidence.
+
+## 5. Independence
 
 Never:
 - map Football C route/carrier grades directly into C4 output fields as a substitute for the structured anchors;
@@ -73,7 +88,7 @@ Never:
 - use C4 to authorize `/xi`, `/live`, or real exposure;
 - backfill C4 fields after FT.
 
-## 5. Audit
+## 6. Audit
 
 Post-slate audit may compare C4 with C for:
 - state/rank inversions;
