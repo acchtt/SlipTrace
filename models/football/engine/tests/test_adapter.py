@@ -23,6 +23,7 @@ def match(match_id="m1", **overrides):
         "market_observability": "HIGH",
         "team_news_observability": "HIGH",
         "operational_viability_reason": "reliable XI/news and executable totals expected",
+        "common_evidence_basis": "Shared Step-1 research covers current routes, carrier, chance quality, failure resistance, lineup robustness, evidence confidence and burden protection for both teams.",
         "home_route": "STRONG",
         "away_route": "USABLE",
         "carrier": "USABLE",
@@ -46,6 +47,7 @@ def match(match_id="m1", **overrides):
         "h2h_material_effect": False,
         "h2h_basis": "Reviewed current and historical matchup evidence; no transferable suppressive mechanism was material.",
         "supported_line": 2.5,
+        "supported_line_basis": "O2.5 is the highest protected burden supported without requiring an optimistic scoring tail.",
         "carrier_self_fund": False,
         "carrier_self_fund_basis": "Carrier is usable but not frozen as independently self-funding the protected burden.",
         "independent_upper_tail": False,
@@ -68,7 +70,9 @@ def match(match_id="m1", **overrides):
         "tiebreak_margin_relevance": "NOT_APPLICABLE",
         "incentive_effect": "NOT_APPLICABLE",
         "board_state": "C2-FOCUS",
+        "board_state_basis": "Current football quality and model-owned burden support serious Step-2 consideration under this model.",
         "c3_second_route_role": "BURDEN_CONTRIBUTING",
+        "c3_second_route_role_basis": "The second route can prospectively contribute to the clearing goal rather than merely exchange one goal.",
         "c3_goal3_funding": "VERIFIED",
         "c3_goal3_funding_source": "CARRIER",
         "c3_goal3_funding_basis": "strong self-funded carrier can fund goal three",
@@ -78,6 +82,7 @@ def match(match_id="m1", **overrides):
         "c3_control_endpoint_risk": "LOW",
         "c3_control_endpoint_basis": "continued pressure remains supported beyond two goals",
         "c3_forced_chaos_verified": False,
+        "c3_forced_chaos_basis": "No separate forced-chaos mechanism is required or verified for this example.",
     }
     row.update(overrides)
     return row
@@ -204,6 +209,54 @@ class DecisionTripletRunnerTests(unittest.TestCase):
 
 
 class BoardContractTests(unittest.TestCase):
+    def test_board_requires_common_evidence_basis(self):
+        row = match()
+        row.pop("common_evidence_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: common_evidence_basis",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [row],
+                }
+            )
+
+    def test_board_requires_supported_line_basis(self):
+        row = match()
+        row.pop("supported_line_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: supported_line_basis",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [row],
+                }
+            )
+
+    def test_c_and_c2_require_board_state_basis(self):
+        row = match()
+        row.pop("board_state_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: board_state_basis",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c2",
+                    "matches": [row],
+                }
+            )
+
     def test_c2_board_does_not_require_c_completion_diagnostics(self):
         result = run_board(
             {
