@@ -144,6 +144,8 @@ Then:
 
 ## 5. Competition-block evidence reuse
 
+Evidence acquisition is **competition-block shared**.
+
 The current researchability/operational checks are fixture decisions, but repeated evidence acquisition must be shared inside one competition block.
 
 For one competition/date block, fetch the minimum evidence surfaces needed to establish:
