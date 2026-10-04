@@ -83,6 +83,7 @@ These basis fields have zero independent ranking weight. They only make the exis
 
 The following Step-2 decisions require a paired basis:
 
+- `thesis_state = PRESERVED / DEGRADED / BROKEN` -> `thesis_state_basis`;
 - `primary_mechanism_intact` -> `primary_mechanism_basis`;
 - `wait_reachable` -> `wait_reachability_basis`;
 - `wait_requires_negative_info` -> `wait_negative_info_basis`;
