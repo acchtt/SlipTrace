@@ -7,7 +7,9 @@
 
 ## 1. Initial run
 
-Run C2 for the next **5 complete boards** after the Step-2 fail-closed validator repair activation commit.
+Run C2 for the next **5 complete ranked boards** after the Step-2 fail-closed validator repair activation commit.
+
+Completeness is judged on the ranked eligible universe. A fixture that is prospectively quarantined before ranking with no C/C2 state, line or action does not invalidate the other paired comparisons.
 
 This is a feasibility checkpoint, not automatic promotion.
 
@@ -109,11 +111,23 @@ Stop confirmatory counting if:
 - C2 reads future/result evidence before freezing;
 - C2 directly copies A;
 - quote epoch cannot be reconstructed;
-- fixture identity unresolved;
+- fixture identity unresolved **inside the ranked/paired universe**;
 - C2 creates official exposure;
 - same-board selection is retrospectively changed.
 
 Any predictive change requires a new challenger ID.
+
+### Quarantine-safe board rule
+
+A single prospectively detected HOLD / hard exclusion / operational exclusion / incentive-incomplete fixture does not prevent the board checkpoint from advancing when:
+- it never enters C/C2 ranking;
+- the quarantine reason is explicit and audit-preserved;
+- all remaining ranked fixtures have complete paired freezes;
+- no required competition block or eligible fixture is missing from discovery.
+
+A missing competition block or silently omitted eligible fixture is different: it makes the ranked universe incomplete and invalidates the board for confirmatory counting.
+
+
 
 ## 10. Five-board report
 

@@ -295,3 +295,11 @@ C3's primary question is whether the clearing goal is prospectively funded:
 A second route is classified `BURDEN_CONTRIBUTING / EXCHANGE_ONLY / STATE_DEPENDENT / NONE`. Only BURDEN_CONTRIBUTING has positive selection value.
 
 The recent two-goal cluster motivated C3 but has zero confirmatory C3 weight.
+
+### Challenger board-count integrity
+
+C2/C3 board counters evaluate the **complete ranked eligible universe**, not every raw handoff row.
+
+A prospectively quarantined HOLD/exclusion that receives no model output does not invalidate an otherwise complete ranked board. Missing competition coverage or a silently omitted eligible fixture does invalidate it.
+
+This is comparison plumbing only and does not alter C, C2 or C3 predictive semantics.
