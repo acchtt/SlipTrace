@@ -52,11 +52,32 @@ A WATCH/STOP fixture becoming attractive merely because of price does not automa
 
 This lane is operational only; it does not rewrite the official C board state.
 
+### Step-2 due-set manifest — mandatory
+
+Before research begins, freeze the current session due set under:
+`models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md`.
+
+Include:
+- every FOLLOW whose XI/odds decision window is open;
+- every RESERVE explicitly activated for this session;
+- every user-declared exception.
+
+C2/C3 never add fixtures to this set.
+
+At the end of the session run:
+`python models/football/engine/step2_reconcile_cli.py --input <step2_reconcile.json>`
+
+Do not call the Step-2 session complete unless:
+`STEP2 RECONCILIATION STATUS: PASS`
+
+A missing due fixture is:
+`STEP2 RECONCILIATION FAILED — SILENT OMISSION`
+
 ## 2. Common XI/research evidence freeze
 
 Perform this **once** for the fixture:
 
-1. verify fixture/status;
+1. verify fixture/status and set `fixture_status = PREMATCH_CONFIRMED / STARTED / POSTPONED / CANCELLED / FINISHED / UNKNOWN`; only PREMATCH_CONFIRMED may continue through prematch Step 2, while STARTED routes to the live workflow;
 2. require an actual confirmed/reliable XI for a routine final prematch decision; Step-0 `xi_expected` is not a substitute;
 3. inspect confirmed XI and map changes to route functions **before reading market history**;
 4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
@@ -66,12 +87,15 @@ Perform this **once** for the fixture:
 8. run the market-history conflict recheck when movement/current market materially disagrees with XI or frozen support;
 9. update the shared route/mechanism facts once, then derive each model's owned current policy fields separately: Football C completion/continuation/stall diagnostics, C2 route-quality/selection-floor state, and C3 funding/control state;
 10. classify thesis state = PRESERVED / DEGRADED / BROKEN;
-11. freeze current executable user quote.
+11. freeze the current executable user quote;
+12. immediately before deterministic execution, revalidate that the quoted line/odds are still executable and set `quote_revalidated = true`; if the quote moved/disappeared, update the quote and rerun or block C-BET.
 
 Persist one post-XI research status:
 - `POST-XI RESEARCH = FOUND`
 - `POST-XI RESEARCH = LIMITED`
 - `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`
+
+Also persist a non-empty `post_xi_research_note` describing the fresh football information actually checked after XI confirmation. Market-history lookup alone cannot satisfy this note.
 
 Persist one market-history status:
 - `MARKET HISTORY = FOUND`
@@ -206,14 +230,16 @@ Never create a Website Pick or extra mandatory monitoring from C3.
 
 Every decision payload must explicitly prove the current Step-2 evidence epoch.
 
-Required context fields:
+Required common context fields:
+- `fixture_status = PREMATCH_CONFIRMED`;
 - `xi_status = CONFIRMED / RELIABLE / UNAVAILABLE`; `UNAVAILABLE` blocks a final decision;
 - `post_xi_research_status = FOUND / LIMITED / UNAVAILABLE_ATTEMPTED`;
+- non-empty `post_xi_research_note`;
+- `quote_revalidated = true`;
 - `market_history_status = FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED`;
 - non-empty `market_history_note`;
 - `h2h_review_status = REVIEWED_USABLE / REVIEWED_LIMITED / NOT_USABLE / UNAVAILABLE`;
 - `h2h_rechecked = true`;
-- `completion_rechecked = true`;
 - `top_ranked_focus`;
 - `primary_mechanism_intact`;
 - `wait_reachable`;
@@ -221,6 +247,13 @@ Required context fields:
 - `material_veto`;
 - `tournament_incentive_rechecked`;
 - `tournament_incentive_recheck_status`.
+
+Required model-owned recheck fields:
+- Football C: `completion_rechecked = true`;
+- Football C2: `c2_route_quality_rechecked = true`;
+- Football C3: `c3_funding_rechecked = true`.
+
+Do not satisfy C2/C3 by copying Football C's completion-recheck flag.
 
 Required shared current assessment fields include:
 - non-empty `main_failure`;
@@ -367,6 +400,10 @@ Include:
 - `FOOTBALL_ENGINE_C3_DECISION_RESULT`
 
 The machine appendix must preserve all required Step-2 gate fields above so QA can distinguish an actual negative declaration from an omitted field.
+
+Also include:
+- `FOOTBALL_STEP2_RECONCILIATION_INPUT`
+- `FOOTBALL_STEP2_RECONCILIATION_RESULT`
 
 Execution status is mandatory.
 

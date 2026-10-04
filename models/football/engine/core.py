@@ -308,7 +308,6 @@ class DecisionContext:
     post_xi_research_status: PostXiResearchStatus
     h2h_review_status: H2HReviewStatus
     h2h_rechecked: bool
-    completion_rechecked: bool
 
     top_ranked_focus: bool
     primary_mechanism_intact: bool

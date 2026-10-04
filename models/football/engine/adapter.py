@@ -817,6 +817,32 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         _required(ctx_obj, "post_xi_research_status"),
         "post_xi_research_status",
     )
+    post_xi_research_note = _string(ctx_obj, "post_xi_research_note")
+
+    fixture_status = _choice(
+        ctx_obj,
+        "fixture_status",
+        {
+            "PREMATCH_CONFIRMED",
+            "STARTED",
+            "POSTPONED",
+            "CANCELLED",
+            "FINISHED",
+            "UNKNOWN",
+        },
+    )
+    if fixture_status != "PREMATCH_CONFIRMED":
+        raise ContractError(
+            "DECISION BLOCKED — STEP2 FIXTURE NOT CONFIRMED PREMATCH: "
+            f"fixture_status={fixture_status}"
+        )
+
+    quote_revalidated = _required_bool(ctx_obj, "quote_revalidated")
+    if not quote_revalidated:
+        raise ContractError(
+            "DECISION BLOCKED — CURRENT QUOTE NOT REVALIDATED"
+        )
+
     market_history_status = _choice(
         ctx_obj,
         "market_history_status",
@@ -862,11 +888,29 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     if not h2h_rechecked:
         raise ContractError("DECISION BLOCKED — H2H RECHECK MISSING")
 
-    completion_rechecked = _required_bool(ctx_obj, "completion_rechecked")
-    if not completion_rechecked:
-        raise ContractError(
-            "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING"
+    completion_rechecked = None
+    c2_route_quality_rechecked = None
+    c3_funding_rechecked = None
+    if model == "c":
+        completion_rechecked = _required_bool(ctx_obj, "completion_rechecked")
+        if not completion_rechecked:
+            raise ContractError(
+                "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING"
+            )
+    elif model == "c2":
+        c2_route_quality_rechecked = _required_bool(
+            ctx_obj, "c2_route_quality_rechecked"
         )
+        if not c2_route_quality_rechecked:
+            raise ContractError(
+                "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING"
+            )
+    else:
+        c3_funding_rechecked = _required_bool(ctx_obj, "c3_funding_rechecked")
+        if not c3_funding_rechecked:
+            raise ContractError(
+                "DECISION BLOCKED — C3 FUNDING RECHECK MISSING"
+            )
 
     board_state = _enum(
         BoardState, _required(ctx_obj, "board_state"), "board_state"
@@ -901,7 +945,6 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         post_xi_research_status=post_xi_research_status,
         h2h_review_status=h2h_review_status,
         h2h_rechecked=h2h_rechecked,
-        completion_rechecked=completion_rechecked,
         top_ranked_focus=_required_bool(ctx_obj, "top_ranked_focus"),
         primary_mechanism_intact=_required_bool(
             ctx_obj, "primary_mechanism_intact"
@@ -938,26 +981,31 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "tournament_incentive_resolution": tournament_gate["resolution_status"],
         "xi_status": xi_status.value,
         "post_xi_research_status": post_xi_research_status.value,
+        "post_xi_research_note": post_xi_research_note,
+        "fixture_status": fixture_status,
+        "quote_revalidated": quote_revalidated,
         "market_history_status": market_history_status,
         "market_history_movement": market_history_movement,
         "market_history_conflict_recheck": market_history_conflict_recheck,
         "market_history_note": market_history_note,
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
-        "completion_rechecked": completion_rechecked,
     }
 
     if model == "c":
+        result["completion_rechecked"] = completion_rechecked
         result["current_burden_completion_quality"] = a.burden_completion_quality.name
         result["current_continuation_quality"] = a.continuation_quality.name
         result["current_burden_stall_risk"] = a.burden_stall_risk.name
 
     if model == "c2":
+        result["c2_route_quality_rechecked"] = c2_route_quality_rechecked
         floor, reasons = c2_selection_floor(a)
         result["selection_floor"] = floor.value
         result["selection_floor_reasons"] = list(reasons)
 
     if model == "c3":
+        result["c3_funding_rechecked"] = c3_funding_rechecked
         result["c3_second_route_role"] = c3_a.second_route_role.name
         result["c3_goal3_funding"] = c3_a.goal3_funding.name
         result["c3_goal3_funding_source"] = c3_a.goal3_funding_source.value

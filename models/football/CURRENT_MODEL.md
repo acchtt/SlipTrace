@@ -157,6 +157,12 @@ Each triplet freezes the same official C workload authorization:
 
 The deterministic layer fails closed when authorization and the official C lane disagree. Shadow C2/C3 may compare only an officially authorized Step-2 fixture and never create extra workload.
 
+Before deterministic execution, prematch Step 2 also requires:
+- `fixture_status = PREMATCH_CONFIRMED`;
+- `quote_revalidated = true`;
+- non-empty `post_xi_research_note`;
+- model-owned recheck proof: C `completion_rechecked`, C2 `c2_route_quality_rechecked`, C3 `c3_funding_rechecked`.
+
 Lack of an existing local checkout is not execution unavailability. When current engine source can be retrieved and a Python runtime exists, materialize/setup the engine and run it.
 
 The old generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.
@@ -170,6 +176,11 @@ This is execution plumbing only. Python remains a shadow validator; Football C t
 
 Use:
 `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
+
+Also apply:
+`models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md`
+
+At each Step-2 session freeze the due set from official C workload: every due FOLLOW, each activated RESERVE, and each explicit user exception. Every due fixture must receive one recorded disposition; silent omission blocks session completion.
 
 Perform one common XI + mandatory fresh post-XI web-research + H2H update, freeze it, then derive:
 
@@ -240,7 +251,10 @@ Separate:
 - A missing visible women's top-flight block is `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`, not a valid completed sweep.
 - There is no fixed **predictive** board-size target after admission.
 - H2H mandatory when usable.
-- Fresh post-XI public-web football research mandatory before final prematch C-BET.
+- Fresh post-XI public-web football research mandatory before final prematch C-BET, with a non-empty post-XI research trace.
+- Prematch Step 2 requires current fixture status to be confirmed and the executable quote to be revalidated immediately before deterministic execution.
+- Every due Step-2 FOLLOW/activated RESERVE/user-exception fixture must reconcile to one explicit disposition; a silent omission is a process failure.
+- C/C2/C3 own separate Step-2 policy recheck flags; C2/C3 do not inherit Football C's completion-recheck proof.
 - Every fixture explicitly declares `tournament_incentive_required=true/false`.
 - For applicable fixtures, **presence is not enough**: format, qualification state, home/away incentive, tiebreak/margin relevance, simultaneous-result impact, and incentive effect must be resolved/VERIFIED before C/C2 state, rank, follow lane, or supported burden exists.
 - LIMITED/UNKNOWN applicable fixtures are `INCENTIVE-INCOMPLETE`, not C-PASS/WATCH/FOCUS.

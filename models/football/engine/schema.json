@@ -491,7 +491,6 @@
             "post_xi_research_status",
             "h2h_review_status",
             "h2h_rechecked",
-            "completion_rechecked",
             "top_ranked_focus",
             "primary_mechanism_intact",
             "wait_reachable",
@@ -500,7 +499,10 @@
             "market_history_status",
             "market_history_movement",
             "market_history_conflict_recheck",
-            "market_history_note"
+            "market_history_note",
+            "post_xi_research_note",
+            "fixture_status",
+            "quote_revalidated"
           ],
           "properties": {
             "board_state": {
@@ -643,6 +645,30 @@
                 "RESERVE_ACTIVATED",
                 "USER_EXCEPTION"
               ]
+            },
+            "post_xi_research_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "fixture_status": {
+              "type": "string",
+              "enum": [
+                "PREMATCH_CONFIRMED",
+                "STARTED",
+                "POSTPONED",
+                "CANCELLED",
+                "FINISHED",
+                "UNKNOWN"
+              ]
+            },
+            "quote_revalidated": {
+              "type": "boolean"
+            },
+            "c2_route_quality_rechecked": {
+              "type": "boolean"
+            },
+            "c3_funding_rechecked": {
+              "type": "boolean"
             }
           }
         }

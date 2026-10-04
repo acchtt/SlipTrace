@@ -85,7 +85,11 @@ Mandatory Step-2 triplet:
 
 `python models/football/engine/decision_triplet_cli.py --c c.json --c2 c2.json --c3 c3.json`
 
-For completed Step-2 decisions, the launcher must execute C/C2/C3 through the deterministic engine. Use `decision_triplet_cli.py` to run all three payloads as one fail-closed unit.
+Mandatory Step-2 session reconciliation:
+
+`python models/football/engine/step2_reconcile_cli.py --input step2_reconcile.json`
+
+For completed Step-2 decisions, the launcher must execute C/C2/C3 through the deterministic engine. Use `decision_triplet_cli.py` to run all three payloads as one fail-closed unit. The session reconciliation then proves every due FOLLOW, activated RESERVE and user exception received exactly one explicit disposition.
 
 Each decision payload also carries the official Football C workload lane plus its authorization:
 - `official_follow_lane = FOLLOW / RESERVE / STOP`;
@@ -116,6 +120,13 @@ The shared assessment carries common route/mechanism evidence. Football C's comp
 `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk`.
 
 The adapter requires them for `model=c` and deliberately does not parse or emit them for `model=c2` / `model=c3`. C2 therefore cannot accidentally inherit C's burden-completion labels through the generic parser, while C3 relies on its own funding/control fields.
+
+Step-2 policy recheck proof is also model-owned:
+- C requires `completion_rechecked=true`;
+- C2 requires `c2_route_quality_rechecked=true`;
+- C3 requires `c3_funding_rechecked=true`.
+
+All prematch decision payloads additionally require `fixture_status=PREMATCH_CONFIRMED`, a non-empty `post_xi_research_note`, and `quote_revalidated=true`.
 
 ## Next milestones
 

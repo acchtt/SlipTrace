@@ -140,10 +140,12 @@ The user's confirmed XI and current executable odds are the current execution ep
 - use the supplied quote directly;
 - do not request a second confirmation;
 - do not fabricate missing XI/price;
-- perform the mandatory fresh post-XI football research pass;
+- perform the mandatory fresh post-XI football research pass and preserve a non-empty post-XI research note in the Decision State evidence summary/machine result;
 - perform the mandatory market-history attempt from `FOOTBALL_MARKET_HISTORY_RECHECK.md`;
 - perform the mandatory tournament-incentive recheck when applicable;
-- recheck completion/continuation/leakage/stall risk;
+- revalidate fixture status immediately before prematch decision execution;
+- revalidate the user's executable quote immediately before deterministic execution;
+- run model-owned current rechecks separately: C completion/continuation, C2 route quality, C3 funding/control;
 - issue the Football C official action plus C2/C3 shadow actions from the same factual evidence epoch when the fixture is already being assessed.
 
 If a required final input is missing:
@@ -154,7 +156,7 @@ If a required final input is missing:
 
 Football C:
 
-`FROZEN C BOARD -> IDENTITY/STATUS -> FIRST-PASS XI -> FRESH POST-XI RESEARCH -> MARKET-HISTORY ATTEMPT -> MARKET CONFLICT RECHECK -> TOURNAMENT/H2H RECHECK -> COMPLETION/CONTINUATION RECHECK -> CURRENT QUOTE -> C-BET/C-WAIT/C-PASS -> PERSIST`
+`FROZEN C BOARD -> STEP2 DUE-SET AUTHORIZATION -> IDENTITY/STATUS -> FIRST-PASS XI -> FRESH POST-XI RESEARCH -> MARKET-HISTORY ATTEMPT -> MARKET CONFLICT RECHECK -> TOURNAMENT/H2H RECHECK -> COMPLETION/CONTINUATION RECHECK -> CURRENT QUOTE -> FINAL STATUS/QUOTE REVALIDATION -> C-BET/C-WAIT/C-PASS -> PERSIST -> STEP2 RECONCILIATION`
 
 Football C2:
 
@@ -271,6 +273,15 @@ Dedicated Decision State fields:
 Every completed Step-2 Decision State must persist one execution status:
 - `EXECUTED_ALL_THREE`
 - `FAILED_AFTER_ATTEMPT`
+
+The serialized engine result/evidence summary must also preserve:
+- `fixture_status`;
+- `quote_revalidated`;
+- `post_xi_research_note`;
+- C `completion_rechecked` or shadow-owned `c2_route_quality_rechecked` / `c3_funding_rechecked`;
+- official `official_follow_lane` and `step2_authorization`.
+
+Step-2 session completeness is separately validated by `FOOTBALL_STEP2_SESSION_RECONCILIATION.md`; a persisted Decision State does not by itself prove that every due fixture was handled.
 
 `FAILED_AFTER_ATTEMPT` requires a non-empty exact technical reason and preserved structured C/C2/C3 inputs.
 

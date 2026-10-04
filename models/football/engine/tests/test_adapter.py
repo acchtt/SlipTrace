@@ -99,6 +99,9 @@ def decision_context(**overrides):
         "quote": {"line": 2.5, "odds": 1.70},
         "xi_status": "CONFIRMED",
         "post_xi_research_status": "FOUND",
+        "post_xi_research_note": "Fresh post-XI team and fixture research completed after lineup confirmation.",
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "quote_revalidated": True,
         "market_history_status": "FOUND",
         "market_history_movement": "STABLE",
         "market_history_conflict_recheck": "NOT_REQUIRED",
@@ -106,6 +109,8 @@ def decision_context(**overrides):
         "h2h_review_status": "REVIEWED_USABLE",
         "h2h_rechecked": True,
         "completion_rechecked": True,
+        "c2_route_quality_rechecked": True,
+        "c3_funding_rechecked": True,
         "top_ranked_focus": False,
         "primary_mechanism_intact": True,
         "wait_reachable": False,
@@ -1065,6 +1070,94 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
+    def test_non_prematch_fixture_blocks_step2(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "STEP2 FIXTURE NOT CONFIRMED PREMATCH",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(fixture_status="STARTED"),
+                }
+            )
+
+    def test_quote_must_be_revalidated_before_decision(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "CURRENT QUOTE NOT REVALIDATED",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": decision_context(quote_revalidated=False),
+                }
+            )
+
+    def test_post_xi_research_note_is_required(self):
+        ctx = decision_context()
+        ctx.pop("post_xi_research_note")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: post_xi_research_note",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_c2_requires_own_route_quality_recheck(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "C2 ROUTE-QUALITY RECHECK MISSING",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c2",
+                    "match": match(board_state="C2-FOCUS"),
+                    "context": decision_context(
+                        board_state="C2-FOCUS",
+                        c2_route_quality_rechecked=False,
+                    ),
+                }
+            )
+
+    def test_c3_requires_own_funding_recheck(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "C3 FUNDING RECHECK MISSING",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c3",
+                    "match": match(
+                        board_state="C3-FOCUS",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                    ),
+                    "context": decision_context(
+                        board_state="C3-FOCUS",
+                        c3_funding_rechecked=False,
+                    ),
+                }
+            )
+
     def test_c2_decision_does_not_require_c_completion_diagnostics(self):
         result = run_decision(
             {
