@@ -202,11 +202,11 @@ Persist C2 in Decision States under:
 Only evaluate C3 at Step 2 when the fixture is already receiving normal C-driven XI/odds assessment or an explicit user exception.
 
 Recheck from the same current evidence epoch:
-- second-route role;
+- second-route role + non-empty second-route-role basis;
 - goal-3 funding/source/basis;
 - goal-4 funding/source/basis when required;
 - control-endpoint risk/basis;
-- C3 forced-chaos verification.
+- C3 forced-chaos verification + non-empty forced-chaos basis.
 
 C3 direct shadow BET requires:
 - C3-FOCUS;
