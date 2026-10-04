@@ -1,4 +1,4 @@
-# 01 — Work: Football C Official + C2/C3 Shadow Boards
+# 01 — Work: Football C Official + C2/C3 + C4 Step-1 Shadow
 
 **Command alias:** `/rank`
 
@@ -9,6 +9,8 @@ Read upstream:
 - `models/football/challengers/football-c2/TEST_PROTOCOL.md`
 - `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
 - `models/football/challengers/football-c3/TEST_PROTOCOL.md`
+- `models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md`
+- `models/football/challengers/football-c4/TEST_PROTOCOL.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
@@ -113,7 +115,7 @@ If fields are present but any material incentive element remains LIMITED / UNKNO
 
 A tournament fixture is resolved for Step 1 only if format status is VERIFIED, qualification state is explicit, home/away incentives are resolved, tiebreak/margin relevance is YES/NO, simultaneous-result impact is VERIFIED or genuinely NOT_APPLICABLE, and incentive effect is resolved.
 
-Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2/C3 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
+Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2/C3/C4 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
 
 A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
@@ -124,7 +126,9 @@ Also apply:
 
 Every admitted fixture must include a non-empty `common_evidence_basis` describing the shared Step-1 research epoch used to freeze the common grades.
 
-Shared facts stop before model-owned policy. Football C, C2 and C3 consume the same routes/carrier/chance/failure/H2H/incentive evidence, then independently derive model-owned burden/selection fields.
+Shared facts stop before model-owned policy. Football C, C2 and C3 consume the same semantic routes/carrier/chance/failure/H2H/incentive evidence, then independently derive model-owned burden/selection fields.
+
+C4 uses the **same research epoch** but does not consume C/C2/C3 semantic grades as authority. Before seeing any C/C2/C3 output, freeze the C4 structured evidence anchors required by `FOOTBALL_C4_SPEC.md`: creation repeatability, dangerous access, service/finishing continuity, matched opponent leakage, personnel integrity, route-specific suppression and multi-goal repeatability for each side, plus coverage, continuation, control, failure/suppression and upper-tail anchors. Every anchor must carry a non-empty basis.
 
 Freeze these shared facts:
 
@@ -172,12 +176,12 @@ After the common facts are frozen:
 
 For Football C and C2, every frozen PASS/WATCH/FOCUS state must also include a non-empty `board_state_basis`. This makes the current semantic classification auditable; it does not introduce a new state threshold.
 
-At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for all three tracks.
+At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for C/C2/C3. C4 does not read this semantic grade; it compiles from its own structured anchors.
 
 For cups/tournaments/qualifiers/two-leg ties/final-round incentive states, the format-and-incentive check is mandatory before freezing supported burden. Do not mark suppression or expansion from recent scores alone. If the incentive state is LIMITED/UNKNOWN, do not freeze an official supported burden at all; keep the fixture INCENTIVE-INCOMPLETE until resolved.
 
-**Do not run separate C, C2 and C3 research passes.**  
-The experiment compares model policy, not two independently drifting research interpretations.
+**Do not run separate C, C2, C3 or C4 research passes.**  
+The experiment compares model policy/compilation, not independently drifting research interpretations. C4 may structure the same evidence differently, but it may not perform a later result-aware research pass.
 
 Once frozen, do not edit common evidence after seeing any model's ranking or the Python output.
 
@@ -286,7 +290,47 @@ A board is not clean when any C3 policy field was assigned after outcome knowled
 
 This counter is independent of the C2 five-board test.
 
-## 5. Python engine — three-track board reconciliation
+## 4A. Football C4 structured-evidence Step-1 shadow
+
+Apply `FOOTBALL_C4_SPEC.md` to the same ranked eligible universe and same contemporaneous research epoch.
+
+C4 must freeze its structured anchors **before reading C/C2/C3 rank/state/line**.
+
+Run the deterministic compiler:
+
+`python models/football/engine/c4_semantic_cli.py --input <c4.json> --c-board <c.json>`
+
+Required success:
+- `c4_execution_status = EXECUTED`;
+- `c4_reconciled_with_c = true`;
+- same ranked eligible match IDs as Football C;
+- exact matching `common_evidence_basis` per fixture.
+
+C4 is Step-1 shadow only. It creates **no FOLLOW/RESERVE/STOP**, no automatic `/xi` workload, no live plan and no Website Pick.
+
+### C4 prospective-board counter
+
+C4 starts at **0/5** from its activation merge.
+
+A board advances the C4 counter only when:
+- normal Step-0 coverage is complete;
+- the C/C2/C3 board triplet is clean;
+- every ranked eligible fixture has a complete prospective C4 anchor payload;
+- the C4 compiler executes for the complete ranked universe before outcome knowledge.
+
+If clean:
+- set `C4 Test Board Eligible = true`;
+- set the next `C4 Test Board Number = 1..5`;
+- leave `C4 Contamination Reason` blank.
+
+If incomplete/contaminated:
+- set `C4 Test Board Eligible = false`;
+- do not advance the C4 counter;
+- persist the exact contamination reason.
+
+C4 eligibility is independent of C2/C3 counters.
+
+## 5. Python engine — C/C2/C3 board reconciliation + C4 compiler
 
 Serialize the frozen Step-1 evidence into three model-owned payloads using:
 `models/football/engine/schema.json`.
@@ -314,6 +358,8 @@ The following are model-owned and may differ:
 - C3-only burden-funding/control fields.
 
 Do not run three unrelated board commands and assume the evidence remained identical.
+
+After the C/C2/C3 triplet passes, run the C4 structured compiler against the frozen Football C board payload. C4 comparison is invalid if ranked universe or common evidence basis differs.
 
 Python remains shadow validation only.
 
@@ -363,15 +409,22 @@ Then comparison table:
 | Match | C rank/state/lane | C3 rank/state/lane | C3 line | 2nd-route role | Goal-3 funding | Goal-4 funding | Control risk | Material difference |
 |---|---|---|---:|---|---|---|---|---|
 
+`FOOTBALL C4 STRUCTURED-EVIDENCE DELTA — BOARD <N>/5`
+
+| Match | C rank/state/line | C4 rank/state/line | C4 routes | Carrier | Goal-3 | Goal-4 | Control risk | Material difference |
+|---|---|---|---|---|---|---|---|---|
+
 Report funnel:
 
-`ADMITTED -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow`
+`ADMITTED -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow`
 
 Also report any:
 - C vs C2 rank inversion;
 - C vs C3 rank/lane inversion;
 - C3 two-route demotion caused by EXCHANGE_ONLY / STATE_DEPENDENT;
 - C3 goal-3/goal-4 funding blocker;
+- C4 vs C state/rank/supported-line inversion;
+- C4 structured-anchor incompleteness;
 - C2 selection-floor block;
 - potential unreachable-WAIT risk;
 - text-vs-code disagreement.
@@ -388,6 +441,8 @@ Include:
 - `FOOTBALL_ENGINE_C3_INPUT`
 - `FOOTBALL_ENGINE_C3_RESULT`
 - `FOOTBALL_BOARD_TRIPLET_RESULT`
+- `FOOTBALL_C4_INPUT`
+- `FOOTBALL_C4_RESULT`
 
 If runtime execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
@@ -396,8 +451,9 @@ If runtime execution is unavailable:
 
 - Football C official board feeds official Step 2.
 - C2/C3 shadow boards never substitute for C.
-- C2/C3 may not create real-bet instructions.
-- All three tracks use the same frozen common factual evidence epoch.
+- C4 is Step-1 shadow only and never feeds Step 2.
+- C2/C3/C4 may not create real-bet instructions.
+- C/C2/C3 use the same frozen common semantic evidence epoch; C4 uses the same research epoch but independently freezes its lower-level structured anchors before model outputs.
 
 
 ## 9. Operational follow-through guard — mandatory
