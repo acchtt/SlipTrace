@@ -1008,6 +1008,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     thesis_state = _enum(
         ThesisState, _required(ctx_obj, "thesis_state"), "thesis_state"
     )
+    thesis_state_basis = _string(ctx_obj, "thesis_state_basis")
     quote_obj = _required(ctx_obj, "quote")
     if not isinstance(quote_obj, dict):
         raise ContractError("quote must be an object")
@@ -1017,6 +1018,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         official_follow_lane=official_follow_lane,
         step2_authorization=step2_authorization,
         thesis_state=thesis_state,
+        thesis_state_basis=thesis_state_basis,
         quote=Quote(
             line=_number(quote_obj, "line"),
             odds=_number(quote_obj, "odds"),
@@ -1055,6 +1057,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "match_id": a.match_id,
         "official_follow_lane": official_follow_lane.value,
         "step2_authorization": step2_authorization.value,
+        "thesis_state": thesis_state.name,
+        "thesis_state_basis": thesis_state_basis,
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
