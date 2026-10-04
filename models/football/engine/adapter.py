@@ -556,7 +556,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(raw_matches, list) or not raw_matches:
         raise ContractError("matches must be a non-empty array")
 
-    parsed = [parse_assessment(item) for item in raw_matches]
+    parsed = [
+        parse_assessment(item, require_c_completion=(model == "c"))
+        for item in raw_matches
+    ]
     if model == "c":
         ranked = rank_assessments(parsed)
     elif model == "c2":
@@ -618,7 +621,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "simultaneous_results_status": incentive_gate["simultaneous_results_status"],
         }
 
-        if model != "c3":
+        if model == "c":
             row["completion_mode"] = item.completion_mode.value
             row["burden_completion_quality"] = item.burden_completion_quality.name
             row["continuation_quality"] = item.continuation_quality.name
@@ -765,7 +768,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         raise ContractError("model must be 'c', 'c2', or 'c3'")
 
     raw_match = _required(payload, "match")
-    a = parse_assessment(raw_match)
+    a = parse_assessment(raw_match, require_c_completion=(model == "c"))
     c3_a = parse_c3_policy(raw_match, a) if model == "c3" else None
 
     ctx_obj = _required(payload, "context")
