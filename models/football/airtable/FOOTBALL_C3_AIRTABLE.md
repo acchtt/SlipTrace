@@ -18,6 +18,7 @@ Dedicated C3 fields:
 - `C3 Lane` — `fldHHhXQS74KKEo7I`
 - `C3 Supported Line` — `fldNqu0N9eNidTi1C`
 - `C3 Second Route Role` — `fldOdZa31wzGcgd9I`
+- C3 second-route-role basis — persist in the frozen evidence summary/machine result until a dedicated physical field exists
 - `C3 Goal3 Funding` — `fld5o4GIJh88oaw1F`
 - `C3 Goal3 Source` — `fld39FLZA4DlTJoxN`
 - `C3 Goal3 Basis` — `fld2BwlIyLhlt0wOT`
@@ -27,6 +28,8 @@ Dedicated C3 fields:
 - `C3 Control Endpoint Risk` — `fldLoLuQH4JEJeHZ6`
 - `C3 Control Endpoint Basis` — `fldmakZJi1l7hk14c`
 - `C3 Forced Chaos Verified` — `fldkPfgqfrdlKU242`
+- C3 forced-chaos basis — persist in the frozen evidence summary/machine result until a dedicated physical field exists
+- C3 supported-line basis — persist in the frozen evidence summary/machine result
 
 These fields are frozen at Step 1 before outcome.
 
@@ -41,6 +44,7 @@ Dedicated C3 fields:
 - `C3 Supported Line` — `fld6avj0tjVcUSZto`
 - `C3 Shadow Action` — `fldj1LxIXjVdQQKwL`
 - `Current C3 Second Route Role` — `flds0jObsU5QMV4cr`
+- Current C3 second-route-role basis — preserve in the Decision State evidence summary / engine result
 - `Current C3 Goal3 Funding` — `fldPydLyYTxIh6Yzy`
 - `Current C3 Goal3 Source` — `fldSoq3kVRRLHZFsQ`
 - `Current C3 Goal3 Basis` — `fldSnl5YyTSBHaK03`
@@ -50,6 +54,7 @@ Dedicated C3 fields:
 - `Current C3 Control Risk` — `fldJaAFs5pVVq7Oby`
 - `Current C3 Control Basis` — `fldjrHHWDhr1hZsSK`
 - `Current C3 Forced Chaos Verified` — `fldBKxpdTUGhiIZqU`
+- Current C3 forced-chaos basis — preserve in the Decision State evidence summary / engine result
 
 C3 action values:
 - `C3-BET — SHADOW`
