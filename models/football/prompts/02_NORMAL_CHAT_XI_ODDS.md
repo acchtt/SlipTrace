@@ -12,6 +12,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`
+- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 - `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
 
 Football C is the only active official model. C2 and C3 are shadow-only.
@@ -63,6 +64,8 @@ Include:
 - every user-declared exception.
 
 C2/C3 never add fixtures to this set.
+
+Before any Step-2 Python command, execute the common runtime bootstrap with stage=`xi`. Probe Python and the current GitHub repository source in this turn; materialize the current engine source when needed. A missing checkout or container network/DNS failure is not GitHub/repository unavailability.
 
 At the end of the session run:
 `python models/football/engine/step2_reconcile_cli.py --input <step2_reconcile.json>`
