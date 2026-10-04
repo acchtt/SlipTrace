@@ -121,6 +121,27 @@ Attempt:
 
 Persist FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED plus movement/conflict-recheck status. Market history is a reinspection signal only; it does not create football structure or replace fresh post-XI football research.
 
+## Mandatory Step-2 deterministic execution
+
+Before finalizing any completed `/xi` decision, run the deterministic validator for all three tracks under `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`.
+
+Required result:
+- C validator executed;
+- C2 validator executed;
+- C3 validator executed.
+
+Preferred runner:
+`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Lack of an existing local checkout is not execution unavailability. When current engine source can be retrieved and a Python runtime exists, materialize/setup the engine and run it.
+
+The old generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.
+
+Only an actual failed setup/execution attempt may use:
+`ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
+
+This is execution plumbing only. Python remains a shadow validator; Football C text remains production authority.
+
 ## Step 2 — three-track XI + odds
 
 Use:
