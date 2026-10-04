@@ -15,10 +15,9 @@ Football C is official. C2 and C3 are shadow-only.
 
 For a supplied live fixture, freeze one current live state:
 - score/minute;
-- cards/injuries;
-- material tactical/mechanism changes;
+- goals/cards/injuries/substitutions or other material event changes when known;
+- material tactical/mechanism changes supported by concrete event/news evidence;
 - current quote;
-- attacking-quality indicators relevant to the original thesis;
 - current tournament/aggregate/table state when applicable;
 - whether a draw is acceptable;
 - whether extra time/direct penalties are reachable;
@@ -27,19 +26,40 @@ For a supplied live fixture, freeze one current live state:
 
 Use this same live state for C, C2 and C3 when a corresponding predeclared shadow WAIT exists.
 
+### No live-stat gate
+
+Assess the live match **regardless of provider live stats**.
+
+Do not require, request, or use as a mandatory execution/cancellation gate:
+- shots / shots on target;
+- xG / xGOT;
+- big chances;
+- dangerous attacks;
+- possession;
+- corners;
+- box entries / final-third entries;
+- pressure / momentum widgets;
+- any derived live-stat feed.
+
+These feeds are too inconsistent across providers and may miss goals that arise from isolated transitions, set pieces, penalties, long shots, errors or deflections.
+
+The absence of positive live telemetry is **not negative evidence**.
+
+A live assessment may proceed from the current score, minute, executable line/odds, the frozen prematch/XI thesis, and concrete material events. If a user supplies live stats, do not let them upgrade, downgrade, approve or cancel the decision by themselves.
+
 ## Football C official WAIT resolution
 
 Retrieve the exact official C-WAIT plan.
 
 Core rule:
 
-`TARGET REACHED + THESIS STILL HEALTHY?`
+`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
 
-A target number alone never authorizes C-BET.
+A target number alone never authorizes C-BET, but **positive live-stat confirmation is not required**.
 
-If price improved because the attack has gone stale:
+Clock/price decay without a goal is not thesis decay by itself.
 
-`C-WAIT CANCELLED — THESIS DECAY`
+Cancel only when concrete football information materially attacks the frozen mechanism, such as a red card against the carrier, key attacking injury/substitution, verified tactical/mechanism change, or changed tournament incentive.
 
 A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
 
@@ -74,7 +94,7 @@ Persist official material state. If C-BET occurs, reconcile Website Pick.
 
 ## Football C2 shadow WAIT resolution
 
-If a predeclared C2-WAIT exists, resolve it separately using the same common live evidence and its own target/cancellation conditions.
+If a predeclared C2-WAIT exists, resolve it separately using the same common live evidence and its own target/cancellation conditions. Do not require live-stat confirmation.
 
 C2 may produce:
 - `C2-BET — SHADOW`
@@ -86,7 +106,7 @@ C2 may never create Website Pick or real exposure.
 
 ## Football C3 shadow WAIT resolution
 
-If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch.
+If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch. Do not require live-stat confirmation.
 
 Recheck:
 - required clearing-goal funding;
@@ -116,6 +136,8 @@ If a shadow track has no valid prospective frozen state/plan, show:
 - the applicable `COMPARISON INCOMPLETE` reason.
 
 Never omit a shadow row just because the handoff is stale or the match is already live.
+
+Do not ask the user for live-stat screenshots before assessing. Score/minute/odds plus the preserved football thesis are sufficient unless a separate integrity gate (for example tournament incentive) is unresolved.
 
 ## Output
 

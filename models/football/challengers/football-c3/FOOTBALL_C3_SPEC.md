@@ -247,6 +247,8 @@ C3 live handling is comparison-only and only for a predeclared C3-WAIT on a fixt
 
 A goal/red/material incentive change creates a new C3 funding/control epoch.
 
+C3 live resolution does not require shots, xG, big chances, dangerous attacks, possession, corners, box entries or other provider live-stat telemetry. The absence of positive live stats cannot downgrade funding/control by itself.
+
 No opportunistic C3-only live exposure.
 
 ## 13. Primary experiment

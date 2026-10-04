@@ -259,9 +259,11 @@ Do not create a nominal WAIT whose target is expected to appear only after the m
 A WAIT never auto-executes merely because the number appears.
 
 When target is reached:
-`TARGET REACHED + THESIS STILL HEALTHY?`
+`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
 
-For scoreless Overs, require at least one live attacking-quality indicator. If decay reflects stale attack, cancel:
+Do not require a live attacking-quality indicator. Provider telemetry such as shots, xG, big chances, dangerous attacks, possession, corners or box entries is not an execution gate.
+
+Scoreless clock decay alone is not thesis decay. Cancel only on concrete football information that damages the mechanism:
 `C2-WAIT CANCELLED — THESIS DECAY`.
 
 ## 14. Live handling
@@ -269,6 +271,8 @@ For scoreless Overs, require at least one live attacking-quality indicator. If d
 C2 is not a general live-betting model.
 
 It may act live only to resolve a predeclared C2-WAIT. Any goal, red card, major injury, or material mechanism change creates a new epoch and voids the old quote.
+
+C2 live resolution does not require provider live stats. Use score/minute/current quote plus the preserved common football evidence and concrete event changes.
 
 ## 15. Required board output
 

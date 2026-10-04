@@ -210,6 +210,28 @@ require(
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
     "Mandatory three-track visibility",
     "Never omit a shadow row",
+    "No live-stat gate",
+    "Assess the live match **regardless of provider live stats**",
+    "positive live-stat confirmation is not required",
+    "Do not ask the user for live-stat screenshots before assessing",
+)
+forbid(
+    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
+    "Require contemporaneous attacking-quality evidence",
+    "require at least one live attacking-quality indicator",
+)
+require(
+    "models/football/production/FOOTBALL_C.md",
+    "Do **not** require positive live-stat confirmation",
+    "Live assessment proceeds regardless of provider live stats",
+)
+require(
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
+    "Do not require a live attacking-quality indicator",
+)
+require(
+    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
+    "C3 live resolution does not require shots, xG, big chances",
 )
 
 # 5. Step-2 market history must be attempted and explicit.
