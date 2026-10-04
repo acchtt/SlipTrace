@@ -74,12 +74,14 @@ When the user says the line never reached:
 - preserve the original `C-WAIT` decision;
 - set `Exposure Basis = WAIT_NOT_REACHED`;
 - set `WAIT Resolution = USER_DECLARED_NOT_REACHED`;
-- remove official model exposure/P&L for that WAIT;
+- remove operational C-WAIT exposure/P&L and the WAIT accounting layer;
 - keep the Website Pick/exposure record as an audit trail and settle it `VOID` / 0u where the persistence layer requires a record.
 
 For audit language:
 
-`WAIT NOT REACHED — USER DECLARED — NO MODEL EXPOSURE`
+`WAIT NOT REACHED — USER DECLARED — NO WAIT LAYER`
+
+If the frozen board state was C-WATCH, model accounting falls back to WATCH_ASSUMED at C supported line @1.65, 1u.
 
 ## 6. What does not cancel an assumed WAIT
 
@@ -166,7 +168,9 @@ Override only with:
 
 or:
 
-`explicit user "line never reached" -> WAIT_NOT_REACHED -> NO MODEL EXPOSURE`
+`explicit user "line never reached" -> WAIT_NOT_REACHED -> REMOVE WAIT LAYER`
+
+A frozen WATCH accounting bet, if any, remains under `FOOTBALL_MODEL_BET_ACCOUNTING.md`.
 
 Actual user P/L remains separate from model P/L.
 
