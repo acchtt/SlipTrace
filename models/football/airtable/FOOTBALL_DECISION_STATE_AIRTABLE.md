@@ -69,6 +69,8 @@ Persist where applicable:
 - Assessment Time;
 - Minute / Score / epoch;
 - official C verdict = `C-BET / C-WAIT / C-PASS`;
+- C exposure basis / accounting line / accounting odds;
+- WAIT resolution / reconciliation note;
 - shadow C2 verdict = `C2-BET — SHADOW / C2-WAIT — SHADOW / C2-PASS — SHADOW`;
 - shadow C3 verdict = `C3-BET — SHADOW / C3-WAIT — SHADOW / C3-PASS — SHADOW`;
 - evaluated line / odds;
@@ -176,6 +178,9 @@ The old Football A PRE/EGE/MCE/CC+/OFFICIAL LOCK compiler is not part of this or
 
 ## 8. Price / wait policy
 
+Apply:
+`models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+
 Football C current price policy:
 
 - >=1.65 normal acceptable zone;
@@ -189,31 +194,39 @@ Every C-WAIT records:
 - cancellation event;
 - thesis-health requirement.
 
-Target reached does not auto-execute.
+For accounting, a valid C-WAIT **immediately** becomes `WAIT_ASSUMED` at target line/minimum odds. No later market-reach proof is required.
+
+The model action remains C-WAIT. Only:
+- a matching user bet slip -> `WAIT_USER_CONFIRMED / USER_CONFIRMED`; or
+- an explicit user statement that the target line never reached -> `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`
+
+may change that accounting state.
 
 ## 9. Official exposure semantics
 
-A persisted Football C `C-BET` is the official model decision.
+A persisted Football C C-BET is direct official model exposure.
 
-Official Football C model exposure/P&L exists only when that decision is successfully published/reconciled to an official Website Pick/exposure record with exact line/odds.
+A persisted Football C C-WAIT is assumed official model exposure at its frozen target line/minimum odds unless the user explicitly says that target line never reached.
 
-Actual user execution/P&L is separate and comes only from the user's bet slip. User placement is not required to settle an already-published official model exposure.
+Exposure basis:
+- `DIRECT_BET`;
+- `WAIT_ASSUMED`;
+- `WAIT_USER_CONFIRMED`;
+- `WAIT_NOT_REACHED`;
+- `NONE`.
 
-If C-BET exists but official exposure publication failed:
-`OFFICIAL C DECISION — NO OFFICIAL EXPOSURE / NO MODEL P&L`
+Actual user execution/P&L remains separate and comes only from the user's bet slip.
 
-C2/C3 may never create official exposure.
+A matching user slip may reconcile a C-WAIT to exact actual line/odds/stake while preserving the original WAIT target.
 
-Do not count these as official model P/L:
-- C-PASS;
-- C-WAIT with no entry;
-- C2 shadow;
-- C3 shadow;
-- counterfactual;
-- missed opportunity;
-- historical calibration-only states.
+If the user explicitly says the target line never reached, the C-WAIT decision remains frozen but official exposure is removed:
+`WAIT_NOT_REACHED — USER_DECLARED — NO MODEL EXPOSURE / NO MODEL P&L`
 
-User bet slip remains physical execution truth for **actual user P/L**, not a switch that turns official model exposure on/off after publication.
+C2/C3 may never create official exposure; their WAITs may be counted only as shadow assumed exposures for model-comparison audit.
+
+Do not count C-PASS as official model P/L.
+
+A missing user slip, missing market-history proof, or lack of later mention does not erase a WAIT_ASSUMED model result.
 
 ## 10. Historical fidelity
 
@@ -233,11 +246,23 @@ For every new current assessment, persist `C Action` explicitly.
 
 For C-BET:
 1. persist Decision State;
-2. publish/reconcile one Website Pick;
-3. verify no duplicate official pick.
+2. set `C Exposure Basis = DIRECT_BET`;
+3. persist exact quote as C Exposure Line/Odds;
+4. publish/reconcile one Website Pick;
+5. verify no duplicate official pick.
 
-For C-WAIT/C-PASS:
-- Decision State only.
+For C-WAIT:
+1. persist Decision State;
+2. set `C Exposure Basis = WAIT_ASSUMED`;
+3. persist deterministic WAIT target/minimum as C Exposure Line/Odds;
+4. set `WAIT Resolution = ASSUMED_REACHED`;
+5. publish/reconcile one Website Pick immediately;
+6. verify no duplicate official pick.
+
+For C-PASS:
+- Decision State only with `C Exposure Basis = NONE`.
+
+Later reconciliation of a C-WAIT is allowed only from a matching user slip or explicit user statement that the target line never reached.
 
 For C2/C3:
 - Decision State/shadow metadata only;
@@ -251,6 +276,17 @@ If canonical identity is conflicting:
 
 `COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
 
+
+## 11A. WAIT exposure accounting fields
+
+Dedicated Decision State fields:
+- `C Exposure Basis` — `fldf6w7o7yi8KPr2G`
+- `C Exposure Line` — `fldfRLDGRjvHJ2gML`
+- `C Exposure Odds` — `fldbCbFCvLD5KArBA`
+- `WAIT Resolution` — `fldhATXMaqVDB4KpO`
+- `WAIT Reconciliation Note` — `fldbQgbncu2XIXydA`
+
+These fields control audit/exposure bookkeeping only. They do not overwrite `C Action` or the frozen model target.
 
 ## 12. Market-history fields
 
