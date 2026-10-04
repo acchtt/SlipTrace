@@ -41,6 +41,14 @@ REQUIRED = {
         "first non-whitespace token",
         "project-level text commands",
     ],
+    "models/football/airtable/FOOTBALL_C4_AIRTABLE.md": [
+        "ACTIVE STEP-1 SHADOW PERSISTENCE",
+        "C4 Shadow State",
+        "C4 Compiler Result",
+        "C4 Compiler Revision",
+        "XI read-only visibility",
+        "NO STEP2 ACTION",
+    ],
     "models/football/prompts/06_NORMAL_CHAT_REPORT.md": [
         "Command alias:** `/report`",
         "read/report launcher only",
@@ -295,6 +303,10 @@ REQUIRED = {
     "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
         "sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION",
         "Football C Official + C2/C3 + C4 Step-1 Shadow",
+        "FOOTBALL_C4_AIRTABLE.md",
+        "C4 persistence — mandatory before /rank completion",
+        "C4 PERSISTENCE SYNC FAULT — /RANK INCOMPLETE",
+        "C4 Compiler Revision",
         "Common evidence freeze",
         "Football C official board",
         "Football C2 shadow board",
