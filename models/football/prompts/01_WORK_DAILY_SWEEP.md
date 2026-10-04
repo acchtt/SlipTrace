@@ -456,7 +456,7 @@ The board output must include a `FOOTBALL_RUNTIME_EXECUTION_RECORD` showing:
 - `runtime_probe.py --stage rank` result;
 - actual board-triplet/C4 command status.
 
-Do not emit `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`. Do not say Python/GitHub/repository is unavailable without the bootstrap's failed-attempt evidence record.
+The legacy generic no-execution fallback is forbidden. Do not say Python/GitHub/repository is unavailable without the bootstrap's failed-attempt evidence record.
 
 ## 8. Non-negotiable separation
 
