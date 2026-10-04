@@ -106,7 +106,11 @@
         "carrier_self_fund_basis",
         "independent_upper_tail_basis",
         "failure_attacks_route_basis",
-        "material_suppression_basis"
+        "material_suppression_basis",
+        "h2h_effect",
+        "h2h_transferability",
+        "h2h_current_corroboration",
+        "h2h_material_effect"
       ],
       "properties": {
         "match_id": {
@@ -439,6 +443,37 @@
         "material_suppression_basis": {
           "type": "string",
           "minLength": 1
+        },
+        "h2h_effect": {
+          "type": "string",
+          "enum": [
+            "SUPPRESSIVE",
+            "OPEN",
+            "MIXED",
+            "NOT_MATERIAL",
+            "UNAVAILABLE"
+          ]
+        },
+        "h2h_transferability": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "LIMITED",
+            "NOT_TRANSFERABLE",
+            "UNAVAILABLE"
+          ]
+        },
+        "h2h_current_corroboration": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "NOT_FOUND",
+            "NOT_APPLICABLE",
+            "UNKNOWN"
+          ]
+        },
+        "h2h_material_effect": {
+          "type": "boolean"
         }
       }
     },
