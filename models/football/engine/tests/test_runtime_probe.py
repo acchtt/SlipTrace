@@ -20,6 +20,10 @@ class RuntimeProbeTests(unittest.TestCase):
         files = required_files("rank")
         self.assertIn("models/football/engine/board_triplet_cli.py", files)
         self.assertIn("models/football/engine/c4_semantic_cli.py", files)
+        self.assertIn(
+            "models/football/engine/repaired_handoff_normalize.py",
+            files,
+        )
 
     def test_xi_manifest_contains_triplet_and_reconciliation(self):
         files = required_files("xi")
