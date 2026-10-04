@@ -203,7 +203,73 @@ forbid(
     "C3 may authorize real exposure",
 )
 
-# 4A. Required competition coverage must fail closed before Work.
+# 4A. Step-1 board comparison must reconcile the common evidence epoch.
+require(
+    "models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md",
+    "ACTIVE PROCESS COMPLIANCE CONTROL",
+    "COMMON EVIDENCE RECONCILED",
+    "BOARD TRIPLET FAILED — COMMON EVIDENCE DRIFT",
+    "BOARD TRIPLET FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH",
+    "supported_line_basis",
+    "board_state_basis",
+)
+require(
+    "models/football/engine/board_triplet_cli.py",
+    "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
+    "MODEL_OWNED_FIELDS",
+    "COMMON EVIDENCE DRIFT",
+    "RANKED ELIGIBLE UNIVERSE MISMATCH",
+    "C POLICY FIELD LEAK INTO SHADOW PAYLOAD",
+    "C3 POLICY FIELD LEAK INTO C/C2 PAYLOAD",
+    "EXECUTED_ALL_THREE_BOARDS",
+    "common_evidence_reconciled",
+)
+require(
+    "models/football/engine/tests/test_board_triplet.py",
+    "test_triplet_reconciles_same_common_evidence",
+    "test_common_evidence_drift_fails",
+    "test_ranked_universe_mismatch_fails",
+    "test_c_policy_field_leak_into_c2_fails",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "board_triplet_cli.py",
+    "common_evidence_basis",
+    "supported_line_basis",
+    "board_state_basis",
+    "common_evidence_reconciled = true",
+)
+require(
+    "models/football/engine/schema.json",
+    "\"common_evidence_basis\"",
+    "\"supported_line_basis\"",
+    "\"board_state_basis\"",
+    "\"c3_second_route_role_basis\"",
+    "\"c3_forced_chaos_basis\"",
+)
+require(
+    "models/football/engine/adapter.py",
+    "common_evidence_basis=_string",
+    "supported_line_basis=_string",
+    "board_state_basis = _string",
+    "c3_second_route_role_basis",
+    "c3_forced_chaos_basis",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_board_requires_common_evidence_basis",
+    "test_board_requires_supported_line_basis",
+    "test_c_and_c2_require_board_state_basis",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "Common Evidence Basis",
+    "Supported Line Basis",
+    "C Board State Basis",
+    "Board Triplet Common-Evidence Reconciliation Status",
+)
+
+# 4B. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
     "MANDATORY STEP-0 COVERAGE INVARIANT",

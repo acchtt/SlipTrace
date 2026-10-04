@@ -120,7 +120,10 @@ For ordinary domestic/small blocks, admit only when operational viability is A/B
 Use:
 `models/football/prompts/01_WORK_DAILY_SWEEP.md`
 
-One common research/evidence pass is frozen first.
+Also apply:
+`models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md`
+
+One common research/evidence pass is frozen first. Every ranked fixture carries a non-empty `common_evidence_basis`; each model-owned supported burden carries `supported_line_basis`; C/C2 semantic board states carry `board_state_basis`.
 
 Then:
 - Football C creates the **official** C-PASS / C-WATCH / C-FOCUS board.
@@ -129,6 +132,8 @@ Then:
 - Python runs model=`c`, model=`c2` and model=`c3` against the same common factual evidence plus each model's owned policy fields.
 
 Football C's board/lane is the only board that controls routine Step-2 workload or official exposure. C2/C3 shadow lanes never create extra mandatory monitoring.
+
+C/C2/C3 board engine validation must run through `board_triplet_cli.py`, which fails closed on ranked-universe mismatch, common-evidence drift, or model-policy field leakage. A contaminated triplet does not advance C2/C3 prospective counters.
 
 After the board is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
 

@@ -55,7 +55,10 @@
       "incentive_effect": "NOT_APPLICABLE",
       "qualification_state": "NOT_APPLICABLE",
       "simultaneous_results_status": "NOT_APPLICABLE",
-      "simultaneous_results_note": "NOT_APPLICABLE"
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "common_evidence_basis": "Shared Step-1 football research freeze covering routes, carrier, chance quality, failure resistance and evidence quality.",
+      "supported_line_basis": "C2 independently supports O2.5 from the frozen football facts without copying Football C.",
+      "board_state_basis": "C2 route-quality evidence is strong enough for focus classification at the frozen board epoch."
     }
   ]
 }

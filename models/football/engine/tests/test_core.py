@@ -56,6 +56,7 @@ def assessment(**overrides):
         xi_robustness=Grade.HIGH,
         evidence_confidence=Grade.HIGH,
         burden_protection=Grade.HIGH,
+        common_evidence_basis="shared current football evidence supports the frozen route and quality grades",
         completion_mode=CompletionMode.TWO_SIDED,
         burden_completion_quality=Grade.HIGH,
         continuation_quality=Grade.HIGH,
@@ -69,6 +70,7 @@ def assessment(**overrides):
         h2h_material_effect=False,
         h2h_basis="reviewed matchup history with no material transferable suppressive mechanism",
         supported_line=2.5,
+        supported_line_basis="O2.5 is the highest supported burden without an optimistic tail",
         carrier_self_fund=False,
         carrier_self_fund_basis="usable carrier but not independently self-funding the protected burden",
         independent_upper_tail=False,
@@ -90,6 +92,7 @@ def c3_assessment(base=None, **overrides):
             independent_upper_tail=True,
         ),
         second_route_role=SecondRouteRole.BURDEN_CONTRIBUTING,
+        second_route_role_basis="second route can contribute prospectively to the clearing goal",
         goal3_funding=FundingState.VERIFIED,
         goal3_funding_source=FundingSource.CARRIER,
         goal3_funding_basis="strong self-funded carrier has repeatable third-goal path",
@@ -99,6 +102,7 @@ def c3_assessment(base=None, **overrides):
         control_endpoint_risk=Grade.LOW,
         control_endpoint_basis="continued pressure remains supported after two goals",
         forced_chaos_verified=False,
+        forced_chaos_basis="no separate forced-chaos path is required or verified",
     )
     data.update(overrides)
     return C3PolicyAssessment(**data)

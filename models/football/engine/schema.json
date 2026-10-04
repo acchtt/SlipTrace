@@ -110,7 +110,9 @@
         "h2h_effect",
         "h2h_transferability",
         "h2h_current_corroboration",
-        "h2h_material_effect"
+        "h2h_material_effect",
+        "common_evidence_basis",
+        "supported_line_basis"
       ],
       "properties": {
         "match_id": {
@@ -474,6 +476,26 @@
         },
         "h2h_material_effect": {
           "type": "boolean"
+        },
+        "common_evidence_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "supported_line_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "c3_second_route_role_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "c3_forced_chaos_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "board_state_basis": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },

@@ -514,6 +514,7 @@ def parse_assessment(
             _required(obj, "burden_protection"),
             "burden_protection",
         ),
+        common_evidence_basis=_string(obj, "common_evidence_basis"),
         main_failure=_string(obj, "main_failure"),
         h2h_state=_string(obj, "h2h_state"),
         h2h_effect=h2h_gate["effect"],
@@ -522,6 +523,7 @@ def parse_assessment(
         h2h_material_effect=h2h_gate["material_effect"],
         h2h_basis=h2h_gate["basis"],
         supported_line=_number(obj, "supported_line"),
+        supported_line_basis=_string(obj, "supported_line_basis"),
         carrier_self_fund=_required_bool(obj, "carrier_self_fund"),
         carrier_self_fund_basis=_string(obj, "carrier_self_fund_basis"),
         independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
@@ -566,6 +568,7 @@ def parse_c3_policy(
             _required(obj, "c3_second_route_role"),
             "c3_second_route_role",
         ),
+        second_route_role_basis=_string(obj, "c3_second_route_role_basis"),
         goal3_funding=_enum(
             FundingState,
             _required(obj, "c3_goal3_funding"),
@@ -595,6 +598,7 @@ def parse_c3_policy(
         ),
         control_endpoint_basis=_string(obj, "c3_control_endpoint_basis"),
         forced_chaos_verified=_required_bool(obj, "c3_forced_chaos_verified"),
+        forced_chaos_basis=_string(obj, "c3_forced_chaos_basis"),
     )
 
 
@@ -668,6 +672,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
             "supported_line": item.supported_line,
+            "supported_line_basis": item.supported_line_basis,
+            "common_evidence_basis": item.common_evidence_basis,
             "main_failure": item.main_failure,
             "h2h_state": item.h2h_state,
             "h2h_effect": item.h2h_effect,
@@ -708,9 +714,15 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["burden_stall_risk"] = item.burden_stall_risk.name
 
         state = None
-        if model != "c3" and "board_state" in raw:
-            state = _enum(BoardState, raw["board_state"], "board_state")
+        if model != "c3":
+            state = _enum(
+                BoardState,
+                _required(raw, "board_state"),
+                "board_state",
+            )
+            board_state_basis = _string(raw, "board_state_basis")
             row["board_state"] = state.name
+            row["board_state_basis"] = board_state_basis
             if model == "c":
                 validate_c_screen_state(item, state)
 
@@ -781,6 +793,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["board_state"] = f"C3-{state.name}"
             row["c3_shadow_lane"] = lane.value
             row["c3_second_route_role"] = c3_item.second_route_role.name
+            row["c3_second_route_role_basis"] = c3_item.second_route_role_basis
             row["c3_goal3_funding"] = c3_item.goal3_funding.name
             row["c3_goal3_funding_source"] = c3_item.goal3_funding_source.value
             row["c3_goal3_funding_basis"] = c3_item.goal3_funding_basis
@@ -790,6 +803,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["c3_control_endpoint_risk"] = c3_item.control_endpoint_risk.name
             row["c3_control_endpoint_basis"] = c3_item.control_endpoint_basis
             row["c3_forced_chaos_verified"] = c3_item.forced_chaos_verified
+            row["c3_forced_chaos_basis"] = c3_item.forced_chaos_basis
 
         output.append(row)
 
@@ -1055,6 +1069,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "decision_result",
         "model": model,
         "match_id": a.match_id,
+        "common_evidence_basis": a.common_evidence_basis,
+        "supported_line_basis": a.supported_line_basis,
         "official_follow_lane": official_follow_lane.value,
         "step2_authorization": step2_authorization.value,
         "thesis_state": thesis_state.name,
@@ -1110,12 +1126,14 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     if model == "c3":
         result["c3_funding_rechecked"] = c3_funding_rechecked
         result["c3_second_route_role"] = c3_a.second_route_role.name
+        result["c3_second_route_role_basis"] = c3_a.second_route_role_basis
         result["c3_goal3_funding"] = c3_a.goal3_funding.name
         result["c3_goal3_funding_source"] = c3_a.goal3_funding_source.value
         result["c3_goal4_funding"] = c3_a.goal4_funding.name
         result["c3_goal4_funding_source"] = c3_a.goal4_funding_source.value
         result["c3_control_endpoint_risk"] = c3_a.control_endpoint_risk.name
         result["c3_forced_chaos_verified"] = c3_a.forced_chaos_verified
+        result["c3_forced_chaos_basis"] = c3_a.forced_chaos_basis
 
     return result
 
