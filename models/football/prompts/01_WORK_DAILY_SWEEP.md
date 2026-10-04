@@ -3,6 +3,7 @@
 **Command alias:** `/rank`
 
 Read upstream:
+- `models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md`
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
