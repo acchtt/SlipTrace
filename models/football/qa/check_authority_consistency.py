@@ -464,6 +464,56 @@ require(
     "Repair mode must not restart broad acquisition/discovery",
 )
 
+# 4D2. Fresh Step-0 sweep execution must be bounded and resumable.
+require(
+    "models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md",
+    "ACTIVE STEP-0 RUNTIME CONTROL",
+    "football-sweep-checkpoint-v1",
+    "SWEEP CHECKPOINT SAVED — /sweep resume",
+    "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
+    "Resume Cursor",
+    "competition-block shared",
+    "Do not keep the only copy of a completed block in the assistant's transient context",
+)
+require(
+    "models/football/prompts/sweep.md",
+    "FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md",
+    "If the preserved user arguments begin with `resume`",
+    "do not create a new Run ID",
+)
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "/sweep resume [window|Run ID]",
+    "SWEEP CHECKPOINT SAVED — /sweep resume",
+)
+require(
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "Checkpointed execution — mandatory",
+    "External targeted verification is limited to **6 competition/date blocks per invocation**",
+    "competition-block shared",
+    "SWEEP CHECKPOINT SAVED — /sweep resume",
+)
+require(
+    "models/football/engine/sweep_checkpoint.py",
+    'CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"',
+    "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
+    "def select_verification_chunk",
+    "def advance_after_chunk",
+)
+require(
+    "models/football/engine/tests/test_sweep_checkpoint.py",
+    "test_selects_at_most_six_blocks",
+    "test_retry_blocks_are_prioritized_on_resume",
+    "test_advance_to_reconciliation_when_queue_empty",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "fldtIbv2ppGzwUExs",
+    "flduqxh9DOKdV1A06",
+    "flduhyM3Thjwj3Bqs",
+    "fld8jr7wAWGLhXqXe",
+)
+
 # 4E. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
 require(
     "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
