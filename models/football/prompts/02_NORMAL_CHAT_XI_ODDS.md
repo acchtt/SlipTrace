@@ -251,6 +251,12 @@ Build three decision payloads from the same factual evidence epoch:
 
 Do not reuse C's supported line in C2 or C3 payloads.
 
+All three payloads must also freeze the same official C workload authorization:
+- `official_follow_lane = FOLLOW / RESERVE / STOP`;
+- `step2_authorization = ROUTINE_FOLLOW / RESERVE_ACTIVATED / USER_EXCEPTION`.
+
+`ROUTINE_FOLLOW` is valid only for official lane FOLLOW. `RESERVE_ACTIVATED` is valid only for official lane RESERVE. A STOP fixture may enter Step 2 only through `USER_EXCEPTION`. C2/C3 never create their own workload authorization.
+
 Engine execution is **mandatory** for a completed Step-2 decision.
 
 Preferred execution:
