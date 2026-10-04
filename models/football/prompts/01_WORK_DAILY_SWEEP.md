@@ -24,6 +24,12 @@ Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 Require:
 `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
 
+Accept either:
+- native fixture-exact completeness with `global_raw_exact=true`; or
+- `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, `global_raw_exact=false`, and `production_scope_complete=true`.
+
+Fallback production-scope mode is valid only when protected/required competition manifests and the senior women's top-flight manifest are still fixture-exact, every plausible A/B candidate has a Step-0 disposition, and the admitted array satisfies the normal operational gate. Do not fail merely because the all-level global raw count is intentionally unavailable.
+
 If package/completeness fails:
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 

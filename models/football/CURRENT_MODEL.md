@@ -107,6 +107,8 @@ Before discovery, apply:
 
 Step 0 must acquire a complete AiScore date universe before fixture-level discovery. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
 
+When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and every plausible A/B senior candidate fixture-exact; summarize obvious youth/reserve/regional/amateur/non-operational blocks instead of enumerating the entire all-level date page. This is an efficiency/audit-granularity rule only and does not weaken the 15-fixture cap or Work preflight.
+
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
 Step 0 discovers the senior slate, including the mandatory senior women's domestic top-flight class defined by `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.

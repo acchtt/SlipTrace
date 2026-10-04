@@ -299,9 +299,41 @@ Run `validate_required_competition_manifest` from `models/football/engine/covera
 
 ## 10. Completeness
 
-Production completeness means:
+### Native/complete-date mode
+
+When the native AiScore date universe or an equivalently complete fixture-level date payload is available, production completeness means:
 
 > every potentially relevant senior block in the requested window was discovered, then hard-excluded, operationally excluded, researchability-excluded, capacity-deferred, or admitted.
+
+### Multi-source fallback production-scope mode
+
+When `source_transport = MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`, do **not** force fixture-level enumeration of the entire all-level date page merely to produce a cosmetic global raw count.
+
+Set:
+- `coverage_mode=FALLBACK_PRODUCTION_SCOPE`;
+- `global_raw_exact=false`;
+- `production_scope_complete=true` only when all requirements below pass.
+
+Fallback production-scope completeness requires fixture-level exactness for:
+1. every protected senior competition block;
+2. every required-competition manifest block;
+3. every senior women's domestic top-flight fixture carried by the authorized fallback universe;
+4. every fixture that survives hard-scope prefiltering and could plausibly receive operational grade A/B;
+5. every admitted or capacity-deferred fixture.
+
+Obvious youth/Uxx, academy, reserve-only, regional/state, university/school/company, amateur/micro, and clearly non-operational competition blocks may be summarized at **block level** with a hard/operational exclusion reason. They do not need one row per fixture in fallback mode.
+
+This exception changes audit granularity only. It must not:
+- hide a plausible A/B senior fixture;
+- weaken protected/required/women coverage;
+- permit a C/D fixture into Work;
+- use predictive attractiveness to decide what is enumerated.
+
+In fallback mode, `raw_senior_count` may be null/UNAVAILABLE rather than fabricated. Persist instead:
+- `production_universe_count` = exact fixture count after block-level hard-scope prefiltering that required fixture-level disposition;
+- `block_excluded_summary` = excluded competition blocks/categories with compact reasons.
+
+`work_ready=true` is permitted with `global_raw_exact=false` only when `production_scope_complete=true`, required competition coverage is exact, women's top-flight coverage is exact, and every plausible A/B senior candidate has a fixture-level disposition.
 
 Additionally:
 - every visible senior women's domestic top-flight block must reconcile under `FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`;
@@ -384,8 +416,8 @@ Required metadata:
 - `complete=true`;
 - `actionable_complete=true`;
 - `work_ready=true`;
-- `raw_senior_count`;
-- `hard_excluded_count`;
+- `raw_senior_count` when `global_raw_exact=true`, otherwise `global_raw_exact=false` + exact `production_universe_count` + `block_excluded_summary`;
+- `hard_excluded_count` when fixture-exact, otherwise block-level exclusion summary;
 - `operational_excluded_count`;
 - `researchability_excluded_count`;
 - `capacity_deferred_count`;
@@ -424,7 +456,7 @@ Return:
 with:
 
 - requested window;
-- raw senior count;
+- raw senior count when exact; otherwise `global_raw_exact=false` and exact production-universe count;
 - women's top-flight raw / admitted / operational excluded / researchability excluded / capacity deferred / unresolved counts;
 - hard excluded;
 - operationally excluded;
