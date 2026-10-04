@@ -26,7 +26,7 @@ Fetch the exact-current portable bundle and run:
 Required:
 `XI PORTABLE RUNTIME: PASS`
 
-Then use the same file for triplet execution and session reconciliation. The portable bundle embeds the exact C/C2/C3 Step-2 modules, so a missing checkout or missing local import tree cannot block the normal XI path.
+Then use the same file for triplet execution, session reconciliation, and all-model C/C2/C3/C4 accounting. The portable bundle embeds the exact C/C2/C3 Step-2 modules plus the accounting compiler, so a missing checkout or missing local import tree cannot block the normal XI path.
 
 The multi-file engine path below is fallback only when the exact-current portable bundle itself fails self-check. A payload/model contract rejection from the portable runner is **not** a Python/runtime failure and must be reported as:
 
@@ -96,6 +96,10 @@ Preferred one-command execution:
 Preferred session reconciliation:
 
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
+
+Preferred all-model accounting:
+
+`python xi_portable.py accounting --input <model_accounting.json>`
 
 Multi-file fallback only:
 
@@ -185,7 +189,8 @@ After the handoff freshness bootstrap:
 2. run `xi_portable.py self-check`;
 3. write the three frozen payloads;
 4. run `xi_portable.py triplet`;
-5. preserve results;
-6. use multi-file materialization only if the portable self-check itself fails.
+5. run `xi_portable.py accounting` after C/C2/C3 actions plus frozen C4 snapshot are assembled;
+6. preserve decision + accounting results;
+7. use multi-file materialization only if the portable self-check itself fails.
 
 This requirement applies whether the user typed `/xi` explicitly or clearly requested the equivalent XI/odds reassessment.
