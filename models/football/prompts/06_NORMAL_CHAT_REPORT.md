@@ -17,8 +17,8 @@ It may retrieve and summarize:
 - FOLLOW / RESERVE / STOP queue;
 - next scheduled matches;
 - current Decision States;
-- current Website Picks;
-- current C-WAIT plans;
+- current Website Picks, including direct C-BET and assumed/reconciled C-WAIT exposure;
+- current C-WAIT plans and exposure basis;
 - C2/C3 shadow waits when they exist on the same fixtures;
 - C2 shadow state when useful;
 - C3 burden-funding shadow state/rank/lane and Board N/5 when useful;
@@ -66,13 +66,13 @@ Show the latest frozen official Football C board and operational lanes. When a p
 Show upcoming Football C FOLLOW schedule first, then RESERVE if useful. Revalidate current fixture time/status before calling a match upcoming.
 
 ### `/report latest decisions`
-Show the latest material Football C Decision States and official Website Pick state.
+Show the latest material Football C Decision States and official Website Pick state. For C-WAIT show exposure basis (`WAIT_ASSUMED / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED`) and accounting line/odds separately from the immutable C-WAIT action.
 
 ### `/report coverage`
 Show latest Step-0 funnel, including women's top-flight coverage counts/disposition integrity.
 
 ### `/report waits`
-Show active C-WAIT plans with target, minimum odds, cancellation condition and current status if known.
+Show C-WAIT plans with target, minimum odds, cancellation condition, exposure basis and current status if known. Default unresolved WAIT exposure is `WAIT_ASSUMED`; do not label a WAIT "not reached" unless the user explicitly said so.
 
 ## Refresh modifier
 
