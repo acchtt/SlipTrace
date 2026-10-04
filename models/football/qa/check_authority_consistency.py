@@ -331,6 +331,9 @@ require(
     "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
     "EXECUTED_ALL_THREE",
     "triplet payload mismatch",
+    "official_follow_lane",
+    "step2_authorization",
+    "must share the same official_follow_lane and step2_authorization",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
@@ -351,6 +354,8 @@ require(
 # 5. Step-2 deterministic validation must fail closed.
 require(
     "models/football/engine/schema.json",
+    "\"official_follow_lane\"",
+    "\"step2_authorization\"",
     "\"main_failure\"",
     "\"h2h_state\"",
     "\"carrier_self_fund\"",
@@ -366,6 +371,8 @@ require(
 require(
     "models/football/engine/adapter.py",
     "def _required_bool",
+    "official_follow_lane",
+    "step2_authorization",
     "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
     "DECISION BLOCKED — H2H RECHECK MISSING",
     "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
@@ -374,6 +381,8 @@ require(
 )
 require(
     "models/football/engine/core.py",
+    "class Step2Authorization",
+    "DECISION BLOCKED — STEP2 AUTHORIZATION/LANE MISMATCH",
     "current burden stall risk is HIGH",
     "current burden-completion quality is LOW",
     "current continuation quality is LOW",
@@ -381,6 +390,9 @@ require(
 )
 require(
     "models/football/engine/tests/test_adapter.py",
+    "test_missing_step2_lane_fails_closed",
+    "test_stop_lane_without_exception_is_blocked",
+    "test_stop_lane_user_exception_can_reopen",
     "test_missing_xi_status_fails_closed",
     "test_missing_post_xi_research_status_fails_closed",
     "test_h2h_recheck_missing_blocks_decision",
