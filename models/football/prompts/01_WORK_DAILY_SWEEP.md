@@ -20,8 +20,11 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
+- `models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
+
+If the attached file is a completed repaired sweep, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` **before any web research**. Once accepted, its fixture identity, kickoff, Step-0 dispositions and capacity queue are frozen for /rank.
 
 Require:
 `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
@@ -36,6 +39,8 @@ If package/completeness fails:
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
 Do not rebuild the raw universe in Work.
+
+For an accepted repaired handoff, do not re-verify kickoff/fixture identity on the web and do not run Step-0 repair inside /rank. If a material contradiction is discovered incidentally during Step-1 research, emit `REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR` rather than repairing it here.
 
 ## 0A. Required competition coverage preflight — fail closed
 
@@ -587,7 +592,7 @@ After freezing C state/rank/lane for the current wave, compute:
 
 If `active_lane_count < 10` and prematch `OPERATIONAL_CAPACITY_DEFERRED` A/B fixtures remain:
 
-1. load the deferred A/B queue from Daily Coverage for the same sweep; the initial ZIP Work array is not the complete replenishment pool;
+1. if the attached repaired handoff contains the complete deferred A/B queue, use that attached queue as primary authority; otherwise load the deferred A/B queue from Daily Coverage for the same sweep;
 2. serialize current lane counts + queued candidates and run:
    `python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`;
 3. require `capacity_replenishment_status = REPLENISHMENT_REQUIRED` before opening a new wave;
