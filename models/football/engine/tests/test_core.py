@@ -111,7 +111,6 @@ def context(
         post_xi_research_status=PostXiResearchStatus.FOUND,
         h2h_review_status=H2HReviewStatus.REVIEWED_USABLE,
         h2h_rechecked=True,
-        completion_rechecked=True,
         top_ranked_focus=False,
         primary_mechanism_intact=True,
         wait_reachable=False,
