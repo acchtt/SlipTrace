@@ -126,6 +126,60 @@ def _is_unresolved_text(value: str) -> bool:
     return any(marker in normalized for marker in markers)
 
 
+def validate_h2h_semantics(obj: dict[str, Any]) -> dict[str, Any]:
+    """Compile the existing transferable + corroborated H2H rule explicitly."""
+
+    effect = _choice(
+        obj,
+        "h2h_effect",
+        {"SUPPRESSIVE", "OPEN", "MIXED", "NOT_MATERIAL", "UNAVAILABLE"},
+    )
+    transferability = _choice(
+        obj,
+        "h2h_transferability",
+        {"VERIFIED", "LIMITED", "NOT_TRANSFERABLE", "UNAVAILABLE"},
+    )
+    corroboration = _choice(
+        obj,
+        "h2h_current_corroboration",
+        {"VERIFIED", "NOT_FOUND", "NOT_APPLICABLE", "UNKNOWN"},
+    )
+    material_effect = _required_bool(obj, "h2h_material_effect")
+    basis = _string(obj, "h2h_basis")
+
+    if material_effect:
+        if effect != "SUPPRESSIVE":
+            raise ContractError(
+                "H2H MATERIAL EFFECT BLOCKED — material H2H effect requires h2h_effect=SUPPRESSIVE"
+            )
+        if transferability != "VERIFIED":
+            raise ContractError(
+                "H2H MATERIAL EFFECT BLOCKED — transferability must be VERIFIED"
+            )
+        if corroboration != "VERIFIED":
+            raise ContractError(
+                "H2H MATERIAL EFFECT BLOCKED — current corroboration must be VERIFIED"
+            )
+
+    if effect == "UNAVAILABLE":
+        if transferability != "UNAVAILABLE":
+            raise ContractError(
+                "UNAVAILABLE H2H requires h2h_transferability=UNAVAILABLE"
+            )
+        if material_effect:
+            raise ContractError(
+                "UNAVAILABLE H2H cannot have material effect"
+            )
+
+    return {
+        "effect": effect,
+        "transferability": transferability,
+        "current_corroboration": corroboration,
+        "material_effect": material_effect,
+        "basis": basis,
+    }
+
+
 def _kickoff_block(obj: dict[str, Any]) -> str:
     value = _string(obj, "kickoff_ict")
     try:
@@ -417,6 +471,7 @@ def parse_assessment(
 
     validate_operational_viability(obj)
     validate_tournament_incentive(obj)
+    h2h_gate = validate_h2h_semantics(obj)
     _kickoff_block(obj)
 
     return MatchAssessment(
@@ -461,7 +516,11 @@ def parse_assessment(
         ),
         main_failure=_string(obj, "main_failure"),
         h2h_state=_string(obj, "h2h_state"),
-        h2h_basis=_string(obj, "h2h_basis"),
+        h2h_effect=h2h_gate["effect"],
+        h2h_transferability=h2h_gate["transferability"],
+        h2h_current_corroboration=h2h_gate["current_corroboration"],
+        h2h_material_effect=h2h_gate["material_effect"],
+        h2h_basis=h2h_gate["basis"],
         supported_line=_number(obj, "supported_line"),
         carrier_self_fund=_required_bool(obj, "carrier_self_fund"),
         carrier_self_fund_basis=_string(obj, "carrier_self_fund_basis"),
@@ -611,6 +670,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "supported_line": item.supported_line,
             "main_failure": item.main_failure,
             "h2h_state": item.h2h_state,
+            "h2h_effect": item.h2h_effect,
+            "h2h_transferability": item.h2h_transferability,
+            "h2h_current_corroboration": item.h2h_current_corroboration,
+            "h2h_material_effect": item.h2h_material_effect,
             "h2h_basis": item.h2h_basis,
             "carrier_self_fund": item.carrier_self_fund,
             "carrier_self_fund_basis": item.carrier_self_fund_basis,
@@ -1012,6 +1075,11 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "market_history_note": market_history_note,
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
+        "h2h_state": a.h2h_state,
+        "h2h_effect": a.h2h_effect,
+        "h2h_transferability": a.h2h_transferability,
+        "h2h_current_corroboration": a.h2h_current_corroboration,
+        "h2h_material_effect": a.h2h_material_effect,
         "h2h_basis": h2h_basis,
         "primary_mechanism_basis": ctx.primary_mechanism_basis,
         "wait_reachability_basis": ctx.wait_reachability_basis,
