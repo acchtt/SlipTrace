@@ -53,6 +53,10 @@ Only if the portable self-check fails after exact-current retrieval, materialize
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
 - `models/football/engine/decision_triplet_cli.py`
+- `models/football/engine/step2_reconcile.py`
+- `models/football/engine/step2_reconcile_cli.py`
+- `models/football/engine/model_bet_accounting.py`
+- `models/football/engine/model_bet_accounting_cli.py`
 
 into one runnable workspace preserving the relative `models/football/engine/` layout.
 
@@ -104,6 +108,10 @@ Preferred all-model accounting:
 Multi-file fallback only:
 
 `python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+
+Fallback all-model accounting:
+
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
 The triplet runner must:
 - require all three files;
