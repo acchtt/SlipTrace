@@ -41,6 +41,9 @@ require(
     "PYTHON PROBE: PASS",
     "REPOSITORY PROBE: PASS",
     "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
+    "XI PORTABLE RUNTIME: PASS",
+    "xi_portable.py self-check",
+    "xi_portable.py triplet",
     "runtime_probe.py --stage <rank|xi|audit>",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "Do not write \"Python unavailable\" before a real probe fails.",
@@ -59,6 +62,20 @@ require(
     "RUNTIME SOURCE PROBE: FAIL",
 )
 
+require(
+    "models/football/engine/xi_portable.py",
+    "XI PORTABLE RUNTIME: PASS",
+    "SOURCE_BLOB_SHA",
+    "def self_check",
+    "def run_triplet_files",
+    "def run_reconcile_file",
+)
+require(
+    "models/football/qa/check_xi_portable_runtime.py",
+    "XI PORTABLE QA FAIL",
+    "self_check",
+    "stale embedded source",
+)
 require(
     "models/football/engine/tests/test_runtime_probe.py",
     "test_current_repo_runtime_probe_passes_all_stages",
@@ -100,6 +117,9 @@ require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "Common runtime precheck:",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
+    "xi_portable.py self-check",
+    "xi_portable.py triplet",
+    "portable bundle itself fails self-check",
     "raw-network failure while GitHub connector source remains accessible",
 )
 
