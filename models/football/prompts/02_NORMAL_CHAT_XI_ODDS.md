@@ -230,6 +230,9 @@ Never create a Website Pick or extra mandatory monitoring from C3.
 
 Every decision payload must explicitly prove the current Step-2 evidence epoch.
 
+Also apply:
+`models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`
+
 Required common context fields:
 - `fixture_status = PREMATCH_CONFIRMED`;
 - `xi_status = CONFIRMED / RELIABLE / UNAVAILABLE`; `UNAVAILABLE` blocks a final decision;
@@ -240,11 +243,12 @@ Required common context fields:
 - non-empty `market_history_note`;
 - `h2h_review_status = REVIEWED_USABLE / REVIEWED_LIMITED / NOT_USABLE / UNAVAILABLE`;
 - `h2h_rechecked = true`;
+- non-empty `h2h_basis`;
 - `top_ranked_focus`;
-- `primary_mechanism_intact`;
-- `wait_reachable`;
-- `wait_requires_negative_info`;
-- `material_veto`;
+- `primary_mechanism_intact` + non-empty `primary_mechanism_basis`;
+- `wait_reachable` + non-empty `wait_reachability_basis`;
+- `wait_requires_negative_info` + non-empty `wait_negative_info_basis`;
+- `material_veto` + non-empty `material_veto_basis`;
 - `tournament_incentive_rechecked`;
 - `tournament_incentive_recheck_status`.
 
@@ -257,17 +261,17 @@ Do not satisfy C2/C3 by copying Football C's completion-recheck flag.
 
 Required shared current assessment fields include:
 - non-empty `main_failure`;
-- non-empty `h2h_state`;
-- explicit `carrier_self_fund`;
-- explicit `independent_upper_tail`;
-- explicit `failure_attacks_route`;
-- explicit `material_suppression`.
+- non-empty `h2h_state` + non-empty `h2h_basis`;
+- explicit `carrier_self_fund` + non-empty `carrier_self_fund_basis`;
+- explicit `independent_upper_tail` + non-empty `independent_upper_tail_basis`;
+- explicit `failure_attacks_route` + non-empty `failure_attacks_route_basis`;
+- explicit `material_suppression` + non-empty `material_suppression_basis`.
 
 Football C's payload additionally requires current `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk`.
 
 C2 and C3 payloads must not carry those C-owned diagnostics merely to satisfy the deterministic parser. C2 uses its route-quality/selection-floor policy; C3 uses its own second-route/funding/control fields.
 
-Do not omit a boolean because the expected answer is false. Missing safety fields are contract failures, never favorable defaults.
+Do not omit a boolean because the expected answer is false. Missing safety fields are contract failures, never favorable defaults. A semantic Boolean without its contemporaneous evidence basis is also incomplete and must not be treated as a valid false/true declaration.
 
 For an applicable tournament fixture the deterministic adapter fails closed unless rechecked=true **and** status=VERIFIED.
 
