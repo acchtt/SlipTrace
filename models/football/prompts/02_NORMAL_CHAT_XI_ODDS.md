@@ -422,7 +422,7 @@ Execution status is mandatory.
 On success:
 `ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE`
 
-The generic fallback `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` is forbidden.
+The legacy generic no-execution fallback is forbidden.
 
 Only after a genuine setup/execution attempt fails for an unresolved technical reason may the assessment use:
 
