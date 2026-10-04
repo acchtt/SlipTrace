@@ -9,6 +9,7 @@ Also read:
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
 - `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
+- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
 - `models/football/challengers/football-c4/TEST_PROTOCOL.md`;
 - `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`.
 
@@ -295,6 +296,10 @@ Always report:
 - eligible calibration N;
 - factor buckets with N < 5 as `INSUFFICIENT SAMPLE`;
 - no `OVERWEIGHT CANDIDATE` or `UNDERWEIGHT CANDIDATE` until the observer's prospective thresholds are met.
+
+Before any audit/factor-calibration Python command, execute the common runtime bootstrap with stage=`audit`. Preserve the resulting `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
+
+A missing local checkout, container network/DNS failure, or engine files not yet materialized is setup state—not evidence that Python/GitHub/engine is unavailable.
 
 Use:
 `python models/football/engine/factor_calibration_cli.py --input <observations.json>`
