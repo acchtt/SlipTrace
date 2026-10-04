@@ -115,6 +115,12 @@ Set:
 
 ## 4. Resume no-repeat rule
 
+Also apply `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
+
+When source acquisition reaches `ACQUIRED`, persist the source transport/hash/attempt state to the Sweep Run **before** broad discovery or external research. Advance the fresh-sweep cursor to `DISCOVERY_CLASSIFICATION`.
+
+On `/sweep resume`, an unchanged `ACQUIRED` source epoch is authoritative and must be reused. Do not repeat the covering-cache check, native AiScore attempt, or multi-source fallback merely because execution moved to a new chat turn.
+
 Persist a blocker fingerprint containing at least:
 
 - requested window;
@@ -187,7 +193,7 @@ The acquisition state belongs to the **run**, not individual fixtures.
 
 ### ACQUIRED
 
-Continue Step 0 normally.
+Persist the acquired source epoch/checkpoint immediately, then continue Step 0 from source-local discovery/classification. If the normal sweep chunk boundary is reached later, the next `/sweep resume` must reuse this exact acquired epoch.
 
 ### SOURCE_BLOCKED
 
