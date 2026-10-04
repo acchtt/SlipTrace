@@ -45,11 +45,11 @@ A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_P
 
 ## Source authority
 
-AiScore remains the fixture-discovery authority.
+AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified LiveScore + Flashscore/Soccerway multi-source fallback.
 
 Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
-The complete AiScore date universe must be acquired through a valid AiScore-native or AiScore-derived transport before broad discovery/reconciliation begins. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
+A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
 
 If the source gate is `SOURCE_BLOCKED`, stop immediately with:
 
