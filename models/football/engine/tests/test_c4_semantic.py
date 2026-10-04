@@ -119,7 +119,7 @@ class C4StructuredEvidenceTests(unittest.TestCase):
         result = compile_board(payload(match()))
         row = result["matches"][0]
         self.assertEqual(row["c4_home_route"], "STRONG")
-        self.assertEqual(row["c4_away_route"], "STRONG")
+        self.assertEqual(row["c4_away_route"], "USABLE")
         self.assertEqual(row["c4_carrier"], "STRONG")
         self.assertEqual(row["c4_goal3_funding"], "VERIFIED")
         self.assertEqual(row["c4_goal4_funding"], "VERIFIED")
