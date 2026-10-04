@@ -140,16 +140,6 @@ class MatchAssessment:
     evidence_confidence: Grade
     burden_protection: Grade
 
-    # Burden-completion layer. These are frozen football judgments, not
-    # market-derived scores. HIGH completion means there is a credible path to
-    # the goal that clears the protected line; continuation asks whether the
-    # match has a reason to keep producing after the first exchange of goals.
-    completion_mode: CompletionMode
-    burden_completion_quality: Grade
-    continuation_quality: Grade
-    opponent_leakage: Grade
-    burden_stall_risk: Grade
-
     # Required failure/H2H declarations. Empty or omitted evidence must never
     # become an implicit favorable state in the deterministic validator.
     main_failure: str
@@ -161,6 +151,16 @@ class MatchAssessment:
     independent_upper_tail: bool
     failure_attacks_route: bool
     material_suppression: bool
+
+    # Football C-owned burden-completion diagnostics. These are deliberately
+    # optional in the shared assessment object so C2/C3 do not need to carry
+    # C policy labels merely to satisfy a generic parser. The C parser and all
+    # C-only deterministic functions fail closed when any field is absent.
+    completion_mode: CompletionMode | None = None
+    burden_completion_quality: Grade | None = None
+    continuation_quality: Grade | None = None
+    opponent_leakage: Grade | None = None
+    burden_stall_risk: Grade | None = None
 
     def __post_init__(self) -> None:
         if not self.main_failure.strip():
@@ -330,6 +330,27 @@ def _validate_quarter_line(line: float) -> None:
         raise ValueError("Asian total line must use 0.25-goal increments")
 
 
+def require_c_completion(
+    a: MatchAssessment,
+) -> tuple[CompletionMode, Grade, Grade, Grade, Grade]:
+    """Return C-owned diagnostics or fail closed when a C path lacks them."""
+
+    values = (
+        a.completion_mode,
+        a.burden_completion_quality,
+        a.continuation_quality,
+        a.opponent_leakage,
+        a.burden_stall_risk,
+    )
+    if any(value is None for value in values):
+        raise ValueError(
+            "FOOTBALL C COMPLETION DIAGNOSTICS MISSING — "
+            "completion_mode / burden_completion_quality / continuation_quality / "
+            "opponent_leakage / burden_stall_risk are required for model=c"
+        )
+    return values  # type: ignore[return-value]
+
+
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic lexicographic Football C ranking key.
 
@@ -339,6 +360,7 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     quality has already cleared; it never creates a route by itself.
     """
 
+    require_c_completion(a)
     upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
     lower_burden = -round(a.supported_line * 4)
 
@@ -543,6 +565,8 @@ def follow_through_lane(
     burden comes from. HIGH stall risk is a hard STOP for routine follow-up.
     """
 
+    require_c_completion(a)
+
     if board_state != BoardState.FOCUS:
         return FollowLane.STOP
 
@@ -710,6 +734,7 @@ def _validate_step2_authorization(
 def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     """Deterministic Football C execution policy."""
 
+    require_c_completion(a)
     _validate_step2_authorization(ctx, require_c_focus=True)
 
     if ctx.thesis_state == ThesisState.BROKEN:
