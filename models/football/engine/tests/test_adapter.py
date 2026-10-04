@@ -40,11 +40,16 @@ def match(match_id="m1", **overrides):
         "burden_stall_risk": "LOW",
         "main_failure": "no unresolved material failure",
         "h2h_state": "REVIEWED_NOT_MATERIAL",
+        "h2h_basis": "Reviewed current and historical matchup evidence; no transferable suppressive mechanism was material.",
         "supported_line": 2.5,
         "carrier_self_fund": False,
+        "carrier_self_fund_basis": "Carrier is usable but not frozen as independently self-funding the protected burden.",
         "independent_upper_tail": False,
+        "independent_upper_tail_basis": "No separate non-market upper-tail route was frozen.",
         "failure_attacks_route": False,
+        "failure_attacks_route_basis": "Main failure does not directly remove the current scoring route.",
         "material_suppression": False,
+        "material_suppression_basis": "No current football suppression strong enough to trigger the existing material-suppression veto.",
         "tournament_incentive_required": False,
         "tournament_format_status": "NOT_APPLICABLE",
         "competition_stage": "NOT_APPLICABLE",
@@ -108,14 +113,19 @@ def decision_context(**overrides):
         "market_history_note": "open O2.5 -> pre-XI O2.5 -> current O2.5",
         "h2h_review_status": "REVIEWED_USABLE",
         "h2h_rechecked": True,
+        "h2h_basis": "H2H reviewed against the current tactical/mechanism evidence at this XI epoch.",
         "completion_rechecked": True,
         "c2_route_quality_rechecked": True,
         "c3_funding_rechecked": True,
         "top_ranked_focus": False,
         "primary_mechanism_intact": True,
+        "primary_mechanism_basis": "Confirmed XI preserves the frozen primary scoring mechanism.",
         "wait_reachable": False,
+        "wait_reachability_basis": "No predeclared lower protected line is realistically reachable before kickoff.",
         "wait_requires_negative_info": False,
+        "wait_negative_info_basis": "No proposed wait depends on adverse football information.",
         "material_veto": False,
+        "material_veto_basis": "No existing current-epoch veto condition is present.",
         "tournament_incentive_rechecked": False,
         "tournament_incentive_recheck_status": "NOT_APPLICABLE",
     }
@@ -1070,6 +1080,88 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
+    def test_missing_h2h_basis_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("h2h_basis")
+        with self.assertRaisesRegex(ContractError, "missing required field: h2h_basis"):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_missing_primary_mechanism_basis_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("primary_mechanism_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: primary_mechanism_basis",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_missing_wait_basis_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("wait_reachability_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: wait_reachability_basis",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_missing_material_veto_basis_fails_closed(self):
+        ctx = decision_context()
+        ctx.pop("material_veto_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: material_veto_basis",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": match(board_state="C-FOCUS"),
+                    "context": ctx,
+                }
+            )
+
+    def test_missing_assessment_boolean_basis_fails_closed(self):
+        row = match(board_state="C-FOCUS")
+        row.pop("material_suppression_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "missing required field: material_suppression_basis",
+        ):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c",
+                    "match": row,
+                    "context": decision_context(),
+                }
+            )
+
     def test_non_prematch_fixture_blocks_step2(self):
         with self.assertRaisesRegex(
             ContractError,
