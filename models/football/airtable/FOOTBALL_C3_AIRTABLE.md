@@ -69,12 +69,16 @@ C3 prospective-test fields:
 - `C3 Test Board Eligible` — `fld4Y36wOrh9xUUQN`
 - `C3 Contamination Reason` — `fldpWdk9rSqq1AJOR`
 
-The first clean board frozen after the C3 activation merge is Board 1/5.
+The first clean **ranked-universe** board frozen after the C3 activation merge is Board 1/5.
+
+Counter eligibility is based on the fixtures that legitimately enter ranking. A prospectively quarantined HOLD/exclusion with no C/C2/C3 output does not by itself contaminate the board.
 
 A contaminated board:
 - remains auditable;
 - does not advance the counter;
 - carries a precise contamination reason.
+
+A missing required competition block or silently omitted eligible fixture is contamination because the ranked universe is incomplete.
 
 ## 4. Independence rules
 
