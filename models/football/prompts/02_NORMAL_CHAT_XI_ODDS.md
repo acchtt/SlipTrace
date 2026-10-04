@@ -11,6 +11,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
+- `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`
 
 Football C is the only active official model. C2 and C3 are shadow-only.
 
@@ -56,18 +57,27 @@ Perform this **once** for the fixture:
 
 1. verify fixture/status;
 2. require an actual confirmed/reliable XI for a routine final prematch decision; Step-0 `xi_expected` is not a substitute;
-3. inspect confirmed XI and map changes to route functions;
+3. inspect confirmed XI and map changes to route functions **before reading market history**;
 4. run **MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH**;
-5. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
-6. perform/recheck relevant H2H/matchup context;
-7. update the structured common semantic evidence, including current completion mode/quality, continuation quality, opponent leakage and stall risk;
-8. classify thesis state = PRESERVED / DEGRADED / BROKEN;
-9. freeze current quote.
+5. run the **MANDATORY MARKET-HISTORY ATTEMPT**: `OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH`;
+6. run the **MANDATORY TOURNAMENT FORMAT & INCENTIVE CHECK** when applicable;
+7. perform/recheck relevant H2H/matchup context;
+8. run the market-history conflict recheck when movement/current market materially disagrees with XI or frozen support;
+9. update the structured common semantic evidence, including current completion mode/quality, continuation quality, opponent leakage and stall risk;
+10. classify thesis state = PRESERVED / DEGRADED / BROKEN;
+11. freeze current executable user quote.
 
-Persist one of:
+Persist one post-XI research status:
 - `POST-XI RESEARCH = FOUND`
 - `POST-XI RESEARCH = LIMITED`
 - `POST-XI RESEARCH = UNAVAILABLE — ATTEMPTED`
+
+Persist one market-history status:
+- `MARKET HISTORY = FOUND`
+- `MARKET HISTORY = PARTIAL`
+- `MARKET HISTORY = UNAVAILABLE — ATTEMPTED`
+
+When found, show OPEN / PRE-XI / CURRENT totals, movement direction and source/timestamp note. The user's supplied current executable quote remains execution authority.
 
 Odds/history lookup does **not** satisfy the football-research gate.
 
@@ -198,6 +208,8 @@ Every decision payload must explicitly prove the current Step-2 evidence epoch.
 Required context fields:
 - `xi_status = CONFIRMED / RELIABLE / UNAVAILABLE`; `UNAVAILABLE` blocks a final decision;
 - `post_xi_research_status = FOUND / LIMITED / UNAVAILABLE_ATTEMPTED`;
+- `market_history_status = FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED`;
+- non-empty `market_history_note`;
 - `h2h_review_status = REVIEWED_USABLE / REVIEWED_LIMITED / NOT_USABLE / UNAVAILABLE`;
 - `h2h_rechecked = true`;
 - `completion_rechecked = true`;
@@ -297,6 +309,7 @@ Then:
 - **SHADOW C3:** C3-BET / C3-WAIT / C3-PASS
 - XI common state: PRESERVED / DEGRADED / BROKEN
 - POST-XI RESEARCH status
+- MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace + movement + conflict-recheck result
 - H2H material state
 - Completion mode + current burden-completion quality
 - Current continuation quality + opponent leakage + stall risk
