@@ -75,6 +75,8 @@ C3 must not inherit C/C2 supported lines, C completion labels, or C2 route-quali
 
 The deterministic adapter enforces the same ownership boundary: C-owned `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk` are mandatory for `model=c` but are not parser requirements or output fields for `model=c2` / `model=c3`.
 
+Semantic verdict-changing declarations must also follow `models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`. Bare booleans/states are insufficient: H2H, carrier self-funding, independent upper-tail, failure-route attack, material suppression, primary-mechanism integrity, WAIT reachability/negative-info dependence and material veto each carry a contemporaneous non-empty evidence basis. These basis fields have zero independent predictive weight.
+
 ## Required competition coverage invariant
 
 Step 0 must run `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md` in addition to broad discovery.
@@ -250,7 +252,7 @@ Separate:
 - Senior women's domestic top-flight blocks are mandatory discovery/accounting; they use the same operational/researchability rules as men's top flights and may not disappear because of gender/category labeling.
 - A missing visible women's top-flight block is `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`, not a valid completed sweep.
 - There is no fixed **predictive** board-size target after admission.
-- H2H mandatory when usable.
+- H2H mandatory when usable; `recent` is review priority rather than a hidden numeric cutoff, and any material H2H effect requires explicit transferability + current-corroboration basis.
 - Fresh post-XI public-web football research mandatory before final prematch C-BET, with a non-empty post-XI research trace.
 - Prematch Step 2 requires current fixture status to be confirmed and the executable quote to be revalidated immediately before deterministic execution.
 - Every due Step-2 FOLLOW/activated RESERVE/user-exception fixture must reconcile to one explicit disposition; a silent omission is a process failure.
