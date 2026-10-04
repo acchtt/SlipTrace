@@ -51,7 +51,25 @@ Examples:
 
 The supplied time expression defines the requested sweep window in ICT unless the user explicitly supplies another timezone.
 
-The output remains the canonical AiScore handoff/ZIP defined by Step 0.
+The sweep is checkpointed under `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`. A large run may intentionally return `SWEEP CHECKPOINT SAVED — /sweep resume` instead of timing out; this is RUNNING, not BLOCKED.
+
+### `/sweep resume [window|Run ID]`
+
+Continues the matching RUNNING Step-0 sweep from Airtable `Resume Cursor`.
+
+Examples:
+- `/sweep resume`
+- `/sweep resume SWEEP-20261005-0000-0600`
+
+Resume mode:
+- reuses the acquired source epoch;
+- reuses completed block evidence/dispositions;
+- processes only the next bounded verification chunk;
+- never starts a new Run ID for the same continuation;
+- returns another checkpoint when more verification remains;
+- packages the canonical ZIP only after final reconciliation passes.
+
+The final output remains the canonical AiScore handoff/ZIP defined by Step 0.
 
 ### `/sweep repair [window]`
 
