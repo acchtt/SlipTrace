@@ -68,6 +68,23 @@ Do not write "GitHub unavailable" unless the actual GitHub connector/source call
 
 If a matching local checkout is absent, fetch the exact current stage-required files through the repository source and write them into a temporary runnable workspace while preserving relative paths.
 
+### Concrete connector-to-runtime recipe
+
+When operating in ChatGPT with a connected GitHub source and a separate Python/container runtime:
+
+1. query the connected GitHub source for `acchtt/SlipTrace` current `main` SHA;
+2. fetch each required source file from that exact SHA through the GitHub connector/API;
+3. create the destination directories in the local Python/container workspace;
+4. write the connector-returned file text **verbatim** to the corresponding local path;
+5. do not require the GitHub connector itself to create a local file;
+6. run `runtime_probe.py`;
+7. materialize payload JSON;
+8. run the actual stage command.
+
+A connector returning source text is sufficient source access. "The GitHub tool does not automatically download into the container" is a setup detail, not unavailability.
+
+Do **not** use container `git clone` as the primary availability test. Raw container networking may be intentionally isolated even while the connected GitHub source is healthy.
+
 Do not treat "files not local yet" as failure.
 
 Recommended workspace:
