@@ -241,7 +241,7 @@ When a command fails:
 
 1. inspect exact stderr;
 2. distinguish payload rejection from runtime/setup failure;
-3. for XI, if the portable command reports a payload/contract error, report that exact contract error — do **not** call it a Python error;
+3. for XI, if the portable command reports `XI ENGINE CONTRACT REJECTED`, report that exact rejected field/rule — do **not** call it a Python error and do not use runtime-failure fallback wording;
 4. for XI, only switch to full multi-file materialization when `xi_portable.py self-check` itself fails after exact-current retrieval;
 5. if a fallback source/import file is missing, fetch the exact current-revision file and retry;
 4. if `python` command is missing, try the available Python execution surface or `python3`;
