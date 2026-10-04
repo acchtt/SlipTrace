@@ -31,7 +31,7 @@ Having two plausible scoring routes is descriptive only. It is not a positive ra
 
 ## 3. Second-route role
 
-Classify the weaker/secondary scoring route as exactly one:
+Classify the weaker/secondary scoring route as exactly one and persist a non-empty `c3_second_route_role_basis` explaining why the current route belongs in that class:
 
 - `BURDEN_CONTRIBUTING` — prospectively helps fund the goal that clears the line;
 - `EXCHANGE_ONLY` — can plausibly contribute one goal / 1-1 exchange but does not materially fund the clearing goal;
@@ -94,7 +94,7 @@ A VERIFIED second-route-funded clearing goal requires:
 
 ### FORCED_CHAOS
 
-C3 independently freezes `c3_forced_chaos_verified = true/false`.
+C3 independently freezes `c3_forced_chaos_verified = true/false` plus a non-empty `c3_forced_chaos_basis`.
 
 A VERIFIED forced-chaos clearing goal requires:
 - `c3_forced_chaos_verified = true`;
@@ -168,7 +168,7 @@ Use when:
 
 ## 8. Supported burden
 
-C3 independently freezes `c3_supported_line` before price.
+C3 independently freezes `c3_supported_line` before price and persists a non-empty `supported_line_basis`.
 
 The line must be consistent with the funding proof:
 
