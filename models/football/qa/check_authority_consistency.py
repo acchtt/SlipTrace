@@ -376,7 +376,59 @@ require(
     "Board Triplet Common-Evidence Reconciliation Status",
 )
 
-# 4C. Required competition coverage must fail closed before Work.
+# 4C. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
+require(
+    "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
+    "ACTIVE OPERATIONAL CAPACITY CONTROL",
+    "15 limit controls **concurrent deep-research workload**",
+    "Step0 Capacity Queue Rank",
+    "FOLLOW <= 6",
+    "RESERVE <= 4",
+    "FOLLOW + RESERVE = 10",
+    "capacity_replenishment_cli.py",
+    "The next candidate is always the lowest remaining Step0 queue rank",
+)
+require(
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "complete fixture-level A/B capacity queue first",
+    "initial Work batch cap",
+    "Step0 Capacity Queue Rank",
+    "Kickoff discovery order, source-page order and block arrival order must never decide admission",
+    "retained as the Step-1 replenishment queue",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "Deterministic replenishment — mandatory",
+    "active_lane_count = FOLLOW + RESERVE",
+    "capacity_replenishment_cli.py",
+    "Step1 Replenished = true",
+    "Replenishment Wave = 1, 2, ...",
+    "A STOP/PASS does not permanently consume one of the original 15 research slots",
+)
+require(
+    "models/football/engine/capacity_replenishment.py",
+    "MAX_FOLLOW = 6",
+    "MAX_RESERVE = 4",
+    "def next_replenishment_wave",
+    "duplicate Step0 Capacity Queue Rank",
+    "REPLENISHMENT_REQUIRED",
+)
+require(
+    "models/football/engine/tests/test_capacity_replenishment.py",
+    "test_selects_lowest_queue_ranks_for_vacancies",
+    "test_full_active_capacity_selects_none",
+    "test_started_candidate_is_skipped_without_jumping_order_bug",
+    "test_duplicate_queue_rank_fails",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "fldUFbfIyiIYcQuVt",
+    "fldPUL87XJhpUqYiU",
+    "fld5qzOVZdKst3bhK",
+    "fldUxHPEnQpGSJVmC",
+)
+
+# 4D. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
     "MANDATORY STEP-0 COVERAGE INVARIANT",
@@ -498,7 +550,7 @@ require(
     "test_unavailable_market_history_can_continue_after_attempt",
 )
 
-# 4D. Execution-required stages must probe current runtime/repository state.
+# 4E. Execution-required stages must probe current runtime/repository state.
 require(
     "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
     "MANDATORY EXECUTION PRECHECK",
