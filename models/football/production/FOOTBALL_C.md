@@ -194,16 +194,20 @@ Thesis inadequate, burden unsupported, price unacceptable without healthy wait p
 `PRICE DECAY != THESIS DECAY`
 
 At target:
-`TARGET REACHED + THESIS STILL HEALTHY?`
+`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
 
-For scoreless Over waits, no-goal/no-red-card alone is insufficient. Require contemporaneous attacking-quality evidence.
+Do **not** require positive live-stat confirmation for a scoreless Over wait. Shots, xG/xGOT, big chances, dangerous attacks, possession, corners, box entries and momentum feeds are not live execution gates.
 
-If price improved because attack went stale:
+No-goal clock decay by itself is not thesis decay.
+
+Cancel only when concrete football information materially damages the frozen mechanism or incentive state:
 `C-WAIT CANCELLED — THESIS DECAY`
 
 ## 12. Live boundary
 
-Normal live use resolves a predeclared C-WAIT. A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
+Normal live use resolves a predeclared C-WAIT; an explicit match-specific exception may reopen a live fixture under the normal exception boundary. A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
+
+Live assessment proceeds regardless of provider live stats. Current score/minute/line/odds plus preserved prematch/XI football evidence are sufficient unless a separate integrity gate is unresolved.
 
 For tournament/cup fixtures, every new epoch must also recompute score/aggregate/table incentive: whether a draw is acceptable, whether penalties/extra time are reachable, whether margin is still required, and which side is genuinely forced to chase.
 
