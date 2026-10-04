@@ -872,7 +872,9 @@
             "burden_stall_risk",
             "c_action",
             "quote_line",
-            "quote_odds"
+            "quote_odds",
+            "wait_target_line",
+            "wait_min_odds"
           ],
           "properties": {
             "c_board_state": {
@@ -961,6 +963,21 @@
               "multipleOf": 0.25
             },
             "quote_odds": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 1
+            },
+            "wait_target_line": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "multipleOf": 0.25
+            },
+            "wait_min_odds": {
               "type": [
                 "number",
                 "null"
@@ -1096,7 +1113,11 @@
             "official_c_model_pnl",
             "user_executed",
             "user_pnl",
-            "c2_shadow_only"
+            "c2_shadow_only",
+            "official_c_exposure_basis",
+            "official_c_exposure_line",
+            "official_c_exposure_odds",
+            "wait_resolution"
           ],
           "properties": {
             "official_c_exposure": {
@@ -1119,6 +1140,40 @@
             },
             "c2_shadow_only": {
               "type": "boolean"
+            },
+            "official_c_exposure_basis": {
+              "type": "string",
+              "enum": [
+                "DIRECT_BET",
+                "WAIT_ASSUMED",
+                "WAIT_USER_CONFIRMED",
+                "WAIT_NOT_REACHED",
+                "NONE"
+              ]
+            },
+            "official_c_exposure_line": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "multipleOf": 0.25
+            },
+            "official_c_exposure_odds": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "exclusiveMinimum": 1
+            },
+            "wait_resolution": {
+              "type": "string",
+              "enum": [
+                "NOT_APPLICABLE",
+                "ASSUMED_REACHED",
+                "USER_CONFIRMED",
+                "USER_DECLARED_NOT_REACHED"
+              ]
             }
           }
         }

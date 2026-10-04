@@ -7,6 +7,7 @@ from typing import Any
 from competition_reliability import apply_reliability_cap, effective_state
 
 from core import (
+    Action,
     BoardState,
     C3PolicyAssessment,
     CarrierStrength,
@@ -38,6 +39,7 @@ from core import (
     rank_assessments_c3,
     ranking_key,
     c2_ranking_key,
+    wait_accounting_target,
 )
 
 
@@ -1064,6 +1066,28 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         if model == "c2"
         else decide_c3(c3_a, ctx)
     )
+
+    wait_target_line = None
+    wait_min_odds = None
+    accounting_line = None
+    accounting_odds = None
+    if decision.action == Action.WAIT:
+        wait_target_line, wait_min_odds = wait_accounting_target(a, ctx)
+        accounting_line = wait_target_line
+        accounting_odds = wait_min_odds
+        accounting_status = (
+            "WAIT_ASSUMED" if model == "c" else "SHADOW_WAIT_ASSUMED"
+        )
+        wait_resolution_default = "ASSUMED_REACHED"
+    elif decision.action == Action.BET:
+        accounting_line = ctx.quote.line
+        accounting_odds = ctx.quote.odds
+        accounting_status = "DIRECT_BET" if model == "c" else "SHADOW_BET"
+        wait_resolution_default = "NOT_APPLICABLE"
+    else:
+        accounting_status = "NONE"
+        wait_resolution_default = "NOT_APPLICABLE"
+
     result: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "stage": "decision_result",
@@ -1078,6 +1102,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "wait_target_line": wait_target_line,
+        "wait_min_odds": wait_min_odds,
+        "model_accounting_status": accounting_status,
+        "model_accounting_line": accounting_line,
+        "model_accounting_odds": accounting_odds,
+        "wait_resolution_default": wait_resolution_default,
         "tournament_incentive_required": tournament_gate["required"],
         "tournament_format_status": tournament_gate["format_status"],
         "incentive_effect": tournament_gate["incentive_effect"],
@@ -1228,6 +1258,8 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "quote_line": _nullable_number(frozen, "quote_line"),
         "quote_odds": _nullable_number(frozen, "quote_odds"),
+        "wait_target_line": _nullable_number(frozen, "wait_target_line"),
+        "wait_min_odds": _nullable_number(frozen, "wait_min_odds"),
     }
 
     observed_out = {
@@ -1294,9 +1326,123 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
 
     official_exposure = _required_bool(pnl, "official_c_exposure")
     official_pnl = _nullable_number(pnl, "official_c_model_pnl")
+    official_exposure_basis = _choice(
+        pnl,
+        "official_c_exposure_basis",
+        {
+            "DIRECT_BET",
+            "WAIT_ASSUMED",
+            "WAIT_USER_CONFIRMED",
+            "WAIT_NOT_REACHED",
+            "NONE",
+        },
+    )
+    official_exposure_line = _nullable_number(pnl, "official_c_exposure_line")
+    official_exposure_odds = _nullable_number(pnl, "official_c_exposure_odds")
+    wait_resolution = _choice(
+        pnl,
+        "wait_resolution",
+        {
+            "NOT_APPLICABLE",
+            "ASSUMED_REACHED",
+            "USER_CONFIRMED",
+            "USER_DECLARED_NOT_REACHED",
+        },
+    )
     user_executed = _required_bool(pnl, "user_executed")
     user_pnl = _nullable_number(pnl, "user_pnl")
     c2_shadow_only = _required_bool(pnl, "c2_shadow_only")
+
+    c_action = frozen_out["c_action"]
+    wait_target_line = frozen_out["wait_target_line"]
+    wait_min_odds = frozen_out["wait_min_odds"]
+
+    if c_action == "C_WAIT":
+        if wait_target_line is None or wait_min_odds is None:
+            raise ContractError(
+                "C-WAIT audit requires frozen wait_target_line and wait_min_odds"
+            )
+        if official_exposure_basis not in {
+            "WAIT_ASSUMED",
+            "WAIT_USER_CONFIRMED",
+            "WAIT_NOT_REACHED",
+        }:
+            raise ContractError(
+                "C-WAIT requires WAIT_ASSUMED / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED exposure basis"
+            )
+    elif c_action == "C_BET":
+        if official_exposure_basis != "DIRECT_BET":
+            raise ContractError("C-BET requires official_c_exposure_basis=DIRECT_BET")
+        if wait_resolution != "NOT_APPLICABLE":
+            raise ContractError("C-BET requires wait_resolution=NOT_APPLICABLE")
+    else:
+        if official_exposure_basis != "NONE":
+            raise ContractError("C-PASS/NONE requires official_c_exposure_basis=NONE")
+        if wait_resolution != "NOT_APPLICABLE":
+            raise ContractError("C-PASS/NONE requires wait_resolution=NOT_APPLICABLE")
+
+    if official_exposure_basis == "WAIT_ASSUMED":
+        if not official_exposure:
+            raise ContractError("WAIT_ASSUMED requires official_c_exposure=true")
+        if wait_resolution != "ASSUMED_REACHED":
+            raise ContractError("WAIT_ASSUMED requires wait_resolution=ASSUMED_REACHED")
+        if (
+            official_exposure_line != wait_target_line
+            or official_exposure_odds != wait_min_odds
+        ):
+            raise ContractError(
+                "WAIT_ASSUMED exposure line/odds must equal frozen WAIT target/minimum"
+            )
+
+    if official_exposure_basis == "WAIT_USER_CONFIRMED":
+        if not official_exposure:
+            raise ContractError("WAIT_USER_CONFIRMED requires official_c_exposure=true")
+        if wait_resolution != "USER_CONFIRMED":
+            raise ContractError(
+                "WAIT_USER_CONFIRMED requires wait_resolution=USER_CONFIRMED"
+            )
+        if not user_executed:
+            raise ContractError(
+                "WAIT_USER_CONFIRMED requires user_executed=true"
+            )
+
+    if official_exposure_basis == "WAIT_NOT_REACHED":
+        if official_exposure:
+            raise ContractError("WAIT_NOT_REACHED requires official_c_exposure=false")
+        if wait_resolution != "USER_DECLARED_NOT_REACHED":
+            raise ContractError(
+                "WAIT_NOT_REACHED requires wait_resolution=USER_DECLARED_NOT_REACHED"
+            )
+        if official_exposure_line is not None or official_exposure_odds is not None:
+            raise ContractError(
+                "WAIT_NOT_REACHED requires null official exposure line/odds"
+            )
+
+    if official_exposure_basis == "DIRECT_BET":
+        if not official_exposure:
+            raise ContractError("DIRECT_BET requires official_c_exposure=true")
+        if (
+            official_exposure_line != frozen_out["quote_line"]
+            or official_exposure_odds != frozen_out["quote_odds"]
+        ):
+            raise ContractError(
+                "DIRECT_BET exposure line/odds must equal frozen direct quote"
+            )
+
+    if official_exposure_basis == "NONE":
+        if official_exposure:
+            raise ContractError("NONE exposure basis requires official_c_exposure=false")
+        if official_exposure_line is not None or official_exposure_odds is not None:
+            raise ContractError(
+                "NONE exposure basis requires null official exposure line/odds"
+            )
+
+    if official_exposure and (
+        official_exposure_line is None or official_exposure_odds is None
+    ):
+        raise ContractError(
+            "official exposure requires exact official_c_exposure_line and official_c_exposure_odds"
+        )
 
     if not official_exposure and official_pnl is not None:
         raise ContractError(
@@ -1335,6 +1481,10 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         "pnl_status": {
             "official_c_exposure": official_exposure,
             "official_c_model_pnl": official_pnl,
+            "official_c_exposure_basis": official_exposure_basis,
+            "official_c_exposure_line": official_exposure_line,
+            "official_c_exposure_odds": official_exposure_odds,
+            "wait_resolution": wait_resolution,
             "user_executed": user_executed,
             "user_pnl": user_pnl,
             "c2_shadow_only": c2_shadow_only,

@@ -674,7 +674,71 @@ require(
     "test_low_current_continuation_cannot_bet",
 )
 
-# 5. Audit hindsight integrity must be deterministic.
+# 5. WAIT accounting must treat unresolved model WAITs as assumed bets.
+require(
+    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
+    "ACTIVE ACCOUNTING / AUDIT CONVENTION",
+    "C-WAIT -> WAIT_ASSUMED",
+    "WAIT_USER_CONFIRMED",
+    "USER_DECLARED_NOT_REACHED",
+    "The default remains: **WAIT counted as model bet**",
+    "C2-WAIT and C3-WAIT default to shadow assumed bets",
+)
+require(
+    "models/football/production/FOOTBALL_C.md",
+    "C-WAIT immediately creates an assumed 1u model exposure",
+    "matching user bet slip",
+    "target line never reached",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "C Exposure Basis = WAIT_ASSUMED",
+    "WAIT Resolution = ASSUMED_REACHED",
+    "wait_target_line",
+    "wait_min_odds",
+    "does **not** wait for later market confirmation",
+)
+require(
+    "models/football/engine/core.py",
+    "def wait_accounting_target",
+    "min(ctx.quote.line, a.supported_line)",
+)
+require(
+    "models/football/engine/adapter.py",
+    "model_accounting_status",
+    "WAIT_ASSUMED",
+    "SHADOW_WAIT_ASSUMED",
+    "wait_resolution_default",
+    "WAIT_USER_CONFIRMED",
+    "WAIT_NOT_REACHED",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_c_wait_emits_assumed_exposure_target",
+    "test_top_focus_wait_uses_soft_zone_minimum",
+    "test_shadow_wait_emits_shadow_assumed_exposure",
+    "test_wait_assumed_counts_as_official_model_exposure",
+    "test_wait_not_reached_requires_user_declared_no_exposure",
+    "test_wait_user_confirmed_requires_user_execution",
+)
+require(
+    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
+    "C Exposure Basis",
+    "fldf6w7o7yi8KPr2G",
+    "WAIT Resolution",
+    "fldhATXMaqVDB4KpO",
+)
+require(
+    "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md",
+    "WAIT_ASSUMED",
+    "fldMXXFFBRvvP8oY0",
+    "fldqiojwbqh9YbjpE",
+    "fldevFLmEr1Ph329Q",
+    "fldbi330Zr4hQXVkO",
+    "Actual User Bet Confirmed",
+)
+
+# 6. Audit hindsight integrity must be deterministic.
 require(
     "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
     "Three-layer audit record",
@@ -700,6 +764,9 @@ require(
     "def run_audit_record",
     "AUDIT_DIAGNOSIS_TAGS",
     "official_c_model_pnl must be null when official_c_exposure=false",
+    "WAIT_ASSUMED exposure line/odds must equal frozen WAIT target/minimum",
+    "WAIT_USER_CONFIRMED requires user_executed=true",
+    "WAIT_NOT_REACHED requires official_c_exposure=false",
     "user_pnl must be null when user_executed=false",
 )
 require(
@@ -713,9 +780,11 @@ require(
     "test_pre_freeze_miss_requires_contemporaneous_note",
     "test_no_official_exposure_cannot_have_model_pnl",
     "test_published_model_exposure_does_not_require_user_bet",
+    "test_wait_assumed_counts_as_official_model_exposure",
+    "test_wait_not_reached_requires_user_declared_no_exposure",
 )
 
-# 6. Factor calibration observer must remain non-authoritative.
+# 7. Factor calibration observer must remain non-authoritative.
 require(
     "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md",
     "PROSPECTIVE DIAGNOSTIC OBSERVER — ZERO PRODUCTION AUTHORITY",
@@ -760,7 +829,7 @@ forbid(
     "factor_calibration",
 )
 
-# 7. Persistence must have named current C/C2/C3 separation.
+# 8. Persistence must have named current C/C2/C3 separation.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
     "C supported burden",

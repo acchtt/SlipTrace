@@ -117,6 +117,20 @@ Each decision payload also carries the official Football C workload lane plus it
 
 Routine FOLLOW and activated RESERVE must match the persisted official lane. STOP requires `USER_EXCEPTION`. The triplet runner rejects mixed authorization across C/C2/C3, preventing a shadow model from silently creating its own Step-2 workload.
 
+### WAIT accounting output
+
+A deterministic WAIT keeps `action=WAIT` but also emits:
+- `wait_target_line`;
+- `wait_min_odds`;
+- `model_accounting_status`;
+- `model_accounting_line`;
+- `model_accounting_odds`;
+- `wait_resolution_default`.
+
+For Football C, the default is `WAIT_ASSUMED / ASSUMED_REACHED`: model audit treats the WAIT as an exposure at target/minimum odds until a matching user bet reconciles the exact execution or the user explicitly says the target line never reached. C2/C3 use `SHADOW_WAIT_ASSUMED` for comparison P/L only.
+
+This is accounting only and does not change the deterministic BET/WAIT/PASS decision.
+
 Lack of an already-existing local checkout is not runtime unavailability. If current source is accessible and Python is available, materialize/setup a runnable workspace first.
 
 Only after an actual setup/execution attempt fails may the workflow fall back, and the exact technical reason must be preserved. The generic `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED` fallback is forbidden.

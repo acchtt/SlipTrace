@@ -8,6 +8,7 @@ Read:
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
 - `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 
 Football C is official. C2 and C3 are shadow-only.
 
@@ -49,7 +50,9 @@ A live assessment may proceed from the current score, minute, executable line/od
 
 ## Football C official WAIT resolution
 
-Retrieve the exact official C-WAIT plan.
+Retrieve the exact official C-WAIT plan and its already-created assumed exposure.
+
+The live workflow may change the current football recommendation, but it does **not** rewrite WAIT accounting by itself. Under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`, the default exposure remains target line @ minimum odds until the user provides a matching actual bet or explicitly says the line never reached.
 
 Core rule:
 
@@ -90,11 +93,17 @@ Official C may produce:
 - `C-WAIT CANCELLED — THESIS DECAY`
 - `C-PASS — NEW EPOCH INVALIDATES PLAN`
 
-Persist official material state. If C-BET occurs, reconcile Website Pick.
+Persist official material live state.
+
+If a live C-BET recommendation occurs from a prior C-WAIT, do not automatically replace the existing WAIT assumed-exposure line/odds. Reconcile the Website Pick to actual line/odds/stake only when the user supplies the corresponding bet.
+
+If the user explicitly says the WAIT target line never reached, mark the existing assumed exposure `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`, Result=`VOID`, P/L=0, and remove it from official model P/L.
 
 ## Football C2 shadow WAIT resolution
 
 If a predeclared C2-WAIT exists, resolve it separately using the same common live evidence and its own target/cancellation conditions. Do not require live-stat confirmation.
+
+Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached.
 
 C2 may produce:
 - `C2-BET — SHADOW`
@@ -107,6 +116,8 @@ C2 may never create Website Pick or real exposure.
 ## Football C3 shadow WAIT resolution
 
 If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch. Do not require live-stat confirmation.
+
+Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached.
 
 Recheck:
 - required clearing-goal funding;

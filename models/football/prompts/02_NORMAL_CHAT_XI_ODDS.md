@@ -12,6 +12,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`
 - `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 - `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
 
@@ -153,6 +154,10 @@ Only Football C may create official exposure.
 
 For every C-BET/C-WAIT/C-PASS Decision State persist:
 - `C Action` = exact current official action;
+- `C Exposure Basis`;
+- `C Exposure Line`;
+- `C Exposure Odds`;
+- `WAIT Resolution`;
 - `C Supported Line`;
 - `C2 Supported Line` when independently frozen;
 - `C2 Shadow Action` when available;
@@ -168,11 +173,30 @@ Do not map current C actions onto legacy Football A `Verdict` choices.
 
 For C-BET:
 1. persist Decision State;
-2. publish/reconcile Website Pick;
-3. verify no duplicate official pick.
+2. set `C Exposure Basis = DIRECT_BET`;
+3. publish/reconcile one Website Pick at the direct quote;
+4. set `WAIT Resolution = NOT_APPLICABLE`;
+5. verify no duplicate official pick.
 
-For C-WAIT/C-PASS:
-- Decision State only.
+For C-WAIT:
+1. preserve `C Action = C-WAIT`;
+2. use engine `wait_target_line` + `wait_min_odds`;
+3. set `C Exposure Basis = WAIT_ASSUMED`;
+4. set `C Exposure Line/Odds = WAIT target/minimum`;
+5. set `WAIT Resolution = ASSUMED_REACHED`;
+6. publish/reconcile one Website Pick immediately at target/minimum, normally 1u;
+7. verify no duplicate official pick.
+
+A C-WAIT does **not** wait for later market confirmation before becoming a model-accounting bet.
+
+Only update that assumed WAIT exposure when:
+- the user provides an actual corresponding bet slip -> `WAIT_USER_CONFIRMED / USER_CONFIRMED` and reconcile to exact actual line/odds/stake; or
+- the user explicitly says the target line never reached -> `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`, no model exposure.
+
+For C-PASS:
+- Decision State only with `C Exposure Basis = NONE`.
+
+Do not auto-cancel a WAIT exposure because later market history is missing, live odds differ, or no user slip appears.
 
 ## 4. Football C2 shadow action
 
@@ -191,6 +215,8 @@ Issue:
 - `C2-BET — SHADOW`
 - `C2-WAIT — SHADOW`
 - `C2-PASS — SHADOW`
+
+For audit accounting, C2-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds`. It remains shadow-only and never creates a Website Pick.
 
 C2 must never:
 - publish Website Pick;
@@ -226,6 +252,8 @@ Persist:
 - `C3-BET — SHADOW`;
 - `C3-WAIT — SHADOW`;
 - `C3-PASS — SHADOW`.
+
+For audit accounting, C3-WAIT defaults to a shadow assumed bet at engine `wait_target_line / wait_min_odds`.
 
 Never create a Website Pick or extra mandatory monitoring from C3.
 
@@ -412,6 +440,14 @@ Include:
 - `FOOTBALL_ENGINE_C3_DECISION_RESULT`
 
 The machine appendix must preserve all required Step-2 gate fields above so QA can distinguish an actual negative declaration from an omitted field.
+
+For every model result also preserve:
+- `wait_target_line`;
+- `wait_min_odds`;
+- `model_accounting_status`;
+- `model_accounting_line`;
+- `model_accounting_odds`;
+- `wait_resolution_default`.
 
 Also include:
 - `FOOTBALL_STEP2_RECONCILIATION_INPUT`

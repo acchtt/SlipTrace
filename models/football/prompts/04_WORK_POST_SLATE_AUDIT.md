@@ -9,6 +9,7 @@ Also read:
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
 - `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
+- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`;
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
 - `models/football/challengers/football-c4/TEST_PROTOCOL.md`;
 - `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`.
@@ -17,10 +18,11 @@ Use the model/version that actually produced each historical decision.
 
 ## Source hierarchy
 
-1. user bet slip = physical execution truth;
-2. Decision States = model decision history;
-3. Website Picks = official Football C exposure;
-4. Daily Coverage Ledger = frozen board/funnel history.
+1. user bet slip = physical execution truth and exact execution reconciliation;
+2. explicit user statement that a WAIT line never reached = authoritative no-entry override for that WAIT;
+3. Decision States = model decision history + WAIT exposure accounting state;
+4. Website Picks = official Football C direct/assumed exposure;
+5. Daily Coverage Ledger = frozen board/funnel history.
 
 ## Full funnel
 
@@ -69,7 +71,7 @@ Track separately:
 - text C vs code C disagreements;
 - text C2 vs code C2 disagreements;
 - direct C-BET;
-- C-WAIT executed/cancelled/not reached;
+- C-WAIT assumed/user-confirmed/user-declared-not-reached;
 - actual user execution deviations.
 
 ## Competition reliability memory update — mandatory
@@ -187,14 +189,32 @@ Scoreline alone also does not prove causal claims such as "they stopped pushing"
 
 ## Settlement
 
-Settle exact recorded line/odds only.
+Settle exact recorded accounting line/odds only.
 
-Do not assign hypothetical P/L to a PASS/WAIT-no-entry merely because FT crossed an imagined line.
+### Football C WAIT default
 
-Official C model P/L and actual user P/L are separate:
-- official C model P/L uses an official published/reconciled Website Pick/exposure with exact line/odds;
+For every C-WAIT with recoverable frozen target/minimum odds:
+
+`WAIT_ASSUMED -> official model exposure=true -> settle target line @ minimum odds`
+
+Do **not** require proof from later market history that the line was reached. Absence of a user slip does not cancel the model bet.
+
+Change that default only when:
+- the user supplies an actual corresponding bet -> `WAIT_USER_CONFIRMED`, use exact actual line/odds/stake for the reconciled exposure while preserving original WAIT target; or
+- the user explicitly says the line never reached -> `WAIT_NOT_REACHED`, `NO OFFICIAL EXPOSURE / NO MODEL P&L`.
+
+Do not infer `WAIT_NOT_REACHED` yourself from missing data, later screenshots, or unreconstructed market history.
+
+C2/C3 WAITs use the same assumed-target convention for **shadow counterfactual P/L only** and never become official Website Picks.
+
+C-PASS still has no model P/L.
+
+Official C model P/L and actual user P/L remain separate:
+- C-BET uses its exact direct exposure quote;
+- unresolved C-WAIT uses its exact target/minimum assumed exposure;
+- user-confirmed C-WAIT uses the exact corresponding user execution for reconciled exposure;
 - actual user P/L uses the user's exact bet slip;
-- a user not placing an already-published official C pick does not erase the model win/loss;
+- a user not placing an assumed/published official C model exposure does not erase model P/L unless the user explicitly says the WAIT target line never reached;
 - a C-BET that failed official publication is an official decision but `NO OFFICIAL EXPOSURE / NO MODEL P&L`.
 
 ## Required process checks
@@ -238,6 +258,8 @@ Official C model P/L and actual user P/L are separate:
 - C2 supported burden was independently frozen before paired evaluation;
 - Python C/C2/C3 comparison;
 - live wait state integrity;
+- WAIT assumed-exposure accounting integrity;
+- no automatic WAIT_NOT_REACHED inference without an explicit user statement;
 - persistence agreement;
 - actual bet-slip reconciliation.
 
@@ -309,10 +331,10 @@ The analyzer has zero production authority.
 ## Output
 
 For every material fixture, first report:
-- `FROZEN:` exact state/line/grades/action;
+- `FROZEN:` exact state/line/grades/action, including WAIT target/minimum odds when applicable;
 - `OBSERVED:` HT/FT and materialization/settlement facts;
 - `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
-- `P&L STATUS:` official C model exposure/P&L, actual user execution/P&L, C2 and C3 shadows separately.
+- `P&L STATUS:` official C model exposure/P&L + exposure basis (`DIRECT_BET / WAIT_ASSUMED / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED`), actual user execution/P&L, C2 and C3 shadows separately.
 
 Then include one `FOOTBALL_AUDIT_RECORD` JSON object using the deterministic audit schema and validate it with:
 
