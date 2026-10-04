@@ -290,3 +290,35 @@ Set completion true only when every protected block is explicitly checked and re
 `SOURCE_BLOCKED`, a missing block, count/list mismatch, or missing fixture disposition means the sweep is not work-ready.
 
 This metadata never promotes a fixture or changes C/C2/C3 predictive state.
+
+## Sweep Runs checkpoint / resume runtime
+
+Fresh Step-0 timeout control is defined by:
+`models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
+
+Table:
+`Sweep Runs` — `tblUnGHHe0MVaalDL`
+
+Existing runtime fields:
+- `Run Status` — `fldm0iEQqUrfsTqKS`
+- `Current Stage` — `fldUT0GEsWas15Ljt`
+- `Checkpoint Notes` — `fldjaQNJnFYbaPFqd`
+- `Resume Cursor` — `fldNjU7wHklM7T0Bf`
+- `Retry Queue` — `fldQyCygdjxIfSk5B`
+- `Updated At` — `fldTXdSN9d161pHgM`
+
+Bounded-execution fields:
+- `Checkpoint Version` — `fldtIbv2ppGzwUExs`
+- `Sweep Chunk Number` — `flduqxh9DOKdV1A06`
+- `Pending Verification Blocks` — `flduhyM3Thjwj3Bqs`
+- `Last Completed Block` — `fld8jr7wAWGLhXqXe`
+
+For a RUNNING fresh sweep, `Resume Cursor` is the authoritative next stage/block. Do not infer progress from chat history.
+
+A chunk boundary is not a coverage failure:
+- keep `Run Status = RUNNING`;
+- persist the next cursor;
+- do not set `work_ready=true`;
+- do not emit the canonical ZIP until final reconciliation/packaging passes.
+
+When the source epoch is already `ACQUIRED`, a resume must reuse its source hash/window rather than reacquire the date universe.
