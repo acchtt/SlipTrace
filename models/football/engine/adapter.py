@@ -945,10 +945,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
         "completion_rechecked": completion_rechecked,
-        "current_burden_completion_quality": a.burden_completion_quality.name,
-        "current_continuation_quality": a.continuation_quality.name,
-        "current_burden_stall_risk": a.burden_stall_risk.name,
     }
+
+    if model == "c":
+        result["current_burden_completion_quality"] = a.burden_completion_quality.name
+        result["current_continuation_quality"] = a.continuation_quality.name
+        result["current_burden_stall_risk"] = a.burden_stall_risk.name
 
     if model == "c2":
         floor, reasons = c2_selection_floor(a)
