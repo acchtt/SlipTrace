@@ -13,6 +13,7 @@ on:
       - "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md"
       - "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md"
       - "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md"
+      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
       - "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
@@ -37,6 +38,7 @@ on:
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
+      - "models/football/qa/check_runtime_execution_contract.py"
       - ".github/workflows/football-step2-research-gate.yml"
   pull_request:
     paths:
@@ -50,6 +52,7 @@ on:
       - "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md"
       - "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md"
       - "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md"
+      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
       - "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md"
       - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
@@ -74,6 +77,7 @@ on:
       - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
+      - "models/football/qa/check_runtime_execution_contract.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
 jobs:
@@ -88,3 +92,5 @@ jobs:
         run: python models/football/qa/check_post_xi_research_gate.py
       - name: Check Football C authority semantics
         run: python models/football/qa/check_authority_consistency.py
+      - name: Check Football runtime execution contract
+        run: python models/football/qa/check_runtime_execution_contract.py
