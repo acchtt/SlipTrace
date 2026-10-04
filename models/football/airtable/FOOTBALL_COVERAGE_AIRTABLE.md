@@ -71,6 +71,7 @@ Dedicated current fields now include:
 - C3 goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`.
 
 Also preserve:
+- Common Evidence Basis;
 - Operational Grade;
 - XI Expected;
 - Market Observability where available;
@@ -79,7 +80,10 @@ Also preserve:
 - Operational Disposition;
 - Senior Women's Top Flight;
 - C board state/rank;
-- C supported burden;
+- C supported burden and Supported Line Basis;
+- C Board State Basis;
+- C2 Supported Line Basis and C2 Board State Basis;
+- C3 Supported Line Basis;
 - Completion Mode;
 - Burden Completion Quality;
 - Continuation Quality;
@@ -104,7 +108,8 @@ C3 shadow fields/notes must also be separate:
 - second-route role;
 - goal-3 / goal-4 funding source and basis;
 - control-endpoint risk/basis;
-- C3 forced-chaos verification.
+- C3 forced-chaos verification and basis.
+- Board Triplet Common-Evidence Reconciliation Status / engine revision where available.
 
 C2/C3 must never overwrite official C fields.
 
