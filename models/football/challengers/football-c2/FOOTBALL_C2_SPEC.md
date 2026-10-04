@@ -89,7 +89,7 @@ This is the initial football burden, not an immutable execution line.
 
 Hard comparison rule:
 - do not read/copy Football C's supported line while freezing C2's line;
-- persist the C2 line separately;
+- persist the C2 line separately with a non-empty `supported_line_basis`;
 - if an independent C2 line is unavailable, mark the paired comparison incomplete rather than substituting C's line.
 
 ## 6. Selection quality and ranking
@@ -109,6 +109,8 @@ Board states:
 - `C2-FOCUS`
 - `C2-WATCH`
 - `C2-PASS`
+
+Persist a non-empty `board_state_basis` for the frozen C2 state. This is traceability for the existing challenger classification, not a new state threshold.
 
 ### 6.1 Selection-quality floor
 
