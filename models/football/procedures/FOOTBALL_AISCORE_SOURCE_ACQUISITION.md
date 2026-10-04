@@ -3,7 +3,8 @@
 **Status:** ACTIVE  
 **Effective:** 2026-10-04 ICT  
 **Applies to:** Step 0 `/sweep` before senior discovery  
-**Fixture authority:** AiScore only
+**Primary fixture authority:** AiScore  
+**Fallback authority:** verified multi-source consensus (LiveScore date feed + Flashscore/Soccerway corroboration)
 
 ## Purpose
 
@@ -17,7 +18,7 @@ No fixture research, women-block reconstruction, required-competition repair, op
 
 ## 1. What counts as an acquired universe
 
-An acquired source universe must represent the complete AiScore football listing for every listing date required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`.
+An acquired source universe should represent the complete AiScore football listing for every listing date required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`. When AiScore is technically blocked, a verified alternate date-level universe may be used under the multi-source fallback below.
 
 Preferred native endpoint:
 
@@ -65,13 +66,27 @@ Attempt the native AiScore date batch through the best available authorized brow
 
 Do not use a plain HTTP failure as evidence that the date has no fixtures.
 
-### C. AiScore-derived transport fallback
+### C. Multi-source date-feed fallback
 
-If B is technically unavailable, try **one** alternate AiScore-derived transport that fetches the same date universe and preserves AiScore IDs/times.
+If B is technically unavailable, use this ordered alternate path:
 
-The alternate transport must not create fixtures from another provider.
+1. LiveScore date-level football feed in the requested operational timezone as the fallback universe carrier;
+2. Flashscore competition/match pages for fixture/date/time corroboration;
+3. Soccerway competition fixture pages as a second independent corroboration source.
 
-If no valid transport is available, stop as SOURCE_BLOCKED.
+The alternate universe is accepted when:
+- the LiveScore date feed covers the requested listing date and timezone;
+- every protected required competition block is independently corroborated by Flashscore or Soccerway;
+- every senior women's domestic top-flight block admitted/deferred is independently corroborated by Flashscore or Soccerway;
+- any material provider disagreement is explicitly resolved or marked UNRESOLVED;
+- no unresolved material block remains before work_ready=true.
+
+Under fallback mode, provider-native IDs may replace AiScore IDs for raw-universe accounting, but preserve provider provenance. AiScore identity is no longer mandatory when AiScore itself is inaccessible.
+
+Set:
+`source_transport = MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`.
+
+If no valid alternate date-level universe can be established, stop as SOURCE_BLOCKED.
 
 ## 3. Bounded retry budget
 
@@ -79,7 +94,7 @@ Per run + source epoch, the normal acquisition budget is:
 
 - one covering-cache/reuse check;
 - one native AiScore date acquisition attempt;
-- one alternate AiScore-derived transport attempt.
+- one alternate date-level multi-source fallback attempt.
 
 Do not loop through public search engines, dozens of competition pages, team schedules, or country-by-country reconstruction trying to simulate the missing master list.
 
@@ -119,19 +134,19 @@ A plain user `resume` does not itself count as a changed source condition.
 
 ## 5. Search/index prohibition for completeness
 
-Search engines, web snippets, team schedule pages, competition schedule pages, and other score providers may be used **after acquisition** to:
+Search engines, web snippets, team schedule pages, and competition pages may be used **after acquisition** to:
 
 - verify a known fixture;
 - repair a known identity/time conflict;
 - assess researchability;
 - establish team/competition context.
 
-They may **not**:
+They may **not**, by themselves:
 - create the raw fixture universe;
 - prove an omitted competition does not exist;
 - convert a lower-bound universe into an exact one;
 - certify `complete=true`;
-- substitute for the AiScore date universe.
+- substitute for either the AiScore date universe or the accepted LiveScore+Flashscore/Soccerway fallback universe.
 
 This prevents a long manual reconstruction from being mistaken for exhaustive discovery.
 
