@@ -27,6 +27,7 @@ Read and apply:
 - `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
+- `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`
 
 The operational gate is mandatory for every surviving senior fixture before deep Work research.
@@ -258,13 +259,44 @@ Overflow remains recorded as:
 
 It may be reopened only by explicit user exception.
 
+## 9A. Required competition-block manifest — mandatory
+
+Independently of broad discovery, run `FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`.
+
+Current protected block registry version:
+`required-competition-manifest-v1`
+
+At minimum, explicitly check:
+- `NED_EERSTE_DIVISIE` — Netherlands Eerste Divisie / Keuken Kampioen Divisie.
+
+Record exactly one:
+- `CHECKED_WITH_FIXTURES`
+- `CHECKED_NO_IN_WINDOW_FIXTURES`
+- `SOURCE_BLOCKED`
+
+If fixtures exist, enumerate every official in-window fixture before normal disposition rules.
+
+Official Jong/U21/reserve-branded participants in the Eerste Divisie are senior league fixtures for coverage purposes and must not be dropped by generic reserve/youth-name exclusions.
+
+If the block is absent/unresolved:
+
+`HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP`
+
+Do not set `work_ready=true`.
+
+Run `validate_required_competition_manifest` from `models/football/engine/coverage_manifest.py` against the packaged manifest when execution is available.
+
 ## 10. Completeness
 
 Production completeness means:
 
 > every potentially relevant senior block in the requested window was discovered, then hard-excluded, operationally excluded, researchability-excluded, capacity-deferred, or admitted.
 
-Additionally, every visible senior women's domestic top-flight block must reconcile under `FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`. Missing one is a coverage failure even when the overall raw/admitted totals otherwise balance.
+Additionally:
+- every visible senior women's domestic top-flight block must reconcile under `FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`;
+- every protected required competition block must reconcile under `FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`.
+
+Missing either class is a coverage failure even when the overall raw/admitted totals otherwise balance.
 
 A skipped visible senior block with no recorded disposition makes the handoff incomplete.
 
@@ -314,6 +346,9 @@ Package only when:
 - admitted fixture count is <= 15;
 - protected senior blocks were not removed by the researchability gate without an explicit operational disposition;
 - every visible senior women's domestic top-flight block has a fixture-level disposition;
+- `required_competition_manifest_version = required-competition-manifest-v1`;
+- every protected required competition block is explicitly present and resolved;
+- `Required Competition Blocks Complete = true`;
 - women's-top-flight counts reconcile exactly;
 - `women_top_flight_unresolved_count = 0` before `work_ready=true`;
 - every admitted fixture has resolved identity/time;
