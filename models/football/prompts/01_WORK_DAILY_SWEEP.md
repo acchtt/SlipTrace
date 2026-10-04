@@ -119,6 +119,11 @@ A user-declared exception may reopen research but **never bypasses the incentive
 
 Freeze one common **football-fact** evidence state before any model applies policy.
 
+Also apply:
+`models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md`.
+
+Every admitted fixture must include a non-empty `common_evidence_basis` describing the shared Step-1 research epoch used to freeze the common grades.
+
 Shared facts stop before model-owned policy. Football C, C2 and C3 consume the same routes/carrier/chance/failure/H2H/incentive evidence, then independently derive model-owned burden/selection fields.
 
 Freeze these shared facts:
@@ -160,10 +165,12 @@ Freeze these shared facts:
 Do **not** freeze one shared `supported_line` as common policy evidence.
 
 After the common facts are frozen:
-- Football C derives and freezes `c_supported_line` plus its model-owned machine fields `completion_mode`, `burden_completion_quality`, `continuation_quality`, and `burden_stall_risk` under the active burden-completion procedure;
-- Football C2 independently derives and freezes `c2_supported_line` under Section 5 of its frozen challenger specification;
-- Football C3 independently derives `c3_supported_line`, second-route role, goal-3/goal-4 funding source/basis, control-endpoint risk and `c3_forced_chaos_verified`.
+- Football C derives and freezes `c_supported_line` + non-empty `supported_line_basis`, plus its model-owned machine fields `completion_mode`, `burden_completion_quality`, `continuation_quality`, and `burden_stall_risk` under the active burden-completion procedure;
+- Football C2 independently derives and freezes `c2_supported_line` + non-empty `supported_line_basis` under Section 5 of its frozen challenger specification;
+- Football C3 independently derives `c3_supported_line` + non-empty `supported_line_basis`, second-route role + `c3_second_route_role_basis`, goal-3/goal-4 funding source/basis, control-endpoint risk and `c3_forced_chaos_verified` + `c3_forced_chaos_basis`.
 - neither model may copy the other model's line simply for payload/persistence convenience.
+
+For Football C and C2, every frozen PASS/WATCH/FOCUS state must also include a non-empty `board_state_basis`. This makes the current semantic classification auditable; it does not introduce a new state threshold.
 
 At board time set `xi_robustness` from currently known lineup robustness; if XI is not confirmed, use the same evidence-based pre-XI value for all three tracks.
 
@@ -279,37 +286,36 @@ A board is not clean when any C3 policy field was assigned after outcome knowled
 
 This counter is independent of the C2 five-board test.
 
-## 5. Python engine — three tracks
+## 5. Python engine — three-track board reconciliation
 
-Serialize the same frozen factual evidence for all three model payloads using:
+Serialize the frozen Step-1 evidence into three model-owned payloads using:
+`models/football/engine/schema.json`.
 
-`models/football/engine/schema.json`
+Preferred mandatory runner:
 
-Run:
+`python models/football/engine/board_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
-`model = c`
+The runner:
+- requires the same ranked eligible match universe in C/C2/C3;
+- requires exact equality of the common factual evidence for every match;
+- rejects Football C completion-policy leakage into C2/C3;
+- rejects C3-only policy leakage into C/C2;
+- runs all three deterministic board validators.
 
-and
+Success requires:
+- `board_engine_execution_status = EXECUTED_ALL_THREE_BOARDS`;
+- `common_evidence_reconciled = true`.
 
-`model = c2`
-
-and
-
-`model = c3`
-
-Board command for each payload:
-
-`python models/football/engine/cli.py board --input <payload.json>`
-
-The factual assessment fields must be identical across C/C2/C3 payloads. The following are explicitly model-owned and may differ:
+The following are model-owned and may differ:
 - `model`;
-- `board_state`;
-- `supported_line` (C = `c_supported_line`; C2 = `c2_supported_line`; C3 = `c3_supported_line`);
-- C3-only burden-funding fields listed above.
+- C/C2 `board_state` + `board_state_basis`;
+- `supported_line` + `supported_line_basis`;
+- Football C completion-policy fields;
+- C3-only burden-funding/control fields.
 
-The engine schema still carries Football C completion diagnostics in the common assessment object. They are non-operative for C2 and are deliberately omitted from C3 machine output; C3 must use only its own burden-funding fields.
+Do not run three unrelated board commands and assume the evidence remained identical.
 
-Python is shadow validation only.
+Python remains shadow validation only.
 
 If text/code disagree:
 
@@ -381,6 +387,7 @@ Include:
 - `FOOTBALL_ENGINE_C2_RESULT`
 - `FOOTBALL_ENGINE_C3_INPUT`
 - `FOOTBALL_ENGINE_C3_RESULT`
+- `FOOTBALL_BOARD_TRIPLET_RESULT`
 
 If runtime execution is unavailable:
 `ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
