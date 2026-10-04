@@ -20,6 +20,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
+- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 - `models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
@@ -420,7 +421,29 @@ Do not run three unrelated board commands and assume the evidence remained ident
 
 After the C/C2/C3 triplet passes, run the C4 structured compiler against the frozen Football C board payload. C4 comparison is invalid if ranked universe or common evidence basis differs.
 
-After compiler success, perform the mandatory C4 Airtable persistence + readback reconciliation above **before** declaring /rank complete.
+After compiler success, perform the mandatory C4 Airtable persistence + readback reconciliation above.
+
+### All-model WATCH accounting — mandatory
+
+For every ranked eligible fixture, after C/C2/C3/C4 states and supported lines are frozen, build one accounting payload containing all four models and run:
+
+`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
+
+At rank stage:
+- C/C2/C3/C4 WATCH -> accounting bet at that model's supported line @1.65, 1u;
+- non-WATCH board states -> no accounting bet yet unless later Step-2 action supplies BET/WAIT;
+- C is official model-accounting;
+- C2/C3/C4 are shadow-only;
+- no WATCH creates Website Pick or Step-2 workload.
+
+Persist the exact per-model JSON to:
+- `C Model Accounting`;
+- `C2 Shadow Accounting`;
+- `C3 Shadow Accounting`;
+- `C4 Shadow Accounting`;
+- `Model Accounting Revision`.
+
+A ranked board is accounting-incomplete if a WATCH exists without a supported line/accounting result.
 
 Python remains shadow validation only.
 
@@ -475,6 +498,13 @@ Then comparison table:
 | Match | C rank/state/line | C4 rank/state/line | C4 routes | Carrier | Goal-3 | Goal-4 | Control risk | Material difference |
 |---|---|---|---|---|---|---|---|---|
 
+`ALL-MODEL ACCOUNTING SNAPSHOT`
+
+| Match | C accounting | C2 accounting | C3 accounting | C4 accounting |
+|---|---|---|---|---|
+
+Show WATCH entries as `WATCH_ASSUMED O<line> @1.65 1u` (shadow prefix for C2/C3/C4).
+
 Report funnel:
 
 `INITIAL ADMITTED -> STEP1 WAVE(S) -> C-PASS/C-WATCH/C-FOCUS + C2 shadow + C3 shadow + C4 Step-1 shadow -> FOLLOW/RESERVE CAPACITY SATURATED OR QUEUE EXHAUSTED`
@@ -512,6 +542,8 @@ Include:
 - `FOOTBALL_BOARD_TRIPLET_RESULT`
 - `FOOTBALL_C4_INPUT`
 - `FOOTBALL_C4_RESULT`
+- `FOOTBALL_MODEL_ACCOUNTING_INPUT`
+- `FOOTBALL_MODEL_ACCOUNTING_RESULT`
 
 Deterministic execution is mandatory for a completed ranked board.
 
