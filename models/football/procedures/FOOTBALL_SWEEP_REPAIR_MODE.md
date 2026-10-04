@@ -153,6 +153,12 @@ If unresolved count = 0 and required coverage/queue fields are complete, write t
 - `repair_target_run_id`;
 - `repair_completed_at`.
 
+Before packaging the repaired handoff, run the same deterministic metadata normalizer used by /rank:
+
+`python models/football/engine/repaired_handoff_normalize.py --input <repair.json> --output <repair.normalized.json>`
+
+Package the normalized structured payload, then re-run the women counter/disposition equality and queue-rank reconciliation. Do not emit a repaired ZIP with contradictory duplicate dispositions, stale women counters, or non-boolean `women_top_flight`.
+
 Then emit:
 
 `SWEEP REPAIR COMPLETE — READY FOR /RANK`
