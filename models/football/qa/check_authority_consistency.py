@@ -356,6 +356,28 @@ require(
     "test_triplet_rejects_non_decision_stage",
 )
 require(
+    "models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md",
+    "mandatory Step-2 completeness guard",
+    "every `FOLLOW` fixture whose XI/odds decision window is open",
+    "STEP2 RECONCILIATION FAILED — SILENT OMISSION",
+    "quote_revalidated = true",
+    "c2_route_quality_rechecked = true",
+    "c3_funding_rechecked = true",
+)
+require(
+    "models/football/engine/step2_reconcile.py",
+    "def reconcile_step2",
+    "SILENT OMISSION",
+    "OUTCOME WITHOUT AUTHORIZATION",
+    "LIVE_REROUTED",
+)
+require(
+    "models/football/engine/tests/test_step2_reconcile.py",
+    "test_missing_follow_is_a_hard_failure",
+    "test_outcome_without_authorization_is_a_hard_failure",
+    "test_routine_follow_requires_follow_lane",
+)
+require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
     "Engine Execution Status",
     "Engine Source Revision",
@@ -377,9 +399,14 @@ require(
     "\"material_suppression\"",
     "\"xi_status\"",
     "\"post_xi_research_status\"",
+    "\"post_xi_research_note\"",
+    "\"fixture_status\"",
+    "\"quote_revalidated\"",
     "\"h2h_review_status\"",
     "\"h2h_rechecked\"",
     "\"completion_rechecked\"",
+    "\"c2_route_quality_rechecked\"",
+    "\"c3_funding_rechecked\"",
     "\"primary_mechanism_intact\"",
 )
 require(
@@ -390,6 +417,11 @@ require(
     "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
     "DECISION BLOCKED — H2H RECHECK MISSING",
     "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
+    "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING",
+    "DECISION BLOCKED — C3 FUNDING RECHECK MISSING",
+    "DECISION BLOCKED — STEP2 FIXTURE NOT CONFIRMED PREMATCH",
+    "DECISION BLOCKED — CURRENT QUOTE NOT REVALIDATED",
+    "post_xi_research_note",
     "primary_mechanism_intact=_required_bool",
     "_required_bool(obj, \"material_suppression\")",
 )
@@ -409,6 +441,11 @@ require(
     "test_stop_lane_user_exception_can_reopen",
     "test_missing_xi_status_fails_closed",
     "test_missing_post_xi_research_status_fails_closed",
+    "test_post_xi_research_note_is_required",
+    "test_non_prematch_fixture_blocks_step2",
+    "test_quote_must_be_revalidated_before_decision",
+    "test_c2_requires_own_route_quality_recheck",
+    "test_c3_requires_own_funding_recheck",
     "test_h2h_recheck_missing_blocks_decision",
     "test_completion_recheck_missing_blocks_decision",
     "test_missing_suppression_boolean_fails_closed",
