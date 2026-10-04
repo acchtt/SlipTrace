@@ -73,9 +73,23 @@ Files:
 - `cli.py` — stdin/file CLI for deterministic board ranking and decisions.
 - `examples/board_input.json` — minimal example.
 
-Board:
+Single board:
 
 `python models/football/engine/cli.py board --input models/football/engine/examples/board_input.json`
+
+Mandatory Step-1 three-board reconciliation:
+
+`python models/football/engine/board_triplet_cli.py --c c.json --c2 c2.json --c3 c3.json`
+
+The triplet runner requires the same ranked eligible universe and exact equality of the common factual evidence across C/C2/C3. Model-owned supported burden/state/funding fields may differ. It rejects common-evidence drift and policy-field leakage before running the three board validators.
+
+Every board assessment also carries:
+- non-empty `common_evidence_basis`;
+- model-owned `supported_line_basis`;
+- C/C2 `board_state_basis`;
+- C3 second-route and forced-chaos bases in addition to the existing funding/control bases.
+
+These are traceability fields with zero independent ranking weight.
 
 Decision:
 
@@ -116,7 +130,9 @@ This is how we determine whether inconsistency comes from semantic research inpu
 
 ## Policy-field isolation
 
-The shared assessment carries common route/mechanism evidence. Football C's completion diagnostics are C-owned policy fields:
+The shared assessment carries common route/mechanism evidence. Step-1 common evidence must be frozen once and reconciled through `board_triplet_cli.py`; three unrelated successful board calls do not prove a clean comparison.
+
+Football C's completion diagnostics are C-owned policy fields:
 `completion_mode`, `burden_completion_quality`, `continuation_quality`, `opponent_leakage`, and `burden_stall_risk`.
 
 The adapter requires them for `model=c` and deliberately does not parse or emit them for `model=c2` / `model=c3`. C2 therefore cannot accidentally inherit C's burden-completion labels through the generic parser, while C3 relies on its own funding/control fields.
