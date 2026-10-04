@@ -72,7 +72,12 @@ Dedicated current fields now include:
 - `C4 Shadow State`;
 - `C4 Shadow Rank`;
 - `C4 Supported Line`;
-- C4 structured compiler fields defined in `FOOTBALL_C4_AIRTABLE.md`.
+- C4 structured compiler fields defined in `FOOTBALL_C4_AIRTABLE.md`;
+- `C Model Accounting`;
+- `C2 Shadow Accounting`;
+- `C3 Shadow Accounting`;
+- `C4 Shadow Accounting`;
+- `Model Accounting Revision`.
 
 Also preserve:
 - Common Evidence Basis;
@@ -121,7 +126,7 @@ C3 shadow fields/notes must also be separate:
 
 C2/C3/C4 must never overwrite official C fields.
 
-C4 is Step-1-only. C4 persistence belongs in Daily Coverage + Sweep Runs only; do not create C4 Decision States or Website Picks.
+C4 is Step-1-only. C4 persistence belongs in Daily Coverage + Sweep Runs only; do not create C4 Decision States or Website Picks. C4-WATCH may still carry shadow model-accounting JSON/P&L under `FOOTBALL_MODEL_BET_ACCOUNTING.md`; this is not Step-2 exposure.
 
 ## 5. Publish = exact copy, never re-screen
 
@@ -152,7 +157,26 @@ A C4 row without complete structured evidence anchors and deterministic compiler
 
 Do not populate C3 fields from Football C completion labels or C2 route-quality output. Do not populate C4 compiled fields by copying C/C2/C3 semantic grades.
 
-## 7. Capacity queue / replenishment persistence
+## 7. All-model accounting persistence
+
+Dedicated Daily Coverage fields:
+- `C Model Accounting` — `fldND2leUXgAq9UQl`
+- `C2 Shadow Accounting` — `fldlWroOrJdYF3lHn`
+- `C3 Shadow Accounting` — `fldEMKp5LzS5IZQpJ`
+- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
+- `Model Accounting Revision` — `fldAt3A1bZW4QSGbF`
+
+Persist exact deterministic JSON from `model_bet_accounting.py`.
+
+At Step 1:
+- WATCH -> supported line @1.65, 1u;
+- non-WATCH -> NONE until a later BET/WAIT exists.
+
+At Step 2, direct BET/WAIT may replace WATCH for that same model/fixture under the documented precedence.
+
+These fields are model-performance accounting and do not grant Website Pick / real-exposure authority to C2/C3/C4.
+
+## 8. Capacity queue / replenishment persistence
 
 Dedicated Daily Coverage fields:
 - `Step0 Capacity Queue Rank` — `fldUFbfIyiIYcQuVt`
@@ -173,7 +197,7 @@ When Step 1 pulls a deferred fixture:
 
 A capacity-deferred row is therefore a queued eligible candidate, not a permanent negative model verdict.
 
-## 8. Women's top-flight reconciliation
+## 9. Women's top-flight reconciliation
 
 For every sweep, Daily Coverage plus Sweep Runs must support:
 
@@ -185,7 +209,7 @@ Missing block/row:
 
 `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`
 
-## 9. Coverage reconciliation
+## 10. Coverage reconciliation
 
 Before declaring board publication complete:
 
@@ -204,7 +228,7 @@ If these fail:
 
 `COVERAGE INCOMPLETE — BOARD PROVISIONAL`
 
-## 10. Upcoming reads
+## 11. Upcoming reads
 
 Daily Coverage is frozen history, not sufficient by itself to prove a fixture is currently upcoming.
 
@@ -214,7 +238,7 @@ For `/report next matches`:
 - remove LIVE/HT/FT/postponed/cancelled from upcoming;
 - annotate material schedule corrections.
 
-## 11. Historical fields
+## 12. Historical fields
 
 Legacy v0.2.x / Football A columns and old row content remain valid historical records.
 
@@ -226,7 +250,7 @@ For new Football C boards:
 
 Historical fidelity is preserved by Model Version and Git history, not by keeping obsolete authority active in this contract.
 
-## 12. Cross-chat bridge
+## 13. Cross-chat bridge
 
 Current workflow:
 
@@ -234,7 +258,7 @@ Current workflow:
 
 Normal Chat reads the frozen Football C state; it does not reconstruct an old Football A PRE state.
 
-## 13. Duplicate/conflict validator
+## 14. Duplicate/conflict validator
 
 Group by canonical AiScore ID.
 
