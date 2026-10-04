@@ -226,6 +226,7 @@ REQUIRED = {
         "Historical competition reliability may only cap/demote current viability",
         "women\'s domestic top-flight",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
+        "Provider live stats are not required for live assessment",
     ],
     "models/football/production/FOOTBALL_C.md": [
         "**Intake:** RESEARCHABLE_SENIOR_PRODUCTION",
@@ -234,6 +235,8 @@ REQUIRED = {
         "Market-history/odds lookup does not satisfy the football-research requirement",
         "H2H is mandatory context when usable",
         "PRICE DECAY != THESIS DECAY",
+        "Do **not** require positive live-stat confirmation",
+        "Live assessment proceeds regardless of provider live stats",
         "operational viability gate",
         "Only operational grade A/B fixtures enter the normal Football C board",
         "burden-completion",
@@ -315,7 +318,10 @@ REQUIRED = {
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "Football C Official Live + C2/C3 Shadow Wait",
-        "TARGET REACHED + THESIS STILL HEALTHY?",
+        "TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?",
+        "No live-stat gate",
+        "Assess the live match **regardless of provider live stats**",
+        "positive live-stat confirmation is not required",
         "C-WAIT CANCELLED — THESIS DECAY",
         "C2 may never create Website Pick or real exposure.",
         "Football C3 shadow WAIT resolution",
@@ -354,6 +360,7 @@ REQUIRED = {
         "**Champion:** Football C",
         "Dual-track operational boundary",
         "C2 may not create Website Picks or real exposure.",
+        "Do not require a live attacking-quality indicator",
     ],
     "models/football/challengers/football-c2/TEST_PROTOCOL.md": [
         "**Champion:** Football C",
@@ -369,6 +376,7 @@ REQUIRED = {
         "STATE_DEPENDENT",
         "Who prospectively funds the goal",
         "C3 has no C2-style market-gap bridge",
+        "C3 live resolution does not require shots, xG, big chances",
         "FOOTBALL C3 — SHADOW ONLY",
     ],
     "models/football/challengers/football-c3/TEST_PROTOCOL.md": [
