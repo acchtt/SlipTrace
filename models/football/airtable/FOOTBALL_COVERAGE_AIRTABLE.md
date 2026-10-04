@@ -76,6 +76,10 @@ Dedicated current fields now include:
 
 Also preserve:
 - Common Evidence Basis;
+- Step0 Capacity Queue Rank;
+- Step1 Replenished;
+- Replenishment Wave;
+- Replenishment Reason;
 - Operational Grade;
 - XI Expected;
 - Market Observability where available;
@@ -148,7 +152,28 @@ A C4 row without complete structured evidence anchors and deterministic compiler
 
 Do not populate C3 fields from Football C completion labels or C2 route-quality output. Do not populate C4 compiled fields by copying C/C2/C3 semantic grades.
 
-## 7. Women's top-flight reconciliation
+## 7. Capacity queue / replenishment persistence
+
+Dedicated Daily Coverage fields:
+- `Step0 Capacity Queue Rank` — `fldUFbfIyiIYcQuVt`
+- `Step1 Replenished` — `fldPUL87XJhpUqYiU`
+- `Replenishment Wave` — `fld5qzOVZdKst3bhK`
+- `Replenishment Reason` — `fldUxHPEnQpGSJVmC`
+
+Every Step-0 A/B fixture must receive a unique positive queue rank across the sweep before initial admission.
+
+Initial ranks 1–15 are admitted to the first Work wave. Rank 16+ rows remain `OPERATIONAL_CAPACITY_DEFERRED` until Step 1 either replenishes them or the prematch window closes.
+
+When Step 1 pulls a deferred fixture:
+- keep its original Step0 queue rank immutable;
+- set `Step1 Replenished = true`;
+- set `Replenishment Wave`;
+- record the reason;
+- do not rewrite original discovery/operational evidence.
+
+A capacity-deferred row is therefore a queued eligible candidate, not a permanent negative model verdict.
+
+## 8. Women's top-flight reconciliation
 
 For every sweep, Daily Coverage plus Sweep Runs must support:
 
@@ -160,7 +185,7 @@ Missing block/row:
 
 `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`
 
-## 8. Coverage reconciliation
+## 9. Coverage reconciliation
 
 Before declaring board publication complete:
 
@@ -179,7 +204,7 @@ If these fail:
 
 `COVERAGE INCOMPLETE — BOARD PROVISIONAL`
 
-## 9. Upcoming reads
+## 10. Upcoming reads
 
 Daily Coverage is frozen history, not sufficient by itself to prove a fixture is currently upcoming.
 
@@ -189,7 +214,7 @@ For `/report next matches`:
 - remove LIVE/HT/FT/postponed/cancelled from upcoming;
 - annotate material schedule corrections.
 
-## 10. Historical fields
+## 11. Historical fields
 
 Legacy v0.2.x / Football A columns and old row content remain valid historical records.
 
@@ -201,7 +226,7 @@ For new Football C boards:
 
 Historical fidelity is preserved by Model Version and Git history, not by keeping obsolete authority active in this contract.
 
-## 11. Cross-chat bridge
+## 12. Cross-chat bridge
 
 Current workflow:
 
@@ -209,7 +234,7 @@ Current workflow:
 
 Normal Chat reads the frozen Football C state; it does not reconstruct an old Football A PRE state.
 
-## 12. Duplicate/conflict validator
+## 13. Duplicate/conflict validator
 
 Group by canonical AiScore ID.
 
