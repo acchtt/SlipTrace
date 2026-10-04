@@ -12,7 +12,8 @@ Before executing /rank, /xi, /live, /audit, /report, or an equivalent natural-la
 1. read `models/football/CURRENT_MODEL.md`;
 2. read `models/football/prompts/COMMAND_ALIASES.md`;
 3. read the current canonical launcher for the requested stage;
-4. only then use the handoff as frozen historical context.
+4. for execution-required `/rank`, `/xi`, or `/audit`, read `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
+5. only then use the handoff as frozen historical context.
 
 If a handoff names an older model roster or older launcher behavior, the current repository authority wins for **current execution semantics**.
 
@@ -89,6 +90,8 @@ If the handoff's declared authority differs from current `CURRENT_MODEL.md`, rec
 
 Do not treat this as contamination of historical frozen data. It is a router/bootstrap correction.
 
+Runtime availability is also never inherited from a handoff. A previous "Python unavailable", "GitHub unavailable", missing-checkout or engine-not-executed note is historical process context only. Re-probe the current turn before making any availability claim.
+
 ## 6. Output invariant
 
 For /xi and /live, every material match block must contain all three visible track lines:
@@ -108,6 +111,7 @@ Any new handoff must:
 - identify C2 and C3 as Step-2-capable shadow challengers;
 - identify C4 as a Step-1-only structured-evidence shadow challenger when C4 is active;
 - state that future chats must reload `CURRENT_MODEL.md` and the current stage launcher before execution;
+- state that execution-required stages must re-probe Python/repository availability and may not inherit an old runtime-failure claim;
 - distinguish frozen historical state from current execution semantics.
 
 Do not embed launcher text as permanent authority.
