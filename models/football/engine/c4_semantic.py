@@ -497,6 +497,58 @@ def _rank_key(row: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def reconcile_with_c_board(
+    c4_payload: dict[str, Any],
+    c_payload: dict[str, Any],
+) -> None:
+    """Prove C4 used the same ranked eligible universe/common research epoch as C."""
+
+    if not isinstance(c_payload, dict):
+        raise C4ContractError("Football C board payload must be an object")
+    if c_payload.get("stage") != "board" or str(c_payload.get("model", "")).lower() != "c":
+        raise C4ContractError("Football C reconciliation payload must use stage=board model=c")
+
+    c_matches = c_payload.get("matches")
+    c4_matches = c4_payload.get("matches")
+    if not isinstance(c_matches, list) or not isinstance(c4_matches, list):
+        raise C4ContractError("C/C4 reconciliation requires match arrays")
+
+    def index(rows: list[Any], label: str) -> dict[str, dict[str, Any]]:
+        out: dict[str, dict[str, Any]] = {}
+        for row in rows:
+            if not isinstance(row, dict):
+                raise C4ContractError(f"{label} match must be an object")
+            match_id = _nonempty(row.get("match_id"), f"{label}.match_id")
+            if match_id in out:
+                raise C4ContractError(
+                    f"C4 RECONCILIATION FAILED — DUPLICATE MATCH ID: {label} {match_id}"
+                )
+            out[match_id] = row
+        return out
+
+    c_idx = index(c_matches, "c")
+    c4_idx = index(c4_matches, "c4")
+    if set(c_idx) != set(c4_idx):
+        raise C4ContractError(
+            "C4 RECONCILIATION FAILED — RANKED UNIVERSE MISMATCH"
+        )
+
+    for match_id in sorted(c_idx):
+        c_basis = _nonempty(
+            c_idx[match_id].get("common_evidence_basis"),
+            f"c.{match_id}.common_evidence_basis",
+        )
+        c4_basis = _nonempty(
+            c4_idx[match_id].get("common_evidence_basis"),
+            f"c4.{match_id}.common_evidence_basis",
+        )
+        if c_basis != c4_basis:
+            raise C4ContractError(
+                "C4 RECONCILIATION FAILED — COMMON EVIDENCE BASIS DRIFT: "
+                f"match_id={match_id}"
+            )
+
+
 def compile_board(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise C4ContractError("payload must be an object")
