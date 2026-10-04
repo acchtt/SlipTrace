@@ -739,6 +739,26 @@ def _healthy_wait(ctx: DecisionContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
+def wait_accounting_target(
+    a: MatchAssessment,
+    ctx: DecisionContext,
+) -> tuple[float, float]:
+    """Compile an existing WAIT into deterministic audit/accounting terms.
+
+    This does not change BET/WAIT/PASS selection. It only makes the already
+    declared WAIT target/minimum price machine-visible for assumed-exposure
+    bookkeeping.
+    """
+
+    target_line = min(ctx.quote.line, a.supported_line)
+    min_odds = (
+        1.60
+        if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
+        else 1.65
+    )
+    return target_line, min_odds
+
+
 def _validate_step2_authorization(
     ctx: DecisionContext,
     *,
