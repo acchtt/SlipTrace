@@ -36,6 +36,14 @@ Therefore a discovered women's top-flight fixture may end as:
 
 It must not disappear without one of those dispositions.
 
+### Prematch window closed during Step-0 repair
+
+If a fixture was legitimately in the requested sweep window but has already kicked off by the final Step-0 handoff freeze because source acquisition/reconciliation took too long, keep it in the women's raw manifest and record:
+
+`OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`
+
+This is a run-time executability disposition, not a negative judgment of the competition's normal observability. Do not drop the fixture and do not capacity-defer an already-started match.
+
 ## 3. Researchability parity
 
 Apply the same researchability standard used for men's senior top-flight domestic leagues.

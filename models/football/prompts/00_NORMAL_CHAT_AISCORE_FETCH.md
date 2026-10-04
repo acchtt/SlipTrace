@@ -257,6 +257,19 @@ A uniform competition-block timestamp is never sufficient proof by itself.
 
 After A/B viability and researchability are known, cap the normal Work handoff at **15 fixtures**.
 
+### Fallback capacity-saturation short circuit
+
+When `coverage_mode=FALLBACK_PRODUCTION_SCOPE` and 15 fixtures already fill the Work cap with the maximum current operational profile available in the run (A-grade, XI expected YES, market HIGH, team-news HIGH/MEDIUM, reliable identity/time, researchability PASS), later non-protected/non-required/non-women competition blocks that cannot exceed that profile may be recorded at **block level** as capacity overflow instead of enumerated fixture-by-fixture.
+
+Requirements:
+- scan the remaining carrier competition headings so no protected/required/women block is skipped;
+- do not use goal profile, odds attractiveness, C state, or expected scoring;
+- a block with materially stronger operational observability than the lowest selected admission must reopen capacity comparison;
+- equal-or-lower operational blocks may be summarized as `BLOCK CAPACITY DEFERRED — STEP0`;
+- protected competition blocks, required competition blocks, and women's top-flight blocks remain fixture-exact regardless of saturation.
+
+This short circuit exists only to avoid fixture-level bookkeeping after the Work cap is already saturated; it does not make unseen fixtures eligible for Work.
+
 Order by operational quality only:
 1. A before B;
 2. stronger XI/market/team-news observability first;
