@@ -6,7 +6,11 @@ import unittest
 ENGINE_DIR = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE_DIR))
 
-from c4_semantic import C4ContractError, compile_board  # noqa: E402
+from c4_semantic import (  # noqa: E402
+    C4ContractError,
+    compile_board,
+    reconcile_with_c_board,
+)
 
 
 def a(state, basis=None):
@@ -71,7 +75,46 @@ def payload(*rows):
     }
 
 
+def c_payload(*rows):
+    return {
+        "schema_version": "football-engine-v1",
+        "stage": "board",
+        "model": "c",
+        "matches": [
+            {
+                "match_id": row["match_id"],
+                "common_evidence_basis": row["common_evidence_basis"],
+            }
+            for row in rows
+        ],
+    }
+
+
 class C4StructuredEvidenceTests(unittest.TestCase):
+    def test_reconcile_with_c_board_passes_same_universe_and_basis(self):
+        row = match()
+        c4 = payload(row)
+        reconcile_with_c_board(c4, c_payload(row))
+
+    def test_reconcile_blocks_ranked_universe_mismatch(self):
+        row = match()
+        other = match("other")
+        with self.assertRaisesRegex(
+            C4ContractError,
+            "RANKED UNIVERSE MISMATCH",
+        ):
+            reconcile_with_c_board(payload(row), c_payload(other))
+
+    def test_reconcile_blocks_common_evidence_basis_drift(self):
+        row = match()
+        c_row = copy.deepcopy(row)
+        c_row["common_evidence_basis"] = "different research epoch"
+        with self.assertRaisesRegex(
+            C4ContractError,
+            "COMMON EVIDENCE BASIS DRIFT",
+        ):
+            reconcile_with_c_board(payload(row), c_payload(c_row))
+
     def test_strong_route_carrier_and_goal4_focus(self):
         result = compile_board(payload(match()))
         row = result["matches"][0]
