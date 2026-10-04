@@ -103,14 +103,19 @@ Use:
 `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`
 
 Before discovery, apply:
-`models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`
+- `models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`;
+- `models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
+
+Fresh sweeps are checkpointed multi-chunk jobs. External Step-0 verification is capped at six competition/date blocks per invocation; completed block state is persisted after each block. `/sweep resume` continues from the same RUNNING Sweep Run / Resume Cursor without reacquiring an unchanged source epoch or rebuilding completed discovery.
+
+A normal chunk boundary returns `SWEEP CHECKPOINT SAVED — /sweep resume`; it is RUNNING, not BLOCKED. Coverage requirements and the complete A/B queue requirement remain unchanged before final packaging.
 
 For `/sweep repair ...`, also apply:
 `models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md`
 
 Repair mode is a bounded delta over one existing sweep, not a fresh open-ended rediscovery pass. It reuses complete persisted rows, excludes already-started fixtures before deep verification, caps unresolved competition verification at two authoritative attempts, and returns a compact unresolved list rather than continuing indefinitely.
 
-Step 0 must acquire a complete AiScore date universe before fixture-level discovery. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
+Step 0 must acquire a complete AiScore date universe before fixture-level discovery. Persist an ACQUIRED source epoch immediately so later chunks reuse it. If the source gate is SOURCE_BLOCKED, stop once and persist the blocker fingerprint; repeated `/sweep resume` calls with the same fingerprint must not repeat manual reconstruction.
 
 When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 may use `coverage_mode=FALLBACK_PRODUCTION_SCOPE`: keep protected blocks, required competition coverage, senior women's top-flight coverage, and **every plausible A/B senior candidate fixture-exact**; summarize only blocks already demonstrably below the A/B candidate threshold. This is an efficiency/audit-granularity rule only.
 
