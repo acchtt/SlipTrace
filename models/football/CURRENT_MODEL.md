@@ -112,6 +112,15 @@ Football C's board/lane is the only board that controls routine Step-2 workload 
 
 After the board is frozen, the burden-completion follow-through guard assigns `FOLLOW / RESERVE / STOP`. It compares exact-same-kickoff candidates against each other, caps routine FOLLOW at two per kickoff minute, and does not change the underlying C state. Only FOLLOW receives routine Step-2 attention; RESERVE is conditional; STOP requires explicit override.
 
+## Mandatory Step-2 market-history attempt
+
+Before final C/C2/C3 action, run `models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md`.
+
+Attempt:
+`OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH`
+
+Persist FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED plus movement/conflict-recheck status. Market history is a reinspection signal only; it does not create football structure or replace fresh post-XI football research.
+
 ## Step 2 — three-track XI + odds
 
 Use:
