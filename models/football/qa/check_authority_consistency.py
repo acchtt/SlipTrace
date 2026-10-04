@@ -408,6 +408,8 @@ require(
     "OFFICIAL C",
     "SHADOW C2",
     "SHADOW C3",
+    "SHADOW C4 (STEP1)",
+    "read-only frozen C4 snapshot visibility",
     "may never be silently absent",
 )
 require(
