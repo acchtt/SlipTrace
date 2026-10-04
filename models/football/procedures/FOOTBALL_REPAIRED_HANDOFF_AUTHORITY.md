@@ -6,8 +6,11 @@
 
 ## 1. Repaired handoff marker
 
-A repaired handoff is authoritative for Step 0 when it contains all of:
+A repaired handoff is authoritative for Step 0 through either acceptance path.
 
+### Path A — explicit repair markers
+
+Accept when it contains:
 - `repair_mode = true`;
 - `repair_status = COMPLETE`;
 - `repair_unresolved_count = 0`;
@@ -16,7 +19,18 @@ A repaired handoff is authoritative for Step 0 when it contains all of:
 - complete fixture-level A/B queue ranks;
 - complete protected/required/women coverage manifests required by the active launcher.
 
-When all markers pass:
+### Path B — structural compatibility for an already-produced repaired file
+
+When the user explicitly supplies/describes the attachment as the repaired sweep, accept even if the older repair package predates the formal marker fields **only when local file validation proves**:
+- every plausible A/B fixture in the package is fixture-level, not block-only;
+- every A/B fixture has a unique positive `Step0 Capacity Queue Rank`;
+- no repair/coverage unresolved row remains;
+- protected/required/women manifests are complete under current launcher requirements;
+- the initial/deferred dispositions reconcile exactly to the queue.
+
+This structural compatibility check is file-local. Do not use the web to decide whether the repaired package is complete.
+
+When accepted through either path:
 
 `REPAIRED HANDOFF AUTHORITY: ACCEPTED`
 
@@ -85,11 +99,11 @@ Continue other fixtures only when the conflict cannot contaminate their identity
 
 ## 6. Failed authority preflight
 
-If the attached repaired file lacks any required authority marker/queue field:
+If neither explicit-marker nor structural-compatibility acceptance passes:
 
 `REPAIRED HANDOFF INCOMPLETE — STEP0 REPAIR REQUIRED`
 
-Do not attempt to complete it in /rank.
+Report the exact missing/inconsistent file fields. Do not use the web to complete them and do not attempt repair inside /rank.
 
 ## 7. Replenishment source
 
