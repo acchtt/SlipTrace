@@ -806,6 +806,42 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         _required(ctx_obj, "post_xi_research_status"),
         "post_xi_research_status",
     )
+    market_history_status = _choice(
+        ctx_obj,
+        "market_history_status",
+        {"FOUND", "PARTIAL", "UNAVAILABLE_ATTEMPTED"},
+    )
+    market_history_movement = _choice(
+        ctx_obj,
+        "market_history_movement",
+        {
+            "UP_0.50_PLUS",
+            "UP_0.25",
+            "STABLE",
+            "DOWN_0.25",
+            "DOWN_0.50_PLUS",
+            "MIXED",
+            "UNCLEAR",
+        },
+    )
+    market_history_conflict_recheck = _choice(
+        ctx_obj,
+        "market_history_conflict_recheck",
+        {
+            "NOT_REQUIRED",
+            "RECHECKED_FOOTBALL_EXPLAINED",
+            "RECHECKED_UNEXPLAINED",
+            "LIMITED",
+        },
+    )
+    market_history_note = _string(ctx_obj, "market_history_note")
+
+    if market_history_status == "UNAVAILABLE_ATTEMPTED":
+        if market_history_movement != "UNCLEAR":
+            raise ContractError(
+                "UNAVAILABLE_ATTEMPTED market history requires movement=UNCLEAR"
+            )
+
     h2h_review_status = _enum(
         H2HReviewStatus,
         _required(ctx_obj, "h2h_review_status"),
@@ -877,6 +913,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "tournament_incentive_resolution": tournament_gate["resolution_status"],
         "xi_status": xi_status.value,
         "post_xi_research_status": post_xi_research_status.value,
+        "market_history_status": market_history_status,
+        "market_history_movement": market_history_movement,
+        "market_history_conflict_recheck": market_history_conflict_recheck,
+        "market_history_note": market_history_note,
         "h2h_review_status": h2h_review_status.value,
         "h2h_rechecked": h2h_rechecked,
         "completion_rechecked": completion_rechecked,

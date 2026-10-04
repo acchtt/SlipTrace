@@ -212,6 +212,35 @@ require(
     "Never omit a shadow row",
 )
 
+# 5. Step-2 market history must be attempted and explicit.
+require(
+    "models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md",
+    "MANDATORY STEP-2 EVIDENCE BLOCK",
+    "OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH",
+    "MARKET HISTORY FOUND",
+    "MARKET HISTORY PARTIAL",
+    "MARKET HISTORY UNAVAILABLE — ATTEMPTED",
+    "Market history is a reinspection trigger, not a model",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "MANDATORY MARKET-HISTORY ATTEMPT",
+    "market_history_status = FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED",
+    "MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace",
+)
+require(
+    "models/football/engine/adapter.py",
+    "market_history_status",
+    "market_history_movement",
+    "market_history_conflict_recheck",
+    "market_history_note",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_missing_market_history_status_fails_closed",
+    "test_unavailable_market_history_can_continue_after_attempt",
+)
+
 # 5. Step-2 deterministic validation must fail closed.
 require(
     "models/football/engine/schema.json",

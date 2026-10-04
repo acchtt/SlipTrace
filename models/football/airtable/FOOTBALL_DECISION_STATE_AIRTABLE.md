@@ -74,6 +74,7 @@ Persist where applicable:
 - evaluated line / odds;
 - XI state;
 - post-XI research status;
+- market-history status / opening total / pre-XI total / current market center / movement / conflict recheck / source note;
 - H2H material state;
 - tournament incentive applicability + VERIFIED recheck state;
 - current route/carrier/failure evidence;
@@ -140,6 +141,7 @@ The user's confirmed XI and current executable odds are the current execution ep
 - do not request a second confirmation;
 - do not fabricate missing XI/price;
 - perform the mandatory fresh post-XI football research pass;
+- perform the mandatory market-history attempt from `FOOTBALL_MARKET_HISTORY_RECHECK.md`;
 - perform the mandatory tournament-incentive recheck when applicable;
 - recheck completion/continuation/leakage/stall risk;
 - issue the Football C official action plus C2/C3 shadow actions from the same factual evidence epoch when the fixture is already being assessed.
@@ -152,7 +154,7 @@ If a required final input is missing:
 
 Football C:
 
-`FROZEN C BOARD -> IDENTITY/STATUS -> CONFIRMED XI -> FRESH POST-XI RESEARCH -> TOURNAMENT/H2H RECHECK -> COMPLETION/CONTINUATION RECHECK -> CURRENT QUOTE -> C-BET/C-WAIT/C-PASS -> PERSIST`
+`FROZEN C BOARD -> IDENTITY/STATUS -> FIRST-PASS XI -> FRESH POST-XI RESEARCH -> MARKET-HISTORY ATTEMPT -> MARKET CONFLICT RECHECK -> TOURNAMENT/H2H RECHECK -> COMPLETION/CONTINUATION RECHECK -> CURRENT QUOTE -> C-BET/C-WAIT/C-PASS -> PERSIST`
 
 Football C2:
 
@@ -240,3 +242,17 @@ If Decision State succeeds but official Website Pick fails:
 If canonical identity is conflicting:
 
 `COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
+
+
+## 12. Market-history fields
+
+Dedicated Decision State fields:
+- `Market History Status` — `fldvt8MMJXSt5C2b6`
+- `Market History Open Total` — `fldHF3GBjcPlMV8xD`
+- `Market History Pre-XI Total` — `fldVphdjWI21noJe3`
+- `Market History Current Center` — `fldBYaxymYIwJZHO5`
+- `Market History Movement` — `fldEjQGGA9siB8YzT`
+- `Market Conflict Recheck` — `fldvoIAnj9NCFZFuQ`
+- `Market History Note` — `fldDPLEXFDLH58Xdu`
+
+These fields are common evidence for C/C2/C3. They do not grant exposure authority.
