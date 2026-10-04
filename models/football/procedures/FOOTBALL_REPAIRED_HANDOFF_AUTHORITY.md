@@ -4,7 +4,35 @@
 **Applies to:** `/rank` when the user supplies a repaired Step-0 handoff/ZIP  
 **Purpose:** prevent Work/ranking from reopening fixture-universe repair
 
-## 1. Repaired handoff marker
+## 1. Local metadata normalization preflight
+
+Before deciding that a repaired handoff is incomplete, normalize deterministic duplicate/derived metadata **locally**. This is not Step-0 repair and must not use the web.
+
+Run against the repaired handoff's structured JSON payload:
+
+`python models/football/engine/repaired_handoff_normalize.py --input <repaired.json> --output <normalized.json>`
+
+Required success:
+
+`REPAIRED HANDOFF LOCAL NORMALIZATION: PASS`
+
+Canonical precedence:
+
+1. `final_step0_disposition` is authoritative over duplicate `disposition`;
+2. women's counters are recomputed from the complete fixture-level `women_top_flight_disposition_manifest`;
+3. `women_top_flight` boolean is derived from membership in that complete women manifest;
+4. stale declared counters/duplicate aliases are replaced only in the normalized in-memory/temp copy used by /rank;
+5. the user-supplied ZIP remains unchanged as the original audit artifact.
+
+These are locally recoverable metadata conflicts and **must not** trigger another sweep when:
+- every fixture already exists at fixture level;
+- queue ranks are present/unique;
+- no final disposition is `UNRESOLVED`;
+- required/protected/women manifests are otherwise complete.
+
+If normalization fails because a fixture is actually missing, a queue rank is absent/duplicate, a final disposition is unresolved, or the women manifest itself is incomplete, then fail closed.
+
+## 2. Repaired handoff marker
 
 A repaired handoff is authoritative for Step 0 through either acceptance path.
 
@@ -34,7 +62,7 @@ When accepted through either path:
 
 `REPAIRED HANDOFF AUTHORITY: ACCEPTED`
 
-## 2. What becomes frozen for /rank
+## 3. What becomes frozen for /rank
 
 The repaired handoff is authoritative for:
 
@@ -50,7 +78,7 @@ The repaired handoff is authoritative for:
 
 Ranking must consume these fields as frozen input.
 
-## 3. Forbidden ranking behavior
+## 4. Forbidden ranking behavior
 
 After repaired handoff acceptance, /rank must not:
 
@@ -65,7 +93,7 @@ After repaired handoff acceptance, /rank must not:
 
 Football research remains allowed for Step-1 modelling: team form, mechanisms, personnel context, H2H transferability, tournament incentives, etc. That research must not be used to mutate frozen Step-0 identity/time/queue fields.
 
-## 4. Current-time filtering
+## 5. Current-time filtering
 
 /rank may exclude a fixture that has left the prematch window using:
 
@@ -78,7 +106,7 @@ Record:
 
 `RANK SKIP — PREMATCH WINDOW CLOSED USING REPAIRED HANDOFF KICKOFF`
 
-## 5. Contradiction discovered incidentally
+## 6. Contradiction discovered incidentally
 
 If Step-1 football research incidentally reveals a material contradiction with a frozen repaired Step-0 field:
 
@@ -97,15 +125,17 @@ Include only:
 
 Continue other fixtures only when the conflict cannot contaminate their identity/time/queue ordering.
 
-## 6. Failed authority preflight
+## 7. Failed authority preflight
 
-If neither explicit-marker nor structural-compatibility acceptance passes:
+If neither explicit-marker nor structural-compatibility acceptance passes **after local metadata normalization**:
 
 `REPAIRED HANDOFF INCOMPLETE — STEP0 REPAIR REQUIRED`
 
-Report the exact missing/inconsistent file fields. Do not use the web to complete them and do not attempt repair inside /rank.
+Report only genuinely non-normalizable missing/inconsistent file fields. Duplicate disposition aliases, stale women counters, and malformed `women_top_flight` convenience values are not sufficient reasons to block when the canonical final dispositions + complete women manifest resolve them locally.
 
-## 7. Replenishment source
+Do not use the web to complete missing data and do not attempt Step-0 repair inside /rank.
+
+## 8. Replenishment source
 
 When a complete repaired handoff includes the full deferred A/B queue, /rank uses that attached queue as the primary replenishment source.
 
@@ -116,7 +146,7 @@ Airtable may be used only to:
 
 Do not replace the attached repaired queue with a newly reconstructed Airtable/web queue.
 
-## 8. Completion
+## 9. Completion
 
 Once accepted, Step-0 validation in /rank is contract validation only. It should be short and local.
 
