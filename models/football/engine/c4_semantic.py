@@ -515,7 +515,9 @@ def compile_board(payload: dict[str, Any]) -> dict[str, Any]:
         raise C4ContractError("duplicate match_id in C4 board")
 
     rows = [compile_match(m) for m in parsed]
-    rows.sort(key=lambda row: (_rank_key(row), row["match_id"]), reverse=True)
+    # Canonical tie-break: match_id ascending after model-owned ranking key.
+    rows.sort(key=lambda row: row["match_id"])
+    rows.sort(key=_rank_key, reverse=True)
 
     for idx, row in enumerate(rows, start=1):
         row["c4_rank"] = idx
