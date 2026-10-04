@@ -54,6 +54,13 @@ REQUIRED = {
     "models/football/prompts/live.md": ["# /live", "FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md", "03_NORMAL_CHAT_LIVE.md"],
     "models/football/prompts/audit.md": ["# /audit", "FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md", "04_WORK_POST_SLATE_AUDIT.md"],
     "models/football/prompts/report.md": ["# /report", "FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md", "06_NORMAL_CHAT_REPORT.md"],
+    "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md": [
+        "MANDATORY STEP-0 COVERAGE INVARIANT",
+        "required-competition-manifest-v1",
+        "NED_EERSTE_DIVISIE",
+        "SOURCE_BLOCKED",
+        "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
+    ],
     "models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md": [
         "mandatory Step-0 coverage invariant",
         "Mandatory discovery class",
@@ -216,6 +223,8 @@ REQUIRED = {
         "women_top_flight_raw_count",
         "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
+        "Required competition-block manifest — mandatory",
+        "NED_EERSTE_DIVISIE",
         "Command alias:** `/sweep`",
     ],
     "models/football/CURRENT_MODEL.md": [
@@ -286,6 +295,8 @@ REQUIRED = {
         "FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md",
         "women_top_flight_disposition_manifest",
         "WOMEN TOP-FLIGHT COVERAGE GAP",
+        "Required competition coverage preflight — fail closed",
+        "NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "Football C Official + C2/C3 Shadow XI/Odds",
@@ -406,6 +417,16 @@ REQUIRED = {
         "C3 Test Board Number",
         "ranked-universe",
         "prospectively quarantined HOLD/exclusion",
+    ],
+    "models/football/engine/coverage_manifest.py": [
+        "MANIFEST_VERSION = \"required-competition-manifest-v1\"",
+        "REQUIRED_BLOCKS = (\"NED_EERSTE_DIVISIE\",)",
+        "validate_required_competition_manifest",
+    ],
+    "models/football/engine/tests/test_coverage_manifest.py": [
+        "test_missing_eerste_block_fails_closed",
+        "test_source_blocked_fails_closed",
+        "test_count_mismatch_fails_closed",
     ],
     "models/football/engine/competition_reliability.py": [
         "def evaluate_competition_reliability",
