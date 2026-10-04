@@ -74,11 +74,18 @@ class RepairedHandoffNormalizerTests(unittest.TestCase):
         self.assertIs(out["capacity_queue"][1]["women_top_flight"], False)
 
     def test_unresolved_women_still_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_disposition_manifest"][1][
+            "final_step0_disposition"
+        ] = "UNRESOLVED"
+        payload["women_top_flight_disposition_manifest"][1][
+            "disposition"
+        ] = "UNRESOLVED"
         with self.assertRaisesRegex(
             RepairedHandoffNormalizationError,
             "women_top_flight_unresolved_count must be 0",
         ):
-            normalize_repaired_handoff(base_payload())
+            normalize_repaired_handoff(payload)
 
 
 if __name__ == "__main__":
