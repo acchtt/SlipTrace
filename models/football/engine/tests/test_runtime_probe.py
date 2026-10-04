@@ -36,6 +36,21 @@ class RuntimeProbeTests(unittest.TestCase):
         self.assertIn("models/football/engine/factor_calibration.py", files)
         self.assertIn("models/football/engine/factor_calibration_cli.py", files)
 
+    def test_all_stages_include_model_accounting(self):
+        for stage in ("rank", "xi", "audit"):
+            self.assertIn(
+                "models/football/engine/model_bet_accounting.py",
+                required_files(stage),
+            )
+        self.assertIn(
+            "models/football/engine/model_bet_accounting_cli.py",
+            required_files("rank"),
+        )
+        self.assertIn(
+            "models/football/engine/model_bet_accounting_cli.py",
+            required_files("audit"),
+        )
+
     def test_current_repo_runtime_probe_passes_all_stages(self):
         for stage in ("rank", "xi", "audit"):
             result = probe_stage(stage)
