@@ -59,11 +59,15 @@ A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_P
 Fresh Step 0 is resumable.
 
 For a new sweep:
-- create/update the Sweep Runs row immediately after resolving the stable Run ID/window;
+- resolve the stable Run ID/window;
+- **before any source/provider call or progress response**, create/update the Sweep Runs row;
 - set `Run Status = RUNNING`;
 - initialize `Checkpoint Version = football-sweep-checkpoint-v1`;
 - initialize `Sweep Chunk Number = 1`;
-- persist `Resume Cursor` before opening expensive external research.
+- persist a valid `SOURCE_ACQUISITION / UNTRIED` Resume Cursor;
+- only after that persistence succeeds may source acquisition begin.
+
+If initialization persistence fails, return `SWEEP START FAILED — CHECKPOINT NOT PERSISTED` and do not acquire sources. A fresh sweep must never return "work remains" without a resumable RUNNING cursor.
 
 For `/sweep resume`:
 - load the matching RUNNING Sweep Run first;
