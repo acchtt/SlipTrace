@@ -6,7 +6,7 @@
 
 ## 1. Local metadata normalization preflight
 
-Before deciding that a repaired handoff is incomplete, normalize deterministic duplicate/derived metadata **locally**. This is not Step-0 repair and must not use the web.
+Before deciding that a repaired handoff is incomplete, normalize deterministic duplicate/derived metadata **locally** and validate the frozen Step-0 operational contract. This is not Step-0 repair and must not use the web. The validator may normalize deterministic aliases/counters, but it must never manufacture semantic operational/reliability evidence.
 
 Run against the repaired handoff's structured JSON payload:
 
@@ -28,9 +28,23 @@ These are locally recoverable metadata conflicts and **must not** trigger anothe
 - every fixture already exists at fixture level;
 - queue ranks are present/unique;
 - no final disposition is `UNRESOLVED`;
-- required/protected/women manifests are otherwise complete.
+- required/protected/women manifests are otherwise complete;
+- every A/B queue fixture already carries the complete Step-0 operational/reliability evidence contract.
 
-If normalization fails because a fixture is actually missing, a queue rank is absent/duplicate, a final disposition is unresolved, or the women manifest itself is incomplete, then fail closed.
+For every fixture whose final Step-0 disposition is `ADMITTED_TO_C` or `OPERATIONAL_CAPACITY_DEFERRED`, require non-empty:
+- `xi_expected`;
+- `market_observability`;
+- `team_news_observability`;
+- `operational_viability_reason`;
+- `competition_reliability_state`;
+- `competition_reliability_reason`.
+
+If any of those semantic fields are missing, local normalization must fail closed with:
+`HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING`
+
+That is a genuine Step-0 repair requirement; /rank must not infer or web-backfill those frozen fields.
+
+If normalization fails because a fixture is actually missing, a queue rank is absent/duplicate, a final disposition is unresolved, the women manifest itself is incomplete, or the Step-0 operational contract is missing, then fail closed.
 
 ## 2. Repaired handoff marker
 
@@ -45,6 +59,7 @@ Accept when it contains:
 - `step0_fixture_universe_frozen = true`;
 - `capacity_queue_complete = true`;
 - complete fixture-level A/B queue ranks;
+- complete six-field Step-0 operational/reliability contract for every admitted/deferred A/B queue fixture;
 - complete protected/required/women coverage manifests required by the active launcher.
 
 ### Path B — structural compatibility for an already-produced repaired file
@@ -54,7 +69,8 @@ When the user explicitly supplies/describes the attachment as the repaired sweep
 - every A/B fixture has a unique positive `Step0 Capacity Queue Rank`;
 - no repair/coverage unresolved row remains;
 - protected/required/women manifests are complete under current launcher requirements;
-- the initial/deferred dispositions reconcile exactly to the queue.
+- the initial/deferred dispositions reconcile exactly to the queue;
+- every admitted/deferred A/B queue fixture carries all six mandatory Step-0 operational/reliability fields.
 
 This structural compatibility check is file-local. Do not use the web to decide whether the repaired package is complete.
 

@@ -48,7 +48,7 @@ Build a repair set from only:
 2. fixtures with unresolved/conflicting identity;
 3. fixtures with unresolved/conflicting kickoff;
 4. required/protected/women's top-flight blocks whose fixture-level disposition is incomplete;
-5. rows missing current mandatory queue/persistence fields;
+5. rows missing current mandatory queue/persistence fields, including any of the six Step-0 operational/reliability contract fields: `xi_expected`, `market_observability`, `team_news_observability`, `operational_viability_reason`, `competition_reliability_state`, `competition_reliability_reason`;
 6. fixtures whose previously stored kickoff is contradicted by a current authoritative source.
 
 Everything else is reused unchanged.
@@ -128,7 +128,9 @@ For repair caused by the new global capacity queue:
 5. assign deterministic `Step0 Capacity Queue Rank`;
 6. write queue ranks to Daily Coverage;
 7. preserve existing operational grades/evidence unless a current hard fact invalidates them;
-8. output a repaired handoff for `/rank`.
+8. for every remaining A/B queue fixture, require all six Step-0 operational/reliability contract fields. Reuse persisted evidence first. If a field is genuinely absent, use the bounded repair budget to establish it; never infer XI/market/team-news observability or reliability reason from league reputation, grade, or fixture name;
+9. if any required semantic field is still missing after the bounded attempts, mark that fixture `REPAIR_UNRESOLVED` rather than emitting a supposedly complete package;
+10. output a repaired handoff for `/rank`.
 
 Do not perform Step-1 football modelling inside repair mode.
 
@@ -153,11 +155,22 @@ If unresolved count = 0 and required coverage/queue fields are complete, write t
 - `repair_target_run_id`;
 - `repair_completed_at`.
 
-Before packaging the repaired handoff, run the same deterministic metadata normalizer used by /rank:
+Before packaging the repaired handoff, run the same deterministic normalizer/contract validator used by /rank:
 
 `python models/football/engine/repaired_handoff_normalize.py --input <repair.json> --output <repair.normalized.json>`
 
-Package the normalized structured payload, then re-run the women counter/disposition equality and queue-rank reconciliation. Do not emit a repaired ZIP with contradictory duplicate dispositions, stale women counters, or non-boolean `women_top_flight`.
+Required success means both deterministic metadata normalization **and** validation of the complete A/B Step-0 operational contract. The validator must not synthesize semantic evidence. In particular, every admitted or capacity-deferred A/B fixture must carry:
+- `xi_expected`;
+- `market_observability`;
+- `team_news_observability`;
+- `operational_viability_reason`;
+- `competition_reliability_state`;
+- `competition_reliability_reason`.
+
+If any are missing, the repair is not complete. Use:
+`HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING`
+
+Package the normalized structured payload only after that validator passes, then re-run the women counter/disposition equality and queue-rank reconciliation. Do not emit a repaired ZIP with missing semantic Step-0 evidence, contradictory duplicate dispositions, stale women counters, or non-boolean `women_top_flight`.
 
 Then emit:
 

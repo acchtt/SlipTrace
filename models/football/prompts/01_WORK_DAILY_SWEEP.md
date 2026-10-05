@@ -81,12 +81,19 @@ Before full football research, verify the Step-0 contract:
 - every admitted fixture has `operational_viability_grade = A / B`;
 - every admitted fixture has `xi_expected`, `market_observability`, `team_news_observability`, and `operational_viability_reason`;
 - every admitted fixture has `competition_reliability_state` and `competition_reliability_reason`;
+- every capacity-deferred A/B queue fixture carries the same six frozen Step-0 operational/reliability fields so replenishment never opens a semantically incomplete row;
 - CAUTION is never above B and DEMOTED is present only as an allowed B probation fixture;
 - no C/D fixture appears in the normal Work array;
 - all six women's-top-flight counters are present;
 - `women_top_flight_unresolved_count = 0`;
 - `women_top_flight_raw_count` equals admitted + operational excluded + researchability excluded + capacity deferred + unresolved;
 - `women_top_flight_disposition_manifest` is present and contains every discovered senior women's domestic top-flight fixture.
+
+If any admitted or capacity-deferred A/B queue fixture is missing one or more of the six frozen Step-0 operational/reliability fields:
+
+`HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING`
+
+Report the affected fixture IDs and missing field names only. Do not infer or web-backfill those Step-0 semantic fields inside /rank.
 
 If a C/D fixture leaks in:
 

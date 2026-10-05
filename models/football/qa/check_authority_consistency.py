@@ -383,6 +383,9 @@ require(
     "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
     "final_step0_disposition",
     "women_top_flight_disposition_manifest",
+    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
+    "xi_expected",
+    "competition_reliability_reason",
     "REPAIRED HANDOFF AUTHORITY: ACCEPTED",
     "structural compatibility",
     "file-local",
@@ -397,12 +400,18 @@ require(
     "final_step0_disposition",
     "women_top_flight_disposition_manifest",
     "women_top_flight_raw_count",
+    "OPERATIONAL_CONTRACT_FIELDS",
+    "_validate_operational_contract",
+    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
     "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
 )
 require(
     "models/football/engine/tests/test_repaired_handoff_normalize.py",
     "test_final_disposition_wins_and_counts_are_recomputed",
     "test_women_boolean_is_derived_from_manifest_membership",
+    "test_missing_operational_reason_fails_closed",
+    "test_deferred_fixture_missing_reliability_reason_fails_closed",
+    "test_invalid_observability_fails_closed",
     "test_unresolved_women_still_fails_closed",
 )
 require(
@@ -415,6 +424,7 @@ require(
     "If the attached file is a completed repaired sweep",
     "do not re-verify kickoff/fixture identity on the web",
     "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
+    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
 )
 require(
     "models/football/prompts/COMMAND_ALIASES.md",
@@ -426,6 +436,8 @@ require(
     "step0_fixture_universe_frozen = true",
     "capacity_queue_complete = true",
     "repair_status = COMPLETE",
+    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
+    "competition_reliability_reason",
 )
 
 # 4D. Sweep repair must be bounded and reuse persisted state.

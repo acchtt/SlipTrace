@@ -482,6 +482,7 @@ Package only when:
 - every visible senior block has a disposition;
 - every admitted fixture is operational grade A or B;
 - every admitted fixture has a competition reliability snapshot;
+- every A/B capacity-queue fixture, whether `ADMITTED_TO_C` or `OPERATIONAL_CAPACITY_DEFERRED`, carries non-empty `xi_expected`, `market_observability`, `team_news_observability`, `operational_viability_reason`, `competition_reliability_state`, and `competition_reliability_reason`;
 - no CAUTION fixture is admitted above B;
 - no DEMOTED fixture is admitted except the allowed B-grade probation rule;
 - admitted fixture count is <= 15;
@@ -496,7 +497,13 @@ Package only when:
 - terminal scan is complete where required;
 - admitted count equals handoff array count.
 
-If not:
+If any A/B queue fixture is missing the six-field Step-0 operational/reliability contract:
+
+`HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING`
+
+Do not infer the missing semantic fields from competition reputation, operational grade, fixture name, or later Step-1 research.
+
+For other completeness failures:
 
 `HANDOFF INCOMPLETE — RESEARCHABLE SENIOR COVERAGE GAP`
 
@@ -525,9 +532,10 @@ Required metadata:
 - all six women's-top-flight counters;
 - `women_top_flight_disposition_manifest` listing every discovered women's top-flight fixture and disposition;
 - admitted fixtures with identity/time provenance;
-- per admitted fixture: raw operational grade, final operational grade, XI expectation, market observability, team-news observability, competition reliability state/sample/reason and operational reason.
+- complete deterministic A/B capacity queue for replenishment, including both admitted and capacity-deferred rows with unique `Step0 Capacity Queue Rank`;
+- per admitted **and capacity-deferred A/B queue fixture**: raw operational grade, final operational grade, XI expectation, market observability, team-news observability, competition reliability state/sample/reason and operational reason.
 
-Do not include hard-excluded, operationally excluded, researchability-excluded, or capacity-deferred fixtures in the Work array.
+Do not include hard-excluded, operationally excluded, or researchability-excluded fixtures in the Work array. Capacity-deferred fixtures remain outside the initial Work array but must stay in the packaged replenishment queue with the complete Step-0 contract.
 
 ## 14. Step-0 boundary
 
