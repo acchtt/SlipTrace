@@ -157,6 +157,65 @@ def _validate_operational_contract(payload: dict[str, Any]) -> int:
     return len(relevant_ids)
 
 
+def _validate_capacity_queue_contract(payload: dict[str, Any]) -> int:
+    queue = payload.get("capacity_queue")
+    if not isinstance(queue, list):
+        raise RepairedHandoffNormalizationError(
+            "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE MISSING"
+        )
+
+    relevant_rows: list[tuple[str, dict[str, Any]]] = []
+    seen_ids: set[str] = set()
+    seen_ranks: set[int] = set()
+
+    for row in queue:
+        if not isinstance(row, dict):
+            raise RepairedHandoffNormalizationError("capacity_queue row must be an object")
+        final_disp = row.get("final_step0_disposition", row.get("disposition"))
+        if final_disp not in AB_QUEUE_DISPOSITIONS:
+            continue
+
+        match_id = _fixture_id(row)
+        if match_id in seen_ids:
+            raise RepairedHandoffNormalizationError(
+                f"HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE INVALID: duplicate fixture {match_id}"
+            )
+        seen_ids.add(match_id)
+
+        raw_rank = row.get("step0_capacity_queue_rank", row.get("Step0 Capacity Queue Rank"))
+        if isinstance(raw_rank, bool) or not isinstance(raw_rank, int) or raw_rank < 1:
+            raise RepairedHandoffNormalizationError(
+                "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE INVALID: "
+                f"fixture {match_id} missing unique positive queue rank"
+            )
+        if raw_rank in seen_ranks:
+            raise RepairedHandoffNormalizationError(
+                "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE INVALID: "
+                f"duplicate queue rank {raw_rank}"
+            )
+        seen_ranks.add(raw_rank)
+        relevant_rows.append((match_id, row))
+
+    expected_ranks = set(range(1, len(relevant_rows) + 1))
+    if seen_ranks != expected_ranks:
+        raise RepairedHandoffNormalizationError(
+            "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE INVALID: "
+            f"queue ranks must be contiguous 1..{len(relevant_rows)}"
+        )
+
+    admitted = sum(
+        1
+        for _, row in relevant_rows
+        if row.get("final_step0_disposition", row.get("disposition")) == "ADMITTED_TO_C"
+    )
+    if admitted > 15:
+        raise RepairedHandoffNormalizationError(
+            f"HANDOFF INCOMPLETE — OPERATIONAL CAPACITY BREACH: admitted={admitted}"
+        )
+
+    return len(relevant_rows)
+
+
 def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     if not isinstance(payload, dict):
         raise RepairedHandoffNormalizationError("handoff payload must be an object")
@@ -231,6 +290,7 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
         )
 
     operational_contract_rows_validated = _validate_operational_contract(out)
+    capacity_queue_rows_validated = _validate_capacity_queue_contract(out)
 
     report = {
         "status": "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
@@ -240,6 +300,7 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
         "women_boolean_repairs": bool_repairs,
         "fixture_rows_touched": len(touched_ids),
         "operational_contract_rows_validated": operational_contract_rows_validated,
+        "capacity_queue_rows_validated": capacity_queue_rows_validated,
         "women_counts": {
             "raw": out["women_top_flight_raw_count"],
             **counts,
