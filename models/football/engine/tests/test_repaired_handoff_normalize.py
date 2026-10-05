@@ -11,6 +11,17 @@ from repaired_handoff_normalize import (  # noqa: E402
 )
 
 
+def operational_fields():
+    return {
+        "xi_expected": "YES",
+        "market_observability": "HIGH",
+        "team_news_observability": "MEDIUM",
+        "operational_viability_reason": "current XI, market and team-news channels are observable",
+        "competition_reliability_state": "UNPROVEN",
+        "competition_reliability_reason": "fewer than three countable post-activation observations",
+    }
+
+
 def base_payload():
     return {
         "women_top_flight_disposition_manifest": [
@@ -40,6 +51,7 @@ def base_payload():
                 "disposition": "OPERATIONAL_CAPACITY_DEFERRED",
                 "women_top_flight": "senior women top flight",
                 "operational_viability_grade": "A",
+                **operational_fields(),
             },
             {
                 "match_id": "m1",
@@ -47,6 +59,7 @@ def base_payload():
                 "disposition": "ADMITTED_TO_C",
                 "women_top_flight": "not women",
                 "operational_viability_grade": "A",
+                **operational_fields(),
             },
         ],
     }
@@ -72,6 +85,36 @@ class RepairedHandoffNormalizerTests(unittest.TestCase):
         out, _ = normalize_repaired_handoff(payload)
         self.assertIs(out["capacity_queue"][0]["women_top_flight"], True)
         self.assertIs(out["capacity_queue"][1]["women_top_flight"], False)
+
+    def test_missing_operational_reason_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_unresolved_count"] = 0
+        del payload["capacity_queue"][1]["operational_viability_reason"]
+        with self.assertRaisesRegex(
+            RepairedHandoffNormalizationError,
+            "STEP0 OPERATIONAL CONTRACT MISSING.*operational_viability_reason",
+        ):
+            normalize_repaired_handoff(payload)
+
+    def test_deferred_fixture_missing_reliability_reason_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_unresolved_count"] = 0
+        del payload["capacity_queue"][0]["competition_reliability_reason"]
+        with self.assertRaisesRegex(
+            RepairedHandoffNormalizationError,
+            "STEP0 OPERATIONAL CONTRACT MISSING.*competition_reliability_reason",
+        ):
+            normalize_repaired_handoff(payload)
+
+    def test_invalid_observability_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_unresolved_count"] = 0
+        payload["capacity_queue"][1]["market_observability"] = "UNKNOWN"
+        with self.assertRaisesRegex(
+            RepairedHandoffNormalizationError,
+            "invalid market_observability",
+        ):
+            normalize_repaired_handoff(payload)
 
     def test_unresolved_women_still_fails_closed(self):
         payload = base_payload()
