@@ -72,13 +72,15 @@ Do not use a plain HTTP failure as evidence that the date has no fixtures.
 
 If B is technically unavailable, use this ordered alternate path:
 
-1. LiveScore date-level football feed in the requested operational timezone as the fallback universe carrier;
-2. Flashscore competition/match pages for fixture/date/time corroboration;
-3. Soccerway competition fixture pages as a second independent corroboration source.
+1. acquire at least one **date-level fallback universe carrier** for each required listing date. Preferred order: LiveScore, then Flashscore date/all-matches surface, then Soccerway date/fixtures surface;
+2. use a second independent provider for protected/required blocks, women's top-flight blocks, and material identity/time disagreements;
+3. use the third provider only when the first two disagree or the second provider does not cover a mandatory block.
+
+A fallback carrier is acceptable only when it is a provider-level date/all-matches listing capable of enumerating the production senior scope. Search snippets and individually discovered fixture pages are not carriers.
 
 The alternate universe is accepted when:
-- the LiveScore date feed covers the requested listing date and timezone;
-- every protected required competition block is independently corroborated by Flashscore or Soccerway;
+- every required listing date is covered by at least one valid fallback date-level carrier;
+- every protected required competition block is independently corroborated by a different fallback provider;
 - every senior women's domestic top-flight block admitted/deferred is independently corroborated by Flashscore or Soccerway;
 - any material provider disagreement is explicitly resolved or marked UNRESOLVED;
 - no unresolved material block remains before work_ready=true.
@@ -86,9 +88,10 @@ The alternate universe is accepted when:
 Under fallback mode, provider-native IDs may replace AiScore IDs for raw-universe accounting, but preserve provider provenance. AiScore identity is no longer mandatory when AiScore itself is inaccessible.
 
 Set:
-`source_transport = MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`.
+`source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE`;
+and persist the actual carrier/corroborator providers used.
 
-If no valid alternate date-level universe can be established, stop as SOURCE_BLOCKED.
+LiveScore failure alone must **not** produce SOURCE_BLOCKED when Flashscore or Soccerway still exposes a valid date-level carrier. If no valid alternate date-level universe can be established from any permitted carrier, stop as SOURCE_BLOCKED.
 
 ## 3. Bounded retry budget
 
@@ -98,7 +101,7 @@ Per run + source epoch, the normal acquisition budget is:
 
 - one covering-cache/reuse check;
 - one native AiScore date acquisition attempt;
-- one alternate date-level multi-source fallback attempt.
+- one fallback acquisition pass across the permitted date-level carriers. Within that single pass, try LiveScore -> Flashscore -> Soccerway until one valid carrier is acquired for each listing date; this is one bounded fallback attempt, not three retry loops. Corroboration calls required by the accepted carrier do not count as a new acquisition attempt.
 
 Do not loop through public search engines, dozens of competition pages, team schedules, or country-by-country reconstruction trying to simulate the missing master list.
 
@@ -156,7 +159,7 @@ They may **not**, by themselves:
 - prove an omitted competition does not exist;
 - convert a lower-bound universe into an exact one;
 - certify `complete=true`;
-- substitute for either the AiScore date universe or the accepted LiveScore+Flashscore/Soccerway fallback universe.
+- substitute for either the AiScore date universe or an accepted fallback date-level carrier plus independent mandatory-block corroboration.
 
 This prevents a long manual reconstruction from being mistaken for exhaustive discovery.
 
