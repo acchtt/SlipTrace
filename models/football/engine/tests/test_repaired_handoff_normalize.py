@@ -54,6 +54,14 @@ def base_payload():
                 **operational_fields(),
             },
             {
+                "match_id": "w2",
+                "final_step0_disposition": "OPERATIONAL_CAPACITY_DEFERRED",
+                "disposition": "OPERATIONAL_CAPACITY_DEFERRED",
+                "women_top_flight": "senior women top flight",
+                "operational_viability_grade": "B",
+                **operational_fields(),
+            },
+            {
                 "match_id": "m1",
                 "final_step0_disposition": "ADMITTED_TO_C",
                 "disposition": "ADMITTED_TO_C",
