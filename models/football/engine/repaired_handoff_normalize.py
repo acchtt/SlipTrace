@@ -26,6 +26,22 @@ WOMEN_COUNT_KEYS = {
 
 WOMEN_DISPOSITIONS = set(WOMEN_COUNT_KEYS)
 
+AB_QUEUE_DISPOSITIONS = {
+    "ADMITTED_TO_C",
+    "OPERATIONAL_CAPACITY_DEFERRED",
+}
+OPERATIONAL_CONTRACT_FIELDS = (
+    "xi_expected",
+    "market_observability",
+    "team_news_observability",
+    "operational_viability_reason",
+    "competition_reliability_state",
+    "competition_reliability_reason",
+)
+VALID_XI_EXPECTED = {"YES", "UNCERTAIN", "NO"}
+VALID_OBSERVABILITY = {"HIGH", "MEDIUM", "LOW", "NONE"}
+VALID_RELIABILITY_STATES = {"UNPROVEN", "TRUSTED", "NEUTRAL", "CAUTION", "DEMOTED"}
+
 
 class RepairedHandoffNormalizationError(ValueError):
     pass
@@ -72,6 +88,73 @@ def _all_fixture_arrays(payload: dict[str, Any]) -> list[list[dict[str, Any]]]:
 
     walk(payload)
     return arrays
+
+
+def _nonempty(value: Any) -> bool:
+    return value is not None and str(value).strip() != ""
+
+
+def _validate_operational_contract(payload: dict[str, Any]) -> int:
+    merged: dict[str, dict[str, Any]] = {}
+    relevant_ids: set[str] = set()
+
+    for rows in _all_fixture_arrays(payload):
+        for row in rows:
+            match_id = _fixture_id(row)
+            final_disp = row.get("final_step0_disposition", row.get("disposition"))
+            if final_disp in AB_QUEUE_DISPOSITIONS:
+                relevant_ids.add(match_id)
+
+            merged_row = merged.setdefault(match_id, {})
+            for field in ("operational_viability_grade", *OPERATIONAL_CONTRACT_FIELDS):
+                value = row.get(field)
+                if not _nonempty(value):
+                    continue
+                if field in merged_row and str(merged_row[field]).strip() != str(value).strip():
+                    raise RepairedHandoffNormalizationError(
+                        f"fixture {match_id}: conflicting Step-0 operational field {field}"
+                    )
+                merged_row[field] = value
+
+    for match_id in sorted(relevant_ids):
+        row = merged.get(match_id, {})
+        grade = str(row.get("operational_viability_grade", "")).strip()
+        if grade not in {"A", "B"}:
+            raise RepairedHandoffNormalizationError(
+                "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING: "
+                f"fixture {match_id} has invalid/missing operational_viability_grade {grade!r}"
+            )
+
+        missing = [field for field in OPERATIONAL_CONTRACT_FIELDS if not _nonempty(row.get(field))]
+        if missing:
+            raise RepairedHandoffNormalizationError(
+                "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING: "
+                f"fixture {match_id} missing {', '.join(missing)}"
+            )
+
+        xi_expected = str(row["xi_expected"]).strip()
+        market = str(row["market_observability"]).strip()
+        team_news = str(row["team_news_observability"]).strip()
+        reliability = str(row["competition_reliability_state"]).strip()
+
+        if xi_expected not in VALID_XI_EXPECTED:
+            raise RepairedHandoffNormalizationError(
+                f"fixture {match_id}: invalid xi_expected {xi_expected!r}"
+            )
+        if market not in VALID_OBSERVABILITY:
+            raise RepairedHandoffNormalizationError(
+                f"fixture {match_id}: invalid market_observability {market!r}"
+            )
+        if team_news not in VALID_OBSERVABILITY:
+            raise RepairedHandoffNormalizationError(
+                f"fixture {match_id}: invalid team_news_observability {team_news!r}"
+            )
+        if reliability not in VALID_RELIABILITY_STATES:
+            raise RepairedHandoffNormalizationError(
+                f"fixture {match_id}: invalid competition_reliability_state {reliability!r}"
+            )
+
+    return len(relevant_ids)
 
 
 def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -147,6 +230,8 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
             f"women_top_flight_unresolved_count must be 0 after normalization, got {unresolved!r}"
         )
 
+    operational_contract_rows_validated = _validate_operational_contract(out)
+
     report = {
         "status": "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
         "manifest_rows": len(manifest),
@@ -154,6 +239,7 @@ def normalize_repaired_handoff(payload: dict[str, Any]) -> tuple[dict[str, Any],
         "fixture_disposition_conflicts_fixed": fixture_conflicts,
         "women_boolean_repairs": bool_repairs,
         "fixture_rows_touched": len(touched_ids),
+        "operational_contract_rows_validated": operational_contract_rows_validated,
         "women_counts": {
             "raw": out["women_top_flight_raw_count"],
             **counts,
