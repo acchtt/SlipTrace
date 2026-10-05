@@ -26,6 +26,12 @@ Read upstream:
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
+For handoffs produced under `football-step0-handoff-v2`, require root-level `STEP0_HANDOFF.json` and run:
+
+`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json`
+
+Do this before the repaired-handoff normalizer or football research. A missing/failed machine handoff returns its Step-0 validator error and stops /rank. Do not reconstruct missing IDs, queue rows, queue ranks, or frozen operational fields in Step 1.
+
 If the attached file is a completed repaired sweep, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` **before any web research**.
 
 First run the local repaired-handoff metadata normalizer. Duplicate `disposition` vs `final_step0_disposition`, stale women counters, or non-boolean `women_top_flight` values must be normalized locally when the complete fixture-level manifest makes the canonical value deterministic.
