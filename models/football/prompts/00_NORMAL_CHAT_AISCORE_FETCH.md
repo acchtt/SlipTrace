@@ -509,7 +509,11 @@ For other completeness failures:
 
 ## 13. Canonical ZIP handoff
 
-Create one root-level canonical `AISCORE_FIXTURES_*.txt` inside the ZIP.
+Create two root-level canonical files inside the ZIP:
+- `AISCORE_FIXTURES_*.txt` — human-readable handoff;
+- `STEP0_HANDOFF.json` — machine-readable authority with `handoff_version=football-step0-handoff-v2`.
+
+The JSON must contain `admitted_fixtures` and the complete `capacity_queue`. Every admitted/deferred A/B row must have a stable non-empty `match_id`; fixture names are never a substitute for IDs.
 
 Required metadata:
 
@@ -536,6 +540,16 @@ Required metadata:
 - per admitted **and capacity-deferred A/B queue fixture**: raw operational grade, final operational grade, XI expectation, market observability, team-news observability, competition reliability state/sample/reason and operational reason.
 
 Do not include hard-excluded, operationally excluded, or researchability-excluded fixtures in the Work array. Capacity-deferred fixtures remain outside the initial Work array but must stay in the packaged replenishment queue with the complete Step-0 contract.
+
+### Mandatory export validation
+
+Before creating the ZIP or saying `Sweep complete`, serialize `STEP0_HANDOFF.json` and run:
+
+`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json`
+
+Required result: `step0_handoff_validation_status = PASS`.
+
+If the validator fails, the sweep is not complete. Repair the export in Step 0 and rerun validation. Never emit a completed ZIP whose machine handoff fails. Never defer this repair to /rank.
 
 ## 14. Step-0 boundary
 
@@ -572,7 +586,7 @@ with:
 
 Do not emit a ZIP in this state.
 
-Only after final reconciliation + packaging pass, return:
+Only after final reconciliation + machine-handoff validation + packaging pass, return:
 
 `RESEARCHABLE SENIOR HANDOFF COMPLETE`
 
