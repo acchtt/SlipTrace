@@ -42,6 +42,56 @@ C_ONLY_FIELDS = {
     "burden_stall_risk",
 }
 
+COMMON_EVIDENCE_REQUIRED_FIELDS = {
+    "common_evidence_basis",
+    "operational_viability_grade",
+    "xi_expected",
+    "market_observability",
+    "team_news_observability",
+    "operational_viability_reason",
+    "competition_reliability_state",
+    "competition_reliability_reason",
+    "tournament_incentive_required",
+}
+
+MODEL_REQUIRED_FIELDS = {
+    "c": {
+        "board_state",
+        "board_state_basis",
+        "supported_line",
+        "supported_line_basis",
+        "completion_mode",
+        "burden_completion_quality",
+        "continuation_quality",
+        "opponent_leakage",
+        "burden_stall_risk",
+    },
+    "c2": {
+        "board_state",
+        "board_state_basis",
+        "supported_line",
+        "supported_line_basis",
+    },
+    "c3": {
+        "board_state",
+        "board_state_basis",
+        "supported_line",
+        "supported_line_basis",
+        "c3_second_route_role",
+        "c3_second_route_role_basis",
+        "c3_goal3_funding",
+        "c3_goal3_funding_source",
+        "c3_goal3_funding_basis",
+        "c3_goal4_funding",
+        "c3_goal4_funding_source",
+        "c3_goal4_funding_basis",
+        "c3_control_endpoint_risk",
+        "c3_control_endpoint_basis",
+        "c3_forced_chaos_verified",
+        "c3_forced_chaos_basis",
+    },
+}
+
 C3_ONLY_FIELDS = {
     "c3_second_route_role",
     "c3_second_route_role_basis",
@@ -82,6 +132,61 @@ def _indexed(payload: dict[str, Any], model: str) -> dict[str, dict[str, Any]]:
     return indexed
 
 
+def _present(row: dict[str, Any], field: str) -> bool:
+    if field not in row:
+        return False
+    value = row[field]
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    return True
+
+
+def _validate_step1_contract(row: dict[str, Any], model: str, match_id: str) -> None:
+    missing_common = sorted(
+        field for field in COMMON_EVIDENCE_REQUIRED_FIELDS if not _present(row, field)
+    )
+    if missing_common:
+        raise ContractError(
+            "STEP1 CONTRACT FAILED — COMMON EVIDENCE INCOMPLETE: "
+            f"model={model} match_id={match_id} missing={missing_common}"
+        )
+
+    if row.get("tournament_incentive_required") is True:
+        tournament_fields = (
+            "tournament_format_status",
+            "competition_stage",
+            "competition_format",
+            "draw_resolution",
+            "aggregate_state",
+            "qualification_state",
+            "simultaneous_results_status",
+            "simultaneous_results_note",
+            "home_incentive",
+            "away_incentive",
+            "tiebreak_margin_relevance",
+            "incentive_effect",
+        )
+        missing_tournament = sorted(
+            field for field in tournament_fields if not _present(row, field)
+        )
+        if missing_tournament:
+            raise ContractError(
+                "STEP1 CONTRACT FAILED — TOURNAMENT INCENTIVE INCOMPLETE: "
+                f"model={model} match_id={match_id} missing={missing_tournament}"
+            )
+
+    missing_model = sorted(
+        field for field in MODEL_REQUIRED_FIELDS[model] if not _present(row, field)
+    )
+    if missing_model:
+        raise ContractError(
+            "STEP1 CONTRACT FAILED — MODEL SEMANTIC TRACE INCOMPLETE: "
+            f"model={model} match_id={match_id} missing={missing_model}"
+        )
+
+
 def _common_view(row: dict[str, Any]) -> dict[str, Any]:
     return {k: v for k, v in row.items() if k not in MODEL_OWNED_FIELDS}
 
@@ -115,6 +220,9 @@ def run_board_triplet(
         )
 
     for match_id in sorted(match_sets["c"]):
+        for model in EXPECTED_MODELS:
+            _validate_step1_contract(indexed[model][match_id], model, match_id)
+
         common = {
             model: _common_view(indexed[model][match_id])
             for model in EXPECTED_MODELS

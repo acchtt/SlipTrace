@@ -106,6 +106,8 @@ def c3_row():
         "c3_control_endpoint_basis": "no natural two-goal control endpoint is supported",
         "c3_forced_chaos_verified": False,
         "c3_forced_chaos_basis": "no forced-chaos path is required",
+        "board_state": "C3-FOCUS",
+        "board_state_basis": "C3 funding and control-endpoint evidence supports focus classification",
     }
 
 
@@ -143,6 +145,49 @@ class BoardTripletTests(unittest.TestCase):
                 payload("c", c_row()),
                 payload("c2", row),
                 payload("c3", c3_row()),
+            )
+
+    def test_missing_common_evidence_basis_fails_closed(self):
+        row = c2_row()
+        del row["common_evidence_basis"]
+        with self.assertRaisesRegex(
+            ContractError,
+            "COMMON EVIDENCE INCOMPLETE",
+        ):
+            run_board_triplet(
+                payload("c", c_row()),
+                payload("c2", row),
+                payload("c3", c3_row()),
+            )
+
+    def test_missing_c_supported_line_basis_fails_closed(self):
+        row = c_row()
+        del row["supported_line_basis"]
+        with self.assertRaisesRegex(
+            ContractError,
+            "MODEL SEMANTIC TRACE INCOMPLETE",
+        ):
+            run_board_triplet(
+                payload("c", row),
+                payload("c2", c2_row()),
+                payload("c3", c3_row()),
+            )
+
+    def test_required_tournament_contract_fails_closed(self):
+        c = c_row()
+        c2 = c2_row()
+        c3 = c3_row()
+        for row in (c, c2, c3):
+            row["tournament_incentive_required"] = True
+            del row["qualification_state"]
+        with self.assertRaisesRegex(
+            ContractError,
+            "TOURNAMENT INCENTIVE INCOMPLETE",
+        ):
+            run_board_triplet(
+                payload("c", c),
+                payload("c2", c2),
+                payload("c3", c3),
             )
 
     def test_ranked_universe_mismatch_fails(self):
