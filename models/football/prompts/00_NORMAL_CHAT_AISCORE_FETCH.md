@@ -88,7 +88,7 @@ Cheap source-local enumeration, hard exclusions, already-supported C/D block cla
 
 ## Source authority
 
-AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified LiveScore + Flashscore/Soccerway multi-source fallback.
+AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. LiveScore is the preferred fallback carrier, not a single point of failure: the bounded fallback pass may rotate to a Flashscore or Soccerway date-level carrier under the acquisition procedure.
 
 Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
@@ -389,7 +389,7 @@ When the native AiScore date universe or an equivalently complete fixture-level 
 
 ### Multi-source fallback production-scope mode
 
-When `source_transport = MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`, do **not** force fixture-level enumeration of the entire all-level date page merely to produce a cosmetic global raw count.
+When `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE` (including legacy `MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`), do **not** force fixture-level enumeration of the entire all-level date page merely to produce a cosmetic global raw count.
 
 Set:
 - `coverage_mode=FALLBACK_PRODUCTION_SCOPE`;
