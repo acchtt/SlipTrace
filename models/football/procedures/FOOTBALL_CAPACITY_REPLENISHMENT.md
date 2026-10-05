@@ -48,6 +48,8 @@ Lane caps remain:
 
 If active lanes are below 10 and deferred prematch A/B candidates remain, replenishment is mandatory.
 
+Prospective quarantine/HOLD rows such as `INCENTIVE-INCOMPLETE` have no lane and therefore consume zero active-lane capacity. They do not suppress replenishment.
+
 ## 4. Next wave
 
 Read deferred rows in ascending immutable queue rank.
@@ -88,6 +90,8 @@ Stop replenishing only when:
 - no deferred prematch A/B candidate remains.
 
 A board is allowed to finish below 10 active lanes when the queue is exhausted or every remaining fixture left prematch.
+
+If the ranked eligible universe is empty because all admitted candidates were legitimately quarantined/closed and the deferred queue is exhausted, this is a valid completed empty board, not a blocked board.
 
 This does not require the model to manufacture selections.
 
