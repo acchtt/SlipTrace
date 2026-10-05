@@ -566,6 +566,28 @@ require(
     "fldUxHPEnQpGSJVmC",
 )
 
+# 4E2. Rank terminal status must distinguish completion from integrity failure.
+require(
+    "models/football/procedures/FOOTBALL_RANK_TERMINAL_STATUS.md",
+    "ACTIVE STEP-1 TERMINAL-STATE CONTROL",
+    "RANK COMPLETE — NO RANKED ELIGIBLE FIXTURES",
+    "RANK COMPLETE — 0 FOLLOW",
+)
+require(
+    "models/football/engine/rank_terminal_status.py",
+    "def rank_terminal_status",
+    "COMPLETE_EMPTY_RANKED_UNIVERSE",
+    "COMPLETE_ZERO_FOLLOW",
+    "REPLENISHMENT_REQUIRED",
+    "BLOCKED_INTEGRITY",
+)
+require(
+    "models/football/engine/tests/test_rank_terminal_status.py",
+    "test_empty_ranked_universe_with_hold_is_complete_not_blocked",
+    "test_zero_follow_ranked_board_is_complete",
+    "test_hold_with_deferred_queue_requires_replenishment",
+)
+
 # 4F. Required competition coverage must fail closed before Work.
 require(
     "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
