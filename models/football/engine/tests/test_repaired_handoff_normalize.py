@@ -92,12 +92,13 @@ class RepairedHandoffNormalizerTests(unittest.TestCase):
         payload["women_top_flight_unresolved_count"] = 0
         out, _ = normalize_repaired_handoff(payload)
         self.assertIs(out["capacity_queue"][0]["women_top_flight"], True)
-        self.assertIs(out["capacity_queue"][1]["women_top_flight"], False)
+        self.assertIs(out["capacity_queue"][1]["women_top_flight"], True)
+        self.assertIs(out["capacity_queue"][2]["women_top_flight"], False)
 
     def test_missing_operational_reason_fails_closed(self):
         payload = base_payload()
         payload["women_top_flight_unresolved_count"] = 0
-        del payload["capacity_queue"][1]["operational_viability_reason"]
+        del payload["capacity_queue"][2]["operational_viability_reason"]
         with self.assertRaisesRegex(
             RepairedHandoffNormalizationError,
             "STEP0 OPERATIONAL CONTRACT MISSING.*operational_viability_reason",
@@ -117,7 +118,7 @@ class RepairedHandoffNormalizerTests(unittest.TestCase):
     def test_invalid_observability_fails_closed(self):
         payload = base_payload()
         payload["women_top_flight_unresolved_count"] = 0
-        payload["capacity_queue"][1]["market_observability"] = "UNKNOWN"
+        payload["capacity_queue"][2]["market_observability"] = "UNKNOWN"
         with self.assertRaisesRegex(
             RepairedHandoffNormalizationError,
             "invalid market_observability",
