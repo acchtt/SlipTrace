@@ -82,6 +82,8 @@ Before full football research, verify the Step-0 contract:
 - every admitted fixture has `xi_expected`, `market_observability`, `team_news_observability`, and `operational_viability_reason`;
 - every admitted fixture has `competition_reliability_state` and `competition_reliability_reason`;
 - every capacity-deferred A/B queue fixture carries the same six frozen Step-0 operational/reliability fields so replenishment never opens a semantically incomplete row;
+- the full A/B capacity queue is present, has one row per admitted/deferred fixture, and carries unique contiguous positive Step0 Capacity Queue Rank values 1..N;
+- queue membership/disposition agrees with the frozen Step-0 fixture manifest; /rank must not reconstruct missing queue rows or ranks;
 - CAUTION is never above B and DEMOTED is present only as an allowed B probation fixture;
 - no C/D fixture appears in the normal Work array;
 - all six women's-top-flight counters are present;
@@ -418,7 +420,9 @@ The runner:
 
 Success requires:
 - `board_engine_execution_status = EXECUTED_ALL_THREE_BOARDS`;
-- `common_evidence_reconciled = true`.
+- `common_evidence_reconciled = true`;
+- every ranked C/C2/C3 fixture passes the engine Step-1 semantic-trace contract before any board result is accepted;
+- no missing common evidence basis, Step-0 operational/reliability field, applicable tournament field, supported-line basis, board-state basis, or model-owned semantic field may be defaulted by the deterministic runner.
 
 The following are model-owned and may differ:
 - `model`;
