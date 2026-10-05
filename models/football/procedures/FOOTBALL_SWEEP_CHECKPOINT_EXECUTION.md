@@ -35,9 +35,11 @@ Immediately after resolving the requested window and stable Run ID:
 6. initialize `Resume Cursor` before expensive acquisition/research;
 7. update `Updated At`.
 
-Do not wait until the final ZIP to create the run record.
+This initialization is the **first side effect of a fresh /sweep**. It must happen before source acquisition, web search, provider probing, or any user-facing progress response.
 
-The first cursor should identify:
+Do not wait until the final ZIP to create the run record. Do not say that acquisition/reconciliation is pending unless the RUNNING row and initial cursor have already been persisted successfully.
+
+The first cursor is mandatory and must be valid under `sweep_checkpoint.py` with `source_acquisition_state = UNTRIED`. It should identify:
 
 - run_id;
 - checkpoint_version;
@@ -50,6 +52,22 @@ The first cursor should identify:
 - pending verification count;
 - retry queue;
 - last completed block.
+
+## 2A. Initialization failure / orphan prevention
+
+If the RUNNING row or initial Resume Cursor cannot be persisted, stop immediately with:
+
+`SWEEP START FAILED — CHECKPOINT NOT PERSISTED`
+
+Do not perform acquisition and do not tell the user to `resume`.
+
+If acquisition work somehow begins and a later check discovers that the current invocation has no persisted RUNNING row/cursor, persist the current run/window as RUNNING with the best truthful SOURCE_ACQUISITION cursor **before returning control**. Never leave a fresh sweep in a conversational "continue later" state without a resumable cursor.
+
+A fresh /sweep invocation that returns while work remains must satisfy exactly one of:
+- RUNNING + valid Resume Cursor, with `SWEEP CHECKPOINT SAVED — /sweep resume`;
+- terminal SOURCE_BLOCKED persisted;
+- COMPLETE persisted;
+- explicit `SWEEP START FAILED — CHECKPOINT NOT PERSISTED` before acquisition.
 
 ## 3. Resume authority
 
