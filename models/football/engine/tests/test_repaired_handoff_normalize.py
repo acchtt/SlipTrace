@@ -51,6 +51,7 @@ def base_payload():
                 "disposition": "OPERATIONAL_CAPACITY_DEFERRED",
                 "women_top_flight": "senior women top flight",
                 "operational_viability_grade": "A",
+                "step0_capacity_queue_rank": 1,
                 **operational_fields(),
             },
             {
@@ -59,6 +60,7 @@ def base_payload():
                 "disposition": "OPERATIONAL_CAPACITY_DEFERRED",
                 "women_top_flight": "senior women top flight",
                 "operational_viability_grade": "B",
+                "step0_capacity_queue_rank": 2,
                 **operational_fields(),
             },
             {
@@ -67,6 +69,7 @@ def base_payload():
                 "disposition": "ADMITTED_TO_C",
                 "women_top_flight": "not women",
                 "operational_viability_grade": "A",
+                "step0_capacity_queue_rank": 3,
                 **operational_fields(),
             },
         ],
@@ -122,6 +125,26 @@ class RepairedHandoffNormalizerTests(unittest.TestCase):
         with self.assertRaisesRegex(
             RepairedHandoffNormalizationError,
             "invalid market_observability",
+        ):
+            normalize_repaired_handoff(payload)
+
+    def test_missing_capacity_queue_rank_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_unresolved_count"] = 0
+        del payload["capacity_queue"][1]["step0_capacity_queue_rank"]
+        with self.assertRaisesRegex(
+            RepairedHandoffNormalizationError,
+            "STEP0 CAPACITY QUEUE INVALID.*missing unique positive queue rank",
+        ):
+            normalize_repaired_handoff(payload)
+
+    def test_duplicate_capacity_queue_rank_fails_closed(self):
+        payload = base_payload()
+        payload["women_top_flight_unresolved_count"] = 0
+        payload["capacity_queue"][2]["step0_capacity_queue_rank"] = 2
+        with self.assertRaisesRegex(
+            RepairedHandoffNormalizationError,
+            "STEP0 CAPACITY QUEUE INVALID.*duplicate queue rank",
         ):
             normalize_repaired_handoff(payload)
 
