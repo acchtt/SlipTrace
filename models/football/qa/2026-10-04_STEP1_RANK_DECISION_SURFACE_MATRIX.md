@@ -121,3 +121,24 @@ Those would change predictive selection and are:
 Because under-specified predictive surfaces remain, Step 1 cannot honestly receive a decision-surface PASS.
 
 **Overall:** `QA FAIL — UNDER-SPECIFIED DECISION SURFACE`
+
+
+## 2026-10-05 Step-0 / Step-1 contract QA repair
+
+Process-only hardening added after repaired handoffs were observed to reach /rank with incomplete fixture evidence.
+
+### Step 0
+- repaired handoff validation now requires the complete admitted/deferred A/B capacity queue;
+- every queue row requires a unique positive immutable queue rank;
+- queue ranks must be contiguous 1..N;
+- the <=15 initial-admission cap is checked by the same local validator;
+- the previously added six-field operational/reliability contract remains mandatory for admitted and deferred A/B rows.
+
+### Step 1
+- the C/C2/C3 triplet runner now validates the semantic trace before running any board;
+- common evidence basis and the frozen Step-0 operational/reliability contract are mandatory on every ranked row;
+- when tournament incentive is applicable, the complete tournament contract is mandatory;
+- C/C2/C3 model-owned state/line bases and semantic fields are mandatory rather than silently tolerated when absent;
+- regression tests cover missing queue rank, duplicate queue rank, missing common evidence basis, missing supported-line basis, and incomplete tournament contract.
+
+This is a PROCESS COMPLIANCE FIX only. It does not add numeric predictive thresholds or change Football C selection logic. The 22 under-specified predictive surfaces above therefore remain challenger work, not QA-authorized production changes.
