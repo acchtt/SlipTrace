@@ -133,6 +133,9 @@ Rank:
 then:
 `python models/football/engine/c4_semantic_cli.py --input <c4.json> --c-board <c.json>`
 
+then after replenishment reaches a stop condition:
+`python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
+
 XI primary:
 `python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
 
@@ -168,6 +171,10 @@ Materialize:
 - `models/football/engine/c4_semantic.py`
 - `models/football/engine/c4_semantic_cli.py`
 - `models/football/engine/c4_schema.json`
+- `models/football/engine/capacity_replenishment.py`
+- `models/football/engine/capacity_replenishment_cli.py`
+- `models/football/engine/rank_terminal_status.py`
+- `models/football/engine/rank_terminal_status_cli.py`
 - `models/football/engine/model_bet_accounting.py`
 - `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
