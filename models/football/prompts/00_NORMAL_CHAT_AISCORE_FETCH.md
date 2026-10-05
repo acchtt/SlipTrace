@@ -92,7 +92,7 @@ AiScore remains the preferred fixture-discovery authority. When AiScore is techn
 
 Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
-A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
+A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. In FAST_PRODUCTION cross-midnight windows, "complete" follows the source-acquisition terminal-date exception: a complete primary date universe plus a separately reconciled <=6-hour terminal interval may satisfy acquisition without obtaining the provider's entire next-calendar-date universe. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
 
 In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
 
@@ -389,7 +389,7 @@ When the native AiScore date universe or an equivalently complete fixture-level 
 
 ### Multi-source fallback production-scope mode
 
-When `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE` (including legacy `MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`), do **not** force fixture-level enumeration of the entire all-level date page merely to produce a cosmetic global raw count.
+When `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE`, `MULTISOURCE_FALLBACK_PRIMARY_DATE_PLUS_TERMINAL_INTERVAL` (or legacy `MULTISOURCE_FALLBACK_LIVESCORE_FLASHSCORE_SOCCERWAY`), do **not** force fixture-level enumeration of the entire all-level date page merely to produce a cosmetic global raw count.
 
 Set:
 - `coverage_mode=FALLBACK_PRODUCTION_SCOPE`;

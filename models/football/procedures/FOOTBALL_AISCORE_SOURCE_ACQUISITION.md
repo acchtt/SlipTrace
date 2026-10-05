@@ -20,7 +20,7 @@ No fixture research, women-block reconstruction, required-competition repair, op
 
 ## 1. What counts as an acquired universe
 
-An acquired source universe should represent the complete AiScore football listing for every listing date required by `FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md`. When AiScore is technically blocked, a verified alternate date-level universe may be used under the multi-source fallback below.
+An acquired source universe should represent the complete fixture listing for the **minimum listing-date set required by the active time-integrity mode**. In FAST_PRODUCTION, do not automatically require a second provider date universe merely because the ICT window crosses midnight. Acquire the primary listing date(s) needed for discovery, then prove any cross-midnight/terminal remainder with the bounded terminal-interval procedure below. FULL_AUDIT may require the broader date envelope from the time-integrity procedure.
 
 Preferred native endpoint:
 
@@ -92,6 +92,28 @@ Set:
 and persist the actual carrier/corroborator providers used.
 
 LiveScore failure alone must **not** produce SOURCE_BLOCKED when Flashscore or Soccerway still exposes a valid date-level carrier. If no valid alternate date-level universe can be established from any permitted carrier, stop as SOURCE_BLOCKED.
+
+### C1. FAST_PRODUCTION terminal-date exception
+
+For a cross-midnight FAST_PRODUCTION window, failure to obtain a provider's **whole next-calendar-date** all-matches surface is not by itself SOURCE_BLOCKED when all of the following are true:
+
+- a valid date-level carrier was acquired for the starting/primary discovery date;
+- the missing date contributes only a bounded terminal interval to the requested window;
+- the terminal interval is at most six hours;
+- protected/required competition blocks in that terminal interval are explicitly checked;
+- candidate senior blocks/fixtures in the terminal interval are established from at least two independent current providers or one provider plus an official competition fixture source;
+- material provider disagreement is zero, or the affected block is UNRESOLVED;
+- the terminal interval is recorded as `terminal_scan_complete=true`.
+
+This exception certifies **only the requested terminal interval**, not the entire next calendar date. Persist:
+- `source_transport = MULTISOURCE_FALLBACK_PRIMARY_DATE_PLUS_TERMINAL_INTERVAL`;
+- primary carrier/date;
+- terminal interval ICT/UTC;
+- terminal providers checked;
+- terminal fixture/block manifest;
+- disagreements/unresolved count.
+
+Do not use this exception when the missing provider date contains more than the requested terminal interval, when the terminal interval exceeds six hours, or in FULL_AUDIT mode.
 
 ## 3. Bounded retry budget
 
