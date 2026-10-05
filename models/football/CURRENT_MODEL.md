@@ -121,6 +121,8 @@ When the authorized LiveScore + Flashscore/Soccerway fallback is active, Step 0 
 
 The 15-fixture limit applies only to the **initial Work wave**. It must not short-circuit discovery of later A/B candidates. Build and persist the complete deterministic A/B capacity queue first; ranks 16+ remain available for mandatory Step-1 replenishment. Women's rows that started during a prolonged Step-0 repair remain in the women raw manifest as `OPERATIONAL_EXCLUDED — PREMATCH WINDOW CLOSED DURING STEP0`.
 
+At Step 1, prospectively quarantined rows such as `INCENTIVE-INCOMPLETE` are fixture-local holds: they receive no model output/lane, consume zero active capacity, and do not make the whole board blocked. Final `/rank` status follows `FOOTBALL_RANK_TERMINAL_STATUS.md`.
+
 Default intake is `RESEARCHABLE_SENIOR_PRODUCTION`.
 
 Step 0 discovers the senior slate, including the mandatory senior women's domestic top-flight class defined by `models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`, applies hard scope exclusions, loads the persistent **competition operational reliability memory** from `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`, then applies the mandatory current-fixture operational viability gate before the cheap researchability gate.

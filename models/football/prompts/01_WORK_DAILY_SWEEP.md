@@ -22,6 +22,7 @@ Read upstream:
 - `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
 - `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 - `models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
+- `models/football/procedures/FOOTBALL_RANK_TERMINAL_STATUS.md`
 
 Use the attached `AISCORE_FIXTURES_*.zip` from Step 0.
 
@@ -139,6 +140,8 @@ If fields are present but any material incentive element remains LIMITED / UNKNO
 A tournament fixture is resolved for Step 1 only if format status is VERIFIED, qualification state is explicit, home/away incentives are resolved, tiebreak/margin relevance is YES/NO, simultaneous-result impact is VERIFIED or genuinely NOT_APPLICABLE, and incentive effect is resolved.
 
 Until then place it in a separate `INCENTIVE-INCOMPLETE` table. It receives **no C/C2/C3/C4 state, no rank, no supported line, and no follow-through lane**. Continue processing other fixtures.
+
+An incentive quarantine is **fixture-local**, not a board-level `/rank` failure. It does not consume FOLLOW/RESERVE capacity. If deferred prematch A/B candidates exist, normal Step-1 replenishment remains mandatory. If the queue is exhausted and no ranked fixture remains, the valid terminal state is `/rank complete — no ranked eligible fixtures`, not `/rank blocked`.
 
 A user-declared exception may reopen research but **never bypasses the incentive-resolution gate**.
 
@@ -656,6 +659,36 @@ Do not jump ahead in the queue because a later fixture looks more attractive. Do
 
 This is an operational utilization rule only. It does not require Football C to manufacture 10 non-STOP selections.
 
+An `INCENTIVE-INCOMPLETE` / prospectively quarantined fixture occupies **zero** active-lane capacity. It cannot stop replenishment while a deferred prematch A/B candidate remains.
+
+## 9A. Deterministic terminal-status check — mandatory
+
+After replenishment reaches a stop condition, serialize:
+- `ranked_eligible_count`;
+- `quarantine_count`;
+- `follow_count`;
+- `reserve_count`;
+- `stop_count`;
+- `remaining_prematch_deferred_count`;
+- `board_integrity_failure`;
+- `integrity_failure_reason`.
+
+Run:
+
+`python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
+
+Use the returned label exactly.
+
+Hard semantics:
+- `RANK BLOCKED` is reserved for a true board/process integrity failure;
+- empty ranked universe + legitimate quarantine + exhausted queue = `/rank complete — no ranked eligible fixtures`;
+- ranked universe with FOLLOW=0 = `/rank complete — 0 FOLLOW`;
+- remaining deferred prematch candidates with active capacity = continue replenishment.
+
+Never write:
+
+`/rank blocked — no FOLLOW candidates`
+
 ## 10. Revised output
 
 Show the operational queue first:
@@ -672,9 +705,11 @@ Order:
 
 Then keep the full board persisted for audit.
 
-Report:
+Report the deterministic terminal label first, then:
 
 `SERIOUS CANDIDATES -> FOLLOW -> RESERVE -> STOP`
+
+Show `INCENTIVE-INCOMPLETE` / other prospective quarantine rows separately. Quarantines are not STOP and are not ranked.
 
 The normal user-facing schedule should contain only FOLLOW fixtures. RESERVE may be shown separately but is not part of routine monitoring.
 

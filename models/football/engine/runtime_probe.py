@@ -24,6 +24,8 @@ STAGE_FILES = {
         "models/football/engine/c4_schema.json",
         "models/football/engine/capacity_replenishment.py",
         "models/football/engine/capacity_replenishment_cli.py",
+        "models/football/engine/rank_terminal_status.py",
+        "models/football/engine/rank_terminal_status_cli.py",
         "models/football/engine/repaired_handoff_normalize.py",
         "models/football/engine/model_bet_accounting.py",
         "models/football/engine/model_bet_accounting_cli.py",
@@ -65,6 +67,8 @@ STAGE_IMPORTS = {
         "c4_semantic_cli",
         "model_bet_accounting",
         "model_bet_accounting_cli",
+        "rank_terminal_status",
+        "rank_terminal_status_cli",
     ),
     "xi": (
         "core",
