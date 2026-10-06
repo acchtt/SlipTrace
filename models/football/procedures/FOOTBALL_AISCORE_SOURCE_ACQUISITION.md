@@ -203,6 +203,8 @@ Material conditions still permit immediate retry regardless of lease:
 
 A plain user `resume` does not bypass an **active** 30-minute lease, but after lease expiry it is sufficient to trigger the single bounded recovery probe.
 
+Expected deterministic reasons include `SOURCE_RECOVERY_LEASE_ACTIVE`, `SOURCE_RECOVERY_LEASE_EXPIRED`, `BLOCKER_FINGERPRINT_CHANGED`, and `LEGACY_BLOCKED_CHECKPOINT_NO_RETRY_LEASE`.
+
 This prevents both failure modes:
 - hammering the same dead carrier loop on every resume;
 - remaining SOURCE_BLOCKED forever after the external source has recovered.
