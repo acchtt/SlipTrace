@@ -170,7 +170,9 @@ Create the canonical ZIP only after reconciliation passes.
 Then:
 - `Run Status = COMPLETE`;
 - `Current Stage = COMPLETE`;
-- clear `Resume Cursor` or set it to a compact `COMPLETE` terminal record;
+- set `Resume Cursor` to a COMPLETE terminal record **without dropping source provenance**;
+- for bounded-production runs, carry forward `source_scope`, `source_transport`, `source_payload_hash`, `coverage_mode`, `global_raw_exact`, `production_scope_complete`, and the full `discovery_seed_manifest`;
+- mirror bounded provenance to dedicated Sweep Runs fields: `Source Scope`, `Production Scope Complete`, and `Discovery Seed Manifest`;
 - `Pending Verification Blocks = 0`;
 - persist final handoff filename/hash/status.
 
