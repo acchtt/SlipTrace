@@ -81,3 +81,29 @@ Current correction:
 - a provider-local Invalid URL/cache miss/generic page is non-terminal;
 - all permitted direct-date carriers must be attempted within the bounded pass before SOURCE_BLOCKED;
 - search/index output remains non-authoritative for completeness.
+
+
+## Follow-up after attempt #5: search locator vs full-page carrier
+
+Attempt #5 exhausted the literal direct-date URLs but still reported every provider as unavailable. The key runtime distinction is that the web/search stack can often locate and open the full canonical page even when literal URL navigation itself returns a transport-local cache miss.
+
+The prior contract treated any search-located result as unusable, even after the canonical result could be opened into full webpage content. That was unnecessarily strict.
+
+Correct rule:
+- search snippets remain non-authoritative;
+- search may recover the canonical provider/date result;
+- OPEN must then return the full page;
+- only the opened full page may certify the date universe, using the same count/date/fixture checks as direct navigation.
+
+The direct FootballFixtures.org page is currently fetchable in a web runtime and exposes the requested 6 Oct 2026 date, `All 144`, and the fixture rows. FootballInfo and LivescoresX full dated pages are also retrievable. This validates search-to-open as a legitimate transport recovery rather than fixture reconstruction.
+
+## Airtable status-enum defect
+
+The same failed resume also exposed a persistence bug: `Run Status` and `Source Acquisition State` are different single-select enums.
+
+Correct source-phase mapping:
+- UNTRIED -> Run Status RUNNING;
+- ACQUIRED -> Run Status RUNNING;
+- SOURCE_BLOCKED -> Run Status BLOCKED.
+
+`SOURCE_BLOCKED` must never be written into the Run Status field. It belongs only to Source Acquisition State and the structured Resume Cursor.
