@@ -77,7 +77,7 @@ Persist:
 - `Replenishment Wave = N`;
 - `Replenishment Reason = ACTIVE LANE CAPACITY UNDERFILLED`.
 
-Run the complete Step-1 process for those fixtures, including C/C2/C3/C4 and deterministic validation.
+Run the complete Step-1 process for those fixtures, including the C official + C2 shadow board pair and deterministic validation.
 
 Then recompute official C rank/lane allocation across all assessed fixtures still in the prematch window.
 
@@ -99,7 +99,7 @@ This does not require the model to manufacture selections.
 
 Never choose a replenishment candidate because:
 - it looks more likely to go Over;
-- C/C2/C3/C4 would probably like it;
+- C/C2 would probably like it;
 - odds look attractive;
 - another result was good/bad;
 - it is in a preferred league.
