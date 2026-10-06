@@ -71,14 +71,14 @@ For stage=`xi`, use the portable fast path first:
 1. fetch only `models/football/engine/xi_portable.py` from the exact current repository revision;
 2. write it to a temporary runnable workspace;
 3. run `python xi_portable.py self-check` (or the available Python execution surface);
-4. if it passes, use the same file for both triplet execution and Step-2 reconciliation;
+4. if it passes, use the same file for both atomic C+C2 pair execution and Step-2 reconciliation;
 5. do **not** materialize the full engine tree or run the multi-file XI runtime probe on a successful portable path.
 
 Required portable success:
 
 `XI PORTABLE RUNTIME: PASS`
 
-The portable bundle embeds the exact current C/C2/C3 Step-2 engine modules and is source-freshness guarded by CI. This is the preferred XI path because it removes the common missing-checkout / missing-import failure mode.
+The portable bundle embeds the exact current C+C2 Step-2 engine modules and is source-freshness guarded by CI. This is the preferred XI path because it removes the common missing-checkout / missing-import failure mode.
 
 Only if the portable bundle itself fails self-check after exact-current retrieval may XI fall back to the generic multi-file materialization path below.
 
@@ -137,21 +137,21 @@ then after replenishment reaches a stop condition:
 `python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
 
 XI primary:
-`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
 
 XI session reconciliation primary:
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
 
-XI all-model accounting primary:
+XI active-model accounting primary:
 `python xi_portable.py accounting --input <model_accounting.json>`
 
 XI multi-file fallback only:
-`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+`python models/football/engine/decision_pair_cli.py --c <c.json> --c2 <c2.json>`
 
 Audit:
 `python models/football/engine/cli.py audit --input <audit.json>`
 
-All-model accounting:
+Active-model accounting:
 `python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
 and when factor calibration is due:
@@ -182,7 +182,7 @@ Materialize:
 ### XI
 
 Primary source:
-- `models/football/engine/xi_portable.py` (includes Step-2 triplet, reconciliation, and all-model accounting)
+- `models/football/engine/xi_portable.py` (includes atomic C+C2 Step-2 execution, reconciliation, and active-model accounting)
 
 Only if portable self-check fails after exact-current retrieval, materialize fallback files:
 - `models/football/engine/cli.py`
@@ -190,7 +190,7 @@ Only if portable self-check fails after exact-current retrieval, materialize fal
 - `models/football/engine/core.py`
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
-- `models/football/engine/decision_triplet_cli.py`
+- `models/football/engine/decision_pair_cli.py`
 - `models/football/engine/step2_reconcile.py`
 - `models/football/engine/step2_reconcile_cli.py`
 - `models/football/engine/model_bet_accounting.py`
@@ -304,7 +304,7 @@ This bootstrap changes execution plumbing only.
 
 It does not:
 - change Football C predictive rules;
-- change C2/C3/C4 rules;
+- change Football C/C2 predictive rules or rewrite historical C3/C4 records;
 - change existing prospective counters;
 - create exposure;
 - make Python production authority.
