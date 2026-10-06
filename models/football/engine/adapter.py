@@ -619,8 +619,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
 
     model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2", "c3"}:
-        raise ContractError("model must be 'c', 'c2', or 'c3'")
+    if model not in {"c", "c2"}:
+        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
 
     raw_matches = _required(payload, "matches")
     if not isinstance(raw_matches, list) or not raw_matches:
@@ -859,8 +859,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "decision")
 
     model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2", "c3"}:
-        raise ContractError("model must be 'c', 'c2', or 'c3'")
+    if model not in {"c", "c2"}:
+        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
 
     raw_match = _required(payload, "match")
     a = parse_assessment(raw_match, require_c_completion=(model == "c"))

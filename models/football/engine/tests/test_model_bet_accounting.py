@@ -133,10 +133,44 @@ class ModelBetAccountingTests(unittest.TestCase):
         self.assertEqual(settle_over(2, 2.25, 1.65, 1.0)[0], "HALF_LOSS")
         self.assertEqual(settle_over(3, 2.5, 1.65, 1.0)[0], "WIN")
 
-    def test_all_model_fixture_output(self):
+    def test_active_fixture_output_requires_c_and_c2_only(self):
         result = compile_fixture_accounting(
             {
                 "match_id": "m1",
+                "total_goals": 3,
+                "models": [
+                    row("c", "C-WATCH", 2.5),
+                    row("c2", "C2-WATCH", 2.25),
+                ],
+            }
+        )
+        self.assertEqual(result["roster"], "ACTIVE_C_C2")
+        self.assertEqual(len(result["models"]), 2)
+        by_model = {r["model"]: r for r in result["models"]}
+        self.assertEqual(by_model["c"]["pnl_u"], 0.65)
+        self.assertEqual(by_model["c2"]["settlement"], "WIN")
+
+    def test_active_fixture_output_rejects_retired_rows(self):
+        with self.assertRaisesRegex(
+            ModelBetAccountingError,
+            "active accounting permits C/C2 only",
+        ):
+            compile_fixture_accounting(
+                {
+                    "match_id": "m1",
+                    "models": [
+                        row("c", "C-WATCH", 2.5),
+                        row("c2", "C2-WATCH", 2.25),
+                        row("c3", "C3-PASS", 2.0),
+                    ],
+                }
+            )
+
+    def test_historical_roster_can_still_be_settled_explicitly(self):
+        result = compile_fixture_accounting(
+            {
+                "match_id": "m1",
+                "historical_roster": True,
                 "total_goals": 3,
                 "models": [
                     row("c", "C-WATCH", 2.5),
@@ -146,10 +180,9 @@ class ModelBetAccountingTests(unittest.TestCase):
                 ],
             }
         )
+        self.assertEqual(result["roster"], "HISTORICAL_C_C2_C3_C4")
         self.assertEqual(len(result["models"]), 4)
         by_model = {r["model"]: r for r in result["models"]}
-        self.assertEqual(by_model["c"]["pnl_u"], 0.65)
-        self.assertEqual(by_model["c2"]["settlement"], "WIN")
         self.assertEqual(by_model["c3"]["settlement"], "NO_BET")
         self.assertEqual(by_model["c4"]["settlement"], "HALF_WIN")
 

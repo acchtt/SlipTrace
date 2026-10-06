@@ -6,7 +6,7 @@ ENGINE_DIR = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE_DIR))
 
 from adapter import ContractError, run_audit_record, run_board, run_decision  # noqa: E402
-from decision_triplet_cli import run_triplet  # noqa: E402
+from decision_pair_cli import run_pair  # noqa: E402
 
 
 def match(match_id="m1", **overrides):
@@ -143,11 +143,10 @@ def decision_context(**overrides):
     return row
 
 
-def triplet_payload(model):
+def pair_payload(model):
     state = {
         "c": "C-FOCUS",
         "c2": "C2-FOCUS",
-        "c3": "C3-FOCUS",
     }[model]
     return {
         "schema_version": "football-engine-v1",
@@ -163,49 +162,49 @@ def triplet_payload(model):
     }
 
 
-class DecisionTripletRunnerTests(unittest.TestCase):
-    def test_triplet_executes_all_three_models(self):
-        result = run_triplet(
-            triplet_payload("c"),
-            triplet_payload("c2"),
-            triplet_payload("c3"),
+class DecisionPairRunnerTests(unittest.TestCase):
+    def test_pair_executes_both_active_models(self):
+        result = run_pair(
+            pair_payload("c"),
+            pair_payload("c2"),
         )
-        self.assertEqual(result["engine_execution_status"], "EXECUTED_ALL_THREE")
-        self.assertEqual(result["models_executed"], ["c", "c2", "c3"])
-        self.assertEqual(set(result["results"]), {"c", "c2", "c3"})
+        self.assertEqual(result["engine_execution_status"], "EXECUTED_C_C2_PAIR")
+        self.assertEqual(result["models_executed"], ["c", "c2"])
+        self.assertEqual(set(result["results"]), {"c", "c2"})
 
-    def test_triplet_rejects_model_mismatch(self):
-        wrong = triplet_payload("c2")
+    def test_pair_rejects_model_mismatch(self):
+        wrong = pair_payload("c2")
         with self.assertRaisesRegex(ContractError, "expected model=c"):
-            run_triplet(
-                wrong,
-                triplet_payload("c2"),
-                triplet_payload("c3"),
-            )
+            run_pair(wrong, pair_payload("c2"))
 
-    def test_triplet_rejects_non_decision_stage(self):
-        wrong = triplet_payload("c3")
+    def test_pair_rejects_non_decision_stage(self):
+        wrong = pair_payload("c2")
         wrong["stage"] = "board"
         with self.assertRaisesRegex(ContractError, "must use stage=decision"):
-            run_triplet(
-                triplet_payload("c"),
-                triplet_payload("c2"),
-                wrong,
-            )
+            run_pair(pair_payload("c"), wrong)
 
-    def test_triplet_rejects_mixed_step2_authorization(self):
-        c3 = triplet_payload("c3")
-        c3["context"]["official_follow_lane"] = "STOP"
-        c3["context"]["step2_authorization"] = "USER_EXCEPTION"
-        with self.assertRaisesRegex(
-            ContractError,
-            "must share the same official_follow_lane and step2_authorization",
-        ):
-            run_triplet(
-                triplet_payload("c"),
-                triplet_payload("c2"),
-                c3,
-            )
+    def test_pair_rejects_mixed_common_evidence_epoch(self):
+        c2 = pair_payload("c2")
+        c2["match"]["common_evidence_basis"] = "different frozen evidence epoch"
+        with self.assertRaisesRegex(ContractError, "same frozen common evidence epoch"):
+            run_pair(pair_payload("c"), c2)
+
+    def test_retired_c3_board_is_rejected(self):
+        with self.assertRaisesRegex(ContractError, "C3/C4 are retired"):
+            run_board({
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c3",
+                "matches": [{}],
+            })
+
+    def test_retired_c3_decision_is_rejected(self):
+        with self.assertRaisesRegex(ContractError, "C3/C4 are retired"):
+            run_decision({
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c3",
+            })
 
 
 class BoardContractTests(unittest.TestCase):
@@ -270,27 +269,6 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(row["match_id"], "c2-isolated")
         self.assertNotIn("completion_mode", row)
         self.assertNotIn("burden_completion_quality", row)
-
-    def test_c3_board_does_not_require_c_completion_diagnostics(self):
-        row = without_c_completion(
-            match(
-                "c3-isolated",
-                board_state="C3-FOCUS",
-                carrier="STRONG",
-                carrier_self_fund=True,
-                independent_upper_tail=True,
-            )
-        )
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c3",
-                "matches": [row],
-            }
-        )
-        self.assertEqual(result["matches"][0]["match_id"], "c3-isolated")
-        self.assertNotIn("completion_mode", result["matches"][0])
 
     def test_c_board_still_requires_c_completion_diagnostics(self):
         with self.assertRaisesRegex(ContractError, "missing required field: completion_mode"):
@@ -836,182 +814,21 @@ class C3IsolationTests(unittest.TestCase):
         )
 
 
-class C3ContractTests(unittest.TestCase):
-    def test_c3_board_ignores_two_route_label_without_goal3_funding(self):
-        result = run_board(
-            {
+class RetiredModelBoundaryTests(unittest.TestCase):
+    def test_c3_cannot_reenter_board_runtime(self):
+        with self.assertRaisesRegex(ContractError, "C3/C4 are retired"):
+            run_board({
                 "schema_version": "football-engine-v1",
                 "stage": "board",
                 "model": "c3",
-                "matches": [
-                    match(
-                        "two_route",
-                        carrier="USABLE",
-                        carrier_self_fund=False,
-                        independent_upper_tail=False,
-                        c3_second_route_role="EXCHANGE_ONLY",
-                        c3_goal3_funding="NONE",
-                        c3_goal3_funding_source="NONE",
-                        c3_goal3_funding_basis="both can score once but no third-goal mechanism",
-                    )
-                ],
-            }
-        )
-        row = result["matches"][0]
-        self.assertEqual(row["board_state"], "C3-PASS")
-        self.assertEqual(row["c3_shadow_lane"], "STOP")
-        self.assertEqual(
-            result["ranking_policy"],
-            "FOOTBALL_C3_CLEARING_GOAL_FUNDING",
-        )
-        self.assertNotIn("completion_mode", row)
+                "matches": [match()],
+            })
 
-    def test_c3_carrier_led_goal3_can_focus_without_second_route(self):
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c3",
-                "matches": [
-                    match(
-                        "carrier",
-                        away_route="WEAK",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                        c3_second_route_role="NONE",
-                        c3_goal3_funding="VERIFIED",
-                        c3_goal3_funding_source="CARRIER",
-                    )
-                ],
-            }
-        )
-        row = result["matches"][0]
-        self.assertEqual(row["board_state"], "C3-FOCUS")
-        self.assertEqual(row["c3_shadow_lane"], "FOLLOW")
-
-    def test_c3_b_grade_is_capped_at_reserve(self):
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c3",
-                "matches": [
-                    match(
-                        "c3_b",
-                        operational_viability_grade="B",
-                        raw_operational_viability_grade="B",
-                        xi_expected="UNCERTAIN",
-                        market_observability="MEDIUM",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                    )
-                ],
-            }
-        )
-        self.assertEqual(result["matches"][0]["board_state"], "C3-FOCUS")
-        self.assertEqual(result["matches"][0]["c3_shadow_lane"], "RESERVE")
-        self.assertEqual(result["c3_shadow_follow_count"], 0)
-        self.assertEqual(result["c3_shadow_reserve_count"], 1)
-
-    def test_c3_same_kickoff_follow_is_capped_at_two(self):
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c3",
-                "matches": [
-                    match(
-                        "a",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                    ),
-                    match(
-                        "b",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                    ),
-                    match(
-                        "c",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                    ),
-                ],
-            }
-        )
-        lanes = [row["c3_shadow_lane"] for row in result["matches"]]
-        self.assertEqual(lanes.count("FOLLOW"), 2)
-        self.assertEqual(lanes.count("RESERVE"), 1)
-        self.assertEqual(result["c3_max_follow_per_exact_kickoff"], 2)
-
-    def test_c3_missing_policy_field_fails_closed(self):
-        row = match()
-        row.pop("c3_goal3_funding")
-        with self.assertRaisesRegex(ContractError, "missing required field: c3_goal3_funding"):
-            run_board(
-                {
-                    "schema_version": "football-engine-v1",
-                    "stage": "board",
-                    "model": "c3",
-                    "matches": [row],
-                }
-            )
-
-    def test_c3_o3_requires_goal4_funding(self):
-        with self.assertRaisesRegex(ValueError, "goal4 funding cannot be NOT_REQUIRED"):
-            run_board(
-                {
-                    "schema_version": "football-engine-v1",
-                    "stage": "board",
-                    "model": "c3",
-                    "matches": [
-                        match(
-                            supported_line=3.0,
-                            carrier="STRONG",
-                            carrier_self_fund=True,
-                            independent_upper_tail=True,
-                        )
-                    ],
-                }
-            )
-
-    def test_c3_decision_requires_focus_verified_funding_and_low_control(self):
-        good = run_decision(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "decision",
-                "model": "c3",
-                "match": match(
-                    board_state="C3-FOCUS",
-                    carrier="STRONG",
-                    carrier_self_fund=True,
-                    independent_upper_tail=True,
-                ),
-                "context": decision_context(board_state="C3-FOCUS"),
-            }
-        )
-        self.assertEqual(good["action"], "BET")
-
-        blocked = run_decision(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "decision",
-                "model": "c3",
-                "match": match(
-                    board_state="C3-WATCH",
-                    carrier="STRONG",
-                    carrier_self_fund=True,
-                    independent_upper_tail=True,
-                    c3_control_endpoint_risk="MEDIUM",
-                ),
-                "context": decision_context(board_state="C3-WATCH"),
-            }
-        )
-        self.assertEqual(blocked["action"], "PASS")
+    def test_c3_cannot_reenter_decision_runtime(self):
+        payload = pair_payload("c")
+        payload["model"] = "c3"
+        with self.assertRaisesRegex(ContractError, "C3/C4 are retired"):
+            run_decision(payload)
 
 
 class AuditRecordContractTests(unittest.TestCase):
@@ -1518,29 +1335,6 @@ class DecisionContractTests(unittest.TestCase):
                 }
             )
 
-    def test_c3_requires_own_funding_recheck(self):
-        with self.assertRaisesRegex(
-            ContractError,
-            "C3 FUNDING RECHECK MISSING",
-        ):
-            run_decision(
-                {
-                    "schema_version": "football-engine-v1",
-                    "stage": "decision",
-                    "model": "c3",
-                    "match": match(
-                        board_state="C3-FOCUS",
-                        carrier="STRONG",
-                        carrier_self_fund=True,
-                        independent_upper_tail=True,
-                    ),
-                    "context": decision_context(
-                        board_state="C3-FOCUS",
-                        c3_funding_rechecked=False,
-                    ),
-                }
-            )
-
     def test_c2_decision_does_not_require_c_completion_diagnostics(self):
         result = run_decision(
             {
@@ -1555,27 +1349,6 @@ class DecisionContractTests(unittest.TestCase):
         self.assertNotIn("current_burden_completion_quality", result)
         self.assertNotIn("current_continuation_quality", result)
         self.assertNotIn("current_burden_stall_risk", result)
-
-    def test_c3_decision_does_not_require_c_completion_diagnostics(self):
-        row = without_c_completion(
-            match(
-                board_state="C3-FOCUS",
-                carrier="STRONG",
-                carrier_self_fund=True,
-                independent_upper_tail=True,
-            )
-        )
-        result = run_decision(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "decision",
-                "model": "c3",
-                "match": row,
-                "context": decision_context(board_state="C3-FOCUS"),
-            }
-        )
-        self.assertEqual(result["action"], "BET")
-        self.assertNotIn("current_burden_completion_quality", result)
 
     def test_c_decision_is_computed_from_structured_input(self):
         result = run_decision(

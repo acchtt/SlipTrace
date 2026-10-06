@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""Enforce the football runtime availability/execution contract."""
+"""Enforce current-turn execution plumbing for the active Football C+C2 roster."""
 
 from pathlib import Path
 import sys
 
-
 ROOT = Path(__file__).resolve().parents[3]
-
 failures: list[str] = []
 
 
@@ -29,7 +27,7 @@ def forbid(rel: str, *needles: str) -> None:
     text = read(rel)
     for needle in needles:
         if needle in text:
-            failures.append(f"{rel}: forbidden runtime fallback present: {needle}")
+            failures.append(f"{rel}: forbidden retired/fallback invariant present: {needle}")
 
 
 COMMON = "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
@@ -43,12 +41,11 @@ require(
     "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
     "XI PORTABLE RUNTIME: PASS",
     "xi_portable.py self-check",
-    "xi_portable.py triplet",
+    "xi_portable.py pair",
     "xi_portable.py accounting",
     "runtime_probe.py --stage <rank|xi|audit>",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "Do not write \"Python unavailable\" before a real probe fails.",
-    "Do not write \"GitHub unavailable\" unless the actual GitHub connector/source call itself failed",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact reason>",
 )
 
@@ -61,6 +58,7 @@ require(
     "def probe_stage",
     "RUNTIME SOURCE PROBE: PASS",
     "RUNTIME SOURCE PROBE: FAIL",
+    "decision_pair_cli.py",
 )
 
 require(
@@ -68,24 +66,46 @@ require(
     "XI PORTABLE RUNTIME: PASS",
     "SOURCE_BLOB_SHA",
     "def self_check",
-    "def run_triplet_files",
+    "def run_pair_files",
     "def run_reconcile_file",
     "def run_accounting_file",
-    "model_bet_accounting",
+    "EXECUTED_C_C2_PAIR",
+    "active_models",
 )
+forbid(
+    "models/football/engine/xi_portable.py",
+    "def run_triplet_files",
+    "decision_triplet_cli",
+    "EXECUTED_ALL_THREE",
+)
+
+require(
+    "models/football/engine/decision_pair_cli.py",
+    'EXPECTED_MODELS = ("c", "c2")',
+    "def run_pair",
+    "EXECUTED_C_C2_PAIR",
+    "same frozen common evidence epoch",
+)
+
 require(
     "models/football/qa/check_xi_portable_runtime.py",
     "XI PORTABLE QA FAIL",
     "self_check",
     "stale embedded source",
 )
+
 require(
-    "models/football/engine/tests/test_runtime_probe.py",
-    "test_current_repo_runtime_probe_passes_all_stages",
-    "test_rank_manifest_contains_both_board_engines",
-    "test_xi_manifest_contains_triplet_and_reconciliation",
-    "test_audit_manifest_contains_factor_calibration",
-    "test_all_stages_include_model_accounting",
+    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
+    "Active models:** Football C official + Football C2 shadow",
+    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
+    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR",
+    "decision_pair_cli.py",
+    "C3/C4 are never required for new Step-2 completion",
+)
+forbid(
+    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
+    "EXECUTED_ALL_THREE",
+    "xi_portable.py triplet",
 )
 
 for rel in (
@@ -95,37 +115,17 @@ for rel in (
 ):
     require(rel, "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md")
 
-forbid(
+for rel in (
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "If runtime execution is unavailable:",
-    "ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED",
-)
-forbid(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED",
-)
-forbid(
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED",
-)
+):
+    forbid(rel, "ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED")
 
 require(
     "models/football/CURRENT_MODEL.md",
     "Mandatory deterministic runtime bootstrap",
-    "Tool/repository availability is a **current-turn observed state**",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
-    "network failure is not a valid \"GitHub unavailable\" reason",
-)
-
-require(
-    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
-    "Common runtime precheck:",
-    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
-    "xi_portable.py self-check",
-    "xi_portable.py triplet",
-    "xi_portable.py accounting",
-    "portable bundle itself fails self-check",
-    "raw-network failure while GitHub connector source remains accessible",
 )
 
 require(
@@ -140,4 +140,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — football runtime availability claims require current-turn probes and execution evidence.")
+print("PASS — active C+C2 runtime requires current-turn probes and atomic pair execution.")

@@ -16,19 +16,20 @@ class RuntimeProbeTests(unittest.TestCase):
                 required_files(stage),
             )
 
-    def test_rank_manifest_contains_both_board_engines(self):
+    def test_rank_manifest_contains_active_board_pair(self):
         files = required_files("rank")
-        self.assertIn("models/football/engine/board_triplet_cli.py", files)
-        self.assertIn("models/football/engine/c4_semantic_cli.py", files)
+        self.assertIn("models/football/engine/board_pair_cli.py", files)
+        self.assertNotIn("models/football/engine/board_triplet_cli.py", files)
+        self.assertNotIn("models/football/engine/c4_semantic_cli.py", files)
         self.assertIn(
             "models/football/engine/repaired_handoff_normalize.py",
             files,
         )
 
-    def test_xi_manifest_contains_triplet_and_reconciliation(self):
+    def test_xi_manifest_contains_pair_and_reconciliation(self):
         files = required_files("xi")
         self.assertIn("models/football/engine/xi_portable.py", files)
-        self.assertIn("models/football/engine/decision_triplet_cli.py", files)
+        self.assertIn("models/football/engine/decision_pair_cli.py", files)
         self.assertIn("models/football/engine/step2_reconcile_cli.py", files)
 
     def test_audit_manifest_contains_factor_calibration(self):
