@@ -95,7 +95,7 @@ C2 retains its independent route-quality ranking/selection-floor policy.
 
 C3 and C4 are retired from new/current execution.
 
-Historical files may remain in the repository, including old C3/C4 specs, triplet runners and C4 compiler artifacts. They are **historical source only**:
+Historical C3/C4 specifications and frozen records may remain in the repository as **historical source only**. The old triplet runners and C4 executable/compiler artifacts were removed from the active tree and remain recoverable from Git history:
 - they are not imported by the active runtime;
 - they are not in `runtime_probe.py` active manifests;
 - they are not required by current CI;
