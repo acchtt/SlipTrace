@@ -54,7 +54,7 @@ Do not require or request as an execution prerequisite:
 - box/final-third entries;
 - momentum/pressure widgets.
 
-Positive live-stat confirmation is not required. The absence of positive telemetry is not negative evidence.
+positive live-stat confirmation is not required. The absence of positive telemetry is not negative evidence.
 
 If the user supplies live stats, they may provide context, but they cannot by themselves approve, upgrade, downgrade, or cancel the decision.
 
