@@ -8,6 +8,11 @@ from typing import Any
 CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"
 MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6
 SOURCE_RECOVERY_COOLDOWN_MINUTES = 30
+RUN_STATUS_BY_SOURCE_STATE = {
+    "UNTRIED": "RUNNING",
+    "ACQUIRED": "RUNNING",
+    "SOURCE_BLOCKED": "BLOCKED",
+}
 PHASES = (
     "SOURCE_ACQUISITION",
     "DISCOVERY_CLASSIFICATION",
@@ -42,6 +47,16 @@ class VerificationChunk:
             "pending_verification_blocks": len(self.remaining_blocks),
             "next_phase": self.next_phase,
         }
+
+
+def run_status_for_source_state(source_state: str) -> str:
+    state = _nonempty(source_state, "source_state")
+    try:
+        return RUN_STATUS_BY_SOURCE_STATE[state]
+    except KeyError as exc:
+        raise SweepCheckpointError(
+            "source_state must be UNTRIED/ACQUIRED/SOURCE_BLOCKED"
+        ) from exc
 
 
 def _nonempty(value: Any, field: str) -> str:
