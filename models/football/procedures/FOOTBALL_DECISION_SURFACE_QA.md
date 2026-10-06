@@ -162,7 +162,7 @@ Examples:
 - Step 1 PRE: confirmed XI and current market price cannot create PRE structure/rank.
 - Step 2: current market may trigger a football re-screen but cannot rewrite frozen PRE history.
 - Live: new score/minute/market begins a new evidence epoch; it cannot backfill a missed historical exposure.
-- Live provider telemetry (shots, xG/xGOT, big chances, dangerous attacks, possession, corners, box entries, momentum) is **non-authoritative** for current Football C/C2/C3 execution. It is not required, and absence/quiet telemetry cannot create thesis decay.
+- Live provider telemetry (shots, xG/xGOT, big chances, dangerous attacks, possession, corners, box entries, momentum) is **non-authoritative** for current Football C/C2 execution. It is not required, and absence/quiet telemetry cannot create thesis decay.
 - Audit: final result cannot be used as evidence that was supposedly known at the earlier decision epoch.
 
 Any backward information leakage is a QA FAIL.
