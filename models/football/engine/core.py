@@ -387,6 +387,50 @@ def require_c_completion(
     return values  # type: ignore[return-value]
 
 
+def clearing_goal_funded(a: MatchAssessment) -> bool:
+    """Return whether C has explicit prospective funding for the clearing goal.
+
+    This is intentionally stricter than FOCUS. It is used by ranking and the
+    operational FOLLOW certification, not to narrow the broad C-FOCUS pool.
+
+    For O2.5/O2.75 the clearing burden is goal 3. A carrier-led path must prove
+    that goal independently; a merely USABLE supporting route is not enough.
+    TWO_SIDED/MIXED can fund it through two usable routes only when both the
+    completion and continuation diagnostics are HIGH. O3.0 additionally
+    requires independent upper-tail/self-funding carrier proof because a
+    fourth-goal tail cannot be inferred from ordinary two-route shape.
+    """
+    require_c_completion(a)
+
+    if a.supported_line < 2.5:
+        return True
+
+    strong_carrier_goal3 = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+    two_route_goal3 = (
+        a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.burden_completion_quality == Grade.HIGH
+        and a.continuation_quality == Grade.HIGH
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+    if a.supported_line < 3.0:
+        return strong_carrier_goal3 or two_route_goal3
+
+    # O3.0 FOLLOW needs an independently supported upper tail; ordinary
+    # two-sidedness cannot manufacture goal four.
+    return strong_carrier_goal3
+
+
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic lexicographic Football C ranking key.
 
@@ -401,18 +445,19 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     lower_burden = -round(a.supported_line * 4)
 
     return (
-        int(a.burden_completion_quality),
+        int(clearing_goal_funded(a)),
         int(a.continuation_quality),
         -int(a.burden_stall_risk),
-        upper_tail_self_fund,
-        int(a.carrier),
-        int(a.opponent_leakage),
-        int(a.burden_protection),
-        lower_burden,
+        int(a.burden_completion_quality),
         int(a.route_reliability),
-        int(a.chance_quality),
+        int(a.carrier),
         int(a.failure_resistance),
         int(a.evidence_confidence),
+        int(a.burden_protection),
+        lower_burden,
+        int(a.opponent_leakage),
+        upper_tail_self_fund,
+        int(a.chance_quality),
         int(a.xi_robustness),
         int(a.independent_route_quality),
     )
@@ -614,6 +659,12 @@ def follow_through_lane(
 
     if a.supported_line > 3.0:
         return FollowLane.STOP
+
+    # FOCUS stays broad, but FOLLOW is a clearing-burden certification.
+    # O2.5/O2.75 must prospectively fund goal 3; O3.0 must independently
+    # support the upper tail rather than infer it from two-sidedness.
+    if not clearing_goal_funded(a):
+        return FollowLane.RESERVE if a.burden_protection == Grade.HIGH else FollowLane.STOP
 
     common = (
         a.carrier == CarrierStrength.STRONG
