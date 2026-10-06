@@ -163,6 +163,43 @@ class SourceRecoveryLeaseTests(unittest.TestCase):
         )
         self.assertEqual(SOURCE_RECOVERY_COOLDOWN_MINUTES, 30)
 
+
+    def test_real_legacy_source_blocked_cursor_without_chunk_is_recoverable(self):
+        legacy = {
+            "run_id": "SWEEP-20261006-1145-20261007-0300",
+            "checkpoint_version": CHECKPOINT_VERSION,
+            "phase": "SOURCE_ACQUISITION",
+            "source_acquisition_state": "SOURCE_BLOCKED",
+            "window_start_ict": "2026-10-06T11:45:55+07:00",
+            "window_end_ict": "2026-10-07T03:00:00+07:00",
+            "listing_dates": ["2026-10-06", "2026-10-07"],
+            "blocker_fingerprint": {
+                "source_acquisition_procedure_sha": "old-procedure",
+                "failure_class": "NO_VALID_PROVIDER_DATE_ALL_MATCHES_CARRIER",
+            },
+        }
+        out = source_retry_decision(
+            legacy,
+            now="2026-10-06T14:25:00+07:00",
+            current_blocker_fingerprint="new-current-fingerprint",
+        )
+        self.assertTrue(out["should_retry"])
+        self.assertEqual(
+            out["reason"], "LEGACY_BLOCKED_CHECKPOINT_NO_FINGERPRINT"
+        )
+
+        migrated = mark_source_blocked(
+            legacy,
+            blocker_fingerprint="new-current-fingerprint",
+            attempted_at="2026-10-06T14:25:00+07:00",
+        )
+        self.assertEqual(migrated["chunk_number"], 1)
+        self.assertNotIn("blocker_fingerprint", migrated)
+        self.assertEqual(
+            migrated["source_blocker_fingerprint"],
+            "new-current-fingerprint",
+        )
+
     def test_retry_timestamp_requires_timezone(self):
         p = blocked_checkpoint()
         p["source_retry_not_before"] = "2026-10-06T10:30:00"
