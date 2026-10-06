@@ -254,7 +254,7 @@ require(
     "Direct-navigation + search-to-open rule for chat/web runtimes",
     "SEARCH_LOCATED_FULL_PAGE",
     "A search/index **snippet by itself** may never certify completeness.",
-    "A transport-local `Invalid URL` result from one provider is not terminal.",
+    "A transport-local `Invalid URL`, cache miss, or stale generic page from one provider is not terminal.",
     "FootballInfo",
     "LivescoresX",
 )
