@@ -1,0 +1,24 @@
+name: Football source provider probe
+
+on:
+  pull_request:
+    paths:
+      - "models/football/engine/source_provider_probe.py"
+      - ".github/workflows/football-source-provider-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Probe source carriers
+        run: |
+          python models/football/engine/source_provider_probe.py 2026-10-06
+          python models/football/engine/source_provider_probe.py 2026-10-07
