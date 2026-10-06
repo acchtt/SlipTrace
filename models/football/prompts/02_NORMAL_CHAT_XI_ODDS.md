@@ -1,4 +1,6 @@
-# 02 — Normal Chat: Football C Official + C2/C3 Shadow XI/Odds + C4 Step-1 Snapshot
+# 02 — Normal Chat: Football C Official + C2 Shadow XI/Odds
+
+> **ACTIVE ROSTER OVERRIDE (2026-10-06):** Football C3 and C4 are retired. Read `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md` first. Any stale C3/C4/triplet/C4-visibility requirement below is non-authoritative. For every normal or exception Step-2 assessment, freeze and execute C+C2 atomically with `python xi_portable.py pair --c <c.json> --c2 <c2.json>`. A C-only exception is incomplete and must not be presented as a completed verdict.
 
 **Command alias:** `/xi`
 
