@@ -321,6 +321,46 @@ require(
     "Never write `SOURCE_BLOCKED` into `Run Status`",
 )
 
+# 4D3. Step-1 must consume both exact and bounded Step-0 source scopes.
+require(
+    "models/football/engine/step0_handoff_cli.py",
+    "BOUNDED_PRODUCTION_DISCOVERY",
+    "MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
+    "coverage_mode=FALLBACK_PRODUCTION_SCOPE",
+    "global_raw_exact=false",
+    "production_scope_complete=true",
+    "discovery_seed_manifest",
+    "two independent source families",
+    "production_universe_count",
+)
+require(
+    "models/football/engine/tests/test_step0_handoff_cli.py",
+    "test_bounded_production_handoff_passes",
+    "test_bounded_requires_fallback_coverage_mode",
+    "test_bounded_requires_production_scope_complete",
+    "test_bounded_requires_two_independent_source_families",
+    "test_bounded_requires_production_universe_count",
+)
+require(
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "Step-0 source-scope compatibility",
+    "source_scope = BOUNDED_PRODUCTION_DISCOVERY",
+    "do not restart source acquisition or demand an exact global raw fixture count in /rank",
+    "production_scope_complete=true",
+    "global_raw_exact=false",
+)
+require(
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY",
+    "discovery_seed_manifest",
+    "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
+)
+require(
+    "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
+    "Step-0 source scope / source transport / coverage mode",
+    "restart source acquisition merely because `global_raw_exact=false`",
+)
+
 # 4E. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
 require(
     "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
