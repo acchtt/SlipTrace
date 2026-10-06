@@ -186,6 +186,76 @@ def _parse_iso_datetime(value: Any, field: str) -> datetime:
     return parsed
 
 
+def _source_blocked_checkpoint_view(payload: dict[str, Any]) -> dict[str, Any]:
+    """Read SOURCE_BLOCKED cursors, including pre-lease legacy shapes."""
+    if not isinstance(payload, dict):
+        raise SweepCheckpointError("checkpoint payload must be an object")
+    if payload.get("checkpoint_version") != CHECKPOINT_VERSION:
+        raise SweepCheckpointError(
+            f"checkpoint_version must be {CHECKPOINT_VERSION!r}"
+        )
+    run_id = _nonempty(payload.get("run_id"), "run_id")
+    phase = _nonempty(payload.get("phase"), "phase")
+    if phase != "SOURCE_ACQUISITION":
+        raise SweepCheckpointError(
+            "source retry decision requires phase=SOURCE_ACQUISITION"
+        )
+    source_state = _nonempty(
+        payload.get("source_acquisition_state"), "source_acquisition_state"
+    )
+    if source_state != "SOURCE_BLOCKED":
+        raise SweepCheckpointError(
+            "source retry decision requires source_acquisition_state=SOURCE_BLOCKED"
+        )
+
+    chunk_number = payload.get("chunk_number", 1)
+    if (
+        isinstance(chunk_number, bool)
+        or not isinstance(chunk_number, int)
+        or chunk_number < 1
+    ):
+        raise SweepCheckpointError("chunk_number must be a positive integer")
+
+    source_blocker_fingerprint = payload.get("source_blocker_fingerprint")
+    if source_blocker_fingerprint is not None and (
+        not isinstance(source_blocker_fingerprint, str)
+        or not source_blocker_fingerprint.strip()
+    ):
+        raise SweepCheckpointError(
+            "source_blocker_fingerprint must be null or a non-empty string"
+        )
+
+    last_attempt = payload.get("source_last_attempt_at")
+    if last_attempt is not None:
+        _parse_iso_datetime(last_attempt, "source_last_attempt_at")
+    retry_not_before = payload.get("source_retry_not_before")
+    if retry_not_before is not None:
+        _parse_iso_datetime(retry_not_before, "source_retry_not_before")
+
+    attempt_count = payload.get("source_recovery_attempt_count", 0)
+    if (
+        isinstance(attempt_count, bool)
+        or not isinstance(attempt_count, int)
+        or attempt_count < 0
+    ):
+        raise SweepCheckpointError(
+            "source_recovery_attempt_count must be a non-negative integer"
+        )
+
+    return {
+        "run_id": run_id,
+        "chunk_number": chunk_number,
+        "source_blocker_fingerprint": (
+            source_blocker_fingerprint.strip()
+            if isinstance(source_blocker_fingerprint, str)
+            else None
+        ),
+        "source_last_attempt_at": last_attempt,
+        "source_retry_not_before": retry_not_before,
+        "source_recovery_attempt_count": attempt_count,
+    }
+
+
 def source_retry_decision(
     payload: dict[str, Any],
     *,
@@ -199,15 +269,7 @@ def source_retry_decision(
     reopens after SOURCE_RECOVERY_COOLDOWN_MINUTES. Legacy blocked checkpoints
     without retry metadata are allowed one immediate recovery probe.
     """
-    cp = validate_checkpoint(payload)
-    if cp["phase"] != "SOURCE_ACQUISITION":
-        raise SweepCheckpointError(
-            "source retry decision requires phase=SOURCE_ACQUISITION"
-        )
-    if cp["source_acquisition_state"] != "SOURCE_BLOCKED":
-        raise SweepCheckpointError(
-            "source retry decision requires source_acquisition_state=SOURCE_BLOCKED"
-        )
+    cp = _source_blocked_checkpoint_view(payload)
 
     current_fp = _nonempty(
         current_blocker_fingerprint, "current_blocker_fingerprint"
@@ -261,32 +323,29 @@ def mark_source_blocked(
     attempted_at: str,
 ) -> dict[str, Any]:
     """Persist a bounded retry lease after a failed source acquisition pass."""
-    cp = validate_checkpoint(payload)
-    if cp["phase"] != "SOURCE_ACQUISITION":
-        raise SweepCheckpointError(
-            "mark source blocked requires phase=SOURCE_ACQUISITION"
-        )
+    cp = _source_blocked_checkpoint_view(payload)
 
     fp = _nonempty(blocker_fingerprint, "blocker_fingerprint")
     attempt_dt = _parse_iso_datetime(attempted_at, "attempted_at")
     retry_dt = attempt_dt + timedelta(minutes=SOURCE_RECOVERY_COOLDOWN_MINUTES)
 
-    return {
-        "checkpoint_version": CHECKPOINT_VERSION,
-        "run_id": cp["run_id"],
-        "phase": "SOURCE_ACQUISITION",
-        "chunk_number": cp["chunk_number"],
-        "source_acquisition_state": "SOURCE_BLOCKED",
-        "source_payload_hash": None,
-        "source_blocker_fingerprint": fp,
-        "source_last_attempt_at": attempt_dt.isoformat(),
-        "source_retry_not_before": retry_dt.isoformat(),
-        "source_recovery_attempt_count": cp["source_recovery_attempt_count"] + 1,
-        "pending_verification_blocks": cp["pending_verification_blocks"],
-        "retry_queue": cp["retry_queue"],
-        "completed_verification_blocks": cp["completed_verification_blocks"],
-        "last_completed_block": cp["last_completed_block"],
-    }
+    out = dict(payload)
+    out.pop("blocker_fingerprint", None)
+    out.update(
+        {
+            "checkpoint_version": CHECKPOINT_VERSION,
+            "run_id": cp["run_id"],
+            "phase": "SOURCE_ACQUISITION",
+            "chunk_number": cp["chunk_number"],
+            "source_acquisition_state": "SOURCE_BLOCKED",
+            "source_payload_hash": None,
+            "source_blocker_fingerprint": fp,
+            "source_last_attempt_at": attempt_dt.isoformat(),
+            "source_retry_not_before": retry_dt.isoformat(),
+            "source_recovery_attempt_count": cp["source_recovery_attempt_count"] + 1,
+        }
+    )
+    return out
 
 def select_verification_chunk(payload: dict[str, Any]) -> VerificationChunk:
     cp = validate_checkpoint(payload)
