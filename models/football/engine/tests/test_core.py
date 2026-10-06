@@ -32,6 +32,7 @@ from core import (  # noqa: E402
     c3_board_state,
     c3_ranking_key,
     c3_shadow_lane,
+    clearing_goal_funded,
     decide_c,
     decide_c2,
     decide_c3,
@@ -158,7 +159,7 @@ class FollowThroughTests(unittest.TestCase):
         )
         self.assertEqual(lane, FollowLane.RESERVE)
 
-    def test_weak_second_route_stops_routine_followthrough(self):
+    def test_weak_second_route_without_carrier_led_funding_is_not_follow(self):
         lane = follow_through_lane(
             assessment(
                 carrier=CarrierStrength.STRONG,
@@ -166,7 +167,7 @@ class FollowThroughTests(unittest.TestCase):
             ),
             BoardState.FOCUS,
         )
-        self.assertEqual(lane, FollowLane.STOP)
+        self.assertEqual(lane, FollowLane.RESERVE)
 
     def test_carrier_led_weak_second_route_can_follow(self):
         lane = follow_through_lane(
@@ -182,6 +183,51 @@ class FollowThroughTests(unittest.TestCase):
             BoardState.FOCUS,
         )
         self.assertEqual(lane, FollowLane.FOLLOW)
+
+    def test_o275_carrier_led_needs_independent_goal3_funding(self):
+        a = assessment(
+            supported_line=2.75,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.STRONG,
+            completion_mode=CompletionMode.CARRIER_LED,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            opponent_leakage=Grade.HIGH,
+        )
+        self.assertFalse(clearing_goal_funded(a))
+        self.assertEqual(
+            follow_through_lane(a, BoardState.FOCUS),
+            FollowLane.RESERVE,
+        )
+
+    def test_o275_carrier_led_with_independent_goal3_can_follow(self):
+        a = assessment(
+            supported_line=2.75,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.STRONG,
+            completion_mode=CompletionMode.CARRIER_LED,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            opponent_leakage=Grade.HIGH,
+        )
+        self.assertTrue(clearing_goal_funded(a))
+        self.assertEqual(
+            follow_through_lane(a, BoardState.FOCUS),
+            FollowLane.FOLLOW,
+        )
+
+    def test_o3_two_sided_shape_alone_does_not_certify_follow(self):
+        a = assessment(
+            supported_line=3.0,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(clearing_goal_funded(a))
+        self.assertEqual(
+            follow_through_lane(a, BoardState.FOCUS),
+            FollowLane.RESERVE,
+        )
 
     def test_high_stall_risk_blocks_follow(self):
         lane = follow_through_lane(
@@ -234,6 +280,27 @@ class RankingTests(unittest.TestCase):
         )
         ranked = rank_assessments([weak, strong])
         self.assertEqual([x.match_id for x in ranked], ["strong", "weak"])
+
+    def test_c_ranking_prioritizes_clearing_goal_funding(self):
+        funded = assessment(
+            match_id="funded",
+            supported_line=2.75,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            continuation_quality=Grade.MEDIUM,
+        )
+        unfunded = assessment(
+            match_id="unfunded",
+            supported_line=2.75,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.LOW,
+        )
+        ranked = rank_assessments([unfunded, funded])
+        self.assertEqual(ranked[0].match_id, "funded")
 
     def test_c_and_c2_can_rank_same_evidence_differently(self):
         completion_first = assessment(

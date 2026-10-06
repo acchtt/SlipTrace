@@ -605,6 +605,10 @@ Routine XI/odds follow-through is allowed only when all are true:
 - burden completion HIGH;
 - continuation HIGH;
 - burden stall risk LOW;
+- explicit clearing-goal funding is certified prospectively:
+  - O2.5/O2.75 requires a credible goal-3 mechanism;
+  - O3.0 additionally requires independent upper-tail/self-funded carrier proof;
+  - a STRONG carrier plus merely USABLE supporting route is not enough by itself;
 - chance quality at least MEDIUM;
 - failure resistance HIGH;
 - evidence confidence HIGH;
@@ -616,6 +620,21 @@ TWO_SIDED requires two usable routes and at least one STRONG route.
 CARRIER_LED permits a WEAK second route only when the STRONG carrier can self-fund, independent upper-tail proof is present, and opponent leakage is at least MEDIUM.
 
 Two-sidedness alone is not a FOLLOW advantage.
+
+FOCUS remains deliberately broader than FOLLOW. Failure to certify the clearing goal does **not** rewrite a valid C-FOCUS to WATCH/PASS; it caps operational follow-through at RESERVE/STOP.
+
+Official C ranking is predictive and must be frozen before capacity allocation. Rank in this order:
+1. clearing-goal funding;
+2. continuation after the first goal;
+3. lower stall/control risk;
+4. burden-completion quality;
+5. route/carrier reliability;
+6. failure resistance;
+7. evidence confidence;
+8. burden protection;
+9. lower supported burden as a later comparator.
+
+Capacity and same-KO limits may demote FOLLOW -> RESERVE -> STOP but must never rewrite this predictive rank.
 
 ### RESERVE
 Operational grade B can never receive routine FOLLOW at board time; when football structure clears it is capped at RESERVE.
