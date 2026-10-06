@@ -1,13 +1,13 @@
 # Football Step-2 Session Reconciliation
 
 **Status:** ACTIVE — mandatory Step-2 completeness guard  
-**Scope:** Football C official workload; C2/C3 remain shadow-only
+**Scope:** Football C official workload; C2 remains shadow-only
 
 ## Purpose
 
 Prevent an authorized Step-2 fixture from silently disappearing between the frozen board, XI/odds assessment, deterministic execution and Decision State persistence.
 
-This is a process-integrity guard only. It does not change any Football C/C2/C3 predictive threshold.
+This is a process-integrity guard only. It does not change any Football C/C2 predictive threshold.
 
 ## Due set
 
@@ -17,7 +17,7 @@ At the start of each Step-2 session, freeze the due set from the current officia
 - every `RESERVE` fixture explicitly activated for the session;
 - every fixture explicitly reopened by the user as an exception.
 
-C2/C3 never add fixtures to this due set.
+C2 never adds fixtures to this due set.
 
 For each due fixture persist:
 - `match_id`;
