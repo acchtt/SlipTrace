@@ -136,7 +136,7 @@ Keep these concepts distinct:
 - model-accounting bet/P&L;
 - operational official C exposure/Website Pick;
 - actual user execution/P&L;
-- C2/C3/C4 shadow accounting.
+- C2 shadow accounting.
 
 ### Model decision
 
@@ -179,10 +179,10 @@ Never use "the user did not bet" to erase an already-published or WAIT-assumed o
 Never assign official model P&L to:
 - C-PASS;
 - C-WAIT explicitly marked `WAIT_NOT_REACHED`;
-- C2/C3 shadow;
+- C2 shadow;
 - assessment-only cases.
 
-C2/C3 WAITs may receive **shadow counterfactual P&L** at their frozen target/minimum odds under the same assumed-reach convention; this is never official exposure.
+C2 WAITs may receive **shadow counterfactual P&L** at their frozen target/minimum odds under the same assumed-reach convention; this is never official exposure.
 
 ## 5. Required fixture audit format
 
@@ -208,7 +208,7 @@ For every material audited fixture use:
 `P&L STATUS:`
 - official C model exposure/P&L + exposure basis;
 - actual user execution/P&L;
-- C2/C3 shadow separately.
+- C2 shadow separately.
 
 ## 6. Example — 2-0 stall
 
@@ -248,18 +248,18 @@ The legacy C audit validator enforces:
 - actual user P/L only when user execution exists;
 - contemporaneous evidence note whenever `pre_freeze_evidence_miss=true`.
 
-In addition, every current C/C2/C3/C4 fixture must pass:
+In addition, every current C/C2 fixture must pass:
 
 `python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
-The all-model accounting validator enforces:
+The active-model accounting validator enforces:
 - WATCH = own supported line @1.65, 1u;
 - WAIT = own target/minimum odds;
 - direct BET = exact quote;
 - one accounting bet per model/fixture;
-- C official model-accounting vs C2/C3/C4 shadow separation.
+- C official model-accounting vs C2 shadow separation.
 
-A failing legacy audit record or all-model accounting record blocks finalization of the prose audit.
+A failing legacy audit record or active-model accounting record blocks finalization of the prose audit.
 
 ## 8. No-backfill rule
 
