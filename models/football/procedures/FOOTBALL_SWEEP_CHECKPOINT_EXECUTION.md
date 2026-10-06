@@ -306,6 +306,10 @@ Use compact JSON equivalent to:
   "chunk_number": 2,
   "source_acquisition_state": "ACQUIRED",
   "source_payload_hash": "...",
+  "source_blocker_fingerprint": null,
+  "source_last_attempt_at": null,
+  "source_retry_not_before": null,
+  "source_recovery_attempt_count": 0,
   "pending_verification_blocks": [
     "competition-key|2026-10-05",
     "next-competition-key|2026-10-05"
