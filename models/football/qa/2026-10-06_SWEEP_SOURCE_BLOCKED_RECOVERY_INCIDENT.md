@@ -44,3 +44,25 @@ Production QA must prove:
 3. changed blocker -> immediate retry;
 4. legacy blocked checkpoint -> immediate one-time recovery probe;
 5. failed recovery creates a new bounded lease.
+
+
+## Follow-up: recovery lease worked, carrier set still failed
+
+A later recovery attempt correctly bypassed the expired lease, but still failed because the entire original fallback set was inaccessible in the active runtime:
+
+- AiScore inaccessible;
+- LiveScore cache miss;
+- Flashscore only generic/stale page;
+- Soccerway dated URL redirected.
+
+This proved the lease fix solved the permanent-latch bug but not the underlying transport coverage problem.
+
+## Additional source fix
+
+A direct date-level carrier reachable from both the ChatGPT web fetch path and GitHub runner was verified:
+
+`https://www.footballfixtures.org/fixtures/YYYY-MM-DD`
+
+For 2026-10-06 it exposed a dated all-fixtures page with a declared `All 144` count and server-rendered fixture rows. Independent current corroboration surfaces FootballInfo and LivescoresX were also reachable.
+
+Production fallback now tries the count-reconciled FootballFixtures.org date page before the legacy LiveScore/Flashscore/Soccerway set. Search snippets remain forbidden for completeness; only the direct date page may act as the carrier.
