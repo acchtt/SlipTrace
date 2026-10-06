@@ -103,10 +103,27 @@ def _load(path: str) -> dict[str, Any]:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
-def run_triplet_files(c: str, c2: str, c3: str) -> dict[str, Any]:
+def run_pair_files(c: str, c2: str) -> dict[str, Any]:
+    """Run active C+C2 validators atomically from one evidence epoch."""
     _install_modules()
-    from decision_triplet_cli import run_triplet
-    return run_triplet(_load(c), _load(c2), _load(c3))
+    from adapter import run_decision
+    payloads = {"c": _load(c), "c2": _load(c2)}
+    auth = set()
+    results = {}
+    for model in ("c", "c2"):
+        payload = payloads[model]
+        actual = str(payload.get("model", "")).lower()
+        if actual != model:
+            raise ValueError(f"pair payload mismatch: expected model={model}, got {actual or '<missing>'}")
+        if payload.get("stage") != "decision":
+            raise ValueError(f"pair payload model={model} must use stage=decision")
+        ctx = payload.get("context", {})
+        auth.add((str(ctx.get("official_follow_lane", "")), str(ctx.get("step2_authorization", ""))))
+    if len(auth) != 1:
+        raise ValueError("C+C2 pair must share official_follow_lane and step2_authorization")
+    for model in ("c", "c2"):
+        results[model] = run_decision(payloads[model])
+    return {"engine_execution_status": "EXECUTED_C_C2_PAIR", "models_executed": ["c", "c2"], "results": results}
 
 
 def run_reconcile_file(path: str) -> dict[str, Any]:
@@ -123,16 +140,15 @@ def run_accounting_file(path: str) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Portable Football /xi C/C2/C3 deterministic runtime"
+        description="Portable Football /xi C+C2 deterministic runtime"
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
     sub.add_parser("self-check")
 
-    triplet = sub.add_parser("triplet")
-    triplet.add_argument("--c", required=True)
-    triplet.add_argument("--c2", required=True)
-    triplet.add_argument("--c3", required=True)
+    pair = sub.add_parser("pair")
+    pair.add_argument("--c", required=True)
+    pair.add_argument("--c2", required=True)
 
     reconcile = sub.add_parser("reconcile")
     reconcile.add_argument("--input", required=True)
@@ -148,8 +164,8 @@ def main() -> int:
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result.get("ok") else 2
 
-        if args.command == "triplet":
-            result = run_triplet_files(args.c, args.c2, args.c3)
+        if args.command == "pair":
+            result = run_pair_files(args.c, args.c2)
             print(json.dumps({"ok": True, **result}, indent=2, sort_keys=True))
             return 0
 
