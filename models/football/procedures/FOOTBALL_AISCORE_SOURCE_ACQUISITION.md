@@ -161,6 +161,8 @@ When a bounded acquisition pass ends SOURCE_BLOCKED, persist in the Resume Curso
 - `source_retry_not_before = source_last_attempt_at + 30 minutes`;
 - `source_recovery_attempt_count`.
 
+Mirror these values into the dedicated Sweep Runs fields `Source Last Attempt At`, `Source Retry Not Before`, and `Source Recovery Attempt Count` when available; the Resume Cursor remains the authoritative structured state.
+
 Use:
 
 `python models/football/engine/sweep_checkpoint_cli.py source-blocked --input <checkpoint.json> --attempted-at <ISO8601> --fingerprint <fingerprint>`
