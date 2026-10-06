@@ -71,18 +71,6 @@ def match(match_id="m1", **overrides):
         "incentive_effect": "NOT_APPLICABLE",
         "board_state": "C2-FOCUS",
         "board_state_basis": "Current football quality and model-owned burden support serious Step-2 consideration under this model.",
-        "c3_second_route_role": "BURDEN_CONTRIBUTING",
-        "c3_second_route_role_basis": "The second route can prospectively contribute to the clearing goal rather than merely exchange one goal.",
-        "c3_goal3_funding": "VERIFIED",
-        "c3_goal3_funding_source": "CARRIER",
-        "c3_goal3_funding_basis": "strong self-funded carrier can fund goal three",
-        "c3_goal4_funding": "NOT_REQUIRED",
-        "c3_goal4_funding_source": "NONE",
-        "c3_goal4_funding_basis": "not required below O3.0",
-        "c3_control_endpoint_risk": "LOW",
-        "c3_control_endpoint_basis": "continued pressure remains supported beyond two goals",
-        "c3_forced_chaos_verified": False,
-        "c3_forced_chaos_basis": "No separate forced-chaos mechanism is required or verified for this example.",
     }
     row.update(overrides)
     return row
@@ -126,7 +114,6 @@ def decision_context(**overrides):
         "h2h_basis": "H2H reviewed against the current tactical/mechanism evidence at this XI epoch.",
         "completion_rechecked": True,
         "c2_route_quality_rechecked": True,
-        "c3_funding_rechecked": True,
         "top_ranked_focus": False,
         "primary_mechanism_intact": True,
         "primary_mechanism_basis": "Confirmed XI preserves the frozen primary scoring mechanism.",
@@ -736,82 +723,6 @@ class BoardContractTests(unittest.TestCase):
                     "matches": [match()],
                 }
             )
-
-
-class C3IsolationTests(unittest.TestCase):
-    C3_KEYS = (
-        "c3_second_route_role",
-        "c3_goal3_funding",
-        "c3_goal3_funding_source",
-        "c3_goal3_funding_basis",
-        "c3_goal4_funding",
-        "c3_goal4_funding_source",
-        "c3_goal4_funding_basis",
-        "c3_control_endpoint_risk",
-        "c3_control_endpoint_basis",
-        "c3_forced_chaos_verified",
-    )
-
-    def without_c3(self, row):
-        row = dict(row)
-        for key in self.C3_KEYS:
-            row.pop(key, None)
-        return row
-
-    def test_c_board_does_not_require_c3_fields(self):
-        row = self.without_c3(match(carrier="STRONG", board_state="C-FOCUS"))
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c",
-                "matches": [row],
-            }
-        )
-        self.assertEqual(result["model"], "c")
-
-    def test_c2_board_does_not_require_c3_fields(self):
-        row = self.without_c3(match(board_state="C2-FOCUS"))
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c2",
-                "matches": [row],
-            }
-        )
-        self.assertEqual(result["model"], "c2")
-
-    def test_changing_c3_fields_cannot_change_c_ranking(self):
-        a1 = match("a", carrier="STRONG", board_state="C-FOCUS")
-        b1 = match("b", carrier="STRONG", board_state="C-FOCUS")
-        first = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c",
-                "matches": [a1, b1],
-            }
-        )
-        a2 = dict(a1)
-        b2 = dict(b1)
-        a2["c3_second_route_role"] = "NONE"
-        a2["c3_goal3_funding"] = "NONE"
-        a2["c3_goal3_funding_source"] = "NONE"
-        b2["c3_second_route_role"] = "BURDEN_CONTRIBUTING"
-        b2["c3_control_endpoint_risk"] = "HIGH"
-        second = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c",
-                "matches": [a2, b2],
-            }
-        )
-        self.assertEqual(
-            [(x["match_id"], x["ranking_key"]) for x in first["matches"]],
-            [(x["match_id"], x["ranking_key"]) for x in second["matches"]],
-        )
 
 
 class RetiredModelBoundaryTests(unittest.TestCase):
