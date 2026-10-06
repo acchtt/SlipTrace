@@ -128,10 +128,7 @@ Run the stage command.
 Examples:
 
 Rank:
-`python models/football/engine/board_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
-
-then:
-`python models/football/engine/c4_semantic_cli.py --input <c4.json> --c-board <c.json>`
+`python models/football/engine/board_pair_cli.py --c <c.json> --c2 <c2.json>`
 
 then after replenishment reaches a stop condition:
 `python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
@@ -167,10 +164,7 @@ Materialize:
 - `models/football/engine/core.py`
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
-- `models/football/engine/board_triplet_cli.py`
-- `models/football/engine/c4_semantic.py`
-- `models/football/engine/c4_semantic_cli.py`
-- `models/football/engine/c4_schema.json`
+- `models/football/engine/board_pair_cli.py`
 - `models/football/engine/capacity_replenishment.py`
 - `models/football/engine/capacity_replenishment_cli.py`
 - `models/football/engine/rank_terminal_status.py`
@@ -304,7 +298,8 @@ This bootstrap changes execution plumbing only.
 
 It does not:
 - change Football C predictive rules;
-- change Football C/C2 predictive rules or rewrite historical C3/C4 records;
+- change Football C/C2 predictive rules;
+- rewrite historical C3/C4 records;
 - change existing prospective counters;
 - create exposure;
 - make Python production authority.
