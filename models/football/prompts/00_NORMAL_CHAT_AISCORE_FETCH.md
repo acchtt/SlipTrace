@@ -70,7 +70,7 @@ For a new sweep:
 If initialization persistence fails, return `SWEEP START FAILED — CHECKPOINT NOT PERSISTED` and do not acquire sources. A fresh sweep must never return "work remains" without a resumable RUNNING cursor.
 
 For `/sweep resume`:
-- load the matching RUNNING Sweep Run first;
+- load the matching resumable Sweep Run first;
 - continue from its `Resume Cursor`;
 - reuse completed Daily Coverage rows and block evidence;
 - never restart an unchanged ACQUIRED source epoch;
