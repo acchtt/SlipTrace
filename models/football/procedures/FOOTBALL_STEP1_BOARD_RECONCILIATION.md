@@ -1,85 +1,119 @@
 # Football Step-1 Board Reconciliation
 
 **Status:** ACTIVE PROCESS COMPLIANCE CONTROL  
-**Scope:** `/rank` Football C official + C2/C3 shadow boards  
-**Predictive effect:** none
+**Scope:** `/rank` Football C official + Football C2 shadow boards  
+**Active roster:** C + C2 only
 
 ## Purpose
 
-Step 1 freezes one common football-fact evidence state, then lets C, C2 and C3 apply different model-owned policy.
+Step 1 freezes one common football-fact evidence state, then lets Football C and Football C2 apply different model-owned policy. The board comparison is valid only when both active models receive the same ranked eligible universe and the same common evidence epoch.
 
-Three independent `board` engine calls are not sufficient proof that the same common evidence was used. This procedure makes the comparison fail closed on research drift or ranked-universe mismatch.
+This procedure protects comparison integrity. It does not change either model's predictive policy.
 
-## Required evidence bases
+## Required frozen fields
 
-Every ranked fixture must carry:
+Every ranked fixture must carry one shared factual evidence block including:
+- `common_evidence_basis`;
+- operational viability/reliability snapshot;
+- route/carrier/chance/failure evidence;
+- H2H materiality/basis;
+- tournament-incentive fields when applicable;
+- kickoff identity.
 
-- `common_evidence_basis` — a non-empty summary of the shared Step-1 football research used to freeze route/carrier/chance/failure/evidence-quality grades;
-- `supported_line_basis` — model-owned explanation for why that model's supported burden is the highest burden justified without an optimistic tail;
-- for C/C2: `board_state_basis` — explanation for the frozen PASS/WATCH/FOCUS classification;
-- C3: `c3_second_route_role_basis` and `c3_forced_chaos_basis` in addition to the existing funding/control bases.
+Model-owned fields remain separate:
 
-These basis fields have zero ranking weight.
+Football C owns:
+- `board_state`;
+- `board_state_basis`;
+- `supported_line`;
+- `supported_line_basis`;
+- completion mode;
+- burden-completion quality;
+- continuation quality;
+- opponent leakage;
+- burden stall risk.
 
-## Mandatory three-board runner
+Football C2 owns:
+- `board_state`;
+- `board_state_basis`;
+- `supported_line`;
+- `supported_line_basis`;
+- its route-quality ranking/selection-floor policy.
 
-Use:
+C2 must never inherit Football C's supported line or Football C's completion-policy fields.
 
-`python models/football/engine/board_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+## Deterministic pair reconciliation
 
-The runner requires:
+Run:
 
-1. the same ranked eligible match IDs in C/C2/C3;
-2. exact equality of the common factual fields for every match;
-3. no Football C completion-policy fields in C2/C3 payloads;
-4. no C3-only funding/control fields in C/C2 payloads;
-5. all three individual board engines to pass.
+`python models/football/engine/board_pair_cli.py --c <c.json> --c2 <c2.json>`
 
-Success:
+Required success:
 
-`BOARD ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE_BOARDS`
+`BOARD ENGINE EXECUTION STATUS: EXECUTED_C_C2_BOARDS`
 
 and:
 
-`COMMON EVIDENCE RECONCILED: true`
+`common_evidence_reconciled = true`
 
-Failure examples:
+The pair runner must require:
 
-- `BOARD TRIPLET FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH`
-- `BOARD TRIPLET FAILED — COMMON EVIDENCE DRIFT`
-- `BOARD TRIPLET FAILED — C POLICY FIELD LEAK INTO SHADOW PAYLOAD`
-- `BOARD TRIPLET FAILED — C3 POLICY FIELD LEAK INTO C/C2 PAYLOAD`
+1. the same ranked eligible match IDs in C and C2;
+2. the same shared factual evidence for each match;
+3. complete model-owned semantic trace for each model;
+4. no Football C completion-policy fields in the C2 payload.
 
-A failed triplet means the C2/C3 comparison is contaminated. Preserve the official semantic C board, fix the payload/evidence plumbing, and rerun. Do not advance prospective challenger counters from a contaminated board.
+Fail closed on:
 
-## Model-owned fields
+- `BOARD PAIR FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH`
+- `BOARD PAIR FAILED — COMMON EVIDENCE DRIFT`
+- `BOARD PAIR FAILED — C POLICY FIELD LEAK INTO C2 PAYLOAD`
+- incomplete common evidence;
+- incomplete model semantic trace.
 
-The following may differ across payloads because they are policy, not common facts:
+A failed pair means the active C-vs-C2 comparison is contaminated. Preserve the prospectively frozen source evidence, fix only the evidence/payload plumbing, and rerun. Do not manufacture a C2 board from C.
 
-- `board_state` and `board_state_basis` for C/C2;
-- `supported_line` and `supported_line_basis`;
-- Football C completion mode/quality, continuation, opponent leakage and stall risk;
-- C3 second-route, funding, control and forced-chaos fields.
+## Ranking authority
 
-Independent model-owned lines may coincidentally be equal. Equality alone is not proof of copying; the independent basis must be present.
+Football C remains the only official production board. Football C2 is shadow-only.
 
-## Board-state boundary
+The pair runner validates both boards but does not authorize:
+- a C2 Website Pick;
+- a C2 official exposure;
+- extra Step-2 workload from C2.
 
-This control does **not** invent a new deterministic C/C2 FOCUS/WATCH/PASS threshold.
+Routine Step-2 workload is selected only from Football C's official FOLLOW/RESERVE/STOP lane.
 
-The active C and C2 texts still own those semantic classifications. Because those states can affect downstream action/workload, their basis must be persisted and auditable.
+## Clearing-goal funding and FOLLOW
 
-Any proposal to replace the current semantic C/C2 state boundary with a new numerical/deterministic classifier is a model-rule change and must be versioned/tested separately rather than silently introduced by QA.
+Football C's current ranking/follow-through policy must distinguish broad FOCUS classification from harder FOLLOW certification.
 
-C3 is different: its board state is already generated deterministically from its frozen funding/control policy.
+For a supported burden that requires a third goal, especially O2.5/O2.75:
+- strong carrier production alone does not prove the clearing third goal;
+- a weak/merely usable second route does not automatically fund goal three;
+- continuation and burden-completion grades must be supported by explicit frozen evidence;
+- carrier-led candidates without independently credible clearing-goal funding can remain C-FOCUS while being RESERVE/STOP.
+
+This is the current Football C selection architecture, not a reactivation of retired C3 policy.
 
 ## Persistence
 
-Daily Coverage must preserve:
+Persist for every ranked active fixture:
 - common evidence basis;
-- model-specific supported-line basis;
-- C/C2 board-state basis;
-- engine board result/revision;
-- common-evidence reconciliation status.
+- C board state/rank;
+- C board state basis;
+- C supported line + supported line basis;
+- C2 board state/rank;
+- C2 board state basis;
+- C2 supported line + supported line basis;
+- board pair reconciliation status;
+- engine/source revision;
+- official C lane.
 
-Publishing remains an exact copy of the frozen board. Airtable publication must not re-screen or reconstruct these bases.
+Historical C3/C4 fields may remain in old records. They are not required, executed, or populated for new boards.
+
+## Historical fidelity
+
+Old board-triplet/C3/C4 records remain immutable historical audit data. Do not rewrite them merely because the active roster changed.
+
+For new boards, `board_triplet_cli.py` and C4 compilation are retired execution paths.

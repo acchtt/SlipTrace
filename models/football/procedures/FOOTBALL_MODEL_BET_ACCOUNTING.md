@@ -1,231 +1,192 @@
-# Football All-Model Bet Accounting
+# Football Model Bet Accounting
 
 **Status:** ACTIVE AUDIT / MODEL-ACCOUNTING CONVENTION  
-**Applies to:** Football C, C2, C3 and C4  
-**Predictive effect:** none — this does not change model state/action selection
+**Current active roster:** Football C + Football C2  
+**Historical compatibility:** C3/C4 may be settled only from genuinely frozen historical rows using explicit historical-roster mode.
 
 ## 1. Purpose
 
-For audit simplicity, model states/actions that express a usable Over opinion must not disappear merely because they did not become a physical user bet.
+This procedure defines deterministic model-performance accounting. It is separate from actual user execution and separate from official Website Pick authority.
 
-This convention therefore counts:
+Current new accounting uses only:
+- Football C;
+- Football C2.
 
-- every model's frozen `WATCH` state as a model-accounting bet;
-- every C/C2/C3 `WAIT` action as a model-accounting bet;
-- existing direct BET actions as bets under their exact execution quote.
+C is official. C2 is shadow-only.
 
-C4 has no Step-2 action policy, so C4 participates through Step-1 WATCH accounting only.
+Historical C3/C4 records remain immutable and may still be settled when their original frozen state exists. They are never required in a new/current accounting payload.
 
-## 2. One accounting bet per model per fixture
+## 2. Accounting priority
 
-Do not double-count one model/fixture.
-
-Resolution priority:
+Per model / fixture / frozen epoch:
 
 `DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
 
-Meaning:
-- a later direct BET replaces the same model's WATCH/WAIT accounting entry;
-- a countable WAIT replaces the same model's WATCH accounting entry;
-- if a WAIT is explicitly declared not reached, that WAIT layer is removed and the frozen WATCH still counts when the model's board state was WATCH;
-- a Step-2 PASS does not erase a prospectively frozen WATCH accounting bet;
-- FOCUS is unchanged by this policy and is not automatically converted into a bet merely because it is FOCUS.
+Only one accounting entry is active per model/fixture under this precedence.
 
-## 3. WATCH accounting — all four models
+A later Step-2 PASS does not erase an independently frozen WATCH accounting entry unless a higher-priority direct/WAIT entry replaces it.
 
-For:
+## 3. WATCH accounting
+
+Every prospectively frozen current:
 - `C-WATCH`;
 - `C2-WATCH`;
-- `C3-WATCH`;
-- `C4-WATCH`;
 
-freeze one model-accounting bet at:
-
-- line = that model's own frozen supported line;
-- odds = **1.65** assumed audit price;
-- stake = **1.0u**;
-- side = Over.
+is a model-accounting bet at:
+- that model's own supported line;
+- assumed odds = **1.65**;
+- stake = **1.0u**.
 
 Accounting basis:
-- Football C -> `WATCH_ASSUMED`;
-- C2/C3/C4 -> `SHADOW_WATCH_ASSUMED`.
+- C -> `WATCH_ASSUMED`;
+- C2 -> `SHADOW_WATCH_ASSUMED`.
 
-The 1.65 price is a deterministic accounting convention derived from the current normal acceptable price floor. It is not a claim that a bookmaker quote at 1.65 was observed.
+WATCH accounting does not itself create a Website Pick.
 
-WATCH accounting is audit/model-performance accounting only.
+Only Football C may ever create official exposure.
 
-A C-WATCH:
-- does not create a user bet;
-- does not create a Website Pick by itself;
-- does not authorize live exposure;
-- remains distinct from an actual C-BET/C-WAIT.
+## 4. WAIT accounting
 
-C2/C3/C4 WATCH accounting is shadow-only.
+For current C/C2 Step-2 actions:
+- use that model's own deterministic WAIT target line;
+- use that model's own minimum odds;
+- use the frozen WAIT resolution state.
 
-## 4. WAIT accounting — C/C2/C3
+Football C:
+- default countable basis = `WAIT_ASSUMED`;
+- user-confirmed matching execution may become `WAIT_USER_CONFIRMED`;
+- explicit user declaration that the target never reached removes the WAIT layer under `WAIT_NOT_REACHED`.
 
-WAIT accounting remains model-specific and uses each model's own deterministic WAIT terms.
+Football C2:
+- shadow WAIT basis = `SHADOW_WAIT_ASSUMED`;
+- it never creates official exposure.
 
-For a countable WAIT:
-- line = that model's `wait_target_line`;
-- odds = that model's `wait_min_odds`;
-- stake = 1.0u unless an explicitly persisted model stake applies.
+A valid WAIT replaces WATCH for accounting priority when the WAIT is countable.
+
+If a WAIT is explicitly declared not reached, the lower-priority WATCH may remain countable if it was prospectively frozen.
+
+## 5. Direct BET accounting
+
+For current direct BET:
+- use exact frozen/revalidated line;
+- use exact frozen/revalidated odds;
+- use frozen stake.
 
 Basis:
-- Football C -> `WAIT_ASSUMED`;
-- C2/C3 -> `SHADOW_WAIT_ASSUMED`.
+- C -> `DIRECT_BET`;
+- C2 -> `SHADOW_DIRECT_BET`.
 
-Current deterministic WAIT target/minimum rules remain unchanged:
-- target = protected model target produced by the decision engine;
-- minimum odds = 1.60 only where the existing top-ranked FOCUS soft-zone rule applies;
-- otherwise minimum odds = 1.65.
+Only C direct BET may create official exposure / Website Pick.
 
-This policy changes accounting scope, not WAIT selection logic.
+## 6. Settlement
 
-## 5. WAIT user confirmation / line-never-reached
+Use regulation-time goals unless the original market explicitly included extra time.
 
-### Matching user bet — official C only
+Quarter-line settlement must be exact.
 
-When the user supplies the actual corresponding Football C bet:
-- preserve the original WAIT target/minimum;
-- replace C's WAIT accounting entry with `WAIT_USER_CONFIRMED`;
-- use exact actual line/odds/stake for C model-accounting reconciliation;
-- use the same slip for actual user P/L.
+Examples at 1u stake:
+- O2.25 with 2 goals -> HALF LOSS;
+- O2.75 with 3 goals -> HALF WIN;
+- O3.0 with 3 goals -> PUSH;
+- O2.0 with 2 goals -> PUSH.
 
-Shadow C2/C3 are not rewritten from a user slip unless the user explicitly identifies a separate shadow-model mapping.
+Do not flatten quarter-line settlement into a full WIN/LOSS.
 
-### Explicit line never reached
+## 7. Current deterministic payload
 
-When the user explicitly says a model's WAIT target line never reached:
-- remove that WAIT accounting layer for the specified model;
-- do not infer this from missing history;
-- do not infer this from later screenshots;
-- do not infer this from no user bet.
-
-If the same model had a frozen WATCH board state, the WATCH accounting bet remains because WATCH is now independently countable under this policy.
-
-## 6. Direct BET precedence
-
-For C/C2/C3 direct BET:
-- line/odds = exact Step-2 quote;
-- stake = persisted model stake;
-- basis:
-  - C -> `DIRECT_BET`;
-  - C2/C3 -> `SHADOW_DIRECT_BET`.
-
-Direct BET replaces WATCH/WAIT accounting for the same model/fixture.
-
-C4 has no direct BET action.
-
-## 7. FOCUS / PASS behavior
-
-This change is intentionally narrow.
-
-- `FOCUS` without a BET/WAIT is not automatically a bet under this patch.
-- `PASS` without a prior WATCH is no bet.
-- a prospectively frozen WATCH remains countable even if later Step-2 action is PASS.
-- historical state labels are never rewritten because of accounting.
-
-This preserves the user's requested WATCH/WAIT accounting without silently redefining the model classifiers.
-
-## 8. Settlement
-
-Settle Over Asian totals deterministically at each accounting line.
-
-Possible settlement:
-- WIN;
-- HALF_WIN;
-- PUSH;
-- HALF_LOSS;
-- LOSS;
-- NO_BET / PENDING.
-
-P/L uses the accounting odds/stake for that model.
-
-WATCH synthetic P/L therefore uses 1.65.
-WAIT P/L uses its frozen minimum odds unless user-confirmed C execution replaces it.
-Direct BET P/L uses exact quote odds.
+For new/current accounting, the payload must contain **exactly C and C2**.
 
 Run:
 
 `python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
 
-One input must contain C/C2/C3/C4 rows for the same fixture.
+or under XI portable runtime:
 
-## 9. Official vs shadow
+`python xi_portable.py accounting --input <model_accounting.json>`
 
-Football C:
-- C model-accounting P/L is an official model-performance metric;
-- WATCH accounting does **not** create a Website Pick;
-- C-BET/C-WAIT operational exposure behavior remains governed by their existing persistence rules.
+Expected current result roster:
 
-C2/C3/C4 are shadow-only for model accounting.
+`ACTIVE_C_C2`
 
-C2/C3/C4:
-- accounting is shadow-only;
-- never create Website Picks;
-- never create real exposure;
-- never affect official workload.
+A current payload containing retired-model rows is invalid:
+
+`active accounting permits C/C2 only`
+
+C2 missing from a current completed active-roster assessment is an incomplete workflow state, not a C2 PASS.
+
+## 8. Historical accounting mode
+
+Historical C3/C4 settlement is allowed only when:
+- the record was prospectively frozen during the model's active era;
+- its own supported line/action/accounting basis exists;
+- no FT/current information is used to reconstruct missing prospective state.
+
+Set:
+
+`historical_roster = true`
+
+Historical mode expects the historical roster defined by the deterministic accounting compiler.
+
+Expected result roster:
+
+`HISTORICAL_C_C2_C3_C4`
+
+This mode exists only to preserve old audit history. It must not be used for a new/current decision.
+
+## 9. Official model P/L vs actual user P/L
+
+These are separate.
+
+Official C model P/L comes from the model-accounting/official exposure convention.
+
+Actual user P/L comes only from physical execution evidence such as:
+- user bet slip;
+- explicit user-confirmed exact execution.
+
+A model bet can exist without a user bet.
+
+A user bet at different line/odds/stake does not retroactively change the frozen model decision.
 
 ## 10. Persistence
 
-Daily Coverage stores the latest model-accounting JSON per model:
-- `C Model Accounting` — `fldND2leUXgAq9UQl`
-- `C2 Shadow Accounting` — `fldlWroOrJdYF3lHn`
-- `C3 Shadow Accounting` — `fldEMKp5LzS5IZQpJ`
-- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
-- `Model Accounting Revision` — `fldAt3A1bZW4QSGbF`
+For new/current rows persist:
+- C Model Accounting;
+- C2 Shadow Accounting;
+- active accounting result JSON;
+- Model Accounting Revision.
 
-Decision States stores the current all-model Step-2 reconciliation:
-- `All Model Accounting Result` — `fldOEt6DO20U9Yyab`
-- `Model Accounting Revision` — `fldIAqPB03Oian4Fw`
+Current Decision State aggregate field may retain its historical name `All Model Accounting Result`, but for new rows it contains the active C+C2 result only.
 
-Persist exact engine JSON, not prose paraphrase.
+Historical C3/C4 accounting fields may remain populated on old rows and must not be deleted.
 
-## 11. Rank-stage accounting
+Do not populate new C3/C4 accounting fields in current production.
 
-After C/C2/C3/C4 Step-1 states/lines are frozen:
-- compile all four model rows;
-- WATCHs become PENDING accounting bets;
-- other board states remain NONE unless a later Step-2 action exists;
-- persist the four model-accounting outputs.
+## 11. Website Pick boundary
 
-This makes C4 WATCH immediately auditable despite C4 having no Step-2 action.
+Website Picks are official Football C exposure only.
 
-## 12. XI-stage accounting
+C2:
+- never creates a Website Pick;
+- never creates real exposure;
+- remains shadow accounting only.
 
-After C/C2/C3 Step-2 action:
-- recompile C/C2/C3 using direct/WAIT action data;
-- include the unchanged frozen C4 row;
-- persist the all-model result;
-- direct BET/WAIT replaces prior WATCH for that model;
-- C4 remains Step-1 shadow accounting.
+WATCH accounting is model-performance accounting and does not create official exposure.
 
-## 13. Audit totals
+WAIT official-exposure behavior for Football C follows:
 
-For every audited fixture report one row per model:
+`models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 
-`MODEL | BASIS | LINE | ODDS | STAKE | SETTLEMENT | P/L`
+## 12. Audit reporting
 
-Slate totals:
-- Football C model-accounting P/L;
-- actual user P/L;
-- C2 shadow model-accounting P/L;
-- C3 shadow model-accounting P/L;
-- C4 shadow model-accounting P/L.
+Current forward model comparison should report:
+- C official model P/L;
+- C2 shadow model P/L only where frozen executable accounting terms exist;
+- actual user P/L separately.
 
-Do not label C2/C3/C4 as official exposure.
+Do not:
+- treat incomplete C2 rows as PASS;
+- manufacture C2 odds from C;
+- reconstruct missing C2 actions after FT;
+- combine current C+C2 metrics with historical C3/C4 into one current leaderboard.
 
-## 14. Historical use
-
-Do not fabricate a supported line or WAIT target.
-
-Historical application is allowed only when:
-- the model's frozen WATCH + supported line is recoverable; or
-- the model's WAIT target/minimum is recoverable; or
-- exact direct bet quote is recoverable.
-
-Otherwise:
-`MODEL ACCOUNTING INCOMPLETE — TERMS NOT RECOVERABLE`
-
-Do not infer missing line/price from FT or later market history.
+Historical retired-model results may be reported in a separate explicitly historical appendix.

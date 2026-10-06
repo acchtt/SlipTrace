@@ -101,7 +101,7 @@ Examples:
 
 When a repaired sweep file is attached, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` before web research. A structurally complete repaired handoff freezes Step-0 fixture identity, kickoff, dispositions and capacity queue for /rank.
 
-Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + C2/C3/C4 Step-1 shadow board workflow.
+Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + Football C2 shadow Step-1 board workflow.
 
 Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or reconstruct a repaired queue from the web.
 
@@ -111,9 +111,9 @@ Runs Step 2 for the supplied/referenced match(es). Every invocation must reload 
 
 Visible model roster:
 - Football C official Step-2 action;
-- C2 Step-2 shadow action;
-- C3 Step-2 shadow action;
-- C4 prospectively frozen Step-1 snapshot, explicitly labeled `NO STEP2 ACTION`.
+- Football C2 Step-2 shadow action.
+
+C3/C4 are retired from new/current execution and must not be shown as current tracks. Historical retired-model rows belong only in explicitly historical audit/report context.
 
 Examples:
 - attach XI + odds screenshots, then type `/xi`;
@@ -183,7 +183,7 @@ Aliases change ergonomics only. They do not weaken or replace:
 - tournament incentive integrity;
 - burden-completion selection;
 - XI/post-XI research;
-- C official / C2/C3 Step-2 shadow separation + C4 frozen Step-1 XI visibility;
+- C official / C2 shadow separation;
 - new-chat / handoff freshness bootstrap;
 - persistence and audit rules.
 
@@ -194,6 +194,6 @@ If alias text conflicts with a mandatory model integrity gate, the gate wins.
 
 When a command is invoked in a new chat that contains a handoff or copied prior response, the handoff is context only.
 
-Always reload the current model roster and launcher semantics first. An older handoff that only mentions C/C2 must not cause C3 to disappear from a current /xi or /live response.
+Always reload the current model roster and launcher semantics first. An older handoff that names C3/C4 must not reactivate retired models in a current /rank, /xi or /live response.
 
-For /xi, C2 and C3 actions plus the C4 frozen Step-1 snapshot must be visible even when the correct status is UNAVAILABLE / COMPARISON INCOMPLETE. For /live, C2 and C3 remain the visible shadow action tracks.
+For /xi and /live, Football C2 is the only current shadow action track. If a lawful C2 state cannot be produced, show the exact incomplete/unavailable reason rather than silently falling back to C-only completion.

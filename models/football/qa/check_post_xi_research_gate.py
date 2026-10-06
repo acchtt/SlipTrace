@@ -27,6 +27,8 @@ REQUIRED = {
         "clearing-goal funding",
         "maximum routine `FOLLOW = 6`",
         "maximum retained `RESERVE = 4`",
+        "board_pair_cli.py --c <c.json> --c2 <c2.json>",
+        "EXECUTED_C_C2_BOARDS",
         "Command alias:** `/rank`",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
@@ -72,6 +74,35 @@ for file_name, needles in REQUIRED.items():
     for needle in needles:
         if needle not in text:
             failures.append(f"{file_name}: missing invariant: {needle}")
+
+FORBIDDEN_ACTIVE = {
+    "models/football/CURRENT_MODEL.md": [
+        "xi_portable.py triplet",
+        "board_triplet_cli.py --c",
+        "Shadow challengers:** Football **C2**, Football **C3**",
+    ],
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
+        "board_triplet_cli.py",
+        "c4_semantic_cli.py",
+        "C3 shadow board",
+        "C4 Step-1 shadow",
+    ],
+    "models/football/prompts/COMMAND_ALIASES.md": [
+        "C2/C3/C4 Step-1 shadow board workflow",
+        "C3 Step-2 shadow action",
+        "C4 prospectively frozen Step-1 snapshot",
+    ],
+}
+
+for file_name, needles in FORBIDDEN_ACTIVE.items():
+    path = Path(file_name)
+    if not path.exists():
+        failures.append(f"{file_name}: missing file")
+        continue
+    text = path.read_text(encoding="utf-8")
+    for needle in needles:
+        if needle in text:
+            failures.append(f"{file_name}: retired active-path invariant present: {needle}")
 
 # Runtime boundary is authoritative: retired models may remain as historical
 # source modules, but run_board must reject them.

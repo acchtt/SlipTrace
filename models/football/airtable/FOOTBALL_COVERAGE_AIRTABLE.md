@@ -52,31 +52,19 @@ Senior women's domestic top-flight leagues are first-class senior blocks. Set:
 
 Every visible fixture in that class requires a row/disposition even when excluded/deferred.
 
-## 4. Frozen Football C board fields
+## 4. Frozen Football C + C2 board fields
 
-Preserve current official board state exactly.
+Preserve current official/shadow board state exactly.
 
-Dedicated current fields now include:
+Current new-board fields include:
 - `C Board State`;
 - `C Rank`;
 - `C Supported Line`;
 - `C2 Shadow State`;
 - `C2 Shadow Rank`;
 - `C2 Supported Line`;
-- `C3 Shadow State`;
-- `C3 Shadow Rank`;
-- `C3 Lane`;
-- `C3 Supported Line`;
-- `C3 Second Route Role`;
-- C3 goal-3 / goal-4 / control-endpoint fields defined in `FOOTBALL_C3_AIRTABLE.md`;
-- `C4 Shadow State`;
-- `C4 Shadow Rank`;
-- `C4 Supported Line`;
-- C4 structured compiler fields defined in `FOOTBALL_C4_AIRTABLE.md`;
 - `C Model Accounting`;
 - `C2 Shadow Accounting`;
-- `C3 Shadow Accounting`;
-- `C4 Shadow Accounting`;
 - `Model Accounting Revision`.
 
 Also preserve:
@@ -92,11 +80,9 @@ Also preserve:
 - Competition Reliability State / Reason;
 - Operational Disposition;
 - Senior Women's Top Flight;
-- C board state/rank;
 - C supported burden and Supported Line Basis;
 - C Board State Basis;
 - C2 Supported Line Basis and C2 Board State Basis;
-- C3 Supported Line Basis;
 - Completion Mode;
 - Burden Completion Quality;
 - Continuation Quality;
@@ -106,27 +92,21 @@ Also preserve:
 - tournament-incentive freeze;
 - H2H/failure summary;
 - Screened At;
-- Frozen PRE Summary / Coverage Notes.
+- Frozen PRE Summary / Coverage Notes;
+- Board Pair Common-Evidence Reconciliation Status / engine revision.
 
 Where the physical Airtable schema still uses legacy columns such as `PRE Grade`, `Board Tier`, or `Structural Type`, use them only as storage aliases for the **actual frozen Football C output**. They do not activate Football A PRE compiler semantics.
 
-C2 shadow fields/notes must be clearly separate:
+C2 shadow fields/notes must remain separate from C:
 - C2 state/rank;
 - C2 supported burden;
 - C2 diagnostics.
 
-C3 shadow fields/notes must also be separate:
-- C3 state/rank/lane;
-- C3 supported burden;
-- second-route role;
-- goal-3 / goal-4 funding source and basis;
-- control-endpoint risk/basis;
-- C3 forced-chaos verification and basis.
-- Board Triplet Common-Evidence Reconciliation Status / engine revision where available.
-
-C2/C3/C4 must never overwrite official C fields.
-
-C4 is Step-1-only. C4 persistence belongs in Daily Coverage + Sweep Runs only; do not create C4 Decision States or Website Picks. C4-WATCH may still carry shadow model-accounting JSON/P&L under `FOOTBALL_MODEL_BET_ACCOUNTING.md`; this is not Step-2 exposure.
+Historical C3/C4 columns may remain in the physical Airtable schema and on old rows. They are historical-only compatibility fields:
+- do not populate them for new boards;
+- do not require them for current publication;
+- do not let them overwrite C/C2;
+- do not reactivate retired C3/C4 workflow.
 
 ## 5. Publish = exact copy, never re-screen
 
@@ -143,38 +123,40 @@ If publisher output conflicts with the frozen board:
 
 `PERSISTENCE SYNC FAULT — FROZEN FOOTBALL C BOARD PRESERVED`
 
-## 6. C / C2 / C3 / C4 policy separation
+## 6. C / C2 policy separation
 
-The underlying football research epoch is shared, but model policy/compilation is separate.
+The underlying football research epoch is shared, but model policy is separate.
 
-Persist C, C2, C3 and C4 supported burdens independently.
+Persist C and C2 supported burdens independently.
 
 A C2 row without an independently frozen C2 burden is incomplete for C-vs-C2 paired evaluation.
 
-A C3 row without an independently frozen C3 burden/funding block is incomplete for C-vs-C3 paired evaluation.
+Do not populate C2 supported burden from Football C completion labels or C supported line.
 
-A C4 row without complete structured evidence anchors and deterministic compiler output is incomplete for C-vs-C4 paired evaluation. C4 incompleteness does not invalidate an otherwise clean official C/C2/C3 board, but it makes that board ineligible for the C4 0/5 counter.
+Historical C3/C4 rows remain immutable. Their old fields may stay populated on historical records but are excluded from new/current board completeness.
 
-Do not populate C3 fields from Football C completion labels or C2 route-quality output. Do not populate C4 compiled fields by copying C/C2/C3 semantic grades.
-
-## 7. All-model accounting persistence
+## 7. Active-model accounting persistence
 
 Dedicated Daily Coverage fields:
 - `C Model Accounting` — `fldND2leUXgAq9UQl`
 - `C2 Shadow Accounting` — `fldlWroOrJdYF3lHn`
-- `C3 Shadow Accounting` — `fldEMKp5LzS5IZQpJ`
-- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
 - `Model Accounting Revision` — `fldAt3A1bZW4QSGbF`
 
-Persist exact deterministic JSON from `model_bet_accounting.py`.
+Historical compatibility fields retained in Airtable:
+- `C3 Shadow Accounting` — `fldEMKp5LzS5IZQpJ`
+- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
+
+For **new/current** rows, persist exact deterministic C+C2 JSON from `model_bet_accounting.py`.
 
 At Step 1:
 - WATCH -> supported line @1.65, 1u;
 - non-WATCH -> NONE until a later BET/WAIT exists.
 
-At Step 2, direct BET/WAIT may replace WATCH for that same model/fixture under the documented precedence.
+At Step 2, direct BET/WAIT may replace WATCH for that same active model/fixture under the documented precedence.
 
-These fields are model-performance accounting and do not grant Website Pick / real-exposure authority to C2/C3/C4.
+C2 accounting is shadow-only and does not grant Website Pick / real-exposure authority.
+
+Historical C3/C4 accounting fields may only be read/settled under explicit historical-roster audit mode.
 
 ## 8. Capacity queue / replenishment persistence
 
@@ -222,7 +204,7 @@ Also verify:
 - every active fixture lies inside the corrected ICT window;
 - no unresolved schedule identity is treated as active;
 - women's-top-flight counts reconcile;
-- C2/C3/C4 shadow data never replaced C.
+- C2 shadow data never replaced C; historical retired-model fields never re-enter current authority.
 
 If these fail:
 
@@ -289,7 +271,7 @@ Set completion true only when every protected block is explicitly checked and re
 
 `SOURCE_BLOCKED`, a missing block, count/list mismatch, or missing fixture disposition means the sweep is not work-ready.
 
-This metadata never promotes a fixture or changes C/C2/C3 predictive state.
+This metadata never promotes a fixture or changes C/C2 predictive state.
 
 ## Sweep Runs checkpoint / resume runtime
 
