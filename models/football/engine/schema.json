@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "football-engine-v1",
   "title": "SlipTrace Football Engine Input",
-  "description": "Structured bridge between LLM football research and deterministic Football C/C2/C3 rules.",
+  "description": "Structured bridge between LLM football research and deterministic Football C/C2 rules.",
   "oneOf": [
     {
       "$ref": "#/$defs/boardInput"
@@ -50,10 +50,7 @@
         "C-FOCUS",
         "C2-PASS",
         "C2-WATCH",
-        "C2-FOCUS",
-        "C3-PASS",
-        "C3-WATCH",
-        "C3-FOCUS"
+        "C2-FOCUS"
       ]
     },
     "assessment": {
@@ -356,76 +353,6 @@
             "HIGH"
           ]
         },
-        "c3_second_route_role": {
-          "type": "string",
-          "enum": [
-            "BURDEN_CONTRIBUTING",
-            "EXCHANGE_ONLY",
-            "STATE_DEPENDENT",
-            "NONE"
-          ]
-        },
-        "c3_goal3_funding": {
-          "type": "string",
-          "enum": [
-            "VERIFIED",
-            "PARTIAL",
-            "NONE",
-            "NOT_REQUIRED"
-          ]
-        },
-        "c3_goal3_funding_source": {
-          "type": "string",
-          "enum": [
-            "CARRIER",
-            "SECOND_ROUTE",
-            "FORCED_CHAOS",
-            "MIXED",
-            "NONE"
-          ]
-        },
-        "c3_goal3_funding_basis": {
-          "type": "string",
-          "minLength": 1
-        },
-        "c3_goal4_funding": {
-          "type": "string",
-          "enum": [
-            "VERIFIED",
-            "PARTIAL",
-            "NONE",
-            "NOT_REQUIRED"
-          ]
-        },
-        "c3_goal4_funding_source": {
-          "type": "string",
-          "enum": [
-            "CARRIER",
-            "SECOND_ROUTE",
-            "FORCED_CHAOS",
-            "MIXED",
-            "NONE"
-          ]
-        },
-        "c3_goal4_funding_basis": {
-          "type": "string",
-          "minLength": 1
-        },
-        "c3_control_endpoint_risk": {
-          "type": "string",
-          "enum": [
-            "LOW",
-            "MEDIUM",
-            "HIGH"
-          ]
-        },
-        "c3_control_endpoint_basis": {
-          "type": "string",
-          "minLength": 1
-        },
-        "c3_forced_chaos_verified": {
-          "type": "boolean"
-        },
         "h2h_basis": {
           "type": "string",
           "minLength": 1
@@ -485,14 +412,6 @@
           "type": "string",
           "minLength": 1
         },
-        "c3_second_route_role_basis": {
-          "type": "string",
-          "minLength": 1
-        },
-        "c3_forced_chaos_basis": {
-          "type": "string",
-          "minLength": 1
-        },
         "board_state_basis": {
           "type": "string",
           "minLength": 1
@@ -518,8 +437,7 @@
         "model": {
           "enum": [
             "c",
-            "c2",
-            "c3"
+            "c2"
           ]
         },
         "matches": {
@@ -551,8 +469,7 @@
         "model": {
           "enum": [
             "c",
-            "c2",
-            "c3"
+            "c2"
           ]
         },
         "match": {
@@ -753,9 +670,6 @@
               "type": "boolean"
             },
             "c2_route_quality_rechecked": {
-              "type": "boolean"
-            },
-            "c3_funding_rechecked": {
               "type": "boolean"
             },
             "h2h_basis": {
