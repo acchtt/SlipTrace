@@ -12,6 +12,7 @@ from sweep_checkpoint import (  # noqa: E402
     SweepCheckpointError,
     advance_after_chunk,
     mark_source_blocked,
+    run_status_for_source_state,
     select_verification_chunk,
     source_retry_decision,
     validate_checkpoint,
@@ -50,6 +51,20 @@ def blocked_checkpoint():
         "completed_verification_blocks": [],
         "last_completed_block": None,
     }
+
+
+class SourceRunStatusMappingTests(unittest.TestCase):
+    def test_source_state_maps_to_airtable_run_status(self):
+        self.assertEqual(run_status_for_source_state("UNTRIED"), "RUNNING")
+        self.assertEqual(run_status_for_source_state("ACQUIRED"), "RUNNING")
+        self.assertEqual(run_status_for_source_state("SOURCE_BLOCKED"), "BLOCKED")
+
+    def test_source_blocked_is_not_a_run_status_value(self):
+        self.assertNotEqual(
+            run_status_for_source_state("SOURCE_BLOCKED"),
+            "SOURCE_BLOCKED",
+        )
+
 
 
 class SweepCheckpointTests(unittest.TestCase):
