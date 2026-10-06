@@ -159,7 +159,7 @@ class FollowThroughTests(unittest.TestCase):
         )
         self.assertEqual(lane, FollowLane.RESERVE)
 
-    def test_weak_second_route_stops_routine_followthrough(self):
+    def test_weak_second_route_without_carrier_led_funding_is_not_follow(self):
         lane = follow_through_lane(
             assessment(
                 carrier=CarrierStrength.STRONG,
@@ -167,7 +167,7 @@ class FollowThroughTests(unittest.TestCase):
             ),
             BoardState.FOCUS,
         )
-        self.assertEqual(lane, FollowLane.STOP)
+        self.assertEqual(lane, FollowLane.RESERVE)
 
     def test_carrier_led_weak_second_route_can_follow(self):
         lane = follow_through_lane(
@@ -297,6 +297,7 @@ class RankingTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=False,
             continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.LOW,
         )
         ranked = rank_assessments([unfunded, funded])
         self.assertEqual(ranked[0].match_id, "funded")
