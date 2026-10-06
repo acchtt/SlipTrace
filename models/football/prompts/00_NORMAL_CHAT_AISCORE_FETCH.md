@@ -577,9 +577,9 @@ Do not include hard-excluded, operationally excluded, or researchability-exclude
 
 Before creating the ZIP or saying `Sweep complete`, serialize `STEP0_HANDOFF.json` and run:
 
-`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json`
+`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json --consumer export`
 
-Required result: `step0_handoff_validation_status = PASS`.
+Required result: `step0_handoff_validation_status = PASS` and `consumer = export`. New Step-0 exports remain strict: a bounded-production handoff must include its discovery seed manifest and block-exclusion summary.
 
 If the validator fails, the sweep is not complete. Repair the export in Step 0 and rerun validation. Never emit a completed ZIP whose machine handoff fails. Never defer this repair to /rank.
 
