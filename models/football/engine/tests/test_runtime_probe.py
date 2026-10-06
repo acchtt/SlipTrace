@@ -16,10 +16,11 @@ class RuntimeProbeTests(unittest.TestCase):
                 required_files(stage),
             )
 
-    def test_rank_manifest_contains_both_board_engines(self):
+    def test_rank_manifest_contains_active_board_pair(self):
         files = required_files("rank")
-        self.assertIn("models/football/engine/board_triplet_cli.py", files)
-        self.assertIn("models/football/engine/c4_semantic_cli.py", files)
+        self.assertIn("models/football/engine/board_pair_cli.py", files)
+        self.assertNotIn("models/football/engine/board_triplet_cli.py", files)
+        self.assertNotIn("models/football/engine/c4_semantic_cli.py", files)
         self.assertIn(
             "models/football/engine/repaired_handoff_normalize.py",
             files,
