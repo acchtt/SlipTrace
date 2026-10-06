@@ -39,7 +39,7 @@ def _nonempty(value: Any, field: str) -> str:
     return value.strip()
 
 
-def _validate_source_contract(payload: dict[str, Any]) -> str:
+def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tuple[str, str]:
     """Validate Step-0 source semantics consumed by /rank.
 
     Older v2 handoffs may predate source_scope. They remain readable as
@@ -48,7 +48,7 @@ def _validate_source_contract(payload: dict[str, Any]) -> str:
     """
     scope = payload.get("source_scope")
     if scope is None:
-        return "LEGACY_EXACT_OR_PRE_SCOPE"
+        return "LEGACY_EXACT_OR_PRE_SCOPE", "LEGACY_PRE_SCOPE"
 
     if scope not in SOURCE_SCOPES:
         raise Step0HandoffError(
@@ -64,7 +64,7 @@ def _validate_source_contract(payload: dict[str, Any]) -> str:
                 "HANDOFF INCOMPLETE — EXACT_DATE_UNIVERSE cannot set "
                 "global_raw_exact=false"
             )
-        return scope
+        return scope, "EXACT_SOURCE_PROVENANCE_PRESENT"
 
     # New FAST_PRODUCTION fallback contract.
     if payload.get("coverage_mode") != "FALLBACK_PRODUCTION_SCOPE":
@@ -88,53 +88,78 @@ def _validate_source_contract(payload: dict[str, Any]) -> str:
             "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY"
         )
 
-    manifest = payload.get("discovery_seed_manifest")
-    if not isinstance(manifest, dict):
-        raise Step0HandoffError(
-            "HANDOFF INCOMPLETE — bounded source scope missing "
-            "discovery_seed_manifest"
-        )
-
-    sources = manifest.get("sources")
-    if not isinstance(sources, list) or len(sources) < 2:
-        raise Step0HandoffError(
-            "HANDOFF INCOMPLETE — bounded source scope requires at least "
-            "two discovery seed sources"
-        )
-
-    families = set()
-    for source in sources:
-        if not isinstance(source, dict):
-            raise Step0HandoffError(
-                "HANDOFF INCOMPLETE — discovery seed source must be an object"
-            )
-        family = _nonempty(source.get("family"), "discovery seed source family")
-        families.add(family.casefold())
-
-    if len(families) < 2:
-        raise Step0HandoffError(
-            "HANDOFF INCOMPLETE — bounded source scope requires at least "
-            "two independent source families"
-        )
-
-    if not isinstance(payload.get("production_universe_count"), int) or isinstance(
-        payload.get("production_universe_count"), bool
-    ) or payload.get("production_universe_count") < 0:
+    production_universe_count = payload.get("production_universe_count")
+    if (
+        isinstance(production_universe_count, bool)
+        or not isinstance(production_universe_count, int)
+        or production_universe_count < 0
+    ):
         raise Step0HandoffError(
             "HANDOFF INCOMPLETE — bounded source scope requires exact "
             "production_universe_count"
         )
 
-    if not isinstance(payload.get("block_excluded_summary"), (list, dict)):
-        raise Step0HandoffError(
-            "HANDOFF INCOMPLETE — bounded source scope requires "
-            "block_excluded_summary"
-        )
+    manifest = payload.get("discovery_seed_manifest")
+    block_summary = payload.get("block_excluded_summary")
 
-    return scope
+    # Export validation is strict. Every newly produced bounded Step-0 handoff
+    # must preserve its source manifest and block-exclusion audit metadata.
+    if consumer == "export":
+        if not isinstance(manifest, dict):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — bounded source scope missing "
+                "discovery_seed_manifest"
+            )
+        if not isinstance(block_summary, (list, dict)):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — bounded source scope requires "
+                "block_excluded_summary"
+            )
+
+    # /rank is allowed to consume a transitional bounded handoff that was
+    # already fully reconciled before the manifest requirement was added.
+    # Missing provenance is audit debt, not a reason to throw away a frozen
+    # production universe and capacity queue. The predictive inputs below
+    # remain fully fail-closed.
+    if manifest is None and consumer == "rank":
+        return scope, "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST"
+
+    if manifest is not None:
+        if not isinstance(manifest, dict):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — discovery_seed_manifest must be an object"
+            )
+        sources = manifest.get("sources")
+        if not isinstance(sources, list) or len(sources) < 2:
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — bounded source scope requires at least "
+                "two discovery seed sources"
+            )
+
+        families = set()
+        for source in sources:
+            if not isinstance(source, dict):
+                raise Step0HandoffError(
+                    "HANDOFF INCOMPLETE — discovery seed source must be an object"
+                )
+            family = _nonempty(
+                source.get("family"), "discovery seed source family"
+            )
+            families.add(family.casefold())
+
+        if len(families) < 2:
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — bounded source scope requires at least "
+                "two independent source families"
+            )
+
+    if consumer == "rank" and block_summary is None:
+        return scope, "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY"
+
+    return scope, "BOUNDED_SOURCE_PROVENANCE_PRESENT"
 
 
-def validate_step0_handoff(payload: dict[str, Any]) -> dict[str, Any]:
+def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export") -> dict[str, Any]:
     if payload.get("handoff_version") != HANDOFF_VERSION:
         raise Step0HandoffError(
             f"handoff_version must be {HANDOFF_VERSION}"
@@ -146,7 +171,12 @@ def validate_step0_handoff(payload: dict[str, Any]) -> dict[str, Any]:
                 f"HANDOFF INCOMPLETE — {key}=true required"
             )
 
-    source_scope = _validate_source_contract(payload)
+    if consumer not in {"export", "rank"}:
+        raise Step0HandoffError("consumer must be export or rank")
+
+    source_scope, source_manifest_status = _validate_source_contract(
+        payload, consumer=consumer
+    )
 
     admitted = payload.get("admitted_fixtures")
     queue = payload.get("capacity_queue")
@@ -249,6 +279,8 @@ def validate_step0_handoff(payload: dict[str, Any]) -> dict[str, Any]:
     return {
         "step0_handoff_validation_status": "PASS",
         "source_scope": source_scope,
+        "source_manifest_status": source_manifest_status,
+        "consumer": consumer,
         "admitted_count": len(admitted),
         "capacity_queue_count": len(queue),
         "capacity_deferred_count": deferred,
@@ -258,13 +290,19 @@ def validate_step0_handoff(payload: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True)
+    parser.add_argument(
+        "--consumer",
+        choices=("export", "rank"),
+        default="export",
+        help="export=strict Step-0 packaging validation; rank=consumer compatibility",
+    )
     args = parser.parse_args()
 
     try:
         payload = json.loads(
             Path(args.input).read_text(encoding="utf-8")
         )
-        out = validate_step0_handoff(payload)
+        out = validate_step0_handoff(payload, consumer=args.consumer)
     except (OSError, json.JSONDecodeError, Step0HandoffError) as exc:
         print(
             json.dumps({"ok": False, "error": str(exc)}),

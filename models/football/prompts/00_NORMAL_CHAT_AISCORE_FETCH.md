@@ -558,6 +558,7 @@ Required metadata:
 - `work_ready=true`;
 - `raw_senior_count` when `global_raw_exact=true`, otherwise `global_raw_exact=false` + exact `production_universe_count` + `block_excluded_summary`;
 - for `BOUNDED_PRODUCTION_DISCOVERY`: `source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY`, `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, `production_scope_complete=true`, and a frozen discovery seed manifest containing at least two independent source families;
+- before final packaging, mirror bounded provenance into Sweep Runs dedicated fields: `Source Scope = BOUNDED_PRODUCTION_DISCOVERY`, `Production Scope Complete = true`, and full `Discovery Seed Manifest`; preserve the same manifest in the final COMPLETE Resume Cursor instead of dropping it during phase transition;
 - `hard_excluded_count` when fixture-exact, otherwise block-level exclusion summary;
 - `operational_excluded_count`;
 - `researchability_excluded_count`;
@@ -577,9 +578,9 @@ Do not include hard-excluded, operationally excluded, or researchability-exclude
 
 Before creating the ZIP or saying `Sweep complete`, serialize `STEP0_HANDOFF.json` and run:
 
-`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json`
+`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json --consumer export`
 
-Required result: `step0_handoff_validation_status = PASS`.
+Required result: `step0_handoff_validation_status = PASS` and `consumer = export`. New Step-0 exports remain strict: a bounded-production handoff must include its discovery seed manifest and block-exclusion summary.
 
 If the validator fails, the sweep is not complete. Repair the export in Step 0 and rerun validation. Never emit a completed ZIP whose machine handoff fails. Never defer this repair to /rank.
 

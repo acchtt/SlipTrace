@@ -32,7 +32,7 @@ For `football-step0-handoff-v2`, require root-level:
 
 Run:
 
-`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json`
+`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json --consumer rank`
 
 Do not begin ranking if the validator fails.
 
@@ -43,6 +43,8 @@ Do not reconstruct:
 - missing frozen operational fields.
 
 Return the exact Step-0 validator error instead.
+
+For a transitional completed bounded handoff created before source-manifest persistence was enforced, `--consumer rank` may return `source_manifest_status = LEGACY_MISSING_DISCOVERY_SEED_MANIFEST` or `LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY`. These are **audit-provenance warnings, not ranking blockers**, provided all final Step-0 production-universe, queue, coverage, operational, identity/time, count and work-readiness checks still pass. Do not send the user back through source acquisition merely to repair missing provenance metadata.
 
 ### Step-0 source-scope compatibility
 
@@ -59,7 +61,7 @@ For `BOUNDED_PRODUCTION_DISCOVERY`, require the machine handoff validator to con
 - exact `production_universe_count`;
 - `block_excluded_summary`.
 
-Once that bounded Step-0 handoff passes, **do not restart source acquisition or demand an exact global raw fixture count in /rank**. Step 1 consumes the frozen production universe, complete A/B capacity queue, manifests, identities, kickoffs and dispositions exactly as packaged.
+Once that bounded Step-0 handoff passes, **do not restart source acquisition or demand an exact global raw fixture count in /rank**. Missing transitional source-manifest audit metadata must not discard an otherwise fully frozen, reconciled Step-0 production universe. Step 1 consumes the frozen production universe, complete A/B capacity queue, manifests, identities, kickoffs and dispositions exactly as packaged.
 
 The weaker global-raw claim must not weaken Step-1 integrity: protected/required/women coverage, every plausible A/B candidate, queue ranks and fixture identity/time must already be exact before `work_ready=true`.
 

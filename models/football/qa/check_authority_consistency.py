@@ -265,6 +265,8 @@ require(
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
     "Resume Cursor",
     "competition-block shared",
+    "without dropping source provenance",
+    "Discovery Seed Manifest",
     "Do not keep the only copy of a completed block in the assistant's transient context",
 )
 require(
@@ -318,6 +320,9 @@ require(
     "flduqxh9DOKdV1A06",
     "flduhyM3Thjwj3Bqs",
     "fld8jr7wAWGLhXqXe",
+    "fld4h6ZPqTCLBgxQ8",
+    "fldBq52mI5JtCz9xf",
+    "fld6ZtvrmNrFmff4h",
     "Never write `SOURCE_BLOCKED` into `Run Status`",
 )
 
@@ -332,6 +337,9 @@ require(
     "discovery_seed_manifest",
     "two independent source families",
     "production_universe_count",
+    'choices=("export", "rank")',
+    "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
+    "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY",
 )
 require(
     "models/football/engine/tests/test_step0_handoff_cli.py",
@@ -340,11 +348,17 @@ require(
     "test_bounded_requires_production_scope_complete",
     "test_bounded_requires_two_independent_source_families",
     "test_bounded_requires_production_universe_count",
+    "test_rank_accepts_transitional_bounded_handoff_without_manifest",
+    "test_export_rejects_bounded_handoff_without_manifest",
+    "test_rank_accepts_transitional_bounded_handoff_without_block_summary",
 )
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
     "Step-0 source-scope compatibility",
     "source_scope = BOUNDED_PRODUCTION_DISCOVERY",
+    "--consumer rank",
+    "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
+    "audit-provenance warnings, not ranking blockers",
     "do not restart source acquisition or demand an exact global raw fixture count in /rank",
     "production_scope_complete=true",
     "global_raw_exact=false",
@@ -353,6 +367,7 @@ require(
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
     "source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY",
     "discovery_seed_manifest",
+    "--consumer export",
     "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
 )
 require(

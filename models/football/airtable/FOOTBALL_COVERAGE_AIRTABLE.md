@@ -298,6 +298,9 @@ Bounded-execution fields:
 - `Source Last Attempt At` — `fldqs9yD3uZjEC1Yr`
 - `Source Retry Not Before` — `fldWkU52dpn2MSb4b`
 - `Source Recovery Attempt Count` — `fldpJ92WA877WjYNj`
+- `Source Scope` — `fld4h6ZPqTCLBgxQ8`
+- `Production Scope Complete` — `fldBq52mI5JtCz9xf`
+- `Discovery Seed Manifest` — `fld6ZtvrmNrFmff4h`
 
 For a resumable fresh sweep, `Resume Cursor` is the authoritative next stage/block. Normal checkpoints are RUNNING. A BLOCKED row is resumable only when its cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED` and the source-recovery lease authorizes a new bounded attempt. Do not infer progress from chat history.
 
@@ -319,5 +322,7 @@ A chunk boundary is not a coverage failure:
 - do not emit the canonical ZIP until final reconciliation/packaging passes.
 
 When the source epoch is already `ACQUIRED`, a resume must reuse its source hash/window rather than reacquire it. `ACQUIRED` may mean either an exact date universe or a frozen bounded production-discovery seed; preserve the source scope and coverage mode.
+
+For every new bounded-production source epoch, mirror `Source Scope`, `Production Scope Complete`, and the full `Discovery Seed Manifest` into dedicated Sweep Runs fields before packaging. The final COMPLETE cursor must not discard them. Transitional historical rows may have a blank manifest; current /rank treats that as audit-provenance debt only when the frozen Step-0 production universe/queue already passes all rank-consumer checks.
 
 When the source epoch is `SOURCE_BLOCKED`, it means neither exact acquisition nor the minimum two-independent-source production-discovery seed could be established. Only then does the 30-minute recovery lease apply. An exact date-page transport failure by itself must not persist SOURCE_BLOCKED in FAST_PRODUCTION.

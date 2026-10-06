@@ -100,6 +100,7 @@ On `ACQUIRED`:
 - persist `Run Status = RUNNING` and `Source Acquisition State = ACQUIRED`;
 - persist `source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY`;
 - persist source transport/hash/attempt state immediately;
+- for `BOUNDED_PRODUCTION_DISCOVERY`, persist the full frozen `discovery_seed_manifest` in the Resume Cursor and dedicated Sweep Runs field before leaving SOURCE_ACQUISITION;
 - set cursor phase = `DISCOVERY_CLASSIFICATION`;
 - do not reacquire this source epoch on resume.
 
@@ -169,7 +170,9 @@ Create the canonical ZIP only after reconciliation passes.
 Then:
 - `Run Status = COMPLETE`;
 - `Current Stage = COMPLETE`;
-- clear `Resume Cursor` or set it to a compact `COMPLETE` terminal record;
+- set `Resume Cursor` to a COMPLETE terminal record **without dropping source provenance**;
+- for bounded-production runs, carry forward `source_scope`, `source_transport`, `source_payload_hash`, `coverage_mode`, `global_raw_exact`, `production_scope_complete`, and the full `discovery_seed_manifest`;
+- mirror bounded provenance to dedicated Sweep Runs fields: `Source Scope`, `Production Scope Complete`, and `Discovery Seed Manifest`;
 - `Pending Verification Blocks = 0`;
 - persist final handoff filename/hash/status.
 
