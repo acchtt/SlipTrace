@@ -323,7 +323,7 @@ def mark_source_blocked(
     attempted_at: str,
 ) -> dict[str, Any]:
     """Persist a bounded retry lease after a failed source acquisition pass."""
-    cp = _source_blocked_checkpoint_view(payload)
+    cp = _source_acquisition_checkpoint_view(payload, require_blocked=False)
 
     fp = _nonempty(blocker_fingerprint, "blocker_fingerprint")
     attempt_dt = _parse_iso_datetime(attempted_at, "attempted_at")
