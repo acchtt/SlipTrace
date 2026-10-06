@@ -82,6 +82,9 @@ When accepted through either path:
 
 The repaired handoff is authoritative for:
 
+- Step-0 source scope / source transport / coverage mode;
+- `global_raw_exact` and `production_scope_complete`;
+- frozen discovery-seed provenance when bounded production discovery was used;
 - fixture identity;
 - competition identity;
 - scheduled kickoff / timezone;
@@ -98,6 +101,8 @@ Ranking must consume these fields as frozen input.
 
 After repaired handoff acceptance, /rank must not:
 
+- upgrade `BOUNDED_PRODUCTION_DISCOVERY` into an invented exact-date universe;
+- restart source acquisition merely because `global_raw_exact=false`;
 - search the web to re-verify fixture kickoff;
 - search the web to rediscover the fixture universe;
 - rebuild deferred competition blocks;

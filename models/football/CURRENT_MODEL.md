@@ -94,7 +94,8 @@ Default scope:
 `RESEARCHABLE_SENIOR_PRODUCTION`
 
 Step 0 must:
-- acquire a complete valid senior production universe under the source contract;
+- acquire a valid source scope under the source contract: prefer `EXACT_DATE_UNIVERSE`, otherwise use `BOUNDED_PRODUCTION_DISCOVERY` in FAST_PRODUCTION;
+- complete a valid senior production universe under final reconciliation;
 - preserve required/protected competition coverage;
 - preserve senior women's top-flight accounting;
 - apply hard scope exclusions;
@@ -115,6 +116,8 @@ Use `models/football/prompts/01_WORK_DAILY_SWEEP.md`.
 For repaired handoffs, first apply:
 
 `models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
+
+Step 1 accepts both exact-date and bounded-production Step-0 handoffs after machine validation. A bounded handoff keeps `global_raw_exact=false` and must not trigger raw-universe rediscovery inside /rank.
 
 Do not use /rank to rediscover or repair Step-0 identity/kickoff fields.
 

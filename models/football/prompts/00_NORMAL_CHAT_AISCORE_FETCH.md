@@ -545,6 +545,11 @@ Required metadata:
 
 - `model=Football C`
 - `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
+- `source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY`
+- `source_transport`
+- `coverage_mode`
+- `production_scope_complete`
+- `discovery_seed_manifest` when `source_scope=BOUNDED_PRODUCTION_DISCOVERY`
 - requested ICT/UTC window;
 - listing dates checked;
 - terminal scan state;
@@ -552,6 +557,7 @@ Required metadata:
 - `actionable_complete=true`;
 - `work_ready=true`;
 - `raw_senior_count` when `global_raw_exact=true`, otherwise `global_raw_exact=false` + exact `production_universe_count` + `block_excluded_summary`;
+- for `BOUNDED_PRODUCTION_DISCOVERY`: `source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY`, `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, `production_scope_complete=true`, and a frozen discovery seed manifest containing at least two independent source families;
 - `hard_excluded_count` when fixture-exact, otherwise block-level exclusion summary;
 - `operational_excluded_count`;
 - `researchability_excluded_count`;

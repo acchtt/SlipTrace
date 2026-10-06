@@ -44,6 +44,25 @@ Do not reconstruct:
 
 Return the exact Step-0 validator error instead.
 
+### Step-0 source-scope compatibility
+
+The new FAST_PRODUCTION Step 0 may hand off either:
+- `source_scope = EXACT_DATE_UNIVERSE`; or
+- `source_scope = BOUNDED_PRODUCTION_DISCOVERY`.
+
+For `BOUNDED_PRODUCTION_DISCOVERY`, require the machine handoff validator to confirm:
+- `source_transport = MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY`;
+- `coverage_mode = FALLBACK_PRODUCTION_SCOPE`;
+- `global_raw_exact = false`;
+- `production_scope_complete = true`;
+- a frozen `discovery_seed_manifest` with at least two independent source families;
+- exact `production_universe_count`;
+- `block_excluded_summary`.
+
+Once that bounded Step-0 handoff passes, **do not restart source acquisition or demand an exact global raw fixture count in /rank**. Step 1 consumes the frozen production universe, complete A/B capacity queue, manifests, identities, kickoffs and dispositions exactly as packaged.
+
+The weaker global-raw claim must not weaken Step-1 integrity: protected/required/women coverage, every plausible A/B candidate, queue ranks and fixture identity/time must already be exact before `work_ready=true`.
+
 ## 1. Repaired handoff authority
 
 If the attached file is a completed repaired sweep, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` **before any web research**.
@@ -92,6 +111,8 @@ Do not rank around a missing protected block.
 ## 3. Operational handoff gate
 
 Before deep football research verify:
+- the accepted Step-0 source scope is preserved and is not upgraded/downgraded by /rank;
+- for bounded-production handoffs, `production_scope_complete=true` and `global_raw_exact=false` are preserved without attempting raw-universe reconstruction;
 - initial admitted count <= 15;
 - every admitted row is operational A/B;
 - every admitted and capacity-deferred A/B row has:
@@ -298,6 +319,7 @@ Do not label a valid empty/zero-FOLLOW board as blocked merely because it has no
 Persist every ranked fixture before declaring /rank complete.
 
 Current active fields include:
+- frozen Step-0 source scope / coverage mode / source transport provenance;
 - common evidence basis;
 - C state/rank;
 - C supported line + basis;
