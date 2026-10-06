@@ -265,7 +265,7 @@ require(
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
     "Resume Cursor",
     "competition-block shared",
-    "do not drop source provenance",
+    "without dropping source provenance",
     "Discovery Seed Manifest",
     "Do not keep the only copy of a completed block in the assistant's transient context",
 )
