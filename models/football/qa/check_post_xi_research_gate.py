@@ -62,6 +62,11 @@ REQUIRED = {
         'sub.add_parser("pair")',
         '"EXECUTED_C_C2_PAIR"',
     ],
+    "models/football/retired/RETIREMENT_MANIFEST.md": [
+        "Current production roster:** Football C official + Football C2 shadow",
+        "Historical C3/C4 records remain immutable",
+        "Active production files must not depend on retired models",
+    ],
 }
 
 failures = []
@@ -92,6 +97,24 @@ FORBIDDEN_ACTIVE = {
         "C3 Step-2 shadow action",
         "C4 prospectively frozen Step-1 snapshot",
     ],
+    "models/football/engine/core.py": [
+        "class C3PolicyAssessment",
+        "def c3_ranking_key",
+        "def decide_c3",
+        "FundingState",
+        "FundingSource",
+    ],
+    "models/football/engine/adapter.py": [
+        "def parse_c3_policy",
+        "rank_assessments_c3",
+        "c3_board_state",
+        "decide_c3",
+    ],
+    "models/football/engine/schema.json": [
+        "\"c3\"",
+        "\"C3-PASS\"",
+        "\"c3_funding_rechecked\"",
+    ],
 }
 
 for file_name, needles in FORBIDDEN_ACTIVE.items():
@@ -104,8 +127,8 @@ for file_name, needles in FORBIDDEN_ACTIVE.items():
         if needle in text:
             failures.append(f"{file_name}: retired active-path invariant present: {needle}")
 
-# Runtime boundary is authoritative: retired models may remain as historical
-# source modules, but run_board must reject them.
+# Runtime boundary is authoritative. Retired source may remain only in
+# explicitly historical/retired files; active core/adapter/schema stay C+C2-only.
 adapter = Path("models/football/engine/adapter.py").read_text(encoding="utf-8")
 if 'model not in {"c", "c2"}' not in adapter:
     failures.append("adapter.py: active board model set is not C+C2 only")
