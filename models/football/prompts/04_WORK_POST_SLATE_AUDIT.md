@@ -1,5 +1,7 @@
 # 04 — Work: Football C / C2 / C3 / C4 / Engine Post-Slate Audit
 
+> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired. `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md` overrides stale C3/C4 requirements in this file. New workflow/accounting/execution is C+C2 only.
+
 **Command alias:** `/audit`
 
 Read `models/football/CURRENT_MODEL.md` first.
