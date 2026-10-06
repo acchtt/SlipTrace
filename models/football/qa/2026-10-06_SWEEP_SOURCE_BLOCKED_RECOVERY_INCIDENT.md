@@ -66,3 +66,18 @@ A direct date-level carrier reachable from both the ChatGPT web fetch path and G
 For 2026-10-06 it exposed a dated all-fixtures page with a declared `All 144` count and server-rendered fixture rows. Independent current corroboration surfaces FootballInfo and LivescoresX were also reachable.
 
 Production fallback now tries the count-reconciled FootballFixtures.org date page before the legacy LiveScore/Flashscore/Soccerway set. Search snippets remain forbidden for completeness; only the direct date page may act as the carrier.
+
+
+## Root-cause clarification after attempt #4
+
+Attempt #4 exposed a separate runtime mismatch: the sweep chat treated failure to fetch the newly preferred FootballFixtures.org direct page as terminal even though the source gate is supposed to be multi-carrier.
+
+The audit hardening introduced a pre-discovery exact-universe gate on 2026-10-04. Before that change, Step 0 could build the slate from broader multi-source browsing and then reconcile it. After the change, one transport-level direct-page failure could halt the entire sweep before discovery.
+
+This was an overcorrection. Completeness protection is still required, but no single direct carrier or one web-tool URL failure may be a hard dependency.
+
+Current correction:
+- literal direct-date navigation is mandatory;
+- a provider-local Invalid URL/cache miss/generic page is non-terminal;
+- all permitted direct-date carriers must be attempted within the bounded pass before SOURCE_BLOCKED;
+- search/index output remains non-authoritative for completeness.
