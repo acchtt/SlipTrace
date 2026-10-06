@@ -269,7 +269,7 @@ def source_retry_decision(
     reopens after SOURCE_RECOVERY_COOLDOWN_MINUTES. Legacy blocked checkpoints
     without retry metadata are allowed one immediate recovery probe.
     """
-    cp = _source_blocked_checkpoint_view(payload)
+    cp = _source_acquisition_checkpoint_view(payload, require_blocked=True)
 
     current_fp = _nonempty(
         current_blocker_fingerprint, "current_blocker_fingerprint"
