@@ -241,6 +241,11 @@ require(
 require(
     "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md",
     "Repair mode must not restart broad acquisition/discovery",
+    "source-recovery lease",
+    "source_retry_not_before",
+    "SOURCE_RECOVERY_LEASE_EXPIRED",
+    "legacy blocked checkpoint",
+    "30 minutes",
 )
 
 # 4D2. Fresh Step-0 sweep execution must be bounded and resumable.
@@ -276,6 +281,11 @@ require(
     "models/football/engine/sweep_checkpoint.py",
     'CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"',
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
+    "SOURCE_RECOVERY_COOLDOWN_MINUTES = 30",
+    "def source_retry_decision",
+    "def mark_source_blocked",
+    "SOURCE_RECOVERY_LEASE_EXPIRED",
+    "LEGACY_BLOCKED_CHECKPOINT_NO_RETRY_LEASE",
     "def select_verification_chunk",
     "def advance_after_chunk",
 )
@@ -284,6 +294,11 @@ require(
     "test_selects_at_most_six_blocks",
     "test_retry_blocks_are_prioritized_on_resume",
     "test_advance_to_reconciliation_when_queue_empty",
+    "test_unchanged_blocker_does_not_retry_inside_lease",
+    "test_unchanged_blocker_retries_after_lease_expiry",
+    "test_changed_fingerprint_retries_immediately",
+    "test_legacy_blocked_checkpoint_without_lease_retries_once",
+    "test_mark_source_blocked_creates_retry_lease",
 )
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
