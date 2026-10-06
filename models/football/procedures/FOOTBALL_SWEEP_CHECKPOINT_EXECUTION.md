@@ -65,7 +65,7 @@ If acquisition work somehow begins and a later check discovers that the current 
 
 A fresh /sweep invocation that returns while work remains must satisfy exactly one of:
 - RUNNING + valid Resume Cursor, with `SWEEP CHECKPOINT SAVED — /sweep resume`;
-- terminal SOURCE_BLOCKED persisted;
+- SOURCE_BLOCKED persisted with its bounded recovery lease;
 - COMPLETE persisted;
 - explicit `SWEEP START FAILED — CHECKPOINT NOT PERSISTED` before acquisition.
 
