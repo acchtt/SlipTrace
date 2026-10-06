@@ -67,14 +67,21 @@ def bounded_payload():
 
 
 class T(unittest.TestCase):
-    def runp(self, p):
+    def runp(self, p, consumer="export"):
         with tempfile.NamedTemporaryFile(
             "w", suffix=".json", delete=False
         ) as f:
             json.dump(p, f)
             name = f.name
         return subprocess.run(
-            [sys.executable, str(CLI), "--input", name],
+            [
+                sys.executable,
+                str(CLI),
+                "--input",
+                name,
+                "--consumer",
+                consumer,
+            ],
             capture_output=True,
             text=True,
         )
@@ -88,6 +95,33 @@ class T(unittest.TestCase):
         result = self.runp(bounded_payload())
         self.assertEqual(result.returncode, 0)
         self.assertIn("BOUNDED_PRODUCTION_DISCOVERY", result.stdout)
+
+    def test_rank_accepts_transitional_bounded_handoff_without_manifest(self):
+        p = bounded_payload()
+        del p["discovery_seed_manifest"]
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 0)
+        self.assertIn(
+            "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
+            result.stdout,
+        )
+
+    def test_export_rejects_bounded_handoff_without_manifest(self):
+        p = bounded_payload()
+        del p["discovery_seed_manifest"]
+        result = self.runp(p, consumer="export")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("discovery_seed_manifest", result.stderr)
+
+    def test_rank_accepts_transitional_bounded_handoff_without_block_summary(self):
+        p = bounded_payload()
+        del p["block_excluded_summary"]
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 0)
+        self.assertIn(
+            "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY",
+            result.stdout,
+        )
 
     def test_bounded_requires_fallback_coverage_mode(self):
         p = bounded_payload()
