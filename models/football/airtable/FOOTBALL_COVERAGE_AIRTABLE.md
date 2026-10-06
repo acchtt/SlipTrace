@@ -318,6 +318,6 @@ A chunk boundary is not a coverage failure:
 - do not set `work_ready=true`;
 - do not emit the canonical ZIP until final reconciliation/packaging passes.
 
-When the source epoch is already `ACQUIRED`, a resume must reuse its source hash/window rather than reacquire the date universe.
+When the source epoch is already `ACQUIRED`, a resume must reuse its source hash/window rather than reacquire it. `ACQUIRED` may mean either an exact date universe or a frozen bounded production-discovery seed; preserve the source scope and coverage mode.
 
-When the source epoch is `SOURCE_BLOCKED`, an unchanged blocker fingerprint suppresses only immediate repeat loops. Persist the 30-minute recovery lease; after expiry, or immediately when the fingerprint changes, one new bounded source acquisition pass is allowed. Legacy blocked rows without lease metadata receive one immediate recovery probe.
+When the source epoch is `SOURCE_BLOCKED`, it means neither exact acquisition nor the minimum two-independent-source production-discovery seed could be established. Only then does the 30-minute recovery lease apply. An exact date-page transport failure by itself must not persist SOURCE_BLOCKED in FAST_PRODUCTION.

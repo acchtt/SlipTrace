@@ -107,3 +107,20 @@ Correct source-phase mapping:
 - SOURCE_BLOCKED -> Run Status BLOCKED.
 
 `SOURCE_BLOCKED` must never be written into the Run Status field. It belongs only to Source Acquisition State and the structured Resume Cursor.
+
+
+## Final architectural correction: remove exact-carrier hard dependency from FAST_PRODUCTION
+
+Repeated recovery attempts proved that transport patching was the wrong level of repair. The audit-era source gate coupled normal Step-0 usability to obtaining a single exact master date page before any discovery could begin.
+
+That requirement is now removed for FAST_PRODUCTION.
+
+Current design:
+- exact date universe remains preferred;
+- if exact carriers fail, freeze at least two independent current discovery source families;
+- persist `ACQUIRED / BOUNDED_PRODUCTION_DISCOVERY`;
+- proceed into normal senior discovery/reconciliation with `global_raw_exact=false`;
+- require exact fixture-level reconciliation for protected/required/women blocks and every plausible A/B candidate;
+- only use SOURCE_BLOCKED when even the minimum two-source discovery seed cannot be established.
+
+This restores the practical pre-audit behavior while preserving the audit's important integrity improvements. Completeness is enforced at production-scope reconciliation instead of by a brittle single transport gate.

@@ -98,11 +98,15 @@ Apply `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
 On `ACQUIRED`:
 - persist `Run Status = RUNNING` and `Source Acquisition State = ACQUIRED`;
+- persist `source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY`;
 - persist source transport/hash/attempt state immediately;
 - set cursor phase = `DISCOVERY_CLASSIFICATION`;
 - do not reacquire this source epoch on resume.
 
+If exact carriers fail in FAST_PRODUCTION but the minimum two-source discovery seed is available, persist `ACQUIRED / BOUNDED_PRODUCTION_DISCOVERY` and continue. Do not enter SOURCE_BLOCKED or the recovery lease merely because the exact date page could not be fetched.
+
 On `SOURCE_BLOCKED`:
+- use this state only when neither exact acquisition nor the minimum bounded two-source production-discovery seed is available;
 - persist `Run Status = BLOCKED` and `Source Acquisition State = SOURCE_BLOCKED`;
 - never use `SOURCE_BLOCKED` as the Run Status value;
 - persist the blocker/fingerprint;
@@ -115,7 +119,7 @@ On a later resume, evaluate the deterministic source-recovery lease before retur
 
 This phase is source-local and should be cheap.
 
-From the acquired date universe:
+From the acquired source scope / discovery seed:
 - enumerate senior blocks;
 - apply hard-scope exclusions;
 - identify protected/required/women blocks;

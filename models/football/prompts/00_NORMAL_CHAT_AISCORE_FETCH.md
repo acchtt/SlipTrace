@@ -19,7 +19,7 @@ The objective is the middle ground between the old narrow allowlist and the late
 
 Operational principle:
 
-`AISCORE SOURCE ACQUISITION -> AISCORE SENIOR DISCOVERY -> HARD SCOPE FILTER -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY GATE -> CAPACITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
+`SOURCE ACQUISITION (EXACT OR BOUNDED) -> SENIOR DISCOVERY -> HARD SCOPE FILTER -> OPERATIONAL VIABILITY GATE -> RESEARCHABILITY GATE -> CAPACITY GATE -> VERIFIED TIME/IDENTITY -> PACKAGE -> FOOTBALL C`
 
 This intake is about **information quality and later executability**, not whether a competition is historically high-scoring.
 
@@ -93,21 +93,40 @@ Cheap source-local enumeration, hard exclusions, already-supported C/D block cla
 
 ## Source authority
 
-AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. In chat/web runtimes, try the literal direct date URL first. If that transport fails, use one domain-scoped exact-date search **only as a locator**, then OPEN the returned result. The opened full canonical date page may serve as the carrier when it passes the same completeness checks; the search snippet alone never may. Try FootballFixtures.org first, then FootballInfo, LivescoresX, LiveScore, Flashscore and Soccerway. A provider-local `Invalid URL`, cache miss, or generic page is not terminal by itself. Do not mark SOURCE_BLOCKED until every permitted carrier path, including search-to-open recovery where applicable, has actually been attempted.
+AiScore remains the preferred fixture-discovery authority, but normal FAST_PRODUCTION no longer depends on one exact master date page.
 
-Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
+Apply `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
-A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. In FAST_PRODUCTION cross-midnight windows, "complete" follows the source-acquisition terminal-date exception: a complete primary date universe plus a separately reconciled <=6-hour terminal interval may satisfy acquisition without obtaining the provider's entire next-calendar-date universe. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
+The source stage has two valid success modes:
 
-In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
+1. `EXACT_DATE_UNIVERSE` — native AiScore or a reconciled complete date carrier;
+2. `BOUNDED_PRODUCTION_DISCOVERY` — when exact carrier transport fails, freeze at least two independent current discovery source families and proceed with `coverage_mode=FALLBACK_PRODUCTION_SCOPE`.
 
-When persisting a source failure, use `Run Status = BLOCKED` and `Source Acquisition State = SOURCE_BLOCKED`. Never write `SOURCE_BLOCKED` into the Run Status single-select.
+For HTML carriers:
+- try the literal date URL first;
+- after a transport-local failure, one domain/date search may be used only as a locator;
+- OPEN the located result;
+- an opened full canonical page may be a carrier;
+- the search snippet alone may not certify exact completeness.
 
-If the source gate is `SOURCE_BLOCKED`, stop the current invocation with:
+**Critical FAST_PRODUCTION rule:** failure to obtain an exact date carrier is not itself SOURCE_BLOCKED. If search/provider/official discovery surfaces are still available, switch to bounded production discovery **in the same invocation**.
 
-`HANDOFF INCOMPLETE — AISCORE SOURCE BLOCKED`
+In bounded production discovery:
+- search/index results may seed candidate competition/fixture discovery;
+- `global_raw_exact=false`;
+- do not fabricate a global raw count;
+- every surfaced protected/required/women block and every plausible A/B senior candidate must later receive exact reconciliation/disposition;
+- `production_scope_complete=true` is decided only at final reconciliation.
 
-SOURCE_BLOCKED is not permanent. Persist the source-recovery lease from `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`. On `/sweep resume`, recompute the current blocker fingerprint and run the deterministic source-retry decision before returning stored SOURCE_BLOCKED. Retry immediately when the fingerprint changed or when a legacy blocked checkpoint has no lease metadata. Otherwise, once the 30-minute lease expires, perform exactly one new bounded source acquisition pass. Never use recovery permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
+A true SOURCE_BLOCKED result is allowed only when neither an exact carrier nor the minimum two independent current discovery source families can be established.
+
+When persisting a true source failure:
+- `Run Status = BLOCKED`;
+- `Source Acquisition State = SOURCE_BLOCKED`.
+
+Never write `SOURCE_BLOCKED` into the Run Status single-select.
+
+For `/sweep resume`, a true blocked source run uses the recovery lease. But an exact-carrier failure must not enter the recovery lease if bounded production discovery can still start.
 
 ## Time / identity integrity
 
@@ -128,7 +147,7 @@ In repair mode, verify only fixtures with missing/conflicting time/identity or f
 
 ## 1. Mandatory senior-block discovery
 
-This section runs only after `source_acquisition_state=ACQUIRED` or a valid covering COMPLETE AiScore universe has been reused.
+This section runs after `source_acquisition_state=ACQUIRED` in either `EXACT_DATE_UNIVERSE` or `BOUNDED_PRODUCTION_DISCOVERY` mode, or after a valid covering COMPLETE source epoch has been reused.
 
 Before applying hard scope exclusions, enumerate all visible senior competition blocks in the requested AiScore window.
 
