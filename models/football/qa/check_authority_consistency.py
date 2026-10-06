@@ -265,6 +265,8 @@ require(
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
     "Resume Cursor",
     "competition-block shared",
+    "do not drop source provenance",
+    "Discovery Seed Manifest",
     "Do not keep the only copy of a completed block in the assistant's transient context",
 )
 require(
@@ -318,6 +320,9 @@ require(
     "flduqxh9DOKdV1A06",
     "flduhyM3Thjwj3Bqs",
     "fld8jr7wAWGLhXqXe",
+    "fld4h6ZPqTCLBgxQ8",
+    "fldBq52mI5JtCz9xf",
+    "fld6ZtvrmNrFmff4h",
     "Never write `SOURCE_BLOCKED` into `Run Status`",
 )
 
