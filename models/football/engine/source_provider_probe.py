@@ -8,11 +8,14 @@ from datetime import date
 URLS = {
     "sofascore_www": "https://www.sofascore.com/api/v1/sport/football/scheduled-events/{date}",
     "sofascore_api": "https://api.sofascore.com/api/v1/sport/football/scheduled-events/{date}",
+    "footballfixtures": "https://www.footballfixtures.org/fixtures/{date}",
+    "footballinfo": "https://www.footballinfo.net/Fixtures?date={date}",
+    "livescoresx": "https://livescoresx.com/fixtures/{date}",
     "thesportsdb": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={date}&s=Soccer",
 }
 
 
-def fetch(url: str) -> tuple[int, str, object]:
+def fetch(url: str) -> tuple[int, str, object, str]:
     req = urllib.request.Request(
         url,
         headers={
@@ -27,7 +30,7 @@ def fetch(url: str) -> tuple[int, str, object]:
             payload = json.loads(text)
         except json.JSONDecodeError:
             payload = None
-        return resp.status, text[:300], payload
+        return resp.status, text[:300], payload, text
 
 
 def summarize(name: str, payload: object) -> dict[str, object]:
@@ -63,9 +66,17 @@ def main() -> int:
     for name, template in URLS.items():
         url = template.format(date=d)
         try:
-            status, head, payload = fetch(url)
-            print(json.dumps({"provider": name, "status": status, "head": head, **summarize(name, payload)}, ensure_ascii=False))
-            if status == 200 and isinstance(payload, dict):
+            status, head, payload, full_text = fetch(url)
+            extra = {}
+            if payload is None:
+                extra["body_length"] = len(full_text)
+                extra["has_fixture_heading"] = (
+                    "Football Fixtures" in full_text
+                    or "Fixtures" in full_text
+                    or "matches scheduled" in full_text
+                )
+            print(json.dumps({"provider": name, "status": status, "head": head, **extra, **summarize(name, payload)}, ensure_ascii=False))
+            if status == 200 and (isinstance(payload, dict) or len(full_text) > 5000):
                 any_success = True
         except Exception as exc:
             print(json.dumps({"provider": name, "error": f"{type(exc).__name__}: {exc}"}, ensure_ascii=False))
