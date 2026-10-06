@@ -93,13 +93,15 @@ Cheap source-local enumeration, hard exclusions, already-supported C/D block cla
 
 ## Source authority
 
-AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. In chat/web runtimes, navigate the literal direct date URLs rather than relying on provider search results. Try the exact FootballFixtures.org date URL first, then the exact FootballInfo and LivescoresX date URLs as additional direct-date surfaces, with LiveScore/Flashscore/Soccerway remaining permitted alternates. A provider-local `Invalid URL`, cache miss, or generic page is not terminal by itself. Do not mark SOURCE_BLOCKED until every permitted direct-date carrier in the bounded pass has actually been attempted.
+AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. In chat/web runtimes, try the literal direct date URL first. If that transport fails, use one domain-scoped exact-date search **only as a locator**, then OPEN the returned result. The opened full canonical date page may serve as the carrier when it passes the same completeness checks; the search snippet alone never may. Try FootballFixtures.org first, then FootballInfo, LivescoresX, LiveScore, Flashscore and Soccerway. A provider-local `Invalid URL`, cache miss, or generic page is not terminal by itself. Do not mark SOURCE_BLOCKED until every permitted carrier path, including search-to-open recovery where applicable, has actually been attempted.
 
 Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
 A complete source universe must be acquired through AiScore or the authorized multi-source fallback before broad discovery/reconciliation begins. In FAST_PRODUCTION cross-midnight windows, "complete" follows the source-acquisition terminal-date exception: a complete primary date universe plus a separately reconciled <=6-hour terminal interval may satisfy acquisition without obtaining the provider's entire next-calendar-date universe. Public search results, competition pages, team schedules, and other providers may verify **known** fixtures after acquisition but may not be used to reconstruct or certify the raw universe.
 
 In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
+
+When persisting a source failure, use `Run Status = BLOCKED` and `Source Acquisition State = SOURCE_BLOCKED`. Never write `SOURCE_BLOCKED` into the Run Status single-select.
 
 If the source gate is `SOURCE_BLOCKED`, stop the current invocation with:
 

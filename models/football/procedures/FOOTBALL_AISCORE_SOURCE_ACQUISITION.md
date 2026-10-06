@@ -82,23 +82,36 @@ If B is technically unavailable, use this ordered alternate path:
 
 A fallback carrier is acceptable only when it is a provider-level date/all-matches listing capable of enumerating the production senior scope. Search snippets and individually discovered fixture pages are not carriers.
 
-### Direct-navigation rule for chat/web runtimes
+### Direct-navigation + search-to-open rule for chat/web runtimes
 
-For every permitted HTML date carrier, **navigate the literal date URL directly first**. Do not search for the provider name and then treat an indexed/search result as the carrier.
+For every permitted HTML date carrier, **navigate the literal date URL directly first**.
 
 Primary exact URLs:
 - FootballFixtures.org: `https://www.footballfixtures.org/fixtures/YYYY-MM-DD`
 - FootballInfo: `https://www.footballinfo.net/Fixtures?date=YYYY-MM-DD`
 - LivescoresX: `https://livescoresx.com/fixtures/YYYY-MM-DD`
 
-A search/index result may be used only as a transport-health clue or to recover the literal URL. It may never certify completeness by itself.
+If literal navigation succeeds, validate the returned full page normally.
 
-If one direct navigation returns a transport-local error such as `Invalid URL`, cache miss, stale generic page, or fetch failure:
+If literal navigation returns a transport-local error such as `Invalid URL`, cache miss, stale generic page, or fetch failure, use **one search-to-open locator recovery** for that provider/date before abandoning it:
+
+1. run a domain-scoped exact-date query for the provider/date;
+2. use the search result **only to recover a canonical result reference/URL**;
+3. OPEN the returned result;
+4. accept it only if OPEN returns the **full date page content**, not a snippet, and the page satisfies that carrier's normal date/universe checks.
+
+A search/index **snippet by itself** may never certify completeness. A search-located result that is subsequently opened into the full canonical date page is a normal webpage carrier and may certify completeness if its contents satisfy the same checks as literal navigation.
+
+Persist transport provenance:
+- `DIRECT_DATE_URL` when literal navigation worked;
+- `SEARCH_LOCATED_FULL_PAGE` when search was only the locator and OPEN returned the complete canonical page.
+
+If one provider still fails after its direct attempt plus one search-to-open recovery:
 - do **not** immediately declare SOURCE_BLOCKED;
-- attempt the next exact direct-date URL in the permitted carrier list;
+- attempt the next permitted date carrier;
 - treat the failure as provider/transport-local, not as proof that the date universe is unavailable.
 
-SOURCE_BLOCKED is allowed only after every currently permitted direct date carrier has been attempted in the bounded fallback pass and none produced an acceptable date universe.
+SOURCE_BLOCKED is allowed only after every currently permitted date carrier has been attempted in the bounded fallback pass and none produced an acceptable full-page universe.
 
 
 ### FootballFixtures.org carrier acceptance
@@ -124,7 +137,7 @@ Set:
 `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE`;
 and persist the actual carrier/corroborator providers used.
 
-Failure of AiScore, FootballFixtures.org, LiveScore, Flashscore, Soccerway, FootballInfo, or LivescoresX **individually** must not produce SOURCE_BLOCKED. The bounded pass must exhaust the currently permitted direct-date carriers first. A transport-local `Invalid URL` result from one provider is not terminal. If no valid alternate date-level universe can be established from any permitted direct-date carrier, stop as SOURCE_BLOCKED.
+Failure of AiScore, FootballFixtures.org, LiveScore, Flashscore, Soccerway, FootballInfo, or LivescoresX **individually** must not produce SOURCE_BLOCKED. The bounded pass must exhaust the currently permitted carrier path, including the one search-to-open recovery for an HTML date carrier after a direct transport failure. A transport-local `Invalid URL`, cache miss, or stale generic page from one provider is not terminal. If no valid alternate date-level universe can be established from any permitted full-page carrier after the bounded attempts, stop as SOURCE_BLOCKED.
 
 ### C1. FAST_PRODUCTION terminal-date exception
 
@@ -156,7 +169,7 @@ Per run + source epoch, the normal acquisition budget is:
 
 - one covering-cache/reuse check;
 - one native AiScore date acquisition attempt;
-- one fallback acquisition pass across the permitted date-level carriers. Within that single pass, try FootballFixtures.org -> LiveScore -> Flashscore -> Soccerway until one valid carrier is acquired for each listing date; this is one bounded fallback attempt, not four retry loops. Corroboration calls required by the accepted carrier do not count as a new acquisition attempt.
+- one fallback acquisition pass across the permitted date-level carriers. Within that single pass, try FootballFixtures.org -> FootballInfo -> LivescoresX -> LiveScore -> Flashscore -> Soccerway until one valid carrier is acquired for each listing date. For HTML carriers, a failed literal URL may use one search-to-open locator recovery before moving on. This is one bounded fallback pass, not repeated retry loops. Corroboration calls required by the accepted carrier do not count as a new acquisition attempt.
 
 Do not loop through public search engines, dozens of competition pages, team schedules, or country-by-country reconstruction trying to simulate the missing master list.
 
@@ -213,7 +226,7 @@ Behavior:
 A recovery acquisition pass is the same bounded source-level sequence from §3:
 1. covering COMPLETE/persisted-cache check;
 2. one native AiScore acquisition attempt;
-3. one ordered fallback carrier pass: FootballFixtures.org -> LiveScore -> Flashscore -> Soccerway, stopping once a valid carrier is obtained for each required listing date and then doing only required corroboration.
+3. one ordered fallback carrier pass: FootballFixtures.org -> FootballInfo -> LivescoresX -> LiveScore -> Flashscore -> Soccerway, using at most one search-to-open locator recovery per HTML carrier/date after a literal URL failure, stopping once a valid carrier is obtained for each required listing date and then doing only required corroboration.
 
 It is **not** permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
 

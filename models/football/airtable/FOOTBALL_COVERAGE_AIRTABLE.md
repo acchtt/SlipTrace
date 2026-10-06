@@ -301,6 +301,17 @@ Bounded-execution fields:
 
 For a resumable fresh sweep, `Resume Cursor` is the authoritative next stage/block. Normal checkpoints are RUNNING. A BLOCKED row is resumable only when its cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED` and the source-recovery lease authorizes a new bounded attempt. Do not infer progress from chat history.
 
+Status fields are intentionally different enums:
+- `Run Status`: `RUNNING / BLOCKED / COMPLETE` (and any other existing run-level options);
+- `Source Acquisition State`: `UNTRIED / ACQUIRED / SOURCE_BLOCKED`.
+
+Required mapping during source acquisition:
+- `UNTRIED -> Run Status RUNNING`;
+- `ACQUIRED -> Run Status RUNNING`;
+- `SOURCE_BLOCKED -> Run Status BLOCKED`.
+
+**Never write `SOURCE_BLOCKED` into `Run Status`.** That value belongs only to `Source Acquisition State` and the structured Resume Cursor.
+
 A chunk boundary is not a coverage failure:
 - keep `Run Status = RUNNING`;
 - persist the next cursor;

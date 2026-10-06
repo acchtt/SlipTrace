@@ -76,7 +76,7 @@ When the command is `/sweep resume`:
 - load the matching `Sweep Runs` row first;
 - accept a normal `RUNNING` row or a `BLOCKED` row only when its Resume Cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED`;
 - for a blocked source row, run the deterministic source-recovery lease decision before returning the stored blocker;
-- if recovery retry is authorized, set `Run Status = RUNNING` before any provider/source call; if the bounded recovery pass fails, persist it back as `BLOCKED / SOURCE_BLOCKED` with a fresh lease;
+- if recovery retry is authorized, set `Run Status = RUNNING` before any provider/source call; if the bounded recovery pass fails, persist `Run Status = BLOCKED` and `Source Acquisition State = SOURCE_BLOCKED` with a fresh lease. **Never write `SOURCE_BLOCKED` into the Run Status single-select.**
 - `Resume Cursor` is authoritative for the next unfinished stage/block;
 - read persisted Daily Coverage rows for completed work;
 - reuse an `ACQUIRED` source epoch when its hash/window is unchanged;
@@ -97,11 +97,14 @@ A plain `resume` in the project should also continue the most recent resumable S
 Apply `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
 On `ACQUIRED`:
+- persist `Run Status = RUNNING` and `Source Acquisition State = ACQUIRED`;
 - persist source transport/hash/attempt state immediately;
 - set cursor phase = `DISCOVERY_CLASSIFICATION`;
 - do not reacquire this source epoch on resume.
 
 On `SOURCE_BLOCKED`:
+- persist `Run Status = BLOCKED` and `Source Acquisition State = SOURCE_BLOCKED`;
+- never use `SOURCE_BLOCKED` as the Run Status value;
 - persist the blocker/fingerprint;
 - persist the source last-attempt timestamp and retry-not-before lease from `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`;
 - return source-blocked for the current invocation.

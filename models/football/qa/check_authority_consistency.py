@@ -251,8 +251,10 @@ require(
     "https://www.footballinfo.net/Fixtures?date=YYYY-MM-DD",
     "https://livescoresx.com/fixtures/YYYY-MM-DD",
     "DATE_CARRIER_COUNT_MISMATCH",
-    "Direct-navigation rule for chat/web runtimes",
-    "A transport-local `Invalid URL` result from one provider is not terminal.",
+    "Direct-navigation + search-to-open rule for chat/web runtimes",
+    "SEARCH_LOCATED_FULL_PAGE",
+    "A search/index **snippet by itself** may never certify completeness.",
+    "A transport-local `Invalid URL`, cache miss, or stale generic page from one provider is not terminal.",
     "FootballInfo",
     "LivescoresX",
 )
@@ -291,6 +293,8 @@ require(
     'CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"',
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
     "SOURCE_RECOVERY_COOLDOWN_MINUTES = 30",
+    "RUN_STATUS_BY_SOURCE_STATE",
+    "def run_status_for_source_state",
     "def source_retry_decision",
     "def mark_source_blocked",
     "SOURCE_RECOVERY_LEASE_EXPIRED",
@@ -308,6 +312,8 @@ require(
     "test_changed_fingerprint_retries_immediately",
     "test_legacy_blocked_checkpoint_without_lease_retries_once",
     "test_mark_source_blocked_creates_retry_lease",
+    "test_source_state_maps_to_airtable_run_status",
+    "test_source_blocked_is_not_a_run_status_value",
 )
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
@@ -315,6 +321,7 @@ require(
     "flduqxh9DOKdV1A06",
     "flduhyM3Thjwj3Bqs",
     "fld8jr7wAWGLhXqXe",
+    "Never write `SOURCE_BLOCKED` into `Run Status`",
 )
 
 # 4E. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
