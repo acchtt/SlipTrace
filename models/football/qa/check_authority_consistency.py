@@ -244,7 +244,7 @@ require(
     "source-recovery lease",
     "source_retry_not_before",
     "SOURCE_RECOVERY_LEASE_EXPIRED",
-    "legacy blocked checkpoint",
+    "stored blocked checkpoint predates this lease",
     "30 minutes",
 )
 
