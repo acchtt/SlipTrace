@@ -417,8 +417,10 @@ def clearing_goal_funded(a: MatchAssessment) -> bool:
         and a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
         and a.burden_completion_quality == Grade.HIGH
         and a.continuation_quality == Grade.HIGH
+        and a.opponent_leakage >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
