@@ -203,7 +203,7 @@ def _source_acquisition_checkpoint_view(payload: dict[str, Any], *, require_bloc
     source_state = _nonempty(
         payload.get("source_acquisition_state"), "source_acquisition_state"
     )
-    if source_state != "SOURCE_BLOCKED":
+    if require_blocked and source_state != "SOURCE_BLOCKED":
         raise SweepCheckpointError(
             "source retry decision requires source_acquisition_state=SOURCE_BLOCKED"
         )
