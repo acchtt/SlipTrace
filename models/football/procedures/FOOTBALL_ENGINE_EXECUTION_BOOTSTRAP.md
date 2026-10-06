@@ -3,20 +3,20 @@
 **Status:** MANDATORY STEP-2 EXECUTION PRECHECK  
 **Applies to:** `/xi` deterministic validation  
 **Common runtime precheck:** `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`  
-**Models:** Football C, C2, C3  
-**Engine authority:** shadow validator only
+**Active models:** Football C official + Football C2 shadow  
+**Retired models:** C3/C4 — historical records only
 
 ## 1. Core rule
 
-Before this Step-2-specific procedure, complete the common runtime bootstrap with stage=`xi` and preserve its `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
+Before Step 2, complete the common runtime bootstrap with stage=`xi` and preserve its `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
-A completed Step-2 decision requires deterministic execution for all three tracks:
+A completed Step-2 decision requires deterministic execution for both active tracks:
 
 - `model=c`
 - `model=c2`
-- `model=c3`
 
 Primary execution surface:
+
 `models/football/engine/xi_portable.py`
 
 Fetch the exact-current portable bundle and run:
@@ -24,181 +24,140 @@ Fetch the exact-current portable bundle and run:
 `python xi_portable.py self-check`
 
 Required:
+
 `XI PORTABLE RUNTIME: PASS`
 
-Then use the same file for triplet execution, session reconciliation, and all-model C/C2/C3/C4 accounting. The portable bundle embeds the exact C/C2/C3 Step-2 modules plus the accounting compiler, so a missing checkout or missing local import tree cannot block the normal XI path.
+Then execute the active pair atomically:
 
-The multi-file engine path below is fallback only when the exact-current portable bundle itself fails self-check. A payload/model contract rejection from the portable runner is **not** a Python/runtime failure and must be reported as:
+`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+
+Required success:
+
+`ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR`
+
+The pair must come from the same frozen common evidence epoch. A mismatch is a contract rejection, not a Python/runtime failure.
+
+## 2. Atomic completion rule
+
+A user-declared exception or normal completed Step-2 assessment is incomplete unless both C and C2 execute and persist.
+
+If either active model cannot be lawfully frozen or executed:
+
+`C+C2 EXCEPTION INCOMPLETE — <exact reason>`
+
+Do not publish a completed C-only exception verdict. Never reconstruct missing C2 after kickoff or FT.
+
+C remains the only model that can create official exposure. C2 is shadow-only.
+
+## 3. Portable runtime
+
+The portable bundle embeds only the active Step-2 dependencies:
+
+- `core.py`
+- `competition_reliability.py`
+- `adapter.py`
+- `step2_reconcile.py`
+- `model_bet_accounting.py`
+
+It must not depend on `decision_triplet_cli.py`, C3 execution, or C4 execution.
+
+A payload/model contract rejection from the portable runner must be reported as:
 
 `XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`
 
-A contract rejection blocks completion until the frozen payload is corrected from already-supported evidence; it does not justify `FAILED_AFTER_ATTEMPT`.
+Do not classify a deterministic contract rejection as Python/runtime unavailability.
 
-Lack of an already-existing local repository checkout is **not** engine unavailability.
+## 4. Multi-file fallback
 
-If the current engine source is accessible through GitHub/files/connectors and a Python runtime is available, the assistant must first create a runnable temporary workspace from the exact current engine source, then execute the validators.
-
-Do not choose a fallback merely because setup has not yet been performed.
-
-## 2. Required source set
-
-Primary Step-2 source:
-- `models/football/engine/xi_portable.py`
-
-Only if the portable self-check fails after exact-current retrieval, materialize the fallback exact current revision of:
+Only if the exact-current portable bundle itself fails self-check after retrieval, materialize:
 
 - `models/football/engine/cli.py`
 - `models/football/engine/adapter.py`
 - `models/football/engine/core.py`
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
-- `models/football/engine/decision_triplet_cli.py`
+- `models/football/engine/decision_pair_cli.py`
 - `models/football/engine/step2_reconcile.py`
 - `models/football/engine/step2_reconcile_cli.py`
 - `models/football/engine/model_bet_accounting.py`
 - `models/football/engine/model_bet_accounting_cli.py`
 
-into one runnable workspace preserving the relative `models/football/engine/` layout.
+Fallback pair command:
 
-If a full repository checkout is already available at the same current revision, use it instead.
+`python models/football/engine/decision_pair_cli.py --c <c.json> --c2 <c2.json>`
 
-## 3. Revision integrity
+Direct individual decision CLI calls are diagnostic only and do not satisfy atomic C+C2 completion.
 
-Before execution, record the current repository revision/commit used for:
-- `CURRENT_MODEL.md`;
-- the current `/xi` launcher;
-- the engine source.
+## 5. Required payload set
 
-The engine source and launcher must come from the same current authority revision whenever practical.
-
-If revisions differ materially:
-
-`ENGINE EXECUTION FAILED — ATTEMPTED — REVISION MISMATCH`
-
-Do not silently run a stale local engine against a newer launcher.
-
-## 4. Required payload set
-
-Freeze the common Step-2 evidence first.
-
-Then create three immutable payloads:
+Freeze the common Step-2 evidence first, then create:
 
 - `FOOTBALL_ENGINE_C_DECISION_INPUT`
 - `FOOTBALL_ENGINE_C2_DECISION_INPUT`
-- `FOOTBALL_ENGINE_C3_DECISION_INPUT`
 
-The payloads must share the same common factual evidence epoch while preserving each model's independently owned state/line/policy fields.
+The payloads must share the same factual evidence epoch while preserving independent model-owned board state, supported line and policy fields.
 
-Never edit a payload after seeing an engine result.
+Never edit a frozen payload after seeing an engine result.
 
-## 5. Preferred execution
+## 6. Reconciliation and accounting
 
-Preferred one-command execution:
-
-`python xi_portable.py triplet --c <c.json> --c2 <c2.json> --c3 <c3.json>`
-
-Preferred session reconciliation:
+After pair execution:
 
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
 
-Preferred all-model accounting:
+Then compile active-model accounting:
 
 `python xi_portable.py accounting --input <model_accounting.json>`
 
-Multi-file fallback only:
+New accounting payloads contain C and C2 only. Historical C3/C4 accounting remains immutable audit history and is excluded from new active-roster forward metrics.
 
-`python models/football/engine/decision_triplet_cli.py --c <c.json> --c2 <c2.json> --c3 <c3.json>`
+## 7. Genuine execution unavailability
 
-Fallback all-model accounting:
+Fallback is permitted only after actual current-turn probes prove a technical execution failure. Lack of a local checkout, raw container network failure while GitHub connector access works, or extra setup work are not valid unavailability reasons.
 
-`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
-
-The triplet runner must:
-- require all three files;
-- verify payload model names are exactly c / c2 / c3;
-- execute all three through the deterministic adapter;
-- fail non-zero if any payload is missing, malformed or rejected;
-- emit all three results together.
-
-Direct individual CLI calls are acceptable only when both the portable runner and multi-file triplet runner cannot be used:
-
-`python models/football/engine/cli.py decision --input <c.json>`
-
-`python models/football/engine/cli.py decision --input <c2.json>`
-
-`python models/football/engine/cli.py decision --input <c3.json>`
-
-## 6. What counts as genuine execution unavailability
-
-Fallback is permitted only after the common runtime bootstrap proves an actual setup/execution attempt failed for a technical reason that cannot be resolved in the current turn. A failure claim without `FOOTBALL_RUNTIME_EXECUTION_RECORD` is invalid.
-
-Examples, each requiring recorded actual probes:
-- all available Python execution probes failed;
-- exact-current `xi_portable.py` failed self-check and the repaired multi-file fallback also failed;
-- the connected GitHub/current Project source probe failed and no exact-current source can be retrieved/materialized;
-- required engine source is corrupt/unreadable;
-- runtime dependency/import failure remains after reasonable setup;
-- exact current revision cannot be established safely.
-
-The following are **not** valid unavailability reasons:
-- container `git clone` / DNS / raw-network failure while GitHub connector source remains accessible;
-- "the repo is only visible through GitHub";
-- "there is no local checkout yet";
-- "the engine files have not been downloaded/materialized yet";
-- "running it would take extra setup";
-- "text decisions are already available".
-
-## 7. Fail-closed fallback
-
-The old generic fallback is forbidden:
-
-`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
-
-If execution genuinely fails after an attempted setup, report:
+If execution genuinely fails after attempted setup, report:
 
 `ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
 
-Also preserve:
-- the `FOOTBALL_RUNTIME_EXECUTION_RECORD`;
-- all three structured payloads;
-- source revision;
-- attempted command/setup path;
-- any error message available.
+and preserve:
+- `FOOTBALL_RUNTIME_EXECUTION_RECORD`;
+- both frozen payloads;
+- repository/source revision;
+- attempted command;
+- exact error.
 
-A completed Step-2 decision with no engine result and no explicit failed-attempt record is a workflow execution failure.
+The legacy fallback is forbidden:
+
+`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
 
 ## 8. Output status
 
-Every completed `/xi` assessment must show one of:
+Every completed `/xi` assessment must show either:
 
-`ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE`
+`ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR`
 
 or
 
 `ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>`
 
-When execution succeeds, show:
+When successful, show:
 - Engine C result
 - Engine C2 result
-- Engine C3 result
 
 If text and engine disagree:
 
 `ENGINE DISAGREEMENT — PRESERVE BOTH`
 
-Python remains shadow validation; Football C text remains production authority.
+Python remains deterministic validation; Football C remains production authority.
 
 ## 9. New-chat behavior
 
-A fresh chat must not treat lack of local files as a reason to skip validation.
-
-After the handoff freshness bootstrap:
+A fresh chat must:
 1. retrieve exact-current `xi_portable.py`;
 2. run `xi_portable.py self-check`;
-3. write the three frozen payloads;
-4. run `xi_portable.py triplet`;
-5. run `xi_portable.py accounting` after C/C2/C3 actions plus frozen C4 snapshot are assembled;
-6. preserve decision + accounting results;
-7. use multi-file materialization only if the portable self-check itself fails.
+3. freeze C and C2 payloads from one evidence epoch;
+4. run `xi_portable.py pair`;
+5. run reconciliation and active-model accounting;
+6. preserve both outputs.
 
-This requirement applies whether the user typed `/xi` explicitly or clearly requested the equivalent XI/odds reassessment.
+C3/C4 are never required for new Step-2 completion.
