@@ -1,426 +1,227 @@
-# 04 — Work: Football C / C2 / C3 / C4 / Engine Post-Slate Audit
+# 04 — Work: Football C + C2 Post-Slate Audit
 
-> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired. `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md` overrides stale C3/C4 requirements in this file. New workflow/accounting/execution is C+C2 only.
+> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only active shadow challenger. C3 and C4 are retired for new/current execution. Historical C3/C4 rows remain immutable audit history when they were genuinely frozen at the time.
 
 **Command alias:** `/audit`
 
-Read `models/football/CURRENT_MODEL.md` first.
-
-Also read:
+Read:
+- `models/football/CURRENT_MODEL.md`;
+- `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`;
 - `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
 - `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
 - `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
 - `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
 - `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
 - `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`;
-- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
-- `models/football/challengers/football-c4/TEST_PROTOCOL.md`;
-- `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`.
+- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`.
 
-Use the model/version that actually produced each historical decision.
+Use the model/version that actually produced each historical decision. Never backfill a model that did not prospectively execute.
 
-## Source hierarchy
+## 1. Audit scope
 
-1. user bet slip = physical execution truth and exact execution reconciliation;
-2. explicit user statement that a WAIT line never reached = authoritative no-entry override for that WAIT;
-3. Decision States = model decision history + WAIT exposure accounting state;
-4. Website Picks = official Football C direct/assumed exposure;
-5. Daily Coverage Ledger = frozen board/funnel history.
+Audit **all recorded assessed matches**, not only LOCK/FOLLOW/Website Pick rows.
 
-## Full funnel
+Reconstruct the production funnel:
 
-For every current board report:
+`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW -> STEP2 C+C2 -> LIVE/WAIT -> FT -> ACCOUNTING`
 
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C OFFICIAL BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW BOARD -> C3 SHADOW BOARD -> C4 STEP1 SHADOW -> C OFFICIAL ACTION -> C2/C3 SHADOW ACTION -> PYTHON C/C2/C3 + C4 COMPILER -> FT`
+Track process failures separately from predictive/model failures.
 
-Track separately:
-- coverage failures;
-- women's senior top-flight discovery/accounting misses;
-- women's top-flight incorrect hard/operational/researchability exclusions versus legitimate capacity deferrals;
-- operational exclusions that should have been admitted;
-- `xi_expected` predictions that proved wrong;
-- competitions repeatedly producing no usable XI/market despite A/B grading;
-- capacity-deferred fixtures that would have been operationally useful;
-- researchability exclusions that should have been admitted;
-- Work time wasted on low-observability competitions that should have failed the Step-0 operational/researchability gates;
-- high-scoring C-PASS false negatives;
-- C-PASS carrier contradictions where a weak second route hid a high-completion carrier path;
-- two-sided stall failures, especially 0-0 / 1-1 / 2-0 outcomes;
-- carrier-led clears and carrier-led failures;
-- exact-same-kickoff priority inversions;
-- FOLLOW/RESERVE/STOP allocation;
-- FOLLOW candidates that failed at XI/price;
-- RESERVE candidates activated or left unused;
-- STOP matches that later scored highly, reported as operational opportunity cost rather than retroactive model error;
-- low-scoring C-FOCUS false positives;
-- C vs C2 ranking differences under their separate ranking policies;
-- C vs C2 supported-line differences;
-- C vs C2 exposure differences;
-- C vs C3 ranking/lane differences;
-- C vs C3 supported-line differences;
-- C3 second-route-role disagreements;
-- C3 goal-3/goal-4 funding blocks;
-- C3 two-goal endpoint rate;
-- C3 false negatives;
-- C4 vs C rank/state inversions;
-- C4 vs C supported-line disagreement;
-- C4-FOCUS two-goal endpoint rate;
-- C-FOCUS -> C4-WATCH/PASS false-positive candidates;
-- C-PASS/WATCH -> C4-FOCUS false-negative candidates;
-- carrier-led winners retained or lost by C4;
-- C4 deterministic replay reproducibility;
-- C2 selection-floor blocks;
-- C2 bridge attempts;
-- text C vs code C disagreements;
-- text C2 vs code C2 disagreements;
-- direct C-BET;
-- C-WAIT assumed/user-confirmed/user-declared-not-reached;
-- actual user execution deviations.
+A missing C2 result on an all-model/current C+C2 exception is an execution/process defect, not a C2 PASS and not evidence that C2 avoided a loss.
 
-## Competition reliability memory update — mandatory
-
-After process reconstruction and **before** using the audit for future Step-0 selection:
-
-1. write one canonical operational event per observed fixture/epoch to Airtable `Competition Reliability Events` (`tblD0ZHqT772H25Uv`);
-2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
-3. never write FT goals, C/C2/C3/C4 result, settlement or P/L into the reliability event;
-4. for each affected competition, load the latest 10 countable events;
-5. run `models/football/engine/competition_reliability.py`;
-6. upsert the `Competition Reliability` summary row (`tbl1KShXxXErUdVKW`);
-7. preserve Manual Override unless the user explicitly changed it.
-
-Report state transitions explicitly, for example:
-
-`NEUTRAL -> CAUTION — XI usable 67% over latest 6 checked observations`
-
-or:
-
-`CAUTION -> DEMOTED — third consecutive critical operational failure`
-
-A profitable or high-scoring match cannot rescue a competition from an operational demotion. A losing/low-scoring match cannot cause one.
-
-## Prospective C4 boundary
-
-C4 confirmatory counting starts from the C4 activation merge commit.
-
-C4 has its own five-board Step-1 counter and does not reset or alter C2/C3.
-
-Historical boards have zero confirmatory C4 weight.
-
-For each C4 board audit:
-- verify the structured anchors were frozen before outcome;
-- verify every anchor carried a non-empty basis;
-- verify C4 ranked universe/common evidence basis reconciled with Football C;
-- verify the deterministic compiler revision was preserved;
-- compare C vs C4 rank/state/supported line;
-- count C4-FOCUS two-goal endpoints;
-- identify C-FOCUS -> C4-WATCH/PASS false-positive candidates;
-- identify C-PASS/WATCH -> C4-FOCUS false-negative candidates;
-- track carrier-led winners retained/lost;
-- replay the frozen structured input and require the same C4 output;
-- settle every prospectively frozen C4-WATCH at its own supported line @1.65, 1u as shadow accounting.
-
-A board advances the C4 counter only when its full ranked eligible universe was prospectively complete.
-
-C4 still has no Step-2 action or real exposure; its WATCH P/L is shadow model-accounting only.
-
-## Prospective C3 boundary
-
-C3 confirmatory counting starts from the C3 activation merge commit.
-
-C3 has its **own** five-board counter and does not reset or alter C2's current test.
-
-Historical two-goal examples are design motivation only and carry zero C3 confirmatory weight.
-
-For each C3 board audit:
-- verify C3 fields were frozen before outcome;
-- verify C3 supported line was independent of C/C2;
-- verify second-route role and funding basis were complete;
-- compare C vs C3 same-kickoff ordering;
-- count two-goal endpoints among C3-FOLLOW/C3-RESERVE;
-- count cases where C/C2 promoted a two-route shape but C3 classified the second route EXCHANGE_ONLY/STATE_DEPENDENT;
-- count C3 false negatives where C3 STOP/PASS and the frozen C support cleared;
-- preserve C2 metrics separately.
-
-For C3 Board N/5, judge cleanliness on the **ranked eligible universe**:
-- an isolated prospectively quarantined HOLD/exclusion outside C/C2/C3 ranking does not block the counter;
-- an unresolved fixture that was ranked does block it;
-- a missing required competition block / silently omitted eligible fixture does block it because the ranked universe is incomplete.
-
-A contaminated C3 board does not advance C3 Board N/5.
-
-## Confirmatory C2 boundary
-
-Confirmatory C-vs-C2 counting restarts from the **Step-2 fail-closed validator repair activation commit**.
-
-Earlier C2 records remain debugging/history only because at least one comparison-era plumbing fault applied:
-- original C2 Step-1 / Football C Step-2 mixing;
-- wrong champion declaration;
-- Python C2 inheriting Football C's burden-completion ranking;
-- C2 supported burden not guaranteed to be independently frozen;
-- Step-2 machine decision created without mandatory XI/research/H2H/completion recheck proof or with omitted safety booleans.
-
-Before the repair boundary:
-- paired-return metrics = excluded;
-- Python C2 agreement metrics = excluded;
-- independently unproven C2 burden = `C2 COMPARISON CONTAMINATED`.
-
-The five-board C2 checkpoint remains at zero until that repair activation, then restarts from board 1.
-
-## Audit hindsight integrity — mandatory
-
-Every fixture audit must separate:
-1. `FROZEN` — immutable prospective state;
-2. `OBSERVED` — HT/FT and what actually materialized;
-3. `DIAGNOSIS` — evidence-bounded audit classification;
-4. `P&L STATUS` — official C model exposure, actual user execution, C2 shadow and C3 shadow separately.
-
-Never retroactively rewrite a frozen grade after seeing the result.
-
-Use only canonical frozen enums. For current Football C:
-- `LOW / MEDIUM / HIGH`;
-- `WEAK / USABLE / STRONG`;
-- `NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED`.
-
-Never invent `MEDIUM-HIGH`, `LOW-MEDIUM`, `HIGH+`, or similar compound grades.
-
-FT/HT alone may show that a frozen continuation/completion thesis failed to materialize. It does **not** prove what the grade "should have been".
-
-A statement that the pre-match read was wrong requires a specific contemporaneous pre-freeze evidence miss. Otherwise use:
-`RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE`
-
-Scoreline alone also does not prove causal claims such as "they stopped pushing" or "the second route disappeared"; such mechanism claims require contemporaneous match evidence.
-
-## Settlement
-
-Settle all four models through `FOOTBALL_MODEL_BET_ACCOUNTING.md`.
-
-For every material fixture build one C/C2/C3/C4 accounting payload and run:
-
-`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
-
-Per-model precedence:
-
-`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
-
-### WATCH default — all models
-
-For C/C2/C3/C4 WATCH with a recoverable frozen supported line:
-- line = that model's supported line;
-- odds = 1.65 assumed audit price;
-- stake = 1u;
-- C basis = `WATCH_ASSUMED`;
-- C2/C3/C4 basis = `SHADOW_WATCH_ASSUMED`.
-
-WATCH is model-accounting only. It does not imply a Website Pick or user execution.
-
-### WAIT default — C/C2/C3
-
-For every countable WAIT with recoverable target/minimum odds:
-- C -> `WAIT_ASSUMED`;
-- C2/C3 -> `SHADOW_WAIT_ASSUMED`;
-- line/odds = that model's own target/minimum.
-
-Do **not** require later market-history proof that the line was reached.
-
-If the user explicitly says a WAIT target never reached, remove that WAIT layer only. If the same model had frozen WATCH, WATCH remains countable.
-
-A corresponding actual user bet may reconcile official C WAIT to exact actual line/odds/stake as `WAIT_USER_CONFIRMED`; actual user P/L remains separate.
-
-### Direct BET
-
-C/C2/C3 direct BET uses exact Step-2 quote and supersedes WATCH/WAIT accounting for that model/fixture.
-
-C4 has no Step-2 action; only C4-WATCH can create a C4 accounting bet.
-
-FOCUS/PASS behavior is otherwise unchanged by this policy.
-
-## Required process checks
-
-- broad-senior completeness;
-- every visible senior women's domestic top-flight block was discovered and given a fixture-level disposition;
-- women's-top-flight raw/admitted/excluded/deferred/unresolved counters reconcile exactly;
-- missing women's top-flight coverage is classified `HANDOFF INCOMPLETE — WOMEN TOP-FLIGHT COVERAGE GAP`;
-- operational A/B/C/D disposition present for every surviving senior fixture;
-- frozen competition reliability state/reason present for every admitted fixture;
-- reliability events contain no FT/predictive/P&L leakage;
-- latest affected competition summaries were recomputed from the rolling operational sample;
-- admitted count <= 15 and capacity overflow explicitly deferred;
-- no C/D fixture entered routine Work without a user exception;
-- B-grade fixtures did not receive routine FOLLOW;
-- common evidence freeze present;
-- C official board preserved;
-- follow-through lane preserved separately from C state;
-- max 6 FOLLOW / max 4 RESERVE respected;
-- max 2 routine FOLLOW per exact scheduled kickoff minute respected;
-- burden-completion/continuation/stall fields were frozen prospectively before outcome;
-- no retrospective assignment of the new completion fields;
-- routine Step 2 did not process STOP matches without explicit exception;
-- C2 shadow board preserved separately;
-- C3 shadow board preserved separately;
-- C4 Step-1 structured shadow preserved separately when prospectively available;
-- no C2/C3/C4 overwrite of C fields;
-- C4 did not create Step-2 workload, Decision States, Website Picks, live exposure or P/L;
-- mandatory post-XI football research;
-- tournament-incentive completeness at Step 1;
-- tournament-incentive recheck at Step 2;
-- live incentive-epoch recomputation after every goal/red card/material table change;
-- count and classify `TOURNAMENT INCENTIVE MISS` / `FORMAT DATA MISSING` / `STALE INCENTIVE EPOCH`;
-- H2H handling;
-- exact quote epoch;
-- C official action;
-- C2 shadow action;
-- C3 shadow action when fixture received Step 2;
-- C3 burden-funding fields and shadow lane;
-- Python C uses C ranking and Python C2 uses frozen C2 ranking;
-- C2 supported burden was independently frozen before paired evaluation;
-- Python C/C2/C3 comparison;
-- live wait state integrity;
-- all-model WATCH/WAIT accounting integrity;
-- one accounting bet per model/fixture;
-- WATCH @ supported line / 1.65 consistency;
-- WAIT model-specific target/minimum consistency;
-- no automatic WAIT_NOT_REACHED inference without an explicit user statement;
-- persistence agreement;
-- actual bet-slip reconciliation.
-
-## Required competition coverage audit
-
-For every audited board, verify the Step-0 required competition manifest.
-
-Current protected block:
-- `NED_EERSTE_DIVISIE`.
-
-If the block was omitted, SOURCE_BLOCKED, or fixtures disappeared before disposition:
-
-`PROCESS MISS — REQUIRED COMPETITION COVERAGE GAP`
-
-and specifically:
-
-`HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP`
-
-A missing protected block contaminates the board-level C2/C3 confirmation sample because the eligible ranked universe is incomplete.
-
-A correctly enumerated fixture that was later hard/operational/researchability/capacity excluded with an explicit disposition is not a coverage miss.
-
-## Step-2 deterministic execution audit
-
-For every completed Step-2 decision, verify:
-- `Engine Execution Status = EXECUTED_ALL_THREE`; or
-- `Engine Execution Status = FAILED_AFTER_ATTEMPT` with an exact technical failure reason and preserved C/C2/C3 inputs.
-
-If a completed Step-2 decision has neither:
-
-`PROCESS MISS — MANDATORY ENGINE VALIDATION NOT EXECUTED`
-
-If the recorded reason is merely no local checkout / GitHub-only access / runtime not prepared, the fallback is invalid:
-
-`PROCESS MISS — ENGINE SETUP SKIPPED, NOT UNAVAILABLE`
-
-Do not change the historical text verdict from this process finding. Preserve any later rerun as a separate audit/validation repair.
-
-## Factor calibration update — mandatory for eligible frozen rows
-
-Read:
-- `models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md`;
-- `models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md`.
-
-For each audited fixture with an eligible prospective calibration row:
-1. read the immutable frozen factor vector;
-2. append FT Total Goals;
-3. settle the exact frozen supported line;
-4. append only observed materialization labels;
-5. compute Trace Score from the frozen vector;
-6. never rewrite any frozen factor.
-
-For calibration runs, analyze only eligible rows. Keep process faults and missing-factor rows out of factor-weight conclusions.
-
-Always report:
-- eligible calibration N;
-- factor buckets with N < 5 as `INSUFFICIENT SAMPLE`;
-- no `OVERWEIGHT CANDIDATE` or `UNDERWEIGHT CANDIDATE` until the observer's prospective thresholds are met.
-
-Before any audit/factor-calibration Python command, execute the common runtime bootstrap with stage=`audit`. Preserve the resulting `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
-
-A missing local checkout, container network/DNS failure, or engine files not yet materialized is setup state—not evidence that Python/GitHub/engine is unavailable.
+## 2. Source hierarchy
 
 Use:
-`python models/football/engine/factor_calibration_cli.py --input <observations.json>`
+1. user bet slip / explicit user execution statement for physical execution truth;
+2. explicit user statement that a WAIT target never reached;
+3. frozen Decision States;
+4. Website Picks for official C exposure;
+5. Daily Coverage / board ledger for frozen Step-1 state;
+6. strong external result sources for FT/regulation result verification.
 
-The analyzer has zero production authority.
+Regulation time is the settlement basis unless the frozen market explicitly says otherwise.
 
-## Output
+Do not infer a final score from an in-play score snapshot.
 
-For every material fixture, first report:
-- `FROZEN:` exact state/line/grades/action, including WAIT target/minimum odds when applicable;
-- `OBSERVED:` HT/FT and materialization/settlement facts;
-- `DIAGNOSIS:` canonical audit tag + prospectively detectable evidence miss only when proven;
-- `MODEL ACCOUNTING:` C/C2/C3/C4 basis, line, odds, stake, settlement and P/L;
-- `P&L STATUS:` C model-accounting P/L, actual user execution/P&L, C2/C3/C4 shadow model-accounting P/L separately.
+## 3. Frozen-state integrity
 
-Then include one `FOOTBALL_AUDIT_RECORD` JSON object using the deterministic audit schema and validate it with:
+### Audit hindsight integrity — mandatory
 
-`python models/football/engine/cli.py audit --input <payload.json>`
+Every audit record separates:
 
-The audit is not complete until the machine record passes. If it fails:
+`FROZEN:`
+- model state/rank/lane;
+- supported line;
+- frozen evidence epoch;
+- action/WAIT target/price;
+- runtime execution status;
+- prospective accounting basis.
+
+`OBSERVED:`
+- verified FT/regulation result;
+- actual user execution facts;
+- later operational observations.
+
+`DIAGNOSIS:`
+- evidence-bounded explanation of process/model behavior;
+- confidence;
+- prospective hypothesis only when justified.
+
+`P&L STATUS:`
+- official C model P&L;
+- C2 shadow model P&L where lawfully countable;
+- actual user P&L separately.
+
+Historical outcome knowledge must never rewrite a frozen board state, line, rank, lane, or action.
+
+If the frozen record is insufficient to support the proposed diagnosis:
 
 `AUDIT RECORD INVALID — DO NOT FINALIZE DIAGNOSIS`
 
-The machine record is specifically intended to reject:
-- non-canonical grades such as `MEDIUM-HIGH`;
-- retrospective field rewrites;
-- ungrounded pre-freeze evidence-miss claims;
-- official model P/L without official exposure;
-- user P/L without user execution.
+## 4. Result reconciliation
 
-Then report slate totals:
-- Football C model-accounting P/L (DIRECT BET + WAIT + WATCH under precedence);
-- actual user P/L;
-- C2 shadow model-accounting P/L;
-- C3 shadow model-accounting P/L;
-- C4 shadow model-accounting P/L from C4-WATCH;
-- paired C-vs-C2 action matrix;
-- paired C-vs-C3 selection matrix;
-- paired C-vs-C4 Step-1 state/rank/line matrix;
-- C4 replay reproducibility count;
-- text-vs-code disagreement counts;
-- missed/avoided cases;
-- processing time / resumptions / corrections;
-- whether C2 remains worth continuing;
-- C3 board counter and whether the burden-funding hypothesis remains worth continuing;
-- C4 board counter and whether structured semantic compilation remains worth continuing.
+For every recorded assessment:
+- verify fixture identity and regulation-time FT;
+- reconcile duplicate/reassessment epochs;
+- settle only the exposure/accounting row that actually applies;
+- keep Website Picks and Decision States from double-counting the same official C exposure;
+- distinguish model exposure from actual user exposure.
 
-Historical Football A/C1 audits remain version-faithful.
+Asian-total quarter-line examples:
+- O2.25 at exactly 2 goals = HALF LOSS / -0.5u at 1u stake;
+- O2.75 at exactly 3 goals = HALF WIN / half-win half-push;
+- O3.0 at exactly 3 goals = PUSH;
+- O2.0 at exactly 2 goals = PUSH.
 
+Do not turn fractional quarter-line P/L into full wins/losses.
 
-## Elite upper-tail observer audit
+## 5. Current C model audit
 
-For prospective `ELITE_UPPER_TAIL_OBSERVER` rows, report separately:
+Audit:
+- high-scoring C-PASS false negatives;
+- low-scoring C-FOCUS false positives;
+- clearing-goal funding quality;
+- O2.5/O2.75 two-goal endpoints;
+- O3 upper-tail failures;
+- completion/continuation/stall classification;
+- carrier-led clears and failures;
+- two-sided stall failures;
+- exact-same-kickoff rank inversions;
+- FOLLOW/RESERVE/STOP concentration quality;
+- FOLLOW candidates that failed at XI/price;
+- RESERVE opportunity cost;
+- STOP high scorers as operational opportunity cost, not automatic retroactive model error;
+- text-vs-code C disagreements;
+- current clearing-goal FOLLOW certification behavior.
 
-- count of tagged fixtures;
-- support line vs recorded market line gaps;
-- exact recorded quote settlement;
-- frozen-support settlement;
-- FT goal distribution;
-- failures where the carrier did not self-fund;
-- cases where buying extra burden would have helped or hurt.
+Outcome alone is not sufficient to call the original lane/state wrong. Diagnose against frozen evidence.
 
-Do not use the 2026-09-30 motivating cases as confirmatory observations. They are retrospective hypothesis-generation only.
+## 6. C2 shadow audit
 
+For every row with a lawful prospective C2 freeze, compare:
+- C vs C2 rank/state;
+- independently frozen supported burden;
+- selection-quality floor;
+- bridge use;
+- Step-2 action;
+- WAIT behavior;
+- settlement/accounting when executable terms were prospectively frozen.
 
-## Tournament-incentive integrity audit
+Do not:
+- copy C odds/line into C2;
+- treat C2-INCOMPLETE as PASS;
+- replay C2 using FT/current information;
+- manufacture ROI when exact frozen action/price is missing.
 
-For every fixture where `tournament_incentive_required=true`, verify:
+C2 remains shadow-only.
 
-1. Step 1 contained a **VERIFIED, resolved** format/incentive block before C/C2/C3 classification — merely present LIMITED/UNKNOWN fields fail this check;
-2. Step 2 explicitly recorded `tournament_incentive_rechecked=true` **and** `tournament_incentive_recheck_status=VERIFIED` before any action;
-3. every material live epoch recomputed incentive before execution;
-4. no supported-burden upgrade was justified solely by XI strength while incentive was suppressive/unknown.
+## 7. Retired C3/C4 historical records
 
-Any missing stage is a **process failure even if the eventual result was profitable**.
+C3/C4 are not part of current forward QA.
 
-Classify as:
-- `TOURNAMENT INCENTIVE MISS`;
-- `FORMAT DATA MISSING`;
-- `STALE INCENTIVE EPOCH`;
-- `INCENTIVE RESOLUTION BYPASS` — C/C2/C3 state, rank, lane, supported burden, or action created while the applicable block was LIMITED/UNKNOWN.
+When a historical row genuinely contains a prospective C3/C4 freeze from its active era, it may be:
+- preserved;
+- settled/reported historically;
+- used to explain an old workflow decision.
+
+Use explicit historical accounting mode where required.
+
+Never:
+- create a new C3/C4 action;
+- include retired models in a current C+C2 completeness requirement;
+- count a retrospectively reconstructed C3/C4 result as confirmatory evidence.
+
+## 8. Process-integrity audit
+
+Check:
+- Step-0 source/completeness state;
+- required competition coverage;
+- senior women's top-flight accounting;
+- competition reliability cap;
+- operational viability grading;
+- admission/capacity queue integrity;
+- replenishment order;
+- tournament-incentive completeness;
+- common evidence freeze;
+- C/C2 independent supported lines;
+- atomic C+C2 engine execution;
+- pair persistence;
+- Step-2 due-set reconciliation;
+- quote revalidation;
+- fresh post-XI football research;
+- market-history attempt;
+- live WAIT integrity;
+- Website Pick/Decision State reconciliation.
+
+An all-model exception after the active-roster boundary is successful only when C and C2 both execute/persist from the same evidence epoch.
+
+## 9. Competition reliability memory update — mandatory
+
+After process reconstruction and **before** using the audit for future Step-0 selection:
+
+1. append one canonical operational event per observed fixture/epoch to `Competition Reliability Events`;
+2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
+3. never use FT goals, settlement or P/L to promote/demote operational reliability;
+4. load the latest 10 countable events per affected competition;
+5. run `models/football/engine/competition_reliability.py`;
+6. upsert the competition reliability summary;
+7. preserve manual override unless explicitly changed by the user.
+
+A high-scoring/profitable match cannot rescue operational reliability. A low-scoring/loss cannot demote it by itself.
+
+## 10. Runtime / deterministic audit
+
+Before execution-required audit commands, run `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` with stage=`audit`.
+
+Persist the `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
+
+Use deterministic audit/accounting tools only on already frozen evidence. Runtime output is validation/accounting, not permission to alter history.
+
+Current active-model accounting expects C+C2. For historical C3/C4 settlement, set the explicit historical roster mode rather than injecting retired rows into a current payload.
+
+## 11. Factor-calibration observer
+
+For eligible prospectively frozen C observations, update the diagnostic factor-calibration observer.
+
+Rules:
+- outcome fields remain blank before FT;
+- after FT, only analyze fields genuinely frozen prospectively;
+- insufficient sample remains `INSUFFICIENT SAMPLE`;
+- calibration observations never silently alter production coefficients/rules.
+
+## 12. Output
+
+Report:
+- audited date/window and source coverage;
+- board/funnel counts;
+- current C results;
+- C2 shadow comparison on valid rows;
+- process failures/incomplete rows;
+- model-level recurring diagnoses;
+- competition reliability changes;
+- official C model P&L;
+- actual user P&L separately;
+- any historical retired-model appendix only when relevant;
+- exact data/coverage limitations.
+
+Do not produce a leaderboard that treats missing/incomplete shadow rows as PASSes or no-bets unless that was the frozen prospective state.
