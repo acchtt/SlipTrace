@@ -100,7 +100,10 @@ On `ACQUIRED`:
 
 On `SOURCE_BLOCKED`:
 - persist the blocker/fingerprint;
-- use the existing terminal source-blocked behavior.
+- persist the source last-attempt timestamp and retry-not-before lease from `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`;
+- return source-blocked for the current invocation.
+
+On a later resume, evaluate the deterministic source-recovery lease before returning the stored blocker. A legacy blocked checkpoint without lease metadata receives one immediate recovery probe; an unchanged blocker may receive one new bounded acquisition pass after the 30-minute lease expires.
 
 ### B. DISCOVERY_CLASSIFICATION
 
