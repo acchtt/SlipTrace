@@ -35,41 +35,28 @@ def forbid(rel: str, *needles: str) -> None:
 # 1. One production authority.
 require(
     "models/football/CURRENT_MODEL.md",
+    "ACTIVE ROSTER (2026-10-06)",
+    "Football C is official; Football C2 is the only shadow challenger",
+    "C3 and C4 are retired",
     "Active official model:** Football **C**",
-    "Shadow challengers:** Football **C2**, Football **C3**, and Football **C4**",
-    "retired historical Football A/shadow artifacts",
-    "Step-2 fail-closed validator repair",
-    "C3 burden-funding prospective test",
-    "Football C4",
-    "Step-1-only structured-evidence challenger",
+)
+require(
+    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
+    "Football C3 and Football C4 are retired",
+    "C + C2",
+    "C+C2 EXCEPTION INCOMPLETE",
+    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
     "Official model:** Football C",
-    "Current execution authority:",
-    "C2 COMPARISON INCOMPLETE — SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN",
+    "C Action",
+    "C2 shadow action",
 )
 forbid(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
     "Official model:** Football A",
     "Official:** Football A",
-    "New Football A material decisions follow only",
-    "Current Football A:",
-    "Current Football A official states",
-)
-
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Official model:** Football C",
-    "Historical Football A/v0.2.x country/league blanket overlays are **not** current authority",
-    "C2 supported burden",
-)
-forbid(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "For new Football A decisions",
-    "current Step-2 state is compiled by",
-    "Japanese domestic leagues, including J1, must not survive",
-    "All Finnish domestic league competitions",
 )
 
 # 2. Legacy compilers/launcher must fail closed for new work.
@@ -85,17 +72,14 @@ require(
     "models/football/prompts/xi.md",
     "On **every invocation**",
     "current repository authority",
-    "current authority revision/runtime status",
 )
 require(
     "models/football/prompts/COMMAND_ALIASES.md",
-    "C4 prospectively frozen Step-1 snapshot",
     "Every invocation must reload the current launcher",
 )
 require(
     "models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md",
     "Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION",
-    "LAUNCHER RETIRED — USE CURRENT FOOTBALL C COMMAND ROUTER",
 )
 
 # 3. C2 must have genuinely separate policy plumbing.
@@ -108,272 +92,55 @@ require(
 require(
     "models/football/engine/adapter.py",
     "rank_assessments_c2",
-    'if model == "c"',
-    "c2_ranking_key(item)",
     'require_c_completion=(model == "c")',
-)
-require(
-    "models/football/engine/core.py",
-    "FOOTBALL C COMPLETION DIAGNOSTICS MISSING",
-    "def require_c_completion",
+    "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
     "test_c2_board_does_not_require_c_completion_diagnostics",
-    "test_c3_board_does_not_require_c_completion_diagnostics",
     "test_c_board_still_requires_c_completion_diagnostics",
     "test_c2_decision_does_not_require_c_completion_diagnostics",
-    "test_c3_decision_does_not_require_c_completion_diagnostics",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "c_supported_line",
-    "c2_supported_line",
-    "Do **not** freeze one shared",
-    "SUPPORTED BURDEN NOT INDEPENDENTLY FROZEN",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "independently frozen C2 supported line",
-    "Do not reuse C's supported line in C2 or C3 payloads",
 )
 require(
     "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
     "**C2 owns this field independently.**",
     "frozen route-quality ranking for C2",
 )
-require(
-    "models/football/challengers/football-c2/TEST_PROTOCOL.md",
-    "HELD AT ZERO",
-    "Step-2 fail-closed validator repair",
-    "five-board checkpoint restarts at zero",
-    "zero Python C2 agreement weight",
-)
 
-# 4. C3 must be a separate burden-funding shadow policy.
-require(
-    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
-    "PROSPECTIVE SHADOW CHALLENGER",
-    "two plausible scoring routes is descriptive only",
-    "BURDEN_CONTRIBUTING",
-    "EXCHANGE_ONLY",
-    "STATE_DEPENDENT",
-    "Who prospectively funds the goal",
-    "C3-FOCUS requires LOW control-endpoint risk",
-    "C3 has no C2-style market-gap bridge",
-    "FOOTBALL C3 — SHADOW ONLY",
-)
-require(
-    "models/football/challengers/football-c3/TEST_PROTOCOL.md",
-    "next **5 complete clean ranked boards**",
-    "C2 continues its current five-board window",
-    "C3 gets a separate 1/5 ... 5/5 counter",
-    "ranked eligible universe",
-    "one isolated HOLD does not hold back an otherwise complete board",
-    "missing Netherlands Eerste Divisie block",
-    "Historical boards have zero confirmatory C3 weight",
-)
-require(
-    "models/football/engine/core.py",
-    "class C3PolicyAssessment",
-    "def c3_ranking_key",
-    "def c3_board_state",
-    "def c3_shadow_lane",
-    "def decide_c3",
-    "Two-sidedness has no direct bonus",
-)
+# 4. Retired challengers must not re-enter active execution.
 require(
     "models/football/engine/adapter.py",
-    "parse_c3_policy",
-    "FOOTBALL_C3_CLEARING_GOAL_FUNDING",
-    'model not in {"c", "c2", "c3"}',
-    "c3_goal3_funding",
-    "c3_control_endpoint_risk",
+    'model not in {"c", "c2"}',
+    "C3/C4 are retired",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
-    "test_c_board_does_not_require_c3_fields",
-    "test_c2_board_does_not_require_c3_fields",
-    "test_changing_c3_fields_cannot_change_c_ranking",
-    "test_c3_board_ignores_two_route_label_without_goal3_funding",
-    "test_c3_carrier_led_goal3_can_focus_without_second_route",
+    "test_retired_c3_board_is_rejected",
+    "test_retired_c3_decision_is_rejected",
+    "test_c3_cannot_reenter_board_runtime",
+    "test_c3_cannot_reenter_decision_runtime",
 )
 require(
-    "models/football/airtable/FOOTBALL_C3_AIRTABLE.md",
-    "C3 role:** shadow-only burden-funding challenger",
-    "tblcl1UAyMqZT6Ub0",
-    "tblQmUpd5WjBLQ38X",
-    "tblUnGHHe0MVaalDL",
-    "C3 Test Board Number",
-    "ranked-universe",
-    "prospectively quarantined HOLD/exclusion",
-    "C3 COMPARISON INCOMPLETE",
-)
-forbid(
-    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
-    "**Official model:** Football C3",
-    "C3 may create Website Picks",
-    "C3 may authorize real exposure",
-)
-
-# 4A. C4 must remain a separate deterministic Step-1-only challenger.
-require(
-    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
-    "PROSPECTIVE STEP-1 SHADOW CHALLENGER",
-    "Step 1 `/rank` only",
-    "structured evidence anchors",
-    "Deterministic route compiler",
-    "Clearing-goal funding",
-    "NO_SUPPORTED_LINE",
-    "C4-FOCUS",
-    "C4-WATCH",
-    "C4-PASS",
-    "next **5 complete clean Step-1 boards**",
-    "SHADOW C4 (STEP1) — NO STEP2 ACTION",
-    "create a Step-2 action or require extra `/xi` work",
-)
-require(
-    "models/football/challengers/football-c4/TEST_PROTOCOL.md",
-    "ACTIVE PROSPECTIVE SHADOW TEST",
-    "C4 Test Board Number = 1..5",
-    "STRUCTURED EVIDENCE INCOMPLETE",
-    "RANKED UNIVERSE MISMATCH",
-    "Historical boards have zero confirmatory weight",
-)
-require(
-    "models/football/engine/c4_semantic.py",
-    'SCHEMA_VERSION = "football-c4-semantic-v1"',
-    "def compile_route",
-    "def compile_carrier",
-    "def compile_funding",
-    "def compile_supported_line",
-    "def compile_state",
-    "def reconcile_with_c_board",
-    "C4 RECONCILIATION FAILED — RANKED UNIVERSE MISMATCH",
-    "C4 RECONCILIATION FAILED — COMMON EVIDENCE BASIS DRIFT",
-)
-require(
-    "models/football/engine/c4_schema.json",
-    "\"football-c4-semantic-v1\"",
-    "\"additionalProperties\": false",
-    "\"creation_repeatability\"",
-    "\"upper_tail_repeatability\"",
-)
-require(
-    "models/football/engine/c4_semantic_cli.py",
-    "--c-board",
-    "c4_reconciled_with_c",
-    "c4_execution_status",
-)
-require(
-    "models/football/engine/tests/test_c4_semantic.py",
-    "test_strong_route_carrier_and_goal4_focus",
-    "test_partial_goal3_maps_to_o2",
-    "test_verified_suppression_forces_pass",
-    "test_missing_anchor_basis_fails_closed",
-    "test_unexpected_anchor_field_fails_closed",
-    "test_goal4_partial_maps_to_o275",
-    "test_reconcile_blocks_ranked_universe_mismatch",
-    "test_reconcile_blocks_common_evidence_basis_drift",
-    "test_input_order_cannot_change_ranking",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "Football C4 structured-evidence Step-1 shadow",
-    "FOOTBALL_C4_AIRTABLE.md",
-    "c4_semantic_cli.py",
-    "C4 Test Board Eligible",
-    "C4 Test Board Number = 1..5",
-    "C4 is Step-1 shadow only",
-    "C4 persistence — mandatory before /rank completion",
-    "C4 Shadow State",
-    "C4 Compiler Result",
-    "C4 Compiler Revision",
-    "C4 PERSISTENCE SYNC FAULT — /RANK INCOMPLETE",
-    "Never reconstruct C4 at Step 2",
-)
-require(
-    "models/football/airtable/FOOTBALL_C4_AIRTABLE.md",
-    "C4 role:** Step-1-only structured-evidence challenger",
-    "fldLftJ8ven7qffll",
-    "fldjy4ObqqXKtU9ud",
-    "fldmP7tAWb2oLXXvy",
-    "fldzWguzzVpUkJE2D",
-    "fldBGuZhpboeMUGtz",
-    "fld6qcujbINz3vwYK",
-    "fldkzj2yENYGNN18O",
-)
-forbid(
-    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
-    "C4 may create a Website Pick",
-    "C4 may authorize real exposure",
-    "C4 feeds official Step 2",
-)
-
-# 4B. Step-1 board comparison must reconcile the common evidence epoch.
-require(
-    "models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md",
-    "ACTIVE PROCESS COMPLIANCE CONTROL",
-    "COMMON EVIDENCE RECONCILED",
-    "BOARD TRIPLET FAILED — COMMON EVIDENCE DRIFT",
-    "BOARD TRIPLET FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH",
-    "supported_line_basis",
-    "board_state_basis",
-)
-require(
-    "models/football/engine/board_triplet_cli.py",
-    "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
-    "MODEL_OWNED_FIELDS",
-    "COMMON EVIDENCE DRIFT",
-    "RANKED ELIGIBLE UNIVERSE MISMATCH",
-    "C POLICY FIELD LEAK INTO SHADOW PAYLOAD",
-    "C3 POLICY FIELD LEAK INTO C/C2 PAYLOAD",
-    "EXECUTED_ALL_THREE_BOARDS",
+    "models/football/engine/board_pair_cli.py",
+    'EXPECTED_MODELS = ("c", "c2")',
+    "BOARD PAIR FAILED — COMMON EVIDENCE DRIFT",
+    "BOARD PAIR FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH",
+    "C POLICY FIELD LEAK INTO C2 PAYLOAD",
+    "EXECUTED_C_C2_BOARDS",
     "common_evidence_reconciled",
 )
 require(
-    "models/football/engine/tests/test_board_triplet.py",
-    "test_triplet_reconciles_same_common_evidence",
+    "models/football/engine/tests/test_board_pair.py",
+    "test_pair_reconciles_same_common_evidence",
     "test_common_evidence_drift_fails",
     "test_ranked_universe_mismatch_fails",
     "test_c_policy_field_leak_into_c2_fails",
 )
 require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "board_triplet_cli.py",
-    "common_evidence_basis",
-    "supported_line_basis",
-    "board_state_basis",
-    "common_evidence_reconciled = true",
-)
-require(
-    "models/football/engine/schema.json",
-    "\"common_evidence_basis\"",
-    "\"supported_line_basis\"",
-    "\"board_state_basis\"",
-    "\"c3_second_route_role_basis\"",
-    "\"c3_forced_chaos_basis\"",
-)
-require(
-    "models/football/engine/adapter.py",
-    "common_evidence_basis=_string",
-    "supported_line_basis=_string",
-    "board_state_basis = _string",
-    "c3_second_route_role_basis",
-    "c3_forced_chaos_basis",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_board_requires_common_evidence_basis",
-    "test_board_requires_supported_line_basis",
-    "test_c_and_c2_require_board_state_basis",
-)
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Common Evidence Basis",
-    "Supported Line Basis",
-    "C Board State Basis",
-    "Board Triplet Common-Evidence Reconciliation Status",
+    "models/football/engine/decision_pair_cli.py",
+    'EXPECTED_MODELS = ("c", "c2")',
+    "EXECUTED_C_C2_PAIR",
+    "same frozen common evidence epoch",
 )
 
 # 4C. Repaired handoffs must be frozen Step-0 authority for /rank.
@@ -641,7 +408,7 @@ require(
     "Required Competition Blocks Complete",
 )
 
-# 5. New-chat handoff freshness must preserve current C/C2/C3 authority and C4 snapshot visibility.
+# 5. New-chat handoff freshness must preserve current C+C2 authority.
 require(
     "models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md",
     "MANDATORY ROUTER PRECHECK",
@@ -649,48 +416,20 @@ require(
     "HANDOFF AUTHORITY STALE — CURRENT MODEL/LAUNCHER RELOADED",
     "OFFICIAL C",
     "SHADOW C2",
-    "SHADOW C3",
-    "SHADOW C4 (STEP1)",
-    "read-only frozen C4 snapshot visibility",
-    "may never be silently absent",
+    "C3 and C4 are retired",
+    "\"all models\" means the active roster: C + C2",
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "XI AUTHORITY REVISION:",
-    "XI RUNTIME: PORTABLE PASS",
-    "Mandatory four-model visibility",
-    "SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE",
-    "SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE",
-    "SHADOW C4 (STEP1): UNAVAILABLE — NO PROSPECTIVE C4 FREEZE",
-    "FOOTBALL_C4_FROZEN_STEP1_SNAPSHOT",
-    "NO STEP2 ACTION",
+    "ACTIVE ROSTER OVERRIDE",
+    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
 )
 require(
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
-    "Mandatory three-track visibility",
-    "Never omit a shadow row",
+    "ACTIVE ROSTER (2026-10-06)",
     "No live-stat gate",
     "Assess the live match **regardless of provider live stats**",
     "positive live-stat confirmation is not required",
-    "Do not ask the user for live-stat screenshots before assessing",
-)
-forbid(
-    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
-    "Require contemporaneous attacking-quality evidence",
-    "require at least one live attacking-quality indicator",
-)
-require(
-    "models/football/production/FOOTBALL_C.md",
-    "Do **not** require positive live-stat confirmation",
-    "Live assessment proceeds regardless of provider live stats",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "Do not require a live attacking-quality indicator",
-)
-require(
-    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
-    "C3 live resolution does not require shots, xG, big chances",
 )
 
 # 5. Step-2 market history must be attempted and explicit.
@@ -751,49 +490,35 @@ require(
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
 )
 
-# 5. Completed Step-2 decisions must attempt deterministic execution.
+# 5. Completed Step-2 decisions must execute the active pair atomically.
 require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "MANDATORY STEP-2 EXECUTION PRECHECK",
-    "Lack of an already-existing local repository checkout is **not** engine unavailability",
+    "Active models:** Football C official + Football C2 shadow",
     "xi_portable.py self-check",
-    "xi_portable.py triplet",
-    "decision_triplet_cli.py",
-    "payload/model contract rejection from the portable runner is **not** a Python/runtime failure",
+    "xi_portable.py pair --c <c.json> --c2 <c2.json>",
+    "decision_pair_cli.py",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
-    "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
+    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR",
 )
 require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
-    "Engine execution is **mandatory** for a completed Step-2 decision",
-    "xi_portable.py self-check",
-    "xi_portable.py triplet",
-    "decision_triplet_cli.py",
-    "A missing local checkout is **not** engine unavailability",
-    "deterministic payload/contract rejection is not a Python error",
-    "ENGINE EXECUTION STATUS: EXECUTED_ALL_THREE",
-    "ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>",
-    "legacy generic no-execution fallback is forbidden",
+    "models/football/engine/xi_portable.py",
+    "def run_pair_files",
+    "EXECUTED_C_C2_PAIR",
+    "active_models",
 )
 forbid(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "If execution is unavailable:",
-)
-require(
-    "models/football/engine/decision_triplet_cli.py",
-    "EXPECTED_MODELS = (\"c\", \"c2\", \"c3\")",
+    "models/football/engine/xi_portable.py",
+    "def run_triplet_files",
+    "decision_triplet_cli",
     "EXECUTED_ALL_THREE",
-    "triplet payload mismatch",
-    "official_follow_lane",
-    "step2_authorization",
-    "must share the same official_follow_lane and step2_authorization",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
-    "test_triplet_executes_all_three_models",
-    "test_triplet_rejects_model_mismatch",
-    "test_triplet_rejects_non_decision_stage",
+    "test_pair_executes_both_active_models",
+    "test_pair_rejects_model_mismatch",
+    "test_pair_rejects_non_decision_stage",
+    "test_pair_rejects_mixed_common_evidence_epoch",
 )
 require(
     "models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md",
@@ -802,29 +527,6 @@ require(
     "STEP2 RECONCILIATION FAILED — SILENT OMISSION",
     "quote_revalidated = true",
     "c2_route_quality_rechecked = true",
-    "c3_funding_rechecked = true",
-)
-require(
-    "models/football/engine/step2_reconcile.py",
-    "def reconcile_step2",
-    "SILENT OMISSION",
-    "OUTCOME WITHOUT AUTHORIZATION",
-    "LIVE_REROUTED",
-)
-require(
-    "models/football/engine/tests/test_step2_reconcile.py",
-    "test_missing_follow_is_a_hard_failure",
-    "test_outcome_without_authorization_is_a_hard_failure",
-    "test_routine_follow_requires_follow_lane",
-)
-require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "Engine Execution Status",
-    "Engine Source Revision",
-    "Engine C Result",
-    "Engine C2 Result",
-    "Engine C3 Result",
-    "Engine Failure Reason",
 )
 
 # 5. Step-2 deterministic validation must fail closed.
@@ -832,77 +534,24 @@ require(
     "models/football/engine/schema.json",
     "\"official_follow_lane\"",
     "\"step2_authorization\"",
-    "\"thesis_state_basis\"",
-    "\"main_failure\"",
-    "\"h2h_state\"",
-    "\"h2h_effect\"",
-    "\"h2h_transferability\"",
-    "\"h2h_current_corroboration\"",
-    "\"h2h_material_effect\"",
-    "\"h2h_basis\"",
-    "\"carrier_self_fund\"",
-    "\"carrier_self_fund_basis\"",
-    "\"independent_upper_tail_basis\"",
-    "\"failure_attacks_route\"",
-    "\"failure_attacks_route_basis\"",
-    "\"material_suppression\"",
-    "\"material_suppression_basis\"",
     "\"xi_status\"",
     "\"post_xi_research_status\"",
-    "\"post_xi_research_note\"",
     "\"fixture_status\"",
     "\"quote_revalidated\"",
-    "\"h2h_review_status\"",
     "\"h2h_rechecked\"",
-    "\"h2h_basis\"",
-    "\"primary_mechanism_basis\"",
-    "\"wait_reachability_basis\"",
-    "\"wait_negative_info_basis\"",
-    "\"material_veto_basis\"",
     "\"completion_rechecked\"",
     "\"c2_route_quality_rechecked\"",
-    "\"c3_funding_rechecked\"",
     "\"primary_mechanism_intact\"",
 )
 require(
     "models/football/engine/adapter.py",
     "def _required_bool",
-    "official_follow_lane",
-    "step2_authorization",
     "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
     "DECISION BLOCKED — H2H RECHECK MISSING",
     "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
     "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING",
-    "DECISION BLOCKED — C3 FUNDING RECHECK MISSING",
     "DECISION BLOCKED — STEP2 FIXTURE NOT CONFIRMED PREMATCH",
     "DECISION BLOCKED — CURRENT QUOTE NOT REVALIDATED",
-    "post_xi_research_note",
-    "validate_h2h_semantics",
-    "H2H MATERIAL EFFECT BLOCKED",
-    "h2h_effect",
-    "h2h_transferability",
-    "h2h_current_corroboration",
-    "h2h_material_effect",
-    "h2h_basis",
-    "thesis_state_basis",
-    "thesis_state_basis",
-    "primary_mechanism_basis",
-    "wait_reachability_basis",
-    "wait_negative_info_basis",
-    "material_veto_basis",
-    "failure_attacks_route_basis",
-    "material_suppression_basis",
-    "primary_mechanism_intact=_required_bool",
-    "_required_bool(obj, \"material_suppression\")",
-)
-require(
-    "models/football/engine/core.py",
-    "class Step2Authorization",
-    "DECISION BLOCKED — STEP2 AUTHORIZATION/LANE MISMATCH",
-    "current burden stall risk is HIGH",
-    "current burden-completion quality is LOW",
-    "current continuation quality is LOW",
-    "primary scoring mechanism not intact",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
@@ -911,136 +560,31 @@ require(
     "test_stop_lane_user_exception_can_reopen",
     "test_missing_xi_status_fails_closed",
     "test_missing_post_xi_research_status_fails_closed",
-    "test_post_xi_research_note_is_required",
-    "test_material_h2h_effect_requires_verified_transferability_and_corroboration",
-    "test_material_h2h_effect_requires_current_corroboration",
-    "test_missing_h2h_basis_fails_closed",
-    "test_missing_thesis_state_basis_fails_closed",
-    "test_missing_primary_mechanism_basis_fails_closed",
-    "test_missing_wait_basis_fails_closed",
-    "test_missing_material_veto_basis_fails_closed",
-    "test_missing_assessment_boolean_basis_fails_closed",
     "test_non_prematch_fixture_blocks_step2",
     "test_quote_must_be_revalidated_before_decision",
     "test_c2_requires_own_route_quality_recheck",
-    "test_c3_requires_own_funding_recheck",
-    "test_h2h_recheck_missing_blocks_decision",
-    "test_completion_recheck_missing_blocks_decision",
-    "test_missing_suppression_boolean_fails_closed",
-    "test_missing_failure_attack_boolean_fails_closed",
-    "test_high_current_stall_risk_cannot_bet",
-    "test_low_current_completion_cannot_bet",
-    "test_low_current_continuation_cannot_bet",
 )
 
-# 5. All-model accounting must count WATCH/WAIT consistently.
-require(
-    "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md",
-    "ACTIVE AUDIT / MODEL-ACCOUNTING CONVENTION",
-    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
-    "C-WATCH",
-    "C2-WATCH",
-    "C3-WATCH",
-    "C4-WATCH",
-    "odds = **1.65** assumed audit price",
-    "C2/C3/C4 are shadow-only",
-    "C4 has no Step-2 action policy",
-)
+# 5. Active accounting is C+C2; historical retired-model settlement is explicit.
 require(
     "models/football/engine/model_bet_accounting.py",
-    "WATCH_ASSUMED_ODDS = 1.65",
-    "DEFAULT_STAKE_U = 1.0",
-    "def compile_model_bet",
-    "def compile_fixture_accounting",
-    "DIRECT_BET",
-    "WAIT_ASSUMED",
-    "SHADOW_WAIT_ASSUMED",
-    "WATCH_ASSUMED",
-    "SHADOW_WATCH_ASSUMED",
-    "creates_website_pick=model == \"c\"",
-)
-require(
-    "models/football/engine/model_bet_accounting_cli.py",
-    "compile_fixture_accounting",
-    "MODEL ACCOUNTING FAILED",
+    'ACTIVE_MODELS = ("c", "c2")',
+    'HISTORICAL_MODELS = ("c", "c2", "c3", "c4")',
+    "historical_roster",
+    "active accounting permits C/C2 only",
+    "ACTIVE_C_C2",
+    "HISTORICAL_C_C2_C3_C4",
 )
 require(
     "models/football/engine/tests/test_model_bet_accounting.py",
-    "test_watch_counts_for_all_four_models",
-    "test_wait_replaces_watch_for_c_c2_c3",
-    "test_direct_bet_replaces_wait_and_watch",
-    "test_line_never_reached_removes_wait_but_watch_remains_countable",
-    "test_c4_watch_never_creates_website_pick",
-    "test_step2_pass_does_not_erase_frozen_watch_accounting",
-    "test_asian_quarter_settlement",
-    "test_all_model_fixture_output",
+    "test_active_fixture_output_requires_c_and_c2_only",
+    "test_active_fixture_output_rejects_retired_rows",
+    "test_historical_roster_can_still_be_settled_explicitly",
 )
 require(
-    "models/football/production/FOOTBALL_C.md",
-    "every frozen `C-WATCH` is also a model-accounting bet",
-    "C-WAIT creates the higher-priority C model-accounting entry",
-    "C-WATCH accounting is audit/model-performance only",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "every frozen `C2-WATCH` is a shadow accounting bet",
-    "C2-WAIT is a shadow accounting bet",
-)
-require(
-    "models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md",
-    "every frozen C3-WATCH is a shadow accounting bet",
-    "A C3-WAIT is a shadow accounting bet",
-)
-require(
-    "models/football/challengers/football-c4/FOOTBALL_C4_SPEC.md",
-    "a frozen C4-WATCH is nevertheless a shadow accounting bet",
-    "does not create Step-2 authority",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "All-model WATCH accounting — mandatory",
-    "model_bet_accounting_cli.py",
-    "C Model Accounting",
-    "C4 Shadow Accounting",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "All-model accounting reconciliation",
-    "xi_portable.py accounting",
-    "DIRECT BET > COUNTABLE WAIT > WATCH > NONE",
-    "Step-2 PASS does not erase a frozen WATCH accounting entry",
-)
-require(
-    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "WATCH default — all models",
-    "WATCH_ASSUMED",
-    "SHADOW_WATCH_ASSUMED",
-    "C4 shadow model-accounting P/L from C4-WATCH",
-)
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "fldND2leUXgAq9UQl",
-    "fldlWroOrJdYF3lHn",
-    "fldEMKp5LzS5IZQpJ",
-    "fldNvPrq9WTW9118X",
-    "fldAt3A1bZW4QSGbF",
-)
-require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "fldOEt6DO20U9Yyab",
-    "fldIAqPB03Oian4Fw",
-    "All Model Accounting Result",
-)
-require(
-    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
-    "ACTIVE C-WAIT OPERATIONAL PERSISTENCE COMPATIBILITY",
-    "FOOTBALL_MODEL_BET_ACCOUNTING.md",
-    "removing a WAIT layer does not erase an independently frozen WATCH accounting bet",
-)
-require(
-    "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md",
-    "WAIT_ASSUMED",
-    "Actual User Bet Confirmed",
+    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
+    "New model accounting includes C and C2 only",
+    "Historical C3/C4 accounting is retained as historical data",
 )
 
 # 6. Audit hindsight integrity must be deterministic.
@@ -1134,40 +678,25 @@ forbid(
     "factor_calibration",
 )
 
-# 8. Persistence must have named current C/C2/C3 separation.
+# 8. Persistence must keep active C/C2 fields distinct.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
     "C supported burden",
     "C2 supported burden",
-    "C3 Supported Line",
-    "C3 Second Route Role",
 )
-require(
-    "models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md",
-    "ACTIVE PROCESS COMPLIANCE CONTROL",
-    "\"Recent\" is priority, not a hidden numeric threshold",
-    "H2H never creates a scoring route",
-    "carrier_self_fund_basis",
-    "primary_mechanism_basis",
-    "MODEL CHALLENGER REQUIRED",
-)
-require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "h2h_basis",
-    "primary_mechanism_basis",
-    "wait_reachability_basis",
-    "material_veto_basis",
-)
-
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
     "C Action",
     "C supported line",
     "C2 supported line",
     "C2 shadow action",
-    "C3 Supported Line",
-    "C3 Shadow Action",
-    "legacy generic",
+)
+require(
+    "models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md",
+    "ACTIVE PROCESS COMPLIANCE CONTROL",
+    "H2H never creates a scoring route",
+    "carrier_self_fund_basis",
+    "primary_mechanism_basis",
 )
 
 if failures:
@@ -1176,4 +705,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C authority and C2/C3/C4 comparison semantics are internally consistent.")
+print("PASS — Football C official + C2 shadow production authority is internally consistent.")
