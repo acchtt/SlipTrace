@@ -106,7 +106,6 @@ forbid(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "EXECUTED_ALL_THREE",
     "xi_portable.py triplet",
-    "decision_triplet_cli.py",
 )
 
 for rel in (
