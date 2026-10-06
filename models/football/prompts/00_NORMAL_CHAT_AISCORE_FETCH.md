@@ -93,7 +93,7 @@ Cheap source-local enumeration, hard exclusions, already-supported C/D block cla
 
 ## Source authority
 
-AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. The preferred fallback carrier is now the count-reconciled FootballFixtures.org direct date page. LiveScore, Flashscore and Soccerway remain permitted alternates; FootballInfo and LivescoresX may be used as independent corroborators. Do not mark SOURCE_BLOCKED merely because the legacy three-provider set failed while the FootballFixtures.org date carrier has not been tried.
+AiScore remains the preferred fixture-discovery authority. When AiScore is technically blocked, the source-acquisition procedure may authorize the verified multi-source fallback. In chat/web runtimes, navigate the literal direct date URLs rather than relying on provider search results. Try the exact FootballFixtures.org date URL first, then the exact FootballInfo and LivescoresX date URLs as additional direct-date surfaces, with LiveScore/Flashscore/Soccerway remaining permitted alternates. A provider-local `Invalid URL`, cache miss, or generic page is not terminal by itself. Do not mark SOURCE_BLOCKED until every permitted direct-date carrier in the bounded pass has actually been attempted.
 
 Before any senior-block discovery, pass `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`.
 
