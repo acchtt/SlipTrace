@@ -1,7 +1,7 @@
 # Football AiScore Source Acquisition Gate
 
 **Status:** ACTIVE  
-**Effective:** 2026-10-04 ICT  
+**Effective:** 2026-10-06 ICT  
 **Applies to:** Step 0 `/sweep` before senior discovery  
 **Primary fixture authority:** AiScore  
 **Fallback authority:** verified multi-source consensus (LiveScore date feed + Flashscore/Soccerway corroboration)
@@ -138,34 +138,74 @@ Set:
 - discovery/reconciliation/packaging incomplete;
 - exact raw counters unset rather than estimated.
 
-## 4. Resume no-repeat rule
+## 4. Resume no-repeat + source-recovery lease
 
 Also apply `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
 
 When source acquisition reaches `ACQUIRED`, persist the source transport/hash/attempt state to the Sweep Run **before** broad discovery or external research. Advance the fresh-sweep cursor to `DISCOVERY_CLASSIFICATION`.
 
-On `/sweep resume`, an unchanged `ACQUIRED` source epoch is authoritative and must be reused. Do not repeat the covering-cache check, native AiScore attempt, or multi-source fallback merely because execution moved to a new chat turn.
-
 Persist a blocker fingerprint containing at least:
-
 - requested window;
 - listing date(s);
 - current source-acquisition procedure revision;
 - transport(s) attempted;
 - normalized technical failure class.
 
-On `/sweep resume`:
+A SOURCE_BLOCKED fingerprint prevents repeated same-turn loops, but it must **never become a permanent latch**. Provider/browser outages are transient external conditions and can recover even when the window and procedure are unchanged.
 
-- if the run is SOURCE_BLOCKED and the blocker fingerprint is unchanged, **do not repeat acquisition or manual reconstruction**;
-- return the stored source-blocked status immediately;
-- retry only when at least one material condition changed:
-  - a browser-capable transport became available/connected;
-  - the user supplied an AiScore raw date payload/valid complete handoff;
-  - a persisted complete source cache became available;
-  - source date/window changed;
-  - source-acquisition code/config/procedure changed.
+### Recovery lease
 
-A plain user `resume` does not itself count as a changed source condition.
+When a bounded acquisition pass ends SOURCE_BLOCKED, persist in the Resume Cursor:
+- `source_blocker_fingerprint`;
+- `source_last_attempt_at`;
+- `source_retry_not_before = source_last_attempt_at + 30 minutes`;
+- `source_recovery_attempt_count`.
+
+Use:
+
+`python models/football/engine/sweep_checkpoint_cli.py source-blocked --input <checkpoint.json> --attempted-at <ISO8601> --fingerprint <fingerprint>`
+
+On `/sweep resume`, before returning stored SOURCE_BLOCKED, run:
+
+`python models/football/engine/sweep_checkpoint_cli.py source-retry --input <checkpoint.json> --now <ISO8601> --fingerprint <current-fingerprint>`
+
+Behavior:
+- if the current blocker fingerprint differs, retry immediately;
+- if the stored blocked checkpoint predates this lease and has no retry timestamp, retry immediately once;
+- if the fingerprint is unchanged and the 30-minute lease is still active, return the stored SOURCE_BLOCKED status without provider calls;
+- if the fingerprint is unchanged but the lease expired, perform **one new bounded recovery acquisition pass**.
+
+A recovery acquisition pass is the same bounded source-level sequence from §3:
+1. covering COMPLETE/persisted-cache check;
+2. one native AiScore acquisition attempt;
+3. one ordered fallback carrier pass: LiveScore -> Flashscore -> Soccerway, stopping once a valid carrier is obtained for each required listing date and then doing only required corroboration.
+
+It is **not** permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
+
+If recovery succeeds:
+- persist `source_acquisition_state=ACQUIRED`;
+- persist source transport/payload hash;
+- clear blocker/retry lease fields;
+- continue to `DISCOVERY_CLASSIFICATION`.
+
+If recovery fails:
+- remain `SOURCE_BLOCKED`;
+- persist the new failure fingerprint/attempt time;
+- start a new 30-minute recovery lease;
+- return the exact blocker.
+
+Material conditions still permit immediate retry regardless of lease:
+- browser-capable transport became available/connected;
+- user supplied an AiScore raw date payload/valid complete handoff;
+- a persisted complete source cache became available;
+- source date/window changed;
+- source-acquisition code/config/procedure changed.
+
+A plain user `resume` does not bypass an **active** 30-minute lease, but after lease expiry it is sufficient to trigger the single bounded recovery probe.
+
+This prevents both failure modes:
+- hammering the same dead carrier loop on every resume;
+- remaining SOURCE_BLOCKED forever after the external source has recovered.
 
 ## 5. Search/index prohibition for completeness
 
