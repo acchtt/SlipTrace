@@ -246,6 +246,11 @@ require(
     "SOURCE_RECOVERY_LEASE_EXPIRED",
     "stored blocked checkpoint predates this lease",
     "30 minutes",
+    "FootballFixtures.org",
+    "https://www.footballfixtures.org/fixtures/YYYY-MM-DD",
+    "DATE_CARRIER_COUNT_MISMATCH",
+    "FootballInfo",
+    "LivescoresX",
 )
 
 # 4D2. Fresh Step-0 sweep execution must be bounded and resumable.

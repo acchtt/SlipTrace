@@ -4,7 +4,7 @@
 **Effective:** 2026-10-06 ICT  
 **Applies to:** Step 0 `/sweep` before senior discovery  
 **Primary fixture authority:** AiScore  
-**Fallback authority:** verified multi-source consensus (LiveScore date feed + Flashscore/Soccerway corroboration)
+**Fallback authority:** verified date-level multi-source consensus. Preferred browser/server carrier: FootballFixtures.org date page; legacy LiveScore/Flashscore/Soccerway remain permitted; FootballInfo/LivescoresX may corroborate.
 
 ## Purpose
 
@@ -72,16 +72,30 @@ Do not use a plain HTTP failure as evidence that the date has no fixtures.
 
 If B is technically unavailable, use this ordered alternate path:
 
-1. acquire at least one **date-level fallback universe carrier** for each required listing date. Preferred order: LiveScore, then Flashscore date/all-matches surface, then Soccerway date/fixtures surface;
-2. use a second independent provider for protected/required blocks, women's top-flight blocks, and material identity/time disagreements;
-3. use the third provider only when the first two disagree or the second provider does not cover a mandatory block.
+1. acquire at least one **date-level fallback universe carrier** for each required listing date. Preferred order is now:
+   - FootballFixtures.org `https://www.footballfixtures.org/fixtures/YYYY-MM-DD`;
+   - LiveScore date-level feed/surface;
+   - Flashscore date/all-matches surface;
+   - Soccerway date/fixtures surface.
+2. use an independent corroborator for protected/required blocks, women's top-flight blocks, and material identity/time disagreements. Preferred corroborators when reachable are FootballInfo `https://www.footballinfo.net/Fixtures?date=YYYY-MM-DD`, LivescoresX `https://livescoresx.com/fixtures/YYYY-MM-DD`, then the unused legacy providers above;
+3. use another provider only when the first corroborator disagrees or does not cover a mandatory block.
 
 A fallback carrier is acceptable only when it is a provider-level date/all-matches listing capable of enumerating the production senior scope. Search snippets and individually discovered fixture pages are not carriers.
+
+### FootballFixtures.org carrier acceptance
+
+FootballFixtures.org is accepted as a date-level carrier only from the direct date page, never from a search-result snippet. The page must:
+- identify the requested calendar date;
+- expose a declared `All N` fixture count;
+- expose the date's fixture rows/links in the fetched page rather than only a teaser subset;
+- allow the enumerated fixture count to reconcile to the declared `All N` count before `ACQUIRED` is set.
+
+If the declared count and enumerated rows do not reconcile, classify that carrier attempt as `DATE_CARRIER_COUNT_MISMATCH` and continue to the next permitted carrier. Provider display time must not be treated as an authoritative timezone until the time-integrity procedure establishes its zone; the carrier may still establish fixture identity/universe membership while kickoff is separately verified.
 
 The alternate universe is accepted when:
 - every required listing date is covered by at least one valid fallback date-level carrier;
 - every protected required competition block is independently corroborated by a different fallback provider;
-- every senior women's domestic top-flight block admitted/deferred is independently corroborated by Flashscore or Soccerway;
+- every senior women's domestic top-flight block admitted/deferred is independently corroborated by a different provider, preferring FootballInfo/LivescoresX/Flashscore/Soccerway according to coverage;
 - any material provider disagreement is explicitly resolved or marked UNRESOLVED;
 - no unresolved material block remains before work_ready=true.
 
@@ -91,7 +105,7 @@ Set:
 `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE`;
 and persist the actual carrier/corroborator providers used.
 
-LiveScore failure alone must **not** produce SOURCE_BLOCKED when Flashscore or Soccerway still exposes a valid date-level carrier. If no valid alternate date-level universe can be established from any permitted carrier, stop as SOURCE_BLOCKED.
+Failure of AiScore, LiveScore, Flashscore, or Soccerway alone must **not** produce SOURCE_BLOCKED while FootballFixtures.org or another permitted date-level carrier is still reachable and count-reconcilable. If no valid alternate date-level universe can be established from any permitted carrier, stop as SOURCE_BLOCKED.
 
 ### C1. FAST_PRODUCTION terminal-date exception
 
@@ -123,7 +137,7 @@ Per run + source epoch, the normal acquisition budget is:
 
 - one covering-cache/reuse check;
 - one native AiScore date acquisition attempt;
-- one fallback acquisition pass across the permitted date-level carriers. Within that single pass, try LiveScore -> Flashscore -> Soccerway until one valid carrier is acquired for each listing date; this is one bounded fallback attempt, not three retry loops. Corroboration calls required by the accepted carrier do not count as a new acquisition attempt.
+- one fallback acquisition pass across the permitted date-level carriers. Within that single pass, try FootballFixtures.org -> LiveScore -> Flashscore -> Soccerway until one valid carrier is acquired for each listing date; this is one bounded fallback attempt, not four retry loops. Corroboration calls required by the accepted carrier do not count as a new acquisition attempt.
 
 Do not loop through public search engines, dozens of competition pages, team schedules, or country-by-country reconstruction trying to simulate the missing master list.
 
@@ -180,7 +194,7 @@ Behavior:
 A recovery acquisition pass is the same bounded source-level sequence from §3:
 1. covering COMPLETE/persisted-cache check;
 2. one native AiScore acquisition attempt;
-3. one ordered fallback carrier pass: LiveScore -> Flashscore -> Soccerway, stopping once a valid carrier is obtained for each required listing date and then doing only required corroboration.
+3. one ordered fallback carrier pass: FootballFixtures.org -> LiveScore -> Flashscore -> Soccerway, stopping once a valid carrier is obtained for each required listing date and then doing only required corroboration.
 
 It is **not** permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
 
