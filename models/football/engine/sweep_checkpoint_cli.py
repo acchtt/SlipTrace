@@ -8,7 +8,9 @@ from pathlib import Path
 from sweep_checkpoint import (
     SweepCheckpointError,
     advance_after_chunk,
+    mark_source_blocked,
     select_verification_chunk,
+    source_retry_decision,
     validate_checkpoint,
 )
 
@@ -32,6 +34,16 @@ def main() -> int:
     a.add_argument("--completed", default="")
     a.add_argument("--retry", default="")
 
+    sr = sub.add_parser("source-retry")
+    sr.add_argument("--input", required=True)
+    sr.add_argument("--now", required=True)
+    sr.add_argument("--fingerprint", required=True)
+
+    sb = sub.add_parser("source-blocked")
+    sb.add_argument("--input", required=True)
+    sb.add_argument("--attempted-at", required=True)
+    sb.add_argument("--fingerprint", required=True)
+
     args = parser.parse_args()
 
     try:
@@ -40,6 +52,24 @@ def main() -> int:
             out = {"ok": True, **validate_checkpoint(payload)}
         elif args.command == "select":
             out = {"ok": True, **select_verification_chunk(payload).to_dict()}
+        elif args.command == "source-retry":
+            out = {
+                "ok": True,
+                **source_retry_decision(
+                    payload,
+                    now=args.now,
+                    current_blocker_fingerprint=args.fingerprint,
+                ),
+            }
+        elif args.command == "source-blocked":
+            out = {
+                "ok": True,
+                **mark_source_blocked(
+                    payload,
+                    blocker_fingerprint=args.fingerprint,
+                    attempted_at=args.attempted_at,
+                ),
+            }
         else:
             completed = [x for x in args.completed.split(";") if x]
             retry = [x for x in args.retry.split(";") if x]

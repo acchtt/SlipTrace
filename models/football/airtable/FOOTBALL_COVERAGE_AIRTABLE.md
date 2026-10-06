@@ -294,8 +294,12 @@ Bounded-execution fields:
 - `Sweep Chunk Number` — `flduqxh9DOKdV1A06`
 - `Pending Verification Blocks` — `flduhyM3Thjwj3Bqs`
 - `Last Completed Block` — `fld8jr7wAWGLhXqXe`
+- `Source Blocker Fingerprint` — `fldFIDTXJNTmazT2Y`
+- `Source Last Attempt At` — `fldqs9yD3uZjEC1Yr`
+- `Source Retry Not Before` — `fldWkU52dpn2MSb4b`
+- `Source Recovery Attempt Count` — `fldpJ92WA877WjYNj`
 
-For a RUNNING fresh sweep, `Resume Cursor` is the authoritative next stage/block. Do not infer progress from chat history.
+For a resumable fresh sweep, `Resume Cursor` is the authoritative next stage/block. Normal checkpoints are RUNNING. A BLOCKED row is resumable only when its cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED` and the source-recovery lease authorizes a new bounded attempt. Do not infer progress from chat history.
 
 A chunk boundary is not a coverage failure:
 - keep `Run Status = RUNNING`;
@@ -304,3 +308,5 @@ A chunk boundary is not a coverage failure:
 - do not emit the canonical ZIP until final reconciliation/packaging passes.
 
 When the source epoch is already `ACQUIRED`, a resume must reuse its source hash/window rather than reacquire the date universe.
+
+When the source epoch is `SOURCE_BLOCKED`, an unchanged blocker fingerprint suppresses only immediate repeat loops. Persist the 30-minute recovery lease; after expiry, or immediately when the fingerprint changes, one new bounded source acquisition pass is allowed. Legacy blocked rows without lease metadata receive one immediate recovery probe.

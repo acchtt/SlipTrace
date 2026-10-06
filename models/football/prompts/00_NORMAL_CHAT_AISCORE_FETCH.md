@@ -70,8 +70,9 @@ For a new sweep:
 If initialization persistence fails, return `SWEEP START FAILED — CHECKPOINT NOT PERSISTED` and do not acquire sources. A fresh sweep must never return "work remains" without a resumable RUNNING cursor.
 
 For `/sweep resume`:
-- load the matching RUNNING Sweep Run first;
+- load the matching resumable Sweep Run first;
 - continue from its `Resume Cursor`;
+- a BLOCKED run is resumable only for `SOURCE_ACQUISITION / SOURCE_BLOCKED`; apply the recovery-lease decision and restore RUNNING status when a retry is authorized.
 - reuse completed Daily Coverage rows and block evidence;
 - never restart an unchanged ACQUIRED source epoch;
 - never create a replacement Run ID merely because the previous chat turn ended.
@@ -100,11 +101,11 @@ A complete source universe must be acquired through AiScore or the authorized mu
 
 In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
 
-If the source gate is `SOURCE_BLOCKED`, stop immediately with:
+If the source gate is `SOURCE_BLOCKED`, stop the current invocation with:
 
 `HANDOFF INCOMPLETE — AISCORE SOURCE BLOCKED`
 
-Do not spend later resumes repeating competition-by-competition reconstruction unless the persisted blocker fingerprint materially changed.
+SOURCE_BLOCKED is not permanent. Persist the source-recovery lease from `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`. On `/sweep resume`, recompute the current blocker fingerprint and run the deterministic source-retry decision before returning stored SOURCE_BLOCKED. Retry immediately when the fingerprint changed or when a legacy blocked checkpoint has no lease metadata. Otherwise, once the 30-minute lease expires, perform exactly one new bounded source acquisition pass. Never use recovery permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
 
 ## Time / identity integrity
 
