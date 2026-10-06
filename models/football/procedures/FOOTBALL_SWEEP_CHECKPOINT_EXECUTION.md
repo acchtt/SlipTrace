@@ -73,7 +73,10 @@ A fresh /sweep invocation that returns while work remains must satisfy exactly o
 
 When the command is `/sweep resume`:
 
-- load the matching RUNNING `Sweep Runs` row first;
+- load the matching `Sweep Runs` row first;
+- accept a normal `RUNNING` row or a `BLOCKED` row only when its Resume Cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED`;
+- for a blocked source row, run the deterministic source-recovery lease decision before returning the stored blocker;
+- if recovery retry is authorized, set `Run Status = RUNNING` before any provider/source call; if the bounded recovery pass fails, persist it back as `BLOCKED / SOURCE_BLOCKED` with a fresh lease;
 - `Resume Cursor` is authoritative for the next unfinished stage/block;
 - read persisted Daily Coverage rows for completed work;
 - reuse an `ACQUIRED` source epoch when its hash/window is unchanged;
@@ -83,9 +86,9 @@ When the command is `/sweep resume`:
 - do not repeat already-completed public-web searches;
 - do not allocate a new Run ID.
 
-If more than one RUNNING sweep exists and no window/Run ID disambiguates, use the most recently updated sweep whose requested window matches the user's preserved sweep context. If ambiguity remains material, report the candidate Run IDs instead of merging them.
+If more than one resumable sweep exists and no window/Run ID disambiguates, prefer the most recently updated matching `RUNNING` sweep, otherwise the most recently updated matching recoverable `BLOCKED / SOURCE_BLOCKED` sweep. If ambiguity remains material, report the candidate Run IDs instead of merging them.
 
-A plain `resume` in the project should also continue the most recent RUNNING sweep when the preceding active task is clearly Step 0.
+A plain `resume` in the project should also continue the most recent resumable Step-0 sweep when the preceding active task is clearly Step 0, including a recoverable `BLOCKED / SOURCE_BLOCKED` run whose lease permits a retry.
 
 ## 4. Phase model
 
