@@ -72,6 +72,7 @@ If initialization persistence fails, return `SWEEP START FAILED — CHECKPOINT N
 For `/sweep resume`:
 - load the matching resumable Sweep Run first;
 - continue from its `Resume Cursor`;
+- a BLOCKED run is resumable only for `SOURCE_ACQUISITION / SOURCE_BLOCKED`; apply the recovery-lease decision and restore RUNNING status when a retry is authorized.
 - reuse completed Daily Coverage rows and block evidence;
 - never restart an unchanged ACQUIRED source epoch;
 - never create a replacement Run ID merely because the previous chat turn ended.
