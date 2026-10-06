@@ -5,7 +5,7 @@
 
 ## Purpose
 
-Several Football C/C2/C3 inputs are semantic football judgments rather than mechanically observed values. Their booleans/states may change a verdict, so a bare true/false declaration is insufficient for QA.
+Several Football C/C2 inputs are semantic football judgments rather than mechanically observed values. Their booleans/states may change a verdict, so a bare true/false declaration is insufficient for QA.
 
 This contract requires an explicit contemporaneous evidence basis for those judgments. The deterministic engine validates presence and persistence of the basis; it does not invent the football judgment.
 
@@ -126,7 +126,7 @@ Frozen Step-1 basis remains historical. A Step-2 basis is a new current evidence
 This contract is a `PROCESS COMPLIANCE FIX`.
 
 It does not:
-- alter Football C/C2/C3 thresholds;
+- alter Football C/C2 thresholds;
 - create new exposure;
 - define a new numerical H2H recency rule;
 - change supported-burden policy;

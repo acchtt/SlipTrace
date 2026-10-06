@@ -28,7 +28,6 @@ Only board/process failures, for example:
 - women's coverage/reconciliation failure;
 - unresolved ranked fixture that was incorrectly allowed into the ranked universe;
 - deterministic board reconciliation failure;
-- C4 required persistence/readback failure when the launcher requires C4 completion;
 - other explicit fail-closed integrity faults.
 
 Do **not** use `RANK BLOCKED` merely because:
@@ -41,7 +40,7 @@ Do **not** use `RANK BLOCKED` merely because:
 ## Incentive quarantine
 
 For a valid `INCENTIVE-INCOMPLETE` fixture:
-- no C/C2/C3/C4 state;
+- no C/C2 state;
 - no rank;
 - no supported line;
 - no lane;

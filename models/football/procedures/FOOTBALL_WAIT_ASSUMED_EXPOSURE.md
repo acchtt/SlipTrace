@@ -1,7 +1,7 @@
 # Football WAIT Assumed-Exposure Accounting
 
 **Status:** ACTIVE C-WAIT OPERATIONAL PERSISTENCE COMPATIBILITY  
-**Applies to:** C/C2/C3 WAIT operational fields; all-model audit accounting is governed by `FOOTBALL_MODEL_BET_ACCOUNTING.md`  
+**Applies to:** C/C2 WAIT operational fields; active-model audit accounting is governed by `FOOTBALL_MODEL_BET_ACCOUNTING.md`  
 **Predictive effect:** none — this does not change BET/WAIT/PASS selection logic
 
 ## 1. Purpose
@@ -9,7 +9,7 @@
 Read first:
 `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 
-This file preserves the existing C-WAIT Website Pick / Decision State mechanics. The all-model accounting ledger now additionally handles C2/C3 WAITs and C/C2/C3/C4 WATCHs with one-accounting-bet precedence.
+This file preserves the existing C-WAIT Website Pick / Decision State mechanics. Active accounting additionally handles C2 WAITs and C/C2 WATCHs with one-accounting-bet precedence.
 
 A Football C `C-WAIT` is a model instruction with a predeclared target line and minimum odds. For audit simplicity, an unresolved WAIT is treated as if that target entry was taken unless the user supplies stronger execution truth.
 
@@ -34,7 +34,7 @@ Do not wait for a later market observation to create model exposure.
 
 ## 3. Deterministic target/minimum price
 
-For deterministic C/C2/C3 engine output, a WAIT must expose:
+For deterministic C/C2 engine output, a WAIT must expose:
 
 - `wait_target_line`;
 - `wait_min_odds`;
@@ -67,7 +67,7 @@ A corresponding user bet may differ from the original WAIT target. Do not erase 
 
 Only an explicit user statement that the target line never reached may cancel the WAIT layer.
 
-Under the all-model policy, removing a WAIT layer does not erase an independently frozen WATCH accounting bet for the same model/fixture.
+Under the active-model policy, removing a WAIT layer does not erase an independently frozen WATCH accounting bet for the same model/fixture.
 
 When the user says the line never reached:
 
@@ -145,10 +145,10 @@ Mappings:
 
 ## 9. Shadow WAIT accounting
 
-C2/C3 remain shadow-only and never create Website Picks.
+C2 remains shadow-only and never creates Website Picks.
 
 For model-comparison audit:
-- C2-WAIT and C3-WAIT default to shadow assumed bets at their deterministic target/minimum odds;
+- C2-WAIT defaults to a shadow assumed bet at its deterministic target/minimum odds;
 - settle them through `FOOTBALL_MODEL_BET_ACCOUNTING.md`;
 - if the corresponding WAIT is explicitly declared not reached, remove the WAIT layer;
 - if that model's board state was WATCH, the WATCH accounting bet remains;

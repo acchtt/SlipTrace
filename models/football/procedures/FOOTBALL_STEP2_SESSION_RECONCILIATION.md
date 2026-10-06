@@ -81,7 +81,6 @@ The same factual research epoch is shared, but policy rechecks are separate:
 
 - Football C: `completion_rechecked = true`;
 - Football C2: `c2_route_quality_rechecked = true`;
-- Football C3: `c3_funding_rechecked = true`.
 
 Do not satisfy a shadow model by copying Football C's completion-recheck flag.
 

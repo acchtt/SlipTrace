@@ -1,12 +1,12 @@
 # Football Step-2 Market-History Recheck
 
 **Status:** MANDATORY STEP-2 EVIDENCE BLOCK  
-**Applies to:** Football C official, C2 shadow, C3 shadow  
+**Applies to:** Football C official, C2 shadow  
 **Authority:** context/reinspection only; market history does not create football structure
 
 ## 1. Mandatory attempt
 
-For every Step-2 fixture, attempt a lightweight Asian-total history trace before the final C/C2/C3 action:
+For every Step-2 fixture, attempt a lightweight Asian-total history trace before the final C/C2 action:
 
 `OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH`
 
@@ -77,7 +77,7 @@ Market movement may:
 Market movement may not:
 - create a scoring route;
 - turn TWO_SIDED into burden-completing;
-- upgrade C/C2/C3 rank by price alone;
+- upgrade C/C2 rank by price alone;
 - raise supported burden;
 - replace H2H/tournament/XI research.
 

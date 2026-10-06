@@ -8,20 +8,16 @@ sys.path.insert(0, str(ENGINE_DIR))
 from core import (  # noqa: E402
     Action,
     BoardState,
-    C3PolicyAssessment,
     CarrierStrength,
     CompletionMode,
     DecisionContext,
     FollowLane,
-    FundingSource,
-    FundingState,
     Grade,
     H2HReviewStatus,
     MatchAssessment,
     PostXiResearchStatus,
     Quote,
     RouteStrength,
-    SecondRouteRole,
     SelectionFloor,
     Settlement,
     Step2Authorization,
@@ -29,17 +25,12 @@ from core import (  # noqa: E402
     XiStatus,
     c2_bridge_eligibility,
     c2_selection_floor,
-    c3_board_state,
-    c3_ranking_key,
-    c3_shadow_lane,
     clearing_goal_funded,
     decide_c,
     decide_c2,
-    decide_c3,
     follow_through_lane,
     rank_assessments,
     rank_assessments_c2,
-    rank_assessments_c3,
     settle_over,
 )
 
@@ -83,30 +74,6 @@ def assessment(**overrides):
     )
     base.update(overrides)
     return MatchAssessment(**base)
-
-
-def c3_assessment(base=None, **overrides):
-    data = dict(
-        base=base or assessment(
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=True,
-        ),
-        second_route_role=SecondRouteRole.BURDEN_CONTRIBUTING,
-        second_route_role_basis="second route can contribute prospectively to the clearing goal",
-        goal3_funding=FundingState.VERIFIED,
-        goal3_funding_source=FundingSource.CARRIER,
-        goal3_funding_basis="strong self-funded carrier has repeatable third-goal path",
-        goal4_funding=FundingState.NOT_REQUIRED,
-        goal4_funding_source=FundingSource.NONE,
-        goal4_funding_basis="not required below O3.0",
-        control_endpoint_risk=Grade.LOW,
-        control_endpoint_basis="continued pressure remains supported after two goals",
-        forced_chaos_verified=False,
-        forced_chaos_basis="no separate forced-chaos path is required or verified",
-    )
-    data.update(overrides)
-    return C3PolicyAssessment(**data)
 
 
 def context(
@@ -331,146 +298,6 @@ class RankingTests(unittest.TestCase):
 
         # Equal C2 football factors fall through to stable match_id only.
         self.assertEqual(ranked[0].match_id, "z_high")
-
-
-class C3BurdenFundingTests(unittest.TestCase):
-    def test_two_routes_exchange_only_do_not_create_focus(self):
-        a = c3_assessment(
-            base=assessment(
-                carrier=CarrierStrength.USABLE,
-                carrier_self_fund=False,
-                independent_upper_tail=False,
-            ),
-            second_route_role=SecondRouteRole.EXCHANGE_ONLY,
-            goal3_funding=FundingState.PARTIAL,
-            goal3_funding_source=FundingSource.SECOND_ROUTE,
-            goal3_funding_basis="second route can produce exchange goal but third-goal proof is partial",
-        )
-        self.assertEqual(c3_board_state(a), BoardState.WATCH)
-
-    def test_no_goal3_funding_is_pass_even_with_two_usable_routes(self):
-        a = c3_assessment(
-            base=assessment(
-                carrier=CarrierStrength.USABLE,
-                carrier_self_fund=False,
-                independent_upper_tail=False,
-            ),
-            second_route_role=SecondRouteRole.EXCHANGE_ONLY,
-            goal3_funding=FundingState.NONE,
-            goal3_funding_source=FundingSource.NONE,
-            goal3_funding_basis="no prospectively supported third-goal mechanism",
-        )
-        self.assertEqual(c3_board_state(a), BoardState.PASS)
-
-    def test_verified_second_route_requires_burden_contributing_role(self):
-        with self.assertRaisesRegex(ValueError, "burden-contributing"):
-            c3_assessment(
-                base=assessment(
-                    carrier=CarrierStrength.USABLE,
-                    carrier_self_fund=False,
-                    independent_upper_tail=False,
-                ),
-                second_route_role=SecondRouteRole.EXCHANGE_ONLY,
-                goal3_funding=FundingState.VERIFIED,
-                goal3_funding_source=FundingSource.SECOND_ROUTE,
-            )
-
-    def test_carrier_led_verified_goal3_can_focus_with_weak_second_route(self):
-        base = assessment(
-            away_route=RouteStrength.WEAK,
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=True,
-        )
-        a = c3_assessment(
-            base=base,
-            second_route_role=SecondRouteRole.NONE,
-            goal3_funding=FundingState.VERIFIED,
-            goal3_funding_source=FundingSource.CARRIER,
-        )
-        self.assertEqual(c3_board_state(a), BoardState.FOCUS)
-        self.assertEqual(c3_shadow_lane(a, BoardState.FOCUS), FollowLane.FOLLOW)
-
-    def test_o3_requires_goal4_funding(self):
-        with self.assertRaisesRegex(ValueError, "goal4 funding cannot be NOT_REQUIRED"):
-            c3_assessment(
-                base=assessment(
-                    supported_line=3.0,
-                    carrier=CarrierStrength.STRONG,
-                    carrier_self_fund=True,
-                    independent_upper_tail=True,
-                )
-            )
-
-    def test_o3_requires_both_goal3_and_goal4_funding(self):
-        base = assessment(
-            supported_line=3.0,
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=True,
-        )
-        a = c3_assessment(
-            base=base,
-            goal3_funding=FundingState.NONE,
-            goal3_funding_source=FundingSource.NONE,
-            goal3_funding_basis="no credible goal-three mechanism",
-            goal4_funding=FundingState.VERIFIED,
-            goal4_funding_source=FundingSource.CARRIER,
-            goal4_funding_basis="carrier has verified fourth-goal tail conditional on reaching three",
-        )
-        self.assertEqual(c3_board_state(a), BoardState.PASS)
-
-    def test_current_c3_degradation_blocks_frozen_focus_bet(self):
-        base = assessment(
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=True,
-            evidence_confidence=Grade.MEDIUM,
-        )
-        a = c3_assessment(base=base)
-        decision = decide_c3(
-            a,
-            context(board_state=BoardState.FOCUS),
-        )
-        self.assertEqual(c3_board_state(a), BoardState.WATCH)
-        self.assertEqual(decision.action, Action.PASS)
-
-    def test_medium_control_endpoint_caps_at_watch(self):
-        a = c3_assessment(control_endpoint_risk=Grade.MEDIUM)
-        self.assertEqual(c3_board_state(a), BoardState.WATCH)
-        self.assertEqual(c3_shadow_lane(a, BoardState.WATCH), FollowLane.RESERVE)
-
-    def test_c3_ranking_prioritizes_verified_funding_over_two_route_shape(self):
-        verified_carrier = c3_assessment(
-            base=assessment(
-                match_id="carrier",
-                away_route=RouteStrength.WEAK,
-                carrier=CarrierStrength.STRONG,
-                carrier_self_fund=True,
-                independent_upper_tail=True,
-            ),
-            second_route_role=SecondRouteRole.NONE,
-        )
-        two_route_partial = c3_assessment(
-            base=assessment(
-                match_id="two_route",
-                carrier=CarrierStrength.USABLE,
-                carrier_self_fund=False,
-                independent_upper_tail=False,
-            ),
-            second_route_role=SecondRouteRole.EXCHANGE_ONLY,
-            goal3_funding=FundingState.PARTIAL,
-            goal3_funding_source=FundingSource.SECOND_ROUTE,
-        )
-        ranked = rank_assessments_c3([two_route_partial, verified_carrier])
-        self.assertEqual(ranked[0].base.match_id, "carrier")
-        self.assertGreater(c3_ranking_key(verified_carrier), c3_ranking_key(two_route_partial))
-
-    def test_c3_decision_requires_verified_funding_and_low_control(self):
-        good = c3_assessment()
-        bad = c3_assessment(control_endpoint_risk=Grade.MEDIUM)
-        self.assertEqual(decide_c3(good, context()).action, Action.BET)
-        self.assertEqual(decide_c3(bad, context()).action, Action.PASS)
 
 
 class FootballCExecutionTests(unittest.TestCase):

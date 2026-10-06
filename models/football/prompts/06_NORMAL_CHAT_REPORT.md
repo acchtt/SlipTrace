@@ -1,108 +1,104 @@
-# 06 — Normal Chat: Football State Report
+# 06 — Normal Chat: Football Report
 
 **Command alias:** `/report`  
-**Purpose:** summarize current persisted football state without rerunning predictive stages.
+**Current roster:** Football C official + Football C2 shadow.
 
-Read first:
-- `models/football/CURRENT_MODEL.md`
-- `models/football/prompts/COMMAND_ALIASES.md`
-- the relevant Airtable contracts when persistence is queried.
+Read `models/football/CURRENT_MODEL.md` and current persisted state first.
 
-## Authority
+This launcher is read-only. It summarizes already-existing football state and must not silently rerun Step 0, Step 1, Step 2, live assessment, or predictive ranking.
 
-This is a read/report launcher only.
+## Current report scope
 
-It may retrieve and summarize:
-- current/latest Football C board;
-- FOLLOW / RESERVE / STOP queue;
-- next scheduled matches;
-- current Decision States;
-- current Website Picks, including direct C-BET and assumed/reconciled C-WAIT operational exposure;
-- current C-WAIT plans and exposure basis;
-- current all-model accounting for C/C2/C3/C4, including WATCH/WAIT precedence;
-- C2/C3 shadow waits when they exist on the same fixtures;
-- C2 shadow state when useful;
-- C3 burden-funding shadow state/rank/lane and Board N/5 when useful;
-- C4 Step-1 structured shadow state/rank/line and Board N/5 when useful;
-- Step-0 coverage/disposition summaries;
-- active RUNNING sweep checkpoint status, including chunk/phase/pending block count.
+When relevant, report:
+- current board/window;
+- Step-0 funnel/capacity state;
+- Football C official state/rank/line/lane;
+- Football C2 shadow state/rank/line;
+- current C+C2 Step-2 actions;
+- Website Pick / official C exposure state;
+- C/C2 model-accounting state;
+- current WAIT plans;
+- runtime/persistence blockers;
+- upcoming kickoff/status after factual revalidation when requested.
 
-It must not:
-- run a new AiScore sweep;
-- rerank fixtures;
-- perform a new Step-1 football assessment;
-- perform a new XI/odds decision;
-- create an opportunistic live decision;
-- alter Airtable/model state merely to make the report cleaner.
+C3/C4 are retired. Do not show them as current tracks or counters.
 
-## Source priority
+Historical C3/C4 data may appear only in an explicitly historical audit/report when:
+- the record was genuinely prospectively frozen during that model's active era; and
+- the historical comparison is relevant to the user's requested scope.
 
-For persisted current state use:
-1. current conversation evidence when it is newer and explicit;
-2. official Football C persisted board / Daily Coverage state;
-3. Decision States for material Step-2/live decisions;
-4. Website Picks for official published exposure;
-5. current authoritative fixture/status verification when the request is about what is upcoming/live/finished now.
+## `/report current board`
 
-Do not present stale stored kickoff/status as current when a schedule/status revalidation is required.
+Show the latest frozen:
+- board window;
+- C official ranking/state/line;
+- FOLLOW / RESERVE / STOP lane;
+- C2 shadow ranking/state/line;
+- replenishment state;
+- pair-reconciliation status;
+- persistence/runtime status.
 
-## Default `/report`
+Do not rerank.
 
-When no scope is supplied, return a compact operational report containing:
-- active/latest board window;
-- FOLLOW matches;
-- RESERVE count/list when relevant;
-- next upcoming matches in ICT;
-- active C-WAIT / official C-BET states;
-- C2/C3/C4 prospective board counters when relevant;
-- unresolved process faults, if any;
-- if a Step-0 sweep is RUNNING, its Run ID, chunk number, phase and pending verification-block count.
+## `/report latest decisions`
 
-Do not rerun model research.
+Show latest material Decision States:
+- C Action;
+- C supported line;
+- C2 Shadow Action;
+- C2 supported line;
+- engine C+C2 pair status;
+- official Website Pick state;
+- WAIT target/min odds when relevant;
+- active accounting result.
 
-## Scoped examples
+Do not reconstruct missing C2 from C.
 
-### `/report current board`
-Show the latest frozen official Football C board and operational lanes. When a prospective C4 freeze exists, show the compact C-vs-C4 Step-1 delta separately; never merge C4 state into the official queue.
+## `/report next matches`
 
-### `/report next matches`
-Show upcoming Football C FOLLOW schedule first, then RESERVE if useful. Revalidate current fixture time/status before calling a match upcoming.
+Daily Coverage is frozen history, not proof a fixture is still upcoming.
 
-### `/report latest decisions`
-Show the latest material Football C Decision States and official Website Pick state. Also show the all-model accounting row for C/C2/C3/C4 when available.
+Revalidate only the factual schedule/status necessary for the report:
+- correct ICT kickoff;
+- remove LIVE/HT/FT/postponed/cancelled fixtures from upcoming;
+- annotate material schedule corrections.
 
-For WATCH show `WATCH_ASSUMED O<supported line> @1.65 1u` (shadow equivalent for C2/C3/C4). For WAIT show model-specific target/minimum odds. Keep operational C-WAIT exposure separate from model-accounting precedence.
+This factual refresh does not authorize reranking/reassessment.
 
-### `/report coverage`
-Show latest Step-0 funnel, including women's top-flight coverage counts/disposition integrity.
+## WAIT display
 
-If the newest matching sweep is still RUNNING, show:
-- Run ID;
-- `Checkpoint Version`;
-- `Sweep Chunk Number`;
-- cursor phase;
-- `Pending Verification Blocks`;
-- `Last Completed Block`;
-- retry queue count;
-- source acquisition state/transport.
+Show C/C2 WAIT plans using each model's own:
+- target line;
+- minimum odds;
+- accounting basis;
+- current known resolution.
 
-Do not call a normal chunk boundary BLOCKED.
+Do not label a WAIT "not reached" unless the user explicitly said so.
 
-### `/report waits`
-Show C/C2/C3 WAIT plans with target, minimum odds, accounting basis and current status if known. Default unresolved WAIT accounting is assumed; do not label a WAIT "not reached" unless the user explicitly said so. When a WAIT is not reached and that model had frozen WATCH, show the surviving WATCH accounting bet.
+C official model-accounting and actual user execution remain separate.
 
-## Refresh modifier
+## Accounting
 
-If the user writes `/report ... refresh`, refresh only factual current status needed for reporting, such as fixture time/status or currently persisted rows.
+Current forward accounting is C+C2 only.
 
-Do not interpret `refresh` as permission to rerun:
-- `/sweep`;
-- `/rank`;
-- `/xi`;
-- `/live`.
+For WATCH:
+`WATCH_ASSUMED O<supported line> @1.65 1u`
+with the shadow equivalent for C2.
 
-## Output
+For WAIT:
+use that model's frozen target/min odds.
 
-Keep reports operational and concise unless the user asks for detail.
+Historical retired-model accounting belongs only in an explicitly historical appendix using frozen historical rows.
 
-Never invent missing state. If a requested report item has no persisted/current evidence, label it unavailable rather than reconstructing a new prediction.
+## Boundaries
+
+`/report` must not:
+- create a new sweep;
+- repair Step 0;
+- rerank;
+- reassess XI;
+- execute a new live decision;
+- manufacture a new model verdict;
+- backfill C2/C3/C4 after outcome.
+
+If the user asks for new predictive work, route to the corresponding launcher.

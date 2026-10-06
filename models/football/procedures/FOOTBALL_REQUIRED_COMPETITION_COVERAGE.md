@@ -117,7 +117,7 @@ Post-slate audit must distinguish:
 - wrong hard exclusion;
 - legitimate operational/researchability/capacity disposition.
 
-A missing required block is board-level coverage contamination for C/C2/C3 confirmatory-board counting.
+A missing required block is board-level coverage contamination for C/C2 board comparison.
 
 A correctly discovered fixture that is later excluded for a valid documented reason is not a coverage miss.
 

@@ -9,34 +9,25 @@ from competition_reliability import apply_reliability_cap, effective_state
 from core import (
     Action,
     BoardState,
-    C3PolicyAssessment,
     CarrierStrength,
     CompletionMode,
     DecisionContext,
     FollowLane,
-    FundingSource,
-    FundingState,
     Grade,
     H2HReviewStatus,
     MatchAssessment,
     PostXiResearchStatus,
     Quote,
     RouteStrength,
-    SecondRouteRole,
     Step2Authorization,
     ThesisState,
     XiStatus,
     c2_selection_floor,
-    c3_board_state,
-    c3_ranking_key,
-    c3_shadow_lane,
-    decide_c3,
     decide_c,
     decide_c2,
     follow_through_lane,
     rank_assessments,
     rank_assessments_c2,
-    rank_assessments_c3,
     ranking_key,
     c2_ranking_key,
     wait_accounting_target,
@@ -72,9 +63,6 @@ def _enum(enum_cls, value: Any, field: str):
         ("BoardState", "C2_FOCUS"): "FOCUS",
         ("BoardState", "C2_WATCH"): "WATCH",
         ("BoardState", "C2_PASS"): "PASS",
-        ("BoardState", "C3_FOCUS"): "FOCUS",
-        ("BoardState", "C3_WATCH"): "WATCH",
-        ("BoardState", "C3_PASS"): "PASS",
     }
     key = aliases.get((enum_cls.__name__, key), key)
     try:
@@ -557,53 +545,6 @@ def parse_assessment(
     )
 
 
-def parse_c3_policy(
-    obj: dict[str, Any],
-    base: MatchAssessment,
-) -> C3PolicyAssessment:
-    """Parse C3-only policy fields without changing common C/C2 evidence."""
-
-    return C3PolicyAssessment(
-        base=base,
-        second_route_role=_enum(
-            SecondRouteRole,
-            _required(obj, "c3_second_route_role"),
-            "c3_second_route_role",
-        ),
-        second_route_role_basis=_string(obj, "c3_second_route_role_basis"),
-        goal3_funding=_enum(
-            FundingState,
-            _required(obj, "c3_goal3_funding"),
-            "c3_goal3_funding",
-        ),
-        goal3_funding_source=_enum(
-            FundingSource,
-            _required(obj, "c3_goal3_funding_source"),
-            "c3_goal3_funding_source",
-        ),
-        goal3_funding_basis=_string(obj, "c3_goal3_funding_basis"),
-        goal4_funding=_enum(
-            FundingState,
-            _required(obj, "c3_goal4_funding"),
-            "c3_goal4_funding",
-        ),
-        goal4_funding_source=_enum(
-            FundingSource,
-            _required(obj, "c3_goal4_funding_source"),
-            "c3_goal4_funding_source",
-        ),
-        goal4_funding_basis=_string(obj, "c3_goal4_funding_basis"),
-        control_endpoint_risk=_enum(
-            Grade,
-            _required(obj, "c3_control_endpoint_risk"),
-            "c3_control_endpoint_risk",
-        ),
-        control_endpoint_basis=_string(obj, "c3_control_endpoint_basis"),
-        forced_chaos_verified=_required_bool(obj, "c3_forced_chaos_verified"),
-        forced_chaos_basis=_string(obj, "c3_forced_chaos_basis"),
-    )
-
-
 def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
     if not isinstance(payload, dict):
         raise ContractError("payload must be a JSON object")
@@ -632,18 +573,14 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     ]
     if model == "c":
         ranked = rank_assessments(parsed)
-    elif model == "c2":
-        ranked = rank_assessments_c2(parsed)
     else:
-        ranked = rank_assessments_c3(
-            [parse_c3_policy(raw, base) for raw, base in zip(raw_matches, parsed)]
-        )
+        ranked = rank_assessments_c2(parsed)
 
     raw_by_id = {str(item["match_id"]): item for item in raw_matches}
     block_rank_by_id: dict[str, int] = {}
     block_counts: dict[str, int] = {}
     for ranked_item in ranked:
-        item = ranked_item.base if model == "c3" else ranked_item
+        item = ranked_item
         raw = raw_by_id[item.match_id]
         block = _kickoff_block(raw)
         block_counts[block] = block_counts.get(block, 0) + 1
@@ -655,8 +592,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     follow_by_block: dict[str, int] = {}
 
     for rank, ranked_item in enumerate(ranked, start=1):
-        c3_item = ranked_item if model == "c3" else None
-        item = ranked_item.base if model == "c3" else ranked_item
+        item = ranked_item
         raw = raw_by_id[item.match_id]
         kickoff_block = _kickoff_block(raw)
         operational_gate = validate_operational_viability(raw)
@@ -665,11 +601,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "rank": rank,
             "match_id": item.match_id,
             "ranking_key": list(
-                ranking_key(item)
-                if model == "c"
-                else c2_ranking_key(item)
-                if model == "c2"
-                else c3_ranking_key(c3_item)
+                ranking_key(item) if model == "c" else c2_ranking_key(item)
             ),
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
@@ -715,18 +647,16 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["opponent_leakage"] = item.opponent_leakage.name
             row["burden_stall_risk"] = item.burden_stall_risk.name
 
-        state = None
-        if model != "c3":
-            state = _enum(
-                BoardState,
-                _required(raw, "board_state"),
-                "board_state",
-            )
-            board_state_basis = _string(raw, "board_state_basis")
-            row["board_state"] = state.name
-            row["board_state_basis"] = board_state_basis
-            if model == "c":
-                validate_c_screen_state(item, state)
+        state = _enum(
+            BoardState,
+            _required(raw, "board_state"),
+            "board_state",
+        )
+        board_state_basis = _string(raw, "board_state_basis")
+        row["board_state"] = state.name
+        row["board_state_basis"] = board_state_basis
+        if model == "c":
+            validate_c_screen_state(item, state)
 
         if model == "c" and state is not None:
             base_lane = follow_through_lane(item, state)
@@ -762,51 +692,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["selection_floor"] = floor.value
             row["selection_floor_reasons"] = list(reasons)
 
-        if model == "c3":
-            state = c3_board_state(c3_item)
-            base_lane = c3_shadow_lane(c3_item, state)
-            lane = FollowLane.STOP
-
-            # Fair C-vs-C3 lane comparison uses the same operational/capacity
-            # constraints. C3 remains shadow-only and never creates workload.
-            if operational_gate["grade"] == "B":
-                if (
-                    base_lane in {FollowLane.FOLLOW, FollowLane.RESERVE}
-                    and reserve_used < MAX_RESERVE
-                ):
-                    lane = FollowLane.RESERVE
-                    reserve_used += 1
-            elif base_lane == FollowLane.FOLLOW:
-                block_follow_used = follow_by_block.get(kickoff_block, 0)
-                if (
-                    follow_used < MAX_FOLLOW
-                    and block_follow_used < MAX_FOLLOW_PER_KICKOFF
-                ):
-                    lane = FollowLane.FOLLOW
-                    follow_used += 1
-                    follow_by_block[kickoff_block] = block_follow_used + 1
-                elif reserve_used < MAX_RESERVE:
-                    lane = FollowLane.RESERVE
-                    reserve_used += 1
-            elif base_lane == FollowLane.RESERVE and reserve_used < MAX_RESERVE:
-                lane = FollowLane.RESERVE
-                reserve_used += 1
-
-            row["board_state"] = f"C3-{state.name}"
-            row["c3_shadow_lane"] = lane.value
-            row["c3_second_route_role"] = c3_item.second_route_role.name
-            row["c3_second_route_role_basis"] = c3_item.second_route_role_basis
-            row["c3_goal3_funding"] = c3_item.goal3_funding.name
-            row["c3_goal3_funding_source"] = c3_item.goal3_funding_source.value
-            row["c3_goal3_funding_basis"] = c3_item.goal3_funding_basis
-            row["c3_goal4_funding"] = c3_item.goal4_funding.name
-            row["c3_goal4_funding_source"] = c3_item.goal4_funding_source.value
-            row["c3_goal4_funding_basis"] = c3_item.goal4_funding_basis
-            row["c3_control_endpoint_risk"] = c3_item.control_endpoint_risk.name
-            row["c3_control_endpoint_basis"] = c3_item.control_endpoint_basis
-            row["c3_forced_chaos_verified"] = c3_item.forced_chaos_verified
-            row["c3_forced_chaos_basis"] = c3_item.forced_chaos_basis
-
         output.append(row)
 
     result = {
@@ -817,8 +702,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "FOOTBALL_C_BURDEN_COMPLETION"
             if model == "c"
             else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
-            if model == "c2"
-            else "FOOTBALL_C3_CLEARING_GOAL_FUNDING"
         ),
         "match_count": len(output),
         "matches": output,
@@ -838,20 +721,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
 
-    if model == "c3":
-        result["c3_shadow_follow_count"] = sum(
-            row.get("c3_shadow_lane") == FollowLane.FOLLOW.value for row in output
-        )
-        result["c3_shadow_reserve_count"] = sum(
-            row.get("c3_shadow_lane") == FollowLane.RESERVE.value for row in output
-        )
-        result["c3_shadow_stop_count"] = sum(
-            row.get("c3_shadow_lane") == FollowLane.STOP.value for row in output
-        )
-        result["c3_shadow_follow_capacity"] = MAX_FOLLOW
-        result["c3_shadow_reserve_capacity"] = MAX_RESERVE
-        result["c3_max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
-
     return result
 
 
@@ -864,7 +733,6 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
 
     raw_match = _required(payload, "match")
     a = parse_assessment(raw_match, require_c_completion=(model == "c"))
-    c3_a = parse_c3_policy(raw_match, a) if model == "c3" else None
 
     ctx_obj = _required(payload, "context")
     if not isinstance(ctx_obj, dict):
@@ -986,26 +854,19 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
 
     completion_rechecked = None
     c2_route_quality_rechecked = None
-    c3_funding_rechecked = None
     if model == "c":
         completion_rechecked = _required_bool(ctx_obj, "completion_rechecked")
         if not completion_rechecked:
             raise ContractError(
                 "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING"
             )
-    elif model == "c2":
+    else:
         c2_route_quality_rechecked = _required_bool(
             ctx_obj, "c2_route_quality_rechecked"
         )
         if not c2_route_quality_rechecked:
             raise ContractError(
                 "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING"
-            )
-    else:
-        c3_funding_rechecked = _required_bool(ctx_obj, "c3_funding_rechecked")
-        if not c3_funding_rechecked:
-            raise ContractError(
-                "DECISION BLOCKED — C3 FUNDING RECHECK MISSING"
             )
 
     board_state = _enum(
@@ -1059,13 +920,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         material_veto_basis=_string(ctx_obj, "material_veto_basis"),
     )
 
-    decision = (
-        decide_c(a, ctx)
-        if model == "c"
-        else decide_c2(a, ctx)
-        if model == "c2"
-        else decide_c3(c3_a, ctx)
-    )
+    decision = decide_c(a, ctx) if model == "c" else decide_c2(a, ctx)
 
     wait_target_line = None
     wait_min_odds = None
@@ -1152,18 +1007,6 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         floor, reasons = c2_selection_floor(a)
         result["selection_floor"] = floor.value
         result["selection_floor_reasons"] = list(reasons)
-
-    if model == "c3":
-        result["c3_funding_rechecked"] = c3_funding_rechecked
-        result["c3_second_route_role"] = c3_a.second_route_role.name
-        result["c3_second_route_role_basis"] = c3_a.second_route_role_basis
-        result["c3_goal3_funding"] = c3_a.goal3_funding.name
-        result["c3_goal3_funding_source"] = c3_a.goal3_funding_source.value
-        result["c3_goal4_funding"] = c3_a.goal4_funding.name
-        result["c3_goal4_funding_source"] = c3_a.goal4_funding_source.value
-        result["c3_control_endpoint_risk"] = c3_a.control_endpoint_risk.name
-        result["c3_forced_chaos_verified"] = c3_a.forced_chaos_verified
-        result["c3_forced_chaos_basis"] = c3_a.forced_chaos_basis
 
     return result
 
