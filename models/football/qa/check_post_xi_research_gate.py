@@ -64,7 +64,7 @@ REQUIRED = {
     ],
     "models/football/retired/RETIREMENT_MANIFEST.md": [
         "Current production roster:** Football C official + Football C2 shadow",
-        "Historical C3/C4 records remain immutable",
+        "Do not delete or rewrite prospectively frozen historical C3/C4 data.",
         "Active production files must not depend on retired models",
     ],
 }
