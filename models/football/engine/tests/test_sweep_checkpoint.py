@@ -8,9 +8,12 @@ sys.path.insert(0, str(ENGINE_DIR))
 from sweep_checkpoint import (  # noqa: E402
     CHECKPOINT_VERSION,
     MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK,
+    SOURCE_RECOVERY_COOLDOWN_MINUTES,
     SweepCheckpointError,
     advance_after_chunk,
+    mark_source_blocked,
     select_verification_chunk,
+    source_retry_decision,
     validate_checkpoint,
 )
 
@@ -26,6 +29,25 @@ def checkpoint(pending=None, retry=None, completed=None):
         "pending_verification_blocks": pending or [],
         "retry_queue": retry or [],
         "completed_verification_blocks": completed or [],
+        "last_completed_block": None,
+    }
+
+
+def blocked_checkpoint():
+    return {
+        "checkpoint_version": CHECKPOINT_VERSION,
+        "run_id": "SWEEP-BLOCKED",
+        "phase": "SOURCE_ACQUISITION",
+        "chunk_number": 1,
+        "source_acquisition_state": "SOURCE_BLOCKED",
+        "source_payload_hash": None,
+        "source_blocker_fingerprint": "fp-old",
+        "source_last_attempt_at": "2026-10-06T10:00:00+07:00",
+        "source_retry_not_before": "2026-10-06T10:30:00+07:00",
+        "source_recovery_attempt_count": 1,
+        "pending_verification_blocks": [],
+        "retry_queue": [],
+        "completed_verification_blocks": [],
         "last_completed_block": None,
     }
 
@@ -80,6 +102,72 @@ class SweepCheckpointTests(unittest.TestCase):
         p["phase"] = "PACKAGING"
         with self.assertRaises(SweepCheckpointError):
             select_verification_chunk(p)
+
+
+class SourceRecoveryLeaseTests(unittest.TestCase):
+    def test_unchanged_blocker_does_not_retry_inside_lease(self):
+        out = source_retry_decision(
+            blocked_checkpoint(),
+            now="2026-10-06T10:15:00+07:00",
+            current_blocker_fingerprint="fp-old",
+        )
+        self.assertFalse(out["should_retry"])
+        self.assertEqual(out["reason"], "SOURCE_RECOVERY_LEASE_ACTIVE")
+
+    def test_unchanged_blocker_retries_after_lease_expiry(self):
+        out = source_retry_decision(
+            blocked_checkpoint(),
+            now="2026-10-06T10:31:00+07:00",
+            current_blocker_fingerprint="fp-old",
+        )
+        self.assertTrue(out["should_retry"])
+        self.assertEqual(out["reason"], "SOURCE_RECOVERY_LEASE_EXPIRED")
+
+    def test_changed_fingerprint_retries_immediately(self):
+        out = source_retry_decision(
+            blocked_checkpoint(),
+            now="2026-10-06T10:05:00+07:00",
+            current_blocker_fingerprint="fp-new",
+        )
+        self.assertTrue(out["should_retry"])
+        self.assertEqual(out["reason"], "BLOCKER_FINGERPRINT_CHANGED")
+
+    def test_legacy_blocked_checkpoint_without_lease_retries_once(self):
+        p = blocked_checkpoint()
+        p.pop("source_retry_not_before")
+        p.pop("source_last_attempt_at")
+        out = source_retry_decision(
+            p,
+            now="2026-10-06T10:05:00+07:00",
+            current_blocker_fingerprint="fp-old",
+        )
+        self.assertTrue(out["should_retry"])
+        self.assertEqual(
+            out["reason"], "LEGACY_BLOCKED_CHECKPOINT_NO_RETRY_LEASE"
+        )
+
+    def test_mark_source_blocked_creates_retry_lease(self):
+        p = blocked_checkpoint()
+        p["source_recovery_attempt_count"] = 2
+        out = mark_source_blocked(
+            p,
+            blocker_fingerprint="fp-new",
+            attempted_at="2026-10-06T14:25:00+07:00",
+        )
+        self.assertEqual(out["source_acquisition_state"], "SOURCE_BLOCKED")
+        self.assertEqual(out["source_blocker_fingerprint"], "fp-new")
+        self.assertEqual(out["source_recovery_attempt_count"], 3)
+        self.assertEqual(
+            out["source_retry_not_before"],
+            "2026-10-06T14:55:00+07:00",
+        )
+        self.assertEqual(SOURCE_RECOVERY_COOLDOWN_MINUTES, 30)
+
+    def test_retry_timestamp_requires_timezone(self):
+        p = blocked_checkpoint()
+        p["source_retry_not_before"] = "2026-10-06T10:30:00"
+        with self.assertRaises(SweepCheckpointError):
+            validate_checkpoint(p)
 
 
 if __name__ == "__main__":
