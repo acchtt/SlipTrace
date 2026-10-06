@@ -89,7 +89,7 @@ Then continue to `DISCOVERY_CLASSIFICATION`.
 
 ## 2. FAST_PRODUCTION bounded production-discovery fallback
 
-If no exact date universe is obtainable after the bounded carrier pass, **FAST_PRODUCTION must not stop merely because the transport layer is weak**.
+If no exact date universe is obtainable after the bounded carrier pass, **FAST_PRODUCTION must not stop merely because the transport layer is weak**. In other words, failure to obtain an exact date carrier is not itself SOURCE_BLOCKED.
 
 Instead, switch immediately to:
 
@@ -234,7 +234,7 @@ Do not SOURCE_BLOCK because:
 
 FULL_AUDIT may still fail closed when an exact date universe is required.
 
-## 7. Bounded retry / recovery lease
+## 7. Bounded retry / source-recovery lease
 
 Also apply `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
 
