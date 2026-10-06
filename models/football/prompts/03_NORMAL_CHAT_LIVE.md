@@ -1,164 +1,166 @@
-# 03 — Normal Chat: Football C Official Live + C2/C3 Shadow Wait
+# 03 — Normal Chat: Football C Official Live + C2 Shadow Wait
 
-> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired. `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md` overrides stale C3/C4 requirements in this file. New workflow/accounting/execution is C+C2 only.
+> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired for new/current execution.
 
 **Command alias:** `/live`
 
 Read:
+- `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`
+- `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`
 - `models/football/CURRENT_MODEL.md`
 - `models/football/production/FOOTBALL_C.md`
 - `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
-- `models/football/challengers/football-c3/FOOTBALL_C3_SPEC.md`
 - `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
 - `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
 - `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
 
-Football C is official. C2 and C3 are shadow-only.
+Football C is official. C2 is shadow-only. C2 may never create Website Pick or real exposure.
 
-## Common live evidence
+## 1. Eligibility
 
-For a supplied live fixture, freeze one current live state:
-- score/minute;
-- goals/cards/injuries/substitutions or other material event changes when known;
-- material tactical/mechanism changes supported by concrete event/news evidence;
-- current quote;
+Use this launcher when:
+- a frozen C-WAIT reaches live state;
+- a frozen C2 shadow WAIT exists and needs shadow resolution;
+- a prematch Step-2 fixture has already started and was rerouted to live;
+- the user explicitly requests a live exception.
+
+Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
+
+## 2. Common live evidence
+
+Freeze one current live epoch for both active models:
+- score and minute;
+- current executable total/odds;
+- goals, cards, injuries, substitutions and other material events when known;
+- verified tactical/mechanism changes;
 - current tournament/aggregate/table state when applicable;
-- whether a draw is acceptable;
-- whether extra time/direct penalties are reachable;
-- whether goal difference/margin still matters;
-- which side is genuinely forced to chase.
+- draw utility;
+- margin/GD/tiebreak relevance;
+- which side is actually forced to chase.
 
-Use this same live state for C, C2 and C3 when a corresponding predeclared shadow WAIT exists.
+A goal, red card, major injury, or material mechanism change creates a new epoch and invalidates the prior quote.
 
-### No live-stat gate
+## 3. No live-stat gate
 
 Assess the live match **regardless of provider live stats**.
 
-Do not require, request, or use as a mandatory execution/cancellation gate:
+Do not require or request as an execution prerequisite:
 - shots / shots on target;
 - xG / xGOT;
 - big chances;
 - dangerous attacks;
 - possession;
 - corners;
-- box entries / final-third entries;
-- pressure / momentum widgets;
-- any derived live-stat feed.
+- box/final-third entries;
+- momentum/pressure widgets.
 
-These feeds are too inconsistent across providers and may miss goals that arise from isolated transitions, set pieces, penalties, long shots, errors or deflections.
+Positive live-stat confirmation is not required. The absence of positive telemetry is not negative evidence.
 
-The absence of positive live telemetry is **not negative evidence**.
+If the user supplies live stats, they may provide context, but they cannot by themselves approve, upgrade, downgrade, or cancel the decision.
 
-A live assessment may proceed from the current score, minute, executable line/odds, the frozen prematch/XI thesis, and concrete material events. If a user supplies live stats, do not let them upgrade, downgrade, approve or cancel the decision by themselves.
+The live assessment may proceed from score/minute, current quote, frozen prematch/XI thesis, and concrete material events.
 
-## Football C official WAIT resolution
+## 4. Tournament incentive — every material live epoch
 
-Retrieve the exact official C-WAIT plan and its already-created assumed exposure.
-
-The live workflow may change the current football recommendation, but it does **not** rewrite WAIT accounting by itself. Under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`, the default exposure remains target line @ minimum odds until the user provides a matching actual bet or explicitly says the line never reached.
-
-Core rule:
-
-`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
-
-A target number alone never authorizes C-BET, but **positive live-stat confirmation is not required**.
-
-Clock/price decay without a goal is not thesis decay by itself.
-
-Cancel only when concrete football information materially attacks the frozen mechanism, such as a red card against the carrier, key attacking injury/substitution, verified tactical/mechanism change, or changed tournament incentive.
-
-A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
-
-For tournament/cup fixtures, every new epoch must recompute incentive before resolving the Over. A level score does **not** imply continued chase if parity can lead directly to penalties, protect an aggregate/table objective, or otherwise remain strategically acceptable.
-
-For an applicable tournament fixture, explicitly output the current incentive epoch:
+For a tournament/cup/qualification fixture, recompute:
 - score + aggregate/table state;
 - home incentive;
 - away incentive;
-- draw/penalty/extra-time consequence;
+- draw/extra-time/penalty consequence;
 - margin/tiebreak relevance;
-- incentive effect;
-- side genuinely forced to chase.
+- simultaneous-result effects when relevant;
+- side genuinely forced to chase;
+- current incentive effect.
 
-If this recomputation is missing:
+If the recomputation is missing:
 
 `LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
 
-If it exists but qualification/tiebreak/margin/simultaneous-result consequences remain LIMITED/UNKNOWN:
+If the material state remains LIMITED/UNKNOWN:
 
 `LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
 
-Do not issue a normal live C/C2/C3 action from any unresolved state. A user-declared exception may authorize reassessment of the fixture but does **not** waive the requirement to resolve the current incentive epoch first.
+A user exception does not waive this integrity gate.
 
-Official C may produce:
+## 5. Football C official WAIT/live resolution
+
+Retrieve the exact frozen C plan and its accounting state.
+
+Core question:
+
+`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
+
+A target number alone never authorizes C-BET.
+
+Clock/price decay without a goal is not thesis decay by itself.
+
+Cancel or pass only when concrete current football information materially attacks the frozen mechanism, including:
+- red card against the carrier;
+- key attacking injury/substitution;
+- verified tactical/mechanism deterioration;
+- tournament incentive turning suppressive;
+- current clearing-goal funding no longer credible.
+
+Possible official outputs:
 - `C-BET — <line> @ <odds>`
 - `C-WAIT — TARGET NOT YET READY`
 - `C-WAIT CANCELLED — THESIS DECAY`
 - `C-PASS — NEW EPOCH INVALIDATES PLAN`
 
-Persist official material live state.
+## 6. Football C2 shadow resolution
 
-If a live C-BET recommendation occurs from a prior C-WAIT, do not automatically replace the existing WAIT assumed-exposure line/odds. Reconcile the Website Pick to actual line/odds/stake only when the user supplies the corresponding bet.
+Use the same common live epoch, but apply C2's own frozen route-quality/supported-burden policy.
 
-If the user explicitly says the WAIT target line never reached, mark the operational C-WAIT exposure `WAIT_NOT_REACHED / USER_DECLARED_NOT_REACHED`, Result=`VOID`, P/L=0, and remove the WAIT layer from C model-accounting.
-
-If the frozen C board state was C-WATCH, retain the independent C-WATCH accounting bet at C supported line @1.65, 1u. Do not erase WATCH accounting merely because the later WAIT target never reached.
-
-## Football C2 shadow WAIT resolution
-
-If a predeclared C2-WAIT exists, resolve it separately using the same common live evidence and its own target/cancellation conditions. Do not require live-stat confirmation.
-
-Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached. If that occurs and the frozen C2 board state was C2-WATCH, remove only the WAIT layer and retain C2-WATCH accounting at C2 supported line @1.65, 1u.
-
-C2 may produce:
-- `C2-BET — SHADOW`
+Possible shadow outputs:
+- `C2-BET — <line> @ <odds> — SHADOW`
 - `C2-WAIT — SHADOW`
-- `C2-WAIT CANCELLED — THESIS DECAY — SHADOW`
-- `C2-PASS — NEW EPOCH — SHADOW`
+- `C2-WAIT CANCELLED — SHADOW`
+- `C2-PASS — SHADOW`
 
-C2 may never create Website Pick or real exposure.
+Do not copy C's line or action into C2.
 
-## Football C3 shadow WAIT resolution
+C2 never creates a Website Pick or official exposure.
 
-If a predeclared C3-WAIT exists on a fixture already in the normal live workflow, resolve it from the same live epoch. Do not require live-stat confirmation.
+## 7. WAIT accounting integrity
 
-Its audit accounting remains a shadow assumed bet at the frozen WAIT target/minimum odds unless the user explicitly states that target line never reached. If that occurs and the frozen C3 board state was C3-WATCH, remove only the WAIT layer and retain C3-WATCH accounting at C3 supported line @1.65, 1u.
+Under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`, the frozen model-accounting state is not silently rewritten by later live observation.
 
-Recheck:
-- required clearing-goal funding;
-- funding source integrity;
-- control-endpoint risk;
-- primary funding mechanism;
-- tournament incentive epoch when applicable.
+For Football C:
+- WAIT_ASSUMED remains the model exposure convention unless the user supplies a matching actual bet or explicitly says the target was not reached.
+- a later recommendation change does not erase the already frozen accounting entry.
 
-C3 may produce:
-- `C3-BET — SHADOW`
-- `C3-WAIT — SHADOW`
-- `C3-WAIT CANCELLED — FUNDING DECAY — SHADOW`
-- `C3-PASS — NEW EPOCH — SHADOW`
+For C2:
+- shadow WAIT accounting follows its own frozen supported target;
+- it remains shadow-only.
 
-Do not start C3-only live monitoring for a fixture Football C is not otherwise following.
+User execution truth and model accounting remain separate.
 
-## Mandatory three-track visibility
+## 8. Persistence
 
-For every material live match, visibly report:
-- `OFFICIAL C: ...`
-- `SHADOW C2: ...`
-- `SHADOW C3: ...`
+Persist material live changes without overwriting the frozen prematch/XI record:
+- live epoch time;
+- score/minute;
+- current quote;
+- material events;
+- tournament-incentive state when applicable;
+- C live action;
+- C2 shadow live action;
+- thesis/mechanism cancellation basis where relevant;
+- user-declared target-not-reached or actual execution facts.
 
-If a shadow track has no valid prospective frozen state/plan, show:
-- `SHADOW C2: UNAVAILABLE — NO PROSPECTIVE C2 FREEZE`; or
-- `SHADOW C3: UNAVAILABLE — BOARD PREDATES C3 / NO PROSPECTIVE C3 FREEZE`; or
-- the applicable `COMPARISON INCOMPLETE` reason.
+Do not create new C3/C4 current fields or actions.
 
-Never omit a shadow row just because the handoff is stale or the match is already live.
+## 9. User-facing output
 
-Do not ask the user for live-stat screenshots before assessing. Score/minute/odds plus the preserved football thesis are sufficient unless a separate integrity gate (for example tournament incentive) is unresolved.
+Show:
+- Match / score / minute
+- Current line / odds
+- C frozen plan
+- C current official action + reason
+- C2 frozen plan if available
+- C2 current shadow action + reason
+- tournament-incentive epoch when applicable
+- exact blocker when unresolved
+- accounting/user-execution distinction when relevant
 
-## Output
-
-Report official C first, then C2 and C3 shadow comparisons when they exist.
-
-When a WAIT resolution changes accounting precedence, also report the resulting accounting basis for that model (`DIRECT_BET / WAIT_ASSUMED / WATCH_ASSUMED / shadow equivalents / NONE`).
-
-Never allow a C2/C3 live state to overwrite or substitute for the official C live plan.
+Do not delay the verdict waiting for live-stat screenshots.
