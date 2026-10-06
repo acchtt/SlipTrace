@@ -6,7 +6,9 @@ from typing import Any
 
 WATCH_ASSUMED_ODDS = 1.65
 DEFAULT_STAKE_U = 1.0
-MODELS = {"c", "c2", "c3", "c4"}
+ACTIVE_MODELS = ("c", "c2")
+HISTORICAL_MODELS = ("c", "c2", "c3", "c4")
+MODELS = set(HISTORICAL_MODELS)
 
 
 class ModelBetAccountingError(ValueError):
@@ -236,6 +238,11 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(match_id, str) or not match_id.strip():
         raise ModelBetAccountingError("match_id must be non-empty")
 
+    historical_roster = payload.get("historical_roster", False)
+    if not isinstance(historical_roster, bool):
+        raise ModelBetAccountingError("historical_roster must be boolean")
+    required_models = HISTORICAL_MODELS if historical_roster else ACTIVE_MODELS
+
     rows = payload.get("models")
     if not isinstance(rows, list) or not rows:
         raise ModelBetAccountingError("models must be a non-empty array")
@@ -249,10 +256,22 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
             raise ModelBetAccountingError(f"duplicate model row {model!r}")
         by_model[model] = row
 
-    missing = MODELS - set(by_model)
-    if missing:
+    extra = set(by_model) - set(required_models)
+    if extra:
+        if historical_roster:
+            raise ModelBetAccountingError(
+                f"historical accounting has unsupported model rows: {sorted(extra)}"
+            )
         raise ModelBetAccountingError(
-            f"all-model accounting requires C/C2/C3/C4 rows; missing={sorted(missing)}"
+            "active accounting permits C/C2 only; "
+            f"retired/unsupported rows={sorted(extra)}"
+        )
+
+    missing = set(required_models) - set(by_model)
+    if missing:
+        roster = "C/C2/C3/C4" if historical_roster else "C/C2"
+        raise ModelBetAccountingError(
+            f"{roster} accounting requires complete roster; missing={sorted(missing)}"
         )
 
     total_goals = payload.get("total_goals")
@@ -261,7 +280,7 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
             raise ModelBetAccountingError("total_goals must be null or a non-negative integer")
 
     results: list[dict[str, Any]] = []
-    for model in ("c", "c2", "c3", "c4"):
+    for model in required_models:
         terms = compile_model_bet(by_model[model])
         settlement = "PENDING" if terms.basis != "NONE" else "NO_BET"
         pnl_u: float | None = None if terms.basis != "NONE" else 0.0
@@ -293,6 +312,11 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
         "schema_version": "football-model-accounting-v1",
         "stage": "model_accounting_result",
         "match_id": match_id.strip(),
+        "roster": (
+            "HISTORICAL_C_C2_C3_C4"
+            if historical_roster
+            else "ACTIVE_C_C2"
+        ),
         "watch_assumed_odds": WATCH_ASSUMED_ODDS,
         "models": results,
     }
