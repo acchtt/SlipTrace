@@ -248,7 +248,11 @@ require(
     "30 minutes",
     "FootballFixtures.org",
     "https://www.footballfixtures.org/fixtures/YYYY-MM-DD",
+    "https://www.footballinfo.net/Fixtures?date=YYYY-MM-DD",
+    "https://livescoresx.com/fixtures/YYYY-MM-DD",
     "DATE_CARRIER_COUNT_MISMATCH",
+    "Direct-navigation rule for chat/web runtimes",
+    "A transport-local `Invalid URL` result from one provider is not terminal.",
     "FootballInfo",
     "LivescoresX",
 )

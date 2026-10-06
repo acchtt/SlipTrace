@@ -82,6 +82,25 @@ If B is technically unavailable, use this ordered alternate path:
 
 A fallback carrier is acceptable only when it is a provider-level date/all-matches listing capable of enumerating the production senior scope. Search snippets and individually discovered fixture pages are not carriers.
 
+### Direct-navigation rule for chat/web runtimes
+
+For every permitted HTML date carrier, **navigate the literal date URL directly first**. Do not search for the provider name and then treat an indexed/search result as the carrier.
+
+Primary exact URLs:
+- FootballFixtures.org: `https://www.footballfixtures.org/fixtures/YYYY-MM-DD`
+- FootballInfo: `https://www.footballinfo.net/Fixtures?date=YYYY-MM-DD`
+- LivescoresX: `https://livescoresx.com/fixtures/YYYY-MM-DD`
+
+A search/index result may be used only as a transport-health clue or to recover the literal URL. It may never certify completeness by itself.
+
+If one direct navigation returns a transport-local error such as `Invalid URL`, cache miss, stale generic page, or fetch failure:
+- do **not** immediately declare SOURCE_BLOCKED;
+- attempt the next exact direct-date URL in the permitted carrier list;
+- treat the failure as provider/transport-local, not as proof that the date universe is unavailable.
+
+SOURCE_BLOCKED is allowed only after every currently permitted direct date carrier has been attempted in the bounded fallback pass and none produced an acceptable date universe.
+
+
 ### FootballFixtures.org carrier acceptance
 
 FootballFixtures.org is accepted as a date-level carrier only from the direct date page, never from a search-result snippet. The page must:
@@ -105,7 +124,7 @@ Set:
 `source_transport = MULTISOURCE_FALLBACK_DATE_UNIVERSE`;
 and persist the actual carrier/corroborator providers used.
 
-Failure of AiScore, LiveScore, Flashscore, or Soccerway alone must **not** produce SOURCE_BLOCKED while FootballFixtures.org or another permitted date-level carrier is still reachable and count-reconcilable. If no valid alternate date-level universe can be established from any permitted carrier, stop as SOURCE_BLOCKED.
+Failure of AiScore, FootballFixtures.org, LiveScore, Flashscore, Soccerway, FootballInfo, or LivescoresX **individually** must not produce SOURCE_BLOCKED. The bounded pass must exhaust the currently permitted direct-date carriers first. A transport-local `Invalid URL` result from one provider is not terminal. If no valid alternate date-level universe can be established from any permitted direct-date carrier, stop as SOURCE_BLOCKED.
 
 ### C1. FAST_PRODUCTION terminal-date exception
 
