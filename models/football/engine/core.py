@@ -31,28 +31,6 @@ class CompletionMode(Enum):
     MIXED = "MIXED"
 
 
-class SecondRouteRole(IntEnum):
-    NONE = 0
-    STATE_DEPENDENT = 1
-    EXCHANGE_ONLY = 2
-    BURDEN_CONTRIBUTING = 3
-
-
-class FundingState(IntEnum):
-    NOT_REQUIRED = -1
-    NONE = 0
-    PARTIAL = 1
-    VERIFIED = 2
-
-
-class FundingSource(Enum):
-    NONE = "NONE"
-    CARRIER = "CARRIER"
-    SECOND_ROUTE = "SECOND_ROUTE"
-    FORCED_CHAOS = "FORCED_CHAOS"
-    MIXED = "MIXED"
-
-
 class BoardState(IntEnum):
     PASS = 0
     WATCH = 1
@@ -140,7 +118,7 @@ class MatchAssessment:
     evidence_confidence: Grade
     burden_protection: Grade
 
-    # Common Step-1 research basis. This is shared across C/C2/C3 and must
+    # Common Step-1 research basis. This is shared across C/C2 and must
     # describe the frozen football evidence epoch used for the common grades.
     common_evidence_basis: str
 
@@ -167,7 +145,7 @@ class MatchAssessment:
     material_suppression_basis: str
 
     # Football C-owned burden-completion diagnostics. These are deliberately
-    # optional in the shared assessment object so C2/C3 do not need to carry
+    # optional in the shared assessment object so C2 does not need to carry
     # C policy labels merely to satisfy a generic parser. The C parser and all
     # C-only deterministic functions fail closed when any field is absent.
     completion_mode: CompletionMode | None = None
@@ -197,123 +175,6 @@ class MatchAssessment:
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
-
-
-@dataclass(frozen=True)
-class C3PolicyAssessment:
-    """C3-only burden-funding policy fields layered on common evidence."""
-
-    base: MatchAssessment
-    second_route_role: SecondRouteRole
-    second_route_role_basis: str
-    goal3_funding: FundingState
-    goal3_funding_source: FundingSource
-    goal3_funding_basis: str
-    goal4_funding: FundingState
-    goal4_funding_source: FundingSource
-    goal4_funding_basis: str
-    control_endpoint_risk: Grade
-    control_endpoint_basis: str
-    forced_chaos_verified: bool
-    forced_chaos_basis: str
-
-    def __post_init__(self) -> None:
-        for name, value in (
-            ("second_route_role_basis", self.second_route_role_basis),
-            ("goal3_funding_basis", self.goal3_funding_basis),
-            ("goal4_funding_basis", self.goal4_funding_basis),
-            ("control_endpoint_basis", self.control_endpoint_basis),
-            ("forced_chaos_basis", self.forced_chaos_basis),
-        ):
-            if not value.strip():
-                raise ValueError(f"{name} must be non-empty")
-
-        line = self.base.supported_line
-        if line >= 2.0 and self.goal3_funding == FundingState.NOT_REQUIRED:
-            raise ValueError("goal3 funding cannot be NOT_REQUIRED for O2.0+")
-        if line >= 3.0 and self.goal4_funding == FundingState.NOT_REQUIRED:
-            raise ValueError("goal4 funding cannot be NOT_REQUIRED for O3.0+")
-        if line < 3.0:
-            if self.goal4_funding != FundingState.NOT_REQUIRED:
-                raise ValueError("goal4 funding must be NOT_REQUIRED below O3.0")
-            if self.goal4_funding_source != FundingSource.NONE:
-                raise ValueError("goal4 funding source must be NONE below O3.0")
-
-        for state, source, label in (
-            (self.goal3_funding, self.goal3_funding_source, "goal3"),
-            (self.goal4_funding, self.goal4_funding_source, "goal4"),
-        ):
-            if state in {FundingState.VERIFIED, FundingState.PARTIAL} and source == FundingSource.NONE:
-                raise ValueError(f"{label} funding requires a non-NONE source")
-            if state in {FundingState.NONE, FundingState.NOT_REQUIRED} and source != FundingSource.NONE:
-                raise ValueError(f"{label} funding source must be NONE when state={state.name}")
-
-        self._validate_source_integrity(
-            self.goal3_funding, self.goal3_funding_source, "goal3"
-        )
-        if self.goal4_funding != FundingState.NOT_REQUIRED:
-            self._validate_source_integrity(
-                self.goal4_funding, self.goal4_funding_source, "goal4"
-            )
-
-    def _validate_source_integrity(
-        self,
-        state: FundingState,
-        source: FundingSource,
-        label: str,
-    ) -> None:
-        if state != FundingState.VERIFIED:
-            return
-
-        base = self.base
-        weaker_route = min(base.home_route, base.away_route)
-
-        if source == FundingSource.CARRIER:
-            if not (
-                base.carrier == CarrierStrength.STRONG
-                and base.carrier_self_fund
-                and base.independent_upper_tail
-                and not base.material_suppression
-            ):
-                raise ValueError(
-                    f"{label} VERIFIED CARRIER source lacks strong self-funded upper-tail proof"
-                )
-
-        if source == FundingSource.SECOND_ROUTE:
-            if not (
-                self.second_route_role == SecondRouteRole.BURDEN_CONTRIBUTING
-                and weaker_route >= RouteStrength.USABLE
-                and not base.failure_attacks_route
-            ):
-                raise ValueError(
-                    f"{label} VERIFIED SECOND_ROUTE source lacks burden-contributing usable second route"
-                )
-
-        if source == FundingSource.FORCED_CHAOS:
-            if not self.forced_chaos_verified:
-                raise ValueError(
-                    f"{label} VERIFIED FORCED_CHAOS source lacks C3 forced-chaos verification"
-                )
-
-        if source == FundingSource.MIXED:
-            contributors = 0
-            if (
-                base.carrier == CarrierStrength.STRONG
-                and base.carrier_self_fund
-                and base.independent_upper_tail
-            ):
-                contributors += 1
-            if (
-                self.second_route_role == SecondRouteRole.BURDEN_CONTRIBUTING
-                and weaker_route >= RouteStrength.USABLE
-            ):
-                contributors += 1
-            if self.forced_chaos_verified:
-                contributors += 1
-            if contributors < 2:
-                raise ValueError(
-                    f"{label} VERIFIED MIXED source requires at least two credible contributors"
-                )
 
 
 @dataclass(frozen=True)
@@ -520,115 +381,6 @@ def rank_assessments_c2(
         key=lambda item: (c2_ranking_key(item), item.match_id),
         reverse=True,
     )
-
-
-def c3_required_funding(a: C3PolicyAssessment) -> FundingState:
-    """Return the weakest funding state required to clear the C3 burden.
-
-    O3.0+ requires a credible path through both goal 3 and goal 4, so the
-    weaker of the two funding states governs.
-    """
-    if a.base.supported_line >= 3.0:
-        return min(a.goal3_funding, a.goal4_funding)
-    return a.goal3_funding
-
-
-def c3_ranking_key(a: C3PolicyAssessment) -> tuple[int, ...]:
-    """C3 burden-funding-first ranking. Two-sidedness has no direct bonus."""
-
-    base = a.base
-    required = c3_required_funding(a)
-    source_independence = int(
-        (
-            a.goal3_funding_source == FundingSource.MIXED
-            or a.goal4_funding_source == FundingSource.MIXED
-        )
-    )
-    self_funded_upper_tail = int(
-        base.carrier_self_fund and base.independent_upper_tail
-    )
-    contributing_second_route = int(
-        a.second_route_role == SecondRouteRole.BURDEN_CONTRIBUTING
-    )
-    lower_burden = -round(base.supported_line * 4)
-
-    return (
-        int(required),
-        -int(a.control_endpoint_risk),
-        source_independence,
-        self_funded_upper_tail,
-        contributing_second_route,
-        int(base.failure_resistance),
-        int(base.route_reliability),
-        int(base.chance_quality),
-        int(base.evidence_confidence),
-        int(base.burden_protection),
-        lower_burden,
-    )
-
-
-def rank_assessments_c3(
-    items: Iterable[C3PolicyAssessment],
-) -> list[C3PolicyAssessment]:
-    return sorted(
-        items,
-        key=lambda item: (c3_ranking_key(item), item.base.match_id),
-        reverse=True,
-    )
-
-
-def c3_board_state(a: C3PolicyAssessment) -> BoardState:
-    base = a.base
-    required = c3_required_funding(a)
-
-    if base.material_suppression or base.failure_attacks_route:
-        return BoardState.PASS
-    if required in {FundingState.NONE, FundingState.NOT_REQUIRED}:
-        return BoardState.PASS
-    if a.control_endpoint_risk == Grade.HIGH:
-        forced_chaos_escape = (
-            a.forced_chaos_verified
-            and required == FundingState.VERIFIED
-            and (
-                a.goal3_funding_source in {FundingSource.FORCED_CHAOS, FundingSource.MIXED}
-                or a.goal4_funding_source in {FundingSource.FORCED_CHAOS, FundingSource.MIXED}
-            )
-        )
-        return BoardState.WATCH if forced_chaos_escape else BoardState.PASS
-
-    if (
-        required == FundingState.VERIFIED
-        and a.control_endpoint_risk == Grade.LOW
-        and base.route_reliability >= Grade.MEDIUM
-        and base.evidence_confidence == Grade.HIGH
-    ):
-        return BoardState.FOCUS
-
-    return BoardState.WATCH
-
-
-def c3_shadow_lane(a: C3PolicyAssessment, state: BoardState) -> FollowLane:
-    base = a.base
-    required = c3_required_funding(a)
-
-    if state == BoardState.FOCUS:
-        if (
-            required == FundingState.VERIFIED
-            and a.control_endpoint_risk == Grade.LOW
-            and base.failure_resistance == Grade.HIGH
-            and base.evidence_confidence == Grade.HIGH
-            and base.supported_line <= 3.0
-        ):
-            return FollowLane.FOLLOW
-        return FollowLane.RESERVE
-
-    if state == BoardState.WATCH and (
-        required == FundingState.PARTIAL
-        or a.control_endpoint_risk == Grade.MEDIUM
-    ):
-        return FollowLane.RESERVE
-
-    return FollowLane.STOP
 
 
 def follow_through_lane(
@@ -1000,50 +752,6 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
         Action.PASS,
         "above burden; bridge fails and wait is unrealistic",
     )
-
-
-def decide_c3(a: C3PolicyAssessment, ctx: DecisionContext) -> Decision:
-    """C3 shadow execution: funding integrity first, same price policy as C."""
-
-    _validate_step2_authorization(ctx, require_c_focus=False)
-
-    base = a.base
-    if ctx.thesis_state == ThesisState.BROKEN:
-        return Decision(Action.PASS, "thesis broken")
-    if not ctx.primary_mechanism_intact:
-        return Decision(Action.PASS, "primary funding mechanism not intact")
-    if ctx.material_veto or base.material_suppression or base.failure_attacks_route:
-        return Decision(Action.PASS, "material football veto remains")
-    if c3_required_funding(a) != FundingState.VERIFIED:
-        return Decision(Action.PASS, "required clearing-goal funding not VERIFIED")
-    if a.control_endpoint_risk != Grade.LOW:
-        return Decision(Action.PASS, "control-endpoint risk is not LOW")
-    if ctx.board_state != BoardState.FOCUS:
-        return Decision(Action.PASS, "frozen C3 direct shadow BET requires C3-FOCUS")
-    if c3_board_state(a) != BoardState.FOCUS:
-        return Decision(Action.PASS, "current C3 burden-funding state is not FOCUS")
-
-    at_or_below = ctx.quote.line <= base.supported_line + 1e-9
-
-    if at_or_below:
-        if ctx.quote.odds >= 1.65:
-            return Decision(Action.BET, "C3 verified funding at supported/protected line")
-        if (
-            1.60 <= ctx.quote.odds < 1.65
-            and ctx.top_ranked_focus
-        ):
-            return Decision(Action.BET, "C3 top-focus soft-zone price")
-        if _healthy_wait(ctx):
-            return Decision(Action.WAIT, "C3 price blocker with healthy reachable wait")
-        return Decision(Action.PASS, "C3 price unacceptable without healthy wait path")
-
-    if _healthy_wait(ctx):
-        return Decision(
-            Action.WAIT,
-            "market above C3 supported burden; funding intact and target reachable",
-        )
-
-    return Decision(Action.PASS, "above C3 burden and wait unrealistic")
 
 
 def _split_quarter_line(line: float) -> tuple[float, ...]:
