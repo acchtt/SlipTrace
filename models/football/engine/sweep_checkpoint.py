@@ -186,8 +186,8 @@ def _parse_iso_datetime(value: Any, field: str) -> datetime:
     return parsed
 
 
-def _source_blocked_checkpoint_view(payload: dict[str, Any]) -> dict[str, Any]:
-    """Read SOURCE_BLOCKED cursors, including pre-lease legacy shapes."""
+def _source_acquisition_checkpoint_view(payload: dict[str, Any], *, require_blocked: bool) -> dict[str, Any]:
+    """Read source-acquisition cursors, including pre-lease legacy shapes."""
     if not isinstance(payload, dict):
         raise SweepCheckpointError("checkpoint payload must be an object")
     if payload.get("checkpoint_version") != CHECKPOINT_VERSION:
