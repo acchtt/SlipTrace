@@ -1,5 +1,7 @@
 # Current Football Model
 
+> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired. `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md` overrides stale C3/C4 requirements in this file. New workflow/accounting/execution is C+C2 only.
+
 **Active official model:** Football **C**  
 **Shadow challengers:** Football **C2**, Football **C3**, and Football **C4** (Step-1-only structured-evidence challenger)  
 **Effective:** 2026-09-29 ICT  
