@@ -100,11 +100,11 @@ A complete source universe must be acquired through AiScore or the authorized mu
 
 In repair mode, a previously acquired source universe/run may be reused as the base. Verification is limited to the finite repair set; do not perform broad web rediscovery.
 
-If the source gate is `SOURCE_BLOCKED`, stop immediately with:
+If the source gate is `SOURCE_BLOCKED`, stop the current invocation with:
 
 `HANDOFF INCOMPLETE — AISCORE SOURCE BLOCKED`
 
-Do not spend later resumes repeating competition-by-competition reconstruction unless the persisted blocker fingerprint materially changed.
+SOURCE_BLOCKED is not permanent. Persist the source-recovery lease from `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`. On `/sweep resume`, recompute the current blocker fingerprint and run the deterministic source-retry decision before returning stored SOURCE_BLOCKED. Retry immediately when the fingerprint changed or when a legacy blocked checkpoint has no lease metadata. Otherwise, once the 30-minute lease expires, perform exactly one new bounded source acquisition pass. Never use recovery permission for competition-by-competition reconstruction or repeated provider loops in one invocation.
 
 ## Time / identity integrity
 
