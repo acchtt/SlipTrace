@@ -171,6 +171,8 @@ Do not replace the attached repaired queue with a newly reconstructed Airtable/w
 
 Once accepted, Step-0 validation in /rank is contract validation only. It should be short and local.
 
+A completed bounded-production handoff from the transition period may lack `discovery_seed_manifest` or `block_excluded_summary` while still containing a fully frozen/reconciled production universe, complete capacity queue, required/women manifests, resolved identities/kickoffs, and `work_ready=true`. In `/rank`, treat those missing fields as audit-provenance debt, not a reason to reopen Step 0. The strict Step-0 exporter still requires them for newly produced handoffs.
+
 Expected flow:
 
 `ATTACHED REPAIRED HANDOFF -> CONTRACT VALIDATION -> CURRENT-TIME PREMATCH FILTER -> STEP1 RESEARCH/MODELS -> REPLENISHMENT -> BOARD`
