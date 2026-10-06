@@ -4,7 +4,7 @@
 **Effective retirement:** 2026-10-06  
 **Current production roster:** Football C official + Football C2 shadow
 
-This directory documents the boundary between current production code and preserved historical C3/C4 artifacts.
+This document defines the boundary between current production code and retired C3/C4 history.
 
 ## Current rule
 
@@ -18,47 +18,53 @@ C3 and C4 must not participate in a new/current:
 
 "All models" means the active roster: C + C2.
 
-## Preserved historical artifacts
+## Preserved historical records/specifications
 
-The following repository surfaces may remain because they describe or preserve old prospective work:
+The following may remain in the repository because they document old prospective work:
 
 - `models/football/challengers/football-c3/**`
 - `models/football/challengers/football-c4/**`
 - `models/football/airtable/FOOTBALL_C3_AIRTABLE.md`
 - `models/football/airtable/FOOTBALL_C4_AIRTABLE.md`
+- dated historical QA/audit artifacts;
+- historical Airtable C3/C4 columns and frozen records;
+- Git history from the period in which those challengers were active.
+
+These surfaces are documentation/history only. They are not current runtime dependencies.
+
+## Removed executable artifacts
+
+The active repository no longer carries the old executable C3/C4 surfaces:
+
 - `models/football/engine/board_triplet_cli.py`
 - `models/football/engine/decision_triplet_cli.py`
 - `models/football/engine/c4_semantic.py`
 - `models/football/engine/c4_semantic_cli.py`
 - `models/football/engine/c4_schema.json`
-- historical C3/C4 tests and dated QA artifacts
-- historical Airtable C3/C4 columns and frozen records
-- Git history from the period in which those challengers were active.
+- the active C4 semantic test suite.
 
-These files are not current runtime dependencies.
+Their exact source remains recoverable from Git history at the revisions where they were active.
+
+Do not restore these files merely to replay a historical result against today's engine.
 
 ## Active production files must not depend on retired models
 
 Current active surfaces must be C+C2-only:
 - `CURRENT_MODEL.md`
-- `prompts/01_WORK_DAILY_SWEEP.md`
-- `prompts/02_NORMAL_CHAT_XI_ODDS.md`
-- `prompts/03_NORMAL_CHAT_LIVE.md`
-- `prompts/04_WORK_POST_SLATE_AUDIT.md`
-- `prompts/06_NORMAL_CHAT_REPORT.md`
-- `prompts/COMMAND_ALIASES.md`
+- current launchers and command aliases;
 - `engine/core.py`
 - `engine/adapter.py`
 - `engine/schema.json`
 - `engine/runtime_probe.py`
 - `engine/xi_portable.py`
-- current runtime/bootstrap/reconciliation/accounting procedures.
+- current bootstrap/reconciliation/accounting procedures.
 
-A current runtime/launcher must fail QA if it reintroduces:
-- model=c3 or model=c4;
-- triplet execution as a current requirement;
-- C4 compilation as a current rank requirement;
-- C3/C4 current persistence/accounting requirements.
+The active engine must not expose:
+- C3 policy classes/functions;
+- C3 schema model choices/fields;
+- model=c3/model=c4 execution;
+- triplet execution;
+- C4 rank compilation.
 
 ## Historical audit fidelity
 
@@ -66,23 +72,22 @@ Do not delete or rewrite prospectively frozen historical C3/C4 data.
 
 Historical retired-model settlement is allowed only when:
 1. the historical row was genuinely frozen before outcome;
-2. the model's own line/action/accounting state exists;
+2. the model's own line/action/accounting basis exists;
 3. no missing state is reconstructed from FT/current information.
 
 Use explicit historical accounting mode where supported.
 
-## Executability
+## Historical executability
 
-Preserved retired engine scripts are archival source, not supported current executables. Their exact original dependencies are preserved by Git history.
+Current production code is not required to execute retired models.
 
-Do not modify active C/C2 code to make a retired script executable.
+If an old C3/C4 result must be investigated:
+- use the frozen persisted result first;
+- use the original Git revision if code inspection is required;
+- never transplant retired code back into current production to manufacture missing output.
 
-If an old C3/C4 result must be investigated, prefer the frozen persisted output and the original Git revision over replaying it against the current engine.
+## CI rule
 
-## Deletion policy
+Production QA must fail if a current launcher/runtime/schema reintroduces retired-model execution semantics.
 
-Retired artifacts may be physically deleted later if:
-- all required historical audit information is safely persisted elsewhere; and
-- no user workflow relies on repository-local historical source inspection.
-
-Until then, preservation does not imply authority.
+Historical documentation may mention C3/C4 when clearly labeled historical/retired.
