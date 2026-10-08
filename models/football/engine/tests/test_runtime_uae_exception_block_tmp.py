@@ -27,7 +27,7 @@ BASE = {
     "h2h_state": "LIMITED",
     "h2h_effect": "NOT_MATERIAL",
     "h2h_transferability": "LIMITED",
-    "h2h_current_corroboration": "FOUND",
+    "h2h_current_corroboration": "VERIFIED",
     "h2h_material_effect": False,
     "failure_attacks_route": False,
     "material_suppression": False,
