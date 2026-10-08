@@ -57,11 +57,11 @@ For `BOUNDED_PRODUCTION_DISCOVERY`, require the machine handoff validator to con
 - `coverage_mode = FALLBACK_PRODUCTION_SCOPE`;
 - `global_raw_exact = false`;
 - `production_scope_complete = true`;
-- a frozen `discovery_seed_manifest` with at least two independent source families;
+- a frozen `discovery_seed_manifest` with at least two independent source families; accept either `{\"sources\":[...]}` or a direct `[...]` source-entry array and normalize them identically;
 - exact `production_universe_count`;
 - `block_excluded_summary`.
 
-Once that bounded Step-0 handoff passes, **do not restart source acquisition or demand an exact global raw fixture count in /rank**. Missing transitional source-manifest audit metadata must not discard an otherwise fully frozen, reconciled Step-0 production universe. Step 1 consumes the frozen production universe, complete A/B capacity queue, manifests, identities, kickoffs and dispositions exactly as packaged.
+A discovery manifest serialization difference (wrapper object vs direct source array) is not a Step-0 failure when the same source entries/families are present.\n\nOnce that bounded Step-0 handoff passes, **do not restart source acquisition or demand an exact global raw fixture count in /rank**. Missing transitional source-manifest audit metadata must not discard an otherwise fully frozen, reconciled Step-0 production universe. Step 1 consumes the frozen production universe, complete A/B capacity queue, manifests, identities, kickoffs and dispositions exactly as packaged.
 
 The weaker global-raw claim must not weaken Step-1 integrity: protected/required/women coverage, every plausible A/B candidate, queue ranks and fixture identity/time must already be exact before `work_ready=true`.
 

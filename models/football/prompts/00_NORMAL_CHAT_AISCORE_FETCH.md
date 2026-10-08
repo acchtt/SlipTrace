@@ -549,7 +549,7 @@ Required metadata:
 - `source_transport`
 - `coverage_mode`
 - `production_scope_complete`
-- `discovery_seed_manifest` when `source_scope=BOUNDED_PRODUCTION_DISCOVERY`
+- `discovery_seed_manifest` when `source_scope=BOUNDED_PRODUCTION_DISCOVERY`; supported serializations are either `{\"sources\":[...]}` or a direct `[...]` source-entry array; every source entry must carry `family` (or legacy alias `source_family`)
 - requested ICT/UTC window;
 - listing dates checked;
 - terminal scan state;
@@ -557,7 +557,7 @@ Required metadata:
 - `actionable_complete=true`;
 - `work_ready=true`;
 - `raw_senior_count` when `global_raw_exact=true`, otherwise `global_raw_exact=false` + exact `production_universe_count` + `block_excluded_summary`;
-- for `BOUNDED_PRODUCTION_DISCOVERY`: `source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY`, `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, `production_scope_complete=true`, and a frozen discovery seed manifest containing at least two independent source families;
+- for `BOUNDED_PRODUCTION_DISCOVERY`: `source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY`, `coverage_mode=FALLBACK_PRODUCTION_SCOPE`, `production_scope_complete=true`, and a frozen discovery seed manifest containing at least two independent source families; the wrapper-object and direct-array manifest encodings are semantically equivalent and must validate identically;
 - before final packaging, mirror bounded provenance into Sweep Runs dedicated fields: `Source Scope = BOUNDED_PRODUCTION_DISCOVERY`, `Production Scope Complete = true`, and full `Discovery Seed Manifest`; preserve the same manifest in the final COMPLETE Resume Cursor instead of dropping it during phase transition;
 - `hard_excluded_count` when fixture-exact, otherwise block-level exclusion summary;
 - `operational_excluded_count`;
