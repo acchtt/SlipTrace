@@ -340,6 +340,8 @@ require(
     'choices=("export", "rank")',
     "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
     "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY",
+    "direct [...] array",
+    "source_family",
 )
 require(
     "models/football/engine/tests/test_step0_handoff_cli.py",
@@ -351,6 +353,8 @@ require(
     "test_rank_accepts_transitional_bounded_handoff_without_manifest",
     "test_export_rejects_bounded_handoff_without_manifest",
     "test_rank_accepts_transitional_bounded_handoff_without_block_summary",
+    "test_bounded_array_manifest_passes_export_and_rank",
+    "test_bounded_array_manifest_accepts_source_family_alias",
 )
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
@@ -362,6 +366,7 @@ require(
     "do not restart source acquisition or demand an exact global raw fixture count in /rank",
     "production_scope_complete=true",
     "global_raw_exact=false",
+    "wrapper object vs direct source array",
 )
 require(
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
@@ -369,6 +374,7 @@ require(
     "discovery_seed_manifest",
     "--consumer export",
     "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
+    "direct [...] source-entry array",
 )
 require(
     "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
