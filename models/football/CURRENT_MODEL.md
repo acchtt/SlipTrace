@@ -265,6 +265,16 @@ WAIT:
 
 Only C may create official Website Picks/exposure. C2 accounting is shadow-only.
 
+### Actual-user P/L authority — reset 2026-10-08
+
+Canonical actual-user bet ledger: Airtable table `Actual Bets — Current` (`tblF0MSRTuqCWlL8s`).
+
+From 2026-10-08 ICT onward:
+- actual-user profit/loss, turnover, ROI and running P/L are calculated from this table only by default;
+- do not mix older actual-bet records into current profit unless the user explicitly requests historical combined reporting;
+- actual-user execution truth comes only from rows in this table (or a new user slip awaiting persistence);
+- Website Picks, Decision States, model WATCH/WAIT accounting and C2 shadow exposure must never be counted as actual-user P/L.
+
 Historical C3/C4 settlement must use explicit historical accounting mode and must never enter a current active-roster payload.
 
 ## Live
