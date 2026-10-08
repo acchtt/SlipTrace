@@ -39,6 +39,45 @@ def _nonempty(value: Any, field: str) -> str:
     return value.strip()
 
 
+def _manifest_sources(manifest: Any) -> tuple[list[dict[str, Any]], str]:
+    """Normalize supported discovery-seed manifest encodings.
+
+    Step 0 historically emitted both:
+    - {"sources": [...]} wrapper objects; and
+    - a direct [...] array of source-entry objects.
+
+    They carry the same source provenance and must not create a Step0->Step1
+    compatibility failure. Structural/source-family checks remain identical.
+    """
+    if isinstance(manifest, dict):
+        sources = manifest.get("sources")
+        shape = "OBJECT"
+    elif isinstance(manifest, list):
+        sources = manifest
+        shape = "ARRAY"
+    else:
+        raise Step0HandoffError(
+            "HANDOFF INCOMPLETE — discovery_seed_manifest must be an object "
+            "with sources or a source-entry array"
+        )
+
+    if not isinstance(sources, list) or len(sources) < 2:
+        raise Step0HandoffError(
+            "HANDOFF INCOMPLETE — bounded source scope requires at least "
+            "two discovery seed sources"
+        )
+
+    normalized: list[dict[str, Any]] = []
+    for source in sources:
+        if not isinstance(source, dict):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — discovery seed source must be an object"
+            )
+        normalized.append(source)
+
+    return normalized, shape
+
+
 def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tuple[str, str]:
     """Validate Step-0 source semantics consumed by /rank.
 
@@ -104,8 +143,10 @@ def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tupl
 
     # Export validation is strict. Every newly produced bounded Step-0 handoff
     # must preserve its source manifest and block-exclusion audit metadata.
+    # The manifest may use either supported serialization: a wrapper object
+    # with "sources" or a direct array of source-entry objects.
     if consumer == "export":
-        if not isinstance(manifest, dict):
+        if manifest is None:
             raise Step0HandoffError(
                 "HANDOFF INCOMPLETE — bounded source scope missing "
                 "discovery_seed_manifest"
@@ -124,26 +165,15 @@ def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tupl
     if manifest is None and consumer == "rank":
         return scope, "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST"
 
+    manifest_shape = "NONE"
     if manifest is not None:
-        if not isinstance(manifest, dict):
-            raise Step0HandoffError(
-                "HANDOFF INCOMPLETE — discovery_seed_manifest must be an object"
-            )
-        sources = manifest.get("sources")
-        if not isinstance(sources, list) or len(sources) < 2:
-            raise Step0HandoffError(
-                "HANDOFF INCOMPLETE — bounded source scope requires at least "
-                "two discovery seed sources"
-            )
+        sources, manifest_shape = _manifest_sources(manifest)
 
         families = set()
         for source in sources:
-            if not isinstance(source, dict):
-                raise Step0HandoffError(
-                    "HANDOFF INCOMPLETE — discovery seed source must be an object"
-                )
+            family_value = source.get("family", source.get("source_family"))
             family = _nonempty(
-                source.get("family"), "discovery seed source family"
+                family_value, "discovery seed source family"
             )
             families.add(family.casefold())
 
@@ -156,7 +186,7 @@ def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tupl
     if consumer == "rank" and block_summary is None:
         return scope, "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY"
 
-    return scope, "BOUNDED_SOURCE_PROVENANCE_PRESENT"
+    return scope, f"BOUNDED_SOURCE_PROVENANCE_PRESENT_{manifest_shape}"
 
 
 def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export") -> dict[str, Any]:
