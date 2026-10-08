@@ -96,6 +96,36 @@ class T(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertIn("BOUNDED_PRODUCTION_DISCOVERY", result.stdout)
 
+    def test_bounded_array_manifest_passes_export_and_rank(self):
+        for consumer in ("export", "rank"):
+            p = bounded_payload()
+            p["discovery_seed_manifest"] = p["discovery_seed_manifest"]["sources"]
+            result = self.runp(p, consumer=consumer)
+            self.assertEqual(result.returncode, 0)
+            self.assertIn(
+                "BOUNDED_SOURCE_PROVENANCE_PRESENT_ARRAY",
+                result.stdout,
+            )
+
+    def test_bounded_array_manifest_accepts_source_family_alias(self):
+        p = bounded_payload()
+        p["discovery_seed_manifest"] = [
+            {
+                "source_family": "FootballFixtures.org",
+                "date": "2026-10-06",
+            },
+            {
+                "source_family": "FootballInfo",
+                "date": "2026-10-06",
+            },
+        ]
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 0)
+        self.assertIn(
+            "BOUNDED_SOURCE_PROVENANCE_PRESENT_ARRAY",
+            result.stdout,
+        )
+
     def test_rank_accepts_transitional_bounded_handoff_without_manifest(self):
         p = bounded_payload()
         del p["discovery_seed_manifest"]
