@@ -62,8 +62,8 @@ SH=base("EXC-20261008-SHABAB-UNITED","2026-10-08T20:10:00+07:00",SH_BASIS,
 SH_C={**SH,"supported_line":2.75,"supported_line_basis":"C protects O2.75: the third goal is funded, but O3.5 asks for a less-protected fourth-goal outcome.",
       "completion_mode":"CARRIER_LED","burden_completion_quality":"HIGH","continuation_quality":"HIGH","opponent_leakage":"HIGH","burden_stall_risk":"MEDIUM"}
 SH_C2={**SH,"supported_line":3.0,"supported_line_basis":"C2 independently supports O3.0 from Shabab's strong carrier plus United's usable route and repeated current high-goal leakage."}
-SH_CTX_C=context("C-FOCUS",{"line":3.5,"odds":1.73},"Fresh post-XI research confirmed Shabab's 2-2/1-1 league-phase start, United's 1-3/3-2 start, United conceding three in both matches, the confirmed senior Shabab XI, and current top-eight qualification pressure.","Recent 1-1 H2H is limited/non-material.","O2.75 at >=1.65 is not realistically reachable before kickoff while O3.5 is already 1.73.",True)
-SH_CTX_C2=context("C2-FOCUS",{"line":3.5,"odds":1.73},"Fresh post-XI research confirmed Shabab's 2-2/1-1 league-phase start, United's 1-3/3-2 start, United conceding three in both matches, the confirmed senior Shabab XI, and current top-eight qualification pressure.","Recent 1-1 H2H is limited/non-material.","A lower O3.0 target is not realistically reachable at >=1.65 before kickoff.",True)
+SH_CTX_C=context("C-FOCUS",{"line":3.5,"odds":1.85},"Fresh post-XI research confirmed Shabab's 2-2/1-1 league-phase start, United's 1-3/3-2 start, United conceding three in both matches, the confirmed senior Shabab XI, and current top-eight qualification pressure.","Recent 1-1 H2H is limited/non-material.","O2.75 at >=1.65 is not realistically reachable before kickoff while O3.5 is already 1.85.",True)
+SH_CTX_C2=context("C2-FOCUS",{"line":3.5,"odds":1.85},"Fresh post-XI research confirmed Shabab's 2-2/1-1 league-phase start, United's 1-3/3-2 start, United conceding three in both matches, the confirmed senior Shabab XI, and current top-eight qualification pressure.","Recent 1-1 H2H is limited/non-material.","A lower O3.0 target is not realistically reachable at >=1.65 before kickoff.",True)
 
 AA_BASIS=("Al Ain confirmed XI is materially changed from the cup teams led by Giakoumakis/Kaku but still contains senior attacking quality including Soufiane Rahimi and Baba Bello. "
 "Al Ain's first two league-phase matches both finished 2-3, while Kalba opened 2-1 then lost 0-4. "
@@ -76,8 +76,8 @@ AA=base("EXC-20261008-ALAIN-KALBA","2026-10-08T20:10:00+07:00",AA_BASIS,
 AA_C={**AA,"supported_line":2.75,"supported_line_basis":"C protects O2.75: both routes can contribute, but today's altered Al Ain attack does not independently fund O3.5.",
       "completion_mode":"TWO_SIDED","burden_completion_quality":"HIGH","continuation_quality":"MEDIUM","opponent_leakage":"HIGH","burden_stall_risk":"MEDIUM"}
 AA_C2={**AA,"supported_line":3.0,"supported_line_basis":"C2 independently supports O3.0 from Al Ain's strong route, Kalba's usable response route and current leakage, but not the O3.5 tail under this XI."}
-AA_CTX_C=context("C-FOCUS",{"line":3.5,"odds":1.83},"Fresh post-XI research confirmed Al Ain's 2-3/2-3 league-phase start, Kalba's 2-1/0-4 start, current top-eight qualification pressure, and a materially changed Al Ain attack that still includes senior quality but weakens upper-tail continuity.","Recent Al Ain-dominant H2H was rechecked; it remains mixed/limited, non-material, and does not create upper-tail proof.","O2.75 at >=1.65 is not realistically reachable before kickoff while O3.5 is around 1.83.",True)
-AA_CTX_C2=context("C2-FOCUS",{"line":3.5,"odds":1.83},"Fresh post-XI research confirmed Al Ain's 2-3/2-3 league-phase start, Kalba's 2-1/0-4 start, current top-eight qualification pressure, and a materially changed Al Ain attack that still includes senior quality but weakens upper-tail continuity.","Recent Al Ain-dominant H2H was rechecked; it remains mixed/limited, non-material, and does not create upper-tail proof.","O3.0 at >=1.65 is not realistically reachable before kickoff.",True)
+AA_CTX_C=context("C-FOCUS",{"line":2.75,"odds":1.65},"Fresh post-XI research confirmed Al Ain's 2-3/2-3 league-phase start, Kalba's 2-1/0-4 start, current top-eight qualification pressure, and a materially changed Al Ain attack that still includes senior quality but weakens upper-tail continuity.","Recent Al Ain-dominant H2H was rechecked; it remains mixed/limited, non-material, and does not create upper-tail proof.","O2.75 is now executable at 1.65 in the user screenshot; no wait is needed.",True)
+AA_CTX_C2=context("C2-FOCUS",{"line":3.0,"odds":1.85},"Fresh post-XI research confirmed Al Ain's 2-3/2-3 league-phase start, Kalba's 2-1/0-4 start, current top-eight qualification pressure, and a materially changed Al Ain attack that still includes senior quality but weakens upper-tail continuity.","Recent Al Ain-dominant H2H was rechecked; it remains mixed/limited, non-material, and does not create upper-tail proof.","O3.0 is now executable at 1.85 in the user screenshot; no wait is needed.",True)
 
 def payload(model,match,ctx):
     return {"schema_version":"football-engine-v1","stage":"decision","model":model,"match":match,"context":ctx}
@@ -97,7 +97,7 @@ class RuntimeOct8Uae(unittest.TestCase):
         self.assertEqual(sh["results"]["c"]["action"],"PASS")
         self.assertEqual(sh["results"]["c2"]["action"],"BET")
         self.assertTrue(sh["results"]["c2"]["bridge_used"])
-        self.assertEqual(aa["results"]["c"]["action"],"PASS")
-        self.assertEqual(aa["results"]["c2"]["action"],"PASS")
+        self.assertEqual(aa["results"]["c"]["action"],"BET")
+        self.assertEqual(aa["results"]["c2"]["action"],"BET")
 
 if __name__=="__main__": unittest.main()
