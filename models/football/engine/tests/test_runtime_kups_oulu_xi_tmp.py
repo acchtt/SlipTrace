@@ -104,7 +104,7 @@ def payload(model,match,ctx):
 ACCOUNTING={
  "match_id":MATCH_ID,
  "models":[
-   {"model":"c","board_state":"C-WATCH","supported_line":2.0,"step2_action":"C-WAIT"},
+   {"model":"c","board_state":"C-WATCH","supported_line":2.0,"step2_action":"C-WAIT","wait_target_line":2.0,"wait_min_odds":1.65},
    {"model":"c2","board_state":"C2-WATCH","supported_line":2.25,"step2_action":"C2-PASS"},
  ],
  "total_goals":None,
