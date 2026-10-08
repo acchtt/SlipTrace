@@ -115,7 +115,7 @@ Allowed discovery surfaces include:
 
 Search snippets are allowed **only as discovery seeds** in this mode. They do not prove global completeness, kickoff authority, or omission.
 
-Persist a `discovery_seed_manifest` containing:
+Persist a `discovery_seed_manifest` containing the source entries below. Two serializations are supported and equivalent: a direct array of source-entry objects, or an object with a `sources` array:
 - listing date / terminal interval;
 - source family;
 - query/page reference;
@@ -124,7 +124,7 @@ Persist a `discovery_seed_manifest` containing:
 - acquisition time;
 - disagreements.
 
-The source families must be independent. Two pages from the same provider count as one source family.
+Each source entry must expose `family` (legacy `source_family` is accepted by consumers). The source families must be independent. Two pages from the same provider count as one source family.
 
 ### 2.2 What this fallback may and may not claim
 
