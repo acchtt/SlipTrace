@@ -57,7 +57,7 @@ SH_BASIS=("Shabab Al Ahli confirmed XI includes Donelli, Keita, Jorge Fernandes,
 "This supplies non-market evidence for a third/fourth-goal tail, though O3.5 is still above Football C's protected burden.")
 SH=base("EXC-20261008-SHABAB-UNITED","2026-10-08T20:10:00+07:00",SH_BASIS,
         "Only one recent meeting, a 1-1 in September 2026, so H2H is limited and not suppressive.",
-        "STRONG","USABLE","STRONG",True,True,"ATTACKING","WIN_PREFERRED","DRAW_USEFUL_WIN_PREFERRED",
+        "STRONG","USABLE","STRONG",True,True,"EXPANSIVE","WIN_PREFERRED","DRAW_ACCEPTABLE",
         "Shabab are 9th on 2 points and United 7th on 3; top eight after six matches qualify, so both have material point utility and goal difference matters.")
 SH_C={**SH,"supported_line":2.75,"supported_line_basis":"C protects O2.75: the third goal is funded, but O3.5 asks for a less-protected fourth-goal outcome.",
       "completion_mode":"CARRIER_LED","burden_completion_quality":"HIGH","continuation_quality":"HIGH","opponent_leakage":"HIGH","burden_stall_risk":"MEDIUM"}
@@ -71,7 +71,7 @@ AA_BASIS=("Al Ain confirmed XI is materially changed from the cup teams led by G
 "The two-route environment is credible, but today's Al Ain changes weaken independent proof that the match can sustain a fourth goal.")
 AA=base("EXC-20261008-ALAIN-KALBA","2026-10-08T20:10:00+07:00",AA_BASIS,
         "Recent H2H is Al Ain-favouring (including 2-0 and 3-1 wins plus a 0-0/1-1 pair); it is mixed and not a standalone current veto.",
-        "STRONG","USABLE","STRONG",False,False,"ATTACKING","WIN_HIGH_UTILITY","DRAW_USEFUL_WIN_PREFERRED",
+        "STRONG","USABLE","STRONG",False,False,"EXPANSIVE","WIN_PREFERRED","DRAW_USEFUL_WIN_PREFERRED",
         "Al Ain are 11th on 0 points after two losses; Kalba are 8th on 3 points with -3 GD. Top eight qualify after six matches, so Al Ain have strong win utility and Kalba have both point and GD incentives.")
 AA_C={**AA,"supported_line":2.75,"supported_line_basis":"C protects O2.75: both routes can contribute, but today's altered Al Ain attack does not independently fund O3.5.",
       "completion_mode":"TWO_SIDED","burden_completion_quality":"HIGH","continuation_quality":"MEDIUM","opponent_leakage":"HIGH","burden_stall_risk":"MEDIUM"}
