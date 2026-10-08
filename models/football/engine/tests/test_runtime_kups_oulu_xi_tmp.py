@@ -104,7 +104,7 @@ def payload(model,match,ctx):
 ACCOUNTING={
  "match_id":MATCH_ID,
  "models":[
-   {"model":"c","board_state":"C-WATCH","supported_line":2.0,"step2_action":"C-WAIT","wait_target_line":2.0,"wait_min_odds":1.65},
+   {"model":"c","board_state":"C-WATCH","supported_line":2.0,"step2_action":"C-PASS"},
    {"model":"c2","board_state":"C2-WATCH","supported_line":2.25,"step2_action":"C2-PASS"},
  ],
  "total_goals":None,
@@ -136,7 +136,7 @@ class TestKuPSOuluXiException(unittest.TestCase):
   print("KUPS_OULU_ACCOUNTING="+json.dumps(accounting,sort_keys=True))
   print("KUPS_OULU_RECONCILE="+json.dumps(reconciliation,sort_keys=True))
   self.assertEqual(pair["engine_execution_status"],"EXECUTED_C_C2_PAIR")
-  self.assertEqual(pair["results"]["c"]["action"],"WAIT")
+  self.assertEqual(pair["results"]["c"]["action"],"PASS")
   self.assertEqual(pair["results"]["c2"]["action"],"PASS")
   self.assertEqual(pair["results"]["c2"]["selection_floor"],"BORDERLINE")
   self.assertTrue(reconciliation["all_due_accounted"])
