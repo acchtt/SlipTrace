@@ -90,6 +90,16 @@ use that model's frozen target/min odds.
 
 Historical retired-model accounting belongs only in an explicitly historical appendix using frozen historical rows.
 
+### Actual user profit
+
+Use Airtable `Actual Bets — Current` (`tblF0MSRTuqCWlL8s`) as the canonical source for current actual-user P/L from the 2026-10-08 reset onward.
+
+Unless the user explicitly asks for historical combined reporting:
+- sum `Profit VND` only from this table;
+- turnover is the sum of `Stake VND` from this table;
+- ROI is total profit / total stake for this table;
+- do not infer actual bets from Website Picks, Decision States, C/C2 model accounting, WATCH/WAIT records, or shadow exposure.
+
 ## Boundaries
 
 `/report` must not:
