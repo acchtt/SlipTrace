@@ -16,7 +16,7 @@ def base(match_id,kickoff,basis,h2h_basis,home_route,away_route,carrier,upper_ta
       "route_reliability":"HIGH","independent_route_quality":"HIGH","chance_quality":"HIGH",
       "failure_resistance":"MEDIUM","xi_robustness":"MEDIUM","evidence_confidence":"HIGH","burden_protection":"MEDIUM",
       "main_failure":"High market burden may require a fourth goal that is less securely funded than the first three.",
-      "h2h_state":"REVIEWED","h2h_effect":"LIMITED","h2h_transferability":"LIMITED","h2h_current_corroboration":"CURRENT_FORM_RECHECKED",
+      "h2h_state":"REVIEWED","h2h_effect":"NOT_MATERIAL","h2h_transferability":"LIMITED","h2h_current_corroboration":"NOT_APPLICABLE",
       "h2h_material_effect":False,"h2h_basis":h2h_basis,
       "carrier_self_fund":carrier_self_fund,
       "carrier_self_fund_basis":"Current personnel and opponent leakage provide a dominant scoring route, but self-funding is frozen separately from the market price.",
