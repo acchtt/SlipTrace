@@ -374,7 +374,7 @@ require(
     "discovery_seed_manifest",
     "--consumer export",
     "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
-    "direct [...] source-entry array",
+    "direct `[...]` source-entry array",
 )
 require(
     "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
