@@ -95,6 +95,10 @@ Rules:
 
 Persist the reliability state and reason with the fixture so later audit can reconstruct why the final operational grade differed from the raw current grade.
 
+### Prospective compact Work budget override
+
+For sweeps **created after 2026-10-09** whose authoritative cursor/handoff carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, apply `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`: initial **8** unique fixtures from the **complete** deterministic A/B operational queue; 12 maximum routine unique deep-researched fixtures in the slate; automatic replenishment only while FOLLOW+RESERVE <4. No league-historical O2.5 feature enters operational A/B grading or queue rank. A/B Asian total-market observability must be based on an identifiable current match-specific market surface, not a historical O2.5 leaderboard. Current/frozen legacy sweeps without that policy preserve Section 5's original 15 limit and normal legacy replenishment.
+
 ## 5. Step-0 capacity cap
 
 The normal production handoff to Work is capped at:
