@@ -29,7 +29,10 @@ class October9ExceptionSnapshotTests(unittest.TestCase):
                 for x in q["due"]
             ],
         })
-        self.assertEqual(rebuilt, q)
+        # Queue membership is authoritative; JSON serialization order is not.
+        expected = dict(q)
+        expected["due"] = sorted(q["due"], key=lambda item: item["match_id"])
+        self.assertEqual(rebuilt, expected)
         result = audit_queue_outcomes(data)
         self.assertTrue(result["all_due_accounted"])
         self.assertFalse(result["all_due_completed"])
