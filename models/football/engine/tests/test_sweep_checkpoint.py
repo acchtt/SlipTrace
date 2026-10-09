@@ -143,6 +143,25 @@ class SweepCheckpointTests(unittest.TestCase):
         self.assertEqual(out["pending_verification_blocks"], ["b", "c"])
         self.assertEqual(out["last_completed_block"], "a")
 
+    def test_advance_preserves_frozen_source_seed_and_scope(self):
+        p = checkpoint(pending=["a", "b"])
+        p.update({
+            "source_scope": "BOUNDED_PRODUCTION_DISCOVERY",
+            "source_transport": "MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
+            "discovery_seed_manifest": {
+                "sources": [{"family": "A"}, {"family": "B"}],
+            },
+            "production_universe_count": 40,
+            "completed_verification_evidence": {"old": "source-verified"},
+        })
+        out = advance_after_chunk(p, completed_blocks=["a"])
+        self.assertEqual(out["discovery_seed_manifest"], p["discovery_seed_manifest"])
+        self.assertEqual(out["source_scope"], p["source_scope"])
+        self.assertEqual(out["source_transport"], p["source_transport"])
+        self.assertEqual(out["production_universe_count"], 40)
+        self.assertEqual(out["completed_verification_evidence"]["old"], "source-verified")
+        self.assertEqual(out["pending_verification_blocks"], ["b"])
+
     def test_advance_to_reconciliation_when_queue_empty(self):
         p = checkpoint(["a"])
         out = advance_after_chunk(p, completed_blocks=["a"])
