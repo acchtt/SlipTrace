@@ -238,6 +238,37 @@ A completed current assessment must persist together:
 
 Do not mark the assessment complete when C2 execution/persistence is missing.
 
+### New Step-2 prepublication gate — mandatory
+
+After persisting a proposed C+C2 Decision State, but **before publishing a
+BET/WAIT/PASS verdict to the user or writing a Website Pick**, read that
+Airtable record back independently and run:
+
+`python models/football/engine/step2_publication_guard.py --input <publication_check.json>`
+
+The check requires the original C and C2 frozen input JSON, the unmodified
+deterministic pair receipt, the independently retrieved Decision State fields,
+the currently active engine revision, and the latest same-fixture evidence
+epoch. Store the new epoch in Airtable `C+C2 Evidence Epoch ID` and
+record the final `C+C2 Publication Key` only after approval. Build
+`previously_published_keys` from current Airtable read-back, not memory.
+If a goal, substitution, fixture status or executable quote changes before
+publication, set the latest epoch/current quote/status from that update
+and fail closed; reassess from the newer epoch.
+
+The serialized engine result stored in Decision States must be normalized
+with `supported_line` from **that model's frozen input**, not copied from
+the other model. Both independent supported-line fields remain mandatory.
+
+The program validates deterministic receipt/read-back consistency, not
+the origin of its own supplied flags. The caller must really re-fetch the
+current fixture/quote and stored record, not just assert freshness.
+A `STEP2 PUBLICATION ELIGIBLE` result is a prerequisite, **not** evidence
+that a bet was placed. Any blocked result means no actionable verdict or
+new Website Pick. For live exceptions, preserve the live assessment epoch
+and do not republish an obsolete pre-goal quote. Old records are audit-only
+and are never retroactively relabeled.
+
 ## 11. Active-model accounting
 
 Build one accounting payload containing C and C2 only and run:
