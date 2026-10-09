@@ -24,6 +24,31 @@ def row(mid, rank, disp="ADMITTED_TO_C"):
     }
 
 
+def proof(row):
+    row = dict(row)
+    row.update({
+        "preflight_complete": True,
+        "competition_support_tier": "VERIFIED_PROFESSIONAL",
+        "competition_official_url": "https://league.example.org",
+        "competition_support_reason": "Verified first-team professional league",
+        "fixture_identity_verified": True,
+        "fixture_kickoff_utc": "2026-10-10T00:00:00Z",
+        "xi_home_recent_match_id": "home-previous",
+        "xi_away_recent_match_id": "away-previous",
+        "xi_home_recent_match_kickoff_utc": "2026-10-01T00:00:00Z",
+        "xi_away_recent_match_kickoff_utc": "2026-10-02T00:00:00Z",
+        "xi_home_lineup_source_url": "https://aiscore.example.org/home-previous",
+        "xi_away_lineup_source_url": "https://aiscore.example.org/away-previous",
+        "asian_total_fixture_source_url": "https://odds.example.org/totals",
+        "asian_total_market_match_id": row["match_id"],
+        "asian_total_market_observed_at_utc": "2026-10-09T15:00:00Z",
+        "asian_total_market_line": 2.5,
+        "asian_total_market_bookmaker": "Bookmaker fixture screen",
+        "team_news_source_url": "https://club.example.org/news",
+    })
+    return row
+
+
 def payload():
     r = row("m1", 1)
     return {
@@ -209,10 +234,10 @@ class T(unittest.TestCase):
         p = payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
         p["capacity_queue"] = [
-            row(f"m{i}", i, "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED")
+            proof(row(f"m{i}", i, "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED"))
             for i in range(1, 14)
         ]
-        p["admitted_fixtures"] = [row(f"m{i}", i) for i in range(1, 9)]
+        p["admitted_fixtures"] = [dict(r) for r in p["capacity_queue"][:8]]
         p["admitted_to_c_count"] = 8
         p["capacity_deferred_count"] = 5
         out = self.runp(p)
@@ -233,15 +258,39 @@ class T(unittest.TestCase):
         p = payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
         p["capacity_queue"] = [
-            row(f"m{i}", i, "ADMITTED_TO_C" if (i <= 9 and i != 3) else "OPERATIONAL_CAPACITY_DEFERRED")
+            proof(row(f"m{i}", i, "ADMITTED_TO_C" if (i <= 9 and i != 3) else "OPERATIONAL_CAPACITY_DEFERRED"))
             for i in range(1, 10)
         ]
-        p["admitted_fixtures"] = [r for r in p["capacity_queue"] if r["final_step0_disposition"] == "ADMITTED_TO_C"]
+        p["admitted_fixtures"] = [dict(r) for r in p["capacity_queue"] if r["final_step0_disposition"] == "ADMITTED_TO_C"]
         p["admitted_to_c_count"] = 8
         p["capacity_deferred_count"] = 1
         out = self.runp(p)
         self.assertEqual(out.returncode, 2)
         self.assertIn("compact ranks 1-8", out.stderr)
+
+
+    def test_compact_handoff_blocks_uncertain_xi_even_if_grade_b(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        r = proof(row("m1", 1))
+        r["operational_viability_grade"] = "B"
+        r["xi_expected"] = "UNCERTAIN"
+        p["capacity_queue"] = [r]
+        p["admitted_fixtures"] = [dict(r)]
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", out.stderr)
+
+    def test_compact_handoff_blocks_unproven_market(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        r = proof(row("m1", 1))
+        r.pop("asian_total_fixture_source_url")
+        p["capacity_queue"] = [r]
+        p["admitted_fixtures"] = [dict(r)]
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("CURRENT_ASIAN_TOTAL_SOURCE_MISSING", out.stderr)
 
 
 
