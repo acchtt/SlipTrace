@@ -6,6 +6,10 @@ from typing import Any
 MAX_FOLLOW = 6
 MAX_RESERVE = 4
 MAX_ACTIVE = MAX_FOLLOW + MAX_RESERVE
+COMPACT_POLICY = "COMPACT_GOAL_ROUTE_V1"
+COMPACT_INITIAL_WAVE = 8
+COMPACT_TOTAL_RESEARCH = 12
+COMPACT_REFILL_ACTIVE_TARGET = 4
 
 VALID_GRADES = {"A", "B"}
 VALID_STATUSES = {
@@ -118,13 +122,51 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
         )
 
     queue = validate_capacity_queue(payload.get("candidates"))
-    vacancies = MAX_ACTIVE - active_lane_count
+    policy = payload.get("budget_policy")
+    if policy is not None and policy != COMPACT_POLICY:
+        raise CapacityReplenishmentError(f"unknown budget_policy: {policy!r}")
+
+    # Existing frozen handoffs omit budget_policy and retain the exact legacy
+    # replenishment behavior. Compact works only on explicitly versioned runs.
+    researched: set[str] = set()
+    research_budget_remaining = None
+    if policy == COMPACT_POLICY:
+        ids = payload.get("researched_match_ids")
+        if not isinstance(ids, list) or any(
+            not isinstance(value, str) or not value.strip() for value in ids
+        ):
+            raise CapacityReplenishmentError(
+                "compact researched_match_ids must be a list of nonblank IDs"
+            )
+        if len(ids) != len(set(ids)):
+            raise CapacityReplenishmentError(
+                "duplicate researched_match_ids in compact budget"
+            )
+        researched = set(ids)
+        candidate_ids = {row["match_id"] for row in queue}
+        unknown = researched - candidate_ids
+        if unknown:
+            raise CapacityReplenishmentError(
+                f"researched_match_ids missing from frozen queue: {sorted(unknown)}"
+            )
+        if len(researched) > COMPACT_TOTAL_RESEARCH:
+            raise CapacityReplenishmentError(
+                f"compact research ceiling exceeded: {len(researched)} > {COMPACT_TOTAL_RESEARCH}"
+            )
+        research_budget_remaining = COMPACT_TOTAL_RESEARCH - len(researched)
+        vacancies = min(
+            max(0, COMPACT_REFILL_ACTIVE_TARGET - active_lane_count),
+            research_budget_remaining,
+        )
+    else:
+        vacancies = MAX_ACTIVE - active_lane_count
 
     eligible = [
         row
         for row in queue
         if row["disposition"] == DEFERRED
         and row["fixture_status"] == "PREMATCH_CONFIRMED"
+        and row["match_id"] not in researched
     ]
     closed = [
         row
@@ -135,7 +177,11 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
 
     selected = eligible[:vacancies] if vacancies > 0 else []
 
-    if vacancies == 0:
+    if policy == COMPACT_POLICY and research_budget_remaining == 0:
+        status = "COMPACT_RESEARCH_BUDGET_EXHAUSTED"
+    elif policy == COMPACT_POLICY and active_lane_count >= COMPACT_REFILL_ACTIVE_TARGET:
+        status = "COMPACT_ACTIVE_TARGET_SATISFIED"
+    elif vacancies == 0:
         status = "ACTIVE_LANE_CAPACITY_FULL"
     elif selected:
         status = "REPLENISHMENT_REQUIRED"
@@ -144,10 +190,12 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
 
     return {
         "status": status,
+        "budget_policy": policy or "LEGACY",
         "follow_count": follow_count,
         "reserve_count": reserve_count,
         "active_lane_count": active_lane_count,
         "vacancies": vacancies,
+        "research_budget_remaining": research_budget_remaining,
         "selected_match_ids": [row["match_id"] for row in selected],
         "selected_queue_ranks": [row["queue_rank"] for row in selected],
         "remaining_prematch_deferred_count": max(0, len(eligible) - len(selected)),
@@ -160,4 +208,30 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
             }
             for row in closed
         ],
+    }
+
+
+def select_initial_work_wave(
+    candidates: list[dict[str, Any]], *, budget_policy: str | None = None
+) -> dict[str, Any]:
+    """Freeze the first Work wave without changing operational queue order."""
+    if budget_policy is not None and budget_policy != COMPACT_POLICY:
+        raise CapacityReplenishmentError(f"unknown budget_policy: {budget_policy!r}")
+    queue = validate_capacity_queue(candidates)
+    ranks = [item["queue_rank"] for item in queue]
+    if ranks != list(range(1, len(queue) + 1)):
+        raise CapacityReplenishmentError(
+            "initial Work queue ranks must be contiguous beginning at 1"
+        )
+    limit = COMPACT_INITIAL_WAVE if budget_policy == COMPACT_POLICY else 15
+    admitted = queue[:limit]
+    deferred = queue[limit:]
+    return {
+        "budget_policy": budget_policy or "LEGACY",
+        "initial_wave_limit": limit,
+        "admitted_match_ids": [item["match_id"] for item in admitted],
+        "admitted_queue_ranks": [item["queue_rank"] for item in admitted],
+        "deferred_match_ids": [item["match_id"] for item in deferred],
+        "deferred_queue_ranks": [item["queue_rank"] for item in deferred],
+        "full_queue_count": len(queue),
     }
