@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from math import isfinite
+import re
 from typing import Any
 from urllib.parse import urlparse
 
@@ -78,6 +79,27 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
         return ["FIXTURE_ROW_INVALID"]
 
     defects: list[str] = []
+    # Standing user scope (2026-10-09): all noncompetitive friendlies
+    # are excluded before XI/market qualification, even when a bookmaker
+    # lists them. Preserve competitive international qualifiers/tournaments.
+    labels = (
+        row.get("competition_name"),
+        row.get("competition"),
+        row.get("fixture_type"),
+        row.get("competition_type"),
+        row.get("match_type"),
+    )
+    friendly_named = any(
+        isinstance(value, str) and re.search(
+            r"\\b(?:friendly|friendlies|exhibition|pre[- ]?season)\\b",
+            value,
+            flags=re.IGNORECASE,
+        )
+        for value in labels
+    )
+    if row.get("is_friendly") is True or row.get("friendly_scope_excluded") is True or friendly_named:
+        defects.append("USER_SCOPE_EXCLUDED_FRIENDLY")
+
     if row.get("preflight_complete") is not True:
         defects.append("STEP0_PREFLIGHT_INCOMPLETE")
     if row.get("user_scope_excluded") is True:
