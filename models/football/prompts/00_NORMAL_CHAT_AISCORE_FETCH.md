@@ -614,15 +614,25 @@ Required metadata:
 
 Do not include hard-excluded, operationally excluded, or researchability-excluded fixtures in the Work array. Capacity-deferred fixtures remain outside the initial Work array but must stay in the packaged replenishment queue with the complete Step-0 contract.
 
-### Mandatory export validation
+### Mandatory export validation and ZIP creation — fail closed
 
-Before creating the ZIP or saying `Sweep complete`, serialize `STEP0_HANDOFF.json` and run:
+**Do not create or attach a provisional `AISCORE_FIXTURES_*.zip`.** A source run in `RUNNING / PACKAGING` is not a completed Work handoff, even if eight prospective B-grade candidates exist. A rank consumer must receive a *valid* finalized handoff, not a promise to finish it later.
 
-`python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json --consumer export`
+Before packaging:
+1. Read back the current **Sweep Runs** record and all candidate **Daily Coverage Ledger** records independently from Airtable. Reconcile each admitted/deferred A/B row against its final `Operational Disposition` and `Step0 Capacity Queue Rank`. An A/B row still `UNRESOLVED` is not admitted. Do not merely rewrite `complete`, `actionable_complete` or `work_ready` to true.
+2. Materialize a **fixture-level** `NED_EERSTE_DIVISIE` block in `required_competition_blocks`, with the full `fixtures=[{match_id,match,kickoff_ict,disposition}]` list, matching the independent KNVB/coverage source list **exactly**, including Jong teams. The Airtable run's summary `fixture_count=10` is NOT the fixture list. For new `FAST_FINISH_V1` handoffs also freeze `required_competition_blocks_complete=true` and `required_competition_source_fixture_ids={"NED_EERSTE_DIVISIE":[...]}`; its independently fetched Sweep Runs proof must carry the same real ledger IDs. Never invent a match ID, time or final disposition.
+3. Freeze the complete operational A/B queue and strict XI/market preflight, persist all admitted rankings/dispositions, reconcile required/protected/women and terminal/time manifests and write `reconciliation_complete=true` only when verified.
+4. Serialize `STEP0_HANDOFF.json` with `complete=true`, `actionable_complete=true`, `work_ready=true` **only after** 1–3 pass; validate:
 
-Required result: `step0_handoff_validation_status = PASS` and `consumer = export`. New Step-0 exports remain strict: a bounded-production handoff must include its discovery seed manifest and block-exclusion summary.
+   `python models/football/engine/step0_handoff_cli.py --input STEP0_HANDOFF.json --consumer export`
 
-If the validator fails, the sweep is not complete. Repair the export in Step 0 and rerun validation. Never emit a completed ZIP whose machine handoff fails. Never defer this repair to /rank.
+5. For a new FAST_FINISH handoff, independently obtain `sweep_run_proof.json` from current Airtable read-back: run ID, RUNNING/PACKAGING stage, reconciliation complete, capacity frozen, source hash, exact production/unresolved/pending counts, admitted count, complete required-block IDs and final admitted dispositions. Use the guarded, atomic ZIP producer:
+
+   `python models/football/engine/step0_package_cli.py --input STEP0_HANDOFF.json --text AISCORE_FIXTURES_*.txt --run-proof sweep_run_proof.json --output AISCORE_FIXTURES_*.zip`
+
+   The text and output arguments must be actual single concrete paths, not literal wildcard strings. Require `STEP0 WORK ZIP VALIDATED` with the SHA256; then persist final Handoff Package and `Run Status=COMPLETE`, `Current Stage=COMPLETE`. Only this ZIP may be attached to `/rank`.
+
+If validation or package creation fails, keep Sweep Runs RUNNING/PACKAGING, report `STEP0 PACKAGING BLOCKED — EXACT MISSING EVIDENCE`, and repair the existing stored source epoch/finite fixture set. **Never send the provisional ZIP to /rank and never restart a complete source discovery crawl just to repair export metadata.**
 
 ## 14. Step-0 boundary
 
