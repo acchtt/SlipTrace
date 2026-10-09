@@ -90,6 +90,8 @@ def freeze_queue(data: dict) -> dict:
         if not ISO_ICT.fullmatch(kickoff):
             raise Step2QueueError(f"KICKOFF NOT FROZEN: {identity}")
         lane = _text(row, "official_follow_lane").upper()
+        if str(row.get("eligibility", "ELIGIBLE")).upper() == "EXCLUDED":
+            raise Step2QueueError(f"EXCLUDED FIXTURE IN RANKED BOARD: {identity}")
         if lane not in LANES:
             raise Step2QueueError(f"INVALID OFFICIAL LANE: {identity}")
         if row.get("xi_window_open") not in (True, False):
@@ -133,7 +135,7 @@ def freeze_queue(data: dict) -> dict:
             auth = "USER_EXCEPTION"
         elif lane == "FOLLOW" and row["xi_window_open"]:
             auth = "ROUTINE_FOLLOW"
-        elif lane == "RESERVE" and identity in activated_by_id and row["xi_window_open"]:
+        elif lane == "RESERVE" and identity in activated_by_id:
             auth = "RESERVE_ACTIVATED"
         else:
             not_due.append({
