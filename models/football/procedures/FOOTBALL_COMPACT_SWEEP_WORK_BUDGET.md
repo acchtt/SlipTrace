@@ -34,13 +34,36 @@ For new sweeps carrying `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`:
 | Parameter | Value | Contract |
 |---|---:|---|
 | Initial deep Work wave | **8** | ranks 1–8 of frozen **operational** A/B queue; ranks 9+ remain explicitly `OPERATIONAL_CAPACITY_DEFERRED` |
-| Routine unique-fixture research ceiling / slate | **12** | includes initial 8 + at most 4 replenished fixtures; excludes explicit user-directed exception work which must be separately tagged |
-| Automatic replenishment target | **4 active lanes** | replenish only when current `FOLLOW+RESERVE < 4`, rather than trying to fill 10 every time |
+| Standard unique-fixture research ceiling / slate | **12** | includes initial 8 + at most 4 routine replenished fixtures |
+| Adaptive safety ceiling | **20** | further qualification-only research after twelve, only with current-time attestation and underfilled active lanes; NEVER an automatic request to research twenty |
+| Automatic replenishment target | **4 active lanes** | replenish only while current `FOLLOW+RESERVE < 4`, even under adaptive mode |
 | FOLLOW capacity | **6** | existing ceiling preserved |
 | RESERVE capacity | **4** | existing ceiling preserved |
 | Queue ranking | Operational A/B, XI, market, news, protected/major tie-break, canonical identity | **Never sort by O2.5%, goals, attractiveness, model state, odds, or projected winner** |
 
-If routine research ceiling is exhausted, persist `COMPACT_RESEARCH_BUDGET_EXHAUSTED`; do not fabricate more picks. The frozen overflow pool stays auditable and can be reopened by a user exception or a separately authorized trial. If 4 active lanes exist, do **not** automatically research extra matches merely because more slots remain under the legacy maximum 10.
+If the time-attested research budget is exhausted, persist `COMPACT_RESEARCH_BUDGET_EXHAUSTED`; do not fabricate more picks. The frozen overflow pool stays auditable. If 4 active lanes exist, do **not** automatically research extra matches even on a busy board.
+
+### Conditional extra research after the first 12 — no cherry picking
+
+The first 8 and the first 4 routine replenishments are unchanged. Only when the **same frozen A/B queue has additional eligible PREMATCH_CONFIRMED rows**, C's active `FOLLOW+RESERVE < 4`, and twelve fixtures have already been researched, Step 01 may extend its workload to a maximum of **20**. The available time must be checked again on **each** call; this is a safety cap, not permission to use more time than is actually available.
+
+Pass `adaptive_research` to `capacity_replenishment_cli.py` as an exact object:
+
+```json
+{
+  "enabled": true,
+  "available_research_minutes": 72,
+  "next_candidate_kickoff_minutes": 105
+}
+```
+
+These are **example values, not defaults**. `available_research_minutes` must reflect the real current session's remaining *work research* time; `next_candidate_kickoff_minutes` must be computed from the current clock and the next rank-eligible fixture's **authoritatively confirmed** kickoff, not an estimated listing timestamp. If either time cannot be verified, omit `adaptive_research` and enforce the standard 12. If prematch status has changed, close the outdated candidate before requesting a wave.
+
+The selector allows one additional research slot per **12 available minutes**, reserving at least **30 minutes before the next candidate's kickoff** for XI/odds execution. It permits at most **eight** extra slots above the standard twelve and at most `4 - (FOLLOW+RESERVE)` in any replenishment wave. Recheck the budgets after each wave; never invent timestamps to authorize expansion.
+
+Always research **the lowest still-eligible immutable Step0 queue ranks first**, skipping only verified started/postponed/invalid fixtures. Do not reorder the queue by expected goals, C/C2 PASS/BET, league Over rates or historical FT. Goal-scoring quality is determined *after* each candidate is researched by Football C/C2. C2 is still shadow-only and cannot trigger its own additional research.
+
+This optional extension is prospective and does not alter the original handoff's admission count, cutoff ranks, operational classifications or source evidence. Legacy/noncompact handoffs remain on their existing 15/10 behavior.
 
 This policy shrinks the **initial Work wave** 15→8 and prevents unbounded automatic replenishment; it does **not** promise eight good bets. Zero FOLLOW is a valid final slate outcome.
 
@@ -57,10 +80,11 @@ The historical league table is optional reference context only, with **zero weig
 
 ## 5. Compatibility, tests and rollout
 
-- New sweeps must persist the policy ID in the Resume Cursor/hand-off metadata and obey its 8/12/4 budget. Use `models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` for deterministic initial selection, and validate the serialized final handoff via `step0_handoff_cli.py`. /rank passes `budget_policy=COMPACT_GOAL_ROUTE_V1` and a deduplicated `researched_match_ids` list to `capacity_replenishment_cli.py` on every replenishment.
+- New sweeps persist the same `COMPACT_GOAL_ROUTE_V1` policy in the Resume Cursor/hand-off. Step 0 still admits the first 8; Step 01 uses a standard 12-research cap and can conditionally add at most 8 more only when verified research/KO time safely permits and active lanes remain under four. Use `models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` for deterministic initial selection, and validate the serialized final handoff via `step0_handoff_cli.py`. /rank passes `budget_policy=COMPACT_GOAL_ROUTE_V1` and a deduplicated `researched_match_ids` list to `capacity_replenishment_cli.py` on every replenishment.
 - For a legacy handoff with missing policy ID, use the original 15 initial Work slots and legacy refill-to-10 semantics; do not reinterpret it retrospectively.
 - The user's still RUNNING `SWEEP-20261009-1300-20261010-0300` at **Chunk 12**, 3 pending, is explicitly **grandfathered/paused**. Do not alter its cursor, queue, ledger, reports, source hash or eligibility solely because of the compact policy.
-- Every rank and replenishment replay should check `researched_match_ids` are **unique, actually present in the frozen A/B queue and no more than 12**. Reject missing evidence rather than implicitly granting another wave.
+- Every rank and replenishment replay must check `researched_match_ids` are **unique, actually present in the frozen A/B queue and no more than 20**. Research beyond 12 requires the contemporaneous `adaptive_research` attestation described above; absent it the selector allows no further research. When time decreases during a slate, a previously researched match remains recorded but consumes no new slot. Reject missing evidence rather than implicitly granting another wave.
+- Pass `budget_policy=COMPACT_GOAL_ROUTE_V1`, `capacity_replenishment_status` and `research_budget_remaining` from the current deterministic replenishment selector to `rank_terminal_status_cli.py`. `COMPACT_RESEARCH_BUDGET_EXHAUSTED` and `COMPACT_ACTIVE_TARGET_SATISFIED` are valid completion states despite an untouched deferred pool; `REPLENISHMENT_REQUIRED` is not.
 - Report raw discovered / user scope excluded / operationally screened / A/B full queue / admitted 8 / deferred remainder / actually researched / replenished separately. Raw coverage counts must never be described as the number of model selections.
 
 ## 6. Trial measurement and rollback
