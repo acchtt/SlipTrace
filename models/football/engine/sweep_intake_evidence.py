@@ -110,8 +110,13 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
         kind not in XI_STRONG_TYPES for kind in xi_types
     ):
         defects.append("XI_EXPECTATION_OVERSTATED")
-    if xi_expected == "UNCERTAIN" and row.get("operational_viability_grade") != "B":
-        defects.append("XI_UNCERTAIN_MUST_BE_CONDITIONAL_B")
+    if xi_expected == "UNCERTAIN":
+        if row.get("operational_viability_grade") != "B":
+            defects.append("XI_UNCERTAIN_MUST_BE_CONDITIONAL_B")
+        # A squad list alone never establishes that starting XIs will be
+        # obtainable. At least one evidenced provider/actual XI channel.
+        if not any(kind in XI_STRONG_TYPES for kind in xi_types):
+            defects.append("XI_CHANNEL_NO_PUBLISHING_PATH")
     if not _nonempty(row.get("xi_channel_basis")):
         defects.append("XI_CHANNEL_EVIDENCE_BASIS_MISSING")
 
