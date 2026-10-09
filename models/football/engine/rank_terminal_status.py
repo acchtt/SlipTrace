@@ -60,6 +60,45 @@ def rank_terminal_status(payload: dict[str, Any]) -> dict[str, Any]:
             "ranked_eligible_count must equal FOLLOW + RESERVE + STOP"
         )
 
+    budget_policy = payload.get("budget_policy")
+    compact_status = None
+    if budget_policy is not None and budget_policy != "COMPACT_GOAL_ROUTE_V1":
+        raise RankTerminalStatusError("unknown budget_policy")
+    if budget_policy == "COMPACT_GOAL_ROUTE_V1":
+        compact_status = payload.get("capacity_replenishment_status")
+        valid_compact = {
+            "COMPACT_RESEARCH_BUDGET_EXHAUSTED",
+            "COMPACT_ACTIVE_TARGET_SATISFIED",
+            "REPLENISHMENT_REQUIRED",
+            "QUEUE_EXHAUSTED_OR_CLOSED",
+            "ACTIVE_LANE_CAPACITY_FULL",
+        }
+        if compact_status not in valid_compact:
+            raise RankTerminalStatusError(
+                "compact capacity_replenishment_status must come from "
+                "the current deterministic selector"
+            )
+        remaining_budget = _count(
+            payload.get("research_budget_remaining"),
+            "research_budget_remaining",
+        )
+        if compact_status == "COMPACT_RESEARCH_BUDGET_EXHAUSTED" and remaining_budget != 0:
+            raise RankTerminalStatusError(
+                "COMPACT_RESEARCH_BUDGET_EXHAUSTED requires 0 remaining budget"
+            )
+        if compact_status == "COMPACT_ACTIVE_TARGET_SATISFIED" and follow + reserve < 4:
+            raise RankTerminalStatusError(
+                "COMPACT_ACTIVE_TARGET_SATISFIED requires 4 active lanes"
+            )
+        if compact_status == "QUEUE_EXHAUSTED_OR_CLOSED" and deferred:
+            raise RankTerminalStatusError(
+                "QUEUE_EXHAUSTED_OR_CLOSED contradicts prematch deferred count"
+            )
+        if compact_status == "ACTIVE_LANE_CAPACITY_FULL" and follow + reserve < 10:
+            raise RankTerminalStatusError(
+                "ACTIVE_LANE_CAPACITY_FULL requires ten active lanes"
+            )
+
     if integrity_failure:
         status = RankTerminalStatus(
             code="BLOCKED_INTEGRITY",
@@ -68,7 +107,15 @@ def rank_terminal_status(payload: dict[str, Any]) -> dict[str, Any]:
             complete=False,
             replenishment_required=False,
         )
-    elif follow + reserve < 10 and deferred > 0:
+    elif budget_policy == "COMPACT_GOAL_ROUTE_V1" and compact_status == "REPLENISHMENT_REQUIRED":
+        status = RankTerminalStatus(
+            code="REPLENISHMENT_REQUIRED",
+            label="/rank continues — compact Work research wave required",
+            blocked=False,
+            complete=False,
+            replenishment_required=True,
+        )
+    elif budget_policy is None and follow + reserve < 10 and deferred > 0:
         status = RankTerminalStatus(
             code="REPLENISHMENT_REQUIRED",
             label="/rank continues — replenishment required",
@@ -110,6 +157,8 @@ def rank_terminal_status(payload: dict[str, Any]) -> dict[str, Any]:
             "reserve_count": reserve,
             "stop_count": stop,
             "remaining_prematch_deferred_count": deferred,
+            "budget_policy": budget_policy or "LEGACY",
+            "capacity_replenishment_status": compact_status,
         }
     )
     return out
