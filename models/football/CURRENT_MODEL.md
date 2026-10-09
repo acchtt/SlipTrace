@@ -9,6 +9,8 @@
 
 This file is the canonical entry point for current football work.
 
+**Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **ALL noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from both the current unfinished sweep and all future ordinary sweeps. Such rows already acquired must be preserved only for exclusion audit, not Work. Competition-block prefilter avoids wasting lineup/odds research on friendlies. This does not remove **official competitive international qualification, Nations League, cup/continental fixtures or women's top-flight domestic matches**. A named explicit user exception is the only re-opening route. See `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` §2B.
+
 ## Command router
 
 Read `models/football/prompts/COMMAND_ALIASES.md`.
