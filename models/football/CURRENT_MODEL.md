@@ -115,7 +115,7 @@ For new /sweep runs, apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WO
 
 ### XI + market proof before the Work queue
 
-For new compact intake and explicitly marked resumed unfinished sweeps, the mandatory `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` overrides the *old* assumption that a raw B grade or `xi_expected=UNCERTAIN` justifies Work admission. Require actual recent starting-XI proofs for both teams, a current fixture-specific Asian-total market, verifiable news and competition/fixture source integrity. The frozen source-discovery universe is **not** the actionable board. Keep all required/protected and women's senior top-flight discovery/dispositions; exclude/hold non-operational rows from Work only. The paused 2026-10-09 run is not edited now; on explicit future resume, its final still-unfrozen queue must use the `XI_MARKET_FIRST_V1` marker while retaining its legacy Work budget.
+For new compact intake and explicitly marked resumed unfinished sweeps, apply `FOOTBALL_XI_MARKET_FIRST_INTAKE.md`: **expectation of XI publication**, not confirmed future starting XIs. Verify credible publishing channels and a near-KO recheck; A/YES needs strong evidence for both teams, B/UNCERTAIN may enter conditionally with sources and no routine FOLLOW until /xi validates. Require a current fixture-specific Asian total, news, competition source and identity/time. The raw discovery ledger is not the actionable board. Preserve exact required/protected/women's coverage; exclude/hold actual weak-data cases from Work only. The paused Oct-09 run remains untouched and retains legacy budget on future resume with `XI_MARKET_FIRST_V1` marker.
 
 ## Step 1 — Football C official board + Football C2 shadow board
 
