@@ -44,6 +44,14 @@ Do not reconstruct:
 
 Return the exact Step-0 validator error instead.
 
+### Provisional ZIP / interrupted Step 0 — repair, do not restart
+
+A ZIP with `complete=false`, `actionable_complete=false` or `work_ready=false` is **not** a Step-0 handoff. Do not research/rank its eight candidate rows, mark them C/C2 PASS, or manufacture a repaired `complete=true` JSON in Work Chat. If the ZIP has a required-competition block summary but lacks fixture-level `NED_EERSTE_DIVISIE` records, do not waive the required manifest gate.
+
+Return: `/rank BLOCKED — STEP0 PACKAGING NOT FINALIZED` with the original Sweep Run ID. The Step-0 owner must continue **PACKAGING/REPAIR** from the persisted source hash, Daily Coverage evidence and current Airtable run, not restart an entire-day discovery or invent identities, kickoffs or XI/market evidence. Required fix: independently read back all KNVB fixture rows, reconcile final admission ranks and dispositions, run the strict export validator, create the ZIP via `step0_package_cli.py`, and mark the original Sweep Run COMPLETE only after the validated archive exists. Resume /rank from that exact repaired ZIP.
+
+The new fast-finish validator checks its complete required-fixture list independently; older completed canonical handoffs retain their recorded policy and do not silently inherit new fast fields.
+
 For a transitional completed bounded handoff created before source-manifest persistence was enforced, `--consumer rank` may return `source_manifest_status = LEGACY_MISSING_DISCOVERY_SEED_MANIFEST` or `LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY`. These are **audit-provenance warnings, not ranking blockers**, provided all final Step-0 production-universe, queue, coverage, operational, identity/time, count and work-readiness checks still pass. Do not send the user back through source acquisition merely to repair missing provenance metadata.
 
 ### Step-0 source-scope compatibility
