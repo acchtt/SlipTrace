@@ -39,6 +39,27 @@ A started fixture is not a prematch Step-2 decision. Record `LIVE_REROUTED` and 
 
 No due fixture may be omitted merely because research, quote availability, timing, or another match consumed attention.
 
+## Current-session attestation (v2)
+
+Every **new** Step-2 session uses `schema_version = football-step2-reconcile-v2`. The v1 schema is accepted only for an explicitly labelled, historical, non-production replay with `historical_replay = true`; a v1 pass does not authorize a current completed session.
+
+**Do not equate an engine response with persisted Decision State.** After writing a decision, independently read back the Airtable `Decision States` record and populate the `DECISION_STATE_PERSISTED` outcome with `decision_state_snapshot` from the stored fields:
+
+- `match_id`: exact frozen due-set identifier (linked to the Airtable match/fixture identity);
+- `record_id`: actual read-back Airtable ID;
+- `engine_execution_status = EXECUTED_C_C2_PAIR`;
+- `engine_source_revision`: exact 40-hex source commit used for execution;
+- `c_action`: stored `C-BET / C-WAIT / C-PASS`;
+- `c2_shadow_action`: stored C2 shadow BET/WAIT/PASS action;
+- `c_supported_line` and `c2_supported_line`: independently saved quarter-goal burdens;
+- `engine_c_result` and `engine_c2_result`: stored JSON result payloads.
+
+The reconciliation validator cross-checks engine actions and supported burdens against those persisted fields. Missing or mismatched C2 results, provisional/incomplete actions, source revision or record IDs are a **hard failure**. A snapshot must be derived from the *actual post-write Airtable read-back*, never merely repeated from the proposed write payload. The deterministic validator checks the supplied snapshot's consistency; the caller remains responsible for proving that the read-back occurred.
+
+For non-decision dispositions use a non-empty `blocker_reason`; `ENGINE_FAILED_AFTER_ATTEMPT` additionally requires `engine_failure_reason`; `LIVE_REROUTED` requires a `live_handoff_reference` to the live workflow. Do not assign `DECISION_STATE_PERSISTED` to an incomplete record merely because its provisional research notes were written.
+
+The v2 result reports both `persisted_decision_count` and `verified_decision_count`. Current completion requires that they match, and that every due fixture is accounted for. No v1 replay result may substitute for this gate.
+
 ## Deterministic reconciliation
 
 Run:
