@@ -21,6 +21,12 @@ def valid_fixture():
         "fixture_identity_verified": True,
         "fixture_kickoff_utc": "2026-10-10T00:00:00Z",
         "xi_expected": "YES",
+        "xi_home_channel_type": "RECENT_CONFIRMED_XI",
+        "xi_away_channel_type": "PROVIDER_MATCHDAY_COVERAGE",
+        "xi_home_channel_source_url": "https://match.example.org/home-last",
+        "xi_away_channel_source_url": "https://match.example.org/away-provider",
+        "xi_channel_basis": "Both teams' preceding XI/channel published through AiScore",
+        "xi_recheck_due_utc": "2026-10-09T22:45:00Z",
         "xi_home_recent_match_id": "historic-home-1",
         "xi_away_recent_match_id": "historic-away-1",
         "xi_home_recent_match_kickoff_utc": "2026-10-02T17:00:00Z",
@@ -44,21 +50,65 @@ class StrictIntakeEvidenceTests(unittest.TestCase):
         self.assertEqual(validate_work_candidate(row), [])
         self.assertTrue(classify_preflight(row)["work_queue_eligible"])
 
-    def test_xi_uncertain_b_is_not_work_eligible(self):
+    def test_full_day_b_conditional_can_have_unconfirmed_upcoming_xi(self):
         row = valid_fixture()
         row["xi_expected"] = "UNCERTAIN"
-        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", validate_work_candidate(row))
+        # Matchday XI is not due yet, but both publication channels exist.
+        self.assertEqual(validate_work_candidate(row), [])
+        self.assertTrue(classify_preflight(row)["work_queue_eligible"])
 
-    def test_both_sides_recent_xi_needed(self):
+    def test_no_upcoming_xi_confirmation_field_needed(self):
         row = valid_fixture()
-        del row["xi_away_recent_match_id"]
-        self.assertIn("XI_BOTH_TEAMS_RECENT_CONFIRMED_EVIDENCE_MISSING",
-                      validate_work_candidate(row))
+        self.assertNotIn("confirmed_upcoming_xi", row)
+        self.assertEqual(validate_work_candidate(row), [])
 
-    def test_historical_xi_must_precede_match(self):
+    def test_missing_lineup_channel_still_fails(self):
+        row = valid_fixture()
+        del row["xi_away_channel_source_url"]
+        self.assertIn("XI_AWAY_PUBLISHING_CHANNEL_UNVERIFIED", validate_work_candidate(row))
+
+    def test_recent_xi_ids_are_helpful_but_not_mandatory(self):
+        row = valid_fixture()
+        for side in ("home", "away"):
+            row.pop(f"xi_{side}_recent_match_id")
+            row.pop(f"xi_{side}_recent_match_kickoff_utc")
+            row.pop(f"xi_{side}_lineup_source_url")
+        self.assertEqual(validate_work_candidate(row), [])
+
+    def test_invalid_historical_xi_must_not_pass_when_provided(self):
         row = valid_fixture()
         row["xi_home_recent_match_kickoff_utc"] = "2026-10-11T00:00:00Z"
-        self.assertIn("XI_HOME_HISTORICAL_FIXTURE_TIME_STALE",
+        self.assertIn("XI_HOME_HISTORICAL_FIXTURE_TIME_INVALID",
+                      validate_work_candidate(row))
+
+    def test_conditional_b_may_use_official_squad_for_one_side(self):
+        row = valid_fixture()
+        row["xi_expected"] = "UNCERTAIN"
+        row["xi_away_channel_type"] = "OFFICIAL_SQUAD_NEWS"
+        self.assertEqual(validate_work_candidate(row), [])
+
+    def test_two_squad_lists_alone_are_not_lineup_coverage(self):
+        row = valid_fixture()
+        row["xi_expected"] = "UNCERTAIN"
+        row["xi_home_channel_type"] = "OFFICIAL_SQUAD_NEWS"
+        row["xi_away_channel_type"] = "OFFICIAL_SQUAD_NEWS"
+        self.assertIn("XI_CHANNEL_NO_PUBLISHING_PATH", validate_work_candidate(row))
+
+    def test_a_grade_cannot_claim_reliable_xi_from_squad_list_only(self):
+        row = valid_fixture()
+        row["xi_away_channel_type"] = "OFFICIAL_SQUAD_NEWS"
+        self.assertIn("XI_EXPECTATION_OVERSTATED", validate_work_candidate(row))
+
+    def test_uncertain_xi_must_have_conditional_b_not_a(self):
+        row = valid_fixture()
+        row["operational_viability_grade"] = "A"
+        row["xi_expected"] = "UNCERTAIN"
+        self.assertIn("XI_UNCERTAIN_MUST_BE_CONDITIONAL_B", validate_work_candidate(row))
+
+    def test_xi_recheck_near_kickoff_is_required(self):
+        row = valid_fixture()
+        row["xi_recheck_due_utc"] = "2026-10-09T08:00:00Z"
+        self.assertIn("XI_PREMATCH_RECHECK_PLAN_MISSING_OR_INVALID",
                       validate_work_candidate(row))
 
     def test_market_fixture_specific_id_required(self):
@@ -101,11 +151,11 @@ class StrictIntakeEvidenceTests(unittest.TestCase):
         row["competition_support_tier"] = "VERIFIED_WOMEN_TOP_FLIGHT"
         self.assertEqual(validate_work_candidate(row), [])
 
-    def test_protected_national_team_does_not_bypass_xi(self):
+    def test_protected_national_team_with_evidenced_matchday_channel_can_be_conditional(self):
         row = valid_fixture()
         row["competition_support_tier"] = "PROTECTED_OFFICIAL"
         row["xi_expected"] = "UNCERTAIN"
-        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", validate_work_candidate(row))
+        self.assertEqual(validate_work_candidate(row), [])
 
     def test_incomplete_evidence_preserved_but_not_admitted(self):
         row = valid_fixture()
