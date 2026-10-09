@@ -252,6 +252,33 @@ class T(unittest.TestCase):
         self.assertIn("OPERATIONAL CONTRACT MISSING", result.stderr)
 
 
+    def test_new_fast_sweep_handoff_is_accepted_by_step01_work(self):
+        """Prove all current Step-0 policies coexist in one actual handoff."""
+        p = bounded_payload()
+        p["verification_policy"] = "FAST_FINISH_V1"
+        p["terminal_unresolved_verification_blocks"] = []
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        p["strict_intake_policy"] = "XI_MARKET_FIRST_V1"
+        p["capacity_queue"] = [
+            proof(row(f"m{i}", i, "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED"))
+            for i in range(1, 13)
+        ]
+        p["admitted_fixtures"] = [dict(r) for r in p["capacity_queue"][:8]]
+        p["admitted_to_c_count"] = 8
+        p["capacity_deferred_count"] = 4
+        for consumer in ("export", "rank"):
+            with self.subTest(consumer=consumer):
+                result = self.runp(p, consumer=consumer)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn('"admitted_count": 8', result.stdout)
+                self.assertIn('"capacity_queue_count": 12', result.stdout)
+                self.assertIn("BOUNDED_PRODUCTION_DISCOVERY", result.stdout)
+
+        p["terminal_unresolved_verification_blocks"] = ["UEFA_W_WCQ"]
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("FAST FINISH UNRESOLVED", result.stderr)
+
     def test_compact_handoff_accepts_exact_operational_top_eight(self):
         p = payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
