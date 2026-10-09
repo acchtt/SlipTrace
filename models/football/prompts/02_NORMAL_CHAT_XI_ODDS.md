@@ -61,6 +61,10 @@ For an active-roster exception, persist:
 
 rather than presenting a completed C-only verdict.
 
+### Step 0 day-ahead XI expectation versus Step 2 actual XI
+
+The prospective Step-0 gate `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` validates **whether usable starting-XI information is likely to be published near kickoff**, not whether starters were confirmed at the initial all-day sweep. A conditional B/`xi_expected=UNCERTAIN` can therefore have a valid Work research record and remain RESERVE/conditional; do not back-propagate Step-2 confirmation requirements into Step 0. At the scheduled `xi_recheck_due_utc` (typically 75 minutes before kickoff), /xi must acquire reliable current XI and executable odds. If current XI is still unavailable, maintain the existing `DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING` or wait behavior; **no official wager based only on XI expectation**.
+
 ## 3. Current evidence epoch
 
 Use the user's confirmed/reliable XI and current executable Asian-total quote as the Step-2 epoch.
