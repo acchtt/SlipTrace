@@ -283,7 +283,10 @@ require(
 require(
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
     "Checkpointed execution — mandatory",
-    "External targeted verification is limited to **6 competition/date blocks per invocation**",
+    "FAST_FINISH_V1",
+    "24 logical competition/date blocks per invocation",
+    "six-block quota",
+    "terminal_unresolved_verification_blocks",
     "competition-block shared",
     "SWEEP CHECKPOINT SAVED — /sweep resume",
 )
@@ -291,6 +294,10 @@ require(
     "models/football/engine/sweep_checkpoint.py",
     'CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"',
     "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
+    "FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24",
+    "FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2",
+    "FAST_FINISH_POLICY = \"FAST_FINISH_V1\"",
+    "terminal_unresolved_verification_blocks",
     "SOURCE_RECOVERY_COOLDOWN_MINUTES = 30",
     "RUN_STATUS_BY_SOURCE_STATE",
     "def run_status_for_source_state",

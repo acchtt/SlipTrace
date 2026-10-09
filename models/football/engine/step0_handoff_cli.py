@@ -206,6 +206,21 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     if consumer not in {"export", "rank"}:
         raise Step0HandoffError("consumer must be export or rank")
 
+    # A fast-finish handoff may not erase unresolved source evidence just
+    # because its bounded verification attempts have been exhausted.
+    verification_policy = payload.get("verification_policy")
+    if verification_policy not in (None, "FAST_FINISH_V1"):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — unknown verification policy")
+    if verification_policy == "FAST_FINISH_V1":
+        unresolved = payload.get("terminal_unresolved_verification_blocks")
+        if not isinstance(unresolved, list):
+            raise Step0HandoffError("HANDOFF INCOMPLETE — fast-finish unresolved-block manifest missing")
+        if unresolved:
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — FAST FINISH UNRESOLVED: "
+                + ", ".join(str(x) for x in unresolved)
+            )
+
     source_scope, source_manifest_status = _validate_source_contract(
         payload, consumer=consumer
     )

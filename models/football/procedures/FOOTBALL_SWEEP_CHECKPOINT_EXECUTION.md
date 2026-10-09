@@ -151,16 +151,22 @@ External research is bounded per invocation.
 
 One **verification block** is one stable competition/date block requiring public-web evidence beyond the acquired date feed.
 
-Per chat invocation:
-- verify at most `MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6`;
-- process blocks in the frozen pending order;
-- after block 6, stop even if more remain;
-- persist each completed block before opening the next block;
-- never start block 7 in the same invocation.
+### Fast-finish default for new sweeps (2026-10-09)
 
-A block may contain many fixtures. The block consumes one chunk slot, not one slot per fixture.
+- New runs save `verification_policy=FAST_FINISH_V1` in their initial checkpoint, with `verification_attempt_counts={}` and `terminal_unresolved_verification_blocks=[]`.
+- The machine selector allows at most **24 logical externally verified competition/date blocks in one invocation**. Batch independent public-web lookups in groups of at most six concurrent blocks; process their saved outcomes without requesting a separate user `/resume` between groups. This increases logical work capacity, not the number of sequential web calls required.
+- Only inspect blocks still plausibly A/B, protected/required, or senior women's domestic top-flight. Close user exclusions, obvious nonoperational C/D and verified empty/out-of-window blocks from the existing source/official evidence without external fixture-by-fixture research. Never invent unsupported C/D judgments or skip known in-scope candidates.
+- Persist each completed verification block and corresponding evidence; unsuccessful block attempts must be explicitly returned through `retry_blocks`. On the second recorded unsuccessful attempt, close that verification path as **terminal unresolved**, NOT completed/verified. `RECONCILIATION` with any terminal unresolved in-scope requirement is **blocked**: no `work_ready=true`, no ZIP, no /rank authority, no automatic repeated source search. Give the exact remaining blocker/source conflict instead of a generic resume request.
+- Retain the frozen two-family source seed and re-use verified candidate timestamps/IDs. Terminal-window scans search only the unverified part of the requested interval; do not restart broad discovery merely to repeat the sentinel.
+- Do not force 24 external blocks when the actual scoped candidate list is smaller; finish classification/reconciliation within the same invocation whenever the requisite evidence exists.
 
-If a block is resolved from source/persisted evidence with no external lookup, it does not consume the six-block external budget.
+### Legacy verification (existing RUNNING checkpoint)
+
+- Without `FAST_FINISH_V1`, verify at most `MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6`;
+- process in frozen order, persist every completed block, and pause after six if more remain;
+- this includes the **user-paused Oct 9 sweep**, which must not be resumed, reset, or silently reclassified by this patch.
+
+A block may contain many fixtures; it consumes one logical slot, not one per fixture. Evidence resolved without a new external lookup does not consume a slot.
 
 ### D. RECONCILIATION
 

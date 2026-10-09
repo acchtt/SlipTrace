@@ -7,6 +7,9 @@ from typing import Any
 
 CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"
 MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6
+FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24
+FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2
+FAST_FINISH_POLICY = "FAST_FINISH_V1"
 SOURCE_RECOVERY_COOLDOWN_MINUTES = 30
 RUN_STATUS_BY_SOURCE_STATE = {
     "UNTRIED": "RUNNING",
@@ -116,6 +119,22 @@ def validate_checkpoint(payload: dict[str, Any]) -> dict[str, Any]:
         payload.get("completed_verification_blocks"), "completed_verification_blocks"
     )
 
+    policy = payload.get("verification_policy")
+    if policy not in {None, FAST_FINISH_POLICY}:
+        raise SweepCheckpointError(f"unsupported verification_policy: {policy}")
+    attempts = payload.get("verification_attempt_counts", {})
+    if not isinstance(attempts, dict) or any(
+        not isinstance(k, str) or not k.strip()
+        or isinstance(v, bool) or not isinstance(v, int) or v < 0
+        for k, v in attempts.items()
+    ):
+        raise SweepCheckpointError("verification_attempt_counts must be nonnegative integers by block")
+    unresolved = _string_list(payload.get("terminal_unresolved_verification_blocks"), "terminal_unresolved_verification_blocks")
+    if set(unresolved) & (set(pending) | set(retry) | set(completed)):
+        raise SweepCheckpointError("terminal unresolved blocks cannot remain pending, retried or completed")
+    if unresolved and phase in {"PACKAGING", "COMPLETE"}:
+        raise SweepCheckpointError("unresolved verification blocks forbid packaging/completion")
+
     overlap = (set(pending) | set(retry)) & set(completed)
     if overlap:
         raise SweepCheckpointError(
@@ -181,6 +200,9 @@ def validate_checkpoint(payload: dict[str, Any]) -> dict[str, Any]:
         "pending_verification_blocks": pending,
         "retry_queue": retry,
         "completed_verification_blocks": completed,
+        "verification_policy": policy,
+        "verification_attempt_counts": attempts,
+        "terminal_unresolved_verification_blocks": unresolved,
         "last_completed_block": payload.get("last_completed_block"),
     }
 
@@ -381,8 +403,13 @@ def select_verification_chunk(payload: dict[str, Any]) -> VerificationChunk:
             seen.add(block)
             ordered.append(block)
 
-    selected = ordered[:MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK]
-    remaining = ordered[MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK:]
+    max_blocks = (
+        FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION
+        if cp["verification_policy"] == FAST_FINISH_POLICY
+        else MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK
+    )
+    selected = ordered[:max_blocks]
+    remaining = ordered[max_blocks:]
 
     next_phase = "RECONCILIATION" if not remaining and not selected else "TARGETED_VERIFICATION"
 
@@ -418,7 +445,13 @@ def advance_after_chunk(
             seen.add(block)
             current_order.append(block)
 
-    current_set = set(current_order)
+    # Fresh fast mode may only claim results for the selector's bounded
+    # current batch. Legacy historical cursors retain their prior behavior.
+    current_set = (
+        set(select_verification_chunk(payload).selected_blocks)
+        if cp["verification_policy"] == FAST_FINISH_POLICY
+        else set(current_order)
+    )
     unknown_completed = set(completed) - current_set
     unknown_retry = set(retries) - current_set
     if unknown_completed:
@@ -434,23 +467,53 @@ def advance_after_chunk(
             "same block cannot be completed and retried"
         )
 
+    # FAST_FINISH closes a block's unresolved evidence after two logged
+    # attempts instead of allowing an unbounded /resume cycle. Closure is
+    # NOT verification: terminal unresolved blocks forbid Work readiness.
+    attempts = dict(cp["verification_attempt_counts"])
+    terminal_unresolved = list(cp["terminal_unresolved_verification_blocks"])
+    remaining_retries = []
+    for block in retries:
+        if cp["verification_policy"] != FAST_FINISH_POLICY:
+            remaining_retries.append(block)
+            continue
+        attempts[block] = attempts.get(block, 0) + 1
+        if attempts[block] >= FAST_FINISH_MAX_BLOCK_ATTEMPTS:
+            terminal_unresolved.append(block)
+        else:
+            remaining_retries.append(block)
+
     consumed = set(completed) | set(retries)
     untouched = [block for block in current_order if block not in consumed]
-    next_order = retries + untouched
+    next_order = remaining_retries + untouched
 
     completed_history = cp["completed_verification_blocks"] + completed
     next_phase = "RECONCILIATION" if not next_order else "TARGETED_VERIFICATION"
 
+    # Carry forward opaque, already-frozen source/seed/coverage provenance.
+    # Rebuilding a small cursor silently drops source_scope, the acquired
+    # discovery manifest and reconciliation progress, forcing later
+    # invocations to repeat evidence acquisition or guess missing fields.
     return {
+        **payload,
         "checkpoint_version": CHECKPOINT_VERSION,
         "run_id": cp["run_id"],
         "phase": next_phase,
         "chunk_number": cp["chunk_number"] + 1,
         "source_acquisition_state": cp["source_acquisition_state"],
         "source_payload_hash": cp["source_payload_hash"],
+        "verification_policy": cp["verification_policy"],
+        "verification_attempt_counts": attempts,
+        "terminal_unresolved_verification_blocks": terminal_unresolved,
         "pending_verification_blocks": next_order,
-        "retry_queue": retries,
+        "retry_queue": remaining_retries,
         "completed_verification_blocks": completed_history,
         "last_completed_block": completed[-1] if completed else cp["last_completed_block"],
         "pending_verification_count": len(next_order),
+        "terminal_unresolved_count": len(terminal_unresolved),
+        "terminal_verification_status": (
+            "BLOCKED_UNRESOLVED" if terminal_unresolved
+            else "READY_FOR_RECONCILIATION" if not next_order
+            else "RUNNING"
+        ),
     }

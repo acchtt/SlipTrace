@@ -8,6 +8,8 @@ sys.path.insert(0, str(ENGINE_DIR))
 from sweep_checkpoint import (  # noqa: E402
     CHECKPOINT_VERSION,
     MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK,
+    FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION,
+    FAST_FINISH_POLICY,
     SOURCE_RECOVERY_COOLDOWN_MINUTES,
     SweepCheckpointError,
     advance_after_chunk,
@@ -78,6 +80,47 @@ class SweepCheckpointTests(unittest.TestCase):
         self.assertEqual(list(result.selected_blocks), pending[:6])
         self.assertEqual(list(result.remaining_blocks), pending[6:])
 
+    def test_new_fast_finish_selects_24_blocks_in_one_invocation(self):
+        p = checkpoint(pending=[f"block-{i}" for i in range(31)])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        chunk = select_verification_chunk(p)
+        self.assertEqual(len(chunk.selected_blocks), FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION)
+        self.assertEqual(list(chunk.remaining_blocks), [f"block-{i}" for i in range(24, 31)])
+
+    def test_fast_finish_has_finite_retries_not_infinite_resumes(self):
+        p = checkpoint(pending=["protected"], retry=[])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        first = advance_after_chunk(p, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(first["pending_verification_blocks"], ["protected"])
+        self.assertEqual(first["verification_attempt_counts"]["protected"], 1)
+        second = advance_after_chunk(first, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(second["phase"], "RECONCILIATION")
+        self.assertEqual(second["terminal_unresolved_verification_blocks"], ["protected"])
+        self.assertEqual(second["terminal_verification_status"], "BLOCKED_UNRESOLVED")
+        self.assertEqual(second["pending_verification_count"], 0)
+        with self.assertRaisesRegex(SweepCheckpointError, "unresolved verification blocks"):
+            validate_checkpoint({**second, "phase": "COMPLETE"})
+
+    def test_legacy_sweep_retries_remain_backward_compatible(self):
+        p = checkpoint(pending=["protected"])
+        first = advance_after_chunk(p, completed_blocks=[], retry_blocks=["protected"])
+        second = advance_after_chunk(first, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(second["pending_verification_blocks"], ["protected"])
+        self.assertEqual(second["terminal_unresolved_verification_blocks"], [])
+
+    def test_malformed_fast_attempt_metadata_is_rejected(self):
+        p = checkpoint(pending=["a"])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        p["verification_attempt_counts"] = {"a": -1}
+        with self.assertRaisesRegex(SweepCheckpointError, "verification_attempt_counts"):
+            validate_checkpoint(p)
+
+    def test_fast_mode_rejects_unselected_completion(self):
+        p = checkpoint(pending=[f"block-{i}" for i in range(25)])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        with self.assertRaisesRegex(SweepCheckpointError, "completed_blocks not in current queue"):
+            advance_after_chunk(p, completed_blocks=["block-24"])
+
     def test_retry_blocks_are_prioritized_on_resume(self):
         result = select_verification_chunk(
             checkpoint(pending=["new-1", "new-2"], retry=["retry-1"])
@@ -105,6 +148,25 @@ class SweepCheckpointTests(unittest.TestCase):
         self.assertEqual(out["chunk_number"], 3)
         self.assertEqual(out["pending_verification_blocks"], ["b", "c"])
         self.assertEqual(out["last_completed_block"], "a")
+
+    def test_advance_preserves_frozen_source_seed_and_scope(self):
+        p = checkpoint(pending=["a", "b"])
+        p.update({
+            "source_scope": "BOUNDED_PRODUCTION_DISCOVERY",
+            "source_transport": "MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
+            "discovery_seed_manifest": {
+                "sources": [{"family": "A"}, {"family": "B"}],
+            },
+            "production_universe_count": 40,
+            "completed_verification_evidence": {"old": "source-verified"},
+        })
+        out = advance_after_chunk(p, completed_blocks=["a"])
+        self.assertEqual(out["discovery_seed_manifest"], p["discovery_seed_manifest"])
+        self.assertEqual(out["source_scope"], p["source_scope"])
+        self.assertEqual(out["source_transport"], p["source_transport"])
+        self.assertEqual(out["production_universe_count"], 40)
+        self.assertEqual(out["completed_verification_evidence"]["old"], "source-verified")
+        self.assertEqual(out["pending_verification_blocks"], ["b"])
 
     def test_advance_to_reconciliation_when_queue_empty(self):
         p = checkpoint(["a"])

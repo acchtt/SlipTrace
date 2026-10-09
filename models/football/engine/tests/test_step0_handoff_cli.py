@@ -122,6 +122,22 @@ class T(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertIn("LEGACY_EXACT_OR_PRE_SCOPE", result.stdout)
 
+    def test_fast_finish_requires_explicit_empty_unresolved_manifest(self):
+        p = bounded_payload()
+        p["verification_policy"] = "FAST_FINISH_V1"
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("unresolved-block manifest missing", result.stderr)
+
+        p["terminal_unresolved_verification_blocks"] = ["UEFA_PROTECTED"]
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("FAST FINISH UNRESOLVED", result.stderr)
+
+        p["terminal_unresolved_verification_blocks"] = []
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 0)
+
     def test_bounded_production_handoff_passes(self):
         result = self.runp(bounded_payload())
         self.assertEqual(result.returncode, 0)
