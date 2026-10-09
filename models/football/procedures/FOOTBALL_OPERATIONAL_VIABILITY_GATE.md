@@ -99,6 +99,12 @@ Persist the reliability state and reason with the fixture so later audit can rec
 
 For sweeps **created after 2026-10-09** whose authoritative cursor/handoff carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, apply `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`: initial **8** unique fixtures from the **complete** deterministic A/B operational queue; 12 maximum routine unique deep-researched fixtures in the slate; automatic replenishment only while FOLLOW+RESERVE <4. No league-historical O2.5 feature enters operational A/B grading or queue rank. A/B Asian total-market observability must be based on an identifiable current match-specific market surface, not a historical O2.5 leaderboard. Current/frozen legacy sweeps without that policy preserve Section 5's original 15 limit and normal legacy replenishment.
 
+## 4A. XI-verified queue admission proof — new compact sweeps / optional marked unfinished legacy
+
+An operational letter grade is **necessary but not sufficient** for Work eligibility. Apply `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` before constructing the A/B Work queue for all new compact runs and marked unfinished legacy runs with `strict_intake_policy=XI_MARKET_FIRST_V1`. Reject `xi_expected=UNCERTAIN` as a **final Work queue status**, even if its preflight grade is B, until match-specific source proof demonstrates actual recent starting-XI availability for both teams. Require a current, fixture-linked and time-stamped Asian goal-total market, plus adequate team news, official competition tier and identity integrity. A fixture with a raw preliminary B may be closed with `XI_CHANNEL_NOT_VERIFIABLE`, not admitted.
+
+This must never silently remove required/protected or women's top-flight raw coverage. Real observable XI+market ecosystem, **not gender or league popularity**, determines routine researchability. A user one-match exception may reopen screening, not waive proof for an official C market action. For already frozen complete/legacy handoffs without the marker, preserve historic semantics.
+
 ## 5. Step-0 capacity cap
 
 The normal production handoff to Work is capped at:
