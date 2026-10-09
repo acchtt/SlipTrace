@@ -17,8 +17,8 @@ The previous Sections 1–7 describe **legacy** handoffs with no budget policy. 
 - Freeze **the complete** A/B operational queue and ranks exactly as below (still zero historical Over influence).
 - Rank 1–8 is the initial Work wave; ranks 9+ stay deferred, not silently dropped.
 - Automatic replenish only if `FOLLOW+RESERVE <4`, pulling the lowest eligible queue ranks.
-- Total **routine unique fixtures researched <=12**. Pass a complete deduplicated `researched_match_ids` list along with `budget_policy=COMPACT_GOAL_ROUTE_V1` to the deterministic CLI. Insufficient/missing history fails; no fallback to legacy mode.
-- At four active lanes return `COMPACT_ACTIVE_TARGET_SATISFIED`; at 12 researched return `COMPACT_RESEARCH_BUDGET_EXHAUSTED`. Either is a valid compact stop. The normal FOLLOW<=6, RESERVE<=4 absolute lane ceilings are unchanged; four is the automatic *refill target*, not a new maximum lane count.
+- Standard unique fixtures researched **<=12**, with optional time-attested prospective extension **<=20** when fewer than four active lanes survive and credible ranked A/B fixtures remain. Pass a complete deduplicated `researched_match_ids` list plus `budget_policy=COMPACT_GOAL_ROUTE_V1` to the deterministic CLI. After 12, `adaptive_research` requires verified remaining research minutes and the next rank's verified kickoff lead time, with one extra candidate per clock recheck. Missing time proof retains the 12 limit; never silently fall back to legacy mode.
+- At four active lanes return `COMPACT_ACTIVE_TARGET_SATISFIED`; at the currently approved research limit (12–20) return `COMPACT_RESEARCH_BUDGET_EXHAUSTED`. Either is a valid compact terminal stop even when lower-priority candidates remain. The normal FOLLOW<=6, RESERVE<=4 absolute lane ceilings remain; four is the automatic *refill target*, not a maximum lane count.
 - Legacy/frozen sweeps, specifically saved Chunk 12 of `SWEEP-20261009-1300-20261010-0300`, still use Sections 1–7 unchanged (15 initial, refill-to-10).
 
 ## 1. Freeze the full A/B queue first
