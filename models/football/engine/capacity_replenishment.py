@@ -9,6 +9,9 @@ MAX_ACTIVE = MAX_FOLLOW + MAX_RESERVE
 COMPACT_POLICY = "COMPACT_GOAL_ROUTE_V1"
 COMPACT_INITIAL_WAVE = 8
 COMPACT_TOTAL_RESEARCH = 12
+COMPACT_ADAPTIVE_MAX_RESEARCH = 20
+COMPACT_ADAPTIVE_MINUTES_PER_FIXTURE = 12
+COMPACT_ADAPTIVE_PREMATCH_RESERVE_MINUTES = 30
 COMPACT_REFILL_ACTIVE_TARGET = 4
 
 VALID_GRADES = {"A", "B"}
@@ -40,6 +43,48 @@ def _count(value: Any, field: str, maximum: int) -> int:
             f"{field} exceeds operational cap {maximum}: {value}"
         )
     return value
+
+
+def compact_research_limit(payload: dict[str, Any]) -> tuple[int, str]:
+    """Bound discretionary Work research, leaving the original 12 untouched.
+
+    The time values must come from a current real research-time/KO preflight.
+    Missing optional attestation retains the original hard twelve-fixture cap.
+    """
+    adaptive = payload.get("adaptive_research")
+    if adaptive is None:
+        return COMPACT_TOTAL_RESEARCH, "NO_TIME_ATTESTATION"
+    if not isinstance(adaptive, dict) or set(adaptive) != {
+        "enabled", "available_research_minutes", "next_candidate_kickoff_minutes",
+    }:
+        raise CapacityReplenishmentError(
+            "adaptive_research requires enabled, available_research_minutes "
+            "and next_candidate_kickoff_minutes"
+        )
+    if not isinstance(adaptive["enabled"], bool):
+        raise CapacityReplenishmentError("adaptive_research.enabled must be boolean")
+    for key in ("available_research_minutes", "next_candidate_kickoff_minutes"):
+        value = adaptive[key]
+        if isinstance(value, bool) or not isinstance(value, int) or not 0 <= value <= 1440:
+            raise CapacityReplenishmentError(
+                f"adaptive_research.{key} must be an integer from 0 to 1440"
+            )
+    if not adaptive["enabled"]:
+        return COMPACT_TOTAL_RESEARCH, "ADAPTIVE_DISABLED"
+    by_time = adaptive["available_research_minutes"] // COMPACT_ADAPTIVE_MINUTES_PER_FIXTURE
+    by_kickoff = max(
+        0,
+        adaptive["next_candidate_kickoff_minutes"]
+        - COMPACT_ADAPTIVE_PREMATCH_RESERVE_MINUTES,
+    ) // COMPACT_ADAPTIVE_MINUTES_PER_FIXTURE
+    extra = min(
+        COMPACT_ADAPTIVE_MAX_RESEARCH - COMPACT_TOTAL_RESEARCH,
+        by_time,
+        by_kickoff,
+    )
+    return COMPACT_TOTAL_RESEARCH + extra, (
+        "ADAPTIVE_TIME_VERIFIED" if extra else "ADAPTIVE_NO_SAFE_TIME"
+    )
 
 
 def validate_capacity_queue(candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -130,6 +175,8 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
     # replenishment behavior. Compact works only on explicitly versioned runs.
     researched: set[str] = set()
     research_budget_remaining = None
+    research_budget_limit = None
+    adaptive_budget_reason = None
     if policy == COMPACT_POLICY:
         ids = payload.get("researched_match_ids")
         if not isinstance(ids, list) or any(
@@ -149,15 +196,25 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
             raise CapacityReplenishmentError(
                 f"researched_match_ids missing from frozen queue: {sorted(unknown)}"
             )
-        if len(researched) > COMPACT_TOTAL_RESEARCH:
+        if len(researched) > COMPACT_ADAPTIVE_MAX_RESEARCH:
             raise CapacityReplenishmentError(
-                f"compact research ceiling exceeded: {len(researched)} > {COMPACT_TOTAL_RESEARCH}"
+                f"compact adaptive safety ceiling exceeded: "
+                f"{len(researched)} > {COMPACT_ADAPTIVE_MAX_RESEARCH}"
             )
-        research_budget_remaining = COMPACT_TOTAL_RESEARCH - len(researched)
+        research_budget_limit, adaptive_budget_reason = compact_research_limit(payload)
+        research_budget_remaining = max(0, research_budget_limit - len(researched))
         vacancies = min(
             max(0, COMPACT_REFILL_ACTIVE_TARGET - active_lane_count),
             research_budget_remaining,
         )
+        # Do not cross the standard-12 boundary within a batch: when
+        # 9–11 have been researched, only finish the original 12 slots.
+        # Once 12 are reached, the time evidence attests the NEXT ranked
+        # fixture only. Recheck before each additional fixture.
+        if len(researched) < COMPACT_TOTAL_RESEARCH:
+            vacancies = min(vacancies, COMPACT_TOTAL_RESEARCH - len(researched))
+        elif research_budget_remaining:
+            vacancies = min(vacancies, 1)
     else:
         vacancies = MAX_ACTIVE - active_lane_count
 
@@ -196,6 +253,8 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
         "active_lane_count": active_lane_count,
         "vacancies": vacancies,
         "research_budget_remaining": research_budget_remaining,
+        "research_budget_limit": research_budget_limit,
+        "adaptive_budget_reason": adaptive_budget_reason,
         "selected_match_ids": [row["match_id"] for row in selected],
         "selected_queue_ranks": [row["queue_rank"] for row in selected],
         "remaining_prematch_deferred_count": max(0, len(eligible) - len(selected)),

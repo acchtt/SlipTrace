@@ -167,6 +167,166 @@ class CompactCapacityTests(unittest.TestCase):
         with self.assertRaisesRegex(CapacityReplenishmentError, "contiguous"):
             select_initial_work_wave([row("a", 1), row("b", 3)], budget_policy=COMPACT_POLICY)
 
+    def test_underfilled_large_board_extends_beyond_rank_twelve_in_original_order(self):
+        base = [row(f"m{i}", i, disposition=("ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED")) for i in range(1, 28)]
+        epoch = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 1,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": base,
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 110,
+                "next_candidate_kickoff_minutes": 150,
+            },
+        }
+        first = next_replenishment_wave(epoch)
+        self.assertEqual(first["research_budget_limit"], 20)
+        self.assertEqual(first["adaptive_budget_reason"], "ADAPTIVE_TIME_VERIFIED")
+        self.assertEqual(first["selected_queue_ranks"], [13])
+        epoch["researched_match_ids"] += first["selected_match_ids"]
+        second = next_replenishment_wave(epoch)
+        self.assertEqual(second["selected_queue_ranks"], [14])
+        self.assertEqual(second["research_budget_remaining"], 7)
+
+    def test_partial_standard_wave_cannot_cross_twelve_even_with_adaptive_time(self):
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 11)],
+            "candidates": [row(f"m{i}", i) for i in range(1, 23)],
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 240,
+                "next_candidate_kickoff_minutes": 300,
+            },
+        })
+        self.assertEqual(out["selected_queue_ranks"], [11, 12])
+        self.assertEqual(out["research_budget_limit"], 20)
+
+    def test_no_adaptive_data_preserves_twelve_limit(self):
+        queue = [row(f"m{i}", i) for i in range(1, 22)]
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": queue,
+        })
+        self.assertEqual(out["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+        self.assertEqual(out["research_budget_limit"], 12)
+        self.assertEqual(out["selected_match_ids"], [])
+
+    def test_early_kickoff_or_no_research_time_blocks_extension(self):
+        queue = [row(f"m{i}", i) for i in range(1, 22)]
+        for budget, until in ((100, 30), (0, 140), (50, 39)):
+            with self.subTest(budget=budget, until=until):
+                out = next_replenishment_wave({
+                    "budget_policy": COMPACT_POLICY,
+                    "follow_count": 0,
+                    "reserve_count": 0,
+                    "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+                    "candidates": queue,
+                    "adaptive_research": {
+                        "enabled": True,
+                        "available_research_minutes": budget,
+                        "next_candidate_kickoff_minutes": until,
+                    },
+                })
+                self.assertEqual(out["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+                self.assertEqual(out["research_budget_limit"], 12)
+
+    def test_adaptive_never_exceeds_twenty_even_with_many_matches(self):
+        queue = [row(f"m{i}", i) for i in range(1, 31)]
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 21)],
+            "candidates": queue,
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 300,
+                "next_candidate_kickoff_minutes": 400,
+            },
+        })
+        self.assertEqual(out["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+        self.assertEqual(out["research_budget_limit"], 20)
+
+    def test_four_active_lanes_prevent_adaptive_overresearch(self):
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 2,
+            "reserve_count": 2,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": [row(f"m{i}", i) for i in range(1, 24)],
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 180,
+                "next_candidate_kickoff_minutes": 300,
+            },
+        })
+        self.assertEqual(out["status"], "COMPACT_ACTIVE_TARGET_SATISFIED")
+        self.assertEqual(out["selected_match_ids"], [])
+
+    def test_adaptive_skips_started_but_never_reranks_by_goal_potential(self):
+        queue = [row(f"m{i}", i, status=("STARTED" if i == 13 else "PREMATCH_CONFIRMED")) for i in range(1, 24)]
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": queue,
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 48,
+                "next_candidate_kickoff_minutes": 110,
+            },
+        })
+        self.assertEqual(out["selected_queue_ranks"], [14])
+        self.assertIn("m13", [x["match_id"] for x in out["closed_deferred"]])
+
+    def test_adaptive_kickoff_rechecked_for_each_next_candidate(self):
+        queue = [row(f"m{i}", i) for i in range(1, 22)]
+        payload = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": queue,
+            "adaptive_research": {
+                "enabled": True, "available_research_minutes": 80,
+                "next_candidate_kickoff_minutes": 110,
+            },
+        }
+        first = next_replenishment_wave(payload)
+        self.assertEqual(first["selected_queue_ranks"], [13])
+        payload["researched_match_ids"].append("m13")
+        # Even with ample research time, rank 14's earlier kickoff closes
+        # the adaptive window; do not skip ahead to cherry-pick rank 15.
+        payload["adaptive_research"]["next_candidate_kickoff_minutes"] = 28
+        second = next_replenishment_wave(payload)
+        self.assertEqual(second["selected_match_ids"], [])
+        self.assertEqual(second["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+
+    def test_adaptive_payload_requires_real_time_evidence_shape(self):
+        base = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": [row(f"m{i}", i) for i in range(1, 20)],
+        }
+        for option in (True, {"enabled": True}, {
+            "enabled": True, "available_research_minutes": True,
+            "next_candidate_kickoff_minutes": 120,
+        }):
+            with self.subTest(option=option):
+                with self.assertRaises(CapacityReplenishmentError):
+                    next_replenishment_wave({**base, "adaptive_research": option})
+
     def test_compact_researched_candidate_is_not_reselected(self):
         result = next_replenishment_wave({
             "budget_policy": COMPACT_POLICY,
