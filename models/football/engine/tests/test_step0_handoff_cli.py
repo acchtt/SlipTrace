@@ -205,5 +205,45 @@ class T(unittest.TestCase):
         self.assertIn("OPERATIONAL CONTRACT MISSING", result.stderr)
 
 
+    def test_compact_handoff_accepts_exact_operational_top_eight(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        p["capacity_queue"] = [
+            row(f"m{i}", i, "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED")
+            for i in range(1, 14)
+        ]
+        p["admitted_fixtures"] = [row(f"m{i}", i) for i in range(1, 9)]
+        p["admitted_to_c_count"] = 8
+        p["capacity_deferred_count"] = 5
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 0)
+        self.assertIn('"admitted_count": 8', out.stdout)
+
+    def test_compact_handoff_rejects_nine_admitted(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        p["admitted_fixtures"] = [row(f"m{i}", i) for i in range(1, 10)]
+        p["capacity_queue"] = list(p["admitted_fixtures"])
+        p["admitted_to_c_count"] = 9
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("OPERATIONAL CAPACITY BREACH", out.stderr)
+
+    def test_compact_handoff_rejects_skipped_better_rank(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        p["capacity_queue"] = [
+            row(f"m{i}", i, "ADMITTED_TO_C" if (i <= 9 and i != 3) else "OPERATIONAL_CAPACITY_DEFERRED")
+            for i in range(1, 10)
+        ]
+        p["admitted_fixtures"] = [r for r in p["capacity_queue"] if r["final_step0_disposition"] == "ADMITTED_TO_C"]
+        p["admitted_to_c_count"] = 8
+        p["capacity_deferred_count"] = 1
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("compact ranks 1-8", out.stderr)
+
+
+
 if __name__ == "__main__":
     unittest.main()
