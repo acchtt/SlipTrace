@@ -317,7 +317,8 @@ After every completed C/C2 Step-1 research wave, compute the *official C*
 
 For all policies:
 - Retain complete `researched_match_ids` without duplicates; refresh current prematch status before every wave.
-- Persist `Step1 Replenished=true`, `Replenishment Wave=N`, and the original `Step0 Capacity Queue Rank`.
+- Persist the exact existing record fields `Step1 Replenished = true`, `Replenishment Wave = 1, 2, ...` (the actual 1-indexed wave number), and the original `Step0 Capacity Queue Rank`.
+- For historic 15/10 handoffs, `A STOP/PASS does not permanently consume one of the original 15 research slots`; refill remains active-lane driven under the legacy rule. For compact boards, STOP/PASS frees a lane but **does** consume one unique-research-budget slot.
 - Stop when the selector reports a valid terminal condition; do not create unbounded /rank resume loops.
 
 Do not use model appeal, supported total, expected goals, or results to change operational replenishment order.
