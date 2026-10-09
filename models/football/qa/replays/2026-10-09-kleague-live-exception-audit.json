@@ -1,0 +1,118 @@
+{
+  "schema_version": "football-step2-queue-audit-v1",
+  "audit_purpose": "Historical process-integrity replay of user-authorized live exceptions; NOT a new live assessment or a betting instruction.",
+  "evidence_source": "Airtable Decision States records read back on 2026-10-09, latest 15:09 ICT epoch",
+  "parent_sweep_id": "SWEEP-20261009-1300-20261010-0300",
+  "parent_sweep_status": "RUNNING — no routine board authority",
+  "queue_receipt": {
+    "schema_version": "football-step2-queue-v1",
+    "session_id": "LIVE-EXCEPTION-20261009-150540",
+    "mode": "EXCEPTION_ONLY",
+    "source_run_id": null,
+    "board_snapshot_id": null,
+    "due": [
+      {
+        "match_id": "8lk2dirxod8uz73",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION",
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:8lk2dirxod8uz73"
+      },
+      {
+        "match_id": "g6763i56d50fo7r",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION",
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:g6763i56d50fo7r"
+      },
+      {
+        "match_id": "KOR_K2_CHUNGBUK_SEONGNAM_20261009",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION",
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:KOR_K2_CHUNGBUK_SEONGNAM_20261009"
+      },
+      {
+        "match_id": "zrkn6i4v9xntwql",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION",
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:zrkn6i4v9xntwql"
+      }
+    ],
+    "not_due": [],
+    "due_count": 4,
+    "board_fixture_count": 0,
+    "user_exception_count": 4,
+    "activated_reserve_count": 0
+  },
+  "reconciliation_input": {
+    "schema_version": "football-step2-reconcile-v2",
+    "stage": "step2_reconcile",
+    "session_id": "LIVE-EXCEPTION-20261009-150540",
+    "due": [
+      {
+        "match_id": "g6763i56d50fo7r",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION"
+      },
+      {
+        "match_id": "zrkn6i4v9xntwql",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION"
+      },
+      {
+        "match_id": "KOR_K2_CHUNGBUK_SEONGNAM_20261009",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION"
+      },
+      {
+        "match_id": "8lk2dirxod8uz73",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION"
+      }
+    ],
+    "outcomes": [
+      {
+        "match_id": "g6763i56d50fo7r",
+        "status": "INTEGRITY_BLOCKED",
+        "blocker_reason": "C/C2 prospective supported burden and predeclared C2-WAIT are absent; current tournament-incentive state unresolved; no verified re-executable live quote/complete engine pair. Do not reconstruct after the evidence epoch.",
+        "decision_state_record_id": "rec8UA12r10YAQfge",
+        "assessment_id": "LIVE-EXCEPTION-20261009-150540:g6763i56d50fo7r",
+        "match_name": "Gangwon FC vs Bucheon FC 1995",
+        "source_evidence_recorded_at_utc": "2026-10-09T08:09:33Z",
+        "verified_engine_c_result_present": false,
+        "verified_engine_c2_result_present": false
+      },
+      {
+        "match_id": "zrkn6i4v9xntwql",
+        "status": "INTEGRITY_BLOCKED",
+        "blocker_reason": "C/C2 prospective supported burden and predeclared C2-WAIT are absent; current tournament-incentive state unresolved; no verified re-executable live quote/complete engine pair. Do not reconstruct after the evidence epoch.",
+        "decision_state_record_id": "recAYnlPh89ON5MFB",
+        "assessment_id": "LIVE-EXCEPTION-20261009-150540:zrkn6i4v9xntwql",
+        "match_name": "Gimpo FC vs Seoul E-Land FC",
+        "source_evidence_recorded_at_utc": "2026-10-09T08:09:33Z",
+        "verified_engine_c_result_present": false,
+        "verified_engine_c2_result_present": false
+      },
+      {
+        "match_id": "KOR_K2_CHUNGBUK_SEONGNAM_20261009",
+        "status": "INTEGRITY_BLOCKED",
+        "blocker_reason": "C/C2 prospective supported burden and predeclared C2-WAIT are absent; current tournament-incentive state unresolved; no verified re-executable live quote/complete engine pair. Do not reconstruct after the evidence epoch.",
+        "decision_state_record_id": "recNKWtqezYx5Tzcg",
+        "assessment_id": "LIVE-EXCEPTION-20261009-150540:KOR_K2_CHUNGBUK_SEONGNAM_20261009",
+        "match_name": "Chungbuk Cheongju FC vs Seongnam FC",
+        "source_evidence_recorded_at_utc": "2026-10-09T08:09:33Z",
+        "verified_engine_c_result_present": false,
+        "verified_engine_c2_result_present": false
+      },
+      {
+        "match_id": "8lk2dirxod8uz73",
+        "status": "INTEGRITY_BLOCKED",
+        "blocker_reason": "C/C2 prospective supported burden and predeclared C2-WAIT are absent; current tournament-incentive state unresolved; no verified re-executable live quote/complete engine pair. Do not reconstruct after the evidence epoch.",
+        "decision_state_record_id": "recaBIGBS9Ez4Tis8",
+        "assessment_id": "LIVE-EXCEPTION-20261009-150540:8lk2dirxod8uz73",
+        "match_name": "Incheon United vs Pohang Steelers",
+        "source_evidence_recorded_at_utc": "2026-10-09T08:09:33Z",
+        "verified_engine_c_result_present": false,
+        "verified_engine_c2_result_present": false
+      }
+    ]
+  }
+}
