@@ -184,11 +184,11 @@ class CompactCapacityTests(unittest.TestCase):
         first = next_replenishment_wave(epoch)
         self.assertEqual(first["research_budget_limit"], 20)
         self.assertEqual(first["adaptive_budget_reason"], "ADAPTIVE_TIME_VERIFIED")
-        self.assertEqual(first["selected_queue_ranks"], [13, 14, 15])
+        self.assertEqual(first["selected_queue_ranks"], [13])
         epoch["researched_match_ids"] += first["selected_match_ids"]
         second = next_replenishment_wave(epoch)
-        self.assertEqual(second["selected_queue_ranks"], [16, 17, 18])
-        self.assertEqual(second["research_budget_remaining"], 5)
+        self.assertEqual(second["selected_queue_ranks"], [14])
+        self.assertEqual(second["research_budget_remaining"], 7)
 
     def test_no_adaptive_data_preserves_twelve_limit(self):
         queue = [row(f"m{i}", i) for i in range(1, 22)]
@@ -269,8 +269,31 @@ class CompactCapacityTests(unittest.TestCase):
                 "next_candidate_kickoff_minutes": 110,
             },
         })
-        self.assertEqual(out["selected_queue_ranks"], [14, 15, 16, 17])
+        self.assertEqual(out["selected_queue_ranks"], [14])
         self.assertIn("m13", [x["match_id"] for x in out["closed_deferred"]])
+
+    def test_adaptive_kickoff_rechecked_for_each_next_candidate(self):
+        queue = [row(f"m{i}", i) for i in range(1, 22)]
+        payload = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": queue,
+            "adaptive_research": {
+                "enabled": True, "available_research_minutes": 80,
+                "next_candidate_kickoff_minutes": 110,
+            },
+        }
+        first = next_replenishment_wave(payload)
+        self.assertEqual(first["selected_queue_ranks"], [13])
+        payload["researched_match_ids"].append("m13")
+        # Even with ample research time, rank 14's earlier kickoff closes
+        # the adaptive window; do not skip ahead to cherry-pick rank 15.
+        payload["adaptive_research"]["next_candidate_kickoff_minutes"] = 28
+        second = next_replenishment_wave(payload)
+        self.assertEqual(second["selected_match_ids"], [])
+        self.assertEqual(second["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
 
     def test_adaptive_payload_requires_real_time_evidence_shape(self):
         base = {
