@@ -30,10 +30,12 @@ Retrieve the frozen official Football C lane before research:
 - `RESERVE` — process only when explicitly activated or when FOLLOW capacity collapses.
 - `STOP` — do not run routine Step 2 unless the user explicitly declares an exception.
 
-For every current session freeze the due set under `FOOTBALL_STEP2_SESSION_RECONCILIATION.md`:
+For every current session derive and freeze the due set using `models/football/engine/step2_queue_guard.py` under `FOOTBALL_STEP2_SESSION_RECONCILIATION.md`:
 - all FOLLOW fixtures whose XI/odds window is open;
-- activated RESERVE fixtures;
-- every user-declared exception.
+- activated RESERVE fixtures (explicitly account for missing XI/odds, too);
+- every user-declared exception with explicit authorization.
+
+Routine execution requires a **COMPLETE** packaged Step-0 source and a terminal reconciled C+C2 Step-1 board. `RUNNING` sweeps and provisional screen rows are not routine FOLLOW authority. When that gate fails, run only `EXCEPTION_ONLY` for explicitly user-authorized fixtures if applicable, preserving C+C2 evidence requirements. Keep the full `not_due` manifest as a negative-space audit.
 
 A WATCH/STOP fixture does not reopen merely because market price improves.
 
