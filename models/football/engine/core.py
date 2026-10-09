@@ -619,6 +619,12 @@ def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if a.continuation_quality == Grade.LOW:
         return Decision(Action.PASS, "current continuation quality is LOW")
 
+    # Apply the funding gate at this execution epoch, including exceptions.
+    # A higher quote can only WAIT for the already supported burden.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    if not clearing_goal_funded(a, executable_burden):
+        return Decision(Action.PASS, "C clearing-goal funding missing")
+
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
 
     if at_or_below:
