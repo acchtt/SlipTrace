@@ -98,6 +98,10 @@ For all discovered rows covered by the user filter, persist existing Airtable `E
 
 Write distinct `user_excluded_verification_blocks` (plus fixture identifiers/counts when available) in the live Resume Cursor and recompute `pending_verification_count` before moving on. User-excluded blocks **do not** count as `completed_verification_blocks` and do not use external verification budget. Do not move their old provisional A/B or C grades into the Work capacity queue, and do not count their known time conflicts as unresolved **actionable** integrity defects. Audit counters still include their source-visible discovery records. The standing user rule applies to **future fresh** sweeps as well as this resumed run.
 
+### Prospective tighter XI/market admission when resuming the paused Oct-09 sweep
+
+The user requested fixing the intake quality of the still-unfinished `SWEEP-20261009-1300-20261010-0300`, but instructed the sweep to remain paused for now. **No present Airtable mutation or source reacquisition.** On explicit next resume, preserve the source epoch/hash, completed/pending verification blocks, original historical grades and the LEGACY initial/replenishment budget. Before global Work capacity is frozen, run `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` on every plausible A/B fixture and persist `strict_intake_policy=XI_MARKET_FIRST_V1` in final Step0 handoff. Missing both-team recent actual XI proof or current match-specific Asian totals means non-admission/explicit operational exclusion after bounded screening, not a fabricated B. This is prospective pre-handoff correction, not retroactive frozen-board reclassification.
+
 ## 4. Phase model
 
 ### A. SOURCE_ACQUISITION
