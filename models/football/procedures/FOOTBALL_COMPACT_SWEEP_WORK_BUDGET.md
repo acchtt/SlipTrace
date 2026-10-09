@@ -11,6 +11,8 @@ The five-complete-league match-level scoreline pilot found that Over 2.5 was oft
 
 The operational pain point is the breadth of **deep Work research**, not a justification to delete the raw source ledger or overfit a goals-only league allowlist. This update is a reversible **workload budget**, not a predictive C/C2 model feature.
 
+**Standing scope patch (2026-10-09):** Normal /sweep excludes **all noncompetitive international (men/women), club and exhibition friendlies**, along with existing six domestic exclusions. Close surfaced friendly blocks at source-classification time; preserve existing rows only as `USER_SCOPE_EXCLUDED_FRIENDLY` for audit. Competitive international qualifiers/Nations League and senior women's domestic top flights remain distinct/in scope. Do not verify lineup/Asian-total sources for friendlies, do not rank/promote them, and remove friendlies-only pending blocks from a resumed run without falsely crediting external verification. This scope prefilter is independent of the compact 8/12/4 Work budget.
+
 ## 2. Compact admission scope
 
 - Source acquisition, senior fixture discovery, source/time identity, raw coverage and deduplication remain unchanged. Every sourced protected/required senior block and visible senior women's top-flight block must still receive a valid disposition.
