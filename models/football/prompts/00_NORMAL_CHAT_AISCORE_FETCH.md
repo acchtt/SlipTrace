@@ -394,7 +394,7 @@ Never use Over profile, expected goals, C/C2/C3/C4 state, supported line, attrac
 Initial Work handoff:
 - legacy handoffs: ranks 1–15 -> `ADMITTED_TO_C`, ranks 16+ deferred;
 - new `COMPACT_GOAL_ROUTE_V1` handoffs: ranks 1–8 -> `ADMITTED_TO_C`, ranks 9+ deferred;
-- all deferred A/B fixtures remain in the full operational queue with immutable ranks for audit and controlled replenishment.
+- all deferred A/B fixtures remain in the full operational queue with immutable ranks for audit, retained as the Step-1 replenishment queue.
 
 Persist queue rank for both admitted and deferred A/B fixtures.
 
