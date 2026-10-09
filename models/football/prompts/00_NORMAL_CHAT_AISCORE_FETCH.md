@@ -361,7 +361,7 @@ Apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` for **f
 
 After A/B viability and researchability are known, build the **complete fixture-level A/B capacity queue first**.
 
-The 15-fixture limit is an **initial Work batch cap**, not a terminal slate exclusion.
+For legacy/frozen handoffs without `COMPACT_GOAL_ROUTE_V1`, the 15-fixture limit is an **initial Work batch cap**, not a terminal slate exclusion. For new compact handoffs, the initial Work cap is **8**, with at most **12** uniquely researched fixtures under the bounded routine policy.
 
 ### Global capacity queue
 
@@ -380,8 +380,9 @@ Kickoff discovery order, source-page order and block arrival order must never de
 Never use Over profile, expected goals, C/C2/C3/C4 state, supported line, attractive odds or outcome knowledge to build the queue.
 
 Initial Work handoff:
-- queue ranks 1–15 -> `ADMITTED_TO_C`;
-- queue ranks 16+ -> `OPERATIONAL_CAPACITY_DEFERRED`, **retained as the Step-1 replenishment queue**.
+- legacy handoffs: ranks 1–15 -> `ADMITTED_TO_C`, ranks 16+ deferred;
+- new `COMPACT_GOAL_ROUTE_V1` handoffs: ranks 1–8 -> `ADMITTED_TO_C`, ranks 9+ deferred;
+- all deferred A/B fixtures remain in the full operational queue with immutable ranks for audit and controlled replenishment.
 
 Persist queue rank for both admitted and deferred A/B fixtures.
 
