@@ -22,11 +22,13 @@ SUPPORTED_COMPETITION_TIERS = frozenset(
     }
 )
 
-REQUIRED_XI_FIELDS = (
-    "xi_home_recent_match_id",
-    "xi_away_recent_match_id",
-    "xi_home_lineup_source_url",
-    "xi_away_lineup_source_url",
+# Source-backed expectation, not confirmed starting XI for a future kickoff.
+# An official squad or dependable matchday-lineup provider is permitted for B.
+XI_CHANNEL_TYPES = frozenset(
+    {"RECENT_CONFIRMED_XI", "PROVIDER_MATCHDAY_COVERAGE", "OFFICIAL_SQUAD_NEWS"}
+)
+XI_STRONG_TYPES = frozenset(
+    {"RECENT_CONFIRMED_XI", "PROVIDER_MATCHDAY_COVERAGE"}
 )
 
 REQUIRED_MARKET_FIELDS = (
@@ -90,13 +92,28 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
     if not _nonempty(row.get("competition_support_reason")):
         defects.append("COMPETITION_SUPPORT_BASIS_MISSING")
 
-    if row.get("xi_expected") != "YES":
+    # 24h discovery occurs long before official match-day XIs drop. Require
+    # evidence of a usable publication channel, NOT the future starting XI.
+    # B/UNCERTAIN remains conditional until the /xi matchday recheck.
+    xi_expected = row.get("xi_expected")
+    if xi_expected not in {"YES", "UNCERTAIN"}:
         defects.append("XI_CHANNEL_NOT_VERIFIABLE")
-    if not (
-        all(_nonempty(row.get(k)) for k in REQUIRED_XI_FIELDS[:2])
-        and all(_source_url(row.get(k)) for k in REQUIRED_XI_FIELDS[2:])
+    xi_types = []
+    for side in ("home", "away"):
+        kind = row.get(f"xi_{side}_channel_type")
+        url = row.get(f"xi_{side}_channel_source_url")
+        if kind not in XI_CHANNEL_TYPES or not _source_url(url):
+            defects.append(f"XI_{side.upper()}_PUBLISHING_CHANNEL_UNVERIFIED")
+        else:
+            xi_types.append(kind)
+    if xi_expected == "YES" and len(xi_types) == 2 and any(
+        kind not in XI_STRONG_TYPES for kind in xi_types
     ):
-        defects.append("XI_BOTH_TEAMS_RECENT_CONFIRMED_EVIDENCE_MISSING")
+        defects.append("XI_EXPECTATION_OVERSTATED")
+    if xi_expected == "UNCERTAIN" and row.get("operational_viability_grade") != "B":
+        defects.append("XI_UNCERTAIN_MUST_BE_CONDITIONAL_B")
+    if not _nonempty(row.get("xi_channel_basis")):
+        defects.append("XI_CHANNEL_EVIDENCE_BASIS_MISSING")
 
     if row.get("market_observability") not in {"HIGH", "MEDIUM"}:
         defects.append("CURRENT_ASIAN_TOTAL_UNAVAILABLE")
@@ -134,19 +151,25 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
     market_time = _utc_timestamp(row.get("asian_total_market_observed_at_utc"))
     if market_time is None:
         defects.append("CURRENT_ASIAN_TOTAL_TIME_UNVERIFIED")
+    # Optional corroborating previous XI provenance; if supplied, it must
+    # precede the current fixture. Some tournaments lack recent historical XI.
     for side in ("home", "away"):
         source_match = row.get(f"xi_{side}_recent_match_id")
-        if _nonempty(source_match) and source_match == row.get("match_id"):
-            defects.append("XI_RECENT_FIXTURE_ID_NOT_HISTORICAL")
-        source_kickoff = _utc_timestamp(
-            row.get(f"xi_{side}_recent_match_kickoff_utc")
-        )
-        if source_kickoff is None:
-            defects.append(f"XI_{side.upper()}_HISTORICAL_FIXTURE_TIME_MISSING")
-        elif kickoff and not (
-            timedelta(0) < kickoff - source_kickoff <= timedelta(days=240)
-        ):
-            defects.append(f"XI_{side.upper()}_HISTORICAL_FIXTURE_TIME_STALE")
+        source_kickoff_value = row.get(f"xi_{side}_recent_match_kickoff_utc")
+        if source_match is not None or source_kickoff_value is not None:
+            if not _nonempty(source_match) or source_match == row.get("match_id"):
+                defects.append(f"XI_{side.upper()}_HISTORICAL_ID_INVALID")
+            source_kickoff = _utc_timestamp(source_kickoff_value)
+            if source_kickoff is None or (
+                kickoff and not (timedelta(0) < kickoff - source_kickoff <= timedelta(days=480))
+            ):
+                defects.append(f"XI_{side.upper()}_HISTORICAL_FIXTURE_TIME_INVALID")
+
+    recheck = _utc_timestamp(row.get("xi_recheck_due_utc"))
+    if recheck is None or (kickoff and not (
+        timedelta(minutes=30) <= kickoff - recheck <= timedelta(hours=3)
+    )):
+        defects.append("XI_PREMATCH_RECHECK_PLAN_MISSING_OR_INVALID")
 
     if market_time and kickoff and not (
         timedelta(0) <= kickoff - market_time <= timedelta(hours=72)
