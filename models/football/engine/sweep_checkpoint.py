@@ -445,7 +445,13 @@ def advance_after_chunk(
             seen.add(block)
             current_order.append(block)
 
-    current_set = set(current_order)
+    # Fresh fast mode may only claim results for the selector's bounded
+    # current batch. Legacy historical cursors retain their prior behavior.
+    current_set = (
+        set(select_verification_chunk(payload).selected_blocks)
+        if cp["verification_policy"] == FAST_FINISH_POLICY
+        else set(current_order)
+    )
     unknown_completed = set(completed) - current_set
     unknown_retry = set(retries) - current_set
     if unknown_completed:
