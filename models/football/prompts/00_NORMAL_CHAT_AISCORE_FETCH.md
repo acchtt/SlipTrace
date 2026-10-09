@@ -175,6 +175,14 @@ Exclude before the researchability gate:
 - unresolved authoritative kickoff;
 - duplicates.
 
+## 2B. Standing user exclusion — ALL noncompetitive friendlies (effective 2026-10-09)
+
+**User directive:** "Skip friendlies, exclude from future sweeps as well." This is a **standing, unconditional normal-/sweep scope exclusion** for noncompetitive senior **national-team friendlies (men's/women's), club friendlies, exhibition/test/preseason matches**. Apply to the **current unfinished sweep and every subsequent /sweep** unless explicitly reversed by the user; neither an A/B historical over-rate, protected *nation*, popular club, nor available XI/odds can override this exclusion. Official **competitive** qualifiers, Nations League, tournament fixtures, international cups and women's domestic top flights are **not friendlies** and remain in their existing required/protected/accounting scope.
+
+Apply friendly scope exclusion immediately after source-local competition classification, **before any fixture-specific kickoff disputes, XI availability or Asian bookmaker preflight**. Preserve already captured fixture rows and original source timestamps/grades for audit with `scope=EXCLUDED`, screen `EXCLUDED`, `reason=USER_SCOPE_EXCLUDED_FRIENDLY — 2026-10-09`; do not delete them or change the prior source-acquisition hash. For future new runs, close friendlies at **source block level** if only date/index evidence exists—do not spend search budget enumerating friendly fixtures. If source acquisition incidentally captures one, retain a compact exclusion record if needed for audit. Do not add them to A/B queue or any C/C2 Work payload.
+
+For a resumed run with a pending **friendlies-only block**, remove that key from `pending_verification_blocks` and `retry_queue`, place it in `user_excluded_verification_blocks`, recompute counts, and persist the checkpoint. **Mark excluded by user scope, NOT externally verified/completed.** The final report separates friendly exclusions from other operational C/D and from the five pre-existing country exclusions. Explicit `/xi exception` for a **named fixture** may reopen only that one, without deleting or silently modifying the standing default rule. Do not classify an official qualifier as a friendly because a provider uses "international match" or "exhibition-like" colloquially.
+
 ## 2A. Standing user-scope domestic exclusions — effective 2026-10-09
 
 The user explicitly directed Step 0 to **skip and exclude from subsequent sweeps** the following **domestic competition universes**, independently of the normal A/B/C/D operational gate:
