@@ -218,7 +218,11 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
         raise Step0HandoffError(
             "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE MISSING"
         )
-    if len(admitted) > 15:
+    policy = payload.get('sweep_work_budget_policy')
+    if policy not in (None, 'COMPACT_GOAL_ROUTE_V1'):
+        raise Step0HandoffError('HANDOFF INCOMPLETE: unknown budget policy')
+    limit = 8 if policy == 'COMPACT_GOAL_ROUTE_V1' else 15
+    if len(admitted) > limit:
         raise Step0HandoffError(
             "HANDOFF INCOMPLETE — OPERATIONAL CAPACITY BREACH"
         )
@@ -290,6 +294,11 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
             "HANDOFF INCOMPLETE — STEP0 CAPACITY QUEUE MISSING "
             f"ADMITTED FIXTURES: {sorted(admitted_ids - queue_ids)}"
         )
+
+    if policy == 'COMPACT_GOAL_ROUTE_V1':
+        expected = { _mid(row) for row in queue if row['step0_capacity_queue_rank'] <= 8 }
+        if admitted_ids != expected:
+            raise Step0HandoffError('HANDOFF INCOMPLETE: compact ranks 1-8 must be admitted')
 
     if payload.get("admitted_to_c_count") != len(admitted):
         raise Step0HandoffError(
