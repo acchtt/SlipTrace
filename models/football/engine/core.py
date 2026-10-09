@@ -254,7 +254,7 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
     This is intentionally stricter than FOCUS. It is used by ranking and the
     operational FOLLOW certification, not to narrow the broad C-FOCUS pool.
 
-    For O2.5/O2.75 the clearing burden is goal 3. A carrier-led path must prove
+    For O2.25/O2.5/O2.75, a full win requires goal 3. A carrier-led path must prove
     that goal independently; a merely USABLE supporting route is not enough.
     TWO_SIDED/MIXED can fund it through two usable routes only when both the
     completion and continuation diagnostics are HIGH. O3.0 additionally
@@ -262,8 +262,11 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
     fourth-goal tail cannot be inferred from ordinary two-route shape.
     """
     require_c_completion(a)
+    burden = a.supported_line if selected_line is None else selected_line
+    _validate_quarter_line(burden)
 
-    if a.supported_line < 2.5:
+    # O2.25 still loses half at two goals; O2.0 instead pushes.
+    if burden <= 2.0:
         return True
 
     strong_carrier_goal3 = (
@@ -286,7 +289,7 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
         and not a.failure_attacks_route
     )
 
-    if a.supported_line < 3.0:
+    if burden < 3.0:
         return strong_carrier_goal3 or two_route_goal3
 
     # O3.0 FOLLOW needs an independently supported upper tail; ordinary
