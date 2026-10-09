@@ -113,6 +113,10 @@ A/B queue rank is operational only. It must not be based on expected goals, mode
 
 For new /sweep runs, apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` as an explicit **prospective operational budget overlay**: `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, initial Work wave 8 by the full frozen operational A/B rank, routine unique-fixture research ceiling 12, automatic replenish only below 4 active lanes. Source discovery, A/B rank ordering, protected/women/required coverage, hard exclusions and C/C2 decision logic are unchanged. Goal-rate research is context-only, **not** a Step-0 predictive hard filter or automatic league exclusion. Existing RUNNING/frozen/historical sweeps without this policy, including `SWEEP-20261009-1300-20261010-0300` Chunk 12, must retain their legacy 15/refill-to-10 semantics and must not be restarted or rewritten. Keep all A/B overflow as an auditable queue.
 
+### XI + market proof before the Work queue
+
+For new compact intake and explicitly marked resumed unfinished sweeps, the mandatory `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` overrides the *old* assumption that a raw B grade or `xi_expected=UNCERTAIN` justifies Work admission. Require actual recent starting-XI proofs for both teams, a current fixture-specific Asian-total market, verifiable news and competition/fixture source integrity. The frozen source-discovery universe is **not** the actionable board. Keep all required/protected and women's senior top-flight discovery/dispositions; exclude/hold non-operational rows from Work only. The paused 2026-10-09 run is not edited now; on explicit future resume, its final still-unfrozen queue must use the `XI_MARKET_FIRST_V1` marker while retaining its legacy Work budget.
+
 ## Step 1 — Football C official board + Football C2 shadow board
 
 Use `models/football/prompts/01_WORK_DAILY_SWEEP.md`.
