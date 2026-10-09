@@ -745,6 +745,8 @@ def c2_bridge_eligibility(
         reasons.append("material suppression remains")
     if ctx.quote.odds < 1.65:
         reasons.append("price below bridge floor")
+    if not c2_clearing_goal_funded(a, ctx.quote.line):
+        reasons.append("C2 clearing-goal funding missing at bridge line")
 
     return not reasons, tuple(reasons)
 
