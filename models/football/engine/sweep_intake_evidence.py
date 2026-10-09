@@ -214,9 +214,11 @@ def classify_preflight(row: dict[str, Any]) -> dict[str, Any]:
     defects = validate_work_candidate(row)
     if not defects:
         return {"work_queue_eligible": True, "disposition": "READY_FOR_AB_QUEUE", "defects": []}
-    if isinstance(row, dict) and (
-        row.get("user_scope_excluded") is True or row.get("hard_scope_excluded") is True
-    ):
+    # Scope exclusions are terminal at classification, even when no
+    # expensive XI/Asian-total preflight was attempted.
+    if any(code in defects for code in (
+        "USER_SCOPE_EXCLUDED", "HARD_SCOPE_EXCLUDED", "USER_SCOPE_EXCLUDED_FRIENDLY"
+    )):
         return {
             "work_queue_eligible": False,
             "disposition": "STEP0_OPERATIONAL_OR_SCOPE_EXCLUDED",
