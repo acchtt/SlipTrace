@@ -10,6 +10,17 @@ Prevent the 15-fixture Step-0 workload cap from becoming a permanent slate cutof
 
 The 15 limit controls **concurrent deep-research workload**, not how many A/B candidates may ever reach Step 1.
 
+## 0A. Effective prospective compact Work budget — new runs from 2026-10-09 ICT
+
+The previous Sections 1–7 describe **legacy** handoffs with no budget policy. The active **new-run** override is `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` and its ID `COMPACT_GOAL_ROUTE_V1`.
+
+- Freeze **the complete** A/B operational queue and ranks exactly as below (still zero historical Over influence).
+- Rank 1–8 is the initial Work wave; ranks 9+ stay deferred, not silently dropped.
+- Automatic replenish only if `FOLLOW+RESERVE <4`, pulling the lowest eligible queue ranks.
+- Total **routine unique fixtures researched <=12**. Pass a complete deduplicated `researched_match_ids` list along with `budget_policy=COMPACT_GOAL_ROUTE_V1` to the deterministic CLI. Insufficient/missing history fails; no fallback to legacy mode.
+- At four active lanes return `COMPACT_ACTIVE_TARGET_SATISFIED`; at 12 researched return `COMPACT_RESEARCH_BUDGET_EXHAUSTED`. Either is a valid compact stop. The normal FOLLOW<=6, RESERVE<=4 absolute lane ceilings are unchanged; four is the automatic *refill target*, not a new maximum lane count.
+- Legacy/frozen sweeps, specifically saved Chunk 12 of `SWEEP-20261009-1300-20261010-0300`, still use Sections 1–7 unchanged (15 initial, refill-to-10).
+
 ## 1. Freeze the full A/B queue first
 
 Before selecting the first Work batch:
