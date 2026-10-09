@@ -98,6 +98,42 @@ For non-decision dispositions use a non-empty `blocker_reason`; `ENGINE_FAILED_A
 
 The v2 result reports both `persisted_decision_count` and `verified_decision_count`. Current completion requires that they match, and that every due fixture is accounted for. No v1 replay result may substitute for this gate.
 
+## Frozen-queue outcome coverage and open-item tracking
+
+At the end of each current session, run the **queue-level** audit after
+building the v2 Decision State read-back reconciliation. The audit input
+`football-step2-queue-audit-v1` contains both:
+- the exact `queue_receipt` returned by `step2_queue_guard.py`;
+- the unmodified `reconciliation_input` used for `step2_reconcile.py`.
+
+Run:
+
+`python models/football/engine/step2_queue_audit.py --input <step2_queue_audit.json>`
+
+The audit checks the *entire* frozen due universe against the reconciliation
+due set and disposition set. A missing FOLLOW, activated RESERVE or user
+exception fails even if a truncated reconciliation alone would pass.
+Any changed lane/authorization also fails.
+
+Distinguish three different claims:
+- **ACCOUNTED**: every due match has a documented disposition and
+  every persisted decision passed independent C+C2 read-back checks;
+- **SESSION COMPLETE**: all due matches have verified persisted decisions,
+  with zero open follow-ups;
+- **ACCOUNTED WITH OPEN FOLLOW-UPS**: outstanding missing XI/odds, fixture
+  status, unresolved integrity, engine failure or live handoff remains.
+  These are *not* silently treated as completed model decisions.
+
+A `LIVE_REROUTED` entry remains an open follow-up until the separate live
+workflow's result can be independently checked; the presence of a handoff
+reference alone is not proof of a completed live assessment. Never
+retroactively fill missed C2 inputs from live or full-time data.
+
+A current unfinished sweep cannot supply the routine due set. During such
+periods only explicitly authorized `EXCEPTION_ONLY` receipts can be
+audited, preserving all incomplete statuses. Do not reclassify old provisional
+Airtable exceptions as new validated decisions.
+
 ## Deterministic reconciliation
 
 Run:
