@@ -207,6 +207,12 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
             max(0, COMPACT_REFILL_ACTIVE_TARGET - active_lane_count),
             research_budget_remaining,
         )
+        # Once standard 12 have been researched, the caller's kickoff clock
+        # attests only the NEXT rank-eligible fixture. Never authorize rank
+        # 14's potentially earlier KO using rank 13's safe lead time.
+        # Recheck the clock and budget for each additional fixture.
+        if len(researched) >= COMPACT_TOTAL_RESEARCH and research_budget_remaining:
+            vacancies = min(vacancies, 1)
     else:
         vacancies = MAX_ACTIVE - active_lane_count
 
