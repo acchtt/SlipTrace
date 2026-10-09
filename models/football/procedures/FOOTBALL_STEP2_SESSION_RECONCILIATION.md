@@ -98,6 +98,37 @@ For non-decision dispositions use a non-empty `blocker_reason`; `ENGINE_FAILED_A
 
 The v2 result reports both `persisted_decision_count` and `verified_decision_count`. Current completion requires that they match, and that every due fixture is accounted for. No v1 replay result may substitute for this gate.
 
+## Prepublication guard for new C+C2 decisions
+
+Session reconciliation remains mandatory after delivery, but does not itself
+authorize publication. For all **new** /xi Step-2 decisions, do the following
+after atomic C+C2 execution and before showing a final actionable verdict:
+
+1. Persist the proposed Decision State with the exact frozen C and C2
+   supported lines and engine results, plus the new Airtable
+   `C+C2 Evidence Epoch ID` (field `fldx9NihOIf3Pl6Hn`).
+2. Independently read back the record from Airtable and build the
+   `decision_state_snapshot` from the stored record fields, **not** from
+   the intended write or the raw engine return. Normalize stored C/C2 result
+   objects with each model's own frozen `supported_line`.
+3. Revalidate fixture status and executable quote, establish the latest
+   evidence epoch, and search the new Airtable `C+C2 Publication Key`
+   field (`fldrTcDQwCNgAKmgn`) for existing same-fixture/epoch keys.
+4. Run `python models/football/engine/step2_publication_guard.py --input <publication_check.json>`.
+   The input includes both original frozen model payloads, the exact paired
+   engine receipt, source revision, current-epoch truth and the read-back
+   snapshot. **Only** `STEP2 PUBLICATION ELIGIBLE` allows publication.
+5. Persist `C+C2 Publication Key` from the guard's `publication_key` for
+   deduplication, then proceed to user-facing verdict/Website Picks. A
+   blocking response means no actionable publication; document the
+   blocker/retry under the saved queue. Never backfill old historical rows.
+
+The guard cannot itself confirm that supplied price/fixture flags or
+Airtable snapshot actually came from current remote reads. The executing
+agent must perform those external checks. If a goal/quote/lineup changes
+before publication, abort the old epoch and re-assess lawfully; don't
+label the old C2 action completed after the fact.
+
 ## Frozen-queue outcome coverage and open-item tracking
 
 At the end of each current session, run the **queue-level** audit after
