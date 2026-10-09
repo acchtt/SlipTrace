@@ -9,7 +9,7 @@ import subprocess
 import sys
 import unittest
 
-ROOT = pathlib.Path(__file__).resolve().parents[3]
+ROOT = pathlib.Path(__file__).resolve().parents[4]
 ENGINE = ROOT / "models" / "football" / "engine"
 HANDOFF = ROOT / "models" / "football" / "handoffs" / "SWEEP-20261009-2123-20261010-0300" / "STEP0_HANDOFF.json"
 
