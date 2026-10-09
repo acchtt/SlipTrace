@@ -175,6 +175,31 @@ class StrictIntakeEvidenceTests(unittest.TestCase):
         row["user_scope_excluded"] = True
         self.assertIn("USER_SCOPE_EXCLUDED", validate_work_candidate(row))
 
+    def test_noncompetitive_womens_national_friendly_excluded(self):
+        row = valid_fixture()
+        row["competition_name"] = "Senior Women's International Friendlies"
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", validate_work_candidate(row))
+
+    def test_noncompetitive_mens_friendly_excluded(self):
+        row = valid_fixture()
+        row["competition_name"] = "Men's International Friendly"
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", validate_work_candidate(row))
+
+    def test_noncompetitive_club_preseason_excluded(self):
+        row = valid_fixture()
+        row["fixture_type"] = "Club Preseason Friendly"
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", validate_work_candidate(row))
+
+    def test_explicit_friendly_flag_excluded(self):
+        row = valid_fixture()
+        row["is_friendly"] = True
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", validate_work_candidate(row))
+
+    def test_competitive_qualifier_not_mistaken_for_friendly(self):
+        row = valid_fixture()
+        row["competition_name"] = "FIFA Women's World Cup Qualification UEFA"
+        self.assertEqual(validate_work_candidate(row), [])
+
     def test_team_news_must_be_available(self):
         row = valid_fixture()
         row["team_news_observability"] = "LOW"
