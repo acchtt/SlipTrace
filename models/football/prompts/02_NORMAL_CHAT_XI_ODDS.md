@@ -264,6 +264,15 @@ Do not call the current session complete unless:
 
 and `verified_decision_count = persisted_decision_count`. A v1 reconciliation pass is historical replay only and cannot authorize current-session completion. Every due fixture must have exactly one traceable disposition. Silent omission is a process failure.
 
+**Then audit against the original frozen queue** with
+`python models/football/engine/step2_queue_audit.py --input <step2_queue_audit.json>`
+using the saved queue receipt and the same v2 reconciliation input.
+A reconciliation PASS proves accounting, not necessarily that every case
+is closed. Report `STEP2 ACCOUNTED WITH OPEN FOLLOW_UPS` whenever any
+XI/odds wait, status/integrity block, runtime failure, or live reroute
+remains unresolved. Only `STEP2 SESSION COMPLETE` with
+`all_due_completed=true` is a completed session.
+
 ## 13. User-facing output
 
 For each assessed fixture show:
