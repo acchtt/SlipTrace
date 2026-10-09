@@ -59,7 +59,7 @@ Women's top-flight competitions do **not** automatically bypass the operational 
 
 ### Current prospective intake proof standard
 
-Preserve every visible senior women's top-flight fixture in discovery and its disposition manifest. New compact or explicitly marked unfinished sweeps use `FOOTBALL_XI_MARKET_FIRST_INTAKE.md`: admission requires the same both-team verified lineup source, current Asian-total market and news evidence as men's fixtures. If evidence is missing, exclude or hold **from Work**, not from coverage or because it is women's football. Compact initial Work limit is 8; legacy frozen handoff limit remains 15.
+Preserve every visible senior women's top-flight fixture in discovery and its disposition manifest. New compact or explicitly marked unfinished sweeps use `FOOTBALL_XI_MARKET_FIRST_INTAKE.md`: admission requires source-backed **expected** lineup publication channels, not already-confirmed upcoming XI, and the same current Asian-total market/news standards as men's fixtures. Conditional B/UNCERTAIN is available on equal evidence to both women's and men's fixtures. If evidence is missing, exclude or hold **from Work**, not from coverage or because it is women's football. Compact initial Work limit is 8; legacy frozen handoff limit remains 15.
 
 ## 4. Capacity parity
 
