@@ -225,6 +225,44 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
         payload, consumer=consumer
     )
 
+    # FAST_FINISH is a producer/consumer contract, not permission to export
+    # a provisional JSON with its completion booleans altered. Confirm
+    # required-competition fixture rows against a separately frozen source
+    # inventory; a block summary stating '10 fixtures' is not enough.
+    if verification_policy == "FAST_FINISH_V1":
+        from coverage_manifest import (
+            CoverageManifestError,
+            validate_required_competition_manifest,
+        )
+        if payload.get("required_competition_blocks_complete") is not True:
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — REQUIRED COMPETITION BLOCKS NOT COMPLETE"
+            )
+        try:
+            validate_required_competition_manifest(payload)
+        except CoverageManifestError as exc:
+            raise Step0HandoffError(str(exc)) from exc
+        source_ids = payload.get("required_competition_source_fixture_ids")
+        if not isinstance(source_ids, dict):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — INDEPENDENT REQUIRED FIXTURE INVENTORY MISSING"
+            )
+        for block in payload["required_competition_blocks"]:
+            if block["block_id"] != "NED_EERSTE_DIVISIE":
+                continue
+            observed = source_ids.get(block["block_id"])
+            expected = [row["match_id"] for row in block["fixtures"]]
+            if (
+                not isinstance(observed, list)
+                or len(observed) != len(set(observed))
+                or set(observed) != set(expected)
+                or len(observed) != len(expected)
+            ):
+                raise Step0HandoffError(
+                    "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE "
+                    "SOURCE INVENTORY / FIXTURE MANIFEST MISMATCH"
+                )
+
     admitted = payload.get("admitted_fixtures")
     queue = payload.get("capacity_queue")
     if not isinstance(admitted, list):
