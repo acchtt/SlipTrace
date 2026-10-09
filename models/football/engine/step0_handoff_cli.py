@@ -223,6 +223,13 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     policy = payload.get('sweep_work_budget_policy')
     if policy not in (None, 'COMPACT_GOAL_ROUTE_V1'):
         raise Step0HandoffError('HANDOFF INCOMPLETE: unknown budget policy')
+    intake_policy = payload.get("strict_intake_policy")
+    if intake_policy not in (None, "XI_MARKET_FIRST_V1"):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — unknown strict intake policy")
+    strict_xi_market_gate = (
+        policy == "COMPACT_GOAL_ROUTE_V1"
+        or intake_policy == "XI_MARKET_FIRST_V1"
+    )
     limit = 8 if policy == 'COMPACT_GOAL_ROUTE_V1' else 15
     if len(admitted) > limit:
         raise Step0HandoffError(
@@ -272,7 +279,7 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
                     f"{match_id} missing {key}"
                 )
 
-        if policy == "COMPACT_GOAL_ROUTE_V1":
+        if strict_xi_market_gate:
             defects = validate_work_candidate(row)
             if defects:
                 raise Step0HandoffError(
