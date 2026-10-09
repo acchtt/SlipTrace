@@ -543,6 +543,55 @@ def c2_selection_floor(
     return SelectionFloor.FAIL, tuple(dict.fromkeys(reasons))
 
 
+def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
+    """Independent C2 route-quality proof at the selected total.
+
+    C2 uses no C-owned completion/continuation/stall grading.
+    A CLEAR two-route selection floor alone does not fund goal three.
+    """
+    _validate_quarter_line(selected_line)
+    floor, _ = c2_selection_floor(a)
+    if floor != SelectionFloor.CLEAR:
+        return False
+    if selected_line <= 2.0:
+        return True
+
+    carrier_goal3 = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+    )
+    two_route_goal3 = (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.independent_upper_tail
+    )
+    if selected_line < 3.0:
+        return carrier_goal3 or two_route_goal3
+
+    fourth_goal_quality = (
+        a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.failure_resistance == Grade.HIGH
+    )
+    return fourth_goal_quality and (
+        carrier_goal3
+        or (
+            two_route_goal3
+            and a.home_route == RouteStrength.STRONG
+            and a.away_route == RouteStrength.STRONG
+        )
+    )
+
+
 def _healthy_wait(ctx: DecisionContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
