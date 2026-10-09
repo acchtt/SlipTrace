@@ -7,6 +7,9 @@ from typing import Any
 
 CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"
 MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6
+FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24
+FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2
+FAST_FINISH_POLICY = "FAST_FINISH_V1"
 SOURCE_RECOVERY_COOLDOWN_MINUTES = 30
 RUN_STATUS_BY_SOURCE_STATE = {
     "UNTRIED": "RUNNING",
@@ -116,6 +119,22 @@ def validate_checkpoint(payload: dict[str, Any]) -> dict[str, Any]:
         payload.get("completed_verification_blocks"), "completed_verification_blocks"
     )
 
+    policy = payload.get("verification_policy")
+    if policy not in {None, FAST_FINISH_POLICY}:
+        raise SweepCheckpointError(f"unsupported verification_policy: {policy}")
+    attempts = payload.get("verification_attempt_counts", {})
+    if not isinstance(attempts, dict) or any(
+        not isinstance(k, str) or not k.strip()
+        or isinstance(v, bool) or not isinstance(v, int) or v < 0
+        for k, v in attempts.items()
+    ):
+        raise SweepCheckpointError("verification_attempt_counts must be nonnegative integers by block")
+    unresolved = _string_list(payload.get("terminal_unresolved_verification_blocks"), "terminal_unresolved_verification_blocks")
+    if set(unresolved) & (set(pending) | set(retry) | set(completed)):
+        raise SweepCheckpointError("terminal unresolved blocks cannot remain pending, retried or completed")
+    if unresolved and phase in {"PACKAGING", "COMPLETE"}:
+        raise SweepCheckpointError("unresolved verification blocks forbid packaging/completion")
+
     overlap = (set(pending) | set(retry)) & set(completed)
     if overlap:
         raise SweepCheckpointError(
@@ -181,6 +200,9 @@ def validate_checkpoint(payload: dict[str, Any]) -> dict[str, Any]:
         "pending_verification_blocks": pending,
         "retry_queue": retry,
         "completed_verification_blocks": completed,
+        "verification_policy": policy,
+        "verification_attempt_counts": attempts,
+        "terminal_unresolved_verification_blocks": unresolved,
         "last_completed_block": payload.get("last_completed_block"),
     }
 
@@ -381,8 +403,13 @@ def select_verification_chunk(payload: dict[str, Any]) -> VerificationChunk:
             seen.add(block)
             ordered.append(block)
 
-    selected = ordered[:MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK]
-    remaining = ordered[MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK:]
+    max_blocks = (
+        FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION
+        if cp["verification_policy"] == FAST_FINISH_POLICY
+        else MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK
+    )
+    selected = ordered[:max_blocks]
+    remaining = ordered[max_blocks:]
 
     next_phase = "RECONCILIATION" if not remaining and not selected else "TARGETED_VERIFICATION"
 
