@@ -157,6 +157,10 @@ This does **not** mean the full date universe is known. It means Step 0 has enou
 
 The distinction is carried by `source_scope`, `coverage_mode`, and `global_raw_exact`.
 
+### Standing friendly exclusion at source-classification time
+
+On or after 2026-10-09, the user has **excluded all noncompetitive friendlies in present and future /sweep runs** (senior men/women national, club, preseason and exhibition). Keep their block identity as a compact `USER_SCOPE_EXCLUDED_FRIENDLY` audit count if surfaced, but **do not enumerate or separately verify the kickoff/lineups/Asian totals of those blocks** in normal production discovery. This applies even when the date carrier or source index lists friendlies; it does **not** apply to official competitive qualifiers, tournaments, Nations League fixtures or women's domestic top flights. Already-written fixture-level records in a resumed sweep remain as historical rows with explicit exclusion. Source seed and hash remain untouched after the scope decision; the excluded block is no longer a coverage-completeness or terminal-verification blocker.
+
 ## 3. Bounded production-scope discovery requirements
 
 In `BOUNDED_PRODUCTION_DISCOVERY`, broad discovery must remain finite and auditable.
