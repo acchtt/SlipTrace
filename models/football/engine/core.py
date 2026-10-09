@@ -769,6 +769,11 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if floor != SelectionFloor.CLEAR:
         return Decision(Action.PASS, "C2 selection-quality floor not clear")
 
+    # Judge C2 on its own route/carrier evidence at this quote/WAIT epoch.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    if not c2_clearing_goal_funded(a, executable_burden):
+        return Decision(Action.PASS, "C2 clearing-goal funding missing")
+
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
 
     if at_or_below:
