@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
+import hashlib
 from pathlib import Path
 import subprocess
 import sys
@@ -15,6 +16,7 @@ from tempfile import TemporaryDirectory
 
 ROOT = Path(__file__).resolve().parents[3]
 BUNDLE = ROOT / "models/football/engine/xi_portable.py"
+HANDOFF = ROOT / "models/football/engine/xi_source_handoff.py"
 TESTS = ROOT / "models/football/engine/tests"
 sys.path.insert(0, str(TESTS))
 
@@ -62,7 +64,45 @@ def main() -> None:
     assert self_check.get("status") == "XI PORTABLE RUNTIME: PASS", self_check
 
     with TemporaryDirectory(prefix="xi-portable-e2e-") as directory:
+        global BUNDLE
         temp = Path(directory)
+        source_bytes = BUNDLE.read_bytes()
+        sha = hashlib.sha1(
+            b"blob " + str(len(source_bytes)).encode("ascii") + b"\0" + source_bytes
+        ).hexdigest()
+        checkout_sha = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True, cwd=ROOT
+        ).strip()
+        staged = temp / "xi_portable.py"
+        handoff_command = [
+            sys.executable, str(HANDOFF), "--revision", checkout_sha,
+            "--blob-sha", sha, "--output", str(staged),
+        ]
+        staged_run = subprocess.run(
+            handoff_command, input=source_bytes,
+            capture_output=True, timeout=35, check=False,
+        )
+        assert staged_run.returncode == 0, staged_run.stderr.decode()[-800:]
+        receipt = json.loads(staged_run.stdout)
+        assert receipt["status"] == "XI SOURCE HANDOFF: PASS", receipt
+        assert receipt["source_blob_sha"] == sha, receipt
+        assert staged.read_bytes() == source_bytes
+
+        # Corrupted transit bytes cannot replace a previously validated engine.
+        corrupted = bytearray(source_bytes)
+        corrupted[100] ^= 1
+        bad_run = subprocess.run(
+            handoff_command, input=bytes(corrupted),
+            capture_output=True, timeout=35, check=False,
+        )
+        assert bad_run.returncode != 0, bad_run.stdout
+        bad_receipt = json.loads(bad_run.stderr)
+        assert bad_receipt["status"] == "XI SOURCE HANDOFF: FAIL", bad_receipt
+        assert "source blob mismatch" in bad_receipt["error"], bad_receipt
+        assert staged.read_bytes() == source_bytes
+
+        # Subsequent C+C2 pair, reconciliation and accounting use staged bytes.
+        BUNDLE = staged
         c = pair_payload("c")
         c2 = pair_payload("c2")
         c_file = write(temp / "c.json", c)
