@@ -12,16 +12,16 @@
     "board_snapshot_id": null,
     "due": [
       {
+        "match_id": "8lk2dirxod8uz73",
+        "official_follow_lane": "STOP",
+        "step2_authorization": "USER_EXCEPTION",
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:8lk2dirxod8uz73"
+      },
+      {
         "match_id": "g6763i56d50fo7r",
         "official_follow_lane": "STOP",
         "step2_authorization": "USER_EXCEPTION",
         "authorization_reference": "LIVE-EXCEPTION-20261009-150540:g6763i56d50fo7r"
-      },
-      {
-        "match_id": "zrkn6i4v9xntwql",
-        "official_follow_lane": "STOP",
-        "step2_authorization": "USER_EXCEPTION",
-        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:zrkn6i4v9xntwql"
       },
       {
         "match_id": "KOR_K2_CHUNGBUK_SEONGNAM_20261009",
@@ -30,10 +30,10 @@
         "authorization_reference": "LIVE-EXCEPTION-20261009-150540:KOR_K2_CHUNGBUK_SEONGNAM_20261009"
       },
       {
-        "match_id": "8lk2dirxod8uz73",
+        "match_id": "zrkn6i4v9xntwql",
         "official_follow_lane": "STOP",
         "step2_authorization": "USER_EXCEPTION",
-        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:8lk2dirxod8uz73"
+        "authorization_reference": "LIVE-EXCEPTION-20261009-150540:zrkn6i4v9xntwql"
       }
     ],
     "not_due": [],
