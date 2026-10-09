@@ -100,6 +100,38 @@ When operating in ChatGPT with a connected GitHub source and a separate Python/c
 
 A connector returning source text is sufficient source access. "The GitHub tool does not automatically download into the container" is a setup detail, not unavailability.
 
+### Verified connector-to-Python source handoff
+
+Use the standalone `models/football/engine/xi_source_handoff.py` helper whenever an actual byte stream from the connected GitHub source can reach Python. Fetch `xi_portable.py` at the *pinned 40-hex main revision* and obtain its Git blob SHA from the same source response. Feed the retrieved UTF-8 file bytes unchanged to the helper's stdin:
+
+```bash
+python models/football/engine/xi_source_handoff.py \
+  --revision <exact-main-commit-sha> \
+  --blob-sha <git-blob-sha-from-fetch> \
+  --output /mnt/data/sliptrace-runtime/xi_portable.py \
+  < /path/to/exact-connector-source-bytes
+```
+
+The helper verifies the Git blob SHA, stages the source in a temporary file,
+runs the portable C+C2 `self-check`, and atomically replaces the destination
+only on success. Required receipt: `XI SOURCE HANDOFF: PASS`. A wrong SHA,
+truncated stream, failed self-check, or unsupported model roster must not
+activate a source file. The source's SHA check is a transport integrity check;
+the upstream GitHub main revision must still be resolved and pinned separately.
+
+**This helper does not access GitHub or move bytes across disconnected tools.**
+First prove that the retrieved connector bytes can actually be fed to Python,
+not merely that the connector can display the source text. When separate tools
+cannot pass bytes and direct container networking is blocked, record:
+`SOURCE_TRANSPORT_BLOCKED — connector source accessible, runtime input stream unavailable`.
+Do not misreport `PYTHON UNAVAILABLE`, `GITHUB UNAVAILABLE`, or
+`XI ENGINE CONTRACT REJECTED`. Preserve frozen input records and do not
+publish a completed Step-2 decision. A GitHub Actions green run validates
+the engine and staging implementation, but is not proof of this chat's
+connector-to-Python transport.
+
+
+
 Do **not** use container `git clone` as the primary availability test. Raw container networking may be intentionally isolated even while the connected GitHub source is healthy.
 
 Do not treat "files not local yet" as failure.
