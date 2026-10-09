@@ -91,7 +91,7 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
     )
     friendly_named = any(
         isinstance(value, str) and re.search(
-            r"\\b(?:friendly|friendlies|exhibition|pre[- ]?season)\\b",
+            r"\b(?:friendly|friendlies|exhibition|pre[- ]?season)\b",
             value,
             flags=re.IGNORECASE,
         )
