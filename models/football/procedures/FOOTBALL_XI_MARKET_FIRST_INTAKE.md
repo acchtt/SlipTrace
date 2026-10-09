@@ -1,63 +1,73 @@
-# Football XI + Asian Market First Intake Gate (2026-10-09)
+# Football Day-Ahead XI + Asian-Market Intake Gate — revision 2026-10-09
 
-**Status: ACTIVE for new compact Step-0 /sweep runs; prospectively applies to their final Work handoff.**
-**Runtime:** `models/football/engine/sweep_intake_evidence.py`, enforced by `step0_handoff_cli.py` for `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`.
-**Do not rewrite existing paused, frozen or historical sweeps.** This specifically grandfathered run `SWEEP-20261009-1300-20261010-0300` remains at Chunk 12 unless explicitly resumed by the user.
+**Status:** ACTIVE prospective Step-0 operational admission evidence, with a **day-ahead expectation** rather than matchday confirmed-XI requirement.
+**Policy marker:** `XI_MARKET_FIRST_V1` (compatible marker; October 9 revision fixes over-strict early confirmation).
+**Engine:** `models/football/engine/sweep_intake_evidence.py` + `sweep_intake_evidence_cli.py`; `step0_handoff_cli.py` enforces it for new compact runs and explicitly marked unfinished legacy runs.
+**Work-budget independence:** New `COMPACT_GOAL_ROUTE_V1` runs still use initial 8 / total 12 / refill-to-4. An unfinished legacy run opting into XI screening **retains** initial 15 / refill-to-10. C official, C2 shadow unchanged.
 
-## What changed, and why
+## 1. What Step 0 CAN and CANNOT know
 
-A hard cap of eight Work matches does **not** guarantee quality: the current 119-row source ledger carried eight `ELIGIBLE` fixtures, **five with `xi_expected=UNCERTAIN`**, despite the user's repeated reports about obscurity and no lineups. A raw discovered senior fixture is NOT an A/B Work candidate. We must prevent the `UNCERTAIN` B loophole from manufacturing an expensive candidate.
+A 24-hour `/sweep` happens long before most teams publish starting XIs. **Never require confirmed starters for the upcoming fixture at Step 0.** Asking for actual upcoming XI or a confirmed XI one day early incorrectly filters out good professional and protected matches. A known official lineup release window, provider lineup coverage, recent confirmed lineups, and/or credible federation/club squad news provide evidence that starting XI **will be obtainable** near kickoff.
 
-This is an **information availability gate**, not a betting prediction, league-performance rule or gender/country blacklist.
+Step 0 must decide **expected XI availability**, not the final starting eleven:
+- `xi_expected=YES`: strong evidence of a starting-XI publication channel covering **both teams** (previously published actual XIs or reliable matchday lineup provider); **not** a statement that today's XI is already confirmed.
+- `xi_expected=UNCERTAIN`: source-backed but weaker XI expectation; remains **conditional B** only. At least one side has a proven recent-XI/provider publication channel, while the other has credible current official squad coverage or an equivalent provider channel. An entire competition whose XI ecosystem is unavailable cannot use this B exception.
+- `xi_expected=NO`: credible evidence shows lineup publication unavailable/nonoperational; exclude from normal Work as C/D after bounded preflight.
 
-### Paused current sweep vs policy migration
+**Historical XIs** may be used as supporting evidence, but individual prior-match IDs and kickoff clocks are **not hard required** when a genuine provider lineup page covers the teams, or a B candidate's official squad/news channel is available. A historical lineup must not be misrepresented as the upcoming lineup.
 
-This standard applies to **all new compact sweeps** and may be explicitly opted into on an **unfinished legacy** sweep using `strict_intake_policy=XI_MARKET_FIRST_V1`. The user identified uncertain-XI admission in the paused Oct-09 run; keep it paused and untouched today, but require the strict gate **when the user resumes and before any first Work handoff**. Its legacy 15/10 capacity stays in force; do not mutate older source fixtures or historical grades to simulate compliance. Frozen completed/historical Work payloads keep their original contract.
+A raw B with no source-backed publishing path is **not** routine Work-eligible. A raw B with `UNCERTAIN` and credible channels **may** enter the **conditional** Work queue; it cannot become routine FOLLOW until Step 2 resolves current XI and executable market.
 
-## 1. Funnel, scope and work budget
+## 2. Discovery versus actionable Work
 
-`SOURCE DISCOVERY (RETAIN) → USER/HARD SCOPE EXCLUSION → COMPETITION PROVENANCE → BOUNDED XI+MARKET PREFLIGHT → OPERATIONAL GRADE/RESEARCHABILITY → FROZEN A/B QUEUE → 8 INITIAL WORK / <=12 ROUTINE TOTAL`
+`RAW SENIOR DISCOVERY → USER/HARD SCOPE FILTER → CHEAP COMPETITION SUPPORT CHECK → EXPECTED XI PUBLISHING CHANNEL + CURRENT ASIAN TOTAL + NEWS PREFLIGHT → FINAL A/B QUEUE → WORK → PRE-KICKOFF /xi RECHECK`
 
-Maintain raw senior source coverage, protected official internationals/continental competitions, required Netherlands Eerste Divisie and women’s senior top-flight **exact discovery and dispositions**. A source-visible fixture that lacks lineups/market is accounted for as an **explicit operational exclusion**, never silently omitted. User scope exclusions remain Israel, Kenya, Iraq, Wales and Kuwait domestic football and Germany **3. Liga only**. Senior national teams and international/continental teams from these countries are not automatically excluded.
+Retain all previously captured fixture identities and raw coverage for audit, including protected international/continental blocks, Netherlands Eerste Divisie and every visible women's domestic top flight. "Small", "obscure", "women's", "lower division" or low historical Over-rate alone do not reject a fixture. Only demonstrably absent execution channels or other hard scopes justify excluding it from routine Work.
 
-### Unsupported competition block fast-close
+Existing user country exclusions are unchanged: Israel, Kenya, Iraq, Wales and Kuwait **domestic** competitions, and **Germany 3. Liga only**. Their national-team and cross-border continental fixtures are not blanket-excluded.
 
-If a domestic competition has verifiable source-local evidence that its normal XI, Asian goal-total market and team-news ecosystem cannot satisfy the gate, write a **competition/date block disposition** with source and exact reason (e.g. `XI_CHANNEL_NOT_VERIFIABLE` or `CURRENT_ASIAN_TOTAL_UNAVAILABLE`). Retain individual rows already captured, and retain required/protected/women top-flight fixture-level accounting. **No routine expanded block research** after the bounded cheap preflight. The result is **not** a predictive C-PASS or a finding that Overs are unlikely.
+## 3. Source-backed candidate fields — A and B
 
-`small/obscure` is not a permissible standalone failure reason: classify competition senior/professional status from an official source, not reputation, team name, league country, or gender. Professional domestic lower divisions with genuinely reliable XI and Asian markets may qualify. Amateur/micro/development competitions are already hard-excluded. If evidence is missing, record `COMPETITION_SUPPORT_UNVERIFIED`, not an invented negative claim.
+Every *new compact* A/B queue fixture, including capacity-deferred rows, must provide:
+- `match_id`; `fixture_identity_verified=true`; zoned `fixture_kickoff_utc`; `preflight_complete=true`.
+- `competition_support_tier`: one of `PROTECTED_OFFICIAL`, `VERIFIED_PROFESSIONAL`, `VERIFIED_WOMEN_TOP_FLIGHT`, `MAJOR_SENIOR_DOMESTIC_CUP`, `USER_EXCEPTION`. Also `competition_official_url` and specific `competition_support_reason`.
+- `xi_expected`: `YES` or `UNCERTAIN`. For **each** side, `xi_home_channel_type` / `xi_away_channel_type` and `xi_home_channel_source_url` / `xi_away_channel_source_url`. Valid types: `RECENT_CONFIRMED_XI`, `PROVIDER_MATCHDAY_COVERAGE`, `OFFICIAL_SQUAD_NEWS`. The latter qualifies only for a **B/UNCERTAIN** expectation and **not both sides alone**; at least one side must be `RECENT_CONFIRMED_XI` or `PROVIDER_MATCHDAY_COVERAGE`. Include `xi_channel_basis`.
+- `xi_recheck_due_utc`: zoned recheck time **30–180 minutes before kickoff**; typical recommendation **75 minutes before kickoff**. Step 1/2 subsequently replaces expectation with an actual current-XI state.
+- Optional but encouraged `xi_home_recent_match_id`, `xi_away_recent_match_id`, `xi_home_recent_match_kickoff_utc`, `xi_away_recent_match_kickoff_utc` when authentic historical confirmed XIs are seen. Historical proof must predate kickoff if supplied.
+- A current **fixture-specific Asian goal-total** with `market_observability=HIGH/MEDIUM`, `asian_total_market_match_id` matching canonical `match_id`, `asian_total_fixture_source_url`, timestamp `asian_total_market_observed_at_utc`, Asian quarter/half line `asian_total_market_line`, `asian_total_market_bookmaker`. The intake validator requires a non-stale quote up to 72 hours before KO, not a generic O2.5 leaderboard.
+- `team_news_observability=HIGH/MEDIUM`, `team_news_source_url`, and full existing operational grade A/B, competition reliability, and cheap researchability evidence.
 
-## 2. Mandatory A/B → Work **proof**, for both admitted and capacity-deferred queue members
+**Do not fabricate** XI source URLs, past XI matches, or market quotes to fill the schema. An official competition fixture page is not automatically proof that both teams have actual usable XI publication paths. One provider lineup page covering both sides may be used for both, with a reason.
 
-All *new compact* A/B Work-queue rows, **including rank 9+ deferred**, must carry:
+## 4. Actions and states
 
-- `xi_expected=YES`, **not** `UNCERTAIN` or `NO`. Source **recent actual starting lineups** for each team separately, including `xi_home_recent_match_id`, `xi_away_recent_match_id`, `xi_home_recent_match_kickoff_utc`, `xi_away_recent_match_kickoff_utc` and fixture-specific `xi_home_lineup_source_url`, `xi_away_lineup_source_url`. Historical kickoff dates must precede the upcoming fixture and be within 240 days. Historical confirmed XI is proof the provider/competition actually publishes XIs, **not** an assertion that the upcoming lineup is already confirmed.
-- `market_observability=HIGH/MEDIUM` **and** a current named **Asian total market**, with `asian_total_market_match_id` (matching the current canonical `match_id`), `asian_total_fixture_source_url`, `asian_total_market_observed_at_utc`, `asian_total_market_line` (e.g. 2.5 or 2.75), and `asian_total_market_bookmaker`. The evidence must concern **this match**, not a general O2.5 leaderboard, vague historic odds or a market implied from league popularity. Store the capture time explicitly and compare to the fixture kickoff; the observed quote must be within the previous 72 hours and never post-kickoff.
-- `team_news_observability=HIGH/MEDIUM`, meaningful team-specific `team_news_source_url` (recent relevant news, availability, squad status or comparable).
-- `competition_support_tier` from `PROTECTED_OFFICIAL`, `VERIFIED_PROFESSIONAL`, `VERIFIED_WOMEN_TOP_FLIGHT`, `MAJOR_SENIOR_DOMESTIC_CUP` or `USER_EXCEPTION`, plus `competition_official_url` and a compact `competition_support_reason`. Lower status, unsupported amateur/micro or unknown tier **cannot enter Work**. A named official source is evidence of identity/tier, not proof of bookmaker/XI availability.
-- `fixture_identity_verified=true` and `fixture_kickoff_utc` with a zoned ISO 8601 timestamp; no stale, already-started or ambiguous kickoff admitted.
-- `preflight_complete=true` with evidence metadata and normal researchability A/B/C checks, competition reliability cap, existing source/time validation. Missing one channel is **not** rescued by a high historical Over rate or projected lineup.
+| Step-0 evidence state | Routine disposition |
+|---|---|
+| Both XI channels credible and expected, current Asian total/news verified | A; eligible |
+| One proven XI/provider channel, second has official squad/news, current market/news verified | Conditional B; eligible for Work but **RESERVE maximum until /xi** |
+| Only squad lists, no proof any lineup channel publishes | C or `XI_CHANNEL_NO_PUBLISHING_PATH`; excluded after bounded check |
+| No usable lineup ecosystem, XI explicitly NO | C/D; exclude |
+| No current match-specific Asian-total bookmaker screen | Exclude or hold as `CURRENT_ASIAN_TOTAL_UNAVAILABLE`; no fabricated B |
+| Data missing and cheap bounded preflight unfinished | `STEP0 PREFLIGHT INCOMPLETE — NO WORK`; do not claim a verdict |
+| Unknown/unsupported competition, amateur/micro/unreliable fixture ID | Scope/operational exclude with actual reason |
+| Explicit user exception | May reopen, **not** waive current executable-market /xi requirements for official action |
 
-A/B grade by itself does **not** admit a fixture. `UNCERTAIN` may remain a *raw preliminary* B observation, but it cannot remain `ELIGIBLE`, `ADMITTED_TO_C` or `OPERATIONAL_CAPACITY_DEFERRED` in a new compact handoff. Final disposition after the bounded preflight:
-- `XI_CHANNEL_NOT_VERIFIABLE — STEP0 OPERATIONAL EXCLUDED` when both teams' recent actual starting XIs cannot be demonstrated;
-- `CURRENT_ASIAN_TOTAL_UNAVAILABLE — STEP0 OPERATIONAL EXCLUDED` for no current match-specific Asian total;
-- `COMPETITION_SUPPORT_UNVERIFIED — STEP0 SCOPE/OPERATIONAL EXCLUDED` for unsupported competition level;
-- `TEAM_NEWS_NOT_OBSERVABLE — STEP0 OPERATIONAL EXCLUDED` for no credible current news;
-- `STEP0 PREFLIGHT INCOMPLETE — NO WORK ADMISSION` while the bounded check is not yet complete.
+For domestic blocks with convincingly absent XI/market ecosystem, record a **source-grounded block-level closure** without repeatedly browsing; retain required protected and women top-flight fixture-level disposition/counts. Source-local hard exclusions and user-directed skips consume no external verification budget. At most two quick additional web queries per unfamiliar domestic competition/date block before declaring the channel unverified, unless a plausible A/B candidate warrants the usual bounded specific follow-up.
 
-An explicitly requested one-fixture exception can reopen research, not waive XI/market/incentive/time evidence necessary for an official C action. For opaque but protected senior fixtures, preserve **exact source/fixture coverage**, then record the actual operational non-admission; don't label an entire women's or international competition nonoperational based on its category.
+## 5. Mandatory day-of XI refresh
 
-## 3. Efficient proof check per block
+**Step 0 /sweep:** `XI_EXPECTED`, `XI_CONDITIONAL`, `XI_CHANNEL_UNAVAILABLE`; do not claim upcoming XI confirmed.
 
-For ordinary domestic fixtures, share one competition/provider lineup surface and one totals/standings surface across the block; at most two quick public-web searches per unfamiliar block; use fixture-specific extra calls only where the shared source misses a plausible A/B fixture. Classify unknown after the bounded attempt instead of looping indefinitely. Proof must be from directly opened or otherwise verifiable original sources. No speculative `xi_expected=YES` because the match is popular.
+**Step 1 /rank:** common match evidence and independent C/C2, B cannot be routine FOLLOW at board time, schedule a /xi recheck. Do not skip tournament incentives or actual goal-route integrity.
 
-Capture summary counts separately:
-`raw_discovered`, `user_excluded`, `no_lineup_channel`, `no_asian_total`, `news_insufficient`, `unresolved_preflight`, `verified_operational_ab_queue`, `admitted_to_work`, `capacity_deferred`.
-Do not equate discovered or preliminary A/B records with verified queue members.
+**Step 2 /xi near KO:** check genuine confirmed starters and late absences against the expected XI channel, verify live executable Asian-total price, re-assess burden/route and C official + C2 shadow independently. If XI unavailable at check, follow existing XI integrity handling (wait/hold/exception), **not** invented starters or automatic confidence promotion.
 
-## 4. Model boundaries and migration
+## 6. Compatibility and tests
 
-- This is a stricter **prospective admission qualification**, not a revision of older C/C2 verdicts. C retains official predictive authority; C2 shadow. No result-based backfills.
-- Preserve full A/B operational ordering and the 8 initial / 12 unique research / refill-to-4 compact policy *only after the proof gate*.
-- Legacy 15-slot / 10-refill handoffs without compact policy **stay unchanged**. Paused 2026-10-09 Chunk 12 is not resumed, re-ranked, re-graded or rewritten by this change.
-- The independent engine validator must reject compact handoffs with missing proof fields, `xi_expected=UNCERTAIN`, unsupported competition support, current-market evidence missing, or unverified identity.
-- The user may request revalidation and reopening of any explicitly named fixture later, without adding a blanket league exception.
+- New compact runs enforce this proof via their `COMPACT_GOAL_ROUTE_V1` budget ID; `strict_intake_policy=XI_MARKET_FIRST_V1` is also accepted as an explicit marker for legacy handoff currently **unfinished**.
+- User-paused `SWEEP-20261009-1300-20261010-0300` at Chunk 12 stays **untouched**, including source hash, completed blocks, raw coverage/grades, current legacy budget. On an explicit resume, screen its still-unfrozen Work queue by this **expectation** gate; do not restart raw discovery and do not require upcoming confirmed lineups.
+- Previously frozen/complete handoffs without the policy marker preserve historical behavior.
+- `step0_handoff_cli.py` checks every A/B queue row, not only first-eight admitted fixtures. `sweep_intake_evidence_cli.py` separates ready/hold/excluded without deleting discovered records.
+- Operational results alone never predict Overs: no league goals threshold, future results, or survivor-only evaluation enters Step-0 A/B ranks.
+
+This revision corrects the over-strict confirmed-XI and both-teams-prior-XI requirements introduced earlier on 2026-10-09, without reopening the weak-data league intake problem.
