@@ -24,6 +24,7 @@ from core import (  # noqa: E402
     ThesisState,
     XiStatus,
     c2_bridge_eligibility,
+    c2_clearing_goal_funded,
     c2_selection_floor,
     clearing_goal_funded,
     decide_c,
@@ -109,6 +110,17 @@ def context(
 
 
 class FollowThroughTests(unittest.TestCase):
+    def test_o225_full_win_needs_goal3_but_o20_push_protects(self):
+        a = assessment(
+            supported_line=2.25,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(clearing_goal_funded(a))
+        self.assertTrue(clearing_goal_funded(a, selected_line=2.0))
+
     def test_strong_two_route_high_resistance_is_follow(self):
         lane = follow_through_lane(
             assessment(carrier=CarrierStrength.STRONG),
@@ -301,6 +313,55 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
+    def test_kashima_style_unfunded_exception_passes_o25_and_o225(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+        )
+        for line, odds in ((2.5, 1.96), (2.25, 1.89)):
+            with self.subTest(line=line):
+                ctx = context(
+                    official_follow_lane=FollowLane.RESERVE,
+                    step2_authorization=Step2Authorization.USER_EXCEPTION,
+                    quote=Quote(line, odds),
+                )
+                result = decide_c(a, ctx)
+                self.assertEqual(result.action, Action.PASS)
+                self.assertIn("clearing-goal funding", result.reason)
+
+    def test_strong_carrier_retains_legitimate_bet(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            completion_mode=CompletionMode.CARRIER_LED,
+            away_route=RouteStrength.WEAK,
+            continuation_quality=Grade.MEDIUM,
+            burden_completion_quality=Grade.MEDIUM,
+        )
+        self.assertEqual(decide_c(a, context()).action, Action.BET)
+
+    def test_unfunded_c_wait_is_not_assumed_model_exposure(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+        )
+        ctx = context(
+            quote=Quote(2.75, 1.85),
+            wait_reachable=True,
+            wait_requires_negative_info=False,
+        )
+        self.assertEqual(decide_c(a, ctx).action, Action.PASS)
+
     def test_routine_follow_rejects_stop_lane(self):
         with self.assertRaisesRegex(
             ValueError,
@@ -418,6 +479,54 @@ class FootballCExecutionTests(unittest.TestCase):
 
 
 class C2BridgeTests(unittest.TestCase):
+    def test_c2_uses_own_route_quality_not_c_completion(self):
+        unfunded = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+        )
+        self.assertFalse(c2_clearing_goal_funded(unfunded, 2.5))
+        self.assertEqual(
+            decide_c2(unfunded, context(
+                step2_authorization=Step2Authorization.USER_EXCEPTION,
+                quote=Quote(2.5, 1.96),
+            )).action,
+            Action.PASS,
+        )
+        funded = assessment(
+            independent_upper_tail=True,
+            burden_completion_quality=Grade.LOW,
+            continuation_quality=Grade.LOW,
+        )
+        self.assertTrue(c2_clearing_goal_funded(funded, 2.5))
+        self.assertEqual(decide_c2(funded, context()).action, Action.BET)
+
+    def test_c2_requires_fourth_goal_at_o30(self):
+        a = assessment(
+            independent_upper_tail=True,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+        )
+        self.assertTrue(c2_clearing_goal_funded(a, 2.75))
+        self.assertFalse(c2_clearing_goal_funded(a, 3.0))
+        self.assertFalse(c2_clearing_goal_funded(a, 3.25))
+
+    def test_c2_bridge_does_not_bypass_fourth_goal_proof(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            independent_upper_tail=True,
+            supported_line=2.75,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+        )
+        ok, reasons = c2_bridge_eligibility(a, context(quote=Quote(3.0, 1.90)))
+        self.assertFalse(ok)
+        self.assertIn("C2 clearing-goal funding missing at bridge line", reasons)
+
     def test_focus_bridge_clears_only_with_independent_proof(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,

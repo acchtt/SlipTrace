@@ -130,6 +130,18 @@ A direct C2-BET requires one of:
 
 A low line does not waive this floor.
 
+### 6.1A Executable clearing-goal certification
+
+Before any C2-BET or countable C2-WAIT, apply C2's independent
+`c2_clearing_goal_funded` test to the selected line or WAIT target.
+O2.25, O2.5 and O2.75 require goal-three proof; O3.0 and above require
+independent fourth-goal quality. O2.0 permits a two-goal push.
+A CLEAR two-route floor by itself cannot fund an extra goal.
+For a market-gap bridge, certify the **higher quoted** line.
+These checks use C2 route, carrier, chance and upper-tail evidence, never
+Football C's completion/stall ratings. User exceptions do not bypass them.
+C2 remains shadow-only; this change is prospective, not a backdated regrade.
+
 ### 6.2 Protected-line inversion guard
 
 A C2-WATCH may not become a direct BET merely because O2.0/O2.25 is available at an attractive price.

@@ -248,13 +248,13 @@ def require_c_completion(
     return values  # type: ignore[return-value]
 
 
-def clearing_goal_funded(a: MatchAssessment) -> bool:
+def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None) -> bool:
     """Return whether C has explicit prospective funding for the clearing goal.
 
     This is intentionally stricter than FOCUS. It is used by ranking and the
     operational FOLLOW certification, not to narrow the broad C-FOCUS pool.
 
-    For O2.5/O2.75 the clearing burden is goal 3. A carrier-led path must prove
+    For O2.25/O2.5/O2.75, a full win requires goal 3. A carrier-led path must prove
     that goal independently; a merely USABLE supporting route is not enough.
     TWO_SIDED/MIXED can fund it through two usable routes only when both the
     completion and continuation diagnostics are HIGH. O3.0 additionally
@@ -262,8 +262,11 @@ def clearing_goal_funded(a: MatchAssessment) -> bool:
     fourth-goal tail cannot be inferred from ordinary two-route shape.
     """
     require_c_completion(a)
+    burden = a.supported_line if selected_line is None else selected_line
+    _validate_quarter_line(burden)
 
-    if a.supported_line < 2.5:
+    # O2.25 still loses half at two goals; O2.0 instead pushes.
+    if burden <= 2.0:
         return True
 
     strong_carrier_goal3 = (
@@ -286,7 +289,7 @@ def clearing_goal_funded(a: MatchAssessment) -> bool:
         and not a.failure_attacks_route
     )
 
-    if a.supported_line < 3.0:
+    if burden < 3.0:
         return strong_carrier_goal3 or two_route_goal3
 
     # O3.0 FOLLOW needs an independently supported upper tail; ordinary
@@ -540,6 +543,55 @@ def c2_selection_floor(
     return SelectionFloor.FAIL, tuple(dict.fromkeys(reasons))
 
 
+def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
+    """Independent C2 route-quality proof at the selected total.
+
+    C2 uses no C-owned completion/continuation/stall grading.
+    A CLEAR two-route selection floor alone does not fund goal three.
+    """
+    _validate_quarter_line(selected_line)
+    floor, _ = c2_selection_floor(a)
+    if floor != SelectionFloor.CLEAR:
+        return False
+    if selected_line <= 2.0:
+        return True
+
+    carrier_goal3 = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+    )
+    two_route_goal3 = (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.independent_upper_tail
+    )
+    if selected_line < 3.0:
+        return carrier_goal3 or two_route_goal3
+
+    fourth_goal_quality = (
+        a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.failure_resistance == Grade.HIGH
+    )
+    return fourth_goal_quality and (
+        carrier_goal3
+        or (
+            two_route_goal3
+            and a.home_route == RouteStrength.STRONG
+            and a.away_route == RouteStrength.STRONG
+        )
+    )
+
+
 def _healthy_wait(ctx: DecisionContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
@@ -616,6 +668,12 @@ def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if a.continuation_quality == Grade.LOW:
         return Decision(Action.PASS, "current continuation quality is LOW")
 
+    # Apply the funding gate at this execution epoch, including exceptions.
+    # A higher quote can only WAIT for the already supported burden.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    if not clearing_goal_funded(a, executable_burden):
+        return Decision(Action.PASS, "C clearing-goal funding missing")
+
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
 
     if at_or_below:
@@ -687,6 +745,8 @@ def c2_bridge_eligibility(
         reasons.append("material suppression remains")
     if ctx.quote.odds < 1.65:
         reasons.append("price below bridge floor")
+    if not c2_clearing_goal_funded(a, ctx.quote.line):
+        reasons.append("C2 clearing-goal funding missing at bridge line")
 
     return not reasons, tuple(reasons)
 
@@ -708,6 +768,11 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     floor, _ = c2_selection_floor(a)
     if floor != SelectionFloor.CLEAR:
         return Decision(Action.PASS, "C2 selection-quality floor not clear")
+
+    # Judge C2 on its own route/carrier evidence at this quote/WAIT epoch.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    if not c2_clearing_goal_funded(a, executable_burden):
+        return Decision(Action.PASS, "C2 clearing-goal funding missing")
 
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
 
