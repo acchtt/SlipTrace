@@ -1024,6 +1024,7 @@ class DecisionContractTests(unittest.TestCase):
                     match(
                         board_state="C2-FOCUS",
                         supported_line=2.5,
+                        independent_upper_tail=True,
                     )
                 ),
                 "context": decision_context(
@@ -1252,7 +1253,9 @@ class DecisionContractTests(unittest.TestCase):
                 "schema_version": "football-engine-v1",
                 "stage": "decision",
                 "model": "c2",
-                "match": without_c_completion(match(board_state="C2-FOCUS")),
+                "match": without_c_completion(match(
+                    board_state="C2-FOCUS", independent_upper_tail=True,
+                )),
                 "context": decision_context(board_state="C2-FOCUS"),
             }
         )
