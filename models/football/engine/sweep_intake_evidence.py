@@ -30,6 +30,7 @@ REQUIRED_XI_FIELDS = (
 )
 
 REQUIRED_MARKET_FIELDS = (
+    "asian_total_market_match_id",
     "asian_total_fixture_source_url",
     "asian_total_market_observed_at_utc",
     "asian_total_market_line",
@@ -99,6 +100,10 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
 
     if row.get("market_observability") not in {"HIGH", "MEDIUM"}:
         defects.append("CURRENT_ASIAN_TOTAL_UNAVAILABLE")
+    if not _nonempty(row.get("match_id")) or (
+        row.get("asian_total_market_match_id") != row.get("match_id")
+    ):
+        defects.append("CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH")
     if not _source_url(row.get("asian_total_fixture_source_url")):
         defects.append("CURRENT_ASIAN_TOTAL_SOURCE_MISSING")
     if not _nonempty(row.get("asian_total_market_bookmaker")):
@@ -129,6 +134,20 @@ def validate_work_candidate(row: dict[str, Any]) -> list[str]:
     market_time = _utc_timestamp(row.get("asian_total_market_observed_at_utc"))
     if market_time is None:
         defects.append("CURRENT_ASIAN_TOTAL_TIME_UNVERIFIED")
+    for side in ("home", "away"):
+        source_match = row.get(f"xi_{side}_recent_match_id")
+        if _nonempty(source_match) and source_match == row.get("match_id"):
+            defects.append("XI_RECENT_FIXTURE_ID_NOT_HISTORICAL")
+        source_kickoff = _utc_timestamp(
+            row.get(f"xi_{side}_recent_match_kickoff_utc")
+        )
+        if source_kickoff is None:
+            defects.append(f"XI_{side.upper()}_HISTORICAL_FIXTURE_TIME_MISSING")
+        elif kickoff and not (
+            timedelta(0) < kickoff - source_kickoff <= timedelta(days=240)
+        ):
+            defects.append(f"XI_{side.upper()}_HISTORICAL_FIXTURE_TIME_STALE")
+
     if market_time and kickoff and not (
         timedelta(0) <= kickoff - market_time <= timedelta(hours=72)
     ):
