@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from sweep_intake_evidence import validate_work_candidate
+
 HANDOFF_VERSION = "football-step0-handoff-v2"
 FIELDS = (
     "xi_expected",
@@ -268,6 +270,14 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
                 raise Step0HandoffError(
                     "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING: "
                     f"{match_id} missing {key}"
+                )
+
+        if policy == "COMPACT_GOAL_ROUTE_V1":
+            defects = validate_work_candidate(row)
+            if defects:
+                raise Step0HandoffError(
+                    "HANDOFF INCOMPLETE — XI/ASIAN-TOTAL INTAKE EVIDENCE: "
+                    f"{match_id}: {', '.join(defects)}"
                 )
 
         rank = row.get("step0_capacity_queue_rank")
