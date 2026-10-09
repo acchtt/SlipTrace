@@ -115,6 +115,12 @@ class SweepCheckpointTests(unittest.TestCase):
         with self.assertRaisesRegex(SweepCheckpointError, "verification_attempt_counts"):
             validate_checkpoint(p)
 
+    def test_fast_mode_rejects_unselected_completion(self):
+        p = checkpoint(pending=[f"block-{i}" for i in range(25)])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        with self.assertRaisesRegex(SweepCheckpointError, "completed_blocks not in current queue"):
+            advance_after_chunk(p, completed_blocks=["block-24"])
+
     def test_retry_blocks_are_prioritized_on_resume(self):
         result = select_verification_chunk(
             checkpoint(pending=["new-1", "new-2"], retry=["retry-1"])
