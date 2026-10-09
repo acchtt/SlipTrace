@@ -479,6 +479,54 @@ class FootballCExecutionTests(unittest.TestCase):
 
 
 class C2BridgeTests(unittest.TestCase):
+    def test_c2_uses_own_route_quality_not_c_completion(self):
+        unfunded = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+        )
+        self.assertFalse(c2_clearing_goal_funded(unfunded, 2.5))
+        self.assertEqual(
+            decide_c2(unfunded, context(
+                step2_authorization=Step2Authorization.USER_EXCEPTION,
+                quote=Quote(2.5, 1.96),
+            )).action,
+            Action.PASS,
+        )
+        funded = assessment(
+            independent_upper_tail=True,
+            burden_completion_quality=Grade.LOW,
+            continuation_quality=Grade.LOW,
+        )
+        self.assertTrue(c2_clearing_goal_funded(funded, 2.5))
+        self.assertEqual(decide_c2(funded, context()).action, Action.BET)
+
+    def test_c2_requires_fourth_goal_at_o30(self):
+        a = assessment(
+            independent_upper_tail=True,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+        )
+        self.assertTrue(c2_clearing_goal_funded(a, 2.75))
+        self.assertFalse(c2_clearing_goal_funded(a, 3.0))
+        self.assertFalse(c2_clearing_goal_funded(a, 3.25))
+
+    def test_c2_bridge_does_not_bypass_fourth_goal_proof(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            independent_upper_tail=True,
+            supported_line=2.75,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+        )
+        ok, reasons = c2_bridge_eligibility(a, context(quote=Quote(3.0, 1.90)))
+        self.assertFalse(ok)
+        self.assertIn("C2 clearing-goal funding missing at bridge line", reasons)
+
     def test_focus_bridge_clears_only_with_independent_proof(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
