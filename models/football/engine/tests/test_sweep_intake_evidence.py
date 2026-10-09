@@ -195,6 +195,20 @@ class StrictIntakeEvidenceTests(unittest.TestCase):
         row["is_friendly"] = True
         self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", validate_work_candidate(row))
 
+    def test_friendly_skips_preflight_and_closes_scope_early(self):
+        row = valid_fixture()
+        row["competition_name"] = "National Team Friendly Women"
+        row["preflight_complete"] = False
+        row["asian_total_fixture_source_url"] = None
+        self.assertEqual(
+            classify_preflight(row)["disposition"],
+            "STEP0_OPERATIONAL_OR_SCOPE_EXCLUDED",
+        )
+        self.assertIn(
+            "USER_SCOPE_EXCLUDED_FRIENDLY",
+            classify_preflight(row)["defects"],
+        )
+
     def test_competitive_qualifier_not_mistaken_for_friendly(self):
         row = valid_fixture()
         row["competition_name"] = "FIFA Women's World Cup Qualification UEFA"
