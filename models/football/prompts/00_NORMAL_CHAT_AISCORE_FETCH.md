@@ -353,6 +353,10 @@ When triggered:
 
 A uniform competition-block timestamp is never sufficient proof by itself.
 
+### New-run compact Work budget (effective 2026-10-09 ICT)
+
+Apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` for **fresh sweeps only**. Freeze the complete operational A/B queue as before; set `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1` in the run cursor/handoff and initial Work admissions to **ranks 1–8**, deferring ranks 9+ with immutable capacity ranks. Routine unique fixtures researched under /rank <=12 with target refill-to-4 rather than automatic refill-to-10. Existing RUNNING/frozen runs without the policy remain on the legacy 15/10 contract; do not retrofit `SWEEP-20261009-1300-20261010-0300` or its ledger. The goal-route historical pilot **disproves** a naive six-match Over 2.5 veto: never use league-wide Over percentages or recent FT results to cut source coverage, assign an A/B grade, or reorder the operational queue. Tighten B market evidence only through independently current match-specific Asian total market observability; vague historic bookmaker/O2.5 aggregates do not prove executable Asian-total access.
+
 ## 9. Operational capacity gate
 
 After A/B viability and researchability are known, build the **complete fixture-level A/B capacity queue first**.
