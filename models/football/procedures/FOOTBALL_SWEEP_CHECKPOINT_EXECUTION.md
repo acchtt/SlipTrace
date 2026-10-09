@@ -90,6 +90,14 @@ If more than one resumable sweep exists and no window/Run ID disambiguates, pref
 
 A plain `resume` in the project should also continue the most recent resumable Step-0 sweep when the preceding active task is clearly Step 0, including a recoverable `BLOCKED / SOURCE_BLOCKED` run whose lease permits a retry.
 
+## 3A. User-directed exclusion on resume (standing policy from 2026-10-09)
+
+Before selecting further external verification blocks on `/sweep resume`, apply the explicit scope filter in `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`, section **2A**. It excludes domestic competitions from Israel, Kenya, Iraq, Wales and Kuwait, plus **Germany 3. Liga only**, without removing official senior national-team or cross-border continental competitions.
+
+For all discovered rows covered by the user filter, persist existing Airtable `EXCLUDED` scope/screen selections and a `USER_SCOPE_EXCLUDED — 2026-10-09` reason, retaining source IDs, clocks, original research, raw grades and other provenance. These are not operationally unresolved candidates. No additional external verification is needed for their kickoff/ID/market/XI conflicts. Remove entire verification blocks from the pending/retry list only when all **in-scope** rows under that block are user-excluded; if a broad block mixes excluded with retained competitions, keep the retained portion, including non-3. Liga German fixtures. Preserve order for all retained blocks and keep terminal reconciliation last.
+
+Write distinct `user_excluded_verification_blocks` (plus fixture identifiers/counts when available) in the live Resume Cursor and recompute `pending_verification_count` before moving on. User-excluded blocks **do not** count as `completed_verification_blocks` and do not use external verification budget. Do not move their old provisional A/B or C grades into the Work capacity queue, and do not count their known time conflicts as unresolved **actionable** integrity defects. Audit counters still include their source-visible discovery records. The standing user rule applies to **future fresh** sweeps as well as this resumed run.
+
 ## 4. Phase model
 
 ### A. SOURCE_ACQUISITION
