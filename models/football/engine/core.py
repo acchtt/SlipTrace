@@ -248,7 +248,7 @@ def require_c_completion(
     return values  # type: ignore[return-value]
 
 
-def clearing_goal_funded(a: MatchAssessment) -> bool:
+def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None) -> bool:
     """Return whether C has explicit prospective funding for the clearing goal.
 
     This is intentionally stricter than FOCUS. It is used by ranking and the
