@@ -175,6 +175,25 @@ Exclude before the researchability gate:
 - unresolved authoritative kickoff;
 - duplicates.
 
+## 2A. Standing user-scope domestic exclusions — effective 2026-10-09
+
+The user explicitly directed Step 0 to **skip and exclude from subsequent sweeps** the following **domestic competition universes**, independently of the normal A/B/C/D operational gate:
+
+- **Israel:** domestic leagues and domestic cups (including Liga Leumit).
+- **Kenya:** domestic leagues and domestic cups (including Premier League).
+- **Iraq:** domestic leagues and domestic cups (including Iraq Stars/Premier League).
+- **Wales:** domestic leagues and domestic cups (including Cymru Premier).
+- **Kuwait:** domestic leagues and domestic cups (including Kuwait Premier League).
+- **Germany:** **3. Liga only**; Bundesliga, 2. Bundesliga, women's top flight, DFB-Pokal and other German competitions stay in ordinary scope.
+
+These are explicit user **scope exclusions**, not C/D ratings, competition-reliability demotions, football predictions, or a basis for rewriting historical grades. They remain effective in new `/sweep` runs and existing `/sweep resume` runs until the user explicitly reverses them. Explicit user-directed **fixture exceptions** may reopen only the named fixture and must still pass normal integrity requirements.
+
+Apply this filter **after source-local raw discovery/accounting, but before external block verification, operational research, queue construction or Work admission**. For newly discovered fixtures within these universes, record `USER_SCOPE_EXCLUDED — 2026-10-09` in the disposition/exclusion provenance (where a distinct Airtable select option is unavailable, use existing `EXCLUDED` plus explicit notes); do not seek unresolved kickoff/ID/XI/market information just to adjudicate an intentionally excluded fixture. Retain already persisted source records and fixture identities for audit, including earlier time conflicts or out-of-window notes, but never allow these rows into the global A/B capacity pool or into C/C2 Work payloads. The counts must distinguish user-scope exclusions from unresolved actionable rows.
+
+For an existing cursor, remove matching **fully excluded** competition/date blocks from `pending_verification_blocks` and `retry_queue`, add them to a separate `user_excluded_verification_blocks` audit list, recompute pending counts, and persist a checkpoint before continuing. **Do not mark these blocks as externally verified/completed.** A generic block such as `GER_OTHER_SENIOR` may be removed only if its known in-scope rows are exclusively 3. Liga; otherwise keep/split the non-3. Liga remainder for screening. Continue terminal reconciliation of **the remaining in-scope** international, continental, protected, and domestic competition classes. These excluded domestic rows must not block final work readiness solely for unresolved source/time information.
+
+This rule does **not** exclude senior national teams representing Israel, Kenya, Iraq, Wales, or Kuwait in protected official competitions; it also does not exclude cross-border continental club competitions or Germany's other senior divisions. Senior women's **domestic** top-flight fixtures within the five excluded countries still belong to raw source-visible coverage accounting where the launcher requires it; then receive explicit user-scope exclusion rather than silently disappearing.
+
 ## 3. Competition reliability memory — mandatory
 
 After senior discovery/hard scope filtering and before final operational grading:
