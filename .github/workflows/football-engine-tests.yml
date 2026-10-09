@@ -20,3 +20,65 @@ jobs:
           python-version: "3.12"
       - name: Run deterministic engine tests
         run: python -m unittest discover -s models/football/engine/tests -v
+      - name: Package validated Step-0 repair handoff
+        run: |
+          python - <<'PY'
+          import json
+          import pathlib
+          import subprocess
+          import sys
+          import zipfile
+          import datetime
+
+          run_id = "SWEEP-20261009-2123-20261010-0300"
+          folder = pathlib.Path("models/football/handoffs") / run_id
+          handoff = folder / "STEP0_HANDOFF.json"
+          check = subprocess.run(
+              [sys.executable, "models/football/engine/step0_handoff_cli.py",
+               "--input", str(handoff), "--consumer", "export"],
+              capture_output=True, text=True, check=True,
+          )
+          result = json.loads(check.stdout)
+          assert result["step0_handoff_validation_status"] == "PASS"
+          assert result["admitted_count"] == 8
+
+          data = json.loads(handoff.read_text(encoding="utf-8"))
+          header = [
+              f"FOOTBALL V2 — STEP0 VALIDATED HANDOFF: {run_id}",
+              "ICT window: 2026-10-09 21:23:23 to 2026-10-10 03:00",
+              "Source: BOUNDED_PRODUCTION_DISCOVERY; exact global all-level source count not claimed",
+              "66 sourced senior fixtures, 58 non-admitted, 8 initial Work candidates",
+              "Required Netherlands Eerste Divisie: 10/10 covered, none Work admitted",
+              "Noncompetitive friendlies excluded from ordinary sweep",
+              "Validation: repository original step0_handoff_cli.py --consumer export PASS",
+              "Step0 Work qualification is NOT Football C PASS/FOCUS or an executable betting quote.",
+              "Asian-total lines are historical bookmaker observations; /xi refresh mandatory.",
+              "",
+              "STEP0 WORK-QUEUE CANDIDATES (operational grade B)",
+          ]
+          for row in sorted(data["capacity_queue"], key=lambda x: x["step0_capacity_queue_rank"]):
+              kickoff = datetime.datetime.fromisoformat(
+                  row["fixture_kickoff_utc"].replace("Z", "+00:00")
+              ).astimezone(datetime.timezone(datetime.timedelta(hours=7)))
+              header += [
+                  f"{row['step0_capacity_queue_rank']}. {row['match_name']} — KO {kickoff:%Y-%m-%d %H:%M} ICT",
+                  f"   canonical ID={row['match_id']}; total={row['asian_total_market_line']} {row['asian_total_market_bookmaker']}; observed={row['asian_total_market_observed_at_utc']}",
+                  f"   XI publication expectation={row['xi_expected']}; official C/C2 predictive verdict: NOT RUN",
+                  f"   bookmaker source: {row['asian_total_fixture_source_url']}",
+              ]
+          txt_name = "AISCORE_FIXTURES_2026-10-09_2123_TO_2026-10-10_0300_ICT.txt"
+          zip_name = "AISCORE_FIXTURES_2026-10-09_2123_TO_2026-10-10_0300_ICT.zip"
+          (folder / txt_name).write_text("\n".join(header) + "\n", encoding="utf-8")
+          with zipfile.ZipFile(folder / zip_name, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+              archive.write(handoff, arcname="STEP0_HANDOFF.json")
+              archive.write(folder / txt_name, arcname=txt_name)
+          with zipfile.ZipFile(folder / zip_name) as archive:
+              assert sorted(archive.namelist()) == sorted(["STEP0_HANDOFF.json", txt_name])
+          print(f"Export PASS: {folder / zip_name}")
+          PY
+      - name: Upload Step-0 repair ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: SWEEP-20261009-2123-20261010-0300-validated-zip
+          path: models/football/handoffs/SWEEP-20261009-2123-20261010-0300/AISCORE_FIXTURES_2026-10-09_2123_TO_2026-10-10_0300_ICT.zip
+          if-no-files-found: error
