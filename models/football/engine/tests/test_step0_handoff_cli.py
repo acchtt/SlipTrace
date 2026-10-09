@@ -69,6 +69,28 @@ def payload():
     }
 
 
+def required_proof(p):
+    """Complete independent KNVB inventory used by new fast handoffs."""
+    fixture = {
+        "match_id": "knvb-m1",
+        "match": "Dordrecht vs Emmen",
+        "kickoff_ict": "2026-10-10T01:00:00+07:00",
+        "disposition": "OPERATIONAL_EXCLUDED",
+    }
+    p["required_competition_manifest_version"] = "required-competition-manifest-v1"
+    p["required_competition_blocks_complete"] = True
+    p["required_competition_blocks"] = [{
+        "block_id": "NED_EERSTE_DIVISIE",
+        "status": "CHECKED_WITH_FIXTURES",
+        "fixture_count": 1,
+        "fixtures": [fixture],
+    }]
+    p["required_competition_source_fixture_ids"] = {
+        "NED_EERSTE_DIVISIE": [fixture["match_id"]],
+    }
+    return p
+
+
 def bounded_payload():
     p = payload()
     p.update(
@@ -136,7 +158,28 @@ class T(unittest.TestCase):
 
         p["terminal_unresolved_verification_blocks"] = []
         result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("REQUIRED COMPETITION BLOCKS", result.stderr)
+        required_proof(p)
+        result = self.runp(p)
         self.assertEqual(result.returncode, 0)
+
+    def test_fast_handoff_rejects_missing_eerste_fixtures_and_mismatched_source(self):
+        p = bounded_payload()
+        p["verification_policy"] = "FAST_FINISH_V1"
+        p["terminal_unresolved_verification_blocks"] = []
+        required_proof(p)
+        p["required_competition_blocks"][0]["fixture_count"] = 10
+        for consumer in ("export", "rank"):
+            with self.subTest(consumer=consumer):
+                result = self.runp(p, consumer=consumer)
+                self.assertEqual(result.returncode, 2)
+                self.assertIn("fixture_count", result.stderr)
+        p["required_competition_blocks"][0]["fixture_count"] = 1
+        p["required_competition_source_fixture_ids"]["NED_EERSTE_DIVISIE"] = ["different-id"]
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("SOURCE INVENTORY", result.stderr)
 
     def test_bounded_production_handoff_passes(self):
         result = self.runp(bounded_payload())
@@ -259,6 +302,7 @@ class T(unittest.TestCase):
         p["terminal_unresolved_verification_blocks"] = []
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
         p["strict_intake_policy"] = "XI_MARKET_FIRST_V1"
+        required_proof(p)
         p["capacity_queue"] = [
             proof(row(f"m{i}", i, "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED"))
             for i in range(1, 13)
