@@ -8,6 +8,8 @@ sys.path.insert(0, str(ENGINE_DIR))
 from sweep_checkpoint import (  # noqa: E402
     CHECKPOINT_VERSION,
     MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK,
+    FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION,
+    FAST_FINISH_POLICY,
     SOURCE_RECOVERY_COOLDOWN_MINUTES,
     SweepCheckpointError,
     advance_after_chunk,
@@ -77,6 +79,41 @@ class SweepCheckpointTests(unittest.TestCase):
         )
         self.assertEqual(list(result.selected_blocks), pending[:6])
         self.assertEqual(list(result.remaining_blocks), pending[6:])
+
+    def test_new_fast_finish_selects_24_blocks_in_one_invocation(self):
+        p = checkpoint(pending=[f"block-{i}" for i in range(31)])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        chunk = select_verification_chunk(p)
+        self.assertEqual(len(chunk.selected_blocks), FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION)
+        self.assertEqual(list(chunk.remaining_blocks), [f"block-{i}" for i in range(24, 31)])
+
+    def test_fast_finish_has_finite_retries_not_infinite_resumes(self):
+        p = checkpoint(pending=["protected"], retry=[])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        first = advance_after_chunk(p, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(first["pending_verification_blocks"], ["protected"])
+        self.assertEqual(first["verification_attempt_counts"]["protected"], 1)
+        second = advance_after_chunk(first, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(second["phase"], "RECONCILIATION")
+        self.assertEqual(second["terminal_unresolved_verification_blocks"], ["protected"])
+        self.assertEqual(second["terminal_verification_status"], "BLOCKED_UNRESOLVED")
+        self.assertEqual(second["pending_verification_count"], 0)
+        with self.assertRaisesRegex(SweepCheckpointError, "unresolved verification blocks"):
+            validate_checkpoint({**second, "phase": "COMPLETE"})
+
+    def test_legacy_sweep_retries_remain_backward_compatible(self):
+        p = checkpoint(pending=["protected"])
+        first = advance_after_chunk(p, completed_blocks=[], retry_blocks=["protected"])
+        second = advance_after_chunk(first, completed_blocks=[], retry_blocks=["protected"])
+        self.assertEqual(second["pending_verification_blocks"], ["protected"])
+        self.assertEqual(second["terminal_unresolved_verification_blocks"], [])
+
+    def test_malformed_fast_attempt_metadata_is_rejected(self):
+        p = checkpoint(pending=["a"])
+        p["verification_policy"] = FAST_FINISH_POLICY
+        p["verification_attempt_counts"] = {"a": -1}
+        with self.assertRaisesRegex(SweepCheckpointError, "verification_attempt_counts"):
+            validate_checkpoint(p)
 
     def test_retry_blocks_are_prioritized_on_resume(self):
         result = select_verification_chunk(
