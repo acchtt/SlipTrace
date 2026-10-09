@@ -110,6 +110,17 @@ def context(
 
 
 class FollowThroughTests(unittest.TestCase):
+    def test_o225_full_win_needs_goal3_but_o20_push_protects(self):
+        a = assessment(
+            supported_line=2.25,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(clearing_goal_funded(a))
+        self.assertTrue(clearing_goal_funded(a, selected_line=2.0))
+
     def test_strong_two_route_high_resistance_is_follow(self):
         lane = follow_through_lane(
             assessment(carrier=CarrierStrength.STRONG),
