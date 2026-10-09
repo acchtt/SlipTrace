@@ -33,6 +33,12 @@ def proof(row):
         "competition_support_reason": "Verified first-team professional league",
         "fixture_identity_verified": True,
         "fixture_kickoff_utc": "2026-10-10T00:00:00Z",
+        "xi_home_channel_type": "RECENT_CONFIRMED_XI",
+        "xi_away_channel_type": "PROVIDER_MATCHDAY_COVERAGE",
+        "xi_home_channel_source_url": "https://aiscore.example.org/home-previous",
+        "xi_away_channel_source_url": "https://aiscore.example.org/away-provider",
+        "xi_channel_basis": "Recent published XI and matchday lineup channel observed",
+        "xi_recheck_due_utc": "2026-10-09T22:45:00Z",
         "xi_home_recent_match_id": "home-previous",
         "xi_away_recent_match_id": "away-previous",
         "xi_home_recent_match_kickoff_utc": "2026-10-01T00:00:00Z",
@@ -269,7 +275,7 @@ class T(unittest.TestCase):
         self.assertIn("compact ranks 1-8", out.stderr)
 
 
-    def test_compact_handoff_blocks_uncertain_xi_even_if_grade_b(self):
+    def test_compact_handoff_allows_conditional_b_without_confirmed_matchday_xi(self):
         p = payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
         r = proof(row("m1", 1))
@@ -278,8 +284,20 @@ class T(unittest.TestCase):
         p["capacity_queue"] = [r]
         p["admitted_fixtures"] = [dict(r)]
         out = self.runp(p)
+        self.assertEqual(out.returncode, 0)
+
+    def test_compact_handoff_rejects_unverified_lineup_channel(self):
+        p = payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        r = proof(row("m1", 1))
+        r["operational_viability_grade"] = "B"
+        r["xi_expected"] = "UNCERTAIN"
+        r.pop("xi_away_channel_source_url")
+        p["capacity_queue"] = [r]
+        p["admitted_fixtures"] = [dict(r)]
+        out = self.runp(p)
         self.assertEqual(out.returncode, 2)
-        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", out.stderr)
+        self.assertIn("XI_AWAY_PUBLISHING_CHANNEL_UNVERIFIED", out.stderr)
 
     def test_compact_handoff_blocks_unproven_market(self):
         p = payload()
@@ -293,16 +311,16 @@ class T(unittest.TestCase):
         self.assertIn("CURRENT_ASIAN_TOTAL_SOURCE_MISSING", out.stderr)
 
 
-    def test_unfinished_legacy_strict_marker_rejects_uncertain_xi(self):
+    def test_unfinished_legacy_strict_marker_accepts_evidenced_conditional_b(self):
         p = payload()
         p["strict_intake_policy"] = "XI_MARKET_FIRST_V1"
         r = proof(row("m1", 1))
+        r["operational_viability_grade"] = "B"
         r["xi_expected"] = "UNCERTAIN"
         p["capacity_queue"] = [r]
         p["admitted_fixtures"] = [dict(r)]
         out = self.runp(p)
-        self.assertEqual(out.returncode, 2)
-        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", out.stderr)
+        self.assertEqual(out.returncode, 0)
 
     def test_unfinished_legacy_strict_marker_preserves_fifteen_slot_budget(self):
         p = payload()
