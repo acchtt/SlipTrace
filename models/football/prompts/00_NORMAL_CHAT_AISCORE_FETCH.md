@@ -240,6 +240,14 @@ Apply the procedure exactly:
 
 Do not upgrade a fixture because its score history looks attractive. Small-league status alone is not a rejection; missing XI/market/team-news observability is.
 
+## 4A. Mandatory verified-XI / match-specific Asian-total queue gate — effective 2026-10-09
+
+Follow `models/football/procedures/FOOTBALL_XI_MARKET_FIRST_INTAKE.md`. For **all newly created compact sweeps**, before any row is marked `ELIGIBLE`, `ADMITTED_TO_C`, or `OPERATIONAL_CAPACITY_DEFERRED`, require **real published recent starting-XI proof for EACH team**, a currently observable Asian-total market for THIS fixture, verifiable team news, reliable official competition status, and canonical fixture/time identity. Mark rows without proof `PREFLIGHT_INCOMPLETE — NO WORK` while the bounded check remains, then explicitly exclude from routine Work with the real evidence failure reason when complete. A raw `B` with `xi_expected=UNCERTAIN` is NOT routine queue eligible. Never turn a source-only league into an A/B candidate because it has many goals or is labeled professional.
+
+For the **currently user-paused** `SWEEP-20261009-1300-20261010-0300`, **do not resume or edit its Airtable records now**. When the user explicitly resumes this *still-unfinished* sweep, preserve its existing source hash, progress and legacy **15 initial / 10 replenishment capacity policy**, but perform this strict proof gate **prospectively before freezing its first Work queue**; write `strict_intake_policy=XI_MARKET_FIRST_V1` into the final handoff so the machine validator enforces it. A/B raw/provisional grades and earlier source accounting are historical evidence, not proof of Work eligibility. Do not reclassify previously frozen/COMPLETE boards.
+
+The raw discovery ledger, required/protected official and women's top-flight exact manifests remain comprehensive; only the **routine Work candidate view** becomes strict. Show `raw_discovered` separately from `verified_queue`; no giant undifferentiated list of obscure discovered fixtures as routine matches. Do not invent lineup source proof or bet-market quotes.
+
 ## 5. Protected senior competition classes
 
 The following classes bypass the ordinary domestic researchability exclusion when identity/time are valid, but they still require an explicit operational viability grade:
