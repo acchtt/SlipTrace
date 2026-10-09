@@ -24,6 +24,7 @@ from core import (  # noqa: E402
     ThesisState,
     XiStatus,
     c2_bridge_eligibility,
+    c2_clearing_goal_funded,
     c2_selection_floor,
     clearing_goal_funded,
     decide_c,
