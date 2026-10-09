@@ -56,7 +56,7 @@ A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_P
 
 ## Checkpointed execution — mandatory
 
-Fresh Step 0 is resumable.
+Fresh Step 0 is resumable, but **fresh runs default to FAST_FINISH_V1**. The objective is one bounded, complete actionable Step-0 selection rather than a forced six-block pause. FAST_FINISH is an operational verification schedule only, not a model grade/selection change. Continue honoring exact protected, required, senior women's top-flight, fixture-time and XI/market gates.
 
 For a new sweep:
 - resolve the stable Run ID/window;
@@ -64,6 +64,7 @@ For a new sweep:
 - set `Run Status = RUNNING`;
 - initialize `Checkpoint Version = football-sweep-checkpoint-v1`;
 - initialize `Sweep Chunk Number = 1`;
+- include `verification_policy=FAST_FINISH_V1`, `verification_attempt_counts={}` and `terminal_unresolved_verification_blocks=[]` in the saved fresh-run cursor;
 - persist a valid `SOURCE_ACQUISITION / UNTRIED` Resume Cursor;
 - only after that persistence succeeds may source acquisition begin.
 
@@ -77,19 +78,13 @@ For `/sweep resume`:
 - never restart an unchanged ACQUIRED source epoch;
 - never create a replacement Run ID merely because the previous chat turn ended.
 
-External targeted verification is limited to **6 competition/date blocks per invocation**. Use:
+**New FAST_FINISH_V1 runs:** use `sweep_checkpoint_cli.py select` with up to **24 logical competition/date blocks per invocation**, executing independent source lookups in **parallel batches of at most six**. A logical block is not a separate serial tool call. Reuse the two-source acquisition seed, classify hard/user exclusions and already-proven C/D blocks source-locally, and reuse known fixture-ID/UTC/XI/market evidence without re-opening the same source. Limit unfamiliar domestic block evidence to the documented short preflight; never retry an unchanged failed source repeatedly. Track evidence-failed blocks using `retry_blocks`. After a second failed attempt, persist `terminal_unresolved_verification_blocks` and show `SWEEP INTEGRITY BLOCKED — EXACT UNRESOLVED BLOCKS` rather than asking for another indefinite resume. A terminal-unresolved protected/required/in-scope A/B fixture is **not verified** and must never be marked `work_ready=true`.
 
-`python models/football/engine/sweep_checkpoint_cli.py select --input <checkpoint.json>`
+The fast verification quota is a ceiling, not a demand to crawl 24 blocks. Close each resolved block immediately and persist the cursor between independent verification batches; batch search requests where supported. Perform terminal-window reconciliation against the same captured source epoch plus only genuinely missing/conflicting fixtures, not another global crawl.
 
-when deterministic execution is available.
+**Existing runs without `verification_policy=FAST_FINISH_V1`**, including the explicitly paused Oct 9 run, retain their original **six-block quota and cursor**. Do not retrofit them. For these legacy runs, after block six stop cleanly with `SWEEP CHECKPOINT SAVED — /sweep resume` and no provisional Work ZIP.
 
-After each externally verified block, persist its result and advance the cursor. When six external blocks have been processed and work remains, stop cleanly with:
-
-`SWEEP CHECKPOINT SAVED — /sweep resume`
-
-This is a normal RUNNING checkpoint, not `BLOCKED`, and no provisional Work ZIP is emitted.
-
-Cheap source-local enumeration, hard exclusions, already-supported C/D block classifications, and persisted-state reads do not consume the six-block external budget.
+Cheap source-local enumeration, exclusions, already-supported C/D classifications and persisted-state reads consume no external verification budget.
 
 ## Source authority
 
