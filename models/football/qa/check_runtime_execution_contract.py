@@ -41,6 +41,9 @@ require(
     "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
     "XI PORTABLE RUNTIME: PASS",
     "xi_portable.py self-check",
+    "xi_source_handoff.py",
+    "XI SOURCE HANDOFF: PASS",
+    "SOURCE_TRANSPORT_BLOCKED",
     "xi_portable.py pair",
     "xi_portable.py accounting",
     "runtime_probe.py --stage <rank|xi|audit>",
@@ -77,6 +80,16 @@ forbid(
     "def run_triplet_files",
     "decision_triplet_cli",
     "EXECUTED_ALL_THREE",
+)
+
+require(
+    "models/football/engine/xi_source_handoff.py",
+    "def git_blob_sha",
+    "def stage_source",
+    "os.replace",
+    "XI SOURCE HANDOFF: PASS",
+    "XI SOURCE HANDOFF: FAIL",
+    "source blob mismatch",
 )
 
 require(
