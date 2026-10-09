@@ -584,6 +584,7 @@ Required metadata:
 
 - `model=Football C`
 - `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
+- for fresh `FAST_FINISH_V1` sweeps: `verification_policy=FAST_FINISH_V1` and `terminal_unresolved_verification_blocks=[]`; any unresolved block blocks Work readiness and export rather than generating another source retry loop
 - `source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY`
 - `source_transport`
 - `coverage_mode`
