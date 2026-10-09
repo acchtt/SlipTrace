@@ -25,10 +25,10 @@ def sample():
         "evidence_epoch_id": "current-20261009T2010",
         "c_action": "C-" + a["action"],
         "c2_shadow_action": "C2-" + b["action"] + " — SHADOW",
-        "c_supported_line": a["supported_line"],
-        "c2_supported_line": b["supported_line"],
-        "engine_c_result": a,
-        "engine_c2_result": b,
+        "c_supported_line": c["match"]["supported_line"],
+        "c2_supported_line": c2["match"]["supported_line"],
+        "engine_c_result": {**a, "supported_line": c["match"]["supported_line"]},
+        "engine_c2_result": {**b, "supported_line": c2["match"]["supported_line"]},
     }
     return {
         "schema_version": "football-step2-publication-v1",
