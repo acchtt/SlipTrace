@@ -21,6 +21,10 @@ The operational pain point is the breadth of **deep Work research**, not a justi
 - A higher or lower historical league over-rate **cannot** upgrade/downgrade current operational grade; it cannot decide the Step-0 operational queue order, override market integrity or exclude an unfamiliar/women's/protected block.
 - Persist all A/B fixture candidates and their operational queue rank; **do not silently discard queue overflow**. This is still the complete A/B queue; it is not a goal-scored shortlist.
 
+### Mandatory evidence-first intake under compact mode
+
+The compact workload cap operates **after**, not instead of, `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` and engine `sweep_intake_evidence.py`. Compact `A/B` Work-queue fixtures must all have verified recent actual starting XIs for both teams (not an `UNCERTAIN` projection), fixture-specific current Asian-total bookmaker line and capture time, competition tier/official URL and team news. Even the rank-9+ capacity-deferred queue requires these proofs. Under-supported obscure leagues cannot soak up Work budget merely because they appear in the raw source list. Explicit source-only rows stay raw and receive an excluded/hold disposition. All protected and women's top-flight fixtures remain visible in raw manifests; admission parity is maintained.
+
 ## 3. Smaller active Work research footprint
 
 For new sweeps carrying `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`:
