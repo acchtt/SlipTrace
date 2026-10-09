@@ -299,6 +299,14 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
         expected = { _mid(row) for row in queue if row['step0_capacity_queue_rank'] <= 8 }
         if admitted_ids != expected:
             raise Step0HandoffError('HANDOFF INCOMPLETE: compact ranks 1-8 must be admitted')
+        for row in queue:
+            rank = row['step0_capacity_queue_rank']
+            disposition = row.get('final_step0_disposition', row.get('disposition'))
+            required = 'ADMITTED_TO_C' if rank <= 8 else 'OPERATIONAL_CAPACITY_DEFERRED'
+            if disposition != required:
+                raise Step0HandoffError(
+                    f'HANDOFF INCOMPLETE: compact queue disposition inconsistent at rank {rank}'
+                )
 
     if payload.get("admitted_to_c_count") != len(admitted):
         raise Step0HandoffError(
