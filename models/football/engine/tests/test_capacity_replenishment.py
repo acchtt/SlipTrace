@@ -190,6 +190,22 @@ class CompactCapacityTests(unittest.TestCase):
         self.assertEqual(second["selected_queue_ranks"], [14])
         self.assertEqual(second["research_budget_remaining"], 7)
 
+    def test_partial_standard_wave_cannot_cross_twelve_even_with_adaptive_time(self):
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 11)],
+            "candidates": [row(f"m{i}", i) for i in range(1, 23)],
+            "adaptive_research": {
+                "enabled": True,
+                "available_research_minutes": 240,
+                "next_candidate_kickoff_minutes": 300,
+            },
+        })
+        self.assertEqual(out["selected_queue_ranks"], [11, 12])
+        self.assertEqual(out["research_budget_limit"], 20)
+
     def test_no_adaptive_data_preserves_twelve_limit(self):
         queue = [row(f"m{i}", i) for i in range(1, 22)]
         out = next_replenishment_wave({
