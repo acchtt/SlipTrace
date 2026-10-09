@@ -7,7 +7,9 @@ sys.path.insert(0, str(ENGINE_DIR))
 
 from capacity_replenishment import (  # noqa: E402
     CapacityReplenishmentError,
+    COMPACT_POLICY,
     next_replenishment_wave,
+    select_initial_work_wave,
 )
 
 
@@ -97,6 +99,85 @@ class CapacityReplenishmentTests(unittest.TestCase):
                     "candidates": [row("bad", 16, grade="C")],
                 }
             )
+
+
+class CompactCapacityTests(unittest.TestCase):
+    def test_compact_initial_wave_eight_and_full_queue_retained(self):
+        queue = [row(f"m{i}", i) for i in range(1, 20)]
+        result = select_initial_work_wave(queue, budget_policy=COMPACT_POLICY)
+        self.assertEqual(result["admitted_queue_ranks"], list(range(1, 9)))
+        self.assertEqual(result["deferred_queue_ranks"], list(range(9, 20)))
+        self.assertEqual(result["full_queue_count"], 19)
+
+    def test_legacy_initial_wave_is_fifteen(self):
+        result = select_initial_work_wave([row(f"m{i}", i) for i in range(1, 18)])
+        self.assertEqual(result["admitted_queue_ranks"], list(range(1, 16)))
+        self.assertEqual(result["deferred_queue_ranks"], [16, 17])
+
+    def test_compact_stops_at_four_active(self):
+        result = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 2,
+            "reserve_count": 2,
+            "researched_match_ids": [f"m{i}" for i in range(1, 9)],
+            "candidates": [row(f"m{i}", i, disposition=("ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED")) for i in range(1, 20)],
+        })
+        self.assertEqual(result["status"], "COMPACT_ACTIVE_TARGET_SATISFIED")
+        self.assertEqual(result["selected_match_ids"], [])
+
+    def test_compact_refills_four_when_no_active(self):
+        result = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 9)],
+            "candidates": [row(f"m{i}", i, disposition=("ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED")) for i in range(1, 20)],
+        })
+        self.assertEqual(result["selected_queue_ranks"], [9, 10, 11, 12])
+        self.assertEqual(result["research_budget_remaining"], 4)
+
+    def test_compact_budget_exhaustion_is_not_unbounded_replenishment(self):
+        result = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": [row(f"m{i}", i, disposition=("ADMITTED_TO_C" if i <= 12 else "OPERATIONAL_CAPACITY_DEFERRED")) for i in range(1, 20)],
+        })
+        self.assertEqual(result["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+        self.assertEqual(result["selected_match_ids"], [])
+
+    def test_compact_rejects_missing_history_and_duplicates(self):
+        data = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 0,
+            "candidates": [row(f"m{i}", i) for i in range(1, 12)],
+        }
+        with self.assertRaisesRegex(CapacityReplenishmentError, "researched_match_ids"):
+            next_replenishment_wave(data)
+        data["researched_match_ids"] = ["m1", "m1"]
+        with self.assertRaisesRegex(CapacityReplenishmentError, "duplicate"):
+            next_replenishment_wave(data)
+        data["researched_match_ids"] = ["unknown"]
+        with self.assertRaisesRegex(CapacityReplenishmentError, "missing from frozen queue"):
+            next_replenishment_wave(data)
+
+    def test_initial_wave_rejects_noncontiguous_rank(self):
+        with self.assertRaisesRegex(CapacityReplenishmentError, "contiguous"):
+            select_initial_work_wave([row("a", 1), row("b", 3)], budget_policy=COMPACT_POLICY)
+
+    def test_compact_researched_candidate_is_not_reselected(self):
+        result = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 1,
+            "researched_match_ids": ["m1"],
+            "candidates": [row(f"m{i}", i) for i in range(1, 8)],
+        })
+        self.assertEqual(result["selected_queue_ranks"], [2, 3, 4])
+
+
 
 
 if __name__ == "__main__":
