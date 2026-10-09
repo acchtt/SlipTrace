@@ -144,7 +144,7 @@ If this contract is incomplete, stop. /rank does not recreate missing Step-0 ope
 
 ### Compact handoff compatibility — new sweeps only
 
-If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish only when FOLLOW+RESERVE <4, never beyond 12 routine unique fixtures; stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
+If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish only when FOLLOW+RESERVE <4. Research the first 12 routinely; when this is insufficient, allow time-attested adaptive expansion only as described below, never beyond 20 unique frozen-queue fixtures. Stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
 
 ### XI/Asian-total intake preflight — new and explicitly marked in-progress runs
 
@@ -296,34 +296,45 @@ B-grade operational rows are capped at RESERVE.
 
 ## 11. Deterministic replenishment — mandatory
 
-After each completed Step-1 wave compute:
+After every completed C/C2 Step-1 research wave, compute the *official C*
+`active_lane_count = FOLLOW + RESERVE` and run:
 
-`active_lane_count = FOLLOW + RESERVE`
+`python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`
 
-If active_lane_count < 10 and prematch A/B rows remain in the frozen Step0 capacity queue, run:
+**For compact `COMPACT_GOAL_ROUTE_V1` handoffs (new boards):**
+- First wave is still immutable ranks **1–8**, subject to legitimate prematch closures.
+- If fewer than 4 official C active lanes survive, research ranks 9–12 in ordered replenishment waves.
+- If already 12 unique fixtures were researched and `FOLLOW+RESERVE < 4`, check whether additional A/B rows remain in the same frozen queue. To extend beyond 12, provide `adaptive_research={"enabled":true,"available_research_minutes":<verified>,"next_candidate_kickoff_minutes":<verified>}`. The values must come from the actual current research work budget and confirmed kickoff lead time. These are not user-configured picks, prediction preferences or invented time allowances.
+- The selector reserves **12 research minutes per additional fixture** and **30 minutes before the next candidate's KO**, never researches more than **20** unique fixtures per slate, and never selects more than `4-(FOLLOW+RESERVE)` in one wave. Recompute the time and fixture status between waves; never reuse stale KO/quote epochs.
+- If the current time/research budget cannot be verified, **omit** `adaptive_research` and retain the original 12-fixture budget. If 4 active lanes already exist, stop, even if more A/B fixtures remain. Do not reach 20 merely because it is permitted.
+- Persist every additional fixture's original rank, research wave and `Step1 Replenished` flag; **never** add a candidate that was not frozen in the Step0 operational A/B queue. Each newly researched candidate must pass the existing independent C+C2 board pair and incentive checks.
+- `COMPACT_RESEARCH_BUDGET_EXHAUSTED` and `COMPACT_ACTIVE_TARGET_SATISFIED` are valid *terminal* results; further low-priority Work research is not mandatory.
+- Selection is always ascending **operational** Step0 queue rank among still-prematch eligible fixtures. Never cherry-pick apparent goal-scoring potential, odds, C2 shadow preference or hindsight FT. This extension is a workload safeguard, **not** a change to C/C2 prediction weights.
 
-`capacity_replenishment_cli.py`
+**For legacy handoffs without `COMPACT_GOAL_ROUTE_V1`:**
+- Preserve the historic 15-slot first wave and replenishment target of 10 active lanes.
+- STOP/PASS removes a lane, not the original fixture's research record; refill to 10 in ascending immutable queue order until queue/prematch availability ends.
 
-Pull the lowest remaining Step0 Capacity Queue Rank values first.
+For all policies:
+- Retain complete `researched_match_ids` without duplicates; refresh current prematch status before every wave.
+- Persist `Step1 Replenished=true`, `Replenishment Wave=N`, and the original `Step0 Capacity Queue Rank`.
+- Stop when the selector reports a valid terminal condition; do not create unbounded /rank resume loops.
 
-For each replenished row persist:
-- original Step0 Capacity Queue Rank;
-- `Step1 Replenished = true`;
-- `Replenishment Wave = 1, 2, ...`;
-- replenishment reason.
-
-**A STOP/PASS does not permanently consume one of the original 15 research slots**.
-
-Continue until:
-1. FOLLOW + RESERVE reaches 10;
-2. no eligible prematch deferred A/B row remains; or
-3. all remaining queued rows have started/left the prematch window.
-
-Do not use model appeal, supported total, expected goals or result knowledge to choose replenishment order.
+Do not use model appeal, supported total, expected goals, or results to change operational replenishment order.
 
 ## 12. Rank terminal status
 
-After replenishment reaches a stop condition, run the deterministic rank terminal-status check.
+After executing the current deterministic replenishment selector, run
+`python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`.
+For compact handoffs, propagate **the selector's current**
+`capacity_replenishment_status`, `budget_policy=COMPACT_GOAL_ROUTE_V1`
+and `research_budget_remaining` along with the ranked fixture/lane
+counts. Do not infer a 10-lane replenishment requirement from deferred
+queue length on compact boards. The terminal checker now accepts
+`COMPACT_ACTIVE_TARGET_SATISFIED`, `COMPACT_RESEARCH_BUDGET_EXHAUSTED` and
+truly exhausted queues as completion, even when 13th+ A/B fixtures remain.
+
+After replenishment reaches its selected terminal condition, run the deterministic rank terminal-status check.
 
 A board may complete with:
 - no ranked eligible fixtures;
@@ -384,7 +395,7 @@ A complete /rank response must include:
 - official FOLLOW/RESERVE/STOP lanes;
 - Football C2 shadow ranks/states/lines;
 - board-pair execution/reconciliation status;
-- capacity/replenishment status;
+- capacity/replenishment status, including standard/adaptive budget limit, number actually researched, and any post-12 selected ranks;
 - terminal status;
 - exact holds/integrity blockers if any;
 - persistence status.
