@@ -293,6 +293,27 @@ class T(unittest.TestCase):
         self.assertIn("CURRENT_ASIAN_TOTAL_SOURCE_MISSING", out.stderr)
 
 
+    def test_unfinished_legacy_strict_marker_rejects_uncertain_xi(self):
+        p = payload()
+        p["strict_intake_policy"] = "XI_MARKET_FIRST_V1"
+        r = proof(row("m1", 1))
+        r["xi_expected"] = "UNCERTAIN"
+        p["capacity_queue"] = [r]
+        p["admitted_fixtures"] = [dict(r)]
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 2)
+        self.assertIn("XI_CHANNEL_NOT_VERIFIABLE", out.stderr)
+
+    def test_unfinished_legacy_strict_marker_preserves_fifteen_slot_budget(self):
+        p = payload()
+        p["strict_intake_policy"] = "XI_MARKET_FIRST_V1"
+        p["capacity_queue"] = [proof(row(f"m{i}", i)) for i in range(1, 16)]
+        p["admitted_fixtures"] = [dict(r) for r in p["capacity_queue"]]
+        p["admitted_to_c_count"] = 15
+        out = self.runp(p)
+        self.assertEqual(out.returncode, 0)
+
+
 
 if __name__ == "__main__":
     unittest.main()
