@@ -23,7 +23,7 @@ The operational pain point is the breadth of **deep Work research**, not a justi
 
 ### Mandatory evidence-first intake under compact mode
 
-The compact workload cap operates **after**, not instead of, `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` and engine `sweep_intake_evidence.py`. Compact `A/B` Work-queue fixtures must all have verified recent actual starting XIs for both teams (not an `UNCERTAIN` projection), fixture-specific current Asian-total bookmaker line and capture time, competition tier/official URL and team news. Even the rank-9+ capacity-deferred queue requires these proofs. Under-supported obscure leagues cannot soak up Work budget merely because they appear in the raw source list. Explicit source-only rows stay raw and receive an excluded/hold disposition. All protected and women's top-flight fixtures remain visible in raw manifests; admission parity is maintained.
+The compact Work cap applies **after** `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` and the evidence validator. For full-day sweeps, **do not demand confirmed upcoming XI** or individual historical XI for both sides. Strong A/YES channels and source-backed conditional B/UNCERTAIN channels, kickoff-relative recheck, current fixture-specific Asian-total market, official competition tier, team news and reliable kickoff/identity are mandatory. Rank-9+ deferred candidates receive the same check. Unsupported obscure leagues cannot enter Work only because they are discovered. Required/protected and women's top-flight coverage remains intact.
 
 ## 3. Smaller active Work research footprint
 
