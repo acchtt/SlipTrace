@@ -138,6 +138,12 @@ If this contract is incomplete, stop. /rank does not recreate missing Step-0 ope
 
 If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish only when FOLLOW+RESERVE <4, never beyond 12 routine unique fixtures; stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
 
+### XI/Asian-total intake preflight — new and explicitly marked in-progress runs
+
+Before deep research, if the handoff carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1` **or** `strict_intake_policy=XI_MARKET_FIRST_V1`, require the Step-0 machine validator to enforce verified **recent actual starting-XI sources for both teams**, fixture-specific current Asian-total quote, team-news evidence, professional/protected competition provenance, and clean identity/time. No `xi_expected=UNCERTAIN` candidate may enter the routine A/B Work queue in these modes; a provisional B remains raw evidence only. Fail closed with a specific missing-proof reason; return the fixture to Step 0 rather than researching around it inside /rank.
+
+A still-unfinished legacy sweep explicitly opt-in to `strict_intake_policy` **does not** inherit compact 8/12/4 budget automatically. The budget remains its original legacy 15/10 unless its own frozen handoff legitimately carries `COMPACT_GOAL_ROUTE_V1`. Previously frozen/COMPLETE handoffs without either marker remain backward compatible.
+
 ## 4. Current-turn runtime precheck
 
 Before deterministic board execution, apply:
