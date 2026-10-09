@@ -61,6 +61,7 @@ on:
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
       - "models/football/qa/check_xi_portable_runtime.py"
+      - "models/football/qa/check_xi_portable_execution.py"
       - ".github/workflows/football-step2-research-gate.yml"
   pull_request:
     paths:
@@ -122,6 +123,7 @@ on:
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
       - "models/football/qa/check_xi_portable_runtime.py"
+      - "models/football/qa/check_xi_portable_execution.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
 jobs:
@@ -142,3 +144,5 @@ jobs:
         run: python models/football/qa/check_xi_portable_runtime.py
       - name: Self-check XI portable runtime
         run: python models/football/engine/xi_portable.py self-check
+      - name: Exercise standalone XI C+C2 CLI and fail-closed contracts
+        run: python models/football/qa/check_xi_portable_execution.py
