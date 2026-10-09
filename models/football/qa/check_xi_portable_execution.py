@@ -88,11 +88,16 @@ def main() -> None:
             "same frozen common evidence epoch",
         )
 
-        missing_research = copy.deepcopy(c)
-        missing_research["context"].pop("post_xi_research_note")
-        missing_file = write(temp / "missing-research.json", missing_research)
+        # Remove the same common field from BOTH sides, avoiding an earlier
+        # epoch-mismatch rejection and reaching the evidence-completeness gate.
+        missing_research_c = copy.deepcopy(c)
+        missing_research_c2 = copy.deepcopy(c2)
+        missing_research_c["context"].pop("post_xi_research_note")
+        missing_research_c2["context"].pop("post_xi_research_note")
+        missing_c_file = write(temp / "missing-research-c.json", missing_research_c)
+        missing_c2_file = write(temp / "missing-research-c2.json", missing_research_c2)
         expect_contract_failure(
-            ("pair", "--c", missing_file, "--c2", c2_file),
+            ("pair", "--c", missing_c_file, "--c2", missing_c2_file),
             "post_xi_research_note",
         )
 
