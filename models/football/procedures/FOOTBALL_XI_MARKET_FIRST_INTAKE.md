@@ -10,6 +10,10 @@ A hard cap of eight Work matches does **not** guarantee quality: the current 119
 
 This is an **information availability gate**, not a betting prediction, league-performance rule or gender/country blacklist.
 
+### Paused current sweep vs policy migration
+
+This standard applies to **all new compact sweeps** and may be explicitly opted into on an **unfinished legacy** sweep using `strict_intake_policy=XI_MARKET_FIRST_V1`. The user identified uncertain-XI admission in the paused Oct-09 run; keep it paused and untouched today, but require the strict gate **when the user resumes and before any first Work handoff**. Its legacy 15/10 capacity stays in force; do not mutate older source fixtures or historical grades to simulate compliance. Frozen completed/historical Work payloads keep their original contract.
+
 ## 1. Funnel, scope and work budget
 
 `SOURCE DISCOVERY (RETAIN) → USER/HARD SCOPE EXCLUSION → COMPETITION PROVENANCE → BOUNDED XI+MARKET PREFLIGHT → OPERATIONAL GRADE/RESEARCHABILITY → FROZEN A/B QUEUE → 8 INITIAL WORK / <=12 ROUTINE TOTAL`
