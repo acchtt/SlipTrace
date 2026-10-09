@@ -313,6 +313,55 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
+    def test_kashima_style_unfunded_exception_passes_o25_and_o225(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+        )
+        for line, odds in ((2.5, 1.96), (2.25, 1.89)):
+            with self.subTest(line=line):
+                ctx = context(
+                    official_follow_lane=FollowLane.RESERVE,
+                    step2_authorization=Step2Authorization.USER_EXCEPTION,
+                    quote=Quote(line, odds),
+                )
+                result = decide_c(a, ctx)
+                self.assertEqual(result.action, Action.PASS)
+                self.assertIn("clearing-goal funding", result.reason)
+
+    def test_strong_carrier_retains_legitimate_bet(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            completion_mode=CompletionMode.CARRIER_LED,
+            away_route=RouteStrength.WEAK,
+            continuation_quality=Grade.MEDIUM,
+            burden_completion_quality=Grade.MEDIUM,
+        )
+        self.assertEqual(decide_c(a, context()).action, Action.BET)
+
+    def test_unfunded_c_wait_is_not_assumed_model_exposure(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+        )
+        ctx = context(
+            quote=Quote(2.75, 1.85),
+            wait_reachable=True,
+            wait_requires_negative_info=False,
+        )
+        self.assertEqual(decide_c(a, ctx).action, Action.PASS)
+
     def test_routine_follow_rejects_stop_lane(self):
         with self.assertRaisesRegex(
             ValueError,
