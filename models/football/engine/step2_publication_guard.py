@@ -86,7 +86,13 @@ def check_publication(data: dict) -> dict:
                 actual = json.loads(actual)
             except json.JSONDecodeError as exc:
                 raise PublicationBlocked(f"{key} invalid JSON") from exc
-        if actual != computed["results"][model]:
+        # The engine returns its action but keeps the supported burden in
+        # the input assessment. The persisted Step-2 contract requires
+        # a normalized result containing that exact frozen supported_line.
+        model_payload = c if model == "c" else c2
+        expected = {**computed["results"][model],
+                    "supported_line": model_payload["match"]["supported_line"]}
+        if actual != expected:
             raise PublicationBlocked(f"{key} NOT THE CURRENT PAIR RESULT")
 
     key = _text(stored, "match_id") + ":" + active_epoch
