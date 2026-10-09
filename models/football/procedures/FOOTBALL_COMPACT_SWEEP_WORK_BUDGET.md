@@ -51,7 +51,7 @@ The historical league table is optional reference context only, with **zero weig
 
 ## 5. Compatibility, tests and rollout
 
-- New sweeps must persist the policy ID in the Resume Cursor/hand-off metadata and obey its 8/12/4 budget. /rank passes `budget_policy=COMPACT_GOAL_ROUTE_V1` and a deduplicated `researched_match_ids` list to `capacity_replenishment_cli.py` on every replenishment.
+- New sweeps must persist the policy ID in the Resume Cursor/hand-off metadata and obey its 8/12/4 budget. Use `models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` for deterministic initial selection, and validate the serialized final handoff via `step0_handoff_cli.py`. /rank passes `budget_policy=COMPACT_GOAL_ROUTE_V1` and a deduplicated `researched_match_ids` list to `capacity_replenishment_cli.py` on every replenishment.
 - For a legacy handoff with missing policy ID, use the original 15 initial Work slots and legacy refill-to-10 semantics; do not reinterpret it retrospectively.
 - The user's still RUNNING `SWEEP-20261009-1300-20261010-0300` at **Chunk 12**, 3 pending, is explicitly **grandfathered/paused**. Do not alter its cursor, queue, ledger, reports, source hash or eligibility solely because of the compact policy.
 - Every rank and replenishment replay should check `researched_match_ids` are **unique, actually present in the frozen A/B queue and no more than 12**. Reject missing evidence rather than implicitly granting another wave.
