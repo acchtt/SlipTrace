@@ -164,6 +164,14 @@ def classify_preflight(row: dict[str, Any]) -> dict[str, Any]:
     defects = validate_work_candidate(row)
     if not defects:
         return {"work_queue_eligible": True, "disposition": "READY_FOR_AB_QUEUE", "defects": []}
+    if isinstance(row, dict) and (
+        row.get("user_scope_excluded") is True or row.get("hard_scope_excluded") is True
+    ):
+        return {
+            "work_queue_eligible": False,
+            "disposition": "STEP0_OPERATIONAL_OR_SCOPE_EXCLUDED",
+            "defects": defects,
+        }
     if not isinstance(row, dict) or row.get("preflight_complete") is not True:
         return {
             "work_queue_eligible": False,
