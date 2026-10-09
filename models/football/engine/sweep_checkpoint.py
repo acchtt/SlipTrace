@@ -484,7 +484,12 @@ def advance_after_chunk(
     completed_history = cp["completed_verification_blocks"] + completed
     next_phase = "RECONCILIATION" if not next_order else "TARGETED_VERIFICATION"
 
+    # Carry forward opaque, already-frozen source/seed/coverage provenance.
+    # Rebuilding a small cursor silently drops source_scope, the acquired
+    # discovery manifest and reconciliation progress, forcing later
+    # invocations to repeat evidence acquisition or guess missing fields.
     return {
+        **payload,
         "checkpoint_version": CHECKPOINT_VERSION,
         "run_id": cp["run_id"],
         "phase": next_phase,
