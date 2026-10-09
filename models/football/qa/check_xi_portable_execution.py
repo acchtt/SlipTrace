@@ -155,6 +155,18 @@ def main() -> None:
         code, reconciled = command("reconcile", "--input", reconciliation)
         assert code == 0 and reconciled.get("all_due_accounted") is True, reconciled
         assert reconciled.get("step2_reconciliation_status") == "PASS", reconciled
+        assert reconciled.get("persisted_decision_count") == 1, reconciled
+        assert reconciled.get("verified_decision_count") == 1, reconciled
+
+        invalid_reconcile = reconciliation_payload()
+        invalid_reconcile["outcomes"][0]["decision_state_snapshot"].pop("engine_c2_result")
+        invalid_reconcile_file = write(
+            temp / "reconcile-missing-c2.json", invalid_reconcile
+        )
+        expect_contract_failure(
+            ("reconcile", "--input", invalid_reconcile_file),
+            "engine_c2_result",
+        )
 
         accounting = write(
             temp / "accounting.json",

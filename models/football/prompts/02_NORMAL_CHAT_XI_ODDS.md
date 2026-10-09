@@ -248,15 +248,19 @@ Historical C3/C4 accounting is audit-only and must use the explicit historical a
 
 ## 12. Session reconciliation
 
-At the end of the session run:
+At the end of the session, freeze a **v2** `football-step2-reconcile-v2` payload from the due set. Before classifying any match as `DECISION_STATE_PERSISTED`, independently read back its Airtable Decision State record and verify that C/C2 actions, both supported lines, engine revision/status, and both serialized engine results are actually stored. Set `decision_state_snapshot` from that post-write read-back, including the Airtable record ID and original due `match_id`. Do not copy the proposed write payload into the snapshot.
+
+Every other disposition requires an explicit blocker reason; `LIVE_REROUTED` requires a concrete live-handoff reference, and `ENGINE_FAILED_AFTER_ATTEMPT` requires the exact failure reason. Incomplete or provisional records are never `DECISION_STATE_PERSISTED`.
+
+Run:
 
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
 
-Do not call the session complete unless:
+Do not call the current session complete unless:
 
 `STEP2 RECONCILIATION STATUS: PASS`
 
-Every due fixture must have exactly one disposition. Silent omission is a process failure.
+and `verified_decision_count = persisted_decision_count`. A v1 reconciliation pass is historical replay only and cannot authorize current-session completion. Every due fixture must have exactly one traceable disposition. Silent omission is a process failure.
 
 ## 13. User-facing output
 
