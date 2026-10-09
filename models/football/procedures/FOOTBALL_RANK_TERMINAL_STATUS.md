@@ -20,6 +20,33 @@ Use this order:
 4. **Ranked universe exists but FOLLOW=0** -> `RANK COMPLETE — 0 FOLLOW`.
 5. **FOLLOW>0** -> `RANK COMPLETE`.
 
+## Compact (new-run) precedence overrides legacy refill-to-ten
+
+For `budget_policy=COMPACT_GOAL_ROUTE_V1`, the five-point legacy precedence
+above applies **only to handoffs without** the compact marker. After each
+Step-1 wave, call the deterministic `capacity_replenishment_cli.py` and
+copy the current `capacity_replenishment_status`,
+`research_budget_remaining` and `budget_policy` into
+`rank_terminal_status_cli.py`. Under compact policy:
+
+1. Real integrity failures always block.
+2. `REPLENISHMENT_REQUIRED` continues the selection from the remaining
+   prematch frozen operational A/B queue.
+3. `COMPACT_ACTIVE_TARGET_SATISFIED` is terminal at FOUR active lanes
+   even with deferred candidates.
+4. `COMPACT_RESEARCH_BUDGET_EXHAUSTED` is terminal when zero currently
+   approved research slots remain (12 standard or <=20 time-attested).
+5. `QUEUE_EXHAUSTED_OR_CLOSED` is terminal when no more valid prematch A/B
+   candidates remain.
+6. Then `COMPLETE_EMPTY_RANKED_UNIVERSE`, `COMPLETE_ZERO_FOLLOW` or
+   `COMPLETE_WITH_FOLLOW` are assigned from actual finished lane counts.
+
+For conditional research beyond 12, the next fixture is selected by immutable
+Step0 rank only when current observed research/KO time supports it. Do not
+invent missing research-time evidence, select from C2 shadow preference, or
+use previous FT to fill the board. Replenishment exhausted is NOT a blocked
+process and NOT justification for repeated /rank resumes.
+
 ## What may produce RANK BLOCKED
 
 Only board/process failures, for example:
