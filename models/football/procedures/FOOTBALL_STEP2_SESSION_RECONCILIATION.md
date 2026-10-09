@@ -9,6 +9,44 @@ Prevent an authorized Step-2 fixture from silently disappearing between the froz
 
 This is a process-integrity guard only. It does not change any Football C/C2 predictive threshold.
 
+## Step-1-to-Step-2 authority gate
+
+Use `models/football/engine/step2_queue_guard.py` (input schema
+`football-step2-queue-v1`) **before** Step-2 research, and preserve the
+generated immutable due/not-due receipt.
+
+Routine mode requires a genuinely COMPLETE and packaged Step-0 handoff,
+`work_ready=true`, and terminal Step-1 `EXECUTED_C_C2_BOARDS`
+with `common_evidence_reconciled=true`. A discovered or provisional
+A/B fixture is **not** an official FOLLOW/RESERVE. In particular, a RUNNING
+sweep with no frozen Step-1 board must produce
+`QUEUE NOT FROZEN — SWEEP INCOMPLETE` rather than a guessed Step-2 queue.
+
+Feed the entire frozen ranked eligible board, not a manually selected shortlist.
+The guard derives due rows only from Football C's official lane. Routine
+FOLLOW requires an explicitly open XI window; each activated RESERVE
+requires a recorded authorization and a disposition even if its XI window
+is not open yet. An explicitly authorized user exception is included
+regardless of its board lane, with its exact user-authorization reference.
+All STOP, later-window FOLLOW, and inactive RESERVE rows remain visible in
+the returned `not_due` manifest.
+
+While a routine sweep/rank is incomplete, `EXCEPTION_ONLY` mode is allowed
+for specific user-authorized fixtures only. It must not borrow provisional
+board rows, silently activate reserves, invent supported burdens, or claim
+that the routine board was completed. The exception still needs independent
+frozen C and C2 decision inputs under the separate XI rules.
+
+Required command (source is pinned to the current model revision):
+
+`python models/football/engine/step2_queue_guard.py --input <step2_queue_input.json>`
+
+The queue receipt is an authorization manifest, **not** a betting decision,
+not an automatically produced snapshot of Airtable, and not evidence that
+an actual user exception has been completed. It must originate from current
+source/board reads, with stable fixture IDs, explicit authorization records,
+and immutable source/board snapshot references.
+
 ## Due set
 
 At the start of each Step-2 session, freeze the due set from the current official C board:
