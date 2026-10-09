@@ -203,6 +203,15 @@ A route-preserved XI does not automatically preserve continuation.
 
 If completion/continuation degrades or stall risk becomes HIGH, the Step-1 FOLLOW state does not force a bet.
 
+### Step-2 executable burden (prospective 2026-10-09)
+
+After the current XI/research recheck, C-BET and countable C-WAIT
+must pass `clearing_goal_funded` at the actual quote or supported WAIT
+target. The rule also applies to user-authorized live exceptions.
+O2.25 needs goal three for a full win (two goals means half-loss);
+O2.0 instead pushes at two. O3.0+ requires fourth-goal proof.
+Do not retroactively upgrade frozen completion grades from FT.
+
 ## 10. Audit
 
 Post-slate audit must separate:
