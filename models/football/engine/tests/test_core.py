@@ -110,7 +110,7 @@ def context(
 
 
 class FollowThroughTests(unittest.TestCase):
-    def test_o225_full_win_needs_goal3_but_o20_push_protects(self):
+    def test_o225_full_win_still_needs_goal3_but_o20_push_protects(self):
         a = assessment(
             supported_line=2.25,
             burden_completion_quality=Grade.MEDIUM,
@@ -121,49 +121,20 @@ class FollowThroughTests(unittest.TestCase):
         self.assertFalse(clearing_goal_funded(a))
         self.assertTrue(clearing_goal_funded(a, selected_line=2.0))
 
-    def test_strong_two_route_high_resistance_is_follow(self):
-        lane = follow_through_lane(
-            assessment(carrier=CarrierStrength.STRONG),
-            BoardState.FOCUS,
-        )
-        self.assertEqual(lane, FollowLane.FOLLOW)
+    def test_focus_supported_high_goal_totals_are_not_stopped(self):
+        for line in (2.0, 2.25, 2.75, 3.0, 3.25, 3.5, 4.0, 4.5):
+            with self.subTest(line=line):
+                a = assessment(
+                    carrier=CarrierStrength.STRONG,
+                    supported_line=line,
+                    carrier_self_fund=False,
+                    independent_upper_tail=False,
+                )
+                self.assertEqual(
+                    follow_through_lane(a, BoardState.FOCUS), FollowLane.FOLLOW
+                )
 
-    def test_medium_resistance_high_protection_is_reserve(self):
-        lane = follow_through_lane(
-            assessment(
-                carrier=CarrierStrength.STRONG,
-                failure_resistance=Grade.MEDIUM,
-            ),
-            BoardState.FOCUS,
-        )
-        self.assertEqual(lane, FollowLane.RESERVE)
-
-    def test_weak_second_route_without_carrier_led_funding_is_not_follow(self):
-        lane = follow_through_lane(
-            assessment(
-                carrier=CarrierStrength.STRONG,
-                away_route=RouteStrength.WEAK,
-            ),
-            BoardState.FOCUS,
-        )
-        self.assertEqual(lane, FollowLane.RESERVE)
-
-    def test_carrier_led_weak_second_route_can_follow(self):
-        lane = follow_through_lane(
-            assessment(
-                away_route=RouteStrength.WEAK,
-                carrier=CarrierStrength.STRONG,
-                completion_mode=CompletionMode.CARRIER_LED,
-                carrier_self_fund=True,
-                independent_upper_tail=True,
-                opponent_leakage=Grade.HIGH,
-                independent_route_quality=Grade.MEDIUM,
-            ),
-            BoardState.FOCUS,
-        )
-        self.assertEqual(lane, FollowLane.FOLLOW)
-
-    def test_o275_carrier_led_needs_independent_goal3_funding(self):
+    def test_unfunded_goal3_does_not_block_step2_research(self):
         a = assessment(
             supported_line=2.75,
             away_route=RouteStrength.WEAK,
@@ -174,56 +145,40 @@ class FollowThroughTests(unittest.TestCase):
             opponent_leakage=Grade.HIGH,
         )
         self.assertFalse(clearing_goal_funded(a))
-        self.assertEqual(
-            follow_through_lane(a, BoardState.FOCUS),
-            FollowLane.RESERVE,
-        )
+        self.assertEqual(follow_through_lane(a, BoardState.FOCUS), FollowLane.FOLLOW)
 
-    def test_o275_carrier_led_with_independent_goal3_can_follow(self):
-        a = assessment(
-            supported_line=2.75,
-            away_route=RouteStrength.WEAK,
-            carrier=CarrierStrength.STRONG,
-            completion_mode=CompletionMode.CARRIER_LED,
-            carrier_self_fund=True,
-            independent_upper_tail=True,
-            opponent_leakage=Grade.HIGH,
-        )
-        self.assertTrue(clearing_goal_funded(a))
-        self.assertEqual(
-            follow_through_lane(a, BoardState.FOCUS),
-            FollowLane.FOLLOW,
-        )
-
-    def test_o3_two_sided_shape_alone_does_not_certify_follow(self):
+    def test_unfunded_goal4_does_not_block_step2_research(self):
         a = assessment(
             supported_line=3.0,
             carrier=CarrierStrength.STRONG,
-            carrier_self_fund=False,
             independent_upper_tail=False,
         )
         self.assertFalse(clearing_goal_funded(a))
-        self.assertEqual(
-            follow_through_lane(a, BoardState.FOCUS),
-            FollowLane.RESERVE,
-        )
+        self.assertEqual(follow_through_lane(a, BoardState.FOCUS), FollowLane.FOLLOW)
 
-    def test_high_stall_risk_blocks_follow(self):
-        lane = follow_through_lane(
-            assessment(
-                carrier=CarrierStrength.STRONG,
-                burden_stall_risk=Grade.HIGH,
-            ),
-            BoardState.FOCUS,
-        )
-        self.assertEqual(lane, FollowLane.STOP)
+    def test_predictive_failure_factors_do_not_become_lane_vetoes(self):
+        for overrides in (
+            {"burden_stall_risk": Grade.HIGH},
+            {"failure_resistance": Grade.LOW},
+            {"route_reliability": Grade.LOW},
+            {"chance_quality": Grade.LOW},
+            {"away_route": RouteStrength.WEAK},
+            {"material_suppression": True},
+            {"failure_attacks_route": True},
+            {"burden_completion_quality": Grade.LOW},
+        ):
+            with self.subTest(overrides=overrides):
+                self.assertEqual(
+                    follow_through_lane(assessment(**overrides), BoardState.FOCUS),
+                    FollowLane.FOLLOW,
+                )
 
-    def test_watch_never_auto_follows(self):
-        lane = follow_through_lane(
-            assessment(),
-            BoardState.WATCH,
-        )
-        self.assertEqual(lane, FollowLane.STOP)
+    def test_non_focus_never_auto_follows(self):
+        for state in (BoardState.WATCH, BoardState.PASS):
+            with self.subTest(state=state):
+                self.assertEqual(
+                    follow_through_lane(assessment(), state), FollowLane.STOP
+                )
 
 
 class SelectionFloorTests(unittest.TestCase):
