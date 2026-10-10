@@ -159,6 +159,35 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     return defects
 
 
+def validate_shared_league_profiles(rows: list[dict[str, Any]]) -> list[str]:
+    """One immutable channel proof per competition in a new Step-0 sweep.
+
+    Reject a fixture-wise collection of different evidence profiles for the
+    same league. This does not establish whether a URL is currently reachable:
+    the caller must have actually checked its source before freezing it.
+    """
+    known: dict[str, dict[str, Any]] = {}
+    errors: list[str] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            errors.append("LEAGUE_CHANNEL_FIXTURE_ROW_INVALID")
+            continue
+        name = row.get("competition_name") or row.get("competition")
+        if not _nonempty(name):
+            errors.append("LEAGUE_CHANNEL_COMPETITION_NAME_MISSING")
+            continue
+        profile = row.get("league_channel_profile")
+        if not isinstance(profile, dict):
+            errors.append(f"LEAGUE_CHANNEL_PROFILE_MISSING: {name}")
+            continue
+        key = name.strip().casefold()
+        if key in known and known[key] != profile:
+            errors.append(f"LEAGUE_CHANNEL_PROFILE_INCONSISTENT: {name}")
+        else:
+            known[key] = profile
+    return sorted(set(errors))
+
+
 def validate_work_candidate(row: dict[str, Any], *, intake_policy: str = "XI_MARKET_FIRST_V1") -> list[str]:
     """Return explicit operational proof defects, empty only when Work eligible."""
     if not isinstance(row, dict):
