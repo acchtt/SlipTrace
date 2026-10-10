@@ -1,0 +1,47 @@
+name: Step0 portable source transport
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/step0-portable-transport.yml"
+      - "models/football/engine/step0_portable.py"
+      - "models/football/engine/sweep_competition_scope.py"
+      - "models/football/engine/sweep_competition_scope_cli.py"
+      - "models/football/engine/sweep_intake_evidence.py"
+      - "models/football/engine/coverage_manifest.py"
+      - "models/football/engine/step0_handoff_cli.py"
+      - "models/football/engine/step0_package_cli.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  portable-export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify original portable self-check
+        run: python models/football/engine/step0_portable.py self-check
+      - name: Emit immutable revision and digest
+        run: |
+          git rev-parse HEAD > STEP0_PORTABLE_COMMIT.txt
+          sha256sum models/football/engine/step0_portable.py > STEP0_PORTABLE_SHA256.txt
+      - name: Upload verified source for isolated Python runtimes
+        uses: actions/upload-artifact@v4
+        with:
+          name: step0-portable-verified-source
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            STEP0_PORTABLE_COMMIT.txt
+            STEP0_PORTABLE_SHA256.txt
+            models/football/engine/step0_portable.py
+            models/football/engine/sweep_competition_scope.py
+            models/football/engine/sweep_competition_scope_cli.py
+            models/football/engine/sweep_intake_evidence.py
+            models/football/engine/coverage_manifest.py
+            models/football/engine/step0_handoff_cli.py
+            models/football/engine/step0_package_cli.py
