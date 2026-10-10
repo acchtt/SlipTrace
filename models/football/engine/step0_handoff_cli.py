@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from sweep_intake_evidence import validate_work_candidate
+from sweep_intake_evidence import validate_work_candidate, validate_shared_league_profiles
 
 HANDOFF_VERSION = "football-step0-handoff-v2"
 FIELDS = (
@@ -304,6 +304,13 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
                     f"{match_id} missing {key}"
                 )
 
+    if intake_policy == "LEAGUE_CHANNEL_FIRST_V1":
+        shared_errors = validate_shared_league_profiles(queue)
+        if shared_errors:
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — SHARED LEAGUE CHANNEL PROFILE: "
+                + "; ".join(shared_errors)
+            )
     queue_ids = set()
     ranks = set()
     for row in queue:
