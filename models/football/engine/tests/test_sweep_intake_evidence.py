@@ -5,7 +5,7 @@ import unittest
 ENGINE_DIR = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE_DIR))
 
-from sweep_intake_evidence import classify_preflight, validate_work_candidate  # noqa: E402
+from sweep_intake_evidence import classify_preflight, validate_work_candidate, validate_shared_league_profiles  # noqa: E402
 
 
 def valid_fixture():
@@ -73,6 +73,22 @@ def league_candidate(name="Premier League", profile_type="TIER1_STANDARD"):
 
 
 class LeagueChannelFirstTests(unittest.TestCase):
+    def test_same_league_reuses_exact_same_frozen_profile(self):
+        first = league_candidate()
+        second = league_candidate()
+        second["match_id"] = "later-fixture"
+        self.assertEqual(validate_shared_league_profiles([first, second]), [])
+        second["league_channel_profile"]["asian_total_provider_url"] = (
+            "https://differentbook.example.org/league/totals"
+        )
+        self.assertIn("LEAGUE_CHANNEL_PROFILE_INCONSISTENT: Premier League",
+                      validate_shared_league_profiles([first, second]))
+
+    def test_different_leagues_may_have_distinct_verified_profiles(self):
+        rows = [league_candidate("Premier League"), league_candidate("Bundesliga")]
+        self.assertEqual(validate_shared_league_profiles(rows), [])
+
+
     def test_tier1_enter_work_without_match_quote_or_individual_xi(self):
         row = league_candidate()
         self.assertEqual(
