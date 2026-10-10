@@ -319,6 +319,22 @@ paired decision or require another XI research pass. See
 A threshold change requires a distinct reviewed, price-aware,
 prospectively validated policy update.
 
+### Explicit 3rd/4th/5th goal probabilities: research only
+
+For source-complete pre-KO competitive venue-matched histories, the
+optional `models/football/engine/goal_total_probabilities.py --mode estimate`
+reports the modeled chances of three, four and five match goals,
+independently from bookmaker odds. After genuine exact Asian quotes
+with current source/time exist, it can calculate conditional quarter-
+line returns. **UNVALIDATED_RESEARCH_ONLY** always means not an
+executable value edge. The script does not replace the user's live
+quote, independently frozen C/C2 factors, `xi_portable.py pair`,
+or the current official funding decisions. Missing samples never
+delay a time-critical /xi. No recalibration of historical quotes
+or automatic market-centre substitution is permitted.
+Only later-sealed independent holdout data may test accuracy.
+See `models/football/procedures/FOOTBALL_COHERENT_GOAL_BURDEN_QA.md`.
+
 ## 9. Price/action policy
 
 Use the model's independently frozen supported burden and the current revalidated quote.
