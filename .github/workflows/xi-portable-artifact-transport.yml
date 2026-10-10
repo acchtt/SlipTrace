@@ -79,3 +79,5 @@ jobs:
             models/football/engine/competition_reliability.py
             models/football/engine/step2_reconcile.py
             models/football/engine/model_bet_accounting.py
+            models/football/engine/tests/test_adapter.py
+            models/football/engine/tests/test_step2_publication_guard.py
