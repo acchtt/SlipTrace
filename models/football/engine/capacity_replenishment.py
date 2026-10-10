@@ -13,6 +13,7 @@ COMPACT_ADAPTIVE_MAX_RESEARCH = 20
 COMPACT_ADAPTIVE_MINUTES_PER_FIXTURE = 12
 COMPACT_ADAPTIVE_PREMATCH_RESERVE_MINUTES = 30
 COMPACT_REFILL_ACTIVE_TARGET = 4
+COMPACT_MIN_FOLLOW_TO_SATISFY_TARGET = 1
 
 VALID_GRADES = {"A", "B"}
 VALID_STATUSES = {
@@ -203,10 +204,22 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
             )
         research_budget_limit, adaptive_budget_reason = compact_research_limit(payload)
         research_budget_remaining = max(0, research_budget_limit - len(researched))
-        vacancies = min(
-            max(0, COMPACT_REFILL_ACTIVE_TARGET - active_lane_count),
-            research_budget_remaining,
+        # RESERVE is conditional workload, not a substitute for a routine
+        # FOLLOW candidate. Four RESERVEs alone must not terminate discovery.
+        # Keep the existing four-active target once at least one official C
+        # FOLLOW exists; otherwise continue ordered A/B research up to the
+        # standard/adaptive budget and never manufacture a FOLLOW verdict.
+        compact_target_met = (
+            follow_count >= COMPACT_MIN_FOLLOW_TO_SATISFY_TARGET
+            and active_lane_count >= COMPACT_REFILL_ACTIVE_TARGET
         )
+        needed = (
+            0 if compact_target_met
+            else COMPACT_REFILL_ACTIVE_TARGET
+            if follow_count == 0
+            else max(0, COMPACT_REFILL_ACTIVE_TARGET - active_lane_count)
+        )
+        vacancies = min(needed, research_budget_remaining)
         # Do not cross the standard-12 boundary within a batch: when
         # 9–11 have been researched, only finish the original 12 slots.
         # Once 12 are reached, the time evidence attests the NEXT ranked
@@ -236,7 +249,7 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
 
     if policy == COMPACT_POLICY and research_budget_remaining == 0:
         status = "COMPACT_RESEARCH_BUDGET_EXHAUSTED"
-    elif policy == COMPACT_POLICY and active_lane_count >= COMPACT_REFILL_ACTIVE_TARGET:
+    elif policy == COMPACT_POLICY and compact_target_met:
         status = "COMPACT_ACTIVE_TARGET_SATISFIED"
     elif vacancies == 0:
         status = "ACTIVE_LANE_CAPACITY_FULL"
@@ -251,6 +264,7 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
         "follow_count": follow_count,
         "reserve_count": reserve_count,
         "active_lane_count": active_lane_count,
+        "compact_follow_target_met": (follow_count >= COMPACT_MIN_FOLLOW_TO_SATISFY_TARGET) if policy == COMPACT_POLICY else None,
         "vacancies": vacancies,
         "research_budget_remaining": research_budget_remaining,
         "research_budget_limit": research_budget_limit,

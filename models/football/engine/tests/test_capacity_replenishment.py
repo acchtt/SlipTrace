@@ -125,6 +125,56 @@ class CompactCapacityTests(unittest.TestCase):
         self.assertEqual(result["status"], "COMPACT_ACTIVE_TARGET_SATISFIED")
         self.assertEqual(result["selected_match_ids"], [])
 
+    def test_four_reserves_zero_follow_does_not_stop_at_nine(self):
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 4,
+            "researched_match_ids": [f"m{i}" for i in range(1, 10)],
+            "candidates": [
+                row(f"m{i}", i, disposition=(
+                    "ADMITTED_TO_C" if i <= 8 else "OPERATIONAL_CAPACITY_DEFERRED"
+                )) for i in range(1, 31)
+            ],
+        })
+        self.assertEqual(out["status"], "REPLENISHMENT_REQUIRED")
+        self.assertEqual(out["selected_queue_ranks"], [10, 11, 12])
+        self.assertFalse(out["compact_follow_target_met"])
+
+    def test_one_follow_three_reserves_still_satisfies_four_active(self):
+        out = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 1,
+            "reserve_count": 3,
+            "researched_match_ids": [f"m{i}" for i in range(1, 9)],
+            "candidates": [row(f"m{i}", i) for i in range(1, 20)],
+        })
+        self.assertEqual(out["status"], "COMPACT_ACTIVE_TARGET_SATISFIED")
+        self.assertEqual(out["selected_queue_ranks"], [])
+        self.assertTrue(out["compact_follow_target_met"])
+
+    def test_reserve_only_after_twelve_requires_verified_adaptive_time(self):
+        base = [row(f"m{i}", i) for i in range(1, 31)]
+        p = {
+            "budget_policy": COMPACT_POLICY,
+            "follow_count": 0,
+            "reserve_count": 4,
+            "researched_match_ids": [f"m{i}" for i in range(1, 13)],
+            "candidates": base,
+        }
+        without_time = next_replenishment_wave(p)
+        self.assertEqual(without_time["status"], "COMPACT_RESEARCH_BUDGET_EXHAUSTED")
+        self.assertEqual(without_time["selected_match_ids"], [])
+        p["adaptive_research"] = {
+            "enabled": True,
+            "available_research_minutes": 110,
+            "next_candidate_kickoff_minutes": 150,
+        }
+        with_time = next_replenishment_wave(p)
+        self.assertEqual(with_time["status"], "REPLENISHMENT_REQUIRED")
+        self.assertEqual(with_time["selected_queue_ranks"], [13])
+        self.assertEqual(with_time["research_budget_limit"], 20)
+
     def test_compact_refills_four_when_no_active(self):
         result = next_replenishment_wave({
             "budget_policy": COMPACT_POLICY,
@@ -335,7 +385,7 @@ class CompactCapacityTests(unittest.TestCase):
             "researched_match_ids": ["m1"],
             "candidates": [row(f"m{i}", i) for i in range(1, 8)],
         })
-        self.assertEqual(result["selected_queue_ranks"], [2, 3, 4])
+        self.assertEqual(result["selected_queue_ranks"], [2, 3, 4, 5])
 
 
 

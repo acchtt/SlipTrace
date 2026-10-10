@@ -100,6 +100,25 @@ class RankTerminalStatusTests(unittest.TestCase):
         status = rank_terminal_status(p)
         self.assertTrue(status["complete"])
 
+    def test_four_reserves_without_follow_cannot_claim_target_satisfied(self):
+        p = {
+            "ranked_eligible_count": 8,
+            "quarantine_count": 0,
+            "follow_count": 0,
+            "reserve_count": 4,
+            "stop_count": 4,
+            "remaining_prematch_deferred_count": 21,
+            "board_integrity_failure": False,
+            "integrity_failure_reason": "",
+            "budget_policy": "COMPACT_GOAL_ROUTE_V1",
+            "capacity_replenishment_status": "COMPACT_ACTIVE_TARGET_SATISFIED",
+            "research_budget_remaining": 3,
+        }
+        with self.assertRaisesRegex(RankTerminalStatusError, "at least 1 FOLLOW"):
+            rank_terminal_status(p)
+        p["capacity_replenishment_status"] = "REPLENISHMENT_REQUIRED"
+        self.assertTrue(rank_terminal_status(p)["replenishment_required"])
+
     def test_compact_wave_required_until_approved_budget_consumed(self):
         p = {
             "ranked_eligible_count": 8,
