@@ -203,6 +203,23 @@ Report the `MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace`.
 
 Market history is a reinspection trigger, not a model. Price movement never creates a scoring route and cannot override football evidence.
 
+### Provisional tournament incentive received from Step 1
+
+A new board may legitimately contain C-FOCUS/C2-FOCUS and a
+`PROVISIONAL_INCENTIVE` supported line when the competition's
+qualifying/aggregate/tiebreak state was LIMITED or UNKNOWN at /rank.
+**Do not reject or delete that match from the board.** It is a research
+priority that must now be resolved in the fresh /xi assessment.
+
+The Step 2 decision engine continues to require genuinely verified
+tournament facts in its **current** match input and
+`tournament_incentive_rechecked=true` /
+`tournament_incentive_recheck_status=VERIFIED`. A context flag saying
+VERIFIED cannot override a missing or UNKNOWN fact in the match input.
+If still unresolved, report `DECISION BLOCKED — TOURNAMENT INCENTIVE
+UNRESOLVED` without fabricating an odds/goal/action. C2 is subject
+to the same proof and stays shadow-only.
+
 ## 6. Tournament-incentive recheck
 
 When `tournament_incentive_required=true`, re-establish before the decision:
