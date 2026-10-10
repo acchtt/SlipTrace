@@ -243,6 +243,80 @@ Apply the procedure exactly:
 
 Do not upgrade a fixture because its score history looks attractive. Small-league status alone is not a rejection; missing XI/market/team-news observability is.
 
+## 4-FAST. Deterministic country/competition scope BEFORE league research
+
+For new FAST_PRODUCTION sweeps, **first** classify the competition/date
+blocks from the acquired source seed with
+`python models/football/engine/step0_portable.py scope --input <competition_blocks.json>`
+(or the original `sweep_competition_scope_cli.py` if the checkout exists).
+Supply actual `competition_name`, `country`, `competition_kind` from the
+fixture source, not guesses. Persist
+`competition_scope_policy=REGISTRY_FIRST_V1` and the same
+`competition_scope_blocks` in the completed handoff.
+
+- `SCOPE_EXCLUDED` (Bangladesh domestic leagues, unlisted small/weak domestic
+  leagues, Indonesian second divisions, standing domestic country exclusions,
+  Germany 3. Liga, etc.): retain already seen raw fixture identities/counts
+  for audit but **NO fixture-by-fixture lineup/market/news research**, no
+  targeted discovery, no pending verification retries and no Work admission.
+- `ROUTINE_LEAGUE_PROFILE`: verify one shared legitimate provider profile
+  per league, not per-match XI and Asian odds.
+- `CONDITIONAL_CHEAP_GATE`: apply the existing cheap evidence gate only for
+  explicit whitelist leagues.
+- `PROTECTED_CONTEXT_REVIEW`, `CUP_CHANNEL_REVIEW`: preserve actual
+  official senior/major cup fixtures (including an Australia Cup final when
+  within the requested window) for targeted stage/team-source review. Do not
+  misclassify domestic cup finals as ordinary obscure leagues, and do not
+  automatically admit them without evidence.
+- `COVERAGE_AUDIT_PROOF_REQUIRED` / `RAW_COVERAGE_ONLY`: retain
+  source-visible senior women's top-flight/required discovery accounting,
+  and only admit to Work if the independent league/source profile qualifies.
+- `SCOPE_UNRESOLVED`: hold outside Work until competition identity and
+  competition kind are established. Never invent a country or allowlist name.
+
+These are scope decisions only, not C or C2 betting predictions. User-directed
+one-run exceptions require separate explicit authorization and never rewrite
+the saved scope policy of an earlier run. Preserve all original source hash,
+fixture kickoffs, required/protected/women coverage and league exceptions.
+
+### No checkout required for Step-0 packaging
+
+Run Step 0 validation/package **in this same Normal Chat** when Python
+execution is available. Do not redirect to ChatGPT Work merely because
+`git clone` or raw container networking cannot reach GitHub.
+
+1. Resolve current `acchtt/SlipTrace` SHA using the connected GitHub source.
+2. Fetch the SINGLE pinned `models/football/engine/step0_portable.py`
+   file and place the exact retrieved bytes into the Python runtime.
+   Verify the upstream blob SHA and run
+   `python step0_portable.py self-check`. It embeds the original
+   `step0_handoff_cli.py`, `coverage_manifest.py`,
+   `step0_package_cli.py`, league intake and scope evaluators.
+   No GitHub checkout, `pip install` or external Python libraries needed.
+   If connector text cannot be transferred to Python, record the exact
+   `SOURCE_TRANSPORT_BLOCKED` boundary and offer the single-file GitHub
+   source as an attachment path **in the same chat**, not a Work-mode handoff.
+   Never mistake a green GitHub CI job for proof the script ran locally.
+3. Fetch/serialize the actual frozen Step-0 data and an **independently
+   re-read Airtable** Sweep Runs/coverage ledger proof, preserving original
+   hashes and evidence. Do not fabricate the run proof or upgrade
+   `complete=false` to true.
+4. Run `python step0_portable.py validate --input STEP0_HANDOFF.json
+   --consumer export`, then only if PASS:
+   `python step0_portable.py package --input STEP0_HANDOFF.json
+   --text AISCORE_FIXTURES_<window>.txt
+   --run-proof sweep_run_proof.json
+   --output AISCORE_FIXTURES_<window>.zip`.
+5. Publish the final ZIP in the same chat only when the portable script
+   returns `STEP0 WORK ZIP VALIDATED`. A real evidence deficiency blocks
+   the fixture/queue; missing source transport must never be disguised as
+   missing football evidence.
+
+For already-running sweeps (including the 37-fixture Oct 10 checkpoint),
+preserve the original ledger and `XI_MARKET_FIRST_V1` source policy. The
+single-file runtime may perform the original existing validator and
+packager without changing that existing run's semantics.
+
 ## 4A. League-channel-first Step-0 gate — new runs only
 
 For fresh runs, use `models/football/procedures/FOOTBALL_LEAGUE_CHANNEL_FIRST_INTAKE.md` and serialize `strict_intake_policy=LEAGUE_CHANNEL_FIRST_V1`. **Do not repeat XI/provider and bookmaker-total searches individually for every fixture in Tier 1 leagues.** Establish a reusable source-backed **league-season provider channel profile ONCE per competition**, covering historical matchday-XI publication, availability of Asian-total bookmaker screens and credible team news. `TIER1_STANDARD` is only valid for the explicit known data-coverage leagues in the code; professional/women/lower leagues outside the Tier 1 list can use `PROVEN_LEAGUE` only after verifying multiple genuine past fixture channels. Tier 1 does not mean a team will score, a specific market is offered, an XI is already announced or an excluded league is restored.
