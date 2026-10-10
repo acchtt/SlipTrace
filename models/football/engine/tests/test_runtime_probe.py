@@ -19,6 +19,13 @@ class RuntimeProbeTests(unittest.TestCase):
     def test_rank_manifest_contains_active_board_pair(self):
         files = required_files("rank")
         self.assertIn("models/football/engine/board_pair_cli.py", files)
+        for filename in (
+            "models/football/engine/sweep_intake_evidence.py",
+            "models/football/engine/sweep_intake_evidence_cli.py",
+            "models/football/engine/step0_handoff_cli.py",
+            "models/football/engine/coverage_manifest.py",
+        ):
+            self.assertIn(filename, files)
         self.assertNotIn("models/football/engine/board_triplet_cli.py", files)
         self.assertNotIn("models/football/engine/c4_semantic_cli.py", files)
         self.assertIn(
