@@ -1,7 +1,7 @@
 # Football Runtime Execution Bootstrap
 
 **Status:** MANDATORY EXECUTION PRECHECK  
-**Applies to:** any football stage that requires deterministic Python execution, including `/rank`, `/xi`, and `/audit`  
+**Applies to:** any football stage that requires deterministic Python execution, including `/sweep`, `/rank`, `/xi`, and `/audit`  
 **Repository:** `acchtt/SlipTrace`  
 **Purpose:** prevent false "Python unavailable" / "GitHub unavailable" / "engine unavailable" claims
 
@@ -65,6 +65,34 @@ and continue through the GitHub connector/source path.
 Do not write "GitHub unavailable" unless the actual GitHub connector/source call itself failed and no exact-current Project/Files source is available.
 
 ### C. Source materialization
+
+For stage=`sweep`, use the portable Step-0 path first (fresh or
+PACKAGING/REPAIR without an existing local checkout):
+
+1. Resolve current GitHub `acchtt/SlipTrace@main` exact commit.
+2. Fetch ONLY `models/football/engine/step0_portable.py` at that commit and
+   preserve the actual Git blob SHA. Transfer those exact source bytes into
+   the currently available Python runtime. No `git clone`, checkout, pip or
+   local copy of other source files is necessary.
+3. Run `python step0_portable.py self-check` (the embedded source's blob
+   hashes and importability are checked against pinned original modules).
+   Required success: `STEP0 PORTABLE SELF-CHECK PASS`.
+4. For new scope preflight:
+   `python step0_portable.py scope --input competition_blocks.json`.
+   For a completed, current, externally read-back handoff:
+   `python step0_portable.py validate --input STEP0_HANDOFF.json --consumer export`
+   then
+   `python step0_portable.py package --input STEP0_HANDOFF.json --text AISCORE_FIXTURES_<window>.txt --run-proof sweep_run_proof.json --output AISCORE_FIXTURES_<window>.zip`.
+5. Pass only a validated archive to /rank. A provisional handoff, current
+   evidence gap or unresolved required competition still blocks packaging
+   regardless of portable runtime availability. Do not turn false status
+   markers into true.
+6. If GitHub connector source is readable but its bytes cannot reach the
+   Python tool, the **exact** failure is `SOURCE_TRANSPORT_BLOCKED`. Offer
+   the portable single Python file for attachment in the SAME normal chat.
+   Never conclude that a ChatGPT Work-mode switch is inherently required.
+   GitHub CI tests do **not** prove the current conversation transferred or
+   executed source successfully.
 
 For stage=`xi`, use the portable fast path first:
 
