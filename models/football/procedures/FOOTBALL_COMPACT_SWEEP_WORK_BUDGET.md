@@ -36,16 +36,16 @@ For new sweeps carrying `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`:
 | Initial deep Work wave | **8** | ranks 1–8 of frozen **operational** A/B queue; ranks 9+ remain explicitly `OPERATIONAL_CAPACITY_DEFERRED` |
 | Standard unique-fixture research ceiling / slate | **12** | includes initial 8 + at most 4 routine replenished fixtures |
 | Adaptive safety ceiling | **20** | further qualification-only research after twelve, only with current-time attestation and underfilled active lanes; NEVER an automatic request to research twenty |
-| Automatic replenishment target | **4 active lanes** | replenish only while current `FOLLOW+RESERVE < 4`, even under adaptive mode |
+| Automatic replenishment target | **At least 1 FOLLOW and 4 active lanes** | Four RESERVE-only fixtures do not complete the research target; continue eligible ranks to 12, then time-verified adaptive up to 20 |
 | FOLLOW capacity | **6** | existing ceiling preserved |
 | RESERVE capacity | **4** | existing ceiling preserved |
 | Queue ranking | Operational A/B, XI, market, news, protected/major tie-break, canonical identity | **Never sort by O2.5%, goals, attractiveness, model state, odds, or projected winner** |
 
-If the time-attested research budget is exhausted, persist `COMPACT_RESEARCH_BUDGET_EXHAUSTED`; do not fabricate more picks. The frozen overflow pool stays auditable. If 4 active lanes exist, do **not** automatically research extra matches even on a busy board.
+If the time-attested research budget is exhausted, persist `COMPACT_RESEARCH_BUDGET_EXHAUSTED`; do not fabricate more picks. The frozen overflow pool stays auditable. If at least 1 FOLLOW and 4 active lanes exist, stop routine research. If FOLLOW remains zero, four RESERVE fixtures alone cannot stop replenishment while valid time and research budget remain.
 
 ### Conditional extra research after the first 12 — no cherry picking
 
-The first 8 and the first 4 routine replenishments are unchanged. Only when the **same frozen A/B queue has additional eligible PREMATCH_CONFIRMED rows**, C's active `FOLLOW+RESERVE < 4`, and twelve fixtures have already been researched, Step 01 may extend its workload to a maximum of **20**. The available time must be checked again on **each** call; this is a safety cap, not permission to use more time than is actually available.
+The first 8 and the first 4 routine replenishments are unchanged. Only when the **same frozen A/B queue has additional eligible PREMATCH_CONFIRMED rows**, C has no FOLLOW or fewer than 4 active lanes, and twelve fixtures have already been researched, Step 01 may extend its workload to a maximum of **20**. The available time must be checked again on **each** call; this is a safety cap, not permission to use more time than is actually available.
 
 Pass `adaptive_research` to `capacity_replenishment_cli.py` as an exact object:
 
@@ -65,7 +65,7 @@ Always research **the lowest still-eligible immutable Step0 queue ranks first**,
 
 This optional extension is prospective and does not alter the original handoff's admission count, cutoff ranks, operational classifications or source evidence. Legacy/noncompact handoffs remain on their existing 15/10 behavior.
 
-This policy shrinks the **initial Work wave** 15→8 and prevents unbounded automatic replenishment; it does **not** promise eight good bets. Zero FOLLOW is a valid final slate outcome.
+This policy shrinks the **initial Work wave** 15→8 and prevents unbounded automatic replenishment; it does **not** promise eight good bets. Zero FOLLOW is a valid final slate outcome **only after** the available A/B queue closes or the valid 12/20 research/time budget is exhausted. Four RESERVE lanes alone cannot certify completion.
 
 ## 4. Step 1 bounded goal-route check (context only, never hard veto)
 
