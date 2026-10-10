@@ -1,7 +1,7 @@
 # Football Day-Ahead XI + Asian-Market Intake Gate — revision 2026-10-09
 
 **Status:** ACTIVE prospective Step-0 operational admission evidence, with a **day-ahead expectation** rather than matchday confirmed-XI requirement.
-**Policy marker:** `XI_MARKET_FIRST_V1` (compatible marker; October 9 revision fixes over-strict early confirmation).
+**Policy marker:** `XI_MARKET_FIRST_V1` — **legacy fixture-specific intake and current Step-01 downstream verification**. For NEW Step-0 sweeps, `LEAGUE_CHANNEL_FIRST_V1` in `FOOTBALL_LEAGUE_CHANNEL_FIRST_INTAKE.md` is authoritative: league/channel proof at Step 0, actual match-specific bookmaker odds and individual XI publishing checks at Step 01. Never use this original Step-0 match-level requirement to reject a valid league-first Work handoff.
 **Engine:** `models/football/engine/sweep_intake_evidence.py` + `sweep_intake_evidence_cli.py`; `step0_handoff_cli.py` enforces it for new compact runs and explicitly marked unfinished legacy runs.
 **Work-budget independence:** New `COMPACT_GOAL_ROUTE_V1` runs still use initial 8 / total 12 / refill-to-4. An unfinished legacy run opting into XI screening **retains** initial 15 / refill-to-10. C official, C2 shadow unchanged.
 
