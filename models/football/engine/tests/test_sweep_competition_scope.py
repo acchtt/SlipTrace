@@ -43,11 +43,23 @@ class ScopeFirstTests(unittest.TestCase):
                              ("Eerste Divisie","Netherlands"),("Eliteserien","Norway")):
             self.assertEqual(classify_competition(c(name,country))["lane"],"ROUTINE_LEAGUE_PROFILE")
 
-    def test_explicit_user_domestic_exclusions_stronger_than_market_channels(self):
-        for name,country in (("J1 League","Japan"),("K League 1","South Korea"),
-                             ("3. Liga","Germany"),("Premier League","Wales"),
-                             ("Premier League","Israel")):
+    def test_excluded_domestic_leagues_still_fail_early(self):
+        for name,country in (("3. Liga","Germany"),("Premier League","Wales"),
+                             ("Premier League","Israel"),("Premier League","Bangladesh")):
             self.assertEqual(classify_competition(c(name,country))["lane"],"SCOPE_EXCLUDED")
+
+    def test_goal_context_is_not_a_step0_researchability_exclusion(self):
+        for name,country in (("J1 League","Japan"),("Japan J2 League","Japan"),
+                             ("K League 1","South Korea")):
+            with self.subTest(competition=name):
+                self.assertEqual(classify_competition(c(name,country))["lane"],"ROUTINE_LEAGUE_PROFILE")
+        self.assertEqual(classify_competition(c("K League 2","South Korea"))["lane"],"CONDITIONAL_CHEAP_GATE")
+        self.assertEqual(classify_competition(c("K League 2","Bangladesh"))["lane"],"SCOPE_EXCLUDED")
+
+    def test_registered_womens_cup_requires_proof_and_womens_topflight_kept(self):
+        self.assertEqual(classify_competition(c("Japan WE League Cup","Japan","DOMESTIC_CUP"))["lane"],"CUP_CHANNEL_REVIEW")
+        self.assertEqual(classify_competition(c("WE League Cup","Bangladesh","DOMESTIC_CUP"))["lane"],"RAW_COVERAGE_ONLY")
+        self.assertEqual(classify_competition(c("WE League","Japan","WOMENS_TOP_FLIGHT"))["lane"],"COVERAGE_AUDIT_PROOF_REQUIRED")
 
     def test_cups_protected_and_womens_raw_coverage_separate(self):
         rows=[
