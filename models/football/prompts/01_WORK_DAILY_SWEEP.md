@@ -379,7 +379,7 @@ When the match context makes tournament incentive material, establish before fin
 - away incentive;
 - net incentive effect.
 
-If required fields remain LIMITED/UNKNOWN, use the documented fixture-local hold/incomplete disposition. Do not turn unresolved incentive into a normal actionable board state.
+If applicable fields remain LIMITED/UNKNOWN, **keep the match in the normal C/C2 ranked research board**, with `INCENTIVE_RECHECK_REQUIRED`, explicit missing-fields metadata and a provisional supported line. Resolve the incentive during fresh /xi before any executable BET/WAIT/PASS; never declare the unresolved board a verified betting assessment.
 
 ## 7. Football C official board
 
