@@ -21,7 +21,11 @@ timestamps to make a fixture look researched.
 One real provider-verified league profile can be attached unchanged to multiple
 in-window fixture rows and persisted once in the competition block's evidence
 manifest. Each admitted/deferred row references the frozen same profile and
-carries `intake_evidence_scope=LEAGUE_CHANNEL_ONLY`.
+carries `intake_evidence_scope=LEAGUE_CHANNEL_ONLY`. Both the cheap preflight
+and final Step-0 handoff validate that **all fixtures of the same league use
+the identical frozen league profile** (source URLs, observation epoch,
+season and basis); contradictory fixture-by-fixture profiles are blocked,
+not silently treated as independent league verification.
 
 Example **shape only** (URLs and dates below are placeholders; replace with
 actually visited/confirmed sources, never claim the example is verified):
@@ -93,8 +97,13 @@ predictive scoring for each candidate, Work must:
    `MARKET_SOURCE_NOT_AVAILABLE` if unable;
 3. verify actual two-sided lineup publication channels/starting XI state,
    retaining `UNCERTAIN` when XI is not released;
-4. serialize the original `XI_MARKET_FIRST_V1` fixture evidence contract
-   and run the existing strict `validate_work_candidate` on it;
+4. bind the researched match-specific data to the exact frozen Step0
+   fixture (match ID, league, UTC kickoff, original A/B grade and exclusions),
+   serialize `{"source_intake_policy":"LEAGUE_CHANNEL_FIRST_V1",
+   "frozen_step0_candidate":{...},"researched_fixture":{...}}`, and run
+   `python models/football/engine/step1_fixture_intake_cli.py --input <file.json>`;
+   it executes the original `XI_MARKET_FIRST_V1` strict check for real
+   bookmaker/line/timestamp, XI channels and news before C/C2 scoring;
 5. run both C official/C2 shadow only after that check passes. If fixture
    proof is missing or the market is stale, classify `STEP1_RESEARCH_BLOCKED`
    and continue ordered replenishment without a model claim; do not send an

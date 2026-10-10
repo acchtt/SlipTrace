@@ -422,7 +422,16 @@ class T(unittest.TestCase):
         result = self.runp(p, consumer="export")
         self.assertEqual(result.returncode, 0, result.stderr)
 
-        p["capacity_queue"][0]["league_channel_profile"]["asian_total_provider_url"] = ""
+        # Evidence for the Premier League is cached ONCE per competition,
+        # never silently substituted for a different provider on row two.
+        p["capacity_queue"][1]["league_channel_profile"]["asian_total_provider_url"] = "https://other.example.org/totals"
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("LEAGUE_CHANNEL_PROFILE_INCONSISTENT", result.stderr)
+        p["capacity_queue"][1]["league_channel_profile"]["asian_total_provider_url"] = "https://book.example.org/league/totals"
+
+        for item in p["capacity_queue"]:
+            item["league_channel_profile"]["asian_total_provider_url"] = ""
         result = self.runp(p, consumer="rank")
         self.assertEqual(result.returncode, 2)
         self.assertIn("LEAGUE_ASIAN_TOTAL_PROVIDER_URL_MISSING", result.stderr)

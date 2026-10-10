@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from sweep_intake_evidence import classify_preflight, LEAGUE_CHANNEL_POLICY
+from sweep_intake_evidence import (classify_preflight, LEAGUE_CHANNEL_POLICY, validate_shared_league_profiles)
 
 
 def main() -> int:
@@ -21,6 +21,10 @@ def main() -> int:
         intake_policy = data.get("intake_policy", "XI_MARKET_FIRST_V1")
         if intake_policy not in {"XI_MARKET_FIRST_V1", LEAGUE_CHANNEL_POLICY}:
             raise ValueError("unknown intake_policy")
+        if intake_policy == LEAGUE_CHANNEL_POLICY:
+            shared_errors = validate_shared_league_profiles(data["candidates"])
+            if shared_errors:
+                raise ValueError("; ".join(shared_errors))
         found = set()
         ready, excluded, pending = [], [], []
         for i, row in enumerate(data["candidates"]):
