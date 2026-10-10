@@ -6,7 +6,7 @@
 
 ## 1. Trigger
 
-Run this check for every fixture in:
+Flag this check during discovery for every fixture in:
 - knockout cups;
 - two-legged ties;
 - group-stage tournaments;
@@ -15,7 +15,7 @@ Run this check for every fixture in:
 - final-round league/group matches with qualification, relegation, title, seeding, goal-difference or margin incentives;
 - any user-declared tournament/cup exception.
 
-If format or incentive may materially affect tempo, this check is mandatory before supported burden is frozen or raised.
+If format or incentive may materially affect tempo, flag it at discovery/ranking and resolve it before any *actionable* supported burden is authorized or raised at Step 2.
 
 ## 2. PRE format facts — mandatory
 
@@ -37,62 +37,39 @@ Establish from a current authoritative source when available:
 
 Do not infer "must win" from tournament branding. Verify the actual state.
 
-## 2A. Assessment completion hard gate
+## 2A. Stage-specific ranking versus executable decision requirements
+
+**Stage 0 and Step 1 (discovery, ranking and research): non-blocking.**
 
 Every fixture must explicitly set:
+`tournament_incentive_required = true / false`.
 
-`tournament_incentive_required = true / false`
+- If false, all structured incentive fields must explicitly be `NOT_APPLICABLE`.
+- If true, record all known facts and label unknown/missing facts `UNKNOWN`. Do **not** invent qualification, tiebreak or margin conclusions. A partial record can be ranked; the engine normalizes missing material fields to `UNKNOWN` only for the provisional board metadata.
+- `LIMITED` / `UNKNOWN` format, qualification, simultaneous-results or incentive fields **never remove the match from Step 1 C or C2 scoring/ranking**. They yield `tournament_incentive_resolution = INCENTIVE_RECHECK_REQUIRED`, an explicit `tournament_incentive_unresolved_fields` array and `supported_line_status = PROVISIONAL_INCENTIVE`.
+- C-FOCUS, C-WATCH, C-PASS and the normal operational FOLLOW/RESERVE/STOP workload lane may be produced to prioritize **research**, but they cannot be interpreted as authorization to bet. A provisional supported line is an **analysis target**, not a validated betting burden.
+- Keep every unresolved tournament fixture on the research board, with its original source, identity, queue rank and flags. Do not place it on an independent hold lane that discards it from capacity. Do not fabricate tournament incentives to make a row look VERIFIED.
 
-before Football C/C2 can classify it.
+**Step 2 (/xi current assessment) and /live actionable epochs: hard gate.**
 
-- If false, the structured incentive fields must explicitly be `NOT_APPLICABLE`.
-- If true, the complete format/incentive block in Sections 2–3 must be present.
-- Unknown facts are recorded as `UNKNOWN`; they are never silently omitted.
-- **Presence is not resolution.** A populated block with material `LIMITED` / `UNKNOWN` values is still incomplete for action.
+Before issuing **any C or C2 BET, WAIT, PASS or market/line authorization** on an applicable tournament match, the decision must contain fully resolved present-day incentive facts and independent `tournament_incentive_rechecked=true` with `tournament_incentive_recheck_status=VERIFIED`.
 
-For an applicable fixture, Step 1 is resolved only when all are true:
-- `tournament_format_status = VERIFIED`;
-- competition stage and format are verified;
-- draw resolution is verified;
-- aggregate/tie state is verified or explicitly not applicable;
-- `qualification_state` states exactly what each side needs;
-- home and away incentive are not UNKNOWN;
+For an applicable fixture, resolution requires:
+- `tournament_format_status = VERIFIED`, with competition stage, format, draw resolution and aggregate state properly verified;
+- `qualification_state` and both teams' incentive states actually known;
 - `tiebreak_margin_relevance = YES / NO`;
-- `incentive_effect` is resolved;
-- `simultaneous_results_status = VERIFIED / NOT_APPLICABLE`, with the impact recorded.
+- `incentive_effect` resolved and no material UNKNOWN fields;
+- `simultaneous_results_status = VERIFIED / NOT_APPLICABLE`, with real impact verified.
 
-If the block is absent:
+If unresolved at Step 2:
 
-`ASSESSMENT INCOMPLETE — TOURNAMENT INCENTIVE CHECK MISSING`
+`DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
 
-If the block exists but any material item remains LIMITED / UNKNOWN / unresolved:
-
-`ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
-
-In either case:
-- do not freeze an official supported burden;
-- do not issue C-PASS / C-WATCH / C-FOCUS;
-- do not issue a C2 board state;
-- do not assign FOLLOW / RESERVE;
-- retain the fixture separately as `INCENTIVE-INCOMPLETE` for resolution.
-
-At Step 2, an applicable fixture must explicitly record:
-
-`tournament_incentive_rechecked = true`
-
-after the fresh post-XI/current-table recheck. Otherwise:
+If the current recheck was omitted:
 
 `DECISION BLOCKED — TOURNAMENT INCENTIVE RECHECK MISSING`
 
-Do not issue C-BET/C-WAIT/C-PASS or C2-BET/C2-WAIT/C2-PASS from an incomplete epoch.
-
-At live state, every goal/red card/material simultaneous-table change creates a new incentive epoch. If the incentive epoch cannot be recomputed:
-
-`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
-
-No live Over execution is allowed from the stale incentive state.
-
-These are evidence-completeness gates, not predictive threshold changes.
+This is **a decision-specific integrity blocker only**, never justification for deleting or pre-emptively refusing the ranked fixture. The post-XI fresh verified state is a **new evidence epoch** and cannot rewrite the historical provisional Step 1 classification. User exceptions do not waive decision-stage safety.
 
 ## 3. Freeze incentive state
 
@@ -146,7 +123,7 @@ If post-XI evidence would raise the supported total above the frozen PRE burden,
 
 If `DRAW_ACCEPTABLE`, `PROTECT_AGGREGATE`, direct-penalty access, or another control state is materially relevant, do not upgrade burden solely from XI strength.
 
-If format/incentive is `LIMITED` or `UNKNOWN`, the fixture is **not actionable**. Do not freeze/retain an official supported burden for betting purposes and do not issue C/C2 action until the incentive state is resolved.
+If format/incentive is `LIMITED` or `UNKNOWN`, the fixture **remains eligible for Step 1 ranking and research** with a provisional burden and mandatory recheck flag. It is **not actionable** until verified at Step 2.
 
 ## 6. Score-state matrix
 
@@ -235,10 +212,10 @@ Any future change to C2 predictive thresholds still requires the normal challeng
 
 The following is explicitly invalid:
 
-`tournament block present -> LIMITED/UNKNOWN qualification or tiebreak state -> C-FOCUS / supported O-line -> normal Step 2`
+`tournament block provisional -> LIMITED/UNKNOWN -> bypass /xi recheck -> executable BET/WAIT/PASS`
 
 Correct handling:
 
-`LIMITED/UNKNOWN -> INCENTIVE-INCOMPLETE -> resolve qualification/tiebreak/margin/simultaneous-result state -> new frozen evidence epoch -> only then C/C2 classification`
+`LIMITED/UNKNOWN -> C/C2 provisional ranked board + INCENTIVE_RECHECK_REQUIRED -> resolve at /xi -> new verified evidence epoch -> C/C2 executable decision`
 
 Do not interpret “we checked the tournament” as equivalent to “the tournament incentive is resolved.”
