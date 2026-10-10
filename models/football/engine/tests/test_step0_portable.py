@@ -41,6 +41,20 @@ class PortableStep0Tests(unittest.TestCase):
         })
         self.assertEqual(x["lane"], "SCOPE_EXCLUDED")
 
+    def test_researchable_japan_and_korean_leagues_preserved_in_portable(self):
+        self.portable._load()
+        from sweep_competition_scope import classify_competition
+        for competition, country, expected in (
+            ("J1 League","Japan","ROUTINE_LEAGUE_PROFILE"),
+            ("J2 League","Japan","ROUTINE_LEAGUE_PROFILE"),
+            ("K League 1","South Korea","ROUTINE_LEAGUE_PROFILE"),
+            ("K League 2","South Korea","CONDITIONAL_CHEAP_GATE"),
+            ("WE League Cup","Japan","CUP_CHANNEL_REVIEW"),
+        ):
+            kind = "DOMESTIC_CUP" if competition == "WE League Cup" else "DOMESTIC_LEAGUE"
+            result = classify_competition({"competition_name":competition,"country":country,"competition_kind":kind})
+            self.assertEqual(result["lane"],expected)
+
     def test_portable_package_same_guarded_success_and_failure(self):
         self.portable._load()
         from step0_package_cli import package, Step0HandoffError

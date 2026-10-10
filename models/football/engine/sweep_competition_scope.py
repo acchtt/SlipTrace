@@ -27,6 +27,8 @@ PRIORITY_NORMAL = frozenset({
     "brazil serie a", "brazilian serie a", "liga mx",
     "liga de expansion mx", "liga de expansión mx", "ascenso mx",
     "saudi pro league",
+    "j1 league", "japan j1 league", "j2 league", "japan j2 league",
+    "k league 1", "korea k league 1",
 })
 CONDITIONAL = frozenset({
     "czech first league", "czech first division", "ekstraklasa",
@@ -40,6 +42,7 @@ CONDITIONAL = frozenset({
     "bolivian division profesional", "chile primera division",
     "colombia primera a", "ecuador ligapro serie a",
     "uruguay primera division", "russian premier league",
+    "k league 2", "korea k league 2",
 })
 # Names are never country-agnostic: "Premier League", "Serie A" and
 # "Bundesliga" are used by many weak-data competitions.
@@ -66,6 +69,9 @@ REGISTERED_DIRECT = {
     "brazil": {"serie a", "brazil serie a", "brazilian serie a"},
     "mexico": {"liga mx", "liga de expansion mx", "liga de expansión mx", "ascenso mx"},
     "saudi arabia": {"saudi pro league"},
+    "japan": {"j1 league", "japan j1 league", "j2 league", "japan j2 league"},
+    "south korea": {"k league 1", "korea k league 1"},
+    "korea": {"k league 1", "korea k league 1"},
 }
 REGISTERED_CONDITIONAL = {
     "czech republic": {"czech first league", "czech first division"},
@@ -92,13 +98,17 @@ REGISTERED_CONDITIONAL = {
     "ecuador": {"ecuador ligapro serie a"},
     "uruguay": {"uruguay primera division"},
     "russia": {"russian premier league"},
+    "south korea": {"k league 2", "korea k league 2"},
+    "korea": {"k league 2", "korea k league 2"},
 }
-# Explicit user domestic exclusions are stricter than Tier-1 channel status.
+# Explicit user domestic exclusions remain strict. Japan J1/J2 are now explicitly
+# researchable; domestic goal-rate concerns are evaluated only by Football C/C2
+# in Step01, never treated as missing XI/market researchability in Step0.
 EXCLUDED_DOMESTIC_COUNTRIES = frozenset({
     "bangladesh", "israel", "kenya", "iraq", "wales", "kuwait",
-    "finland", "japan",
+    "finland",
 })
-LOW_GOAL_DOMESTIC = frozenset({
+GOAL_CONTEXT_ONLY_DOMESTIC = frozenset({
     ("vietnam", "v league 1"), ("south korea", "k league 1"),
     ("argentina", "argentina primera division"),
     ("argentina", "liga profesional"),
@@ -114,6 +124,10 @@ CUP_INSPECTION = frozenset({
     "copa del rey", "coppa italia", "coupe de france",
     "knvb beker", "portuguese cup", "taca de portugal",
     "us open cup",
+})
+# Match the competition AND country to avoid generic cup aliases leaking.
+REGISTERED_WOMENS_CUP_INSPECTION = frozenset({
+    ("japan", "we league cup"), ("japan", "japan we league cup"),
 })
 
 
@@ -138,8 +152,6 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
     if kind == "DOMESTIC_LEAGUE":
         if country in EXCLUDED_DOMESTIC_COUNTRIES and not override:
             return {"lane": "SCOPE_EXCLUDED", "reason": "EXPLICIT COUNTRY DOMESTIC LEAGUE EXCLUSION"}
-        if (country, name) in LOW_GOAL_DOMESTIC and not override:
-            return {"lane": "SCOPE_EXCLUDED", "reason": "LOW-GOAL DOMESTIC REGISTRY EXCLUSION"}
         if country == "germany" and name in {"3 liga", "3 liga germany"} and not override:
             return {"lane": "SCOPE_EXCLUDED", "reason": "GERMANY 3. LIGA USER EXCLUSION"}
         if name in PRIORITY_NORMAL and name in REGISTERED_DIRECT.get(country, set()):
@@ -154,6 +166,8 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
             return {"lane": "RAW_COVERAGE_ONLY", "reason": "USER EXCLUDED DOMESTIC WOMEN'S LEAGUE"}
         return {"lane": "COVERAGE_AUDIT_PROOF_REQUIRED", "reason": "WOMENS TOP-FLIGHT RAW COVERAGE, PROVE CHANNELS FOR WORK"}
     if kind == "DOMESTIC_CUP":
+        if (country, name) in REGISTERED_WOMENS_CUP_INSPECTION:
+            return {"lane": "CUP_CHANNEL_REVIEW", "reason": "REGISTERED WOMENS PROFESSIONAL CUP — REQUIRE LEAGUE XI/MARKET CHANNEL PROOF"}
         if name in CUP_INSPECTION:
             return {"lane": "CUP_CHANNEL_REVIEW", "reason": "MAJOR SENIOR CUP — VERIFY STAGE/TEAMS/PROVIDER"}
         return {"lane": "RAW_COVERAGE_ONLY", "reason": "UNLISTED DOMESTIC CUP — NO DEEP ROUTINE SEARCH"}
