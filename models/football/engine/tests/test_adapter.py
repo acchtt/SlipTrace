@@ -474,7 +474,7 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(result["matches"][0]["follow_lane"], "FOLLOW")
 
-    def test_high_stall_risk_blocks_two_sided_follow(self):
+    def test_high_stall_risk_does_not_block_operational_follow(self):
         result = run_board(
             {
                 "schema_version": "football-engine-v1",
@@ -489,7 +489,7 @@ class BoardContractTests(unittest.TestCase):
                 ],
             }
         )
-        self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
+        self.assertEqual(result["matches"][0]["follow_lane"], "FOLLOW")
 
     def test_c2_does_not_inherit_c_burden_completion_ranking(self):
         result = run_board(
