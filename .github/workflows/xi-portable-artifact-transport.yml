@@ -1,0 +1,81 @@
+name: XI C+C2 portable verified runtime artifact
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/xi-portable-artifact-transport.yml"
+      - "models/football/engine/xi_portable.py"
+      - "models/football/engine/core.py"
+      - "models/football/engine/adapter.py"
+      - "models/football/engine/competition_reliability.py"
+      - "models/football/engine/step2_reconcile.py"
+      - "models/football/engine/model_bet_accounting.py"
+      - "models/football/engine/decision_pair_cli.py"
+      - "models/football/engine/step2_publication_guard.py"
+  pull_request:
+    paths:
+      - ".github/workflows/xi-portable-artifact-transport.yml"
+      - "models/football/engine/xi_portable.py"
+      - "models/football/engine/step2_publication_guard.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  xi-runtime-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify portable embedded source against checked out Git blobs
+        run: |
+          python - <<'PY'
+          import hashlib
+          import importlib.util
+          from pathlib import Path
+          path = Path("models/football/engine/xi_portable.py")
+          spec = importlib.util.spec_from_file_location("xi_portable_verified", path)
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          assert set(module.SOURCE_BLOB_SHA) == {
+              "models/football/engine/" + name + ".py" for name in module.INSTALL_ORDER
+          }, "Embedded source inventory mismatch"
+          for relative_path, expected in module.SOURCE_BLOB_SHA.items():
+              source = Path(relative_path).read_bytes()
+              blob = hashlib.sha1(
+                  b"blob " + str(len(source)).encode("ascii") + b"\\0" + source
+              ).hexdigest()
+              assert blob == expected, f"Outdated XI portable source: {relative_path}"
+          print("XI EMBEDDED GIT BLOBS: PASS")
+          PY
+      - name: Execute original C+C2 portable Python self-check
+        run: python models/football/engine/xi_portable.py self-check
+      - name: Run paired execution and prepublication guard regression tests
+        run: |
+          PYTHONPATH=models/football/engine python -m unittest discover -s models/football/engine/tests -p 'test_step2_publication_guard.py' -v
+          PYTHONPATH=models/football/engine python -m unittest discover -s models/football/engine/tests -p 'test_decision_pair_cli.py' -v
+      - name: Record artifact revision and source digest
+        run: |
+          git rev-parse HEAD > XI_PORTABLE_COMMIT.txt
+          sha256sum models/football/engine/xi_portable.py > XI_PORTABLE_SHA256.txt
+          sha256sum models/football/engine/step2_publication_guard.py > XI_PUBLICATION_GUARD_SHA256.txt
+      - name: Export current XI runner and publication guard for normal chat
+        uses: actions/upload-artifact@v4
+        with:
+          name: xi-c-c2-portable-verified-source
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            XI_PORTABLE_COMMIT.txt
+            XI_PORTABLE_SHA256.txt
+            XI_PUBLICATION_GUARD_SHA256.txt
+            models/football/engine/xi_portable.py
+            models/football/engine/step2_publication_guard.py
+            models/football/engine/decision_pair_cli.py
+            models/football/engine/adapter.py
+            models/football/engine/core.py
+            models/football/engine/competition_reliability.py
+            models/football/engine/step2_reconcile.py
+            models/football/engine/model_bet_accounting.py
