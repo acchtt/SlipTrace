@@ -302,6 +302,26 @@ An evidence-limited worksheet is an honest QA observation, **not** an
 additional production blocker. C/C2 continue using their independent
 existing frozen supported lines.
 
+### Optional non-blocking QA after both C and C2 are frozen
+
+Run `python models/football/engine/follow_funding_readiness_qa.py
+--input <frozen_c_c2_qa_input.json> --output <funding_readiness.json>`
+when exact same-epoch **independent model-specific frozen factor snapshots**
+are available. This is a **local read-only computation** against the
+existing `clearing_goal_funded` and `c2_clearing_goal_funded` implementations;
+it must not add external research, postpone executable /xi, demote FOCUS,
+alter supported lines or invent a bet.
+
+Report `official_c_follow_funded_at_supported` and
+`c2_shadow_focus_funded_at_supported` separately from FOCUS and FOLLOW.
+A prospective board with `0/N` C FOLLOW funded at its own supported line
+requires **QA attention** and transparent goal-burden calibration, not
+automatic BET/PASS/STOP. The currently offered market may still fail
+on price/value even if the projected attack starts quickly.
+See `models/football/qa/2026-10-10_FOLLOW_SUPPORTED_BURDEN_QA.md`.
+Missing independently frozen C2 factors means `QA_INCOMPLETE`;
+do not derive C2 inputs by copying C-only completion policy.
+
 ## 6. Tournament incentive — mandatory where applicable
 
 When the match context makes tournament incentive material, establish before finalizing board state:
