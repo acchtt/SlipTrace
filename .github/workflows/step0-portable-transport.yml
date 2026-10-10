@@ -12,6 +12,10 @@ on:
       - "models/football/engine/coverage_manifest.py"
       - "models/football/engine/step0_handoff_cli.py"
       - "models/football/engine/step0_package_cli.py"
+  pull_request:
+    paths:
+      - ".github/workflows/step0-portable-transport.yml"
+      - "models/football/engine/step0_portable.py"
   workflow_dispatch:
 
 permissions:
