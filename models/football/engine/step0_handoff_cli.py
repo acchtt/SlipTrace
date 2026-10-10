@@ -280,7 +280,7 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     if scope_policy not in (None, "REGISTRY_FIRST_V1"):
         raise Step0HandoffError("HANDOFF INCOMPLETE — unknown competition scope policy")
     if scope_policy == "REGISTRY_FIRST_V1":
-        from sweep_competition_scope import screen_competitions
+        from sweep_competition_scope import screen_competitions, _name
         scope_rows = payload.get("competition_scope_blocks")
         if not isinstance(scope_rows, list):
             raise Step0HandoffError(
@@ -288,7 +288,7 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
             )
         screening = screen_competitions(scope_rows)
         prohibited = {
-            (str(z.get("competition_name", "")).casefold(), str(z.get("country", "")).casefold())
+            (_name(z.get("competition_name")), _name(z.get("country")))
             for lane in ("SCOPE_EXCLUDED", "RAW_COVERAGE_ONLY", "SCOPE_UNRESOLVED")
             for z in screening["blocks"].get(lane, [])
         }
@@ -298,20 +298,18 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
         for item in all_work:
             if not isinstance(item, dict):
                 raise Step0HandoffError("HANDOFF INCOMPLETE — queue fixture invalid")
-            key = (str(item.get("competition_name", "")).casefold(),
-                   str(item.get("country", "")).casefold())
+            key = (_name(item.get("competition_name")), _name(item.get("country")))
             if key in prohibited:
                 raise Step0HandoffError(
                     "HANDOFF INCOMPLETE — SCOPE EXCLUDED DOMESTIC LEAGUE LEAK: "
                     + str(item.get("match_id", ""))
                 )
         candidate_labels = {
-            (str(z.get("competition_name", "")).casefold(), str(z.get("country", "")).casefold())
+            (_name(z.get("competition_name")), _name(z.get("country")))
             for z in scope_rows
         }
         for item in all_work:
-            key = (str(item.get("competition_name", "")).casefold(),
-                   str(item.get("country", "")).casefold())
+            key = (_name(item.get("competition_name")), _name(item.get("country")))
             if key not in candidate_labels:
                 raise Step0HandoffError(
                     "HANDOFF INCOMPLETE — WORK FIXTURE MISSING COMPETITION BLOCK SCOPE: "
