@@ -66,6 +66,7 @@ jobs:
           git rev-parse HEAD > XI_PORTABLE_COMMIT.txt
           sha256sum models/football/engine/xi_portable.py > XI_PORTABLE_SHA256.txt
           sha256sum models/football/engine/step2_publication_guard.py > XI_PUBLICATION_GUARD_SHA256.txt
+          sha256sum models/football/engine/step2_fixture_transition.py > XI_FIXTURE_TRANSITION_SHA256.txt
       - name: Export current XI runner and publication guard for normal chat
         uses: actions/upload-artifact@v4
         with:
@@ -76,6 +77,7 @@ jobs:
             XI_PORTABLE_COMMIT.txt
             XI_PORTABLE_SHA256.txt
             XI_PUBLICATION_GUARD_SHA256.txt
+            XI_FIXTURE_TRANSITION_SHA256.txt
             models/football/engine/xi_portable.py
             models/football/engine/step2_publication_guard.py
             models/football/engine/step2_fixture_transition.py
