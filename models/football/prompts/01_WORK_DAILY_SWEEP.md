@@ -322,6 +322,18 @@ See `models/football/qa/2026-10-10_FOLLOW_SUPPORTED_BURDEN_QA.md`.
 Missing independently frozen C2 factors means `QA_INCOMPLETE`;
 do not derive C2 inputs by copying C-only completion policy.
 
+### Frozen C/C2 ranking and funding alignment QA (non-blocking)
+
+Once true C and independent C2 board_result outputs and the same-board
+follow_funding_readiness_qa.py report are frozen, optionally run the
+read-only local model_reaudit.py. It detects WATCH/PASS ranked ahead of
+FOCUS, own-supported goal-funding contradictions, and mismatch between
+model-specific frozen inputs and the actual board. Preserve both ranking
+and all existing execution gates. QA must not delay XI, create another
+research pass, demote FOCUS, fabricate a C2 factor or generate a wager.
+When independent snapshots are unavailable, report QA_INCOMPLETE.
+See models/football/qa/2026-10-11_FULL_MODEL_REAUDIT.md.
+
 ## 6. Tournament incentive — mandatory where applicable
 
 When the match context makes tournament incentive material, establish before finalizing board state:
