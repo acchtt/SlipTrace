@@ -1,0 +1,42 @@
+name: Football goal burden QA (C official, C2 shadow)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/football-goal-burden-qa.yml"
+      - "models/football/engine/goal_burden_forecast.py"
+      - "models/football/engine/goal_gate_shadow_audit.py"
+      - "models/football/engine/core.py"
+      - "models/football/engine/tests/test_goal_burden_qa.py"
+  pull_request:
+    paths:
+      - ".github/workflows/football-goal-burden-qa.yml"
+      - "models/football/engine/goal_burden_forecast.py"
+      - "models/football/engine/goal_gate_shadow_audit.py"
+      - "models/football/engine/tests/test_goal_burden_qa.py"
+      - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit-only-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate forecast and paired-shadow ablation contracts
+        run: |
+          PYTHONPATH=models/football/engine python -m unittest discover \
+            -s models/football/engine/tests \
+            -p 'test_goal_burden_qa.py' -v
+      - name: Verify official production model tests remain unchanged
+        run: |
+          PYTHONPATH=models/football/engine python -m unittest discover \
+            -s models/football/engine/tests \
+            -p 'test_core.py' -v
+          PYTHONPATH=models/football/engine python -m unittest discover \
+            -s models/football/engine/tests \
+            -p 'test_step2_publication_guard.py' -v

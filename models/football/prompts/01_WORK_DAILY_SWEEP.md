@@ -229,6 +229,43 @@ Every ranked fixture must carry a non-empty:
 
 Do not search differently for C and C2 after one model's provisional output is seen.
 
+### Football-first team goal expectations (new prospective QA surface)
+
+After the **single common Step-1 evidence pass** and before inspecting bookmaker
+totals to decide which line looks appealing, prepare a separate
+`football-step1-goal-burden-v1` forecast for every researched C/C2 fixture.
+Quantified evidence should produce:
+- **home central, low, high goals** and the football evidence for those numbers;
+- **away central, low, high goals** and the football evidence for those numbers;
+- total central goals = home central + away central, with a separate uncertainty interval;
+- an explicit **third-goal source**, **fourth-goal source** and plausible
+  **0-0 / 1-1 / 2-0 control/failure pathway** from tactical, service,
+  personnel, set-piece and transition evidence.
+
+Capture source URLs and one immutable `evidence_epoch_id`; do not invent a
+statistical xG estimate from route labels. This forecast is a qualitative
+researcher's quantitative scenario, **NOT** a calibrated Poisson lambda or
+a deterministic model-generated probability. Where data does not sustain
+a number, set `forecast_status=EVIDENCE_LIMITED`, explain exactly why,
+and publish no artificial total.
+
+Validate from a JSON artifact using
+`python models/football/engine/goal_burden_forecast.py --input forecast.json`.
+Freeze forecast **independent of the market**, then *compare* the resulting
+total with the contemporaneously observed bookmaker centre. A gap of
+0.75 goals or more triggers an explicit conflict-recheck explanation,
+not an automatic PASS or an automatic promotion to FOCUS. Do not change
+the numerical goal contribution simply to match the market.
+
+**Speed and authority:** capture this during the existing Step-1 evidence
+pass; do not conduct another fixture research cycle or wait for a bookmaker
+quote just to fill the advisory worksheet. Goal forecasts do not change
+Step-0 queue ranks, C/C2 board criteria, Step-2 authorization,
+third-goal funding gates, price floors or official betting exposure.
+An evidence-limited worksheet is an honest QA observation, **not** an
+additional production blocker. C/C2 continue using their independent
+existing frozen supported lines.
+
 ## 6. Tournament incentive — mandatory where applicable
 
 When the match context makes tournament incentive material, establish before finalizing board state:
