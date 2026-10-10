@@ -20,6 +20,24 @@ class ScopeFirstTests(unittest.TestCase):
     def test_indonesia_second_tier_does_not_get_unlimited_verification(self):
         self.assertEqual(classify_competition(c("Liga 2","Indonesia"))["lane"],"SCOPE_EXCLUDED")
 
+    def test_generic_premier_league_name_does_not_promote_unknown_country(self):
+        for country in ("Uganda", "Cambodia", "Malaysia", "Unknown"):
+            with self.subTest(country=country):
+                self.assertEqual(
+                    classify_competition(c("Premier League", country))["lane"],
+                    "SCOPE_EXCLUDED",
+                )
+        self.assertEqual(classify_competition(c("Premier League","England"))["lane"],
+                         "ROUTINE_LEAGUE_PROFILE")
+
+    def test_generic_bundesliga_and_serie_a_are_country_keyed(self):
+        self.assertEqual(classify_competition(c("Bundesliga", "Bangladesh"))["lane"],
+                         "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c("Serie A", "Indonesia"))["lane"],
+                         "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c("Serie A", "Italy"))["lane"],
+                         "ROUTINE_LEAGUE_PROFILE")
+
     def test_explicit_major_leagues_and_eerste_still_considered(self):
         for name,country in (("Bundesliga","Germany"),("Premier League","England"),
                              ("Eerste Divisie","Netherlands"),("Eliteserien","Norway")):
