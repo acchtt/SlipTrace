@@ -286,6 +286,39 @@ If text/code disagree:
 
 `ENGINE DISAGREEMENT — PRESERVE BOTH`
 
+### Non-blocking price-aware funding calibration shadow (new prospective /xi)
+
+After the normal paired C official + C2 shadow engine verdict **without
+waiting for any new research**, optionally run
+`python models/football/engine/step2_price_aware_shadow.py
+--input current_pair_quotes.json --output price_shadow.json` when
+independently frozen pre-kickoff C/C2 factors, a verified current
+fixture/XI/thesis epoch, and exact contemporaneous quote sources exist.
+
+The experiment compares each model's actual funded supported line with a
+separate **experimental** medium-continuation/two-route or upper-tail
+funding hypothesis and the user's **genuinely offered** Asian totals.
+No source-backed quote means unquoted, not an assumed entry. It shows
+full/half-win, push and loss at exactly 2–5 goals for that actual quoted
+line. A central 3.30-goal forecast **cannot** supply the calibrated
+probabilities needed for expected value. Therefore even
+`SHADOW_PRICE_AWARE_ELIGIBILITY_ONLY` is **never** C-BET, C-WAIT,
+C2 action, a price recommendation or a user-bet instruction.
+
+If the real market lies above frozen support, output
+`MARKET_ABOVE_FROZEN_SUPPORT_RECHECK_NO_INFERRED_WAIT`; **do not**
+invent a lower quote, automatically chase the higher total or
+pretend that unsupported decay is realistically reachable. If the
+fixture has started, use the current `/live` epoch instead of
+retroactively running this prematch shadow. Keep frozen main C/C2
+engine decisions and persistence unchanged.
+
+The comparator is local/diagnostic and must not delay an actionable
+paired decision or require another XI research pass. See
+`models/football/qa/2026-10-11_PRICE_AWARE_STEP2_SHADOW_CALIBRATION.md`.
+A threshold change requires a distinct reviewed, price-aware,
+prospectively validated policy update.
+
 ## 9. Price/action policy
 
 Use the model's independently frozen supported burden and the current revalidated quote.
