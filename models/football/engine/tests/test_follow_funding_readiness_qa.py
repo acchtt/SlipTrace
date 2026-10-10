@@ -49,7 +49,7 @@ class FundingQARegression(unittest.TestCase):
         row = case()
         for name in ("c", "c2"):
             row[name]["frozen_factors"].update(
-                carrier_self_fund=True, failure_resistance="HIGH"
+                carrier_self_fund=True, failure_resistance="HIGH", chance_quality="HIGH"
             )
         out = analyze(board([row]))
         self.assertEqual(out["official_c_follow_funded_at_supported"], 1)
