@@ -303,14 +303,14 @@ The **Football C official board** is the only board that controls routine Step-2
 
 ### Clearing-goal funding
 
-FOCUS is broader than FOLLOW.
+FOCUS determines eligibility for FOLLOW; capacity and researchability determine assignment.
 
 For burdens requiring a third goal, especially O2.5/O2.75:
 - identify who actually funds the clearing goal;
 - do not treat "carrier can score two" as automatic evidence for goal three;
 - do not treat a merely usable second route as automatic independent clearing-goal funding;
 - require credible continuation beyond a natural 2-goal endpoint;
-- downgrade the operational lane when the third-goal mechanism is not strongly funded even if the fixture remains C-FOCUS.
+- retain the model's goal-funding result in the frozen prediction; do not downgrade the operational lane for that reason alone.
 
 This **clearing-goal funding** check is part of current Football C selection/follow-through, not a retired-model reactivation.
 

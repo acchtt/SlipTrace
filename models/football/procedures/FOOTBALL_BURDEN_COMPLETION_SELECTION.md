@@ -145,35 +145,13 @@ This is not automatic promotion to FOCUS or BET. It prevents weak-second-route l
 
 ## 7. FOLLOW / RESERVE
 
-Routine FOLLOW requires C-FOCUS plus a clear completion path.
-
-A clear path may be:
-- TWO_SIDED;
-- CARRIER_LED;
-- FORCED_CHAOS;
-- MIXED.
-
-Common FOLLOW requirements:
-- operational grade A;
-- STRONG carrier;
-- route reliability HIGH;
-- chance quality at least MEDIUM;
-- evidence confidence HIGH;
-- burden completion HIGH;
-- continuation HIGH;
-- failure resistance HIGH;
-- stall risk LOW;
-- supported burden <= O3.0;
-- no material suppression / route-attacking failure.
-
-CARRIER_LED specifically permits a WEAK second scoring route when self-fund, upper-tail and leakage conditions clear.
-
-RESERVE may absorb:
-- operational grade B;
-- MEDIUM failure resistance;
-- MEDIUM completion/continuation;
-- MEDIUM stall risk;
-provided burden protection remains HIGH and the completion path is still credible.
+Lane is a workload queue, not a second football-selection test.
+All C-FOCUS fixtures qualify for operational allocation, including
+supported totals above O3.0 and high stall-risk candidates.
+A-grade FOCUS can FOLLOW within capacity; B-grade FOCUS can RESERVE.
+Capacity overflow can become RESERVE or STOP. WATCH/PASS remain
+outside routine Step 2. The original C grades and supported lines
+remain frozen; Step 2 still applies all football, XI and quote gates.
 
 ## 8. Same-kickoff comparative selection
 
