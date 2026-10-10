@@ -535,6 +535,28 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(result["matches"][0]["match_id"], "z_high")
 
+    def test_focus_precedes_watch_even_if_watch_has_safe_o20(self):
+        board = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [
+                match("watch-safe", board_state="C-WATCH", supported_line=2.0,
+                      carrier="USABLE", carrier_self_fund=False,
+                      independent_upper_tail=False),
+                match("focus-unfunded", board_state="C-FOCUS",
+                      supported_line=2.75, carrier="STRONG",
+                      carrier_self_fund=False, independent_upper_tail=True,
+                      continuation_quality="MEDIUM"),
+            ],
+        })
+        rows = board["matches"]
+        self.assertEqual([x["match_id"] for x in rows], ["focus-unfunded", "watch-safe"])
+        self.assertEqual(rows[0]["follow_lane"], "FOLLOW")
+        self.assertEqual(rows[1]["follow_lane"], "STOP")
+        self.assertEqual(rows[0]["rank"], 1)
+        self.assertEqual(board["ranking_policy"], "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION")
+
     def test_c_board_reports_burden_completion_ranking_policy(self):
         result = run_board(
             {
@@ -546,7 +568,7 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(
             result["ranking_policy"],
-            "FOOTBALL_C_BURDEN_COMPLETION",
+            "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION",
         )
 
     def test_same_kickoff_follow_is_capped_at_two_best_candidates(self):

@@ -334,6 +334,38 @@ research pass, demote FOCUS, fabricate a C2 factor or generate a wager.
 When independent snapshots are unavailable, report QA_INCOMPLETE.
 See models/football/qa/2026-10-11_FULL_MODEL_REAUDIT.md.
 
+### Coordinated goal probability and board-order QA (prospective only)
+
+C official /rank now orders **FOCUS then WATCH then PASS**, with the
+existing C `clearing_goal_funded` comparison preserved **within** each
+predictive state. The original Step0 A/B admission, same-kickoff FOLLOW
+limits, C2's independent challenger rank and the Step2 funding/betting
+thresholds do not change. An O2.0 WATCH must no longer occupy the top
+C ranking above a strong FOCUS simply because O2.0 can push at two goals.
+
+When at least six independent current competitive venue-matched results
+are available for each side, optionally freeze a local source-backed
+`goal_total_probabilities.py --mode estimate` input using actual
+pre-match home/home and away/away GF/GA. Capture source URL, UTC result
+dates, observation time, and current assessment epoch. Unlike the
+researcher-authored home+away advisory estimate, the Poisson tail
+probabilities here follow a reproducible statistical rule. They are
+**UNVALIDATED_RESEARCH_ONLY** until prospectively benchmarked, *not*
+authoritative C/C2 betting probabilities or positive edge. Missing
+history yields `EVIDENCE_LIMITED`, not an invented rate, bet or PASS.
+Do not delay ranking /xi to collect a second full research pass.
+
+Source-bound Asian quotes should be evaluated independently and fresh
+using the separate `step2_price_aware_shadow.py` and optional new
+goal probability estimate; neither may overrule an actual C/C2
+deterministic decision or promote a supported burden. The new script's
+`--mode holdout` validates sealed pre-KO 3+/4+/5+ forecasts against
+later observed goals (minimum 100 distinct prospectively frozen fixtures
+before even claiming sufficient sample for review). No automatic
+threshold updates or reclassification of historical boards.
+
+See `models/football/procedures/FOOTBALL_COHERENT_GOAL_BURDEN_QA.md`.
+
 ## 6. Tournament incentive — mandatory where applicable
 
 When the match context makes tournament incentive material, establish before finalizing board state:

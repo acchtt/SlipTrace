@@ -571,12 +571,26 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         parse_assessment(item, require_c_completion=(model == "c"))
         for item in raw_matches
     ]
+    raw_by_id = {str(item["match_id"]): item for item in raw_matches}
+    if len(raw_by_id) != len(raw_matches):
+        raise ContractError("duplicate match_id in board input")
     if model == "c":
-        ranked = rank_assessments(parsed)
+        # The declared football selection state is the first workload tier.
+        # A mechanically funded O2.0 WATCH must not rank above an otherwise
+        # valid FOCUS merely because the former's Asian burden can push at 2.
+        # Preserve the existing clearing-goal-first ranking *within* each
+        # state and all separately enforced Step2 funding/price gates.
+        ranked = sorted(
+            parsed,
+            key=lambda item: (
+                _enum(BoardState, _required(raw_by_id[item.match_id], "board_state"), "board_state"),
+                ranking_key(item),
+                item.match_id,
+            ),
+            reverse=True,
+        )
     else:
         ranked = rank_assessments_c2(parsed)
-
-    raw_by_id = {str(item["match_id"]): item for item in raw_matches}
     block_rank_by_id: dict[str, int] = {}
     block_counts: dict[str, int] = {}
     for ranked_item in ranked:
@@ -699,7 +713,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "board_result",
         "model": model,
         "ranking_policy": (
-            "FOOTBALL_C_BURDEN_COMPLETION"
+            "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION"
             if model == "c"
             else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
         ),
