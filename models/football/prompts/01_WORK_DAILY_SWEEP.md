@@ -160,12 +160,19 @@ does NOT collect bookmaker lines or individual previous-XI histories.
 fixture ID/KO to locate an actual match-specific bookmaker Asian goal total,
 capture line, bookmaker, observed UTC time and source link, check actual team
 news/absences and usable two-sided lineup publishing channels, then run the
-existing strict `XI_MARKET_FIRST_V1` fixture check. Build a fresh
-`{"intake_policy":"XI_MARKET_FIRST_V1","candidates":[<current fixture record>]}`
-input and invoke
-`python models/football/engine/sweep_intake_evidence_cli.py --input <fixture_evidence.json>`.
-This reuses the existing strict contract and rejects missing current market
-quotes or unsupported XI channels. If incomplete, label the fixture
+existing strict `XI_MARKET_FIRST_V1` fixture check. Build the actual fixture-specific intake payload with BOTH:
+`frozen_step0_candidate` (unaltered original A/B queue row) and
+`researched_fixture` (current matching match ID/competition/UTC kickoff and
+real independently captured quote, lineup channels and news), plus
+`source_intake_policy=LEAGUE_CHANNEL_FIRST_V1`. Invoke:
+
+`python models/football/engine/step1_fixture_intake_cli.py --input <fixture_evidence.json>`
+
+The deterministic gate requires `STEP1 MATCH EVIDENCE VERIFIED`, binds
+the quote/XI proof to the original exact Step0 match ID/league/UTC kickoff,
+preserves the original operational grade/exclusions, and runs the existing
+strict `XI_MARKET_FIRST_V1` contract. It rejects missing match-specific
+price/source/timestamp or unsupported XI publishing channels. If incomplete, label the fixture
 `STEP1_RESEARCH_BLOCKED`; it is **not** C/C2 PASS and must not be promoted
 to FOLLOW/RESERVE. Record why, preserve its frozen Step0 rank and continue
 the deterministic ordered replenishment from the next qualified candidate.
