@@ -144,7 +144,43 @@ If this contract is incomplete, stop. /rank does not recreate missing Step-0 ope
 
 ### Compact handoff compatibility — new sweeps only
 
-If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish only when FOLLOW+RESERVE <4. Research the first 12 routinely; when this is insufficient, allow time-attested adaptive expansion only as described below, never beyond 20 unique frozen-queue fixtures. Stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
+If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish when FOLLOW is zero or fewer than four active lanes exist. Research the first 12 routinely; when this is insufficient, allow time-attested adaptive expansion only as described below, never beyond 20 unique frozen-queue fixtures. Stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
+
+### Mandatory prospective whole-queue goal-first Step1 research screen
+
+For **new Step1 sessions** where no deep research/board is frozen yet,
+apply `models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
+This is a **Step1 research scheduling overlay**, NOT a change to Step0
+admission, its 8 immutable operational admissions or the original queue.
+After verifying the full original A/B handoff, screen **all** frozen A/B
+fixtures with the lightweight `goal_route_prescreen_cli.py` before
+selecting the **first eight deep research fixtures**. Record recent
+source-backed team scoring/concession/stall routes captured pre-KO;
+when missing, record `EVIDENCE_LIMITED` and use neutral scheduling,
+never invent scoring statistics. Do not use the target fixture's FT
+result, market odds, model verdict or user P/L.
+
+Use `initial_research_match_ids` from the validated goal screen, NOT
+necessarily original Step0 operational ranks 1-8. A queue-rank 13
+fixture may legitimately receive deep research in this first wave
+while its original Step0 `CAPACITY_DEFERRED` status/rank remains frozen.
+Persist a separate `STEP1_GOAL_SCREEN_PRIORITY` promotion reference;
+original admitted-but-unresearched matches remain available in the
+full queue. The Step1 screen is NOT the C/C2 prediction, no supported
+Over/WAIT/PASS is declared, and the match-specific strict intake and
+C+C2 engines still run later on every deeply researched fixture.
+
+During replenishment, provide
+`research_schedule_policy=GOAL_FIRST_STEP1_RESEARCH_V1`, the exact
+same-source `research_priority_manifest`, full original queue and
+current `research_at_utc` to `capacity_replenishment_cli.py`. The
+selector validates the manifest, orders remaining **unresearched**
+candidates by the frozen **Step1 research priority**, checks current
+prematch status and kickoff, and enforces the existing 12/20 workload
+budget and zero-FOLLOW refill rule. Re-screen after three hours.
+If the full A/B screen cannot be proven complete, report that obstacle
+and **do not claim goal-first coverage**. Retain old frozen board
+research order without retroactive relabeling.
 
 ### League-first incoming handoff — verify actual fixture data here
 
@@ -377,14 +413,14 @@ After every completed C/C2 Step-1 research wave, compute the *official C*
 `python models/football/engine/capacity_replenishment_cli.py --input <capacity_replenishment.json>`
 
 **For compact `COMPACT_GOAL_ROUTE_V1` handoffs (new boards):**
-- First wave is still immutable ranks **1–8**, subject to legitimate prematch closures.
+- Step0 admission remains immutable ranks **1–8**. For a new prospective GOAL_FIRST_STEP1_RESEARCH_V1 session, deep Step1 first-wave research instead uses eight source-backed prescreen-priority IDs from the full A/B pool; closed fixtures are skipped.
 - If fewer than 4 official C active lanes survive **or FOLLOW remains zero**, research the next eligible deferred ranks toward the standard 12 unique-fixture budget. Four RESERVE alone cannot terminate research.
 - If already 12 unique fixtures were researched and (`FOLLOW == 0` **or** `FOLLOW+RESERVE < 4`), check whether additional A/B rows remain in the same frozen queue. To extend beyond 12, provide `adaptive_research={"enabled":true,"available_research_minutes":<verified>,"next_candidate_kickoff_minutes":<verified>}`. The values must come from the actual current research work budget and confirmed kickoff lead time. These are not user-configured picks, prediction preferences or invented time allowances.
 - The selector reserves **12 research minutes per additional fixture** and **30 minutes before the next candidate's KO**, never researches more than **20** unique fixtures per slate. Beyond fixture 12, select **one additional fixture per refreshed time check**, always recomputing the next eligible rank's actual kickoff, remaining session budget and official active-lane count; never reuse stale KO/quote epochs.
 - If the current time/research budget cannot be verified, **omit** `adaptive_research` and retain the original 12-fixture budget. If at least 1 FOLLOW and 4 active lanes already exist, stop; 0 FOLLOW + 4 RESERVE must continue if a verified research budget and eligible deferred rows remain. Do not reach 20 merely because it is permitted.
 - Persist every additional fixture's original rank, research wave and `Step1 Replenished` flag; **never** add a candidate that was not frozen in the Step0 operational A/B queue. Each newly researched candidate must pass the existing independent C+C2 board pair and incentive checks.
 - `COMPACT_RESEARCH_BUDGET_EXHAUSTED` and `COMPACT_ACTIVE_TARGET_SATISFIED` are valid *terminal* results; further low-priority Work research is not mandatory.
-- Selection is always ascending **operational** Step0 queue rank among still-prematch eligible fixtures. Never cherry-pick apparent goal-scoring potential, odds, C2 shadow preference or hindsight FT. This extension is a workload safeguard, **not** a change to C/C2 prediction weights.
+- Under GOAL_FIRST_STEP1_RESEARCH_V1, selection follows the fully validated prospective **Step1 research priority manifest**, not the unchanged Step0 operational rank; otherwise preserve historic ascending Step0 queue rank. Never cherry-pick retrospective goals, odds, C2 shadow preference or hindsight FT. This extension is a workload safeguard, **not** a change to C/C2 prediction weights.
 
 **For legacy handoffs without `COMPACT_GOAL_ROUTE_V1`:**
 - Preserve the historic 15-slot first wave and replenishment target of 10 active lanes.
@@ -396,7 +432,7 @@ For all policies:
 - For historic 15/10 handoffs, `A STOP/PASS does not permanently consume one of the original 15 research slots`; refill remains active-lane driven under the legacy rule. For compact boards, STOP/PASS frees a lane but **does** consume one unique-research-budget slot.
 - Stop when the selector reports a valid terminal condition; do not create unbounded /rank resume loops.
 
-Do not use model appeal, supported total, expected goals, or results to change operational replenishment order.
+Do not modify the immutable Step0 operational queue using model appeal, supported total, expected goals or results. For new whole-queue prescreened sessions ONLY, use the independently timestamped Step1 goal-route priority to schedule deep research, not to change source admissions or C/C2 betting selections.
 
 ## 12. Rank terminal status
 

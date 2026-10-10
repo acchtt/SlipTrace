@@ -115,6 +115,24 @@ A/B queue rank is operational only. It must not be based on expected goals, mode
 
 For new /sweep runs, apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` as an explicit **prospective operational budget overlay**: `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, initial Work wave 8 by the full frozen operational A/B rank, routine unique-fixture research ceiling 12, automatic replenish only below 4 active lanes. Source discovery, A/B rank ordering, protected/women/required coverage, hard exclusions and C/C2 decision logic are unchanged. Goal-rate research is context-only, **not** a Step-0 predictive hard filter or automatic league exclusion. Existing RUNNING/frozen/historical sweeps without this policy, including `SWEEP-20261009-1300-20261010-0300` Chunk 12, must retain their legacy 15/refill-to-10 semantics and must not be restarted or rewritten. Keep all A/B overflow as an auditable queue.
 
+### New Step1 research priority across full A/B queue (2026-10-10)
+
+A Step0 eight-fixture operational admission is **not** the football
+selection shortlist. For each **new prospective /rank**, the
+`GOAL_FIRST_STEP1_RESEARCH_V1` scheduler runs
+`goal_route_prescreen_cli.py` across the entire frozen A/B queue,
+before selecting eight fixtures for *deep* Step1 research. It uses
+independent pre-kickoff historical team scoring/conceding and credible
+continuation/stall routes. Missing sources yield `EVIDENCE_LIMITED`,
+not low predicted goals. Original Step0 ranks, admission, hard exclusions,
+source hash and prior boards stay frozen. The screen produces a separate
+hashed Step1 research order: deep research can take a verified rank-13
+football candidate before an operational rank-3 candidate. Neither is
+automatically C-FOCUS, C2-FOCUS, FOLLOW or C-BET. Source/time/XI/odds
+and all official C/C2 decisions remain enforced later. Older already
+frozen rank boards retain their old research order.
+See `models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
+
 ### XI + market proof before the Work queue
 
 For new compact intake and explicitly marked resumed unfinished sweeps, apply `FOOTBALL_XI_MARKET_FIRST_INTAKE.md`: **expectation of XI publication**, not confirmed future starting XIs. Verify credible publishing channels and a near-KO recheck; A/YES needs strong evidence for both teams, B/UNCERTAIN may enter conditionally with sources and no routine FOLLOW until /xi validates. Require a current fixture-specific Asian total, news, competition source and identity/time. The raw discovery ledger is not the actionable board. Preserve exact required/protected/women's coverage; exclude/hold actual weak-data cases from Work only. The paused Oct-09 run remains untouched and retains legacy budget on future resume with `XI_MARKET_FIRST_V1` marker.
