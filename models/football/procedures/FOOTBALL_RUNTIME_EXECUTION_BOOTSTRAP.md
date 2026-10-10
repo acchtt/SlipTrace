@@ -131,6 +131,18 @@ models unavailable. Use the committed GitHub Actions workflow
    recomputing the frozen pair; do not burn the available prematch window
    repeating unchanged source research.
 
+**Kickoff transition source:** the same XI artifact additionally contains
+`models/football/engine/step2_fixture_transition.py` and a separate
+`XI_FIXTURE_TRANSITION_SHA256.txt`. Verify that digest when extracting
+the archive. Before a started fixture goes to `xi_portable.py pair`,
+run the transition CLI with independently checked fixture status,
+kickoff time and current assessment clock. A `STARTED` result
+automatically opens the `/live` assessment **in the same /xi turn**.
+The C/C2 prematch pair must still reject STARTED; this is expected and
+not a technical runtime failure. Missing executable in-play odds only
+withholds a live BET, not qualitative football analysis. Never
+backfill prematch exposure using an after-kickoff snapshot.
+
 The artifact is an executable **source transport**, not a completed decision
 or proof of live XI/odds. C2 remains shadow-only; the publication gate, live
 quote check and official exposure authorization are still mandatory.

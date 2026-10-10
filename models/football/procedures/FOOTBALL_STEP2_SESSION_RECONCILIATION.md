@@ -73,7 +73,21 @@ Every due fixture must end the session with exactly one status:
 - `ENGINE_FAILED_AFTER_ATTEMPT`;
 - `LIVE_REROUTED`.
 
-A started fixture is not a prematch Step-2 decision. Record `LIVE_REROUTED` and continue under the live launcher.
+A started fixture is not a prematch Step-2 decision, **but may still
+be assessed immediately**. Run the deterministic
+`step2_fixture_transition.py` before sending a STARTED fixture to a
+prematch-only C/C2 engine. For a started fixture, transition in the same
+session to the live launcher, perform the live evidence/score/quote check
+and deliver the appropriate current qualitative football analysis even
+if a valid in-play bet cannot be authorized.
+
+Use `LIVE_REROUTED` as the *prematch due-set accounting disposition* and
+attach a reference to the actually opened live assessment (not a promised
+or hypothetical one). Keep the live assessment's own completeness and
+exposure status separate: an uncompleted or quote-pending live action
+must never be reported as a completed C-BET/C2-BET, nor erased just
+because a `LIVE_REROUTED` audit reference exists. Kickoff alone is never
+a reason to refuse a qualitative live assessment.
 
 No due fixture may be omitted merely because research, quote availability, timing, or another match consumed attention.
 

@@ -85,7 +85,48 @@ Odds/history lookup does **not** satisfy the football-research gate.
 If XI is unavailable:
 `DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING`
 
-If the fixture is no longer prematch, do not force a prematch decision. Persist/reroute according to Step-2 reconciliation.
+If the fixture is no longer prematch, **continue the assessment automatically
+in this same /xi turn**. Do NOT send the started fixture to the prematch
+`xi_portable.py pair` input, and do not stop at a terminal
+`DECISION BLOCKED — STEP2 FIXTURE NOT CONFIRMED PREMATCH` response.
+First execute:
+`python models/football/engine/step2_fixture_transition.py --input <transition.json>`
+using independently verified KO/fixture status and current assessment time.
+For `STARTED`, `EARLY_LIVE_FAST_PATH` (first 15 minutes) and
+`STANDARD_LIVE` (afterward) **both permit continued football assessment**.
+They require no second user command and no new Work/sweep handoff.
+The 15-minute threshold is a speed-path distinction, **never a hard
+assessment cutoff**. This is particularly important when an FOCUS match
+is first examined minutes after kickoff.
+
+Immediately follow the `/live` launcher from the saved independent C and
+C2 premises:
+- Capture score and minute, goal/red-card/major injury/substitution events,
+  current tournament incentive when relevant and **fresh in-play quote**
+  when available; do not wait for live-stat dashboards.
+- Preserve the frozen prematch/XI analysis separately. At 0-0 and with no
+  material changes, reuse the *football research* after a rapid verification;
+  never reuse a prematch price, status or computed bet authorization.
+- If a goal or material event occurred, re-evaluate the thesis and
+  clearing-goal burden at the new live score; a goal does not erase the
+  obligation to assess, but invalidates old price and funding conclusions.
+- Continue immediately with a **qualitative C/C2 football assessment**
+  even when current live odds are missing. Label it
+  `LIVE QUOTE REQUIRED — NO EXECUTABLE BET` and state the currently
+  supportable goal burden; do not invent a quote or C2 result.
+- Only a genuinely fresh live quote, current state, independently
+  checked C and C2 evidence and the required live integrity checks may
+  produce an actionable C live assessment. C2 remains shadow-only.
+- In Step-2 reconciliation persist `LIVE_REROUTED` with a reference
+  to the **actual** live assessment, not an invented placeholder. Keep
+  it open if no live verdict was completed. Do not retrospectively
+  re-label the missed prematch opportunity as C-BET/C2-BET.
+
+`PREMATCH_CONFIRMED` *after* independently verified kickoff should
+yield `VERIFY_LIVE_STATUS`, not silently authorize a stale PRE quote.
+Finished fixtures go to audit only; postponed/cancelled fixtures do not
+produce an executable selection.
+
 
 ### Time-critical /xi decision path (C official + C2 shadow)
 

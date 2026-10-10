@@ -13,11 +13,13 @@ on:
       - "models/football/engine/model_bet_accounting.py"
       - "models/football/engine/decision_pair_cli.py"
       - "models/football/engine/step2_publication_guard.py"
+      - "models/football/engine/step2_fixture_transition.py"
   pull_request:
     paths:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/step2_publication_guard.py"
+      - "models/football/engine/step2_fixture_transition.py"
   workflow_dispatch:
 
 permissions:
@@ -56,11 +58,15 @@ jobs:
         run: |
           PYTHONPATH=models/football/engine python -m unittest discover -s models/football/engine/tests -p 'test_step2_publication_guard.py' -v
           PYTHONPATH=models/football/engine python -m unittest discover -s models/football/engine/tests -p 'test_adapter.py' -v
+      - name: Test kickoff-to-live router (no retrospective bets)
+        run: |
+          PYTHONPATH=models/football/engine python -m unittest discover -s models/football/engine/tests -p 'test_step2_fixture_transition.py' -v
       - name: Record artifact revision and source digest
         run: |
           git rev-parse HEAD > XI_PORTABLE_COMMIT.txt
           sha256sum models/football/engine/xi_portable.py > XI_PORTABLE_SHA256.txt
           sha256sum models/football/engine/step2_publication_guard.py > XI_PUBLICATION_GUARD_SHA256.txt
+          sha256sum models/football/engine/step2_fixture_transition.py > XI_FIXTURE_TRANSITION_SHA256.txt
       - name: Export current XI runner and publication guard for normal chat
         uses: actions/upload-artifact@v4
         with:
@@ -71,8 +77,11 @@ jobs:
             XI_PORTABLE_COMMIT.txt
             XI_PORTABLE_SHA256.txt
             XI_PUBLICATION_GUARD_SHA256.txt
+            XI_FIXTURE_TRANSITION_SHA256.txt
             models/football/engine/xi_portable.py
             models/football/engine/step2_publication_guard.py
+            models/football/engine/step2_fixture_transition.py
+            models/football/engine/tests/test_step2_fixture_transition.py
             models/football/engine/decision_pair_cli.py
             models/football/engine/adapter.py
             models/football/engine/core.py
