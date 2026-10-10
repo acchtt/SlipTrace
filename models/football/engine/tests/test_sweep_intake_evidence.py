@@ -44,6 +44,98 @@ def valid_fixture():
     }
 
 
+def league_candidate(name="Premier League", profile_type="TIER1_STANDARD"):
+    row = valid_fixture()
+    row["competition_name"] = name
+    row["intake_evidence_scope"] = "LEAGUE_CHANNEL_ONLY"
+    row["league_channel_profile"] = {
+        "competition_name": name,
+        "profile_type": profile_type,
+        "season": "2026/27",
+        "coverage_status": "VERIFIED_CHANNELS",
+        "evidence_checked_at_utc": "2026-10-09T10:00:00Z",
+        "evidence_basis": "Current league-provider XI, Asian totals and official news channels",
+        "xi_provider_url": "https://fotmob.example.org/league/lineups",
+        "asian_total_provider_url": "https://book.example.org/league/totals",
+        "team_news_provider_url": "https://league.example.org/news",
+        "recent_xi_fixture_count": 3,
+        "recent_asian_total_fixture_count": 3,
+    }
+    for k in (
+        "xi_home_channel_type", "xi_home_channel_source_url",
+        "xi_away_channel_type", "xi_away_channel_source_url",
+        "asian_total_market_match_id", "asian_total_fixture_source_url",
+        "asian_total_market_line", "asian_total_market_bookmaker",
+        "asian_total_market_observed_at_utc", "team_news_source_url",
+    ):
+        row.pop(k, None)
+    return row
+
+
+class LeagueChannelFirstTests(unittest.TestCase):
+    def test_tier1_enter_work_without_match_quote_or_individual_xi(self):
+        row = league_candidate()
+        self.assertEqual(
+            validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), []
+        )
+        self.assertTrue(classify_preflight(
+            row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"
+        )["work_queue_eligible"])
+        self.assertIn(
+            "CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH",
+            validate_work_candidate(row),
+        )
+
+    def test_tier1_claim_must_match_explicit_known_competition(self):
+        row = league_candidate("Unknown Unverified Premier")
+        self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_non_tier1_league_requires_observed_xi_and_market_evidence(self):
+        row = league_candidate("Professional Second Division", "PROVEN_LEAGUE")
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 1
+        self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_unsupported_profile_does_not_bypass_missing_line(self):
+        row = league_candidate()
+        row["league_channel_profile"]["asian_total_provider_url"] = ""
+        self.assertIn("LEAGUE_ASIAN_TOTAL_PROVIDER_URL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row = league_candidate()
+        row["league_channel_profile"]["coverage_status"] = "UNKNOWN"
+        self.assertIn("LEAGUE_CHANNEL_COVERAGE_UNVERIFIED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_profile_cannot_be_reused_for_different_league_or_season(self):
+        row = league_candidate()
+        row["competition_name"] = "Bundesliga"
+        self.assertIn("LEAGUE_PROFILE_COMPETITION_MISMATCH",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row = league_candidate()
+        row["league_channel_profile"]["evidence_checked_at_utc"] = "2026-07-01T00:00:00Z"
+        self.assertIn("LEAGUE_PROFILE_EVIDENCE_STALE_OR_POST_KO",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_protected_scope_and_fixture_time_still_fail_closed(self):
+        row = league_candidate()
+        row["is_friendly"] = True
+        row["fixture_identity_verified"] = False
+        row["fixture_kickoff_utc"] = "not-a-time"
+        defects = validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1")
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY", defects)
+        self.assertIn("FIXTURE_IDENTITY_UNVERIFIED", defects)
+        self.assertIn("FIXTURE_KICKOFF_UTC_UNVERIFIED", defects)
+
+    def test_league_proof_does_not_create_confirmed_starting_xi(self):
+        row = league_candidate()
+        row["xi_expected"] = "UNCERTAIN"
+        row["operational_viability_grade"] = "A"
+        self.assertIn("XI_UNCERTAIN_MUST_BE_CONDITIONAL_B",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+
 class StrictIntakeEvidenceTests(unittest.TestCase):
     def test_verified_fixture_can_enter_work(self):
         row = valid_fixture()

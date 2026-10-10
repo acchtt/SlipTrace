@@ -277,7 +277,7 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     if policy not in (None, 'COMPACT_GOAL_ROUTE_V1'):
         raise Step0HandoffError('HANDOFF INCOMPLETE: unknown budget policy')
     intake_policy = payload.get("strict_intake_policy")
-    if intake_policy not in (None, "XI_MARKET_FIRST_V1"):
+    if intake_policy not in (None, "XI_MARKET_FIRST_V1", "LEAGUE_CHANNEL_FIRST_V1"):
         raise Step0HandoffError("HANDOFF INCOMPLETE — unknown strict intake policy")
     strict_xi_market_gate = (
         policy == "COMPACT_GOAL_ROUTE_V1"
@@ -333,7 +333,9 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
                 )
 
         if strict_xi_market_gate:
-            defects = validate_work_candidate(row)
+            defects = validate_work_candidate(
+                row, intake_policy=intake_policy or "XI_MARKET_FIRST_V1"
+            )
             if defects:
                 raise Step0HandoffError(
                     "HANDOFF INCOMPLETE — XI/ASIAN-TOTAL INTAKE EVIDENCE: "

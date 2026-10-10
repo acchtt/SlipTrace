@@ -197,6 +197,10 @@ Materialize:
 - `models/football/engine/competition_reliability.py`
 - `models/football/engine/schema.json`
 - `models/football/engine/board_pair_cli.py`
+- `models/football/engine/sweep_intake_evidence.py`
+- `models/football/engine/sweep_intake_evidence_cli.py`
+- `models/football/engine/step0_handoff_cli.py`
+- `models/football/engine/coverage_manifest.py`
 - `models/football/engine/capacity_replenishment.py`
 - `models/football/engine/capacity_replenishment_cli.py`
 - `models/football/engine/rank_terminal_status.py`

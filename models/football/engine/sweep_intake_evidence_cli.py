@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from sweep_intake_evidence import classify_preflight
+from sweep_intake_evidence import classify_preflight, LEAGUE_CHANNEL_POLICY
 
 
 def main() -> int:
@@ -18,6 +18,9 @@ def main() -> int:
         data = json.loads(Path(args.input).read_text(encoding="utf-8"))
         if not isinstance(data, dict) or not isinstance(data.get("candidates"), list):
             raise ValueError("candidates must be a list")
+        intake_policy = data.get("intake_policy", "XI_MARKET_FIRST_V1")
+        if intake_policy not in {"XI_MARKET_FIRST_V1", LEAGUE_CHANNEL_POLICY}:
+            raise ValueError("unknown intake_policy")
         found = set()
         ready, excluded, pending = [], [], []
         for i, row in enumerate(data["candidates"]):
@@ -27,7 +30,7 @@ def main() -> int:
             if not isinstance(mid, str) or not mid.strip() or mid in found:
                 raise ValueError(f"missing or duplicate canonical match_id at index {i}")
             found.add(mid)
-            result = classify_preflight(row)
+            result = classify_preflight(row, intake_policy=intake_policy)
             record = {"match_id": mid, **result}
             if result["work_queue_eligible"]:
                 ready.append(row)
@@ -37,7 +40,7 @@ def main() -> int:
                 excluded.append(record)
         report = {
             "ok": True,
-            "policy": "XI_MARKET_FIRST_V1",
+            "policy": intake_policy,
             "raw_preflight_count": len(data["candidates"]),
             "verified_queue_candidates": len(ready),
             "operational_or_scope_excluded": len(excluded),

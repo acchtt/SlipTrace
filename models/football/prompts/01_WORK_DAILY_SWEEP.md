@@ -146,9 +146,40 @@ If this contract is incomplete, stop. /rank does not recreate missing Step-0 ope
 
 If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, validate exactly operational ranks 1–8 admitted (or all if fewer than eight), with full A/B deferred queue preserved. Its first research wave is <=8 rather than the legacy <=15. Use `FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md`. The initial wave may be checked with `python models/football/engine/capacity_initial_wave_cli.py --input <capacity_queue_input.json>` before accepting its handoff. After each Step-1 wave pass `budget_policy=COMPACT_GOAL_ROUTE_V1` and the complete unique `researched_match_ids` (including first-wave matches and earlier replenished matches) to the deterministic capacity-replenishment selector. Auto-replenish only when FOLLOW+RESERVE <4. Research the first 12 routinely; when this is insufficient, allow time-attested adaptive expansion only as described below, never beyond 20 unique frozen-queue fixtures. Stop on `COMPACT_ACTIVE_TARGET_SATISFIED` or `COMPACT_RESEARCH_BUDGET_EXHAUSTED` as valid terminal budget conditions. Explicit user exceptions require separate provenance and do not retroactively rewrite the budgeted rank queue. Use the same C+C2 paired engine for every fixture actually researched. No predictive league or team form is allowed to reorder operational capacity ranks. For **legacy handoffs with no compact policy**, keep existing 15-slot gate and 10-active-lane replenishment unchanged.
 
+### League-first incoming handoff — verify actual fixture data here
+
+For a `strict_intake_policy=LEAGUE_CHANNEL_FIRST_V1` handoff, accept
+`intake_evidence_scope=LEAGUE_CHANNEL_ONLY` only as **data-coverage eligibility**
+and source provenance. It does NOT assert that the fixture has a current
+Asian-total price or released lineup. The Step-0 validator checks fixture
+identity/UTC KO, exact competition match, a <=30-day source-backed shared
+league profile, supported A/B viability and recheck date. It deliberately
+does NOT collect bookmaker lines or individual previous-XI histories.
+
+**Before C/C2 research and ranking each such fixture**, use the same frozen
+fixture ID/KO to locate an actual match-specific bookmaker Asian goal total,
+capture line, bookmaker, observed UTC time and source link, check actual team
+news/absences and usable two-sided lineup publishing channels, then run the
+existing strict `XI_MARKET_FIRST_V1` fixture check. Build a fresh
+`{"intake_policy":"XI_MARKET_FIRST_V1","candidates":[<current fixture record>]}`
+input and invoke
+`python models/football/engine/sweep_intake_evidence_cli.py --input <fixture_evidence.json>`.
+This reuses the existing strict contract and rejects missing current market
+quotes or unsupported XI channels. If incomplete, label the fixture
+`STEP1_RESEARCH_BLOCKED`; it is **not** C/C2 PASS and must not be promoted
+to FOLLOW/RESERVE. Record why, preserve its frozen Step0 rank and continue
+the deterministic ordered replenishment from the next qualified candidate.
+
+Do not synthesize odds from the league profile or treat
+`market_observability=HIGH` at Step0 as `CURRENT_EXECUTABLE_QUOTE`. Keep
+`B/UNCERTAIN` no higher than RESERVE until /xi verifies confirmed starters,
+and never use C2 shadow alone for betting authorization.
+`/xi` still revalidates the **actual** offered Asian total, price and
+confirmed lineups.
+
 ### XI/Asian-total intake preflight — new and explicitly marked in-progress runs
 
-For compact or explicitly strict-marked unfinished handoffs, run the Step-0 machine validator on the complete A/B queue. **Do not demand the upcoming match's confirmed XI during an entire-day /sweep or /rank.** Check evidence that lineup publication channels exist for both teams, with strong channel evidence for A/YES and a conditional B/UNCERTAIN path (at least one strong channel plus credible squad/provider coverage), near-KO XI recheck, current fixture-specific Asian total, team news, competition tier and identity/time. B/UNCERTAIN may be studied but cannot be routine FOLLOW until actual /xi revalidation; the usual B RESERVE cap still applies. If the channel really is unsupported, fail closed to Step 0 rather than inventing lineups.
+For compact or explicitly strict-marked unfinished handoffs, run the Step-0 machine validator on the complete A/B queue. **Do not demand the upcoming match's confirmed XI during an entire-day /sweep or /rank.** For old `XI_MARKET_FIRST_V1` handoffs, check both teams' lineup publication channels (or conditional B sources), near-KO XI recheck, current match-specific Asian total, team news, competition tier and identity/time. For new league-first handoffs, apply the preceding league-based admission and fixture-specific **Step01 research** rules instead. B/UNCERTAIN may be studied but cannot be routine FOLLOW until actual /xi revalidation; the usual B RESERVE cap still applies. If the channel really is unsupported, fail closed to Step 0 rather than inventing lineups.
 
 A still-unfinished legacy sweep explicitly opt-in to `strict_intake_policy` **does not** inherit compact 8/12/4 budget automatically. The budget remains its original legacy 15/10 unless its own frozen handoff legitimately carries `COMPACT_GOAL_ROUTE_V1`. Previously frozen/COMPLETE handoffs without either marker remain backward compatible.
 
