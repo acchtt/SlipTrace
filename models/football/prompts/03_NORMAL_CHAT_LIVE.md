@@ -26,6 +26,41 @@ Use this launcher when:
 
 Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
 
+### Automatic early-live takeover from /xi
+
+**Started is not assessment blocked.** A normal /xi assessment can transition
+directly into this launcher in the **same response** as soon as current
+status says STARTED, without waiting for a second /live command. Invoke
+`step2_fixture_transition.py` at the exact verified kickoff/current
+timestamp. `EARLY_LIVE_FAST_PATH` covers the first 15 minutes;
+`STANDARD_LIVE` covers later play, and **both allow assessment**.
+The distinction is urgency only. A match 2, 9 or 16 minutes old is
+not automatically PASS or NO BET because it started.
+
+Carry forward the genuinely frozen, independent C and C2 research,
+but freeze a **new live epoch** and verify current score/minute, any
+goal/red card or material lineup/tactical change, and the live market
+when available. At 0-0 with no material change, make a short check of
+the existing scoring thesis rather than running the entire Step-1
+research pipeline again. After any meaningful event, recompute
+goal burden/continuation and relevant tournament incentives.
+
+**Two levels of result:**
+1. Immediately deliver the **football assessment** (scoring mechanism,
+   whether C/C2's frozen theses survive, a goal-burden view and specific
+   reason) even when live quote is unavailable. Clearly label
+   `LIVE ASSESSMENT — QUOTE REQUIRED / NO EXECUTABLE BET` if applicable.
+2. Only recommend a live official C action after verified **current
+   in-play** totals and odds, current fixture/score/event integrity and
+   any required C/C2 live engine and persistence/publication checks.
+   A C2 apparent action is shadow-only. Never turn a late snapshot
+   into a prematch recommendation or claim a bet was placed.
+
+An exact-prematch Step-2 engine rejection of STARTED remains a valid
+protection; it must **trigger this handoff**, not terminate the user's
+requested football assessment. Never claim an authorized C/C2 action
+if the relevant deterministic live decision path was not run.
+
 ## 2. Common live evidence
 
 Freeze one current live epoch for both active models:
