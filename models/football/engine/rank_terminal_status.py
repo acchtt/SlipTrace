@@ -86,9 +86,12 @@ def rank_terminal_status(payload: dict[str, Any]) -> dict[str, Any]:
             raise RankTerminalStatusError(
                 "COMPACT_RESEARCH_BUDGET_EXHAUSTED requires 0 remaining budget"
             )
-        if compact_status == "COMPACT_ACTIVE_TARGET_SATISFIED" and follow + reserve < 4:
+        if compact_status == "COMPACT_ACTIVE_TARGET_SATISFIED" and (
+            follow < 1 or follow + reserve < 4
+        ):
             raise RankTerminalStatusError(
-                "COMPACT_ACTIVE_TARGET_SATISFIED requires 4 active lanes"
+                "COMPACT_ACTIVE_TARGET_SATISFIED requires at least 1 FOLLOW "
+                "and 4 active lanes"
             )
         if compact_status == "QUEUE_EXHAUSTED_OR_CLOSED" and deferred:
             raise RankTerminalStatusError(
