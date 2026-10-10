@@ -491,6 +491,10 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(result["matches"][0]["follow_lane"], "FOLLOW")
 
+    def test_o45_lane_allocation(self):
+        result = run_board({"schema_version": "football-engine-v1", "stage": "board", "model": "c", "matches": [match("elite", supported_line=4.5, board_state="C-FOCUS")]})
+        self.assertEqual(result["matches"][0]["follow_lane"], "FOLLOW")
+
     def test_c2_does_not_inherit_c_burden_completion_ranking(self):
         result = run_board(
             {
