@@ -386,6 +386,42 @@ class T(unittest.TestCase):
         self.assertEqual(out.returncode, 2)
         self.assertIn("XI_AWAY_PUBLISHING_CHANNEL_UNVERIFIED", out.stderr)
 
+    def test_registry_first_scope_blocks_bangladesh_and_unknown(self):
+        p = bounded_payload()
+        r = proof(row("m1", 1))
+        r["competition_name"] = "Premier League"
+        r["country"] = "Bangladesh"
+        p["capacity_queue"] = [r]
+        p["admitted_fixtures"] = [dict(r)]
+        p["competition_scope_policy"] = "REGISTRY_FIRST_V1"
+        p["competition_scope_blocks"] = [{
+            "competition_name": "Premier League",
+            "country": "Bangladesh",
+            "competition_kind": "DOMESTIC_LEAGUE",
+        }]
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("SCOPE EXCLUDED DOMESTIC LEAGUE LEAK", result.stderr)
+
+        p["capacity_queue"][0]["competition_name"] = "Bundesliga"
+        p["capacity_queue"][0]["country"] = "Germany"
+        p["admitted_fixtures"] = [dict(p["capacity_queue"][0])]
+        p["competition_scope_blocks"] = [{
+            "competition_name": "Bundesliga",
+            "country": "Germany",
+            "competition_kind": "DOMESTIC_LEAGUE",
+        }]
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+        p["competition_scope_blocks"] = [{
+            "competition_name": "Unknown",
+            "country": "Germany",
+            "competition_kind": "OTHER",
+        }]
+        result = self.runp(p)
+        self.assertEqual(result.returncode, 2)
+
     def test_new_league_first_handoff_can_admit_without_match_quote(self):
         p = bounded_payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"

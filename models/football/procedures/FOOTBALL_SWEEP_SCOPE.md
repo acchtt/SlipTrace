@@ -29,6 +29,38 @@ FULL_AUDIT uses the broader NARROW CORE rules in the rest of this file.
 
 ---
 
+### Registry-first machine preflight (new FAST_PRODUCTION sweeps)
+
+**Before individual fixtures, market screens or lineups are researched**, use
+`step0_portable.py scope` or `sweep_competition_scope_cli.py` on the
+captured competition/date blocks. The deterministic gate permits proactive
+league evidence checks only for `ROUTINE_LEAGUE_PROFILE` and
+`CONDITIONAL_CHEAP_GATE`. Any unlisted domestic competition is an immediate
+`SCOPE_EXCLUDED` even if it markets itself as a "Premier League", "Serie A"
+or "Bundesliga": country and competition must **both** match the registry.
+Bangladesh senior domestic leagues and Indonesia Liga 2/other unapproved
+lower divisions are out of routine Work scope, without two hours of individual
+XI/bookmaker checks or retry blocks. A per-run user exception is not a
+permanent registry promotion.
+
+Preserve already visible out-of-scope fixture IDs/counts in the raw audit
+ledger but **do not** put them into the live shortlist, operational A/B queue,
+or an external verification retry list. Do not conduct extra discovery for
+these exclusions merely to prove that they were excluded.
+
+Protected senior national/continental fixtures, evidenced major senior
+domestic cups (for example the Australia Cup final) and women's top-flight
+coverage have separate dispositions: they are not treated as weak men's
+domestic leagues by default. Required fixture manifests and legitimate
+in-window identities are still recorded. Retaining them in raw coverage is
+not equivalent to Work admission: missing provider proof still blocks Work.
+
+For newly created sweeps set `competition_scope_policy=REGISTRY_FIRST_V1`
+and serialize actual source-backed `competition_scope_blocks` alongside
+the full fixture ledger; Step-0 final handoff rejects any scope-excluded
+fixture in the Work queue. Existing RUNNING/frozen source epochs are not
+reclassified retroactively.
+
 ## 1. Core principle
 
 The daily sweep uses **NARROW CORE discovery**. Step 0 should search the model's retained competition universe directly instead of crawling the raw AiScore world and proving most of it irrelevant.

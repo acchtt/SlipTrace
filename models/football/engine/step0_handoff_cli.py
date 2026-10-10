@@ -276,6 +276,46 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     policy = payload.get('sweep_work_budget_policy')
     if policy not in (None, 'COMPACT_GOAL_ROUTE_V1'):
         raise Step0HandoffError('HANDOFF INCOMPLETE: unknown budget policy')
+    scope_policy = payload.get("competition_scope_policy")
+    if scope_policy not in (None, "REGISTRY_FIRST_V1"):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — unknown competition scope policy")
+    if scope_policy == "REGISTRY_FIRST_V1":
+        from sweep_competition_scope import screen_competitions, _name
+        scope_rows = payload.get("competition_scope_blocks")
+        if not isinstance(scope_rows, list):
+            raise Step0HandoffError(
+                "HANDOFF INCOMPLETE — registry-first competition block manifest missing"
+            )
+        screening = screen_competitions(scope_rows)
+        prohibited = {
+            (_name(z.get("competition_name")), _name(z.get("country")))
+            for lane in ("SCOPE_EXCLUDED", "RAW_COVERAGE_ONLY", "SCOPE_UNRESOLVED")
+            for z in screening["blocks"].get(lane, [])
+        }
+        all_work = payload.get("capacity_queue", [])
+        if not isinstance(all_work, list):
+            raise Step0HandoffError("HANDOFF INCOMPLETE — capacity queue invalid")
+        for item in all_work:
+            if not isinstance(item, dict):
+                raise Step0HandoffError("HANDOFF INCOMPLETE — queue fixture invalid")
+            key = (_name(item.get("competition_name")), _name(item.get("country")))
+            if key in prohibited:
+                raise Step0HandoffError(
+                    "HANDOFF INCOMPLETE — SCOPE EXCLUDED DOMESTIC LEAGUE LEAK: "
+                    + str(item.get("match_id", ""))
+                )
+        candidate_labels = {
+            (_name(z.get("competition_name")), _name(z.get("country")))
+            for z in scope_rows
+        }
+        for item in all_work:
+            key = (_name(item.get("competition_name")), _name(item.get("country")))
+            if key not in candidate_labels:
+                raise Step0HandoffError(
+                    "HANDOFF INCOMPLETE — WORK FIXTURE MISSING COMPETITION BLOCK SCOPE: "
+                    + str(item.get("match_id", ""))
+                )
+
     intake_policy = payload.get("strict_intake_policy")
     if intake_policy not in (None, "XI_MARKET_FIRST_V1", "LEAGUE_CHANNEL_FIRST_V1"):
         raise Step0HandoffError("HANDOFF INCOMPLETE — unknown strict intake policy")
