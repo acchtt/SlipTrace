@@ -67,6 +67,32 @@ This optional extension is prospective and does not alter the original handoff's
 
 This policy shrinks the **initial Work wave** 15→8 and prevents unbounded automatic replenishment; it does **not** promise eight good bets. Zero FOLLOW is a valid final slate outcome **only after** the available A/B queue closes or the valid 12/20 research/time budget is exhausted. Four RESERVE lanes alone cannot certify completion.
 
+### Prospective Step1-only goal-first research scheduling (2026-10-10 update)
+
+The table above governs **Step0 operational admission** and is unchanged.
+For **new** /rank executions not yet deeply researched or frozen,
+`GOAL_FIRST_STEP1_RESEARCH_V1` is the **default Step1 scheduling overlay**
+documented in `FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
+
+- Evaluate the **whole original A/B queue** (including rank #9+ deferred)
+  with a bounded cheap football-history screen before selecting 8 deep-research
+  fixtures. Source-backed team scoring, opponent concession, third-goal
+  history and two-goal stall patterns influence *research order* ONLY.
+- A fixture originally rank #13 may enter the initial eight *deep Step1*
+  research fixtures, but **original Step0 ranks/dispositions remain frozen**.
+  Originally admitted rows not deeply researched stay eligible for later waves.
+- No future FT, live scores, betting returns, frozen C/C2 supported lines or
+  bookmaker market totals may affect priority. Incomplete football history is
+  labelled `EVIDENCE_LIMITED` and assigned neutral, not zero-goal, priority.
+- Replenish using the separate source-bound `research_priority_manifest`,
+  current kickoff/status evidence and the original full A/B queue.
+  First deep wave = 8, standard cap = 12, time-verified adaptive maximum = 20.
+  When FOLLOW=0, four RESERVE alone do not end research.
+- This rule does **not** change the frozen source package, Step0 intake
+  validator, operational grades, scope exclusions, C official vs C2 shadow
+  prediction engines or the quote/exposure rules. Older already-frozen boards
+  retain their original schedules.
+
 ## 4. Step 1 bounded goal-route check (context only, never hard veto)
 
 For each admitted fixture's existing Step-1 common factual evidence epoch (before C/C2 apply their independent policies):
