@@ -386,6 +386,47 @@ class T(unittest.TestCase):
         self.assertEqual(out.returncode, 2)
         self.assertIn("XI_AWAY_PUBLISHING_CHANNEL_UNVERIFIED", out.stderr)
 
+    def test_new_league_first_handoff_can_admit_without_match_quote(self):
+        p = bounded_payload()
+        p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
+        p["strict_intake_policy"] = "LEAGUE_CHANNEL_FIRST_V1"
+        queue = []
+        for i in range(1, 4):
+            item = proof(row(f"m{i}", i,
+                 "ADMITTED_TO_C" if i <= 3 else "OPERATIONAL_CAPACITY_DEFERRED"))
+            item["competition_name"] = "Premier League"
+            item["intake_evidence_scope"] = "LEAGUE_CHANNEL_ONLY"
+            item["league_channel_profile"] = {
+                "competition_name": "Premier League",
+                "profile_type": "TIER1_STANDARD",
+                "season": "2026/27",
+                "coverage_status": "VERIFIED_CHANNELS",
+                "evidence_checked_at_utc": "2026-10-09T18:00:00Z",
+                "evidence_basis": "Current league XI, Asian totals and team news channels",
+                "xi_provider_url": "https://provider.example.org/xi",
+                "asian_total_provider_url": "https://book.example.org/league/totals",
+                "team_news_provider_url": "https://club.example.org/news",
+            }
+            for k in ("xi_home_channel_source_url", "xi_away_channel_source_url",
+                      "asian_total_fixture_source_url", "asian_total_market_match_id",
+                      "asian_total_market_line", "asian_total_market_observed_at_utc",
+                      "asian_total_market_bookmaker", "team_news_source_url"):
+                item.pop(k, None)
+            queue.append(item)
+        p["capacity_queue"] = queue
+        p["admitted_fixtures"] = [dict(item) for item in queue]
+        p["admitted_to_c_count"] = 3
+        p["capacity_deferred_count"] = 0
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        result = self.runp(p, consumer="export")
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+        p["capacity_queue"][0]["league_channel_profile"]["asian_total_provider_url"] = ""
+        result = self.runp(p, consumer="rank")
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("LEAGUE_ASIAN_TOTAL_PROVIDER_URL_MISSING", result.stderr)
+
     def test_compact_handoff_blocks_unproven_market(self):
         p = payload()
         p["sweep_work_budget_policy"] = "COMPACT_GOAL_ROUTE_V1"
