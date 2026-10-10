@@ -390,90 +390,21 @@ def follow_through_lane(
     a: MatchAssessment,
     board_state: BoardState,
 ) -> FollowLane:
-    """Burden-completion follow-through gate.
+    """Pure Step-2 *workload eligibility*, never a second football selector.
 
-    FOLLOW no longer requires two usable scoring routes. A match may clear via:
-    - TWO_SIDED: two usable routes with at least one STRONG route;
-    - CARRIER_LED: one STRONG route plus a self-funding STRONG carrier,
-      independent upper-tail proof and opponent leakage;
-    - FORCED_CHAOS: verified football/incentive persistence that gives the
-      match a credible continuation path.
+    Football C already froze the predictive FOCUS/WATCH/PASS classification
+    and C ranking before this function runs. A FOCUS match is eligible for
+    routine review irrespective of its supported total, goal-three/four
+    funding, stall-risk, carrier or failure profile. Those are *predictive*
+    inputs and remain fully enforced by C's model-specific Step-2 decision.
 
-    In every case the selector asks where the goal that clears the protected
-    burden comes from. HIGH stall risk is a hard STOP for routine follow-up.
+    The board adapter allocates the scarce FOLLOW and RESERVE slots by C
+    ranking, operational A/B researchability and exact-kickoff capacity.
+    This function must never independently turn an official C FOCUS into
+    an operational STOP because of the size of the Over market.
     """
-
     require_c_completion(a)
-
-    if board_state != BoardState.FOCUS:
-        return FollowLane.STOP
-
-    if a.material_suppression or a.failure_attacks_route:
-        return FollowLane.STOP
-
-    if a.burden_stall_risk == Grade.HIGH:
-        return FollowLane.STOP
-
-    if a.supported_line > 3.0:
-        return FollowLane.STOP
-
-    # FOCUS stays broad, but FOLLOW is a clearing-burden certification.
-    # O2.5/O2.75 must prospectively fund goal 3; O3.0 must independently
-    # support the upper tail rather than infer it from two-sidedness.
-    if not clearing_goal_funded(a):
-        return FollowLane.RESERVE if a.burden_protection == Grade.HIGH else FollowLane.STOP
-
-    common = (
-        a.carrier == CarrierStrength.STRONG
-        and a.route_reliability == Grade.HIGH
-        and a.chance_quality >= Grade.MEDIUM
-        and a.evidence_confidence == Grade.HIGH
-    )
-    if not common:
-        return FollowLane.STOP
-
-    two_sided = (
-        a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
-        and a.home_route >= RouteStrength.USABLE
-        and a.away_route >= RouteStrength.USABLE
-        and max(a.home_route, a.away_route) == RouteStrength.STRONG
-    )
-
-    carrier_led = (
-        a.completion_mode in {CompletionMode.CARRIER_LED, CompletionMode.MIXED}
-        and max(a.home_route, a.away_route) == RouteStrength.STRONG
-        and a.carrier_self_fund
-        and a.independent_upper_tail
-        and a.opponent_leakage >= Grade.MEDIUM
-    )
-
-    forced_chaos = (
-        a.completion_mode in {CompletionMode.FORCED_CHAOS, CompletionMode.MIXED}
-        and max(a.home_route, a.away_route) >= RouteStrength.USABLE
-        and a.continuation_quality == Grade.HIGH
-    )
-
-    if not (two_sided or carrier_led or forced_chaos):
-        return FollowLane.STOP
-
-    if (
-        a.burden_completion_quality == Grade.HIGH
-        and a.continuation_quality == Grade.HIGH
-        and a.failure_resistance == Grade.HIGH
-        and a.burden_stall_risk == Grade.LOW
-    ):
-        return FollowLane.FOLLOW
-
-    if (
-        a.burden_completion_quality >= Grade.MEDIUM
-        and a.continuation_quality >= Grade.MEDIUM
-        and a.failure_resistance >= Grade.MEDIUM
-        and a.burden_protection == Grade.HIGH
-    ):
-        return FollowLane.RESERVE
-
-    return FollowLane.STOP
-
+    return FollowLane.FOLLOW if board_state == BoardState.FOCUS else FollowLane.STOP
 
 def c2_selection_floor(
     a: MatchAssessment,
