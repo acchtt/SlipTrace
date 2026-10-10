@@ -41,6 +41,58 @@ CONDITIONAL = frozenset({
     "colombia primera a", "ecuador ligapro serie a",
     "uruguay primera division", "russian premier league",
 })
+# Names are never country-agnostic: "Premier League", "Serie A" and
+# "Bundesliga" are used by many weak-data competitions.
+REGISTERED_DIRECT = {
+    "netherlands": {"eredivisie", "netherlands eredivisie", "eerste divisie", "eerstedivisie", "netherlands eerste divisie"},
+    "germany": {"bundesliga", "german bundesliga"},
+    "belgium": {"belgian pro league", "belgian first division a"},
+    "norway": {"eliteserien", "norwegian eliteserien"},
+    "sweden": {"allsvenskan", "sweden allsvenskan"},
+    "denmark": {"danish superliga", "superliga denmark"},
+    "iceland": {"besta deild karla", "iceland premier league"},
+    "austria": {"austrian bundesliga", "bundesliga"},
+    "united states": {"mls", "major league soccer"},
+    "usa": {"mls", "major league soccer"},
+    "canada": {"mls", "major league soccer"},
+    "australia": {"a-league men", "australia a-league men"},
+    "england": {"premier league", "english premier league"},
+    "spain": {"la liga", "laliga"},
+    "italy": {"serie a", "italian serie a"},
+    "france": {"french ligue 1", "ligue 1"},
+    "portugal": {"primeira liga", "portugal primeira liga"},
+    "scotland": {"scottish premiership"},
+    "switzerland": {"swiss super league", "switzerland super league"},
+    "brazil": {"serie a", "brazil serie a", "brazilian serie a"},
+    "mexico": {"liga mx", "liga de expansion mx", "liga de expansión mx", "ascenso mx"},
+    "saudi arabia": {"saudi pro league"},
+}
+REGISTERED_CONDITIONAL = {
+    "czech republic": {"czech first league", "czech first division"},
+    "poland": {"ekstraklasa"},
+    "greece": {"greek super league", "greece super league"},
+    "romania": {"romanian liga i"},
+    "croatia": {"croatian hnl"},
+    "serbia": {"serbian superliga"},
+    "slovenia": {"slovenian prvaliga"},
+    "slovakia": {"slovak nike liga", "slovak niké liga"},
+    "hungary": {"hungarian nb i"},
+    "bulgaria": {"bulgarian first league"},
+    "ireland": {"ireland premier division", "republic of ireland premier division"},
+    "republic of ireland": {"ireland premier division", "republic of ireland premier division"},
+    "china": {"china super league", "chinese super league"},
+    "india": {"indian super league"},
+    "united arab emirates": {"uae pro league"},
+    "uae": {"uae pro league"},
+    "qatar": {"qatar stars league"},
+    "peru": {"peru liga 1"},
+    "bolivia": {"bolivia primera division", "bolivian division profesional"},
+    "chile": {"chile primera division"},
+    "colombia": {"colombia primera a"},
+    "ecuador": {"ecuador ligapro serie a"},
+    "uruguay": {"uruguay primera division"},
+    "russia": {"russian premier league"},
+}
 # Explicit user domestic exclusions are stricter than Tier-1 channel status.
 EXCLUDED_DOMESTIC_COUNTRIES = frozenset({
     "bangladesh", "israel", "kenya", "iraq", "wales", "kuwait",
@@ -90,10 +142,10 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
             return {"lane": "SCOPE_EXCLUDED", "reason": "LOW-GOAL DOMESTIC REGISTRY EXCLUSION"}
         if country == "germany" and name in {"3 liga", "3 liga germany"} and not override:
             return {"lane": "SCOPE_EXCLUDED", "reason": "GERMANY 3. LIGA USER EXCLUSION"}
-        if name in PRIORITY_NORMAL:
-            return {"lane": "ROUTINE_LEAGUE_PROFILE", "reason": "EXPLICIT PRIORITY/NORMAL REGISTRY"}
-        if name in CONDITIONAL:
-            return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "EXPLICIT CONDITIONAL REGISTRY"}
+        if name in PRIORITY_NORMAL and name in REGISTERED_DIRECT.get(country, set()):
+            return {"lane": "ROUTINE_LEAGUE_PROFILE", "reason": "EXPLICIT COUNTRY+LEAGUE PRIORITY/NORMAL REGISTRY"}
+        if name in CONDITIONAL and name in REGISTERED_CONDITIONAL.get(country, set()):
+            return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "EXPLICIT COUNTRY+LEAGUE CONDITIONAL REGISTRY"}
         return {"lane": "SCOPE_EXCLUDED", "reason": "UNLISTED/WEAK-DATA DOMESTIC LEAGUE — NO RESEARCH"}
     if kind == "PROTECTED_OFFICIAL" or kind == "CONTINENTAL":
         return {"lane": "PROTECTED_CONTEXT_REVIEW", "reason": "SENIOR OFFICIAL COMPETITION — SOURCE/INCENTIVE CHECK"}
