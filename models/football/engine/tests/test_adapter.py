@@ -643,18 +643,56 @@ class BoardContractTests(unittest.TestCase):
                 }
             )
 
-    def test_required_tournament_block_must_not_be_na(self):
-        with self.assertRaises(ContractError):
-            run_board(
-                {
+    def test_required_tournament_marked_unknown_is_ranked_provisionally(self):
+        # Cup/qualification research is permitted even without full format
+        # details; no one may silently treat NOT_APPLICABLE as VERIFIED.
+        row = match(
+            tournament_incentive_required=True,
+            board_state="C-FOCUS",
+            carrier="STRONG",
+            supported_line=2.75,
+        )
+        for model in ("c", "c2"):
+            with self.subTest(model=model):
+                board = run_board({
                     "schema_version": "football-engine-v1",
-                    "stage": "board",
-                    "model": "c",
-                    "matches": [match(tournament_incentive_required=True)],
-                }
-            )
+                    "stage": "board", "model": model,
+                    "matches": [row],
+                })
+                output = board["matches"][0]
+                self.assertEqual(output["tournament_incentive_resolution"],
+                                 "INCENTIVE_RECHECK_REQUIRED")
+                self.assertEqual(output["supported_line_status"], "PROVISIONAL_INCENTIVE")
+                self.assertTrue(output["tournament_incentive_recheck_required"])
+                self.assertIn("tournament_format_status",
+                              output["tournament_incentive_unresolved_fields"])
+                self.assertEqual(output["board_state"], "FOCUS")
 
-    def test_limited_tournament_block_is_blocked(self):
+    def test_sparse_tournament_block_is_ranked_not_discarded(self):
+        row = match(
+            board_state="C-FOCUS",
+            tournament_incentive_required=True,
+            carrier="STRONG",
+        )
+        for field in (
+            "tournament_format_status", "competition_stage",
+            "competition_format", "qualification_state",
+            "simultaneous_results_status", "home_incentive",
+            "away_incentive", "incentive_effect",
+        ):
+            row.pop(field)
+        for model in ("c", "c2"):
+            with self.subTest(model=model):
+                result = run_board({
+                    "schema_version": "football-engine-v1",
+                    "stage": "board", "model": model,
+                    "matches": [row],
+                })
+                self.assertEqual(result["match_count"], 1)
+                self.assertEqual(result["matches"][0]["tournament_incentive_resolution"],
+                                 "INCENTIVE_RECHECK_REQUIRED")
+
+    def test_limited_tournament_remains_on_rank_board(self):
         row = match(
             tournament_incentive_required=True,
             tournament_format_status="LIMITED",
@@ -669,21 +707,25 @@ class BoardContractTests(unittest.TestCase):
             away_incentive="UNKNOWN",
             tiebreak_margin_relevance="UNKNOWN",
             incentive_effect="UNKNOWN",
+            board_state="C-FOCUS",
+            carrier="STRONG",
         )
-        with self.assertRaisesRegex(
-            ContractError,
-            "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
-        ):
-            run_board(
-                {
-                    "schema_version": "football-engine-v1",
-                    "stage": "board",
-                    "model": "c",
-                    "matches": [row],
-                }
-            )
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board", "model": "c", "matches": [row],
+        })
+        ranked = result["matches"][0]
+        self.assertEqual(ranked["board_state"], "FOCUS")
+        self.assertEqual(ranked["follow_lane"], "FOLLOW")
+        self.assertEqual(ranked["supported_line_status"], "PROVISIONAL_INCENTIVE")
+        self.assertEqual(ranked["tournament_incentive_resolution"],
+                         "INCENTIVE_RECHECK_REQUIRED")
+        self.assertIn("qualification_state",
+                      ranked["tournament_incentive_unresolved_fields"])
+        self.assertIn("simultaneous_results_status",
+                      ranked["tournament_incentive_unresolved_fields"])
 
-    def test_verified_format_with_unknown_tiebreak_is_blocked(self):
+    def test_verified_format_unknown_tiebreak_remains_rankable(self):
         row = match(
             tournament_incentive_required=True,
             tournament_format_status="VERIFIED",
@@ -699,18 +741,54 @@ class BoardContractTests(unittest.TestCase):
             tiebreak_margin_relevance="UNKNOWN",
             incentive_effect="MIXED",
         )
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board", "model": "c2", "matches": [row],
+        })
+        self.assertEqual(result["matches"][0]["tournament_incentive_resolution"],
+                         "INCENTIVE_RECHECK_REQUIRED")
+        self.assertEqual(result["matches"][0]["tournament_incentive_unresolved_fields"],
+                         ["tiebreak_margin_relevance"])
+
+    def test_unresolved_tournament_cannot_be_laundered_into_verified_decision(self):
+        row = match(
+            tournament_incentive_required=True,
+            board_state="C-FOCUS",
+            carrier="STRONG",
+        )
+        row["qualification_state"] = "UNKNOWN"
+        for model in ("c", "c2"):
+            with self.subTest(model=model):
+                with self.assertRaisesRegex(
+                    ContractError, "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED"
+                ):
+                    run_decision({
+                        "schema_version": "football-engine-v1",
+                        "stage": "decision", "model": model, "match": row,
+                        "context": decision_context(
+                            tournament_incentive_rechecked=True,
+                            tournament_incentive_recheck_status="VERIFIED",
+                        ),
+                    })
+
+    def test_sparse_tournament_cannot_authorize_decision(self):
+        row = match(
+            tournament_incentive_required=True,
+            board_state="C-FOCUS",
+            carrier="STRONG",
+        )
+        row.pop("qualification_state")
         with self.assertRaisesRegex(
-            ContractError,
-            "ASSESSMENT BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED",
+            ContractError, "DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED"
         ):
-            run_board(
-                {
-                    "schema_version": "football-engine-v1",
-                    "stage": "board",
-                    "model": "c",
-                    "matches": [row],
-                }
-            )
+            run_decision({
+                "schema_version": "football-engine-v1",
+                "stage": "decision", "model": "c", "match": row,
+                "context": decision_context(
+                    tournament_incentive_rechecked=True,
+                    tournament_incentive_recheck_status="VERIFIED",
+                ),
+            })
 
     def test_complete_tournament_block_passes(self):
         row = match(
@@ -738,6 +816,8 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertTrue(result["matches"][0]["tournament_incentive_required"])
         self.assertEqual(result["matches"][0]["incentive_effect"], "MIXED")
+        self.assertEqual(result["matches"][0]["tournament_incentive_resolution"], "VERIFIED")
+        self.assertEqual(result["matches"][0]["supported_line_status"], "FROZEN_FOOTBALL_PRE")
 
     def test_bad_schema_fails(self):
         with self.assertRaises(ContractError):
