@@ -105,12 +105,12 @@ def _canonical_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _priority(row: dict[str, Any]) -> tuple:
     # A genuinely imminent kickoff is investigated before later kickoffs.
-    # Only source-backed recent goals can alter football priority; no FT,
+    # Missing source evidence stays neutral (35), never zero-goal prediction.\n    # Only source-backed recent goals can alter football priority; no FT,
     # odds, bookmaker main line or subjective league Over rate enters.
     return (
         -int(row["urgent_before_kickoff"]),
+        -(row["priority_score"] if row["priority_score"] is not None else 35),
         -int(row["screen_status"] == "QUANTIFIED"),
-        -row["priority_score"] if row["priority_score"] is not None else 0,
         0 if row["operational_grade"] == "A" else 1,
         row["queue_rank"],
     )
