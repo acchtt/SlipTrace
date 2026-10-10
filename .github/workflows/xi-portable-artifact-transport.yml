@@ -45,7 +45,7 @@ jobs:
           for relative_path, expected in module.SOURCE_BLOB_SHA.items():
               source = Path(relative_path).read_bytes()
               blob = hashlib.sha1(
-                  b"blob " + str(len(source)).encode("ascii") + b"\\0" + source
+                  b"blob " + str(len(source)).encode("ascii") + b"\0" + source
               ).hexdigest()
               assert blob == expected, f"Outdated XI portable source: {relative_path}"
           print("XI EMBEDDED GIT BLOBS: PASS")
