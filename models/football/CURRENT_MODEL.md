@@ -154,7 +154,7 @@ Fail closed on ranked-universe mismatch, common-evidence drift, or C policy leak
 
 ## Football C selection / clearing-goal funding
 
-FOCUS classification is intentionally broader than FOLLOW certification.
+FOLLOW and RESERVE are workload priorities after the official C board, not a separate scoring verdict.
 
 For O2.5/O2.75 and other burdens requiring a third goal, FOLLOW must explicitly fund the clearing goal. A strong carrier plus a merely usable second route is not automatically enough.
 
