@@ -289,7 +289,8 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
         screening = screen_competitions(scope_rows)
         prohibited = {
             (str(z.get("competition_name", "")).casefold(), str(z.get("country", "")).casefold())
-            for z in screening["blocks"].get("SCOPE_EXCLUDED", [])
+            for lane in ("SCOPE_EXCLUDED", "RAW_COVERAGE_ONLY", "SCOPE_UNRESOLVED")
+            for z in screening["blocks"].get(lane, [])
         }
         all_work = payload.get("capacity_queue", [])
         if not isinstance(all_work, list):
