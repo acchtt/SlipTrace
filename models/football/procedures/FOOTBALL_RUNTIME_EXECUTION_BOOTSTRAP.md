@@ -94,6 +94,47 @@ PACKAGING/REPAIR without an existing local checkout):
    GitHub CI tests do **not** prove the current conversation transferred or
    executed source successfully.
 
+### Default /xi source transport (no checkout, no Work switch)
+
+When the active chat can read GitHub through its connector but its Python/container
+runtime has no GitHub DNS, **do not retry git clone/curl** or declare the paired
+models unavailable. Use the committed GitHub Actions workflow
+`.github/workflows/xi-portable-artifact-transport.yml`:
+
+1. Resolve `acchtt/SlipTrace@main` and fetch the current `xi_portable.py`
+   and `step2_publication_guard.py` Git blob SHAs.
+2. Find a **successful** `XI C+C2 portable verified runtime artifact`
+   workflow run whose source blob hashes match current main (PR-head workflow
+   artifacts are discoverable through `fetch_commit_workflow_runs`; a squash
+   merge produces a different commit SHA, so compare **source blobs**, not only
+   the PR head commit ID). Read its `xi-c-c2-portable-verified-source` artifact.
+3. Download the artifact using connected GitHub's
+   `download_workflow_artifact`. It produces a materialized file in
+   `/mnt/data` without requiring direct container network access. Extract
+   to a disposable workspace. Validate ZIP integrity, check the SHA-256
+   manifests against extracted bytes, and cross-check the extracted XI runner
+   and publication guard with the exact current GitHub blobs.
+4. **Actually execute** `python models/football/engine/xi_portable.py self-check`
+   in this chat's Python runtime. Required `XI PORTABLE RUNTIME: PASS`.
+   One successful runtime preflight is reusable within the same pinned source
+   revision and chat session. On a new revision recheck source freshness.
+5. Run `python models/football/engine/xi_portable.py pair --c c.json --c2 c2.json`
+   **once** against the same prospectively frozen input epoch. After an
+   independent Airtable write/read-back plus executable quote/status recheck,
+   run the exact-current bundled `step2_publication_guard.py` with the
+   original pair inputs/receipt and read-back snapshot.
+6. If no matching successful artifact exists, request/build a fresh
+   source-verifying CI artifact via the existing repo workflow. A stale
+   artifact must never become authority. `SOURCE_TRANSPORT_BLOCKED` is
+   a technical blocker, NOT a football PASS and NOT permission to reconstruct
+   a historical C2 result. Only genuine new data/quote evidence epochs justify
+   recomputing the frozen pair; do not burn the available prematch window
+   repeating unchanged source research.
+
+The artifact is an executable **source transport**, not a completed decision
+or proof of live XI/odds. C2 remains shadow-only; the publication gate, live
+quote check and official exposure authorization are still mandatory.
+
 For stage=`xi`, use the portable fast path first:
 
 1. fetch only `models/football/engine/xi_portable.py` from the exact current repository revision;

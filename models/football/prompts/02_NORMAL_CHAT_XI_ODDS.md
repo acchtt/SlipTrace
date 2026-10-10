@@ -87,6 +87,46 @@ If XI is unavailable:
 
 If the fixture is no longer prematch, do not force a prematch decision. Persist/reroute according to Step-2 reconciliation.
 
+### Time-critical /xi decision path (C official + C2 shadow)
+
+**No indefinite FOCUS monitoring.** Once a match has been authorized for
+Step 2, preassemble its *already frozen* C and C2 supported burdens,
+independent goal-three/goal-four funding claims and outstanding football
+questions **before** chasing an actionable price. Goal funding is a
+football judgment made from source-backed evidence; it must never be
+inferred from a low Over line or attractive market odds.
+
+For the first current XI + executable price epoch:
+
+1. Run the mandatory fresh post-XI, market-history **attempt** and
+   tournament-incentive checks below as a single bounded research pass.
+   A legitimate PARTIAL/UNAVAILABLE_ATTEMPTED market-history state is not
+   a reason to re-search indefinitely; preserve the real result.
+2. Recheck the C and C2 scoring mechanisms and clearing-goal funding
+   *once* against the same current evidence epoch. A prior frozen
+   conclusion is not automatically valid after meaningful XI/football
+   changes, but unchanged research must not be repeated merely to delay
+   a verdict.
+3. Immediately execute the pinned portable C+C2 pair and perform the
+   existing persistence/read-back/publication guard. Report both
+   deterministic actions with current lines/prices and brief mechanisms:
+   **ACT** (only C official BET), **WAIT** (explicit reachable total,
+   minimum odds, and expiry/event), or **PASS** (specific football/price
+   failure). C2 BET is **SHADOW ACT**, never a user bet instruction.
+4. If the official C price is unsuitable but C2 meets its price floor,
+   **still execute both**; neither model may inherit the other's line
+   or goal-three gate. If an essential source/XI/quote is missing,
+   issue a precise `INCOMPLETE — NEXT EVIDENCE REQUIRED` or
+   `INTEGRITY_BLOCKED` promptly, **not** a football PASS.
+5. A WAIT that needs an unlikely future total, negative team news or
+   a kickoff-window violation must be a PASS. Never wait for a lower
+   line as a substitute for resolving the third-goal hypothesis.
+
+**Timing/accountability:** capture evidence-epoch time and user-visible
+decision-delivery time; tag source/runtime/persistence blockers separately
+from C/C2 football PASS. Never count an unplaced hypothetical bet as an
+actual win, and never backdate a quote after a goal.
+
 ## 4. MANDATORY FRESH POST-XI FOOTBALL WEB RESEARCH
 
 After XI confirmation, run one fresh fixture-specific football research pass before freezing the decision payloads.
