@@ -385,7 +385,7 @@ class CompactCapacityTests(unittest.TestCase):
             "researched_match_ids": ["m1"],
             "candidates": [row(f"m{i}", i) for i in range(1, 8)],
         })
-        self.assertEqual(result["selected_queue_ranks"], [2, 3, 4])
+        self.assertEqual(result["selected_queue_ranks"], [2, 3, 4, 5])
 
 
 
