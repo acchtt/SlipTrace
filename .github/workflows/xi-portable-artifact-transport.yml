@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   xi-runtime-source:
@@ -31,39 +31,6 @@ jobs:
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
-      - name: Regenerate lane-compatible pinned XI bundle on repair branch
-        if: github.head_ref == 'fix/football-lane-queue-policy-20261010'
-        run: |
-          python - <<'PY'
-          import hashlib, json, re
-          from pathlib import Path
-          p = Path("models/football/engine/xi_portable.py")
-          core = Path("models/football/engine/core.py").read_text()
-          text = p.read_text()
-          start = text.index("SOURCES = {")
-          end = text.index("\\n}\\n", start)
-          old = json.loads(text[start + len("SOURCES = "):end+2])
-          old["core"] = core
-          updated = text[:start] + "SOURCES = " + json.dumps(old, indent=2) + text[end+2:]
-          b = core.encode()
-          sha = hashlib.sha1(b"blob " + str(len(b)).encode() + bytes([0]) + b).hexdigest()
-          updated, count = re.subn(
-              r'("models/football/engine/core.py": ")[a-f0-9]{40}',
-              lambda m: m.group(1) + sha, updated, count=1
-          )
-          assert count == 1
-          p.write_text(updated)
-          PY
-          if ! git diff --quiet -- models/football/engine/xi_portable.py; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add models/football/engine/xi_portable.py
-            git commit -m "build(xi): repin portable source after lane policy update"
-            git push origin "HEAD:refs/heads/fix/football-lane-queue-policy-20261010"
-          fi
-
       - name: Verify portable embedded source against checked out Git blobs
         run: |
           python - <<'PY'
