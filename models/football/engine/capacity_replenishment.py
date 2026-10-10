@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from datetime import timedelta
+from goal_route_prescreen import GoalPrescreenError, _time, verified_research_order
+
 
 MAX_FOLLOW = 6
 MAX_RESERVE = 4
@@ -168,6 +171,31 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
         )
 
     queue = validate_capacity_queue(payload.get("candidates"))
+
+    research_schedule_policy = payload.get("research_schedule_policy")
+    if research_schedule_policy not in (None, "GOAL_FIRST_STEP1_RESEARCH_V1"):
+        raise CapacityReplenishmentError("unknown research_schedule_policy")
+    priority_order = None
+    current_research_clock = None
+    if research_schedule_policy is not None:
+        if payload.get("budget_policy") != COMPACT_POLICY:
+            raise CapacityReplenishmentError("goal-first research requires compact policy")
+        try:
+            priority_order = verified_research_order(
+                payload.get("research_priority_manifest"),
+                queue,
+                payload.get("source_payload_hash"),
+            )
+            current_research_clock = _time(payload.get("research_at_utc"), "research_at_utc")
+            screen_clock = _time(
+                payload["research_priority_manifest"]["screen_at_utc"], "screen_at_utc"
+            )
+        except (GoalPrescreenError, KeyError, TypeError) as exc:
+            raise CapacityReplenishmentError(f"GOAL_FIRST_RESEARCH_INVALID: {exc}") from exc
+        if not screen_clock <= current_research_clock <= screen_clock + timedelta(hours=3):
+            raise CapacityReplenishmentError(
+                "GOAL_FIRST_RESCREEN_REQUIRED: priority epoch is future/stale"
+            )
     policy = payload.get("budget_policy")
     if policy is not None and policy != COMPACT_POLICY:
         raise CapacityReplenishmentError(f"unknown budget_policy: {policy!r}")
@@ -231,19 +259,41 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
     else:
         vacancies = MAX_ACTIVE - active_lane_count
 
-    eligible = [
-        row
-        for row in queue
-        if row["disposition"] == DEFERRED
-        and row["fixture_status"] == "PREMATCH_CONFIRMED"
-        and row["match_id"] not in researched
-    ]
-    closed = [
-        row
-        for row in queue
-        if row["disposition"] == DEFERRED
-        and row["fixture_status"] != "PREMATCH_CONFIRMED"
-    ]
+    if priority_order is not None:
+        by_id = {r["match_id"]: r for r in queue}
+        # The full frozen A/B pool is eligible for research scheduling.
+        # Original Step0 ADMITTED/DEFERRED disposition and rank are NEVER rewritten.
+        allowed = {"ADMITTED_TO_C", "ADMITTED", DEFERRED, "CAPACITY_DEFERRED"}
+        if any(row["disposition"] not in allowed for row in queue):
+            raise CapacityReplenishmentError("goal-first queue includes non-A/B disposition")
+        ordered_rows = [by_id[match_id] for match_id in priority_order]
+        screen_rows = {r["match_id"]: r for r in payload["research_priority_manifest"]["original_rows"]}
+        eligible = [
+            row for row in ordered_rows
+            if row["fixture_status"] == "PREMATCH_CONFIRMED"
+            and row["match_id"] not in researched
+            and _time(screen_rows[row["match_id"]]["kickoff_utc"], "kickoff_utc") > current_research_clock
+        ]
+        closed = [
+            row for row in queue
+            if row["match_id"] not in researched
+            and (row["fixture_status"] != "PREMATCH_CONFIRMED"
+                 or _time(screen_rows[row["match_id"]]["kickoff_utc"], "kickoff_utc") <= current_research_clock)
+        ]
+    else:
+        eligible = [
+            row
+            for row in queue
+            if row["disposition"] == DEFERRED
+            and row["fixture_status"] == "PREMATCH_CONFIRMED"
+            and row["match_id"] not in researched
+        ]
+        closed = [
+            row
+            for row in queue
+            if row["disposition"] == DEFERRED
+            and row["fixture_status"] != "PREMATCH_CONFIRMED"
+        ]
 
     selected = eligible[:vacancies] if vacancies > 0 else []
 
@@ -261,6 +311,7 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
     return {
         "status": status,
         "budget_policy": policy or "LEGACY",
+        "research_schedule_policy": research_schedule_policy or "FROZEN_STEP0_RANK",
         "follow_count": follow_count,
         "reserve_count": reserve_count,
         "active_lane_count": active_lane_count,
