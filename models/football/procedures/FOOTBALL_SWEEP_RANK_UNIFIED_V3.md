@@ -18,8 +18,8 @@ parallel lane while strict final certification continues.
 ### Single state machine
 
 `SOURCE_ACQUIRED → PREPARE_RESEARCH (UNOFFICIAL)
- → SEAL_OFFICIAL_STEP0_ZIP → RANK_EXECUTE_C+C2
- → INDEPENDENT_AIRTABLE_READBACK → RANK_VERIFIED`
+ → SEAL_OFFICIAL_STEP0_ZIP → FREEZE_GOAL_FIRST_RANK_PLAN
+ → RANK_EXECUTE_C+C2 → INDEPENDENT_AIRTABLE_READBACK → RANK_VERIFIED`
 
 Terminal source blocks go to `BLOCKED_WITH_EVIDENCE`, never a fake
 COMPLETE or a retrospective official board. PREPARE does not bypass
@@ -75,14 +75,44 @@ All commands share one script:
 
 ## /rank: one invocation, two models
 
-Use the same original ZIP (no rebuilding or changing Step0 ranks),
-the **independently read-back** COMPLETE Sweep Runs row including exact
-official ZIP SHA256, C/C2 football research payloads from the same common
-evidence epoch and an explicit disposition reason for every A/B queue
-member not researched (e.g. kickoff elapsed, budget exhausted or missing
-real football evidence). Execute:
+Use the original validated ZIP (never rebuild or modify Step0 ranks)
+and the **independently refetched** COMPLETE Sweep Runs row with the
+exact official ZIP SHA256.
 
-`python models/football/engine/sweep_rank_pipeline.py rank --zip AISCORE_FIXTURES_*.zip --sha256 <actual_zip_sha256> --sweep-readback sweep_complete.json --c c.json --c2 c2.json --unranked unranked_reasons.json --at <verified_utc>`
+**1. Freeze the current full-queue goal-first plan** before researching
+and ranking. Batch-fetch current source-backed fixture status for *every*
+frozen A/B queue match ID (one data snapshot; not 12 independent websites).
+Each `statuses.json` entry is keyed by original match ID and provides
+`fixture_status`, `source_url`, `observed_at_utc` (within 20 minutes)
+and optionally `football_evidence` (4–10 source-backed pre-existing
+competitive results per team) and confirmed same-ID kickoff revision.
+Then execute:
+
+`python models/football/engine/sweep_rank_pipeline.py plan --zip AISCORE_FIXTURES_*.zip --sha256 <actual_zip_sha256> --sweep-readback sweep_complete.json --statuses statuses.json --at <verified_utc>`
+
+This produces `FROZEN_GOAL_FIRST_RESEARCH_PLAN`: the exact full original
+A/B cohort with already started fixtures CLOSED, source-backed goal route
+prescreen, immutable research order, initial eight, and explicit SHA256.
+An earlier research priority may only be bypassed for a genuine missing
+football-evidence or pre-KO-window reason, **never because another match
+looks more appealing**. The plan expires after 30 minutes; refresh
+fixture status, not source universe discovery.
+
+**2. Run actual independent C+C2 model analysis.** Produce full C and C2
+`stage=board` model inputs from the same immutable common evidence,
+and explicit `unranked_reasons.json` for every A/B fixture not researched.
+For `strict_intake_policy=LEAGUE_CHANNEL_FIRST_V1`, also provide
+`fixture_evidence.json` mapping each researched immutable match ID to
+both `frozen_step0_candidate` and `researched_fixture`; validate using
+`FOOTBALL_ONLY` if no genuine bookmaker quote is available (no fake
+price), or strict `PRICED_OBSERVED` only with a real quote.
+
+`python models/football/engine/sweep_rank_pipeline.py rank --zip AISCORE_FIXTURES_*.zip --sha256 <actual_zip_sha256> --sweep-readback sweep_complete.json --plan rank_plan.json --c c.json --c2 c2.json --unranked unranked_reasons.json --at <verified_utc> --fixture-evidence fixture_evidence.json`
+
+`--fixture-evidence` is optional ONLY for historical non-league-first
+intake policies. The actual clock, match status/KO and research plan are
+required. Unranked earlier-priority fixtures need genuine explicit
+closure/evidence reasons, not arbitrary skips.
 
 - Fails if ZIP bytes differ from independent saved SHA256, run not COMPLETE,
   any fixture not in frozen Step0 queue, a rewritten kickoff, a
