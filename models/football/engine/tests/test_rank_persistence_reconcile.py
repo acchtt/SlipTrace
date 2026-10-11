@@ -35,10 +35,13 @@ def scenario():
             "common_evidence_reconciled": True,
             "results": {"c": {"matches": [c]}, "c2": {"matches": [c2]}},
         },
+        "sweep_run_readback": {
+            "run_id": "SWEEP-20261012-0001-20261012-0300",
+            "source_payload_hash": source, "run_status": "COMPLETE",
+        },
         "readback_rows": [{
             "match_id": "fixture-A",
-            "run_id": "SWEEP-20261012-0001-20261012-0300",
-            "source_payload_hash": source,
+            "coverage_id": "SWEEP-20261012-0001-20261012-0300|fixture-A",
             "step0_capacity_queue_rank": 1,
             "c_rank": 1, "c_board_state": "FOCUS",
             "c_supported_line": 2.5, "follow_lane": "FOLLOW",
@@ -66,7 +69,7 @@ class RankPersistenceTests(unittest.TestCase):
             ("c_rank", 2),
             ("c_supported_line", 3.5),
             ("follow_lane", "STOP"),
-            ("source_payload_hash", "wrong"),
+            ("coverage_id", "SWEEP-other|fixture-A"),
             ("step0_capacity_queue_rank", 2),
         ):
             p = scenario()
