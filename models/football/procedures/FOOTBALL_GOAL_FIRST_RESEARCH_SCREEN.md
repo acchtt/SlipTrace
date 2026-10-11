@@ -20,6 +20,16 @@ A high-scoring final result is **audit evidence**, never input to a historical p
 7. The existing **match-specific Step1 intake gate** still requires real current fixture bookmaker line/source/time and verifiable team-news/XI channels. Execute the independent C+C2 board. Actual Step2 still requires genuine fresh executable odds and its current hard integrity checks.
 8. Persist screen coverage, initial/promotion order, source digest, reason for EVIDENCE_LIMITED, original operational rank, time attestations, and any research exhaustion reason. The full original ledger must remain immutable.
 
+## 2026-10-11 Big Five top-flight dynamic research-priority overlay
+
+**Active for new Step1 goal-first screens, not for historical frozen prescreens.** The engine applies `BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1` only when the candidate explicitly carries an exact **country + competition name** for England Premier League, Germany Bundesliga, Spain La Liga, Italy Serie A or France Ligue 1. An arbitrary league named Premier League elsewhere and an unknown-country fixture cannot get this adjustment. All other leagues retain the original goal-first score; missing league metadata is neutral.
+
+From each team's 4–10 **verified completed pre-screen competitive scorelines**, calculate the fraction of 4+ total goals and 0–0/1–1 draws, plus the existing 3+ frequency, goals scored/conceded and <=2-goal stalls. Use those verified samples to assign diagnostic route descriptions `BIDIRECTIONAL_CONTRIBUTION`, `ONE_SIDED_CARRIER`, `LOW_GOAL_DRAW_TRAP` or `MIXED_OR_UNVERIFIED`. The score adjustment is bounded to [-25,+8] and specifically penalizes repeated 0–0/1–1 draws, so repeated BTTS 1–1 does NOT become a third-goal signal. The output retains `big_five_route_screen` per original row and totals `big_five_route_screened_count`, `big_five_draw_trap_alert_count`. The manifest fingerprint covers these outputs.
+
+The Oct 11 watchlist of clubs (Chelsea, Barcelona, Bayern, etc.) is a **research seed only**. Do not hardcode named-club bonuses or ever presume any future fixture will score because it was a historical 4+ environment. Score all quantified Big Five *teams*, including newly promoted or unfamiliar clubs, on the same available pre-screen evidence. The overlay cannot admit a source-excluded fixture, downgrade an operational A/B class, erase a deferred queue member, predict C/C2 supported line, price an odd, or create a bet. Missing or too-short evidence stays `EVIDENCE_LIMITED` with no bonus or forced low-goal flag. Use the same full original A/B queue.
+
+The Big Five are already routine competition profiles under Step0; **this is a Step1 research scheduler improvement, not a Step0 broadening**. The 8/12/20 workload and C official / C2 shadow remain unchanged. Apply the normal current match Asian-total source, XI/team-news, tournament incentive and late-price checks at Step1/Step2. Do not change existing frozen manifests or source-hash values. Post-FT, audit **prospective** top-eight capture, 3+/4+ missed opportunity, 0–0/1–1 false-positive exposure and whether the book's live line was realistically reachable.
+
 ## Source-backed kickoff correction without changing Step0
 
 A provider KO revision is a research routing discrepancy, **not** an
