@@ -79,6 +79,11 @@ def validate_rank_readback(payload: dict[str, Any]) -> dict[str, Any]:
         raise RankReadbackError("ranked C/C2 fixture universe diverges from frozen A/B queue")
     _ranks(c, "rank", "C engine")
     _ranks(c2, "rank", "C2 engine")
+    run_readback = payload.get("sweep_run_readback")
+    if (not isinstance(run_readback, dict) or run_readback.get("run_id") != run_id
+            or run_readback.get("source_payload_hash") != source_hash
+            or run_readback.get("run_status") != "COMPLETE"):
+        raise RankReadbackError("completed Sweep Runs independent readback mismatch")
     persisted = _rows(payload.get("readback_rows"), "Airtable readback")
     if set(persisted) != set(c):
         raise RankReadbackError("Airtable rank readback missing/extra fixture IDs")
@@ -87,8 +92,8 @@ def validate_rank_readback(payload: dict[str, Any]) -> dict[str, Any]:
         "c2": ("c2_rank", "c2_board_state", "c2_supported_line"),
     }
     for mid, stored in persisted.items():
-        if stored.get("run_id") != run_id or stored.get("source_payload_hash") != source_hash:
-            raise RankReadbackError(f"{mid}: source epoch/readback provenance mismatch")
+        if stored.get("coverage_id") != f"{run_id}|{mid}":
+            raise RankReadbackError(f"{mid}: immutable Coverage ID/source run mismatch")
         if stored.get("step0_capacity_queue_rank") != queue[mid]["step0_capacity_queue_rank"]:
             raise RankReadbackError(f"{mid}: immutable Step0 rank altered")
         for model, engine_rows in (("c", c), ("c2", c2)):
