@@ -28,6 +28,32 @@ Use this launcher when:
 
 Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
 
+### Actual paired football engine — no quote requested
+
+For every /live or started /xi user assessment, execute the new
+**quote-free** pinned runtime once with independently sourced C and C2
+factors before discussing prices:
+
+`python models/football/engine/xi_portable.py football-pair --c <c_football.json> --c2 <c2_football.json>`
+
+Use `stage=football_assessment` with the same live score/minute,
+material-event state, assessment clock and evidence epoch for both
+models. Give each model its independent route/thesis assessment, using
+`UNKNOWN` or null where the current event integrity is genuinely
+unverified. Missing odds are **not a missing input field**, even if
+the match is two, five, sixteen or forty-five minutes old.
+
+Require `EXECUTED_C_C2_FOOTBALL_ONLY` when the paired engine actually
+runs. Display C and C2 qualitative football outcomes with the
+current completion/funding limitations; label the evaluation
+`LIVE FOOTBALL ASSESSED — UNPRICED / NO EXECUTABLE BET` if no current
+offer exists. Never demand a quote to run the football engine, and
+never fall back to the price-bearing `xi_portable.py pair` to
+complete an unpriced assessment. That older command remains only
+for actual PREMATCH priced decisions, not started football reads.
+A quote can be sought later for a separately requested betting
+subdecision, but it is not the first response to a football request.
+
 ### Missing live odds is not an assessment blocker
 
 The quote-free route in `step2_fixture_transition.py` returns

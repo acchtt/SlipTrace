@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from adapter import ContractError, run_decision
+from adapter import ContractError, run_decision, run_football_assessment
 
 EXPECTED_MODELS = ("c", "c2")
 
@@ -137,16 +137,66 @@ def run_pair(
     }
 
 
+def run_football_pair(
+    c_payload: dict[str, Any],
+    c2_payload: dict[str, Any],
+) -> dict[str, Any]:
+    """Independently run C and C2 football assessment without a market quote."""
+    payloads = {"c": c_payload, "c2": c2_payload}
+    common = set()
+    for model in EXPECTED_MODELS:
+        p = payloads[model]
+        if str(p.get("model", "")).lower() != model:
+            raise ContractError(f"football pair expected model={model}")
+        if p.get("stage") != "football_assessment":
+            raise ContractError("quote-free pair requires stage=football_assessment")
+        match, ctx = p.get("match"), p.get("context")
+        if not isinstance(match, dict) or not isinstance(ctx, dict):
+            raise ContractError("football pair requires match and context objects")
+        eid = p.get("evidence_epoch_id")
+        if not isinstance(eid, str) or not eid.strip():
+            raise ContractError("quote-free pair requires evidence_epoch_id")
+        at = ctx.get("assessment_at_utc")
+        if not isinstance(at, str) or not at.strip():
+            raise ContractError("quote-free pair requires assessment_at_utc")
+        common.add(json.dumps({
+            "match_id": match.get("match_id"),
+            "kickoff_ict": match.get("kickoff_ict"),
+            "evidence_epoch_id": eid,
+            "assessment_at_utc": at,
+            "fixture_status": ctx.get("fixture_status"),
+            "score": ctx.get("score"),
+            "match_minute": ctx.get("match_minute"),
+            "material_event_since_frozen": ctx.get("material_event_since_frozen"),
+        }, sort_keys=True))
+    if len(common) != 1:
+        raise ContractError("C+C2 football pair evidence epoch/status/score mismatch")
+    results = {m: run_football_assessment(payloads[m]) for m in EXPECTED_MODELS}
+    return {
+        "engine_execution_status": "EXECUTED_C_C2_FOOTBALL_ONLY",
+        "models_executed": list(EXPECTED_MODELS),
+        "quotes_required": False,
+        "quote_research_required": False,
+        "model_bets_created": False,
+        "model_accounting_status": "NONE",
+        "results": results,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Run mandatory Football C+C2 Step-2 deterministic validation"
     )
     parser.add_argument("--c", required=True, help="Football C decision payload JSON")
     parser.add_argument("--c2", required=True, help="Football C2 decision payload JSON")
+    parser.add_argument("--football-only", action="store_true", help="independent C+C2 football without odds")
     args = parser.parse_args()
 
     try:
-        result = run_pair(_load(args.c), _load(args.c2))
+        result = (
+            run_football_pair(_load(args.c), _load(args.c2))
+            if args.football_only else run_pair(_load(args.c), _load(args.c2))
+        )
     except (ContractError, ValueError, KeyError, json.JSONDecodeError, OSError) as exc:
         print(json.dumps({
             "ok": False,

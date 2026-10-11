@@ -23,6 +23,8 @@ from core import (
     ThesisState,
     XiStatus,
     c2_selection_floor,
+    c2_clearing_goal_funded,
+    clearing_goal_funded,
     decide_c,
     decide_c2,
     follow_through_lane,
@@ -741,6 +743,142 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
 
+    return result
+
+
+def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
+    """Assess C or C2 football *without* any quote or executable action.
+
+    Distinct from stage=decision. A started fixture can be assessed at any
+    minute with no bookmaker prices; do not call the prematch BET engine.
+    Missing current football evidence is reported as a limitation rather
+    than being laundered into a priced PASS/WAIT or a false positive.
+    """
+    _check_envelope(payload, "football_assessment")
+    model = str(payload.get("model", "")).lower()
+    if model not in {"c", "c2"}:
+        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
+    match_obj = _required(payload, "match")
+    a = parse_assessment(match_obj, require_c_completion=(model == "c"))
+    ctx = _required(payload, "context")
+    if not isinstance(ctx, dict):
+        raise ContractError("football assessment context must be object")
+    status = _choice(
+        ctx, "fixture_status",
+        {"PREMATCH_CONFIRMED", "STARTED", "HALFTIME", "UNKNOWN"},
+    )
+    score = ctx.get("score")
+    if score is not None:
+        if not isinstance(score, str):
+            raise ContractError("score must be H-A or null")
+        parts = score.split("-")
+        if len(parts) != 2 or any(not x.isdigit() or len(x) > 2 for x in parts):
+            raise ContractError("score must be H-A or null")
+    minute = ctx.get("match_minute")
+    if minute is not None:
+        if isinstance(minute, bool) or not isinstance(minute, (int, float)) or not 0 <= minute <= 130:
+            raise ContractError("match_minute must be 0..130 or null")
+    event = _choice(
+        ctx,
+        "material_event_since_frozen",
+        {"NONE_VERIFIED", "GOAL", "RED_CARD", "OTHER_MATERIAL", "UNKNOWN"},
+    )
+    if status == "PREMATCH_CONFIRMED" and (
+        minute is not None or score not in (None, "0-0")
+    ):
+        raise ContractError("prematch football context cannot contain live score/minute")
+    thesis = _choice(
+        ctx, "thesis_state", {"PRESERVED", "BROKEN", "UNKNOWN"}
+    )
+    intact = ctx.get("primary_mechanism_intact")
+    if intact is not None and type(intact) is not bool:
+        raise ContractError("primary_mechanism_intact must be true/false/null")
+    veto = ctx.get("material_veto")
+    if veto is not None and type(veto) is not bool:
+        raise ContractError("material_veto must be true/false/null")
+    board_state = _enum(
+        BoardState, _required(ctx, "board_state"), "board_state"
+    )
+    incentive = validate_tournament_incentive(match_obj)
+    needs = []
+    if status == "UNKNOWN":
+        needs.append("CURRENT_FIXTURE_STATUS_UNVERIFIED")
+    if status in {"STARTED", "HALFTIME"} and (minute is None or score is None):
+        needs.append("LIVE_SCORE_OR_MINUTE_UNVERIFIED")
+    if event != "NONE_VERIFIED":
+        needs.append("MATERIAL_EVENT_FOOTBALL_RECHECK")
+    if thesis == "UNKNOWN" or intact is None:
+        needs.append("CURRENT_PRIMARY_THESIS_UNVERIFIED")
+    if veto is None:
+        needs.append("CURRENT_MATERIAL_VETO_UNVERIFIED")
+    if incentive["resolution_status"] == "INCENTIVE_RECHECK_REQUIRED":
+        needs.append("TOURNAMENT_INCENTIVE_RECHECK_REQUIRED")
+    risk = (
+        thesis == "BROKEN" or intact is False or veto is True
+        or a.material_suppression or a.failure_attacks_route
+    )
+    funded_at_frozen_line = (
+        clearing_goal_funded(a)
+        if model == "c" else c2_clearing_goal_funded(a, a.supported_line)
+    )
+    if risk:
+        read = "FOOTBALL_THESIS_ADVERSE"
+    elif needs:
+        read = "FOOTBALL_ANALYSIS_WITH_EXPLICIT_RECHECKS"
+    else:
+        read = "FOOTBALL_THESIS_CURRENTLY_INTACT"
+    result = {
+        "schema_version": SCHEMA_VERSION,
+        "stage": "football_assessment_result",
+        "model": model,
+        "match_id": a.match_id,
+        "fixture_status": status,
+        "score": score,
+        "match_minute": minute,
+        "material_event_since_frozen": event,
+        "board_state": board_state.value,
+        "football_read": read,
+        "football_assessment_completed": True,
+        "limitations": needs,
+        "home_route": a.home_route.name,
+        "away_route": a.away_route.name,
+        "carrier": a.carrier.name,
+        "route_reliability": a.route_reliability.name,
+        "chance_quality": a.chance_quality.name,
+        "failure_resistance": a.failure_resistance.name,
+        "frozen_supported_line": a.supported_line,
+        "frozen_supported_line_funding": funded_at_frozen_line,
+        "frozen_line_not_live_executable": True,
+        "quote_required_for_football_assessment": False,
+        "quote_requested": False,
+        "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+        "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+        "bet_authorized": False,
+        "wait_authorized": False,
+        "model_accounting_status": "NONE",
+        "actual_user_bet": None,
+        "tournament_incentive_resolution": incentive["resolution_status"],
+        "interpretation": (
+            "This is an independent model football assessment, NOT a priced "
+            "BET/WAIT/PASS. Frozen supported burden is a research hypothesis, "
+            "not a presently executable live line. Only an independently "
+            "verified current quote and separate authorization can create "
+            "a betting action."
+        ),
+    }
+    if model == "c":
+        result.update({
+            "completion_mode": a.completion_mode.name,
+            "burden_completion_quality": a.burden_completion_quality.name,
+            "continuation_quality": a.continuation_quality.name,
+            "burden_stall_risk": a.burden_stall_risk.name,
+        })
+    else:
+        floor, reasons = c2_selection_floor(a)
+        result.update({
+            "selection_floor": floor.value,
+            "selection_floor_reasons": list(reasons),
+        })
     return result
 
 
