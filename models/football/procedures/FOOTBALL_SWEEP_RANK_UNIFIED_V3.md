@@ -73,6 +73,16 @@ All commands share one script:
    Mark Airtable COMPLETE only after actual ZIP SHA256 and source
    inventory integrity are verified and saved.
 
+## Immediate C+C2 football research preview
+
+While Step0 certification is still running, optional
+`sweep_rank_pipeline.py preview-board --preview sweep_prepared.json --c c.json --c2 c2.json --at CURRENT_UTC`
+executes both engines on currently verified pre-kickoff fixture identities.
+The source-backed preview is SHA256-checked and expires after 20 minutes.
+Output is `C_C2_FOOTBALL_RESEARCH_UNOFFICIAL_NO_BET`:
+it is football research only, without official ranking or publication.
+No preview state can create a wager or overwrite persisted boards.
+
 ## /rank: one invocation, two models
 
 Use the original validated ZIP (never rebuild or modify Step0 ranks)
