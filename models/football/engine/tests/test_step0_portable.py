@@ -117,6 +117,24 @@ class PortableStep0Tests(unittest.TestCase):
         self.assertEqual(validate_work_candidate(
             row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
 
+    def test_portable_hk_malaysia_pilot_parity(self):
+        self.portable._load()
+        from sweep_competition_scope import classify_competition
+        from sweep_intake_evidence import validate_work_candidate
+        from test_sweep_intake_evidence import league_candidate, LeagueChannelFirstTests
+        for league,country in (("Premier League","Hong Kong"),
+                               ("Liga Super","Malaysia")):
+            decision=classify_competition({"competition_name":league,"country":country,
+                                           "competition_kind":"DOMESTIC_LEAGUE"})
+            self.assertEqual(decision["lane"],"CONDITIONAL_CHEAP_GATE")
+            row=league_candidate(league,"PROVEN_LEAGUE")
+            row["country"]=country
+            row["asia_topflight_recent_goal_evidence"]=LeagueChannelFirstTests.asia_goal_evidence()
+            self.assertEqual(validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"),[])
+        self.assertEqual(classify_competition({
+            "competition_name":"Premier League U22","country":"Hong Kong",
+            "competition_kind":"DOMESTIC_LEAGUE"})["lane"],"SCOPE_EXCLUDED")
+
     def test_portable_package_same_guarded_success_and_failure(self):
         self.portable._load()
         from step0_package_cli import package, Step0HandoffError
