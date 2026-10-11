@@ -1,4 +1,4 @@
-name: Step0 portable source transport
+name: Step0 retirement / historical source integrity
 
 on:
   push:
@@ -7,45 +7,49 @@ on:
       - ".github/workflows/step0-portable-transport.yml"
       - "models/football/engine/step0_portable.py"
       - "models/football/engine/sweep_competition_scope.py"
-      - "models/football/engine/sweep_competition_scope_cli.py"
       - "models/football/engine/sweep_intake_evidence.py"
       - "models/football/engine/coverage_manifest.py"
       - "models/football/engine/step0_handoff_cli.py"
       - "models/football/engine/step0_package_cli.py"
+      - "models/football/engine/sweep_rank_retired.py"
   pull_request:
     paths:
       - ".github/workflows/step0-portable-transport.yml"
       - "models/football/engine/step0_portable.py"
+      - "models/football/engine/sweep_rank_retired.py"
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  portable-export:
+  retired-source-check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Verify original portable self-check
-        run: python models/football/engine/step0_portable.py self-check
-      - name: Emit immutable revision and digest
+      - name: Check historical source bundle without invoking retired stages
         run: |
-          git rev-parse HEAD > STEP0_PORTABLE_COMMIT.txt
-          sha256sum models/football/engine/step0_portable.py > STEP0_PORTABLE_SHA256.txt
-      - name: Upload verified source for isolated Python runtimes
-        uses: actions/upload-artifact@v4
-        with:
-          name: step0-portable-verified-source
-          retention-days: 7
-          if-no-files-found: error
-          path: |
-            STEP0_PORTABLE_COMMIT.txt
-            STEP0_PORTABLE_SHA256.txt
-            models/football/engine/step0_portable.py
-            models/football/engine/sweep_competition_scope.py
-            models/football/engine/sweep_competition_scope_cli.py
-            models/football/engine/sweep_intake_evidence.py
-            models/football/engine/coverage_manifest.py
-            models/football/engine/step0_handoff_cli.py
-            models/football/engine/step0_package_cli.py
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          path = Path("models/football/engine/step0_portable.py")
+          spec = importlib.util.spec_from_file_location("retired_step0_qa", path)
+          assert spec is not None and spec.loader is not None
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          result = module.self_check()
+          assert result["ok"], result
+          assert result["module_count"] == 7, result
+          print("PASS: archived Step0 source integrity verified without production execution")
+          PY
+      - name: Assert former standalone Step0 CLI refuses execution
+        run: |
+          set +e
+          python models/football/engine/step0_portable.py self-check 2> retired-status.json
+          status=$?
+          set -e
+          test "$status" -eq 2
+          grep -q '"status": "SWEEP_RANK_RETIRED"' retired-status.json
+          echo "PASS: retired Step0 CLI cannot start the old pipeline"
+# No portable source artifact is published: /sweep and /rank are retired.
