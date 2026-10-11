@@ -159,6 +159,78 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     return defects
 
 
+
+# Named lower-division pilot only. A Championship league profile is not an
+# all-fixture admission. Use completed competitive results that predate the
+# actual fixture; source absence does NOT imply an Under prediction.
+CHAMPIONSHIP_NAMES = frozenset({
+    "championship", "efl championship", "english championship",
+    "england championship", "sky bet championship",
+})
+
+
+def _championship_goal_signal_defects(row: dict[str, Any]) -> list[str]:
+    name = row.get("competition_name") or row.get("competition")
+    country = row.get("country")
+    if not _nonempty(name) or name.strip().casefold() not in CHAMPIONSHIP_NAMES:
+        return []
+    # Competitions with generic names must never cross national boundaries.
+    if _nonempty(country) and country.strip().casefold() != "england":
+        return ["CHAMPIONSHIP_PILOT_COUNTRY_MISMATCH"]
+
+    evidence = row.get("championship_recent_goal_evidence")
+    if not isinstance(evidence, dict):
+        return ["CHAMPIONSHIP_CHEAP_SIGNAL_MISSING"]
+    kickoff = _utc_timestamp(row.get("fixture_kickoff_utc"))
+    captured = _utc_timestamp(evidence.get("captured_at_utc"))
+    if kickoff is None or captured is None or not (
+        timedelta(0) <= kickoff - captured <= timedelta(days=7)
+    ):
+        return ["CHAMPIONSHIP_CHEAP_SIGNAL_STALE_OR_POST_KO"]
+
+    teams = []
+    for side in ("home", "away"):
+        data = evidence.get(side)
+        if not isinstance(data, dict) or not _source_url(data.get("source_url")):
+            return [f"CHAMPIONSHIP_{side.upper()}_GOAL_SOURCE_UNVERIFIED"]
+        matches = data.get("recent_competitive_matches")
+        if not isinstance(matches, list) or len(matches) != 5:
+            return [f"CHAMPIONSHIP_{side.upper()}_FIVE_RESULTS_INVALID"]
+        totals, traps, identities = [], 0, set()
+        for match in matches:
+            if not isinstance(match, dict):
+                return [f"CHAMPIONSHIP_{side.upper()}_HISTORY_INVALID"]
+            ident, when = match.get("match_id"), _utc_timestamp(match.get("kickoff_utc"))
+            gf, ga = match.get("goals_for"), match.get("goals_against")
+            if (not _nonempty(ident) or ident in identities or
+                when is None or kickoff is None or
+                not timedelta(0) < kickoff - when <= timedelta(days=120) or
+                when > captured or
+                match.get("competitive") is not True or
+                isinstance(gf, bool) or not isinstance(gf, int) or not 0 <= gf <= 20 or
+                isinstance(ga, bool) or not isinstance(ga, int) or not 0 <= ga <= 20):
+                return [f"CHAMPIONSHIP_{side.upper()}_HISTORY_INVALID"]
+            identities.add(ident)
+            totals.append(gf + ga)
+            traps += int((gf, ga) in {(0, 0), (1, 1)})
+        teams.append({
+            "avg": sum(totals) / 5,
+            "over_count": sum(n >= 3 for n in totals),
+            "trap_count": traps,
+            "stall_count": sum(n <= 2 for n in totals),
+        })
+    h, a = teams
+    # A strong outlier cannot rescue a persistent 0-0 / 1-1 pattern.
+    if any(t["trap_count"] >= 3 or t["stall_count"] >= 4 for t in teams):
+        return ["CHAMPIONSHIP_LOW_TOTAL_STALL_OR_DRAW_TRAP"]
+
+    qualified = (
+        (h["avg"] >= 2.8 and a["avg"] >= 2.8) or
+        (max(h["avg"], a["avg"]) >= 3.2 and min(h["avg"], a["avg"]) >= 2.6) or
+        (h["over_count"] >= 3 and a["over_count"] >= 3)
+    )
+    return [] if qualified else ["CHAMPIONSHIP_CHEAP_SIGNAL_FAIL"]
+
 def validate_shared_league_profiles(rows: list[dict[str, Any]]) -> list[str]:
     """One immutable channel proof per competition in a new Step-0 sweep.
 
@@ -236,7 +308,7 @@ def validate_work_candidate(row: dict[str, Any], *, intake_policy: str = "XI_MAR
         # lineup/Asian-total/news provider profile, not per-fixture book odds
         # or both clubs' prior XIs during /sweep. These become mandatory at
         # /rank and again at /xi before any official bet.
-        return defects + _league_channel_defects(row)
+        return defects + _league_channel_defects(row) + _championship_goal_signal_defects(row)
 
     # Legacy XI_MARKET_FIRST_V1 is unchanged for existing running/frozen sweeps.
     # 24h discovery occurs long before official match-day XIs drop. Require

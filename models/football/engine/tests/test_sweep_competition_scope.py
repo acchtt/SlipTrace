@@ -43,6 +43,38 @@ class ScopeFirstTests(unittest.TestCase):
                              ("Eerste Divisie","Netherlands"),("Eliteserien","Norway")):
             self.assertEqual(classify_competition(c(name,country))["lane"],"ROUTINE_LEAGUE_PROFILE")
 
+    def test_new_second_division_pilot_is_country_keyed(self):
+        for label in ("2. Bundesliga", "2nd Bundesliga", "Germany 2 Bundesliga"):
+            with self.subTest(name=label):
+                self.assertEqual(classify_competition(c(label, "Germany"))["lane"],
+                                 "ROUTINE_LEAGUE_PROFILE")
+                self.assertEqual(classify_competition(c(label, "Austria"))["lane"],
+                                 "SCOPE_EXCLUDED")
+
+    def test_championship_requires_conditional_signal_not_direct_admission(self):
+        for label in ("Championship", "EFL Championship", "Sky Bet Championship"):
+            with self.subTest(name=label):
+                result = classify_competition(c(label, "England"))
+                self.assertEqual(result["lane"], "CONDITIONAL_CHEAP_GATE")
+                self.assertIn("TARGETED", result["reason"])
+                self.assertEqual(classify_competition(c(label, "Scotland"))["lane"],
+                                 "SCOPE_EXCLUDED")
+
+    def test_other_big_five_lower_divisions_remain_unlisted(self):
+        for label,country in (("Serie B","Italy"),("Segunda División","Spain"),
+                              ("Ligue 2","France"),("League One","England"),
+                              ("3. Liga","Germany")):
+            with self.subTest(label=label):
+                self.assertEqual(classify_competition(c(label,country))["lane"],
+                                 "SCOPE_EXCLUDED")
+
+    def test_pilot_does_not_override_country_ban_or_friendly(self):
+        self.assertEqual(classify_competition(c("2. Bundesliga","Wales"))["lane"],
+                         "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c("Championship","England",
+                                               is_friendly=True))["lane"],
+                         "SCOPE_EXCLUDED")
+
     def test_excluded_domestic_leagues_still_fail_early(self):
         for name,country in (("3. Liga","Germany"),("Premier League","Wales"),
                              ("Premier League","Israel"),("Premier League","Bangladesh")):

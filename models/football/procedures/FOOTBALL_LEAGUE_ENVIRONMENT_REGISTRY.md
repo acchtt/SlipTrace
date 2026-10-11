@@ -40,7 +40,7 @@ when that is the operative reason.
 
 A league that fails this prerequisite is **not CONDITIONAL** and must not consume cheap-gate research.
 
-The Netherlands **Eerste Divisie** and Mexico **Liga de Expansión MX / Ascenso MX** are explicit approved lower-division exceptions and are governed by their NORMAL listings in Section 3.
+The Netherlands **Eerste Divisie**, Mexico **Liga de Expansión MX / Ascenso MX**, and Germany **2. Bundesliga** are explicit approved NORMAL second-division exceptions. England **Championship** is a narrowly approved CONDITIONAL second-division pilot; it is never blanket Work admission.
 
 ### Netherlands Eerste Divisie Jong/U21 participant exception — effective 2026-09-19 ICT
 
@@ -68,7 +68,7 @@ These leagues are worth screening, but are not given any structural advantage me
 
 ### CONDITIONAL
 
-CONDITIONAL is only for **credible senior professional national top flights with adequate data quality** that survive Section 1 but are not currently direct-to-Work or excluded.
+CONDITIONAL covers **credible senior professional national top flights** and explicitly approved professional second-division pilots (currently **England Championship**) that survive Section 1, without blanket Work admission.
 
 Do **not** send the entire league to Work by default.
 
@@ -124,6 +124,7 @@ Absolute operational exclusion under the active user rule. No automatic override
 
 - Netherlands — Eerste Divisie **(explicit approved lower division)**
 - England — Premier League
+- Germany — 2. Bundesliga **(approved professional lower-division NORMAL intake; PROVEN_LEAGUE required, not Tier 1)**
 - Spain — LaLiga
 - Italy — Serie A
 - France — Ligue 1
@@ -147,6 +148,7 @@ To enter the CONDITIONAL pool it must first be an established senior professiona
 
 The following competitions are the **complete normal-sweep CONDITIONAL whitelist**. Only these may receive the cheap conditional gate unless this registry is deliberately updated or the user grants a one-run override:
 
+- England — EFL Championship / Championship **(targeted 2026-10-11 pilot only; fresh source-backed fixture goal gate)**
 - Czech Republic — First League
 - Poland — Ekstraklasa
 - Greece — Super League
@@ -220,13 +222,23 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 The registry does not generally revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
-**Explicit lower-division approvals:** Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX. They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
+**Explicit lower-division approvals:** Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL) and England Championship (CONDITIONAL cheap gate, not wholesale). They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
 
 **Scoped participant override:** official Netherlands Eerste Divisie league fixtures involving Jong/U21/reserve-branded teams are included under the 2026-09-19 exception. Do not classify those official league fixtures as youth/reserve exclusions solely from the participant name.
 
 The UEFA Youth League remains a separate manual trial and is not made official by this registry.
 
 ---
+
+## 7A. Explicit 2026-10-11 Big Five second-division intake overlay
+
+For *new* sweeps only, Germany **2. Bundesliga** enters the NORMAL league-profile verification footprint; it is not Tier 1 and must furnish PROVEN_LEAGUE source evidence (>=2 genuinely observed previous confirmed XI fixtures and >=2 observed Asian-total market fixtures), actual canonical fixture/time, A/B operational status, current news/market channel evidence and near-KO recheck. No generic fixture automatically becomes C FOLLOW/RESERVE/BET.
+
+England **Championship** is the *only* second-tier exception to the usual FAST_PRODUCTION skip of CONDITIONAL leagues. Review its in-window block cheaply, without a league-wide XI or bookmaker crawl. For each Championship fixture that could be forwarded to Work, the new league-channel intake validator requires `championship_recent_goal_evidence`: **five actual competitive pre-kickoff results for each team** with match IDs, UTC timestamps, scored/conceded goals, independently checked source URLs and observation timestamp <=7 days before KO. Admission requires both five-match mean total goals >=2.8; OR a >=3.2 carrier with opponent >=2.6; OR both sides >=3/5 Over 2.5. Reject either side with >=3/5 0-0/1-1 results or >=4/5 <=2-goal results. Missing/stale/unverifiable data => no Work. It also requires PROVEN_LEAGUE evidence independently of the goal signal. This is a limited *research-admission gate*, never a goal forecast.
+
+Spain Segunda, Italy Serie B, France Ligue 2, England League One/Two, Spain Primera Federación, Italy Serie C, France National remain outside routine proactive discovery. One-run explicitly named exceptions may be assessed outside the routine scope but do not rewrite the permanent registry; France Ligue 2's prior run-specific skip must not be silently reversed. Germany 3. Liga remains explicitly excluded. Explicit country/friendly exclusions and protected women's/continental coverage unchanged.
+
+The active `CURRENT_MODEL.md` and Step0 launcher outrank stale historical sections elsewhere in the registry. This overlay is a prospective **competition research filter**, not a retroactive Step0 mutation. See `research/LOWER_DIVISION_PROOF_MANIFEST_2026-10-11.md`.
 
 ## 8. Promotion / demotion policy
 
@@ -248,7 +260,7 @@ The Work handoff should contain only:
 
 It must not contain:
 
-- youth/reserve/lower/amateur/regional fixtures, except explicitly approved lower divisions such as Netherlands Eerste Divisie and Mexico Liga de Expansión MX / Ascenso MX; official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are specifically allowed;
+- youth/reserve/lower/amateur/regional fixtures, except the explicitly approved lower divisions Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL) and England Championship fixtures with a verified conditional cheap goal signal; official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are specifically allowed;
 - small/obscure weak-data leagues;
 - LOW-GOAL EXCLUDE;
 - HARD EXCLUDE;

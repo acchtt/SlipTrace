@@ -55,6 +55,28 @@ class PortableStep0Tests(unittest.TestCase):
             result = classify_competition({"competition_name":competition,"country":country,"competition_kind":kind})
             self.assertEqual(result["lane"],expected)
 
+    def test_portable_second_division_pilot_and_championship_validator(self):
+        self.portable._load()
+        from sweep_competition_scope import classify_competition
+        from sweep_intake_evidence import validate_work_candidate
+        from test_sweep_intake_evidence import league_candidate, LeagueChannelFirstTests
+        for label,country,expected in (
+            ("2. Bundesliga","Germany","ROUTINE_LEAGUE_PROFILE"),
+            ("Championship","England","CONDITIONAL_CHEAP_GATE"),
+            ("3. Liga","Germany","SCOPE_EXCLUDED"),
+            ("Serie B","Italy","SCOPE_EXCLUDED"),
+            ("Ligue 2","France","SCOPE_EXCLUDED"),
+        ):
+            decision = classify_competition({
+                "competition_name":label, "country":country,
+                "competition_kind":"DOMESTIC_LEAGUE"})
+            self.assertEqual(decision["lane"],expected, (label,country))
+        row = league_candidate("Championship", "PROVEN_LEAGUE")
+        self.assertIn("CHAMPIONSHIP_CHEAP_SIGNAL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["championship_recent_goal_evidence"] = LeagueChannelFirstTests.championship_evidence()
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+
     def test_portable_package_same_guarded_success_and_failure(self):
         self.portable._load()
         from step0_package_cli import package, Step0HandoffError

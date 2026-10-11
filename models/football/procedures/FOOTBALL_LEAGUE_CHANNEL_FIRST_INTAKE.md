@@ -85,6 +85,14 @@ conflicts, protected/women required manifests and finite source retries
 remain unchanged. Full A/B queue is retained, with 8 initial Work fixtures
 and standard/adaptive replenishment policy unchanged.
 
+## 2026-10-11 second-division pilot gate — future Step0 only
+
+German **2. Bundesliga** is newly NORMAL/direct to *operational screening*, not automatic Work readiness. Use `PROVEN_LEAGUE`, not `TIER1_STANDARD`. Two+ genuine recent previous fixture XI publications and two+ independent Asian-total fixture observations are required for its reusable league/season profile. Do not invent source evidence or current quotes.
+
+English **Championship** is selectively CONDITIONAL and must also use `PROVEN_LEAGUE`. The special `championship_recent_goal_evidence` fixture payload must include `captured_at_utc`, and `home`/`away` each with `source_url` and `recent_competitive_matches` (five objects with `match_id`, `kickoff_utc`, `goals_for`, `goals_against`, `competitive: true`). Every recorded match precedes the candidate's kickoff and capture epoch. Captured evidence must be within seven days before KO. Reject repeated or insufficient history, either side with three 0-0/1-1s or four low-total <=2 matches, and fixtures failing the cheap O2.5/average gate from the league registry. This enforces research suitability **only**, not model predictions. In FAST_PRODUCTION, inspect the Championship only once at source block level and avoid full per-fixture lineup/market searches before this cheap gate. Every eligible fixture *also* must pass the normal A/B and league-profile evidence validators.
+
+No additional automatic second-tier admissions: Spain Segunda, Italy Serie B, France Ligue 2 remain research/explicit-exception only. Germany 3. Liga remains excluded. Existing/frozen runs retain old classification and source hashes.
+
 ## Step 01 /rank — mandatory fixture-specific discovery
 
 On receipt of a new league-first handoff, **do not interpret the league
