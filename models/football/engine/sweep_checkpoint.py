@@ -11,6 +11,20 @@ FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24
 FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2
 FAST_FINISH_MAX_ELAPSED_MINUTES = 60  # hard wall-clock budget for fresh production verification
 FAST_FINISH_POLICY = "FAST_FINISH_V1"
+# V2 is prospective. Every existing V1 cursor retains its original 60-minute
+# lease and verification history; its original deadline is never recalculated.
+FAST_FINISH_V2_POLICY = "FAST_FINISH_V2"
+FAST_FINISH_V2_MAX_ELAPSED_MINUTES = 15
+FAST_FINISH_V2_VERIFICATION_BLOCKS_PER_INVOCATION = 8
+FAST_FINISH_V2_MAX_BLOCK_ATTEMPTS = 1
+FAST_FINISH_V2_STAGE_CUTOFFS = {
+    "SOURCE_ACQUISITION": 3,
+    "DISCOVERY_CLASSIFICATION": 5,
+    "TARGETED_VERIFICATION": 12,
+    "RECONCILIATION": 15,
+    "PACKAGING": 15,
+}
+FAST_FINISH_POLICIES = frozenset({FAST_FINISH_POLICY, FAST_FINISH_V2_POLICY})
 SOURCE_RECOVERY_COOLDOWN_MINUTES = 30
 RUN_STATUS_BY_SOURCE_STATE = {
     "UNTRIED": "RUNNING",
@@ -121,7 +135,7 @@ def validate_checkpoint(payload: dict[str, Any]) -> dict[str, Any]:
     )
 
     policy = payload.get("verification_policy")
-    if policy not in {None, FAST_FINISH_POLICY}:
+    if policy not in {None, *FAST_FINISH_POLICIES}:
         raise SweepCheckpointError(f"unsupported verification_policy: {policy}")
     attempts = payload.get("verification_attempt_counts", {})
     if not isinstance(attempts, dict) or any(
@@ -405,7 +419,9 @@ def select_verification_chunk(payload: dict[str, Any]) -> VerificationChunk:
             ordered.append(block)
 
     max_blocks = (
-        FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION
+        FAST_FINISH_V2_VERIFICATION_BLOCKS_PER_INVOCATION
+        if cp["verification_policy"] == FAST_FINISH_V2_POLICY
+        else FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION
         if cp["verification_policy"] == FAST_FINISH_POLICY
         else MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK
     )
@@ -450,7 +466,7 @@ def advance_after_chunk(
     # current batch. Legacy historical cursors retain their prior behavior.
     current_set = (
         set(select_verification_chunk(payload).selected_blocks)
-        if cp["verification_policy"] == FAST_FINISH_POLICY
+        if cp["verification_policy"] in FAST_FINISH_POLICIES
         else set(current_order)
     )
     unknown_completed = set(completed) - current_set
@@ -475,11 +491,16 @@ def advance_after_chunk(
     terminal_unresolved = list(cp["terminal_unresolved_verification_blocks"])
     remaining_retries = []
     for block in retries:
-        if cp["verification_policy"] != FAST_FINISH_POLICY:
+        if cp["verification_policy"] not in FAST_FINISH_POLICIES:
             remaining_retries.append(block)
             continue
         attempts[block] = attempts.get(block, 0) + 1
-        if attempts[block] >= FAST_FINISH_MAX_BLOCK_ATTEMPTS:
+        limit = (
+            FAST_FINISH_V2_MAX_BLOCK_ATTEMPTS
+            if cp["verification_policy"] == FAST_FINISH_V2_POLICY
+            else FAST_FINISH_MAX_BLOCK_ATTEMPTS
+        )
+        if attempts[block] >= limit:
             terminal_unresolved.append(block)
         else:
             remaining_retries.append(block)
@@ -520,6 +541,116 @@ def advance_after_chunk(
     }
 
 
+def _fast_v2_deadline(payload: dict[str, Any], *, now: str) -> dict[str, Any]:
+    """Prospective bounded sweep budget. No source/evidence is manufactured.
+
+    This applies from source acquisition through packaging, unlike the V1
+    targeted-only 60-minute cutoff. An expired stage is terminal unless the
+    fully verified handoff is ready for offline packaging.
+    """
+    cp = validate_checkpoint(payload)
+    if cp["verification_policy"] != FAST_FINISH_V2_POLICY:
+        raise SweepCheckpointError("FAST_FINISH_V2 required")
+    window = payload.get("requested_window")
+    anchor = payload.get("sweep_started_at_utc")
+    if anchor is None and isinstance(window, dict):
+        anchor = window.get("start_utc")
+    if anchor is None:
+        raise SweepCheckpointError("deadline start UTC missing; cannot guess elapsed time")
+    started = _parse_iso_datetime(anchor, "sweep_started_at_utc")
+    at = _parse_iso_datetime(now, "now")
+    elapsed = (at - started).total_seconds() / 60
+    if elapsed < 0:
+        raise SweepCheckpointError("now precedes persisted sweep start")
+    if cp["phase"] == "COMPLETE" and payload.get("work_ready") is True and payload.get("complete") is True:
+        return {
+            **payload, "deadline_status": "ALREADY_COMPLETE",
+            "deadline_elapsed_minutes": round(elapsed, 2),
+            "deadline_minutes": FAST_FINISH_V2_MAX_ELAPSED_MINUTES,
+        }
+    cap = FAST_FINISH_V2_STAGE_CUTOFFS.get(cp["phase"], FAST_FINISH_V2_MAX_ELAPSED_MINUTES)
+    if elapsed < cap and not payload.get("terminal_budget_locked"):
+        return {
+            **payload, "deadline_status": "WITHIN_BUDGET",
+            "deadline_elapsed_minutes": round(elapsed, 2),
+            "deadline_minutes": FAST_FINISH_V2_MAX_ELAPSED_MINUTES,
+            "stage_budget_minutes": cap,
+        }
+    # If everything was independently verified before the cutoff, do not
+    # interrupt atomic local packaging. This is not an evidence waiver.
+    if (not payload.get("terminal_budget_locked")
+            and cp["phase"] == "PACKAGING"
+            and not cp["pending_verification_blocks"]
+            and not cp["retry_queue"]
+            and not cp["terminal_unresolved_verification_blocks"]
+            and payload.get("reconciliation_complete") is True
+            and payload.get("required_competition_blocks_complete") is True
+            and payload.get("women_top_flight_global_confirmed") is True
+            and isinstance(payload.get("final_source_fixture_inventory_hash"), str)
+            and bool(payload["final_source_fixture_inventory_hash"].strip())):
+        return {
+            **payload, "deadline_status": "PACKAGE_VERIFIED_OFFLINE_ONLY",
+            "deadline_elapsed_minutes": round(elapsed, 2),
+            "deadline_minutes": FAST_FINISH_V2_MAX_ELAPSED_MINUTES,
+            "external_lookup_allowed": False,
+        }
+
+    # No external verification may continue after this terminal marker.
+    # Both empty pending lists and unfinished discovery are accounted for.
+    unresolved = list(cp["terminal_unresolved_verification_blocks"])
+    for block in cp["retry_queue"] + cp["pending_verification_blocks"]:
+        if block not in unresolved:
+            unresolved.append(block)
+    if cp["phase"] in {"SOURCE_ACQUISITION", "DISCOVERY_CLASSIFICATION"}:
+        sentinel = "SOURCE_OR_DISCOVERY_NOT_RECONCILED"
+        if sentinel not in unresolved:
+            unresolved.append(sentinel)
+    required = {
+        "women_top_flight_global_confirmed": "GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION",
+        "required_competition_blocks_complete": "REQUIRED_COMPETITION_COVERAGE_NOT_VERIFIED",
+        "final_source_fixture_inventory_hash": "FULL_SOURCE_FIXTURE_INVENTORY_NOT_VERIFIED",
+    }
+    for field, sentinel in required.items():
+        value = payload.get(field)
+        if (value is not True if field != "final_source_fixture_inventory_hash"
+                else not isinstance(value, str) or not value.strip()):
+            if sentinel not in unresolved:
+                unresolved.append(sentinel)
+    if cp["phase"] != "COMPLETE" and (
+        payload.get("reconciliation_complete") is not True
+        or payload.get("work_ready") is not True
+    ):
+        sentinel = "OFFICIAL_HANDOFF_VALIDATION_NOT_COMPLETE"
+        if sentinel not in unresolved:
+            unresolved.append(sentinel)
+    # Prevent a misleading zero-unresolved BLOCKED state.
+    if not unresolved:
+        unresolved.append("TERMINAL_HANDOFF_NOT_COMPLETED")
+    acquired = cp["source_acquisition_state"] == "ACQUIRED"
+    out = {
+        **payload,
+        "phase": "RECONCILIATION" if acquired else "SOURCE_ACQUISITION",
+        "pending_verification_blocks": [],
+        "retry_queue": [],
+        "pending_verification_count": 0,
+        "terminal_unresolved_verification_blocks": unresolved,
+        "terminal_unresolved_count": len(unresolved),
+        "terminal_verification_status": "BLOCKED_TIME_BUDGET_UNVERIFIED",
+        "deadline_status": "BLOCKED_TIME_BUDGET_UNVERIFIED",
+        "deadline_elapsed_minutes": round(elapsed, 2),
+        "deadline_minutes": FAST_FINISH_V2_MAX_ELAPSED_MINUTES,
+        "stage_budget_minutes": cap,
+        "terminal_budget_locked": True,
+        "external_lookup_allowed": False,
+        "official_handoff_ready": False,
+        "work_ready": False,
+        "complete": False,
+        "actionable_complete": False,
+    }
+    validate_checkpoint(out)
+    return out
+
+
 def expire_fast_finish_deadline(
     payload: dict[str, Any], *, now: str,
 ) -> dict[str, Any]:
@@ -531,8 +662,10 @@ def expire_fast_finish_deadline(
     Caller must persist Run Status=BLOCKED and Current Stage=RECONCILIATION.
     """
     cp = validate_checkpoint(payload)
+    if cp["verification_policy"] == FAST_FINISH_V2_POLICY:
+        return _fast_v2_deadline(payload, now=now)
     if cp["verification_policy"] != FAST_FINISH_POLICY:
-        raise SweepCheckpointError("deadline only applies to FAST_FINISH_V1")
+        raise SweepCheckpointError("deadline only applies to FAST_FINISH_V1 or FAST_FINISH_V2")
     if cp["source_acquisition_state"] != "ACQUIRED":
         raise SweepCheckpointError("deadline requires an acquired source epoch")
     if cp["phase"] not in {"TARGETED_VERIFICATION", "RECONCILIATION"}:
