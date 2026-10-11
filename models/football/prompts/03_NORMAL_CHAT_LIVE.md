@@ -28,6 +28,19 @@ Use this launcher when:
 
 Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
 
+### Missing live odds is not an assessment blocker
+
+The quote-free route in `step2_fixture_transition.py` returns
+`CURRENT_LIVE_FOOTBALL_ASSESSMENT_READY` whenever the score/minute is
+verified and no material mechanism recheck remains. It returns this
+status with or without live odds. Quote validity is separate
+(`executable_quote_status=UNPRICED_NO_EXECUTABLE_BET` when absent,
+expired or prematch-only). Even when goal/event recheck is pending,
+continue the football assessment and identify the exact uncertainty;
+do not demand a new price to begin or complete that analysis. The
+prematch-only portable decision engine must not be used on a STARTED
+fixture; do not treat its quote rejection as the C/C2 football result.
+
 ### Automatic early-live takeover from /xi
 
 **Started is not assessment blocked.** A normal /xi assessment can transition
@@ -47,16 +60,24 @@ the existing scoring thesis rather than running the entire Step-1
 research pipeline again. After any meaningful event, recompute
 goal burden/continuation and relevant tournament incentives.
 
-**Two levels of result:**
-1. Immediately deliver the **football assessment** (scoring mechanism,
-   whether C/C2's frozen theses survive, a goal-burden view and specific
-   reason) even when live quote is unavailable. Clearly label
-   `LIVE ASSESSMENT — QUOTE REQUIRED / NO EXECUTABLE BET` if applicable.
-2. Only recommend a live official C action after verified **current
-   in-play** totals and odds, current fixture/score/event integrity and
-   any required C/C2 live engine and persistence/publication checks.
-   A C2 apparent action is shadow-only. Never turn a late snapshot
-   into a prematch recommendation or claim a bet was placed.
+**Two independent levels of result:**
+1. **Mandatory immediate, quote-free football assessment.** Deliver
+   independent C official and C2 shadow football reads (scoring
+   mechanism, frozen-thesis validity, remaining goal burden, third/
+   fourth-goal continuation, stall risk, and current event context)
+   without requiring, requesting or waiting for a new bookmaker quote.
+   Score/minute and material football evidence determine its quality;
+   neither a 2-minute nor a 16-minute kickoff delay blocks assessment.
+   When no live price is independently verified, report
+   `LIVE FOOTBALL ASSESSED — UNPRICED / NO EXECUTABLE BET`. This is
+   a completed football read, **not** an incomplete or rejected model.
+2. **Optional executable betting subdecision.** Only when actually
+   considering a C BET or specific price-based WAIT, require independently
+   verified **current in-play** totals and odds, current fixture/status,
+   scorer/event integrity and required C/C2 live authorization and
+   persistence/publication checks. No quote means no executable action.
+   Do not invent a price, authorize C2 shadow as official, or use a
+   previously frozen prematch price as if it were live.
 
 An exact-prematch Step-2 engine rejection of STARTED remains a valid
 protection; it must **trigger this handoff**, not terminate the user's
@@ -67,7 +88,7 @@ if the relevant deterministic live decision path was not run.
 
 Freeze one current live epoch for both active models:
 - score and minute;
-- current executable total/odds;
+- current executable total/odds **only when an actionable BET is being evaluated**, never as a condition for football analysis;
 - goals, cards, injuries, substitutions and other material events when known;
 - verified tactical/mechanism changes;
 - current tournament/aggregate/table state when applicable;
@@ -95,7 +116,7 @@ positive live-stat confirmation is not required. The absence of positive telemet
 
 If the user supplies live stats, they may provide context, but they cannot by themselves approve, upgrade, downgrade, or cancel the decision.
 
-The live assessment may proceed from score/minute, current quote, frozen prematch/XI thesis, and concrete material events.
+The live football assessment must proceed from current score/minute, frozen separate C/C2 prematch/XI theses and concrete material events **even without any current quote**. New price research is solely for the optional executable betting subdecision.
 
 ## 4. Tournament incentive — every material live epoch
 
