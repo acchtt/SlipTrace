@@ -62,6 +62,7 @@ class KickoffTransitionTests(unittest.TestCase):
     def test_missing_stale_or_prematch_quote_does_not_block_c_c2_football(self):
         quotes = (
             None,
+            "provider-error-not-a-quote",
             {"market_phase": "PREMATCH"},
             {"market_phase": "LIVE", "total_line": 2.5,
              "decimal_odds": 1.85,
