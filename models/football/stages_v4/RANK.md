@@ -3,6 +3,50 @@
 This is the only current /rank launcher. Do not load old V1–V3 Work
 launchers or resurrect their halted CLI.
 
+## Critical: cross-chat receipt handoff — current /rank authority
+
+**Do not reconstruct a V4 sweep JSON from Airtable Daily Coverage.** A
+self-consistent `V4_SWEEP_DERIVED_UNATTESTED` hash is NOT sufficient.
+The V4 rank function will reject it immediately with
+`V4_ATTESTATION_REQUIRED`. Do NOT edit the status string or
+SHA256 to fabricate an official completion. This is NOT a request
+for another discovery sweep.
+
+Work chat must retrieve the original **source-attested**
+`V4_SWEEP_READY` receipt. If the normal-chat sweep could not run
+Python, it must first save the original `source.json` in
+`models/football/stages_v4/recovery/<V4-run-id>/source.json` on GitHub.
+This triggers `.github/workflows/football-v4-replay-attestation.yml`
+on push and creates a downloadable **GitHub Actions artifact** named
+`v4-original-source-attested-receipts`. New runs run the real V4
+sweep algorithm with the actual runner UTC clock. Old derived snapshots
+are replayed through the SAME real stage at their original checked UTC
+instant and compared field-for-field against the original derived
+document, rather than trusting its self-hash.
+
+**Recovery of `V4-20261012-003037-0600`:** the real-engine replay
+succeeded on GitHub Actions run `38163249319`.
+Download the artifact from
+`https://github.com/acchtt/SlipTrace/actions/runs/38163249319`.
+Use ONLY `V4-20261012-003037-0600-v4_sweep_ready.json` with
+`integrity_sha256=9a8a64afc2bd512fa14f6ab65ec921f7a6f49d911d2ac600ced68837c8c2467e`.
+The file attests the 00:36 ICT source snapshot: 12 raw, 5 eligible,
+2 researchability pending and 5 excluded. It does NOT attest whether
+a match remains prematch at the current Work execution time.
+
+Work must independently refresh match-specific actual kickoff/status
+**before researching C/C2**. Any fixture already started is
+`PREMATCH_WINDOW_CLOSED` in unranked reasons, not a retrospective
+board. Source/frozen match IDs, original kickoff and now-current prematch
+status must agree. Verify which of the originally five are still
+ahead of kickoff; do not silently add the five excluded Brazil fixtures
+or promote the two pending conditional leagues without real evidence.
+
+If no verified artifact can be retrieved from GitHub, return an
+immediate `V4_ATTESTATION_REQUIRED` blocker with the run ID and
+artifact link. Do not spend 8 minutes refetching 12 Airtable rows
+and reproducing the same invalid `V4_SWEEP_READY` error.
+
 Read `README.md`, the official C and independent C2 engine
 specifications and the latest source receipt from V4 /sweep.
 Research real football evidence for the complete eligible fixture
