@@ -53,7 +53,8 @@ def _quote_evidence(quote: Any, now: datetime, kickoff: datetime) -> tuple[bool,
     if quote is None:
         return False, "CURRENT_LIVE_QUOTE_REQUIRED"
     if not isinstance(quote, dict):
-        raise TransitionError("live_quote must be an object")
+        # Bad market data cannot prevent a valid football-only assessment.
+        return False, "LIVE_QUOTE_FORMAT_INVALID"
     if quote.get("market_phase") != "LIVE":
         return False, "PREMATCH_QUOTE_EXPIRED"
     line = quote.get("total_line")
@@ -92,6 +93,10 @@ def route_fixture(payload: dict[str, Any]) -> dict[str, Any]:
         "prematch_bet_authorized": False,
         "live_bet_authorized": False,
         "actual_user_bet_recorded": False,
+        # Football analysis is never gated on a bookmaker quote. The price
+        # gate belongs exclusively to an eventual executable BET decision.
+        "football_assessment_quote_required": False,
+        "quote_free_football_assessment_allowed": True,
     }
 
     if status == "PREMATCH_CONFIRMED":
@@ -119,26 +124,37 @@ def route_fixture(payload: dict[str, Any]) -> dict[str, Any]:
         current_context = score_valid and minute_valid
         requires_recheck = events != "NONE_VERIFIED"
         if not current_context:
-            state = "LIVE_SCORE_AND_MINUTE_REQUIRED"
+            state = "LIVE_SCORE_AND_MINUTE_RECHECK_FOR_FOOTBALL"
         elif requires_recheck:
-            state = "LIVE_FOOTBALL_RECHECK_REQUIRED"
-        elif not quote_ok:
-            state = "LIVE_QUOTE_REQUIRED_FOR_ACTION"
+            state = "LIVE_FOOTBALL_MECHANISM_RECHECK_REQUIRED"
         else:
-            state = "CURRENT_LIVE_EPOCH_READY_FOR_C_C2_ASSESSMENT"
+            # Same football-readiness state WITH OR WITHOUT odds. A missing
+            # or stale quote is *not* a football-assessment blocker.
+            state = "CURRENT_LIVE_FOOTBALL_ASSESSMENT_READY"
         return {
             **base, "route": route, "assessment_allowed": True,
+            "football_assessment_status": state,
+            "football_assessment_ready": current_context and not requires_recheck,
             "live_context_complete": current_context,
             "quote_status": quote_reason,
             "live_quote_verified_for_epoch": quote_ok,
+            "live_quote_required_for_football_assessment": False,
+            "live_quote_required_for_executable_bet": True,
+            "executable_quote_status": (
+                "CURRENT_LIVE_QUOTE_AVAILABLE" if quote_ok
+                else "UNPRICED_NO_EXECUTABLE_BET"
+            ),
             "material_football_recheck_required": requires_recheck,
             "assessment_status": state,
             "requires_new_live_epoch": True,
             "reason": (
-                "Continue /xi as a LIVE assessment in this same session; do not require a new /live command. "
-                "Recheck score, events and fresh live quote. Complete C official and C2 shadow independently "
-                "under the live workflow. A verified current quote is required before any actionable live BET; "
-                "the prematch decision engine remains unavailable for STARTED fixtures."
+                "Immediately assess C official and C2 shadow football mechanisms from the current score, "
+                "minute and relevant events, even without a new bookmaker quote. A score/event change "
+                "requires football-thesis re-evaluation, not price research before analysis. "
+                "When odds are missing or stale, report FOOTBALL ASSESSMENT COMPLETE — UNPRICED; "
+                "no executable BET, no stale prematch quote reuse, and no fabricated WAIT target. "
+                "A genuinely verified new LIVE quote is required only if authorizing a live BET. "
+                "Stay in this /xi session; the prematch bet-decision engine is unavailable after KO."
             ),
         }
 
