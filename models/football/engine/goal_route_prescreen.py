@@ -33,6 +33,26 @@ BIG_FIVE_COMPETITIONS = frozenset({
 })
 BIG_FIVE_SCREEN_POLICY = "BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1"
 
+# Only the existing, country-verified Step0 routine Dutch leagues qualify.
+# No free-form "Eredivisie" or "Eerste Divisie" aliases from other countries,
+# no unrelated Dutch youth/development league, and no hardcoded club watchlist.
+DUTCH_GOAL_ROUTE_COMPETITIONS = frozenset({
+    ("netherlands", "eredivisie"),
+    ("netherlands", "netherlands eredivisie"),
+    ("netherlands", "eerstedivisie"),
+    ("netherlands", "eerste divisie"),
+    ("netherlands", "netherlands eerste divisie"),
+})
+DUTCH_SCREEN_POLICY = "NETHERLANDS_DYNAMIC_GOAL_ROUTES_V1"
+
+
+def _is_dutch_goal_route_fixture(candidate: dict[str, Any]) -> bool:
+    country, league = candidate.get("country"), candidate.get("competition_name")
+    if not isinstance(country, str) or not isinstance(league, str):
+        return False
+    return (country.strip().casefold(), league.strip().casefold()) in DUTCH_GOAL_ROUTE_COMPETITIONS
+
+
 
 def _is_big_five_fixture(candidate: dict[str, Any]) -> bool:
     country, league = candidate.get("country"), candidate.get("competition_name")
@@ -41,11 +61,12 @@ def _is_big_five_fixture(candidate: dict[str, Any]) -> bool:
     return (country.strip().casefold(), league.strip().casefold()) in BIG_FIVE_COMPETITIONS
 
 
-def _big_five_route_assessment(
+def _dynamic_goal_route_assessment(
     home: dict[str, float], away: dict[str, float],
     home_route: float, away_route: float,
+    *, policy: str,
 ) -> dict[str, Any]:
-    """Diagnostic: no fixed-team shortlist, no xG, no bookmaker odds."""
+    """Reusable source-backed league diagnostic, not a forecast or market quote."""
     carrier = max(home_route, away_route)
     second = min(home_route, away_route)
     combined_trap = (home["draw_trap"] + away["draw_trap"]) / 2
@@ -71,7 +92,7 @@ def _big_five_route_assessment(
         "mean_over3_frequency": round(combined_tail, 4),
         "mean_0_0_or_1_1_frequency": round(combined_trap, 4),
         "research_priority_adjustment": adjustment,
-        "policy": BIG_FIVE_SCREEN_POLICY,
+        "policy": policy,
     }
 
 
@@ -233,7 +254,8 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             )
             kickoff_recheck = effective_ko != ko
         valid = status == "PREMATCH_CONFIRMED" and now < effective_ko
-        score, reason, h, a, big_five_route = None, None, None, None, None
+        score, reason, h, a = None, None, None, None
+        big_five_route, dutch_route = None, None
         if valid:
             evidence = c.get("football_evidence")
             if evidence is None:
@@ -257,12 +279,24 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
                     score = max(0, min(100, round(
                         15 * carrier + 14 * second_route + 22 * over2 - 12 * stall
                     )))
+                    # Apply at most ONE league-specific overlay. Both
+                    # policies share scored/conceded routes, four-goal tail,
+                    # <=2-goal stalls and the explicit 0-0/1-1 draw trap.
                     if _is_big_five_fixture(c):
-                        big_five_route = _big_five_route_assessment(
+                        big_five_route = _dynamic_goal_route_assessment(
                             h, a, home_route, away_route,
+                            policy=BIG_FIVE_SCREEN_POLICY,
                         )
                         score = max(0, min(
                             100, score + big_five_route["research_priority_adjustment"]
+                        ))
+                    elif _is_dutch_goal_route_fixture(c):
+                        dutch_route = _dynamic_goal_route_assessment(
+                            h, a, home_route, away_route,
+                            policy=DUTCH_SCREEN_POLICY,
+                        )
+                        score = max(0, min(
+                            100, score + dutch_route["research_priority_adjustment"]
                         ))
         else:
             reason = "KICKOFF_CLOSED_OR_FIXTURE_NOT_PREMATCH"
@@ -285,6 +319,7 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             "home_sample_n": h["n"] if h else 0,
             "away_sample_n": a["n"] if a else 0,
             "big_five_route_screen": big_five_route,
+            "dutch_route_screen": dutch_route,
         })
         seen_ids.add(match_id)
         seen_ranks.add(rank)
@@ -314,6 +349,8 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
         "initial_promoted_from_step0_deferred": [r["match_id"] for r in first if r["queue_rank"] > 8],
         "big_five_route_screened_count": sum(bool(r["big_five_route_screen"]) for r in original),
         "big_five_draw_trap_alert_count": sum(bool(r["big_five_route_screen"] and r["big_five_route_screen"]["draw_trap_alert"]) for r in original),
+        "dutch_route_screened_count": sum(bool(r["dutch_route_screen"]) for r in original),
+        "dutch_draw_trap_alert_count": sum(bool(r["dutch_route_screen"] and r["dutch_route_screen"]["draw_trap_alert"]) for r in original),
         "remaining_research_order": ordered[len(first):],
         "manifest": manifest,
         "disclaimer": "Research scheduling heuristic only; no C/C2 prediction or betting authority.",
