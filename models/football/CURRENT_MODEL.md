@@ -125,6 +125,10 @@ A/B queue rank is operational only. It must not be based on expected goals, mode
 
 For new /sweep runs, apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` as an explicit **prospective operational budget overlay**: `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, initial Work wave 8 by the full frozen operational A/B rank, routine unique-fixture research ceiling 12, automatic replenish only below 4 active lanes. Source discovery, A/B rank ordering, protected/women/required coverage, hard exclusions and C/C2 decision logic are unchanged. Goal-rate research is context-only, **not** a Step-0 predictive hard filter or automatic league exclusion. Existing RUNNING/frozen/historical sweeps without this policy, including `SWEEP-20261009-1300-20261010-0300` Chunk 12, must retain their legacy 15/refill-to-10 semantics and must not be restarted or rewritten. Keep all A/B overflow as an auditable queue.
 
+### Big Five team research priority deployed prospectively (2026-10-11)
+
+For **new Step1** whole-queue goal-first sessions, source-backed 4–10 game team histories under exact-country-and-league top-flight identity (England Premier League, Germany Bundesliga, Spain La Liga, Italy Serie A, France Ligue 1) receive a bounded `BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1` research-order refinement: distinguish carrier vs two-sided routes; count 4+ goal tails and 0–0/1–1 draw traps; penalize repeated stalls. Do not use the fixed Oct 11 research team watchlist as a betting or Step0 rule. Missing form/identity receives no adjustment. Existing frozen decisions and original scope, Step0 source hashes, C official/C2 shadow, odds integrity and total research budget remain unchanged. See `FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
+
 ### New Step1 research priority across full A/B queue (2026-10-10)
 
 A Step0 eight-fixture operational admission is **not** the football
