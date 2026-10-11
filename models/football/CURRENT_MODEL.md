@@ -42,6 +42,20 @@ verification blocks are selected per batch; one failed attempt closes
 a source path as explicitly unresolved. Source family/league-season
 evidence is reused when independently valid for this exact source epoch.
 
+**V2 bounded-scope correctness (2026-10-11 repair):** V2 is an
+accepted official Step0 handoff/export policy, with all the same required
+competition and Airtable admission readback obligations as V1. Where the
+source epoch is explicitly `BOUNDED_PRODUCTION_DISCOVERY`, certify and
+reconcile every **source-observed** senior women's top-flight fixture
+using two independent opened women's-source window checks and the
+fixture-level manifest; never falsely demand a worldwide exact AiScore
+count, and never claim `global_raw_exact=true`. A source-visible
+missing women's match, unresolved senior A/B fixture, unverifiable
+source identity/KO, missing mandatory protected/required block or
+unsupported source inventory still blocks the ZIP. See
+`FOOTBALL_AISCORE_SOURCE_ACQUISITION.md` and
+`bounded_womens_coverage.py`.
+
 When the budget or a required provider blocks certification, persist
 **BLOCKED** immediately with exact terminal source/protected/women/
 canonical-inventory problems; retain all evidence and do not fabricate
