@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -18,6 +20,9 @@ FIELDS = (
     "competition_reliability_reason",
 )
 SOURCE_SCOPES = {"EXACT_DATE_UNIVERSE", "BOUNDED_PRODUCTION_DISCOVERY"}
+# New source epochs cannot downgrade to a legacy schema by omission.
+SOURCE_SCOPE_CUTOVER = "20261011"
+VERIFIED_INVENTORY_CUTOVER = "20261012"
 
 
 class Step0HandoffError(ValueError):
@@ -80,6 +85,49 @@ def _manifest_sources(manifest: Any) -> tuple[list[dict[str, Any]], str]:
     return normalized, shape
 
 
+def _run_day(payload: dict[str, Any]) -> str | None:
+    run_id = payload.get("run_id")
+    if not isinstance(run_id, str):
+        return None
+    match = re.fullmatch(r"SWEEP-(\\d{8})-\\d{4}-\\d{8}-\\d{4}", run_id)
+    return match.group(1) if match else None
+
+
+def _verify_final_inventory(payload: dict[str, Any]) -> None:
+    """Integrity proof for new fixture inventories, not online source validation."""
+    rows = payload.get("verified_fixture_inventory")
+    size = payload.get("production_universe_count")
+    if (not isinstance(rows, list) or isinstance(size, bool)
+            or not isinstance(size, int) or len(rows) != size):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — verified fixture inventory/count mismatch")
+    canonical_rows: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            raise Step0HandoffError("HANDOFF INCOMPLETE — invalid verified fixture row")
+        mid = _nonempty(row.get("match_id"), "verified match_id")
+        ko = _nonempty(row.get("fixture_kickoff_utc"), "verified fixture kickoff UTC")
+        url = _nonempty(row.get("source_url"), "verified source URL")
+        if mid in seen or mid.upper().startswith("DISCOVERY-"):
+            raise Step0HandoffError("HANDOFF INCOMPLETE — provisional/duplicate fixture ID")
+        if not ko.endswith(("Z", "+00:00")) or not url.startswith("https://") or "." not in url.split("/")[2]:
+            raise Step0HandoffError("HANDOFF INCOMPLETE — invalid UTC/source provenance")
+        seen.add(mid)
+        canonical_rows.append({"match_id": mid, "fixture_kickoff_utc": ko, "source_url": url})
+    canonical = json.dumps(sorted(canonical_rows, key=lambda r: r["match_id"]),
+                           sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    if payload.get("source_payload_hash_basis") != "VERIFIED_FULL_FIXTURE_INVENTORY_SHA256":
+        raise Step0HandoffError("HANDOFF INCOMPLETE — seed hash is not final fixture provenance")
+    if (payload.get("source_payload_hash") != digest
+            or payload.get("verified_fixture_inventory_sha256") != digest):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — verified inventory SHA256 mismatch")
+    queue_ids = {row.get("match_id") for row in payload.get("capacity_queue", [])
+                 if isinstance(row, dict)}
+    if not queue_ids.issubset(seen):
+        raise Step0HandoffError("HANDOFF INCOMPLETE — capacity queue absent from verified inventory")
+
+
 def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tuple[str, str]:
     """Validate Step-0 source semantics consumed by /rank.
 
@@ -88,8 +136,13 @@ def _validate_source_contract(payload: dict[str, Any], *, consumer: str) -> tupl
     Every new bounded-production handoff is validated explicitly.
     """
     scope = payload.get("source_scope")
+    run_day = _run_day(payload)
     if scope is None:
+        if run_day is not None and run_day >= SOURCE_SCOPE_CUTOVER:
+            raise Step0HandoffError("HANDOFF INCOMPLETE — current sweep cannot omit source_scope")
         return "LEGACY_EXACT_OR_PRE_SCOPE", "LEGACY_PRE_SCOPE"
+    if run_day is not None and run_day >= VERIFIED_INVENTORY_CUTOVER:
+        _verify_final_inventory(payload)
 
     if scope not in SOURCE_SCOPES:
         raise Step0HandoffError(
