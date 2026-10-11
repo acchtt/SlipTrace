@@ -25,9 +25,18 @@ class Step1FixtureIntakeError(ValueError):
     pass
 
 
+# Football C/C2 research can run without a bookmaker quote. Price-dependent
+# decisions still require the strict fixture-market validation path.
+FOOTBALL_ONLY_MODE = "FOOTBALL_ONLY"
+PRICED_OBSERVED_MODE = "PRICED_OBSERVED"
+
+
 def validate_step1_fixture_evidence(data: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(data, dict) or data.get("source_intake_policy") != LEAGUE_CHANNEL_POLICY:
         raise Step1FixtureIntakeError("STEP1 EVIDENCE BLOCKED — league-first source policy required")
+    mode = data.get("evidence_mode", PRICED_OBSERVED_MODE)
+    if mode not in {FOOTBALL_ONLY_MODE, PRICED_OBSERVED_MODE}:
+        raise Step1FixtureIntakeError("STEP1 EVIDENCE BLOCKED — unknown evidence_mode")
     frozen = data.get("frozen_step0_candidate")
     researched = data.get("researched_fixture")
     if not isinstance(frozen, dict) or not isinstance(researched, dict):
@@ -57,7 +66,13 @@ def validate_step1_fixture_evidence(data: dict[str, Any]) -> dict[str, Any]:
     for key in ("user_scope_excluded", "hard_scope_excluded", "is_friendly", "friendly_scope_excluded"):
         if frozen.get(key) is True and researched.get(key) is not True:
             raise Step1FixtureIntakeError("STEP1 EVIDENCE BLOCKED — Step0 scope exclusion cleared")
+    if mode == FOOTBALL_ONLY_MODE and any(key.startswith("asian_total_") for key in researched):
+        raise Step1FixtureIntakeError(
+            "STEP1 EVIDENCE BLOCKED — supplied Asian-total fields require PRICED_OBSERVED validation"
+        )
     defects = validate_work_candidate(researched, intake_policy="XI_MARKET_FIRST_V1")
+    if mode == FOOTBALL_ONLY_MODE:
+        defects = [d for d in defects if not d.startswith("CURRENT_ASIAN_TOTAL_")]
     if defects:
         raise Step1FixtureIntakeError(
             "STEP1 RESEARCH BLOCKED — ACTUAL MATCH EVIDENCE MISSING: "
@@ -65,6 +80,10 @@ def validate_step1_fixture_evidence(data: dict[str, Any]) -> dict[str, Any]:
         )
     return {
         "status": (
+            "STEP1 FOOTBALL EVIDENCE VERIFIED — KICKOFF RECHECK REQUIRED"
+            if mode == FOOTBALL_ONLY_MODE and kickoff_recheck else
+            "STEP1 FOOTBALL EVIDENCE VERIFIED — MARKET UNOBSERVED"
+            if mode == FOOTBALL_ONLY_MODE else
             "STEP1 MATCH EVIDENCE VERIFIED — KICKOFF RECHECK REQUIRED"
             if kickoff_recheck else "STEP1 MATCH EVIDENCE VERIFIED"
         ),
@@ -79,10 +98,17 @@ def validate_step1_fixture_evidence(data: dict[str, Any]) -> dict[str, Any]:
         "kickoff_recheck_required_at_xi": kickoff_recheck,
         "prematch_executable_status": (
             "NOT_VERIFIED_RECHECK_KO_AND_MATCH_STATUS" if kickoff_recheck
+            else "NOT_VERIFIED_CURRENT_PRICE_AND_XI" if mode == FOOTBALL_ONLY_MODE
             else "NOT_VERIFIED_XI_AND_CURRENT_ODDS_PENDING"
         ),
         "source_intake_policy": LEAGUE_CHANNEL_POLICY,
-        "verified_match_specific_market": True,
+        "verified_match_specific_market": mode == PRICED_OBSERVED_MODE,
+        "price_evidence_mode": mode,
+        "pricing_status": (
+            "PRICED_FIXTURE_MARKET_OBSERVED_NOT_EXECUTABLE_AT_XI"
+            if mode == PRICED_OBSERVED_MODE else "UNOBSERVED_NOT_REQUIRED_FOR_FOOTBALL"
+        ),
+        "quote_required_for_football_research": False,
         "verified_team_xi_publication_channels": True,
         "confirmed_starting_xi": False,
         # This allows C and C2 board research only, never executable bets.

@@ -202,23 +202,26 @@ identity/UTC KO, exact competition match, a <=30-day source-backed shared
 league profile, supported A/B viability and recheck date. It deliberately
 does NOT collect bookmaker lines or individual previous-XI histories.
 
-**Before C/C2 research and ranking each such fixture**, use the same frozen
-fixture ID/KO to locate an actual match-specific bookmaker Asian goal total,
-capture line, bookmaker, observed UTC time and source link, check actual team
-news/absences and usable two-sided lineup publishing channels, then run the
-existing strict `XI_MARKET_FIRST_V1` fixture check. Build the actual fixture-specific intake payload with BOTH:
-`frozen_step0_candidate` (unaltered original A/B queue row) and
-`researched_fixture` (current matching match ID/competition, independent observed UTC kickoff and
-real independently captured quote, lineup channels and news), plus
-`source_intake_policy=LEAGUE_CHANNEL_FIRST_V1`. Invoke:
+**Before C/C2 research and ranking each such fixture**, use the original
+frozen fixture ID and verified current football evidence, two-sided lineup
+publication sources, personnel/news and any available match-specific Asian
+total. A BOOKMAKER QUOTE IS NOT REQUIRED TO FINISH FOOTBALL RESEARCH.
+Supply both `frozen_step0_candidate` and `researched_fixture` plus
+`source_intake_policy=LEAGUE_CHANNEL_FIRST_V1` to
+`python models/football/engine/step1_fixture_intake_cli.py --input <fixture_evidence.json>`.
 
-`python models/football/engine/step1_fixture_intake_cli.py --input <fixture_evidence.json>`
-
-The deterministic gate requires `STEP1 MATCH EVIDENCE VERIFIED`, binds
-the quote/XI proof to the original exact Step0 match ID and league,
-preserves the original operational grade/exclusions, and runs the existing
-strict `XI_MARKET_FIRST_V1` contract. It rejects missing match-specific
-price/source/timestamp or unsupported XI publishing channels.
+When a real timestamped match-specific bookmaker Asian total has been observed,
+use `evidence_mode=PRICED_OBSERVED` (also the old default), retaining the
+strict original quote/source/line validation. When it is unavailable, use
+`evidence_mode=FOOTBALL_ONLY`, OMIT ALL `asian_total_*` fields, and retain
+the exact fixture identity, kickoff, team news, both XI-publication channels,
+scope and operational-grade checks. The resulting
+`STEP1 FOOTBALL EVIDENCE VERIFIED — MARKET UNOBSERVED` is sufficient for
+C/C2 football research; `verified_match_specific_market=false` and it cannot
+authorize a priced bet or claim a presently executable quote. Never request
+a bookmaker quote from the user to complete /rank football analysis.
+The single /xi command still evaluates verified current odds automatically
+when available, and completes football assessment without them otherwise.
 
 **Kickoff revision is NOT a Step 1 blocker.** If the researched provider's
 UTC kickoff differs from the originally frozen Step0 UTC kickoff (e.g.
@@ -235,7 +238,7 @@ coverage but do NOT issue an executable prematch action until resolved at
 /xi. A missing/invalid timestamp and mismatched match ID or competition
 remain hard identity/evidence blockers.
 
-If other match-specific proof is incomplete, label the fixture
+If non-price match-specific football evidence is incomplete, label the fixture
 `STEP1_RESEARCH_BLOCKED`; it is **not** C/C2 PASS and must not be
 promoted to FOLLOW/RESERVE. Record why, preserve its frozen Step0 rank and
 continue the deterministic ordered replenishment from the next qualified
@@ -570,6 +573,25 @@ Current active fields include:
 - runtime/source revision.
 
 Do not populate new C3/C4 current fields. Existing historical C3/C4 fields remain untouched on historical rows.
+
+For new boards, after persisting the deterministic paired result,
+independently refetch the completed source Sweep Runs record and **all**
+ranked Daily Coverage Ledger records from active Airtable. Compare immutable
+Coverage ID (`run_id|match_id`), original Step0 queue rank, C/C2 rank, state,
+supported line and official `Step1 C Follow Lane` to the actual engine
+outputs; preserve separate unranked A/B IDs with their real budget/status/
+evidence reason. Validate the fresh independent readback with:
+
+`python models/football/engine/rank_persistence_reconcile.py --input step1_readback.json`
+
+Require `STEP1_PERSISTENCE_READBACK_VERIFIED` before declaring /rank complete.
+The JSON must contain the full frozen A/B queue, exact `EXECUTED_C_C2_BOARDS`
+output, current terminal-status result, refetched coverage rows and the
+source Sweep Runs readback, not a copy of the submitted writes. Normalize
+the Airtable display labels `C-FOCUS` / `C2-WATCH` into engine state names
+only in the comparator payload. An unavailable `Step1 C Follow Lane` value
+is a readback failure, not permission to infer FOLLOW from FOCUS. No edits
+to old boards and no retroactive betting decisions.
 
 If current persistence fails:
 

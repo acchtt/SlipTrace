@@ -5,6 +5,18 @@
 
 **Exception: /sweep is NOT rerouted.** Preserve the sweep launcher's existing Airtable connection and Step0 tracking, run IDs, checkpoint and original package writes. Do not migrate its Sweep Runs row or change any `00_NORMAL_CHAT_AISCORE_FETCH.md`, sweep CLI, workflow or Step0 transport code as part of this migration. This contract **does not decide** which base the sweep already uses. At the time of verification, sweep run `SWEEP-20261011-0858-20261011-1200` and its fixture coverage records are already in the new base: never force the sweep back to the old one.
 
+## New Step1 lane readback field (2026-10-11)
+
+The existing active `Daily Coverage Ledger` (`tbl20jBW5dfgNnTV6`) now contains
+`Step1 C Follow Lane` — field ID `fldR8p7zmjLAvE5bh`, choices
+`FOLLOW`, `RESERVE`, `STOP`. Only official C's **executed** paired-board
+`follow_lane` is written. For each newly ranked fixture, independently
+read this exact cell back alongside the original Coverage ID, immutable
+Step0 Capacity Queue Rank and both C/C2 results before a new /rank
+publication can be marked complete. Missing lane is a persistence fault;
+do not infer it from C FOCUS/WATCH or C2 shadow. Historical frozen records
+are not backfilled or reinterpreted.
+
 ## Canonical model table routing
 
 | Model/audit table | New table ID | Common operations |
