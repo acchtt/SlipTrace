@@ -160,56 +160,58 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
 
 
 
-# Named lower-division pilot only. A Championship league profile is not an
-# all-fixture admission. Use completed competitive results that predate the
-# actual fixture; source absence does NOT imply an Under prediction.
+# Targeted, source-local conditional fixtures. Verified historical goal results
+# govern research admission only: never a forecast, quote or C/C2 decision.
 CHAMPIONSHIP_NAMES = frozenset({
     "championship", "efl championship", "english championship",
     "england championship", "sky bet championship",
 })
+POLAND_EKSTRAKLASA_NAMES = frozenset({"ekstraklasa"})
 
 
-def _championship_goal_signal_defects(row: dict[str, Any]) -> list[str]:
-    name = row.get("competition_name") or row.get("competition")
-    country = row.get("country")
-    if not _nonempty(name) or name.strip().casefold() not in CHAMPIONSHIP_NAMES:
-        return []
-    # Competitions with generic names must never cross national boundaries.
-    if _nonempty(country) and country.strip().casefold() != "england":
-        return ["CHAMPIONSHIP_PILOT_COUNTRY_MISMATCH"]
+def _recent_five_goal_signal_defects(
+    row: dict[str, Any], *, field: str, label: str,
+) -> list[str]:
+    """Both teams' dated, identified last five competitive scorelines.
 
-    evidence = row.get("championship_recent_goal_evidence")
+    A verified source URL refers to a score publication, not future odds/XI.
+    Do not materialize fabricated team streaks from static watchlists.
+    """
+    evidence = row.get(field)
     if not isinstance(evidence, dict):
-        return ["CHAMPIONSHIP_CHEAP_SIGNAL_MISSING"]
+        return [f"{label}_CHEAP_SIGNAL_MISSING"]
     kickoff = _utc_timestamp(row.get("fixture_kickoff_utc"))
     captured = _utc_timestamp(evidence.get("captured_at_utc"))
     if kickoff is None or captured is None or not (
         timedelta(0) <= kickoff - captured <= timedelta(days=7)
     ):
-        return ["CHAMPIONSHIP_CHEAP_SIGNAL_STALE_OR_POST_KO"]
+        return [f"{label}_CHEAP_SIGNAL_STALE_OR_POST_KO"]
 
     teams = []
     for side in ("home", "away"):
         data = evidence.get(side)
         if not isinstance(data, dict) or not _source_url(data.get("source_url")):
-            return [f"CHAMPIONSHIP_{side.upper()}_GOAL_SOURCE_UNVERIFIED"]
+            return [f"{label}_{side.upper()}_GOAL_SOURCE_UNVERIFIED"]
         matches = data.get("recent_competitive_matches")
         if not isinstance(matches, list) or len(matches) != 5:
-            return [f"CHAMPIONSHIP_{side.upper()}_FIVE_RESULTS_INVALID"]
+            return [f"{label}_{side.upper()}_FIVE_RESULTS_INVALID"]
         totals, traps, identities = [], 0, set()
         for match in matches:
             if not isinstance(match, dict):
-                return [f"CHAMPIONSHIP_{side.upper()}_HISTORY_INVALID"]
+                return [f"{label}_{side.upper()}_HISTORY_INVALID"]
             ident, when = match.get("match_id"), _utc_timestamp(match.get("kickoff_utc"))
             gf, ga = match.get("goals_for"), match.get("goals_against")
             if (not _nonempty(ident) or ident in identities or
                 when is None or kickoff is None or
                 not timedelta(0) < kickoff - when <= timedelta(days=120) or
                 when > captured or
+                # Historical match must be demonstrably completed before
+                # its observation; prevent accidentally including live games.
+                captured - when < timedelta(hours=2) or
                 match.get("competitive") is not True or
                 isinstance(gf, bool) or not isinstance(gf, int) or not 0 <= gf <= 20 or
                 isinstance(ga, bool) or not isinstance(ga, int) or not 0 <= ga <= 20):
-                return [f"CHAMPIONSHIP_{side.upper()}_HISTORY_INVALID"]
+                return [f"{label}_{side.upper()}_HISTORY_INVALID"]
             identities.add(ident)
             totals.append(gf + ga)
             traps += int((gf, ga) in {(0, 0), (1, 1)})
@@ -220,16 +222,45 @@ def _championship_goal_signal_defects(row: dict[str, Any]) -> list[str]:
             "stall_count": sum(n <= 2 for n in totals),
         })
     h, a = teams
-    # A strong outlier cannot rescue a persistent 0-0 / 1-1 pattern.
+    # Opponent-driven blowouts are not enough when the other team repeatedly
+    # ends at 0-0/1-1 or struggles to fund a third goal.
     if any(t["trap_count"] >= 3 or t["stall_count"] >= 4 for t in teams):
-        return ["CHAMPIONSHIP_LOW_TOTAL_STALL_OR_DRAW_TRAP"]
+        return [f"{label}_LOW_TOTAL_STALL_OR_DRAW_TRAP"]
 
     qualified = (
         (h["avg"] >= 2.8 and a["avg"] >= 2.8) or
         (max(h["avg"], a["avg"]) >= 3.2 and min(h["avg"], a["avg"]) >= 2.6) or
         (h["over_count"] >= 3 and a["over_count"] >= 3)
     )
-    return [] if qualified else ["CHAMPIONSHIP_CHEAP_SIGNAL_FAIL"]
+    return [] if qualified else [f"{label}_CHEAP_SIGNAL_FAIL"]
+
+
+def _championship_goal_signal_defects(row: dict[str, Any]) -> list[str]:
+    name = row.get("competition_name") or row.get("competition")
+    if not _nonempty(name) or name.strip().casefold() not in CHAMPIONSHIP_NAMES:
+        return []
+    country = row.get("country")
+    if _nonempty(country) and country.strip().casefold() != "england":
+        return ["CHAMPIONSHIP_PILOT_COUNTRY_MISMATCH"]
+    return _recent_five_goal_signal_defects(
+        row, field="championship_recent_goal_evidence", label="CHAMPIONSHIP",
+    )
+
+
+def _poland_ekstraklasa_goal_signal_defects(row: dict[str, Any]) -> list[str]:
+    name = row.get("competition_name") or row.get("competition")
+    if not _nonempty(name) or name.strip().casefold() not in POLAND_EKSTRAKLASA_NAMES:
+        return []
+    # Ekstraklasa can appear in sources from other countries; reject an
+    # unverified country instead of assuming Poland from the league string.
+    country = row.get("country")
+    if not _nonempty(country) or country.strip().casefold() != "poland":
+        return ["POLAND_EKSTRAKLASA_COUNTRY_UNVERIFIED"]
+    return _recent_five_goal_signal_defects(
+        row, field="poland_ekstraklasa_recent_goal_evidence",
+        label="POLAND_EKSTRAKLASA",
+    )
+
 
 def validate_shared_league_profiles(rows: list[dict[str, Any]]) -> list[str]:
     """One immutable channel proof per competition in a new Step-0 sweep.
@@ -308,7 +339,9 @@ def validate_work_candidate(row: dict[str, Any], *, intake_policy: str = "XI_MAR
         # lineup/Asian-total/news provider profile, not per-fixture book odds
         # or both clubs' prior XIs during /sweep. These become mandatory at
         # /rank and again at /xi before any official bet.
-        return defects + _league_channel_defects(row) + _championship_goal_signal_defects(row)
+        return (defects + _league_channel_defects(row)
+                + _championship_goal_signal_defects(row)
+                + _poland_ekstraklasa_goal_signal_defects(row))
 
     # Legacy XI_MARKET_FIRST_V1 is unchanged for existing running/frozen sweeps.
     # 24h discovery occurs long before official match-day XIs drop. Require

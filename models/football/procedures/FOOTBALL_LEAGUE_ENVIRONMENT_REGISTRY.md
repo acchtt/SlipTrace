@@ -151,7 +151,7 @@ The following competitions are the **complete normal-sweep CONDITIONAL whitelist
 
 - England — EFL Championship / Championship **(targeted 2026-10-11 pilot only; fresh source-backed fixture goal gate)**
 - Czech Republic — First League
-- Poland — Ekstraklasa
+- Poland — Ekstraklasa **(2026-10-11 bounded FAST_PRODUCTION source-local conditional pilot; both-side scored/conceded proof, draw-trap guard)**
 - Greece — Super League
 - Romania — Liga I
 - Croatia — HNL
@@ -248,6 +248,18 @@ For only NEW prospective Step0 sweeps, Norway **OBOS-ligaen / 1. divisjon / Norw
 OBOS **must** carry a real verified `PROVEN_LEAGUE` publication profile, **never** `TIER1_STANDARD`: at least two distinct completed 2026 league fixtures with actual published lineup sources (both teams), and two real league fixtures with observed Asian goal-total ladder publication, verified by the sweep operator from retrievable source URLs. Preserve season, source URLs, evidence checked timestamp, team-news channels and fixture identity/kickoff. The historical evidence manifest at `models/football/research/OBOS_LEAGUE_CHANNEL_PROOF_2026-10-11.md` documents inspectable examples but is **not** a persisted live-season `VERIFIED_CHANNELS` attestation. If fresh providers are unavailable, this league's individual fixtures do not pass the A/B intake gate; do not fabricate odds or verified XI.
 
 A routine league profile is **not** an Over goals forecast; do not promote Ranheim/Moss/Kongsvinger via hardcoded team names or assumed >2.5 price. The prospective Step1 whole-queue goal-route screen still uses actual 4–10 previous competitive results. Step1 requires fixture-specific actual Asian totals, news and XI sources; Step2 requires the genuinely current offered line, reachable WAIT and independent C/C2 decision. Never reopen or relabel completed sweeps, original source hashes, historical boards or Actual Bets.
+
+## 7C. Poland Ekstraklasa conditional coverage pilot — 2026-10-11
+
+Poland Ekstraklasa remains **CONDITIONAL**, not a NORMAL or Tier1 automatic intake league. For NEW prospective /sweep only, it receives a single source-local block look-up when its in-window competition block is directly available or a current cached league locator exists. Do **not** launch global discovery or per-fixture deep XI/market crawls because a season-wide Over 2.5 percent looks favorable. This is not an expansion to Poland I Liga or youth/reserve-only competitions.
+
+To route an individual Ekstraklasa fixture to the A/B Work queue, the `LEAGUE_CHANNEL_FIRST_V1` validator requires:
+- Country `Poland`, exact competition label `Ekstraklasa`, canonical real fixture ID and kickoff UTC; no other country receives this pilot.
+- Fresh `poland_ekstraklasa_recent_goal_evidence` with one `captured_at_utc` at most seven days before actual kickoff and independently source-backed `home` and `away` collections, each exactly five genuine completed competitive match records with unique `match_id`, `kickoff_utc`, `goals_for`, `goals_against`, `competitive=true`. Each result must be demonstrably finished at capture and no more than 120 days old. No hypothetical match odds or user bets in this evidence.
+- Admission signal: both last-five total-goal means >=2.8, OR a >=3.2 carrier and opponent >=2.6, OR each side >=3 of five Over 2.5. Block if either team has >=3/5 0–0/1–1 draws or >=4/5 matches ending <=2 total goals. Incomplete/stale evidence means **not ready for Work**, not an Under or C PASS.
+- All independent normal professional A/B viability, source-checked season `PROVEN_LEAGUE` (minimum two real lineup and two Asian-goal-total fixture publication examples) because it is **not** in TIER1_STANDARD, legitimate league market/news channels, observed verified fixture/time, and near-kickoff recheck. /rank separately verifies actual match bookmaker totals, line, quote timestamp, XI and news; /xi handles genuinely executable odds.
+
+No hardcoded GKS/Raków/Lech boosts. A past high Over frequency can arise from conceding, and a 1–1 can be a dead end. Step1's whole-queue goal-first scoring remains decisive **only for research order** across already eligible A/B fixtures. No frozen sweep, Step0 source hash, operational rank, C official/C2 shadow decisions, or Actual Bets are modified. See `research/POLAND_EKSTRAKLASA_CONDITIONAL_PILOT_2026-10-11.md`.
 
 ## 8. Promotion / demotion policy
 

@@ -87,6 +87,21 @@ class ScopeFirstTests(unittest.TestCase):
         self.assertEqual(len(screened["blocks"]["SCOPE_EXCLUDED"]), 2)
         self.assertTrue(screened["raw_ledger_retained"])
 
+    def test_poland_ekstraklasa_source_local_conditional_pilot(self):
+        candidate = classify_competition(c("Ekstraklasa", "Poland"))
+        self.assertEqual(candidate["lane"], "CONDITIONAL_CHEAP_GATE")
+        self.assertIn("SOURCE-LOCAL", candidate["reason"])
+        for country in ("Czech Republic", "Germany", "Malaysia", "Unknown"):
+            self.assertEqual(classify_competition(c("Ekstraklasa", country))["lane"],
+                             "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "Ekstraklasa", "Poland", is_friendly=True))["lane"], "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "Poland I Liga", "Poland"))["lane"], "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "Polish Women's Ekstraklasa", "Poland",
+            kind="WOMENS_TOP_FLIGHT"))["lane"], "COVERAGE_AUDIT_PROOF_REQUIRED")
+
     def test_championship_requires_conditional_signal_not_direct_admission(self):
         for label in ("Championship", "EFL Championship", "Sky Bet Championship"):
             with self.subTest(name=label):

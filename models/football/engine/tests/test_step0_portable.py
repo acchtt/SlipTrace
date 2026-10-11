@@ -99,6 +99,24 @@ class PortableStep0Tests(unittest.TestCase):
         self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
                       validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
 
+    def test_portable_poland_ekstraklasa_conditional_requires_source_results(self):
+        self.portable._load()
+        from sweep_competition_scope import classify_competition
+        from sweep_intake_evidence import validate_work_candidate
+        from test_sweep_intake_evidence import league_candidate, LeagueChannelFirstTests
+        result = classify_competition({
+            "competition_name":"Ekstraklasa", "country":"Poland",
+            "competition_kind":"DOMESTIC_LEAGUE"})
+        self.assertEqual(result["lane"], "CONDITIONAL_CHEAP_GATE")
+        self.assertIn("SOURCE-LOCAL", result["reason"])
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        self.assertIn("POLAND_EKSTRAKLASA_CHEAP_SIGNAL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["poland_ekstraklasa_recent_goal_evidence"] = LeagueChannelFirstTests.championship_evidence()
+        self.assertEqual(validate_work_candidate(
+            row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+
     def test_portable_package_same_guarded_success_and_failure(self):
         self.portable._load()
         from step0_package_cli import package, Step0HandoffError
