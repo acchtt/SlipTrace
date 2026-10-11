@@ -7,6 +7,7 @@ from pathlib import Path
 
 from sweep_checkpoint import (
     SweepCheckpointError,
+    FAST_FINISH_V2_POLICY,
     advance_after_chunk,
     expire_fast_finish_deadline,
     mark_source_blocked,
@@ -29,9 +30,11 @@ def main() -> int:
 
     s = sub.add_parser("select")
     s.add_argument("--input", required=True)
+    s.add_argument("--now", help="Verified current UTC timestamp; mandatory for V2 select")
 
     a = sub.add_parser("advance")
     a.add_argument("--input", required=True)
+    a.add_argument("--now", help="Verified current UTC timestamp; mandatory for V2 advance")
     a.add_argument("--completed", default="")
     a.add_argument("--retry", default="")
 
@@ -53,6 +56,17 @@ def main() -> int:
 
     try:
         payload = _load(args.input)
+        if args.command in {"select", "advance"} and payload.get("verification_policy") == FAST_FINISH_V2_POLICY:
+            if not args.now:
+                raise SweepCheckpointError("FAST_FINISH_V2 requires --now to select/advance; first run deadline")
+            budget = expire_fast_finish_deadline(payload, now=args.now)
+            if budget["deadline_status"] not in {"WITHIN_BUDGET"}:
+                print(json.dumps({
+                    "ok": False,
+                    "status": "SWEEP BUDGET GATE — PERSIST DEADLINE RECEIPT",
+                    "deadline_receipt": budget,
+                }, indent=2, sort_keys=True), file=sys.stderr)
+                return 2
         if args.command == "validate":
             out = {"ok": True, **validate_checkpoint(payload)}
         elif args.command == "select":
