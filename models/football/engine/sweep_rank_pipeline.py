@@ -347,8 +347,6 @@ def execute_rank(
         raise SweepRankError("explicit real reason required for every unranked A/B fixture")
     if any(reason not in UNRANKED_REASONS for reason in unranked_reasons.values()):
         raise SweepRankError("invalid unranked reason; unresearched fixture is not model PASS")
-    _verify_research_plan(research_plan, handoff, expected_zip_sha256, now,
-                          set(pair_input_ids), unranked_reasons)
     if handoff.get("strict_intake_policy") == "LEAGUE_CHANNEL_FIRST_V1":
         if not isinstance(fixture_evidence, dict) or set(fixture_evidence) != set(pair_input_ids):
             raise SweepRankError("Step1 real league-first football evidence required for every ranked fixture")
@@ -375,6 +373,8 @@ def execute_rank(
                 raise SweepRankError(f"{mid}: Step1 changed frozen fixture KO")
             if now >= _utc(row["kickoff_ict"], f"{mid}.kickoff_ict"):
                 raise SweepRankError(f"{mid}: cannot create retrospective prematch rank")
+    _verify_research_plan(research_plan, handoff, expected_zip_sha256, now,
+                          set(pair_input_ids), unranked_reasons)
     pair = run_board_pair(c, c2)
     ranked = set(pair_input_ids)
     for result in pair["results"].values():
