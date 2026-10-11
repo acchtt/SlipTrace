@@ -1,5 +1,7 @@
 # 06 — Normal Chat: Football Report
 
+> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/report):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+
 **Command alias:** `/report`  
 **Current roster:** Football C official + Football C2 shadow.
 
@@ -92,7 +94,7 @@ Historical retired-model accounting belongs only in an explicitly historical app
 
 ### Actual user profit
 
-Use Airtable `Actual Bets — Current` (`tblF0MSRTuqCWlL8s`) as the canonical source for current actual-user P/L from the 2026-10-08 reset onward.
+Use Airtable `Actual Bets — Current` (`tblGsnU4Ht0OpmdH8`, base `appbzxqXYf0lKfD4P`) as the canonical source for current actual-user P/L from the 2026-10-08 reset onward.
 
 Unless the user explicitly asks for historical combined reporting:
 - sum `Profit VND` only from this table;

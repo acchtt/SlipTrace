@@ -1,0 +1,46 @@
+{
+  "schema_version": "football-airtable-model-routing-v1",
+  "effective_date_ict": "2026-10-11",
+  "base_id": "appbzxqXYf0lKfD4P",
+  "base_name": "Football v2 — Active Operations 2026-10-11",
+  "workflow_scope": [
+    "rank",
+    "xi",
+    "live",
+    "audit",
+    "report",
+    "model_qa",
+    "model_accounting",
+    "website_picks"
+  ],
+  "explicitly_excluded_workflow": "sweep",
+  "sweep_policy": "PRESERVE_EXISTING_SWEEP_ROUTING_UNMODIFIED",
+  "tables": {
+    "Decision States": "tblzMyYuDTi1UMd66",
+    "Circuit Breaker": "tbl9dGdMToW8shIL5",
+    "Website Picks": "tblmGd7XwTYbceIiL",
+    "Daily Coverage Ledger": "tbl20jBW5dfgNnTV6",
+    "Manual Scores": "tbliGfSwMacpnmauM",
+    "Competition Reliability": "tbl8ZRExZfMce7lqY",
+    "Competition Reliability Events": "tblg3uz2Bvz6bcCm9",
+    "Factor Calibration Observations": "tblCfYuxmc1FfHS76",
+    "Actual Bets — Current": "tblGsnU4Ht0OpmdH8"
+  },
+  "no_sweep_writes": [
+    "Sweep Runs"
+  ],
+  "preserve_original_handoff": [
+    "Run ID",
+    "Source Payload Hash",
+    "Coverage ID",
+    "Step0 Capacity Queue Rank",
+    "Original Operational Disposition"
+  ],
+  "actual_bets_authority": "Actual Bets — Current",
+  "c_official_only": true,
+  "c2_shadow_only": true,
+  "legacy_base": "appWyZJjitSBATXAU",
+  "legacy_fallback": "EXPLICIT_HISTORICAL_READ_ONLY_NEVER_NEW_MODEL_WRITES",
+  "field_resolution": "NAME_WITH_SCHEMA_TYPE_VERIFICATION",
+  "receipt_policy": "VERIFY_TARGET_RECORD_ID_AND_MATCHING_IDENTITY_AFTER_WRITE"
+}

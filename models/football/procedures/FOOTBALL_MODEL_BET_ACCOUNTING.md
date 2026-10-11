@@ -1,5 +1,7 @@
 # Football Model Bet Accounting
 
+> **Active model Airtable route (Oct 11):** Load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All model, accounting and reporting reads/writes go to `appbzxqXYf0lKfD4P` using the corresponding NEW table IDs and source-key readback. Do not use old-base IDs for writes. **Do not modify `/sweep` routing, source checkpoint or Step0 handoff.** Actual Bets are only from confirmed user slips; C official, C2 shadow.
+
 **Status:** ACTIVE AUDIT / MODEL-ACCOUNTING CONVENTION  
 **Current active roster:** Football C + Football C2  
 **Historical compatibility:** C3/C4 may be settled only from genuinely frozen historical rows using explicit historical-roster mode.
