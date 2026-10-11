@@ -125,7 +125,7 @@ class SimpleAssessBetRoutingTests(unittest.TestCase):
         self.assertIn("one", simple.lower())
         self.assertIn("no extra user step", simple.lower())
         self.assertIn("without asking", aliases)
-        self.assertIn("Single /xi command", simple)
+        self.assertIn("Single user command", simple)
         for path in (
             FOOTBALL / "prompts" / "xi.md",
             FOOTBALL / "prompts" / "live.md",
