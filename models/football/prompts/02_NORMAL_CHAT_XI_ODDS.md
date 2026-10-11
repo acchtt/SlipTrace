@@ -284,9 +284,56 @@ Do not reuse C's supported line in C2. C2 owns its supported burden independentl
 
 C2 may return BET/WAIT/PASS for shadow comparison only.
 
+### Mandatory quote-free C+C2 football assessment mode
+
+**Assess the football, not the bookmaker price.** For a user requesting
+`/xi`, `/xi exception` or `/live` (including a few minutes after KO),
+perform the football read FIRST, regardless of whether a current quote
+exists. There is now a real deterministic paired engine mode:
+
+`python models/football/engine/xi_portable.py football-pair --c <c_football.json> --c2 <c2_football.json>`
+
+The two payloads have `schema_version=football-engine-v1`,
+`stage=football_assessment`, model `c`/`c2`,
+an identical `evidence_epoch_id`, genuine independently frozen
+model-specific `match` factors, and `context` with the same
+`assessment_at_utc`, `fixture_status`, `score`,
+`match_minute`, and `material_event_since_frozen`. The context
+also gives **each model's separate** `board_state`, current
+`thesis_state` (PRESERVED/BROKEN/UNKNOWN),
+`primary_mechanism_intact` (true/false/null), and
+`material_veto` (true/false/null). These are football-evidence fields;
+they must never be derived from a bookmaker price.
+
+**Do not include or request `quote`, `quote_revalidated`, a new
+line, live odds, or market history** to execute this mode. The result is
+`EXECUTED_C_C2_FOOTBALL_ONLY` and includes independent C completion
+and C2 route-quality views, frozen supported burdens, explicit live
+context uncertainty and no executable BET, WAIT or PASS. A frozen line
+is not represented as a live executable quote.
+
+When current score, minute or event information is incomplete,
+still report the frozen hypotheses with precise limitations, rather than
+blocking the football assessment. Do not invent events, a score,
+lineups or independent C2 factors. When a goal has occurred, mark
+the old premise as needing current material-event re-evaluation; do
+not silently call it intact. If an independent C2 source input truly
+does not exist, state that it is missing; never clone C as C2.
+
+**Deliver this football assessment immediately.** A user asking to
+assess should never need to provide a screenshot of current odds.
+Only if separately evaluating an executable bet may the priced
+`xi_portable.py pair` runner and exact current price publication
+requirements apply. That runner is PREMATCH ONLY; after kickoff,
+execute the appropriate current live betting authorization instead.
+`football-pair` is not evidence of a placed or approved bet.
+The recorded execution status must identify whether this was a
+`FOOTBALL_ONLY` read or a priced decision; do not claim a price
+was revalidated.
+
 ## 8. Atomic deterministic execution
 
-Engine execution is **mandatory** for a completed Step-2 decision.
+A **priced Step-2 BET/WAIT/PASS decision** requires the price-bearing execution below. A **football assessment** requires the quote-free C+C2 runner above, not a betting quote.
 
 Before execution, perform `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` for stage=`xi` and record the `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
@@ -420,7 +467,7 @@ A completed current assessment must persist together:
 - Engine Failure Reason when applicable;
 - current WAIT/accounting fields.
 
-Do not mark the assessment complete when C2 execution/persistence is missing.
+For a **priced executable decision**, do not mark completion unless both C and C2 decision engines, persistence/readback and the publication guard pass. For a quote-free **FOOTBALL_ONLY** result, mark the football assessment completed once the separate C and C2 football engines have executed; never demand quote fields, betting accounting, a Website Pick, or the priced publication guard to finish that read. Save football-only diagnostics with `ENGINE EXECUTION STATUS=EXECUTED_C_C2_FOOTBALL_ONLY` when the destination schema permits; if a persistence field is unavailable, report that limitation without changing the football result.
 
 ### New Step-2 prepublication gate — mandatory
 
