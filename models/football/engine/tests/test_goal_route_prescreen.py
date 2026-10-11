@@ -99,6 +99,81 @@ class FullQueuePrescreenTests(unittest.TestCase):
         out = run_prescreen(request(rows))
         self.assertNotIn("m2", out["manifest"]["ordered_eligible_match_ids"])
 
+    def test_provider_revised_kickoff_preserves_research_after_original_ko(self):
+        rows = candidates(15)
+        rows[8]["kickoff_utc"] = (NOW - timedelta(minutes=3)).isoformat()
+        rows[8]["researched_kickoff_evidence"] = {
+            "match_id": "m9",
+            "fixture_status": "PREMATCH_CONFIRMED",
+            "kickoff_utc": (NOW + timedelta(minutes=10)).isoformat(),
+            "observed_at_utc": (NOW - timedelta(minutes=1)).isoformat(),
+            "source_url": "https://fixtures.example.org/league/m9",
+        }
+        out = run_prescreen(request(rows))
+        proof = next(r for r in out["manifest"]["original_rows"] if r["match_id"] == "m9")
+        self.assertNotEqual(proof["screen_status"], "CLOSED")
+        self.assertEqual(proof["kickoff_utc"], (NOW - timedelta(minutes=3)).isoformat())
+        self.assertEqual(proof["research_kickoff_utc"], (NOW + timedelta(minutes=10)).isoformat())
+        self.assertEqual(proof["kickoff_drift_minutes"], 13)
+        self.assertEqual(proof["kickoff_reconciliation_status"], "KICKOFF_RECHECK_REQUIRED")
+        self.assertIn("m9", out["initial_research_match_ids"])
+        self.assertEqual(out["original_step0_source_hash"], HASH)
+
+        # Exercise the continuation selector, not only the first wave.
+        # m9 was screened first but is still unresearched in this synthetic
+        # checkpoint; an already-researched m15 keeps total budget at eight.
+        researched = [x for x in out["initial_research_match_ids"] if x != "m9"] + ["m15"]
+        next_wave = next_replenishment_wave({
+            "budget_policy": COMPACT_POLICY,
+            "research_schedule_policy": "GOAL_FIRST_STEP1_RESEARCH_V1",
+            "source_payload_hash": HASH,
+            "research_priority_manifest": out["manifest"],
+            "research_at_utc": (NOW + timedelta(minutes=5)).isoformat(),
+            "researched_match_ids": researched,
+            "follow_count": 0, "reserve_count": 0,
+            "candidates": queue(rows),
+        })
+        self.assertIn("m9", next_wave["selected_match_ids"])
+        self.assertNotIn("m9", [x["match_id"] for x in next_wave["closed_deferred"]])
+
+    def test_stale_or_foreign_kickoff_override_never_reopens_closed_fixture(self):
+        for change, field in (
+            ("wrong-match", "match_id"),
+            ("STALE", "observed_at_utc"),
+            ("http://fixtures.example.org/bad", "source_url"),
+        ):
+            with self.subTest(change=change):
+                rows = candidates(10)
+                rows[1]["kickoff_utc"] = (NOW - timedelta(minutes=3)).isoformat()
+                rows[1]["researched_kickoff_evidence"] = {
+                    "match_id": "m2",
+                    "fixture_status": "PREMATCH_CONFIRMED",
+                    "kickoff_utc": (NOW + timedelta(minutes=10)).isoformat(),
+                    "observed_at_utc": (NOW - timedelta(minutes=1)).isoformat(),
+                    "source_url": "https://fixtures.example.org/league/m2",
+                }
+                rows[1]["researched_kickoff_evidence"][field] = (
+                    "wrong-match" if field == "match_id" else
+                    (NOW - timedelta(hours=2)).isoformat() if field == "observed_at_utc"
+                    else change
+                )
+                with self.assertRaises(GoalPrescreenError):
+                    run_prescreen(request(rows))
+
+    def test_started_match_cannot_be_reopened_by_prematch_provider_update(self):
+        rows = candidates(10)
+        rows[1]["fixture_status"] = "STARTED"
+        rows[1]["kickoff_utc"] = (NOW - timedelta(minutes=3)).isoformat()
+        rows[1]["researched_kickoff_evidence"] = {
+            "match_id": "m2", "fixture_status": "PREMATCH_CONFIRMED",
+            "kickoff_utc": (NOW + timedelta(minutes=10)).isoformat(),
+            "observed_at_utc": NOW.isoformat(),
+            "source_url": "https://fixtures.example.org/m2",
+        }
+        out = run_prescreen(request(rows))
+        self.assertNotIn("m2", out["manifest"]["ordered_eligible_match_ids"])
+        self.assertEqual(out["closed_count"], 1)
+
     def test_no_future_results_leak_into_screen(self):
         rows = candidates()
         rows[12]["football_evidence"]["home"]["recent"][0]["kickoff_utc"] = (
