@@ -1,5 +1,24 @@
 > **Airtable source of truth changed 2026-10-11:** active base `appbzxqXYf0lKfD4P` and the full old→new field ID map at `models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md`. Archived old base `appWyZJjitSBATXAU` must be read-only; never append historical IDs into active tables.\n\n# 00 — Normal Chat: AiScore Researchable Senior Intake
 
+## Operational entrypoint — Unified Step0→Step1 V3 (2026-10-11)
+
+**This section overrides legacy serial /sweep→ZIP→separate Work-chat handoff instructions.**
+Read `models/football/procedures/FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`.
+New sweep source epochs use `sweep_rank_pipeline.py`. Immediately after
+a genuinely source-backed bounded candidate A/B pool is assembled,
+run **prepare** to emit the first 8 plus the 12-standard goal-first
+research order; this preparation is explicitly UNOFFICIAL while
+protected/required/women/source integrity proofs finish.
+Do not wait for worldwide AiScore exactness before scheduling research.
+Continue strict `FAST_FINISH_V2` with 15-minute total cutoff. For final
+complete source evidence run **seal**, which validates original Step0
+requirements and independently refetched Airtable run proof before
+creating one canonical ZIP. Do not reinterpret the prepared preview as
+a complete/Work-ready handoff; never invite a new chat or an indefinite
+resume to repeat discovery. BLOCKED closes the current source epoch
+and preserves candidates as historical, not official scores/bets.
+
+
 **Command alias:** `/sweep`
 
 **Use in:** Normal Chat, high reasoning.
