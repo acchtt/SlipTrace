@@ -54,6 +54,15 @@ Do not use:
 
 A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_PRODUCTION for a covering window.
 
+### New lower-division intake overlay — 2026-10-11 and newer new runs
+
+After mandatory senior source discovery and the standing exclusions, use `sweep_competition_scope.py` (or freshly regenerated `step0_portable.py scope`) for cheap country+league competition-block preflight. This is NOT a return to legacy `NARROW_CORE` as the primary /sweep scope. Specifically:
+- Germany **2. Bundesliga** joins approved professional lower-division *routine research*. For Work A/B, insist on a source-backed `PROVEN_LEAGUE` publication profile and ordinary fixture identity, KO, news/XI, market channel, reliability and capacity gates. Tier1 cannot be declared for this league.
+- England **Championship** joins the FAST_PRODUCTION *source-local conditional* block scan, **not** unconditional fixture admission. Require the coded `championship_recent_goal_evidence` gate for each submitted candidate: five historical competitive source-backed results per team, 7-day-fresh capture, no 0-0/1-1 trap. If no credible immediate history or if signal fails, mark excluded/hold rather than spending deep search cycles. Verify its `PROVEN_LEAGUE` provider profile as well.
+- Spain **Segunda**, Italy **Serie B**, France **Ligue 2**, England League One/Two and other lower divisions stay outside routine proactivity pending specific separately authorized exceptions; Germany 3. Liga remains user-excluded.
+- Do not rewrite a pre-existing RUNNING/frozen sweep or its source hash/queue, introduce team-based prediction bonuses in Step0, or bypass Step1 actual match-specific Asian totals, lineup/news and independent C/C2 scoring.
+- For source-backed historical publication examples see `models/football/research/LOWER_DIVISION_PROOF_MANIFEST_2026-10-11.md`. These are historical league channels, **not** today's executable bookmaker quote.
+
 ## Checkpointed execution — mandatory
 
 Fresh Step 0 is resumable, but **fresh runs default to FAST_FINISH_V1**. The objective is one bounded, complete actionable Step-0 selection rather than a forced six-block pause. FAST_FINISH is an operational verification schedule only, not a model grade/selection change. Continue honoring exact protected, required, senior women's top-flight, fixture-time and XI/market gates.
