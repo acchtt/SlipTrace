@@ -95,61 +95,75 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         raise StageError("source fixture list must be explicit and bounded")
     ledger, queue, seen = [], [], set()
     for i, raw in enumerate(fixtures):
-        if not isinstance(raw, dict):
-            raise StageError(f"fixture {i} must be a source object")
-        if set(raw) & PRICE_FIELDS:
-            raise StageError("no bookmaker/live/FT data in Step0 source snapshot")
-        mid = raw.get("match_id")
-        if (not isinstance(mid, str) or not mid.strip()
-                or mid.upper().startswith("DISCOVERY-") or mid in seen):
-            raise StageError(f"fixture {i}: canonical unique source match ID required")
-        seen.add(mid)
-        home, away = raw.get("home"), raw.get("away")
-        if not isinstance(home, str) or not home.strip() or not isinstance(away, str) or not away.strip():
-            raise StageError(f"{mid}: real home and away team identities required")
-        ko = _time(raw.get("kickoff_utc"), f"{mid}.kickoff_utc")
-        link = _url(raw.get("source_url"), f"{mid}.source_url")
-        checked = _time(raw.get("observed_at_utc"), f"{mid}.observed_at_utc")
-        if not at - timedelta(minutes=MAX_SOURCE_AGE_MINUTES) <= checked <= at:
-            raise StageError(f"{mid}: fixture evidence stale/future")
-        status = raw.get("fixture_status")
-        if status not in VALID_MATCH_STATUSES:
-            raise StageError(f"{mid}: source-confirmed fixture status required")
-        result = classify(raw)
-        lane, reason = result["lane"], result["reason"]
-        if not (start <= ko < end) or ko <= at or status != "PREMATCH_CONFIRMED":
-            lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
-        elif lane in ("CONDITIONAL", "PILOT"):
-            proof = raw.get("researchability_status")
-            evidence = raw.get("researchability_proof")
-            if proof == "VERIFIED":
-                if not isinstance(evidence, dict):
-                    raise StageError(f"{mid}: VERIFIED conditional league requires source evidence")
-                _url(evidence.get("source_url"), f"{mid}.researchability_proof.source_url")
-                stamp = _time(evidence.get("checked_at_utc"),
-                              f"{mid}.researchability_proof.checked_at_utc")
-                if not at - timedelta(days=7) <= stamp <= at:
-                    raise StageError(f"{mid}: researchability source evidence stale/future")
-                if evidence.get("match_id") != mid or evidence.get("current_channels_checked") is not True:
-                    raise StageError(f"{mid}: conditional channel proof not bound to fixture")
-            else:
-                lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
-        item = {
-            "match_id": mid, "country": raw.get("country"),
-            "competition": raw.get("competition"),
-            "competition_kind": raw.get("competition_kind"),
-            "home": home, "away": away, "kickoff_utc": ko.isoformat(),
-            "fixture_status": status,
-            "source_family": provider, "source_url": link,
-            "observed_at_utc": checked.isoformat(),
-            "researchability_proof": raw.get("researchability_proof") if lane in ("CONDITIONAL", "PILOT") else None,
-            "registry_lane": result["lane"],
-            "intake_lane": lane, "reason": reason,
-        }
-        ledger.append(item)
-        if lane in {"ROUTINE","CONDITIONAL","PILOT"}:
-            queue.append({**item, "football_evidence": raw.get("football_evidence"),
-                          "operational_grade": "A" if lane == "ROUTINE" else "B"})
+        # One weak-data fixture must not block other verified matches.
+        if (isinstance(raw, dict) and isinstance(raw.get("match_id"), str)
+                and raw["match_id"] in seen):
+            raise StageError(f"fixture {i}: conflicting duplicate canonical match ID")
+        try:
+            if not isinstance(raw, dict):
+                raise StageError(f"fixture {i} must be a source object")
+            if set(raw) & PRICE_FIELDS:
+                raise StageError("no bookmaker/live/FT data in Step0 source snapshot")
+            mid = raw.get("match_id")
+            if (not isinstance(mid, str) or not mid.strip()
+                    or mid.upper().startswith("DISCOVERY-") or mid in seen):
+                raise StageError(f"fixture {i}: canonical unique source match ID required")
+            seen.add(mid)
+            home, away = raw.get("home"), raw.get("away")
+            if not isinstance(home, str) or not home.strip() or not isinstance(away, str) or not away.strip():
+                raise StageError(f"{mid}: real home and away team identities required")
+            ko = _time(raw.get("kickoff_utc"), f"{mid}.kickoff_utc")
+            link = _url(raw.get("source_url"), f"{mid}.source_url")
+            checked = _time(raw.get("observed_at_utc"), f"{mid}.observed_at_utc")
+            if not at - timedelta(minutes=MAX_SOURCE_AGE_MINUTES) <= checked <= at:
+                raise StageError(f"{mid}: fixture evidence stale/future")
+            status = raw.get("fixture_status")
+            if status not in VALID_MATCH_STATUSES:
+                raise StageError(f"{mid}: source-confirmed fixture status required")
+            result = classify(raw)
+            lane, reason = result["lane"], result["reason"]
+            if not (start <= ko < end) or ko <= at or status != "PREMATCH_CONFIRMED":
+                lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
+            elif lane in ("CONDITIONAL", "PILOT"):
+                proof = raw.get("researchability_status")
+                evidence = raw.get("researchability_proof")
+                if proof == "VERIFIED":
+                    if not isinstance(evidence, dict):
+                        raise StageError(f"{mid}: VERIFIED conditional league requires source evidence")
+                    _url(evidence.get("source_url"), f"{mid}.researchability_proof.source_url")
+                    stamp = _time(evidence.get("checked_at_utc"),
+                                  f"{mid}.researchability_proof.checked_at_utc")
+                    if not at - timedelta(days=7) <= stamp <= at:
+                        raise StageError(f"{mid}: researchability source evidence stale/future")
+                    if evidence.get("match_id") != mid or evidence.get("current_channels_checked") is not True:
+                        raise StageError(f"{mid}: conditional channel proof not bound to fixture")
+                else:
+                    lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
+            item = {
+                "source_row_index": i, "match_id": mid, "country": raw.get("country"),
+                "competition": raw.get("competition"),
+                "competition_kind": raw.get("competition_kind"),
+                "home": home, "away": away, "kickoff_utc": ko.isoformat(),
+                "fixture_status": status,
+                "source_family": provider, "source_url": link,
+                "observed_at_utc": checked.isoformat(),
+                "researchability_proof": raw.get("researchability_proof") if lane in ("CONDITIONAL", "PILOT") else None,
+                "registry_lane": result["lane"],
+                "intake_lane": lane, "reason": reason,
+            }
+            ledger.append(item)
+            if lane in {"ROUTINE","CONDITIONAL","PILOT"}:
+                queue.append({**item, "football_evidence": raw.get("football_evidence"),
+                              "operational_grade": "A" if lane == "ROUTINE" else "B"})
+        except StageError as exc:
+            ledger.append({
+                "source_row_index": i,
+                "match_id": raw.get("match_id") if isinstance(raw, dict) else None,
+                "country": raw.get("country") if isinstance(raw, dict) else None,
+                "competition": raw.get("competition") if isinstance(raw, dict) else None,
+                "intake_lane": "PENDING_SOURCE", "reason": str(exc),
+            })
+            continue
     # Every source-visible row stays in the ledger; no arbitrary first-8 cap.
     queue.sort(key=lambda x: (x["kickoff_utc"], x["match_id"]))
     for idx, item in enumerate(queue, 1):
@@ -184,6 +198,7 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         "fixture_count": len(ledger),
         "eligible_count": len(queue),
         "pending_researchability_count": sum(z["intake_lane"] == "PENDING_RESEARCHABILITY" for z in ledger),
+        "pending_source_count": sum(z["intake_lane"] == "PENDING_SOURCE" for z in ledger),
         "excluded_or_closed_count": sum(z["intake_lane"] in {"EXCLUDED","CLOSED","UNVERIFIED"} for z in ledger),
         "source_ledger": ledger, "eligible_queue": queue,
         "research_order": order, "goal_screen_manifest": screen,
