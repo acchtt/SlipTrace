@@ -11,8 +11,8 @@ ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 
 from sweep_rank_pipeline import (
-    SweepRankError, prepare, seal, execute_rank as native_execute_rank,
-    plan_rank, publish_rank,
+    SweepRankError, prepare, seal, preview_board,
+    execute_rank as native_execute_rank, plan_rank, publish_rank,
 )
 from test_step0_package_cli import scenario
 from test_board_pair import c_row, c2_row, payload as model_payload
@@ -38,6 +38,7 @@ def preview_run():
             ),
             "fixture_kickoff_utc": "2026-10-11T18:30:00Z",
             "fixture_status": "PREMATCH_CONFIRMED",
+            "fixture_status_observed_at_utc": "2026-10-11T15:59:00Z",
             "fixture_source_url": "https://provider.example.org/football/fixture",
             "country": "Italy",
             "competition_name": "Serie A",
@@ -141,6 +142,32 @@ class SweepRankPipelineTests(unittest.TestCase):
         self.assertTrue(result["coverage_blockers"])
         self.assertFalse(result["official_rank_authorized"])
         self.assertTrue(result["no_bet"])
+
+    def test_unofficial_pair_research_from_valid_early_evidence(self):
+        preview = prepare(preview_run())
+        cr, c2r = c_row(), c2_row()
+        for row in (cr, c2r):
+            row["match_id"] = "canonical-m1"
+            row["kickoff_ict"] = "2026-10-12T01:30:00+07:00"
+        pair = preview_board(preview, model_payload("c", cr),
+                             model_payload("c2", c2r),
+                             at_utc="2026-10-11T16:02:00Z")
+        self.assertEqual(pair["status"], "C_C2_FOOTBALL_RESEARCH_UNOFFICIAL_NO_BET")
+        self.assertEqual(pair["board_pair"]["board_engine_execution_status"], "EXECUTED_C_C2_BOARDS")
+        self.assertFalse(pair["official_c_lane_authorized"])
+        self.assertFalse(pair["bet_authorized"])
+        self.assertFalse(pair["airtable_write_authorized"])
+        preview["source_payload_hash"] = "changed-after-screen"
+        with self.assertRaisesRegex(SweepRankError, "unaltered"):
+            preview_board(preview, model_payload("c", cr),
+                          model_payload("c2", c2r),
+                          at_utc="2026-10-11T16:02:00Z")
+
+    def test_early_research_requires_fresh_status_observation(self):
+        p = preview_run()
+        p["candidates"][0]["fixture_status_observed_at_utc"] = "2026-10-10T15:59:00Z"
+        with self.assertRaisesRegex(SweepRankError, "stale or future"):
+            prepare(p)
 
     def test_prepare_rejects_ambiguous_or_expired_or_unverified_fixtures(self):
         p = preview_run()
