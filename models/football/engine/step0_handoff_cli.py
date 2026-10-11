@@ -89,7 +89,7 @@ def _run_day(payload: dict[str, Any]) -> str | None:
     run_id = payload.get("run_id")
     if not isinstance(run_id, str):
         return None
-    match = re.fullmatch(r"SWEEP-(\\d{8})-\\d{4}-\\d{8}-\\d{4}", run_id)
+    match = re.fullmatch(r"SWEEP-(\d{8})-\d{4}-\d{8}-\d{4}", run_id)
     return match.group(1) if match else None
 
 
