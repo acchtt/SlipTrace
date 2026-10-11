@@ -157,9 +157,16 @@ class SweepV4Tests(unittest.TestCase):
 
     def test_one_malformed_goal_history_is_evidence_limited_not_global_failure(self):
         a=fixture("m1")
+        bad_games=[
+            {"kickoff_utc":f"2026-09-{d:02d}T12:00:00Z",
+             "goals_for":2,"goals_against":0}
+            for d in (1,8,15,22)
+        ]
         a["football_evidence"]={
-            "home":{"source_url":"http://bad.source", "recent":[]},
-            "away":{"source_url":"http://bad.source", "recent":[]},
+            "home":{"source_url":"http://bad.source", "recent":bad_games,
+                    "observed_at_utc":"2026-10-11T15:58:00Z"},
+            "away":{"source_url":"http://bad.source", "recent":bad_games,
+                    "observed_at_utc":"2026-10-11T15:58:00Z"},
         }
         out=sweep(snapshot([a,fixture("m2","Norway","OBOS-ligaen")]),now=NOW)
         self.assertEqual(out["eligible_count"],2)
