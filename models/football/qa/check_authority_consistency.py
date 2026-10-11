@@ -3,6 +3,8 @@
 
 from pathlib import Path
 import sys
+import json
+import re
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -23,6 +25,38 @@ def require(rel: str, *needles: str) -> None:
     for needle in needles:
         if needle not in text:
             failures.append(f"{rel}: missing required semantic invariant: {needle}")
+
+
+def require_current_airtable_mappings(rel: str, table_name: str, *legacy_fields: str) -> None:
+    """Keep the protected old field semantics while checking their live IDs.
+
+    Old Airtable record/field IDs are immutable archive provenance, not
+    required tokens in present-day model contracts. Full migration mapping
+    proves the original IDs were carried forward, table by table.
+    """
+    route_doc = read("models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md")
+    match = re.search(r"```json\\s*(.*?)\\s*```", route_doc, re.S)
+    if not match:
+        failures.append("Airtable full-field migration map missing")
+        return
+    try:
+        routing = json.loads(match.group(1))
+    except (ValueError, TypeError):
+        failures.append("Airtable full-field migration map malformed")
+        return
+    if routing.get("active_base_id") != "appbzxqXYf0lKfD4P":
+        failures.append("Airtable active model base ID mismatch")
+    table = next((t for t in routing.get("tables", []) if t.get("name") == table_name), None)
+    if not table:
+        failures.append(f"Airtable migrated table missing: {table_name}")
+        return
+    active_id = table.get("active_table")
+    if not active_id or active_id not in read(rel):
+        failures.append(f"{rel}: active table ID missing for {table_name}: {active_id}")
+    for old_id in legacy_fields:
+        new_id = table.get("fields", {}).get(old_id)
+        if not new_id or not new_id.startswith("fld"):
+            failures.append(f"{rel}: legacy field not mapped for {table_name}: {old_id}")
 
 
 def forbid(rel: str, *needles: str) -> None:
@@ -321,8 +355,9 @@ require(
     "test_source_state_maps_to_airtable_run_status",
     "test_source_blocked_is_not_a_run_status_value",
 )
-require(
+require_current_airtable_mappings(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "Sweep Runs",
     "fldtIbv2ppGzwUExs",
     "flduqxh9DOKdV1A06",
     "flduhyM3Thjwj3Bqs",
@@ -330,6 +365,9 @@ require(
     "fld4h6ZPqTCLBgxQ8",
     "fldBq52mI5JtCz9xf",
     "fld6ZtvrmNrFmff4h",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
     "Never write `SOURCE_BLOCKED` into `Run Status`",
 )
 
@@ -433,8 +471,9 @@ require(
     "test_started_candidate_is_skipped_without_jumping_order_bug",
     "test_duplicate_queue_rank_fails",
 )
-require(
+require_current_airtable_mappings(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "Daily Coverage Ledger",
     "fldUFbfIyiIYcQuVt",
     "fldPUL87XJhpUqYiU",
     "fld5qzOVZdKst3bhK",
@@ -742,7 +781,7 @@ require(
 )
 require(
     "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md",
-    "tblz2s2KR4BRyAaVo",
+    "tblCfYuxmc1FfHS76",
     "Outcome fields remain blank before FT",
     "must never be read by",
 )
@@ -772,6 +811,12 @@ forbid(
 forbid(
     "models/football/engine/adapter.py",
     "factor_calibration",
+)
+
+# Archived factor table identity must map exactly to current calibration table.
+require_current_airtable_mappings(
+    "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md",
+    "Factor Calibration Observations",
 )
 
 # 8. Persistence must keep active C/C2 fields distinct.
