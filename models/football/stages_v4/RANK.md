@@ -49,6 +49,8 @@ and reproducing the same invalid `V4_SWEEP_READY` error.
 
 Read `README.md`, the official C and independent C2 engine
 specifications and the latest source receipt from V4 /sweep.
+Research all DISCOVERY-qualified fixtures together with registered A/B fixtures. The `discovery_watchlist` identifies unregistered official competitions with source-backed goal signals but missing current researchability, recent team scoring evidence, or required cup-format proof. They are **not** model PASS and must not silently vanish. Do not add pending discovery fixtures to the official model cohort until a NEW original-source V4 sweep verifies their qualifying evidence; never edit a sealed receipt. Source scoring heuristics only decide eligibility for research, not guaranteed 3+/4+ goals or a bet.
+
 Research real football evidence for the complete eligible fixture
 universe in goal-first priority order: source-backed recent scoring,
 home/away scoring routes, current team news, expected XI channels,

@@ -42,7 +42,16 @@ def replay(source: dict[str, Any], derived: dict[str, Any]) -> dict[str, Any]:
         raise StageError("derived stage creation time cannot attest original source observation")
     # This is a replay of the frozen source at the original instant. NOT a
     # current-time/fixture status attestation. Rank must check kickoff now.
-    real = sweep(source, now=created.isoformat())
+    # This exact run was sealed against the old registry-only intake
+    # policy. Replay must attest its ORIGINAL meaning, not retroactively
+    # reclassify Brazil/unknown leagues under a new admission policy.
+    legacy_policy = (
+        source.get("run_id") == "V4-20261012-003037-0600"
+        and derived.get("source_ledger_hash")
+        == "6fdbb087773f9eb1fdfea01c1a59de7974c06a47e8eaa9c9d15de02a9cc52863"
+    )
+    real = sweep(source, now=created.isoformat(),
+                 _historical_registry_only=legacy_policy)
     claimed = {k: v for k, v in derived.items() if k not in IGNORABLE}
     recomputed = {k: v for k, v in real.items() if k not in IGNORABLE}
     if claimed != recomputed:

@@ -119,8 +119,11 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
     if kind == "DOMESTIC_CUP":
         if (country, competition) in CUPS:
             return {"lane": "CONDITIONAL", "reason": "MAJOR_CUP_MATCH_FORMAT_REQUIRED"}
-        return {"lane": "EXCLUDED", "reason": "UNRESEARCHED_DOMESTIC_CUP"}
+        return {"lane": "DISCOVERY", "reason": "UNREGISTERED_OFFICIAL_CUP_GOAL_RESEARCH_REQUIRED"}
     for lane in ("ROUTINE", "CONDITIONAL", "PILOT"):
         if competition in REGISTRY[lane].get(country, set()):
             return {"lane": lane, "reason": "RESEARCHED_LEAGUE_" + lane}
-    return {"lane": "EXCLUDED", "reason": "UNRESEARCHED_OR_UNVERIFIED_DOMESTIC_DIVISION"}
+    # An unknown competition is NOT automatically a poor-goals fixture.
+    # It enters a separate source-backed discovery screen, never routine.
+    # League registration is a familiarity prior, NOT the football filter.
+    return {"lane": "DISCOVERY", "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED"}

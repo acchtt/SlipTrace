@@ -58,6 +58,39 @@ write Airtable by itself. The official result remains
 base write/readback is completed. Never say a board has been published
 just because C/C2 were executed.
 
+## Open-league goals discovery — no registry-only exclusion
+
+The registry defines **routine and conditional research priorities**, not
+all competitions that might yield 3+ goals. V4 captures the actual senior
+competitive fixtures visible to the acquired date/window source **before**
+applying the registry. Unregistered domestic leagues and official cups go
+to the separate `DISCOVERY` lane rather than `EXCLUDED` (unless the user's
+explicit country/league exclusion, a friendly, invalid competition kind or
+missing canonical fixture evidence applies). This includes plausible
+high-scoring fixtures from unregistered countries such as Brazil or Mexico.
+
+`discovery_goal_gate.py` uses **real four-to-ten recent competitive match
+results for each team**, with HTTPS source URLs and current observations,
+to prioritize promising teams, discounted for 0–0/1–1 draw traps. This is
+a conservative admission heuristic, **not an over-goals prediction**.
+Qualified scoring evidence (priority >= 60, average 3+-goal history
+frequency >= 55%, average 0–0/1–1 frequency <= 35%) AND verified current
+publishing/researchability proof for the exact fixture admit it to the
+standard full C/C2 research queue at B operational grade. No mandatory
+historical XI or bookmaker odds. Unknown official cup formats also need
+match-bound tournament-format and incentive verification. Otherwise
+`PENDING_DISCOVERY` stays in `discovery_watchlist`, including the real
+scoring signal and exact missing evidence reason; **neither a rejection
+nor a model PASS**. `discovery_qualified_count` and
+`pending_discovery_count` are exposed in the immutable sweep receipt.
+
+The source fetcher must never prefilter its fixture list to registered
+leagues, or the new discovery screen cannot see those candidates.
+Explicit banned divisions, domestic-country exclusions and friendlies
+remain excluded even if historical goals are high. Old October 12 V4
+receipts retain their original registry-only semantics and digest;
+this updated admission rule applies to NEW source sweeps only.
+
 ## Researched league registry
 
 Stored in `league_registry.py`: match country AND competition. Tier

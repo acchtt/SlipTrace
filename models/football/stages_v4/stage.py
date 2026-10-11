@@ -23,6 +23,7 @@ sys.path.insert(0, str(ENGINE))
 from board_pair_cli import run_board_pair  # historic pure implementation; old CLI remains retired
 from goal_route_prescreen import GoalPrescreenError, run_prescreen
 from league_registry import classify
+from discovery_goal_gate import screen_discovery
 
 SCHEMA = "football-stages-v4"
 BASE = "appbzxqXYf0lKfD4P"
@@ -79,7 +80,7 @@ def _verified(obj: Any, expected_status: str) -> None:
         raise StageError("frozen stage integrity SHA256 mismatch")
 
 
-def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
+def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool = False) -> dict[str, Any]:
     """Classify ONE actual provider snapshot, without a worldwide crawl."""
     at = _time(now, "now")
     if not isinstance(source, dict) or source.get("schema_version") != SCHEMA:
@@ -129,24 +130,63 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
             if status not in VALID_MATCH_STATUSES:
                 raise StageError(f"{mid}: source-confirmed fixture status required")
             result = classify(raw)
+            # Historical source replay must preserve the policy and digest
+            # originally executed, not reinterpret last night's fixtures.
+            if _historical_registry_only and result["lane"] == "DISCOVERY":
+                result = {
+                    "lane": "EXCLUDED",
+                    "reason": (
+                        "UNRESEARCHED_DOMESTIC_CUP"
+                        if raw.get("competition_kind") == "DOMESTIC_CUP"
+                        else "UNRESEARCHED_OR_UNVERIFIED_DOMESTIC_DIVISION"
+                    ),
+                }
             lane, reason = result["lane"], result["reason"]
+            discovery_screen = None
             if not (start <= ko < end) or ko <= at or status != "PREMATCH_CONFIRMED":
                 lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
-            elif lane in ("CONDITIONAL", "PILOT"):
+            elif lane in ("CONDITIONAL", "PILOT", "DISCOVERY"):
+                # Unknown league = investigate football; it is NOT model PASS.
+                # Run the goal screen independently of XI/market availability.
+                if lane == "DISCOVERY":
+                    discovery_screen = screen_discovery(
+                        run_id=run_id,
+                        source_payload_hash=_hash(source),
+                        at_utc=at.isoformat(),
+                        fixture=raw,
+                    )
                 proof = raw.get("researchability_status")
                 evidence = raw.get("researchability_proof")
                 if proof == "VERIFIED":
                     if not isinstance(evidence, dict):
-                        raise StageError(f"{mid}: VERIFIED conditional league requires source evidence")
+                        raise StageError(f"{mid}: VERIFIED conditional/discovery league requires source evidence")
                     _url(evidence.get("source_url"), f"{mid}.researchability_proof.source_url")
                     stamp = _time(evidence.get("checked_at_utc"),
                                   f"{mid}.researchability_proof.checked_at_utc")
                     if not at - timedelta(days=7) <= stamp <= at:
                         raise StageError(f"{mid}: researchability source evidence stale/future")
                     if evidence.get("match_id") != mid or evidence.get("current_channels_checked") is not True:
-                        raise StageError(f"{mid}: conditional channel proof not bound to fixture")
+                        raise StageError(f"{mid}: conditional/discovery channel proof not bound to fixture")
+                elif lane == "DISCOVERY":
+                    lane, reason = "PENDING_DISCOVERY", "UNREGISTERED_MATCH_NEEDS_CURRENT_RESEARCHABILITY_PROOF"
                 else:
                     lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
+                if result["lane"] == "DISCOVERY" and lane == "DISCOVERY":
+                    if raw.get("competition_kind") == "DOMESTIC_CUP":
+                        format_proof = raw.get("tournament_format_proof")
+                        if not isinstance(format_proof, dict):
+                            lane, reason = "PENDING_DISCOVERY", "OFFICIAL_CUP_FORMAT_AND_INCENTIVES_NOT_VERIFIED"
+                        else:
+                            _url(format_proof.get("source_url"), f"{mid}.tournament_format_proof.source_url")
+                            format_checked = _time(format_proof.get("checked_at_utc"),
+                                                   f"{mid}.tournament_format_proof.checked_at_utc")
+                            if not at - timedelta(days=7) <= format_checked <= at or (
+                                format_proof.get("match_id") != mid
+                                or format_proof.get("competition_format_verified") is not True
+                            ):
+                                raise StageError(f"{mid}: cup format proof must be current and fixture-bound")
+                    if lane == "DISCOVERY" and discovery_screen["status"] != "DISCOVERY_GOAL_QUALIFIED":
+                        lane, reason = "PENDING_DISCOVERY", discovery_screen["reason"]
             item = {
                 "source_row_index": i, "match_id": mid, "country": raw.get("country"),
                 "competition": raw.get("competition"),
@@ -155,12 +195,16 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
                 "fixture_status": status,
                 "source_family": provider, "source_url": link,
                 "observed_at_utc": checked.isoformat(),
-                "researchability_proof": raw.get("researchability_proof") if lane in ("CONDITIONAL", "PILOT") else None,
+                "researchability_proof": raw.get("researchability_proof") if result["lane"] in ("CONDITIONAL", "PILOT", "DISCOVERY") else None,
+                **({} if _historical_registry_only else {
+                    "discovery_screen": discovery_screen,
+                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] == "DISCOVERY" and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
+                }),
                 "registry_lane": result["lane"],
                 "intake_lane": lane, "reason": reason,
             }
             ledger.append(item)
-            if lane in {"ROUTINE","CONDITIONAL","PILOT"}:
+            if lane in {"ROUTINE","CONDITIONAL","PILOT","DISCOVERY"}:
                 queue.append({**item, "football_evidence": raw.get("football_evidence"),
                               "operational_grade": "A" if lane == "ROUTINE" else "B"})
         except StageError as exc:
@@ -220,11 +264,12 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         "source_family": provider, "source_url": source["source_url"],
         "source_observed_at_utc": observed.isoformat(),
         "source_ledger_hash": _hash(ledger),
-        "scope": "RESEARCHED_COUNTRY_LEAGUE_REGISTRY_SOURCE_VISIBLE_ONLY",
+        "scope": ("RESEARCHED_COUNTRY_LEAGUE_REGISTRY_SOURCE_VISIBLE_ONLY"
+                  if _historical_registry_only else "RESEARCHED_PLUS_SOURCE_SCREENED_UNREGISTERED_COMPETITIONS"),
         "fixture_count": len(ledger),
         "eligible_count": len(queue),
         "pending_researchability_count": sum(z["intake_lane"] == "PENDING_RESEARCHABILITY" for z in ledger),
-        "pending_source_count": sum(z["intake_lane"] == "PENDING_SOURCE" for z in ledger),
+         "pending_source_count": sum(z["intake_lane"] == "PENDING_SOURCE" for z in ledger),
         "excluded_or_closed_count": sum(z["intake_lane"] in {"EXCLUDED","CLOSED","UNVERIFIED"} for z in ledger),
         "source_ledger": ledger, "eligible_queue": queue,
         "research_order": order, "goal_screen_manifest": screen,
@@ -232,6 +277,21 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         "no_fixed_eight_match_cap": True, "price_required_for_football": False,
         "ranked": False, "published": False, "bet_recorded": False,
     }
+    if not _historical_registry_only:
+        outcome["pending_discovery_count"] = sum(
+            x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
+        )
+        outcome["discovery_qualified_count"] = sum(
+            x["intake_lane"] == "DISCOVERY" for x in ledger
+        )
+        outcome["discovery_watchlist"] = [{
+            "match_id": x["match_id"], "country": x["country"],
+            "competition": x["competition"], "home": x["home"],
+            "away": x["away"], "kickoff_utc": x["kickoff_utc"],
+            "intake_lane": x["intake_lane"], "reason": x["reason"],
+            "discovery_screen": x.get("discovery_screen"),
+        } for x in ledger if x.get("registry_lane") == "DISCOVERY"
+          and x.get("intake_lane") in ("DISCOVERY", "PENDING_DISCOVERY")]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
