@@ -21,7 +21,7 @@ from urllib.parse import urlsplit
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))
 from board_pair_cli import run_board_pair  # historic pure implementation; old CLI remains retired
-from goal_route_prescreen import run_prescreen
+from goal_route_prescreen import GoalPrescreenError, run_prescreen
 from league_registry import classify
 
 SCHEMA = "football-stages-v4"
@@ -169,6 +169,7 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
     for idx, item in enumerate(queue, 1):
         item["queue_rank"] = idx
     screen = None
+    form_warnings = []
     order = [x["match_id"] for x in queue]
     if queue:
         evidence = [{
@@ -178,6 +179,23 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
             "country": q["country"], "competition_name": q["competition"],
             "football_evidence": q["football_evidence"],
         } for q in queue]
+        # Bad historical form from one provider is an *evidence-limited*
+        # research row, not a reason to discard 19 other verified fixtures.
+        form_warnings = []
+        for row in evidence:
+            if row["football_evidence"] is None:
+                continue
+            try:
+                run_prescreen({
+                    "schema_version": "football-goal-route-prescreen-v1",
+                    "run_id": run_id,
+                    "source_payload_hash": _hash(ledger),
+                    "screen_at_utc": at.isoformat(),
+                    "candidates": [{**row, "queue_rank": 1}],
+                })
+            except GoalPrescreenError as exc:
+                form_warnings.append({"match_id": row["match_id"], "reason": str(exc)})
+                row["football_evidence"] = None
         screened = run_prescreen({
             "schema_version": "football-goal-route-prescreen-v1",
             "run_id": run_id,
@@ -202,6 +220,7 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         "excluded_or_closed_count": sum(z["intake_lane"] in {"EXCLUDED","CLOSED","UNVERIFIED"} for z in ledger),
         "source_ledger": ledger, "eligible_queue": queue,
         "research_order": order, "goal_screen_manifest": screen,
+        "invalid_historical_form_sources": form_warnings,
         "no_fixed_eight_match_cap": True, "price_required_for_football": False,
         "ranked": False, "published": False, "bet_recorded": False,
     }
