@@ -50,6 +50,37 @@ def payload(*, phase="TARGETED_VERIFICATION", pending=None):
     }
 
 
+def add_bounded_women_proof(p):
+    p["women_coverage_scope"] = "BOUNDED_DISCOVERED_BLOCKS"
+    p["women_top_flight_seed_fixture_ids"] = []
+    p["women_top_flight_disposition_manifest"] = []
+    p["women_top_flight_source_checks"] = [
+        {
+            "source_family": family,
+            "source_url": url,
+            "checked_at_utc": "2026-10-12T00:06:00Z",
+            "status": "OPENED_WINDOW_VERIFIED",
+            "scope": "SENIOR_WOMENS_TOPFLIGHT",
+            "requested_window": dict(p["requested_window"]),
+            "visible_fixture_ids": [],
+        }
+        for family, url in (
+            ("provider-1", "https://official.example.org/women/fixtures"),
+            ("provider-2", "https://scores.example.org/women/fixtures"),
+        )
+    ]
+    for field in (
+        "women_top_flight_raw_count",
+        "women_top_flight_admitted_count",
+        "women_top_flight_capacity_deferred_count",
+        "women_top_flight_operational_excluded_count",
+        "women_top_flight_researchability_excluded_count",
+        "women_top_flight_unresolved_count",
+    ):
+        p[field] = 0
+    return p
+
+
 class FastBudgetV2Tests(unittest.TestCase):
     def test_existing_v1_keeps_original_sixty_minutes(self):
         p = payload(pending=["women"])
@@ -100,7 +131,7 @@ class FastBudgetV2Tests(unittest.TestCase):
         p = payload(phase="RECONCILIATION")
         status = expire_fast_finish_deadline(p, now="2026-10-12T00:15:00Z")
         self.assertEqual(status["deadline_status"], "BLOCKED_TIME_BUDGET_UNVERIFIED")
-        self.assertIn("GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION",
+        self.assertIn("BOUNDED_WOMENS_SURFACED_SCOPE_NOT_VERIFIED",
                       status["terminal_unresolved_verification_blocks"])
 
     def test_packaging_can_finish_without_external_calls_after_verified_reconciliation(self):
@@ -108,13 +139,13 @@ class FastBudgetV2Tests(unittest.TestCase):
         p.update({
             "reconciliation_complete": True,
             "required_competition_blocks_complete": True,
-            "women_top_flight_global_confirmed": True,
             "final_source_fixture_inventory_hash": "sha256-verified-full",
         })
+        add_bounded_women_proof(p)
         result = expire_fast_finish_deadline(p, now="2026-10-12T00:16:00Z")
         self.assertEqual(result["deadline_status"], "PACKAGE_VERIFIED_OFFLINE_ONLY")
         self.assertFalse(result["external_lookup_allowed"])
-        p["women_top_flight_global_confirmed"] = False
+        p["women_top_flight_source_checks"][1]["source_family"] = "provider-1"
         blocked = expire_fast_finish_deadline(p, now="2026-10-12T00:16:00Z")
         self.assertEqual(blocked["deadline_status"], "BLOCKED_TIME_BUDGET_UNVERIFIED")
 
