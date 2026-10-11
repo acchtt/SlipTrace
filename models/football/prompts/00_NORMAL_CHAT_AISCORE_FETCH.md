@@ -145,6 +145,35 @@ In bounded production discovery:
 - every surfaced protected/required/women block and every plausible A/B senior candidate must later receive exact reconciliation/disposition;
 - `production_scope_complete=true` is decided only at final reconciliation.
 
+**V2 source-scope certification (must precede final ZIP):** BOUNDED discovery
+does NOT promise an exhaustive global AiScore list. Do not fail solely
+because worldwide senior women's top-flight fixtures cannot be enumerated
+by an unavailable exact date carrier. Instead document at least two
+independent opened women's top-flight provider/official fixture surfaces,
+the exact requested window, checked UTC, visible match IDs (empty only
+when genuinely checked), and the union with every senior women's
+top-flight fixture surfaced by ANY acquired source seed. Supply
+`women_coverage_scope=BOUNDED_DISCOVERED_BLOCKS`,
+`women_top_flight_seed_fixture_ids`,
+`women_top_flight_source_checks` and a disposition manifest reconciled
+against all six women's counters. The deterministic V2 handoff validator
+and ZIP packager will compare this against the independently refetched
+Sweep Runs source audit. **Never assert global AiScore completeness in
+bounded mode**, and never drop a surfaced women's match. Missing ID,
+kickoff, independent source or any genuine protected/required/in-scope
+senior fixture conflict is still an explicit blocker. Nine unverified
+late-game identities must be resolved or legitimately excluded on
+evidence, not silently called zero or model PASS.
+
+`FAST_FINISH_V2` is fully supported by the **same deterministic Step0
+handoff and package validators** that support V1. The original V2
+`verification_policy` and women's bounded source proof must be carried
+from checkpoint through final JSON and independent Airtable readback;
+do not strip V2 to pass a validator. Newly initiated October 12+ runs
+require the canonical SHA256 of the full source-observed *bounded*
+fixture inventory, not an FNV seed fingerprint or an invented
+worldwide global exact count.
+
 A true SOURCE_BLOCKED result is allowed only when neither an exact carrier nor the minimum two independent current discovery source families can be established.
 
 When persisting a true source failure:
