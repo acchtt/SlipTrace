@@ -53,7 +53,8 @@ def _quote_evidence(quote: Any, now: datetime, kickoff: datetime) -> tuple[bool,
     if quote is None:
         return False, "CURRENT_LIVE_QUOTE_REQUIRED"
     if not isinstance(quote, dict):
-        raise TransitionError("live_quote must be an object")
+        # Bad market data cannot prevent a valid football-only assessment.
+        return False, "LIVE_QUOTE_FORMAT_INVALID"
     if quote.get("market_phase") != "LIVE":
         return False, "PREMATCH_QUOTE_EXPIRED"
     line = quote.get("total_line")
