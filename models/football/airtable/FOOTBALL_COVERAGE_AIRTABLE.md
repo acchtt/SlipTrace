@@ -1,9 +1,9 @@
-# Football Daily Coverage Ledger — Airtable Contract
+> **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Daily Coverage Ledger — Airtable Contract
 
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Daily Coverage Ledger`  
-**Table ID:** `tblcl1UAyMqZT6Ub0`  
+**Table ID:** `tbl20jBW5dfgNnTV6`  
 **Official model:** Football C
 
 This table is the coverage-control and frozen-board bridge for the current Football C workflow.
@@ -138,13 +138,13 @@ Historical C3/C4 rows remain immutable. Their old fields may stay populated on h
 ## 7. Active-model accounting persistence
 
 Dedicated Daily Coverage fields:
-- `C Model Accounting` — `fldND2leUXgAq9UQl`
-- `C2 Shadow Accounting` — `fldlWroOrJdYF3lHn`
-- `Model Accounting Revision` — `fldAt3A1bZW4QSGbF`
+- `C Model Accounting` — `fld5XDNNlFJCZzjMs`
+- `C2 Shadow Accounting` — `fldxIY6AJYVCI3jbb`
+- `Model Accounting Revision` — `fldGGfttSGIH9icc8`
 
 Historical compatibility fields retained in Airtable:
-- `C3 Shadow Accounting` — `fldEMKp5LzS5IZQpJ`
-- `C4 Shadow Accounting` — `fldNvPrq9WTW9118X`
+- `C3 Shadow Accounting` — `fldZ7oU5ToDFddgrB`
+- `C4 Shadow Accounting` — `fldBYGxJsNQYpQVZw`
 
 For **new/current** rows, persist exact deterministic C+C2 JSON from `model_bet_accounting.py`.
 
@@ -161,10 +161,10 @@ Historical C3/C4 accounting fields may only be read/settled under explicit histo
 ## 8. Capacity queue / replenishment persistence
 
 Dedicated Daily Coverage fields:
-- `Step0 Capacity Queue Rank` — `fldUFbfIyiIYcQuVt`
-- `Step1 Replenished` — `fldPUL87XJhpUqYiU`
-- `Replenishment Wave` — `fld5qzOVZdKst3bhK`
-- `Replenishment Reason` — `fldUxHPEnQpGSJVmC`
+- `Step0 Capacity Queue Rank` — `fldkmJc9oC2Icv3kB`
+- `Step1 Replenished` — `fldgFkTPOPQe9Xuut`
+- `Replenishment Wave` — `fldMlw7AhTX7tXoYr`
+- `Replenishment Reason` — `fldMRU80PAK4cn3Qv`
 
 Every Step-0 A/B fixture must receive a unique positive queue rank across the sweep before initial admission.
 
@@ -257,9 +257,9 @@ Sweep Runs must persist the protected Step-0 block check defined by:
 `models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`.
 
 Fields:
-- `Required Competition Manifest Version` — `fldYxv9Oljrkq4lZf`
-- `Required Competition Blocks` — `fldvIsy67dwIvarf2`
-- `Required Competition Blocks Complete` — `fldFcVeFIAikCWBj2`
+- `Required Competition Manifest Version` — `fldCVsIl2wrXWsTom`
+- `Required Competition Blocks` — `fldxqj5MNBQ8xdMxU`
+- `Required Competition Blocks Complete` — `fldumIfeEF1NmjwpH`
 
 Current version:
 `required-competition-manifest-v1`
@@ -279,28 +279,28 @@ Fresh Step-0 timeout control is defined by:
 `models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
 
 Table:
-`Sweep Runs` — `tblUnGHHe0MVaalDL`
+`Sweep Runs` — `tblDbWdb2NDcTcNDK`
 
 Existing runtime fields:
-- `Run Status` — `fldm0iEQqUrfsTqKS`
-- `Current Stage` — `fldUT0GEsWas15Ljt`
-- `Checkpoint Notes` — `fldjaQNJnFYbaPFqd`
-- `Resume Cursor` — `fldNjU7wHklM7T0Bf`
-- `Retry Queue` — `fldQyCygdjxIfSk5B`
-- `Updated At` — `fldTXdSN9d161pHgM`
+- `Run Status` — `fldd69awpp8ioa7TN`
+- `Current Stage` — `fldFKKdeP0rTouhcW`
+- `Checkpoint Notes` — `fld4otbUajO3VrMsC`
+- `Resume Cursor` — `fldp39ST1J3pi1v9k`
+- `Retry Queue` — `fld5o7XLV84V7slo3`
+- `Updated At` — `fldVkUeGgtU56k62w`
 
 Bounded-execution fields:
-- `Checkpoint Version` — `fldtIbv2ppGzwUExs`
-- `Sweep Chunk Number` — `flduqxh9DOKdV1A06`
-- `Pending Verification Blocks` — `flduhyM3Thjwj3Bqs`
-- `Last Completed Block` — `fld8jr7wAWGLhXqXe`
-- `Source Blocker Fingerprint` — `fldFIDTXJNTmazT2Y`
-- `Source Last Attempt At` — `fldqs9yD3uZjEC1Yr`
-- `Source Retry Not Before` — `fldWkU52dpn2MSb4b`
-- `Source Recovery Attempt Count` — `fldpJ92WA877WjYNj`
-- `Source Scope` — `fld4h6ZPqTCLBgxQ8`
-- `Production Scope Complete` — `fldBq52mI5JtCz9xf`
-- `Discovery Seed Manifest` — `fld6ZtvrmNrFmff4h`
+- `Checkpoint Version` — `fld78w885qdogaaR6`
+- `Sweep Chunk Number` — `fldCE9X34Gutevaoa`
+- `Pending Verification Blocks` — `fldKgBvIqoCRE50aL`
+- `Last Completed Block` — `fldiyZIunBmUHo9bN`
+- `Source Blocker Fingerprint` — `fld2zC4yLcyeFg0Ha`
+- `Source Last Attempt At` — `flde6f8mEvWykG4JG`
+- `Source Retry Not Before` — `fldYvPjsekrLXdLCV`
+- `Source Recovery Attempt Count` — `fldaxTwlReuu3sS1A`
+- `Source Scope` — `fldTuGsNWJJqUHDMD`
+- `Production Scope Complete` — `fldWnQ0y1nS7d5csg`
+- `Discovery Seed Manifest` — `fldI5crHBQNY8aF2t`
 
 For a resumable fresh sweep, `Resume Cursor` is the authoritative next stage/block. Normal checkpoints are RUNNING. A BLOCKED row is resumable only when its cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED` and the source-recovery lease authorizes a new bounded attempt. Do not infer progress from chat history.
 
