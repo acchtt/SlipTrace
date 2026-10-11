@@ -11,7 +11,7 @@ import sys
 import unittest
 
 ENGINE = pathlib.Path(__file__).resolve().parents[1]
-ROOT = ENGINE.parents[2]
+ROOT = ENGINE.parent
 sys.path.insert(0, str(ENGINE))
 
 from sweep_rank_retired import (
