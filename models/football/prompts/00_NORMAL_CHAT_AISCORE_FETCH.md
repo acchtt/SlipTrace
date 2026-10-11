@@ -718,6 +718,33 @@ Required metadata:
 
 Do not include hard-excluded, operationally excluded, or researchability-excluded fixtures in the Work array. Capacity-deferred fixtures remain outside the initial Work array but must stay in the packaged replenishment queue with the complete Step-0 contract.
 
+### Modern source provenance — mandatory for future source epochs
+
+For all runs with an initial run date **2026-10-11 or later**, an explicit
+`source_scope` is required: omission must not impersonate a historical
+legacy handoff. Keep completed older frozen ZIPs unchanged.
+
+For new runs with initial run date **2026-10-12 or later**, a final verified
+source inventory is also mandatory before export. Capture exactly one
+`verified_fixture_inventory` row per source-backed fixture in
+`production_universe_count`, including excluded raw senior fixtures,
+with a canonical non-`DISCOVERY-*` `match_id`, zoned UTC
+`fixture_kickoff_utc` and genuine HTTPS `source_url`. Compute SHA256
+of UTF-8 `json.dumps(sorted(rows, key=lambda r: r["match_id"]),
+sort_keys=True, separators=(",", ":"), ensure_ascii=True)` and store
+the SAME hex digest as `source_payload_hash` and
+`verified_fixture_inventory_sha256`, with
+`source_payload_hash_basis=VERIFIED_FULL_FIXTURE_INVENTORY_SHA256`.
+The complete A/B queue must be a subset of these exact source fixtures.
+
+This final inventory checksum is an *integrity proof*, not evidence that
+a provider URL was checked. Actual source acquisition, independent provider
+identity/time checks, full senior/protected/women scope verification and
+Airtable readback remain compulsory. An FNV discovery seed hash is not
+a final payload fingerprint. Incomplete ongoing October 11 runs retain
+their original provisional hashes and status; do not silently upgrade,
+rewrite or backdate them.
+
 ### Mandatory export validation and ZIP creation — fail closed
 
 **Do not create or attach a provisional `AISCORE_FIXTURES_*.zip`.** A source run in `RUNNING / PACKAGING` is not a completed Work handoff, even if eight prospective B-grade candidates exist. A rank consumer must receive a *valid* finalized handoff, not a promise to finish it later.
