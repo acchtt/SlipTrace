@@ -80,7 +80,7 @@ def _verified(obj: Any, expected_status: str) -> None:
         raise StageError("frozen stage integrity SHA256 mismatch")
 
 
-def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
+def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool = False) -> dict[str, Any]:
     """Classify ONE actual provider snapshot, without a worldwide crawl."""
     at = _time(now, "now")
     if not isinstance(source, dict) or source.get("schema_version") != SCHEMA:
@@ -130,6 +130,17 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
             if status not in VALID_MATCH_STATUSES:
                 raise StageError(f"{mid}: source-confirmed fixture status required")
             result = classify(raw)
+            # Historical source replay must preserve the policy and digest
+            # originally executed, not reinterpret last night's fixtures.
+            if _historical_registry_only and result["lane"] == "DISCOVERY":
+                result = {
+                    "lane": "EXCLUDED",
+                    "reason": (
+                        "UNRESEARCHED_DOMESTIC_CUP"
+                        if raw.get("competition_kind") == "DOMESTIC_CUP"
+                        else "UNRESEARCHED_OR_UNVERIFIED_DOMESTIC_DIVISION"
+                    ),
+                }
             lane, reason = result["lane"], result["reason"]
             discovery_screen = None
             if not (start <= ko < end) or ko <= at or status != "PREMATCH_CONFIRMED":
@@ -185,8 +196,10 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
                 "source_family": provider, "source_url": link,
                 "observed_at_utc": checked.isoformat(),
                 "researchability_proof": raw.get("researchability_proof") if result["lane"] in ("CONDITIONAL", "PILOT", "DISCOVERY") else None,
-                "discovery_screen": discovery_screen,
-                "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] == "DISCOVERY" and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
+                **({} if _historical_registry_only else {
+                    "discovery_screen": discovery_screen,
+                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] == "DISCOVERY" and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
+                }),
                 "registry_lane": result["lane"],
                 "intake_lane": lane, "reason": reason,
             }
@@ -251,32 +264,34 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
         "source_family": provider, "source_url": source["source_url"],
         "source_observed_at_utc": observed.isoformat(),
         "source_ledger_hash": _hash(ledger),
-        "scope": "RESEARCHED_PLUS_SOURCE_SCREENED_UNREGISTERED_COMPETITIONS",
+        "scope": ("RESEARCHED_COUNTRY_LEAGUE_REGISTRY_SOURCE_VISIBLE_ONLY"
+                  if _historical_registry_only else "RESEARCHED_PLUS_SOURCE_SCREENED_UNREGISTERED_COMPETITIONS"),
         "fixture_count": len(ledger),
         "eligible_count": len(queue),
         "pending_researchability_count": sum(z["intake_lane"] == "PENDING_RESEARCHABILITY" for z in ledger),
-        "pending_discovery_count": sum(z["intake_lane"] == "PENDING_DISCOVERY" for z in ledger),
-        "discovery_qualified_count": sum(z["intake_lane"] == "DISCOVERY" for z in ledger),
-        "pending_source_count": sum(z["intake_lane"] == "PENDING_SOURCE" for z in ledger),
+         "pending_source_count": sum(z["intake_lane"] == "PENDING_SOURCE" for z in ledger),
         "excluded_or_closed_count": sum(z["intake_lane"] in {"EXCLUDED","CLOSED","UNVERIFIED"} for z in ledger),
         "source_ledger": ledger, "eligible_queue": queue,
-        "discovery_watchlist": [{
-            "match_id": z["match_id"],
-            "country": z["country"],
-            "competition": z["competition"],
-            "home": z["home"],
-            "away": z["away"],
-            "kickoff_utc": z["kickoff_utc"],
-            "intake_lane": z["intake_lane"],
-            "reason": z["reason"],
-            "discovery_screen": z.get("discovery_screen"),
-        } for z in ledger if z.get("registry_lane") == "DISCOVERY"
-          and z.get("intake_lane") in ("DISCOVERY", "PENDING_DISCOVERY")],
         "research_order": order, "goal_screen_manifest": screen,
         "invalid_historical_form_sources": form_warnings,
         "no_fixed_eight_match_cap": True, "price_required_for_football": False,
         "ranked": False, "published": False, "bet_recorded": False,
     }
+    if not _historical_registry_only:
+        outcome["pending_discovery_count"] = sum(
+            x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
+        )
+        outcome["discovery_qualified_count"] = sum(
+            x["intake_lane"] == "DISCOVERY" for x in ledger
+        )
+        outcome["discovery_watchlist"] = [{
+            "match_id": x["match_id"], "country": x["country"],
+            "competition": x["competition"], "home": x["home"],
+            "away": x["away"], "kickoff_utc": x["kickoff_utc"],
+            "intake_lane": x["intake_lane"], "reason": x["reason"],
+            "discovery_screen": x.get("discovery_screen"),
+        } for x in ledger if x.get("registry_lane") == "DISCOVERY"
+          and x.get("intake_lane") in ("DISCOVERY", "PENDING_DISCOVERY")]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
