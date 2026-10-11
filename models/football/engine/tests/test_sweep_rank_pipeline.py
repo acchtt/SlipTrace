@@ -11,7 +11,8 @@ ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 
 from sweep_rank_pipeline import (
-    SweepRankError, prepare, seal, execute_rank, publish_rank,
+    SweepRankError, prepare, seal, execute_rank as native_execute_rank,
+    plan_rank, publish_rank,
 )
 from test_step0_package_cli import scenario
 from test_board_pair import c_row, c2_row, payload as model_payload
@@ -68,6 +69,25 @@ def real_zip_bundle(root):
         r["kickoff_ict"] = "2026-10-10T07:00:00+07:00"
     unranked = {f"m{i}": "RESEARCH_BUDGET_EXHAUSTED" for i in range(2, 11)}
     return handoff, sealed, complete_run, model_payload("c", cr), model_payload("c2", c2r), unranked
+
+
+def execute_rank(official_zip, expected_zip_sha256, sweep_readback,
+                 c, c2, unranked_reasons, *, at_utc):
+    statuses = {
+        f"m{i}": {
+            "fixture_status": "PREMATCH_CONFIRMED",
+            "source_url": "https://league.example.org/fixture/current-status",
+            "observed_at_utc": "2026-10-09T11:59:00Z",
+        } for i in range(1, 11)
+    }
+    plan = plan_rank(
+        official_zip, expected_zip_sha256, sweep_readback, statuses,
+        at_utc="2026-10-09T12:00:00Z",
+    )
+    return native_execute_rank(
+        official_zip, expected_zip_sha256, sweep_readback,
+        c, c2, unranked_reasons, at_utc=at_utc, research_plan=plan,
+    )
 
 
 def storage_receipt(execution):
@@ -161,6 +181,53 @@ class SweepRankPipelineTests(unittest.TestCase):
             self.assertEqual(confirmed["status"], "C_C2_RANKED_READBACK_VERIFIED")
             self.assertEqual(confirmed["ranked_count"], 1)
             self.assertFalse(confirmed["website_published"])
+
+    def test_rank_plan_binds_complete_queue_and_current_source_status(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = pathlib.Path(d)
+            _, sealed, sweep, _, _, _ = real_zip_bundle(root)
+            statuses = {
+                f"m{i}": {
+                    "fixture_status": "PREMATCH_CONFIRMED",
+                    "source_url": "https://provider.example.org/future-fixture",
+                    "observed_at_utc": "2026-10-09T11:59:00Z",
+                } for i in range(1, 11)
+            }
+            p = plan_rank(root / "AISCORE_FIXTURES_TEST.zip",
+                          sealed["zip_sha256"], sweep, statuses,
+                          at_utc="2026-10-09T12:00:00Z")
+            self.assertEqual(p["status"], "FROZEN_GOAL_FIRST_RESEARCH_PLAN")
+            self.assertEqual(p["ordered_eligible_match_ids"][0], "m1")
+            statuses.pop("m8")
+            with self.assertRaisesRegex(SweepRankError, "every frozen A/B"):
+                plan_rank(root / "AISCORE_FIXTURES_TEST.zip",
+                          sealed["zip_sha256"], sweep, statuses,
+                          at_utc="2026-10-09T12:00:00Z")
+
+    def test_research_plan_blocks_cherry_pick_and_expired_status(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = pathlib.Path(d)
+            _, sealed, sweep, c, c2, unranked = real_zip_bundle(root)
+            statuses = {
+                f"m{i}": {
+                    "fixture_status": "PREMATCH_CONFIRMED",
+                    "source_url": "https://provider.example.org/future-fixture",
+                    "observed_at_utc": "2026-10-09T11:59:00Z",
+                } for i in range(1, 11)
+            }
+            archive = root / "AISCORE_FIXTURES_TEST.zip"
+            p = plan_rank(archive, sealed["zip_sha256"], sweep, statuses,
+                          at_utc="2026-10-09T12:00:00Z")
+            p["ordered_eligible_match_ids"] = list(reversed(p["ordered_eligible_match_ids"]))
+            with self.assertRaisesRegex(SweepRankError, "plan missing, drifted"):
+                native_execute_rank(
+                    archive, sealed["zip_sha256"], sweep, c, c2, unranked,
+                    at_utc="2026-10-09T12:00:00Z", research_plan=p,
+                )
+            statuses["m1"]["observed_at_utc"] = "2026-10-08T10:00:00Z"
+            with self.assertRaisesRegex(SweepRankError, "stale/future"):
+                plan_rank(archive, sealed["zip_sha256"], sweep, statuses,
+                          at_utc="2026-10-09T12:00:00Z")
 
     def test_missing_sweep_readback_and_wrong_zip_sha_are_terminal(self):
         with tempfile.TemporaryDirectory() as d:
