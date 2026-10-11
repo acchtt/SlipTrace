@@ -138,6 +138,10 @@ def validate_rank_readback(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> int:
+    # Current production Stage 0/1 is decommissioned. Pure functions below
+    # remain for immutable historical regression/audit, not user execution.
+    from sweep_rank_retired import stop_retired_cli
+    return stop_retired_cli("step1-rank-publication-readback")
     parser = argparse.ArgumentParser(description="Verify persisted Step1 C+C2 against fresh Airtable readback")
     parser.add_argument("--input", required=True)
     args = parser.parse_args()
