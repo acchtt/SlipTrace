@@ -34,6 +34,13 @@ def fixture(mid, country="England", league="Premier League", kind="DOMESTIC_LEAG
     }
     if proof:
         result["researchability_status"] = proof
+        if proof == "VERIFIED":
+            result["researchability_proof"] = {
+                "match_id": mid,
+                "source_url": "https://sports.example.org/league/researchability",
+                "checked_at_utc": "2026-10-11T15:59:00Z",
+                "current_channels_checked": True,
+            }
     return result
 
 
@@ -128,6 +135,16 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["fixture_count"],4)
         self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3","m4"})
 
+    def test_conditionally_verified_proof_cannot_be_bare_boolean_or_other_fixture(self):
+        a = fixture("m1", "Poland", "Ekstraklasa", proof="VERIFIED")
+        a.pop("researchability_proof")
+        with self.assertRaisesRegex(StageError, "requires source evidence"):
+            sweep(snapshot([a]), now=NOW)
+        a = fixture("m1", "Poland", "Ekstraklasa", proof="VERIFIED")
+        a["researchability_proof"]["match_id"] = "wrong-match"
+        with self.assertRaisesRegex(StageError, "not bound to fixture"):
+            sweep(snapshot([a]), now=NOW)
+
     def test_researched_leagues_not_arbitrarily_capped_at_eight(self):
         rows = [fixture(f"match-{i}", country="Netherlands",league="Eerste Divisie")
                 for i in range(1,21)]
@@ -200,8 +217,13 @@ class RankV4Tests(unittest.TestCase):
             "active_base_id":"appbzxqXYf0lKfD4P",
             "method":"INDEPENDENT_AIRTABLE_REFETCH",
             "run_id":result["run_id"],
+            "rank_integrity_sha256":result["integrity_sha256"],
+            "sweep_integrity_sha256":result["sweep_integrity_sha256"],
+            "readback_at_utc":"2026-10-11T16:06:00Z",
             "ranked_rows":[{
                 "match_id":"m1",
+                "coverage_id":result["run_id"] + "|m1",
+                "follow_lane":cr["follow_lane"],
                 "c_rank":cr["rank"],"c_board_state":"C-"+cr["board_state"],
                 "c_supported_line":cr["supported_line"],
                 "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],
@@ -212,6 +234,14 @@ class RankV4Tests(unittest.TestCase):
         self.assertEqual(verified["status"],"V4_RANK_PERSISTENCE_VERIFIED")
         readback["ranked_rows"][0]["c_rank"] = 20
         with self.assertRaisesRegex(StageError,"rank"):
+            verify_rank(readback,result)
+        readback["ranked_rows"][0]["c_rank"] = cr["rank"]
+        readback["ranked_rows"][0]["follow_lane"] = "STOP" if cr["follow_lane"] != "STOP" else "FOLLOW"
+        with self.assertRaisesRegex(StageError,"lane differs"):
+            verify_rank(readback,result)
+        readback["ranked_rows"][0]["follow_lane"] = cr["follow_lane"]
+        readback["rank_integrity_sha256"] = "forged"
+        with self.assertRaisesRegex(StageError,"hashes required"):
             verify_rank(readback,result)
 
 
