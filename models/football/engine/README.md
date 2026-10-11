@@ -1,5 +1,15 @@
 # Football deterministic engine
 
+## Unified Step0 / Step1 V3
+
+Run `sweep_rank_pipeline.py prepare` for early unofficial
+source-backed A/B research order; `seal` to produce validated official
+Step0 ZIP; `rank` to run original C and C2 engines with the exact
+validated ZIP and full queue; and `publish` to compare independent
+active Airtable readback to the immutable paired execution. Full usage:
+`models/football/procedures/FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`.
+No invented sources, market quotes, model decisions or betting authority.
+
 **Active production roster:** Football C official + Football C2 shadow.
 
 The engine validates structured football decisions deterministically. Football C remains production authority; Python never creates official exposure by itself.
