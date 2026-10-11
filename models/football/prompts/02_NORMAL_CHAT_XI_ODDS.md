@@ -333,6 +333,8 @@ was revalidated.
 
 ## 8. Atomic deterministic execution
 
+Engine execution is **mandatory** for both a completed quote-free C/C2 football assessment and a separately priced C/C2 Step-2 decision. The former uses `football-pair` without odds; the latter uses `pair` with current executable odds.
+
 A **priced Step-2 BET/WAIT/PASS decision** requires the price-bearing execution below. A **football assessment** requires the quote-free C+C2 runner above, not a betting quote.
 
 Before execution, perform `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` for stage=`xi` and record the `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
