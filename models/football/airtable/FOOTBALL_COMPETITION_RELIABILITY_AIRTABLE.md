@@ -1,14 +1,14 @@
-# Football Competition Reliability — Airtable Contract
+> **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Competition Reliability — Airtable Contract
 
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
-**Base ID:** `appWyZJjitSBATXAU`
+**Base ID:** `appbzxqXYf0lKfD4P`
 
 ## Tables
 
 ### Competition Reliability
 
-Table ID: `tbl1KShXxXErUdVKW`
+Table ID: `tbl8ZRExZfMce7lqY`
 
 One summary row per normalized competition. This is the Step-0 persistent operational-memory read surface.
 
@@ -31,7 +31,7 @@ Required fields:
 
 ### Competition Reliability Events
 
-Table ID: `tblD0ZHqT772H25Uv`
+Table ID: `tblg3uz2Bvz6bcCm9`
 
 Append-only operational observations.
 
