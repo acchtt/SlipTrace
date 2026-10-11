@@ -22,6 +22,58 @@ RESULT_FINISH_BUFFER_MINUTES = 120
 EARLY_KICKOFF_PRIORITY_MINUTES = 90
 INITIAL_DEEP_RESEARCH = 8
 
+# Exact country + competition identity: this is NOT a generic Premier League,
+# Bundesliga, Serie A or Ligue 1 bonus. It is research scheduling only.
+BIG_FIVE_COMPETITIONS = frozenset({
+    ("england", "premier league"), ("england", "english premier league"),
+    ("germany", "bundesliga"), ("germany", "german bundesliga"),
+    ("spain", "la liga"), ("spain", "laliga"), ("spain", "spanish la liga"),
+    ("italy", "serie a"), ("italy", "italian serie a"),
+    ("france", "ligue 1"), ("france", "french ligue 1"),
+})
+BIG_FIVE_SCREEN_POLICY = "BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1"
+
+
+def _is_big_five_fixture(candidate: dict[str, Any]) -> bool:
+    country, league = candidate.get("country"), candidate.get("competition_name")
+    if not isinstance(country, str) or not isinstance(league, str):
+        return False
+    return (country.strip().casefold(), league.strip().casefold()) in BIG_FIVE_COMPETITIONS
+
+
+def _big_five_route_assessment(
+    home: dict[str, float], away: dict[str, float],
+    home_route: float, away_route: float,
+) -> dict[str, Any]:
+    """Diagnostic: no fixed-team shortlist, no xG, no bookmaker odds."""
+    carrier = max(home_route, away_route)
+    second = min(home_route, away_route)
+    combined_trap = (home["draw_trap"] + away["draw_trap"]) / 2
+    combined_tail = (home["over3"] + away["over3"]) / 2
+    high_stall = max(home["stall"], away["stall"]) >= 0.75
+    # A high BTTS percentage can be financed entirely by 1-1 draws.
+    trap_alert = combined_trap >= 0.40 or max(home["draw_trap"], away["draw_trap"]) >= 0.60
+    shape = (
+        "LOW_GOAL_DRAW_TRAP" if trap_alert or high_stall else
+        "ONE_SIDED_CARRIER" if carrier >= 1.9 and second < 0.90 else
+        "BIDIRECTIONAL_CONTRIBUTION" if min(home_route, away_route) >= 1.1 else
+        "MIXED_OR_UNVERIFIED"
+    )
+    # A mild fourth-goal tail signal, discounted for 0-0/1-1 and prolonged
+    # 1-1/<=2-goal form. This never removes a source-qualified A/B row.
+    adjustment = round(8 * combined_tail - 20 * combined_trap -
+                       12 * (home["stall"] + away["stall"]) / 2)
+    adjustment = max(-25, min(8, adjustment))
+    return {
+        "route_shape": shape,
+        "draw_trap_alert": trap_alert,
+        "stall_alert": high_stall,
+        "mean_over3_frequency": round(combined_tail, 4),
+        "mean_0_0_or_1_1_frequency": round(combined_trap, 4),
+        "research_priority_adjustment": adjustment,
+        "policy": BIG_FIVE_SCREEN_POLICY,
+    }
+
 
 class GoalPrescreenError(ValueError):
     pass
@@ -72,7 +124,7 @@ def _team_evidence(data: Any, now: datetime, field: str) -> dict[str, float] | N
     if not now - timedelta(hours=MAX_SOURCE_AGE_HOURS) <= observed <= now:
         raise GoalPrescreenError(f"{field} source stale or from future")
     seen = set()
-    goals_for, goals_against, over2, stalls = 0, 0, 0, 0
+    goals_for, goals_against, over2, over3, stalls, draw_traps = 0, 0, 0, 0, 0, 0
     for i, game in enumerate(recent):
         if not isinstance(game, dict):
             raise GoalPrescreenError(f"{field}.recent[{i}] must be object")
@@ -89,10 +141,13 @@ def _team_evidence(data: Any, now: datetime, field: str) -> dict[str, float] | N
         goals_for += gf
         goals_against += ga
         over2 += int(gf + ga >= 3)
+        over3 += int(gf + ga >= 4)
         stalls += int(gf + ga <= 2)
+        draw_traps += int((gf, ga) in {(0, 0), (1, 1)})
     n = len(recent)
     return {"gf": goals_for / n, "ga": goals_against / n,
-            "over2": over2 / n, "stall": stalls / n, "n": n}
+            "over2": over2 / n, "over3": over3 / n,
+            "stall": stalls / n, "draw_trap": draw_traps / n, "n": n}
 
 
 def _fingerprint(value: Any) -> str:
@@ -178,7 +233,7 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             )
             kickoff_recheck = effective_ko != ko
         valid = status == "PREMATCH_CONFIRMED" and now < effective_ko
-        score, reason, h, a = None, None, None, None
+        score, reason, h, a, big_five_route = None, None, None, None, None
         if valid:
             evidence = c.get("football_evidence")
             if evidence is None:
@@ -202,6 +257,13 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
                     score = max(0, min(100, round(
                         15 * carrier + 14 * second_route + 22 * over2 - 12 * stall
                     )))
+                    if _is_big_five_fixture(c):
+                        big_five_route = _big_five_route_assessment(
+                            h, a, home_route, away_route,
+                        )
+                        score = max(0, min(
+                            100, score + big_five_route["research_priority_adjustment"]
+                        ))
         else:
             reason = "KICKOFF_CLOSED_OR_FIXTURE_NOT_PREMATCH"
         original.append({
@@ -222,6 +284,7 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             "priority_score": score, "evidence_limit_reason": reason,
             "home_sample_n": h["n"] if h else 0,
             "away_sample_n": a["n"] if a else 0,
+            "big_five_route_screen": big_five_route,
         })
         seen_ids.add(match_id)
         seen_ranks.add(rank)
@@ -249,6 +312,8 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
         "initial_research_match_ids": [r["match_id"] for r in first],
         "initial_original_step0_ranks": [r["queue_rank"] for r in first],
         "initial_promoted_from_step0_deferred": [r["match_id"] for r in first if r["queue_rank"] > 8],
+        "big_five_route_screened_count": sum(bool(r["big_five_route_screen"]) for r in original),
+        "big_five_draw_trap_alert_count": sum(bool(r["big_five_route_screen"] and r["big_five_route_screen"]["draw_trap_alert"]) for r in original),
         "remaining_research_order": ordered[len(first):],
         "manifest": manifest,
         "disclaimer": "Research scheduling heuristic only; no C/C2 prediction or betting authority.",
