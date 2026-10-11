@@ -175,6 +175,8 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
         if name in CONDITIONAL and name in REGISTERED_CONDITIONAL.get(country, set()):
             if country == "england":
                 return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "CHAMPIONSHIP TARGETED LOWER-DIVISION PILOT — PER-FIXTURE FIVE-MATCH GOAL PROOF REQUIRED"}
+            if country == "poland" and name == "ekstraklasa":
+                return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "POLAND EKSTRAKLASA SOURCE-LOCAL TARGETED PILOT — PER-FIXTURE FIVE-MATCH GOAL PROOF REQUIRED"}
             return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "EXPLICIT COUNTRY+LEAGUE CONDITIONAL REGISTRY"}
         return {"lane": "SCOPE_EXCLUDED", "reason": "UNLISTED/WEAK-DATA DOMESTIC LEAGUE — NO RESEARCH"}
     if kind == "PROTECTED_OFFICIAL" or kind == "CONTINENTAL":
