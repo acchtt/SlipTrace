@@ -1,4 +1,6 @@
-# 02 — Normal Chat: Football C Official + C2 Shadow XI/Odds
+# 02 — Normal Chat: C and C2 Match Assessment (No Odds Default)
+
+> **User-facing default:** ASSESS C+C2 without bookmaker odds for /xi and /live. Price check only if explicitly requested (/bet). Authority: `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Older contradictory priced-step instructions apply ONLY to explicit BET CHECK.
 
 > **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/xi):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
@@ -33,8 +35,8 @@ Retrieve the frozen official Football C lane before research:
 - `STOP` — do not run routine Step 2 unless the user explicitly declares an exception.
 
 For every current session derive and freeze the due set using `models/football/engine/step2_queue_guard.py` under `FOOTBALL_STEP2_SESSION_RECONCILIATION.md`:
-- all FOLLOW fixtures whose XI/odds window is open;
-- activated RESERVE fixtures (explicitly account for missing XI/odds, too);
+- all FOLLOW fixtures due for football assessment (do not require an odds window to assess);
+- activated RESERVE fixtures (missing XI is a football-evidence limitation, missing odds is not an assessment blocker);
 - every user-declared exception with explicit authorization.
 
 Routine execution requires a **COMPLETE** packaged Step-0 source and a terminal reconciled C+C2 Step-1 board. `RUNNING` sweeps and provisional screen rows are not routine FOLLOW authority. When that gate fails, run only `EXCEPTION_ONLY` for explicitly user-authorized fixtures if applicable, preserving C+C2 evidence requirements. Keep the full `not_due` manifest as a negative-space audit.
@@ -65,7 +67,7 @@ rather than presenting a completed C-only verdict.
 
 ### Step 0 day-ahead XI expectation versus Step 2 actual XI
 
-The prospective Step-0 gate `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` validates **whether usable starting-XI information is likely to be published near kickoff**, not whether starters were confirmed at the initial all-day sweep. A conditional B/`xi_expected=UNCERTAIN` can therefore have a valid Work research record and remain RESERVE/conditional; do not back-propagate Step-2 confirmation requirements into Step 0. At the scheduled `xi_recheck_due_utc` (typically 75 minutes before kickoff), /xi must acquire reliable current XI and executable odds. If current XI is still unavailable, maintain the existing `DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING` or wait behavior; **no official wager based only on XI expectation**.
+The prospective Step-0 gate `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` validates **whether usable starting-XI information is likely to be published near kickoff**, not whether starters were confirmed at the initial all-day sweep. A conditional B/`xi_expected=UNCERTAIN` can therefore have a valid Work research record and remain RESERVE/conditional; do not back-propagate Step-2 confirmation requirements into Step 0. At the scheduled `xi_recheck_due_utc` (typically 75 minutes before kickoff), /xi should check available football evidence and XI. For ASSESS, do not request odds; if XI is not confirmed, report the football evidence limitation rather than blocking the match read. Only an explicit BET CHECK requires a verified executable price and eligible XI; **no official wager based only on XI expectation**.
 
 ## 3. Current evidence epoch
 
@@ -162,9 +164,8 @@ For the first current XI + executable price epoch:
    conclusion is not automatically valid after meaningful XI/football
    changes, but unchanged research must not be repeated merely to delay
    a verdict.
-3. Immediately execute the pinned portable C+C2 pair and perform the
-   existing persistence/read-back/publication guard. Report both
-   deterministic actions with current lines/prices and brief mechanisms:
+3. **Only when the user explicitly requests BET CHECK**, execute the pinned priced C+C2 pair and its persistence/read-back/publication guard. Report both
+   deterministic price-based actions with currently verified lines/prices and brief mechanisms:
    **ACT** (only C official BET), **WAIT** (explicit reachable total,
    minimum odds, and expiry/event), or **PASS** (specific football/price
    failure). C2 BET is **SHADOW ACT**, never a user bet instruction.

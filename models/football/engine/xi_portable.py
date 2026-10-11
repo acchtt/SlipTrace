@@ -286,12 +286,19 @@ def main() -> int:
     )
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("self-check")
+    # Short user-stage names. Historical names retained for old scripts.
     pair = sub.add_parser("pair")
     pair.add_argument("--c", required=True)
     pair.add_argument("--c2", required=True)
+    price = sub.add_parser("bet-check")
+    price.add_argument("--c", required=True)
+    price.add_argument("--c2", required=True)
     football_pair = sub.add_parser("football-pair")
     football_pair.add_argument("--c", required=True)
     football_pair.add_argument("--c2", required=True)
+    assess = sub.add_parser("assess")
+    assess.add_argument("--c", required=True)
+    assess.add_argument("--c2", required=True)
     reconcile = sub.add_parser("reconcile")
     reconcile.add_argument("--input", required=True)
     accounting = sub.add_parser("accounting")
@@ -303,11 +310,11 @@ def main() -> int:
             result = self_check()
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result.get("ok") else 2
-        if args.command == "pair":
+        if args.command in {"pair", "bet-check"}:
             result = run_pair_files(args.c, args.c2)
             print(json.dumps({"ok": True, **result}, indent=2, sort_keys=True))
             return 0
-        if args.command == "football-pair":
+        if args.command in {"football-pair", "assess"}:
             result = run_football_pair_files(args.c, args.c2)
             print(json.dumps({"ok": True, **result}, indent=2, sort_keys=True))
             return 0

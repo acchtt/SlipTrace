@@ -1,4 +1,6 @@
-# 03 — Normal Chat: Football C Official Live + C2 Shadow Wait
+# 03 — Normal Chat: C and C2 Live Match Assessment (No Odds Default)
+
+> **User-facing default:** ASSESS C+C2 without bookmaker odds for /xi and /live. Price check only if explicitly requested (/bet). Authority: `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Older contradictory priced-step instructions apply ONLY to explicit BET CHECK.
 
 > **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/live):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
@@ -34,7 +36,7 @@ For every /live or started /xi user assessment, execute the new
 **quote-free** pinned runtime once with independently sourced C and C2
 factors before discussing prices:
 
-`python models/football/engine/xi_portable.py football-pair --c <c_football.json> --c2 <c2_football.json>`
+`python models/football/engine/xi_portable.py assess --c <c_football.json> --c2 <c2_football.json>`
 
 Use `stage=football_assessment` with the same live score/minute,
 material-event state, assessment clock and evidence epoch for both
@@ -46,7 +48,7 @@ the match is two, five, sixteen or forty-five minutes old.
 Require `EXECUTED_C_C2_FOOTBALL_ONLY` when the paired engine actually
 runs. Display C and C2 qualitative football outcomes with the
 current completion/funding limitations; label the evaluation
-`LIVE FOOTBALL ASSESSED — UNPRICED / NO EXECUTABLE BET` if no current
+`Football assessed — no bet checked` if no current
 offer exists. Never demand a quote to run the football engine, and
 never fall back to the price-bearing `xi_portable.py pair` to
 complete an unpriced assessment. That older command remains only
@@ -95,7 +97,7 @@ goal burden/continuation and relevant tournament incentives.
    Score/minute and material football evidence determine its quality;
    neither a 2-minute nor a 16-minute kickoff delay blocks assessment.
    When no live price is independently verified, report
-   `LIVE FOOTBALL ASSESSED — UNPRICED / NO EXECUTABLE BET`. This is
+   `Football assessed — no bet checked`. This is
    a completed football read, **not** an incomplete or rejected model.
 2. **Optional executable betting subdecision.** Only when actually
    considering a C BET or specific price-based WAIT, require independently
@@ -232,7 +234,7 @@ Persist material live changes without overwriting the frozen prematch/XI record:
 - thesis/mechanism cancellation basis where relevant;
 - user-declared target-not-reached or actual execution facts.
 
-Do not create new C3/C4 current fields or actions.
+Do not create new C3/C4 current fields or actions. For normal /live requests, do not ask for a new quote; only an explicit /bet request authorizes a price check.
 
 ## 9. User-facing output
 
