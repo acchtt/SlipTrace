@@ -1,5 +1,9 @@
 # Current Football Model
 
+## Airtable operational base routing (2026-10-11)
+
+**Current LIVE base for new /sweep, /rank, /xi, /live, model decisions, website picks and official Actual Bets:** `appbzxqXYf0lKfD4P` (Football v2 — Active Operations 2026-10-11). **Previous base `appWyZJjitSBATXAU` is read-only historical ARCHIVE** (4,539 original records, untouched, over Free tier per-base cap). Never append to the archived base. All 10 live tables have fresh table and field IDs; before any Airtable read/write consult `models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md` for the full 368-field migration map. Current base includes two physical Actual Bets with live Profit and ROI formulas, 7 Circuit Breakers, 28 Manual Scores, 72 recent Decision States, and new sweep 2026-10-11 08:58–12:00 ICT. Historical sweeps and remaining decisions should be sourced from archive, never assumed copied to current. Do not silently delete archive rows.
+
 > **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired from new/current execution. Historical C3/C4 records remain immutable audit history.
 
 **Active official model:** Football **C**  
