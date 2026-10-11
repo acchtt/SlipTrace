@@ -287,6 +287,9 @@ def main() -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("self-check")
     # Short user-stage names. Historical names retained for old scripts.
+    one = sub.add_parser("xi")
+    one.add_argument("--c", required=True)
+    one.add_argument("--c2", required=True)
     pair = sub.add_parser("pair")
     pair.add_argument("--c", required=True)
     pair.add_argument("--c2", required=True)
@@ -310,6 +313,22 @@ def main() -> int:
             result = self_check()
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result.get("ok") else 2
+        if args.command == "xi":
+            c_input, c2_input = _load(args.c), _load(args.c2)
+            mode1, mode2 = c_input.get("stage"), c2_input.get("stage")
+            if mode1 != mode2:
+                raise ValueError("C+C2 must use the same /xi mode and current match epoch")
+            if mode1 == "football_assessment":
+                result = run_football_pair_files(args.c, args.c2)
+                display_mode = "FOOTBALL_ASSESSMENT"
+            elif mode1 == "decision":
+                result = run_pair_files(args.c, args.c2)
+                display_mode = "FOOTBALL_AND_PRICE_CHECK"
+            else:
+                raise ValueError("/xi expects stage=football_assessment or stage=decision")
+            print(json.dumps({"ok": True, "xi_mode": display_mode, **result},
+                             indent=2, sort_keys=True))
+            return 0
         if args.command in {"pair", "bet-check"}:
             result = run_pair_files(args.c, args.c2)
             print(json.dumps({"ok": True, **result}, indent=2, sort_keys=True))
