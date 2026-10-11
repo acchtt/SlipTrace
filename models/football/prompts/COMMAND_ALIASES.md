@@ -26,6 +26,12 @@ aliases; **do not ask the user to learn or choose them**.
 See `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. No unsupported executable
 bets, fabricated odds, or implicit C2 official exposure.
 
+Every invocation must reload the current launcher from the newest
+repository main authority, not reuse an old Work-session snapshot.
+This protects the one-command /xi behavior from stale quote-first
+instructions. The source-first freshness and version attestation
+checks remain mandatory.
+
 ## Command map
 
 | Command | Canonical action |
