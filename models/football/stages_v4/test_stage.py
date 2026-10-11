@@ -135,15 +135,18 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["fixture_count"],4)
         self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3","m4"})
 
-    def test_conditionally_verified_proof_cannot_be_bare_boolean_or_other_fixture(self):
-        a = fixture("m1", "Poland", "Ekstraklasa", proof="VERIFIED")
+    def test_unverified_conditional_proof_is_quarantined_not_global_blocker(self):
+        a = fixture("m2", "Poland", "Ekstraklasa", proof="VERIFIED")
         a.pop("researchability_proof")
-        with self.assertRaisesRegex(StageError, "requires source evidence"):
-            sweep(snapshot([a]), now=NOW)
-        a = fixture("m1", "Poland", "Ekstraklasa", proof="VERIFIED")
+        out = sweep(snapshot([fixture("m1"), a]), now=NOW)
+        self.assertEqual(out["eligible_count"],1)
+        self.assertEqual(out["pending_source_count"],1)
+        self.assertIn("requires source evidence",out["source_ledger"][1]["reason"])
+        a = fixture("m2", "Poland", "Ekstraklasa", proof="VERIFIED")
         a["researchability_proof"]["match_id"] = "wrong-match"
-        with self.assertRaisesRegex(StageError, "not bound to fixture"):
-            sweep(snapshot([a]), now=NOW)
+        out = sweep(snapshot([fixture("m1"), a]), now=NOW)
+        self.assertEqual(out["pending_source_count"],1)
+        self.assertIn("not bound to fixture",out["source_ledger"][1]["reason"])
 
     def test_researched_leagues_not_arbitrarily_capped_at_eight(self):
         rows = [fixture(f"match-{i}", country="Netherlands",league="Eerste Divisie")
@@ -152,23 +155,26 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["eligible_count"],20)
         self.assertEqual(len(result["research_order"]),20)
 
-    def test_bad_source_ko_fixtures_and_lookahead_block(self):
+    def test_single_invalid_source_fixture_does_not_block_other_leagues(self):
+        cases = [
+            ("match_id","DISCOVERY-notreal","canonical unique"),
+            ("observed_at_utc","2026-10-09T12:00:00Z","stale"),
+            ("odds",1.9,"bookmaker/live/FT"),
+            ("source_url","http://unverified.example.org/1","HTTPS"),
+        ]
+        for field, value, expected in cases:
+            with self.subTest(field=field):
+                p=snapshot()
+                p["fixtures"][0][field]=value
+                result=sweep(p,now=NOW)
+                self.assertEqual(result["eligible_count"],1)
+                self.assertEqual(result["pending_source_count"],1)
+                self.assertIn(expected,result["source_ledger"][0]["reason"])
         p=snapshot()
-        p["fixtures"][0]["match_id"]="DISCOVERY-notreal"
-        with self.assertRaisesRegex(StageError,"canonical unique"):
+        p["fixtures"][1]["match_id"]="m1"
+        with self.assertRaisesRegex(StageError,"conflicting duplicate"):
             sweep(p,now=NOW)
-        p=snapshot()
-        p["fixtures"][0]["observed_at_utc"]="2026-10-09T12:00:00Z"
-        with self.assertRaisesRegex(StageError,"stale"):
-            sweep(p,now=NOW)
-        p=snapshot()
-        p["fixtures"][0]["odds"]=1.9
-        with self.assertRaisesRegex(StageError,"bookmaker/live/FT"):
-            sweep(p,now=NOW)
-        p=snapshot()
-        p["fixtures"][0]["source_url"]="http://unverified.example.org/1"
-        with self.assertRaisesRegex(StageError,"HTTPS"):
-            sweep(p,now=NOW)
+
 
 
 class RankV4Tests(unittest.TestCase):
