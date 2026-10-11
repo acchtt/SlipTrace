@@ -81,9 +81,14 @@ Fill `source.json` (schema `football-stages-v4`) with:
 `source_family`, `source_url`, `source_observed_at_utc`,
 and `fixtures` (list). For each conditional/pilot/women fixture
 set `researchability_status=VERIFIED` only when the current
-league/team publishing channel actually checks out. Otherwise
-the fixture remains `PENDING_RESEARCHABILITY` in the ledger,
-NOT a model PASS. Routine Tier-1 fixtures do not need bookmakers,
+league/team publishing channel actually checks out, and attach a
+`researchability_proof` object with that same source-backed
+`match_id`, a genuinely visited `source_url`,
+`checked_at_utc`, and `current_channels_checked=true`.
+Otherwise the fixture remains `PENDING_RESEARCHABILITY` in the ledger,
+NOT a model PASS. Invalid match-specific proof becomes
+`PENDING_SOURCE`; it never invalidates unrelated real fixtures.
+Routine Tier-1 fixtures do not need bookmakers,
 XI publication history or an `odds` field just to enter the queue.
 
 ```bash
@@ -96,7 +101,10 @@ machine's actual UTC clock is used. All timestamps are UTC-aware.
 For historical QA, `--now <ISO_UTC>` may be supplied.
 
 Outputs a hashed complete source-visible fixture ledger and
-**all eligible** source-backed candidates with goal-first research order.
+**all eligible** source-backed candidates with goal-first research order. Unverified individual fixture IDs,
+stale fixture links or malformed team-form evidence are quarantined
+with their original source-row index and exact reason; they are not
+silently dropped and do not block other source-backed leagues.
 There is NO arbitrary eight-match cap. A run with no eligible
 source-confirmed fixture is a legitimate empty sweep, not a mandatory
 15-minute research loop. No global women's coverage absence scan:
@@ -142,6 +150,17 @@ base. It compares the actual saved fixture IDs/ranks/states/lines
 to the engine results; do not generate that JSON from the submitted
 write payload. Publication requires a real verified persistence receipt,
 not simply the model response.
+
+The refetched receipt must include `active_base_id`,
+`method=INDEPENDENT_AIRTABLE_REFETCH`, original V4 `run_id`,
+`rank_integrity_sha256`, `sweep_integrity_sha256`,
+a truthful `readback_at_utc` within 30 minutes of ranking, and
+`ranked_rows`. Every ranked row must contain
+`coverage_id=<V4-run-id>|<match-id>`, original `match_id`,
+`c_rank`, `c_board_state`, `c_supported_line`,
+`c2_rank`, `c2_board_state`, `c2_supported_line` and official
+`follow_lane`. This enforces stored official C FOLLOW/RESERVE/STOP
+rather than guessing it from the C state or shadow C2 result.
 
 ## User-visible status output
 
