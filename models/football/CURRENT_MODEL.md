@@ -1,6 +1,35 @@
 # Current Football Model
 
-## Active stage status — /sweep and /rank retired (2026-10-11)
+## Current replacement — V4 /sweep and /rank (approved 2026-10-11)
+
+**ACTIVE NEW STAGES:** `models/football/stages_v4/SWEEP.md`
+and `models/football/stages_v4/RANK.md`, implemented in
+`models/football/stages_v4/stage.py` and the explicitly researched
+country+league registry `league_registry.py`. User approved a NEW
+workflow after retiring V1–V3. V4 does **not** reactivate the old CLIs
+or previous source epochs. Existing old Step0/Step1 executables stay
+`SWEEP_RANK_RETIRED` for legacy use.
+
+V4 /sweep obtains a genuinely current single window-scoped source
+snapshot, freezes all canonical fixture IDs and kickoffs, includes the
+researched league tiers (Big Five, Netherlands/Eerste, Norway OBOS,
+Sweden, Denmark, Poland, Czech, Malaysia, Hong Kong, UAE, Qatar,
+Saudi, Thailand, Indonesia, Japan and approved lower leagues),
+and includes verified women's senior top flights. Excluded domestic
+leagues and friendlies remain excluded. No worldwide completeness
+precondition, unsupported discovery tokens or arbitrary 8-match cap.
+
+V4 /rank uses the frozen V4 receipt, source-backed actual goal-route
+research (including dynamic high-scoring team routes and draw-trap
+penalty), calls the real independent C and C2 model engines together,
+and requires actual Airtable persistence/readback before publication.
+Odds are not needed for football-only ranking; executable bets still
+require genuine current prices in /xi. No made-up XI, lines, ranked
+records or retroactive prematch decisions. The existing /xi,
+`/live`, `/audit`, `/report`, user-verified Actual Bets and archived
+financial ledger remain unchanged.
+
+## Historical status — retired V1/V2/V3 only (2026-10-11)
 
 **The user scrapped both current Step0 /sweep and Step1 /rank.**
 Production stage status: `SWEEP_RANK_RETIRED`; any V1/V2/V3 source,
