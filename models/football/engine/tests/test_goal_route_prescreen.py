@@ -147,6 +147,153 @@ class FullQueuePrescreenTests(unittest.TestCase):
         with self.assertRaisesRegex(GoalPrescreenError, "fingerprint"):
             verified_research_order(manifest, queue(rows), HASH)
 
+    def test_dutch_eredivisie_and_eerste_divisie_use_dynamic_sources(self):
+        aliases = ("Eredivisie", "Netherlands Eredivisie",
+                   "Eerste Divisie", "Eerstedivisie",
+                   "Netherlands Eerste Divisie")
+        for label in aliases:
+            with self.subTest(league=label):
+                rows = candidates(14)
+                rows[12]["country"] = "Netherlands"
+                rows[12]["competition_name"] = label
+                rows[12]["home_team"] = "New senior club"
+                rows[12]["football_evidence"] = football_evidence(True)
+                out = run_prescreen(request(rows))
+                self.assertEqual(out["dutch_route_screened_count"], 1)
+                self.assertEqual(out["big_five_route_screened_count"], 0)
+                self.assertEqual(out["initial_research_match_ids"][0], "m13")
+                self.assertIn("m13", out["initial_promoted_from_step0_deferred"])
+                r = next(r for r in out["manifest"]["original_rows"]
+                         if r["match_id"] == "m13")
+                self.assertEqual(r["queue_rank"], 13)
+                self.assertEqual(r["dutch_route_screen"]["policy"],
+                                 "NETHERLANDS_DYNAMIC_GOAL_ROUTES_V1")
+                self.assertEqual(r["dutch_route_screen"]["route_shape"],
+                                 "BIDIRECTIONAL_CONTRIBUTION")
+                self.assertGreater(r["dutch_route_screen"]["mean_over3_frequency"], 0)
+                self.assertIsNone(r["big_five_route_screen"])
+                self.assertEqual(out["original_step0_source_hash"], HASH)
+                self.assertEqual(verified_research_order(
+                    out["manifest"], queue(rows), HASH
+                ), out["manifest"]["ordered_eligible_match_ids"])
+
+    def test_dutch_jong_team_is_not_hidden_or_static_team_ranked(self):
+        rows = candidates(12)
+        rows[1]["country"] = "Netherlands"
+        rows[1]["competition_name"] = "Eerste Divisie"
+        rows[1]["home_team"] = "Jong Utrecht"
+        rows[1]["away_team"] = "Newcomer"
+        rows[1]["football_evidence"] = football_evidence(True)
+        out = run_prescreen(request(rows))
+        r = out["manifest"]["original_rows"][1]
+        self.assertEqual(r["screen_status"], "QUANTIFIED")
+        self.assertEqual(r["dutch_route_screen"]["route_shape"],
+                         "BIDIRECTIONAL_CONTRIBUTION")
+        self.assertIn("m2", out["initial_research_match_ids"])
+        # Renaming either team without changing sources must not affect order.
+        rows[1]["home_team"] = "Unrecognized senior team"
+        rows[1]["away_team"] = "Another newly promoted team"
+        self.assertEqual(out["initial_research_match_ids"],
+                         run_prescreen(request(rows))["initial_research_match_ids"])
+
+    def test_dutch_stalled_one_one_and_zero_zero_are_traps_not_exclusions(self):
+        for score in ((1, 1), (0, 0)):
+            with self.subTest(score=score):
+                rows = candidates(10)
+                c = rows[2]
+                c["country"], c["competition_name"] = "Netherlands", "Eredivisie"
+                c["football_evidence"] = {
+                    "home": {"source_url": "https://scores.example.org/home",
+                             "observed_at_utc": NOW_ISO, "recent": recent(*score)},
+                    "away": {"source_url": "https://scores.example.org/away",
+                             "observed_at_utc": NOW_ISO, "recent": recent(*score)},
+                }
+                out = run_prescreen(request(rows))
+                r = out["manifest"]["original_rows"][2]
+                self.assertEqual(r["dutch_route_screen"]["route_shape"],
+                                 "LOW_GOAL_DRAW_TRAP")
+                self.assertTrue(r["dutch_route_screen"]["draw_trap_alert"])
+                self.assertLess(r["dutch_route_screen"]["research_priority_adjustment"], 0)
+                self.assertEqual(out["dutch_draw_trap_alert_count"], 1)
+                self.assertEqual(r["screen_status"], "QUANTIFIED")
+                self.assertIn("m3", out["manifest"]["ordered_eligible_match_ids"])
+
+    def test_dutch_carrier_without_opponent_contribution_is_labeled(self):
+        rows = candidates(10)
+        rows[3]["country"], rows[3]["competition_name"] = "Netherlands", "Eredivisie"
+        rows[3]["football_evidence"] = {
+            "home": {"source_url": "https://scores.example.org/home",
+                     "observed_at_utc": NOW_ISO, "recent": recent(4, 0)},
+            "away": {"source_url": "https://scores.example.org/away",
+                     "observed_at_utc": NOW_ISO, "recent": recent(0, 3)},
+        }
+        result = run_prescreen(request(rows))["manifest"]["original_rows"][3]
+        self.assertEqual(result["dutch_route_screen"]["route_shape"], "ONE_SIDED_CARRIER")
+        self.assertFalse(result["dutch_route_screen"]["stall_alert"])
+        # If the non-scoring team repeatedly produces one-goal matches,
+        # the stall-risk diagnostic intentionally outranks a carrier label.
+        rows[3]["football_evidence"]["away"]["recent"] = recent(0, 1)
+        blocked = run_prescreen(request(rows))["manifest"]["original_rows"][3]
+        self.assertEqual(blocked["dutch_route_screen"]["route_shape"], "LOW_GOAL_DRAW_TRAP")
+        self.assertTrue(blocked["dutch_route_screen"]["stall_alert"])
+
+    def test_dutch_country_keyed_and_big_five_policy_not_changed(self):
+        rows = candidates(13)
+        rows[0]["country"], rows[0]["competition_name"] = "Belgium", "Eredivisie"
+        rows[1]["country"], rows[1]["competition_name"] = "Netherlands", "La Liga"
+        rows[2]["country"], rows[2]["competition_name"] = "Germany", "Eredivisie"
+        rows[3]["country"], rows[3]["competition_name"] = "Holland", "Eerste Divisie"
+        rows[4]["country"], rows[4]["competition_name"] = "Netherlands", "U21 Eredivisie"
+        rows[5]["competition_name"] = "Eerste Divisie"  # No country
+        rows[6]["country"], rows[6]["competition_name"] = "Germany", "Bundesliga"
+        rows[6]["football_evidence"] = football_evidence(True)
+        out = run_prescreen(request(rows))
+        self.assertEqual(out["dutch_route_screened_count"], 0)
+        self.assertEqual(out["big_five_route_screened_count"], 1)
+        self.assertEqual(out["manifest"]["original_rows"][6]
+                         ["big_five_route_screen"]["policy"],
+                         "BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1")
+        self.assertTrue(all(not r["dutch_route_screen"]
+                            for r in out["manifest"]["original_rows"]))
+
+    def test_dutch_missing_source_stays_limited_and_future_result_invalid(self):
+        rows = candidates(9)
+        rows[0]["country"], rows[0]["competition_name"] = "Netherlands", "Eerste Divisie"
+        rows[0].pop("football_evidence")
+        out = run_prescreen(request(rows))
+        self.assertEqual(out["manifest"]["original_rows"][0]["screen_status"],
+                         "EVIDENCE_LIMITED")
+        self.assertIsNone(out["manifest"]["original_rows"][0]["dutch_route_screen"])
+        self.assertEqual(out["dutch_route_screened_count"], 0)
+        rows[0]["football_evidence"] = football_evidence(True)
+        rows[0]["football_evidence"]["home"]["recent"][0]["kickoff_utc"] = (
+            NOW + timedelta(minutes=1)).isoformat()
+        with self.assertRaisesRegex(GoalPrescreenError, "not provably finished"):
+            run_prescreen(request(rows))
+        rows[0]["football_evidence"] = football_evidence(True)
+        rows[0]["football_evidence"]["away"]["observed_at_utc"] = (
+            NOW - timedelta(days=9)).isoformat()
+        with self.assertRaisesRegex(GoalPrescreenError, "stale"):
+            run_prescreen(request(rows))
+
+    def test_dutch_manifest_provenance_tamper_and_closed_kickoff(self):
+        rows = candidates(10)
+        rows[1]["country"], rows[1]["competition_name"] = "Netherlands", "Eredivisie"
+        rows[1]["football_evidence"] = football_evidence(True)
+        out = run_prescreen(request(rows))
+        manifest = out["manifest"]
+        with self.assertRaisesRegex(GoalPrescreenError, "source"):
+            verified_research_order(manifest, queue(rows), "other-source-hash")
+        manifest["original_rows"][1]["dutch_route_screen"]["route_shape"] = "INJECTED"
+        with self.assertRaisesRegex(GoalPrescreenError, "fingerprint"):
+            verified_research_order(manifest, queue(rows), HASH)
+        rows[1]["fixture_status"] = "STARTED"
+        rows[1]["kickoff_utc"] = (NOW - timedelta(minutes=5)).isoformat()
+        closed = run_prescreen(request(rows))
+        self.assertEqual(closed["manifest"]["original_rows"][1]["screen_status"], "CLOSED")
+        self.assertIsNone(closed["manifest"]["original_rows"][1]["dutch_route_screen"])
+        self.assertNotIn("m2", closed["manifest"]["ordered_eligible_match_ids"])
+
     def test_unknown_evidence_is_not_false_negative(self):
         rows = candidates(12)
         for c in rows:

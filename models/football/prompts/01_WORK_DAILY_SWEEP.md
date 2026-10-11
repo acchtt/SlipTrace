@@ -152,6 +152,10 @@ If `STEP0_HANDOFF.json` carries `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`
 
 For future goal-first screens, **preserve the actual country and exact competition name** alongside each original source match ID and historical `football_evidence`. This enables `BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1` for only the English Premier League, German Bundesliga, Spanish La Liga, Italian Serie A and French Ligue 1 (no country-agnostic league name matching). The code computes current pre-screen 4+ goal frequency, two-sided route shape and 0-0/1-1 traps from the existing 4–10 verified recent competitive results per team. Run on **all** frozen original A/B candidates, not a static Chelsea/Bayern/Barcelona watchlist. Missing recent sources remain neutral, not PASS. Retain fingerprint and original Step0 source hash, match IDs, rank and A/B queue, normal Step1 verified XI/Asian-total proof, current tournament incentives and independent C/C2 decisions. No retroactive changes to ranked/frozen boards.
 
+### 2026-10-11 Netherlands team-form goal-route overlay
+
+For new `GOAL_FIRST_STEP1_RESEARCH_V1` sessions, pass the **actual country, registered competition name** and genuine 4–10 recent completed competitive scorelines per team for both Dutch Eredivisie and Eerste Divisie. The deterministic prescreen now applies `NETHERLANDS_DYNAMIC_GOAL_ROUTES_V1` to these two exact `Netherlands` competitions: a source-only bounded research-priority refinement using scoring/conceding routes, 4+ goals and 0–0/1–1/<=2-goal stalls. Official Eerste Divisie Jong teams remain in scope; fixed PSV/Feyenoord/Jong Utrecht bonuses are forbidden. Report Dutch quantified / trap alerts, retain missing-source neutrality, full frozen A/B queue and original Step0 source hash/ranks. Do not alter match-specific /rank Asian totals/XI, /xi priced entry, current incentive checks, C official/C2 shadow or 8/12/20 workload. Reference `FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
+
 ### Mandatory prospective whole-queue goal-first Step1 research screen
 
 For **new Step1 sessions** where no deep research/board is frozen yet,

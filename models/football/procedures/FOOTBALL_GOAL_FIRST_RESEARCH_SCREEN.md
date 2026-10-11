@@ -30,6 +30,16 @@ The Oct 11 watchlist of clubs (Chelsea, Barcelona, Bayern, etc.) is a **research
 
 The Big Five are already routine competition profiles under Step0; **this is a Step1 research scheduler improvement, not a Step0 broadening**. The 8/12/20 workload and C official / C2 shadow remain unchanged. Apply the normal current match Asian-total source, XI/team-news, tournament incentive and late-price checks at Step1/Step2. Do not change existing frozen manifests or source-hash values. Post-FT, audit **prospective** top-eight capture, 3+/4+ missed opportunity, 0–0/1–1 false-positive exposure and whether the book's live line was realistically reachable.
 
+## 2026-10-11 Netherlands Eredivisie + Eerste Divisie goal-route research overlay
+
+For NEW full A/B `GOAL_FIRST_STEP1_RESEARCH_V1` screens only, the Dutch **Eredivisie** and **Eerste Divisie** use `NETHERLANDS_DYNAMIC_GOAL_ROUTES_V1`, the same source-backed carrier-versus-two-sided and low-goal trap research-order diagnostic as the Big Five. The same required 4–10 completed historical competitive scorelines per club yield offense/concession route strength, share of **4+ total goals**, and 0–0/1–1 and <=2 goal stalls. The adjustment is bounded [-25, +8], not a calibrated total-goal probability or match-specific entry line. Big Five's independent policy remains unchanged; neither overlay is applied twice to one fixture.
+
+Strict **country + registered league identity**, with no free-text Dutch/foreign competition bonuses. Accepted pairs are country `Netherlands` with `Eredivisie` / `Netherlands Eredivisie` / `Eerste Divisie` / `Eerstedivisie` / `Netherlands Eerste Divisie` (case-insensitive, trim spaces). Short league names belonging to Belgium, junior-only leagues or missing country DO NOT qualify. Official senior Eerste Divisie fixtures that include allowed **Jong/U21** participants remain eligible, exactly as currently registered; this changes research ordering, **not** Step0 league scope or the existing competition-scoped Jong exception.
+
+Report `dutch_route_screened_count` and `dutch_draw_trap_alert_count`, with per-match `dutch_route_screen` diagnostics inside the fingerprinted immutable-source-bound manifest. Absent/stale/unverifiable past scores remain `EVIDENCE_LIMITED` (no bonus, no fabricated under/low-goal forecast). Real results must predate screen and KO; prospective research order does not access current-match goals, market odds or future XI. The policy does **not** automatically push PSV, Feyenoord, Go Ahead Eagles, Jong Utrecht, NAC, Emmen or any fixed shortlist to the board. A promoted research-priority item retains immutable Step0 A/B disposition, original match ID, source hash and queue rank.
+
+Retain initial 8, standard 12, adaptive max 20 deep-research budgets; use the exact same Stage-1 approved lineup/news/bookmaker Asian-total evidence and Stage-2 executable price/time checks. C remains official, C2 shadow. New screens only: do not regenerate existing frozen manifests, rescore old boards, insert Airtable decisions or claim an improvement in Over returns without a prospective post-FT audit. Track Dutch baseline-to-overlay selected-wave shifts, high-total captures, 1–1/0–0 stall exposures and infeasible WAIT lines.
+
 ## Source-backed kickoff correction without changing Step0
 
 A provider KO revision is a research routing discrepancy, **not** an
