@@ -1,7 +1,7 @@
-# Football Website Picks Airtable Contract
+> **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Website Picks Airtable Contract
 
 **Status:** ACTIVE OFFICIAL EXPOSURE PERSISTENCE  
-**Table:** `Website Picks` — `tblg3J5sbJYbzuTYD`  
+**Table:** `Website Picks` — `tblmGd7XwTYbceIiL`  
 **Official model:** Football C
 
 Website Picks stores operational direct C-BET exposure and assumed/reconciled C-WAIT exposure.
@@ -15,32 +15,32 @@ Read with:
 ## Core fields
 
 Existing exposure fields:
-- `Pick ID` — `fld7LY4str9QmzCH9`
-- `Match` — `fldNlufM7FENbNCv9`
-- `Competition` — `fldpafuuHIiTQbpAb`
-- `Kickoff` — `fld84SN2UVzuNdLO4`
-- `Model Version` — `fld1oC1qxmmjdFtnz`
-- `Verdict` — `fldgZWuLj8OlyB0u9`
-- `Line` — `fld46kN7xgx0OGvx6`
-- `Odds` — `fldtzi2BMboY8jglO`
-- `Stake u` — `fldPSXw2Q425CsAoc`
-- `Result` — `fldmsREbwEsW8DdmY`
-- `P/L u` — `fldz0sSos3hFkGstN`
-- `Recorded At` — `fld7b20x4LTZIa9On`
-- `Website Fixture ID` — `fld5dRrLR4qn3hIM8`
-- `Reason` — `fldnmTTgsZMuj0ENW`
+- `Pick ID` — `fldEWkeb0WFpip8GF`
+- `Match` — `fldaiHxfruUQpCefB`
+- `Competition` — `fldkyImhXXDKNrSIR`
+- `Kickoff` — `fldC0minlbWHOcICV`
+- `Model Version` — `fldIJ7A3ia0ZxxcNE`
+- `Verdict` — `fldc5murMqOjjjXcT`
+- `Line` — `fldI8UHVmq6UyeLG8`
+- `Odds` — `fldms9tWXWymeHgyS`
+- `Stake u` — `fldFAEU7RHado60iL`
+- `Result` — `fldCR2S5GkpJFK3sI`
+- `P/L u` — `fldWUDBX7dcLcP9nR`
+- `Recorded At` — `fldhIPj5xB9dXDYtR`
+- `Website Fixture ID` — `fldnqWZX8SAFjgaO7`
+- `Reason` — `fldWI4SSDf8It1QTd`
 
 WAIT accounting fields:
-- `Origin C Action` — `fldavEJERSgbRphZP`
-- `Exposure Basis` — `fldMXXFFBRvvP8oY0`
-- `WAIT Resolution` — `fldqiojwbqh9YbjpE`
-- `WAIT Target Line` — `fldevFLmEr1Ph329Q`
-- `WAIT Min Odds` — `fldbi330Zr4hQXVkO`
-- `Actual User Bet Confirmed` — `fldhM8zTAAd9kBB27`
-- `Actual User Line` — `fldOOiyQy5cnQbIB4`
-- `Actual User Odds` — `fldzXHyrSYBDGLZPh`
-- `Actual User Stake u` — `fldoGOSn1im61Snuu`
-- `WAIT Reconciliation Note` — `fldg6Px4yir0BYc7W`
+- `Origin C Action` — `fldzjvFazOh88SpZY`
+- `Exposure Basis` — `fldbh2WqfxySRWQQS`
+- `WAIT Resolution` — `fldQUjmGojpLHpeGD`
+- `WAIT Target Line` — `fldURFVzxquJb4ian`
+- `WAIT Min Odds` — `fldcPT6SwPS0NmY2M`
+- `Actual User Bet Confirmed` — `fldnRSvpH7krGX5xv`
+- `Actual User Line` — `fld0GaiOJAzMSZwGz`
+- `Actual User Odds` — `fldsRxQtOrlRC3JLI`
+- `Actual User Stake u` — `fld4WOTeczJxPmIaU`
+- `WAIT Reconciliation Note` — `flddQ9W1lxt5jFp0F`
 
 ## WATCH boundary
 
