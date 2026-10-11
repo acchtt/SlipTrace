@@ -1,4 +1,4 @@
-# 00 — Normal Chat: AiScore Researchable Senior Intake
+> **Airtable source of truth changed 2026-10-11:** active base `appbzxqXYf0lKfD4P` and the full old→new field ID map at `models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md`. Archived old base `appWyZJjitSBATXAU` must be read-only; never append historical IDs into active tables.\n\n# 00 — Normal Chat: AiScore Researchable Senior Intake
 
 **Command alias:** `/sweep`
 
@@ -202,7 +202,7 @@ This rule does **not** exclude senior national teams representing Israel, Kenya,
 After senior discovery/hard scope filtering and before final operational grading:
 
 1. normalize a stable competition key;
-2. read the matching row from Airtable `Competition Reliability` (`tbl1KShXxXErUdVKW`);
+2. read the matching row from Airtable `Competition Reliability` (`tbl8ZRExZfMce7lqY`);
 3. if no row exists, use `UNPROVEN`;
 4. preserve any explicit Manual Override without inventing one;
 5. calculate the raw current A/B/C/D grade from current evidence;
