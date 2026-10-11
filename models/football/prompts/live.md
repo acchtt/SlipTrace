@@ -6,7 +6,7 @@
 
 Short wrapper only.
 
-Read `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`, `models/football/CURRENT_MODEL.md`, `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`, and `models/football/prompts/COMMAND_ALIASES.md`; execute the live launcher in default ASSESS mode (no odds). Only explicit /bet requests start priced checks.
+Read `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md` first. `/live` shares `/xi`'s one-command football-first behavior; evaluate supplied current live odds if available, never request quotes merely to assess. Then read `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`, `models/football/CURRENT_MODEL.md`, `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`, and `models/football/prompts/COMMAND_ALIASES.md`; execute the live launcher in default ASSESS mode (no odds). Only explicit /bet requests start priced checks.
 
 Use available score/minute and football events. Never ask for odds just to assess, even after kickoff. Preserve exception wording exactly.
 
