@@ -10,14 +10,33 @@ These aliases are intentionally short so the user does not need to remember laun
 
 They are project-level text commands, not a dependency on ChatGPT's built-in slash-command UI. The user can simply type them as ordinary chat text.
 
+## Simple commands — user-facing priority
+
+**Only two actions:**
+
+- /xi, /xi exception, /live, /assess or “assess this match”
+  = **ASSESS**. Football C and C2 independently, without odds.
+  Give C/C2 promising/caution/avoid reads and reasons. Never request
+  bookmaker quotes or wait for a price to finish this command.
+- /bet, /xi bet, or an explicit request to evaluate a quoted entry
+  = **BET CHECK**. Only here is a current total plus offered odds needed
+  before BET/WAIT/PASS can be authorized.
+
+Read models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md
+first. This rule overrides older /xi and /live text describing
+“mandatory quotes,” “current odds,” or a price-based WAIT for an
+ASSESS request. Price-bearing screenshots alone do not turn
+/xi into BET CHECK unless the user explicitly asks for that action.
+
 ## Command map
 
 | Command | Canonical action |
 |---|---|
 | `/sweep` | Execute `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` |
 | `/rank` | Execute `models/football/prompts/01_WORK_DAILY_SWEEP.md` |
-| `/xi` | Execute `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` |
-| `/live` | Execute `models/football/prompts/03_NORMAL_CHAT_LIVE.md` |
+| `/xi` or `/assess` | Assess C and C2 football without bookmaker odds (default) |
+| `/live` | Assess current match football without bookmaker odds (default) |
+| `/bet` or `/xi bet` | Optional check whether a current actual price qualifies for a BET |
 | `/audit` | Execute `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
 | `/report` | Execute `models/football/prompts/06_NORMAL_CHAT_REPORT.md` |
 | `/help` | Show this command map and concise examples; do not run a football stage |
@@ -107,27 +126,28 @@ Do not interpret `/rank` as a request for a casual subjective ranking. It invoke
 
 Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or reconstruct a repaired queue from the web.
 
-### `/xi`
+### /xi, /xi exception, /assess
 
-Runs Step 2 for the supplied/referenced match(es). Every invocation must reload the current launcher from repository authority rather than reuse previously loaded launcher text.
+**Default: ASSESS, without odds.** Use the current XI/live football
+launcher, but run the pinned quote-free C+C2 assess mode FIRST.
+Do not ask for any quote or new price. Supplied market screenshots
+do not automatically switch the workflow into BET CHECK.
 
-Visible model roster:
-- Football C official Step-2 action;
-- Football C2 Step-2 shadow action.
+Examples: /xi, /xi exception, /assess Inter–Parma.
 
-C3/C4 are retired from new/current execution and must not be shown as current tracks. Historical retired-model rows belong only in explicitly historical audit/report context.
+### /live
 
-Examples:
-- attach XI + odds screenshots, then type `/xi`;
-- `/xi exception` preserves the user's explicit exception declaration for the supplied match(es), but does not waive tournament-incentive, evidence, identity, XI or market integrity gates.
+Identical ASSESS default, using current match score/clock when known.
+A match may be assessed after kickoff or after a goal without an odds
+screenshot. Explain a missing *football* fact when necessary.
 
-### `/live`
+### /bet, /xi bet
 
-Runs the live/wait launcher for the supplied current match state.
-
-Examples:
-- attach live screenshots, then type `/live`;
-- `/live exception` is an explicit user live-exception declaration for the supplied exact match/epoch, subject to all mandatory integrity gates.
+Explicit **BET CHECK**. Execute the same football assessment before
+checking whether an actual current line/odds supports an official C
+entry. If no verified current offer exists, finish the football
+assessment anyway and mark only the BET CHECK unpriced.
+C2 stays independent shadow; no user bet is recorded without confirmation.
 
 ### `/audit [scope]`
 
