@@ -10,6 +10,8 @@ from sweep_checkpoint import (  # noqa: E402
     MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK,
     FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION,
     FAST_FINISH_POLICY,
+    FAST_FINISH_MAX_ELAPSED_MINUTES,
+    expire_fast_finish_deadline,
     SOURCE_RECOVERY_COOLDOWN_MINUTES,
     SweepCheckpointError,
     advance_after_chunk,
@@ -79,6 +81,79 @@ class SweepCheckpointTests(unittest.TestCase):
         )
         self.assertEqual(list(result.selected_blocks), pending[:6])
         self.assertEqual(list(result.remaining_blocks), pending[6:])
+
+    def test_fast_finish_deadline_keeps_provenance_and_closes_unknowns(self):
+        cp = checkpoint(pending=["source-a", "MANDATORY_WOMEN"],
+                        retry=["source-b"], completed=["source-done"])
+        cp["verification_policy"] = FAST_FINISH_POLICY
+        cp["requested_window"] = {
+            "start_utc": "2026-10-11T10:08:54Z",
+            "end_utc": "2026-10-11T20:00:00Z",
+        }
+        cp["source_scope"] = "BOUNDED_PRODUCTION_DISCOVERY"
+        cp["discovery_seed_manifest"] = {"sources": [
+            {"family": "official", "url": "https://example.org/official"},
+            {"family": "provider", "url": "https://example.org/provider"},
+        ]}
+        cp["raw_discovered"] = 85
+        cp["official_handoff_ready"] = False
+        within = expire_fast_finish_deadline(cp, now="2026-10-11T10:40:00Z")
+        self.assertEqual(within["deadline_status"], "WITHIN_BUDGET")
+        self.assertEqual(within["pending_verification_blocks"], cp["pending_verification_blocks"])
+        expired = expire_fast_finish_deadline(cp, now="2026-10-11T11:20:00Z")
+        self.assertEqual(expired["deadline_status"], "BLOCKED_TIME_BUDGET_UNVERIFIED")
+        self.assertEqual(expired["phase"], "RECONCILIATION")
+        self.assertEqual(expired["terminal_unresolved_verification_blocks"],
+                         ["source-b", "source-a", "MANDATORY_WOMEN"])
+        self.assertEqual(expired["pending_verification_count"], 0)
+        self.assertEqual(expired["raw_discovered"], 85)
+        self.assertEqual(expired["completed_verification_blocks"], ["source-done"])
+        self.assertEqual(expired["discovery_seed_manifest"], cp["discovery_seed_manifest"])
+        self.assertEqual(expired["source_payload_hash"], "abc123")
+        self.assertFalse(expired["work_ready"])
+        self.assertFalse(expired["official_handoff_ready"])
+        self.assertFalse(expired["complete"])
+        self.assertFalse(expired["actionable_complete"])
+        self.assertEqual(
+            expire_fast_finish_deadline(expired, now="2026-10-11T12:00:00Z")
+            ["terminal_unresolved_verification_blocks"],
+            expired["terminal_unresolved_verification_blocks"],
+        )
+        with self.assertRaisesRegex(SweepCheckpointError, "unresolved verification blocks"):
+            validate_checkpoint({**expired, "phase": "COMPLETE"})
+
+    def test_fast_finish_deadline_does_not_block_clean_reconciliation(self):
+        cp = checkpoint(completed=["verified"])
+        cp["verification_policy"] = FAST_FINISH_POLICY
+        cp["phase"] = "RECONCILIATION"
+        cp["requested_window"] = {"start_utc": "2026-10-11T10:08:54Z"}
+        result = expire_fast_finish_deadline(cp, now="2026-10-11T12:08:54Z")
+        self.assertEqual(result["deadline_status"], "RECONCILE_NOW")
+        self.assertEqual(result["terminal_unresolved_verification_blocks"], None
+                         if "terminal_unresolved_verification_blocks" not in result
+                         else [])
+        self.assertEqual(result["phase"], "RECONCILIATION")
+
+    def test_fast_finish_deadline_never_mutates_legacy_or_future_clock(self):
+        cp = checkpoint(pending=["source"])
+        cp["requested_window"] = {"start_utc": "2026-10-11T10:08:54Z"}
+        with self.assertRaisesRegex(SweepCheckpointError, "FAST_FINISH_V1"):
+            expire_fast_finish_deadline(cp, now="2026-10-11T12:00:00Z")
+        cp["verification_policy"] = FAST_FINISH_POLICY
+        with self.assertRaisesRegex(SweepCheckpointError, "precedes"):
+            expire_fast_finish_deadline(cp, now="2026-10-11T09:00:00Z")
+        cp["requested_window"] = {}
+        with self.assertRaisesRegex(SweepCheckpointError, "start UTC missing"):
+            expire_fast_finish_deadline(cp, now="2026-10-11T12:00:00Z")
+        cp["requested_window"] = {"start_utc": "2026-10-11T10:08:54Z"}
+        cp["source_acquisition_state"] = "UNTRIED"
+        cp["source_payload_hash"] = None
+        cp["phase"] = "SOURCE_ACQUISITION"
+        with self.assertRaisesRegex(SweepCheckpointError, "acquired source"):
+            expire_fast_finish_deadline(cp, now="2026-10-11T12:00:00Z")
+
+    def test_fast_finish_budget_is_bounded(self):
+        self.assertEqual(FAST_FINISH_MAX_ELAPSED_MINUTES, 60)
 
     def test_new_fast_finish_selects_24_blocks_in_one_invocation(self):
         p = checkpoint(pending=[f"block-{i}" for i in range(31)])
