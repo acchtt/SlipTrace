@@ -69,9 +69,14 @@ The prospective Step-0 gate `FOOTBALL_XI_MARKET_FIRST_INTAKE.md` validates **whe
 
 ## 3. Current evidence epoch
 
-Use the user's confirmed/reliable XI and current executable Asian-total quote as the Step-2 epoch.
+For a genuinely PREMATCH, executable Step-2 decision use the user's
+confirmed/reliable XI and current Asian-total quote. **Once STARTED, a
+fresh quote is NOT required to carry out football assessment**.
+Use the current score/clock, event context and the frozen independent
+C and C2 mechanisms first. Price collection becomes a separate,
+optional second operation only when an actual live BET is being considered.
 
-Required current evidence includes:
+Required evidence for a PREMATCH betting decision includes:
 - `xi_status = CONFIRMED / RELIABLE / UNAVAILABLE`;
 - current fixture status;
 - current quote and `quote_revalidated = true`;
@@ -112,13 +117,20 @@ C2 premises:
 - If a goal or material event occurred, re-evaluate the thesis and
   clearing-goal burden at the new live score; a goal does not erase the
   obligation to assess, but invalidates old price and funding conclusions.
-- Continue immediately with a **qualitative C/C2 football assessment**
-  even when current live odds are missing. Label it
-  `LIVE QUOTE REQUIRED — NO EXECUTABLE BET` and state the currently
-  supportable goal burden; do not invent a quote or C2 result.
-- Only a genuinely fresh live quote, current state, independently
-  checked C and C2 evidence and the required live integrity checks may
-  produce an actionable C live assessment. C2 remains shadow-only.
+- Deliver the **independent C and C2 football assessments immediately**
+  using score, minute, event/lineup context, football attack routes,
+  remaining supported goal burden, continuation/stall risk and the
+  original separate model premises. **Do not ask for or research new
+  bookmaker odds as a prerequisite.** Do not stop at the old status
+  `LIVE_QUOTE_REQUIRED_FOR_ACTION`: that status is retired for analysis.
+  When odds are absent, label the final football assessment
+  `LIVE FOOTBALL ASSESSED — UNPRICED / NO EXECUTABLE BET`, rather than
+  `ASSESSMENT BLOCKED`, and report C and C2 separately.
+- Only if the user seeks **an executable live BET** should a genuinely
+  current LIVE quote, verified score/events, and all required betting
+  authorization/persistence checks be required. Keep a quote-free
+  football judgment distinct from C official BET / C2 SHADOW BET.
+  Never fabricate a live total, a price, a reachable WAIT or a trade.
 - In Step-2 reconciliation persist `LIVE_REROUTED` with a reference
   to the **actual** live assessment, not an invented placeholder. Keep
   it open if no live verdict was completed. Do not retrospectively
@@ -158,9 +170,11 @@ For the first current XI + executable price epoch:
    failure). C2 BET is **SHADOW ACT**, never a user bet instruction.
 4. If the official C price is unsuitable but C2 meets its price floor,
    **still execute both**; neither model may inherit the other's line
-   or goal-three gate. If an essential source/XI/quote is missing,
-   issue a precise `INCOMPLETE — NEXT EVIDENCE REQUIRED` or
-   `INTEGRITY_BLOCKED` promptly, **not** a football PASS.
+   or goal-three gate. If an essential source/XI/quote is missing for a
+   **PREMATCH BET** decision, issue a precise `INCOMPLETE — NEXT EVIDENCE
+   REQUIRED` rather than pretending a PASS. In a **STARTED** fixture,
+   a missing quote does not stop the independent C/C2 football analysis;
+   mark the betting subdecision `UNPRICED` only.
 5. A WAIT that needs an unlikely future total, negative team news or
    a kickoff-window violation must be a PASS. Never wait for a lower
    line as a substitute for resolving the third-goal hypothesis.
