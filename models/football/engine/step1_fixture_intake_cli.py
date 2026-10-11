@@ -80,6 +80,10 @@ def validate_step1_fixture_evidence(data: dict[str, Any]) -> dict[str, Any]:
         )
     return {
         "status": (
+            "STEP1 FOOTBALL EVIDENCE VERIFIED — KICKOFF RECHECK REQUIRED"
+            if mode == FOOTBALL_ONLY_MODE and kickoff_recheck else
+            "STEP1 FOOTBALL EVIDENCE VERIFIED — MARKET UNOBSERVED"
+            if mode == FOOTBALL_ONLY_MODE else
             "STEP1 MATCH EVIDENCE VERIFIED — KICKOFF RECHECK REQUIRED"
             if kickoff_recheck else "STEP1 MATCH EVIDENCE VERIFIED"
         ),
