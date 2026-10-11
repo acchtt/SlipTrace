@@ -19,7 +19,7 @@ Normal user sweeps run in `FAST_PRODUCTION` unless the user explicitly requests 
 
 In FAST_PRODUCTION:
 
-- proactive domestic-league discovery is PRIORITY + NORMAL, including approved Germany 2. Bundesliga;
+- proactive domestic-league discovery is PRIORITY + NORMAL, including approved Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon (both need actual PROVEN_LEAGUE channels);
 - CONDITIONAL leagues are not searched or cheap-gated unless the user explicitly names one, **except England Championship**, which receives one source-local cheap goal-signal scan under the 2026-10-11 lower-division pilot. Do not research the entire Championship deeply; only independently verified qualifying fixtures may enter A/B queue;
 - cup discovery is surface-only: retain clearly eligible senior cup fixtures visible in the date batch, but do not launch a separate cup crawl;
 - raw omissions outside the direct retained footprint are non-blocking;
@@ -123,7 +123,7 @@ These fixtures are excluded **before** the league registry's CONDITIONAL gate. D
 
 A league being a national top flight does **not by itself** guarantee CONDITIONAL status.
 
-**Explicit approved lower divisions:** Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL), and England Championship (CONDITIONAL, per-fixture proof only). They are whitelisted into the NORMAL direct-to-Work lane by `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md` and must not be filtered merely because they are second-tier competitions.
+**Explicit approved lower divisions:** Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon (NORMAL competition screening), plus England Championship (CONDITIONAL, per-fixture proof only). NORMAL permits a cheap league-channel verification, not direct Work admission; every A/B fixture needs provider evidence, XI and Asian-total publishing proof.
 
 **Netherlands Eerste Divisie participant exception — effective 2026-09-19 ICT:** official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are included. The generic youth/Uxx/reserve/development team exclusion does not remove an official Eerste Divisie league fixture solely because a participant is named Jong or U21. This exception is confined to the Eerste Divisie competition itself and does not admit separate youth, reserve, development, cup, or friendly competitions.
 
@@ -143,7 +143,7 @@ Send to Work automatically.
 
 Send to Work automatically.
 
-This includes explicitly approved lower divisions listed as NORMAL in the registry: Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, and Germany 2. Bundesliga. A/B viability, proof and capacity still apply.
+This includes explicitly approved lower divisions listed as NORMAL in the registry: Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon. A/B viability, source-backed PROVEN_LEAGUE evidence for new pilots, and capacity still apply.
 
 ### CONDITIONAL
 
@@ -320,7 +320,7 @@ If a weak/obscure league needs research merely to decide whether it deserves CON
 
 Likewise, if a marginal non-European domestic cup requires substantial research merely to decide whether it is important enough to include, it should be excluded under the small-national-cup rule for that run.
 
-Explicitly approved lower divisions such as Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX and Germany 2. Bundesliga (NORMAL), and evidence-qualified England Championship (CONDITIONAL), bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus. Within official Netherlands Eerste Divisie league fixtures, Jong/U21/reserve-branded participant teams are included under the explicit 2026-09-19 competition-scoped exception and must not be removed by the generic participant-name youth/reserve filter.
+Explicitly approved lower divisions such as Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon (NORMAL), and evidence-qualified England Championship (CONDITIONAL), bypass the blanket lower-division exclusion only to the extent stated in the registry; they receive no structural or ranking bonus. Within official Netherlands Eerste Divisie league fixtures, Jong/U21/reserve-branded participant teams are included under the explicit 2026-09-19 competition-scoped exception and must not be removed by the generic participant-name youth/reserve filter.
 
 ---
 
