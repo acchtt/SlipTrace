@@ -99,6 +99,18 @@ Aliases are case-insensitive, but the canonical display form is lowercase.
 
 Only the **first** alias token routes the message. Text later in the message is normal argument text.
 
+## V4 open-league priority override
+
+/sweep: acquire current time-bounded senior fixtures WITHOUT pre-filtering
+to registered competitions; apply explicit exclusions after acquisition.
+Unknown official domestic leagues/cups belong to `DISCOVERY`: gather
+source-backed team goals and exact match researchability evidence, place
+qualified goals candidates into the original ranked research pool, and
+retain other discovered matches as `PENDING_DISCOVERY` with reasons.
+/rank: assess discovery-qualified fixtures with C official/C2 shadow
+like other candidates, and never turn pending discovery into model PASS.
+The historical V1–V3 pipeline remains retired; no retroactive edits.
+
 ## V4 command semantics — current
 
 `/sweep [window]`: single bounded actual source snapshot; capture
