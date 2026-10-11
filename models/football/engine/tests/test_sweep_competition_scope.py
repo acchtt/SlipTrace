@@ -87,6 +87,31 @@ class ScopeFirstTests(unittest.TestCase):
         self.assertEqual(len(screened["blocks"]["SCOPE_EXCLUDED"]), 2)
         self.assertTrue(screened["raw_ledger_retained"])
 
+    def test_hk_malaysia_senior_topflight_scoped_pilot(self):
+        for n,country in (
+            ("Premier League","Hong Kong"),
+            ("Hong Kong Premier League","Hong Kong SAR"),
+            ("BOC Life Hong Kong Premier League","Hong Kong"),
+            ("Super League","Malaysia"),
+            ("Liga Super","Malaysia"),
+            ("Malaysia Super League","Malaysia"),
+        ):
+            with self.subTest(name=n, country=country):
+                r=classify_competition(c(n,country))
+                self.assertEqual(r["lane"],"CONDITIONAL_CHEAP_GATE")
+                self.assertIn("SOURCE-LOCAL",r["reason"])
+        for n,country in (
+            ("Premier League","Malaysia"),("Super League","Hong Kong"),
+            ("Liga Super","Indonesia"),("Premier League","Cambodia"),
+            ("Hong Kong Premier League","Thailand"),("Malaysia Super League","Qatar"),
+            ("HKFA First Division","Hong Kong"),("Malaysia Premier League","Malaysia"),
+            ("Premier League U22","Hong Kong"),("M3 League","Malaysia"),
+        ):
+            with self.subTest(name=n, country=country):
+                self.assertEqual(classify_competition(c(n,country))["lane"],"SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c("Liga Super","Malaysia",is_friendly=True))["lane"],"SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c("Hong Kong Women's Premier League","Hong Kong",kind="WOMENS_TOP_FLIGHT"))["lane"],"COVERAGE_AUDIT_PROOF_REQUIRED")
+
     def test_poland_ekstraklasa_source_local_conditional_pilot(self):
         candidate = classify_competition(c("Ekstraklasa", "Poland"))
         self.assertEqual(candidate["lane"], "CONDITIONAL_CHEAP_GATE")

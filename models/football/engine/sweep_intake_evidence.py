@@ -262,6 +262,72 @@ def _poland_ekstraklasa_goal_signal_defects(row: dict[str, Any]) -> list[str]:
     )
 
 
+# Short-season Hong Kong/Malaysia league pilots: source-backed proof only.
+# Three verified completed matches per side is a deliberately smaller minimum
+# than Championship/Poland's five, since October 2026 has very few league rounds.
+ASIA_TOPFLIGHT_PILOT_NAMES = {
+    "hong kong": frozenset({"premier league", "hong kong premier league",
+                           "boc life hong kong premier league"}),
+    "hong kong sar": frozenset({"premier league", "hong kong premier league",
+                               "boc life hong kong premier league"}),
+    "malaysia": frozenset({"super league", "malaysia super league",
+                           "malaysian super league", "liga super"}),
+}
+ASIA_TOPFLIGHT_PILOT_FIELD = "asia_topflight_recent_goal_evidence"
+
+
+def _asia_topflight_goal_signal_defects(row: dict[str, Any]) -> list[str]:
+    name = row.get("competition_name") or row.get("competition")
+    country = row.get("country")
+    if not isinstance(name, str) or not isinstance(country, str):
+        return []
+    c, n = country.strip().casefold(), name.strip().casefold()
+    if n not in ASIA_TOPFLIGHT_PILOT_NAMES.get(c, frozenset()):
+        return []
+    prefix = "HKPL" if c in {"hong kong", "hong kong sar"} else "MY_SUPER"
+    evidence = row.get(ASIA_TOPFLIGHT_PILOT_FIELD)
+    if not isinstance(evidence, dict):
+        return [f"{prefix}_RECENT_GOAL_PROOF_MISSING"]
+    ko = _utc_timestamp(row.get("fixture_kickoff_utc"))
+    captured = _utc_timestamp(evidence.get("captured_at_utc"))
+    if ko is None or captured is None or not timedelta(0) <= ko - captured <= timedelta(days=7):
+        return [f"{prefix}_RECENT_GOAL_PROOF_STALE_OR_POST_KO"]
+    stats = []
+    for side in ("home", "away"):
+        item = evidence.get(side)
+        if not isinstance(item, dict) or not _source_url(item.get("source_url")):
+            return [f"{prefix}_{side.upper()}_RESULT_SOURCE_UNVERIFIED"]
+        matches = item.get("recent_competitive_matches")
+        if not isinstance(matches, list) or not 3 <= len(matches) <= 5:
+            return [f"{prefix}_{side.upper()}_THREE_TO_FIVE_RESULTS_REQUIRED"]
+        ids, totals, traps = set(), [], 0
+        for m in matches:
+            if not isinstance(m, dict):
+                return [f"{prefix}_{side.upper()}_RESULT_INVALID"]
+            match_id, when = m.get("match_id"), _utc_timestamp(m.get("kickoff_utc"))
+            gf, ga = m.get("goals_for"), m.get("goals_against")
+            if (not _nonempty(match_id) or match_id in ids or
+                when is None or not timedelta(hours=2) <= captured - when or
+                not timedelta(0) < ko - when <= timedelta(days=120) or
+                m.get("competitive") is not True or
+                isinstance(gf, bool) or not isinstance(gf, int) or not 0 <= gf <= 20 or
+                isinstance(ga, bool) or not isinstance(ga, int) or not 0 <= ga <= 20):
+                return [f"{prefix}_{side.upper()}_RESULT_INVALID"]
+            ids.add(match_id)
+            totals.append(gf + ga)
+            traps += int((gf, ga) in {(0, 0), (1, 1)})
+        stats.append({"avg": sum(totals) / len(totals),
+                      "over": sum(v >= 3 for v in totals) / len(totals),
+                      "stalls": sum(v <= 2 for v in totals) / len(totals),
+                      "traps": traps / len(totals)})
+    home, away = stats
+    if any(t["traps"] >= 0.60 or t["stalls"] >= 0.80 for t in stats):
+        return [f"{prefix}_REPEATED_STALL_OR_0_0_1_1_TRAP"]
+    both = min(home["avg"], away["avg"]) >= 2.8 and min(home["over"], away["over"]) >= 0.4
+    carrier = max(home["avg"], away["avg"]) >= 3.4 and min(home["avg"], away["avg"]) >= 2.0 and min(home["over"], away["over"]) >= 0.25
+    return [] if (both or carrier) else [f"{prefix}_CHEAP_GOAL_SIGNAL_NOT_PROVEN"]
+
+
 def validate_shared_league_profiles(rows: list[dict[str, Any]]) -> list[str]:
     """One immutable channel proof per competition in a new Step-0 sweep.
 
@@ -341,7 +407,8 @@ def validate_work_candidate(row: dict[str, Any], *, intake_policy: str = "XI_MAR
         # /rank and again at /xi before any official bet.
         return (defects + _league_channel_defects(row)
                 + _championship_goal_signal_defects(row)
-                + _poland_ekstraklasa_goal_signal_defects(row))
+                + _poland_ekstraklasa_goal_signal_defects(row)
+                + _asia_topflight_goal_signal_defects(row))
 
     # Legacy XI_MARKET_FIRST_V1 is unchanged for existing running/frozen sweeps.
     # 24h discovery occurs long before official match-day XIs drop. Require

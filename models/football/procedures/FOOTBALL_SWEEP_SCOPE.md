@@ -20,7 +20,7 @@ Normal user sweeps run in `FAST_PRODUCTION` unless the user explicitly requests 
 In FAST_PRODUCTION:
 
 - proactive domestic-league discovery is PRIORITY + NORMAL, including approved Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon (both need actual PROVEN_LEAGUE channels);
-- CONDITIONAL leagues are not searched or cheap-gated unless explicitly named, except **England Championship and Poland Ekstraklasa**, each receiving one bounded source-local block scan with current five-match, both-team verified goal evidence. Neither competition is blanket admitted; only operationally sound qualifying fixtures may enter A/B;
+- CONDITIONAL leagues remain source-local unless explicitly named, except **England Championship, Poland Ekstraklasa, Hong Kong senior Premier League and Malaysia senior Super League**, each receiving one bounded in-window block scan. Championship/Poland require five verified competitive games per team; Hong Kong/Malaysia require three to five per team due to early season. All remain selective, never wholesale admitted;
 - cup discovery is surface-only: retain clearly eligible senior cup fixtures visible in the date batch, but do not launch a separate cup crawl;
 - raw omissions outside the direct retained footprint are non-blocking;
 - repeated same-end sweeps should reuse verified Daily Coverage Ledger rows from the latest covering COMPLETE run.
@@ -151,7 +151,7 @@ CONDITIONAL is **explicit-list only**. Only competitions named in the active reg
 
 For listed CONDITIONAL leagues:
 
-- **England Championship and Poland Ekstraklasa are the only standing FAST_PRODUCTION conditional exceptions.** Inspect each in-window listing/source-local block once, using existing source batch/cached form without a global sweep. Championship uses `championship_recent_goal_evidence`; Poland uses `poland_ekstraklasa_recent_goal_evidence`. Both require five independent actual pre-kickoff competitive scorelines per side (IDs, UTC, scored/conceded, HTTPS source, recent capture). Stop immediately when data are unavailable; no deep individual XI/odds search to force a pass. No static team bonuses, no whole-league admission.
+- **Only four standing FAST_PRODUCTION conditional exceptions:** England Championship, Poland Ekstraklasa, Hong Kong senior Premier League, Malaysia senior Super League. Inspect an in-window listing or cached locator once; do not start a global crawl. Championship/Poland retain their five-result checks. Hong Kong/Malaysia must supply `asia_topflight_recent_goal_evidence` with 3–5 real completed competitive scorelines per team, IDs, UTC, HTTPS, captured within seven days before KO; reject repeated 0–0/1–1/low-total traps. Missing evidence is not an Under prediction. Youth/U22, HKFA lower and Malaysian M3 remain excluded.
 
 - do not run a separate global hunt for the competition;
 - inspect it only when its block is directly available on the required AiScore date/listing surface for the requested window, or when a cached/current competition locator already exists;
