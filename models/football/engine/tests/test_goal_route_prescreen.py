@@ -75,6 +75,78 @@ class FullQueuePrescreenTests(unittest.TestCase):
         self.assertEqual(row["queue_rank"], 13)
         self.assertEqual(row["screen_status"], "QUANTIFIED")
 
+    def test_big_five_dynamic_route_shape_uses_recent_results_not_static_team_name(self):
+        rows = candidates(10)
+        target = rows[2]
+        target["country"] = "England"
+        target["competition_name"] = "Premier League"
+        target["football_evidence"] = football_evidence(True)
+        target["home_team"] = "Unknown promoted club"
+        out = run_prescreen(request(rows))
+        r = next(r for r in out["manifest"]["original_rows"] if r["match_id"] == "m3")
+        self.assertEqual(r["big_five_route_screen"]["route_shape"], "BIDIRECTIONAL_CONTRIBUTION")
+        self.assertFalse(r["big_five_route_screen"]["draw_trap_alert"])
+        self.assertEqual(out["big_five_route_screened_count"], 1)
+        self.assertEqual(out["original_step0_source_hash"], HASH)
+
+    def test_btts_one_one_draw_trap_discounts_priority_without_exclusion(self):
+        rows = candidates(10)
+        c = rows[1]
+        c["country"] = "Germany"
+        c["competition_name"] = "Bundesliga"
+        c["football_evidence"] = {
+            "home": {"source_url": "https://scores.example.org/home",
+                     "observed_at_utc": NOW_ISO, "recent": recent(1, 1)},
+            "away": {"source_url": "https://scores.example.org/away",
+                     "observed_at_utc": NOW_ISO, "recent": recent(1, 1)},
+        }
+        out = run_prescreen(request(rows))
+        r = next(r for r in out["manifest"]["original_rows"] if r["match_id"] == "m2")
+        self.assertEqual(r["big_five_route_screen"]["route_shape"], "LOW_GOAL_DRAW_TRAP")
+        self.assertTrue(r["big_five_route_screen"]["draw_trap_alert"])
+        self.assertLess(r["big_five_route_screen"]["research_priority_adjustment"], 0)
+        self.assertEqual(r["screen_status"], "QUANTIFIED")
+        self.assertIn("m2", out["manifest"]["ordered_eligible_match_ids"])
+        self.assertEqual(out["big_five_draw_trap_alert_count"], 1)
+
+    def test_big_five_no_country_agnostic_league_bonus(self):
+        rows = candidates(9)
+        rows[0]["competition_name"] = "Premier League"
+        rows[0]["country"] = "Malaysia"
+        rows[1]["competition_name"] = "Serie A"
+        rows[1]["country"] = "Brazil"
+        rows[2]["competition_name"] = "Bundesliga"
+        # Old callers without country remain neutral.
+        out = run_prescreen(request(rows))
+        self.assertEqual(out["big_five_route_screened_count"], 0)
+        self.assertTrue(all(r["big_five_route_screen"] is None
+                            for r in out["manifest"]["original_rows"]))
+
+    def test_big_five_evidence_missing_stays_neutral_and_stale_is_invalid(self):
+        rows = candidates(9)
+        rows[0]["country"] = "Spain"
+        rows[0]["competition_name"] = "La Liga"
+        rows[0]["football_evidence"] = {"home": None, "away": None}
+        out = run_prescreen(request(rows))
+        self.assertEqual(out["big_five_route_screened_count"], 0)
+        self.assertEqual(out["manifest"]["original_rows"][0]["screen_status"], "EVIDENCE_LIMITED")
+        rows[0]["football_evidence"] = football_evidence(True)
+        rows[0]["football_evidence"]["home"]["observed_at_utc"] = (NOW + timedelta(days=1)).isoformat()
+        with self.assertRaises(GoalPrescreenError):
+            run_prescreen(request(rows))
+
+    def test_big_five_schedule_fingerprint_and_model_separation(self):
+        rows = candidates(10)
+        rows[0]["country"], rows[0]["competition_name"] = "France", "Ligue 1"
+        rows[0]["football_evidence"] = football_evidence(True)
+        out = run_prescreen(request(rows))
+        manifest = out["manifest"]
+        self.assertEqual(verified_research_order(manifest, queue(rows), HASH),
+                         manifest["ordered_eligible_match_ids"])
+        manifest["original_rows"][0]["big_five_route_screen"]["route_shape"] = "INJECTED"
+        with self.assertRaisesRegex(GoalPrescreenError, "fingerprint"):
+            verified_research_order(manifest, queue(rows), HASH)
+
     def test_unknown_evidence_is_not_false_negative(self):
         rows = candidates(12)
         for c in rows:
