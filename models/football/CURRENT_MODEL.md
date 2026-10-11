@@ -1,5 +1,19 @@
 # Current Football Model
 
+## V4 open-league goal discovery — source-first (2026-10-12)
+
+**No registry-only hard exclusion for otherwise eligible official domestic
+competitions.** First obtain all source-visible, window-specific senior
+competitive fixtures, then retain nonregistered leagues/official cups as
+`DISCOVERY`. Only source-backed scoring form for both teams and real
+current researchability/format evidence can promote a discovery match
+into the C/C2 football research queue. Missing proof/low signal remains
+`PENDING_DISCOVERY` in the ledger/watchlist rather than disappearing or
+being labelled model PASS. Preserve explicit country/league bans,
+friendlies, immutable fixture IDs and clock gates. See
+`models/football/stages_v4/discovery_goal_gate.py` and V4 SOP.
+Historical sealed receipts retain their original admission status.
+
 ## Current replacement — V4 /sweep and /rank (approved 2026-10-11)
 
 **ACTIVE NEW STAGES:** `models/football/stages_v4/SWEEP.md`
