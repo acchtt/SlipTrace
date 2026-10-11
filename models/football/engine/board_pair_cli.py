@@ -199,6 +199,10 @@ def run_board_pair(
 
 
 def main() -> int:
+    # Current production Stage 0/1 is decommissioned. Pure functions below
+    # remain for immutable historical regression/audit, not user execution.
+    from sweep_rank_retired import stop_retired_cli
+    return stop_retired_cli("step1-c-c2-board-runner")
     parser = argparse.ArgumentParser(
         description="Run Football C+C2 Step-1 board validation with common-evidence reconciliation"
     )
