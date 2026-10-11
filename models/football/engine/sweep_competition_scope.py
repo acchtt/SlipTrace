@@ -29,6 +29,8 @@ PRIORITY_NORMAL = frozenset({
     "saudi pro league",
     "j1 league", "japan j1 league", "j2 league", "japan j2 league",
     "k league 1", "korea k league 1",
+    # Germany 2. Bundesliga: explicit senior-professional second-tier pilot.
+    "2 bundesliga", "2nd bundesliga", "germany 2 bundesliga",
 })
 CONDITIONAL = frozenset({
     "czech first league", "czech first division", "ekstraklasa",
@@ -43,12 +45,16 @@ CONDITIONAL = frozenset({
     "colombia primera a", "ecuador ligapro serie a",
     "uruguay primera division", "russian premier league",
     "k league 2", "korea k league 2",
+    # England Championship: limited cheap goal-signal gate, not blanket admission.
+    "championship", "efl championship", "english championship",
+    "england championship", "sky bet championship",
 })
 # Names are never country-agnostic: "Premier League", "Serie A" and
 # "Bundesliga" are used by many weak-data competitions.
 REGISTERED_DIRECT = {
     "netherlands": {"eredivisie", "netherlands eredivisie", "eerste divisie", "eerstedivisie", "netherlands eerste divisie"},
-    "germany": {"bundesliga", "german bundesliga"},
+    "germany": {"bundesliga", "german bundesliga",
+                "2 bundesliga", "2nd bundesliga", "germany 2 bundesliga"},
     "belgium": {"belgian pro league", "belgian first division a"},
     "norway": {"eliteserien", "norwegian eliteserien"},
     "sweden": {"allsvenskan", "sweden allsvenskan"},
@@ -74,6 +80,8 @@ REGISTERED_DIRECT = {
     "korea": {"k league 1", "korea k league 1"},
 }
 REGISTERED_CONDITIONAL = {
+    "england": {"championship", "efl championship", "english championship",
+                "england championship", "sky bet championship"},
     "czech republic": {"czech first league", "czech first division"},
     "poland": {"ekstraklasa"},
     "greece": {"greek super league", "greece super league"},
@@ -157,6 +165,8 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
         if name in PRIORITY_NORMAL and name in REGISTERED_DIRECT.get(country, set()):
             return {"lane": "ROUTINE_LEAGUE_PROFILE", "reason": "EXPLICIT COUNTRY+LEAGUE PRIORITY/NORMAL REGISTRY"}
         if name in CONDITIONAL and name in REGISTERED_CONDITIONAL.get(country, set()):
+            if country == "england":
+                return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "CHAMPIONSHIP TARGETED LOWER-DIVISION PILOT — PER-FIXTURE FIVE-MATCH GOAL PROOF REQUIRED"}
             return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "EXPLICIT COUNTRY+LEAGUE CONDITIONAL REGISTRY"}
         return {"lane": "SCOPE_EXCLUDED", "reason": "UNLISTED/WEAK-DATA DOMESTIC LEAGUE — NO RESEARCH"}
     if kind == "PROTECTED_OFFICIAL" or kind == "CONTINENTAL":
