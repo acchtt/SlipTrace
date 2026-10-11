@@ -128,6 +128,8 @@ Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or recon
 
 ### /xi, /xi exception, /assess
 
+Every invocation must reload the current launcher from current repository authority, including the newer simple ASSESS-first contract, rather than reuse cached Work instruction text.
+
 **Default: ASSESS, without odds.** Use the current XI/live football
 launcher, but run the pinned quote-free C+C2 assess mode FIRST.
 Do not ask for any quote or new price. Supplied market screenshots
