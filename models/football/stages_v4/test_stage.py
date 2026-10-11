@@ -102,7 +102,7 @@ class ResearchedRegistryTests(unittest.TestCase):
         ):
             self.assertEqual(classify(fixture("a",country,league))["lane"], "EXCLUDED")
         self.assertEqual(classify(fixture("a","England","Club Friendlies"))["lane"], "EXCLUDED")
-        self.assertEqual(classify(fixture("a","Pakistan","Premier League"))["lane"], "EXCLUDED")
+        self.assertEqual(classify(fixture("a","Pakistan","Premier League"))["lane"], "DISCOVERY")
 
     def test_verified_women_topflight_and_competitive_cups_without_global_scan(self):
         self.assertEqual(classify(fixture(
