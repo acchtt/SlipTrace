@@ -77,6 +77,28 @@ class PortableStep0Tests(unittest.TestCase):
         row["championship_recent_goal_evidence"] = LeagueChannelFirstTests.championship_evidence()
         self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
 
+    def test_obos_portable_scope_and_proven_channel_policy(self):
+        self.portable._load()
+        from sweep_competition_scope import classify_competition
+        from sweep_intake_evidence import validate_work_candidate
+        from test_sweep_intake_evidence import league_candidate
+        for alias in ("OBOS-ligaen", "1. divisjon", "Norway First Division"):
+            self.assertEqual(classify_competition({
+                "competition_name": alias,
+                "competition_kind": "DOMESTIC_LEAGUE",
+                "country": "Norway"})["lane"], "ROUTINE_LEAGUE_PROFILE")
+        for league in ("2. divisjon", "3. divisjon"):
+            self.assertEqual(classify_competition({
+                "competition_name": league,
+                "competition_kind": "DOMESTIC_LEAGUE",
+                "country": "Norway"})["lane"], "SCOPE_EXCLUDED")
+        row = league_candidate("OBOS-ligaen", "PROVEN_LEAGUE")
+        self.assertEqual(validate_work_candidate(
+            row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 0
+        self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
     def test_portable_package_same_guarded_success_and_failure(self):
         self.portable._load()
         from step0_package_cli import package, Step0HandoffError
