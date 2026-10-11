@@ -20,7 +20,7 @@ Normal user sweeps run in `FAST_PRODUCTION` unless the user explicitly requests 
 In FAST_PRODUCTION:
 
 - proactive domestic-league discovery is PRIORITY + NORMAL, including approved Germany 2. Bundesliga and Norway OBOS-ligaen / 1. divisjon (both need actual PROVEN_LEAGUE channels);
-- CONDITIONAL leagues are not searched or cheap-gated unless the user explicitly names one, **except England Championship**, which receives one source-local cheap goal-signal scan under the 2026-10-11 lower-division pilot. Do not research the entire Championship deeply; only independently verified qualifying fixtures may enter A/B queue;
+- CONDITIONAL leagues are not searched or cheap-gated unless explicitly named, except **England Championship and Poland Ekstraklasa**, each receiving one bounded source-local block scan with current five-match, both-team verified goal evidence. Neither competition is blanket admitted; only operationally sound qualifying fixtures may enter A/B;
 - cup discovery is surface-only: retain clearly eligible senior cup fixtures visible in the date batch, but do not launch a separate cup crawl;
 - raw omissions outside the direct retained footprint are non-blocking;
 - repeated same-end sweeps should reuse verified Daily Coverage Ledger rows from the latest covering COMPLETE run.
@@ -151,7 +151,7 @@ CONDITIONAL is **explicit-list only**. Only competitions named in the active reg
 
 For listed CONDITIONAL leagues:
 
-- **England Championship is the sole standing FAST_PRODUCTION exception.** Inspect one in-window listing/source-local block and validate the five previous competitive matches per team under `championship_recent_goal_evidence` before Work; when evidence is absent, exclude without a deep per-fixture search. Preserve source URLs and timestamps; no static team list or scoring-rate bonus.
+- **England Championship and Poland Ekstraklasa are the only standing FAST_PRODUCTION conditional exceptions.** Inspect each in-window listing/source-local block once, using existing source batch/cached form without a global sweep. Championship uses `championship_recent_goal_evidence`; Poland uses `poland_ekstraklasa_recent_goal_evidence`. Both require five independent actual pre-kickoff competitive scorelines per side (IDs, UTC, scored/conceded, HTTPS source, recent capture). Stop immediately when data are unavailable; no deep individual XI/odds search to force a pass. No static team bonuses, no whole-league admission.
 
 - do not run a separate global hunt for the competition;
 - inspect it only when its block is directly available on the required AiScore date/listing surface for the requested window, or when a cached/current competition locator already exists;
