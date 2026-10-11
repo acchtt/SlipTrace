@@ -5,11 +5,12 @@
 ## Intent
 
 Stop researching the current bookmaker total and each team's previous/current
-lineup channel **for every fixture** in a verified professional league. Step 0
-should establish that a league's publication ecosystem works, once per
-competition/season/source refresh, then cheaply classify all in-window fixtures
-using verified identities, kickoff times, user scope and existing operational
-quality/competition-reliability gates.
+lineup channel **for every fixture** in a verified professional league. For
+registered Tier-1 country+league pairs, standard lineup and Asian-total
+availability is an **expected operational property**, not a historical-proof
+blocker at Step 0. Non-Tier-1 leagues still need a genuine league-season
+publication profile. All fixtures still require verified identities, kickoff
+times, user scope and existing operational quality/reliability gates.
 
 **Tier 1 is a data-coverage designation, NOT an automatic bet, goal signal,
 A grade or exemption from a user league exclusion.** Source-backed channel
@@ -18,14 +19,15 @@ timestamps to make a fixture look researched.
 
 ## Deterministic profile contract
 
-One real provider-verified league profile can be attached unchanged to multiple
-in-window fixture rows and persisted once in the competition block's evidence
-manifest. Each admitted/deferred row references the frozen same profile and
-carries `intake_evidence_scope=LEAGUE_CHANNEL_ONLY`. Both the cheap preflight
-and final Step-0 handoff validate that **all fixtures of the same league use
-the identical frozen league profile** (source URLs, observation epoch,
-season and basis); contradictory fixture-by-fixture profiles are blocked,
-not silently treated as independent league verification.
+For `PROVEN_LEAGUE`, a genuinely verified league-season profile must be
+attached unchanged to every candidate from the same league. For registered
+`TIER1_STANDARD` country+league pairs, the profile is **optional** in new
+prospective Step0 sweeps: the exact code registration establishes expected
+publication availability, so no historic XI fixtures, Asian-total markets,
+provider URLs or 30-day attestation timestamp are needed. If profiles are
+supplied, contradictory fixture-by-fixture profiles are still rejected.
+Every A/B candidate must carry `intake_evidence_scope=LEAGUE_CHANNEL_ONLY`.
+Never mislabel inferred standard availability as `VERIFIED_CHANNELS`.
 
 Example **shape only** (URLs and dates below are placeholders; replace with
 actually visited/confirmed sources, never claim the example is verified):
@@ -49,16 +51,20 @@ actually visited/confirmed sources, never claim the example is verified):
 }
 ```
 
-The profile must be dated within 30 days before kickoff, match the actual
-fixture's competition, show working credible HTTPS source channels, and
-record the current competition season. A generic league fixture schedule
-alone is **not** proof of an Asian-total sportsbook feed or lineup channel.
-It must be independently source-backed. No per-fixture offered line, price,
-bookmaker timestamp or confirmed starting XI is required **at Step 0**.
+The example above is a fully evidenced profile shape, **not** mandatory for
+registered Tier-1 competitions. For other leagues, a profile must be dated
+within 30 days before kickoff, match the competition and season and show
+working credible HTTPS lineup, Asian-total and team-news source channels.
+A generic fixture schedule alone does not establish a bookmaker or XI feed.
+No per-fixture executable line, price, book timestamp or confirmed XI is
+required **at Step 0** for either profile type.
 
-For `TIER1_STANDARD`, the code only allows explicitly named Tier 1 coverage
-competitions in `sweep_intake_evidence.TIER1_CHANNEL_LEAGUES`. Do not
-self-declare obscure cups, unknown competitions or unlisted leagues Tier 1.
+The Tier-1 bypass is allowed only for precise **country + competition** pairs
+in `sweep_intake_evidence.TIER1_STANDARD_COUNTRY_LEAGUES`, and only in the
+new prospective `LEAGUE_CHANNEL_FIRST_V1` Step0 path. Generic words such as
+“Premier League,” “Bundesliga” or “Serie A” from another country are not Tier-1.
+No self-declared label, missing country, cup, women/youth league, or lower
+professional division receives this bypass.
 For `PROVEN_LEAGUE`, require evidence of **at least two** league fixtures
 with real published XI and independently observed Asian totals in the current
 ecosystem; fill `recent_xi_fixture_count` and
@@ -78,7 +84,8 @@ For each fixture still require:
   `team_news_observability=HIGH/MEDIUM` explicitly understood as
   **league-channel expected coverage**, not observed match quotations;
 - a near-kickoff `xi_recheck_due_utc` 30–180 min before KO;
-- source-backed profile and per-fixture reasons.
+- competition-official fixture source and per-fixture operational reasons;
+  `PROVEN_LEAGUE` also requires its historic source-backed profile.
 
 All hard exclusions, friendlies, league registry/user bans, identity/time
 conflicts, protected/women required manifests and finite source retries
