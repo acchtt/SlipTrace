@@ -541,6 +541,18 @@ def advance_after_chunk(
     }
 
 
+def _women_source_coverage_verified(payload: dict[str, Any]) -> bool:
+    """Bounded source parity is NOT a claim of exact global AiScore coverage."""
+    if payload.get("source_scope") == "BOUNDED_PRODUCTION_DISCOVERY":
+        try:
+            from bounded_womens_coverage import validate_bounded_womens_coverage
+            validate_bounded_womens_coverage(payload)
+        except (ValueError, TypeError, KeyError):
+            return False
+        return True
+    return payload.get("women_top_flight_global_confirmed") is True
+
+
 def _fast_v2_deadline(payload: dict[str, Any], *, now: str) -> dict[str, Any]:
     """Prospective bounded sweep budget. No source/evidence is manufactured.
 
@@ -585,7 +597,7 @@ def _fast_v2_deadline(payload: dict[str, Any], *, now: str) -> dict[str, Any]:
             and not cp["terminal_unresolved_verification_blocks"]
             and payload.get("reconciliation_complete") is True
             and payload.get("required_competition_blocks_complete") is True
-            and payload.get("women_top_flight_global_confirmed") is True
+            and _women_source_coverage_verified(payload)
             and isinstance(payload.get("final_source_fixture_inventory_hash"), str)
             and bool(payload["final_source_fixture_inventory_hash"].strip())):
         return {
@@ -605,8 +617,15 @@ def _fast_v2_deadline(payload: dict[str, Any], *, now: str) -> dict[str, Any]:
         sentinel = "SOURCE_OR_DISCOVERY_NOT_RECONCILED"
         if sentinel not in unresolved:
             unresolved.append(sentinel)
+    if not _women_source_coverage_verified(payload):
+        sentinel = (
+            "BOUNDED_WOMENS_SURFACED_SCOPE_NOT_VERIFIED"
+            if payload.get("source_scope") == "BOUNDED_PRODUCTION_DISCOVERY"
+            else "GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION"
+        )
+        if sentinel not in unresolved:
+            unresolved.append(sentinel)
     required = {
-        "women_top_flight_global_confirmed": "GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION",
         "required_competition_blocks_complete": "REQUIRED_COMPETITION_COVERAGE_NOT_VERIFIED",
         "final_source_fixture_inventory_hash": "FULL_SOURCE_FIXTURE_INVENTORY_NOT_VERIFIED",
     }
