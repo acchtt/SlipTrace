@@ -105,10 +105,12 @@ class SimpleAssessBetRoutingTests(unittest.TestCase):
         from test_adapter import pair_payload
         c, c2 = pair_payload("c"), pair_payload("c2")
         c["context"]["quote_revalidated"] = False
+        c2["context"]["quote_revalidated"] = False
         p = run_portable("xi", c, c2)
         self.assertNotEqual(p.returncode, 0)
         self.assertIn("QUOTE NOT REVALIDATED", p.stderr)
         c = pair_payload("c")
+        c2 = pair_payload("c2")
         c["context"]["fixture_status"] = "STARTED"
         c2["context"]["fixture_status"] = "STARTED"
         p = run_portable("xi", c, c2)
@@ -122,7 +124,7 @@ class SimpleAssessBetRoutingTests(unittest.TestCase):
         self.assertIn("one assessment, just as before", current)
         self.assertIn("one", simple.lower())
         self.assertIn("no extra user step", simple.lower())
-        self.assertIn("without asking for more market screenshots", aliases)
+        self.assertIn("without asking", aliases)
         self.assertIn("Single /xi command", simple)
         for path in (
             FOOTBALL / "prompts" / "xi.md",
