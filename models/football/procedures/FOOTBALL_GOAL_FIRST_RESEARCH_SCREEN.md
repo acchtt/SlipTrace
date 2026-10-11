@@ -20,6 +20,31 @@ A high-scoring final result is **audit evidence**, never input to a historical p
 7. The existing **match-specific Step1 intake gate** still requires real current fixture bookmaker line/source/time and verifiable team-news/XI channels. Execute the independent C+C2 board. Actual Step2 still requires genuine fresh executable odds and its current hard integrity checks.
 8. Persist screen coverage, initial/promotion order, source digest, reason for EVIDENCE_LIMITED, original operational rank, time attestations, and any research exhaustion reason. The full original ledger must remain immutable.
 
+## Source-backed kickoff correction without changing Step0
+
+A provider KO revision is a research routing discrepancy, **not** an
+automatic match exclusion. Preserve the original Step0 kickoff_utc,
+match ID, queue rank, grade and source_payload_hash exactly.
+
+Optionally supply a researched_kickoff_evidence object for the same
+fixture, with match_id, fixture_status=PREMATCH_CONFIRMED, kickoff_utc,
+observed_at_utc and an independently captured public HTTPS source_url.
+The provider observation must be within the past 30 minutes.
+Never invent this proof, and never override an actually STARTED,
+FINISHED, POSTPONED or CANCELLED match.
+
+The prescreen includes both original kickoff_utc and
+research_kickoff_utc, signed kickoff_drift_minutes,
+KICKOFF_RECHECK_REQUIRED and source URL in the fingerprinted
+manifest. Replenishment uses the observed kickoff to decide only
+whether the fixture can still receive **football research**.
+The original Step0 source and clock remain immutable.
+
+The current /xi assessment must independently verify actual KO,
+score/status, XI and newly priced market. If already started, route
+to /live and use actual live odds. A stale old source time cannot
+produce a retrospective premarket action.
+
 ## CLI usage
 
 Create `goal_route_prescreen.json` with:

@@ -150,7 +150,34 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
         if forbidden.intersection(c):
             raise GoalPrescreenError("postmatch, live, model and bookmaker fields forbidden in prescreen")
         ko = _time(c.get("kickoff_utc"), f"{match_id}.kickoff_utc")
-        valid = status == "PREMATCH_CONFIRMED" and now < ko
+        # A fresh, explicitly SAME-FIXTURE provider update may keep research
+        # open after the original frozen KO. Never mutate the Step0 clock.
+        # This only schedules C/C2 research, not a prematch BET.
+        effective_ko = ko
+        observed_ko = c.get("researched_kickoff_evidence")
+        kickoff_recheck = False
+        observed_source_url = None
+        if observed_ko is not None:
+            if not isinstance(observed_ko, dict):
+                raise GoalPrescreenError("researched_kickoff_evidence must be object")
+            if observed_ko.get("match_id") != match_id:
+                raise GoalPrescreenError("provider kickoff evidence fixture ID mismatch")
+            if observed_ko.get("fixture_status") != "PREMATCH_CONFIRMED":
+                raise GoalPrescreenError("provider kickoff evidence must attest PREMATCH_CONFIRMED")
+            observed_source_url = observed_ko.get("source_url")
+            _url(observed_source_url, f"{match_id}.researched_kickoff_evidence.source_url")
+            observed_at = _time(
+                observed_ko.get("observed_at_utc"),
+                f"{match_id}.researched_kickoff_evidence.observed_at_utc",
+            )
+            if not now - timedelta(minutes=30) <= observed_at <= now:
+                raise GoalPrescreenError("provider kickoff attestation stale or future")
+            effective_ko = _time(
+                observed_ko.get("kickoff_utc"),
+                f"{match_id}.researched_kickoff_evidence.kickoff_utc",
+            )
+            kickoff_recheck = effective_ko != ko
+        valid = status == "PREMATCH_CONFIRMED" and now < effective_ko
         score, reason, h, a = None, None, None, None
         if valid:
             evidence = c.get("football_evidence")
@@ -181,8 +208,16 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             "match_id": match_id, "queue_rank": rank,
             "operational_grade": grade,
             "fixture_status_at_screen": status,
-            "kickoff_utc": ko.isoformat(),
-            "urgent_before_kickoff": valid and (ko - now).total_seconds() <= 60 * EARLY_KICKOFF_PRIORITY_MINUTES,
+            "kickoff_utc": ko.isoformat(),  # original Step0 immutable
+            "research_kickoff_utc": effective_ko.isoformat(),
+            "kickoff_drift_minutes": round((effective_ko - ko).total_seconds() / 60, 3),
+            "kickoff_reconciliation_status": (
+                "KICKOFF_RECHECK_REQUIRED" if kickoff_recheck else "MATCHED"
+            ),
+            "provider_kickoff_source_url": observed_source_url,
+            "urgent_before_kickoff": (
+                valid and (effective_ko - now).total_seconds() <= 60 * EARLY_KICKOFF_PRIORITY_MINUTES
+            ),
             "screen_status": "CLOSED" if not valid else ("EVIDENCE_LIMITED" if score is None else "QUANTIFIED"),
             "priority_score": score, "evidence_limit_reason": reason,
             "home_sample_n": h["n"] if h else 0,

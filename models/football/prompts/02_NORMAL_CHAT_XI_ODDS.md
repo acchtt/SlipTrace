@@ -354,6 +354,27 @@ or automatic market-centre substitution is permitted.
 Only later-sealed independent holdout data may test accuracy.
 See `models/football/procedures/FOOTBALL_COHERENT_GOAL_BURDEN_QA.md`.
 
+### Frozen-versus-provider kickoff drift from Step 1 (strict /xi verification)
+
+A `/rank` result with `KICKOFF_RECHECK_REQUIRED` is a VALID
+provisional football research selection, **not** an exclusion or a
+verified prematch action. Preserve the original frozen Step0 kickoff for
+audit and keep the independently observed provider kickoff and source.
+Before issuing any model C official or C2 shadow executable decision,
+independently verify the **current** fixture identity, kickoff, status
+and assessment timestamp, then confirm whether a current pre-KO quote
+still exists. A 10-minute mismatch is not grounds to skip research.
+Never simply overwrite frozen Step0/board KO, assume the later provider
+clock is authoritative without verification, or reuse old quote epochs.
+
+If play has genuinely started, route to the existing early /live fast
+path or standard /live with contemporaneous score/line/odds. If
+match-start status or clock remains disputed, publish
+`KICKOFF_STATUS_RECHECK_REQUIRED` and **no executable BET/WAIT** (keep
+the fixture on the research board). Do not create a retrospective
+prematch action or fake a closing line. This requirement is separate
+from tournament-incentive verification and preserves C/C2 independence.
+
 ## 9. Price/action policy
 
 Use the model's independently frozen supported burden and the current revalidated quote.

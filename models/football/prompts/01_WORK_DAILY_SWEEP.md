@@ -200,20 +200,38 @@ capture line, bookmaker, observed UTC time and source link, check actual team
 news/absences and usable two-sided lineup publishing channels, then run the
 existing strict `XI_MARKET_FIRST_V1` fixture check. Build the actual fixture-specific intake payload with BOTH:
 `frozen_step0_candidate` (unaltered original A/B queue row) and
-`researched_fixture` (current matching match ID/competition/UTC kickoff and
+`researched_fixture` (current matching match ID/competition, independent observed UTC kickoff and
 real independently captured quote, lineup channels and news), plus
 `source_intake_policy=LEAGUE_CHANNEL_FIRST_V1`. Invoke:
 
 `python models/football/engine/step1_fixture_intake_cli.py --input <fixture_evidence.json>`
 
 The deterministic gate requires `STEP1 MATCH EVIDENCE VERIFIED`, binds
-the quote/XI proof to the original exact Step0 match ID/league/UTC kickoff,
+the quote/XI proof to the original exact Step0 match ID and league,
 preserves the original operational grade/exclusions, and runs the existing
 strict `XI_MARKET_FIRST_V1` contract. It rejects missing match-specific
-price/source/timestamp or unsupported XI publishing channels. If incomplete, label the fixture
-`STEP1_RESEARCH_BLOCKED`; it is **not** C/C2 PASS and must not be promoted
-to FOLLOW/RESERVE. Record why, preserve its frozen Step0 rank and continue
-the deterministic ordered replenishment from the next qualified candidate.
+price/source/timestamp or unsupported XI publishing channels.
+
+**Kickoff revision is NOT a Step 1 blocker.** If the researched provider's
+UTC kickoff differs from the originally frozen Step0 UTC kickoff (e.g.
+América–Monterrey 10:00 vs 10:10 ICT), keep BOTH verified time values,
+preserve the original Step0 UTC kickoff / source hash / rank, record the
+signed `kickoff_drift_minutes` and classify
+`kickoff_reconciliation_status=KICKOFF_RECHECK_REQUIRED`. Continue normal
+C and C2 football research/ranking and normal operational lane selection.
+Do not automatically label `STEP1_EVIDENCE_BLOCKED`, exclude the fixture,
+or falsely mark a match `PREMATCH_CLOSED` solely because frozen KO has
+elapsed. If current official status is verified STARTED, route to current
+/live assessment; if kickoff/status sources disagree, keep analytical
+coverage but do NOT issue an executable prematch action until resolved at
+/xi. A missing/invalid timestamp and mismatched match ID or competition
+remain hard identity/evidence blockers.
+
+If other match-specific proof is incomplete, label the fixture
+`STEP1_RESEARCH_BLOCKED`; it is **not** C/C2 PASS and must not be
+promoted to FOLLOW/RESERVE. Record why, preserve its frozen Step0 rank and
+continue the deterministic ordered replenishment from the next qualified
+candidate.
 
 Do not synthesize odds from the league profile or treat
 `market_observability=HIGH` at Step0 as `CURRENT_EXECUTABLE_QUOTE`. Keep
