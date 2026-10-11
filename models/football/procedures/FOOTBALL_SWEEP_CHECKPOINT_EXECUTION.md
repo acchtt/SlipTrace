@@ -160,6 +160,22 @@ One **verification block** is one stable competition/date block requiring public
 - Retain the frozen two-family source seed and re-use verified candidate timestamps/IDs. Terminal-window scans search only the unverified part of the requested interval; do not restart broad discovery merely to repeat the sentinel.
 - Do not force 24 external blocks when the actual scoped candidate list is smaller; finish classification/reconciliation within the same invocation whenever the requisite evidence exists.
 
+### Hard 60-minute deadline / stale-run closure (2026-10-11)
+
+**Mandatory for `FAST_FINISH_V1`, including any already-saved RUNNING checkpoint.** This is a wall-clock bound from the original persisted `requested_window.start_utc` or `sweep_started_at_utc`; it is NOT reset by another /resume, URL search, source hash mutation or checkpoint attempt. Check immediately on `/sweep resume`, before the first external source call and after every independent block batch:
+
+```sh
+python models/football/engine/sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_ATTESTED_UTC
+```
+
+If status is `WITHIN_BUDGET`, process only the bounded finite pending blocks, checkpoint and retry each unresolved block at most twice as already specified. Do not clear/pad missing evidence merely to meet the deadline.
+
+If status is `BLOCKED_TIME_BUDGET_UNVERIFIED`, **stop this sweep immediately**. Persist the returned complete cursor unchanged, with `Run Status=BLOCKED`, `Current Stage=RECONCILIATION`, `Pending Verification Blocks=0`, `Run Status notes=TIME_BUDGET_EXCEEDED_UNVERIFIED`, and original raw Daily Coverage rows/ids/KO, all source URLs, user-scope exclusions, completed profiles and diagnostic hashes **untouched**. The returned terminal unresolved list includes every pending/retried block, including global protected/women coverage and official export validation; it must not be mistaken for verified dispositions. Do not set `complete`, `actionable_complete`, `work_ready`, source scope complete, final frozen source hash, or `Run Status=COMPLETE`. A provisional B-grade fixture does not become an officially ranked A/B fixture just because it was in the first eight. Do not produce or recycle a QA ZIP as the official /rank input. **No further /resume loop** for this source epoch; use a clean fresh source sweep with strictly current KO if future production is needed.
+
+If status is `RECONCILE_NOW`, no pending/unresolved source blocks remain; continue directly to independent Airtable source/required/women/fixture and handoff validation, even when the 60-minute clock has elapsed. If any mandatory proof is absent, report **BLOCKED WITH EXACT EVIDENCE**, not an invented green completion; never restart global source discovery to clear export.
+
+This deadline closes *verification work*, not the 85-row audit ledger or the raw league discovery scope. It is not a blanket 8-match raw cap, and it never authorizes a C/C2 BET/PASS or edits a historical frozen board. If an incoming source contains more than a viable proof budget, prioritize earliest genuine future kickoff and current source verifiability; unresolved source leads are raw-only.
+
 ### Legacy verification (existing RUNNING checkpoint)
 
 - Without `FAST_FINISH_V1`, verify at most `MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6`;

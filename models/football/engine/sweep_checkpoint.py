@@ -9,6 +9,7 @@ CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"
 MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6
 FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24
 FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2
+FAST_FINISH_MAX_ELAPSED_MINUTES = 60  # hard wall-clock budget for fresh production verification
 FAST_FINISH_POLICY = "FAST_FINISH_V1"
 SOURCE_RECOVERY_COOLDOWN_MINUTES = 30
 RUN_STATUS_BY_SOURCE_STATE = {
@@ -517,3 +518,79 @@ def advance_after_chunk(
             else "RUNNING"
         ),
     }
+
+
+def expire_fast_finish_deadline(
+    payload: dict[str, Any], *, now: str,
+) -> dict[str, Any]:
+    """Close a stalled new Step0 sweep; never fake a verified source.
+
+    Retains raw discovery/provenance, past classifications, and immutable
+    diagnostic hash. Unknown provider IDs and mandatory global coverage are
+    left as terminal unresolved. Such a run is BLOCKED, NEVER rank-ready.
+    Caller must persist Run Status=BLOCKED and Current Stage=RECONCILIATION.
+    """
+    cp = validate_checkpoint(payload)
+    if cp["verification_policy"] != FAST_FINISH_POLICY:
+        raise SweepCheckpointError("deadline only applies to FAST_FINISH_V1")
+    if cp["source_acquisition_state"] != "ACQUIRED":
+        raise SweepCheckpointError("deadline requires an acquired source epoch")
+    if cp["phase"] not in {"TARGETED_VERIFICATION", "RECONCILIATION"}:
+        raise SweepCheckpointError("deadline requires targeted verification or reconciliation")
+    now_utc = _parse_iso_datetime(now, "now")
+    anchor = payload.get("sweep_started_at_utc")
+    if anchor is None:
+        window = payload.get("requested_window")
+        if isinstance(window, dict):
+            anchor = window.get("start_utc")
+    if anchor is None:
+        raise SweepCheckpointError("deadline start UTC missing; cannot guess elapsed time")
+    started = _parse_iso_datetime(anchor, "sweep_started_at_utc")
+    elapsed = (now_utc - started).total_seconds() / 60
+    if elapsed < 0:
+        raise SweepCheckpointError("now precedes persisted sweep start")
+    if elapsed < FAST_FINISH_MAX_ELAPSED_MINUTES:
+        return {
+            **payload, "deadline_status": "WITHIN_BUDGET",
+            "deadline_elapsed_minutes": round(elapsed, 2),
+            "deadline_minutes": FAST_FINISH_MAX_ELAPSED_MINUTES,
+        }
+
+    # Preserve any pre-existing terminal conflicts, then collapse unverified
+    # pending and retry blocks exactly once in stable order.
+    seen: set[str] = set()
+    terminal: list[str] = []
+    for block in (
+        cp["terminal_unresolved_verification_blocks"]
+        + cp["retry_queue"] + cp["pending_verification_blocks"]
+    ):
+        if block not in seen:
+            seen.add(block)
+            terminal.append(block)
+    if not terminal:
+        # Do not force a genuinely verified sweep to BLOCKED merely because
+        # some unrelated post-verification phase took over an hour.
+        return {
+            **payload, "deadline_status": "RECONCILE_NOW",
+            "deadline_elapsed_minutes": round(elapsed, 2),
+            "deadline_minutes": FAST_FINISH_MAX_ELAPSED_MINUTES,
+        }
+    out = {
+        **payload,
+        "phase": "RECONCILIATION",
+        "pending_verification_blocks": [],
+        "retry_queue": [],
+        "pending_verification_count": 0,
+        "terminal_unresolved_verification_blocks": terminal,
+        "terminal_unresolved_count": len(terminal),
+        "terminal_verification_status": "BLOCKED_TIME_BUDGET_UNVERIFIED",
+        "deadline_status": "BLOCKED_TIME_BUDGET_UNVERIFIED",
+        "deadline_elapsed_minutes": round(elapsed, 2),
+        "deadline_minutes": FAST_FINISH_MAX_ELAPSED_MINUTES,
+        "official_handoff_ready": False,
+        "work_ready": False,
+        "complete": False,
+        "actionable_complete": False,
+    }
+    validate_checkpoint(out)
+    return out

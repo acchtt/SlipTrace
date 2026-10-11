@@ -8,6 +8,7 @@ from pathlib import Path
 from sweep_checkpoint import (
     SweepCheckpointError,
     advance_after_chunk,
+    expire_fast_finish_deadline,
     mark_source_blocked,
     select_verification_chunk,
     source_retry_decision,
@@ -39,6 +40,10 @@ def main() -> int:
     sr.add_argument("--now", required=True)
     sr.add_argument("--fingerprint", required=True)
 
+    d = sub.add_parser("deadline")
+    d.add_argument("--input", required=True)
+    d.add_argument("--now", required=True)
+
     sb = sub.add_parser("source-blocked")
     sb.add_argument("--input", required=True)
     sb.add_argument("--attempted-at", required=True)
@@ -61,6 +66,8 @@ def main() -> int:
                     current_blocker_fingerprint=args.fingerprint,
                 ),
             }
+        elif args.command == "deadline":
+            out = {"ok": True, **expire_fast_finish_deadline(payload, now=args.now)}
         elif args.command == "source-blocked":
             out = {
                 "ok": True,
