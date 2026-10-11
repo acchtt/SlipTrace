@@ -3,6 +3,32 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
+## Mandatory source-attested export for next-chat Work /rank
+
+`V4_SWEEP_READY` must come from **actual execution** of
+`models/football/stages_v4/stage.py sweep` on the saved source file.
+A manually rebuilt JSON with self-matching hashes must be labeled
+`V4_SWEEP_DERIVED_UNATTESTED` and is NOT a completed V4 handoff.
+
+If normal chat cannot execute the Python model locally, SAVE the
+original source snapshot to
+`models/football/stages_v4/recovery/<new-V4-run-id>/source.json`
+on the current GitHub branch. The
+`.github/workflows/football-v4-replay-attestation.yml` CI runner
+will execute the real V4 algorithm and upload a
+`v4-original-source-attested-receipts` artifact containing an official
+`<run-id>-v4_sweep_ready.json`, or fail closed with the exact validation
+error. Give Work chat the GitHub Actions run URL and the original
+run ID. Do NOT ask Work to invent completion from Airtable records.
+
+For an older derived intake, preserve both original `source.json`
+and `intake-unattested.json` under that run ID; the replay checker
+will compare every business field and attested SHA256 before export.
+Replaying a former source snapshot is NOT verification that its fixtures
+remain before kickoff **now**. Match status and original KO must be
+rechecked when Work performs /rank. An already-started match cannot
+receive a retroactive prematch C/C2 selection.
+
 Read `league_registry.py` and `README.md`. Interpret the requested
 sweep window in ICT; start at the actual current time unless an explicit
 future start is given, and never include already-started fixtures.
