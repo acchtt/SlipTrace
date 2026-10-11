@@ -508,6 +508,10 @@ def publish_rank(execution_receipt: dict[str, Any], readback: dict[str, Any]) ->
 
 
 def main() -> int:
+    # Current production Stage 0/1 is decommissioned. Pure functions below
+    # remain for immutable historical regression/audit, not user execution.
+    from sweep_rank_retired import stop_retired_cli
+    return stop_retired_cli("sweep-rank-v3-coordinator")
     p = argparse.ArgumentParser(description="Unified football v2 Step0 / Step1 coordinator")
     sub = p.add_subparsers(dest="command", required=True)
     prepare_parser = sub.add_parser("prepare")

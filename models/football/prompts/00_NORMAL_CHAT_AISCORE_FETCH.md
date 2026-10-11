@@ -1,3 +1,5 @@
+> **PRODUCTION RETIREMENT — EFFECTIVE 2026-10-11: /sweep and /rank are SCRAPPED.** Do not start or resume Step0 discovery, issue a new official ZIP, execute a Step1 board, or publish new ranks. This instruction overrides all historical procedural text below, including V1/V2/V3, repair/resume/reassess and direct launcher usage. These instructions are preserved only for historical audit and regression. Existing C/C2 model code, /xi, /live, records and bets are unaffected. Reinstatement requires an explicitly approved replacement. See `models/football/engine/sweep_rank_retired.py`.
+
 > **Airtable source of truth changed 2026-10-11:** active base `appbzxqXYf0lKfD4P` and the full old→new field ID map at `models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md`. Archived old base `appWyZJjitSBATXAU` must be read-only; never append historical IDs into active tables.\n\n# 00 — Normal Chat: AiScore Researchable Senior Intake
 
 ## Operational entrypoint — Unified Step0→Step1 V3 (2026-10-11)

@@ -1,3 +1,5 @@
+> **PRODUCTION RETIREMENT — EFFECTIVE 2026-10-11: /sweep and /rank are SCRAPPED.** Do not start or resume Step0 discovery, issue a new official ZIP, execute a Step1 board, or publish new ranks. This instruction overrides all historical procedural text below, including V1/V2/V3, repair/resume/reassess and direct launcher usage. These instructions are preserved only for historical audit and regression. Existing C/C2 model code, /xi, /live, records and bets are unaffected. Reinstatement requires an explicitly approved replacement. See `models/football/engine/sweep_rank_retired.py`.
+
 # /sweep
 
 Short wrapper only.

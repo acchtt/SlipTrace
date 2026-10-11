@@ -1,5 +1,22 @@
 # Current Football Model
 
+## Active stage status — /sweep and /rank retired (2026-10-11)
+
+**The user scrapped both current Step0 /sweep and Step1 /rank.**
+Production stage status: `SWEEP_RANK_RETIRED`; any V1/V2/V3 source,
+checkpoint, package, paired board or official rank publishing instruction
+below is historical only and MUST NOT run again.
+Do not start a new Sweep Runs record, reopen a terminal checkpoint,
+create an official ZIP or publish new Website Picks from old boards.
+No hidden automatic /sweep or /rank should continue.
+The historical pure validators/engines remain in GitHub for audit and
+future redesign; they do NOT authorize official operational output.
+A replacement needs a new explicit user instruction and reviewed
+re-enablement. **/xi, /xi exception, /live, /audit and /report remain
+unchanged.** The active official model is C and C2 is shadow only.
+Do not delete or backfill historical coverage, boards, decisions or
+Actual Bets.
+
 ## Unified /sweep and /rank V3
 
 The current Step0-to-Step1 coordinator is

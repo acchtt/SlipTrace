@@ -66,6 +66,32 @@ def forbid(rel: str, *needles: str) -> None:
             failures.append(f"{rel}: forbidden active-authority text present: {needle}")
 
 
+# Production Step0/Step1 was explicitly retired; never allow a later
+# documentation refresh or silent rollback to re-enable these commands.
+require(
+    "models/football/engine/sweep_rank_retired.py",
+    'ACTIVE_SWEEP_RANK_ENABLED = False',
+    'RETIRED_STATUS = "SWEEP_RANK_RETIRED"',
+    "REQUIRES_NEW_USER_APPROVED_WORKFLOW",
+)
+for retired_launcher in (
+    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
+    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
+    "models/football/prompts/sweep.md",
+    "models/football/prompts/rank.md",
+):
+    require(retired_launcher, "PRODUCTION RETIREMENT", "SCRAPPED")
+require("models/football/prompts/COMMAND_ALIASES.md", "/sweep and /rank are RETIRED", "SWEEP_RANK_RETIRED")
+require("models/football/CURRENT_MODEL.md", "SWEEP_RANK_RETIRED")
+for entrypoint in (
+    "models/football/engine/sweep_rank_pipeline.py",
+    "models/football/engine/step0_package_cli.py",
+    "models/football/engine/board_pair_cli.py",
+    "models/football/engine/rank_persistence_reconcile.py",
+):
+    require(entrypoint, "return stop_retired_cli(")
+require("models/football/engine/step0_portable.py", '"status": "SWEEP_RANK_RETIRED"')
+
 # 1. One production authority.
 require(
     "models/football/CURRENT_MODEL.md",
