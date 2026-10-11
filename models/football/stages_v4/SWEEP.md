@@ -29,6 +29,8 @@ remain before kickoff **now**. Match status and original KO must be
 rechecked when Work performs /rank. An already-started match cannot
 receive a retroactive prematch C/C2 selection.
 
+**Open-league discovery rule:** Fetch the source's complete available senior competitive fixture listing for the requested window BEFORE applying the league registry. Do not query only registered leagues or discard a Brazilian, Mexican or other unfamiliar official fixture at acquisition. The fixture calendar can be bounded by time/provider; it need not prove every fixture worldwide. Country and competition labels are required to distinguish friendlies and explicit exclusions. The new `DISCOVERY` lane screens an unregistered match's real recent four-to-ten competitive results for both teams and retains low/unknown signals in `discovery_watchlist`, not EXCLUDED. Only an independently source-backed scoring signal PLUS current match publishing/researchability proof permits discovery qualification for /rank. Unregistered official cups also require current competition-format/incentive proof. Report discovery-qualified and discovery-pending separately; never silently delete them. Explicitly banned leagues and friendlies remain excluded.
+
 Read `league_registry.py` and `README.md`. Interpret the requested
 sweep window in ICT; start at the actual current time unless an explicit
 future start is given, and never include already-started fixtures.
