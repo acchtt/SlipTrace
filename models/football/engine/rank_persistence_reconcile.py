@@ -99,7 +99,12 @@ def validate_rank_readback(payload: dict[str, Any]) -> dict[str, Any]:
         for model, engine_rows in (("c", c), ("c2", c2)):
             r = engine_rows[mid]
             for local, remote in zip(("rank", "board_state", "supported_line"), fields[model]):
-                if r.get(local) != stored.get(remote):
+                observed = stored.get(remote)
+                # Airtable saves C-FOCUS/C2-WATCH display labels while engine
+                # uses the unprefixed FOCUS/WATCH/PASS semantic names.
+                if local == "board_state" and isinstance(observed, str):
+                    observed = observed.removeprefix("C2-" if model == "c2" else "C-")
+                if r.get(local) != observed:
                     raise RankReadbackError(f"{mid}: {model} {local} differs from Airtable")
         if c[mid].get("follow_lane") != stored.get("follow_lane"):
             raise RankReadbackError(f"{mid}: C FOLLOW/RESERVE/STOP differs from Airtable")
