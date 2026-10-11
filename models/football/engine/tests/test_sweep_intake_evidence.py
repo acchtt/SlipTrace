@@ -172,6 +172,72 @@ class LeagueChannelFirstTests(unittest.TestCase):
         self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY",
                       validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
 
+    def test_poland_requires_five_historical_results_and_real_channel_profile(self):
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        self.assertIn("POLAND_EKSTRAKLASA_CHEAP_SIGNAL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 1
+        self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 3
+        row["league_channel_profile"]["recent_asian_total_fixture_count"] = 0
+        self.assertIn("LEAGUE_PROFILE_RECENT_ASIAN_TOTAL_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_poland_is_never_auto_tier1_and_must_have_country_identity(self):
+        row = league_candidate("Ekstraklasa", "TIER1_STANDARD")
+        row["country"] = "Poland"
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["league_channel_profile"]["profile_type"] = "PROVEN_LEAGUE"
+        row.pop("country")
+        self.assertIn("POLAND_EKSTRAKLASA_COUNTRY_UNVERIFIED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["country"] = "Czech Republic"
+        self.assertIn("POLAND_EKSTRAKLASA_COUNTRY_UNVERIFIED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_poland_trap_and_stall_block_even_with_dominant_carrier(self):
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        recent = row["poland_ekstraklasa_recent_goal_evidence"]["away"]["recent_competitive_matches"]
+        for m in recent[:3]:
+            m["goals_for"], m["goals_against"] = 1, 1
+        self.assertIn("POLAND_EKSTRAKLASA_LOW_TOTAL_STALL_OR_DRAW_TRAP",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_poland_unverified_stale_or_post_capture_history_rejected(self):
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        evidence = row["poland_ekstraklasa_recent_goal_evidence"]
+        evidence["captured_at_utc"] = "2026-10-11T11:00:00Z"
+        self.assertIn("POLAND_EKSTRAKLASA_CHEAP_SIGNAL_STALE_OR_POST_KO",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        evidence["captured_at_utc"] = "2026-10-09T10:00:00Z"
+        evidence["home"]["recent_competitive_matches"][0]["kickoff_utc"] = "2026-10-09T09:50:00Z"
+        self.assertIn("POLAND_EKSTRAKLASA_HOME_HISTORY_INVALID",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        row["poland_ekstraklasa_recent_goal_evidence"]["away"]["source_url"] = "http://invalid.local"
+        self.assertIn("POLAND_EKSTRAKLASA_AWAY_GOAL_SOURCE_UNVERIFIED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_poland_screen_does_not_require_old_finished_game_odds_or_create_live_quotes(self):
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        row["poland_ekstraklasa_recent_goal_evidence"] = self.championship_evidence()
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        self.assertIn("CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH",
+                      validate_work_candidate(row))
+        self.assertEqual(validate_work_candidate(
+            league_candidate("Premier League"), intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+
     def test_championship_requires_individual_five_match_signal(self):
         row = league_candidate("Championship", "PROVEN_LEAGUE")
         self.assertIn("CHAMPIONSHIP_CHEAP_SIGNAL_MISSING",
