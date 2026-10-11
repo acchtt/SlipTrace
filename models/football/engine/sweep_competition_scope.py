@@ -50,8 +50,8 @@ CONDITIONAL = frozenset({
     "colombia primera a", "ecuador ligapro serie a",
     "uruguay primera division", "russian premier league",
     "k league 2", "korea k league 2",
-    "hong kong premier league", "boc life hong kong premier league",
-    "malaysia super league", "liga super", "malaysian super league",
+    "hong kong premier league", "boc life hong kong premier league", "premier league",
+    "malaysia super league", "liga super", "malaysian super league", "super league",
     # England Championship: limited cheap goal-signal gate, not blanket admission.
     "championship", "efl championship", "english championship",
     "england championship", "sky bet championship",
@@ -90,9 +90,9 @@ REGISTERED_DIRECT = {
     "korea": {"k league 1", "korea k league 1"},
 }
 REGISTERED_CONDITIONAL = {
-    "hong kong": {"hong kong premier league", "boc life hong kong premier league"},
-    "hong kong sar": {"hong kong premier league", "boc life hong kong premier league"},
-    "malaysia": {"malaysia super league", "liga super", "malaysian super league"},
+    "hong kong": {"hong kong premier league", "boc life hong kong premier league", "premier league"},
+    "hong kong sar": {"hong kong premier league", "boc life hong kong premier league", "premier league"},
+    "malaysia": {"malaysia super league", "liga super", "malaysian super league", "super league"},
     "england": {"championship", "efl championship", "english championship",
                 "england championship", "sky bet championship"},
     "czech republic": {"czech first league", "czech first division"},
