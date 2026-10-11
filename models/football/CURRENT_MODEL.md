@@ -28,9 +28,34 @@ This file is the canonical entry point for current football work.
 
 **Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **ALL noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from both the current unfinished sweep and all future ordinary sweeps. Such rows already acquired must be preserved only for exclusion audit, not Work. Competition-block prefilter avoids wasting lineup/odds research on friendlies. This does not remove **official competitive international qualification, Nations League, cup/continental fixtures or women's top-flight domestic matches**. A named explicit user exception is the only re-opening route. See `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` §2B.
 
-## FAST_FINISH Step0 hard wall-clock cutoff — Oct 11 2026
+## Fast Step0 time-budget authority — October 11, 2026
 
-To prevent multi-hour `/sweep resume` cycles, all `FAST_FINISH_V1` new and already-saved source epochs must execute `sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now <verified UTC time>` on every resume and between source batches. Maximum elapsed is **60 minutes from original saved start**, never reset by resumes. An incomplete 85-fixture raw universe with unresolved identities or women/protected global coverage at deadline **must terminate BLOCKED / RECONCILIATION**, retaining full raw audit and diagnostic existing source provenance with no fake official frozen ZIP or C/C2. Once genuinely resolved with zero pending requirements, complete real deterministic validation and packaging as usual; no blanket cap of eight fixtures discovered. Old immutable boards/Airtable actual bets unaffected. See `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md` for terminal state and fail-closed implementation.
+**NEW production /sweep runs use `FAST_FINISH_V2`: at most 15 minutes
+of bounded discovery/verification work from the originally persisted
+start (3 minutes source acquisition, 5 discovery classification, 12
+verification, 15 final reconciliation/package).** Check deterministic
+`sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now <verified UTC>`
+before external calls, after each parallel verification batch, on every
+resume and before final state writes. The V2 `select` and `advance`
+CLI require `--now` and reject over-budget calls. Only eight logical
+verification blocks are selected per batch; one failed attempt closes
+a source path as explicitly unresolved. Source family/league-season
+evidence is reused when independently valid for this exact source epoch.
+
+When the budget or a required provider blocks certification, persist
+**BLOCKED** immediately with exact terminal source/protected/women/
+canonical-inventory problems; retain all evidence and do not fabricate
+a valid ZIP, rank, odds, XI or bet. A 15-minute cap limits work, not
+requirements for source/competition/women integrity; no full-source
+claim from a partial discovery seed. The tool cannot automatically
+alter Airtable outside a real running invocation.
+
+**All previously saved `FAST_FINISH_V1` source epochs retain their original
+60-minute deadline, two-attempt semantics and original hash/queue**;
+do not reinterpret or silently shorten the 21:07 existing run. Truly
+old non-fast runs preserve their legacy six-block selector. Historical
+completed boards, model results, and Actual Bets stay immutable. See
+`FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
 
 ## Hong Kong and Malaysia senior top-flight intake pilot — 2026-10-11
 

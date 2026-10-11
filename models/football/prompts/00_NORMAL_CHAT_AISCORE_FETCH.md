@@ -74,7 +74,7 @@ After mandatory senior source discovery and the standing exclusions, use `sweep_
 
 ## Checkpointed execution — mandatory
 
-Fresh Step 0 is resumable, but **fresh runs default to FAST_FINISH_V1**. The objective is one bounded, complete actionable Step-0 selection rather than a forced six-block pause. FAST_FINISH is an operational verification schedule only, not a model grade/selection change. Continue honoring exact protected, required, senior women's top-flight, fixture-time and XI/market gates.
+Fresh Step 0 is resumable, but **new runs created after this repair default to FAST_FINISH_V2**. Existing saved FAST_FINISH_V1 runs retain their original 60-minute deadline, source epoch, frozen queue and evidence. The objective is one bounded, complete actionable Step-0 selection rather than a forced six-block pause. FAST_FINISH is an operational verification schedule only, not a model grade/selection change. Continue honoring exact protected, required, senior women's top-flight, fixture-time and XI/market gates.
 
 For a new sweep:
 - resolve the stable Run ID/window;
@@ -82,7 +82,7 @@ For a new sweep:
 - set `Run Status = RUNNING`;
 - initialize `Checkpoint Version = football-sweep-checkpoint-v1`;
 - initialize `Sweep Chunk Number = 1`;
-- include `verification_policy=FAST_FINISH_V1`, `verification_attempt_counts={}` and `terminal_unresolved_verification_blocks=[]` in the saved fresh-run cursor;
+- include `verification_policy=FAST_FINISH_V2`, `verification_attempt_counts={}` and `terminal_unresolved_verification_blocks=[]` in the saved fresh-run cursor;
 - persist a valid `SOURCE_ACQUISITION / UNTRIED` Resume Cursor;
 - only after that persistence succeeds may source acquisition begin.
 
@@ -96,17 +96,23 @@ For `/sweep resume`:
 - never restart an unchanged ACQUIRED source epoch;
 - never create a replacement Run ID merely because the previous chat turn ended.
 
-**New FAST_FINISH_V1 runs:** use `sweep_checkpoint_cli.py select` with up to **24 logical competition/date blocks per invocation**, executing independent source lookups in **parallel batches of at most six**. A logical block is not a separate serial tool call. Reuse the two-source acquisition seed, classify hard/user exclusions and already-proven C/D blocks source-locally, and reuse known fixture-ID/UTC/XI/market evidence without re-opening the same source. Limit unfamiliar domestic block evidence to the documented short preflight; never retry an unchanged failed source repeatedly. Track evidence-failed blocks using `retry_blocks`. After a second failed attempt, persist `terminal_unresolved_verification_blocks` and show `SWEEP INTEGRITY BLOCKED — EXACT UNRESOLVED BLOCKS` rather than asking for another indefinite resume. A terminal-unresolved protected/required/in-scope A/B fixture is **not verified** and must never be marked `work_ready=true`.
+**New FAST_FINISH_V2 runs:** use `sweep_checkpoint_cli.py select --input RESUME_CURSOR.json --now CURRENT_VERIFIED_UTC` with up to **8 logical competition/date blocks per invocation**, executing independent source lookups in parallel batches of at most four. A logical block is not a separate serial tool call. This quota is a ceiling, not a target. On one unsuccessful verification attempt, close that path as terminal unresolved (no fake A/B evidence); an alternate source can be included in the same bounded pass. If a required block fails, report its evidence gap promptly without serial retries. Reuse the two-source acquisition seed, classify hard/user exclusions and already-proven C/D blocks source-locally, and reuse known fixture-ID/UTC/XI/market evidence without re-opening the same source. Limit unfamiliar domestic block evidence to the documented short preflight; never retry an unchanged failed source repeatedly. Track evidence-failed blocks using `retry_blocks`. After a second failed attempt, persist `terminal_unresolved_verification_blocks` and show `SWEEP INTEGRITY BLOCKED — EXACT UNRESOLVED BLOCKS` rather than asking for another indefinite resume. A terminal-unresolved protected/required/in-scope A/B fixture is **not verified** and must never be marked `work_ready=true`.
 
 The fast verification quota is a ceiling, not a demand to crawl 24 blocks. Close each resolved block immediately and persist the cursor between independent verification batches; batch search requests where supported. Perform terminal-window reconciliation against the same captured source epoch plus only genuinely missing/conflicting fixtures, not another global crawl.
 
-**Existing runs without `verification_policy=FAST_FINISH_V1`**, including the explicitly paused Oct 9 run, retain their original **six-block quota and cursor**. Do not retrofit them. For these legacy runs, after block six stop cleanly with `SWEEP CHECKPOINT SAVED — /sweep resume` and no provisional Work ZIP.
+**Existing runs under FAST_FINISH_V1** retain their 24-block selector, two-attempt limit and original 60-minute deadline. Runs without any fast-finish policy, including the explicitly paused Oct 9 run, retain their original **six-block quota and cursor**. Do not retrofit them. For these legacy runs, after block six stop cleanly with `SWEEP CHECKPOINT SAVED — /sweep resume` and no provisional Work ZIP.
 
 Cheap source-local enumeration, exclusions, already-supported C/D classifications and persisted-state reads consume no external verification budget.
 
-### Mandatory 60-minute wall-clock cutoff for FAST_FINISH_V1
+### Hard-fast sweep budget — FAST_FINISH_V2 (new runs only)
 
-Newly created and already persisted `FAST_FINISH_V1` checkpoints have a **60-minute maximum elapsed from the originally saved sweep start**. Enforce it mechanically using `sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_UTC` **at the beginning of every /sweep resume, before external lookup, after each source verification batch, and before claiming another checkpoint**. Do not restart the timer after /resume or on a hash/edit. A large raw ledger or unresolved conditional sources is not a reason to keep RUNNING beyond one hour.
+`FAST_FINISH_V2` has a **15-minute overall clock anchored to the original saved start UTC**, with stricter stage cutoffs: SOURCE_ACQUISITION at 3 minutes, DISCOVERY_CLASSIFICATION at 5, TARGETED_VERIFICATION at 12, and RECONCILIATION/PACKAGING at 15. This is a bound on attempted work, NOT a guarantee a verified Work ZIP will exist. Start external discovery only after the RUNNING row is persisted.
+
+For **every V2 stage**, first run `sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_VERIFIED_UTC` before source lookup, after each concurrent batch, and on every /sweep resume; **V2 `select` and `advance` also REQUIRE `--now CURRENT_VERIFIED_UTC` and refuse expired/no-clock calls**, returning a deadline receipt to persist. Reuse the same original start clock after every /resume, never reanchor it. Within each source epoch, re-use source-backed (competition, season, provider) evidence once, including known empty/out-of-window women's/required blocks, and stop repeatedly querying unchanged failed source families. Once original two independent current families are acquired, DO NOT repeat a worldwide crawl just to make a third discovery seed.
+
+`BLOCKED_TIME_BUDGET_UNVERIFIED` is terminal for that run: persist the full returned cursor unchanged, `Run Status=BLOCKED`, original stage/source hashes, raw Daily Coverage receipts, and exact unresolved source/required/women/inventory/handoff proof. NEVER call the ZIP official, fill missing XI/odds/source IDs, treat missing women's coverage as zero, or re-run this same blocked source epoch. Even a zero-length pending list does NOT mean an unverified women's or final source inventory requirement passed. For a fully verified reconciliation already in `PACKAGING`, `PACKAGE_VERIFIED_OFFLINE_ONLY` permits **only** local atomic ZIP validation (no external lookup). A finished COMPLETE run is left unchanged.
+
+**Existing FAST_FINISH_V1 checkpoints still have their previously saved 60-minute maximum and exact original deadline**, enforced with the same `deadline` command; do not rewrite or shorten their source epoch, deadlines, ranks or original frozen artifacts.
 
 At `BLOCKED_TIME_BUDGET_UNVERIFIED`, persist returned terminal cursor, `Run Status=BLOCKED`, `Current Stage=RECONCILIATION`, zero pending retry loops, exact unresolved source/mandatory coverage block IDs and notes. Leave old raw ledger, current source references, excluded/capacity/provisional fields, original frozen past boards/old bets unchanged. It is **not** complete and has **no official ZIP or rank authority**. Do not discard unresolved raw fixture identities, silently make them A/B or researchability-excluded, or reset a source hash to fake validation. Report terminal evidence gaps, and recommend a separately initiated fresh current-KO production run; do not ask for another /resume for this stalled sweep.
 
@@ -688,7 +694,7 @@ Required metadata:
 
 - `model=Football C`
 - `sweep_scope_mode=RESEARCHABLE_SENIOR_PRODUCTION`
-- for fresh `FAST_FINISH_V1` sweeps: `verification_policy=FAST_FINISH_V1` and `terminal_unresolved_verification_blocks=[]`; any unresolved block blocks Work readiness and export rather than generating another source retry loop
+- for fresh `FAST_FINISH_V2` sweeps: `verification_policy=FAST_FINISH_V2` and `terminal_unresolved_verification_blocks=[]`; V1 is strictly historical/continuing. Any unresolved block blocks Work readiness and export rather than generating another source retry loop
 - `source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY`
 - `source_transport`
 - `coverage_mode`

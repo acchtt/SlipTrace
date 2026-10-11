@@ -317,8 +317,9 @@ require(
 require(
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
     "Checkpointed execution — mandatory",
+    "FAST_FINISH_V2",
+    "8 logical competition/date blocks per invocation",
     "FAST_FINISH_V1",
-    "24 logical competition/date blocks per invocation",
     "six-block quota",
     "terminal_unresolved_verification_blocks",
     "competition-block shared",
@@ -341,6 +342,22 @@ require(
     "LEGACY_BLOCKED_CHECKPOINT_NO_RETRY_LEASE",
     "def select_verification_chunk",
     "def advance_after_chunk",
+)
+require(
+    "models/football/engine/sweep_checkpoint.py",
+    'FAST_FINISH_V2_POLICY = "FAST_FINISH_V2"',
+    "FAST_FINISH_V2_MAX_ELAPSED_MINUTES = 15",
+    "FAST_FINISH_V2_VERIFICATION_BLOCKS_PER_INVOCATION = 8",
+    "FAST_FINISH_V2_STAGE_CUTOFFS",
+    "terminal_budget_locked",
+    "GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION",
+)
+require(
+    "models/football/engine/tests/test_sweep_fast_budget_v2.py",
+    "test_existing_v1_keeps_original_sixty_minutes",
+    "test_new_acquisition_stage_expires_by_three_minutes",
+    "test_targeted_verification_stops_by_twelve_minutes",
+    "test_cli_select_requires_clock_and_stops_expired_research",
 )
 require(
     "models/football/engine/tests/test_sweep_checkpoint.py",
