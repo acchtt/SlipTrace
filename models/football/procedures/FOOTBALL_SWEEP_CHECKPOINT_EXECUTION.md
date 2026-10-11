@@ -194,6 +194,17 @@ not new external lookups. Terminal closure needs explicit Airtable mutation;
 the checkpoint calculator cannot monitor or change database rows while
 no sweep invocation is executing.
 
+For `BOUNDED_PRODUCTION_DISCOVERY`, the V2 deadline gate uses the real
+`bounded_womens_coverage.py` source-window parity receipt, **not** the
+`women_top_flight_global_confirmed` marker (which cannot be asserted
+without an exact global AiScore carrier). At zero observed women's
+fixtures, save the two independently OPENED women's-specific source
+checks and empty fixture lists; do not count unchecked calendars as
+negative. Retain the full required/protected coverage checks, source
+disagreements and A/B fixture evidence. When `PACKAGE_VERIFIED_OFFLINE_ONLY`
+is reached, handoff validator and packager still require all final
+independently read-back source proof.
+
 Only source-backed fixture identities, dates and publications count as
 independent verification. A reused scan of nine women's schedules is **not**
 proof of the complete in-window AiScore-visible women's universe. If the

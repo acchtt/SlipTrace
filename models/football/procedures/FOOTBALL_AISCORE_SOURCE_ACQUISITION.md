@@ -195,6 +195,45 @@ Before `work_ready=true` in bounded mode:
 
 A missing exact global raw count is acceptable in bounded mode. A missing plausible A/B candidate disposition is not.
 
+### Mandatory interpretation for FAST_FINISH_V2 bounded sources
+
+The actual production fallback is `BOUNDED_PRODUCTION_DISCOVERY`, NOT
+`EXACT_DATE_UNIVERSE`: **lack of an exhaustive worldwide AiScore listing
+does not by itself block /rank.** Never write
+`GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION` as an automatic
+requirement for a genuinely source-bounded epoch. Instead record the exact
+source-bounded coverage and test it against
+`models/football/engine/bounded_womens_coverage.py`.
+
+Freeze `women_coverage_scope=BOUNDED_DISCOVERED_BLOCKS`,
+`women_top_flight_seed_fixture_ids`, and the source-backed
+`women_top_flight_disposition_manifest`, even for a verified empty list.
+Each `women_top_flight_source_checks` entry must document:
+`source_family`, opened `source_url`, checked UTC time,
+`requested_window`, `scope=SENIOR_WOMENS_TOPFLIGHT`,
+`status=OPENED_WINDOW_VERIFIED`, and the provider's exact
+`visible_fixture_ids`. Use at least **two genuinely independent**
+women-relevant source families, including extra official women's league
+or provider schedules as available. One schedule mirrored under two links
+is NOT two families. Align every seed-observed or women-source-observed
+fixture ID to one final women's disposition and the six numeric counters.
+
+This attests **only observed bounded competition coverage**, never that
+AiScore or every women's league worldwide had zero fixtures. If either
+source really cannot be opened, if any visible women's top-flight fixture
+is missing, or any material in-scope senior A/B fixture remains unresolved,
+the run is BLOCKED. Do not backfill invented IDs, count missing data as
+zero or quietly turn nine evidence gaps into prediction PASS.
+
+For Oct 12+ newly initiated runs, still require the real canonical
+`verified_fixture_inventory` (all actual source-visible discovered
+rows), `source_payload_hash_basis=VERIFIED_FULL_FIXTURE_INVENTORY_SHA256`,
+and matching SHA256 in both frozen inventory fields, NOT the discovery
+seed's FNV hash. **Full inventory** means the final captured bounded
+source-epoch fixture set; it does not mean a fabricated worldwide fixture
+count. Preserve source URLs, sourced KO and readback provenance.
+
+
 ## 5. Completeness semantics
 
 ### EXACT_DATE_UNIVERSE

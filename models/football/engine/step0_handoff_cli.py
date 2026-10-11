@@ -20,6 +20,7 @@ FIELDS = (
     "competition_reliability_reason",
 )
 SOURCE_SCOPES = {"EXACT_DATE_UNIVERSE", "BOUNDED_PRODUCTION_DISCOVERY"}
+FAST_FINISH_POLICIES = {"FAST_FINISH_V1", "FAST_FINISH_V2"}
 # New source epochs cannot downgrade to a legacy schema by omission.
 SOURCE_SCOPE_CUTOVER = "20261011"
 VERIFIED_INVENTORY_CUTOVER = "20261012"
@@ -262,9 +263,9 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     # A fast-finish handoff may not erase unresolved source evidence just
     # because its bounded verification attempts have been exhausted.
     verification_policy = payload.get("verification_policy")
-    if verification_policy not in (None, "FAST_FINISH_V1"):
+    if verification_policy is not None and verification_policy not in FAST_FINISH_POLICIES:
         raise Step0HandoffError("HANDOFF INCOMPLETE — unknown verification policy")
-    if verification_policy == "FAST_FINISH_V1":
+    if verification_policy in FAST_FINISH_POLICIES:
         unresolved = payload.get("terminal_unresolved_verification_blocks")
         if not isinstance(unresolved, list):
             raise Step0HandoffError("HANDOFF INCOMPLETE — fast-finish unresolved-block manifest missing")
@@ -282,7 +283,7 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
     # a provisional JSON with its completion booleans altered. Confirm
     # required-competition fixture rows against a separately frozen source
     # inventory; a block summary stating '10 fixtures' is not enough.
-    if verification_policy == "FAST_FINISH_V1":
+    if verification_policy in FAST_FINISH_POLICIES:
         from coverage_manifest import (
             CoverageManifestError,
             validate_required_competition_manifest,
@@ -315,6 +316,19 @@ def validate_step0_handoff(payload: dict[str, Any], *, consumer: str = "export")
                     "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE "
                     "SOURCE INVENTORY / FIXTURE MANIFEST MISMATCH"
                 )
+
+    # V2 bounded production scope attests only to sources that were actually
+    # searched. It must not upgrade to an exact worldwide AiScore universe.
+    # Women's parity is validated against every women's fixture VISIBLE to
+    # the independently frozen bounded sources, even when that set is empty.
+    if verification_policy == "FAST_FINISH_V2" and source_scope == "BOUNDED_PRODUCTION_DISCOVERY":
+        from bounded_womens_coverage import (
+            BoundedWomensCoverageError, validate_bounded_womens_coverage,
+        )
+        try:
+            validate_bounded_womens_coverage(payload)
+        except BoundedWomensCoverageError as exc:
+            raise Step0HandoffError("HANDOFF INCOMPLETE — " + str(exc)) from exc
 
     admitted = payload.get("admitted_fixtures")
     queue = payload.get("capacity_queue")

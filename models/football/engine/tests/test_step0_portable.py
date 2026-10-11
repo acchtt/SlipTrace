@@ -29,7 +29,7 @@ class PortableStep0Tests(unittest.TestCase):
             self.assertEqual(got, blob, rel)
         result = self.portable.self_check()
         self.assertTrue(result["ok"], result)
-        self.assertEqual(result["module_count"], 6)
+        self.assertEqual(result["module_count"], 7)
 
     def test_bangladesh_scope_rejected_inside_portable(self):
         self.portable._load()

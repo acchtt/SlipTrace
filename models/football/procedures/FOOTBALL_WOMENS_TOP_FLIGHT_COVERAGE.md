@@ -14,6 +14,31 @@ Do not classify a competition as lower-division, development, reserve, academy, 
 
 Youth/Uxx, reserve/B-team/development, academy, amateur/semi-professional micro, regional/state/provincial and lower-division women's competitions remain subject to the normal hard-scope rules.
 
+### Source-scope precision for FAST_FINISH_V2
+
+When an exact AiScore date universe is truly available, account for every
+in-window women's senior domestic top flight visible to that date universe.
+
+When exact AiScore is unavailable and the officially allowed
+`BOUNDED_PRODUCTION_DISCOVERY` fallback is used, verify **all** women's
+top-flight blocks and fixtures surfaced by **any** of the acquired discovery
+families and the women's-specific corroborators. Use at least two
+independent opened women's fixture/date sources and reconcile their union
+with the original seed-discovered women's fixture IDs. Save each source
+URL, family, check timestamp, sweep window, and exact visible fixture IDs;
+also save an explicit empty array when a genuinely opened scan found none.
+`bounded_womens_coverage.py` validates those unions against the fixture
+manifest and all six women's counters; it NEVER claims complete worldwide
+AiScore discovery.
+
+Do not block an otherwise proven bounded production handoff merely because
+an inaccessible global AiScore feed cannot attest to every women's
+competition in the world. Equally, do not describe a source-bounded zero as
+"zero women's fixtures worldwide", drop a surfaced fixture, reuse unverified
+provider metadata or call a blocked source a successful negative check.
+Material unreconciled source-visible women's competition evidence still
+blocks the official Work ZIP. Protected and required blocks remain mandatory.
+
 ## 2. Discovery is not automatic admission
 
 Women's top-flight status guarantees **coverage/accounting**, not automatic Work admission.
