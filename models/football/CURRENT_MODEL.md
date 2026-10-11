@@ -1,5 +1,17 @@
 # Current Football Model
 
+## Unified /sweep and /rank V3
+
+The current Step0-to-Step1 coordinator is
+`models/football/engine/sweep_rank_pipeline.py`. Follow
+`models/football/procedures/FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`.
+A source-backed preview starts football research before complete global
+reconciliation, but cannot publish an official board. A final validated
+ZIP and independent C/C2 engine execution plus fresh Airtable readback
+are required. No separate Work-chat transfer is mandatory.
+Retain the V2 15-minute discovery budget, full required/women coverage,
+C official/C2 shadow only, and one-command quote-free /xi.
+
 ## One-command /xi — user-facing authority
 
 **/xi works as one assessment, just as before.** Read

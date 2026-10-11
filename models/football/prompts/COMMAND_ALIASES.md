@@ -1,5 +1,15 @@
 # Football Short Command Aliases
 
+## Current unified stage routing
+
+`/sweep` and `/rank` use the same V3 coordinator in
+`models/football/engine/sweep_rank_pipeline.py` and the procedure
+`FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`. Early fixture research is
+UNOFFICIAL until Step0 is sealed. An official ranking requires
+deterministic C+C2 execution and independent active Airtable readback.
+No mandatory back-and-forth between chats; never revive a terminal
+BLOCKED source run.
+
 > **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (all except /sweep):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
 **Status:** ACTIVE ROUTER CONTRACT  
