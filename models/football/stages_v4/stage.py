@@ -121,7 +121,18 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
             lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
         elif lane in ("CONDITIONAL", "PILOT"):
             proof = raw.get("researchability_status")
-            if proof != "VERIFIED":
+            evidence = raw.get("researchability_proof")
+            if proof == "VERIFIED":
+                if not isinstance(evidence, dict):
+                    raise StageError(f"{mid}: VERIFIED conditional league requires source evidence")
+                _url(evidence.get("source_url"), f"{mid}.researchability_proof.source_url")
+                stamp = _time(evidence.get("checked_at_utc"),
+                              f"{mid}.researchability_proof.checked_at_utc")
+                if not at - timedelta(days=7) <= stamp <= at:
+                    raise StageError(f"{mid}: researchability source evidence stale/future")
+                if evidence.get("match_id") != mid or evidence.get("current_channels_checked") is not True:
+                    raise StageError(f"{mid}: conditional channel proof not bound to fixture")
+            else:
                 lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
         item = {
             "match_id": mid, "country": raw.get("country"),
@@ -131,6 +142,7 @@ def sweep(source: dict[str, Any], *, now: str) -> dict[str, Any]:
             "fixture_status": status,
             "source_family": provider, "source_url": link,
             "observed_at_utc": checked.isoformat(),
+            "researchability_proof": raw.get("researchability_proof") if lane in ("CONDITIONAL", "PILOT") else None,
             "registry_lane": result["lane"],
             "intake_lane": lane, "reason": reason,
         }
@@ -254,8 +266,14 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
     if (not isinstance(readback, dict)
             or readback.get("active_base_id") != BASE
             or readback.get("method") != "INDEPENDENT_AIRTABLE_REFETCH"
-            or readback.get("run_id") != rank_receipt["run_id"]):
-        raise StageError("fresh active Airtable readback for exact run required")
+            or readback.get("run_id") != rank_receipt["run_id"]
+            or readback.get("rank_integrity_sha256") != rank_receipt["integrity_sha256"]
+            or readback.get("sweep_integrity_sha256") != rank_receipt["sweep_integrity_sha256"]):
+        raise StageError("fresh active Airtable readback and both exact V4 hashes required")
+    read_at = _time(readback.get("readback_at_utc"), "readback_at_utc")
+    ranked_at = _time(rank_receipt["rank_at_utc"], "rank_at_utc")
+    if not ranked_at <= read_at <= ranked_at + timedelta(minutes=30):
+        raise StageError("independent Airtable readback timestamp is stale/future")
     original = rank_receipt["board_pair"]["results"]
     rows = readback.get("ranked_rows")
     if not isinstance(rows, list) or len(rows) != rank_receipt["ranked_count"]:
@@ -266,6 +284,8 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         if set(indexed) != set(observed) or len(observed) != len(rows):
             raise StageError("independent Airtable ranked fixture identities mismatch")
         for mid, model_row in indexed.items():
+            if observed[mid].get("coverage_id") != f"{rank_receipt['run_id']}|{mid}":
+                raise StageError(f"{mid}: Airtable immutable coverage identity differs")
             for local, remote in (("rank", f"{model}_rank"),
                                   ("board_state", f"{model}_board_state"),
                                   ("supported_line", f"{model}_supported_line")):
@@ -274,6 +294,8 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
                     actual = actual.removeprefix("C2-" if model == "c2" else "C-")
                 if actual != model_row.get(local):
                     raise StageError(f"{mid} {model} {local}: independent saved value differs")
+            if model == "c" and observed[mid].get("follow_lane") != model_row.get("follow_lane"):
+                raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
     return {
         "schema_version": SCHEMA, "status": "V4_RANK_PERSISTENCE_VERIFIED",
         "run_id": rank_receipt["run_id"], "rank_sha256": rank_receipt["integrity_sha256"],
