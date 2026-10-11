@@ -7,6 +7,8 @@ It supersedes contradictory older XI, price, execution and reporting text
 
 ## Assess (DEFAULT; no odds)
 
+ASSESS is the default whenever the user asks to assess a match.
+
 - User says `/xi`, `/xi exception`, `/live`, `/assess`, or
   “assess/reassess/rate/analyze this match”: **ASSESS**.
 - Assess C official football and independently C2 shadow football **without
