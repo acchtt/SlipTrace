@@ -35,7 +35,7 @@ def require_current_airtable_mappings(rel: str, table_name: str, *legacy_fields:
     proves the original IDs were carried forward, table by table.
     """
     route_doc = read("models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md")
-    match = re.search(r"```json\\s*(.*?)\\s*```", route_doc, re.S)
+    match = re.search(r"```json\s*(.*?)\s*```", route_doc, re.S)
     if not match:
         failures.append("Airtable full-field migration map missing")
         return
