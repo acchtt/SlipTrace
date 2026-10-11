@@ -1,5 +1,18 @@
 # Football Short Command Aliases
 
+## Retired commands — immediate user-requested shutdown
+
+**/sweep and /rank are RETIRED.** This includes `/sweep resume`,
+`/sweep repair`, `/rank reassess`, direct former launcher filenames,
+and any V3 prepare/preview/seal/plan/rank/publish invocation. Return
+`SWEEP_RANK_RETIRED` with no new fixture discovery, source run, ZIP,
+ranking, active Airtable write or website pick. The previous Step0/Step1
+routing instructions below are archival context, NOT executable guidance.
+Do not use an archived original chat/Work handoff to reactivate them.
+**/xi, /xi exception, /live, /audit and /report remain available** and
+retain Football C official + C2 independent shadow model authority.
+A future replacement requires the user's explicit approval and new code.
+
 ## Current unified stage routing
 
 `/sweep` and `/rank` use the same V3 coordinator in
@@ -46,8 +59,8 @@ checks remain mandatory.
 
 | Command | Canonical action |
 |---|---|
-| `/sweep` | Execute `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` |
-| `/rank` | Execute `models/football/prompts/01_WORK_DAILY_SWEEP.md` |
+| `/sweep` (including resume / repair) | **RETIRED — no execution or new records** |
+| `/rank` (including reassess) | **RETIRED — no model board execution or publication** |
 | `/xi` | Single C+C2 football assessment; automatically use verified actual odds if available |
 | `/live` | Same one-step assessment for started matches |
 | `/assess`, `/bet`, `/xi bet` | Optional historical aliases; no extra command required for `/xi` |
@@ -58,6 +71,13 @@ checks remain mandatory.
 The old `@filename` / explicit launcher-path form remains valid for compatibility.
 
 ## Parsing rule
+
+**First check for retired sweep/rank tokens.** When the first token is
+`/sweep` or `/rank`, stop with `SWEEP_RANK_RETIRED` regardless of
+attachments, old ZIPs, previous runs or subcommands. Do not follow the
+historical instructions under "Command semantics" for those tokens.
+
+
 
 When the first non-whitespace token of the user's message is one of the aliases above:
 
