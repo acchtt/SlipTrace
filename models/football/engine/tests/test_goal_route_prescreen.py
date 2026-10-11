@@ -225,10 +225,17 @@ class FullQueuePrescreenTests(unittest.TestCase):
             "home": {"source_url": "https://scores.example.org/home",
                      "observed_at_utc": NOW_ISO, "recent": recent(4, 0)},
             "away": {"source_url": "https://scores.example.org/away",
-                     "observed_at_utc": NOW_ISO, "recent": recent(0, 1)},
+                     "observed_at_utc": NOW_ISO, "recent": recent(0, 3)},
         }
         result = run_prescreen(request(rows))["manifest"]["original_rows"][3]
         self.assertEqual(result["dutch_route_screen"]["route_shape"], "ONE_SIDED_CARRIER")
+        self.assertFalse(result["dutch_route_screen"]["stall_alert"])
+        # If the non-scoring team repeatedly produces one-goal matches,
+        # the stall-risk diagnostic intentionally outranks a carrier label.
+        rows[3]["football_evidence"]["away"]["recent"] = recent(0, 1)
+        blocked = run_prescreen(request(rows))["manifest"]["original_rows"][3]
+        self.assertEqual(blocked["dutch_route_screen"]["route_shape"], "LOW_GOAL_DRAW_TRAP")
+        self.assertTrue(blocked["dutch_route_screen"]["stall_alert"])
 
     def test_dutch_country_keyed_and_big_five_policy_not_changed(self):
         rows = candidates(13)
