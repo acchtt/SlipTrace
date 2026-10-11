@@ -17,6 +17,10 @@ This file is the canonical entry point for current football work.
 
 **Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **ALL noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from both the current unfinished sweep and all future ordinary sweeps. Such rows already acquired must be preserved only for exclusion audit, not Work. Competition-block prefilter avoids wasting lineup/odds research on friendlies. This does not remove **official competitive international qualification, Nations League, cup/continental fixtures or women's top-flight domestic matches**. A named explicit user exception is the only re-opening route. See `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` §2B.
 
+## Lower-division intake adjustment — prospective from 2026-10-11
+
+For new /sweep source epochs, **Germany 2. Bundesliga** is an explicitly approved NORMAL professional second-division research league (mandatory `PROVEN_LEAGUE` channel evidence; not Tier1), and **England Championship** is a specially sourced conditional **team-/fixture-level cheap-goal-signal pilot** (mandatory `PROVEN_LEAGUE` and five source-backed pre-kickoff competitive results per side, low-total stall screening). They are *not* default official Over bets. See `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`, `FOOTBALL_LEAGUE_CHANNEL_FIRST_INTAKE.md` and the 2026-10-11 research proof manifest. Spain Segunda División, Italy Serie B and France Ligue 2 remain outside routine proactive intake until rechecked and specifically authorized; Germany 3. Liga, user country exclusions, noncompetitive friendlies and retired models remain unchanged. All frozen historical sweep hashes, ranks, source epochs, decisions and Airtable archival routes remain immutable. The current broad-senior source acquisition, protected competitions and senior women's coverage *still* have higher priority than an outdated narrow-core allowlist section.
+
 ## Command router
 
 Read `models/football/prompts/COMMAND_ALIASES.md`.
