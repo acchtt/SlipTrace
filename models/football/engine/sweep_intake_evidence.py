@@ -149,7 +149,8 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     ):
         defects.append("LEAGUE_PROFILE_COMPETITION_MISMATCH")
     kind = profile.get("profile_type")
-    tier1_waiver = kind == "TIER1_STANDARD" and tier1_registered
+    tier1_waiver = (kind == "TIER1_STANDARD" and tier1_registered
+                    and profile.get("coverage_status") in (None, "STANDARD_EXPECTED"))
     if kind == "TIER1_STANDARD":
         if not _nonempty(name) or name.strip().casefold() not in TIER1_CHANNEL_LEAGUES:
             defects.append("LEAGUE_TIER1_NOT_ALLOWLISTED")
