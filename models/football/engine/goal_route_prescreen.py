@@ -210,6 +210,7 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
             "fixture_status_at_screen": status,
             "kickoff_utc": ko.isoformat(),  # original Step0 immutable
             "research_kickoff_utc": effective_ko.isoformat(),
+            "kickoff_drift_minutes": round((effective_ko - ko).total_seconds() / 60, 3),
             "kickoff_reconciliation_status": (
                 "KICKOFF_RECHECK_REQUIRED" if kickoff_recheck else "MATCHED"
             ),
