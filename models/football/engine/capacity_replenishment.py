@@ -272,13 +272,21 @@ def next_replenishment_wave(payload: dict[str, Any]) -> dict[str, Any]:
             row for row in ordered_rows
             if row["fixture_status"] == "PREMATCH_CONFIRMED"
             and row["match_id"] not in researched
-            and _time(screen_rows[row["match_id"]]["kickoff_utc"], "kickoff_utc") > current_research_clock
+            and _time(
+                screen_rows[row["match_id"]].get(
+                    "research_kickoff_utc", screen_rows[row["match_id"]]["kickoff_utc"]
+                ), "research_kickoff_utc"
+            ) > current_research_clock
         ]
         closed = [
             row for row in queue
             if row["match_id"] not in researched
             and (row["fixture_status"] != "PREMATCH_CONFIRMED"
-                 or _time(screen_rows[row["match_id"]]["kickoff_utc"], "kickoff_utc") <= current_research_clock)
+                 or _time(
+                screen_rows[row["match_id"]].get(
+                    "research_kickoff_utc", screen_rows[row["match_id"]]["kickoff_utc"]
+                ), "research_kickoff_utc"
+            ) <= current_research_clock)
         ]
     else:
         eligible = [
