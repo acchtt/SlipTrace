@@ -57,6 +57,13 @@ def ready_v2():
     ):
         p[field] = 0
     run["run_id"] = p["run_id"]
+    for key in (
+        "women_coverage_scope",
+        "women_top_flight_seed_fixture_ids",
+        "women_top_flight_source_checks",
+        "women_top_flight_disposition_manifest",
+    ):
+        run[key] = copy.deepcopy(p[key])
     return p, run
 
 
@@ -125,6 +132,12 @@ class FastV2HandoffTests(unittest.TestCase):
             out = create_package(handoff, text, proof, output)
             self.assertEqual(out["status"], "STEP0 WORK ZIP VALIDATED")
             output.unlink()
+            run["women_top_flight_source_checks"] = []
+            proof.write_text(json.dumps(run))
+            with self.assertRaisesRegex(Step0HandoffError, "women's source readback differs"):
+                create_package(handoff, text, proof, output)
+            self.assertFalse(output.exists())
+            run["women_top_flight_source_checks"] = copy.deepcopy(p["women_top_flight_source_checks"])
             run["admitted_dispositions"]["m1"] = "UNRESOLVED"
             proof.write_text(json.dumps(run))
             with self.assertRaisesRegex(Step0HandoffError, "still provisional"):
