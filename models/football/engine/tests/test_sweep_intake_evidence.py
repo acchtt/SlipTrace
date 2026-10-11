@@ -47,6 +47,10 @@ def valid_fixture():
 def league_candidate(name="Premier League", profile_type="TIER1_STANDARD"):
     row = valid_fixture()
     row["competition_name"] = name
+    # Country is required for the exact Tier-1 operational shortcut.
+    row["country"] = {"Bundesliga": "Germany", "Eredivisie": "Netherlands",
+                      "La Liga": "Spain", "Serie A": "Italy",
+                      "Ligue 1": "France"}.get(name, "England")
     row["intake_evidence_scope"] = "LEAGUE_CHANNEL_ONLY"
     row["league_channel_profile"] = {
         "competition_name": name,
@@ -101,6 +105,51 @@ class LeagueChannelFirstTests(unittest.TestCase):
             "CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH",
             validate_work_candidate(row),
         )
+
+    def test_registered_tier1_has_no_step0_lineup_or_total_publication_blocker(self):
+        row = league_candidate()
+        row.pop("league_channel_profile")
+        # No previous XI, Asian-total ladder, bookmakers, source URLs or
+        # current match quote are required at Step0 for registered Tier-1.
+        for key in list(row):
+            if key.startswith("xi_home_") or key.startswith("xi_away_"):
+                row.pop(key)
+        self.assertEqual(validate_shared_league_profiles([row]), [])
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        self.assertIn("CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH", validate_work_candidate(row))
+
+    def test_tier1_country_spoof_or_missing_identity_cannot_bypass(self):
+        row = league_candidate()
+        row["country"] = "Hong Kong"
+        row.pop("league_channel_profile")
+        self.assertIn("LEAGUE_CHANNEL_PROFILE_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row = league_candidate()
+        row["country"] = "Hong Kong"
+        self.assertIn("LEAGUE_TIER1_COUNTRY_LEAGUE_MISMATCH",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["country"] = "England"
+        row.pop("league_channel_profile")
+        row["fixture_identity_verified"] = False
+        self.assertIn("FIXTURE_IDENTITY_UNVERIFIED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["fixture_identity_verified"] = True
+        row["operational_viability_grade"] = "C"
+        self.assertIn("OPERATIONAL_GRADE_NOT_AB",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_missing_top_league_proofs_do_not_waive_other_league_proofs(self):
+        row = league_candidate("OBOS-ligaen", "PROVEN_LEAGUE")
+        row["country"] = "Norway"
+        row.pop("league_channel_profile")
+        self.assertIn("LEAGUE_CHANNEL_PROFILE_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
+        row["country"] = "Poland"
+        row.pop("league_channel_profile")
+        errors = validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1")
+        self.assertIn("LEAGUE_CHANNEL_PROFILE_MISSING", errors)
+        self.assertIn("POLAND_EKSTRAKLASA_CHEAP_SIGNAL_MISSING", errors)
 
     def test_tier1_claim_must_match_explicit_known_competition(self):
         row = league_candidate("Unknown Unverified Premier")

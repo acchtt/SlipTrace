@@ -431,6 +431,7 @@ class T(unittest.TestCase):
             item = proof(row(f"m{i}", i,
                  "ADMITTED_TO_C" if i <= 3 else "OPERATIONAL_CAPACITY_DEFERRED"))
             item["competition_name"] = "Premier League"
+            item["country"] = "England"  # explicit Tier-1 registration, not generic name
             item["intake_evidence_scope"] = "LEAGUE_CHANNEL_ONLY"
             item["league_channel_profile"] = {
                 "competition_name": "Premier League",

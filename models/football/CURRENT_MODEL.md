@@ -101,6 +101,12 @@ Football C2 owns independently:
 
 Never copy C's supported burden into C2. Never infer missing C2 from C.
 
+## Registered Tier-1 Step0 XI/total proof non-blocking — 2026-10-11 (new sweeps)
+
+For **new prospective Step0** with `LEAGUE_CHANNEL_FIRST_V1`, the country+league combinations explicitly listed in `models/football/engine/sweep_intake_evidence.py:TIER1_STANDARD_COUNTRY_LEAGUES` use expected standard lineup/Asian-total publication coverage without requiring historical match XI examples, past Asian-total fixture menus, league bookmaker URLs, or dated `VERIFIED_CHANNELS` attestations. An explicit `league_channel_profile` is optional for those Tier-1 registrations. This change removes only Step0 publication-proof blockers: independently established canonical fixture ID, exact competition/country/status/UTC kickoff, eligible senior scope, A/B operational and competition-reliability gates, source provenance, team-news and market observability, recheck plan, complete required/women coverage, complete A/B queue and deterministic packaging still apply. Tier-1 is not a fixture scoring advantage or auto-admission.
+
+The waiver does **not** apply to Netherlands Eerste Divisie, Norway OBOS or Eliteserien, Germany 2. Bundesliga, Poland Ekstraklasa, England Championship, Hong Kong/Malaysia conditional pilots or any unregistered competitions. Those keep genuine `PROVEN_LEAGUE` and conditional goal-history rules. /rank must seek actual fixture-specific XI/news and bookmaker Asian totals; /xi must independently verify current executable quote and eligible XI; never fabricate a quote, price or lineups to satisfy a gate. Old frozen or BLOCKED sweep records and source hashes are not altered automatically.
+
 ## Step 0 — researchable senior intake
 
 Use `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`.

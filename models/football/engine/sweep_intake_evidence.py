@@ -35,6 +35,41 @@ TIER1_CHANNEL_LEAGUES = frozenset({
     "k league 1", "k1", "korean k league 1",
 })
 
+# Only these exact country + competition pairs may use Tier-1 publication
+# EXPECTATION at Step 0 without prior XI / Asian-total provider attestations.
+# This is NOT automatic A/B admission or proof that a specific quote exists.
+TIER1_STANDARD_COUNTRY_LEAGUES = {
+    "england": {"premier league", "english premier league"},
+    "germany": {"bundesliga", "german bundesliga"},
+    "spain": {"la liga", "laliga", "spanish la liga"},
+    "italy": {"serie a", "italian serie a"},
+    "france": {"ligue 1", "french ligue 1"},
+    "netherlands": {"eredivisie", "netherlands eredivisie"},
+    "portugal": {"primeira liga", "portugal primeira liga"},
+    "belgium": {"belgian pro league", "belgian first division a"},
+    "united states": {"major league soccer", "mls"},
+    "usa": {"major league soccer", "mls"},
+    "canada": {"major league soccer", "mls"},
+    "mexico": {"liga mx", "mexico liga mx"},
+    "austria": {"austrian bundesliga"},
+    "scotland": {"scottish premiership"},
+    "japan": {"j1", "j1 league", "japan j1"},
+    "south korea": {"k league 1", "k1", "korean k league 1"},
+    "korea": {"k league 1", "k1", "korean k league 1"},
+}
+
+
+def _registered_tier1_standard(row: dict[str, Any]) -> bool:
+    country = row.get("country")
+    name = row.get("competition_name") or row.get("competition")
+    return (
+        isinstance(country, str) and isinstance(name, str)
+        and name.strip().casefold() in TIER1_STANDARD_COUNTRY_LEAGUES.get(
+            country.strip().casefold(), frozenset()
+        )
+    )
+
+
 SUPPORTED_COMPETITION_TIERS = frozenset(
     {
         "PROTECTED_OFFICIAL",
@@ -99,8 +134,14 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     """Step-0 cheap league-profile admission, never an executable quote."""
     defects: list[str] = []
     profile = row.get("league_channel_profile")
+    tier1_registered = _registered_tier1_standard(row)
     if not isinstance(profile, dict):
-        return ["LEAGUE_CHANNEL_PROFILE_MISSING"]
+        if not tier1_registered:
+            return ["LEAGUE_CHANNEL_PROFILE_MISSING"]
+        # Exact country/league registry is the Step-0 Tier-1 coverage basis.
+        # Do not fabricate historical lineup/Asian market proofs or provider URLs.
+        profile = {"competition_name": row.get("competition_name") or row.get("competition"),
+                   "profile_type": "TIER1_STANDARD"}
     name = row.get("competition_name") or row.get("competition")
     profile_name = profile.get("competition_name")
     if not _nonempty(name) or not _nonempty(profile_name) or (
@@ -108,9 +149,13 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     ):
         defects.append("LEAGUE_PROFILE_COMPETITION_MISMATCH")
     kind = profile.get("profile_type")
+    tier1_waiver = (kind == "TIER1_STANDARD" and tier1_registered
+                    and profile.get("coverage_status") in (None, "STANDARD_EXPECTED"))
     if kind == "TIER1_STANDARD":
         if not _nonempty(name) or name.strip().casefold() not in TIER1_CHANNEL_LEAGUES:
             defects.append("LEAGUE_TIER1_NOT_ALLOWLISTED")
+        elif not tier1_registered:
+            defects.append("LEAGUE_TIER1_COUNTRY_LEAGUE_MISMATCH")
     elif kind == "PROVEN_LEAGUE":
         for key in ("recent_xi_fixture_count", "recent_asian_total_fixture_count"):
             count = profile.get(key)
@@ -119,15 +164,18 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
     else:
         defects.append("LEAGUE_PROFILE_TYPE_UNSUPPORTED")
 
-    if profile.get("coverage_status") != "VERIFIED_CHANNELS":
-        defects.append("LEAGUE_CHANNEL_COVERAGE_UNVERIFIED")
-    if not _nonempty(profile.get("season")):
-        defects.append("LEAGUE_PROFILE_SEASON_MISSING")
-    if not _nonempty(profile.get("evidence_basis")):
-        defects.append("LEAGUE_PROFILE_EVIDENCE_BASIS_MISSING")
-    for key in ("xi_provider_url", "asian_total_provider_url", "team_news_provider_url"):
-        if not _source_url(profile.get(key)):
-            defects.append(f"LEAGUE_{key.upper()}_MISSING")
+    if not tier1_waiver:
+        # PROVEN_LEAGUE and any non-registered Tier-1 claim retain genuine
+        # historic publication proof; conditional lower leagues are unchanged.
+        if profile.get("coverage_status") != "VERIFIED_CHANNELS":
+            defects.append("LEAGUE_CHANNEL_COVERAGE_UNVERIFIED")
+        if not _nonempty(profile.get("season")):
+            defects.append("LEAGUE_PROFILE_SEASON_MISSING")
+        if not _nonempty(profile.get("evidence_basis")):
+            defects.append("LEAGUE_PROFILE_EVIDENCE_BASIS_MISSING")
+        for key in ("xi_provider_url", "asian_total_provider_url", "team_news_provider_url"):
+            if not _source_url(profile.get(key)):
+                defects.append(f"LEAGUE_{key.upper()}_MISSING")
     if row.get("intake_evidence_scope") != "LEAGUE_CHANNEL_ONLY":
         defects.append("LEAGUE_CHANNEL_SCOPE_NOT_DECLARED")
     if row.get("xi_expected") not in {"YES", "UNCERTAIN"}:
@@ -144,11 +192,12 @@ def _league_channel_defects(row: dict[str, Any]) -> list[str]:
         defects.append("FIXTURE_IDENTITY_UNVERIFIED")
     if kickoff is None:
         defects.append("FIXTURE_KICKOFF_UTC_UNVERIFIED")
-    evidence_time = _utc_timestamp(profile.get("evidence_checked_at_utc"))
-    if evidence_time is None or (
-        kickoff and not timedelta(0) <= kickoff - evidence_time <= timedelta(days=30)
-    ):
-        defects.append("LEAGUE_PROFILE_EVIDENCE_STALE_OR_POST_KO")
+    if not tier1_waiver:
+        evidence_time = _utc_timestamp(profile.get("evidence_checked_at_utc"))
+        if evidence_time is None or (
+            kickoff and not timedelta(0) <= kickoff - evidence_time <= timedelta(days=30)
+        ):
+            defects.append("LEAGUE_PROFILE_EVIDENCE_STALE_OR_POST_KO")
     recheck = _utc_timestamp(row.get("xi_recheck_due_utc"))
     if recheck is None or (
         kickoff and not timedelta(minutes=30) <= kickoff - recheck <= timedelta(hours=3)
@@ -347,9 +396,11 @@ def validate_shared_league_profiles(rows: list[dict[str, Any]]) -> list[str]:
             continue
         profile = row.get("league_channel_profile")
         if not isinstance(profile, dict):
-            errors.append(f"LEAGUE_CHANNEL_PROFILE_MISSING: {name}")
-            continue
-        key = name.strip().casefold()
+            if not _registered_tier1_standard(row):
+                errors.append(f"LEAGUE_CHANNEL_PROFILE_MISSING: {name}")
+                continue
+            profile = {"competition_name": name, "profile_type": "TIER1_STANDARD"}
+        key = f"{str(row.get('country', '')).strip().casefold()}|{name.strip().casefold()}"
         if key in known and known[key] != profile:
             errors.append(f"LEAGUE_CHANNEL_PROFILE_INCONSISTENT: {name}")
         else:
@@ -401,10 +452,10 @@ def validate_work_candidate(row: dict[str, Any], *, intake_policy: str = "XI_MAR
         defects.append("COMPETITION_SUPPORT_BASIS_MISSING")
 
     if intake_policy == LEAGUE_CHANNEL_POLICY:
-        # Tier 1 and independently proven leagues need one reusable seasonal
-        # lineup/Asian-total/news provider profile, not per-fixture book odds
-        # or both clubs' prior XIs during /sweep. These become mandatory at
-        # /rank and again at /xi before any official bet.
+        # Registered country+league Tier-1 fixtures use expected publishing
+        # coverage without historic XI/Asian-total proof at Step 0. All other
+        # leagues retain PROVEN_LEAGUE proofs. Neither path waives fixture
+        # identity, A/B operations or /rank and /xi match-specific research.
         return (defects + _league_channel_defects(row)
                 + _championship_goal_signal_defects(row)
                 + _poland_ekstraklasa_goal_signal_defects(row)
