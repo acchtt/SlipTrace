@@ -141,6 +141,37 @@ class LeagueChannelFirstTests(unittest.TestCase):
         self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
                       validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
 
+    def test_obos_profile_requires_two_actual_xi_and_asian_total_fixture_channels(self):
+        row = league_candidate("OBOS-ligaen", "PROVEN_LEAGUE")
+        self.assertEqual(validate_work_candidate(
+            row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 1
+        self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["league_channel_profile"]["recent_xi_fixture_count"] = 3
+        row["league_channel_profile"]["recent_asian_total_fixture_count"] = 1
+        self.assertIn("LEAGUE_PROFILE_RECENT_ASIAN_TOTAL_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_obos_is_not_tier_one_and_cannot_claim_channel_without_sources(self):
+        row = league_candidate("OBOS-ligaen", "TIER1_STANDARD")
+        self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["league_channel_profile"]["profile_type"] = "PROVEN_LEAGUE"
+        row["league_channel_profile"]["xi_provider_url"] = ""
+        self.assertIn("LEAGUE_XI_PROVIDER_URL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_obos_no_match_odds_made_up_at_step0_and_step1_strict(self):
+        row = league_candidate("OBOS-ligaen", "PROVEN_LEAGUE")
+        self.assertEqual(validate_work_candidate(
+            row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        self.assertIn("CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH",
+                      validate_work_candidate(row))
+        row["is_friendly"] = True
+        self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
     def test_championship_requires_individual_five_match_signal(self):
         row = league_candidate("Championship", "PROVEN_LEAGUE")
         self.assertIn("CHAMPIONSHIP_CHEAP_SIGNAL_MISSING",

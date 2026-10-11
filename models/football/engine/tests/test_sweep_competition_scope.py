@@ -51,6 +51,42 @@ class ScopeFirstTests(unittest.TestCase):
                 self.assertEqual(classify_competition(c(label, "Austria"))["lane"],
                                  "SCOPE_EXCLUDED")
 
+    def test_norwegian_obos_second_tier_country_keyed_aliases(self):
+        for label in ("OBOS-ligaen", "Norwegian OBOS Ligaen",
+                      "1. divisjon", "1 Division", "Norway Division 1",
+                      "Norway First Division"):
+            with self.subTest(alias=label):
+                self.assertEqual(classify_competition(c(label, "Norway"))["lane"],
+                                 "ROUTINE_LEAGUE_PROFILE")
+                self.assertEqual(classify_competition(c(label, "Sweden"))["lane"],
+                                 "SCOPE_EXCLUDED")
+
+    def test_obos_does_not_unlock_weak_data_neighbors(self):
+        for label in ("2. divisjon", "3. divisjon", "Norway Second Division",
+                      "Division 2", "3. Liga"):
+            with self.subTest(competition=label):
+                self.assertEqual(classify_competition(c(label,"Norway"))["lane"],
+                                 "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "OBOS-ligaen", "Norway", is_friendly=True))["lane"], "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "OBOS-ligaen", "Wales"))["lane"], "SCOPE_EXCLUDED")
+        self.assertEqual(classify_competition(c(
+            "Norwegian Women Premier League", "Norway",
+            kind="WOMENS_TOP_FLIGHT"))["lane"], "COVERAGE_AUDIT_PROOF_REQUIRED")
+
+    def test_obos_batch_retains_unlisted_raw_without_work(self):
+        screened=screen_competitions([
+            c("OBOS-ligaen","Norway"),
+            c("Eliteserien","Norway"),
+            c("2. divisjon","Norway"),
+            c("Division 1","Malaysia"),
+        ])
+        self.assertEqual(screened["input_competition_count"], 4)
+        self.assertEqual(screened["routine_verification_count"], 2)
+        self.assertEqual(len(screened["blocks"]["SCOPE_EXCLUDED"]), 2)
+        self.assertTrue(screened["raw_ledger_retained"])
+
     def test_championship_requires_conditional_signal_not_direct_admission(self):
         for label in ("Championship", "EFL Championship", "Sky Bet Championship"):
             with self.subTest(name=label):

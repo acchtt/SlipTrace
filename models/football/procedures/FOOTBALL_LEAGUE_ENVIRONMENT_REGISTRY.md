@@ -40,7 +40,7 @@ when that is the operative reason.
 
 A league that fails this prerequisite is **not CONDITIONAL** and must not consume cheap-gate research.
 
-The Netherlands **Eerste Divisie**, Mexico **Liga de Expansión MX / Ascenso MX**, and Germany **2. Bundesliga** are explicit approved NORMAL second-division exceptions. England **Championship** is a narrowly approved CONDITIONAL second-division pilot; it is never blanket Work admission.
+The Netherlands **Eerste Divisie**, Mexico **Liga de Expansión MX / Ascenso MX**, Germany **2. Bundesliga**, and Norway **OBOS-ligaen (1. divisjon)** are explicit approved NORMAL second-division exceptions. England **Championship** is a narrowly approved CONDITIONAL second-division pilot; it is never blanket Work admission.
 
 ### Netherlands Eerste Divisie Jong/U21 participant exception — effective 2026-09-19 ICT
 
@@ -113,6 +113,7 @@ Absolute operational exclusion under the active user rule. No automatic override
 - Germany — Bundesliga
 - Belgium — Belgian Pro League / First Division A
 - Norway — Eliteserien
+- Norway — OBOS-ligaen / 1. divisjon **(approved professional second-tier NORMAL intake; PROVEN_LEAGUE mandatory, not Tier 1)**
 - Sweden — Allsvenskan
 - Denmark — Superliga
 - Iceland — Besta deild karla / top flight
@@ -222,7 +223,7 @@ Japanese domestic cups and senior continental fixtures involving Japanese clubs 
 
 The registry does not generally revive fixtures excluded by the active model quality overlay. Continue to remove youth/Uxx, reserve/development, amateur/semi-pro, regional/state/provincial, domestic lower divisions unless explicitly approved, and very weak/obscure data environments.
 
-**Explicit lower-division approvals:** Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL) and England Championship (CONDITIONAL cheap gate, not wholesale). They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
+**Explicit lower-division approvals:** Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL), Norway OBOS-ligaen / 1. divisjon (NORMAL) and England Championship (CONDITIONAL cheap gate, not wholesale). They enter through the NORMAL lane in Section 3 and are not filtered out merely for being second divisions.
 
 **Scoped participant override:** official Netherlands Eerste Divisie league fixtures involving Jong/U21/reserve-branded teams are included under the 2026-09-19 exception. Do not classify those official league fixtures as youth/reserve exclusions solely from the participant name.
 
@@ -239,6 +240,14 @@ England **Championship** is the *only* second-tier exception to the usual FAST_P
 Spain Segunda, Italy Serie B, France Ligue 2, England League One/Two, Spain Primera Federación, Italy Serie C, France National remain outside routine proactive discovery. One-run explicitly named exceptions may be assessed outside the routine scope but do not rewrite the permanent registry; France Ligue 2's prior run-specific skip must not be silently reversed. Germany 3. Liga remains explicitly excluded. Explicit country/friendly exclusions and protected women's/continental coverage unchanged.
 
 The active `CURRENT_MODEL.md` and Step0 launcher outrank stale historical sections elsewhere in the registry. This overlay is a prospective **competition research filter**, not a retroactive Step0 mutation. See `research/LOWER_DIVISION_PROOF_MANIFEST_2026-10-11.md`.
+
+## 7B. Norway OBOS-ligaen source-gated lower-division intake — 2026-10-11
+
+For only NEW prospective Step0 sweeps, Norway **OBOS-ligaen / 1. divisjon / Norway First Division** is approved NORMAL for **routine competition-block discovery and operational research screening**, not automatic inclusion in an A/B Work queue. Its country+league name must match the exact code registry; `Norway 2. divisjon` and `Norway 3. divisjon` are not approved. Excluded domestic countries, all friendlies, reserve/youth-only leagues and protected women's/cup/continental coverage are unchanged.
+
+OBOS **must** carry a real verified `PROVEN_LEAGUE` publication profile, **never** `TIER1_STANDARD`: at least two distinct completed 2026 league fixtures with actual published lineup sources (both teams), and two real league fixtures with observed Asian goal-total ladder publication, verified by the sweep operator from retrievable source URLs. Preserve season, source URLs, evidence checked timestamp, team-news channels and fixture identity/kickoff. The historical evidence manifest at `models/football/research/OBOS_LEAGUE_CHANNEL_PROOF_2026-10-11.md` documents inspectable examples but is **not** a persisted live-season `VERIFIED_CHANNELS` attestation. If fresh providers are unavailable, this league's individual fixtures do not pass the A/B intake gate; do not fabricate odds or verified XI.
+
+A routine league profile is **not** an Over goals forecast; do not promote Ranheim/Moss/Kongsvinger via hardcoded team names or assumed >2.5 price. The prospective Step1 whole-queue goal-route screen still uses actual 4–10 previous competitive results. Step1 requires fixture-specific actual Asian totals, news and XI sources; Step2 requires the genuinely current offered line, reachable WAIT and independent C/C2 decision. Never reopen or relabel completed sweeps, original source hashes, historical boards or Actual Bets.
 
 ## 8. Promotion / demotion policy
 
@@ -260,7 +269,7 @@ The Work handoff should contain only:
 
 It must not contain:
 
-- youth/reserve/lower/amateur/regional fixtures, except the explicitly approved lower divisions Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL) and England Championship fixtures with a verified conditional cheap goal signal; official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are specifically allowed;
+- youth/reserve/lower/amateur/regional fixtures, except the explicitly approved lower divisions Netherlands Eerste Divisie, Mexico Liga de Expansión MX / Ascenso MX, Germany 2. Bundesliga (NORMAL), Norway OBOS-ligaen / 1. divisjon (NORMAL) and England Championship fixtures with a verified conditional cheap goal signal; official Eerste Divisie fixtures involving Jong/U21/reserve-branded participant teams are specifically allowed;
 - small/obscure weak-data leagues;
 - LOW-GOAL EXCLUDE;
 - HARD EXCLUDE;
