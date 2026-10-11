@@ -155,6 +155,35 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["eligible_count"],20)
         self.assertEqual(len(result["research_order"]),20)
 
+    def test_one_malformed_goal_history_is_evidence_limited_not_global_failure(self):
+        a=fixture("m1")
+        a["football_evidence"]={
+            "home":{"source_url":"http://bad.source", "recent":[]},
+            "away":{"source_url":"http://bad.source", "recent":[]},
+        }
+        out=sweep(snapshot([a,fixture("m2","Norway","OBOS-ligaen")]),now=NOW)
+        self.assertEqual(out["eligible_count"],2)
+        self.assertEqual(len(out["invalid_historical_form_sources"]),1)
+        self.assertEqual(out["invalid_historical_form_sources"][0]["match_id"],"m1")
+        self.assertEqual(len(out["research_order"]),2)
+
+    def test_real_recent_high_scoring_team_evidence_is_prioritized(self):
+        good=fixture("m1","Netherlands","Eredivisie")
+        games=[
+            {"kickoff_utc":f"2026-09-{d:02d}T12:00:00Z",
+             "goals_for":3,"goals_against":1}
+            for d in (1,8,15,22)
+        ]
+        proof={"source_url":"https://sports.example.org/recent-results",
+               "observed_at_utc":"2026-10-11T15:58:00Z",
+               "recent":games}
+        good["football_evidence"]={"home":proof,"away":proof}
+        out=sweep(snapshot([good,fixture("m2","England","Premier League")]),now=NOW)
+        self.assertEqual(out["eligible_count"],2)
+        self.assertEqual(out["research_order"][0],"m1")
+        self.assertEqual(out["goal_screen_manifest"]["original_rows"][0]["screen_status"],"QUANTIFIED")
+        self.assertIsNotNone(out["goal_screen_manifest"]["original_rows"][0]["dutch_route_screen"])
+
     def test_single_invalid_source_fixture_does_not_block_other_leagues(self):
         cases = [
             ("match_id","DISCOVERY-notreal","canonical unique"),
