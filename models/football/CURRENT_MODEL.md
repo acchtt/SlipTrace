@@ -1,5 +1,22 @@
 # Current Football Model
 
+## User-facing /xi and /live rule — ASSESS is the default
+
+**Highest-precedence model action routing (2026-10-11):** load
+`models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
+A request to assess, `/xi`, `/xi exception`, `/live` or `/assess`
+means **assess the football for C and C2 immediately without requesting
+odds or a quote**, prematch or after kickoff. The pinned
+`xi_portable.py assess` (football-pair) engine is the default.
+**Only explicit `/bet`, `/xi bet`, or a request to evaluate an actual
+entry price enters the quote-requiring BET CHECK mode.**
+No internal price, XI, publishing or accounting requirement may be
+used to refuse the ASSESS football read. Keep C official, C2 shadow,
+genuine football-evidence limits and no fabricated betting actions.
+This new contract supersedes older contradictory “Step 2 must have a
+quote” instructions below **for ASSESS only**.
+
+
 > **Model-only route guard:** All /rank, /xi, /live, /audit, /report, QA, Website Picks and verified user bet accounting load `airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`; sweep remains under its separate already-existing routing and is not changed by this model-only guard. Full 368-field mapping remains authoritative in `airtable/ACTIVE_BASE_ROUTING_20261011.md`.
 
 ## Airtable operational base routing (2026-10-11)
@@ -275,43 +292,37 @@ The workflow must:
 
 A missing local checkout or raw container network failure is not repository unavailability while connected repository source remains accessible.
 
-## Step 2 — atomic C+C2 XI/odds execution
+## Assess (default) / Bet check (explicit) — independent C + C2
 
-Use `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`.
+Use `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` together with
+`models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
 
-For every authorized normal or exception assessment:
-1. freeze one common current XI/research/market/tournament evidence epoch;
-2. freeze C model-owned inputs;
-3. freeze C2 model-owned inputs independently;
-4. persist both frozen inputs;
-5. execute both deterministically;
-6. persist both outputs;
-7. only then publish the completed verdict.
+**ASSESS is the default for /xi, /xi exception, /live, /assess.** Freeze
+available football evidence and independent C/C2 factors, then run:
 
-Primary runtime:
+`python xi_portable.py assess --c <c.json> --c2 <c2.json>`
 
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+This is the pinned quote-free paired football engine. A match may be
+assessed before or after kickoff, with no new quote, bookmaker line,
+market history or price revalidation. Mark genuinely missing *football*
+facts as limitations; never substitute bookmaker prices for football
+proof. No BET/WAIT/PASS or artificial model exposure is authorized by
+ASSESS. C2 cannot be inferred from C. A genuine inability to execute
+must be identified, not disguised as a successful engine run.
 
-Required:
+**BET CHECK is only invoked by explicit user request**, e.g. /bet or
+/xi bet. It includes current market/XI/fixture/incentive verification,
+separate C and C2 independently frozen inputs, strict paired decision
+execution, readback and publication guard:
 
-`ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR`
+`python xi_portable.py bet-check --c <c.json> --c2 <c2.json>`
 
-If C2 cannot be lawfully frozen/executed:
-
-`C+C2 EXCEPTION INCOMPLETE — <exact reason>`
-
-A C-only completed exception is forbidden.
-
-Mandatory Step-2 evidence includes:
-- confirmed/reliable XI;
-- fresh post-XI football research;
-- market-history attempt;
-- H2H recheck;
-- tournament-incentive recheck when applicable;
-- fixture-status revalidation;
-- quote revalidation;
-- C completion recheck;
-- C2 route-quality recheck.
+Internally this is the existing strict price-bearing `pair` path.
+The prior `ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR` and mandatory
+market-history, current total/odds, reliable XI, tournament recheck and
+publication requirements apply **only to the executable bet check**.
+If odds are not available, complete ASSESS and say the bet check is
+unpriced. Never ask for odds to finish the football assessment.
 
 ## Active-model accounting
 
@@ -353,7 +364,7 @@ Current live roster:
 - Football C official;
 - Football C2 shadow.
 
-No live-stat confirmation gate is required. Assess from score/minute, current quote, frozen thesis and concrete material events. Recompute tournament incentive at each material live epoch when applicable.
+No live-stat or bookmaker-quote confirmation gate is required for ASSESS. Assess available score/minute, independent frozen C/C2 theses and material events without prices. A current quote is required only for an explicitly requested executable BET CHECK. Recompute tournament incentive at each material live epoch when applicable before any betting authorization.
 
 C2 never creates official exposure.
 
