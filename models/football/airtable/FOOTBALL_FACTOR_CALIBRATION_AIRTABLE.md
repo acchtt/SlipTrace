@@ -1,7 +1,7 @@
 > **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Factor Calibration — Airtable Contract
 
 **Status:** ACTIVE OBSERVER PERSISTENCE  
-**Base:** `SlipTrace Football Decision Control` (`appbzxqXYf0lKfD4P`)  
+**Base:** `Football v2 — Active Operations 2026-10-11` (`appbzxqXYf0lKfD4P`)  
 **Table:** `Factor Calibration Observations`  
 **Table ID:** `tblCfYuxmc1FfHS76`  
 **Authority:** diagnostic only; zero Football C/C2 production authority

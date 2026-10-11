@@ -1,5 +1,7 @@
 # Football Chat Operating Protocol
 
+> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (current model command routing):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+
 **Status:** ACTIVE  
 **Canonical model entry point:** `models/football/CURRENT_MODEL.md`  
 **Current official model:** Football C

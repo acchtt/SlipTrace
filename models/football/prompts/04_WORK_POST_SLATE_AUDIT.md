@@ -1,5 +1,7 @@
 # 04 — Work: Football C + C2 Post-Slate Audit
 
+> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/audit):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+
 > **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only active shadow challenger. C3 and C4 are retired for new/current execution. Historical C3/C4 rows remain immutable audit history when they were genuinely frozen at the time.
 
 **Command alias:** `/audit`
