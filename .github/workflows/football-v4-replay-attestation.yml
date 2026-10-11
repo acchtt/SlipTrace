@@ -1,0 +1,69 @@
+name: Football V4 original-source replay attestation
+on:
+  push:
+    paths:
+      - ".github/workflows/football-v4-replay-attestation.yml"
+      - "models/football/stages_v4/replay_unattested.py"
+      - "models/football/stages_v4/stage.py"
+      - "models/football/stages_v4/recovery/**"
+  pull_request:
+    paths:
+      - ".github/workflows/football-v4-replay-attestation.yml"
+      - "models/football/stages_v4/replay_unattested.py"
+      - "models/football/stages_v4/stage.py"
+      - "models/football/stages_v4/recovery/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  v4-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rerun actual V4 stage using original unchanged source
+        run: |
+          set -euo pipefail
+          mkdir -p v4-attested-artifacts
+          for source in models/football/stages_v4/recovery/V4-*/source.json; do
+            test -f "$source" || continue
+            folder="${source%/source.json}"
+            run="${folder##*/}"
+            if test -f "$folder/intake-unattested.json"; then
+              # Historic cross-chat repair: replay the exact saved snapshot;
+              # do not treat the derived hash as a production certificate.
+              python models/football/stages_v4/replay_unattested.py \
+                --source "$folder/source.json" \
+                --derived "$folder/intake-unattested.json" \
+                --output "v4-attested-artifacts/${run}-v4_sweep_ready.json" \
+                --report "v4-attested-artifacts/${run}-replay_proof.json"
+            else
+              # New sweeps should never need a derived-unattested receipt:
+              # run native production Stage V4 at the runner's REAL UTC clock.
+              python models/football/stages_v4/stage.py \
+                --output "v4-attested-artifacts/${run}-v4_sweep_ready.json" \
+                sweep --source "$folder/source.json"
+              python - "$folder/source.json" "$run" <<'PY'
+          import json,sys
+          from pathlib import Path
+          source=json.loads(Path(sys.argv[1]).read_text())
+          output=Path("v4-attested-artifacts")/(sys.argv[2]+"-v4_sweep_ready.json")
+          done=json.loads(output.read_text())
+          assert done["status"]=="V4_SWEEP_READY" and done["run_id"]==source["run_id"]
+          print("V4 native stage receipt verified:",done["integrity_sha256"])
+          PY
+            fi
+          done
+          test -n "$(find v4-attested-artifacts -type f -name '*v4_sweep_ready.json' -print -quit)"
+      - name: Emit valid snapshot as cross-chat file (no Airtable write)
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-original-source-attested-receipts
+          path: v4-attested-artifacts/
+          retention-days: 7
+          if-no-files-found: error

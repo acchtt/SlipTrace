@@ -64,8 +64,16 @@ def _hash(value: Any) -> str:
 
 
 def _verified(obj: Any, expected_status: str) -> None:
+    if isinstance(obj, dict) and obj.get("status") == "V4_SWEEP_DERIVED_UNATTESTED":
+        raise StageError(
+            "V4_ATTESTATION_REQUIRED: This is a derived estimate, not the "
+            "production stage output. Obtain the original source.json and "
+            "execute stages_v4/stage.py sweep or replay_unattested.py, or "
+            "download the verified V4 receipt from GitHub Actions. "
+            "Never promote an intake by editing its status or digest."
+        )
     if not isinstance(obj, dict) or obj.get("schema_version") != SCHEMA or obj.get("status") != expected_status:
-        raise StageError(f"{expected_status}: invalid stage payload")
+        raise StageError(f"{expected_status}: missing authentic production stage payload")
     digest = obj.get("integrity_sha256")
     if digest != _hash({k: v for k, v in obj.items() if k != "integrity_sha256"}):
         raise StageError("frozen stage integrity SHA256 mismatch")
