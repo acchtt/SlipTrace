@@ -238,7 +238,7 @@ class SweepRankPipelineTests(unittest.TestCase):
                 execute_rank(archive, "f" * 64, sweep, c, c2, unranked,
                              at_utc="2026-10-09T12:00:00Z")
             sweep["run_status"] = "RUNNING"
-            with self.assertRaisesRegex(SweepRankError, "COMPLETE readback"):
+            with self.assertRaisesRegex(SweepRankError, "complete Sweep Runs readback"):
                 execute_rank(archive, sealed["zip_sha256"], sweep, c, c2, unranked,
                              at_utc="2026-10-09T12:00:00Z")
 
