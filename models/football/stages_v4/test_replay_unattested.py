@@ -8,6 +8,7 @@ import unittest
 
 ROOT=Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
+sys.path.insert(0,str(ROOT.parent / "engine" / "tests"))
 from replay_unattested import replay
 from stage import StageError, _hash, rank
 
