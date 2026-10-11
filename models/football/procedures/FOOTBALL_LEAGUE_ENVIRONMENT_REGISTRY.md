@@ -152,6 +152,8 @@ The following competitions are the **complete normal-sweep CONDITIONAL whitelist
 - England — EFL Championship / Championship **(targeted 2026-10-11 pilot only; fresh source-backed fixture goal gate)**
 - Czech Republic — First League
 - Poland — Ekstraklasa **(2026-10-11 bounded FAST_PRODUCTION source-local conditional pilot; both-side scored/conceded proof, draw-trap guard)**
+- Hong Kong — Premier League / BOC Life Hong Kong Premier League **(2026-10-11 senior first-team conditional pilot; U22 and HKFA First Division excluded)**
+- Malaysia — Super League / Liga Super **(2026-10-11 senior first-team conditional pilot; lower/M3 excluded)**
 - Greece — Super League
 - Romania — Liga I
 - Croatia — HNL
@@ -260,6 +262,18 @@ To route an individual Ekstraklasa fixture to the A/B Work queue, the `LEAGUE_CH
 - All independent normal professional A/B viability, source-checked season `PROVEN_LEAGUE` (minimum two real lineup and two Asian-goal-total fixture publication examples) because it is **not** in TIER1_STANDARD, legitimate league market/news channels, observed verified fixture/time, and near-kickoff recheck. /rank separately verifies actual match bookmaker totals, line, quote timestamp, XI and news; /xi handles genuinely executable odds.
 
 No hardcoded GKS/Raków/Lech boosts. A past high Over frequency can arise from conceding, and a 1–1 can be a dead end. Step1's whole-queue goal-first scoring remains decisive **only for research order** across already eligible A/B fixtures. No frozen sweep, Step0 source hash, operational rank, C official/C2 shadow decisions, or Actual Bets are modified. See `research/POLAND_EKSTRAKLASA_CONDITIONAL_PILOT_2026-10-11.md`.
+
+## 7D. Hong Kong and Malaysia senior top-flight small-season conditional pilots — October 2026
+
+Only future newly created /sweep: exact-country Hong Kong Premier League and Malaysia Liga Super enter **one bounded source-local competition-block review**, remaining CONDITIONAL, not unconditional Work or C/C2 admission. Generic “Premier League” is allowed only if country = Hong Kong/Hong Kong SAR; generic “Super League” only with Malaysia.
+
+Before any A/B Work candidate, prove genuine season-specific `PROVEN_LEAGUE` channels: >=2 distinct completed senior league matches publishing *both* confirmed starting XIs and >=2 distinct matches publishing actual Asian total ladder menus; credible team news, source URLs/check UTC, identity/UTC KO, A/B viability. No future starting XI or bookmaker quote is inferred. Never Tier1.
+
+Fixture-specific `asia_topflight_recent_goal_evidence` must have `captured_at_utc` <=7 days before KO, and each `home` and `away` with a genuine HTTPS score source and 3–5 `recent_competitive_matches`: unique match ID, kickoff UTC, goals for/against, competitive=true, complete >=2 hours before capture and within 120 days of the candidate. Early seasons allow three authentic games instead of fabricating five. To pass: both sides average total >=2.8 and O2.5 >=40%, OR >=3.4 carrier with opponent >=2.0 and each >=25% O2.5. Block if either team has >=60% 0–0/1–1 traps or >=80% <=2 total goals. Missing signal means no Work, not C PASS or an Under call.
+
+These are research gates, not odds or predictions: dominant teams can open at O4.5/O5.25 and should never generate a WAIT for a lower, unreachable line. Step1 whole-queue research prioritization, confirmed actual match bookmaker/XI/news and independent C/C2, later /xi executable odds remain mandatory. Exclude Hong Kong U22 Premier League/HKFA first/lower, Malaysian M3/youth/reserve-only, friendlies and all existing standing bans. Preserve protected competitive tournaments, women's top-flight accounting, frozen Step0 rank/source epoch, archived Airtable and official C/C2 accounting.
+
+See `research/HONG_KONG_MALAYSIA_SOURCE_PILOT_2026-10-11.md`.
 
 ## 8. Promotion / demotion policy
 
