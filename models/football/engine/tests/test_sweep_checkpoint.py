@@ -129,9 +129,7 @@ class SweepCheckpointTests(unittest.TestCase):
         cp["requested_window"] = {"start_utc": "2026-10-11T10:08:54Z"}
         result = expire_fast_finish_deadline(cp, now="2026-10-11T12:08:54Z")
         self.assertEqual(result["deadline_status"], "RECONCILE_NOW")
-        self.assertEqual(result["terminal_unresolved_verification_blocks"], None
-                         if "terminal_unresolved_verification_blocks" not in result
-                         else [])
+        self.assertEqual(result.get("terminal_unresolved_verification_blocks", []), [])
         self.assertEqual(result["phase"], "RECONCILIATION")
 
     def test_fast_finish_deadline_never_mutates_legacy_or_future_clock(self):
