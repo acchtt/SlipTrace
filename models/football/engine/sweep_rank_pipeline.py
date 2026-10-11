@@ -127,6 +127,10 @@ def prepare(payload: dict[str, Any]) -> dict[str, Any]:
             "PREMATCH_CONFIRMED", "STARTED", "POSTPONED", "CANCELLED", "FINISHED",
         }:
             raise SweepRankError(f"{mid}: verified fixture status required")
+        status_observed = _utc(row.get("fixture_status_observed_at_utc"),
+                               f"{mid}.fixture_status_observed_at_utc")
+        if not now - timedelta(minutes=20) <= status_observed <= now:
+            raise SweepRankError(f"{mid}: stale or future fixture status observation")
         research_rows.append({
             "match_id": mid,
             "queue_rank": row["step0_capacity_queue_rank"],
@@ -150,7 +154,7 @@ def prepare(payload: dict[str, Any]) -> dict[str, Any]:
     blocking = payload.get("coverage_blockers")
     if not isinstance(blocking, list) or any(not isinstance(x, str) or not x.strip() for x in blocking):
         raise SweepRankError("coverage_blockers must be explicit list (may be empty)")
-    return {
+    preview = {
         "schema_version": SCHEMA,
         "status": "FOOTBALL_RESEARCH_PREPARED_UNOFFICIAL",
         "run_id": run_id,
@@ -158,6 +162,12 @@ def prepare(payload: dict[str, Any]) -> dict[str, Any]:
         "research_at_utc": now.isoformat(),
         "research_ready_count": len(order),
         "source_backed_queue_count": len(queue),
+        "source_backed_fixtures": [{
+            "match_id": row["match_id"],
+            "fixture_kickoff_utc": _utc(row["fixture_kickoff_utc"], "fixture kickoff").isoformat(),
+            "fixture_status": row["fixture_status"],
+            "fixture_source_url": row["fixture_source_url"],
+        } for row in queue],
         "initial_wave": order[:FIRST_RESEARCH_WAVE],
         "standard_research_order": order[:STANDARD_RESEARCH],
         "adaptive_ceiling": min(MAX_RESEARCH, len(order)),
@@ -169,6 +179,59 @@ def prepare(payload: dict[str, Any]) -> dict[str, Any]:
         "no_bet": True,
         "official_rank_authorized": False,
         "requires_final_step0_zip": True,
+    }
+    preview["preview_sha256"] = _hash(preview)
+    return preview
+
+
+def preview_board(
+    preview: dict[str, Any], c: dict[str, Any], c2: dict[str, Any], *, at_utc: str,
+) -> dict[str, Any]:
+    """Research-only C+C2 execution from genuine early source-backed fixtures.
+
+    This can never be published or converted to an executable C bet.
+    When Step0 cannot be sealed, no official rank/ledger is created.
+    """
+    if (not isinstance(preview, dict)
+            or preview.get("status") != "FOOTBALL_RESEARCH_PREPARED_UNOFFICIAL"
+            or preview.get("official_rank_authorized") is not False
+            or preview.get("preview_sha256") != _hash({k: v for k, v in preview.items() if k != "preview_sha256"})):
+        raise SweepRankError("unaltered source-backed unofficial preview required")
+    now = _utc(at_utc, "at_utc")
+    prepared_at = _utc(preview.get("research_at_utc"), "research_at_utc")
+    if not prepared_at <= now <= prepared_at + timedelta(minutes=20):
+        raise SweepRankError("unofficial research preview is stale")
+    backed = {row["match_id"]: row for row in preview["source_backed_fixtures"]}
+    allowed = set(preview.get("standard_research_order", []))
+    allowed.update(preview.get("remaining_candidates", []))
+    if not allowed:
+        raise SweepRankError("no current prematch fixtures available for research")
+    for model_payload in (c, c2):
+        matches = model_payload.get("matches") if isinstance(model_payload, dict) else None
+        if not isinstance(matches, list) or not 1 <= len(matches) <= MAX_RESEARCH:
+            raise SweepRankError("unofficial model research requires real 1..20 fixtures")
+        for row in matches:
+            mid = row.get("match_id") if isinstance(row, dict) else None
+            if mid not in allowed or mid not in backed:
+                raise SweepRankError("unofficial model fixture not in current source-backed research set")
+            original_ko = _utc(backed[mid]["fixture_kickoff_utc"], "backed fixture kickoff")
+            if _utc(row.get("kickoff_ict"), "model fixture kickoff") != original_ko:
+                raise SweepRankError("unofficial model rewrote original backed fixture KO")
+            if now >= original_ko or backed[mid]["fixture_status"] != "PREMATCH_CONFIRMED":
+                raise SweepRankError("unofficial model research is no longer prematch")
+    pair = run_board_pair(c, c2)
+    return {
+        "schema_version": SCHEMA,
+        "status": "C_C2_FOOTBALL_RESEARCH_UNOFFICIAL_NO_BET",
+        "run_id": preview["run_id"],
+        "source_payload_hash": preview["source_payload_hash"],
+        "prepared_preview_sha256": preview["preview_sha256"],
+        "board_pair": pair,
+        "publication_authority": "NONE",
+        "official_c_lane_authorized": False,
+        "bet_authorized": False,
+        "airtable_write_authorized": False,
+        "requires_complete_step0_zip_to_rank": True,
     }
 
 
@@ -449,6 +512,9 @@ def main() -> int:
     sub = p.add_subparsers(dest="command", required=True)
     prepare_parser = sub.add_parser("prepare")
     prepare_parser.add_argument("--input", required=True)
+    pb = sub.add_parser("preview-board")
+    for opt in ("preview", "c", "c2", "at"):
+        pb.add_argument("--" + opt, required=True)
     sealed = sub.add_parser("seal")
     for opt in ("handoff", "run-proof", "text", "output"):
         sealed.add_argument("--" + opt, required=True)
@@ -466,6 +532,13 @@ def main() -> int:
     try:
         if args.command == "prepare":
             result = prepare(json.loads(Path(args.input).read_text(encoding="utf-8")))
+        elif args.command == "preview-board":
+            result = preview_board(
+                json.loads(Path(args.preview).read_text(encoding="utf-8")),
+                json.loads(Path(args.c).read_text(encoding="utf-8")),
+                json.loads(Path(args.c2).read_text(encoding="utf-8")),
+                at_utc=args.at,
+            )
         elif args.command == "seal":
             result = seal(Path(args.handoff), Path(args.run_proof), Path(args.text), Path(args.output))
         elif args.command == "plan":
