@@ -43,7 +43,7 @@ def validate_run_proof(handoff: dict, run: dict) -> None:
         raise Step0HandoffError("PACKAGE BLOCKED — Airtable admitted count mismatch")
     if run.get("production_universe_count") != handoff.get("production_universe_count"):
         raise Step0HandoffError("PACKAGE BLOCKED — source coverage count mismatch")
-    if handoff.get("verification_policy") == "FAST_FINISH_V1":
+    if handoff.get("verification_policy") in {"FAST_FINISH_V1", "FAST_FINISH_V2"}:
         from coverage_manifest import REQUIRED_BLOCKS
         ledger = run.get("required_competition_source_fixture_ids")
         if not isinstance(ledger, dict):
