@@ -151,9 +151,61 @@ External research is bounded per invocation.
 
 One **verification block** is one stable competition/date block requiring public-web evidence beyond the acquired date feed.
 
-### Fast-finish default for new sweeps (2026-10-09)
+### New 15-minute fast sweep default (prospective 2026-10-11)
 
-- New runs save `verification_policy=FAST_FINISH_V1` in their initial checkpoint, with `verification_attempt_counts={}` and `terminal_unresolved_verification_blocks=[]`.
+**Fresh production runs must use `verification_policy=FAST_FINISH_V2`.**
+All existing FAST_FINISH_V1 runs keep their original 60-minute clock
+and two-attempt budget; the paused non-fast legacy run remains unchanged.
+Do not change an in-progress source epoch's original start/deadline.
+
+Operational stage budget measured ONLY from the initial frozen UTC start:
+- 0–3 minutes: acquire exact source or freeze two independent bounded families;
+- 3–5 minutes: classify and persist fixture evidence & required/protected/women block inventory;
+- 5–12 minutes: verify outstanding source-backed identity, KO, expected league publication, required/protected and women scopes; at most eight logical blocks per selector call, batched up to four concurrent independent lookups, one bounded source verification attempt per failed block;
+- 12–15 minutes: offline completeness reconciliation, independently read back Airtable, run native Step0 validators and package only if all mandatory evidence truly exists.
+
+The budgets are **maximum stage gates**, not permission to skip validation,
+promise that an incomplete sweep will be accepted, or hold the user
+for fifteen minutes. Stop as soon as enough verifiable evidence exists.
+Cache evidence by **source epoch, competition, season, source family, and
+evidence fingerprint**. Read historical league-channel profile/source
+from the existing evidence cache once; if it is stale or unrelated, fetch
+only the missing competition/date fact. Do not use the source hash as a
+cache key across different epochs and do not pretend reuse proves today's
+fixture KO/current status.
+
+At every stage entrance, before/after each web batch, on every resume,
+and immediately before publishing RUNNING or COMPLETE, run:
+
+`python models/football/engine/sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_ATTESTED_UTC`
+
+For `select` and `advance`, the CLI enforces `--now CURRENT_ATTESTED_UTC`
+for FAST_FINISH_V2 and blocks attempts when the stage budget expired.
+If it returns a deadline receipt, **persist it**; do not simply abandon
+the underlying RUNNING Airtable row. Persist RUNNING/phase/Updated At
+after each material stage and batch. At `BLOCKED_TIME_BUDGET_UNVERIFIED`:
+persist Run Status BLOCKED, zero pending, the original source/candidate
+ledger intact, terminal exact unresolved source/global/required/women/
+fixture inventory/validator evidence and a clear reason. No false Work ZIP,
+A/B promotion, hidden women's omission, repeated global search, or /resume
+loop. If local offline packaging is already fully proven, status
+`PACKAGE_VERIFIED_OFFLINE_ONLY` allows only deterministic ZIP validation,
+not new external lookups. Terminal closure needs explicit Airtable mutation;
+the checkpoint calculator cannot monitor or change database rows while
+no sweep invocation is executing.
+
+Only source-backed fixture identities, dates and publications count as
+independent verification. A reused scan of nine women's schedules is **not**
+proof of the complete in-window AiScore-visible women's universe. If the
+provider cannot establish that universe within budget, expose
+`GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION` immediately
+as an evidence blocker instead of serially opening dozens more leagues.
+
+### Historical 60-minute policy (V1; existing runs only)
+
+### Fast-finish policy for historical FAST_FINISH_V1 runs (2026-10-09)
+
+- Existing V1 cursors retain `verification_policy=FAST_FINISH_V1` and their already frozen `verification_attempt_counts`/`terminal_unresolved_verification_blocks`; V2 is used for brand-new runs only.
 - The machine selector allows at most **24 logical externally verified competition/date blocks in one invocation**. Batch independent public-web lookups in groups of at most six concurrent blocks; process their saved outcomes without requesting a separate user `/resume` between groups. This increases logical work capacity, not the number of sequential web calls required.
 - Only inspect blocks still plausibly A/B, protected/required, or senior women's domestic top-flight. Close user exclusions, obvious nonoperational C/D and verified empty/out-of-window blocks from the existing source/official evidence without external fixture-by-fixture research. Never invent unsupported C/D judgments or skip known in-scope candidates.
 - Persist each completed verification block and corresponding evidence; unsuccessful block attempts must be explicitly returned through `retry_blocks`. On the second recorded unsuccessful attempt, close that verification path as **terminal unresolved**, NOT completed/verified. `RECONCILIATION` with any terminal unresolved in-scope requirement is **blocked**: no `work_ready=true`, no ZIP, no /rank authority, no automatic repeated source search. Give the exact remaining blocker/source conflict instead of a generic resume request.
@@ -162,7 +214,7 @@ One **verification block** is one stable competition/date block requiring public
 
 ### Hard 60-minute deadline / stale-run closure (2026-10-11)
 
-**Mandatory for `FAST_FINISH_V1`, including any already-saved RUNNING checkpoint.** This is a wall-clock bound from the original persisted `requested_window.start_utc` or `sweep_started_at_utc`; it is NOT reset by another /resume, URL search, source hash mutation or checkpoint attempt. Check immediately on `/sweep resume`, before the first external source call and after every independent block batch:
+**Mandatory for existing `FAST_FINISH_V1` checkpoints, including already-saved RUNNING cursors.** This is a wall-clock bound from the original persisted `requested_window.start_utc` or `sweep_started_at_utc`; it is NOT reset by another /resume, URL search, source hash mutation or checkpoint attempt. Check immediately on `/sweep resume`, before the first external source call and after every independent block batch:
 
 ```sh
 python models/football/engine/sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_ATTESTED_UTC
@@ -178,7 +230,7 @@ This deadline closes *verification work*, not the 85-row audit ledger or the raw
 
 ### Legacy verification (existing RUNNING checkpoint)
 
-- Without `FAST_FINISH_V1`, verify at most `MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6`;
+- Without `FAST_FINISH_V1` or `FAST_FINISH_V2`, verify at most `MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6`;
 - process in frozen order, persist every completed block, and pause after six if more remain;
 - this includes the **user-paused Oct 9 sweep**, which must not be resumed, reset, or silently reclassified by this patch.
 
