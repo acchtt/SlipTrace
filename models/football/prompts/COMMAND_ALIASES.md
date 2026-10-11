@@ -1,29 +1,32 @@
 # Football Short Command Aliases
 
-## Retired commands — immediate user-requested shutdown
+## Active replacement — Football V4 /sweep and /rank
 
-**/sweep and /rank are RETIRED.** This includes `/sweep resume`,
-`/sweep repair`, `/rank reassess`, direct former launcher filenames,
-and any V3 prepare/preview/seal/plan/rank/publish invocation. Return
-`SWEEP_RANK_RETIRED` with no new fixture discovery, source run, ZIP,
-ranking, active Airtable write or website pick. The previous Step0/Step1
-routing instructions below are archival context, NOT executable guidance.
-Do not use an archived original chat/Work handoff to reactivate them.
-**/xi, /xi exception, /live, /audit and /report remain available** and
-retain Football C official + C2 independent shadow model authority.
-A future replacement requires the user's explicit approval and new code.
+**The user explicitly approved a NEW sweep and rank stage on 2026-10-11.**
+/sweep and /rank NOW route to
+`models/football/stages_v4/SWEEP.md` and
+`models/football/stages_v4/RANK.md`, using the NEW
+`models/football/stages_v4/stage.py`. This is **not** a
+V1/V2/V3 restart or a replay of any prior BLOCKED run. The new
+independent source snapshot has ID prefix `V4-`, a full source-visible
+fixture ledger, country-matched researched league registry, no arbitrary
+eight-match cap and goal-first research order.
 
-## Current unified stage routing
+**/xi, /xi exception, /live, /audit and /report remain available**
+with C official/C2 shadow and the existing single-command /xi logic.
+The V4 stage never fabricates prices, Xi, goals, source pages or bets.
 
-`/sweep` and `/rank` use the same V3 coordinator in
-`models/football/engine/sweep_rank_pipeline.py` and the procedure
-`FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`. Early fixture research is
-UNOFFICIAL until Step0 is sealed. An official ranking requires
-deterministic C+C2 execution and independent active Airtable readback.
-No mandatory back-and-forth between chats; never revive a terminal
-BLOCKED source run.
+## Legacy retirement (V1/V2/V3 only, historical)
 
-> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (all except /sweep):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+Historical statement: **/sweep and /rank are RETIRED** on the
+old production entrypoints. `SWEEP_RANK_RETIRED` continues to block
+the previous V1/V2/V3 pipelines, including resume/repair/reassess,
+old source ZIP packaging, `sweep_rank_pipeline.py`, and direct
+legacy Work launchers. A past run or ZIP MUST NOT be silently
+reopened under V4. The user's latest authorization created a new
+implementation; it did **not** reactivate those old paths.
+
+> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (all except /sweep):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **V4 uses only newly acquired source receipts and the active base; historical Step0 handoff receipts are unchanged and never replayed.** Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
 **Status:** ACTIVE ROUTER CONTRACT  
 **Authority:** semantic aliases for the canonical football launchers  
@@ -59,8 +62,8 @@ checks remain mandatory.
 
 | Command | Canonical action |
 |---|---|
-| `/sweep` (including resume / repair) | **RETIRED — no execution or new records** |
-| `/rank` (including reassess) | **RETIRED — no model board execution or publication** |
+| `/sweep [window]` | **NEW V4** — execute `models/football/stages_v4/SWEEP.md` |\n| `/sweep resume` / `/sweep repair` | **Legacy commands retired**; fresh V4 source epoch only |
+| `/rank` | **NEW V4** — execute `models/football/stages_v4/RANK.md` |\n| `/rank reassess` | **Legacy command retired**; new V4 rank from a current frozen V4 sweep |
 | `/xi` | Single C+C2 football assessment; automatically use verified actual odds if available |
 | `/live` | Same one-step assessment for started matches |
 | `/assess`, `/bet`, `/xi bet` | Optional historical aliases; no extra command required for `/xi` |
@@ -72,10 +75,13 @@ The old `@filename` / explicit launcher-path form remains valid for compatibilit
 
 ## Parsing rule
 
-**First check for retired sweep/rank tokens.** When the first token is
-`/sweep` or `/rank`, stop with `SWEEP_RANK_RETIRED` regardless of
-attachments, old ZIPs, previous runs or subcommands. Do not follow the
-historical instructions under "Command semantics" for those tokens.
+**First route V4:** when the first token is `/sweep` or `/rank`,
+use ONLY the new `models/football/stages_v4/` launcher shown above.
+Reject legacy `resume`, `repair` and `reassess` subcommands.
+For any user-supplied original V1/V2/V3 run ID or archived Step0 ZIP,
+return `SWEEP_RANK_RETIRED` rather than silently importing old
+operational authority. Do not follow historical instructions under
+"Command semantics" for those two commands.
 
 
 
@@ -93,7 +99,21 @@ Aliases are case-insensitive, but the canonical display form is lowercase.
 
 Only the **first** alias token routes the message. Text later in the message is normal argument text.
 
-## Command semantics
+## V4 command semantics — current
+
+`/sweep [window]`: single bounded actual source snapshot; capture
+all researched leagues and women's top-flight fixtures found in the
+requested future window, classify verified fixture identities and
+return all eligible fixtures plus researchability-pending reasons.
+Never run a worldwide exhaustive missing-source audit.
+
+`/rank`: only the V4 frozen eligible set; source-backed goal-first
+football research across all available candidates, independent C and
+C2 evaluation, then active Airtable readback. Odds optional for
+football analysis, no fabricated bet, no retrospective prematch.
+No user Work-chat switching and no 8-match cap.
+
+## Historical command semantics — inactive V1/V2/V3 archive
 
 ### `/sweep [window]`
 

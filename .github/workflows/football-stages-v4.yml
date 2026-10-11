@@ -1,0 +1,41 @@
+name: Football V4 sweep rank stages
+
+on:
+  push:
+    paths:
+      - "models/football/stages_v4/**"
+      - ".github/workflows/football-stages-v4.yml"
+      - "models/football/prompts/COMMAND_ALIASES.md"
+      - "models/football/CURRENT_MODEL.md"
+  pull_request:
+    paths:
+      - "models/football/stages_v4/**"
+      - ".github/workflows/football-stages-v4.yml"
+      - "models/football/prompts/COMMAND_ALIASES.md"
+
+permissions:
+  contents: read
+
+jobs:
+  stages-v4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test researched league registry and V4 sweep/rank
+        run: python -m unittest discover -s models/football/stages_v4 -p 'test_*.py' -v
+      - name: Verify V4 CLI and old tombstone are distinct
+        run: |
+          python models/football/stages_v4/stage.py --help
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('models/football/engine/sweep_rank_retired.py').read_text()
+          assert 'ACTIVE_SWEEP_RANK_ENABLED = False' in source
+          stage = Path('models/football/stages_v4/stage.py').read_text()
+          assert 'run_board_pair(c, c2)' in stage
+          assert 'V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK' in stage
+          print('PASS — V4 independent; original retired pipeline stays off')
+          PY
