@@ -54,6 +54,12 @@ Do not use:
 
 A prior sweep may be reused only if it was completed under RESEARCHABLE_SENIOR_PRODUCTION for a covering window.
 
+### Registered Tier-1 Step0 publishing waiver — prospective only
+
+For a new Step0 after this merge, bypass historical XI publication fixture proof and Asian-goal-total fixture/provider publication proof **only** for an exact `TIER1_STANDARD_COUNTRY_LEAGUES` country+competition pair. Such a fixture may proceed with no `league_channel_profile` if its **real source-backed** identity/competition, current PRE status, UTC kickoff, operational A/B grade, required team-news coverage and near-KO XI recheck plan are verified. `market_observability=HIGH/MEDIUM` and `xi_expected` here denote anticipated league-channel coverage, not an observed bookmaker quote or known future XI. No sample XI, odds, bookmaker, fixture-ID, timestamp, source hash or goal bonus may be made up. If operational feasibility itself is LOW/UNKNOWN, keep the actual issue; do not auto-promote a C/D fixture. Existing source-blocked/incomplete sweep runs are not retroactively made COMPLETE by this change.
+
+All `PROVEN_LEAGUE` publication and conditional 3–5/five-game goal-history rules for other competitions still apply, and /rank /xi remain match-specific and executable-price strict.
+
 ### New lower-division intake overlay — 2026-10-11 and newer new runs
 
 After mandatory senior source discovery and the standing exclusions, use `sweep_competition_scope.py` (or freshly regenerated `step0_portable.py scope`) for cheap country+league competition-block preflight. This is NOT a return to legacy `NARROW_CORE` as the primary /sweep scope. Specifically:
