@@ -1,6 +1,6 @@
-# 02 — Normal Chat: C and C2 Match Assessment (No Odds Default)
+# 02 — /xi: C and C2 Single Match Assessment
 
-> **User-facing default:** ASSESS C+C2 without bookmaker odds for /xi and /live. Price check only if explicitly requested (/bet). Authority: `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Older contradictory priced-step instructions apply ONLY to explicit BET CHECK.
+> **Single /xi command:** Assess C+C2 football immediately. When a genuinely current bookmaker total and odds are already available, check the offered price automatically in the SAME response. Without valid odds, finish the football assessment without requesting them. No separate /bet command required. Authority: `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Older conflicting quote-first or opt-in-only instructions are superseded for /xi.
 
 > **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/xi):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
@@ -25,6 +25,12 @@ Read before execution:
 - `models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md`
 
 Only Football C may create official exposure. C2 is shadow-only and may never create a Website Pick or real exposure.
+
+### Simple /xi order: one response, no second command
+
+1. **Football first:** use the pinned portable `xi` alias with independently frozen C/C2 football assessment inputs. No quote needed, before or after kickoff. Report C and C2 simply and immediately.
+2. **Offer available?** If the exact current fixture's real line and odds are already provided and all betting integrity requirements pass, automatically evaluate the quoted price in the same /xi response. No `/bet` or `/assess` detour. Use the priced paired engine only before kickoff and current live authorization after kickoff.
+3. **No price?** Finish without asking the user for a new quote; output `No bet price checked`. No executable ACT/WAIT claims, no invented totals, no artificial exposure.
 
 ## 1. Step-2 authorization
 
@@ -164,7 +170,7 @@ For the first current XI + executable price epoch:
    conclusion is not automatically valid after meaningful XI/football
    changes, but unchanged research must not be repeated merely to delay
    a verdict.
-3. **Only when the user explicitly requests BET CHECK**, execute the pinned priced C+C2 pair and its persistence/read-back/publication guard. Report both
+3. **When a genuinely current quote is already verified and all executable eligibility data exist**, automatically execute the pinned priced C+C2 pair in the SAME /xi run, with its normal readback/publication guard. Never ask for a quote to complete football analysis. Report both
    deterministic price-based actions with currently verified lines/prices and brief mechanisms:
    **ACT** (only C official BET), **WAIT** (explicit reachable total,
    minimum odds, and expiry/event), or **PASS** (specific football/price
@@ -290,7 +296,9 @@ C2 may return BET/WAIT/PASS for shadow comparison only.
 **Assess the football, not the bookmaker price.** For a user requesting
 `/xi`, `/xi exception` or `/live` (including a few minutes after KO),
 perform the football read FIRST, regardless of whether a current quote
-exists. There is now a real deterministic paired engine mode:
+exists. If usable quotes are already provided, automatically evaluate
+those exact quotes as part of this same /xi response; do not require
+another command or price screenshot. There is now a real deterministic paired engine mode:
 
 `python models/football/engine/xi_portable.py football-pair --c <c_football.json> --c2 <c2_football.json>`
 
@@ -307,7 +315,9 @@ also gives **each model's separate** `board_state`, current
 they must never be derived from a bookmaker price.
 
 **Do not include or request `quote`, `quote_revalidated`, a new
-line, live odds, or market history** to execute this mode. The result is
+line, live odds, or market history** to execute quote-free football
+mode. A separate verified price-bearing subdecision, when already
+supported by evidence, runs automatically under the same /xi request. The result is
 `EXECUTED_C_C2_FOOTBALL_ONLY` and includes independent C completion
 and C2 route-quality views, frozen supported burdens, explicit live
 context uncertainty and no executable BET, WAIT or PASS. A frozen line
@@ -323,7 +333,9 @@ does not exist, state that it is missing; never clone C as C2.
 
 **Deliver this football assessment immediately.** A user asking to
 assess should never need to provide a screenshot of current odds.
-Only if separately evaluating an executable bet may the priced
+When genuinely current offered odds are already available, also automatically
+check them in this /xi response if executable evidence is sufficient.
+Only when evaluating an executable bet may the priced
 `xi_portable.py pair` runner and exact current price publication
 requirements apply. That runner is PREMATCH ONLY; after kickoff,
 execute the appropriate current live betting authorization instead.
@@ -336,7 +348,7 @@ was revalidated.
 
 Engine execution is **mandatory** for both a completed quote-free C/C2 football assessment and a separately priced C/C2 Step-2 decision. The former uses `football-pair` without odds; the latter uses `pair` with current executable odds.
 
-A **priced Step-2 BET/WAIT/PASS decision** requires the price-bearing execution below. A **football assessment** requires the quote-free C+C2 runner above, not a betting quote.
+A **priced Step-2 BET/WAIT/PASS decision**, automatically included when verified current prices already exist, requires the price-bearing execution below. A **football assessment** requires the quote-free C+C2 runner above, not a betting quote.
 
 Before execution, perform `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` for stage=`xi` and record the `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
 
