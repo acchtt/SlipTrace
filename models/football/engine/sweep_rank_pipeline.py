@@ -21,13 +21,14 @@ import hashlib
 import json
 import sys
 import zipfile
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
 
 from board_pair_cli import run_board_pair
 from goal_route_prescreen import run_prescreen
+from step1_fixture_intake_cli import validate_step1_fixture_evidence
 from rank_persistence_reconcile import (
     UNRANKED_REASONS, validate_rank_readback,
 )
@@ -205,6 +206,108 @@ def _open_official_zip(archive_path: Path, expected_sha: str) -> dict[str, Any]:
     return handoff
 
 
+def plan_rank(
+    official_zip: Path,
+    expected_zip_sha256: str,
+    sweep_readback: dict[str, Any],
+    status_evidence: dict[str, Any],
+    *,
+    at_utc: str,
+) -> dict[str, Any]:
+    """One full-queue source-attested goal screen, not a prediction."""
+    handoff = _open_official_zip(official_zip, expected_zip_sha256)
+    if (sweep_readback.get("run_id") != handoff.get("run_id")
+            or sweep_readback.get("run_status") != "COMPLETE"
+            or sweep_readback.get("source_payload_hash") != handoff.get("source_payload_hash")
+            or sweep_readback.get("official_zip_sha256") != expected_zip_sha256):
+        raise SweepRankError("rank plan requires original complete Sweep Runs readback")
+    queue = _queue(handoff.get("capacity_queue"))
+    if not isinstance(status_evidence, dict) or set(status_evidence) != {r["match_id"] for r in queue}:
+        raise SweepRankError("fresh status observation required for every frozen A/B fixture")
+    now = _utc(at_utc, "at_utc")
+    candidates = []
+    for row in queue:
+        mid = row["match_id"]
+        proof = status_evidence[mid]
+        if not isinstance(proof, dict) or not _https(proof.get("source_url")):
+            raise SweepRankError(f"{mid}: source-backed current status proof required")
+        observed = _utc(proof.get("observed_at_utc"), f"{mid}.observed_at_utc")
+        if not now - timedelta(minutes=20) <= observed <= now:
+            raise SweepRankError(f"{mid}: stale/future status observation")
+        if proof.get("fixture_status") not in {
+            "PREMATCH_CONFIRMED", "STARTED", "FINISHED", "POSTPONED", "CANCELLED",
+        }:
+            raise SweepRankError(f"{mid}: real match status missing")
+        data = {
+            "match_id": mid, "queue_rank": row["step0_capacity_queue_rank"],
+            "operational_grade": row["operational_viability_grade"],
+            "fixture_status": proof["fixture_status"],
+            "kickoff_utc": row.get("fixture_kickoff_utc"),
+            "football_evidence": proof.get("football_evidence"),
+            "country": row.get("country"),
+            "competition_name": row.get("competition_name"),
+        }
+        if "researched_kickoff_evidence" in proof:
+            data["researched_kickoff_evidence"] = proof["researched_kickoff_evidence"]
+        candidates.append(data)
+    screen = run_prescreen({
+        "schema_version": "football-goal-route-prescreen-v1",
+        "run_id": handoff["run_id"],
+        "source_payload_hash": handoff["source_payload_hash"],
+        "screen_at_utc": now.isoformat(),
+        "candidates": candidates,
+    })
+    answer = {
+        "schema_version": SCHEMA,
+        "status": "FROZEN_GOAL_FIRST_RESEARCH_PLAN",
+        "run_id": handoff["run_id"],
+        "source_payload_hash": handoff["source_payload_hash"],
+        "official_zip_sha256": expected_zip_sha256,
+        "screen_at_utc": now.isoformat(),
+        "ordered_eligible_match_ids": screen["manifest"]["ordered_eligible_match_ids"],
+        "closed_ids": [r["match_id"] for r in screen["manifest"]["original_rows"]
+                       if r["screen_status"] == "CLOSED"],
+        "initial_research_ids": screen["initial_research_match_ids"],
+        "goal_first_manifest": screen["manifest"],
+        "research_count_ceiling": min(MAX_RESEARCH, len(screen["manifest"]["ordered_eligible_match_ids"])),
+        "price_not_required": True,
+    }
+    answer["plan_sha256"] = _hash(answer)
+    return answer
+
+
+def _verify_research_plan(
+    plan: dict[str, Any], handoff: dict[str, Any], sha: str,
+    now: datetime, ranked: set[str], unranked_reasons: dict[str, str],
+) -> None:
+    if (not isinstance(plan, dict) or plan.get("status") != "FROZEN_GOAL_FIRST_RESEARCH_PLAN"
+            or plan.get("run_id") != handoff.get("run_id")
+            or plan.get("source_payload_hash") != handoff.get("source_payload_hash")
+            or plan.get("official_zip_sha256") != sha
+            or plan.get("plan_sha256") != _hash({k: v for k, v in plan.items() if k != "plan_sha256"})):
+        raise SweepRankError("frozen rank plan missing, drifted or not bound to official ZIP")
+    at = _utc(plan.get("screen_at_utc"), "screen_at_utc")
+    if not at <= now <= at + timedelta(minutes=30):
+        raise SweepRankError("rank plan stale; refresh current fixture status before research")
+    order = plan.get("ordered_eligible_match_ids")
+    closed = plan.get("closed_ids")
+    if (not isinstance(order, list) or len(order) != len(set(order))
+            or not isinstance(closed, list) or len(closed) != len(set(closed))
+            or set(order) & set(closed)):
+        raise SweepRankError("invalid frozen goal-first status cohorts")
+    ids = {r["match_id"] for r in _queue(handoff["capacity_queue"])}
+    if set(order) | set(closed) != ids or not ranked.issubset(order):
+        raise SweepRankError("ranked fixtures diverge from frozen eligible goal screen")
+    last = max((i for i, mid in enumerate(order) if mid in ranked), default=-1)
+    for mid in order[:last]:
+        if mid not in ranked and unranked_reasons[mid] not in {
+                "MISSING_FOOTBALL_EVIDENCE", "PREMATCH_WINDOW_CLOSED"}:
+            raise SweepRankError(f"{mid}: earlier goal-first research skipped without valid source reason")
+    for mid in closed:
+        if unranked_reasons[mid] != "PREMATCH_WINDOW_CLOSED":
+            raise SweepRankError(f"{mid}: non-prematch fixture must remain closed")
+
+
 def execute_rank(
     official_zip: Path,
     expected_zip_sha256: str,
@@ -214,6 +317,8 @@ def execute_rank(
     unranked_reasons: dict[str, str],
     *,
     at_utc: str,
+    research_plan: dict[str, Any],
+    fixture_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     handoff = _open_official_zip(official_zip, expected_zip_sha256)
     run_id = handoff.get("run_id")
@@ -242,6 +347,21 @@ def execute_rank(
         raise SweepRankError("explicit real reason required for every unranked A/B fixture")
     if any(reason not in UNRANKED_REASONS for reason in unranked_reasons.values()):
         raise SweepRankError("invalid unranked reason; unresearched fixture is not model PASS")
+    _verify_research_plan(research_plan, handoff, expected_zip_sha256, now,
+                          set(pair_input_ids), unranked_reasons)
+    if handoff.get("strict_intake_policy") == "LEAGUE_CHANNEL_FIRST_V1":
+        if not isinstance(fixture_evidence, dict) or set(fixture_evidence) != set(pair_input_ids):
+            raise SweepRankError("Step1 real league-first football evidence required for every ranked fixture")
+        for mid in pair_input_ids:
+            evidence = fixture_evidence[mid]
+            if not isinstance(evidence, dict):
+                raise SweepRankError(f"{mid}: actual Step1 football evidence object missing")
+            actual_frozen = evidence.get("frozen_step0_candidate")
+            if actual_frozen != frozen[mid]:
+                raise SweepRankError(f"{mid}: frozen Step0 candidate evidence mismatch")
+            confirmed = validate_step1_fixture_evidence(evidence)
+            if confirmed.get("model_execution_authorized") is not True:
+                raise SweepRankError(f"{mid}: Step1 football evidence not authorized")
     # Same freeze is checked again by the pair engine. This additional check
     # prevents the model from processing a fixture after it had kicked off.
     for payload in (c, c2):
@@ -268,6 +388,7 @@ def execute_rank(
         "run_id": run_id, "source_payload_hash": source_hash,
         "official_zip_sha256": expected_zip_sha256,
         "assessed_at_utc": now.isoformat(),
+        "rank_plan_sha256": research_plan["plan_sha256"],
         "board_pair": pair,
         "frozen_ab_queue": [
             {"match_id": row["match_id"], "step0_capacity_queue_rank": row["step0_capacity_queue_rank"]}
@@ -331,9 +452,13 @@ def main() -> int:
     sealed = sub.add_parser("seal")
     for opt in ("handoff", "run-proof", "text", "output"):
         sealed.add_argument("--" + opt, required=True)
+    plan = sub.add_parser("plan")
+    for opt in ("zip", "sha256", "sweep-readback", "statuses", "at"):
+        plan.add_argument("--" + opt, required=True)
     rank = sub.add_parser("rank")
-    for opt in ("zip", "sha256", "sweep-readback", "c", "c2", "unranked", "at"):
+    for opt in ("zip", "sha256", "sweep-readback", "c", "c2", "unranked", "plan", "at"):
         rank.add_argument("--" + opt, required=True)
+    rank.add_argument("--fixture-evidence", help="Required for league-first fixture research; current sourced evidence")
     pub = sub.add_parser("publish")
     pub.add_argument("--execution", required=True)
     pub.add_argument("--readback", required=True)
@@ -343,6 +468,13 @@ def main() -> int:
             result = prepare(json.loads(Path(args.input).read_text(encoding="utf-8")))
         elif args.command == "seal":
             result = seal(Path(args.handoff), Path(args.run_proof), Path(args.text), Path(args.output))
+        elif args.command == "plan":
+            result = plan_rank(
+                Path(args.zip), args.sha256,
+                json.loads(Path(args.sweep_readback).read_text(encoding="utf-8")),
+                json.loads(Path(args.statuses).read_text(encoding="utf-8")),
+                at_utc=args.at,
+            )
         elif args.command == "rank":
             result = execute_rank(
                 Path(args.zip), args.sha256,
@@ -351,6 +483,9 @@ def main() -> int:
                 json.loads(Path(args.c2).read_text(encoding="utf-8")),
                 json.loads(Path(args.unranked).read_text(encoding="utf-8")),
                 at_utc=args.at,
+                research_plan=json.loads(Path(args.plan).read_text(encoding="utf-8")),
+                fixture_evidence=(json.loads(Path(args.fixture_evidence).read_text(encoding="utf-8"))
+                                  if args.fixture_evidence else None),
             )
         else:
             result = publish_rank(
