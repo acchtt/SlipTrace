@@ -1,6 +1,6 @@
-# 03 — Normal Chat: C and C2 Live Match Assessment (No Odds Default)
+# 03 — /live: C and C2 Single Match Assessment
 
-> **User-facing default:** ASSESS C+C2 without bookmaker odds for /xi and /live. Price check only if explicitly requested (/bet). Authority: `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Older contradictory priced-step instructions apply ONLY to explicit BET CHECK.
+> **Single-command /xi and /live:** C+C2 football is assessed immediately with no mandatory odds. If genuinely current in-play odds have already been provided or verified, check them within the same response under the separate live bet safeguards. Do not request another quote or an extra /bet command. See `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
 
 > **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/live):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
 
@@ -53,8 +53,9 @@ offer exists. Never demand a quote to run the football engine, and
 never fall back to the price-bearing `xi_portable.py pair` to
 complete an unpriced assessment. That older command remains only
 for actual PREMATCH priced decisions, not started football reads.
-A quote can be sought later for a separately requested betting
-subdecision, but it is not the first response to a football request.
+If current live odds were already provided, check them automatically
+when live betting authorization is possible. Otherwise finish the
+football assessment and do not ask for another screenshot.
 
 ### Missing live odds is not an assessment blocker
 
@@ -99,7 +100,7 @@ goal burden/continuation and relevant tournament incentives.
    When no live price is independently verified, report
    `Football assessed — no bet checked`. This is
    a completed football read, **not** an incomplete or rejected model.
-2. **Optional executable betting subdecision.** Only when actually
+2. **Optional executable betting subdecision.** When a current quote is already supplied and
    considering a C BET or specific price-based WAIT, require independently
    verified **current in-play** totals and odds, current fixture/status,
    scorer/event integrity and required C/C2 live authorization and
@@ -234,7 +235,7 @@ Persist material live changes without overwriting the frozen prematch/XI record:
 - thesis/mechanism cancellation basis where relevant;
 - user-declared target-not-reached or actual execution facts.
 
-Do not create new C3/C4 current fields or actions. For normal /live requests, do not ask for a new quote; only an explicit /bet request authorizes a price check.
+Do not create new C3/C4 current fields or actions. For normal /live requests, never ask for a new quote to assess; check real current odds automatically if already available and otherwise finish unpriced.
 
 ## 9. User-facing output
 

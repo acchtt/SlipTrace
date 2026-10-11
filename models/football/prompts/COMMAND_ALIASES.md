@@ -10,23 +10,27 @@ These aliases are intentionally short so the user does not need to remember laun
 
 They are project-level text commands, not a dependency on ChatGPT's built-in slash-command UI. The user can simply type them as ordinary chat text.
 
-## Simple commands — user-facing priority
+## Simple command — /xi
 
-**Only two actions:**
+`/xi` is the **one** C+C2 match assessment command (also
+`/xi exception` for a user-requested exception). Assess football
+without waiting for quotes. If a genuine current price is already
+provided or verified, evaluate that offer automatically in the same
+response; otherwise finish the football assessment without asking
+for more market screenshots. Live /xi behaves the same way but
+never makes a retrospective prematch bet.
 
-- /xi, /xi exception, /live, /assess or “assess this match”
-  = **ASSESS**. Football C and C2 independently, without odds.
-  Give C/C2 promising/caution/avoid reads and reasons. Never request
-  bookmaker quotes or wait for a price to finish this command.
-- /bet, /xi bet, or an explicit request to evaluate a quoted entry
-  = **BET CHECK**. Only here is a current total plus offered odds needed
-  before BET/WAIT/PASS can be authorized.
+`/live` uses the same football-first behavior for a started match.
+The old `/assess` and `/bet` shortcuts are optional compatibility
+aliases; **do not ask the user to learn or choose them**.
+See `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. No unsupported executable
+bets, fabricated odds, or implicit C2 official exposure.
 
-Read models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md
-first. This rule overrides older /xi and /live text describing
-“mandatory quotes,” “current odds,” or a price-based WAIT for an
-ASSESS request. Price-bearing screenshots alone do not turn
-/xi into BET CHECK unless the user explicitly asks for that action.
+Every invocation must reload the current launcher from the newest
+repository main authority, not reuse an old Work-session snapshot.
+This protects the one-command /xi behavior from stale quote-first
+instructions. The source-first freshness and version attestation
+checks remain mandatory.
 
 ## Command map
 
@@ -34,9 +38,9 @@ ASSESS request. Price-bearing screenshots alone do not turn
 |---|---|
 | `/sweep` | Execute `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` |
 | `/rank` | Execute `models/football/prompts/01_WORK_DAILY_SWEEP.md` |
-| `/xi` or `/assess` | Assess C and C2 football without bookmaker odds (default) |
-| `/live` | Assess current match football without bookmaker odds (default) |
-| `/bet` or `/xi bet` | Optional check whether a current actual price qualifies for a BET |
+| `/xi` | Single C+C2 football assessment; automatically use verified actual odds if available |
+| `/live` | Same one-step assessment for started matches |
+| `/assess`, `/bet`, `/xi bet` | Optional historical aliases; no extra command required for `/xi` |
 | `/audit` | Execute `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
 | `/report` | Execute `models/football/prompts/06_NORMAL_CHAT_REPORT.md` |
 | `/help` | Show this command map and concise examples; do not run a football stage |
@@ -126,30 +130,26 @@ Do not interpret `/rank` as a request for a casual subjective ranking. It invoke
 
 Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or reconstruct a repaired queue from the web.
 
-### /xi, /xi exception, /assess
+### /xi and /xi exception
 
-Every invocation must reload the current launcher from current repository authority, including the newer simple ASSESS-first contract, rather than reuse cached Work instruction text.
-
-**Default: ASSESS, without odds.** Use the current XI/live football
-launcher, but run the pinned quote-free C+C2 assess mode FIRST.
-Do not ask for any quote or new price. Supplied market screenshots
-do not automatically switch the workflow into BET CHECK.
-
-Examples: /xi, /xi exception, /assess Inter–Parma.
+Run **one** match assessment. Use C and independently C2 football
+evidence first, without a bookmaker quote requirement. If a valid
+current offered total/odds are already available and all eligibility
+guards are satisfied, automatically include the actual price-based
+C action and C2 shadow comparison. Otherwise deliver C/C2 football
+reads with `No bet price checked`. Never ask for another price just
+to finish /xi.
 
 ### /live
 
-Identical ASSESS default, using current match score/clock when known.
-A match may be assessed after kickoff or after a goal without an odds
-screenshot. Explain a missing *football* fact when necessary.
+Same immediate assessment, using current score/minute/events. A
+valid live quote may separately support a verified current price
+decision; stale prematch quotes never do.
 
-### /bet, /xi bet
+### /assess, /bet, /xi bet
 
-Explicit **BET CHECK**. Execute the same football assessment before
-checking whether an actual current line/odds supports an official C
-entry. If no verified current offer exists, finish the football
-assessment anyway and mark only the BET CHECK unpriced.
-C2 stays independent shadow; no user bet is recorded without confirmation.
+Old shortcuts continue to work for compatibility; they must not
+split or interrupt a normal `/xi` request. User does not need them.
 
 ### `/audit [scope]`
 
