@@ -104,6 +104,14 @@ The fast verification quota is a ceiling, not a demand to crawl 24 blocks. Close
 
 Cheap source-local enumeration, exclusions, already-supported C/D classifications and persisted-state reads consume no external verification budget.
 
+### Mandatory 60-minute wall-clock cutoff for FAST_FINISH_V1
+
+Newly created and already persisted `FAST_FINISH_V1` checkpoints have a **60-minute maximum elapsed from the originally saved sweep start**. Enforce it mechanically using `sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now CURRENT_UTC` **at the beginning of every /sweep resume, before external lookup, after each source verification batch, and before claiming another checkpoint**. Do not restart the timer after /resume or on a hash/edit. A large raw ledger or unresolved conditional sources is not a reason to keep RUNNING beyond one hour.
+
+At `BLOCKED_TIME_BUDGET_UNVERIFIED`, persist returned terminal cursor, `Run Status=BLOCKED`, `Current Stage=RECONCILIATION`, zero pending retry loops, exact unresolved source/mandatory coverage block IDs and notes. Leave old raw ledger, current source references, excluded/capacity/provisional fields, original frozen past boards/old bets unchanged. It is **not** complete and has **no official ZIP or rank authority**. Do not discard unresolved raw fixture identities, silently make them A/B or researchability-excluded, or reset a source hash to fake validation. Report terminal evidence gaps, and recommend a separately initiated fresh current-KO production run; do not ask for another /resume for this stalled sweep.
+
+If status is `RECONCILE_NOW`, finish offline deterministic official proof/validator without new broad acquisition. Terminal closure is needed only for genuine unverified pending blocks, not for an otherwise genuinely complete queue. Strict source identity, expected future XI channel and league-level Asian publication proof, compulsory women's/protected coverage and source-hash integrity remain mandatory.
+
 ## Source authority
 
 AiScore remains the preferred fixture-discovery authority, but normal FAST_PRODUCTION no longer depends on one exact master date page.
