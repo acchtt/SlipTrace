@@ -120,6 +120,10 @@ def package(handoff_path: Path, note_path: Path, proof_path: Path, output: Path)
 
 
 def main() -> int:
+    # Current production Stage 0/1 is decommissioned. Pure functions below
+    # remain for immutable historical regression/audit, not user execution.
+    from sweep_rank_retired import stop_retired_cli
+    return stop_retired_cli("step0-final-zip-packager")
     p = argparse.ArgumentParser()
     p.add_argument("--input", required=True, help="STEP0_HANDOFF.json")
     p.add_argument("--text", required=True, help="AISCORE_FIXTURES_*.txt")
