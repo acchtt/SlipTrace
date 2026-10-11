@@ -172,6 +172,71 @@ class LeagueChannelFirstTests(unittest.TestCase):
         self.assertIn("USER_SCOPE_EXCLUDED_FRIENDLY",
                       validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
 
+    @staticmethod
+    def asia_goal_evidence(n=3):
+        def series(prefix, results):
+            return {
+                "source_url": "https://scores.example.org/" + prefix,
+                "recent_competitive_matches": [
+                    {"match_id": prefix + str(i), "kickoff_utc": "2026-10-0" + str(i+1) + "T09:00:00Z",
+                     "goals_for": gf, "goals_against": ga, "competitive": True}
+                    for i, (gf, ga) in enumerate(results[:n])
+                ],
+            }
+        return {"captured_at_utc": "2026-10-09T10:00:00Z",
+                "home": series("h", [(3,0),(2,2),(1,2),(3,1),(2,1)]),
+                "away": series("a", [(1,2),(2,1),(2,2),(1,2),(1,2)])}
+
+    def test_asia_two_topflights_require_recent_proof_and_proven_channels(self):
+        for name,country,prefix in (("Hong Kong Premier League","Hong Kong","HKPL"),
+                                     ("Liga Super","Malaysia","MY_SUPER")):
+            with self.subTest(name=name):
+                row=league_candidate(name,"PROVEN_LEAGUE")
+                row["country"]=country
+                self.assertIn(prefix+"_RECENT_GOAL_PROOF_MISSING",
+                              validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+                row["asia_topflight_recent_goal_evidence"]=self.asia_goal_evidence()
+                self.assertEqual(validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"),[])
+                row["league_channel_profile"]["recent_asian_total_fixture_count"]=1
+                self.assertIn("LEAGUE_PROFILE_RECENT_ASIAN_TOTAL_FIXTURE_COUNT_UNPROVEN",
+                              validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+                row["league_channel_profile"]["recent_asian_total_fixture_count"]=3
+                row["league_channel_profile"]["profile_type"]="TIER1_STANDARD"
+                self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                              validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_asia_goal_trap_small_sample_and_source_age_fail_closed(self):
+        row=league_candidate("Premier League","PROVEN_LEAGUE")
+        row["country"]="Hong Kong"
+        row["asia_topflight_recent_goal_evidence"]=self.asia_goal_evidence()
+        evidence=row["asia_topflight_recent_goal_evidence"]
+        evidence["home"]["recent_competitive_matches"][0]["goals_for"]=1
+        evidence["home"]["recent_competitive_matches"][0]["goals_against"]=1
+        evidence["home"]["recent_competitive_matches"][1]["goals_for"]=0
+        evidence["home"]["recent_competitive_matches"][1]["goals_against"]=0
+        self.assertIn("HKPL_REPEATED_STALL_OR_0_0_1_1_TRAP",
+                      validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        evidence=row["asia_topflight_recent_goal_evidence"]=self.asia_goal_evidence()
+        evidence["away"]["recent_competitive_matches"].pop()
+        self.assertIn("HKPL_AWAY_THREE_TO_FIVE_RESULTS_REQUIRED",
+                      validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        evidence=row["asia_topflight_recent_goal_evidence"]=self.asia_goal_evidence()
+        evidence["captured_at_utc"]="2026-09-20T10:00:00Z"
+        self.assertIn("HKPL_RECENT_GOAL_PROOF_STALE_OR_POST_KO",
+                      validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        evidence["captured_at_utc"]="2026-10-09T10:00:00Z"
+        evidence["home"]["recent_competitive_matches"][1]["match_id"]=evidence["home"]["recent_competitive_matches"][0]["match_id"]
+        self.assertIn("HKPL_HOME_RESULT_INVALID",
+                      validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_asia_no_fabricated_match_quote_and_other_leagues_unchanged(self):
+        row=league_candidate("Super League","PROVEN_LEAGUE")
+        row["country"]="Malaysia"
+        row["asia_topflight_recent_goal_evidence"]=self.asia_goal_evidence()
+        self.assertEqual(validate_work_candidate(row,intake_policy="LEAGUE_CHANNEL_FIRST_V1"),[])
+        self.assertIn("CURRENT_ASIAN_TOTAL_FIXTURE_ID_MISMATCH",validate_work_candidate(row))
+        self.assertEqual(validate_work_candidate(league_candidate(),intake_policy="LEAGUE_CHANNEL_FIRST_V1"),[])
+
     def test_poland_requires_five_historical_results_and_real_channel_profile(self):
         row = league_candidate("Ekstraklasa", "PROVEN_LEAGUE")
         row["country"] = "Poland"
