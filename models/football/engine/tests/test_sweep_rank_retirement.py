@@ -36,6 +36,7 @@ class SweepRankRetirementTests(unittest.TestCase):
         for filename in (
             "sweep_rank_pipeline.py",
             "step0_package_cli.py",
+            "step0_portable.py",
             "board_pair_cli.py",
             "rank_persistence_reconcile.py",
         ):
