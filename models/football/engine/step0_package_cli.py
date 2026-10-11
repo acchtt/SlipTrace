@@ -51,6 +51,19 @@ def validate_run_proof(handoff: dict, run: dict) -> None:
         for block in REQUIRED_BLOCKS:
             if ledger.get(block) != handoff.get("required_competition_source_fixture_ids", {}).get(block):
                 raise Step0HandoffError("PACKAGE BLOCKED — source ledger / handoff identity disagreement")
+        if handoff.get("verification_policy") == "FAST_FINISH_V2" and handoff.get("source_scope") == "BOUNDED_PRODUCTION_DISCOVERY":
+            # The producer cannot invent an empty women's manifest after
+            # the independently read-back Sweep Runs source audit.
+            for field in (
+                "women_coverage_scope",
+                "women_top_flight_seed_fixture_ids",
+                "women_top_flight_source_checks",
+                "women_top_flight_disposition_manifest",
+            ):
+                if run.get(field) != handoff.get(field):
+                    raise Step0HandoffError(
+                        f"PACKAGE BLOCKED — V2 bounded women's source readback differs: {field}"
+                    )
         # A proposed Work queue is not frozen merely because eight B grades
         # exist. Every admitted row needs a matching finalized Airtable state.
         persisted = run.get("admitted_dispositions")
