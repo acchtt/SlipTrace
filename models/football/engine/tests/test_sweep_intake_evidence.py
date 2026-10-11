@@ -114,6 +114,69 @@ class LeagueChannelFirstTests(unittest.TestCase):
         self.assertIn("LEAGUE_PROFILE_RECENT_XI_FIXTURE_COUNT_UNPROVEN",
                       validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
 
+    @staticmethod
+    def championship_evidence():
+        def team(prefix, scores):
+            return {
+                "source_url": "https://scores.example.org/" + prefix,
+                "recent_competitive_matches": [
+                    {"match_id": prefix + str(i), "kickoff_utc": "2026-10-0" + str(i+1) + "T12:00:00Z",
+                     "goals_for": gf, "goals_against": ga, "competitive": True}
+                    for i, (gf, ga) in enumerate(scores)
+                ],
+            }
+        return {
+            "captured_at_utc": "2026-10-09T10:00:00Z",
+            "home": team("home-", [(2,1),(2,2),(3,1),(1,2),(2,1)]),
+            "away": team("away-", [(1,2),(2,2),(2,1),(2,1),(1,2)]),
+        }
+
+    def test_german_second_tier_requires_proven_profile_not_tier_one(self):
+        row = league_candidate("2. Bundesliga", "PROVEN_LEAGUE")
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+        row["league_channel_profile"]["recent_asian_total_fixture_count"] = 1
+        self.assertIn("LEAGUE_PROFILE_RECENT_ASIAN_TOTAL_FIXTURE_COUNT_UNPROVEN",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row = league_candidate("2. Bundesliga", "TIER1_STANDARD")
+        self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_championship_requires_individual_five_match_signal(self):
+        row = league_candidate("Championship", "PROVEN_LEAGUE")
+        self.assertIn("CHAMPIONSHIP_CHEAP_SIGNAL_MISSING",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["championship_recent_goal_evidence"] = self.championship_evidence()
+        self.assertEqual(validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+
+    def test_championship_low_goal_and_draw_traps_block(self):
+        row = league_candidate("Championship", "PROVEN_LEAGUE")
+        row["championship_recent_goal_evidence"] = self.championship_evidence()
+        recent = row["championship_recent_goal_evidence"]["away"]["recent_competitive_matches"]
+        for m in recent[:4]:
+            m["goals_for"] = 1
+            m["goals_against"] = 1
+        self.assertIn("CHAMPIONSHIP_LOW_TOTAL_STALL_OR_DRAW_TRAP",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_championship_stale_or_post_ko_history_fails_closed(self):
+        row = league_candidate("EFL Championship", "PROVEN_LEAGUE")
+        row["championship_recent_goal_evidence"] = self.championship_evidence()
+        row["championship_recent_goal_evidence"]["captured_at_utc"] = "2026-10-11T00:00:00Z"
+        self.assertIn("CHAMPIONSHIP_CHEAP_SIGNAL_STALE_OR_POST_KO",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        row["championship_recent_goal_evidence"]["captured_at_utc"] = "2026-10-09T10:00:00Z"
+        row["championship_recent_goal_evidence"]["home"]["recent_competitive_matches"][0]["kickoff_utc"] = "2026-10-12T12:00:00Z"
+        self.assertIn("CHAMPIONSHIP_HOME_HISTORY_INVALID",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+
+    def test_championship_not_made_tier_one_and_existing_league_untouched(self):
+        row = league_candidate("Championship", "TIER1_STANDARD")
+        row["championship_recent_goal_evidence"] = self.championship_evidence()
+        self.assertIn("LEAGUE_TIER1_NOT_ALLOWLISTED",
+                      validate_work_candidate(row, intake_policy="LEAGUE_CHANNEL_FIRST_V1"))
+        self.assertEqual(validate_work_candidate(league_candidate(),
+                         intake_policy="LEAGUE_CHANNEL_FIRST_V1"), [])
+
     def test_unsupported_profile_does_not_bypass_missing_line(self):
         row = league_candidate()
         row["league_channel_profile"]["asian_total_provider_url"] = ""
