@@ -50,6 +50,8 @@ CONDITIONAL = frozenset({
     "colombia primera a", "ecuador ligapro serie a",
     "uruguay primera division", "russian premier league",
     "k league 2", "korea k league 2",
+    "hong kong premier league", "boc life hong kong premier league",
+    "malaysia super league", "liga super", "malaysian super league",
     # England Championship: limited cheap goal-signal gate, not blanket admission.
     "championship", "efl championship", "english championship",
     "england championship", "sky bet championship",
@@ -88,6 +90,9 @@ REGISTERED_DIRECT = {
     "korea": {"k league 1", "korea k league 1"},
 }
 REGISTERED_CONDITIONAL = {
+    "hong kong": {"hong kong premier league", "boc life hong kong premier league"},
+    "hong kong sar": {"hong kong premier league", "boc life hong kong premier league"},
+    "malaysia": {"malaysia super league", "liga super", "malaysian super league"},
     "england": {"championship", "efl championship", "english championship",
                 "england championship", "sky bet championship"},
     "czech republic": {"czech first league", "czech first division"},
@@ -175,6 +180,10 @@ def classify_competition(row: dict[str, Any]) -> dict[str, str]:
         if name in CONDITIONAL and name in REGISTERED_CONDITIONAL.get(country, set()):
             if country == "england":
                 return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "CHAMPIONSHIP TARGETED LOWER-DIVISION PILOT — PER-FIXTURE FIVE-MATCH GOAL PROOF REQUIRED"}
+            if country in {"hong kong", "hong kong sar"}:
+                return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "HONG KONG SENIOR PREMIER LEAGUE SOURCE-LOCAL 2026-10 PILOT — RECENT GOAL PROOF AND VERIFIED CHANNELS REQUIRED"}
+            if country == "malaysia":
+                return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "MALAYSIA SENIOR SUPER LEAGUE SOURCE-LOCAL 2026-10 PILOT — RECENT GOAL PROOF AND VERIFIED CHANNELS REQUIRED"}
             if country == "poland" and name == "ekstraklasa":
                 return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "POLAND EKSTRAKLASA SOURCE-LOCAL TARGETED PILOT — PER-FIXTURE FIVE-MATCH GOAL PROOF REQUIRED"}
             return {"lane": "CONDITIONAL_CHEAP_GATE", "reason": "EXPLICIT COUNTRY+LEAGUE CONDITIONAL REGISTRY"}
