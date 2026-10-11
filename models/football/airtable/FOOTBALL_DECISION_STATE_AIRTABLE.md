@@ -1,9 +1,9 @@
-# Football Decision States — Airtable Contract
+> **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Decision States — Airtable Contract
 
 **Status:** ACTIVE  
 **Base:** `SlipTrace Football Decision Control`  
 **Table:** `Decision States`  
-**Table ID:** `tblQmUpd5WjBLQ38X`  
+**Table ID:** `tblzMyYuDTi1UMd66`  
 **Official model:** Football C  
 **Only active shadow model:** Football C2 — SHADOW
 
@@ -157,14 +157,14 @@ Required completed status:
 `EXECUTED_C_C2_PAIR`
 
 Dedicated fields:
-- `Engine Execution Status` — `fldhU9rA7EITaYxuM`
-- `Engine Source Revision` — `fld5ZVej5DSbZhPi4`
-- `Engine C Result` — `fldUktpv7mWLBzvGh`
-- `Engine C2 Result` — `fldpKcoEQ5zqA1knO`
-- `Engine Failure Reason` — `fldznzspLsOuIHn2F`
+- `Engine Execution Status` — `fldbjgOeImaklVa4x`
+- `Engine Source Revision` — `fldFunnwbIjaSG693`
+- `Engine C Result` — `fld3PK7xWCu2MhD0u`
+- `Engine C2 Result` — `fldUb2G763QfHBay9`
+- `Engine Failure Reason` — `fld71HYlto4Kavp4C`
 
 Historical compatibility field:
-- `Engine C3 Result` — `fldg9oq2g3PiAe53d`
+- `Engine C3 Result` — `fldTNWjwKJjS4Kpm5`
 
 Do not populate Engine C3 Result for a new current assessment.
 
@@ -187,11 +187,11 @@ is invalid for current production.
 ## 8. C official exposure / WAIT bookkeeping
 
 Dedicated fields:
-- `C Exposure Basis` — `fldf6w7o7yi8KPr2G`
-- `C Exposure Line` — `fldfRLDGRjvHJ2gML`
-- `C Exposure Odds` — `fldbCbFCvLD5KArBA`
-- `WAIT Resolution` — `fldhATXMaqVDB4KpO`
-- `WAIT Reconciliation Note` — `fldbQgbncu2XIXydA`
+- `C Exposure Basis` — `fldlWrt2Jo57EwTum`
+- `C Exposure Line` — `fldGtr0ARD0a5NLz8`
+- `C Exposure Odds` — `fldfruIgLhAelQM5w`
+- `WAIT Resolution` — `fldQ5GkoNbUe2TttQ`
+- `WAIT Reconciliation Note` — `fld2GLgfUuHDQDb16`
 
 Current C exposure bases:
 - `DIRECT_BET`;
@@ -209,8 +209,8 @@ An explicit user statement that the target never reached removes that WAIT expos
 ## 9. Active-model accounting
 
 Aggregate fields:
-- `All Model Accounting Result` — `fldOEt6DO20U9Yyab`
-- `Model Accounting Revision` — `fldIAqPB03Oian4Fw`
+- `All Model Accounting Result` — `fldNkN7Oage1EawIw`
+- `Model Accounting Revision` — `fldQrBna8TkWGpjPX`
 
 The aggregate field name is historical. For **new/current** rows, store the active C+C2 result only:
 
@@ -227,13 +227,13 @@ Historical C3/C4 settlement must use explicit historical-roster mode and must ne
 ## 10. Market-history fields
 
 Dedicated fields:
-- `Market History Status` — `fldvt8MMJXSt5C2b6`
-- `Market History Open Total` — `fldHF3GBjcPlMV8xD`
-- `Market History Pre-XI Total` — `fldVphdjWI21noJe3`
-- `Market History Current Center` — `fldBYaxymYIwJZHO5`
-- `Market History Movement` — `fldEjQGGA9siB8YzT`
-- `Market Conflict Recheck` — `fldvoIAnj9NCFZFuQ`
-- `Market History Note` — `fldDPLEXFDLH58Xdu`
+- `Market History Status` — `fld2UVVJ6JX3k0Z2W`
+- `Market History Open Total` — `fldRDscSEizkR0kQZ`
+- `Market History Pre-XI Total` — `fldK7ob2RBjQoWX9A`
+- `Market History Current Center` — `fldMUewZbx2OrknOw`
+- `Market History Movement` — `fld318qTHCfcgf6tK`
+- `Market Conflict Recheck` — `fldkREQtm7s9gMCEC`
+- `Market History Note` — `fldTlWMXlqLI8dLqV`
 
 These are common evidence for C/C2. Market movement cannot create football structure or exposure authority.
 
