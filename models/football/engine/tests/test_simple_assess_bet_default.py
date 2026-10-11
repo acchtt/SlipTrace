@@ -120,7 +120,8 @@ class SimpleAssessBetRoutingTests(unittest.TestCase):
         aliases = (FOOTBALL / "prompts" / "COMMAND_ALIASES.md").read_text(encoding="utf-8")
         simple = (FOOTBALL / "procedures" / "FOOTBALL_SIMPLE_ASSESS_AND_BET.md").read_text(encoding="utf-8")
         self.assertIn("one assessment, just as before", current)
-        self.assertIn("no second user command", simple.lower())
+        self.assertIn("one", simple.lower())
+        self.assertIn("no extra user step", simple.lower())
         self.assertIn("without asking for more market screenshots", aliases)
         self.assertIn("Single /xi command", simple)
         for path in (
