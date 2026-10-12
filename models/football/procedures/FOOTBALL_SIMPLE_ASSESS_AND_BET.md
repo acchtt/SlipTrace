@@ -37,7 +37,7 @@ Every screenshot assessment sets `model_bets_created=false`. Airtable
 `XI Assessment Execution Status` uses existing `EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED`
 for conditional/blocked screenshot pricing, or
 `EXECUTED_C_C2_FOOTBALL_AND_PRICE` for strictly verified execution.
-Independently read back the original C/C2 results and quote evidence;
+Append the exact `USER_SCREENSHOT_ONLY_JSON=` evidence receipt to the existing Airtable `Evidence Summary` field (`fldzt02UGXPWnzqgT`), retaining other football notes. `xi_assessment_reconcile.py` independently verifies the refetched `evidence_summary` and its field ID against the actual screenshot quote, capture time, assessment epoch, bookmaker, score/minute, source reference and limitations. Independently read back the original C/C2 results and quote evidence;
 never create Actual Bets from the model's ACT.
 
 ## What the user sees
