@@ -64,7 +64,7 @@ that a price action could not be calculated, not a fabricated PASS.
 Existing strict prematch priced execution only applies to a verified
 same-instant, actually open screenshot offer with both revalidated model
 contexts. Post-KO screenshot quotes **cannot** authorize prematch bets.
-No model ACT creates an Actual Bet.
+No model ACT creates an Actual Bet. To persist and verify a valid screenshot price receipt, append the canonical line emitted by `xi_assessment_reconcile.screenshot_evidence_summary_line(receipt)` to the existing **Decision States → Evidence Summary** (`fldzt02UGXPWnzqgT`) without deleting football context. Independently refetch it as `evidence_summary` with `evidence_summary_field_id` alongside the original model results and status; screenshot-priced persistence validation MUST fail if this original receipt is absent or altered.
 
 ## Fast mandatory flow
 
