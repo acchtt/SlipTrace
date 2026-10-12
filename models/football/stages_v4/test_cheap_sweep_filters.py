@@ -419,6 +419,17 @@ class CheapSweepFilterTests(unittest.TestCase):
         self.assertEqual(liga_base["priority"], DEFERRED)
         self.assertEqual(usl_base["priority"], DEFERRED)
 
+    def test_americas_filters_do_not_match_nearby_unresearched_competitions(self):
+        mls_next = classify_research_priority(
+            fixture("USA", "MLS Next Pro", "Club A", "Club B"), at_utc=NOW
+        )
+        liga_mx_fem = classify_research_priority(
+            fixture("Mexico", "Liga MX Femenil", "Club A", "Club B", "WOMENS_TOP_FLIGHT"),
+            at_utc=NOW,
+        )
+        self.assertEqual(mls_next["priority"], NEUTRAL)
+        self.assertEqual(liga_mx_fem["priority"], NEUTRAL)
+
     def test_registry_recognizes_researched_americas_leagues(self):
         checks = (
             ("Argentina", "Liga Profesional", "CONDITIONAL"),
