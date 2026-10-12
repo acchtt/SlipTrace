@@ -71,9 +71,9 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
         raise V4XIQueueError("V4: unchanged original source payload/hash required for routine XI")
     if not isinstance(status_refresh, dict) or _digest(status_refresh) != ranked["status_refresh_sha256"]:
         raise V4XIQueueError("V4: exact rank status-refresh payload/hash required for routine XI")
-    rank_time = ranked.get("created_at_utc")
+    rank_time = ranked.get("rank_at_utc")
     if not isinstance(rank_time, str):
-        raise V4XIQueueError("V4: native rank created_at_utc required")
+        raise V4XIQueueError("V4: native rank rank_at_utc required")
     try:
         native_proof = verify_rank_source_and_status(
             source, original_source, status_refresh, now=rank_time
