@@ -11,6 +11,7 @@ import math
 from pathlib import Path
 import re
 import sys
+from xi_v4_queue import validate_v4_queue_authority
 
 VERSION = "football-step2-queue-v1"
 LANES = {"FOLLOW", "RESERVE", "STOP"}
@@ -49,13 +50,21 @@ def freeze_queue(data: dict) -> dict:
         raise Step2QueueError(f"schema_version must be {VERSION}")
     session_id = _text(data, "session_id")
     mode = _text(data, "mode").upper()
-    if mode not in {"ROUTINE", "EXCEPTION_ONLY"}:
-        raise Step2QueueError("mode must be ROUTINE or EXCEPTION_ONLY")
+    if mode not in {"ROUTINE", "V4_ROUTINE", "EXCEPTION_ONLY"}:
+        raise Step2QueueError("mode must be ROUTINE, V4_ROUTINE or EXCEPTION_ONLY")
     board = _list(data, "board")
     exceptions = _list(data, "user_exceptions")
     activated = _list(data, "activated_reserves")
 
-    if mode == "ROUTINE":
+    authority = None
+    if mode == "V4_ROUTINE":
+        try:
+            authority = validate_v4_queue_authority(data, board)
+        except ValueError as exc:
+            raise Step2QueueError(str(exc)) from exc
+        if not board:
+            raise Step2QueueError("V4: verified rank contains no due board")
+    elif mode == "ROUTINE":
         source = data.get("source_run")
         rank = data.get("rank")
         if not isinstance(source, dict) or not isinstance(rank, dict):
@@ -166,8 +175,9 @@ def freeze_queue(data: dict) -> dict:
         "schema_version": VERSION,
         "session_id": session_id,
         "mode": mode,
-        "source_run_id": data.get("source_run", {}).get("run_id") if mode == "ROUTINE" else None,
-        "board_snapshot_id": data.get("rank", {}).get("board_snapshot_id") if mode == "ROUTINE" else None,
+        "source_run_id": authority["source_run_id"] if authority else data.get("source_run", {}).get("run_id") if mode == "ROUTINE" else None,
+        "board_snapshot_id": authority["board_snapshot_id"] if authority else data.get("rank", {}).get("board_snapshot_id") if mode == "ROUTINE" else None,
+        "v4_source_attested": bool(authority),
         "due": due,
         "not_due": not_due,
         "due_count": len(due),
