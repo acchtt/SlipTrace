@@ -1,9 +1,14 @@
 # Football Competition Operational Reliability Memory
 
-**Status:** mandatory persistent Step-0 memory  
+**Status:** ACTIVE AUDIT DIAGNOSTIC MEMORY — CURRENT V4 NON-GATING  
 **Scope:** operational observability only — never predictive football quality  
-**Airtable summary:** `Competition Reliability` (`tbl1KShXxXErUdVKW`)  
-**Airtable events:** `Competition Reliability Events` (`tblD0ZHqT772H25Uv`)
+**Airtable base:** `appbzxqXYf0lKfD4P` via `airtable/ACTIVE_MODEL_ROUTING.md`  
+**Airtable summary:** `Competition Reliability` (`tbl8ZRExZfMce7lqY`)  
+**Airtable events:** `Competition Reliability Events` (`tblg3uz2Bvz6bcCm9`)
+
+The archived table IDs `tbl1KShXxXErUdVKW` and
+`tblD0ZHqT772H25Uv` are read-only historical references and must never be
+used for current writes.
 
 **Activation boundary:** prospective from the merge that activates this procedure.
 
@@ -161,20 +166,28 @@ The post-slate event from that probation fixture then enters the rolling sample.
 
 A user-declared exception may also reopen a fixture, but does not waive any other integrity gate.
 
-## 7. Step-0 application order
+## 7. Current V4 consumption boundary
 
-For each discovered senior fixture:
+Current V4 `stages_v4/stage.py`, `goals_first_intake.py` and
+`league_registry.py` do **not** consume this memory as an admission,
+operational-grade or ranking gate. Therefore a reliability state may be
+updated and reported diagnostically, but it must not silently cap/demote a V4
+fixture or be described as affecting the current V4 eligible queue.
+
+The historical Step0 application order below applies only when reconstructing
+a genuinely frozen V1–V3 record from its original epoch:
 
 1. normalize the competition key;
-2. retrieve the current Airtable `Competition Reliability` row;
-3. calculate raw current A/B/C/D viability from current evidence;
-4. apply the persistent reliability cap;
-5. persist the reliability-state snapshot and reason into Daily Coverage Ledger;
-6. continue researchability and 15-fixture capacity gating.
+2. retrieve the then-current reliability row;
+3. calculate raw viability from that historical workflow's evidence;
+4. apply its historical reliability cap;
+5. preserve the frozen snapshot/reason;
+6. preserve the historical researchability/capacity result.
 
-History may only **cap/demote** the current raw grade. It may never promote C->B, B->A, or replace current evidence.
-
-Manual Override in Airtable applies only when it reflects an explicit user/maintainer decision. `NONE` is the normal state.
+If reliability gating is ever reintroduced to V4, it requires an explicit V4
+engine field/schema, deterministic tests, command-router documentation and a
+prospective activation boundary. Do not infer implementation from this
+memory document alone.
 
 ## 8. Audit update
 
