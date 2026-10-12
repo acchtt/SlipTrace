@@ -14,10 +14,13 @@ This is a process-integrity guard only. It does not change any Football C/C2 pre
 For **new V4** production routine /xi, execute
 `models/football/engine/step2_queue_guard.py` with
 `mode=V4_ROUTINE`, a complete frozen ranked C/C2 board, its original
-`v4_sweep_receipt` (`V4_SWEEP_READY`), its original
-`v4_rank_receipt` (`V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK`),
-and the actually verified `v4_persistence_receipt`
-(`V4_RANK_PERSISTENCE_VERIFIED`). Integrity hashes and the C official
+`v4_sweep_receipt` (`V4_SWEEP_READY`), unchanged `v4_original_source`,
+exact rank-time `v4_status_refresh`, original `v4_rank_receipt`
+(`V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK`), and the actually verified
+`v4_persistence_receipt` (`V4_RANK_PERSISTENCE_VERIFIED`). The queue guard
+recomputes source/status hashes and requires `source_replayed` plus
+`current_fixture_status_checked` in both rank/readback provenance. Integrity
+hashes and the C official
 FOLLOW/RESERVE/STOP lane, C2 shadow state and both independent supported
 lines are cross-checked. NEVER generate these receipts from Airtable
 alone or a manually retitled derived source.
