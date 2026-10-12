@@ -61,9 +61,7 @@ when genuine independent C/C2 priced contexts are present to evaluate
 entry rules. The priced contexts must carry exactly the screenshot quote,
 never another bookmaker quote. Without them, report supported burdens and
 that a price action could not be calculated, not a fabricated PASS.
-Existing strict prematch priced execution only applies to a verified
-same-instant, actually open screenshot offer with both revalidated model
-contexts. Post-KO screenshot quotes **cannot** authorize prematch bets.
+Screenshot-only mode never authorizes executable action merely from a matching timestamp or any caller-supplied `open_offer_verified_in_screenshot` flag. With genuinely independent priced model contexts, its ACT/WAIT/PASS is **conditional** only. Strict current execution is a separate non-screenshot authorization channel, never a reason to search for replacement prices on this user's screenshot. Post-KO screenshot quotes **cannot** authorize prematch bets.
 No model ACT creates an Actual Bet. To persist and verify a valid screenshot price receipt, append the canonical line emitted by `xi_assessment_reconcile.screenshot_evidence_summary_line(receipt)` to the existing **Decision States → Evidence Summary** (`fldzt02UGXPWnzqgT`) without deleting football context. Independently refetch it as `evidence_summary` with `evidence_summary_field_id` alongside the original model results and status; screenshot-priced persistence validation MUST fail if this original receipt is absent or altered.
 
 ## Fast mandatory flow
