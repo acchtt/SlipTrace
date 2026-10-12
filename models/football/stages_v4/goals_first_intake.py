@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from typing import Any
 from discovery_goal_gate import screen_discovery
+from cheap_sweep_filters import classify_research_priority
 
 CANDIDATE_LANES = frozenset({"ROUTINE","CONDITIONAL","PILOT","DISCOVERY"})
 ADMITTED_LANES = CANDIDATE_LANES
@@ -28,9 +29,14 @@ def _research_order(row: dict[str, Any]) -> tuple[Any, ...]:
         tier = 1
     else:
         tier = 2
+    cheap = row.get("cheap_filter") or {}
+    cheap_rank = cheap.get("priority_rank")
+    if not isinstance(cheap_rank, int):
+        cheap_rank = 4
     priority = screen.get("priority_score")
     return (
         tier,
+        cheap_rank,
         -(priority if isinstance(priority, (float, int)) else 0),
         row["kickoff_utc"],
         row["match_id"],
@@ -55,6 +61,8 @@ def select(
             continue
         mid = item["match_id"]
         source = indexed[mid]
+        cheap_filter = classify_research_priority(source, at_utc=at_utc)
+        item["cheap_filter"] = cheap_filter
         screen = item.get("discovery_screen")
         if screen is None:
             screen = screen_discovery(
@@ -72,6 +80,7 @@ def select(
                 q["intake_lane"] = item["intake_lane"]
                 q["reason"] = item["reason"]
                 q["goal_screen"] = screen
+                q["cheap_filter"] = cheap_filter
                 selected.append(q)
             else:
                 item["intake_lane"] = "PENDING_GOAL_RESEARCH"
@@ -85,6 +94,7 @@ def select(
                 "registry_lane": item["registry_lane"],
                 "intake_lane": item["intake_lane"],
                 "reason": item["reason"], "goal_screen": screen,
+                "cheap_filter": cheap_filter,
                 "source_url": item["source_url"],
             })
     research.sort(key=_research_order)
@@ -104,4 +114,14 @@ def select(
             } for r in research
         ),
         "verified_goal_qualified_count": len(selected),
+        "cheap_filter_counts": {
+            state: sum(
+                (r.get("cheap_filter") or {}).get("priority") == state
+                for r in research
+            )
+            for state in (
+                "PRIMARY_RESEARCH", "SECONDARY_RESEARCH",
+                "SPECIAL_RESEARCH", "DEFERRED_RESEARCH", "NEUTRAL_RESEARCH",
+            )
+        },
     }
