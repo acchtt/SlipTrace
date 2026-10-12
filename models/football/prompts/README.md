@@ -15,7 +15,7 @@ Football C official, C2 independent shadow. C3/C4 retired.
 
 ## Mandatory execution boundaries
 
-- V4 /sweep creates original `source.json` and a native `V4_SWEEP_READY` receipt. A digest alone is **not** an independent source attestation; use source-attested GitHub Actions artifacts when available.
+- V4 /sweep first proves bounded provider-surface completeness: every ICT+UTC date surface touched by the window, all pages, all senior competition blocks, exact fixture-ID union and an independent terminal sentinel. New sources require `source_completeness_manifest` / `DATE_SURFACE_BATCH_V2`; registry filtering before this proof is forbidden. It then creates original `source.json` and a native `V4_SWEEP_READY` receipt. A digest alone is **not** an independent source attestation; use source-attested GitHub Actions artifacts when available.
 - V4 /rank replays the unchanged original source, and requires a fresh same-match status/kickoff observation for the **entire eligible cohort** before C and C2 execute. Historical old rank bundles and V1–V3 ZIPs cannot be imported as V4 authority.
 - V4 /xi uses independently executed football C/C2 and no mandatory odds; if a user screenshot is supplied, **no external replacement or historical market price search** is permitted. An original screenshot cannot by itself prove an executable market offer. Price verdicts are conditional, not placed bets.
 - Live screenshots use their displayed score/minute and original price only, never a prematch priced action after kickoff.
