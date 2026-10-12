@@ -181,8 +181,7 @@ means operational research priority, **not** intrinsic goal propensity.
   Polish Ekstraklasa and I Liga/Liga 1 (including current sponsor-name aliases),
   Czech First League/FNL, Hong Kong Premier
   League, Malaysian Liga Super, UAE Pro League, Qatar Stars League,
-  Korea K2, Greek Super League, senior women's top flights and
-  major senior official cups/continental competitions.
+  Korea K2, Greek Super League; Iceland Besta deild/Lengjudeild; Faroe Meistaradeildin; Swedish Superettan; Denmark First Division; senior women's top flights and major senior official cups/continental competitions.
 - **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1,
   Swedish Superettan, Denmark First Division and Saudi First
   Division. They are **searched and retained**, but require
