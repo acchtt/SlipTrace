@@ -430,26 +430,26 @@ class CheapSweepFilterTests(unittest.TestCase):
         self.assertEqual(mls_next["priority"], NEUTRAL)
         self.assertEqual(liga_mx_fem["priority"], NEUTRAL)
 
-    def test_registry_recognizes_researched_americas_leagues(self):
+    def test_americas_filters_do_not_require_registry_promotion(self):
         checks = (
-            ("Argentina", "Liga Profesional", "CONDITIONAL"),
-            ("Bolivia", "LFPB", "CONDITIONAL"),
-            ("Brazil", "Brasileirao Serie A", "CONDITIONAL"),
-            ("Chile", "Liga de Primera", "CONDITIONAL"),
-            ("Colombia", "Liga BetPlay", "CONDITIONAL"),
-            ("Ecuador", "Liga Pro Serie A", "CONDITIONAL"),
-            ("Paraguay", "Division Profesional", "CONDITIONAL"),
-            ("Peru", "Liga 1", "CONDITIONAL"),
-            ("Uruguay", "Primera Division", "CONDITIONAL"),
-            ("Venezuela", "Liga FUTVE", "CONDITIONAL"),
-            ("USA", "MLS", "CONDITIONAL"),
-            ("USA", "USL Championship", "CONDITIONAL"),
-            ("Mexico", "Liga MX", "CONDITIONAL"),
-            ("Canada", "Canadian Premier League", "CONDITIONAL"),
+            ("Argentina", "Liga Profesional"),
+            ("Bolivia", "LFPB"),
+            ("Brazil", "Brasileirao Serie A"),
+            ("Chile", "Liga de Primera"),
+            ("Colombia", "Liga BetPlay"),
+            ("Ecuador", "Liga Pro Serie A"),
+            ("Paraguay", "Division Profesional"),
+            ("Peru", "Liga 1"),
+            ("Uruguay", "Primera Division"),
+            ("Venezuela", "Liga FUTVE"),
+            ("USA", "MLS"),
+            ("USA", "USL Championship"),
+            ("Mexico", "Liga MX"),
+            ("Canada", "Canadian Premier League"),
         )
-        for country, competition, lane in checks:
+        for country, competition in checks:
             with self.subTest(country=country, competition=competition):
-                self.assertEqual(classify(fixture(country, competition))["lane"], lane)
+                self.assertEqual(classify(fixture(country, competition))["lane"], "DISCOVERY")
 
     def test_eerste_high_event_team_is_primary_otherwise_secondary(self):
         high = classify_research_priority(
