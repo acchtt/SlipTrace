@@ -9,7 +9,10 @@ in the repository for audit history, but new Step-2 execution is C+C2 only.
 from __future__ import annotations
 
 import argparse
+import copy
+from datetime import datetime
 import json
+import math
 import sys
 import types
 from pathlib import Path
@@ -280,6 +283,185 @@ def run_accounting_file(path: str) -> dict[str, Any]:
     return compile_fixture_accounting(_load(path))
 
 
+
+def _screenshot_time(value: Any, field: str) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be an ISO timestamp with timezone")
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError(f"{field} must be an ISO timestamp with timezone") from exc
+    if dt.tzinfo is None or dt.utcoffset() is None:
+        raise ValueError(f"{field} must include a timezone")
+    return dt
+
+
+def assess_user_screenshot(
+    screenshot: dict[str, Any],
+    c_football: dict[str, Any],
+    c2_football: dict[str, Any],
+    football: dict[str, Any],
+    priced_inputs: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Evaluate only the user's observed quote. Never fetch or re-time a price.
+
+    Indicative actions use the unchanged adapter decision engine with the
+    quote-revalidation gate simulated IN MEMORY for price comparison only.
+    They can never authorize exposure. Only a separately evidenced same-
+    instant prematch screenshot may invoke the strict executable pair.
+    """
+    if not isinstance(screenshot, dict):
+        raise ValueError("screenshot evidence must be an object")
+    if screenshot.get("evidence_mode") != "USER_SCREENSHOT_ONLY" or screenshot.get("source") != "USER_SCREENSHOT":
+        raise ValueError("only source=USER_SCREENSHOT, evidence_mode=USER_SCREENSHOT_ONLY is accepted")
+    capture_reference = screenshot.get("capture_reference")
+    if not isinstance(capture_reference, str) or not capture_reference.strip():
+        raise ValueError("original screenshot capture_reference required")
+    match_id = football["results"]["c"]["match_id"]
+    if screenshot.get("match_id") != match_id:
+        raise ValueError("screenshot match_id differs from C/C2 football fixture")
+    quote = screenshot.get("quote")
+    if not isinstance(quote, dict):
+        raise ValueError("screenshot must show exact quote line and odds")
+    line, odds = quote.get("line"), quote.get("odds")
+    if (type(line) not in (int, float) or type(odds) not in (int, float)
+            or not math.isfinite(line) or not math.isfinite(odds)
+            or line < 0 or abs(line * 4 - round(line * 4)) > 1e-8
+            or odds <= 1):
+        raise ValueError("invalid screenshot Asian quarter-goal line or decimal odds")
+    fixture = c_football["context"].get("fixture_status")
+    if screenshot.get("fixture_status") != fixture or c2_football["context"].get("fixture_status") != fixture:
+        raise ValueError("screenshot fixture status conflicts with paired football evidence")
+    assessment_time = _screenshot_time(c_football["context"]["assessment_at_utc"], "assessment_at_utc")
+    if _screenshot_time(c2_football["context"]["assessment_at_utc"], "assessment_at_utc") != assessment_time:
+        raise ValueError("C/C2 assessment times differ")
+    captured = screenshot.get("observed_at_utc")
+    captured_time = _screenshot_time(captured, "observed_at_utc") if captured is not None else None
+    if captured_time is not None and captured_time > assessment_time:
+        raise ValueError("screenshot observation cannot be later than assessment epoch")
+    if fixture in {"STARTED", "HALFTIME"}:
+        if (screenshot.get("score") is None or screenshot.get("match_minute") is None
+                or screenshot["score"] != c_football["context"].get("score")
+                or screenshot["match_minute"] != c_football["context"].get("match_minute")):
+            raise ValueError("live screenshot score/minute must match actual C/C2 football epoch")
+    elif fixture == "PREMATCH_CONFIRMED":
+        if screenshot.get("score") is not None or screenshot.get("match_minute") is not None:
+            raise ValueError("prematch screenshot cannot inherit a live score/minute")
+    evidence = {
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "source": "USER_SCREENSHOT",
+        "capture_reference": capture_reference,
+        "match_id": match_id,
+        "bookmaker": screenshot.get("bookmaker"),
+        "quote": {"line": line, "odds": odds},
+        "observed_at_utc": captured,
+        "assessment_at_utc": c_football["context"]["assessment_at_utc"],
+        "observation_age_seconds": (assessment_time - captured_time).total_seconds() if captured_time else None,
+        "fixture_status": fixture,
+        "score": screenshot.get("score"),
+        "match_minute": screenshot.get("match_minute"),
+        "external_price_searches": 0,
+        "replacement_quotes": 0,
+    }
+    limitations = []
+    if captured_time is None:
+        limitations.append("SCREENSHOT_CAPTURE_TIME_UNKNOWN")
+    elif captured_time != assessment_time:
+        limitations.append("SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH")
+    if fixture != "PREMATCH_CONFIRMED":
+        limitations.append("LIVE_SCREENSHOT_NOT_EXECUTABLE_BY_PREMATCH_ENGINE")
+    model_verdicts = {}
+    for model in ("c", "c2"):
+        funded = football["results"][model]["frozen_supported_line"]
+        model_verdicts[model] = {
+            "supported_line": funded,
+            "snapshot_line_relation": ("ABOVE_SUPPORTED_BURDEN" if line > funded else
+                                       "AT_SUPPORTED_BURDEN" if line == funded else
+                                       "BELOW_SUPPORTED_BURDEN"),
+            "conditional_action": "NOT_EVALUATED_MISSING_PRICED_MODEL_CONTEXT",
+            "bet_authorized": False,
+        }
+    base = {
+        "ok": False, "status": "SCREENSHOT_PRICE_ASSESSED_CONDITIONAL",
+        "evidence": evidence, "models": model_verdicts,
+        "limitations": limitations,
+        "bet_authorized": False, "model_bets_created": False,
+        "priced_publication_authorized": False,
+        "quote_research_required": False,
+    }
+    if fixture != "PREMATCH_CONFIRMED":
+        for v in model_verdicts.values():
+            v["conditional_action"] = "NOT_EVALUATED_LIVE_REQUIRES_SEPARATE_LIVE_ENGINE"
+        return base
+    if priced_inputs is None:
+        limitations.append("INDEPENDENT_C_C2_PRICED_CONTEXT_NOT_PROVIDED")
+        return base
+    for model, f_input in (("c", c_football), ("c2", c2_football)):
+        p = priced_inputs[model]
+        if (p.get("stage") != "decision" or p.get("model") != model
+                or p.get("match", {}).get("match_id") != match_id
+                or p.get("evidence_epoch_id") != f_input["evidence_epoch_id"]):
+            raise ValueError(f"{model}: screenshot price payload must match football model/match/epoch")
+        if p["match"].get("supported_line") != football["results"][model]["frozen_supported_line"]:
+            raise ValueError(f"{model}: priced supported burden differs from independent football model")
+        context = p.get("context")
+        if not isinstance(context, dict) or context.get("fixture_status") != fixture:
+            raise ValueError(f"{model}: priced context fixture state mismatch")
+        existing_quote = context.get("quote")
+        if existing_quote is not None and existing_quote != {"line": line, "odds": odds}:
+            raise ValueError(f"{model}: external or replacement quote differs from user screenshot")
+    if _pair_epoch_signature(priced_inputs["c"]) != _pair_epoch_signature(priced_inputs["c2"]):
+        raise ValueError("screenshot C/C2 priced decision epochs do not reconcile")
+    _install_modules()
+    from adapter import run_decision
+    # No part of this temporary hypothetical validation is persisted to a
+    # betting ledger, returned as an executable recommendation, or used to
+    # claim an actually revalidated price.
+    for model in ("c", "c2"):
+        p = copy.deepcopy(priced_inputs[model])
+        p["context"]["quote"] = {"line": line, "odds": odds}
+        p["context"]["quote_revalidated"] = True
+        try:
+            decision = run_decision(p)
+            model_verdicts[model].update({
+                "conditional_action": "ACT" if decision["action"] == "BET" else decision["action"],
+                "price_engine_action": decision["action"],
+                "price_engine_reason": decision["reason"],
+                "wait_target_line": decision["wait_target_line"],
+                "wait_min_odds": decision["wait_min_odds"],
+                "indicative_only": True,
+            })
+        except Exception as exc:
+            model_verdicts[model]["conditional_action"] = "NOT_EVALUATED_RULES_INCOMPLETE"
+            model_verdicts[model]["price_rule_limitation"] = str(exc)
+    # An executable prematch check must be independently proven at the
+    # screenshot's exact assessment instant; a past capture, unknown capture
+    # time, or a model-only hypothetical check cannot satisfy it.
+    same_instant = captured_time is not None and captured_time == assessment_time
+    screenshotted_live_offer = screenshot.get("open_offer_verified_in_screenshot") is True
+    separately_validated = all(priced_inputs[m]["context"].get("quote_revalidated") is True for m in ("c", "c2"))
+    if same_instant and screenshotted_live_offer and separately_validated:
+        # Strict adapter unchanged; quote always from the screenshot, never
+        # from bookmaker searches or another stored price.
+        results = {}
+        for m in ("c", "c2"):
+            p = copy.deepcopy(priced_inputs[m])
+            p["context"]["quote"] = {"line": line, "odds": odds}
+            results[m] = run_decision(p)
+        return {
+            "ok": True, "status": "PRICE_CHECK_EXECUTED",
+            "price_evidence_mode": "USER_SCREENSHOT_ONLY", "evidence": evidence,
+            "models": model_verdicts,
+            "receipt": {"engine_execution_status": "EXECUTED_C_C2_PAIR",
+                        "models_executed": ["c", "c2"], "results": results},
+            "bet_authorized": results["c"]["action"] == "BET",
+            "model_bets_created": False,
+            "quote_research_required": False,
+        }
+    limitations.append("SCREENSHOT_PRICE_NOT_VERIFIED_EXECUTABLE_AT_ASSESSMENT")
+    return base
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Portable Football /xi C+C2 deterministic runtime"
@@ -294,6 +476,7 @@ def main() -> int:
     # hypotheses. Priced offers are optional and never replace football.
     one.add_argument("--price-c")
     one.add_argument("--price-c2")
+    one.add_argument("--screenshot-quote", help="USER_SCREENSHOT_ONLY JSON evidence; never search replacement odds")
     pair = sub.add_parser("pair")
     pair.add_argument("--c", required=True)
     pair.add_argument("--c2", required=True)
@@ -324,11 +507,27 @@ def main() -> int:
                 raise ValueError("C+C2 must use the same /xi mode and current match epoch")
             if bool(args.price_c) != bool(args.price_c2):
                 raise ValueError("both C and C2 separate price inputs are required")
+            if args.screenshot_quote and mode1 != "football_assessment":
+                raise ValueError("screenshot-only price mode requires independently executed C+C2 football inputs")
             if mode1 == "football_assessment":
                 # Execute independently frozen C/C2 football FIRST. A
                 # rejected/stale bookmaker price may never erase it.
                 result = run_football_pair_files(args.c, args.c2)
-                if not args.price_c:
+                if args.screenshot_quote:
+                    try:
+                        priced_inputs = ({"c": _load(args.price_c), "c2": _load(args.price_c2)} if args.price_c else None)
+                        price = assess_user_screenshot(_load(args.screenshot_quote), c_input, c2_input, result, priced_inputs)
+                        mode = ("FOOTBALL_AND_SCREENSHOT_PRICE_CHECK" if price["ok"]
+                                else "FOOTBALL_ASSESSED_SCREENSHOT_PRICE_LIMITED")
+                    except Exception as exc:
+                        price = {"ok": False, "status": "PRICE_CHECK_BLOCKED",
+                                 "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+                                 "failure_class": "SCREENSHOT_EVIDENCE_OR_PRICE_CONTRACT",
+                                 "reason": str(exc), "bet_authorized": False,
+                                 "external_price_searches": 0, "replacement_quotes": 0}
+                        mode = "FOOTBALL_ASSESSED_PRICE_CHECK_BLOCKED"
+                    output = {"ok": True, "xi_mode": mode, **result, "price_check": price}
+                elif not args.price_c:
                     output = {"ok": True, "xi_mode": "FOOTBALL_ASSESSMENT", **result}
                 else:
                     try:

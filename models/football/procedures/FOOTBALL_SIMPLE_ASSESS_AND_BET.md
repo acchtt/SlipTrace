@@ -9,6 +9,37 @@ work for backward compatibility, but are not required or advertised.
 
 **No extra user step:** one /xi performs both paired football analysis and any supported current prematch price check. Neither an odds request nor a second /bet is required.
 
+## Screenshot-only fixed-quote contract (user override 2026-10-12)
+
+When /xi includes the user's odds screenshot, use its **exact** Asian
+total and odds — no bookmaker search for updated/replacement quotes.
+The screenshot's actual observation time and the assessment execution
+time are **different fields**; do not invent capture time or stamp the
+screenshot with execution time. Preserve the original screenshot reference,
+bookmaker where shown, score and match minute. Screenshot pricing is a
+fixed observation, not continuous real-time availability.
+
+Run C official and C2 shadow independently first, then use
+`xi_portable.py xi --c c_football.json --c2 c2_football.json
+--screenshot-quote user_screenshot.json`. If complete separately sourced
+C/C2 decision contexts already exist, add both `--price-c` and `--price-c2`
+to apply the **unchanged** model price rules to the screenshot's quote.
+A price-action result on a stale or untimed screenshot is explicitly
+`CONDITIONAL ACT/WAIT/PASS`, not a currently executable instruction.
+If context is missing, report exact supported lines and no evaluated price
+action. For live screenshots use displayed score/minute and no retrospective
+prematch pricing. Never request fresh bookmaker odds to finish an /xi.
+For executable prematch pricing the observed open offer, capture instant,
+assessment instant and both genuine revalidated model contexts must align;
+normal strict price gates remain mandatory.
+
+Every screenshot assessment sets `model_bets_created=false`. Airtable
+`XI Assessment Execution Status` uses existing `EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED`
+for conditional/blocked screenshot pricing, or
+`EXECUTED_C_C2_FOOTBALL_AND_PRICE` for strictly verified execution.
+Append the exact `USER_SCREENSHOT_ONLY_JSON=` evidence receipt to the existing Airtable `Evidence Summary` field (`fldzt02UGXPWnzqgT`), retaining other football notes. `xi_assessment_reconcile.py` independently verifies the refetched `evidence_summary` and its field ID against the actual screenshot quote, capture time, assessment epoch, bookmaker, score/minute, source reference and limitations. Independently read back the original C/C2 results and quote evidence;
+never create Actual Bets from the model's ACT.
+
 ## What the user sees
 
 Immediately give the model-specific football read, C official and C2

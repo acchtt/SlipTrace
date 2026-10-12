@@ -22,6 +22,50 @@ Football C official, C2 shadow, C3/C4 retired.
 user contract. Never require a separate /bet, /live or another screenshot
 to complete a quote-free football assessment.
 
+## USER_SCREENSHOT_ONLY — authoritative user-supplied odds
+
+When /xi or /xi exception contains the user's odds screenshot, use **only
+that screenshot's exact Asian Over line and price**. NEVER search for new
+bookmaker odds, substitute another bookmaker, or ask for another screenshot
+because the analysis took time. Football/XI/tournament research remains
+permitted; this restriction concerns **market price** research.
+
+Preserve the original screenshot attachment reference, bookmaker if displayed,
+line, decimal odds, timestamp if displayed (otherwise null), game status,
+score and minute if live. Capture time is not assessment execution time.
+Use the original quote as a fixed observation even when too old to authorize
+an executable offer. Any conditional ACT/WAIT/PASS must say **conditional,
+not an executable present bet**. Never invent a price, a timestamp, a frozen
+supported line or a placed bet.
+
+Screenshot JSON for the runner:
+```json
+{
+  "evidence_mode": "USER_SCREENSHOT_ONLY",
+  "source": "USER_SCREENSHOT",
+  "capture_reference": "original-user-attachment-reference",
+  "match_id": "actual-canonical-match-id",
+  "bookmaker": null,
+  "quote": {"line": 2.75, "odds": 1.63},
+  "observed_at_utc": null,
+  "fixture_status": "PREMATCH_CONFIRMED",
+  "score": null,
+  "match_minute": null
+}
+```
+The time is null unless genuinely known and timezone-aware; for live
+screenshot use status STARTED or HALFTIME plus its actual score/minute.
+Run `xi_portable.py xi --c c_football.json --c2 c2_football.json
+--screenshot-quote screenshot.json`; also provide `--price-c/--price-c2`
+when genuine independent C/C2 priced contexts are present to evaluate
+entry rules. The priced contexts must carry exactly the screenshot quote,
+never another bookmaker quote. Without them, report supported burdens and
+that a price action could not be calculated, not a fabricated PASS.
+Existing strict prematch priced execution only applies to a verified
+same-instant, actually open screenshot offer with both revalidated model
+contexts. Post-KO screenshot quotes **cannot** authorize prematch bets.
+No model ACT creates an Actual Bet. To persist and verify a valid screenshot price receipt, append the canonical line emitted by `xi_assessment_reconcile.screenshot_evidence_summary_line(receipt)` to the existing **Decision States → Evidence Summary** (`fldzt02UGXPWnzqgT`) without deleting football context. Independently refetch it as `evidence_summary` with `evidence_summary_field_id` alongside the original model results and status; screenshot-priced persistence validation MUST fail if this original receipt is absent or altered.
+
 ## Fast mandatory flow
 
 1. **Resolve match/clock/authority:** identify exact real fixture, canonical
@@ -59,7 +103,7 @@ to complete a quote-free football assessment.
    do not retry broken container DNS or an unnecessary full-repo clone.
    Without genuine C2 evidence or completed deterministic execution,
    report precisely `C+C2 ASSESSMENT INCOMPLETE` instead of guessing.
-4. **Only when a real offered price already exists:** freeze separate
+4. **Only when a real offered price already exists:** for user screenshots follow USER_SCREENSHOT_ONLY above (no external replacement odds); otherwise freeze separate
    C/C2 `stage=decision` price payloads, using the SAME verified
    football evidence epoch and match. For PREMATCH use the strict
    C/C2 price/market-history (attempt), confirmation and tournament
@@ -97,6 +141,12 @@ to complete a quote-free football assessment.
 ```bash
 # Always start with actual independent football inputs
 python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json
+
+# Use the exact USER screenshot as the price evidence without a replacement search
+python models/football/engine/xi_portable.py xi \
+  --c c_football.json --c2 c2_football.json \
+  --screenshot-quote screenshot.json \
+  --price-c c_priced.json --price-c2 c2_priced.json
 
 # Add available exact/current PREMATCH line+odds without a new user command
 python models/football/engine/xi_portable.py xi \
