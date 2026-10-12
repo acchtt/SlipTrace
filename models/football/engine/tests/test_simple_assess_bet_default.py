@@ -91,7 +91,7 @@ class SimpleAssessBetRoutingTests(unittest.TestCase):
         p = run_portable("xi", c, c2)
         self.assertEqual(p.returncode, 0, p.stderr[-2500:])
         out = json.loads(p.stdout)
-        self.assertEqual(out["xi_mode"], "FOOTBALL_AND_PRICE_CHECK")
+        self.assertEqual(out["xi_mode"], "LEGACY_PREMATCH_PRICE_CHECK")
         self.assertEqual(out["engine_execution_status"], "EXECUTED_C_C2_PAIR")
         self.assertEqual(out["models_executed"], ["c", "c2"])
 
