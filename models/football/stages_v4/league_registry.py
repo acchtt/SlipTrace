@@ -18,6 +18,7 @@ COUNTRIES = {
     "uk": "england", "england": "england",
     "deutschland": "germany", "brasil": "brazil",
     "the netherlands": "netherlands", "holland": "netherlands",
+    "faroe island": "faroe islands", "faroes": "faroe islands", "faroe": "faroe islands",
     "czech republic": "czechia", "czechia": "czechia",
     "korea": "south korea", "republic of korea": "south korea",
     "uae": "united arab emirates", "united arab emirates": "united arab emirates",
@@ -60,6 +61,10 @@ CONDITIONAL = {
     "qatar": "qatar stars league|stars league",
     "south korea": "k league 2",
     "greece": "super league|greek super league",
+    "iceland": "besta deild karla|besta deild|urvalsdeild|urvalsdeild karla|lengjudeild karla|lengjudeild|1 deild|1 deild karla",
+    "faroe islands": "meistaradeildin|meistaradeildin menn|faroe islands premier league|betri deildin|betri deildin menn",
+    "sweden": "superettan",
+    "denmark": "1st division|danish first division|1 division",
     "japan": "we league|women empowerment league|nadeshiko league 1|nadeshiko 1|nadeshiko league 2|nadeshiko 2",
 }
 # All researched countries below stay searchable, but are evidence-gated.
@@ -68,8 +73,8 @@ PILOT = {
     "thailand": "thai league 1|thai league 2",
     "indonesia": "liga 1|super league indonesia",
     "saudi arabia": "first division league|saudi first division",
-    "sweden": "superettan",
-    "denmark": "1st division|danish first division",
+    "iceland": "2 deild|2 deild karla",
+    "faroe islands": "1 deild|1 deild menn",
     "japan": "we league cup",
 }
 EXCLUDED_EXACT = {
