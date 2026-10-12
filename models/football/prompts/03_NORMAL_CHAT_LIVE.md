@@ -104,18 +104,20 @@ goal burden/continuation and relevant tournament incentives.
    When no live price is independently verified, report
    `Football assessed — no bet checked`. This is
    a completed football read, **not** an incomplete or rejected model.
-2. **Optional executable betting subdecision.** When a current quote is already supplied and
-   considering a C BET or specific price-based WAIT, require independently
-   verified **current in-play** totals and odds, current fixture/status,
-   scorer/event integrity and required C/C2 live authorization and
-   persistence/publication checks. No quote means no executable action.
-   Do not invent a price, authorize C2 shadow as official, or use a
-   previously frozen prematch price as if it were live.
+2. **Current V4 live-price comparison only.** A current in-play quote may
+   be source/time validated and compared with each model's supported burden,
+   but the repository currently has **no deterministic live priced-action
+   engine**. Therefore live execution remains unavailable:
+   `live_price_action_engine_status=NOT_IMPLEMENTED_V4` and
+   `live_bet_authorized=false`. Never emit an official C live priced action,
+   a C2 priced shadow action, Website Pick, model exposure, or Actual Bet from
+   this comparison. A future engine must be explicitly implemented, tested and
+   promoted before those outputs become current authority.
 
 An exact-prematch Step-2 engine rejection of STARTED remains a valid
 protection; it must **trigger this handoff**, not terminate the user's
-requested football assessment. Never claim an authorized C/C2 action
-if the relevant deterministic live decision path was not run.
+requested football assessment. Supplied live odds remain comparison evidence
+only until a deterministic live action engine exists.
 
 ## 2. Common live evidence
 
@@ -192,21 +194,21 @@ Cancel or pass only when concrete current football information materially attack
 - tournament incentive turning suppressive;
 - current clearing-goal funding no longer credible.
 
-Possible official outputs:
-- `C-BET — <line> @ <odds>`
-- `C-WAIT — TARGET NOT YET READY`
-- `C-WAIT CANCELLED — THESIS DECAY`
-- `C-PASS — NEW EPOCH INVALIDATES PLAN`
+Current V4 live football outputs are qualitative only:
+- `C-FOCUS/CAUTION/AVOID — LIVE FOOTBALL READ`
+- burden/continuation comparison against an observed live quote when supplied
+- `NO EXECUTABLE LIVE PRICED ACTION — ENGINE NOT IMPLEMENTED`
+
+Historical WAIT-resolution labels may still be audited from frozen old records,
+but current V4 /live does not create new priced C exposure.
 
 ## 6. Football C2 shadow resolution
 
 Use the same common live epoch, but apply C2's own frozen route-quality/supported-burden policy.
 
-Possible shadow outputs:
-- `C2-BET — <line> @ <odds> — SHADOW`
-- `C2-WAIT — SHADOW`
-- `C2-WAIT CANCELLED — SHADOW`
-- `C2-PASS — SHADOW`
+Current V4 C2 live output is a shadow football read plus optional burden
+comparison only. It creates no priced action while
+`live_price_action_engine_status=NOT_IMPLEMENTED_V4`.
 
 Do not copy C's line or action into C2.
 
