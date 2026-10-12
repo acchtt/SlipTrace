@@ -97,6 +97,29 @@ require(
 )
 require("models/football/stages_v4/stage.py",
         "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
+require(
+    "models/football/stages_v4/source_completeness.py",
+    'SCHEMA = "football-v4-source-completeness-v2"',
+    'CONTRACT = "DATE_SURFACE_BATCH_V2"',
+    'LEAGUE_QUERY_MODE = "DATE_SURFACE_ONLY"',
+    "SWEEP_REGISTRY_PREFILTER_FORBIDDEN_DURING_DISCOVERY",
+    "SWEEP_TERMINAL_SENTINEL_REQUIRED",
+    "provider_senior_competition_block_count",
+)
+require(
+    "models/football/stages_v4/SWEEP.md",
+    "DATE_SURFACE_BATCH_V2",
+    "league_query_mode=DATE_SURFACE_ONLY",
+    "registry_prefilter_applied=false",
+    "terminal-sentinel",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "source_completeness_manifest",
+    "DATE_SURFACE_BATCH_V2",
+    "registry_prefilter_applied=false",
+)
+
 for entrypoint in (
     "models/football/engine/sweep_rank_pipeline.py",
     "models/football/engine/step0_package_cli.py",
@@ -677,6 +700,7 @@ require(
     '"rank": (',
     "models/football/stages_v4/stage.py",
     "models/football/stages_v4/goals_first_intake.py",
+    "models/football/stages_v4/source_completeness.py",
 )
 forbid(
     "models/football/engine/runtime_probe.py",
