@@ -459,6 +459,10 @@ class RankV4Tests(unittest.TestCase):
         }
         verified=verify_rank(readback,result)
         self.assertEqual(verified["status"],"V4_RANK_PERSISTENCE_VERIFIED")
+        self.assertTrue(verified["source_replayed"])
+        self.assertTrue(verified["current_fixture_status_checked"])
+        self.assertEqual(verified["original_source_sha256"],result["original_source_sha256"])
+        self.assertEqual(verified["status_refresh_sha256"],result["status_refresh_sha256"])
         readback["ranked_rows"][0]["c_rank"] = 20
         with self.assertRaisesRegex(StageError,"rank"):
             verify_rank(readback,result)
