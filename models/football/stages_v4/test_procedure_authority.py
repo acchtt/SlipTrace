@@ -19,6 +19,26 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("V4", (PROMPTS / "sweep.md").read_text())
         self.assertIn("V4", (PROMPTS / "rank.md").read_text())
 
+    def test_sweep_requires_complete_date_surfaces_before_registry(self):
+        stage = (STAGES / "stage.py").read_text()
+        completeness = (STAGES / "source_completeness.py").read_text()
+        sweep = (STAGES / "SWEEP.md").read_text()
+        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
+        for required in (
+            "DATE_SURFACE_BATCH_V2",
+            "DATE_SURFACE_ONLY",
+            "registry_prefilter_applied",
+            "terminal_sentinel",
+            "provider_senior_competition_block_count",
+        ):
+            self.assertIn(required, completeness)
+        self.assertIn("validate_source_completeness", stage)
+        self.assertIn("SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC", stage)
+        self.assertIn("complete provider date/listing surfaces", sweep)
+        self.assertIn("registry is **never** a fixture-discovery query", sweep.lower())
+        self.assertIn("source_completeness_manifest", current)
+        self.assertIn("registry_prefilter_applied=false", current)
+
     def test_rank_requires_source_and_status_on_every_cli_invocation(self):
         stage = (STAGES / "stage.py").read_text()
         self.assertIn('"source", "status-refresh"', stage)
