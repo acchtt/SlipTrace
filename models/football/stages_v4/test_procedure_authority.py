@@ -34,7 +34,7 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
             self.assertIn(required, completeness)
         self.assertIn("validate_source_completeness", stage)
         self.assertIn("SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC", stage)
-        self.assertIn("complete provider date/listing surfaces", sweep)
+        self.assertIn("complete provider **date/listing surfaces**", sweep)
         self.assertIn("registry is **never** a fixture-discovery query", sweep.lower())
         self.assertIn("source_completeness_manifest", current)
         self.assertIn("registry_prefilter_applied=false", current)
