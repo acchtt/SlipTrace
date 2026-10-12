@@ -6,7 +6,9 @@ import sys
 import unittest
 
 DIR = pathlib.Path(__file__).resolve().parent
+ENGINE = DIR.parent / "engine"
 sys.path.insert(0, str(DIR))
+sys.path.insert(0, str(ENGINE))
 
 from cheap_sweep_filters import (
     DEFERRED, NEUTRAL, PRIMARY, SECONDARY, SPECIAL,
