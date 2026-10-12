@@ -302,13 +302,6 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "source_family": provider, "source_url": source["source_url"],
         "source_observed_at_utc": observed.isoformat(),
         "source_ledger_hash": _hash(ledger),
-        "source_completeness_contract": (
-            completeness["source_completeness_contract"] if completeness else "LEGACY_PRE_V2_SOURCE_EPOCH"
-        ),
-        "source_completeness_sha256": (
-            completeness["source_completeness_sha256"] if completeness else None
-        ),
-        "source_completeness": completeness,
         "scope": ("RESEARCHED_COUNTRY_LEAGUE_REGISTRY_SOURCE_VISIBLE_ONLY"
                   if _historical_registry_only else "RESEARCHED_PLUS_SOURCE_SCREENED_UNREGISTERED_COMPETITIONS"),
         "fixture_count": len(ledger),
@@ -322,6 +315,10 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "no_fixed_eight_match_cap": True, "price_required_for_football": False,
         "ranked": False, "published": False, "bet_recorded": False,
     }
+    if completeness is not None:
+        outcome["source_completeness_contract"] = completeness["source_completeness_contract"]
+        outcome["source_completeness_sha256"] = completeness["source_completeness_sha256"]
+        outcome["source_completeness"] = completeness
     if not _historical_registry_only:
         outcome["pending_discovery_count"] = sum(
             x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
