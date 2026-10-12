@@ -38,6 +38,10 @@ def native_v4_case():
         "run_id":run,
         "sweep_integrity_sha256":source["integrity_sha256"],
         "ranked_count":1,
+        "source_replayed":True,
+        "current_fixture_status_checked":True,
+        "original_source_sha256":"a"*64,
+        "status_refresh_sha256":"b"*64,
         "board_pair":{"board_engine_execution_status":"EXECUTED_C_C2_BOARDS",
                       "common_evidence_reconciled":True,
                       "results":{"c":{"matches":[c]},"c2":{"matches":[c2]}}},
@@ -86,10 +90,31 @@ def call_xi(fc,fs,pc=None,ps=None):
 class V4QueueBridgeTests(unittest.TestCase):
     def test_genuine_v4_rank_authorizes_routine_c_not_c2(self):
         actual=freeze_queue(native_v4_case())
-        self.assertTrue(actual["v4_source_attested"])
+        self.assertTrue(actual["v4_provenance_chain_verified"])
+        self.assertNotIn("v4_source_attested", actual)
         self.assertEqual(actual["source_run_id"],"V4-20261012-1300")
         self.assertEqual(actual["due_count"],1)
         self.assertEqual(actual["due"][0]["step2_authorization"],"ROUTINE_FOLLOW")
+
+    def test_old_or_synthetic_rank_without_hardened_provenance_is_rejected(self):
+        for target,field in (
+            ("v4_rank_receipt","source_replayed"),
+            ("v4_rank_receipt","current_fixture_status_checked"),
+            ("v4_rank_receipt","original_source_sha256"),
+            ("v4_rank_receipt","status_refresh_sha256"),
+            ("v4_persistence_receipt","source_replayed"),
+            ("v4_persistence_receipt","current_fixture_status_checked"),
+            ("v4_persistence_receipt","original_source_sha256"),
+            ("v4_persistence_receipt","status_refresh_sha256"),
+        ):
+            with self.subTest(target=target,field=field):
+                case=native_v4_case()
+                case[target].pop(field)
+                if target=="v4_rank_receipt":
+                    case[target]["integrity_sha256"]=_digest({k:v for k,v in case[target].items() if k!="integrity_sha256"})
+                    case["v4_persistence_receipt"]["rank_sha256"]=case[target]["integrity_sha256"]
+                with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof"):
+                    freeze_queue(case)
 
     def test_sealed_source_rank_and_lane_cannot_be_forged(self):
         for target,field,new in (
