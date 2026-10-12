@@ -274,21 +274,11 @@ Same-kickoff guard and capacity limits remain:
 - maximum retained RESERVE = 4;
 - maximum two routine FOLLOW fixtures at one exact kickoff minute.
 
-## Step-1 capacity replenishment
+## Historical V1–V3 capacity/replenishment — not current V4
 
-The initial 15-fixture Step-0 cap is not a final board-size cap.
-
-If `FOLLOW + RESERVE < 10` after a completed wave and prematch A/B rows remain:
-- pull the next deferred rows strictly by ascending Step0 Capacity Queue Rank;
-- assess them as the next replenishment wave;
-- keep the original queue rank immutable.
-
-Continue until:
-1. FOLLOW + RESERVE reaches 10;
-2. no prematch A/B deferred row remains; or
-3. all remaining deferred rows have left the prematch window.
-
-A STOP/PASS/started row does not permanently consume one of the initial 15 research slots.
+The former initial 15-fixture queue, refill-to-10, compact 8/12/20 research
+budget and replenishment loop apply only when auditing a frozen historical
+V1–V3 run. New V4 /sweep and /rank do not use them.
 
 ## Mandatory deterministic runtime bootstrap
 
