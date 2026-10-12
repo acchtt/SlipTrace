@@ -19,6 +19,10 @@ Read:
 
 Use the model/version that actually produced each historical decision. Never backfill a model that did not prospectively execute.
 
+## V4 production intake audit amendment (2026-10-12)
+
+Current V4 audit funnel is: raw source-visible senior fixtures → hard excluded → registered/discovery candidate lane → `GOAL_PRIORITY` / `PENDING_GOAL_RESEARCH` / `PENDING_DISCOVERY` / `PENDING_RESEARCHABILITY` / low-goal watch → authentic `V4_SWEEP_READY` + original-source replay → current fixture-status refreshed C/C2 rank → `V4_RANK_PERSISTENCE_VERIFIED` → XI C/C2 football → screenshot-only conditional price (if supplied) → live/outcome → model accounting separated from confirmed Actual Bets. Old Step0 CAPACITY/8-fixture and `work_ready`/ZIP claims are historical context, not V4 eligibility. The original-source JSON hash is NOT proof of actual external provider acquisition; audit its source provenance independently. Record missed high-scoring unranked fixtures separately from model PASS, without retroactive bets.
+
 ## 1. Audit scope
 
 Audit **all recorded assessed matches**, not only LOCK/FOLLOW/Website Pick rows.
