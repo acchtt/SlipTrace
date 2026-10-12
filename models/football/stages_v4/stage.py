@@ -317,8 +317,68 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     return outcome
 
 
+def _check_rank_source_and_status(
+    sweep_receipt: dict[str, Any], original_source: dict[str, Any],
+    status_refresh: dict[str, Any], at: datetime,
+) -> dict[str, Any]:
+    """Require native source replay plus independently gathered current fixture state.
+
+    A matching local SHA256 alone does not prove the input was acquired
+    from a real provider. External source verification remains mandatory.
+    """
+    if not isinstance(original_source, dict):
+        raise StageError("V4_SOURCE_REPLAY_REQUIRED: original source.json missing")
+    replayed = sweep(original_source, now=sweep_receipt["created_at_utc"])
+    if (replayed["integrity_sha256"] != sweep_receipt["integrity_sha256"]
+            or original_source.get("run_id") != sweep_receipt.get("run_id")):
+        raise StageError("V4_SOURCE_REPLAY_MISMATCH: receipt differs from original source")
+    if not isinstance(status_refresh, dict):
+        raise StageError("V4_STATUS_REFRESH_REQUIRED: independently checked fixtures missing")
+    if (status_refresh.get("schema_version") != "football-v4-rank-status-refresh-v1"
+            or status_refresh.get("run_id") != sweep_receipt["run_id"]
+            or status_refresh.get("sweep_integrity_sha256") != sweep_receipt["integrity_sha256"]):
+        raise StageError("V4_STATUS_REFRESH_MISMATCH: source/run/hash mismatch")
+    checked = _time(status_refresh.get("checked_at_utc"), "status_refresh.checked_at_utc")
+    if not at - timedelta(minutes=10) <= checked <= at:
+        raise StageError("V4_STATUS_REFRESH_STALE: status check older than 10 minutes")
+    rows = status_refresh.get("matches")
+    frozen = {q["match_id"]: q for q in sweep_receipt["eligible_queue"]}
+    if not isinstance(rows, list) or len(rows) != len(frozen):
+        raise StageError("V4_STATUS_REFRESH_INCOMPLETE: full eligible cohort required")
+    seen = set()
+    statuses = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            raise StageError("V4_STATUS_REFRESH_MALFORMED")
+        mid = row.get("match_id")
+        if mid not in frozen or mid in seen:
+            raise StageError("V4_STATUS_REFRESH_MISMATCH: duplicate/foreign fixture")
+        seen.add(mid)
+        source = frozen[mid]
+        _url(row.get("source_url"), f"{mid}.status_source_url")
+        if row["source_url"] != source["source_url"]:
+            raise StageError(f"{mid}: status source differs from frozen fixture source")
+        observed = _time(row.get("observed_at_utc"), f"{mid}.status_observed_at_utc")
+        if not at - timedelta(minutes=10) <= observed <= at or observed > checked:
+            raise StageError(f"{mid}: V4_STATUS_REFRESH_STALE")
+        updated_ko = _time(row.get("kickoff_utc"), f"{mid}.status_kickoff_utc")
+        if updated_ko != _time(source["kickoff_utc"], f"{mid}.frozen_kickoff"):
+            raise StageError(f"{mid}: V4_KICKOFF_CHANGED; re-sweep the updated source epoch")
+        status = row.get("fixture_status")
+        if status not in VALID_MATCH_STATUSES:
+            raise StageError(f"{mid}: V4_STATUS_REFRESH_UNKNOWN")
+        statuses[mid] = status
+    return {
+        "status_refresh_sha256": _hash(status_refresh),
+        "original_source_sha256": _hash(original_source),
+        "status_by_match": statuses,
+    }
+
+
 def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
-         unranked_reasons: dict[str, str], *, now: str) -> dict[str, Any]:
+         unranked_reasons: dict[str, str], *, now: str,
+         original_source: dict[str, Any] | None = None,
+         status_refresh: dict[str, Any] | None = None) -> dict[str, Any]:
     """Evaluate actual C/C2 inputs against frozen V4 eligible set; never bet."""
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
@@ -362,6 +422,18 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
         raise StageError("every unranked eligible fixture must have an explicit reason")
     if not set(unranked_reasons.values()).issubset(UNRANKED):
         raise StageError("unknown unranked reason; no invented model PASS")
+    source_proof = _check_rank_source_and_status(
+        sweep_receipt, original_source, status_refresh, at
+    )
+    for mid in ids:
+        if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED":
+            raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED by current fixture status")
+    for mid, reason in unranked_reasons.items():
+        if reason == "PREMATCH_WINDOW_CLOSED" and (
+            source_proof["status_by_match"][mid] == "PREMATCH_CONFIRMED"
+            and at < _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
+        ):
+            raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED contradicts fresh fixture status")
     for r in crows + c2rows:
         mid = r["match_id"]
         if _time(r.get("kickoff_ict"), f"{mid}.model_kickoff") != _time(
@@ -393,6 +465,9 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
         "board_pair": result, "active_base_id": BASE,
         "c_official": True, "c2_shadow_only": True,
         "publication_authorized": False, "bet_recorded": False,
+        "original_source_sha256": source_proof["original_source_sha256"],
+        "status_refresh_sha256": source_proof["status_refresh_sha256"],
+        "source_replayed": True, "current_fixture_status_checked": True,
     }
     out["integrity_sha256"] = _hash(out)
     return out
@@ -448,7 +523,7 @@ def main() -> int:
     s = sub.add_parser("sweep")
     s.add_argument("--source", required=True)
     r = sub.add_parser("rank")
-    for key in ("sweep", "c", "c2", "unranked"):
+    for key in ("sweep", "c", "c2", "unranked", "source", "status-refresh"):
         r.add_argument("--" + key, required=True)
     v = sub.add_parser("verify")
     v.add_argument("--rank", required=True)
@@ -464,7 +539,9 @@ def main() -> int:
             out = sweep(load(args.source), now=args.now)
         elif args.command == "rank":
             out = rank(load(args.sweep), load(args.c), load(args.c2),
-                       load(args.unranked), now=args.now)
+                       load(args.unranked), now=args.now,
+                       original_source=load(args.source),
+                       status_refresh=load(args.status_refresh))
         else:
             out = verify_rank(load(args.readback), load(args.rank))
         encoded = json.dumps(out, indent=2, sort_keys=True, ensure_ascii=False)
