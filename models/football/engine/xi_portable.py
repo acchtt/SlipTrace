@@ -307,8 +307,8 @@ def assess_user_screenshot(
 
     Indicative actions use the unchanged adapter decision engine with the
     quote-revalidation gate simulated IN MEMORY for price comparison only.
-    They can never authorize exposure. Only a separately evidenced same-
-    instant prematch screenshot may invoke the strict executable pair.
+    A screenshot can never independently prove a still-open executable offer,
+    so screenshot-only mode can never authorize exposure or publication.
     """
     if not isinstance(screenshot, dict):
         raise ValueError("screenshot evidence must be an object")
@@ -391,7 +391,9 @@ def assess_user_screenshot(
     }
     if fixture != "PREMATCH_CONFIRMED":
         for v in model_verdicts.values():
-            v["conditional_action"] = "NOT_EVALUATED_LIVE_REQUIRES_SEPARATE_LIVE_ENGINE"
+            v["conditional_action"] = "LIVE_PRICE_BURDEN_COMPARISON_ONLY"
+            v["live_price_assessment"] = "LIVE_ENGINE_AUTHORIZATION_NOT_EXECUTED"
+        limitations.append("LIVE_SCREENSHOT_REQUIRES_LIVE_ENGINE_FOR_ACTION")
         return base
     if priced_inputs is None:
         limitations.append("INDEPENDENT_C_C2_PRICED_CONTEXT_NOT_PROVIDED")
@@ -434,30 +436,14 @@ def assess_user_screenshot(
         except Exception as exc:
             model_verdicts[model]["conditional_action"] = "NOT_EVALUATED_RULES_INCOMPLETE"
             model_verdicts[model]["price_rule_limitation"] = str(exc)
-    # An executable prematch check must be independently proven at the
-    # screenshot's exact assessment instant; a past capture, unknown capture
-    # time, or a model-only hypothetical check cannot satisfy it.
-    same_instant = captured_time is not None and captured_time == assessment_time
-    screenshotted_live_offer = screenshot.get("open_offer_verified_in_screenshot") is True
-    separately_validated = all(priced_inputs[m]["context"].get("quote_revalidated") is True for m in ("c", "c2"))
-    if same_instant and screenshotted_live_offer and separately_validated:
-        # Strict adapter unchanged; quote always from the screenshot, never
-        # from bookmaker searches or another stored price.
-        results = {}
-        for m in ("c", "c2"):
-            p = copy.deepcopy(priced_inputs[m])
-            p["context"]["quote"] = {"line": line, "odds": odds}
-            results[m] = run_decision(p)
-        return {
-            "ok": True, "status": "PRICE_CHECK_EXECUTED",
-            "price_evidence_mode": "USER_SCREENSHOT_ONLY", "evidence": evidence,
-            "models": model_verdicts,
-            "receipt": {"engine_execution_status": "EXECUTED_C_C2_PAIR",
-                        "models_executed": ["c", "c2"], "results": results},
-            "bet_authorized": results["c"]["action"] == "BET",
-            "model_bets_created": False,
-            "quote_research_required": False,
-        }
+    # A screenshot is a historical display observation, NOT independent
+    # proof that an executable offer was still open when model execution
+    # finished. Neither a caller-supplied boolean nor matching timestamps
+    # authorize an actual C bet. The unchanged strict price engine above
+    # provides conditional ACT/WAIT/PASS only.
+    limitations.append("SCREENSHOT_CANNOT_INDEPENDENTLY_PROVE_EXECUTABLE_OFFER")
+    if screenshot.get("open_offer_verified_in_screenshot") is True:
+        limitations.append("OPEN_OFFER_FLAG_NOT_INDEPENDENT_EXECUTION_EVIDENCE")
     limitations.append("SCREENSHOT_PRICE_NOT_VERIFIED_EXECUTABLE_AT_ASSESSMENT")
     return base
 
