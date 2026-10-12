@@ -24,6 +24,7 @@ from board_pair_cli import run_board_pair  # historic pure implementation; old C
 from goal_route_prescreen import GoalPrescreenError, run_prescreen
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
+from goals_first_intake import select as select_goal_candidates
 
 SCHEMA = "football-stages-v4"
 BASE = "appbzxqXYf0lKfD4P"
@@ -216,7 +217,17 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 "intake_lane": "PENDING_SOURCE", "reason": str(exc),
             })
             continue
-    # Every source-visible row stays in the ledger; no arbitrary first-8 cap.
+    # Registration admits a fixture to *research*, not to the official
+    # goal-positive shortlist. Apply ONE equal goal signal gate to every
+    # league, including routine tiers. Preserve historical replay exactly.
+    goal_selection = None
+    if not _historical_registry_only:
+        goal_selection = select_goal_candidates(
+            run_id=run_id, at_utc=at.isoformat(), source_hash=_hash(source),
+            source_rows=fixtures, ledger=ledger, provisional_queue=queue,
+        )
+        queue = goal_selection["eligible_queue"]
+    # Every source-visible fixture stays in the ledger; no arbitrary first-8 cap.
     queue.sort(key=lambda x: (x["kickoff_utc"], x["match_id"]))
     for idx, item in enumerate(queue, 1):
         item["queue_rank"] = idx
@@ -282,8 +293,16 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
         )
         outcome["discovery_qualified_count"] = sum(
-            x["intake_lane"] == "DISCOVERY" for x in ledger
+            x["registry_lane"] == "DISCOVERY" and x["intake_lane"] == "GOAL_PRIORITY"
+            for x in ledger
         )
+        outcome["goal_selection_policy"] = "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1"
+        outcome["goal_research_queue"] = goal_selection["goal_research_queue"]
+        outcome["goal_research_order"] = goal_selection["goal_research_order"]
+        outcome["pending_goal_research_count"] = goal_selection["pending_goal_research_count"]
+        outcome["unresearched_goal_history_count"] = goal_selection["unresearched_goal_history_count"]
+        outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
+        outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
         outcome["discovery_watchlist"] = [{
             "match_id": x["match_id"], "country": x["country"],
             "competition": x["competition"], "home": x["home"],
@@ -291,7 +310,8 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             "intake_lane": x["intake_lane"], "reason": x["reason"],
             "discovery_screen": x.get("discovery_screen"),
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
-          and x.get("intake_lane") in ("DISCOVERY", "PENDING_DISCOVERY")]
+          and x.get("intake_lane") in ("GOAL_PRIORITY", "PENDING_DISCOVERY",
+                                     "PENDING_GOAL_RESEARCH")]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
