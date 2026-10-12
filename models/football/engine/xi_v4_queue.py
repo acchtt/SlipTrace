@@ -9,7 +9,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from typing import Any
+
+
+_SHA256 = re.compile(r"^[a-f0-9]{64}$")
 
 
 class V4XIQueueError(ValueError):
@@ -44,6 +48,16 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
         raise V4XIQueueError("V4: source/rank/persistence chain broken")
     if readback.get("ranked_count") != ranked.get("ranked_count") or readback.get("c2_shadow_only") is not True:
         raise V4XIQueueError("V4: persisted cohort or C2-shadow authority invalid")
+    if ranked.get("source_replayed") is not True or ranked.get("current_fixture_status_checked") is not True:
+        raise V4XIQueueError("V4: rank lacks mandatory original-source replay/current-status proof")
+    if readback.get("source_replayed") is not True or readback.get("current_fixture_status_checked") is not True:
+        raise V4XIQueueError("V4: persistence receipt did not preserve rank provenance proof")
+    for field in ("original_source_sha256", "status_refresh_sha256"):
+        value = ranked.get(field)
+        if not isinstance(value, str) or not _SHA256.fullmatch(value):
+            raise V4XIQueueError(f"V4: rank {field} missing/invalid")
+        if readback.get(field) != value:
+            raise V4XIQueueError(f"V4: persistence {field} differs from verified rank")
     pair = ranked.get("board_pair")
     if not isinstance(pair, dict) or pair.get("board_engine_execution_status") != "EXECUTED_C_C2_BOARDS" or pair.get("common_evidence_reconciled") is not True:
         raise V4XIQueueError("V4: real reconciled C+C2 paired rank execution missing")
@@ -83,4 +97,7 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
     return {"source_run_id":run_id,
             "board_snapshot_id":ranked["integrity_sha256"],
             "v4_verified":True,
+            "v4_provenance_chain_verified":True,
+            "v4_original_source_sha256":ranked["original_source_sha256"],
+            "v4_status_refresh_sha256":ranked["status_refresh_sha256"],
             "v4_rank_sha256":ranked["integrity_sha256"]}
