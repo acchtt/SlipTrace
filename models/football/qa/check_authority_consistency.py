@@ -124,6 +124,14 @@ require(
     "DEN_FIRST_2026_27",
     "SWE_ALLSVENSKAN_2026",
     "SWE_SUPERETTAN_2026",
+    "ROU_SUPERLIGA_2026_27",
+    "ROU_LIGA2_2026_27",
+    "POL_EKSTRA_2026_27",
+    "POL_ILIGA_2026_27",
+    "SRB_SUPERLIGA_2026_27",
+    "SRB_PRVA_2026_27",
+    "CZE_FIRST_2026_27",
+    "CZE_FNL_2026_27",
     "JPN_WE_LEAGUE_2026_27",
     "JPN_NADESHIKO2_2026",
     "JPN_EMPRESS_CUP_2026",
@@ -135,6 +143,14 @@ require(
     '"faroe islands": "meistaradeildin',
     '"sweden": "superettan"',
     '"denmark": "1st division',
+)
+require(
+    "models/football/stages_v4/league_registry.py",
+    '"romania": "superliga',
+    '"serbia": "super liga',
+    '"czechia": "czech first league',
+    "chance liga",
+    "mozzart bet super liga",
 )
 require(
     "models/football/stages_v4/goals_first_intake.py",
