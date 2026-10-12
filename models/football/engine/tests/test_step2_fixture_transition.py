@@ -41,7 +41,9 @@ class KickoffTransitionTests(unittest.TestCase):
         self.assertEqual(x["assessment_status"], "CURRENT_LIVE_FOOTBALL_ASSESSMENT_READY")
         self.assertTrue(x["football_assessment_ready"])
         self.assertFalse(x["football_assessment_quote_required"])
-        self.assertEqual(x["executable_quote_status"], "CURRENT_LIVE_QUOTE_AVAILABLE")
+        self.assertEqual(x["executable_quote_status"], "CURRENT_LIVE_QUOTE_OBSERVED_NO_ACTION_ENGINE")
+        self.assertTrue(x["live_price_comparison_allowed"])
+        self.assertEqual(x["live_price_action_engine_status"], "NOT_IMPLEMENTED_V4")
         self.assertFalse(x["prematch_bet_authorized"])
         self.assertFalse(x["live_bet_authorized"])
 
@@ -57,6 +59,13 @@ class KickoffTransitionTests(unittest.TestCase):
         self.assertTrue(out["live_quote_required_for_executable_bet"])
         self.assertEqual(out["executable_quote_status"], "UNPRICED_NO_EXECUTABLE_BET")
         self.assertFalse(out["live_quote_verified_for_epoch"])
+        self.assertFalse(out["live_bet_authorized"])
+
+    def test_current_live_quote_never_becomes_executable_without_action_engine(self):
+        out = route_fixture(sample())
+        self.assertTrue(out["live_quote_verified_for_epoch"])
+        self.assertTrue(out["live_price_comparison_allowed"])
+        self.assertEqual(out["live_price_action_engine_status"], "NOT_IMPLEMENTED_V4")
         self.assertFalse(out["live_bet_authorized"])
 
     def test_missing_stale_or_prematch_quote_does_not_block_c_c2_football(self):
