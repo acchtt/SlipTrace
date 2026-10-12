@@ -108,7 +108,7 @@ an executable bet without valid current evidence.
 
 ## Airtable operational base routing (2026-10-11)
 
-**Current LIVE base for new /sweep, /rank, /xi, /live, model decisions, website picks and official Actual Bets:** `appbzxqXYf0lKfD4P` (Football v2 — Active Operations 2026-10-11). **Previous base `appWyZJjitSBATXAU` is read-only historical ARCHIVE** (4,539 original records, untouched, over Free tier per-base cap). Never append to the archived base. All 10 live tables have fresh table and field IDs; before any Airtable read/write consult `models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md` for the full 368-field migration map. Current base includes two physical Actual Bets with live Profit and ROI formulas, 7 Circuit Breakers, 28 Manual Scores, 72 recent Decision States, and new sweep 2026-10-11 08:58–12:00 ICT. Historical sweeps and remaining decisions should be sourced from archive, never assumed copied to current. Do not silently delete archive rows.
+**Current model/audit base for /rank, /xi, /live, /audit, /report, website state and confirmed Actual Bets:** `appbzxqXYf0lKfD4P` (Football v2 — Active Operations 2026-10-11). **Previous base `appWyZJjitSBATXAU` is read-only historical archive.** Never append new model/audit state to the archive. Before any Airtable model read/write load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`; use `ACTIVE_BASE_ROUTING_20261011.md` only for old-to-new field translation. V4 /sweep owns its own source/run persistence contract and must not be rerouted by this model-routing paragraph. Historical rows are not assumed migrated merely because the active base has equivalent tables.
 
 > **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired from new/current execution. Historical C3/C4 records remain immutable audit history.
 
@@ -119,7 +119,7 @@ an executable bet without valid current evidence.
 
 This file is the canonical entry point for current football work.
 
-**Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **ALL noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from both the current unfinished sweep and all future ordinary sweeps. Such rows already acquired must be preserved only for exclusion audit, not Work. Competition-block prefilter avoids wasting lineup/odds research on friendlies. This does not remove **official competitive international qualification, Nations League, cup/continental fixtures or women's top-flight domestic matches**. A named explicit user exception is the only re-opening route. See `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` §2B.
+**Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **all noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from current and future ordinary V4 sweeps. Preserve source-visible excluded rows for audit rather than silently dropping them. This does not remove official competitive international qualification, Nations League, cup/continental fixtures or women's senior top-flight domestic matches. A named explicit user exception is the only reopening route. Current enforcement authority is `models/football/stages_v4/SWEEP.md` plus `league_registry.py`, not the retired Step0 launcher.
 
 ## Historical V1–V3 intake/tuning appendix — non-authoritative
 
@@ -166,7 +166,7 @@ The active pair contract is:
 
 ## Active production sequence
 
-`SENIOR DISCOVERY -> SOURCE/IDENTITY INTEGRITY -> OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY -> COMMON STEP-1 EVIDENCE FREEZE -> [C BOARD + C2 SHADOW BOARD] -> C FOLLOW/RESERVE/STOP -> COMMON STEP-2 XI/RESEARCH/MARKET EPOCH -> [C OFFICIAL ACTION + C2 SHADOW ACTION] -> LIVE/WAIT -> AUDIT`
+`SOURCE SNAPSHOT -> HARD EXCLUSIONS + REGISTERED/DISCOVERY CLASSIFICATION -> SOURCE-BACKED GOAL SCREEN -> V4_SWEEP_READY -> ORIGINAL-SOURCE REPLAY + FULL-COHORT STATUS REFRESH -> [C BOARD + C2 SHADOW BOARD] -> INDEPENDENT AIRTABLE READBACK -> ROUTINE/EXCEPTION XI C+C2 FOOTBALL -> OPTIONAL PREMATCH PRICE SUBDECISION OR SCREENSHOT CONDITIONAL COMPARISON -> LIVE FOOTBALL / PRICE COMPARISON ONLY -> AUDIT`
 
 C and C2 share facts, not policy.
 
@@ -176,7 +176,7 @@ For each fixture and epoch, freeze one factual evidence state before model polic
 
 Common evidence includes:
 - fixture identity/status/kickoff;
-- operational viability/reliability state;
+- current operational evidence required by the C/C2 payload; competition-reliability memory is diagnostic/non-gating for current V4 intake;
 - route/carrier evidence;
 - chance quality;
 - failure/suppression evidence;
@@ -308,26 +308,16 @@ Use `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` with
 `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
 
 The user only needs `/xi` or `/xi exception`.
-Run `python xi_portable.py xi --c <c.json> --c2 <c2.json>`,
-using independent C and C2 football factors.
+Run `python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
+using independently frozen C and C2 football inputs from one evidence epoch.
 
-- With no confirmed current quote, run `stage=football_assessment`.
-  Deliver both football assessments immediately, no price requests
-  and no executable bet/WAIT/price claims.
-- If a genuinely verified current PREMATCH total and odds are
-  available and all mandatory betting evidence is valid, use the
-  existing strict `stage=decision` priced engine automatically,
-  with no second user command. Price-action policy, readback,
-  publication and current XI checks apply *only* to executable
-  bets, never to quote-free football assessment.
-- If already started, continue quote-free live football assessment
-  immediately; current in-play betting requires independent live
-  price authorization, never retrospective prematch execution.
-- Do not invent a C2 result when independent C2 input is missing,
-  or claim a bet/actual user wager without evidence.
+- With no price, complete `stage=football_assessment` and return both football reads immediately.
+- With a user screenshot, use only that exact screenshot observation. Any ACT/WAIT/PASS comparison is conditional and cannot authorize exposure by itself.
+- A strict prematch price decision is a separate same-command subdecision only when genuinely current non-screenshot executable evidence and all required guards exist.
+- If the fixture has started, continue quote-free live football assessment immediately. Current V4 may compare a verified in-play quote with supported burdens, but it has no deterministic live priced-action engine and therefore cannot authorize a new live priced action.
+- Missing independent C2 input means the C+C2 assessment is incomplete; never synthesize C2 from C.
 
-The historical low-level `pair` and `football-pair` commands remain
-compatible. They are not additional user-facing commands.
+The low-level priced `pair` command remains an internal strict prematch path, not the primary /xi completion route and not a second user-facing command.
 
 ## Active-model accounting
 
@@ -369,7 +359,7 @@ Current live roster:
 - Football C official;
 - Football C2 shadow.
 
-No live-stat or bookmaker-quote confirmation gate is required for ASSESS. Assess available score/minute, independent frozen C/C2 theses and material events without prices. A current quote is required only for an explicitly requested executable BET CHECK. Recompute tournament incentive at each material live epoch when applicable before any betting authorization.
+No live-stat or bookmaker-quote confirmation gate is required for ASSESS. Assess available score/minute, independent frozen C/C2 theses and material events without prices. A current in-play quote, when already supplied and independently time/source validated, is comparison evidence only. Current V4 has `live_price_action_engine_status=NOT_IMPLEMENTED_V4`; therefore `live_bet_authorized=false` and no new executable live priced action is published. Recompute tournament incentive at each material live epoch when applicable to the football read.
 
 C2 never creates official exposure.
 
