@@ -188,7 +188,13 @@ def freeze_queue(data: dict) -> dict:
     # with their original replay snapshot. Add V4-specific authority only
     # when genuine V4 receipts were actually supplied.
     if authority:
-        result["v4_source_attested"] = True
+        # This certifies the frozen rank/readback provenance chain only.
+        # It is not a third-party attestation that the external provider itself
+        # supplied authentic source data.
+        result["v4_provenance_chain_verified"] = True
+        result["v4_rank_sha256"] = authority["v4_rank_sha256"]
+        result["v4_original_source_sha256"] = authority["v4_original_source_sha256"]
+        result["v4_status_refresh_sha256"] = authority["v4_status_refresh_sha256"]
     return result
 
 
