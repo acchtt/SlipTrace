@@ -5,6 +5,26 @@
 **Repository:** `acchtt/SlipTrace`  
 **Purpose:** prevent false "Python unavailable" / "GitHub unavailable" / "engine unavailable" claims
 
+## Current V4 /xi execution short circuit
+
+The portable runtime's current `xi` subcommand executes an actual
+independent `stage=football_assessment` C+C2 pair FIRST. It accepts
+optional `--price-c` and `--price-c2` for a separate contemporaneous
+PREMATCH decision pair. A rejected quote must NOT erase the completed
+football-only result. A STARTED fixture must not enter the prematch
+price checker: assess current football and use separate current live
+authorization only if actual in-play quotes are verified.
+
+For normal /xi, fetch one exact-current portable source blob, self-check
+once, then run the paired football inputs. No full repository clone,
+repeated DNS retries, user Work switch, or quoted market screenshot
+is required to assess football. Existing GitHub Actions portable
+source transport remains the fallback if this chat's runtime cannot
+reach GitHub directly. The generic multi-file bootstrap below is a
+technical fallback, not a reason to delay the immediate football
+assessment. A model result is incomplete if there is no genuine
+independent C2 input or the paired model was never executed.
+
 ## 1. Core rule
 
 Do not infer tool or repository unavailability from environment shape.
