@@ -141,6 +141,33 @@ class SweepV4Tests(unittest.TestCase):
         self.assertFalse(result["price_required_for_football"])
         self.assertFalse(result["published"])
 
+    def test_goal_quality_beats_urgency_and_registered_league_status(self):
+        urgent=fixture("urgent","England","Premier League",
+                       ko="2026-10-11T16:10:00Z")
+        # A moderate but still qualified source-backed 3+ history.
+        games=[(2,2),(3,1),(1,1),(2,1)]
+        for side in ("home","away"):
+            urgent["football_evidence"][side]["recent"]=[
+                {"kickoff_utc":f"2026-09-{day:02d}T12:00:00Z",
+                 "goals_for":gf,"goals_against":ga}
+                for day,(gf,ga) in zip((1,8,15,22),games)
+            ]
+        later=fixture("later","Netherlands","Eerste Divisie")
+        out=sweep(snapshot([urgent,later]),now=NOW)
+        self.assertEqual(out["eligible_count"],2)
+        self.assertEqual(out["research_order"][0],"later")
+        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],
+                         "GOAL_SIGNAL_FIRST_V1")
+        from goal_route_prescreen import verified_research_order
+        validated=verified_research_order(
+            out["goal_screen_manifest"],
+            [{"match_id":row["match_id"],"queue_rank":row["queue_rank"],
+              "operational_grade":row["operational_grade"]}
+             for row in out["eligible_queue"]],
+            out["source_ledger_hash"],
+        )
+        self.assertEqual(validated,out["research_order"])
+
     def test_registered_fixture_without_goal_history_is_not_a_rank_selection(self):
         src=snapshot([
             fixture("registered","England","Premier League",goals=None),
@@ -247,9 +274,12 @@ class SweepV4Tests(unittest.TestCase):
         good["football_evidence"]={"home":proof,"away":proof}
         out=sweep(snapshot([good,fixture("m2","England","Premier League")]),now=NOW)
         self.assertEqual(out["eligible_count"],2)
-        self.assertEqual(out["research_order"][0],"m1")
-        self.assertEqual(out["goal_screen_manifest"]["original_rows"][0]["screen_status"],"QUANTIFIED")
-        self.assertIsNotNone(out["goal_screen_manifest"]["original_rows"][0]["dutch_route_screen"])
+        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],"GOAL_SIGNAL_FIRST_V1")
+        screened=out["goal_screen_manifest"]["original_rows"]
+        strongest=sorted(screened,key=lambda row:(-(row["priority_score"] or 0),row["queue_rank"]))[0]
+        self.assertEqual(out["research_order"][0],strongest["match_id"])
+        self.assertEqual(screened[0]["screen_status"],"QUANTIFIED")
+        self.assertIsNotNone(screened[0]["dutch_route_screen"])
 
     def test_single_invalid_source_fixture_does_not_block_other_leagues(self):
         cases = [
