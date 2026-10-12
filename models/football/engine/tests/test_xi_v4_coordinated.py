@@ -67,7 +67,7 @@ def native_v4_case():
     }
 
 
-def call_xi(fc,fs,pc=None,ps=None):
+def call_xi(fc,fs,pc=None,ps=None, screenshot=None, with_screenshot=True):
     with tempfile.TemporaryDirectory() as tmp:
         root=pathlib.Path(tmp)
         files={}
@@ -80,6 +80,22 @@ def call_xi(fc,fs,pc=None,ps=None):
               "--c",files["fc"],"--c2",files["fs"]]
         if "pc" in files:
             args+=["--price-c",files["pc"],"--price-c2",files["ps"]]
+            if with_screenshot:
+                if screenshot is None:
+                    screenshot={
+                        "source":"USER_SCREENSHOT",
+                        "captured_with_current_user_request":True,
+                        "match_id":fc["match"]["match_id"],
+                        "evidence_epoch_id":fc["evidence_epoch_id"],
+                        "fixture_status":fc["context"]["fixture_status"],
+                        "quotes":[
+                            pc["context"]["quote"],
+                            ps["context"]["quote"],
+                        ],
+                    }
+                proof=root/"screenshot.json"
+                proof.write_text(json.dumps(screenshot),encoding="utf-8")
+                args+=["--screenshot-quotes",str(proof)]
         return subprocess.run(args,text=True,capture_output=True,timeout=20)
 
 
@@ -137,8 +153,15 @@ class FootballFirstExecutionTests(unittest.TestCase):
         fs=football("c2",status="PREMATCH_CONFIRMED",minute=None,score=None)
         pc,ps=pair_payload("c"),pair_payload("c2")
         pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
-        for x in (pc,ps):x["context"]["quote_revalidated"]=False
-        r=call_xi(fc,fs,pc,ps)
+        screenshot={
+            "source":"USER_SCREENSHOT",
+            "captured_with_current_user_request":False,
+            "match_id":fc["match"]["match_id"],
+            "evidence_epoch_id":fc["evidence_epoch_id"],
+            "fixture_status":"PREMATCH_CONFIRMED",
+            "quotes":[pc["context"]["quote"]],
+        }
+        r=call_xi(fc,fs,pc,ps,screenshot=screenshot)
         self.assertEqual(r.returncode,0,r.stderr[-900:])
         out=json.loads(r.stdout)
         self.assertEqual(out["xi_mode"],"FOOTBALL_ASSESSED_PRICE_CHECK_BLOCKED")
@@ -158,7 +181,73 @@ class FootballFirstExecutionTests(unittest.TestCase):
         self.assertEqual(out["xi_mode"],"FOOTBALL_AND_PRICE_CHECK")
         self.assertTrue(out["price_check"]["ok"])
         self.assertEqual(out["price_check"]["receipt"]["engine_execution_status"],"EXECUTED_C_C2_PAIR")
+        self.assertEqual(out["price_check"]["price_source"],"USER_SCREENSHOT_ONLY")
+        self.assertTrue(out["price_check"]["screenshot_epoch_only"])
+        self.assertFalse(out["price_check"]["bookmaker_live_availability_verified"])
+        self.assertFalse(out["price_check"]["new_odds_search_performed"])
+        self.assertEqual(out["price_check"]["receipt"]["results"]["c"]["market_history_status"],"PARTIAL")
         self.assertEqual(out["engine_execution_status"],"EXECUTED_C_C2_FOOTBALL_ONLY")
+
+    def test_no_second_screenshot_and_no_external_odds_required(self):
+        fc=football("c",status="PREMATCH_CONFIRMED",minute=None,score=None)
+        fs=football("c2",status="PREMATCH_CONFIRMED",minute=None,score=None)
+        pc,ps=pair_payload("c"),pair_payload("c2")
+        pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
+        # quote_revalidated=False in historical input does not mean new
+        # odds searches must happen; same user screenshot is sufficient
+        # for screenshot-epoch evaluation.
+        for payload in (pc,ps):
+            payload["context"]["quote_revalidated"]=False
+            payload["context"]["market_history_status"]="UNAVAILABLE_ATTEMPTED"
+        result=call_xi(fc,fs,pc,ps)
+        self.assertEqual(result.returncode,0,result.stderr[-900:])
+        body=json.loads(result.stdout)
+        self.assertTrue(body["price_check"]["ok"])
+        self.assertEqual(body["price_check"]["price_source"],"USER_SCREENSHOT_ONLY")
+        self.assertEqual(body["price_check"]["receipt"]["results"]["c"]["market_history_status"],"PARTIAL")
+
+    def test_new_xi_rejects_price_without_screenshot_without_erasing_football(self):
+        fc=football("c")
+        fs=football("c2")
+        pc,ps=pair_payload("c"),pair_payload("c2")
+        pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
+        r=call_xi(fc,fs,pc,ps,with_screenshot=False)
+        self.assertEqual(r.returncode,0,r.stderr[-900:])
+        out=json.loads(r.stdout)
+        self.assertEqual(out["engine_execution_status"],"EXECUTED_C_C2_FOOTBALL_ONLY")
+        self.assertEqual(out["price_check"]["status"],"PRICE_CHECK_BLOCKED")
+        self.assertIn("SCREENSHOT_ONLY",out["price_check"]["reason"])
+
+    def test_external_substitute_line_or_match_cannot_execute(self):
+        fc=football("c")
+        fs=football("c2")
+        pc,ps=pair_payload("c"),pair_payload("c2")
+        pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
+        img={
+            "source":"USER_SCREENSHOT",
+            "captured_with_current_user_request":True,
+            "match_id":fc["match"]["match_id"],
+            "evidence_epoch_id":fc["evidence_epoch_id"],
+            "fixture_status":"PREMATCH_CONFIRMED",
+            "quotes":[{"line":2.75,"odds":1.63}],
+        }
+        for modification in ("different_match","wrong_odds","external_price_source"):
+            with self.subTest(modification=modification):
+                p1,p2=json.loads(json.dumps(pc)),json.loads(json.dumps(ps))
+                shot=json.loads(json.dumps(img))
+                if modification=="different_match":
+                    shot["match_id"]="unrelated-fixture"
+                elif modification=="wrong_odds":
+                    shot["quotes"]=[{"line":p1["context"]["quote"]["line"],
+                                     "odds":1.91}]
+                else:
+                    p1["context"]["quote_source"]="PUBLIC_BOOKMAKER_SEARCH"
+                r=call_xi(fc,fs,p1,p2,screenshot=shot)
+                self.assertEqual(r.returncode,0,r.stderr[-900:])
+                o=json.loads(r.stdout)
+                self.assertEqual(o["price_check"]["status"],"PRICE_CHECK_BLOCKED")
+                self.assertFalse(o["price_check"]["bet_authorized"])
+                self.assertEqual(o["engine_execution_status"],"EXECUTED_C_C2_FOOTBALL_ONLY")
 
     def test_started_quote_must_go_through_live_not_prematch_pair(self):
         fc=football("c",status="STARTED",minute=4,score="0-0")
