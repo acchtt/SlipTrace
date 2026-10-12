@@ -1,5 +1,19 @@
 # Current Football Model
 
+## Prospective V4 goals-first intake — same standard for every league
+
+**Routine league registration does not qualify an Over match.** All
+source-visible genuine future competitive matches enter the source
+ledger; their goals evidence gets a uniform quantified screen, independent
+of league familiarity. C/C2 rank-eligible `eligible_queue` now contains
+only source-backed `GOAL_PRIORITY` matches. Missing competitive results,
+weak route, or draw-trap matches remain auditable and researchable in
+`goal_research_queue` instead of automatically being ranked or labelled
+model PASS. Use `GOAL_SIGNAL_FIRST_V1` to put scored goal potential ahead
+of KO urgency. No compulsory XI/odds history for initial goals research,
+no arbitrary 8 cap, no retrospective prematch. Historical Oct12 receipt
+replay remains unchanged. Reference `stages_v4/goals_first_intake.py`.
+
 ## V4 open-league goal discovery — source-first (2026-10-12)
 
 **No registry-only hard exclusion for otherwise eligible official domestic
