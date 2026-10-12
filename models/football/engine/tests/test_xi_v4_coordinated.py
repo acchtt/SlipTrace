@@ -178,7 +178,7 @@ class FootballFirstExecutionTests(unittest.TestCase):
         r=call_xi(fc,fs,pc,ps)
         self.assertEqual(r.returncode,0,r.stderr[-900:])
         out=json.loads(r.stdout)
-        self.assertEqual(out["xi_mode"],"FOOTBALL_AND_PRICE_CHECK")
+        self.assertEqual(out["xi_mode"],"FOOTBALL_AND_PRICE_CHECK",out.get("price_check"))
         self.assertTrue(out["price_check"]["ok"])
         self.assertEqual(out["price_check"]["receipt"]["engine_execution_status"],"EXECUTED_C_C2_PAIR")
         self.assertEqual(out["price_check"]["price_source"],"USER_SCREENSHOT_ONLY")
@@ -202,13 +202,13 @@ class FootballFirstExecutionTests(unittest.TestCase):
         result=call_xi(fc,fs,pc,ps)
         self.assertEqual(result.returncode,0,result.stderr[-900:])
         body=json.loads(result.stdout)
-        self.assertTrue(body["price_check"]["ok"])
+        self.assertTrue(body["price_check"]["ok"],body["price_check"])
         self.assertEqual(body["price_check"]["price_source"],"USER_SCREENSHOT_ONLY")
         self.assertEqual(body["price_check"]["receipt"]["results"]["c"]["market_history_status"],"PARTIAL")
 
     def test_new_xi_rejects_price_without_screenshot_without_erasing_football(self):
-        fc=football("c")
-        fs=football("c2")
+        fc=football("c",status="PREMATCH_CONFIRMED",minute=None,score=None)
+        fs=football("c2",status="PREMATCH_CONFIRMED",minute=None,score=None)
         pc,ps=pair_payload("c"),pair_payload("c2")
         pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
         r=call_xi(fc,fs,pc,ps,with_screenshot=False)
