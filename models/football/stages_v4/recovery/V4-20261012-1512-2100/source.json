@@ -1,0 +1,168 @@
+{
+  "schema_version": "football-stages-v4",
+  "run_id": "V4-20261012-1512-2100",
+  "window_start_utc": "2026-10-12T08:12:00Z",
+  "window_end_utc": "2026-10-12T14:00:00Z",
+  "source_family": "AiScore + LiveScore date-scoped source corroboration",
+  "source_url": "https://www.livescore.mobi/football/2026-10-12/",
+  "source_observed_at_utc": "2026-10-12T08:21:09Z",
+  "fixtures": [
+    {
+      "match_id": "l6kegi858m8av75",
+      "country": "Ukraine",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "FC Livyi Bereh",
+      "away": "Zorya Luhansk",
+      "kickoff_utc": "2026-10-12T10:00:00Z",
+      "source_url": "https://m.aiscore.com/match-fc-livyi-bereh-zorya/l6kegi858m8av75/odds",
+      "observed_at_utc": "2026-10-12T08:21:09Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "34kgmiol8nlseko",
+      "country": "Singapore",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Hougang United FC",
+      "away": "Balestier Khalsa FC",
+      "kickoff_utc": "2026-10-12T11:30:00Z",
+      "source_url": "https://www.aiscore.com/match-hougang-united-fc-balestier-khalsa-fc/34kgmiol8nlseko",
+      "observed_at_utc": "2026-10-12T08:21:09Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "34kgmio9n4rieko",
+      "country": "Greece",
+      "competition": "Super League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Panionios G.S.S.",
+      "away": "PAOK Saloniki B",
+      "kickoff_utc": "2026-10-12T11:45:00Z",
+      "source_url": "https://m.aiscore.com/et/match-panionios-g-s-s--paok-saloniki-b/34kgmio9n4rieko",
+      "observed_at_utc": "2026-10-12T08:21:09Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "m2q15iz3416ue76",
+      "country": "Spain",
+      "competition": "La Liga 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Real Valladolid CF",
+      "away": "Albacete Balompié",
+      "kickoff_utc": "2026-10-12T12:00:00Z",
+      "source_url": "https://es.aiscore.com/match-real-valladolid-cf-albacete-balompie-sad/m2q15iz3416ue76/h2h",
+      "observed_at_utc": "2026-10-12T08:21:09Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "j374oi025ndagqo",
+      "country": "Uzbekistan",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Pakhtakor Tashkent",
+      "away": "Al Qadsiah",
+      "kickoff_utc": "2026-10-12T13:45:00Z",
+      "source_url": "https://www.aiscore.com/match-pakhtakor-al-qadsiah/j374oi025ndagqo/h2h",
+      "observed_at_utc": "2026-10-12T08:21:09Z",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "researchability_status": "VERIFIED",
+      "researchability_proof": {
+        "match_id": "j374oi025ndagqo",
+        "source_url": "https://www.aiscore.com/match-pakhtakor-al-qadsiah/j374oi025ndagqo/h2h",
+        "checked_at_utc": "2026-10-12T08:21:09Z",
+        "current_channels_checked": true,
+        "evidence_scope": "AFC competition fixture, official match broadcasting and AiScore match stats/lineup/news navigation; starting XI not yet confirmed"
+      },
+      "football_evidence": {
+        "home": {
+          "source_url": "https://www.aiscore.com/head-to-head/soccer-al-qadsiah-vs-pakhtakor",
+          "observed_at_utc": "2026-10-12T08:21:09Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-09T14:00:00Z",
+              "goals_for": 3,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-19T13:00:00Z",
+              "goals_for": 2,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-09T13:30:00Z",
+              "goals_for": 3,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-04T15:15:00Z",
+              "goals_for": 3,
+              "goals_against": 0
+            }
+          ]
+        },
+        "away": {
+          "source_url": "https://www.goal.com/en-qa/team/al-qadasiya/fixtures-results/90k2kbbkk2cj55yhkivdqn0ym",
+          "observed_at_utc": "2026-10-12T08:21:09Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-09T13:50:00Z",
+              "goals_for": 5,
+              "goals_against": 0
+            },
+            {
+              "kickoff_utc": "2026-09-14T18:15:00Z",
+              "goals_for": 2,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-11T15:25:00Z",
+              "goals_for": 3,
+              "goals_against": 3
+            },
+            {
+              "kickoff_utc": "2026-09-08T18:00:00Z",
+              "goals_for": 3,
+              "goals_against": 2
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "source_scope_note": "Bounded source-visible verified canonical-match-ID subset, not all worldwide matches. No unsupported high-signal qualification. Future confirmed fixtures only; explicit bans/friendlies omitted from actionable set.",
+  "source_visible_not_fully_verified": [
+    {
+      "home": "Mes Kerman",
+      "away": "Mes Rafsanjan",
+      "country": "Iran",
+      "competition": "Azadegan League",
+      "kickoff_utc": "2026-10-12T11:30:00Z",
+      "blocker": "canonical fixture ID/researchability not independently validated"
+    },
+    {
+      "home": "FC Syunik",
+      "away": "Shirak",
+      "country": "Armenia",
+      "competition": "Premier League",
+      "kickoff_utc": "2026-10-12T12:00:00Z",
+      "blocker": "kickoff conflicts across date source, canonical ID unverified"
+    },
+    {
+      "home": "Anagennisi Karditsas",
+      "away": "Zakynthos APS",
+      "country": "Greece",
+      "competition": "Super League 2",
+      "kickoff_utc": "2026-10-12T12:00:00Z",
+      "blocker": "canonical ID and form unverified"
+    },
+    {
+      "home": "Mes Sungun",
+      "away": "Niroye Zamini",
+      "country": "Iran",
+      "competition": "Azadegan League",
+      "kickoff_utc": "2026-10-12T12:30:00Z",
+      "blocker": "canonical ID and form unverified"
+    }
+  ]
+}
