@@ -9,7 +9,7 @@ Prospective sweeps now use `DATE_SURFACE_BATCH_V2`. The old failure mode
 where an operator assembled a small fixture list and then ran the registry is
 forbidden. The discovery order is:
 
-`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> GOALS-FIRST SCREEN`
+`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> CHEAP RESEARCH-PRIORITY FILTERS -> GOALS-FIRST SCREEN`
 
 The registry is **never** a fixture-discovery query. Do not search
 Ekstraklasa, Serie A, Superliga, Veikkausliiga, etc. one by one and then call
