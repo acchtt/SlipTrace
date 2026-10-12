@@ -6,6 +6,9 @@ available, the betting-price comparison. The user does **not** need
 to choose between `/assess` and `/bet`. Those old aliases may still
 work for backward compatibility, but are not required or advertised.
 
+
+**No extra user step:** one /xi performs both paired football analysis and any supported current prematch price check. Neither an odds request nor a second /bet is required.
+
 ## What the user sees
 
 Immediately give the model-specific football read, C official and C2
