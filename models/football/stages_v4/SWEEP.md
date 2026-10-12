@@ -45,6 +45,13 @@ research**, never acquisition. `PRIMARY_RESEARCH`, `SECONDARY_RESEARCH`,
 priorities only. They cannot hard-exclude a valid competitive fixture and
 cannot override a fresh source-backed `DISCOVERY_GOAL_QUALIFIED` signal.
 
+**Big Five safeguard:** Premier League, Bundesliga, La Liga, Serie A and
+Ligue 1 do not enter the active deep-research list merely because they are
+`ROUTINE`. With no separate current team/event prior they default to
+`DEFERRED_RESEARCH / TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL`. They remain in the
+full source/audit backlog and can still jump directly to `GOAL_PRIORITY` when
+fresh source-backed goal evidence qualifies the actual fixture.
+
 This restores the useful part of the older sweep behavior—broad date-surface
 enumeration and a terminal sentinel—without restoring old Work ZIPs,
 capacity queues, league-by-league crawling or bookmaker/XI blockers.
