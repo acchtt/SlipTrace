@@ -84,7 +84,7 @@ def call_xi(fc,fs,pc=None,ps=None, screenshot=None, with_screenshot=True):
                 if screenshot is None:
                     screenshot={
                         "source":"USER_SCREENSHOT",
-                        "captured_with_current_user_request":True,
+                        "user_screenshot_present_in_assessment":True,
                         "match_id":fc["match"]["match_id"],
                         "evidence_epoch_id":fc["evidence_epoch_id"],
                         "fixture_status":fc["context"]["fixture_status"],
@@ -155,7 +155,7 @@ class FootballFirstExecutionTests(unittest.TestCase):
         pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
         screenshot={
             "source":"USER_SCREENSHOT",
-            "captured_with_current_user_request":False,
+            "user_screenshot_present_in_assessment":False,
             "match_id":fc["match"]["match_id"],
             "evidence_epoch_id":fc["evidence_epoch_id"],
             "fixture_status":"PREMATCH_CONFIRMED",
@@ -225,7 +225,7 @@ class FootballFirstExecutionTests(unittest.TestCase):
         pc["evidence_epoch_id"]=ps["evidence_epoch_id"]=fc["evidence_epoch_id"]
         img={
             "source":"USER_SCREENSHOT",
-            "captured_with_current_user_request":True,
+            "user_screenshot_present_in_assessment":True,
             "match_id":fc["match"]["match_id"],
             "evidence_epoch_id":fc["evidence_epoch_id"],
             "fixture_status":"PREMATCH_CONFIRMED",
