@@ -1,3 +1,5 @@
+> **V4 AUTHORITY NOTICE (2026-10-12):** Historical V1–V3 operational scope, AiScore-only discovery, capacity caps, source ZIP/repaired handoffs and per-fixture bookmaker/XI preflight are **not current V4 `/sweep` or `/rank` entry requirements**. This file remains for historical interpretation and shared integrity concepts explicitly incorporated by current `models/football/stages_v4/SWEEP.md` or `RANK.md`. The latest `CURRENT_MODEL.md`, V4 launchers and C/C2 rules supersede any `ACTIVE` label below. No retrospective rewrite of frozen runs.
+
 # Football Day-Ahead XI + Asian-Market Intake Gate — revision 2026-10-09
 
 **Status:** ACTIVE prospective Step-0 operational admission evidence, with a **day-ahead expectation** rather than matchday confirmed-XI requirement.
