@@ -8,48 +8,69 @@ from pathlib import Path
 import sys
 
 REQUIRED = {
+    "models/football/CURRENT_MODEL.md": [
+        "ACTIVE NEW STAGES",
+        "models/football/stages_v4/SWEEP.md",
+        "models/football/stages_v4/RANK.md",
+        "Historical V3 coordinator — non-authoritative",
+        "Football C is official; Football C2 is the only shadow challenger",
+    ],
     "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md": [
         "Football C3 and Football C4 are retired",
         "C + C2",
         "C+C2 EXCEPTION INCOMPLETE",
-        "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
+        "python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
+        "EXECUTED_C_C2_FOOTBALL_ONLY",
     ],
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md": [
-        "RESEARCHABLE_SENIOR_PRODUCTION",
-        "Operational viability gate",
-        "Competition reliability memory",
-        "WOMEN TOP-FLIGHT COVERAGE GAP",
-        "Command alias:** `/sweep`",
+    "models/football/prompts/sweep.md": [
+        "canonical V4 redirect",
+        "models/football/stages_v4/SWEEP.md",
+        "Retired V1–V3",
     ],
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
-        "Football C official board",
-        "Football C2 shadow board",
-        "clearing-goal funding",
-        "maximum routine `FOLLOW = 6`",
-        "maximum retained `RESERVE = 4`",
-        "board_pair_cli.py --c <c.json> --c2 <c2.json>",
-        "EXECUTED_C_C2_BOARDS",
-        "Command alias:** `/rank`",
+    "models/football/prompts/rank.md": [
+        "canonical V4 redirect",
+        "models/football/stages_v4/RANK.md",
+        "--source",
+        "--status-refresh",
     ],
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md": [
         "ACTIVE ROSTER OVERRIDE",
-        "pair --c <c.json> --c2 <c2.json>",
-        "Only Football C may create official exposure.",
-        "Engine execution is **mandatory**",
+        "xi_portable.py xi --c c_football.json --c2 c2_football.json",
+        "USER_SCREENSHOT_ONLY",
         "Command alias:** `/xi`",
     ],
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md": [
         "ACTIVE ROSTER",
-        "C2 may never create Website Pick or real exposure.",
+        "live_price_action_engine_status=NOT_IMPLEMENTED_V4",
         "Command alias:** `/live`",
     ],
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md": [
         "ACTIVE ROSTER",
-        "Audit hindsight integrity",
+        "For **current V4**, check only:",
+        "For **historical V1–V3** records",
         "Command alias:** `/audit`",
     ],
+    "models/football/stages_v4/stage.py": [
+        "V4_SOURCE_REPLAY_REQUIRED",
+        "V4_STATUS_REFRESH_INCOMPLETE",
+        '"source_replayed": True',
+        '"current_fixture_status_checked": True',
+    ],
+    "models/football/engine/xi_v4_queue.py": [
+        "v4_original_source",
+        "v4_status_refresh",
+        "original_source_sha256",
+        "status_refresh_sha256",
+        "source_replayed",
+        "current_fixture_status_checked",
+    ],
+    "models/football/engine/step2_queue_guard.py": [
+        "v4_provenance_chain_verified",
+        "v4_original_source_sha256",
+        "v4_status_refresh_sha256",
+    ],
     "models/football/engine/adapter.py": [
-        "model not in {\"c\", \"c2\"}",
+        'model not in {"c", "c2"}',
         "C3/C4 are retired",
         "MAX_FOLLOW = 6",
         "MAX_RESERVE = 4",
@@ -58,9 +79,9 @@ REQUIRED = {
     ],
     "models/football/engine/xi_portable.py": [
         "def run_pair_files",
-        'description="Portable Football /xi C+C2 deterministic runtime"',
-        'sub.add_parser("pair")',
-        '"EXECUTED_C_C2_PAIR"',
+        'sub.add_parser("xi")',
+        '"EXECUTED_C_C2_FOOTBALL_ONLY"',
+        "SCREENSHOT_CANNOT_INDEPENDENTLY_PROVE_EXECUTABLE_OFFER",
     ],
     "models/football/retired/RETIREMENT_MANIFEST.md": [
         "Current production roster:** Football C official + Football C2 shadow",
@@ -85,12 +106,17 @@ FORBIDDEN_ACTIVE = {
         "xi_portable.py triplet",
         "board_triplet_cli.py --c",
         "Shadow challengers:** Football **C2**, Football **C3**",
+        "- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`",
+        "- `/rank` -> `01_WORK_DAILY_SWEEP.md`",
+        "## Unified /sweep and /rank V3",
     ],
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md": [
-        "board_triplet_cli.py",
-        "c4_semantic_cli.py",
-        "C3 shadow board",
-        "C4 Step-1 shadow",
+    "models/football/engine/runtime_probe.py": [
+        '"models/football/engine/capacity_replenishment.py"',
+        '"models/football/engine/repaired_handoff_normalize.py"',
+        '"models/football/engine/step0_handoff_cli.py"',
+    ],
+    "models/football/engine/step2_queue_guard.py": [
+        'result["v4_source_attested"] = True',
     ],
     "models/football/prompts/COMMAND_ALIASES.md": [
         "C2/C3/C4 Step-1 shadow board workflow",
@@ -116,6 +142,7 @@ FORBIDDEN_ACTIVE = {
         "\"c3_funding_rechecked\"",
     ],
 }
+
 
 for file_name, needles in FORBIDDEN_ACTIVE.items():
     path = Path(file_name)
