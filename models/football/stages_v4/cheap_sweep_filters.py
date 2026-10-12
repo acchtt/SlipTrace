@@ -97,6 +97,105 @@ NADESHIKO1_EVENT = {
 }
 
 
+EREDIVISIE_HIGH_EVENT = {
+    norm(x) for x in (
+        "PSV", "PSV Eindhoven",
+        "Feyenoord", "Feyenoord Rotterdam",
+        "Ajax",
+        "FC Groningen", "Groningen",
+        "Excelsior",
+        "Go Ahead Eagles",
+        "FC Utrecht", "Utrecht",
+        "Sparta Rotterdam",
+    )
+}
+
+ICELAND_TOP_HIGH_EVENT = {
+    norm(x) for x in (
+        "KR", "KR Reykjavik", "KR Reykjavík",
+        "Fram", "Fram Reykjavik", "Fram Reykjavík",
+    )
+}
+
+ICELAND_FIRST_HIGH_EVENT = {
+    norm(x) for x in (
+        "Afturelding", "UMF Afturelding",
+        "Fylkir", "Fylkir FC",
+        "HK", "HK Kopavogur", "HK Kópavogur",
+        "Aegir", "Ægir", "KF Aegir", "KF Ægir",
+    )
+}
+
+FAROE_TOP_EVENT = {
+    norm(x) for x in (
+        "HB Torshavn", "HB Tórshavn",
+        "NSI Runavik", "NSÍ Runavík",
+        "EB Streymur", "EB / Streymur", "EB/Streymur",
+    )
+}
+
+FAROE_FIRST_HIGH_EVENT = {
+    norm(x) for x in (
+        "B36 Torshavn II", "B36 Tórshavn II", "B36 II",
+        "FC Suduroy", "FC Suðuroy", "Suduroy", "Suðuroy",
+    )
+}
+
+NORWAY_ELITESERIEN_EVENT = {
+    norm(x) for x in (
+        "Viking", "Viking FK",
+        "Bodo Glimt", "Bodø/Glimt", "FK Bodo Glimt",
+        "Molde", "Molde FK",
+        "Brann", "SK Brann",
+        "Aalesund", "Aalesunds FK",
+    )
+}
+
+NORWAY_FIRST_HIGH_EVENT = {
+    norm(x) for x in (
+        "Ranheim", "Ranheim Fotball",
+        "Haugesund", "FK Haugesund",
+        "Kongsvinger", "Kongsvinger IL",
+        "Stromsgodset", "Strømsgodset", "Stromsgodset IF", "Strømsgodset IF",
+    )
+}
+
+DENMARK_SUPERLIGA_EVENT = {
+    norm(x) for x in (
+        "FC Copenhagen", "FC Kobenhavn", "FC København",
+        "AC Horsens", "Horsens",
+    )
+}
+
+DENMARK_FIRST_EVENT = {
+    norm(x) for x in (
+        "Hvidovre", "Hvidovre IF",
+        "Vejle", "Vejle Boldklub",
+        "Hobro", "Hobro IK",
+        "Esbjerg", "Esbjerg fB",
+    )
+}
+
+SWEDEN_ALLSVENSKAN_EVENT = {
+    norm(x) for x in (
+        "Sirius", "IK Sirius", "IK Sirius Fotboll",
+        "Malmo", "Malmö", "Malmo FF", "Malmö FF",
+        "AIK",
+        "Brommapojkarna", "IF Brommapojkarna",
+    )
+}
+
+SWEDEN_SUPERETTAN_EVENT = {
+    norm(x) for x in (
+        "Falkenberg", "Falkenbergs FF",
+        "Varberg", "Varbergs BoIS", "Varbergs BoIS FC",
+        "Osters", "Östers", "Osters IF", "Östers IF",
+        "IK Brage", "Brage",
+        "Helsingborg", "Helsingborgs IF",
+    )
+}
+
+
 # Big-Five competition status is a data/researchability prior only. It must
 # never promote a fixture into active sweep research by league prestige alone.
 # Until a separate current team/event profile is researched, missing-evidence
@@ -159,6 +258,19 @@ def classify_research_priority(
             "draw_trap_caution": False,
         }
 
+    # Netherlands Eredivisie is currently a genuinely high-goal environment,
+    # but the season is still young enough that extreme team priors remain
+    # time-bounded. League base is SECONDARY; the clearest high-event teams are PRIMARY.
+    if country == "netherlands" and _contains(comp, "eredivisie"):
+        if teams & EREDIVISIE_HIGH_EVENT:
+            priority, reason = PRIMARY, "EREDIVISIE_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = SECONDARY, "EREDIVISIE_HIGH_GOAL_LEAGUE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "NED_EREDIVISIE_2026_27",
+        }
+
     # Netherlands Eerste Divisie: league is strongly goal-active, but use the
     # team prior to decide which fixtures get first research attention.
     if country == "netherlands" and _contains(comp, "eerste divisie", "eerstedivisie"):
@@ -170,6 +282,117 @@ def classify_research_priority(
             **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
             "reason": reason, "league_profile": "NED_EERSTE_2026_27",
         }
+
+    if country == "iceland":
+        if _contains(comp, "besta deild", "urvalsdeild"):
+            if teams & ICELAND_TOP_HIGH_EVENT:
+                priority, reason = PRIMARY, "ICELAND_TOP_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "ICELAND_TOP_HIGH_GOAL_LEAGUE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "ISL_BESTA_2026",
+            }
+        if _contains(comp, "lengjudeild", "1 deild"):
+            if teams & ICELAND_FIRST_HIGH_EVENT:
+                priority, reason = PRIMARY, "ICELAND_FIRST_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "ICELAND_FIRST_HIGH_GOAL_LEAGUE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "ISL_LENGJUDEILD_2026",
+                "requires_competition_phase_context": True,
+            }
+        if _contains(comp, "2 deild"):
+            return {
+                **base, "priority": DEFERRED,
+                "priority_rank": PRIORITY_RANK[DEFERRED],
+                "reason": "ICELAND_SECOND_HIGH_GOAL_LOW_DATA_PILOT",
+                "league_profile": "ISL_2_DEILD_2026",
+                "requires_team_identity_check": True,
+            }
+
+    if country == "faroe islands":
+        if _contains(comp, "meistaradeildin", "faroe islands premier league", "betri deildin"):
+            if teams & FAROE_TOP_EVENT:
+                priority, reason = SECONDARY, "FAROE_TOP_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "FAROE_TOP_SELECTIVE_GOAL_ENVIRONMENT"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "FRO_MEISTARADEILDIN_2026",
+            }
+        if _contains(comp, "1 deild"):
+            if teams & FAROE_FIRST_HIGH_EVENT:
+                priority, reason = PRIMARY, "FAROE_FIRST_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "FAROE_FIRST_EXTREME_GOAL_ENVIRONMENT"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "FRO_1_DEILD_2026",
+                "requires_team_identity_check": True,
+            }
+
+    if country == "norway":
+        if _contains(comp, "eliteserien"):
+            if teams & NORWAY_ELITESERIEN_EVENT:
+                priority, reason = SECONDARY, "NORWAY_ELITESERIEN_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "NORWAY_ELITESERIEN_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "NOR_ELITESERIEN_2026",
+            }
+        if _contains(comp, "obos", "1 divisjon", "norway first division"):
+            if teams & NORWAY_FIRST_HIGH_EVENT:
+                priority, reason = PRIMARY, "NORWAY_FIRST_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "NORWAY_FIRST_HIGH_GOAL_LEAGUE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "NOR_FIRST_2026",
+            }
+
+    if country == "denmark":
+        if _contains(comp, "superliga") and not _contains(comp, "1st", "1 division"):
+            if teams & DENMARK_SUPERLIGA_EVENT:
+                priority, reason = SECONDARY, "DENMARK_SUPERLIGA_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "DENMARK_SUPERLIGA_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "DEN_SUPERLIGA_2026_27",
+            }
+        if _contains(comp, "1st division", "danish first division", "1 division"):
+            if teams & DENMARK_FIRST_EVENT:
+                priority, reason = SECONDARY, "DENMARK_FIRST_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "DENMARK_FIRST_DRAW_TRAP_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "DEN_FIRST_2026_27",
+                "draw_trap_caution": True,
+            }
+
+    if country == "sweden":
+        if _contains(comp, "allsvenskan"):
+            if teams & SWEDEN_ALLSVENSKAN_EVENT:
+                priority, reason = SECONDARY, "SWEDEN_ALLSVENSKAN_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "SWEDEN_ALLSVENSKAN_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "SWE_ALLSVENSKAN_2026",
+            }
+        if _contains(comp, "superettan"):
+            if teams & SWEDEN_SUPERETTAN_EVENT:
+                priority, reason = SECONDARY, "SWEDEN_SUPERETTAN_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "SWEDEN_SUPERETTAN_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "SWE_SUPERETTAN_2026",
+            }
 
     if country == "japan":
         # WE League: promising current environment, but early-season sample is

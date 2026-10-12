@@ -84,9 +84,7 @@ fully enumerated before league filtering.
 ## Cheap research filters — after acquisition, before deep research
 
 `cheap_sweep_filters.py` applies time-bounded competition/team priors only
-after the complete date-surface fixture universe is frozen. The current
-research profiles include Netherlands Eerste Divisie and Japan WE League,
-WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
+after the complete date-surface fixture universe is frozen. The current research profiles include Netherlands Eredivisie/Eerste Divisie; Iceland Besta/Lengjudeild; Faroe Meistaradeildin/1. deild; Norway Eliteserien/First Division; Denmark Superliga/1. Division; Sweden Allsvenskan/Superettan; and Japan WE League, WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
 has an explicit **no-auto-promotion** guard: Premier League, Bundesliga,
 La Liga, Serie A and Ligue 1 are deferred unless a separate team/event prior
 or fresh fixture goal evidence promotes them. These filters do not create
@@ -183,11 +181,8 @@ means operational research priority, **not** intrinsic goal propensity.
   Polish Ekstraklasa and I Liga/Liga 1 (including current sponsor-name aliases),
   Czech First League/FNL, Hong Kong Premier
   League, Malaysian Liga Super, UAE Pro League, Qatar Stars League,
-  Korea K2, Greek Super League, senior women's top flights and
-  major senior official cups/continental competitions.
-- **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1,
-  Swedish Superettan, Denmark First Division and Saudi First
-  Division. They are **searched and retained**, but require
+  Korea K2, Greek Super League; Iceland Besta deild/Lengjudeild; Faroe Meistaradeildin; Swedish Superettan; Denmark First Division; senior women's top flights and major senior official cups/continental competitions.
+- **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1, Saudi First Division, Iceland 2. deild and Faroe 1. deild. They are **searched and retained**, but require
   current source-backed match/league researchability to reach rank.
 - **Explicit exclusions preserved**: noncompetitive friendlies;
   Bangladesh, Israel, Kenya, Iraq, Wales and Kuwait domestic leagues;
@@ -197,13 +192,14 @@ means operational research priority, **not** intrinsic goal propensity.
   Protected official tournaments are not excluded merely because
   domestic leagues from the same country are excluded.
 
-Recent high-scoring **teams are dynamic**, not hardcoded names.
-Actual recent 4–10 source-backed competitive scorelines for each
-team, when available, feed the existing goal-route prescreen:
-carrier contribution, second route, Over 3 tail, 0–0/1–1 trap and
-prolonged two-goal stalls. Big Five and Netherlands use the existing
-dynamic researched overlays. Missing form does not pretend a team
-is low scoring; its fixture remains eligible for football research.
+Recent high-scoring **team behavior remains dynamically verified** from
+actual recent 4–10 source-backed competitive scorelines. The cheap-filter
+layer may also carry short-lived, explicitly dated team-name priors solely to
+decide research order; those priors expire automatically and never substitute
+for the goal-route prescreen. Actual recent evidence still controls carrier
+contribution, second route, Over-3 tail, 0–0/1–1 traps and prolonged two-goal
+stalls. Missing form does not pretend a team is low scoring; its fixture
+remains visible in the research backlog.
 
 ## /sweep inputs and outputs
 
