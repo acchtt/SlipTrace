@@ -69,7 +69,7 @@ class RuntimeProbeTests(unittest.TestCase):
         )
 
     def test_current_repo_runtime_probe_passes_all_stages(self):
-        for stage in ("rank", "xi", "audit"):
+        for stage in ("sweep", "rank", "xi", "audit"):
             result = probe_stage(stage)
             self.assertTrue(result["ok"], result)
 
