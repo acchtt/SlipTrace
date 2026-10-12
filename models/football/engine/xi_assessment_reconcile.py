@@ -14,10 +14,44 @@ from pathlib import Path
 ACTIVE_BASE = "appbzxqXYf0lKfD4P"
 STATUS_FIELD = "XI Assessment Execution Status"
 STATUS_FIELD_ID = "fldkjs6Sykivp0fag"
+EVIDENCE_SUMMARY_FIELD_ID = "fldzt02UGXPWnzqgT"
+SCREENSHOT_MARKER = "USER_SCREENSHOT_ONLY_JSON="
 
 
 class XIAssessmentReadbackError(ValueError):
     pass
+
+
+def screenshot_evidence_summary_line(receipt: dict) -> str:
+    """Append this canonical line to existing Airtable Evidence Summary."""
+    price = receipt.get("price_check") or {}
+    evidence = price.get("evidence") or {}
+    if evidence.get("price_evidence_mode") != "USER_SCREENSHOT_ONLY":
+        raise XIAssessmentReadbackError("missing genuine screenshot price evidence")
+    return SCREENSHOT_MARKER + json.dumps(evidence, sort_keys=True, separators=(",", ":"))
+
+
+def verify_screenshot_evidence_readback(receipt: dict, refetched: dict) -> None:
+    price = receipt.get("price_check") or {}
+    evidence = price.get("evidence")
+    if not isinstance(evidence, dict) or evidence.get("price_evidence_mode") != "USER_SCREENSHOT_ONLY":
+        return
+    if refetched.get("evidence_summary_field_id") != EVIDENCE_SUMMARY_FIELD_ID:
+        raise XIAssessmentReadbackError("screenshot Evidence Summary Airtable field ID not verified")
+    summary = refetched.get("evidence_summary")
+    if not isinstance(summary, str):
+        raise XIAssessmentReadbackError("persisted screenshot price evidence missing")
+    lines = [line[len(SCREENSHOT_MARKER):] for line in summary.splitlines()
+             if line.startswith(SCREENSHOT_MARKER)]
+    if len(lines) != 1:
+        raise XIAssessmentReadbackError("exactly one original screenshot quote receipt required in Evidence Summary")
+    try:
+        stored = json.loads(lines[0])
+    except json.JSONDecodeError as exc:
+        raise XIAssessmentReadbackError("malformed original screenshot quote in Airtable") from exc
+    if stored != evidence:
+        raise XIAssessmentReadbackError("stored screenshot quote or capture/assessment epoch differs")
+
 
 
 def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
@@ -45,6 +79,7 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
         expected = "EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED"
     else:
         expected = "EXECUTED_C_C2_FOOTBALL_ONLY"
+    verify_screenshot_evidence_readback(receipt, refetched)
     if (refetched.get("xi_status_field_id") != STATUS_FIELD_ID
             or refetched.get("xi_assessment_execution_status") != expected):
         raise XIAssessmentReadbackError("new Airtable execution-status field not independently confirmed")
@@ -73,7 +108,8 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
             "xi_execution_status":expected,
             "football_pair_verified":True,
             "priced_publication_authorized":False,
-            "actual_bet_created":False}
+            "actual_bet_created":False,
+            "screenshot_price_evidence_verified": bool(price and isinstance(price.get("evidence"), dict) and price["evidence"].get("price_evidence_mode") == "USER_SCREENSHOT_ONLY")}
 
 
 def main():
