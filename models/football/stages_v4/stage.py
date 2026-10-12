@@ -520,6 +520,10 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "run_id": rank_receipt["run_id"], "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
         "c2_shadow_only": True, "no_bet_created": True,
+        "source_replayed": rank_receipt.get("source_replayed") is True,
+        "current_fixture_status_checked": rank_receipt.get("current_fixture_status_checked") is True,
+        "original_source_sha256": rank_receipt.get("original_source_sha256"),
+        "status_refresh_sha256": rank_receipt.get("status_refresh_sha256"),
     }
 
 
