@@ -14,6 +14,8 @@ from cheap_sweep_filters import (
 )
 from goals_first_intake import _research_order
 from league_registry import classify
+from stage import sweep, verify_rank_source_and_status
+from test_source_completeness import source as complete_source
 
 
 NOW = "2026-10-13T00:30:00Z"
@@ -133,6 +135,27 @@ class CheapSweepFilterTests(unittest.TestCase):
         }
         ordered = sorted([early_deferred, later_primary], key=_research_order)
         self.assertEqual([x["match_id"] for x in ordered], ["primary", "deferred"])
+
+    def test_pre_filter_frozen_receipt_replays_without_retroactive_filter_fields(self):
+        src = complete_source()
+        old = sweep(src, now="2026-10-12T18:05:00Z", _historical_no_cheap_filters=True)
+        self.assertNotIn("cheap_filter_policy", old)
+        refresh = {
+            "schema_version": "football-v4-rank-status-refresh-v1",
+            "run_id": old["run_id"],
+            "sweep_integrity_sha256": old["integrity_sha256"],
+            "checked_at_utc": "2026-10-12T18:05:00Z",
+            "matches": [],
+        }
+        proof = verify_rank_source_and_status(
+            old, src, refresh, now="2026-10-12T18:05:00Z"
+        )
+        self.assertEqual(proof["status_by_match"], {})
+
+    def test_new_sweep_receipt_declares_filter_policy(self):
+        new = sweep(complete_source(), now="2026-10-12T18:05:00Z")
+        self.assertEqual(new["cheap_filter_policy"], "RESEARCH_PRIORITY_V1")
+        self.assertIn("cheap_filter_counts", new)
 
     def test_verified_goal_signal_still_beats_cheap_defer(self):
         qualified = {
