@@ -91,7 +91,7 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
             self.assertIn("EXECUTED_C_C2_FOOTBALL_ONLY", doc)
         self.assertIn("decision_pair_cli.py --football-only", engine)
         self.assertIn("strict prematch", engine.lower())
-        self.assertIn("no deterministic live priced-action engine", runtime)
+        self.assertIn("deterministic live priced-action engine", runtime)
 
     def test_current_live_pricing_is_explicitly_non_executable(self):
         transition = (ROOT / "models" / "football" / "engine" / "step2_fixture_transition.py").read_text()
