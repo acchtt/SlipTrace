@@ -7,6 +7,13 @@ Step0/Step1, Work ZIP or the historical Football A execution compiler.
 The previous 574-line technical coordinator is preserved only for audit
 in `FOOTBALL_XI_PRE_20261012_COORDINATOR_ARCHIVE.md`.
 
+
+> **ACTIVE ROSTER OVERRIDE:** C official and C2 shadow only; C3/C4 retired.
+> **Command alias:** `/xi`
+> **Official exposure invariant:** Only Football C may create official exposure.
+> **Deterministic model invariant:** Engine execution is **mandatory** for a completed model assessment; otherwise state the failure without inventing C/C2 outputs.
+> **Legacy priced-pair syntax:** `pair --c <c.json> --c2 <c2.json>` is PREMATCH PRICE-ONLY and remains behind strict executable-price checks, never a substitute for the new football-first `xi` path.
+
 **ACTIVE MODEL AIRTABLE ROUTING:** Use only
 `appbzxqXYf0lKfD4P`; resolve active fields/IDs through
 `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and JSON.
