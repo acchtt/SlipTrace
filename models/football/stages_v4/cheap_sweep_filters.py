@@ -468,15 +468,8 @@ def classify_research_priority(
             }
 
     if country == "romania":
-        if _contains(comp, "superliga", "liga i", "liga 1"):
-            if teams & ROMANIA_SUPERLIGA_EVENT:
-                priority, reason = SECONDARY, "ROMANIA_SUPERLIGA_CURRENT_EVENT_TEAM"
-            else:
-                priority, reason = DEFERRED, "ROMANIA_SUPERLIGA_SELECTIVE_BASE"
-            return {
-                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
-                "reason": reason, "league_profile": "ROU_SUPERLIGA_2026_27",
-            }
+        # Check Liga II before Liga I because normalized "liga ii" contains
+        # the literal "liga i".
         if _contains(comp, "liga ii", "liga 2"):
             if teams & ROMANIA_LIGA2_HIGH_EVENT:
                 priority, reason = PRIMARY, "ROMANIA_LIGA2_CURRENT_HIGH_EVENT_TEAM"
@@ -485,6 +478,15 @@ def classify_research_priority(
             return {
                 **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
                 "reason": reason, "league_profile": "ROU_LIGA2_2026_27",
+            }
+        if _contains(comp, "superliga", "liga i", "liga 1"):
+            if teams & ROMANIA_SUPERLIGA_EVENT:
+                priority, reason = SECONDARY, "ROMANIA_SUPERLIGA_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "ROMANIA_SUPERLIGA_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "ROU_SUPERLIGA_2026_27",
             }
 
     if country == "poland":
