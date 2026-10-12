@@ -149,6 +149,7 @@ def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[st
     by_key: dict[str, dict[str, Any]] = {}
     fixture_union: set[str] = set()
     block_count_total = 0
+    latest_surface_observed: datetime | None = None
     for index, surface in enumerate(surfaces):
         label = f"date_surfaces[{index}]"
         if not isinstance(surface, dict):
@@ -158,7 +159,9 @@ def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[st
             raise SourceCompletenessError(f"{label}: missing/duplicate/foreign required surface key")
         by_key[key] = surface
         _url(surface.get("source_url"), f"{label}.source_url")
-        _fresh(surface.get("observed_at_utc"), at, f"{label}.observed_at_utc")
+        surface_observed = _fresh(surface.get("observed_at_utc"), at, f"{label}.observed_at_utc")
+        if latest_surface_observed is None or surface_observed > latest_surface_observed:
+            latest_surface_observed = surface_observed
         if surface.get("pagination_complete") is not True:
             raise SourceCompletenessError(f"{label}: pagination not exhausted")
         pages = surface.get("provider_page_count")
@@ -235,7 +238,9 @@ def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[st
         raise SourceCompletenessError("SWEEP_TERMINAL_SENTINEL_START_MISMATCH")
     if _time(sentinel.get("interval_end_utc"), "terminal.interval_end_utc") != end:
         raise SourceCompletenessError("SWEEP_TERMINAL_SENTINEL_END_MISMATCH")
-    _fresh(sentinel.get("checked_at_utc"), at, "terminal.checked_at_utc")
+    sentinel_checked = _fresh(sentinel.get("checked_at_utc"), at, "terminal.checked_at_utc")
+    if latest_surface_observed is not None and sentinel_checked < latest_surface_observed:
+        raise SourceCompletenessError("SWEEP_TERMINAL_SENTINEL_PRECEDES_MAIN_DATE_SURFACE")
     if sentinel.get("independent_refetch") is not True:
         raise SourceCompletenessError("SWEEP_TERMINAL_SENTINEL_MUST_BE_INDEPENDENT_REFETCH")
     urls = sentinel.get("source_urls")
