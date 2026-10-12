@@ -29,9 +29,7 @@ A price-action result on a stale or untimed screenshot is explicitly
 If context is missing, report exact supported lines and no evaluated price
 action. For live screenshots use displayed score/minute and no retrospective
 prematch pricing. Never request fresh bookmaker odds to finish an /xi.
-For executable prematch pricing the observed open offer, capture instant,
-assessment instant and both genuine revalidated model contexts must align;
-normal strict price gates remain mandatory.
+Screenshot-only mode never treats matching timestamps or an operator `open_offer_verified_in_screenshot` flag as independent proof of executable offer availability. Conditional ACT/WAIT/PASS remains a price-rule comparison, not an official executable bet. Strict current execution requires a separate independently verified channel outside screenshot-only mode, never a replacement bookmaker quote gathered for the user's screenshot request.
 
 Every screenshot assessment sets `model_bets_created=false`. Airtable
 `XI Assessment Execution Status` uses existing `EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED`
