@@ -9,6 +9,10 @@ Read `models/football/CURRENT_MODEL.md` and current persisted state first.
 
 This launcher is read-only. It summarizes already-existing football state and must not silently rerun Step 0, Step 1, Step 2, live assessment, or predictive ranking.
 
+## V4 reporting amendment (2026-10-12)
+
+Prefer the latest source-attested V4 sweep/rank readback. Distinguish `GOAL_PRIORITY` ranked candidates from pending histories and unregistered discovery, unranked due-to-time/status, C/C2 football assessed, and screenshot-only conditional price checks. Never report screenshot conditional ACT as official C BET, a live approved bet, Website Pick, or physical execution. Never describe an old V1–V3 `Sweep Runs` record as a current V4 rank receipt. The original fixture status is frozen history: only new observed status may determine `next matches`. The confirmed `Actual Bets — Current` table is the sole physical P/L ledger.
+
 ## Current report scope
 
 When relevant, report:
