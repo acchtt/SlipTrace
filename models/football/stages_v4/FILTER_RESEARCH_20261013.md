@@ -428,3 +428,154 @@ Sources:
 https://www.matchpulsestats.com/en/league/346
 https://www.probettinghub.com/en-US/betting-stats/btts/leagues/czech-republic/fnl
 https://footystats.org/czech-republic/fnl
+
+
+## South America — top-flight filter pass (2026-10-13 refresh)
+
+These are workload priors only. They do not create GOAL_PRIORITY, C/C2
+predictions or bets.
+
+### Bolivia — LFPB 2026
+
+Current league O2.5 is about 62%. Independiente Petrolero has been around 85%
+O2.5, while Real Oruro and other high-event sides are materially above the
+league baseline. The league receives SECONDARY by default; Independiente
+Petrolero, Real Oruro, ABB and Bolívar receive temporary PRIMARY team priors.
+
+Sources:
+https://footystats.org/bolivia/lfpb/over-25-goals-table
+https://footystats.org/bolivia/lfpb/average-total-goals-table
+
+### Chile — Primera División 2026
+
+Current league O2.5 is about 55%. Universidad Católica is around 3.61 total
+goals/match and Cobresal around 3.43. This is strong enough for a SECONDARY
+league base, with those current high-event teams promoted to PRIMARY.
+
+Sources:
+https://footystats.org/chile/primera-division/over-25-goals-table
+https://footystats.org/chile/primera-division/average-total-goals-table
+
+### Peru — Liga 1 / Primera División 2026
+
+Current league O2.5 is about 53%. Juan Pablo II is around 3.43 total
+goals/match, FC Cajamarca around 3.32 and Sporting Cristal around 3.18.
+League base is SECONDARY; those current high-event teams are PRIMARY.
+
+Sources:
+https://footystats.org/peru/primera-division/over-25-goals-table
+https://footystats.org/peru/primera-division/average-total-goals-table
+
+### Brazil — Série A 2026
+
+Current league O2.5 is only about 52%, so Brazil is not blanket-promoted.
+Botafogo is around 3.07 total goals/match; Chapecoense and Santos are also
+among the higher-event current profiles. Base stays DEFERRED; current event
+teams receive SECONDARY.
+
+Sources:
+https://footystats.org/brazil/serie-a/over-25-goals-table
+https://footystats.org/brazil/serie-a/average-total-goals-table
+
+### Colombia — Primera A 2026
+
+Current environment is selective. La Equidad is among the most open profiles,
+around 2.94 total goals/match and high BTTS. Base stays DEFERRED; current
+event-team overrides are SECONDARY only.
+
+Source:
+https://footystats.org/colombia/categoria-primera-a/average-total-goals-table
+
+### Paraguay — División Profesional 2026
+
+The competition remains selective. Recoleta is the clearest current high-event
+profile at roughly 3.06 total goals/match and 71% BTTS. Base is DEFERRED with
+draw/continuation caution; current event teams are SECONDARY.
+
+Source:
+https://footystats.org/paraguay/division-profesional/average-total-goals-table
+
+### Uruguay — Primera División 2026
+
+League O2.5 is about 44%. Even the highest-event profiles are modest: CA Torque
+is around 2.81 total goals/match. Base stays DEFERRED with draw-trap caution;
+only current event-team matches are SECONDARY.
+
+Sources:
+https://footystats.org/uruguay/primera-division/over-25-goals-table
+https://footystats.org/uruguay/primera-division/average-total-goals-table
+
+### Venezuela — Primera División / Liga FUTVE 2026
+
+This is another selective environment with frequent low-score/draw outcomes.
+Rayo Zuliano is currently one of the clearest open profiles at roughly 3.22
+total goals/match. Base stays DEFERRED with draw-trap caution; event-team
+matches may become SECONDARY.
+
+Source:
+https://footystats.org/venezuela/primera-division/average-total-goals-table
+
+### Argentina — Primera División / Liga Profesional 2026
+
+League O2.5 is only about 38%. Unión Santa Fe is a rare more-open profile around
+2.90 total goals/match. Base is DEFERRED with draw-trap caution; current event
+teams receive SECONDARY only.
+
+Sources:
+https://footystats.org/argentina/primera-division/over-25-goals-table
+https://footystats.org/argentina/primera-division/average-total-goals-table
+
+### Ecuador — Serie A 2026
+
+The league-wide environment is low, but Independiente del Valle is a major
+outlier at about 3.52 total goals/match and roughly 71% O2.5. Base stays
+DEFERRED with draw-trap caution; Independiente del Valle receives a temporary
+PRIMARY prior.
+
+Sources:
+https://footystats.org/ecuador/primera-categoria-serie-a
+https://footystats.org/ecuador/primera-categoria-serie-a/average-total-goals-table
+https://footystats.org/ecuador/primera-categoria-serie-a/over-25-goals-table
+
+## North America — top/relevant league filter pass
+
+### USA — MLS 2026
+
+MLS is the strongest researched North American league-wide environment:
+current O2.5 is about 64%. FC Cincinnati is an extreme current profile at
+roughly 4.56 total goals/match. MLS receives a SECONDARY base and current
+high-event teams a PRIMARY prior.
+
+Sources:
+https://footystats.org/usa/mls/over-25-goals-table
+https://footystats.org/usa/mls/average-total-goals-table
+
+### Mexico — Liga MX 2026/27
+
+Current O2.5 is about 53%. The competition is too mixed for blanket active
+research, but Toluca is around 3.64 total goals/match, Cruz Azul around 3.75,
+with Juárez and Monterrey also high-event. Base stays DEFERRED; those
+high-event team fixtures receive PRIMARY.
+
+Sources:
+https://footystats.org/mexico/liga-mx/over-25-goals-table
+https://footystats.org/mexico/liga-mx/average-total-goals-table
+
+### Canada — Canadian Premier League 2026
+
+Current O2.5 is about 56%. York has been around 3.8 total goals/match, while
+Pacific and Atlético Ottawa are also relatively open. League base is
+SECONDARY; current high-event teams are PRIMARY.
+
+Sources:
+https://footystats.org/canada/canadian-premier-league/over-25-goals-table
+https://footystats.org/canada/canadian-premier-league/average-total-goals-table
+
+### USA — USL Championship 2026
+
+Current league O2.5 is only about 50% and team spread is large. This remains a
+DEFERRED, team-driven environment; high-event teams can receive SECONDARY
+workload priority but the league is not blanket-promoted.
+
+Source:
+https://footystats.org/usa/usl-championship/over-25-goals-table
