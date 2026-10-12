@@ -14,7 +14,7 @@ used for current writes.
 
 ## 1. Purpose
 
-Prevent the same competitions from repeatedly consuming board capacity when they repeatedly fail operationally near kickoff.
+Maintain an append-only diagnostic memory of competitions that repeatedly fail operationally near kickoff. Current V4 intake does **not** use this memory to admit, cap, demote, rank or suppress fixtures; it remains observational until a future V4 engine explicitly implements such a gate.
 
 This memory may use only execution-observability evidence:
 
