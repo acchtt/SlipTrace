@@ -97,6 +97,25 @@ NADESHIKO1_EVENT = {
 }
 
 
+# Big-Five competition status is a data/researchability prior only. It must
+# never promote a fixture into active sweep research by league prestige alone.
+# Until a separate current team/event profile is researched, missing-evidence
+# fixtures from these leagues default to DEFERRED_RESEARCH. Fresh verified
+# match goal evidence can still override this at the goals-first screen.
+TOP_FIVE_NO_AUTO_PROMOTION = {
+    ("england", "premier league"),
+    ("england", "english premier league"),
+    ("germany", "bundesliga"),
+    ("germany", "german bundesliga"),
+    ("spain", "la liga"),
+    ("spain", "laliga"),
+    ("italy", "serie a"),
+    ("italy", "italian serie a"),
+    ("france", "ligue 1"),
+    ("france", "french ligue 1"),
+}
+
+
 def _competition_key(fixture: dict[str, Any]) -> tuple[str, str]:
     return norm(fixture.get("country")), norm(fixture.get("competition"))
 
@@ -129,6 +148,16 @@ def classify_research_priority(
     }
     if expired:
         return base
+
+    if (country, comp) in TOP_FIVE_NO_AUTO_PROMOTION:
+        return {
+            **base,
+            "priority": DEFERRED,
+            "priority_rank": PRIORITY_RANK[DEFERRED],
+            "reason": "TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL",
+            "league_profile": "TOP_FIVE_NO_AUTO_PROMOTION_V1",
+            "draw_trap_caution": False,
+        }
 
     # Netherlands Eerste Divisie: league is strongly goal-active, but use the
     # team prior to decide which fixtures get first research attention.

@@ -104,10 +104,27 @@ def select(
                 "source_url": item["source_url"],
             })
     research.sort(key=_research_order)
+    priority_research = [
+        row for row in research
+        if (row.get("cheap_filter") or {}).get("priority")
+        in {"PRIMARY_RESEARCH", "SECONDARY_RESEARCH", "SPECIAL_RESEARCH"}
+    ]
+    deferred_research = [
+        row for row in research
+        if row not in priority_research
+    ]
     return {
         "eligible_queue": selected,
+        # Full auditable backlog. This is not the active deep-research list.
         "goal_research_queue": research,
         "goal_research_order": [r["match_id"] for r in research],
+        # Active deep-research list after cheap filters. League prestige alone
+        # cannot place a fixture here.
+        "priority_research_queue": priority_research,
+        "priority_research_order": [r["match_id"] for r in priority_research],
+        "deferred_research_queue": deferred_research,
+        "priority_research_count": len(priority_research),
+        "deferred_research_count": len(deferred_research),
         "pending_goal_research_count": sum(
             r["intake_lane"] == "PENDING_GOAL_RESEARCH" for r in research
         ),

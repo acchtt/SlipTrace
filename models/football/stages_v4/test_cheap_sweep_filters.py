@@ -14,7 +14,7 @@ from cheap_sweep_filters import (
     DEFERRED, NEUTRAL, PRIMARY, SECONDARY, SPECIAL,
     classify_research_priority,
 )
-from goals_first_intake import _research_order
+from goals_first_intake import _research_order, select
 from league_registry import classify
 from stage import sweep, verify_rank_source_and_status
 from test_source_completeness import source as complete_source
@@ -34,6 +34,84 @@ def fixture(country, competition, home="Home", away="Away", kind="DOMESTIC_LEAGU
 
 
 class CheapSweepFilterTests(unittest.TestCase):
+    def test_big_five_league_status_is_never_auto_research_priority(self):
+        for country, competition in (
+            ("England", "Premier League"),
+            ("Germany", "Bundesliga"),
+            ("Spain", "La Liga"),
+            ("Italy", "Serie A"),
+            ("France", "Ligue 1"),
+        ):
+            with self.subTest(country=country, competition=competition):
+                result = classify_research_priority(
+                    fixture(country, competition, "Team A", "Team B"),
+                    at_utc=NOW,
+                )
+                self.assertEqual(result["priority"], DEFERRED)
+                self.assertEqual(result["reason"], "TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL")
+                self.assertFalse(result["hard_exclude"])
+
+    def test_big_five_pending_fixture_stays_out_of_active_research_list(self):
+        src = {
+            "match_id": "top5-pending", "country": "England",
+            "competition": "Premier League", "competition_kind": "DOMESTIC_LEAGUE",
+            "home": "Team A", "away": "Team B",
+        }
+        ledger = [{
+            "match_id": "top5-pending", "country": "England",
+            "competition": "Premier League", "home": "Team A", "away": "Team B",
+            "kickoff_utc": "2026-10-13T04:00:00Z",
+            "registry_lane": "ROUTINE", "intake_lane": "ROUTINE",
+            "reason": "RESEARCHED_LEAGUE_ROUTINE",
+            "source_url": "https://sports.example.org/top5",
+            "discovery_screen": {
+                "status": "PENDING_GOAL_HISTORY",
+                "reason": "RECENT_COMPETITIVE_HISTORY_REQUIRED",
+            },
+        }]
+        provisional = [{
+            "match_id": "top5-pending",
+            "kickoff_utc": "2026-10-13T04:00:00Z",
+        }]
+        result = select(
+            run_id="V4-TEST", at_utc=NOW, source_hash="abc",
+            source_rows=[src], ledger=ledger, provisional_queue=provisional,
+        )
+        self.assertEqual(result["priority_research_count"], 0)
+        self.assertEqual(result["deferred_research_count"], 1)
+        self.assertEqual(result["deferred_research_queue"][0]["match_id"], "top5-pending")
+
+    def test_verified_goal_evidence_can_still_promote_big_five_fixture(self):
+        src = {
+            "match_id": "top5-qualified", "country": "Italy",
+            "competition": "Serie A", "competition_kind": "DOMESTIC_LEAGUE",
+            "home": "Team A", "away": "Team B",
+        }
+        ledger = [{
+            "match_id": "top5-qualified", "country": "Italy",
+            "competition": "Serie A", "home": "Team A", "away": "Team B",
+            "kickoff_utc": "2026-10-13T04:00:00Z",
+            "registry_lane": "ROUTINE", "intake_lane": "ROUTINE",
+            "reason": "RESEARCHED_LEAGUE_ROUTINE",
+            "source_url": "https://sports.example.org/top5q",
+            "discovery_screen": {
+                "status": "DISCOVERY_GOAL_QUALIFIED",
+                "reason": "SOURCE_BACKED_GOAL_SIGNAL_QUALIFIED",
+                "priority_score": 9,
+            },
+        }]
+        provisional = [{
+            "match_id": "top5-qualified",
+            "kickoff_utc": "2026-10-13T04:00:00Z",
+        }]
+        result = select(
+            run_id="V4-TEST", at_utc=NOW, source_hash="abc",
+            source_rows=[src], ledger=ledger, provisional_queue=provisional,
+        )
+        self.assertEqual([x["match_id"] for x in result["eligible_queue"]], ["top5-qualified"])
+        self.assertEqual(result["priority_research_count"], 0)
+        self.assertEqual(result["deferred_research_count"], 0)
+
     def test_eerste_high_event_team_is_primary_otherwise_secondary(self):
         high = classify_research_priority(
             fixture("Netherlands", "Eerste Divisie", "FC Dordrecht", "Roda JC"),

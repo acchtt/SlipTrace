@@ -52,6 +52,18 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("CHEAP RESEARCH-PRIORITY FILTERS", sweep)
         self.assertIn("only after the full source fixture set is frozen", current)
 
+    def test_big_five_status_never_auto_promotes_sweep_research(self):
+        cheap = (STAGES / "cheap_sweep_filters.py").read_text()
+        intake = (STAGES / "goals_first_intake.py").read_text()
+        sweep = (STAGES / "SWEEP.md").read_text()
+        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
+        self.assertIn("TOP_FIVE_NO_AUTO_PROMOTION", cheap)
+        self.assertIn("TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL", cheap)
+        self.assertIn("priority_research_queue", intake)
+        self.assertIn("deferred_research_queue", intake)
+        self.assertIn("Big Five safeguard", sweep)
+        self.assertIn("Big Five league membership is never automatic shortlist admission", current)
+
     def test_rank_requires_source_and_status_on_every_cli_invocation(self):
         stage = (STAGES / "stage.py").read_text()
         self.assertIn('"source", "status-refresh"', stage)

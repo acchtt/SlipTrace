@@ -228,6 +228,7 @@ It must:
 - remove explicit user bans and noncompetitive friendlies;
 - classify registered vs DISCOVERY competitions only **after** acquisition; `league_query_mode=DATE_SURFACE_ONLY` and `registry_prefilter_applied=false` are mandatory;
 - apply cheap research-priority filters only after the full source fixture set is frozen; these filters may reorder deep research but never delete a valid fixture or override verified goal evidence;
+- Big Five league membership is never automatic shortlist admission: Premier League, Bundesliga, La Liga, Serie A and Ligue 1 default to deferred research unless a separate current team/event prior or actual source-backed goal evidence promotes the fixture;
 - apply the same source-backed goals screen to every competition lane;
 - keep missing histories in pending research rather than model PASS;
 - put only `GOAL_PRIORITY` fixtures into the immutable `eligible_queue`;
