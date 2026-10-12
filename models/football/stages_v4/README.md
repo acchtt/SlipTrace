@@ -182,9 +182,7 @@ means operational research priority, **not** intrinsic goal propensity.
   Czech First League/FNL, Hong Kong Premier
   League, Malaysian Liga Super, UAE Pro League, Qatar Stars League,
   Korea K2, Greek Super League; Iceland Besta deild/Lengjudeild; Faroe Meistaradeildin; Swedish Superettan; Denmark First Division; senior women's top flights and major senior official cups/continental competitions.
-- **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1,
-  Swedish Superettan, Denmark First Division and Saudi First
-  Division. They are **searched and retained**, but require
+- **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1, Saudi First Division, Iceland 2. deild and Faroe 1. deild. They are **searched and retained**, but require
   current source-backed match/league researchability to reach rank.
 - **Explicit exclusions preserved**: noncompetitive friendlies;
   Bangladesh, Israel, Kenya, Iraq, Wales and Kuwait domestic leagues;
