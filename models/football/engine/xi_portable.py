@@ -331,15 +331,18 @@ def main() -> int:
                 if not args.price_c:
                     output = {"ok": True, "xi_mode": "FOOTBALL_ASSESSMENT", **result}
                 else:
-                    price_c, price_c2 = _load(args.price_c), _load(args.price_c2)
-                    if price_c.get("stage") != "decision" or price_c2.get("stage") != "decision":
-                        raise ValueError("price subdecision must use independent stage=decision pair")
-                    if (price_c.get("match",{}).get("match_id") != result["results"]["c"]["match_id"]
-                            or price_c2.get("match",{}).get("match_id") != result["results"]["c2"]["match_id"]
-                            or price_c.get("evidence_epoch_id") != c_input.get("evidence_epoch_id")
-                            or price_c2.get("evidence_epoch_id") != c2_input.get("evidence_epoch_id")):
-                        raise ValueError("price subdecision cannot borrow other match/epoch")
                     try:
+                        price_c, price_c2 = _load(args.price_c), _load(args.price_c2)
+                        if price_c.get("stage") != "decision" or price_c2.get("stage") != "decision":
+                            raise ValueError("price subdecision must use independent stage=decision pair")
+                        if (price_c.get("match",{}).get("match_id") != result["results"]["c"]["match_id"]
+                                or price_c2.get("match",{}).get("match_id") != result["results"]["c2"]["match_id"]
+                                or price_c.get("evidence_epoch_id") != c_input.get("evidence_epoch_id")
+                                or price_c2.get("evidence_epoch_id") != c2_input.get("evidence_epoch_id")):
+                            raise ValueError("price subdecision cannot borrow another match/epoch")
+                        if (c_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"
+                                or c2_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"):
+                            raise ValueError("STARTED/HALFTIME: prematch priced pair forbidden; route current live bet authorization separately")
                         priced = run_pair_files(args.price_c, args.price_c2)
                         price = {"ok": True, "status": "PRICE_CHECK_EXECUTED",
                                  "receipt": priced}
