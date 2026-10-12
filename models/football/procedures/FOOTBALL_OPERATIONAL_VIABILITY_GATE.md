@@ -1,3 +1,5 @@
+> **V4 AUTHORITY NOTICE (2026-10-12):** This document contains historical V1–V3 or Football A operational instructions. Its legacy `ACTIVE` labels, Step0/Step1 capacity limits, AiScore-only rules, pre-XI fixture-specific odds/lineup blockers and old-model claims do **not** govern current `/sweep` or `/rank`. Canonical replacement: `models/football/stages_v4/SWEEP.md` and `RANK.md`; current C/C2 authority: `CURRENT_MODEL.md`. Only football safety guidance explicitly imported by those V4 launchers remains applicable. Historical receipts remain immutable.
+
 # Football Operational Viability Gate
 
 **Status:** mandatory Step-0 production gate  
