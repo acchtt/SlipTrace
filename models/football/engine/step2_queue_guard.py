@@ -171,13 +171,12 @@ def freeze_queue(data: dict) -> dict:
             })
     due.sort(key=lambda x: x["match_id"])
     not_due.sort(key=lambda x: x["match_id"])
-    return {
+    result = {
         "schema_version": VERSION,
         "session_id": session_id,
         "mode": mode,
         "source_run_id": authority["source_run_id"] if authority else data.get("source_run", {}).get("run_id") if mode == "ROUTINE" else None,
         "board_snapshot_id": authority["board_snapshot_id"] if authority else data.get("rank", {}).get("board_snapshot_id") if mode == "ROUTINE" else None,
-        "v4_source_attested": bool(authority),
         "due": due,
         "not_due": not_due,
         "due_count": len(due),
@@ -185,6 +184,12 @@ def freeze_queue(data: dict) -> dict:
         "user_exception_count": len(exception_by_id),
         "activated_reserve_count": len(activated_by_id),
     }
+    # Old sealed exception receipts must remain byte-for-byte compatible
+    # with their original replay snapshot. Add V4-specific authority only
+    # when genuine V4 receipts were actually supplied.
+    if authority:
+        result["v4_source_attested"] = True
+    return result
 
 
 def main() -> int:
