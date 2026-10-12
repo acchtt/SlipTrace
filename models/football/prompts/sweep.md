@@ -1,27 +1,11 @@
-> **PRODUCTION RETIREMENT — EFFECTIVE 2026-10-11: /sweep and /rank are SCRAPPED.** Do not start or resume Step0 discovery, issue a new official ZIP, execute a Step1 board, or publish new ranks. This instruction overrides all historical procedural text below, including V1/V2/V3, repair/resume/reassess and direct launcher usage. These instructions are preserved only for historical audit and regression. Existing C/C2 model code, /xi, /live, records and bets are unaffected. Reinstatement requires an explicitly approved replacement. See `models/football/engine/sweep_rank_retired.py`.
+# /sweep — canonical V4 redirect
 
-# /sweep
+**ACTIVE:** Read `models/football/CURRENT_MODEL.md`, `models/football/prompts/COMMAND_ALIASES.md` and execute **only**
+`models/football/stages_v4/SWEEP.md` with the preserved user's requested window.
 
-Short wrapper only.
-
-Read `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`, `models/football/CURRENT_MODEL.md`, and `models/football/prompts/COMMAND_ALIASES.md`.
-
-Always read and apply `models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
-
-If the preserved user arguments begin with `repair`, also read and apply `models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md` **before** executing Step 0. Repair mode overrides the normal fresh-discovery loop where the repair procedure says to reuse persisted state.
-
-If the preserved user arguments begin with `resume`, enter fresh-sweep resume mode:
-- resolve the existing matching Sweep Run first;
-- accept either a normal `RUNNING` checkpoint or a `BLOCKED` run whose Resume Cursor is `SOURCE_ACQUISITION / SOURCE_BLOCKED`;
-- for a blocked source run, evaluate the deterministic source-recovery lease before returning the stored blocker;
-- if retry is authorized, set `Run Status = RUNNING` before any provider call, then execute exactly one bounded recovery acquisition pass;
-- load its authoritative `Resume Cursor` + persisted coverage rows;
-- continue from the next unfinished phase/block;
-- do not create a new Run ID;
-- do not restart source acquisition when the persisted source epoch is still ACQUIRED.
-
-Otherwise execute `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` as a new checkpointed sweep.
-
-Preserve all user text after `/sweep` as the requested sweep-window/instructions and use same-message attachments as inputs.
-
-This wrapper does not redefine Step 0. Checkpoint boundaries are normal execution control and do not weaken coverage.
+Retired V1–V3 `resume`, `repair`, `Sweep Runs` checkpoints and the old
+`00_NORMAL_CHAT_AISCORE_FETCH.md` procedure do not apply to new V4 runs.
+Capture original provider source, discover competitive fixtures without
+registry-only acquisition, then apply equal source-backed goals-first selection.
+Do not assume that an uploaded receipt is source-attested solely because its
+JSON hash matches. Preserve signed or original-source provenance and no invented bets.

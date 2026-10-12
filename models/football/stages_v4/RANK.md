@@ -74,6 +74,25 @@ Read `README.md`, the official C and independent C2 engine
 specifications and the latest source receipt from V4 /sweep.
 Research all DISCOVERY-qualified fixtures together with registered A/B fixtures. The `discovery_watchlist` identifies unregistered official competitions with source-backed goal signals but missing current researchability, recent team scoring evidence, or required cup-format proof. They are **not** model PASS and must not silently vanish. Do not add pending discovery fixtures to the official model cohort until a NEW original-source V4 sweep verifies their qualifying evidence; never edit a sealed receipt. Source scoring heuristics only decide eligibility for research, not guaranteed 3+/4+ goals or a bet.
 
+## Mandatory original-source replay and fresh status
+
+New V4 rank execution requires the unchanged original \`source.json\` from
+the genuine V4 acquisition or original GitHub Actions artifact. The rank
+engine replays that source using the source receipt's original UTC epoch
+and must reproduce its exact SHA256. A JSON hash is a consistency check,
+not a cryptographic third-party source certificate: verify the original
+provider source and CI provenance independently.
+
+Refresh **every eligible fixture** on its original fixture URL just
+before ranking. Save a \`status_refresh.json\` with
+\`schema_version=football-v4-rank-status-refresh-v1\`, original \`run_id\`,
+original \`sweep_integrity_sha256\`, \`checked_at_utc\`, and one \`matches[]\`
+entry per eligible match containing \`match_id\`, \`source_url\`,
+\`kickoff_utc\`, \`fixture_status\`, and \`observed_at_utc\`.
+All status evidence must be no older than 10 minutes. A changed kickoff
+requires a fresh source epoch; already-started fixtures may not be
+ranked prematch. Do not invent a prematch observation.
+
 Research real football evidence for the complete eligible fixture
 universe in goal-first priority order: source-backed recent scoring,
 home/away scoring routes, current team news, expected XI channels,
@@ -86,7 +105,7 @@ clear reasons, not invented C/C2 PASS.
 
 Freeze full C and C2 board input from the SAME actual common evidence.
 Use `python models/football/stages_v4/stage.py --output v4_rank.json rank
---sweep v4_sweep.json --c c.json --c2 c2.json --unranked unranked.json`.
+--sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --c2 c2.json --unranked unranked.json`.
 The deterministic production model C and C2 execute independently.
 Results are **awaiting Airtable persistence** until separately
 read back and verified. Store only C official lanes and keep C2

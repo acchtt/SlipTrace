@@ -79,6 +79,8 @@ leagues include `researchability_status=VERIFIED` only if the actual
 match/season data channels were checked, otherwise show PENDING.
 No historical lineup or total-odds proof for routine leagues.
 
+Preserve the unchanged original source.json alongside its native receipt and independently checked provider source URLs/timestamps. V4 /rank now must replay that source and refresh the entire eligible fixture-status cohort within 10 minutes. A standalone matching JSON digest is consistency evidence, not third-party source attestation.
+
 Prepare `football-stages-v4` input and run
 `python models/football/stages_v4/stage.py --output v4_sweep.json sweep --source source.json`.
 Report the full verified research queue sorted by the source-backed

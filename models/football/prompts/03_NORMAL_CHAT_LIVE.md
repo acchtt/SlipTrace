@@ -30,6 +30,10 @@ Use this launcher when:
 
 Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
 
+### User screenshot-only price observation (2026-10-12)
+
+When the user supplies a live odds screenshot, the image is the sole market-price evidence for this /live or started /xi request. Never retrieve replacement or historical bookmaker odds, ask for another screenshot due to analysis delay, or backdate an execution timestamp. Use actual displayed score/minute and exact Over line/odds; assess independent C/C2 football first, then describe whether the fixed quote is above/at/below each supported burden. Existing `step2_fixture_transition.py` can report live quote eligibility separately, but no current live priced ACT is claimed unless a genuine independent live decision engine executes. A screenshot alone **cannot** authorize live or prematch exposure. Neither C2 shadow nor any conditional screenshot verdict creates Actual Bets or P/L.
+
 ### Actual paired football engine — no quote requested
 
 For every /live or started /xi user assessment, execute the new

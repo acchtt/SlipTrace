@@ -10,7 +10,7 @@ On **every invocation**, re-read `models/football/procedures/FOOTBALL_HANDOFF_FR
 
 Run the single /xi flow in `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. Never require a second /bet command. With a genuinely current quote already in evidence, include an authorized price comparison automatically; without it, finish the football assessment immediately.
 
-Use supplied XI/score/football and any actual quoted line/odds as evidence. Do NOT ask for odds just to assess. Market screenshots permit evaluating only actual, current and independently verified prices under strict executable-bet safeguards. Preserve exception wording exactly.
+Use supplied XI/score/football and any actual quoted line/odds as evidence. Do NOT ask for odds just to assess. A user screenshot is the SOLE market-price observation for USER_SCREENSHOT_ONLY. Do not search for new or historical bookmaker odds, invent its timestamp, or require another screenshot. Evaluate exact displayed price as a CONDITIONAL C/C2 result if independent priced contexts exist. A screenshot alone can NEVER authorize currently executable ACT, even with a matching timestamp or caller flag. Preserve strict separate execution guards for externally executable offers outside screenshot-only mode. Preserve exception wording exactly.
 
 Every material XI result must expose the current authority revision/runtime status and the required OFFICIAL C + SHADOW C2 visibility defined by the launcher.
 

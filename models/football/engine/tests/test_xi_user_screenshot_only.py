@@ -105,7 +105,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(price["evidence"]["score"], "1-0")
         self.assertEqual(price["evidence"]["match_minute"], 5)
         self.assertIn("LIVE_SCREENSHOT_NOT_EXECUTABLE_BY_PREMATCH_ENGINE", price["limitations"])
-        self.assertEqual(price["models"]["c"]["conditional_action"], "NOT_EVALUATED_LIVE_REQUIRES_SEPARATE_LIVE_ENGINE")
+        self.assertEqual(price["models"]["c"]["conditional_action"], "LIVE_PRICE_BURDEN_COMPARISON_ONLY")
 
     def test_05_outside_entry_price_keeps_protections(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
@@ -198,15 +198,26 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(out["price_check"]["status"], "PRICE_CHECK_BLOCKED")
         self.assertEqual(set(out["results"]), {"c", "c2"})
 
-    def test_13_true_same_instant_open_offer_runs_unchanged_strict_pair(self):
+    def test_13_same_instant_or_open_offer_flag_cannot_authorize(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         out = run_xi(c=c, shot=snapshot(c, open_offer_verified_in_screenshot=True),
                      priced=True)
-        self.assertEqual(out["xi_mode"], "FOOTBALL_AND_SCREENSHOT_PRICE_CHECK")
-        self.assertTrue(out["price_check"]["ok"])
-        self.assertEqual(out["price_check"]["receipt"]["engine_execution_status"],
-                         "EXECUTED_C_C2_PAIR")
+        self.assertEqual(out["xi_mode"], "FOOTBALL_ASSESSED_SCREENSHOT_PRICE_LIMITED")
+        price = out["price_check"]
+        self.assertFalse(price["ok"])
+        self.assertFalse(price["bet_authorized"])
+        self.assertIn("SCREENSHOT_CANNOT_INDEPENDENTLY_PROVE_EXECUTABLE_OFFER", price["limitations"])
+        self.assertIn("OPEN_OFFER_FLAG_NOT_INDEPENDENT_EXECUTION_EVIDENCE", price["limitations"])
         self.assertFalse(out["model_bets_created"])
+
+    def test_14_live_snapshot_retains_burden_comparison_not_false_act(self):
+        c, c2 = football("c"), football("c2")
+        out = run_xi(c, c2, snapshot(c, line=2.75))
+        price = out["price_check"]
+        self.assertEqual(price["models"]["c"]["conditional_action"], "LIVE_PRICE_BURDEN_COMPARISON_ONLY")
+        self.assertEqual(price["models"]["c2"]["conditional_action"], "LIVE_PRICE_BURDEN_COMPARISON_ONLY")
+        self.assertEqual(price["evidence"]["match_minute"], 5)
+        self.assertFalse(price["bet_authorized"])
 
 
 if __name__ == "__main__":

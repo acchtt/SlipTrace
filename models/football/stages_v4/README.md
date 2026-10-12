@@ -1,5 +1,7 @@
 # Football v2 — New /sweep and /rank V4
 
+**V4 rank safety update (2026-10-12):** Native rank now requires both `--source original_source.json` and `--status-refresh recent_status.json`. Replay the original provider snapshot at the frozen epoch; separately verify original source provenance and all current fixtures' status/kickoff (<=10 minutes old). Never rank an already-started match or regard a self-consistent hash as independent proof of provider acquisition.
+
 **User authorization:** "Make a new sweep and rank stage. Includes leagues that we researched."
 **Previous V1–V3 production CLIs stay permanently retired.** This is a
 new `models/football/stages_v4/` implementation, not a patch or resume.

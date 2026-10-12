@@ -15,7 +15,7 @@ sys.path.insert(0, str(DIR))
 sys.path.insert(0, str(ENGINE_TESTS))
 
 from league_registry import classify, REGISTRY
-from stage import StageError, sweep, rank, verify_rank
+from stage import StageError, sweep, rank as production_rank, verify_rank
 from test_board_pair import c_row, c2_row, payload
 
 NOW = "2026-10-11T16:00:00Z"
@@ -303,7 +303,88 @@ class SweepV4Tests(unittest.TestCase):
 
 
 
+def fresh_status(sweep_receipt, *, now="2026-10-11T16:05:00Z"):
+    return {
+        "schema_version": "football-v4-rank-status-refresh-v1",
+        "run_id": sweep_receipt["run_id"],
+        "sweep_integrity_sha256": sweep_receipt["integrity_sha256"],
+        "checked_at_utc": now,
+        "matches": [
+            {
+                "match_id": row["match_id"],
+                "kickoff_utc": row["kickoff_utc"],
+                "fixture_status": "PREMATCH_CONFIRMED",
+                "source_url": row["source_url"],
+                "observed_at_utc": now,
+            } for row in sweep_receipt["eligible_queue"]
+        ],
+    }
+
+
+def rank(src, c, c2, reasons, *, now, original_source=None, status_refresh=None):
+    """Existing regression scenarios use authentic matching source and status."""
+    return production_rank(
+        src, c, c2, reasons, now=now,
+        original_source=original_source if original_source is not None else snapshot(),
+        status_refresh=status_refresh if status_refresh is not None else fresh_status(src, now=now),
+    )
+
+
+
+
 class RankV4Tests(unittest.TestCase):
+    def test_missing_source_and_status_are_fail_closed(self):
+        src = sweep(snapshot(), now=NOW)
+        c, c2 = model_inputs()
+        reasons = {"m2": "RESEARCH_EVIDENCE_MISSING"}
+        with self.assertRaisesRegex(StageError, "V4_SOURCE_REPLAY_REQUIRED"):
+            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z")
+        with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_REQUIRED"):
+            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
+                            original_source=snapshot())
+
+    def test_forged_receipt_does_not_pass_native_source_replay(self):
+        from stage import _hash
+        src = sweep(snapshot(), now=NOW)
+        src["source_url"] = "https://other.example.org/forged"
+        src["integrity_sha256"] = _hash({k: v for k, v in src.items() if k != "integrity_sha256"})
+        c, c2 = model_inputs()
+        statuses = fresh_status(src)
+        with self.assertRaisesRegex(StageError, "V4_SOURCE_REPLAY_MISMATCH"):
+            production_rank(src, c, c2, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                            now="2026-10-11T16:05:00Z", original_source=snapshot(),
+                            status_refresh=statuses)
+
+    def test_started_status_and_stale_or_changed_ko_are_rejected(self):
+        src = sweep(snapshot(), now=NOW)
+        c, c2 = model_inputs()
+        reasons = {"m2": "RESEARCH_EVIDENCE_MISSING"}
+        changed = fresh_status(src)
+        changed["matches"][0]["fixture_status"] = "STARTED"
+        with self.assertRaisesRegex(StageError, "PREMATCH_WINDOW_CLOSED"):
+            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
+                            original_source=snapshot(), status_refresh=changed)
+        changed = fresh_status(src)
+        changed["matches"][0]["kickoff_utc"] = "2026-10-11T17:30:00Z"
+        with self.assertRaisesRegex(StageError, "V4_KICKOFF_CHANGED"):
+            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
+                            original_source=snapshot(), status_refresh=changed)
+        changed = fresh_status(src)
+        changed["checked_at_utc"] = "2026-10-11T15:00:00Z"
+        with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_STALE"):
+            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
+                            original_source=snapshot(), status_refresh=changed)
+
+    def test_full_status_cohort_mandatory(self):
+        src = sweep(snapshot(), now=NOW)
+        c, c2 = model_inputs()
+        refresh = fresh_status(src)
+        refresh["matches"].pop()
+        with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_INCOMPLETE"):
+            production_rank(src, c, c2, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                            now="2026-10-11T16:05:00Z", original_source=snapshot(),
+                            status_refresh=refresh)
+
     def test_real_C_and_C2_independent_engine_execution(self):
         snapshot_data=sweep(snapshot(),now=NOW)
         c,c2=model_inputs()
