@@ -62,6 +62,7 @@ require(
     '"audit": (',
     "models/football/stages_v4/stage.py",
     "models/football/stages_v4/source_completeness.py",
+    "models/football/stages_v4/cheap_sweep_filters.py",
     "def probe_stage",
     "RUNTIME SOURCE PROBE: PASS",
     "RUNTIME SOURCE PROBE: FAIL",
