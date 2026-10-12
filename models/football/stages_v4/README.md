@@ -192,13 +192,14 @@ means operational research priority, **not** intrinsic goal propensity.
   Protected official tournaments are not excluded merely because
   domestic leagues from the same country are excluded.
 
-Recent high-scoring **teams are dynamic**, not hardcoded names.
-Actual recent 4–10 source-backed competitive scorelines for each
-team, when available, feed the existing goal-route prescreen:
-carrier contribution, second route, Over 3 tail, 0–0/1–1 trap and
-prolonged two-goal stalls. Big Five and Netherlands use the existing
-dynamic researched overlays. Missing form does not pretend a team
-is low scoring; its fixture remains eligible for football research.
+Recent high-scoring **team behavior remains dynamically verified** from
+actual recent 4–10 source-backed competitive scorelines. The cheap-filter
+layer may also carry short-lived, explicitly dated team-name priors solely to
+decide research order; those priors expire automatically and never substitute
+for the goal-route prescreen. Actual recent evidence still controls carrier
+contribution, second route, Over-3 tail, 0–0/1–1 traps and prolonged two-goal
+stalls. Missing form does not pretend a team is low scoring; its fixture
+remains visible in the research backlog.
 
 ## /sweep inputs and outputs
 
