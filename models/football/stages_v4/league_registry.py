@@ -53,7 +53,6 @@ ROUTINE = {
 CONDITIONAL = {
     "england": "championship|efl championship",
     "spain": "segunda division|la liga 2",
-    "czechia": "czech first league|first league|czech first division|fnl|czech fnl|national football league",
     "poland": "ekstraklasa|pko bank polski ekstraklasa|pkobp ekstraklasa|i liga|1 liga|liga 1|betclic 1 liga",
     "hong kong": "hong kong premier league|boc life hong kong premier league|premier league",
     "malaysia": "malaysia super league|liga super|super league",
@@ -61,6 +60,9 @@ CONDITIONAL = {
     "qatar": "qatar stars league|stars league",
     "south korea": "k league 2",
     "greece": "super league|greek super league",
+    "romania": "superliga|superliga romaniei|liga i|liga 1|liga ii|liga 2",
+    "serbia": "super liga|superliga|mozzart bet super liga|prva liga|first league|mozzart bet prva liga",
+    "czechia": "czech first league|first league|czech first division|chance liga|fnl|czech fnl|national football league|chance narodni liga",
     "iceland": "besta deild karla|besta deild|urvalsdeild|urvalsdeild karla|lengjudeild karla|lengjudeild|1 deild|1 deild karla",
     "faroe islands": "meistaradeildin|meistaradeildin menn|faroe islands premier league|betri deildin|betri deildin menn",
     "sweden": "superettan",
