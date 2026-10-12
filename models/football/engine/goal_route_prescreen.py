@@ -192,6 +192,20 @@ def _priority(row: dict[str, Any]) -> tuple:
     )
 
 
+def _priority_goals_first(row: dict[str, Any]) -> tuple:
+    # V4 only: goal evidence ahead of urgency or source league familiarity.
+    # A few minutes to kickoff NEVER makes an unsupported fixture look
+    # more Over-friendly than one with quantified strong scoring routes.
+    score = row["priority_score"]
+    return (
+        -int(score is not None),
+        -(score if score is not None else 0),
+        -int(row["urgent_before_kickoff"]),
+        0 if row["operational_grade"] == "A" else 1,
+        row["queue_rank"],
+    )
+
+
 def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(payload, dict) or payload.get("schema_version") != SCREEN_SCHEMA:
         raise GoalPrescreenError("invalid prescreen schema_version")
@@ -202,6 +216,10 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
         raise GoalPrescreenError("source_payload_hash must bind original Step0 source")
     if not isinstance(run_id, str) or not run_id.strip():
         raise GoalPrescreenError("run_id missing")
+    priority_profile = payload.get("priority_profile", "LEGACY_URGENCY_FIRST")
+    if priority_profile not in {"LEGACY_URGENCY_FIRST", "GOAL_SIGNAL_FIRST_V1"}:
+        raise GoalPrescreenError("unknown goal-first priority_profile")
+    key_fn = _priority_goals_first if priority_profile == "GOAL_SIGNAL_FIRST_V1" else _priority
     candidates = payload.get("candidates")
     if not isinstance(candidates, list) or not candidates:
         raise GoalPrescreenError("complete A/B candidates required")
@@ -326,7 +344,7 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
     if seen_ranks != set(range(1, len(candidates) + 1)):
         raise GoalPrescreenError("full frozen Step0 A/B ranks must be contiguous, unmodified")
     original = _canonical_rows(original)
-    eligible = sorted((r for r in original if r["screen_status"] != "CLOSED"), key=_priority)
+    eligible = sorted((r for r in original if r["screen_status"] != "CLOSED"), key=key_fn)
     ordered = [r["match_id"] for r in eligible]
     manifest = {
         "schema_version": MANIFEST_SCHEMA,
@@ -335,6 +353,8 @@ def run_prescreen(payload: dict[str, Any]) -> dict[str, Any]:
         "original_rows": original,
         "ordered_eligible_match_ids": ordered,
     }
+    if priority_profile != "LEGACY_URGENCY_FIRST":
+        manifest["priority_profile"] = priority_profile
     manifest["screen_fingerprint"] = _fingerprint(manifest)
     first = eligible[:INITIAL_DEEP_RESEARCH]
     return {
@@ -378,7 +398,11 @@ def verified_research_order(manifest: dict[str, Any], candidates: list[dict[str,
     if not isinstance(ordered, list) or len(ordered) != len(set(ordered)):
         raise GoalPrescreenError("duplicated goal-first research order")
     active = [r for r in rows if r.get("screen_status") in ("QUANTIFIED", "EVIDENCE_LIMITED")]
-    sorted_expected = [r["match_id"] for r in sorted(active, key=_priority)]
+    profile = manifest.get("priority_profile", "LEGACY_URGENCY_FIRST")
+    if profile not in {"LEGACY_URGENCY_FIRST", "GOAL_SIGNAL_FIRST_V1"}:
+        raise GoalPrescreenError("unknown manifest priority_profile")
+    key_fn = _priority_goals_first if profile == "GOAL_SIGNAL_FIRST_V1" else _priority
+    sorted_expected = [r["match_id"] for r in sorted(active, key=key_fn)]
     if ordered != sorted_expected:
         raise GoalPrescreenError("research priority order inconsistent with prescreen evidence")
     return ordered
