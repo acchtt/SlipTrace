@@ -107,7 +107,9 @@ class ResearchedRegistryTests(unittest.TestCase):
             ("Czech Republic","Czech FNL"),
             ("Hong Kong","Hong Kong Premier League"),
             ("Malaysia","Liga Super"),("Qatar","Qatar Stars League"),
-            ("UAE","UAE Pro League"),("Thailand","Thai League 1"),
+            ("UAE","UAE Pro League"),
+            ("Japan","Nadeshiko League 1"),("Japan","Nadeshiko League 2"),
+            ("Thailand","Thai League 1"),
             ("Indonesia","Liga 1"),
         ):
             with self.subTest(country=country, league=league):
@@ -131,6 +133,9 @@ class ResearchedRegistryTests(unittest.TestCase):
         ))["lane"],"CONDITIONAL")
         self.assertEqual(classify(fixture(
             "cup1","Japan","WE League Cup","DOMESTIC_CUP"
+        ))["lane"],"CONDITIONAL")
+        self.assertEqual(classify(fixture(
+            "cup2","Japan","Empress's Cup Women","DOMESTIC_CUP"
         ))["lane"],"CONDITIONAL")
 
 

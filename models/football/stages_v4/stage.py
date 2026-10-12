@@ -90,7 +90,8 @@ def _verified(obj: Any, expected_status: str) -> None:
 
 
 def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool = False,
-          _historical_replay: bool = False) -> dict[str, Any]:
+          _historical_replay: bool = False,
+          _historical_no_cheap_filters: bool = False) -> dict[str, Any]:
     """Classify one complete provider date-surface snapshot.
 
     Prospective production sweeps after the V2 activation boundary must carry
@@ -251,6 +252,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         goal_selection = select_goal_candidates(
             run_id=run_id, at_utc=at.isoformat(), source_hash=_hash(source),
             source_rows=fixtures, ledger=ledger, provisional_queue=queue,
+            apply_cheap_filters=not _historical_no_cheap_filters,
         )
         queue = goal_selection["eligible_queue"]
     # Every source-visible fixture stays in the ledger; no arbitrary first-8 cap.
@@ -334,6 +336,9 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["unresearched_goal_history_count"] = goal_selection["unresearched_goal_history_count"]
         outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
         outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
+        if "cheap_filter_counts" in goal_selection:
+            outcome["cheap_filter_policy"] = "RESEARCH_PRIORITY_V1"
+            outcome["cheap_filter_counts"] = goal_selection["cheap_filter_counts"]
         outcome["discovery_watchlist"] = [{
             "match_id": x["match_id"], "country": x["country"],
             "competition": x["competition"], "home": x["home"],
@@ -376,6 +381,9 @@ def _check_rank_source_and_status(
         original_source,
         now=sweep_receipt["created_at_utc"],
         _historical_replay=is_legacy_receipt,
+        _historical_no_cheap_filters=(
+            sweep_receipt.get("cheap_filter_policy") != "RESEARCH_PRIORITY_V1"
+        ),
     )
     if (replayed["integrity_sha256"] != sweep_receipt["integrity_sha256"]
             or original_source.get("run_id") != sweep_receipt.get("run_id")):

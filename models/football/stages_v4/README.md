@@ -81,6 +81,15 @@ This does not claim every football fixture worldwide exists in the provider.
 It proves that the bounded provider surfaces actually used by the sweep were
 fully enumerated before league filtering.
 
+## Cheap research filters — after acquisition, before deep research
+
+`cheap_sweep_filters.py` applies time-bounded competition/team priors only
+after the complete date-surface fixture universe is frozen. The current
+research profiles include Netherlands Eerste Divisie and Japan WE League,
+WE League Cup, Nadeshiko League 1/2 and Empress's Cup. These profiles only
+reorder missing-evidence research; they do not create C/C2 PASS/BET states,
+do not delete fixtures, and expire to neutral unless refreshed.
+
 ## Goals-first V4 shortlist — registration is NOT Over potential
 
 New prospective sweeps treat **source identity and league registration**

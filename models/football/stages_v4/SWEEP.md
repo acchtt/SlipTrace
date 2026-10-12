@@ -9,7 +9,7 @@ Prospective sweeps now use `DATE_SURFACE_BATCH_V2`. The old failure mode
 where an operator assembled a small fixture list and then ran the registry is
 forbidden. The discovery order is:
 
-`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> GOALS-FIRST SCREEN`
+`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> CHEAP RESEARCH-PRIORITY FILTERS -> GOALS-FIRST SCREEN`
 
 The registry is **never** a fixture-discovery query. Do not search
 Ekstraklasa, Serie A, Superliga, Veikkausliiga, etc. one by one and then call
@@ -38,6 +38,12 @@ If one required date surface, page, competition block or terminal fixture is
 missing, `stage.py sweep` fails closed. It must not emit
 `V4_SWEEP_READY`. A zero-match competition block or an empty window is valid
 only when the provider surface itself is complete and its counts reconcile.
+
+After this acquisition proof, `cheap_sweep_filters.py` may reorder **deep
+research**, never acquisition. `PRIMARY_RESEARCH`, `SECONDARY_RESEARCH`,
+`SPECIAL_RESEARCH`, `DEFERRED_RESEARCH` and `NEUTRAL_RESEARCH` are workload
+priorities only. They cannot hard-exclude a valid competitive fixture and
+cannot override a fresh source-backed `DISCOVERY_GOAL_QUALIFIED` signal.
 
 This restores the useful part of the older sweep behavior—broad date-surface
 enumeration and a terminal sentinel—without restoring old Work ZIPs,

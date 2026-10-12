@@ -98,6 +98,23 @@ require(
 require("models/football/stages_v4/stage.py",
         "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
 require(
+    "models/football/stages_v4/cheap_sweep_filters.py",
+    'SCHEMA = "football-sweep-cheap-filter-v1"',
+    'PRIMARY = "PRIMARY_RESEARCH"',
+    'DEFERRED = "DEFERRED_RESEARCH"',
+    "NED_EERSTE_2026_27",
+    "JPN_WE_LEAGUE_2026_27",
+    "JPN_NADESHIKO2_2026",
+    "JPN_EMPRESS_CUP_2026",
+    '"hard_exclude": False',
+)
+require(
+    "models/football/stages_v4/goals_first_intake.py",
+    "classify_research_priority",
+    "cheap_filter",
+    "cheap_filter_counts",
+)
+require(
     "models/football/stages_v4/source_completeness.py",
     'SCHEMA = "football-v4-source-completeness-v2"',
     'CONTRACT = "DATE_SURFACE_BATCH_V2"',
@@ -700,6 +717,7 @@ require(
     '"rank": (',
     "models/football/stages_v4/stage.py",
     "models/football/stages_v4/goals_first_intake.py",
+    "models/football/stages_v4/cheap_sweep_filters.py",
     "models/football/stages_v4/source_completeness.py",
 )
 forbid(
