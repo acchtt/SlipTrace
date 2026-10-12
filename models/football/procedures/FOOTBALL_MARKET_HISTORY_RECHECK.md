@@ -4,6 +4,12 @@
 **Applies to:** Football C official, C2 shadow  
 **Authority:** context/reinspection only; market history does not create football structure
 
+## V4 USER_SCREENSHOT_ONLY override (2026-10-12)
+
+When the user supplies odds screenshots for /xi or /xi exception, the screenshot alone is the sole market source. **Do not search for new/replacement odds or historical bookmaker prices.** Preserve its exact line, odds, bookmaker where visible, original timestamp when known, score/minute and source reference. Log `MARKET_HISTORY_NOT_RESEARCHED_USER_SCREENSHOT_ONLY` as a qualitative limitation, not a fabricated `FOUND`, `PARTIAL` or `UNAVAILABLE_ATTEMPTED` market-history enum. If the legacy priced engine demands an attempted-history enum without an actual attempt, keep the C/C2 football result and explicitly conditional screenshot-price verdict; do not forge a status to authorize ACT. Football/XI/competition incentive research remains mandatory. Never request a replacement screenshot simply because execution was delayed.
+
+The historical mandatory-attempt rules below apply only to non-screenshot price evidence for which bookmaker research is separately authorized.
+
 ## 1. Mandatory attempt
 
 For every Step-2 fixture, attempt a lightweight Asian-total history trace before the final C/C2 action:
