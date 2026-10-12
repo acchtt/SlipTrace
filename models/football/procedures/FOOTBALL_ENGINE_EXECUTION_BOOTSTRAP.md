@@ -27,15 +27,20 @@ Required:
 
 `XI PORTABLE RUNTIME: PASS`
 
-Then execute the active pair atomically:
+Then execute the current football-first pair atomically:
 
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
 
-Required success:
+Required football success:
 
-`ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR`
+`ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY`
 
-The pair must come from the same frozen common evidence epoch. A mismatch is a contract rejection, not a Python/runtime failure.
+The pair must come from the same frozen common football evidence epoch. A
+mismatch is a contract rejection, not a Python/runtime failure. A bookmaker
+quote is not required for this completion. If a price is already supplied,
+the same `xi` command may add `--price-c/--price-c2` or
+`--screenshot-quote` according to the active /xi contract. Screenshot-only
+pricing remains conditional and never authorizes exposure by itself.
 
 ## 2. Atomic completion rule
 
@@ -82,11 +87,14 @@ Only if the exact-current portable bundle itself fails self-check after retrieva
 - `models/football/engine/model_bet_accounting.py`
 - `models/football/engine/model_bet_accounting_cli.py`
 
-Fallback pair command:
+Fallback football-only pair command:
 
-`python models/football/engine/decision_pair_cli.py --c <c.json> --c2 <c2.json>`
+`python models/football/engine/decision_pair_cli.py --football-only --c <c_football.json> --c2 <c2_football.json>`
 
-Direct individual decision CLI calls are diagnostic only and do not satisfy atomic C+C2 completion.
+The priced `decision_pair_cli.py` path without `--football-only` is a
+separate strict prematch price-decision channel, not a substitute for current
+/xi football completion. Direct individual model calls remain diagnostic only
+and do not satisfy atomic C+C2 completion.
 
 ## 5. Required payload set
 
@@ -101,15 +109,20 @@ Never edit a frozen payload after seeing an engine result.
 
 ## 6. Reconciliation and accounting
 
-After pair execution:
+After football-pair execution, independently persist/read back both C/C2
+football results using the current XI assessment reconciliation contract.
+
+Only a separately authorized priced model exposure is eligible for model
+accounting. Quote-free football assessments and screenshot-only conditional
+price comparisons create no accounting bet and no Actual Bet. When a valid
+priced exposure exists, use:
 
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
-
-Then compile active-model accounting:
-
 `python xi_portable.py accounting --input <model_accounting.json>`
 
-New accounting payloads contain C and C2 only. Historical C3/C4 accounting remains immutable audit history and is excluded from new active-roster forward metrics.
+New accounting payloads contain C and C2 only. Historical C3/C4 accounting
+remains immutable audit history and is excluded from new active-roster
+forward metrics.
 
 ## 7. Genuine execution unavailability
 
@@ -132,9 +145,9 @@ The legacy fallback is forbidden:
 
 ## 8. Output status
 
-Every completed `/xi` assessment must show either:
+Every completed `/xi` football assessment must show either:
 
-`ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR`
+`ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY`
 
 or
 
@@ -155,9 +168,9 @@ Python remains deterministic validation; Football C remains production authority
 A fresh chat must:
 1. retrieve exact-current `xi_portable.py`;
 2. run `xi_portable.py self-check`;
-3. freeze C and C2 payloads from one evidence epoch;
-4. run `xi_portable.py pair`;
-5. run reconciliation and active-model accounting;
+3. freeze C and C2 football-assessment payloads from one evidence epoch;
+4. run `xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`;
+5. persist/read back both football results; run priced reconciliation/accounting only when a separate executable price decision was genuinely authorized;
 6. preserve both outputs.
 
 C3/C4 are never required for new Step-2 completion.
