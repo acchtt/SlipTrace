@@ -25,7 +25,7 @@ COUNTRIES = {
     "usa": "united states", "us": "united states",
 }
 DOMESTIC_EXCLUSIONS = frozenset({
-    "bangladesh","israel","kenya","iraq","wales","kuwait","finland",
+    "bangladesh","israel","kenya","iraq","wales","kuwait",
 })
 # Never admit generic Premier League/Serie A without the country.
 # Denmark, Sweden and Norway were researched and must be in the core pool.
@@ -39,6 +39,7 @@ ROUTINE = {
     "norway": "eliteserien|obos ligaen|obos league|1 divisjon|norway first division",
     "sweden": "allsvenskan",
     "denmark": "superliga|danish superliga",
+    "finland": "veikkausliiga|finnish veikkausliiga",
     "belgium": "pro league|belgian pro league|first division a",
     "portugal": "primeira liga",
     "austria": "bundesliga",
@@ -52,7 +53,7 @@ CONDITIONAL = {
     "england": "championship|efl championship",
     "spain": "segunda division|la liga 2",
     "czechia": "czech first league|first league|czech first division|fnl|czech fnl|national football league",
-    "poland": "ekstraklasa",
+    "poland": "ekstraklasa|pko bank polski ekstraklasa|pkobp ekstraklasa|i liga|1 liga|liga 1|betclic 1 liga",
     "hong kong": "hong kong premier league|boc life hong kong premier league|premier league",
     "malaysia": "malaysia super league|liga super|super league",
     "united arab emirates": "uae pro league|adnoc pro league",
