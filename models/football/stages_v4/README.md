@@ -84,7 +84,7 @@ fully enumerated before league filtering.
 ## Cheap research filters — after acquisition, before deep research
 
 `cheap_sweep_filters.py` applies time-bounded competition/team priors only
-after the complete date-surface fixture universe is frozen. The current research profiles include Netherlands Eredivisie/Eerste Divisie; Iceland Besta/Lengjudeild; Faroe Meistaradeildin/1. deild; Norway Eliteserien/First Division; Denmark Superliga/1. Division; Sweden Allsvenskan/Superettan; and Japan WE League, WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
+after the complete date-surface fixture universe is frozen. The current research profiles include Netherlands Eredivisie/Eerste Divisie; Iceland Besta/Lengjudeild; Faroe Meistaradeildin/1. deild; Norway Eliteserien/First Division; Denmark Superliga/1. Division; Sweden Allsvenskan/Superettan; Romania SuperLiga/Liga II; Poland Ekstraklasa/I Liga; Serbia SuperLiga/Prva Liga; Czech First League/FNL; and Japan WE League, WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
 has an explicit **no-auto-promotion** guard: Premier League, Bundesliga,
 La Liga, Serie A and Ligue 1 are deferred unless a separate team/event prior
 or fresh fixture goal evidence promotes them. These filters do not create
