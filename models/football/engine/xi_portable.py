@@ -295,8 +295,8 @@ def _validate_user_screenshot_prices(
     """
     if not isinstance(screenshot, dict) or screenshot.get("source") != "USER_SCREENSHOT":
         raise ValueError("price source must be USER_SCREENSHOT; no fetched/replacement odds")
-    if screenshot.get("captured_with_current_user_request") is not True:
-        raise ValueError("screenshot must be attached to this assessment epoch; older quotes cannot be reused")
+    if screenshot.get("user_screenshot_present_in_assessment") is not True:
+        raise ValueError("screenshot must be user-supplied for this same verified match/evidence epoch; no older match-state quote reuse")
     models = (c_football, c2_football)
     mids = [p.get("match", {}).get("match_id") for p in models]
     epochs = [p.get("evidence_epoch_id") for p in models]
