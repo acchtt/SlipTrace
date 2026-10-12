@@ -121,64 +121,17 @@ This file is the canonical entry point for current football work.
 
 **Standing /sweep scope exclusions (2026-10-09):** In addition to Israel, Kenya, Iraq, Wales and Kuwait **domestic football** and Germany **3. Liga only**, exclude **ALL noncompetitive friendlies** (senior international women/men, club, exhibition, preseason) from both the current unfinished sweep and all future ordinary sweeps. Such rows already acquired must be preserved only for exclusion audit, not Work. Competition-block prefilter avoids wasting lineup/odds research on friendlies. This does not remove **official competitive international qualification, Nations League, cup/continental fixtures or women's top-flight domestic matches**. A named explicit user exception is the only re-opening route. See `prompts/00_NORMAL_CHAT_AISCORE_FETCH.md` §2B.
 
-## Fast Step0 time-budget authority — October 11, 2026
+## Historical V1–V3 intake/tuning appendix — non-authoritative
 
-**NEW production /sweep runs use `FAST_FINISH_V2`: at most 15 minutes
-of bounded discovery/verification work from the originally persisted
-start (3 minutes source acquisition, 5 discovery classification, 12
-verification, 15 final reconciliation/package).** Check deterministic
-`sweep_checkpoint_cli.py deadline --input RESUME_CURSOR.json --now <verified UTC>`
-before external calls, after each parallel verification batch, on every
-resume and before final state writes. The V2 `select` and `advance`
-CLI require `--now` and reject over-budget calls. Only eight logical
-verification blocks are selected per batch; one failed attempt closes
-a source path as explicitly unresolved. Source family/league-season
-evidence is reused when independently valid for this exact source epoch.
+The former FAST_FINISH Step0 budgets, narrow-registry pilots,
+LEAGUE_CHANNEL_FIRST_V1, XI_MARKET_FIRST_V1, repaired-handoff rules and
+8/12/15/20 Work budgets are retained in their original files only for
+historical audit. They do not govern new V4 /sweep or /rank.
 
-**V2 bounded-scope correctness (2026-10-11 repair):** V2 is an
-accepted official Step0 handoff/export policy, with all the same required
-competition and Airtable admission readback obligations as V1. Where the
-source epoch is explicitly `BOUNDED_PRODUCTION_DISCOVERY`, certify and
-reconcile every **source-observed** senior women's top-flight fixture
-using two independent opened women's-source window checks and the
-fixture-level manifest; never falsely demand a worldwide exact AiScore
-count, and never claim `global_raw_exact=true`. A source-visible
-missing women's match, unresolved senior A/B fixture, unverifiable
-source identity/KO, missing mandatory protected/required block or
-unsupported source inventory still blocks the ZIP. See
-`FOOTBALL_AISCORE_SOURCE_ACQUISITION.md` and
-`bounded_womens_coverage.py`.
-
-When the budget or a required provider blocks certification, persist
-**BLOCKED** immediately with exact terminal source/protected/women/
-canonical-inventory problems; retain all evidence and do not fabricate
-a valid ZIP, rank, odds, XI or bet. A 15-minute cap limits work, not
-requirements for source/competition/women integrity; no full-source
-claim from a partial discovery seed. The tool cannot automatically
-alter Airtable outside a real running invocation.
-
-**All previously saved `FAST_FINISH_V1` source epochs retain their original
-60-minute deadline, two-attempt semantics and original hash/queue**;
-do not reinterpret or silently shorten the 21:07 existing run. Truly
-old non-fast runs preserve their legacy six-block selector. Historical
-completed boards, model results, and Actual Bets stay immutable. See
-`FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`.
-
-## Hong Kong and Malaysia senior top-flight intake pilot — 2026-10-11
-
-New source-verified source-local CONDITIONAL Step0 pilots: Hong Kong senior Premier League and Malaysia Liga Super. Country/competition matched; no automatic Work admission, Tier1 designation or fixed-club scoring preference. Fresh PROVEN_LEAGUE evidence >=2 historic senior games with both XIs and >=2 games with published Asian total menus. Per-fixture `asia_topflight_recent_goal_evidence` includes 3–5 actual pre-KO completed competitive scores per team and genuine sources, reject 0–0/1–1/low-total stalls. Real fixture/time, operational A/B viability, later current match-specific bookmaker and XI/news research still mandatory. All source hashes, historical boards, official C and shadow C2 and previous country/friendly exclusions unchanged. See `research/HONG_KONG_MALAYSIA_SOURCE_PILOT_2026-10-11.md`.
-
-## Poland Ekstraklasa conditional source-local intake — 2026-10-11
-
-For NEW prospective /sweep only, Polish **Ekstraklasa** stays conditional but is included in one source-local competition-block scan, analogous to the England Championship exception. Require per-fixture `poland_ekstraklasa_recent_goal_evidence` with five verifiable pre-KO completed competitive scorelines per team, sourced ID and time, <=7-day-fresh evidence capture, qualified recent goal routes and rejects for repeated 0–0/1–1 or <=2-goal stalls. Only Poland+Ekstraklasa qualifies. All PROVEN_LEAGUE (two actual historical fixture XI + two Asian-total publishing examples), current operational A/B/market/team-news/identity gates still apply. No team-name bonus, no automatic league admission, no implied future book quote. Poland I Liga and all standing exclusions stay unchanged. Original Step0 source hashes, queue ranks, decisions and Airtable immutable. C official, C2 shadow. See `models/football/procedures/FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`.
-
-## Norway OBOS-ligaen intake pilot — 2026-10-11
-
-For new /sweep source epochs only, Norway **OBOS-ligaen / 1. divisjon** joins approved NORMAL **competition-level operational screening**. It is NOT a Tier 1 automatic channel, not a C/C2 goals boost and not unconditional Work admission. Require actual season-matched `PROVEN_LEAGUE` (two real completed fixture XI publications and two match-specific Asian total publication examples), independently verified evidence checked date/URL, real upcoming fixture identity/UTC kickoff, source-supported league news/market observability and A/B operational grade. Step 1 still requires actual **match-specific** bookmaker total, XI/news and C/C2 independent research; Step 2 still needs real current odds. No changes to Norway Eliteserien, Sweden, German 3. Liga ban, excluded countries, friendlies, protected/women's fixture coverage, old ranked/frozen boards or Airtable records. See `models/football/research/OBOS_LEAGUE_CHANNEL_PROOF_2026-10-11.md`.
-
-## Lower-division intake adjustment — prospective from 2026-10-11
-
-For new /sweep source epochs, **Germany 2. Bundesliga** is an explicitly approved NORMAL professional second-division research league (mandatory `PROVEN_LEAGUE` channel evidence; not Tier1), and **England Championship** is a specially sourced conditional **team-/fixture-level cheap-goal-signal pilot** (mandatory `PROVEN_LEAGUE` and five source-backed pre-kickoff competitive results per side, low-total stall screening). They are *not* default official Over bets. See `FOOTBALL_LEAGUE_ENVIRONMENT_REGISTRY.md`, `FOOTBALL_LEAGUE_CHANNEL_FIRST_INTAKE.md` and the 2026-10-11 research proof manifest. Spain Segunda División, Italy Serie B and France Ligue 2 remain outside routine proactive intake until rechecked and specifically authorized; Germany 3. Liga, user country exclusions, noncompetitive friendlies and retired models remain unchanged. All frozen historical sweep hashes, ranks, source epochs, decisions and Airtable archival routes remain immutable. The current broad-senior source acquisition, protected competitions and senior women's coverage *still* have higher priority than an outdated narrow-core allowlist section.
+Current V4 league coverage, exclusions and discovery behavior live only in
+`models/football/stages_v4/SWEEP.md`, `RANK.md`,
+`league_registry.py`, `goals_first_intake.py` and
+`discovery_goal_gate.py`.
 
 ## Command router
 
