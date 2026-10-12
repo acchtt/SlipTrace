@@ -90,33 +90,25 @@ Do not write "GitHub unavailable" unless the actual GitHub connector/source call
 
 ### C. Source materialization
 
-For stage=`sweep`, use the portable Step-0 path first (fresh or
-PACKAGING/REPAIR without an existing local checkout):
+For stage=`sweep` or `rank`, materialize the current V4 stage, not
+the retired Step0/Step1 portable stack.
 
-1. Resolve current GitHub `acchtt/SlipTrace@main` exact commit.
-2. Fetch ONLY `models/football/engine/step0_portable.py` at that commit and
-   preserve the actual Git blob SHA. Transfer those exact source bytes into
-   the currently available Python runtime. No `git clone`, checkout, pip or
-   local copy of other source files is necessary.
-3. Run `python step0_portable.py self-check` (the embedded source's blob
-   hashes and importability are checked against pinned original modules).
-   Required success: `STEP0 PORTABLE SELF-CHECK PASS`.
-4. For new scope preflight:
-   `python step0_portable.py scope --input competition_blocks.json`.
-   For a completed, current, externally read-back handoff:
-   `python step0_portable.py validate --input STEP0_HANDOFF.json --consumer export`
-   then
-   `python step0_portable.py package --input STEP0_HANDOFF.json --text AISCORE_FIXTURES_<window>.txt --run-proof sweep_run_proof.json --output AISCORE_FIXTURES_<window>.zip`.
-5. Pass only a validated archive to /rank. A provisional handoff, current
-   evidence gap or unresolved required competition still blocks packaging
-   regardless of portable runtime availability. Do not turn false status
-   markers into true.
-6. If GitHub connector source is readable but its bytes cannot reach the
-   Python tool, the **exact** failure is `SOURCE_TRANSPORT_BLOCKED`. Offer
-   the portable single Python file for attachment in the SAME normal chat.
-   Never conclude that a ChatGPT Work-mode switch is inherently required.
-   GitHub CI tests do **not** prove the current conversation transferred or
-   executed source successfully.
+1. Resolve current `acchtt/SlipTrace@main` authority.
+2. Materialize `models/football/stages_v4/stage.py`,
+   `league_registry.py`, `discovery_goal_gate.py`,
+   `goals_first_intake.py`, plus current engine dependencies
+   `goal_route_prescreen.py`, `board_pair_cli.py`, `adapter.py`,
+   `core.py` and `competition_reliability.py`.
+3. Run `python models/football/engine/runtime_probe.py --stage sweep`
+   or `--stage rank`. Required: `RUNTIME SOURCE PROBE: PASS`.
+4. Sweep executes only:
+   `python models/football/stages_v4/stage.py --output v4_sweep.json sweep --source source.json`.
+5. Rank executes only the V4 source/status-bound command documented below.
+6. Do not materialize `step0_portable.py`, repaired-handoff, capacity,
+   coverage-manifest or rank-terminal modules as current V4 authority.
+   Those remain historical V1–V3 tooling.
+7. Runtime availability never proves external provider authenticity or
+   current fixture status. Those remain caller-observed evidence.
 
 ### Default /xi source transport (no checkout, no Work switch)
 
@@ -142,11 +134,13 @@ models unavailable. Use the committed GitHub Actions workflow
    in this chat's Python runtime. Required `XI PORTABLE RUNTIME: PASS`.
    One successful runtime preflight is reusable within the same pinned source
    revision and chat session. On a new revision recheck source freshness.
-5. Run `python models/football/engine/xi_portable.py pair --c c.json --c2 c2.json`
-   **once** against the same prospectively frozen input epoch. After an
-   independent Airtable write/read-back plus executable quote/status recheck,
-   run the exact-current bundled `step2_publication_guard.py` with the
-   original pair inputs/receipt and read-back snapshot.
+5. Run `python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json`
+   **once** against the same prospectively frozen football epoch. Required
+   completion is `EXECUTED_C_C2_FOOTBALL_ONLY`. A price-bearing `pair`
+   execution is separate and prematch-only; it is never required merely to
+   finish /xi football analysis. Only after a genuine non-screenshot executable
+   price decision plus independent Airtable read-back and quote/status
+   revalidation may `step2_publication_guard.py` be used for publication.
 6. If no matching successful artifact exists, request/build a fresh
    source-verifying CI artifact via the existing repo workflow. A stale
    artifact must never become authority. `SOURCE_TRANSPORT_BLOCKED` is
@@ -158,14 +152,15 @@ models unavailable. Use the committed GitHub Actions workflow
 **Kickoff transition source:** the same XI artifact additionally contains
 `models/football/engine/step2_fixture_transition.py` and a separate
 `XI_FIXTURE_TRANSITION_SHA256.txt`. Verify that digest when extracting
-the archive. Before a started fixture goes to `xi_portable.py pair`,
-run the transition CLI with independently checked fixture status,
-kickoff time and current assessment clock. A `STARTED` result
-automatically opens the `/live` assessment **in the same /xi turn**.
-The C/C2 prematch pair must still reject STARTED; this is expected and
-not a technical runtime failure. Missing executable in-play odds only
-withholds a live BET, not qualitative football analysis. Never
-backfill prematch exposure using an after-kickoff snapshot.
+the archive. Before a started fixture is assessed, run the transition CLI with
+independently checked fixture status, kickoff time and current assessment
+clock. A `STARTED` result automatically opens the `/live` football
+assessment **in the same /xi turn** and then uses the quote-free `xi`
+football path, never the prematch priced `pair` command. Current V4 has no
+deterministic live priced-action engine: verified in-play odds may be compared
+with burdens, but `live_bet_authorized` remains false and no official live
+BET/WAIT is emitted. Never backfill prematch exposure using an after-kickoff
+snapshot.
 
 The artifact is an executable **source transport**, not a completed decision
 or proof of live XI/odds. C2 remains shadow-only; the publication gate, live
@@ -176,7 +171,7 @@ For stage=`xi`, use the portable fast path first:
 1. fetch only `models/football/engine/xi_portable.py` from the exact current repository revision;
 2. write it to a temporary runnable workspace;
 3. run `python xi_portable.py self-check` (or the available Python execution surface);
-4. if it passes, use the same file for both atomic C+C2 pair execution and Step-2 reconciliation;
+4. if it passes, use the same file for atomic C+C2 football-first `xi` execution; use priced reconciliation/accounting only for a separately authorized executable price decision;
 5. do **not** materialize the full engine tree or run the multi-file XI runtime probe on a successful portable path.
 
 Required portable success:
@@ -246,7 +241,7 @@ Recommended workspace:
 
 After writing, run:
 
-`python models/football/engine/runtime_probe.py --stage <rank|xi|audit>`
+`python models/football/engine/runtime_probe.py --stage <sweep|rank|xi|audit>`
 
 Required success:
 
@@ -264,23 +259,24 @@ Run the stage command.
 
 Examples:
 
-Rank:
-`python models/football/engine/board_pair_cli.py --c <c.json> --c2 <c2.json>`
+Sweep:
+`python models/football/stages_v4/stage.py --output v4_sweep.json sweep --source source.json`
 
-then after replenishment reaches a stop condition:
-`python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
+Rank:
+`python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --c2 c2.json --unranked unranked.json`
 
 XI primary:
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
 
-XI session reconciliation primary:
-`python xi_portable.py reconcile --input <step2_reconcile.json>`
+Strict prematch priced subdecision only when separately authorized:
+`python xi_portable.py pair --c <c_priced.json> --c2 <c2_priced.json>`
 
-XI active-model accounting primary:
-`python xi_portable.py accounting --input <model_accounting.json>`
+XI session reconciliation is required only for a separately authorized priced
+decision; quote-free football and screenshot-only conditional comparisons do
+not create exposure/accounting entries.
 
-XI multi-file fallback only:
-`python models/football/engine/decision_pair_cli.py --c <c.json> --c2 <c2.json>`
+XI multi-file football fallback only:
+`python models/football/engine/decision_pair_cli.py --football-only --c <c_football.json> --c2 <c2_football.json>`
 
 Audit:
 `python models/football/engine/cli.py audit --input <audit.json>`
@@ -293,26 +289,22 @@ and when factor calibration is due:
 
 ## 3. Stage source manifests
 
-### Rank
+### Sweep / Rank V4
 
 Materialize:
-- `models/football/engine/cli.py`
+- `models/football/stages_v4/stage.py`
+- `models/football/stages_v4/league_registry.py`
+- `models/football/stages_v4/discovery_goal_gate.py`
+- `models/football/stages_v4/goals_first_intake.py`
+- `models/football/engine/goal_route_prescreen.py`
+- `models/football/engine/board_pair_cli.py`
 - `models/football/engine/adapter.py`
 - `models/football/engine/core.py`
 - `models/football/engine/competition_reliability.py`
-- `models/football/engine/schema.json`
-- `models/football/engine/board_pair_cli.py`
-- `models/football/engine/sweep_intake_evidence.py`
-- `models/football/engine/sweep_intake_evidence_cli.py`
-- `models/football/engine/step0_handoff_cli.py`
-- `models/football/engine/coverage_manifest.py`
-- `models/football/engine/capacity_replenishment.py`
-- `models/football/engine/capacity_replenishment_cli.py`
-- `models/football/engine/rank_terminal_status.py`
-- `models/football/engine/rank_terminal_status_cli.py`
-- `models/football/engine/model_bet_accounting.py`
-- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
+
+Do not load old Step0 handoff, coverage, capacity, repaired-handoff or
+rank-terminal modules as current V4 runtime dependencies.
 
 ### XI
 

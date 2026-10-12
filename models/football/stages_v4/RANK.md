@@ -107,6 +107,10 @@ Freeze full C and C2 board input from the SAME actual common evidence.
 Use `python models/football/stages_v4/stage.py --output v4_rank.json rank
 --sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --c2 c2.json --unranked unranked.json`.
 The deterministic production model C and C2 execute independently.
-Results are **awaiting Airtable persistence** until separately
-read back and verified. Store only C official lanes and keep C2
-shadow; never invent bets, prices or website publication.
+Results are **awaiting Airtable persistence** until separately read back and
+verified. The verification receipt must carry forward `source_replayed`,
+`current_fixture_status_checked`, `original_source_sha256` and
+`status_refresh_sha256`; routine /xi must receive the unchanged original
+source and exact status-refresh payloads and recompute those hashes before
+authorization. Store only C official lanes and keep C2 shadow; never invent
+prices or website publication.

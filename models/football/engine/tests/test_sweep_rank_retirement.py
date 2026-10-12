@@ -68,7 +68,7 @@ class SweepRankRetirementTests(unittest.TestCase):
         current = (ROOT / "CURRENT_MODEL.md").read_text(encoding="utf-8")
         self.assertIn("SWEEP_RANK_RETIRED", current)
         self.assertIn("ACTIVE NEW STAGES", current)
-        self.assertIn("/xi, /xi exception, /live, /audit and /report remain", current)
+        self.assertIn("/live, /audit and /report remain available", current)
 
     def test_legacy_validation_functions_still_import_for_audit(self):
         from step0_handoff_cli import validate_step0_handoff

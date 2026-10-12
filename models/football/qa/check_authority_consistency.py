@@ -83,6 +83,18 @@ require("models/football/prompts/rank.md", "stages_v4/RANK.md", "--status-refres
 require("models/football/prompts/README.md", "stages_v4/SWEEP.md", "stages_v4/RANK.md")
 require("models/football/prompts/COMMAND_ALIASES.md", "SWEEP_RANK_RETIRED", "NEW V4")
 require("models/football/CURRENT_MODEL.md", "SWEEP_RANK_RETIRED", "ACTIVE NEW STAGES")
+forbid(
+    "models/football/CURRENT_MODEL.md",
+    "- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`",
+    "- `/rank` -> `01_WORK_DAILY_SWEEP.md`",
+    "## Unified /sweep and /rank V3",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "/sweep` -> `models/football/stages_v4/SWEEP.md",
+    "/rank` -> `models/football/stages_v4/RANK.md",
+    "Historical V3 coordinator — non-authoritative",
+)
 require("models/football/stages_v4/stage.py",
         "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
 for entrypoint in (
@@ -107,7 +119,8 @@ require(
     "Football C3 and Football C4 are retired",
     "C + C2",
     "C+C2 EXCEPTION INCOMPLETE",
-    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
+    "python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
+    "EXECUTED_C_C2_FOOTBALL_ONLY",
 )
 require(
     "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
@@ -589,7 +602,8 @@ require(
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "ACTIVE ROSTER OVERRIDE",
-    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
+    "xi_portable.py xi --c c_football.json --c2 c2_football.json",
+    "USER_SCREENSHOT_ONLY",
 )
 require(
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
@@ -597,6 +611,17 @@ require(
     "No live-stat gate",
     "Assess the live match **regardless of provider live stats**",
     "positive live-stat confirmation is not required",
+)
+require(
+    "models/football/engine/step2_fixture_transition.py",
+    'live_price_action_engine_status": "NOT_IMPLEMENTED_V4"',
+    '"CURRENT_LIVE_QUOTE_OBSERVED_NO_ACTION_ENGINE"',
+    '"live_bet_authorized": False',
+)
+require(
+    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
+    "no deterministic live priced-action engine",
+    "live_price_action_engine_status=NOT_IMPLEMENTED_V4",
 )
 
 # 5. Step-2 market history must be attempted and explicit.
@@ -638,13 +663,25 @@ require(
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "XI PORTABLE RUNTIME: PASS",
     "xi_portable.py self-check",
-    "runtime_probe.py --stage <rank|xi|audit>",
+    "runtime_probe.py --stage <sweep|rank|xi|audit>",
 )
 require(
     "models/football/engine/runtime_probe.py",
     "STAGE_FILES",
     "def probe_stage",
     "RUNTIME SOURCE PROBE: PASS",
+)
+require(
+    "models/football/engine/runtime_probe.py",
+    '"sweep": (',
+    '"rank": (',
+    "models/football/stages_v4/stage.py",
+    "models/football/stages_v4/goals_first_intake.py",
+)
+forbid(
+    "models/football/engine/runtime_probe.py",
+    '"models/football/engine/capacity_replenishment.py"',
+    '"models/football/engine/repaired_handoff_normalize.py"',
 )
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
@@ -657,16 +694,16 @@ require(
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
 )
 
-# 5. Completed Step-2 decisions must execute the active pair atomically.
+# 5. Completed current /xi football assessments execute C+C2 atomically.
 require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "MANDATORY STEP-2 EXECUTION PRECHECK",
     "Active models:** Football C official + Football C2 shadow",
     "xi_portable.py self-check",
-    "xi_portable.py pair --c <c.json> --c2 <c2.json>",
-    "decision_pair_cli.py",
+    "xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
+    "decision_pair_cli.py --football-only",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
-    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR",
+    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY",
 )
 require(
     "models/football/engine/xi_portable.py",

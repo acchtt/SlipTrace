@@ -317,6 +317,16 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     return outcome
 
 
+def verify_rank_source_and_status(
+    sweep_receipt: dict[str, Any], original_source: dict[str, Any],
+    status_refresh: dict[str, Any], *, now: str,
+) -> dict[str, Any]:
+    """Replay the native V4 source and validate the exact rank-time full-cohort status payload."""
+    return _check_rank_source_and_status(
+        sweep_receipt, original_source, status_refresh, _time(now, "rank provenance now")
+    )
+
+
 def _check_rank_source_and_status(
     sweep_receipt: dict[str, Any], original_source: dict[str, Any],
     status_refresh: dict[str, Any], at: datetime,
@@ -428,8 +438,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
     for mid in ids:
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
-    source_proof = _check_rank_source_and_status(
-        sweep_receipt, original_source, status_refresh, at
+    source_proof = verify_rank_source_and_status(
+        sweep_receipt, original_source, status_refresh, now=at.isoformat()
     )
     for mid in ids:
         if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED":
@@ -520,6 +530,10 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "run_id": rank_receipt["run_id"], "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
         "c2_shadow_only": True, "no_bet_created": True,
+        "source_replayed": rank_receipt.get("source_replayed") is True,
+        "current_fixture_status_checked": rank_receipt.get("current_fixture_status_checked") is True,
+        "original_source_sha256": rank_receipt.get("original_source_sha256"),
+        "status_refresh_sha256": rank_receipt.get("status_refresh_sha256"),
     }
 
 

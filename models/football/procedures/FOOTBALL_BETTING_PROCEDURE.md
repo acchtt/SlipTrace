@@ -1,14 +1,23 @@
 > **V4 AUTHORITY NOTICE (2026-10-12):** This document contains historical V1–V3 or Football A operational instructions. Its legacy `ACTIVE` labels, Step0/Step1 capacity limits, AiScore-only rules, pre-XI fixture-specific odds/lineup blockers and old-model claims do **not** govern current `/sweep` or `/rank`. Canonical replacement: `models/football/stages_v4/SWEEP.md` and `RANK.md`; current C/C2 authority: `CURRENT_MODEL.md`. Only football safety guidance explicitly imported by those V4 launchers remains applicable. Historical receipts remain immutable.
 
-# Football Betting Procedure — Current Execution Wrapper
+# Football Betting Procedure — Historical Football A Execution Wrapper
 
-**Status:** ACTIVE SUPPORTING PROCEDURE  
-**Official model:** Football A  
-**Final Step-2/Step-3 authority:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
+**Status:** RETIRED FOR NEW V4 /xi AND /live — HISTORICAL FOOTBALL A ONLY  
+**Historical model:** Football A  
+**Historical companion:** `models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md`
 
-This procedure supports execution from frozen PRE through final verdict/persistence. Where older versioned rules, examples or labels conflict with the compiled Step-2 specification, the compiled specification wins.
+This file exists only to reconstruct Football A-era execution. It has **zero
+current authority** for V4 `/sweep`, `/rank`, `/xi`, `/live`,
+`/audit`, `/report`, new Decision States, Website Picks or Actual Bets.
+Current C/C2 execution authority is
+`FOOTBALL_SIMPLE_ASSESS_AND_BET.md`,
+`FOOTBALL_C_C2_ACTIVE_PAIR.md`,
+`02_NORMAL_CHAT_XI_ODDS.md` and `03_NORMAL_CHAT_LIVE.md`.
+Any later "current", "ACTIVE", Football A persistence, quote-first, market
+history or live-action wording below is historical text only and must never
+override those V4 authorities.
 
-Historical v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54/v0.2.55 behavior remains auditable but is not a second current decision engine.
+Historical v0.2.50/v0.2.51/v0.2.52/v0.2.53/v0.2.54/v0.2.55 behavior remains auditable but is not a current decision engine.
 
 ---
 

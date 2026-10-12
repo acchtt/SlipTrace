@@ -92,6 +92,8 @@ def route_fixture(payload: dict[str, Any]) -> dict[str, Any]:
         "prematch_quote_can_be_reused": False,
         "prematch_bet_authorized": False,
         "live_bet_authorized": False,
+        "live_price_action_engine_status": "NOT_IMPLEMENTED_V4",
+        "live_price_comparison_allowed": False,
         "actual_user_bet_recorded": False,
         # Football analysis is never gated on a bookmaker quote. The price
         # gate belongs exclusively to an eventual executable BET decision.
@@ -141,9 +143,10 @@ def route_fixture(payload: dict[str, Any]) -> dict[str, Any]:
             "live_quote_required_for_football_assessment": False,
             "live_quote_required_for_executable_bet": True,
             "executable_quote_status": (
-                "CURRENT_LIVE_QUOTE_AVAILABLE" if quote_ok
+                "CURRENT_LIVE_QUOTE_OBSERVED_NO_ACTION_ENGINE" if quote_ok
                 else "UNPRICED_NO_EXECUTABLE_BET"
             ),
+            "live_price_comparison_allowed": quote_ok,
             "material_football_recheck_required": requires_recheck,
             "assessment_status": state,
             "requires_new_live_epoch": True,

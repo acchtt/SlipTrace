@@ -84,10 +84,12 @@ football-first read. Started/HT fixtures assess football first; their
 prematch price path is explicitly blocked and live betting requires
 a fresh authorized live epoch.
 
-Routine V4 eligibility takes actual original
-`V4_SWEEP_READY` plus executed C/C2 rank and independently
-read-back `V4_RANK_PERSISTENCE_VERIFIED` into
-`step2_queue_guard.py` mode `V4_ROUTINE`. No V1–V3 ZIP/work_ready
+Routine V4 eligibility takes the actual original `V4_SWEEP_READY`,
+unchanged original `source.json`, exact full-cohort rank
+`status_refresh.json`, executed C/C2 rank and independently read-back
+`V4_RANK_PERSISTENCE_VERIFIED` into `step2_queue_guard.py` mode
+`V4_ROUTINE`. The queue guard binds both provenance hashes and both
+source/status proof booleans before routine /xi is due. No V1–V3 ZIP/work_ready
 requirements. A user-declared exception may use `EXCEPTION_ONLY`
 without a V4 board but still requires genuine **independent**
 C and C2 football evidence. Missing C2 is INCOMPLETE, not made up.

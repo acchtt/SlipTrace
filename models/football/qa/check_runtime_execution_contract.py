@@ -44,9 +44,10 @@ require(
     "xi_source_handoff.py",
     "XI SOURCE HANDOFF: PASS",
     "SOURCE_TRANSPORT_BLOCKED",
-    "xi_portable.py pair",
-    "xi_portable.py accounting",
-    "runtime_probe.py --stage <rank|xi|audit>",
+    "xi_portable.py xi",
+    "Strict prematch priced subdecision only when separately authorized",
+    "model_bet_accounting_cli.py",
+    "runtime_probe.py --stage <sweep|rank|xi|audit>",
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "Do not write \"Python unavailable\" before a real probe fails.",
     "ENGINE EXECUTION FAILED — ATTEMPTED — <exact reason>",
@@ -55,9 +56,11 @@ require(
 require(
     "models/football/engine/runtime_probe.py",
     'STAGE_FILES = {',
+    '"sweep": (',
     '"rank": (',
     '"xi": (',
     '"audit": (',
+    "models/football/stages_v4/stage.py",
     "def probe_stage",
     "RUNTIME SOURCE PROBE: PASS",
     "RUNTIME SOURCE PROBE: FAIL",
@@ -110,9 +113,9 @@ require(
 require(
     "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
     "Active models:** Football C official + Football C2 shadow",
-    "python xi_portable.py pair --c <c.json> --c2 <c2.json>",
-    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_PAIR",
-    "decision_pair_cli.py",
+    "python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
+    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY",
+    "decision_pair_cli.py --football-only",
     "C3/C4 are never required for new Step-2 completion",
 )
 forbid(
@@ -122,14 +125,12 @@ forbid(
 )
 
 for rel in (
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
 ):
     require(rel, "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md")
 
 for rel in (
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
 ):
@@ -153,4 +154,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — active C+C2 runtime requires current-turn probes and atomic pair execution.")
+print("PASS — active V4 runtime requires current-turn probes, football-first C+C2 execution and explicit priced/live boundaries.")

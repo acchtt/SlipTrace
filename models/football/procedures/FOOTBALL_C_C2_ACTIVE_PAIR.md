@@ -25,13 +25,15 @@ Explicit `/xi exception` can execute independently sourced quote-free C+C2 footb
 
 Every user-declared /xi exception is a C+C2 assessment. "all models" now means the active roster: C + C2.
 
-Before issuing any verdict:
-1. freeze the common prematch/XI/research/market/tournament evidence;
-2. freeze both C and C2 model-owned inputs and supported lines;
-3. persist the frozen pair inputs;
-4. execute deterministic C and C2 validation from that same epoch;
-5. persist both outputs;
-6. only then publish the combined verdict.
+Before issuing any football verdict:
+1. freeze the common fixture/XI/research/tournament evidence and current score/minute when live;
+2. freeze both C and C2 model-owned football inputs and supported lines;
+3. execute deterministic quote-free C and C2 validation from that same epoch;
+4. persist/read back both football outputs;
+5. only then publish the combined football verdict.
+A market quote is optional. If pricing is supplied, evaluate it as a separate
+same-command subdecision under the current /xi screenshot/executability rules;
+never make market data a prerequisite for the football pair.
 
 The pair is fail-closed for completion. If C2 cannot be lawfully frozen or executed, do not present the exception as a completed C-only verdict. Persist:
 `C+C2 EXCEPTION INCOMPLETE — <exact reason>`
@@ -41,10 +43,15 @@ Never reconstruct C2 after kickoff or FT from later information.
 
 ## 4. Runtime
 
-Primary XI runtime:
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+Primary current XI runtime:
+`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
 
-A completed Step-2 decision requires both validators to execute. C remains the only official exposure authority; C2 remains shadow-only.
+Required football success is `EXECUTED_C_C2_FOOTBALL_ONLY`. The legacy
+priced `pair` command is not the primary /xi completion path; it may be used
+only by the separate strict prematch executable-price channel with genuine
+decision-stage payloads. A completed football assessment requires both
+validators to execute. C remains the only official exposure authority; C2
+remains shadow-only.
 
 ## 5. Persistence and accounting
 

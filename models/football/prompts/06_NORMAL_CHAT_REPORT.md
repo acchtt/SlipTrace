@@ -11,13 +11,13 @@ This launcher is read-only. It summarizes already-existing football state and mu
 
 ## V4 reporting amendment (2026-10-12)
 
-Prefer the latest source-attested V4 sweep/rank readback. Distinguish `GOAL_PRIORITY` ranked candidates from pending histories and unregistered discovery, unranked due-to-time/status, C/C2 football assessed, and screenshot-only conditional price checks. Never report screenshot conditional ACT as official C BET, a live approved bet, Website Pick, or physical execution. Never describe an old V1–V3 `Sweep Runs` record as a current V4 rank receipt. The original fixture status is frozen history: only new observed status may determine `next matches`. The confirmed `Actual Bets — Current` table is the sole physical P/L ledger.
+Prefer the latest V4 sweep/rank/readback provenance chain. A matching digest is an internal integrity check, not third-party proof of provider authenticity. Distinguish `GOAL_PRIORITY` ranked candidates from pending histories and unregistered discovery, unranked due-to-time/status, C/C2 football assessed, and screenshot-only conditional price checks. Never report screenshot conditional ACT as official C BET, a live approved bet, Website Pick, or physical execution. Never describe an old V1–V3 `Sweep Runs` record as a current V4 rank receipt. The original fixture status is frozen history: only new observed status may determine `next matches`. The confirmed `Actual Bets — Current` table is the sole physical P/L ledger.
 
 ## Current report scope
 
 When relevant, report:
 - current board/window;
-- Step-0 funnel/capacity state;
+- V4 source/goal-screen state: source-visible count, GOAL_PRIORITY, pending goal/discovery research, exclusions and provenance status;
 - Football C official state/rank/line/lane;
 - Football C2 shadow state/rank/line;
 - current C+C2 Step-2 actions;
@@ -40,7 +40,7 @@ Show the latest frozen:
 - C official ranking/state/line;
 - FOLLOW / RESERVE / STOP lane;
 - C2 shadow ranking/state/line;
-- replenishment state;
+- V4 rank provenance/readback state, including source replay and status-refresh verification;
 - pair-reconciliation status;
 - persistence/runtime status.
 

@@ -12,24 +12,28 @@ from typing import Any
 MIN_PYTHON = (3, 10)
 
 STAGE_FILES = {
-    "rank": (
-        "models/football/engine/cli.py",
+    "sweep": (
+        "models/football/stages_v4/stage.py",
+        "models/football/stages_v4/league_registry.py",
+        "models/football/stages_v4/discovery_goal_gate.py",
+        "models/football/stages_v4/goals_first_intake.py",
         "models/football/engine/adapter.py",
         "models/football/engine/core.py",
         "models/football/engine/competition_reliability.py",
-        "models/football/engine/schema.json",
         "models/football/engine/board_pair_cli.py",
-        "models/football/engine/sweep_intake_evidence.py",
-        "models/football/engine/sweep_intake_evidence_cli.py",
-        "models/football/engine/step0_handoff_cli.py",
-        "models/football/engine/coverage_manifest.py",
-        "models/football/engine/capacity_replenishment.py",
-        "models/football/engine/capacity_replenishment_cli.py",
-        "models/football/engine/rank_terminal_status.py",
-        "models/football/engine/rank_terminal_status_cli.py",
-        "models/football/engine/repaired_handoff_normalize.py",
-        "models/football/engine/model_bet_accounting.py",
-        "models/football/engine/model_bet_accounting_cli.py",
+        "models/football/engine/goal_route_prescreen.py",
+        "models/football/engine/runtime_probe.py",
+    ),
+    "rank": (
+        "models/football/stages_v4/stage.py",
+        "models/football/stages_v4/league_registry.py",
+        "models/football/stages_v4/discovery_goal_gate.py",
+        "models/football/stages_v4/goals_first_intake.py",
+        "models/football/engine/adapter.py",
+        "models/football/engine/core.py",
+        "models/football/engine/competition_reliability.py",
+        "models/football/engine/board_pair_cli.py",
+        "models/football/engine/goal_route_prescreen.py",
         "models/football/engine/runtime_probe.py",
     ),
     "xi": (
@@ -59,19 +63,27 @@ STAGE_FILES = {
 }
 
 STAGE_IMPORTS = {
+    "sweep": (
+        "core",
+        "competition_reliability",
+        "adapter",
+        "board_pair_cli",
+        "goal_route_prescreen",
+        "league_registry",
+        "discovery_goal_gate",
+        "goals_first_intake",
+        "stage",
+    ),
     "rank": (
         "core",
         "competition_reliability",
         "adapter",
         "board_pair_cli",
-        "sweep_intake_evidence",
-        "sweep_intake_evidence_cli",
-        "step0_handoff_cli",
-        "coverage_manifest",
-        "model_bet_accounting",
-        "model_bet_accounting_cli",
-        "rank_terminal_status",
-        "rank_terminal_status_cli",
+        "goal_route_prescreen",
+        "league_registry",
+        "discovery_goal_gate",
+        "goals_first_intake",
+        "stage",
     ),
     "xi": (
         "core",
@@ -156,11 +168,15 @@ def probe_stage(stage: str, root: Path | None = None) -> dict[str, Any]:
         result["ok"] = False
         return result
 
-    engine_dir = root / "models/football/engine"
-    inserted = False
-    if str(engine_dir) not in sys.path:
-        sys.path.insert(0, str(engine_dir))
-        inserted = True
+    search_dirs = [root / "models/football/engine"]
+    if stage in {"sweep", "rank"}:
+        search_dirs.append(root / "models/football/stages_v4")
+    inserted: list[str] = []
+    for directory in search_dirs:
+        text = str(directory)
+        if text not in sys.path:
+            sys.path.insert(0, text)
+            inserted.append(text)
 
     try:
         for name in STAGE_IMPORTS[stage]:
@@ -169,9 +185,9 @@ def probe_stage(stage: str, root: Path | None = None) -> dict[str, Any]:
             except Exception as exc:
                 result["import_errors"].append(f"{name}: {exc}")
     finally:
-        if inserted:
+        for text in inserted:
             try:
-                sys.path.remove(str(engine_dir))
+                sys.path.remove(text)
             except ValueError:
                 pass
 
