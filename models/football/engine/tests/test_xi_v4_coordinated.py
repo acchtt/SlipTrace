@@ -109,6 +109,12 @@ class V4QueueBridgeTests(unittest.TestCase):
         self.assertEqual(actual["due_count"],1)
         self.assertEqual(actual["due"][0]["step2_authorization"],"ROUTINE_FOLLOW")
 
+    def test_full_status_refresh_may_include_legitimately_unranked_started_fixture(self):
+        actual=freeze_queue(native_v4_case(include_closed_unranked=True))
+        self.assertEqual(actual["due_count"],1)
+        self.assertEqual(actual["due"][0]["match_id"],"fixture-1")
+        self.assertTrue(actual["v4_provenance_chain_verified"])
+
     def test_old_or_synthetic_rank_without_hardened_provenance_is_rejected(self):
         for target,field in (
             ("v4_rank_receipt","source_replayed"),
