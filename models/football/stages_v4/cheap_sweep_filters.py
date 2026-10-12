@@ -196,6 +196,78 @@ SWEDEN_SUPERETTAN_EVENT = {
 }
 
 
+ROMANIA_SUPERLIGA_EVENT = {
+    norm(x) for x in (
+        "Universitatea Cluj", "U Cluj", "FC Universitatea Cluj",
+        "Universitatea Craiova", "CS Universitatea Craiova",
+        "CFR Cluj", "CFR 1907 Cluj",
+    )
+}
+
+ROMANIA_LIGA2_HIGH_EVENT = {
+    norm(x) for x in (
+        "CS Dinamo Bucuresti", "CS Dinamo București",
+        "Popesti-Leordeni", "Popești-Leordeni", "CS Popesti Leordeni",
+        "Concordia", "Concordia Chiajna",
+        "Chindia Targoviste", "Chindia Târgoviște",
+    )
+}
+
+POLAND_EKSTRA_HIGH_EVENT = {
+    norm(x) for x in (
+        "Rakow Czestochowa", "Raków Częstochowa",
+        "Lech Poznan", "Lech Poznań",
+        "Gornik Zabrze", "Górnik Zabrze",
+        "Wisla Krakow", "Wisła Kraków",
+    )
+}
+
+POLAND_ILIGA_EVENT = {
+    norm(x) for x in (
+        "Stal Mielec", "FKS Stal Mielec",
+        "Warta Poznan", "Warta Poznań",
+        "Nieciecza", "Bruk-Bet Termalica Nieciecza",
+    )
+}
+
+SERBIA_SUPER_STRONG_EVENT = {
+    norm(x) for x in (
+        "Partizan", "FK Partizan", "Partizan Beograd",
+    )
+}
+
+SERBIA_SUPER_EVENT = {
+    norm(x) for x in (
+        "OFK Beograd",
+        "Vojvodina", "FK Vojvodina",
+    )
+}
+
+SERBIA_PRVA_EVENT = {
+    norm(x) for x in (
+        "Javor Ivanjica", "FK Javor Ivanjica",
+        "Borac Cacak", "Borac Čačak", "FK Borac Cacak", "FK Borac Čačak",
+        "Backa Topola", "Bačka Topola", "FK Backa Topola", "FK Bačka Topola",
+    )
+}
+
+CZECH_FIRST_STRONG_EVENT = {
+    norm(x) for x in (
+        "Sigma Olomouc", "SK Sigma Olomouc",
+    )
+}
+
+CZECH_FIRST_EVENT = {
+    norm(x) for x in (
+        "Slavia Praha", "SK Slavia Praha",
+        "Mlada Boleslav", "Mladá Boleslav",
+        "Teplice", "FK Teplice",
+        "Sparta Praha", "AC Sparta Praha",
+        "Viktoria Plzen", "Viktoria Plzeň",
+    )
+}
+
+
 # Big-Five competition status is a data/researchability prior only. It must
 # never promote a fixture into active sweep research by league prestige alone.
 # Until a separate current team/event profile is researched, missing-evidence
@@ -392,6 +464,90 @@ def classify_research_priority(
             return {
                 **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
                 "reason": reason, "league_profile": "SWE_SUPERETTAN_2026",
+            }
+
+    if country == "romania":
+        if _contains(comp, "superliga", "liga i", "liga 1"):
+            if teams & ROMANIA_SUPERLIGA_EVENT:
+                priority, reason = SECONDARY, "ROMANIA_SUPERLIGA_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "ROMANIA_SUPERLIGA_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "ROU_SUPERLIGA_2026_27",
+            }
+        if _contains(comp, "liga ii", "liga 2"):
+            if teams & ROMANIA_LIGA2_HIGH_EVENT:
+                priority, reason = PRIMARY, "ROMANIA_LIGA2_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "ROMANIA_LIGA2_GOAL_POSITIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "ROU_LIGA2_2026_27",
+            }
+
+    if country == "poland":
+        if _contains(comp, "ekstraklasa"):
+            if teams & POLAND_EKSTRA_HIGH_EVENT:
+                priority, reason = PRIMARY, "POLAND_EKSTRA_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "POLAND_EKSTRA_GOAL_POSITIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "POL_EKSTRA_2026_27",
+            }
+        if _contains(comp, "i liga", "1 liga", "liga 1", "betclic 1 liga"):
+            if teams & POLAND_ILIGA_EVENT:
+                priority, reason = SECONDARY, "POLAND_ILIGA_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "POLAND_ILIGA_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "POL_ILIGA_2026_27",
+                "draw_trap_caution": True,
+            }
+
+    if country == "serbia":
+        if _contains(comp, "super liga", "superliga", "mozzart bet super liga"):
+            if teams & SERBIA_SUPER_STRONG_EVENT:
+                priority, reason = PRIMARY, "SERBIA_SUPER_CURRENT_STRONG_EVENT_TEAM"
+            elif teams & SERBIA_SUPER_EVENT:
+                priority, reason = SECONDARY, "SERBIA_SUPER_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "SERBIA_SUPER_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "SRB_SUPERLIGA_2026_27",
+            }
+        if _contains(comp, "prva liga", "first league", "mozzart bet prva liga"):
+            if teams & SERBIA_PRVA_EVENT:
+                priority, reason = SECONDARY, "SERBIA_PRVA_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "SERBIA_PRVA_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "SRB_PRVA_2026_27",
+                "draw_trap_caution": True,
+            }
+
+    if country == "czechia":
+        if _contains(comp, "fnl", "national football league", "chance narodni liga"):
+            return {
+                **base, "priority": SECONDARY,
+                "priority_rank": PRIORITY_RANK[SECONDARY],
+                "reason": "CZECH_FNL_GOAL_POSITIVE_BASE",
+                "league_profile": "CZE_FNL_2026_27",
+            }
+        if _contains(comp, "czech first league", "first league", "czech first division", "chance liga"):
+            if teams & CZECH_FIRST_STRONG_EVENT:
+                priority, reason = PRIMARY, "CZECH_FIRST_CURRENT_STRONG_EVENT_TEAM"
+            elif teams & CZECH_FIRST_EVENT:
+                priority, reason = SECONDARY, "CZECH_FIRST_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "CZECH_FIRST_SELECTIVE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "CZE_FIRST_2026_27",
             }
 
     if country == "japan":
