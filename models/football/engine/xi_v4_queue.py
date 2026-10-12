@@ -36,6 +36,8 @@ def _sealed(obj: Any, label: str, status: str) -> None:
 def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]]) -> dict[str, Any]:
     source, ranked, readback = (data.get(name) for name in (
         "v4_sweep_receipt", "v4_rank_receipt", "v4_persistence_receipt"))
+    original_source = data.get("v4_original_source")
+    status_refresh = data.get("v4_status_refresh")
     _sealed(source, "sweep", "V4_SWEEP_READY")
     _sealed(ranked, "rank", "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK")
     if not isinstance(readback, dict) or readback.get("schema_version") != "football-stages-v4" or readback.get("status") != "V4_RANK_PERSISTENCE_VERIFIED":
@@ -58,6 +60,21 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
             raise V4XIQueueError(f"V4: rank {field} missing/invalid")
         if readback.get(field) != value:
             raise V4XIQueueError(f"V4: persistence {field} differs from verified rank")
+    if not isinstance(original_source, dict) or _digest(original_source) != ranked["original_source_sha256"]:
+        raise V4XIQueueError("V4: unchanged original source payload/hash required for routine XI")
+    if not isinstance(status_refresh, dict) or _digest(status_refresh) != ranked["status_refresh_sha256"]:
+        raise V4XIQueueError("V4: exact rank status-refresh payload/hash required for routine XI")
+    if (status_refresh.get("schema_version") != "football-v4-rank-status-refresh-v1"
+            or status_refresh.get("run_id") != run_id
+            or status_refresh.get("sweep_integrity_sha256") != source["integrity_sha256"]):
+        raise V4XIQueueError("V4: status-refresh source/run binding invalid")
+    status_rows = status_refresh.get("matches")
+    original_ids = {m.get("match_id") for m in source.get("eligible_queue", []) if isinstance(m, dict)}
+    if not isinstance(status_rows, list) or len(status_rows) != len(original_ids):
+        raise V4XIQueueError("V4: status-refresh must cover the full frozen eligible cohort")
+    status_by_id = {m.get("match_id"): m.get("fixture_status") for m in status_rows if isinstance(m, dict)}
+    if set(status_by_id) != original_ids or any(v != "PREMATCH_CONFIRMED" for v in status_by_id.values()):
+        raise V4XIQueueError("V4: routine XI requires the exact prematch status-refresh cohort used by rank")
     pair = ranked.get("board_pair")
     if not isinstance(pair, dict) or pair.get("board_engine_execution_status") != "EXECUTED_C_C2_BOARDS" or pair.get("common_evidence_reconciled") is not True:
         raise V4XIQueueError("V4: real reconciled C+C2 paired rank execution missing")
