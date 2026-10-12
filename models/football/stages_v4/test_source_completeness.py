@@ -152,6 +152,12 @@ class SourceCompletenessContractTests(unittest.TestCase):
         with self.assertRaisesRegex(SourceCompletenessError, "FIXTURE_UNION_MISMATCH"):
             validate_source_completeness(item, now=NOW)
 
+    def test_terminal_sentinel_must_follow_main_surface_observation(self):
+        item = source()
+        item["source_completeness_manifest"]["terminal_sentinel"]["checked_at_utc"] = "2026-10-12T18:03:00Z"
+        with self.assertRaisesRegex(SourceCompletenessError, "PRECEDES_MAIN_DATE_SURFACE"):
+            validate_source_completeness(item, now=NOW)
+
     def test_terminal_sentinel_is_independent_and_exact(self):
         item = source()
         item["source_completeness_manifest"]["terminal_sentinel"]["extracted_fixture_ids"] = []
