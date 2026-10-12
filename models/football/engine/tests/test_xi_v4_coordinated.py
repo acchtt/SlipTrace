@@ -10,12 +10,16 @@ import unittest
 
 HERE=pathlib.Path(__file__).resolve().parent
 ENGINE=HERE.parent
+STAGES=ENGINE.parent / "stages_v4"
 sys.path.insert(0,str(ENGINE))
+sys.path.insert(0,str(STAGES))
 from step2_queue_guard import freeze_queue,Step2QueueError
 from xi_v4_queue import _digest
 from xi_assessment_reconcile import verify_football_assessment,XIAssessmentReadbackError
 from test_football_assessment_pair import football
 from test_adapter import pair_payload
+from test_board_pair import c_row, c2_row, payload as board_payload
+from stage import sweep as v4_sweep, rank as v4_rank, verify_rank as v4_verify_rank
 from decision_pair_cli import run_football_pair
 
 
