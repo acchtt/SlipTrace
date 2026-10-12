@@ -24,6 +24,7 @@ class RuntimeProbeTests(unittest.TestCase):
                 "models/football/stages_v4/league_registry.py",
                 "models/football/stages_v4/discovery_goal_gate.py",
                 "models/football/stages_v4/goals_first_intake.py",
+                "models/football/stages_v4/cheap_sweep_filters.py",
                 "models/football/stages_v4/source_completeness.py",
                 "models/football/engine/board_pair_cli.py",
                 "models/football/engine/goal_route_prescreen.py",
