@@ -167,20 +167,8 @@ require(
     "mozzart bet super liga",
 )
 require(
-    "models/football/stages_v4/league_registry.py",
-    '"argentina": "primera division',
-    '"bolivia": "lfpb',
-    '"brazil": "serie a',
-    '"chile": "primera division',
-    '"colombia": "categoria primera a',
-    '"ecuador": "serie a',
-    '"paraguay": "division profesional',
-    '"peru": "liga 1',
-    '"uruguay": "primera division',
-    '"venezuela": "primera division',
-    '"united states": "mls',
-    '"mexico": "liga mx',
-    '"canada": "canadian premier league',
+    "models/football/stages_v4/test_cheap_sweep_filters.py",
+    "test_americas_filters_do_not_require_registry_promotion",
 )
 
 require(
