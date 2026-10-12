@@ -663,13 +663,25 @@ require(
     "FOOTBALL_RUNTIME_EXECUTION_RECORD",
     "XI PORTABLE RUNTIME: PASS",
     "xi_portable.py self-check",
-    "runtime_probe.py --stage <rank|xi|audit>",
+    "runtime_probe.py --stage <sweep|rank|xi|audit>",
 )
 require(
     "models/football/engine/runtime_probe.py",
     "STAGE_FILES",
     "def probe_stage",
     "RUNTIME SOURCE PROBE: PASS",
+)
+require(
+    "models/football/engine/runtime_probe.py",
+    '"sweep": (',
+    '"rank": (',
+    "models/football/stages_v4/stage.py",
+    "models/football/stages_v4/goals_first_intake.py",
+)
+forbid(
+    "models/football/engine/runtime_probe.py",
+    '"models/football/engine/capacity_replenishment.py"',
+    '"models/football/engine/repaired_handoff_normalize.py"',
 )
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
