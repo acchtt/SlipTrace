@@ -12,6 +12,18 @@ from typing import Any
 MIN_PYTHON = (3, 10)
 
 STAGE_FILES = {
+    "sweep": (
+        "models/football/stages_v4/stage.py",
+        "models/football/stages_v4/league_registry.py",
+        "models/football/stages_v4/discovery_goal_gate.py",
+        "models/football/stages_v4/goals_first_intake.py",
+        "models/football/engine/adapter.py",
+        "models/football/engine/core.py",
+        "models/football/engine/competition_reliability.py",
+        "models/football/engine/board_pair_cli.py",
+        "models/football/engine/goal_route_prescreen.py",
+        "models/football/engine/runtime_probe.py",
+    ),
     "rank": (
         "models/football/stages_v4/stage.py",
         "models/football/stages_v4/league_registry.py",
@@ -51,6 +63,17 @@ STAGE_FILES = {
 }
 
 STAGE_IMPORTS = {
+    "sweep": (
+        "core",
+        "competition_reliability",
+        "adapter",
+        "board_pair_cli",
+        "goal_route_prescreen",
+        "league_registry",
+        "discovery_goal_gate",
+        "goals_first_intake",
+        "stage",
+    ),
     "rank": (
         "core",
         "competition_reliability",
@@ -146,7 +169,7 @@ def probe_stage(stage: str, root: Path | None = None) -> dict[str, Any]:
         return result
 
     search_dirs = [root / "models/football/engine"]
-    if stage == "rank":
+    if stage in {"sweep", "rank"}:
         search_dirs.append(root / "models/football/stages_v4")
     inserted: list[str] = []
     for directory in search_dirs:
