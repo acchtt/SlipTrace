@@ -290,6 +290,10 @@ def main() -> int:
     one = sub.add_parser("xi")
     one.add_argument("--c", required=True)
     one.add_argument("--c2", required=True)
+    # New /xi one-turn contract: --c/--c2 are the independent football
+    # hypotheses. Priced offers are optional and never replace football.
+    one.add_argument("--price-c")
+    one.add_argument("--price-c2")
     pair = sub.add_parser("pair")
     pair.add_argument("--c", required=True)
     pair.add_argument("--c2", required=True)
@@ -318,16 +322,54 @@ def main() -> int:
             mode1, mode2 = c_input.get("stage"), c2_input.get("stage")
             if mode1 != mode2:
                 raise ValueError("C+C2 must use the same /xi mode and current match epoch")
+            if bool(args.price_c) != bool(args.price_c2):
+                raise ValueError("both C and C2 separate price inputs are required")
             if mode1 == "football_assessment":
+                # Execute independently frozen C/C2 football FIRST. A
+                # rejected/stale bookmaker price may never erase it.
                 result = run_football_pair_files(args.c, args.c2)
-                display_mode = "FOOTBALL_ASSESSMENT"
+                if not args.price_c:
+                    output = {"ok": True, "xi_mode": "FOOTBALL_ASSESSMENT", **result}
+                else:
+                    try:
+                        price_c, price_c2 = _load(args.price_c), _load(args.price_c2)
+                        if price_c.get("stage") != "decision" or price_c2.get("stage") != "decision":
+                            raise ValueError("price subdecision must use independent stage=decision pair")
+                        if (price_c.get("match",{}).get("match_id") != result["results"]["c"]["match_id"]
+                                or price_c2.get("match",{}).get("match_id") != result["results"]["c2"]["match_id"]
+                                or price_c.get("evidence_epoch_id") != c_input.get("evidence_epoch_id")
+                                or price_c2.get("evidence_epoch_id") != c2_input.get("evidence_epoch_id")):
+                            raise ValueError("price subdecision cannot borrow another match/epoch")
+                        if (c_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"
+                                or c2_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"):
+                            raise ValueError("STARTED/HALFTIME: prematch priced pair forbidden; route current live bet authorization separately")
+                        priced = run_pair_files(args.price_c, args.price_c2)
+                        price = {"ok": True, "status": "PRICE_CHECK_EXECUTED",
+                                 "receipt": priced}
+                        mode = "FOOTBALL_AND_PRICE_CHECK"
+                    except Exception as exc:
+                        # A price check can be incomplete, including because
+                        # fixture has started; the paired football assessment
+                        # still COMPLETED and remains displayed. No pretend bet.
+                        price = {"ok": False, "status": "PRICE_CHECK_BLOCKED",
+                                 "failure_class": "PRICE_EXECUTION_OR_CONTRACT",
+                                 "reason": str(exc),
+                                 "bet_authorized": False}
+                        mode = "FOOTBALL_ASSESSED_PRICE_CHECK_BLOCKED"
+                    output = {"ok": True, "xi_mode": mode, **result,
+                              "price_check": price}
             elif mode1 == "decision":
+                if args.price_c:
+                    raise ValueError("priced-only legacy inputs cannot also specify --price-c/--price-c2")
+                # Backward compatibility with old Step2 callers. Unlike the
+                # new football-first path this mode cannot claim football
+                # fallback without two genuine football_assessment inputs.
                 result = run_pair_files(args.c, args.c2)
-                display_mode = "FOOTBALL_AND_PRICE_CHECK"
+                output = {"ok": True, "xi_mode": "LEGACY_PREMATCH_PRICE_CHECK",
+                          "football_first_executed": False, **result}
             else:
                 raise ValueError("/xi expects stage=football_assessment or stage=decision")
-            print(json.dumps({"ok": True, "xi_mode": display_mode, **result},
-                             indent=2, sort_keys=True))
+            print(json.dumps(output, indent=2, sort_keys=True))
             return 0
         if args.command in {"pair", "bet-check"}:
             result = run_pair_files(args.c, args.c2)

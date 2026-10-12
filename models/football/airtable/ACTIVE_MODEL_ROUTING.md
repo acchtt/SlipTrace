@@ -5,6 +5,26 @@
 
 **Exception: /sweep is NOT rerouted.** Preserve the sweep launcher's existing Airtable connection and Step0 tracking, run IDs, checkpoint and original package writes. Do not migrate its Sweep Runs row or change any `00_NORMAL_CHAT_AISCORE_FETCH.md`, sweep CLI, workflow or Step0 transport code as part of this migration. This contract **does not decide** which base the sweep already uses. At the time of verification, sweep run `SWEEP-20261011-0858-20261011-1200` and its fixture coverage records are already in the new base: never force the sweep back to the old one.
 
+## October 12 — XI C/C2 football assessment readback
+
+Use additive `Decision States` single-select `XI Assessment Execution Status`,
+field `fldkjs6Sykivp0fag` on table `tblzMyYuDTi1UMd66`.
+The five explicit choices are:
+`EXECUTED_C_C2_FOOTBALL_ONLY`,
+`EXECUTED_C_C2_FOOTBALL_AND_PRICE`,
+`EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED`,
+`INCOMPLETE_C_C2_EVIDENCE`, and `ENGINE_FAILED_AFTER_ATTEMPT`.
+
+Do not overwrite the legacy `Engine Execution Status` single-select with
+unsupported values or falsify failed runtime when paired football succeeded.
+Write BOTH original independent `Engine C Result` and
+`Engine C2 Result` to new-base Decision States, then refetch those
+fields plus this new status and the original Assessment ID/Match.
+Verify using `engine/xi_assessment_reconcile.py` and a real
+separately refetched record. Football-only completion creates no
+Website Pick or Actual Bet. Priced decisions still require the strict
+publication guard and their own real current quote.
+
 ## New Step1 lane readback field (2026-10-11)
 
 The existing active `Daily Coverage Ledger` (`tbl20jBW5dfgNnTV6`) now contains

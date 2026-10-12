@@ -6,6 +6,9 @@ available, the betting-price comparison. The user does **not** need
 to choose between `/assess` and `/bet`. Those old aliases may still
 work for backward compatibility, but are not required or advertised.
 
+
+**No extra user step:** one /xi performs both paired football analysis and any supported current prematch price check. Neither an odds request nor a second /bet is required.
+
 ## What the user sees
 
 Immediately give the model-specific football read, C official and C2
@@ -32,7 +35,48 @@ quote is optional. If present, a live actionable price requires the
 separate existing live-bet authorization (never reuse a pre-KO
 decision or stale price). Missing live quotes never block the read.
 
-## Internal execution — automatically choose, no extra user step
+## Current V4 /xi execution — football ALWAYS first
+
+For every current /xi, independently freeze C and C2 football inputs
+(`stage=football_assessment`) from the same real fixture/clock/event epoch.
+Run:
+
+```bash
+python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json
+```
+
+If real, current prematch offered odds **already** exist and the strict
+XI/tournament/price facts are independently verified, add
+`--price-c c_priced.json --price-c2 c2_priced.json` to the same /xi run.
+A failed priced pair returns `FOOTBALL_ASSESSED_PRICE_CHECK_BLOCKED`
+**without erasing** the independent executed C and C2 football results.
+The old `stage=decision` entrypoint without separate football inputs
+is a LEGACY_PRICE_ONLY path and must never be presented as an executed
+football-first read. Started/HT fixtures assess football first; their
+prematch price path is explicitly blocked and live betting requires
+a fresh authorized live epoch.
+
+Routine V4 eligibility takes actual original
+`V4_SWEEP_READY` plus executed C/C2 rank and independently
+read-back `V4_RANK_PERSISTENCE_VERIFIED` into
+`step2_queue_guard.py` mode `V4_ROUTINE`. No V1–V3 ZIP/work_ready
+requirements. A user-declared exception may use `EXCEPTION_ONLY`
+without a V4 board but still requires genuine **independent**
+C and C2 football evidence. Missing C2 is INCOMPLETE, not made up.
+
+New active Airtable `Decision States` field
+`XI Assessment Execution Status` (`fldkjs6Sykivp0fag`)
+records quote-free C/C2 success explicitly without changing the
+historic `Engine Execution Status` enum. Independently re-fetch BOTH
+`Engine C Result` and `Engine C2 Result` and verify with
+`xi_assessment_reconcile.py`. The old priced publication guard remains
+mandatory for executable priced decisions; it is NOT a football-only
+read requirement. User Actual Bets remain confirmed-slips only.
+
+See current concise launcher `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
+for exact workflow; former long Step-2 coordinator is audit-only.
+
+## Historical compatibility aliases (non-authoritative for new /xi)
 
 Run `python models/football/engine/xi_portable.py xi --c <c.json>
 --c2 <c2.json>`.

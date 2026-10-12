@@ -17,6 +17,10 @@ Historical C3/C4 records remain immutable audit history. Never delete or rewrite
 
 C and C2 receive the same prospectively frozen factual evidence epoch. Their model-owned fields, supported burdens, board states and actions remain independent. Never manufacture a missing C2 state from C.
 
+## V4 exception supersession for football-only reads
+
+Explicit `/xi exception` can execute independently sourced quote-free C+C2 football without a V4 board or V1–V3 packaged Step0. Missing genuine C2 input is disclosed as incomplete; C is not copied into C2. The older pair-input persistence before **priced publication** remains mandatory for a genuine betting action, not a reason to refuse a football discussion or defer a paired quote-free result. See the new concise current `02_NORMAL_CHAT_XI_ODDS.md`. User quote not required for football-only analysis.
+
 ## 3. Atomic exception rule
 
 Every user-declared /xi exception is a C+C2 assessment. "all models" now means the active roster: C + C2.

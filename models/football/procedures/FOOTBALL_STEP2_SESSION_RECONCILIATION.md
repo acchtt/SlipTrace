@@ -9,7 +9,38 @@ Prevent an authorized Step-2 fixture from silently disappearing between the froz
 
 This is a process-integrity guard only. It does not change any Football C/C2 predictive threshold.
 
-## Step-1-to-Step-2 authority gate
+## V4 replacement authorization (overrides historical packaged Step0 wording below)
+
+For **new V4** production routine /xi, execute
+`models/football/engine/step2_queue_guard.py` with
+`mode=V4_ROUTINE`, a complete frozen ranked C/C2 board, its original
+`v4_sweep_receipt` (`V4_SWEEP_READY`), its original
+`v4_rank_receipt` (`V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK`),
+and the actually verified `v4_persistence_receipt`
+(`V4_RANK_PERSISTENCE_VERIFIED`). Integrity hashes and the C official
+FOLLOW/RESERVE/STOP lane, C2 shadow state and both independent supported
+lines are cross-checked. NEVER generate these receipts from Airtable
+alone or a manually retitled derived source.
+
+Old `ROUTINE` source fields `packaging_complete/work_ready`,
+`TERMINAL_COMPLETE` Step1 and packaged Step0 ZIP below are historical
+only: **do not apply them to V4**. A user-declared single fixture
+`EXCEPTION_ONLY` proceeds without routine board due-set and without
+full-board session reconciliation as a blocker, while still enforcing
+actual C/C2 evidence epochs and strict executable-bet publication
+checks. One real user exception cannot authorize unrelated RESERVE/
+STOP matches.
+
+For quote-free football-only assessment, `EXECUTED_C_C2_FOOTBALL_ONLY`
+can be a completed read even when priced decisions/Website Picks do
+not exist. The new `XI Assessment Execution Status` must be saved
+and independently read back with both engine result JSON objects.
+Run `xi_assessment_reconcile.py`. The old
+`football-step2-reconcile-v2` priced decision snapshot requires
+`EXECUTED_C_C2_PAIR` and applies only to priced routine decisions,
+not as a blocker for a finished standalone quote-free read.
+
+## Step-1-to-Step-2 authority gate (historical V1–V3 format)
 
 Use `models/football/engine/step2_queue_guard.py` (input schema
 `football-step2-queue-v1`) **before** Step-2 research, and preserve the
