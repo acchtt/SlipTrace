@@ -25,6 +25,11 @@ from goal_route_prescreen import GoalPrescreenError, run_prescreen
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
+from source_completeness import (
+    CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
+    SourceCompletenessError,
+    validate_source_completeness,
+)
 
 SCHEMA = "football-stages-v4"
 BASE = "appbzxqXYf0lKfD4P"
@@ -33,6 +38,9 @@ PRICE_FIELDS = {"odds", "bookmaker_total", "price", "final_score", "ft_goals", "
 UNRANKED = {"RESEARCH_EVIDENCE_MISSING", "PREMATCH_WINDOW_CLOSED", "SOURCE_CHANGED",
             "MATCH_NEWS_UNVERIFIED", "RESEARCH_BUDGET_EXHAUSTED"}
 MAX_SOURCE_AGE_MINUTES = 60
+SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-12T18:00:00+00:00"
+)
 
 
 class StageError(ValueError):
@@ -81,8 +89,14 @@ def _verified(obj: Any, expected_status: str) -> None:
         raise StageError("frozen stage integrity SHA256 mismatch")
 
 
-def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool = False) -> dict[str, Any]:
-    """Classify ONE actual provider snapshot, without a worldwide crawl."""
+def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool = False,
+          _historical_replay: bool = False) -> dict[str, Any]:
+    """Classify one complete provider date-surface snapshot.
+
+    Prospective production sweeps after the V2 activation boundary must carry
+    a fail-closed source-completeness manifest. Historical replays may bypass
+    only when explicitly invoked by frozen-history code.
+    """
     at = _time(now, "now")
     if not isinstance(source, dict) or source.get("schema_version") != SCHEMA:
         raise StageError("new V4 source snapshot required")
@@ -103,6 +117,18 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     fixtures = source.get("fixtures")
     if not isinstance(fixtures, list) or len(fixtures) > 2000:
         raise StageError("source fixture list must be explicit and bounded")
+    completeness = None
+    strict_completeness = at >= SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC and not _historical_replay
+    if strict_completeness or source.get("source_completeness_manifest") is not None:
+        try:
+            completeness = validate_source_completeness(source, now=at.isoformat())
+        except SourceCompletenessError as exc:
+            raise StageError(str(exc)) from exc
+    elif at >= SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC and _historical_replay:
+        # Explicit historical replay is allowed only for an already frozen
+        # pre-activation source epoch. New production callers never set this.
+        if _time(source.get("source_observed_at_utc"), "source_observed_at_utc") >= SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC:
+            raise StageError("SWEEP_LEGACY_REPLAY_AFTER_V2_ACTIVATION_FORBIDDEN")
     ledger, queue, seen = [], [], set()
     for i, raw in enumerate(fixtures):
         # One weak-data fixture must not block other verified matches.
@@ -289,6 +315,10 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "no_fixed_eight_match_cap": True, "price_required_for_football": False,
         "ranked": False, "published": False, "bet_recorded": False,
     }
+    if completeness is not None:
+        outcome["source_completeness_contract"] = completeness["source_completeness_contract"]
+        outcome["source_completeness_sha256"] = completeness["source_completeness_sha256"]
+        outcome["source_completeness"] = completeness
     if not _historical_registry_only:
         outcome["pending_discovery_count"] = sum(
             x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
@@ -338,7 +368,15 @@ def _check_rank_source_and_status(
     """
     if not isinstance(original_source, dict):
         raise StageError("V4_SOURCE_REPLAY_REQUIRED: original source.json missing")
-    replayed = sweep(original_source, now=sweep_receipt["created_at_utc"])
+    receipt_created = _time(sweep_receipt.get("created_at_utc"), "sweep.created_at_utc")
+    is_legacy_receipt = receipt_created < SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC
+    if not is_legacy_receipt and sweep_receipt.get("source_completeness_contract") != SOURCE_COMPLETENESS_CONTRACT:
+        raise StageError("V4_SOURCE_COMPLETENESS_PROOF_REQUIRED_FOR_POST_REBUILD_SWEEP")
+    replayed = sweep(
+        original_source,
+        now=sweep_receipt["created_at_utc"],
+        _historical_replay=is_legacy_receipt,
+    )
     if (replayed["integrity_sha256"] != sweep_receipt["integrity_sha256"]
             or original_source.get("run_id") != sweep_receipt.get("run_id")):
         raise StageError("V4_SOURCE_REPLAY_MISMATCH: receipt differs from original source")

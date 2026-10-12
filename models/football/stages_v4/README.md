@@ -60,6 +60,27 @@ write Airtable by itself. The official result remains
 base write/readback is completed. Never say a board has been published
 just because C/C2 were executed.
 
+## Date-surface completeness rebuild (2026-10-13)
+
+New production sweeps after the rebuild boundary require
+`source_completeness_manifest` validated by
+`source_completeness.py`. The contract is fail-closed:
+
+- all ICT and UTC calendar dates touched by the requested window must have a
+  provider date-surface entry;
+- pagination must be exhausted;
+- provider senior competition-block counts and fixture counts must reconcile
+  exactly to extracted canonical IDs;
+- the union of all date-surface IDs must equal `source.fixtures`;
+- discovery must state `league_query_mode=DATE_SURFACE_ONLY` and
+  `registry_prefilter_applied=false`;
+- the last six hours (or the whole window if shorter) must be independently
+  refetched and exactly reconcile to the source fixtures in that interval.
+
+This does not claim every football fixture worldwide exists in the provider.
+It proves that the bounded provider surfaces actually used by the sweep were
+fully enumerated before league filtering.
+
 ## Goals-first V4 shortlist — registration is NOT Over potential
 
 New prospective sweeps treat **source identity and league registration**
@@ -143,11 +164,12 @@ means operational research priority, **not** intrinsic goal propensity.
 - **Routine**: English Premier League, German Bundesliga and
   2. Bundesliga, Spanish La Liga, Italian Serie A, French Ligue 1;
   Dutch Eredivisie/Eerste Divisie; Norway Eliteserien/OBOS;
-  Sweden Allsvenskan, Denmark Superliga; Belgium Pro League,
+  Sweden Allsvenskan, Denmark Superliga, Finland Veikkausliiga; Belgium Pro League,
   Portugal Primeira Liga, Austria Bundesliga, Scottish Premiership,
   Swiss Super League, Japan J1/J2, Korea K1 and Saudi Pro League.
 - **Conditional**: England Championship, Spanish Segunda,
-  Polish Ekstraklasa, Czech First League/FNL, Hong Kong Premier
+  Polish Ekstraklasa and I Liga/Liga 1 (including current sponsor-name aliases),
+  Czech First League/FNL, Hong Kong Premier
   League, Malaysian Liga Super, UAE Pro League, Qatar Stars League,
   Korea K2, Greek Super League, senior women's top flights and
   major senior official cups/continental competitions.
@@ -156,8 +178,8 @@ means operational research priority, **not** intrinsic goal propensity.
   Division. They are **searched and retained**, but require
   current source-backed match/league researchability to reach rank.
 - **Explicit exclusions preserved**: noncompetitive friendlies;
-  Bangladesh, Israel, Kenya, Iraq, Wales, Kuwait and Finland
-  domestic leagues; Germany 3. Liga, Italy Serie B, France
+  Bangladesh, Israel, Kenya, Iraq, Wales and Kuwait domestic leagues;
+  Germany 3. Liga, Italy Serie B, France
   Ligue 2, Norway 2./3. divisjon and unregistered obscure leagues.
   A future explicit user instruction can update these in a new PR.
   Protected official tournaments are not excluded merely because

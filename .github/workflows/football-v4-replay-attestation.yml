@@ -5,12 +5,14 @@ on:
       - ".github/workflows/football-v4-replay-attestation.yml"
       - "models/football/stages_v4/replay_unattested.py"
       - "models/football/stages_v4/stage.py"
+      - "models/football/stages_v4/source_completeness.py"
       - "models/football/stages_v4/recovery/**"
   pull_request:
     paths:
       - ".github/workflows/football-v4-replay-attestation.yml"
       - "models/football/stages_v4/replay_unattested.py"
       - "models/football/stages_v4/stage.py"
+      - "models/football/stages_v4/source_completeness.py"
       - "models/football/stages_v4/recovery/**"
   workflow_dispatch:
 

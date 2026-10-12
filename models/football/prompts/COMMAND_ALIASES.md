@@ -8,8 +8,9 @@
 `models/football/stages_v4/RANK.md`, using the NEW
 `models/football/stages_v4/stage.py`. This is **not** a
 V1/V2/V3 restart or a replay of any prior BLOCKED run. The new
-independent source snapshot has ID prefix `V4-`, a full source-visible
-fixture ledger, country-matched researched league registry, no arbitrary
+independent source snapshot has ID prefix `V4-`, a complete
+`DATE_SURFACE_BATCH_V2` provider-surface manifest, a full source-visible
+fixture ledger acquired **before** registry classification, no arbitrary
 eight-match cap and goal-first research order.
 
 **/xi, /xi exception, /live, /audit and /report remain available**
@@ -136,11 +137,13 @@ The historical V1–V3 pipeline remains retired; no retroactive edits.
 
 ## V4 command semantics — current
 
-`/sweep [window]`: single bounded actual source snapshot; capture
-all researched leagues and women's top-flight fixtures found in the
-requested future window, classify verified fixture identities and
-return all eligible fixtures plus researchability-pending reasons.
-Never run a worldwide exhaustive missing-source audit.
+`/sweep [window]`: enumerate complete bounded provider date surfaces for
+every ICT+UTC date touched by the requested future window, exhaust pagination,
+reconcile all senior competition blocks/fixture IDs, run the independent
+terminal sentinel, then classify registry/DISCOVERY lanes and return goals-first
+eligible plus pending research. Never query only the registered leagues and
+call that a sweep. This is provider-surface completeness, not a worldwide
+exhaustive missing-source claim.
 
 `/rank`: only the V4 frozen eligible set; source-backed goal-first
 football research across all available candidates, independent C and

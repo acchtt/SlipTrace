@@ -50,8 +50,11 @@ def replay(source: dict[str, Any], derived: dict[str, Any]) -> dict[str, Any]:
         and derived.get("source_ledger_hash")
         == "6fdbb087773f9eb1fdfea01c1a59de7974c06a47e8eaa9c9d15de02a9cc52863"
     )
-    real = sweep(source, now=created.isoformat(),
-                 _historical_registry_only=legacy_policy)
+    real = sweep(
+        source, now=created.isoformat(),
+        _historical_registry_only=legacy_policy,
+        _historical_replay=True,
+    )
     claimed = {k: v for k, v in derived.items() if k not in IGNORABLE}
     recomputed = {k: v for k, v in real.items() if k not in IGNORABLE}
     if claimed != recomputed:

@@ -47,14 +47,18 @@ workflow after retiring V1–V3. V4 does **not** reactivate the old CLIs
 or previous source epochs. Existing old Step0/Step1 executables stay
 `SWEEP_RANK_RETIRED` for legacy use.
 
-V4 /sweep obtains a genuinely current single window-scoped source
-snapshot, freezes all canonical fixture IDs and kickoffs, includes the
-researched league tiers (Big Five, Netherlands/Eerste, Norway OBOS,
-Sweden, Denmark, Poland, Czech, Malaysia, Hong Kong, UAE, Qatar,
-Saudi, Thailand, Indonesia, Japan and approved lower leagues),
-and includes verified women's senior top flights. Excluded domestic
-leagues and friendlies remain excluded. No worldwide completeness
-precondition, unsupported discovery tokens or arbitrary 8-match cap.
+V4 /sweep obtains genuinely current **complete provider date/listing
+surfaces** for every ICT and UTC date touched by the requested window,
+exhausts pagination, reconciles provider senior competition-block and fixture
+counts, performs an independent terminal-interval refetch, and only then
+applies the registry/goals screen. The registry must never be used as the
+fixture-discovery query. The researched tiers include Big Five,
+Netherlands/Eerste, Norway OBOS, Sweden, Denmark, Finland Veikkausliiga,
+Poland Ekstraklasa/I Liga, Czech, Malaysia, Hong Kong, UAE, Qatar, Saudi,
+Thailand, Indonesia, Japan and approved lower leagues. Excluded domestic
+leagues and friendlies remain excluded. Completeness is bounded to the exact
+provider/date surfaces used; there is no worldwide-completeness claim or
+arbitrary 8-match cap.
 
 V4 /rank uses the frozen V4 receipt, source-backed actual goal-route
 research (including dynamic high-scoring team routes and draw-trap
@@ -214,11 +218,15 @@ Current `/sweep` uses only `models/football/stages_v4/SWEEP.md` and
 `stage.py sweep`.
 
 It must:
-- acquire one genuine bounded current provider snapshot for the requested window;
+- acquire complete current provider date/listing surfaces for every ICT+UTC date touched by the requested window;
+- use `source_completeness_manifest` / `DATE_SURFACE_BATCH_V2`;
+- exhaust pagination and reconcile provider competition-block/fixture counts before any registry filter;
+- perform an independent terminal-sentinel refetch for the last six hours (or the whole window when shorter);
 - preserve canonical match IDs, source URLs, kickoff/status and observation time;
-- collect the source-visible senior competitive fixture listing before registry logic;
+- prove that the union of date-surface fixture IDs exactly equals `source.fixtures`;
+- collect the source-visible senior football listing before registry logic;
 - remove explicit user bans and noncompetitive friendlies;
-- classify registered vs DISCOVERY competitions without registry-only acquisition;
+- classify registered vs DISCOVERY competitions only **after** acquisition; `league_query_mode=DATE_SURFACE_ONLY` and `registry_prefilter_applied=false` are mandatory;
 - apply the same source-backed goals screen to every competition lane;
 - keep missing histories in pending research rather than model PASS;
 - put only `GOAL_PRIORITY` fixtures into the immutable `eligible_queue`;

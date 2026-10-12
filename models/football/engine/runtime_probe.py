@@ -17,6 +17,7 @@ STAGE_FILES = {
         "models/football/stages_v4/league_registry.py",
         "models/football/stages_v4/discovery_goal_gate.py",
         "models/football/stages_v4/goals_first_intake.py",
+        "models/football/stages_v4/source_completeness.py",
         "models/football/engine/adapter.py",
         "models/football/engine/core.py",
         "models/football/engine/competition_reliability.py",
@@ -29,6 +30,7 @@ STAGE_FILES = {
         "models/football/stages_v4/league_registry.py",
         "models/football/stages_v4/discovery_goal_gate.py",
         "models/football/stages_v4/goals_first_intake.py",
+        "models/football/stages_v4/source_completeness.py",
         "models/football/engine/adapter.py",
         "models/football/engine/core.py",
         "models/football/engine/competition_reliability.py",
@@ -72,6 +74,7 @@ STAGE_IMPORTS = {
         "league_registry",
         "discovery_goal_gate",
         "goals_first_intake",
+        "source_completeness",
         "stage",
     ),
     "rank": (
@@ -83,6 +86,7 @@ STAGE_IMPORTS = {
         "league_registry",
         "discovery_goal_gate",
         "goals_first_intake",
+        "source_completeness",
         "stage",
     ),
     "xi": (
