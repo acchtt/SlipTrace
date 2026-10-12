@@ -39,6 +39,19 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("source_completeness_manifest", current)
         self.assertIn("registry_prefilter_applied=false", current)
 
+    def test_sweep_cheap_filters_run_after_complete_acquisition(self):
+        cheap = (STAGES / "cheap_sweep_filters.py").read_text()
+        intake = (STAGES / "goals_first_intake.py").read_text()
+        sweep = (STAGES / "SWEEP.md").read_text()
+        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
+        self.assertIn("PRIMARY_RESEARCH", cheap)
+        self.assertIn("DEFERRED_RESEARCH", cheap)
+        self.assertIn('"hard_exclude": False', cheap)
+        self.assertIn("classify_research_priority", intake)
+        self.assertIn("cheap_filter_counts", intake)
+        self.assertIn("CHEAP RESEARCH-PRIORITY FILTERS", sweep)
+        self.assertIn("only after the full source fixture set is frozen", current)
+
     def test_rank_requires_source_and_status_on_every_cli_invocation(self):
         stage = (STAGES / "stage.py").read_text()
         self.assertIn('"source", "status-refresh"', stage)
