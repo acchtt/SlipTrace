@@ -23,82 +23,65 @@ from stage import sweep as v4_sweep, rank as v4_rank, verify_rank as v4_verify_r
 from decision_pair_cli import run_football_pair
 
 
-def native_v4_case():
+def native_v4_case(*, include_closed_unranked=False):
     run="V4-20261012-1300"
-    original_source={
-        "schema_version":"football-stages-v4",
-        "run_id":run,
-        "source_name":"verified-provider",
-        "source_url":"https://sports.example.org/window",
-        "window_start_ict":"2026-10-12T20:00:00+07:00",
-        "window_end_ict":"2026-10-12T23:00:00+07:00",
-        "observed_at_utc":"2026-10-12T12:59:00Z",
-        "fixtures":[{"match_id":"fixture-1","kickoff_utc":"2026-10-12T14:00:00Z"}],
-    }
-    source={
-        "schema_version":"football-stages-v4",
-        "status":"V4_SWEEP_READY",
-        "run_id":run,
-        "eligible_queue":[{"match_id":"fixture-1","kickoff_utc":"2026-10-12T14:00:00Z"}],
-        "source_ledger_hash":"verified-fixture-provider-source-hash",
-    }
-    source["integrity_sha256"]=_digest(source)
-    status_refresh={
-        "schema_version":"football-v4-rank-status-refresh-v1",
-        "run_id":run,
+    def fx(mid,ko):
+        games=[{"kickoff_utc":f"2026-09-{d:02d}T12:00:00Z",
+                "goals_for":gf,"goals_against":ga}
+               for d,(gf,ga) in zip((1,8,15,22),((3,2),(2,1),(4,1),(2,2)))]
+        return {"match_id":mid,"country":"England","competition":"Premier League",
+                "competition_kind":"DOMESTIC_LEAGUE","home":"Home "+mid,"away":"Away "+mid,
+                "kickoff_utc":ko,"fixture_status":"PREMATCH_CONFIRMED",
+                "source_url":"https://sports.example.org/fixture/"+mid,
+                "observed_at_utc":"2026-10-12T12:59:00Z",
+                "football_evidence":{side:{
+                    "source_url":f"https://results.example.org/{mid}/{side}",
+                    "observed_at_utc":"2026-10-12T12:58:00Z",
+                    "recent":copy.deepcopy(games)} for side in ("home","away")}}
+    fixtures=[fx("fixture-1","2026-10-12T14:00:00Z")]
+    if include_closed_unranked:
+        fixtures.append(fx("fixture-2","2026-10-12T14:30:00Z"))
+    original_source={"schema_version":"football-stages-v4","run_id":run,
+        "window_start_utc":"2026-10-12T12:50:00Z","window_end_utc":"2026-10-12T16:00:00Z",
+        "source_family":"provider-test","source_url":"https://sports.example.org/window",
+        "source_observed_at_utc":"2026-10-12T12:59:00Z","fixtures":fixtures}
+    source=v4_sweep(original_source,now="2026-10-12T13:00:00Z")
+
+    cbase,c2base=c_row(),c2_row()
+    for row in (cbase,c2base):
+        row["match_id"]="fixture-1"; row["kickoff_ict"]="2026-10-12T21:00:00+07:00"
+    cin,c2in=board_payload("c",cbase),board_payload("c2",c2base)
+
+    status_refresh={"schema_version":"football-v4-rank-status-refresh-v1","run_id":run,
         "sweep_integrity_sha256":source["integrity_sha256"],
-        "checked_at_utc":"2026-10-12T13:05:00Z",
-        "matches":[{"match_id":"fixture-1","fixture_status":"PREMATCH_CONFIRMED",
-                    "kickoff_utc":"2026-10-12T14:00:00Z",
-                    "source_url":"https://sports.example.org/fixture/1",
-                    "observed_at_utc":"2026-10-12T13:05:00Z"}],
-    }
-    c={"match_id":"fixture-1","board_state":"FOCUS","follow_lane":"FOLLOW",
-       "supported_line":2.5}
-    c2={"match_id":"fixture-1","board_state":"WATCH","supported_line":2.75}
-    rank={
-        "schema_version":"football-stages-v4",
-        "status":"V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
-        "run_id":run,
-        "sweep_integrity_sha256":source["integrity_sha256"],
-        "ranked_count":1,
-        "source_replayed":True,
-        "current_fixture_status_checked":True,
-        "original_source_sha256":_digest(original_source),
-        "status_refresh_sha256":_digest(status_refresh),
-        "board_pair":{"board_engine_execution_status":"EXECUTED_C_C2_BOARDS",
-                      "common_evidence_reconciled":True,
-                      "results":{"c":{"matches":[c]},"c2":{"matches":[c2]}}},
-    }
-    rank["integrity_sha256"]=_digest(rank)
-    verified={"schema_version":"football-stages-v4",
-              "status":"V4_RANK_PERSISTENCE_VERIFIED",
-              "run_id":run,"rank_sha256":rank["integrity_sha256"],
-              "ranked_count":1,"c2_shadow_only":True,
-              "source_replayed":True,
-              "current_fixture_status_checked":True,
-              "original_source_sha256":rank["original_source_sha256"],
-              "status_refresh_sha256":rank["status_refresh_sha256"]}
-    row={"match_id":"fixture-1",
-         "coverage_id":run+"|fixture-1",
-         "kickoff_utc":"2026-10-12T14:00:00Z",
-         "kickoff_ict":"2026-10-12T21:00:00+07:00",
-         "official_follow_lane":"FOLLOW",
-         "xi_window_open":True,
-         "xi_window_basis":"Live provider verified XI window currently open",
-         "c_board_state":"C-FOCUS",
-         "c2_shadow_state":"C2-WATCH",
-         "c_supported_line":2.5,"c2_supported_line":2.75,
-         "c2_supported_line_basis":"Actual independently frozen C2 burden"}
-    return {
-        "schema_version":"football-step2-queue-v1",
-        "session_id":"XI-V4-TEST","mode":"V4_ROUTINE",
+        "checked_at_utc":"2026-10-12T13:05:00Z","matches":[{
+            "match_id":q["match_id"],"kickoff_utc":q["kickoff_utc"],
+            "fixture_status":"STARTED" if include_closed_unranked and q["match_id"]=="fixture-2" else "PREMATCH_CONFIRMED",
+            "source_url":q["source_url"],"observed_at_utc":"2026-10-12T13:05:00Z"}
+            for q in source["eligible_queue"]]}
+    unranked={"fixture-2":"PREMATCH_WINDOW_CLOSED"} if include_closed_unranked else {}
+    rank=v4_rank(source,cin,c2in,unranked,now="2026-10-12T13:05:00Z",
+                 original_source=original_source,status_refresh=status_refresh)
+    cr=rank["board_pair"]["results"]["c"]["matches"][0]
+    c2r=rank["board_pair"]["results"]["c2"]["matches"][0]
+    readback={"active_base_id":"appbzxqXYf0lKfD4P","method":"INDEPENDENT_AIRTABLE_REFETCH",
+        "run_id":run,"rank_integrity_sha256":rank["integrity_sha256"],
+        "sweep_integrity_sha256":rank["sweep_integrity_sha256"],
+        "readback_at_utc":"2026-10-12T13:06:00Z","ranked_rows":[{
+            "match_id":"fixture-1","coverage_id":run+"|fixture-1","follow_lane":cr["follow_lane"],
+            "c_rank":cr["rank"],"c_board_state":"C-"+cr["board_state"],"c_supported_line":cr["supported_line"],
+            "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],"c2_supported_line":c2r["supported_line"]}]}
+    verified=v4_verify_rank(readback,rank)
+    row={"match_id":"fixture-1","coverage_id":run+"|fixture-1",
+         "kickoff_utc":"2026-10-12T14:00:00Z","kickoff_ict":"2026-10-12T21:00:00+07:00",
+         "official_follow_lane":cr["follow_lane"],"xi_window_open":True,
+         "xi_window_basis":"verified current XI window","c_board_state":"C-"+cr["board_state"],
+         "c2_shadow_state":"C2-"+c2r["board_state"],"c_supported_line":cr["supported_line"],
+         "c2_supported_line":c2r["supported_line"],"c2_supported_line_basis":"independent C2 burden"}
+    return {"schema_version":"football-step2-queue-v1","session_id":"XI-V4-TEST","mode":"V4_ROUTINE",
         "board":[row],"user_exceptions":[],"activated_reserves":[],
-        "v4_sweep_receipt":source,"v4_rank_receipt":rank,
-        "v4_persistence_receipt":verified,
-        "v4_original_source":original_source,
-        "v4_status_refresh":status_refresh,
-    }
+        "v4_sweep_receipt":source,"v4_rank_receipt":rank,"v4_persistence_receipt":verified,
+        "v4_original_source":original_source,"v4_status_refresh":status_refresh}
 
 
 def call_xi(fc,fs,pc=None,ps=None):
