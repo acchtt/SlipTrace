@@ -10,7 +10,8 @@ ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 from test_adapter import pair_payload
 from test_football_assessment_pair import football
-from xi_assessment_reconcile import verify_football_assessment, STATUS_FIELD_ID
+from xi_assessment_reconcile import (verify_football_assessment, STATUS_FIELD_ID,
+    EVIDENCE_SUMMARY_FIELD_ID, screenshot_evidence_summary_line, XIAssessmentReadbackError)
 
 
 CAPTURE = "2026-10-11T05:05:00+00:00"
@@ -168,10 +169,22 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             "xi_assessment_execution_status": "EXECUTED_C_C2_FOOTBALL_PRICE_BLOCKED",
             "engine_c_result": out["results"]["c"],
             "engine_c2_result": out["results"]["c2"],
+            "evidence_summary_field_id": EVIDENCE_SUMMARY_FIELD_ID,
+            "evidence_summary": "Other football evidence retained" + chr(10)
+                                + screenshot_evidence_summary_line(out),
         }
         verified = verify_football_assessment(out, readback)
         self.assertTrue(verified["football_pair_verified"])
+        self.assertTrue(verified["screenshot_price_evidence_verified"])
         self.assertFalse(verified["actual_bet_created"])
+        bad = dict(readback)
+        bad["evidence_summary"] = bad["evidence_summary"].replace('"odds":1.7', '"odds":1.9')
+        with self.assertRaisesRegex(XIAssessmentReadbackError, "screenshot quote"):
+            verify_football_assessment(out, bad)
+        missing = dict(readback)
+        missing.pop("evidence_summary")
+        with self.assertRaisesRegex(XIAssessmentReadbackError, "persisted screenshot price evidence missing"):
+            verify_football_assessment(out, missing)
 
     def test_11_no_timestamp_or_current_flag_can_forge_executable(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
