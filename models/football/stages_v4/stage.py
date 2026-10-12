@@ -264,6 +264,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             "run_id": run_id,
             "source_payload_hash": _hash(ledger),
             "screen_at_utc": at.isoformat(),
+            **({} if _historical_registry_only else {"priority_profile": "GOAL_SIGNAL_FIRST_V1"}),
             "candidates": evidence,
         })
         order = screened["manifest"]["ordered_eligible_match_ids"]
@@ -293,7 +294,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
         )
         outcome["discovery_qualified_count"] = sum(
-            x["registry_lane"] == "DISCOVERY" and x["intake_lane"] == "GOAL_PRIORITY"
+            x.get("registry_lane") == "DISCOVERY" and x["intake_lane"] == "GOAL_PRIORITY"
             for x in ledger
         )
         outcome["goal_selection_policy"] = "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1"
