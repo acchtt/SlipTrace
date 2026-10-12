@@ -99,6 +99,16 @@ require("models/football/stages_v4/stage.py",
         "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
 require(
     "models/football/stages_v4/cheap_sweep_filters.py",
+    "TOP_FIVE_NO_AUTO_PROMOTION",
+    "TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL",
+)
+require(
+    "models/football/stages_v4/goals_first_intake.py",
+    "priority_research_queue",
+    "deferred_research_queue",
+)
+require(
+    "models/football/stages_v4/cheap_sweep_filters.py",
     'SCHEMA = "football-sweep-cheap-filter-v1"',
     'PRIMARY = "PRIMARY_RESEARCH"',
     'DEFERRED = "DEFERRED_RESEARCH"',
