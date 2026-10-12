@@ -94,6 +94,7 @@ class ResearchedRegistryTests(unittest.TestCase):
             ("Netherlands","Eredivisie"),("Netherlands","Eerste Divisie"),
             ("Norway","Eliteserien"),("Norway","OBOS-ligaen"),
             ("Sweden","Allsvenskan"),("Denmark","Danish Superliga"),
+            ("Finland","Finnish Veikkausliiga"),
             ("Japan","J1 League"),("Japan","J2 League"),
         ):
             with self.subTest(country=country, league=league):
@@ -101,7 +102,9 @@ class ResearchedRegistryTests(unittest.TestCase):
         for country, league in (
             ("England","Championship"), ("Spain","Segunda Division"),
             ("Germany","2. Bundesliga"),
-            ("Poland","Ekstraklasa"), ("Czech Republic","Czech FNL"),
+            ("Poland","Ekstraklasa"), ("Poland","PKO Bank Polski EKSTRAKLASA"),
+            ("Poland","I Liga"), ("Poland","Liga 1"),
+            ("Czech Republic","Czech FNL"),
             ("Hong Kong","Hong Kong Premier League"),
             ("Malaysia","Liga Super"),("Qatar","Qatar Stars League"),
             ("UAE","UAE Pro League"),("Thailand","Thai League 1"),
