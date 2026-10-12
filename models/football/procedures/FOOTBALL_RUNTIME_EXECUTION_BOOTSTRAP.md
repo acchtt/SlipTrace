@@ -90,33 +90,25 @@ Do not write "GitHub unavailable" unless the actual GitHub connector/source call
 
 ### C. Source materialization
 
-For stage=`sweep`, use the portable Step-0 path first (fresh or
-PACKAGING/REPAIR without an existing local checkout):
+For stage=`sweep` or `rank`, materialize the current V4 stage, not
+the retired Step0/Step1 portable stack.
 
-1. Resolve current GitHub `acchtt/SlipTrace@main` exact commit.
-2. Fetch ONLY `models/football/engine/step0_portable.py` at that commit and
-   preserve the actual Git blob SHA. Transfer those exact source bytes into
-   the currently available Python runtime. No `git clone`, checkout, pip or
-   local copy of other source files is necessary.
-3. Run `python step0_portable.py self-check` (the embedded source's blob
-   hashes and importability are checked against pinned original modules).
-   Required success: `STEP0 PORTABLE SELF-CHECK PASS`.
-4. For new scope preflight:
-   `python step0_portable.py scope --input competition_blocks.json`.
-   For a completed, current, externally read-back handoff:
-   `python step0_portable.py validate --input STEP0_HANDOFF.json --consumer export`
-   then
-   `python step0_portable.py package --input STEP0_HANDOFF.json --text AISCORE_FIXTURES_<window>.txt --run-proof sweep_run_proof.json --output AISCORE_FIXTURES_<window>.zip`.
-5. Pass only a validated archive to /rank. A provisional handoff, current
-   evidence gap or unresolved required competition still blocks packaging
-   regardless of portable runtime availability. Do not turn false status
-   markers into true.
-6. If GitHub connector source is readable but its bytes cannot reach the
-   Python tool, the **exact** failure is `SOURCE_TRANSPORT_BLOCKED`. Offer
-   the portable single Python file for attachment in the SAME normal chat.
-   Never conclude that a ChatGPT Work-mode switch is inherently required.
-   GitHub CI tests do **not** prove the current conversation transferred or
-   executed source successfully.
+1. Resolve current `acchtt/SlipTrace@main` authority.
+2. Materialize `models/football/stages_v4/stage.py`,
+   `league_registry.py`, `discovery_goal_gate.py`,
+   `goals_first_intake.py`, plus current engine dependencies
+   `goal_route_prescreen.py`, `board_pair_cli.py`, `adapter.py`,
+   `core.py` and `competition_reliability.py`.
+3. Run `python models/football/engine/runtime_probe.py --stage sweep`
+   or `--stage rank`. Required: `RUNTIME SOURCE PROBE: PASS`.
+4. Sweep executes only:
+   `python models/football/stages_v4/stage.py --output v4_sweep.json sweep --source source.json`.
+5. Rank executes only the V4 source/status-bound command documented below.
+6. Do not materialize `step0_portable.py`, repaired-handoff, capacity,
+   coverage-manifest or rank-terminal modules as current V4 authority.
+   Those remain historical V1–V3 tooling.
+7. Runtime availability never proves external provider authenticity or
+   current fixture status. Those remain caller-observed evidence.
 
 ### Default /xi source transport (no checkout, no Work switch)
 
@@ -249,7 +241,7 @@ Recommended workspace:
 
 After writing, run:
 
-`python models/football/engine/runtime_probe.py --stage <rank|xi|audit>`
+`python models/football/engine/runtime_probe.py --stage <sweep|rank|xi|audit>`
 
 Required success:
 
@@ -267,11 +259,11 @@ Run the stage command.
 
 Examples:
 
-Rank:
-`python models/football/engine/board_pair_cli.py --c <c.json> --c2 <c2.json>`
+Sweep:
+`python models/football/stages_v4/stage.py --output v4_sweep.json sweep --source source.json`
 
-then after replenishment reaches a stop condition:
-`python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
+Rank:
+`python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --c2 c2.json --unranked unranked.json`
 
 XI primary:
 `python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
@@ -279,14 +271,12 @@ XI primary:
 Strict prematch priced subdecision only when separately authorized:
 `python xi_portable.py pair --c <c_priced.json> --c2 <c2_priced.json>`
 
-XI session reconciliation primary:
-`python xi_portable.py reconcile --input <step2_reconcile.json>`
+XI session reconciliation is required only for a separately authorized priced
+decision; quote-free football and screenshot-only conditional comparisons do
+not create exposure/accounting entries.
 
-XI active-model accounting primary:
-`python xi_portable.py accounting --input <model_accounting.json>`
-
-XI multi-file fallback only:
-`python models/football/engine/decision_pair_cli.py --c <c.json> --c2 <c2.json>`
+XI multi-file football fallback only:
+`python models/football/engine/decision_pair_cli.py --football-only --c <c_football.json> --c2 <c2_football.json>`
 
 Audit:
 `python models/football/engine/cli.py audit --input <audit.json>`
@@ -299,26 +289,22 @@ and when factor calibration is due:
 
 ## 3. Stage source manifests
 
-### Rank
+### Sweep / Rank V4
 
 Materialize:
-- `models/football/engine/cli.py`
+- `models/football/stages_v4/stage.py`
+- `models/football/stages_v4/league_registry.py`
+- `models/football/stages_v4/discovery_goal_gate.py`
+- `models/football/stages_v4/goals_first_intake.py`
+- `models/football/engine/goal_route_prescreen.py`
+- `models/football/engine/board_pair_cli.py`
 - `models/football/engine/adapter.py`
 - `models/football/engine/core.py`
 - `models/football/engine/competition_reliability.py`
-- `models/football/engine/schema.json`
-- `models/football/engine/board_pair_cli.py`
-- `models/football/engine/sweep_intake_evidence.py`
-- `models/football/engine/sweep_intake_evidence_cli.py`
-- `models/football/engine/step0_handoff_cli.py`
-- `models/football/engine/coverage_manifest.py`
-- `models/football/engine/capacity_replenishment.py`
-- `models/football/engine/capacity_replenishment_cli.py`
-- `models/football/engine/rank_terminal_status.py`
-- `models/football/engine/rank_terminal_status_cli.py`
-- `models/football/engine/model_bet_accounting.py`
-- `models/football/engine/model_bet_accounting_cli.py`
 - `models/football/engine/runtime_probe.py`
+
+Do not load old Step0 handoff, coverage, capacity, repaired-handoff or
+rank-terminal modules as current V4 runtime dependencies.
 
 ### XI
 
