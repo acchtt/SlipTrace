@@ -205,110 +205,47 @@ Football C2 owns independently:
 
 Never copy C's supported burden into C2. Never infer missing C2 from C.
 
-## Registered Tier-1 Step0 XI/total proof non-blocking — 2026-10-11 (new sweeps)
+## V4 Step 0 — source-visible goals-first intake
 
-For **new prospective Step0** with `LEAGUE_CHANNEL_FIRST_V1`, the country+league combinations explicitly listed in `models/football/engine/sweep_intake_evidence.py:TIER1_STANDARD_COUNTRY_LEAGUES` use expected standard lineup/Asian-total publication coverage without requiring historical match XI examples, past Asian-total fixture menus, league bookmaker URLs, or dated `VERIFIED_CHANNELS` attestations. An explicit `league_channel_profile` is optional for those Tier-1 registrations. This change removes only Step0 publication-proof blockers: independently established canonical fixture ID, exact competition/country/status/UTC kickoff, eligible senior scope, A/B operational and competition-reliability gates, source provenance, team-news and market observability, recheck plan, complete required/women coverage, complete A/B queue and deterministic packaging still apply. Tier-1 is not a fixture scoring advantage or auto-admission.
+Current `/sweep` uses only `models/football/stages_v4/SWEEP.md` and
+`stage.py sweep`.
 
-The waiver does **not** apply to Netherlands Eerste Divisie, Norway OBOS or Eliteserien, Germany 2. Bundesliga, Poland Ekstraklasa, England Championship, Hong Kong/Malaysia conditional pilots or any unregistered competitions. Those keep genuine `PROVEN_LEAGUE` and conditional goal-history rules. /rank must seek actual fixture-specific XI/news and bookmaker Asian totals; /xi must independently verify current executable quote and eligible XI; never fabricate a quote, price or lineups to satisfy a gate. Old frozen or BLOCKED sweep records and source hashes are not altered automatically.
+It must:
+- acquire one genuine bounded current provider snapshot for the requested window;
+- preserve canonical match IDs, source URLs, kickoff/status and observation time;
+- collect the source-visible senior competitive fixture listing before registry logic;
+- remove explicit user bans and noncompetitive friendlies;
+- classify registered vs DISCOVERY competitions without registry-only acquisition;
+- apply the same source-backed goals screen to every competition lane;
+- keep missing histories in pending research rather than model PASS;
+- put only `GOAL_PRIORITY` fixtures into the immutable `eligible_queue`;
+- preserve low-goal and excluded rows for audit;
+- keep the unchanged original `source.json` with the native `V4_SWEEP_READY` receipt.
 
-## Step 0 — researchable senior intake
+There is no V4 Step0 8/12/15/20 match-cap admission, repaired-ZIP authority,
+or mandatory historical XI/market proof before goals-first screening.
 
-Use `models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`.
+## V4 Step 1 — independent C official + C2 shadow rank
 
-Also apply:
-- `FOOTBALL_AISCORE_SOURCE_ACQUISITION.md`;
-- `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`;
-- `FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md`;
-- `FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md`;
-- `FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
-- `FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`.
+Current `/rank` uses only `models/football/stages_v4/RANK.md` and
+`stage.py rank`.
 
-Default scope:
+Before C/C2 execution it must:
+- replay the unchanged original `source.json` against the frozen receipt;
+- refresh kickoff/status for the entire eligible cohort within 10 minutes;
+- reject changed-kickoff or already-started fixtures from prematch ranking;
+- research the complete goal-qualified cohort in goal-first order;
+- freeze one common factual football epoch;
+- execute independent C official and C2 shadow board engines;
+- preserve explicit unranked reasons;
+- persist the ranked cohort and independently refetch it;
+- carry `source_replayed`, `current_fixture_status_checked`,
+  `original_source_sha256` and `status_refresh_sha256` through
+  `V4_RANK_PERSISTENCE_VERIFIED`.
 
-`RESEARCHABLE_SENIOR_PRODUCTION`
-
-Step 0 must:
-- acquire a valid source scope under the source contract: prefer `EXACT_DATE_UNIVERSE`, otherwise use `BOUNDED_PRODUCTION_DISCOVERY` in FAST_PRODUCTION;
-- complete a valid senior production universe under final reconciliation;
-- preserve required/protected competition coverage;
-- preserve senior women's top-flight accounting;
-- apply hard scope exclusions;
-- assign current operational viability A/B/C/D;
-- apply competition reliability caps/demotion;
-- perform cheap researchability screening;
-- build the complete deterministic A/B capacity queue;
-- admit only the first 15 A/B rows to the initial Work wave;
-- preserve overflow A/B rows with immutable Step0 Capacity Queue Rank;
-- package a valid `football-step0-handoff-v2` handoff.
-
-A/B queue rank is operational only. It must not be based on expected goals, model attractiveness or result knowledge.
-
-### Compact sweep Work research budget — new runs from 2026-10-09 ICT
-
-For new /sweep runs, apply `models/football/procedures/FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md` as an explicit **prospective operational budget overlay**: `sweep_work_budget_policy=COMPACT_GOAL_ROUTE_V1`, initial Work wave 8 by the full frozen operational A/B rank, routine unique-fixture research ceiling 12, automatic replenish only below 4 active lanes. Source discovery, A/B rank ordering, protected/women/required coverage, hard exclusions and C/C2 decision logic are unchanged. Goal-rate research is context-only, **not** a Step-0 predictive hard filter or automatic league exclusion. Existing RUNNING/frozen/historical sweeps without this policy, including `SWEEP-20261009-1300-20261010-0300` Chunk 12, must retain their legacy 15/refill-to-10 semantics and must not be restarted or rewritten. Keep all A/B overflow as an auditable queue.
-
-### Netherlands Eredivisie + Eerste Divisie dynamic goal-route Step1 scheduling — 2026-10-11
-
-Both Dutch leagues were ALREADY approved for routine Step0 discovery; **do not rewrite this scope**. For new `GOAL_FIRST_STEP1_RESEARCH_V1` sessions only, `NETHERLANDS_DYNAMIC_GOAL_ROUTES_V1` adds the Big-Five-style source-backed carrier/two-sided, 4+ goals tail and 0–0/1–1/<=2-goal stall check to precise country=Netherlands registered Eredivisie/Eerste Divisie fixture identities, including approved senior Eerste Divisie Jong participants. Require fresh 4–10 genuinely completed competitive scores per team and pre-screen valid HTTPS references; missing form stays evidence-limited neutral. This changes deep Step1 research order **only**, never Step0 admissions, original rank, source hash, any frozen past screen/board, C official/C2 shadow results, actual bookmaker/XI requirements, Actual Bets or workload limits. No permanently favored Dutch club names. See `models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
-
-### Big Five team research priority deployed prospectively (2026-10-11)
-
-For **new Step1** whole-queue goal-first sessions, source-backed 4–10 game team histories under exact-country-and-league top-flight identity (England Premier League, Germany Bundesliga, Spain La Liga, Italy Serie A, France Ligue 1) receive a bounded `BIG_FIVE_DYNAMIC_GOAL_ROUTES_V1` research-order refinement: distinguish carrier vs two-sided routes; count 4+ goal tails and 0–0/1–1 draw traps; penalize repeated stalls. Do not use the fixed Oct 11 research team watchlist as a betting or Step0 rule. Missing form/identity receives no adjustment. Existing frozen decisions and original scope, Step0 source hashes, C official/C2 shadow, odds integrity and total research budget remain unchanged. See `FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
-
-### New Step1 research priority across full A/B queue (2026-10-10)
-
-A Step0 eight-fixture operational admission is **not** the football
-selection shortlist. For each **new prospective /rank**, the
-`GOAL_FIRST_STEP1_RESEARCH_V1` scheduler runs
-`goal_route_prescreen_cli.py` across the entire frozen A/B queue,
-before selecting eight fixtures for *deep* Step1 research. It uses
-independent pre-kickoff historical team scoring/conceding and credible
-continuation/stall routes. Missing sources yield `EVIDENCE_LIMITED`,
-not low predicted goals. Original Step0 ranks, admission, hard exclusions,
-source hash and prior boards stay frozen. The screen produces a separate
-hashed Step1 research order: deep research can take a verified rank-13
-football candidate before an operational rank-3 candidate. Neither is
-automatically C-FOCUS, C2-FOCUS, FOLLOW or C-BET. Source/time/XI/odds
-and all official C/C2 decisions remain enforced later. Older already
-frozen rank boards retain their old research order.
-See `models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md`.
-
-### XI + market proof before the Work queue
-
-For new compact intake and explicitly marked resumed unfinished sweeps, apply `FOOTBALL_XI_MARKET_FIRST_INTAKE.md`: **expectation of XI publication**, not confirmed future starting XIs. Verify credible publishing channels and a near-KO recheck; A/YES needs strong evidence for both teams, B/UNCERTAIN may enter conditionally with sources and no routine FOLLOW until /xi validates. Require a current fixture-specific Asian total, news, competition source and identity/time. The raw discovery ledger is not the actionable board. Preserve exact required/protected/women's coverage; exclude/hold actual weak-data cases from Work only. The paused Oct-09 run remains untouched and retains legacy budget on future resume with `XI_MARKET_FIRST_V1` marker.
-
-## Step 1 — Football C official board + Football C2 shadow board
-
-Use `models/football/prompts/01_WORK_DAILY_SWEEP.md`.
-
-For repaired handoffs, first apply:
-
-`models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md`
-
-Step 1 accepts both exact-date and bounded-production Step-0 handoffs after machine validation. A bounded handoff keeps `global_raw_exact=false` and must not trigger raw-universe rediscovery inside /rank.
-
-Do not use /rank to rediscover or repair Step-0 identity/kickoff fields.
-
-Freeze one common Step-1 football evidence epoch, then create:
-- Football C official board;
-- Football C2 shadow board.
-
-Every ranked fixture requires:
-- `common_evidence_basis`;
-- C supported line + basis;
-- C board state + basis;
-- C2 supported line + basis;
-- C2 board state + basis.
-
-Run deterministic pair reconciliation:
-
-`python models/football/engine/board_pair_cli.py --c <c.json> --c2 <c2.json>`
-
-Required:
-- `EXECUTED_C_C2_BOARDS`;
-- `common_evidence_reconciled = true`.
-
-Fail closed on ranked-universe mismatch, common-evidence drift, or C policy leakage into C2.
+Routine `/xi` requires the exact original source/status payloads plus the
+sealed sweep/rank/readback chain. Internal hash consistency proves continuity,
+not external provider authenticity.
 
 ## Football C selection / clearing-goal funding
 
