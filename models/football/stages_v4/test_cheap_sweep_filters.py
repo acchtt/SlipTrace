@@ -348,6 +348,109 @@ class CheapSweepFilterTests(unittest.TestCase):
             with self.subTest(country=country, competition=competition):
                 self.assertEqual(classify(fixture(country, competition))["lane"], lane)
 
+    def test_south_america_high_goal_bases_and_selective_leagues(self):
+        cases = (
+            ("Bolivia", "LFPB", "Real Oruro", "Club B", PRIMARY),
+            ("Bolivia", "LFPB", "Club A", "Club B", SECONDARY),
+            ("Chile", "Primera Division", "Universidad Catolica", "Club B", PRIMARY),
+            ("Chile", "Primera Division", "Club A", "Club B", SECONDARY),
+            ("Peru", "Liga 1", "Sporting Cristal", "Club B", PRIMARY),
+            ("Peru", "Liga 1", "Club A", "Club B", SECONDARY),
+            ("Brazil", "Serie A", "Botafogo", "Club B", SECONDARY),
+            ("Brazil", "Serie A", "Club A", "Club B", DEFERRED),
+            ("Colombia", "Categoria Primera A", "La Equidad", "Club B", SECONDARY),
+            ("Colombia", "Categoria Primera A", "Club A", "Club B", DEFERRED),
+        )
+        for country, competition, home, away, expected in cases:
+            with self.subTest(country=country, competition=competition, home=home):
+                result = classify_research_priority(
+                    fixture(country, competition, home, away), at_utc=NOW
+                )
+                self.assertEqual(result["priority"], expected)
+
+    def test_south_america_low_goal_leagues_keep_draw_trap_caution(self):
+        cases = (
+            ("Paraguay", "Division Profesional", "Club A", "Club B", DEFERRED),
+            ("Uruguay", "Primera Division", "Club A", "Club B", DEFERRED),
+            ("Venezuela", "Liga FUTVE", "Club A", "Club B", DEFERRED),
+            ("Argentina", "Primera Division", "Club A", "Club B", DEFERRED),
+            ("Ecuador", "Serie A", "Club A", "Club B", DEFERRED),
+        )
+        for country, competition, home, away, expected in cases:
+            with self.subTest(country=country, competition=competition):
+                result = classify_research_priority(
+                    fixture(country, competition, home, away), at_utc=NOW
+                )
+                self.assertEqual(result["priority"], expected)
+                self.assertTrue(result["draw_trap_caution"])
+        ecuador_event = classify_research_priority(
+            fixture("Ecuador", "Serie A", "Independiente del Valle", "Club B"),
+            at_utc=NOW,
+        )
+        self.assertEqual(ecuador_event["priority"], PRIMARY)
+
+    def test_north_america_filters_mls_cpl_stronger_than_liga_mx_usl_base(self):
+        mls_event = classify_research_priority(
+            fixture("USA", "MLS", "FC Cincinnati", "Club B"), at_utc=NOW
+        )
+        mls_base = classify_research_priority(
+            fixture("United States", "Major League Soccer", "Club A", "Club B"), at_utc=NOW
+        )
+        cpl_event = classify_research_priority(
+            fixture("Canada", "Canadian Premier League", "York United", "Club B"), at_utc=NOW
+        )
+        cpl_base = classify_research_priority(
+            fixture("Canada", "CPL", "Club A", "Club B"), at_utc=NOW
+        )
+        liga_event = classify_research_priority(
+            fixture("Mexico", "Liga MX", "Toluca", "Club B"), at_utc=NOW
+        )
+        liga_base = classify_research_priority(
+            fixture("Mexico", "Liga MX", "Club A", "Club B"), at_utc=NOW
+        )
+        usl_base = classify_research_priority(
+            fixture("USA", "USL Championship", "Club A", "Club B"), at_utc=NOW
+        )
+        self.assertEqual(mls_event["priority"], PRIMARY)
+        self.assertEqual(mls_base["priority"], SECONDARY)
+        self.assertEqual(cpl_event["priority"], PRIMARY)
+        self.assertEqual(cpl_base["priority"], SECONDARY)
+        self.assertEqual(liga_event["priority"], PRIMARY)
+        self.assertEqual(liga_base["priority"], DEFERRED)
+        self.assertEqual(usl_base["priority"], DEFERRED)
+
+    def test_americas_filters_do_not_match_nearby_unresearched_competitions(self):
+        mls_next = classify_research_priority(
+            fixture("USA", "MLS Next Pro", "Club A", "Club B"), at_utc=NOW
+        )
+        liga_mx_fem = classify_research_priority(
+            fixture("Mexico", "Liga MX Femenil", "Club A", "Club B", "WOMENS_TOP_FLIGHT"),
+            at_utc=NOW,
+        )
+        self.assertEqual(mls_next["priority"], NEUTRAL)
+        self.assertEqual(liga_mx_fem["priority"], NEUTRAL)
+
+    def test_americas_filters_do_not_require_registry_promotion(self):
+        checks = (
+            ("Argentina", "Liga Profesional"),
+            ("Bolivia", "LFPB"),
+            ("Brazil", "Brasileirao Serie A"),
+            ("Chile", "Liga de Primera"),
+            ("Colombia", "Liga BetPlay"),
+            ("Ecuador", "Liga Pro Serie A"),
+            ("Paraguay", "Division Profesional"),
+            ("Peru", "Liga 1"),
+            ("Uruguay", "Primera Division"),
+            ("Venezuela", "Liga FUTVE"),
+            ("USA", "MLS"),
+            ("USA", "USL Championship"),
+            ("Mexico", "Liga MX"),
+            ("Canada", "Canadian Premier League"),
+        )
+        for country, competition in checks:
+            with self.subTest(country=country, competition=competition):
+                self.assertEqual(classify(fixture(country, competition))["lane"], "DISCOVERY")
+
     def test_eerste_high_event_team_is_primary_otherwise_secondary(self):
         high = classify_research_priority(
             fixture("Netherlands", "Eerste Divisie", "FC Dordrecht", "Roda JC"),

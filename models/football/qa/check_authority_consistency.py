@@ -132,6 +132,20 @@ require(
     "SRB_PRVA_2026_27",
     "CZE_FIRST_2026_27",
     "CZE_FNL_2026_27",
+    "BOL_LFPB_2026",
+    "CHI_PRIMERA_2026",
+    "PER_LIGA1_2026",
+    "BRA_SERIEA_2026",
+    "COL_PRIMERA_A_2026",
+    "PAR_PRIMERA_2026",
+    "URU_PRIMERA_2026",
+    "VEN_PRIMERA_2026",
+    "ARG_PRIMERA_2026",
+    "ECU_SERIEA_2026",
+    "USA_MLS_2026",
+    "USA_USL_CHAMP_2026",
+    "MEX_LIGA_MX_2026_27",
+    "CAN_CPL_2026",
     "JPN_WE_LEAGUE_2026_27",
     "JPN_NADESHIKO2_2026",
     "JPN_EMPRESS_CUP_2026",
@@ -152,6 +166,11 @@ require(
     "chance liga",
     "mozzart bet super liga",
 )
+require(
+    "models/football/stages_v4/test_cheap_sweep_filters.py",
+    "test_americas_filters_do_not_require_registry_promotion",
+)
+
 require(
     "models/football/stages_v4/goals_first_intake.py",
     "classify_research_priority",
