@@ -22,13 +22,24 @@ class XIAssessmentReadbackError(ValueError):
     pass
 
 
-def screenshot_evidence_summary_line(receipt: dict) -> str:
-    """Append this canonical line to existing Airtable Evidence Summary."""
+def _screenshot_persistence_payload(receipt: dict) -> dict:
     price = receipt.get("price_check") or {}
     evidence = price.get("evidence") or {}
     if evidence.get("price_evidence_mode") != "USER_SCREENSHOT_ONLY":
         raise XIAssessmentReadbackError("missing genuine screenshot price evidence")
-    return SCREENSHOT_MARKER + json.dumps(evidence, sort_keys=True, separators=(",", ":"))
+    return {
+        "evidence": evidence,
+        "price_status": price.get("status"),
+        "models": price.get("models"),
+        "limitations": price.get("limitations", []),
+        "bet_authorized": price.get("bet_authorized", False),
+    }
+
+
+def screenshot_evidence_summary_line(receipt: dict) -> str:
+    """Append this canonical line to existing Airtable Evidence Summary."""
+    return SCREENSHOT_MARKER + json.dumps(_screenshot_persistence_payload(receipt),
+                                          sort_keys=True, separators=(",", ":"))
 
 
 def verify_screenshot_evidence_readback(receipt: dict, refetched: dict) -> None:
@@ -49,8 +60,8 @@ def verify_screenshot_evidence_readback(receipt: dict, refetched: dict) -> None:
         stored = json.loads(lines[0])
     except json.JSONDecodeError as exc:
         raise XIAssessmentReadbackError("malformed original screenshot quote in Airtable") from exc
-    if stored != evidence:
-        raise XIAssessmentReadbackError("stored screenshot quote or capture/assessment epoch differs")
+    if stored != _screenshot_persistence_payload(receipt):
+        raise XIAssessmentReadbackError("stored screenshot quote, actions, limitations or capture/assessment epoch differs")
 
 
 
