@@ -31,6 +31,39 @@ receive a retroactive prematch C/C2 selection.
 
 **Open-league discovery rule:** Fetch the source's complete available senior competitive fixture listing for the requested window BEFORE applying the league registry. Do not query only registered leagues or discard a Brazilian, Mexican or other unfamiliar official fixture at acquisition. The fixture calendar can be bounded by time/provider; it need not prove every fixture worldwide. Country and competition labels are required to distinguish friendlies and explicit exclusions. The new `DISCOVERY` lane screens an unregistered match's real recent four-to-ten competitive results for both teams and retains low/unknown signals in `discovery_watchlist`, not EXCLUDED. Only an independently source-backed scoring signal PLUS current match publishing/researchability proof permits discovery qualification for /rank. Unregistered official cups also require current competition-format/incentive proof. Report discovery-qualified and discovery-pending separately; never silently delete them. Explicitly banned leagues and friendlies remain excluded.
 
+## GOALS-FIRST admission (supersedes routine-league auto-admission)
+
+A registered fixture is **not** automatically Over-friendly. After collecting
+all source-visible future competitive fixtures, collect genuine recent four-to-ten
+competitive results for BOTH teams where possible (actual goals for/against,
+finished match dates, HTTPS result source, and observation time). Apply the **same**
+`GOAL_SIGNAL_FIRST_V1` / `EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1`
+standard to routine, conditional, pilot and unregistered DISCOVERY leagues.
+Only quantified strong goals potential plus any required match researchability
+enters `eligible_queue` / the prospective `/rank` shortlist. Registered matches
+with no usable scoring data go into `goal_research_queue` as
+`PENDING_GOAL_RESEARCH`, not automatic eligible; source-backed low-goals or
+0-0/1-1 trap signals stay as a watchlist, not model PASS.
+
+**Research order:** examine quantified goal-positive matches FIRST, regardless
+of registered status or imminent KO. Remaining missing-goals-history fixtures
+follow for targeted research, then genuinely weak goal-signal fixtures.
+Use `goal_research_order` for missing-data acquisition. Do NOT sequentially
+crawl every league to satisfy all missing histories: fetch only current
+source-visible, plausible fixtures in the bounded window. When form is obtained,
+produce a new *native* V4 source receipt using current fixture status/KO and
+fresh source timestamps, without a global discovery restart; never edit an
+older signed receipt's `eligible_queue` or integrity hash. If there are zero
+verified goal-positive candidates, report an honest empty goal shortlist with
+the pending research pool rather than a misleading fixture-filled board.
+
+Report separate totals: source fixtures; verified Over-research shortlist;
+missing goal-history research; low-goal signals; conditional/unregistered
+researchability pending; excluded friendlies/explicit bans. These are
+**research priorities, not betting picks**. Maintain true C/C2 model
+execution only at `/rank` with real source-backed football data. Missing
+Asian-total quotes do not block goal-history screening or initial research.
+
 Read `league_registry.py` and `README.md`. Interpret the requested
 sweep window in ICT; start at the actual current time unless an explicit
 future start is given, and never include already-started fixtures.
