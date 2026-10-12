@@ -327,6 +327,21 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
     if at > _time(sweep_receipt["created_at_utc"], "created") + timedelta(hours=12):
         raise StageError("sweep source epoch stale; refresh new V4 fixture source")
     queue = sweep_receipt["eligible_queue"]
+    if sweep_receipt.get("goal_selection_policy") == "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1":
+        if any(
+            not isinstance(row, dict)
+            or row.get("intake_lane") != "GOAL_PRIORITY"
+            or not isinstance(row.get("goal_screen"), dict)
+            or row["goal_screen"].get("status") != "DISCOVERY_GOAL_QUALIFIED"
+            for row in queue
+        ):
+            raise StageError("goal-first shortlist violated: unqualified match cannot enter C/C2 rank")
+        manifest = sweep_receipt.get("goal_screen_manifest")
+        if queue and (
+            not isinstance(manifest, dict)
+            or manifest.get("priority_profile") != "GOAL_SIGNAL_FIRST_V1"
+        ):
+            raise StageError("goal-first ranked source missing genuine goals-priority manifest")
     frozen = {x["match_id"]: x for x in queue}
     if len(frozen) != len(queue):
         raise StageError("frozen eligible queue contains duplicate match ID")
