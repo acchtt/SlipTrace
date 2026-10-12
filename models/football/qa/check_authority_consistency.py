@@ -66,23 +66,25 @@ def forbid(rel: str, *needles: str) -> None:
             failures.append(f"{rel}: forbidden active-authority text present: {needle}")
 
 
-# Production Step0/Step1 was explicitly retired; never allow a later
-# documentation refresh or silent rollback to re-enable these commands.
+# Current router: ONLY V1-V3 retired; V4 /sweep and /rank active.
 require(
     "models/football/engine/sweep_rank_retired.py",
     'ACTIVE_SWEEP_RANK_ENABLED = False',
     'RETIRED_STATUS = "SWEEP_RANK_RETIRED"',
     "REQUIRES_NEW_USER_APPROVED_WORKFLOW",
 )
-for retired_launcher in (
+for archived in (
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "models/football/prompts/sweep.md",
-    "models/football/prompts/rank.md",
 ):
-    require(retired_launcher, "PRODUCTION RETIREMENT", "SCRAPPED")
-require("models/football/prompts/COMMAND_ALIASES.md", "/sweep and /rank are RETIRED", "SWEEP_RANK_RETIRED")
-require("models/football/CURRENT_MODEL.md", "SWEEP_RANK_RETIRED")
+    require(archived, "RETIRED V1–V3 ENTRYPOINT ONLY", "V4")
+require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
+require("models/football/prompts/rank.md", "stages_v4/RANK.md", "--status-refresh")
+require("models/football/prompts/README.md", "stages_v4/SWEEP.md", "stages_v4/RANK.md")
+require("models/football/prompts/COMMAND_ALIASES.md", "SWEEP_RANK_RETIRED", "NEW V4")
+require("models/football/CURRENT_MODEL.md", "SWEEP_RANK_RETIRED", "ACTIVE NEW STAGES")
+require("models/football/stages_v4/stage.py",
+        "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
 for entrypoint in (
     "models/football/engine/sweep_rank_pipeline.py",
     "models/football/engine/step0_package_cli.py",
@@ -241,11 +243,7 @@ require(
     "test_invalid_observability_fails_closed",
     "test_unresolved_women_still_fails_closed",
 )
-require(
-    "models/football/prompts/rank.md",
-    "FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
-    "Do not re-run fixture discovery, kickoff verification, or Step-0 repair in /rank",
-)
+require("models/football/prompts/rank.md", "stages_v4/RANK.md", "--source", "--status-refresh")
 require(
     "models/football/prompts/01_WORK_DAILY_SWEEP.md",
     "If the attached file is a completed repaired sweep",
@@ -287,11 +285,7 @@ require(
     "bounded repair path",
     "Do not silently route `/sweep repair` through the normal fresh-sweep discovery loop",
 )
-require(
-    "models/football/prompts/sweep.md",
-    "If the preserved user arguments begin with `repair`",
-    "FOOTBALL_SWEEP_REPAIR_MODE.md",
-)
+require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
 require(
     "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
     "repair_mode=true",
@@ -329,12 +323,7 @@ require(
     "Discovery Seed Manifest",
     "Do not keep the only copy of a completed block in the assistant's transient context",
 )
-require(
-    "models/football/prompts/sweep.md",
-    "FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md",
-    "If the preserved user arguments begin with `resume`",
-    "do not create a new Run ID",
-)
+require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
 require(
     "models/football/prompts/COMMAND_ALIASES.md",
     "/sweep resume [window|Run ID]",
