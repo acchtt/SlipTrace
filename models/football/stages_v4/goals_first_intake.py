@@ -48,6 +48,7 @@ def select(
     source_rows: list[dict[str, Any]],
     ledger: list[dict[str, Any]],
     provisional_queue: list[dict[str, Any]],
+    apply_cheap_filters: bool = True,
 ) -> dict[str, Any]:
     indexed = {
         raw["match_id"]: raw for raw in source_rows
@@ -61,8 +62,12 @@ def select(
             continue
         mid = item["match_id"]
         source = indexed[mid]
-        cheap_filter = classify_research_priority(source, at_utc=at_utc)
-        item["cheap_filter"] = cheap_filter
+        cheap_filter = (
+            classify_research_priority(source, at_utc=at_utc)
+            if apply_cheap_filters else None
+        )
+        if cheap_filter is not None:
+            item["cheap_filter"] = cheap_filter
         screen = item.get("discovery_screen")
         if screen is None:
             screen = screen_discovery(
@@ -80,7 +85,8 @@ def select(
                 q["intake_lane"] = item["intake_lane"]
                 q["reason"] = item["reason"]
                 q["goal_screen"] = screen
-                q["cheap_filter"] = cheap_filter
+                if cheap_filter is not None:
+                    q["cheap_filter"] = cheap_filter
                 selected.append(q)
             else:
                 item["intake_lane"] = "PENDING_GOAL_RESEARCH"
@@ -94,7 +100,7 @@ def select(
                 "registry_lane": item["registry_lane"],
                 "intake_lane": item["intake_lane"],
                 "reason": item["reason"], "goal_screen": screen,
-                "cheap_filter": cheap_filter,
+                **({"cheap_filter": cheap_filter} if cheap_filter is not None else {}),
                 "source_url": item["source_url"],
             })
     research.sort(key=_research_order)
@@ -114,14 +120,16 @@ def select(
             } for r in research
         ),
         "verified_goal_qualified_count": len(selected),
-        "cheap_filter_counts": {
-            state: sum(
-                (r.get("cheap_filter") or {}).get("priority") == state
-                for r in research
-            )
-            for state in (
-                "PRIMARY_RESEARCH", "SECONDARY_RESEARCH",
-                "SPECIAL_RESEARCH", "DEFERRED_RESEARCH", "NEUTRAL_RESEARCH",
-            )
-        },
+        **({
+            "cheap_filter_counts": {
+                state: sum(
+                    (r.get("cheap_filter") or {}).get("priority") == state
+                    for r in research
+                )
+                for state in (
+                    "PRIMARY_RESEARCH", "SECONDARY_RESEARCH",
+                    "SPECIAL_RESEARCH", "DEFERRED_RESEARCH", "NEUTRAL_RESEARCH",
+                )
+            }
+        } if apply_cheap_filters else {}),
     }
