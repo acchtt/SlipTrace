@@ -5,6 +5,10 @@
 **Repository:** `acchtt/SlipTrace`  
 **Purpose:** prevent false "Python unavailable" / "GitHub unavailable" / "engine unavailable" claims
 
+## Current V4 /rank source and status runtime precheck
+
+For current V4 /rank provide `--source` pointing to the unchanged original V4 provider snapshot and `--status-refresh` for the full eligible fixture cohort checked within 10 minutes. Native source replay and refreshed current statuses are required in addition to receipt SHA256. Check original provider/CI provenance independently; a digest is not cryptographic proof of source identity. No old Work ZIP is substitute authority.
+
 ## Current V4 /xi execution short circuit
 
 The portable runtime's current `xi` subcommand executes an actual
