@@ -49,22 +49,25 @@ class SweepRankRetirementTests(unittest.TestCase):
                 self.assertIn("SWEEP_RANK_RETIRED", result.stderr)
                 self.assertIn('"production_enabled": false', result.stderr)
 
-    def test_launchers_halt_and_keep_xi_independent(self):
-        for name in (
-            "00_NORMAL_CHAT_AISCORE_FETCH.md",
-            "01_WORK_DAILY_SWEEP.md",
-            "sweep.md", "rank.md",
-        ):
+    def test_old_launchers_retired_new_v4_routed_and_xi_independent(self):
+        for name in ("00_NORMAL_CHAT_AISCORE_FETCH.md", "01_WORK_DAILY_SWEEP.md"):
             content = (ROOT / "prompts" / name).read_text(encoding="utf-8")
             with self.subTest(name=name):
-                self.assertIn("PRODUCTION RETIREMENT", content.splitlines()[0])
-                self.assertIn("SCRAPPED", content.splitlines()[0])
+                self.assertIn("RETIRED V1–V3 ENTRYPOINT ONLY", content.splitlines()[0])
+                self.assertIn("V4", content.splitlines()[0])
+        for name, launcher in (("sweep.md", "stages_v4/SWEEP.md"),
+                               ("rank.md", "stages_v4/RANK.md")):
+            content = (ROOT / "prompts" / name).read_text(encoding="utf-8")
+            with self.subTest(name=name):
+                self.assertIn(launcher, content)
+                self.assertIn("V4", content)
         commands = (ROOT / "prompts" / "COMMAND_ALIASES.md").read_text(encoding="utf-8")
-        self.assertIn("/sweep and /rank are RETIRED", commands)
+        self.assertIn("NEW V4", commands)
         self.assertIn("SWEEP_RANK_RETIRED", commands)
         self.assertIn("**/xi, /xi exception, /live, /audit and /report remain available**", commands)
         current = (ROOT / "CURRENT_MODEL.md").read_text(encoding="utf-8")
         self.assertIn("SWEEP_RANK_RETIRED", current)
+        self.assertIn("ACTIVE NEW STAGES", current)
         self.assertIn("/xi, /xi exception, /live, /audit and /report remain", current)
 
     def test_legacy_validation_functions_still_import_for_audit(self):
