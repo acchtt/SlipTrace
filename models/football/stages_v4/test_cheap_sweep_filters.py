@@ -241,6 +241,113 @@ class CheapSweepFilterTests(unittest.TestCase):
             with self.subTest(country=country, competition=competition):
                 self.assertEqual(classify(fixture(country, competition))["lane"], lane)
 
+    def test_romania_superliga_selective_and_liga2_goal_positive(self):
+        top_event = classify_research_priority(
+            fixture("Romania", "SuperLiga", "Universitatea Craiova", "Rapid"),
+            at_utc=NOW,
+        )
+        top_base = classify_research_priority(
+            fixture("Romania", "SuperLiga", "Rapid", "Petrolul"),
+            at_utc=NOW,
+        )
+        liga2_high = classify_research_priority(
+            fixture("Romania", "Liga II", "CS Dinamo Bucuresti", "Slatina"),
+            at_utc=NOW,
+        )
+        liga2_base = classify_research_priority(
+            fixture("Romania", "Liga II", "Slatina", "Bihor Oradea"),
+            at_utc=NOW,
+        )
+        self.assertEqual(top_event["priority"], SECONDARY)
+        self.assertEqual(top_base["priority"], DEFERRED)
+        self.assertEqual(liga2_high["priority"], PRIMARY)
+        self.assertEqual(liga2_base["priority"], SECONDARY)
+
+    def test_poland_ekstraklasa_positive_but_i_liga_selective(self):
+        extra_high = classify_research_priority(
+            fixture("Poland", "PKO Bank Polski Ekstraklasa", "Rakow Czestochowa", "Korona Kielce"),
+            at_utc=NOW,
+        )
+        extra_base = classify_research_priority(
+            fixture("Poland", "Ekstraklasa", "Pogon Szczecin", "Korona Kielce"),
+            at_utc=NOW,
+        )
+        iliga_event = classify_research_priority(
+            fixture("Poland", "Betclic 1 Liga", "Stal Mielec", "LKS Lodz"),
+            at_utc=NOW,
+        )
+        iliga_base = classify_research_priority(
+            fixture("Poland", "I Liga", "LKS Lodz", "Pogon Grodzisk"),
+            at_utc=NOW,
+        )
+        self.assertEqual(extra_high["priority"], PRIMARY)
+        self.assertEqual(extra_base["priority"], SECONDARY)
+        self.assertEqual(iliga_event["priority"], SECONDARY)
+        self.assertEqual(iliga_base["priority"], DEFERRED)
+        self.assertTrue(iliga_base["draw_trap_caution"])
+
+    def test_serbia_top_and_first_are_selective(self):
+        top_strong = classify_research_priority(
+            fixture("Serbia", "Mozzart Bet Super Liga", "Partizan", "Novi Pazar"),
+            at_utc=NOW,
+        )
+        top_event = classify_research_priority(
+            fixture("Serbia", "SuperLiga", "Vojvodina", "IMT"),
+            at_utc=NOW,
+        )
+        top_base = classify_research_priority(
+            fixture("Serbia", "SuperLiga", "IMT", "Novi Pazar"),
+            at_utc=NOW,
+        )
+        prva_event = classify_research_priority(
+            fixture("Serbia", "Prva Liga", "Javor Ivanjica", "Metalac"),
+            at_utc=NOW,
+        )
+        prva_base = classify_research_priority(
+            fixture("Serbia", "Prva Liga", "Metalac", "Semendrija"),
+            at_utc=NOW,
+        )
+        self.assertEqual(top_strong["priority"], PRIMARY)
+        self.assertEqual(top_event["priority"], SECONDARY)
+        self.assertEqual(top_base["priority"], DEFERRED)
+        self.assertEqual(prva_event["priority"], SECONDARY)
+        self.assertEqual(prva_base["priority"], DEFERRED)
+
+    def test_czech_first_selective_but_fnl_positive(self):
+        first_strong = classify_research_priority(
+            fixture("Czech Republic", "Chance Liga", "Sigma Olomouc", "Jablonec"),
+            at_utc=NOW,
+        )
+        first_event = classify_research_priority(
+            fixture("Czech Republic", "Czech First League", "Slavia Praha", "Liberec"),
+            at_utc=NOW,
+        )
+        first_base = classify_research_priority(
+            fixture("Czech Republic", "Czech First League", "Liberec", "Hradec Kralove"),
+            at_utc=NOW,
+        )
+        fnl = classify_research_priority(
+            fixture("Czech Republic", "FNL", "Karvina", "Dukla Praha"),
+            at_utc=NOW,
+        )
+        self.assertEqual(first_strong["priority"], PRIMARY)
+        self.assertEqual(first_event["priority"], SECONDARY)
+        self.assertEqual(first_base["priority"], DEFERRED)
+        self.assertEqual(fnl["priority"], SECONDARY)
+
+    def test_registry_recognizes_romania_serbia_and_czech_current_names(self):
+        checks = (
+            ("Romania", "SuperLiga", "CONDITIONAL"),
+            ("Romania", "Liga II", "CONDITIONAL"),
+            ("Serbia", "Mozzart Bet Super Liga", "CONDITIONAL"),
+            ("Serbia", "Prva Liga", "CONDITIONAL"),
+            ("Czech Republic", "Chance Liga", "CONDITIONAL"),
+            ("Czech Republic", "FNL", "CONDITIONAL"),
+        )
+        for country, competition, lane in checks:
+            with self.subTest(country=country, competition=competition):
+                self.assertEqual(classify(fixture(country, competition))["lane"], lane)
+
     def test_eerste_high_event_team_is_primary_otherwise_secondary(self):
         high = classify_research_priority(
             fixture("Netherlands", "Eerste Divisie", "FC Dordrecht", "Roda JC"),

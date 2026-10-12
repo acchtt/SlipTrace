@@ -84,7 +84,7 @@ fully enumerated before league filtering.
 ## Cheap research filters — after acquisition, before deep research
 
 `cheap_sweep_filters.py` applies time-bounded competition/team priors only
-after the complete date-surface fixture universe is frozen. The current research profiles include Netherlands Eredivisie/Eerste Divisie; Iceland Besta/Lengjudeild; Faroe Meistaradeildin/1. deild; Norway Eliteserien/First Division; Denmark Superliga/1. Division; Sweden Allsvenskan/Superettan; and Japan WE League, WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
+after the complete date-surface fixture universe is frozen. The current research profiles include Netherlands Eredivisie/Eerste Divisie; Iceland Besta/Lengjudeild; Faroe Meistaradeildin/1. deild; Norway Eliteserien/First Division; Denmark Superliga/1. Division; Sweden Allsvenskan/Superettan; Romania SuperLiga/Liga II; Poland Ekstraklasa/I Liga; Serbia SuperLiga/Prva Liga; Czech First League/FNL; and Japan WE League, WE League Cup, Nadeshiko League 1/2 and Empress's Cup. Big Five league status
 has an explicit **no-auto-promotion** guard: Premier League, Bundesliga,
 La Liga, Serie A and Ligue 1 are deferred unless a separate team/event prior
 or fresh fixture goal evidence promotes them. These filters do not create
@@ -179,7 +179,8 @@ means operational research priority, **not** intrinsic goal propensity.
   Swiss Super League, Japan J1/J2, Korea K1 and Saudi Pro League.
 - **Conditional**: England Championship, Spanish Segunda,
   Polish Ekstraklasa and I Liga/Liga 1 (including current sponsor-name aliases),
-  Czech First League/FNL, Hong Kong Premier
+  Romania SuperLiga/Liga II, Serbia SuperLiga/Prva Liga,
+  Czech First League/FNL (including Chance Liga aliases), Hong Kong Premier
   League, Malaysian Liga Super, UAE Pro League, Qatar Stars League,
   Korea K2, Greek Super League; Iceland Besta deild/Lengjudeild; Faroe Meistaradeildin; Swedish Superettan; Denmark First Division; senior women's top flights and major senior official cups/continental competitions.
 - **Pilots**: Thailand Thai League 1/2, Indonesia Liga 1, Saudi First Division, Iceland 2. deild and Faroe 1. deild. They are **searched and retained**, but require

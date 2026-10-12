@@ -300,3 +300,131 @@ Sources:
 https://compactstats.com/league/swe-superettan/
 https://footystats.org/sweden/superettan
 https://footystats.org/sweden/superettan/average-total-goals-table
+
+
+## Romania — SuperLiga 2026/27
+
+Current league aggregate: about 2.67 goals per match, 49-50% Over 2.5 and 48%
+BTTS. This is a selective environment, not a blanket research-positive one.
+
+Base priority is DEFERRED. Universitatea Cluj, Universitatea Craiova and CFR
+Cluj are current event-team overrides to SECONDARY. Current examples include
+Universitatea Craiova and CFR around 3.30 total goals/match, while
+Universitatea Cluj has been among the strongest current Over 2.5 profiles.
+
+Sources:
+https://compactstats.com/league/rou-liga-i/
+https://footystats.org/romania/liga-i
+https://footystats.org/romania/liga-i/average-total-goals-table
+
+Official naming:
+https://lpf.ro/despre-lpf
+
+## Romania — Liga II 2026/27
+
+Current aggregate after roughly half the listed schedule: 2.97 goals per
+match, 58% Over 2.5 and 58% BTTS. This is strong enough for a SECONDARY league
+base.
+
+CS Dinamo Bucuresti, Popesti-Leordeni, Concordia and Chindia Targoviste are
+current high-event overrides to PRIMARY. MatchPulse has those teams at roughly
+4.44, 4.00, 3.89 and 3.33 total goals/match respectively in the current sample.
+
+Sources:
+https://probettinghub.com/en-US/betting-stats/over-under/leagues/romania/liga-ii
+https://www.matchpulsestats.com/en/league/284
+https://www.matchpulsestats.com/en/league/284/goals
+
+## Poland — Ekstraklasa 2026/27
+
+Current aggregate: 2.99 goals per match, 62% Over 2.5 and 65% BTTS. The league
+therefore receives a SECONDARY base priority rather than simply being treated
+as a familiar registered competition.
+
+Rakow Czestochowa, Lech Poznan, Gornik Zabrze and Wisla Krakow are current
+high-event overrides to PRIMARY. Rakow has been around 90% Over 2.5, Lech 78%
+and Gornik 70% in the current sample.
+
+Sources:
+https://compactstats.com/league/pol-ekstraklasa/
+https://footystats.org/poland/ekstraklasa
+https://footystats.org/poland/ekstraklasa/over-25-goals-table
+
+## Poland — I Liga / Betclic 1 Liga 2026/27
+
+Current aggregate is only around 2.72-2.76 goals/match, 50-51% Over 2.5 and
+55-56% BTTS. This is selective and carries mild draw-trap caution rather than
+a blanket promotion.
+
+Base priority is DEFERRED. Stal Mielec, Warta Poznan and Nieciecza currently
+receive SECONDARY event-team overrides. Stal Mielec has been around 4.11 total
+goals/match; Warta around 3.30.
+
+Sources:
+https://probettinghub.com/en-US/betting-stats/over-under/leagues/poland/i-liga
+https://pythiafootball.com/league/poland-i-liga/
+https://footystats.org/poland/1-liga
+https://footystats.org/poland/1-liga/average-total-goals-table
+
+## Serbia — SuperLiga 2026/27
+
+Current league aggregate is only about 2.68 goals/match, 50% Over 2.5 and 47%
+BTTS, so the competition remains DEFERRED by default.
+
+Partizan is the strongest current event override and receives PRIMARY research
+priority: roughly 3.70 total goals/match and 80% BTTS in its current sample.
+OFK Beograd and Vojvodina receive SECONDARY. Other SuperLiga fixtures remain
+DEFERRED unless actual fixture evidence qualifies them.
+
+Sources:
+https://compactstats.com/league/srb-super-liga/
+https://footystats.org/serbia/superliga/average-total-goals-table
+https://www.superliga.rs/en/
+
+Official competition naming:
+https://www.superliga.rs/en/propisi-i-dokumenti/
+
+## Serbia — Prva Liga 2026/27
+
+Current aggregate: about 2.76 goals/match, 55% Over 2.5 and 56% BTTS. This is
+not strong enough for league-wide promotion and remains DEFERRED with
+draw-trap caution.
+
+Javor Ivanjica, Borac Cacak and Backa Topola receive SECONDARY current-event
+overrides. Their current samples have been around 3.15-3.46 total goals/match
+with materially stronger BTTS/O2.5 profiles than the competition average.
+
+Sources:
+https://probettinghub.com/en-US/betting-stats/btts/leagues/serbia/prva-liga
+https://footystats.org/serbia/prva-liga
+https://www.goalzone.io/serbia/prva-liga/stats
+
+## Czech Republic — First League / Chance Liga 2026/27
+
+Current aggregate: about 2.81-2.83 goals/match, 57-58% Over 2.5 and 53-54%
+BTTS. The league is selective rather than blanket goal-positive.
+
+Base priority is DEFERRED. Sigma Olomouc is the current strongest event
+override and receives PRIMARY (about 89% O2.5 in the current sample).
+Slavia Praha, Mlada Boleslav, Teplice, Sparta Praha and Viktoria Plzen receive
+SECONDARY event-team treatment.
+
+Sources:
+https://compactstats.com/league/cze-czech-liga/
+https://www.probettinghub.com/en-US/betting-stats/btts/leagues/czech-republic/czech-liga
+https://footystats.org/czech-republic/first-league
+https://footystats.org/czech-republic/first-league/fixtures
+
+## Czech Republic — FNL 2026/27
+
+This is the stronger Czech research environment: roughly 3.01-3.03 goals per
+match, 61% Over 2.5 and 65% BTTS in the current sample.
+
+The whole FNL receives SECONDARY research priority. It is still not
+automatically GOAL_PRIORITY; the regular source-backed recent-result screen is
+required before rank eligibility.
+
+Sources:
+https://www.matchpulsestats.com/en/league/346
+https://www.probettinghub.com/en-US/betting-stats/btts/leagues/czech-republic/fnl
+https://footystats.org/czech-republic/fnl
