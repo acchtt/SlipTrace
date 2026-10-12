@@ -145,7 +145,7 @@ class SweepV4Tests(unittest.TestCase):
         urgent=fixture("urgent","England","Premier League",
                        ko="2026-10-11T16:10:00Z")
         # A moderate but still qualified source-backed 3+ history.
-        games=[(2,2),(3,1),(1,1),(2,1)]
+        games=[(2,2),(3,1),(2,1),(2,1)]
         for side in ("home","away"):
             urgent["football_evidence"][side]["recent"]=[
                 {"kickoff_utc":f"2026-09-{day:02d}T12:00:00Z",
