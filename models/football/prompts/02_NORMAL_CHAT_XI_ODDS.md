@@ -128,6 +128,22 @@ remains available to historical price-only callers but is labelled
 - ACT/WAIT/PASS are **priced C/C2 engine actions only**, not
   mere qualitative goals predictions or evidence that a wager was placed.
 
+### Price-only historical protections — remain mandatory for executable pricing
+
+For genuine PREMATCH priced decision processing, the strictly verified
+legacy runner remains `python xi_portable.py pair --c <c.json> --c2 <c2.json>`;
+in current user /xi it is called automatically **after** both football
+assessments as optional `--price-c/--price-c2`.
+**MANDATORY MARKET-HISTORY ATTEMPT:** record exactly
+`market_history_status = FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED`
+and `MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace` for
+the actual observed price epoch. A failed legitimate market-history
+lookup may be PARTIAL or UNAVAILABLE_ATTEMPTED; it cannot be
+invented as FOUND, and a market-history lookup cannot substitute for
+fresh post-XI football research. Tournament-incentive and exact
+user-quote rechecks remain intact, but do not block the independent
+quote-free football assessment when no price is available.
+
 ## Non-negotiable safety / provenance
 
 Never derive live odds from frozen burden, present stale pricing
