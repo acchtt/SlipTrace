@@ -1,5 +1,10 @@
 # Current Football Model
 
+## USER_SCREENSHOT_ONLY quote evidence (2026-10-12)
+
+For /xi or /xi exception with a user screenshot, the screenshot's EXACT Over line and odds are authoritative market evidence. Never seek, replace, update, or extrapolate another bookmaker price. Use xi_portable.py xi --screenshot-quote screenshot.json with independent C/C2 football inputs; optional C/C2 priced contexts evaluate the original screenshot against unchanged C/C2 burdens and decision rules. Record original attachment reference, optional real capture time (never replace with analysis time), bookmaker, score/minute and assessment epoch. Missing/stale capture or unverified executability produces an explicitly CONDITIONAL screenshot-price verdict, never an invented current ACT or Actual Bet. A strict priced ACT can only be authorized at a demonstrably same-instant PREMATCH open offer with independently verified priced contexts. Live screenshots never authorize a prematch bet. Reconcile existing Airtable football-and-price or price-blocked execution-status labels; preserve official C, shadow C2, and user's Actual Bets ledger.
+
+
 ## Active /xi V4 one-command authority — October 12
 
 Every `/xi` or `/xi exception` runs genuinely independent C/C2 football assessments first, with an optional executable prematch price check in the SAME command only when current quote/lineup/incentive facts already qualify. V4 routine authority uses original sealed V4 sweep/rank and independent Airtable persistence verification; NEVER require retired Step0 `work_ready` ZIP. Explicit user exceptions do not need a V4 board but need independently sourced C2 factors and a real paired engine attempt. After KO keep football analysis; no retrospective prematch price/bet. Use `02_NORMAL_CHAT_XI_ODDS.md` and `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. The separate active `XI Assessment Execution Status` Airtable field records quote-free successful execution with independent refetched C/C2 results. Model thresholds/old boards/Actual Bets untouched.
