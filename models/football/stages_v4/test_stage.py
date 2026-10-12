@@ -332,6 +332,20 @@ class RankV4Tests(unittest.TestCase):
             rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
                  now="2026-10-11T16:05:00Z")
 
+    def test_rank_rejects_non_goal_qualified_registered_selection(self):
+        from stage import _hash
+        src=sweep(snapshot(),now=NOW)
+        c,c2=model_inputs()
+        src["eligible_queue"][0]["goal_screen"]["status"]="WATCH_GOAL_SIGNAL"
+        # Even if a caller recomputes the outer JSON hash, rank checks the
+        # underlying goal-quality admission contract independently.
+        src["integrity_sha256"]=_hash({
+            k:v for k,v in src.items() if k!="integrity_sha256"
+        })
+        with self.assertRaisesRegex(StageError,"goal-first shortlist violated"):
+            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
+                 now="2026-10-11T16:05:00Z")
+
     def test_C2_common_evidence_drift_not_allowed(self):
         src=sweep(snapshot(),now=NOW);c,c2=model_inputs()
         c2["matches"][0]["chance_quality"]="LOW"
