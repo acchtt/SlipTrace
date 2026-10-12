@@ -68,6 +68,19 @@ CONDITIONAL = {
     "sweden": "superettan",
     "denmark": "1st division|danish first division|1 division",
     "japan": "we league|women empowerment league|nadeshiko league 1|nadeshiko 1|nadeshiko league 2|nadeshiko 2",
+    "argentina": "primera division|liga profesional|liga profesional de futbol",
+    "bolivia": "lfpb|division profesional|primera division|division profesional bolivia",
+    "brazil": "serie a|brasileirao serie a|campeonato brasileiro serie a",
+    "chile": "primera division|liga de primera|campeonato nacional",
+    "colombia": "categoria primera a|primera a|liga betplay|liga betplay dimayor",
+    "ecuador": "serie a|liga pro|liga pro serie a|primera categoria serie a",
+    "paraguay": "division profesional|primera division|copa de primera",
+    "peru": "liga 1|primera division|liga 1 te apuesto",
+    "uruguay": "primera division|liga auf uruguaya|liga auf",
+    "venezuela": "primera division|liga futve|liga futve 1",
+    "united states": "mls|major league soccer|usl championship",
+    "mexico": "liga mx|primera division",
+    "canada": "canadian premier league|cpl",
 }
 # All researched countries below stay searchable, but are evidence-gated.
 # "Pilot" is not an invitation to all unknown divisions from that country.
