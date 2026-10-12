@@ -8,8 +8,9 @@
 `models/football/stages_v4/RANK.md`, using the NEW
 `models/football/stages_v4/stage.py`. This is **not** a
 V1/V2/V3 restart or a replay of any prior BLOCKED run. The new
-independent source snapshot has ID prefix `V4-`, a full source-visible
-fixture ledger, country-matched researched league registry, no arbitrary
+independent source snapshot has ID prefix `V4-`, a complete
+`DATE_SURFACE_BATCH_V2` provider-surface manifest, a full source-visible
+fixture ledger acquired **before** registry classification, no arbitrary
 eight-match cap and goal-first research order.
 
 **/xi, /xi exception, /live, /audit and /report remain available**
