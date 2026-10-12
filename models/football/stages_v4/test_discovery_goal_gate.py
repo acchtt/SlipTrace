@@ -71,7 +71,7 @@ class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
         self.assertEqual(result["eligible_count"],1)
         self.assertEqual(result["discovery_qualified_count"],1)
         self.assertEqual(result["research_order"],["br1"])
-        self.assertEqual(result["eligible_queue"][0]["intake_lane"],"DISCOVERY")
+        self.assertEqual(result["eligible_queue"][0]["intake_lane"],"GOAL_PRIORITY")
         screen=result["eligible_queue"][0]["discovery_screen"]
         self.assertEqual(screen["status"],"DISCOVERY_GOAL_QUALIFIED")
         self.assertGreaterEqual(screen["priority_score"],60)
@@ -88,8 +88,9 @@ class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
             row("regular","Netherlands","Eerste Divisie",research=False,goals=None),
         ]
         res=sweep(source(fixtures),now=NOW)
-        self.assertEqual(res["eligible_count"],1)
+        self.assertEqual(res["eligible_count"],0)
         self.assertEqual(res["pending_discovery_count"],3)
+        self.assertEqual(res["pending_goal_research_count"],1)
         self.assertEqual(res["discovery_qualified_count"],0)
         self.assertEqual(len(res["discovery_watchlist"]),3)
         signals={i["match_id"]:i for i in res["discovery_watchlist"]}
@@ -135,9 +136,10 @@ class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
         out=sweep(source([
             row("br1"),row("known1","Germany","Bundesliga",goals=None),
         ]),now=NOW)
-        self.assertEqual(out["eligible_count"],2)
+        self.assertEqual(out["eligible_count"],1)
         self.assertEqual(out["research_order"][0],"br1")
-        self.assertEqual({x["queue_rank"] for x in out["eligible_queue"]},{1,2})
+        self.assertEqual({x["queue_rank"] for x in out["eligible_queue"]},{1})
+        self.assertEqual(out["goal_research_queue"][0]["match_id"],"known1")
         out["eligible_queue"][0]["home"]="Altered FC"
         from stage import _verified
         with self.assertRaisesRegex(StageError,"integrity SHA256"):

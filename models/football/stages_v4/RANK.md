@@ -47,6 +47,29 @@ immediate `V4_ATTESTATION_REQUIRED` blocker with the run ID and
 artifact link. Do not spend 8 minutes refetching 12 Airtable rows
 and reproducing the same invalid `V4_SWEEP_READY` error.
 
+## Goals-first rank intake authority
+
+**Do not rank a V4 snapshot merely because it contains registered leagues.**
+The current `eligible_queue` is the immutable goal-qualified shortlist:
+`GOAL_PRIORITY` from actual recent team scoring evidence for ALL leagues,
+including registered and unregistered. Read `goal_selection_policy` and
+`goal_screen_manifest.priority_profile=GOAL_SIGNAL_FIRST_V1`. The full
+`goal_research_queue` contains legitimate fixtures whose recent scoring
+or league channel data still needs research. These are NOT C PASS.
+
+When Work receives a V4 receipt with few/no goal-qualified fixtures but a
+nonempty `goal_research_queue`, research recent finished scorelines for the
+promising pending fixtures (goal signal first, not alphabetical league order).
+Create a **new** currently observed provider source snapshot with the same
+verified fixture identities, kickoffs, scores and fresh statuses, then run
+native V4 sweep for that new source epoch to obtain its own genuine
+`V4_SWEEP_READY` receipt. This is targeted evidence enrichment, not a
+worldwide discovery restart and never a change to the old receipt.
+If source evidence cannot be confirmed before KO, leave pending and report
+it explicitly. Do not promote missing form by league reputation or
+fabricated rates. Evaluate genuine C official and C2 shadow only on the
+new verified `eligible_queue`, independent Airtable readback as before.
+
 Read `README.md`, the official C and independent C2 engine
 specifications and the latest source receipt from V4 /sweep.
 Research all DISCOVERY-qualified fixtures together with registered A/B fixtures. The `discovery_watchlist` identifies unregistered official competitions with source-backed goal signals but missing current researchability, recent team scoring evidence, or required cup-format proof. They are **not** model PASS and must not silently vanish. Do not add pending discovery fixtures to the official model cohort until a NEW original-source V4 sweep verifies their qualifying evidence; never edit a sealed receipt. Source scoring heuristics only decide eligibility for research, not guaranteed 3+/4+ goals or a bet.

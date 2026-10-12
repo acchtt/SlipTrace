@@ -58,6 +58,48 @@ write Airtable by itself. The official result remains
 base write/readback is completed. Never say a board has been published
 just because C/C2 were executed.
 
+## Goals-first V4 shortlist — registration is NOT Over potential
+
+New prospective sweeps treat **source identity and league registration**
+as acquisition/research context ONLY. Every future source-visible valid
+competitive fixture from the ROUTINE, CONDITIONAL, PILOT or unregistered
+DISCOVERY lanes faces the same evidence-based goals-quality screen
+(`goals_first_intake.py` plus `discovery_goal_gate.py`). In particular,
+a Premier League or Eredivisie fixture with no real recent goal history
+is **not** already a C/C2 rank-eligible Over candidate.
+
+V4 now has distinct, SHA256-anchored outputs:
+- `source_ledger` — all observed fixtures, source identities, true exclusions.
+- `goal_research_queue` / `goal_research_order` — real researchable fixtures
+  needing recent team scores, conditional channel proof or downgraded on
+  low-goal signals. These remain visible and may be enriched prospectively.
+- `eligible_queue` / `research_order` — ONLY genuinely quantified
+  `GOAL_PRIORITY` matches after the same across-league goal screen.
+  A source-backed 0-0/1-1 pattern cannot be labelled a strong Over just
+  because it is from a top league; a goal-friendly lower-division match
+  can outrank it when appropriately corroborated.
+
+Current entry-quality heuristic (not an Over probability, price edge,
+or substitute for C/C2) requires at least four and at most ten
+source-backed finished competitive results per team, carrier/second
+route scoring priority >=60, average 3+-total frequency >=55%, and
+average 0-0/1-1 trap rate <=35%. The small-sample thresholds are
+research triage **only** and could miss true high-scoring matches.
+The `GOAL_SIGNAL_FIRST_V1` research-order profile ranks by actual
+football priority score before kickoff urgency and routine-versus-pilot
+status; historical source replays retain their original ordering and
+checksums.
+
+A zero-eligible `V4_SWEEP_READY` with a populated goal-research queue
+is a successful, **honest source intake** — not an official C/C2 board.
+Work can target the pending teams' real recent scores and produce a
+**new source-observed** V4 epoch with updated match status/KO and genuine
+fresh source timestamps, then run the same V4 engine again before
+ranking. Do not splice a new match into a frozen old receipt, restart a
+worldwide crawl or rank retroactively. Original C and C2 model rules
+remain unchanged; actual bet accounting and price evidence remain
+separate.
+
 ## Open-league goals discovery — no registry-only exclusion
 
 The registry defines **routine and conditional research priorities**, not

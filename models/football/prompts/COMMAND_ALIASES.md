@@ -99,6 +99,20 @@ Aliases are case-insensitive, but the canonical display form is lowercase.
 
 Only the **first** alias token routes the message. Text later in the message is normal argument text.
 
+## V4 uniform goal-signal selection authority
+
+On /sweep do not send **all registered fixtures** straight to /rank.
+Capture a time-bounded source-backed fixture universe, inspect both teams'
+actual 4–10 previous competitive results, and emit a verified Over-research
+`eligible_queue` with goal-first priority irrespective of registry tier.
+Fixtures whose goals evidence is missing or low remain discoverable as
+`goal_research_queue` with exact reasons; these are not model PASS or
+betting selections. When /rank in Work needs form for pending fixtures,
+collect genuine match-specific evidence and generate a NEW fresh
+native V4 receipt without restarting global discovery or changing old
+signed records. Verified C+C2 model execution only after this gate.
+See `models/football/stages_v4/goals_first_intake.py`.
+
 ## V4 open-league priority override
 
 /sweep: acquire current time-bounded senior fixtures WITHOUT pre-filtering
