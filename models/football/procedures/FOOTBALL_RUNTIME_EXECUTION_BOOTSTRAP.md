@@ -96,7 +96,7 @@ the retired Step0/Step1 portable stack.
 1. Resolve current `acchtt/SlipTrace@main` authority.
 2. Materialize `models/football/stages_v4/stage.py`,
    `source_completeness.py`, `league_registry.py`,
-   `discovery_goal_gate.py`, `goals_first_intake.py`, plus current engine dependencies
+   `cheap_sweep_filters.py`, `discovery_goal_gate.py`, `goals_first_intake.py`, plus current engine dependencies
    `goal_route_prescreen.py`, `board_pair_cli.py`, `adapter.py`,
    `core.py` and `competition_reliability.py`.
 3. Run `python models/football/engine/runtime_probe.py --stage sweep`
