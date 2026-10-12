@@ -651,6 +651,151 @@ def classify_research_priority(
                 "reason": reason, "league_profile": "CZE_FIRST_2026_27",
             }
 
+    if country == "bolivia" and _contains(comp, "lfpb", "division profesional", "primera division"):
+        if teams & BOLIVIA_LFPB_HIGH_EVENT:
+            priority, reason = PRIMARY, "BOLIVIA_LFPB_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = SECONDARY, "BOLIVIA_LFPB_HIGH_GOAL_LEAGUE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "BOL_LFPB_2026",
+        }
+
+    if country == "chile" and _contains(comp, "primera division", "liga de primera", "campeonato nacional"):
+        if teams & CHILE_PRIMERA_HIGH_EVENT:
+            priority, reason = PRIMARY, "CHILE_PRIMERA_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = SECONDARY, "CHILE_PRIMERA_GOAL_POSITIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "CHI_PRIMERA_2026",
+        }
+
+    if country == "peru" and _contains(comp, "liga 1", "primera division"):
+        if teams & PERU_LIGA1_HIGH_EVENT:
+            priority, reason = PRIMARY, "PERU_LIGA1_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = SECONDARY, "PERU_LIGA1_GOAL_POSITIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "PER_LIGA1_2026",
+        }
+
+    if country == "brazil" and _contains(comp, "serie a", "brasileirao serie a", "campeonato brasileiro serie a"):
+        if teams & BRAZIL_SERIEA_EVENT:
+            priority, reason = SECONDARY, "BRAZIL_SERIEA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "BRAZIL_SERIEA_SELECTIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "BRA_SERIEA_2026",
+        }
+
+    if country == "colombia" and _contains(comp, "categoria primera a", "primera a", "liga betplay"):
+        if teams & COLOMBIA_PRIMERA_EVENT:
+            priority, reason = SECONDARY, "COLOMBIA_PRIMERA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "COLOMBIA_PRIMERA_SELECTIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "COL_PRIMERA_A_2026",
+        }
+
+    if country == "paraguay" and _contains(comp, "division profesional", "primera division", "copa de primera"):
+        if teams & PARAGUAY_PRIMERA_EVENT:
+            priority, reason = SECONDARY, "PARAGUAY_PRIMERA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "PARAGUAY_PRIMERA_LOW_CONTINUATION_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "PAR_PRIMERA_2026",
+            "draw_trap_caution": True,
+        }
+
+    if country == "uruguay" and _contains(comp, "primera division", "liga auf"):
+        if teams & URUGUAY_PRIMERA_EVENT:
+            priority, reason = SECONDARY, "URUGUAY_PRIMERA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "URUGUAY_PRIMERA_LOW_GOAL_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "URU_PRIMERA_2026",
+            "draw_trap_caution": True,
+        }
+
+    if country == "venezuela" and _contains(comp, "primera division", "liga futve"):
+        if teams & VENEZUELA_PRIMERA_EVENT:
+            priority, reason = SECONDARY, "VENEZUELA_PRIMERA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "VENEZUELA_PRIMERA_DRAW_TRAP_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "VEN_PRIMERA_2026",
+            "draw_trap_caution": True,
+        }
+
+    if country == "argentina" and _contains(comp, "primera division", "liga profesional"):
+        if teams & ARGENTINA_PRIMERA_EVENT:
+            priority, reason = SECONDARY, "ARGENTINA_PRIMERA_CURRENT_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "ARGENTINA_PRIMERA_LOW_GOAL_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "ARG_PRIMERA_2026",
+            "draw_trap_caution": True,
+        }
+
+    if country == "ecuador" and _contains(comp, "serie a", "liga pro", "primera categoria serie a"):
+        if teams & ECUADOR_SERIEA_STRONG_EVENT:
+            priority, reason = PRIMARY, "ECUADOR_SERIEA_CURRENT_STRONG_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "ECUADOR_SERIEA_LOW_GOAL_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "ECU_SERIEA_2026",
+            "draw_trap_caution": True,
+        }
+
+    if country == "united states":
+        if _contains(comp, "mls", "major league soccer"):
+            if teams & MLS_HIGH_EVENT:
+                priority, reason = PRIMARY, "MLS_CURRENT_HIGH_EVENT_TEAM"
+            else:
+                priority, reason = SECONDARY, "MLS_HIGH_GOAL_LEAGUE_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "USA_MLS_2026",
+            }
+        if _contains(comp, "usl championship"):
+            if teams & USL_CHAMP_EVENT:
+                priority, reason = SECONDARY, "USL_CHAMP_CURRENT_EVENT_TEAM"
+            else:
+                priority, reason = DEFERRED, "USL_CHAMP_HETEROGENEOUS_BASE"
+            return {
+                **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+                "reason": reason, "league_profile": "USA_USL_CHAMP_2026",
+            }
+
+    if country == "mexico" and _contains(comp, "liga mx"):
+        if teams & LIGA_MX_HIGH_EVENT:
+            priority, reason = PRIMARY, "LIGA_MX_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = DEFERRED, "LIGA_MX_SELECTIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "MEX_LIGA_MX_2026_27",
+        }
+
+    if country == "canada" and _contains(comp, "canadian premier league", "cpl"):
+        if teams & CANADA_CPL_HIGH_EVENT:
+            priority, reason = PRIMARY, "CANADA_CPL_CURRENT_HIGH_EVENT_TEAM"
+        else:
+            priority, reason = SECONDARY, "CANADA_CPL_GOAL_POSITIVE_BASE"
+        return {
+            **base, "priority": priority, "priority_rank": PRIORITY_RANK[priority],
+            "reason": reason, "league_profile": "CAN_CPL_2026",
+        }
+
     if country == "japan":
         # WE League: promising current environment, but early-season sample is
         # still small, so only known high-event teams get the primary boost.
