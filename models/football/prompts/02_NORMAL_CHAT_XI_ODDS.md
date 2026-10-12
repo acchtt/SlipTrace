@@ -74,10 +74,15 @@ No model ACT creates an Actual Bet. To persist and verify a valid screenshot pri
    `/xi exception` authorizes an independently sourced **EXCEPTION_ONLY**
    assessment, not a fake frozen FOLLOW or retroactive board.
    Routine V4 queue uses `step2_queue_guard.py` mode `V4_ROUTINE`
-   with ORIGINAL integrity-checked `v4_sweep_receipt`,
-   `v4_rank_receipt` and `v4_persistence_receipt`, plus a complete
-   matching C/C2 ranked board. Its `V4_RANK_PERSISTENCE_VERIFIED`
-   receipt must originate from independently refetched Airtable.
+   with ORIGINAL integrity-checked `v4_sweep_receipt`, unchanged
+   `v4_original_source`, exact full-cohort rank `v4_status_refresh`,
+   `v4_rank_receipt` and `v4_persistence_receipt`, plus a complete matching
+   C/C2 ranked board. The queue guard recomputes the original-source/status
+   hashes and requires `source_replayed=true` plus
+   `current_fixture_status_checked=true` in rank and persistence provenance.
+   Its `V4_RANK_PERSISTENCE_VERIFIED` receipt must originate from independently
+   refetched Airtable. Hash consistency is an internal provenance-chain check,
+   not third-party proof of provider authenticity.
    Old `work_ready/packaging_complete` are **not V4 authority**.
    STOP/rejected routine cases still require explicit user exception.
 2. **Football before market:** one bounded fixture-specific search for
