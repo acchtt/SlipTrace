@@ -268,6 +268,104 @@ CZECH_FIRST_EVENT = {
 }
 
 
+BOLIVIA_LFPB_HIGH_EVENT = {
+    norm(x) for x in (
+        "Independiente Petrolero", "Club Independiente Petrolero",
+        "Real Oruro", "CDT Real Oruro",
+        "ABB", "Academia del Balompie Boliviano",
+        "Bolivar", "Bolívar", "Club Bolivar", "Club Bolívar",
+    )
+}
+
+CHILE_PRIMERA_HIGH_EVENT = {
+    norm(x) for x in (
+        "Universidad Catolica", "Universidad Católica", "CD Universidad Católica",
+        "Cobresal", "CD Cobresal",
+    )
+}
+
+PERU_LIGA1_HIGH_EVENT = {
+    norm(x) for x in (
+        "Juan Pablo II", "Juan Pablo II College",
+        "FC Cajamarca", "Cajamarca",
+        "Sporting Cristal", "Club Sporting Cristal",
+    )
+}
+
+BRAZIL_SERIEA_EVENT = {
+    norm(x) for x in (
+        "Botafogo", "Botafogo FR",
+        "Chapecoense", "Chapecoense AF",
+        "Santos", "Santos FC", "Santos FC Sao Paulo",
+    )
+}
+
+COLOMBIA_PRIMERA_EVENT = {
+    norm(x) for x in (
+        "La Equidad", "CD La Equidad", "CD La Equidad Seguros SA",
+    )
+}
+
+PARAGUAY_PRIMERA_EVENT = {
+    norm(x) for x in (
+        "Recoleta", "CD Recoleta",
+    )
+}
+
+URUGUAY_PRIMERA_EVENT = {
+    norm(x) for x in (
+        "CA Torque", "Torque", "Montevideo City Torque",
+    )
+}
+
+VENEZUELA_PRIMERA_EVENT = {
+    norm(x) for x in (
+        "Rayo Zuliano", "Deportivo Rayo Zuliano",
+    )
+}
+
+ARGENTINA_PRIMERA_EVENT = {
+    norm(x) for x in (
+        "Union Santa Fe", "Unión Santa Fe", "CA Union de Santa Fe", "CA Unión de Santa Fe",
+    )
+}
+
+ECUADOR_SERIEA_STRONG_EVENT = {
+    norm(x) for x in (
+        "Independiente del Valle", "CSD Independiente del Valle",
+    )
+}
+
+MLS_HIGH_EVENT = {
+    norm(x) for x in (
+        "FC Cincinnati", "Cincinnati",
+    )
+}
+
+LIGA_MX_HIGH_EVENT = {
+    norm(x) for x in (
+        "Toluca", "Deportivo Toluca", "Deportivo Toluca FC",
+        "Cruz Azul", "Cruz Azul FC",
+        "FC Juarez", "FC Juárez", "Juarez", "Juárez",
+        "Monterrey", "CF Monterrey",
+    )
+}
+
+CANADA_CPL_HIGH_EVENT = {
+    norm(x) for x in (
+        "York United", "York United FC", "York9", "York9 FC",
+        "Pacific", "Pacific FC",
+        "Atletico Ottawa", "Atlético Ottawa",
+    )
+}
+
+USL_CHAMP_EVENT = {
+    norm(x) for x in (
+        "Jacksonville Armada", "Jacksonville Armada FC",
+    )
+}
+
+
 # Big-Five competition status is a data/researchability prior only. It must
 # never promote a fixture into active sweep research by league prestige alone.
 # Until a separate current team/event profile is researched, missing-evidence
