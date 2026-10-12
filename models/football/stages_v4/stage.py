@@ -334,6 +334,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["unresearched_goal_history_count"] = goal_selection["unresearched_goal_history_count"]
         outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
         outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
+        outcome["cheap_filter_counts"] = goal_selection["cheap_filter_counts"]
         outcome["discovery_watchlist"] = [{
             "match_id": x["match_id"], "country": x["country"],
             "competition": x["competition"], "home": x["home"],
