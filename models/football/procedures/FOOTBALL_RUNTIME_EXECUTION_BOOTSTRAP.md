@@ -142,11 +142,13 @@ models unavailable. Use the committed GitHub Actions workflow
    in this chat's Python runtime. Required `XI PORTABLE RUNTIME: PASS`.
    One successful runtime preflight is reusable within the same pinned source
    revision and chat session. On a new revision recheck source freshness.
-5. Run `python models/football/engine/xi_portable.py pair --c c.json --c2 c2.json`
-   **once** against the same prospectively frozen input epoch. After an
-   independent Airtable write/read-back plus executable quote/status recheck,
-   run the exact-current bundled `step2_publication_guard.py` with the
-   original pair inputs/receipt and read-back snapshot.
+5. Run `python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json`
+   **once** against the same prospectively frozen football epoch. Required
+   completion is `EXECUTED_C_C2_FOOTBALL_ONLY`. A price-bearing `pair`
+   execution is separate and prematch-only; it is never required merely to
+   finish /xi football analysis. Only after a genuine non-screenshot executable
+   price decision plus independent Airtable read-back and quote/status
+   revalidation may `step2_publication_guard.py` be used for publication.
 6. If no matching successful artifact exists, request/build a fresh
    source-verifying CI artifact via the existing repo workflow. A stale
    artifact must never become authority. `SOURCE_TRANSPORT_BLOCKED` is
@@ -158,14 +160,15 @@ models unavailable. Use the committed GitHub Actions workflow
 **Kickoff transition source:** the same XI artifact additionally contains
 `models/football/engine/step2_fixture_transition.py` and a separate
 `XI_FIXTURE_TRANSITION_SHA256.txt`. Verify that digest when extracting
-the archive. Before a started fixture goes to `xi_portable.py pair`,
-run the transition CLI with independently checked fixture status,
-kickoff time and current assessment clock. A `STARTED` result
-automatically opens the `/live` assessment **in the same /xi turn**.
-The C/C2 prematch pair must still reject STARTED; this is expected and
-not a technical runtime failure. Missing executable in-play odds only
-withholds a live BET, not qualitative football analysis. Never
-backfill prematch exposure using an after-kickoff snapshot.
+the archive. Before a started fixture is assessed, run the transition CLI with
+independently checked fixture status, kickoff time and current assessment
+clock. A `STARTED` result automatically opens the `/live` football
+assessment **in the same /xi turn** and then uses the quote-free `xi`
+football path, never the prematch priced `pair` command. Current V4 has no
+deterministic live priced-action engine: verified in-play odds may be compared
+with burdens, but `live_bet_authorized` remains false and no official live
+BET/WAIT is emitted. Never backfill prematch exposure using an after-kickoff
+snapshot.
 
 The artifact is an executable **source transport**, not a completed decision
 or proof of live XI/odds. C2 remains shadow-only; the publication gate, live
@@ -176,7 +179,7 @@ For stage=`xi`, use the portable fast path first:
 1. fetch only `models/football/engine/xi_portable.py` from the exact current repository revision;
 2. write it to a temporary runnable workspace;
 3. run `python xi_portable.py self-check` (or the available Python execution surface);
-4. if it passes, use the same file for both atomic C+C2 pair execution and Step-2 reconciliation;
+4. if it passes, use the same file for atomic C+C2 football-first `xi` execution; use priced reconciliation/accounting only for a separately authorized executable price decision;
 5. do **not** materialize the full engine tree or run the multi-file XI runtime probe on a successful portable path.
 
 Required portable success:
@@ -271,7 +274,10 @@ then after replenishment reaches a stop condition:
 `python models/football/engine/rank_terminal_status_cli.py --input <rank_terminal.json>`
 
 XI primary:
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
+
+Strict prematch priced subdecision only when separately authorized:
+`python xi_portable.py pair --c <c_priced.json> --c2 <c2_priced.json>`
 
 XI session reconciliation primary:
 `python xi_portable.py reconcile --input <step2_reconcile.json>`
