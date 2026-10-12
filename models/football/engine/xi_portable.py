@@ -280,6 +280,81 @@ def run_accounting_file(path: str) -> dict[str, Any]:
     return compile_fixture_accounting(_load(path))
 
 
+def _validate_user_screenshot_prices(
+    screenshot: dict[str, Any],
+    c_price: dict[str, Any],
+    c2_price: dict[str, Any],
+    c_football: dict[str, Any],
+    c2_football: dict[str, Any],
+) -> dict[str, Any]:
+    """Quote ONLY the user's screenshot, at the snapshot evidence epoch.
+
+    No website is queried and no new odds are inferred. Current availability
+    at the bookmaker/account is NOT independently verified. Decisions refer
+    only to the screenshot epoch; never represent them as a placed bet.
+    """
+    if not isinstance(screenshot, dict) or screenshot.get("source") != "USER_SCREENSHOT":
+        raise ValueError("price source must be USER_SCREENSHOT; no fetched/replacement odds")
+    if screenshot.get("captured_with_current_user_request") is not True:
+        raise ValueError("screenshot must be attached to this assessment epoch; older quotes cannot be reused")
+    models = (c_football, c2_football)
+    mids = [p.get("match", {}).get("match_id") for p in models]
+    epochs = [p.get("evidence_epoch_id") for p in models]
+    if (not mids[0] or mids[0] != mids[1]
+            or not epochs[0] or epochs[0] != epochs[1]
+            or screenshot.get("match_id") != mids[0]
+            or screenshot.get("evidence_epoch_id") != epochs[0]):
+        raise ValueError("screenshot fixture/assessment epoch does not match both independent models")
+    if (screenshot.get("fixture_status") != "PREMATCH_CONFIRMED"
+            or any(p.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED" for p in models)):
+        raise ValueError("screenshot prematch quote cannot be reused after kickoff or a material match-state change")
+    quoted = screenshot.get("quotes")
+    if not isinstance(quoted, list) or not quoted:
+        raise ValueError("no legible Asian goal line and price in the user screenshot")
+    ladder = set()
+    for item in quoted:
+        if (not isinstance(item, dict)
+                or type(item.get("line")) not in (int, float)
+                or type(item.get("odds")) not in (int, float)
+                or item["line"] <= 0 or item["odds"] <= 1):
+            raise ValueError("invalid screenshot line/odds; cannot synthesize an offer")
+        ladder.add((float(item["line"]), float(item["odds"])))
+    # The independent models may select different displayed lines, but no
+    # model can evaluate or upgrade to a line absent from the screenshot.
+    for model_name, p in (("C", c_price), ("C2", c2_price)):
+        ctx = p.get("context")
+        if not isinstance(ctx, dict):
+            raise ValueError(f"{model_name}: actual priced decision context required")
+        q = ctx.get("quote")
+        if (not isinstance(q, dict)
+                or type(q.get("line")) not in (int, float)
+                or type(q.get("odds")) not in (int, float)
+                or (float(q["line"]), float(q["odds"])) not in ladder):
+            raise ValueError(f"{model_name}: price/line must match a visible user screenshot quote exactly")
+        source = ctx.get("quote_source")
+        if source not in (None, "USER_SCREENSHOT"):
+            raise ValueError(f"{model_name}: substituted external bookmaker quote prohibited")
+        # Screenshot comparison is the ONLY price-source verification.
+        # Do not set market history to FOUND or UNAVAILABLE_ATTEMPTED.
+        ctx["quote_source"] = "USER_SCREENSHOT"
+        ctx["quote_revalidated"] = True
+        ctx["market_history_status"] = "PARTIAL"
+        ctx["market_history_movement"] = "UNCLEAR"
+        ctx["market_history_conflict_recheck"] = "LIMITED"
+        ctx["market_history_note"] = (
+            "User screenshot quotes at the assessment epoch only; "
+            "no external bookmaker odds or market-history search was performed."
+        )
+    return {
+        "price_source": "USER_SCREENSHOT_ONLY",
+        "price_epoch_id": epochs[0],
+        "quoted_lines": [{"line": line, "odds": odds} for line, odds in sorted(ladder)],
+        "bookmaker_live_availability_verified": False,
+        "new_odds_search_performed": False,
+        "screenshot_epoch_only": True,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="Portable Football /xi C+C2 deterministic runtime"
@@ -294,6 +369,7 @@ def main() -> int:
     # hypotheses. Priced offers are optional and never replace football.
     one.add_argument("--price-c")
     one.add_argument("--price-c2")
+    one.add_argument("--screenshot-quotes", help="User-supplied screenshot quotes; required for new /xi priced checks")
     pair = sub.add_parser("pair")
     pair.add_argument("--c", required=True)
     pair.add_argument("--c2", required=True)
@@ -324,6 +400,8 @@ def main() -> int:
                 raise ValueError("C+C2 must use the same /xi mode and current match epoch")
             if bool(args.price_c) != bool(args.price_c2):
                 raise ValueError("both C and C2 separate price inputs are required")
+            if args.screenshot_quotes and not args.price_c:
+                raise ValueError("screenshot quotes can only be evaluated with actual C and C2 price inputs")
             if mode1 == "football_assessment":
                 # Execute independently frozen C/C2 football FIRST. A
                 # rejected/stale bookmaker price may never erase it.
@@ -343,9 +421,19 @@ def main() -> int:
                         if (c_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"
                                 or c2_input["context"].get("fixture_status") != "PREMATCH_CONFIRMED"):
                             raise ValueError("STARTED/HALFTIME: prematch priced pair forbidden; route current live bet authorization separately")
-                        priced = run_pair_files(args.price_c, args.price_c2)
+                        if not args.screenshot_quotes:
+                            raise ValueError("SCREENSHOT_ONLY: actual user screenshot quote ladder required; no bookmaker odds lookup")
+                        source_proof = _validate_user_screenshot_prices(
+                            _load(args.screenshot_quotes), price_c, price_c2, c_input, c2_input,
+                        )
+                        # Use the verified screenshot quote values, not a
+                        # fetched/reconstructed ladder. Input dictionaries are
+                        # already loaded; run the same C/C2 deterministic pair.
+                        _install_modules()
+                        from decision_pair_cli import run_pair
+                        priced = run_pair(price_c, price_c2)
                         price = {"ok": True, "status": "PRICE_CHECK_EXECUTED",
-                                 "receipt": priced}
+                                 **source_proof, "receipt": priced}
                         mode = "FOOTBALL_AND_PRICE_CHECK"
                     except Exception as exc:
                         # A price check can be incomplete, including because
