@@ -60,6 +60,7 @@ CONDITIONAL = {
     "qatar": "qatar stars league|stars league",
     "south korea": "k league 2",
     "greece": "super league|greek super league",
+    "japan": "we league|women empowerment league|nadeshiko league 1|nadeshiko 1|nadeshiko league 2|nadeshiko 2",
 }
 # All researched countries below stay searchable, but are evidence-gated.
 # "Pilot" is not an invitation to all unknown divisions from that country.
@@ -86,6 +87,12 @@ CUPS = {
     ("italy", "coppa italia"), ("france", "coupe de france"),
     ("netherlands", "knvb beker"), ("portugal", "taca de portugal"),
     ("japan", "we league cup"),
+    ("japan", "we league kracie cup"),
+    ("japan", "kracie cup"),
+    ("japan", "empress cup"),
+    ("japan", "empress s cup"),
+    ("japan", "empress s cup women"),
+    ("japan", "jfa empress s cup"),
 }
 
 def registry() -> dict[str, dict[str, set[str]]]:
