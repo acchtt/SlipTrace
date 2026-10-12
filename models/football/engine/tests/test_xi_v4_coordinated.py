@@ -21,6 +21,16 @@ from decision_pair_cli import run_football_pair
 
 def native_v4_case():
     run="V4-20261012-1300"
+    original_source={
+        "schema_version":"football-stages-v4",
+        "run_id":run,
+        "source_name":"verified-provider",
+        "source_url":"https://sports.example.org/window",
+        "window_start_ict":"2026-10-12T20:00:00+07:00",
+        "window_end_ict":"2026-10-12T23:00:00+07:00",
+        "observed_at_utc":"2026-10-12T12:59:00Z",
+        "fixtures":[{"match_id":"fixture-1","kickoff_utc":"2026-10-12T14:00:00Z"}],
+    }
     source={
         "schema_version":"football-stages-v4",
         "status":"V4_SWEEP_READY",
@@ -29,6 +39,16 @@ def native_v4_case():
         "source_ledger_hash":"verified-fixture-provider-source-hash",
     }
     source["integrity_sha256"]=_digest(source)
+    status_refresh={
+        "schema_version":"football-v4-rank-status-refresh-v1",
+        "run_id":run,
+        "sweep_integrity_sha256":source["integrity_sha256"],
+        "checked_at_utc":"2026-10-12T13:05:00Z",
+        "matches":[{"match_id":"fixture-1","fixture_status":"PREMATCH_CONFIRMED",
+                    "kickoff_utc":"2026-10-12T14:00:00Z",
+                    "source_url":"https://sports.example.org/fixture/1",
+                    "observed_at_utc":"2026-10-12T13:05:00Z"}],
+    }
     c={"match_id":"fixture-1","board_state":"FOCUS","follow_lane":"FOLLOW",
        "supported_line":2.5}
     c2={"match_id":"fixture-1","board_state":"WATCH","supported_line":2.75}
@@ -40,8 +60,8 @@ def native_v4_case():
         "ranked_count":1,
         "source_replayed":True,
         "current_fixture_status_checked":True,
-        "original_source_sha256":"a"*64,
-        "status_refresh_sha256":"b"*64,
+        "original_source_sha256":_digest(original_source),
+        "status_refresh_sha256":_digest(status_refresh),
         "board_pair":{"board_engine_execution_status":"EXECUTED_C_C2_BOARDS",
                       "common_evidence_reconciled":True,
                       "results":{"c":{"matches":[c]},"c2":{"matches":[c2]}}},
@@ -68,6 +88,8 @@ def native_v4_case():
         "board":[row],"user_exceptions":[],"activated_reserves":[],
         "v4_sweep_receipt":source,"v4_rank_receipt":rank,
         "v4_persistence_receipt":verified,
+        "v4_original_source":original_source,
+        "v4_status_refresh":status_refresh,
     }
 
 
@@ -114,6 +136,14 @@ class V4QueueBridgeTests(unittest.TestCase):
                     case[target]["integrity_sha256"]=_digest({k:v for k,v in case[target].items() if k!="integrity_sha256"})
                     case["v4_persistence_receipt"]["rank_sha256"]=case[target]["integrity_sha256"]
                 with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof"):
+                    freeze_queue(case)
+
+    def test_original_source_or_status_payload_mismatch_is_rejected(self):
+        for target in ("v4_original_source","v4_status_refresh"):
+            with self.subTest(target=target):
+                case=native_v4_case()
+                case[target]["tampered"]=True
+                with self.assertRaisesRegex(Step2QueueError,"original source|status-refresh"):
                     freeze_queue(case)
 
     def test_sealed_source_rank_and_lane_cannot_be_forged(self):
