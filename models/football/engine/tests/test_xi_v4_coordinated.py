@@ -70,7 +70,11 @@ def native_v4_case():
     verified={"schema_version":"football-stages-v4",
               "status":"V4_RANK_PERSISTENCE_VERIFIED",
               "run_id":run,"rank_sha256":rank["integrity_sha256"],
-              "ranked_count":1,"c2_shadow_only":True}
+              "ranked_count":1,"c2_shadow_only":True,
+              "source_replayed":True,
+              "current_fixture_status_checked":True,
+              "original_source_sha256":rank["original_source_sha256"],
+              "status_refresh_sha256":rank["status_refresh_sha256"]}
     row={"match_id":"fixture-1",
          "coverage_id":run+"|fixture-1",
          "kickoff_utc":"2026-10-12T14:00:00Z",
