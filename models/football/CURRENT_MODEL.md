@@ -83,17 +83,15 @@ unchanged.** The active official model is C and C2 is shadow only.
 Do not delete or backfill historical coverage, boards, decisions or
 Actual Bets.
 
-## Unified /sweep and /rank V3
+## Historical V3 coordinator — non-authoritative
 
-The current Step0-to-Step1 coordinator is
-`models/football/engine/sweep_rank_pipeline.py`. Follow
-`models/football/procedures/FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`.
-A source-backed preview starts football research before complete global
-reconciliation, but cannot publish an official board. A final validated
-ZIP and independent C/C2 engine execution plus fresh Airtable readback
-are required. No separate Work-chat transfer is mandatory.
-Retain the V2 15-minute discovery budget, full required/women coverage,
-C official/C2 shadow only, and one-command quote-free /xi.
+The former `sweep_rank_pipeline.py` / `FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`
+coordinator is retained only to reconstruct frozen V1–V3 history. It is not
+a current command route, validator, handoff format, capacity policy or source
+authority. New `/sweep` and `/rank` use only
+`models/football/stages_v4/SWEEP.md`, `RANK.md` and `stage.py`.
+Do not invoke V3 ZIP packaging, repair/resume, capacity/replenishment or
+legacy Work-chat semantics for a new V4 source epoch.
 
 ## One-command /xi — user-facing authority
 
@@ -186,12 +184,16 @@ For new /sweep source epochs, **Germany 2. Bundesliga** is an explicitly approve
 
 Read `models/football/prompts/COMMAND_ALIASES.md`.
 
-- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`
-- `/rank` -> `01_WORK_DAILY_SWEEP.md`
-- `/xi` -> `02_NORMAL_CHAT_XI_ODDS.md`
-- `/live` -> `03_NORMAL_CHAT_LIVE.md`
-- `/audit` -> `04_WORK_POST_SLATE_AUDIT.md`
-- `/report` -> `06_NORMAL_CHAT_REPORT.md`
+- `/sweep` -> `models/football/stages_v4/SWEEP.md`
+- `/rank` -> `models/football/stages_v4/RANK.md`
+- `/xi` -> `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
+- `/live` -> `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
+- `/audit` -> `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
+- `/report` -> `models/football/prompts/06_NORMAL_CHAT_REPORT.md`
+
+The retired `00_NORMAL_CHAT_AISCORE_FETCH.md` and
+`01_WORK_DAILY_SWEEP.md` are historical references only and must never be
+selected by the current router.
 
 Everything after the alias is launcher input. Same-message attachments are launcher inputs.
 
