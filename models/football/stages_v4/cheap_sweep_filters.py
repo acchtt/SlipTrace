@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from league_registry import norm
+from league_registry import COUNTRIES, norm
 
 SCHEMA = "football-sweep-cheap-filter-v1"
 
@@ -288,7 +288,8 @@ TOP_FIVE_NO_AUTO_PROMOTION = {
 
 
 def _competition_key(fixture: dict[str, Any]) -> tuple[str, str]:
-    return norm(fixture.get("country")), norm(fixture.get("competition"))
+    country = norm(fixture.get("country"))
+    return COUNTRIES.get(country, country), norm(fixture.get("competition"))
 
 
 def _contains(comp: str, *parts: str) -> bool:
