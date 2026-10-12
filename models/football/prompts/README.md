@@ -1,55 +1,31 @@
-> **PRODUCTION RETIREMENT — EFFECTIVE 2026-10-11: /sweep and /rank are SCRAPPED.** Do not start or resume Step0 discovery, issue a new official ZIP, execute a Step1 board, or publish new ranks. This instruction overrides all historical procedural text below, including V1/V2/V3, repair/resume/reassess and direct launcher usage. These instructions are preserved only for historical audit and regression. Existing C/C2 model code, /xi, /live, records and bets are unaffected. Reinstatement requires an explicitly approved replacement. See `models/football/engine/sweep_rank_retired.py`.
+# Football V4 — current command entrypoints
 
-# Football prompt launchers
+**Authority:** `models/football/CURRENT_MODEL.md` and
+`models/football/prompts/COMMAND_ALIASES.md` on the current production main.
+Football C official, C2 independent shadow. C3/C4 retired.
 
-> **Active model Airtable route (Oct 11):** Load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All model, accounting and reporting reads/writes go to `appbzxqXYf0lKfD4P` using the corresponding NEW table IDs and source-key readback. Do not use old-base IDs for writes. **Do not modify `/sweep` routing, source checkpoint or Step0 handoff.** Actual Bets are only from confirmed user slips; C official, C2 shadow.
-
-Current production roster: **Football C official + Football C2 shadow**.
-
-| Alias | Stage | Typical input |
+| Command | Canonical current launcher | Stage |
 |---|---|---|
-| `/sweep` | Step 0 senior fixture acquisition/intake | time window |
-| `/rank` | Step 1 C official + C2 shadow board | Step-0 ZIP/handoff |
-| `/xi` | Step 2 C official + C2 shadow XI/odds | XI + odds |
-| `/live` | live/WAIT resolution for C + C2 | live state/market |
-| `/audit` | post-slate production/model QA | board/date scope |
-| `/report` | read-only current state summary | scope |
+| `/sweep` | `models/football/stages_v4/SWEEP.md` | Current senior fixture discovery and goals-first admission |
+| `/rank` | `models/football/stages_v4/RANK.md` | Original-source V4 rank with refreshed full-cohort status, C+C2 |
+| `/xi`, `/xi exception` | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` | C+C2 football first, user screenshot as sole market price |
+| `/live` | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` | Live football first, original screenshot as limited live price evidence |
+| `/audit` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | Frozen-state audit (V4 intake and C/C2) |
+| `/report` | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` | Read-only active Airtable/report and user Actual Bets |
 
-Always read `CURRENT_MODEL.md` and the current launcher. A copied handoff is historical context, not authority.
+## Mandatory execution boundaries
 
-## Workflow
+- V4 /sweep creates original `source.json` and a native `V4_SWEEP_READY` receipt. A digest alone is **not** an independent source attestation; use source-attested GitHub Actions artifacts when available.
+- V4 /rank replays the unchanged original source, and requires a fresh same-match status/kickoff observation for the **entire eligible cohort** before C and C2 execute. Historical old rank bundles and V1–V3 ZIPs cannot be imported as V4 authority.
+- V4 /xi uses independently executed football C/C2 and no mandatory odds; if a user screenshot is supplied, **no external replacement or historical market price search** is permitted. An original screenshot cannot by itself prove an executable market offer. Price verdicts are conditional, not placed bets.
+- Live screenshots use their displayed score/minute and original price only, never a prematch priced action after kickoff.
+- Current read/write model base: `appbzxqXYf0lKfD4P`. User profit comes only from `Actual Bets — Current`; C2 shadow is not official exposure.
+- CI engine success does not prove live provider acquisition or actual betting/execution availability.
 
-1. `00_NORMAL_CHAT_AISCORE_FETCH.md` — acquire/reconcile senior production scope, operational viability, researchability and capacity queue.
-2. `01_WORK_DAILY_SWEEP.md` — freeze one common Step-1 evidence epoch, create C official + C2 shadow boards, execute `board_pair_cli.py`, then assign C FOLLOW/RESERVE/STOP and replenish capacity if required.
-3. `02_NORMAL_CHAT_XI_ODDS.md` — freeze one current XI/research/market epoch and execute C+C2 atomically through `xi_portable.py pair`.
-4. `03_NORMAL_CHAT_LIVE.md` — resolve C official and C2 shadow live/WAIT states from the same live epoch.
-5. `04_WORK_POST_SLATE_AUDIT.md` — audit frozen decisions, process integrity, results and active-model accounting.
-6. `06_NORMAL_CHAT_REPORT.md` — report already-existing state without rerunning predictive stages.
+## Explicitly retired entrypoints
 
-## Current model visibility
-
-Current /rank, /xi and /live output must show:
-- OFFICIAL C;
-- SHADOW C2.
-
-C3/C4 are retired from new/current execution. They may appear only in explicitly historical audit/report context when a genuine prospective historical record exists.
-
-If active C2 cannot be lawfully frozen/executed for a current all-model/exception request, show the exact incomplete reason. Do not silently convert the workflow to C-only completion.
-
-## Direct launcher form
-
-Examples:
-
-`Load and execute models/football/prompts/01_WORK_DAILY_SWEEP.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first. Build Football C official and Football C2 shadow boards from one frozen common research state and execute the C+C2 board pair.`
-
-`Load and execute models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first. Freeze one current XI/research evidence epoch and execute Football C + C2 atomically.`
-
-`Load and execute models/football/prompts/03_NORMAL_CHAT_LIVE.md from acchtt/SlipTrace. Read CURRENT_MODEL.md first and resolve the current C/C2 live state from the supplied match state/market.`
-
-## Retired material
-
-Historical C3/C4 specifications/source remain documented under:
-
-`models/football/retired/RETIREMENT_MANIFEST.md`
-
-They are not current launchers or runtime requirements.
+`prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`, `01_WORK_DAILY_SWEEP.md`,
+legacy `prompts/sweep.md`, `prompts/rank.md`, the old V1–V3 CLIs,
+`FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`, and the old XI coordinator are historical
+references only. Their old "active" flags, caps, venue/odds requirements, or
+Football A claims never supersede these V4 launchers.
