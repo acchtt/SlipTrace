@@ -10,7 +10,14 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import sys
+from pathlib import Path
 from typing import Any
+
+STAGE_DIR = Path(__file__).resolve().parents[1] / "stages_v4"
+if str(STAGE_DIR) not in sys.path:
+    sys.path.insert(0, str(STAGE_DIR))
+from stage import StageError as V4StageError, verify_rank_source_and_status
 
 
 _SHA256 = re.compile(r"^[a-f0-9]{64}$")
@@ -64,17 +71,19 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
         raise V4XIQueueError("V4: unchanged original source payload/hash required for routine XI")
     if not isinstance(status_refresh, dict) or _digest(status_refresh) != ranked["status_refresh_sha256"]:
         raise V4XIQueueError("V4: exact rank status-refresh payload/hash required for routine XI")
-    if (status_refresh.get("schema_version") != "football-v4-rank-status-refresh-v1"
-            or status_refresh.get("run_id") != run_id
-            or status_refresh.get("sweep_integrity_sha256") != source["integrity_sha256"]):
-        raise V4XIQueueError("V4: status-refresh source/run binding invalid")
-    status_rows = status_refresh.get("matches")
-    original_ids = {m.get("match_id") for m in source.get("eligible_queue", []) if isinstance(m, dict)}
-    if not isinstance(status_rows, list) or len(status_rows) != len(original_ids):
-        raise V4XIQueueError("V4: status-refresh must cover the full frozen eligible cohort")
-    status_by_id = {m.get("match_id"): m.get("fixture_status") for m in status_rows if isinstance(m, dict)}
-    if set(status_by_id) != original_ids or any(v != "PREMATCH_CONFIRMED" for v in status_by_id.values()):
-        raise V4XIQueueError("V4: routine XI requires the exact prematch status-refresh cohort used by rank")
+    rank_time = ranked.get("created_at_utc")
+    if not isinstance(rank_time, str):
+        raise V4XIQueueError("V4: native rank created_at_utc required")
+    try:
+        native_proof = verify_rank_source_and_status(
+            source, original_source, status_refresh, now=rank_time
+        )
+    except (V4StageError, ValueError, KeyError, TypeError) as exc:
+        raise V4XIQueueError(f"V4: native rank provenance replay failed: {exc}") from exc
+    for field in ("original_source_sha256", "status_refresh_sha256"):
+        if native_proof.get(field) != ranked.get(field):
+            raise V4XIQueueError(f"V4: native provenance {field} differs from rank")
+    status_by_id = native_proof["status_by_match"]
     pair = ranked.get("board_pair")
     if not isinstance(pair, dict) or pair.get("board_engine_execution_status") != "EXECUTED_C_C2_BOARDS" or pair.get("common_evidence_reconciled") is not True:
         raise V4XIQueueError("V4: real reconciled C+C2 paired rank execution missing")
@@ -89,6 +98,8 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
                     for rows in (c,c2))
     if len(cmap) != len(c) or len(c2map) != len(c2) or set(cmap) != set(c2map) or len(c) != ranked.get("ranked_count"):
         raise V4XIQueueError("V4: C/C2 ranked cohorts mismatch")
+    if any(status_by_id.get(mid) != "PREMATCH_CONFIRMED" for mid in cmap):
+        raise V4XIQueueError("V4: ranked XI cohort was not prematch-confirmed in exact rank status refresh")
     original = {m.get("match_id"):m for m in source.get("eligible_queue", []) if isinstance(m,dict)}
     if set(cmap) - set(original):
         raise V4XIQueueError("V4: out-of-sweep ranked match")
