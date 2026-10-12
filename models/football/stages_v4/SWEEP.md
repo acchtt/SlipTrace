@@ -3,6 +3,47 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
+## Rebuilt acquisition contract — complete date surfaces before registry
+
+Prospective sweeps now use `DATE_SURFACE_BATCH_V2`. The old failure mode
+where an operator assembled a small fixture list and then ran the registry is
+forbidden. The discovery order is:
+
+`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> GOALS-FIRST SCREEN`
+
+The registry is **never** a fixture-discovery query. Do not search
+Ekstraklasa, Serie A, Superliga, Veikkausliiga, etc. one by one and then call
+the union a sweep. Open the provider's date/listing surfaces for every ICT and
+UTC calendar date touched by the requested window, exhaust pagination, record
+every source-visible senior football competition block, and only then apply
+the registry locally.
+
+Every new `source.json` must contain
+`source_completeness_manifest.schema_version=football-v4-source-completeness-v2`
+with:
+
+- `acquisition_mode=DATE_SURFACE_BATCH_V2`;
+- `league_query_mode=DATE_SURFACE_ONLY`;
+- `registry_prefilter_applied=false`;
+- the exact ICT+UTC `required_surface_keys`;
+- one complete `date_surfaces[]` entry for every required key;
+- exact provider page count and `pages_fetched=1..N`;
+- exact senior competition-block count for each surface;
+- exact fixture IDs and provider fixture count for every competition block;
+- the complete source fixture union, which must equal `source.fixtures`;
+- an independent terminal-sentinel refetch for the last six hours of the
+  requested window (or the whole window when shorter).
+
+If one required date surface, page, competition block or terminal fixture is
+missing, `stage.py sweep` fails closed. It must not emit
+`V4_SWEEP_READY`. A zero-match competition block or an empty window is valid
+only when the provider surface itself is complete and its counts reconcile.
+
+This restores the useful part of the older sweep behavior—broad date-surface
+enumeration and a terminal sentinel—without restoring old Work ZIPs,
+capacity queues, league-by-league crawling or bookmaker/XI blockers.
+
+
 ## Mandatory source-attested export for next-chat Work /rank
 
 `V4_SWEEP_READY` must come from **actual execution** of
@@ -68,12 +109,14 @@ Read `league_registry.py` and `README.md`. Interpret the requested
 sweep window in ICT; start at the actual current time unless an explicit
 future start is given, and never include already-started fixtures.
 
-Fetch one appropriately bounded current fixture feed (AiScore if
-available; an independently checkable source otherwise), gather actual
-match IDs, teams, source URLs, current kickoff and prematch statuses
-within the window. Include the researched country's league tiers,
-women's senior top flights and legitimate official competitions.
-Do NOT require every women's league worldwide to be enumerated.
+Fetch complete provider **date/listing surfaces** (AiScore if available; an
+independently checkable source otherwise), not a hand-picked league list.
+Reconcile all pages and senior competition blocks into one immutable source
+fixture union, then gather canonical IDs, teams, source URLs, kickoff and
+status. Registered leagues, women's senior top flights, unregistered official
+competitions and explicit exclusions are classified only after acquisition.
+Do not claim worldwide completeness; prove completeness only for the exact
+provider/date surfaces used for the requested window.
 Preserve visible out-of-scope fixtures in audit ledger. For conditional
 leagues include `researchability_status=VERIFIED` only if the actual
 match/season data channels were checked, otherwise show PENDING.
