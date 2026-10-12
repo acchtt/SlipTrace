@@ -11,6 +11,7 @@ import hashlib
 import json
 import re
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +31,18 @@ class V4XIQueueError(ValueError):
 def _digest(obj: dict[str, Any]) -> str:
     return hashlib.sha256(json.dumps(obj, sort_keys=True,
                  ensure_ascii=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _instant(value: Any, label: str) -> datetime:
+    if not isinstance(value, str):
+        raise V4XIQueueError(f"{label}: timezone-aware timestamp required")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise V4XIQueueError(f"{label}: invalid timestamp") from exc
+    if parsed.tzinfo is None:
+        raise V4XIQueueError(f"{label}: timezone-aware timestamp required")
+    return parsed
 
 
 def _sealed(obj: Any, label: str, status: str) -> None:
@@ -118,7 +131,8 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
             raise V4XIQueueError(f"V4: {mid} C2 shadow state differs")
         if b.get("c_supported_line") != cr.get("supported_line") or b.get("c2_supported_line") != sh.get("supported_line"):
             raise V4XIQueueError(f"V4: {mid} supported burdens do not match frozen C/C2 rank")
-        if b.get("kickoff_utc") != original[mid].get("kickoff_utc"):
+        if _instant(b.get("kickoff_utc"), f"{mid}.board_kickoff") != _instant(
+                original[mid].get("kickoff_utc"), f"{mid}.source_kickoff"):
             raise V4XIQueueError(f"V4: {mid} kickoff does not match original source")
         if b.get("coverage_id") != f"{run_id}|{mid}":
             raise V4XIQueueError(f"V4: {mid} immutable Airtable coverage identity invalid")
