@@ -27,9 +27,18 @@ Current V4 audit funnel is: raw source-visible senior fixtures → hard excluded
 
 Audit **all recorded assessed matches**, not only LOCK/FOLLOW/Website Pick rows.
 
-Reconstruct the production funnel:
+Reconstruct the production funnel according to the **workflow generation that
+actually produced the record**.
 
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED -> C BOARD -> FOLLOW/RESERVE/STOP -> C2 SHADOW -> STEP2 C+C2 -> LIVE/WAIT -> FT -> ACCOUNTING`
+Current V4:
+`SOURCE-VISIBLE SENIOR -> HARD EXCLUDED / REGISTERED / DISCOVERY -> GOAL_PRIORITY / PENDING_GOAL_RESEARCH / PENDING_DISCOVERY / LOW-GOAL WATCH -> V4_SWEEP_READY -> ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS -> C+C2 RANK -> VERIFIED AIRTABLE READBACK -> XI C+C2 FOOTBALL -> OPTIONAL SCREENSHOT CONDITIONAL PRICE -> LIVE FOOTBALL -> FT -> ACCOUNTING`
+
+Historical V1–V3 only:
+`RAW SENIOR -> OPERATIONAL/RESEARCHABILITY -> CAPACITY/REPLENISHMENT -> BOARD -> STEP2 -> LIVE/WAIT -> FT -> ACCOUNTING`
+
+Never audit a V4 record against retired capacity, repaired-ZIP, required-block
+or replenishment rules unless that exact field was prospectively frozen by the
+historical workflow being reconstructed.
 
 Track process failures separately from predictive/model failures.
 
@@ -159,31 +168,42 @@ Never:
 
 ## 8. Process-integrity audit
 
-Check:
-- Step-0 source/completeness state;
-- required competition coverage;
-- senior women's top-flight accounting;
-- competition reliability cap;
-- operational viability grading;
-- admission/capacity queue integrity;
-- replenishment order;
-- tournament-incentive completeness;
-- common evidence freeze;
-- C/C2 independent supported lines;
-- atomic C+C2 engine execution;
-- pair persistence;
-- Step-2 due-set reconciliation;
-- quote revalidation;
-- fresh post-XI football research;
-- market-history attempt;
-- live WAIT integrity;
-- Website Pick/Decision State reconciliation.
+For **current V4**, check only:
+- provider/source provenance and immutable fixture identity;
+- explicit hard exclusions/friendlies;
+- registered vs DISCOVERY classification;
+- source-backed goal-screen status and pending-research visibility;
+- original-source replay integrity;
+- complete <=10-minute rank status refresh and no retroactive prematch rank;
+- common evidence freeze and tournament-incentive completeness where applicable;
+- genuinely independent C/C2 supported burdens and atomic rank execution;
+- V4 rank persistence/readback;
+- V4 routine /xi provenance chain, or explicit exception authority;
+- quote-free C+C2 football execution/readback;
+- USER_SCREENSHOT_ONLY exact-price preservation and no replacement market search;
+- live football transition and the current no-live-priced-action-engine boundary;
+- Website Pick/Decision State reconciliation only for exposures that were genuinely authorized.
+
+For **historical V1–V3** records, additionally audit their then-current
+required-competition, women's-coverage, operational viability, capacity,
+replenishment, repaired handoff and market-history rules from the frozen
+historical epoch. Do not project those controls onto V4.
+
+Market-history handling is mode-specific. For `USER_SCREENSHOT_ONLY`,
+`MARKET_HISTORY_NOT_RESEARCHED_USER_SCREENSHOT_ONLY` is the correct
+limitation and **not** a process defect. A mandatory market-history attempt
+applies only to historical/non-screenshot priced paths that actually required
+it.
 
 An all-model exception after the active-roster boundary is successful only when C and C2 both execute/persist from the same evidence epoch.
 
-## 9. Competition reliability memory update — mandatory
+## 9. Competition reliability memory update — diagnostic for current V4
 
-After process reconstruction and **before** using the audit for future Step-0 selection:
+After process reconstruction, update the operational reliability memory for
+diagnostic continuity. Current V4 intake does **not** consume this memory as an
+admission/cap/ranking gate, so never claim that an audit update changed a V4
+future shortlist. Historical V1–V3 audits retain their original gating
+interpretation when reconstructing those frozen epochs.
 
 1. append one canonical operational event per observed fixture/epoch to `Competition Reliability Events`;
 2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
