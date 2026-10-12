@@ -135,6 +135,17 @@ class SourceCompletenessContractTests(unittest.TestCase):
         with self.assertRaisesRegex(SourceCompletenessError, "block count"):
             validate_source_completeness(item, now=NOW)
 
+    def test_registered_competition_block_cannot_silently_drop_fixture(self):
+        item = source()
+        surface = item["source_completeness_manifest"]["date_surfaces"][0]
+        surface["provider_senior_fixture_count"] = 2
+        surface["extracted_fixture_ids"].append("radomiak-motor")
+        block = surface["competition_blocks"][0]
+        block["provider_fixture_count"] = 2
+        block["extracted_fixture_ids"].append("radomiak-motor")
+        with self.assertRaisesRegex(SourceCompletenessError, "FIXTURE_UNION_MISMATCH"):
+            validate_source_completeness(item, now=NOW)
+
     def test_surface_fixture_union_must_equal_source_fixture_set(self):
         item = source()
         item["fixtures"] = []
