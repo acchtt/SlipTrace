@@ -422,6 +422,12 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
         raise StageError("every unranked eligible fixture must have an explicit reason")
     if not set(unranked_reasons.values()).issubset(UNRANKED):
         raise StageError("unknown unranked reason; no invented model PASS")
+    # Independently reject retrospective prematch selections before any
+    # source replay; a late historical rank remains forbidden even when
+    # the caller has not supplied a new status observation.
+    for mid in ids:
+        if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
+            raise StageError(f"{mid}: retroactive prematch rank forbidden")
     source_proof = _check_rank_source_and_status(
         sweep_receipt, original_source, status_refresh, at
     )
