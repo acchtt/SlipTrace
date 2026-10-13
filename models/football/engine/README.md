@@ -1,119 +1,54 @@
-# Football deterministic engine
+# Football engine — active runtime
 
-## Unified Step0 / Step1 V3
+## Active production modules
 
-Run `sweep_rank_pipeline.py prepare` for early unofficial
-source-backed A/B research order; `seal` to produce validated official
-Step0 ZIP; `rank` to run original C and C2 engines with the exact
-validated ZIP and full queue; and `publish` to compare independent
-active Airtable readback to the immutable paired execution. Full usage:
-`models/football/procedures/FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`.
-No invented sources, market quotes, model decisions or betting authority.
+- core.py — C/C2 deterministic football and quote policy.
+- adapter.py — structured board, football-assessment, observed-quote and strict
+  decision adapters.
+- board_pair_cli.py — paired C/C2 Step-1 board execution.
+- decision_pair_cli.py — paired C/C2 football/strict decision execution.
+- xi_portable.py — thin user-facing /xi runner over the shared modules.
+- step2_queue_guard.py — verifies the sealed V4 rank+persistence chain and due
+  routine/exception authorization.
+- xi_assessment_reconcile.py — one Decision State assessment readback.
+- step2_publication_guard.py — final strict-pair readback/freshness gate.
+- model_bet_accounting.py — actual-terms-only model accounting; no synthetic
+  WATCH or unresolved WAIT exposure.
 
-**Active production roster:** Football C official + Football C2 shadow.
+V4 /sweep and /rank live under models/football/stages_v4/.
 
-The engine validates structured football decisions deterministically. Football C remains production authority; Python never creates official exposure by itself.
+## /xi
 
-## Active Step-1 board execution
+Quote-free football:
 
-Create independent C and C2 board payloads from one frozen common evidence epoch, then run:
+python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json
 
-`python models/football/engine/board_pair_cli.py --c c.json --c2 c2.json`
+Observed user screenshot:
 
-Required:
-- `EXECUTED_C_C2_BOARDS`;
-- same ranked eligible universe;
-- `common_evidence_reconciled = true`;
-- no Football C completion-policy leakage into C2.
+python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json --screenshot-quote screenshot.json
 
-Football C controls FOLLOW / RESERVE / STOP. C2 is comparison-only.
+Strict executable current price:
 
-## Active Step-2 execution
+python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json --price-c c_price.json --price-c2 c2_price.json
 
-Primary portable runtime:
+The observed quote and strict price paths use the same core C/C2 quote policy.
+Only the strict path can gain execution authority.
 
-`python xi_portable.py self-check`
+## WAIT
 
-then:
+WAIT requires explicit reachability evidence in the current model context.
+There is no wrapper-only fixed gap rule.
 
-`python xi_portable.py pair --c c.json --c2 c2.json`
+WATCH and unresolved WAIT create no model exposure.
 
-Required:
+## Retired/dormant source
 
-`EXECUTED_C_C2_PAIR`
+Older Step0/V1-V3 checkpoint, repaired-handoff, compact-capacity, legacy rank
+reconciliation, session-wide Step2 reconciliation, source-handoff/embedded
+portable and kickoff-transition modules are historical only.
 
-The pair must share one frozen common evidence epoch while preserving independent model-owned supported line/state fields.
+They are not imported by active launchers or production CI. Git history is the
+audit authority for those implementations.
 
-Multi-file fallback:
-
-`python models/football/engine/decision_pair_cli.py --c c.json --c2 c2.json`
-
-A C-only completed exception is invalid.
-
-## Step-2 session reconciliation
-
-Run:
-
-`python xi_portable.py reconcile --input step2_reconcile.json`
-
-or the documented multi-file fallback.
-
-Every due FOLLOW, activated RESERVE and user exception must end with exactly one disposition.
-
-## Active model accounting
-
-Current new accounting payloads contain C and C2 only.
-
-Run:
-
-`python xi_portable.py accounting --input model_accounting.json`
-
-or:
-
-`python models/football/engine/model_bet_accounting_cli.py --input model_accounting.json`
-
-Expected current roster:
-
-`ACTIVE_C_C2`
-
-Accounting precedence:
-
-`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
-
-Only Football C may create official exposure / Website Picks.
-
-## Runtime probes
-
-For execution-required stages run:
-
-`python models/football/engine/runtime_probe.py --stage <rank|xi|audit>`
-
-Do not infer engine/repository unavailability from a missing local checkout or raw container network failure.
-
-## Football C selection layer
-
-Football C ranks prospectively from the frozen evidence object. Current FOLLOW certification is stricter than FOCUS classification.
-
-For burdens requiring a clearing third goal:
-- strong carrier production alone is insufficient;
-- a merely usable second route does not automatically fund goal three;
-- continuation, completion and stall/control risk must support the burden.
-
-C2 retains its independent route-quality ranking/selection-floor policy.
-
-## Retired engine artifacts
-
-C3 and C4 are retired from new/current execution.
-
-Historical C3/C4 specifications and frozen records may remain in the repository as **historical source only**. The old triplet runners and C4 executable/compiler artifacts were removed from the active tree and remain recoverable from Git history:
-- they are not imported by the active runtime;
-- they are not in `runtime_probe.py` active manifests;
-- they are not required by current CI;
-- they must not be used to create a new decision;
-- historical records must not be replayed/backfilled with FT/current evidence.
-
-Git history preserves the exact executable source used during retired-model eras.
-
-See:
-
-`models/football/retired/RETIREMENT_MANIFEST.md`
+Experimental goal probability/price-shadow tools are QA/trials only and cannot
+authorize C/C2 actions.
