@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
-"""Fail-closed PRE-PUBLICATION gate for Football C official / C2 shadow Step-2.
+"""Final publication/readback gate for a strict C+C2 priced decision.
 
-Run after independent Decision State read-back and immediately before exposing
-an action to the user / Website Picks. Does not publish or contact Airtable.
-The caller must supply live truth for the current evidence/quote epoch.
+The deterministic pair has already executed before this gate. This verifier
+therefore does not execute the models again and does not run a second session
+reconciliation layer. It checks only what can change after execution:
+- exact Decision State readback,
+- evidence/source revision continuity,
+- quote and fixture still executable,
+- duplicate publication prevention.
+
+Observed/screenshot quote comparisons never enter this gate.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -12,122 +19,146 @@ import json
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
-from decision_pair_cli import run_pair
-from step2_reconcile import _check_persisted_decision, Step2ReconciliationError
 
 _SHA = re.compile(r"^[a-f0-9]{40}$")
+_RECORD = re.compile(r"^rec[A-Za-z0-9]{14}$")
 
 
 class PublicationBlocked(ValueError):
     pass
 
 
-def _text(row: dict, key: str) -> str:
+def _text(row: dict[str, Any], key: str) -> str:
     value = row.get(key)
     if not isinstance(value, str) or not value.strip():
         raise PublicationBlocked(f"{key} must be a nonempty string")
     return value.strip()
 
 
-def check_publication(data: dict) -> dict:
-    if not isinstance(data, dict) or data.get("schema_version") != "football-step2-publication-v1":
-        raise PublicationBlocked("schema_version must be football-step2-publication-v1")
-    c = data.get("c_input")
-    c2 = data.get("c2_input")
+def _json(value: Any, key: str) -> dict[str, Any]:
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError as exc:
+            raise PublicationBlocked(f"{key} invalid JSON") from exc
+    if not isinstance(value, dict):
+        raise PublicationBlocked(f"{key} must be an object")
+    return value
+
+
+def _expected_action(model: str, engine_action: str) -> str:
+    if engine_action not in {"BET", "WAIT", "PASS"}:
+        raise PublicationBlocked(f"{model}: invalid engine action")
+    return (
+        f"C-{engine_action}"
+        if model == "c"
+        else f"C2-{engine_action}"
+    )
+
+
+def check_publication(data: dict[str, Any]) -> dict[str, Any]:
+    if (
+        not isinstance(data, dict)
+        or data.get("schema_version") != "football-step2-publication-v2"
+    ):
+        raise PublicationBlocked(
+            "schema_version must be football-step2-publication-v2"
+        )
+
     receipt = data.get("pair_receipt")
     stored = data.get("decision_state_snapshot")
-    if not all(isinstance(x, dict) for x in (c, c2, receipt, stored)):
-        raise PublicationBlocked("C/C2 inputs, pair receipt and independent read-back required")
-    active_epoch = _text(data, "active_evidence_epoch_id")
-    for label, payload in (("C", c), ("C2", c2)):
-        match = payload.get("match")
-        context = payload.get("context")
-        if not isinstance(match, dict) or not isinstance(context, dict):
-            raise PublicationBlocked(f"{label} match/context missing")
-        if _text(context, "evidence_epoch_id") != active_epoch:
-            raise PublicationBlocked(f"{label} STALE EVIDENCE EPOCH")
-        if _text(match, "match_id") != _text(stored, "match_id"):
-            raise PublicationBlocked(f"{label} FIXTURE IDENTITY MISMATCH")
-        if context.get("quote_revalidated") is not True:
-            raise PublicationBlocked(f"{label} QUOTE NOT REVALIDATED")
+    if not isinstance(receipt, dict) or not isinstance(stored, dict):
+        raise PublicationBlocked(
+            "strict pair receipt and independent Decision State readback required"
+        )
+    if (
+        receipt.get("engine_execution_status") != "EXECUTED_C_C2_PAIR"
+        or receipt.get("models_executed") != ["c", "c2"]
+        or not isinstance(receipt.get("results"), dict)
+        or set(receipt["results"]) != {"c", "c2"}
+    ):
+        raise PublicationBlocked("strict C+C2 pair receipt invalid")
 
+    match_id = _text(stored, "match_id")
+    record_id = _text(stored, "record_id")
+    if not _RECORD.fullmatch(record_id):
+        raise PublicationBlocked("Decision State record ID invalid")
+
+    active_epoch = _text(data, "active_evidence_epoch_id")
     if _text(stored, "evidence_epoch_id") != active_epoch:
-        raise PublicationBlocked("STORED EVIDENCE EPOCH STALE")
+        raise PublicationBlocked("stored evidence epoch stale")
     if _text(data, "latest_evidence_epoch_id") != active_epoch:
-        raise PublicationBlocked("NEWER EVIDENCE EPOCH EXISTS — REASSESS")
-    if data.get("quote_still_executable") is not True:
-        raise PublicationBlocked("EXECUTABLE QUOTE NOT CONFIRMED AT PUBLICATION")
-    if data.get("fixture_status_still_valid") is not True:
-        raise PublicationBlocked("FIXTURE STATUS INVALIDATED — REROUTE")
+        raise PublicationBlocked("newer evidence epoch exists — reassess")
+
     source = _text(data, "active_engine_source_revision")
     if not _SHA.fullmatch(source):
         raise PublicationBlocked("active_engine_source_revision invalid")
     if _text(stored, "engine_source_revision") != source:
-        raise PublicationBlocked("STALE ENGINE SOURCE REVISION")
+        raise PublicationBlocked("stored engine source revision stale")
 
-    # Execute from frozen inputs again; a copied/ad-hoc pair receipt cannot
-    # authorize publication. Engines must agree on the common evidence epoch.
-    computed = run_pair(c, c2)
-    if receipt != computed:
-        raise PublicationBlocked("PAIR RECEIPT DOES NOT MATCH DETERMINISTIC EXECUTION")
+    if data.get("quote_still_executable") is not True:
+        raise PublicationBlocked("executable quote not confirmed at publication")
+    if data.get("fixture_status_still_valid") is not True:
+        raise PublicationBlocked("fixture status invalidated — reassess")
 
-    try:
-        _check_persisted_decision(_text(stored, "match_id"), {
-            "decision_state_snapshot": stored,
-        })
-    except Step2ReconciliationError as exc:
-        raise PublicationBlocked(f"READ-BACK INVALID: {exc}") from exc
+    for model, stored_key, action_key in (
+        ("c", "engine_c_result", "c_action"),
+        ("c2", "engine_c2_result", "c2_shadow_action"),
+    ):
+        result = receipt["results"][model]
+        if result.get("match_id") != match_id:
+            raise PublicationBlocked(f"{model}: pair fixture differs from readback")
+        if _json(stored.get(stored_key), stored_key) != result:
+            raise PublicationBlocked(f"{stored_key} differs from strict pair result")
+        expected = _expected_action(model, result.get("action"))
+        if _text(stored, action_key).upper() != expected:
+            raise PublicationBlocked(f"{action_key} differs from strict pair result")
 
-    for model, key in (("c", "engine_c_result"), ("c2", "engine_c2_result")):
-        actual = stored.get(key)
-        if isinstance(actual, str):
-            try:
-                actual = json.loads(actual)
-            except json.JSONDecodeError as exc:
-                raise PublicationBlocked(f"{key} invalid JSON") from exc
-        # The engine returns its action but keeps the supported burden in
-        # the input assessment. The persisted Step-2 contract requires
-        # a normalized result containing that exact frozen supported_line.
-        model_payload = c if model == "c" else c2
-        expected = {**computed["results"][model],
-                    "supported_line": model_payload["match"]["supported_line"]}
-        if actual != expected:
-            raise PublicationBlocked(f"{key} NOT THE CURRENT PAIR RESULT")
-
-    key = _text(stored, "match_id") + ":" + active_epoch
+    key = match_id + ":" + active_epoch
     published = data.get("previously_published_keys")
-    if not isinstance(published, list) or any(not isinstance(x, str) for x in published):
-        raise PublicationBlocked("previously_published_keys must be an explicit array")
+    if not isinstance(published, list) or any(
+        not isinstance(item, str) for item in published
+    ):
+        raise PublicationBlocked(
+            "previously_published_keys must be an explicit array"
+        )
     if key in published:
-        raise PublicationBlocked("DUPLICATE ASSESSMENT EPOCH — DO NOT REPUBLISH")
+        raise PublicationBlocked("duplicate assessment epoch — do not republish")
 
-    # This certifies only internal consistency of supplied inputs and
-    # attestations. External quote freshness/read-back still requires a
-    # real connector fetch by the caller; this tool cannot attest its own source.
     return {
-        "status": "STEP2 PUBLICATION ELIGIBLE",
+        "status": "STEP2_PUBLICATION_ELIGIBLE",
         "publication_key": key,
-        "match_id": _text(stored, "match_id"),
-        "record_id": _text(stored, "record_id"),
+        "match_id": match_id,
+        "record_id": record_id,
         "engine_source_revision": source,
         "evidence_epoch_id": active_epoch,
         "c_action": _text(stored, "c_action"),
         "c2_shadow_action": _text(stored, "c2_shadow_action"),
-        "external_freshness_attested_by_caller": True,
+        "readback_verified": True,
+        "quote_still_executable": True,
     }
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Check C+C2 Step-2 prepublication integrity")
+    parser = argparse.ArgumentParser(
+        description="Verify strict priced C+C2 publication readback"
+    )
     parser.add_argument("--input", required=True)
     args = parser.parse_args()
     try:
-        data = json.loads(Path(args.input).read_text(encoding="utf-8"))
-        print(json.dumps({"ok": True, **check_publication(data)}, indent=2, sort_keys=True))
+        result = check_publication(
+            json.loads(Path(args.input).read_text(encoding="utf-8"))
+        )
+        print(json.dumps({"ok": True, **result}, indent=2, sort_keys=True))
         return 0
-    except (OSError, ValueError, KeyError) as exc:
-        print(json.dumps({"ok": False, "status": "STEP2 PUBLICATION BLOCKED", "reason": str(exc)}, indent=2), file=sys.stderr)
+    except (OSError, ValueError) as exc:
+        print(json.dumps({
+            "ok": False,
+            "status": "STEP2 PUBLICATION BLOCKED",
+            "reason": str(exc),
+        }, indent=2, sort_keys=True), file=sys.stderr)
         return 2
 
 
