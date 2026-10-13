@@ -296,6 +296,75 @@ def _screenshot_time(value: Any, field: str) -> datetime:
     return dt
 
 
+MAX_ASSESSMENT_LIVE_DECAY_GAP = 0.75
+DEFAULT_ASSESSMENT_WAIT_MIN_ODDS = 1.65
+
+
+def _conditional_live_decay_plan(
+    model_result: dict[str, Any],
+    current_line: float,
+    current_odds: float,
+) -> dict[str, Any]:
+    """Compile a non-executable prematch WAIT plan from football + observed price.
+
+    This restores the user-facing decay-first plan without pretending the
+    screenshot is a live executable offer or bypassing the strict priced
+    decision engine. The strict engine, when available, always overrides this
+    provisional plan.
+    """
+    supported = model_result.get("frozen_supported_line")
+    funded = model_result.get("frozen_supported_line_funding") is True
+    board_state = model_result.get("board_state")
+    football_read = model_result.get("football_read")
+    if type(supported) not in (int, float) or not math.isfinite(supported):
+        return {"status": "NOT_ELIGIBLE", "reason": "SUPPORTED_LINE_UNAVAILABLE"}
+    gap = round(float(current_line) - float(supported), 10)
+    if gap <= 0:
+        return {"status": "NOT_APPLICABLE", "reason": "MARKET_NOT_ABOVE_SUPPORTED_BURDEN"}
+    # football_assessment serializes BoardState.FOCUS.value (= 2);
+    # accept the canonical integer plus text aliases used by older wrappers.
+    if board_state not in {2, "FOCUS", "C-FOCUS", "C2-FOCUS"}:
+        return {"status": "NOT_ELIGIBLE", "reason": "MODEL_NOT_FOCUS"}
+    if football_read != "FOOTBALL_THESIS_CURRENTLY_INTACT":
+        return {"status": "NOT_ELIGIBLE", "reason": "CURRENT_FOOTBALL_RECHECKS_OR_ADVERSE_STATE"}
+    if not funded:
+        return {"status": "NOT_ELIGIBLE", "reason": "SUPPORTED_BURDEN_NOT_FUNDED"}
+    if gap > MAX_ASSESSMENT_LIVE_DECAY_GAP + 1e-9:
+        return {
+            "status": "NOT_REACHABLE",
+            "reason": "DECAY_GAP_TOO_LARGE_FOR_BOUNDED_WAIT",
+            "gap": gap,
+            "maximum_gap": MAX_ASSESSMENT_LIVE_DECAY_GAP,
+        }
+    return {
+        "status": "WAIT",
+        "action": "WAIT",
+        "wait_type": "LIVE_DECAY",
+        "target_line": float(supported),
+        "minimum_odds": DEFAULT_ASSESSMENT_WAIT_MIN_ODDS,
+        "current_line": float(current_line),
+        "current_odds": float(current_odds),
+        "gap": gap,
+        "reachable": True,
+        "reachability_basis": (
+            "observed prematch line is no more than 0.75 goals above the "
+            "funded frozen burden; target may be reached by ordinary clock "
+            "decay under a clean state"
+        ),
+        "requires_state_recheck": True,
+        "cancellation_or_recheck_conditions": [
+            "goal before target",
+            "red card",
+            "major injury",
+            "material tactical change",
+            "primary scoring route damaged",
+            "target reached only through a new football thesis",
+        ],
+        "executable": False,
+        "accounting_exposure_created": False,
+    }
+
+
 def assess_user_screenshot(
     screenshot: dict[str, Any],
     c_football: dict[str, Any],
@@ -373,14 +442,37 @@ def assess_user_screenshot(
     model_verdicts = {}
     for model in ("c", "c2"):
         funded = football["results"][model]["frozen_supported_line"]
+        decay_plan = (
+            _conditional_live_decay_plan(
+                football["results"][model], float(line), float(odds)
+            )
+            if fixture == "PREMATCH_CONFIRMED"
+            else {
+                "status": "NOT_APPLICABLE",
+                "reason": "PREDECLARED_DECAY_PLAN_REQUIRES_PREMATCH_EPOCH",
+            }
+        )
         model_verdicts[model] = {
             "supported_line": funded,
             "snapshot_line_relation": ("ABOVE_SUPPORTED_BURDEN" if line > funded else
                                        "AT_SUPPORTED_BURDEN" if line == funded else
                                        "BELOW_SUPPORTED_BURDEN"),
-            "conditional_action": "NOT_EVALUATED_MISSING_PRICED_MODEL_CONTEXT",
+            "conditional_action": (
+                "WAIT" if fixture == "PREMATCH_CONFIRMED"
+                and decay_plan.get("status") == "WAIT"
+                else "NOT_EVALUATED_MISSING_PRICED_MODEL_CONTEXT"
+            ),
+            "assessment_decay_plan": decay_plan,
             "bet_authorized": False,
         }
+        if decay_plan.get("status") == "WAIT":
+            model_verdicts[model].update({
+                "wait_target_line": decay_plan["target_line"],
+                "wait_min_odds": decay_plan["minimum_odds"],
+                "wait_reachable": True,
+                "wait_reachability_basis": decay_plan["reachability_basis"],
+                "indicative_only": True,
+            })
     base = {
         "ok": False, "status": "SCREENSHOT_PRICE_ASSESSED_CONDITIONAL",
         "evidence": evidence, "models": model_verdicts,
@@ -397,6 +489,8 @@ def assess_user_screenshot(
         return base
     if priced_inputs is None:
         limitations.append("INDEPENDENT_C_C2_PRICED_CONTEXT_NOT_PROVIDED")
+        if any(v.get("conditional_action") == "WAIT" for v in model_verdicts.values()):
+            limitations.append("ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN_NOT_EXECUTABLE_ACTION")
         return base
     for model, f_input in (("c", c_football), ("c2", c2_football)):
         p = priced_inputs[model]

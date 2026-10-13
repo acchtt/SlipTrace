@@ -220,5 +220,89 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertFalse(price["bet_authorized"])
 
 
+    def test_15_prematch_screenshot_can_restore_bounded_live_decay_wait_without_priced_context(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        for payload in (c, c2):
+            payload["context"].update(
+                thesis_state="PRESERVED",
+                primary_mechanism_intact=True,
+                material_veto=False,
+            )
+            payload["match"]["supported_line"] = 2.5
+            payload["match"]["carrier"] = "STRONG"
+            payload["match"]["carrier_self_fund"] = True
+            payload["match"]["independent_upper_tail"] = True
+        out = run_xi(c, c2, snapshot(c, line=3.0, odds=1.72), priced=False)
+        price = out["price_check"]
+        self.assertFalse(price["bet_authorized"])
+        self.assertFalse(price["model_bets_created"])
+        self.assertIn(
+            "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN_NOT_EXECUTABLE_ACTION",
+            price["limitations"],
+        )
+        for model in ("c", "c2"):
+            verdict = price["models"][model]
+            self.assertEqual(verdict["conditional_action"], "WAIT")
+            self.assertEqual(verdict["assessment_decay_plan"]["status"], "WAIT")
+            self.assertEqual(verdict["assessment_decay_plan"]["wait_type"], "LIVE_DECAY")
+            self.assertEqual(verdict["wait_target_line"], 2.5)
+            self.assertEqual(verdict["wait_min_odds"], 1.65)
+            self.assertTrue(verdict["wait_reachable"])
+            self.assertTrue(verdict["assessment_decay_plan"]["requires_state_recheck"])
+
+    def test_16_decay_wait_is_not_issued_for_unrealistic_gap(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        for payload in (c, c2):
+            payload["context"].update(
+                thesis_state="PRESERVED",
+                primary_mechanism_intact=True,
+                material_veto=False,
+            )
+            payload["match"]["supported_line"] = 2.5
+            payload["match"]["carrier"] = "STRONG"
+            payload["match"]["carrier_self_fund"] = True
+            payload["match"]["independent_upper_tail"] = True
+        out = run_xi(c, c2, snapshot(c, line=4.0, odds=1.72), priced=False)
+        for model in ("c", "c2"):
+            verdict = out["price_check"]["models"][model]
+            self.assertNotEqual(verdict["conditional_action"], "WAIT")
+            self.assertEqual(verdict["assessment_decay_plan"]["status"], "NOT_REACHABLE")
+            self.assertEqual(
+                verdict["assessment_decay_plan"]["reason"],
+                "DECAY_GAP_TOO_LARGE_FOR_BOUNDED_WAIT",
+            )
+
+    def test_17_adverse_or_unverified_football_cannot_create_decay_wait(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None, event="NONE_VERIFIED")
+        for payload in (c, c2):
+            payload["match"]["supported_line"] = 2.5
+            payload["match"]["carrier"] = "STRONG"
+            payload["match"]["carrier_self_fund"] = True
+            payload["match"]["independent_upper_tail"] = True
+        c["context"].update(
+            thesis_state="BROKEN",
+            primary_mechanism_intact=False,
+            material_veto=True,
+        )
+        c2["context"].update(
+            thesis_state="PRESERVED",
+            primary_mechanism_intact=None,
+            material_veto=False,
+        )
+        out = run_xi(c, c2, snapshot(c, line=3.0, odds=1.72), priced=False)
+        self.assertNotEqual(out["price_check"]["models"]["c"]["conditional_action"], "WAIT")
+        self.assertNotEqual(out["price_check"]["models"]["c2"]["conditional_action"], "WAIT")
+        self.assertEqual(
+            out["price_check"]["models"]["c"]["assessment_decay_plan"]["status"],
+            "NOT_ELIGIBLE",
+        )
+        self.assertEqual(
+            out["price_check"]["models"]["c2"]["assessment_decay_plan"]["status"],
+            "NOT_ELIGIBLE",
+        )
+
 if __name__ == "__main__":
     unittest.main()
