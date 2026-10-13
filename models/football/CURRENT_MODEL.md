@@ -207,6 +207,7 @@ Football C owns:
 Football C2 owns independently:
 - C2 supported line;
 - C2 route-quality ranking/selection-floor state;
+- C2 opponent leakage grade and C2-specific leakage basis when current evidence supports that optional O2.25 certificate;
 - C2 shadow board state/rank;
 - C2 Step-2 shadow action.
 
