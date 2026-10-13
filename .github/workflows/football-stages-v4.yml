@@ -27,15 +27,16 @@ jobs:
           python-version: "3.12"
       - name: Test researched league registry and V4 sweep/rank
         run: python -m unittest discover -s models/football/stages_v4 -p 'test_*.py' -v
-      - name: Verify V4 CLI and old tombstone are distinct
+      - name: Verify V4 CLI is independent of retired sweep/rank code
         run: |
           python models/football/stages_v4/stage.py --help
           python - <<'PY'
           from pathlib import Path
-          source = Path('models/football/engine/sweep_rank_retired.py').read_text()
-          assert 'ACTIVE_SWEEP_RANK_ENABLED = False' in source
+          retired = Path('models/football/engine/sweep_rank_retired.py')
+          assert not retired.exists(), 'retired V1-V3 tombstone returned to active engine tree'
           stage = Path('models/football/stages_v4/stage.py').read_text()
           assert 'run_board_pair(c, c2)' in stage
           assert 'V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK' in stage
-          print('PASS — V4 independent; original retired pipeline stays off')
+          assert 'goal_route_prescreen' not in stage
+          print('PASS — V4 is self-contained; retired sweep/rank code is absent')
           PY
