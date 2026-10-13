@@ -26,9 +26,26 @@ C/C2 decision contexts already exist, add both `--price-c` and `--price-c2`
 to apply the **unchanged** model price rules to the screenshot's quote.
 A price-action result on a stale or untimed screenshot is explicitly
 `CONDITIONAL ACT/WAIT/PASS`, not a currently executable instruction.
-If context is missing, report exact supported lines and no evaluated price
-action. For live screenshots use displayed score/minute and no retrospective
-prematch pricing. Never request fresh bookmaker odds to finish an /xi.
+
+**Decay-plan restoration (2026-10-13):** a complete strict priced context is
+not required merely to predeclare a protected decay target. When the exact
+user PREMATCH screenshot shows a line **above** that model's funded frozen
+supported burden, the model is FOCUS, and the current football thesis is
+fully intact, /xi may emit `WAIT — LIVE DECAY (conditional plan)` directly
+from the football result plus that screenshot. The target is the model's own
+supported line and the conservative minimum price is 1.65. This assessment
+plan is allowed only when the line gap is no more than **+0.75 goals**; a
+larger gap is not treated as a reachable WAIT. Any goal, red card, major
+injury, tactical change or route damage requires a fresh state-integrity
+recheck before the target can be acted on. The plan creates **no executable
+bet, no WAIT_ASSUMED exposure, no Website Pick and no Actual Bet**.
+
+If complete independent C/C2 decision contexts also exist, the strict priced
+engine supersedes this provisional plan and may return its own ACT/WAIT/PASS
+using the actual `wait_reachable` evidence. For live screenshots, never
+create a new predeclared plan retrospectively; use displayed score/minute and
+the current live comparison route only. Never request fresh bookmaker odds
+to finish an /xi.
 Screenshot-only mode never treats matching timestamps or an operator `open_offer_verified_in_screenshot` flag as independent proof of executable offer availability. Conditional ACT/WAIT/PASS remains a price-rule comparison, not an official executable bet. Strict current execution requires a separate independently verified channel outside screenshot-only mode, never a replacement bookmaker quote gathered for the user's screenshot request.
 
 Every screenshot assessment sets `model_bets_created=false`. Airtable
