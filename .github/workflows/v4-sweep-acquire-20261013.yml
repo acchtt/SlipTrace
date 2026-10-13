@@ -1,4 +1,4 @@
-name: V4 sweep acquire 2026-10-13 18-03 ICT v3
+name: V4 sweep acquire 2026-10-13 18-03 ICT v4
 on:
   push:
     paths:
