@@ -248,6 +248,43 @@ def require_c_completion(
     return values  # type: ignore[return-value]
 
 
+def low_burden_leakage_goal3_funded(
+    a: MatchAssessment, selected_line: float | None = None
+) -> bool:
+    """Return whether C can fund goal three through a leakage-led O2.25 path.
+
+    Oct-12 calibration showed a recurring false-negative shape: a STRONG route
+    facing HIGH opponent leakage was suppressed by recent 1-1/two-goal stall
+    history even when the first-two-goal mechanism remained live. This narrow
+    route exists only at O2.25 or lower. It does not justify O2.5/O2.75 and does
+    not create a fourth-goal tail.
+
+    The safeguard deliberately requires:
+      - a STRONG scoring route,
+      - HIGH opponent leakage,
+      - at least MEDIUM burden-completion and route reliability,
+      - at least MEDIUM current chance quality,
+      - no material suppression or route-attacking failure.
+
+    Continuation/stall history may therefore be counterweighted at this low
+    protected burden, but LOW burden-completion can never be rescued.
+    """
+    require_c_completion(a)
+    burden = a.supported_line if selected_line is None else selected_line
+    _validate_quarter_line(burden)
+    if burden > 2.25:
+        return False
+    return (
+        max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.opponent_leakage == Grade.HIGH
+        and a.burden_completion_quality >= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
 def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None) -> bool:
     """Return whether C has explicit prospective funding for the clearing goal.
 
@@ -257,8 +294,9 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
     For O2.25/O2.5/O2.75, a full win requires goal 3. A carrier-led path must prove
     that goal independently; a merely USABLE supporting route is not enough.
     TWO_SIDED/MIXED can fund it through two usable routes only when both the
-    completion and continuation diagnostics are HIGH. O3.0 additionally
-    requires independent upper-tail/self-funding carrier proof because a
+    completion and continuation diagnostics are HIGH. O2.25 additionally admits
+    the narrow leakage-led route above; that route never extends to O2.5/O2.75.
+    O3.0 requires independent upper-tail/self-funding carrier proof because a
     fourth-goal tail cannot be inferred from ordinary two-route shape.
     """
     require_c_completion(a)
@@ -288,12 +326,13 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
         and not a.material_suppression
         and not a.failure_attacks_route
     )
+    leakage_goal3 = low_burden_leakage_goal3_funded(a, burden)
 
     if burden < 3.0:
-        return strong_carrier_goal3 or two_route_goal3
+        return strong_carrier_goal3 or two_route_goal3 or leakage_goal3
 
     # O3.0 FOLLOW needs an independently supported upper tail; ordinary
-    # two-sidedness cannot manufacture goal four.
+    # two-sidedness or O2.25 leakage pressure cannot manufacture goal four.
     return strong_carrier_goal3
 
 
@@ -590,18 +629,22 @@ def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    if a.burden_stall_risk == Grade.HIGH:
+    # Apply the execution burden before stall/continuation vetoes so the
+    # low-burden leakage route can be evaluated at the actual supported burden.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    leakage_counterweight = low_burden_leakage_goal3_funded(a, executable_burden)
+
+    if a.burden_stall_risk == Grade.HIGH and not leakage_counterweight:
         return Decision(Action.PASS, "current burden stall risk is HIGH")
 
     if a.burden_completion_quality == Grade.LOW:
         return Decision(Action.PASS, "current burden-completion quality is LOW")
 
-    if a.continuation_quality == Grade.LOW:
+    if a.continuation_quality == Grade.LOW and not leakage_counterweight:
         return Decision(Action.PASS, "current continuation quality is LOW")
 
     # Apply the funding gate at this execution epoch, including exceptions.
     # A higher quote can only WAIT for the already supported burden.
-    executable_burden = min(ctx.quote.line, a.supported_line)
     if not clearing_goal_funded(a, executable_burden):
         return Decision(Action.PASS, "C clearing-goal funding missing")
 
