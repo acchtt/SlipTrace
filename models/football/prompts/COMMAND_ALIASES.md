@@ -1,311 +1,116 @@
-# Football Short Command Aliases
+# Football v2 — Command aliases
 
-## Active replacement — Football V4 /sweep and /rank
+## Active router
 
-**The user explicitly approved a NEW sweep and rank stage on 2026-10-11.**
-/sweep and /rank NOW route to
-`models/football/stages_v4/SWEEP.md` and
-`models/football/stages_v4/RANK.md`, using the NEW
-`models/football/stages_v4/stage.py`. This is **not** a
-V1/V2/V3 restart or a replay of any prior BLOCKED run. The new
-independent source snapshot has ID prefix `V4-`, a complete
-`DATE_SURFACE_BATCH_V2` provider-surface manifest, a full source-visible
-fixture ledger acquired **before** registry classification, no arbitrary
-eight-match cap and goal-first research order.
+Only the first slash command routes the message.
 
-**/xi, /xi exception, /live, /audit and /report remain available**
-with C official/C2 shadow and the existing single-command /xi logic.
-The V4 stage never fabricates prices, Xi, goals, source pages or bets.
-
-## Legacy retirement (V1/V2/V3 only, historical)
-
-Historical statement: **/sweep and /rank are RETIRED** on the
-old production entrypoints. `SWEEP_RANK_RETIRED` continues to block
-the previous V1/V2/V3 pipelines, including resume/repair/reassess,
-old source ZIP packaging, `sweep_rank_pipeline.py`, and direct
-legacy Work launchers. A past run or ZIP MUST NOT be silently
-reopened under V4. The user's latest authorization created a new
-implementation; it did **not** reactivate those old paths.
-
-> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (all except /sweep):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **V4 uses only newly acquired source receipts and the active base; historical Step0 handoff receipts are unchanged and never replayed.** Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
-
-**Status:** ACTIVE ROUTER CONTRACT  
-**Authority:** semantic aliases for the canonical football launchers  
-**Scope:** messages in the FB v2 / SlipTrace football workflow
-
-These aliases are intentionally short so the user does not need to remember launcher filenames.
-
-They are project-level text commands, not a dependency on ChatGPT's built-in slash-command UI. The user can simply type them as ordinary chat text.
-
-## Simple command — /xi
-
-`/xi` is the **one** C+C2 match assessment command (also
-`/xi exception` for a user-requested exception). Assess football
-without waiting for quotes. If a genuine current price is already
-provided or verified, evaluate that offer automatically in the same
-response; otherwise finish the football assessment without asking
-for more market screenshots. Live /xi behaves the same way but
-never makes a retrospective prematch bet.
-
-`/live` uses the same football-first behavior for a started match.
-The old `/assess` and `/bet` shortcuts are optional compatibility
-aliases; **do not ask the user to learn or choose them**.
-See `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. No unsupported executable
-bets, fabricated odds, or implicit C2 official exposure.
-
-Every invocation must reload the current launcher from the newest
-repository main authority, not reuse an old Work-session snapshot.
-This protects the one-command /xi behavior from stale quote-first
-instructions. The source-first freshness and version attestation
-checks remain mandatory.
-
-## Command map
-
-| Command | Canonical action |
+| Command | Active authority |
 |---|---|
-| `/sweep [window]` | **NEW V4** — execute `models/football/stages_v4/SWEEP.md` |
-| `/sweep resume` / `/sweep repair` | **Legacy commands retired**; fresh V4 source epoch only |
-| `/rank` | **NEW V4** — execute `models/football/stages_v4/RANK.md` |
-| `/rank reassess` | **Legacy command retired**; new V4 rank from a current frozen V4 sweep |
-| `/xi` | Single C+C2 football assessment; automatically use verified actual odds if available |
-| `/live` | Same one-step assessment for started matches |
-| `/assess`, `/bet`, `/xi bet` | Optional historical aliases; no extra command required for `/xi` |
-| `/audit` | Execute `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
-| `/report` | Execute `models/football/prompts/06_NORMAL_CHAT_REPORT.md` |
-| `/help` | Show this command map and concise examples; do not run a football stage |
-
-The old `@filename` / explicit launcher-path form remains valid for compatibility.
+| /sweep [window] | V4 source-backed intake: models/football/stages_v4/SWEEP.md |
+| /rank | V4 C/C2 rank: models/football/stages_v4/RANK.md |
+| /xi | One C+C2 football assessment with optional observed/executable price check |
+| /xi exception | Explicit user-requested fixture assessment outside routine board authority |
+| /live | Same C/C2 football assessment using current started-match state |
+| /audit | Post-slate audit |
+| /report | Read-only current report |
 
-## Parsing rule
-
-**First route V4:** when the first token is `/sweep` or `/rank`,
-use ONLY the new `models/football/stages_v4/` launcher shown above.
-Reject legacy `resume`, `repair` and `reassess` subcommands.
-For any user-supplied original V1/V2/V3 run ID or archived Step0 ZIP,
-return `SWEEP_RANK_RETIRED` rather than silently importing old
-operational authority. Do not follow historical instructions under
-"Command semantics" for those two commands.
-
+Aliases are case-insensitive. Text after the command is normal launcher input.
 
+## /sweep
 
-When the first non-whitespace token of the user's message is one of the aliases above:
+Use V4 only. Start from the actual requested/current ICT window and never
+retroactively admit already-started fixtures.
 
-1. treat it as an explicit request to run the mapped launcher;
-2. read `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`;
-3. read `models/football/CURRENT_MODEL.md` and the current mapped launcher before trusting any handoff/prior-chat authority text;
-4. preserve all remaining user text after the command as launcher arguments/instructions;
-5. treat files/images attached to the same message as inputs to that launcher;
-6. do not ask the user to restate the canonical filename;
-7. do not reinterpret the alias as a generic conversational slash command.
-
-Aliases are case-insensitive, but the canonical display form is lowercase.
-
-Only the **first** alias token routes the message. Text later in the message is normal argument text.
-
-## V4 cross-command verified evidence contract (2026-10-12)
+The sweep acquires complete provider date surfaces before registry/filtering,
+then applies exclusions, research priority and goals-first qualification.
 
-- `/rank` **must** replay the unchanged V4 `source.json` and check a full current kickoff/status cohort (10-minute bound) using the native engine's `--source` and `--status-refresh` inputs. A self-consistent receipt SHA256 is insufficient without original-source reproducibility and independent provider provenance. For `/rank newest receipt`, automatically resolve the matching source from the same attestation bundle, current recovery path, or exact source-producing GitHub ref before reporting a blocker; do not ask the user to attach a source that already exists in workflow/repository provenance.
-- For any user-supplied `/xi`, `/xi exception` or `/live` screenshot, the image is the **sole** market-price source: NO bookmaker or market-history price search, NO replacement timestamp, NO request for a fresh screenshot just because processing takes time. Conditional C/C2 screenshot-price verdicts may be given, but never executable ACT from a screenshot alone.
-- Keep C official, C2 shadow, model-accounting assumed exposure separate from confirmed user `Actual Bets — Current`. `/audit` follows V4 goals-first/discovery and /report is strictly read-only.
-- All earlier V1–V3 launchers, Step0 ZIP capacity/checkpoints and old Football A "ACTIVE" labels are non-authoritative.
+Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows.
 
-## V4 uniform goal-signal selection authority
+## /rank
 
-On /sweep do not send **all registered fixtures** straight to /rank.
-Capture a time-bounded source-backed fixture universe, inspect both teams'
-actual 4–10 previous competitive results, and emit a verified Over-research
-`eligible_queue` with goal-first priority irrespective of registry tier.
-Fixtures whose goals evidence is missing or low remain discoverable as
-`goal_research_queue` with exact reasons; these are not model PASS or
-betting selections. When /rank in Work needs form for pending fixtures,
-collect genuine match-specific evidence and generate a NEW fresh
-native V4 receipt without restarting global discovery or changing old
-signed records. Verified C+C2 model execution only after this gate.
-See `models/football/stages_v4/goals_first_intake.py`.
+Use the newest/explicit native V4_SWEEP_READY receipt.
 
-## V4 open-league priority override
+The rank stage itself performs original-source replay and a fresh full-cohort
+status check before C/C2 board execution, then independently verifies Airtable
+persistence once.
 
-/sweep: acquire current time-bounded senior fixtures WITHOUT pre-filtering
-to registered competitions; apply explicit exclusions after acquisition.
-Unknown official domestic leagues/cups belong to `DISCOVERY`: gather
-source-backed team goals and exact match researchability evidence, place
-qualified goals candidates into the original ranked research pool, and
-retain other discovered matches as `PENDING_DISCOVERY` with reasons.
-/rank: assess discovery-qualified fixtures with C official/C2 shadow
-like other candidates, and never turn pending discovery into model PASS.
-The historical V1–V3 pipeline remains retired; no retroactive edits.
+For /rank newest receipt, resolve the matching source from the normal V4
+handoff/provenance. Do not ask the user to upload a source that the project
+already owns.
 
-## V4 command semantics — current
+Routine Step 2 trusts the resulting verified rank+persistence receipt; it does
+not repeat source replay.
 
-`/sweep [window]`: enumerate complete bounded provider date surfaces for
-every ICT+UTC date touched by the requested future window, exhaust pagination,
-reconcile all senior competition blocks/fixture IDs, run the independent
-terminal sentinel, then classify registry/DISCOVERY lanes and return goals-first
-eligible plus pending research. Never query only the registered leagues and
-call that a sweep. This is provider-surface completeness, not a worldwide
-exhaustive missing-source claim.
+## /xi
 
-`/rank`: only the V4 frozen eligible set; source-backed goal-first
-football research across all available candidates, independent C and
-C2 evaluation, then active Airtable readback. Odds optional for
-football analysis, no fabricated bet, no retrospective prematch.
-No user Work-chat switching and no 8-match cap.
+/xi is one command. The user does not need separate assess/bet commands.
 
-## Historical command semantics — inactive V1/V2/V3 archive
+Order:
 
-### `/sweep [window]`
+1. current Football C + C2 football assessment, no odds required;
+2. if the user already supplied a screenshot/observed quote, evaluate that
+   exact line/odds through the shared C/C2 quote policy;
+3. if a genuinely current executable quote and all strict execution evidence
+   already exist, run the strict decision pair;
+4. persist/read back once when persistence is required.
 
-Runs Step 0.
+A user screenshot is the sole price source for that comparison. Do not search
+for replacement odds, re-time it, or ask for a new screenshot because
+processing took time.
 
-Examples:
-- `/sweep now to 3am`
-- `/sweep 9pm to 6am tomorrow`
-- `/sweep now to 12pm`
+Observed-quote ACT/WAIT/PASS is conditional only. It never authorizes
+exposure/publication by itself.
 
-The supplied time expression defines the requested sweep window in ICT unless the user explicitly supplies another timezone.
+WAIT may be shown only when model-specific research explicitly establishes a
+reachable target that does not require negative football information. Do not
+invent a reachability rule from market gap alone.
 
-The sweep is checkpointed under `FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md`. A large run may intentionally return `SWEEP CHECKPOINT SAVED — /sweep resume` instead of timing out; this is RUNNING, not BLOCKED.
+## /xi exception
 
-### `/sweep resume [window|Run ID]`
+An explicit exception can assess a STOP/non-board fixture from independently
+researched C/C2 evidence. It does not need routine board authorization.
 
-Continues the matching RUNNING Step-0 sweep from Airtable `Resume Cursor`.
+The exception does not authorize retroactive prematch action after kickoff.
 
-Examples:
-- `/sweep resume`
-- `/sweep resume SWEEP-20261005-0000-0600`
+## /live
 
-Resume mode:
-- reuses the acquired source epoch;
-- reuses completed block evidence/dispositions;
-- processes only the next bounded verification chunk;
-- never starts a new Run ID for the same continuation;
-- returns another checkpoint when more verification remains;
-- packages the canonical ZIP only after final reconciliation passes.
+/live uses the same football assessment path as /xi with the actual current
+score/minute/material events.
 
-The final output remains the canonical AiScore handoff/ZIP defined by Step 0.
+After kickoff:
 
-### `/sweep repair [window]`
+- keep football analysis;
+- discard prematch execution assumptions;
+- never recreate a prematch action retrospectively;
+- an observed live price is comparison evidence only unless a separately
+  implemented live execution policy authorizes it.
 
-Runs the bounded repair path in:
-`models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md`
+There is no standalone kickoff-transition state machine in the active stack.
 
-Examples:
-- `/sweep repair 15:00 to 00:00`
-- `/sweep repair 15:00 to 00:00, exclude already-started matches`
+## /audit
 
-Repair mode:
-- targets the latest matching prior sweep unless a Run ID is supplied;
-- reuses complete persisted rows instead of restarting discovery;
-- repairs only missing/conflicting/block-deferred items;
-- excludes started fixtures before deep verification;
-- uses at most two authoritative verification attempts per unresolved competition block;
-- terminates with an explicit unresolved list instead of continuing open-ended web search.
+Audit frozen prospective evidence against actual outcomes. Never rewrite
+historical decisions. Experimental shadow/probability tools are QA only unless
+the user explicitly asks for that analysis.
 
-Do not silently route `/sweep repair` through the normal fresh-sweep discovery loop.
+## /report
 
-### `/rank`
+Read only from the active operational state. User P/L comes only from
+Actual Bets — Current.
 
-Runs Step 1 against the attached/current canonical AiScore handoff.
+## Active model and data boundaries
 
-Examples:
-- attach the sweep ZIP, then type `/rank`;
-- attach a completed repaired sweep ZIP, then type `/rank`;
-- `/rank reassess` means rerun the current attached board input under the current model authority.
+- Football C: official.
+- Football C2: shadow only.
+- C3/C4: retired for new work.
+- Active model base: appbzxqXYf0lKfD4P.
+- Historical base: read-only when explicitly requested.
+- C2 never creates a Website Pick.
+- WATCH and unresolved WAIT create no synthetic active exposure.
+- Actual Bets — Current is the only authority for physical user profit/loss.
 
-When a repaired sweep file is attached, apply `FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md` before web research. A structurally complete repaired handoff freezes Step-0 fixture identity, kickoff, dispositions and capacity queue for /rank.
+## Retired command semantics
 
-Do not interpret `/rank` as a request for a casual subjective ranking. It invokes the full Football C official + Football C2 shadow Step-1 board workflow.
-
-Do not use /rank to repair Step 0, re-verify repaired fixture kickoffs, or reconstruct a repaired queue from the web.
-
-### /xi and /xi exception
-
-Run **one** match assessment. Use C and independently C2 football
-evidence first, without a bookmaker quote requirement. If a valid
-current offered total/odds are already available and all eligibility
-guards are satisfied, automatically include the actual price-based
-C action and C2 shadow comparison. Otherwise deliver C/C2 football
-reads with `No bet price checked`. Never ask for another price just
-to finish /xi.
-
-### /live
-
-Same immediate assessment, using current score/minute/events. A
-valid live quote may separately support a verified current price
-decision; stale prematch quotes never do.
-
-### /assess, /bet, /xi bet
-
-Old shortcuts continue to work for compatibility; they must not
-split or interrupt a normal `/xi` request. User does not need them.
-
-### `/audit [scope]`
-
-Runs the post-slate audit.
-
-Examples:
-- `/audit yesterday`
-- `/audit last 3 boards`
-- `/audit newest board`
-
-Do not silently reduce a requested full-board audit to placed bets only.
-
-### `/report [scope]`
-
-Read and summarize the latest already-existing football state without rerunning Step 0/1/2.
-
-Examples:
-- `/report`
-- `/report current board`
-- `/report next matches`
-- `/report latest decisions`
-
-Use current persisted board/Decision State/Website Pick data and current-conversation state as applicable. Revalidate schedule/status when reporting upcoming fixtures.
-
-`/report` must not:
-- create a new sweep;
-- rerank a board;
-- reassess XI;
-- manufacture a new model verdict.
-
-If the user explicitly adds `refresh`, refresh only the factual current status needed for the report; do not rerun predictive stages unless they also invoke the corresponding command.
-
-### `/help`
-
-Return the compact command cheat sheet only.
-
-## Input continuity
-
-A short command may reuse an input already supplied in the **current conversation** when the intended artifact/match is unique and unambiguous.
-
-Examples:
-- a sweep ZIP was just attached, followed by `/rank`;
-- XI screenshots were just posted, followed by `/xi`;
-- live screenshots for the currently discussed exact match were just posted, followed by `/live`.
-
-Do not substitute a stale board or a different similarly named fixture when identity is ambiguous.
-
-## Authority and safety boundaries
-
-Aliases change ergonomics only. They do not weaken or replace:
-- AiScore fixture authority;
-- women's top-flight coverage completeness;
-- competition reliability;
-- operational viability;
-- tournament incentive integrity;
-- burden-completion selection;
-- XI/post-XI research;
-- C official / C2 shadow separation;
-- new-chat / handoff freshness bootstrap;
-- persistence and audit rules.
-
-If alias text conflicts with a mandatory model integrity gate, the gate wins.
-
-
-## Handoff freshness
-
-When a command is invoked in a new chat that contains a handoff or copied prior response, the handoff is context only.
-
-Always reload the current model roster and launcher semantics first. An older handoff that names C3/C4 must not reactivate retired models in a current /rank, /xi or /live response.
-
-For /xi and /live, Football C2 is the only current shadow action track. If a lawful C2 state cannot be produced, show the exact incomplete/unavailable reason rather than silently falling back to C-only completion.
+Old V1-V3 sweep/resume/repair/ZIP/compact-capacity semantics are historical
+only. If an old handoff mentions them, reload this router and use the current
+V4/C+C2 command instead of reviving the old workflow.
