@@ -69,7 +69,7 @@ rank receipt before routine /xi is authorized; board state/rank/line is not
 a sufficient substitute for model-owned evidence. Historical rows are not
 backfilled.
 
-New Decision State rows must persist C Action, C Supported Line, C2 Shadow Action and C2 Supported Line together for completed assessments. C2 may never create a Website Pick.
+New Decision State rows must persist C Action, C Supported Line, C2 Shadow Action and C2 Supported Line together for completed **strict priced decisions**. A screenshot-only `WAIT — LIVE DECAY (conditional plan)` is evidence/presentation state, not `C-WAIT`: do not write it as official C Action, do not create `WAIT_ASSUMED` exposure, and do not create a Website Pick. C2 may never create a Website Pick.
 
 New model accounting includes C and C2 only. Historical C3/C4 accounting is retained as historical data but excluded from active-roster forward metrics.
 
