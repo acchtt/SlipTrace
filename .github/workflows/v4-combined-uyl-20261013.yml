@@ -1,0 +1,90 @@
+name: V4 combined senior + UEFA Youth League sweep
+on:
+  push:
+    paths:
+      - ".github/workflows/v4-combined-uyl-20261013.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire complete date surfaces with UEFA Youth League exception
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL"
+          mkdir -p "$folder"
+          python models/football/stages_v4/acquire_v4_window_livescore.py \
+            --output "$folder/source.json" \
+            --report "$folder/acquisition-report.json"
+      - name: Native V4 combined preflight
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL"
+          python models/football/stages_v4/stage.py \
+            --output "$folder/preflight-v4_sweep_ready.json" \
+            sweep --source "$folder/source.json"
+      - name: Emit UEFA Youth League supplemental sweep report
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path("models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL")
+          source=json.loads((folder/"source.json").read_text())
+          receipt=json.loads((folder/"preflight-v4_sweep_ready.json").read_text())
+          src={x["match_id"]:x for x in source["fixtures"] if x.get("competition")=="UEFA Youth League"}
+          ledger=[x for x in receipt["source_ledger"] if x.get("competition")=="UEFA Youth League"]
+          q={x["match_id"]:x for x in receipt["eligible_queue"] if x.get("competition")=="UEFA Youth League"}
+          youth=[]
+          for row in sorted(ledger,key=lambda x:(x.get("kickoff_utc",""),x.get("match_id",""))):
+            mid=row["match_id"]
+            youth.append({
+              "match_id":mid,"home":row.get("home"),"away":row.get("away"),
+              "kickoff_utc":row.get("kickoff_utc"),"fixture_status":row.get("fixture_status"),
+              "registry_lane":row.get("registry_lane"),"intake_lane":row.get("intake_lane"),
+              "reason":row.get("reason"),"goal_screen":q.get(mid,{}).get("goal_screen"),
+              "has_recent_goal_history":bool(src.get(mid,{}).get("football_evidence")),
+            })
+          out={
+            "schema_version":"football-v4-uefa-youth-supplement-v1",
+            "parent_run_id":receipt["run_id"],
+            "window_start_utc":receipt["window_start_utc"],
+            "window_end_utc":receipt["window_end_utc"],
+            "fixture_count":len(youth),
+            "goal_priority_count":sum(x["intake_lane"]=="GOAL_PRIORITY" for x in youth),
+            "pending_goal_research_count":sum(x["intake_lane"]=="PENDING_GOAL_RESEARCH" for x in youth),
+            "closed_count":sum(x["intake_lane"]=="CLOSED" for x in youth),
+            "fixtures":youth,
+          }
+          (folder/"uefa-youth-supplement.json").write_text(json.dumps(out,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+          print(json.dumps(out,indent=2,ensure_ascii=False))
+          PY
+      - name: Upload combined preflight
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-combined-uyl-preflight
+          path: |
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL/source.json
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL/acquisition-report.json
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL/uefa-youth-supplement.json
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL/preflight-v4_sweep_ready.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Persist exact combined source for canonical replay
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300-COMBINED-UYL"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$folder/source.json" "$folder/acquisition-report.json" "$folder/uefa-youth-supplement.json"
+          git commit -m "ops(sweep): persist combined senior and UEFA Youth League source"
+          git push origin HEAD:ops/v4-combine-uyl-20261013
