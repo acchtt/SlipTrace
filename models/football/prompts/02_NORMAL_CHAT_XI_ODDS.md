@@ -141,9 +141,12 @@ No model ACT creates an Actual Bet. To persist and verify a valid screenshot pri
 5. **Report result first:** output one compact C official and C2 shadow
    football assessment with evidence epoch, risk and supported burdens.
    If no eligible offered quote: `No bet price checked`.
-   If quoted priced pair truly executed: C `ACT` / reachable `WAIT`
-   / `PASS` and independent C2 shadow action (no actual user bet
-   assumed). If price validation fails: `Football assessed — price
+   If an existing PREMATCH screenshot shows a bounded above-support gap and
+   the conditional decay-plan gate clears, report `WAIT — LIVE DECAY`
+   immediately with target line, minimum 1.65 and state-recheck conditions,
+   explicitly non-executable. If quoted priced pair truly executed: C
+   `ACT` / reachable `WAIT` / `PASS` and independent C2 shadow action
+   (no actual user bet assumed). If price validation fails: `Football assessed — price
    check blocked: <exact reason>`. A bad quote MUST NOT erase
    a successful C+C2 football assessment.
 6. **Persist with appropriate safeguard:** genuine football-only execution
