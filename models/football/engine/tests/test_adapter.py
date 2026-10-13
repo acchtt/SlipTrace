@@ -1052,7 +1052,7 @@ class AuditRecordContractTests(unittest.TestCase):
         self.assertFalse(result["pnl_status"]["user_executed"])
         self.assertEqual(result["pnl_status"]["official_c_model_pnl"], -1.0)
 
-    def test_wait_assumed_counts_as_official_model_exposure(self):
+    def test_historical_wait_assumed_remains_readable_only_when_marked_legacy(self):
         result = run_audit_record(
             self.audit_record(
                 frozen={
@@ -1070,6 +1070,7 @@ class AuditRecordContractTests(unittest.TestCase):
                     "official_c_exposure_line": 2.5,
                     "official_c_exposure_odds": 1.65,
                     "wait_resolution": "ASSUMED_REACHED",
+                    "legacy_assumed_exposure_policy": True,
                     "user_executed": False,
                     "user_pnl": None,
                 },
@@ -1080,6 +1081,59 @@ class AuditRecordContractTests(unittest.TestCase):
             result["pnl_status"]["official_c_exposure_basis"],
             "WAIT_ASSUMED",
         )
+
+    def test_current_unresolved_wait_has_no_exposure(self):
+        result = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-WAIT",
+                    "quote_line": 2.75,
+                    "quote_odds": 1.85,
+                    "wait_target_line": 2.5,
+                    "wait_min_odds": 1.65,
+                },
+                observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
+                pnl_status={
+                    "official_c_exposure": False,
+                    "official_c_model_pnl": None,
+                    "official_c_exposure_basis": "NONE",
+                    "official_c_exposure_line": None,
+                    "official_c_exposure_odds": None,
+                    "wait_resolution": "UNRESOLVED",
+                    "user_executed": False,
+                    "user_pnl": None,
+                },
+            )
+        )
+        self.assertFalse(result["pnl_status"]["official_c_exposure"])
+        self.assertEqual(result["pnl_status"]["official_c_exposure_basis"], "NONE")
+        self.assertEqual(result["pnl_status"]["wait_resolution"], "UNRESOLVED")
+        self.assertFalse(result["pnl_status"]["legacy_assumed_exposure_policy"])
+
+    def test_current_wait_assumed_without_legacy_marker_is_rejected(self):
+        with self.assertRaisesRegex(ContractError, "WAIT_ASSUMED is retired"):
+            run_audit_record(
+                self.audit_record(
+                    frozen={
+                        "c_action": "C-WAIT",
+                        "quote_line": 2.75,
+                        "quote_odds": 1.85,
+                        "wait_target_line": 2.5,
+                        "wait_min_odds": 1.65,
+                    },
+                    observed={"settlement": "LOSS"},
+                    pnl_status={
+                        "official_c_exposure": True,
+                        "official_c_model_pnl": -1.0,
+                        "official_c_exposure_basis": "WAIT_ASSUMED",
+                        "official_c_exposure_line": 2.5,
+                        "official_c_exposure_odds": 1.65,
+                        "wait_resolution": "ASSUMED_REACHED",
+                        "user_executed": False,
+                        "user_pnl": None,
+                    },
+                )
+            )
 
     def test_wait_not_reached_requires_user_declared_no_exposure(self):
         result = run_audit_record(
