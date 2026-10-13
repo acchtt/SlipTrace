@@ -167,6 +167,34 @@ require(
     "mozzart bet super liga",
 )
 require(
+    "models/football/stages_v4/league_registry.py",
+    "AFRICAN_DOMESTIC_COUNTRIES",
+    '"egypt"',
+    '"morocco"',
+    '"south africa"',
+    '"nigeria"',
+    '"democratic republic of the congo"',
+    "USER_AFRICA_DOMESTIC_EXCLUSION",
+)
+require(
+    "models/football/stages_v4/test_stage.py",
+    "test_african_domestic_competitions_are_excluded_but_continental_remains",
+    "test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research",
+    "USER_AFRICA_DOMESTIC_EXCLUSION",
+)
+require(
+    "models/football/stages_v4/SWEEP.md",
+    "all African domestic leagues",
+    "USER_AFRICA_DOMESTIC_EXCLUSION",
+    "CAF/other continental club competitions",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "all African domestic football",
+    "USER_AFRICA_DOMESTIC_EXCLUSION",
+    "must not consume goal-history/deep-research capacity",
+)
+require(
     "models/football/stages_v4/test_cheap_sweep_filters.py",
     "test_americas_filters_do_not_require_registry_promotion",
 )

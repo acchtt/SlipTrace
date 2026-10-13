@@ -127,6 +127,35 @@ class ResearchedRegistryTests(unittest.TestCase):
         self.assertEqual(classify(fixture("a","England","Club Friendlies"))["lane"], "EXCLUDED")
         self.assertEqual(classify(fixture("a","Pakistan","Premier League"))["lane"], "DISCOVERY")
 
+    def test_african_domestic_competitions_are_excluded_but_continental_remains(self):
+        for country, league, kind in (
+            ("Egypt", "Premier League", "DOMESTIC_LEAGUE"),
+            ("Morocco", "Botola Pro", "DOMESTIC_LEAGUE"),
+            ("South Africa", "Premiership", "DOMESTIC_LEAGUE"),
+            ("Nigeria", "NPFL", "DOMESTIC_LEAGUE"),
+            ("Ghana", "Premier League", "DOMESTIC_LEAGUE"),
+            ("Tunisia", "Ligue 1", "DOMESTIC_LEAGUE"),
+            ("Algeria", "Ligue 1", "DOMESTIC_LEAGUE"),
+            ("Ivory Coast", "Ligue 1", "DOMESTIC_LEAGUE"),
+            ("DR Congo", "Linafoot", "DOMESTIC_LEAGUE"),
+            ("Kenya", "FKF Premier League", "DOMESTIC_LEAGUE"),
+            ("Egypt", "Egypt Cup", "DOMESTIC_CUP"),
+            ("South Africa", "Women's Super League", "WOMENS_TOP_FLIGHT"),
+        ):
+            with self.subTest(country=country, league=league, kind=kind):
+                result = classify(fixture("af", country, league, kind))
+                self.assertEqual(result["lane"], "EXCLUDED")
+                self.assertEqual(result["reason"], "USER_AFRICA_DOMESTIC_EXCLUSION")
+
+        self.assertEqual(
+            classify(fixture("caf", "Egypt", "CAF Champions League", "CONTINENTAL"))["lane"],
+            "CONDITIONAL",
+        )
+        self.assertEqual(
+            classify(fixture("afcon", "Africa", "Africa Cup of Nations", "PROTECTED_OFFICIAL"))["lane"],
+            "CONDITIONAL",
+        )
+
     def test_verified_women_topflight_and_competitive_cups_without_global_scan(self):
         self.assertEqual(classify(fixture(
             "w1","England","Women's Super League","WOMENS_TOP_FLIGHT"
@@ -148,6 +177,22 @@ class SweepV4Tests(unittest.TestCase):
         self.assertTrue(result["no_fixed_eight_match_cap"])
         self.assertFalse(result["price_required_for_football"])
         self.assertFalse(result["published"])
+
+    def test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research(self):
+        src = snapshot([
+            fixture("egy", "Egypt", "Premier League"),
+            fixture("eng", "England", "Premier League"),
+        ])
+        out = sweep(src, now=NOW)
+        self.assertEqual(out["fixture_count"], 2)
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_queue"][0]["match_id"], "eng")
+        egypt = next(x for x in out["source_ledger"] if x["match_id"] == "egy")
+        self.assertEqual(egypt["registry_lane"], "EXCLUDED")
+        self.assertEqual(egypt["intake_lane"], "EXCLUDED")
+        self.assertEqual(egypt["reason"], "USER_AFRICA_DOMESTIC_EXCLUSION")
+        self.assertNotIn("egy", out["research_order"])
+        self.assertNotIn("egy", out["goal_research_order"])
 
     def test_goal_quality_beats_urgency_and_registered_league_status(self):
         urgent=fixture("urgent","England","Premier League",
