@@ -14,12 +14,12 @@ RUN_ID = "V4-20261013-1800-20261014-0300"
 WINDOW_START = datetime(2026, 10, 13, 11, 0, tzinfo=UTC)
 WINDOW_END = datetime(2026, 10, 13, 20, 0, tzinfo=UTC)
 
-YOUTH_RE = re.compile(r"(?:\\byouth\\b|\\bu\\s*[-]?\\s*(?:1[5-9]|2[0-3])\\b|under\\s*[-]?\\s*(?:1[5-9]|2[0-3])|reserve league|development league|academy)", re.I)
-NONSTANDARD_RE = re.compile(r"(?:futsal|beach soccer|esoccer|e-soccer|efootball|virtual|kings league|baller league|7s\\b|six-a-side|6-a-side)", re.I)
+YOUTH_RE = re.compile(r"(?:\byouth\b|\bu\s*[-]?\s*(?:1[5-9]|2[0-3])\b|under\s*[-]?\s*(?:1[5-9]|2[0-3])|reserve league|development league|academy)", re.I)
+NONSTANDARD_RE = re.compile(r"(?:futsal|beach soccer|esoccer|e-soccer|efootball|virtual|kings league|baller league|7s\b|six-a-side|6-a-side)", re.I)
 FRIENDLY_RE = re.compile(r"friendl", re.I)
-CUP_RE = re.compile(r"(?:\\bcup\\b|pokal|beker|trophy|coppa|copa del rey|ta[cç]a|super cup)", re.I)
+CUP_RE = re.compile(r"(?:\bcup\b|pokal|beker|trophy|coppa|copa del rey|ta[cç]a|super cup)", re.I)
 CONTINENTAL_RE = re.compile(r"(?:champions league|europa league|conference league|libertadores|sudamericana|afc |concacaf|caf |uefa |copa america|asian cup)", re.I)
-OFFICIAL_INTL_RE = re.compile(r"(?:world cup|qualification|qualifying|nations league|euro\\b|afcon|africa cup of nations)", re.I)
+OFFICIAL_INTL_RE = re.compile(r"(?:world cup|qualification|qualifying|nations league|euro\b|afcon|africa cup of nations)", re.I)
 WOMEN_RE = re.compile(r"(?:women|women's|womens|feminine|femenin)", re.I)
 
 HEADERS = {
@@ -112,7 +112,7 @@ def team(evt: dict, key: str) -> tuple[str, str | None]:
 
 def parse_esd(evt: dict, offset: int) -> datetime:
     s = str(evt.get("Esd") or "")
-    if not re.fullmatch(r"\\d{14}", s):
+    if not re.fullmatch(r"\d{14}", s):
         raise ValueError(f"bad Esd {evt.get('Esd')!r}")
     local = datetime.strptime(s, "%Y%m%d%H%M%S").replace(tzinfo=timezone(timedelta(hours=offset)))
     return local.astimezone(UTC)
@@ -126,7 +126,7 @@ def status(evt: dict, kickoff: datetime, now: datetime) -> str:
         return "CANCELLED"
     if eps in {"FT", "AET", "PEN", "AFTER PEN.", "AFTER ET"}:
         return "FINISHED"
-    if re.search(r"\\d+'|\\bHT\\b|\\bLIVE\\b|1ST|2ND|BREAK", eps) or st in {2, "2"}:
+    if re.search(r"\d+'|\bHT\b|\bLIVE\b|1ST|2ND|BREAK", eps) or st in {2, "2"}:
         return "STARTED"
     return "PREMATCH_CONFIRMED" if kickoff > now else "STARTED"
 
