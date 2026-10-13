@@ -24,7 +24,30 @@ COUNTRIES = {
     "uae": "united arab emirates", "united arab emirates": "united arab emirates",
     "hong kong sar": "hong kong", "hong kong": "hong kong",
     "usa": "united states", "us": "united states",
+    "cape verde": "cabo verde",
+    "swaziland": "eswatini",
+    "dr congo": "democratic republic of the congo",
+    "congo dr": "democratic republic of the congo",
+    "d r congo": "democratic republic of the congo",
+    "democratic republic of congo": "democratic republic of the congo",
+    "republic of congo": "congo",
+    "cote d ivoire": "ivory coast",
+    "c te d ivoire": "ivory coast",
 }
+AFRICAN_DOMESTIC_COUNTRIES = frozenset({
+    "algeria", "angola", "benin", "botswana", "burkina faso", "burundi",
+    "cabo verde", "cameroon", "central african republic", "chad", "comoros",
+    "congo", "democratic republic of the congo", "djibouti", "egypt",
+    "equatorial guinea", "eritrea", "eswatini", "ethiopia", "gabon",
+    "gambia", "ghana", "guinea", "guinea bissau", "ivory coast", "kenya",
+    "lesotho", "liberia", "libya", "madagascar", "malawi", "mali",
+    "mauritania", "mauritius", "morocco", "mozambique", "namibia", "niger",
+    "nigeria", "rwanda", "sao tome and principe", "senegal", "seychelles",
+    "sierra leone", "somalia", "south africa", "south sudan", "sudan",
+    "tanzania", "togo", "tunisia", "uganda", "zambia", "zimbabwe",
+    # Provider/regional labels that still represent African domestic football.
+    "zanzibar", "reunion", "mayotte", "western sahara",
+})
 DOMESTIC_EXCLUSIONS = frozenset({
     "bangladesh","israel","kenya","iraq","wales","kuwait",
 })
@@ -123,6 +146,8 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
     if (fixture.get("is_friendly") is True or "friendly" in competition
             or "friendlies" in competition):
         return {"lane": "EXCLUDED", "reason": "NONCOMPETITIVE_FRIENDLIES"}
+    if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in AFRICAN_DOMESTIC_COUNTRIES:
+        return {"lane": "EXCLUDED", "reason": "USER_AFRICA_DOMESTIC_EXCLUSION"}
     if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in DOMESTIC_EXCLUSIONS:
         return {"lane": "EXCLUDED", "reason": "USER_DOMESTIC_COUNTRY_EXCLUSION"}
     if (country, competition) in EXCLUDED_EXACT:
