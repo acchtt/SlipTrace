@@ -41,6 +41,17 @@ def snapshot(c, *, line=2.5, odds=1.70, captured=CAPTURE, **changes):
 
 
 def wait_ready(payload, *, top=False):
+    payload["match"].update(
+        carrier="STRONG",
+        carrier_self_fund=True,
+        carrier_self_fund_basis=(
+            "Strong current carrier independently funds the frozen protected burden."
+        ),
+        independent_upper_tail=True,
+        independent_upper_tail_basis=(
+            "Separate current non-market upper-tail route is verified."
+        ),
+    )
     payload["context"].update(
         thesis_state="PRESERVED",
         primary_mechanism_intact=True,
