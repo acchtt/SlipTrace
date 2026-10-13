@@ -63,6 +63,8 @@ Current new-board fields include:
 - `C2 Shadow State`;
 - `C2 Shadow Rank`;
 - `C2 Supported Line`;
+- `Step1 Engine C Result` — `fldhUWNoyXzXfQJ3C`;
+- `Step1 Engine C2 Result` — `fldq0n2tDlS58goAm`;
 - `C Model Accounting`;
 - `C2 Shadow Accounting`;
 - `Model Accounting Revision`.
@@ -100,7 +102,14 @@ Where the physical Airtable schema still uses legacy columns such as `PRE Grade`
 C2 shadow fields/notes must remain separate from C:
 - C2 state/rank;
 - C2 supported burden;
-- C2 diagnostics.
+- C2 diagnostics;
+- exact C2 Step1 engine-result JSON, including any independently frozen
+  `c2_opponent_leakage` / `c2_opponent_leakage_basis`.
+
+For every **new V4 rank**, serialize each executed per-match result object into
+the two Step1 Engine Result fields and independently refetch them. The active
+V4 verifier must reject missing/malformed/different JSON or the wrong field
+IDs. Do not backfill historical frozen boards.
 
 Historical C3/C4 columns may remain in the physical Airtable schema and on old rows. They are historical-only compatibility fields:
 - do not populate them for new boards;
