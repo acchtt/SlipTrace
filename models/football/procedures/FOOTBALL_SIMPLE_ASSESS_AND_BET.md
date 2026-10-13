@@ -71,8 +71,11 @@ shadow-only; ACT never means a bet was placed.
 If no genuine usable bookmaker quote is available, **do not ask the
 user to get a quote**. Finish the football read and simply say
 `No bet price checked`. Do not invent a line, odds, ACT or reachable
-WAIT target. Do not chase current bookmaker screenshots or block the
-football assessment on price research.
+WAIT target. If an exact user PREMATCH screenshot already supplies a line
+above funded support and the bounded decay-plan rule clears, surface
+`WAIT — LIVE DECAY` with target/minimum price and recheck conditions;
+that is a conditional plan, not an executable price action. Do not chase
+new bookmaker screenshots or block the football assessment on price research.
 
 For a match already STARTED, apply the same immediate football-first
 behavior using score, minute and material events; a current live
