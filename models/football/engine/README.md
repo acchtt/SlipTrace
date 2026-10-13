@@ -15,7 +15,7 @@
 - model_bet_accounting.py — actual-terms-only model accounting; no synthetic
   WATCH or unresolved WAIT exposure.
 
-V4 /sweep and /rank live under models/football/stages_v4/.
+V4 /sweep and /rank live under models/football/stages_v4/. Source-provider diagnostics live under stages_v4/tools/, not the model engine.
 
 ## /xi
 
