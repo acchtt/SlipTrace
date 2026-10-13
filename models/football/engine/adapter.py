@@ -16,6 +16,7 @@ from core import (
     Grade,
     H2HReviewStatus,
     MatchAssessment,
+    ModelQuoteContext,
     PostXiResearchStatus,
     Quote,
     RouteStrength,
@@ -29,11 +30,14 @@ from core import (
     low_burden_leakage_goal3_funded,
     decide_c,
     decide_c2,
+    evaluate_c_quote,
+    evaluate_c2_quote,
     follow_through_lane,
     rank_assessments,
     rank_assessments_c2,
     ranking_key,
     c2_ranking_key,
+    model_wait_target,
     wait_accounting_target,
 )
 
@@ -928,6 +932,172 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
             result["c2_opponent_leakage"] = a.c2_opponent_leakage.name
             result["c2_opponent_leakage_basis"] = a.c2_opponent_leakage_basis
     return result
+
+
+def evaluate_observed_quote(
+    payload: dict[str, Any],
+    quote: dict[str, Any],
+) -> dict[str, Any]:
+    """Evaluate an observed price with C/C2 policy but no execution authority.
+
+    This is the single comparison path for screenshots and other non-executable
+    observations. It deliberately reuses the same pure policy functions used by
+    run_decision(). Execution-only requirements such as quote revalidation,
+    Decision State persistence, XI authorization and publication are not
+    manufactured here.
+
+    WAIT is available only when the caller explicitly established
+    wait_reachable=true and wait_requires_negative_info=false for this model's
+    supported burden. No line-gap heuristic is invented by the wrapper.
+    """
+
+    football = run_football_assessment(payload)
+    model = football["model"]
+    ctx_obj = _required(payload, "context")
+    match_obj = _required(payload, "match")
+    a = parse_assessment(match_obj, require_c_completion=(model == "c"))
+
+    if not isinstance(quote, dict):
+        raise ContractError("observed quote must be an object")
+    raw_line = quote.get("line")
+    raw_odds = quote.get("odds")
+    if isinstance(raw_line, bool) or not isinstance(raw_line, (int, float)):
+        raise ContractError("observed quote.line must be numeric")
+    if isinstance(raw_odds, bool) or not isinstance(raw_odds, (int, float)):
+        raise ContractError("observed quote.odds must be numeric")
+    try:
+        observed = Quote(float(raw_line), float(raw_odds))
+    except ValueError as exc:
+        raise ContractError(str(exc)) from exc
+
+    relation = (
+        "ABOVE_SUPPORTED_BURDEN"
+        if observed.line > a.supported_line
+        else "AT_SUPPORTED_BURDEN"
+        if observed.line == a.supported_line
+        else "BELOW_SUPPORTED_BURDEN"
+    )
+
+    # A started fixture can still be assessed as football, but a prematch quote
+    # action must not be recreated retrospectively.
+    if football["fixture_status"] != "PREMATCH_CONFIRMED":
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "stage": "observed_quote_evaluation",
+            "model": model,
+            "match_id": a.match_id,
+            "action": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
+            "reason": "started fixture; prematch ACT/WAIT/PASS not re-created",
+            "supported_line": a.supported_line,
+            "observed_line": observed.line,
+            "observed_odds": observed.odds,
+            "line_relation": relation,
+            "execution_authorized": False,
+            "publication_authorized": False,
+            "model_exposure_created": False,
+        }
+
+    if football["football_read"] != "FOOTBALL_THESIS_CURRENTLY_INTACT":
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "stage": "observed_quote_evaluation",
+            "model": model,
+            "match_id": a.match_id,
+            "action": "NOT_EVALUATED_CURRENT_FOOTBALL_RECHECK_REQUIRED",
+            "reason": "current football thesis is adverse or incomplete",
+            "supported_line": a.supported_line,
+            "observed_line": observed.line,
+            "observed_odds": observed.odds,
+            "line_relation": relation,
+            "execution_authorized": False,
+            "publication_authorized": False,
+            "model_exposure_created": False,
+        }
+
+    board_state = _enum(
+        BoardState, _required(ctx_obj, "board_state"), "board_state"
+    )
+    thesis_state = _enum(
+        ThesisState, _required(ctx_obj, "thesis_state"), "thesis_state"
+    )
+    intact = ctx_obj.get("primary_mechanism_intact")
+    veto = ctx_obj.get("material_veto")
+    if type(intact) is not bool or type(veto) is not bool:
+        raise ContractError(
+            "observed quote evaluation requires current primary_mechanism_intact "
+            "and material_veto booleans"
+        )
+
+    top_ranked = ctx_obj.get("top_ranked_focus", False)
+    if type(top_ranked) is not bool:
+        raise ContractError("top_ranked_focus must be true/false when provided")
+
+    wait_reachable = ctx_obj.get("wait_reachable", False)
+    if type(wait_reachable) is not bool:
+        raise ContractError("wait_reachable must be true/false when provided")
+    wait_negative = ctx_obj.get("wait_requires_negative_info", True)
+    if type(wait_negative) is not bool:
+        raise ContractError(
+            "wait_requires_negative_info must be true/false when provided"
+        )
+    wait_basis = ctx_obj.get("wait_reachability_basis")
+    negative_basis = ctx_obj.get("wait_negative_info_basis")
+    if wait_reachable and (
+        not isinstance(wait_basis, str) or not wait_basis.strip()
+    ):
+        raise ContractError(
+            "reachable WAIT requires non-empty wait_reachability_basis"
+        )
+    if wait_negative and (
+        negative_basis is not None
+        and (not isinstance(negative_basis, str) or not negative_basis.strip())
+    ):
+        raise ContractError(
+            "wait_negative_info_basis must be non-empty when provided"
+        )
+
+    qctx = ModelQuoteContext(
+        board_state=board_state,
+        thesis_state=thesis_state,
+        quote=observed,
+        top_ranked_focus=top_ranked,
+        primary_mechanism_intact=intact,
+        wait_reachable=wait_reachable,
+        wait_requires_negative_info=wait_negative,
+        material_veto=veto,
+    )
+    decision = (
+        evaluate_c_quote(a, qctx)
+        if model == "c"
+        else evaluate_c2_quote(a, qctx)
+    )
+    wait_target_line = None
+    wait_min_odds = None
+    if decision.action == Action.WAIT:
+        wait_target_line, wait_min_odds = model_wait_target(a, qctx)
+
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "stage": "observed_quote_evaluation",
+        "model": model,
+        "match_id": a.match_id,
+        "action": "ACT" if decision.action == Action.BET else decision.action.value,
+        "engine_action": decision.action.value,
+        "reason": decision.reason,
+        "bridge_used": decision.bridge_used,
+        "supported_line": a.supported_line,
+        "observed_line": observed.line,
+        "observed_odds": observed.odds,
+        "line_relation": relation,
+        "wait_target_line": wait_target_line,
+        "wait_min_odds": wait_min_odds,
+        "wait_reachable": wait_reachable,
+        "wait_reachability_basis": wait_basis,
+        "wait_requires_negative_info": wait_negative,
+        "execution_authorized": False,
+        "publication_authorized": False,
+        "model_exposure_created": False,
+    }
 
 
 def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
