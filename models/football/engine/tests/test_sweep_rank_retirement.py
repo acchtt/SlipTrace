@@ -26,7 +26,7 @@ class SweepRankRetirementTests(unittest.TestCase):
         self.assertIn("models/football/stages_v4/SWEEP.md", router)
         self.assertIn("models/football/stages_v4/RANK.md", router)
         self.assertIn("Football V4 only", current)
-        self.assertIn("Retired V1-V3", router)
+        self.assertIn("retired V1-V3", router)
         self.assertNotIn("work_ready", router)
         self.assertNotIn("Step0 ZIP", router)
 
