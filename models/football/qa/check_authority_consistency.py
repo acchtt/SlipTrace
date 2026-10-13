@@ -1,1373 +1,241 @@
 #!/usr/bin/env python3
-"""Semantic authority QA for the current Football C production stack."""
+"""Active-authority consistency check for Football v2.
 
+This intentionally checks only the production stack:
+V4 sweep/rank, Football C official + C2 shadow, one /xi assessment path,
+one Airtable routing manifest, and Actual Bets as user-P/L authority.
+
+Retired V1-V3 code and experimental QA may remain in Git history or dormant
+files, but production launchers/CI must not depend on them.
+"""
+
+from __future__ import annotations
+
+import json
 from pathlib import Path
 import sys
-import json
-import re
 
 
 ROOT = Path(__file__).resolve().parents[3]
+failures: list[str] = []
 
 
 def read(rel: str) -> str:
     path = ROOT / rel
     if not path.exists():
-        raise AssertionError(f"missing file: {rel}")
+        failures.append(f"{rel}: missing")
+        return ""
     return path.read_text(encoding="utf-8")
-
-
-failures: list[str] = []
 
 
 def require(rel: str, *needles: str) -> None:
     text = read(rel)
     for needle in needles:
         if needle not in text:
-            failures.append(f"{rel}: missing required semantic invariant: {needle}")
-
-
-def require_current_airtable_mappings(rel: str, table_name: str, *legacy_fields: str) -> None:
-    """Keep the protected old field semantics while checking their live IDs.
-
-    Old Airtable record/field IDs are immutable archive provenance, not
-    required tokens in present-day model contracts. Full migration mapping
-    proves the original IDs were carried forward, table by table.
-    """
-    route_doc = read("models/football/airtable/ACTIVE_BASE_ROUTING_20261011.md")
-    match = re.search(r"```json\s*(.*?)\s*```", route_doc, re.S)
-    if not match:
-        failures.append("Airtable full-field migration map missing")
-        return
-    try:
-        routing = json.loads(match.group(1))
-    except (ValueError, TypeError):
-        failures.append("Airtable full-field migration map malformed")
-        return
-    if routing.get("active_base_id") != "appbzxqXYf0lKfD4P":
-        failures.append("Airtable active model base ID mismatch")
-    table = next((t for t in routing.get("tables", []) if t.get("name") == table_name), None)
-    if not table:
-        failures.append(f"Airtable migrated table missing: {table_name}")
-        return
-    active_id = table.get("active_table")
-    if not active_id or active_id not in read(rel):
-        failures.append(f"{rel}: active table ID missing for {table_name}: {active_id}")
-    for old_id in legacy_fields:
-        new_id = table.get("fields", {}).get(old_id)
-        if not new_id or not new_id.startswith("fld"):
-            failures.append(f"{rel}: legacy field not mapped for {table_name}: {old_id}")
+            failures.append(f"{rel}: missing active invariant {needle!r}")
 
 
 def forbid(rel: str, *needles: str) -> None:
     text = read(rel)
     for needle in needles:
         if needle in text:
-            failures.append(f"{rel}: forbidden active-authority text present: {needle}")
+            failures.append(f"{rel}: obsolete/duplicate mechanism present {needle!r}")
 
 
-# Current router: ONLY V1-V3 retired; V4 /sweep and /rank active.
+# Command authority
 require(
-    "models/football/engine/sweep_rank_retired.py",
-    'ACTIVE_SWEEP_RANK_ENABLED = False',
-    'RETIRED_STATUS = "SWEEP_RANK_RETIRED"',
-    "REQUIRES_NEW_USER_APPROVED_WORKFLOW",
+    "models/football/CURRENT_MODEL.md",
+    "ACTIVE STACK",
+    "Football C",
+    "Football C2",
+    "models/football/stages_v4/SWEEP.md",
+    "models/football/stages_v4/RANK.md",
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "Actual Bets — Current",
 )
-for archived in (
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-):
-    require(archived, "RETIRED V1–V3 ENTRYPOINT ONLY", "V4")
-require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
-require("models/football/prompts/rank.md", "stages_v4/RANK.md", "--status-refresh")
-require("models/football/prompts/README.md", "stages_v4/SWEEP.md", "stages_v4/RANK.md")
-require("models/football/prompts/COMMAND_ALIASES.md", "SWEEP_RANK_RETIRED", "NEW V4")
-require("models/football/CURRENT_MODEL.md", "SWEEP_RANK_RETIRED", "ACTIVE NEW STAGES")
+require(
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "/sweep",
+    "/rank",
+    "/xi",
+    "/live",
+    "/audit",
+    "/report",
+    "V4",
+)
 forbid(
-    "models/football/CURRENT_MODEL.md",
-    "- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`",
-    "- `/rank` -> `01_WORK_DAILY_SWEEP.md`",
-    "## Unified /sweep and /rank V3",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "/sweep` -> `models/football/stages_v4/SWEEP.md",
-    "/rank` -> `models/football/stages_v4/RANK.md",
-    "Historical V3 coordinator — non-authoritative",
-)
-require("models/football/stages_v4/stage.py",
-        "V4_SOURCE_REPLAY_REQUIRED", "V4_STATUS_REFRESH_INCOMPLETE")
-require(
-    "models/football/stages_v4/cheap_sweep_filters.py",
-    "TOP_FIVE_NO_AUTO_PROMOTION",
-    "TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL",
-)
-require(
-    "models/football/stages_v4/goals_first_intake.py",
-    "priority_research_queue",
-    "deferred_research_queue",
-)
-require(
-    "models/football/stages_v4/cheap_sweep_filters.py",
-    'SCHEMA = "football-sweep-cheap-filter-v1"',
-    'PRIMARY = "PRIMARY_RESEARCH"',
-    'DEFERRED = "DEFERRED_RESEARCH"',
-    "NED_EREDIVISIE_2026_27",
-    "NED_EERSTE_2026_27",
-    "ISL_BESTA_2026",
-    "ISL_LENGJUDEILD_2026",
-    "FRO_MEISTARADEILDIN_2026",
-    "FRO_1_DEILD_2026",
-    "NOR_ELITESERIEN_2026",
-    "NOR_FIRST_2026",
-    "DEN_SUPERLIGA_2026_27",
-    "DEN_FIRST_2026_27",
-    "SWE_ALLSVENSKAN_2026",
-    "SWE_SUPERETTAN_2026",
-    "ROU_SUPERLIGA_2026_27",
-    "ROU_LIGA2_2026_27",
-    "POL_EKSTRA_2026_27",
-    "POL_ILIGA_2026_27",
-    "SRB_SUPERLIGA_2026_27",
-    "SRB_PRVA_2026_27",
-    "CZE_FIRST_2026_27",
-    "CZE_FNL_2026_27",
-    "BOL_LFPB_2026",
-    "CHI_PRIMERA_2026",
-    "PER_LIGA1_2026",
-    "BRA_SERIEA_2026",
-    "COL_PRIMERA_A_2026",
-    "PAR_PRIMERA_2026",
-    "URU_PRIMERA_2026",
-    "VEN_PRIMERA_2026",
-    "ARG_PRIMERA_2026",
-    "ECU_SERIEA_2026",
-    "USA_MLS_2026",
-    "USA_USL_CHAMP_2026",
-    "MEX_LIGA_MX_2026_27",
-    "CAN_CPL_2026",
-    "JPN_WE_LEAGUE_2026_27",
-    "JPN_NADESHIKO2_2026",
-    "JPN_EMPRESS_CUP_2026",
-    '"hard_exclude": False',
-)
-require(
-    "models/football/stages_v4/league_registry.py",
-    '"iceland": "besta deild karla',
-    '"faroe islands": "meistaradeildin',
-    '"sweden": "superettan"',
-    '"denmark": "1st division',
-)
-require(
-    "models/football/stages_v4/league_registry.py",
-    '"romania": "superliga',
-    '"serbia": "super liga',
-    '"czechia": "czech first league',
-    "chance liga",
-    "mozzart bet super liga",
-)
-require(
-    "models/football/stages_v4/league_registry.py",
-    "AFRICAN_DOMESTIC_COUNTRIES",
-    '"egypt"',
-    '"morocco"',
-    '"south africa"',
-    '"nigeria"',
-    '"democratic republic of the congo"',
-    "USER_AFRICA_DOMESTIC_EXCLUSION",
-)
-require(
-    "models/football/stages_v4/league_registry.py",
-    "UEFA_YOUTH_LEAGUE_NAMES",
-    '"YOUTH_CONTINENTAL"',
-    "UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED",
-    "UNAPPROVED_YOUTH_COMPETITION",
-)
-require(
-    "models/football/stages_v4/cheap_sweep_filters.py",
-    "UEFA_YOUTH_LEAGUE_2026_27",
-    "UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH",
-)
-require(
-    "models/football/stages_v4/test_stage.py",
-    "test_uefa_youth_league_is_specific_conditional_exception",
-    "test_verified_uefa_youth_league_can_enter_goal_first_shortlist",
-    "UNAPPROVED_YOUTH_COMPETITION",
-)
-require(
-    "models/football/stages_v4/test_cheap_sweep_filters.py",
-    "test_uefa_youth_league_gets_specific_research_priority_not_auto_goal_positive",
-)
-require(
-    "models/football/stages_v4/SWEEP.md",
-    "FULL SENIOR FIXTURE SET + UEFA YOUTH LEAGUE EXCEPTION",
-    "UEFA Youth League safeguard (2026-10-13)",
-    "Generic youth competitions remain excluded",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "Standing /sweep inclusion exception (2026-10-13)",
-    "Include **UEFA Youth League**",
-    "Do not infer that other youth competitions are approved",
-)
-require(
-    "models/football/stages_v4/test_stage.py",
-    "test_african_domestic_competitions_are_excluded_but_continental_remains",
-    "test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research",
-    "USER_AFRICA_DOMESTIC_EXCLUSION",
-)
-require(
-    "models/football/stages_v4/SWEEP.md",
-    "all African domestic leagues",
-    "USER_AFRICA_DOMESTIC_EXCLUSION",
-    "CAF/other continental club competitions",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "all African domestic football",
-    "USER_AFRICA_DOMESTIC_EXCLUSION",
-    "must not consume goal-history/deep-research capacity",
-)
-require(
-    "models/football/stages_v4/test_cheap_sweep_filters.py",
-    "test_americas_filters_do_not_require_registry_promotion",
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "work_ready",
+    "Step0 ZIP",
+    "rank reassess",
 )
 
-require(
-    "models/football/stages_v4/goals_first_intake.py",
-    "classify_research_priority",
-    "cheap_filter",
-    "cheap_filter_counts",
-)
-require(
-    "models/football/stages_v4/source_completeness.py",
-    'SCHEMA = "football-v4-source-completeness-v2"',
-    'CONTRACT = "DATE_SURFACE_BATCH_V2"',
-    'LEAGUE_QUERY_MODE = "DATE_SURFACE_ONLY"',
-    "SWEEP_REGISTRY_PREFILTER_FORBIDDEN_DURING_DISCOVERY",
-    "SWEEP_TERMINAL_SENTINEL_REQUIRED",
-    "provider_senior_competition_block_count",
-)
+# V4 intake/rank
 require(
     "models/football/stages_v4/SWEEP.md",
     "DATE_SURFACE_BATCH_V2",
-    "league_query_mode=DATE_SURFACE_ONLY",
-    "registry_prefilter_applied=false",
-    "terminal-sentinel",
+    "GOALS-FIRST",
+    "USER_AFRICA_DOMESTIC_EXCLUSION",
+    "UEFA Youth League",
 )
 require(
-    "models/football/CURRENT_MODEL.md",
-    "source_completeness_manifest",
-    "DATE_SURFACE_BATCH_V2",
-    "registry_prefilter_applied=false",
-)
-require(
-    ".github/workflows/football-v4-replay-attestation.yml",
-    "-source.json",
-    "-rank-handoff.json",
-    "source_file_sha256",
-    "receipt_integrity_sha256",
-    "cross-chat bundle",
-)
-require(
-    "models/football/prompts/rank.md",
-    "/rank newest receipt",
-    "<run>-source.json",
-    "<run>-rank-handoff.json",
-    "V4_SOURCE_HANDOFF_MISSING",
+    "models/football/stages_v4/stage.py",
+    "verify_rank_source_and_status",
+    "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+    "V4_RANK_PERSISTENCE_VERIFIED",
+    "model_evidence_readback_verified",
 )
 require(
     "models/football/stages_v4/RANK.md",
-    "v4-original-source-attested-receipts",
-    "/rank newest receipt",
-    "<run>-source.json",
-    "<run>-rank-handoff.json",
-    "V4_SOURCE_HANDOFF_MISSING",
-    "Do not ask the user to",
-)
-require(
-    "models/football/stages_v4/test_procedure_authority.py",
-    "test_rank_newest_receipt_self_resolves_source_handoff",
-    "source_file_sha256",
-    "receipt_integrity_sha256",
+    "original-source replay",
+    "full-cohort",
+    "Step1 Engine C Result",
+    "Step1 Engine C2 Result",
 )
 
-for entrypoint in (
-    "models/football/engine/sweep_rank_pipeline.py",
-    "models/football/engine/step0_package_cli.py",
-    "models/football/engine/board_pair_cli.py",
-    "models/football/engine/rank_persistence_reconcile.py",
-):
-    require(entrypoint, "return stop_retired_cli(")
-require("models/football/engine/step0_portable.py", '"status": "SWEEP_RANK_RETIRED"')
-
-# 1. One production authority.
-require(
-    "models/football/CURRENT_MODEL.md",
-    "ACTIVE ROSTER (2026-10-06)",
-    "Football C is official; Football C2 is the only shadow challenger",
-    "C3 and C4 are retired",
-    "Active official model:** Football **C**",
-)
-require(
-    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
-    "Football C3 and Football C4 are retired",
-    "C + C2",
-    "C+C2 EXCEPTION INCOMPLETE",
-    "python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
-    "EXECUTED_C_C2_FOOTBALL_ONLY",
-)
-require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "Official model:** Football C",
-    "C Action",
-    "C2 shadow action",
-)
-forbid(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "Official model:** Football A",
-    "Official:** Football A",
-)
-
-# 2. Legacy compilers/launcher must fail closed for new work.
-for rel in (
-    "models/football/procedures/FOOTBALL_PRE_DECISION_SPEC.md",
-    "models/football/procedures/FOOTBALL_STEP2_EXECUTION_SPEC.md",
-):
-    first = "\n".join(read(rel).splitlines()[:12])
-    if "RETIRED FOR NEW FOOTBALL C PRODUCTION" not in first:
-        failures.append(f"{rel}: legacy compiler is not visibly retired at file top")
-
-require(
-    "models/football/prompts/xi.md",
-    "On **every invocation**",
-    "current repository authority",
-)
-require(
-    "models/football/prompts/COMMAND_ALIASES.md",
-    "Every invocation must reload the current launcher",
-)
-require(
-    "models/football/prompts/05_NORMAL_CHAT_FOOTBALL_C.md",
-    "Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION",
-)
-
-# 2C. Oct-12 audit calibration: narrow Football C O2.25 leakage route.
-require(
-    "models/football/engine/core.py",
-    "def low_burden_leakage_goal3_funded",
-    "if burden > 2.25:",
-    "a.opponent_leakage == Grade.HIGH",
-    "a.burden_completion_quality >= Grade.MEDIUM",
-    "leakage_counterweight = low_burden_leakage_goal3_funded",
-)
-require(
-    "models/football/engine/adapter.py",
-    "low_burden_leakage_goal3_funded",
-    "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH",
-)
-require(
-    "models/football/engine/tests/test_core.py",
-    "test_o225_high_leakage_strong_route_can_fund_goal3_without_high_continuation",
-    "test_leakage_counterweight_never_extends_to_o250_or_higher",
-    "test_o225_leakage_counterweight_prevents_stall_and_low_continuation_auto_pass",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_o225_high_leakage_strong_route_cannot_remain_c_watch_stop",
-    "test_o250_same_high_leakage_shape_may_remain_c_watch",
-    "test_c2_board_does_not_inherit_c_o225_leakage_focus_rule",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "Active 2026-10-13 C calibration",
-    "does not extend to O2.5",
-    "Football C2 does not inherit this C-owned completion/stall calibration",
-)
-require(
-    "models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md",
-    "ACTIVE prospective calibration for Football C only",
-    "LOW burden-completion quality is never rescued",
-    "does **not** extend to O2.5, O2.75 or higher",
-    "does **not** change C2 policy",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "2026-10-13 independence lock",
-    "does not inherit Football C's prospective",
-)
-
-# 2D. User-authorized C2 O2.25 follow-on: independently owned leakage grade.
-require(
-    "models/football/engine/core.py",
-    "def c2_low_burden_leakage_goal3_funded",
-    "a.c2_opponent_leakage == Grade.HIGH",
-    "a.route_reliability == Grade.HIGH",
-    "2.0 < burden <= 2.25",
-    "or c2_low_burden_leakage_goal3_funded(a, selected_line)",
-)
-require(
-    "models/football/engine/adapter.py",
-    "def validate_c2_screen_state",
-    "C2-WATCH/PASS CONTRADICTION",
-    "c2_opponent_leakage_basis",
-    "c2_leakage_goal3_funded",
-)
-require(
-    "models/football/engine/board_pair_cli.py",
-    "C2_ONLY_FIELDS",
-    "C2 POLICY FIELD LEAK INTO C PAYLOAD",
-)
-require(
-    "models/football/engine/tests/test_core.py",
-    "test_o225_independently_evidenced_leakage_rescues_strong_route",
-    "test_c2_o225_leakage_is_monotonic_with_positive_upper_tail",
-    "test_c2_leakage_never_upgrades_o250_or_bridge",
-    "test_c2_leakage_does_not_depend_on_c_stall_labels",
-)
-forbid(
-    "models/football/engine/core.py",
-    "and not a.independent_upper_tail",
-)
-forbid(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "independent upper-tail proof is **absent**",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_c2_leakage_funded_o225_cannot_stay_watch",
-    "test_c2_leakage_o250_watch_stays_watch",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "2026-10-13 user-authorized C2 follow-on",
-    "c2_opponent_leakage_basis",
-    "C2 remains shadow-only",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md",
-    "ACTIVE, prospective, C2 shadow only",
-    "O2.25 only",
-    "No frozen Oct-12",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "Active follow-on C2 calibration (2026-10-13)",
-    "c2_opponent_leakage_basis",
-    "C2 opponent leakage grade and C2-specific leakage basis",
-)
-require(
-    "models/football/stages_v4/RANK.md",
-    "c2_opponent_leakage",
-    "c2_opponent_leakage_basis",
-    "never copy C's `opponent_leakage`",
-    "omit BOTH fields",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "c2_opponent_leakage",
-    "c2_opponent_leakage_basis",
-    "Supply BOTH or neither",
-    "do not manufacture the missing evidence",
-)
-require(
-    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
-    "C2 model-owned evidence now also includes",
-    "c2_opponent_leakage",
-    "c2_opponent_leakage_basis",
-    "Absence of both fields is lawful",
-)
-require(
-    "models/football/engine/schema.json",
-    "\"c2_opponent_leakage\"",
-    "\"c2_opponent_leakage_basis\"",
-)
-require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "c2_opponent_leakage",
-    "c2_opponent_leakage_basis",
-    "Engine C2 Result",
-    "No dedicated Airtable columns are required",
-)
-forbid(
-    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
-    "No changes to C/C2 model thresholds",
-)
-
-# 3. C2 must have genuinely separate policy plumbing.
-require(
-    "models/football/engine/core.py",
-    "def c2_ranking_key",
-    "def rank_assessments_c2",
-    "C2 deliberately does NOT inherit Football C's burden-completion-first",
-)
-require(
-    "models/football/engine/adapter.py",
-    "rank_assessments_c2",
-    'require_c_completion=(model == "c")',
-    "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_c2_board_does_not_require_c_completion_diagnostics",
-    "test_c_board_still_requires_c_completion_diagnostics",
-    "test_c2_decision_does_not_require_c_completion_diagnostics",
-)
-require(
-    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
-    "**C2 owns this field independently.**",
-    "frozen route-quality ranking for C2",
-)
-
-# 4. Retired challengers must not re-enter active execution.
-require(
-    "models/football/engine/adapter.py",
-    'model not in {"c", "c2"}',
-    "C3/C4 are retired",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_retired_c3_board_is_rejected",
-    "test_retired_c3_decision_is_rejected",
-    "test_c3_cannot_reenter_board_runtime",
-    "test_c3_cannot_reenter_decision_runtime",
-)
-require(
-    "models/football/engine/board_pair_cli.py",
-    'EXPECTED_MODELS = ("c", "c2")',
-    "BOARD PAIR FAILED — COMMON EVIDENCE DRIFT",
-    "BOARD PAIR FAILED — RANKED ELIGIBLE UNIVERSE MISMATCH",
-    "C POLICY FIELD LEAK INTO C2 PAYLOAD",
-    "EXECUTED_C_C2_BOARDS",
-    "common_evidence_reconciled",
-)
-require(
-    "models/football/engine/tests/test_board_pair.py",
-    "test_pair_reconciles_same_common_evidence",
-    "test_common_evidence_drift_fails",
-    "test_ranked_universe_mismatch_fails",
-    "test_c_policy_field_leak_into_c2_fails",
-)
-require(
-    "models/football/engine/decision_pair_cli.py",
-    'EXPECTED_MODELS = ("c", "c2")',
-    "EXECUTED_C_C2_PAIR",
-    "same frozen common evidence epoch",
-)
-
-# 4C. Repaired handoffs must be frozen Step-0 authority for /rank.
-require(
-    "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
-    "ACTIVE STEP-0 INPUT AUTHORITY",
-    "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
-    "final_step0_disposition",
-    "women_top_flight_disposition_manifest",
-    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
-    "xi_expected",
-    "competition_reliability_reason",
-    "REPAIRED HANDOFF AUTHORITY: ACCEPTED",
-    "structural compatibility",
-    "file-local",
-    "must not",
-    "search the web to re-verify fixture kickoff",
-    "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
-    "REPAIRED HANDOFF INCOMPLETE — STEP0 REPAIR REQUIRED",
-)
-require(
-    "models/football/engine/repaired_handoff_normalize.py",
-    "def normalize_repaired_handoff",
-    "final_step0_disposition",
-    "women_top_flight_disposition_manifest",
-    "women_top_flight_raw_count",
-    "OPERATIONAL_CONTRACT_FIELDS",
-    "_validate_operational_contract",
-    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
-    "REPAIRED HANDOFF LOCAL NORMALIZATION: PASS",
-)
-require(
-    "models/football/engine/tests/test_repaired_handoff_normalize.py",
-    "test_final_disposition_wins_and_counts_are_recomputed",
-    "test_women_boolean_is_derived_from_manifest_membership",
-    "test_missing_operational_reason_fails_closed",
-    "test_deferred_fixture_missing_reliability_reason_fails_closed",
-    "test_invalid_observability_fails_closed",
-    "test_unresolved_women_still_fails_closed",
-)
-require("models/football/prompts/rank.md", "stages_v4/RANK.md", "--source", "--status-refresh")
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "If the attached file is a completed repaired sweep",
-    "do not re-verify kickoff/fixture identity on the web",
-    "REPAIRED HANDOFF CONFLICT — RETURN TO STEP0 REPAIR",
-    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
-)
-require(
-    "models/football/prompts/COMMAND_ALIASES.md",
-    "structurally complete repaired handoff",
-    "Do not use /rank to repair Step 0",
-)
-require(
-    "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md",
-    "step0_fixture_universe_frozen = true",
-    "capacity_queue_complete = true",
-    "repair_status = COMPLETE",
-    "HANDOFF INCOMPLETE — STEP0 OPERATIONAL CONTRACT MISSING",
-    "competition_reliability_reason",
-)
-
-# 4D. Sweep repair must be bounded and reuse persisted state.
-require(
-    "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md",
-    "ACTIVE BOUNDED REPAIR CONTROL",
-    "/sweep repair",
-    "at most **2 independent authoritative verification attempts**",
-    "Do not open third/fourth/fifth websites",
-    "SWEEP REPAIR COMPLETE — READY FOR /RANK",
-    "SWEEP REPAIR COMPLETE WITH UNRESOLVED ITEMS — /RANK BLOCKED",
-    "fldjFlyBEoQ2N92t9",
-    "fld1EptBTr3b4AfIK",
-    "fldgTZ1NpMOk4yilt",
-    "fld1PLeqyX9fdWSDi",
-)
-require(
-    "models/football/prompts/COMMAND_ALIASES.md",
-    "/sweep repair [window]",
-    "bounded repair path",
-    "Do not silently route `/sweep repair` through the normal fresh-sweep discovery loop",
-)
-require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
-require(
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "repair_mode=true",
-    "finite repair set",
-    "never keep browsing beyond the repair verification budget",
-)
-require(
-    "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md",
-    "Repair mode must not restart broad acquisition/discovery",
-    "BOUNDED_PRODUCTION_DISCOVERY",
-    "MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
-    "global_raw_exact = false",
-    "production_scope_complete = false",
-    "at least **two independent current discovery surfaces**",
-    "Search snippets are allowed **only as discovery seeds** in this mode.",
-    "failure to obtain an exact date carrier is not itself SOURCE_BLOCKED",
-    "fewer than two independent current discovery source families",
-    "source-recovery lease",
-    "source_retry_not_before",
-    "30 minutes",
-    "FootballFixtures.org",
-    "SEARCH_LOCATED_FULL_PAGE",
-)
-
-# 4D2. Fresh Step-0 sweep execution must be bounded and resumable.
-require(
-    "models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md",
-    "ACTIVE STEP-0 RUNTIME CONTROL",
-    "football-sweep-checkpoint-v1",
-    "SWEEP CHECKPOINT SAVED — /sweep resume",
-    "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
-    "Resume Cursor",
-    "competition-block shared",
-    "without dropping source provenance",
-    "Discovery Seed Manifest",
-    "Do not keep the only copy of a completed block in the assistant's transient context",
-)
-require("models/football/prompts/sweep.md", "stages_v4/SWEEP.md", "V4")
-require(
-    "models/football/prompts/COMMAND_ALIASES.md",
-    "/sweep resume [window|Run ID]",
-    "SWEEP CHECKPOINT SAVED — /sweep resume",
-)
-require(
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "Checkpointed execution — mandatory",
-    "FAST_FINISH_V2",
-    "8 logical competition/date blocks per invocation",
-    "FAST_FINISH_V1",
-    "six-block quota",
-    "terminal_unresolved_verification_blocks",
-    "competition-block shared",
-    "SWEEP CHECKPOINT SAVED — /sweep resume",
-)
-require(
-    "models/football/engine/sweep_checkpoint.py",
-    'CHECKPOINT_VERSION = "football-sweep-checkpoint-v1"',
-    "MAX_EXTERNAL_VERIFICATION_BLOCKS_PER_CHUNK = 6",
-    "FAST_FINISH_VERIFICATION_BLOCKS_PER_INVOCATION = 24",
-    "FAST_FINISH_MAX_BLOCK_ATTEMPTS = 2",
-    "FAST_FINISH_POLICY = \"FAST_FINISH_V1\"",
-    "terminal_unresolved_verification_blocks",
-    "SOURCE_RECOVERY_COOLDOWN_MINUTES = 30",
-    "RUN_STATUS_BY_SOURCE_STATE",
-    "def run_status_for_source_state",
-    "def source_retry_decision",
-    "def mark_source_blocked",
-    "SOURCE_RECOVERY_LEASE_EXPIRED",
-    "LEGACY_BLOCKED_CHECKPOINT_NO_RETRY_LEASE",
-    "def select_verification_chunk",
-    "def advance_after_chunk",
-)
-require(
-    "models/football/engine/sweep_checkpoint.py",
-    'FAST_FINISH_V2_POLICY = "FAST_FINISH_V2"',
-    "FAST_FINISH_V2_MAX_ELAPSED_MINUTES = 15",
-    "FAST_FINISH_V2_VERIFICATION_BLOCKS_PER_INVOCATION = 8",
-    "FAST_FINISH_V2_STAGE_CUTOFFS",
-    "terminal_budget_locked",
-    "GLOBAL_SENIOR_WOMENS_TOPFLIGHT_AISCORE_SCOPE_ATTESTATION",
-)
-require(
-    "models/football/engine/tests/test_sweep_fast_budget_v2.py",
-    "test_existing_v1_keeps_original_sixty_minutes",
-    "test_new_acquisition_stage_expires_by_three_minutes",
-    "test_targeted_verification_stops_by_twelve_minutes",
-    "test_cli_select_requires_clock_and_stops_expired_research",
-)
-require(
-    "models/football/engine/tests/test_sweep_checkpoint.py",
-    "test_selects_at_most_six_blocks",
-    "test_retry_blocks_are_prioritized_on_resume",
-    "test_advance_to_reconciliation_when_queue_empty",
-    "test_unchanged_blocker_does_not_retry_inside_lease",
-    "test_unchanged_blocker_retries_after_lease_expiry",
-    "test_changed_fingerprint_retries_immediately",
-    "test_legacy_blocked_checkpoint_without_lease_retries_once",
-    "test_mark_source_blocked_creates_retry_lease",
-    "test_source_state_maps_to_airtable_run_status",
-    "test_source_blocked_is_not_a_run_status_value",
-)
-require_current_airtable_mappings(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Sweep Runs",
-    "fldtIbv2ppGzwUExs",
-    "flduqxh9DOKdV1A06",
-    "flduhyM3Thjwj3Bqs",
-    "fld8jr7wAWGLhXqXe",
-    "fld4h6ZPqTCLBgxQ8",
-    "fldBq52mI5JtCz9xf",
-    "fld6ZtvrmNrFmff4h",
-)
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Never write `SOURCE_BLOCKED` into `Run Status`",
-)
-
-# 4D3. Step-1 must consume both exact and bounded Step-0 source scopes.
-require(
-    "models/football/engine/step0_handoff_cli.py",
-    "BOUNDED_PRODUCTION_DISCOVERY",
-    "MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
-    "coverage_mode=FALLBACK_PRODUCTION_SCOPE",
-    "global_raw_exact=false",
-    "production_scope_complete=true",
-    "discovery_seed_manifest",
-    "two independent source families",
-    "production_universe_count",
-    'choices=("export", "rank")',
-    "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
-    "LEGACY_MISSING_BLOCK_EXCLUDED_SUMMARY",
-    "direct [...] array",
-    "source_family",
-)
-require(
-    "models/football/engine/tests/test_step0_handoff_cli.py",
-    "test_bounded_production_handoff_passes",
-    "test_bounded_requires_fallback_coverage_mode",
-    "test_bounded_requires_production_scope_complete",
-    "test_bounded_requires_two_independent_source_families",
-    "test_bounded_requires_production_universe_count",
-    "test_rank_accepts_transitional_bounded_handoff_without_manifest",
-    "test_export_rejects_bounded_handoff_without_manifest",
-    "test_rank_accepts_transitional_bounded_handoff_without_block_summary",
-    "test_bounded_array_manifest_passes_export_and_rank",
-    "test_bounded_array_manifest_accepts_source_family_alias",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "Step-0 source-scope compatibility",
-    "source_scope = BOUNDED_PRODUCTION_DISCOVERY",
-    "--consumer rank",
-    "LEGACY_MISSING_DISCOVERY_SEED_MANIFEST",
-    "audit-provenance warnings, not ranking blockers",
-    "do not restart source acquisition or demand an exact global raw fixture count in /rank",
-    "production_scope_complete=true",
-    "global_raw_exact=false",
-    "wrapper object vs direct source array",
-)
-require(
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "source_scope = EXACT_DATE_UNIVERSE / BOUNDED_PRODUCTION_DISCOVERY",
-    "discovery_seed_manifest",
-    "--consumer export",
-    "source_transport=MULTISOURCE_BOUNDED_PRODUCTION_DISCOVERY",
-    "direct `[...]` source-entry array",
-)
-require(
-    "models/football/procedures/FOOTBALL_REPAIRED_HANDOFF_AUTHORITY.md",
-    "Step-0 source scope / source transport / coverage mode",
-    "restart source acquisition merely because `global_raw_exact=false`",
-)
-
-# 4E. Step-0 capacity is an initial batch, with deterministic Step-1 replenishment.
-require(
-    "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md",
-    "ACTIVE OPERATIONAL CAPACITY CONTROL",
-    "15 limit controls **concurrent deep-research workload**",
-    "Step0 Capacity Queue Rank",
-    "FOLLOW <= 6",
-    "RESERVE <= 4",
-    "FOLLOW + RESERVE = 10",
-    "capacity_replenishment_cli.py",
-    "The next candidate is always the lowest remaining Step0 queue rank",
-)
-require(
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "complete fixture-level A/B capacity queue first",
-    "initial Work batch cap",
-    "Step0 Capacity Queue Rank",
-    "Kickoff discovery order, source-page order and block arrival order must never decide admission",
-    "retained as the Step-1 replenishment queue",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "Deterministic replenishment — mandatory",
-    "active_lane_count = FOLLOW + RESERVE",
-    "capacity_replenishment_cli.py",
-    "Step1 Replenished = true",
-    "Replenishment Wave = 1, 2, ...",
-    "A STOP/PASS does not permanently consume one of the original 15 research slots",
-)
-require(
-    "models/football/engine/capacity_replenishment.py",
-    "MAX_FOLLOW = 6",
-    "MAX_RESERVE = 4",
-    "def next_replenishment_wave",
-    "duplicate Step0 Capacity Queue Rank",
-    "REPLENISHMENT_REQUIRED",
-)
-require(
-    "models/football/engine/tests/test_capacity_replenishment.py",
-    "test_selects_lowest_queue_ranks_for_vacancies",
-    "test_full_active_capacity_selects_none",
-    "test_started_candidate_is_skipped_without_jumping_order_bug",
-    "test_duplicate_queue_rank_fails",
-)
-require_current_airtable_mappings(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Daily Coverage Ledger",
-    "fldUFbfIyiIYcQuVt",
-    "fldPUL87XJhpUqYiU",
-    "fld5qzOVZdKst3bhK",
-    "fldUxHPEnQpGSJVmC",
-)
-
-# 4E2. Rank terminal status must distinguish completion from integrity failure.
-require(
-    "models/football/procedures/FOOTBALL_RANK_TERMINAL_STATUS.md",
-    "ACTIVE STEP-1 TERMINAL-STATE CONTROL",
-    "RANK COMPLETE — NO RANKED ELIGIBLE FIXTURES",
-    "RANK COMPLETE — 0 FOLLOW",
-)
-require(
-    "models/football/engine/rank_terminal_status.py",
-    "def rank_terminal_status",
-    "COMPLETE_EMPTY_RANKED_UNIVERSE",
-    "COMPLETE_ZERO_FOLLOW",
-    "REPLENISHMENT_REQUIRED",
-    "BLOCKED_INTEGRITY",
-)
-require(
-    "models/football/engine/tests/test_rank_terminal_status.py",
-    "test_empty_ranked_universe_with_hold_is_complete_not_blocked",
-    "test_zero_follow_ranked_board_is_complete",
-    "test_hold_with_deferred_queue_requires_replenishment",
-)
-
-# 4F. Required competition coverage must fail closed before Work.
-require(
-    "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md",
-    "MANDATORY STEP-0 COVERAGE INVARIANT",
-    "required-competition-manifest-v1",
-    "NED_EERSTE_DIVISIE",
-    "CHECKED_WITH_FIXTURES",
-    "CHECKED_NO_IN_WINDOW_FIXTURES",
-    "SOURCE_BLOCKED",
-    "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
-)
-require(
-    "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md",
-    "Required competition-block manifest — mandatory",
-    "NED_EERSTE_DIVISIE",
-    "Required Competition Blocks Complete = true",
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "Required competition coverage preflight — fail closed",
-    "HANDOFF INCOMPLETE — REQUIRED COMPETITION COVERAGE GAP",
-    "HANDOFF INCOMPLETE — NETHERLANDS EERSTE DIVISIE COVERAGE GAP",
-)
-require(
-    "models/football/engine/coverage_manifest.py",
-    'REQUIRED_BLOCKS = ("NED_EERSTE_DIVISIE",)',
-    "SOURCE_BLOCKED",
-    "required_blocks_complete",
-)
-require(
-    "models/football/engine/tests/test_coverage_manifest.py",
-    "test_missing_eerste_block_fails_closed",
-    "test_source_blocked_fails_closed",
-    "test_count_mismatch_fails_closed",
-)
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Required Competition Manifest Version",
-    "Required Competition Blocks Complete",
-)
-
-# 5. New-chat handoff freshness must preserve current C+C2 authority.
-require(
-    "models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md",
-    "MANDATORY ROUTER PRECHECK",
-    "historical state snapshot",
-    "HANDOFF AUTHORITY STALE — CURRENT MODEL/LAUNCHER RELOADED",
-    "OFFICIAL C",
-    "SHADOW C2",
-    "C3 and C4 are retired",
-    "\"all models\" means the active roster: C + C2",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "ACTIVE ROSTER OVERRIDE",
-    "xi_portable.py xi --c c_football.json --c2 c2_football.json",
-    "USER_SCREENSHOT_ONLY",
-    "WAIT — LIVE DECAY",
-    "Do not default",
-    "gap is <= +0.75",
-)
-require(
-    "models/football/engine/xi_portable.py",
-    "MAX_ASSESSMENT_LIVE_DECAY_GAP = 0.75",
-    "DEFAULT_ASSESSMENT_WAIT_MIN_ODDS = 1.65",
-    "def _conditional_live_decay_plan",
-    "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN_NOT_EXECUTABLE_ACTION",
-    "DECAY_GAP_TOO_LARGE_FOR_BOUNDED_WAIT",
-)
-require(
-    "models/football/engine/tests/test_xi_user_screenshot_only.py",
-    "test_15_prematch_screenshot_can_restore_bounded_live_decay_wait_without_priced_context",
-    "test_16_decay_wait_is_not_issued_for_unrealistic_gap",
-    "test_17_adverse_or_unverified_football_cannot_create_decay_wait",
-)
-require(
-    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
-    "Decay-plan restoration (2026-10-13)",
-    "WAIT — LIVE DECAY (conditional plan)",
-    "no more than **+0.75 goals**",
-    "no WAIT_ASSUMED exposure",
-)
-require(
-    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
-    "Assessment-only decay plans are NOT C-WAIT exposure",
-    "accounting_exposure_created=false",
-    "Only a later strict decision-stage result whose action is actually",
-)
-require(
-    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
-    "WAIT — LIVE DECAY (conditional plan)",
-    "do not create `WAIT_ASSUMED` exposure",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "PREMATCH screenshot may predeclare",
-    "WAIT — LIVE DECAY",
-    "at most +0.75",
-    "Larger gaps are not declared reachable",
-)
-require(
-    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
-    "ACTIVE ROSTER (2026-10-06)",
-    "No live-stat gate",
-    "Assess the live match **regardless of provider live stats**",
-    "positive live-stat confirmation is not required",
-)
-require(
-    "models/football/engine/step2_fixture_transition.py",
-    'live_price_action_engine_status": "NOT_IMPLEMENTED_V4"',
-    '"CURRENT_LIVE_QUOTE_OBSERVED_NO_ACTION_ENGINE"',
-    '"live_bet_authorized": False',
-)
-require(
-    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
-    "no deterministic live priced-action engine",
-    "live_price_action_engine_status=NOT_IMPLEMENTED_V4",
-)
-
-# 5. Step-2 market history must be attempted and explicit.
-require(
-    "models/football/procedures/FOOTBALL_MARKET_HISTORY_RECHECK.md",
-    "MANDATORY STEP-2 EVIDENCE BLOCK",
-    "OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH",
-    "MARKET HISTORY FOUND",
-    "MARKET HISTORY PARTIAL",
-    "MARKET HISTORY UNAVAILABLE — ATTEMPTED",
-    "Market history is a reinspection trigger, not a model",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "MANDATORY MARKET-HISTORY ATTEMPT",
-    "market_history_status = FOUND / PARTIAL / UNAVAILABLE_ATTEMPTED",
-    "MARKET HISTORY status + OPEN / PRE-XI / CURRENT trace",
-)
-require(
-    "models/football/engine/adapter.py",
-    "market_history_status",
-    "market_history_movement",
-    "market_history_conflict_recheck",
-    "market_history_note",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_missing_market_history_status_fails_closed",
-    "test_unavailable_market_history_can_continue_after_attempt",
-)
-
-# 4G. Execution-required stages must probe current runtime/repository state.
-require(
-    "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
-    "MANDATORY EXECUTION PRECHECK",
-    "PYTHON PROBE: PASS",
-    "REPOSITORY PROBE: PASS",
-    "CONTAINER NETWORK UNAVAILABLE — NOT REPOSITORY UNAVAILABLE",
-    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
-    "XI PORTABLE RUNTIME: PASS",
-    "xi_portable.py self-check",
-    "runtime_probe.py --stage <sweep|rank|xi|audit>",
-)
-require(
-    "models/football/engine/runtime_probe.py",
-    "STAGE_FILES",
-    "def probe_stage",
-    "RUNTIME SOURCE PROBE: PASS",
-)
-require(
-    "models/football/engine/runtime_probe.py",
-    '"sweep": (',
-    '"rank": (',
-    "models/football/stages_v4/stage.py",
-    "models/football/stages_v4/goals_first_intake.py",
-    "models/football/stages_v4/cheap_sweep_filters.py",
-    "models/football/stages_v4/source_completeness.py",
-)
-forbid(
-    "models/football/engine/runtime_probe.py",
-    '"models/football/engine/capacity_replenishment.py"',
-    '"models/football/engine/repaired_handoff_normalize.py"',
-)
-require(
-    "models/football/prompts/01_WORK_DAILY_SWEEP.md",
-    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
-    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
-)
-require(
-    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md",
-    "FOOTBALL_RUNTIME_EXECUTION_RECORD",
-)
-
-# 5. Completed current /xi football assessments execute C+C2 atomically.
-require(
-    "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md",
-    "MANDATORY STEP-2 EXECUTION PRECHECK",
-    "Active models:** Football C official + Football C2 shadow",
-    "xi_portable.py self-check",
-    "xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>",
-    "decision_pair_cli.py --football-only",
-    "ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>",
-    "ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY",
-)
-require(
-    "models/football/engine/xi_portable.py",
-    "def run_pair_files",
-    "EXECUTED_C_C2_PAIR",
-    "active_models",
-)
-forbid(
-    "models/football/engine/xi_portable.py",
-    "def run_triplet_files",
-    "decision_triplet_cli",
-    "EXECUTED_ALL_THREE",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_pair_executes_both_active_models",
-    "test_pair_rejects_model_mismatch",
-    "test_pair_rejects_non_decision_stage",
-    "test_pair_rejects_mixed_common_evidence_epoch",
-)
-require(
-    "models/football/procedures/FOOTBALL_STEP2_SESSION_RECONCILIATION.md",
-    "mandatory Step-2 completeness guard",
-    "every `FOLLOW` fixture whose XI/odds decision window is open",
-    "STEP2 RECONCILIATION FAILED — SILENT OMISSION",
-    "quote_revalidated = true",
-    "c2_route_quality_rechecked = true",
-)
-
-# 5. Step-2 deterministic validation must fail closed.
-require(
-    "models/football/engine/schema.json",
-    "\"official_follow_lane\"",
-    "\"step2_authorization\"",
-    "\"xi_status\"",
-    "\"post_xi_research_status\"",
-    "\"fixture_status\"",
-    "\"quote_revalidated\"",
-    "\"h2h_rechecked\"",
-    "\"completion_rechecked\"",
-    "\"c2_route_quality_rechecked\"",
-    "\"primary_mechanism_intact\"",
-)
-require(
-    "models/football/engine/adapter.py",
-    "def _required_bool",
-    "DECISION BLOCKED — CONFIRMED/RELIABLE XI MISSING",
-    "DECISION BLOCKED — H2H RECHECK MISSING",
-    "DECISION BLOCKED — BURDEN-COMPLETION RECHECK MISSING",
-    "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING",
-    "DECISION BLOCKED — STEP2 FIXTURE NOT CONFIRMED PREMATCH",
-    "DECISION BLOCKED — CURRENT QUOTE NOT REVALIDATED",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_missing_step2_lane_fails_closed",
-    "test_stop_lane_without_exception_is_blocked",
-    "test_stop_lane_user_exception_can_reopen",
-    "test_missing_xi_status_fails_closed",
-    "test_missing_post_xi_research_status_fails_closed",
-    "test_non_prematch_fixture_blocks_step2",
-    "test_quote_must_be_revalidated_before_decision",
-    "test_c2_requires_own_route_quality_recheck",
-)
-
-# 5. Active accounting is C+C2; historical retired-model settlement is explicit.
-require(
-    "models/football/engine/model_bet_accounting.py",
-    'ACTIVE_MODELS = ("c", "c2")',
-    'HISTORICAL_MODELS = ("c", "c2", "c3", "c4")',
-    "historical_roster",
-    "active accounting permits C/C2 only",
-    "ACTIVE_C_C2",
-    "HISTORICAL_C_C2_C3_C4",
-)
-require(
-    "models/football/engine/tests/test_model_bet_accounting.py",
-    "test_active_fixture_output_requires_c_and_c2_only",
-    "test_active_fixture_output_rejects_retired_rows",
-    "test_historical_roster_can_still_be_settled_explicitly",
-)
-require(
-    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
-    "New model accounting includes C and C2 only",
-    "Historical C3/C4 accounting is retained as historical data",
-)
-
-# 6. Audit hindsight integrity must be deterministic.
-require(
-    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
-    "Three-layer audit record",
-    "FROZEN STATE — immutable",
-    "OBSERVED OUTCOME — descriptive, not a re-grade",
-    "AUDIT DIAGNOSIS — evidence-bounded",
-    "MEDIUM-HIGH",
-    "RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE",
-    "OFFICIAL C MODEL P&L != ACTUAL USER P&L",
-    "FOOTBALL_AUDIT_RECORD",
-)
-require(
-    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "Audit hindsight integrity — mandatory",
-    "FROZEN:",
-    "OBSERVED:",
-    "DIAGNOSIS:",
-    "P&L STATUS:",
-    "AUDIT RECORD INVALID — DO NOT FINALIZE DIAGNOSIS",
-)
-require(
-    "models/football/engine/adapter.py",
-    "def run_audit_record",
-    "AUDIT_DIAGNOSIS_TAGS",
-    "official_c_model_pnl must be null when official_c_exposure=false",
-    "WAIT_ASSUMED exposure line/odds must equal frozen WAIT target/minimum",
-    "WAIT_USER_CONFIRMED requires user_executed=true",
-    "WAIT_NOT_REACHED requires official_c_exposure=false",
-    "user_pnl must be null when user_executed=false",
-)
-require(
-    "models/football/engine/cli.py",
-    'choices=("board", "decision", "audit")',
-    "run_audit_record",
-)
-require(
-    "models/football/engine/tests/test_adapter.py",
-    "test_compound_grade_is_rejected",
-    "test_pre_freeze_miss_requires_contemporaneous_note",
-    "test_no_official_exposure_cannot_have_model_pnl",
-    "test_published_model_exposure_does_not_require_user_bet",
-    "test_wait_assumed_counts_as_official_model_exposure",
-    "test_wait_not_reached_requires_user_declared_no_exposure",
-)
-
-# 7. Factor calibration observer must remain non-authoritative.
-require(
-    "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md",
-    "PROSPECTIVE DIAGNOSTIC OBSERVER — ZERO PRODUCTION AUTHORITY",
-    "Diagnostic contribution trace",
-    "Same-kickoff priority inversion",
-    "Ablation replay",
-    "OVERWEIGHT CANDIDATE",
-    "UNDERWEIGHT CANDIDATE",
-    "No silent coefficient tuning inside Football C",
-)
-require(
-    "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md",
-    "tblCfYuxmc1FfHS76",
-    "Outcome fields remain blank before FT",
-    "must never be read by",
-)
-require(
-    "models/football/engine/factor_calibration.py",
-    "def trace_contributions",
-    "def c_ranking_key",
-    "def ablated_ranking_key",
-    "def factor_bucket_stats",
-    "def same_kickoff_ablation",
-)
-require(
-    "models/football/engine/factor_calibration_cli.py",
-    "parse_observation",
-    "analyze",
-)
-require(
-    "models/football/engine/tests/test_factor_calibration.py",
-    "test_trace_score_is_transparent_and_non_market",
-    "test_continuation_ablation_can_expose_priority_inversion",
-    "test_analyzer_excludes_ineligible_rows_from_buckets",
-)
-forbid(
-    "models/football/engine/core.py",
-    "factor_calibration",
-)
-forbid(
-    "models/football/engine/adapter.py",
-    "factor_calibration",
-)
-
-# Archived factor table identity must map exactly to current calibration table.
-require_current_airtable_mappings(
-    "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md",
-    "Factor Calibration Observations",
-)
-
-# 7F. V4 Step1 persistence must preserve exact C/C2 model evidence.
-require(
-    "models/football/stages_v4/stage.py",
-    "STEP1_ENGINE_RESULT_FIELD_IDS",
-    "fldhUWNoyXzXfQJ3C",
-    "fldq0n2tDlS58goAm",
-    "model_evidence_readback_verified",
-    "model_evidence_sha256",
-    "exact Step1 engine evidence differs from Airtable",
-)
-require(
-    "models/football/engine/xi_v4_queue.py",
-    "model_evidence_readback_verified",
-    "model_evidence_sha256",
-    "exact persisted C/C2 Step1 model evidence was not independently verified",
-)
+# One Step2 authorization chain, no second source replay.
 require(
     "models/football/engine/step2_queue_guard.py",
-    "v4_model_evidence_sha256",
-)
-require(
-    "models/football/stages_v4/test_stage.py",
-    "step1_engine_c_result_field_id",
-    "step1_engine_c2_result_field_id",
-    "test_independent_active_airtable_readback_required",
-    "exact Step1 engine evidence differs",
-)
-require(
-    "models/football/engine/tests/test_xi_v4_coordinated.py",
-    "v4_model_evidence_sha256",
-    "test_persisted_c2_engine_evidence_digest_cannot_drift",
-)
-require(
-    "models/football/airtable/ACTIVE_MODEL_ROUTING.json",
-    "\"step1_engine_result_fields\"",
-    "fldhUWNoyXzXfQJ3C",
-    "fldq0n2tDlS58goAm",
-    "\"exact_json_readback_required\": true",
-)
-require(
-    "models/football/airtable/ACTIVE_MODEL_ROUTING.md",
-    "Step1 Engine C Result",
-    "Step1 Engine C2 Result",
+    'football-step2-queue-v2',
+    "V4_RANK_PERSISTENCE_VERIFIED",
     "model_evidence_sha256",
-)
-require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "Step1 Engine C Result",
-    "Step1 Engine C2 Result",
-    "c2_opponent_leakage",
-)
-require(
-    "models/football/stages_v4/RANK.md",
-    "model_evidence_readback_verified=true",
-    "model_evidence_sha256",
-)
-require(
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
-    "model_evidence_readback_verified=true",
-    "model_evidence_sha256",
-    "state/rank/line survived",
-)
-require(
-    "models/football/CURRENT_MODEL.md",
-    "model_evidence_readback_verified",
-    "model_evidence_sha256",
-    "state/rank/line alone are insufficient",
-    "prospective C/C2 thresholds follow the active calibration sections below",
+    "EXCEPTION_ONLY",
 )
 forbid(
-    "models/football/CURRENT_MODEL.md",
-    "Model thresholds/old boards/Actual Bets untouched",
+    "models/football/engine/step2_queue_guard.py",
+    "work_ready",
+    "TERMINAL_COMPLETE",
+    "v4_original_source",
+    "v4_status_refresh",
+    "validate_v4_queue_authority",
 )
 
-# 8. Persistence must keep active C/C2 fields distinct.
+# One model quote policy + separate execution authorization.
 require(
-    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
-    "C supported burden",
-    "C2 supported burden",
+    "models/football/engine/core.py",
+    "class ModelQuoteContext",
+    "def evaluate_c_quote",
+    "def evaluate_c2_quote",
+    "def decide_c",
+    "def decide_c2",
 )
 require(
-    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
-    "C Action",
-    "C supported line",
-    "C2 supported line",
-    "C2 shadow action",
+    "models/football/engine/adapter.py",
+    "def evaluate_observed_quote",
+    "def run_football_assessment",
+    "def run_decision",
+    "reachable WAIT requires",
 )
 require(
-    "models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md",
-    "ACTIVE PROCESS COMPLIANCE CONTROL",
-    "H2H never creates a scoring route",
-    "carrier_self_fund_basis",
-    "primary_mechanism_basis",
+    "models/football/engine/xi_portable.py",
+    "THIN_SHARED_MODULES",
+    "OBSERVED_QUOTE_EVALUATED",
+    "EXECUTABLE_PRICE_DECISION_EXECUTED",
+)
+forbid(
+    "models/football/engine/xi_portable.py",
+    "SOURCE_BLOB_SHA",
+    "_restore_pinned_sources",
+    "MAX_ASSESSMENT_LIVE_DECAY_GAP",
+    "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN",
+)
+
+# Screenshot is normal observed quote evidence, not a parallel persistence protocol.
+require(
+    "models/football/engine/xi_assessment_reconcile.py",
+    "evaluated_line",
+    "evaluated_odds",
+    "XI_PERSISTENCE_VERIFIED",
+)
+forbid(
+    "models/football/engine/xi_assessment_reconcile.py",
+    "USER_SCREENSHOT_ONLY_JSON=",
+    "EVIDENCE_SUMMARY_FIELD_ID",
+    "screenshot_evidence_summary_line",
+)
+
+# Strict publication is one exact pair + one readback, no second execution/reconcile.
+require(
+    "models/football/engine/step2_publication_guard.py",
+    "football-step2-publication-v2",
+    "pair_receipt",
+    "decision_state_snapshot",
+    "readback_verified",
+)
+forbid(
+    "models/football/engine/step2_publication_guard.py",
+    "run_pair(",
+    "step2_reconcile",
+)
+
+# No synthetic active accounting.
+forbid(
+    "models/football/engine/model_bet_accounting.py",
+    "WATCH_ASSUMED",
+    "SHADOW_WATCH_ASSUMED",
+    "WAIT_ASSUMED",
+    "SHADOW_WAIT_ASSUMED",
+)
+require(
+    "models/football/engine/model_bet_accounting.py",
+    "WAIT_USER_CONFIRMED",
+    "WATCH is classification only",
+)
+
+# Airtable has one machine-readable active routing authority.
+routing_path = ROOT / "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
+try:
+    routing = json.loads(routing_path.read_text(encoding="utf-8"))
+    if routing.get("base_id") != "appbzxqXYf0lKfD4P":
+        failures.append("ACTIVE_MODEL_ROUTING.json: wrong active base")
+    if routing.get("c_official_only") is not True:
+        failures.append("ACTIVE_MODEL_ROUTING.json: C official authority missing")
+    if routing.get("c2_shadow_only") is not True:
+        failures.append("ACTIVE_MODEL_ROUTING.json: C2 shadow authority missing")
+except Exception as exc:
+    failures.append(f"ACTIVE_MODEL_ROUTING.json unreadable: {exc}")
+
+# Current docs must describe the simplified path rather than resurrecting wrappers.
+for rel in (
+    "models/football/CURRENT_MODEL.md",
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+):
+    forbid(
+        rel,
+        "xi_v4_queue.py",
+        "step2_reconcile.py",
+        "step2_fixture_transition.py",
+        "WAIT_ASSUMED",
+        "WATCH_ASSUMED",
+        "MAX_ASSESSMENT_LIVE_DECAY_GAP",
+        "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN",
+    )
+
+# Production CI must not execute retired V1-V3 mechanics.
+workflow = ".github/workflows/football-step2-research-gate.yml"
+forbid(
+    workflow,
+    "sweep_checkpoint.py",
+    "capacity_replenishment.py",
+    "rank_terminal_status.py",
+    "repaired_handoff_normalize.py",
+    "step0_handoff_cli.py",
+    "xi_source_handoff.py",
+    "step2_reconcile.py",
+)
+require(
+    workflow,
+    "check_post_xi_research_gate.py",
+    "check_authority_consistency.py",
+    "check_runtime_execution_contract.py",
+    "check_xi_portable_runtime.py",
 )
 
 if failures:
-    print("FOOTBALL AUTHORITY QA FAIL")
+    print("FOOTBALL ACTIVE AUTHORITY FAIL")
     for failure in failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — Football C official + C2 shadow production authority is internally consistent.")
+print("PASS — simplified active authority: V4 + C/C2 + one quote policy + one persistence/publication chain.")
