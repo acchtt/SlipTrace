@@ -329,8 +329,17 @@ require(
 require(
     "models/football/engine/tests/test_core.py",
     "test_o225_independently_evidenced_leakage_rescues_strong_route",
+    "test_c2_o225_leakage_is_monotonic_with_positive_upper_tail",
     "test_c2_leakage_never_upgrades_o250_or_bridge",
     "test_c2_leakage_does_not_depend_on_c_stall_labels",
+)
+forbid(
+    "models/football/engine/core.py",
+    "and not a.independent_upper_tail",
+)
+forbid(
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
+    "independent upper-tail proof is **absent**",
 )
 require(
     "models/football/engine/tests/test_adapter.py",
