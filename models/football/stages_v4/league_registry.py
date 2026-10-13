@@ -115,8 +115,13 @@ EXCLUDED_EXACT = {
 }
 COMPETITIVE_KINDS = {
     "DOMESTIC_LEAGUE", "WOMENS_TOP_FLIGHT", "DOMESTIC_CUP",
-    "CONTINENTAL", "PROTECTED_OFFICIAL",
+    "CONTINENTAL", "PROTECTED_OFFICIAL", "YOUTH_CONTINENTAL",
 }
+UEFA_YOUTH_LEAGUE_NAMES = frozenset({
+    "uefa youth league",
+    "uefa u19 youth league",
+    "uefa youth league u19",
+})
 CUPS = {
     ("england", "fa cup"), ("england", "efl cup"),
     ("germany", "dfb pokal"), ("spain", "copa del rey"),
@@ -147,11 +152,22 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
     country = COUNTRIES.get(country, country)
     competition = norm(fixture.get("competition"))
     kind = fixture.get("competition_kind")
-    if not country or not competition or kind not in COMPETITIVE_KINDS:
+    if not competition or kind not in COMPETITIVE_KINDS:
         return {"lane": "UNVERIFIED", "reason": "COUNTRY_COMPETITION_KIND_REQUIRED"}
     if (fixture.get("is_friendly") is True or "friendly" in competition
             or "friendlies" in competition):
         return {"lane": "EXCLUDED", "reason": "NONCOMPETITIVE_FRIENDLIES"}
+    if competition in UEFA_YOUTH_LEAGUE_NAMES and kind in {
+        "YOUTH_CONTINENTAL", "CONTINENTAL", "PROTECTED_OFFICIAL"
+    }:
+        return {
+            "lane": "CONDITIONAL",
+            "reason": "UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED",
+        }
+    if kind == "YOUTH_CONTINENTAL":
+        return {"lane": "EXCLUDED", "reason": "UNAPPROVED_YOUTH_COMPETITION"}
+    if not country:
+        return {"lane": "UNVERIFIED", "reason": "COUNTRY_COMPETITION_KIND_REQUIRED"}
     if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in AFRICAN_DOMESTIC_COUNTRIES:
         return {"lane": "EXCLUDED", "reason": "USER_AFRICA_DOMESTIC_EXCLUSION"}
     if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in DOMESTIC_EXCLUSIONS:
