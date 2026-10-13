@@ -158,7 +158,7 @@ when:
 - at least one scoring route is STRONG, the carrier is at least USABLE;
 - C2 route reliability is HIGH; independent route quality, chance quality,
   failure resistance, evidence confidence and burden protection are >= MEDIUM;
-- independent upper-tail proof is **absent** (the exact C2 proof bottleneck);
+- independent upper-tail proof is **not required** for this leakage certificate; if present, it is positive orthogonal evidence and must never disable an otherwise qualified O2.25 leakage path;
 - no route-attacking failure or material suppression remains.
 
 If this fully certified fixture remains C2-WATCH/PASS at its supported O2.25,

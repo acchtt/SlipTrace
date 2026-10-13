@@ -493,7 +493,9 @@ def c2_low_burden_leakage_goal3_funded(
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
         and a.burden_protection >= Grade.MEDIUM
-        and not a.independent_upper_tail
+        # Positive independent upper-tail evidence must never make an
+        # otherwise qualified O2.25 leakage path worse. This factor is
+        # orthogonal here; carrier/two-route proofs may use it separately.
         and not a.material_suppression
         and not a.failure_attacks_route
     )

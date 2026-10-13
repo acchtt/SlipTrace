@@ -294,8 +294,10 @@ C2 now has its *own* independently researched HIGH-opponent-leakage signal
 (`c2_opponent_leakage` with non-empty `c2_opponent_leakage_basis`) for a
 strict O2.25-only goal-three counterweight when a STRONG scoring route,
 HIGH route reliability and at least MEDIUM independent-route/chance/failure
-quality survive. This is not imported C completion/stall policy, never
-permits O2.5+, and cannot bypass C2 model veto/price/upper-line guards.
+quality survive. Independent upper-tail evidence is orthogonal to this
+O2.25 certificate: it is not required and, when present, cannot downgrade an
+otherwise identical qualifying case. This is not imported C completion/stall
+policy, never permits O2.5+, and cannot bypass C2 model veto/price/upper-line guards.
 C2 remains shadow-only. Authority:
 `challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md`.
 
