@@ -143,7 +143,7 @@ class V4QueueBridgeTests(unittest.TestCase):
                 if target=="v4_rank_receipt":
                     case[target]["integrity_sha256"]=_digest({k:v for k,v in case[target].items() if k!="integrity_sha256"})
                     case["v4_persistence_receipt"]["rank_sha256"]=case[target]["integrity_sha256"]
-                with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof"):
+                with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof|model evidence"):
                     freeze_queue(case)
 
     def test_persisted_c2_engine_evidence_digest_cannot_drift(self):
