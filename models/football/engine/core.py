@@ -474,7 +474,12 @@ def c2_low_burden_leakage_goal3_funded(
     absent or LOW/MEDIUM leakage evidence cannot upgrade a match. Does not
     prove a fourth goal or waive material football vetoes.
     """
-    burden = a.supported_line if selected_line is None else selected_line
+    # Read-only diagnostic shadow probes may carry only route-quality fields.
+    # Absence of a C2-specific leakage grade or burden always leaves the old
+    # selection result unchanged; never infer HIGH leakage from shared facts.
+    burden = getattr(a, "supported_line", None) if selected_line is None else selected_line
+    if burden is None or getattr(a, "c2_opponent_leakage", None) != Grade.HIGH:
+        return False
     _validate_quarter_line(burden)
     return (
         2.0 < burden <= 2.25
