@@ -193,6 +193,7 @@ def freeze_queue(data: dict) -> dict:
         # supplied authentic source data.
         result["v4_provenance_chain_verified"] = True
         result["v4_rank_sha256"] = authority["v4_rank_sha256"]
+        result["v4_model_evidence_sha256"] = authority["v4_model_evidence_sha256"]
         result["v4_original_source_sha256"] = authority["v4_original_source_sha256"]
         result["v4_status_refresh_sha256"] = authority["v4_status_refresh_sha256"]
     return result
