@@ -1,22 +1,56 @@
-name: Football deterministic engine tests
+name: Football active deterministic engine tests
 
 on:
   push:
     paths:
-      - "models/football/engine/**"
+      - "models/football/engine/core.py"
+      - "models/football/engine/adapter.py"
+      - "models/football/engine/board_pair_cli.py"
+      - "models/football/engine/decision_pair_cli.py"
+      - "models/football/engine/xi_portable.py"
+      - "models/football/engine/step2_queue_guard.py"
+      - "models/football/engine/xi_assessment_reconcile.py"
+      - "models/football/engine/step2_publication_guard.py"
+      - "models/football/engine/model_bet_accounting.py"
+      - "models/football/engine/competition_reliability.py"
+      - "models/football/engine/schema.json"
+      - "models/football/engine/tests/test_adapter.py"
+      - "models/football/engine/tests/test_board_pair.py"
+      - "models/football/engine/tests/test_core.py"
+      - "models/football/engine/tests/test_competition_reliability.py"
+      - "models/football/engine/tests/test_football_assessment_pair.py"
+      - "models/football/engine/tests/test_model_airtable_routing.py"
+      - "models/football/engine/tests/test_model_bet_accounting.py"
+      - "models/football/engine/tests/test_simple_assess_bet_default.py"
+      - "models/football/engine/tests/test_step2_publication_guard.py"
+      - "models/football/engine/tests/test_step2_queue_guard.py"
+      - "models/football/engine/tests/test_sweep_rank_retirement.py"
+      - "models/football/engine/tests/test_xi_user_screenshot_only.py"
+      - "models/football/engine/tests/test_xi_v4_coordinated.py"
       - ".github/workflows/football-engine-tests.yml"
   pull_request:
     paths:
       - "models/football/engine/**"
       - ".github/workflows/football-engine-tests.yml"
 
+permissions:
+  contents: read
+
 jobs:
-  test:
+  active-engine:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run deterministic engine tests
-        run: python -m unittest discover -s models/football/engine/tests -v
+      - name: Run active C/C2 deterministic tests
+        env:
+          PYTHONPATH: models/football/engine
+        run: |
+          set -euo pipefail
+          for test in             test_core.py             test_adapter.py             test_board_pair.py             test_competition_reliability.py             test_football_assessment_pair.py             test_model_airtable_routing.py             test_model_bet_accounting.py             test_simple_assess_bet_default.py             test_step2_publication_guard.py             test_step2_queue_guard.py             test_sweep_rank_retirement.py             test_xi_user_screenshot_only.py             test_xi_v4_coordinated.py
+          do
+            python -m unittest discover -s models/football/engine/tests -p "$test" -v
+          done
