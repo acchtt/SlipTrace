@@ -97,7 +97,13 @@ Research real football evidence for the complete eligible fixture
 universe in goal-first priority order: source-backed recent scoring,
 home/away scoring routes, current team news, expected XI channels,
 competition format/incentives (cups), potential 0–0/1–1 trap and
-fourth-goal scoring tail. No price quote is required to complete
+fourth-goal scoring tail. For C2, independently research current
+opponent-specific defensive leakage as a model-owned factor. When a defensible
+grade is available, freeze BOTH `c2_opponent_leakage` (LOW/MEDIUM/HIGH) and a
+non-empty `c2_opponent_leakage_basis`; never copy C's `opponent_leakage`,
+completion, continuation or stall labels. If current C2-specific leakage
+evidence is unavailable, omit BOTH fields and the C2 O2.25 leakage certificate
+remains unavailable rather than inventing a grade. No price quote is required to complete
 football analysis; there is NO implied executable bet without real odds.
 Exclude prematch-closed fixtures, never retroactively admit a match.
 No random first-eight cap; insufficiently researched fixtures require
