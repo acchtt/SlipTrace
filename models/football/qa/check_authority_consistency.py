@@ -260,6 +260,51 @@ require(
     "Status:** RETIRED — DO NOT USE FOR NEW PRODUCTION",
 )
 
+# 2C. Oct-12 audit calibration: narrow Football C O2.25 leakage route.
+require(
+    "models/football/engine/core.py",
+    "def low_burden_leakage_goal3_funded",
+    "if burden > 2.25:",
+    "a.opponent_leakage == Grade.HIGH",
+    "a.burden_completion_quality >= Grade.MEDIUM",
+    "leakage_counterweight = low_burden_leakage_goal3_funded",
+)
+require(
+    "models/football/engine/adapter.py",
+    "low_burden_leakage_goal3_funded",
+    "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH",
+)
+require(
+    "models/football/engine/tests/test_core.py",
+    "test_o225_high_leakage_strong_route_can_fund_goal3_without_high_continuation",
+    "test_leakage_counterweight_never_extends_to_o250_or_higher",
+    "test_o225_leakage_counterweight_prevents_stall_and_low_continuation_auto_pass",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_o225_high_leakage_strong_route_cannot_remain_c_watch_stop",
+    "test_o250_same_high_leakage_shape_may_remain_c_watch",
+    "test_c2_board_does_not_inherit_c_o225_leakage_focus_rule",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "Active 2026-10-13 C calibration",
+    "does not extend to O2.5",
+    "Football C2 does not inherit this C-owned completion/stall calibration",
+)
+require(
+    "models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md",
+    "ACTIVE prospective calibration for Football C only",
+    "LOW burden-completion quality is never rescued",
+    "does **not** extend to O2.5, O2.75 or higher",
+    "does **not** change C2 policy",
+)
+require(
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
+    "2026-10-13 independence lock",
+    "does not inherit Football C's prospective",
+)
+
 # 3. C2 must have genuinely separate policy plumbing.
 require(
     "models/football/engine/core.py",

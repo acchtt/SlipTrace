@@ -276,6 +276,21 @@ Ranking should prioritize:
 6. evidence confidence;
 7. burden protection.
 
+**Active 2026-10-13 C calibration:** at O2.25 or lower, a STRONG scoring route
+against HIGH opponent leakage may fund goal three when burden-completion,
+route reliability and chance quality are each at least MEDIUM, **and** the
+fixture is specifically being suppressed by HIGH burden-stall risk or LOW
+continuation, with no material suppression/route-attacking failure remaining.
+This is a counterweight to that exact stall/continuation suppression, not a
+generic positive factor: MEDIUM-stall/MEDIUM-continuation profiles still use
+the original clearing-goal proof. LOW burden-completion is never rescued. This
+rule does not extend to O2.5, O2.75 or higher and does not manufacture a
+fourth-goal tail. A sufficiently well-evidenced O2.25 leakage-funded fixture
+cannot remain C-WATCH/STOP; it must be re-evaluated as C-FOCUS. Authority:
+`models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md`.
+
+Football C2 does not inherit this C-owned completion/stall calibration.
+
 Operational capacity does not change predictive rank.
 
 The official lane remains:

@@ -630,6 +630,86 @@ class BoardContractTests(unittest.TestCase):
                 }
             )
 
+    def test_o225_high_leakage_strong_route_cannot_remain_c_watch_stop(self):
+        with self.assertRaisesRegex(
+            ContractError,
+            "C-WATCH CONTRADICTION",
+        ):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            supported_line=2.25,
+                            away_route="WEAK",
+                            carrier="USABLE",
+                            completion_mode="CARRIER_LED",
+                            burden_completion_quality="MEDIUM",
+                            continuation_quality="LOW",
+                            opponent_leakage="HIGH",
+                            burden_stall_risk="HIGH",
+                            route_reliability="HIGH",
+                            chance_quality="HIGH",
+                            carrier_self_fund=False,
+                            independent_upper_tail=False,
+                            board_state="C-WATCH",
+                        )
+                    ],
+                }
+            )
+
+    def test_o250_same_high_leakage_shape_may_remain_c_watch(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        supported_line=2.5,
+                        away_route="WEAK",
+                        carrier="USABLE",
+                        completion_mode="CARRIER_LED",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="LOW",
+                        opponent_leakage="HIGH",
+                        burden_stall_risk="HIGH",
+                        route_reliability="HIGH",
+                        chance_quality="HIGH",
+                        carrier_self_fund=False,
+                        independent_upper_tail=False,
+                        board_state="C-WATCH",
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["board_state"], "WATCH")
+        self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
+
+    def test_c2_board_does_not_inherit_c_o225_leakage_focus_rule(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c2",
+                "matches": [
+                    without_c_completion(
+                        match(
+                            supported_line=2.25,
+                            away_route="WEAK",
+                            carrier="USABLE",
+                            route_reliability="HIGH",
+                            chance_quality="HIGH",
+                            board_state="C2-WATCH",
+                        )
+                    )
+                ],
+            }
+        )
+        self.assertEqual(result["matches"][0]["board_state"], "WATCH")
+
     def test_missing_tournament_gate_fails(self):
         row = match()
         row.pop("tournament_incentive_required")
