@@ -25,17 +25,22 @@ separately refetched record. Football-only completion creates no
 Website Pick or Actual Bet. Priced decisions still require the strict
 publication guard and their own real current quote.
 
-## New Step1 lane readback field (2026-10-11)
+## Step1 exact-result + lane readback fields (2026-10-13)
 
-The existing active `Daily Coverage Ledger` (`tbl20jBW5dfgNnTV6`) now contains
-`Step1 C Follow Lane` — field ID `fldR8p7zmjLAvE5bh`, choices
-`FOLLOW`, `RESERVE`, `STOP`. Only official C's **executed** paired-board
-`follow_lane` is written. For each newly ranked fixture, independently
-read this exact cell back alongside the original Coverage ID, immutable
-Step0 Capacity Queue Rank and both C/C2 results before a new /rank
-publication can be marked complete. Missing lane is a persistence fault;
-do not infer it from C FOCUS/WATCH or C2 shadow. Historical frozen records
-are not backfilled or reinterpreted.
+The active `Daily Coverage Ledger` (`tbl20jBW5dfgNnTV6`) contains:
+- `Step1 C Follow Lane` — `fldR8p7zmjLAvE5bh`, choices FOLLOW/RESERVE/STOP;
+- `Step1 Engine C Result` — `fldhUWNoyXzXfQJ3C`, multiline canonical JSON;
+- `Step1 Engine C2 Result` — `fldq0n2tDlS58goAm`, multiline canonical JSON.
+
+For each **new V4 rank**, write the exact executed per-match C/C2 result
+objects to the corresponding engine-result fields and the executed official
+C lane. Independently refetch these exact field IDs alongside Coverage ID,
+state/rank/line and immutable Step0 identity. `stage.py verify` must reject
+missing, malformed, or semantically different result JSON and emit a
+`model_evidence_sha256` over the sealed paired results. This makes
+model-owned evidence—including C2 leakage—part of the verified
+`/rank -> routine /xi` chain. Do not infer missing factors from display
+fields. Historical frozen records are not backfilled or reinterpreted.
 
 ## Canonical model table routing
 
@@ -58,7 +63,7 @@ The table **field names and types** were compared live between old and new bases
 ## Handoff bridge and safe state transition
 
 1. **/sweep owns Step0**: original source fixtures, rank/identity/disposition and source hash are immutable. Consume its official ZIP plus independent Step0 Airtable/readback proof from the **sweep's own current source**, whichever base that workflow uses. Do not create or modify Sweep Runs from /rank.
-2. **/rank writes to the NEW model base**: reconcile by original `Coverage ID` and original `Run ID`/source hash. If a matching `Daily Coverage Ledger` record already exists in the new base, update that **new-base record ID** only. If no matching record exists there, copy the minimum immutable Step0 fixture identity/provenance from the official package to a **new** coverage row and then add C/C2 Step1 output. Do not update a record in the old base just because its Coverage ID matches. Retain original A/B order and deferred evidence. Do not change Step0 status retroactively.
+2. **/rank writes to the NEW model base**: reconcile by original `Coverage ID` and original `Run ID`/source hash. If a matching `Daily Coverage Ledger` record already exists in the new base, update that **new-base record ID** only. If no matching record exists there, copy the minimum immutable Step0 fixture identity/provenance from the official package to a **new** coverage row and then add C/C2 Step1 output. For new V4 ranks also persist the exact per-match C/C2 engine-result JSON in the two Step1 Engine Result fields and independently refetch it before marking persistence verified. Do not update a record in the old base just because its Coverage ID matches. Retain original A/B order and deferred evidence. Do not change Step0 status retroactively.
 3. **/xi, /live**: resolve current board against the NEW `Daily Coverage Ledger` before assessing; persist paired C official/C2 independent evidence and outcomes to NEW `Decision States`. Use real new-base record IDs and verify the saved assessment/evidence epoch by separate readback. Never use old Decision States record IDs as update targets.
 4. **/audit, /report, accounting**: use the NEW Decision States, Website Picks, calibration, reliability and Actual Bets tables. Historical table migration is not implicit; report `NO_NEW_BASE_CALIBRATION_ROWS` if the table is empty instead of claiming no historical model results. The old base can be consulted only for explicitly labeled historical comparisons, with no writes.
 5. **User actual-bet P/L**: two original reset-era verified slips are already present in the new Actual Bets table: Shabab Al Ahli–Dubai United −200,000 VND; Al Ain–Al Ittihad Kalba +184,000 VND, total **−16,000 VND**. Do not create duplicate slips, or interpret Website Picks or shadow decisions as actual user placements.
