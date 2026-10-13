@@ -28,11 +28,17 @@ COUNTRIES = {
     "swaziland": "eswatini",
     "dr congo": "democratic republic of the congo",
     "congo dr": "democratic republic of the congo",
+    "congo drc": "democratic republic of the congo",
     "d r congo": "democratic republic of the congo",
     "democratic republic of congo": "democratic republic of the congo",
+    "congo democratic republic": "democratic republic of the congo",
     "republic of congo": "congo",
+    "republic of the congo": "congo",
+    "the gambia": "gambia",
     "cote d ivoire": "ivory coast",
     "c te d ivoire": "ivory coast",
+    "s o tom and pr ncipe": "sao tome and principe",
+    "r union": "reunion",
 }
 AFRICAN_DOMESTIC_COUNTRIES = frozenset({
     "algeria", "angola", "benin", "botswana", "burkina faso", "burundi",
