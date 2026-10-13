@@ -18,9 +18,8 @@ stage=decision payloads.
 
 ## No transport bootstrap
 
-No transport bootstrap, embedded source bundle, Git-blob repinning,
-xi_source_handoff.py, runtime_probe.py or SOURCE_TRANSPORT_BLOCKED ceremony is
-part of the active command path.
+No source-transport bootstrap, embedded source bundle, Git-blob repinning or
+preflight staging ceremony is part of the active command path.
 
 The GitHub Actions artifact may package the thin runner beside its ordinary
 Python dependencies for transfer, but it does not create a second copy of
