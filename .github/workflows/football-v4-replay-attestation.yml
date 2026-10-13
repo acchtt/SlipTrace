@@ -51,9 +51,24 @@ jobs:
               # advanced. Rank still requires a fresh full-cohort status check.
               frozen_now="$(python - "$folder/source.json" <<'PY'
           import json,sys
+          from datetime import datetime
           from pathlib import Path
           source=json.loads(Path(sys.argv[1]).read_text())
-          print(source["source_observed_at_utc"])
+          stamps=[]
+          def walk(value):
+              if isinstance(value,dict):
+                  for key,item in value.items():
+                      if key.endswith(("observed_at_utc","checked_at_utc")) and isinstance(item,str):
+                          stamps.append(datetime.fromisoformat(item.replace("Z","+00:00")))
+                      else:
+                          walk(item)
+              elif isinstance(value,list):
+                  for item in value:
+                      walk(item)
+          walk(source)
+          if not stamps:
+              raise SystemExit("archived V4 source has no observation timestamp")
+          print(max(stamps).isoformat())
           PY
               )"
               python models/football/stages_v4/stage.py \
