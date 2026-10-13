@@ -1561,11 +1561,15 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         "wait_resolution",
         {
             "NOT_APPLICABLE",
+            "UNRESOLVED",
             "ASSUMED_REACHED",
             "USER_CONFIRMED",
             "USER_DECLARED_NOT_REACHED",
         },
     )
+    legacy_assumed_policy = pnl.get("legacy_assumed_exposure_policy", False)
+    if type(legacy_assumed_policy) is not bool:
+        raise ContractError("legacy_assumed_exposure_policy must be true/false")
     user_executed = _required_bool(pnl, "user_executed")
     user_pnl = _nullable_number(pnl, "user_pnl")
     c2_shadow_only = _required_bool(pnl, "c2_shadow_only")
@@ -1580,12 +1584,14 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
                 "C-WAIT audit requires frozen wait_target_line and wait_min_odds"
             )
         if official_exposure_basis not in {
+            "NONE",
             "WAIT_ASSUMED",
             "WAIT_USER_CONFIRMED",
             "WAIT_NOT_REACHED",
         }:
             raise ContractError(
-                "C-WAIT requires WAIT_ASSUMED / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED exposure basis"
+                "C-WAIT requires NONE / WAIT_USER_CONFIRMED / WAIT_NOT_REACHED "
+                "or explicit historical WAIT_ASSUMED exposure basis"
             )
     elif c_action == "C_BET":
         if official_exposure_basis != "DIRECT_BET":
@@ -1598,7 +1604,20 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         if wait_resolution != "NOT_APPLICABLE":
             raise ContractError("C-PASS/NONE requires wait_resolution=NOT_APPLICABLE")
 
+    if official_exposure_basis == "NONE" and c_action == "C_WAIT":
+        if official_exposure:
+            raise ContractError("unresolved C-WAIT with basis NONE cannot create exposure")
+        if wait_resolution != "UNRESOLVED":
+            raise ContractError("unresolved C-WAIT requires wait_resolution=UNRESOLVED")
+        if official_exposure_line is not None or official_exposure_odds is not None:
+            raise ContractError("unresolved C-WAIT requires null exposure line/odds")
+
     if official_exposure_basis == "WAIT_ASSUMED":
+        if not legacy_assumed_policy:
+            raise ContractError(
+                "WAIT_ASSUMED is retired for current records; "
+                "set legacy_assumed_exposure_policy=true only for frozen historical audit"
+            )
         if not official_exposure:
             raise ContractError("WAIT_ASSUMED requires official_c_exposure=true")
         if wait_resolution != "ASSUMED_REACHED":
@@ -1697,6 +1716,7 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         },
         "pnl_status": {
             "official_c_exposure": official_exposure,
+            "legacy_assumed_exposure_policy": legacy_assumed_policy,
             "official_c_model_pnl": official_pnl,
             "official_c_exposure_basis": official_exposure_basis,
             "official_c_exposure_line": official_exposure_line,
