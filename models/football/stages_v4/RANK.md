@@ -114,7 +114,16 @@ Use `python models/football/stages_v4/stage.py --output v4_rank.json rank
 --sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --c2 c2.json --unranked unranked.json`.
 The deterministic production model C and C2 execute independently.
 Results are **awaiting Airtable persistence** until separately read back and
-verified. The verification receipt must carry forward `source_replayed`,
+verified. For every newly ranked fixture write the exact executed model-row
+JSON into Daily Coverage `Step1 Engine C Result` and
+`Step1 Engine C2 Result`, then independently refetch those exact fields
+(field IDs `fldhUWNoyXzXfQJ3C` and `fldq0n2tDlS58goAm`) together with
+state/rank/line/lane. `stage.py verify` must compare each stored JSON object
+to the sealed C/C2 engine result and emit
+`model_evidence_readback_verified=true` plus
+`model_evidence_sha256`. A missing or changed model-owned factor—including
+C2 leakage evidence—is a persistence failure, not an inferred repair.
+The verification receipt must also carry forward `source_replayed`,
 `current_fixture_status_checked`, `original_source_sha256` and
 `status_refresh_sha256`; routine /xi must receive the unchanged original
 source and exact status-refresh payloads and recompute those hashes before

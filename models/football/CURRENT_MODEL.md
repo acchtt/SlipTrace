@@ -7,7 +7,7 @@ For /xi or /xi exception with a user screenshot, the screenshot's EXACT Over lin
 
 ## Active /xi V4 one-command authority — October 12
 
-Every `/xi` or `/xi exception` runs genuinely independent C/C2 football assessments first, with an optional executable prematch price check in the SAME command only when current quote/lineup/incentive facts already qualify. V4 routine authority uses original sealed V4 sweep/rank and independent Airtable persistence verification; NEVER require retired Step0 `work_ready` ZIP. Explicit user exceptions do not need a V4 board but need independently sourced C2 factors and a real paired engine attempt. After KO keep football analysis; no retrospective prematch price/bet. Use `02_NORMAL_CHAT_XI_ODDS.md` and `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. The separate active `XI Assessment Execution Status` Airtable field records quote-free successful execution with independent refetched C/C2 results. Model thresholds/old boards/Actual Bets untouched.
+Every `/xi` or `/xi exception` runs genuinely independent C/C2 football assessments first, with an optional executable prematch price check in the SAME command only when current quote/lineup/incentive facts already qualify. V4 routine authority uses original sealed V4 sweep/rank and independent Airtable persistence verification; NEVER require retired Step0 `work_ready` ZIP. Explicit user exceptions do not need a V4 board but need independently sourced C2 factors and a real paired engine attempt. After KO keep football analysis; no retrospective prematch price/bet. Use `02_NORMAL_CHAT_XI_ODDS.md` and `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. The separate active `XI Assessment Execution Status` Airtable field records quote-free successful execution with independent refetched C/C2 results. Historical boards and Actual Bets remain untouched; prospective C/C2 thresholds follow the active calibration sections below.
 
 ## Prospective V4 goals-first intake — same standard for every league
 
@@ -254,12 +254,17 @@ Before C/C2 execution it must:
 - execute independent C official and C2 shadow board engines;
 - preserve explicit unranked reasons;
 - persist the ranked cohort and independently refetch it;
-- carry `source_replayed`, `current_fixture_status_checked`,
+- persist and independently refetch the exact per-match C and C2 Step1 engine
+  result JSON, including model-owned evidence such as the optional C2 leakage
+  pair; state/rank/line alone are insufficient;
+- carry `model_evidence_readback_verified`, `model_evidence_sha256`,
+  `source_replayed`, `current_fixture_status_checked`,
   `original_source_sha256` and `status_refresh_sha256` through
   `V4_RANK_PERSISTENCE_VERIFIED`.
 
 Routine `/xi` requires the exact original source/status payloads plus the
-sealed sweep/rank/readback chain. Internal hash consistency proves continuity,
+sealed sweep/rank/readback chain and a matching persisted-model-evidence
+digest. Internal hash consistency proves continuity,
 not external provider authenticity.
 
 ## Football C selection / clearing-goal funding

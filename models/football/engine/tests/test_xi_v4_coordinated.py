@@ -48,6 +48,8 @@ def native_v4_case(*, include_closed_unranked=False):
     source=v4_sweep(original_source,now="2026-10-12T13:00:00Z")
 
     cbase,c2base=c_row(),c2_row()
+    c2base["c2_opponent_leakage"]="HIGH"
+    c2base["c2_opponent_leakage_basis"]="Independent current opponent-specific leakage evidence"
     for row in (cbase,c2base):
         row["match_id"]="fixture-1"; row["kickoff_ict"]="2026-10-12T21:00:00+07:00"
     cin,c2in=board_payload("c",cbase),board_payload("c2",c2base)
@@ -70,7 +72,11 @@ def native_v4_case(*, include_closed_unranked=False):
         "readback_at_utc":"2026-10-12T13:06:00Z","ranked_rows":[{
             "match_id":"fixture-1","coverage_id":run+"|fixture-1","follow_lane":cr["follow_lane"],
             "c_rank":cr["rank"],"c_board_state":"C-"+cr["board_state"],"c_supported_line":cr["supported_line"],
-            "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],"c2_supported_line":c2r["supported_line"]}]}
+            "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],"c2_supported_line":c2r["supported_line"],
+            "step1_engine_c_result":json.dumps(cr,sort_keys=True),
+            "step1_engine_c_result_field_id":"fldhUWNoyXzXfQJ3C",
+            "step1_engine_c2_result":json.dumps(c2r,sort_keys=True),
+            "step1_engine_c2_result_field_id":"fldq0n2tDlS58goAm"}]}
     verified=v4_verify_rank(readback,rank)
     row={"match_id":"fixture-1","coverage_id":run+"|fixture-1",
          "kickoff_utc":"2026-10-12T14:00:00Z","kickoff_ict":"2026-10-12T21:00:00+07:00",
@@ -104,6 +110,9 @@ class V4QueueBridgeTests(unittest.TestCase):
     def test_genuine_v4_rank_authorizes_routine_c_not_c2(self):
         actual=freeze_queue(native_v4_case())
         self.assertTrue(actual["v4_provenance_chain_verified"])
+        self.assertIn("v4_model_evidence_sha256",actual)
+        self.assertEqual(actual["v4_model_evidence_sha256"],
+                         native_v4_case()["v4_persistence_receipt"]["model_evidence_sha256"])
         self.assertNotIn("v4_source_attested", actual)
         self.assertEqual(actual["source_run_id"],"V4-20261012-1300")
         self.assertEqual(actual["due_count"],1)
@@ -125,6 +134,8 @@ class V4QueueBridgeTests(unittest.TestCase):
             ("v4_persistence_receipt","current_fixture_status_checked"),
             ("v4_persistence_receipt","original_source_sha256"),
             ("v4_persistence_receipt","status_refresh_sha256"),
+            ("v4_persistence_receipt","model_evidence_readback_verified"),
+            ("v4_persistence_receipt","model_evidence_sha256"),
         ):
             with self.subTest(target=target,field=field):
                 case=native_v4_case()
@@ -132,8 +143,25 @@ class V4QueueBridgeTests(unittest.TestCase):
                 if target=="v4_rank_receipt":
                     case[target]["integrity_sha256"]=_digest({k:v for k,v in case[target].items() if k!="integrity_sha256"})
                     case["v4_persistence_receipt"]["rank_sha256"]=case[target]["integrity_sha256"]
-                with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof"):
+                with self.assertRaisesRegex(Step2QueueError,"provenance|source|status|sha256|proof|model evidence"):
                     freeze_queue(case)
+
+    def test_persisted_c2_engine_evidence_digest_cannot_drift(self):
+        case=native_v4_case()
+        case["v4_persistence_receipt"]["model_evidence_sha256"]="0"*64
+        with self.assertRaisesRegex(Step2QueueError,"model evidence"):
+            freeze_queue(case)
+
+        case=native_v4_case()
+        case["v4_rank_receipt"]["board_pair"]["results"]["c2"]["matches"][0][
+            "c2_opponent_leakage"
+        ]="MEDIUM"
+        case["v4_rank_receipt"]["integrity_sha256"]=_digest({
+            k:v for k,v in case["v4_rank_receipt"].items() if k!="integrity_sha256"
+        })
+        case["v4_persistence_receipt"]["rank_sha256"]=case["v4_rank_receipt"]["integrity_sha256"]
+        with self.assertRaisesRegex(Step2QueueError,"model evidence"):
+            freeze_queue(case)
 
     def test_original_source_or_status_payload_mismatch_is_rejected(self):
         for target in ("v4_original_source","v4_status_refresh"):

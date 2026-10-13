@@ -1135,6 +1135,80 @@ require_current_airtable_mappings(
     "Factor Calibration Observations",
 )
 
+# 7F. V4 Step1 persistence must preserve exact C/C2 model evidence.
+require(
+    "models/football/stages_v4/stage.py",
+    "STEP1_ENGINE_RESULT_FIELD_IDS",
+    "fldhUWNoyXzXfQJ3C",
+    "fldq0n2tDlS58goAm",
+    "model_evidence_readback_verified",
+    "model_evidence_sha256",
+    "exact Step1 engine evidence differs from Airtable",
+)
+require(
+    "models/football/engine/xi_v4_queue.py",
+    "model_evidence_readback_verified",
+    "model_evidence_sha256",
+    "exact persisted C/C2 Step1 model evidence was not independently verified",
+)
+require(
+    "models/football/engine/step2_queue_guard.py",
+    "v4_model_evidence_sha256",
+)
+require(
+    "models/football/stages_v4/test_stage.py",
+    "step1_engine_c_result_field_id",
+    "step1_engine_c2_result_field_id",
+    "test_independent_active_airtable_readback_required",
+    "exact Step1 engine evidence differs",
+)
+require(
+    "models/football/engine/tests/test_xi_v4_coordinated.py",
+    "v4_model_evidence_sha256",
+    "test_persisted_c2_engine_evidence_digest_cannot_drift",
+)
+require(
+    "models/football/airtable/ACTIVE_MODEL_ROUTING.json",
+    "\"step1_engine_result_fields\"",
+    "fldhUWNoyXzXfQJ3C",
+    "fldq0n2tDlS58goAm",
+    "\"exact_json_readback_required\": true",
+)
+require(
+    "models/football/airtable/ACTIVE_MODEL_ROUTING.md",
+    "Step1 Engine C Result",
+    "Step1 Engine C2 Result",
+    "model_evidence_sha256",
+)
+require(
+    "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",
+    "Step1 Engine C Result",
+    "Step1 Engine C2 Result",
+    "c2_opponent_leakage",
+)
+require(
+    "models/football/stages_v4/RANK.md",
+    "model_evidence_readback_verified=true",
+    "model_evidence_sha256",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "model_evidence_readback_verified=true",
+    "model_evidence_sha256",
+    "state/rank/line survived",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "model_evidence_readback_verified",
+    "model_evidence_sha256",
+    "state/rank/line alone are insufficient",
+    "prospective C/C2 thresholds follow the active calibration sections below",
+)
+forbid(
+    "models/football/CURRENT_MODEL.md",
+    "Model thresholds/old boards/Actual Bets untouched",
+)
+
 # 8. Persistence must keep active C/C2 fields distinct.
 require(
     "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md",

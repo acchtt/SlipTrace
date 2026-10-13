@@ -103,6 +103,12 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
     results = pair.get("results", {})
     if not isinstance(results, dict) or not all(m in results for m in ("c","c2")):
         raise V4XIQueueError("V4: C official and C2 shadow model outputs required")
+    expected_model_evidence_sha256 = _digest(results)
+    if (readback.get("model_evidence_readback_verified") is not True
+            or readback.get("model_evidence_sha256") != expected_model_evidence_sha256):
+        raise V4XIQueueError(
+            "V4: exact persisted C/C2 Step1 model evidence was not independently verified"
+        )
     c = results["c"].get("matches", [])
     c2 = results["c2"].get("matches", [])
     if not isinstance(c,list) or not isinstance(c2,list):
@@ -142,4 +148,5 @@ def validate_v4_queue_authority(data: dict[str, Any], board: list[dict[str, Any]
             "v4_provenance_chain_verified":True,
             "v4_original_source_sha256":ranked["original_source_sha256"],
             "v4_status_refresh_sha256":ranked["status_refresh_sha256"],
-            "v4_rank_sha256":ranked["integrity_sha256"]}
+            "v4_rank_sha256":ranked["integrity_sha256"],
+            "v4_model_evidence_sha256":expected_model_evidence_sha256}

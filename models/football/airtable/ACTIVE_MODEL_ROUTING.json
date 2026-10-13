@@ -50,5 +50,14 @@
     "separate_from_legacy_engine_status": true,
     "football_only_value": "EXECUTED_C_C2_FOOTBALL_ONLY",
     "readback_required": true
+  },
+  "step1_engine_result_fields": {
+    "table": "Daily Coverage Ledger",
+    "c_field_name": "Step1 Engine C Result",
+    "c_field_id": "fldhUWNoyXzXfQJ3C",
+    "c2_field_name": "Step1 Engine C2 Result",
+    "c2_field_id": "fldq0n2tDlS58goAm",
+    "exact_json_readback_required": true,
+    "historical_backfill": false
   }
 }

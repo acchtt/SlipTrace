@@ -329,6 +329,12 @@ def fresh_status(sweep_receipt, *, now="2026-10-11T16:05:00Z"):
     }
 
 
+def _hash_for_test(value):
+    import hashlib
+    return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=True,
+        separators=(",",":")).encode("utf-8")).hexdigest()
+
+
 def rank(src, c, c2, reasons, *, now, original_source=None, status_refresh=None):
     """Existing regression scenarios use authentic matching source and status."""
     return production_rank(
@@ -444,6 +450,10 @@ class RankV4Tests(unittest.TestCase):
 
     def test_independent_active_airtable_readback_required(self):
         src=sweep(snapshot(),now=NOW);c,c2=model_inputs()
+        c2["matches"][0]["c2_opponent_leakage"] = "HIGH"
+        c2["matches"][0]["c2_opponent_leakage_basis"] = (
+            "Independent current opponent-specific leakage evidence"
+        )
         result=rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
                     now="2026-10-11T16:05:00Z")
         cr=result["board_pair"]["results"]["c"]["matches"][0]
@@ -463,10 +473,17 @@ class RankV4Tests(unittest.TestCase):
                 "c_supported_line":cr["supported_line"],
                 "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],
                 "c2_supported_line":c2r["supported_line"],
+                "step1_engine_c_result":json.dumps(cr,sort_keys=True),
+                "step1_engine_c_result_field_id":"fldhUWNoyXzXfQJ3C",
+                "step1_engine_c2_result":json.dumps(c2r,sort_keys=True),
+                "step1_engine_c2_result_field_id":"fldq0n2tDlS58goAm",
             }],
         }
         verified=verify_rank(readback,result)
         self.assertEqual(verified["status"],"V4_RANK_PERSISTENCE_VERIFIED")
+        self.assertTrue(verified["model_evidence_readback_verified"])
+        self.assertEqual(verified["model_evidence_sha256"],
+                         _hash_for_test(result["board_pair"]["results"]))
         self.assertTrue(verified["source_replayed"])
         self.assertTrue(verified["current_fixture_status_checked"])
         self.assertEqual(verified["original_source_sha256"],result["original_source_sha256"])
@@ -479,6 +496,16 @@ class RankV4Tests(unittest.TestCase):
         with self.assertRaisesRegex(StageError,"lane differs"):
             verify_rank(readback,result)
         readback["ranked_rows"][0]["follow_lane"] = cr["follow_lane"]
+        stored_c2=json.loads(readback["ranked_rows"][0]["step1_engine_c2_result"])
+        stored_c2["c2_opponent_leakage"]="MEDIUM"
+        readback["ranked_rows"][0]["step1_engine_c2_result"]=json.dumps(stored_c2)
+        with self.assertRaisesRegex(StageError,"exact Step1 engine evidence differs"):
+            verify_rank(readback,result)
+        readback["ranked_rows"][0]["step1_engine_c2_result"]=json.dumps(c2r,sort_keys=True)
+        readback["ranked_rows"][0]["step1_engine_c2_result_field_id"]="fldWRONG000000000"
+        with self.assertRaisesRegex(StageError,"field ID not verified"):
+            verify_rank(readback,result)
+        readback["ranked_rows"][0]["step1_engine_c2_result_field_id"]="fldq0n2tDlS58goAm"
         readback["rank_integrity_sha256"] = "forged"
         with self.assertRaisesRegex(StageError,"hashes required"):
             verify_rank(readback,result)
