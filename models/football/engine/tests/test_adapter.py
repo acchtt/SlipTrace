@@ -1212,7 +1212,7 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
-    def test_c_wait_emits_assumed_exposure_target(self):
+    def test_c_wait_emits_target_without_assumed_exposure(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1234,10 +1234,10 @@ class DecisionContractTests(unittest.TestCase):
         self.assertEqual(result["action"], "WAIT")
         self.assertEqual(result["wait_target_line"], 2.5)
         self.assertEqual(result["wait_min_odds"], 1.65)
-        self.assertEqual(result["model_accounting_status"], "WAIT_ASSUMED")
-        self.assertEqual(result["model_accounting_line"], 2.5)
-        self.assertEqual(result["model_accounting_odds"], 1.65)
-        self.assertEqual(result["wait_resolution_default"], "ASSUMED_REACHED")
+        self.assertEqual(result["model_accounting_status"], "NONE")
+        self.assertIsNone(result["model_accounting_line"])
+        self.assertIsNone(result["model_accounting_odds"])
+        self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
 
     def test_top_focus_wait_uses_soft_zone_minimum(self):
         result = run_decision(
@@ -1262,7 +1262,7 @@ class DecisionContractTests(unittest.TestCase):
         self.assertEqual(result["wait_target_line"], 2.5)
         self.assertEqual(result["wait_min_odds"], 1.60)
 
-    def test_shadow_wait_emits_shadow_assumed_exposure(self):
+    def test_shadow_wait_is_plan_without_assumed_exposure(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1285,7 +1285,8 @@ class DecisionContractTests(unittest.TestCase):
             }
         )
         self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["model_accounting_status"], "SHADOW_WAIT_ASSUMED")
+        self.assertEqual(result["model_accounting_status"], "NONE")
+        self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
 
     def test_material_h2h_effect_requires_verified_transferability_and_corroboration(self):
         row = match(
