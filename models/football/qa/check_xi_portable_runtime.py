@@ -9,7 +9,10 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[3]
-RUNNER = ROOT / "models/football/engine/xi_portable.py"
+ENGINE = ROOT / "models/football/engine"
+RUNNER = ENGINE / "xi_portable.py"
+if str(ENGINE) not in sys.path:
+    sys.path.insert(0, str(ENGINE))
 
 spec = importlib.util.spec_from_file_location("xi_runtime_guarded", RUNNER)
 if spec is None or spec.loader is None:
