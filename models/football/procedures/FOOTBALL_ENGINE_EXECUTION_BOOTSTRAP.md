@@ -1,176 +1,33 @@
-# Football Step-2 Engine Execution Bootstrap
+# Football deterministic engine execution
 
-**Status:** MANDATORY STEP-2 EXECUTION PRECHECK  
-**Applies to:** `/xi` deterministic validation  
-**Common runtime precheck:** `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`  
-**Active models:** Football C official + Football C2 shadow  
-**Retired models:** C3/C4 — historical records only
+## Active models
 
-## 1. Core rule
+Football C official + Football C2 shadow.
 
-Before Step 2, complete the common runtime bootstrap with stage=`xi` and preserve its `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
+The active engines are core.py + adapter.py, coordinated by
+decision_pair_cli.py and the thin xi_portable.py user runner.
 
-A completed Step-2 decision requires deterministic execution for both active tracks:
+## Football-first pair
 
-- `model=c`
-- `model=c2`
+For /xi, run both stage=football_assessment inputs first. This produces
+EXECUTED_C_C2_FOOTBALL_ONLY and requires no odds.
 
-Primary execution surface:
+## Observed quote
 
-`models/football/engine/xi_portable.py`
+For a screenshot/observed line, use adapter.evaluate_observed_quote(). It
+reuses the core C/C2 quote policy but never authorizes execution.
 
-Fetch the exact-current portable bundle and run:
+## Strict price pair
 
-`python xi_portable.py self-check`
+For a real currently executable prematch quote, run both stage=decision inputs.
+The strict pair applies the same quote policy plus execution authorization.
 
-Required:
+A failed optional price gate does not erase a successful football assessment.
 
-`XI PORTABLE RUNTIME: PASS`
+## Persistence/publication
 
-Then execute the current football-first pair atomically:
+Persist and independently refetch once. The final publication guard verifies
+that exact strict pair/readback and current quote/fixture/evidence state; it
+does not rerun the models.
 
-`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
-
-Required football success:
-
-`ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY`
-
-The pair must come from the same frozen common football evidence epoch. A
-mismatch is a contract rejection, not a Python/runtime failure. A bookmaker
-quote is not required for this completion. If a price is already supplied,
-the same `xi` command may add `--price-c/--price-c2` or
-`--screenshot-quote` according to the active /xi contract. Screenshot-only
-pricing remains conditional and never authorizes exposure by itself.
-
-## 2. Atomic completion rule
-
-A user-declared exception or normal completed Step-2 assessment is incomplete unless both C and C2 execute and persist.
-
-If either active model cannot be lawfully frozen or executed:
-
-`C+C2 EXCEPTION INCOMPLETE — <exact reason>`
-
-Do not publish a completed C-only exception verdict. Never reconstruct missing C2 after kickoff or FT.
-
-C remains the only model that can create official exposure. C2 is shadow-only.
-
-## 3. Portable runtime
-
-The portable bundle embeds only the active Step-2 dependencies:
-
-- `core.py`
-- `competition_reliability.py`
-- `adapter.py`
-- `step2_reconcile.py`
-- `model_bet_accounting.py`
-
-It must not depend on `decision_triplet_cli.py`, C3 execution, or C4 execution.
-
-A payload/model contract rejection from the portable runner must be reported as:
-
-`XI ENGINE CONTRACT REJECTED — <exact rejected field/rule>`
-
-Do not classify a deterministic contract rejection as Python/runtime unavailability.
-
-## 4. Multi-file fallback
-
-Only if the exact-current portable bundle itself fails self-check after retrieval, materialize:
-
-- `models/football/engine/cli.py`
-- `models/football/engine/adapter.py`
-- `models/football/engine/core.py`
-- `models/football/engine/competition_reliability.py`
-- `models/football/engine/schema.json`
-- `models/football/engine/decision_pair_cli.py`
-- `models/football/engine/step2_reconcile.py`
-- `models/football/engine/step2_reconcile_cli.py`
-- `models/football/engine/model_bet_accounting.py`
-- `models/football/engine/model_bet_accounting_cli.py`
-
-Fallback football-only pair command:
-
-`python models/football/engine/decision_pair_cli.py --football-only --c <c_football.json> --c2 <c2_football.json>`
-
-The priced `decision_pair_cli.py` path without `--football-only` is a
-separate strict prematch price-decision channel, not a substitute for current
-/xi football completion. Direct individual model calls remain diagnostic only
-and do not satisfy atomic C+C2 completion.
-
-## 5. Required payload set
-
-Freeze the common Step-2 evidence first, then create:
-
-- `FOOTBALL_ENGINE_C_DECISION_INPUT`
-- `FOOTBALL_ENGINE_C2_DECISION_INPUT`
-
-The payloads must share the same factual evidence epoch while preserving independent model-owned board state, supported line and policy fields.
-
-Never edit a frozen payload after seeing an engine result.
-
-## 6. Reconciliation and accounting
-
-After football-pair execution, independently persist/read back both C/C2
-football results using the current XI assessment reconciliation contract.
-
-Only a separately authorized priced model exposure is eligible for model
-accounting. Quote-free football assessments and screenshot-only conditional
-price comparisons create no accounting bet and no Actual Bet. When a valid
-priced exposure exists, use:
-
-`python xi_portable.py reconcile --input <step2_reconcile.json>`
-`python xi_portable.py accounting --input <model_accounting.json>`
-
-New accounting payloads contain C and C2 only. Historical C3/C4 accounting
-remains immutable audit history and is excluded from new active-roster
-forward metrics.
-
-## 7. Genuine execution unavailability
-
-Fallback is permitted only after actual current-turn probes prove a technical execution failure. Lack of a local checkout, raw container network failure while GitHub connector access works, or extra setup work are not valid unavailability reasons.
-
-If execution genuinely fails after attempted setup, report:
-
-`ENGINE EXECUTION FAILED — ATTEMPTED — <exact technical reason>`
-
-and preserve:
-- `FOOTBALL_RUNTIME_EXECUTION_RECORD`;
-- both frozen payloads;
-- repository/source revision;
-- attempted command;
-- exact error.
-
-The legacy fallback is forbidden:
-
-`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
-
-## 8. Output status
-
-Every completed `/xi` football assessment must show either:
-
-`ENGINE EXECUTION STATUS: EXECUTED_C_C2_FOOTBALL_ONLY`
-
-or
-
-`ENGINE EXECUTION STATUS: FAILED_AFTER_ATTEMPT — <exact technical reason>`
-
-When successful, show:
-- Engine C result
-- Engine C2 result
-
-If text and engine disagree:
-
-`ENGINE DISAGREEMENT — PRESERVE BOTH`
-
-Python remains deterministic validation; Football C remains production authority.
-
-## 9. New-chat behavior
-
-A fresh chat must:
-1. retrieve exact-current `xi_portable.py`;
-2. run `xi_portable.py self-check`;
-3. freeze C and C2 football-assessment payloads from one evidence epoch;
-4. run `xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`;
-5. persist/read back both football results; run priced reconciliation/accounting only when a separate executable price decision was genuinely authorized;
-6. preserve both outputs.
-
-C3/C4 are never required for new Step-2 completion.
+C3/C4 are never required for new execution.
