@@ -245,16 +245,12 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["eligible_count"],2)
         self.assertEqual(out["research_order"][0],"later")
         self.assertEqual(out["goal_screen_manifest"]["priority_profile"],
-                         "GOAL_SIGNAL_FIRST_V1")
-        from goal_route_prescreen import verified_research_order
-        validated=verified_research_order(
-            out["goal_screen_manifest"],
-            [{"match_id":row["match_id"],"queue_rank":row["queue_rank"],
-              "operational_grade":row["operational_grade"]}
-             for row in out["eligible_queue"]],
-            out["source_ledger_hash"],
+                         "GOAL_SIGNAL_FIRST_V2")
+        self.assertEqual(
+            out["goal_screen_manifest"]["ordered_eligible_match_ids"],
+            out["research_order"],
         )
-        self.assertEqual(validated,out["research_order"])
+        self.assertTrue(out["goal_screen_manifest"]["screen_fingerprint"])
 
     def test_registered_fixture_without_goal_history_is_not_a_rank_selection(self):
         src=snapshot([
@@ -362,12 +358,13 @@ class SweepV4Tests(unittest.TestCase):
         good["football_evidence"]={"home":proof,"away":proof}
         out=sweep(snapshot([good,fixture("m2","England","Premier League")]),now=NOW)
         self.assertEqual(out["eligible_count"],2)
-        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],"GOAL_SIGNAL_FIRST_V1")
+        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],"GOAL_SIGNAL_FIRST_V2")
         screened=out["goal_screen_manifest"]["original_rows"]
         strongest=sorted(screened,key=lambda row:(-(row["priority_score"] or 0),row["queue_rank"]))[0]
         self.assertEqual(out["research_order"][0],strongest["match_id"])
         self.assertEqual(screened[0]["screen_status"],"QUANTIFIED")
-        self.assertIsNotNone(screened[0]["dutch_route_screen"])
+        self.assertTrue(screened[0]["source_screen_fingerprint"])
+        self.assertNotIn("dutch_route_screen",screened[0])
 
     def test_single_invalid_source_fixture_does_not_block_other_leagues(self):
         cases = [
