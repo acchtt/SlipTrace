@@ -24,6 +24,7 @@ from core import (
     XiStatus,
     c2_selection_floor,
     c2_clearing_goal_funded,
+    c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
     decide_c,
@@ -220,6 +221,18 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
         raise ContractError(
             "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH "
             "REQUIRES C-FOCUS REVIEW"
+        )
+
+
+def validate_c2_screen_state(a: MatchAssessment, state: BoardState) -> None:
+    """Keep C2's independently evidenced O2.25 leakage route out of STOP."""
+    if (
+        state in {BoardState.WATCH, BoardState.PASS}
+        and c2_low_burden_leakage_goal3_funded(a)
+    ):
+        raise ContractError(
+            "C2-WATCH/PASS CONTRADICTION — C2-OWNED O2.25 HIGH-LEAKAGE "
+            "STRONG-ROUTE PATH REQUIRES C2-FOCUS REVIEW"
         )
 
 
@@ -475,6 +488,13 @@ def parse_assessment(
     validate_tournament_incentive(obj)
     h2h_gate = validate_h2h_semantics(obj)
     _kickoff_block(obj)
+    if not require_c_completion and (
+        ("c2_opponent_leakage" in obj) != ("c2_opponent_leakage_basis" in obj)
+    ):
+        raise ContractError(
+            "C2 leakage requires both independent c2_opponent_leakage "
+            "and c2_opponent_leakage_basis"
+        )
 
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
@@ -553,6 +573,14 @@ def parse_assessment(
         burden_stall_risk=(
             _enum(Grade, _required(obj, "burden_stall_risk"), "burden_stall_risk")
             if require_c_completion else None
+        ),
+        c2_opponent_leakage=(
+            _enum(Grade, _required(obj, "c2_opponent_leakage"), "c2_opponent_leakage")
+            if not require_c_completion and "c2_opponent_leakage" in obj else None
+        ),
+        c2_opponent_leakage_basis=(
+            _string(obj, "c2_opponent_leakage_basis")
+            if not require_c_completion and "c2_opponent_leakage" in obj else None
         ),
     )
 
@@ -689,6 +717,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         row["board_state_basis"] = board_state_basis
         if model == "c":
             validate_c_screen_state(item, state)
+        else:
+            validate_c2_screen_state(item, state)
 
         if model == "c" and state is not None:
             base_lane = follow_through_lane(item, state)
@@ -723,6 +753,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             floor, reasons = c2_selection_floor(item)
             row["selection_floor"] = floor.value
             row["selection_floor_reasons"] = list(reasons)
+            row["c2_leakage_goal3_funded"] = c2_low_burden_leakage_goal3_funded(item)
+            if item.c2_opponent_leakage is not None:
+                row["c2_opponent_leakage"] = item.c2_opponent_leakage.name
+                row["c2_opponent_leakage_basis"] = item.c2_opponent_leakage_basis
 
         output.append(row)
 
@@ -888,7 +922,11 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         result.update({
             "selection_floor": floor.value,
             "selection_floor_reasons": list(reasons),
+            "c2_leakage_goal3_funded": c2_low_burden_leakage_goal3_funded(a),
         })
+        if a.c2_opponent_leakage is not None:
+            result["c2_opponent_leakage"] = a.c2_opponent_leakage.name
+            result["c2_opponent_leakage_basis"] = a.c2_opponent_leakage_basis
     return result
 
 

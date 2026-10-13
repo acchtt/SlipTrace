@@ -305,6 +305,56 @@ require(
     "does not inherit Football C's prospective",
 )
 
+# 2D. User-authorized C2 O2.25 follow-on: independently owned leakage grade.
+require(
+    "models/football/engine/core.py",
+    "def c2_low_burden_leakage_goal3_funded",
+    "a.c2_opponent_leakage == Grade.HIGH",
+    "a.route_reliability == Grade.HIGH",
+    "2.0 < burden <= 2.25",
+    "or c2_low_burden_leakage_goal3_funded(a, selected_line)",
+)
+require(
+    "models/football/engine/adapter.py",
+    "def validate_c2_screen_state",
+    "C2-WATCH/PASS CONTRADICTION",
+    "c2_opponent_leakage_basis",
+    "c2_leakage_goal3_funded",
+)
+require(
+    "models/football/engine/board_pair_cli.py",
+    "C2_ONLY_FIELDS",
+    "C2 POLICY FIELD LEAK INTO C PAYLOAD",
+)
+require(
+    "models/football/engine/tests/test_core.py",
+    "test_o225_independently_evidenced_leakage_rescues_strong_route",
+    "test_c2_leakage_never_upgrades_o250_or_bridge",
+    "test_c2_leakage_does_not_depend_on_c_stall_labels",
+)
+require(
+    "models/football/engine/tests/test_adapter.py",
+    "test_c2_leakage_funded_o225_cannot_stay_watch",
+    "test_c2_leakage_o250_watch_stays_watch",
+)
+require(
+    "models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md",
+    "2026-10-13 user-authorized C2 follow-on",
+    "c2_opponent_leakage_basis",
+    "C2 remains shadow-only",
+)
+require(
+    "models/football/challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md",
+    "ACTIVE, prospective, C2 shadow only",
+    "O2.25 only",
+    "No frozen Oct-12",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "Active follow-on C2 calibration (2026-10-13)",
+    "c2_opponent_leakage_basis",
+)
+
 # 3. C2 must have genuinely separate policy plumbing.
 require(
     "models/football/engine/core.py",

@@ -25,6 +25,7 @@ from core import (  # noqa: E402
     XiStatus,
     c2_bridge_eligibility,
     c2_clearing_goal_funded,
+    c2_low_burden_leakage_goal3_funded,
     c2_selection_floor,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -555,6 +556,108 @@ class FootballCExecutionTests(unittest.TestCase):
 
 
 class C2BridgeTests(unittest.TestCase):
+    def test_sparse_shadow_probe_cannot_imply_leakage(self):
+        from types import SimpleNamespace
+
+        # Legacy synthetic route-quality probes do not provide a C2-owned
+        # opponent leakage grade, basis or even a supported burden.
+        sparse = SimpleNamespace(
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            route_reliability=Grade.HIGH,
+        )
+        self.assertFalse(c2_low_burden_leakage_goal3_funded(sparse))
+        self.assertFalse(c2_low_burden_leakage_goal3_funded(sparse, 2.25))
+
+    def test_o225_independently_evidenced_leakage_rescues_strong_route(self):
+        a = assessment(
+            supported_line=2.25,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            c2_opponent_leakage=Grade.HIGH,
+            c2_opponent_leakage_basis="Independently researched current opponent defensive leakage against strong scoring routes",
+        )
+        self.assertTrue(c2_low_burden_leakage_goal3_funded(a))
+        self.assertEqual(c2_selection_floor(a)[0], SelectionFloor.CLEAR)
+        self.assertTrue(c2_clearing_goal_funded(a, 2.25))
+        self.assertEqual(decide_c2(a, context(quote=Quote(2.25, 1.75))).action, Action.BET)
+        # C has not inherited C2's independently researched leakage grade.
+        self.assertFalse(low_burden_leakage_goal3_funded(a))
+
+    def test_c2_leakage_never_upgrades_o250_or_bridge(self):
+        a = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            independent_route_quality=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            c2_opponent_leakage=Grade.HIGH,
+            c2_opponent_leakage_basis="Verified opponent-specific leakage against strong attacking routes",
+        )
+        for line in (2.5, 2.75, 3.0):
+            with self.subTest(line=line):
+                self.assertFalse(c2_low_burden_leakage_goal3_funded(a, line))
+                self.assertFalse(c2_clearing_goal_funded(a, line))
+                self.assertNotEqual(c2_selection_floor(a, line)[0], SelectionFloor.CLEAR)
+        ok, _ = c2_bridge_eligibility(a, context(quote=Quote(2.5, 1.88)))
+        self.assertFalse(ok)
+
+    def test_c2_leakage_requires_current_independent_proof_and_quality(self):
+        base = dict(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            independent_route_quality=Grade.MEDIUM,
+            c2_opponent_leakage=Grade.HIGH,
+            c2_opponent_leakage_basis="Recent opponent-specific defensive data supports repeat leakage",
+        )
+        for override in (
+            {"c2_opponent_leakage": None, "c2_opponent_leakage_basis": None},
+            {"c2_opponent_leakage": Grade.MEDIUM},
+            {"route_reliability": Grade.MEDIUM},
+            {"chance_quality": Grade.LOW},
+            {"failure_resistance": Grade.LOW},
+            {"independent_route_quality": Grade.LOW},
+            {"home_route": RouteStrength.USABLE},
+            {"material_suppression": True},
+            {"failure_attacks_route": True},
+        ):
+            with self.subTest(override=override):
+                a = assessment(**{**base, **override})
+                self.assertFalse(c2_low_burden_leakage_goal3_funded(a))
+                self.assertFalse(c2_clearing_goal_funded(a, 2.25))
+
+    def test_c2_leakage_does_not_depend_on_c_stall_labels(self):
+        base = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            independent_route_quality=Grade.MEDIUM,
+            c2_opponent_leakage=Grade.HIGH,
+            c2_opponent_leakage_basis="C2 independently established HIGH recent opponent leakage",
+        )
+        self.assertTrue(c2_low_burden_leakage_goal3_funded(base))
+        without_c = assessment(
+            **{
+                **base.__dict__,
+                "completion_mode": None,
+                "burden_completion_quality": None,
+                "continuation_quality": None,
+                "opponent_leakage": None,
+                "burden_stall_risk": None,
+            }
+        )
+        self.assertTrue(c2_clearing_goal_funded(without_c, 2.25))
+
     def test_c2_uses_own_route_quality_not_c_completion(self):
         unfunded = assessment(
             carrier=CarrierStrength.STRONG,

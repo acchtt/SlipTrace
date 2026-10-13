@@ -127,6 +127,19 @@ class BoardPairTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "RANKED ELIGIBLE UNIVERSE MISMATCH"):
             run_board_pair(payload("c", c_row()), payload("c2", row))
 
+    def test_c2_owned_leakage_is_not_common_evidence_and_cannot_leak_into_c(self):
+        c2 = c2_row()
+        c2["c2_opponent_leakage"] = "HIGH"
+        c2["c2_opponent_leakage_basis"] = (
+            "C2 independently researched the opponent's leakages on the frozen epoch"
+        )
+        ok = run_board_pair(payload("c", c_row()), payload("c2", c2))
+        self.assertTrue(ok["common_evidence_reconciled"])
+        c = c_row()
+        c["c2_opponent_leakage"] = "HIGH"
+        with self.assertRaisesRegex(ContractError, "C2 POLICY FIELD LEAK INTO C"):
+            run_board_pair(payload("c", c), payload("c2", c2))
+
     def test_c_policy_field_leak_into_c2_fails(self):
         row = c2_row()
         row["completion_mode"] = "TWO_SIDED"

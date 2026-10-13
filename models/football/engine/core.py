@@ -154,6 +154,11 @@ class MatchAssessment:
     opponent_leakage: Grade | None = None
     burden_stall_risk: Grade | None = None
 
+    # C2-owned matchup leakage. Never copy C's completion/stall diagnostics
+    # into C2. Missing independent leakage evidence leaves prior C2 unchanged.
+    c2_opponent_leakage: Grade | None = None
+    c2_opponent_leakage_basis: str | None = None
+
     def __post_init__(self) -> None:
         if not self.common_evidence_basis.strip():
             raise ValueError("common_evidence_basis must be non-empty")
@@ -175,6 +180,11 @@ class MatchAssessment:
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
+        if self.c2_opponent_leakage is not None and not (
+            self.c2_opponent_leakage_basis
+            and self.c2_opponent_leakage_basis.strip()
+        ):
+            raise ValueError("C2 leakage grade requires independent non-empty basis")
 
 
 @dataclass(frozen=True)
@@ -453,8 +463,45 @@ def follow_through_lane(
     require_c_completion(a)
     return FollowLane.FOLLOW if board_state == BoardState.FOCUS else FollowLane.STOP
 
+def c2_low_burden_leakage_goal3_funded(
+    a: MatchAssessment, selected_line: float | None = None
+) -> bool:
+    """C2-owned goal-three counterweight, never an imported C completion grade.
+
+    Only O2.25 can use independently evidenced HIGH opponent leakage to fund
+    goal three when the otherwise credible STRONG route lacks separate upper-
+    tail proof. Requires a named C2 leakage basis and high route reliability;
+    absent or LOW/MEDIUM leakage evidence cannot upgrade a match. Does not
+    prove a fourth goal or waive material football vetoes.
+    """
+    # Read-only diagnostic shadow probes may carry only route-quality fields.
+    # Absence of a C2-specific leakage grade or burden always leaves the old
+    # selection result unchanged; never infer HIGH leakage from shared facts.
+    burden = getattr(a, "supported_line", None) if selected_line is None else selected_line
+    if burden is None or getattr(a, "c2_opponent_leakage", None) != Grade.HIGH:
+        return False
+    _validate_quarter_line(burden)
+    return (
+        2.0 < burden <= 2.25
+        and a.c2_opponent_leakage == Grade.HIGH
+        and bool(a.c2_opponent_leakage_basis and a.c2_opponent_leakage_basis.strip())
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.independent_upper_tail
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
 def c2_selection_floor(
     a: MatchAssessment,
+    selected_line: float | None = None,
 ) -> tuple[SelectionFloor, tuple[str, ...]]:
     """Apply the exact C2 direct-exposure floor where possible.
 
@@ -482,7 +529,10 @@ def c2_selection_floor(
         and not hard_reasons
     )
 
-    if two_route_clear or carrier_clear:
+    # C2's own narrow O2.25 leakage route is a third independent quality
+    # certificate. It does not change the standard two-route/carrier floors.
+    leakage_clear = c2_low_burden_leakage_goal3_funded(a, selected_line)
+    if two_route_clear or carrier_clear or leakage_clear:
         return SelectionFloor.CLEAR, ()
 
     if hard_reasons:
@@ -526,9 +576,11 @@ def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
 
     C2 uses no C-owned completion/continuation/stall grading.
     A CLEAR two-route selection floor alone does not fund goal three.
+    Only a C2-sourced HIGH-leakage O2.25 counterweight can replace the
+    otherwise required upper-tail proof, never at O2.5 or higher.
     """
     _validate_quarter_line(selected_line)
-    floor, _ = c2_selection_floor(a)
+    floor, _ = c2_selection_floor(a, selected_line)
     if floor != SelectionFloor.CLEAR:
         return False
     if selected_line <= 2.0:
@@ -553,7 +605,11 @@ def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
         and a.independent_upper_tail
     )
     if selected_line < 3.0:
-        return carrier_goal3 or two_route_goal3
+        return (
+            carrier_goal3
+            or two_route_goal3
+            or c2_low_burden_leakage_goal3_funded(a, selected_line)
+        )
 
     fourth_goal_quality = (
         a.route_reliability == Grade.HIGH
@@ -694,7 +750,8 @@ def c2_bridge_eligibility(
 
     reasons: list[str] = []
     gap = round(ctx.quote.line - a.supported_line, 10)
-    floor, _ = c2_selection_floor(a)
+    # Bridges must certify the higher quoted burden, not the O2.25 WAIT target.
+    floor, _ = c2_selection_floor(a, ctx.quote.line)
 
     if ctx.board_state != BoardState.FOCUS:
         reasons.append("not C2-FOCUS")
@@ -747,12 +804,13 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    floor, _ = c2_selection_floor(a)
+    # Judge the C2 floor at the actual quote/WAIT burden. Its O2.25
+    # leakage counterweight cannot authorize a higher execution burden.
+    executable_burden = min(ctx.quote.line, a.supported_line)
+    floor, _ = c2_selection_floor(a, executable_burden)
     if floor != SelectionFloor.CLEAR:
         return Decision(Action.PASS, "C2 selection-quality floor not clear")
 
-    # Judge C2 on its own route/carrier evidence at this quote/WAIT epoch.
-    executable_burden = min(ctx.quote.line, a.supported_line)
     if not c2_clearing_goal_funded(a, executable_burden):
         return Decision(Action.PASS, "C2 clearing-goal funding missing")
 

@@ -688,6 +688,68 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(result["matches"][0]["board_state"], "WATCH")
         self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
 
+    def test_c2_leakage_funded_o225_cannot_stay_watch(self):
+        row = without_c_completion(
+            match(
+                supported_line=2.25,
+                away_route="WEAK",
+                carrier="USABLE",
+                independent_upper_tail=False,
+                carrier_self_fund=False,
+                independent_route_quality="MEDIUM",
+                route_reliability="HIGH",
+                c2_opponent_leakage="HIGH",
+                c2_opponent_leakage_basis="C2 independently documented opponent-specific defensive leakage",
+                board_state="C2-WATCH",
+            )
+        )
+        with self.assertRaisesRegex(ContractError, "C2-WATCH/PASS CONTRADICTION"):
+            run_board({
+                "schema_version": "football-engine-v1",
+                "stage": "board", "model": "c2", "matches": [row],
+            })
+        row["board_state"] = "C2-FOCUS"
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board", "model": "c2", "matches": [row],
+        })
+        self.assertTrue(result["matches"][0]["c2_leakage_goal3_funded"])
+        self.assertEqual(result["matches"][0]["selection_floor"], "CLEAR")
+
+    def test_c2_missing_independent_leakage_basis_fails_closed(self):
+        row = without_c_completion(match(
+            supported_line=2.25,
+            away_route="WEAK",
+            independent_upper_tail=False,
+            carrier_self_fund=False,
+            c2_opponent_leakage="HIGH",
+            board_state="C2-FOCUS",
+        ))
+        with self.assertRaisesRegex(ContractError, "requires both independent"):
+            run_board({
+                "schema_version": "football-engine-v1",
+                "stage": "board", "model": "c2", "matches": [row],
+            })
+
+    def test_c2_leakage_o250_watch_stays_watch(self):
+        row = without_c_completion(match(
+            supported_line=2.5,
+            away_route="WEAK",
+            carrier="USABLE",
+            independent_upper_tail=False,
+            carrier_self_fund=False,
+            independent_route_quality="MEDIUM",
+            c2_opponent_leakage="HIGH",
+            c2_opponent_leakage_basis="C2 independent defensive leakage proof",
+            board_state="C2-WATCH",
+        ))
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board", "model": "c2", "matches": [row],
+        })
+        self.assertEqual(result["matches"][0]["board_state"], "WATCH")
+        self.assertFalse(result["matches"][0]["c2_leakage_goal3_funded"])
+
     def test_c2_board_does_not_inherit_c_o225_leakage_focus_rule(self):
         result = run_board(
             {
