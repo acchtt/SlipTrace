@@ -6,7 +6,15 @@ receipt and unmodified original `source.json`.
 
 The rank runtime requires original-source replay and a full-cohort,
 fresh match-specific kickoff/status observation; run the native CLI with
-`--source` and `--status-refresh`. Never reconstruct from Airtable
-Daily Coverage or reactivate old Step0 ZIP/repaired-hand-off rules.
+`--source` and `--status-refresh`. For `/rank newest receipt`, resolve
+the matching source automatically before asking the user for any file:
+first use the same attestation artifact's `<run>-source.json` +
+`<run>-rank-handoff.json`; otherwise use
+`models/football/stages_v4/recovery/<run>/source.json` from repository
+provenance (including the exact source-producing ref when the handoff names
+one). Only after those provenance locations are genuinely absent may the
+command report `V4_SOURCE_HANDOFF_MISSING`. Never reconstruct from Airtable
+Daily Coverage or from the receipt's derived ledger, and never ask the user
+to rerun discovery merely because Work did not initially download the source.
 Research goal-qualified fixtures first; C official and C2 shadow are independent.
 Persistence remains unverified until independently refetched in active Airtable.

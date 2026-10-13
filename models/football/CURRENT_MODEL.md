@@ -237,7 +237,7 @@ It must:
 - keep missing histories in pending research rather than model PASS;
 - put only `GOAL_PRIORITY` fixtures into the immutable `eligible_queue`;
 - preserve low-goal and excluded rows for audit;
-- keep the unchanged original `source.json` with the native `V4_SWEEP_READY` receipt.
+- keep the unchanged original `source.json` with the native `V4_SWEEP_READY` receipt and cross-chat rank handoff; the canonical replay artifact must contain `<run>-source.json`, `<run>-v4_sweep_ready.json` and `<run>-rank-handoff.json` together.
 
 There is no V4 Step0 8/12/15/20 match-cap admission, repaired-ZIP authority,
 or mandatory historical XI/market proof before goals-first screening.
@@ -248,6 +248,7 @@ Current `/rank` uses only `models/football/stages_v4/RANK.md` and
 `stage.py rank`.
 
 Before C/C2 execution it must:
+- for `/rank newest receipt`, self-resolve the exact original source from the same attestation bundle, current recovery path, or exact source-producing repository ref before reporting `V4_SOURCE_HANDOFF_MISSING`; never ask the user for a file already present in provenance;
 - replay the unchanged original `source.json` against the frozen receipt;
 - refresh kickoff/status for the entire eligible cohort within 10 minutes;
 - reject changed-kickoff or already-started fixtures from prematch ranking;

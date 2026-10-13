@@ -13,12 +13,29 @@ SHA256 to fabricate an official completion. This is NOT a request
 for another discovery sweep.
 
 Work chat must retrieve the original **source-attested**
-`V4_SWEEP_READY` receipt. If the normal-chat sweep could not run
-Python, it must first save the original `source.json` in
+`V4_SWEEP_READY` receipt **and its exact source automatically**. The
+canonical replay artifact `v4-original-source-attested-receipts` contains
+three matching files per run: `<run>-v4_sweep_ready.json`,
+`<run>-source.json`, and `<run>-rank-handoff.json`. The handoff manifest
+pins the source-file SHA256 and receipt integrity SHA256.
+
+For `/rank newest receipt`, do NOT stop at "receipt found, source missing".
+Resolve the source in this order without user intervention:
+1. the same attestation artifact's `<run>-source.json`;
+2. `models/football/stages_v4/recovery/<run>/source.json` on current main;
+3. the exact GitHub source-producing ref/commit identified by the sweep
+   provenance, using that same recovery path.
+
+Verify the source bytes against the handoff manifest when present, then run
+native source replay. Only when all three provenance locations are genuinely
+absent may Work return `V4_SOURCE_HANDOFF_MISSING`. Do not ask the user to
+attach a file that already exists in repository or workflow provenance.
+
+If the normal-chat sweep could not run Python, it must save the original
+`source.json` in
 `models/football/stages_v4/recovery/<V4-run-id>/source.json` on GitHub.
 This triggers `.github/workflows/football-v4-replay-attestation.yml`
-on push and creates a downloadable **GitHub Actions artifact** named
-`v4-original-source-attested-receipts`. New runs run the real V4
+on push and creates the bundled artifact above. New runs run the real V4
 sweep algorithm with the actual runner UTC clock. Old derived snapshots
 are replayed through the SAME real stage at their original checked UTC
 instant and compared field-for-field against the original derived

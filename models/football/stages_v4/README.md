@@ -20,7 +20,11 @@ save the untouched source JSON under
 The separately scoped
 `.github/workflows/football-v4-replay-attestation.yml` workflow
 checks out production V4 and runs the actual algorithm, uploading
-`v4-original-source-attested-receipts` for Work to download. If an
+`v4-original-source-attested-receipts` for Work to download. Each run in
+that artifact is a self-contained rank handoff: the native
+`<run>-v4_sweep_ready.json`, the unchanged `<run>-source.json`, and
+`<run>-rank-handoff.json` pinning both hashes. `/rank newest receipt`
+must resolve this bundle automatically before asking the user for files. If an
 old intake was only derived, also save `intake-unattested.json`
 beside the original source and the workflow will reexecute as of
 its recorded stage instant, compare all source ledger/dispositions

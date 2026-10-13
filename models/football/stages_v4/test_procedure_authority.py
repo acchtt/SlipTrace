@@ -75,6 +75,23 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("--source source.json", rank)
         self.assertIn("--status-refresh status_refresh.json", rank)
 
+    def test_rank_newest_receipt_self_resolves_source_handoff(self):
+        rank = (STAGES / "RANK.md").read_text()
+        redirect = (PROMPTS / "rank.md").read_text()
+        workflow = (ROOT / ".github" / "workflows" /
+                    "football-v4-replay-attestation.yml").read_text()
+        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
+        for doc in (rank, redirect, current):
+            self.assertIn("/rank newest receipt", doc)
+        self.assertIn("<run>-source.json", rank)
+        self.assertIn("<run>-rank-handoff.json", rank)
+        self.assertIn("V4_SOURCE_HANDOFF_MISSING", rank)
+        self.assertIn("v4-original-source-attested-receipts", rank)
+        self.assertIn("-source.json", workflow)
+        self.assertIn("-rank-handoff.json", workflow)
+        self.assertIn("source_file_sha256", workflow)
+        self.assertIn("receipt_integrity_sha256", workflow)
+
     def test_screenshot_only_preserves_original_odds_and_blocks_fake_executability(self):
         xi = (PROMPTS / "02_NORMAL_CHAT_XI_ODDS.md").read_text()
         simple = (PROCEDURES / "FOOTBALL_SIMPLE_ASSESS_AND_BET.md").read_text()

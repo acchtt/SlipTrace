@@ -60,9 +60,37 @@ jobs:
           print("V4 native stage receipt verified:",done["integrity_sha256"])
           PY
             fi
+            cp "$folder/source.json" "v4-attested-artifacts/${run}-source.json"
+            python - "$folder/source.json" "v4-attested-artifacts/${run}-v4_sweep_ready.json" "$run" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+          source_path=Path(sys.argv[1])
+          receipt_path=Path(sys.argv[2])
+          run=sys.argv[3]
+          source_bytes=source_path.read_bytes()
+          source=json.loads(source_bytes)
+          receipt=json.loads(receipt_path.read_text())
+          manifest={
+            "schema_version":"football-v4-rank-handoff-v1",
+            "status":"V4_RANK_HANDOFF_READY",
+            "run_id":run,
+            "source_filename":f"{run}-source.json",
+            "source_file_sha256":hashlib.sha256(source_bytes).hexdigest(),
+            "receipt_filename":f"{run}-v4_sweep_ready.json",
+            "receipt_integrity_sha256":receipt["integrity_sha256"],
+            "source_run_id":source["run_id"],
+            "requires_fresh_status_refresh":True,
+            "rank_must_not_reconstruct_source_from_airtable":True,
+          }
+          assert manifest["source_run_id"]==run
+          Path(f"v4-attested-artifacts/{run}-rank-handoff.json").write_text(
+              json.dumps(manifest,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          PY
           done
           test -n "$(find v4-attested-artifacts -type f -name '*v4_sweep_ready.json' -print -quit)"
-      - name: Emit valid snapshot as cross-chat file (no Airtable write)
+          test -n "$(find v4-attested-artifacts -type f -name '*-source.json' -print -quit)"
+          test -n "$(find v4-attested-artifacts -type f -name '*-rank-handoff.json' -print -quit)"
+      - name: Emit valid snapshot as cross-chat bundle (receipt + source + manifest; no Airtable write)
         uses: actions/upload-artifact@v4
         with:
           name: v4-original-source-attested-receipts

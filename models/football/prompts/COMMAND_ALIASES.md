@@ -104,7 +104,7 @@ Only the **first** alias token routes the message. Text later in the message is 
 
 ## V4 cross-command verified evidence contract (2026-10-12)
 
-- `/rank` **must** replay the unchanged V4 `source.json` and check a full current kickoff/status cohort (10-minute bound) using the native engine's `--source` and `--status-refresh` inputs. A self-consistent receipt SHA256 is insufficient without original-source reproducibility and independent provider provenance.
+- `/rank` **must** replay the unchanged V4 `source.json` and check a full current kickoff/status cohort (10-minute bound) using the native engine's `--source` and `--status-refresh` inputs. A self-consistent receipt SHA256 is insufficient without original-source reproducibility and independent provider provenance. For `/rank newest receipt`, automatically resolve the matching source from the same attestation bundle, current recovery path, or exact source-producing GitHub ref before reporting a blocker; do not ask the user to attach a source that already exists in workflow/repository provenance.
 - For any user-supplied `/xi`, `/xi exception` or `/live` screenshot, the image is the **sole** market-price source: NO bookmaker or market-history price search, NO replacement timestamp, NO request for a fresh screenshot just because processing takes time. Conditional C/C2 screenshot-price verdicts may be given, but never executable ACT from a screenshot alone.
 - Keep C official, C2 shadow, model-accounting assumed exposure separate from confirmed user `Actual Bets — Current`. `/audit` follows V4 goals-first/discovery and /report is strictly read-only.
 - All earlier V1–V3 launchers, Step0 ZIP capacity/checkpoints and old Football A "ACTIVE" labels are non-authoritative.
