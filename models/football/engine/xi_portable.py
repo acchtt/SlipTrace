@@ -321,7 +321,9 @@ def _conditional_live_decay_plan(
     gap = round(float(current_line) - float(supported), 10)
     if gap <= 0:
         return {"status": "NOT_APPLICABLE", "reason": "MARKET_NOT_ABOVE_SUPPORTED_BURDEN"}
-    if board_state not in {"FOCUS", "C-FOCUS", "C2-FOCUS"}:
+    # football_assessment serializes BoardState.FOCUS.value (= 2);
+    # accept the canonical integer plus text aliases used by older wrappers.
+    if board_state not in {2, "FOCUS", "C-FOCUS", "C2-FOCUS"}:
         return {"status": "NOT_ELIGIBLE", "reason": "MODEL_NOT_FOCUS"}
     if football_read != "FOOTBALL_THESIS_CURRENTLY_INTACT":
         return {"status": "NOT_ELIGIBLE", "reason": "CURRENT_FOOTBALL_RECHECKS_OR_ADVERSE_STATE"}
