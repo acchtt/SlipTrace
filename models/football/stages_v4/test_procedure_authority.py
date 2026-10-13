@@ -1,29 +1,29 @@
-"""Cross-command V4 operational precedence regression; no provider/network I/O."""
+"""Compact active-authority regression for V4 + C/C2; no network I/O."""
 from pathlib import Path
 import unittest
 
 ROOT = Path(__file__).resolve().parents[3]
-PROMPTS = ROOT / "models" / "football" / "prompts"
-PROCEDURES = ROOT / "models" / "football" / "procedures"
-STAGES = ROOT / "models" / "football" / "stages_v4"
+FOOTBALL = ROOT / "models" / "football"
+PROMPTS = FOOTBALL / "prompts"
+STAGES = FOOTBALL / "stages_v4"
+ENGINE = FOOTBALL / "engine"
 
 
 class CurrentProcedureAuthorityTests(unittest.TestCase):
-    def test_canonical_command_map_is_v4_not_legacy(self):
+    def test_command_map_routes_only_to_active_v4_and_c_c2(self):
         router = (PROMPTS / "COMMAND_ALIASES.md").read_text()
-        readme = (PROMPTS / "README.md").read_text()
-        for canonical in ("stages_v4/SWEEP.md", "stages_v4/RANK.md"):
-            self.assertIn(canonical, router)
-            self.assertIn(canonical, readme)
-        self.assertNotIn("PRODUCTION RETIREMENT — EFFECTIVE 2026-10-11: /sweep and /rank are SCRAPPED", readme)
-        self.assertIn("V4", (PROMPTS / "sweep.md").read_text())
-        self.assertIn("V4", (PROMPTS / "rank.md").read_text())
+        current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
+        self.assertIn("models/football/stages_v4/SWEEP.md", router)
+        self.assertIn("models/football/stages_v4/RANK.md", router)
+        self.assertIn("Football C", current)
+        self.assertIn("Football C2", current)
+        self.assertIn("Football V4 only", current)
+        self.assertNotIn("work_ready", router)
 
-    def test_sweep_requires_complete_date_surfaces_before_registry(self):
-        stage = (STAGES / "stage.py").read_text()
+    def test_sweep_acquires_complete_surfaces_before_filters(self):
         completeness = (STAGES / "source_completeness.py").read_text()
+        stage = (STAGES / "stage.py").read_text()
         sweep = (STAGES / "SWEEP.md").read_text()
-        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
         for required in (
             "DATE_SURFACE_BATCH_V2",
             "DATE_SURFACE_ONLY",
@@ -33,161 +33,113 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         ):
             self.assertIn(required, completeness)
         self.assertIn("validate_source_completeness", stage)
-        self.assertIn("SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC", stage)
-        self.assertIn("complete provider **date/listing surfaces**", sweep)
-        self.assertIn("registry is **never** a fixture-discovery query", sweep.lower())
-        self.assertIn("source_completeness_manifest", current)
-        self.assertIn("registry_prefilter_applied=false", current)
-
-    def test_sweep_cheap_filters_run_after_complete_acquisition(self):
-        cheap = (STAGES / "cheap_sweep_filters.py").read_text()
-        intake = (STAGES / "goals_first_intake.py").read_text()
-        sweep = (STAGES / "SWEEP.md").read_text()
-        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
-        self.assertIn("PRIMARY_RESEARCH", cheap)
-        self.assertIn("DEFERRED_RESEARCH", cheap)
-        self.assertIn('"hard_exclude": False', cheap)
-        self.assertIn("classify_research_priority", intake)
-        self.assertIn("cheap_filter_counts", intake)
+        self.assertIn("COMPLETE PROVIDER DATE SURFACES", sweep)
         self.assertIn("CHEAP RESEARCH-PRIORITY FILTERS", sweep)
-        self.assertIn("only after the full source fixture set is frozen", current)
 
-    def test_big_five_status_never_auto_promotes_sweep_research(self):
+    def test_sweep_scope_keeps_exclusions_and_youth_exception(self):
+        sweep = (STAGES / "SWEEP.md").read_text()
+        registry = (STAGES / "league_registry.py").read_text()
+        self.assertIn("USER_AFRICA_DOMESTIC_EXCLUSION", sweep)
+        self.assertIn("AFRICAN_DOMESTIC_COUNTRIES", registry)
+        self.assertIn("UEFA Youth League", sweep)
+        self.assertIn("UEFA_YOUTH_LEAGUE_NAMES", registry)
+        self.assertIn("Generic youth competitions remain excluded", sweep)
+
+    def test_big_five_is_not_automatic_goal_admission(self):
         cheap = (STAGES / "cheap_sweep_filters.py").read_text()
         intake = (STAGES / "goals_first_intake.py").read_text()
-        sweep = (STAGES / "SWEEP.md").read_text()
-        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
         self.assertIn("TOP_FIVE_NO_AUTO_PROMOTION", cheap)
         self.assertIn("TOP_FIVE_STATUS_NOT_A_GOAL_SIGNAL", cheap)
-        self.assertIn("priority_research_queue", intake)
-        self.assertIn("deferred_research_queue", intake)
-        self.assertIn("Big Five safeguard", sweep)
-        self.assertIn("Big Five league membership is never automatic shortlist admission", current)
+        self.assertIn("GOAL_PRIORITY", intake)
 
-    def test_rank_requires_source_and_status_on_every_cli_invocation(self):
+    def test_rank_replays_source_refreshes_cohort_and_reads_back_once(self):
         stage = (STAGES / "stage.py").read_text()
-        self.assertIn('"source", "status-refresh"', stage)
-        self.assertIn("_check_rank_source_and_status(", stage)
-        self.assertIn("V4_SOURCE_REPLAY_REQUIRED", stage)
-        self.assertIn("V4_STATUS_REFRESH_INCOMPLETE", stage)
-        self.assertIn("PREMATCH_WINDOW_CLOSED by current fixture status", stage)
         rank = (STAGES / "RANK.md").read_text()
-        self.assertIn("--source source.json", rank)
-        self.assertIn("--status-refresh status_refresh.json", rank)
+        for required in (
+            "V4_SOURCE_REPLAY_REQUIRED",
+            "V4_STATUS_REFRESH_INCOMPLETE",
+            "PREMATCH_WINDOW_CLOSED by current fixture status",
+            "V4_RANK_PERSISTENCE_VERIFIED",
+            "model_evidence_readback_verified",
+        ):
+            self.assertIn(required, stage)
+        self.assertIn("original-source replay", rank)
+        self.assertIn("full-cohort status", rank)
+        self.assertIn("Step1 Engine C Result", rank)
+        self.assertIn("Step1 Engine C2 Result", rank)
+        self.assertIn("does not replay source.json/status_refresh.json again", rank)
 
-    def test_rank_newest_receipt_self_resolves_source_handoff(self):
+    def test_rank_handoff_is_one_canonical_bundle(self):
         rank = (STAGES / "RANK.md").read_text()
         redirect = (PROMPTS / "rank.md").read_text()
-        workflow = (ROOT / ".github" / "workflows" /
-                    "football-v4-replay-attestation.yml").read_text()
-        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
-        for doc in (rank, redirect, current):
-            self.assertIn("/rank newest receipt", doc)
+        workflow = (
+            ROOT / ".github" / "workflows" /
+            "football-v4-replay-attestation.yml"
+        ).read_text()
+        for doc in (rank, redirect):
+            self.assertIn("v4-original-source-attested-receipts", doc)
         self.assertIn("<run>-source.json", rank)
-        self.assertIn("<run>-rank-handoff.json", rank)
-        self.assertIn("V4_SOURCE_HANDOFF_MISSING", rank)
-        self.assertIn("v4-original-source-attested-receipts", rank)
+        self.assertIn("<run>-v4_sweep_ready.json", rank)
         self.assertIn("-source.json", workflow)
         self.assertIn("-rank-handoff.json", workflow)
-        self.assertIn("source_file_sha256", workflow)
-        self.assertIn("receipt_integrity_sha256", workflow)
+        self.assertIn("does not search historical Git refs", rank)
 
-    def test_screenshot_only_preserves_original_odds_and_blocks_fake_executability(self):
+    def test_routine_xi_uses_verified_rank_not_second_source_replay(self):
+        guard = (ENGINE / "step2_queue_guard.py").read_text()
+        self.assertIn("football-step2-queue-v2", guard)
+        self.assertIn("V4_RANK_PERSISTENCE_VERIFIED", guard)
+        self.assertIn("model_evidence_readback_verified", guard)
+        self.assertNotIn("v4_original_source", guard)
+        self.assertNotIn("v4_status_refresh", guard)
+        self.assertNotIn("validate_v4_queue_authority", guard)
+
+    def test_xi_has_one_quote_policy_and_no_wrapper_decay_rule(self):
+        core = (ENGINE / "core.py").read_text()
+        adapter = (ENGINE / "adapter.py").read_text()
+        runner = (ENGINE / "xi_portable.py").read_text()
+        self.assertIn("def evaluate_c_quote", core)
+        self.assertIn("def evaluate_c2_quote", core)
+        self.assertIn("def evaluate_observed_quote", adapter)
+        self.assertIn("THIN_SHARED_MODULES", runner)
+        self.assertNotIn("MAX_ASSESSMENT_LIVE_DECAY_GAP", runner)
+        self.assertNotIn("SOURCE_BLOB_SHA", runner)
+
+    def test_screenshot_is_normal_observed_quote_and_non_executable(self):
         xi = (PROMPTS / "02_NORMAL_CHAT_XI_ODDS.md").read_text()
-        simple = (PROCEDURES / "FOOTBALL_SIMPLE_ASSESS_AND_BET.md").read_text()
-        history = (PROCEDURES / "FOOTBALL_MARKET_HISTORY_RECHECK.md").read_text()
-        portable = (ROOT / "models" / "football" / "engine" / "xi_portable.py").read_text()
-        for doc in (xi, simple, history):
-            self.assertIn("USER_SCREENSHOT_ONLY", doc) if doc != simple else self.assertIn("Screenshot-only", doc)
-            self.assertIn("screenshot", doc.lower())
-        self.assertIn("SCREENSHOT_CANNOT_INDEPENDENTLY_PROVE_EXECUTABLE_OFFER", portable)
-        self.assertNotIn('if same_instant and screenshotted_live_offer', portable)
+        reconcile = (ENGINE / "xi_assessment_reconcile.py").read_text()
+        self.assertIn("USER_SCREENSHOT_ONLY", xi)
+        self.assertIn("evaluated line/odds", xi)
+        self.assertIn("evaluated_line", reconcile)
+        self.assertIn("evaluated_odds", reconcile)
+        self.assertNotIn("USER_SCREENSHOT_ONLY_JSON=", reconcile)
 
-    def test_live_wrapper_does_not_require_an_additional_bet_command(self):
-        wrapper = (PROMPTS / "live.md").read_text()
-        self.assertIn("Do not require /bet", wrapper)
-        self.assertIn("without searching for replacement odds", wrapper)
-        self.assertIn("LIVE_ENGINE_AUTHORIZATION_NOT_EXECUTED", (
-            ROOT / "models" / "football" / "engine" / "xi_portable.py"
-        ).read_text())
+    def test_live_uses_same_football_path_without_transition_machine(self):
+        live = (PROMPTS / "03_NORMAL_CHAT_LIVE.md").read_text()
+        self.assertIn("same football-assessment runtime as /xi", live)
+        self.assertIn("There is no active step2_fixture_transition", live)
+        self.assertIn("LIVE_PRICE_BURDEN_COMPARISON_ONLY", live)
 
-    def test_legacy_operations_are_marked_non_authoritative(self):
-        names = (
-            "FOOTBALL_BETTING_PROCEDURE.md", "FOOTBALL_COVERAGE_CONTROLLER.md",
-            "FOOTBALL_SWEEP_SCOPE.md", "FOOTBALL_RANK_TERMINAL_STATUS.md",
-            "FOOTBALL_TIME_AND_SCHEDULE_INTEGRITY.md",
-            "FOOTBALL_XI_MARKET_FIRST_INTAKE.md",
-        )
-        for filename in names:
-            with self.subTest(filename=filename):
-                doc = (PROCEDURES / filename).read_text()
-                self.assertTrue(doc.startswith("> **V4 AUTHORITY NOTICE"), filename)
-
-    def test_current_model_has_one_v4_router_only(self):
-        current = (ROOT / "models" / "football" / "CURRENT_MODEL.md").read_text()
-        self.assertIn("Historical V3 coordinator — non-authoritative", current)
-        self.assertIn("/sweep` -> `models/football/stages_v4/SWEEP.md", current)
-        self.assertIn("/rank` -> `models/football/stages_v4/RANK.md", current)
-        self.assertNotIn("- `/sweep` -> `00_NORMAL_CHAT_AISCORE_FETCH.md`", current)
-        self.assertNotIn("- `/rank` -> `01_WORK_DAILY_SWEEP.md`", current)
-        self.assertNotIn("## Unified /sweep and /rank V3", current)
-
-    def test_routine_xi_binds_rank_to_original_source_and_status_refresh(self):
-        bridge = (ROOT / "models" / "football" / "engine" / "xi_v4_queue.py").read_text()
-        guard = (ROOT / "models" / "football" / "engine" / "step2_queue_guard.py").read_text()
-        for required in (
-            "source_replayed", "current_fixture_status_checked",
-            "original_source_sha256", "status_refresh_sha256",
-            "v4_original_source", "v4_status_refresh",
+    def test_no_synthetic_watch_or_unresolved_wait_exposure(self):
+        accounting = (ENGINE / "model_bet_accounting.py").read_text()
+        current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
+        for forbidden in (
+            "WATCH_ASSUMED",
+            "SHADOW_WATCH_ASSUMED",
+            "WAIT_ASSUMED",
+            "SHADOW_WAIT_ASSUMED",
         ):
-            self.assertIn(required, bridge)
-        self.assertIn("v4_provenance_chain_verified", guard)
-        self.assertNotIn('result["v4_source_attested"] = True', guard)
+            self.assertNotIn(forbidden, accounting)
+        self.assertIn("WATCH creates no model bet", current)
+        self.assertIn("Unresolved WAIT creates no model bet", current)
 
-    def test_current_xi_bootstrap_is_football_first_not_priced_pair(self):
-        active = (PROCEDURES / "FOOTBALL_C_C2_ACTIVE_PAIR.md").read_text()
-        engine = (PROCEDURES / "FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md").read_text()
-        runtime = (PROCEDURES / "FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md").read_text()
-        for doc in (active, engine, runtime):
-            self.assertIn("xi_portable.py xi", doc)
-            self.assertIn("EXECUTED_C_C2_FOOTBALL_ONLY", doc)
-        self.assertIn("decision_pair_cli.py --football-only", engine)
-        self.assertIn("strict prematch", engine.lower())
-        self.assertIn("deterministic live priced-action engine", runtime)
-
-    def test_current_live_pricing_is_explicitly_non_executable(self):
-        transition = (ROOT / "models" / "football" / "engine" / "step2_fixture_transition.py").read_text()
-        launcher = (PROMPTS / "03_NORMAL_CHAT_LIVE.md").read_text()
-        self.assertIn('live_price_action_engine_status": "NOT_IMPLEMENTED_V4"', transition)
-        self.assertIn("CURRENT_LIVE_QUOTE_OBSERVED_NO_ACTION_ENGINE", transition)
-        self.assertIn("no deterministic live priced-action engine", launcher)
-        self.assertIn("live_price_action_engine_status=NOT_IMPLEMENTED_V4", launcher)
-
-    def test_audit_branches_v4_from_legacy_and_honors_screenshot_mode(self):
-        audit = (PROMPTS / "04_WORK_POST_SLATE_AUDIT.md").read_text()
-        self.assertIn("For **current V4**, check only:", audit)
-        self.assertIn("For **historical V1–V3** records", audit)
-        self.assertIn("MARKET_HISTORY_NOT_RESEARCHED_USER_SCREENSHOT_ONLY", audit)
-        self.assertIn("Current V4 intake does **not** consume this memory", audit)
-
-    def test_reliability_memory_uses_current_tables_and_is_v4_non_gating(self):
-        rel = (PROCEDURES / "FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md").read_text()
-        self.assertIn("tbl8ZRExZfMce7lqY", rel)
-        self.assertIn("tblg3uz2Bvz6bcCm9", rel)
-        self.assertIn("CURRENT V4 NON-GATING", rel)
-        self.assertIn("do **not** consume this memory", rel)
-
-    def test_football_a_betting_wrapper_is_historical_for_all_v4_commands(self):
-        legacy = (PROCEDURES / "FOOTBALL_BETTING_PROCEDURE.md").read_text()
-        self.assertIn("RETIRED FOR NEW V4 /xi AND /live", legacy)
-        self.assertIn("zero", legacy.lower())
-        self.assertIn("Historical model:** Football A", legacy)
-
-    def test_actual_user_bets_remain_separate_from_shadow(self):
-        report = (PROMPTS / "06_NORMAL_CHAT_REPORT.md").read_text()
-        self.assertIn("Actual Bets — Current", report)
-        self.assertIn("C2 shadow", report)
-        self.assertIn("screenshot-only", report)
+    def test_actual_user_bets_are_user_pnl_authority(self):
+        current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
+        routing = (
+            FOOTBALL / "airtable" / "ACTIVE_MODEL_ROUTING.md"
+        ).read_text()
+        self.assertIn("Actual Bets — Current", current)
+        self.assertIn("Actual Bets — Current", routing)
+        self.assertIn("user P/L", routing)
 
 
 if __name__ == "__main__":
