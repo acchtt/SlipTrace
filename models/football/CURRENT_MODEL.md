@@ -1,477 +1,248 @@
-# Current Football Model
-
-## USER_SCREENSHOT_ONLY quote evidence (2026-10-12)
-
-For /xi or /xi exception with a user screenshot, the screenshot's EXACT Over line and odds are authoritative market evidence. A screenshot cannot prove that an executable offer is still open, even with a matching timestamp or an operator-supplied `open_offer_verified_in_screenshot` flag: screenshot-only C/C2 ACT/WAIT/PASS verdicts are **conditional** only and never authorize official bet exposure. Never seek, replace, update, or extrapolate another bookmaker price. Use xi_portable.py xi --screenshot-quote screenshot.json with independent C/C2 football inputs; optional C/C2 priced contexts evaluate the original screenshot against unchanged C/C2 burdens and decision rules. Record original attachment reference, optional real capture time (never replace with analysis time), bookmaker, score/minute and assessment epoch. Missing/stale capture or unverified executability produces an explicitly CONDITIONAL screenshot-price verdict, never an invented current ACT or Actual Bet. A strict priced ACT is a separate execution channel outside USER_SCREENSHOT_ONLY and requires independently verified currently executable pricing plus the existing football, XI, incentive and publication guards. Live screenshots never authorize a prematch bet. Reconcile existing Airtable football-and-price or price-blocked execution-status labels; preserve official C, shadow C2, and user's Actual Bets ledger.
-
-
-## Active /xi V4 one-command authority — October 12
-
-Every `/xi` or `/xi exception` runs genuinely independent C/C2 football assessments first, with an optional executable prematch price check in the SAME command only when current quote/lineup/incentive facts already qualify. V4 routine authority uses original sealed V4 sweep/rank and independent Airtable persistence verification; NEVER require retired Step0 `work_ready` ZIP. Explicit user exceptions do not need a V4 board but need independently sourced C2 factors and a real paired engine attempt. After KO keep football analysis; no retrospective prematch price/bet. Use `02_NORMAL_CHAT_XI_ODDS.md` and `FOOTBALL_SIMPLE_ASSESS_AND_BET.md`. The separate active `XI Assessment Execution Status` Airtable field records quote-free successful execution with independent refetched C/C2 results. Historical boards and Actual Bets remain untouched; prospective C/C2 thresholds follow the active calibration sections below.
-
-## Prospective V4 goals-first intake — same standard for every league
-
-**Routine league registration does not qualify an Over match.** All
-source-visible genuine future competitive matches enter the source
-ledger; their goals evidence gets a uniform quantified screen, independent
-of league familiarity. C/C2 rank-eligible `eligible_queue` now contains
-only source-backed `GOAL_PRIORITY` matches. Missing competitive results,
-weak route, or draw-trap matches remain auditable and researchable in
-`goal_research_queue` instead of automatically being ranked or labelled
-model PASS. Use `GOAL_SIGNAL_FIRST_V1` to put scored goal potential ahead
-of KO urgency. No compulsory XI/odds history for initial goals research,
-no arbitrary 8 cap, no retrospective prematch. Historical Oct12 receipt
-replay remains unchanged. Reference `stages_v4/goals_first_intake.py`.
-
-## V4 open-league goal discovery — source-first (2026-10-12)
-
-**No registry-only hard exclusion for otherwise eligible official domestic
-competitions.** First obtain all source-visible, window-specific senior
-competitive fixtures, then retain nonregistered leagues/official cups as
-`DISCOVERY`. Only source-backed scoring form for both teams and real
-current researchability/format evidence can promote a discovery match
-into the C/C2 football research queue. Missing proof/low signal remains
-`PENDING_DISCOVERY` in the ledger/watchlist rather than disappearing or
-being labelled model PASS. Preserve explicit country/league bans,
-friendlies, immutable fixture IDs and clock gates. See
-`models/football/stages_v4/discovery_goal_gate.py` and V4 SOP.
-Historical sealed receipts retain their original admission status.
-
-## Current replacement — V4 /sweep and /rank (approved 2026-10-11)
-
-**ACTIVE NEW STAGES:** `models/football/stages_v4/SWEEP.md`
-and `models/football/stages_v4/RANK.md`, implemented in
-`models/football/stages_v4/stage.py` and the explicitly researched
-country+league registry `league_registry.py`. User approved a NEW
-workflow after retiring V1–V3. V4 does **not** reactivate the old CLIs
-or previous source epochs. Existing old Step0/Step1 executables stay
-`SWEEP_RANK_RETIRED` for legacy use.
-
-V4 /sweep obtains genuinely current **complete provider date/listing
-surfaces** for every ICT and UTC date touched by the requested window,
-exhausts pagination, reconciles provider senior competition-block and fixture
-counts, performs an independent terminal-interval refetch, and only then
-applies the registry/goals screen. The registry must never be used as the
-fixture-discovery query. The researched tiers include Big Five,
-Netherlands/Eerste, Norway OBOS, Sweden, Denmark, Finland Veikkausliiga,
-Poland Ekstraklasa/I Liga, Czech, Malaysia, Hong Kong, UAE, Qatar, Saudi,
-Thailand, Indonesia, Japan and approved lower leagues. Excluded domestic
-leagues and friendlies remain excluded. Completeness is bounded to the exact
-provider/date surfaces used; there is no worldwide-completeness claim or
-arbitrary 8-match cap.
-
-V4 /rank uses the frozen V4 receipt, source-backed actual goal-route
-research (including dynamic high-scoring team routes and draw-trap
-penalty), calls the real independent C and C2 model engines together,
-and requires actual Airtable persistence/readback before publication.
-Odds are not needed for football-only ranking; executable bets still
-require genuine current prices in /xi. No made-up XI, lines, ranked
-records or retroactive prematch decisions. The existing /xi,
-`/live`, `/audit`, `/report`, user-verified Actual Bets and archived
-financial ledger remain unchanged.
-
-## Historical status — retired V1/V2/V3 only (2026-10-11)
-
-At the **2026-10-11 V1–V3 retirement boundary**, the then-current Step0
-/sweep and Step1 /rank were scrapped. Their production stage status remains
-`SWEEP_RANK_RETIRED`; any V1/V2/V3 source, checkpoint, package, paired board
-or rank-publishing instruction below is historical only and must not run again.
-This historical retirement does **not** retire the later approved V4
-`stages_v4/SWEEP.md` and `RANK.md`.
-Do not start a new Sweep Runs record, reopen a terminal checkpoint,
-create an official ZIP or publish new Website Picks from old boards.
-No hidden automatic /sweep or /rank should continue.
-The historical pure validators/engines remain in GitHub for audit and
-future redesign; they do NOT authorize official operational output.
-The required replacement was later explicitly approved as V4; do not reuse
-this historical requirement to block current V4. **/xi, /xi exception,
-/live, /audit and /report remain available.** The active official model is C
-and C2 is shadow only.
-Do not delete or backfill historical coverage, boards, decisions or
-Actual Bets.
-
-## Historical V3 coordinator — non-authoritative
-
-The former `sweep_rank_pipeline.py` / `FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`
-coordinator is retained only to reconstruct frozen V1–V3 history. It is not
-a current command route, validator, handoff format, capacity policy or source
-authority. New `/sweep` and `/rank` use only
-`models/football/stages_v4/SWEEP.md`, `RANK.md` and `stage.py`.
-Do not invoke V3 ZIP packaging, repair/resume, capacity/replenishment or
-legacy Work-chat semantics for a new V4 source epoch.
+# Football v2 — Current Model Authority
 
-## One-command /xi — user-facing authority
+## ACTIVE STACK
 
-**/xi works as one assessment, just as before.** Read
-`models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
-Assess both C (official) and C2 (shadow) without asking for odds. If
-a genuinely current total and price are already provided, check them
-automatically as part of the same /xi response. The user does not
-need to request /bet separately. If a price is unavailable, still
-complete the football analysis and say `No bet price checked`.
-This supersedes older contradictory quote-first/opt-in price-check
-instructions for user-facing /xi. Never invent a price or authorize
-an executable bet without valid current evidence.
+This file describes only the current production path.
 
-## Airtable operational base routing (2026-10-11)
+- **Official model:** Football C.
+- **Shadow model:** Football C2.
+- **Retired models:** C3/C4. Historical records remain immutable; they never participate in new /rank, /xi, /live, accounting or publication.
+- **Active source/rank stages:** Football V4 only.
+- **Active Airtable model base:** appbzxqXYf0lKfD4P (Football v2 — Active Operations 2026-10-11).
+- **User P/L authority:** Actual Bets — Current only.
 
-**Current model/audit base for /rank, /xi, /live, /audit, /report, website state and confirmed Actual Bets:** `appbzxqXYf0lKfD4P` (Football v2 — Active Operations 2026-10-11). **Previous base `appWyZJjitSBATXAU` is read-only historical archive.** Never append new model/audit state to the archive. Before any Airtable model read/write load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`; use `ACTIVE_BASE_ROUTING_20261011.md` only for old-to-new field translation. V4 /sweep owns its own source/run persistence contract and must not be rerouted by this model-routing paragraph. Historical rows are not assumed migrated merely because the active base has equivalent tables.
+The active command surface is:
 
-> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired from new/current execution. Historical C3/C4 records remain immutable audit history.
+- /sweep -> models/football/stages_v4/SWEEP.md
+- /rank -> models/football/stages_v4/RANK.md
+- /xi and /xi exception -> models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md
+- /live -> the same C/C2 football-assessment path with current live state
+- /audit -> models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
+- /report -> models/football/prompts/06_NORMAL_CHAT_REPORT.md
 
-**Active official model:** Football **C**  
-**Only active shadow challenger:** Football **C2**  
-**Fixture authority:** AiScore primary, with the documented bounded source fallback  
-**Operational timezone:** Asia/Ho_Chi_Minh (ICT, UTC+7)
+Retired V1-V3 source, checkpoint, repaired-handoff, compact-capacity, terminal-rank and ZIP workflows are not production dependencies. They may remain in Git history or explicitly historical documents for audit only.
 
-This file is the canonical entry point for current football work.
+## Production sequence
 
-**Standing /sweep inclusion exception (2026-10-13):** Include **UEFA Youth League** as the only specifically approved youth competition. Preserve it from complete provider date surfaces, classify it `CONDITIONAL`, prioritize it as `SPECIAL_RESEARCH`, and require match-specific goal evidence plus current path/format/incentive context. Do not infer that other youth competitions are approved.
+SOURCE DATE SURFACES -> V4 GOALS-FIRST INTAKE -> V4_SWEEP_READY -> ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS -> C BOARD + C2 BOARD -> ONE AIRTABLE READBACK -> /xi FOOTBALL -> OPTIONAL OBSERVED-QUOTE MODEL EVALUATION OR STRICT EXECUTABLE PRICE DECISION -> ONE DECISION READBACK/PUBLICATION GATE -> LIVE/AUDIT
 
-**Standing /sweep scope exclusions (updated 2026-10-13):** Exclude **all African domestic football** (men's domestic leagues, women's domestic top flights, and domestic cups) from ordinary V4 sweep research, in addition to Israel, Iraq, Wales and Kuwait domestic football, Germany **3. Liga only**, and **all noncompetitive friendlies** (senior international women/men, club, exhibition, preseason). African domestic fixtures must remain source-visible in the ledger as `USER_AFRICA_DOMESTIC_EXCLUSION` but must not consume goal-history/deep-research capacity. This African rule does **not** exclude CAF/other continental club competition or protected official international competition solely because an African club/nation participates. Preserve all source-visible excluded rows for audit rather than silently dropping them. A named explicit user exception is the only reopening route. Current enforcement authority is `models/football/stages_v4/SWEEP.md` plus `league_registry.py`, not the retired Step0 launcher.
+C and C2 share factual evidence but never model-owned policy fields.
 
-## Historical V1–V3 intake/tuning appendix — non-authoritative
+## /sweep — V4 source-backed intake
 
-The former FAST_FINISH Step0 budgets, narrow-registry pilots,
-LEAGUE_CHANNEL_FIRST_V1, XI_MARKET_FIRST_V1, repaired-handoff rules and
-8/12/15/20 Work budgets are retained in their original files only for
-historical audit. They do not govern new V4 /sweep or /rank.
-
-Current V4 league coverage, exclusions and discovery behavior live only in
-`models/football/stages_v4/SWEEP.md`, `RANK.md`,
-`league_registry.py`, `goals_first_intake.py` and
-`discovery_goal_gate.py`.
-
-## Command router
-
-Read `models/football/prompts/COMMAND_ALIASES.md`.
+Authority: models/football/stages_v4/SWEEP.md, source_completeness.py, league_registry.py, goals_first_intake.py, discovery_goal_gate.py and cheap_sweep_filters.py.
 
-- `/sweep` -> `models/football/stages_v4/SWEEP.md`
-- `/rank` -> `models/football/stages_v4/RANK.md`
-- `/xi` -> `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
-- `/live` -> `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
-- `/audit` -> `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
-- `/report` -> `models/football/prompts/06_NORMAL_CHAT_REPORT.md`
-
-The retired `00_NORMAL_CHAT_AISCORE_FETCH.md` and
-`01_WORK_DAILY_SWEEP.md` are historical references only and must never be
-selected by the current router.
-
-Everything after the alias is launcher input. Same-message attachments are launcher inputs.
-
-A handoff is historical context, not current authority. Reload this file and the current launcher before continuing old work.
-
-## Model authority
-
-- Football C is the only model that may create an official Website Pick or official model exposure.
-- Football C2 is shadow-only. It may be ranked, executed, persisted and audited, but may never authorize official exposure.
-- C3 and C4 are retired for new work. Do not execute them, require them, display them as current tracks, populate new current fields for them, or count them in current forward metrics.
-- Historical C3/C4 records remain valid only for the exact epochs in which they were prospectively frozen.
-- Python deterministic code validates structured C/C2 inputs and accounting. It is not production decision authority.
-
-The active pair contract is:
-
-`models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`
-
-## Active production sequence
-
-`SOURCE SNAPSHOT -> HARD EXCLUSIONS + REGISTERED/DISCOVERY CLASSIFICATION -> SOURCE-BACKED GOAL SCREEN -> V4_SWEEP_READY -> ORIGINAL-SOURCE REPLAY + FULL-COHORT STATUS REFRESH -> [C BOARD + C2 SHADOW BOARD] -> INDEPENDENT AIRTABLE READBACK -> ROUTINE/EXCEPTION XI C+C2 FOOTBALL -> OPTIONAL PREMATCH PRICE SUBDECISION OR SCREENSHOT CONDITIONAL COMPARISON -> LIVE FOOTBALL / PRICE COMPARISON ONLY -> AUDIT`
-
-C and C2 share facts, not policy.
-
-## Shared evidence / policy separation
-
-For each fixture and epoch, freeze one factual evidence state before model policy is applied.
-
-Common evidence includes:
-- fixture identity/status/kickoff;
-- current operational evidence required by the C/C2 payload; competition-reliability memory is diagnostic/non-gating for current V4 intake;
-- route/carrier evidence;
-- chance quality;
-- failure/suppression evidence;
-- H2H materiality and basis;
-- continuation/leakage evidence;
-- tournament format/incentive state when applicable;
-- current XI/mechanism state;
-- current executable quote at Step 2.
-
-Football C owns:
-- completion mode;
-- burden-completion quality;
-- continuation quality;
-- opponent leakage;
-- burden stall risk;
-- C supported line;
-- C official board state/rank;
-- official FOLLOW/RESERVE/STOP lane;
-- C Step-2 action.
-
-Football C2 owns independently:
-- C2 supported line;
-- C2 route-quality ranking/selection-floor state;
-- C2 opponent leakage grade and C2-specific leakage basis when current evidence supports that optional O2.25 certificate;
-- C2 shadow board state/rank;
-- C2 Step-2 shadow action.
-
-Never copy C's supported burden into C2. Never infer missing C2 from C.
-
-## V4 Step 0 — source-visible goals-first intake
-
-Current `/sweep` uses only `models/football/stages_v4/SWEEP.md` and
-`stage.py sweep`.
-
-It must:
-- acquire complete current provider date/listing surfaces for every ICT+UTC date touched by the requested window;
-- use `source_completeness_manifest` / `DATE_SURFACE_BATCH_V2`;
-- exhaust pagination and reconcile provider competition-block/fixture counts before any registry filter;
-- perform an independent terminal-sentinel refetch for the last six hours (or the whole window when shorter);
-- preserve canonical match IDs, source URLs, kickoff/status and observation time;
-- prove that the union of date-surface fixture IDs exactly equals `source.fixtures`;
-- collect the source-visible senior football listing before registry logic;
-- remove explicit user bans and noncompetitive friendlies;
-- classify registered vs DISCOVERY competitions only **after** acquisition; `league_query_mode=DATE_SURFACE_ONLY` and `registry_prefilter_applied=false` are mandatory;
-- apply cheap research-priority filters only after the full source fixture set is frozen; these filters may reorder deep research but never delete a valid fixture or override verified goal evidence;
-- Big Five league membership is never automatic shortlist admission: Premier League, Bundesliga, La Liga, Serie A and Ligue 1 default to deferred research unless a separate current team/event prior or actual source-backed goal evidence promotes the fixture;
-- researched country filters now distinguish high-goal bases from selective leagues: Eredivisie/Eerste, Iceland top/first, Faroe top/first, Norway Eliteserien/First, Denmark Superliga/First, Sweden Allsvenskan/Superettan, Romania SuperLiga/Liga II, Poland Ekstraklasa/I Liga, Serbia SuperLiga/Prva Liga, Czech First League/FNL, South American top flights, and MLS/Liga MX/Canadian PL/USL use current time-bounded team/environment priors rather than registry status alone;
-- apply the same source-backed goals screen to every competition lane;
-- keep missing histories in pending research rather than model PASS;
-- put only `GOAL_PRIORITY` fixtures into the immutable `eligible_queue`;
-- preserve low-goal and excluded rows for audit;
-- keep the unchanged original `source.json` with the native `V4_SWEEP_READY` receipt and cross-chat rank handoff; the canonical replay artifact must contain `<run>-source.json`, `<run>-v4_sweep_ready.json` and `<run>-rank-handoff.json` together.
-
-There is no V4 Step0 8/12/15/20 match-cap admission, repaired-ZIP authority,
-or mandatory historical XI/market proof before goals-first screening.
-
-## V4 Step 1 — independent C official + C2 shadow rank
-
-Current `/rank` uses only `models/football/stages_v4/RANK.md` and
-`stage.py rank`.
-
-Before C/C2 execution it must:
-- for `/rank newest receipt`, self-resolve the exact original source from the same attestation bundle, current recovery path, or exact source-producing repository ref before reporting `V4_SOURCE_HANDOFF_MISSING`; never ask the user for a file already present in provenance;
-- replay the unchanged original `source.json` against the frozen receipt;
-- refresh kickoff/status for the entire eligible cohort within 10 minutes;
-- reject changed-kickoff or already-started fixtures from prematch ranking;
-- research the complete goal-qualified cohort in goal-first order;
-- freeze one common factual football epoch;
-- execute independent C official and C2 shadow board engines;
-- preserve explicit unranked reasons;
-- persist the ranked cohort and independently refetch it;
-- persist and independently refetch the exact per-match C and C2 Step1 engine
-  result JSON, including model-owned evidence such as the optional C2 leakage
-  pair; state/rank/line alone are insufficient;
-- carry `model_evidence_readback_verified`, `model_evidence_sha256`,
-  `source_replayed`, `current_fixture_status_checked`,
-  `original_source_sha256` and `status_refresh_sha256` through
-  `V4_RANK_PERSISTENCE_VERIFIED`.
-
-Routine `/xi` requires the exact original source/status payloads plus the
-sealed sweep/rank/readback chain and a matching persisted-model-evidence
-digest. Internal hash consistency proves continuity,
-not external provider authenticity.
-
-## Football C selection / clearing-goal funding
-
-FOLLOW and RESERVE are workload priorities after the official C board, not a separate scoring verdict.
-
-Third- and fourth-goal checks belong to the C ranking and current Step-2 decision. Lane only schedules follow-up, with no fixed goal-total ceiling.
-
-Ranking should prioritize:
-1. clearing-goal funding;
-2. continuation after the first goal;
-3. stall/control risk;
-4. route/carrier reliability;
-5. failure resistance;
-6. evidence confidence;
-7. burden protection.
-
-**Active 2026-10-13 C calibration:** at O2.25 or lower, a STRONG scoring route
-against HIGH opponent leakage may fund goal three when burden-completion,
-route reliability and chance quality are each at least MEDIUM, **and** the
-fixture is specifically being suppressed by HIGH burden-stall risk or LOW
-continuation, with no material suppression/route-attacking failure remaining.
-This is a counterweight to that exact stall/continuation suppression, not a
-generic positive factor: MEDIUM-stall/MEDIUM-continuation profiles still use
-the original clearing-goal proof. LOW burden-completion is never rescued. This
-rule does not extend to O2.5, O2.75 or higher and does not manufacture a
-fourth-goal tail. A sufficiently well-evidenced O2.25 leakage-funded fixture
-cannot remain C-WATCH/STOP; it must be re-evaluated as C-FOCUS. Authority:
-`models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md`.
-
-Football C2 does not inherit this C-owned completion/stall calibration. **Active follow-on C2 calibration (2026-10-13):**
-C2 now has its *own* independently researched HIGH-opponent-leakage signal
-(`c2_opponent_leakage` with non-empty `c2_opponent_leakage_basis`) for a
-strict O2.25-only goal-three counterweight when a STRONG scoring route,
-HIGH route reliability and at least MEDIUM independent-route/chance/failure
-quality survive. Independent upper-tail evidence is orthogonal to this
-O2.25 certificate: it is not required and, when present, cannot downgrade an
-otherwise identical qualifying case. This is not imported C completion/stall
-policy, never permits O2.5+, and cannot bypass C2 model veto/price/upper-line guards.
-C2 remains shadow-only. Authority:
-`challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md`.
+The sweep must:
 
-Operational capacity does not change predictive rank.
+1. acquire the complete provider date/listing surfaces for all ICT and UTC dates touched by the requested window;
+2. exhaust pagination and reconcile provider page/block/fixture counts;
+3. perform the terminal-sentinel refresh;
+4. freeze the full source-visible fixture union before registry/filter logic;
+5. apply explicit exclusions and research-priority filters;
+6. apply the same source-backed goals-first screen to registered and discovery competitions;
+7. place only verified GOAL_PRIORITY fixtures in the rank-eligible queue;
+8. retain pending/low-signal/excluded rows in the audit ledger rather than inventing model PASS;
+9. emit one native V4_SWEEP_READY receipt and preserve the unchanged source.json.
 
-The official lane remains:
-- `FOLLOW` — routine Step 2;
-- `RESERVE` — conditional;
-- `STOP` — no routine Step 2 without explicit exception.
+There is no arbitrary 8/12/15/20-match cap and no lineup/odds-history blocker at intake.
 
-Same-kickoff guard and capacity limits remain:
-- maximum routine FOLLOW = 6;
-- maximum retained RESERVE = 4;
-- maximum two routine FOLLOW fixtures at one exact kickoff minute.
+### Standing scope rules
 
-## Historical V1–V3 capacity/replenishment — not current V4
+- Noncompetitive friendlies remain excluded.
+- **All African domestic football** (men's domestic leagues, women's domestic top flights and domestic cups) is excluded after complete source acquisition with reason USER_AFRICA_DOMESTIC_EXCLUSION. CAF/other continental club competitions and protected official internationals are not excluded solely because an African club/nation participates.
+- Israel, Iraq, Wales and Kuwait domestic football remain excluded; Germany 3. Liga remains excluded.
+- **UEFA Youth League** is the specifically approved youth exception. It is conditional and requires fixture-specific goal evidence plus current competition-path/format/incentive research. Generic youth competitions are not automatically included.
+- Big Five status is not a goal signal. No league is admitted to the shortlist solely by reputation.
+- Researched league/team priors in cheap_sweep_filters.py are workload priorities only and cannot override fresh source-backed match evidence.
 
-The former initial 15-fixture queue, refill-to-10, compact 8/12/20 research
-budget and replenishment loop apply only when auditing a frozen historical
-V1–V3 run. New V4 /sweep and /rank do not use them.
+## /rank — one verified Step-1 chain
 
-## Mandatory deterministic runtime bootstrap
+Authority: models/football/stages_v4/RANK.md and models/football/stages_v4/stage.py.
 
-For execution-required `/rank`, `/xi`, and `/audit`, apply:
+Before C/C2 board execution, /rank must:
 
-`models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`
+1. load the frozen V4 receipt and unchanged original source;
+2. perform **original-source replay**;
+3. refresh kickoff/status for the entire eligible cohort within the V4 freshness bound;
+4. remove already-started or source-changed fixtures from prematch ranking with explicit unranked reasons;
+5. research the complete eligible cohort in goal-first order;
+6. freeze one common factual epoch plus independent C and C2 model-owned fields;
+7. execute C official and C2 shadow board engines;
+8. persist exact per-match engine JSON and board/lane fields to the active Daily Coverage Ledger;
+9. independently refetch once with stage.py verify.
 
-Tool/repository availability is a current-turn observed state.
+The verified persistence receipt must preserve:
 
-Required record:
+- rank receipt hash;
+- source_replayed=true;
+- current_fixture_status_checked=true;
+- original-source and status-refresh hashes;
+- model_evidence_readback_verified=true;
+- exact model_evidence_sha256.
 
-`FOOTBALL_RUNTIME_EXECUTION_RECORD`
+That verified Step-1 receipt is the Step-2 provenance authority. Routine /xi does **not** replay the original source/status payloads again.
 
-The workflow must:
-- probe Python;
-- probe the current repository authority;
-- materialize exact-current source when needed;
-- run the stage runtime probe or XI portable self-check;
-- attempt the actual deterministic command;
-- preserve exact failure evidence.
+### Cross-chat handoff
 
-A missing local checkout or raw container network failure is not repository unavailability while connected repository source remains accessible.
+A sweep handoff should keep the matching source and native receipt together. The current replay artifact may include <run>-source.json, <run>-v4_sweep_ready.json and <run>-rank-handoff.json. /rank newest receipt resolves that handoff without asking the user to upload a source already present in repository or workflow provenance.
 
-## /xi — single C+C2 match assessment
+This transport exists to preserve the original sweep evidence; it is not a second football policy layer.
 
-Use `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` with
-`models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
+## C/C2 Step-1 model ownership
 
-The user only needs `/xi` or `/xi exception`.
-Run `python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
-using independently frozen C and C2 football inputs from one evidence epoch.
+Shared evidence includes fixture identity, routes, carrier/chance/failure evidence, H2H materiality, tournament state, current news/XI evidence and other factual observations.
 
-- With no price, complete `stage=football_assessment` and return both football reads immediately.
-- With a user screenshot, use only that exact screenshot observation. Any ACT/WAIT/PASS comparison is conditional and cannot authorize exposure by itself. **A PREMATCH screenshot may predeclare `WAIT — LIVE DECAY` without full priced-decision payloads when that model is FOCUS, the football thesis is intact, its frozen supported burden is funded, and the observed line is above support by at most +0.75.** Target the model's supported line at minimum 1.65 and require state-integrity recheck after any material event. Larger gaps are not declared reachable.
-- A strict prematch price decision is a separate same-command subdecision only when genuinely current non-screenshot executable evidence and all required guards exist; when present it supersedes the provisional assessment decay plan.
-- If the fixture has started, continue quote-free live football assessment immediately. Current V4 may compare a verified in-play quote with supported burdens, but it has no deterministic live priced-action engine and therefore cannot authorize a new live priced action.
-- Missing independent C2 input means the C+C2 assessment is incomplete; never synthesize C2 from C.
+Football C independently owns its completion/continuation/stall/leakage diagnostics, supported line, board state/rank and FOLLOW/RESERVE/STOP lane.
 
-The low-level priced `pair` command remains an internal strict prematch path, not the primary /xi completion route and not a second user-facing command.
+Football C2 independently owns its supported line, route-quality selection state, C2 board state/rank and optional C2-specific opponent-leakage grade + basis. Never infer C2 leakage from C's completion/stall/leakage labels.
 
-## Active-model accounting
+### Active O2.25 calibrations
 
-New/current accounting uses C + C2 only.
+The narrow prospective calibrations remain active:
 
-Priority per model/fixture:
+- C: models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md
+- C2 shadow: models/football/challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md
 
-`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
+They are O2.25-specific counterweights, not general O2.5/O2.75 relaxation and not fourth-goal proof. Historical boards are never rewritten.
 
-WATCH:
-- own supported line;
-- assumed odds 1.65;
-- 1u;
-- model-performance accounting only.
+## /xi — one football assessment, one quote policy
 
-WAIT:
-- own deterministic target/min odds;
-- frozen accounting semantics under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+Authority: models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md, models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md, engine/core.py, engine/adapter.py, and the thin engine/xi_portable.py runner.
 
-Only C may create official Website Picks/exposure. C2 accounting is shadow-only.
+Every /xi:
 
-### Actual-user P/L authority — reset 2026-10-08
+1. assesses Football C and Football C2 independently from current football evidence **without requiring odds**;
+2. reports the football result even when a price is unavailable or a price gate fails;
+3. if an observed quote already exists, evaluates that quote through the same pure C/C2 quote-policy functions used by strict execution;
+4. keeps execution/publication authorization separate.
 
-Canonical actual-user bet ledger: Airtable table `Actual Bets — Current` (`tblGsnU4Ht0OpmdH8`, active base `appbzxqXYf0lKfD4P`).
+### Routine vs exception
 
-From 2026-10-08 ICT onward:
-- actual-user profit/loss, turnover, ROI and running P/L are calculated from this table only by default;
-- do not mix older actual-bet records into current profit unless the user explicitly requests historical combined reporting;
-- actual-user execution truth comes only from rows in this table (or a new user slip awaiting persistence);
-- Website Picks, Decision States, model WATCH/WAIT accounting and C2 shadow exposure must never be counted as actual-user P/L.
+Routine V4 /xi verifies only the sealed V4 rank receipt + its verified persistence receipt and the exact board row. The queue guard must not re-run Step-1 source replay.
 
-Historical C3/C4 settlement must use explicit historical accounting mode and must never enter a current active-roster payload.
+/xi exception may assess an explicitly requested fixture without board authority. It still requires independent C/C2 football evidence. An exception never creates a retroactive prematch decision after kickoff.
 
-## Live
+## Observed quotes and user screenshots
 
-Use `models/football/prompts/03_NORMAL_CHAT_LIVE.md`.
+A user screenshot is exact observed market evidence:
 
-Current live roster:
-- Football C official;
-- Football C2 shadow.
+- use the displayed line and odds exactly;
+- do not search for replacement bookmaker odds;
+- do not change the screenshot timestamp;
+- do not ask for a new quote merely because processing took time;
+- store ordinary evaluated line/odds fields rather than a screenshot-specific serialized persistence protocol.
 
-No live-stat or bookmaker-quote confirmation gate is required for ASSESS. Assess available score/minute, independent frozen C/C2 theses and material events without prices. A current in-play quote, when already supplied and independently time/source validated, is comparison evidence only. Current V4 has `live_price_action_engine_status=NOT_IMPLEMENTED_V4`; therefore `live_bet_authorized=false` and no new executable live priced action is published. Recompute tournament incentive at each material live epoch when applicable to the football read.
+adapter.evaluate_observed_quote() is the single non-executable price comparison path. It calls the same pure model policy used by run_decision().
 
-C2 never creates official exposure.
+An observed quote may therefore produce model **ACT / WAIT / PASS**, but:
 
-## Audit
+- execution_authorized=false;
+- it creates no Website Pick;
+- it creates no model exposure;
+- it creates no Actual Bet.
 
-Use `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`.
+A screenshot can never by itself prove that the offer remains executable.
 
-Audit all recorded assessed matches, not only Website Picks or LOCK/FOLLOW rows.
+## WAIT policy
 
-Separate:
-- frozen state;
-- observed result;
-- diagnosis;
-- official C model P/L;
-- C2 shadow model P/L where lawfully countable;
-- actual user P/L.
+There is no wrapper-specific decay-gap rule.
 
-Missing C2 execution in a current all-model/C+C2 exception is a workflow defect, not a C2 PASS.
+WAIT is produced only by the C/C2 core policy when the model's current research explicitly establishes:
 
-Never retrospectively reconstruct missing model outputs from FT/current information.
+- wait_reachable=true;
+- a non-empty reachability basis;
+- wait_requires_negative_info=false;
+- current football thesis/mechanism remains intact;
+- no material veto.
 
-Historical C3/C4 rows may be reported only as historical records from their original frozen epochs.
+If reachability is not established, the wrapper must not invent WAIT.
+
+The target/minimum price comes from the core model policy:
+
+- target = the applicable protected/model supported burden;
+- normal minimum price = 1.65;
+- top-ranked FOCUS soft-zone minimum = 1.60 where the core policy permits it.
+
+A WAIT is a **plan**, not exposure. It does not become an assumed bet merely because the target is declared.
+
+Any goal, red card, major injury or other material football change requires a new current football state before acting.
+
+## Strict executable price decision
+
+A currently executable prematch quote may enter the strict run_decision() path only when its execution evidence and required current football/XI/tournament checks are real.
+
+The strict decision reuses exactly the same C/C2 quote policy as observed quote comparison, then applies execution authorization.
+
+After a strict C+C2 pair executes:
+
+1. persist the exact Decision State once;
+2. independently refetch once;
+3. immediately before publication verify that the quote/fixture/evidence epoch is still valid using step2_publication_guard.py.
+
+The publication guard verifies the existing pair receipt and readback; it does not execute the models a second time and does not run a second session reconciliation layer.
+
+C is the only model that may authorize an official Website Pick. C2 remains shadow-only.
+
+## /live
+
+Started fixtures use the same C/C2 football assessment with the actual current score/minute/events. There is no separate fixture-transition state machine.
+
+After kickoff:
+
+- continue football assessment;
+- invalidate prematch execution assumptions;
+- never recreate a prematch ACT/WAIT/PASS retrospectively;
+- an observed live quote may be shown as a current burden comparison, but a separate live execution policy is required before any live bet could be authorized.
 
 ## Persistence
 
-Current new records must keep C and C2 separate.
+Use models/football/airtable/ACTIVE_MODEL_ROUTING.json as the one machine-readable routing authority. The Markdown routing document explains the schema but must not override the JSON mapping.
 
-Daily Coverage / board persistence:
-- C state/rank/line/basis;
-- C2 state/rank/line/basis;
-- common evidence basis;
-- official C lane;
-- pair reconciliation status/revision.
+For new model operations:
 
-Decision States:
-- C Action;
-- C Supported Line;
-- C2 Supported Line;
-- C2 Shadow Action;
-- Engine Execution Status;
-- Engine C Result;
-- Engine C2 Result;
-- failure reason when applicable;
-- current evidence/recheck fields;
-- active-model accounting result.
+- /rank, /xi, /live, /audit, /report, model QA/accounting and website publication use active base appbzxqXYf0lKfD4P;
+- old base appWyZJjitSBATXAU is historical read-only;
+- C2 cannot create Website Picks;
+- exact C/C2 engine results are independently read back;
+- one failed optional price check does not convert a successful football assessment into engine failure.
 
-Website Picks:
-- Football C official exposure only.
+## Accounting and P/L
 
-Historical C3/C4 fields may remain in Airtable for immutable history. Do not populate them for new current rows.
+Do not create synthetic active exposure from classifications or plans.
 
-## Historical fidelity
+- WATCH creates no model bet.
+- Unresolved WAIT creates no model bet.
+- A direct strict BET may create model accounting from its actual observed line/odds.
+- A WAIT may enter model accounting only when its reached terms are actually confirmed under the accounting contract.
+- C2 accounting remains shadow-only.
+- **User profit/loss is calculated only from user-confirmed rows in Actual Bets — Current.** Website Picks, WATCH, WAIT and shadow decisions never become user P/L automatically.
 
-Do not rewrite:
-- historical C3/C4 board states;
-- historical C3/C4 supported lines/actions;
-- old engine results;
-- old accounting rows;
-- old Football A records.
+## Deterministic runtime
 
-Retired files may remain for audit/history but must not be imported by current runtime or required by current launchers.
+The active /xi runner is a **thin shared runtime**. It imports the real core.py, adapter.py and decision_pair_cli.py; it does not embed or repin copies of those source files.
 
-## Production principle
+No transport bootstrap, source-byte staging helper or runtime-probe ceremony is part of normal /xi execution. If a real deterministic call fails, report the actual failure; do not invent a model output.
 
-Current authority is simple:
+## Audit and report
 
-**Football C decides official exposure. Football C2 challenges it prospectively. Everything else is historical.**
+/audit reads frozen prospective evidence/results and actual outcomes without rewriting the past. Experimental probability/shadow tools may be used only as explicit QA/trials and cannot become current C/C2 actions.
+
+/report is read-only. Physical P/L comes from Actual Bets — Current.
+
+## Retired/dormant mechanisms
+
+The following concepts are non-authoritative for current work:
+
+- V1/V2/V3 Step0 portable bundles and ZIP packaging;
+- sweep checkpoint/FAST_FINISH/repair mechanics;
+- compact capacity/replenishment and old rank-terminal state machines;
+- repaired-handoff normalization;
+- old rank-persistence reconciler superseded by V4 stage.py verify;
+- duplicate V4 /xi source replay validator;
+- Step-2 session reconciliation/audit wrappers;
+- standalone kickoff-transition router;
+- embedded-source XI handoff/repinning;
+- synthetic WATCH/WAIT assumed-exposure accounting;
+- shadow price/probability experiments as production policy.
+
+Git history remains the audit source for retired implementations. Active launchers and production CI must not depend on them.
