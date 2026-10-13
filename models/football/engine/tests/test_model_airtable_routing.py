@@ -20,6 +20,15 @@ class ActiveModelRoutingTests(unittest.TestCase):
                     self.assertEqual(resolved["baseId"], config["base_id"])
                     self.assertEqual(resolved["tableId"], target)
 
+    def test_step1_engine_result_fields_are_pinned(self):
+        config = _configuration()
+        fields = config["step1_engine_result_fields"]
+        self.assertEqual(fields["table"], "Daily Coverage Ledger")
+        self.assertEqual(fields["c_field_id"], "fldhUWNoyXzXfQJ3C")
+        self.assertEqual(fields["c2_field_id"], "fldq0n2tDlS58goAm")
+        self.assertTrue(fields["exact_json_readback_required"])
+        self.assertFalse(fields["historical_backfill"])
+
     def test_sweep_is_not_rerouted(self):
         with self.assertRaisesRegex(AirtableRouteError, "sweep"):
             resolve_table("sweep", "Daily Coverage Ledger", action="upsert")
