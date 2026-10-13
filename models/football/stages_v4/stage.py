@@ -33,6 +33,10 @@ from source_completeness import (
 
 SCHEMA = "football-stages-v4"
 BASE = "appbzxqXYf0lKfD4P"
+STEP1_ENGINE_RESULT_FIELD_IDS = {
+    "c": "fldhUWNoyXzXfQJ3C",
+    "c2": "fldq0n2tDlS58goAm",
+}
 VALID_MATCH_STATUSES = {"PREMATCH_CONFIRMED","STARTED","FINISHED","POSTPONED","CANCELLED"}
 PRICE_FIELDS = {"odds", "bookmaker_total", "price", "final_score", "ft_goals", "live_score", "bet"}
 UNRANKED = {"RESEARCH_EVIDENCE_MISSING", "PREMATCH_WINDOW_CLOSED", "SOURCE_CHANGED",
@@ -540,6 +544,22 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
     return out
 
 
+def _readback_engine_result(row: dict[str, Any], model: str, match_id: str) -> dict[str, Any]:
+    key = f"step1_engine_{model}_result"
+    field_id_key = key + "_field_id"
+    if row.get(field_id_key) != STEP1_ENGINE_RESULT_FIELD_IDS[model]:
+        raise StageError(f"{match_id}: {model} Step1 engine-result Airtable field ID not verified")
+    stored = row.get(key)
+    if isinstance(stored, str):
+        try:
+            stored = json.loads(stored)
+        except json.JSONDecodeError as exc:
+            raise StageError(f"{match_id}: {model} persisted Step1 engine result is malformed JSON") from exc
+    if not isinstance(stored, dict):
+        raise StageError(f"{match_id}: {model} persisted Step1 engine result missing")
+    return stored
+
+
 def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[str, Any]:
     """Compare caller-refetched Active Airtable rows, not self-assert a save."""
     _verified(rank_receipt, "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK")
@@ -574,13 +594,21 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
                     actual = actual.removeprefix("C2-" if model == "c2" else "C-")
                 if actual != model_row.get(local):
                     raise StageError(f"{mid} {model} {local}: independent saved value differs")
+            stored_result = _readback_engine_result(observed[mid], model, mid)
+            if stored_result != model_row:
+                raise StageError(f"{mid}: {model} exact Step1 engine evidence differs from Airtable")
             if model == "c" and observed[mid].get("follow_lane") != model_row.get("follow_lane"):
                 raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
+    model_evidence_sha256 = _hash(original)
     return {
         "schema_version": SCHEMA, "status": "V4_RANK_PERSISTENCE_VERIFIED",
         "run_id": rank_receipt["run_id"], "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
         "c2_shadow_only": True, "no_bet_created": True,
+        "model_evidence_readback_verified": True,
+        "model_evidence_sha256": model_evidence_sha256,
+        "step1_engine_c_result_field_id": STEP1_ENGINE_RESULT_FIELD_IDS["c"],
+        "step1_engine_c2_result_field_id": STEP1_ENGINE_RESULT_FIELD_IDS["c2"],
         "source_replayed": rank_receipt.get("source_replayed") is True,
         "current_fixture_status_checked": rank_receipt.get("current_fixture_status_checked") is True,
         "original_source_sha256": rank_receipt.get("original_source_sha256"),
