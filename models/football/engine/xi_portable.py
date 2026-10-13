@@ -229,10 +229,23 @@ def _football_and_optional_price(
                 "USER_SCREENSHOT_ONLY uses the screenshot quote directly; "
                 "separate priced-decision payloads are not used"
             )
-        price = assess_user_screenshot(screenshot, c_input, c2_input, football)
+        try:
+            price = assess_user_screenshot(
+                screenshot, c_input, c2_input, football
+            )
+            mode = "FOOTBALL_AND_OBSERVED_QUOTE"
+        except Exception as exc:
+            price = {
+                "ok": False,
+                "status": "OBSERVED_QUOTE_INVALID",
+                "reason": str(exc),
+                "execution_authorized": False,
+                "bet_authorized": False,
+            }
+            mode = "FOOTBALL_ASSESSMENT"
         return {
             "ok": True,
-            "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE",
+            "xi_mode": mode,
             **football,
             "price_check": price,
         }
