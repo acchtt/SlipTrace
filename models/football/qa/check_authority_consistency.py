@@ -177,6 +177,40 @@ require(
     "USER_AFRICA_DOMESTIC_EXCLUSION",
 )
 require(
+    "models/football/stages_v4/league_registry.py",
+    "UEFA_YOUTH_LEAGUE_NAMES",
+    '"YOUTH_CONTINENTAL"',
+    "UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED",
+    "UNAPPROVED_YOUTH_COMPETITION",
+)
+require(
+    "models/football/stages_v4/cheap_sweep_filters.py",
+    "UEFA_YOUTH_LEAGUE_2026_27",
+    "UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH",
+)
+require(
+    "models/football/stages_v4/test_stage.py",
+    "test_uefa_youth_league_is_specific_conditional_exception",
+    "test_verified_uefa_youth_league_can_enter_goal_first_shortlist",
+    "UNAPPROVED_YOUTH_COMPETITION",
+)
+require(
+    "models/football/stages_v4/test_cheap_sweep_filters.py",
+    "test_uefa_youth_league_gets_specific_research_priority_not_auto_goal_positive",
+)
+require(
+    "models/football/stages_v4/SWEEP.md",
+    "FULL SENIOR FIXTURE SET + UEFA YOUTH LEAGUE EXCEPTION",
+    "UEFA Youth League safeguard (2026-10-13)",
+    "Generic youth competitions remain excluded",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "Standing /sweep inclusion exception (2026-10-13)",
+    "Include **UEFA Youth League**",
+    "Do not infer that other youth competitions are approved",
+)
+require(
     "models/football/stages_v4/test_stage.py",
     "test_african_domestic_competitions_are_excluded_but_continental_remains",
     "test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research",
