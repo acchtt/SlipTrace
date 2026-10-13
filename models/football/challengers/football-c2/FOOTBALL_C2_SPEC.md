@@ -142,6 +142,12 @@ These checks use C2 route, carrier, chance and upper-tail evidence, never
 Football C's completion/stall ratings. User exceptions do not bypass them.
 C2 remains shadow-only; this change is prospective, not a backdated regrade.
 
+**2026-10-13 independence lock:** C2 does not inherit Football C's prospective
+O2.25 HIGH-opponent-leakage counterweight. Shared matchup facts may affect
+C2's own route reliability, chance quality and carrier grades, but C2 still
+clears its frozen route-quality selection floor and clearing-goal proof
+independently.
+
 ### 6.2 Protected-line inversion guard
 
 A C2-WATCH may not become a direct BET merely because O2.0/O2.25 is available at an attractive price.
