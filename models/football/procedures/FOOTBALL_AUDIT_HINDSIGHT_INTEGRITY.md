@@ -1,274 +1,208 @@
-# Football Audit Hindsight Integrity
+# Football audit hindsight integrity
 
-**Status:** mandatory post-slate audit contract  
-**Scope:** Football C official, Football C2 shadow, engine comparison, and historical version-faithful audits  
-**Purpose:** prevent outcome knowledge from rewriting frozen football judgments or exposure semantics.
+## Purpose
 
-Also apply:
-- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
-- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`.
+Audit frozen Football C/C2 decisions without using later results to rewrite
+what was known prospectively.
 
-## 1. Three-layer audit record
+This is the current audit contract. Historical V1–V3 records must still be
+interpreted under the model/workflow version that actually produced them.
 
-Every audited fixture must keep three layers separate.
+## Three-layer record
 
-### A. FROZEN STATE — immutable
+Every material fixture keeps these layers separate.
 
-Copy the exact prospectively frozen values. Never edit them after HT/FT:
+### FROZEN
 
-- C board state and rank;
-- FOLLOW / RESERVE / STOP lane;
-- C supported line;
-- C2 state/rank/supported line when valid;
-- home/away route grades;
-- carrier state;
-- completion mode;
-- burden-completion quality;
-- continuation quality;
-- opponent leakage;
-- burden stall risk;
-- failure mode / suppression state;
-- H2H state;
-- tournament-incentive state;
-- Step-2 C action and exact quote;
-- frozen WAIT target line/minimum odds when C action is C-WAIT;
-- C2 shadow action and exact quote where applicable;
-- engine outputs.
+Copy the exact prospective state:
 
-Canonical enum vocabulary is exact:
-- grades: `LOW / MEDIUM / HIGH`;
-- routes: `WEAK / USABLE / STRONG`;
-- completion modes: `NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED`.
-
-Do not invent compound grades such as:
-- `MEDIUM-HIGH`;
-- `LOW-MEDIUM`;
-- `HIGH+`;
-- `STRONG-ish`.
-
-If a historical model used another explicit enum, preserve that historical enum exactly.
-
-### B. OBSERVED OUTCOME — descriptive, not a re-grade
-
-Record what actually happened:
-
-- HT / FT score;
-- goal timing when known;
-- settlement of the exact recorded line/odds;
-- whether the frozen completion path materialized;
-- whether continuation materialized after key score states;
-- whether the carrier self-funded;
-- whether the opponent route produced;
-- whether a stall scoreline occurred.
-
-Examples:
-
-`OBSERVED: 2-0 HT -> 2-0 FT; no further goal after the two-goal cushion.`
-
-`OBSERVED: frozen CARRIER_LED path cleared through a 3-0 carrier output.`
-
-Do not convert observed outcome into a new retrospective grade.
-
-Wrong:
-`Continuation should have been MEDIUM.`
-
-Correct:
-`Frozen continuation = HIGH; observed continuation did not materialize after 2-0.`
-
-### C. AUDIT DIAGNOSIS — evidence-bounded
-
-Classify what the outcome means without rewriting the frozen state.
-
-Allowed diagnosis classes:
-
-- `MODEL FALSE POSITIVE` — prospectively selected/supportive thesis failed;
-- `MODEL FALSE NEGATIVE` — prospectively rejected thesis later cleared;
-- `FOLLOW PRIORITY MISS` — same-block ordering/lane allocation was prospectively inferior;
-- `PROCESS MISS` — mandatory evidence/gate/procedure was absent or violated;
-- `EXECUTION MISS` — decision was valid but execution/persistence/price handling failed;
-- `OPERATIONAL OPPORTUNITY COST` — STOP/deferred match later cleared;
-- `NO OFFICIAL EXPOSURE` — assessment existed but no official C exposure;
-- `NO RETROSPECTIVE MODEL CHANGE` — outcome is informative but does not prove a prospectively detectable model error.
-
-A more specific existing integrity tag such as `TOURNAMENT INCENTIVE MISS` may accompany these.
-
-## 2. When may an audit say the original read was wrong?
-
-Only when the audit can point to **contemporaneous evidence available before the freeze** that was:
-
-- omitted;
-- misread;
-- contradicted by the frozen grade;
-- or handled contrary to the active model rules.
-
-Required format:
-
-`PRE-FREEZE EVIDENCE MISS — <specific frozen/pre-freeze evidence> -> <specific rule/grade conflict>`
-
-The eventual FT result alone is never proof that a frozen grade "should have been" different.
-
-If the diagnosis depends mainly on FT/HT knowledge:
-
-`RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE`
-
-This hypothesis may motivate a prospective observer/new model patch, but it cannot rewrite the audited fixture.
-
-## 3. Mechanism claims after kickoff
-
-Scoreline alone does not prove why a team stopped attacking, why a route disappeared, or what tactical intent changed.
-
-Statements such as:
-- "they had no reason to keep forcing";
-- "the second route disappeared";
-- "the favorite shut the game down";
-
-require contemporaneous live/event/stat/tactical evidence if presented as mechanism facts.
-
-Without such evidence, use descriptive language:
-
-`The score path ended 2-0; the frozen continuation thesis did not materialize.`
-
-Do not invent causal match narratives from the final score.
-
-## 4. Exposure and P/L separation
-
-Keep these concepts distinct:
-- model-accounting bet/P&L;
-- operational official C exposure/Website Pick;
-- actual user execution/P&L;
-- C2 shadow accounting.
-
-### Model decision
-
-A persisted `C-BET` or `C-WAIT` is an official Football C decision. The action label remains immutable.
-
-### Official Football C exposure / model P&L
-
-Count:
-- C-BET as direct model exposure at its exact published quote;
-- unresolved C-WAIT as assumed model exposure at its frozen target line/minimum odds;
-- user-confirmed C-WAIT at the exact corresponding user line/odds/stake while preserving the original WAIT target.
-
-The default C-WAIT exposure basis is `WAIT_ASSUMED`. It remains official model exposure unless the user explicitly states that the target line never reached.
-
-If the user states the target line never reached:
-`WAIT_NOT_REACHED — USER_DECLARED — NO MODEL EXPOSURE / NO MODEL P&L`
-
-Do not infer this state from absent market-history data or lack of a bet slip.
-
-User personal execution is **not required** for model P&L under the WAIT-assumed convention.
-
-If a C-BET exists but official publication/exposure failed:
-
-`OFFICIAL C DECISION — NO OFFICIAL EXPOSURE / NO MODEL P&L`
-
-### Actual user P&L
-
-Count only exact user bet-slip execution.
-
-A user may:
-- not place an official C pick;
-- place a different line/odds;
-- place a non-official bet.
-
-Therefore:
-`OFFICIAL C MODEL P&L != ACTUAL USER P&L`
-
-Never use "the user did not bet" to erase an already-published or WAIT-assumed official model loss/win.
-
-Never assign official model P&L to:
-- C-PASS;
-- C-WAIT explicitly marked `WAIT_NOT_REACHED`;
-- C2 shadow;
-- assessment-only cases.
-
-C2 WAITs may receive **shadow counterfactual P&L** at their frozen target/minimum odds under the same assumed-reach convention; this is never official exposure.
-
-## 5. Required fixture audit format
-
-For every material audited fixture use:
-
-`FROZEN:`
 - model/version;
-- board state/rank/lane;
-- exact supported line;
-- exact completion/continuation/stall grades;
-- exact Step-2 action/quote when any.
+- C board state/rank/lane/supported line;
+- C2 shadow state/rank/supported line when lawfully frozen;
+- model-owned route/completion/continuation/leakage/stall evidence;
+- evidence epoch;
+- exact observed/executable quote when one existed;
+- C/C2 action;
+- WAIT target/minimum and reachability basis when the model actually returned
+  WAIT;
+- persistence/execution status.
 
-`OBSERVED:`
-- HT/FT;
-- exact settlement if an official exposure existed;
-- which frozen completion/continuation claim materialized or failed to materialize.
+Never rewrite these after kickoff or FT.
 
-`DIAGNOSIS:`
-- one or more canonical diagnosis tags;
-- prospectively detectable evidence miss, if proven;
-- otherwise `RETROSPECTIVE HYPOTHESIS ONLY`.
+### OBSERVED
 
-`P&L STATUS:`
-- official C model exposure/P&L + exposure basis;
-- actual user execution/P&L;
-- C2 shadow separately.
+Record only verified later facts:
 
-## 6. Example — 2-0 stall
+- HT/FT regulation score;
+- goal/event timing when known;
+- settlement of a genuinely recorded exposure;
+- whether the frozen football mechanism/continuation did or did not
+  materialize;
+- actual user execution facts.
 
-Do not write:
+Do not infer final score from an in-play screenshot.
 
-`Continuation was MEDIUM-HIGH and should have been MEDIUM; the second route failed, so the pre-match read was wrong.`
+### DIAGNOSIS
 
-Write:
+Classify what the observed result means without changing the frozen state.
 
-`FROZEN: continuation=HIGH, stall risk=LOW, supported line=O2.5.`
+Useful tags:
 
-`OBSERVED: 2-0 HT -> 2-0 FT; no third goal; the frozen continuation path did not materialize.`
+- MODEL FALSE POSITIVE
+- MODEL FALSE NEGATIVE
+- FOLLOW PRIORITY MISS
+- PROCESS MISS
+- EXECUTION MISS
+- OPERATIONAL OPPORTUNITY COST
+- NO OFFICIAL EXPOSURE
+- NO RETROSPECTIVE MODEL CHANGE
 
-Then choose one:
+A later score alone is not proof that a frozen grade should have been
+different.
 
-- if contemporaneous pre-freeze evidence clearly contradicted HIGH continuation:
-  `DIAGNOSIS: MODEL FALSE POSITIVE + PRE-FREEZE EVIDENCE MISS — <evidence>.`
+To claim a prospectively detectable model error, identify the pre-freeze
+evidence and the rule it contradicted.
 
-- otherwise:
-  `DIAGNOSIS: MODEL FALSE POSITIVE; RETROSPECTIVE HYPOTHESIS ONLY — possible two-goal control/stall mechanism for future prospective testing.`
+Otherwise use:
 
-The second form is the default when only outcome information reveals the failure.
+RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE
 
-## 7. Deterministic audit record
+## Causal claims
 
-Every material fixture audit must also produce a structured `FOOTBALL_AUDIT_RECORD` and pass:
+Scoreline alone does not prove tactical intent, route disappearance or why a
+team stopped attacking.
 
-`python models/football/engine/cli.py audit --input <payload.json>`
+If the causal claim is not supported by contemporaneous event/stat/tactical
+evidence, describe only what happened.
 
-The legacy C audit validator enforces:
-- exact canonical frozen grades;
-- no compound grade vocabulary;
-- explicit official C exposure state and basis;
-- C-WAIT default `WAIT_ASSUMED` consistency;
-- explicit user-confirmed or user-declared-not-reached WAIT reconciliation;
-- official C model P/L only when official exposure exists;
-- actual user P/L only when user execution exists;
-- contemporaneous evidence note whenever `pre_freeze_evidence_miss=true`.
+Example:
 
-In addition, every current C/C2 fixture must pass:
+FROZEN: continuation=HIGH.
 
-`python models/football/engine/model_bet_accounting_cli.py --input <model_accounting.json>`
+OBSERVED: 2-0 HT -> 2-0 FT; no third goal.
 
-The active-model accounting validator enforces:
-- WATCH = own supported line @1.65, 1u;
-- WAIT = own target/minimum odds;
-- direct BET = exact quote;
-- one accounting bet per model/fixture;
-- C official model-accounting vs C2 shadow separation.
+DIAGNOSIS: MODEL FALSE POSITIVE; continuation did not materialize.
+RETROSPECTIVE HYPOTHESIS ONLY for any proposed tactical cause.
 
-A failing legacy audit record or active-model accounting record blocks finalization of the prose audit.
+## Current exposure and P/L semantics
 
-## 8. No-backfill rule
+Keep four things separate:
 
-Never overwrite Airtable frozen Step-1/Step-2 fields because of an audit.
+- model decision;
+- official C publication/exposure;
+- C2 shadow accounting;
+- actual user execution/P&L.
 
-Any new audit hypothesis belongs in:
-- audit notes;
-- a prospective observer;
-- a challenger/new version;
-- or a separately versioned model patch.
+### Direct strict C BET
 
-Historical state remains immutable.
+A genuinely executed/persisted strict C BET may be counted for model
+performance at the exact observed executable line/odds.
+
+If publication/exposure itself failed, label that separately.
+
+### WAIT
+
+Current prospective policy:
+
+**unresolved WAIT creates no model exposure and no model P/L.**
+
+A WAIT target is a plan, not proof the line was reached.
+
+Only count a WAIT when reached terms were actually confirmed under the active
+accounting contract. Use the confirmed line/odds; do not synthesize the model
+minimum price as if it were executed.
+
+Do not create WAIT_ASSUMED or SHADOW_WAIT_ASSUMED for new/current records.
+
+Historical records genuinely frozen under an older assumed-WAIT convention
+remain historical artifacts. Do not rewrite them, but label the old accounting
+basis explicitly.
+
+### WATCH
+
+WATCH is classification only and creates no synthetic model exposure.
+
+Do not create WATCH_ASSUMED or SHADOW_WATCH_ASSUMED for current records.
+
+### C2
+
+C2 remains shadow-only. A shadow direct decision can be analyzed only when its
+actual prospective terms were frozen. C2 never becomes official user exposure.
+
+### Actual user P/L
+
+Physical user P/L comes only from explicit user-confirmed rows in
+Actual Bets — Current.
+
+Website Picks, model actions, screenshots, WATCH and WAIT do not prove the user
+placed a wager.
+
+## V4 process audit
+
+For current V4 records check:
+
+- complete source-date-surface acquisition/provenance;
+- exclusions/registry/discovery correctness;
+- source-backed GOAL_PRIORITY qualification;
+- original-source replay at /rank;
+- fresh full-cohort kickoff/status verification;
+- no retroactive prematch ranking;
+- C/C2 common factual epoch and independent policy fields;
+- exact Step1 persistence/readback;
+- routine /xi use of the verified rank+persistence receipt, or explicit
+  exception authority;
+- quote-free C/C2 football assessment;
+- exact screenshot/observed quote preservation with no replacement search;
+- canonical observed-quote policy vs strict execution authorization;
+- one Decision State persistence/readback;
+- strict publication freshness only when an official action was actually
+  eligible;
+- Actual Bets separation.
+
+Routine /xi does not need to repeat Step1 original-source replay.
+
+Started fixtures use the same current football assessment path. There is no
+current standalone kickoff-transition state machine.
+
+## Historical workflow fidelity
+
+For old V1–V3 records, reconstruct only the historical controls that genuinely
+existed in that frozen version.
+
+Do not require current V4 to satisfy old work_ready, capacity, repair, ZIP or
+replenishment contracts.
+
+Do not backfill C2/C3/C4 decisions that never executed prospectively.
+
+## Settlement
+
+Use the exact frozen line/odds and regulation-time result unless the frozen
+market explicitly specified another settlement basis.
+
+Quarter-line settlement must remain exact; e.g.:
+
+- O2.25 with 2 goals = half loss;
+- O2.75 with 3 goals = half win/half push;
+- O3.0 with 3 goals = push.
+
+## Audit output
+
+For each material fixture show:
+
+FROZEN
+OBSERVED
+DIAGNOSIS
+P&L STATUS
+
+Then report slate-level:
+
+- source/funnel coverage;
+- C official results;
+- C2 shadow comparison on valid rows;
+- process/execution misses;
+- recurring model diagnoses;
+- model accounting only from genuine prospective terms;
+- actual user P/L separately;
+- explicit limitations.
+
+Never treat an incomplete/missing shadow execution as PASS or a no-bet.
