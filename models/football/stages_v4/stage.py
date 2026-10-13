@@ -461,7 +461,10 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
         manifest = sweep_receipt.get("goal_screen_manifest")
         if queue and (
             not isinstance(manifest, dict)
-            or manifest.get("priority_profile") != "GOAL_SIGNAL_FIRST_V1"
+            or manifest.get("priority_profile")
+            not in {"GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2"}
+            or manifest.get("ordered_eligible_match_ids")
+            != sweep_receipt.get("research_order")
         ):
             raise StageError("goal-first ranked source missing genuine goals-priority manifest")
     frozen = {x["match_id"]: x for x in queue}
