@@ -360,8 +360,8 @@ Run `python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
 using independently frozen C and C2 football inputs from one evidence epoch.
 
 - With no price, complete `stage=football_assessment` and return both football reads immediately.
-- With a user screenshot, use only that exact screenshot observation. Any ACT/WAIT/PASS comparison is conditional and cannot authorize exposure by itself.
-- A strict prematch price decision is a separate same-command subdecision only when genuinely current non-screenshot executable evidence and all required guards exist.
+- With a user screenshot, use only that exact screenshot observation. Any ACT/WAIT/PASS comparison is conditional and cannot authorize exposure by itself. **A PREMATCH screenshot may predeclare `WAIT — LIVE DECAY` without full priced-decision payloads when that model is FOCUS, the football thesis is intact, its frozen supported burden is funded, and the observed line is above support by at most +0.75.** Target the model's supported line at minimum 1.65 and require state-integrity recheck after any material event. Larger gaps are not declared reachable.
+- A strict prematch price decision is a separate same-command subdecision only when genuinely current non-screenshot executable evidence and all required guards exist; when present it supersedes the provisional assessment decay plan.
 - If the fixture has started, continue quote-free live football assessment immediately. Current V4 may compare a verified in-play quote with supported burdens, but it has no deterministic live priced-action engine and therefore cannot authorize a new live priced action.
 - Missing independent C2 input means the C+C2 assessment is incomplete; never synthesize C2 from C.
 
