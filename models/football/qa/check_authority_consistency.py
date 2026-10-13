@@ -212,6 +212,56 @@ for rel in (
         "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN",
     )
 
+# Current audit/source docs must not resurrect retired operational semantics.
+require(
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
+    "unresolved WAIT -> no exposure",
+    "Routine /xi does not repeat the rank-time source replay",
+    "Actual Bets — Current",
+)
+forbid(
+    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
+    "default C-WAIT exposure basis",
+    "WAIT_ASSUMED consistency",
+    "kickoff-transition state machine",
+)
+require(
+    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
+    "unresolved WAIT creates no model exposure and no model P/L",
+    "WATCH is classification only",
+    "Actual Bets — Current",
+)
+forbid(
+    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
+    "The default C-WAIT exposure basis is",
+    "same assumed-reach convention",
+)
+require(
+    "models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md",
+    "discovery_goal_gate.py",
+    "goals_first_intake.py",
+    "There is no second legacy prescreen pass",
+)
+forbid(
+    "models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md",
+    "goal_route_prescreen_cli.py",
+    "big_five_route_screen",
+    "dutch_route_screen",
+)
+require(
+    "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md",
+    "not current production authority",
+    "There is no active work_ready flag",
+)
+require(
+    "models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md",
+    "Historical coverage controller — retired",
+    "There is no active:",
+    "work_ready",
+)
+# The word work_ready is allowed only in these two retirement notices, never in
+# active launchers/CI.
+
 # Production CI must not execute retired V1-V3 mechanics.
 workflow = ".github/workflows/football-step2-research-gate.yml"
 forbid(
