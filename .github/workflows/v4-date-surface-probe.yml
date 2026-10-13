@@ -1,5 +1,8 @@
 name: V4 date-surface collector diagnostics
 on:
+  pull_request:
+    paths:
+      - .github/workflows/v4-date-surface-probe.yml
   push:
     paths:
       - .github/workflows/v4-date-surface-probe.yml
