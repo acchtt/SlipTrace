@@ -591,6 +591,31 @@ class C2BridgeTests(unittest.TestCase):
         # C has not inherited C2's independently researched leakage grade.
         self.assertFalse(low_burden_leakage_goal3_funded(a))
 
+    def test_c2_o225_leakage_is_monotonic_with_positive_upper_tail(self):
+        base = dict(
+            supported_line=2.25,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            c2_opponent_leakage=Grade.HIGH,
+            c2_opponent_leakage_basis="Independent opponent leakage evidence",
+        )
+        without_tail = assessment(**{**base, "independent_upper_tail": False})
+        with_tail = assessment(**{**base, "independent_upper_tail": True})
+        self.assertTrue(c2_low_burden_leakage_goal3_funded(without_tail))
+        self.assertTrue(c2_low_burden_leakage_goal3_funded(with_tail))
+        self.assertTrue(c2_clearing_goal_funded(without_tail, 2.25))
+        self.assertTrue(c2_clearing_goal_funded(with_tail, 2.25))
+        self.assertEqual(c2_selection_floor(without_tail)[0], SelectionFloor.CLEAR)
+        self.assertEqual(c2_selection_floor(with_tail)[0], SelectionFloor.CLEAR)
+
     def test_c2_leakage_never_upgrades_o250_or_bridge(self):
         a = assessment(
             supported_line=2.25,
