@@ -362,6 +362,44 @@ require(
     "models/football/CURRENT_MODEL.md",
     "Active follow-on C2 calibration (2026-10-13)",
     "c2_opponent_leakage_basis",
+    "C2 opponent leakage grade and C2-specific leakage basis",
+)
+require(
+    "models/football/stages_v4/RANK.md",
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
+    "never copy C's `opponent_leakage`",
+    "omit BOTH fields",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
+    "Supply BOTH or neither",
+    "do not manufacture the missing evidence",
+)
+require(
+    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
+    "C2 model-owned evidence now also includes",
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
+    "Absence of both fields is lawful",
+)
+require(
+    "models/football/engine/schema.json",
+    "\"c2_opponent_leakage\"",
+    "\"c2_opponent_leakage_basis\"",
+)
+require(
+    "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md",
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
+    "Engine C2 Result",
+    "No dedicated Airtable columns are required",
+)
+forbid(
+    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+    "No changes to C/C2 model thresholds",
 )
 
 # 3. C2 must have genuinely separate policy plumbing.

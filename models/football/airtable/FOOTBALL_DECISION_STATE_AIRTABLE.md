@@ -106,7 +106,13 @@ Football C owns:
 Football C2 owns:
 - route-quality recheck;
 - C2 supported line;
+- optional independently researched `c2_opponent_leakage` plus `c2_opponent_leakage_basis`, supplied together when evidenced;
 - C2 shadow action.
+
+The C2 leakage pair is preserved inside the canonical `Engine C2 Result`
+JSON/readback. No dedicated Airtable columns are required to activate the
+model rule, and absence of dedicated columns must never cause reconstruction
+from C's leakage field.
 
 Never copy C's supported line/action into C2.
 

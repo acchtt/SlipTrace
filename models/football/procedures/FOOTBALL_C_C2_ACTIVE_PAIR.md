@@ -17,6 +17,13 @@ Historical C3/C4 records remain immutable audit history. Never delete or rewrite
 
 C and C2 receive the same prospectively frozen factual evidence epoch. Their model-owned fields, supported burdens, board states and actions remain independent. Never manufacture a missing C2 state from C.
 
+C2 model-owned evidence now also includes the optional paired fields
+`c2_opponent_leakage` and `c2_opponent_leakage_basis`. They must be
+independently researched from current opponent-specific evidence and supplied
+together; they are never aliases for C's `opponent_leakage` or
+completion/continuation/stall diagnostics. Absence of both fields is lawful
+but cannot activate the C2 O2.25 leakage certificate.
+
 ## V4 exception supersession for football-only reads
 
 Explicit `/xi exception` can execute independently sourced quote-free C+C2 football without a V4 board or V1–V3 packaged Step0. Missing genuine C2 input is disclosed as incomplete; C is not copied into C2. The older pair-input persistence before **priced publication** remains mandatory for a genuine betting action, not a reason to refuse a football discussion or defer a paired quote-free result. See the new concise current `02_NORMAL_CHAT_XI_ODDS.md`. User quote not required for football-only analysis.
@@ -27,7 +34,7 @@ Every user-declared /xi exception is a C+C2 assessment. "all models" now means t
 
 Before issuing any football verdict:
 1. freeze the common fixture/XI/research/tournament evidence and current score/minute when live;
-2. freeze both C and C2 model-owned football inputs and supported lines;
+2. freeze both C and C2 model-owned football inputs and supported lines, including BOTH C2 leakage fields when independently evidenced;
 3. execute deterministic quote-free C and C2 validation from that same epoch;
 4. persist/read back both football outputs;
 5. only then publish the combined football verdict.

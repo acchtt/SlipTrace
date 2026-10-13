@@ -146,5 +146,7 @@ claims, prices, approvals or outcomes. Full frozen provenance and
 engine status remain available for technical/audit views, not default
 user-facing clutter. No extra form, jargon or mandatory screenshots.
 
-**Scope:** workflow routing only. No changes to C/C2 model thresholds,
-frozen historical boards, sweep, source checks, user Actual Bets or P/L.
+**Scope:** workflow routing plus the currently active prospective C/C2
+calibrations defined by model authority. This procedure does not independently
+invent or relax model thresholds. Frozen historical boards, sweep/source
+checks, user Actual Bets and P/L remain unchanged.
