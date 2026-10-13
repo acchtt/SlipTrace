@@ -45,6 +45,8 @@ research**, never acquisition. `PRIMARY_RESEARCH`, `SECONDARY_RESEARCH`,
 priorities only. They cannot hard-exclude a valid competitive fixture and
 cannot override a fresh source-backed `DISCOVERY_GOAL_QUALIFIED` signal.
 
+**UEFA Youth League safeguard (2026-10-13):** `UEFA Youth League` / recognized provider aliases are an explicit `CONDITIONAL` youth exception. They receive `SPECIAL_RESEARCH / UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH`, require fixture-specific recent-goal evidence, and still require the current competition path/format/incentive state to be understood at assessment. Competition identity alone never makes the match goal-positive. Generic youth competitions remain excluded.
+
 **Big Five safeguard:** Premier League, Bundesliga, La Liga, Serie A and
 Ligue 1 do not enter the active deep-research list merely because they are
 `ROUTINE`. With no separate current team/event prior they default to
