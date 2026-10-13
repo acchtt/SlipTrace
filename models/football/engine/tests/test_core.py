@@ -140,6 +140,24 @@ class FollowThroughTests(unittest.TestCase):
         self.assertTrue(low_burden_leakage_goal3_funded(a))
         self.assertTrue(clearing_goal_funded(a))
 
+    def test_o225_leakage_counterweight_does_not_upgrade_clean_medium_medium_shape(self):
+        a = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(low_burden_leakage_goal3_funded(a))
+        self.assertFalse(clearing_goal_funded(a))
+
     def test_leakage_counterweight_never_extends_to_o250_or_higher(self):
         a = assessment(
             supported_line=2.5,
