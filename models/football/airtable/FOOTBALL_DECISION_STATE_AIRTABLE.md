@@ -1,323 +1,135 @@
-> **Live Airtable routing effective 2026-10-11:** base `appbzxqXYf0lKfD4P`, new operational table/field IDs below. Original base `appWyZJjitSBATXAU` remains read-only historical archive. For full 368-field translation consult [ACTIVE_BASE_ROUTING_20261011.md](ACTIVE_BASE_ROUTING_20261011.md). Do not write to archive.\n\n# Football Decision States — Airtable Contract
+# Football v2 — Decision States
 
-**Status:** ACTIVE  
-**Base:** `SlipTrace Football Decision Control`  
-**Table:** `Decision States`  
-**Table ID:** `tblzMyYuDTi1UMd66`  
-**Official model:** Football C  
-**Only active shadow model:** Football C2 — SHADOW
+Decision States stores the current /xi or /live assessment epoch.
 
-This table stores material post-board assessment epochs. Historical Football A/C3/C4 rows keep the model/version and fields that actually produced them. Historical compatibility does not reactivate retired models.
+Active base/table routing comes from ACTIVE_MODEL_ROUTING.json.
 
-## 1. Current authority
+## 1. Identity
 
-For every **new/current** assessment:
-- official model = Football C;
-- active shadow = Football C2 — SHADOW;
-- only C may create official exposure / Website Picks;
-- C2 is comparison-only;
-- C3/C4 are retired from new/current execution;
-- deterministic Python is validation/accounting, not decision authority.
+Every row must identify:
 
-Current semantics come from:
-- `CURRENT_MODEL.md`;
-- `FOOTBALL_C_C2_ACTIVE_PAIR.md`;
-- `02_NORMAL_CHAT_XI_ODDS.md`;
-- `03_NORMAL_CHAT_LIVE.md`.
-
-Legacy Football A compilers and retired challenger files may be read only for historical audit fidelity.
-
-## 2. Frozen-board dependency
-
-Before Step 2, resolve the fixture against the exact frozen current board in Daily Coverage.
-
-Preserve:
-- canonical fixture identity;
-- kickoff;
-- C state/rank/lane;
-- C supported burden;
-- C completion/continuation/stall diagnostics;
-- C2 state/rank;
-- C2 supported burden;
-- operational viability/reliability snapshot;
-- tournament-incentive state;
-- common frozen evidence epoch.
-
-A later Step-2/live epoch may downgrade or invalidate the current thesis but must never rewrite the frozen Step-1 board.
-
-If persistence conflicts with the original frozen board:
-
-`PERSISTENCE SYNC FAULT — FROZEN FOOTBALL C BOARD PRESERVED`
-
-## 3. Current C + C2 fields
-
-Persist where applicable:
 - Assessment ID;
-- Match / Competition / canonical fixture ID;
-- Model Version;
-- Assessment Time;
-- Minute / Score / evidence epoch;
-- C Action;
-- C Supported Line;
-- C2 Supported Line;
-- C2 Shadow Action;
-- evaluated line / odds;
-- XI state;
-- post-XI research status/note;
-- market-history trace;
-- H2H material state/basis;
-- tournament-incentive applicability + VERIFIED recheck state when required;
-- current route/carrier/failure evidence;
-- exact reason/blocker;
-- Engine Execution Status;
-- Engine Source Revision;
-- Engine C Result;
-- Engine C2 Result;
-- Engine Failure Reason when applicable;
-- active-model accounting result/revision.
+- canonical match / fixture ID;
+- competition;
+- assessment time;
+- evidence epoch;
+- current fixture status;
+- score/minute for started fixtures.
 
-The physical table may still contain C3/C4 columns. For new rows, leave retired-model fields blank unless a migration explicitly documents otherwise.
+Never update an unrelated old-base record because names happen to match.
 
-## 4. Common evidence + model-owned policy
+## 2. Frozen Step-1 reference
 
-C and C2 share the same current factual evidence epoch.
+For a routine V4 match retain the verified Step-1 identity:
 
-Shared facts include:
-- fixture status;
-- XI/personnel;
-- route/carrier facts;
-- current failure/suppression facts;
-- H2H state;
-- tournament incentive;
-- market-history trace;
-- current quote.
+- Run/Coverage identity;
+- C board state/rank/supported line/lane;
+- C2 board state/rank/supported line;
+- model_evidence_sha256 or equivalent verified rank reference.
 
-Model-owned state remains separate.
+Do not replay or rewrite the Step-1 board inside Decision States.
 
-Football C owns:
-- completion recheck;
-- current completion mode/quality;
-- continuation;
-- opponent leakage;
-- stall risk;
-- C supported line;
-- C action.
+## 3. Football assessment
 
-Football C2 owns:
-- route-quality recheck;
-- C2 supported line;
-- optional independently researched `c2_opponent_leakage` plus `c2_opponent_leakage_basis`, supplied together when evidenced;
-- C2 shadow action.
+Persist the exact current C and C2 football result JSON.
 
-The C2 leakage pair is preserved inside the canonical `Engine C2 Result`
-JSON/readback. No dedicated Airtable columns are required to activate the
-model rule, and absence of dedicated columns must never cause reconstruction
-from C's leakage field.
+Football C and C2 share the factual evidence epoch but own policy fields
+independently.
 
-Never copy C's supported line/action into C2.
+C owns its completion/continuation/leakage/stall diagnostics and official
+action.
 
-If C2 cannot be lawfully frozen or executed from the same current evidence epoch:
+C2 owns its route-quality state, supported line, optional independent
+c2_opponent_leakage + c2_opponent_leakage_basis and shadow action.
 
-`C+C2 EXCEPTION INCOMPLETE — <exact reason>`
+Never reconstruct missing C2 model fields from C.
 
-A completed C-only active-roster exception is invalid.
+## 4. Assessment execution status
 
-## 5. Required current Step-2 evidence
+Use XI Assessment Execution Status.
 
-Before a completed current decision:
-- `xi_status = CONFIRMED / RELIABLE`;
-- `fixture_status = PREMATCH_CONFIRMED`;
-- fresh post-XI football research attempted;
-- non-empty `post_xi_research_note`;
-- market-history attempt;
-- H2H recheck;
-- tournament-incentive VERIFIED recheck when applicable;
-- current quote revalidated;
-- C `completion_rechecked = true`;
-- C2 `c2_route_quality_rechecked = true`.
+Active values:
 
-A deterministic contract rejection is not a Python/runtime failure.
+- EXECUTED_C_C2_FOOTBALL_ONLY
+- EXECUTED_C_C2_FOOTBALL_AND_PRICE
+- ENGINE_FAILED_AFTER_ATTEMPT
 
-If the fixture already started, route to live rather than forcing a prematch Decision State.
+If football assessment succeeded but an optional strict price gate failed,
+store EXECUTED_C_C2_FOOTBALL_ONLY and the price blocker in normal notes.
+Do not falsely label the model engine failed.
 
-## 6. Current decision order
+## 5. Observed price / screenshot
 
-Football C:
+An observed user screenshot is normal quote evidence, not an executable offer.
 
-`FROZEN C BOARD -> AUTHORIZATION -> STATUS/XI -> POST-XI RESEARCH -> MARKET HISTORY -> H2H/TOURNAMENT RECHECK -> C COMPLETION RECHECK -> QUOTE REVALIDATION -> C ACTION -> PERSIST`
+Persist where available:
 
-Football C2:
+- evaluated line;
+- evaluated odds;
+- bookmaker/source label;
+- original attachment/capture reference;
+- original capture time if known.
 
-`FROZEN C2 BOARD + OWN SUPPORTED LINE -> SAME CURRENT EVIDENCE -> C2 ROUTE-QUALITY RECHECK -> C2 SHADOW ACTION -> PERSIST`
+Do not use a special USER_SCREENSHOT_ONLY_JSON marker in Evidence Summary.
 
-Both active outputs must belong to the same evidence epoch.
+Observed quote ACT/WAIT/PASS remains conditional and non-executable.
 
-## 7. Atomic engine execution
+## 6. WAIT
 
-Primary:
+Persist model WAIT target/minimum and its current reachability basis when the
+model actually returns WAIT.
 
-`python xi_portable.py pair --c <c.json> --c2 <c2.json>`
+WAIT is not exposure merely because it exists in Decision States.
 
-Required completed status:
+Do not write WAIT_ASSUMED or SHADOW_WAIT_ASSUMED for new assessments.
 
-`EXECUTED_C_C2_PAIR`
+## 7. Strict executable price decision
 
-Dedicated fields:
-- `Engine Execution Status` — `fldbjgOeImaklVa4x`
-- `Engine Source Revision` — `fldFunnwbIjaSG693`
-- `Engine C Result` — `fld3PK7xWCu2MhD0u`
-- `Engine C2 Result` — `fldUb2G763QfHBay9`
-- `Engine Failure Reason` — `fld71HYlto4Kavp4C`
+A strict prematch C/C2 decision requires real current execution evidence.
 
-Historical compatibility field:
-- `Engine C3 Result` — `fldTNWjwKJjS4Kpm5`
+Persist:
 
-Do not populate Engine C3 Result for a new current assessment.
+- exact current quote;
+- C strict result;
+- C2 strict shadow result;
+- C action;
+- C2 shadow action;
+- engine source revision;
+- evidence epoch.
 
-Completed current statuses:
-- `EXECUTED_C_C2_PAIR`
-- `FAILED_AFTER_ATTEMPT`
+After write, independently refetch once. The final publication guard compares
+that readback to the already executed pair and confirms quote/fixture/evidence
+freshness. It does not rerun C/C2.
 
-`FAILED_AFTER_ATTEMPT` requires:
-- actual current-turn runtime/repository probes;
-- preserved C and C2 structured inputs;
-- exact command/setup path;
-- exact error.
+## 8. Publication
 
-The old generic:
+Only Football C may create an official Website Pick.
 
-`ENGINE NOT EXECUTED — STRUCTURED INPUT PRESERVED`
+C2 remains shadow-only.
 
-is invalid for current production.
+Observed/screenshot comparisons never publish.
 
-## 8. C official exposure / WAIT bookkeeping
+WATCH and unresolved WAIT never create synthetic Website Pick exposure.
 
-Dedicated fields:
-- `C Exposure Basis` — `fldlWrt2Jo57EwTum`
-- `C Exposure Line` — `fldGtr0ARD0a5NLz8`
-- `C Exposure Odds` — `fldfruIgLhAelQM5w`
-- `WAIT Resolution` — `fldQ5GkoNbUe2TttQ`
-- `WAIT Reconciliation Note` — `fld2GLgfUuHDQDb16`
+## 9. Actual user bets
 
-Current C exposure bases:
-- `DIRECT_BET`;
-- `WAIT_ASSUMED`;
-- `WAIT_USER_CONFIRMED`;
-- `WAIT_NOT_REACHED`;
-- `NONE`.
+Decision States is not the user's betting ledger.
 
-C2 may never create official exposure.
+Only explicit user-confirmed slips belong in Actual Bets — Current. Do not
+interpret C-BET, C-WAIT, Website Pick or screenshot evidence as proof that the
+user placed a wager.
 
-A matching user slip may reconcile C execution to actual line/odds/stake while preserving the frozen model target.
+## 10. Readback
 
-An explicit user statement that the target never reached removes that WAIT exposure layer without rewriting the original C-WAIT decision.
+One assessment write -> one independent readback.
 
-## 9. Active-model accounting
+Verify:
 
-Aggregate fields:
-- `All Model Accounting Result` — `fldNkN7Oage1EawIw`
-- `Model Accounting Revision` — `fldQrBna8TkWGpjPX`
+- active base;
+- exact Assessment ID / match identity;
+- XI Assessment Execution Status;
+- exact C/C2 football result JSON;
+- evaluated line/odds when a quote comparison was persisted;
+- strict pair result when a strict executable decision was persisted.
 
-The aggregate field name is historical. For **new/current** rows, store the active C+C2 result only:
-
-`ACTIVE_C_C2`
-
-Accounting priority:
-
-`DIRECT BET > COUNTABLE WAIT > WATCH > NONE`
-
-C2 accounting is shadow-only.
-
-Historical C3/C4 settlement must use explicit historical-roster mode and must never be injected into a current C+C2 accounting payload.
-
-## 10. Market-history fields
-
-Dedicated fields:
-- `Market History Status` — `fld2UVVJ6JX3k0Z2W`
-- `Market History Open Total` — `fldRDscSEizkR0kQZ`
-- `Market History Pre-XI Total` — `fldK7ob2RBjQoWX9A`
-- `Market History Current Center` — `fldMUewZbx2OrknOw`
-- `Market History Movement` — `fld318qTHCfcgf6tK`
-- `Market Conflict Recheck` — `fldkREQtm7s9gMCEC`
-- `Market History Note` — `fldTlWMXlqLI8dLqV`
-
-These are common evidence for C/C2. Market movement cannot create football structure or exposure authority.
-
-## 11. Website Pick transaction
-
-For C-BET:
-1. persist Decision State;
-2. set C Exposure Basis = DIRECT_BET;
-3. persist exact quote;
-4. publish/reconcile one Website Pick;
-5. verify no duplicate official pick.
-
-For C-WAIT:
-1. persist Decision State;
-2. set C Exposure Basis = WAIT_ASSUMED;
-3. persist deterministic WAIT target/minimum as exposure line/odds;
-4. set WAIT Resolution = ASSUMED_REACHED;
-5. publish/reconcile one Website Pick under the current WAIT compatibility contract;
-6. verify no duplicate official pick.
-
-For C-PASS:
-- persist Decision State with C Exposure Basis = NONE;
-- no official Website Pick.
-
-For C2:
-- persist shadow metadata/accounting only;
-- never Website Pick.
-
-If Decision State succeeds but official Website Pick fails:
-
-`PERSISTENCE SYNC FAULT`
-
-## 12. Live epochs
-
-A goal, red card, major injury, material tactical/mechanism change, or material tournament-incentive change creates a new evidence epoch.
-
-Do not overwrite the prematch/XI epoch.
-
-Persist live advisory changes separately while preserving:
-- original frozen plan;
-- original WAIT accounting state;
-- current score/minute;
-- new quote;
-- material event basis;
-- current C official action;
-- current C2 shadow action.
-
-## 13. Historical C3/C4 fidelity
-
-Historical C3/C4 fields may remain populated only on records that genuinely came from those models' active eras.
-
-Do not:
-- delete those historical values;
-- relabel them as C/C2;
-- use FT/current information to backfill missing retired-model states;
-- treat retired-model fields as required current columns;
-- write new C3/C4 current actions.
-
-Historical retired-model settlement belongs in explicitly historical audit mode.
-
-## 14. Identity / duplicate guard
-
-Use canonical fixture identity.
-
-If two current records disagree materially on fixture identity, kickoff, C state, C2 state, supported burdens, or current exposure:
-
-`COVERAGE IDENTITY CONFLICT — PUBLICATION BLOCKED`
-
-Do not resolve by last-write-wins.
-
-## 15. Step-2 session completeness
-
-A persisted Decision State does not prove the session is complete.
-
-Run the session reconciliation contract and require:
-
-`STEP2 RECONCILIATION STATUS: PASS`
-
-Every due FOLLOW / activated RESERVE / user exception must have exactly one disposition.
-
-Silent omission is a workflow failure.
+If any required field differs, report PERSISTENCE_UNVERIFIED.
