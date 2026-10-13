@@ -254,12 +254,17 @@ Before C/C2 execution it must:
 - execute independent C official and C2 shadow board engines;
 - preserve explicit unranked reasons;
 - persist the ranked cohort and independently refetch it;
-- carry `source_replayed`, `current_fixture_status_checked`,
+- persist and independently refetch the exact per-match C and C2 Step1 engine
+  result JSON, including model-owned evidence such as the optional C2 leakage
+  pair; state/rank/line alone are insufficient;
+- carry `model_evidence_readback_verified`, `model_evidence_sha256`,
+  `source_replayed`, `current_fixture_status_checked`,
   `original_source_sha256` and `status_refresh_sha256` through
   `V4_RANK_PERSISTENCE_VERIFIED`.
 
 Routine `/xi` requires the exact original source/status payloads plus the
-sealed sweep/rank/readback chain. Internal hash consistency proves continuity,
+sealed sweep/rank/readback chain and a matching persisted-model-evidence
+digest. Internal hash consistency proves continuity,
 not external provider authenticity.
 
 ## Football C selection / clearing-goal funding
