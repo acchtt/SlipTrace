@@ -45,14 +45,13 @@ def fetch_json(url: str, retries: int = 3) -> dict:
     raise RuntimeError(f"LiveScore fetch failed after {retries} attempts: {url}: {last}")
 
 def api_candidates(day: str, offset: int) -> list[str]:
-    # LiveScore currently exposes more than one public client route. Some
-    # syntactically valid routes can return an empty Stages list, so probe
-    # the documented React/App variants and retain the richest real surface.
+    # The current App route is verified live on 2026-10-13. Keep the React
+    # route only as bounded fallback; it currently returns HTTP 503.
     return [
-        f"https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1&countryCode=US&locale=en",
-        f"https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1",
         f"https://prod-public-api.livescore.com/v1/api/app/date/soccer/{day}/{offset}?MD=1&countryCode=US&locale=en",
         f"https://prod-public-api.livescore.com/v1/api/app/date/soccer/{day}/{offset}?MD=1&locale=en",
+        f"https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1&countryCode=US&locale=en",
+        f"https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1",
     ]
 
 def _raw_event_count(board: dict) -> int:
@@ -63,22 +62,20 @@ def _raw_event_count(board: dict) -> int:
     return total
 
 def fetch_surface(day: str, offset: int) -> tuple[dict, str]:
-    errors, choices = [], []
+    errors = []
     for url in api_candidates(day, offset):
         try:
             board = fetch_json(url)
-            choices.append((_raw_event_count(board), board, url))
+            count = _raw_event_count(board)
+            if count > 0:
+                return board, url
+            errors.append(f"false-empty Stages response: {url}")
         except Exception as exc:
             errors.append(str(exc))
-    if not choices:
-        raise RuntimeError(" | ".join(errors))
-    count, board, url = max(choices, key=lambda item: item[0])
-    if count == 0:
-        raise RuntimeError(
-            f"LiveScore returned false-empty date surface for {day} offset={offset}; "
-            f"all API variants had zero Events while the rendered date page is non-empty"
-        )
-    return board, url
+    raise RuntimeError(
+        f"LiveScore returned no non-empty date surface for {day} offset={offset}: "
+        + " | ".join(errors)
+    )
 
 def clean_name(value, fallback="Unknown") -> str:
     if isinstance(value, str) and value.strip():
