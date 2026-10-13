@@ -15,14 +15,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run explicitly experimental goal-burden diagnostics
+      - name: Run explicitly experimental diagnostics from trials
         env:
-          PYTHONPATH: models/football/engine
+          PYTHONPATH: models/football/trials/engine_experiments
         run: |
-          python -m unittest discover -s models/football/engine/tests -p 'test_goal_burden_qa.py' -v
-          python -m unittest discover -s models/football/engine/tests -p 'test_goal_total_probabilities.py' -v
-          python -m unittest discover -s models/football/engine/tests -p 'test_follow_funding_readiness_qa.py' -v
-      - name: Confirm production core still passes
+          python -m unittest discover -s models/football/trials/engine_experiments/tests -p 'test_goal_burden_qa.py' -v
+          python -m unittest discover -s models/football/trials/engine_experiments/tests -p 'test_goal_total_probabilities.py' -v
+          python -m unittest discover -s models/football/trials/engine_experiments/tests -p 'test_follow_funding_readiness_qa.py' -v
+          python -m unittest discover -s models/football/trials/engine_experiments/tests -p 'test_model_reaudit.py' -v
+          python -m unittest discover -s models/football/trials/engine_experiments/tests -p 'test_step2_price_aware_shadow.py' -v
+      - name: Confirm production core still passes independently
         env:
           PYTHONPATH: models/football/engine
         run: python -m unittest discover -s models/football/engine/tests -p 'test_core.py' -v
