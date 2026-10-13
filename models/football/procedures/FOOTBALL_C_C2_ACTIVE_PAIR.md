@@ -62,6 +62,13 @@ remains shadow-only.
 
 ## 5. Persistence and accounting
 
+For new V4 Step1 boards, Daily Coverage must store the exact executed
+per-match C and C2 result JSON in `Step1 Engine C Result` and
+`Step1 Engine C2 Result`. Independent readback must match the sealed
+rank receipt before routine /xi is authorized; board state/rank/line is not
+a sufficient substitute for model-owned evidence. Historical rows are not
+backfilled.
+
 New Decision State rows must persist C Action, C Supported Line, C2 Shadow Action and C2 Supported Line together for completed assessments. C2 may never create a Website Pick.
 
 New model accounting includes C and C2 only. Historical C3/C4 accounting is retained as historical data but excluded from active-roster forward metrics.
