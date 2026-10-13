@@ -25,6 +25,7 @@ from core import (
     c2_selection_floor,
     c2_clearing_goal_funded,
     clearing_goal_funded,
+    low_burden_leakage_goal3_funded,
     decide_c,
     decide_c2,
     follow_through_lane,
@@ -184,10 +185,7 @@ def _kickoff_block(obj: dict[str, Any]) -> str:
 
 
 def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
-    """Fail closed on an obvious carrier-led C-PASS contradiction."""
-
-    if state != BoardState.PASS:
-        return
+    """Fail closed on C board states that contradict strong current goal routes."""
 
     carrier_rescue = (
         a.completion_mode in {
@@ -206,10 +204,22 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
         and not a.failure_attacks_route
         and not a.material_suppression
     )
-    if carrier_rescue:
+    leakage_focus = (
+        low_burden_leakage_goal3_funded(a)
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+    )
+
+    if state == BoardState.PASS and (carrier_rescue or leakage_focus):
         raise ContractError(
-            "C-PASS CONTRADICTION — HIGH BURDEN-COMPLETION CARRIER PATH "
+            "C-PASS CONTRADICTION — CURRENT GOAL-FUNDING PATH "
             "REQUIRES WATCH/FOCUS REVIEW"
+        )
+    if state == BoardState.WATCH and leakage_focus:
+        raise ContractError(
+            "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH "
+            "REQUIRES C-FOCUS REVIEW"
         )
 
 
