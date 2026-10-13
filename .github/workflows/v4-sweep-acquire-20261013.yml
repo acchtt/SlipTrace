@@ -1,0 +1,52 @@
+name: V4 sweep acquire 2026-10-13 18-03 ICT
+on:
+  push:
+    paths:
+      - ".github/workflows/v4-sweep-acquire-20261013.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire complete LiveScore date surfaces and goal history
+        run: |
+          set -euo pipefail
+          mkdir -p models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300
+          python models/football/stages_v4/acquire_v4_window_livescore.py \
+            --output models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/source.json \
+            --report models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/acquisition-report.json
+      - name: Native V4 preflight
+        run: |
+          set -euo pipefail
+          python models/football/stages_v4/stage.py \
+            --output /tmp/V4-20261013-1800-20261014-0300-v4_sweep_ready.json \
+            sweep --source models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/source.json
+      - name: Upload acquisition preflight
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-sweep-20261013-acquisition-preflight
+          path: |
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/source.json
+            models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/acquisition-report.json
+            /tmp/V4-20261013-1800-20261014-0300-v4_sweep_ready.json
+          if-no-files-found: error
+          retention-days: 7
+      - name: Persist exact source snapshot for canonical replay attestation
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/source.json \
+                  models/football/stages_v4/recovery/V4-20261013-1800-20261014-0300/acquisition-report.json
+          git commit -m "ops(sweep): persist V4 18:00-03:00 source snapshot"
+          git push origin HEAD:ops/v4-sweep-20261013-1800-0300
