@@ -123,8 +123,17 @@ No model ACT creates an Actual Bet. To persist and verify a valid screenshot pri
    football evidence epoch and match. For PREMATCH use the strict
    C/C2 price/market-history (attempt), confirmation and tournament
    recheck; enforce exact quote timestamp, XI authorization,
-   supported burden and reachable WAIT. Run the optional
-   `--price-c / --price-c2` subdecision in that SAME user /xi turn.
+   supported burden and reachable WAIT. **Do not default
+   `wait_reachable=false` merely because the football-first wrapper is
+   quote-free.** Independently assess whether the frozen supported burden is
+   realistically reachable by clean decay and record the basis. For a user
+   PREMATCH screenshot without full decision payloads, the portable wrapper
+   may still emit the bounded conditional `WAIT — LIVE DECAY` plan when
+   FOCUS + intact funded support clears and the market gap is <= +0.75; target
+   the model's own supported line at minimum 1.65. This provisional plan has
+   no executable/accounting authority. Run the optional
+   `--price-c / --price-c2` subdecision in that SAME user /xi turn when
+   full priced contexts exist.
    For STARTED or HT, the prematch priced engine is **forbidden**:
    execute/keep the quote-free live football result and only use a
    truly current separate live-bet authorization where supported.
