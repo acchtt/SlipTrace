@@ -42,6 +42,10 @@ def snapshot(c, *, line=2.5, odds=1.70, captured=CAPTURE, **changes):
 
 def wait_ready(payload, *, top=False):
     payload["context"].update(
+        thesis_state="PRESERVED",
+        primary_mechanism_intact=True,
+        material_veto=False,
+        material_event_since_frozen="NONE_VERIFIED",
         wait_reachable=True,
         wait_reachability_basis=(
             "clean clock decay to the model's frozen burden is reachable "
