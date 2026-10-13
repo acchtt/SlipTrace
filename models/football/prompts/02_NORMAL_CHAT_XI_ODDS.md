@@ -81,7 +81,13 @@ No model ACT creates an Actual Bet. To persist and verify a valid screenshot pri
    hashes and requires `source_replayed=true` plus
    `current_fixture_status_checked=true` in rank and persistence provenance.
    Its `V4_RANK_PERSISTENCE_VERIFIED` receipt must originate from independently
-   refetched Airtable. Hash consistency is an internal provenance-chain check,
+   refetched Airtable and must contain
+   `model_evidence_readback_verified=true` with a
+   `model_evidence_sha256` matching the complete sealed C/C2 Step1 engine
+   results. Routine /xi is blocked if only board state/rank/line survived but
+   the exact Step1 model evidence did not. This specifically preserves
+   model-owned fields such as C2 opponent leakage without reconstructing them.
+   Hash consistency is an internal provenance-chain check,
    not third-party proof of provider authenticity.
    Old `work_ready/packaging_complete` are **not V4 authority**.
    STOP/rejected routine cases still require explicit user exception.
