@@ -243,8 +243,22 @@ def _football_and_optional_price(
         raise ValueError("both C and C2 strict price inputs are required")
 
     # Strict executable-price decisions are separate from observed-quote
-    # comparison and retain all adapter execution guards.
-    priced = run_pair(price_c, price_c2)
+    # comparison and retain all adapter execution guards. Failure of the price
+    # gate never erases the already-completed football assessment.
+    try:
+        priced = run_pair(price_c, price_c2)
+    except Exception as exc:
+        return {
+            "ok": True,
+            "xi_mode": "FOOTBALL_ASSESSMENT",
+            **football,
+            "price_check": {
+                "ok": False,
+                "status": "EXECUTABLE_PRICE_NOT_AUTHORIZED",
+                "reason": str(exc),
+                "execution_authorized": False,
+            },
+        }
     return {
         "ok": True,
         "xi_mode": "FOOTBALL_AND_EXECUTABLE_PRICE_CHECK",
