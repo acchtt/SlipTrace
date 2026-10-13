@@ -148,6 +148,26 @@ C2's own route reliability, chance quality and carrier grades, but C2 still
 clears its frozen route-quality selection floor and clearing-goal proof
 independently.
 
+**2026-10-13 user-authorized C2 follow-on (prospective):** C2 now independently
+certifies a narrow O2.25 leakage route without copying C's completion/stall
+ratings. It may serve as an additional CLEAR floor and third-goal certificate
+when:
+- selected supported/WAIT burden is **O2.25**, not O2.5/O2.75/3.0+;
+- C2 independently records `c2_opponent_leakage=HIGH` and a non-empty
+  `c2_opponent_leakage_basis` supported by current opponent-specific evidence;
+- at least one scoring route is STRONG, the carrier is at least USABLE;
+- C2 route reliability is HIGH; independent route quality, chance quality,
+  failure resistance, evidence confidence and burden protection are >= MEDIUM;
+- independent upper-tail proof is **absent** (the exact C2 proof bottleneck);
+- no route-attacking failure or material suppression remains.
+
+If this fully certified fixture remains C2-WATCH/PASS at its supported O2.25,
+the board fails closed for C2-FOCUS re-evaluation. Missing leakage evidence
+preserves the previous C2 floor unchanged; no fourth-goal inference or market
+gap bridge is created. `c2_opponent_leakage` is not C's `opponent_leakage`.
+C2 remains shadow-only and quote/screenshot/XI/incentive controls are intact.
+See `FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md`.
+
 ### 6.2 Protected-line inversion guard
 
 A C2-WATCH may not become a direct BET merely because O2.0/O2.25 is available at an attractive price.
