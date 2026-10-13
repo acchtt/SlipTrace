@@ -1,0 +1,20 @@
+{
+  "api_urls": [
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261013/7?MD=1&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261014/7?MD=1&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261013/0?MD=1&locale=en"
+  ],
+  "generated_at_utc": "2026-10-13T10:48:41.569227+00:00",
+  "in_window": [],
+  "in_window_count": 0,
+  "in_window_prematch_count": 0,
+  "in_window_with_goal_history_both_sides": 0,
+  "run_id": "V4-20261013-1800-20261014-0300",
+  "source_fixture_union_count": 0,
+  "surface_counts": {
+    "ICT:2026-10-13": 0,
+    "ICT:2026-10-14": 0,
+    "UTC:2026-10-13": 0
+  },
+  "terminal_fixture_count": 0
+}

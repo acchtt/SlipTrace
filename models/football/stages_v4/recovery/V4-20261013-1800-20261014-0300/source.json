@@ -1,0 +1,83 @@
+{
+  "fixtures": [],
+  "run_id": "V4-20261013-1800-20261014-0300",
+  "schema_version": "football-stages-v4",
+  "source_completeness_manifest": {
+    "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+    "checked_at_utc": "2026-10-13T10:48:41.569227+00:00",
+    "date_surfaces": [
+      {
+        "competition_blocks": [],
+        "extracted_fixture_ids": [],
+        "observed_at_utc": "2026-10-13T10:46:51.817868+00:00",
+        "pages_fetched": [
+          1
+        ],
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "provider_senior_competition_block_count": 0,
+        "provider_senior_fixture_count": 0,
+        "source_url": "https://www.livescores.com/football/2026-10-13/?tz=7",
+        "surface_key": "ICT:2026-10-13"
+      },
+      {
+        "competition_blocks": [],
+        "extracted_fixture_ids": [],
+        "observed_at_utc": "2026-10-13T10:47:01.737527+00:00",
+        "pages_fetched": [
+          1
+        ],
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "provider_senior_competition_block_count": 0,
+        "provider_senior_fixture_count": 0,
+        "source_url": "https://www.livescores.com/football/2026-10-14/?tz=7",
+        "surface_key": "ICT:2026-10-14"
+      },
+      {
+        "competition_blocks": [],
+        "extracted_fixture_ids": [],
+        "observed_at_utc": "2026-10-13T10:47:11.710325+00:00",
+        "pages_fetched": [
+          1
+        ],
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "provider_senior_competition_block_count": 0,
+        "provider_senior_fixture_count": 0,
+        "source_url": "https://www.livescores.com/football/2026-10-13/?tz=0",
+        "surface_key": "UTC:2026-10-13"
+      }
+    ],
+    "extraction_complete": true,
+    "league_query_mode": "DATE_SURFACE_ONLY",
+    "provider_family": "LiveScore public date API",
+    "registry_prefilter_applied": false,
+    "required_surface_keys": [
+      "ICT:2026-10-13",
+      "ICT:2026-10-14",
+      "UTC:2026-10-13"
+    ],
+    "schema_version": "football-v4-source-completeness-v2",
+    "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+    "terminal_sentinel": {
+      "checked_at_utc": "2026-10-13T10:48:51.435839+00:00",
+      "complete": true,
+      "extracted_fixture_ids": [],
+      "independent_refetch": true,
+      "interval_end_utc": "2026-10-13T20:00:00+00:00",
+      "interval_start_utc": "2026-10-13T14:00:00+00:00",
+      "provider_senior_fixture_count": 0,
+      "source_urls": [
+        "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261013/0?MD=1&locale=en"
+      ]
+    },
+    "window_end_utc": "2026-10-13T20:00:00+00:00",
+    "window_start_utc": "2026-10-13T11:00:00+00:00"
+  },
+  "source_family": "LiveScore public date API",
+  "source_observed_at_utc": "2026-10-13T10:48:41.569227+00:00",
+  "source_url": "https://www.livescores.com/football/2026-10-13/?tz=7",
+  "window_end_utc": "2026-10-13T20:00:00+00:00",
+  "window_start_utc": "2026-10-13T11:00:00+00:00"
+}
