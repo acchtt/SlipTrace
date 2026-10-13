@@ -440,8 +440,15 @@ def assess_user_screenshot(
     model_verdicts = {}
     for model in ("c", "c2"):
         funded = football["results"][model]["frozen_supported_line"]
-        decay_plan = _conditional_live_decay_plan(
-            football["results"][model], float(line), float(odds)
+        decay_plan = (
+            _conditional_live_decay_plan(
+                football["results"][model], float(line), float(odds)
+            )
+            if fixture == "PREMATCH_CONFIRMED"
+            else {
+                "status": "NOT_APPLICABLE",
+                "reason": "PREDECLARED_DECAY_PLAN_REQUIRES_PREMATCH_EPOCH",
+            }
         )
         model_verdicts[model] = {
             "supported_line": funded,
