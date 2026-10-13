@@ -4,60 +4,29 @@ on:
   push:
     paths:
       - "models/football/CURRENT_MODEL.md"
-      - "models/football/production/FOOTBALL_C.md"
-      - "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md"
-      - "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md"
-      - "models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md"
-      - "models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md"
-      - "models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md"
-      - "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md"
-      - "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md"
-      - "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md"
-      - "models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md"
-      - "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md"
-      - "models/football/procedures/FOOTBALL_RANK_TERMINAL_STATUS.md"
-      - "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md"
-      - "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md"
-      - "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md"
-      - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
-      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
-      - "models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md"
-      - "models/football/retired/RETIREMENT_MANIFEST.md"
-      - "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md"
-      - "models/football/prompts/**"
-      - "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md"
-      - "models/football/challengers/football-c2/**"
-      - "models/football/engine/adapter.py"
+      - "models/football/stages_v4/**"
       - "models/football/engine/core.py"
-      - "models/football/engine/tests/**"
-      - "models/football/engine/competition_reliability.py"
-      - "models/football/engine/coverage_manifest.py"
+      - "models/football/engine/adapter.py"
       - "models/football/engine/board_pair_cli.py"
       - "models/football/engine/decision_pair_cli.py"
-      - "models/football/engine/schema.json"
-      - "models/football/engine/factor_calibration.py"
-      - "models/football/engine/factor_calibration_cli.py"
-      - "models/football/engine/step2_reconcile.py"
-      - "models/football/engine/step2_reconcile_cli.py"
-      - "models/football/engine/runtime_probe.py"
-      - "models/football/engine/capacity_replenishment.py"
-      - "models/football/engine/capacity_replenishment_cli.py"
-      - "models/football/engine/rank_terminal_status.py"
-      - "models/football/engine/rank_terminal_status_cli.py"
-      - "models/football/engine/sweep_checkpoint.py"
-      - "models/football/engine/sweep_checkpoint_cli.py"
       - "models/football/engine/xi_portable.py"
-      - "models/football/engine/xi_source_handoff.py"
+      - "models/football/engine/step2_queue_guard.py"
+      - "models/football/engine/xi_assessment_reconcile.py"
+      - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/model_bet_accounting.py"
-      - "models/football/engine/model_bet_accounting_cli.py"
-      - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
+      - "models/football/engine/schema.json"
+      - "models/football/engine/tests/**"
+      - "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
+      - "models/football/airtable/ACTIVE_MODEL_ROUTING.md"
+      - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
+      - "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md"
+      - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
+      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
+      - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
+      - "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
-      - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
+      - "models/football/prompts/COMMAND_ALIASES.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
@@ -67,60 +36,20 @@ on:
   pull_request:
     paths:
       - "models/football/CURRENT_MODEL.md"
-      - "models/football/production/FOOTBALL_C.md"
-      - "models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md"
-      - "models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md"
-      - "models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md"
-      - "models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md"
-      - "models/football/procedures/FOOTBALL_WOMENS_TOP_FLIGHT_COVERAGE.md"
-      - "models/football/procedures/FOOTBALL_REQUIRED_COMPETITION_COVERAGE.md"
-      - "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md"
-      - "models/football/procedures/FOOTBALL_SWEEP_REPAIR_MODE.md"
-      - "models/football/procedures/FOOTBALL_SWEEP_CHECKPOINT_EXECUTION.md"
-      - "models/football/procedures/FOOTBALL_CAPACITY_REPLENISHMENT.md"
-      - "models/football/procedures/FOOTBALL_RANK_TERMINAL_STATUS.md"
-      - "models/football/procedures/FOOTBALL_FACTOR_CALIBRATION_OBSERVER.md"
-      - "models/football/procedures/FOOTBALL_ENGINE_EXECUTION_BOOTSTRAP.md"
-      - "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md"
-      - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
-      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
-      - "models/football/procedures/FOOTBALL_STEP1_BOARD_RECONCILIATION.md"
-      - "models/football/retired/RETIREMENT_MANIFEST.md"
-      - "models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_COVERAGE_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_WEBSITE_PICKS_AIRTABLE.md"
-      - "models/football/airtable/FOOTBALL_FACTOR_CALIBRATION_AIRTABLE.md"
-      - "models/football/prompts/**"
-      - "models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md"
-      - "models/football/challengers/football-c2/**"
-      - "models/football/engine/adapter.py"
+      - "models/football/stages_v4/**"
       - "models/football/engine/core.py"
-      - "models/football/engine/tests/**"
-      - "models/football/engine/competition_reliability.py"
-      - "models/football/engine/coverage_manifest.py"
-      - "models/football/engine/board_pair_cli.py"
+      - "models/football/engine/adapter.py"
       - "models/football/engine/decision_pair_cli.py"
-      - "models/football/engine/schema.json"
-      - "models/football/engine/factor_calibration.py"
-      - "models/football/engine/factor_calibration_cli.py"
-      - "models/football/engine/step2_reconcile.py"
-      - "models/football/engine/step2_reconcile_cli.py"
-      - "models/football/engine/runtime_probe.py"
-      - "models/football/engine/capacity_replenishment.py"
-      - "models/football/engine/capacity_replenishment_cli.py"
-      - "models/football/engine/rank_terminal_status.py"
-      - "models/football/engine/rank_terminal_status_cli.py"
-      - "models/football/engine/sweep_checkpoint.py"
-      - "models/football/engine/sweep_checkpoint_cli.py"
       - "models/football/engine/xi_portable.py"
-      - "models/football/engine/xi_source_handoff.py"
+      - "models/football/engine/step2_queue_guard.py"
+      - "models/football/engine/xi_assessment_reconcile.py"
+      - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/model_bet_accounting.py"
-      - "models/football/engine/model_bet_accounting_cli.py"
-      - "models/football/prompts/01_WORK_DAILY_SWEEP.md"
+      - "models/football/engine/tests/**"
+      - "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
+      - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
-      - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
-      - "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md"
+      - "models/football/prompts/COMMAND_ALIASES.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
       - "models/football/qa/check_runtime_execution_contract.py"
@@ -128,23 +57,25 @@ on:
       - "models/football/qa/check_xi_portable_execution.py"
       - ".github/workflows/football-step2-research-gate.yml"
 
+permissions:
+  contents: read
+
 jobs:
   enforce:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
-      - name: Check Football C production invariants
+          python-version: "3.12"
+      - name: Check active Football C/C2 production invariants
         run: python models/football/qa/check_post_xi_research_gate.py
-      - name: Check Football C authority semantics
+      - name: Check simplified active authority
         run: python models/football/qa/check_authority_consistency.py
-      - name: Check Football runtime execution contract
+      - name: Check direct runtime contract
         run: python models/football/qa/check_runtime_execution_contract.py
-      - name: Check XI portable runtime freshness
+      - name: Check thin XI runtime
         run: python models/football/qa/check_xi_portable_runtime.py
-      - name: Self-check XI portable runtime
-        run: python models/football/engine/xi_portable.py self-check
-      - name: Exercise standalone XI C+C2 CLI and fail-closed contracts
+      - name: Smoke-test XI C+C2 execution
         run: python models/football/qa/check_xi_portable_execution.py

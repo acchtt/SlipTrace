@@ -45,9 +45,34 @@ jobs:
                 --output "v4-attested-artifacts/${run}-v4_sweep_ready.json" \
                 --report "v4-attested-artifacts/${run}-replay_proof.json"
             else
-              # New sweeps should never need a derived-unattested receipt:
-              # run native production Stage V4 at the runner's REAL UTC clock.
+              # Archived recovery sources are immutable evidence, not live feeds.
+              # Re-execute at the source's own frozen observation epoch so an
+              # old artifact does not fail merely because the CI runner clock
+              # advanced. Rank still requires a fresh full-cohort status check.
+              frozen_now="$(python - "$folder/source.json" <<'PY'
+          import json,sys
+          from datetime import datetime
+          from pathlib import Path
+          source=json.loads(Path(sys.argv[1]).read_text())
+          stamps=[]
+          def walk(value):
+              if isinstance(value,dict):
+                  for key,item in value.items():
+                      if key.endswith(("observed_at_utc","checked_at_utc")) and isinstance(item,str):
+                          stamps.append(datetime.fromisoformat(item.replace("Z","+00:00")))
+                      else:
+                          walk(item)
+              elif isinstance(value,list):
+                  for item in value:
+                      walk(item)
+          walk(source)
+          if not stamps:
+              raise SystemExit("archived V4 source has no observation timestamp")
+          print(max(stamps).isoformat())
+          PY
+              )"
               python models/football/stages_v4/stage.py \
+                --now "$frozen_now" \
                 --output "v4-attested-artifacts/${run}-v4_sweep_ready.json" \
                 sweep --source "$folder/source.json"
               python - "$folder/source.json" "$run" <<'PY'

@@ -1,259 +1,51 @@
-# 03 — /live: C and C2 Single Match Assessment
-
-> **Single-command /xi and /live:** C+C2 football is assessed immediately with no mandatory odds. If current in-play odds are already supplied, validate them only as fixed comparison evidence in the same response. Current V4 has no deterministic live priced-action engine, so those odds cannot create new live exposure. Do not request another quote or an extra /bet command. See `models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md`.
-
-> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/live):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
-
-> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only shadow challenger. C3 and C4 are retired for new/current execution.
-
-**Command alias:** `/live`
-
-Read:
-- `models/football/procedures/FOOTBALL_HANDOFF_FRESHNESS_BOOTSTRAP.md`
-- `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`
-- `models/football/CURRENT_MODEL.md`
-- `models/football/production/FOOTBALL_C.md`
-- `models/football/challengers/football-c2/FOOTBALL_C2_SPEC.md`
-- `models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
-- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`
-- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`
-
-Football C is official. C2 is shadow-only. C2 may never create Website Pick or real exposure.
-
-## 1. Eligibility
-
-Use this launcher when:
-- a frozen C-WAIT reaches live state;
-- a frozen C2 shadow WAIT exists and needs shadow resolution;
-- a prematch Step-2 fixture has already started and was rerouted to live;
-- the user explicitly requests a live exception.
-
-Do not manufacture a C2 live state if no prospective/current C2 basis exists. A live exception does not authorize retrospective C2 reconstruction from later evidence.
-
-### User screenshot-only price observation (2026-10-12)
-
-When the user supplies a live odds screenshot, the image is the sole market-price evidence for this /live or started /xi request. Never retrieve replacement or historical bookmaker odds, ask for another screenshot due to analysis delay, or backdate an execution timestamp. Use actual displayed score/minute and exact Over line/odds; assess independent C/C2 football first, then describe whether the fixed quote is above/at/below each supported burden. Existing `step2_fixture_transition.py` can report live quote eligibility separately, but no current live priced ACT is claimed unless a genuine independent live decision engine executes. A screenshot alone **cannot** authorize live or prematch exposure. Neither C2 shadow nor any conditional screenshot verdict creates Actual Bets or P/L.
-
-### Actual paired football engine — no quote requested
-
-For every /live or started /xi user assessment, execute the new
-**quote-free** pinned runtime once with independently sourced C and C2
-factors before discussing prices:
-
-`python models/football/engine/xi_portable.py assess --c <c_football.json> --c2 <c2_football.json>`
-
-Use `stage=football_assessment` with the same live score/minute,
-material-event state, assessment clock and evidence epoch for both
-models. Give each model its independent route/thesis assessment, using
-`UNKNOWN` or null where the current event integrity is genuinely
-unverified. Missing odds are **not a missing input field**, even if
-the match is two, five, sixteen or forty-five minutes old.
-
-Require `EXECUTED_C_C2_FOOTBALL_ONLY` when the paired engine actually
-runs. Display C and C2 qualitative football outcomes with the
-current completion/funding limitations; label the evaluation
-`Football assessed — no bet checked` if no current
-offer exists. Never demand a quote to run the football engine, and
-never fall back to the price-bearing `xi_portable.py pair` to
-complete an unpriced assessment. That older command remains only
-for actual PREMATCH priced decisions, not started football reads.
-If current live odds were already provided, check them automatically
-when live betting authorization is possible. Otherwise finish the
-football assessment and do not ask for another screenshot.
-
-### Missing live odds is not an assessment blocker
-
-The quote-free route in `step2_fixture_transition.py` returns
-`CURRENT_LIVE_FOOTBALL_ASSESSMENT_READY` whenever the score/minute is
-verified and no material mechanism recheck remains. It returns this
-status with or without live odds. Quote validity is separate
-(`executable_quote_status=UNPRICED_NO_EXECUTABLE_BET` when absent,
-expired or prematch-only). Even when goal/event recheck is pending,
-continue the football assessment and identify the exact uncertainty;
-do not demand a new price to begin or complete that analysis. The
-prematch-only portable decision engine must not be used on a STARTED
-fixture; do not treat its quote rejection as the C/C2 football result.
-
-### Automatic early-live takeover from /xi
-
-**Started is not assessment blocked.** A normal /xi assessment can transition
-directly into this launcher in the **same response** as soon as current
-status says STARTED, without waiting for a second /live command. Invoke
-`step2_fixture_transition.py` at the exact verified kickoff/current
-timestamp. `EARLY_LIVE_FAST_PATH` covers the first 15 minutes;
-`STANDARD_LIVE` covers later play, and **both allow assessment**.
-The distinction is urgency only. A match 2, 9 or 16 minutes old is
-not automatically PASS or NO BET because it started.
-
-Carry forward the genuinely frozen, independent C and C2 research,
-but freeze a **new live epoch** and verify current score/minute, any
-goal/red card or material lineup/tactical change, and the live market
-when available. At 0-0 with no material change, make a short check of
-the existing scoring thesis rather than running the entire Step-1
-research pipeline again. After any meaningful event, recompute
-goal burden/continuation and relevant tournament incentives.
-
-**Two independent levels of result:**
-1. **Mandatory immediate, quote-free football assessment.** Deliver
-   independent C official and C2 shadow football reads (scoring
-   mechanism, frozen-thesis validity, remaining goal burden, third/
-   fourth-goal continuation, stall risk, and current event context)
-   without requiring, requesting or waiting for a new bookmaker quote.
-   Score/minute and material football evidence determine its quality;
-   neither a 2-minute nor a 16-minute kickoff delay blocks assessment.
-   When no live price is independently verified, report
-   `Football assessed — no bet checked`. This is
-   a completed football read, **not** an incomplete or rejected model.
-2. **Current V4 live-price comparison only.** A current in-play quote may
-   be source/time validated and compared with each model's supported burden,
-   but the repository currently has **no deterministic live priced-action
-   engine**. Therefore live execution remains unavailable:
-   `live_price_action_engine_status=NOT_IMPLEMENTED_V4` and
-   `live_bet_authorized=false`. Never emit an official C live priced action,
-   a C2 priced shadow action, Website Pick, model exposure, or Actual Bet from
-   this comparison. A future engine must be explicitly implemented, tested and
-   promoted before those outputs become current authority.
+# /live — current-state C + C2 football assessment
 
-An exact-prematch Step-2 engine rejection of STARTED remains a valid
-protection; it must **trigger this handoff**, not terminate the user's
-requested football assessment. Supplied live odds remain comparison evidence
-only until a deterministic live action engine exists.
+**Command alias:** /live
 
-## 2. Common live evidence
+/live uses the same football-assessment runtime as /xi.
 
-Freeze one current live epoch for both active models:
-- score and minute;
-- current executable total/odds **only when an actionable BET is being evaluated**, never as a condition for football analysis;
-- goals, cards, injuries, substitutions and other material events when known;
-- verified tactical/mechanism changes;
-- current tournament/aggregate/table state when applicable;
-- draw utility;
-- margin/GD/tiebreak relevance;
-- which side is actually forced to chase.
+## Inputs
 
-A goal, red card, major injury, or material mechanism change creates a new epoch and invalidates the prior quote.
+Use the actual current:
 
-## 3. No live-stat gate
+- fixture status;
+- score;
+- match minute;
+- red cards/goals/other material events;
+- current route/mechanism state;
+- current tournament/incentive state when relevant.
 
-Assess the live match **regardless of provider live stats**.
+Do not require live bookmaker odds to complete football analysis.
 
-Do not require or request as an execution prerequisite:
-- shots / shots on target;
-- xG / xGOT;
-- big chances;
-- dangerous attacks;
-- possession;
-- corners;
-- box/final-third entries;
-- momentum/pressure widgets.
+## Execution
 
-positive live-stat confirmation is not required. The absence of positive telemetry is not negative evidence.
+Run independent C official + C2 shadow stage=football_assessment payloads at
+the same current evidence epoch.
 
-If the user supplies live stats, they may provide context, but they cannot by themselves approve, upgrade, downgrade, or cancel the decision.
+A started fixture is still assessable. Do not discard the football result
+because kickoff passed.
 
-The live football assessment must proceed from current score/minute, frozen separate C/C2 prematch/XI theses and concrete material events **even without any current quote**. Do not perform replacement price research. A supplied current live quote may be validated and compared with burdens only; current V4 cannot turn that comparison into a new executable live action.
+There is no active step2_fixture_transition state machine.
 
-## 4. Tournament incentive — every material live epoch
+## Price
 
-For a tournament/cup/qualification fixture, recompute:
-- score + aggregate/table state;
-- home incentive;
-- away incentive;
-- draw/extra-time/penalty consequence;
-- margin/tiebreak relevance;
-- simultaneous-result effects when relevant;
-- side genuinely forced to chase;
-- current incentive effect.
+If the user supplies a live screenshot, use its exact displayed line/odds as
+current comparison evidence only. Do not search replacement odds.
 
-If the recomputation is missing:
+A live observed quote must not recreate a prematch ACT/WAIT/PASS. The active
+runner returns LIVE_PRICE_BURDEN_COMPARISON_ONLY for started fixtures.
 
-`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE EPOCH MISSING`
+No live bet is authorized unless a separately implemented/current live
+execution policy explicitly supports it.
 
-If the material state remains LIMITED/UNKNOWN:
+## Output
 
-`LIVE DECISION BLOCKED — TOURNAMENT INCENTIVE UNRESOLVED`
+Give the current football read first for C and C2, then:
 
-A user exception does not waive this integrity gate.
+- current score/minute;
+- whether the thesis/mechanism remains intact;
+- supported frozen burdens for context;
+- material rechecks;
+- optional live burden comparison if a screenshot was supplied.
 
-## 5. Football C official WAIT/live resolution
-
-Retrieve the exact frozen C plan and its accounting state.
-
-Core question:
-
-`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
-
-A target number alone never authorizes C-BET.
-
-Clock/price decay without a goal is not thesis decay by itself.
-
-Cancel or pass only when concrete current football information materially attacks the frozen mechanism, including:
-- red card against the carrier;
-- key attacking injury/substitution;
-- verified tactical/mechanism deterioration;
-- tournament incentive turning suppressive;
-- current clearing-goal funding no longer credible.
-
-Current V4 live football outputs are qualitative only:
-- `C-FOCUS/CAUTION/AVOID — LIVE FOOTBALL READ`
-- burden/continuation comparison against an observed live quote when supplied
-- `NO EXECUTABLE LIVE PRICED ACTION — ENGINE NOT IMPLEMENTED`
-
-Historical WAIT-resolution labels may still be audited from frozen old records,
-but current V4 /live does not create new priced C exposure.
-
-## 6. Football C2 shadow resolution
-
-Use the same common live epoch, but apply C2's own frozen route-quality/supported-burden policy.
-
-Current V4 C2 live output is a shadow football read plus optional burden
-comparison only. It creates no priced action while
-`live_price_action_engine_status=NOT_IMPLEMENTED_V4`.
-
-Do not copy C's line or action into C2.
-
-C2 never creates a Website Pick or official exposure.
-
-## 7. Historical/frozen WAIT accounting integrity — no new V4 live exposure
-
-Under `FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`, the frozen model-accounting state is not silently rewritten by later live observation.
-
-For Football C:
-- WAIT_ASSUMED remains the model exposure convention unless the user supplies a matching actual bet or explicitly says the target was not reached.
-- a later recommendation change does not erase the already frozen accounting entry.
-
-For C2:
-- shadow WAIT accounting follows its own frozen supported target;
-- it remains shadow-only.
-
-User execution truth and model accounting remain separate.
-
-## 8. Persistence
-
-Persist material live changes without overwriting the frozen prematch/XI record:
-- live epoch time;
-- score/minute;
-- current quote;
-- material events;
-- tournament-incentive state when applicable;
-- C live action;
-- C2 shadow live action;
-- thesis/mechanism cancellation basis where relevant;
-- user-declared target-not-reached or actual execution facts.
-
-Do not create new C3/C4 current fields or actions. For normal /live requests, never ask for a new quote to assess; check real current odds automatically if already available and otherwise finish unpriced.
-
-## 9. User-facing output
-
-Show:
-- Match / score / minute
-- Current line / odds
-- C frozen plan
-- C current official action + reason
-- C2 frozen plan if available
-- C2 current shadow action + reason
-- tournament-incentive epoch when applicable
-- exact blocker when unresolved
-- accounting/user-execution distinction when relevant
-
-Do not delay the verdict waiting for live-stat screenshots.
+Never retroactively claim a prematch bet.

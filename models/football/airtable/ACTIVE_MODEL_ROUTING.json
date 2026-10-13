@@ -42,13 +42,15 @@
   "legacy_base": "appWyZJjitSBATXAU",
   "legacy_fallback": "EXPLICIT_HISTORICAL_READ_ONLY_NEVER_NEW_MODEL_WRITES",
   "field_resolution": "NAME_WITH_SCHEMA_TYPE_VERIFICATION",
-  "receipt_policy": "VERIFY_TARGET_RECORD_ID_AND_MATCHING_IDENTITY_AFTER_WRITE",
+  "receipt_policy": "ONE_WRITE_ONE_INDEPENDENT_READBACK_PER_STAGE",
   "xi_assessment_execution_status_field": {
     "table": "Decision States",
     "field_name": "XI Assessment Execution Status",
     "field_id": "fldkjs6Sykivp0fag",
-    "separate_from_legacy_engine_status": true,
     "football_only_value": "EXECUTED_C_C2_FOOTBALL_ONLY",
+    "football_and_price_value": "EXECUTED_C_C2_FOOTBALL_AND_PRICE",
+    "engine_failure_value": "ENGINE_FAILED_AFTER_ATTEMPT",
+    "optional_price_failure_preserves_football_only": true,
     "readback_required": true
   },
   "step1_engine_result_fields": {
@@ -59,5 +61,15 @@
     "c2_field_id": "fldq0n2tDlS58goAm",
     "exact_json_readback_required": true,
     "historical_backfill": false
+  },
+  "observed_quote_persistence": {
+    "mode": "NORMAL_EVALUATED_LINE_ODDS_FIELDS",
+    "screenshot_special_json_marker": false,
+    "execution_authority": false
+  },
+  "active_accounting_policy": {
+    "watch_creates_exposure": false,
+    "unresolved_wait_creates_exposure": false,
+    "user_pnl_table": "Actual Bets — Current"
   }
 }

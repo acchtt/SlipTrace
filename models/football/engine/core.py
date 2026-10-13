@@ -199,7 +199,33 @@ class Quote:
 
 
 @dataclass(frozen=True)
+class ModelQuoteContext:
+    """Pure C/C2 price-policy context with no execution/publication authority.
+
+    This is the canonical model-evaluation surface used for both screenshot
+    comparison and strict executable decisions. Whether an action may actually
+    be published or exposed is handled separately by the execution contract.
+    """
+
+    board_state: BoardState
+    thesis_state: ThesisState
+    quote: Quote
+    top_ranked_focus: bool
+    primary_mechanism_intact: bool
+    wait_reachable: bool
+    wait_requires_negative_info: bool
+    material_veto: bool
+
+
+@dataclass(frozen=True)
 class DecisionContext:
+    """Strict execution context.
+
+    Extra fields below authorize execution/persistence. Model ACT/WAIT/PASS
+    policy itself lives in ModelQuoteContext and is shared with non-executable
+    observed-quote assessment.
+    """
+
     board_state: BoardState
     official_follow_lane: FollowLane
     step2_authorization: Step2Authorization
@@ -628,19 +654,33 @@ def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
     )
 
 
-def _healthy_wait(ctx: DecisionContext) -> bool:
+def _quote_context(ctx: DecisionContext) -> ModelQuoteContext:
+    """Drop execution-only fields while preserving the exact model policy state."""
+
+    return ModelQuoteContext(
+        board_state=ctx.board_state,
+        thesis_state=ctx.thesis_state,
+        quote=ctx.quote,
+        top_ranked_focus=ctx.top_ranked_focus,
+        primary_mechanism_intact=ctx.primary_mechanism_intact,
+        wait_reachable=ctx.wait_reachable,
+        wait_requires_negative_info=ctx.wait_requires_negative_info,
+        material_veto=ctx.material_veto,
+    )
+
+
+def _healthy_wait(ctx: ModelQuoteContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
-def wait_accounting_target(
+def model_wait_target(
     a: MatchAssessment,
-    ctx: DecisionContext,
+    ctx: ModelQuoteContext,
 ) -> tuple[float, float]:
-    """Compile an existing WAIT into deterministic audit/accounting terms.
+    """Compile the model's declared WAIT target/minimum price.
 
-    This does not change BET/WAIT/PASS selection. It only makes the already
-    declared WAIT target/minimum price machine-visible for assumed-exposure
-    bookkeeping.
+    This is model policy only. It does not create assumed exposure, publish a
+    pick, or assert that the target was actually reached.
     """
 
     target_line = min(ctx.quote.line, a.supported_line)
@@ -650,6 +690,15 @@ def wait_accounting_target(
         else 1.65
     )
     return target_line, min_odds
+
+
+def wait_accounting_target(
+    a: MatchAssessment,
+    ctx: DecisionContext,
+) -> tuple[float, float]:
+    """Backward-compatible strict-decision WAIT target helper."""
+
+    return model_wait_target(a, _quote_context(ctx))
 
 
 def _validate_step2_authorization(
@@ -680,11 +729,10 @@ def _validate_step2_authorization(
         )
 
 
-def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
-    """Deterministic Football C execution policy."""
+def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
+    """Deterministic Football C ACT/WAIT/PASS policy with no execution authority."""
 
     require_c_completion(a)
-    _validate_step2_authorization(ctx, require_c_focus=True)
 
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
@@ -744,9 +792,21 @@ def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     )
 
 
+def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
+    """Strict Football C execution policy.
+
+    Execution authorization is validated here, then the exact same model quote
+    policy used by observed-price assessment is applied.
+    """
+
+    require_c_completion(a)
+    _validate_step2_authorization(ctx, require_c_focus=True)
+    return evaluate_c_quote(a, _quote_context(ctx))
+
+
 def c2_bridge_eligibility(
     a: MatchAssessment,
-    ctx: DecisionContext,
+    ctx: ModelQuoteContext,
 ) -> tuple[bool, tuple[str, ...]]:
     """Check the text C2 Focus Market-Gap Bridge deterministically."""
 
@@ -792,10 +852,8 @@ def c2_bridge_eligibility(
     return not reasons, tuple(reasons)
 
 
-def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
-    """Deterministic C2 shadow execution policy."""
-
-    _validate_step2_authorization(ctx, require_c_focus=False)
+def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
+    """Deterministic C2 shadow ACT/WAIT/PASS policy with no execution authority."""
 
     if ctx.thesis_state == ThesisState.BROKEN:
         return Decision(Action.PASS, "thesis broken")
@@ -859,6 +917,13 @@ def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
         Action.PASS,
         "above burden; bridge fails and wait is unrealistic",
     )
+
+
+def decide_c2(a: MatchAssessment, ctx: DecisionContext) -> Decision:
+    """Strict C2 execution policy using the shared pure quote policy."""
+
+    _validate_step2_authorization(ctx, require_c_focus=False)
+    return evaluate_c2_quote(a, _quote_context(ctx))
 
 
 def _split_quarter_line(line: float) -> tuple[float, ...]:

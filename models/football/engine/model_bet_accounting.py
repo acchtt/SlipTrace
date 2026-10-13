@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from typing import Any
 
 
-WATCH_ASSUMED_ODDS = 1.65
 DEFAULT_STAKE_U = 1.0
 ACTIVE_MODELS = ("c", "c2")
 HISTORICAL_MODELS = ("c", "c2", "c3", "c4")
@@ -93,7 +92,7 @@ def compile_model_bet(row: dict[str, Any]) -> BetTerms:
     direct_odds = _odds(row.get("direct_odds"), "direct_odds")
     wait_target_line = _line(row.get("wait_target_line"), "wait_target_line")
     wait_min_odds = _odds(row.get("wait_min_odds"), "wait_min_odds")
-    wait_resolution = row.get("wait_resolution") or "ASSUMED_REACHED"
+    wait_resolution = row.get("wait_resolution") or "UNRESOLVED"
     stake_u = _stake(row.get("stake_u"))
 
     scope = "OFFICIAL_MODEL_ACCOUNTING" if model == "c" else "SHADOW_MODEL_ACCOUNTING"
@@ -115,10 +114,13 @@ def compile_model_bet(row: dict[str, Any]) -> BetTerms:
             source_stage="STEP2",
         )
 
-    # WAIT replaces WATCH when it is a countable WAIT. If the user explicitly
-    # says the line never reached, the WAIT is removed and the frozen WATCH,
-    # when present, remains independently countable under the user's policy.
-    if action == "WAIT" and wait_resolution != "USER_DECLARED_NOT_REACHED":
+    # WAIT is a plan until the target was actually observed/confirmed.
+    # Never synthesize an exposure merely because the model declared WAIT.
+    if action == "WAIT":
+        if wait_target_line is None or wait_min_odds is None:
+            raise ModelBetAccountingError(
+                f"{model}: WAIT requires wait_target_line and wait_min_odds"
+            )
         if wait_resolution == "USER_CONFIRMED":
             if model != "c":
                 raise ModelBetAccountingError(
@@ -140,38 +142,28 @@ def compile_model_bet(row: dict[str, Any]) -> BetTerms:
                 creates_website_pick=True,
                 source_stage="STEP2",
             )
-
-        if wait_target_line is None or wait_min_odds is None:
-            raise ModelBetAccountingError(
-                f"{model}: WAIT requires wait_target_line and wait_min_odds"
-            )
         return BetTerms(
-            basis="WAIT_ASSUMED" if model == "c" else "SHADOW_WAIT_ASSUMED",
-            line=wait_target_line,
-            odds=wait_min_odds,
-            stake_u=stake_u,
+            basis="NONE",
+            line=None,
+            odds=None,
+            stake_u=0.0,
             scope=scope,
             synthetic_price=False,
-            creates_website_pick=model == "c",
-            source_stage="STEP2",
+            creates_website_pick=False,
+            source_stage="NONE",
         )
 
-    # WATCH is an audit/accounting bet for every model. It never creates a
-    # Website Pick or real/user exposure by itself.
+    # WATCH is classification only. It never creates synthetic exposure.
     if _is_watch(board_state):
-        if supported_line is None:
-            raise ModelBetAccountingError(
-                f"{model}: WATCH accounting requires supported_line"
-            )
         return BetTerms(
-            basis="WATCH_ASSUMED" if model == "c" else "SHADOW_WATCH_ASSUMED",
-            line=supported_line,
-            odds=WATCH_ASSUMED_ODDS,
-            stake_u=DEFAULT_STAKE_U,
+            basis="NONE",
+            line=None,
+            odds=None,
+            stake_u=0.0,
             scope=scope,
-            synthetic_price=True,
+            synthetic_price=False,
             creates_website_pick=False,
-            source_stage="STEP1",
+            source_stage="NONE",
         )
 
     return BetTerms(
@@ -317,6 +309,6 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
             if historical_roster
             else "ACTIVE_C_C2"
         ),
-        "watch_assumed_odds": WATCH_ASSUMED_ODDS,
+        "synthetic_watch_pricing": False,
         "models": results,
     }

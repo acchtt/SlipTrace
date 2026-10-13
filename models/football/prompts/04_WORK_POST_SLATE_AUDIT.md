@@ -1,253 +1,183 @@
-# 04 — Work: Football C + C2 Post-Slate Audit
+# /audit — Football C + C2 post-slate audit
 
-> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/audit):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+## Active authority
 
-> **ACTIVE ROSTER (2026-10-06):** Football C is official; Football C2 is the only active shadow challenger. C3 and C4 are retired for new/current execution. Historical C3/C4 rows remain immutable audit history when they were genuinely frozen at the time.
-
-**Command alias:** `/audit`
+- Football C = official.
+- Football C2 = shadow only.
+- C3/C4 are historical only.
+- Current workflow = V4.
+- Active model base = appbzxqXYf0lKfD4P.
+- Physical user P/L = Actual Bets — Current only.
 
 Read:
-- `models/football/CURRENT_MODEL.md`;
-- `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`;
-- `models/football/procedures/FOOTBALL_COMPETITION_RELIABILITY_MEMORY.md`;
-- `models/football/airtable/FOOTBALL_COMPETITION_RELIABILITY_AIRTABLE.md`;
-- `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`;
-- `models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md`;
-- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
-- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md`;
-- `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`.
 
-Use the model/version that actually produced each historical decision. Never backfill a model that did not prospectively execute.
+- models/football/CURRENT_MODEL.md
+- models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md
+- models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md
+- models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md
+- models/football/airtable/ACTIVE_MODEL_ROUTING.json
 
-## V4 production intake audit amendment (2026-10-12)
+## Scope
 
-Current V4 audit funnel is: raw source-visible senior fixtures → hard excluded → registered/discovery candidate lane → `GOAL_PRIORITY` / `PENDING_GOAL_RESEARCH` / `PENDING_DISCOVERY` / `PENDING_RESEARCHABILITY` / low-goal watch → authentic `V4_SWEEP_READY` + original-source replay → current fixture-status refreshed C/C2 rank → `V4_RANK_PERSISTENCE_VERIFIED` → XI C/C2 football → screenshot-only conditional price (if supplied) → live/outcome → model accounting separated from confirmed Actual Bets. Old Step0 CAPACITY/8-fixture and `work_ready`/ZIP claims are historical context, not V4 eligibility. The original-source JSON hash is NOT proof of actual external provider acquisition; audit its source provenance independently. Record missed high-scoring unranked fixtures separately from model PASS, without retroactive bets.
+Audit every recorded assessed fixture that matters to the requested slate,
+not only Website Picks or wins/losses.
 
-## 1. Audit scope
+Current V4 funnel:
 
-Audit **all recorded assessed matches**, not only LOCK/FOLLOW/Website Pick rows.
+SOURCE-VISIBLE FIXTURES
+-> EXCLUSIONS / REGISTRY / DISCOVERY
+-> GOAL_PRIORITY / visible pending-watch lanes
+-> V4_SWEEP_READY
+-> ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS
+-> C+C2 RANK
+-> V4_RANK_PERSISTENCE_VERIFIED
+-> C+C2 FOOTBALL ASSESSMENT
+-> optional OBSERVED QUOTE comparison OR STRICT PRICE DECISION
+-> FT
+-> model accounting / Actual Bets separately
 
-Reconstruct the production funnel according to the **workflow generation that
-actually produced the record**.
+Old V1–V3 capacity/work_ready/repair/ZIP rules are historical only and apply
+only when reconstructing a record genuinely produced by that workflow.
 
-Current V4:
-`SOURCE-VISIBLE SENIOR -> HARD EXCLUDED / REGISTERED / DISCOVERY -> GOAL_PRIORITY / PENDING_GOAL_RESEARCH / PENDING_DISCOVERY / LOW-GOAL WATCH -> V4_SWEEP_READY -> ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS -> C+C2 RANK -> VERIFIED AIRTABLE READBACK -> XI C+C2 FOOTBALL -> OPTIONAL SCREENSHOT CONDITIONAL PRICE -> LIVE FOOTBALL -> FT -> ACCOUNTING`
+## Source/result reconciliation
 
-Historical V1–V3 only:
-`RAW SENIOR -> OPERATIONAL/RESEARCHABILITY -> CAPACITY/REPLENISHMENT -> BOARD -> STEP2 -> LIVE/WAIT -> FT -> ACCOUNTING`
+For every assessed fixture:
 
-Never audit a V4 record against retired capacity, repaired-ZIP, required-block
-or replenishment rules unless that exact field was prospectively frozen by the
-historical workflow being reconstructed.
+- verify canonical match identity;
+- verify regulation-time FT;
+- reconcile reassessment epochs without double counting;
+- preserve the exact frozen model/version/evidence epoch;
+- distinguish model decision, official publication, shadow state and actual
+  user bet.
 
-Track process failures separately from predictive/model failures.
+Never infer FT from an in-play score.
 
-A missing C2 result on an all-model/current C+C2 exception is an execution/process defect, not a C2 PASS and not evidence that C2 avoided a loss.
+## Hindsight integrity
 
-## 2. Source hierarchy
+Use the format:
 
-Use:
-1. user bet slip / explicit user execution statement for physical execution truth;
-2. explicit user statement that a WAIT target never reached;
-3. frozen Decision States;
-4. Website Picks for official C exposure;
-5. Daily Coverage / board ledger for frozen Step-1 state;
-6. strong external result sources for FT/regulation result verification.
+FROZEN:
+- exact board/action/support/evidence state.
 
-Regulation time is the settlement basis unless the frozen market explicitly says otherwise.
+OBSERVED:
+- verified later score/events/settlement.
 
-Do not infer a final score from an in-play score snapshot.
+DIAGNOSIS:
+- evidence-bounded model/process/execution diagnosis.
 
-## 3. Frozen-state integrity
+P&L STATUS:
+- genuine model exposure/accounting;
+- C2 shadow separately;
+- actual user P/L separately.
 
-### Audit hindsight integrity — mandatory
+Outcome alone cannot rewrite a frozen state.
 
-Every audit record separates:
+A diagnosis that depends mainly on the later result must be labeled:
 
-`FROZEN:`
-- model state/rank/lane;
-- supported line;
-- frozen evidence epoch;
-- action/WAIT target/price;
-- runtime execution status;
-- prospective accounting basis.
+RETROSPECTIVE HYPOTHESIS ONLY — DO NOT RE-GRADE HISTORICAL STATE
 
-`OBSERVED:`
-- verified FT/regulation result;
-- actual user execution facts;
-- later operational observations.
+## Current V4 process checks
 
-`DIAGNOSIS:`
-- evidence-bounded explanation of process/model behavior;
-- confidence;
-- prospective hypothesis only when justified.
+Check:
 
-`P&L STATUS:`
-- official C model P&L;
-- C2 shadow model P&L where lawfully countable;
-- actual user P&L separately.
+- source completeness/provenance;
+- correct exclusion/registry/discovery treatment;
+- GOAL_PRIORITY qualification vs pending/watch visibility;
+- original-source replay at rank;
+- fresh full-cohort status and no retroactive prematch rank;
+- C/C2 independent supported burdens/policy fields;
+- exact Step1 engine-result readback;
+- routine /xi verified rank+persistence authority or explicit exception;
+- current quote-free football assessment;
+- screenshot exact line/odds preserved with zero replacement searches;
+- observed quote marked non-executable;
+- strict price action only when strict execution requirements actually cleared;
+- one Decision State readback;
+- official publication only after final freshness/readback check;
+- no synthetic WATCH or unresolved WAIT exposure;
+- Actual Bets separation.
 
-Historical outcome knowledge must never rewrite a frozen board state, line, rank, lane, or action.
+Routine /xi does not repeat the rank-time source replay.
 
-If the frozen record is insufficient to support the proposed diagnosis:
+Started/live analysis uses the same current C/C2 football path. Do not audit a
+missing standalone transition state machine as a defect.
 
-`AUDIT RECORD INVALID — DO NOT FINALIZE DIAGNOSIS`
+## C model audit
 
-## 4. Result reconciliation
+Review prospectively frozen C cases for recurring patterns such as:
 
-For every recorded assessment:
-- verify fixture identity and regulation-time FT;
-- reconcile duplicate/reassessment epochs;
-- settle only the exposure/accounting row that actually applies;
-- keep Website Picks and Decision States from double-counting the same official C exposure;
-- distinguish model exposure from actual user exposure.
-
-Asian-total quarter-line examples:
-- O2.25 at exactly 2 goals = HALF LOSS / -0.5u at 1u stake;
-- O2.75 at exactly 3 goals = HALF WIN / half-win half-push;
-- O3.0 at exactly 3 goals = PUSH;
-- O2.0 at exactly 2 goals = PUSH.
-
-Do not turn fractional quarter-line P/L into full wins/losses.
-
-## 5. Current C model audit
-
-Audit:
-- high-scoring C-PASS false negatives;
-- low-scoring C-FOCUS false positives;
-- clearing-goal funding quality;
+- false-positive FOCUS/FOLLOW;
+- high-scoring false-negative WATCH/PASS/STOP;
+- third-goal funding failures;
 - O2.5/O2.75 two-goal endpoints;
-- O3 upper-tail failures;
-- completion/continuation/stall classification;
-- carrier-led clears and failures;
-- two-sided stall failures;
-- exact-same-kickoff rank inversions;
-- FOLLOW/RESERVE/STOP concentration quality;
-- FOLLOW candidates that failed at XI/price;
-- RESERVE opportunity cost;
-- STOP high scorers as operational opportunity cost, not automatic retroactive model error;
-- text-vs-code C disagreements;
-- current clearing-goal FOLLOW certification behavior.
+- O3+ upper-tail failures;
+- carrier-led vs two-sided stall behavior;
+- same-kickoff rank/lane opportunity cost;
+- FOLLOW candidates failing at current XI/price stage;
+- O2.25 calibration behavior.
 
-Outcome alone is not sufficient to call the original lane/state wrong. Diagnose against frozen evidence.
+Do not call a lane wrong merely because FT was high/low; identify the
+contemporaneous evidence conflict.
 
-## 6. C2 shadow audit
+## C2 audit
 
-For every row with a lawful prospective C2 freeze, compare:
-- C vs C2 rank/state;
+Where C2 genuinely executed prospectively, compare:
+
+- rank/state;
 - independently frozen supported burden;
-- selection-quality floor;
-- bridge use;
-- Step-2 action;
-- WAIT behavior;
-- settlement/accounting when executable terms were prospectively frozen.
+- independent C2 leakage evidence when used;
+- quote-policy action;
+- WAIT reachability;
+- settlement only when actual prospective terms existed.
 
-Do not:
-- copy C odds/line into C2;
-- treat C2-INCOMPLETE as PASS;
-- replay C2 using FT/current information;
-- manufacture ROI when exact frozen action/price is missing.
+Do not copy C line/price into C2, and never treat C2-INCOMPLETE as PASS.
 
-C2 remains shadow-only.
+## WAIT/WATCH accounting
 
-## 7. Retired C3/C4 historical records
+Current policy:
 
-C3/C4 are not part of current forward QA.
+- WATCH -> no exposure;
+- unresolved WAIT -> no exposure;
+- confirmed reached WAIT -> reconcile actual confirmed reached terms;
+- direct strict BET -> use actual observed executable terms.
 
-When a historical row genuinely contains a prospective C3/C4 freeze from its active era, it may be:
-- preserved;
-- settled/reported historically;
-- used to explain an old workflow decision.
+Do not create current WAIT_ASSUMED/WATCH_ASSUMED rows.
 
-Use explicit historical accounting mode where required.
+Historical assumed-exposure rows remain historical and must be labeled rather
+than rewritten.
 
-Never:
-- create a new C3/C4 action;
-- include retired models in a current C+C2 completeness requirement;
-- count a retrospectively reconstructed C3/C4 result as confirmatory evidence.
+## User P/L
 
-## 8. Process-integrity audit
+Only user-confirmed Actual Bets — Current rows count.
 
-For **current V4**, check only:
-- provider/source provenance and immutable fixture identity;
-- explicit hard exclusions/friendlies;
-- registered vs DISCOVERY classification;
-- source-backed goal-screen status and pending-research visibility;
-- original-source replay integrity;
-- complete <=10-minute rank status refresh and no retroactive prematch rank;
-- common evidence freeze and tournament-incentive completeness where applicable;
-- genuinely independent C/C2 supported burdens and atomic rank execution;
-- V4 rank persistence/readback;
-- V4 routine /xi provenance chain, or explicit exception authority;
-- quote-free C+C2 football execution/readback;
-- USER_SCREENSHOT_ONLY exact-price preservation and no replacement market search;
-- live football transition and the current no-live-priced-action-engine boundary;
-- Website Pick/Decision State reconciliation only for exposures that were genuinely authorized.
+Do not derive user P/L from:
 
-For **historical V1–V3** records, additionally audit their then-current
-required-competition, women's-coverage, operational viability, capacity,
-replenishment, repaired handoff and market-history rules from the frozen
-historical epoch. Do not project those controls onto V4.
+- C action;
+- Website Pick;
+- C2 shadow;
+- screenshot;
+- WATCH;
+- WAIT target.
 
-Market-history handling is mode-specific. For `USER_SCREENSHOT_ONLY`,
-`MARKET_HISTORY_NOT_RESEARCHED_USER_SCREENSHOT_ONLY` is the correct
-limitation and **not** a process defect. A mandatory market-history attempt
-applies only to historical/non-screenshot priced paths that actually required
-it.
+## Competition/process learning
 
-An all-model exception after the active-roster boundary is successful only when C and C2 both execute/persist from the same evidence epoch.
+Audit may identify prospective improvements, but any model/filter change must
+be proposed/applied prospectively after the audit. Never retroactively mutate
+the audited record.
 
-## 9. Competition reliability memory update — diagnostic for current V4
-
-After process reconstruction, update the operational reliability memory for
-diagnostic continuity. Current V4 intake does **not** consume this memory as an
-admission/cap/ranking gate, so never claim that an audit update changed a V4
-future shortlist. Historical V1–V3 audits retain their original gating
-interpretation when reconstructing those frozen epochs.
-
-1. append one canonical operational event per observed fixture/epoch to `Competition Reliability Events`;
-2. use only XI, market, team-news, identity/time and Step-2 process outcomes;
-3. never use FT goals, settlement or P/L to promote/demote operational reliability;
-4. load the latest 10 countable events per affected competition;
-5. run `models/football/engine/competition_reliability.py`;
-6. upsert the competition reliability summary;
-7. preserve manual override unless explicitly changed by the user.
-
-A high-scoring/profitable match cannot rescue operational reliability. A low-scoring/loss cannot demote it by itself.
-
-## 10. Runtime / deterministic audit
-
-Before execution-required audit commands, run `FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md` with stage=`audit`.
-
-Persist the `FOOTBALL_RUNTIME_EXECUTION_RECORD`.
-
-Use deterministic audit/accounting tools only on already frozen evidence. Runtime output is validation/accounting, not permission to alter history.
-
-Current active-model accounting expects C+C2. For historical C3/C4 settlement, set the explicit historical roster mode rather than injecting retired rows into a current payload.
-
-## 11. Factor-calibration observer
-
-For eligible prospectively frozen C observations, update the diagnostic factor-calibration observer.
-
-Rules:
-- outcome fields remain blank before FT;
-- after FT, only analyze fields genuinely frozen prospectively;
-- insufficient sample remains `INSUFFICIENT SAMPLE`;
-- calibration observations never silently alter production coefficients/rules.
-
-## 12. Output
+## Output
 
 Report:
-- audited date/window and source coverage;
-- board/funnel counts;
-- current C results;
-- C2 shadow comparison on valid rows;
-- process failures/incomplete rows;
-- model-level recurring diagnoses;
-- competition reliability changes;
-- official C model P&L;
-- actual user P&L separately;
-- any historical retired-model appendix only when relevant;
-- exact data/coverage limitations.
 
-Do not produce a leaderboard that treats missing/incomplete shadow rows as PASSes or no-bets unless that was the frozen prospective state.
+- audited window and data coverage;
+- V4 funnel counts;
+- C official results/diagnoses;
+- C2 shadow comparison on valid rows;
+- process and execution defects;
+- recurring failure modes;
+- actual model accounting where terms really existed;
+- actual user P/L separately;
+- any explicit historical appendix only when requested/relevant;
+- evidence limitations.
+
+Do not manufacture missing model executions or prices.

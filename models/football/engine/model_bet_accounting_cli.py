@@ -13,7 +13,7 @@ from model_bet_accounting import (
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Compile/settle one C/C2/C3/C4 football model-accounting fixture"
+        description="Compile/settle active C/C2 football model accounting (historical retired rows remain readable)"
     )
     parser.add_argument("--input", required=True)
     args = parser.parse_args()

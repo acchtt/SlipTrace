@@ -1,78 +1,97 @@
-# Football C + C2 Active Pair Contract
+# Football C + C2 active pair
 
-> **Active model Airtable route (Oct 11):** Load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All model, accounting and reporting reads/writes go to `appbzxqXYf0lKfD4P` using the corresponding NEW table IDs and source-key readback. Do not use old-base IDs for writes. **Do not modify `/sweep` routing, source checkpoint or Step0 handoff.** Actual Bets are only from confirmed user slips; C official, C2 shadow.
+## Roster
 
-**Status:** ACTIVE — supersedes every C3/C4 workflow surface
-**Effective:** 2026-10-06
-**Official model:** Football C
-**Only challenger:** Football C2 — SHADOW
+- Football C is official.
+- Football C2 is the only active shadow model.
+- Football C3 and Football C4 are retired for new execution.
 
-## 1. Active roster
+A current assessment is C + C2. A C-only completion is invalid unless the user
+explicitly asks for a historical single-model inspection.
 
-Football C3 and Football C4 are retired. They must not be executed, displayed, persisted for new decisions, counted in new board/accounting windows, or required by /rank, /xi, /live, /audit, /report, runtime bootstrap, reconciliation, or CI.
+## Shared facts, independent policy
 
-Historical C3/C4 records remain immutable audit history. Never delete or rewrite historical rows merely because the models are retired.
+Freeze one factual football epoch per fixture.
 
-## 2. Common evidence, independent policy
+Shared facts may include fixture identity, current status, routes, carrier,
+chance/failure evidence, H2H materiality, tournament state and current team/XI
+information.
 
-C and C2 receive the same prospectively frozen factual evidence epoch. Their model-owned fields, supported burdens, board states and actions remain independent. Never manufacture a missing C2 state from C.
+Model-owned state remains independent.
 
-C2 model-owned evidence now also includes the optional paired fields
-`c2_opponent_leakage` and `c2_opponent_leakage_basis`. They must be
-independently researched from current opponent-specific evidence and supplied
-together; they are never aliases for C's `opponent_leakage` or
-completion/continuation/stall diagnostics. Absence of both fields is lawful
-but cannot activate the C2 O2.25 leakage certificate.
+Football C owns its completion/continuation/leakage/stall diagnostics, supported
+line, board state/rank, official lane and action.
 
-## V4 exception supersession for football-only reads
+Football C2 owns its route-quality state, supported line, board state/rank,
+shadow action and optional C2-specific opponent leakage + basis.
 
-Explicit `/xi exception` can execute independently sourced quote-free C+C2 football without a V4 board or V1–V3 packaged Step0. Missing genuine C2 input is disclosed as incomplete; C is not copied into C2. The older pair-input persistence before **priced publication** remains mandatory for a genuine betting action, not a reason to refuse a football discussion or defer a paired quote-free result. See the new concise current `02_NORMAL_CHAT_XI_ODDS.md`. User quote not required for football-only analysis.
+Never copy C's supported line, completion/stall diagnostics or leakage grade
+into C2.
 
-## 3. Atomic exception rule
+## Step 1
 
-Every user-declared /xi exception is a C+C2 assessment. "all models" now means the active roster: C + C2.
+V4 /rank runs both boards from the same factual epoch and persists exact C/C2
+engine JSON. stage.py verify independently refetches those exact results once.
 
-Before issuing any football verdict:
-1. freeze the common fixture/XI/research/tournament evidence and current score/minute when live;
-2. freeze both C and C2 model-owned football inputs and supported lines, including BOTH C2 leakage fields when independently evidenced;
-3. execute deterministic quote-free C and C2 validation from that same epoch;
-4. persist/read back both football outputs;
-5. only then publish the combined football verdict.
-A market quote is optional. If pricing is supplied, evaluate it as a separate
-same-command subdecision under the current /xi screenshot/executability rules;
-never make market data a prerequisite for the football pair.
+The resulting model_evidence_sha256 is the routine /xi continuity proof.
 
-The pair is fail-closed for completion. If C2 cannot be lawfully frozen or executed, do not present the exception as a completed C-only verdict. Persist:
-`C+C2 EXCEPTION INCOMPLETE — <exact reason>`
-and preserve the frozen evidence for resume.
+## Step 2 football assessment
 
-Never reconstruct C2 after kickoff or FT from later information.
+Run independent C and C2 stage=football_assessment payloads.
 
-## 4. Runtime
+Successful paired football execution is:
 
-Primary current XI runtime:
-`python xi_portable.py xi --c <c_football.json> --c2 <c2_football.json>`
+EXECUTED_C_C2_FOOTBALL_ONLY
 
-Required football success is `EXECUTED_C_C2_FOOTBALL_ONLY`. The legacy
-priced `pair` command is not the primary /xi completion path; it may be used
-only by the separate strict prematch executable-price channel with genuine
-decision-stage payloads. A completed football assessment requires both
-validators to execute. C remains the only official exposure authority; C2
-remains shadow-only.
+Odds are not required.
 
-## 5. Persistence and accounting
+## Observed quote
 
-For new V4 Step1 boards, Daily Coverage must store the exact executed
-per-match C and C2 result JSON in `Step1 Engine C Result` and
-`Step1 Engine C2 Result`. Independent readback must match the sealed
-rank receipt before routine /xi is authorized; board state/rank/line is not
-a sufficient substitute for model-owned evidence. Historical rows are not
-backfilled.
+For a screenshot or other non-executable observation, run the same pure C/C2
+quote-policy functions used by strict execution.
 
-New Decision State rows must persist C Action, C Supported Line, C2 Shadow Action and C2 Supported Line together for completed **strict priced decisions**. A screenshot-only `WAIT — LIVE DECAY (conditional plan)` is evidence/presentation state, not `C-WAIT`: do not write it as official C Action, do not create `WAIT_ASSUMED` exposure, and do not create a Website Pick. C2 may never create a Website Pick.
+The observed result may be ACT/WAIT/PASS but always remains non-executable.
 
-New model accounting includes C and C2 only. Historical C3/C4 accounting is retained as historical data but excluded from active-roster forward metrics.
+C and C2 may produce different actions because their supported burdens and
+model policy are independent.
 
-## 6. Precedence
+## WAIT
 
-If any older file says C3/C4 are active, requires a triplet, requires C4 visibility, or defines "all models" as including C3/C4, this contract overrides it until that stale text is removed.
+WAIT requires explicit current model-specific reachability evidence and cannot
+require negative football information.
+
+The target/minimum comes from core model policy. WAIT is a plan, not assumed
+exposure.
+
+## Strict execution
+
+A strict C/C2 pair requires real current executable-price evidence and the
+execution contract.
+
+C may produce an official action. C2 is shadow-only.
+
+Persist/read back the exact strict pair once before publication. Do not execute
+the pair a second time in the publication guard.
+
+## Exceptions
+
+A user-requested /xi exception does not require routine board authorization but
+still requires independently frozen C and C2 football inputs.
+
+If one model cannot be lawfully executed:
+
+C+C2 EXCEPTION INCOMPLETE — <exact reason>
+
+No retroactive prematch action is allowed after kickoff.
+
+## Accounting
+
+WATCH and unresolved WAIT create no prospective synthetic exposure.
+
+C direct strict BET accounting may use its actual observed quote. A WAIT may be
+counted only when reached terms are actually confirmed.
+
+C2 remains shadow accounting only and never creates a Website Pick.
+
+Actual user betting and user P/L remain separate and come only from confirmed
+Actual Bets — Current rows.
