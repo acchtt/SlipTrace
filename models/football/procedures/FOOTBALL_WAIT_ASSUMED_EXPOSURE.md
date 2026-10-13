@@ -15,6 +15,26 @@ A Football C `C-WAIT` is a model instruction with a predeclared target line and 
 
 The frozen model decision remains `C-WAIT`. This procedure changes only exposure/accounting semantics.
 
+## 1A. Assessment-only decay plans are NOT C-WAIT exposure
+
+The football-first /xi wrapper may now display
+`WAIT — LIVE DECAY (conditional plan)` from an exact user PREMATCH
+screenshot when the model is FOCUS, the football thesis is intact, its
+supported burden is funded, and the bounded reachability rule clears.
+
+That **assessment plan is not the deterministic priced-engine `C-WAIT`**
+covered by this accounting procedure. It must keep:
+- `bet_authorized=false`;
+- `model_bets_created=false`;
+- `accounting_exposure_created=false`;
+- no Website Pick;
+- no `WAIT_ASSUMED` exposure;
+- no Actual Bet.
+
+Only a later strict decision-stage result whose action is actually `WAIT`
+enters the accounting rules below. This prevents screenshot-only conditional
+planning from creating model P/L or official exposure.
+
 ## 2. Default WAIT accounting
 
 Immediately when Football C issues a valid `C-WAIT`:
