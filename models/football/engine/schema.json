@@ -346,22 +346,15 @@
           ]
         },
         "c2_opponent_leakage": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "enum": [
             "LOW",
             "MEDIUM",
-            "HIGH",
-            null
+            "HIGH"
           ]
         },
         "c2_opponent_leakage_basis": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "minLength": 1
         },
         "burden_stall_risk": {
