@@ -34,6 +34,22 @@ def fixture(country, competition, home="Home", away="Away", kind="DOMESTIC_LEAGU
 
 
 class CheapSweepFilterTests(unittest.TestCase):
+    def test_uefa_youth_league_gets_specific_research_priority_not_auto_goal_positive(self):
+        result = classify_research_priority(
+            fixture(
+                "Europe", "UEFA Youth League",
+                "Youth Team A", "Youth Team B", "YOUTH_CONTINENTAL"
+            ),
+            at_utc=NOW,
+        )
+        self.assertEqual(result["priority"], SPECIAL)
+        self.assertEqual(
+            result["reason"],
+            "UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH",
+        )
+        self.assertTrue(result["requires_match_specific_goal_evidence"])
+        self.assertFalse(result["hard_exclude"])
+
     def test_big_five_league_status_is_never_auto_research_priority(self):
         for country, competition in (
             ("England", "Premier League"),
