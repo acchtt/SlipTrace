@@ -19,7 +19,7 @@ independently evidenced opponent leakage supplies third-goal proof if:
 - route reliability is HIGH;
 - independent route quality, chance quality, failure resistance,
   evidence confidence and burden protection are all >= MEDIUM;
-- independent upper-tail proof is absent (the specific C2 gate in question);
+- independent upper-tail proof is not required for this leakage certificate; if present, it remains positive orthogonal evidence and must never make an otherwise identical qualifying O2.25 case worse;
 - no failure directly attacks the scoring route, and no material suppression.
 
 The C2-owned signal is optional in older/missing-input payloads; absence
