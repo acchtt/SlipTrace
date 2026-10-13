@@ -289,7 +289,15 @@ fourth-goal tail. A sufficiently well-evidenced O2.25 leakage-funded fixture
 cannot remain C-WATCH/STOP; it must be re-evaluated as C-FOCUS. Authority:
 `models/football/procedures/FOOTBALL_C_O225_LEAKAGE_CALIBRATION_20261013.md`.
 
-Football C2 does not inherit this C-owned completion/stall calibration.
+Football C2 does not inherit this C-owned completion/stall calibration. **Active follow-on C2 calibration (2026-10-13):**
+C2 now has its *own* independently researched HIGH-opponent-leakage signal
+(`c2_opponent_leakage` with non-empty `c2_opponent_leakage_basis`) for a
+strict O2.25-only goal-three counterweight when a STRONG scoring route,
+HIGH route reliability and at least MEDIUM independent-route/chance/failure
+quality survive. This is not imported C completion/stall policy, never
+permits O2.5+, and cannot bypass C2 model veto/price/upper-line guards.
+C2 remains shadow-only. Authority:
+`challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md`.
 
 Operational capacity does not change predictive rank.
 
