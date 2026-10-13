@@ -23,7 +23,16 @@ from typing import Any
 from stage import SCHEMA, StageError, _hash, _time, sweep
 
 STATUS = "V4_SWEEP_DERIVED_UNATTESTED"
-IGNORABLE = {"status", "integrity_sha256", "implementation_note"}
+# Research-order manifest is non-authoritative scheduling metadata. Historical
+# attestation must still match the source ledger, intake lanes, eligible queue,
+# counts and every other business field exactly, but a V2 refactor may replace
+# the old manifest implementation without changing historical eligibility.
+IGNORABLE = {
+    "status",
+    "integrity_sha256",
+    "implementation_note",
+    "goal_screen_manifest",
+}
 
 
 def replay(source: dict[str, Any], derived: dict[str, Any]) -> dict[str, Any]:
