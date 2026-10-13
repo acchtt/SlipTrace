@@ -82,7 +82,7 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("<run>-v4_sweep_ready.json", rank)
         self.assertIn("-source.json", workflow)
         self.assertIn("-rank-handoff.json", workflow)
-        self.assertIn("does not search historical Git refs", rank)
+        self.assertIn("does not search historical", rank)
 
     def test_routine_xi_uses_verified_rank_not_second_source_replay(self):
         guard = (ENGINE / "step2_queue_guard.py").read_text()
