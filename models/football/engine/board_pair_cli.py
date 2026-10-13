@@ -20,6 +20,8 @@ MODEL_OWNED_FIELDS = {
     "continuation_quality",
     "opponent_leakage",
     "burden_stall_risk",
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
 }
 
 C_ONLY_FIELDS = {
@@ -28,6 +30,11 @@ C_ONLY_FIELDS = {
     "continuation_quality",
     "opponent_leakage",
     "burden_stall_risk",
+}
+
+C2_ONLY_FIELDS = {
+    "c2_opponent_leakage",
+    "c2_opponent_leakage_basis",
 }
 
 COMMON_EVIDENCE_REQUIRED_FIELDS = {
@@ -185,6 +192,12 @@ def run_board_pair(
             raise ContractError(
                 "BOARD PAIR FAILED — C POLICY FIELD LEAK INTO C2 PAYLOAD: "
                 f"match_id={match_id} c2={leaked_c2}"
+            )
+        leaked_c = sorted(set(indexed["c"][match_id]) & C2_ONLY_FIELDS)
+        if leaked_c:
+            raise ContractError(
+                "BOARD PAIR FAILED — C2 POLICY FIELD LEAK INTO C PAYLOAD: "
+                f"match_id={match_id} c={leaked_c}"
             )
 
     results = {model: run_board(payloads[model]) for model in EXPECTED_MODELS}
