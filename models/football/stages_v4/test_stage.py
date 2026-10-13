@@ -210,7 +210,7 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["eligible_queue"][0]["match_id"], "uyl-1")
         row = out["source_ledger"][0]
         self.assertEqual(row["registry_lane"], "CONDITIONAL")
-        self.assertEqual(row["intake_lane"], "CONDITIONAL")
+        self.assertEqual(row["intake_lane"], "GOAL_PRIORITY")
         self.assertIn("uyl-1", out["research_order"])
 
     def test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research(self):
