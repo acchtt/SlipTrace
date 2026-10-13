@@ -264,10 +264,14 @@ def low_burden_leakage_goal3_funded(
       - HIGH opponent leakage,
       - at least MEDIUM burden-completion and route reliability,
       - at least MEDIUM current chance quality,
+      - HIGH burden-stall risk or LOW continuation (the specific suppression
+        being counterweighted),
       - no material suppression or route-attacking failure.
 
-    Continuation/stall history may therefore be counterweighted at this low
-    protected burden, but LOW burden-completion can never be rescued.
+    This is not a new generic positive factor. It activates only when the
+    current matchup-specific leakage is counterweighting the exact stall/
+    continuation suppression identified by the audit. LOW burden-completion
+    can never be rescued.
     """
     require_c_completion(a)
     burden = a.supported_line if selected_line is None else selected_line
@@ -280,6 +284,10 @@ def low_burden_leakage_goal3_funded(
         and a.burden_completion_quality >= Grade.MEDIUM
         and a.route_reliability >= Grade.MEDIUM
         and a.chance_quality >= Grade.MEDIUM
+        and (
+            a.burden_stall_risk == Grade.HIGH
+            or a.continuation_quality == Grade.LOW
+        )
         and not a.material_suppression
         and not a.failure_attacks_route
     )
