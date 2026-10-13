@@ -113,7 +113,10 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
         if _json(stored.get(stored_key), stored_key) != result:
             raise PublicationBlocked(f"{stored_key} differs from strict pair result")
         expected = _expected_action(model, result.get("action"))
-        if _text(stored, action_key).upper() != expected:
+        observed_action = _text(stored, action_key).upper()
+        if model == "c2":
+            observed_action = observed_action.split(" —", 1)[0]
+        if observed_action != expected:
             raise PublicationBlocked(f"{action_key} differs from strict pair result")
 
     key = match_id + ":" + active_epoch
