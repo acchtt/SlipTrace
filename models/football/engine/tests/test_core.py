@@ -27,6 +27,7 @@ from core import (  # noqa: E402
     c2_clearing_goal_funded,
     c2_selection_floor,
     clearing_goal_funded,
+    low_burden_leakage_goal3_funded,
     decide_c,
     decide_c2,
     follow_through_lane,
@@ -120,6 +121,71 @@ class FollowThroughTests(unittest.TestCase):
         )
         self.assertFalse(clearing_goal_funded(a))
         self.assertTrue(clearing_goal_funded(a, selected_line=2.0))
+
+    def test_o225_high_leakage_strong_route_can_fund_goal3_without_high_continuation(self):
+        a = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertTrue(low_burden_leakage_goal3_funded(a))
+        self.assertTrue(clearing_goal_funded(a))
+
+    def test_leakage_counterweight_never_extends_to_o250_or_higher(self):
+        a = assessment(
+            supported_line=2.5,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(low_burden_leakage_goal3_funded(a))
+        self.assertFalse(clearing_goal_funded(a))
+
+    def test_o225_leakage_counterweight_requires_strong_route_and_completion(self):
+        no_strong_route = assessment(
+            supported_line=2.25,
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        low_completion = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            burden_completion_quality=Grade.LOW,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertFalse(low_burden_leakage_goal3_funded(no_strong_route))
+        self.assertFalse(low_burden_leakage_goal3_funded(low_completion))
 
     def test_focus_supported_high_goal_totals_are_not_stopped(self):
         for line in (2.0, 2.25, 2.75, 3.0, 3.25, 3.5, 4.0, 4.5):
@@ -379,6 +445,43 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(top.action, Action.BET)
         self.assertEqual(not_top.action, Action.PASS)
+
+    def test_o225_leakage_counterweight_prevents_stall_and_low_continuation_auto_pass(self):
+        a = assessment(
+            supported_line=2.25,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        decision = decide_c(a, context(quote=Quote(2.25, 1.70)))
+        self.assertEqual(decision.action, Action.BET)
+
+    def test_o250_same_leakage_shape_still_passes(self):
+        a = assessment(
+            supported_line=2.5,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.LOW,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        decision = decide_c(a, context(quote=Quote(2.5, 1.70)))
+        self.assertEqual(decision.action, Action.PASS)
+        self.assertIn("stall risk", decision.reason)
 
     def test_high_current_stall_risk_passes(self):
         decision = decide_c(
