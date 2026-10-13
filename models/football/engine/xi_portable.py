@@ -254,6 +254,21 @@ def _football_and_optional_price(
         return {"ok": True, "xi_mode": "FOOTBALL_ASSESSMENT", **football}
     if price_c is None or price_c2 is None:
         raise ValueError("both C and C2 strict price inputs are required")
+    if (
+        c_input.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED"
+        or c2_input.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED"
+    ):
+        return {
+            "ok": True,
+            "xi_mode": "FOOTBALL_ASSESSMENT",
+            **football,
+            "price_check": {
+                "ok": False,
+                "status": "EXECUTABLE_PRICE_NOT_AUTHORIZED",
+                "reason": "started fixture; prematch executable-price path closed",
+                "execution_authorized": False,
+            },
+        }
 
     # Strict executable-price decisions are separate from observed-quote
     # comparison and retain all adapter execution guards. Failure of the price
