@@ -1,0 +1,58 @@
+name: V4 Date Surface Native Sweep Attestation
+on:
+  push:
+    paths:
+      - .github/workflows/v4-live-date-acquisition.yml
+      - models/football/stages_v4/collect_livescore_date.py
+  pull_request:
+    paths:
+      - .github/workflows/v4-live-date-acquisition.yml
+      - models/football/stages_v4/collect_livescore_date.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-attested-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install HTML parser
+        run: python -m pip install beautifulsoup4==4.13.4
+      - name: Fetch full date surface and independently verify terminal interval
+        run: |
+          mkdir -p v4-source-attested
+          python models/football/stages_v4/collect_livescore_date.py \
+            --output v4-source-attested/source.json \
+            --report v4-source-attested/collector-proof.json
+      - name: Run native production V4 stage on original source
+        run: |
+          python models/football/stages_v4/stage.py \
+            --output v4-source-attested/V4_SWEEP_READY.json \
+            sweep --source v4-source-attested/source.json
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          original=json.loads(Path("v4-source-attested/source.json").read_text())
+          result=json.loads(Path("v4-source-attested/V4_SWEEP_READY.json").read_text())
+          assert result["status"]=="V4_SWEEP_READY"
+          assert result["run_id"]==original["run_id"]
+          assert result["source_completeness_contract"]=="DATE_SURFACE_BATCH_V2"
+          clone=dict(result)
+          integrity=clone.pop("integrity_sha256")
+          h=hashlib.sha256(json.dumps(clone,sort_keys=True,ensure_ascii=True,separators=(",",":")).encode("utf-8")).hexdigest()
+          assert integrity==h,(integrity,h)
+          print("SOURCE_ATTESTED_V4",result["run_id"],result["fixture_count"],
+                result["eligible_count"],integrity)
+          PY
+      - name: Upload source and native validated receipt
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v4-source-attested-20261013-1400-2100
+          path: v4-source-attested/
+          retention-days: 7
+          if-no-files-found: error
