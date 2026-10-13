@@ -95,7 +95,13 @@ No model ACT creates an Actual Bet. To persist and verify a valid screenshot pri
    Missing XI or live stats is a stated football limitation, not a
    mandatory bookmaker quotation. Never infer supported burden from
    current market lines. Confirm original frozen supported line separately
-   for C and C2; no C2 cloning, no C3/C4.
+   for C and C2; no C2 cloning, no C3/C4. For C2, explicitly preserve or
+   independently refresh the C2-owned opponent-leakage pair from this same
+   evidence epoch: `c2_opponent_leakage` plus non-empty
+   `c2_opponent_leakage_basis`. Supply BOTH or neither. Never derive either
+   field from C's `opponent_leakage` or C completion/continuation/stall
+   diagnostics. If unavailable, C2 simply receives no O2.25 leakage
+   certificate; do not manufacture the missing evidence.
 3. **Use the fast actual portable runtime:** fetch exact-current
    `models/football/engine/xi_portable.py`, run `self-check` once for
    source revision and execute independently frozen C/C2
