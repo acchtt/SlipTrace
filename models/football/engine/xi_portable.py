@@ -254,6 +254,22 @@ def _football_and_optional_price(
         return {"ok": True, "xi_mode": "FOOTBALL_ASSESSMENT", **football}
     if price_c is None or price_c2 is None:
         raise ValueError("both C and C2 strict price inputs are required")
+    for model, football_input, priced_input in (
+        ("c", c_input, price_c),
+        ("c2", c2_input, price_c2),
+    ):
+        if (
+            priced_input.get("stage") != "decision"
+            or priced_input.get("model") != model
+            or priced_input.get("match", {}).get("match_id")
+            != football_input.get("match", {}).get("match_id")
+            or priced_input.get("evidence_epoch_id")
+            != football_input.get("evidence_epoch_id")
+        ):
+            raise ValueError(
+                f"{model}: strict price decision must match football fixture/epoch"
+            )
+
     if (
         c_input.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED"
         or c2_input.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED"
