@@ -261,6 +261,36 @@ require(
     "DATE_SURFACE_BATCH_V2",
     "registry_prefilter_applied=false",
 )
+require(
+    ".github/workflows/football-v4-replay-attestation.yml",
+    "-source.json",
+    "-rank-handoff.json",
+    "source_file_sha256",
+    "receipt_integrity_sha256",
+    "cross-chat bundle",
+)
+require(
+    "models/football/prompts/rank.md",
+    "/rank newest receipt",
+    "<run>-source.json",
+    "<run>-rank-handoff.json",
+    "V4_SOURCE_HANDOFF_MISSING",
+)
+require(
+    "models/football/stages_v4/RANK.md",
+    "v4-original-source-attested-receipts",
+    "/rank newest receipt",
+    "<run>-source.json",
+    "<run>-rank-handoff.json",
+    "V4_SOURCE_HANDOFF_MISSING",
+    "Do not ask the user to",
+)
+require(
+    "models/football/stages_v4/test_procedure_authority.py",
+    "test_rank_newest_receipt_self_resolves_source_handoff",
+    "source_file_sha256",
+    "receipt_integrity_sha256",
+)
 
 for entrypoint in (
     "models/football/engine/sweep_rank_pipeline.py",
