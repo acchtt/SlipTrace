@@ -127,6 +127,27 @@ class ResearchedRegistryTests(unittest.TestCase):
         self.assertEqual(classify(fixture("a","England","Club Friendlies"))["lane"], "EXCLUDED")
         self.assertEqual(classify(fixture("a","Pakistan","Premier League"))["lane"], "DISCOVERY")
 
+    def test_uefa_youth_league_is_specific_conditional_exception(self):
+        for country, name, kind in (
+            ("Europe", "UEFA Youth League", "YOUTH_CONTINENTAL"),
+            ("Europe", "UEFA U19 Youth League", "YOUTH_CONTINENTAL"),
+            ("Spain", "UEFA Youth League", "CONTINENTAL"),
+        ):
+            with self.subTest(country=country, name=name, kind=kind):
+                result = classify(fixture("uyl", country, name, kind))
+                self.assertEqual(result["lane"], "CONDITIONAL")
+                self.assertEqual(
+                    result["reason"],
+                    "UEFA_YOUTH_LEAGUE_SOURCE_GOAL_FORMAT_REQUIRED",
+                )
+
+        other = classify(fixture(
+            "other-youth", "Europe", "Generic Continental Youth Cup",
+            "YOUTH_CONTINENTAL"
+        ))
+        self.assertEqual(other["lane"], "EXCLUDED")
+        self.assertEqual(other["reason"], "UNAPPROVED_YOUTH_COMPETITION")
+
     def test_african_domestic_competitions_are_excluded_but_continental_remains(self):
         for country, league, kind in (
             ("Egypt", "Premier League", "DOMESTIC_LEAGUE"),
@@ -177,6 +198,20 @@ class SweepV4Tests(unittest.TestCase):
         self.assertTrue(result["no_fixed_eight_match_cap"])
         self.assertFalse(result["price_required_for_football"])
         self.assertFalse(result["published"])
+
+    def test_verified_uefa_youth_league_can_enter_goal_first_shortlist(self):
+        youth = fixture(
+            "uyl-1", "Europe", "UEFA Youth League",
+            "YOUTH_CONTINENTAL", proof="VERIFIED"
+        )
+        out = sweep(snapshot([youth]), now=NOW)
+        self.assertEqual(out["fixture_count"], 1)
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_queue"][0]["match_id"], "uyl-1")
+        row = out["source_ledger"][0]
+        self.assertEqual(row["registry_lane"], "CONDITIONAL")
+        self.assertEqual(row["intake_lane"], "CONDITIONAL")
+        self.assertIn("uyl-1", out["research_order"])
 
     def test_african_domestic_fixture_stays_visible_but_never_reaches_goal_research(self):
         src = snapshot([
