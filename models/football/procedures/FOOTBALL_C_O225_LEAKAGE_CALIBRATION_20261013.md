@@ -41,7 +41,10 @@ This calibration:
   or material suppression;
 - does **not** lower the normal price floor;
 - does **not** convert screenshot-only evidence into an executable bet;
-- does **not** change C2 policy.
+- does **not** change C2 policy. (This describes PR #157's original C-only scope;
+  the separately authorized prospective C2 follow-on is documented in
+  `../challengers/football-c2/FOOTBALL_C2_O225_LEAKAGE_CALIBRATION_20261013.md`
+  and does not import C completion/stall fields.)
 
 A high-confidence O2.25 leakage-funded fixture cannot remain C-WATCH/STOP when
 evidence confidence, failure resistance and burden protection are each at
