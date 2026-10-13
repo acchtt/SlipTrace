@@ -16,7 +16,7 @@ Ekstraklasa, Serie A, Superliga, Veikkausliiga, etc. one by one and then call
 the union a sweep. Open the provider's date/listing surfaces for every ICT and
 UTC calendar date touched by the requested window, exhaust pagination, record
 every source-visible senior football competition block, and only then apply
-the registry locally.
+the registry locally. **Specific youth exception:** retain source-visible `UEFA Youth League` fixtures from those complete date surfaces even though the ordinary acquisition scope is senior football. Do not broaden this into generic youth-league crawling; other youth competitions remain outside the approved intake unless separately authorized.
 
 Every new `source.json` must contain
 `source_completeness_manifest.schema_version=football-v4-source-completeness-v2`
