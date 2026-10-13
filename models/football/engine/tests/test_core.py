@@ -556,6 +556,19 @@ class FootballCExecutionTests(unittest.TestCase):
 
 
 class C2BridgeTests(unittest.TestCase):
+    def test_sparse_shadow_probe_cannot_imply_leakage(self):
+        from types import SimpleNamespace
+
+        # Legacy synthetic route-quality probes do not provide a C2-owned
+        # opponent leakage grade, basis or even a supported burden.
+        sparse = SimpleNamespace(
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            route_reliability=Grade.HIGH,
+        )
+        self.assertFalse(c2_low_burden_leakage_goal3_funded(sparse))
+        self.assertFalse(c2_low_burden_leakage_goal3_funded(sparse, 2.25))
+
     def test_o225_independently_evidenced_leakage_rescues_strong_route(self):
         a = assessment(
             supported_line=2.25,
