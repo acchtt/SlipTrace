@@ -1202,6 +1202,11 @@ require(
     "model_evidence_readback_verified",
     "model_evidence_sha256",
     "state/rank/line alone are insufficient",
+    "prospective C/C2 thresholds follow the active calibration sections below",
+)
+forbid(
+    "models/football/CURRENT_MODEL.md",
+    "Model thresholds/old boards/Actual Bets untouched",
 )
 
 # 8. Persistence must keep active C/C2 fields distinct.
