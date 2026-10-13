@@ -1,0 +1,38 @@
+name: Probe UEFA Youth League date surface
+on:
+  push:
+    paths:
+      - ".github/workflows/probe-uyl-20261013.yml"
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: List youth-labelled competition blocks
+        run: |
+          python - <<'PY'
+          import json,re,urllib.request
+          headers={"User-Agent":"Mozilla/5.0","Origin":"https://www.livescore.com","Referer":"https://www.livescore.com/"}
+          for day,off in [("20261013",7),("20261014",7),("20261013",0)]:
+            u=f"https://prod-public-api.livescore.com/v1/api/app/date/soccer/{day}/{off}?MD=1&countryCode=US&locale=en"
+            req=urllib.request.Request(u,headers=headers)
+            with urllib.request.urlopen(req,timeout=20) as r:
+              d=json.loads(r.read())
+            for s in d.get("Stages",[]):
+              text=" ".join(str(s.get(k) or "") for k in ("Cnm","Snm","Csnm","CompN","CompUrlName"))
+              if re.search(r"youth|u19|under.?19",text,re.I):
+                ev=s.get("Events") or []
+                print(json.dumps({
+                  "day":day,"offset":off,"country":s.get("Cnm"),"stage":s.get("Snm"),
+                  "compN":s.get("CompN"),"urlname":s.get("CompUrlName"),
+                  "event_count":len(ev),
+                  "events":[{"id":str(e.get("Eid")),"home":(e.get("T1") or [{}])[0].get("Nm"),
+                             "away":(e.get("T2") or [{}])[0].get("Nm"),"Esd":e.get("Esd")}
+                            for e in ev if isinstance(e,dict)]
+                },ensure_ascii=False))
+          PY
