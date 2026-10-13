@@ -19,14 +19,15 @@ Football C may fund goal three through a narrow **O2.25 leakage route** when:
 - burden-completion quality is at least MEDIUM;
 - route reliability is at least MEDIUM;
 - chance quality is at least MEDIUM;
+- burden-stall risk is HIGH **or** continuation quality is LOW;
 - no material suppression remains;
 - no failure mode directly attacks the scoring route.
 
-For this narrow route only, historical/current HIGH stall risk or LOW
-continuation is a counterweight, not an automatic PASS. The reason is that
-those fields describe observed continuation history, while the current
-matchup-specific leakage can create a distinct third-goal path at the lower
-protected burden.
+For this narrow route only, HIGH stall risk or LOW continuation is the
+specific suppression being counterweighted rather than an automatic PASS.
+If stall risk and continuation are both only MEDIUM, this calibration does
+not activate; the original goal-three proof remains required. This prevents a
+generic upgrade of ordinary mixed/two-route O2.25 profiles.
 
 LOW burden-completion quality is never rescued.
 
