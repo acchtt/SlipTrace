@@ -10,7 +10,7 @@ Active modes:
 - V4_ROUTINE: verified ranked board; FOLLOW is routine, RESERVE needs activation.
 - EXCEPTION_ONLY: explicit user-requested fixture, no imported board authority.
 
-Retired V1-V3 work_ready/terminal ZIP routes are intentionally unsupported.
+Retired V1-V3 packaging/terminal routes are intentionally unsupported.
 """
 
 from __future__ import annotations
