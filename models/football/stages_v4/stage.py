@@ -21,7 +21,6 @@ from urllib.parse import urlsplit
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))
 from board_pair_cli import run_board_pair  # historic pure implementation; old CLI remains retired
-from goal_route_prescreen import GoalPrescreenError, run_prescreen
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
@@ -263,44 +262,42 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     queue.sort(key=lambda x: (x["kickoff_utc"], x["match_id"]))
     for idx, item in enumerate(queue, 1):
         item["queue_rank"] = idx
-    screen = None
     form_warnings = []
-    order = [x["match_id"] for x in queue]
-    if queue:
-        evidence = [{
-            "match_id": q["match_id"], "queue_rank": q["queue_rank"],
-            "operational_grade": q["operational_grade"],
-            "fixture_status": q["fixture_status"], "kickoff_utc": q["kickoff_utc"],
-            "country": q["country"], "competition_name": q["competition"],
-            "football_evidence": q["football_evidence"],
-        } for q in queue]
-        # Bad historical form from one provider is an *evidence-limited*
-        # research row, not a reason to discard 19 other verified fixtures.
-        form_warnings = []
-        for row in evidence:
-            if row["football_evidence"] is None:
-                continue
-            try:
-                run_prescreen({
-                    "schema_version": "football-goal-route-prescreen-v1",
-                    "run_id": run_id,
-                    "source_payload_hash": _hash(ledger),
-                    "screen_at_utc": at.isoformat(),
-                    "candidates": [{**row, "queue_rank": 1}],
-                })
-            except GoalPrescreenError as exc:
-                form_warnings.append({"match_id": row["match_id"], "reason": str(exc)})
-                row["football_evidence"] = None
-        screened = run_prescreen({
-            "schema_version": "football-goal-route-prescreen-v1",
-            "run_id": run_id,
-            "source_payload_hash": _hash(ledger),
-            "screen_at_utc": at.isoformat(),
-            **({} if _historical_registry_only else {"priority_profile": "GOAL_SIGNAL_FIRST_V1"}),
-            "candidates": evidence,
-        })
-        order = screened["manifest"]["ordered_eligible_match_ids"]
-        screen = screened["manifest"]
+    # V4 goal qualification already validated the same source-backed histories.
+    # Research order is now derived directly from each selected row's frozen
+    # goal_screen instead of invoking a second legacy prescreen engine.
+    ordered_rows = sorted(
+        queue,
+        key=lambda q: (
+            -int(isinstance((q.get("goal_screen") or {}).get("priority_score"), (int, float))),
+            -float((q.get("goal_screen") or {}).get("priority_score") or 0),
+            (q.get("cheap_filter") or {}).get("priority_rank", 4),
+            q["kickoff_utc"],
+            q["match_id"],
+        ),
+    )
+    order = [row["match_id"] for row in ordered_rows]
+    screen = {
+        "schema_version": "football-v4-goal-research-manifest-v2",
+        "run_id": run_id,
+        "source_payload_hash": _hash(ledger),
+        "priority_profile": "GOAL_SIGNAL_FIRST_V2",
+        "ordered_eligible_match_ids": order,
+        "original_rows": [
+            {
+                "match_id": row["match_id"],
+                "queue_rank": row["queue_rank"],
+                "operational_grade": row["operational_grade"],
+                "screen_status": "QUANTIFIED",
+                "priority_score": (row.get("goal_screen") or {}).get("priority_score"),
+                "source_screen_fingerprint": (
+                    row.get("goal_screen") or {}
+                ).get("source_screen_fingerprint"),
+            }
+            for row in queue
+        ],
+    }
+    screen["screen_fingerprint"] = _hash(screen)
     outcome = {
         "schema_version": SCHEMA, "status": "V4_SWEEP_READY",
         "run_id": run_id, "created_at_utc": at.isoformat(),
