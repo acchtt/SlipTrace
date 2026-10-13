@@ -1,0 +1,63 @@
+name: V4 date-surface collector diagnostics
+on:
+  push:
+    paths:
+      - .github/workflows/v4-date-surface-probe.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Inspect actual upstream date surface
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,re,ssl,urllib.request,urllib.error
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from collections import Counter
+          url="https://www.livescore.mobi/football/2026-10-13/"
+          class P(HTMLParser):
+            def __init__(self):
+              super().__init__();self.a=[];self.link=None;self.contents=[]
+            def handle_starttag(self,tag,attrs):
+              if tag=="a":
+                self.link=dict(attrs).get("href",""); self.contents=[]
+            def handle_data(self,data):
+              if self.link is not None: self.contents.append(data)
+            def handle_endtag(self,tag):
+              if tag=="a" and self.link is not None:
+                self.a.append({"href":self.link,"text":" ".join(" ".join(self.contents).split())});self.link=None
+          Path("probe-artifact").mkdir(exist_ok=True)
+          try:
+            req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (compatible; SlipTraceSourceAudit/1.0)","Accept":"text/html"})
+            with urllib.request.urlopen(req,timeout=20) as res:
+              raw=res.read()
+              status=res.status
+              headers=dict(res.headers)
+            html=raw.decode("utf-8","replace")
+            Path("probe-artifact/provider-2026-10-13.html").write_text(html)
+            p=P();p.feed(html)
+            targets=[s for s in p.a if any(w in s["text"].lower() for w in ("pohang","kyoto sanga","bandirmaspor","shanghai port","buriram","zob ahan"))]
+            sorted_ext=Counter(s["href"].split("/")[1] if s["href"].startswith("/") and "/" in s["href"][1:] else "other" for s in p.a)
+            report={"source_url":url,"status":status,"bytes":len(raw),"total_anchors":len(p.a),"anchor_root_counts":sorted_ext.most_common(20),"samples":targets[:25],"html_pagination_markers":{word:len(re.findall(word,html,re.I)) for word in ("next page","load more","pagination","page=","see more")},"raw_pohang_context":html[max(0,html.lower().find("pohang")-800):html.lower().find("pohang")+500],"first_anchors":p.a[:12]}
+            print(json.dumps(report,ensure_ascii=False,indent=2)[:18000])
+            Path("probe-artifact/report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2))
+          except Exception as ex:
+            report={"source_url":url,"error":str(ex),"type":type(ex).__name__}
+            Path("probe-artifact/report.json").write_text(json.dumps(report))
+            raise
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v4-date-surface-probe
+          path: probe-artifact/
+          retention-days: 1
