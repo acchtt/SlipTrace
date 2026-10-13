@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from league_registry import COUNTRIES, norm
+from league_registry import COUNTRIES, UEFA_YOUTH_LEAGUE_NAMES, norm
 
 SCHEMA = "football-sweep-cheap-filter-v1"
 
@@ -422,6 +422,17 @@ def classify_research_priority(
     }
     if expired:
         return base
+
+    if comp in UEFA_YOUTH_LEAGUE_NAMES:
+        return {
+            **base,
+            "priority": SPECIAL,
+            "priority_rank": PRIORITY_RANK[SPECIAL],
+            "reason": "UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH",
+            "league_profile": "UEFA_YOUTH_LEAGUE_2026_27",
+            "draw_trap_caution": False,
+            "requires_match_specific_goal_evidence": True,
+        }
 
     if (country, comp) in TOP_FIVE_NO_AUTO_PROMOTION:
         return {

@@ -9,14 +9,14 @@ Prospective sweeps now use `DATE_SURFACE_BATCH_V2`. The old failure mode
 where an operator assembled a small fixture list and then ran the registry is
 forbidden. The discovery order is:
 
-`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET -> REGISTRY/DISCOVERY CLASSIFICATION -> CHEAP RESEARCH-PRIORITY FILTERS -> GOALS-FIRST SCREEN`
+`REQUESTED WINDOW -> COMPLETE PROVIDER DATE SURFACES -> PAGE/BLOCK RECONCILIATION -> TERMINAL REFRESH -> FULL SENIOR FIXTURE SET + UEFA YOUTH LEAGUE EXCEPTION -> REGISTRY/DISCOVERY CLASSIFICATION -> CHEAP RESEARCH-PRIORITY FILTERS -> GOALS-FIRST SCREEN`
 
 The registry is **never** a fixture-discovery query. Do not search
 Ekstraklasa, Serie A, Superliga, Veikkausliiga, etc. one by one and then call
 the union a sweep. Open the provider's date/listing surfaces for every ICT and
 UTC calendar date touched by the requested window, exhaust pagination, record
 every source-visible senior football competition block, and only then apply
-the registry locally.
+the registry locally. **Specific youth exception:** retain source-visible `UEFA Youth League` fixtures from those complete date surfaces even though the ordinary acquisition scope is senior football. Do not broaden this into generic youth-league crawling; other youth competitions remain outside the approved intake unless separately authorized.
 
 Every new `source.json` must contain
 `source_completeness_manifest.schema_version=football-v4-source-completeness-v2`
@@ -44,6 +44,8 @@ research**, never acquisition. `PRIMARY_RESEARCH`, `SECONDARY_RESEARCH`,
 `SPECIAL_RESEARCH`, `DEFERRED_RESEARCH` and `NEUTRAL_RESEARCH` are workload
 priorities only. They cannot hard-exclude a valid competitive fixture and
 cannot override a fresh source-backed `DISCOVERY_GOAL_QUALIFIED` signal.
+
+**UEFA Youth League safeguard (2026-10-13):** `UEFA Youth League` / recognized provider aliases are an explicit `CONDITIONAL` youth exception. They receive `SPECIAL_RESEARCH / UEFA_YOUTH_LEAGUE_MATCH_SPECIFIC_RESEARCH`, require fixture-specific recent-goal evidence, and still require the current competition path/format/incentive state to be understood at assessment. Competition identity alone never makes the match goal-positive. Generic youth competitions remain excluded.
 
 **Big Five safeguard:** Premier League, Bundesliga, La Liga, Serie A and
 Ligue 1 do not enter the active deep-research list merely because they are

@@ -126,6 +126,8 @@ an executable bet without valid current evidence.
 
 This file is the canonical entry point for current football work.
 
+**Standing /sweep inclusion exception (2026-10-13):** Include **UEFA Youth League** as the only specifically approved youth competition. Preserve it from complete provider date surfaces, classify it `CONDITIONAL`, prioritize it as `SPECIAL_RESEARCH`, and require match-specific goal evidence plus current path/format/incentive context. Do not infer that other youth competitions are approved.
+
 **Standing /sweep scope exclusions (updated 2026-10-13):** Exclude **all African domestic football** (men's domestic leagues, women's domestic top flights, and domestic cups) from ordinary V4 sweep research, in addition to Israel, Iraq, Wales and Kuwait domestic football, Germany **3. Liga only**, and **all noncompetitive friendlies** (senior international women/men, club, exhibition, preseason). African domestic fixtures must remain source-visible in the ledger as `USER_AFRICA_DOMESTIC_EXCLUSION` but must not consume goal-history/deep-research capacity. This African rule does **not** exclude CAF/other continental club competition or protected official international competition solely because an African club/nation participates. Preserve all source-visible excluded rows for audit rather than silently dropping them. A named explicit user exception is the only reopening route. Current enforcement authority is `models/football/stages_v4/SWEEP.md` plus `league_registry.py`, not the retired Step0 launcher.
 
 ## Historical V1–V3 intake/tuning appendix — non-authoritative

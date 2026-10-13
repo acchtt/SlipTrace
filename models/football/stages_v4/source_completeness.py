@@ -3,7 +3,10 @@
 The sweep stage must never confuse the league registry with fixture discovery.
 For new production sweeps, the caller first enumerates complete provider
 date/listing surfaces, reconciles provider page/block counts, then supplies the
-full senior-football fixture set to stage.py.
+full senior-football fixture set to stage.py. The standing 2026-10-13 UEFA
+Youth League exception may be carried as an additive source-visible block on
+those same complete date surfaces; this does not authorize generic youth
+competition discovery.
 
 This module is deterministic. It does not browse providers itself.
 """
