@@ -309,6 +309,6 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
             if historical_roster
             else "ACTIVE_C_C2"
         ),
-        "watch_assumed_odds": WATCH_ASSUMED_ODDS,
+        "synthetic_watch_pricing": False,
         "models": results,
     }
