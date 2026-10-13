@@ -1304,12 +1304,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     accounting_odds = None
     if decision.action == Action.WAIT:
         wait_target_line, wait_min_odds = wait_accounting_target(a, ctx)
-        accounting_line = wait_target_line
-        accounting_odds = wait_min_odds
-        accounting_status = (
-            "WAIT_ASSUMED" if model == "c" else "SHADOW_WAIT_ASSUMED"
-        )
-        wait_resolution_default = "ASSUMED_REACHED"
+        # A WAIT is a plan, not exposure. Do not assume that a future line was
+        # reached or synthesize a model bet at the target price.
+        accounting_status = "NONE"
+        wait_resolution_default = "UNRESOLVED"
     elif decision.action == Action.BET:
         accounting_line = ctx.quote.line
         accounting_odds = ctx.quote.odds
