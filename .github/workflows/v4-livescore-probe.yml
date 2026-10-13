@@ -1,4 +1,4 @@
-name: V4 LiveScore endpoint probe
+name: V4 LiveScore endpoint probe payload
 on:
   push:
     paths:
@@ -32,7 +32,12 @@ jobs:
                   d=json.loads(r.read())
                 stages=d.get("Stages",[])
                 events=sum(len(s.get("Events",[])) for s in stages if isinstance(s,dict))
-                print(json.dumps({"day":day,"off":off,"url":u,"stages":len(stages),"events":events,"keys":list(d)[:20]}))
+                sample = next((e for s in stages if isinstance(s,dict) for e in s.get("Events",[]) if isinstance(e,dict)), None)
+                sample_stage = next((s for s in stages if isinstance(s,dict) and s.get("Events")), None)
+                print(json.dumps({"day":day,"off":off,"url":u,"stages":len(stages),"events":events,"keys":list(d)[:20],
+                                  "stage_keys": list(sample_stage)[:30] if sample_stage else [],
+                                  "stage_names": {k:sample_stage.get(k) for k in ("Cnm","Snm","Scd","Sdn")} if sample_stage else {},
+                                  "sample_event": sample}))
               except Exception as e:
                 print(json.dumps({"day":day,"off":off,"url":u,"error":repr(e)}))
           PY
