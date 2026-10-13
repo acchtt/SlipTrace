@@ -54,7 +54,7 @@ def parse(html):
             continue
         text=anchor.get_text(" ",strip=True).lower()
         status=("POSTPONED" if "postp" in text else "CANCELLED" if "cancel" in text else
-                "FINISHED" if re.search(r"\\bft\\b",text) else "PREMATCH_CONFIRMED")
+                "FINISHED" if re.search(r"\bft\b",text) else "PREMATCH_CONFIRMED")
         friendlies=("friendlies" in country or "friendlies" in comp)
         if friendlies: kind="PROTECTED_OFFICIAL"
         elif country in {"asia","africa","uefa"} or "champions-league" in comp:
@@ -125,7 +125,7 @@ def main():
             "source_completeness_manifest":manifest,
             "source_provenance_note":"Server-rendered source date fixture links = provider data-eventid buttons (245 raw in initial probe); both identical ICT/UTC date keys observe same single calendar date. Counts derived strictly from upstream DOM and separated into senior competition blocks. Single-page pagination verified by absence of page/load-more controls. Independent second HTTP refetch verified full event set and terminal interval. Full senior day kept; no league prefilter or invented scores/quotes."}
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(args.output).write_text(json.dumps(source,ensure_ascii=False,indent=2)+"\\n")
+    Path(args.output).write_text(json.dumps(source,ensure_ascii=False,indent=2)+"\n")
     window=[r for r in first if START<=datetime.fromisoformat(r["kickoff_utc"])<END]
     report={"run_id":source["run_id"],"source_event_buttons":metrics["raw_provider_events"],
             "full_date_senior_fixtures":len(first),"source_competition_blocks":len(group),
@@ -135,7 +135,7 @@ def main():
             "second_raw_sha256":hashlib.sha256(raw2.encode()).hexdigest(),
             "independent_refetch":True,"native_ranked":False,"bet_recorded":False,
             "all_source_rows_preserved_without_registry_prefilter":True}
-    Path(args.report).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n")
+    Path(args.report).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
     print(json.dumps(report,indent=2))
 
 if __name__=="__main__":main()
