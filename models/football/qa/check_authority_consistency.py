@@ -941,6 +941,48 @@ require(
     "ACTIVE ROSTER OVERRIDE",
     "xi_portable.py xi --c c_football.json --c2 c2_football.json",
     "USER_SCREENSHOT_ONLY",
+    "WAIT — LIVE DECAY",
+    "Do not default",
+    "gap is <= +0.75",
+)
+require(
+    "models/football/engine/xi_portable.py",
+    "MAX_ASSESSMENT_LIVE_DECAY_GAP = 0.75",
+    "DEFAULT_ASSESSMENT_WAIT_MIN_ODDS = 1.65",
+    "def _conditional_live_decay_plan",
+    "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN_NOT_EXECUTABLE_ACTION",
+    "DECAY_GAP_TOO_LARGE_FOR_BOUNDED_WAIT",
+)
+require(
+    "models/football/engine/tests/test_xi_user_screenshot_only.py",
+    "test_15_prematch_screenshot_can_restore_bounded_live_decay_wait_without_priced_context",
+    "test_16_decay_wait_is_not_issued_for_unrealistic_gap",
+    "test_17_adverse_or_unverified_football_cannot_create_decay_wait",
+)
+require(
+    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+    "Decay-plan restoration (2026-10-13)",
+    "WAIT — LIVE DECAY (conditional plan)",
+    "no more than **+0.75 goals**",
+    "no WAIT_ASSUMED exposure",
+)
+require(
+    "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md",
+    "Assessment-only decay plans are NOT C-WAIT exposure",
+    "accounting_exposure_created=false",
+    "Only a later strict decision-stage result whose action is actually",
+)
+require(
+    "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md",
+    "WAIT — LIVE DECAY (conditional plan)",
+    "do not create `WAIT_ASSUMED` exposure",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "PREMATCH screenshot may predeclare",
+    "WAIT — LIVE DECAY",
+    "at most +0.75",
+    "Larger gaps are not declared reachable",
 )
 require(
     "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
