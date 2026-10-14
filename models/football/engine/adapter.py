@@ -238,20 +238,20 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
         )
     if state == BoardState.WATCH and leakage_focus:
         raise ContractError(
-            "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH "
+            "C-WATCH CONTRADICTION — HIGH-LEAKAGE GOAL3 CERTIFICATE "
             "REQUIRES C-FOCUS REVIEW"
         )
 
 
 def validate_c2_screen_state(a: MatchAssessment, state: BoardState) -> None:
-    """Keep C2's independently evidenced O2.25 leakage route out of STOP."""
+    """Keep C2's independently evidenced leakage G3 certificate out of STOP."""
     if (
         state in {BoardState.WATCH, BoardState.PASS}
         and c2_low_burden_leakage_goal3_funded(a)
     ):
         raise ContractError(
-            "C2-WATCH/PASS CONTRADICTION — C2-OWNED O2.25 HIGH-LEAKAGE "
-            "STRONG-ROUTE PATH REQUIRES C2-FOCUS REVIEW"
+            "C2-WATCH/PASS CONTRADICTION — C2-OWNED HIGH-LEAKAGE GOAL3 "
+            "CERTIFICATE REQUIRES C2-FOCUS REVIEW"
         )
 
 
