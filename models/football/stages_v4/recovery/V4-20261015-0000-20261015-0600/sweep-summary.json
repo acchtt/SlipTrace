@@ -1,0 +1,465 @@
+{
+  "eligible_count": 15,
+  "eligible_queue": [
+    {
+      "away": "Raufoss",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0,
+        "mean_over_three_rate": 0.3125,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 63,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "333453101fdc5cd958b628000f690a18b932007a35848eb1ae3244bbcc75883e",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Bryne",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709537",
+      "operational_grade": "B",
+      "queue_rank": 1
+    },
+    {
+      "away": "Ranheim",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.6875,
+        "mean_over_two_rate": 0.8125,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 80,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "07c5e4744da7b5acbfb9cea3ff73678e663d5be41e87dfbd0caaf5f070cdda2a",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Hoedd",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709539",
+      "operational_grade": "B",
+      "queue_rank": 2
+    },
+    {
+      "away": "Egersund",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.4375,
+        "mean_over_two_rate": 0.8125,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 68,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "e33524b6a68d9179f7f653d21c06ea35c654f5daa6244cee22b874fa8c4dd2ea",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Moss",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709540",
+      "operational_grade": "B",
+      "queue_rank": 3
+    },
+    {
+      "away": "Odds Ballklubb",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.4375,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 68,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "7e5785efd3c053b6cab887dcbfa2728592a3e084ad49708dbba74b3100aa591d",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Sogndal",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709541",
+      "operational_grade": "B",
+      "queue_rank": 4
+    },
+    {
+      "away": "Sandnes",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.375,
+        "mean_over_two_rate": 0.75,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 65,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "fee300663d2dd9af26a10891ebc0379654576ff407109aae112c7d24de0ee322",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Stabaek",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709542",
+      "operational_grade": "B",
+      "queue_rank": 5
+    },
+    {
+      "away": "Kongsvinger",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.625,
+        "mean_over_two_rate": 0.625,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 75,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "e44835b219bd43204e658a7cc3ed5b94be599b7736ccc5d3fb5d581fcdee4d32",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Stroemsgodset",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1709544",
+      "operational_grade": "B",
+      "queue_rank": 6
+    },
+    {
+      "away": "Frigg",
+      "competition": "3. Division: Group 1",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.75,
+        "mean_over_two_rate": 0.8125,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 93,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "e6e8ed8f34b346f6265ed15b2f26f2e93c4123d22167fbdeff4bd7c770b4ba9b",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Asker",
+      "kickoff_utc": "2026-10-14T17:00:00+00:00",
+      "match_id": "1725899",
+      "operational_grade": "B",
+      "queue_rank": 7
+    },
+    {
+      "away": "SV Schermbeck 2020",
+      "competition": "Oberliga: Westfalen",
+      "country": "Germany",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.75,
+        "mean_over_two_rate": 0.8125,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 78,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "c9f8bb0505e3316bfa5493d3da11697ad0a277ab7244fa109ca417f922595544",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "ASC Dortmund",
+      "kickoff_utc": "2026-10-14T17:30:00+00:00",
+      "match_id": "1842555",
+      "operational_grade": "B",
+      "queue_rank": 8
+    },
+    {
+      "away": "Southampton",
+      "competition": "Championship",
+      "country": "England",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.5625,
+        "mean_over_two_rate": 0.75,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 71,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "e9ab42122dbf119d374a51217ead33695d4d4ff80070d0923faa17b834ea7ee2",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Norwich City",
+      "kickoff_utc": "2026-10-14T18:45:00+00:00",
+      "match_id": "1802430",
+      "operational_grade": "B",
+      "queue_rank": 9
+    },
+    {
+      "away": "Whitehawk",
+      "competition": "Isthmian League Premier Division",
+      "country": "England",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.1875,
+        "mean_over_three_rate": 0.5,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 61,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "8c8c3f3b827e92209635c652bbbc6c0830a949f839609de29d15aa0771b60f7d",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Whyteleafe",
+      "kickoff_utc": "2026-10-14T18:45:00+00:00",
+      "match_id": "1836968",
+      "operational_grade": "B",
+      "queue_rank": 10
+    },
+    {
+      "away": "Bridlington Town",
+      "competition": "Northern Premier League: East Division",
+      "country": "England",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.375,
+        "mean_over_two_rate": 0.75,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 62,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "584743c91e74c6c3f8e6527205656fbebac5cc590167788ce8a368124c461d18",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Stocksbridge Park Steels",
+      "kickoff_utc": "2026-10-14T18:45:00+00:00",
+      "match_id": "1858115",
+      "operational_grade": "B",
+      "queue_rank": 11
+    },
+    {
+      "away": "Paris Saint-Germain",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0,
+        "mean_over_three_rate": 0.4375,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 62,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "ad2ec19e11651c8f7d24f40e09e6e9074359bbdc056a7919dada7deb3dc175c5",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Manchester City",
+      "kickoff_utc": "2026-10-14T19:00:00+00:00",
+      "match_id": "1882755",
+      "operational_grade": "B",
+      "queue_rank": 12
+    },
+    {
+      "away": "Fenerbahçe",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.1875,
+        "mean_over_three_rate": 0.4375,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 60,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "0e7f0817be4326f561f1956e9115fea1fb24c40c434717d69332bf2b49570a9e",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Aston Villa",
+      "kickoff_utc": "2026-10-14T19:00:00+00:00",
+      "match_id": "1882783",
+      "operational_grade": "B",
+      "queue_rank": 13
+    },
+    {
+      "away": "Borussia Dortmund",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0,
+        "mean_over_three_rate": 0.625,
+        "mean_over_two_rate": 0.875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 79,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "4d9d2daa061045cdb7e305a10df992ec30abcb94f9050d5697f4b8af36b30ad2",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Bodoe/Glimt",
+      "kickoff_utc": "2026-10-14T19:00:00+00:00",
+      "match_id": "1882817",
+      "operational_grade": "B",
+      "queue_rank": 14
+    },
+    {
+      "away": "VfB Stuttgart",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 7,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.4732,
+        "mean_over_two_rate": 0.7321,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 66,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "7d6bf8906af27dc94eabeecd23b9b227989bbc3461372cca13c9d1d32629da3c",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Slovan Bratislava",
+      "kickoff_utc": "2026-10-14T19:00:00+00:00",
+      "match_id": "1882851",
+      "operational_grade": "B",
+      "queue_rank": 15
+    }
+  ],
+  "excluded_or_closed_count": 164,
+  "fixture_count": 207,
+  "integrity_sha256": "c3733c9089a9f8cf7dc02defb1d0d765a34866e6e385398f1dc4c747b5c7e106",
+  "low_goal_signal_count": 25,
+  "pending_discovery_count": 18,
+  "pending_goal_research_count": 10,
+  "research_order": [
+    "1725899",
+    "1709539",
+    "1882817",
+    "1842555",
+    "1709544",
+    "1802430",
+    "1709540",
+    "1709541",
+    "1882851",
+    "1709542",
+    "1709537",
+    "1858115",
+    "1882755",
+    "1836968",
+    "1882783"
+  ],
+  "run_id": "V4-20261015-0000-20261015-0600",
+  "status": "V4_SWEEP_READY"
+}
