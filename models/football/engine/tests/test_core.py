@@ -29,6 +29,8 @@ from core import (  # noqa: E402
     c2_selection_floor,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
+    market_line_funded,
+    prospective_goal_funding,
     decide_c,
     decide_c2,
     follow_through_lane,
@@ -530,13 +532,15 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, Action.PASS)
 
-    def test_above_burden_waits_only_when_healthy_and_reachable(self):
+    def test_unfunded_higher_burden_waits_only_when_healthy_and_reachable(self):
+        # O3.0 needs a goal-four certificate. The default assessment has no
+        # independent upper tail, so this remains an unsupported higher burden.
         healthy = decide_c(
             assessment(),
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
-                Quote(2.75, 1.85),
+                Quote(3.0, 1.85),
                 wait_reachable=True,
                 wait_requires_negative_info=False,
             ),
@@ -546,13 +550,74 @@ class FootballCExecutionTests(unittest.TestCase):
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
-                Quote(2.75, 1.85),
+                Quote(3.0, 1.85),
                 wait_reachable=True,
                 wait_requires_negative_info=True,
             ),
         )
         self.assertEqual(healthy.action, Action.WAIT)
         self.assertEqual(stale.action, Action.PASS)
+
+    def test_supported_line_is_anchor_when_frozen_goal5_tail_is_strong(self):
+        a = assessment(
+            supported_line=2.75,
+            carrier=CarrierStrength.STRONG,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+        )
+        profile = prospective_goal_funding(a, "c")
+        self.assertTrue(profile["goal4_funded"])
+        self.assertTrue(profile["goal5_funded"])
+        self.assertFalse(profile["goal6_funded"])
+        self.assertEqual(profile["upper_tail_strength"], "STRONG")
+        self.assertTrue(market_line_funded(a, 4.0, "c"))
+        self.assertTrue(market_line_funded(a, 4.75, "c"))
+        self.assertFalse(market_line_funded(a, 5.0, "c"))
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(4.0, 1.81))).action,
+            Action.BET,
+        )
+
+    def test_kashiwa_style_o225_leakage_anchor_does_not_inherit_market_tail(self):
+        a = assessment(
+            supported_line=2.25,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        self.assertTrue(market_line_funded(a, 2.25, "c"))
+        self.assertFalse(market_line_funded(a, 2.5, "c"))
+        self.assertFalse(market_line_funded(a, 2.75, "c"))
+        self.assertFalse(market_line_funded(a, 4.0, "c"))
+        profile = prospective_goal_funding(a, "c")
+        self.assertFalse(profile["goal3_funded"])
+        self.assertEqual(profile["upper_tail_strength"], "NONE")
+        result = decide_c(a, context(quote=Quote(4.0, 1.81)))
+        self.assertEqual(result.action, Action.PASS)
+        self.assertIn("tail funding missing", result.reason)
 
 
 class C2BridgeTests(unittest.TestCase):
@@ -746,6 +811,28 @@ class C2BridgeTests(unittest.TestCase):
         decision = decide_c2(a, ctx)
         self.assertEqual(decision.action, Action.BET)
         self.assertTrue(decision.bridge_used)
+
+    def test_c2_tail_certificate_can_clear_beyond_legacy_half_goal_bridge(self):
+        a = assessment(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+        )
+        profile = prospective_goal_funding(a, "c2")
+        self.assertTrue(profile["goal5_funded"])
+        self.assertTrue(market_line_funded(a, 4.0, "c2"))
+        decision = decide_c2(a, context(quote=Quote(4.0, 1.81)))
+        self.assertEqual(decision.action, Action.BET)
+        self.assertFalse(decision.bridge_used)
 
     def test_bridge_never_uses_market_as_upper_tail_proof(self):
         a = assessment(

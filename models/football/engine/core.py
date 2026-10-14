@@ -654,6 +654,181 @@ def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
     )
 
 
+
+def c_goal5_funded(a: MatchAssessment) -> bool:
+    """Prospective C certificate for goal five, frozen before market comparison.
+
+    This deliberately requires a materially stronger football shape than goal
+    four. It uses only the pre-market assessment and never bookmaker input.
+    """
+
+    require_c_completion(a)
+    return (
+        clearing_goal_funded(a, 3.0)
+        and a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality >= Grade.MEDIUM
+        and a.chance_quality == Grade.HIGH
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence == Grade.HIGH
+        and a.burden_protection >= Grade.MEDIUM
+        and a.burden_completion_quality == Grade.HIGH
+        and a.continuation_quality == Grade.HIGH
+        and a.burden_stall_risk <= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def c_goal6_funded(a: MatchAssessment) -> bool:
+    """Prospective C certificate for goal six; intentionally exceptional."""
+
+    require_c_completion(a)
+    return (
+        c_goal5_funded(a)
+        and a.independent_route_quality == Grade.HIGH
+        and a.failure_resistance == Grade.HIGH
+        and a.xi_robustness == Grade.HIGH
+        and a.burden_protection == Grade.HIGH
+        and (
+            (
+                a.home_route == RouteStrength.STRONG
+                and a.away_route == RouteStrength.STRONG
+            )
+            or (
+                a.completion_mode in {CompletionMode.MIXED, CompletionMode.FORCED_CHAOS}
+                and a.opponent_leakage == Grade.HIGH
+            )
+        )
+    )
+
+
+def c2_goal5_funded(a: MatchAssessment) -> bool:
+    """Prospective C2 goal-five certificate from common frozen football evidence."""
+
+    return (
+        c2_clearing_goal_funded(a, 3.0)
+        and a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and min(a.home_route, a.away_route) >= RouteStrength.USABLE
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.failure_resistance == Grade.HIGH
+        and a.evidence_confidence == Grade.HIGH
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def c2_goal6_funded(a: MatchAssessment) -> bool:
+    """Prospective C2 goal-six certificate; no market evidence is admissible."""
+
+    return (
+        c2_goal5_funded(a)
+        and a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.xi_robustness == Grade.HIGH
+        and a.burden_protection == Grade.HIGH
+    )
+
+
+def prospective_goal_funding(
+    a: MatchAssessment,
+    model: str,
+) -> dict[str, bool | str | float | None]:
+    """Freeze the model's goal-3/4/5/6 funding profile before price comparison.
+
+    supported_line remains the certified burden/anchor. The tail profile is a
+    separate prospective football object used only to judge whether a later
+    quoted total is football-funded. A bookmaker line never upgrades this
+    profile.
+    """
+
+    if model == "c":
+        goal3 = clearing_goal_funded(a, 2.75)
+        goal4 = clearing_goal_funded(a, 3.0)
+        goal5 = c_goal5_funded(a)
+        goal6 = c_goal6_funded(a)
+    elif model == "c2":
+        goal3 = c2_clearing_goal_funded(a, 2.75)
+        goal4 = c2_clearing_goal_funded(a, 3.0)
+        goal5 = c2_goal5_funded(a)
+        goal6 = c2_goal6_funded(a)
+    else:
+        raise ValueError("model must be c or c2")
+
+    if goal5:
+        strength = "STRONG"
+    elif goal4:
+        strength = "MEDIUM"
+    elif goal3:
+        strength = "WEAK"
+    else:
+        strength = "NONE"
+
+    ceiling = (
+        5.75 if goal6 else
+        4.75 if goal5 else
+        3.75 if goal4 else
+        2.75 if goal3 else
+        None
+    )
+    return {
+        "goal3_funded": goal3,
+        "goal4_funded": goal4,
+        "goal5_funded": goal5,
+        "goal6_funded": goal6,
+        "upper_tail_strength": strength,
+        "prospective_tail_ceiling": ceiling,
+    }
+
+
+def market_line_funded(
+    a: MatchAssessment,
+    line: float,
+    model: str,
+) -> bool:
+    """Return whether a later quoted total is funded by frozen football evidence.
+
+    The certified supported_line is an anchor, not a universal execution
+    ceiling. Above it, the quote must clear the appropriate prospective goal
+    certificate. The O2.25 leakage exception stays local to O2.25 and cannot
+    manufacture support for O2.5/O2.75.
+    """
+
+    _validate_quarter_line(line)
+    if line <= a.supported_line + 1e-9:
+        return (
+            clearing_goal_funded(a, line)
+            if model == "c"
+            else c2_clearing_goal_funded(a, line)
+        )
+
+    if line <= 2.25:
+        return (
+            clearing_goal_funded(a, line)
+            if model == "c"
+            else c2_clearing_goal_funded(a, line)
+        )
+
+    profile = prospective_goal_funding(a, model)
+    if line < 3.0:
+        return bool(profile["goal3_funded"])
+    if line < 4.0:
+        return bool(profile["goal4_funded"])
+    if line < 5.0:
+        return bool(profile["goal5_funded"])
+    if line < 6.0:
+        return bool(profile["goal6_funded"])
+    return False
+
+
 def _quote_context(ctx: DecisionContext) -> ModelQuoteContext:
     """Drop execution-only fields while preserving the exact model policy state."""
 
@@ -676,14 +851,18 @@ def _healthy_wait(ctx: ModelQuoteContext) -> bool:
 def model_wait_target(
     a: MatchAssessment,
     ctx: ModelQuoteContext,
+    model: str | None = None,
 ) -> tuple[float, float]:
     """Compile the model's declared WAIT target/minimum price.
 
-    This is model policy only. It does not create assumed exposure, publish a
-    pick, or assert that the target was actually reached.
+    A tail-funded quote waits for price at the same quoted burden. An
+    unsupported higher burden may only wait for the certified supported_line.
+    This function never creates assumed exposure.
     """
 
     target_line = min(ctx.quote.line, a.supported_line)
+    if model in {"c", "c2"} and market_line_funded(a, ctx.quote.line, model):
+        target_line = ctx.quote.line
     min_odds = (
         1.60
         if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
@@ -695,10 +874,11 @@ def model_wait_target(
 def wait_accounting_target(
     a: MatchAssessment,
     ctx: DecisionContext,
+    model: str | None = None,
 ) -> tuple[float, float]:
     """Backward-compatible strict-decision WAIT target helper."""
 
-    return model_wait_target(a, _quote_context(ctx))
+    return model_wait_target(a, _quote_context(ctx), model)
 
 
 def _validate_step2_authorization(
@@ -743,10 +923,10 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    # Apply the execution burden before stall/continuation vetoes so the
-    # low-burden leakage route can be evaluated at the actual supported burden.
-    executable_burden = min(ctx.quote.line, a.supported_line)
-    leakage_counterweight = low_burden_leakage_goal3_funded(a, executable_burden)
+    # Preserve the narrow O2.25 leakage counterweight for current stall checks.
+    # It can never fund a higher quoted burden.
+    executable_anchor = min(ctx.quote.line, a.supported_line)
+    leakage_counterweight = low_burden_leakage_goal3_funded(a, executable_anchor)
 
     if a.burden_stall_risk == Grade.HIGH and not leakage_counterweight:
         return Decision(Action.PASS, "current burden stall risk is HIGH")
@@ -757,39 +937,50 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if a.continuation_quality == Grade.LOW and not leakage_counterweight:
         return Decision(Action.PASS, "current continuation quality is LOW")
 
-    # Apply the funding gate at this execution epoch, including exceptions.
-    # A higher quote can only WAIT for the already supported burden.
-    if not clearing_goal_funded(a, executable_burden):
-        return Decision(Action.PASS, "C clearing-goal funding missing")
-
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
+    line_funded = market_line_funded(a, ctx.quote.line, "c")
 
-    if at_or_below:
-        if ctx.quote.odds >= 1.65:
-            return Decision(Action.BET, "supported/protected line at normal price")
+    if not line_funded:
+        anchor_funded = market_line_funded(a, a.supported_line, "c")
+        if not at_or_below and anchor_funded and _healthy_wait(ctx):
+            return Decision(
+                Action.WAIT,
+                "quoted burden lacks prospective certificate; healthy certified target reachable",
+            )
+        return Decision(
+            Action.PASS,
+            "C clearing-goal funding missing; prospective tail funding missing at quoted burden",
+        )
 
-        if (
-            1.60 <= ctx.quote.odds < 1.65
-            and ctx.board_state == BoardState.FOCUS
-            and ctx.top_ranked_focus
-        ):
-            return Decision(Action.BET, "top-focus soft-zone price")
+    if ctx.quote.odds >= 1.65:
+        return Decision(
+            Action.BET,
+            (
+                "supported/protected line at normal price"
+                if at_or_below
+                else "prospective tail certificate funds quoted line"
+            ),
+        )
 
-        if _healthy_wait(ctx):
-            return Decision(Action.WAIT, "price blocker with healthy reachable wait")
-
-        return Decision(Action.PASS, "price unacceptable without healthy wait path")
+    if (
+        at_or_below
+        and 1.60 <= ctx.quote.odds < 1.65
+        and ctx.board_state == BoardState.FOCUS
+        and ctx.top_ranked_focus
+    ):
+        return Decision(Action.BET, "top-focus soft-zone price")
 
     if _healthy_wait(ctx):
         return Decision(
             Action.WAIT,
-            "market above supported burden; healthy target reachable",
+            (
+                "price blocker with healthy reachable wait"
+                if at_or_below
+                else "tail-funded quoted burden; price blocker with healthy reachable wait"
+            ),
         )
 
-    return Decision(
-        Action.PASS,
-        "unsupported burden and no healthy reachable wait",
-    )
+    return Decision(Action.PASS, "price unacceptable without healthy wait path")
 
 
 def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
@@ -864,18 +1055,17 @@ def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    # Judge the C2 floor at the actual quote/WAIT burden. Its O2.25
-    # leakage counterweight cannot authorize a higher execution burden.
-    executable_burden = min(ctx.quote.line, a.supported_line)
-    floor, _ = c2_selection_floor(a, executable_burden)
+    # The anchor must still clear C2's own selection/funding floor. Higher
+    # totals are judged separately by the frozen prospective tail profile.
+    executable_anchor = min(ctx.quote.line, a.supported_line)
+    floor, _ = c2_selection_floor(a, executable_anchor)
     if floor != SelectionFloor.CLEAR:
         return Decision(Action.PASS, "C2 selection-quality floor not clear")
 
-    if not c2_clearing_goal_funded(a, executable_burden):
+    if not c2_clearing_goal_funded(a, executable_anchor):
         return Decision(Action.PASS, "C2 clearing-goal funding missing")
 
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
-
     if at_or_below:
         if ctx.quote.odds >= 1.65:
             return Decision(
@@ -898,24 +1088,35 @@ def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
 
         return Decision(Action.PASS, "price unacceptable without healthy wait path")
 
-    bridge_ok, _ = c2_bridge_eligibility(a, ctx)
-    if bridge_ok:
-        gap = round(ctx.quote.line - a.supported_line, 2)
-        return Decision(
-            Action.BET,
-            f"FOCUS MARKET-GAP BRIDGE +{gap:.2f}",
-            bridge_used=True,
-        )
+    if market_line_funded(a, ctx.quote.line, "c2"):
+        bridge_ok, _ = c2_bridge_eligibility(a, ctx)
+        if ctx.quote.odds >= 1.65:
+            gap = round(ctx.quote.line - a.supported_line, 2)
+            return Decision(
+                Action.BET,
+                (
+                    f"FOCUS MARKET-GAP BRIDGE +{gap:.2f}"
+                    if bridge_ok
+                    else "prospective tail certificate funds quoted line"
+                ),
+                bridge_used=bridge_ok,
+            )
+        if _healthy_wait(ctx):
+            return Decision(
+                Action.WAIT,
+                "tail-funded quoted burden; price blocker with healthy reachable wait",
+            )
+        return Decision(Action.PASS, "price unacceptable without healthy wait path")
 
     if _healthy_wait(ctx):
         return Decision(
             Action.WAIT,
-            "above burden; bridge fails but healthy target reachable",
+            "quoted burden lacks prospective certificate; healthy certified target reachable",
         )
 
     return Decision(
         Action.PASS,
-        "above burden; bridge fails and wait is unrealistic",
+        "quoted burden lacks prospective goal funding and wait is unrealistic",
     )
 
 
