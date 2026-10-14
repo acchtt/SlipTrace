@@ -1238,16 +1238,19 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         return Decision(Action.PASS, "material football veto remains")
 
     compiled_anchor = certified_supported_burden(a, "c")
-    leakage_counterweight = c_leakage_goal3_funded(a)
+    goal3_counterweight = (
+        c_leakage_goal3_funded(a)
+        or c_distributed_goal3_funded(a)
+    )
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
-    if effective_stall == Grade.HIGH and not leakage_counterweight:
+    if effective_stall == Grade.HIGH and not goal3_counterweight:
         return Decision(Action.PASS, "current effective burden stall risk is HIGH")
 
     if a.burden_completion_quality == Grade.LOW:
         return Decision(Action.PASS, "current burden-completion quality is LOW")
 
-    if effective_continuation == Grade.LOW and not leakage_counterweight:
+    if effective_continuation == Grade.LOW and not goal3_counterweight:
         return Decision(Action.PASS, "current effective continuation quality is LOW")
 
     at_or_below = (
