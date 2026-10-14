@@ -132,6 +132,8 @@ class MatchAssessment:
     h2h_material_effect: bool
     h2h_basis: str
 
+    # Legacy/research-layer declaration retained only for audit comparison.
+    # Production burden is compiled deterministically from goal certificates.
     supported_line: float
     supported_line_basis: str
 
@@ -143,6 +145,14 @@ class MatchAssessment:
     failure_attacks_route_basis: str
     material_suppression: bool
     material_suppression_basis: str
+
+    # Frozen V4 Step-0 goal signal. These are common evidence, never market
+    # evidence. They are optional for historical compatibility, but the
+    # distributed goal-three certificate cannot activate without them.
+    goal_signal_priority_score: float | None = None
+    goal_signal_mean_over_two_rate: float | None = None
+    goal_signal_mean_over_three_rate: float | None = None
+    goal_signal_low_draw_trap_rate: float | None = None
 
     # Football C-owned burden-completion diagnostics. These are deliberately
     # optional in the shared assessment object so C2 does not need to carry
@@ -191,6 +201,14 @@ class MatchAssessment:
         if self.supported_line < 0:
             raise ValueError("supported_line must be non-negative")
         _validate_quarter_line(self.supported_line)
+        for name, value, low, high in (
+            ("goal_signal_priority_score", self.goal_signal_priority_score, 0.0, 100.0),
+            ("goal_signal_mean_over_two_rate", self.goal_signal_mean_over_two_rate, 0.0, 1.0),
+            ("goal_signal_mean_over_three_rate", self.goal_signal_mean_over_three_rate, 0.0, 1.0),
+            ("goal_signal_low_draw_trap_rate", self.goal_signal_low_draw_trap_rate, 0.0, 1.0),
+        ):
+            if value is not None and not low <= value <= high:
+                raise ValueError(f"{name} outside {low}..{high}")
         if self.c2_opponent_leakage is not None and not (
             self.c2_opponent_leakage_basis
             and self.c2_opponent_leakage_basis.strip()
@@ -424,82 +442,44 @@ def tournament_incentive_rank_score(a: MatchAssessment) -> int:
     return 0
 
 
-def low_burden_leakage_goal3_funded(
-    a: MatchAssessment, selected_line: float | None = None
-) -> bool:
-    """Return whether C can fund goal three through a leakage-led O2.25 path.
+def goal_signal_supports_distributed_goal3(a: MatchAssessment) -> bool:
+    """Require frozen Step-0 corroboration for a distributed 2+1 / 1+2 route."""
 
-    Oct-12 calibration showed a recurring false-negative shape: a STRONG route
-    facing HIGH opponent leakage was suppressed by recent 1-1/two-goal stall
-    history even when the first-two-goal mechanism remained live. This narrow
-    route exists only at O2.25 or lower. It does not justify O2.5/O2.75 and does
-    not create a fourth-goal tail.
-
-    The safeguard deliberately requires:
-      - a STRONG scoring route,
-      - HIGH opponent leakage,
-      - at least MEDIUM burden-completion and route reliability,
-      - at least MEDIUM current chance quality,
-      - HIGH burden-stall risk or LOW continuation (the specific suppression
-        being counterweighted),
-      - no material suppression or route-attacking failure.
-
-    This is not a new generic positive factor. It activates only when the
-    current matchup-specific leakage is counterweighting the exact stall/
-    continuation suppression identified by the audit. LOW burden-completion
-    can never be rescued.
-    """
-    require_c_completion(a)
-    burden = a.supported_line if selected_line is None else selected_line
-    _validate_quarter_line(burden)
-    if burden > 2.25:
+    values = (
+        a.goal_signal_priority_score,
+        a.goal_signal_mean_over_two_rate,
+        a.goal_signal_low_draw_trap_rate,
+    )
+    if any(value is None for value in values):
         return False
     return (
-        max(a.home_route, a.away_route) == RouteStrength.STRONG
-        and a.opponent_leakage == Grade.HIGH
-        and a.burden_completion_quality >= Grade.MEDIUM
-        and a.route_reliability >= Grade.MEDIUM
-        and a.chance_quality >= Grade.MEDIUM
-        and (
-            a.burden_stall_risk == Grade.HIGH
-            or a.continuation_quality == Grade.LOW
-        )
-        and not a.material_suppression
-        and not a.failure_attacks_route
+        a.goal_signal_priority_score >= 60
+        and a.goal_signal_mean_over_two_rate >= 0.65
+        and a.goal_signal_low_draw_trap_rate <= 0.20
     )
 
 
-def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None) -> bool:
-    """Return whether C has explicit prospective funding for the clearing goal.
-
-    This is intentionally stricter than FOCUS. It is used by ranking and the
-    operational FOLLOW certification, not to narrow the broad C-FOCUS pool.
-
-    For O2.25/O2.5/O2.75, a full win requires goal 3. A carrier-led path must prove
-    that goal independently; a merely USABLE supporting route is not enough.
-    TWO_SIDED/MIXED can fund it through two usable routes only when both the
-    completion and continuation diagnostics are HIGH. O2.25 additionally admits
-    the narrow leakage-led route above; that route never extends to O2.5/O2.75.
-    O3.0 requires independent upper-tail/self-funding carrier proof because a
-    fourth-goal tail cannot be inferred from ordinary two-route shape.
-    """
+def c_carrier_goal3_funded(a: MatchAssessment) -> bool:
     require_c_completion(a)
-    burden = a.supported_line if selected_line is None else selected_line
-    _validate_quarter_line(burden)
-
-    # O2.25 still loses half at two goals; O2.0 instead pushes.
-    if burden <= 2.0:
-        return True
-
-    strong_carrier_goal3 = (
+    return (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and a.independent_upper_tail
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
+
+
+def c_two_route_goal3_funded(a: MatchAssessment) -> bool:
+    """Standard strong two-route goal-three certificate."""
+
+    require_c_completion(a)
     effective_continuation, _ = c_effective_incentive_grades(a)
-    two_route_goal3 = (
+    return (
         a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
         and a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
@@ -508,26 +488,155 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and a.opponent_leakage >= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
-    leakage_goal3 = low_burden_leakage_goal3_funded(a, burden)
 
-    if burden < 3.0:
-        return strong_carrier_goal3 or two_route_goal3 or leakage_goal3
 
-    # O3.0+ requires independent fourth-goal proof. Verified suppressive
-    # tournament context raises the quality bar but does not erase an otherwise
-    # exceptional carrier automatically.
+def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
+    """Fund goal three through a genuine two-sided 2+1 / 1+2 mechanism.
+
+    This is the Strømmen–Åsane correction: neither team must be a three-goal
+    carrier when both routes are usable and the frozen Step-0 history strongly
+    corroborates a distributed third goal.
+    """
+
+    require_c_completion(a)
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    return (
+        goal_signal_supports_distributed_goal3(a)
+        and a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and a.carrier >= CarrierStrength.USABLE
+        and a.burden_completion_quality >= Grade.MEDIUM
+        and effective_continuation >= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and a.opponent_leakage >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def c_leakage_goal3_funded(a: MatchAssessment) -> bool:
+    """Fund goal three from a STRONG route plus matchup-specific HIGH leakage.
+
+    This replaces the old O2.25-only exception. Once the frozen football facts
+    genuinely certify goal three, the certificate is goal-based rather than
+    line-based and therefore supports the fully-funded O2.50 burden.
+    """
+
+    require_c_completion(a)
+    return (
+        max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.opponent_leakage == Grade.HIGH
+        and a.burden_completion_quality >= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def low_burden_leakage_goal3_funded(
+    a: MatchAssessment, selected_line: float | None = None
+) -> bool:
+    """Compatibility alias for the former O2.25-only leakage helper."""
+
+    if selected_line is not None:
+        _validate_quarter_line(selected_line)
+    return c_leakage_goal3_funded(a)
+
+
+def c_goal3_funded(a: MatchAssessment) -> bool:
+    """Explicit C goal-three certificate."""
+
+    return (
+        c_carrier_goal3_funded(a)
+        or c_two_route_goal3_funded(a)
+        or c_distributed_goal3_funded(a)
+        or c_leakage_goal3_funded(a)
+    )
+
+
+def c_goal4_funded(a: MatchAssessment) -> bool:
+    """Explicit C fourth-goal certificate; G3 alone never implies G4."""
+
+    require_c_completion(a)
+    if not c_goal3_funded(a):
+        return False
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
     if tournament_incentive_profile(a)["tail_bias"] == "SUPPRESSIVE":
         return (
-            strong_carrier_goal3
+            a.carrier == CarrierStrength.STRONG
+            and a.carrier_self_fund
+            and a.independent_upper_tail
             and a.route_reliability == Grade.HIGH
             and a.chance_quality == Grade.HIGH
             and a.failure_resistance == Grade.HIGH
+            and a.evidence_confidence == Grade.HIGH
             and effective_continuation >= Grade.MEDIUM
+            and effective_stall <= Grade.MEDIUM
         )
-    return strong_carrier_goal3
+
+    carrier_route = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.independent_upper_tail
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_completion_quality >= Grade.MEDIUM
+        and effective_continuation >= Grade.MEDIUM
+        and effective_stall <= Grade.MEDIUM
+    )
+    distributed_tail = (
+        a.independent_upper_tail
+        and a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.burden_completion_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
+        and effective_stall <= Grade.MEDIUM
+    )
+    return (
+        (carrier_route or distributed_tail)
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None) -> bool:
+    """Compatibility wrapper using exact Asian full-win settlement semantics."""
+
+    burden = a.supported_line if selected_line is None else selected_line
+    _validate_quarter_line(burden)
+    required = required_full_win_goal(burden)
+    if required <= 3:
+        return c_goal3_funded(a)
+    if required == 4:
+        return c_goal4_funded(a)
+    if required == 5:
+        return c_goal5_funded(a)
+    if required == 6:
+        return c_goal6_funded(a)
+    return False
 
 
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
@@ -541,11 +650,12 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
 
     require_c_completion(a)
     upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
-    lower_burden = -round(a.supported_line * 4)
+    compiled_burden = certified_supported_burden(a, "c")
+    lower_burden = -round(compiled_burden * 4) if compiled_burden is not None else -999
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
     return (
-        int(clearing_goal_funded(a)),
+        int(c_goal3_funded(a)),
         int(effective_continuation),
         -int(effective_stall),
         int(a.burden_completion_quality),
@@ -642,27 +752,11 @@ def follow_through_lane(
     require_c_completion(a)
     return FollowLane.FOLLOW if board_state == BoardState.FOCUS else FollowLane.STOP
 
-def c2_low_burden_leakage_goal3_funded(
-    a: MatchAssessment, selected_line: float | None = None
-) -> bool:
-    """C2-owned goal-three counterweight, never an imported C completion grade.
+def c2_leakage_goal3_funded(a: MatchAssessment) -> bool:
+    """Independent C2 HIGH-leakage goal-three certificate."""
 
-    Only O2.25 can use independently evidenced HIGH opponent leakage to fund
-    goal three when the otherwise credible STRONG route lacks separate upper-
-    tail proof. Requires a named C2 leakage basis and high route reliability;
-    absent or LOW/MEDIUM leakage evidence cannot upgrade a match. Does not
-    prove a fourth goal or waive material football vetoes.
-    """
-    # Read-only diagnostic shadow probes may carry only route-quality fields.
-    # Absence of a C2-specific leakage grade or burden always leaves the old
-    # selection result unchanged; never infer HIGH leakage from shared facts.
-    burden = getattr(a, "supported_line", None) if selected_line is None else selected_line
-    if burden is None or getattr(a, "c2_opponent_leakage", None) != Grade.HIGH:
-        return False
-    _validate_quarter_line(burden)
     return (
-        2.0 < burden <= 2.25
-        and a.c2_opponent_leakage == Grade.HIGH
+        getattr(a, "c2_opponent_leakage", None) == Grade.HIGH
         and bool(a.c2_opponent_leakage_basis and a.c2_opponent_leakage_basis.strip())
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier >= CarrierStrength.USABLE
@@ -672,9 +766,54 @@ def c2_low_burden_leakage_goal3_funded(
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
         and a.burden_protection >= Grade.MEDIUM
-        # Positive independent upper-tail evidence must never make an
-        # otherwise qualified O2.25 leakage path worse. This factor is
-        # orthogonal here; carrier/two-route proofs may use it separately.
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def c2_low_burden_leakage_goal3_funded(
+    a: MatchAssessment, selected_line: float | None = None
+) -> bool:
+    """Compatibility alias for the former O2.25-only C2 leakage helper."""
+
+    if selected_line is not None:
+        _validate_quarter_line(selected_line)
+    return c2_leakage_goal3_funded(a)
+
+
+def c2_two_route_goal3_funded(a: MatchAssessment) -> bool:
+    """Standard C2 strong two-route goal-three certificate."""
+
+    return (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
+def c2_distributed_goal3_funded(a: MatchAssessment) -> bool:
+    """C2-owned distributed 2+1 / 1+2 goal-three certificate."""
+
+    return (
+        goal_signal_supports_distributed_goal3(a)
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and a.carrier >= CarrierStrength.USABLE
+        and a.route_reliability >= Grade.MEDIUM
+        and a.independent_route_quality >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
@@ -684,11 +823,7 @@ def c2_selection_floor(
     a: MatchAssessment,
     selected_line: float | None = None,
 ) -> tuple[SelectionFloor, tuple[str, ...]]:
-    """Apply the exact C2 direct-exposure floor where possible.
-
-    BORDERLINE is a QA state only. It means one condition is still unresolved
-    and never counts as direct BET proof.
-    """
+    """Apply C2's exact route-quality floor including distributed G3 proof."""
 
     hard_reasons: list[str] = []
     if a.failure_attacks_route:
@@ -702,18 +837,14 @@ def c2_selection_floor(
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and not hard_reasons
     )
-
     carrier_clear = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and a.independent_upper_tail
         and not hard_reasons
     )
-
-    # C2's own narrow O2.25 leakage route is a third independent quality
-    # certificate. It does not change the standard two-route/carrier floors.
-    leakage_clear = c2_low_burden_leakage_goal3_funded(a, selected_line)
-    if two_route_clear or carrier_clear or leakage_clear:
+    distributed_clear = c2_distributed_goal3_funded(a) and not hard_reasons
+    leakage_clear = c2_leakage_goal3_funded(a) and not hard_reasons
+    if two_route_clear or carrier_clear or distributed_clear or leakage_clear:
         return SelectionFloor.CLEAR, ()
 
     if hard_reasons:
@@ -721,14 +852,12 @@ def c2_selection_floor(
 
     missing_two_route = 0
     reasons: list[str] = []
-
     if not (
         a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
     ):
         missing_two_route += 1
         reasons.append("two-route floor lacks two usable routes")
-
     if max(a.home_route, a.away_route) != RouteStrength.STRONG:
         missing_two_route += 1
         reasons.append("two-route floor lacks a strong route")
@@ -737,88 +866,85 @@ def c2_selection_floor(
         (
             a.carrier != CarrierStrength.STRONG,
             not a.carrier_self_fund,
-            not a.independent_upper_tail,
         )
     )
-
-    # Narrow diagnostic state: one unresolved condition from either exact floor
-    # and no hard veto. BORDERLINE never authorizes direct exposure.
     if missing_two_route <= 1 or missing_carrier <= 1:
         if missing_carrier:
             reasons.append("carrier floor incomplete")
+        if not goal_signal_supports_distributed_goal3(a):
+            reasons.append("distributed goal signal not corroborated")
         return SelectionFloor.BORDERLINE, tuple(dict.fromkeys(reasons))
 
     reasons.append("neither exact C2 selection floor clears")
     return SelectionFloor.FAIL, tuple(dict.fromkeys(reasons))
 
 
-def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
-    """Independent C2 route-quality proof at the selected total.
-
-    C2 uses no C-owned completion/continuation/stall grading.
-    A CLEAR two-route selection floor alone does not fund goal three.
-    Only a C2-sourced HIGH-leakage O2.25 counterweight can replace the
-    otherwise required upper-tail proof, never at O2.5 or higher.
-    """
-    _validate_quarter_line(selected_line)
-    floor, _ = c2_selection_floor(a, selected_line)
-    if floor != SelectionFloor.CLEAR:
-        return False
-    if selected_line <= 2.0:
-        return True
+def c2_goal3_funded(a: MatchAssessment) -> bool:
+    """Explicit C2 goal-three certificate."""
 
     carrier_goal3 = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and a.independent_upper_tail
         and a.route_reliability >= Grade.MEDIUM
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
     )
-    two_route_goal3 = (
+    return (
+        carrier_goal3
+        or c2_two_route_goal3_funded(a)
+        or c2_distributed_goal3_funded(a)
+        or c2_leakage_goal3_funded(a)
+    )
+
+
+def c2_goal4_funded(a: MatchAssessment) -> bool:
+    """Explicit C2 goal-four certificate, independent of C completion labels."""
+
+    if not c2_goal3_funded(a) or not a.independent_upper_tail:
+        return False
+    incentive_bias = tournament_incentive_profile(a)["tail_bias"]
+    grades = (a.route_reliability, a.chance_quality, a.failure_resistance)
+    if incentive_bias == "EXPANSIVE":
+        quality = all(grade >= Grade.MEDIUM for grade in grades) and sum(int(x) for x in grades) >= 5
+    elif incentive_bias == "SUPPRESSIVE":
+        quality = all(grade == Grade.HIGH for grade in grades) and a.burden_protection == Grade.HIGH
+    else:
+        quality = all(grade == Grade.HIGH for grade in grades)
+    route_tail = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+    ) or (
         a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.independent_route_quality == Grade.HIGH
-        and a.route_reliability == Grade.HIGH
-        and a.chance_quality >= Grade.MEDIUM
-        and a.failure_resistance >= Grade.MEDIUM
-        and a.independent_upper_tail
     )
-    if selected_line < 3.0:
-        return (
-            carrier_goal3
-            or two_route_goal3
-            or c2_low_burden_leakage_goal3_funded(a, selected_line)
-        )
-
-    incentive_bias = tournament_incentive_profile(a)["tail_bias"]
-    fourth_goal_grades = (
-        a.route_reliability,
-        a.chance_quality,
-        a.failure_resistance,
-    )
-    if incentive_bias == "EXPANSIVE":
-        fourth_goal_quality = (
-            all(grade >= Grade.MEDIUM for grade in fourth_goal_grades)
-            and sum(int(grade) for grade in fourth_goal_grades) >= 5
-        )
-    elif incentive_bias == "SUPPRESSIVE":
-        fourth_goal_quality = (
-            all(grade == Grade.HIGH for grade in fourth_goal_grades)
-            and a.burden_protection == Grade.HIGH
-        )
-    else:
-        fourth_goal_quality = all(grade == Grade.HIGH for grade in fourth_goal_grades)
-    return fourth_goal_quality and (
-        carrier_goal3
-        or (
-            two_route_goal3
-            and a.home_route == RouteStrength.STRONG
-            and a.away_route == RouteStrength.STRONG
-        )
+    return (
+        quality
+        and route_tail
+        and not a.material_suppression
+        and not a.failure_attacks_route
     )
 
+
+def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
+    """Compatibility wrapper using exact Asian full-win settlement semantics."""
+
+    _validate_quarter_line(selected_line)
+    required = required_full_win_goal(selected_line)
+    if required <= 3:
+        return c2_goal3_funded(a)
+    if required == 4:
+        return c2_goal4_funded(a)
+    if required == 5:
+        return c2_goal5_funded(a)
+    if required == 6:
+        return c2_goal6_funded(a)
+    return False
 
 
 def c_goal5_funded(a: MatchAssessment) -> bool:
@@ -833,7 +959,7 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
     if tournament_incentive_profile(a)["tail_bias"] == "SUPPRESSIVE":
         return False
     return (
-        clearing_goal_funded(a, 3.0)
+        c_goal4_funded(a)
         and a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
@@ -882,7 +1008,7 @@ def c2_goal5_funded(a: MatchAssessment) -> bool:
         return False
     failure_floor = Grade.MEDIUM if incentive_bias == "EXPANSIVE" else Grade.HIGH
     return (
-        c2_clearing_goal_funded(a, 3.0)
+        c2_goal4_funded(a)
         and a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
@@ -911,28 +1037,54 @@ def c2_goal6_funded(a: MatchAssessment) -> bool:
     )
 
 
+def required_full_win_goal(line: float) -> int:
+    """Return integer total required for a full win on an Asian Over line.
+
+    .75 lines need the next goal beyond the nominal threshold because landing
+    on the adjacent integer produces only a half win (for example O2.75 at
+    exactly three goals).
+    """
+
+    _validate_quarter_line(line)
+    whole = int(line)
+    quarter = round(line - whole, 2)
+    return whole + (2 if quarter == 0.75 else 1)
+
+
 def prospective_goal_funding(
     a: MatchAssessment,
     model: str,
 ) -> dict[str, bool | str | float | None]:
-    """Freeze the model's goal-3/4/5/6 funding profile before price comparison.
-
-    supported_line remains the certified burden/anchor. The tail profile is a
-    separate prospective football object used only to judge whether a later
-    quoted total is football-funded. A bookmaker line never upgrades this
-    profile.
-    """
+    """Freeze explicit G3/G4/G5/G6 certificates before market comparison."""
 
     if model == "c":
-        goal3 = clearing_goal_funded(a, 2.75)
-        goal4 = clearing_goal_funded(a, 3.0)
+        goal3 = c_goal3_funded(a)
+        goal4 = c_goal4_funded(a)
         goal5 = c_goal5_funded(a)
         goal6 = c_goal6_funded(a)
+        two_route_goal3 = c_two_route_goal3_funded(a)
+        distributed_goal3 = c_distributed_goal3_funded(a)
+        leakage_goal3 = c_leakage_goal3_funded(a)
+        carrier_goal3 = c_carrier_goal3_funded(a)
     elif model == "c2":
-        goal3 = c2_clearing_goal_funded(a, 2.75)
-        goal4 = c2_clearing_goal_funded(a, 3.0)
+        goal3 = c2_goal3_funded(a)
+        goal4 = c2_goal4_funded(a)
         goal5 = c2_goal5_funded(a)
         goal6 = c2_goal6_funded(a)
+        two_route_goal3 = c2_two_route_goal3_funded(a)
+        distributed_goal3 = c2_distributed_goal3_funded(a)
+        leakage_goal3 = c2_leakage_goal3_funded(a)
+        carrier_goal3 = (
+            a.carrier == CarrierStrength.STRONG
+            and a.carrier_self_fund
+            and a.route_reliability >= Grade.MEDIUM
+            and a.chance_quality >= Grade.MEDIUM
+            and a.failure_resistance >= Grade.MEDIUM
+            and a.evidence_confidence >= Grade.MEDIUM
+            and a.burden_protection >= Grade.MEDIUM
+            and not a.material_suppression
+            and not a.failure_attacks_route
+        )
     else:
         raise ValueError("model must be c or c2")
 
@@ -946,10 +1098,10 @@ def prospective_goal_funding(
         strength = "NONE"
 
     ceiling = (
-        5.75 if goal6 else
-        4.75 if goal5 else
-        3.75 if goal4 else
-        2.75 if goal3 else
+        5.50 if goal6 else
+        4.50 if goal5 else
+        3.50 if goal4 else
+        2.50 if goal3 else
         None
     )
     incentive = tournament_incentive_profile(a)
@@ -962,8 +1114,13 @@ def prospective_goal_funding(
         "goal4_funded": goal4,
         "goal5_funded": goal5,
         "goal6_funded": goal6,
+        "goal3_carrier_funded": carrier_goal3,
+        "goal3_two_route_funded": two_route_goal3,
+        "goal3_distributed_funded": distributed_goal3,
+        "goal3_leakage_funded": leakage_goal3,
         "upper_tail_strength": strength,
         "prospective_tail_ceiling": ceiling,
+        "certified_supported_burden": ceiling,
         "tournament_incentive_resolution": a.tournament_incentive_resolution,
         "tournament_incentive_effect": a.incentive_effect,
         "tournament_tail_bias": incentive["tail_bias"],
@@ -978,42 +1135,56 @@ def prospective_goal_funding(
     }
 
 
+def certified_supported_burden(
+    a: MatchAssessment,
+    model: str,
+) -> float | None:
+    """Compile the authoritative burden from frozen goal certificates."""
+
+    return prospective_goal_funding(a, model)["certified_supported_burden"]
+
+
+def certified_supported_burden_basis(
+    a: MatchAssessment,
+    model: str,
+) -> str:
+    profile = prospective_goal_funding(a, model)
+    burden = profile["certified_supported_burden"]
+    if burden is None:
+        return "NO_CERTIFIED_BURDEN: goal three is not funded by frozen football evidence"
+    highest = 6 if profile["goal6_funded"] else 5 if profile["goal5_funded"] else 4 if profile["goal4_funded"] else 3
+    mechanisms = []
+    if profile["goal3_carrier_funded"]:
+        mechanisms.append("CARRIER_G3")
+    if profile["goal3_two_route_funded"]:
+        mechanisms.append("TWO_ROUTE_G3")
+    if profile["goal3_distributed_funded"]:
+        mechanisms.append("DISTRIBUTED_G3")
+    if profile["goal3_leakage_funded"]:
+        mechanisms.append("LEAKAGE_G3")
+    mechanism_text = ",".join(mechanisms) or "UPPER_TAIL_ONLY"
+    return (
+        f"DETERMINISTIC_CERTIFICATE_COMPILER: G{highest} highest funded; "
+        f"max fully-funded Asian Over={burden:.2f}; G3 mechanisms={mechanism_text}"
+    )
+
+
 def market_line_funded(
     a: MatchAssessment,
     line: float,
     model: str,
 ) -> bool:
-    """Return whether a later quoted total is funded by frozen football evidence.
+    """Judge a quote solely by the goal needed for a full Asian-settlement win."""
 
-    The certified supported_line is an anchor, not a universal execution
-    ceiling. Above it, the quote must clear the appropriate prospective goal
-    certificate. The O2.25 leakage exception stays local to O2.25 and cannot
-    manufacture support for O2.5/O2.75.
-    """
-
-    _validate_quarter_line(line)
-    if line <= a.supported_line + 1e-9:
-        return (
-            clearing_goal_funded(a, line)
-            if model == "c"
-            else c2_clearing_goal_funded(a, line)
-        )
-
-    if line <= 2.25:
-        return (
-            clearing_goal_funded(a, line)
-            if model == "c"
-            else c2_clearing_goal_funded(a, line)
-        )
-
+    required = required_full_win_goal(line)
     profile = prospective_goal_funding(a, model)
-    if line < 3.0:
+    if required == 3:
         return bool(profile["goal3_funded"])
-    if line < 4.0:
+    if required == 4:
         return bool(profile["goal4_funded"])
-    if line < 5.0:
+    if required == 5:
         return bool(profile["goal5_funded"])
-    if line < 6.0:
+    if required == 6:
         return bool(profile["goal6_funded"])
     return False
 
@@ -1049,9 +1220,13 @@ def model_wait_target(
     This function never creates assumed exposure.
     """
 
-    target_line = min(ctx.quote.line, a.supported_line)
+    compiled = certified_supported_burden(a, model) if model in {"c", "c2"} else None
     if model in {"c", "c2"} and market_line_funded(a, ctx.quote.line, model):
         target_line = ctx.quote.line
+    elif compiled is not None:
+        target_line = min(ctx.quote.line, compiled)
+    else:
+        raise ValueError("WAIT unavailable: no certified supported burden")
     min_odds = (
         1.60
         if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
@@ -1112,28 +1287,30 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    # Preserve the narrow O2.25 leakage counterweight for current stall checks.
-    # It can never fund a higher quoted burden. Tournament context may adjust
-    # continuation/stall by one grade only after it was VERIFIED pre-market.
-    executable_anchor = min(ctx.quote.line, a.supported_line)
-    leakage_counterweight = low_burden_leakage_goal3_funded(a, executable_anchor)
+    compiled_anchor = certified_supported_burden(a, "c")
+    goal3_counterweight = (
+        c_leakage_goal3_funded(a)
+        or c_distributed_goal3_funded(a)
+    )
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
-    if effective_stall == Grade.HIGH and not leakage_counterweight:
+    if effective_stall == Grade.HIGH and not goal3_counterweight:
         return Decision(Action.PASS, "current effective burden stall risk is HIGH")
 
     if a.burden_completion_quality == Grade.LOW:
         return Decision(Action.PASS, "current burden-completion quality is LOW")
 
-    if effective_continuation == Grade.LOW and not leakage_counterweight:
+    if effective_continuation == Grade.LOW and not goal3_counterweight:
         return Decision(Action.PASS, "current effective continuation quality is LOW")
 
-    at_or_below = ctx.quote.line <= a.supported_line + 1e-9
+    at_or_below = (
+        compiled_anchor is not None
+        and ctx.quote.line <= compiled_anchor + 1e-9
+    )
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
     if not line_funded:
-        anchor_funded = market_line_funded(a, a.supported_line, "c")
-        if not at_or_below and anchor_funded and _healthy_wait(ctx):
+        if compiled_anchor is not None and not at_or_below and _healthy_wait(ctx):
             return Decision(
                 Action.WAIT,
                 "quoted burden lacks prospective certificate; healthy certified target reachable",
@@ -1193,8 +1370,8 @@ def c2_bridge_eligibility(
     """Check the text C2 Focus Market-Gap Bridge deterministically."""
 
     reasons: list[str] = []
-    gap = round(ctx.quote.line - a.supported_line, 10)
-    # Bridges must certify the higher quoted burden, not the O2.25 WAIT target.
+    compiled_anchor = certified_supported_burden(a, "c2")
+    gap = round(ctx.quote.line - compiled_anchor, 10) if compiled_anchor is not None else 999.0
     floor, _ = c2_selection_floor(a, ctx.quote.line)
 
     if ctx.board_state != BoardState.FOCUS:
@@ -1246,17 +1423,15 @@ def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if ctx.material_veto or a.material_suppression or a.failure_attacks_route:
         return Decision(Action.PASS, "material football veto remains")
 
-    # The anchor must still clear C2's own selection/funding floor. Higher
-    # totals are judged separately by the frozen prospective tail profile.
-    executable_anchor = min(ctx.quote.line, a.supported_line)
-    floor, _ = c2_selection_floor(a, executable_anchor)
+    compiled_anchor = certified_supported_burden(a, "c2")
+    if compiled_anchor is None:
+        return Decision(Action.PASS, "C2 has no certified supported burden")
+
+    floor, _ = c2_selection_floor(a, min(ctx.quote.line, compiled_anchor))
     if floor != SelectionFloor.CLEAR:
         return Decision(Action.PASS, "C2 selection-quality floor not clear")
 
-    if not c2_clearing_goal_funded(a, executable_anchor):
-        return Decision(Action.PASS, "C2 clearing-goal funding missing")
-
-    at_or_below = ctx.quote.line <= a.supported_line + 1e-9
+    at_or_below = ctx.quote.line <= compiled_anchor + 1e-9
     if at_or_below:
         if ctx.quote.odds >= 1.65:
             return Decision(
@@ -1282,7 +1457,7 @@ def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if market_line_funded(a, ctx.quote.line, "c2"):
         bridge_ok, _ = c2_bridge_eligibility(a, ctx)
         if ctx.quote.odds >= 1.65:
-            gap = round(ctx.quote.line - a.supported_line, 2)
+            gap = round(ctx.quote.line - compiled_anchor, 2)
             return Decision(
                 Action.BET,
                 (

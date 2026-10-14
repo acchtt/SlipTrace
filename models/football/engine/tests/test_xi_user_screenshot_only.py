@@ -166,13 +166,13 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertFalse(out["price_check"]["execution_authorized"])
         self.assertFalse(out["price_check"]["bet_authorized"])
 
-    def test_07_independent_c2_supported_burden_is_preserved(self):
+    def test_07_c_and_c2_compile_supported_burden_independently(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
         c2["match"]["supported_line"] = 3.0
         out = run_xi(c, c2, snapshot(c, line=2.75, captured=OLDER))
-        self.assertEqual(out["price_check"]["models"]["c"]["supported_line"], 2.5)
-        self.assertEqual(out["price_check"]["models"]["c2"]["supported_line"], 3.0)
+        self.assertIsNone(out["price_check"]["models"]["c"]["supported_line"])
+        self.assertEqual(out["price_check"]["models"]["c2"]["supported_line"], 3.5)
         self.assertEqual(
             out["price_check"]["models"]["c2"]["snapshot_line_relation"],
             "BELOW_SUPPORTED_BURDEN",
@@ -185,14 +185,15 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         c2 = wait_ready(
             football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
         )
-        # O5.0 requires a frozen goal-six certificate. This fixture has no
-        # such certificate, so explicit reachability can still produce WAIT
-        # toward the funded 2.5 anchor without restoring a hard line-gap rule.
+        # O5.0 requires a frozen goal-six certificate. This fixture has G4 but
+        # no G5/G6, so explicit reachability can still produce WAIT toward the
+        # compiler's O3.5 anchor without restoring a hard line-gap rule.
         out = run_xi(c, c2, snapshot(c, line=5.0, odds=1.72))
+        expected_targets = {"c": 3.5, "c2": 4.5}
         for model in ("c", "c2"):
             verdict = out["price_check"]["models"][model]
             self.assertEqual(verdict["conditional_action"], "WAIT")
-            self.assertEqual(verdict["wait_target_line"], 2.5)
+            self.assertEqual(verdict["wait_target_line"], expected_targets[model])
             self.assertEqual(verdict["wait_min_odds"], 1.65)
             self.assertTrue(verdict["wait_reachable"])
         self.assertFalse(out["price_check"]["execution_authorized"])

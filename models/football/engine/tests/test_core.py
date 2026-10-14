@@ -25,15 +25,19 @@ from core import (  # noqa: E402
     XiStatus,
     c2_bridge_eligibility,
     c2_clearing_goal_funded,
+    c2_distributed_goal3_funded,
     c2_goal5_funded,
     c2_low_burden_leakage_goal3_funded,
     c_effective_incentive_grades,
+    c_distributed_goal3_funded,
     c_goal5_funded,
+    certified_supported_burden,
     c2_selection_floor,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
     market_line_funded,
     prospective_goal_funding,
+    required_full_win_goal,
     tournament_incentive_profile,
     decide_c,
     decide_c2,
@@ -118,7 +122,7 @@ def context(
 
 
 class FollowThroughTests(unittest.TestCase):
-    def test_o225_full_win_still_needs_goal3_but_o20_push_protects(self):
+    def test_full_win_certificate_requires_goal3_even_at_o20(self):
         a = assessment(
             supported_line=2.25,
             burden_completion_quality=Grade.MEDIUM,
@@ -127,7 +131,7 @@ class FollowThroughTests(unittest.TestCase):
             independent_upper_tail=False,
         )
         self.assertFalse(clearing_goal_funded(a))
-        self.assertTrue(clearing_goal_funded(a, selected_line=2.0))
+        self.assertFalse(clearing_goal_funded(a, selected_line=2.0))
 
     def test_o225_high_leakage_strong_route_can_fund_goal3_without_high_continuation(self):
         a = assessment(
@@ -147,7 +151,7 @@ class FollowThroughTests(unittest.TestCase):
         self.assertTrue(low_burden_leakage_goal3_funded(a))
         self.assertTrue(clearing_goal_funded(a))
 
-    def test_o225_leakage_counterweight_does_not_upgrade_clean_medium_medium_shape(self):
+    def test_high_leakage_strong_route_can_fund_goal3_in_clean_medium_shape(self):
         a = assessment(
             supported_line=2.25,
             away_route=RouteStrength.WEAK,
@@ -162,10 +166,10 @@ class FollowThroughTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=False,
         )
-        self.assertFalse(low_burden_leakage_goal3_funded(a))
-        self.assertFalse(clearing_goal_funded(a))
+        self.assertTrue(low_burden_leakage_goal3_funded(a))
+        self.assertTrue(clearing_goal_funded(a))
 
-    def test_leakage_counterweight_never_extends_to_o250_or_higher(self):
+    def test_leakage_goal3_funds_o250_but_not_o275_full_win(self):
         a = assessment(
             supported_line=2.5,
             away_route=RouteStrength.WEAK,
@@ -180,8 +184,9 @@ class FollowThroughTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=False,
         )
-        self.assertFalse(low_burden_leakage_goal3_funded(a))
-        self.assertFalse(clearing_goal_funded(a))
+        self.assertTrue(low_burden_leakage_goal3_funded(a))
+        self.assertTrue(clearing_goal_funded(a))
+        self.assertFalse(clearing_goal_funded(a, selected_line=2.75))
 
     def test_o225_leakage_counterweight_requires_strong_route_and_completion(self):
         no_strong_route = assessment(
@@ -359,7 +364,7 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
-    def test_kashima_style_unfunded_exception_passes_o25_and_o225(self):
+    def test_kashima_style_high_leakage_now_receives_goal3_certificate(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
             route_reliability=Grade.MEDIUM,
@@ -380,8 +385,7 @@ class FootballCExecutionTests(unittest.TestCase):
                     quote=Quote(line, odds),
                 )
                 result = decide_c(a, ctx)
-                self.assertEqual(result.action, Action.PASS)
-                self.assertIn("clearing-goal funding", result.reason)
+                self.assertEqual(result.action, Action.BET)
 
     def test_strong_carrier_retains_legitimate_bet(self):
         a = assessment(
@@ -489,7 +493,7 @@ class FootballCExecutionTests(unittest.TestCase):
         decision = decide_c(a, context(quote=Quote(2.25, 1.70)))
         self.assertEqual(decision.action, Action.BET)
 
-    def test_o250_same_leakage_shape_still_passes(self):
+    def test_o250_same_leakage_shape_is_goal3_funded(self):
         a = assessment(
             supported_line=2.5,
             away_route=RouteStrength.WEAK,
@@ -505,8 +509,7 @@ class FootballCExecutionTests(unittest.TestCase):
             independent_upper_tail=False,
         )
         decision = decide_c(a, context(quote=Quote(2.5, 1.70)))
-        self.assertEqual(decision.action, Action.PASS)
-        self.assertIn("stall risk", decision.reason)
+        self.assertEqual(decision.action, Action.BET)
 
     def test_high_current_stall_risk_passes(self):
         decision = decide_c(
@@ -585,8 +588,9 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertFalse(profile["goal6_funded"])
         self.assertEqual(profile["upper_tail_strength"], "STRONG")
         self.assertTrue(market_line_funded(a, 4.0, "c"))
-        self.assertTrue(market_line_funded(a, 4.75, "c"))
-        self.assertFalse(market_line_funded(a, 5.0, "c"))
+        self.assertTrue(market_line_funded(a, 4.5, "c"))
+        self.assertFalse(market_line_funded(a, 4.75, "c"))
+        self.assertEqual(certified_supported_burden(a, "c"), 4.5)
         self.assertEqual(
             decide_c(a, context(quote=Quote(4.0, 1.81))).action,
             Action.BET,
@@ -613,15 +617,72 @@ class FootballCExecutionTests(unittest.TestCase):
             independent_upper_tail=False,
         )
         self.assertTrue(market_line_funded(a, 2.25, "c"))
-        self.assertFalse(market_line_funded(a, 2.5, "c"))
+        self.assertTrue(market_line_funded(a, 2.5, "c"))
         self.assertFalse(market_line_funded(a, 2.75, "c"))
         self.assertFalse(market_line_funded(a, 4.0, "c"))
         profile = prospective_goal_funding(a, "c")
-        self.assertFalse(profile["goal3_funded"])
-        self.assertEqual(profile["upper_tail_strength"], "NONE")
+        self.assertTrue(profile["goal3_funded"])
+        self.assertTrue(profile["goal3_leakage_funded"])
+        self.assertEqual(profile["upper_tail_strength"], "WEAK")
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         result = decide_c(a, context(quote=Quote(4.0, 1.81)))
         self.assertEqual(result.action, Action.PASS)
         self.assertIn("tail funding missing", result.reason)
+
+
+class SupportedBurdenCompilerTests(unittest.TestCase):
+    def test_strommen_asane_distributed_g3_compiles_o250(self):
+        a = assessment(
+            supported_line=2.25,
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.HIGH,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=69,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.5625,
+            goal_signal_low_draw_trap_rate=0.0625,
+        )
+        self.assertTrue(c_distributed_goal3_funded(a))
+        self.assertTrue(c2_distributed_goal3_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertEqual(certified_supported_burden(a, "c2"), 2.5)
+        self.assertTrue(market_line_funded(a, 2.5, "c"))
+        self.assertFalse(market_line_funded(a, 2.75, "c"))
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.5, 1.70))).action,
+            Action.BET,
+        )
+
+    def test_declared_line_does_not_change_compiled_burden(self):
+        common = dict(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+        )
+        low = assessment(supported_line=2.25, **common)
+        high = assessment(supported_line=4.5, **common)
+        self.assertEqual(certified_supported_burden(low, "c"), 2.5)
+        self.assertEqual(certified_supported_burden(high, "c"), 2.5)
+
+    def test_full_win_goal_requirement_handles_three_quarter_lines(self):
+        self.assertEqual(required_full_win_goal(2.5), 3)
+        self.assertEqual(required_full_win_goal(2.75), 4)
+        self.assertEqual(required_full_win_goal(3.5), 4)
+        self.assertEqual(required_full_win_goal(3.75), 5)
+        self.assertEqual(required_full_win_goal(4.75), 6)
 
 
 class C2BridgeTests(unittest.TestCase):
@@ -685,7 +746,7 @@ class C2BridgeTests(unittest.TestCase):
         self.assertEqual(c2_selection_floor(without_tail)[0], SelectionFloor.CLEAR)
         self.assertEqual(c2_selection_floor(with_tail)[0], SelectionFloor.CLEAR)
 
-    def test_c2_leakage_never_upgrades_o250_or_bridge(self):
+    def test_c2_leakage_goal3_funds_o250_but_not_o275(self):
         a = assessment(
             supported_line=2.25,
             away_route=RouteStrength.WEAK,
@@ -695,13 +756,12 @@ class C2BridgeTests(unittest.TestCase):
             c2_opponent_leakage=Grade.HIGH,
             c2_opponent_leakage_basis="Verified opponent-specific leakage against strong attacking routes",
         )
-        for line in (2.5, 2.75, 3.0):
+        self.assertTrue(c2_low_burden_leakage_goal3_funded(a, 2.5))
+        self.assertTrue(c2_clearing_goal_funded(a, 2.5))
+        self.assertEqual(c2_selection_floor(a, 2.5)[0], SelectionFloor.CLEAR)
+        for line in (2.75, 3.0):
             with self.subTest(line=line):
-                self.assertFalse(c2_low_burden_leakage_goal3_funded(a, line))
                 self.assertFalse(c2_clearing_goal_funded(a, line))
-                self.assertNotEqual(c2_selection_floor(a, line)[0], SelectionFloor.CLEAR)
-        ok, _ = c2_bridge_eligibility(a, context(quote=Quote(2.5, 1.88)))
-        self.assertFalse(ok)
 
     def test_c2_leakage_requires_current_independent_proof_and_quality(self):
         base = dict(
@@ -784,7 +844,7 @@ class C2BridgeTests(unittest.TestCase):
             chance_quality=Grade.MEDIUM,
             failure_resistance=Grade.MEDIUM,
         )
-        self.assertTrue(c2_clearing_goal_funded(a, 2.75))
+        self.assertFalse(c2_clearing_goal_funded(a, 2.75))
         self.assertFalse(c2_clearing_goal_funded(a, 3.0))
         self.assertFalse(c2_clearing_goal_funded(a, 3.25))
 
@@ -800,9 +860,10 @@ class C2BridgeTests(unittest.TestCase):
         self.assertFalse(ok)
         self.assertIn("C2 clearing-goal funding missing at bridge line", reasons)
 
-    def test_focus_bridge_clears_only_with_independent_proof(self):
+    def test_compiler_makes_legacy_focus_bridge_unnecessary(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
             independent_upper_tail=True,
         )
         ctx = context(
@@ -810,13 +871,12 @@ class C2BridgeTests(unittest.TestCase):
             ThesisState.PRESERVED,
             Quote(2.75, 1.72),
         )
-        ok, reasons = c2_bridge_eligibility(a, ctx)
-        self.assertTrue(ok, reasons)
+        self.assertGreaterEqual(certified_supported_burden(a, "c2"), 2.75)
         decision = decide_c2(a, ctx)
         self.assertEqual(decision.action, Action.BET)
-        self.assertTrue(decision.bridge_used)
+        self.assertFalse(decision.bridge_used)
 
-    def test_c2_tail_certificate_can_clear_beyond_legacy_half_goal_bridge(self):
+    def test_c2_goal5_compiles_o450_burden_without_bridge(self):
         a = assessment(
             supported_line=2.75,
             home_route=RouteStrength.STRONG,
@@ -833,6 +893,7 @@ class C2BridgeTests(unittest.TestCase):
         )
         profile = prospective_goal_funding(a, "c2")
         self.assertTrue(profile["goal5_funded"])
+        self.assertEqual(certified_supported_burden(a, "c2"), 4.5)
         self.assertTrue(market_line_funded(a, 4.0, "c2"))
         decision = decide_c2(a, context(quote=Quote(4.0, 1.81)))
         self.assertEqual(decision.action, Action.BET)
@@ -887,7 +948,8 @@ class TournamentIncentiveModelTests(unittest.TestCase):
         neutral = assessment(**base)
         expansive = assessment(**{**base, **self.verified_tournament()})
         self.assertFalse(clearing_goal_funded(neutral, 2.75))
-        self.assertTrue(clearing_goal_funded(expansive, 2.75))
+        self.assertFalse(clearing_goal_funded(expansive, 2.75))
+        self.assertTrue(clearing_goal_funded(expansive, 2.5))
         continuation, stall = c_effective_incentive_grades(expansive)
         self.assertEqual(continuation, Grade.HIGH)
         self.assertEqual(stall, Grade.MEDIUM)

@@ -660,33 +660,32 @@ class BoardContractTests(unittest.TestCase):
                 }
             )
 
-    def test_o250_same_high_leakage_shape_may_remain_c_watch(self):
-        result = run_board(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "board",
-                "model": "c",
-                "matches": [
-                    match(
-                        supported_line=2.5,
-                        away_route="WEAK",
-                        carrier="USABLE",
-                        completion_mode="CARRIER_LED",
-                        burden_completion_quality="MEDIUM",
-                        continuation_quality="LOW",
-                        opponent_leakage="HIGH",
-                        burden_stall_risk="HIGH",
-                        route_reliability="HIGH",
-                        chance_quality="HIGH",
-                        carrier_self_fund=False,
-                        independent_upper_tail=False,
-                        board_state="C-WATCH",
-                    )
-                ],
-            }
-        )
-        self.assertEqual(result["matches"][0]["board_state"], "WATCH")
-        self.assertEqual(result["matches"][0]["follow_lane"], "STOP")
+    def test_o250_high_leakage_goal3_cannot_remain_c_watch(self):
+        with self.assertRaisesRegex(ContractError, "C-WATCH CONTRADICTION"):
+            run_board(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "board",
+                    "model": "c",
+                    "matches": [
+                        match(
+                            supported_line=2.5,
+                            away_route="WEAK",
+                            carrier="USABLE",
+                            completion_mode="CARRIER_LED",
+                            burden_completion_quality="MEDIUM",
+                            continuation_quality="LOW",
+                            opponent_leakage="HIGH",
+                            burden_stall_risk="HIGH",
+                            route_reliability="HIGH",
+                            chance_quality="HIGH",
+                            carrier_self_fund=False,
+                            independent_upper_tail=False,
+                            board_state="C-WATCH",
+                        )
+                    ],
+                }
+            )
 
     def test_c2_leakage_funded_o225_cannot_stay_watch(self):
         row = without_c_completion(
@@ -731,7 +730,7 @@ class BoardContractTests(unittest.TestCase):
                 "stage": "board", "model": "c2", "matches": [row],
             })
 
-    def test_c2_leakage_o250_watch_stays_watch(self):
+    def test_c2_leakage_o250_goal3_cannot_stay_watch(self):
         row = without_c_completion(match(
             supported_line=2.5,
             away_route="WEAK",
@@ -739,16 +738,16 @@ class BoardContractTests(unittest.TestCase):
             independent_upper_tail=False,
             carrier_self_fund=False,
             independent_route_quality="MEDIUM",
+            route_reliability="HIGH",
             c2_opponent_leakage="HIGH",
             c2_opponent_leakage_basis="C2 independent defensive leakage proof",
             board_state="C2-WATCH",
         ))
-        result = run_board({
-            "schema_version": "football-engine-v1",
-            "stage": "board", "model": "c2", "matches": [row],
-        })
-        self.assertEqual(result["matches"][0]["board_state"], "WATCH")
-        self.assertFalse(result["matches"][0]["c2_leakage_goal3_funded"])
+        with self.assertRaisesRegex(ContractError, "C2-WATCH/PASS CONTRADICTION"):
+            run_board({
+                "schema_version": "football-engine-v1",
+                "stage": "board", "model": "c2", "matches": [row],
+            })
 
     def test_c2_board_does_not_inherit_c_o225_leakage_focus_rule(self):
         result = run_board(
@@ -1006,6 +1005,47 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(output["effective_continuation_quality"], "HIGH")
         self.assertEqual(output["effective_burden_stall_risk"], "MEDIUM")
         self.assertTrue(output["goal3_funded"])
+
+    def test_strommen_shape_compiles_o250_and_keeps_declared_o225_for_audit(self):
+        row = match(
+            match_id="1709543",
+            supported_line=2.25,
+            supported_line_basis="legacy protected O2.25 declaration",
+            home_route="USABLE",
+            away_route="USABLE",
+            carrier="USABLE",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="MEDIUM",
+            burden_protection="MEDIUM",
+            completion_mode="TWO_SIDED",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="HIGH",
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=69,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.5625,
+            goal_signal_low_draw_trap_rate=0.0625,
+            board_state="C-WATCH",
+        )
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [row],
+        })
+        output = result["matches"][0]
+        self.assertEqual(output["supported_line"], 2.5)
+        self.assertEqual(output["declared_supported_line"], 2.25)
+        self.assertTrue(output["goal3_distributed_funded"])
+        self.assertTrue(output["goal3_funded"])
+        self.assertFalse(output["goal4_funded"])
+        self.assertEqual(output["supported_line_role"], "DETERMINISTIC_CERTIFIED_BURDEN")
 
     def test_bad_schema_fails(self):
         with self.assertRaises(ContractError):
@@ -1377,7 +1417,7 @@ class DecisionContractTests(unittest.TestCase):
                 ),
                 "context": decision_context(
                     board_state="C2-FOCUS",
-                    quote={"line": 3.0, "odds": 1.80},
+                    quote={"line": 4.0, "odds": 1.80},
                     wait_reachable=True,
                     wait_requires_negative_info=False,
                     top_ranked_focus=False,
@@ -1385,6 +1425,7 @@ class DecisionContractTests(unittest.TestCase):
             }
         )
         self.assertEqual(result["action"], "WAIT")
+        self.assertEqual(result["wait_target_line"], 3.5)
         self.assertEqual(result["model_accounting_status"], "NONE")
         self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
 

@@ -61,7 +61,33 @@ Freeze one common factual epoch for both models, including:
 - 0-0/1-1 stall/trap evidence;
 - H2H only when materially transferable;
 - competition format/incentives for cups/tournaments;
-- fourth-goal tail evidence when a higher burden needs it.
+- fourth-goal tail evidence when a higher burden needs it;
+- the frozen V4 goal-screen priority score, mean 3+ rate, mean 4+ rate and
+  0-0/1-1 trap rate from the eligible_queue. These are common source facts and
+  must be copied identically into C and C2 inputs.
+
+## Supported burden compiler
+
+Do not choose the production supported line manually.
+
+The research payload may retain its former `supported_line` and basis only as
+an audit declaration. The engine compiles the authoritative burden from frozen
+goal certificates using exact Asian full-win settlement semantics:
+
+- G3 -> O2.50 maximum fully-funded burden;
+- G4 -> O3.50;
+- G5 -> O4.50;
+- G6 -> O5.50;
+- no G3 -> no certified burden.
+
+A .75 line requires the next certificate because landing on the adjacent
+integer is only a half win: O2.75 requires G4, O3.75 requires G5, O4.75
+requires G6.
+
+G3 can be certified independently by a carrier route, a distributed 2+1/1+2
+route, or matchup-specific leakage. Distributed G3 requires the frozen V4 goal
+screen to corroborate the route; league identity or market totals never create
+a certificate.
 
 ### C-owned inputs
 
@@ -100,9 +126,10 @@ Write the ranked cohort to the active Daily Coverage Ledger.
 
 For every ranked fixture persist:
 
-- C state/rank/supported line;
+- C state/rank/deterministically compiled supported burden;
 - C official FOLLOW/RESERVE/STOP lane;
-- C2 state/rank/supported line;
+- C2 state/rank/deterministically compiled supported burden;
+- the research-declared line/basis only as audit comparison fields;
 - exact Step1 Engine C Result JSON;
 - exact Step1 Engine C2 Result JSON.
 

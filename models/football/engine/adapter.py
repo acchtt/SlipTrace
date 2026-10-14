@@ -42,6 +42,8 @@ from core import (
     wait_accounting_target,
     market_line_funded,
     prospective_goal_funding,
+    certified_supported_burden,
+    certified_supported_burden_basis,
 )
 
 
@@ -103,6 +105,15 @@ def _number(obj: dict[str, Any], key: str) -> float:
     value = _required(obj, key)
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         raise ContractError(f"{key} must be numeric")
+    return float(value)
+
+
+def _optional_number(obj: dict[str, Any], key: str) -> float | None:
+    if key not in obj or obj[key] is None:
+        return None
+    value = obj[key]
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ContractError(f"{key} must be numeric or null")
     return float(value)
 
 
@@ -227,20 +238,20 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
         )
     if state == BoardState.WATCH and leakage_focus:
         raise ContractError(
-            "C-WATCH CONTRADICTION — O2.25 HIGH-LEAKAGE STRONG-ROUTE PATH "
+            "C-WATCH CONTRADICTION — HIGH-LEAKAGE GOAL3 CERTIFICATE "
             "REQUIRES C-FOCUS REVIEW"
         )
 
 
 def validate_c2_screen_state(a: MatchAssessment, state: BoardState) -> None:
-    """Keep C2's independently evidenced O2.25 leakage route out of STOP."""
+    """Keep C2's independently evidenced leakage G3 certificate out of STOP."""
     if (
         state in {BoardState.WATCH, BoardState.PASS}
         and c2_low_burden_leakage_goal3_funded(a)
     ):
         raise ContractError(
-            "C2-WATCH/PASS CONTRADICTION — C2-OWNED O2.25 HIGH-LEAKAGE "
-            "STRONG-ROUTE PATH REQUIRES C2-FOCUS REVIEW"
+            "C2-WATCH/PASS CONTRADICTION — C2-OWNED HIGH-LEAKAGE GOAL3 "
+            "CERTIFICATE REQUIRES C2-FOCUS REVIEW"
         )
 
 
@@ -566,6 +577,10 @@ def parse_assessment(
         failure_attacks_route_basis=_string(obj, "failure_attacks_route_basis"),
         material_suppression=_required_bool(obj, "material_suppression"),
         material_suppression_basis=_string(obj, "material_suppression_basis"),
+        goal_signal_priority_score=_optional_number(obj, "goal_signal_priority_score"),
+        goal_signal_mean_over_two_rate=_optional_number(obj, "goal_signal_mean_over_two_rate"),
+        goal_signal_mean_over_three_rate=_optional_number(obj, "goal_signal_mean_over_three_rate"),
+        goal_signal_low_draw_trap_rate=_optional_number(obj, "goal_signal_low_draw_trap_rate"),
         completion_mode=(
             _enum(CompletionMode, _required(obj, "completion_mode"), "completion_mode")
             if require_c_completion else None
@@ -671,6 +686,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         tail_profile = prospective_goal_funding(item, model)
+        compiled_burden = certified_supported_burden(item, model)
+        compiled_basis = certified_supported_burden_basis(item, model)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
@@ -679,11 +696,17 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             ),
             "kickoff_ict": raw["kickoff_ict"],
             "same_kickoff_rank": block_rank_by_id[item.match_id],
-            "supported_line": item.supported_line,
-            "supported_line_basis": item.supported_line_basis,
-            "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
+            "supported_line": compiled_burden,
+            "supported_line_basis": compiled_basis,
+            "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+            "declared_supported_line": item.supported_line,
+            "declared_supported_line_basis": item.supported_line_basis,
             **tail_profile,
             "common_evidence_basis": item.common_evidence_basis,
+            "goal_signal_priority_score": item.goal_signal_priority_score,
+            "goal_signal_mean_over_two_rate": item.goal_signal_mean_over_two_rate,
+            "goal_signal_mean_over_three_rate": item.goal_signal_mean_over_three_rate,
+            "goal_signal_low_draw_trap_rate": item.goal_signal_low_draw_trap_rate,
             "main_failure": item.main_failure,
             "h2h_state": item.h2h_state,
             "h2h_effect": item.h2h_effect,
@@ -886,10 +909,9 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         thesis == "BROKEN" or intact is False or veto is True
         or a.material_suppression or a.failure_attacks_route
     )
-    funded_at_frozen_line = (
-        clearing_goal_funded(a)
-        if model == "c" else c2_clearing_goal_funded(a, a.supported_line)
-    )
+    compiled_burden = certified_supported_burden(a, model)
+    compiled_basis = certified_supported_burden_basis(a, model)
+    funded_at_frozen_line = compiled_burden is not None
     if risk:
         read = "FOOTBALL_THESIS_ADVERSE"
     elif needs:
@@ -916,9 +938,12 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "route_reliability": a.route_reliability.name,
         "chance_quality": a.chance_quality.name,
         "failure_resistance": a.failure_resistance.name,
-        "frozen_supported_line": a.supported_line,
+        "frozen_supported_line": compiled_burden,
         "frozen_supported_line_funding": funded_at_frozen_line,
-        "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
+        "frozen_supported_line_basis": compiled_basis,
+        "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+        "declared_supported_line": a.supported_line,
+        "declared_supported_line_basis": a.supported_line_basis,
         **tail_profile,
         "frozen_line_not_live_executable": True,
         "quote_required_for_football_assessment": False,
@@ -937,8 +962,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "incentive_effect": incentive["incentive_effect"],
         "interpretation": (
             "This is an independent model football assessment, NOT a priced "
-            "BET/WAIT/PASS. Frozen supported burden is a research hypothesis, "
-            "not a presently executable live line. Only an independently "
+            "BET/WAIT/PASS. Frozen supported burden is compiled deterministically "
+            "from goal certificates, not chosen by the researcher or market. Only an independently "
             "verified current quote and separate authorization can create "
             "a betting action."
         ),
@@ -985,6 +1010,7 @@ def evaluate_observed_quote(
     ctx_obj = _required(payload, "context")
     match_obj = _required(payload, "match")
     a = parse_assessment(match_obj, require_c_completion=(model == "c"))
+    compiled_burden = certified_supported_burden(a, model)
 
     if not isinstance(quote, dict):
         raise ContractError("observed quote must be an object")
@@ -1000,10 +1026,12 @@ def evaluate_observed_quote(
         raise ContractError(str(exc)) from exc
 
     relation = (
-        "ABOVE_SUPPORTED_BURDEN"
-        if observed.line > a.supported_line
+        "NO_CERTIFIED_BURDEN"
+        if compiled_burden is None
+        else "ABOVE_SUPPORTED_BURDEN"
+        if observed.line > compiled_burden
         else "AT_SUPPORTED_BURDEN"
-        if observed.line == a.supported_line
+        if observed.line == compiled_burden
         else "BELOW_SUPPORTED_BURDEN"
     )
 
@@ -1017,7 +1045,7 @@ def evaluate_observed_quote(
             "match_id": a.match_id,
             "action": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
             "reason": "started fixture; prematch ACT/WAIT/PASS not re-created",
-            "supported_line": a.supported_line,
+            "supported_line": compiled_burden,
             "observed_line": observed.line,
             "observed_odds": observed.odds,
             "line_relation": relation,
@@ -1034,7 +1062,7 @@ def evaluate_observed_quote(
             "match_id": a.match_id,
             "action": "NOT_EVALUATED_CURRENT_FOOTBALL_RECHECK_REQUIRED",
             "reason": "current football thesis is adverse or incomplete",
-            "supported_line": a.supported_line,
+            "supported_line": compiled_burden,
             "observed_line": observed.line,
             "observed_odds": observed.odds,
             "line_relation": relation,
@@ -1114,7 +1142,7 @@ def evaluate_observed_quote(
         "engine_action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
-        "supported_line": a.supported_line,
+        "supported_line": compiled_burden,
         "observed_line": observed.line,
         "observed_odds": observed.odds,
         "line_relation": relation,
@@ -1140,6 +1168,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
 
     raw_match = _required(payload, "match")
     a = parse_assessment(raw_match, require_c_completion=(model == "c"))
+    compiled_burden = certified_supported_burden(a, model)
+    compiled_basis = certified_supported_burden_basis(a, model)
 
     ctx_obj = _required(payload, "context")
     if not isinstance(ctx_obj, dict):
@@ -1354,7 +1384,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "model": model,
         "match_id": a.match_id,
         "common_evidence_basis": a.common_evidence_basis,
-        "supported_line_basis": a.supported_line_basis,
+        "supported_line": compiled_burden,
+        "supported_line_basis": compiled_basis,
+        "declared_supported_line": a.supported_line,
+        "declared_supported_line_basis": a.supported_line_basis,
         "official_follow_lane": official_follow_lane.value,
         "step2_authorization": step2_authorization.value,
         "thesis_state": thesis_state.name,
@@ -1364,7 +1397,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "bridge_used": decision.bridge_used,
         "market_line_funded": market_line_funded(a, ctx.quote.line, model),
         **prospective_goal_funding(a, model),
-        "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
+        "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
         "model_accounting_status": accounting_status,
