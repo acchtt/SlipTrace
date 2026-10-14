@@ -1,0 +1,610 @@
+{
+  "api_urls": [
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261014/7?MD=1&countryCode=US&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261014/0?MD=1&countryCode=US&locale=en"
+  ],
+  "generated_at_utc": "2026-10-14T10:27:20.963200+00:00",
+  "in_window": [
+    {
+      "away": "Como U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Feyenoord U19",
+      "kickoff_utc": "2026-10-14T11:00:00+00:00",
+      "match_id": "1886563"
+    },
+    {
+      "away": "AEK Athens U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Shakhtar Donetsk U19",
+      "kickoff_utc": "2026-10-14T11:00:00+00:00",
+      "match_id": "1886570"
+    },
+    {
+      "away": "Istanbulspor",
+      "competition": "1st Lig",
+      "country": "Turkiye",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Batman Petrolspor",
+      "kickoff_utc": "2026-10-14T11:30:00+00:00",
+      "match_id": "1825291"
+    },
+    {
+      "away": "Athens Kallithea",
+      "competition": "Super League 2",
+      "country": "Greece",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Olympiacos B",
+      "kickoff_utc": "2026-10-14T11:45:00+00:00",
+      "match_id": "1890686"
+    },
+    {
+      "away": "Real Madrid U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Roma U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886565"
+    },
+    {
+      "away": "VfB Stuttgart U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Slovan Bratislava U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886569"
+    },
+    {
+      "away": "FC Santa Coloma U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "AP Brera Strumica U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886678"
+    },
+    {
+      "away": "HJK U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ballkani U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886671"
+    },
+    {
+      "away": "Dinamo Tbilisi U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dinamo Minsk U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886670"
+    },
+    {
+      "away": "Valletta U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Partizani U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886664"
+    },
+    {
+      "away": "Bandari",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "AFC Leopards",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1872612"
+    },
+    {
+      "away": "Kakamega Homeboyz",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Mombasa United",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1872615"
+    },
+    {
+      "away": "Llapi",
+      "competition": "Superleague",
+      "country": "Kosovo",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Feronikeli",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1899299"
+    },
+    {
+      "away": "Viettel",
+      "competition": "AFC Champions League Two: Group E",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Persib Bandung",
+      "kickoff_utc": "2026-10-14T12:15:00+00:00",
+      "match_id": "1885201"
+    },
+    {
+      "away": "Lokomotiva Zvolen",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Druzstevnik Velke Ludince",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894236"
+    },
+    {
+      "away": "Humenne",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC STK 1914 Samorin",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894235"
+    },
+    {
+      "away": "Trencin",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Lok. Kosice",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894259"
+    },
+    {
+      "away": "FC Kosice",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Povazska Bystrica",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894233"
+    },
+    {
+      "away": "Ruzomberok",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Spartak Myjava",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894234"
+    },
+    {
+      "away": "Zilina",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "TJ Kostolne Kracany",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894239"
+    },
+    {
+      "away": "Namestovo",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "TJ Slavoj Boleraz",
+      "kickoff_utc": "2026-10-14T12:30:00+00:00",
+      "match_id": "1894254"
+    },
+    {
+      "away": "Fenerbahce U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Aston Villa U19",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1886562"
+    },
+    {
+      "away": "FC Kuressaare",
+      "competition": "Meistriliiga",
+      "country": "Estonia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Narva Trans",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1733081"
+    },
+    {
+      "away": "Atalanta U23",
+      "competition": "Serie C: Group B",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Latina",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1855669"
+    },
+    {
+      "away": "Piacenza",
+      "competition": "Serie D: Group B",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "AC Milan U23",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1863281"
+    },
+    {
+      "away": "Pontedera",
+      "competition": "Serie D: Group D",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Tropical Coriano",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1864281"
+    },
+    {
+      "away": "Al Sharara",
+      "competition": "Premier League: Group B",
+      "country": "Libya",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Afreeki SC",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1904370"
+    },
+    {
+      "away": "Al-Akhdar",
+      "competition": "Premier League: Group B",
+      "country": "Libya",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Wefaq Ajdabiya",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1904368"
+    },
+    {
+      "away": "Aasane",
+      "competition": "1. Division",
+      "country": "Norway",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Stroemmen",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1709543"
+    },
+    {
+      "away": "Dukla Banska Bystrica",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "MFK Vranov Nad Toplou",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1894256"
+    },
+    {
+      "away": "Spartak Trnava",
+      "competition": "Slovak Cup",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "PFK Piestany",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1894257"
+    },
+    {
+      "away": "Persepolis",
+      "competition": "Persian Gulf Pro League",
+      "country": "Iran",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kheybar Khorramabad",
+      "kickoff_utc": "2026-10-14T13:30:00+00:00",
+      "match_id": "1875890"
+    },
+    {
+      "away": "Al Majd SC",
+      "competition": "Premier League: Group A",
+      "country": "Libya",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Malaab El Libby",
+      "kickoff_utc": "2026-10-14T13:30:00+00:00",
+      "match_id": "1904364"
+    },
+    {
+      "away": "Al-Wahda",
+      "competition": "AFC Champions League Two: Group A",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Nasaf Qarshi",
+      "kickoff_utc": "2026-10-14T13:45:00+00:00",
+      "match_id": "1873831"
+    },
+    {
+      "away": "Paris Saint-Germain U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Manchester City U19",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1886564"
+    },
+    {
+      "away": "FC Porto U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Real Betis U19",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1886566"
+    },
+    {
+      "away": "Odisha FC",
+      "competition": "Super League",
+      "country": "India",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Punjab FC",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1900645"
+    },
+    {
+      "away": "FC Yelimay",
+      "competition": "Premier League",
+      "country": "Kazakhstan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Atyrau",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1744631"
+    },
+    {
+      "away": "Boluspor",
+      "competition": "1st Lig",
+      "country": "Turkiye",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Umraniyespor",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1825294"
+    },
+    {
+      "away": "Cliftonville U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SK Super Nova U19",
+      "kickoff_utc": "2026-10-14T15:00:00+00:00",
+      "match_id": "1886676"
+    },
+    {
+      "away": "Ypsonas",
+      "competition": "Cypriot Cup",
+      "country": "Cyprus",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Spartakos Kitiou",
+      "kickoff_utc": "2026-10-14T15:00:00+00:00",
+      "match_id": "1903193"
+    },
+    {
+      "away": "FC Ajka",
+      "competition": "NB II",
+      "country": "Hungary",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Mezokovesd SE",
+      "kickoff_utc": "2026-10-14T15:00:00+00:00",
+      "match_id": "1832405"
+    },
+    {
+      "away": "Mlada Boleslav",
+      "competition": "1st League",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Bohemians 1905",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1800424"
+    },
+    {
+      "away": "Thor Akureyri U19",
+      "competition": "UEFA Youth League",
+      "country": "Europe",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Zalgiris Vilnius U19",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1886667"
+    },
+    {
+      "away": "AL Khalidiyah",
+      "competition": "AFC Champions League Two: Group A",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kuwait SC",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1873832"
+    },
+    {
+      "away": "Arkadag",
+      "competition": "AFC Champions League Two: Group B",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Jazira",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1873820"
+    },
+    {
+      "away": "Gol Gohar",
+      "competition": "AFC Champions League Two: Group B",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Muharraq",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1873819"
+    },
+    {
+      "away": "Al-Rayyan",
+      "competition": "AFC Champions League Two: Group C",
+      "country": "Asia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Taawoun",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1873862"
+    },
+    {
+      "away": "Neman Grodno",
+      "competition": "Premier League",
+      "country": "Belarus",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "BATE Borisov",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1748920"
+    },
+    {
+      "away": "Ethnikos Achnas",
+      "competition": "Cypriot Cup",
+      "country": "Cyprus",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Aris Limassol",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1903195"
+    },
+    {
+      "away": "Tammeka",
+      "competition": "Meistriliiga",
+      "country": "Estonia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Paide Linnameeskond",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1733084"
+    },
+    {
+      "away": "Nomme Kalju U21",
+      "competition": "Esiliiga",
+      "country": "Estonia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FCI Levadia U21",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1743750"
+    },
+    {
+      "away": "KF Vushtrria",
+      "competition": "Superleague",
+      "country": "Kosovo",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dukagjini",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1899303"
+    },
+    {
+      "away": "Como 1907",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Feyenoord",
+      "kickoff_utc": "2026-10-14T16:45:00+00:00",
+      "match_id": "1882811"
+    },
+    {
+      "away": "Liverpool",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "LASK",
+      "kickoff_utc": "2026-10-14T16:45:00+00:00",
+      "match_id": "1882862"
+    }
+  ],
+  "in_window_count": 55,
+  "in_window_prematch_count": 55,
+  "in_window_with_goal_history_both_sides": 26,
+  "run_id": "V4-20261014-1725-20261015-0000",
+  "source_fixture_union_count": 309,
+  "surface_counts": {
+    "ICT:2026-10-14": 242,
+    "UTC:2026-10-14": 145
+  },
+  "terminal_fixture_count": 55,
+  "uefa_youth_league": [
+    {
+      "away": "Como U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Feyenoord U19",
+      "kickoff_utc": "2026-10-14T11:00:00+00:00",
+      "match_id": "1886563"
+    },
+    {
+      "away": "AEK Athens U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Shakhtar Donetsk U19",
+      "kickoff_utc": "2026-10-14T11:00:00+00:00",
+      "match_id": "1886570"
+    },
+    {
+      "away": "Real Madrid U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Roma U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886565"
+    },
+    {
+      "away": "VfB Stuttgart U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Slovan Bratislava U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886569"
+    },
+    {
+      "away": "FC Santa Coloma U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "AP Brera Strumica U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886678"
+    },
+    {
+      "away": "HJK U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ballkani U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886671"
+    },
+    {
+      "away": "Dinamo Tbilisi U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dinamo Minsk U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886670"
+    },
+    {
+      "away": "Valletta U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Partizani U19",
+      "kickoff_utc": "2026-10-14T12:00:00+00:00",
+      "match_id": "1886664"
+    },
+    {
+      "away": "Fenerbahce U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Aston Villa U19",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1886562"
+    },
+    {
+      "away": "Paris Saint-Germain U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Manchester City U19",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1886564"
+    },
+    {
+      "away": "FC Porto U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Real Betis U19",
+      "kickoff_utc": "2026-10-14T14:00:00+00:00",
+      "match_id": "1886566"
+    },
+    {
+      "away": "Cliftonville U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SK Super Nova U19",
+      "kickoff_utc": "2026-10-14T15:00:00+00:00",
+      "match_id": "1886676"
+    },
+    {
+      "away": "Thor Akureyri U19",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Zalgiris Vilnius U19",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1886667"
+    }
+  ],
+  "uefa_youth_league_count": 13,
+  "uefa_youth_league_prematch_count": 13,
+  "uefa_youth_league_with_goal_history_both_sides": 0
+}

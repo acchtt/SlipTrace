@@ -1,0 +1,165 @@
+{
+  "eligible_count": 5,
+  "eligible_queue": [
+    {
+      "away": "Aasane",
+      "competition": "1. Division",
+      "country": "Norway",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.5625,
+        "mean_over_two_rate": 0.75,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 69,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "3055890844c50157c270da0c0cb45053320e6ab53566a4819ff935d49389a5fd",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Stroemmen",
+      "kickoff_utc": "2026-10-14T13:00:00+00:00",
+      "match_id": "1709543",
+      "operational_grade": "B",
+      "queue_rank": 1
+    },
+    {
+      "away": "Nomme Kalju U21",
+      "competition": "Esiliiga",
+      "country": "Estonia",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.5,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 69,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "4976a48e9f946578941771ed746493b57afa9a52f87a8a4dd17e537e0738bd7c",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "FCI Levadia U21",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1743750",
+      "operational_grade": "B",
+      "queue_rank": 2
+    },
+    {
+      "away": "AL Khalidiyah",
+      "competition": "AFC Champions League Two: Group A",
+      "country": "Asia",
+      "goal_screen": {
+        "away_sample_n": 5,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 5,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.2,
+        "mean_over_three_rate": 0.6,
+        "mean_over_two_rate": 0.6,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 64,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "47176783f60d406c396359ed9759586ee9950463e3a7f31655fe78714066d30f",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Kuwait SC",
+      "kickoff_utc": "2026-10-14T16:00:00+00:00",
+      "match_id": "1873832",
+      "operational_grade": "B",
+      "queue_rank": 3
+    },
+    {
+      "away": "Como 1907",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 7,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.1429,
+        "mean_over_three_rate": 0.5804,
+        "mean_over_two_rate": 0.7232,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 69,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "170113aac46c90ae2a12af0918e4f5b726adbe01f8c60c95bffc97b0f2e791b8",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Feyenoord",
+      "kickoff_utc": "2026-10-14T16:45:00+00:00",
+      "match_id": "1882811",
+      "operational_grade": "B",
+      "queue_rank": 4
+    },
+    {
+      "away": "Liverpool",
+      "competition": "League Stage",
+      "country": "Champions League",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.0625,
+        "mean_over_three_rate": 0.4375,
+        "mean_over_two_rate": 0.6875,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 60,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "91247ed1db6f4ad8bf00df103af5f1cac97896a549fa5425c3a1d68837f370e1",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "LASK",
+      "kickoff_utc": "2026-10-14T16:45:00+00:00",
+      "match_id": "1882862",
+      "operational_grade": "B",
+      "queue_rank": 5
+    }
+  ],
+  "excluded_or_closed_count": 259,
+  "fixture_count": 309,
+  "integrity_sha256": "23c27189ded7169720e1a66a7d8bf2b29895671f0431a2e68b2dfc533e9e0248",
+  "low_goal_signal_count": 20,
+  "pending_discovery_count": 27,
+  "pending_goal_research_count": 18,
+  "research_order": [
+    "1709543",
+    "1743750",
+    "1882811",
+    "1873832",
+    "1882862"
+  ],
+  "run_id": "V4-20261014-1725-20261015-0000",
+  "status": "V4_SWEEP_READY"
+}
