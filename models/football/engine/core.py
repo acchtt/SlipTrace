@@ -760,7 +760,7 @@ def c2_leakage_goal3_funded(a: MatchAssessment) -> bool:
         and bool(a.c2_opponent_leakage_basis and a.c2_opponent_leakage_basis.strip())
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier >= CarrierStrength.USABLE
-        and a.route_reliability >= Grade.MEDIUM
+        and a.route_reliability == Grade.HIGH
         and a.independent_route_quality >= Grade.MEDIUM
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
