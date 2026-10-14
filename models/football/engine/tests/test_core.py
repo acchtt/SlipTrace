@@ -364,7 +364,7 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
-    def test_kashima_style_unfunded_exception_passes_o25_and_o225(self):
+    def test_kashima_style_high_leakage_now_receives_goal3_certificate(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
             route_reliability=Grade.MEDIUM,
@@ -385,8 +385,7 @@ class FootballCExecutionTests(unittest.TestCase):
                     quote=Quote(line, odds),
                 )
                 result = decide_c(a, ctx)
-                self.assertEqual(result.action, Action.PASS)
-                self.assertIn("clearing-goal funding", result.reason)
+                self.assertEqual(result.action, Action.BET)
 
     def test_strong_carrier_retains_legitimate_bet(self):
         a = assessment(
@@ -949,7 +948,8 @@ class TournamentIncentiveModelTests(unittest.TestCase):
         neutral = assessment(**base)
         expansive = assessment(**{**base, **self.verified_tournament()})
         self.assertFalse(clearing_goal_funded(neutral, 2.75))
-        self.assertTrue(clearing_goal_funded(expansive, 2.75))
+        self.assertFalse(clearing_goal_funded(expansive, 2.75))
+        self.assertTrue(clearing_goal_funded(expansive, 2.5))
         continuation, stall = c_effective_incentive_grades(expansive)
         self.assertEqual(continuation, Grade.HIGH)
         self.assertEqual(stall, Grade.MEDIUM)
