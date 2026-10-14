@@ -25,12 +25,16 @@ from core import (  # noqa: E402
     XiStatus,
     c2_bridge_eligibility,
     c2_clearing_goal_funded,
+    c2_goal5_funded,
     c2_low_burden_leakage_goal3_funded,
+    c_effective_incentive_grades,
+    c_goal5_funded,
     c2_selection_floor,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
     market_line_funded,
     prospective_goal_funding,
+    tournament_incentive_profile,
     decide_c,
     decide_c2,
     follow_through_lane,
@@ -850,6 +854,163 @@ class C2BridgeTests(unittest.TestCase):
             "independent non-market upper-tail proof missing",
             reasons,
         )
+
+
+class TournamentIncentiveModelTests(unittest.TestCase):
+    def verified_tournament(self, effect="EXPANSIVE", **overrides):
+        values = {
+            "tournament_incentive_required": True,
+            "tournament_incentive_resolution": "VERIFIED",
+            "home_incentive": "MUST_WIN",
+            "away_incentive": "WIN_PREFERRED",
+            "tiebreak_margin_relevance": "YES",
+            "incentive_effect": effect,
+            "simultaneous_results_status": "VERIFIED",
+        }
+        values.update(overrides)
+        return values
+
+    def test_expansive_incentive_can_strengthen_existing_c_route(self):
+        base = dict(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        neutral = assessment(**base)
+        expansive = assessment(**{**base, **self.verified_tournament()})
+        self.assertFalse(clearing_goal_funded(neutral, 2.75))
+        self.assertTrue(clearing_goal_funded(expansive, 2.75))
+        continuation, stall = c_effective_incentive_grades(expansive)
+        self.assertEqual(continuation, Grade.HIGH)
+        self.assertEqual(stall, Grade.MEDIUM)
+        self.assertEqual(
+            tournament_incentive_profile(expansive)["tail_bias"],
+            "EXPANSIVE",
+        )
+
+    def test_mixed_and_unresolved_incentive_cannot_manufacture_c_boost(self):
+        base = dict(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.HIGH,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        mixed = assessment(**{
+            **base,
+            **self.verified_tournament(
+                effect="MIXED",
+                away_incentive="DRAW_ACCEPTABLE",
+            ),
+        })
+        unresolved = assessment(**{
+            **base,
+            **self.verified_tournament(),
+            "tournament_incentive_resolution": "INCENTIVE_RECHECK_REQUIRED",
+        })
+        self.assertFalse(clearing_goal_funded(mixed, 2.75))
+        self.assertFalse(clearing_goal_funded(unresolved, 2.75))
+        self.assertEqual(tournament_incentive_profile(mixed)["tail_bias"], "MIXED")
+        self.assertEqual(
+            tournament_incentive_profile(unresolved)["tail_bias"],
+            "UNRESOLVED",
+        )
+
+    def test_suppressive_incentive_caps_c_goal5_tail(self):
+        strong = dict(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+        )
+        neutral = assessment(**strong)
+        suppressive = assessment(**{
+            **strong,
+            **self.verified_tournament(
+                effect="SUPPRESSIVE",
+                home_incentive="DRAW_ACCEPTABLE",
+                away_incentive="PROTECT_RESULT",
+            ),
+        })
+        self.assertTrue(c_goal5_funded(neutral))
+        self.assertFalse(c_goal5_funded(suppressive))
+        continuation, stall = c_effective_incentive_grades(suppressive)
+        self.assertEqual(continuation, Grade.MEDIUM)
+        self.assertEqual(stall, Grade.MEDIUM)
+
+    def test_expansive_incentive_can_clear_c2_fourth_goal_quality_gap(self):
+        base = dict(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+        )
+        neutral = assessment(**base)
+        expansive = assessment(**{**base, **self.verified_tournament()})
+        self.assertFalse(c2_clearing_goal_funded(neutral, 3.0))
+        self.assertTrue(c2_clearing_goal_funded(expansive, 3.0))
+
+    def test_suppressive_incentive_caps_c2_goal5_tail(self):
+        strong = dict(
+            supported_line=2.75,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+        )
+        neutral = assessment(**strong)
+        suppressive = assessment(**{
+            **strong,
+            **self.verified_tournament(
+                effect="SUPPRESSIVE",
+                home_incentive="PROTECT_AGGREGATE",
+                away_incentive="DRAW_ACCEPTABLE",
+            ),
+        })
+        self.assertTrue(c2_goal5_funded(neutral))
+        self.assertFalse(c2_goal5_funded(suppressive))
 
 
 class SettlementTests(unittest.TestCase):
