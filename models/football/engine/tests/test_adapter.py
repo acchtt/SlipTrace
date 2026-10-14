@@ -809,6 +809,8 @@ class BoardContractTests(unittest.TestCase):
                 self.assertIn("tournament_format_status",
                               output["tournament_incentive_unresolved_fields"])
                 self.assertEqual(output["board_state"], "FOCUS")
+                self.assertEqual(output["tournament_tail_bias"], "UNRESOLVED")
+                self.assertFalse(output["tournament_positive_pressure"])
 
     def test_sparse_tournament_block_is_ranked_not_discarded(self):
         row = match(
@@ -960,6 +962,50 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(result["matches"][0]["incentive_effect"], "MIXED")
         self.assertEqual(result["matches"][0]["tournament_incentive_resolution"], "VERIFIED")
         self.assertEqual(result["matches"][0]["supported_line_status"], "FROZEN_FOOTBALL_PRE")
+
+    def test_verified_expansive_tournament_changes_frozen_model_profile(self):
+        row = match(
+            tournament_incentive_required=True,
+            tournament_format_status="VERIFIED",
+            competition_stage="LEAGUE STAGE",
+            competition_format="LEAGUE TABLE",
+            draw_resolution="90-minute result",
+            aggregate_state="NOT A TWO-LEG TIE",
+            qualification_state="both teams still competing for qualification position",
+            simultaneous_results_status="VERIFIED",
+            simultaneous_results_note="parallel qualification effects checked",
+            home_incentive="MUST_WIN",
+            away_incentive="WIN_PREFERRED",
+            tiebreak_margin_relevance="YES",
+            incentive_effect="EXPANSIVE",
+            board_state="C-FOCUS",
+            supported_line=2.75,
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            completion_mode="TWO_SIDED",
+            burden_completion_quality="HIGH",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="HIGH",
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+        )
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [row],
+        })
+        output = result["matches"][0]
+        self.assertEqual(output["tournament_incentive_resolution"], "VERIFIED")
+        self.assertEqual(output["home_incentive"], "MUST_WIN")
+        self.assertEqual(output["away_incentive"], "WIN_PREFERRED")
+        self.assertEqual(output["tournament_tail_bias"], "EXPANSIVE")
+        self.assertTrue(output["tournament_positive_pressure"])
+        self.assertEqual(output["effective_continuation_quality"], "HIGH")
+        self.assertEqual(output["effective_burden_stall_risk"], "MEDIUM")
+        self.assertTrue(output["goal3_funded"])
 
     def test_bad_schema_fails(self):
         with self.assertRaises(ContractError):

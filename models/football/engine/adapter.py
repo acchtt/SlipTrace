@@ -25,6 +25,7 @@ from core import (
     XiStatus,
     c2_selection_floor,
     c2_clearing_goal_funded,
+    c_effective_incentive_grades,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -194,6 +195,7 @@ def _kickoff_block(obj: dict[str, Any]) -> str:
 def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
     """Fail closed on C board states that contradict strong current goal routes."""
 
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
     carrier_rescue = (
         a.completion_mode in {
             CompletionMode.CARRIER_LED,
@@ -201,13 +203,13 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
             CompletionMode.MIXED,
         }
         and a.burden_completion_quality == Grade.HIGH
-        and a.continuation_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
         and a.carrier == CarrierStrength.STRONG
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
         and a.opponent_leakage >= Grade.MEDIUM
-        and a.burden_stall_risk != Grade.HIGH
+        and effective_stall != Grade.HIGH
         and not a.failure_attacks_route
         and not a.material_suppression
     )
@@ -479,6 +481,10 @@ def validate_tournament_incentive(
         "unresolved_fields": unresolved,
         "recheck_required": required,
         "simultaneous_results_status": simultaneous_results_status,
+        "home_incentive": home_incentive,
+        "away_incentive": away_incentive,
+        "tiebreak_margin_relevance": tiebreak_margin_relevance,
+        "qualification_state": qualification_state,
     }
 
 
@@ -491,7 +497,7 @@ def parse_assessment(
         raise ContractError("match must be an object")
 
     validate_operational_viability(obj)
-    validate_tournament_incentive(obj)
+    incentive_gate = validate_tournament_incentive(obj)
     h2h_gate = validate_h2h_semantics(obj)
     _kickoff_block(obj)
     if not require_c_completion and (
@@ -588,6 +594,13 @@ def parse_assessment(
             _string(obj, "c2_opponent_leakage_basis")
             if not require_c_completion and "c2_opponent_leakage" in obj else None
         ),
+        tournament_incentive_required=incentive_gate["required"],
+        tournament_incentive_resolution=incentive_gate["resolution_status"],
+        home_incentive=incentive_gate["home_incentive"],
+        away_incentive=incentive_gate["away_incentive"],
+        tiebreak_margin_relevance=incentive_gate["tiebreak_margin_relevance"],
+        incentive_effect=incentive_gate["incentive_effect"],
+        simultaneous_results_status=incentive_gate["simultaneous_results_status"],
     )
 
 
@@ -698,6 +711,9 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "team_news_observability": operational_gate["team_news_observability"],
             "tournament_incentive_required": incentive_gate["required"],
             "tournament_format_status": incentive_gate["format_status"],
+            "home_incentive": incentive_gate["home_incentive"],
+            "away_incentive": incentive_gate["away_incentive"],
+            "tiebreak_margin_relevance": incentive_gate["tiebreak_margin_relevance"],
             "incentive_effect": incentive_gate["incentive_effect"],
             "tournament_incentive_resolution": incentive_gate["resolution_status"],
             "tournament_incentive_recheck_required": incentive_gate["recheck_required"],
@@ -913,7 +929,12 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "wait_authorized": False,
         "model_accounting_status": "NONE",
         "actual_user_bet": None,
+        "tournament_incentive_required": incentive["required"],
         "tournament_incentive_resolution": incentive["resolution_status"],
+        "home_incentive": incentive["home_incentive"],
+        "away_incentive": incentive["away_incentive"],
+        "tiebreak_margin_relevance": incentive["tiebreak_margin_relevance"],
+        "incentive_effect": incentive["incentive_effect"],
         "interpretation": (
             "This is an independent model football assessment, NOT a priced "
             "BET/WAIT/PASS. Frozen supported burden is a research hypothesis, "
@@ -1352,6 +1373,9 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "wait_resolution_default": wait_resolution_default,
         "tournament_incentive_required": tournament_gate["required"],
         "tournament_format_status": tournament_gate["format_status"],
+        "home_incentive": tournament_gate["home_incentive"],
+        "away_incentive": tournament_gate["away_incentive"],
+        "tiebreak_margin_relevance": tournament_gate["tiebreak_margin_relevance"],
         "incentive_effect": tournament_gate["incentive_effect"],
         "tournament_incentive_rechecked": tournament_incentive_rechecked,
         "tournament_incentive_recheck_status": tournament_incentive_recheck_status,
