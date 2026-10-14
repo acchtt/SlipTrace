@@ -39,6 +39,8 @@ from core import (
     c2_ranking_key,
     model_wait_target,
     wait_accounting_target,
+    market_line_funded,
+    prospective_goal_funding,
 )
 
 
@@ -655,6 +657,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         kickoff_block = _kickoff_block(raw)
         operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
+        tail_profile = prospective_goal_funding(item, model)
         row: dict[str, Any] = {
             "rank": rank,
             "match_id": item.match_id,
@@ -665,6 +668,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "same_kickoff_rank": block_rank_by_id[item.match_id],
             "supported_line": item.supported_line,
             "supported_line_basis": item.supported_line_basis,
+            "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
+            **tail_profile,
             "common_evidence_basis": item.common_evidence_basis,
             "main_failure": item.main_failure,
             "h2h_state": item.h2h_state,
@@ -875,6 +880,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         read = "FOOTBALL_ANALYSIS_WITH_EXPLICIT_RECHECKS"
     else:
         read = "FOOTBALL_THESIS_CURRENTLY_INTACT"
+    tail_profile = prospective_goal_funding(a, model)
     result = {
         "schema_version": SCHEMA_VERSION,
         "stage": "football_assessment_result",
@@ -896,6 +902,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "failure_resistance": a.failure_resistance.name,
         "frozen_supported_line": a.supported_line,
         "frozen_supported_line_funding": funded_at_frozen_line,
+        "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
+        **tail_profile,
         "frozen_line_not_live_executable": True,
         "quote_required_for_football_assessment": False,
         "quote_requested": False,
@@ -1074,7 +1082,7 @@ def evaluate_observed_quote(
     wait_target_line = None
     wait_min_odds = None
     if decision.action == Action.WAIT:
-        wait_target_line, wait_min_odds = model_wait_target(a, qctx)
+        wait_target_line, wait_min_odds = model_wait_target(a, qctx, model)
 
     return {
         "schema_version": SCHEMA_VERSION,
@@ -1089,6 +1097,8 @@ def evaluate_observed_quote(
         "observed_line": observed.line,
         "observed_odds": observed.odds,
         "line_relation": relation,
+        "market_line_funded": market_line_funded(a, observed.line, model),
+        **prospective_goal_funding(a, model),
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
         "wait_reachable": wait_reachable,
@@ -1303,7 +1313,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     accounting_line = None
     accounting_odds = None
     if decision.action == Action.WAIT:
-        wait_target_line, wait_min_odds = wait_accounting_target(a, ctx)
+        wait_target_line, wait_min_odds = wait_accounting_target(a, ctx, model)
         # A WAIT is a plan, not exposure. Do not assume that a future line was
         # reached or synthesize a model bet at the target price.
         accounting_status = "NONE"
@@ -1331,6 +1341,9 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "market_line_funded": market_line_funded(a, ctx.quote.line, model),
+        **prospective_goal_funding(a, model),
+        "supported_line_role": "CERTIFIED_BURDEN_ANCHOR",
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
         "model_accounting_status": accounting_status,
