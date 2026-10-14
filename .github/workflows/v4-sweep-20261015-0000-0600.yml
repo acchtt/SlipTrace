@@ -1,0 +1,81 @@
+name: V4 sweep 2026-10-15 00:00-06:00 ICT
+on:
+  push:
+    paths:
+      - ".github/workflows/v4-sweep-20261015-0000-0600.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  acquire:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Acquire complete LiveScore surfaces and recent form
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600"
+          mkdir -p "$folder"
+          python models/football/stages_v4/acquire_v4_window_livescore.py \
+            --output "$folder/source.json" \
+            --report "$folder/acquisition-report.json"
+      - name: Native V4 preflight
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600"
+          python models/football/stages_v4/stage.py \
+            --output "$folder/preflight-v4_sweep_ready.json" \
+            sweep --source "$folder/source.json"
+      - name: Summarize sweep
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600")
+          r=json.loads((p/"preflight-v4_sweep_ready.json").read_text())
+          summary={
+            "run_id":r["run_id"],"status":r["status"],
+            "fixture_count":r["fixture_count"],"eligible_count":r["eligible_count"],
+            "pending_goal_research_count":r.get("pending_goal_research_count"),
+            "low_goal_signal_count":r.get("low_goal_signal_count"),
+            "pending_discovery_count":r.get("pending_discovery_count"),
+            "excluded_or_closed_count":r.get("excluded_or_closed_count"),
+            "integrity_sha256":r["integrity_sha256"],
+            "research_order":r.get("research_order",[]),
+            "eligible_queue":[{
+              "match_id":x["match_id"],"country":x.get("country"),"competition":x.get("competition"),
+              "home":x.get("home"),"away":x.get("away"),"kickoff_utc":x.get("kickoff_utc"),
+              "queue_rank":x.get("queue_rank"),"operational_grade":x.get("operational_grade"),
+              "goal_screen":x.get("goal_screen")
+            } for x in r.get("eligible_queue",[])],
+          }
+          (p/"sweep-summary.json").write_text(json.dumps(summary,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+          print(json.dumps(summary,indent=2,ensure_ascii=False))
+          PY
+      - name: Upload preflight
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-sweep-20261015-0000-preflight
+          path: |
+            models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600/source.json
+            models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600/acquisition-report.json
+            models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600/sweep-summary.json
+            models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600/preflight-v4_sweep_ready.json
+          retention-days: 7
+          if-no-files-found: error
+      - name: Persist exact source for canonical replay attestation
+        run: |
+          set -euo pipefail
+          folder="models/football/stages_v4/recovery/V4-20261015-0000-20261015-0600"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$folder/source.json" "$folder/acquisition-report.json" "$folder/sweep-summary.json"
+          git commit -m "ops(sweep): persist 2026-10-15 00:00-06:00 source"
+          git push origin HEAD:ops/v4-sweep-20261015-0000-0600
