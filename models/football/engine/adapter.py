@@ -25,6 +25,7 @@ from core import (
     XiStatus,
     c2_selection_floor,
     c2_clearing_goal_funded,
+    c_effective_incentive_grades,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -194,6 +195,7 @@ def _kickoff_block(obj: dict[str, Any]) -> str:
 def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
     """Fail closed on C board states that contradict strong current goal routes."""
 
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
     carrier_rescue = (
         a.completion_mode in {
             CompletionMode.CARRIER_LED,
@@ -201,13 +203,13 @@ def validate_c_screen_state(a: MatchAssessment, state: BoardState) -> None:
             CompletionMode.MIXED,
         }
         and a.burden_completion_quality == Grade.HIGH
-        and a.continuation_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
         and a.carrier == CarrierStrength.STRONG
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
         and a.opponent_leakage >= Grade.MEDIUM
-        and a.burden_stall_risk != Grade.HIGH
+        and effective_stall != Grade.HIGH
         and not a.failure_attacks_route
         and not a.material_suppression
     )
