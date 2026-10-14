@@ -222,3 +222,4 @@ def main():
     OUT.write_text(json.dumps(payload,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
     print(json.dumps(payload,indent=2,ensure_ascii=False))
 if __name__=="__main__":main()
+\n
