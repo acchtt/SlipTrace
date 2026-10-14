@@ -159,6 +159,17 @@ class MatchAssessment:
     c2_opponent_leakage: Grade | None = None
     c2_opponent_leakage_basis: str | None = None
 
+    # Common frozen tournament context. These are research inputs, never
+    # bookmaker-derived. Unresolved tournament state remains neutral and must
+    # be rechecked by Step 2 before any action is authorized.
+    tournament_incentive_required: bool = False
+    tournament_incentive_resolution: str = "NOT_APPLICABLE"
+    home_incentive: str = "NOT_APPLICABLE"
+    away_incentive: str = "NOT_APPLICABLE"
+    tiebreak_margin_relevance: str = "NOT_APPLICABLE"
+    incentive_effect: str = "NOT_APPLICABLE"
+    simultaneous_results_status: str = "NOT_APPLICABLE"
+
     def __post_init__(self) -> None:
         if not self.common_evidence_basis.strip():
             raise ValueError("common_evidence_basis must be non-empty")
@@ -185,6 +196,29 @@ class MatchAssessment:
             and self.c2_opponent_leakage_basis.strip()
         ):
             raise ValueError("C2 leakage grade requires independent non-empty basis")
+
+        allowed_resolution = {"NOT_APPLICABLE", "VERIFIED", "INCENTIVE_RECHECK_REQUIRED"}
+        if self.tournament_incentive_resolution not in allowed_resolution:
+            raise ValueError("invalid tournament_incentive_resolution")
+        allowed_incentives = {
+            "NOT_APPLICABLE", "MUST_WIN", "WIN_PREFERRED", "DRAW_ACCEPTABLE",
+            "MARGIN_NEEDED", "PROTECT_AGGREGATE", "PROTECT_RESULT",
+            "DEAD_RUBBER", "PLACEMENT_ONLY", "UNKNOWN",
+        }
+        if self.home_incentive not in allowed_incentives:
+            raise ValueError("invalid home_incentive")
+        if self.away_incentive not in allowed_incentives:
+            raise ValueError("invalid away_incentive")
+        if self.tiebreak_margin_relevance not in {"NOT_APPLICABLE", "YES", "NO", "UNKNOWN"}:
+            raise ValueError("invalid tiebreak_margin_relevance")
+        if self.incentive_effect not in {
+            "NOT_APPLICABLE", "EXPANSIVE", "NEUTRAL", "SUPPRESSIVE", "MIXED", "UNKNOWN"
+        }:
+            raise ValueError("invalid incentive_effect")
+        if self.simultaneous_results_status not in {
+            "NOT_APPLICABLE", "VERIFIED", "LIMITED", "UNKNOWN"
+        }:
+            raise ValueError("invalid simultaneous_results_status")
 
 
 @dataclass(frozen=True)
@@ -284,6 +318,112 @@ def require_c_completion(
     return values  # type: ignore[return-value]
 
 
+def tournament_incentive_profile(a: MatchAssessment) -> dict[str, int | str | bool]:
+    """Compile frozen tournament context into a conservative football modifier.
+
+    Only a VERIFIED tournament state can modify the model. EXPANSIVE can
+    strengthen continuation/stall resistance by one grade when a real scoring
+    route already exists. SUPPRESSIVE moves those dimensions the other way.
+    MIXED/NEUTRAL never manufacture a positive route. Unresolved context is
+    neutral here and remains a Step-2 blocker in the adapter.
+    """
+
+    if not a.tournament_incentive_required:
+        return {
+            "status": "NOT_APPLICABLE",
+            "effect": "NOT_APPLICABLE",
+            "tail_bias": "NEUTRAL",
+            "continuation_delta": 0,
+            "stall_delta": 0,
+            "positive_pressure": False,
+            "suppressive_pressure": False,
+        }
+
+    if a.tournament_incentive_resolution != "VERIFIED":
+        return {
+            "status": a.tournament_incentive_resolution,
+            "effect": a.incentive_effect,
+            "tail_bias": "UNRESOLVED",
+            "continuation_delta": 0,
+            "stall_delta": 0,
+            "positive_pressure": False,
+            "suppressive_pressure": False,
+        }
+
+    positive_directive = any(
+        value in {"MUST_WIN", "WIN_PREFERRED", "MARGIN_NEEDED"}
+        for value in (a.home_incentive, a.away_incentive)
+    )
+    suppressive_directive = any(
+        value in {"DRAW_ACCEPTABLE", "PROTECT_AGGREGATE", "PROTECT_RESULT"}
+        for value in (a.home_incentive, a.away_incentive)
+    )
+
+    if a.incentive_effect == "EXPANSIVE":
+        bias = "EXPANSIVE"
+        continuation_delta = 1 if positive_directive else 0
+        stall_delta = -1 if positive_directive else 0
+    elif a.incentive_effect == "SUPPRESSIVE":
+        bias = "SUPPRESSIVE"
+        continuation_delta = -1
+        stall_delta = 1
+    else:
+        # MIXED and NEUTRAL are deliberately non-positive. A contradictory
+        # combination of directives does not get laundered into an OVER boost.
+        bias = a.incentive_effect if a.incentive_effect in {"MIXED", "NEUTRAL"} else "NEUTRAL"
+        continuation_delta = 0
+        stall_delta = 0
+
+    return {
+        "status": "VERIFIED",
+        "effect": a.incentive_effect,
+        "tail_bias": bias,
+        "continuation_delta": continuation_delta,
+        "stall_delta": stall_delta,
+        "positive_pressure": bool(positive_directive and bias == "EXPANSIVE"),
+        "suppressive_pressure": bool(suppressive_directive or bias == "SUPPRESSIVE"),
+    }
+
+
+def c_effective_incentive_grades(a: MatchAssessment) -> tuple[Grade, Grade]:
+    """Return C continuation/stall grades after verified tournament context."""
+
+    require_c_completion(a)
+    profile = tournament_incentive_profile(a)
+    continuation_delta = int(profile["continuation_delta"])
+    stall_delta = int(profile["stall_delta"])
+
+    # Positive tournament pressure cannot create a scoring mechanism. Require a
+    # real STRONG route and at least a usable carrier before applying the boost.
+    if continuation_delta > 0 and not (
+        max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    ):
+        continuation_delta = 0
+        stall_delta = 0
+
+    continuation = Grade(
+        max(int(Grade.LOW), min(int(Grade.HIGH), int(a.continuation_quality) + continuation_delta))
+    )
+    stall = Grade(
+        max(int(Grade.LOW), min(int(Grade.HIGH), int(a.burden_stall_risk) + stall_delta))
+    )
+    return continuation, stall
+
+
+def tournament_incentive_rank_score(a: MatchAssessment) -> int:
+    """Small common-evidence rank modifier; never outranks route/chance quality."""
+
+    bias = tournament_incentive_profile(a)["tail_bias"]
+    if bias == "EXPANSIVE":
+        return 1
+    if bias == "SUPPRESSIVE":
+        return -1
+    return 0
+
+
 def low_burden_leakage_goal3_funded(
     a: MatchAssessment, selected_line: float | None = None
 ) -> bool:
@@ -358,6 +498,7 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
         and not a.material_suppression
         and not a.failure_attacks_route
     )
+    effective_continuation, _ = c_effective_incentive_grades(a)
     two_route_goal3 = (
         a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
         and a.home_route >= RouteStrength.USABLE
@@ -365,7 +506,7 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
         and max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier >= CarrierStrength.USABLE
         and a.burden_completion_quality == Grade.HIGH
-        and a.continuation_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
         and a.opponent_leakage >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
@@ -375,8 +516,17 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
     if burden < 3.0:
         return strong_carrier_goal3 or two_route_goal3 or leakage_goal3
 
-    # O3.0 FOLLOW needs an independently supported upper tail; ordinary
-    # two-sidedness or O2.25 leakage pressure cannot manufacture goal four.
+    # O3.0+ requires independent fourth-goal proof. Verified suppressive
+    # tournament context raises the quality bar but does not erase an otherwise
+    # exceptional carrier automatically.
+    if tournament_incentive_profile(a)["tail_bias"] == "SUPPRESSIVE":
+        return (
+            strong_carrier_goal3
+            and a.route_reliability == Grade.HIGH
+            and a.chance_quality == Grade.HIGH
+            and a.failure_resistance == Grade.HIGH
+            and effective_continuation >= Grade.MEDIUM
+        )
     return strong_carrier_goal3
 
 
@@ -392,11 +542,12 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     require_c_completion(a)
     upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
     lower_burden = -round(a.supported_line * 4)
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
     return (
         int(clearing_goal_funded(a)),
-        int(a.continuation_quality),
-        -int(a.burden_stall_risk),
+        int(effective_continuation),
+        -int(effective_stall),
         int(a.burden_completion_quality),
         int(a.route_reliability),
         int(a.carrier),
@@ -409,6 +560,7 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
         int(a.chance_quality),
         int(a.xi_robustness),
         int(a.independent_route_quality),
+        tournament_incentive_rank_score(a),
     )
 
 
@@ -455,6 +607,7 @@ def c2_ranking_key(a: MatchAssessment) -> tuple[int, ...]:
         int(a.xi_robustness),
         int(a.evidence_confidence),
         int(a.burden_protection),
+        tournament_incentive_rank_score(a),
     )
 
 
@@ -639,11 +792,24 @@ def c2_clearing_goal_funded(a: MatchAssessment, selected_line: float) -> bool:
             or c2_low_burden_leakage_goal3_funded(a, selected_line)
         )
 
-    fourth_goal_quality = (
-        a.route_reliability == Grade.HIGH
-        and a.chance_quality == Grade.HIGH
-        and a.failure_resistance == Grade.HIGH
+    incentive_bias = tournament_incentive_profile(a)["tail_bias"]
+    fourth_goal_grades = (
+        a.route_reliability,
+        a.chance_quality,
+        a.failure_resistance,
     )
+    if incentive_bias == "EXPANSIVE":
+        fourth_goal_quality = (
+            all(grade >= Grade.MEDIUM for grade in fourth_goal_grades)
+            and sum(int(grade) for grade in fourth_goal_grades) >= 5
+        )
+    elif incentive_bias == "SUPPRESSIVE":
+        fourth_goal_quality = (
+            all(grade == Grade.HIGH for grade in fourth_goal_grades)
+            and a.burden_protection == Grade.HIGH
+        )
+    else:
+        fourth_goal_quality = all(grade == Grade.HIGH for grade in fourth_goal_grades)
     return fourth_goal_quality and (
         carrier_goal3
         or (
@@ -663,6 +829,9 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
     """
 
     require_c_completion(a)
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    if tournament_incentive_profile(a)["tail_bias"] == "SUPPRESSIVE":
+        return False
     return (
         clearing_goal_funded(a, 3.0)
         and a.carrier == CarrierStrength.STRONG
@@ -675,8 +844,8 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
         and a.evidence_confidence == Grade.HIGH
         and a.burden_protection >= Grade.MEDIUM
         and a.burden_completion_quality == Grade.HIGH
-        and a.continuation_quality == Grade.HIGH
-        and a.burden_stall_risk <= Grade.MEDIUM
+        and effective_continuation == Grade.HIGH
+        and effective_stall <= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
@@ -708,6 +877,10 @@ def c_goal6_funded(a: MatchAssessment) -> bool:
 def c2_goal5_funded(a: MatchAssessment) -> bool:
     """Prospective C2 goal-five certificate from common frozen football evidence."""
 
+    incentive_bias = tournament_incentive_profile(a)["tail_bias"]
+    if incentive_bias == "SUPPRESSIVE":
+        return False
+    failure_floor = Grade.MEDIUM if incentive_bias == "EXPANSIVE" else Grade.HIGH
     return (
         c2_clearing_goal_funded(a, 3.0)
         and a.carrier == CarrierStrength.STRONG
@@ -718,7 +891,7 @@ def c2_goal5_funded(a: MatchAssessment) -> bool:
         and a.route_reliability == Grade.HIGH
         and a.independent_route_quality == Grade.HIGH
         and a.chance_quality == Grade.HIGH
-        and a.failure_resistance == Grade.HIGH
+        and a.failure_resistance >= failure_floor
         and a.evidence_confidence == Grade.HIGH
         and a.burden_protection >= Grade.MEDIUM
         and not a.material_suppression
@@ -779,6 +952,11 @@ def prospective_goal_funding(
         2.75 if goal3 else
         None
     )
+    incentive = tournament_incentive_profile(a)
+    effective_continuation = None
+    effective_stall = None
+    if model == "c":
+        effective_continuation, effective_stall = c_effective_incentive_grades(a)
     return {
         "goal3_funded": goal3,
         "goal4_funded": goal4,
@@ -786,6 +964,17 @@ def prospective_goal_funding(
         "goal6_funded": goal6,
         "upper_tail_strength": strength,
         "prospective_tail_ceiling": ceiling,
+        "tournament_incentive_resolution": a.tournament_incentive_resolution,
+        "tournament_incentive_effect": a.incentive_effect,
+        "tournament_tail_bias": incentive["tail_bias"],
+        "tournament_positive_pressure": incentive["positive_pressure"],
+        "tournament_suppressive_pressure": incentive["suppressive_pressure"],
+        "effective_continuation_quality": (
+            effective_continuation.name if effective_continuation is not None else None
+        ),
+        "effective_burden_stall_risk": (
+            effective_stall.name if effective_stall is not None else None
+        ),
     }
 
 
@@ -924,18 +1113,20 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         return Decision(Action.PASS, "material football veto remains")
 
     # Preserve the narrow O2.25 leakage counterweight for current stall checks.
-    # It can never fund a higher quoted burden.
+    # It can never fund a higher quoted burden. Tournament context may adjust
+    # continuation/stall by one grade only after it was VERIFIED pre-market.
     executable_anchor = min(ctx.quote.line, a.supported_line)
     leakage_counterweight = low_burden_leakage_goal3_funded(a, executable_anchor)
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
-    if a.burden_stall_risk == Grade.HIGH and not leakage_counterweight:
-        return Decision(Action.PASS, "current burden stall risk is HIGH")
+    if effective_stall == Grade.HIGH and not leakage_counterweight:
+        return Decision(Action.PASS, "current effective burden stall risk is HIGH")
 
     if a.burden_completion_quality == Grade.LOW:
         return Decision(Action.PASS, "current burden-completion quality is LOW")
 
-    if a.continuation_quality == Grade.LOW and not leakage_counterweight:
-        return Decision(Action.PASS, "current continuation quality is LOW")
+    if effective_continuation == Grade.LOW and not leakage_counterweight:
+        return Decision(Action.PASS, "current effective continuation quality is LOW")
 
     at_or_below = ctx.quote.line <= a.supported_line + 1e-9
     line_funded = market_line_funded(a, ctx.quote.line, "c")
