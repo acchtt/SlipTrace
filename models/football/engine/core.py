@@ -941,14 +941,15 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
     if not line_funded:
-        if not at_or_below and _healthy_wait(ctx):
+        anchor_funded = market_line_funded(a, a.supported_line, "c")
+        if not at_or_below and anchor_funded and _healthy_wait(ctx):
             return Decision(
                 Action.WAIT,
                 "quoted burden lacks prospective certificate; healthy certified target reachable",
             )
         return Decision(
             Action.PASS,
-            "C clearing-goal/tail funding missing at quoted burden",
+            "C clearing-goal funding missing; prospective tail funding missing at quoted burden",
         )
 
     if ctx.quote.odds >= 1.65:
