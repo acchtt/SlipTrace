@@ -185,7 +185,10 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         c2 = wait_ready(
             football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
         )
-        out = run_xi(c, c2, snapshot(c, line=3.25, odds=1.72))
+        # O5.0 requires a frozen goal-six certificate. This fixture has no
+        # such certificate, so explicit reachability can still produce WAIT
+        # toward the funded 2.5 anchor without restoring a hard line-gap rule.
+        out = run_xi(c, c2, snapshot(c, line=5.0, odds=1.72))
         for model in ("c", "c2"):
             verdict = out["price_check"]["models"][model]
             self.assertEqual(verdict["conditional_action"], "WAIT")
