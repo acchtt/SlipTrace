@@ -149,7 +149,28 @@
         "supported_line": {
           "type": "number",
           "minimum": 0,
-          "multipleOf": 0.25
+          "multipleOf": 0.25,
+          "description": "Legacy/research declaration retained for audit comparison only. Production supported burden is compiled by the deterministic goal-certificate engine."
+        },
+        "goal_signal_priority_score": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "goal_signal_mean_over_two_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "goal_signal_mean_over_three_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "goal_signal_low_draw_trap_rate": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 1
         },
         "carrier_self_fund": {
           "type": "boolean",
