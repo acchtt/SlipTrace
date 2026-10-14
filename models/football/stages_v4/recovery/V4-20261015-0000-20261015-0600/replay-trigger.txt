@@ -1,0 +1,1 @@
+Trigger canonical V4 replay attestation for V4-20261015-0000-20261015-0600.
