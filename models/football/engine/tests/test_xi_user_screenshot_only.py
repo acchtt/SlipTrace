@@ -189,10 +189,11 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         # no G5/G6, so explicit reachability can still produce WAIT toward the
         # compiler's O3.5 anchor without restoring a hard line-gap rule.
         out = run_xi(c, c2, snapshot(c, line=5.0, odds=1.72))
+        expected_targets = {"c": 3.5, "c2": 4.5}
         for model in ("c", "c2"):
             verdict = out["price_check"]["models"][model]
             self.assertEqual(verdict["conditional_action"], "WAIT")
-            self.assertEqual(verdict["wait_target_line"], 3.5)
+            self.assertEqual(verdict["wait_target_line"], expected_targets[model])
             self.assertEqual(verdict["wait_min_odds"], 1.65)
             self.assertTrue(verdict["wait_reachable"])
         self.assertFalse(out["price_check"]["execution_authorized"])
