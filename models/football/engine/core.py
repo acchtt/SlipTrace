@@ -474,6 +474,30 @@ def c_carrier_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
+def c_two_route_goal3_funded(a: MatchAssessment) -> bool:
+    """Standard strong two-route goal-three certificate."""
+
+    require_c_completion(a)
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    return (
+        a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
+        and a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
+        and a.burden_completion_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
+        and a.opponent_leakage >= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
 def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
     """Fund goal three through a genuine two-sided 2+1 / 1+2 mechanism.
 
@@ -539,6 +563,7 @@ def c_goal3_funded(a: MatchAssessment) -> bool:
 
     return (
         c_carrier_goal3_funded(a)
+        or c_two_route_goal3_funded(a)
         or c_distributed_goal3_funded(a)
         or c_leakage_goal3_funded(a)
     )
@@ -756,6 +781,25 @@ def c2_low_burden_leakage_goal3_funded(
     return c2_leakage_goal3_funded(a)
 
 
+def c2_two_route_goal3_funded(a: MatchAssessment) -> bool:
+    """Standard C2 strong two-route goal-three certificate."""
+
+    return (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and a.carrier >= CarrierStrength.USABLE
+        and a.route_reliability == Grade.HIGH
+        and a.independent_route_quality == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
 def c2_distributed_goal3_funded(a: MatchAssessment) -> bool:
     """C2-owned distributed 2+1 / 1+2 goal-three certificate."""
 
@@ -851,6 +895,7 @@ def c2_goal3_funded(a: MatchAssessment) -> bool:
     )
     return (
         carrier_goal3
+        or c2_two_route_goal3_funded(a)
         or c2_distributed_goal3_funded(a)
         or c2_leakage_goal3_funded(a)
     )
@@ -1017,6 +1062,7 @@ def prospective_goal_funding(
         goal4 = c_goal4_funded(a)
         goal5 = c_goal5_funded(a)
         goal6 = c_goal6_funded(a)
+        two_route_goal3 = c_two_route_goal3_funded(a)
         distributed_goal3 = c_distributed_goal3_funded(a)
         leakage_goal3 = c_leakage_goal3_funded(a)
         carrier_goal3 = c_carrier_goal3_funded(a)
@@ -1025,6 +1071,7 @@ def prospective_goal_funding(
         goal4 = c2_goal4_funded(a)
         goal5 = c2_goal5_funded(a)
         goal6 = c2_goal6_funded(a)
+        two_route_goal3 = c2_two_route_goal3_funded(a)
         distributed_goal3 = c2_distributed_goal3_funded(a)
         leakage_goal3 = c2_leakage_goal3_funded(a)
         carrier_goal3 = (
@@ -1068,6 +1115,7 @@ def prospective_goal_funding(
         "goal5_funded": goal5,
         "goal6_funded": goal6,
         "goal3_carrier_funded": carrier_goal3,
+        "goal3_two_route_funded": two_route_goal3,
         "goal3_distributed_funded": distributed_goal3,
         "goal3_leakage_funded": leakage_goal3,
         "upper_tail_strength": strength,
@@ -1108,6 +1156,8 @@ def certified_supported_burden_basis(
     mechanisms = []
     if profile["goal3_carrier_funded"]:
         mechanisms.append("CARRIER_G3")
+    if profile["goal3_two_route_funded"]:
+        mechanisms.append("TWO_ROUTE_G3")
     if profile["goal3_distributed_funded"]:
         mechanisms.append("DISTRIBUTED_G3")
     if profile["goal3_leakage_funded"]:
