@@ -1278,7 +1278,7 @@ class DecisionContractTests(unittest.TestCase):
                 ),
                 "context": decision_context(
                     board_state="C-FOCUS",
-                    quote={"line": 2.75, "odds": 1.85},
+                    quote={"line": 3.0, "odds": 1.85},
                     wait_reachable=True,
                     wait_requires_negative_info=False,
                     top_ranked_focus=False,
@@ -1305,7 +1305,7 @@ class DecisionContractTests(unittest.TestCase):
                 ),
                 "context": decision_context(
                     board_state="C-FOCUS",
-                    quote={"line": 2.75, "odds": 1.85},
+                    quote={"line": 3.0, "odds": 1.85},
                     wait_reachable=True,
                     wait_requires_negative_info=False,
                     top_ranked_focus=True,
