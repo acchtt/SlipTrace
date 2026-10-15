@@ -4,7 +4,7 @@
 The deterministic C decision has already executed before this gate. This verifier
 therefore does not execute the model again and does not run a second session
 reconciliation layer. It checks only what can change after execution:
-- exact Decision State readback,
+- exact Google Sheets Decision State readback,
 - evidence/source revision continuity,
 - quote and fixture still executable,
 - duplicate publication prevention.
@@ -23,7 +23,6 @@ from typing import Any
 
 
 _SHA = re.compile(r"^[a-f0-9]{40}$")
-_RECORD = re.compile(r"^rec[A-Za-z0-9]{14}$")
 
 
 class PublicationBlocked(ValueError):
@@ -77,9 +76,10 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
         raise PublicationBlocked("strict Football C decision receipt invalid")
 
     match_id = _text(stored, "match_id")
-    record_id = _text(stored, "record_id")
-    if not _RECORD.fullmatch(record_id):
-        raise PublicationBlocked("Decision State record ID invalid")
+    row_key = _text(stored, "row_key")
+    assessment_id = _text(stored, "assessment_id")
+    if row_key != assessment_id:
+        raise PublicationBlocked("Decision State row key must equal Assessment ID")
 
     active_epoch = _text(data, "active_evidence_epoch_id")
     if _text(stored, "evidence_epoch_id") != active_epoch:
@@ -123,7 +123,8 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
         "status": "STEP2_PUBLICATION_ELIGIBLE",
         "publication_key": key,
         "match_id": match_id,
-        "record_id": record_id,
+        "row_key": row_key,
+        "assessment_id": assessment_id,
         "engine_source_revision": source,
         "evidence_epoch_id": active_epoch,
         "c_action": _text(stored, "c_action"),
