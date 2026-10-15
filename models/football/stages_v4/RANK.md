@@ -66,6 +66,85 @@ Freeze one common factual epoch for both models, including:
   0-0/1-1 trap rate from the eligible_queue. These are common source facts and
   must be copied identically into C and C2 inputs.
 
+## Ranking contract
+
+Ranking is price-blind and deterministic. It must compare the quality of each
+model's own certified scoring mechanism rather than reward a lower total.
+
+The lexicographic order is:
+
+1. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
+2. highest funded goal certificate: G6 > G5 > G4 > G3 > none;
+3. endpoint/control risk;
+4. frozen V4 quantitative goal signal;
+5. the model's remaining football-mechanism quality factors.
+
+Robustness is compiled only from existing frozen football evidence: route
+reliability, independent/two-route or self-funded-carrier structure, current
+chance quality, failure resistance, evidence confidence, explicit
+route-attacking suppression, and the frozen goal signal. Do not infer
+robustness from league identity, bookmaker totals, final scores, or prose
+keywords.
+
+A high raw scoreline history alone is insufficient. A row whose current
+mechanism dimensions remain broadly MEDIUM stays FRAGILE even when the frozen
+3+/4+ rates are high. CONDITIONAL requires a corroborated frozen goal signal,
+an independent scoring structure and at least one HIGH current football
+dimension (chance quality, route reliability, evidence confidence or
+independent-route quality). ROBUST additionally requires either two STRONG
+independent routes or HIGH route reliability plus HIGH current chance quality,
+including the equivalent HIGH-quality self-funded-carrier shape. This lets
+red-card/cup-inflated histories remain low-confidence when the current frozen
+mechanism grades did not independently validate the inflation. A fragile
+G4/G5 does not automatically outrank a robust or conditional G3.
+
+For C, endpoint/control comparison uses C's own effective stall grade plus the
+common frozen 0-0/1-1 trap rate. For C2, endpoint/control comparison uses only
+the common frozen trap evidence; C2 must not inherit C's completion,
+continuation, opponent-leakage or stall labels.
+
+The quantitative comparator uses the frozen Step-0 priority score, mean 3+
+rate, mean 4+ rate and low-draw trap rate. Missing frozen quantitative evidence
+ranks below complete evidence at this comparator; it does not create a blocker
+or a synthetic positive score.
+
+The research-declared supported line and the magnitude of the compiled burden
+are never direct ranking bonuses. Certificate depth is the only burden-related
+ranking concept.
+
+### Availability / rotation symmetry
+
+Availability news may downgrade a certificate only when the missing player(s)
+attack an identified scoring mechanism. Record that through the existing
+route-specific failure/suppression evidence and basis.
+
+Do not convert generic attacking absences or rotation into automatic total
+suppression. Recheck whether:
+
+- alternative creators/scorers preserve the certified route;
+- the opponent retains an independent scoring route;
+- defensive rotation increases opponent leakage;
+- mixed attacking and defensive changes offset rather than uniformly suppress.
+
+Low XI robustness remains a later mechanism-quality comparator when the scoring
+route itself is preserved. It must not erase a stronger certified mechanism by
+itself.
+
+### Supplied market disagreement is a research trigger only
+
+Step 1 does not fetch odds. If the user has already supplied a valid,
+contemporaneous screenshot/frozen quote and its total is materially above the
+compiled certified burden, use the disagreement only to recheck the original
+football evidence before finalizing research:
+
+1. inspect missing scoring routes and continuation assumptions;
+2. recompute G3/G4/G5/G6 from football evidence;
+3. record why the discrepancy remains or why the football certificate changed.
+
+Never search for a replacement quote, infer a missing price, pass the quote
+into the ranking key, or let the market manufacture a goal certificate. If no
+valid supplied quote exists, ranking completes normally.
+
 ## Supported burden compiler
 
 Do not choose the production supported line manually.

@@ -639,43 +639,233 @@ def clearing_goal_funded(a: MatchAssessment, selected_line: float | None = None)
     return False
 
 
+def funded_goal_certificate_depth(a: MatchAssessment, model: str) -> int:
+    """Return the highest independently funded goal certificate for one model."""
+
+    if model == "c":
+        funded = (
+            (6, c_goal6_funded(a)),
+            (5, c_goal5_funded(a)),
+            (4, c_goal4_funded(a)),
+            (3, c_goal3_funded(a)),
+        )
+    elif model == "c2":
+        funded = (
+            (6, c2_goal6_funded(a)),
+            (5, c2_goal5_funded(a)),
+            (4, c2_goal4_funded(a)),
+            (3, c2_goal3_funded(a)),
+        )
+    else:
+        raise ValueError("model must be c or c2")
+
+    for depth, ok in funded:
+        if ok:
+            return depth
+    return 0
+
+
+def _goal_signal_rank_key(a: MatchAssessment) -> tuple[int, int, int, int, int]:
+    """Deterministic frozen Step-0 quantitative comparator.
+
+    Missing evidence ranks below complete evidence; no league, price or final
+    score information is admitted here.
+    """
+
+    values = (
+        a.goal_signal_priority_score,
+        a.goal_signal_mean_over_two_rate,
+        a.goal_signal_mean_over_three_rate,
+        a.goal_signal_low_draw_trap_rate,
+    )
+    complete = int(all(value is not None for value in values))
+    priority = (
+        round(a.goal_signal_priority_score * 100)
+        if a.goal_signal_priority_score is not None
+        else -1
+    )
+    over_two = (
+        round(a.goal_signal_mean_over_two_rate * 10000)
+        if a.goal_signal_mean_over_two_rate is not None
+        else -1
+    )
+    over_three = (
+        round(a.goal_signal_mean_over_three_rate * 10000)
+        if a.goal_signal_mean_over_three_rate is not None
+        else -1
+    )
+    low_draw = (
+        -round(a.goal_signal_low_draw_trap_rate * 10000)
+        if a.goal_signal_low_draw_trap_rate is not None
+        else -10001
+    )
+    return complete, priority, over_two, over_three, low_draw
+
+
+def _independent_scoring_structure(a: MatchAssessment) -> bool:
+    """Common evidence that the certificate does not rely on one brittle path."""
+
+    two_route = (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+        and a.independent_route_quality >= Grade.MEDIUM
+    )
+    self_funded_carrier = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+    )
+    return two_route or self_funded_carrier
+
+
+def certificate_robustness(a: MatchAssessment, model: str) -> int:
+    """Classify funded certificates as FRAGILE=0, CONDITIONAL=1, ROBUST=2.
+
+    This deliberately reuses frozen, independently auditable football inputs.
+    It does not parse prose, infer league quality, inspect bookmaker totals, or
+    use observed match outcomes.
+    """
+
+    if funded_goal_certificate_depth(a, model) == 0:
+        return 0
+    if a.material_suppression or a.failure_attacks_route:
+        return 0
+    if (
+        a.route_reliability == Grade.LOW
+        or a.chance_quality == Grade.LOW
+        or a.failure_resistance == Grade.LOW
+        or a.evidence_confidence == Grade.LOW
+    ):
+        return 0
+
+    trap = a.goal_signal_low_draw_trap_rate
+    if trap is not None and trap >= 0.30:
+        return 0
+
+    signal_complete = all(
+        value is not None
+        for value in (
+            a.goal_signal_priority_score,
+            a.goal_signal_mean_over_two_rate,
+            a.goal_signal_mean_over_three_rate,
+            a.goal_signal_low_draw_trap_rate,
+        )
+    )
+    strong_frozen_signal = bool(
+        signal_complete
+        and a.goal_signal_priority_score >= 60
+        and a.goal_signal_low_draw_trap_rate <= 0.20
+        and (
+            a.goal_signal_mean_over_two_rate >= 0.65
+            or a.goal_signal_mean_over_three_rate >= 0.50
+        )
+    )
+    independent_structure = _independent_scoring_structure(a)
+    both_routes_strong = (
+        a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+    )
+    repeatable_current_quality = (
+        a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and independent_structure
+    )
+    strong_carrier_quality = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+    )
+    if strong_frozen_signal and (
+        both_routes_strong
+        or repeatable_current_quality
+        or strong_carrier_quality
+    ):
+        return 2
+
+    # CONDITIONAL requires at least one independently strong current football
+    # dimension. A row of broad MEDIUM grades is deliberately not laundered
+    # into robustness merely because the raw scoreline history is high.
+    supporting_high_dimension = any(
+        value == Grade.HIGH
+        for value in (
+            a.chance_quality,
+            a.route_reliability,
+            a.evidence_confidence,
+            a.independent_route_quality,
+        )
+    )
+    if (
+        strong_frozen_signal
+        and independent_structure
+        and supporting_high_dimension
+    ):
+        return 1
+    return 0
+
+
+def _c_endpoint_control_key(a: MatchAssessment) -> tuple[int, int, int]:
+    """Prefer lower explicit stall/trap risk without creating a certificate."""
+
+    _, effective_stall = c_effective_incentive_grades(a)
+    trap_known = int(a.goal_signal_low_draw_trap_rate is not None)
+    trap = (
+        -round(a.goal_signal_low_draw_trap_rate * 10000)
+        if a.goal_signal_low_draw_trap_rate is not None
+        else -10001
+    )
+    return -int(effective_stall), trap_known, trap
+
+
+def _c2_endpoint_control_key(a: MatchAssessment) -> tuple[int, int]:
+    """C2 endpoint risk uses only common Step-0 evidence, never C stall labels."""
+
+    trap_known = int(a.goal_signal_low_draw_trap_rate is not None)
+    trap = (
+        -round(a.goal_signal_low_draw_trap_rate * 10000)
+        if a.goal_signal_low_draw_trap_rate is not None
+        else -10001
+    )
+    return trap_known, trap
+
+
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic lexicographic Football C ranking key.
 
-    Higher is better. Selection is now burden-completion first: a credible path
-    to clearing the actual protected line outranks cosmetic two-sidedness.
-    Lower supported burden is a comparator only after completion/continuation
-    quality has already cleared; it never creates a route by itself.
+    Higher is better. Ranking now follows certificate robustness and certificate
+    depth before endpoint/control risk and the frozen Step-0 goal signal.
+    Compiled burden magnitude is not a rank advantage or penalty.
     """
 
     require_c_completion(a)
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    endpoint = _c_endpoint_control_key(a)
+    goal_signal = _goal_signal_rank_key(a)
     upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
-    compiled_burden = certified_supported_burden(a, "c")
-    lower_burden = -round(compiled_burden * 4) if compiled_burden is not None else -999
-    effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
     return (
-        int(c_goal3_funded(a)),
+        certificate_robustness(a, "c"),
+        funded_goal_certificate_depth(a, "c"),
+        *endpoint,
+        *goal_signal,
         int(effective_continuation),
-        -int(effective_stall),
         int(a.burden_completion_quality),
         int(a.route_reliability),
+        int(a.independent_route_quality),
+        int(a.chance_quality),
         int(a.carrier),
         int(a.failure_resistance),
         int(a.evidence_confidence),
         int(a.burden_protection),
-        lower_burden,
         int(a.opponent_leakage),
         upper_tail_self_fund,
-        int(a.chance_quality),
         int(a.xi_robustness),
-        int(a.independent_route_quality),
         tournament_incentive_rank_score(a),
     )
 
 
 def rank_assessments(items: Iterable[MatchAssessment]) -> list[MatchAssessment]:
-    """Rank Football C with the active burden-completion-first policy."""
+    """Rank Football C under robustness/certificate-first policy."""
     return sorted(
         items,
         key=lambda item: (ranking_key(item), item.match_id),
@@ -684,21 +874,11 @@ def rank_assessments(items: Iterable[MatchAssessment]) -> list[MatchAssessment]:
 
 
 def c2_ranking_key(a: MatchAssessment) -> tuple[int, ...]:
-    """Return the frozen Football C2 lexicographic ranking key.
+    """Return Football C2's independent robustness/certificate-first key.
 
-    C2 deliberately does NOT inherit Football C's burden-completion-first
-    selector. Its frozen challenger specification ranks:
-      1. route reliability;
-      2. independent route quality / self-funded carrier;
-      3. current chance quality;
-      4. failure-mode resistance;
-      5. XI robustness;
-      6. evidence confidence;
-      7. burden protection.
-
-    The slash in factor 2 is represented as one combined dimension: whichever
-    is stronger between independent-route quality and a genuinely self-funded
-    carrier. Market price and supported-line magnitude do not create rank.
+    C2 keeps its own route-quality policy. It never imports C completion,
+    continuation, opponent-leakage or stall labels. Shared frozen Step-0 facts
+    are allowed because they are common evidence, not C judgments.
     """
 
     self_funded_carrier_quality = (
@@ -708,8 +888,14 @@ def c2_ranking_key(a: MatchAssessment) -> tuple[int, ...]:
         int(a.independent_route_quality),
         self_funded_carrier_quality,
     )
+    endpoint = _c2_endpoint_control_key(a)
+    goal_signal = _goal_signal_rank_key(a)
 
     return (
+        certificate_robustness(a, "c2"),
+        funded_goal_certificate_depth(a, "c2"),
+        *endpoint,
+        *goal_signal,
         int(a.route_reliability),
         independent_or_carrier,
         int(a.chance_quality),
@@ -724,7 +910,7 @@ def c2_ranking_key(a: MatchAssessment) -> tuple[int, ...]:
 def rank_assessments_c2(
     items: Iterable[MatchAssessment],
 ) -> list[MatchAssessment]:
-    """Rank Football C2 under its frozen challenger policy."""
+    """Rank Football C2 under its independent robustness/certificate policy."""
     return sorted(
         items,
         key=lambda item: (c2_ranking_key(item), item.match_id),
