@@ -1,32 +1,17 @@
 # Football model accounting
 
-Model accounting is separate from the user's physical betting ledger.
+## Active rule
 
-## Active C/C2 rules
+Football C is the only active model-accounting roster.
 
-- Direct strict C BET: may be counted from the actual observed executable
-  line/odds used by the deterministic decision.
-- Direct C2 BET: shadow accounting only, using its actual observed quote.
-- WATCH: no exposure.
-- unresolved WAIT: no exposure.
-- WAIT explicitly reached/confirmed: may be reconciled from the actual
-  confirmed reached line/odds.
-- PASS: no exposure.
+- direct C BET: use exact observed line/odds;
+- unresolved C WAIT: no exposure;
+- reached WAIT: exposure only when reached terms are actually confirmed;
+- WATCH/PASS: no exposure.
 
-Do not synthesize 1.65 WATCH bets or assume that every WAIT target was reached.
+C2/C3/C4 accounting is historical read-only and may be processed only through
+an explicitly historical audit path.
 
-## User P/L
-
-User profit/loss is not model accounting.
-
-Only user-confirmed records in Actual Bets — Current count toward physical
-stake, profit or ROI.
-
-A Website Pick, model BET, WATCH, WAIT or C2 shadow action never proves that the
-user placed a wager.
-
-## Historical data
-
-Do not rewrite previously frozen historical accounting records. When comparing
-them to the current policy, label old synthetic/assumed conventions explicitly
-as historical.
+A Website Pick, model BET/WATCH/WAIT or retired shadow action never proves that
+the user physically executed a bet. Actual Bets — Current is the sole user P/L
+authority.
