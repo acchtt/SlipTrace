@@ -60,6 +60,18 @@ For WAIT research, record independently for each model:
 - top_ranked_focus when relevant.
 
 A missing/unproven reachability assessment must not be converted into WAIT.
+A single screenshot does not prove that same-line odds will improve. Near
+kickoff, do not mark a price-only micro-WAIT reachable merely because 1.63
+*might* become 1.65. Price-only WAIT needs actual directional/reachability
+evidence; line-decay WAIT may still be used when its football/market path is
+genuinely plausible.
+
+Availability/rotation is symmetric. Do not lower failure resistance,
+independent upper-tail proof or a funded route merely because attacking names
+are missing. First test whether alternate creators/scorers preserve the route,
+whether the opponent still owns an independent route, and whether defensive
+rotation increases leakage. Downgrade only when the change attacks an
+identified scoring mechanism.
 
 ## 3. Execute football assessment
 
@@ -90,6 +102,13 @@ Rules:
 The runtime calls adapter.evaluate_observed_quote() independently for C and C2.
 That function reuses the exact same pure quote-policy functions used by strict
 run_decision().
+
+Before a final WAIT/PASS at a screenshot line that requires a higher full-win
+goal than the current compiled burden, recheck the frozen/current football
+evidence once: independent routes, current chance creation, availability
+symmetry, continuation and opponent leakage. The screenshot is a research
+trigger only; it cannot manufacture G3/G4/G5/G6 and no replacement quote may
+be fetched.
 
 Therefore the screenshot may yield conditional model ACT / WAIT / PASS.
 
@@ -123,7 +142,10 @@ The deterministic target/minimum price is returned by the core policy:
 
 - target = the applicable protected/model-supported burden;
 - normal minimum price = 1.65;
-- top-ranked FOCUS soft-zone minimum = 1.60 where permitted by the core.
+- 1.60 soft-zone is allowed at an already funded supported burden when the
+  football certificate has independent robustness/high-rate corroboration;
+- top-ranked FOCUS retains the existing 1.60 soft-zone;
+- unsupported higher burdens never receive the supported-line soft-zone.
 
 A WAIT is a plan only. It creates no assumed exposure.
 
