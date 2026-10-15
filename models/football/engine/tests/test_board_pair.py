@@ -44,6 +44,10 @@ COMMON = {
     "carrier_self_fund_basis": "strong carrier has repeated independent scoring capacity",
     "independent_upper_tail": True,
     "independent_upper_tail_basis": "current non-market evidence supports upper-tail scoring",
+    "upper_tail_transferability": "HIGH",
+    "upper_tail_transferability_basis": (
+        "current comparable-opposition and mechanism evidence transfers to this matchup"
+    ),
     "failure_attacks_route": False,
     "failure_attacks_route_basis": "main failure does not remove the primary scoring route",
     "material_suppression": False,
