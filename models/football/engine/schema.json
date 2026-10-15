@@ -153,22 +153,34 @@
           "description": "Legacy/research declaration retained for audit comparison only. Production supported burden is compiled by the deterministic goal-certificate engine."
         },
         "goal_signal_priority_score": {
-          "type": ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "minimum": 0,
           "maximum": 100
         },
         "goal_signal_mean_over_two_rate": {
-          "type": ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "minimum": 0,
           "maximum": 1
         },
         "goal_signal_mean_over_three_rate": {
-          "type": ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "minimum": 0,
           "maximum": 1
         },
         "goal_signal_low_draw_trap_rate": {
-          "type": ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "minimum": 0,
           "maximum": 1
         },
@@ -448,8 +460,37 @@
         "board_state_basis": {
           "type": "string",
           "minLength": 1
+        },
+        "upper_tail_transferability": {
+          "$ref": "#/$defs/grade",
+          "description": "Prospective transferability of the evidence supporting an independent G4+ upper tail. LOW blocks C G4+ even when raw 3+/4+ rates are high."
+        },
+        "upper_tail_transferability_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Why the upper-tail evidence is or is not transferable to the current matchup; must distinguish current comparable-opposition/mechanism evidence from cup, red-card, weak-opposition or other distorted contexts."
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "independent_upper_tail": {
+                "const": true
+              }
+            },
+            "required": [
+              "independent_upper_tail"
+            ]
+          },
+          "then": {
+            "required": [
+              "upper_tail_transferability",
+              "upper_tail_transferability_basis"
+            ]
+          }
+        }
+      ]
     },
     "boardInput": {
       "type": "object",
