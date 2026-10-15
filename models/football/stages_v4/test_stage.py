@@ -1,4 +1,4 @@
-"""V4 replacement contract: researched league scope + single immutable C/C2 board."""
+"""V4 replacement contract: researched league scope + single immutable Football C board."""
 from __future__ import annotations
 
 import copy
@@ -16,7 +16,7 @@ sys.path.insert(0, str(ENGINE_TESTS))
 
 from league_registry import classify, REGISTRY
 from stage import StageError, sweep, rank as production_rank, verify_rank
-from test_board_pair import c_row, c2_row, payload
+from test_board_pair import c_row, payload
 
 NOW = "2026-10-11T16:00:00Z"
 KICKOFF = "2026-10-11T17:00:00Z"
@@ -77,13 +77,11 @@ def snapshot(fixtures=None):
     }
 
 
-def model_inputs(mid="m1"):
-    a, b = c_row(), c2_row()
+def model_input(mid="m1"):
+    a = c_row()
     a["match_id"] = mid
-    b["match_id"] = mid
     a["kickoff_ict"] = KICKOFF_ICT
-    b["kickoff_ict"] = KICKOFF_ICT
-    return payload("c", a), payload("c2", b)
+    return payload("c", a)
 
 
 class ResearchedRegistryTests(unittest.TestCase):
@@ -412,180 +410,240 @@ def _hash_for_test(value):
         separators=(",",":")).encode("utf-8")).hexdigest()
 
 
-def rank(src, c, c2, reasons, *, now, original_source=None, status_refresh=None):
-    """Existing regression scenarios use authentic matching source and status."""
+def rank(src, c, reasons, *, now, original_source=None, status_refresh=None):
+    """Regression scenarios use authentic matching source and status."""
     return production_rank(
-        src, c, c2, reasons, now=now,
+        src, c, reasons, now=now,
         original_source=original_source if original_source is not None else snapshot(),
         status_refresh=status_refresh if status_refresh is not None else fresh_status(src, now=now),
     )
 
 
 
-
 class RankV4Tests(unittest.TestCase):
     def test_missing_source_and_status_are_fail_closed(self):
         src = sweep(snapshot(), now=NOW)
-        c, c2 = model_inputs()
+        c = model_input()
         reasons = {"m2": "RESEARCH_EVIDENCE_MISSING"}
         with self.assertRaisesRegex(StageError, "V4_SOURCE_REPLAY_REQUIRED"):
-            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z")
+            production_rank(src, c, reasons, now="2026-10-11T16:05:00Z")
         with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_REQUIRED"):
-            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
-                            original_source=snapshot())
+            production_rank(
+                src, c, reasons,
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+            )
 
     def test_forged_receipt_does_not_pass_native_source_replay(self):
         from stage import _hash
         src = sweep(snapshot(), now=NOW)
         src["source_url"] = "https://other.example.org/forged"
-        src["integrity_sha256"] = _hash({k: v for k, v in src.items() if k != "integrity_sha256"})
-        c, c2 = model_inputs()
+        src["integrity_sha256"] = _hash(
+            {k: v for k, v in src.items() if k != "integrity_sha256"}
+        )
+        c = model_input()
         statuses = fresh_status(src)
         with self.assertRaisesRegex(StageError, "V4_SOURCE_REPLAY_MISMATCH"):
-            production_rank(src, c, c2, {"m2": "RESEARCH_EVIDENCE_MISSING"},
-                            now="2026-10-11T16:05:00Z", original_source=snapshot(),
-                            status_refresh=statuses)
+            production_rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=statuses,
+            )
 
     def test_started_status_and_stale_or_changed_ko_are_rejected(self):
         src = sweep(snapshot(), now=NOW)
-        c, c2 = model_inputs()
+        c = model_input()
         reasons = {"m2": "RESEARCH_EVIDENCE_MISSING"}
+
         changed = fresh_status(src)
         changed["matches"][0]["fixture_status"] = "STARTED"
         with self.assertRaisesRegex(StageError, "PREMATCH_WINDOW_CLOSED"):
-            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
-                            original_source=snapshot(), status_refresh=changed)
+            production_rank(
+                src, c, reasons,
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=changed,
+            )
+
         changed = fresh_status(src)
         changed["matches"][0]["kickoff_utc"] = "2026-10-11T17:30:00Z"
         with self.assertRaisesRegex(StageError, "V4_KICKOFF_CHANGED"):
-            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
-                            original_source=snapshot(), status_refresh=changed)
+            production_rank(
+                src, c, reasons,
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=changed,
+            )
+
         changed = fresh_status(src)
         changed["checked_at_utc"] = "2026-10-11T15:00:00Z"
         with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_STALE"):
-            production_rank(src, c, c2, reasons, now="2026-10-11T16:05:00Z",
-                            original_source=snapshot(), status_refresh=changed)
+            production_rank(
+                src, c, reasons,
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=changed,
+            )
 
     def test_full_status_cohort_mandatory(self):
         src = sweep(snapshot(), now=NOW)
-        c, c2 = model_inputs()
+        c = model_input()
         refresh = fresh_status(src)
         refresh["matches"].pop()
         with self.assertRaisesRegex(StageError, "V4_STATUS_REFRESH_INCOMPLETE"):
-            production_rank(src, c, c2, {"m2": "RESEARCH_EVIDENCE_MISSING"},
-                            now="2026-10-11T16:05:00Z", original_source=snapshot(),
-                            status_refresh=refresh)
+            production_rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=refresh,
+            )
 
-    def test_real_C_and_C2_independent_engine_execution(self):
-        snapshot_data=sweep(snapshot(),now=NOW)
-        c,c2=model_inputs()
-        reason={"m2":"RESEARCH_EVIDENCE_MISSING"}
-        result=rank(snapshot_data,c,c2,reason,now="2026-10-11T16:05:00Z")
-        self.assertEqual(result["status"],"V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK")
-        self.assertEqual(result["ranked_count"],1)
-        self.assertEqual(result["board_pair"]["models_executed"],["c","c2"])
+    def test_real_single_c_engine_execution(self):
+        snapshot_data = sweep(snapshot(), now=NOW)
+        c = model_input()
+        reason = {"m2": "RESEARCH_EVIDENCE_MISSING"}
+        result = rank(
+            snapshot_data, c, reason,
+            now="2026-10-11T16:05:00Z",
+        )
+        self.assertEqual(
+            result["status"],
+            "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+        )
+        self.assertEqual(result["ranked_count"], 1)
+        self.assertEqual(result["active_model"], "c")
+        self.assertEqual(result["retired_models"], ["c2", "c3", "c4"])
+        self.assertEqual(result["board"]["model"], "c")
+        self.assertEqual(result["board"]["stage"], "board_result")
         self.assertFalse(result["publication_authorized"])
         self.assertFalse(result["bet_recorded"])
 
     def test_rank_binds_cohort_clock_and_unranked_reasons(self):
-        src=sweep(snapshot(),now=NOW);c,c2=model_inputs()
-        with self.assertRaisesRegex(StageError,"every unranked"):
-            rank(src,c,c2,{},now="2026-10-11T16:05:00Z")
-        c2["matches"][0]["match_id"]="changed"
-        with self.assertRaisesRegex(StageError,"cohort"):
-            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                 now="2026-10-11T16:05:00Z")
-        c2["matches"][0]["match_id"]="m1"
-        with self.assertRaisesRegex(StageError,"retroactive"):
-            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                 now="2026-10-11T17:01:00Z")
-        src["eligible_queue"][0]["home"]="forged"
-        with self.assertRaisesRegex(StageError,"integrity"):
-            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                 now="2026-10-11T16:05:00Z")
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        with self.assertRaisesRegex(StageError, "every unranked"):
+            rank(src, c, {}, now="2026-10-11T16:05:00Z")
+
+        c["matches"][0]["match_id"] = "changed"
+        with self.assertRaisesRegex(StageError, "cohort"):
+            rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+            )
+        c["matches"][0]["match_id"] = "m1"
+
+        with self.assertRaisesRegex(StageError, "retroactive"):
+            rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T17:01:00Z",
+            )
+
+        src["eligible_queue"][0]["home"] = "forged"
+        with self.assertRaisesRegex(StageError, "integrity"):
+            rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+            )
 
     def test_rank_rejects_non_goal_qualified_registered_selection(self):
         from stage import _hash
-        src=sweep(snapshot(),now=NOW)
-        c,c2=model_inputs()
-        src["eligible_queue"][0]["goal_screen"]["status"]="WATCH_GOAL_SIGNAL"
-        # Even if a caller recomputes the outer JSON hash, rank checks the
-        # underlying goal-quality admission contract independently.
-        src["integrity_sha256"]=_hash({
-            k:v for k,v in src.items() if k!="integrity_sha256"
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        src["eligible_queue"][0]["goal_screen"]["status"] = "WATCH_GOAL_SIGNAL"
+        src["integrity_sha256"] = _hash({
+            k: v for k, v in src.items() if k != "integrity_sha256"
         })
-        with self.assertRaisesRegex(StageError,"goal-first shortlist violated"):
-            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                 now="2026-10-11T16:05:00Z")
+        with self.assertRaisesRegex(StageError, "goal-first shortlist violated"):
+            rank(
+                src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+            )
 
-    def test_C2_common_evidence_drift_not_allowed(self):
-        src=sweep(snapshot(),now=NOW);c,c2=model_inputs()
-        c2["matches"][0]["chance_quality"]="LOW"
-        with self.assertRaisesRegex(ValueError,"COMMON EVIDENCE DRIFT"):
-            rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                 now="2026-10-11T16:05:00Z")
+    def test_retired_c2_payload_is_not_part_of_rank_signature(self):
+        import inspect
+        parameters = inspect.signature(production_rank).parameters
+        self.assertIn("c", parameters)
+        self.assertNotIn("c2", parameters)
 
     def test_independent_active_airtable_readback_required(self):
-        src=sweep(snapshot(),now=NOW);c,c2=model_inputs()
-        c2["matches"][0]["c2_opponent_leakage"] = "HIGH"
-        c2["matches"][0]["c2_opponent_leakage_basis"] = (
-            "Independent current opponent-specific leakage evidence"
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        result = rank(
+            src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
         )
-        result=rank(src,c,c2,{"m2":"RESEARCH_EVIDENCE_MISSING"},
-                    now="2026-10-11T16:05:00Z")
-        cr=result["board_pair"]["results"]["c"]["matches"][0]
-        c2r=result["board_pair"]["results"]["c2"]["matches"][0]
-        readback={
-            "active_base_id":"appbzxqXYf0lKfD4P",
-            "method":"INDEPENDENT_AIRTABLE_REFETCH",
-            "run_id":result["run_id"],
-            "rank_integrity_sha256":result["integrity_sha256"],
-            "sweep_integrity_sha256":result["sweep_integrity_sha256"],
-            "readback_at_utc":"2026-10-11T16:06:00Z",
-            "ranked_rows":[{
-                "match_id":"m1",
-                "coverage_id":result["run_id"] + "|m1",
-                "follow_lane":cr["follow_lane"],
-                "c_rank":cr["rank"],"c_board_state":"C-"+cr["board_state"],
-                "c_supported_line":cr["supported_line"],
-                "c2_rank":c2r["rank"],"c2_board_state":"C2-"+c2r["board_state"],
-                "c2_supported_line":c2r["supported_line"],
-                "step1_engine_c_result":json.dumps(cr,sort_keys=True),
-                "step1_engine_c_result_field_id":"fldhUWNoyXzXfQJ3C",
-                "step1_engine_c2_result":json.dumps(c2r,sort_keys=True),
-                "step1_engine_c2_result_field_id":"fldq0n2tDlS58goAm",
+        cr = result["board"]["matches"][0]
+        readback = {
+            "active_base_id": "appbzxqXYf0lKfD4P",
+            "method": "INDEPENDENT_AIRTABLE_REFETCH",
+            "run_id": result["run_id"],
+            "rank_integrity_sha256": result["integrity_sha256"],
+            "sweep_integrity_sha256": result["sweep_integrity_sha256"],
+            "readback_at_utc": "2026-10-11T16:06:00Z",
+            "ranked_rows": [{
+                "match_id": "m1",
+                "coverage_id": result["run_id"] + "|m1",
+                "follow_lane": cr["follow_lane"],
+                "c_rank": cr["rank"],
+                "c_board_state": "C-" + cr["board_state"],
+                "c_supported_line": cr["supported_line"],
+                "step1_engine_c_result": json.dumps(cr, sort_keys=True),
+                "step1_engine_c_result_field_id": "fldhUWNoyXzXfQJ3C",
             }],
         }
-        verified=verify_rank(readback,result)
-        self.assertEqual(verified["status"],"V4_RANK_PERSISTENCE_VERIFIED")
+
+        verified = verify_rank(readback, result)
+        self.assertEqual(
+            verified["status"],
+            "V4_RANK_PERSISTENCE_VERIFIED",
+        )
+        self.assertEqual(verified["active_model"], "c")
+        self.assertEqual(
+            verified["retired_models"],
+            ["c2", "c3", "c4"],
+        )
         self.assertTrue(verified["model_evidence_readback_verified"])
-        self.assertEqual(verified["model_evidence_sha256"],
-                         _hash_for_test(result["board_pair"]["results"]))
+        self.assertEqual(
+            verified["model_evidence_sha256"],
+            _hash_for_test(result["board"]),
+        )
         self.assertTrue(verified["source_replayed"])
         self.assertTrue(verified["current_fixture_status_checked"])
-        self.assertEqual(verified["original_source_sha256"],result["original_source_sha256"])
-        self.assertEqual(verified["status_refresh_sha256"],result["status_refresh_sha256"])
+
         readback["ranked_rows"][0]["c_rank"] = 20
-        with self.assertRaisesRegex(StageError,"rank"):
-            verify_rank(readback,result)
+        with self.assertRaisesRegex(StageError, "rank"):
+            verify_rank(readback, result)
         readback["ranked_rows"][0]["c_rank"] = cr["rank"]
-        readback["ranked_rows"][0]["follow_lane"] = "STOP" if cr["follow_lane"] != "STOP" else "FOLLOW"
-        with self.assertRaisesRegex(StageError,"lane differs"):
-            verify_rank(readback,result)
+
+        readback["ranked_rows"][0]["follow_lane"] = (
+            "STOP" if cr["follow_lane"] != "STOP" else "FOLLOW"
+        )
+        with self.assertRaisesRegex(StageError, "lane differs"):
+            verify_rank(readback, result)
         readback["ranked_rows"][0]["follow_lane"] = cr["follow_lane"]
-        stored_c2=json.loads(readback["ranked_rows"][0]["step1_engine_c2_result"])
-        stored_c2["c2_opponent_leakage"]="MEDIUM"
-        readback["ranked_rows"][0]["step1_engine_c2_result"]=json.dumps(stored_c2)
-        with self.assertRaisesRegex(StageError,"exact Step1 engine evidence differs"):
-            verify_rank(readback,result)
-        readback["ranked_rows"][0]["step1_engine_c2_result"]=json.dumps(c2r,sort_keys=True)
-        readback["ranked_rows"][0]["step1_engine_c2_result_field_id"]="fldWRONG000000000"
-        with self.assertRaisesRegex(StageError,"field ID not verified"):
-            verify_rank(readback,result)
-        readback["ranked_rows"][0]["step1_engine_c2_result_field_id"]="fldq0n2tDlS58goAm"
+
+        stored_c = json.loads(
+            readback["ranked_rows"][0]["step1_engine_c_result"]
+        )
+        stored_c["chance_quality"] = "LOW"
+        readback["ranked_rows"][0]["step1_engine_c_result"] = json.dumps(stored_c)
+        with self.assertRaisesRegex(StageError, "exact Step1 engine evidence differs"):
+            verify_rank(readback, result)
+
+        readback["ranked_rows"][0]["step1_engine_c_result"] = json.dumps(
+            cr, sort_keys=True
+        )
+        readback["ranked_rows"][0]["step1_engine_c_result_field_id"] = "fldWRONG"
+        with self.assertRaisesRegex(StageError, "field ID not verified"):
+            verify_rank(readback, result)
+
+        readback["ranked_rows"][0]["step1_engine_c_result_field_id"] = (
+            "fldhUWNoyXzXfQJ3C"
+        )
         readback["rank_integrity_sha256"] = "forged"
-        with self.assertRaisesRegex(StageError,"hashes required"):
-            verify_rank(readback,result)
+        with self.assertRaisesRegex(StageError, "hashes required"):
+            verify_rank(readback, result)
 
 
 if __name__ == "__main__":
