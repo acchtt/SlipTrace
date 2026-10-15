@@ -101,15 +101,22 @@ with no usable scoring data go into `goal_research_queue` as
 `PENDING_GOAL_RESEARCH`, not automatic eligible; source-backed low-goals or
 0-0/1-1 trap signals stay as a watchlist, not model PASS.
 
-The quantitative screen has **two league-neutral research-admission paths**.
+The quantitative screen has **four league-neutral research-admission paths**.
 The original route-composite path remains: priority score >=60, mean 3+ rate
->=55%, and 0-0/1-1 trap <=35%. A second high-rate path admits a fixture for
-research when mean 3+ >=65%, mean 4+ >=45%, and the low-draw trap <=20%, even
-when the route-composite score is below 60. This alternate path exists because
-one blended route score must not veto independently strong finished-match goal
-distribution evidence. It is only permission to research/rank: it does not
-create G3/G4/G5/G6, supported burden, board state, or a bet. No league identity,
-market quote, live score or final result can satisfy either path.
+>=55%, and 0-0/1-1 trap <=35%. The high-rate path admits a fixture when mean
+3+ >=65%, mean 4+ >=45%, and the low-draw trap <=20%, even when the composite
+score is below 60.
+
+Two additional paths prevent Step 0 from demanding G4-like evidence before C
+has researched whether a G3 certificate exists. The **G3 distribution** path
+admits priority >=50 with mean 3+ >=67% and low-draw trap <=25%, without a 4+
+minimum. The **carrier/leakage G3** path admits priority >=50 when the strongest
+source-derived route is >=1.75 goals, mean 3+ >=60%, mean 4+ >=30%, and the
+low-draw trap <=25%. These paths are research permission only: they do not
+create G3/G4/G5/G6, supported burden, board state, or a bet. Current
+availability, route transferability and tournament context are still assessed
+by Football C at /rank. No league identity, market quote, live score or final
+result can satisfy any admission path.
 
 **Research order:** examine quantified goal-positive matches FIRST, regardless
 of registered status or imminent KO. Remaining missing-goals-history fixtures
