@@ -1,83 +1,34 @@
-# Football New-Chat / Handoff Freshness Bootstrap
+# Football v2 — Handoff freshness bootstrap
 
-**Status:** MANDATORY ROUTER PRECHECK  
-**Scope:** any football stage resumed from a handoff, prior-chat summary, copied response, or stale board artifact  
-**Active roster:** Football C official + Football C2 shadow
+Before executing a football stage, reload current repository authority rather
+than treating an old chat handoff as permanent policy.
 
-## 1. Core rule
+## Current authority order
 
-A handoff is a **historical state snapshot**, not current model authority.
+1. models/football/CURRENT_MODEL.md
+2. models/football/prompts/COMMAND_ALIASES.md
+3. the current stage launcher/procedure
+4. ACTIVE_MODEL_ROUTING.json for model Airtable operations
 
-Before executing /rank, /xi, /live, /audit, /report, or an equivalent natural-language continuation in a new chat:
+## Active roster
 
-1. read `models/football/CURRENT_MODEL.md`;
-2. read `models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md`;
-3. read `models/football/prompts/COMMAND_ALIASES.md`;
-4. read the current canonical launcher for the requested stage;
-5. for execution-required /rank, /xi, or /audit, read `models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md`;
-6. only then use the handoff as frozen historical context.
+Football C is the official and only active model.
 
-If a handoff names an older roster or launcher behavior, current repository authority wins for **current execution semantics**.
+C2/C3/C4 are retired. Historical C2/C3/C4 boards, decisions and accounting may
+be read during audit but never reconstructed or executed for new work.
 
-Record internally when needed:
+"all models" in current operations therefore means Football C only.
 
-`HANDOFF AUTHORITY STALE — CURRENT MODEL/LAUNCHER RELOADED`
+## Workflow
 
-## 2. Active roster
+- /sweep: V4 complete date-surface acquisition + goals-first intake.
+- /rank: source replay/status refresh -> deterministic Football C board ->
+  one persistence readback.
+- /xi: one Football C football assessment -> optional observed/executable
+  price evaluation -> one persistence/publication chain.
+- /live: same C assessment with current match state.
+- /audit: compare frozen prospective C evidence with results.
+- /report: current C state plus user P/L from Actual Bets — Current.
 
-For new/current execution:
-
-- **OFFICIAL C**
-- **SHADOW C2**
-
-C3 and C4 are retired. They must not be executed, required, displayed as current tracks, or reconstructed for a new decision.
-
-"all models" means the active roster: C + C2.
-
-## 3. Preserve historical fidelity
-
-Freshness does **not** permit retrospective rewriting.
-
-Historical C3/C4 records remain immutable when they were genuinely frozen at the time. Preserve:
-- historical C/C2/C3/C4 board states actually frozen;
-- historical supported lines;
-- historical model availability;
-- historical actions/exposures/accounting;
-- timestamps and evidence epochs.
-
-Do not manufacture a missing historical challenger after kickoff or FT.
-
-Historical visibility is audit context only and never reactivates a retired model.
-
-## 4. Current-stage behavior
-
-For `/rank`:
-- produce Football C official board;
-- produce Football C2 shadow board;
-- reconcile the same ranked eligible universe and frozen common evidence through the active C+C2 board pair.
-
-For `/xi`:
-- freeze one common current evidence epoch;
-- freeze C and C2 model-owned inputs independently;
-- execute the atomic C+C2 pair;
-- a C-only completed exception is forbidden.
-
-For `/live`:
-- resolve Football C official live/WAIT state;
-- resolve C2 shadow live/WAIT state when a prospective C2 state exists;
-- C2 never creates official exposure.
-
-For `/audit`:
-- current forward metrics use C+C2 only;
-- historical C3/C4 rows may be reported only as historical records from their original epochs.
-
-## 5. Natural-language continuation
-
-This bootstrap applies even when the user does not type a slash command, including:
-- "continue from this handoff";
-- "assess these";
-- "reassess";
-- "what about these live matches";
-- a copied prior response followed by new XI/odds/live screenshots.
-
-Runtime availability is also never inherited from a handoff. Re-probe the current turn before making any availability claim.
+Never restore V1-V3 packaging or an old C+C2 pair because an old handoff
+mentions it. The current repository wins.
