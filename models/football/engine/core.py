@@ -146,6 +146,13 @@ class MatchAssessment:
     material_suppression: bool
     material_suppression_basis: str
 
+    # Transferability of the evidence used to justify goal-four-plus tails.
+    # This is distinct from evidence_confidence: evidence may be confidently
+    # observed but still fail to transfer from weak-opposition, cup, red-card
+    # or other distorted contexts into the current matchup.
+    upper_tail_transferability: Grade | None = None
+    upper_tail_transferability_basis: str | None = None
+
     # Frozen V4 Step-0 goal signal. These are common evidence, never market
     # evidence. They are optional for historical compatibility, but the
     # distributed goal-three certificate cannot activate without them.
@@ -209,6 +216,17 @@ class MatchAssessment:
         ):
             if value is not None and not low <= value <= high:
                 raise ValueError(f"{name} outside {low}..{high}")
+        if self.upper_tail_transferability is not None and not (
+            self.upper_tail_transferability_basis
+            and self.upper_tail_transferability_basis.strip()
+        ):
+            raise ValueError(
+                "upper_tail_transferability requires a non-empty basis"
+            )
+        if self.independent_upper_tail and self.upper_tail_transferability is None:
+            raise ValueError(
+                "independent_upper_tail requires explicit upper_tail_transferability"
+            )
         if self.c2_opponent_leakage is not None and not (
             self.c2_opponent_leakage_basis
             and self.c2_opponent_leakage_basis.strip()
@@ -583,11 +601,28 @@ def c_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
+def c_upper_tail_transferable(a: MatchAssessment) -> bool:
+    """Whether the frozen evidence can support a C goal-four-plus certificate.
+
+    HIGH and MEDIUM are prospectively transferable. LOW (or missing historical
+    evidence) cannot fund G4+, regardless of raw 3+/4+ rates. MEDIUM remains
+    eligible for G4 but is capped below ROBUST by certificate_robustness().
+    """
+
+    return bool(
+        a.independent_upper_tail
+        and a.upper_tail_transferability is not None
+        and a.upper_tail_transferability >= Grade.MEDIUM
+    )
+
+
 def c_goal4_funded(a: MatchAssessment) -> bool:
     """Explicit C fourth-goal certificate; G3 alone never implies G4."""
 
     require_c_completion(a)
     if not c_goal3_funded(a):
+        return False
+    if not c_upper_tail_transferable(a):
         return False
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
     if tournament_incentive_profile(a)["tail_bias"] == "SUPPRESSIVE":
@@ -739,8 +774,17 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     use observed match outcomes.
     """
 
-    if funded_goal_certificate_depth(a, model) == 0:
+    depth = funded_goal_certificate_depth(a, model)
+    if depth == 0:
         return 0
+    if model == "c" and depth >= 4:
+        if not c_upper_tail_transferable(a):
+            return 0
+        transferability_cap = (
+            1 if a.upper_tail_transferability == Grade.MEDIUM else 2
+        )
+    else:
+        transferability_cap = 2
     if a.material_suppression or a.failure_attacks_route:
         return 0
     if (
@@ -802,7 +846,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         or repeatable_current_quality
         or strong_carrier_quality
     ):
-        return 2
+        return min(2, transferability_cap)
 
     # CONDITIONAL requires at least one independently strong current football
     # dimension. A row of broad MEDIUM grades is deliberately not laundered
@@ -1353,6 +1397,14 @@ def prospective_goal_funding(
     if model == "c":
         effective_continuation, effective_stall = c_effective_incentive_grades(a)
     return {
+        "upper_tail_transferability": (
+            a.upper_tail_transferability.name
+            if model == "c" and a.upper_tail_transferability is not None
+            else None
+        ),
+        "upper_tail_transferability_basis": (
+            a.upper_tail_transferability_basis if model == "c" else None
+        ),
         "goal3_funded": goal3,
         "goal4_funded": goal4,
         "goal5_funded": goal5,
@@ -1406,9 +1458,15 @@ def certified_supported_burden_basis(
     if profile["goal3_leakage_funded"]:
         mechanisms.append("LEAKAGE_G3")
     mechanism_text = ",".join(mechanisms) or "UPPER_TAIL_ONLY"
+    transferability_text = (
+        a.upper_tail_transferability.name
+        if model == "c" and highest >= 4 and a.upper_tail_transferability is not None
+        else "NOT_APPLICABLE"
+    )
     return (
         f"DETERMINISTIC_CERTIFICATE_COMPILER: G{highest} highest funded; "
-        f"max fully-funded Asian Over={burden:.2f}; G3 mechanisms={mechanism_text}"
+        f"max fully-funded Asian Over={burden:.2f}; G3 mechanisms={mechanism_text}; "
+        f"upper_tail_transferability={transferability_text}"
     )
 
 
