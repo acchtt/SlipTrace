@@ -65,6 +65,48 @@ More than one independent completion mechanism is genuinely active.
 
 No credible burden-completion mechanism survives.
 
+## 2A. Upper-tail transferability
+
+An `independent_upper_tail` claim must separately answer whether the evidence
+for goal four and beyond transfers to the current matchup.
+
+Freeze:
+
+- `upper_tail_transferability = LOW / MEDIUM / HIGH`;
+- `upper_tail_transferability_basis`.
+
+This field is not the same as `evidence_confidence`. A source can be reliable
+and the observed scores can be real while the upper-tail inference is still
+non-transferable.
+
+### HIGH
+
+Use when current or closely comparable senior evidence independently confirms
+the same scoring mechanisms: repeatable carrier chance creation, two current
+routes, opponent leakage, XI-preserved creators/scorers, or another mechanism
+that survives context change.
+
+### MEDIUM
+
+Use when a current mechanism is genuinely corroborated but part of the tail
+sample comes from less-comparable contexts. G4+ may still be funded when all
+other deterministic requirements clear, but the certificate is not ROBUST.
+
+### LOW
+
+Use when the G4+ claim materially depends on evidence such as:
+
+- domestic/cup blowouts that do not transfer cleanly to this opponent;
+- repeated weak-opposition scoring without comparable current creation;
+- red-card/goalkeeper-dismissal distortions;
+- isolated one-round explosions;
+- a known control endpoint (for example a credible 0-1 / 1-0 game path)
+  that the tail evidence does not actually resolve.
+
+LOW does not erase a valid G3. It blocks G4/G5/G6 only.
+
+Do not infer the grade from the bookmaker line or from HT/FT.
+
 ## 3. Continuation quality
 
 Continuation asks whether scoring is likely to persist after:
