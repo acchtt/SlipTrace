@@ -25,6 +25,14 @@ MIN_PRIORITY_SCORE = 60
 MIN_MEAN_OVER_TWO_RATE = 0.55
 MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.35
 
+# Alternate evidence path for a fixture whose route-composite score is below
+# 60 but whose finished-match goal distribution is independently persuasive.
+# This remains a research-admission signal only; it never creates a C/C2
+# certificate or betting action.
+ALT_MIN_MEAN_OVER_TWO_RATE = 0.65
+ALT_MIN_MEAN_OVER_THREE_RATE = 0.45
+ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.20
+
 
 class GoalHistoryError(ValueError):
     pass
@@ -137,6 +145,32 @@ def _priority_score(home: dict[str, float], away: dict[str, float]) -> int:
     )
 
 
+def _qualifies_goal_research(
+    priority: int,
+    over_two: float,
+    over_three: float,
+    low_draw_trap: float,
+) -> bool:
+    """Research admission from either route score or strong goal distribution.
+
+    The alternate path prevents one composite score from vetoing a fixture
+    whose source-backed 3+/4+ rates and low draw-trap rate are already strong.
+    Both paths are league-neutral, price-blind and prematch-only.
+    """
+
+    route_score_path = (
+        priority >= MIN_PRIORITY_SCORE
+        and over_two >= MIN_MEAN_OVER_TWO_RATE
+        and low_draw_trap <= MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+    high_rate_path = (
+        over_two >= ALT_MIN_MEAN_OVER_TWO_RATE
+        and over_three >= ALT_MIN_MEAN_OVER_THREE_RATE
+        and low_draw_trap <= ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+    return route_score_path or high_rate_path
+
+
 def screen_discovery(
     *,
     run_id: str,
@@ -180,10 +214,11 @@ def screen_discovery(
     low_draw_trap = round((home["draw_trap"] + away["draw_trap"]) / 2, 4)
     over_three = round((home["over3"] + away["over3"]) / 2, 4)
     priority = _priority_score(home, away)
-    qualifies = (
-        priority >= MIN_PRIORITY_SCORE
-        and over_two >= MIN_MEAN_OVER_TWO_RATE
-        and low_draw_trap <= MAX_MEAN_LOW_DRAW_TRAP_RATE
+    qualifies = _qualifies_goal_research(
+        priority,
+        over_two,
+        over_three,
+        low_draw_trap,
     )
     fingerprint_payload = {
         "run_id": run_id,
@@ -228,6 +263,9 @@ def screen_discovery(
             "minimum_priority_score": MIN_PRIORITY_SCORE,
             "minimum_mean_over_two_rate": MIN_MEAN_OVER_TWO_RATE,
             "maximum_mean_0_0_or_1_1_rate": MAX_MEAN_LOW_DRAW_TRAP_RATE,
+            "alternate_minimum_mean_over_two_rate": ALT_MIN_MEAN_OVER_TWO_RATE,
+            "alternate_minimum_mean_over_three_rate": ALT_MIN_MEAN_OVER_THREE_RATE,
+            "alternate_maximum_mean_0_0_or_1_1_rate": ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE,
         },
         "source_screen_fingerprint": fingerprint,
     }
