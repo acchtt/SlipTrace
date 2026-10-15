@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Single Airtable readback verifier for football-first /xi assessments.
 
-The active /xi path persists C/C2 football results once and, when an observed
+The active /xi path persists the Football C result once and, when an observed
 quote was evaluated, persists the normal evaluated line/odds fields. There is
 no screenshot-specific serialized Evidence Summary protocol.
 """
@@ -58,19 +58,24 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
     if (
         not isinstance(receipt, dict)
         or receipt.get("ok") is not True
-        or receipt.get("engine_execution_status")
-        != "EXECUTED_C_C2_FOOTBALL_ONLY"
-        or receipt.get("models_executed") != ["c", "c2"]
+        or receipt.get("engine_execution_status") != "EXECUTED_C_FOOTBALL_ONLY"
+        or receipt.get("model") != "c"
         or receipt.get("model_bets_created") is not False
     ):
         raise XIAssessmentReadbackError(
-            "actual paired C+C2 football execution required"
+            "actual Football C football execution required"
         )
 
-    results = receipt.get("results")
-    if not isinstance(results, dict) or set(results) != {"c", "c2"}:
+    item = receipt.get("result")
+    if (
+        not isinstance(item, dict)
+        or item.get("stage") != "football_assessment_result"
+        or item.get("model") != "c"
+        or item.get("football_assessment_completed") is not True
+        or item.get("bet_authorized") is not False
+    ):
         raise XIAssessmentReadbackError(
-            "complete independent C/C2 football results missing"
+            "incomplete or fictitious Football C assessment"
         )
     if (
         not isinstance(refetched, dict)
@@ -87,9 +92,9 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
 
     price = receipt.get("price_check")
     expected_status = (
-        "EXECUTED_C_C2_FOOTBALL_AND_PRICE"
+        "EXECUTED_C_FOOTBALL_AND_PRICE"
         if isinstance(price, dict) and price.get("ok") is True
-        else "EXECUTED_C_C2_FOOTBALL_ONLY"
+        else "EXECUTED_C_FOOTBALL_ONLY"
     )
     if (
         refetched.get("xi_status_field_id") != STATUS_FIELD_ID
@@ -99,29 +104,14 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
             "XI assessment execution status differs from completed /xi result"
         )
 
-    for model in ("c", "c2"):
-        item = results[model]
-        if (
-            item.get("stage") != "football_assessment_result"
-            or item.get("model") != model
-            or item.get("football_assessment_completed") is not True
-            or item.get("bet_authorized") is not False
-        ):
-            raise XIAssessmentReadbackError(
-                f"{model}: incomplete or fictitious football assessment"
-            )
-        stored = _stored_json(refetched.get(f"engine_{model}_result"), model)
-        if stored != item:
-            raise XIAssessmentReadbackError(
-                f"{model}: independent saved C/C2 result differs"
-            )
-
-    if (
-        results["c"].get("match_id") != results["c2"].get("match_id")
-        or refetched.get("match_id") != results["c"]["match_id"]
-    ):
+    stored = _stored_json(refetched.get("engine_c_result"), "c")
+    if stored != item:
         raise XIAssessmentReadbackError(
-            "stored match identity differs from paired engines"
+            "independent saved Football C result differs"
+        )
+    if refetched.get("match_id") != item.get("match_id"):
+        raise XIAssessmentReadbackError(
+            "stored match identity differs from Football C engine"
         )
 
     quote = _normal_quote(receipt)
@@ -138,7 +128,7 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
 
     return {
         "status": "XI_PERSISTENCE_VERIFIED",
-        "football_pair_verified": True,
+        "football_c_verified": True,
         "observed_quote_readback_verified": quote_verified,
         "actual_bet_created": False,
         "record_id": refetched["record_id"],
