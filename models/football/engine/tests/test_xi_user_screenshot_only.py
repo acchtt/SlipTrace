@@ -13,7 +13,7 @@ sys.path.insert(0, str(ENGINE))
 
 from test_football_assessment_pair import football
 from xi_assessment_reconcile import (
-    STATUS_FIELD_ID,
+    STATUS_COLUMN,
     XIAssessmentReadbackError,
     verify_football_assessment,
 )
@@ -175,12 +175,13 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         out = run_xi(c=c, shot=snapshot(c, line=2.75, odds=1.71))
         readback = {
-            "base_id": "appbzxqXYf0lKfD4P",
-            "record_id": "rec1234567890ABCDE",
+            "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+            "sheet_name": "Decision States",
+            "row_key": "XI-SCREENSHOT-EXAMPLE",
             "assessment_id": "XI-SCREENSHOT-EXAMPLE",
             "match_id": out["result"]["match_id"],
-            "readback_method": "INDEPENDENT_AIRTABLE_REFETCH",
-            "xi_status_field_id": STATUS_FIELD_ID,
+            "readback_method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            "xi_status_column": STATUS_COLUMN,
             "xi_assessment_execution_status":
                 "EXECUTED_C_FOOTBALL_AND_PRICE",
             "engine_c_result": out["result"],
