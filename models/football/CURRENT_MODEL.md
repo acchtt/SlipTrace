@@ -117,6 +117,22 @@ This is not a league penalty. Comparable current senior mechanisms can remain
 HIGH in any competition. Raw goal rates cannot upgrade transferability and
 later match outcomes never rewrite it.
 
+C now freezes a second structured field for G4+:
+`upper_tail_comparable_context_signal` = SUPPORTIVE / MIXED / SUPPRESSIVE /
+UNAVAILABLE, with a factual basis.
+
+Evidence hierarchy is prospective and ordered:
+
+1. same competition / continental context;
+2. closely comparable senior opponent/competition strength;
+3. domestic/cup history as corroboration only.
+
+If the closest available context is SUPPRESSIVE, effective upper-tail
+transferability is forced to LOW even when domestic scoring rates and the raw
+transferability grade are HIGH. MIXED caps it at MEDIUM. This prevents
+less-comparable domestic blowouts from overriding a contradictory continental
+sample.
+
 ## Availability / evidence symmetry
 
 Availability may downgrade a certificate only when it attacks an identified
