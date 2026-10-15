@@ -12,7 +12,7 @@ Use one native V4 rank handoff from the
 - <run>-rank-handoff.json when supplied
 
 For /rank newest receipt, resolve that canonical bundle. Do not reconstruct a
-sweep receipt from Airtable or derived ledger rows, and do not search historical
+sweep receipt from Airtable or derived ledger rows. The resolver does not search historical
 runs to substitute a different source bundle.
 
 ## Mandatory original-source replay and full-cohort status
