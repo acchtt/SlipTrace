@@ -746,24 +746,62 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         for value in (
             a.goal_signal_priority_score,
             a.goal_signal_mean_over_two_rate,
+            a.goal_signal_mean_over_three_rate,
             a.goal_signal_low_draw_trap_rate,
         )
     )
     strong_frozen_signal = bool(
         signal_complete
         and a.goal_signal_priority_score >= 60
-        and a.goal_signal_mean_over_two_rate >= 0.65
         and a.goal_signal_low_draw_trap_rate <= 0.20
+        and (
+            a.goal_signal_mean_over_two_rate >= 0.65
+            or a.goal_signal_mean_over_three_rate >= 0.50
+        )
     )
-    robust = (
-        _independent_scoring_structure(a)
+    independent_structure = _independent_scoring_structure(a)
+    both_routes_strong = (
+        a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+    )
+    repeatable_current_quality = (
+        a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and independent_structure
+    )
+    strong_carrier_quality = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
         and a.route_reliability == Grade.HIGH
-        and a.evidence_confidence == Grade.HIGH
-        and a.chance_quality >= Grade.MEDIUM
-        and a.failure_resistance >= Grade.MEDIUM
-        and strong_frozen_signal
+        and a.chance_quality == Grade.HIGH
     )
-    return 2 if robust else 1
+    if strong_frozen_signal and (
+        both_routes_strong
+        or repeatable_current_quality
+        or strong_carrier_quality
+    ):
+        return 2
+
+    # CONDITIONAL requires at least one independently strong current football
+    # dimension. A row of broad MEDIUM grades is deliberately not laundered
+    # into robustness merely because the raw scoreline history is high.
+    supporting_high_dimension = any(
+        value == Grade.HIGH
+        for value in (
+            a.chance_quality,
+            a.route_reliability,
+            a.evidence_confidence,
+            a.independent_route_quality,
+        )
+    )
+    if (
+        strong_frozen_signal
+        and independent_structure
+        and supporting_high_dimension
+    ):
+        return 1
+    return 0
 
 
 def _c_endpoint_control_key(a: MatchAssessment) -> tuple[int, int, int]:
