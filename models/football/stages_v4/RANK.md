@@ -12,7 +12,7 @@ Use one native V4 rank handoff from the
 - <run>-rank-handoff.json when supplied
 
 For /rank newest receipt, resolve that canonical bundle. Do not reconstruct a
-sweep receipt from Airtable or derived ledger rows. The resolver does not search historical
+sweep receipt from Google Sheets, historical Airtable, or derived ledger rows. The resolver does not search historical
 runs to substitute a different source bundle.
 
 ## Mandatory original-source replay and full-cohort status
@@ -128,8 +128,7 @@ For each ranked fixture persist:
 - exact Step1 Engine C Result JSON;
 - declared line/basis only as audit comparison fields.
 
-Retired C2 fields may remain on historical Airtable rows but are not required
-or written for new rank receipts.
+Retired C2 fields may remain on historical Airtable rows, but all new rank persistence and independent readback use the Google Sheets `Daily Coverage Ledger` tab.
 
 Then independently refetch once and run:
 
