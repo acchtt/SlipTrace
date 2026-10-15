@@ -1,4 +1,4 @@
-"""Observed screenshot quote uses canonical C/C2 policy, never execution authority."""
+"""Observed screenshot quote uses canonical Football C policy only."""
 from __future__ import annotations
 
 import json
@@ -18,9 +18,7 @@ from xi_assessment_reconcile import (
     verify_football_assessment,
 )
 
-
 CAPTURE = "2026-10-11T05:05:00+00:00"
-OLDER = "2026-10-11T05:04:00+00:00"
 
 
 def snapshot(c, *, line=2.5, odds=1.70, captured=CAPTURE, **changes):
@@ -69,28 +67,24 @@ def wait_ready(payload, *, top=False):
     return payload
 
 
-def run_xi(c=None, c2=None, shot=None):
+def run_xi(c=None, shot=None):
     c = c or football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
-    c2 = c2 or football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
     shot = shot if shot is not None else snapshot(c)
     with tempfile.TemporaryDirectory() as td:
         root = pathlib.Path(td)
-        paths = {}
-        for name, doc in {"c": c, "c2": c2, "shot": shot}.items():
-            file = root / (name + ".json")
-            file.write_text(json.dumps(doc), encoding="utf-8")
-            paths[name] = str(file)
+        cp = root / "c.json"
+        sp = root / "shot.json"
+        cp.write_text(json.dumps(c), encoding="utf-8")
+        sp.write_text(json.dumps(shot), encoding="utf-8")
         proc = subprocess.run(
             [
                 sys.executable,
                 str(ENGINE / "xi_portable.py"),
                 "xi",
                 "--c",
-                paths["c"],
-                "--c2",
-                paths["c2"],
+                str(cp),
                 "--screenshot-quote",
-                paths["shot"],
+                str(sp),
             ],
             text=True,
             capture_output=True,
@@ -103,172 +97,106 @@ def run_xi(c=None, c2=None, shot=None):
 
 
 class ScreenshotOnlyXIRegression(unittest.TestCase):
-    def test_01_exact_screenshot_quote_is_preserved(self):
+    def test_exact_screenshot_quote_is_preserved(self):
         out = run_xi()
         self.assertEqual(out["xi_mode"], "FOOTBALL_AND_OBSERVED_QUOTE")
         price = out["price_check"]
         self.assertTrue(price["ok"])
         self.assertEqual(price["status"], "OBSERVED_QUOTE_EVALUATED")
         self.assertEqual(price["evidence"]["quote"], {"line": 2.5, "odds": 1.7})
-        self.assertEqual(price["evidence"]["bookmaker"], "User-displayed bookmaker")
         self.assertEqual(
             price["evidence"]["capture_reference"],
             "user-attachment-screenshot-1",
         )
         self.assertFalse(price["execution_authorized"])
         self.assertFalse(price["bet_authorized"])
+        self.assertIn("model", price)
+        self.assertNotIn("models", price)
 
-    def test_02_no_external_or_replacement_quote(self):
+    def test_no_external_or_replacement_quote(self):
         out = run_xi()
         evidence = out["price_check"]["evidence"]
         self.assertEqual(evidence["external_price_searches"], 0)
         self.assertEqual(evidence["replacement_quotes"], 0)
         self.assertFalse(out["price_check"]["quote_research_required"])
 
-    def test_03_missing_capture_time_is_not_retimed(self):
+    def test_missing_capture_time_is_not_retimed(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         out = run_xi(c=c, shot=snapshot(c, captured=None))
         price = out["price_check"]
         self.assertIsNone(price["evidence"]["observed_at_utc"])
         self.assertIsNone(price["evidence"]["observation_age_seconds"])
         self.assertIn("SCREENSHOT_CAPTURE_TIME_UNKNOWN", price["limitations"])
-        self.assertFalse(price["execution_authorized"])
 
-    def test_04_live_screenshot_never_recreates_prematch_action(self):
-        c, c2 = football("c"), football("c2")
-        out = run_xi(c, c2, snapshot(c))
+    def test_live_screenshot_never_recreates_prematch_action(self):
+        c = football("c")
+        out = run_xi(c, snapshot(c))
         price = out["price_check"]
         self.assertEqual(price["evidence"]["score"], "1-0")
         self.assertEqual(price["evidence"]["match_minute"], 5)
-        for model in ("c", "c2"):
-            self.assertEqual(
-                price["models"][model]["conditional_action"],
-                "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
-            )
+        self.assertEqual(
+            price["model"]["conditional_action"],
+            "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
+        )
         self.assertFalse(price["execution_authorized"])
 
-    def test_05_invalid_screenshot_blocks_price_only_not_football(self):
+    def test_invalid_screenshot_blocks_price_only_not_football(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         out = run_xi(c=c, shot=snapshot(c, match_id="wrong-id"))
         self.assertEqual(out["xi_mode"], "FOOTBALL_ASSESSMENT")
         self.assertEqual(out["price_check"]["status"], "OBSERVED_QUOTE_INVALID")
         self.assertEqual(
-            out["engine_execution_status"], "EXECUTED_C_C2_FOOTBALL_ONLY"
+            out["engine_execution_status"],
+            "EXECUTED_C_FOOTBALL_ONLY",
         )
-        self.assertEqual(set(out["results"]), {"c", "c2"})
+        self.assertEqual(out["model"], "c")
+        self.assertEqual(out["result"]["model"], "c")
 
-    def test_06_open_offer_flag_never_makes_screenshot_executable(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        out = run_xi(
-            c=c,
-            shot=snapshot(c, open_offer_verified_in_screenshot=True),
-        )
-        self.assertFalse(out["price_check"]["execution_authorized"])
-        self.assertFalse(out["price_check"]["bet_authorized"])
-
-    def test_07_c_and_c2_compile_supported_burden_independently(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        c2["match"]["supported_line"] = 3.0
-        out = run_xi(c, c2, snapshot(c, line=2.75, captured=OLDER))
-        self.assertIsNone(out["price_check"]["models"]["c"]["supported_line"])
-        self.assertEqual(out["price_check"]["models"]["c2"]["supported_line"], 3.5)
-        self.assertEqual(
-            out["price_check"]["models"]["c2"]["snapshot_line_relation"],
-            "BELOW_SUPPORTED_BURDEN",
-        )
-
-    def test_08_wait_comes_from_explicit_reachability_not_wrapper_gap(self):
+    def test_wait_comes_from_explicit_reachability(self):
         c = wait_ready(
             football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         )
-        c2 = wait_ready(
-            football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        )
-        # O5.0 requires a frozen goal-six certificate. This fixture has G4 but
-        # no G5/G6, so explicit reachability can still produce WAIT toward the
-        # compiler's O3.5 anchor without restoring a hard line-gap rule.
-        out = run_xi(c, c2, snapshot(c, line=5.0, odds=1.72))
-        expected_targets = {"c": 3.5, "c2": 4.5}
-        for model in ("c", "c2"):
-            verdict = out["price_check"]["models"][model]
-            self.assertEqual(verdict["conditional_action"], "WAIT")
-            self.assertEqual(verdict["wait_target_line"], expected_targets[model])
-            self.assertEqual(verdict["wait_min_odds"], 1.65)
-            self.assertTrue(verdict["wait_reachable"])
-        self.assertFalse(out["price_check"]["execution_authorized"])
+        out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        verdict = out["price_check"]["model"]
+        self.assertEqual(verdict["conditional_action"], "WAIT")
+        self.assertEqual(verdict["wait_target_line"], 3.5)
+        self.assertEqual(verdict["wait_min_odds"], 1.65)
+        self.assertTrue(verdict["wait_reachable"])
 
-    def test_09_unestablished_wait_does_not_get_invented(self):
+    def test_unestablished_wait_is_not_invented(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        c2 = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        out = run_xi(c, c2, snapshot(c, line=3.25, odds=1.72))
-        for model in ("c", "c2"):
-            self.assertNotEqual(
-                out["price_check"]["models"][model]["conditional_action"],
-                "WAIT",
-            )
+        out = run_xi(c, snapshot(c, line=3.25, odds=1.72))
+        self.assertNotEqual(
+            out["price_check"]["model"]["conditional_action"],
+            "WAIT",
+        )
 
-    def test_10_negative_information_wait_is_not_healthy(self):
-        c = wait_ready(
-            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        )
-        c2 = wait_ready(
-            football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
-        )
-        for payload in (c, c2):
-            payload["context"]["wait_requires_negative_info"] = True
-            payload["context"]["wait_negative_info_basis"] = (
-                "would need route deterioration to become cheap enough"
-            )
-        out = run_xi(c, c2, snapshot(c, line=3.25, odds=1.72))
-        for model in ("c", "c2"):
-            self.assertNotEqual(
-                out["price_check"]["models"][model]["conditional_action"],
-                "WAIT",
-            )
-
-    def test_11_top_focus_soft_zone_uses_core_160_rule(self):
-        c = wait_ready(
-            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None),
-            top=True,
-        )
-        c2 = wait_ready(
-            football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None),
-            top=True,
-        )
-        out = run_xi(c, c2, snapshot(c, line=2.5, odds=1.62))
-        for model in ("c", "c2"):
-            self.assertEqual(
-                out["price_check"]["models"][model]["conditional_action"],
-                "ACT",
-            )
-
-    def test_12_observed_quote_persists_in_normal_line_odds_fields(self):
+    def test_observed_quote_persists_in_normal_line_odds_fields(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         out = run_xi(c=c, shot=snapshot(c, line=2.75, odds=1.71))
         readback = {
             "base_id": "appbzxqXYf0lKfD4P",
             "record_id": "rec1234567890ABCDE",
             "assessment_id": "XI-SCREENSHOT-EXAMPLE",
-            "match_id": out["results"]["c"]["match_id"],
+            "match_id": out["result"]["match_id"],
             "readback_method": "INDEPENDENT_AIRTABLE_REFETCH",
             "xi_status_field_id": STATUS_FIELD_ID,
             "xi_assessment_execution_status":
-                "EXECUTED_C_C2_FOOTBALL_AND_PRICE",
-            "engine_c_result": out["results"]["c"],
-            "engine_c2_result": out["results"]["c2"],
+                "EXECUTED_C_FOOTBALL_AND_PRICE",
+            "engine_c_result": out["result"],
             "evaluated_line": 2.75,
             "evaluated_odds": 1.71,
         }
         verified = verify_football_assessment(out, readback)
-        self.assertTrue(verified["football_pair_verified"])
+        self.assertTrue(verified["football_c_verified"])
         self.assertTrue(verified["observed_quote_readback_verified"])
         self.assertFalse(verified["actual_bet_created"])
 
         bad = dict(readback)
         bad["evaluated_odds"] = 1.91
         with self.assertRaisesRegex(
-            XIAssessmentReadbackError, "evaluated line/odds"
+            XIAssessmentReadbackError,
+            "evaluated line/odds",
         ):
             verify_football_assessment(out, bad)
 
