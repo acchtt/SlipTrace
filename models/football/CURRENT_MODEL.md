@@ -173,7 +173,8 @@ For new operations:
 - persist only active Football C model outputs;
 - retired C2/C3/C4 fields may remain in Airtable for immutable historical rows
   but are not required or written for new C decisions;
-- WATCH and unresolved WAIT create no exposure;
+- WATCH creates no model bet;
+- Unresolved WAIT creates no model bet;
 - only a strict direct C BET or a user-confirmed reached WAIT may enter model
   accounting;
 - Actual Bets — Current is the only authority for physical user P/L.
