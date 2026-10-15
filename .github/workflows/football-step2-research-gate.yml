@@ -15,6 +15,8 @@ on:
       - "models/football/engine/tests/**"
       - "models/football/google_sheets/ACTIVE_STORE_ROUTING.json"
       - "models/football/google_sheets/ACTIVE_STORE_ROUTING.md"
+      - "models/football/google_sheets/public_projection.py"
+      - "models/football/google_sheets/tests/**"
       - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
       - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
@@ -33,6 +35,8 @@ on:
       - "models/football/engine/**"
       - "models/football/google_sheets/ACTIVE_STORE_ROUTING.json"
       - "models/football/google_sheets/ACTIVE_STORE_ROUTING.md"
+      - "models/football/google_sheets/public_projection.py"
+      - "models/football/google_sheets/tests/**"
       - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
       - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
@@ -59,6 +63,8 @@ jobs:
           python-version: "3.12"
       - name: Check active Football C production invariants
         run: python models/football/qa/check_post_xi_research_gate.py
+      - name: Test Google Sheets public projection privacy
+        run: python -m unittest discover -s models/football/google_sheets/tests -p 'test_*.py' -v
       - name: Check single-model authority and overlap
         run: python models/football/qa/check_authority_consistency.py
       - name: Check direct runtime contract

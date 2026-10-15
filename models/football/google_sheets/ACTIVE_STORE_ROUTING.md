@@ -61,3 +61,41 @@ started. Existing Airtable rows are not silently reconstructed. Data available
 through frozen receipts/exports can be backfilled to the new workbook with its
 original immutable identity and marked as migration history; all new
 operations write to Google Sheets immediately.
+
+
+## Public website projection
+
+The operational workbook remains private. The website never reads the private
+workbook directly.
+
+After a verified change to `Daily Coverage Ledger` or `Website Picks`, run
+`models/football/google_sheets/public_projection.py` against independently
+refetched rows from those two allowlisted tabs and update:
+
+`acchtt/football-v2@main:pages/data/board-feed.json`
+
+Projection schema: `football-v2-public-board-feed-v1`.
+
+Allowed inputs:
+
+- Daily Coverage Ledger
+- Website Picks
+
+Explicitly forbidden as projection inputs:
+
+- Decision States
+- Actual Bets — Current
+- Competition Reliability Events
+- Factor Calibration Observations
+
+The builder strips Step1 engine-result JSON and generic Payload JSON even when
+those columns exist in the coverage/pick readback.
+
+Website display mapping remains display-only:
+
+- FOLLOW -> FOCUS
+- RESERVE -> WATCHLIST
+- STOP -> PASS
+
+A projection refresh never creates model authority, a bet, or a persistence
+receipt. The Google Sheets verified row remains authoritative.
