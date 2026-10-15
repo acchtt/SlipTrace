@@ -131,8 +131,35 @@ try:
     step1 = routing.get("step1_engine_result", {})
     if step1.get("column_name") != "Step1 Engine C Result":
         failures.append("ACTIVE_STORE_ROUTING.json: Step1 C result column mismatch")
+    projection = routing.get("public_projection", {})
+    if projection.get("target_repository") != "acchtt/football-v2":
+        failures.append("ACTIVE_STORE_ROUTING.json: public projection repository mismatch")
+    if projection.get("target_path") != "pages/data/board-feed.json":
+        failures.append("ACTIVE_STORE_ROUTING.json: public projection target path mismatch")
+    if projection.get("source_tabs") != ["Daily Coverage Ledger", "Website Picks"]:
+        failures.append("ACTIVE_STORE_ROUTING.json: public projection allowlist mismatch")
+    forbidden_projection_tabs = set(projection.get("forbidden_tabs", []))
+    for private_tab in ("Decision States", "Actual Bets — Current"):
+        if private_tab not in forbidden_projection_tabs:
+            failures.append(
+                f"ACTIVE_STORE_ROUTING.json: {private_tab} must stay outside public projection"
+            )
 except Exception as exc:
     failures.append(f"ACTIVE_STORE_ROUTING.json unreadable: {exc}")
+
+require(
+    "models/football/google_sheets/public_projection.py",
+    'SCHEMA = "football-v2-public-board-feed-v1"',
+    'ALLOWED_INPUT_TABS = frozenset(("Daily Coverage Ledger", "Website Picks"))',
+    '"FOLLOW": "FOCUS"',
+    '"RESERVE": "WATCHLIST"',
+    '"STOP": "PASS"',
+)
+forbid(
+    "models/football/google_sheets/public_projection.py",
+    '"Decision States":',
+    '"Actual Bets — Current":',
+)
 
 # Active docs must not create a second model policy.
 for rel in (
