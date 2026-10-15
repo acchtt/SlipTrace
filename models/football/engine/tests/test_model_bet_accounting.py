@@ -124,7 +124,7 @@ class ModelBetAccountingTests(unittest.TestCase):
             )
 
     def test_active_fixture_requires_c(self):
-        with self.assertRaisesRegex(ModelBetAccountingError, "C accounting"):
+        with self.assertRaisesRegex(ModelBetAccountingError, "Football C only"):
             compile_fixture_accounting(
                 {
                     "match_id": "m1",
