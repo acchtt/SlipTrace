@@ -38,7 +38,6 @@
   ],
   "actual_bets_authority": "Actual Bets — Current",
   "c_official_only": true,
-  "c2_shadow_only": true,
   "legacy_base": "appWyZJjitSBATXAU",
   "legacy_fallback": "EXPLICIT_HISTORICAL_READ_ONLY_NEVER_NEW_MODEL_WRITES",
   "field_resolution": "NAME_WITH_SCHEMA_TYPE_VERIFICATION",
@@ -47,8 +46,8 @@
     "table": "Decision States",
     "field_name": "XI Assessment Execution Status",
     "field_id": "fldkjs6Sykivp0fag",
-    "football_only_value": "EXECUTED_C_C2_FOOTBALL_ONLY",
-    "football_and_price_value": "EXECUTED_C_C2_FOOTBALL_AND_PRICE",
+    "football_only_value": "EXECUTED_C_FOOTBALL_ONLY",
+    "football_and_price_value": "EXECUTED_C_FOOTBALL_AND_PRICE",
     "engine_failure_value": "ENGINE_FAILED_AFTER_ATTEMPT",
     "optional_price_failure_preserves_football_only": true,
     "readback_required": true
@@ -57,10 +56,11 @@
     "table": "Daily Coverage Ledger",
     "c_field_name": "Step1 Engine C Result",
     "c_field_id": "fldhUWNoyXzXfQJ3C",
-    "c2_field_name": "Step1 Engine C2 Result",
-    "c2_field_id": "fldq0n2tDlS58goAm",
     "exact_json_readback_required": true,
-    "historical_backfill": false
+    "historical_backfill": false,
+    "retired_c2_field_name": "Step1 Engine C2 Result",
+    "retired_c2_field_id": "fldq0n2tDlS58goAm",
+    "retired_c2_new_writes": false
   },
   "observed_quote_persistence": {
     "mode": "NORMAL_EVALUATED_LINE_ODDS_FIELDS",
@@ -71,5 +71,13 @@
     "watch_creates_exposure": false,
     "unresolved_wait_creates_exposure": false,
     "user_pnl_table": "Actual Bets — Current"
-  }
+  },
+  "active_models": [
+    "c"
+  ],
+  "retired_models": [
+    "c2",
+    "c3",
+    "c4"
+  ]
 }
