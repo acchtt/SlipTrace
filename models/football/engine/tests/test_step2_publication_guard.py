@@ -21,7 +21,8 @@ def sample():
     }
     snapshot = {
         "match_id": c["match"]["match_id"],
-        "record_id": "rec12345678901234",
+        "row_key": "XI-PUBLICATION-EXAMPLE",
+        "assessment_id": "XI-PUBLICATION-EXAMPLE",
         "engine_source_revision": "a" * 40,
         "evidence_epoch_id": "current-20261009T2010",
         "c_action": "C-" + result["action"],
@@ -47,6 +48,7 @@ class PublicationGuardTests(unittest.TestCase):
         self.assertIn("current-20261009T2010", result["publication_key"])
         self.assertTrue(result["readback_verified"])
         self.assertNotIn("c2_shadow_action", result)
+        self.assertEqual(result["row_key"], "XI-PUBLICATION-EXAMPLE")
 
     def test_decision_is_not_reexecuted_or_given_duplicate_input(self):
         row = sample()
