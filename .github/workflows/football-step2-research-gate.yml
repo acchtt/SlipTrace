@@ -7,23 +7,16 @@ on:
       - "models/football/stages_v4/**"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
-      - "models/football/engine/board_pair_cli.py"
-      - "models/football/engine/decision_pair_cli.py"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/xi_assessment_reconcile.py"
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/model_bet_accounting.py"
-      - "models/football/engine/schema.json"
       - "models/football/engine/tests/**"
       - "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
       - "models/football/airtable/ACTIVE_MODEL_ROUTING.md"
-      - "models/football/airtable/FOOTBALL_DECISION_STATE_AIRTABLE.md"
-      - "models/football/procedures/FOOTBALL_C_C2_ACTIVE_PAIR.md"
       - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
-      - "models/football/procedures/FOOTBALL_RUNTIME_EXECUTION_BOOTSTRAP.md"
       - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
-      - "models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
       - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/COMMAND_ALIASES.md"
@@ -37,18 +30,13 @@ on:
     paths:
       - "models/football/CURRENT_MODEL.md"
       - "models/football/stages_v4/**"
-      - "models/football/engine/core.py"
-      - "models/football/engine/adapter.py"
-      - "models/football/engine/decision_pair_cli.py"
-      - "models/football/engine/xi_portable.py"
-      - "models/football/engine/step2_queue_guard.py"
-      - "models/football/engine/xi_assessment_reconcile.py"
-      - "models/football/engine/step2_publication_guard.py"
-      - "models/football/engine/model_bet_accounting.py"
-      - "models/football/engine/tests/**"
+      - "models/football/engine/**"
       - "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
+      - "models/football/airtable/ACTIVE_MODEL_ROUTING.md"
       - "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md"
+      - "models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md"
       - "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md"
+      - "models/football/prompts/03_NORMAL_CHAT_LIVE.md"
       - "models/football/prompts/COMMAND_ALIASES.md"
       - "models/football/qa/check_post_xi_research_gate.py"
       - "models/football/qa/check_authority_consistency.py"
@@ -69,13 +57,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Check active Football C/C2 production invariants
+      - name: Check active Football C production invariants
         run: python models/football/qa/check_post_xi_research_gate.py
-      - name: Check simplified active authority
+      - name: Check single-model authority and overlap
         run: python models/football/qa/check_authority_consistency.py
       - name: Check direct runtime contract
         run: python models/football/qa/check_runtime_execution_contract.py
       - name: Check thin XI runtime
         run: python models/football/qa/check_xi_portable_runtime.py
-      - name: Smoke-test XI C+C2 execution
+      - name: Smoke-test single-C XI execution
         run: python models/football/qa/check_xi_portable_execution.py
