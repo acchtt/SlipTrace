@@ -469,6 +469,21 @@
           "type": "string",
           "minLength": 1,
           "description": "Why the upper-tail evidence is or is not transferable to the current matchup; must distinguish current comparable-opposition/mechanism evidence from cup, red-card, weak-opposition or other distorted contexts."
+        },
+        "upper_tail_comparable_context_signal": {
+          "type": "string",
+          "enum": [
+            "SUPPORTIVE",
+            "MIXED",
+            "SUPPRESSIVE",
+            "UNAVAILABLE"
+          ],
+          "description": "Direction of the most comparable available same-competition or closely comparable senior G4+ context. When available it takes precedence over less-comparable domestic/cup scoring."
+        },
+        "upper_tail_comparable_context_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prospective factual basis for the comparable-context signal. Must identify whether same-competition/comparable senior evidence is supportive, mixed, suppressive or unavailable."
         }
       },
       "allOf": [
@@ -487,6 +502,24 @@
             "required": [
               "upper_tail_transferability",
               "upper_tail_transferability_basis"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "independent_upper_tail": {
+                "const": true
+              }
+            },
+            "required": [
+              "independent_upper_tail"
+            ]
+          },
+          "then": {
+            "required": [
+              "upper_tail_comparable_context_signal",
+              "upper_tail_comparable_context_basis"
             ]
           }
         }
