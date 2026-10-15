@@ -41,7 +41,7 @@ jobs:
           assert 'decision_pair_cli' not in stage
           assert '--c2' not in stage
           assert '"active_model": "c"' in stage
-          assert 'V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK' in stage
+          assert 'V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK' in stage
           assert 'goal_route_prescreen' not in stage
           print('PASS — V4 is self-contained and ranks Football C only')
           PY
