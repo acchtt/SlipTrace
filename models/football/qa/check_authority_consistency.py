@@ -62,6 +62,14 @@ require(
     "models/football/engine/adapter.py",
     'ACTIVE_MODEL = "c"',
     "active production model must be 'c'",
+    "upper_tail_comparable_context_signal",
+    "upper_tail_comparable_context_basis",
+)
+require(
+    "models/football/CURRENT_MODEL.md",
+    "Evidence hierarchy is prospective and ordered",
+    "same competition / continental context",
+    "SUPPRESSIVE",
 )
 require(
     "models/football/stages_v4/stage.py",
