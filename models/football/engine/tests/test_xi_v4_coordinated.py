@@ -41,16 +41,8 @@ class CoordinatedSingleCRegression(unittest.TestCase):
                 "board_state": "C-FOCUS",
                 "supported_line": decision["supported_line"],
                 "step2_action": "C-" + decision["action"],
-                "direct_line": (
-                    decision.get("line") or
-                    decision.get("observed_line") or
-                    decision.get("selected_line")
-                ),
-                "direct_odds": (
-                    decision.get("odds") or
-                    decision.get("observed_odds") or
-                    decision.get("selected_odds")
-                ),
+                "direct_line": decision.get("model_accounting_line"),
+                "direct_odds": decision.get("model_accounting_odds"),
                 "wait_target_line": decision.get("wait_target_line"),
                 "wait_min_odds": decision.get("wait_min_odds"),
             }],
