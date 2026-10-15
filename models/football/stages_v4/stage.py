@@ -2,7 +2,7 @@
 """Football Stage V4: two clean commands, /sweep and /rank.
 
 No old Step0 ZIP, global women's sweep, 8-fixture cap or bookmaker quote
-requirement. Source discovery and Airtable refetch are explicit operations by
+requirement. Source discovery and Google Sheets refetch are explicit operations by
 the caller; this code never claims to browse sites or publish by itself.
 Actual model assessments are computed by the single active Football C
 engine. C2/C3/C4 are retired; frozen historical receipts remain immutable.
@@ -31,9 +31,10 @@ from source_completeness import (
 )
 
 SCHEMA = "football-stages-v4"
-BASE = "appbzxqXYf0lKfD4P"
-STEP1_ENGINE_RESULT_FIELD_IDS = {
-    "c": "fldhUWNoyXzXfQJ3C",
+SPREADSHEET_ID = "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM"
+COVERAGE_SHEET = "Daily Coverage Ledger"
+STEP1_ENGINE_RESULT_COLUMNS = {
+    "c": "Step1 Engine C Result",
 }
 VALID_MATCH_STATUSES = {"PREMATCH_CONFIRMED","STARTED","FINISHED","POSTPONED","CANCELLED"}
 PRICE_FIELDS = {"odds", "bookmaker_total", "price", "final_score", "ft_goals", "live_score", "bet"}
@@ -528,7 +529,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
 
     out = {
         "schema_version": SCHEMA,
-        "status": "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+        "status": "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK",
         "run_id": sweep_receipt["run_id"],
         "sweep_integrity_sha256": sweep_receipt["integrity_sha256"],
         "rank_at_utc": at.isoformat(),
@@ -536,7 +537,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "ranked_count": len(ids),
         "unranked_reasons": unranked_reasons,
         "board": result,
-        "active_base_id": BASE,
+        "active_spreadsheet_id": SPREADSHEET_ID,
+        "active_sheet": COVERAGE_SHEET,
         "active_model": "c",
         "c_official": True,
         "retired_models": ["c2", "c3", "c4"],
@@ -553,9 +555,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
 
 def _readback_engine_result(row: dict[str, Any], model: str, match_id: str) -> dict[str, Any]:
     key = f"step1_engine_{model}_result"
-    field_id_key = key + "_field_id"
-    if row.get(field_id_key) != STEP1_ENGINE_RESULT_FIELD_IDS[model]:
-        raise StageError(f"{match_id}: {model} Step1 engine-result Airtable field ID not verified")
+    column_key = key + "_column"
+    if row.get(column_key) != STEP1_ENGINE_RESULT_COLUMNS[model]:
+        raise StageError(
+            f"{match_id}: {model} Step1 engine-result Google Sheets column not verified"
+        )
     stored = row.get(key)
     if isinstance(stored, str):
         try:
@@ -568,33 +572,34 @@ def _readback_engine_result(row: dict[str, Any], model: str, match_id: str) -> d
 
 
 def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[str, Any]:
-    """Compare caller-refetched Active Airtable C rows, never self-assert a save."""
-    _verified(rank_receipt, "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK")
+    """Compare caller-refetched Google Sheets C rows, never self-assert a save."""
+    _verified(rank_receipt, "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK")
     if (not isinstance(readback, dict)
-            or readback.get("active_base_id") != BASE
-            or readback.get("method") != "INDEPENDENT_AIRTABLE_REFETCH"
+            or readback.get("spreadsheet_id") != SPREADSHEET_ID
+            or readback.get("sheet_name") != COVERAGE_SHEET
+            or readback.get("method") != "INDEPENDENT_GOOGLE_SHEETS_REFETCH"
             or readback.get("run_id") != rank_receipt["run_id"]
             or readback.get("rank_integrity_sha256") != rank_receipt["integrity_sha256"]
             or readback.get("sweep_integrity_sha256") != rank_receipt["sweep_integrity_sha256"]):
-        raise StageError("fresh active Airtable readback and both exact V4 hashes required")
+        raise StageError("fresh active Google Sheets readback and both exact V4 hashes required")
     read_at = _time(readback.get("readback_at_utc"), "readback_at_utc")
     ranked_at = _time(rank_receipt["rank_at_utc"], "rank_at_utc")
     if not ranked_at <= read_at <= ranked_at + timedelta(minutes=30):
-        raise StageError("independent Airtable readback timestamp is stale/future")
+        raise StageError("independent Google Sheets readback timestamp is stale/future")
 
     original = rank_receipt.get("board")
     if not isinstance(original, dict) or original.get("model") != "c":
         raise StageError("single active C board missing from rank receipt")
     rows = readback.get("ranked_rows")
     if not isinstance(rows, list) or len(rows) != rank_receipt["ranked_count"]:
-        raise StageError("independent Airtable rank row count mismatch")
+        raise StageError("independent Google Sheets rank row count mismatch")
     indexed = {r["match_id"]: r for r in original["matches"]}
     observed = {r["match_id"]: r for r in rows if isinstance(r, dict) and "match_id" in r}
     if set(indexed) != set(observed) or len(observed) != len(rows):
-        raise StageError("independent Airtable ranked fixture identities mismatch")
+        raise StageError("independent Google Sheets ranked fixture identities mismatch")
     for mid, model_row in indexed.items():
         if observed[mid].get("coverage_id") != f"{rank_receipt['run_id']}|{mid}":
-            raise StageError(f"{mid}: Airtable immutable coverage identity differs")
+            raise StageError(f"{mid}: Google Sheets immutable coverage identity differs")
         for local, remote in (
             ("rank", "c_rank"),
             ("board_state", "c_board_state"),
@@ -607,7 +612,7 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
                 raise StageError(f"{mid} c {local}: independent saved value differs")
         stored_result = _readback_engine_result(observed[mid], "c", mid)
         if stored_result != model_row:
-            raise StageError(f"{mid}: C exact Step1 engine evidence differs from Airtable")
+            raise StageError(f"{mid}: C exact Step1 engine evidence differs from Google Sheets")
         if observed[mid].get("follow_lane") != model_row.get("follow_lane"):
             raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
 
@@ -623,7 +628,9 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "no_bet_created": True,
         "model_evidence_readback_verified": True,
         "model_evidence_sha256": model_evidence_sha256,
-        "step1_engine_c_result_field_id": STEP1_ENGINE_RESULT_FIELD_IDS["c"],
+        "active_spreadsheet_id": SPREADSHEET_ID,
+        "active_sheet": COVERAGE_SHEET,
+        "step1_engine_c_result_column": STEP1_ENGINE_RESULT_COLUMNS["c"],
         "source_replayed": rank_receipt.get("source_replayed") is True,
         "current_fixture_status_checked": rank_receipt.get("current_fixture_status_checked") is True,
         "original_source_sha256": rank_receipt.get("original_source_sha256"),
