@@ -52,20 +52,19 @@ class ReplayUnattestedV4(unittest.TestCase):
     def test_unattested_input_blocks_rank_early(self):
         _,derived=inputs()
         with self.assertRaisesRegex(StageError,"V4_ATTESTATION_REQUIRED"):
-            rank(derived,{}, {},{},now="2026-10-11T17:40:00Z")
+            rank(derived, {}, {}, now="2026-10-11T17:40:00Z")
 
     def test_attested_old_fixture_cannot_be_ranked_retroactively(self):
         source,derived=inputs()
         confirmed=replay(source,derived)
-        from test_board_pair import c_row,c2_row,payload
-        x=c_row();y=c2_row()
-        for row in (x,y):
-            row["match_id"]="SPORTSCORE-6ypq3nhv9dn7md7"
-            row["kickoff_ict"]="2026-10-12T01:00:00+07:00"
+        from test_board_pair import c_row,payload
+        x=c_row()
+        x["match_id"]="SPORTSCORE-6ypq3nhv9dn7md7"
+        x["kickoff_ict"]="2026-10-12T01:00:00+07:00"
         other={mid:"PREMATCH_WINDOW_CLOSED" for mid in confirmed["research_order"]
                if mid!=x["match_id"]}
         with self.assertRaisesRegex(StageError,"retroactive prematch"):
-            rank(confirmed,payload("c",x),payload("c2",y),other,
+            rank(confirmed, payload("c", x), other,
                  now="2026-10-11T18:20:00Z")
 
 
