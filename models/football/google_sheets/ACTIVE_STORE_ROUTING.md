@@ -51,7 +51,8 @@ observed user screenshot was compared.
 Only an authorized strict C decision may create a Website Picks row.
 
 WATCH and unresolved WAIT create no exposure. Only a verified user slip may
-create/update Actual Bets — Current.
+create/update Actual Bets — Current. Actual Bets — Current is the sole user P/L
+authority.
 
 ## Migration boundary
 
