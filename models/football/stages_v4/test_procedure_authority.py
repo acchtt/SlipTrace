@@ -1,4 +1,4 @@
-"""Compact active-authority regression for V4 + C/C2; no network I/O."""
+"""Compact active-authority regression for V4 + Football C; no network I/O."""
 from pathlib import Path
 import unittest
 
@@ -10,14 +10,16 @@ ENGINE = FOOTBALL / "engine"
 
 
 class CurrentProcedureAuthorityTests(unittest.TestCase):
-    def test_command_map_routes_only_to_active_v4_and_c_c2(self):
+    def test_command_map_routes_only_to_active_v4_and_c(self):
         router = (PROMPTS / "COMMAND_ALIASES.md").read_text()
         current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
         self.assertIn("models/football/stages_v4/SWEEP.md", router)
         self.assertIn("models/football/stages_v4/RANK.md", router)
         self.assertIn("Football C", current)
-        self.assertIn("Football C2", current)
+        self.assertIn("Retired models", current)
+        self.assertIn("C2, C3 and C4", current)
         self.assertIn("Football V4 only", current)
+        self.assertIn("There is no active shadow model", current)
         self.assertNotIn("work_ready", router)
 
     def test_sweep_acquires_complete_surfaces_before_filters(self):
@@ -66,8 +68,9 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("original-source replay", rank)
         self.assertIn("full-cohort status", rank)
         self.assertIn("Step1 Engine C Result", rank)
-        self.assertIn("Step1 Engine C2 Result", rank)
-        self.assertIn("does not replay source.json/status_refresh.json again", rank)
+        self.assertNotIn("Step1 Engine C2 Result JSON", rank)
+        self.assertIn("does not replay", rank)
+        self.assertIn("source.json/status_refresh.json again", rank)
 
     def test_rank_handoff_is_one_canonical_bundle(self):
         rank = (STAGES / "RANK.md").read_text()
@@ -98,9 +101,11 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         adapter = (ENGINE / "adapter.py").read_text()
         runner = (ENGINE / "xi_portable.py").read_text()
         self.assertIn("def evaluate_c_quote", core)
-        self.assertIn("def evaluate_c2_quote", core)
+        self.assertIn('ACTIVE_MODEL = "c"', adapter)
         self.assertIn("def evaluate_observed_quote", adapter)
         self.assertIn("THIN_SHARED_MODULES", runner)
+        self.assertNotIn("--c2", runner)
+        self.assertNotIn("decision_pair_cli", runner)
         self.assertNotIn("MAX_ASSESSMENT_LIVE_DECAY_GAP", runner)
         self.assertNotIn("SOURCE_BLOB_SHA", runner)
 
