@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""Active-authority consistency check for Football v2.
-
-This intentionally checks only the production stack:
-V4 sweep/rank, Football C official + C2 shadow, one /xi assessment path,
-one Airtable routing manifest, and Actual Bets as user-P/L authority.
-
-Retired V1-V3 code and experimental QA may remain in Git history or dormant
-files, but production launchers/CI must not depend on them.
-"""
+"""Fail-closed consistency scan for the single active Football C authority."""
 
 from __future__ import annotations
 
@@ -15,10 +7,8 @@ import json
 from pathlib import Path
 import sys
 
-
 ROOT = Path(__file__).resolve().parents[3]
 failures: list[str] = []
-
 
 def read(rel: str) -> str:
     path = ROOT / rel
@@ -27,260 +17,142 @@ def read(rel: str) -> str:
         return ""
     return path.read_text(encoding="utf-8")
 
-
 def require(rel: str, *needles: str) -> None:
     text = read(rel)
     for needle in needles:
         if needle not in text:
             failures.append(f"{rel}: missing active invariant {needle!r}")
 
-
 def forbid(rel: str, *needles: str) -> None:
     text = read(rel)
     for needle in needles:
         if needle in text:
-            failures.append(f"{rel}: obsolete/duplicate mechanism present {needle!r}")
+            failures.append(f"{rel}: overlapping/retired mechanism remains active: {needle!r}")
 
-
-# Command authority
+# Human-facing authority.
 require(
     "models/football/CURRENT_MODEL.md",
-    "ACTIVE STACK",
-    "Football C",
-    "Football C2",
+    "Official and only active model",
+    "C2, C3 and C4",
+    "There is no active shadow model",
     "models/football/stages_v4/SWEEP.md",
     "models/football/stages_v4/RANK.md",
-    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "Actual Bets — Current",
 )
 require(
     "models/football/prompts/COMMAND_ALIASES.md",
-    "/sweep",
-    "/rank",
-    "/xi",
-    "/live",
-    "/audit",
-    "/report",
-    "V4",
-)
-forbid(
-    "models/football/prompts/COMMAND_ALIASES.md",
-    "work_ready",
-    "Step0 ZIP",
-    "rank reassess",
-)
-
-# V4 intake/rank
-require(
-    "models/football/stages_v4/SWEEP.md",
-    "DATE_SURFACE_BATCH_V2",
-    "GOALS-FIRST",
-    "USER_AFRICA_DOMESTIC_EXCLUSION",
-    "UEFA Youth League",
-)
-require(
-    "models/football/stages_v4/stage.py",
-    "verify_rank_source_and_status",
-    "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
-    "V4_RANK_PERSISTENCE_VERIFIED",
-    "model_evidence_readback_verified",
+    "/sweep", "/rank", "/xi", "/live", "/audit", "/report",
+    "C2/C3/C4: retired for all new work",
 )
 require(
     "models/football/stages_v4/RANK.md",
-    "original-source replay",
-    "full-cohort",
+    "single-C rank",
     "Step1 Engine C Result",
-    "Step1 Engine C2 Result",
-)
-
-# One Step2 authorization chain, no second source replay.
-require(
-    "models/football/engine/step2_queue_guard.py",
-    'football-step2-queue-v2',
-    "V4_RANK_PERSISTENCE_VERIFIED",
-    "model_evidence_sha256",
-    "EXCEPTION_ONLY",
+    "C2/C3/C4 are retired",
 )
 forbid(
-    "models/football/engine/step2_queue_guard.py",
-    "work_ready",
-    "TERMINAL_COMPLETE",
-    "v4_original_source",
-    "v4_status_refresh",
-    "validate_v4_queue_authority",
+    "models/football/stages_v4/RANK.md",
+    "Step1 Engine C2 Result JSON",
+    "Run the deterministic paired C/C2",
+    "--c2 c2.json",
 )
 
-# One model quote policy + separate execution authorization.
-require(
-    "models/football/engine/core.py",
-    "class ModelQuoteContext",
-    "def evaluate_c_quote",
-    "def evaluate_c2_quote",
-    "def decide_c",
-    "def decide_c2",
-)
+# Active Python execution surface must be single-model.
 require(
     "models/football/engine/adapter.py",
-    "def evaluate_observed_quote",
-    "def run_football_assessment",
-    "def run_decision",
-    "reachable WAIT requires",
+    'ACTIVE_MODEL = "c"',
+    "active production model must be 'c'",
+)
+require(
+    "models/football/stages_v4/stage.py",
+    "from adapter import run_board",
+    '"active_model": "c"',
+)
+forbid(
+    "models/football/stages_v4/stage.py",
+    "from board_pair_cli",
+    "run_board_pair",
+    'STEP1_ENGINE_RESULT_FIELD_IDS["c2"]',
 )
 require(
     "models/football/engine/xi_portable.py",
-    "THIN_SHARED_MODULES",
-    "OBSERVED_QUOTE_EVALUATED",
-    "EXECUTABLE_PRICE_DECISION_EXECUTED",
+    "EXECUTED_C_FOOTBALL_ONLY",
+    "EXECUTED_C_DECISION",
+    "from adapter import",
 )
 forbid(
     "models/football/engine/xi_portable.py",
-    "SOURCE_BLOB_SHA",
-    "_restore_pinned_sources",
-    "MAX_ASSESSMENT_LIVE_DECAY_GAP",
-    "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN",
-)
-
-# Screenshot is normal observed quote evidence, not a parallel persistence protocol.
-require(
-    "models/football/engine/xi_assessment_reconcile.py",
-    "evaluated_line",
-    "evaluated_odds",
-    "XI_PERSISTENCE_VERIFIED",
-)
-forbid(
-    "models/football/engine/xi_assessment_reconcile.py",
-    "USER_SCREENSHOT_ONLY_JSON=",
-    "EVIDENCE_SUMMARY_FIELD_ID",
-    "screenshot_evidence_summary_line",
-)
-
-# Strict publication is one exact pair + one readback, no second execution/reconcile.
-require(
-    "models/football/engine/step2_publication_guard.py",
-    "football-step2-publication-v2",
-    "pair_receipt",
-    "decision_state_snapshot",
-    "readback_verified",
-)
-forbid(
-    "models/football/engine/step2_publication_guard.py",
+    "decision_pair_cli",
     "run_pair(",
-    "step2_reconcile",
-)
-
-# No synthetic active accounting.
-forbid(
-    "models/football/engine/model_bet_accounting.py",
-    "WATCH_ASSUMED",
-    "SHADOW_WATCH_ASSUMED",
-    "WAIT_ASSUMED",
-    "SHADOW_WAIT_ASSUMED",
+    "run_football_pair(",
+    "--c2",
 )
 require(
-    "models/football/engine/model_bet_accounting.py",
-    "WAIT_USER_CONFIRMED",
-    "WATCH is classification only",
+    "models/football/engine/step2_queue_guard.py",
+    "V4_RANK_PERSISTENCE_VERIFIED",
+    "V4 Football C board missing",
+)
+forbid(
+    "models/football/engine/step2_queue_guard.py",
+    "C/C2",
+    "c2_supported_line",
+    "c2_shadow_state",
+)
+require(
+    "models/football/engine/step2_publication_guard.py",
+    "football-step2-publication-v3",
+    "EXECUTED_C_DECISION",
+    "engine_c_result",
+)
+forbid(
+    "models/football/engine/step2_publication_guard.py",
+    "EXECUTED_C_C2_PAIR",
+    "engine_c2_result",
+    "c2_shadow_action",
 )
 
-# Airtable has one machine-readable active routing authority.
+# Routing is machine authority.
 routing_path = ROOT / "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
 try:
     routing = json.loads(routing_path.read_text(encoding="utf-8"))
     if routing.get("base_id") != "appbzxqXYf0lKfD4P":
         failures.append("ACTIVE_MODEL_ROUTING.json: wrong active base")
+    if routing.get("active_models") != ["c"]:
+        failures.append("ACTIVE_MODEL_ROUTING.json: active_models must be ['c']")
+    if routing.get("retired_models") != ["c2", "c3", "c4"]:
+        failures.append("ACTIVE_MODEL_ROUTING.json: retired model roster mismatch")
     if routing.get("c_official_only") is not True:
         failures.append("ACTIVE_MODEL_ROUTING.json: C official authority missing")
-    if routing.get("c2_shadow_only") is not True:
-        failures.append("ACTIVE_MODEL_ROUTING.json: C2 shadow authority missing")
+    fields = routing.get("step1_engine_result_fields", {})
+    if fields.get("retired_c2_new_writes") is not False:
+        failures.append("ACTIVE_MODEL_ROUTING.json: C2 new writes must be disabled")
 except Exception as exc:
     failures.append(f"ACTIVE_MODEL_ROUTING.json unreadable: {exc}")
 
-# Current docs must describe the simplified path rather than resurrecting wrappers.
+# Active docs must not create a second model policy.
 for rel in (
-    "models/football/CURRENT_MODEL.md",
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+    "models/football/prompts/03_NORMAL_CHAT_LIVE.md",
+    "models/football/prompts/06_NORMAL_CHAT_REPORT.md",
 ):
     forbid(
         rel,
-        "xi_v4_queue.py",
-        "step2_reconcile.py",
-        "step2_fixture_transition.py",
-        "WAIT_ASSUMED",
-        "WATCH_ASSUMED",
-        "MAX_ASSESSMENT_LIVE_DECAY_GAP",
-        "ASSESSMENT_WAIT_IS_PREDECLARED_DECAY_PLAN",
+        "C2 shadow",
+        "run C and C2",
+        "C+C2",
+        "C/C2",
     )
 
-# Current audit/source docs must not resurrect retired operational semantics.
-require(
-    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "unresolved WAIT -> no exposure",
-    "Routine /xi does not repeat the rank-time source replay",
-    "Actual Bets — Current",
-)
-forbid(
-    "models/football/prompts/04_WORK_POST_SLATE_AUDIT.md",
-    "default C-WAIT exposure basis",
-    "WAIT_ASSUMED consistency",
-    "kickoff-transition state machine",
-)
-require(
-    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
-    "unresolved WAIT creates no model exposure and no model P/L",
-    "WATCH is classification only",
-    "Actual Bets — Current",
-)
-forbid(
-    "models/football/procedures/FOOTBALL_AUDIT_HINDSIGHT_INTEGRITY.md",
-    "The default C-WAIT exposure basis is",
-    "same assumed-reach convention",
-)
-require(
-    "models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md",
-    "discovery_goal_gate.py",
-    "goals_first_intake.py",
-    "There is no second legacy prescreen pass",
-)
-forbid(
-    "models/football/procedures/FOOTBALL_GOAL_FIRST_RESEARCH_SCREEN.md",
-    "goal_route_prescreen_cli.py",
-    "big_five_route_screen",
-    "dutch_route_screen",
-)
-require(
-    "models/football/procedures/FOOTBALL_AISCORE_SOURCE_ACQUISITION.md",
-    "not current production authority",
-    "There is no active work_ready flag",
-)
-require(
-    "models/football/procedures/FOOTBALL_COVERAGE_CONTROLLER.md",
-    "Historical coverage controller — retired",
-    "There is no active:",
-    "work_ready",
-)
-# The word work_ready is allowed only in these two retirement notices, never in
-# active launchers/CI.
-
-# Production CI must not execute retired V1-V3 mechanics.
-workflow = ".github/workflows/football-step2-research-gate.yml"
-forbid(
-    workflow,
-    "sweep_checkpoint.py",
-    "capacity_replenishment.py",
-    "rank_terminal_status.py",
-    "repaired_handoff_normalize.py",
-    "step0_handoff_cli.py",
-    "xi_source_handoff.py",
-    "step2_reconcile.py",
-)
-require(
-    workflow,
-    "check_post_xi_research_gate.py",
-    "check_authority_consistency.py",
-    "check_runtime_execution_contract.py",
-    "check_xi_portable_runtime.py",
-)
+# Dormant historical implementation may remain, but no active launcher/workflow
+# is allowed to import it.
+for rel in (
+    "models/football/stages_v4/stage.py",
+    "models/football/engine/xi_portable.py",
+    "models/football/engine/step2_queue_guard.py",
+    "models/football/engine/step2_publication_guard.py",
+):
+    forbid(rel, "board_pair_cli", "decision_pair_cli")
 
 if failures:
     print("FOOTBALL ACTIVE AUTHORITY FAIL")
@@ -288,4 +160,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — simplified active authority: V4 + C/C2 + one quote policy + one persistence/publication chain.")
+print("PASS — one active model authority: V4 + Football C; C2/C3/C4 are historical read-only.")
