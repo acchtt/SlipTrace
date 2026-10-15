@@ -1116,7 +1116,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             independent_route_quality=Grade.MEDIUM,
             chance_quality=Grade.HIGH,
             failure_resistance=Grade.HIGH,
-            evidence_confidence=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
             burden_protection=Grade.HIGH,
             completion_mode=CompletionMode.CARRIER_LED,
             burden_completion_quality=Grade.HIGH,
