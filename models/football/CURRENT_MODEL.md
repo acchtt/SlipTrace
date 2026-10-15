@@ -202,6 +202,23 @@ For new operations:
   accounting;
 - Actual Bets — Current is the only authority for physical user P/L.
 
+## Website projection
+
+The private Google Sheets workbook is not exposed to the public website.
+
+After a verified rank persistence change or verified Website Pick change,
+refresh the public-safe projection using
+`models/football/google_sheets/public_projection.py` and update
+`acchtt/football-v2/pages/data/board-feed.json`.
+
+Only Daily Coverage Ledger and Website Picks are valid projection inputs.
+Decision States, Actual Bets, engine-result JSON and generic payload JSON must
+never be published. Website tier mapping FOLLOW→FOCUS, RESERVE→WATCHLIST and
+STOP→PASS remains display-only.
+
+The projection is a view of already-verified Sheets state. It cannot authorize
+a model decision or physical exposure.
+
 ## Deterministic runtime
 
 The active /xi runner is thin. It imports core.py and adapter.py directly.
