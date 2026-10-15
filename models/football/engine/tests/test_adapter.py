@@ -52,6 +52,11 @@ def match(match_id="m1", **overrides):
         "carrier_self_fund_basis": "Carrier is usable but not frozen as independently self-funding the protected burden.",
         "independent_upper_tail": False,
         "independent_upper_tail_basis": "No separate non-market upper-tail route was frozen.",
+        "upper_tail_transferability": "HIGH",
+        "upper_tail_transferability_basis": (
+            "Current comparable-opposition and mechanism evidence is transferable "
+            "to the assessed matchup."
+        ),
         "failure_attacks_route": False,
         "failure_attacks_route_basis": "Main failure does not directly remove the current scoring route.",
         "material_suppression": False,

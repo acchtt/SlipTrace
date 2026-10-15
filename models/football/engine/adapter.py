@@ -533,6 +533,20 @@ def parse_assessment(
             "and c2_opponent_leakage_basis"
         )
 
+    independent_upper_tail = _required_bool(obj, "independent_upper_tail")
+    transfer_grade_present = "upper_tail_transferability" in obj
+    transfer_basis_present = "upper_tail_transferability_basis" in obj
+    if transfer_grade_present != transfer_basis_present:
+        raise ContractError(
+            "upper-tail transferability requires both "
+            "upper_tail_transferability and upper_tail_transferability_basis"
+        )
+    if require_c_completion and independent_upper_tail and not transfer_grade_present:
+        raise ContractError(
+            "Football C independent_upper_tail requires explicit "
+            "upper_tail_transferability and basis"
+        )
+
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
         home_route=_enum(
@@ -585,8 +599,22 @@ def parse_assessment(
         supported_line_basis=_string(obj, "supported_line_basis"),
         carrier_self_fund=_required_bool(obj, "carrier_self_fund"),
         carrier_self_fund_basis=_string(obj, "carrier_self_fund_basis"),
-        independent_upper_tail=_required_bool(obj, "independent_upper_tail"),
+        independent_upper_tail=independent_upper_tail,
         independent_upper_tail_basis=_string(obj, "independent_upper_tail_basis"),
+        upper_tail_transferability=(
+            _enum(
+                Grade,
+                _required(obj, "upper_tail_transferability"),
+                "upper_tail_transferability",
+            )
+            if transfer_grade_present
+            else None
+        ),
+        upper_tail_transferability_basis=(
+            _string(obj, "upper_tail_transferability_basis")
+            if transfer_basis_present
+            else None
+        ),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
         failure_attacks_route_basis=_string(obj, "failure_attacks_route_basis"),
         material_suppression=_required_bool(obj, "material_suppression"),

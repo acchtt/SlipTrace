@@ -30,7 +30,9 @@ from core import (  # noqa: E402
     c2_low_burden_leakage_goal3_funded,
     c_effective_incentive_grades,
     c_distributed_goal3_funded,
+    c_goal4_funded,
     c_goal5_funded,
+    certificate_robustness,
     certified_supported_burden,
     c2_selection_floor,
     clearing_goal_funded,
@@ -80,6 +82,11 @@ def assessment(**overrides):
         carrier_self_fund_basis="usable carrier but not independently self-funding the protected burden",
         independent_upper_tail=False,
         independent_upper_tail_basis="no separate non-market upper-tail path frozen",
+        upper_tail_transferability=Grade.HIGH,
+        upper_tail_transferability_basis=(
+            "current comparable-opposition and mechanism evidence is independently "
+            "transferable to the assessed matchup"
+        ),
         failure_attacks_route=False,
         failure_attacks_route_basis="main failure does not directly remove the current scoring route",
         material_suppression=False,
@@ -1017,6 +1024,167 @@ class SupportedBurdenCompilerTests(unittest.TestCase):
         self.assertEqual(required_full_win_goal(3.5), 4)
         self.assertEqual(required_full_win_goal(3.75), 5)
         self.assertEqual(required_full_win_goal(4.75), 6)
+
+
+class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
+    def test_bodo_style_inflated_history_cannot_fund_g4(self):
+        # Negative control uses only prospective warnings: the raw goal sample is
+        # excellent, but the G4 tail depends materially on domestic/cup contexts
+        # that are not comparable enough to carry into the current matchup.
+        a = assessment(
+            match_id="bodo_dortmund_negative_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.LOW,
+            upper_tail_transferability_basis=(
+                "upper-tail sample is materially inflated by domestic/cup and "
+                "opponent-context evidence; current opponent has a credible "
+                "one-goal control endpoint not resolved by that history"
+            ),
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.HIGH,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=88,
+            goal_signal_mean_over_two_rate=0.875,
+            goal_signal_mean_over_three_rate=0.625,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertFalse(market_line_funded(a, 3.25, "c"))
+
+    def test_city_psg_style_current_independent_routes_keep_g4(self):
+        a = assessment(
+            match_id="city_psg_positive_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_transferability_basis=(
+                "XI-confirmed current scoring routes on both sides and repeated "
+                "comparable-opposition chance creation independently support goal four"
+            ),
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.HIGH,
+            xi_robustness=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
+            goal_signal_priority_score=82,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.55,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertEqual(certificate_robustness(a, "c"), 2)
+
+    def test_villa_fener_style_transferable_carrier_tail_keeps_g4(self):
+        a = assessment(
+            match_id="villa_fener_positive_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_transferability_basis=(
+                "current XI-confirmed carrier chance creation plus a separate usable "
+                "opponent reply route support the fourth goal without relying on raw totals"
+            ),
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.HIGH,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+
+    def test_medium_transferability_can_fund_g4_but_not_robust(self):
+        a = assessment(
+            match_id="mixed_transferability",
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_transferability_basis=(
+                "current mechanism is corroborated but some tail evidence comes from "
+                "less-comparable contexts"
+            ),
+            evidence_confidence=Grade.MEDIUM,
+            goal_signal_priority_score=78,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.55,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertEqual(certificate_robustness(a, "c"), 1)
+
+    def test_low_transferability_high_raw_rates_rank_below_transferable_g4(self):
+        negative = assessment(
+            match_id="bodo_negative",
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.LOW,
+            upper_tail_transferability_basis=(
+                "domestic/cup-heavy upper-tail evidence is not transferable enough"
+            ),
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=90,
+            goal_signal_mean_over_two_rate=0.875,
+            goal_signal_mean_over_three_rate=0.625,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        positive = assessment(
+            match_id="transferable_positive",
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_transferability_basis=(
+                "current comparable-opposition carrier and reply mechanisms are verified"
+            ),
+            evidence_confidence=Grade.MEDIUM,
+            goal_signal_priority_score=72,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(certified_supported_burden(negative, "c"), 2.5)
+        self.assertEqual(certified_supported_burden(positive, "c"), 3.5)
+        self.assertEqual(
+            rank_assessments([negative, positive])[0].match_id,
+            "transferable_positive",
+        )
 
 
 class XiAssessmentCalibrationTests(unittest.TestCase):

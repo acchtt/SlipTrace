@@ -38,6 +38,7 @@ Research:
 - failure resistance and named failure mechanism;
 - XI/availability where available;
 - completion/continuation/stall/opponent leakage;
+- upper-tail transferability when G4+ is part of the thesis;
 - H2H only if materially transferable;
 - tournament incentive where applicable;
 - frozen V4 goal signal;
@@ -63,8 +64,9 @@ The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
 policy used by strict execution.
 
 If the screenshot burden materially exceeds C's certificate, recheck football
-evidence once. The market is a research trigger only and cannot create a goal
-certificate.
+evidence once. When that recheck concerns G4+, verify the frozen upper-tail
+transferability basis rather than copying the market's optimism. The market is
+a research trigger only and cannot create or upgrade a goal certificate.
 
 ## WAIT
 
