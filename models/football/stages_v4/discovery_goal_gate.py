@@ -33,6 +33,18 @@ ALT_MIN_MEAN_OVER_TWO_RATE = 0.65
 ALT_MIN_MEAN_OVER_THREE_RATE = 0.45
 ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.20
 
+# G3-oriented research paths. These deliberately stop at research admission:
+# they do not create a Football C goal certificate or supported burden.
+G3_DIST_MIN_PRIORITY_SCORE = 50
+G3_DIST_MIN_MEAN_OVER_TWO_RATE = 0.67
+G3_DIST_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.25
+
+CARRIER_MIN_PRIORITY_SCORE = 50
+CARRIER_MIN_ROUTE = 1.75
+CARRIER_MIN_MEAN_OVER_TWO_RATE = 0.60
+CARRIER_MIN_MEAN_OVER_THREE_RATE = 0.30
+CARRIER_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.25
+
 
 class GoalHistoryError(ValueError):
     pass
@@ -127,13 +139,18 @@ def _team_evidence(data: Any, now: datetime, field: str) -> dict[str, float] | N
     }
 
 
+def _route_shape(
+    home: dict[str, float], away: dict[str, float]
+) -> tuple[float, float]:
+    home_route = (home["gf"] + away["ga"]) / 2
+    away_route = (away["gf"] + home["ga"]) / 2
+    return max(home_route, away_route), min(home_route, away_route)
+
+
 def _priority_score(home: dict[str, float], away: dict[str, float]) -> int:
     """Evidence-only research score; league identity never adds points."""
 
-    home_route = (home["gf"] + away["ga"]) / 2
-    away_route = (away["gf"] + home["ga"]) / 2
-    carrier = max(home_route, away_route)
-    second_route = min(home_route, away_route)
+    carrier, second_route = _route_shape(home, away)
     over2 = (home["over2"] + away["over2"]) / 2
     stall = (home["stall"] + away["stall"]) / 2
     return max(
@@ -145,17 +162,19 @@ def _priority_score(home: dict[str, float], away: dict[str, float]) -> int:
     )
 
 
-def _qualifies_goal_research(
+def _goal_research_path(
     priority: int,
     over_two: float,
     over_three: float,
     low_draw_trap: float,
-) -> bool:
-    """Research admission from either route score or strong goal distribution.
+    *,
+    carrier_route: float = 0.0,
+) -> str | None:
+    """Return the league-neutral evidence path that permits deeper research.
 
-    The alternate path prevents one composite score from vetoing a fixture
-    whose source-backed 3+/4+ rates and low draw-trap rate are already strong.
-    Both paths are league-neutral, price-blind and prematch-only.
+    The two G3-oriented paths prevent the intake layer from demanding G4-like
+    evidence before Football C has even researched whether a G3 certificate
+    exists. They are admission-only and never manufacture a certificate.
     """
 
     route_score_path = (
@@ -163,12 +182,53 @@ def _qualifies_goal_research(
         and over_two >= MIN_MEAN_OVER_TWO_RATE
         and low_draw_trap <= MAX_MEAN_LOW_DRAW_TRAP_RATE
     )
+    if route_score_path:
+        return "ROUTE_SCORE"
+
     high_rate_path = (
         over_two >= ALT_MIN_MEAN_OVER_TWO_RATE
         and over_three >= ALT_MIN_MEAN_OVER_THREE_RATE
         and low_draw_trap <= ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE
     )
-    return route_score_path or high_rate_path
+    if high_rate_path:
+        return "HIGH_RATE_3PLUS_4PLUS"
+
+    g3_distribution_path = (
+        priority >= G3_DIST_MIN_PRIORITY_SCORE
+        and over_two >= G3_DIST_MIN_MEAN_OVER_TWO_RATE
+        and low_draw_trap <= G3_DIST_MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+    if g3_distribution_path:
+        return "G3_DISTRIBUTION"
+
+    carrier_leakage_path = (
+        priority >= CARRIER_MIN_PRIORITY_SCORE
+        and carrier_route >= CARRIER_MIN_ROUTE
+        and over_two >= CARRIER_MIN_MEAN_OVER_TWO_RATE
+        and over_three >= CARRIER_MIN_MEAN_OVER_THREE_RATE
+        and low_draw_trap <= CARRIER_MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+    if carrier_leakage_path:
+        return "CARRIER_LEAKAGE_G3"
+
+    return None
+
+
+def _qualifies_goal_research(
+    priority: int,
+    over_two: float,
+    over_three: float,
+    low_draw_trap: float,
+    *,
+    carrier_route: float = 0.0,
+) -> bool:
+    return _goal_research_path(
+        priority,
+        over_two,
+        over_three,
+        low_draw_trap,
+        carrier_route=carrier_route,
+    ) is not None
 
 
 def screen_discovery(
@@ -213,13 +273,18 @@ def screen_discovery(
     over_two = round((home["over2"] + away["over2"]) / 2, 4)
     low_draw_trap = round((home["draw_trap"] + away["draw_trap"]) / 2, 4)
     over_three = round((home["over3"] + away["over3"]) / 2, 4)
+    carrier_route, second_route = _route_shape(home, away)
+    carrier_route = round(carrier_route, 4)
+    second_route = round(second_route, 4)
     priority = _priority_score(home, away)
-    qualifies = _qualifies_goal_research(
+    qualification_path = _goal_research_path(
         priority,
         over_two,
         over_three,
         low_draw_trap,
+        carrier_route=carrier_route,
     )
+    qualifies = qualification_path is not None
     fingerprint_payload = {
         "run_id": run_id,
         "source_payload_hash": source_payload_hash,
@@ -231,6 +296,9 @@ def screen_discovery(
         "mean_over_two_rate": over_two,
         "mean_over_three_rate": over_three,
         "mean_0_0_or_1_1_rate": low_draw_trap,
+        "carrier_route": carrier_route,
+        "second_route": second_route,
+        "qualification_path": qualification_path,
     }
     fingerprint = hashlib.sha256(
         json.dumps(
@@ -259,6 +327,9 @@ def screen_discovery(
         "mean_over_two_rate": over_two,
         "mean_over_three_rate": over_three,
         "mean_0_0_or_1_1_rate": low_draw_trap,
+        "carrier_route": carrier_route,
+        "second_route": second_route,
+        "qualification_path": qualification_path,
         "thresholds": {
             "minimum_priority_score": MIN_PRIORITY_SCORE,
             "minimum_mean_over_two_rate": MIN_MEAN_OVER_TWO_RATE,
@@ -266,6 +337,14 @@ def screen_discovery(
             "alternate_minimum_mean_over_two_rate": ALT_MIN_MEAN_OVER_TWO_RATE,
             "alternate_minimum_mean_over_three_rate": ALT_MIN_MEAN_OVER_THREE_RATE,
             "alternate_maximum_mean_0_0_or_1_1_rate": ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE,
+            "g3_distribution_minimum_priority_score": G3_DIST_MIN_PRIORITY_SCORE,
+            "g3_distribution_minimum_mean_over_two_rate": G3_DIST_MIN_MEAN_OVER_TWO_RATE,
+            "g3_distribution_maximum_mean_0_0_or_1_1_rate": G3_DIST_MAX_MEAN_LOW_DRAW_TRAP_RATE,
+            "carrier_minimum_priority_score": CARRIER_MIN_PRIORITY_SCORE,
+            "carrier_minimum_route": CARRIER_MIN_ROUTE,
+            "carrier_minimum_mean_over_two_rate": CARRIER_MIN_MEAN_OVER_TWO_RATE,
+            "carrier_minimum_mean_over_three_rate": CARRIER_MIN_MEAN_OVER_THREE_RATE,
+            "carrier_maximum_mean_0_0_or_1_1_rate": CARRIER_MAX_MEAN_LOW_DRAW_TRAP_RATE,
         },
         "source_screen_fingerprint": fingerprint,
     }
