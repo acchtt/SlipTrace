@@ -51,6 +51,7 @@ Freeze current factual football evidence including:
 - H2H only when materially transferable;
 - tournament format/incentive where applicable;
 - fourth/fifth/sixth-goal evidence where higher burden needs it;
+- upper-tail transferability grade + basis whenever independent_upper_tail=true;
 - frozen V4 priority, mean 3+, mean 4+, and low-draw trap.
 
 C additionally owns completion mode, burden completion, continuation,
@@ -69,8 +70,16 @@ Comparison order:
 5. remaining C football-mechanism quality.
 
 A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
-inflation must be discounted by the research grades rather than promoted from
-the raw rates.
+inflation must not be hidden inside otherwise-HIGH route grades. When C asserts
+an independent upper tail, it must freeze:
+
+- upper_tail_transferability = LOW / MEDIUM / HIGH;
+- upper_tail_transferability_basis = a prospective explanation of why the
+  goal-four-plus evidence does or does not transfer to this matchup.
+
+LOW blocks G4/G5/G6. MEDIUM may fund G4+ when the other deterministic
+requirements clear, but the certificate cannot be ROBUST. HIGH preserves the
+normal robustness path. The market and the eventual score cannot set this field.
 
 The magnitude of compiled burden is not itself a rank bonus or penalty.
 
@@ -88,7 +97,8 @@ the market never enters the ranking key and never manufactures a certificate.
 
 ## Supported burden compiler
 
-Production burden is compiled from Football C goal certificates:
+Production burden is compiled from Football C goal certificates. G4+ also
+requires prospectively transferable upper-tail evidence:
 
 - G3 -> O2.50
 - G4 -> O3.50
