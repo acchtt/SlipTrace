@@ -52,6 +52,26 @@ class ActiveCRuntimeTests(unittest.TestCase):
         ):
             run_board(payload("c", row))
 
+    def test_c_upper_tail_requires_comparable_context(self):
+        row = c_row()
+        row.pop("upper_tail_comparable_context_signal")
+        row.pop("upper_tail_comparable_context_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "independent_upper_tail requires explicit "
+            "upper_tail_comparable_context_signal",
+        ):
+            run_board(payload("c", row))
+
+    def test_c_upper_tail_rejects_invalid_comparable_context_signal(self):
+        row = c_row()
+        row["upper_tail_comparable_context_signal"] = "DOMESTIC_ONLY"
+        with self.assertRaisesRegex(
+            ContractError,
+            "upper_tail_comparable_context_signal",
+        ):
+            run_board(payload("c", row))
+
     def test_c_football_assessment_executes(self):
         result = run_football_assessment(football("c"))
         self.assertEqual(result["model"], "c")
