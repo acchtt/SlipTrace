@@ -93,6 +93,30 @@ matchup-leakage mechanisms. Market prices cannot manufacture certificates.
 
 The research-declared supported line remains audit metadata only.
 
+## Upper-tail evidence transferability
+
+C distinguishes **confidence** from **transferability**.
+
+Evidence can be confidently observed yet still be a poor predictor of the
+current goal-four-plus tail when it is materially driven by weak-opposition,
+domestic/cup, red-card or otherwise distorted contexts.
+
+Whenever `independent_upper_tail=true`, current C research must freeze:
+
+- `upper_tail_transferability = LOW / MEDIUM / HIGH`;
+- a non-empty `upper_tail_transferability_basis`.
+
+Deterministic effect:
+
+- LOW -> G4/G5/G6 cannot be funded;
+- MEDIUM -> G4+ may be funded but certificate robustness is capped at
+  CONDITIONAL;
+- HIGH -> normal G4+ robustness rules apply.
+
+This is not a league penalty. Comparable current senior mechanisms can remain
+HIGH in any competition. Raw goal rates cannot upgrade transferability and
+later match outcomes never rewrite it.
+
 ## Availability / evidence symmetry
 
 Availability may downgrade a certificate only when it attacks an identified
