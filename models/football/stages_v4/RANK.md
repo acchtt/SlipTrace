@@ -4,14 +4,16 @@ This is the only active /rank procedure.
 
 ## Input authority
 
-Use one native V4 rank handoff containing the matching:
+Use one native V4 rank handoff from the
+`v4-original-source-attested-receipts` artifact family containing the matching:
 
 - <run>-v4_sweep_ready.json
 - <run>-source.json
 - <run>-rank-handoff.json when supplied
 
 For /rank newest receipt, resolve that canonical bundle. Do not reconstruct a
-sweep receipt from Airtable or derived ledger rows.
+sweep receipt from Airtable or derived ledger rows, and do not search historical
+runs to substitute a different source bundle.
 
 ## Mandatory original-source replay and full-cohort status
 
@@ -125,6 +127,9 @@ python models/football/stages_v4/stage.py verify --rank v4_rank.json --readback 
 
 A valid receipt is V4_RANK_PERSISTENCE_VERIFIED with exact C evidence hash,
 source replay and current-status verification.
+
+Routine /xi consumes that verified receipt and does not replay
+source.json/status_refresh.json again.
 
 ## Output
 
