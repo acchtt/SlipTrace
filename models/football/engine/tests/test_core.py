@@ -1048,7 +1048,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             independent_route_quality=Grade.HIGH,
             chance_quality=Grade.HIGH,
             failure_resistance=Grade.HIGH,
-            evidence_confidence=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
             burden_protection=Grade.HIGH,
             completion_mode=CompletionMode.CARRIER_LED,
             burden_completion_quality=Grade.HIGH,
@@ -1082,8 +1082,9 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             independent_route_quality=Grade.HIGH,
             chance_quality=Grade.HIGH,
             failure_resistance=Grade.HIGH,
-            evidence_confidence=Grade.HIGH,
+            evidence_confidence=Grade.MEDIUM,
             burden_protection=Grade.HIGH,
+            xi_robustness=Grade.MEDIUM,
             completion_mode=CompletionMode.MIXED,
             burden_completion_quality=Grade.HIGH,
             continuation_quality=Grade.HIGH,
@@ -1137,6 +1138,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
                 "current mechanism is corroborated but some tail evidence comes from "
                 "less-comparable contexts"
             ),
+            evidence_confidence=Grade.MEDIUM,
             goal_signal_priority_score=78,
             goal_signal_mean_over_two_rate=0.75,
             goal_signal_mean_over_three_rate=0.55,
@@ -1171,6 +1173,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             upper_tail_transferability_basis=(
                 "current comparable-opposition carrier and reply mechanisms are verified"
             ),
+            evidence_confidence=Grade.MEDIUM,
             goal_signal_priority_score=72,
             goal_signal_mean_over_two_rate=0.70,
             goal_signal_mean_over_three_rate=0.50,
