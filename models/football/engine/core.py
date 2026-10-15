@@ -443,20 +443,34 @@ def tournament_incentive_rank_score(a: MatchAssessment) -> int:
 
 
 def goal_signal_supports_distributed_goal3(a: MatchAssessment) -> bool:
-    """Require frozen Step-0 corroboration for a distributed 2+1 / 1+2 route."""
+    """Require frozen Step-0 corroboration for a distributed 2+1 / 1+2 route.
+
+    Keep the original route-score path, but also accept the V4 Step-0
+    high-rate alternate path. This prevents intake from admitting a strong
+    3+/4+ signal that the certificate compiler then rejects solely because the
+    blended priority score is 57-59.
+    """
 
     values = (
         a.goal_signal_priority_score,
         a.goal_signal_mean_over_two_rate,
+        a.goal_signal_mean_over_three_rate,
         a.goal_signal_low_draw_trap_rate,
     )
     if any(value is None for value in values):
         return False
-    return (
+
+    route_score_path = (
         a.goal_signal_priority_score >= 60
         and a.goal_signal_mean_over_two_rate >= 0.65
         and a.goal_signal_low_draw_trap_rate <= 0.20
     )
+    high_rate_path = (
+        a.goal_signal_mean_over_two_rate >= 0.65
+        and a.goal_signal_mean_over_three_rate >= 0.45
+        and a.goal_signal_low_draw_trap_rate <= 0.20
+    )
+    return route_score_path or high_rate_path
 
 
 def c_carrier_goal3_funded(a: MatchAssessment) -> bool:
@@ -750,7 +764,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
             a.goal_signal_low_draw_trap_rate,
         )
     )
-    strong_frozen_signal = bool(
+    legacy_strong_signal = bool(
         signal_complete
         and a.goal_signal_priority_score >= 60
         and a.goal_signal_low_draw_trap_rate <= 0.20
@@ -759,6 +773,13 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
             or a.goal_signal_mean_over_three_rate >= 0.50
         )
     )
+    high_rate_signal = bool(
+        signal_complete
+        and a.goal_signal_mean_over_two_rate >= 0.65
+        and a.goal_signal_mean_over_three_rate >= 0.45
+        and a.goal_signal_low_draw_trap_rate <= 0.20
+    )
+    strong_frozen_signal = legacy_strong_signal or high_rate_signal
     independent_structure = _independent_scoring_structure(a)
     both_routes_strong = (
         a.home_route == RouteStrength.STRONG
@@ -1094,12 +1115,48 @@ def c2_goal4_funded(a: MatchAssessment) -> bool:
         return False
     incentive_bias = tournament_incentive_profile(a)["tail_bias"]
     grades = (a.route_reliability, a.chance_quality, a.failure_resistance)
+    frozen_tail = bool(
+        a.goal_signal_mean_over_two_rate is not None
+        and a.goal_signal_mean_over_three_rate is not None
+        and a.goal_signal_low_draw_trap_rate is not None
+        and a.goal_signal_mean_over_two_rate >= 0.65
+        and a.goal_signal_mean_over_three_rate >= 0.45
+        and a.goal_signal_low_draw_trap_rate <= 0.20
+    )
+    independent_route_tail_quality = (
+        a.route_reliability == Grade.HIGH
+        and a.independent_route_quality == Grade.HIGH
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and frozen_tail
+    )
+    carrier_tail_quality = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality == Grade.HIGH
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+    )
     if incentive_bias == "EXPANSIVE":
-        quality = all(grade >= Grade.MEDIUM for grade in grades) and sum(int(x) for x in grades) >= 5
+        quality = (
+            all(grade >= Grade.MEDIUM for grade in grades)
+            and sum(int(x) for x in grades) >= 5
+        )
     elif incentive_bias == "SUPPRESSIVE":
-        quality = all(grade == Grade.HIGH for grade in grades) and a.burden_protection == Grade.HIGH
+        quality = (
+            all(grade == Grade.HIGH for grade in grades)
+            and a.burden_protection == Grade.HIGH
+        )
     else:
-        quality = all(grade == Grade.HIGH for grade in grades)
+        quality = (
+            all(grade == Grade.HIGH for grade in grades)
+            or independent_route_tail_quality
+            or carrier_tail_quality
+        )
     route_tail = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
@@ -1394,6 +1451,28 @@ def _healthy_wait(ctx: ModelQuoteContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
+def _supported_soft_price_zone(
+    a: MatchAssessment,
+    ctx: ModelQuoteContext,
+    model: str,
+) -> bool:
+    """Allow 1.60-1.64 only for a genuinely funded supported burden.
+
+    This is football-evidence based, not a blanket price relaxation. Higher
+    unsupported/tail lines retain the normal 1.65 floor.
+    """
+
+    compiled = certified_supported_burden(a, model)
+    if compiled is None or ctx.quote.line > compiled + 1e-9:
+        return False
+    if not market_line_funded(a, ctx.quote.line, model):
+        return False
+    return (
+        certificate_robustness(a, model) >= 1
+        or goal_signal_supports_distributed_goal3(a)
+    )
+
+
 def model_wait_target(
     a: MatchAssessment,
     ctx: ModelQuoteContext,
@@ -1415,7 +1494,10 @@ def model_wait_target(
         raise ValueError("WAIT unavailable: no certified supported burden")
     min_odds = (
         1.60
-        if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
+        if (
+            (ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus)
+            or _supported_soft_price_zone(a, ctx, model)
+        )
         else 1.65
     )
     return target_line, min_odds
@@ -1519,10 +1601,19 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     if (
         at_or_below
         and 1.60 <= ctx.quote.odds < 1.65
-        and ctx.board_state == BoardState.FOCUS
-        and ctx.top_ranked_focus
+        and (
+            (ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus)
+            or _supported_soft_price_zone(a, ctx, "c")
+        )
     ):
-        return Decision(Action.BET, "top-focus soft-zone price")
+        return Decision(
+            Action.BET,
+            (
+                "top-focus soft-zone price"
+                if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
+                else "certified supported-line soft-zone price"
+            ),
+        )
 
     if _healthy_wait(ctx):
         return Decision(
@@ -1627,12 +1718,18 @@ def evaluate_c2_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
 
         if (
             1.60 <= ctx.quote.odds < 1.65
-            and ctx.board_state == BoardState.FOCUS
-            and ctx.top_ranked_focus
+            and (
+                (ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus)
+                or _supported_soft_price_zone(a, ctx, "c2")
+            )
         ):
             return Decision(
                 Action.BET,
-                "top-focus soft-zone price at/below burden",
+                (
+                    "top-focus soft-zone price at/below burden"
+                    if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
+                    else "certified supported-line soft-zone price"
+                ),
             )
 
         if _healthy_wait(ctx):
