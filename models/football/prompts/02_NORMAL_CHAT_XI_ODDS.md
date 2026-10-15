@@ -50,7 +50,9 @@ players are absent. Check replacements, opponent routes and defensive rotation.
 
 ## Screenshot quote
 
-Use the exact screenshot only.
+A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Use the exact
+screenshot only and persist its normal evaluated line/odds fields when readback
+is required.
 
 - no replacement odds search;
 - no inferred missing price;
