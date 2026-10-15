@@ -84,7 +84,19 @@ reliability, independent/two-route or self-funded-carrier structure, current
 chance quality, failure resistance, evidence confidence, explicit
 route-attacking suppression, and the frozen goal signal. Do not infer
 robustness from league identity, bookmaker totals, final scores, or prose
-keywords. A fragile G4/G5 does not automatically outrank a robust G3.
+keywords.
+
+A high raw scoreline history alone is insufficient. A row whose current
+mechanism dimensions remain broadly MEDIUM stays FRAGILE even when the frozen
+3+/4+ rates are high. CONDITIONAL requires a corroborated frozen goal signal,
+an independent scoring structure and at least one HIGH current football
+dimension (chance quality, route reliability, evidence confidence or
+independent-route quality). ROBUST additionally requires either two STRONG
+independent routes or HIGH route reliability plus HIGH current chance quality,
+including the equivalent HIGH-quality self-funded-carrier shape. This lets
+red-card/cup-inflated histories remain low-confidence when the current frozen
+mechanism grades did not independently validate the inflation. A fragile
+G4/G5 does not automatically outrank a robust or conditional G3.
 
 For C, endpoint/control comparison uses C's own effective stall grade plus the
 common frozen 0-0/1-1 trap rate. For C2, endpoint/control comparison uses only
