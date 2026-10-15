@@ -10,7 +10,7 @@ This file describes only the current production path.
   and may be read for audit only. They never participate in new /rank, /xi,
   /live, accounting or publication.
 - **Active source/rank stages:** Football V4 only.
-- **Active Airtable model base:** appbzxqXYf0lKfD4P.
+- **Active operational store:** Google Sheets `Football v2 — Active Operations` (`1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM`).
 - **User P/L authority:** Actual Bets — Current only.
 
 The active command surface is:
@@ -29,7 +29,7 @@ not production dependencies.
 
 SOURCE DATE SURFACES -> V4 GOALS-FIRST INTAKE -> V4_SWEEP_READY ->
 ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS -> FOOTBALL C BOARD ->
-ONE AIRTABLE READBACK -> /xi FOOTBALL C -> OPTIONAL OBSERVED-QUOTE
+ONE GOOGLE SHEETS READBACK -> /xi FOOTBALL C -> OPTIONAL OBSERVED-QUOTE
 EVALUATION OR STRICT C PRICE DECISION -> ONE DECISION READBACK/PUBLICATION
 GATE -> LIVE/AUDIT
 
@@ -190,13 +190,12 @@ After kickoff:
 
 ## Persistence and accounting
 
-ACTIVE_MODEL_ROUTING.json is the machine-readable routing authority.
+`models/football/google_sheets/ACTIVE_STORE_ROUTING.json` is the machine-readable routing authority.
 
 For new operations:
 
 - persist only active Football C model outputs;
-- retired C2/C3/C4 fields may remain in Airtable for immutable historical rows
-  but are not required or written for new C decisions;
+- retired C2/C3/C4 fields may remain in historical Airtable rows for immutable audit only; all new C persistence uses Google Sheets;
 - WATCH creates no model bet;
 - Unresolved WAIT creates no model bet;
 - only a strict direct C BET or a user-confirmed reached WAIT may enter model
