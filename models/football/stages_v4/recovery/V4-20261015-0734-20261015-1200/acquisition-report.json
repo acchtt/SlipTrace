@@ -1,0 +1,104 @@
+{
+  "api_urls": [
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261015/7?MD=1&countryCode=US&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261015/0?MD=1&countryCode=US&locale=en"
+  ],
+  "generated_at_utc": "2026-10-15T00:35:11.484521+00:00",
+  "in_window": [
+    {
+      "away": "Antigua Guatemala",
+      "competition": "Liga Nacional: Apertura",
+      "country": "Guatemala",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Guastatoya",
+      "kickoff_utc": "2026-10-15T01:00:00+00:00",
+      "match_id": "1808976"
+    },
+    {
+      "away": "Minnesota United",
+      "competition": "MLS",
+      "country": "USA",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Colorado Rapids",
+      "kickoff_utc": "2026-10-15T01:30:00+00:00",
+      "match_id": "1696697"
+    },
+    {
+      "away": "San Jose Earthquakes",
+      "competition": "MLS",
+      "country": "USA",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Real Salt Lake",
+      "kickoff_utc": "2026-10-15T01:30:00+00:00",
+      "match_id": "1696699"
+    },
+    {
+      "away": "Independiente Medellin",
+      "competition": "Copa Colombia",
+      "country": "Colombia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Atletico Nacional",
+      "kickoff_utc": "2026-10-15T01:30:00+00:00",
+      "match_id": "1904061"
+    },
+    {
+      "away": "Club Sport Herediano",
+      "competition": "Primera División: Apertura",
+      "country": "Costa Rica",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "LD Alajuelense",
+      "kickoff_utc": "2026-10-15T02:00:00+00:00",
+      "match_id": "1801264"
+    },
+    {
+      "away": "Portland Timbers",
+      "competition": "MLS",
+      "country": "USA",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "LA Galaxy",
+      "kickoff_utc": "2026-10-15T02:30:00+00:00",
+      "match_id": "1696698"
+    },
+    {
+      "away": "Austin FC",
+      "competition": "MLS",
+      "country": "USA",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Los Angeles FC",
+      "kickoff_utc": "2026-10-15T02:30:00+00:00",
+      "match_id": "1696700"
+    },
+    {
+      "away": "Houston Dynamo",
+      "competition": "MLS",
+      "country": "USA",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "San Diego",
+      "kickoff_utc": "2026-10-15T02:30:00+00:00",
+      "match_id": "1696701"
+    },
+    {
+      "away": "Mixco",
+      "competition": "Liga Nacional: Apertura",
+      "country": "Guatemala",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Deportivo Marquense",
+      "kickoff_utc": "2026-10-15T03:00:00+00:00",
+      "match_id": "1808960"
+    }
+  ],
+  "in_window_count": 9,
+  "in_window_prematch_count": 9,
+  "in_window_with_goal_history_both_sides": 9,
+  "run_id": "V4-20261015-0734-20261015-1200",
+  "source_fixture_union_count": 167,
+  "surface_counts": {
+    "ICT:2026-10-15": 130,
+    "UTC:2026-10-15": 112
+  },
+  "terminal_fixture_count": 9,
+  "uefa_youth_league": [],
+  "uefa_youth_league_count": 0,
+  "uefa_youth_league_prematch_count": 0,
+  "uefa_youth_league_with_goal_history_both_sides": 0
+}

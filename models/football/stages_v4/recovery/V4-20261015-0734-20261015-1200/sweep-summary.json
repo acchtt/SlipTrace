@@ -1,0 +1,75 @@
+{
+  "eligible_count": 2,
+  "eligible_queue": [
+    {
+      "away": "Minnesota United",
+      "competition": "MLS",
+      "country": "USA",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.5625,
+        "mean_over_two_rate": 0.75,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 73,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "e757dd06d4d4904ccab715edba1acb6d58ee2144f6baf705cba0ac74e1bfffe1",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "Colorado Rapids",
+      "kickoff_utc": "2026-10-15T01:30:00+00:00",
+      "match_id": "1696697",
+      "operational_grade": "B",
+      "queue_rank": 1
+    },
+    {
+      "away": "Portland Timbers",
+      "competition": "MLS",
+      "country": "USA",
+      "goal_screen": {
+        "away_sample_n": 8,
+        "bookmaker_quote_required": false,
+        "home_sample_n": 8,
+        "is_model_prediction": false,
+        "mean_0_0_or_1_1_rate": 0.125,
+        "mean_over_three_rate": 0.5625,
+        "mean_over_two_rate": 0.8125,
+        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
+        "priority_score": 76,
+        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
+        "source_screen_fingerprint": "3081684386e675260e26e2f6b9f78a7e705ba36c56805cdde709a8655ccf5ad5",
+        "status": "DISCOVERY_GOAL_QUALIFIED",
+        "thresholds": {
+          "maximum_mean_0_0_or_1_1_rate": 0.35,
+          "minimum_mean_over_two_rate": 0.55,
+          "minimum_priority_score": 60
+        }
+      },
+      "home": "LA Galaxy",
+      "kickoff_utc": "2026-10-15T02:30:00+00:00",
+      "match_id": "1696698",
+      "operational_grade": "B",
+      "queue_rank": 2
+    }
+  ],
+  "excluded_or_closed_count": 158,
+  "fixture_count": 167,
+  "integrity_sha256": "58a38abed3bf164074f185b3e3a805f187a56a5b69d1e48d5c42a8ddb27f08c8",
+  "low_goal_signal_count": 7,
+  "pending_discovery_count": 7,
+  "pending_goal_research_count": 0,
+  "research_order": [
+    "1696698",
+    "1696697"
+  ],
+  "run_id": "V4-20261015-0734-20261015-1200",
+  "status": "V4_SWEEP_READY"
+}
