@@ -488,6 +488,161 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(g3, "c2"), 2.5)
         self.assertEqual(rank_assessments_c2([g3, g4])[0].match_id, "c2_g4")
 
+    def test_frozen_norway_regressions_rank_stuttgart_by_evidence_not_outcome(self):
+        stuttgart = assessment(
+            match_id="slovan_stuttgart",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            xi_robustness=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.HIGH,
+            goal_signal_priority_score=66,
+            goal_signal_mean_over_two_rate=0.7321,
+            goal_signal_mean_over_three_rate=0.4732,
+            goal_signal_low_draw_trap_rate=0.0625,
+        )
+        hodd = assessment(
+            match_id="hodd_ranheim",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            xi_robustness=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=80,
+            goal_signal_mean_over_two_rate=0.8125,
+            goal_signal_mean_over_three_rate=0.6875,
+            goal_signal_low_draw_trap_rate=0.0625,
+        )
+        sogndal = assessment(
+            match_id="sogndal_odd",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            xi_robustness=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.HIGH,
+            goal_signal_priority_score=68,
+            goal_signal_mean_over_two_rate=0.6875,
+            goal_signal_mean_over_three_rate=0.4375,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        bryne = assessment(
+            match_id="bryne_raufoss",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.WEAK,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            xi_robustness=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            goal_signal_priority_score=63,
+            goal_signal_mean_over_two_rate=0.6875,
+            goal_signal_mean_over_three_rate=0.3125,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        stromsgodset = assessment(
+            match_id="stromsgodset_kongsvinger",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            xi_robustness=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=75,
+            goal_signal_mean_over_two_rate=0.625,
+            goal_signal_mean_over_three_rate=0.625,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+
+        c_ranked = rank_assessments(
+            [hodd, sogndal, bryne, stuttgart, stromsgodset]
+        )
+        self.assertEqual(
+            [item.match_id for item in c_ranked],
+            [
+                "stromsgodset_kongsvinger",
+                "slovan_stuttgart",
+                "hodd_ranheim",
+                "bryne_raufoss",
+                "sogndal_odd",
+            ],
+        )
+
+        # C2 remains independent: its certificate functions differ from C, but
+        # the same frozen common evidence must still demote broad-MEDIUM tails.
+        c2_ranked = rank_assessments_c2(
+            [hodd, sogndal, bryne, stuttgart, stromsgodset]
+        )
+        self.assertLess(
+            [item.match_id for item in c2_ranked].index("slovan_stuttgart"),
+            [item.match_id for item in c2_ranked].index("hodd_ranheim"),
+        )
+        self.assertLess(
+            [item.match_id for item in c2_ranked].index("slovan_stuttgart"),
+            [item.match_id for item in c2_ranked].index("sogndal_odd"),
+        )
+        self.assertLess(
+            [item.match_id for item in c2_ranked].index("slovan_stuttgart"),
+            [item.match_id for item in c2_ranked].index("bryne_raufoss"),
+        )
+        self.assertEqual(c2_ranked[0].match_id, "stromsgodset_kongsvinger")
+
     def test_rotation_is_not_suppressive_without_route_specific_failure(self):
         alternative_routes_intact = assessment(
             match_id="alternative_routes_intact",
