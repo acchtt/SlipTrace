@@ -27,7 +27,7 @@ def native_v4_case():
     cr = board_result["matches"][0]
     rank = {
         "schema_version": "football-stages-v4",
-        "status": "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+        "status": "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK",
         "run_id": "V4-TEST-C-ONLY",
         "ranked_count": 1,
         "board": board_result,

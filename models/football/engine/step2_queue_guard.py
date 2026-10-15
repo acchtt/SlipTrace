@@ -2,7 +2,7 @@
 """Small Step-2 authorization guard for active V4 Football C.
 
 Step 1 already replays the original source, refreshes fixture status, executes
-C and independently verifies Airtable persistence. Step 2 therefore verifies
+C and independently verifies Google Sheets persistence. Step 2 therefore verifies
 that one sealed rank+persistence chain and the board rows it is about to use;
 it does NOT replay source acquisition a second time.
 
@@ -74,7 +74,7 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
         )
     if (
         rank.get("schema_version") != "football-stages-v4"
-        or rank.get("status") != "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK"
+        or rank.get("status") != "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK"
     ):
         raise Step2QueueError("V4 rank receipt invalid")
     rank_hash = rank.get("integrity_sha256")

@@ -75,7 +75,7 @@ will execute the real V4 algorithm and upload a
 `v4-original-source-attested-receipts` artifact containing an official
 `<run-id>-v4_sweep_ready.json`, or fail closed with the exact validation
 error. Give Work chat the GitHub Actions run URL and the original
-run ID. Do NOT ask Work to invent completion from Airtable records.
+run ID. Do NOT invent source completeness from the Google Sheets ledger or historical Airtable records.
 
 For an older derived intake, preserve both original `source.json`
 and `intake-unattested.json` under that run ID; the replay checker
@@ -155,4 +155,4 @@ Report the full verified research queue sorted by the source-backed
 goal-first signals, all pending-proof fixtures, excluded reasons, and
 the actual integrity hash. No 8-match cap, forced ZIP, serial
 Work chat, indefinite resume, imaginary fetch or automatically placed bet.
-Airtable writes only when a genuine live source/run receipt is available.
+Google Sheets `Sweep Runs` writes only when a genuine live source/run receipt is available.

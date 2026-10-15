@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Single Airtable readback verifier for football-first /xi assessments.
+"""Single Google Sheets readback verifier for football-first /xi assessments.
 
 The active /xi path persists the Football C result once and, when an observed
 quote was evaluated, persists the normal evaluated line/odds fields. There is
@@ -14,9 +14,9 @@ import sys
 from pathlib import Path
 
 
-ACTIVE_BASE = "appbzxqXYf0lKfD4P"
-STATUS_FIELD = "XI Assessment Execution Status"
-STATUS_FIELD_ID = "fldkjs6Sykivp0fag"
+ACTIVE_SPREADSHEET_ID = "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM"
+DECISION_SHEET = "Decision States"
+STATUS_COLUMN = "XI Assessment Execution Status"
 
 
 class XIAssessmentReadbackError(ValueError):
@@ -79,15 +79,18 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
         )
     if (
         not isinstance(refetched, dict)
-        or refetched.get("base_id") != ACTIVE_BASE
-        or refetched.get("readback_method") != "INDEPENDENT_AIRTABLE_REFETCH"
-        or not isinstance(refetched.get("record_id"), str)
-        or not refetched["record_id"].startswith("rec")
+        or refetched.get("spreadsheet_id") != ACTIVE_SPREADSHEET_ID
+        or refetched.get("sheet_name") != DECISION_SHEET
+        or refetched.get("readback_method")
+        != "INDEPENDENT_GOOGLE_SHEETS_REFETCH"
+        or not isinstance(refetched.get("row_key"), str)
+        or not refetched["row_key"].strip()
         or not isinstance(refetched.get("assessment_id"), str)
         or not refetched["assessment_id"].strip()
+        or refetched.get("row_key") != refetched.get("assessment_id")
     ):
         raise XIAssessmentReadbackError(
-            "actual active Airtable record readback required"
+            "actual active Google Sheets row readback required"
         )
 
     price = receipt.get("price_check")
@@ -97,7 +100,7 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
         else "EXECUTED_C_FOOTBALL_ONLY"
     )
     if (
-        refetched.get("xi_status_field_id") != STATUS_FIELD_ID
+        refetched.get("xi_status_column") != STATUS_COLUMN
         or refetched.get("xi_assessment_execution_status") != expected_status
     ):
         raise XIAssessmentReadbackError(
@@ -131,14 +134,14 @@ def verify_football_assessment(receipt: dict, refetched: dict) -> dict:
         "football_c_verified": True,
         "observed_quote_readback_verified": quote_verified,
         "actual_bet_created": False,
-        "record_id": refetched["record_id"],
+        "row_key": refetched["row_key"],
         "assessment_id": refetched["assessment_id"],
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Verify independent Airtable readback of /xi assessment"
+        description="Verify independent Google Sheets readback of /xi assessment"
     )
     parser.add_argument("--receipt", required=True)
     parser.add_argument("--readback", required=True)

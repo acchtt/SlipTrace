@@ -8,7 +8,7 @@ than treating an old chat handoff as permanent policy.
 1. models/football/CURRENT_MODEL.md
 2. models/football/prompts/COMMAND_ALIASES.md
 3. the current stage launcher/procedure
-4. ACTIVE_MODEL_ROUTING.json for model Airtable operations
+4. models/football/google_sheets/ACTIVE_STORE_ROUTING.json for active operational persistence
 
 ## Active roster
 

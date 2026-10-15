@@ -32,7 +32,7 @@ Use the newest/explicit native V4_SWEEP_READY receipt.
 
 The rank stage performs original-source replay and a fresh full-cohort status
 check before executing the single official Football C board, then independently
-verifies Airtable persistence once.
+verifies Google Sheets persistence once.
 
 Routine Step 2 trusts the resulting verified C rank+persistence receipt; it
 does not repeat source replay.
@@ -85,7 +85,7 @@ Actual Bets — Current.
 
 - Football C: official and only active model.
 - C2/C3/C4: retired for all new work.
-- Active model base: appbzxqXYf0lKfD4P.
+- Active operational workbook: Google Sheets `Football v2 — Active Operations` (`1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM`).
 - Historical retired-model fields/receipts remain immutable and read-only.
 - WATCH and unresolved WAIT create no synthetic active exposure.
 - Actual Bets — Current is the only authority for physical user P/L.
