@@ -1,0 +1,101 @@
+{
+  "schema_version": "football-google-sheets-routing-v1",
+  "effective_date_ict": "2026-10-15",
+  "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+  "spreadsheet_title": "Football v2 — Active Operations",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM/edit",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "workflow_scope": [
+    "sweep",
+    "rank",
+    "xi",
+    "live",
+    "audit",
+    "report",
+    "model_qa",
+    "model_accounting",
+    "website_picks"
+  ],
+  "tabs": {
+    "Sweep Runs": {
+      "key_column": "Run ID"
+    },
+    "Daily Coverage Ledger": {
+      "key_column": "Coverage ID"
+    },
+    "Decision States": {
+      "key_column": "Assessment ID"
+    },
+    "Website Picks": {
+      "key_column": "Publication Key"
+    },
+    "Actual Bets — Current": {
+      "key_column": "Bet ID"
+    },
+    "Competition Reliability": {
+      "key_column": "Competition Key"
+    },
+    "Competition Reliability Events": {
+      "key_column": "Event ID"
+    },
+    "Factor Calibration Observations": {
+      "key_column": "Observation ID"
+    },
+    "Manual Scores": {
+      "key_column": "Score ID"
+    },
+    "Circuit Breaker": {
+      "key_column": "Breaker ID"
+    }
+  },
+  "preserve_original_handoff": [
+    "Run ID",
+    "Source Payload Hash",
+    "Coverage ID",
+    "Step0 Queue Rank"
+  ],
+  "actual_bets_authority": "Actual Bets — Current",
+  "c_official_only": true,
+  "legacy_airtable": {
+    "previous_active_base": "appbzxqXYf0lKfD4P",
+    "historical_archive_base": "appWyZJjitSBATXAU",
+    "policy": "HISTORICAL_READ_ONLY_NO_NEW_WRITES",
+    "quota_state_at_migration": "MONTHLY_API_LIMIT_EXCEEDED"
+  },
+  "row_identity_policy": "IMMUTABLE_KEY_COLUMN",
+  "field_resolution": "COLUMN_HEADER_EXACT_MATCH",
+  "receipt_policy": "ONE_WRITE_ONE_INDEPENDENT_READBACK_PER_STAGE",
+  "readback_method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+  "xi_assessment_execution_status_column": {
+    "sheet": "Decision States",
+    "column_name": "XI Assessment Execution Status",
+    "football_only_value": "EXECUTED_C_FOOTBALL_ONLY",
+    "football_and_price_value": "EXECUTED_C_FOOTBALL_AND_PRICE",
+    "engine_failure_value": "ENGINE_FAILED_AFTER_ATTEMPT",
+    "optional_price_failure_preserves_football_only": true,
+    "readback_required": true
+  },
+  "step1_engine_result": {
+    "sheet": "Daily Coverage Ledger",
+    "column_name": "Step1 Engine C Result",
+    "exact_json_readback_required": true,
+    "historical_backfill": false
+  },
+  "observed_quote_persistence": {
+    "mode": "NORMAL_EVALUATED_LINE_ODDS_COLUMNS",
+    "execution_authority": false
+  },
+  "active_accounting_policy": {
+    "watch_creates_exposure": false,
+    "unresolved_wait_creates_exposure": false,
+    "user_pnl_tab": "Actual Bets — Current"
+  },
+  "active_models": [
+    "c"
+  ],
+  "retired_models": [
+    "c2",
+    "c3",
+    "c4"
+  ]
+}
