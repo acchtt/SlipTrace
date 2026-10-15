@@ -509,7 +509,7 @@ class RankV4Tests(unittest.TestCase):
         )
         self.assertEqual(
             result["status"],
-            "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+            "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK",
         )
         self.assertEqual(result["ranked_count"], 1)
         self.assertEqual(result["active_model"], "c")
@@ -566,7 +566,7 @@ class RankV4Tests(unittest.TestCase):
         self.assertIn("c", parameters)
         self.assertNotIn("c2", parameters)
 
-    def test_independent_active_airtable_readback_required(self):
+    def test_independent_active_google_sheets_readback_required(self):
         src = sweep(snapshot(), now=NOW)
         c = model_input()
         result = rank(
@@ -575,8 +575,9 @@ class RankV4Tests(unittest.TestCase):
         )
         cr = result["board"]["matches"][0]
         readback = {
-            "active_base_id": "appbzxqXYf0lKfD4P",
-            "method": "INDEPENDENT_AIRTABLE_REFETCH",
+            "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+            "sheet_name": "Daily Coverage Ledger",
+            "method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
             "run_id": result["run_id"],
             "rank_integrity_sha256": result["integrity_sha256"],
             "sweep_integrity_sha256": result["sweep_integrity_sha256"],
@@ -589,7 +590,7 @@ class RankV4Tests(unittest.TestCase):
                 "c_board_state": "C-" + cr["board_state"],
                 "c_supported_line": cr["supported_line"],
                 "step1_engine_c_result": json.dumps(cr, sort_keys=True),
-                "step1_engine_c_result_field_id": "fldhUWNoyXzXfQJ3C",
+                "step1_engine_c_result_column": "Step1 Engine C Result",
             }],
         }
 
@@ -634,11 +635,11 @@ class RankV4Tests(unittest.TestCase):
         readback["ranked_rows"][0]["step1_engine_c_result"] = json.dumps(
             cr, sort_keys=True
         )
-        readback["ranked_rows"][0]["step1_engine_c_result_field_id"] = "fldWRONG"
-        with self.assertRaisesRegex(StageError, "field ID not verified"):
+        readback["ranked_rows"][0]["step1_engine_c_result_column"] = "Wrong Column"
+        with self.assertRaisesRegex(StageError, "Google Sheets column not verified"):
             verify_rank(readback, result)
 
-        readback["ranked_rows"][0]["step1_engine_c_result_field_id"] = (
+        readback["ranked_rows"][0]["step1_engine_c_result_column"] = (
             "fldhUWNoyXzXfQJ3C"
         )
         readback["rank_integrity_sha256"] = "forged"
