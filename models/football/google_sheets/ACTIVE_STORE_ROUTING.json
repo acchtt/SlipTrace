@@ -97,5 +97,33 @@
     "c2",
     "c3",
     "c4"
-  ]
+  ],
+  "public_projection": {
+    "schema_version": "football-v2-public-board-feed-v1",
+    "source_tabs": [
+      "Daily Coverage Ledger",
+      "Website Picks"
+    ],
+    "forbidden_tabs": [
+      "Decision States",
+      "Actual Bets — Current",
+      "Competition Reliability Events",
+      "Factor Calibration Observations"
+    ],
+    "target_repository": "acchtt/football-v2",
+    "target_branch": "main",
+    "target_path": "pages/data/board-feed.json",
+    "builder": "models/football/google_sheets/public_projection.py",
+    "refresh_after": [
+      "V4_RANK_PERSISTENCE_VERIFIED",
+      "WEBSITE_PICK_PERSISTENCE_VERIFIED",
+      "MANUAL_SCORE_PROJECTION_CHANGE"
+    ],
+    "privacy_boundary": "PUBLIC_SAFE_ALLOWLIST_ONLY",
+    "website_tier_mapping": {
+      "FOLLOW": "FOCUS",
+      "RESERVE": "WATCHLIST",
+      "STOP": "PASS"
+    }
+  }
 }
