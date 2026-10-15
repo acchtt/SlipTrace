@@ -42,6 +42,16 @@ class ActiveCRuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ContractError, "retired"):
             run_board(retired)
 
+    def test_c_upper_tail_requires_explicit_transferability(self):
+        row = c_row()
+        row.pop("upper_tail_transferability")
+        row.pop("upper_tail_transferability_basis")
+        with self.assertRaisesRegex(
+            ContractError,
+            "independent_upper_tail requires explicit upper_tail_transferability",
+        ):
+            run_board(payload("c", row))
+
     def test_c_football_assessment_executes(self):
         result = run_football_assessment(football("c"))
         self.assertEqual(result["model"], "c")
