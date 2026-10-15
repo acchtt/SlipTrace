@@ -34,6 +34,12 @@ Required factual work includes fixture state, current team/XI/mechanism
 information where available, routes/carrier/chance/failure evidence, relevant
 H2H, and competition incentive state where applicable.
 
+Availability must be applied to named mechanisms, not to the total by default.
+Missing attackers reduce a certificate only when they materially attack the
+identified route after alternate creators/scorers are checked. Defensive
+rotation, opponent independent scoring and mixed attacking/defensive effects
+must be considered symmetrically.
+
 Odds are not required.
 
 After kickoff, include current score/minute/material events and continue the
@@ -66,6 +72,13 @@ Treat the exact screenshot as the quote observation.
 A screenshot can produce a conditional model ACT, WAIT or PASS, but never an
 executable C bet by itself.
 
+When the observed line requires a higher full-win goal than the current
+compiled burden, recheck the football evidence once before final WAIT/PASS.
+Inspect independent routes, current chance quality, availability symmetry,
+continuation and opponent leakage. The market discrepancy is only a research
+trigger: never fetch a replacement quote and never let the displayed total
+create a certificate.
+
 Persist its evaluated line/odds using the normal Decision State fields. No
 special Evidence Summary JSON marker is required.
 
@@ -82,12 +95,21 @@ reachable and why. A healthy WAIT requires:
 - intact football thesis/mechanism;
 - no material veto.
 
+A lone screenshot is not directional market evidence. Near kickoff, do not
+create a same-line price-only micro-WAIT from "the odds may drift" alone.
+Price-only WAIT needs an evidenced reachable path. Line-decay WAIT remains
+valid when its target is genuinely reachable without requiring adverse
+football information.
+
 There is no fixed +0.75 or other wrapper-only market-gap rule.
 
 The core returns the model target/minimum:
 
 - normal minimum 1.65;
-- top-ranked FOCUS soft-zone minimum 1.60 where the model policy permits.
+- 1.60 soft-zone at an already funded supported burden when the certificate is
+  independently robust/high-rate corroborated;
+- top-ranked FOCUS soft-zone minimum 1.60;
+- no soft-zone relaxation for an unsupported higher burden.
 
 WAIT creates no exposure merely by being declared. WATCH also creates no
 synthetic exposure.
