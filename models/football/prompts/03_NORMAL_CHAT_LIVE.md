@@ -2,7 +2,7 @@
 
 Football C is the only active model.
 
-Use the same C football engine as /xi with:
+/live uses the same football-assessment runtime as /xi with:
 
 - actual current score;
 - match minute;
@@ -12,13 +12,17 @@ Use the same C football engine as /xi with:
 
 Provider live stats are not required.
 
+There is no active step2_fixture_transition state machine. Current facts are
+frozen directly into the new Football C assessment epoch.
+
 After kickoff:
 
 - assess the current football state;
 - invalidate prematch execution assumptions;
 - never recreate a prematch ACT/WAIT/PASS;
 - do not request a new bookmaker quote merely because the game started;
-- a user-supplied live quote is comparison evidence only unless a separate
-  live-execution policy explicitly authorizes action.
+- a user-supplied live quote returns
+  LIVE_PRICE_BURDEN_COMPARISON_ONLY unless a separate live-execution policy
+  explicitly authorizes action.
 
-Retired C2/C3/C4 models do not run in /live.
+C2/C3/C4 models are retired and do not run in /live.
