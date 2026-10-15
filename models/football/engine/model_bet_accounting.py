@@ -5,7 +5,7 @@ from typing import Any
 
 
 DEFAULT_STAKE_U = 1.0
-ACTIVE_MODELS = ("c", "c2")
+ACTIVE_MODELS = ("c",)
 HISTORICAL_MODELS = ("c", "c2", "c3", "c4")
 MODELS = set(HISTORICAL_MODELS)
 
@@ -255,13 +255,13 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
                 f"historical accounting has unsupported model rows: {sorted(extra)}"
             )
         raise ModelBetAccountingError(
-            "active accounting permits C/C2 only; "
+            "active accounting permits Football C only; "
             f"retired/unsupported rows={sorted(extra)}"
         )
 
     missing = set(required_models) - set(by_model)
     if missing:
-        roster = "C/C2/C3/C4" if historical_roster else "C/C2"
+        roster = "C/C2/C3/C4" if historical_roster else "C"
         raise ModelBetAccountingError(
             f"{roster} accounting requires complete roster; missing={sorted(missing)}"
         )
@@ -307,7 +307,7 @@ def compile_fixture_accounting(payload: dict[str, Any]) -> dict[str, Any]:
         "roster": (
             "HISTORICAL_C_C2_C3_C4"
             if historical_roster
-            else "ACTIVE_C_C2"
+            else "ACTIVE_C"
         ),
         "synthetic_watch_pricing": False,
         "models": results,
