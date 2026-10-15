@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Verify the active /xi thin runner loads the real shared C/C2 modules."""
+"""Verify the active /xi thin runner loads only the active Football C path."""
 
 from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
 import sys
-
 
 ROOT = Path(__file__).resolve().parents[3]
 ENGINE = ROOT / "models/football/engine"
@@ -26,6 +25,10 @@ if not result.get("ok"):
     failures.append(f"self-check failed: {result}")
 if result.get("runtime_mode") != "THIN_SHARED_MODULES":
     failures.append("xi runner is not using THIN_SHARED_MODULES")
+if result.get("active_models") != ["c"]:
+    failures.append("xi runner active_models must be ['c']")
+if result.get("retired_models") != ["c2", "c3", "c4"]:
+    failures.append("xi runner retired roster mismatch")
 
 text = RUNNER.read_text(encoding="utf-8")
 for forbidden in (
@@ -33,16 +36,21 @@ for forbidden in (
     "_restore_pinned_sources",
     "SOURCES =",
     "exec(compile(",
+    "decision_pair_cli",
+    "run_football_pair",
+    "run_pair(",
+    "--c2",
 ):
     if forbidden in text:
-        failures.append(f"embedded-source mechanism returned: {forbidden}")
+        failures.append(f"overlapping runtime mechanism returned: {forbidden}")
 
 for required in (
-    "from adapter import ContractError, evaluate_observed_quote",
-    "from decision_pair_cli import run_football_pair, run_pair",
+    "run_football_assessment",
+    "run_decision",
+    "evaluate_observed_quote",
 ):
     if required not in text:
-        failures.append(f"missing shared-module import: {required}")
+        failures.append(f"missing shared C runtime callable: {required}")
 
 if failures:
     print("XI RUNTIME QA FAIL")
@@ -50,4 +58,4 @@ if failures:
         print(f"- {failure}")
     sys.exit(1)
 
-print("PASS — /xi uses one thin runner over the real C/C2 modules.")
+print("PASS — /xi uses one thin runner over the real Football C modules.")
