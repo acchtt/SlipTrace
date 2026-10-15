@@ -536,15 +536,28 @@ def parse_assessment(
     independent_upper_tail = _required_bool(obj, "independent_upper_tail")
     transfer_grade_present = "upper_tail_transferability" in obj
     transfer_basis_present = "upper_tail_transferability_basis" in obj
+    context_signal_present = "upper_tail_comparable_context_signal" in obj
+    context_basis_present = "upper_tail_comparable_context_basis" in obj
     if transfer_grade_present != transfer_basis_present:
         raise ContractError(
             "upper-tail transferability requires both "
             "upper_tail_transferability and upper_tail_transferability_basis"
         )
+    if context_signal_present != context_basis_present:
+        raise ContractError(
+            "upper-tail comparable context requires both "
+            "upper_tail_comparable_context_signal and "
+            "upper_tail_comparable_context_basis"
+        )
     if require_c_completion and independent_upper_tail and not transfer_grade_present:
         raise ContractError(
             "Football C independent_upper_tail requires explicit "
             "upper_tail_transferability and basis"
+        )
+    if require_c_completion and independent_upper_tail and not context_signal_present:
+        raise ContractError(
+            "Football C independent_upper_tail requires explicit "
+            "upper_tail_comparable_context_signal and basis"
         )
 
     return MatchAssessment(
@@ -613,6 +626,20 @@ def parse_assessment(
         upper_tail_transferability_basis=(
             _string(obj, "upper_tail_transferability_basis")
             if transfer_basis_present
+            else None
+        ),
+        upper_tail_comparable_context_signal=(
+            _choice(
+                obj,
+                "upper_tail_comparable_context_signal",
+                {"SUPPORTIVE", "MIXED", "SUPPRESSIVE", "UNAVAILABLE"},
+            )
+            if context_signal_present
+            else None
+        ),
+        upper_tail_comparable_context_basis=(
+            _string(obj, "upper_tail_comparable_context_basis")
+            if context_basis_present
             else None
         ),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
@@ -758,6 +785,14 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "carrier_self_fund_basis": item.carrier_self_fund_basis,
             "independent_upper_tail": item.independent_upper_tail,
             "independent_upper_tail_basis": item.independent_upper_tail_basis,
+            "upper_tail_transferability": (
+                item.upper_tail_transferability.name
+                if item.upper_tail_transferability is not None
+                else None
+            ),
+            "upper_tail_transferability_basis": item.upper_tail_transferability_basis,
+            "upper_tail_comparable_context_signal": item.upper_tail_comparable_context_signal,
+            "upper_tail_comparable_context_basis": item.upper_tail_comparable_context_basis,
             "failure_attacks_route": item.failure_attacks_route,
             "failure_attacks_route_basis": item.failure_attacks_route_basis,
             "material_suppression": item.material_suppression,

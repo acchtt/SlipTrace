@@ -87,6 +87,11 @@ def assessment(**overrides):
             "current comparable-opposition and mechanism evidence is independently "
             "transferable to the assessed matchup"
         ),
+        upper_tail_comparable_context_signal="SUPPORTIVE",
+        upper_tail_comparable_context_basis=(
+            "same-competition or closely comparable senior evidence supports "
+            "the current goal-four-plus mechanism"
+        ),
         failure_attacks_route=False,
         failure_attacks_route_basis="main failure does not directly remove the current scoring route",
         material_suppression=False,
@@ -1064,6 +1069,74 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
         self.assertFalse(c_goal4_funded(a))
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(market_line_funded(a, 3.25, "c"))
+
+    def test_lion_city_style_continental_suppression_overrides_domestic_tail(self):
+        # Prospective control: domestic scoring may look explosive, but a
+        # materially suppressive same-competition/continental sample takes
+        # precedence for G4+. The live/current score is deliberately absent.
+        a = assessment(
+            match_id="lion_city_continental_negative_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_transferability_basis=(
+                "domestic scoring and current attacking personnel would otherwise "
+                "support a high upper-tail grade"
+            ),
+            upper_tail_comparable_context_signal="SUPPRESSIVE",
+            upper_tail_comparable_context_basis=(
+                "same-competition/continental matches available before kickoff "
+                "consistently failed to clear the 2.5-goal threshold, so domestic "
+                "blowouts cannot upgrade the fourth-goal tail"
+            ),
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=85,
+            goal_signal_mean_over_two_rate=0.80,
+            goal_signal_mean_over_three_rate=0.60,
+            goal_signal_low_draw_trap_rate=0.05,
+        )
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertEqual(certificate_robustness(a, "c"), 2)
+
+    def test_mixed_comparable_context_caps_high_transferability_to_conditional(self):
+        a = assessment(
+            match_id="mixed_context_control",
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_transferability_basis=(
+                "current mechanisms support the upper tail"
+            ),
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "same-competition/comparable senior evidence contains both "
+                "high-tail and controlled low-tail matches"
+            ),
+            evidence_confidence=Grade.MEDIUM,
+            goal_signal_priority_score=78,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.55,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertEqual(certificate_robustness(a, "c"), 1)
 
     def test_city_psg_style_current_independent_routes_keep_g4(self):
         a = assessment(

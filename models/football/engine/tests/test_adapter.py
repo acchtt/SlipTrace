@@ -57,6 +57,11 @@ def match(match_id="m1", **overrides):
             "Current comparable-opposition and mechanism evidence is transferable "
             "to the assessed matchup."
         ),
+        "upper_tail_comparable_context_signal": "SUPPORTIVE",
+        "upper_tail_comparable_context_basis": (
+            "Same-competition or closely comparable senior evidence supports "
+            "the frozen upper-tail mechanism."
+        ),
         "failure_attacks_route": False,
         "failure_attacks_route_basis": "Main failure does not directly remove the current scoring route.",
         "material_suppression": False,

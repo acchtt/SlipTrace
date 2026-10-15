@@ -48,6 +48,10 @@ COMMON = {
     "upper_tail_transferability_basis": (
         "current comparable-opposition and mechanism evidence transfers to this matchup"
     ),
+    "upper_tail_comparable_context_signal": "SUPPORTIVE",
+    "upper_tail_comparable_context_basis": (
+        "same-competition or closely comparable senior evidence supports the upper tail"
+    ),
     "failure_attacks_route": False,
     "failure_attacks_route_basis": "main failure does not remove the primary scoring route",
     "material_suppression": False,

@@ -105,7 +105,27 @@ Use when the G4+ claim materially depends on evidence such as:
 
 LOW does not erase a valid G3. It blocks G4/G5/G6 only.
 
-Do not infer the grade from the bookmaker line or from HT/FT.
+### Comparable-context precedence
+
+For every independent upper tail, separately freeze:
+
+- `upper_tail_comparable_context_signal` = SUPPORTIVE / MIXED / SUPPRESSIVE / UNAVAILABLE;
+- `upper_tail_comparable_context_basis`.
+
+Research the closest available senior evidence before broader domestic form:
+
+1. same competition / current continental competition;
+2. closely comparable opponent and competition strength;
+3. domestic/cup history only as secondary corroboration.
+
+A materially suppressive same-competition/comparable sample forces effective
+transferability LOW. A mixed sample caps effective transferability at MEDIUM.
+Supportive comparable evidence preserves the original grade.
+
+If comparable context is unavailable, HIGH requires an independently current
+mechanism basis; raw domestic/cup goal rates alone are insufficient.
+
+Do not infer either field from the bookmaker line, live score, HT or FT.
 
 ## 3. Continuation quality
 

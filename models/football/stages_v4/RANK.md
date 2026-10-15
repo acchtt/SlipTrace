@@ -81,6 +81,29 @@ LOW blocks G4/G5/G6. MEDIUM may fund G4+ when the other deterministic
 requirements clear, but the certificate cannot be ROBUST. HIGH preserves the
 normal robustness path. The market and the eventual score cannot set this field.
 
+### Comparable-context precedence
+
+Whenever an independent G4+ tail is asserted, also freeze:
+
+- upper_tail_comparable_context_signal = SUPPORTIVE / MIXED / SUPPRESSIVE / UNAVAILABLE;
+- upper_tail_comparable_context_basis.
+
+Use the closest available senior context first: same competition/continental
+competition, then closely comparable opponent/competition strength, then less
+comparable domestic/cup history.
+
+Deterministic precedence:
+
+- SUPPRESSIVE -> effective transferability LOW; G4/G5/G6 blocked;
+- MIXED -> effective transferability capped at MEDIUM;
+- SUPPORTIVE -> preserve the frozen transferability grade;
+- UNAVAILABLE -> preserve a grade only when another current comparable
+  mechanism independently supports it. Domestic/cup raw scoring alone cannot
+  create HIGH.
+
+Therefore a domestic scoring explosion cannot upgrade a contradictory
+continental/same-competition upper-tail sample.
+
 The magnitude of compiled burden is not itself a rank bonus or penalty.
 
 ## Availability symmetry

@@ -153,6 +153,12 @@ class MatchAssessment:
     upper_tail_transferability: Grade | None = None
     upper_tail_transferability_basis: str | None = None
 
+    # Direction of the most comparable available context for G4+.
+    # Same-competition / closely comparable senior evidence takes precedence
+    # over less-comparable domestic/cup scoring when it is available.
+    upper_tail_comparable_context_signal: str | None = None
+    upper_tail_comparable_context_basis: str | None = None
+
     # Frozen V4 Step-0 goal signal. These are common evidence, never market
     # evidence. They are optional for historical compatibility, but the
     # distributed goal-three certificate cannot activate without them.
@@ -226,6 +232,22 @@ class MatchAssessment:
         if self.independent_upper_tail and self.upper_tail_transferability is None:
             raise ValueError(
                 "independent_upper_tail requires explicit upper_tail_transferability"
+            )
+        if self.upper_tail_comparable_context_signal is not None:
+            if self.upper_tail_comparable_context_signal not in {
+                "SUPPORTIVE", "MIXED", "SUPPRESSIVE", "UNAVAILABLE"
+            }:
+                raise ValueError("invalid upper_tail_comparable_context_signal")
+            if not (
+                self.upper_tail_comparable_context_basis
+                and self.upper_tail_comparable_context_basis.strip()
+            ):
+                raise ValueError(
+                    "upper_tail_comparable_context_signal requires a non-empty basis"
+                )
+        elif self.upper_tail_comparable_context_basis is not None:
+            raise ValueError(
+                "upper_tail_comparable_context_basis requires a signal"
             )
         if self.c2_opponent_leakage is not None and not (
             self.c2_opponent_leakage_basis
@@ -601,18 +623,37 @@ def c_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
-def c_upper_tail_transferable(a: MatchAssessment) -> bool:
-    """Whether the frozen evidence can support a C goal-four-plus certificate.
+def c_effective_upper_tail_transferability(
+    a: MatchAssessment,
+) -> Grade | None:
+    """Apply comparable-context precedence to C's G4+ transferability grade.
 
-    HIGH and MEDIUM are prospectively transferable. LOW (or missing historical
-    evidence) cannot fund G4+, regardless of raw 3+/4+ rates. MEDIUM remains
-    eligible for G4 but is capped below ROBUST by certificate_robustness().
+    Same-competition or closely comparable senior evidence overrides
+    less-comparable domestic/cup scoring when it exists. This uses only frozen
+    prospective evidence, never the bookmaker line or observed match outcome.
     """
 
+    grade = a.upper_tail_transferability
+    signal = a.upper_tail_comparable_context_signal
+    if grade is None or signal is None:
+        return None
+    if signal == "SUPPRESSIVE":
+        return Grade.LOW
+    if signal == "MIXED":
+        return min(grade, Grade.MEDIUM)
+    if signal in {"SUPPORTIVE", "UNAVAILABLE"}:
+        return grade
+    return None
+
+
+def c_upper_tail_transferable(a: MatchAssessment) -> bool:
+    """Whether frozen evidence can support a C goal-four-plus certificate."""
+
+    effective = c_effective_upper_tail_transferability(a)
     return bool(
         a.independent_upper_tail
-        and a.upper_tail_transferability is not None
-        and a.upper_tail_transferability >= Grade.MEDIUM
+        and effective is not None
+        and effective >= Grade.MEDIUM
     )
 
 
@@ -780,8 +821,9 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     if model == "c" and depth >= 4:
         if not c_upper_tail_transferable(a):
             return 0
+        effective_transferability = c_effective_upper_tail_transferability(a)
         transferability_cap = (
-            1 if a.upper_tail_transferability == Grade.MEDIUM else 2
+            1 if effective_transferability == Grade.MEDIUM else 2
         )
     else:
         transferability_cap = 2
@@ -906,7 +948,9 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     effective_continuation, _ = c_effective_incentive_grades(a)
     endpoint = _c_endpoint_control_key(a)
     goal_signal = _goal_signal_rank_key(a)
-    upper_tail_self_fund = int(a.carrier_self_fund and a.independent_upper_tail)
+    upper_tail_self_fund = int(
+        a.carrier_self_fund and c_upper_tail_transferable(a)
+    )
 
     return (
         certificate_robustness(a, "c"),
@@ -1405,6 +1449,18 @@ def prospective_goal_funding(
         "upper_tail_transferability_basis": (
             a.upper_tail_transferability_basis if model == "c" else None
         ),
+        "upper_tail_comparable_context_signal": (
+            a.upper_tail_comparable_context_signal if model == "c" else None
+        ),
+        "upper_tail_comparable_context_basis": (
+            a.upper_tail_comparable_context_basis if model == "c" else None
+        ),
+        "effective_upper_tail_transferability": (
+            c_effective_upper_tail_transferability(a).name
+            if model == "c"
+            and c_effective_upper_tail_transferability(a) is not None
+            else None
+        ),
         "goal3_funded": goal3,
         "goal4_funded": goal4,
         "goal5_funded": goal5,
@@ -1458,15 +1514,24 @@ def certified_supported_burden_basis(
     if profile["goal3_leakage_funded"]:
         mechanisms.append("LEAKAGE_G3")
     mechanism_text = ",".join(mechanisms) or "UPPER_TAIL_ONLY"
+    effective_transferability = (
+        c_effective_upper_tail_transferability(a) if model == "c" else None
+    )
     transferability_text = (
-        a.upper_tail_transferability.name
-        if model == "c" and highest >= 4 and a.upper_tail_transferability is not None
+        effective_transferability.name
+        if highest >= 4 and effective_transferability is not None
+        else "NOT_APPLICABLE"
+    )
+    comparable_context_text = (
+        a.upper_tail_comparable_context_signal
+        if model == "c" and a.upper_tail_comparable_context_signal is not None
         else "NOT_APPLICABLE"
     )
     return (
         f"DETERMINISTIC_CERTIFICATE_COMPILER: G{highest} highest funded; "
         f"max fully-funded Asian Over={burden:.2f}; G3 mechanisms={mechanism_text}; "
-        f"upper_tail_transferability={transferability_text}"
+        f"upper_tail_transferability={transferability_text}; "
+        f"comparable_context={comparable_context_text}"
     )
 
 
