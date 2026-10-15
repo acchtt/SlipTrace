@@ -112,22 +112,27 @@ forbid(
 )
 
 # Routing is machine authority.
-routing_path = ROOT / "models/football/airtable/ACTIVE_MODEL_ROUTING.json"
+routing_path = ROOT / "models/football/google_sheets/ACTIVE_STORE_ROUTING.json"
 try:
     routing = json.loads(routing_path.read_text(encoding="utf-8"))
-    if routing.get("base_id") != "appbzxqXYf0lKfD4P":
-        failures.append("ACTIVE_MODEL_ROUTING.json: wrong active base")
+    if routing.get("spreadsheet_id") != "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM":
+        failures.append("ACTIVE_STORE_ROUTING.json: wrong active spreadsheet")
     if routing.get("active_models") != ["c"]:
-        failures.append("ACTIVE_MODEL_ROUTING.json: active_models must be ['c']")
+        failures.append("ACTIVE_STORE_ROUTING.json: active_models must be ['c']")
     if routing.get("retired_models") != ["c2", "c3", "c4"]:
-        failures.append("ACTIVE_MODEL_ROUTING.json: retired model roster mismatch")
+        failures.append("ACTIVE_STORE_ROUTING.json: retired model roster mismatch")
     if routing.get("c_official_only") is not True:
-        failures.append("ACTIVE_MODEL_ROUTING.json: C official authority missing")
-    fields = routing.get("step1_engine_result_fields", {})
-    if fields.get("retired_c2_new_writes") is not False:
-        failures.append("ACTIVE_MODEL_ROUTING.json: C2 new writes must be disabled")
+        failures.append("ACTIVE_STORE_ROUTING.json: C official authority missing")
+    if routing.get("readback_method") != "INDEPENDENT_GOOGLE_SHEETS_REFETCH":
+        failures.append("ACTIVE_STORE_ROUTING.json: wrong readback method")
+    legacy = routing.get("legacy_airtable", {})
+    if legacy.get("policy") != "HISTORICAL_READ_ONLY_NO_NEW_WRITES":
+        failures.append("ACTIVE_STORE_ROUTING.json: Airtable must be historical read-only")
+    step1 = routing.get("step1_engine_result", {})
+    if step1.get("column_name") != "Step1 Engine C Result":
+        failures.append("ACTIVE_STORE_ROUTING.json: Step1 C result column mismatch")
 except Exception as exc:
-    failures.append(f"ACTIVE_MODEL_ROUTING.json unreadable: {exc}")
+    failures.append(f"ACTIVE_STORE_ROUTING.json unreadable: {exc}")
 
 # Active docs must not create a second model policy.
 for rel in (
@@ -142,6 +147,21 @@ for rel in (
         "run C and C2",
         "C+C2",
         "C/C2",
+    )
+
+# Active production authority must not route new persistence to Airtable.
+for rel in (
+    "models/football/CURRENT_MODEL.md",
+    "models/football/prompts/COMMAND_ALIASES.md",
+    "models/football/stages_v4/RANK.md",
+    "models/football/stages_v4/stage.py",
+    "models/football/engine/xi_assessment_reconcile.py",
+):
+    forbid(
+        rel,
+        "INDEPENDENT_AIRTABLE_REFETCH",
+        "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+        "active_base_id",
     )
 
 # Dormant historical implementation may remain, but no active launcher/workflow
