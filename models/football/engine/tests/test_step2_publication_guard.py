@@ -6,28 +6,30 @@ import unittest
 ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 
-from decision_pair_cli import run_pair
+from adapter import run_decision
 from step2_publication_guard import PublicationBlocked, check_publication
 from test_adapter import pair_payload
 
 
 def sample():
-    c, c2 = pair_payload("c"), pair_payload("c2")
-    receipt = run_pair(c, c2)
-    a, b = receipt["results"]["c"], receipt["results"]["c2"]
+    c = pair_payload("c")
+    result = run_decision(c)
+    receipt = {
+        "engine_execution_status": "EXECUTED_C_DECISION",
+        "model": "c",
+        "result": result,
+    }
     snapshot = {
         "match_id": c["match"]["match_id"],
         "record_id": "rec12345678901234",
         "engine_source_revision": "a" * 40,
         "evidence_epoch_id": "current-20261009T2010",
-        "c_action": "C-" + a["action"],
-        "c2_shadow_action": "C2-" + b["action"] + " — SHADOW",
-        "engine_c_result": copy.deepcopy(a),
-        "engine_c2_result": copy.deepcopy(b),
+        "c_action": "C-" + result["action"],
+        "engine_c_result": copy.deepcopy(result),
     }
     return {
-        "schema_version": "football-step2-publication-v2",
-        "pair_receipt": receipt,
+        "schema_version": "football-step2-publication-v3",
+        "decision_receipt": receipt,
         "decision_state_snapshot": snapshot,
         "active_evidence_epoch_id": "current-20261009T2010",
         "latest_evidence_epoch_id": "current-20261009T2010",
@@ -39,28 +41,25 @@ def sample():
 
 
 class PublicationGuardTests(unittest.TestCase):
-    def test_exact_pair_readback_can_publish(self):
+    def test_exact_c_readback_can_publish(self):
         result = check_publication(sample())
         self.assertEqual(result["status"], "STEP2_PUBLICATION_ELIGIBLE")
         self.assertIn("current-20261009T2010", result["publication_key"])
         self.assertTrue(result["readback_verified"])
+        self.assertNotIn("c2_shadow_action", result)
 
-    def test_pair_is_not_reexecuted_or_given_duplicate_input_payloads(self):
+    def test_decision_is_not_reexecuted_or_given_duplicate_input(self):
         row = sample()
         self.assertNotIn("c_input", row)
-        self.assertNotIn("c2_input", row)
-        self.assertEqual(check_publication(row)["status"], "STEP2_PUBLICATION_ELIGIBLE")
+        self.assertEqual(
+            check_publication(row)["status"],
+            "STEP2_PUBLICATION_ELIGIBLE",
+        )
 
-    def test_incomplete_c2_action_blocked(self):
+    def test_unexecuted_c_receipt_blocked(self):
         row = sample()
-        row["decision_state_snapshot"]["c2_shadow_action"] = "C2-INCOMPLETE"
-        with self.assertRaisesRegex(PublicationBlocked, "c2_shadow_action"):
-            check_publication(row)
-
-    def test_unexecuted_pair_blocked(self):
-        row = sample()
-        row["pair_receipt"]["engine_execution_status"] = "FAILED_AFTER_ATTEMPT"
-        with self.assertRaisesRegex(PublicationBlocked, "pair receipt"):
+        row["decision_receipt"]["engine_execution_status"] = "FAILED_AFTER_ATTEMPT"
+        with self.assertRaisesRegex(PublicationBlocked, "decision receipt"):
             check_publication(row)
 
     def test_forged_action_blocked(self):
