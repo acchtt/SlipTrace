@@ -2,7 +2,7 @@
 
 Read-only. Football C is the only active model.
 
-Use the active base appbzxqXYf0lKfD4P and current V4 rank/persistence chain.
+Use the active Google Sheets workbook `Football v2 — Active Operations` and the current V4 rank/persistence chain. Airtable is historical read-only.
 
 Report as relevant:
 
