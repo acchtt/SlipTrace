@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
 from stage import sweep,rank,StageError
 from league_registry import classify
+from discovery_goal_gate import _qualifies_goal_research
 
 NOW="2026-10-11T16:00:00Z"
 def row(mid,country="Brazil",competition="Serie A",kind="DOMESTIC_LEAGUE",
@@ -61,6 +62,34 @@ def source(rows):
         "source_observed_at_utc":"2026-10-11T15:59:00Z",
         "fixtures":rows,
     }
+
+class Step0BoundaryRegressionTests(unittest.TestCase):
+    def test_high_rate_signal_can_qualify_below_composite_sixty(self):
+        # Frozen San Diego-Houston prematch summary from
+        # V4-20261015-0734-20261015-1200: result is intentionally not used.
+        self.assertTrue(
+            _qualifies_goal_research(57, 0.6875, 0.50, 0.125)
+        )
+
+    def test_low_route_and_low_rate_shape_stays_watch(self):
+        # Frozen LAFC-Austin prematch summary: a later scoreline must not
+        # retroactively turn a weak Step-0 signal into a research certificate.
+        self.assertFalse(
+            _qualifies_goal_research(41, 0.4375, 0.3125, 0.375)
+        )
+
+    def test_borderline_three_plus_without_four_plus_tail_stays_watch(self):
+        # Frozen RSL-San Jose prematch summary. Mean 3+ barely clears the
+        # legacy floor, but the 4+ tail is not strong enough for alt admission.
+        self.assertFalse(
+            _qualifies_goal_research(48, 0.5625, 0.3125, 0.1875)
+        )
+
+    def test_existing_route_score_path_is_preserved(self):
+        self.assertTrue(
+            _qualifies_goal_research(60, 0.55, 0.20, 0.35)
+        )
+
 
 class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
     def test_high_scoring_brazilian_serie_a_was_missing_but_now_reaches_rank_queue(self):
