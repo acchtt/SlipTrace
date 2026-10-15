@@ -140,7 +140,7 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
     def test_actual_user_bets_are_user_pnl_authority(self):
         current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
         routing = (
-            FOOTBALL / "airtable" / "ACTIVE_MODEL_ROUTING.md"
+            FOOTBALL / "google_sheets" / "ACTIVE_STORE_ROUTING.md"
         ).read_text()
         self.assertIn("Actual Bets — Current", current)
         self.assertIn("Actual Bets — Current", routing)
