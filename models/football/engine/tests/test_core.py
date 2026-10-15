@@ -1019,6 +1019,179 @@ class SupportedBurdenCompilerTests(unittest.TestCase):
         self.assertEqual(required_full_win_goal(4.75), 6)
 
 
+class XiAssessmentCalibrationTests(unittest.TestCase):
+    def test_san_diego_houston_high_rate_signal_funds_g3_below_priority_sixty(self):
+        a = assessment(
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=57,
+            goal_signal_mean_over_two_rate=0.6875,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        self.assertTrue(c_distributed_goal3_funded(a))
+        self.assertTrue(c2_distributed_goal3_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertEqual(certified_supported_burden(a, "c2"), 2.5)
+
+    def test_supported_high_rate_o250_at_163_acts_instead_of_micro_wait(self):
+        a = assessment(
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=57,
+            goal_signal_mean_over_two_rate=0.6875,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        ctx = context(
+            board_state=BoardState.WATCH,
+            step2_authorization=Step2Authorization.USER_EXCEPTION,
+            quote=Quote(2.5, 1.63),
+            wait_reachable=True,
+            wait_reachability_basis="single pre-kickoff snapshot",
+        )
+        self.assertEqual(decide_c(a, ctx).action, Action.BET)
+        self.assertEqual(decide_c2(a, ctx).action, Action.BET)
+
+    def test_soft_price_zone_never_funds_unsupported_higher_burden(self):
+        a = assessment(
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=57,
+            goal_signal_mean_over_two_rate=0.6875,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        ctx = context(
+            board_state=BoardState.WATCH,
+            step2_authorization=Step2Authorization.USER_EXCEPTION,
+            quote=Quote(2.75, 1.63),
+            wait_reachable=True,
+            wait_reachability_basis="supported O2.5 target may become available",
+        )
+        self.assertEqual(decide_c(a, ctx).action, Action.WAIT)
+        self.assertEqual(decide_c2(a, ctx).action, Action.WAIT)
+
+    def test_galaxy_portland_shape_funds_c2_g4_without_all_high_grades(self):
+        # Frozen prematch shape: strong+usable routes, HIGH route reliability
+        # and independent-route quality, 81.25% 3+, 56.25% 4+, 12.5% trap.
+        a = assessment(
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+            goal_signal_priority_score=76,
+            goal_signal_mean_over_two_rate=0.8125,
+            goal_signal_mean_over_three_rate=0.5625,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        self.assertTrue(c2_clearing_goal_funded(a, 3.5))
+        self.assertEqual(certified_supported_burden(a, "c2"), 3.5)
+        self.assertEqual(
+            decide_c2(
+                a,
+                context(
+                    step2_authorization=Step2Authorization.USER_EXCEPTION,
+                    quote=Quote(3.25, 1.72),
+                ),
+            ).action,
+            Action.BET,
+        )
+
+    def test_weak_frozen_tail_does_not_gain_c2_g4_from_medium_grades(self):
+        a = assessment(
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+            goal_signal_priority_score=48,
+            goal_signal_mean_over_two_rate=0.5625,
+            goal_signal_mean_over_three_rate=0.3125,
+            goal_signal_low_draw_trap_rate=0.1875,
+        )
+        self.assertFalse(c2_clearing_goal_funded(a, 3.0))
+        self.assertEqual(certified_supported_burden(a, "c2"), 2.5)
+
+    def test_strong_self_funded_carrier_can_support_c2_g4_with_medium_failure_grade(self):
+        # Availability may reduce failure resistance from HIGH to MEDIUM without
+        # erasing a separately evidenced strong carrier and independent tail.
+        a = assessment(
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            goal_signal_priority_score=48,
+            goal_signal_mean_over_two_rate=0.5625,
+            goal_signal_mean_over_three_rate=0.3125,
+            goal_signal_low_draw_trap_rate=0.1875,
+        )
+        self.assertTrue(c2_clearing_goal_funded(a, 3.25))
+        self.assertEqual(certified_supported_burden(a, "c2"), 3.5)
+
+
 class C2BridgeTests(unittest.TestCase):
     def test_sparse_shadow_probe_cannot_imply_leakage(self):
         from types import SimpleNamespace
