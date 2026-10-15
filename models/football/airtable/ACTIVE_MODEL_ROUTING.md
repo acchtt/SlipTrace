@@ -4,111 +4,81 @@ Machine-readable authority: ACTIVE_MODEL_ROUTING.json.
 
 ## Active base
 
-Football v2 — Active Operations 2026-10-11  
+Football v2 — Active Operations 2026-10-11
 Base: appbzxqXYf0lKfD4P
 
-The previous base appWyZJjitSBATXAU is historical read-only unless an explicit
-historical comparison is requested.
-
-Current /rank, /xi, /live, /audit, /report, model QA/accounting and Website
-Picks use the active base. /sweep source acquisition remains governed by the
-V4 sweep handoff rather than this model router.
+The previous base appWyZJjitSBATXAU is historical read-only.
 
 ## Model authority
 
-- C official only.
-- C2 shadow only.
-- C3/C4 fields in cloned tables are historical and stay blank for new work.
+- Football C is the only active model.
+- C2/C3/C4 are retired and their existing fields are historical read-only.
 - Actual Bets — Current is the only user P/L authority.
 
 ## Step 1 — Daily Coverage Ledger
 
 For each new V4 ranked fixture persist:
 
-- immutable Coverage ID / Run ID identity;
-- C state, rank, supported line and official FOLLOW/RESERVE/STOP lane;
-- C2 state, rank and supported line;
-- exact Step1 Engine C Result JSON;
-- exact Step1 Engine C2 Result JSON.
+- immutable Coverage ID / Run ID;
+- C state, rank, supported burden and official FOLLOW/RESERVE/STOP lane;
+- exact Step1 Engine C Result JSON.
 
-Current exact engine-result fields:
+Current active engine-result field:
 
 - Step1 Engine C Result: fldhUWNoyXzXfQJ3C
-- Step1 Engine C2 Result: fldq0n2tDlS58goAm
 
-stage.py verify independently refetches these exact fields once and emits
-V4_RANK_PERSISTENCE_VERIFIED plus model_evidence_sha256.
+The existing Step1 Engine C2 Result field
+(fldq0n2tDlS58goAm) remains only for frozen historical rows and must not be
+required or written by new /rank operations.
 
-Routine /xi consumes that verified receipt. It does not perform another
-source/status replay.
+stage.py verify independently refetches the C fields once and emits
+V4_RANK_PERSISTENCE_VERIFIED plus the exact C evidence hash.
 
 ## /xi Decision States
 
-Persist one assessment record per assessment epoch.
+Persist one assessment record per evidence epoch.
 
 Always preserve:
 
 - Assessment ID and canonical match identity;
 - assessment time / score / minute / evidence epoch;
 - exact C football result;
-- exact C2 football result;
-- C/C2 supported burdens;
-- XI/current football notes where applicable.
+- C supported burden;
+- evaluated line/odds when a user-supplied observed quote was compared.
 
-XI Assessment Execution Status uses these active values:
+XI Assessment Execution Status active values:
 
-- EXECUTED_C_C2_FOOTBALL_ONLY
-- EXECUTED_C_C2_FOOTBALL_AND_PRICE
+- EXECUTED_C_FOOTBALL_ONLY
+- EXECUTED_C_FOOTBALL_AND_PRICE
 - ENGINE_FAILED_AFTER_ATTEMPT
 
-A failed optional price gate after successful football assessment remains
-EXECUTED_C_C2_FOOTBALL_ONLY. It is not an engine failure.
+A failed optional price check after a successful football assessment remains
+EXECUTED_C_FOOTBALL_ONLY.
 
-### Observed/screenshot quote
+Retired C2 Decision State fields remain historical only.
 
-Persist the ordinary evaluated line and evaluated odds fields.
+## Strict executable price
 
-Do not encode a second USER_SCREENSHOT_ONLY_JSON receipt in Evidence Summary.
-The attachment/capture reference may remain normal evidence text/attachment
-metadata.
+When a strict C decision succeeds, persist the exact C result and quote fields.
+Independently refetch once before publication.
 
-Observed/screenshot quotes are non-executable evidence and do not create
-Website Picks or model exposure.
+The publication gate compares that C decision receipt to the readback and
+rechecks current quote/fixture/evidence epoch. It does not execute C again.
 
-### Strict executable price
+## Website Picks and Actual Bets
 
-When a strict C+C2 decision pair succeeds, persist the exact strict results
-and current quote fields. Independently refetch once before publication.
+Only an authorized Football C strict action may create a Website Pick.
 
-The final publication gate compares that pair receipt to the readback and
-rechecks current quote/fixture/evidence epoch. It does not execute the models
-again.
+WATCH and unresolved WAIT do not create synthetic exposure.
 
-## Website Picks
-
-Only Football C strict official actions may create Website Picks.
-
-C2 never creates a Website Pick.
-
-WATCH and unresolved WAIT do not create synthetic Website Picks/exposure.
-
-## Actual Bets — Current
-
-Only a user-confirmed physical slip may create/update an Actual Bets row.
-
-Do not copy a model action, screenshot comparison, Website Pick, WATCH or WAIT
-into Actual Bets automatically.
-
-Formula P/L fields remain table-owned and must not be written directly.
+Only a user-confirmed physical slip may create/update Actual Bets — Current.
 
 ## Write/readback rule
 
-For each stage:
+For each active stage:
 
 1. resolve the table from ACTIVE_MODEL_ROUTING.json;
 2. write/update the intended active-base record;
-3. independently refetch that same record by immutable identity;
-4. compare required fields once;
-5. report PERSISTENCE_UNVERIFIED if the readback cannot be confirmed.
-
-Do not stack multiple independent reconciliation protocols for the same write.
+3. independently refetch by immutable identity;
+4. compare required C fields once;
+5. report PERSISTENCE_UNVERIFIED if readback cannot be confirmed.
