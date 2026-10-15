@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Small Step-2 authorization guard for active V4 Football C+C2.
+"""Small Step-2 authorization guard for active V4 Football C.
 
 Step 1 already replays the original source, refreshes fixture status, executes
-C/C2 and independently verifies Airtable persistence. Step 2 therefore verifies
+C and independently verifies Airtable persistence. Step 2 therefore verifies
 that one sealed rank+persistence chain and the board rows it is about to use;
 it does NOT replay source acquisition a second time.
 
@@ -90,7 +90,7 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
         or persisted.get("run_id") != rank.get("run_id")
         or persisted.get("rank_sha256") != rank_hash
         or persisted.get("ranked_count") != rank.get("ranked_count")
-        or persisted.get("c2_shadow_only") is not True
+        or persisted.get("active_model") != "c"
         or persisted.get("model_evidence_readback_verified") is not True
     ):
         raise Step2QueueError("V4 rank persistence chain invalid")
@@ -103,30 +103,25 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
     ):
         raise Step2QueueError("V4 Step1 source/status verification missing")
 
-    pair = rank.get("board_pair")
+    board_result = rank.get("board")
     if (
-        not isinstance(pair, dict)
-        or pair.get("board_engine_execution_status") != "EXECUTED_C_C2_BOARDS"
-        or pair.get("common_evidence_reconciled") is not True
+        not isinstance(board_result, dict)
+        or board_result.get("stage") != "board_result"
+        or board_result.get("model") != "c"
     ):
-        raise Step2QueueError("V4 C/C2 board pair missing")
-    results = pair.get("results")
-    if not isinstance(results, dict) or set(results) != {"c", "c2"}:
-        raise Step2QueueError("V4 C/C2 board results incomplete")
-    evidence_hash = _digest(results)
+        raise Step2QueueError("V4 Football C board missing")
+    evidence_hash = _digest(board_result)
     if persisted.get("model_evidence_sha256") != evidence_hash:
-        raise Step2QueueError("V4 persisted C/C2 model evidence differs")
+        raise Step2QueueError("V4 persisted C model evidence differs")
 
-    c_rows = results["c"].get("matches")
-    c2_rows = results["c2"].get("matches")
-    if not isinstance(c_rows, list) or not isinstance(c2_rows, list):
-        raise Step2QueueError("V4 board rows missing")
+    c_rows = board_result.get("matches")
+    if not isinstance(c_rows, list):
+        raise Step2QueueError("V4 C board rows missing")
     c = {row.get("match_id"): row for row in c_rows if isinstance(row, dict)}
-    c2 = {row.get("match_id"): row for row in c2_rows if isinstance(row, dict)}
-    if len(c) != len(c_rows) or len(c2) != len(c2_rows) or set(c) != set(c2):
-        raise Step2QueueError("V4 C/C2 ranked cohorts mismatch")
+    if len(c) != len(c_rows):
+        raise Step2QueueError("V4 C ranked cohort malformed")
     if len(board) != len(c) or {row.get("match_id") for row in board} != set(c):
-        raise Step2QueueError("complete verified V4 board required")
+        raise Step2QueueError("complete verified V4 C board required")
 
     for row in board:
         mid = _text(row, "match_id")
@@ -134,12 +129,8 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
             raise Step2QueueError(f"{mid}: C lane differs from verified rank")
         if row.get("c_board_state") != "C-" + str(c[mid].get("board_state")):
             raise Step2QueueError(f"{mid}: C board state differs from verified rank")
-        if row.get("c2_shadow_state") != "C2-" + str(c2[mid].get("board_state")):
-            raise Step2QueueError(f"{mid}: C2 state differs from verified rank")
         if row.get("c_supported_line") != c[mid].get("supported_line"):
             raise Step2QueueError(f"{mid}: C supported line differs from verified rank")
-        if row.get("c2_supported_line") != c2[mid].get("supported_line"):
-            raise Step2QueueError(f"{mid}: C2 supported line differs from verified rank")
 
     return {
         "source_run_id": rank["run_id"],
@@ -190,7 +181,6 @@ def freeze_queue(data: dict[str, Any]) -> dict[str, Any]:
             raise Step2QueueError(f"XI WINDOW NOT DOCUMENTED: {mid}")
         if lane in {"FOLLOW", "RESERVE"}:
             _quarter(row.get("c_supported_line"), "c_supported_line")
-            _quarter(row.get("c2_supported_line"), "c2_supported_line")
         board_by_id[mid] = row
 
     activated_by_id: dict[str, str] = {}

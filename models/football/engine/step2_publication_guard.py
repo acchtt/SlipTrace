@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Final publication/readback gate for a strict C+C2 priced decision.
+"""Final publication/readback gate for one strict Football C priced decision.
 
-The deterministic pair has already executed before this gate. This verifier
-therefore does not execute the models again and does not run a second session
+The deterministic C decision has already executed before this gate. This verifier
+therefore does not execute the model again and does not run a second session
 reconciliation layer. It checks only what can change after execution:
 - exact Decision State readback,
 - evidence/source revision continuity,
@@ -48,38 +48,33 @@ def _json(value: Any, key: str) -> dict[str, Any]:
     return value
 
 
-def _expected_action(model: str, engine_action: str) -> str:
+def _expected_action(engine_action: str) -> str:
     if engine_action not in {"BET", "WAIT", "PASS"}:
-        raise PublicationBlocked(f"{model}: invalid engine action")
-    return (
-        f"C-{engine_action}"
-        if model == "c"
-        else f"C2-{engine_action}"
-    )
+        raise PublicationBlocked("C: invalid engine action")
+    return f"C-{engine_action}"
 
 
 def check_publication(data: dict[str, Any]) -> dict[str, Any]:
     if (
         not isinstance(data, dict)
-        or data.get("schema_version") != "football-step2-publication-v2"
+        or data.get("schema_version") != "football-step2-publication-v3"
     ):
         raise PublicationBlocked(
-            "schema_version must be football-step2-publication-v2"
+            "schema_version must be football-step2-publication-v3"
         )
 
-    receipt = data.get("pair_receipt")
+    receipt = data.get("decision_receipt")
     stored = data.get("decision_state_snapshot")
     if not isinstance(receipt, dict) or not isinstance(stored, dict):
         raise PublicationBlocked(
-            "strict pair receipt and independent Decision State readback required"
+            "strict C decision receipt and independent Decision State readback required"
         )
     if (
-        receipt.get("engine_execution_status") != "EXECUTED_C_C2_PAIR"
-        or receipt.get("models_executed") != ["c", "c2"]
-        or not isinstance(receipt.get("results"), dict)
-        or set(receipt["results"]) != {"c", "c2"}
+        receipt.get("engine_execution_status") != "EXECUTED_C_DECISION"
+        or receipt.get("model") != "c"
+        or not isinstance(receipt.get("result"), dict)
     ):
-        raise PublicationBlocked("strict C+C2 pair receipt invalid")
+        raise PublicationBlocked("strict Football C decision receipt invalid")
 
     match_id = _text(stored, "match_id")
     record_id = _text(stored, "record_id")
@@ -103,21 +98,15 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
     if data.get("fixture_status_still_valid") is not True:
         raise PublicationBlocked("fixture status invalidated — reassess")
 
-    for model, stored_key, action_key in (
-        ("c", "engine_c_result", "c_action"),
-        ("c2", "engine_c2_result", "c2_shadow_action"),
-    ):
-        result = receipt["results"][model]
-        if result.get("match_id") != match_id:
-            raise PublicationBlocked(f"{model}: pair fixture differs from readback")
-        if _json(stored.get(stored_key), stored_key) != result:
-            raise PublicationBlocked(f"{stored_key} differs from strict pair result")
-        expected = _expected_action(model, result.get("action"))
-        observed_action = _text(stored, action_key).upper()
-        if model == "c2":
-            observed_action = observed_action.split(" —", 1)[0]
-        if observed_action != expected:
-            raise PublicationBlocked(f"{action_key} differs from strict pair result")
+    result = receipt["result"]
+    if result.get("match_id") != match_id:
+        raise PublicationBlocked("C decision fixture differs from readback")
+    if _json(stored.get("engine_c_result"), "engine_c_result") != result:
+        raise PublicationBlocked("engine_c_result differs from strict C result")
+    expected = _expected_action(result.get("action"))
+    observed_action = _text(stored, "c_action").upper()
+    if observed_action != expected:
+        raise PublicationBlocked("c_action differs from strict C result")
 
     key = match_id + ":" + active_epoch
     published = data.get("previously_published_keys")
@@ -138,7 +127,6 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
         "engine_source_revision": source,
         "evidence_epoch_id": active_epoch,
         "c_action": _text(stored, "c_action"),
-        "c2_shadow_action": _text(stored, "c2_shadow_action"),
         "readback_verified": True,
         "quote_still_executable": True,
     }
@@ -146,7 +134,7 @@ def check_publication(data: dict[str, Any]) -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Verify strict priced C+C2 publication readback"
+        description="Verify strict priced Football C publication readback"
     )
     parser.add_argument("--input", required=True)
     args = parser.parse_args()

@@ -1,51 +1,28 @@
-# /live — current-state C + C2 football assessment
+# /live — current-state Football C assessment
 
-**Command alias:** /live
+Football C is the only active model.
 
-/live uses the same football-assessment runtime as /xi.
+/live uses the same football-assessment runtime as /xi with:
 
-## Inputs
-
-Use the actual current:
-
-- fixture status;
-- score;
+- actual current score;
 - match minute;
-- red cards/goals/other material events;
-- current route/mechanism state;
-- current tournament/incentive state when relevant.
+- verified goals/reds/injuries/substitutions;
+- current tournament/game-state changes;
+- frozen prematch/xi thesis as context.
 
-Do not require live bookmaker odds to complete football analysis.
+Provider live stats are not required.
 
-## Execution
+There is no active step2_fixture_transition state machine. Current facts are
+frozen directly into the new Football C assessment epoch.
 
-Run independent C official + C2 shadow stage=football_assessment payloads at
-the same current evidence epoch.
+After kickoff:
 
-A started fixture is still assessable. Do not discard the football result
-because kickoff passed.
+- assess the current football state;
+- invalidate prematch execution assumptions;
+- never recreate a prematch ACT/WAIT/PASS;
+- do not request a new bookmaker quote merely because the game started;
+- a user-supplied live quote returns
+  LIVE_PRICE_BURDEN_COMPARISON_ONLY unless a separate live-execution policy
+  explicitly authorizes action.
 
-There is no active step2_fixture_transition state machine.
-
-## Price
-
-If the user supplies a live screenshot, use its exact displayed line/odds as
-current comparison evidence only. Do not search replacement odds.
-
-A live observed quote must not recreate a prematch ACT/WAIT/PASS. The active
-runner returns LIVE_PRICE_BURDEN_COMPARISON_ONLY for started fixtures.
-
-No live bet is authorized unless a separately implemented/current live
-execution policy explicitly supports it.
-
-## Output
-
-Give the current football read first for C and C2, then:
-
-- current score/minute;
-- whether the thesis/mechanism remains intact;
-- supported frozen burdens for context;
-- material rechecks;
-- optional live burden comparison if a screenshot was supplied.
-
-Never retroactively claim a prematch bet.
+C2/C3/C4 models are retired and do not run in /live.

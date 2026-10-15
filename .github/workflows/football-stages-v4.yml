@@ -12,6 +12,7 @@ on:
       - "models/football/stages_v4/**"
       - ".github/workflows/football-stages-v4.yml"
       - "models/football/prompts/COMMAND_ALIASES.md"
+      - "models/football/CURRENT_MODEL.md"
 
 permissions:
   contents: read
@@ -27,7 +28,7 @@ jobs:
           python-version: "3.12"
       - name: Test researched league registry and V4 sweep/rank
         run: python -m unittest discover -s models/football/stages_v4 -p 'test_*.py' -v
-      - name: Verify V4 CLI is independent of retired sweep/rank code
+      - name: Verify V4 is single-C and independent of retired pair/sweep code
         run: |
           python models/football/stages_v4/stage.py --help
           python - <<'PY'
@@ -35,8 +36,12 @@ jobs:
           retired = Path('models/football/engine/sweep_rank_retired.py')
           assert not retired.exists(), 'retired V1-V3 tombstone returned to active engine tree'
           stage = Path('models/football/stages_v4/stage.py').read_text()
-          assert 'run_board_pair(c, c2)' in stage
+          assert 'from adapter import run_board' in stage
+          assert 'run_board_pair' not in stage
+          assert 'decision_pair_cli' not in stage
+          assert '--c2' not in stage
+          assert '"active_model": "c"' in stage
           assert 'V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK' in stage
           assert 'goal_route_prescreen' not in stage
-          print('PASS — V4 is self-contained; retired sweep/rank code is absent')
+          print('PASS — V4 is self-contained and ranks Football C only')
           PY

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Small end-to-end smoke for the active thin /xi C+C2 runner."""
+"""End-to-end smoke for the active thin single-C /xi runner."""
 
 from __future__ import annotations
 
@@ -10,7 +10,6 @@ import subprocess
 import sys
 from tempfile import TemporaryDirectory
 
-
 ROOT = Path(__file__).resolve().parents[3]
 RUNNER = ROOT / "models/football/engine/xi_portable.py"
 TESTS = ROOT / "models/football/engine/tests"
@@ -18,7 +17,6 @@ sys.path.insert(0, str(TESTS))
 
 from test_adapter import pair_payload  # noqa: E402
 from test_football_assessment_pair import football  # noqa: E402
-
 
 def command(*args: str) -> tuple[int, dict]:
     proc = subprocess.run(
@@ -38,55 +36,48 @@ def command(*args: str) -> tuple[int, dict]:
         ) from exc
     return proc.returncode, result
 
-
 def write(path: Path, value: dict) -> str:
     path.write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
     return str(path)
 
-
 def main() -> None:
     code, checked = command("self-check")
     assert code == 0 and checked.get("ok") is True, checked
-    assert checked.get("active_models") == ["c", "c2"], checked
-    assert checked.get("runtime_mode") == "THIN_SHARED_MODULES", checked
+    assert checked.get("active_models") == ["c"], checked
+    assert checked.get("retired_models") == ["c2", "c3", "c4"], checked
 
     with TemporaryDirectory(prefix="xi-runtime-e2e-") as directory:
         root = Path(directory)
 
-        c, c2 = pair_payload("c"), pair_payload("c2")
-        c_file = write(root / "c.json", c)
-        c2_file = write(root / "c2.json", c2)
-        args = ("pair", "--c", c_file, "--c2", c2_file)
-        code, first = command(*args)
-        assert code == 0 and first.get("engine_execution_status") == "EXECUTED_C_C2_PAIR", first
-        code, repeated = command(*args)
+        decision = pair_payload("c")
+        decision_file = write(root / "decision-c.json", decision)
+        code, first = command("decision", "--c", decision_file)
+        assert code == 0, first
+        assert first.get("engine_execution_status") == "EXECUTED_C_DECISION", first
+        code, repeated = command("decision", "--c", decision_file)
         assert code == 0 and repeated == first, (first, repeated)
 
-        bad = copy.deepcopy(c2)
-        bad["model"] = "c3"
-        bad_file = write(root / "retired.json", bad)
-        code, rejected = command("pair", "--c", c_file, "--c2", bad_file)
+        retired = copy.deepcopy(decision)
+        retired["model"] = "c2"
+        retired_file = write(root / "retired-c2.json", retired)
+        code, rejected = command("decision", "--c", retired_file)
         assert code != 0, rejected
         assert rejected.get("status") == "XI ENGINE CONTRACT REJECTED", rejected
 
-        fc = write(
-            root / "fc.json",
-            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None),
+        football_input = football(
+            "c", status="PREMATCH_CONFIRMED", minute=None, score=None
         )
-        fc2 = write(
-            root / "fc2.json",
-            football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None),
-        )
-        code, assessed = command("xi", "--c", fc, "--c2", fc2)
+        football_file = write(root / "football-c.json", football_input)
+        code, assessed = command("xi", "--c", football_file)
         assert code == 0, assessed
         assert assessed.get("xi_mode") == "FOOTBALL_ASSESSMENT", assessed
-        assert assessed.get("engine_execution_status") == "EXECUTED_C_C2_FOOTBALL_ONLY", assessed
+        assert assessed.get("engine_execution_status") == "EXECUTED_C_FOOTBALL_ONLY", assessed
+        assert assessed.get("model") == "c", assessed
 
     print(
-        "PASS — thin /xi runner: self-check, deterministic strict pair, "
-        "retired-model rejection and quote-free C+C2 assessment."
+        "PASS — single-C /xi runner: self-check, deterministic strict C decision, "
+        "retired-C2 rejection and quote-free C assessment."
     )
-
 
 if __name__ == "__main__":
     main()

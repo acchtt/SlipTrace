@@ -1,216 +1,105 @@
-# /xi — Football C + C2 assessment
+# /xi — Football C assessment
 
-**Command alias:** /xi  
-**Exception alias:** /xi exception
+Football C is the only active model. C2/C3/C4 are retired and never execute in
+new /xi work.
 
-## Active roster
+## Authority
 
-- Football C = official.
-- Football C2 = shadow only.
-- C3/C4 are retired for new work.
+Use:
 
-Use the thin shared runtime:
+python models/football/engine/xi_portable.py xi --c c_football.json
 
-python models/football/engine/xi_portable.py xi --c c_football.json --c2 c2_football.json
+Optional:
 
-Odds are not required to complete the football assessment.
+- --screenshot-quote screenshot.json for exact user-supplied observed quote;
+- --price-c c_decision.json only when a genuinely executable current prematch
+  quote and all strict evidence already exist.
 
-## 1. Establish authority
+## Routine authority
 
-### Routine V4 match
+For a routine V4 board match verify:
 
-Load the verified V4 rank receipt, the matching
-V4_RANK_PERSISTENCE_VERIFIED receipt and the exact ranked board row.
+- sealed V4 rank receipt;
+- V4_RANK_PERSISTENCE_VERIFIED receipt;
+- exact Football C board row.
 
-Run step2_queue_guard.py with schema football-step2-queue-v2.
+Do not replay Step-1 source/status in Step 2.
 
-Do **not** carry the original sweep source/status payloads into /xi and do not
-replay Step 1 again. Step 1 already performed source replay, fresh status
-verification, C/C2 execution and exact Airtable readback.
+For an explicit /xi exception, assess the requested fixture from current
+Football C evidence without routine board authority.
 
-### /xi exception
+## Football assessment
 
-An explicit user exception can be assessed without routine board authority.
-Research/freeze independent C and C2 evidence from the current match epoch.
+Freeze the current factual match state once.
 
-Do not manufacture a prematch decision after kickoff.
+Research:
 
-## 2. Research current football state
+- routes/carrier/current chance creation;
+- failure resistance and named failure mechanism;
+- XI/availability where available;
+- completion/continuation/stall/opponent leakage;
+- H2H only if materially transferable;
+- tournament incentive where applicable;
+- frozen V4 goal signal;
+- whether availability actually attacks an identified scoring route.
 
-Assess current football evidence first:
+Odds are not required.
 
-- actual fixture status/kickoff;
-- XI/team-news/mechanism state when available;
-- current routes/carrier/chance/failure evidence;
-- H2H only when materially transferable/corroborated;
-- tournament format/incentive state when applicable;
-- current score/minute/material event after kickoff;
-- model-specific WAIT reachability when a decay plan is plausible.
+Availability is symmetric: do not suppress the total merely because attacking
+players are absent. Check replacements, opponent routes and defensive rotation.
 
-C2 model-owned leakage evidence must remain independent from C. When current
-C2 leakage is used, freeze both c2_opponent_leakage and a non-empty
-c2_opponent_leakage_basis. Otherwise omit both.
+## Screenshot quote
 
-For WAIT research, record independently for each model:
+A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Use the exact
+screenshot only and persist its normal evaluated line/odds fields when readback
+is required.
 
-- wait_reachable = true/false;
-- wait_reachability_basis when true;
-- wait_requires_negative_info = true/false;
-- wait_negative_info_basis when material;
-- top_ranked_focus when relevant.
+- no replacement odds search;
+- no inferred missing price;
+- no re-timing;
+- no new screenshot request merely because processing took time.
 
-A missing/unproven reachability assessment must not be converted into WAIT.
-A single screenshot does not prove that same-line odds will improve. Near
-kickoff, do not mark a price-only micro-WAIT reachable merely because 1.63
-*might* become 1.65. Price-only WAIT needs actual directional/reachability
-evidence; line-decay WAIT may still be used when its football/market path is
-genuinely plausible.
+The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
+policy used by strict execution.
 
-Availability/rotation is symmetric. Do not lower failure resistance,
-independent upper-tail proof or a funded route merely because attacking names
-are missing. First test whether alternate creators/scorers preserve the route,
-whether the opponent still owns an independent route, and whether defensive
-rotation increases leakage. Downgrade only when the change attacks an
-identified scoring mechanism.
+If the screenshot burden materially exceeds C's certificate, recheck football
+evidence once. The market is a research trigger only and cannot create a goal
+certificate.
 
-## 3. Execute football assessment
+## WAIT
 
-Run both independent stage=football_assessment payloads.
+WAIT must be researched, not manufactured.
 
-A successful result is:
+Require:
 
-EXECUTED_C_C2_FOOTBALL_ONLY
+- wait_reachable=true;
+- non-empty reachability basis;
+- wait_requires_negative_info=false;
+- intact football mechanism;
+- no material veto.
 
-This is a complete football assessment even when no price exists.
+A single screenshot does not prove the same line/price will improve. Near
+kickoff do not create a price-only micro-WAIT from speculative drift.
 
-Do not ask the user for odds to finish football analysis.
+The core owns target/minimum price. The normal minimum is 1.65; a 1.60
+supported-line soft zone is permitted only where the already-funded C
+certificate has the required football corroboration.
 
-## 4. Optional observed quote / screenshot
+## Strict executable decision
 
-If the user supplied a screenshot, use **only that screenshot's exact line and
-odds**.
+A strict decision requires a current executable prematch quote plus all current
+XI/tournament/evidence requirements. It returns one C decision receipt.
 
-Rules:
+Persist once, independently read back once, then run the publication guard.
+A screenshot comparison alone never authorizes execution/publication.
 
-- evidence_mode = USER_SCREENSHOT_ONLY;
-- source = USER_SCREENSHOT;
-- preserve the original capture reference/time when known;
-- never search for a replacement bookmaker quote;
-- never overwrite capture time with analysis time;
-- never request a fresh screenshot merely because processing took time.
+## Started fixtures
 
-The runtime calls adapter.evaluate_observed_quote() independently for C and C2.
-That function reuses the exact same pure quote-policy functions used by strict
-run_decision().
+After kickoff continue Football C assessment with current score/minute/material
+events. Never recreate a prematch ACT/WAIT/PASS retrospectively.
 
-Before a final WAIT/PASS at a screenshot line that requires a higher full-win
-goal than the current compiled burden, recheck the frozen/current football
-evidence once: independent routes, current chance creation, availability
-symmetry, continuation and opponent leakage. The screenshot is a research
-trigger only; it cannot manufacture G3/G4/G5/G6 and no replacement quote may
-be fetched.
-
-Therefore the screenshot may yield conditional model ACT / WAIT / PASS.
-
-But screenshot/observed-price evaluation always has:
-
-- execution_authorized = false;
-- publication_authorized = false;
-- model_exposure_created = false;
-- no Actual Bet.
-
-A screenshot cannot independently prove the offer remains executable.
-
-Persist a successful observed comparison using the normal evaluated line/odds
-fields plus the regular C/C2 assessment readback. Do not serialize a separate
-screenshot receipt into Evidence Summary.
-
-## 5. WAIT
-
-WAIT comes only from core model policy.
-
-Never use a wrapper-specific fixed decay-gap threshold.
-
-For a healthy WAIT:
-
-- the football thesis/mechanism remains intact;
-- no material veto remains;
-- wait_reachable=true is supported by current research;
-- wait_requires_negative_info=false.
-
-The deterministic target/minimum price is returned by the core policy:
-
-- target = the applicable protected/model-supported burden;
-- normal minimum price = 1.65;
-- 1.60 soft-zone is allowed at an already funded supported burden when the
-  football certificate has independent robustness/high-rate corroboration;
-- top-ranked FOCUS retains the existing 1.60 soft-zone;
-- unsupported higher burdens never receive the supported-line soft-zone.
-
-A WAIT is a plan only. It creates no assumed exposure.
-
-If a goal, red card, major injury or material tactical/route change occurs,
-reassess the current football state before acting.
-
-## 6. Optional strict executable price decision
-
-Only when a genuinely current executable prematch quote and all strict current
-evidence already exist, run independent stage=decision C and C2 payloads in the
-same /xi turn.
-
-The strict decision path adds execution authorization around the same model
-quote policy. It does not replace the football assessment.
-
-If the strict price gate fails, keep and report the completed football result.
-Do not turn it into an engine failure.
-
-If the strict pair succeeds:
-
-1. persist the Decision State once;
-2. independently refetch once;
-3. immediately before official publication verify the pair receipt/readback,
-   current evidence epoch, fixture state and executable quote using
-   step2_publication_guard.py.
-
-C2 is shadow-only and cannot create Website Picks.
-
-## 7. Started match / live state
-
-When kickoff has passed, keep running the same C/C2 football assessment with
-the actual score/minute/events.
-
-Do not recreate a prematch ACT/WAIT/PASS.
-
-A user live screenshot may be compared to the frozen burden as current
-information, but it does not become a prematch executable action.
-
-There is no separate active kickoff-transition router.
-
-## 8. Result-first response
-
-Give the user the useful verdict first.
-
-For each model show:
-
-- C official football state and supported line;
-- C2 shadow football state and supported line;
-- if a quote was supplied: conditional ACT / WAIT / PASS;
-- for WAIT: target line, minimum odds and reachability basis;
-- any current material blocker/recheck.
-
-Then state execution status:
-
-- observed screenshot only -> conditional, non-executable;
-- verified strict price pair -> eligible for persistence/publication checks;
-- no price -> No bet price checked.
-
-Never invent a price, frozen line, lineup or bet.
-
-## 9. Persistence/accounting
-
-Persist/refetch the active Decision State once when required.
-
-WATCH and unresolved WAIT are not model bets.
-
-Physical user profit/loss is read only from confirmed Actual Bets — Current
-rows. Do not infer a user bet from C action, Website Pick, screenshot or WAIT.
+## Output
+
+Give the C football verdict first, then any observed-price ACT/WAIT/PASS and its
+execution status. Do not mention retired models unless the user asks for
+historical audit.

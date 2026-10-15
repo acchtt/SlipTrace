@@ -57,6 +57,20 @@ class ContractError(ValueError):
     pass
 
 
+ACTIVE_MODEL = "c"
+RETIRED_MODELS = {"c2", "c3", "c4"}
+
+
+def _active_model(payload: dict[str, Any]) -> str:
+    model = str(payload.get("model", "")).lower()
+    if model != ACTIVE_MODEL:
+        raise ContractError(
+            "active production model must be 'c'; C2/C3/C4 are retired and "
+            "historical records remain read-only"
+        )
+    return model
+
+
 def _required(obj: dict[str, Any], key: str) -> Any:
     if key not in obj:
         raise ContractError(f"missing required field: {key}")
@@ -633,9 +647,7 @@ def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
 def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
 
-    model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2"}:
-        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
+    model = _active_model(payload)
 
     raw_matches = _required(payload, "matches")
     if not isinstance(raw_matches, list) or not raw_matches:
@@ -847,9 +859,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
     than being laundered into a priced PASS/WAIT or a false positive.
     """
     _check_envelope(payload, "football_assessment")
-    model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2"}:
-        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
+    model = _active_model(payload)
     match_obj = _required(payload, "match")
     a = parse_assessment(match_obj, require_c_completion=(model == "c"))
     ctx = _required(payload, "context")
@@ -1162,9 +1172,7 @@ def evaluate_observed_quote(
 def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "decision")
 
-    model = str(payload.get("model", "")).lower()
-    if model not in {"c", "c2"}:
-        raise ContractError("model must be 'c' or 'c2'; C3/C4 are retired")
+    model = _active_model(payload)
 
     raw_match = _required(payload, "match")
     a = parse_assessment(raw_match, require_c_completion=(model == "c"))

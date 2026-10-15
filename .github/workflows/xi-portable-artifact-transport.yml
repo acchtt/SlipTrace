@@ -1,4 +1,4 @@
-name: XI C+C2 thin runtime artifact
+name: XI Football C thin runtime artifact
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
       - "models/football/engine/competition_reliability.py"
-      - "models/football/engine/decision_pair_cli.py"
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/step2_queue_guard.py"
   pull_request:
@@ -18,8 +17,8 @@ on:
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
-      - "models/football/engine/decision_pair_cli.py"
       - "models/football/engine/step2_publication_guard.py"
+      - "models/football/engine/step2_queue_guard.py"
   workflow_dispatch:
 
 permissions:
@@ -34,7 +33,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Verify thin shared runtime
+      - name: Verify thin shared Football C runtime
         run: |
           python models/football/qa/check_xi_portable_runtime.py
           python models/football/engine/xi_portable.py self-check
@@ -47,7 +46,7 @@ jobs:
       - name: Export thin runner with its real dependencies
         uses: actions/upload-artifact@v4
         with:
-          name: xi-c-c2-thin-runtime
+          name: xi-football-c-thin-runtime
           retention-days: 7
           if-no-files-found: error
           path: |
@@ -56,6 +55,5 @@ jobs:
             models/football/engine/core.py
             models/football/engine/adapter.py
             models/football/engine/competition_reliability.py
-            models/football/engine/decision_pair_cli.py
             models/football/engine/step2_queue_guard.py
             models/football/engine/step2_publication_guard.py

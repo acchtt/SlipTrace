@@ -1,120 +1,20 @@
-# 06 — Normal Chat: Football Report
+# /report — Football v2 current report
 
-> **ACTIVE MODEL AIRTABLE ROUTING — 2026-10-11 (/report):** Before the first Airtable model read/write, load `models/football/airtable/ACTIVE_MODEL_ROUTING.md` and `ACTIVE_MODEL_ROUTING.json`. All new model board, C/C2 decision, live, audit, report, calibration, Website Picks and user-verified Actual Bets operations use base `appbzxqXYf0lKfD4P` and its mapped table IDs. Field names must be resolved against the new schema; old record/field/table IDs are never write targets. **The `/sweep` launcher and its Airtable routing are explicitly unchanged**, including existing Step0 handoff receipts. Do not reroute Sweep Runs or rewrite frozen Step0 rows. Model writes require same-base readback with original Coverage/Assessment/Pick/Actual Bet identity. No implicit fallback to legacy base.
+Read-only. Football C is the only active model.
 
-**Command alias:** `/report`  
-**Current roster:** Football C official + Football C2 shadow.
+Use the active base appbzxqXYf0lKfD4P and current V4 rank/persistence chain.
 
-Read `models/football/CURRENT_MODEL.md` and current persisted state first.
+Report as relevant:
 
-This launcher is read-only. It summarizes already-existing football state and must not silently rerun Step 0, Step 1, Step 2, live assessment, or predictive ranking.
+- current V4 run/coverage state;
+- C rank, board state, lane and supported burden;
+- current C /xi ACT/WAIT/PASS when genuinely assessed;
+- C model accounting based only on confirmed model exposure;
+- user physical bets/P&L only from Actual Bets — Current.
 
-## V4 reporting amendment (2026-10-12)
+Do not reconstruct retired C2/C3/C4 judgments for new rows. Historical retired
+model records may be shown only when the user explicitly asks for historical
+comparison.
 
-Prefer the latest V4 sweep/rank/readback provenance chain. A matching digest is an internal integrity check, not third-party proof of provider authenticity. Distinguish `GOAL_PRIORITY` ranked candidates from pending histories and unregistered discovery, unranked due-to-time/status, C/C2 football assessed, and screenshot-only conditional price checks. Never report screenshot conditional ACT as official C BET, a live approved bet, Website Pick, or physical execution. Never describe an old V1–V3 `Sweep Runs` record as a current V4 rank receipt. The original fixture status is frozen history: only new observed status may determine `next matches`. The confirmed `Actual Bets — Current` table is the sole physical P/L ledger.
-
-## Current report scope
-
-When relevant, report:
-- current board/window;
-- V4 source/goal-screen state: source-visible count, GOAL_PRIORITY, pending goal/discovery research, exclusions and provenance status;
-- Football C official state/rank/line/lane;
-- Football C2 shadow state/rank/line;
-- current C+C2 Step-2 actions;
-- Website Pick / official C exposure state;
-- C/C2 model-accounting state;
-- current WAIT plans;
-- runtime/persistence blockers;
-- upcoming kickoff/status after factual revalidation when requested.
-
-C3/C4 are retired. Do not show them as current tracks or counters.
-
-Historical C3/C4 data may appear only in an explicitly historical audit/report when:
-- the record was genuinely prospectively frozen during that model's active era; and
-- the historical comparison is relevant to the user's requested scope.
-
-## `/report current board`
-
-Show the latest frozen:
-- board window;
-- C official ranking/state/line;
-- FOLLOW / RESERVE / STOP lane;
-- C2 shadow ranking/state/line;
-- V4 rank provenance/readback state, including source replay and status-refresh verification;
-- pair-reconciliation status;
-- persistence/runtime status.
-
-Do not rerank.
-
-## `/report latest decisions`
-
-Show latest material Decision States:
-- C Action;
-- C supported line;
-- C2 Shadow Action;
-- C2 supported line;
-- engine C+C2 pair status;
-- official Website Pick state;
-- WAIT target/min odds when relevant;
-- active accounting result.
-
-Do not reconstruct missing C2 from C.
-
-## `/report next matches`
-
-Daily Coverage is frozen history, not proof a fixture is still upcoming.
-
-Revalidate only the factual schedule/status necessary for the report:
-- correct ICT kickoff;
-- remove LIVE/HT/FT/postponed/cancelled fixtures from upcoming;
-- annotate material schedule corrections.
-
-This factual refresh does not authorize reranking/reassessment.
-
-## WAIT display
-
-Show C/C2 WAIT plans using each model's own:
-- target line;
-- minimum odds;
-- accounting basis;
-- current known resolution.
-
-Do not label a WAIT "not reached" unless the user explicitly said so.
-
-C official model-accounting and actual user execution remain separate.
-
-## Accounting
-
-Current forward accounting is C+C2 only.
-
-For WATCH:
-`WATCH_ASSUMED O<supported line> @1.65 1u`
-with the shadow equivalent for C2.
-
-For WAIT:
-use that model's frozen target/min odds.
-
-Historical retired-model accounting belongs only in an explicitly historical appendix using frozen historical rows.
-
-### Actual user profit
-
-Use Airtable `Actual Bets — Current` (`tblGsnU4Ht0OpmdH8`, base `appbzxqXYf0lKfD4P`) as the canonical source for current actual-user P/L from the 2026-10-08 reset onward.
-
-Unless the user explicitly asks for historical combined reporting:
-- sum `Profit VND` only from this table;
-- turnover is the sum of `Stake VND` from this table;
-- ROI is total profit / total stake for this table;
-- do not infer actual bets from Website Picks, Decision States, C/C2 model accounting, WATCH/WAIT records, or shadow exposure.
-
-## Boundaries
-
-`/report` must not:
-- create a new sweep;
-- repair Step 0;
-- rerank;
-- reassess XI;
-- execute a new live decision;
-- manufacture a new model verdict;
-- backfill C2/C3/C4 after outcome.
-
-If the user asks for new predictive work, route to the corresponding launcher.
+Never infer physical execution from Website Picks, Decision States, WATCH,
+WAIT or model accounting.

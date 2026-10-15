@@ -25,9 +25,21 @@ class ActiveModelRoutingTests(unittest.TestCase):
         fields = config["step1_engine_result_fields"]
         self.assertEqual(fields["table"], "Daily Coverage Ledger")
         self.assertEqual(fields["c_field_id"], "fldhUWNoyXzXfQJ3C")
-        self.assertEqual(fields["c2_field_id"], "fldq0n2tDlS58goAm")
+        self.assertEqual(fields["retired_c2_field_id"], "fldq0n2tDlS58goAm")
+        self.assertFalse(fields["retired_c2_new_writes"])
         self.assertTrue(fields["exact_json_readback_required"])
         self.assertFalse(fields["historical_backfill"])
+
+    def test_only_c_is_active_model(self):
+        config = _configuration()
+        self.assertEqual(config["active_models"], ["c"])
+        self.assertEqual(config["retired_models"], ["c2", "c3", "c4"])
+        status = config["xi_assessment_execution_status_field"]
+        self.assertEqual(status["football_only_value"], "EXECUTED_C_FOOTBALL_ONLY")
+        self.assertEqual(
+            status["football_and_price_value"],
+            "EXECUTED_C_FOOTBALL_AND_PRICE",
+        )
 
     def test_sweep_is_not_rerouted(self):
         with self.assertRaisesRegex(AirtableRouteError, "sweep"):

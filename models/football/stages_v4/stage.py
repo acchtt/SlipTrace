@@ -4,8 +4,8 @@
 No old Step0 ZIP, global women's sweep, 8-fixture cap or bookmaker quote
 requirement. Source discovery and Airtable refetch are explicit operations by
 the caller; this code never claims to browse sites or publish by itself.
-Actual model assessments are computed by existing independent C and C2
-engine functions, with the user-retired OLD CLI entrypoints kept retired.
+Actual model assessments are computed by the single active Football C
+engine. C2/C3/C4 are retired; frozen historical receipts remain immutable.
 """
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from urllib.parse import urlsplit
 
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))
-from board_pair_cli import run_board_pair  # historic pure implementation; old CLI remains retired
+from adapter import run_board
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
@@ -34,7 +34,6 @@ SCHEMA = "football-stages-v4"
 BASE = "appbzxqXYf0lKfD4P"
 STEP1_ENGINE_RESULT_FIELD_IDS = {
     "c": "fldhUWNoyXzXfQJ3C",
-    "c2": "fldq0n2tDlS58goAm",
 }
 VALID_MATCH_STATUSES = {"PREMATCH_CONFIRMED","STARTED","FINISHED","POSTPONED","CANCELLED"}
 PRICE_FIELDS = {"odds", "bookmaker_total", "price", "final_score", "ft_goals", "live_score", "bet"}
@@ -437,11 +436,11 @@ def _check_rank_source_and_status(
     }
 
 
-def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
+def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
          unranked_reasons: dict[str, str], *, now: str,
          original_source: dict[str, Any] | None = None,
          status_refresh: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Evaluate actual C/C2 inputs against frozen V4 eligible set; never bet."""
+    """Evaluate the single active Football C input against frozen V4 eligible set."""
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
     if not _time(sweep_receipt["created_at_utc"], "created") <= at:
@@ -457,7 +456,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
             or row["goal_screen"].get("status") != "DISCOVERY_GOAL_QUALIFIED"
             for row in queue
         ):
-            raise StageError("goal-first shortlist violated: unqualified match cannot enter C/C2 rank")
+            raise StageError("goal-first shortlist violated: unqualified match cannot enter C rank")
         manifest = sweep_receipt.get("goal_screen_manifest")
         if queue and (
             not isinstance(manifest, dict)
@@ -472,24 +471,21 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
         raise StageError("frozen eligible queue contains duplicate match ID")
     if not frozen:
         raise StageError("no verified candidates to rank")
-    if not isinstance(c, dict) or not isinstance(c2, dict):
-        raise StageError("C and C2 source-backed assessment payloads required")
+    if not isinstance(c, dict):
+        raise StageError("Football C source-backed assessment payload required")
+    if str(c.get("model", "")).lower() != "c" or c.get("stage") != "board":
+        raise StageError("active /rank requires one model=c stage=board payload")
     crows = c.get("matches")
-    c2rows = c2.get("matches")
-    if not isinstance(crows, list) or not crows or not isinstance(c2rows, list):
-        raise StageError("actual source-backed C/C2 evidence required")
+    if not isinstance(crows, list) or not crows:
+        raise StageError("actual source-backed C evidence required")
     ids = [r.get("match_id") for r in crows if isinstance(r, dict)]
     if len(ids) != len(crows) or len(ids) != len(set(ids)) or not set(ids).issubset(frozen):
         raise StageError("C ranked fixture cohort must be unique subset of frozen V4 fixtures")
-    if {r.get("match_id") for r in c2rows if isinstance(r, dict)} != set(ids) or len(c2rows) != len(ids):
-        raise StageError("C2 shadow cohort must exactly match C")
     if not isinstance(unranked_reasons, dict) or set(unranked_reasons) != set(frozen) - set(ids):
         raise StageError("every unranked eligible fixture must have an explicit reason")
     if not set(unranked_reasons.values()).issubset(UNRANKED):
         raise StageError("unknown unranked reason; no invented model PASS")
-    # Independently reject retrospective prematch selections before any
-    # source replay; a late historical rank remains forbidden even when
-    # the caller has not supplied a new status observation.
+
     for mid in ids:
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
@@ -505,40 +501,51 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any], c2: dict[str, Any],
             and at < _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
         ):
             raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED contradicts fresh fixture status")
-    for r in crows + c2rows:
+
+    for r in crows:
         mid = r["match_id"]
         if _time(r.get("kickoff_ict"), f"{mid}.model_kickoff") != _time(
-            frozen[mid]["kickoff_utc"], f"{mid}.sweep_kickoff"):
+            frozen[mid]["kickoff_utc"], f"{mid}.sweep_kickoff"
+        ):
             raise StageError(f"{mid}: kickoff or fixture source identity drift")
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
-    # Source-backed goal-first prescreen never skips a more promising match
-    # merely because it came after the old first-eight shortlist.
+
     order = sweep_receipt["research_order"]
     if len(order) != len(frozen) or set(order) != set(frozen):
         raise StageError("source-reconciled full research order corrupted")
     last = max(order.index(mid) for mid in ids)
     for mid in order[:last]:
         if mid not in ids and unranked_reasons[mid] not in {
-            "RESEARCH_EVIDENCE_MISSING", "PREMATCH_WINDOW_CLOSED", "MATCH_NEWS_UNVERIFIED", "SOURCE_CHANGED"
+            "RESEARCH_EVIDENCE_MISSING", "PREMATCH_WINDOW_CLOSED",
+            "MATCH_NEWS_UNVERIFIED", "SOURCE_CHANGED"
         }:
             raise StageError(f"{mid}: earlier research-priority fixture skipped without evidence blocker")
-    result = run_board_pair(c, c2)
-    if result["board_engine_execution_status"] != "EXECUTED_C_C2_BOARDS":
-        raise StageError("independent C and C2 model engines not executed")
+
+    result = run_board(c)
+    if result.get("model") != "c" or result.get("stage") != "board_result":
+        raise StageError("Football C board engine not executed")
+
     out = {
-        "schema_version": SCHEMA, "status": "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
+        "schema_version": SCHEMA,
+        "status": "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK",
         "run_id": sweep_receipt["run_id"],
         "sweep_integrity_sha256": sweep_receipt["integrity_sha256"],
         "rank_at_utc": at.isoformat(),
-        "full_queue_count": len(frozen), "ranked_count": len(ids),
+        "full_queue_count": len(frozen),
+        "ranked_count": len(ids),
         "unranked_reasons": unranked_reasons,
-        "board_pair": result, "active_base_id": BASE,
-        "c_official": True, "c2_shadow_only": True,
-        "publication_authorized": False, "bet_recorded": False,
+        "board": result,
+        "active_base_id": BASE,
+        "active_model": "c",
+        "c_official": True,
+        "retired_models": ["c2", "c3", "c4"],
+        "publication_authorized": False,
+        "bet_recorded": False,
         "original_source_sha256": source_proof["original_source_sha256"],
         "status_refresh_sha256": source_proof["status_refresh_sha256"],
-        "source_replayed": True, "current_fixture_status_checked": True,
+        "source_replayed": True,
+        "current_fixture_status_checked": True,
     }
     out["integrity_sha256"] = _hash(out)
     return out
@@ -561,7 +568,7 @@ def _readback_engine_result(row: dict[str, Any], model: str, match_id: str) -> d
 
 
 def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[str, Any]:
-    """Compare caller-refetched Active Airtable rows, not self-assert a save."""
+    """Compare caller-refetched Active Airtable C rows, never self-assert a save."""
     _verified(rank_receipt, "V4_RANK_EXECUTED_AWAITING_AIRTABLE_READBACK")
     if (not isinstance(readback, dict)
             or readback.get("active_base_id") != BASE
@@ -574,41 +581,49 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
     ranked_at = _time(rank_receipt["rank_at_utc"], "rank_at_utc")
     if not ranked_at <= read_at <= ranked_at + timedelta(minutes=30):
         raise StageError("independent Airtable readback timestamp is stale/future")
-    original = rank_receipt["board_pair"]["results"]
+
+    original = rank_receipt.get("board")
+    if not isinstance(original, dict) or original.get("model") != "c":
+        raise StageError("single active C board missing from rank receipt")
     rows = readback.get("ranked_rows")
     if not isinstance(rows, list) or len(rows) != rank_receipt["ranked_count"]:
         raise StageError("independent Airtable rank row count mismatch")
-    for model in ("c", "c2"):
-        indexed = {r["match_id"]: r for r in original[model]["matches"]}
-        observed = {r["match_id"]: r for r in rows if isinstance(r, dict) and "match_id" in r}
-        if set(indexed) != set(observed) or len(observed) != len(rows):
-            raise StageError("independent Airtable ranked fixture identities mismatch")
-        for mid, model_row in indexed.items():
-            if observed[mid].get("coverage_id") != f"{rank_receipt['run_id']}|{mid}":
-                raise StageError(f"{mid}: Airtable immutable coverage identity differs")
-            for local, remote in (("rank", f"{model}_rank"),
-                                  ("board_state", f"{model}_board_state"),
-                                  ("supported_line", f"{model}_supported_line")):
-                actual = observed[mid].get(remote)
-                if local == "board_state" and isinstance(actual, str):
-                    actual = actual.removeprefix("C2-" if model == "c2" else "C-")
-                if actual != model_row.get(local):
-                    raise StageError(f"{mid} {model} {local}: independent saved value differs")
-            stored_result = _readback_engine_result(observed[mid], model, mid)
-            if stored_result != model_row:
-                raise StageError(f"{mid}: {model} exact Step1 engine evidence differs from Airtable")
-            if model == "c" and observed[mid].get("follow_lane") != model_row.get("follow_lane"):
-                raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
+    indexed = {r["match_id"]: r for r in original["matches"]}
+    observed = {r["match_id"]: r for r in rows if isinstance(r, dict) and "match_id" in r}
+    if set(indexed) != set(observed) or len(observed) != len(rows):
+        raise StageError("independent Airtable ranked fixture identities mismatch")
+    for mid, model_row in indexed.items():
+        if observed[mid].get("coverage_id") != f"{rank_receipt['run_id']}|{mid}":
+            raise StageError(f"{mid}: Airtable immutable coverage identity differs")
+        for local, remote in (
+            ("rank", "c_rank"),
+            ("board_state", "c_board_state"),
+            ("supported_line", "c_supported_line"),
+        ):
+            actual = observed[mid].get(remote)
+            if local == "board_state" and isinstance(actual, str):
+                actual = actual.removeprefix("C-")
+            if actual != model_row.get(local):
+                raise StageError(f"{mid} c {local}: independent saved value differs")
+        stored_result = _readback_engine_result(observed[mid], "c", mid)
+        if stored_result != model_row:
+            raise StageError(f"{mid}: C exact Step1 engine evidence differs from Airtable")
+        if observed[mid].get("follow_lane") != model_row.get("follow_lane"):
+            raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
+
     model_evidence_sha256 = _hash(original)
     return {
-        "schema_version": SCHEMA, "status": "V4_RANK_PERSISTENCE_VERIFIED",
-        "run_id": rank_receipt["run_id"], "rank_sha256": rank_receipt["integrity_sha256"],
+        "schema_version": SCHEMA,
+        "status": "V4_RANK_PERSISTENCE_VERIFIED",
+        "run_id": rank_receipt["run_id"],
+        "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
-        "c2_shadow_only": True, "no_bet_created": True,
+        "active_model": "c",
+        "retired_models": ["c2", "c3", "c4"],
+        "no_bet_created": True,
         "model_evidence_readback_verified": True,
         "model_evidence_sha256": model_evidence_sha256,
         "step1_engine_c_result_field_id": STEP1_ENGINE_RESULT_FIELD_IDS["c"],
-        "step1_engine_c2_result_field_id": STEP1_ENGINE_RESULT_FIELD_IDS["c2"],
         "source_replayed": rank_receipt.get("source_replayed") is True,
         "current_fixture_status_checked": rank_receipt.get("current_fixture_status_checked") is True,
         "original_source_sha256": rank_receipt.get("original_source_sha256"),
@@ -617,12 +632,12 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Clean football V4: source snapshot sweep and paired C/C2 rank")
+    p = argparse.ArgumentParser(description="Clean football V4: source snapshot sweep and single-C rank")
     sub = p.add_subparsers(dest="command", required=True)
     s = sub.add_parser("sweep")
     s.add_argument("--source", required=True)
     r = sub.add_parser("rank")
-    for key in ("sweep", "c", "c2", "unranked", "source", "status-refresh"):
+    for key in ("sweep", "c", "unranked", "source", "status-refresh"):
         r.add_argument("--" + key, required=True)
     v = sub.add_parser("verify")
     v.add_argument("--rank", required=True)
@@ -637,10 +652,14 @@ def main() -> int:
         if args.command == "sweep":
             out = sweep(load(args.source), now=args.now)
         elif args.command == "rank":
-            out = rank(load(args.sweep), load(args.c), load(args.c2),
-                       load(args.unranked), now=args.now,
-                       original_source=load(args.source),
-                       status_refresh=load(args.status_refresh))
+            out = rank(
+                load(args.sweep),
+                load(args.c),
+                load(args.unranked),
+                now=args.now,
+                original_source=load(args.source),
+                status_refresh=load(args.status_refresh),
+            )
         else:
             out = verify_rank(load(args.readback), load(args.rank))
         encoded = json.dumps(out, indent=2, sort_keys=True, ensure_ascii=False)
@@ -652,6 +671,7 @@ def main() -> int:
         print(json.dumps({"status": "V4_STAGE_BLOCKED", "stage": args.command,
                           "reason": str(exc)}), file=sys.stderr)
         return 2
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
