@@ -90,6 +90,32 @@ class Step0BoundaryRegressionTests(unittest.TestCase):
             _qualifies_goal_research(60, 0.55, 0.20, 0.35)
         )
 
+    def test_g3_distribution_can_qualify_without_four_plus_tail(self):
+        # Frozen Benfica-Celtic shape: enough source-backed 3+ evidence to
+        # deserve C research even though the 4+ tail is not an intake gate.
+        self.assertTrue(
+            _qualifies_goal_research(53, 0.6875, 0.3125, 0.0)
+        )
+
+    def test_one_sided_carrier_leakage_can_qualify_for_g3_research(self):
+        # Frozen NEC-Levski shape: one route is materially stronger because
+        # NEC's recent opponent leakage is high. Step 0 may research it; only
+        # Football C can decide whether G3 is actually funded.
+        self.assertTrue(
+            _qualifies_goal_research(
+                53, 0.625, 0.4375, 0.1875, carrier_route=1.813
+            )
+        )
+
+    def test_moderate_carrier_does_not_open_same_shape(self):
+        # Frozen Bournemouth-Sturm shape remains below the one-sided route
+        # threshold and should not be promoted by the new carrier path alone.
+        self.assertFalse(
+            _qualifies_goal_research(
+                52, 0.625, 0.375, 0.1875, carrier_route=1.563
+            )
+        )
+
 
 class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
     def test_high_scoring_brazilian_serie_a_was_missing_but_now_reaches_rank_queue(self):
