@@ -539,6 +539,41 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if result.get("model") != "c" or result.get("stage") != "board_result":
         raise StageError("Football C board engine not executed")
 
+    assessed_rows = result.get("matches")
+    if not isinstance(assessed_rows, list) or len(assessed_rows) != len(ids):
+        raise StageError("Football C assessment cohort/result count mismatch")
+
+    # Research eligibility is deliberately broader than board admission.
+    # Only Football C FOCUS rows become the official ranked board. WATCH/PASS
+    # stay frozen in the research assessment for audit/review, but they do not
+    # inflate the main board. There is intentionally no fixed board-size cap:
+    # every genuine FOCUS survives admission, even when workload FOLLOW/RESERVE
+    # capacity later marks some FOCUS rows STOP.
+    board_rows = [row for row in assessed_rows if row.get("board_state") == "FOCUS"]
+    outside_board = [row for row in assessed_rows if row.get("board_state") != "FOCUS"]
+    official_board = {
+        **result,
+        "ranking_policy": result.get("ranking_policy", "") + "_FOCUS_ADMISSION",
+        "match_count": len(board_rows),
+        "matches": board_rows,
+        "follow_count": sum(row.get("follow_lane") == "FOLLOW" for row in board_rows),
+        "reserve_count": sum(row.get("follow_lane") == "RESERVE" for row in board_rows),
+        "stop_count": sum(row.get("follow_lane") == "STOP" for row in board_rows),
+        "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
+        "assessed_match_count": len(assessed_rows),
+    }
+    board_exclusions = [
+        {
+            "match_id": row.get("match_id"),
+            "rank": row.get("rank"),
+            "board_state": row.get("board_state"),
+            "board_state_basis": row.get("board_state_basis"),
+            "follow_lane": row.get("follow_lane"),
+            "supported_line": row.get("supported_line"),
+        }
+        for row in outside_board
+    ]
+
     out = {
         "schema_version": SCHEMA,
         "status": "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK",
@@ -546,9 +581,16 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "sweep_integrity_sha256": sweep_receipt["integrity_sha256"],
         "rank_at_utc": at.isoformat(),
         "full_queue_count": len(frozen),
-        "ranked_count": len(ids),
+        "assessed_count": len(ids),
+        "ranked_count": len(board_rows),
+        "watch_count": sum(row.get("board_state") == "WATCH" for row in assessed_rows),
+        "pass_count": sum(row.get("board_state") == "PASS" for row in assessed_rows),
+        "board_excluded_count": len(outside_board),
+        "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
         "unranked_reasons": unranked_reasons,
-        "board": result,
+        "board_exclusions": board_exclusions,
+        "board": official_board,
+        "research_assessment": result,
         "active_spreadsheet_id": SPREADSHEET_ID,
         "active_sheet": COVERAGE_SHEET,
         "active_model": "c",
