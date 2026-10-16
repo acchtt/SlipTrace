@@ -32,8 +32,11 @@ python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_
 
 ## Rank cohort
 
-Rank only the frozen V4 eligible_queue. Research the complete cohort in
-goals-first order. Do not silently skip a higher-priority fixture without an
+Rank only the frozen V4 eligible_queue. The queue may contain
+`GOAL_PRIORITY` and `GOAL_REVIEW` rows; both require full Football C research,
+and the review lane carries no positive certificate assumption. Research the
+complete cohort in goals-first order, with priority rows before review rows.
+Do not silently skip a higher-priority fixture without an
 explicit allowed evidence/status reason.
 
 No odds quote is required at Step 1.

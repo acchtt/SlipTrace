@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
 from stage import sweep,rank,StageError
 from league_registry import classify
-from discovery_goal_gate import _qualifies_goal_research
+from discovery_goal_gate import _qualifies_goal_research, _borderline_goal_review
 
 NOW="2026-10-11T16:00:00Z"
 def row(mid,country="Brazil",competition="Serie A",kind="DOMESTIC_LEAGUE",
@@ -105,6 +105,16 @@ class Step0BoundaryRegressionTests(unittest.TestCase):
             _qualifies_goal_research(
                 53, 0.625, 0.4375, 0.1875, carrier_route=1.813
             )
+        )
+
+    def test_borderline_shape_enters_review_safety_lane(self):
+        self.assertTrue(
+            _borderline_goal_review(52, 0.625, 0.1875)
+        )
+
+    def test_low_rsl_shape_still_stays_out_of_review_lane(self):
+        self.assertFalse(
+            _borderline_goal_review(48, 0.5625, 0.1875)
         )
 
     def test_moderate_carrier_does_not_open_same_shape(self):
