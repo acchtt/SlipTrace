@@ -4,7 +4,7 @@
     "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261017/7?MD=1&countryCode=US&locale=en",
     "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261016/0?MD=1&countryCode=US&locale=en"
   ],
-  "generated_at_utc": "2026-10-16T08:49:02.091605+00:00",
+  "generated_at_utc": "2026-10-16T08:50:52.630785+00:00",
   "in_window": [
     {
       "away": "Western Sydney Wanderers FC",
@@ -160,15 +160,6 @@
       "match_id": "1872653"
     },
     {
-      "away": "Migori Youth FC",
-      "competition": "Premier League",
-      "country": "Kenya",
-      "fixture_status": "POSTPONED",
-      "home": "Ulinzi Stars",
-      "kickoff_utc": "2026-10-16T12:00:00+00:00",
-      "match_id": "1872651"
-    },
-    {
       "away": "Teleoptik",
       "competition": "Prva Liga",
       "country": "Serbia",
@@ -302,15 +293,6 @@
       "home": "Maccabi Kabilio Jaffa",
       "kickoff_utc": "2026-10-16T13:00:00+00:00",
       "match_id": "1799344"
-    },
-    {
-      "away": "Bologna U20",
-      "competition": "Campionato Primavera 1",
-      "country": "Italy",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "home": "Parma U20",
-      "kickoff_utc": "2026-10-16T13:00:00+00:00",
-      "match_id": "1875449"
     },
     {
       "away": "Imigresen FC",
@@ -1330,42 +1312,6 @@
       "match_id": "1876526"
     },
     {
-      "away": "Middlesbrough U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "home": "Everton U21",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870842"
-    },
-    {
-      "away": "West Ham United U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "home": "Norwich City U21",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870837"
-    },
-    {
-      "away": "Manchester United U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "home": "Nottingham Forest U21",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870869"
-    },
-    {
-      "away": "Chelsea U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "home": "Stoke City U21",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870840"
-    },
-    {
       "away": "HEBC Hamburg",
       "competition": "Oberliga: Hamburg",
       "country": "Germany",
@@ -1780,17 +1726,17 @@
       "match_id": "1814473"
     }
   ],
-  "in_window_count": 197,
-  "in_window_prematch_count": 188,
-  "in_window_with_goal_history_both_sides": 179,
+  "in_window_count": 191,
+  "in_window_prematch_count": 183,
+  "in_window_with_goal_history_both_sides": 175,
   "run_id": "V4-20261016-1547-20261017-0300",
-  "source_fixture_union_count": 1125,
+  "source_fixture_union_count": 1110,
   "surface_counts": {
-    "ICT:2026-10-16": 137,
-    "ICT:2026-10-17": 988,
-    "UTC:2026-10-16": 223
+    "ICT:2026-10-16": 135,
+    "ICT:2026-10-17": 975,
+    "UTC:2026-10-16": 217
   },
-  "terminal_fixture_count": 156,
+  "terminal_fixture_count": 152,
   "uefa_youth_league": [],
   "uefa_youth_league_count": 0,
   "uefa_youth_league_prematch_count": 0,

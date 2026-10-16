@@ -1,5 +1,5 @@
 {
-  "eligible_count": 68,
+  "eligible_count": 64,
   "eligible_queue": [
     {
       "away": "Bali United",
@@ -19,7 +19,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.125,
-        "source_screen_fingerprint": "7690e57eba0081a34557a4dbe7cedcdc9252c3ab745f812891ef4c5c22512c21",
+        "source_screen_fingerprint": "c7372c482e9e9ac7305b078727ac37ea365608a0d8d1ccc16d1b08f5088bfff6",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -66,7 +66,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.75,
-        "source_screen_fingerprint": "b4ce609c04ea17e69279dfdd0a1c5f9449e4bf0932baf282ada0e45a41a9178f",
+        "source_screen_fingerprint": "391e731fdc3a913fa50e4a317ce0e2199f345598f997634d51924aa02da18b3d",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -113,7 +113,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.025,
-        "source_screen_fingerprint": "f6066d1a53f30e5da1130596d54310d72d6ac2c736a34cbec22cf3e787c50004",
+        "source_screen_fingerprint": "c1a179a4edb5c772e12bff7efcb7b816b52e2cab1172f3b60750692d366a01ce",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -143,53 +143,6 @@
       "queue_rank": 3
     },
     {
-      "away": "Bologna U20",
-      "competition": "Campionato Primavera 1",
-      "country": "Italy",
-      "goal_screen": {
-        "away_sample_n": 6,
-        "bookmaker_quote_required": false,
-        "carrier_route": 2.0833,
-        "home_sample_n": 6,
-        "is_model_prediction": false,
-        "mean_0_0_or_1_1_rate": 0.0833,
-        "mean_over_three_rate": 0.5833,
-        "mean_over_two_rate": 0.8333,
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "priority_score": 73,
-        "qualification_path": "ROUTE_SCORE",
-        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
-        "second_route": 1.8333,
-        "source_screen_fingerprint": "feaed62ad304ddf24fa11508793f6e4fbc0fbb1711ecd72c1eb5ab95fb45041f",
-        "status": "DISCOVERY_GOAL_QUALIFIED",
-        "thresholds": {
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_minimum_priority_score": 50,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "minimum_mean_over_two_rate": 0.55,
-          "minimum_priority_score": 60,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_minimum_priority_score": 50
-        }
-      },
-      "home": "Parma U20",
-      "intake_lane": "GOAL_PRIORITY",
-      "kickoff_utc": "2026-10-16T13:00:00+00:00",
-      "match_id": "1875449",
-      "operational_grade": "B",
-      "queue_rank": 4
-    },
-    {
       "away": "United FC",
       "competition": "Pro League",
       "country": "United Arab Emirates",
@@ -207,7 +160,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.6,
-        "source_screen_fingerprint": "7e5553d0f5b30b9d148c67f4e67eab23a54eb78d89f702b517525da65a2d12c7",
+        "source_screen_fingerprint": "ce138628a47ce9abf680ffa6af4984f6a395d43d7b659d94aff2974d7747c665",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -234,7 +187,7 @@
       "kickoff_utc": "2026-10-16T13:05:00+00:00",
       "match_id": "1890485",
       "operational_grade": "B",
-      "queue_rank": 5
+      "queue_rank": 4
     },
     {
       "away": "Sogdiyona Jizzax",
@@ -254,7 +207,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "d8bb9c9a4fb201f25cc511083d1fac89dc80121f2ad6770b4d40c87dc3018034",
+        "source_screen_fingerprint": "4d4afbc560a2bafbf9a9206f3dcf7f891f13e095bac678ba406a8f6fb34b7867",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -281,7 +234,7 @@
       "kickoff_utc": "2026-10-16T14:00:00+00:00",
       "match_id": "1743555",
       "operational_grade": "B",
-      "queue_rank": 6
+      "queue_rank": 5
     },
     {
       "away": "Mohun Bagan Super Giant",
@@ -301,7 +254,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.2,
-        "source_screen_fingerprint": "f5bd50986c9651ca73e836c8c8905ad1626f10e6481ebdef0e604872f245c893",
+        "source_screen_fingerprint": "e9aafa765f2e7a50ef0f3fa60872a9674b133d6392e568431ab2ffa8b3cfeab7",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -328,7 +281,7 @@
       "kickoff_utc": "2026-10-16T14:00:00+00:00",
       "match_id": "1900660",
       "operational_grade": "B",
-      "queue_rank": 7
+      "queue_rank": 6
     },
     {
       "away": "Al-Wakra",
@@ -348,7 +301,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.6,
-        "source_screen_fingerprint": "7a3cfff2941bb02d0eb52b34e1007fc85644845a1a666389a8cea795029e03bf",
+        "source_screen_fingerprint": "8cdc58ffed38a9ea6927e16c1dd399bb4a981743d6cc949570499094bac65501",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -375,7 +328,7 @@
       "kickoff_utc": "2026-10-16T14:30:00+00:00",
       "match_id": "1838569",
       "operational_grade": "B",
-      "queue_rank": 8
+      "queue_rank": 7
     },
     {
       "away": "Malzenice",
@@ -395,7 +348,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.125,
-        "source_screen_fingerprint": "867fa4cd8504af0243aa08ac15d2acaab3893c1a33211238cdedf72d07b81bd1",
+        "source_screen_fingerprint": "bc2cfbf5b134c0501ddcfd7a8836f7baf388ad5806d8d070c85f954ffbe6bc50",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -422,7 +375,7 @@
       "kickoff_utc": "2026-10-16T15:00:00+00:00",
       "match_id": "1798462",
       "operational_grade": "B",
-      "queue_rank": 9
+      "queue_rank": 8
     },
     {
       "away": "SK Hanacka Slavia Kromeriz",
@@ -442,7 +395,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "183a990a1e98dd33dbb760a8bf7b2ade361ede1ce8b8740bce94b3312e30ffdf",
+        "source_screen_fingerprint": "b02e0fcf984cfb0b706e3dccbfbc3845aea6906f7c30f5e025c27b8b9c85c2dd",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -469,7 +422,7 @@
       "kickoff_utc": "2026-10-16T15:00:00+00:00",
       "match_id": "1799600",
       "operational_grade": "B",
-      "queue_rank": 10
+      "queue_rank": 9
     },
     {
       "away": "Dukla Praha",
@@ -489,7 +442,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.8125,
-        "source_screen_fingerprint": "4d27b7752d412421ced2ed99613b876db006a88eeebd2f2b85f40d4a73f3a111",
+        "source_screen_fingerprint": "46c3cd965fb37bd21ded11455f95b7be9f224e6085973c056d31eee12e174973",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -516,7 +469,7 @@
       "kickoff_utc": "2026-10-16T15:30:00+00:00",
       "match_id": "1836458",
       "operational_grade": "B",
-      "queue_rank": 11
+      "queue_rank": 10
     },
     {
       "away": "Al-Wasl",
@@ -536,7 +489,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.2857,
-        "source_screen_fingerprint": "f360b42b0a00c6e43d9572f0321eacf37a986b28440e3e7d02bb26ea4c7f758d",
+        "source_screen_fingerprint": "9f32737f2a690e0d5c59ab95d2fd5ca5668240a0a3ffe2709bf3666ace2f0b11",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -563,7 +516,7 @@
       "kickoff_utc": "2026-10-16T15:45:00+00:00",
       "match_id": "1890486",
       "operational_grade": "B",
-      "queue_rank": 12
+      "queue_rank": 11
     },
     {
       "away": "Lyn Fotball W",
@@ -583,7 +536,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.4464,
-        "source_screen_fingerprint": "8bd2796d17664769440feb8d4f326b602d394c92ecfe67d7dc95cd2159543f02",
+        "source_screen_fingerprint": "bd27e95924e7edf92fc1d32bf546dde79eacc23877597c92524b8637736d6967",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -610,7 +563,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1709074",
       "operational_grade": "B",
-      "queue_rank": 13
+      "queue_rank": 12
     },
     {
       "away": "Roea W",
@@ -630,7 +583,7 @@
         "qualification_path": "BORDERLINE_GOAL_REVIEW",
         "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
         "second_route": 0.9196,
-        "source_screen_fingerprint": "43cfb875708c02aad875a8d14ce73c0e564a4cc1d02fd993cccac82627513de4",
+        "source_screen_fingerprint": "b13425250f62dcf2d31c0a41b99d77dc41f9f65e99ef5f2ba6ad8d22437a521c",
         "status": "DISCOVERY_GOAL_REVIEW",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -657,7 +610,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1709077",
       "operational_grade": "B",
-      "queue_rank": 14
+      "queue_rank": 13
     },
     {
       "away": "Rijeka",
@@ -677,7 +630,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "e2f079a62474cfc3ff711fc28b0afe37ad12774ee29d5df143eb6849968a8f32",
+        "source_screen_fingerprint": "7385f89b4627544b4ecd7c24ce5a8661365760645dd055356da25b29f65d3a0f",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -704,7 +657,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1787202",
       "operational_grade": "B",
-      "queue_rank": 15
+      "queue_rank": 14
     },
     {
       "away": "Rakow Czestochowa",
@@ -724,7 +677,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.6875,
-        "source_screen_fingerprint": "a1d1f071f50073f57430304123232d01e37c4e7317bff49bdf94a36a842cc8c8",
+        "source_screen_fingerprint": "f806b65e13ecb5c6336eaf99f3aa936ee63bc42b4fedc246b26f3d2858e805c0",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -751,7 +704,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1795357",
       "operational_grade": "B",
-      "queue_rank": 16
+      "queue_rank": 15
     },
     {
       "away": "Trinec",
@@ -771,7 +724,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "952592775ae18d3af3cda5156495e59762b0a02620e0baac222adfaad424ee8b",
+        "source_screen_fingerprint": "6fab912252a1c129f5ccf72e266a23e5bbe2fa460cf2edb659a06d58668dbb20",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -798,7 +751,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1799588",
       "operational_grade": "B",
-      "queue_rank": 17
+      "queue_rank": 16
     },
     {
       "away": "Vysocina Jihlava",
@@ -818,7 +771,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.4375,
-        "source_screen_fingerprint": "30cb43604cdffc9789327141947af08b76cc33257e4eb255358f439de842d7c1",
+        "source_screen_fingerprint": "1f4123f91cead0c99bb7554d4cf7b75576299ed764af0d10a44bcf6e85a12f08",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -845,7 +798,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1799603",
       "operational_grade": "B",
-      "queue_rank": 18
+      "queue_rank": 17
     },
     {
       "away": "NK Jesenice",
@@ -865,7 +818,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.1875,
-        "source_screen_fingerprint": "eae38bcb97def89d3fccad86c5d89aff3883386bf125e7b54d780085067eba3b",
+        "source_screen_fingerprint": "ff00c42e582892e5ac290b27b1970ad565131470f37ae71eacaebaf5554ef69e",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -892,7 +845,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1801058",
       "operational_grade": "B",
-      "queue_rank": 19
+      "queue_rank": 18
     },
     {
       "away": "Skierniewice",
@@ -912,7 +865,7 @@
         "qualification_path": "BORDERLINE_GOAL_REVIEW",
         "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "8817331f40973936499c2572d3a67f69712d9420047db6b357800ea38295f200",
+        "source_screen_fingerprint": "79ce14209dfa2fae2d2ca09ea62e600ea8bb83b94a04cd6c6e5847db8536d00e",
         "status": "DISCOVERY_GOAL_REVIEW",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -939,7 +892,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1808311",
       "operational_grade": "B",
-      "queue_rank": 20
+      "queue_rank": 19
     },
     {
       "away": "El Zamalek",
@@ -959,7 +912,7 @@
         "qualification_path": "G3_DISTRIBUTION",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.2375,
-        "source_screen_fingerprint": "0976db86262eca1ca7287d19cb08cb6299f892ca14ccf99ec8987735abd49841",
+        "source_screen_fingerprint": "6697035aac1f3b4beb9046f3d3551fc807a2718966739c08a3d37d936d650a6a",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -986,7 +939,7 @@
       "kickoff_utc": "2026-10-16T16:00:00+00:00",
       "match_id": "1892504",
       "operational_grade": "B",
-      "queue_rank": 21
+      "queue_rank": 20
     },
     {
       "away": "First Vienna FC",
@@ -1006,7 +959,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.25,
-        "source_screen_fingerprint": "bd6897bbaa94789474cd00eb2e4a9d19974ef0347392b2a6136ee454da7a6614",
+        "source_screen_fingerprint": "4ff37d3e1ebfe8e16141238fc0e31d413b3877ad51509d64741a24c2e88a6de1",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1033,7 +986,7 @@
       "kickoff_utc": "2026-10-16T16:30:00+00:00",
       "match_id": "1812291",
       "operational_grade": "B",
-      "queue_rank": 22
+      "queue_rank": 21
     },
     {
       "away": "FC Hertha Wels",
@@ -1053,7 +1006,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "4f0c3a7133806cb595f984d80b1b28a45a1390ee5616554136e8b78f2e0043d4",
+        "source_screen_fingerprint": "0c236fe9052ac90bbf75292a9f442a0d6095bd524bf37b4654dad2d17adc652b",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1080,7 +1033,7 @@
       "kickoff_utc": "2026-10-16T16:30:00+00:00",
       "match_id": "1812305",
       "operational_grade": "B",
-      "queue_rank": 23
+      "queue_rank": 22
     },
     {
       "away": "1. FC Nuremberg",
@@ -1100,7 +1053,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.6518,
-        "source_screen_fingerprint": "78e6c2d4b963bd9ec97ea81708101e3601f095f01e9777da9bc611ddaca4eb39",
+        "source_screen_fingerprint": "39f0fcf097cd841ecc62bd09980708cf9378d593d2488ca3930735e1cdd6eac9",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1127,7 +1080,7 @@
       "kickoff_utc": "2026-10-16T16:30:00+00:00",
       "match_id": "1813358",
       "operational_grade": "A",
-      "queue_rank": 24
+      "queue_rank": 23
     },
     {
       "away": "Hertha Berlin",
@@ -1147,7 +1100,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.1339,
-        "source_screen_fingerprint": "1e424f814f3b2944222ba89a80a6cee31118fca5ee53ef8fb9acf0aeaaaa165b",
+        "source_screen_fingerprint": "306b96385a44fa284e71c8fc350e446eba6ce138b111670be3696de690b1428c",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1174,7 +1127,7 @@
       "kickoff_utc": "2026-10-16T16:30:00+00:00",
       "match_id": "1813367",
       "operational_grade": "A",
-      "queue_rank": 25
+      "queue_rank": 24
     },
     {
       "away": "Djurgaarden",
@@ -1194,7 +1147,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.125,
-        "source_screen_fingerprint": "b665a4cc375f7b30d560281a4faa091c32070302811b614301e7d4fde7e89bb2",
+        "source_screen_fingerprint": "9a13f77b2c71a079a4e9a3bfa4a9840a0a46dcc62e5ce92db68bd492f2741c7e",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1221,7 +1174,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1710462",
       "operational_grade": "A",
-      "queue_rank": 26
+      "queue_rank": 25
     },
     {
       "away": "Randers FC",
@@ -1241,7 +1194,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.875,
-        "source_screen_fingerprint": "3ce37a669d70d6881d8ed13d0b6352c878edf811977f3db048143bd083aca070",
+        "source_screen_fingerprint": "a2447a96b38f83433cbe76873eda5a301aeccb596655b615ad04cb9cc85a95e4",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1268,7 +1221,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1784485",
       "operational_grade": "A",
-      "queue_rank": 27
+      "queue_rank": 26
     },
     {
       "away": "FSV Zwickau",
@@ -1288,7 +1241,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.4375,
-        "source_screen_fingerprint": "6b92bbf445b587081258667a4366019ef0f63a6d3cd4e9eb044bf915bebbbef4",
+        "source_screen_fingerprint": "66e3c8f730ae1d3ac38426845d0e2f9423d385b0f473efeb7e81be26918696cf",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1315,7 +1268,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1826493",
       "operational_grade": "B",
-      "queue_rank": 28
+      "queue_rank": 27
     },
     {
       "away": "Westfalia Rhynern",
@@ -1335,7 +1288,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.625,
-        "source_screen_fingerprint": "c2445d81761d877c21ac4b33aa482e3dff4818ae85d506b8fea6341327519f39",
+        "source_screen_fingerprint": "7910167b7d964e761eed702e22261745fb4f1f6316bbc573006ccbf8c67b2f7e",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1362,7 +1315,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1826803",
       "operational_grade": "B",
-      "queue_rank": 29
+      "queue_rank": 28
     },
     {
       "away": "FC Guetersloh",
@@ -1382,7 +1335,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.8125,
-        "source_screen_fingerprint": "69c447ec2cb5f58e82c274badac2f6cd0579ba33daf5545749c05b7ce2dcf363",
+        "source_screen_fingerprint": "c2fdaac33896777123bcc1acca63f6923ecb8c53dbce587076e7fe5e9fef3579",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1409,7 +1362,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1826804",
       "operational_grade": "B",
-      "queue_rank": 30
+      "queue_rank": 29
     },
     {
       "away": "Bremer SV",
@@ -1429,7 +1382,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.4375,
-        "source_screen_fingerprint": "304394b56856831dcf10f1a88fd3777c853a644af2f151f448d79b77fa0bdfa7",
+        "source_screen_fingerprint": "ae3e1b918f8ab543275e050a947373d987453e80fd35151f281c8fb8635ba021",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1456,7 +1409,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1827110",
       "operational_grade": "B",
-      "queue_rank": 31
+      "queue_rank": 30
     },
     {
       "away": "TSV Concordia",
@@ -1476,7 +1429,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.8125,
-        "source_screen_fingerprint": "dde252ac07cc0297983a6bd377d081059f443918bc9852d3e3ad358efa6c32ba",
+        "source_screen_fingerprint": "17df434f33ebfc43efe4fd6d98fbffc1f17d2661d263730b073fb7c5a36c3774",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1503,7 +1456,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1827612",
       "operational_grade": "B",
-      "queue_rank": 32
+      "queue_rank": 31
     },
     {
       "away": "FV Ravensburg",
@@ -1523,7 +1476,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "27e41c268a85272b3b25ac5c15487b4f9f4f8a64a207f091e3a1b3604ae03983",
+        "source_screen_fingerprint": "b4509b553f5ea10f27f98e905f1036a1dd8540af45459e33c43ed8e4278e7523",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1550,7 +1503,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1829334",
       "operational_grade": "B",
-      "queue_rank": 33
+      "queue_rank": 32
     },
     {
       "away": "1. CfR Pforzheim",
@@ -1570,7 +1523,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.0,
-        "source_screen_fingerprint": "19b919b9a926c97e6fc7ca67aae59031172760dac67be7716b104f65accf1b4a",
+        "source_screen_fingerprint": "780661ecbd2d83f33d73f2b98b8862b2d52e2f6f78aadeb81b18bf89acbfb9f7",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1597,7 +1550,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1829337",
       "operational_grade": "B",
-      "queue_rank": 34
+      "queue_rank": 33
     },
     {
       "away": "Kickers Offenbach",
@@ -1617,7 +1570,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "e58b98b4a22bedbc0fb58f0108384dd29fafdaf57bff01ba2a1cb4322be45c3a",
+        "source_screen_fingerprint": "4017765b20ecb28923506faad464e753705456e1698cb27f27f5fa98bddc2273",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1644,7 +1597,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1830219",
       "operational_grade": "B",
-      "queue_rank": 35
+      "queue_rank": 34
     },
     {
       "away": "Eintracht Rheine",
@@ -1664,7 +1617,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.8125,
-        "source_screen_fingerprint": "b078e0ee652512737bafc93098e0e268591a5db096f43c0e6da8002f87ca2904",
+        "source_screen_fingerprint": "c02228e20c7a8d241b1e22d3794d0aa16de3391b73a3b58383a5e2b8b033e5b0",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1691,7 +1644,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1842591",
       "operational_grade": "B",
-      "queue_rank": 36
+      "queue_rank": 35
     },
     {
       "away": "TV Eiche Horn Bremen",
@@ -1711,7 +1664,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.0,
-        "source_screen_fingerprint": "4c45f8e562d2b5fdb0c39f5ad5c2f0b31aa9062a7bab3d174be87010dd73ad1f",
+        "source_screen_fingerprint": "47ab7e26ffcf1bfc980f6c0401e1a9916a688e584c0244a67889c70060a33bda",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1738,7 +1691,7 @@
       "kickoff_utc": "2026-10-16T17:00:00+00:00",
       "match_id": "1847428",
       "operational_grade": "B",
-      "queue_rank": 37
+      "queue_rank": 36
     },
     {
       "away": "Enkoeping",
@@ -1758,7 +1711,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "7a3f08400f50c9dc3d6dd9ca1ec7321dcf4832419c1ea2e1f09211f7acefabc8",
+        "source_screen_fingerprint": "0a1efb166c0f21153bcf07b0e5d90a9c1dd66874bb28c1366cb8f53959b49500",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1785,7 +1738,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1719433",
       "operational_grade": "B",
-      "queue_rank": 38
+      "queue_rank": 37
     },
     {
       "away": "TSV Hartberg",
@@ -1805,7 +1758,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.75,
-        "source_screen_fingerprint": "985b37b72d1c796dd3c6b223bfbf7c7067b77f2729763121246d6c5d9905899a",
+        "source_screen_fingerprint": "c9dc5c3517be76ed734a081de4694ba80991ce68241e91cf95e52809da5f307e",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1832,7 +1785,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1805883",
       "operational_grade": "A",
-      "queue_rank": 39
+      "queue_rank": 38
     },
     {
       "away": "FC Cologne II",
@@ -1852,7 +1805,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.875,
-        "source_screen_fingerprint": "bedd7634ff79b6db457d01160afa27327c14e4c6eb62eb2b3116b3ac6b9f6895",
+        "source_screen_fingerprint": "5f383fa94acefe01ee8ecdc8a9c7ae0f1b85352d12800726bb585904a994163f",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1879,7 +1832,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1826807",
       "operational_grade": "B",
-      "queue_rank": 40
+      "queue_rank": 39
     },
     {
       "away": "SV Drochtersen/Assel",
@@ -1899,7 +1852,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.0625,
-        "source_screen_fingerprint": "b9443c9affa08588e580d3ffcb7b0fa848f2c65f0a9dcf52eded3a55a64e98cf",
+        "source_screen_fingerprint": "6f15638162fd1bac72dea8c79bb8af0a222ed62e1989b0cf16420594a5624d32",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1926,7 +1879,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1827125",
       "operational_grade": "B",
-      "queue_rank": 41
+      "queue_rank": 40
     },
     {
       "away": "1. FC Phoenix Luebeck II",
@@ -1946,7 +1899,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.0,
-        "source_screen_fingerprint": "b358c0b8134fdd3ebb3e4525190c64066307d59b58620cfc0629493f950b3fcf",
+        "source_screen_fingerprint": "045e9d7752142dabd1b78c796db2e53cd7a8af10feea84922629e90a0d6dd19f",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -1973,7 +1926,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1827367",
       "operational_grade": "B",
-      "queue_rank": 42
+      "queue_rank": 41
     },
     {
       "away": "Teutonia Ottensen",
@@ -1993,7 +1946,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5,
-        "source_screen_fingerprint": "16b3557c84f676fe3ca942d32a403644892011cff1ca2a2b2db9a3ff78cf4109",
+        "source_screen_fingerprint": "984cda5dacfc819d9613087d3ccf6aff6c7454189c2ad09095837fddb41d856b",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2020,7 +1973,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1827621",
       "operational_grade": "B",
-      "queue_rank": 43
+      "queue_rank": 42
     },
     {
       "away": "Wilhelmshaven",
@@ -2040,7 +1993,7 @@
         "qualification_path": "HIGH_RATE_3PLUS_4PLUS",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.625,
-        "source_screen_fingerprint": "5c50497ea3472957820d4e08141c4387e340e65a7c291eb0c0a6abe40eae75d1",
+        "source_screen_fingerprint": "749a01502091a5606a4cce291f89c08b0fe9c1961a361d8e1fff325f41a635fc",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2067,7 +2020,7 @@
       "kickoff_utc": "2026-10-16T17:30:00+00:00",
       "match_id": "1829941",
       "operational_grade": "B",
-      "queue_rank": 44
+      "queue_rank": 43
     },
     {
       "away": "Excelsior",
@@ -2087,7 +2040,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "9398f371609936d40cb25a5c5115226b6176a86b3b9dab284f62e6cd5cb647bc",
+        "source_screen_fingerprint": "f274f0c1a04ef29f70cfebfa494760af1189307ad28328fbbd5a68c894511292",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2114,7 +2067,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1790224",
       "operational_grade": "A",
-      "queue_rank": 45
+      "queue_rank": 44
     },
     {
       "away": "NAC Breda",
@@ -2134,7 +2087,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.875,
-        "source_screen_fingerprint": "3803959b39a821a0c26da568a63d4c1416fa7bfa380497b4eb18a16eec079fd2",
+        "source_screen_fingerprint": "bbbd8bc3c89af1c63bdb822473e41411110976cfcddaafd8a108ffd9f7cd33f9",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2161,7 +2114,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1799834",
       "operational_grade": "A",
-      "queue_rank": 46
+      "queue_rank": 45
     },
     {
       "away": "Jong AZ Alkmaar",
@@ -2181,7 +2134,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.6875,
-        "source_screen_fingerprint": "cc5edff9acd4c9916ff456c94d5d2aa29c470d3c394f664a2250ede08e36d08e",
+        "source_screen_fingerprint": "d3462c9f54f3f57bf141b93aae61de8c24fdbc84f05756cf7b94d3bd65cd047f",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2208,7 +2161,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1799837",
       "operational_grade": "A",
-      "queue_rank": 47
+      "queue_rank": 46
     },
     {
       "away": "Vitesse",
@@ -2228,7 +2181,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "e394843f57add10928a8c91608252131dde735d8886201f46e30d308516df8ff",
+        "source_screen_fingerprint": "5d7da81859486ff3044f3864a5302a884608972adf8069c0b39edc59a4f36c37",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2255,7 +2208,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1799844",
       "operational_grade": "A",
-      "queue_rank": 48
+      "queue_rank": 47
     },
     {
       "away": "TOP Oss",
@@ -2275,7 +2228,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.3125,
-        "source_screen_fingerprint": "6909e98c93bb0cad6ff8d0e5b0959b0fe0f41095c9beb50639f873f5ab601f97",
+        "source_screen_fingerprint": "c62ae3f32e9d765db7b6c9b98bc6c0b01fc6ffd776012a4658374a3156d3923c",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2302,7 +2255,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1799860",
       "operational_grade": "A",
-      "queue_rank": 49
+      "queue_rank": 48
     },
     {
       "away": "Vasas Budapest",
@@ -2322,7 +2275,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.375,
-        "source_screen_fingerprint": "ec5223b100bd478132ce40cc9e5e878916839b4dd81c4304b263a7389b187128",
+        "source_screen_fingerprint": "d1553bdcd7820d596477f87f04001b352d71fc9a748512834fb7bc2199dceae4",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2349,7 +2302,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1809585",
       "operational_grade": "B",
-      "queue_rank": 50
+      "queue_rank": 49
     },
     {
       "away": "HEBC Hamburg",
@@ -2369,7 +2322,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.625,
-        "source_screen_fingerprint": "d76b1c2d86b42f03817415950f0ee0f960083bc08038b87c3f9e9e5d8a0e74d8",
+        "source_screen_fingerprint": "a33be2c7364eaf493a4e88bcdb43254d462644fd2182779604454bca2f668eb9",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2396,7 +2349,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1827614",
       "operational_grade": "B",
-      "queue_rank": 51
+      "queue_rank": 50
     },
     {
       "away": "Sportfreunde Baumberg",
@@ -2416,7 +2369,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.75,
-        "source_screen_fingerprint": "b3e4cadabb86fe5eb7ebefb29cad9e71ef434d82877936bf6a294d1e86ab5da9",
+        "source_screen_fingerprint": "5b0e5874e498585018c136181cd6e9dcb9422d80eca87fae6d832829e9f2fa70",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2443,148 +2396,7 @@
       "kickoff_utc": "2026-10-16T18:00:00+00:00",
       "match_id": "1842890",
       "operational_grade": "B",
-      "queue_rank": 52
-    },
-    {
-      "away": "West Ham United U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "goal_screen": {
-        "away_sample_n": 7,
-        "bookmaker_quote_required": false,
-        "carrier_route": 1.9167,
-        "home_sample_n": 6,
-        "is_model_prediction": false,
-        "mean_0_0_or_1_1_rate": 0.2262,
-        "mean_over_three_rate": 0.3929,
-        "mean_over_two_rate": 0.619,
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "priority_score": 59,
-        "qualification_path": "CARRIER_LEAKAGE_G3",
-        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
-        "second_route": 1.4881,
-        "source_screen_fingerprint": "c8fbba3a1472b1f0e3da6a982578f6de1c9d09b9bfcfb4b224043e1e791cb62a",
-        "status": "DISCOVERY_GOAL_QUALIFIED",
-        "thresholds": {
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_minimum_priority_score": 50,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "minimum_mean_over_two_rate": 0.55,
-          "minimum_priority_score": 60,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_minimum_priority_score": 50
-        }
-      },
-      "home": "Norwich City U21",
-      "intake_lane": "GOAL_PRIORITY",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870837",
-      "operational_grade": "B",
-      "queue_rank": 53
-    },
-    {
-      "away": "Chelsea U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "goal_screen": {
-        "away_sample_n": 6,
-        "bookmaker_quote_required": false,
-        "carrier_route": 2.6905,
-        "home_sample_n": 7,
-        "is_model_prediction": false,
-        "mean_0_0_or_1_1_rate": 0.0714,
-        "mean_over_three_rate": 0.6071,
-        "mean_over_two_rate": 0.8452,
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "priority_score": 78,
-        "qualification_path": "ROUTE_SCORE",
-        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
-        "second_route": 1.4762,
-        "source_screen_fingerprint": "49151a74802b146c938ecee2071bee199109c76895bc4ca07dff03abd5b2d6a9",
-        "status": "DISCOVERY_GOAL_QUALIFIED",
-        "thresholds": {
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_minimum_priority_score": 50,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "minimum_mean_over_two_rate": 0.55,
-          "minimum_priority_score": 60,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_minimum_priority_score": 50
-        }
-      },
-      "home": "Stoke City U21",
-      "intake_lane": "GOAL_PRIORITY",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870840",
-      "operational_grade": "B",
-      "queue_rank": 54
-    },
-    {
-      "away": "Middlesbrough U21",
-      "competition": "Premier League 2",
-      "country": "England",
-      "goal_screen": {
-        "away_sample_n": 7,
-        "bookmaker_quote_required": false,
-        "carrier_route": 2.3571,
-        "home_sample_n": 7,
-        "is_model_prediction": false,
-        "mean_0_0_or_1_1_rate": 0.1429,
-        "mean_over_three_rate": 0.5,
-        "mean_over_two_rate": 0.5714,
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "priority_score": 63,
-        "qualification_path": "ROUTE_SCORE",
-        "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
-        "second_route": 1.4286,
-        "source_screen_fingerprint": "13a0bcf404ace15fd4256917920b07d5eeb9f836896d3784fa0f453417453dfd",
-        "status": "DISCOVERY_GOAL_QUALIFIED",
-        "thresholds": {
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_minimum_priority_score": 50,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "minimum_mean_over_two_rate": 0.55,
-          "minimum_priority_score": 60,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_minimum_priority_score": 50
-        }
-      },
-      "home": "Everton U21",
-      "intake_lane": "GOAL_PRIORITY",
-      "kickoff_utc": "2026-10-16T18:00:00+00:00",
-      "match_id": "1870842",
-      "operational_grade": "B",
-      "queue_rank": 55
+      "queue_rank": 51
     },
     {
       "away": "SV Austria Salzburg",
@@ -2604,7 +2416,7 @@
         "qualification_path": "G3_DISTRIBUTION",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "37a0d0ac27eba2dd5cd981119f6dda75f2780ec2508b4c8fa984c3a8a434021e",
+        "source_screen_fingerprint": "e8a7fb0b35076107c5a61ce7ac72738dab2af44d7fe93f502c9393bf02995ccf",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2631,7 +2443,7 @@
       "kickoff_utc": "2026-10-16T18:30:00+00:00",
       "match_id": "1812302",
       "operational_grade": "B",
-      "queue_rank": 56
+      "queue_rank": 52
     },
     {
       "away": "FC Cologne",
@@ -2651,7 +2463,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 2.1667,
-        "source_screen_fingerprint": "3e0c4e5beab64c371169fe840fb57300bc6d4897d783ce1ccd1d4ae41341de22",
+        "source_screen_fingerprint": "f07041f43502f9ac8b61680185fefc7a3ca2b9858f69967443d6596c94b237ce",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2678,7 +2490,7 @@
       "kickoff_utc": "2026-10-16T18:30:00+00:00",
       "match_id": "1812732",
       "operational_grade": "A",
-      "queue_rank": 57
+      "queue_rank": 53
     },
     {
       "away": "Waterford FC",
@@ -2698,7 +2510,7 @@
         "qualification_path": "G3_DISTRIBUTION",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "af91598a9a5c01c5667cdce27b1e1c8b5c5fb15cfb3649c3dee9f7ffbf431edf",
+        "source_screen_fingerprint": "5383d0c7d33df2a22c044cdc2af905da5ebdbb5295085a2e317d1dc6f443afb1",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2725,7 +2537,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1718979",
       "operational_grade": "B",
-      "queue_rank": 58
+      "queue_rank": 54
     },
     {
       "away": "Derry City",
@@ -2745,7 +2557,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5625,
-        "source_screen_fingerprint": "1871969700c9b4bd9a4a1a1171119fad86ed77d5506d503f616ae284fc226a6b",
+        "source_screen_fingerprint": "27365535242256bd5bb39cb0c6671729c737a5334f9b49f37a61f4ccede457db",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2772,7 +2584,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1718980",
       "operational_grade": "B",
-      "queue_rank": 59
+      "queue_rank": 55
     },
     {
       "away": "Bray Wanderers",
@@ -2792,7 +2604,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5,
-        "source_screen_fingerprint": "723f66db7c8d3ba65902c6d97602de202e7e67d45866e06fa2c998a919f7ad79",
+        "source_screen_fingerprint": "e28fe69e4ce2610d9e3bf46133370d9e9e762c581f309a9ab9046429ce902f7c",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2819,7 +2631,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1719642",
       "operational_grade": "B",
-      "queue_rank": 60
+      "queue_rank": 56
     },
     {
       "away": "Athlone Town",
@@ -2839,7 +2651,7 @@
         "qualification_path": "CARRIER_LEAKAGE_G3",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.375,
-        "source_screen_fingerprint": "5b01ae5bb6ea02a1d095cc6e19351b3c4094cf0c33b873f73c064353e12e5eb9",
+        "source_screen_fingerprint": "f56c8da9791f9a5970e5ddf765a5ed070a70d5eaf6391d32b18a1a0b7bbbfed0",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2866,7 +2678,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1719644",
       "operational_grade": "B",
-      "queue_rank": 61
+      "queue_rank": 57
     },
     {
       "away": "Cobh Ramblers",
@@ -2886,7 +2698,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5,
-        "source_screen_fingerprint": "135222c31ab7f58e41e4f1e0ee46d1e576d10a893bda34af0bb6d5d5407fe53e",
+        "source_screen_fingerprint": "54a2b544ec4fc66354e91e544d408d2f5ae38f4851361c5e8d3bf2a7cef76aad",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2913,7 +2725,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1719645",
       "operational_grade": "B",
-      "queue_rank": 62
+      "queue_rank": 58
     },
     {
       "away": "Sassuolo",
@@ -2933,7 +2745,7 @@
         "qualification_path": "G3_DISTRIBUTION",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.5,
-        "source_screen_fingerprint": "d3d9dfad88a54696e6c2306c5fc6a519d88221f3e8bd04f62a9b99f731ba6e53",
+        "source_screen_fingerprint": "e00672a5bc35c5727553ff237dbaf4e9dc937e6ec93d9844d94a8938afc193a3",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -2960,7 +2772,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1785390",
       "operational_grade": "A",
-      "queue_rank": 63
+      "queue_rank": 59
     },
     {
       "away": "Toulouse",
@@ -2980,7 +2792,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.75,
-        "source_screen_fingerprint": "892ba8ab946ab8b9f6d736e2418de8f68e16600fe49299a779754658aaa65e05",
+        "source_screen_fingerprint": "d75f684d2a7cec443bacdf9b4b2709632b0f252ea9472cc409467ac525751573",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -3007,7 +2819,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1794705",
       "operational_grade": "A",
-      "queue_rank": 64
+      "queue_rank": 60
     },
     {
       "away": "Harland & Wolff Welders FC",
@@ -3027,7 +2839,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.375,
-        "source_screen_fingerprint": "4ebb6da8c81a5e1dcf2067374c1083f192a6681adb7d33d725d6540d15e6a78a",
+        "source_screen_fingerprint": "9842902eabcfdb795fbdea24a252e56c747bdc08fc9f236b9f2e0245b7cb0f63",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -3054,7 +2866,7 @@
       "kickoff_utc": "2026-10-16T18:45:00+00:00",
       "match_id": "1807049",
       "operational_grade": "B",
-      "queue_rank": 65
+      "queue_rank": 61
     },
     {
       "away": "Wolves",
@@ -3074,7 +2886,7 @@
         "qualification_path": "BORDERLINE_GOAL_REVIEW",
         "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
         "second_route": 1.5,
-        "source_screen_fingerprint": "995bd48ef35de3a399460e78902744f5556451fdeda039951c365b6dbd13b3ce",
+        "source_screen_fingerprint": "627cc3061221e754cb41bc5e8c8cb5f73031743b1c56d7a2ebf5f2046dfc2252",
         "status": "DISCOVERY_GOAL_REVIEW",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -3101,7 +2913,7 @@
       "kickoff_utc": "2026-10-16T19:00:00+00:00",
       "match_id": "1802455",
       "operational_grade": "B",
-      "queue_rank": 66
+      "queue_rank": 62
     },
     {
       "away": "Europa Point",
@@ -3121,7 +2933,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.65,
-        "source_screen_fingerprint": "153ba634c3d9d1fa82c64bd08bc391e6ae944f2868d4ed9596407b0f403d40ab",
+        "source_screen_fingerprint": "6849e2b470109bd2d7a5fe2060d97e4e1487b13fb4d97a2ad22750427636c945",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -3148,7 +2960,7 @@
       "kickoff_utc": "2026-10-16T19:00:00+00:00",
       "match_id": "1855158",
       "operational_grade": "B",
-      "queue_rank": 67
+      "queue_rank": 63
     },
     {
       "away": "Vikingur Reykjavik",
@@ -3168,7 +2980,7 @@
         "qualification_path": "ROUTE_SCORE",
         "reason": "SOURCE_BACKED_HIGH_SCORING_RESEARCH",
         "second_route": 1.8125,
-        "source_screen_fingerprint": "737b6b9dfc2be31932bb38f55949f6a5c6248a261e9094b725d40f933e78d8da",
+        "source_screen_fingerprint": "c4ef92ed2b494a2830869d61c7e143b204d8419b0f08fa4833d49745bbe78294",
         "status": "DISCOVERY_GOAL_QUALIFIED",
         "thresholds": {
           "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
@@ -3195,14 +3007,14 @@
       "kickoff_utc": "2026-10-16T19:15:00+00:00",
       "match_id": "1889080",
       "operational_grade": "B",
-      "queue_rank": 68
+      "queue_rank": 64
     }
   ],
-  "excluded_or_closed_count": 965,
-  "fixture_count": 1125,
-  "integrity_sha256": "ea94f87fbc9b4f0db3117b79ff8d0a91389e4172f6056ebd38a15096ab46ab68",
+  "excluded_or_closed_count": 955,
+  "fixture_count": 1110,
+  "integrity_sha256": "5e270fe5afcb8018c1b90ca2842bedc0bb0adfa8674850819db5f3e0c5f7bb43",
   "low_goal_signal_count": 59,
-  "pending_discovery_count": 80,
+  "pending_discovery_count": 79,
   "pending_goal_research_count": 12,
   "research_order": [
     "1861495",
@@ -3213,12 +3025,10 @@
     "1842890",
     "1826807",
     "1805883",
-    "1870840",
     "1813358",
     "1829337",
     "1799834",
     "1799837",
-    "1875449",
     "1709074",
     "1784485",
     "1889080",
@@ -3243,7 +3053,6 @@
     "1827110",
     "1809585",
     "1842591",
-    "1870842",
     "1890485",
     "1801058",
     "1812291",
@@ -3259,7 +3068,6 @@
     "1807049",
     "1866196",
     "1829941",
-    "1870837",
     "1812302",
     "1718979",
     "1785390",
