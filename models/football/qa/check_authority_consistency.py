@@ -64,6 +64,8 @@ require(
     "active production model must be 'c'",
     "upper_tail_comparable_context_signal",
     "upper_tail_comparable_context_basis",
+    "CERTIFICATE UPGRADE BLOCKED",
+    "VERIFIED_NEW_FOOTBALL_EVIDENCE",
 )
 require(
     "models/football/CURRENT_MODEL.md",
