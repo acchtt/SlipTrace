@@ -14,7 +14,7 @@ RUN_ID = "V4-20261016-1547-20261017-0300"
 WINDOW_START = datetime(2026, 10, 16, 8, 47, tzinfo=UTC)
 WINDOW_END = datetime(2026, 10, 16, 20, 0, tzinfo=UTC)
 
-YOUTH_RE = re.compile(r"(?:\byouth\b|\bu\s*[-]?\s*(?:1[5-9]|2[0-3])\b|under\s*[-]?\s*(?:1[5-9]|2[0-3])|reserve league|development league|academy)", re.I)
+YOUTH_RE = re.compile(r"(?:\byouth\b|\bu\s*[-]?\s*(?:1[5-9]|2[0-3])\b|under\s*[-]?\s*(?:1[5-9]|2[0-3])|reserve league|development league|academy|primavera|premier league 2|professional development league|youth alliance)", re.I)
 NONSTANDARD_RE = re.compile(r"(?:futsal|beach soccer|esoccer|e-soccer|efootball|virtual|kings league|baller league|7s\b|six-a-side|6-a-side)", re.I)
 FRIENDLY_RE = re.compile(r"friendl", re.I)
 CUP_RE = re.compile(r"(?:\bcup\b|pokal|beker|trophy|coppa|copa del rey|ta[cç]a|super cup)", re.I)
@@ -194,6 +194,11 @@ def build_surface(day: str, offset: int, key: str, now: datetime):
             home, home_id = team(evt, "T1")
             away, away_id = team(evt, "T2")
             if home == "Unknown" or away == "Unknown":
+                continue
+            # Generic youth competitions are outside the approved acquisition
+            # scope. UEFA Youth League is the only explicit youth exception.
+            if (not is_uefa_youth_stage(stage)
+                    and YOUTH_RE.search(f"{country} {competition} {home} {away}")):
                 continue
             kind, friendly = competition_kind(country, competition)
             row = {
