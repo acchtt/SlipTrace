@@ -87,6 +87,12 @@ shows a higher burden.
 
 WAIT must be researched, not manufactured.
 
+For a C-WATCH fixture, a reachable price is not enough when the current
+certificate is still FRAGILE. The current football recheck must lift the
+certificate to at least CONDITIONAL before C may issue WAIT. A fragile WATCH
+therefore remains PASS at the quote layer even when the nominal target appears
+reachable.
+
 Require:
 
 - wait_reachable=true;
