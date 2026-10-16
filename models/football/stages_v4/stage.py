@@ -354,8 +354,8 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             "intake_lane": x["intake_lane"], "reason": x["reason"],
             "discovery_screen": x.get("discovery_screen"),
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
-          and x.get("intake_lane") in ("GOAL_PRIORITY", "PENDING_DISCOVERY",
-                                     "PENDING_GOAL_RESEARCH")]
+          and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
+                                     "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
