@@ -81,3 +81,5 @@ jobs:
           git add "$folder/source.json" "$folder/acquisition-report.json" "$folder/sweep-summary.json"
           git commit -m "ops(sweep): persist 2026-10-16 15:47-03:00 source"
           git push origin HEAD:ops/v4-sweep-20261016-1547-20261017-0300
+
+# rerun after generic-youth acquisition fix
