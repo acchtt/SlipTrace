@@ -143,6 +143,7 @@ def execute(operation: str, request_path: Path | None, output_dir: Path) -> dict
                 "-v",
             ]
         )
+        _run([sys.executable, "models/football/automation/test_control_plane.py"])
         _run([sys.executable, "models/football/qa/check_authority_consistency.py"])
         _run([sys.executable, "models/football/qa/check_runtime_execution_contract.py"])
         _run([sys.executable, "models/football/engine/xi_portable.py", "self-check"])
