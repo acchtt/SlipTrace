@@ -12,7 +12,6 @@ on:
           - health
           - sweep
           - rank
-          - verify-rank
           - xi-self-check
       request_path:
         description: Repository-relative request JSON path (not needed for health/xi-self-check)
