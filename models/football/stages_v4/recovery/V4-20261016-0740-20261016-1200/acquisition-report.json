@@ -1,0 +1,68 @@
+{
+  "api_urls": [
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261016/7?MD=1&countryCode=US&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261016/0?MD=1&countryCode=US&locale=en"
+  ],
+  "generated_at_utc": "2026-10-16T00:41:45.742139+00:00",
+  "in_window": [
+    {
+      "away": "Real Cartagena",
+      "competition": "Primera B: Clausura",
+      "country": "Colombia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Deportes Quindio",
+      "kickoff_utc": "2026-10-16T01:00:00+00:00",
+      "match_id": "1806524"
+    },
+    {
+      "away": "Inca Aruba",
+      "competition": "Primera Division: Apertura",
+      "country": "El Salvador",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "CD Luis Angel Firpo",
+      "kickoff_utc": "2026-10-16T01:00:00+00:00",
+      "match_id": "1844494"
+    },
+    {
+      "away": "San Pedro",
+      "competition": "Liga Nacional: Apertura",
+      "country": "Guatemala",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "CD Suchitepequez",
+      "kickoff_utc": "2026-10-16T01:00:00+00:00",
+      "match_id": "1808974"
+    },
+    {
+      "away": "Real Espana",
+      "competition": "Liga Nacional: Apertura",
+      "country": "Honduras",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "CD Olimpia",
+      "kickoff_utc": "2026-10-16T01:30:00+00:00",
+      "match_id": "1901294"
+    },
+    {
+      "away": "Sporting FC",
+      "competition": "Primera División: Apertura",
+      "country": "Costa Rica",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Deportivo Saprissa",
+      "kickoff_utc": "2026-10-16T02:00:00+00:00",
+      "match_id": "1801266"
+    }
+  ],
+  "in_window_count": 5,
+  "in_window_prematch_count": 5,
+  "in_window_with_goal_history_both_sides": 5,
+  "run_id": "V4-20261016-0740-20261016-1200",
+  "source_fixture_union_count": 262,
+  "surface_counts": {
+    "ICT:2026-10-16": 138,
+    "UTC:2026-10-16": 228
+  },
+  "terminal_fixture_count": 5,
+  "uefa_youth_league": [],
+  "uefa_youth_league_count": 0,
+  "uefa_youth_league_prematch_count": 0,
+  "uefa_youth_league_with_goal_history_both_sides": 0
+}
