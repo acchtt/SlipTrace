@@ -1,0 +1,1798 @@
+{
+  "api_urls": [
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261016/7?MD=1&countryCode=US&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261017/7?MD=1&countryCode=US&locale=en",
+    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261016/0?MD=1&countryCode=US&locale=en"
+  ],
+  "generated_at_utc": "2026-10-16T08:49:02.091605+00:00",
+  "in_window": [
+    {
+      "away": "Western Sydney Wanderers FC",
+      "competition": "A-League",
+      "country": "Australia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sydney FC",
+      "kickoff_utc": "2026-10-16T09:00:00+00:00",
+      "match_id": "1843481"
+    },
+    {
+      "away": "Veres Rivne",
+      "competition": "Premier League",
+      "country": "Ukraine",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Obolon Kyiv",
+      "kickoff_utc": "2026-10-16T10:00:00+00:00",
+      "match_id": "1825678"
+    },
+    {
+      "away": "Shafa",
+      "competition": "Premier League",
+      "country": "Azerbaijan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Shamakhi FK",
+      "kickoff_utc": "2026-10-16T11:00:00+00:00",
+      "match_id": "1852895"
+    },
+    {
+      "away": "Hougang United FC",
+      "competition": "Premier League",
+      "country": "Singapore",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Tanjong Pagar United FC",
+      "kickoff_utc": "2026-10-16T11:30:00+00:00",
+      "match_id": "1846936"
+    },
+    {
+      "away": "Tianjin Jinmen Tiger",
+      "competition": "Super League",
+      "country": "China",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Henan Songshan Longmen",
+      "kickoff_utc": "2026-10-16T11:35:00+00:00",
+      "match_id": "1739855"
+    },
+    {
+      "away": "CSKA 1948 Sofia",
+      "competition": "Cup",
+      "country": "Bulgaria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Neftochimic Burgas 1962",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1898118"
+    },
+    {
+      "away": "Bhayangkara FC",
+      "competition": "Super League",
+      "country": "Indonesia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Madura United",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1866186"
+    },
+    {
+      "away": "Bali United",
+      "competition": "Super League",
+      "country": "Indonesia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Malut United",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1866196"
+    },
+    {
+      "away": "Isenmulang Kalteng",
+      "competition": "Super League",
+      "country": "Indonesia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Persijap Jepara",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1866193"
+    },
+    {
+      "away": "Gor Mahia",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "3K FC",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872637"
+    },
+    {
+      "away": "Mombasa United",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "AFC Leopards",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872652"
+    },
+    {
+      "away": "Bandari",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "APS Bomett",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872646"
+    },
+    {
+      "away": "KCB",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Kakamega Homeboyz",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872654"
+    },
+    {
+      "away": "Posta Rangers",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Kenya Police",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872642"
+    },
+    {
+      "away": "Mathare United",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Murang'a Seal",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872643"
+    },
+    {
+      "away": "Mara Sugar",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Nairobi United",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872640"
+    },
+    {
+      "away": "Shabana",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Tusker FC",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872653"
+    },
+    {
+      "away": "Migori Youth FC",
+      "competition": "Premier League",
+      "country": "Kenya",
+      "fixture_status": "POSTPONED",
+      "home": "Ulinzi Stars",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1872651"
+    },
+    {
+      "away": "Teleoptik",
+      "competition": "Prva Liga",
+      "country": "Serbia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "OFK Vrsac",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1800242"
+    },
+    {
+      "away": "Lamphun Warrior",
+      "competition": "Thai League",
+      "country": "Thailand",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ayutthaya United FC",
+      "kickoff_utc": "2026-10-16T12:00:00+00:00",
+      "match_id": "1847036"
+    },
+    {
+      "away": "Mega Sport",
+      "competition": "2. Division A",
+      "country": "Egypt",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Tersana",
+      "kickoff_utc": "2026-10-16T12:30:00+00:00",
+      "match_id": "1843717"
+    },
+    {
+      "away": "FC Masar",
+      "competition": "2. Division A",
+      "country": "Egypt",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Baladiyyat Al-Mehalla",
+      "kickoff_utc": "2026-10-16T12:30:00+00:00",
+      "match_id": "1843720"
+    },
+    {
+      "away": "Ismaily SC",
+      "competition": "2. Division A",
+      "country": "Egypt",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "El Sekka El Hadid",
+      "kickoff_utc": "2026-10-16T12:30:00+00:00",
+      "match_id": "1843723"
+    },
+    {
+      "away": "Maleyeit Kafr El Zayiat",
+      "competition": "2. Division A",
+      "country": "Egypt",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Pharco FC",
+      "kickoff_utc": "2026-10-16T12:30:00+00:00",
+      "match_id": "1843725"
+    },
+    {
+      "away": "El Entag El Harby",
+      "competition": "2. Division A",
+      "country": "Egypt",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Proxy",
+      "kickoff_utc": "2026-10-16T12:30:00+00:00",
+      "match_id": "1843726"
+    },
+    {
+      "away": "Pyramids FC",
+      "competition": "CAF Champions League: Qualification",
+      "country": "Africa",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "El Merriekh FC Bentiu",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1892502"
+    },
+    {
+      "away": "FC Syunik",
+      "competition": "Premier League",
+      "country": "Armenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Alashkert",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1846801"
+    },
+    {
+      "away": "Slavia Prague B",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Banik Ostrava B",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799590"
+    },
+    {
+      "away": "Maccabi Kiryat Gat",
+      "competition": "Liga Leumit",
+      "country": "Israel",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Ashdod",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799341"
+    },
+    {
+      "away": "Maccabi Herzliya",
+      "competition": "Liga Leumit",
+      "country": "Israel",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Hapoel Afula",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799345"
+    },
+    {
+      "away": "SC Kfar Kasem",
+      "competition": "Liga Leumit",
+      "country": "Israel",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kiryat Yam",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799339"
+    },
+    {
+      "away": "Hapoel Kfar Saba",
+      "competition": "Liga Leumit",
+      "country": "Israel",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Maccabi Ahi Nazareth",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799343"
+    },
+    {
+      "away": "Ironi Modiin",
+      "competition": "Liga Leumit",
+      "country": "Israel",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Maccabi Kabilio Jaffa",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1799344"
+    },
+    {
+      "away": "Bologna U20",
+      "competition": "Campionato Primavera 1",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Parma U20",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1875449"
+    },
+    {
+      "away": "Imigresen FC",
+      "competition": "Super League",
+      "country": "Malaysia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kelantan Red Warrior",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1861495"
+    },
+    {
+      "away": "Pamba SC",
+      "competition": "Premier League",
+      "country": "Tanzania",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Fountain Gate FC",
+      "kickoff_utc": "2026-10-16T13:00:00+00:00",
+      "match_id": "1861006"
+    },
+    {
+      "away": "United FC",
+      "competition": "Pro League",
+      "country": "United Arab Emirates",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Dhafra",
+      "kickoff_utc": "2026-10-16T13:05:00+00:00",
+      "match_id": "1890485"
+    },
+    {
+      "away": "Abha",
+      "competition": "Saudi Professional League",
+      "country": "Saudi Arabia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Qadsiah",
+      "kickoff_utc": "2026-10-16T13:15:00+00:00",
+      "match_id": "1845662"
+    },
+    {
+      "away": "NK Karlovac 1919",
+      "competition": "Prva NL",
+      "country": "Croatia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dinamo Zagreb B",
+      "kickoff_utc": "2026-10-16T13:30:00+00:00",
+      "match_id": "1838046"
+    },
+    {
+      "away": "NK Sesvete",
+      "competition": "Prva NL",
+      "country": "Croatia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Opatija",
+      "kickoff_utc": "2026-10-16T13:30:00+00:00",
+      "match_id": "1838059"
+    },
+    {
+      "away": "Tabor",
+      "competition": "2. SNL",
+      "country": "Slovenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "ND Ilirija Ljubljana",
+      "kickoff_utc": "2026-10-16T13:30:00+00:00",
+      "match_id": "1801061"
+    },
+    {
+      "away": "Mohun Bagan Super Giant",
+      "competition": "Super League",
+      "country": "India",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Hyderabad FC",
+      "kickoff_utc": "2026-10-16T14:00:00+00:00",
+      "match_id": "1900660"
+    },
+    {
+      "away": "Al-Jazeera",
+      "competition": "Pro League",
+      "country": "Jordan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Doqara",
+      "kickoff_utc": "2026-10-16T14:00:00+00:00",
+      "match_id": "1902103"
+    },
+    {
+      "away": "Sogdiyona Jizzax",
+      "competition": "Super League",
+      "country": "Uzbekistan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Bunyodkor Tashkent",
+      "kickoff_utc": "2026-10-16T14:00:00+00:00",
+      "match_id": "1743555"
+    },
+    {
+      "away": "Neftchi Fargona",
+      "competition": "Super League",
+      "country": "Uzbekistan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kokand 1912",
+      "kickoff_utc": "2026-10-16T14:00:00+00:00",
+      "match_id": "1743557"
+    },
+    {
+      "away": "Xorazm",
+      "competition": "Super League",
+      "country": "Uzbekistan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Surkhon-2011",
+      "kickoff_utc": "2026-10-16T14:00:00+00:00",
+      "match_id": "1743563"
+    },
+    {
+      "away": "Ben Aknoun",
+      "competition": "Ligue 1",
+      "country": "Algeria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Olympique Akbou",
+      "kickoff_utc": "2026-10-16T14:30:00+00:00",
+      "match_id": "1854225"
+    },
+    {
+      "away": "Al-Wakra",
+      "competition": "Qatar Stars League",
+      "country": "Qatar",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Ahli",
+      "kickoff_utc": "2026-10-16T14:30:00+00:00",
+      "match_id": "1838569"
+    },
+    {
+      "away": "Miercurea Ciuc",
+      "competition": "Liga 1",
+      "country": "Romania",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Otelul Galati",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1807289"
+    },
+    {
+      "away": "Sardarapat",
+      "competition": "Premier League",
+      "country": "Armenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Gandzasar",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1846796"
+    },
+    {
+      "away": "Araz PFK",
+      "competition": "Premier League",
+      "country": "Azerbaijan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sumqayit",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1852891"
+    },
+    {
+      "away": "SK Hanacka Slavia Kromeriz",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Vlasim",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1799600"
+    },
+    {
+      "away": "Al-Gharraf",
+      "competition": "Iraq Stars League",
+      "country": "Iraq",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Karbalaa",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1871262"
+    },
+    {
+      "away": "Al Minaa",
+      "competition": "Iraq Stars League",
+      "country": "Iraq",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Newroz",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1871251"
+    },
+    {
+      "away": "Radnicki Nis",
+      "competition": "Super Liga",
+      "country": "Serbia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FK Radnik Surdulica",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1799170"
+    },
+    {
+      "away": "Malzenice",
+      "competition": "2. Liga",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FK Pohronie",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1798462"
+    },
+    {
+      "away": "OFK Banik Lehota Pod Vtacnikom",
+      "competition": "2. Liga",
+      "country": "Slovakia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Liptovsky Mikulas",
+      "kickoff_utc": "2026-10-16T15:00:00+00:00",
+      "match_id": "1798463"
+    },
+    {
+      "away": "Liberte",
+      "competition": "Super Ligue",
+      "country": "Niger",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Douanes Niamey",
+      "kickoff_utc": "2026-10-16T15:15:00+00:00",
+      "match_id": "1906253"
+    },
+    {
+      "away": "CFFEB",
+      "competition": "Ligue 1",
+      "country": "Burkina Faso",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Rail Club Kadiogo",
+      "kickoff_utc": "2026-10-16T15:30:00+00:00",
+      "match_id": "1905807"
+    },
+    {
+      "away": "Dukla Praha",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Karvina",
+      "kickoff_utc": "2026-10-16T15:30:00+00:00",
+      "match_id": "1836458"
+    },
+    {
+      "away": "Olimpija Ljubljana",
+      "competition": "Prva Liga",
+      "country": "Slovenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Aluminij",
+      "kickoff_utc": "2026-10-16T15:30:00+00:00",
+      "match_id": "1800853"
+    },
+    {
+      "away": "Al-Wasl",
+      "competition": "Pro League",
+      "country": "United Arab Emirates",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Baniyas",
+      "kickoff_utc": "2026-10-16T15:45:00+00:00",
+      "match_id": "1890486"
+    },
+    {
+      "away": "El Zamalek",
+      "competition": "CAF Champions League: Qualification",
+      "country": "Africa",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "APR FC",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1892504"
+    },
+    {
+      "away": "Rijeka",
+      "competition": "HNL",
+      "country": "Croatia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Rudes",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1787202"
+    },
+    {
+      "away": "Rakow Czestochowa",
+      "competition": "Ekstraklasa",
+      "country": "Poland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Wieczysta Krakow",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1795357"
+    },
+    {
+      "away": "Lokomotiv Plovdiv",
+      "competition": "Cup",
+      "country": "Bulgaria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Yantra",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1898117"
+    },
+    {
+      "away": "Manama",
+      "competition": "Premier League",
+      "country": "Bahrain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Ittifaq BHR",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1900599"
+    },
+    {
+      "away": "Sitra",
+      "competition": "Premier League",
+      "country": "Bahrain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ali CSC",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1900598"
+    },
+    {
+      "away": "Siroki Brijeg",
+      "competition": "Premier League",
+      "country": "Bosnia and Herzegovina",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sloga Doboj",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1885496"
+    },
+    {
+      "away": "ASIL Lysi",
+      "competition": "2nd Division",
+      "country": "Cyprus",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Enosis Paralimni",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1886162"
+    },
+    {
+      "away": "Vysocina Jihlava",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Opava",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1799603"
+    },
+    {
+      "away": "Trinec",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Pribram",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1799588"
+    },
+    {
+      "away": "Usti nad Labem",
+      "competition": "2nd league",
+      "country": "Czech Republic",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SK Prostejov",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1799602"
+    },
+    {
+      "away": "H2O Purepechas",
+      "competition": "Primera Premier",
+      "country": "Mexico",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Tritones Vallarta",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1883018"
+    },
+    {
+      "away": "Huracanes Izcalli",
+      "competition": "Liga Premier: Serie B",
+      "country": "Mexico",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Celaya II",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1881498"
+    },
+    {
+      "away": "Lyn Fotball W",
+      "competition": "Women's Toppserien",
+      "country": "Norway",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Bodoe/Glimt W",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1709074"
+    },
+    {
+      "away": "Roea W",
+      "competition": "Women's Toppserien",
+      "country": "Norway",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Fortuna Aalesund W",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1709077"
+    },
+    {
+      "away": "Skierniewice",
+      "competition": "I Liga",
+      "country": "Poland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Warta Poznan",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1808311"
+    },
+    {
+      "away": "NK Jesenice",
+      "competition": "2. SNL",
+      "country": "Slovenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dravinja",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1801058"
+    },
+    {
+      "away": "Jadran",
+      "competition": "2. SNL",
+      "country": "Slovenia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "NK Triglav",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1801065"
+    },
+    {
+      "away": "Dodoma Jiji FC",
+      "competition": "Premier League",
+      "country": "Tanzania",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Geita Gold FC",
+      "kickoff_utc": "2026-10-16T16:00:00+00:00",
+      "match_id": "1861009"
+    },
+    {
+      "away": "1. FC Nuremberg",
+      "competition": "2. Bundesliga",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Energie Cottbus",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1813358"
+    },
+    {
+      "away": "Hertha Berlin",
+      "competition": "2. Bundesliga",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Holstein Kiel",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1813367"
+    },
+    {
+      "away": "RB Leipzig W",
+      "competition": "Frauen-Bundesliga",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SC Freiburg W",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1834774"
+    },
+    {
+      "away": "Teuta Durres",
+      "competition": "Kategoria Superiore",
+      "country": "Albania",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Dinamo City",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1836763"
+    },
+    {
+      "away": "First Vienna FC",
+      "competition": "2. Liga",
+      "country": "Austria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "ASK Voitsberg",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1812291"
+    },
+    {
+      "away": "SK Rapid Wien II",
+      "competition": "2. Liga",
+      "country": "Austria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SKN St. Poelten",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1812297"
+    },
+    {
+      "away": "FC Hertha Wels",
+      "competition": "2. Liga",
+      "country": "Austria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Young Violets",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1812305"
+    },
+    {
+      "away": "Al-Salt",
+      "competition": "Pro League",
+      "country": "Jordan",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Baqaa",
+      "kickoff_utc": "2026-10-16T16:30:00+00:00",
+      "match_id": "1902104"
+    },
+    {
+      "away": "Al-Arabi",
+      "competition": "Qatar Stars League",
+      "country": "Qatar",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al-Shahaniya",
+      "kickoff_utc": "2026-10-16T16:45:00+00:00",
+      "match_id": "1838566"
+    },
+    {
+      "away": "Rizespor",
+      "competition": "Süper Lig",
+      "country": "Turkiye",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Corum FK",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1821026"
+    },
+    {
+      "away": "Djurgaarden",
+      "competition": "Allsvenskan",
+      "country": "Sweden",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Brommapojkarna",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1710462"
+    },
+    {
+      "away": "Randers FC",
+      "competition": "Superliga",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "AC Horsens",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1784485"
+    },
+    {
+      "away": "Tafic",
+      "competition": "Premier League",
+      "country": "Botswana",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Extension Gunners",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1878508"
+    },
+    {
+      "away": "Esbjerg fB",
+      "competition": "1st Division",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Aarhus Fremad",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1786755"
+    },
+    {
+      "away": "AB",
+      "competition": "1st Division",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "HB Koege",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1786762"
+    },
+    {
+      "away": "Vendsyssel FF",
+      "competition": "1st Division",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kolding IF",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1786757"
+    },
+    {
+      "away": "Nykoebing FC",
+      "competition": "2nd Division",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Fremad Amager",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1809784"
+    },
+    {
+      "away": "B 93",
+      "competition": "2nd Division",
+      "country": "Denmark",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Naestved",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1809783"
+    },
+    {
+      "away": "VfB Stuttgart II",
+      "competition": "3. Liga",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Fortuna Cologne",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1822565"
+    },
+    {
+      "away": "TSV Buchbach",
+      "competition": "Regionalliga Bayern",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FV Illertissen",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826154"
+    },
+    {
+      "away": "Bremer SV",
+      "competition": "Regionalliga Nord",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Delmenhorst",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1827110"
+    },
+    {
+      "away": "RSV Eintracht 1949",
+      "competition": "Regionalliga Nordost",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Hertha Berlin II",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826490"
+    },
+    {
+      "away": "FSV Zwickau",
+      "competition": "Regionalliga Nordost",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "RW Erfurt",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826493"
+    },
+    {
+      "away": "Babelsberg",
+      "competition": "Regionalliga Nordost",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Tasmania Berlin",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826492"
+    },
+    {
+      "away": "Kickers Offenbach",
+      "competition": "Regionalliga Südwest",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sandhausen",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1830219"
+    },
+    {
+      "away": "Westfalia Rhynern",
+      "competition": "Regionalliga West",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Schalke 04 II",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826803"
+    },
+    {
+      "away": "FC Guetersloh",
+      "competition": "Regionalliga West",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Wattenscheid",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1826804"
+    },
+    {
+      "away": "FV Ravensburg",
+      "competition": "Oberliga: Baden-Wurttemberg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC 08 Villingen",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1829334"
+    },
+    {
+      "away": "1. CfR Pforzheim",
+      "competition": "Oberliga: Baden-Wurttemberg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Noettingen",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1829337"
+    },
+    {
+      "away": "DJK Don Bosco Bamberg",
+      "competition": "Oberliga: Bayern North",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "TSV Grossbardorf",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1828252"
+    },
+    {
+      "away": "Neudrossenfeld",
+      "competition": "Oberliga: Bayern North",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "TSV Kornburg",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1828256"
+    },
+    {
+      "away": "TV Eiche Horn Bremen",
+      "competition": "Oberliga: Bremen",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "OSC Bremerhaven",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1847428"
+    },
+    {
+      "away": "TSV Concordia",
+      "competition": "Oberliga: Hamburg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Vorwarts-Wacker",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1827612"
+    },
+    {
+      "away": "Eintracht Rheine",
+      "competition": "Oberliga: Westfalen",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Lippstadt",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1842591"
+    },
+    {
+      "away": "FH Hafnarfjordur",
+      "competition": "Besta deildin: Relegation Group",
+      "country": "Iceland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "IBV Vestmannaeyjar",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1889066"
+    },
+    {
+      "away": "Ranchers Bees",
+      "competition": "NPFL",
+      "country": "Nigeria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Shooting Stars",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1881220"
+    },
+    {
+      "away": "CE Europa",
+      "competition": "Primera Division RFEF: Group 2",
+      "country": "Spain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Cartagena",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1814475"
+    },
+    {
+      "away": "Trelleborgs FF",
+      "competition": "Division 1: South",
+      "country": "Sweden",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Lunds BK",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1719194"
+    },
+    {
+      "away": "Etoile Carouge",
+      "competition": "Cup",
+      "country": "Switzerland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Stade Lausanne-Ouchy",
+      "kickoff_utc": "2026-10-16T17:00:00+00:00",
+      "match_id": "1874474"
+    },
+    {
+      "away": "TSV Hartberg",
+      "competition": "Bundesliga",
+      "country": "Austria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Rapid Wien",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1805883"
+    },
+    {
+      "away": "GFA Rumilly Vallières",
+      "competition": "National 1: Group C",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Chateauroux",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1846229"
+    },
+    {
+      "away": "SV Drochtersen/Assel",
+      "competition": "Regionalliga Nord",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SC Weiche Flensburg",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1827125"
+    },
+    {
+      "away": "FC Cologne II",
+      "competition": "Regionalliga West",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SV Roedinghausen",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1826807"
+    },
+    {
+      "away": "1860 Munich II",
+      "competition": "Oberliga: Bayern South",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sportfreunde Schwaig",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1827951"
+    },
+    {
+      "away": "TSV Sasel",
+      "competition": "Oberliga: Hamburg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Suederelbe",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1827613"
+    },
+    {
+      "away": "Teutonia Ottensen",
+      "competition": "Oberliga: Hamburg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Victoria Hamburg",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1827621"
+    },
+    {
+      "away": "1. FC Phoenix Luebeck II",
+      "competition": "Oberliga: Flens",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Oldenburger SV",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1827367"
+    },
+    {
+      "away": "SV Sonsbeck",
+      "competition": "Oberliga: Niederrhein",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ratinger SV",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1842868"
+    },
+    {
+      "away": "SW Essen",
+      "competition": "Oberliga: Niederrhein",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Wuppertaler SV",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1842871"
+    },
+    {
+      "away": "Wilhelmshaven",
+      "competition": "Oberliga: Niedersachsen",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "BSV Rehden",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1829941"
+    },
+    {
+      "away": "Eintracht Mahlsdorf",
+      "competition": "Oberliga NOFV Nord 25/26",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SG Union Klosterfelde",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1828810"
+    },
+    {
+      "away": "Al Talaba",
+      "competition": "Iraq Stars League",
+      "country": "Iraq",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Al Kahrabaa",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1871245"
+    },
+    {
+      "away": "Naft Maysan",
+      "competition": "Iraq Stars League",
+      "country": "Iraq",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Diyala",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1871247"
+    },
+    {
+      "away": "Enkoeping",
+      "competition": "Division 1: North",
+      "country": "Sweden",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "IFK Stocksund",
+      "kickoff_utc": "2026-10-16T17:30:00+00:00",
+      "match_id": "1719433"
+    },
+    {
+      "away": "Excelsior",
+      "competition": "Eredivisie",
+      "country": "Netherlands",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SC Heerenveen",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1790224"
+    },
+    {
+      "away": "Nancy",
+      "competition": "Ligue 2",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Annecy",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1795017"
+    },
+    {
+      "away": "Boulogne",
+      "competition": "Ligue 2",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Grenoble",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1795018"
+    },
+    {
+      "away": "Pau",
+      "competition": "Ligue 2",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Guingamp",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1795019"
+    },
+    {
+      "away": "Clermont Foot 63",
+      "competition": "Ligue 2",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Laval",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1795021"
+    },
+    {
+      "away": "Dijon",
+      "competition": "Ligue 2",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Reims",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1795031"
+    },
+    {
+      "away": "TOP Oss",
+      "competition": "Eerste Divisie",
+      "country": "Netherlands",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Den Bosch",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1799860"
+    },
+    {
+      "away": "Vitesse",
+      "competition": "Eerste Divisie",
+      "country": "Netherlands",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Eindhoven",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1799844"
+    },
+    {
+      "away": "NAC Breda",
+      "competition": "Eerste Divisie",
+      "country": "Netherlands",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Helmond Sport",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1799834"
+    },
+    {
+      "away": "Jong AZ Alkmaar",
+      "competition": "Eerste Divisie",
+      "country": "Netherlands",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "VVV-Venlo",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1799837"
+    },
+    {
+      "away": "Botosani",
+      "competition": "Liga 1",
+      "country": "Romania",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Dinamo Bucuresti",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1807285"
+    },
+    {
+      "away": "Club Deportivo Cuenca Juniors",
+      "competition": "Serie B. Promotion Round",
+      "country": "Ecuador",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "San Antonio",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1876526"
+    },
+    {
+      "away": "Middlesbrough U21",
+      "competition": "Premier League 2",
+      "country": "England",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Everton U21",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1870842"
+    },
+    {
+      "away": "West Ham United U21",
+      "competition": "Premier League 2",
+      "country": "England",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Norwich City U21",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1870837"
+    },
+    {
+      "away": "Manchester United U21",
+      "competition": "Premier League 2",
+      "country": "England",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Nottingham Forest U21",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1870869"
+    },
+    {
+      "away": "Chelsea U21",
+      "competition": "Premier League 2",
+      "country": "England",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Stoke City U21",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1870840"
+    },
+    {
+      "away": "HEBC Hamburg",
+      "competition": "Oberliga: Hamburg",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Eintracht Norderstedt II",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1827614"
+    },
+    {
+      "away": "Fortuna Dusseldorf II",
+      "competition": "Oberliga: Niederrhein",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Blau-Weiss Dingden",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1842862"
+    },
+    {
+      "away": "Sportfreunde Baumberg",
+      "competition": "Oberliga: Niederrhein",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Buederich",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1842890"
+    },
+    {
+      "away": "Vasas Budapest",
+      "competition": "NB I",
+      "country": "Hungary",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "MTK Budapest",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1809585"
+    },
+    {
+      "away": "Birkirkara",
+      "competition": "Malta Premier: Opening Round",
+      "country": "Malta",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Marsaxlokk FC",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1817844"
+    },
+    {
+      "away": "Cusco FC",
+      "competition": "Liga 1: Clausura",
+      "country": "Peru",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sport Huancayo",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1806664"
+    },
+    {
+      "away": "St. Gallen",
+      "competition": "Cup",
+      "country": "Switzerland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Rapperswil-Jona",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1874475"
+    },
+    {
+      "away": "Servette",
+      "competition": "Cup",
+      "country": "Switzerland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Rotkreuz",
+      "kickoff_utc": "2026-10-16T18:00:00+00:00",
+      "match_id": "1874464"
+    },
+    {
+      "away": "Basel",
+      "competition": "Cup",
+      "country": "Switzerland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Stade Nyonnais",
+      "kickoff_utc": "2026-10-16T18:15:00+00:00",
+      "match_id": "1874472"
+    },
+    {
+      "away": "FC Cologne",
+      "competition": "Bundesliga",
+      "country": "Germany",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Eintracht Frankfurt",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1812732"
+    },
+    {
+      "away": "Habay La Neuve",
+      "competition": "Belgian Cup",
+      "country": "Belgium",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "SK Beveren",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1900631"
+    },
+    {
+      "away": "Cercle Brugge",
+      "competition": "Belgian Cup",
+      "country": "Belgium",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Sporting Hasselt",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1900636"
+    },
+    {
+      "away": "Patro Eisden",
+      "competition": "Belgian Cup",
+      "country": "Belgium",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Westerlo",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1900642"
+    },
+    {
+      "away": "Partick Thistle",
+      "competition": "Championship",
+      "country": "Scotland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ayr United",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1793199"
+    },
+    {
+      "away": "Cordoba",
+      "competition": "LaLiga 2",
+      "country": "Spain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Leganes",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1811133"
+    },
+    {
+      "away": "Catanzaro",
+      "competition": "Serie B",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Hellas Verona",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1845119"
+    },
+    {
+      "away": "Wisla Krakow",
+      "competition": "Ekstraklasa",
+      "country": "Poland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Widzew Lodz",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1795356"
+    },
+    {
+      "away": "SV Austria Salzburg",
+      "competition": "2. Liga",
+      "country": "Austria",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "FC Wacker Innsbruck",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1812302"
+    },
+    {
+      "away": "Lecco",
+      "competition": "Serie C: Group A",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Pro Vercelli",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1855325"
+    },
+    {
+      "away": "Grosseto",
+      "competition": "Serie C: Group B",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "US Livorno 1915",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1855702"
+    },
+    {
+      "away": "Odra Opole",
+      "competition": "I Liga",
+      "country": "Poland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ruch Chorzow",
+      "kickoff_utc": "2026-10-16T18:30:00+00:00",
+      "match_id": "1808309"
+    },
+    {
+      "away": "Sassuolo",
+      "competition": "Serie A",
+      "country": "Italy",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Frosinone",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1785390"
+    },
+    {
+      "away": "Toulouse",
+      "competition": "Ligue 1",
+      "country": "France",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Le Mans",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1794705"
+    },
+    {
+      "away": "Waterford FC",
+      "competition": "League of Ireland Premier Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Bohemian FC",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1718979"
+    },
+    {
+      "away": "Derry City",
+      "competition": "League of Ireland Premier Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Drogheda United",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1718980"
+    },
+    {
+      "away": "Shamrock Rovers",
+      "competition": "League of Ireland Premier Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Galway United FC",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1718982"
+    },
+    {
+      "away": "Bray Wanderers",
+      "competition": "1st Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Finn Harps",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1719642"
+    },
+    {
+      "away": "Cork City",
+      "competition": "1st Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Kerry",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1719643"
+    },
+    {
+      "away": "Athlone Town",
+      "competition": "1st Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Longford Town",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1719644"
+    },
+    {
+      "away": "Cobh Ramblers",
+      "competition": "1st Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Treaty United",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1719645"
+    },
+    {
+      "away": "UCD",
+      "competition": "1st Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Wexford FC",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1719646"
+    },
+    {
+      "away": "Coleraine",
+      "competition": "Premiership",
+      "country": "Northern Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Larne",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1806020"
+    },
+    {
+      "away": "Institute",
+      "competition": "Championship",
+      "country": "Northern Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Ards",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1807037"
+    },
+    {
+      "away": "Harland & Wolff Welders FC",
+      "competition": "Championship",
+      "country": "Northern Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Glenavon",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1807049"
+    },
+    {
+      "away": "Newington FC",
+      "competition": "Championship",
+      "country": "Northern Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Moyola Park",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1807047"
+    },
+    {
+      "away": "Loughgall",
+      "competition": "Championship",
+      "country": "Northern Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Strabane Athletic",
+      "kickoff_utc": "2026-10-16T18:45:00+00:00",
+      "match_id": "1807052"
+    },
+    {
+      "away": "Levante",
+      "competition": "LaLiga",
+      "country": "Spain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Deportivo A Coruna",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1810729"
+    },
+    {
+      "away": "Wolves",
+      "competition": "Championship",
+      "country": "England",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Burnley",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1802455"
+    },
+    {
+      "away": "FCV Dender EH",
+      "competition": "Belgian Cup",
+      "country": "Belgium",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Standard Liege",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1900634"
+    },
+    {
+      "away": "Shelbourne",
+      "competition": "League of Ireland Premier Division",
+      "country": "Ireland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "St. Patrick's Athletic",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1718984"
+    },
+    {
+      "away": "Wilstermann Cooperativa",
+      "competition": "Nacional B: Play-off",
+      "country": "Bolivia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Virginia USC",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1906238"
+    },
+    {
+      "away": "Europa Point",
+      "competition": "National League",
+      "country": "Gibraltar",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Bruno's Magpies",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1855158"
+    },
+    {
+      "away": "Os Marialvas",
+      "competition": "Portugal Cup: Round 3",
+      "country": "Portugal",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Chaves",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1898596"
+    },
+    {
+      "away": "Real Potosi",
+      "competition": "Primera Division",
+      "country": "Bolivia",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "ABB",
+      "kickoff_utc": "2026-10-16T19:00:00+00:00",
+      "match_id": "1862064"
+    },
+    {
+      "away": "Vikingur Reykjavik",
+      "competition": "Besta deildin: Championship Group",
+      "country": "Iceland",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Breidablik",
+      "kickoff_utc": "2026-10-16T19:15:00+00:00",
+      "match_id": "1889080"
+    },
+    {
+      "away": "SD Huesca",
+      "competition": "Primera Division RFEF: Group 2",
+      "country": "Spain",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "home": "Alcorcon",
+      "kickoff_utc": "2026-10-16T19:15:00+00:00",
+      "match_id": "1814473"
+    }
+  ],
+  "in_window_count": 197,
+  "in_window_prematch_count": 188,
+  "in_window_with_goal_history_both_sides": 179,
+  "run_id": "V4-20261016-1547-20261017-0300",
+  "source_fixture_union_count": 1125,
+  "surface_counts": {
+    "ICT:2026-10-16": 137,
+    "ICT:2026-10-17": 988,
+    "UTC:2026-10-16": 223
+  },
+  "terminal_fixture_count": 156,
+  "uefa_youth_league": [],
+  "uefa_youth_league_count": 0,
+  "uefa_youth_league_prematch_count": 0,
+  "uefa_youth_league_with_goal_history_both_sides": 0
+}
