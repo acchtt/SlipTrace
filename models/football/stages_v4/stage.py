@@ -269,6 +269,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     ordered_rows = sorted(
         queue,
         key=lambda q: (
+            0 if q.get("intake_lane") == "GOAL_PRIORITY" else 1,
             -int(isinstance((q.get("goal_screen") or {}).get("priority_score"), (int, float))),
             -float((q.get("goal_screen") or {}).get("priority_score") or 0),
             (q.get("cheap_filter") or {}).get("priority_rank", 4),
@@ -278,10 +279,10 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     )
     order = [row["match_id"] for row in ordered_rows]
     screen = {
-        "schema_version": "football-v4-goal-research-manifest-v2",
+        "schema_version": "football-v4-goal-research-manifest-v3",
         "run_id": run_id,
         "source_payload_hash": _hash(ledger),
-        "priority_profile": "GOAL_SIGNAL_FIRST_V2",
+        "priority_profile": "GOAL_SIGNAL_FIRST_V3",
         "ordered_eligible_match_ids": order,
         "original_rows": [
             {
@@ -342,6 +343,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["unresearched_goal_history_count"] = goal_selection["unresearched_goal_history_count"]
         outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
         outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
+        outcome["goal_review_count"] = goal_selection.get("goal_review_count", 0)
         if "cheap_filter_counts" in goal_selection:
             outcome["cheap_filter_policy"] = "RESEARCH_PRIORITY_V1"
             outcome["cheap_filter_counts"] = goal_selection["cheap_filter_counts"]
@@ -452,17 +454,27 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if sweep_receipt.get("goal_selection_policy") == "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1":
         if any(
             not isinstance(row, dict)
-            or row.get("intake_lane") != "GOAL_PRIORITY"
+            or row.get("intake_lane") not in {"GOAL_PRIORITY", "GOAL_REVIEW"}
             or not isinstance(row.get("goal_screen"), dict)
-            or row["goal_screen"].get("status") != "DISCOVERY_GOAL_QUALIFIED"
+            or (
+                row.get("intake_lane") == "GOAL_PRIORITY"
+                and row["goal_screen"].get("status") != "DISCOVERY_GOAL_QUALIFIED"
+            )
+            or (
+                row.get("intake_lane") == "GOAL_REVIEW"
+                and row["goal_screen"].get("status") != "DISCOVERY_GOAL_REVIEW"
+            )
             for row in queue
         ):
-            raise StageError("goal-first shortlist violated: unqualified match cannot enter C rank")
+            raise StageError(
+                "goal-first shortlist violated: only qualified or borderline "
+                "review matches can enter C rank"
+            )
         manifest = sweep_receipt.get("goal_screen_manifest")
         if queue and (
             not isinstance(manifest, dict)
             or manifest.get("priority_profile")
-            not in {"GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2"}
+            not in {"GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2", "GOAL_SIGNAL_FIRST_V3"}
             or manifest.get("ordered_eligible_match_ids")
             != sweep_receipt.get("research_order")
         ):
