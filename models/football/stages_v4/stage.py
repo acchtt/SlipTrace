@@ -216,7 +216,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                                 or format_proof.get("competition_format_verified") is not True
                             ):
                                 raise StageError(f"{mid}: cup format proof must be current and fixture-bound")
-                    if lane == "DISCOVERY" and discovery_screen["status"] != "DISCOVERY_GOAL_QUALIFIED":
+                    if lane == "DISCOVERY" and discovery_screen["status"] not in {"DISCOVERY_GOAL_QUALIFIED", "DISCOVERY_GOAL_REVIEW"}:
                         lane, reason = "PENDING_DISCOVERY", discovery_screen["reason"]
             item = {
                 "source_row_index": i, "match_id": mid, "country": raw.get("country"),
