@@ -25,6 +25,14 @@ MIN_PRIORITY_SCORE = 60
 MIN_MEAN_OVER_TWO_RATE = 0.55
 MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.35
 
+# Borderline safety lane. This is deliberately looser than the strong gate but
+# still requires complete source-backed histories and a non-trap profile.
+# It exists only to prevent sweep threshold cliffs from hiding a fixture before
+# Football C can research it. GOAL_REVIEW is not a certificate or prediction.
+REVIEW_MIN_PRIORITY_SCORE = 50
+REVIEW_MIN_MEAN_OVER_TWO_RATE = 0.50
+REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.35
+
 # Alternate evidence path for a fixture whose route-composite score is below
 # 60 but whose finished-match goal distribution is independently persuasive.
 # This remains a research-admission signal only; it never creates a C/C2
@@ -214,6 +222,20 @@ def _goal_research_path(
     return None
 
 
+def _borderline_goal_review(
+    priority: int,
+    over_two: float,
+    low_draw_trap: float,
+) -> bool:
+    """Narrow safety-net admission for complete but near-threshold histories."""
+
+    return (
+        priority >= REVIEW_MIN_PRIORITY_SCORE
+        and over_two >= REVIEW_MIN_MEAN_OVER_TWO_RATE
+        and low_draw_trap <= REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+
+
 def _qualifies_goal_research(
     priority: int,
     over_two: float,
@@ -285,6 +307,12 @@ def screen_discovery(
         carrier_route=carrier_route,
     )
     qualifies = qualification_path is not None
+    review = (
+        not qualifies
+        and _borderline_goal_review(priority, over_two, low_draw_trap)
+    )
+    if review:
+        qualification_path = "BORDERLINE_GOAL_REVIEW"
     fingerprint_payload = {
         "run_id": run_id,
         "source_payload_hash": source_payload_hash,
@@ -314,11 +342,15 @@ def screen_discovery(
         "status": (
             "DISCOVERY_GOAL_QUALIFIED"
             if qualifies
+            else "DISCOVERY_GOAL_REVIEW"
+            if review
             else "WATCH_GOAL_SIGNAL"
         ),
         "reason": (
             "SOURCE_BACKED_HIGH_SCORING_RESEARCH"
             if qualifies
+            else "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW"
+            if review
             else "GOAL_ROUTE_OR_LOW_DRAW_TRAP_SCREEN_NOT_YET_PERSUASIVE"
         ),
         "priority_score": priority,
@@ -334,6 +366,9 @@ def screen_discovery(
             "minimum_priority_score": MIN_PRIORITY_SCORE,
             "minimum_mean_over_two_rate": MIN_MEAN_OVER_TWO_RATE,
             "maximum_mean_0_0_or_1_1_rate": MAX_MEAN_LOW_DRAW_TRAP_RATE,
+            "review_minimum_priority_score": REVIEW_MIN_PRIORITY_SCORE,
+            "review_minimum_mean_over_two_rate": REVIEW_MIN_MEAN_OVER_TWO_RATE,
+            "review_maximum_mean_0_0_or_1_1_rate": REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE,
             "alternate_minimum_mean_over_two_rate": ALT_MIN_MEAN_OVER_TWO_RATE,
             "alternate_minimum_mean_over_three_rate": ALT_MIN_MEAN_OVER_THREE_RATE,
             "alternate_maximum_mean_0_0_or_1_1_rate": ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE,
