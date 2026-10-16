@@ -518,7 +518,7 @@ def c_carrier_goal3_funded(a: MatchAssessment) -> bool:
     return (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and a.route_reliability >= Grade.MEDIUM
+        and a.route_reliability == Grade.HIGH
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
@@ -700,7 +700,7 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         and a.independent_route_quality == Grade.HIGH
         and a.route_reliability == Grade.HIGH
         and a.chance_quality >= Grade.MEDIUM
-        and a.failure_resistance >= Grade.MEDIUM
+        and a.failure_resistance == Grade.HIGH
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
@@ -827,6 +827,15 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         )
     else:
         transferability_cap = 2
+
+    completion_cap = 2
+    if model == "c" and depth == 3:
+        effective_continuation, _ = c_effective_incentive_grades(a)
+        if (
+            a.burden_completion_quality == Grade.MEDIUM
+            and effective_continuation == Grade.MEDIUM
+        ):
+            completion_cap = 1
     if a.material_suppression or a.failure_attacks_route:
         return 0
     if (
@@ -888,7 +897,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         or repeatable_current_quality
         or strong_carrier_quality
     ):
-        return min(2, transferability_cap)
+        return min(2, transferability_cap, completion_cap)
 
     # CONDITIONAL requires at least one independently strong current football
     # dimension. A row of broad MEDIUM grades is deliberately not laundered
@@ -956,9 +965,9 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
         certificate_robustness(a, "c"),
         funded_goal_certificate_depth(a, "c"),
         *endpoint,
-        *goal_signal,
         int(effective_continuation),
         int(a.burden_completion_quality),
+        *goal_signal,
         int(a.route_reliability),
         int(a.independent_route_quality),
         int(a.chance_quality),
@@ -1574,6 +1583,22 @@ def _healthy_wait(ctx: ModelQuoteContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
+def _healthy_c_wait(a: MatchAssessment, ctx: ModelQuoteContext) -> bool:
+    """Require a stronger live revalidation before WATCH can convert to WAIT.
+
+    A fragile WATCH certificate may stay on the board for research, but a
+    reached price must not convert that fragile thesis into exposure unless the
+    current football assessment has improved to CONDITIONAL-or-better.
+    FOCUS remains governed by the normal reachability and football vetoes.
+    """
+
+    if not _healthy_wait(ctx):
+        return False
+    if ctx.board_state == BoardState.WATCH:
+        return certificate_robustness(a, "c") >= 1
+    return True
+
+
 def _supported_soft_price_zone(
     a: MatchAssessment,
     ctx: ModelQuoteContext,
@@ -1701,7 +1726,7 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
     if not line_funded:
-        if compiled_anchor is not None and not at_or_below and _healthy_wait(ctx):
+        if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):
             return Decision(
                 Action.WAIT,
                 "quoted burden lacks prospective certificate; healthy certified target reachable",
@@ -1738,7 +1763,7 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             ),
         )
 
-    if _healthy_wait(ctx):
+    if _healthy_c_wait(a, ctx):
         return Decision(
             Action.WAIT,
             (
