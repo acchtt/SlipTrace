@@ -143,7 +143,13 @@ class ActiveCRuntimeTests(unittest.TestCase):
             run_decision(retired)
 
     def test_observed_quote_uses_c_only(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c = football(
+            "c",
+            status="PREMATCH_CONFIRMED",
+            minute=None,
+            score=None,
+            event="NONE_VERIFIED",
+        )
         result = evaluate_observed_quote(c, {"line": 2.5, "odds": 1.70})
         self.assertEqual(result["model"], "c")
         self.assertFalse(result["execution_authorized"])
