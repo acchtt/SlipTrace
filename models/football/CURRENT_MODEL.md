@@ -117,6 +117,24 @@ This is not a league penalty. Comparable current senior mechanisms can remain
 HIGH in any competition. Raw goal rates cannot upgrade transferability and
 later match outcomes never rewrite it.
 
+### G4 completion reliability
+
+Transferability alone does not certify the fourth goal. C now distinguishes a
+self-funded/strong-route completion from a fourth goal that depends on a more
+fragile opponent reply.
+
+For G4:
+
+- a STRONG carrier path must have HIGH route reliability, unless both scoring
+  routes are independently STRONG with HIGH independent-route quality;
+- a reply-dependent TWO_SIDED/MIXED path with only one STRONG route requires
+  HIGH failure resistance;
+- two independently STRONG routes may retain G4 with MEDIUM failure resistance.
+
+This preserves genuine City/Villa/Brighton/Lech and two-strong-route shapes
+while preventing a broad high-goal history from upgrading a fragile 3+1/2+2
+completion path.
+
 C now freezes a second structured field for G4+:
 `upper_tail_comparable_context_signal` = SUPPORTIVE / MIXED / SUPPRESSIVE /
 UNAVAILABLE, with a factual basis.
