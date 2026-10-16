@@ -71,6 +71,18 @@ same-competition/continental sample takes precedence over domestic scoring.
 The market is a research trigger only and cannot create or upgrade a goal
 certificate.
 
+### Frozen-certificate upgrade guard
+
+For every ranked fixture, `/xi` must carry the frozen board's certified burden.
+If the current C certificate is higher than the frozen board certificate, the
+runtime must mark `VERIFIED_NEW_FOOTBALL_EVIDENCE`, name the certificate-relevant
+football fields that genuinely changed, and provide a non-empty basis.
+
+Merely confirming the same XI/routes, re-reading the same evidence, or observing
+a higher market total is not new football evidence. Without a verified new
+football change, keep the frozen certificate ceiling even when the screenshot
+shows a higher burden.
+
 ## WAIT
 
 WAIT must be researched, not manufactured.
