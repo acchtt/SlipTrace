@@ -38,7 +38,7 @@ def fixture(mid, country="England", league="Premier League", kind="DOMESTIC_LEAG
         elif goals == "TRAP":
             scores = [(0,0), (1,1), (0,0), (1,1)]
         elif goals == "BORDERLINE":
-            scores = [(5,0), (4,0), (1,1), (1,0)]
+            scores = [(6,0), (5,0), (1,1), (1,0)]
         else:
             raise ValueError("invalid test goals")
         games = [{
@@ -245,7 +245,7 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["eligible_count"],2)
         self.assertEqual(out["research_order"][0],"later")
         self.assertEqual(out["goal_screen_manifest"]["priority_profile"],
-                         "GOAL_SIGNAL_FIRST_V2")
+                         "GOAL_SIGNAL_FIRST_V3")
         self.assertEqual(
             out["goal_screen_manifest"]["ordered_eligible_match_ids"],
             out["research_order"],
@@ -373,7 +373,7 @@ class SweepV4Tests(unittest.TestCase):
         good["football_evidence"]={"home":proof,"away":proof}
         out=sweep(snapshot([good,fixture("m2","England","Premier League")]),now=NOW)
         self.assertEqual(out["eligible_count"],2)
-        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],"GOAL_SIGNAL_FIRST_V2")
+        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],"GOAL_SIGNAL_FIRST_V3")
         screened=out["goal_screen_manifest"]["original_rows"]
         strongest=sorted(screened,key=lambda row:(-(row["priority_score"] or 0),row["queue_rank"]))[0]
         self.assertEqual(out["research_order"][0],strongest["match_id"])
