@@ -155,6 +155,9 @@ class ActiveCRuntimeTests(unittest.TestCase):
             "confirmed current carrier is independently self-funding"
         )
         c["match"]["continuation_quality"] = "HIGH"
+        c["context"]["thesis_state"] = "PRESERVED"
+        c["context"]["primary_mechanism_intact"] = True
+        c["context"]["material_veto"] = False
         c["context"]["frozen_board_certified_burden"] = 2.5
         c["context"]["certificate_upgrade_status"] = "NOT_UPGRADED"
         with self.assertRaisesRegex(
