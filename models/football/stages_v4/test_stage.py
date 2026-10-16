@@ -37,6 +37,8 @@ def fixture(mid, country="England", league="Premier League", kind="DOMESTIC_LEAG
             scores = [(3,2), (2,1), (4,1), (2,2)]
         elif goals == "TRAP":
             scores = [(0,0), (1,1), (0,0), (1,1)]
+        elif goals == "BORDERLINE":
+            scores = [(5,0), (4,0), (1,1), (1,0)]
         else:
             raise ValueError("invalid test goals")
         games = [{
@@ -264,6 +266,21 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["source_ledger"][0]["intake_lane"],"PENDING_GOAL_RESEARCH")
         self.assertEqual(out["goal_selection_policy"],
                          "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1")
+
+    def test_borderline_goal_signal_reaches_rank_as_review_lane(self):
+        src=snapshot([
+            fixture("review","England","Premier League",goals="BORDERLINE"),
+            fixture("strong","Netherlands","Eerste Divisie",goals="HIGH"),
+        ])
+        out=sweep(src,now=NOW)
+        self.assertEqual(out["eligible_count"],2)
+        lanes={x["match_id"]:x["intake_lane"] for x in out["eligible_queue"]}
+        self.assertEqual(lanes["strong"],"GOAL_PRIORITY")
+        self.assertEqual(lanes["review"],"GOAL_REVIEW")
+        self.assertEqual(out["goal_review_count"],1)
+        self.assertEqual(out["research_order"][0],"strong")
+        self.assertEqual(out["goal_screen_manifest"]["priority_profile"],
+                         "GOAL_SIGNAL_FIRST_V3")
 
     def test_registered_low_goals_do_not_displace_high_goals_lower_league(self):
         src=snapshot([
