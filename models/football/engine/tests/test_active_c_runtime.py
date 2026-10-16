@@ -182,7 +182,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
             "carrier_self_fund"
         ]
         result = evaluate_observed_quote(c, {"line": 3.25, "odds": 1.82})
-        self.assertTrue(result["certificate_upgraded"])
+        self.assertGreater(result["supported_line"], 2.5)
 
     def test_retired_c2_cannot_enter_observed_quote_path(self):
         retired = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
