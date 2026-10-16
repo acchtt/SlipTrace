@@ -518,7 +518,7 @@ def c_carrier_goal3_funded(a: MatchAssessment) -> bool:
     return (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and a.route_reliability == Grade.HIGH
+        and a.route_reliability >= Grade.MEDIUM
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
