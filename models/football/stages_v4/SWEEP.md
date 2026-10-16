@@ -95,11 +95,16 @@ competitive results for BOTH teams where possible (actual goals for/against,
 finished match dates, HTTPS result source, and observation time). Apply the **same**
 `GOAL_SIGNAL_FIRST_V1` / `EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1`
 standard to routine, conditional, pilot and unregistered DISCOVERY leagues.
-Only quantified strong goals potential plus any required match researchability
-enters `eligible_queue` / the prospective `/rank` shortlist. Registered matches
-with no usable scoring data go into `goal_research_queue` as
-`PENDING_GOAL_RESEARCH`, not automatic eligible; source-backed low-goals or
-0-0/1-1 trap signals stay as a watchlist, not model PASS.
+Strong quantified goal profiles enter `eligible_queue` as
+`GOAL_PRIORITY`. A narrow source-backed safety lane also admits complete
+near-threshold profiles as `GOAL_REVIEW`: priority >=50, mean 3+ >=50%, and
+0-0/1-1 trap <=35%. These rows always research behind `GOAL_PRIORITY` and gain
+no C certificate from Step 0. The purpose is only to prevent a threshold cliff
+from hiding a potentially valid match before Football C sees it.
+
+Registered matches with no usable scoring data remain in `goal_research_queue`
+as `PENDING_GOAL_RESEARCH`; genuinely weak or trap-heavy signals stay on the
+watchlist, not model PASS.
 
 The quantitative screen has **four league-neutral research-admission paths**.
 The original route-composite path remains: priority score >=60, mean 3+ rate
@@ -118,9 +123,9 @@ availability, route transferability and tournament context are still assessed
 by Football C at /rank. No league identity, market quote, live score or final
 result can satisfy any admission path.
 
-**Research order:** examine quantified goal-positive matches FIRST, regardless
-of registered status or imminent KO. Remaining missing-goals-history fixtures
-follow for targeted research, then genuinely weak goal-signal fixtures.
+**Research order:** examine `GOAL_PRIORITY` matches first, then the narrow
+`GOAL_REVIEW` safety lane. Missing-goals-history fixtures follow for targeted
+research, then genuinely weak goal-signal fixtures.
 Use `goal_research_order` for missing-data acquisition. Do NOT sequentially
 crawl every league to satisfy all missing histories: fetch only current
 source-visible, plausible fixtures in the bounded window. When form is obtained,
