@@ -366,6 +366,67 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(c_ranked[0].match_id, "completion_first")
         self.assertEqual(c2_ranked[0].match_id, "route_first")
 
+    def test_hearts_style_medium_completion_g3_does_not_outrank_mixed_context_g4(self):
+        hearts = assessment(
+            match_id="hearts_medium_g3",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=61,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.4375,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        lech = assessment(
+            match_id="lech_mixed_g4",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "continental evidence has a control endpoint but current carrier remains transferable"
+            ),
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=60,
+            goal_signal_mean_over_two_rate=0.65,
+            goal_signal_mean_over_three_rate=0.45,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        self.assertEqual(certificate_robustness(hearts, "c"), 1)
+        self.assertEqual(certificate_robustness(lech, "c"), 1)
+        self.assertEqual(certified_supported_burden(hearts, "c"), 2.5)
+        self.assertEqual(certified_supported_burden(lech, "c"), 3.5)
+        self.assertEqual(
+            rank_assessments([hearts, lech])[0].match_id,
+            "lech_mixed_g4",
+        )
+
     def test_c2_ranking_does_not_use_supported_line_as_rank_factor(self):
         high_line = assessment(match_id="z_high", supported_line=3.0)
         low_line = assessment(match_id="a_low", supported_line=2.5)
@@ -421,10 +482,15 @@ class RankingTests(unittest.TestCase):
             burden_completion_quality=Grade.MEDIUM,
             continuation_quality=Grade.MEDIUM,
             burden_stall_risk=Grade.MEDIUM,
-            route_reliability=Grade.MEDIUM,
-            chance_quality=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
             failure_resistance=Grade.MEDIUM,
             evidence_confidence=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "comparable evidence supports G4 but retains a meaningful control endpoint"
+            ),
             goal_signal_priority_score=60,
             goal_signal_mean_over_two_rate=0.55,
             goal_signal_mean_over_three_rate=0.30,
@@ -911,6 +977,49 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(healthy.action, Action.WAIT)
         self.assertEqual(stale.action, Action.PASS)
 
+    def test_fragile_watch_wait_requires_conditional_or_better_revalidation(self):
+        fragile = assessment(
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            goal_signal_priority_score=61,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.45,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        ctx = context(
+            board_state=BoardState.WATCH,
+            official_follow_lane=FollowLane.STOP,
+            step2_authorization=Step2Authorization.USER_EXCEPTION,
+            quote=Quote(2.75, 1.82),
+            wait_reachable=True,
+            wait_requires_negative_info=False,
+        )
+        self.assertEqual(certificate_robustness(fragile, "c"), 0)
+        self.assertEqual(decide_c(fragile, ctx).action, Action.PASS)
+
+        revalidated = assessment(
+            **{
+                **fragile.__dict__,
+                "route_reliability": Grade.HIGH,
+            }
+        )
+        self.assertEqual(certificate_robustness(revalidated, "c"), 1)
+        self.assertEqual(decide_c(revalidated, ctx).action, Action.WAIT)
+
     def test_supported_line_is_anchor_when_frozen_goal5_tail_is_strong(self):
         a = assessment(
             supported_line=2.75,
@@ -1138,6 +1247,104 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(a, "c"), 3.5)
         self.assertEqual(certificate_robustness(a, "c"), 1)
 
+    def test_galaxy_style_reply_dependent_g4_requires_stronger_failure_resistance(self):
+        a = assessment(
+            match_id="galaxy_portland_negative_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "recent high-scoring evidence is mixed with credible home-control endpoints"
+            ),
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=76,
+            goal_signal_mean_over_two_rate=0.8125,
+            goal_signal_mean_over_three_rate=0.5625,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+
+    def test_hodd_style_medium_carrier_cannot_promote_g3_evidence_to_g4(self):
+        a = assessment(
+            match_id="hodd_ranheim_negative_control",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "same-level history contains both 3-2 and repeated 0-0/0-1 control endpoints"
+            ),
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=80,
+            goal_signal_mean_over_two_rate=0.8125,
+            goal_signal_mean_over_three_rate=0.6875,
+            goal_signal_low_draw_trap_rate=0.0625,
+        )
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+
+    def test_two_strong_route_medium_reliability_control_keeps_g4(self):
+        a = assessment(
+            match_id="stromsgodset_kongsvinger_positive_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "same-level evidence is mixed but both current scoring routes are independently strong"
+            ),
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=75,
+            goal_signal_mean_over_two_rate=0.625,
+            goal_signal_mean_over_three_rate=0.625,
+            goal_signal_low_draw_trap_rate=0.125,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+
     def test_city_psg_style_current_independent_routes_keep_g4(self):
         a = assessment(
             match_id="city_psg_positive_control",
@@ -1352,7 +1559,7 @@ class XiAssessmentCalibrationTests(unittest.TestCase):
             wait_reachable=True,
             wait_reachability_basis="supported O2.5 target may become available",
         )
-        self.assertEqual(decide_c(a, ctx).action, Action.WAIT)
+        self.assertEqual(decide_c(a, ctx).action, Action.PASS)
         self.assertEqual(decide_c2(a, ctx).action, Action.WAIT)
 
     def test_galaxy_portland_shape_funds_c2_g4_without_all_high_grades(self):

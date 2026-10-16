@@ -127,6 +127,20 @@ mechanism basis; raw domestic/cup goal rates alone are insufficient.
 
 Do not infer either field from the bookmaker line, live score, HT or FT.
 
+## 2B. Fourth-goal completion reliability
+
+A transferable upper tail is necessary but not sufficient for G4.
+
+A carrier-led G4 needs a STRONG carrier plus either HIGH route reliability or
+two independently STRONG scoring routes with HIGH independent-route quality.
+A TWO_SIDED/MIXED fourth-goal path with only one STRONG route needs HIGH failure
+resistance because the fourth goal materially depends on the reply/completion
+path. Two STRONG routes are the explicit alternative.
+
+Do not promote a G3 self-fund statement into G4 merely because the same team has
+scored three repeatedly. The fourth-goal completion must be evidenced
+separately.
+
 ## 3. Continuation quality
 
 Continuation asks whether scoring is likely to persist after:

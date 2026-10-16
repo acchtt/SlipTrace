@@ -63,6 +63,18 @@ Before C board execution:
 8. persist exact C result JSON plus C board/rank/lane fields;
 9. independently refetch once and verify.
 
+### Ranking calibration
+
+C ranks certificate robustness and depth first. For C G3, a structure with both
+MEDIUM burden-completion quality and MEDIUM continuation is capped at
+CONDITIONAL even when the frozen Step-0 rate signal is strong. Within equal
+robustness/depth, current continuation and completion are compared before raw
+historical goal-rate strength.
+
+This prevents a Hearts-style medium-completion G3 from taking rank priority
+solely because its historical goal signal is stronger than a current higher-
+completion certificate.
+
 ### Ranking order
 
 The active C ranking key is:
@@ -116,6 +128,24 @@ Deterministic effect:
 This is not a league penalty. Comparable current senior mechanisms can remain
 HIGH in any competition. Raw goal rates cannot upgrade transferability and
 later match outcomes never rewrite it.
+
+### G4 completion reliability
+
+Transferability alone does not certify the fourth goal. C now distinguishes a
+self-funded/strong-route completion from a fourth goal that depends on a more
+fragile opponent reply.
+
+For G4:
+
+- a STRONG carrier path must have HIGH route reliability, unless both scoring
+  routes are independently STRONG with HIGH independent-route quality;
+- a reply-dependent TWO_SIDED/MIXED path with only one STRONG route requires
+  HIGH failure resistance;
+- two independently STRONG routes may retain G4 with MEDIUM failure resistance.
+
+This preserves genuine City/Villa/Brighton/Lech and two-strong-route shapes
+while preventing a broad high-goal history from upgrading a fragile 3+1/2+2
+completion path.
 
 C now freezes a second structured field for G4+:
 `upper_tail_comparable_context_signal` = SUPPORTIVE / MIXED / SUPPRESSIVE /
@@ -180,6 +210,14 @@ Do not fetch a replacement quote.
 If the observed market burden materially exceeds C's certified burden, the
 disagreement may trigger one football-evidence recheck. It never enters the
 ranking key and never creates G3/G4/G5/G6.
+
+### Fragile WATCH WAIT activation
+
+A WATCH certificate can remain visible for research when it is FRAGILE, but a
+reachable price does not by itself convert that fragile thesis into WAIT. C
+requires the current WATCH assessment to revalidate to at least CONDITIONAL
+before WAIT is emitted. FOCUS retains the normal reachability and football-veto
+rules.
 
 ### WAIT
 

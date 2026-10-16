@@ -106,6 +106,17 @@ continental/same-competition upper-tail sample.
 
 The magnitude of compiled burden is not itself a rank bonus or penalty.
 
+### Post-slate completion calibration
+
+G4 is not funded merely because `independent_upper_tail=true`. Carrier-led G4
+requires HIGH route reliability unless both routes are independently STRONG.
+Reply-dependent G4 with one STRONG + one USABLE route requires HIGH failure
+resistance; two STRONG routes are the explicit alternative.
+
+For G3 robustness, simultaneous MEDIUM burden completion + MEDIUM continuation
+caps C at CONDITIONAL. Ranking compares current continuation/completion before
+the frozen Step-0 rate signal once robustness and certificate depth are equal.
+
 ## Availability symmetry
 
 Availability downgrades a certificate only when it attacks an identified

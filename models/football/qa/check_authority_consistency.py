@@ -72,6 +72,14 @@ require(
     "Evidence hierarchy is prospective and ordered",
     "same competition / continental context",
     "SUPPRESSIVE",
+    "G4 completion reliability",
+    "Fragile WATCH WAIT activation",
+)
+require(
+    "models/football/engine/core.py",
+    "two_strong_routes",
+    "completion_cap",
+    "_healthy_c_wait",
 )
 require(
     "models/football/stages_v4/stage.py",
