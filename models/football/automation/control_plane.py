@@ -9,7 +9,7 @@ import sys
 from typing import Any
 
 SCHEMA = "football-actions-control-v1"
-OPERATIONS = {"health", "sweep", "rank", "verify-rank", "xi-self-check"}
+OPERATIONS = {"health", "sweep", "rank", "xi-self-check"}
 ROOT = Path(__file__).resolve().parents[3]
 
 
@@ -106,15 +106,6 @@ def _receipt_summary(operation: str, receipt: dict[str, Any]) -> dict[str, Any]:
             reserve_count=board.get("reserve_count"),
             stop_count=board.get("stop_count"),
             board_admission_policy=receipt.get("board_admission_policy"),
-        )
-    elif operation == "verify-rank":
-        base.update(
-            run_id=receipt.get("run_id"),
-            receipt_status=receipt.get("status"),
-            ranked_count=receipt.get("ranked_count"),
-            model_evidence_readback_verified=receipt.get(
-                "model_evidence_readback_verified"
-            ),
         )
     return base
 
@@ -218,26 +209,6 @@ def execute(operation: str, request_path: Path | None, output_dir: Path) -> dict
                 str(required["unranked"]),
             ]
         )
-    else:
-        required = {
-            key: _repo_file(paths.get(key), f"paths.{key}")
-            for key in ("rank", "readback")
-        }
-        receipt_path = output_dir / "v4_rank_verified.json"
-        _run(
-            [
-                sys.executable,
-                _stage_script(),
-                "--output",
-                str(receipt_path),
-                "verify",
-                "--rank",
-                str(required["rank"]),
-                "--readback",
-                str(required["readback"]),
-            ]
-        )
-
     try:
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
