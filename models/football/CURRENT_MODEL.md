@@ -63,6 +63,18 @@ Before C board execution:
 8. persist exact C result JSON plus C board/rank/lane fields;
 9. independently refetch once and verify.
 
+### Ranking calibration
+
+C ranks certificate robustness and depth first. For C G3, a structure with both
+MEDIUM burden-completion quality and MEDIUM continuation is capped at
+CONDITIONAL even when the frozen Step-0 rate signal is strong. Within equal
+robustness/depth, current continuation and completion are compared before raw
+historical goal-rate strength.
+
+This prevents a Hearts-style medium-completion G3 from taking rank priority
+solely because its historical goal signal is stronger than a current higher-
+completion certificate.
+
 ### Ranking order
 
 The active C ranking key is:
