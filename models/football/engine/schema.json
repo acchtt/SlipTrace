@@ -614,7 +614,12 @@
             "wait_reachability_basis",
             "wait_negative_info_basis",
             "material_veto_basis",
-            "thesis_state_basis"
+            "thesis_state_basis",
+            "frozen_board_available",
+            "frozen_board_certified_burden",
+            "certificate_upgrade_status",
+            "certificate_upgrade_basis",
+            "certificate_upgrade_new_evidence_fields"
           ],
           "properties": {
             "board_state": {
@@ -802,6 +807,58 @@
             "thesis_state_basis": {
               "type": "string",
               "minLength": 1
+            },
+            "frozen_board_available": {
+              "type": "boolean"
+            },
+            "frozen_board_certified_burden": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "multipleOf": 0.25
+            },
+            "certificate_upgrade_status": {
+              "type": "string",
+              "enum": [
+                "NOT_UPGRADED",
+                "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+                "NO_FROZEN_BOARD"
+              ]
+            },
+            "certificate_upgrade_basis": {
+              "type": "string",
+              "minLength": 1
+            },
+            "certificate_upgrade_new_evidence_fields": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "home_route",
+                  "away_route",
+                  "carrier",
+                  "route_reliability",
+                  "independent_route_quality",
+                  "chance_quality",
+                  "failure_resistance",
+                  "evidence_confidence",
+                  "burden_protection",
+                  "carrier_self_fund",
+                  "independent_upper_tail",
+                  "upper_tail_transferability",
+                  "upper_tail_comparable_context_signal",
+                  "burden_completion_quality",
+                  "continuation_quality",
+                  "opponent_leakage",
+                  "burden_stall_risk",
+                  "material_suppression",
+                  "failure_attacks_route",
+                  "tournament_incentive"
+                ]
+              }
             }
           }
         }

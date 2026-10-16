@@ -168,6 +168,13 @@ whose result can override or dilute C.
 ### Screenshot/market disagreement
 
 Use only the user-supplied quote when that is the declared evidence source.
+
+A ranked fixture also carries its frozen board certificate into `/xi`. If the
+current certificate exceeds that frozen ceiling, C requires verified new
+football evidence in named certificate-relevant fields. A higher screenshot
+burden or simple preservation of the same pre-rank mechanism cannot authorize
+the upgrade.
+
 Do not fetch a replacement quote.
 
 If the observed market burden materially exceeds C's certified burden, the

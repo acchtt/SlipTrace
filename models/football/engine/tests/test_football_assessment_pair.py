@@ -36,6 +36,13 @@ def football(model, *, status="STARTED", score="1-0", minute=5, event="GOAL"):
             "thesis_state": "UNKNOWN",
             "primary_mechanism_intact": None,
             "material_veto": None,
+            "frozen_board_available": True,
+            "frozen_board_certified_burden": 5.5,
+            "certificate_upgrade_status": "NOT_UPGRADED",
+            "certificate_upgrade_basis": (
+                "current football assessment does not exceed the frozen board certificate"
+            ),
+            "certificate_upgrade_new_evidence_fields": [],
         },
     }
 

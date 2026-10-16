@@ -1061,6 +1061,154 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
+CERTIFICATE_UPGRADE_FIELDS = frozenset({
+    "home_route",
+    "away_route",
+    "carrier",
+    "route_reliability",
+    "independent_route_quality",
+    "chance_quality",
+    "failure_resistance",
+    "evidence_confidence",
+    "burden_protection",
+    "carrier_self_fund",
+    "independent_upper_tail",
+    "upper_tail_transferability",
+    "upper_tail_comparable_context_signal",
+    "burden_completion_quality",
+    "continuation_quality",
+    "opponent_leakage",
+    "burden_stall_risk",
+    "material_suppression",
+    "failure_attacks_route",
+    "tournament_incentive",
+})
+
+
+def _quarter_or_none(value: Any, field: str) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ContractError(f"{field} must be numeric or null")
+    number = float(value)
+    if number < 0 or abs(number * 4 - round(number * 4)) > 1e-9:
+        raise ContractError(f"{field} must use non-negative 0.25-goal increments")
+    return number
+
+
+def _certificate_upgrade_gate(
+    ctx_obj: dict[str, Any],
+    compiled_burden: float | None,
+    *,
+    model: str,
+) -> dict[str, Any]:
+    """Prevent market-triggered upward certificate drift at /xi.
+
+    For a ranked match with a frozen board certificate, any higher current
+    certificate must be justified by explicitly new football evidence in
+    certificate-relevant fields. A screenshot/market burden may trigger the
+    recheck but is never an eligible upgrade field.
+    """
+
+    if model != "c":
+        return {
+            "frozen_board_available": False,
+            "frozen_board_certified_burden": None,
+            "certificate_upgrade_status": "NOT_APPLICABLE",
+            "certificate_upgrade_basis": "retired/non-C path",
+            "certificate_upgrade_new_evidence_fields": [],
+            "certificate_upgraded": False,
+        }
+
+    frozen_available = _required_bool(ctx_obj, "frozen_board_available")
+    frozen_burden = _quarter_or_none(
+        _required(ctx_obj, "frozen_board_certified_burden"),
+        "frozen_board_certified_burden",
+    )
+    status = _choice(
+        ctx_obj,
+        "certificate_upgrade_status",
+        {
+            "NOT_UPGRADED",
+            "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+            "NO_FROZEN_BOARD",
+        },
+    )
+    basis = _string(ctx_obj, "certificate_upgrade_basis")
+    raw_fields = _required(ctx_obj, "certificate_upgrade_new_evidence_fields")
+    if not isinstance(raw_fields, list) or any(
+        not isinstance(field, str) or not field.strip() for field in raw_fields
+    ):
+        raise ContractError(
+            "certificate_upgrade_new_evidence_fields must be a list of strings"
+        )
+    fields = [field.strip() for field in raw_fields]
+    invalid = sorted(set(fields) - CERTIFICATE_UPGRADE_FIELDS)
+    if invalid:
+        raise ContractError(
+            "certificate upgrade contains non-football/unsupported fields: "
+            + ", ".join(invalid)
+        )
+
+    if not frozen_available:
+        if frozen_burden is not None:
+            raise ContractError(
+                "NO_FROZEN_BOARD requires frozen_board_certified_burden=null"
+            )
+        if status != "NO_FROZEN_BOARD":
+            raise ContractError(
+                "frozen_board_available=false requires "
+                "certificate_upgrade_status=NO_FROZEN_BOARD"
+            )
+        if fields:
+            raise ContractError(
+                "NO_FROZEN_BOARD must not claim certificate upgrade fields"
+            )
+        return {
+            "frozen_board_available": False,
+            "frozen_board_certified_burden": None,
+            "certificate_upgrade_status": status,
+            "certificate_upgrade_basis": basis,
+            "certificate_upgrade_new_evidence_fields": [],
+            "certificate_upgraded": False,
+        }
+
+    upgraded = (
+        compiled_burden is not None
+        and (frozen_burden is None or compiled_burden > frozen_burden)
+    )
+    if upgraded:
+        if status != "VERIFIED_NEW_FOOTBALL_EVIDENCE":
+            raise ContractError(
+                "CERTIFICATE UPGRADE BLOCKED — current certified burden exceeds "
+                "frozen board burden without VERIFIED_NEW_FOOTBALL_EVIDENCE"
+            )
+        if not fields:
+            raise ContractError(
+                "CERTIFICATE UPGRADE BLOCKED — name at least one newly changed "
+                "certificate-relevant football field"
+            )
+    else:
+        if status != "NOT_UPGRADED":
+            raise ContractError(
+                "no upward certificate change requires "
+                "certificate_upgrade_status=NOT_UPGRADED"
+            )
+        if fields:
+            raise ContractError(
+                "NOT_UPGRADED must not claim new certificate-upgrade fields"
+            )
+
+    return {
+        "frozen_board_available": True,
+        "frozen_board_certified_burden": frozen_burden,
+        "certificate_upgrade_status": status,
+        "certificate_upgrade_basis": basis,
+        "certificate_upgrade_new_evidence_fields": fields,
+        "certificate_upgraded": upgraded,
+    }
+
+
 def evaluate_observed_quote(
     payload: dict[str, Any],
     quote: dict[str, Any],
@@ -1084,6 +1232,9 @@ def evaluate_observed_quote(
     match_obj = _required(payload, "match")
     a = parse_assessment(match_obj, require_c_completion=(model == "c"))
     compiled_burden = certified_supported_burden(a, model)
+    upgrade_gate = _certificate_upgrade_gate(
+        ctx_obj, compiled_burden, model=model
+    )
 
     if not isinstance(quote, dict):
         raise ContractError("observed quote must be an object")
@@ -1226,6 +1377,7 @@ def evaluate_observed_quote(
         "wait_reachable": wait_reachable,
         "wait_reachability_basis": wait_basis,
         "wait_requires_negative_info": wait_negative,
+        **upgrade_gate,
         "execution_authorized": False,
         "publication_authorized": False,
         "model_exposure_created": False,
@@ -1245,6 +1397,9 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     ctx_obj = _required(payload, "context")
     if not isinstance(ctx_obj, dict):
         raise ContractError("context must be an object")
+    upgrade_gate = _certificate_upgrade_gate(
+        ctx_obj, compiled_burden, model=model
+    )
 
     if "tournament_incentive_rechecked" not in ctx_obj:
         raise ContractError(
@@ -1468,6 +1623,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "bridge_used": decision.bridge_used,
         "market_line_funded": market_line_funded(a, ctx.quote.line, model),
         **prospective_goal_funding(a, model),
+        **upgrade_gate,
         "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,

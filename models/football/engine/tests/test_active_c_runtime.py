@@ -88,6 +88,54 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(result["model"], "c")
         self.assertIn(result["action"], {"BET", "WAIT", "PASS"})
 
+    def test_ranked_certificate_upgrade_requires_verified_new_football_evidence(self):
+        upgraded = pair_payload("c")
+        upgraded["context"]["frozen_board_certified_burden"] = 2.5
+        upgraded["context"]["certificate_upgrade_status"] = "NOT_UPGRADED"
+        upgraded["context"]["certificate_upgrade_basis"] = (
+            "market showed a higher burden but no new football evidence was frozen"
+        )
+        with self.assertRaisesRegex(
+            ContractError,
+            "CERTIFICATE UPGRADE BLOCKED",
+        ):
+            run_decision(upgraded)
+
+        upgraded["context"]["certificate_upgrade_status"] = (
+            "VERIFIED_NEW_FOOTBALL_EVIDENCE"
+        )
+        upgraded["context"]["certificate_upgrade_basis"] = (
+            "confirmed XI changed the carrier and upper-tail evidence relative "
+            "to the frozen board"
+        )
+        upgraded["context"]["certificate_upgrade_new_evidence_fields"] = [
+            "carrier_self_fund",
+            "upper_tail_comparable_context_signal",
+        ]
+        result = run_decision(upgraded)
+        self.assertTrue(result["certificate_upgraded"])
+        self.assertEqual(
+            result["frozen_board_certified_burden"], 2.5
+        )
+
+    def test_market_only_field_cannot_authorize_certificate_upgrade(self):
+        upgraded = pair_payload("c")
+        upgraded["context"]["frozen_board_certified_burden"] = 2.5
+        upgraded["context"]["certificate_upgrade_status"] = (
+            "VERIFIED_NEW_FOOTBALL_EVIDENCE"
+        )
+        upgraded["context"]["certificate_upgrade_basis"] = (
+            "higher market total triggered a recheck"
+        )
+        upgraded["context"]["certificate_upgrade_new_evidence_fields"] = [
+            "market_history"
+        ]
+        with self.assertRaisesRegex(
+            ContractError,
+            "non-football/unsupported fields",
+        ):
+            run_decision(upgraded)
+
     def test_retired_c2_decision_is_rejected(self):
         retired = copy.deepcopy(pair_payload("c"))
         retired["model"] = "c2"
@@ -95,10 +143,46 @@ class ActiveCRuntimeTests(unittest.TestCase):
             run_decision(retired)
 
     def test_observed_quote_uses_c_only(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c = football(
+            "c",
+            status="PREMATCH_CONFIRMED",
+            minute=None,
+            score=None,
+            event="NONE_VERIFIED",
+        )
         result = evaluate_observed_quote(c, {"line": 2.5, "odds": 1.70})
         self.assertEqual(result["model"], "c")
         self.assertFalse(result["execution_authorized"])
+
+    def test_observed_quote_cannot_upgrade_frozen_certificate_without_new_evidence(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"]["carrier_self_fund"] = True
+        c["match"]["carrier_self_fund_basis"] = (
+            "confirmed current carrier is independently self-funding"
+        )
+        c["match"]["continuation_quality"] = "HIGH"
+        c["context"]["thesis_state"] = "PRESERVED"
+        c["context"]["primary_mechanism_intact"] = True
+        c["context"]["material_veto"] = False
+        c["context"]["frozen_board_certified_burden"] = 2.5
+        c["context"]["certificate_upgrade_status"] = "NOT_UPGRADED"
+        with self.assertRaisesRegex(
+            ContractError,
+            "CERTIFICATE UPGRADE BLOCKED",
+        ):
+            evaluate_observed_quote(c, {"line": 3.25, "odds": 1.82})
+
+        c["context"]["certificate_upgrade_status"] = (
+            "VERIFIED_NEW_FOOTBALL_EVIDENCE"
+        )
+        c["context"]["certificate_upgrade_basis"] = (
+            "confirmed XI materially upgraded the self-funded carrier"
+        )
+        c["context"]["certificate_upgrade_new_evidence_fields"] = [
+            "carrier_self_fund"
+        ]
+        result = evaluate_observed_quote(c, {"line": 3.25, "odds": 1.82})
+        self.assertGreater(result["supported_line"], 2.5)
 
     def test_retired_c2_cannot_enter_observed_quote_path(self):
         retired = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
