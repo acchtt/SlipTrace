@@ -679,11 +679,19 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
             and effective_stall <= Grade.MEDIUM
         )
 
+    two_strong_routes = (
+        a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+    )
     carrier_route = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
-        and a.route_reliability >= Grade.MEDIUM
+        and (
+            a.route_reliability == Grade.HIGH
+            or two_strong_routes
+        )
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
@@ -700,7 +708,10 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         and a.independent_route_quality == Grade.HIGH
         and a.route_reliability == Grade.HIGH
         and a.chance_quality >= Grade.MEDIUM
-        and a.failure_resistance == Grade.HIGH
+        and (
+            two_strong_routes
+            or a.failure_resistance == Grade.HIGH
+        )
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
