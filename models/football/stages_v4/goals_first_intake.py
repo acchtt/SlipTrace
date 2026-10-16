@@ -25,10 +25,12 @@ def _research_order(row: dict[str, Any]) -> tuple[Any, ...]:
     # goal signals. Urgency matters within each football-evidence class.
     if status == "DISCOVERY_GOAL_QUALIFIED":
         tier = 0
-    elif status in {"PENDING_GOAL_HISTORY","PENDING_SOURCE_SCORING_EVIDENCE"}:
+    elif status == "DISCOVERY_GOAL_REVIEW":
         tier = 1
-    else:
+    elif status in {"PENDING_GOAL_HISTORY","PENDING_SOURCE_SCORING_EVIDENCE"}:
         tier = 2
+    else:
+        tier = 3
     cheap = row.get("cheap_filter") or {}
     cheap_rank = cheap.get("priority_rank")
     if not isinstance(cheap_rank, int):
@@ -77,10 +79,17 @@ def select(
         item["goal_screen"] = screen
         old_lane = item["intake_lane"]
         if old_lane in ADMITTED_LANES:
-            if screen["status"] == "DISCOVERY_GOAL_QUALIFIED":
+            if screen["status"] in {
+                "DISCOVERY_GOAL_QUALIFIED",
+                "DISCOVERY_GOAL_REVIEW",
+            }:
                 # Treat ROUTINE, PILOT, CONDITIONAL and DISCOVERY identically.
-                item["intake_lane"] = "GOAL_PRIORITY"
-                item["reason"] = "SOURCE_BACKED_GOAL_SIGNAL_QUALIFIED"
+                if screen["status"] == "DISCOVERY_GOAL_QUALIFIED":
+                    item["intake_lane"] = "GOAL_PRIORITY"
+                    item["reason"] = "SOURCE_BACKED_GOAL_SIGNAL_QUALIFIED"
+                else:
+                    item["intake_lane"] = "GOAL_REVIEW"
+                    item["reason"] = "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW"
                 q = queue_map[mid]
                 q["intake_lane"] = item["intake_lane"]
                 q["reason"] = item["reason"]
@@ -91,7 +100,7 @@ def select(
             else:
                 item["intake_lane"] = "PENDING_GOAL_RESEARCH"
                 item["reason"] = screen["reason"]
-        if item["intake_lane"] != "GOAL_PRIORITY":
+        if item["intake_lane"] not in {"GOAL_PRIORITY", "GOAL_REVIEW"}:
             research.append({
                 "match_id": mid, "country": item["country"],
                 "competition": item["competition"],
@@ -136,7 +145,12 @@ def select(
                 "PENDING_GOAL_HISTORY", "PENDING_SOURCE_SCORING_EVIDENCE"
             } for r in research
         ),
-        "verified_goal_qualified_count": len(selected),
+        "verified_goal_qualified_count": sum(
+            r.get("intake_lane") == "GOAL_PRIORITY" for r in selected
+        ),
+        "goal_review_count": sum(
+            r.get("intake_lane") == "GOAL_REVIEW" for r in selected
+        ),
         **({
             "cheap_filter_counts": {
                 state: sum(
