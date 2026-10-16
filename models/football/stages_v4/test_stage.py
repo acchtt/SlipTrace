@@ -282,6 +282,35 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["goal_screen_manifest"]["priority_profile"],
                          "GOAL_SIGNAL_FIRST_V3")
 
+    def test_verified_discovery_borderline_reaches_review_queue(self):
+        review = fixture(
+            "review-unregistered", "Pakistan", "Premier League",
+            proof="VERIFIED", goals="BORDERLINE"
+        )
+        self.assertEqual(classify(review)["lane"], "DISCOVERY")
+        out = sweep(snapshot([
+            fixture("strong", "England", "Premier League", goals="HIGH"),
+            review,
+        ]), now=NOW)
+        row = next(x for x in out["source_ledger"]
+                   if x["match_id"] == "review-unregistered")
+        self.assertEqual(row["discovery_screen"]["status"], "DISCOVERY_GOAL_REVIEW")
+        self.assertEqual(row["intake_lane"], "GOAL_REVIEW")
+        self.assertIn("review-unregistered", out["research_order"])
+        self.assertEqual(out["research_order"][0], "strong")
+        self.assertEqual(out["goal_review_count"], 1)
+        self.assertIn("review-unregistered", [x["match_id"] for x in out["discovery_watchlist"]])
+
+    def test_discovery_review_without_channel_proof_stays_pending(self):
+        review = fixture(
+            "review-no-proof", "Pakistan", "Premier League",
+            goals="BORDERLINE"
+        )
+        out = sweep(snapshot([review]), now=NOW)
+        self.assertEqual(out["eligible_count"], 0)
+        self.assertEqual(out["source_ledger"][0]["intake_lane"], "PENDING_DISCOVERY")
+        self.assertNotIn("review-no-proof", out["research_order"])
+
     def test_registered_low_goals_do_not_displace_high_goals_lower_league(self):
         src=snapshot([
             fixture("weak","England","Premier League",goals="TRAP"),
