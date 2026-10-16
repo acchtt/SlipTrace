@@ -32,12 +32,18 @@ python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_
 
 ## Rank cohort
 
-Rank only the frozen V4 eligible_queue. The queue may contain
-`GOAL_PRIORITY` and `GOAL_REVIEW` rows; both require full Football C research,
-and the review lane carries no positive certificate assumption. Research the
-complete cohort in goals-first order, with priority rows before review rows.
-Do not silently skip a higher-priority fixture without an
-explicit allowed evidence/status reason.
+Use the frozen V4 eligible_queue as the **research cohort**, not as the
+official board. The queue may contain `GOAL_PRIORITY` and `GOAL_REVIEW` rows;
+both require full Football C research, and the review lane carries no positive
+certificate assumption. Research the complete cohort in goals-first order,
+with priority rows before review rows. Do not silently skip a higher-priority
+fixture without an explicit allowed evidence/status reason.
+
+After Football C research, board admission is a separate deterministic step:
+only rows frozen as `C-FOCUS` enter the official ranked board. `C-WATCH` and
+`C-PASS` remain in the frozen research assessment for audit/review but do not
+inflate the official board. There is **no fixed numeric board cap**: every
+genuine C-FOCUS survives admission.
 
 No odds quote is required at Step 1.
 
@@ -147,23 +153,32 @@ Asian .75 lines require the next certificate for a full win.
 
 Research-declared supported_line remains audit metadata only.
 
-## Execute board
+## Execute research assessment and admit the board
 
-Run the deterministic Football C board once.
+Run the deterministic Football C assessment once across the researched cohort.
 
 - C is official.
 - C2/C3/C4 are retired.
+- `C-FOCUS` -> official ranked board.
+- `C-WATCH` / `C-PASS` -> retained outside the official board in the frozen research assessment.
+- FOLLOW / RESERVE / STOP remains the operational workload lane **inside** C's
+  already-frozen football selection; it must not become a second predictive
+  selector.
+- there is no fixed board-size cap.
 - no price or Website Pick is created by /rank.
-- every unranked eligible fixture requires an explicit allowed reason.
+- every eligible fixture not researched still requires an explicit allowed reason.
 
 ## Persist once, read back once
 
-For each ranked fixture persist:
+For each **official board** fixture persist:
 
 - C state/rank/compiled supported burden;
 - C FOLLOW/RESERVE/STOP lane;
 - exact Step1 Engine C Result JSON;
 - declared line/basis only as audit comparison fields.
+
+WATCH/PASS research rows remain frozen in the rank receipt's research assessment
+and board-exclusion trace; they are not persisted as ranked board rows.
 
 Retired C2 fields may remain on historical Airtable rows, but all new rank persistence and independent readback use the Google Sheets `Daily Coverage Ledger` tab.
 
@@ -179,7 +194,10 @@ source.json/status_refresh.json again.
 
 ## Output
 
-Report run ID, ranked count, explicit unranked reasons, C board,
-FOLLOW/RESERVE/STOP, supported burdens and persistence verification.
+Report run ID, total C-assessed count, official ranked-board count, WATCH/PASS
+counts, explicit evidence/status unranked reasons, board exclusions, the
+C-FOCUS official board, FOLLOW/RESERVE/STOP for those board rows, supported
+burdens and persistence verification. The full research assessment remains
+available for audit but is not the main ranked board.
 
 Never invent prices, lineups, rankings or bets.
