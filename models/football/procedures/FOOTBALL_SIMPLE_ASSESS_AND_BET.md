@@ -33,6 +33,12 @@ Use exactly the supplied line/odds. Do not fetch replacement odds.
 A materially higher market total may trigger one football-evidence recheck but
 cannot create a certificate.
 
+For ranked fixtures, persist the frozen board certified burden into the `/xi`
+context. An upward current-certificate change is valid only when new football
+evidence is explicitly verified and at least one certificate-relevant field
+changed. Market movement, price, or the same preserved lineup/mechanism cannot
+authorize an upgrade.
+
 ## WAIT
 
 WAIT requires real reachability, an intact mechanism, no negative-information
