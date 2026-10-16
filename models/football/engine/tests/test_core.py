@@ -413,9 +413,9 @@ class RankingTests(unittest.TestCase):
             failure_resistance=Grade.MEDIUM,
             evidence_confidence=Grade.MEDIUM,
             burden_protection=Grade.MEDIUM,
-            goal_signal_priority_score=58,
-            goal_signal_mean_over_two_rate=0.60,
-            goal_signal_mean_over_three_rate=0.40,
+            goal_signal_priority_score=60,
+            goal_signal_mean_over_two_rate=0.65,
+            goal_signal_mean_over_three_rate=0.45,
             goal_signal_low_draw_trap_rate=0.125,
         )
         self.assertEqual(certificate_robustness(hearts, "c"), 1)
@@ -1276,7 +1276,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             goal_signal_mean_over_three_rate=0.5625,
             goal_signal_low_draw_trap_rate=0.125,
         )
-        self.assertTrue(c_goal3_funded(a))
+        self.assertTrue(clearing_goal_funded(a, 2.5))
         self.assertFalse(c_goal4_funded(a))
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
 
@@ -1309,7 +1309,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             goal_signal_mean_over_three_rate=0.6875,
             goal_signal_low_draw_trap_rate=0.0625,
         )
-        self.assertTrue(c_goal3_funded(a))
+        self.assertTrue(clearing_goal_funded(a, 2.5))
         self.assertFalse(c_goal4_funded(a))
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
 
