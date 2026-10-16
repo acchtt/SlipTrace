@@ -211,6 +211,14 @@ If the observed market burden materially exceeds C's certified burden, the
 disagreement may trigger one football-evidence recheck. It never enters the
 ranking key and never creates G3/G4/G5/G6.
 
+### Fragile WATCH WAIT activation
+
+A WATCH certificate can remain visible for research when it is FRAGILE, but a
+reachable price does not by itself convert that fragile thesis into WAIT. C
+requires the current WATCH assessment to revalidate to at least CONDITIONAL
+before WAIT is emitted. FOCUS retains the normal reachability and football-veto
+rules.
+
 ### WAIT
 
 WAIT requires:
