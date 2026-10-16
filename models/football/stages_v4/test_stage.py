@@ -565,6 +565,64 @@ class RankV4Tests(unittest.TestCase):
         self.assertFalse(result["publication_authorized"])
         self.assertFalse(result["bet_recorded"])
 
+    def test_rank_researches_watch_but_only_focus_enters_official_board(self):
+        src = sweep(snapshot(), now=NOW)
+        focus = c_row()
+        focus["match_id"] = "m1"
+        focus["kickoff_ict"] = KICKOFF_ICT
+        watch = c_row()
+        watch["match_id"] = "m2"
+        watch["kickoff_ict"] = KICKOFF_ICT
+        watch["board_state"] = "C-WATCH"
+        watch["board_state_basis"] = "credible research case, but below C focus admission"
+        c = payload("c", focus)
+        c["matches"].append(watch)
+
+        result = rank(src, c, {}, now="2026-10-11T16:05:00Z")
+
+        self.assertEqual(result["assessed_count"], 2)
+        self.assertEqual(result["ranked_count"], 1)
+        self.assertEqual(result["watch_count"], 1)
+        self.assertEqual(result["pass_count"], 0)
+        self.assertEqual(result["board_admission_policy"], "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP")
+        self.assertEqual([x["match_id"] for x in result["board"]["matches"]], ["m1"])
+        self.assertEqual(result["research_assessment"]["match_count"], 2)
+        self.assertEqual(result["board_excluded_count"], 1)
+        self.assertEqual(result["board_exclusions"][0]["match_id"], "m2")
+        self.assertEqual(result["board_exclusions"][0]["board_state"], "WATCH")
+
+    def test_focus_board_has_no_arbitrary_numeric_cap(self):
+        source_rows = [fixture(f"focus-{i}") for i in range(11)]
+        src_data = snapshot(source_rows)
+        src = sweep(src_data, now=NOW)
+        crows = []
+        for i in range(11):
+            row = c_row()
+            row["match_id"] = f"focus-{i}"
+            row["kickoff_ict"] = KICKOFF_ICT
+            crows.append(row)
+        c = {
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": crows,
+        }
+
+        result = production_rank(
+            src, c, {}, now="2026-10-11T16:05:00Z",
+            original_source=src_data,
+            status_refresh=fresh_status(src),
+        )
+
+        self.assertEqual(result["assessed_count"], 11)
+        self.assertEqual(result["ranked_count"], 11)
+        self.assertEqual(result["board"]["match_count"], 11)
+        self.assertEqual(len(result["board"]["matches"]), 11)
+        self.assertGreater(
+            sum(x["follow_lane"] == "STOP" for x in result["board"]["matches"]),
+            0,
+        )
+
     def test_rank_binds_cohort_clock_and_unranked_reasons(self):
         src = sweep(snapshot(), now=NOW)
         c = model_input()
