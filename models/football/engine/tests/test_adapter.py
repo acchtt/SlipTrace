@@ -135,6 +135,13 @@ def decision_context(**overrides):
         "material_veto_basis": "No existing current-epoch veto condition is present.",
         "tournament_incentive_rechecked": False,
         "tournament_incentive_recheck_status": "NOT_APPLICABLE",
+        "frozen_board_available": True,
+        "frozen_board_certified_burden": 3.5,
+        "certificate_upgrade_status": "NOT_UPGRADED",
+        "certificate_upgrade_basis": (
+            "current certificate does not exceed the frozen board certificate"
+        ),
+        "certificate_upgrade_new_evidence_fields": [],
     }
     row.update(overrides)
     return row
