@@ -1,60 +1,92 @@
-name: Football V4 Work non-browser acquisition
+name: Football V4 Work native sweep
 on:
   push:
+    branches: [main]
     paths:
       - "models/football/stages_v4/acquisition_requests/**"
-      - "models/football/stages_v4/tools/work_source_acquisition.py"
+      - "models/football/stages_v4/tools/work_*.py"
+      - "models/football/stages_v4/test_work_*.py"
       - ".github/workflows/football-v4-work-acquisition.yml"
   pull_request:
     paths:
-      - "models/football/stages_v4/acquisition_requests/**"
-      - "models/football/stages_v4/tools/work_source_acquisition.py"
+      - "models/football/stages_v4/**"
       - ".github/workflows/football-v4-work-acquisition.yml"
-      - "models/football/stages_v4/test_work_source_acquisition.py"
   workflow_dispatch:
+    inputs:
+      request_file:
+        description: Exact committed acquisition_requests/V4-*.json path
+        required: true
+        type: string
+      source_file:
+        description: Optional committed recovery source.json to resume without date acquisition
+        required: false
+        type: string
 permissions:
   contents: read
 jobs:
-  acquire:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    outputs:
+      matrix: ${{ steps.requests.outputs.matrix }}
+      has_requests: ${{ steps.requests.outputs.has_requests }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test runner offline (no live sweep on PRs or code-only pushes)
+        run: python -m unittest discover -s models/football/stages_v4 -p 'test_work_*.py'
+      - id: requests
+        name: Select only requests changed by this push or explicitly dispatched
+        run: python models/football/stages_v4/tools/work_requests.py
+  sweep:
+    needs: validate
+    if: needs.validate.outputs.has_requests == 'true'
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.validate.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Unit-test acquisition request and provenance logic
-        run: python -m unittest discover -s models/football/stages_v4 -p test_work_source_acquisition.py
-      - name: Fetch source date JSON without a browser
+      - name: Run acquisition, research, native V4 and handoff
+        env:
+          REQUEST_FILE: ${{ matrix.request }}
+          SOURCE_FILE: ${{ matrix.source }}
         shell: bash
         run: |
-          set -uo pipefail
-          mkdir -p acquisition-artifacts
-          shopt -s nullglob
-          requests=(models/football/stages_v4/acquisition_requests/V4-*.json)
-          if (( ${#requests[@]} == 0 )); then
-            echo 'No requests committed. Add a V4-*.json request to acquisition_requests/.' > acquisition-artifacts/README.txt
-            exit 0
-          fi
-          for request in "${requests[@]}"; do
-            name="$(basename "$request" .json)"
-            if ! python models/football/stages_v4/tools/work_source_acquisition.py \
-              --request "$request" --output "acquisition-artifacts/$name"; then
-              echo "$name" >> acquisition-artifacts/failed-requests.txt
-            fi
-          done
-          # Artifacts are evidence/checkpoints only, never native V4 receipts.
-      - name: Upload evidence and explicit blocked states
+          set -euo pipefail
+          args=(--request "$REQUEST_FILE" --output v4-work-result)
+          if test -n "$SOURCE_FILE"; then args+=(--source "$SOURCE_FILE"); fi
+          python models/football/stages_v4/tools/work_sweep.py "${args[@]}"
+      - name: Publish exact source, native receipt, raw evidence and pending reasons
+        if: always()
+        id: bundle
         uses: actions/upload-artifact@v4
         with:
-          name: v4-work-raw-acquisition-evidence
-          path: acquisition-artifacts/
-          retention-days: 7
+          name: v4-work-${{ strategy.job-index }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: v4-work-result/
+          retention-days: 90
           if-no-files-found: error
-      - name: Fail closed when source acquisition is blocked
+      - name: Publish discoverable cross-chat handoff location
+        if: always()
+        env:
+          ARTIFACT_URL: ${{ steps.bundle.outputs.artifact-url }}
+          REQUEST_FILE: ${{ matrix.request }}
         run: |
-          if test -f acquisition-artifacts/failed-requests.txt; then
-            cat acquisition-artifacts/failed-requests.txt
-            echo "Raw provider acquisition failed; artifact contains exact errors."
-            exit 1
-          fi
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          path = Path('v4-work-result/checkpoint.json')
+          checkpoint = json.loads(path.read_text()) if path.exists() else {'status': 'RUNNER_FAILED_BEFORE_CHECKPOINT'}
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('Request: `' + os.environ['REQUEST_FILE'] + '`\n\n')
+              out.write('State: **' + checkpoint['status'] + '**\n\n')
+              out.write('[Source / receipt / checkpoint bundle](' + os.environ['ARTIFACT_URL'] + ')\n\n')
+              out.write('Pending research is not completed intake. Rank must inspect the handoff and refresh status.\n')
+          PY

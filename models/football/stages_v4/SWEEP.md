@@ -14,46 +14,60 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
-## Work browser-failure recovery — GitHub runner first
+## Work execution route — resolve before acquisition
 
-For ChatGPT Work, **do not repeatedly open AiScore's interactive calendar**
-after a loading-placeholder failure. This is a known fragile browser route.
-Before expensive browser acquisition, establish one of the following:
+A missing local checkout is a setup task, not a reason to abandon `/sweep`.
+Use current `acchtt/SlipTrace` main and one of these executable routes:
 
-1. **Preferred when Work browser stalls or native Python is absent:** use the
-   repository-connected GitHub file-write capability to create
-   `models/football/stages_v4/acquisition_requests/<V4-run-id>.json` on the
-   authorized production branch. Its exact JSON fields are
-   `run_id`, `window_start_ict`, `window_end_ict` (timezone-aware ISO
-   timestamps). A push triggers
-   `.github/workflows/football-v4-work-acquisition.yml`. Confirm the actual
-   run, check the `acquire` job and retrieve the
-   `v4-work-raw-acquisition-evidence` artifact. This uses a GitHub-hosted
-   Python HTTP client instead of a Work browser tab. If a repository write
-   needs approval, obtain it; never pretend the trigger ran.
-2. **When GitHub writes are not authorized:** use available direct HTTP/data
-   retrieval or an independently checkable fixture provider. Do not loop on
-   the same blocked interactive page. Preserve an explicit pending state
-   when all sources are unavailable.
-3. **Native validation is separate.** The new runner returns raw provider
-   event JSON, stable provider IDs, observed timestamps, per-date counts and
-   an independent terminal refetch. Its status
-   `RAW_ACQUISITION_FETCHED_NOT_V4_READY` is NOT a V4 sweep receipt.
-   Complete all V4 date-surface pagination/block/fixture-union checks,
-   goal histories, exclusions, terminal reconciliation and fresh status
-   evidence before constructing `source.json`. Then run
-   `stage.py sweep` locally or commit that verified original source into
-   `recovery/<V4-run-id>/source.json` to invoke the existing
-   `football-v4-replay-attestation.yml` workflow.
-4. If the raw runner reports `ACQUISITION_BLOCKED`, identify the failed
-   date/provider from the evidence artifact and try another genuinely
-   independently checkable source. Never mark a blocked or partially
-   enriched snapshot as `V4_SWEEP_READY`.
+1. With shell/Python, run the repository-owned adapter:
+   `python models/football/stages_v4/tools/work_sweep.py --request REQUEST.json --output NEW_OUTPUT_DIRECTORY`.
+2. Without local execution, commit
+   `models/football/stages_v4/acquisition_requests/<V4-run-id>.json` using the
+   connected GitHub write capability on authorized production `main`. Exact fields:
+   `run_id`, `window_start_ict`, `window_end_ict`, with timezone-aware ISO times.
+   A push changing this request on `main` invokes
+   `.github/workflows/football-v4-work-acquisition.yml` (**Football V4 Work native
+   sweep**). Confirm the actual workflow run and `sweep` job, not merely a
+   successful file write. Feature branches require explicit dispatch with
+   `request_file`; merging a tested request into main is the automatic trigger.
 
-This fallback removes the *browser transport dependency*, not the
-source-completeness or native Football C validation requirements. Do not
-reopen Work's browser merely to prove a GitHub-runner artifact exists;
-inspect GitHub Actions results directly.
+The runner acquires full LiveScore date arrays for ICT and UTC, reconciles the
+senior union and independent terminal refetch, researches both teams' recent
+competitive results in native priority order, refreshes fixture status, calls
+native `stage.sweep`, and publishes the exact source/receipt/checkpoint bundle.
+This is an independent provider fallback, not AiScore evidence. AiScore remains
+preferred when its complete surfaces are available. No repeated loading-page
+loop is needed. The old raw-download helper is diagnostic only.
+
+Retrieve the `v4-work-<job-index>-<workflow-run-id>-<attempt>` artifact and its
+Actions job-summary link. Inspect `rank-handoff.json`, `checkpoint.json`,
+`source.json` and `v4_sweep_ready.json`. Artifacts are retained for 90 days;
+include the workflow run/artifact link and source run ID in the sweep response
+so a separate rank chat can discover the same bundle. Do not claim publication
+until the upload step succeeds. A `BLOCKED` checkpoint has exact failure evidence
+and must never be substituted for a native receipt.
+
+`V4_SWEEP_READY` alone does not complete the work. Report the separate
+`RESEARCH_COMPLETE` / `RESEARCH_PENDING` checkpoint state and pending rows.
+The adapter does not certify researchability from a generic `hasStats` or
+`hasLineups` flag. Fixtures still needing actual current mechanism/stat/news
+coverage or official cup-format evidence remain pending for targeted research.
+Continue that work within the requested task; do not ask the user to resubmit
+matches or silently lower the evidence standard.
+
+For a saved source, add `--source PATH` locally, or use dispatch `source_file`
+with its committed recovery path. This preserves an exact original copy and
+never repeats date discovery. A resume derives a new source and receipt in a
+fresh directory; it does not overwrite the earlier bundle. Existing native
+freshness checks still apply: stale evidence produces an explicit checkpoint,
+never a backdated live receipt. An archival replay is a different operation and
+still requires fresh full-cohort status before rank.
+
+Code-only pushes and pull requests run offline tests without acquiring fixtures.
+Changed requests are scoped to that push; expired requests fail before network
+access. If neither local execution nor a GitHub write/dispatch is available,
+report the exact missing capability and preserve the request. Never imply that
+changing repository instructions installs a runner inside an inaccessible chat.
 
 ## Check execution capability before acquiring fixtures
 

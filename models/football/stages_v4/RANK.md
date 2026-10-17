@@ -26,16 +26,29 @@ not fabricate a native rank result. This setup does not execute a new sweep.
 
 ## Input authority
 
-Use one native V4 rank handoff from the
-`v4-original-source-attested-receipts` artifact family containing the matching:
+Use one native V4 rank handoff from either:
 
-- <run>-v4_sweep_ready.json
-- <run>-source.json
-- <run>-rank-handoff.json when supplied
+- **Football V4 Work native sweep** (`football-v4-work-acquisition.yml`):
+  `v4-work-<job-index>-<workflow-run-id>-<attempt>` artifact, containing
+  `source.json`, `v4_sweep_ready.json`, `rank-handoff.json`, `checkpoint.json`.
+- Original-source replay: `v4-original-source-attested-receipts` artifact,
+  containing `<run>-source.json`, `<run>-v4_sweep_ready.json`, and its handoff.
 
-For /rank newest receipt, resolve that canonical bundle. Do not reconstruct a
-sweep receipt from Google Sheets, historical Airtable, or derived ledger rows. The resolver does not search historical
-runs to substitute a different source bundle.
+For `/rank newest receipt`, inspect the current sweep workflow's latest
+request-bearing run and its published artifact, including the job-summary
+link. Code-only/test runs with no sweep job are not new sweep attempts. Match
+the requested window and source run ID, verify source file hash and receipt
+integrity, and retain the bundle's link in the rank checkpoint. A failed newer
+attempt is an explicit blocker, never permission to silently substitute an
+older run. The resolver does not search historical runs to substitute a different
+source bundle. A newer `RESEARCH_PENDING` bundle may rank its verified eligible
+cohort while preserving the unfinished sweep research; zero eligible matches
+is not a ranked board. Do not equate structural `V4_SWEEP_READY` with completed
+goal research. Artifacts expire after 90 days; an unavailable bundle needs its
+saved original source and receipt, not reconstruction from summary counts.
+
+Do not reconstruct receipts from Google Sheets, historical Airtable, or ledger
+rows. Do not require the user to manually resubmit fixtures already in the bundle.
 
 ## Mandatory original-source replay and full-cohort status
 
