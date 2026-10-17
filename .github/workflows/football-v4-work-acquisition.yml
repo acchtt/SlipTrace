@@ -49,3 +49,10 @@ jobs:
           path: acquisition-artifacts/
           retention-days: 7
           if-no-files-found: error
+      - name: Fail closed when source acquisition is blocked
+        run: |
+          if test -f acquisition-artifacts/failed-requests.txt; then
+            cat acquisition-artifacts/failed-requests.txt
+            echo "Raw provider acquisition failed; artifact contains exact errors."
+            exit 1
+          fi
