@@ -1057,6 +1057,21 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["follow_capacity"] = MAX_FOLLOW
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
+        qa_flags: list[str] = []
+        if len(output) >= 5 and all(
+            row.get("operational_viability_grade") == "B" for row in output
+        ):
+            qa_flags.append("OPERATIONAL_GRADE_SATURATION")
+        g3_rows = [row for row in output if row.get("goal3_funded") is True]
+        if (
+            len(g3_rows) >= 5
+            and sum(
+                row.get("g4_research_status") == "G4_RESEARCH_INCOMPLETE"
+                for row in g3_rows
+            ) / len(g3_rows) >= 0.80
+        ):
+            qa_flags.append("UPPER_TAIL_RESEARCH_ANOMALY")
+        result["qa_flags"] = qa_flags
 
     return result
 
