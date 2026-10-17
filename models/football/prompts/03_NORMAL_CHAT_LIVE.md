@@ -1,5 +1,14 @@
 # /live — current-state Football C assessment
 
+> **Work conversation role — LIVE ONLY.** This conversation is dedicated to
+> Football C in-play reassessment using current match state and frozen
+> prematch evidence. Load this launcher from current SlipTrace main.
+> Do not silently perform /sweep, /rank, prematch /xi, or /audit in this
+> conversation. Preserve live-versus-prematch authorization boundaries.
+> If the user explicitly changes stages, load that stage's canonical launcher.
+> This is the SlipTrace production route, not FOM.
+
+
 Football C is the only active model.
 
 /live uses the same football-assessment runtime as /xi with:
