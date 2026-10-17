@@ -14,6 +14,47 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
+## Work browser-failure recovery — GitHub runner first
+
+For ChatGPT Work, **do not repeatedly open AiScore's interactive calendar**
+after a loading-placeholder failure. This is a known fragile browser route.
+Before expensive browser acquisition, establish one of the following:
+
+1. **Preferred when Work browser stalls or native Python is absent:** use the
+   repository-connected GitHub file-write capability to create
+   `models/football/stages_v4/acquisition_requests/<V4-run-id>.json` on the
+   authorized production branch. Its exact JSON fields are
+   `run_id`, `window_start_ict`, `window_end_ict` (timezone-aware ISO
+   timestamps). A push triggers
+   `.github/workflows/football-v4-work-acquisition.yml`. Confirm the actual
+   run, check the `acquire` job and retrieve the
+   `v4-work-raw-acquisition-evidence` artifact. This uses a GitHub-hosted
+   Python HTTP client instead of a Work browser tab. If a repository write
+   needs approval, obtain it; never pretend the trigger ran.
+2. **When GitHub writes are not authorized:** use available direct HTTP/data
+   retrieval or an independently checkable fixture provider. Do not loop on
+   the same blocked interactive page. Preserve an explicit pending state
+   when all sources are unavailable.
+3. **Native validation is separate.** The new runner returns raw provider
+   event JSON, stable provider IDs, observed timestamps, per-date counts and
+   an independent terminal refetch. Its status
+   `RAW_ACQUISITION_FETCHED_NOT_V4_READY` is NOT a V4 sweep receipt.
+   Complete all V4 date-surface pagination/block/fixture-union checks,
+   goal histories, exclusions, terminal reconciliation and fresh status
+   evidence before constructing `source.json`. Then run
+   `stage.py sweep` locally or commit that verified original source into
+   `recovery/<V4-run-id>/source.json` to invoke the existing
+   `football-v4-replay-attestation.yml` workflow.
+4. If the raw runner reports `ACQUISITION_BLOCKED`, identify the failed
+   date/provider from the evidence artifact and try another genuinely
+   independently checkable source. Never mark a blocked or partially
+   enriched snapshot as `V4_SWEEP_READY`.
+
+This fallback removes the *browser transport dependency*, not the
+source-completeness or native Football C validation requirements. Do not
+reopen Work's browser merely to prove a GitHub-runner artifact exists;
+inspect GitHub Actions results directly.
+
 ## Check execution capability before acquiring fixtures
 
 A new Work chat may have an empty workspace. **A missing local checkout is not
