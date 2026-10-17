@@ -38,6 +38,28 @@ def snapshot(c, *, line=2.5, odds=1.70, captured=CAPTURE, **changes):
     return obj
 
 
+def complete_market_disagreement_recheck(payload, *, fields=None):
+    payload["context"].update(
+        market_disagreement_recheck_status="COMPLETED",
+        market_disagreement_recheck_basis=(
+            "Current football evidence was rechecked against the higher "
+            "screenshot burden and the deterministic certificate was rerun."
+        ),
+        market_disagreement_recheck_fields=(
+            fields
+            if fields is not None
+            else [
+                "upper_tail_transferability",
+                "upper_tail_comparable_context_signal",
+            ]
+        ),
+        market_disagreement_recheck_evidence_refs=[
+            "source-backed-current-football-recheck-1"
+        ],
+    )
+    return payload
+
+
 def wait_ready(payload, *, top=False):
     payload["match"].update(
         carrier="STRONG",
@@ -153,8 +175,10 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(out["result"]["model"], "c")
 
     def test_wait_comes_from_explicit_reachability(self):
-        c = wait_ready(
-            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c = complete_market_disagreement_recheck(
+            wait_ready(
+                football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+            )
         )
         out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
         verdict = out["price_check"]["model"]
@@ -162,6 +186,58 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(verdict["wait_target_line"], 3.5)
         self.assertEqual(verdict["wait_min_odds"], 1.65)
         self.assertTrue(verdict["wait_reachable"])
+
+    def test_material_market_disagreement_blocks_until_rechecked(self):
+        c = wait_ready(
+            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        )
+        first = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        price = first["price_check"]
+        self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        self.assertTrue(price["quote_research_required"])
+        self.assertEqual(
+            price["model"]["conditional_action"],
+            "MARKET_DISAGREEMENT_RECHECK_REQUIRED",
+        )
+        self.assertFalse(price["model"]["market_disagreement_recheck_completed"])
+
+        complete_market_disagreement_recheck(c)
+        second = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        self.assertEqual(second["price_check"]["status"], "OBSERVED_QUOTE_EVALUATED")
+        self.assertFalse(second["price_check"]["quote_research_required"])
+        self.assertTrue(
+            second["price_check"]["model"]["market_disagreement_recheck_completed"]
+        )
+        self.assertIn(
+            second["price_check"]["model"]["conditional_action"],
+            {"ACT", "WAIT", "PASS"},
+        )
+
+    def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
+        c = complete_market_disagreement_recheck(
+            wait_ready(
+                football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+            ),
+            fields=["upper_tail_transferability"],
+        )
+        out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        price = out["price_check"]
+        self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        self.assertIn(
+            "upper_tail_comparable_context_signal",
+            price["model"]["market_disagreement_recheck_missing_fields"],
+        )
+
+    def test_quarter_goal_disagreement_does_not_trigger_material_recheck(self):
+        c = wait_ready(
+            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        )
+        baseline = run_xi(c, snapshot(c, line=2.5, odds=1.70))
+        supported = baseline["price_check"]["model"]["supported_line"]
+        self.assertIsNotNone(supported)
+        out = run_xi(c, snapshot(c, line=supported + 0.25, odds=1.70))
+        self.assertEqual(out["price_check"]["status"], "OBSERVED_QUOTE_EVALUATED")
+        self.assertFalse(out["price_check"]["quote_research_required"])
 
     def test_unestablished_wait_is_not_invented(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)

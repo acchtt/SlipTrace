@@ -179,6 +179,9 @@ def assess_user_screenshot(
         limitations.append("STARTED_FIXTURE_PREMATCH_ACTION_NOT_RECREATED")
 
     result = evaluate_observed_quote(c_football, quote)
+    recheck_required = (
+        result.get("action") == "MARKET_DISAGREEMENT_RECHECK_REQUIRED"
+    )
     model = {
         "supported_line": result["supported_line"],
         "snapshot_line_relation": result["line_relation"],
@@ -189,19 +192,47 @@ def assess_user_screenshot(
         "wait_reachable": result.get("wait_reachable"),
         "wait_reachability_basis": result.get("wait_reachability_basis"),
         "bridge_used": result.get("bridge_used", False),
+        "market_disagreement_recheck_required": result.get(
+            "market_disagreement_recheck_required", False
+        ),
+        "market_disagreement_recheck_completed": result.get(
+            "market_disagreement_recheck_completed", True
+        ),
+        "market_disagreement_gap_goals": result.get(
+            "market_disagreement_gap_goals"
+        ),
+        "market_disagreement_recheck_fields": result.get(
+            "market_disagreement_recheck_fields", []
+        ),
+        "market_disagreement_recheck_evidence_refs": result.get(
+            "market_disagreement_recheck_evidence_refs", []
+        ),
+        "market_disagreement_recheck_basis": result.get(
+            "market_disagreement_recheck_basis"
+        ),
+        "market_disagreement_recheck_missing_fields": result.get(
+            "market_disagreement_recheck_missing_fields", []
+        ),
         "execution_authorized": False,
     }
 
+    if recheck_required:
+        limitations.append("MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+
     return {
         "ok": True,
-        "status": "OBSERVED_QUOTE_EVALUATED",
+        "status": (
+            "MARKET_DISAGREEMENT_RECHECK_REQUIRED"
+            if recheck_required
+            else "OBSERVED_QUOTE_EVALUATED"
+        ),
         "evidence": evidence,
         "model": model,
         "limitations": limitations,
         "bet_authorized": False,
         "model_bets_created": False,
         "priced_publication_authorized": False,
-        "quote_research_required": False,
+        "quote_research_required": recheck_required,
         "execution_authorized": False,
     }
 

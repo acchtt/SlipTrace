@@ -64,12 +64,32 @@ is required.
 The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
 policy used by strict execution.
 
-If the screenshot burden materially exceeds C's certificate, recheck football
-evidence once. When that recheck concerns G4+, verify both the frozen upper-tail
-transferability basis and its comparable-context signal. A suppressive
-same-competition/continental sample takes precedence over domestic scoring.
-The market is a research trigger only and cannot create or upgrade a goal
-certificate.
+If the screenshot burden materially exceeds C's certificate, the runtime
+hard-gates the quote before any ACT/WAIT/PASS.
+
+Current material-disagreement threshold: observed screenshot line >= compiled
+Football C burden + 0.50 goals.
+
+The first runtime pass returns
+`MARKET_DISAGREEMENT_RECHECK_REQUIRED` unless the current football payload
+already contains a completed disagreement recheck.
+
+When that state is returned, do not stop and do not issue a verdict. In the same
+Work task:
+
+1. investigate the football reason for the disagreement using current factual
+   evidence only;
+2. for G4+ disagreement, explicitly verify upper-tail transferability and
+   comparable-context scoring evidence;
+3. record the researched certificate-relevant fields and source/evidence refs;
+4. rerun the deterministic C football certificate;
+5. invoke `xi_portable.py` again with the same user screenshot;
+6. only the second, cleared runtime result may produce ACT/WAIT/PASS.
+
+A suppressive same-competition/continental sample takes precedence over generic
+domestic scoring. The market is a research trigger only and cannot create or
+upgrade a goal certificate. If the recheck finds no genuinely new
+certificate-relevant evidence, keep the frozen certificate ceiling.
 
 ### Frozen-certificate upgrade guard
 
