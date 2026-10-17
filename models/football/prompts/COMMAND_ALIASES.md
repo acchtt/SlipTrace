@@ -16,6 +16,24 @@ Only the first slash command routes the message.
 
 Aliases are case-insensitive. Text after the command is normal launcher input.
 
+## Stage-dedicated ChatGPT Work conversations
+
+Use a separate Work conversation for each operational stage. The canonical
+launcher declares the conversation's role at the top:
+
+- SWEEP ONLY: `models/football/stages_v4/SWEEP.md`
+- RANK ONLY: `models/football/stages_v4/RANK.md`
+- XI ONLY: `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
+- LIVE ONLY: `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
+- AUDIT ONLY: `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
+- REPORT ONLY: `models/football/prompts/06_NORMAL_CHAT_REPORT.md`
+
+Each Work task loads its own canonical launcher from current SlipTrace main,
+executes only that stage, and transfers validated receipts/evidence rather
+than previous-chat reasoning. A command explicitly changing stages must load
+the other stage's launcher; do not silently chain stages in the same task.
+Audit is dedicated to Football C / SlipTrace and must not touch FOM-v1.
+
 ## /sweep
 
 Use V4 only. Start from the actual requested/current ICT window and never

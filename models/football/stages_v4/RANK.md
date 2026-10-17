@@ -1,5 +1,17 @@
 # /rank — Football V4 single-C rank
 
+> **Work conversation role — RANK ONLY.** This conversation is dedicated to
+> Football C V4 ranking of an explicitly supplied or canonical newest sweep
+> receipt. Load this launcher from current SlipTrace main. Verify original
+> source replay and full-cohort status, execute the official C rank, and
+> persist/verify the ranked board as required by this procedure. Do not run
+> a new `/sweep`, issue `/xi` or `/live` verdicts, or conduct a
+> post-slate `/audit` in this conversation. If upstream evidence is invalid,
+> return the exact blocker and route it to the sweep conversation. A user
+> explicitly changing stages requires the other canonical launcher.
+> This is the SlipTrace production route, not FOM.
+
+
 This is the only active /rank procedure.
 
 ## Input authority
