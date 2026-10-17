@@ -260,15 +260,24 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             }
             ledger.append(item)
             if lane in {"ROUTINE","CONDITIONAL","PILOT","DISCOVERY"}:
-                operational_grade, operational_grade_basis = _intake_operational_grade(
-                    result["lane"], raw
-                )
-                queue.append({
-                    **item,
-                    "football_evidence": raw.get("football_evidence"),
-                    "operational_grade": operational_grade,
-                    "operational_grade_basis": operational_grade_basis,
-                })
+                if _historical_registry_only:
+                    # Historical attestation must reproduce the frozen legacy
+                    # queue exactly; new evidence-derived grading is prospective.
+                    queue.append({
+                        **item,
+                        "football_evidence": raw.get("football_evidence"),
+                        "operational_grade": "A" if lane == "ROUTINE" else "B",
+                    })
+                else:
+                    operational_grade, operational_grade_basis = _intake_operational_grade(
+                        result["lane"], raw
+                    )
+                    queue.append({
+                        **item,
+                        "football_evidence": raw.get("football_evidence"),
+                        "operational_grade": operational_grade,
+                        "operational_grade_basis": operational_grade_basis,
+                    })
         except StageError as exc:
             ledger.append({
                 "source_row_index": i,
@@ -320,7 +329,9 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 "match_id": row["match_id"],
                 "queue_rank": row["queue_rank"],
                 "operational_grade": row["operational_grade"],
-                "operational_grade_basis": row.get("operational_grade_basis"),
+                **({} if _historical_registry_only else {
+                    "operational_grade_basis": row.get("operational_grade_basis"),
+                }),
                 "screen_status": "QUANTIFIED",
                 "priority_score": (row.get("goal_screen") or {}).get("priority_score"),
                 "source_screen_fingerprint": (
