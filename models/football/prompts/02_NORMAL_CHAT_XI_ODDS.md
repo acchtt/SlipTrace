@@ -1,5 +1,16 @@
 # /xi — Football C assessment
 
+> **Work conversation role — XI ONLY.** This conversation is dedicated to
+> Football C prematch /xi assessments (including explicit exceptions),
+> screenshot-only quote comparisons, required football rechecks, and
+> deterministic C verdicts. Load this launcher from current SlipTrace main.
+> Do not independently run /sweep, /rank, /live, /audit, or redesign the model
+> in this conversation. When an upstream receipt is missing or invalid,
+> report the blocker rather than silently recreating it. If the user explicitly
+> changes stages, load that stage's canonical launcher. This is the SlipTrace
+> production route, not FOM.
+
+
 Football C is the only active model. C2/C3/C4 are retired and never execute in
 new /xi work.
 
