@@ -1,0 +1,837 @@
+{
+  "checkpoint_schema": "football-v4-partial-acquisition-checkpoint-v1",
+  "run_id": "V4-20261017-1741-20261018-0300",
+  "checkpoint_status": "PENDING_SOURCE_COMPLETENESS_NOT_RANKABLE",
+  "model": "Football C",
+  "window_start_ict": "2026-10-17T17:41:00+07:00",
+  "window_end_ict": "2026-10-18T03:00:00+07:00",
+  "source_urls": [
+    "https://www.livescores.com/football/2026-10-17/?tz=7",
+    "https://www.livescores.com/football/2026-10-18/?tz=7",
+    "https://www.livescores.com/football/2026-10-17/?tz=0"
+  ],
+  "preliminary_candidate_count": 81,
+  "acquisition_method": "Human-readable public date listings; NOT source API or complete extracted date surface",
+  "known_missing": [
+    "Provider assigned canonical match IDs and match-specific source URL for each fixture",
+    "Exhaustive complete date-surface extraction, all pagination and competition-block counts",
+    "ICT:2026-10-17, ICT:2026-10-18, UTC:2026-10-17 exact fixture-union reconciliation",
+    "Fresh provider statuses and check timestamps for each fixture",
+    "Independent six-hour terminal-sentinel refetch",
+    "4-10 verified finished competitive results per team and GOAL_SIGNAL_FIRST_V1 admission",
+    "Native stage.py execution and V4_SWEEP_READY attestation"
+  ],
+  "purpose": "Resume point only. Not a valid source.json; do not feed to /rank, do not count as eligible, do not write Google Sheets Sweep Runs.",
+  "candidates": [
+    {
+      "kickoff_ict": "2026-10-17T18:30:00+07:00",
+      "country": "England",
+      "competition": "Premier League",
+      "home": "Everton",
+      "away": "Chelsea",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:00:00+07:00",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "home": "Espanyol",
+      "away": "Atletico Madrid",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:00:00+07:00",
+      "country": "Norway",
+      "competition": "Eliteserien",
+      "home": "HamKam",
+      "away": "Bodoe/Glimt",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:00:00+07:00",
+      "country": "Germany",
+      "competition": "Frauen-Bundesliga",
+      "home": "Bayer Leverkusen W",
+      "away": "Eintracht Frankfurt W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Women's Allsvenskan",
+      "home": "Brommapojkarna W",
+      "away": "Vaexjoe W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Women's Allsvenskan",
+      "home": "Malmoe FF W",
+      "away": "AIK W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T19:45:00+07:00",
+      "country": "Poland",
+      "competition": "Ekstraklasa",
+      "home": "Motor Lublin",
+      "away": "Slask Wroclaw",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Italy",
+      "competition": "Serie A",
+      "home": "Venezia",
+      "away": "Napoli",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Turkiye",
+      "competition": "Süper Lig",
+      "home": "Gençlerbirliği",
+      "away": "Galatasaray",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Czech Republic",
+      "competition": "1st League",
+      "home": "Slavia Prague",
+      "away": "Hradec Kralove",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Czech Republic",
+      "competition": "1st League",
+      "home": "Mlada Boleslav",
+      "away": "Teplice",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Finland",
+      "competition": "Veikkausliiga: Championship",
+      "home": "HJK Helsinki",
+      "away": "IF Gnistan",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Serbia",
+      "competition": "Super Liga",
+      "home": "Cukaricki",
+      "away": "FK Zemun",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Malaysia",
+      "competition": "Super League",
+      "home": "Melaka FC",
+      "away": "Kuala Lumpur City FC",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Superettan",
+      "home": "Falkenbergs FF",
+      "away": "Landskrona BoIS",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Superettan",
+      "home": "Sandvikens IF",
+      "away": "Oestersunds FK",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Women's Allsvenskan",
+      "home": "FC Rosengaard W",
+      "away": "Vittsjo GIK W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Women's Allsvenskan",
+      "home": "IK Uppsala Fotboll W",
+      "away": "Kristianstads DFF W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Norway",
+      "competition": "Women's Toppserien",
+      "home": "Rosenborg W",
+      "away": "SK Brann W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:00:00+07:00",
+      "country": "Italy",
+      "competition": "Women's Serie A",
+      "home": "Como W",
+      "away": "Fiorentina W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Elversberg",
+      "away": "Augsburg",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Hamburger SV",
+      "away": "VfB Stuttgart",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Schalke 04",
+      "away": "Mainz 05",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Union Berlin",
+      "away": "Borussia Dortmund",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T20:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Werder Bremen",
+      "away": "Paderborn",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Premier League",
+      "home": "Brentford",
+      "away": "Liverpool",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Premier League",
+      "home": "Fulham",
+      "away": "Hull City",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Premier League",
+      "home": "Manchester City",
+      "away": "Ipswich Town",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Birmingham City",
+      "away": "QPR",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Bristol City",
+      "away": "Sheffield United",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Derby County",
+      "away": "Stoke City",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Norwich City",
+      "away": "Portsmouth",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Southampton",
+      "away": "Bolton Wanderers",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Swansea City",
+      "away": "West Ham United",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "West Bromwich Albion",
+      "away": "Blackburn Rovers",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "England",
+      "competition": "Championship",
+      "home": "Wrexham",
+      "away": "Preston North End",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "Scotland",
+      "competition": "Premiership",
+      "home": "Aberdeen",
+      "away": "St. Mirren",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "Scotland",
+      "competition": "Premiership",
+      "home": "Hibernian",
+      "away": "Falkirk",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "Scotland",
+      "competition": "Premiership",
+      "home": "Kilmarnock",
+      "away": "Motherwell",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:00:00+07:00",
+      "country": "Norway",
+      "competition": "Eliteserien",
+      "home": "Kristiansund BK",
+      "away": "Aalesund",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:15:00+07:00",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "home": "Villarreal",
+      "away": "Elche",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:15:00+07:00",
+      "country": "Romania",
+      "competition": "Liga 1",
+      "home": "Petrolul Ploiesti",
+      "away": "Sepsi OSK",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:30:00+07:00",
+      "country": "Netherlands",
+      "competition": "Eredivisie",
+      "home": "ADO Den Haag",
+      "away": "PSV Eindhoven",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:30:00+07:00",
+      "country": "Netherlands",
+      "competition": "Eerste Divisie",
+      "home": "FC Emmen",
+      "away": "Almere City FC",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:30:00+07:00",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "home": "Al-Sailiya",
+      "away": "Qatar SC",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T21:30:00+07:00",
+      "country": "Spain",
+      "competition": "Liga F",
+      "home": "Athletic Club W",
+      "away": "Valencia W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:00:00+07:00",
+      "country": "Finland",
+      "competition": "Veikkausliiga: Championship",
+      "home": "FC Inter Turku",
+      "away": "AC Oulu",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:00:00+07:00",
+      "country": "Serbia",
+      "competition": "Super Liga",
+      "home": "Vojvodina",
+      "away": "FK Radnicki 1923",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:00:00+07:00",
+      "country": "Sweden",
+      "competition": "Superettan",
+      "home": "Oesters IF",
+      "away": "IK Oddevold",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:15:00+07:00",
+      "country": "France",
+      "competition": "Ligue 1",
+      "home": "Strasbourg",
+      "away": "Paris Saint-Germain",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:30:00+07:00",
+      "country": "Sweden",
+      "competition": "Allsvenskan",
+      "home": "AIK",
+      "away": "IFK Gothenburg",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:30:00+07:00",
+      "country": "Poland",
+      "competition": "Ekstraklasa",
+      "home": "GKS Katowice",
+      "away": "Pogon Szczecin",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T22:40:00+07:00",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "home": "NEOM SC",
+      "away": "Al Ettifaq",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:00:00+07:00",
+      "country": "Italy",
+      "competition": "Serie A",
+      "home": "Bologna",
+      "away": "Inter",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:00:00+07:00",
+      "country": "Turkiye",
+      "competition": "Süper Lig",
+      "home": "Fenerbahçe",
+      "away": "Alanyaspor",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:00:00+07:00",
+      "country": "Norway",
+      "competition": "Eliteserien",
+      "home": "Viking",
+      "away": "Fredrikstad",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:00:00+07:00",
+      "country": "Czech Republic",
+      "competition": "1st League",
+      "home": "SK Sigma Olomouc",
+      "away": "Slovan Liberec",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:00:00+07:00",
+      "country": "Italy",
+      "competition": "Women's Serie A",
+      "home": "Ternana Femminile",
+      "away": "Lazio W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:30:00+07:00",
+      "country": "Germany",
+      "competition": "Bundesliga",
+      "home": "Bayern Munich",
+      "away": "RB Leipzig",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:30:00+07:00",
+      "country": "England",
+      "competition": "Premier League",
+      "home": "Newcastle United",
+      "away": "Aston Villa",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:30:00+07:00",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "home": "Real Betis",
+      "away": "Barcelona",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:30:00+07:00",
+      "country": "USA",
+      "competition": "National Women's Soccer League",
+      "home": "Washington Spirit",
+      "away": "Gotham FC",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-17T23:45:00+07:00",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "home": "Lusail SC",
+      "away": "Al-Shamal",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T00:30:00+07:00",
+      "country": "Austria",
+      "competition": "Bundesliga",
+      "home": "SV Ried",
+      "away": "Austria Wien",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:00:00+07:00",
+      "country": "Netherlands",
+      "competition": "Eredivisie",
+      "home": "Telstar",
+      "away": "Feyenoord",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:00:00+07:00",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "home": "Al Diriyah",
+      "away": "Al Taawoun",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:15:00+07:00",
+      "country": "Poland",
+      "competition": "Ekstraklasa",
+      "home": "Cracovia",
+      "away": "Legia Warszawa",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:30:00+07:00",
+      "country": "Germany",
+      "competition": "2. Bundesliga",
+      "home": "Hannover 96",
+      "away": "St. Pauli",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:30:00+07:00",
+      "country": "Romania",
+      "competition": "Liga 1",
+      "home": "FC Rapid 1923",
+      "away": "Corvinul Hunedoara",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:30:00+07:00",
+      "country": "USA",
+      "competition": "MLS",
+      "home": "Philadelphia Union",
+      "away": "Charlotte",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "Italy",
+      "competition": "Serie A",
+      "home": "AS Roma",
+      "away": "Genoa",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "France",
+      "competition": "Ligue 1",
+      "home": "Lille",
+      "away": "Brest",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "France",
+      "competition": "Ligue 1",
+      "home": "Troyes",
+      "away": "Lens",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "Belgium",
+      "competition": "Belgian Cup",
+      "home": "Club Brugge",
+      "away": "KSC Lokeren",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "Belgium",
+      "competition": "Belgian Cup",
+      "home": "Virton",
+      "away": "Genk",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T01:45:00+07:00",
+      "country": "Ireland",
+      "competition": "League of Ireland Premier Division",
+      "home": "Sligo Rovers",
+      "away": "Dundalk",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T02:00:00+07:00",
+      "country": "Netherlands",
+      "competition": "Eredivisie",
+      "home": "Sparta Rotterdam",
+      "away": "Willem II",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T02:00:00+07:00",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "home": "Valencia",
+      "away": "Athletic Club",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T02:00:00+07:00",
+      "country": "Spain",
+      "competition": "LaLiga 2",
+      "home": "Las Palmas",
+      "away": "Castellon",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T02:00:00+07:00",
+      "country": "Scotland",
+      "competition": "Premiership",
+      "home": "Dundee FC",
+      "away": "Rangers",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    },
+    {
+      "kickoff_ict": "2026-10-18T02:00:00+07:00",
+      "country": "France",
+      "competition": "Premiere Ligue Femenine",
+      "home": "Paris Saint-Germain W",
+      "away": "Lyon W",
+      "provider_match_id": null,
+      "fixture_status": "LISTED_AS_UPCOMING_UNVERIFIED_AT_KICKOFF",
+      "goal_histories_verified": false
+    }
+  ]
+}
