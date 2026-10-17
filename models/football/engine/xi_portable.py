@@ -210,6 +210,9 @@ def assess_user_screenshot(
         "market_disagreement_recheck_basis": result.get(
             "market_disagreement_recheck_basis"
         ),
+        "market_disagreement_recheck_missing_fields": result.get(
+            "market_disagreement_recheck_missing_fields", []
+        ),
         "execution_authorized": False,
     }
 
