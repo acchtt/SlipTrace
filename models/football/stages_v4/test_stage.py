@@ -300,6 +300,15 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["research_order"][0], "strong")
         self.assertEqual(out["goal_review_count"], 1)
         self.assertIn("review-unregistered", [x["match_id"] for x in out["discovery_watchlist"]])
+        eligible = next(
+            x for x in out["eligible_queue"]
+            if x["match_id"] == "review-unregistered"
+        )
+        self.assertEqual(eligible["operational_grade"], "A")
+        self.assertEqual(
+            eligible["operational_grade_basis"],
+            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+        )
 
     def test_discovery_review_without_channel_proof_stays_pending(self):
         review = fixture(
@@ -352,20 +361,6 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(by_id["m4"]["operational_grade"], "A")
         self.assertEqual(
             by_id["m3"]["operational_grade_basis"],
-            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
-        )
-
-    def test_verified_discovery_is_not_permanently_capped_at_grade_b(self):
-        row = fixture(
-            "discovery-a", "Pakistan", "Premier League",
-            proof="VERIFIED", goals="HIGH",
-        )
-        self.assertEqual(classify(row)["lane"], "DISCOVERY")
-        out = sweep(snapshot([row]), now=NOW)
-        self.assertEqual(out["eligible_count"], 1)
-        self.assertEqual(out["eligible_queue"][0]["operational_grade"], "A")
-        self.assertEqual(
-            out["eligible_queue"][0]["operational_grade_basis"],
             "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
         )
 
