@@ -215,8 +215,13 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
 
     def test_incomplete_frozen_g4_marks_certificate_completeness_recheck(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"]["independent_upper_tail"] = False
+        c["match"]["independent_upper_tail_basis"] = (
+            "Frozen rank funded G3 but did not complete the fourth-goal investigation."
+        )
+        c["context"]["frozen_board_certified_burden"] = 2.5
         c["context"]["frozen_board_g4_research_status"] = "G4_RESEARCH_INCOMPLETE"
-        out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        out = run_xi(c, snapshot(c, line=3.25, odds=1.72))
         price = out["price_check"]
         self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
         self.assertTrue(
