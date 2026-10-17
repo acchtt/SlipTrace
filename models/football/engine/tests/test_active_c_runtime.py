@@ -77,6 +77,74 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(result["model"], "c")
         self.assertTrue(result["football_assessment_completed"])
 
+    def test_g3_only_board_is_explicitly_incomplete_without_g4_contract(self):
+        source = c_row()
+        source["independent_upper_tail"] = False
+        source["independent_upper_tail_basis"] = (
+            "G3 is funded but no independent fourth-goal tail is established."
+        )
+        result = run_board(payload("c", source))
+        row = result["matches"][0]
+        self.assertTrue(row["goal3_funded"])
+        self.assertFalse(row["goal4_funded"])
+        self.assertEqual(row["g4_research_status"], "G4_RESEARCH_INCOMPLETE")
+
+    def test_board_flags_systematic_incomplete_g4_research(self):
+        rows = []
+        for i in range(5):
+            row = c_row()
+            row["match_id"] = f"g4-incomplete-{i}"
+            row["independent_upper_tail"] = False
+            row["independent_upper_tail_basis"] = (
+                "G3 is funded but the fourth-goal investigation is unfinished."
+            )
+            rows.append(row)
+        board = payload("c", rows[0])
+        board["matches"] = rows
+        result = run_board(board)
+        self.assertIn("UPPER_TAIL_RESEARCH_ANOMALY", result["qa_flags"])
+
+    def test_board_flags_operational_grade_b_saturation(self):
+        rows = []
+        for i in range(5):
+            row = c_row()
+            row["match_id"] = f"grade-b-{i}"
+            row.update(
+                operational_viability_grade="B",
+                raw_operational_viability_grade="B",
+                xi_expected="UNCERTAIN",
+                market_observability="MEDIUM",
+                team_news_observability="MEDIUM",
+            )
+            rows.append(row)
+        board = payload("c", rows[0])
+        board["matches"] = rows
+        result = run_board(board)
+        self.assertIn("OPERATIONAL_GRADE_SATURATION", result["qa_flags"])
+
+    def test_explicit_g4_rejection_requires_structured_path_research(self):
+        row = c_row()
+        row["independent_upper_tail"] = False
+        row["independent_upper_tail_basis"] = (
+            "Completed research rejects an independently transferable fourth-goal tail."
+        )
+        row["g4_research_status"] = "G4_RESEARCH_COMPLETE_REJECTED"
+        row["g4_research_basis"] = "All plausible fourth-goal completion paths were checked."
+        with self.assertRaisesRegex(ContractError, "g4_carrier_path"):
+            run_board(payload("c", row))
+
+        row.update(
+            g4_carrier_path="FAILED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="UNAVAILABLE",
+            g4_continuation_after_g3="MEDIUM",
+        )
+        result = run_board(payload("c", row))
+        self.assertEqual(
+            result["matches"][0]["g4_research_status"],
+            "G4_RESEARCH_COMPLETE_REJECTED",
+        )
+
     def test_retired_c2_football_assessment_is_rejected(self):
         retired = football("c")
         retired["model"] = "c2"
@@ -117,6 +185,42 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(
             result["frozen_board_certified_burden"], 2.5
         )
+
+    def test_incomplete_frozen_g4_can_be_completed_without_chronologically_new_evidence(self):
+        current = pair_payload("c")
+        current["context"].update(
+            frozen_board_certified_burden=2.5,
+            frozen_board_g4_research_status="G4_RESEARCH_INCOMPLETE",
+            certificate_upgrade_status="VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH",
+            certificate_upgrade_basis=(
+                "Completed the previously unfinished G4 investigation using "
+                "certificate-relevant football evidence; market was trigger only."
+            ),
+            certificate_upgrade_new_evidence_fields=[
+                "g4_research_status",
+                "upper_tail_transferability",
+                "upper_tail_comparable_context_signal",
+            ],
+        )
+        result = run_decision(current)
+        self.assertTrue(result["certificate_upgraded"])
+        self.assertGreater(result["supported_line"], 2.5)
+        self.assertEqual(
+            result["certificate_upgrade_status"],
+            "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH",
+        )
+
+    def test_complete_frozen_g4_rejection_still_requires_genuinely_new_evidence(self):
+        current = pair_payload("c")
+        current["context"].update(
+            frozen_board_certified_burden=2.5,
+            frozen_board_g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            certificate_upgrade_status="VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH",
+            certificate_upgrade_basis="Attempted to reuse the completeness-repair path.",
+            certificate_upgrade_new_evidence_fields=["g4_research_status"],
+        )
+        with self.assertRaisesRegex(ContractError, "CERTIFICATE UPGRADE BLOCKED"):
+            run_decision(current)
 
     def test_market_only_field_cannot_authorize_certificate_upgrade(self):
         upgraded = pair_payload("c")

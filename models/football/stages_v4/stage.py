@@ -77,6 +77,29 @@ def _hash(value: Any) -> str:
                       separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
+def _intake_operational_grade(registry_lane: str, raw: dict[str, Any]) -> tuple[str, str]:
+    """Grade the actual evidence, never the league-registry label.
+
+    ROUTINE rows already clear the normal source/researchability contract.
+    CONDITIONAL/PILOT/DISCOVERY rows may also become A once their current
+    fixture-bound researchability proof is VERIFIED. Registry membership is
+    retained separately and must not permanently cap a researched C-FOCUS row
+    at RESERVE/STOP.
+    """
+    if registry_lane == "ROUTINE":
+        return "A", "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED"
+    proof = raw.get("researchability_proof")
+    if (
+        registry_lane in {"CONDITIONAL", "PILOT", "DISCOVERY"}
+        and raw.get("researchability_status") == "VERIFIED"
+        and isinstance(proof, dict)
+        and proof.get("current_channels_checked") is True
+        and proof.get("match_id") == raw.get("match_id")
+    ):
+        return "A", "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED"
+    return "B", "MATERIAL_OPERATIONAL_LIMITATION_REMAINS"
+
+
 def _verified(obj: Any, expected_status: str) -> None:
     if isinstance(obj, dict) and obj.get("status") == "V4_SWEEP_DERIVED_UNATTESTED":
         raise StageError(
@@ -237,8 +260,24 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             }
             ledger.append(item)
             if lane in {"ROUTINE","CONDITIONAL","PILOT","DISCOVERY"}:
-                queue.append({**item, "football_evidence": raw.get("football_evidence"),
-                              "operational_grade": "A" if lane == "ROUTINE" else "B"})
+                if _historical_registry_only:
+                    # Historical attestation must reproduce the frozen legacy
+                    # queue exactly; new evidence-derived grading is prospective.
+                    queue.append({
+                        **item,
+                        "football_evidence": raw.get("football_evidence"),
+                        "operational_grade": "A" if lane == "ROUTINE" else "B",
+                    })
+                else:
+                    operational_grade, operational_grade_basis = _intake_operational_grade(
+                        result["lane"], raw
+                    )
+                    queue.append({
+                        **item,
+                        "football_evidence": raw.get("football_evidence"),
+                        "operational_grade": operational_grade,
+                        "operational_grade_basis": operational_grade_basis,
+                    })
         except StageError as exc:
             ledger.append({
                 "source_row_index": i,
@@ -290,6 +329,9 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 "match_id": row["match_id"],
                 "queue_rank": row["queue_rank"],
                 "operational_grade": row["operational_grade"],
+                **({} if _historical_registry_only else {
+                    "operational_grade_basis": row.get("operational_grade_basis"),
+                }),
                 "screen_status": "QUANTIFIED",
                 "priority_score": (row.get("goal_screen") or {}).get("priority_score"),
                 "source_screen_fingerprint": (

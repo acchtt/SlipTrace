@@ -21,6 +21,15 @@ Step 0 must first discover the senior slate broadly, then apply:
 
 Only operational grade A/B fixtures enter the normal Football C board. A can receive normal FOLLOW/RESERVE treatment. B is conditional and is capped at RESERVE at board time. C/D are excluded before Work unless explicitly reopened by the user.
 
+Operational grade is evidence-derived, not a league-registry label. A
+CONDITIONAL/PILOT/DISCOVERY fixture whose current fixture-bound researchability
+channels are VERIFIED may be grade A. Registry lane remains separate metadata
+for acquisition/research priority and must never permanently force an otherwise
+verified C-FOCUS row to B/RESERVE/STOP. Grade B is reserved for a real remaining
+operational limitation such as uncertain XI availability or only MEDIUM market
+observability; once that limitation is actually resolved, a current reassessment
+may promote the grade without changing Football C's predictive thresholds.
+
 Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but they do not bypass the operational viability declaration.
 
 Ordinary domestic/small competition fixtures are admitted only when current evidence is sufficient to support the Football C research schema:
@@ -155,6 +164,24 @@ Persist every admitted fixture, including C-PASS, so false negatives can be audi
 Before finalizing C-PASS, apply the carrier-contradiction check from the burden-completion procedure. A HIGH-completion/HIGH-continuation STRONG self-funded carrier with upper-tail proof and opponent leakage cannot be passed solely because the second scoring route is weak.
 
 After ranking, compare fixtures sharing the exact kickoff minute. At most two may receive routine FOLLOW at that kickoff; otherwise-qualified overflow falls to RESERVE subject to capacity.
+
+## 6A. G4 research completeness
+
+Whenever C funds G3, separately state whether G4 research is complete. Persist
+`G4_RESEARCH_INCOMPLETE`, `G4_RESEARCH_COMPLETE_REJECTED`, or
+`G4_RESEARCH_COMPLETE_FUNDED`; use `G4_NOT_APPLICABLE` only when G3 is not
+funded.
+
+A complete G4 decision evaluates the plausible carrier, distributed 2+2/3+1,
+reply-assisted and post-G3 continuation paths, together with the existing
+upper-tail transferability/comparable-context and failure-resistance rules.
+These diagnostics do not add a new certificate path and do not lower the G4
+threshold. They distinguish "researched and rejected" from "not fully
+researched".
+
+A G3-only assessment with unfinished G4 work remains conservatively O2.50, but
+its incomplete status must be visible so Step 2 can complete the missing
+football research when a material disagreement triggers reinspection.
 
 ## 7. XI confirmation
 

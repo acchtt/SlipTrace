@@ -213,6 +213,12 @@ def assess_user_screenshot(
         "market_disagreement_recheck_missing_fields": result.get(
             "market_disagreement_recheck_missing_fields", []
         ),
+        "frozen_board_g4_research_status": result.get(
+            "frozen_board_g4_research_status", "LEGACY_UNKNOWN"
+        ),
+        "certificate_completeness_recheck_required": result.get(
+            "certificate_completeness_recheck_required", False
+        ),
         "execution_authorized": False,
     }
 

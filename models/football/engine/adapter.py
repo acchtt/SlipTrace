@@ -688,6 +688,152 @@ def parse_assessment(
     )
 
 
+G4_RESEARCH_STATUSES = frozenset({
+    "G4_NOT_APPLICABLE",
+    "G4_RESEARCH_INCOMPLETE",
+    "G4_RESEARCH_COMPLETE_REJECTED",
+    "G4_RESEARCH_COMPLETE_FUNDED",
+})
+G4_PATH_STATES = frozenset({"SUPPORTED", "FAILED", "UNAVAILABLE", "NOT_APPLICABLE"})
+G4_CONTINUATION_STATES = frozenset({"HIGH", "MEDIUM", "LOW", "UNAVAILABLE", "NOT_APPLICABLE"})
+G4_COMPLETENESS_FIELDS = frozenset({
+    "g4_research_status",
+    "g4_carrier_path",
+    "g4_distributed_path",
+    "g4_reply_path",
+    "g4_continuation_after_g3",
+    "upper_tail_transferability",
+    "upper_tail_comparable_context_signal",
+})
+
+
+def _g4_research_profile(
+    obj: dict[str, Any],
+    a: MatchAssessment,
+    *,
+    model: str,
+) -> dict[str, Any]:
+    """Separate a true G4 rejection from an unfinished upper-tail investigation.
+
+    Legacy payloads remain readable. A funded deterministic G4 can be inferred
+    as complete; a G3-only payload without the explicit new contract is marked
+    INCOMPLETE rather than silently treated as a completed G4 rejection.
+    """
+    if model != "c":
+        return {
+            "g4_research_status": "G4_NOT_APPLICABLE",
+            "g4_research_explicit": False,
+            "g4_carrier_path": "NOT_APPLICABLE",
+            "g4_distributed_path": "NOT_APPLICABLE",
+            "g4_reply_path": "NOT_APPLICABLE",
+            "g4_continuation_after_g3": "NOT_APPLICABLE",
+            "g4_research_basis": "retired/non-C path",
+        }
+
+    funding = prospective_goal_funding(a, model)
+    goal3 = bool(funding["goal3_funded"])
+    goal4 = bool(funding["goal4_funded"])
+    raw_status = obj.get("g4_research_status")
+    explicit = raw_status is not None
+
+    if raw_status is None:
+        if goal4:
+            status = "G4_RESEARCH_COMPLETE_FUNDED"
+            basis = (
+                "LEGACY_INFERRED_FROM_DETERMINISTIC_G4: the current factual "
+                "payload itself funds G4."
+            )
+        elif goal3:
+            status = "G4_RESEARCH_INCOMPLETE"
+            basis = (
+                "LEGACY_G3_ONLY_NO_EXPLICIT_G4_COMPLETENESS: G4 was not "
+                "proven complete-rejected by the frozen payload."
+            )
+        else:
+            status = "G4_NOT_APPLICABLE"
+            basis = "G3_NOT_FUNDED"
+        return {
+            "g4_research_status": status,
+            "g4_research_explicit": False,
+            "g4_carrier_path": "UNAVAILABLE" if goal3 and not goal4 else "NOT_APPLICABLE",
+            "g4_distributed_path": "UNAVAILABLE" if goal3 and not goal4 else "NOT_APPLICABLE",
+            "g4_reply_path": "UNAVAILABLE" if goal3 and not goal4 else "NOT_APPLICABLE",
+            "g4_continuation_after_g3": "UNAVAILABLE" if goal3 and not goal4 else "NOT_APPLICABLE",
+            "g4_research_basis": basis,
+        }
+
+    if not isinstance(raw_status, str) or raw_status not in G4_RESEARCH_STATUSES:
+        raise ContractError(
+            "g4_research_status must be one of: "
+            + ", ".join(sorted(G4_RESEARCH_STATUSES))
+        )
+    status = raw_status
+    if status == "G4_NOT_APPLICABLE":
+        if goal3:
+            raise ContractError("G4_NOT_APPLICABLE is invalid when G3 is funded")
+        return {
+            "g4_research_status": status,
+            "g4_research_explicit": True,
+            "g4_carrier_path": "NOT_APPLICABLE",
+            "g4_distributed_path": "NOT_APPLICABLE",
+            "g4_reply_path": "NOT_APPLICABLE",
+            "g4_continuation_after_g3": "NOT_APPLICABLE",
+            "g4_research_basis": _string(obj, "g4_research_basis"),
+        }
+
+    if not goal3:
+        raise ContractError(f"{status} requires a funded G3 certificate")
+    if status == "G4_RESEARCH_COMPLETE_FUNDED" and not goal4:
+        raise ContractError(
+            "G4_RESEARCH_COMPLETE_FUNDED requires the deterministic C compiler to fund G4"
+        )
+    if status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_COMPLETE_REJECTED"} and goal4:
+        raise ContractError(
+            f"{status} contradicts a deterministic funded G4 certificate"
+        )
+
+    paths: dict[str, str] = {}
+    for field in ("g4_carrier_path", "g4_distributed_path", "g4_reply_path"):
+        value = obj.get(field)
+        if value is None and status == "G4_RESEARCH_INCOMPLETE":
+            value = "UNAVAILABLE"
+        if not isinstance(value, str) or value not in G4_PATH_STATES:
+            raise ContractError(
+                f"{field} must be one of: " + ", ".join(sorted(G4_PATH_STATES))
+            )
+        paths[field] = value
+
+    continuation = obj.get("g4_continuation_after_g3")
+    if continuation is None and status == "G4_RESEARCH_INCOMPLETE":
+        continuation = "UNAVAILABLE"
+    if (
+        not isinstance(continuation, str)
+        or continuation not in G4_CONTINUATION_STATES
+    ):
+        raise ContractError(
+            "g4_continuation_after_g3 must be one of: "
+            + ", ".join(sorted(G4_CONTINUATION_STATES))
+        )
+    basis = _string(obj, "g4_research_basis")
+    if status == "G4_RESEARCH_COMPLETE_FUNDED":
+        if "SUPPORTED" not in paths.values():
+            raise ContractError(
+                "G4_RESEARCH_COMPLETE_FUNDED requires at least one supported G4 path"
+            )
+        if continuation in {"UNAVAILABLE", "NOT_APPLICABLE"}:
+            raise ContractError(
+                "G4_RESEARCH_COMPLETE_FUNDED requires evaluated continuation after G3"
+            )
+
+    return {
+        "g4_research_status": status,
+        "g4_research_explicit": explicit,
+        **paths,
+        "g4_continuation_after_g3": continuation,
+        "g4_research_basis": basis,
+    }
+
+
 def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
     if not isinstance(payload, dict):
         raise ContractError("payload must be a JSON object")
@@ -753,6 +899,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         tail_profile = prospective_goal_funding(item, model)
+        g4_profile = _g4_research_profile(raw, item, model=model)
         compiled_burden = certified_supported_burden(item, model)
         compiled_basis = certified_supported_burden_basis(item, model)
         row: dict[str, Any] = {
@@ -769,6 +916,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "declared_supported_line": item.supported_line,
             "declared_supported_line_basis": item.supported_line_basis,
             **tail_profile,
+            **g4_profile,
             "common_evidence_basis": item.common_evidence_basis,
             "goal_signal_priority_score": item.goal_signal_priority_score,
             "goal_signal_mean_over_two_rate": item.goal_signal_mean_over_two_rate,
@@ -909,6 +1057,21 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["follow_capacity"] = MAX_FOLLOW
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
+        qa_flags: list[str] = []
+        if len(output) >= 5 and all(
+            row.get("operational_viability_grade") == "B" for row in output
+        ):
+            qa_flags.append("OPERATIONAL_GRADE_SATURATION")
+        g3_rows = [row for row in output if row.get("goal3_funded") is True]
+        if (
+            len(g3_rows) >= 5
+            and sum(
+                row.get("g4_research_status") == "G4_RESEARCH_INCOMPLETE"
+                for row in g3_rows
+            ) / len(g3_rows) >= 0.80
+        ):
+            qa_flags.append("UPPER_TAIL_RESEARCH_ANOMALY")
+        result["qa_flags"] = qa_flags
 
     return result
 
@@ -992,6 +1155,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
     else:
         read = "FOOTBALL_THESIS_CURRENTLY_INTACT"
     tail_profile = prospective_goal_funding(a, model)
+    g4_profile = _g4_research_profile(match_obj, a, model=model)
     result = {
         "schema_version": SCHEMA_VERSION,
         "stage": "football_assessment_result",
@@ -1018,6 +1182,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "declared_supported_line": a.supported_line,
         "declared_supported_line_basis": a.supported_line_basis,
         **tail_profile,
+        **g4_profile,
         "frozen_line_not_live_executable": True,
         "quote_required_for_football_assessment": False,
         "quote_requested": False,
@@ -1082,6 +1247,11 @@ CERTIFICATE_UPGRADE_FIELDS = frozenset({
     "material_suppression",
     "failure_attacks_route",
     "tournament_incentive",
+    "g4_research_status",
+    "g4_carrier_path",
+    "g4_distributed_path",
+    "g4_reply_path",
+    "g4_continuation_after_g3",
 })
 
 MATERIAL_MARKET_DISAGREEMENT_GOALS = 0.50
@@ -1104,6 +1274,16 @@ def _market_disagreement_recheck_gate(
         compiled_burden is not None
         and observed_line >= compiled_burden + MATERIAL_MARKET_DISAGREEMENT_GOALS
     )
+    frozen_g4_status = ctx_obj.get(
+        "frozen_board_g4_research_status", "LEGACY_UNKNOWN"
+    )
+    if frozen_g4_status not in G4_RESEARCH_STATUSES | {"LEGACY_UNKNOWN"}:
+        raise ContractError("invalid frozen_board_g4_research_status")
+    completeness_recheck = (
+        material_gap
+        and observed_line >= 3.0
+        and frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
+    )
     if not material_gap:
         return {
             "market_disagreement_recheck_required": False,
@@ -1114,6 +1294,8 @@ def _market_disagreement_recheck_gate(
             "market_disagreement_recheck_fields": [],
             "market_disagreement_recheck_evidence_refs": [],
             "market_disagreement_recheck_basis": "NOT_REQUIRED",
+            "frozen_board_g4_research_status": frozen_g4_status,
+            "certificate_completeness_recheck_required": False,
         }
 
     status = ctx_obj.get("market_disagreement_recheck_status")
@@ -1173,6 +1355,8 @@ def _market_disagreement_recheck_gate(
             basis.strip() if isinstance(basis, str) and basis.strip() else None
         ),
         "market_disagreement_recheck_missing_fields": missing_required_fields,
+        "frozen_board_g4_research_status": frozen_g4_status,
+        "certificate_completeness_recheck_required": completeness_recheck,
     }
 
 
@@ -1208,6 +1392,7 @@ def _certificate_upgrade_gate(
             "certificate_upgrade_status": "NOT_APPLICABLE",
             "certificate_upgrade_basis": "retired/non-C path",
             "certificate_upgrade_new_evidence_fields": [],
+            "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
             "certificate_upgraded": False,
         }
 
@@ -1216,12 +1401,18 @@ def _certificate_upgrade_gate(
         _required(ctx_obj, "frozen_board_certified_burden"),
         "frozen_board_certified_burden",
     )
+    frozen_g4_status = ctx_obj.get(
+        "frozen_board_g4_research_status", "LEGACY_UNKNOWN"
+    )
+    if frozen_g4_status not in G4_RESEARCH_STATUSES | {"LEGACY_UNKNOWN"}:
+        raise ContractError("invalid frozen_board_g4_research_status")
     status = _choice(
         ctx_obj,
         "certificate_upgrade_status",
         {
             "NOT_UPGRADED",
             "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+            "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH",
             "NO_FROZEN_BOARD",
         },
     )
@@ -1261,6 +1452,7 @@ def _certificate_upgrade_gate(
             "certificate_upgrade_status": status,
             "certificate_upgrade_basis": basis,
             "certificate_upgrade_new_evidence_fields": [],
+            "frozen_board_g4_research_status": frozen_g4_status,
             "certificate_upgraded": False,
         }
 
@@ -1269,16 +1461,28 @@ def _certificate_upgrade_gate(
         and (frozen_burden is None or compiled_burden > frozen_burden)
     )
     if upgraded:
-        if status != "VERIFIED_NEW_FOOTBALL_EVIDENCE":
-            raise ContractError(
-                "CERTIFICATE UPGRADE BLOCKED — current certified burden exceeds "
-                "frozen board burden without VERIFIED_NEW_FOOTBALL_EVIDENCE"
-            )
-        if not fields:
-            raise ContractError(
-                "CERTIFICATE UPGRADE BLOCKED — name at least one newly changed "
-                "certificate-relevant football field"
-            )
+        completion_repair = (
+            frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
+            and status == "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH"
+        )
+        if completion_repair:
+            if not fields or not (set(fields) & G4_COMPLETENESS_FIELDS):
+                raise ContractError(
+                    "CERTIFICATE COMPLETENESS UPGRADE BLOCKED — name the "
+                    "previously unassessed G4 certificate fields"
+                )
+        else:
+            if status != "VERIFIED_NEW_FOOTBALL_EVIDENCE":
+                raise ContractError(
+                    "CERTIFICATE UPGRADE BLOCKED — current certified burden exceeds "
+                    "a complete/legacy frozen board burden without "
+                    "VERIFIED_NEW_FOOTBALL_EVIDENCE"
+                )
+            if not fields:
+                raise ContractError(
+                    "CERTIFICATE UPGRADE BLOCKED — name at least one newly changed "
+                    "certificate-relevant football field"
+                )
     else:
         if status != "NOT_UPGRADED":
             raise ContractError(
@@ -1296,6 +1500,7 @@ def _certificate_upgrade_gate(
         "certificate_upgrade_status": status,
         "certificate_upgrade_basis": basis,
         "certificate_upgrade_new_evidence_fields": fields,
+        "frozen_board_g4_research_status": frozen_g4_status,
         "certificate_upgraded": upgraded,
     }
 

@@ -96,29 +96,44 @@ Work task:
 
 1. investigate the football reason for the disagreement using current factual
    evidence only;
-2. for G4+ disagreement, explicitly verify upper-tail transferability and
-   comparable-context scoring evidence;
-3. record the researched certificate-relevant fields and source/evidence refs;
-4. rerun the deterministic C football certificate;
-5. invoke `xi_portable.py` again with the same user screenshot;
-6. only the second, cleared runtime result may produce ACT/WAIT/PASS.
+2. carry the frozen board's `g4_research_status`;
+3. for G4+ disagreement, explicitly verify carrier/distributed/reply completion,
+   continuation after goal three, upper-tail transferability and comparable
+   context;
+4. record the researched certificate-relevant fields and source/evidence refs;
+5. rerun the deterministic C football certificate;
+6. invoke `xi_portable.py` again with the same user screenshot;
+7. only the second, cleared runtime result may produce ACT/WAIT/PASS.
+
+When the frozen board says `G4_RESEARCH_INCOMPLETE`, the runtime marks the
+material disagreement as a **certificate-completeness recheck**. The market is
+still only the trigger. The recheck may incorporate football evidence that
+already existed before rank when that evidence was never incorporated into a
+completed frozen G4 investigation. Do not call that evidence "new"; record the
+repair as `VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH`.
 
 A suppressive same-competition/continental sample takes precedence over generic
-domestic scoring. The market is a research trigger only and cannot create or
-upgrade a goal certificate. If the recheck finds no genuinely new
-certificate-relevant evidence, keep the frozen certificate ceiling.
+domestic scoring. The market never manufactures a certificate.
 
 ### Frozen-certificate upgrade guard
 
-For every ranked fixture, `/xi` must carry the frozen board's certified burden.
-If the current C certificate is higher than the frozen board certificate, the
-runtime must mark `VERIFIED_NEW_FOOTBALL_EVIDENCE`, name the certificate-relevant
-football fields that genuinely changed, and provide a non-empty basis.
+For every ranked fixture, `/xi` must carry both the frozen certified burden and
+`frozen_board_g4_research_status`.
 
-Merely confirming the same XI/routes, re-reading the same evidence, or observing
-a higher market total is not new football evidence. Without a verified new
-football change, keep the frozen certificate ceiling even when the screenshot
-shows a higher burden.
+If the frozen status is `G4_RESEARCH_COMPLETE_REJECTED` (or a legacy board
+without an explicit completeness state), any higher current C certificate still
+requires `VERIFIED_NEW_FOOTBALL_EVIDENCE`: name the genuinely changed
+certificate-relevant football fields and give a non-empty basis.
+
+If the frozen status is `G4_RESEARCH_INCOMPLETE`, a higher current C
+certificate may instead use
+`VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH`, but only after the previously
+unassessed G4 fields are actually researched and named. Re-reading already
+incorporated evidence, merely confirming the same XI/routes, or observing a
+higher market total is insufficient.
+
+This distinction repairs incomplete rank research without allowing market
+prices to override a genuinely completed Football C rejection.
 
 ## WAIT
 

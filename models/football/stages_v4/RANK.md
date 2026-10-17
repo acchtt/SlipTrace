@@ -101,6 +101,37 @@ Freeze current factual football evidence including:
 C additionally owns completion mode, burden completion, continuation,
 opponent leakage and stall risk.
 
+### Mandatory G4 research completeness
+
+Whenever G3 is funded, do not freeze O2.50 merely because the first research
+pass has already found enough evidence for goal three. Persist exactly one:
+
+- `G4_RESEARCH_INCOMPLETE`
+- `G4_RESEARCH_COMPLETE_REJECTED`
+- `G4_RESEARCH_COMPLETE_FUNDED`
+
+Use `G4_NOT_APPLICABLE` only when G3 itself is not funded.
+
+A complete G4 assessment must explicitly research and freeze:
+
+- `g4_carrier_path = SUPPORTED / FAILED / UNAVAILABLE / NOT_APPLICABLE`;
+- `g4_distributed_path = SUPPORTED / FAILED / UNAVAILABLE / NOT_APPLICABLE`;
+- `g4_reply_path = SUPPORTED / FAILED / UNAVAILABLE / NOT_APPLICABLE`;
+- `g4_continuation_after_g3 = HIGH / MEDIUM / LOW / UNAVAILABLE / NOT_APPLICABLE`;
+- a non-empty `g4_research_basis` explaining the prospective result.
+
+The paths mean single-team four-goal completion, distributed 2+2/3+1 completion,
+and opponent-reply-assisted completion. Continue to apply the existing
+upper-tail transferability, comparable-context, failure-resistance and
+continuation rules. These fields document whether G4 was actually investigated;
+they do not weaken or replace any Football C certificate threshold.
+
+A generic sentence such as "no independently transferable fourth goal
+established" is not a complete G4 rejection by itself. If the evidence pass did
+not actually evaluate the plausible G4 paths, freeze
+`G4_RESEARCH_INCOMPLETE` and preserve O2.50 as the current conservative
+certificate rather than pretending the fourth goal was researched and rejected.
+
 ## Ranking contract
 
 Ranking is price-blind and deterministic.

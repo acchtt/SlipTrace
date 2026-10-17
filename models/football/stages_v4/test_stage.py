@@ -300,6 +300,15 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["research_order"][0], "strong")
         self.assertEqual(out["goal_review_count"], 1)
         self.assertIn("review-unregistered", [x["match_id"] for x in out["discovery_watchlist"]])
+        eligible = next(
+            x for x in out["eligible_queue"]
+            if x["match_id"] == "review-unregistered"
+        )
+        self.assertEqual(eligible["operational_grade"], "A")
+        self.assertEqual(
+            eligible["operational_grade_basis"],
+            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+        )
 
     def test_discovery_review_without_channel_proof_stays_pending(self):
         review = fixture(
@@ -346,6 +355,14 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["pending_researchability_count"],1)
         self.assertEqual(result["fixture_count"],4)
         self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3","m4"})
+        by_id = {x["match_id"]: x for x in result["eligible_queue"]}
+        self.assertEqual(by_id["m1"]["operational_grade"], "A")
+        self.assertEqual(by_id["m3"]["operational_grade"], "A")
+        self.assertEqual(by_id["m4"]["operational_grade"], "A")
+        self.assertEqual(
+            by_id["m3"]["operational_grade_basis"],
+            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+        )
 
     def test_unverified_conditional_proof_is_quarantined_not_global_blocker(self):
         a = fixture("m2", "Poland", "Ekstraklasa", proof="VERIFIED")

@@ -213,6 +213,29 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             {"ACT", "WAIT", "PASS"},
         )
 
+    def test_incomplete_frozen_g4_marks_certificate_completeness_recheck(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"]["carrier_self_fund"] = True
+        c["match"]["carrier_self_fund_basis"] = (
+            "The current carrier independently funds goal three."
+        )
+        c["match"]["independent_upper_tail"] = False
+        c["match"]["independent_upper_tail_basis"] = (
+            "Frozen rank funded G3 but did not complete the fourth-goal investigation."
+        )
+        c["context"]["frozen_board_certified_burden"] = 2.5
+        c["context"]["frozen_board_g4_research_status"] = "G4_RESEARCH_INCOMPLETE"
+        out = run_xi(c, snapshot(c, line=3.25, odds=1.72))
+        price = out["price_check"]
+        self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        self.assertTrue(
+            price["model"]["certificate_completeness_recheck_required"]
+        )
+        self.assertEqual(
+            price["model"]["frozen_board_g4_research_status"],
+            "G4_RESEARCH_INCOMPLETE",
+        )
+
     def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
         c = complete_market_disagreement_recheck(
             wait_ready(
