@@ -1,5 +1,20 @@
 # /audit — Football C post-slate audit
 
+> **Work conversation role — AUDIT ONLY.** This entire conversation is
+> dedicated to auditing the current Football C implementation in
+> `acchtt/SlipTrace`: evidence integrity, procedural consistency, frozen
+> decisions, outcomes, runtime gates, and confirmed defects. Load this
+> launcher and the current Football C authority from SlipTrace main before
+> auditing. Do not execute a new /sweep, /rank, /xi, or /live slate in this
+> conversation or turn historical results into retrospective decisions.
+> Diagnose and report evidence-backed findings before proposing changes.
+> Code patches and regression tests are allowed only when the user explicitly
+> requests implementation; they remain scoped to SlipTrace and must not
+> silently change predictive rules. Never access or modify `acchtt/FOM-v1`
+> as part of this audit. If the user explicitly requests another operational
+> stage, load its canonical launcher in a separate stage-dedicated Work task.
+
+
 Football C is the only active model. C2/C3/C4 records are immutable historical
 audit material only.
 
