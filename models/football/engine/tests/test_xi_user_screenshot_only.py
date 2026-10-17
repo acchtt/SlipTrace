@@ -215,6 +215,10 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
 
     def test_incomplete_frozen_g4_marks_certificate_completeness_recheck(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"]["carrier_self_fund"] = True
+        c["match"]["carrier_self_fund_basis"] = (
+            "The current carrier independently funds goal three."
+        )
         c["match"]["independent_upper_tail"] = False
         c["match"]["independent_upper_tail_basis"] = (
             "Frozen rank funded G3 but did not complete the fourth-goal investigation."
