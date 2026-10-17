@@ -38,8 +38,10 @@ jobs:
           fi
           for request in "${requests[@]}"; do
             name="$(basename "$request" .json)"
-            python models/football/stages_v4/tools/work_source_acquisition.py \
-              --request "$request" --output "acquisition-artifacts/$name" || true
+            if ! python models/football/stages_v4/tools/work_source_acquisition.py \
+              --request "$request" --output "acquisition-artifacts/$name"; then
+              echo "$name" >> acquisition-artifacts/failed-requests.txt
+            fi
           done
           # Artifacts are evidence/checkpoints only, never native V4 receipts.
       - name: Upload evidence and explicit blocked states
