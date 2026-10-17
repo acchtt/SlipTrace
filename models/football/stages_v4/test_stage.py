@@ -346,6 +346,28 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(result["pending_researchability_count"],1)
         self.assertEqual(result["fixture_count"],4)
         self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3","m4"})
+        by_id = {x["match_id"]: x for x in result["eligible_queue"]}
+        self.assertEqual(by_id["m1"]["operational_grade"], "A")
+        self.assertEqual(by_id["m3"]["operational_grade"], "A")
+        self.assertEqual(by_id["m4"]["operational_grade"], "A")
+        self.assertEqual(
+            by_id["m3"]["operational_grade_basis"],
+            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+        )
+
+    def test_verified_discovery_is_not_permanently_capped_at_grade_b(self):
+        row = fixture(
+            "discovery-a", "Pakistan", "Premier League",
+            proof="VERIFIED", goals="HIGH",
+        )
+        self.assertEqual(classify(row)["lane"], "DISCOVERY")
+        out = sweep(snapshot([row]), now=NOW)
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_queue"][0]["operational_grade"], "A")
+        self.assertEqual(
+            out["eligible_queue"][0]["operational_grade_basis"],
+            "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+        )
 
     def test_unverified_conditional_proof_is_quarantined_not_global_blocker(self):
         a = fixture("m2", "Poland", "Ekstraklasa", proof="VERIFIED")
