@@ -1148,18 +1148,15 @@ def _market_disagreement_recheck_gate(
 
     # Any market burden that reaches the G4+ region must explicitly verify
     # the two upper-tail fields named by the /xi authority.
+    missing_required_fields: list[str] = []
     if completed and observed_line >= 3.0:
         needed = {
             "upper_tail_transferability",
             "upper_tail_comparable_context_signal",
         }
-        missing = sorted(needed - set(normalized_fields))
-        if missing:
-            raise ContractError(
-                "MARKET DISAGREEMENT RECHECK INCOMPLETE — G4+ disagreement "
-                "requires upper-tail transferability and comparable-context "
-                "verification: " + ", ".join(missing)
-            )
+        missing_required_fields = sorted(needed - set(normalized_fields))
+        if missing_required_fields:
+            completed = False
 
     return {
         "market_disagreement_recheck_required": True,
@@ -1175,6 +1172,7 @@ def _market_disagreement_recheck_gate(
         "market_disagreement_recheck_basis": (
             basis.strip() if isinstance(basis, str) and basis.strip() else None
         ),
+        "market_disagreement_recheck_missing_fields": missing_required_fields,
     }
 
 
