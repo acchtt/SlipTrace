@@ -10,6 +10,7 @@ import hashlib
 import json
 import re
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -244,7 +245,13 @@ def research(source, receipt, evidence, checkpoint):
     order = list(dict.fromkeys(receipt.get("priority_research_order", []) + receipt.get("goal_research_order", [])))
     checkpoint["research_order"] = order
     feeds = {}
-    for mid in order:
+    deadline = time.monotonic() + 20 * 60
+    for index, mid in enumerate(order):
+        if time.monotonic() >= deadline:
+            checkpoint["unfinished_research_order"] = order[index:]
+            checkpoint["resource_limit_reason"] = "RESEARCH_TIME_BUDGET_CHECKPOINTED"
+            save(evidence.output / "checkpoint.json", checkpoint)
+            break
         fixture = fixtures[mid]
         state = {"pending_reasons": []}
         checkpoint["fixtures"][mid] = state
@@ -322,7 +329,7 @@ def run(request_path, output, source_path=None):
         receipt = sweep(source, now=utcnow())
         save(output / "v4_sweep_ready.json", receipt)
         pending = [r for r in receipt["source_ledger"] if r["intake_lane"].startswith("PENDING") or r["intake_lane"] == "UNVERIFIED"]
-        checkpoint.update(status="RESEARCH_PENDING" if pending else "RESEARCH_COMPLETE",
+        checkpoint.update(status="RESEARCH_PENDING" if pending or checkpoint.get("unfinished_research_order") else "RESEARCH_COMPLETE",
                           native_v4_executed=True, pending_rows=pending, eligible_count=receipt["eligible_count"])
         save(output / "checkpoint.json", checkpoint)
         save(output / "rank-handoff.json", {

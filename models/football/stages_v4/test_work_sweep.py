@@ -109,6 +109,17 @@ class WorkSweepTests(unittest.TestCase):
                 work.run(root / 'request.json', root / 'out')
             self.assertEqual(json.loads((root / 'out/source.json').read_text()), {'preserve': True})
 
+    def test_time_budget_preserves_order_without_starting_more_network_calls(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            original = source()
+            receipt = work.sweep(original, now=NOW)
+            checkpoint = {'fixtures': {}}
+            with patch.object(work.time, 'monotonic', side_effect=[0, 1201]), patch.object(work, 'fetch', side_effect=AssertionError('budget exhausted')):
+                work.research(original, receipt, work.Evidence(root), checkpoint)
+            self.assertEqual(checkpoint['unfinished_research_order'], receipt['goal_research_order'])
+            self.assertTrue((root / 'checkpoint.json').exists())
+
     def test_expired_request_performs_no_network_and_keeps_checkpoint(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
