@@ -701,7 +701,7 @@ class RankV4Tests(unittest.TestCase):
         verified = verify_rank(readback, result)
         self.assertEqual(
             verified["status"],
-            "V4_RANK_PERSISTENCE_VERIFIED",
+            "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
         )
         self.assertEqual(verified["active_model"], "c")
         self.assertEqual(

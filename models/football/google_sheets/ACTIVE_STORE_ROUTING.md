@@ -38,7 +38,11 @@ authority; the sheet is an operational ledger, not a substitute source.
 Persist each ranked fixture to Daily Coverage Ledger with the exact
 `Step1 Engine C Result` JSON, then independently refetch by Coverage ID.
 
-The verified stage status is `V4_RANK_PERSISTENCE_VERIFIED`.
+Complete research uses `V4_RANK_PERSISTENCE_VERIFIED`. An assessed board with
+unresolved cohort research uses `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`.
+Both verify exact saved board rows; only the former claims completed research
+for new coverage-aware receipts. Unresolved fixtures remain in the native rank
+checkpoint, never synthetic Daily Coverage selections.
 
 ## /xi
 

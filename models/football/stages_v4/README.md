@@ -2,10 +2,17 @@
 
 **V4 rank safety update (2026-10-12):** Native rank now requires both `--source original_source.json` and `--status-refresh recent_status.json`. Replay the original provider snapshot at the frozen epoch; separately verify original source provenance and all current fixtures' status/kickoff (<=10 minutes old). Never rank an already-started match or regard a self-consistent hash as independent proof of provider acquisition.
 
+**Rank research repair (2026-10-17):** See `RANK.md` for the active
+coverage/checkpoint contract. Evidence-missing strings stay pending; actual
+evidence limitations need fixture-specific attempts and exact gaps. Completed
+facts are reusable through `rank --resume-from`. Partial board persistence is
+explicitly `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`; no automatic background
+research is claimed. Older examples below are historical, not active authority.
+
 **User authorization:** "Make a new sweep and rank stage. Includes leagues that we researched."
 **Previous V1–V3 production CLIs stay permanently retired.** This is a
 new `models/football/stages_v4/` implementation, not a patch or resume.
-Only C official + independent C2 shadow; /xi stays one command.
+Football C is the only active model; /xi stays one command.
 
 ## Cross-chat source attestation and recovery
 

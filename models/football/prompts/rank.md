@@ -6,7 +6,7 @@ models/football/stages_v4/RANK.md
 
 Load the native V4 source+receipt handoff, replay the unchanged source, perform
 a fresh full-cohort status check, research the complete goal-qualified cohort,
-execute C official + C2 shadow, persist to the active base, and independently
+execute Football C only, persist to Google Sheets, and independently
 verify that persistence once.
 
 For /rank newest receipt, resolve the canonical
@@ -17,3 +17,9 @@ Do not reconstruct the receipt from Airtable and do not search historical Git
 refs as a normal ranking mechanism.
 
 No odds are required for football ranking.
+
+Research coverage and persistence verification are separate. Resolve and reuse
+the latest native checkpoint automatically for repeated `/rank` on the same
+receipt. Carry unresolved fixtures forward; never ask the user to rebuild the
+cohort by submitting each omitted match. Follow RANK.md for evidence-gap traces,
+`--resume-from`, complete dispositions and partial-persistence reporting.

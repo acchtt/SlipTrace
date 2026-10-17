@@ -31,7 +31,8 @@ Optional:
 For a routine V4 board match verify:
 
 - sealed V4 rank receipt;
-- V4_RANK_PERSISTENCE_VERIFIED receipt;
+- V4_RANK_PERSISTENCE_VERIFIED or V4_RANK_PARTIAL_PERSISTENCE_VERIFIED receipt
+  (partial verifies the assessed board and retains its incomplete research label);
 - exact Football C board row.
 
 Do not replay Step-1 source/status in Step 2.
@@ -41,7 +42,12 @@ Football C evidence without routine board authority.
 
 ## Football assessment
 
-Freeze the current factual match state once.
+Freeze the current factual match state once. Start from the matching rank
+receipt's frozen C input and source references. Reuse unchanged historical
+results, mechanisms and context; research changed XI/availability/incentives,
+current status and unresolved facts. Fresh post-XI football research remains
+mandatory before final prematch C-BET. Do not repeat the entire rank research
+or date-surface acquisition to confirm unchanged facts.
 
 Research:
 

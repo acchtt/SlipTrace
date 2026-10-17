@@ -52,6 +52,13 @@ The rank stage performs original-source replay and a fresh full-cohort status
 check before executing the single official Football C board, then independently
 verifies Google Sheets persistence once.
 
+Repeated `/rank` for the same source epoch resolves its latest native research
+checkpoint automatically, reuses completed factual inputs, and continues the
+ordered unresolved queue. Report full cohort dispositions and research
+completeness separately from persistence. A partial saved board uses
+`V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`; no user resubmission of omitted IDs is
+needed. This does not schedule background work.
+
 Routine Step 2 trusts the resulting verified C rank+persistence receipt; it
 does not repeat source replay.
 

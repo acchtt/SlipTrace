@@ -10,6 +10,7 @@ engine. C2/C3/C4 are retired; frozen historical receipts remain immutable.
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import sys
@@ -439,10 +440,131 @@ def _check_rank_source_and_status(
     }
 
 
+RESEARCH_COVERAGE_VERSION = "football-v4-research-coverage-v1"
+
+
+def _research_dispositions(reasons, frozen, source_proof, at, sweep_created):
+    """A reason accounts for an ID; only a concrete trace proves an attempt.
+
+    Missing research is never a model rejection or a completed assessment.
+    Legacy string reasons remain readable but stay pending, not evidence-limited.
+    """
+    normalized, traces, states = {}, {}, {}
+    for mid, value in reasons.items():
+        trace = value if isinstance(value, dict) else None
+        reason = trace.get("reason") if trace is not None else value
+        if not isinstance(reason, str) or reason not in UNRANKED:
+            raise StageError(f"{mid}: unknown unranked reason; no invented model PASS")
+        normalized[mid] = reason
+        is_closed = (source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED"
+                     or at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"))
+        if reason == "PREMATCH_WINDOW_CLOSED":
+            if not is_closed:
+                raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED contradicts fresh fixture status")
+            states[mid] = "STATUS_EXCLUDED"
+            continue
+        if is_closed:
+            raise StageError(f"{mid}: closed fixture must be PREMATCH_WINDOW_CLOSED")
+        if reason == "SOURCE_CHANGED":
+            # Identity/kickoff drift is rejected by the source/status validator.
+            # A caller cannot use this string as an unsupported research escape.
+            raise StageError(f"{mid}: SOURCE_CHANGED requires a refreshed sweep source")
+        if trace is None or reason == "RESEARCH_BUDGET_EXHAUSTED":
+            states[mid] = "RESEARCH_PENDING"
+            continue
+        if trace.get("match_id") != mid:
+            raise StageError(f"{mid}: research trace match_id differs")
+        missing = trace.get("missing_fields")
+        if (not isinstance(missing, list) or not missing
+                or any(not isinstance(x, str) or not x.strip() for x in missing)):
+            raise StageError(f"{mid}: exact missing_fields required")
+        if not isinstance(trace.get("next_action"), str) or not trace["next_action"].strip():
+            raise StageError(f"{mid}: actionable research next_action required")
+        attempts = trace.get("attempts")
+        if not isinstance(attempts, list) or not attempts:
+            raise StageError(f"{mid}: fixture-specific source attempts required")
+        addressed = set()
+        for attempt in attempts:
+            if not isinstance(attempt, dict):
+                raise StageError(f"{mid}: research source attempt must be an object")
+            _url(attempt.get("source_url"), f"{mid}.research.source_url")
+            checked = _time(attempt.get("checked_at_utc"), f"{mid}.research.checked_at")
+            if not sweep_created <= checked <= at:
+                raise StageError(f"{mid}: research attempt outside sweep/rank epoch")
+            if (not isinstance(attempt.get("finding"), str)
+                    or not attempt["finding"].strip()):
+                raise StageError(f"{mid}: fixture-specific research finding required")
+            fields = attempt.get("fields_checked")
+            if (not isinstance(fields, list) or not fields
+                    or any(not isinstance(x, str) or not x.strip() for x in fields)):
+                raise StageError(f"{mid}: research fields_checked required")
+            addressed.update(fields)
+        if not set(missing).issubset(addressed):
+            raise StageError(f"{mid}: missing fields lack source attempts")
+        traces[mid] = copy.deepcopy(trace)
+        states[mid] = "EVIDENCE_LIMITED"
+    return normalized, traces, states
+
+
+def _resume_research(previous, sweep_receipt, current, reasons, status_refresh, at):
+    """Reuse facts within one source epoch, never resurrect closed decisions."""
+    if previous.get("status") not in {
+        "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK", "V4_RANK_RESEARCH_PENDING"
+    }:
+        raise StageError("native rank research checkpoint required for resume")
+    _verified(previous, previous["status"])
+    if (previous.get("run_id") != sweep_receipt["run_id"]
+            or previous.get("sweep_integrity_sha256") != sweep_receipt["integrity_sha256"]):
+        raise StageError("resume source epoch differs; never splice sweep cohorts")
+    if _time(previous.get("rank_at_utc"), "previous.rank_at") > at:
+        raise StageError("resume clock predates research checkpoint")
+    old = previous.get("frozen_model_input")
+    if not isinstance(old, dict) or not isinstance(old.get("matches"), list):
+        raise StageError("resume checkpoint has no frozen factual C input")
+    authority = current.get("authority_commit")
+    if not authority or authority != old.get("authority_commit"):
+        raise StageError("resume requires unchanged C authority_commit; revalidate after model changes")
+    if not isinstance(current.get("matches"), list):
+        raise StageError("resume C matches must be an array")
+    new_ids = [row.get("match_id") for row in current["matches"] if isinstance(row, dict)]
+    if len(new_ids) != len(current["matches"]) or len(set(new_ids)) != len(new_ids):
+        raise StageError("resume C update cohort must be unique")
+    statuses = {row["match_id"]: row["fixture_status"] for row in status_refresh["matches"]}
+    frozen = {row["match_id"]: row for row in sweep_receipt["eligible_queue"]}
+    reused = []
+    merged = copy.deepcopy(current)
+    reasons = copy.deepcopy(reasons)
+    for row in old["matches"]:
+        mid = row["match_id"]
+        if mid in new_ids:
+            continue  # Explicit current evidence replaces the earlier factual row.
+        if mid in reasons and reasons[mid] != "PREMATCH_WINDOW_CLOSED":
+            raise StageError(f"{mid}: do not discard completed research; supply updated C evidence")
+        if (statuses[mid] != "PREMATCH_CONFIRMED"
+                or at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")):
+            reasons[mid] = "PREMATCH_WINDOW_CLOSED"
+            continue
+        merged["matches"].append(copy.deepcopy(row))
+        reused.append(mid)
+    # Carry unresolved work forward without asking the user to re-enter IDs.
+    present = {row["match_id"] for row in merged["matches"]}
+    for mid in sweep_receipt["research_order"]:
+        if mid in present or mid in reasons:
+            continue
+        if (statuses[mid] != "PREMATCH_CONFIRMED"
+                or at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")):
+            reasons[mid] = "PREMATCH_WINDOW_CLOSED"
+        else:
+            reasons[mid] = copy.deepcopy(previous.get("research_exclusion_trace", {}).get(
+                mid, previous["unranked_reasons"].get(mid, "RESEARCH_BUDGET_EXHAUSTED")))
+    return merged, reasons, reused
+
+
 def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
-         unranked_reasons: dict[str, str], *, now: str,
+         unranked_reasons: dict[str, Any], *, now: str,
          original_source: dict[str, Any] | None = None,
-         status_refresh: dict[str, Any] | None = None) -> dict[str, Any]:
+         status_refresh: dict[str, Any] | None = None,
+         previous_rank: dict[str, Any] | None = None) -> dict[str, Any]:
     """Evaluate the single active Football C input against frozen V4 eligible set."""
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
@@ -486,34 +608,42 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("no verified candidates to rank")
     if not isinstance(c, dict):
         raise StageError("Football C source-backed assessment payload required")
-    if str(c.get("model", "")).lower() != "c" or c.get("stage") != "board":
+    if (c.get("schema_version") != "football-engine-v1"
+            or str(c.get("model", "")).lower() != "c" or c.get("stage") != "board"):
         raise StageError("active /rank requires one model=c stage=board payload")
+    if not isinstance(c.get("matches"), list):
+        raise StageError("actual source-backed C evidence array required")
+    for row in c["matches"]:
+        if (isinstance(row, dict) and row.get("match_id") in frozen
+                and at >= _time(frozen[row["match_id"]]["kickoff_utc"], "model.kickoff")):
+            raise StageError(f"{row['match_id']}: retroactive prematch rank forbidden")
+    source_proof = verify_rank_source_and_status(
+        sweep_receipt, original_source, status_refresh, now=at.isoformat()
+    )
+    reused_ids = []
+    if previous_rank is not None:
+        c, unranked_reasons, reused_ids = _resume_research(
+            previous_rank, sweep_receipt, c, unranked_reasons, status_refresh, at
+        )
     crows = c.get("matches")
-    if not isinstance(crows, list) or not crows:
-        raise StageError("actual source-backed C evidence required")
+    if not isinstance(crows, list):
+        raise StageError("actual source-backed C evidence array required")
     ids = [r.get("match_id") for r in crows if isinstance(r, dict)]
     if len(ids) != len(crows) or len(ids) != len(set(ids)) or not set(ids).issubset(frozen):
         raise StageError("C ranked fixture cohort must be unique subset of frozen V4 fixtures")
     if not isinstance(unranked_reasons, dict) or set(unranked_reasons) != set(frozen) - set(ids):
         raise StageError("every unranked eligible fixture must have an explicit reason")
-    if not set(unranked_reasons.values()).issubset(UNRANKED):
-        raise StageError("unknown unranked reason; no invented model PASS")
 
     for mid in ids:
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
-    source_proof = verify_rank_source_and_status(
-        sweep_receipt, original_source, status_refresh, now=at.isoformat()
-    )
     for mid in ids:
         if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED":
             raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED by current fixture status")
-    for mid, reason in unranked_reasons.items():
-        if reason == "PREMATCH_WINDOW_CLOSED" and (
-            source_proof["status_by_match"][mid] == "PREMATCH_CONFIRMED"
-            and at < _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
-        ):
-            raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED contradicts fresh fixture status")
+    unranked_reasons, research_trace, dispositions = _research_dispositions(
+        unranked_reasons, frozen, source_proof, at,
+        _time(sweep_receipt["created_at_utc"], "sweep.created"),
+    )
 
     for r in crows:
         mid = r["match_id"]
@@ -527,13 +657,64 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     order = sweep_receipt["research_order"]
     if len(order) != len(frozen) or set(order) != set(frozen):
         raise StageError("source-reconciled full research order corrupted")
-    last = max(order.index(mid) for mid in ids)
-    for mid in order[:last]:
-        if mid not in ids and unranked_reasons[mid] not in {
-            "RESEARCH_EVIDENCE_MISSING", "PREMATCH_WINDOW_CLOSED",
-            "MATCH_NEWS_UNVERIFIED", "SOURCE_CHANGED"
-        }:
-            raise StageError(f"{mid}: earlier research-priority fixture skipped without evidence blocker")
+    resume_queue = [
+        {**copy.deepcopy(frozen[mid]),
+         "research_status": dispositions[mid],
+         "reason": unranked_reasons[mid],
+         "research_trace": research_trace.get(mid),
+         "next_action": research_trace.get(mid, {}).get(
+             "next_action", "Research missing current C evidence using frozen source facts first"),
+         "sweep_evidence_reusable": True}
+        for mid in order if dispositions.get(mid) in {"RESEARCH_PENDING", "EVIDENCE_LIMITED"}
+    ]
+    pending = sum(state == "RESEARCH_PENDING" for state in dispositions.values())
+    limited = sum(state == "EVIDENCE_LIMITED" for state in dispositions.values())
+    closed = sum(state == "STATUS_EXCLUDED" for state in dispositions.values())
+    coverage = {
+        "schema_version": RESEARCH_COVERAGE_VERSION,
+        "status": "INCOMPLETE" if pending else "EVIDENCE_LIMITED" if limited else "COMPLETE",
+        "research_complete": not resume_queue,
+        "full_queue_count": len(frozen),
+        "assessed_count": len(ids),
+        "pending_count": pending,
+        "evidence_limited_count": limited,
+        "status_excluded_count": closed,
+        "unresolved_count": len(resume_queue),
+        "assessed_open_fraction": len(ids) / (len(frozen) - closed) if len(frozen) > closed else None,
+    }
+    checkpoint = {
+        "coverage_manifest": [
+            {"match_id": mid, "home": frozen[mid].get("home"),
+             "away": frozen[mid].get("away"),
+             "competition": frozen[mid].get("competition"),
+             "kickoff_utc": frozen[mid]["kickoff_utc"],
+             "disposition": "C_ASSESSED" if mid in ids else dispositions[mid],
+             "board_state": next((row.get("board_state") for row in crows
+                                   if row["match_id"] == mid), None),
+             "reason": unranked_reasons.get(mid)}
+            for mid in order
+        ],
+        "research_coverage": coverage,
+        "research_complete": coverage["research_complete"],
+        "research_exclusion_trace": research_trace,
+        "resume_queue": resume_queue,
+        "frozen_model_input": copy.deepcopy(c),
+        "reused_match_ids": reused_ids,
+        "previous_rank_sha256": previous_rank["integrity_sha256"] if previous_rank else None,
+    }
+    if not ids:
+        out = {
+            "schema_version": SCHEMA, "status": "V4_RANK_RESEARCH_PENDING",
+            "run_id": sweep_receipt["run_id"],
+            "sweep_integrity_sha256": sweep_receipt["integrity_sha256"],
+            "rank_at_utc": at.isoformat(), "unranked_reasons": unranked_reasons,
+            "full_queue_count": len(frozen), "assessed_count": 0, "ranked_count": 0,
+            "board": None, "research_assessment": None,
+            "publication_authorized": False, "bet_recorded": False,
+            **checkpoint,
+        }
+        out["integrity_sha256"] = _hash(out)
+        return out
 
     result = run_board(c)
     if result.get("model") != "c" or result.get("stage") != "board_result":
@@ -575,6 +756,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     ]
 
     out = {
+        **checkpoint,
         "schema_version": SCHEMA,
         "status": "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK",
         "run_id": sweep_receipt["run_id"],
@@ -673,7 +855,12 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
     model_evidence_sha256 = _hash(original)
     return {
         "schema_version": SCHEMA,
-        "status": "V4_RANK_PERSISTENCE_VERIFIED",
+        "status": ("V4_RANK_PARTIAL_PERSISTENCE_VERIFIED"
+                   if rank_receipt.get("research_complete") is False
+                   else "V4_RANK_PERSISTENCE_VERIFIED"),
+        "persistence_verified": True,
+        "research_complete": rank_receipt.get("research_complete"),
+        "research_coverage": copy.deepcopy(rank_receipt.get("research_coverage")),
         "run_id": rank_receipt["run_id"],
         "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
@@ -700,6 +887,7 @@ def main() -> int:
     r = sub.add_parser("rank")
     for key in ("sweep", "c", "unranked", "source", "status-refresh"):
         r.add_argument("--" + key, required=True)
+    r.add_argument("--resume-from", help="Prior native rank checkpoint from this exact sweep epoch")
     v = sub.add_parser("verify")
     v.add_argument("--rank", required=True)
     v.add_argument("--readback", required=True)
@@ -720,6 +908,7 @@ def main() -> int:
                 now=args.now,
                 original_source=load(args.source),
                 status_refresh=load(args.status_refresh),
+                previous_rank=load(args.resume_from) if args.resume_from else None,
             )
         else:
             out = verify_rank(load(args.readback), load(args.rank))
