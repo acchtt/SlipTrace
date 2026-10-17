@@ -190,6 +190,14 @@ receive a retroactive prematch C selection.
 
 **Open-league discovery rule:** Fetch the source's complete available senior competitive fixture listing for the requested window BEFORE applying the league registry. Do not query only registered leagues or discard a Brazilian, Mexican or other unfamiliar official fixture at acquisition. The fixture calendar can be bounded by time/provider; it need not prove every fixture worldwide. Country and competition labels are required to distinguish friendlies and explicit exclusions. The new `DISCOVERY` lane screens an unregistered match's real recent four-to-ten competitive results for both teams and retains low/unknown signals in `discovery_watchlist`, not EXCLUDED. Only an independently source-backed scoring signal PLUS current match publishing/researchability proof permits discovery qualification for /rank. Unregistered official cups also require current competition-format/incentive proof. Report discovery-qualified and discovery-pending separately; never silently delete them. **User exclusion (2026-10-13): all African domestic leagues, women's domestic top flights, and domestic cups are classified EXCLUDED after source acquisition and before goal-history/deep research. Preserve them in the source ledger with reason `USER_AFRICA_DOMESTIC_EXCLUSION`. CAF/other continental club competitions and protected official internationals remain eligible for their normal format/incentive path.** Explicitly banned leagues and friendlies remain excluded.
 
+## Operational grade is evidence-derived
+
+Keep `registry_lane` separate from `operational_grade`. ROUTINE is not the
+only path to grade A. A CONDITIONAL/PILOT/DISCOVERY fixture with current
+fixture-bound `researchability_status=VERIFIED` and checked channels may be A;
+do not carry a permanent B cap merely because of league registry classification.
+B must represent a real unresolved operational limitation, not source category.
+
 ## GOALS-FIRST admission (supersedes routine-league auto-admission)
 
 A registered fixture is **not** automatically Over-friendly. After collecting
