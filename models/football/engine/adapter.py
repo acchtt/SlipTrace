@@ -1084,6 +1084,99 @@ CERTIFICATE_UPGRADE_FIELDS = frozenset({
     "tournament_incentive",
 })
 
+MATERIAL_MARKET_DISAGREEMENT_GOALS = 0.50
+
+
+def _market_disagreement_recheck_gate(
+    ctx_obj: dict[str, Any],
+    *,
+    compiled_burden: float | None,
+    observed_line: float,
+) -> dict[str, Any]:
+    """Hard-gate screenshot /xi when market burden materially exceeds C.
+
+    The market is only a trigger for football research. It can never certify
+    or upgrade a goal burden by itself. A material gap uses the existing
+    0.50+ movement threshold already distinguished by the decision contract.
+    """
+
+    material_gap = (
+        compiled_burden is not None
+        and observed_line >= compiled_burden + MATERIAL_MARKET_DISAGREEMENT_GOALS
+    )
+    if not material_gap:
+        return {
+            "market_disagreement_recheck_required": False,
+            "market_disagreement_recheck_completed": True,
+            "market_disagreement_gap_goals": (
+                None if compiled_burden is None else observed_line - compiled_burden
+            ),
+            "market_disagreement_recheck_fields": [],
+            "market_disagreement_recheck_evidence_refs": [],
+            "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        }
+
+    status = ctx_obj.get("market_disagreement_recheck_status")
+    basis = ctx_obj.get("market_disagreement_recheck_basis")
+    fields = ctx_obj.get("market_disagreement_recheck_fields")
+    refs = ctx_obj.get("market_disagreement_recheck_evidence_refs")
+
+    completed = (
+        status == "COMPLETED"
+        and isinstance(basis, str)
+        and bool(basis.strip())
+        and isinstance(fields, list)
+        and bool(fields)
+        and all(isinstance(x, str) and x.strip() for x in fields)
+        and isinstance(refs, list)
+        and bool(refs)
+        and all(isinstance(x, str) and x.strip() for x in refs)
+    )
+
+    normalized_fields = (
+        [x.strip() for x in fields]
+        if isinstance(fields, list)
+        and all(isinstance(x, str) and x.strip() for x in fields)
+        else []
+    )
+    invalid = sorted(set(normalized_fields) - CERTIFICATE_UPGRADE_FIELDS)
+    if invalid:
+        raise ContractError(
+            "market disagreement recheck contains unsupported football fields: "
+            + ", ".join(invalid)
+        )
+
+    # Any market burden that reaches the G4+ region must explicitly verify
+    # the two upper-tail fields named by the /xi authority.
+    if completed and observed_line >= 3.0:
+        needed = {
+            "upper_tail_transferability",
+            "upper_tail_comparable_context_signal",
+        }
+        missing = sorted(needed - set(normalized_fields))
+        if missing:
+            raise ContractError(
+                "MARKET DISAGREEMENT RECHECK INCOMPLETE — G4+ disagreement "
+                "requires upper-tail transferability and comparable-context "
+                "verification: " + ", ".join(missing)
+            )
+
+    return {
+        "market_disagreement_recheck_required": True,
+        "market_disagreement_recheck_completed": completed,
+        "market_disagreement_gap_goals": observed_line - compiled_burden,
+        "market_disagreement_recheck_fields": normalized_fields,
+        "market_disagreement_recheck_evidence_refs": (
+            [x.strip() for x in refs]
+            if isinstance(refs, list)
+            and all(isinstance(x, str) and x.strip() for x in refs)
+            else []
+        ),
+        "market_disagreement_recheck_basis": (
+            basis.strip() if isinstance(basis, str) and basis.strip() else None
+        ),
+    }
+
 
 def _quarter_or_none(value: Any, field: str) -> float | None:
     if value is None:
@@ -1259,6 +1352,38 @@ def evaluate_observed_quote(
         else "BELOW_SUPPORTED_BURDEN"
     )
 
+    disagreement_gate = _market_disagreement_recheck_gate(
+        ctx_obj,
+        compiled_burden=compiled_burden,
+        observed_line=observed.line,
+    )
+
+    if (
+        disagreement_gate["market_disagreement_recheck_required"]
+        and not disagreement_gate["market_disagreement_recheck_completed"]
+    ):
+        return {
+            "schema_version": SCHEMA_VERSION,
+            "stage": "observed_quote_evaluation",
+            "model": model,
+            "match_id": a.match_id,
+            "action": "MARKET_DISAGREEMENT_RECHECK_REQUIRED",
+            "reason": (
+                "observed screenshot burden materially exceeds the current "
+                "Football C certificate; complete the required football recheck "
+                "and rerun the deterministic certificate before any ACT/WAIT/PASS"
+            ),
+            "supported_line": compiled_burden,
+            "observed_line": observed.line,
+            "observed_odds": observed.odds,
+            "line_relation": relation,
+            **disagreement_gate,
+            "execution_authorized": False,
+            "publication_authorized": False,
+            "model_exposure_created": False,
+        }
+
+
     # A started fixture can still be assessed as football, but a prematch quote
     # action must not be recreated retrospectively.
     if football["fixture_status"] != "PREMATCH_CONFIRMED":
@@ -1378,6 +1503,7 @@ def evaluate_observed_quote(
         "wait_reachability_basis": wait_basis,
         "wait_requires_negative_info": wait_negative,
         **upgrade_gate,
+        **disagreement_gate,
         "execution_authorized": False,
         "publication_authorized": False,
         "model_exposure_created": False,
