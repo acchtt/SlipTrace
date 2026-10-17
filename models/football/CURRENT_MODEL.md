@@ -63,6 +63,14 @@ Before C board execution:
 8. persist exact C result JSON plus C board/rank/lane fields;
 9. independently refetch once and verify.
 
+Research completion and persistence verification are separate. New rank receipts
+freeze all eligible dispositions and reusable factual C input. Unfinished
+research stays in an ordered resume queue; bare evidence-missing labels cannot
+establish completed research. `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED` verifies the
+assessed board while explicitly retaining unresolved work. Repeated `/rank` on
+the same source epoch resumes its native checkpoint and reuses completed facts.
+No predictive C thresholds or sweep admission rules change through this repair.
+
 ### Ranking calibration
 
 C ranks certificate robustness and depth first. For C G3, a structure with both

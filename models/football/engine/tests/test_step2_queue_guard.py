@@ -92,6 +92,30 @@ class Step2QueueTests(unittest.TestCase):
         )
         self.assertTrue(result["model_evidence_sha256"])
 
+    def test_partial_verified_board_retains_due_rows_and_coverage(self):
+        case = native_v4_case()
+        coverage = {"schema_version": "football-v4-research-coverage-v1",
+                    "research_complete": False, "status": "INCOMPLETE",
+                    "assessed_count": 1, "pending_count": 24}
+        case["v4_rank_receipt"].update(research_complete=False, research_coverage=coverage)
+        case["v4_persistence_receipt"].update(
+            status="V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
+            research_complete=False, research_coverage=copy.deepcopy(coverage))
+        rehash(case)
+        result = freeze_queue(case)
+        self.assertEqual(result["due_count"], 1)
+        self.assertFalse(result["research_complete"])
+        self.assertEqual(result["research_coverage"], coverage)
+        case["v4_persistence_receipt"]["status"] = "V4_RANK_PERSISTENCE_VERIFIED"
+        with self.assertRaisesRegex(Step2QueueError, "coverage/persistence"):
+            freeze_queue(case)
+
+    def test_partial_status_without_coverage_is_rejected(self):
+        case = native_v4_case()
+        case["v4_persistence_receipt"]["status"] = "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED"
+        with self.assertRaisesRegex(Step2QueueError, "requires research coverage"):
+            freeze_queue(case)
+
     def test_retired_v1_routine_contract_is_rejected(self):
         case = native_v4_case()
         case["schema_version"] = "football-step2-queue-v1"

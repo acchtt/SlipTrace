@@ -116,6 +116,7 @@
     "builder": "models/football/google_sheets/public_projection.py",
     "refresh_after": [
       "V4_RANK_PERSISTENCE_VERIFIED",
+      "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
       "WEBSITE_PICK_PERSISTENCE_VERIFIED",
       "MANUAL_SCORE_PROJECTION_CHANGE"
     ],

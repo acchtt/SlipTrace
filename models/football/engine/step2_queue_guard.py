@@ -86,7 +86,9 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
 
     if (
         persisted.get("schema_version") != "football-stages-v4"
-        or persisted.get("status") != "V4_RANK_PERSISTENCE_VERIFIED"
+        or persisted.get("status") not in {
+            "V4_RANK_PERSISTENCE_VERIFIED", "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED"
+        }
         or persisted.get("run_id") != rank.get("run_id")
         or persisted.get("rank_sha256") != rank_hash
         or persisted.get("ranked_count") != rank.get("ranked_count")
@@ -94,6 +96,23 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
         or persisted.get("model_evidence_readback_verified") is not True
     ):
         raise Step2QueueError("V4 rank persistence chain invalid")
+
+    # A partial board retains routine authority for its already assessed rows.
+    # It must not acquire a complete-cohort label during transfer to XI.
+    coverage = rank.get("research_coverage")
+    if coverage is not None:
+        complete = rank.get("research_complete")
+        expected_status = ("V4_RANK_PERSISTENCE_VERIFIED" if complete is True
+                           else "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED")
+        if (not isinstance(coverage, dict)
+                or not isinstance(complete, bool)
+                or coverage.get("research_complete") is not complete
+                or persisted.get("research_complete") is not complete
+                or persisted.get("research_coverage") != coverage
+                or persisted.get("status") != expected_status):
+            raise Step2QueueError("V4 research coverage/persistence status differs")
+    elif persisted.get("status") == "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED":
+        raise Step2QueueError("V4 partial board requires research coverage")
 
     if (
         rank.get("source_replayed") is not True
@@ -136,6 +155,8 @@ def _sealed_rank_chain(data: dict[str, Any], board: list[dict[str, Any]]) -> dic
         "source_run_id": rank["run_id"],
         "board_snapshot_id": rank_hash,
         "model_evidence_sha256": evidence_hash,
+        "research_complete": rank.get("research_complete"),
+        "research_coverage": coverage,
     }
 
 
@@ -258,6 +279,8 @@ def freeze_queue(data: dict[str, Any]) -> dict[str, Any]:
         "model_evidence_sha256": (
             authority["model_evidence_sha256"] if authority else None
         ),
+        "research_complete": authority["research_complete"] if authority else None,
+        "research_coverage": authority["research_coverage"] if authority else None,
         "due": due,
         "not_due": not_due,
         "due_count": len(due),

@@ -14,6 +14,43 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
+## Check execution capability before acquiring fixtures
+
+A new Work chat may have an empty workspace. **A missing local checkout is not
+proof that native V4 execution is unavailable.** Resolve the execution route
+before spending resources on fixture acquisition:
+
+1. Inspect the actual callable tools. When shell/Python execution is available,
+   use an existing clean SlipTrace checkout or obtain `acchtt/SlipTrace` from
+   GitHub at current main and record its commit. Read `AGENTS.md` and current
+   authority. Confirm the runner with
+   `python models/football/stages_v4/stage.py --help`. Do not copy only stage.py:
+   its V4 and engine imports must come from the same revision. Missing files
+   require checkout/setup, not immediate abandonment of the sweep.
+2. If local execution is genuinely unavailable, inspect the existing
+   `.github/workflows/football-v4-replay-attestation.yml` fallback. Saving the
+   original source at `models/football/stages_v4/recovery/<run-id>/source.json`
+   on an authorized repository branch triggers its **push** workflow. A manual
+   workflow-dispatch tool is not required. Verify the actual run and artifact;
+   do not assume Actions ran merely because the file was saved. Respect any
+   repository-write approval requirement; this launcher grants no bypass.
+3. If neither route is available, report the exact missing capability or failed
+   operation before starting expensive acquisition. Distinguish missing files,
+   unavailable execution tools, repository permission, and a failed native
+   validation. Do not say the runner is unavailable without checking the
+   relevant capability and recovery route.
+
+AiScore is preferred, not the exclusive provider. The existing independently
+checkable-provider fallback below still applies. Preserve canonical provider
+IDs/provenance; never relabel another provider's ID as an AiScore ID.
+
+If source facts have already been acquired when execution fails, preserve the
+unchanged source and exact pending acquisition/validation gaps as a recovery
+checkpoint where storage is available. An incomplete source is not
+`V4_SWEEP_READY` and must not be offered to rank as a valid handoff. Resume from
+that evidence without asking the user to reconstruct the fixture list. Never
+invent completeness, a native execution, an Actions run, or an attested receipt.
+
 ## Rebuilt acquisition contract — complete date surfaces before registry
 
 Prospective sweeps now use `DATE_SURFACE_BATCH_V2`. The old failure mode
@@ -94,7 +131,7 @@ will compare every business field and attested SHA256 before export.
 Replaying a former source snapshot is NOT verification that its fixtures
 remain before kickoff **now**. Match status and original KO must be
 rechecked when Work performs /rank. An already-started match cannot
-receive a retroactive prematch C/C2 selection.
+receive a retroactive prematch C selection.
 
 **Open-league discovery rule:** Fetch the source's complete available senior competitive fixture listing for the requested window BEFORE applying the league registry. Do not query only registered leagues or discard a Brazilian, Mexican or other unfamiliar official fixture at acquisition. The fixture calendar can be bounded by time/provider; it need not prove every fixture worldwide. Country and competition labels are required to distinguish friendlies and explicit exclusions. The new `DISCOVERY` lane screens an unregistered match's real recent four-to-ten competitive results for both teams and retains low/unknown signals in `discovery_watchlist`, not EXCLUDED. Only an independently source-backed scoring signal PLUS current match publishing/researchability proof permits discovery qualification for /rank. Unregistered official cups also require current competition-format/incentive proof. Report discovery-qualified and discovery-pending separately; never silently delete them. **User exclusion (2026-10-13): all African domestic leagues, women's domestic top flights, and domestic cups are classified EXCLUDED after source acquisition and before goal-history/deep research. Preserve them in the source ledger with reason `USER_AFRICA_DOMESTIC_EXCLUSION`. CAF/other continental club competitions and protected official internationals remain eligible for their normal format/incentive path.** Explicitly banned leagues and friendlies remain excluded.
 
@@ -149,7 +186,7 @@ the pending research pool rather than a misleading fixture-filled board.
 Report separate totals: source fixtures; verified Over-research shortlist;
 missing goal-history research; low-goal signals; conditional/unregistered
 researchability pending; excluded friendlies/explicit bans. These are
-**research priorities, not betting picks**. Maintain true C/C2 model
+**research priorities, not betting picks**. Maintain Football C-only model
 execution only at `/rank` with real source-backed football data. Missing
 Asian-total quotes do not block goal-history screening or initial research.
 
