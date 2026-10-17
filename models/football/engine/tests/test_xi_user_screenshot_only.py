@@ -213,6 +213,20 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             {"ACT", "WAIT", "PASS"},
         )
 
+    def test_incomplete_frozen_g4_marks_certificate_completeness_recheck(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["context"]["frozen_board_g4_research_status"] = "G4_RESEARCH_INCOMPLETE"
+        out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
+        price = out["price_check"]
+        self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        self.assertTrue(
+            price["model"]["certificate_completeness_recheck_required"]
+        )
+        self.assertEqual(
+            price["model"]["frozen_board_g4_research_status"],
+            "G4_RESEARCH_INCOMPLETE",
+        )
+
     def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
         c = complete_market_disagreement_recheck(
             wait_ready(
