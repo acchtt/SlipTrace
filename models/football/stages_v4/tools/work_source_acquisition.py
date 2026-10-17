@@ -20,6 +20,7 @@ ICT = ZoneInfo("Asia/Ho_Chi_Minh")
 PROVIDERS = (
     ("sofascore_www", "https://www.sofascore.com/api/v1/sport/football/scheduled-events/{date}"),
     ("sofascore_api", "https://api.sofascore.com/api/v1/sport/football/scheduled-events/{date}"),
+    ("thesportsdb", "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={date}&s=Soccer"),
 )
 MAX_WINDOW_HOURS = 36
 MAX_RESPONSE_BYTES = 12_000_000
@@ -79,10 +80,18 @@ def acquire_day(day: str) -> tuple[dict, bytes | None]:
         try:
             body, observed = fetch(url)
             payload = json.loads(body)
-            if not isinstance(payload, dict) or not isinstance(payload.get("events"), list):
-                raise ValueError("provider JSON lacks events array")
-            events = payload["events"]
-            ids = [e.get("id") for e in events if isinstance(e, dict)]
+            if not isinstance(payload, dict):
+                raise ValueError("provider JSON is not an object")
+            if name == "thesportsdb":
+                events = payload.get("events")
+                if not isinstance(events, list):
+                    raise ValueError("TheSportsDB has no events array for date")
+                ids = [e.get("idEvent") for e in events if isinstance(e, dict)]
+            else:
+                events = payload.get("events")
+                if not isinstance(events, list):
+                    raise ValueError("SofaScore JSON lacks events array")
+                ids = [e.get("id") for e in events if isinstance(e, dict)]
             if len(ids) != len(events) or any(i is None for i in ids) or len(set(map(str, ids))) != len(ids):
                 raise ValueError("missing or duplicate provider event IDs")
             return ({
@@ -138,12 +147,15 @@ def run(request_path: Path, output: Path) -> int:
         "source_completeness_proven": False,
         "eligible_queue_produced": False,
         "next_step": "Verify date-surface pagination, competition blocks, IDs, fixture statuses, terminal reconciliation and goal histories; construct genuine V4 source.json and run stage.py via existing attestation workflow.",
+        "coverage_warning": "Provider APIs may return only a subset of worldwide football fixtures. A successful fetch never proves full provider/date surface or competition-block completeness.",
     }
     (output / "acquisition-evidence.json").write_text(
         json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     print(json.dumps({"run_id": obj["run_id"], "status": result["status"],
-                      "days": days, "output": str(output)}))
+                      "days": days, "output": str(output),
+                      "failed_surfaces": {k: v.get("errors", []) for k, v in surfaces.items()
+                                          if v["status"] == "FETCH_FAILED"}}))
     return 0 if ok else 2
 
 
