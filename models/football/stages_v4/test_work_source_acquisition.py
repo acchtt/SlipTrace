@@ -44,6 +44,17 @@ class WorkSourceAcquisitionTests(unittest.TestCase):
         self.assertEqual(row["status"], "FETCH_FAILED")
         self.assertIsNone(raw)
 
+    def test_independent_provider_fallback(self):
+        def fake_fetch(url):
+            if "thesportsdb" in url:
+                return b'{"events":[{"idEvent":"1001"},{"idEvent":"1002"}]}', "2026-10-17T00:00:00+00:00"
+            raise RuntimeError("provider blocked")
+        with patch.object(mod, "fetch", side_effect=fake_fetch):
+            row, raw = mod.acquire_day("2026-10-17")
+        self.assertEqual(row["provider"], "thesportsdb")
+        self.assertEqual(row["event_count"], 2)
+        self.assertIsNotNone(raw)
+
     def test_saves_raw_but_never_certifies_v4(self):
         with tempfile.TemporaryDirectory() as tmp:
             request = Path(tmp) / "request.json"
