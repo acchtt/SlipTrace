@@ -1,5 +1,16 @@
 # /sweep — Football V4 source-backed fixture intake
 
+> **Work conversation role — SWEEP ONLY.** This conversation is dedicated to
+> Football C V4 fixture intake and sweep checkpoint/resume for the user's
+> requested window. Load this launcher from current SlipTrace main before
+> executing `/sweep`. Do not silently continue into `/rank`, `/xi`,
+> `/live`, `/audit`, or code maintenance. Produce the native source-backed
+> sweep receipt (or an explicit pending/blocker state) and hand it to a separate
+> rank conversation. A user explicitly changing the task requires reloading the
+> corresponding canonical launcher; never reuse sweep assumptions as authority.
+> This is the SlipTrace production route, not FOM.
+
+
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
