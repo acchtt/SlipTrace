@@ -83,7 +83,35 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertTrue(row["goal3_funded"])
         self.assertFalse(row["goal4_funded"])
         self.assertEqual(row["g4_research_status"], "G4_RESEARCH_INCOMPLETE")
-        self.assertIn("UPPER_TAIL", result["qa_flags"] if len(result["matches"]) >= 5 else ["UPPER_TAIL"])
+
+    def test_board_flags_systematic_incomplete_g4_research(self):
+        rows = []
+        for i in range(5):
+            row = c_row()
+            row["match_id"] = f"g4-incomplete-{i}"
+            rows.append(row)
+        board = payload("c", rows[0])
+        board["matches"] = rows
+        result = run_board(board)
+        self.assertIn("UPPER_TAIL_RESEARCH_ANOMALY", result["qa_flags"])
+
+    def test_board_flags_operational_grade_b_saturation(self):
+        rows = []
+        for i in range(5):
+            row = c_row()
+            row["match_id"] = f"grade-b-{i}"
+            row.update(
+                operational_viability_grade="B",
+                raw_operational_viability_grade="B",
+                xi_expected="UNCERTAIN",
+                market_observability="MEDIUM",
+                team_news_observability="MEDIUM",
+            )
+            rows.append(row)
+        board = payload("c", rows[0])
+        board["matches"] = rows
+        result = run_board(board)
+        self.assertIn("OPERATIONAL_GRADE_SATURATION", result["qa_flags"])
 
     def test_explicit_g4_rejection_requires_structured_path_research(self):
         row = c_row()
