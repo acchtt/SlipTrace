@@ -188,7 +188,9 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertTrue(verdict["wait_reachable"])
 
     def test_material_market_disagreement_blocks_until_rechecked(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c = wait_ready(
+            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        )
         first = run_xi(c, snapshot(c, line=5.0, odds=1.72))
         price = first["price_check"]
         self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
@@ -213,7 +215,9 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
 
     def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
         c = complete_market_disagreement_recheck(
-            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None),
+            wait_ready(
+                football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+            ),
             fields=["upper_tail_transferability"],
         )
         out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
@@ -225,7 +229,9 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         )
 
     def test_quarter_goal_disagreement_does_not_trigger_material_recheck(self):
-        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c = wait_ready(
+            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        )
         baseline = run_xi(c, snapshot(c, line=2.5, odds=1.70))
         supported = baseline["price_check"]["model"]["supported_line"]
         self.assertIsNotNone(supported)
