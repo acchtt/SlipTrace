@@ -602,6 +602,44 @@ def _resume_research(previous, sweep_receipt, current, reasons, status_refresh, 
     return merged, reasons, reused
 
 
+def _checkpoint_incomplete_g4_focus(
+    c: dict[str, Any],
+    board_result: dict[str, Any],
+    unranked_reasons: dict[str, Any],
+) -> tuple[dict[str, Any], dict[str, Any], list[str], dict[str, Any]]:
+    """Keep unfinished G4 work out of the completed C-FOCUS board.
+
+    The engine may identify a G3-funded row as G4_RESEARCH_INCOMPLETE. That is
+    useful diagnostic state, but it is not a completed rank assessment. Move
+    those rows back to research-pending without inventing a model rejection.
+    """
+    rows = board_result.get("matches")
+    if not isinstance(rows, list):
+        raise StageError("Football C preflight board result missing matches")
+    incomplete = [
+        row for row in rows
+        if row.get("board_state") == "FOCUS"
+        and row.get("goal3_funded") is True
+        and row.get("g4_research_status") == "G4_RESEARCH_INCOMPLETE"
+    ]
+    if not incomplete:
+        return c, unranked_reasons, [], {}
+
+    ids = [row["match_id"] for row in incomplete]
+    idset = set(ids)
+    filtered = copy.deepcopy(c)
+    filtered["matches"] = [
+        row for row in filtered["matches"] if row.get("match_id") not in idset
+    ]
+    reasons = copy.deepcopy(unranked_reasons)
+    for mid in ids:
+        if mid in reasons:
+            raise StageError(f"{mid}: incomplete G4 row conflicts with existing unranked reason")
+        reasons[mid] = "RESEARCH_EVIDENCE_MISSING"
+    snapshots = {row["match_id"]: copy.deepcopy(row) for row in incomplete}
+    return filtered, reasons, ids, snapshots
+
+
 def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
          unranked_reasons: dict[str, Any], *, now: str,
          original_source: dict[str, Any] | None = None,
@@ -682,10 +720,6 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     for mid in ids:
         if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED":
             raise StageError(f"{mid}: PREMATCH_WINDOW_CLOSED by current fixture status")
-    unranked_reasons, research_trace, dispositions = _research_dispositions(
-        unranked_reasons, frozen, source_proof, at,
-        _time(sweep_receipt["created_at_utc"], "sweep.created"),
-    )
 
     for r in crows:
         mid = r["match_id"]
@@ -696,16 +730,47 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
 
+    # A provisional C-FOCUS may fund G3 before its G4 investigation is
+    # complete. Do not freeze that provisional O2.50 as a completed board row.
+    # Run the deterministic engine once as a preflight, then checkpoint any
+    # unfinished G4 FOCUS rows back into research. Completed rows are reranked
+    # below after the incomplete rows are removed.
+    g4_incomplete_match_ids: list[str] = []
+    g4_incomplete_assessments: dict[str, Any] = {}
+    if ids:
+        preflight = run_board(c)
+        c, unranked_reasons, g4_incomplete_match_ids, g4_incomplete_assessments = (
+            _checkpoint_incomplete_g4_focus(c, preflight, unranked_reasons)
+        )
+        crows = c["matches"]
+        ids = [row["match_id"] for row in crows]
+        if set(unranked_reasons) != set(frozen) - set(ids):
+            raise StageError("G4 checkpoint accounting does not cover the frozen cohort")
+
+    unranked_reasons, research_trace, dispositions = _research_dispositions(
+        unranked_reasons, frozen, source_proof, at,
+        _time(sweep_receipt["created_at_utc"], "sweep.created"),
+    )
+
     order = sweep_receipt["research_order"]
     if len(order) != len(frozen) or set(order) != set(frozen):
         raise StageError("source-reconciled full research order corrupted")
+    g4_incomplete_set = set(g4_incomplete_match_ids)
     resume_queue = [
         {**copy.deepcopy(frozen[mid]),
-         "research_status": dispositions[mid],
+         "research_status": (
+             "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else dispositions[mid]
+         ),
          "reason": unranked_reasons[mid],
          "research_trace": research_trace.get(mid),
-         "next_action": research_trace.get(mid, {}).get(
-             "next_action", "Research missing current C evidence using frozen source facts first"),
+         "next_action": (
+             "Complete one bounded G4 pass: carrier four-goal path, distributed "
+             "3+1/2+2 path, reply-assisted path, continuation after G3, "
+             "upper-tail transferability/comparable context, and failure/stall risk"
+             if mid in g4_incomplete_set else
+             research_trace.get(mid, {}).get(
+                 "next_action", "Research missing current C evidence using frozen source facts first")
+         ),
          "sweep_evidence_reusable": True}
         for mid in order if dispositions.get(mid) in {"RESEARCH_PENDING", "EVIDENCE_LIMITED"}
     ]
@@ -730,9 +795,16 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              "away": frozen[mid].get("away"),
              "competition": frozen[mid].get("competition"),
              "kickoff_utc": frozen[mid]["kickoff_utc"],
-             "disposition": "C_ASSESSED" if mid in ids else dispositions[mid],
-             "board_state": next((row.get("board_state") for row in crows
-                                   if row["match_id"] == mid), None),
+             "disposition": (
+                 "C_ASSESSED" if mid in ids else
+                 "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else
+                 dispositions[mid]
+             ),
+             "board_state": (
+                 next((row.get("board_state") for row in crows
+                       if row["match_id"] == mid), None)
+                 or g4_incomplete_assessments.get(mid, {}).get("board_state")
+             ),
              "reason": unranked_reasons.get(mid)}
             for mid in order
         ],
@@ -741,6 +813,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "research_exclusion_trace": research_trace,
         "resume_queue": resume_queue,
         "frozen_model_input": copy.deepcopy(c),
+        "g4_incomplete_match_ids": list(g4_incomplete_match_ids),
+        "g4_incomplete_assessments": copy.deepcopy(g4_incomplete_assessments),
         "reused_match_ids": reused_ids,
         "previous_rank_sha256": previous_rank["integrity_sha256"] if previous_rank else None,
     }

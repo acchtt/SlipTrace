@@ -127,10 +127,34 @@ continuation rules. These fields document whether G4 was actually investigated;
 they do not weaken or replace any Football C certificate threshold.
 
 A generic sentence such as "no independently transferable fourth goal
-established" is not a complete G4 rejection by itself. If the evidence pass did
-not actually evaluate the plausible G4 paths, freeze
-`G4_RESEARCH_INCOMPLETE` and preserve O2.50 as the current conservative
-certificate rather than pretending the fourth goal was researched and rejected.
+established" is not a complete G4 rejection by itself.
+
+### Bounded G4 completion pass before board finalization
+
+For every provisional `C-FOCUS` row that funds G3, complete one bounded G4
+research pass **before** treating the assessment as finished. The pass checks,
+once, the plausible:
+
+1. single-carrier four-goal path;
+2. distributed 3+1 / 2+2 path;
+3. opponent-reply-assisted path;
+4. continuation after goal three;
+5. upper-tail transferability and nearest comparable context;
+6. failure resistance, stall risk and applicable tournament incentive.
+
+Do not stop merely because O2.50 is already funded. Do not use odds or the
+market to decide any of these fields.
+
+The pass must finish as either
+`G4_RESEARCH_COMPLETE_FUNDED` or
+`G4_RESEARCH_COMPLETE_REJECTED`. If the available football evidence still
+cannot resolve the G4 investigation, leave the fixture
+`G4_RESEARCH_INCOMPLETE`; the native rank stage will checkpoint it as
+`G4_RESEARCH_PENDING` and it **must not enter the completed C-FOCUS board**.
+
+This is a bounded completion rule, not an instruction to research indefinitely.
+Unresolved evidence remains visible in the resume queue and is retried only on
+the normal rank-resume path.
 
 ## Ranking contract
 
