@@ -1,0 +1,55 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "RESEARCH_COMPLETE",
+  "run_id": "V4-20261019-0000-20261019-0300",
+  "original_source_sha256": "516aca566473a96dd7427f1d520a2ec20b9f7cc0902167e7ce917bcb8c81d545",
+  "source_file_sha256": "1580538418835ff54d6e7407a6f008f68a231f59db1fd29dbd5e02e17b0e13ff",
+  "native_receipt_integrity_sha256": "1b59bd89d329305f6ce958d1a1273fb68543deb2a4b97ef8060e543907517145",
+  "target_states": {
+    "1790253": {
+      "match_id": "1790253",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1862072": {
+      "match_id": "1862072",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790232": {
+      "match_id": "1790232",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1807292": {
+      "match_id": "1807292",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1708729": {
+      "match_id": "1708729",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1790253",
+    "1790232"
+  ],
+  "watch_match_ids": [
+    "1807292"
+  ],
+  "evidence_limited_match_ids": [
+    "1862072",
+    "1708729"
+  ],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
