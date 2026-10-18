@@ -239,6 +239,15 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
     def test_complete_rejected_g4_disagreement_requires_independent_reclassification_recheck(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         c["match"].update(
+            carrier_self_fund=True,
+            carrier_self_fund_basis=(
+                "Frozen carrier independently funds G3 but no transferable "
+                "upper-tail route was accepted at rank."
+            ),
+            independent_upper_tail=False,
+            independent_upper_tail_basis=(
+                "Frozen rank rejected the independent fourth-goal tail."
+            ),
             g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
             g4_carrier_path="FAILED",
             g4_distributed_path="FAILED",
@@ -262,6 +271,15 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
     def test_complete_rejected_g4_can_be_corrected_after_source_backed_reclassification(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         c["match"].update(
+            carrier_self_fund=True,
+            carrier_self_fund_basis=(
+                "Frozen carrier independently funds G3 but no transferable "
+                "upper-tail route was accepted at rank."
+            ),
+            independent_upper_tail=False,
+            independent_upper_tail_basis=(
+                "Frozen rank rejected the independent fourth-goal tail."
+            ),
             g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
             g4_carrier_path="FAILED",
             g4_distributed_path="FAILED",
@@ -344,11 +362,15 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             ),
             certificate_upgrade_new_evidence_fields=["g4_carrier_path"],
         )
-        with self.assertRaisesRegex(
-            AssertionError,
+        out = run_xi(c, snapshot(c, line=3.5, odds=1.72))
+        self.assertEqual(
+            out["price_check"]["status"],
+            "OBSERVED_QUOTE_INVALID",
+        )
+        self.assertIn(
             "PRIOR CERTIFICATE RECLASSIFICATION BLOCKED",
-        ):
-            run_xi(c, snapshot(c, line=3.5, odds=1.72))
+            out["price_check"]["reason"],
+        )
 
     def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
         c = complete_market_disagreement_recheck(
