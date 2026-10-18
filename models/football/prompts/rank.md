@@ -18,6 +18,12 @@ refs as a normal ranking mechanism.
 
 No odds are required for football ranking.
 
+Before finalizing any G3-funded C-FOCUS assessment, perform the bounded G4
+completion pass defined in RANK.md. A row still marked
+`G4_RESEARCH_INCOMPLETE` is unfinished research, not a completed O2.50 board
+assessment; allow the native stage to checkpoint it as
+`G4_RESEARCH_PENDING` and continue with completed rows.
+
 Research coverage and persistence verification are separate. Resolve and reuse
 the latest native checkpoint automatically for repeated `/rank` on the same
 receipt. Carry unresolved fixtures forward; never ask the user to rebuild the
