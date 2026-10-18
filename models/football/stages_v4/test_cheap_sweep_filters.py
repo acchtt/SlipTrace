@@ -50,6 +50,15 @@ class CheapSweepFilterTests(unittest.TestCase):
         self.assertTrue(result["requires_match_specific_goal_evidence"])
         self.assertFalse(result["hard_exclude"])
 
+    def test_non_japan_womens_domestic_top_flight_is_excluded_even_when_provider_kind_is_generic(self):
+        generic = fixture("Netherlands", "Women's Eredivisie", "Club W", "Other W", "DOMESTIC_LEAGUE")
+        explicit = fixture("Germany", "Frauen-Bundesliga", "Club W", "Other W", "WOMENS_TOP_FLIGHT")
+        japan = fixture("Japan", "WE League", "Club W", "Other W", "WOMENS_TOP_FLIGHT")
+        self.assertEqual(classify(generic)["lane"], "EXCLUDED")
+        self.assertEqual(classify(generic)["reason"], "USER_WOMENS_DOMESTIC_EXCLUSION")
+        self.assertEqual(classify(explicit)["lane"], "EXCLUDED")
+        self.assertNotEqual(classify(japan)["lane"], "EXCLUDED")
+
     def test_big_five_league_status_is_never_auto_research_priority(self):
         for country, competition in (
             ("England", "Premier League"),

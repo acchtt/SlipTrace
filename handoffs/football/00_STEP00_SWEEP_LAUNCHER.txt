@@ -18,8 +18,12 @@ Conversation surface: NORMAL CHAT
 3. Never substitute manual web fixture discovery for the source gate. Persist
    original-source.json, source.json and listing-receipt.json first.
 
-4. Create/update the durable v2 research checkpoint. Research GOAL_PRIORITY
-   before GOAL_REVIEW and checkpoint after at most 4 fixture dispositions.
+4. Create/update the durable v2 research checkpoint. Start from native
+   priority_research_order, then promote only exact canonical source IDs needed
+   for this window. Keep the total active research cohort <=30; leave all other
+   missing-history rows as visible DEFERRED_RESEARCH_BACKLOG. Research
+   GOAL_PRIORITY before GOAL_REVIEW and checkpoint after at most 4 fixture
+   dispositions.
 
 5. On /resume, load the checkpoint first and process only `resume_queue`.
    Never repeat resolved fixture research. Do not reacquire date surfaces unless

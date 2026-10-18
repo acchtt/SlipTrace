@@ -56,6 +56,22 @@ The first durable checkpoint of every new sweep must therefore be
 This prevents a chat from spending time screening a hand-picked subset and then
 blocking because the full provider union was never captured.
 
+### Active research cohort vs deferred backlog
+
+A complete provider surface can expose hundreds of fixtures. **Do not turn every
+missing-history row into an active resume obligation.** The source-only backend
+starts the active cohort from native `priority_research_order`. Normal chat may
+then promote exact canonical source IDs from the deferred backlog using the
+standing researched-league scope, same-run schedule relevance, and any
+fixture-specific prior already established in this sweep. Keep the total active
+cohort at **30 or fewer** for one sweep window.
+
+This is workload control only. It cannot create GOAL_PRIORITY/GOAL_REVIEW or a
+Football C certificate. Unpromoted rows remain visible as
+`DEFERRED_RESEARCH_BACKLOG`; they do not block the active sweep from handing
+verified admissions to /rank. Always report the deferred count so coverage is
+not misrepresented as exhaustive.
+
 If accidental manual research already happened before the source gate, preserve
 it as provisional evidence. After the canonical source arrives, attach it only
 to a uniquely matching fixture identity (teams + kickoff + newly resolved

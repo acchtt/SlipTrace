@@ -29,6 +29,16 @@ class NormalSourceTests(unittest.TestCase):
             self.assertTrue((root/"out/original-source.json").exists())
             self.assertTrue((root/"out/source.json").exists())
             self.assertTrue((root/"out/listing-receipt.json").exists())
+            self.assertEqual(
+                cp["research_order"],
+                json.loads((root/"out/listing-receipt.json").read_text()).get("priority_research_order", []),
+            )
+            self.assertEqual(
+                cp["pending_research_count"],
+                len(cp["research_order"]),
+            )
+            self.assertGreaterEqual(cp["deferred_research_backlog_count"], 0)
+            self.assertEqual(cp["candidate_promotion_limit"], 30)
 
 
 if __name__=="__main__":
