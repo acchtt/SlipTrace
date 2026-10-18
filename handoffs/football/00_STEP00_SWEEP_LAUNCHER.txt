@@ -12,8 +12,10 @@ Conversation surface: NORMAL CHAT
 
 2. Freeze the requested ICT window. Before any goal-history research, require
    SOURCE_READY_FOR_RESEARCH. If local acquisition is unavailable, commit one
-   request under models/football/stages_v4/normal_source_requests/ and use the
-   football-v4-normal-source.yml source-only artifact.
+   request under models/football/stages_v4/normal_source_requests/. The
+   football-v4-normal-source.yml backend must continue through bounded research,
+   native V4 finalization and durable recovery persistence in the same sweep
+   invocation; an artifact-only source gate is not a completed step.
 
 3. Never substitute manual web fixture discovery for the source gate. Persist
    original-source.json, source.json and listing-receipt.json first.
@@ -32,11 +34,13 @@ Conversation surface: NORMAL CHAT
 
 6. Do not call the handoff complete while actionable upstream research remains.
    Static verified evidence gaps become EVIDENCE_LIMITED rather than causing
-   indefinite resume loops.
+   indefinite resume loops. Never ask the user to Resume solely for source
+   attestation or native V4 finalization.
 
-7. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
-   bundle. If local native execution is unavailable, use original-source
-   replay/attestation as validation fallback after source acquisition.
+7. Produce and durably persist the native V4 source +
+   v4_sweep_ready + rank-handoff/checkpoint bundle under recovery/<run-id>/.
+   Backend source acquisition, target research and native finalization are one
+   operational unit from the user's perspective.
 
 8. Hand the validated bundle/run ID to a separate WORK /rank conversation.
 

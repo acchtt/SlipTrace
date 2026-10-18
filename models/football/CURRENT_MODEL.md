@@ -59,11 +59,14 @@ research directly, and emits the same native V4 source/receipt contract consumed
 by Work `/rank`. Work acquisition/orchestration is fallback infrastructure,
 not the default sweep route.
 
-A sweep with actionable upstream research still pending is a checkpoint, not a
-completed handoff. Preserve the source snapshot and resume the same sweep without
-reacquiring complete date surfaces. If a partial verified subset is handed to
-rank, both stages must label it PARTIAL and preserve the exact upstream pending
-count.
+A sweep with actionable upstream research still pending after a genuine
+tool/provider failure is a checkpoint, not a completed handoff. Normal source
+acquisition, bounded history research, native V4 execution and durable
+rank-handoff persistence are one backend unit and must not be exposed as
+separate user Resume steps. Preserve the source snapshot and resume only the
+unresolved queue after a real interruption. If a partial verified subset is
+handed to rank, both stages must label it PARTIAL and preserve the exact upstream
+pending count.
 
 
 The sweep must acquire complete provider date surfaces before filtering, apply

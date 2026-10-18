@@ -1,24 +1,30 @@
-name: Football V4 normal-chat source acquisition
+name: Football V4 normal-chat sweep backend
 on:
   push:
     branches: [main]
     paths:
       - "models/football/stages_v4/normal_source_requests/**"
+      - "models/football/stages_v4/normal_research_targets/**"
       - "models/football/stages_v4/tools/normal_source.py"
+      - "models/football/stages_v4/tools/normal_finalize.py"
+      - "models/football/stages_v4/test_normal_source.py"
+      - "models/football/stages_v4/test_normal_finalize.py"
       - ".github/workflows/football-v4-normal-source.yml"
   pull_request:
     paths:
       - "models/football/stages_v4/tools/normal_source.py"
+      - "models/football/stages_v4/tools/normal_finalize.py"
       - "models/football/stages_v4/test_normal_source.py"
+      - "models/football/stages_v4/test_normal_finalize.py"
       - ".github/workflows/football-v4-normal-source.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  source:
+  sweep:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,9 +32,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Offline regression
-        run: python -m unittest models.football.stages_v4.test_normal_source -v
-      - name: Select exactly one new normal-chat source request
+
+      - name: Offline regressions
+        run: |
+          python -m unittest             models.football.stages_v4.test_normal_source             models.football.stages_v4.test_normal_finalize -v
+
+      - name: Select exactly one newly added normal-chat request
         id: req
         shell: bash
         run: |
@@ -41,21 +50,98 @@ jobs:
           count="$(printf '%s\n' "$files" | sed '/^$/d' | wc -l)"
           test "$count" -le 1
           echo "request=$files" >> "$GITHUB_OUTPUT"
-      - name: Acquire canonical source only
+
+      - name: Acquire and persist source gate
         if: steps.req.outputs.request != ''
         run: |
-          python models/football/stages_v4/tools/normal_source.py \
-            --request "${{ steps.req.outputs.request }}" \
-            --output v4-normal-source
-      - name: Upload canonical source bundle
+          python models/football/stages_v4/tools/normal_source.py             --request "${{ steps.req.outputs.request }}"             --output v4-normal-source
+
+      - name: Resolve target manifest without user resume
+        if: steps.req.outputs.request != ''
+        id: target
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_id="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path(os.environ["REQUEST"])
+          print(json.loads(p.read_text())["run_id"])
+          PY
+          )"
+          committed="models/football/stages_v4/normal_research_targets/${run_id}.json"
+          if test -f "$committed"; then
+            echo "targets=$committed" >> "$GITHUB_OUTPUT"
+          else
+            auto="/tmp/${run_id}-auto-targets.json"
+            python - "$auto" "$run_id" <<'PY'
+          import json,sys
+          from pathlib import Path
+          cp=json.loads(Path("v4-normal-source/checkpoint.json").read_text())
+          ids=list(dict.fromkeys(cp.get("research_order") or []))[:30]
+          Path(sys.argv[1]).write_text(json.dumps({
+              "run_id":sys.argv[2],
+              "selection_mode":"AUTO_NATIVE_PRIORITY_FALLBACK",
+              "targets":ids,
+          },indent=2)+"\n")
+          PY
+            echo "targets=$auto" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          REQUEST: ${{ steps.req.outputs.request }}
+
+      - name: Finalize bounded research and native V4
+        if: steps.req.outputs.request != ''
+        run: |
+          python models/football/stages_v4/tools/normal_finalize.py             --request "${{ steps.req.outputs.request }}"             --targets "${{ steps.target.outputs.targets }}"             --output v4-normal-final
+
+      - name: Upload final canonical bundle
         if: steps.req.outputs.request != ''
         id: bundle
         uses: actions/upload-artifact@v4
         with:
-          name: v4-normal-source-${{ github.run_id }}
-          path: v4-normal-source/
-          retention-days: 7
+          name: v4-normal-final-${{ github.run_id }}
+          path: v4-normal-final/
+          retention-days: 14
           if-no-files-found: error
+
+      - name: Persist canonical source, native receipt and rank handoff to main
+        if: steps.req.outputs.request != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_id="$(python - <<'PY'
+          import json, os
+          from pathlib import Path
+          print(json.loads(Path(os.environ["REQUEST"]).read_text())["run_id"])
+          PY
+          )"
+          stash="/tmp/${run_id}-persist"
+          mkdir -p "$stash"
+          cp v4-normal-final/source.json "$stash/source.json"
+          cp v4-normal-final/original-source.json "$stash/original-source.json"
+          cp v4-normal-final/v4_sweep_ready.json "$stash/v4_sweep_ready.json"
+          cp v4-normal-final/rank-handoff.json "$stash/rank-handoff.json"
+          cp v4-normal-final/checkpoint.json "$stash/checkpoint.json"
+          if test -f v4-normal-final/provenance.json; then
+            cp v4-normal-final/provenance.json "$stash/provenance.json"
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+          dest="models/football/stages_v4/recovery/${run_id}"
+          mkdir -p "$dest"
+          cp "$stash"/* "$dest"/
+          git add "$dest"
+          if ! git diff --cached --quiet; then
+            git commit -m "Persist ${run_id} native normal-chat sweep bundle"
+            git push origin HEAD:main
+          fi
+        env:
+          REQUEST: ${{ steps.req.outputs.request }}
+
       - name: Summary
         if: steps.req.outputs.request != ''
         env:
@@ -64,9 +150,14 @@ jobs:
           python - <<'PY'
           import json,os
           from pathlib import Path
-          cp=json.loads(Path("v4-normal-source/checkpoint.json").read_text())
+          cp=json.loads(Path("v4-normal-final/checkpoint.json").read_text())
           with open(os.environ["GITHUB_STEP_SUMMARY"],"a") as out:
               out.write(f"State: **{cp['status']}**\n\n")
-              out.write(f"Research queue: **{cp['pending_research_count']}**\n\n")
-              out.write(f"[Canonical source bundle]({os.environ['ARTIFACT_URL']})\n")
+              out.write(f"Native V4 ready: **{cp['native_v4_sweep_ready']}**\n\n")
+              out.write(f"Rank handoff ready: **{cp['rank_handoff_ready']}**\n\n")
+              out.write(f"Eligible targets: **{len(cp['eligible_match_ids'])}**\n\n")
+              out.write(f"Watch targets: **{len(cp['watch_match_ids'])}**\n\n")
+              out.write(f"Evidence-limited: **{len(cp['evidence_limited_match_ids'])}**\n\n")
+              out.write(f"Status excluded: **{len(cp['status_excluded_match_ids'])}**\n\n")
+              out.write(f"[Final canonical bundle]({os.environ['ARTIFACT_URL']})\n")
           PY

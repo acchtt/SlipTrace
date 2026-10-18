@@ -48,11 +48,25 @@ Football C assessment. Normal chat remains the sweep controller.
 
 A new sweep cannot enter research with
 `RESEARCH_PENDING_SOURCE_INCOMPLETE`, `source_snapshot_sha256=null`, or
-`full_date_source_attested=false`. Those states mean acquisition has not
-finished; stop research and complete the source gate instead.
+`full_date_source_attested=false`. Those states are **internal backend states,
+not user-facing resume states**. The sweep controller must complete the source
+backend itself before returning a research result.
+
+**Never tell the user to press Resume merely to obtain source attestation.**
+When the GitHub backend is available, the same sweep invocation must drive the
+request through source acquisition, bounded research finalization, native
+`stage.py sweep`, durable recovery persistence, and rank-handoff creation.
+Only a real backend/tool failure may stop the turn, and that failure must be
+reported explicitly rather than disguised as `RESEARCH_PENDING`.
 
 The first durable checkpoint of every new sweep must therefore be
 `SOURCE_READY_FOR_RESEARCH`. Only after that may fixture histories be fetched.
+The normal backend then finalizes the bounded target cohort and persists
+`source.json`, `v4_sweep_ready.json`, `checkpoint.json` and
+`rank-handoff.json` under
+`models/football/stages_v4/recovery/<run-id>/`. An Actions artifact by itself
+is not sufficient durable state.
+
 This prevents a chat from spending time screening a hand-picked subset and then
 blocking because the full provider union was never captured.
 
@@ -130,6 +144,11 @@ research rows left unresolved. If time/tool limits interrupt research:
 A user may explicitly send a partial verified subset to `/rank`, but it must
 remain labelled PARTIAL on both sides and its pending upstream count must stay
 visible. Rank must never make that partial board look like a completed window.
+
+For the normal bounded sweep path, source acquisition and native finalization are
+a single backend responsibility. Do not surface intermediate "full source
+attestation outstanding" messages after known research is complete. The backend
+must either persist a native rank handoff or return a concrete execution error.
 
 ## Rebuilt acquisition contract — complete date surfaces before registry
 

@@ -49,12 +49,14 @@ acquisition is unavailable it uses the dedicated source-only GitHub backend
 (`normal_source_requests/` -> `football-v4-normal-source.yml`). Manual web
 research cannot substitute for this source gate. Only then apply exclusions,
 research priority and goals-first qualification.
-Finish targeted upstream research in the same normal sweep chat before calling
-the handoff complete. Persist the immutable source before research and a durable
-v2 checkpoint after at most four fixture dispositions. If interrupted, /resume
-processes only the stored unresolved queue; resolved fixtures are never
-re-researched. Reacquire only when source freshness/validation requires one
-bounded new source epoch, then remap reusable research by exact fixture identity.
+Finish targeted upstream research in the same normal sweep invocation before
+calling the handoff complete. Persist the immutable source before research and a
+durable v2 checkpoint after at most four fixture dispositions. Source
+attestation/native finalization are internal backend phases and must not require
+a user /resume. If a genuine tool failure interrupts research, /resume processes
+only the stored unresolved queue; resolved fixtures are never re-researched.
+Reacquire only when source freshness/validation requires one bounded new source
+epoch, then remap reusable research by exact fixture identity.
 
 Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows, and
 do not use Work acquisition orchestration as the default new-sweep route.

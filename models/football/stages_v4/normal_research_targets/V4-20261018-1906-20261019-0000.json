@@ -1,0 +1,43 @@
+{
+  "run_id": "V4-20261018-1906-20261019-0000",
+  "selection_mode": "RECOVER_COMPLETED_NORMAL_CHAT_RESEARCH_ON_CANONICAL_SOURCE",
+  "targets": [
+    "1793591",
+    "1793588",
+    "1794702",
+    "1812728",
+    "1710465",
+    "1710463",
+    {
+      "match_id": "1838573",
+      "researchability_source_url": "https://www.qsl.qa/index.php/en/doha-bank-stars-league-fixtures-results"
+    },
+    "1709282",
+    "1794707",
+    "1793597",
+    "1785373",
+    {
+      "match_id": "1838574",
+      "researchability_source_url": "https://www.qsl.qa/index.php/en/doha-bank-stars-league-fixtures-results"
+    },
+    "1810728",
+    "1794703",
+    "1794706",
+    {
+      "match_id": "1821014",
+      "researchability_source_url": "https://turkishleague.net/match/basaksehir-vs-gaziantep-2026-10-18"
+    },
+    "1810733",
+    "1790254",
+    "1812731",
+    "1792838",
+    "1709284",
+    "1709281",
+    "1805884",
+    "1784483",
+    {
+      "match_id": "1800458",
+      "researchability_source_url": "https://czechleague.com/club/jablonec"
+    }
+  ]
+}
