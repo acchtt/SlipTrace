@@ -1,0 +1,369 @@
+{
+  "schema_version": "football-c-unattested-manual-research-index-v1",
+  "status": "RESEARCH_PENDING_UNATTESTED",
+  "canonical_model": "Football C",
+  "run_id": "V4-20261018-1622-20261018-2100",
+  "date": "2026-10-18",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "start": "16:22",
+  "end_inclusive": "21:00",
+  "native_v4_sweep_ready": false,
+  "rank_handoff_ready": false,
+  "source": {
+    "morning_run_id": "V4-20261018-0543-20261018-1200",
+    "source_sha256": "2d0133f20c9732055aa11cb5bce9c3ed844ef00e871bf3762003c5dc83ccf101",
+    "observed_at_utc": "2026-10-17T22:46:56.081504+00:00",
+    "old_snapshot_rows_in_window": 437,
+    "not_fresh": true
+  },
+  "admissions": [
+    {
+      "source_match_id": "1799857",
+      "kickoff_ict": "17:15",
+      "home": "RKC Waalwijk",
+      "away": "FC Volendam",
+      "priority_score": 60,
+      "recent_3plus": 0.55,
+      "recent_4plus": 0.45,
+      "draw_trap": 0.15,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1790246",
+      "kickoff_ict": "17:15",
+      "home": "PEC Zwolle",
+      "away": "Go Ahead Eagles",
+      "priority_score": 71,
+      "recent_3plus": 0.6875,
+      "recent_4plus": 0.625,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1847040",
+      "kickoff_ict": "18:00",
+      "home": "Bangkok United",
+      "away": "Port FC",
+      "priority_score": 64,
+      "recent_3plus": 0.75,
+      "recent_4plus": 0.4643,
+      "draw_trap": 0,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1813373",
+      "kickoff_ict": "18:30",
+      "home": "Dynamo Dresden",
+      "away": "Magdeburg",
+      "priority_score": 67,
+      "recent_3plus": 0.75,
+      "recent_4plus": 0.3125,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1813366",
+      "kickoff_ict": "18:30",
+      "home": "Karlsruher SC",
+      "away": "Darmstadt",
+      "priority_score": 57,
+      "recent_3plus": 0.64286,
+      "recent_4plus": 0.35714,
+      "draw_trap": 0.07143,
+      "path": "GOAL_REVIEW"
+    },
+    {
+      "source_match_id": "1784482",
+      "kickoff_ict": "19:00",
+      "home": "SønderjyskE",
+      "away": "Silkeborg",
+      "priority_score": 59,
+      "recent_3plus": 0.65,
+      "recent_4plus": 0.5,
+      "draw_trap": 0.2,
+      "path": "CARRIER_LEAKAGE_G3"
+    },
+    {
+      "source_match_id": "1793591",
+      "kickoff_ict": "20:00",
+      "home": "Brighton",
+      "away": "Crystal Palace",
+      "priority_score": 68,
+      "recent_3plus": 0.73889,
+      "recent_4plus": 0.63333,
+      "draw_trap": 0.15556,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1793588",
+      "kickoff_ict": "20:00",
+      "home": "AFC Bournemouth",
+      "away": "Sunderland",
+      "priority_score": 54,
+      "recent_3plus": 0.55556,
+      "recent_4plus": 0.27778,
+      "draw_trap": 0.11111,
+      "path": "GOAL_REVIEW"
+    },
+    {
+      "source_match_id": "1812728",
+      "kickoff_ict": "20:30",
+      "home": "Bayer Leverkusen",
+      "away": "Freiburg",
+      "priority_score": 76,
+      "recent_3plus": 0.8,
+      "recent_4plus": 0.7,
+      "draw_trap": 0,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1861498",
+      "kickoff_ict": "21:00",
+      "home": "Terengganu",
+      "away": "Johor Darul Ta'zim",
+      "priority_score": 72,
+      "recent_3plus": 0.7333,
+      "recent_4plus": 0.4667,
+      "draw_trap": 0.2167,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1790248",
+      "kickoff_ict": "19:30",
+      "home": "Cambuur",
+      "away": "AZ Alkmaar",
+      "priority_score": 62,
+      "recent_3plus": 0.5625,
+      "recent_4plus": 0.5,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE",
+      "home_last_competitive_gf_ga": [
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "away_last_competitive_gf_ga": [
+        [
+          2,
+          0
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "source_home": "https://fbref.com/en/squads/5c9e307a/2026-2027/c23/Cambuur-Stats-Eredivisie",
+      "source_away": "https://fbref.com/en/squads/3986b791/2026-2027/matchlogs/c23/schedule/AZ-Alkmaar-Scores-and-Fixtures-Eredivisie",
+      "source_kickoff": "https://www.knvb.nl/competities/eredivisie/programma"
+    },
+    {
+      "source_match_id": "1810732",
+      "kickoff_ict": "19:00",
+      "home": "Osasuna",
+      "away": "Racing Santander",
+      "priority_score": 70,
+      "recent_3plus": 0.6875,
+      "recent_4plus": 0.5625,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE",
+      "home_last_competitive_gf_ga": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "away_last_competitive_gf_ga": [
+        [
+          2,
+          2
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          0,
+          5
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "source_home": "https://fbref.com/en/squads/03c57e2b/2026-2027/matchlogs/c12/misc/Osasuna-Match-Logs-La-Liga",
+      "source_away": "https://fbref.com/en/squads/dee3bbc8/2026-2027/matchlogs/c12/misc/Racing-Santander-Match-Logs-La-Liga",
+      "source_kickoff": "https://www.laliga.com/en-US/match/temporada-2026-2027-laliga-ea-sports-ca-osasuna-r-racing-club-9"
+    }
+  ],
+  "nonadmissions": [
+    {
+      "fixture": "GIF Sundsvall–Värnamo",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 48
+    },
+    {
+      "fixture": "Lyngby–FC Nordsjælland",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 49
+    },
+    {
+      "fixture": "Leeds United–Manchester United",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 51
+    },
+    {
+      "fixture": "Tampines–Young Lions",
+      "status": "PENDING_GOAL_HISTORY",
+      "reason": "Only three Young Lions competitive games in 120-day lookback"
+    }
+  ],
+  "deferred_after_2100": [
+    {
+      "fixture": "Al Sadd–Al Duhail",
+      "kickoff_ict": "21:30",
+      "priority_score": 76
+    },
+    {
+      "fixture": "Molde–Start",
+      "kickoff_ict": "22:00",
+      "priority_score": 80
+    },
+    {
+      "fixture": "Al Gharafa–Al Rayyan",
+      "kickoff_ict": "23:45",
+      "priority_score": 64
+    }
+  ],
+  "required_next_steps": [
+    "Fresh provider date surfaces plus terminal sentinel",
+    "Verify prematch status and kickoff for full cohort",
+    "Complete unclassified cohort",
+    "Run native V4 stage.py sweep before ranking"
+  ],
+  "provenance_note": "Manual historical-goals research index; percentages are observed historical proportions, not forecasts or bet odds. Full original score arrays and original morning source preserved in the conversation's V4-20261018-1622-2100-research-resume.zip. This index is NOT a native V4 receipt.",
+  "prematch_kickoff_passed_no_retrofreeze": [
+    "1799857",
+    "1790246"
+  ],
+  "remaining_high_quality_research_queue": [
+    [
+      "1709286",
+      "Sarpsborg 08–Rosenborg",
+      "19:30"
+    ],
+    [
+      "1710466",
+      "Sirius–Elfsborg",
+      "19:00"
+    ],
+    [
+      "1710467",
+      "Vasteraas SK–Mjaellby",
+      "19:00"
+    ],
+    [
+      "1785376",
+      "Fiorentina–Como",
+      "20:00"
+    ],
+    [
+      "1785405",
+      "Udinese–Lecce",
+      "17:30"
+    ]
+  ],
+  "research_note": "12 historical-goal admissions total including two 17:15 audit-only. Other previously recorded dispositions and after-21:00 archived. Full recent team goals for two new admissions retained above. No fresh source attestation/native V4."
+}
