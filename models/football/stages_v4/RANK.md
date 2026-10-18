@@ -32,7 +32,8 @@ Use one native V4 rank handoff from one of these provenance-preserving routes:
   `source.json`, `v4_sweep_ready.json`, `rank-handoff.json` and
   `checkpoint.json`, produced by current V4 execution or the original-source
   attestation fallback.
-- Original-source replay: `v4-original-source-attested-receipts` artifact.
+- Original-source replay: `v4-original-source-attested-receipts` artifact,
+  containing `<run>-source.json`, `<run>-v4_sweep_ready.json` and its handoff.
 - Existing historical **Work-native sweep** artifacts remain acceptable when
   provenance checks pass, but Work acquisition is no longer the default sweep.
 
@@ -40,6 +41,10 @@ For `/rank newest receipt`, resolve the newest canonical sweep handoff for the
 requested window/source run, preferably the exact bundle linked by normal
 `/sweep`. Verify source hash and receipt integrity. A failed or newer partial
 run is an explicit state; never silently substitute an older source run.
+
+The resolver does not search historical runs to substitute a different source
+bundle. A failed or partial newest run remains explicit rather than falling back
+silently.
 
 A `RESEARCH_PENDING` sweep bundle may rank its verified eligible subset only
 as a **PARTIAL** board. The rank response must state the exact upstream pending
