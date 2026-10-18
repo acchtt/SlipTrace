@@ -79,7 +79,11 @@ class WorkSweepTests(unittest.TestCase):
             block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [fixture]}
             def fetch(url):
                 if '/date/' in url:
-                    payload = {'Stages': [block]}
+                    surface_event = copy.deepcopy(fixture)
+                    # The ICT endpoint reports ICT wall time; UTC reports UTC.
+                    surface_event['Esd'] = '20261013020000' if '/7?' in url else '20261012190000'
+                    surface_block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [surface_event]}
+                    payload = {'Stages': [surface_block]}
                 else:
                     team = url.split('/team/')[1].split('/')[0]
                     games = [event(str(200 + i), kickoff=f'2026100{i+1}180000') for i in range(4)]
@@ -97,10 +101,14 @@ class WorkSweepTests(unittest.TestCase):
     def test_terminal_union_mismatch_blocks_before_history_fetch(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            fixture = event('100', 'NS', kickoff='20261012190000')
-            block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [fixture]}
+            fixture_ict = event('100', 'NS', kickoff='20261013020000')
+            fixture_utc = event('100', 'NS', kickoff='20261012190000')
+            block_ict = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [fixture_ict]}
+            block_utc = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [fixture_utc]}
             work.save(root / 'request.json', {'run_id': 'V4-test', 'window_start_ict': '2026-10-12T18:10:00Z', 'window_end_ict': '2026-10-12T20:00:00Z'})
-            responses = [(json.dumps({'Stages': [block]}).encode(), NOW)] * 2 + [(b'{"Stages": []}', NOW)]
+            responses = [(json.dumps({'Stages': [block_ict]}).encode(), NOW),
+                         (json.dumps({'Stages': [block_utc]}).encode(), NOW),
+                         (b'{"Stages": []}', NOW)]
             with patch.object(work, 'utcnow', return_value=NOW), patch.object(work, 'fetch', side_effect=responses) as fetcher:
                 self.assertEqual(work.run(root / 'request.json', root / 'out'), 2)
             self.assertEqual(fetcher.call_count, 3)
