@@ -177,10 +177,12 @@ class ResearchedRegistryTests(unittest.TestCase):
             "CONDITIONAL",
         )
 
-    def test_verified_women_topflight_and_competitive_cups_without_global_scan(self):
-        self.assertEqual(classify(fixture(
+    def test_non_japan_women_topflight_excluded_but_japan_women_cups_retained(self):
+        england = classify(fixture(
             "w1","England","Women's Super League","WOMENS_TOP_FLIGHT"
-        ))["lane"],"CONDITIONAL")
+        ))
+        self.assertEqual(england["lane"],"EXCLUDED")
+        self.assertEqual(england["reason"],"USER_WOMENS_DOMESTIC_EXCLUSION")
         self.assertEqual(classify(fixture(
             "cup1","Japan","WE League Cup","DOMESTIC_CUP"
         ))["lane"],"CONDITIONAL")
@@ -351,14 +353,16 @@ class SweepV4Tests(unittest.TestCase):
             fixture("m4","England","Women's Super League","WOMENS_TOP_FLIGHT",proof="VERIFIED"),
         ])
         result = sweep(src,now=NOW)
-        self.assertEqual(result["eligible_count"],3)
+        self.assertEqual(result["eligible_count"],2)
         self.assertEqual(result["pending_researchability_count"],1)
         self.assertEqual(result["fixture_count"],4)
-        self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3","m4"})
+        self.assertEqual({x["match_id"] for x in result["eligible_queue"]},{"m1","m3"})
         by_id = {x["match_id"]: x for x in result["eligible_queue"]}
         self.assertEqual(by_id["m1"]["operational_grade"], "A")
         self.assertEqual(by_id["m3"]["operational_grade"], "A")
-        self.assertEqual(by_id["m4"]["operational_grade"], "A")
+        m4 = next(x for x in result["source_ledger"] if x["match_id"] == "m4")
+        self.assertEqual(m4["registry_lane"], "EXCLUDED")
+        self.assertEqual(m4["reason"], "USER_WOMENS_DOMESTIC_EXCLUSION")
         self.assertEqual(
             by_id["m3"]["operational_grade_basis"],
             "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
