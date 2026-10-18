@@ -11,7 +11,8 @@ Only the first slash command routes the message.
 | /xi | One Football C assessment with optional observed/executable price check |
 | /xi exception | Explicit user-requested C assessment outside routine board authority |
 | /live | Same Football C assessment using current started-match state |
-| /audit | Post-slate audit |
+| /audit | Normal-chat lightweight audit with automatic deep escalation |
+| /audit deep | Work-only structural audit; normally entered only from an audit handoff |
 | /report | Read-only current report |
 
 Aliases are case-insensitive. Text after the command is normal launcher input.
@@ -24,7 +25,8 @@ Aliases are case-insensitive. Text after the command is normal launcher input.
 | RANK | **ChatGPT Work** | `models/football/stages_v4/RANK.md` |
 | XI / XI exception | **Normal chat** | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` |
 | LIVE | **Normal chat** | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` |
-| AUDIT | **ChatGPT Work** | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
+| AUDIT | **Normal chat** | `models/football/prompts/04_NORMAL_CHAT_AUDIT.md` |
+| AUDIT DEEP | **ChatGPT Work** | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
 | REPORT | **Normal chat** | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` |
 
 Normal chat does not mean free-form model decisions. `/xi` and `/live` must
@@ -104,7 +106,23 @@ material events. Do not recreate prematch action after kickoff.
 
 ## /audit
 
-Audit frozen prospective evidence against actual outcomes. Never rewrite
+The user normally uses only `/audit`. Run it in normal chat and inspect the
+smallest relevant set of frozen receipts, board rows, decisions and outcomes.
+Diagnose the incident before considering implementation.
+
+Escalate automatically only when the issue is structural: repeated across
+fixtures/slates, caused by conflicting authority, unresolved source/runtime/
+persistence integrity, or requiring code/repository inspection and regression
+tests. In that case finish with `DEEP AUDIT REQUIRED` plus the compact handoff
+defined by the audit launcher.
+
+The user should not have to decide between routine and deep audit.
+
+## /audit deep
+
+Work-only escalation target. Consume the normal-audit handoff rather than
+re-reading the whole conversation. Perform repository-wide/rule/runtime
+inspection and regression testing only for the named defect scope. Never rewrite
 historical decisions. Retired C2/C3/C4 records are read-only audit material.
 
 ## /report

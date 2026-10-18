@@ -1,0 +1,21 @@
+FOOTBALL V2 — WORK /AUDIT DEEP LAUNCHER
+======================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+Conversation surface: CHATGPT WORK
+
+This launcher is normally entered only after normal /audit emits:
+DEEP AUDIT REQUIRED
+
+Load:
+- models/football/CURRENT_MODEL.md
+- models/football/prompts/COMMAND_ALIASES.md
+- models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
+
+Use the compact deep-audit handoff as the primary input. Do not make the user
+reconstruct the entire previous conversation.
+
+Perform only the repository/rule/runtime/persistence investigation named in the
+handoff. Patch code and run regression tests only when implementation was
+explicitly requested.

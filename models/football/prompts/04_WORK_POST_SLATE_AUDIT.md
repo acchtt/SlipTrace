@@ -1,48 +1,58 @@
-# /audit — Football C post-slate audit
+# /audit deep — Football C structural audit
 
-> **Work conversation role — AUDIT ONLY.** This entire conversation is
-> dedicated to auditing the current Football C implementation in
-> `acchtt/SlipTrace`: evidence integrity, procedural consistency, frozen
-> decisions, outcomes, runtime gates, and confirmed defects. Load this
-> launcher and the current Football C authority from SlipTrace main before
-> auditing. Do not execute a new /sweep, /rank, /xi, or /live slate in this
-> conversation or turn historical results into retrospective decisions.
-> Diagnose and report evidence-backed findings before proposing changes.
-> Code patches and regression tests are allowed only when the user explicitly
-> requests implementation; they remain scoped to SlipTrace and must not
-> silently change predictive rules. Never access or modify `acchtt/FOM-v1`
-> as part of this audit. If the user explicitly requests another operational
-> stage, load its canonical launcher in a separate stage-dedicated Work task.
+> **Work conversation role — DEEP AUDIT ONLY.** This is not the default /audit.
+> Enter this route only when normal `/audit` has emitted
+> `DEEP AUDIT REQUIRED` with a compact handoff, or when the user explicitly
+> requests repository-wide structural audit/implementation. Load current
+> SlipTrace main and consume the handoff first. Do not re-read the whole prior
+> conversation unless a named evidence gap requires it.
 
+Football C is the only active model. C2/C3/C4 are immutable historical audit
+material only. Never access or modify `acchtt/FOM-v1`.
 
-Football C is the only active model. C2/C3/C4 records are immutable historical
-audit material only.
+## Input contract
 
-Audit frozen prospective evidence against observed outcomes without rewriting
-past ranks, boards, actions, bets or prices.
+Require the compact normal-audit handoff where available:
 
-For each material fixture compare:
+- defect class;
+- affected fixture/run IDs and time window;
+- decisive frozen prospective evidence;
+- observed failure;
+- suspected rule/runtime/persistence area;
+- causes already ruled out;
+- exact questions for this deep pass;
+- recommended regression cases;
+- whether implementation was explicitly requested.
 
-- Step-0 intake/screen result;
-- C rank and board state;
-- certified burden and funded G3/G4/G5/G6;
-- FOLLOW/RESERVE/STOP;
-- /xi C action when it genuinely executed;
-- WAIT target/reachability where applicable;
-- actual outcome and exact settlement only when official exposure existed.
+Use that handoff to bound the Work task. Fetch additional repo/receipt evidence
+only when it answers one of those questions.
 
-Diagnose separately:
+## Deep-audit work
 
-- screening miss;
-- ranking inversion;
-- certificate false positive/negative;
-- availability/evidence asymmetry;
-- unrealistic WAIT;
-- execution/process miss;
-- no-official-exposure opportunity cost.
+Deep audit may inspect:
 
-Do not use the final score to rewrite the original football evidence. New
-calibration proposals must use facts that were available prospectively.
+- current Football C authority and conflicting launchers;
+- sweep/rank/xi/live runtime implementation;
+- cross-board recurrence of the named defect;
+- source/persistence integrity;
+- regression tests and historical prospective fixtures needed to reproduce the
+  implementation behavior.
 
-Retired-model outcomes can be compared historically when useful, but they have
-zero production authority.
+Keep model failure separate from workflow/implementation failure.
+
+Code patches and regression tests are allowed only when the user explicitly
+requested implementation. Predictive thresholds must not be silently changed
+as a side effect of a workflow repair.
+
+## Output
+
+Return:
+
+1. root cause;
+2. evidence showing why it is structural rather than a one-off;
+3. affected authority/runtime files;
+4. repair, if implementation was authorized;
+5. regression tests/results;
+6. any migration or rerun required.
+
+Do not recreate historical decisions or use final scores to backfit Football C.

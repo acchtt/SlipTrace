@@ -19,13 +19,14 @@ The active command surface is:
 - /rank -> models/football/stages_v4/RANK.md
 - /xi and /xi exception -> models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md
 - /live -> the same Football C assessment with current live state
-- /audit -> models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
+- /audit -> models/football/prompts/04_NORMAL_CHAT_AUDIT.md
+- /audit deep -> models/football/prompts/04_WORK_POST_SLATE_AUDIT.md (internal escalation target)
 - /report -> models/football/prompts/06_NORMAL_CHAT_REPORT.md
 
 ### Conversation/runtime routing
 
-- **Normal chat:** `/sweep`, `/xi`, `/xi exception`, `/live`, `/report`.
-- **ChatGPT Work:** `/rank`, `/audit`.
+- **Normal chat:** `/sweep`, `/xi`, `/xi exception`, `/live`, `/audit`, `/report`.
+- **ChatGPT Work:** `/rank`; `/audit deep` only after normal `/audit` emits `DEEP AUDIT REQUIRED`.
 
 Conversation type is an operational surface, not model authority. Football C and
 the native V4/runtime receipts remain authoritative regardless of chat surface.
@@ -328,8 +329,38 @@ The old board_pair_cli.py, decision_pair_cli.py and C2 challenger documents may
 remain solely for frozen historical audit/regression. Active launchers,
 routing, CI and production stages must not import or require them.
 
+## /audit — lightweight diagnosis with automatic deep escalation
+
+**Conversation surface: NORMAL CHAT by default.**
+
+Routine `/audit` reads only the relevant frozen receipts/rows/evidence needed
+for the incident or slate. It diagnoses screening, ranking, certificate,
+WAIT/execution, availability/incentive and workflow failures without rewriting
+history and without loading the whole repository by default.
+
+The user does not need to decide whether a deep audit is required. Normal
+`/audit` escalates only when it detects a structural implementation problem,
+for example:
+
+- the same defect pattern repeats across multiple fixtures/slates;
+- authoritative Football C rules or launchers conflict;
+- source/persistence/runtime integrity cannot be resolved from the relevant
+  receipts alone;
+- fixing the defect requires repository-wide inspection, code changes or
+  regression tests.
+
+When escalation is justified, normal `/audit` must end with
+`DEEP AUDIT REQUIRED` and emit a compact handoff containing the affected
+fixtures/receipts, frozen prospective evidence, defect class, suspected
+rule/runtime area, what has already been ruled out, and the exact questions or
+tests for Work. It must not duplicate a repo-wide investigation in normal chat.
+
+`/audit deep` is the Work-only escalation target. It consumes that compact
+handoff, performs the broader repository/regression investigation, and may patch
+code only when the user has explicitly requested implementation.
+
 ## Audit invariant
 
-/audit compares frozen prospective evidence with outcomes without rewriting
-history. Retired-model history can be inspected, but only Football C may
-produce a new production model judgment.
+All audit modes compare frozen prospective evidence with outcomes without
+rewriting history. Retired-model history can be inspected, but only Football C
+may produce a new production model judgment.

@@ -20,7 +20,9 @@ Do not load Football A or retired C2/C3/C4 rules into a new production decision.
 
 ## Conversation workflow
 
-`Normal /sweep -> Work /rank -> Normal /xi -> Normal /live -> Work /audit`
+`Normal /sweep -> Work /rank -> Normal /xi -> Normal /live -> Normal /audit`
+
+`/audit deep -> Work` only when normal audit escalates
 
 - **Normal /sweep:** acquire once, research the targeted cohort directly, and
   produce the native V4 handoff. Unfinished upstream research remains a visible
@@ -31,7 +33,10 @@ Do not load Football A or retired C2/C3/C4 rules into a new production decision.
   C runtime remains the official decision authority.
 - **Normal /live:** current-epoch football assessment; no retrospective prematch
   action and no invented live execution authority.
-- **Work /audit:** deep cross-board/repo reconciliation and regression work.
+- **Normal /audit:** lightweight targeted diagnosis. It automatically decides
+  whether structural escalation is required.
+- **Work /audit deep:** only after `DEEP AUDIT REQUIRED`; consume the compact
+  handoff for repo-wide/rule/runtime/regression work.
 
 Frozen historical states remain immutable. If this protocol conflicts with
 `CURRENT_MODEL.md`, `CURRENT_MODEL.md` wins.

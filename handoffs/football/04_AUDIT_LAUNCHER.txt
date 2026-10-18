@@ -1,15 +1,29 @@
-FOOTBALL V2 — WORK /AUDIT LAUNCHER
-=================================
+FOOTBALL V2 — NORMAL CHAT /AUDIT LAUNCHER
+=========================================
 
 Repo: acchtt/SlipTrace
 Branch: main
-Conversation surface: CHATGPT WORK
+Conversation surface: NORMAL CHAT
 
 Load:
 - models/football/CURRENT_MODEL.md
 - models/football/prompts/COMMAND_ALIASES.md
-- models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
+- models/football/prompts/04_NORMAL_CHAT_AUDIT.md
 
-Audit frozen Football C evidence against outcomes without rewriting history.
-Use Work for repo-wide, multi-board, regression and implementation analysis.
-Do not run a new /sweep, /rank, /xi or /live slate inside the audit task.
+The user normally uses only /audit.
+
+Start with the smallest relevant frozen receipts/rows/evidence. Diagnose
+screening, ranking, certificate, WAIT/execution, availability/incentive and
+workflow failures without rewriting history.
+
+If the problem is resolvable from the targeted evidence, finish in normal chat.
+
+If the audit detects a repeated/structural defect, conflicting current
+authority, unresolved runtime/source/persistence integrity, or a repair that
+requires repo-wide code inspection/regression tests, end with:
+
+DEEP AUDIT REQUIRED
+
+and emit the compact handoff defined by 04_NORMAL_CHAT_AUDIT.md.
+
+Do not perform the repo-wide deep pass in the normal audit conversation.

@@ -11,7 +11,8 @@
 | `/rank` | `models/football/stages_v4/RANK.md` | **ChatGPT Work** |
 | `/xi`, `/xi exception` | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` | **Normal chat** |
 | `/live` | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` | **Normal chat** |
-| `/audit` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | **ChatGPT Work** |
+| `/audit` | `models/football/prompts/04_NORMAL_CHAT_AUDIT.md` | **Normal chat** |
+| `/audit deep` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | **ChatGPT Work; escalation only** |
 | `/report` | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` | **Normal chat** |
 
 Normal `/sweep` acquires once, finishes targeted upstream research, and emits
@@ -24,6 +25,12 @@ is unavailable, return ANALYSIS_ONLY.
 
 Normal `/live` uses current-epoch Football C assessment. A live priced action
 exists only where a promoted deterministic live policy explicitly authorizes it.
+
+Normal `/audit` is the default audit route and should inspect only the relevant
+frozen evidence. The user does not need to choose a deep mode. If a repeated or
+structural implementation defect requires repository-wide inspection or tests,
+normal audit emits `DEEP AUDIT REQUIRED` plus a compact handoff for Work
+`/audit deep`.
 
 Google Sheets `Football v2 — Active Operations`
 (`1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM`) is the active store.
