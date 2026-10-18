@@ -1284,6 +1284,11 @@ def _market_disagreement_recheck_gate(
         and observed_line >= 3.0
         and frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
     )
+    prior_reclassification_recheck = (
+        material_gap
+        and observed_line >= 3.0
+        and frozen_g4_status == "G4_RESEARCH_COMPLETE_REJECTED"
+    )
     if not material_gap:
         return {
             "market_disagreement_recheck_required": False,
@@ -1296,6 +1301,7 @@ def _market_disagreement_recheck_gate(
             "market_disagreement_recheck_basis": "NOT_REQUIRED",
             "frozen_board_g4_research_status": frozen_g4_status,
             "certificate_completeness_recheck_required": False,
+            "prior_certificate_reclassification_recheck_required": False,
         }
 
     status = ctx_obj.get("market_disagreement_recheck_status")
@@ -1357,6 +1363,7 @@ def _market_disagreement_recheck_gate(
         "market_disagreement_recheck_missing_fields": missing_required_fields,
         "frozen_board_g4_research_status": frozen_g4_status,
         "certificate_completeness_recheck_required": completeness_recheck,
+        "prior_certificate_reclassification_recheck_required": prior_reclassification_recheck,
     }
 
 
@@ -1413,6 +1420,7 @@ def _certificate_upgrade_gate(
             "NOT_UPGRADED",
             "VERIFIED_NEW_FOOTBALL_EVIDENCE",
             "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH",
+            "VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION",
             "NO_FROZEN_BOARD",
         },
     )
@@ -1465,18 +1473,61 @@ def _certificate_upgrade_gate(
             frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
             and status == "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH"
         )
+        prior_misclassification_repair = (
+            frozen_g4_status == "G4_RESEARCH_COMPLETE_REJECTED"
+            and status == "VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION"
+        )
         if completion_repair:
             if not fields or not (set(fields) & G4_COMPLETENESS_FIELDS):
                 raise ContractError(
                     "CERTIFICATE COMPLETENESS UPGRADE BLOCKED — name the "
                     "previously unassessed G4 certificate fields"
                 )
+        elif prior_misclassification_repair:
+            recheck_status = ctx_obj.get("market_disagreement_recheck_status")
+            recheck_basis = ctx_obj.get("market_disagreement_recheck_basis")
+            recheck_fields = ctx_obj.get("market_disagreement_recheck_fields")
+            recheck_refs = ctx_obj.get("market_disagreement_recheck_evidence_refs")
+            valid_recheck = (
+                recheck_status == "COMPLETED"
+                and isinstance(recheck_basis, str)
+                and bool(recheck_basis.strip())
+                and isinstance(recheck_fields, list)
+                and isinstance(recheck_refs, list)
+                and bool(recheck_refs)
+                and all(isinstance(x, str) and x.strip() for x in recheck_refs)
+            )
+            if not valid_recheck:
+                raise ContractError(
+                    "PRIOR CERTIFICATE RECLASSIFICATION BLOCKED — complete the "
+                    "source-backed football disagreement recheck first"
+                )
+            normalized_recheck_fields = {
+                x.strip()
+                for x in recheck_fields
+                if isinstance(x, str) and x.strip()
+            }
+            required_tail_fields = {
+                "upper_tail_transferability",
+                "upper_tail_comparable_context_signal",
+            }
+            if not required_tail_fields.issubset(normalized_recheck_fields):
+                raise ContractError(
+                    "PRIOR CERTIFICATE RECLASSIFICATION BLOCKED — recheck must "
+                    "verify upper-tail transferability and comparable context"
+                )
+            if not fields or not (set(fields) & G4_COMPLETENESS_FIELDS):
+                raise ContractError(
+                    "PRIOR CERTIFICATE RECLASSIFICATION BLOCKED — name the "
+                    "certificate-relevant G4 fields that were previously "
+                    "misclassified or underweighted"
+                )
         else:
             if status != "VERIFIED_NEW_FOOTBALL_EVIDENCE":
                 raise ContractError(
-                    "CERTIFICATE UPGRADE BLOCKED — current certified burden exceeds "
-                    "a complete/legacy frozen board burden without "
-                    "VERIFIED_NEW_FOOTBALL_EVIDENCE"
+                    "CERTIFICATE UPGRADE BLOCKED — higher current burden requires "
+                    "VERIFIED_NEW_FOOTBALL_EVIDENCE, completed G4 research repair, "
+                    "or VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION"
                 )
             if not fields:
                 raise ContractError(

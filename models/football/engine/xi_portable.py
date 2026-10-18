@@ -219,6 +219,9 @@ def assess_user_screenshot(
         "certificate_completeness_recheck_required": result.get(
             "certificate_completeness_recheck_required", False
         ),
+        "prior_certificate_reclassification_recheck_required": result.get(
+            "prior_certificate_reclassification_recheck_required", False
+        ),
         "execution_authorized": False,
     }
 

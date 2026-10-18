@@ -162,20 +162,34 @@ domestic scoring. The market never manufactures a certificate.
 For every ranked fixture, `/xi` must carry both the frozen certified burden and
 `frozen_board_g4_research_status`.
 
-If the frozen status is `G4_RESEARCH_COMPLETE_REJECTED` (or a legacy board
-without an explicit completeness state), any higher current C certificate still
-requires `VERIFIED_NEW_FOOTBALL_EVIDENCE`: name the genuinely changed
-certificate-relevant football fields and give a non-empty basis.
+If the frozen status is `G4_RESEARCH_COMPLETE_REJECTED`, a material market
+disagreement still forces one independent **football reclassification recheck**.
+The market is only the trigger. It does not overturn the frozen rejection.
+
+After that source-backed recheck, a higher current C certificate is allowed by
+either:
+
+- `VERIFIED_NEW_FOOTBALL_EVIDENCE` when genuinely changed XI/incentive/
+  mechanism evidence changes certificate-relevant fields; or
+- `VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION` when the same prospective
+  football evidence available at rank was misclassified or underweighted.
+
+The misclassification route requires a completed disagreement recheck,
+non-empty source/evidence references, explicit verification of
+`upper_tail_transferability` and
+`upper_tail_comparable_context_signal`, and named G4 certificate fields whose
+classification changed. The legacy contract field
+`certificate_upgrade_new_evidence_fields` carries those named fields even when
+the status says they are reclassified rather than genuinely new.
 
 If the frozen status is `G4_RESEARCH_INCOMPLETE`, a higher current C
-certificate may instead use
+certificate may use
 `VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH`, but only after the previously
-unassessed G4 fields are actually researched and named. Re-reading already
-incorporated evidence, merely confirming the same XI/routes, or observing a
-higher market total is insufficient.
+unassessed G4 fields are actually researched and named.
 
-This distinction repairs incomplete rank research without allowing market
-prices to override a genuinely completed Football C rejection.
+A higher market total alone, merely confirming the same XI, or repeating the
+old rank conclusion is never enough. The independent football recheck must
+either confirm the rejection or produce a deterministic C certificate repair.
 
 ## WAIT
 

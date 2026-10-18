@@ -236,6 +236,120 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
             "G4_RESEARCH_INCOMPLETE",
         )
 
+    def test_complete_rejected_g4_disagreement_requires_independent_reclassification_recheck(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"].update(
+            g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            g4_carrier_path="FAILED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="FAILED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis=(
+                "Frozen rank completed the G4 review and rejected the fourth goal."
+            ),
+        )
+        c["context"].update(
+            frozen_board_certified_burden=2.5,
+            frozen_board_g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+        )
+        out = run_xi(c, snapshot(c, line=3.25, odds=1.72))
+        price = out["price_check"]
+        self.assertEqual(price["status"], "MARKET_DISAGREEMENT_RECHECK_REQUIRED")
+        self.assertTrue(
+            price["model"]["prior_certificate_reclassification_recheck_required"]
+        )
+
+    def test_complete_rejected_g4_can_be_corrected_after_source_backed_reclassification(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"].update(
+            g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            g4_carrier_path="FAILED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="FAILED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis=(
+                "Frozen rank completed the G4 review and rejected the fourth goal."
+            ),
+        )
+        c["context"].update(
+            frozen_board_certified_burden=2.5,
+            frozen_board_g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+        )
+
+        # The market triggers the recheck, but the upgrade comes from a
+        # source-backed football correction of the prior certificate.
+        c = wait_ready(c)
+        c["match"].update(
+            g4_research_status="G4_RESEARCH_COMPLETE_FUNDED",
+            g4_carrier_path="SUPPORTED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="SUPPORTED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis=(
+                "Independent recheck found the same prospective football evidence "
+                "had been underweighted at rank; the carrier/reply G4 path is funded."
+            ),
+        )
+        complete_market_disagreement_recheck(
+            c,
+            fields=[
+                "g4_carrier_path",
+                "g4_reply_path",
+                "g4_continuation_after_g3",
+                "upper_tail_transferability",
+                "upper_tail_comparable_context_signal",
+            ],
+        )
+        c["context"].update(
+            certificate_upgrade_status="VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION",
+            certificate_upgrade_basis=(
+                "Independent source-backed recheck corrected the prior rank "
+                "classification; the bookmaker line did not create the certificate."
+            ),
+            certificate_upgrade_new_evidence_fields=[
+                "g4_carrier_path",
+                "g4_reply_path",
+                "upper_tail_transferability",
+                "upper_tail_comparable_context_signal",
+            ],
+        )
+        out = run_xi(c, snapshot(c, line=3.5, odds=1.72))
+        price = out["price_check"]
+        self.assertEqual(price["status"], "OBSERVED_QUOTE_EVALUATED")
+        self.assertEqual(price["model"]["supported_line"], 3.5)
+        self.assertFalse(price["model"]["prior_certificate_reclassification_recheck_required"])
+        self.assertIn(
+            price["model"]["conditional_action"],
+            {"ACT", "WAIT", "PASS"},
+        )
+
+    def test_prior_misclassification_upgrade_requires_completed_source_backed_recheck(self):
+        c = wait_ready(
+            football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        )
+        c["match"].update(
+            g4_research_status="G4_RESEARCH_COMPLETE_FUNDED",
+            g4_carrier_path="SUPPORTED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="SUPPORTED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis="Current deterministic football recheck funds G4.",
+        )
+        c["context"].update(
+            frozen_board_certified_burden=2.5,
+            frozen_board_g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            certificate_upgrade_status="VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION",
+            certificate_upgrade_basis=(
+                "Claimed prior misclassification without completed disagreement recheck."
+            ),
+            certificate_upgrade_new_evidence_fields=["g4_carrier_path"],
+        )
+        with self.assertRaisesRegex(
+            AssertionError,
+            "PRIOR CERTIFICATE RECLASSIFICATION BLOCKED",
+        ):
+            run_xi(c, snapshot(c, line=3.5, odds=1.72))
+
     def test_g4_disagreement_requires_upper_tail_and_comparable_context_fields(self):
         c = complete_market_disagreement_recheck(
             wait_ready(

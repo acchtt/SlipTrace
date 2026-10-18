@@ -247,17 +247,27 @@ whose result can override or dilute C.
 
 Use only the user-supplied quote when that is the declared evidence source.
 
-A ranked fixture also carries its frozen board certificate into `/xi`. If the
-current certificate exceeds that frozen ceiling, C requires verified new
-football evidence in named certificate-relevant fields. A higher screenshot
-burden or simple preservation of the same pre-rank mechanism cannot authorize
-the upgrade.
-
-Do not fetch a replacement quote.
+A ranked fixture also carries its frozen board certificate into `/xi`. A
+higher screenshot burden can never authorize an upgrade by itself.
 
 If the observed market burden materially exceeds C's certified burden, the
-disagreement may trigger one football-evidence recheck. It never enters the
-ranking key and never creates G3/G4/G5/G6.
+disagreement triggers one independent football-evidence recheck. That recheck
+may produce a higher current certificate only through one of three explicit
+paths:
+
+- genuinely changed football evidence:
+  `VERIFIED_NEW_FOOTBALL_EVIDENCE`;
+- previously incomplete G4 research:
+  `VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH`;
+- a source-backed correction where rank had marked G4 complete-rejected but the
+  same prospective evidence was misclassified/underweighted:
+  `VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION`.
+
+The third path must name the reclassified G4 fields and verify upper-tail
+transferability plus comparable context with non-market evidence. The market
+remains only the trigger and never creates G3/G4/G5/G6.
+
+Do not fetch a replacement quote.
 
 ### Fragile WATCH WAIT activation
 
