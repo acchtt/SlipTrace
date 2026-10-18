@@ -44,8 +44,13 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def event_time(event):
-    return datetime.strptime(str(event["Esd"]), "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc).isoformat()
+def event_time(event, surface_offset_hours=0):
+    # LiveScore returns Esd in the timezone requested by the date endpoint.
+    # Normalize ICT and UTC views to one instant before merging date surfaces.
+    source_tz = timezone(timedelta(hours=surface_offset_hours))
+    return datetime.strptime(str(event["Esd"]), "%Y%m%d%H%M%S").replace(
+        tzinfo=source_tz
+    ).astimezone(timezone.utc).isoformat()
 
 
 def event_identity(event):
@@ -146,7 +151,8 @@ def acquire(request, evidence):
     fixtures, identities, surfaces = {}, {}, []
     for key in keys:
         basis, day = key.split(":")
-        url = DATE_URL.format(day=day.replace("-", ""), offset=7 if basis == "ICT" else 0)
+        offset = 7 if basis == "ICT" else 0
+        url = DATE_URL.format(day=day.replace("-", ""), offset=offset)
         payload, proof = evidence.get(url, key.replace(":", "-"))
         blocks, ids = [], []
         for block in stage_blocks(payload):
@@ -159,14 +165,14 @@ def acquire(request, evidence):
                 identity = event_identity(event)
                 if mid in identities and identities[mid] != identity:
                     raise ValueError("conflicting date-surface team identity: " + mid)
-                if mid in fixtures and fixtures[mid]["kickoff_utc"] != event_time(event):
+                if mid in fixtures and fixtures[mid]["kickoff_utc"] != event_time(event, offset):
                     raise ValueError("conflicting date-surface kickoff: " + mid)
                 identities[mid] = identity
                 fixtures[mid] = {"match_id": mid, "country": block.get("Cnm") or block["Csnm"],
                                  "competition": block["Snm"], "competition_kind": competition_kind(block),
                                  "is_friendly": any(x in block["Snm"].lower() for x in ("friendly", "friendlies")),
                                  "home": event["T1"][0]["Nm"], "away": event["T2"][0]["Nm"],
-                                 "kickoff_utc": event_time(event), "fixture_status": event_status(event),
+                                 "kickoff_utc": event_time(event, offset), "fixture_status": event_status(event),
                                  "source_url": url, "observed_at_utc": proof["observed_at_utc"],
                                  "provider_team_ids": list(identity)}
         surfaces.append({"surface_key": key, "source_url": url, "observed_at_utc": proof["observed_at_utc"],
