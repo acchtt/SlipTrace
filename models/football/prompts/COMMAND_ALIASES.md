@@ -43,8 +43,12 @@ receipts/evidence, not previous-chat reasoning. Do not silently chain stages.
 Use V4 only. Start from the actual requested/current ICT window and never
 retroactively admit already-started fixtures.
 
-The sweep acquires complete provider date surfaces before registry/filtering,
-then applies exclusions, research priority and goals-first qualification.
+The sweep acquires complete provider date surfaces before registry/filtering.
+A new normal-chat sweep must first reach `SOURCE_READY_FOR_RESEARCH`; if local
+acquisition is unavailable it uses the dedicated source-only GitHub backend
+(`normal_source_requests/` -> `football-v4-normal-source.yml`). Manual web
+research cannot substitute for this source gate. Only then apply exclusions,
+research priority and goals-first qualification.
 Finish targeted upstream research in the same normal sweep chat before calling
 the handoff complete. Persist the immutable source before research and a durable
 v2 checkpoint after at most four fixture dispositions. If interrupted, /resume

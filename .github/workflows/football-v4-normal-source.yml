@@ -1,0 +1,72 @@
+name: Football V4 normal-chat source acquisition
+on:
+  push:
+    branches: [main]
+    paths:
+      - "models/football/stages_v4/normal_source_requests/**"
+      - "models/football/stages_v4/tools/normal_source.py"
+      - ".github/workflows/football-v4-normal-source.yml"
+  pull_request:
+    paths:
+      - "models/football/stages_v4/tools/normal_source.py"
+      - "models/football/stages_v4/test_normal_source.py"
+      - ".github/workflows/football-v4-normal-source.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Offline regression
+        run: python -m unittest models.football.stages_v4.test_normal_source -v
+      - name: Select exactly one new normal-chat source request
+        id: req
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "request=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files="$(git diff --name-only --diff-filter=A HEAD^ HEAD -- models/football/stages_v4/normal_source_requests/ | grep '\.json$' || true)"
+          count="$(printf '%s\n' "$files" | sed '/^$/d' | wc -l)"
+          test "$count" -le 1
+          echo "request=$files" >> "$GITHUB_OUTPUT"
+      - name: Acquire canonical source only
+        if: steps.req.outputs.request != ''
+        run: |
+          python models/football/stages_v4/tools/normal_source.py \
+            --request "${{ steps.req.outputs.request }}" \
+            --output v4-normal-source
+      - name: Upload canonical source bundle
+        if: steps.req.outputs.request != ''
+        id: bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: v4-normal-source-${{ github.run_id }}
+          path: v4-normal-source/
+          retention-days: 7
+          if-no-files-found: error
+      - name: Summary
+        if: steps.req.outputs.request != ''
+        env:
+          ARTIFACT_URL: ${{ steps.bundle.outputs.artifact-url }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from pathlib import Path
+          cp=json.loads(Path("v4-normal-source/checkpoint.json").read_text())
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a") as out:
+              out.write(f"State: **{cp['status']}**\n\n")
+              out.write(f"Research queue: **{cp['pending_research_count']}**\n\n")
+              out.write(f"[Canonical source bundle]({os.environ['ARTIFACT_URL']})\n")
+          PY

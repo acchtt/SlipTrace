@@ -13,26 +13,54 @@ This is the only current /sweep launcher. Do not load the retired
 
 ## Normal-chat execution route
 
-1. Freeze the requested ICT window and acquire each required provider date
-   surface once. Preserve the exact original source snapshot and provenance.
-   **Persist that source before any deep research starts.**
-2. Run V4 discovery/goals-first screening from that snapshot.
-3. Create a durable research checkpoint containing the exact research order,
+1. Freeze the requested ICT window.
+2. **SOURCE GATE — before any goal-history research:** obtain one canonical
+   complete date-surface source epoch and persist it. If the normal chat cannot
+   execute the local acquisition code directly, create exactly one request under
+   `models/football/stages_v4/normal_source_requests/`. The dedicated
+   `football-v4-normal-source.yml` backend runs source-only acquisition and
+   returns `original-source.json`, `source.json`, `listing-receipt.json`
+   and a v2 checkpoint with status `SOURCE_READY_FOR_RESEARCH`.
+3. Do not manually assemble a fixture list or research goal histories while
+   source status is absent/incomplete. Web searches may verify a source failure,
+   but they cannot replace the canonical date-surface union.
+4. Run V4 discovery/goals-first screening from that saved snapshot.
+5. Create a durable research checkpoint containing the exact research order,
    source SHA256, resolved fixture IDs and unresolved queue.
-4. Research GOAL_PRIORITY first, then GOAL_REVIEW. Fetch only missing
+6. Research GOAL_PRIORITY first, then GOAL_REVIEW. Fetch only missing
    fixture-specific football facts. Persist progress after at most **4 fixture
    dispositions** (and before any expected tool/conversation boundary).
-5. Continue until every actionable research row is qualified, explicitly
+7. Continue until every actionable research row is qualified, explicitly
    evidence-limited with a real trace, or status-excluded.
-6. Execute the native V4 sweep/receipt code against the saved source when a
+8. Execute the native V4 sweep/receipt code against the saved source when a
    local/runtime Python route is available.
-7. If native Python is unavailable, use original-source replay/attestation
+9. If native Python is unavailable, use original-source replay/attestation
    **after** research completion. This is validation fallback, not a reason to
    switch the sweep into a Work orchestration task.
 
-Do not use `.github/workflows/football-v4-work-acquisition.yml` or commit an
-`acquisition_requests` file as the default way to perform a new sweep.
-Historical Work-native artifacts remain valid when provenance checks pass.
+Do not use `.github/workflows/football-v4-work-acquisition.yml` or the legacy
+`acquisition_requests` path as the default new-sweep route. The small
+`football-v4-normal-source.yml` backend is allowed and preferred because it
+does **source acquisition only**; it does not perform deep research, ranking or
+Football C assessment. Normal chat remains the sweep controller.
+
+### Source gate invariant
+
+A new sweep cannot enter research with
+`RESEARCH_PENDING_SOURCE_INCOMPLETE`, `source_snapshot_sha256=null`, or
+`full_date_source_attested=false`. Those states mean acquisition has not
+finished; stop research and complete the source gate instead.
+
+The first durable checkpoint of every new sweep must therefore be
+`SOURCE_READY_FOR_RESEARCH`. Only after that may fixture histories be fetched.
+This prevents a chat from spending time screening a hand-picked subset and then
+blocking because the full provider union was never captured.
+
+If accidental manual research already happened before the source gate, preserve
+it as provisional evidence. After the canonical source arrives, attach it only
+to a uniquely matching fixture identity (teams + kickoff + newly resolved
+canonical provider ID). Ambiguous or changed fixtures must be rechecked; matched
+history does not need to be fetched twice.
 
 ### Durable checkpoint and resume contract
 

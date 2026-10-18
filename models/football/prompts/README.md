@@ -15,9 +15,12 @@
 | `/audit deep` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | **ChatGPT Work; escalation only** |
 | `/report` | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` | **Normal chat** |
 
-Normal `/sweep` acquires once, finishes targeted upstream research, and emits
-the same native V4 handoff consumed by Work `/rank`. A RESEARCH_PENDING
-checkpoint is not a completed sweep.
+Normal `/sweep` first obtains a canonical source-only bundle and status
+`SOURCE_READY_FOR_RESEARCH`, then finishes targeted upstream research and emits
+the same native V4 handoff consumed by Work `/rank`. If local acquisition is
+unavailable, the dedicated `football-v4-normal-source.yml` backend performs
+source acquisition only. A RESEARCH_PENDING checkpoint is not a completed
+sweep, and manual fixture research cannot replace the source gate.
 
 Normal `/xi` is an interaction surface only: official ACT/WAIT/PASS remains
 owned by the deterministic Football C runtime. If runtime execution/validation

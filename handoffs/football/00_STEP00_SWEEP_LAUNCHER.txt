@@ -10,26 +10,31 @@ Conversation surface: NORMAL CHAT
    models/football/prompts/COMMAND_ALIASES.md
    models/football/stages_v4/SWEEP.md
 
-2. Freeze the requested ICT window and acquire required provider date surfaces
-   once. Persist the original source snapshot/provenance **before research**.
+2. Freeze the requested ICT window. Before any goal-history research, require
+   SOURCE_READY_FOR_RESEARCH. If local acquisition is unavailable, commit one
+   request under models/football/stages_v4/normal_source_requests/ and use the
+   football-v4-normal-source.yml source-only artifact.
 
-3. Create/update the durable v2 research checkpoint. Research GOAL_PRIORITY
+3. Never substitute manual web fixture discovery for the source gate. Persist
+   original-source.json, source.json and listing-receipt.json first.
+
+4. Create/update the durable v2 research checkpoint. Research GOAL_PRIORITY
    before GOAL_REVIEW and checkpoint after at most 4 fixture dispositions.
 
-4. On /resume, load the checkpoint first and process only `resume_queue`.
+5. On /resume, load the checkpoint first and process only `resume_queue`.
    Never repeat resolved fixture research. Do not reacquire date surfaces unless
    the saved source fails freshness/source validation; then refresh once and
    remap completed research by unchanged canonical match ID + teams + kickoff.
 
-5. Do not call the handoff complete while actionable upstream research remains.
+6. Do not call the handoff complete while actionable upstream research remains.
    Static verified evidence gaps become EVIDENCE_LIMITED rather than causing
    indefinite resume loops.
 
-6. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
+7. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
    bundle. If local native execution is unavailable, use original-source
    replay/attestation as validation fallback after source acquisition.
 
-7. Hand the validated bundle/run ID to a separate WORK /rank conversation.
+8. Hand the validated bundle/run ID to a separate WORK /rank conversation.
 
 CRITICAL:
 - Football C only.
