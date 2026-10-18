@@ -22,6 +22,19 @@ The active command surface is:
 - /audit -> models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
 - /report -> models/football/prompts/06_NORMAL_CHAT_REPORT.md
 
+### Conversation/runtime routing
+
+- **Normal chat:** `/sweep`, `/xi`, `/xi exception`, `/live`, `/report`.
+- **ChatGPT Work:** `/rank`, `/audit`.
+
+Conversation type is an operational surface, not model authority. Football C and
+the native V4/runtime receipts remain authoritative regardless of chat surface.
+For `/xi`, normal chat gathers evidence but official ACT/WAIT/PASS is owned by
+`engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. If that
+runtime cannot be executed or validated, return `ANALYSIS_ONLY` rather than
+improvising an official decision.
+
+
 Retired V1-V3 source/checkpoint/ZIP machinery and retired model policies are
 not production dependencies.
 
@@ -37,7 +50,20 @@ There is no active shadow model and no model-voting/consensus layer.
 
 ## /sweep — V4 goals-first intake
 
+**Conversation surface: NORMAL CHAT.**
+
 Authority: stages_v4/SWEEP.md plus the V4 source/intake modules.
+Normal chat acquires the requested window once, performs targeted goal-history
+research directly, and emits the same native V4 source/receipt contract consumed
+by Work `/rank`. Work acquisition/orchestration is fallback infrastructure,
+not the default sweep route.
+
+A sweep with actionable upstream research still pending is a checkpoint, not a
+completed handoff. Preserve the source snapshot and resume the same sweep without
+reacquiring complete date surfaces. If a partial verified subset is handed to
+rank, both stages must label it PARTIAL and preserve the exact upstream pending
+count.
+
 
 The sweep must acquire complete provider date surfaces before filtering, apply
 the standing league/user exclusions, and use source-backed goal evidence to
@@ -187,6 +213,8 @@ There is no automatic UCL or Norway adjustment.
 
 ## /xi — one C assessment and one price policy
 
+**Conversation surface: NORMAL CHAT; deterministic runtime remains decision authority.**
+
 Authority: prompts/02_NORMAL_CHAT_XI_ODDS.md,
 procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md, engine/core.py,
 engine/adapter.py and engine/xi_portable.py.
@@ -245,6 +273,8 @@ only by the C core where the already-funded burden has the required independent
 football corroboration. Unsupported higher burdens do not inherit that zone.
 
 ## /live
+
+**Conversation surface: NORMAL CHAT; deterministic Football C assessment remains authority.**
 
 Started fixtures use the same Football C football assessment with current
 score/minute/material events.

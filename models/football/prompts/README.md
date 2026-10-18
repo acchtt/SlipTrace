@@ -1,31 +1,33 @@
 # Football V4 — current command entrypoints
 
 **Authority:** `models/football/CURRENT_MODEL.md` and
-`models/football/prompts/COMMAND_ALIASES.md` on the current production main.
-Football C official, C2 independent shadow. C3/C4 retired.
+`models/football/prompts/COMMAND_ALIASES.md`.
 
-| Command | Canonical current launcher | Stage |
+**Official model:** Football C only. C2/C3/C4 are retired and audit-only.
+
+| Command | Canonical launcher | Surface |
 |---|---|---|
-| `/sweep` | `models/football/stages_v4/SWEEP.md` | Current senior fixture discovery and goals-first admission |
-| `/rank` | `models/football/stages_v4/RANK.md` | Original-source V4 rank with refreshed full-cohort status, C+C2 |
-| `/xi`, `/xi exception` | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` | C+C2 football first, user screenshot as sole market price |
-| `/live` | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` | Live football first, original screenshot as limited live price evidence |
-| `/audit` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | Frozen-state audit (V4 intake and C/C2) |
-| `/report` | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` | Read-only active Airtable/report and user Actual Bets |
+| `/sweep` | `models/football/stages_v4/SWEEP.md` | **Normal chat** |
+| `/rank` | `models/football/stages_v4/RANK.md` | **ChatGPT Work** |
+| `/xi`, `/xi exception` | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` | **Normal chat** |
+| `/live` | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` | **Normal chat** |
+| `/audit` | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` | **ChatGPT Work** |
+| `/report` | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` | **Normal chat** |
 
-## Mandatory execution boundaries
+Normal `/sweep` acquires once, finishes targeted upstream research, and emits
+the same native V4 handoff consumed by Work `/rank`. A RESEARCH_PENDING
+checkpoint is not a completed sweep.
 
-- V4 /sweep first proves bounded provider-surface completeness: every ICT+UTC date surface touched by the window, all pages, all senior competition blocks, exact fixture-ID union and an independent terminal sentinel. New sources require `source_completeness_manifest` / `DATE_SURFACE_BATCH_V2`; registry filtering before this proof is forbidden. Only after that frozen universe may `cheap_sweep_filters.py` prioritize which missing-evidence fixtures deserve deep research first. It then creates original `source.json` and a native `V4_SWEEP_READY` receipt. A digest alone is **not** an independent source attestation; use source-attested GitHub Actions artifacts when available.
-- V4 /rank replays the unchanged original source, and requires a fresh same-match status/kickoff observation for the **entire eligible cohort** before C and C2 execute. Historical old rank bundles and V1–V3 ZIPs cannot be imported as V4 authority.
-- V4 /xi uses independently executed football C/C2 and no mandatory odds; if a user screenshot is supplied, **no external replacement or historical market price search** is permitted. An original screenshot cannot by itself prove an executable market offer. Price verdicts are conditional, not placed bets.
-- Live screenshots use their displayed score/minute and original price only, never a prematch priced action after kickoff.
-- Current read/write model base: `appbzxqXYf0lKfD4P`. User profit comes only from `Actual Bets — Current`; C2 shadow is not official exposure.
-- CI engine success does not prove live provider acquisition or actual betting/execution availability.
+Normal `/xi` is an interaction surface only: official ACT/WAIT/PASS remains
+owned by the deterministic Football C runtime. If runtime execution/validation
+is unavailable, return ANALYSIS_ONLY.
 
-## Explicitly retired entrypoints
+Normal `/live` uses current-epoch Football C assessment. A live priced action
+exists only where a promoted deterministic live policy explicitly authorizes it.
 
-`prompts/00_NORMAL_CHAT_AISCORE_FETCH.md`, `01_WORK_DAILY_SWEEP.md`,
-legacy `prompts/sweep.md`, `prompts/rank.md`, the old V1–V3 CLIs,
-`FOOTBALL_SWEEP_RANK_UNIFIED_V3.md`, and the old XI coordinator are historical
-references only. Their old "active" flags, caps, venue/odds requirements, or
-Football A claims never supersede these V4 launchers.
+Google Sheets `Football v2 — Active Operations`
+(`1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM`) is the active store.
+User physical P/L comes only from `Actual Bets — Current`.
+
+Legacy Work sweep, V1–V3 ZIP/checkpoint flows, Football A execution, Airtable
+production routing, and C2/C3/C4 production routes are historical only.

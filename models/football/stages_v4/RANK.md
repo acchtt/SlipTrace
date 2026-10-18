@@ -26,29 +26,41 @@ not fabricate a native rank result. This setup does not execute a new sweep.
 
 ## Input authority
 
-Use one native V4 rank handoff from either:
+Use one native V4 rank handoff from one of these provenance-preserving routes:
 
-- **Football V4 Work native sweep** (`football-v4-work-acquisition.yml`):
-  `v4-work-<job-index>-<workflow-run-id>-<attempt>` artifact, containing
-  `source.json`, `v4_sweep_ready.json`, `rank-handoff.json`, `checkpoint.json`.
-- Original-source replay: `v4-original-source-attested-receipts` artifact,
-  containing `<run>-source.json`, `<run>-v4_sweep_ready.json`, and its handoff.
+- **Normal-chat native sweep bundle (preferred for new runs):** saved
+  `source.json`, `v4_sweep_ready.json`, `rank-handoff.json` and
+  `checkpoint.json`, produced by current V4 execution or the original-source
+  attestation fallback.
+- Original-source replay: `v4-original-source-attested-receipts` artifact.
+- Existing historical **Work-native sweep** artifacts remain acceptable when
+  provenance checks pass, but Work acquisition is no longer the default sweep.
 
-For `/rank newest receipt`, inspect the current sweep workflow's latest
-request-bearing run and its published artifact, including the job-summary
-link. Code-only/test runs with no sweep job are not new sweep attempts. Match
-the requested window and source run ID, verify source file hash and receipt
-integrity, and retain the bundle's link in the rank checkpoint. A failed newer
-attempt is an explicit blocker, never permission to silently substitute an
-older run. The resolver does not search historical runs to substitute a different
-source bundle. A newer `RESEARCH_PENDING` bundle may rank its verified eligible
-cohort while preserving the unfinished sweep research; zero eligible matches
-is not a ranked board. Do not equate structural `V4_SWEEP_READY` with completed
-goal research. Artifacts expire after 90 days; an unavailable bundle needs its
-saved original source and receipt, not reconstruction from summary counts.
+For `/rank newest receipt`, resolve the newest canonical sweep handoff for the
+requested window/source run, preferably the exact bundle linked by normal
+`/sweep`. Verify source hash and receipt integrity. A failed or newer partial
+run is an explicit state; never silently substitute an older source run.
+
+A `RESEARCH_PENDING` sweep bundle may rank its verified eligible subset only
+as a **PARTIAL** board. The rank response must state the exact upstream pending
+count and must not describe the date window as fully ranked. Zero verified
+eligible fixtures is not a ranked board. Do not equate `V4_SWEEP_READY` with
+completed goal research.
 
 Do not reconstruct receipts from Google Sheets, historical Airtable, or ledger
 rows. Do not require the user to manually resubmit fixtures already in the bundle.
+
+## Upstream completeness boundary
+
+Upstream sweep-pending rows and rank-research-pending rows are different states.
+If the sweep checkpoint reports unresolved upstream research, /rank may assess
+only the verified eligible cohort it actually received and must report:
+
+`PARTIAL — <N> FIXTURES STILL PENDING UPSTREAM SWEEP RESEARCH`
+
+It must preserve those fixture identities for sweep resume, must not convert
+them into PASS/WATCH, must not call the window complete, and must not ask the
+user to manually resubmit them.
 
 ## Mandatory original-source replay and full-cohort status
 
@@ -317,7 +329,7 @@ Every new receipt carries:
 status exclusion. The official board can still be small or empty. Do not create
 extra FOCUS rows to make coverage look complete.
 
-If a Work run genuinely reaches its resource limit, save the native checkpoint
+If the rank task genuinely reaches its resource limit, save the native checkpoint
 and clearly report the pending count. A receipt with zero C assessments is
 `V4_RANK_RESEARCH_PENDING`: a research checkpoint only, no model board/persistence
 claim. Do not fabricate an assessment merely to save progress.

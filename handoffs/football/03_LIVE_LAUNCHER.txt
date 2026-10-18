@@ -1,0 +1,16 @@
+FOOTBALL V2 — NORMAL CHAT /LIVE LAUNCHER
+========================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+Conversation surface: NORMAL CHAT
+
+Load:
+- models/football/CURRENT_MODEL.md
+- models/football/prompts/COMMAND_ALIASES.md
+- models/football/prompts/03_NORMAL_CHAT_LIVE.md
+
+Use actual current score/minute/material events and frozen prematch evidence.
+Football C only. Do not recreate a prematch action after kickoff. A live quote
+is comparison evidence unless a current promoted deterministic live execution
+policy explicitly authorizes action.

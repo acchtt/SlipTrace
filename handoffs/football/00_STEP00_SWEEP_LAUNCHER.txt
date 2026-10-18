@@ -1,56 +1,35 @@
-FOOTBALL V2.0 — STEP 00 SWEEP LAUNCHER
+FOOTBALL V2 — NORMAL CHAT /SWEEP LAUNCHER
 ========================================
 
 Repo: acchtt/SlipTrace
 Branch: main
+Conversation surface: NORMAL CHAT
 
-EXECUTE IN THIS ORDER:
-
-1. Load and read upstream/default-branch:
+1. Load:
    models/football/CURRENT_MODEL.md
+   models/football/prompts/COMMAND_ALIASES.md
+   models/football/stages_v4/SWEEP.md
 
-2. Load and execute upstream/default-branch:
-   models/football/prompts/00_NORMAL_CHAT_AISCORE_FETCH.md
+2. Freeze the requested ICT window and acquire required provider date surfaces
+   once. Preserve the original source snapshot/provenance.
 
-3. Apply it to the user's requested ICT sweep window in FAST_PRODUCTION mode by default.
-   - Use FULL_AUDIT only if the user explicitly asks for a full/exhaustive/coverage audit.
-   - Before fresh discovery, reuse the newest COMPLETE same-end run when it covers the new requested window.
-   - If the start is relative (`now` / `from now`), first reuse the newest compatible RUNNING/BLOCKED run with the same requested end boundary.
-   - Do not create another overlapping run merely because the current clock minute changed.
-   - Create a fresh overlapping run only if the user explicitly requests a new/restarted sweep.
+3. Run V4 goals-first intake and targeted research in this same normal chat.
+   Research GOAL_PRIORITY before GOAL_REVIEW.
 
-4. Treat Airtable Sweep Runs as authoritative execution state.
-   - Base: SlipTrace Football Decision Control
-   - Sweep Runs: tblUnGHHe0MVaalDL
-   - Do not reconstruct progress from chat history.
+4. Do not call the handoff complete while actionable upstream research remains.
+   If interrupted, save RESEARCH_PENDING with exact pending fixtures and resume
+   from the same source/checkpoint without reacquiring the date surface.
 
-5. If a matching RUNNING or BLOCKED sweep exists:
-   - RESUME it from the persisted Current Stage + Resume Cursor;
-   - preserve completed stage flags and Listing Blocks Checked;
-   - retry Retry Queue items as defined by the Step-0 prompt;
-   - do not restart completed stages.
+5. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
+   bundle. If local native execution is unavailable, use original-source
+   replay/attestation as validation fallback after source acquisition.
 
-6. If no compatible run exists:
-   - START a new deterministic SWEEP-START-END run;
-   - checkpoint exactly as required by the Step-0 prompt;
-   - do not checkpoint more frequently than the prompt's 20-block/stage-boundary cadence.
-
-7. If the user says "report" or "status":
-   - read Sweep Runs only;
-   - do not run new AiScore discovery.
+6. Hand the validated bundle/run ID to a separate WORK /rank conversation.
 
 CRITICAL:
-- Upstream/default-branch prompt is always authoritative.
-- AiScore remains fixture authority.
-- Use the active NARROW CORE allowlist; do not perform a global competition crawl.
-- Use DATE-FIRST BATCH discovery: fetch each required AiScore date surface once and filter locally.
-- Do not loop through competitions one by one to prove absence.
-- Reuse authoritative AiScore epoch/ISO/offset timestamps already captured; open individual match pages only for missing/conflicting time or identity.
-- FAST_PRODUCTION does not run CONDITIONAL gates unless the user explicitly names the competition.
-- Repeated same-end sweeps must reuse verified Airtable coverage from the latest covering COMPLETE run instead of rediscovering the slate.
-- FAST_PRODUCTION uses at most the ICT date surface(s) touched by the window; no automatic +/-1 buffer-date crawl.
-- Do not independently refetch the terminal date if it was already fetched in the same run and covers the interval.
-- Preserve the exact requested Asia/Ho_Chi_Minh window.
-- Never mark work_ready=true with an unresolved actionable coverage or source-time fault.
-- Do not perform Work structural ranking, XI/odds review, live analysis, or betting decisions in Step 0.
-- Return the validated AISCORE_FIXTURES_*.zip only when Step-0 gates pass.
+- Football C only.
+- Normal chat sweep; Work acquisition is not the default.
+- Preserve ICT (UTC+7) kickoff integrity and current exclusions.
+- No odds required.
+- Do not rank, /xi, /live or bet in the sweep conversation.
+- PARTIAL means PARTIAL.

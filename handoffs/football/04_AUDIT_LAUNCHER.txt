@@ -1,0 +1,15 @@
+FOOTBALL V2 — WORK /AUDIT LAUNCHER
+=================================
+
+Repo: acchtt/SlipTrace
+Branch: main
+Conversation surface: CHATGPT WORK
+
+Load:
+- models/football/CURRENT_MODEL.md
+- models/football/prompts/COMMAND_ALIASES.md
+- models/football/prompts/04_WORK_POST_SLATE_AUDIT.md
+
+Audit frozen Football C evidence against outcomes without rewriting history.
+Use Work for repo-wide, multi-board, regression and implementation analysis.
+Do not run a new /sweep, /rank, /xi or /live slate inside the audit task.

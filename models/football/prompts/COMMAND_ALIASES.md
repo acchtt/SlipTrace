@@ -16,23 +16,25 @@ Only the first slash command routes the message.
 
 Aliases are case-insensitive. Text after the command is normal launcher input.
 
-## Stage-dedicated ChatGPT Work conversations
+## Conversation routing
 
-Use a separate Work conversation for each operational stage. The canonical
-launcher declares the conversation's role at the top:
+| Stage | Conversation surface | Canonical launcher |
+|---|---|---|
+| SWEEP | **Normal chat** | `models/football/stages_v4/SWEEP.md` |
+| RANK | **ChatGPT Work** | `models/football/stages_v4/RANK.md` |
+| XI / XI exception | **Normal chat** | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` |
+| LIVE | **Normal chat** | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` |
+| AUDIT | **ChatGPT Work** | `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md` |
+| REPORT | **Normal chat** | `models/football/prompts/06_NORMAL_CHAT_REPORT.md` |
 
-- SWEEP ONLY: `models/football/stages_v4/SWEEP.md`
-- RANK ONLY: `models/football/stages_v4/RANK.md`
-- XI ONLY: `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md`
-- LIVE ONLY: `models/football/prompts/03_NORMAL_CHAT_LIVE.md`
-- AUDIT ONLY: `models/football/prompts/04_WORK_POST_SLATE_AUDIT.md`
-- REPORT ONLY: `models/football/prompts/06_NORMAL_CHAT_REPORT.md`
+Normal chat does not mean free-form model decisions. `/xi` and `/live` must
+still use the current deterministic Football C runtime wherever that runtime
+has authority. If runtime execution is unavailable, label the result
+`ANALYSIS_ONLY`; never substitute conversational judgment for an official
+engine receipt.
 
-Each Work task loads its own canonical launcher from current SlipTrace main,
-executes only that stage, and transfers validated receipts/evidence rather
-than previous-chat reasoning. A command explicitly changing stages must load
-the other stage's launcher; do not silently chain stages in the same task.
-Audit is dedicated to Football C / SlipTrace and must not touch FOM-v1.
+Each stage loads its current canonical launcher and transfers validated
+receipts/evidence, not previous-chat reasoning. Do not silently chain stages.
 
 ## /sweep
 
@@ -41,8 +43,12 @@ retroactively admit already-started fixtures.
 
 The sweep acquires complete provider date surfaces before registry/filtering,
 then applies exclusions, research priority and goals-first qualification.
+Finish targeted upstream research in the same normal sweep chat before calling
+the handoff complete. If interrupted, save RESEARCH_PENDING and resume without
+reacquiring the date surface.
 
-Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows.
+Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows, and
+do not use Work acquisition orchestration as the default new-sweep route.
 
 ## /rank
 

@@ -1,6 +1,6 @@
 # /xi — Football C assessment
 
-> **Work conversation role — XI ONLY.** This conversation is dedicated to
+> **Normal chat role — XI ONLY.** This conversation is dedicated to
 > Football C prematch /xi assessments (including explicit exceptions),
 > screenshot-only quote comparisons, required football rechecks, and
 > deterministic C verdicts. Load this launcher from current SlipTrace main.
@@ -13,6 +13,20 @@
 
 Football C is the only active model. C2/C3/C4 are retired and never execute in
 new /xi work.
+
+## Runtime authority in normal chat
+
+Normal chat is the evidence/interaction surface, not a second decision engine.
+Official C ACT/WAIT/PASS must be produced by the current deterministic runtime
+path in `engine/core.py`, `engine/adapter.py` and `engine/xi_portable.py`
+when those components are callable. Conversational prose may explain the result
+but may not override it.
+
+If the runtime cannot execute, required inputs cannot be validated, or a runtime
+contract fails, complete the football research that is still possible and label
+the result `ANALYSIS_ONLY — NO OFFICIAL ENGINE VERDICT`. Never silently replace
+a missing runtime result with a free-form official action.
+
 
 ## Authority
 

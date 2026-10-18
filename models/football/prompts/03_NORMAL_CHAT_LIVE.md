@@ -1,6 +1,6 @@
 # /live — current-state Football C assessment
 
-> **Work conversation role — LIVE ONLY.** This conversation is dedicated to
+> **Normal chat role — LIVE ONLY.** This conversation is dedicated to
 > Football C in-play reassessment using current match state and frozen
 > prematch evidence. Load this launcher from current SlipTrace main.
 > Do not silently perform /sweep, /rank, prematch /xi, or /audit in this
@@ -10,6 +10,16 @@
 
 
 Football C is the only active model.
+
+## Runtime authority in normal chat
+
+Normal chat gathers current score/minute/material events and explains the
+Football C assessment. It may not invent a live execution engine. Use the
+deterministic current-state Football C runtime where available. If no promoted
+live priced-action policy authorizes exposure, a supplied live quote remains
+comparison evidence only and the output must not be presented as an official
+engine ACT.
+
 
 /live uses the same football-assessment runtime as /xi with:
 

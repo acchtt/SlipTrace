@@ -1,110 +1,50 @@
 # /sweep — Football V4 source-backed fixture intake
 
-> **Work conversation role — SWEEP ONLY.** This conversation is dedicated to
-> Football C V4 fixture intake and sweep checkpoint/resume for the user's
-> requested window. Load this launcher from current SlipTrace main before
-> executing `/sweep`. Do not silently continue into `/rank`, `/xi`,
-> `/live`, `/audit`, or code maintenance. Produce the native source-backed
-> sweep receipt (or an explicit pending/blocker state) and hand it to a separate
-> rank conversation. A user explicitly changing the task requires reloading the
-> corresponding canonical launcher; never reuse sweep assumptions as authority.
-> This is the SlipTrace production route, not FOM.
-
+> **Normal chat role — SWEEP ONLY.** This conversation is dedicated to
+> Football C V4 fixture intake for the user's requested window. Load this
+> launcher from current SlipTrace main before executing `/sweep`. Do not
+> silently continue into `/rank`, `/xi`, `/live`, `/audit`, or code
+> maintenance. Produce the native source-backed sweep receipt only after the
+> targeted research obligation is complete, or return an explicit resumable
+> checkpoint. This is the SlipTrace production route, not FOM.
 
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
-## Work execution route — resolve before acquisition
+## Normal-chat execution route
 
-A missing local checkout is a setup task, not a reason to abandon `/sweep`.
-Use current `acchtt/SlipTrace` main and one of these executable routes:
+1. Freeze the requested ICT window and acquire each required provider date
+   surface once. Preserve the exact original source snapshot and provenance.
+2. Run V4 discovery/goals-first screening from that snapshot.
+3. Research GOAL_PRIORITY first, then GOAL_REVIEW. Fetch only missing
+   fixture-specific football facts.
+4. Continue until every actionable research row is qualified, explicitly
+   evidence-limited with a real trace, or status-excluded.
+5. Execute the native V4 sweep/receipt code against the saved source when a
+   local/runtime Python route is available.
+6. If native Python is unavailable, use original-source replay/attestation
+   **after** saving the source. This is validation fallback, not a reason to
+   switch the sweep into a Work orchestration task.
 
-1. With shell/Python, run the repository-owned adapter:
-   `python models/football/stages_v4/tools/work_sweep.py --request REQUEST.json --output NEW_OUTPUT_DIRECTORY`.
-2. Without local execution, commit
-   `models/football/stages_v4/acquisition_requests/<V4-run-id>.json` using the
-   connected GitHub write capability on authorized production `main`. Exact fields:
-   `run_id`, `window_start_ict`, `window_end_ict`, with timezone-aware ISO times.
-   A push changing this request on `main` invokes
-   `.github/workflows/football-v4-work-acquisition.yml` (**Football V4 Work native
-   sweep**). Confirm the actual workflow run and `sweep` job, not merely a
-   successful file write. Feature branches require explicit dispatch with
-   `request_file`; merging a tested request into main is the automatic trigger.
+Do not use `.github/workflows/football-v4-work-acquisition.yml` or commit an
+`acquisition_requests` file as the default way to perform a new sweep.
+Historical Work-native artifacts remain valid when provenance checks pass.
 
-The runner acquires full LiveScore date arrays for ICT and UTC, reconciles the
-senior union and independent terminal refetch, researches both teams' recent
-competitive results in native priority order, refreshes fixture status, calls
-native `stage.sweep`, and publishes the exact source/receipt/checkpoint bundle.
-This is an independent provider fallback, not AiScore evidence. AiScore remains
-preferred when its complete surfaces are available. No repeated loading-page
-loop is needed. The old raw-download helper is diagnostic only.
+### Completion boundary
 
-Retrieve the `v4-work-<job-index>-<workflow-run-id>-<attempt>` artifact and its
-Actions job-summary link. Inspect `rank-handoff.json`, `checkpoint.json`,
-`source.json` and `v4_sweep_ready.json`. Artifacts are retained for 90 days;
-include the workflow run/artifact link and source run ID in the sweep response
-so a separate rank chat can discover the same bundle. Do not claim publication
-until the upload step succeeds. A `BLOCKED` checkpoint has exact failure evidence
-and must never be substituted for a native receipt.
+`V4_SWEEP_READY` is structural readiness, not permission to hide unfinished
+research. A completed user-facing sweep handoff requires no actionable upstream
+research rows left unresolved. If time/tool limits interrupt research:
 
-`V4_SWEEP_READY` alone does not complete the work. Report the separate
-`RESEARCH_COMPLETE` / `RESEARCH_PENDING` checkpoint state and pending rows.
-The adapter does not certify researchability from a generic `hasStats` or
-`hasLineups` flag. Fixtures still needing actual current mechanism/stat/news
-coverage or official cup-format evidence remain pending for targeted research.
-Continue that work within the requested task; do not ask the user to resubmit
-matches or silently lower the evidence standard.
+- save the source snapshot and native checkpoint;
+- report `RESEARCH_PENDING` with exact pending count and fixture identities;
+- resume from that checkpoint in the same normal sweep conversation;
+- do not reacquire the date surface;
+- do not present the partial handoff as the completed newest sweep.
 
-For a saved source, add `--source PATH` locally, or use dispatch `source_file`
-with its committed recovery path. This preserves an exact original copy and
-never repeats date discovery. A resume derives a new source and receipt in a
-fresh directory; it does not overwrite the earlier bundle. Existing native
-freshness checks still apply: stale evidence produces an explicit checkpoint,
-never a backdated live receipt. An archival replay is a different operation and
-still requires fresh full-cohort status before rank.
-
-Code-only pushes and pull requests run offline tests without acquiring fixtures.
-Changed requests are scoped to that push; expired requests fail before network
-access. If neither local execution nor a GitHub write/dispatch is available,
-report the exact missing capability and preserve the request. Never imply that
-changing repository instructions installs a runner inside an inaccessible chat.
-
-## Check execution capability before acquiring fixtures
-
-A new Work chat may have an empty workspace. **A missing local checkout is not
-proof that native V4 execution is unavailable.** Resolve the execution route
-before spending resources on fixture acquisition:
-
-1. Inspect the actual callable tools. When shell/Python execution is available,
-   use an existing clean SlipTrace checkout or obtain `acchtt/SlipTrace` from
-   GitHub at current main and record its commit. Read `AGENTS.md` and current
-   authority. Confirm the runner with
-   `python models/football/stages_v4/stage.py --help`. Do not copy only stage.py:
-   its V4 and engine imports must come from the same revision. Missing files
-   require checkout/setup, not immediate abandonment of the sweep.
-2. If local execution is genuinely unavailable, inspect the existing
-   `.github/workflows/football-v4-replay-attestation.yml` fallback. Saving the
-   original source at `models/football/stages_v4/recovery/<run-id>/source.json`
-   on an authorized repository branch triggers its **push** workflow. A manual
-   workflow-dispatch tool is not required. Verify the actual run and artifact;
-   do not assume Actions ran merely because the file was saved. Respect any
-   repository-write approval requirement; this launcher grants no bypass.
-3. If neither route is available, report the exact missing capability or failed
-   operation before starting expensive acquisition. Distinguish missing files,
-   unavailable execution tools, repository permission, and a failed native
-   validation. Do not say the runner is unavailable without checking the
-   relevant capability and recovery route.
-
-AiScore is preferred, not the exclusive provider. The existing independently
-checkable-provider fallback below still applies. Preserve canonical provider
-IDs/provenance; never relabel another provider's ID as an AiScore ID.
-
-If source facts have already been acquired when execution fails, preserve the
-unchanged source and exact pending acquisition/validation gaps as a recovery
-checkpoint where storage is available. An incomplete source is not
-`V4_SWEEP_READY` and must not be offered to rank as a valid handoff. Resume from
-that evidence without asking the user to reconstruct the fixture list. Never
-invent completeness, a native execution, an Actions run, or an attested receipt.
+A user may explicitly send a partial verified subset to `/rank`, but it must
+remain labelled PARTIAL on both sides and its pending upstream count must stay
+visible. Rank must never make that partial board look like a completed window.
 
 ## Rebuilt acquisition contract — complete date surfaces before registry
 
@@ -162,7 +102,7 @@ enumeration and a terminal sentinel—without restoring old Work ZIPs,
 capacity queues, league-by-league crawling or bookmaker/XI blockers.
 
 
-## Mandatory source-attested export for next-chat Work /rank
+## Mandatory source-attested export for downstream Work /rank
 
 `V4_SWEEP_READY` must come from **actual execution** of
 `models/football/stages_v4/stage.py sweep` on the saved source file.
@@ -177,7 +117,7 @@ on the current GitHub branch. The
 will execute the real V4 algorithm and upload a
 `v4-original-source-attested-receipts` artifact containing an official
 `<run-id>-v4_sweep_ready.json`, or fail closed with the exact validation
-error. Give Work chat the GitHub Actions run URL and the original
+error. Give the downstream Work /rank chat the GitHub Actions run URL and the original
 run ID. Do NOT invent source completeness from the Google Sheets ledger or historical Airtable records.
 
 For an older derived intake, preserve both original `source.json`
