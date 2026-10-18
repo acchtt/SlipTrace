@@ -14,6 +14,7 @@ on:
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/tests/test_xi_runtime_backend.py"
+      - "models/football/engine/tests/test_xi_user_screenshot_only.py"
   pull_request:
     paths:
       - ".github/workflows/xi-portable-artifact-transport.yml"
@@ -24,6 +25,7 @@ on:
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/tests/test_xi_runtime_backend.py"
+      - "models/football/engine/tests/test_xi_user_screenshot_only.py"
   workflow_dispatch:
 
 permissions:
