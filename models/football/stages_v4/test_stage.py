@@ -562,6 +562,109 @@ class RankV4Tests(unittest.TestCase):
                 status_refresh=refresh,
             )
 
+    def test_incomplete_g4_focus_is_checkpointed_not_boarded(self):
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        c["matches"][0]["independent_upper_tail"] = False
+        c["matches"][0]["independent_upper_tail_basis"] = (
+            "G3 is funded, but the bounded G4 investigation is not yet complete."
+        )
+
+        result = rank(
+            src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
+        )
+
+        self.assertEqual(result["status"], "V4_RANK_RESEARCH_PENDING")
+        self.assertEqual(result["assessed_count"], 0)
+        self.assertEqual(result["ranked_count"], 0)
+        self.assertIsNone(result["board"])
+        self.assertEqual(result["g4_incomplete_match_ids"], ["m1"])
+        self.assertEqual(
+            next(x for x in result["coverage_manifest"] if x["match_id"] == "m1")[
+                "disposition"
+            ],
+            "G4_RESEARCH_PENDING",
+        )
+        pending = next(x for x in result["resume_queue"] if x["match_id"] == "m1")
+        self.assertEqual(pending["research_status"], "G4_RESEARCH_PENDING")
+        self.assertIn("bounded G4 pass", pending["next_action"])
+        self.assertNotIn(
+            "m1",
+            [row["match_id"] for row in result["frozen_model_input"]["matches"]],
+        )
+
+    def test_complete_g4_rejection_can_finalize_o25_focus(self):
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        row = c["matches"][0]
+        row.update(
+            independent_upper_tail=False,
+            independent_upper_tail_basis=(
+                "Completed upper-tail research rejects an independently "
+                "transferable fourth-goal mechanism."
+            ),
+            g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            g4_carrier_path="FAILED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="UNAVAILABLE",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis=(
+                "Carrier, distributed, reply and continuation paths were "
+                "prospectively checked; none clears the existing G4 rules."
+            ),
+        )
+
+        result = rank(
+            src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
+        )
+
+        self.assertEqual(
+            result["status"], "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK"
+        )
+        self.assertEqual(result["ranked_count"], 1)
+        board_row = result["board"]["matches"][0]
+        self.assertEqual(board_row["match_id"], "m1")
+        self.assertEqual(
+            board_row["g4_research_status"], "G4_RESEARCH_COMPLETE_REJECTED"
+        )
+        self.assertEqual(board_row["supported_line"], 2.5)
+        self.assertEqual(result["g4_incomplete_match_ids"], [])
+
+    def test_incomplete_g4_focus_does_not_block_completed_focus_rows(self):
+        src = sweep(snapshot(), now=NOW)
+        incomplete = c_row()
+        incomplete["match_id"] = "m1"
+        incomplete["kickoff_ict"] = KICKOFF_ICT
+        incomplete["independent_upper_tail"] = False
+        incomplete["independent_upper_tail_basis"] = (
+            "G3 is funded but G4 research remains unfinished."
+        )
+        complete = c_row()
+        complete["match_id"] = "m2"
+        complete["kickoff_ict"] = KICKOFF_ICT
+        c = payload("c", incomplete)
+        c["matches"].append(complete)
+
+        result = rank(src, c, {}, now="2026-10-11T16:05:00Z")
+
+        self.assertEqual(
+            result["status"], "V4_RANK_EXECUTED_AWAITING_SHEETS_READBACK"
+        )
+        self.assertEqual(result["assessed_count"], 1)
+        self.assertEqual(result["ranked_count"], 1)
+        self.assertEqual(
+            [row["match_id"] for row in result["board"]["matches"]], ["m2"]
+        )
+        self.assertEqual(result["g4_incomplete_match_ids"], ["m1"])
+        self.assertEqual(
+            next(x for x in result["coverage_manifest"] if x["match_id"] == "m1")[
+                "disposition"
+            ],
+            "G4_RESEARCH_PENDING",
+        )
+
     def test_real_single_c_engine_execution(self):
         snapshot_data = sweep(snapshot(), now=NOW)
         c = model_input()
