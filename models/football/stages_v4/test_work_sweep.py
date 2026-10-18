@@ -17,6 +17,12 @@ def event(mid='100', score='FT', home='1', away='2', kickoff='20261010180000'):
 
 
 class WorkSweepTests(unittest.TestCase):
+    def test_ict_and_utc_date_surface_times_normalize_to_same_instant(self):
+        ict = event(kickoff='20261018200000')
+        utc = event(kickoff='20261018130000')
+        self.assertEqual(work.event_time(ict, 7), work.event_time(utc, 0))
+        self.assertEqual(work.event_time(ict, 7), '2026-10-18T13:00:00+00:00')
+
     def test_competitive_history_excludes_friendlies_extra_time_and_wrong_team(self):
         payload = {'ID': '1', 'Stages': [
             {'Snm': 'Club Friendlies', 'Events': [event('friendly')]},
