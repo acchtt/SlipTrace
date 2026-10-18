@@ -1,0 +1,301 @@
+{
+  "schema_version": "football-c-new-independent-manual-checkpoint-v1",
+  "status": "RESEARCH_PENDING_SOURCE_INCOMPLETE",
+  "run_id": "V4-20261018-1906-20261019-0000",
+  "window_start_ict": "2026-10-18T19:06:00+07:00",
+  "window_end_exclusive_ict": "2026-10-19T00:00:00+07:00",
+  "previous_sweep_data_reused": false,
+  "source_snapshot_sha256": null,
+  "full_date_source_attested": false,
+  "native_v4_ready": false,
+  "work_rank_handoff_ready": false,
+  "goal_priorities": 5,
+  "goal_reviews": 7,
+  "watchlist": 5,
+  "screened_fixture_count": 17,
+  "known_unscreened_fixture_count": 8,
+  "screened": [
+    {
+      "kickoff_ict": "20:00",
+      "home": "Brighton",
+      "away": "Crystal Palace",
+      "priority_score": 66,
+      "recent_3plus_pct": 66.67,
+      "recent_4plus_pct": 58.33,
+      "trap_pct": 16.67,
+      "research_lane": "GOAL_PRIORITY",
+      "admission_path": "ROUTE_SCORE",
+      "research_web_ref": "turn637575search8"
+    },
+    {
+      "kickoff_ict": "20:00",
+      "home": "Bournemouth",
+      "away": "Sunderland",
+      "priority_score": 55,
+      "recent_3plus_pct": 50,
+      "recent_4plus_pct": 33.33,
+      "trap_pct": 16.67,
+      "research_lane": "GOAL_REVIEW",
+      "admission_path": "GOAL_REVIEW",
+      "research_web_ref": "turn637575search11"
+    },
+    {
+      "kickoff_ict": "20:00",
+      "home": "Angers",
+      "away": "Marseille",
+      "priority_score": 51,
+      "recent_3plus_pct": 50,
+      "recent_4plus_pct": 33.33,
+      "trap_pct": 8.33,
+      "research_lane": "GOAL_REVIEW",
+      "admission_path": "GOAL_REVIEW",
+      "research_web_ref": "turn637575search1"
+    },
+    {
+      "kickoff_ict": "20:30",
+      "home": "Bayer Leverkusen",
+      "away": "Freiburg",
+      "priority_score": 76,
+      "recent_3plus_pct": 80,
+      "recent_4plus_pct": 70,
+      "trap_pct": 0,
+      "research_lane": "GOAL_PRIORITY",
+      "admission_path": "ROUTE_SCORE",
+      "research_web_ref": "turn302062search5"
+    },
+    {
+      "kickoff_ict": "21:30",
+      "home": "Halmstad",
+      "away": "Hammarby",
+      "priority_score": 53,
+      "recent_3plus_pct": 58.33,
+      "recent_4plus_pct": 33.33,
+      "trap_pct": 8.33,
+      "research_lane": "GOAL_REVIEW",
+      "admission_path": "GOAL_REVIEW",
+      "research_web_ref": "turn172521search5"
+    },
+    {
+      "kickoff_ict": "21:30",
+      "home": "Malmö",
+      "away": "Häcken",
+      "priority_score": 39,
+      "recent_3plus_pct": 41.67,
+      "recent_4plus_pct": 25,
+      "trap_pct": 25,
+      "research_lane": "WATCH_GOAL_SIGNAL",
+      "admission_path": "WATCH_GOAL_SIGNAL",
+      "research_web_ref": "turn172521search9"
+    },
+    {
+      "kickoff_ict": "21:30",
+      "home": "Al Sadd",
+      "away": "Al Duhail",
+      "priority_score": 77,
+      "recent_3plus_pct": 70,
+      "recent_4plus_pct": 60,
+      "trap_pct": 20,
+      "research_lane": "GOAL_PRIORITY",
+      "admission_path": "ROUTE_SCORE",
+      "research_web_ref": "turn881665search0"
+    },
+    {
+      "kickoff_ict": "22:00",
+      "home": "Molde",
+      "away": "Start",
+      "priority_score": 78,
+      "recent_3plus_pct": 75,
+      "recent_4plus_pct": 58.33,
+      "trap_pct": 0,
+      "research_lane": "GOAL_PRIORITY",
+      "admission_path": "ROUTE_SCORE",
+      "research_web_ref": "turn839323search8"
+    },
+    {
+      "kickoff_ict": "22:15",
+      "home": "Lorient",
+      "away": "Monaco",
+      "priority_score": 42,
+      "recent_3plus_pct": 50,
+      "recent_4plus_pct": 16.67,
+      "trap_pct": 16.67,
+      "research_lane": "WATCH_GOAL_SIGNAL",
+      "admission_path": "WATCH_GOAL_SIGNAL",
+      "research_web_ref": "turn641845search1"
+    },
+    {
+      "kickoff_ict": "22:30",
+      "home": "Nottingham Forest",
+      "away": "Arsenal",
+      "priority_score": 46,
+      "recent_3plus_pct": 58.33,
+      "recent_4plus_pct": 16.67,
+      "trap_pct": 8.33,
+      "research_lane": "WATCH_GOAL_SIGNAL",
+      "admission_path": "WATCH_GOAL_SIGNAL",
+      "research_web_ref": "turn581877search0"
+    },
+    {
+      "kickoff_ict": "23:00",
+      "home": "AC Milan",
+      "away": "Atalanta",
+      "priority_score": 50,
+      "recent_3plus_pct": 58.33,
+      "recent_4plus_pct": 16.67,
+      "trap_pct": 16.67,
+      "research_lane": "GOAL_REVIEW",
+      "admission_path": "GOAL_REVIEW",
+      "research_web_ref": "turn839323search0"
+    },
+    {
+      "kickoff_ict": "23:45",
+      "home": "Al Gharafa",
+      "away": "Al Rayyan",
+      "priority_score": 60,
+      "recent_3plus_pct": 70,
+      "recent_4plus_pct": 40,
+      "trap_pct": 30,
+      "research_lane": "GOAL_PRIORITY",
+      "admission_path": "ROUTE_SCORE",
+      "research_web_ref": "turn176957search0"
+    },
+    {
+      "kickoff_ict": "21:15",
+      "home": "Celta Vigo",
+      "away": "Alavés",
+      "priority_score": 32,
+      "recent_3plus_pct": 37.5,
+      "recent_4plus_pct": 12.5,
+      "trap_pct": 43.75,
+      "research_lane": "WATCH_GOAL_SIGNAL",
+      "home_sample_n": 8,
+      "away_sample_n": 8,
+      "source_home": "https://www.lequipe.fr/Football/championnat-d-espagne/page-calendrier-general/celta-vigo",
+      "source_away": "https://www.laliga.com/en-US/clubs/d-alaves/results",
+      "source_data_validated_by": "manual competitive result inspection",
+      "native_v4_attested": false
+    },
+    {
+      "kickoff_ict": "22:15",
+      "home": "Le Havre",
+      "away": "Auxerre",
+      "priority_score": 51,
+      "recent_3plus_pct": 58.33,
+      "recent_4plus_pct": 41.67,
+      "trap_pct": 16.67,
+      "research_lane": "GOAL_REVIEW",
+      "home_sample_n": 6,
+      "away_sample_n": 6,
+      "source_home": "https://www.lequipe.fr/Football/ligue-1/page-calendrier-general/le-havre",
+      "source_away": "https://www.lequipe.fr/Football/ligue-1/page-calendrier-general/auxerre",
+      "source_data_validated_by": "manual competitive result inspection",
+      "native_v4_attested": false
+    },
+    {
+      "kickoff_ict": "22:15",
+      "home": "Paris FC",
+      "away": "Rennes",
+      "priority_score": 52,
+      "recent_3plus_pct": 66.67,
+      "recent_4plus_pct": 41.67,
+      "trap_pct": 16.67,
+      "research_lane": "GOAL_REVIEW",
+      "home_sample_n": 6,
+      "away_sample_n": 6,
+      "source_home": "https://www.lequipe.fr/Football/ligue-1/page-calendrier-general/paris-fc",
+      "source_away": "https://www.lequipe.fr/Football/ligue-1/page-calendrier-general/rennes",
+      "source_data_validated_by": "manual competitive result inspection",
+      "native_v4_attested": false
+    },
+    {
+      "kickoff_ict": "23:00",
+      "home": "İstanbul Başakşehir",
+      "away": "Gaziantep",
+      "priority_score": 52,
+      "recent_3plus_pct": 60,
+      "recent_4plus_pct": 40,
+      "trap_pct": 30,
+      "research_lane": "GOAL_REVIEW",
+      "home_sample_n": 5,
+      "away_sample_n": 5,
+      "source_home": "https://turkishleague.net/match/basaksehir-vs-gaziantep-2026-10-18",
+      "source_away": "https://turkishleague.net/match/basaksehir-vs-gaziantep-2026-10-18",
+      "source_data_validated_by": "manual competitive result inspection",
+      "native_v4_attested": false
+    },
+    {
+      "kickoff_ict": "23:30",
+      "home": "Málaga",
+      "away": "Real Sociedad",
+      "priority_score": 46,
+      "recent_3plus_pct": 51.39,
+      "recent_4plus_pct": 34.72,
+      "trap_pct": 36.11,
+      "research_lane": "WATCH_GOAL_SIGNAL",
+      "home_sample_n": 8,
+      "away_sample_n": 9,
+      "source_home": "https://www.lequipe.fr/Football/championnat-d-espagne/page-calendrier-general/malaga",
+      "source_away": "https://www.laliga.com/en-GB/clubs/real-sociedad/results",
+      "source_data_validated_by": "manual competitive result inspection",
+      "native_v4_attested": false
+    }
+  ],
+  "identified_pending": [
+    {
+      "kickoff_ict": "21:45",
+      "home": "FC Groningen",
+      "away": "Ajax",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "22:30",
+      "home": "Borussia Mönchengladbach",
+      "away": "Hoffenheim",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "23:00",
+      "home": "FC Copenhagen",
+      "away": "AGF Aarhus",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "21:00",
+      "home": "Celtic",
+      "away": "Hearts",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "22:00",
+      "home": "Sandefjord",
+      "away": "Lillestrøm",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "22:00",
+      "home": "Vålerenga",
+      "away": "Brann",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "23:00",
+      "home": "Jablonec",
+      "away": "Viktoria Plzeň",
+      "disposition": "RESEARCH_PENDING"
+    },
+    {
+      "kickoff_ict": "22:00",
+      "home": "Sturm Graz",
+      "away": "Grazer AK",
+      "disposition": "RESEARCH_PENDING"
+    }
+  ],
+  "not_exhaustive": true,
+  "critical_next_steps": [
+    "Continue remaining eight fixture histories",
+    "Complete date-surface provider union and sentinel",
+    "Run native stage.py sweep only against new original source.json"
+  ],
+  "important_note": "The calculated goal screen is a non-native historical-sample research record, not a betting assessment. All earlier sweep receipts have been excluded from this run. The original source is not available and no native V4 receipt can be claimed.",
+  "updated_at_ict": "2026-10-18T19:41:00+07:00"
+}
