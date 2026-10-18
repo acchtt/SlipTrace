@@ -38,6 +38,16 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("COMPLETE PROVIDER DATE SURFACES", sweep)
         self.assertIn("CHEAP RESEARCH-PRIORITY FILTERS", sweep)
 
+    def test_sweep_resume_is_checkpointed_and_does_not_restart_resolved_work(self):
+        sweep_doc = (STAGES / "SWEEP.md").read_text()
+        runner = (STAGES / "tools" / "work_sweep.py").read_text()
+        self.assertIn("football-v4-sweep-research-checkpoint-v2", sweep_doc)
+        self.assertIn("resume_queue", sweep_doc)
+        self.assertIn("--resume-from", runner)
+        self.assertIn("RESOLVED_RESEARCH", runner)
+        self.assertIn("reused_match_ids", runner)
+        self.assertIn("EVIDENCE_LIMITED", runner)
+
     def test_sweep_scope_keeps_exclusions_and_youth_exception(self):
         sweep = (STAGES / "SWEEP.md").read_text()
         registry = (STAGES / "league_registry.py").read_text()

@@ -46,8 +46,11 @@ retroactively admit already-started fixtures.
 The sweep acquires complete provider date surfaces before registry/filtering,
 then applies exclusions, research priority and goals-first qualification.
 Finish targeted upstream research in the same normal sweep chat before calling
-the handoff complete. If interrupted, save RESEARCH_PENDING and resume without
-reacquiring the date surface.
+the handoff complete. Persist the immutable source before research and a durable
+v2 checkpoint after at most four fixture dispositions. If interrupted, /resume
+processes only the stored unresolved queue; resolved fixtures are never
+re-researched. Reacquire only when source freshness/validation requires one
+bounded new source epoch, then remap reusable research by exact fixture identity.
 
 Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows, and
 do not use Work acquisition orchestration as the default new-sweep route.

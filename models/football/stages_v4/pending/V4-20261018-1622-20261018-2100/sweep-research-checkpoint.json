@@ -1,0 +1,136 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "SOURCE_REFRESH_REQUIRED_ONCE",
+  "run_id": "V4-20261018-1622-20261018-2100",
+  "window_start_ict": "2026-10-18T16:22:00+07:00",
+  "window_end_ict": "2026-10-18T21:00:00+07:00",
+  "original_source_sha256": "2d0133f20c9732055aa11cb5bce9c3ed844ef00e871bf3762003c5dc83ccf101",
+  "source_observed_at_utc": "2026-10-17T22:46:56.081504+00:00",
+  "source_epoch_status": "STALE_PRE_NORMAL_CHAT_SOURCE",
+  "source_refresh_policy": "ONE_BOUNDED_FRESH_REFRESH_THEN_REMAP",
+  "research_disposition_policy": "REUSE_EXACT_MATCH_ID_TEAM_KICKOFF_ONLY",
+  "preserved_research": [
+    {
+      "match_id": "1799857",
+      "fixture": "RKC Waalwijk — FC Volendam",
+      "kickoff_ict": "17:15",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1790246",
+      "fixture": "PEC Zwolle — Go Ahead Eagles",
+      "kickoff_ict": "17:15",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1847040",
+      "fixture": "Bangkok United — Port FC",
+      "kickoff_ict": "18:00",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1813373",
+      "fixture": "Dynamo Dresden — Magdeburg",
+      "kickoff_ict": "18:30",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1813366",
+      "fixture": "Karlsruher SC — Darmstadt",
+      "kickoff_ict": "18:30",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1784482",
+      "fixture": "SønderjyskE — Silkeborg",
+      "kickoff_ict": "19:00",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1793591",
+      "fixture": "Brighton — Crystal Palace",
+      "kickoff_ict": "20:00",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1793588",
+      "fixture": "AFC Bournemouth — Sunderland",
+      "kickoff_ict": "20:00",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1812728",
+      "fixture": "Bayer Leverkusen — Freiburg",
+      "kickoff_ict": "20:30",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "match_id": "1861498",
+      "fixture": "Terengganu — Johor Darul Ta'zim",
+      "kickoff_ict": "21:00",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED"
+    },
+    {
+      "fixture": "GIF Sundsvall–Värnamo",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED",
+      "priority_score": 48
+    },
+    {
+      "fixture": "Lyngby–FC Nordsjælland",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED",
+      "priority_score": 49
+    },
+    {
+      "fixture": "Leeds United–Manchester United",
+      "disposition": "COMPLETE_RESEARCH_PRESERVED",
+      "priority_score": 51
+    }
+  ],
+  "pending_named": [
+    {
+      "fixture": "Tampines — Young Lions",
+      "reason": "PENDING_GOAL_HISTORY",
+      "next_action": "Complete goal-history attempt once; if verified sample remains under four, freeze EVIDENCE_LIMITED"
+    },
+    {
+      "fixture": "UNCLASSIFIED_COHORT_AFTER_FRESH_SOURCE",
+      "reason": "FRESH_SOURCE_UNION_NOT_YET_RECONCILED",
+      "next_action": "Classify only newly surfaced/unmapped fixtures"
+    }
+  ],
+  "deferred_outside_window": [
+    {
+      "fixture": "Al Sadd–Al Duhail",
+      "kickoff_ict": "21:30",
+      "priority_score": 76
+    },
+    {
+      "fixture": "Molde–Start",
+      "kickoff_ict": "22:00",
+      "priority_score": 80
+    },
+    {
+      "fixture": "Al Gharafa–Al Rayyan",
+      "kickoff_ict": "23:45",
+      "priority_score": 64
+    }
+  ],
+  "resume_queue": [
+    "FRESH_SOURCE_REFRESH_ONCE",
+    "REMAP_PRESERVED_RESEARCH",
+    "TAMPINES_YOUNG_LIONS",
+    "UNMAPPED_FRESH_SOURCE_FIXTURES_ONLY"
+  ],
+  "completed_research_count": 13,
+  "retry_policy": {
+    "max_transient_attempts_per_fixture": 2,
+    "static_gap_after_verified_attempt": "EVIDENCE_LIMITED"
+  },
+  "native_v4_sweep_ready": false,
+  "rank_handoff_ready": false,
+  "provenance": {
+    "archived_checkpoint": "models/football/stages_v4/research_archive/V4-20261018-1622-20261018-2100/manual_checkpoint_unattested.json",
+    "note": "Recovery control checkpoint only. It preserves prior research and prevents another full restart; it is not a native V4 receipt."
+  },
+  "next_action": "On next /resume acquire one fresh 16:22–21:00 source epoch, remap preserved research exactly, research only unmapped/pending rows, refresh statuses, then execute native V4 once."
+}

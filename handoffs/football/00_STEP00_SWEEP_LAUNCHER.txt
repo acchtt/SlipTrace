@@ -11,20 +11,25 @@ Conversation surface: NORMAL CHAT
    models/football/stages_v4/SWEEP.md
 
 2. Freeze the requested ICT window and acquire required provider date surfaces
-   once. Preserve the original source snapshot/provenance.
+   once. Persist the original source snapshot/provenance **before research**.
 
-3. Run V4 goals-first intake and targeted research in this same normal chat.
-   Research GOAL_PRIORITY before GOAL_REVIEW.
+3. Create/update the durable v2 research checkpoint. Research GOAL_PRIORITY
+   before GOAL_REVIEW and checkpoint after at most 4 fixture dispositions.
 
-4. Do not call the handoff complete while actionable upstream research remains.
-   If interrupted, save RESEARCH_PENDING with exact pending fixtures and resume
-   from the same source/checkpoint without reacquiring the date surface.
+4. On /resume, load the checkpoint first and process only `resume_queue`.
+   Never repeat resolved fixture research. Do not reacquire date surfaces unless
+   the saved source fails freshness/source validation; then refresh once and
+   remap completed research by unchanged canonical match ID + teams + kickoff.
 
-5. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
+5. Do not call the handoff complete while actionable upstream research remains.
+   Static verified evidence gaps become EVIDENCE_LIMITED rather than causing
+   indefinite resume loops.
+
+6. Produce the native V4 source + v4_sweep_ready + rank-handoff/checkpoint
    bundle. If local native execution is unavailable, use original-source
    replay/attestation as validation fallback after source acquisition.
 
-6. Hand the validated bundle/run ID to a separate WORK /rank conversation.
+7. Hand the validated bundle/run ID to a separate WORK /rank conversation.
 
 CRITICAL:
 - Football C only.

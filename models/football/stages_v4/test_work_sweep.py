@@ -65,7 +65,7 @@ class WorkSweepTests(unittest.TestCase):
             self.assertEqual((root / 'saved.json').read_bytes(), before)
             self.assertEqual((root / 'out/original-source.json').read_bytes(), before)
             checkpoint = json.loads((root / 'out/checkpoint.json').read_text())
-            self.assertEqual(checkpoint['status'], 'RESEARCH_PENDING')
+            self.assertEqual(checkpoint['status'], 'RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS')
             handoff = json.loads((root / 'out/rank-handoff.json').read_text())
             final_source = json.loads((root / 'out/source.json').read_text())
             replay = work.sweep(final_source, now=NOW)
@@ -133,6 +133,86 @@ class WorkSweepTests(unittest.TestCase):
                 work.research(original, receipt, work.Evidence(root), checkpoint)
             self.assertEqual(checkpoint['unfinished_research_order'], receipt['goal_research_order'])
             self.assertTrue((root / 'checkpoint.json').exists())
+
+    def test_research_resume_skips_resolved_fixture(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            original = source()
+            receipt = work.sweep(original, now=NOW)
+            order = list(dict.fromkeys(
+                receipt.get('priority_research_order', []) +
+                receipt.get('goal_research_order', [])
+            ))
+            self.assertTrue(order)
+            checkpoint = {
+                'schema_version': work.CHECKPOINT_SCHEMA,
+                'research_order': order,
+                'fixtures': {
+                    order[0]: {
+                        'research_disposition': 'COMPLETE',
+                        'pending_reasons': [],
+                        'attempt_count': 1,
+                    }
+                },
+            }
+            with patch.object(work, 'fetch', side_effect=AssertionError('resolved fixture must not refetch')):
+                work.research(original, receipt, work.Evidence(root), checkpoint)
+            self.assertEqual(checkpoint['resume_queue'], [])
+            self.assertEqual(checkpoint['reused_match_ids'], order)
+
+    def test_resume_from_checkpoint_reuses_enriched_source_and_never_reacquires(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            previous = root / 'previous'
+            previous.mkdir()
+            original = source()
+            work.save(previous / 'original-source.json', original)
+            work.save(previous / 'source.json', original)
+            receipt = work.sweep(original, now=NOW)
+            order = list(dict.fromkeys(
+                receipt.get('priority_research_order', []) +
+                receipt.get('goal_research_order', [])
+            ))
+            checkpoint = {
+                'schema_version': work.CHECKPOINT_SCHEMA,
+                'status': 'RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS',
+                'run_id': original['run_id'],
+                'original_source_sha256': work.digest(previous / 'original-source.json'),
+                'research_order': order,
+                'resume_queue': [],
+                'resume_generation': 0,
+                'fixtures': {
+                    mid: {
+                        'research_disposition': 'EVIDENCE_LIMITED',
+                        'pending_reasons': ['PROVIDER_TEAM_ID_MAPPING_REQUIRED'],
+                        'attempt_count': 1,
+                    } for mid in order
+                },
+            }
+            work.save(previous / 'checkpoint.json', checkpoint)
+            request = {
+                'run_id': original['run_id'],
+                'window_start_ict': original['window_start_utc'],
+                'window_end_ict': original['window_end_utc'],
+            }
+            work.save(root / 'request.json', request)
+            with patch.object(work, 'utcnow', return_value=NOW), patch.object(
+                work, 'acquire', side_effect=AssertionError('resume must not reacquire')
+            ):
+                code = work.run(
+                    root / 'request.json',
+                    root / 'out',
+                    resume_from=previous,
+                )
+            self.assertEqual(code, 0)
+            result = json.loads((root / 'out/checkpoint.json').read_text())
+            self.assertEqual(result['resume_generation'], 1)
+            self.assertEqual(result['resume_queue'], [])
+            self.assertEqual(
+                (root / 'out/original-source.json').read_bytes(),
+                (previous / 'original-source.json').read_bytes(),
+            )
+
 
     def test_expired_request_performs_no_network_and_keeps_checkpoint(self):
         with tempfile.TemporaryDirectory() as tmp:

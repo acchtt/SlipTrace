@@ -15,20 +15,59 @@ This is the only current /sweep launcher. Do not load the retired
 
 1. Freeze the requested ICT window and acquire each required provider date
    surface once. Preserve the exact original source snapshot and provenance.
+   **Persist that source before any deep research starts.**
 2. Run V4 discovery/goals-first screening from that snapshot.
-3. Research GOAL_PRIORITY first, then GOAL_REVIEW. Fetch only missing
-   fixture-specific football facts.
-4. Continue until every actionable research row is qualified, explicitly
+3. Create a durable research checkpoint containing the exact research order,
+   source SHA256, resolved fixture IDs and unresolved queue.
+4. Research GOAL_PRIORITY first, then GOAL_REVIEW. Fetch only missing
+   fixture-specific football facts. Persist progress after at most **4 fixture
+   dispositions** (and before any expected tool/conversation boundary).
+5. Continue until every actionable research row is qualified, explicitly
    evidence-limited with a real trace, or status-excluded.
-5. Execute the native V4 sweep/receipt code against the saved source when a
+6. Execute the native V4 sweep/receipt code against the saved source when a
    local/runtime Python route is available.
-6. If native Python is unavailable, use original-source replay/attestation
-   **after** saving the source. This is validation fallback, not a reason to
+7. If native Python is unavailable, use original-source replay/attestation
+   **after** research completion. This is validation fallback, not a reason to
    switch the sweep into a Work orchestration task.
 
 Do not use `.github/workflows/football-v4-work-acquisition.yml` or commit an
 `acquisition_requests` file as the default way to perform a new sweep.
 Historical Work-native artifacts remain valid when provenance checks pass.
+
+### Durable checkpoint and resume contract
+
+The active normal-chat checkpoint schema is
+`football-v4-sweep-research-checkpoint-v2`. Persist it under the current run
+(or an equivalent durable attachment) with:
+
+- immutable run/window and original-source SHA256;
+- `research_order`;
+- per-fixture `research_disposition` = `COMPLETE`,
+  `EVIDENCE_LIMITED`, `STATUS_EXCLUDED` or `RESEARCH_PENDING`;
+- attempt count and concrete pending/evidence-limit reasons;
+- `resume_queue` containing **only unresolved fixture IDs**;
+- completed/reused counts and the last checkpoint time.
+
+`/resume` must load this checkpoint first. It must not restart date-surface
+discovery, repeat resolved fixture research, or recreate an empty research
+queue from chat history. The repository runner supports this with
+`tools/work_sweep.py --resume-from <previous-output-or-checkpoint>`; the same
+semantics apply when normal chat performs the research directly.
+
+A transient research failure gets one retry. If the same source-backed gap
+remains after the retry, freeze it as `EVIDENCE_LIMITED` with the real attempt
+trace instead of looping indefinitely.
+
+If the immutable source has become too old for native V4 freshness validation,
+perform **one bounded fresh source refresh** for the same requested window,
+create a new source epoch, and reuse prior research by canonical match ID only
+when teams and kickoff still match. Started/changed fixtures become explicit
+status/source exclusions. Do not re-research successfully mapped fixtures.
+
+If the user narrows the end of the window, preserve research already completed
+inside the new window and mark later fixtures DEFERRED_OUTSIDE_WINDOW. Do not
+reacquire a date surface merely because the requested end became earlier when
+the saved complete surface already covers the narrower interval.
 
 ### Completion boundary
 
@@ -36,10 +75,12 @@ Historical Work-native artifacts remain valid when provenance checks pass.
 research. A completed user-facing sweep handoff requires no actionable upstream
 research rows left unresolved. If time/tool limits interrupt research:
 
-- save the source snapshot and native checkpoint;
+- save the source snapshot and v2 research checkpoint;
 - report `RESEARCH_PENDING` with exact pending count and fixture identities;
-- resume from that checkpoint in the same normal sweep conversation;
-- do not reacquire the date surface;
+- resume **only the checkpoint's `resume_queue`**;
+- do not reacquire the date surface unless freshness/source validation explicitly
+  requires the one bounded refresh described above;
+- do not repeat resolved research;
 - do not present the partial handoff as the completed newest sweep.
 
 A user may explicitly send a partial verified subset to `/rank`, but it must

@@ -44,6 +44,44 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+CHECKPOINT_SCHEMA = "football-v4-sweep-research-checkpoint-v2"
+RESOLVED_RESEARCH = {"COMPLETE", "EVIDENCE_LIMITED", "STATUS_EXCLUDED"}
+STATIC_EVIDENCE_GAPS = {
+    "PROVIDER_TEAM_ID_MAPPING_REQUIRED",
+    "CURRENT_MECHANISM_STAT_NEWS_CHANNEL_PROOF_REQUIRED",
+}
+
+
+def _resolved(state):
+    return isinstance(state, dict) and state.get("research_disposition") in RESOLVED_RESEARCH
+
+
+def _finish_research_state(state):
+    reasons = list(dict.fromkeys(state.get("pending_reasons") or []))
+    state["pending_reasons"] = reasons
+    if not reasons:
+        state["research_disposition"] = "COMPLETE"
+        return
+    static = all(
+        reason in STATIC_EVIDENCE_GAPS
+        or reason.endswith("_COMPETITIVE_HISTORY_UNDER_FOUR")
+        for reason in reasons
+    )
+    attempts = int(state.get("attempt_count") or 1)
+    if static or attempts >= 2:
+        state["research_disposition"] = "EVIDENCE_LIMITED"
+        if attempts >= 2 and not static:
+            state["retry_exhausted"] = True
+    else:
+        state["research_disposition"] = "RESEARCH_PENDING"
+
+
+def _resume_queue(checkpoint):
+    order = checkpoint.get("research_order") or []
+    states = checkpoint.get("fixtures") or {}
+    return [mid for mid in order if not _resolved(states.get(mid))]
+
+
 def event_time(event, surface_offset_hours=0):
     # LiveScore returns Esd in the timezone requested by the date endpoint.
     # Normalize ICT and UTC views to one instant before merging date surfaces.
@@ -249,17 +287,34 @@ def research(source, receipt, evidence, checkpoint):
     fixtures = {f["match_id"]: f for f in source["fixtures"]}
     # Native priority, then all remaining research candidates; no fixed cap.
     order = list(dict.fromkeys(receipt.get("priority_research_order", []) + receipt.get("goal_research_order", [])))
+    previous_order = checkpoint.get("research_order")
+    if previous_order and previous_order != order:
+        # A resume may not silently change its research cohort. A newly refreshed
+        # source epoch must create a new checkpoint and explicitly remap reusable IDs.
+        raise ValueError("RESEARCH_ORDER_CHANGED: new source epoch/remap required")
     checkpoint["research_order"] = order
+    checkpoint.setdefault("fixtures", {})
+    resolved_before = [mid for mid in order if _resolved(checkpoint["fixtures"].get(mid))]
+    unresolved = [mid for mid in order if mid not in resolved_before]
+    checkpoint["reused_match_ids"] = resolved_before
+    checkpoint["resume_queue"] = unresolved
     feeds = {}
     deadline = time.monotonic() + 20 * 60
-    for index, mid in enumerate(order):
+    for index, mid in enumerate(unresolved):
         if time.monotonic() >= deadline:
-            checkpoint["unfinished_research_order"] = order[index:]
+            checkpoint["unfinished_research_order"] = unresolved[index:]
+            checkpoint["resume_queue"] = unresolved[index:]
             checkpoint["resource_limit_reason"] = "RESEARCH_TIME_BUDGET_CHECKPOINTED"
+            checkpoint["status"] = "RESEARCH_PENDING"
             save(evidence.output / "checkpoint.json", checkpoint)
             break
         fixture = fixtures[mid]
-        state = {"pending_reasons": []}
+        previous = checkpoint["fixtures"].get(mid) or {}
+        state = {
+            "pending_reasons": [],
+            "attempt_count": int(previous.get("attempt_count") or 0) + 1,
+            "last_attempted_at_utc": utcnow(),
+        }
         checkpoint["fixtures"][mid] = state
         ids = fixture.get("provider_team_ids", [])
         if len(ids) != 2 or source["source_family"] != FAMILY:
@@ -299,16 +354,27 @@ def research(source, receipt, evidence, checkpoint):
             if classify(fixture)["lane"] in {"CONDITIONAL", "PILOT", "DISCOVERY"} and fixture.get("researchability_status") != "VERIFIED":
                 state["pending_reasons"].append("CURRENT_MECHANISM_STAT_NEWS_CHANNEL_PROOF_REQUIRED")
                 # An advertised hasStats/hasLineups flag is not actual evidence.
+        _finish_research_state(state)
+        checkpoint["resume_queue"] = _resume_queue(checkpoint)
+        checkpoint["completed_research_count"] = sum(
+            1 for mid2 in order if _resolved(checkpoint["fixtures"].get(mid2))
+        )
+        checkpoint["pending_research_count"] = len(checkpoint["resume_queue"])
+        # Persist after every fixture. The normal-chat launcher may mirror these
+        # durable checkpoints to GitHub in batches of 3-5 fixtures.
         save(evidence.output / "source.json", source)
         save(evidence.output / "checkpoint.json", checkpoint)
 
 
-def run(request_path, output, source_path=None):
+
+def run(request_path, output, source_path=None, resume_from=None):
     if output.exists() and any(output.iterdir()):
-        raise ValueError("output must be fresh; preserve previous evidence and use --source to resume")
+        raise ValueError("output must be fresh; preserve previous evidence and resume into a new directory")
+    if source_path and resume_from:
+        raise ValueError("choose either --source or --resume-from")
     output.mkdir(parents=True, exist_ok=True)
     evidence = Evidence(output)
-    checkpoint = {"schema_version": "football-v4-work-checkpoint-v1", "status": "RUNNING", "fixtures": {}}
+    checkpoint = {"schema_version": CHECKPOINT_SCHEMA, "status": "RUNNING", "fixtures": {}, "resume_generation": 0}
     save(output / "checkpoint.json", checkpoint)
     try:
         request = json.loads(request_path.read_text())
@@ -316,7 +382,38 @@ def run(request_path, output, source_path=None):
         checkpoint["run_id"] = request["run_id"]
         if end <= stamp(utcnow()):
             raise ValueError("REQUEST_WINDOW_EXPIRED: no network acquisition performed")
-        if source_path:
+        if resume_from:
+            resume_path = Path(resume_from)
+            if resume_path.is_dir():
+                resume_path = resume_path / "checkpoint.json"
+            previous = json.loads(resume_path.read_text())
+            previous_dir = resume_path.parent
+            original_path = previous_dir / "original-source.json"
+            working_path = previous_dir / "source.json"
+            if not original_path.exists() or not working_path.exists():
+                raise ValueError("RESUME_EVIDENCE_MISSING: original-source.json and source.json required")
+            raw = original_path.read_bytes()
+            original_sha = hashlib.sha256(raw).hexdigest()
+            if previous.get("original_source_sha256") != original_sha:
+                raise ValueError("RESUME_SOURCE_SHA_MISMATCH")
+            source = json.loads(working_path.read_text())
+            original = json.loads(raw)
+            for candidate in (source, original):
+                if candidate["run_id"] != request["run_id"] or stamp(candidate["window_start_utc"]) != start or stamp(candidate["window_end_utc"]) != end:
+                    raise ValueError("resume request does not match original source")
+            (output / "original-source.json").write_bytes(raw)
+            checkpoint = json.loads(json.dumps(previous))
+            checkpoint.update(
+                schema_version=CHECKPOINT_SCHEMA,
+                status="RUNNING",
+                resume_generation=int(previous.get("resume_generation") or 0) + 1,
+                resumed_from=str(resume_path),
+                original_source_sha256=original_sha,
+            )
+            checkpoint.pop("unfinished_research_order", None)
+            checkpoint.pop("resource_limit_reason", None)
+            save(output / "checkpoint.json", checkpoint)
+        elif source_path:
             raw = source_path.read_bytes()
             (output / "original-source.json").write_bytes(raw)
             source = json.loads(raw)
@@ -335,8 +432,25 @@ def run(request_path, output, source_path=None):
         receipt = sweep(source, now=utcnow())
         save(output / "v4_sweep_ready.json", receipt)
         pending = [r for r in receipt["source_ledger"] if r["intake_lane"].startswith("PENDING") or r["intake_lane"] == "UNVERIFIED"]
-        checkpoint.update(status="RESEARCH_PENDING" if pending or checkpoint.get("unfinished_research_order") else "RESEARCH_COMPLETE",
-                          native_v4_executed=True, pending_rows=pending, eligible_count=receipt["eligible_count"])
+        limited_ids = {
+            mid for mid, state in checkpoint.get("fixtures", {}).items()
+            if state.get("research_disposition") == "EVIDENCE_LIMITED"
+        }
+        actionable_pending = [r for r in pending if r.get("match_id") not in limited_ids]
+        if checkpoint.get("unfinished_research_order") or actionable_pending or checkpoint.get("resume_queue"):
+            research_status = "RESEARCH_PENDING"
+        elif pending:
+            research_status = "RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS"
+        else:
+            research_status = "RESEARCH_COMPLETE"
+        checkpoint.update(
+            status=research_status,
+            native_v4_executed=True,
+            pending_rows=actionable_pending,
+            evidence_limited_rows=[r for r in pending if r.get("match_id") in limited_ids],
+            eligible_count=receipt["eligible_count"],
+            pending_research_count=len(checkpoint.get("resume_queue") or []),
+        )
         save(output / "checkpoint.json", checkpoint)
         save(output / "rank-handoff.json", {
             "schema_version": "football-v4-rank-handoff-v1", "status": "V4_RANK_HANDOFF_READY",
@@ -344,7 +458,8 @@ def run(request_path, output, source_path=None):
             "source_filename": "source.json", "source_file_sha256": digest(output / "source.json"),
             "receipt_filename": "v4_sweep_ready.json", "receipt_integrity_sha256": receipt["integrity_sha256"],
             "research_status": checkpoint["status"], "eligible_count": receipt["eligible_count"],
-            "pending_count": len(pending), "checkpoint_filename": "checkpoint.json",
+            "pending_count": len(actionable_pending), "evidence_limited_count": len(pending) - len(actionable_pending),
+            "checkpoint_filename": "checkpoint.json",
             "requires_fresh_status_refresh": True, "rank_must_not_reconstruct_source_from_airtable": True})
         return 0
     except Exception as exc:
@@ -357,9 +472,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--request", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--source", type=Path, help="resume unchanged saved source; never reacquire date surfaces")
+    parser.add_argument("--source", type=Path, help="start from an unchanged saved source; no date-surface acquisition")
+    parser.add_argument("--resume-from", type=Path, help="previous output directory or checkpoint.json; reuse enriched source and resolved fixture states")
     args = parser.parse_args()
-    return run(args.request, args.output, args.source)
+    return run(args.request, args.output, args.source, args.resume_from)
 
 
 if __name__ == "__main__":
