@@ -1,0 +1,177 @@
+{
+  "schema_version": "football-c-unattested-manual-research-index-v1",
+  "status": "RESEARCH_PENDING_UNATTESTED",
+  "canonical_model": "Football C",
+  "run_id": "V4-20261018-1622-20261018-2100",
+  "date": "2026-10-18",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "start": "16:22",
+  "end_inclusive": "21:00",
+  "native_v4_sweep_ready": false,
+  "rank_handoff_ready": false,
+  "source": {
+    "morning_run_id": "V4-20261018-0543-20261018-1200",
+    "source_sha256": "2d0133f20c9732055aa11cb5bce9c3ed844ef00e871bf3762003c5dc83ccf101",
+    "observed_at_utc": "2026-10-17T22:46:56.081504+00:00",
+    "old_snapshot_rows_in_window": 437,
+    "not_fresh": true
+  },
+  "admissions": [
+    {
+      "source_match_id": "1799857",
+      "kickoff_ict": "17:15",
+      "home": "RKC Waalwijk",
+      "away": "FC Volendam",
+      "priority_score": 60,
+      "recent_3plus": 0.55,
+      "recent_4plus": 0.45,
+      "draw_trap": 0.15,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1790246",
+      "kickoff_ict": "17:15",
+      "home": "PEC Zwolle",
+      "away": "Go Ahead Eagles",
+      "priority_score": 71,
+      "recent_3plus": 0.6875,
+      "recent_4plus": 0.625,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1847040",
+      "kickoff_ict": "18:00",
+      "home": "Bangkok United",
+      "away": "Port FC",
+      "priority_score": 64,
+      "recent_3plus": 0.75,
+      "recent_4plus": 0.4643,
+      "draw_trap": 0,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1813373",
+      "kickoff_ict": "18:30",
+      "home": "Dynamo Dresden",
+      "away": "Magdeburg",
+      "priority_score": 67,
+      "recent_3plus": 0.75,
+      "recent_4plus": 0.3125,
+      "draw_trap": 0.125,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1813366",
+      "kickoff_ict": "18:30",
+      "home": "Karlsruher SC",
+      "away": "Darmstadt",
+      "priority_score": 57,
+      "recent_3plus": 0.64286,
+      "recent_4plus": 0.35714,
+      "draw_trap": 0.07143,
+      "path": "GOAL_REVIEW"
+    },
+    {
+      "source_match_id": "1784482",
+      "kickoff_ict": "19:00",
+      "home": "SønderjyskE",
+      "away": "Silkeborg",
+      "priority_score": 59,
+      "recent_3plus": 0.65,
+      "recent_4plus": 0.5,
+      "draw_trap": 0.2,
+      "path": "CARRIER_LEAKAGE_G3"
+    },
+    {
+      "source_match_id": "1793591",
+      "kickoff_ict": "20:00",
+      "home": "Brighton",
+      "away": "Crystal Palace",
+      "priority_score": 68,
+      "recent_3plus": 0.73889,
+      "recent_4plus": 0.63333,
+      "draw_trap": 0.15556,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1793588",
+      "kickoff_ict": "20:00",
+      "home": "AFC Bournemouth",
+      "away": "Sunderland",
+      "priority_score": 54,
+      "recent_3plus": 0.55556,
+      "recent_4plus": 0.27778,
+      "draw_trap": 0.11111,
+      "path": "GOAL_REVIEW"
+    },
+    {
+      "source_match_id": "1812728",
+      "kickoff_ict": "20:30",
+      "home": "Bayer Leverkusen",
+      "away": "Freiburg",
+      "priority_score": 76,
+      "recent_3plus": 0.8,
+      "recent_4plus": 0.7,
+      "draw_trap": 0,
+      "path": "ROUTE_SCORE"
+    },
+    {
+      "source_match_id": "1861498",
+      "kickoff_ict": "21:00",
+      "home": "Terengganu",
+      "away": "Johor Darul Ta'zim",
+      "priority_score": 72,
+      "recent_3plus": 0.7333,
+      "recent_4plus": 0.4667,
+      "draw_trap": 0.2167,
+      "path": "ROUTE_SCORE"
+    }
+  ],
+  "nonadmissions": [
+    {
+      "fixture": "GIF Sundsvall–Värnamo",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 48
+    },
+    {
+      "fixture": "Lyngby–FC Nordsjælland",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 49
+    },
+    {
+      "fixture": "Leeds United–Manchester United",
+      "status": "WATCH_GOAL_SIGNAL",
+      "priority_score": 51
+    },
+    {
+      "fixture": "Tampines–Young Lions",
+      "status": "PENDING_GOAL_HISTORY",
+      "reason": "Only three Young Lions competitive games in 120-day lookback"
+    }
+  ],
+  "deferred_after_2100": [
+    {
+      "fixture": "Al Sadd–Al Duhail",
+      "kickoff_ict": "21:30",
+      "priority_score": 76
+    },
+    {
+      "fixture": "Molde–Start",
+      "kickoff_ict": "22:00",
+      "priority_score": 80
+    },
+    {
+      "fixture": "Al Gharafa–Al Rayyan",
+      "kickoff_ict": "23:45",
+      "priority_score": 64
+    }
+  ],
+  "required_next_steps": [
+    "Fresh provider date surfaces plus terminal sentinel",
+    "Verify prematch status and kickoff for full cohort",
+    "Complete unclassified cohort",
+    "Run native V4 stage.py sweep before ranking"
+  ],
+  "provenance_note": "Manual historical-goals research index; percentages are observed historical proportions, not forecasts or bet odds. Full original score arrays and original morning source preserved in the conversation's V4-20261018-1622-2100-research-resume.zip. This index is NOT a native V4 receipt."
+}
