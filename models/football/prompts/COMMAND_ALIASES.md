@@ -31,9 +31,11 @@ Aliases are case-insensitive. Text after the command is normal launcher input.
 
 Normal chat does not mean free-form model decisions. `/xi` and `/live` must
 still use the current deterministic Football C runtime wherever that runtime
-has authority. If runtime execution is unavailable, label the result
-`ANALYSIS_ONLY`; never substitute conversational judgment for an official
-engine receipt.
+has authority. For `/xi`, inability to call Python locally must trigger the
+on-demand GitHub XI backend, not an immediate ANALYSIS_ONLY fallback.
+ANALYSIS_ONLY is permitted only after both direct execution and the backend are
+unavailable or the backend returns a concrete failure. Never substitute
+conversational judgment for an official engine receipt.
 
 Each stage loads its current canonical launcher and transfers validated
 receipts/evidence, not previous-chat reasoning. Do not silently chain stages.
@@ -98,6 +100,12 @@ processing took time.
 
 Observed-quote ACT/WAIT/PASS is conditional only. It never authorizes
 publication/exposure by itself.
+
+If direct runtime execution is unavailable, normal chat writes one
+`football-c-xi-runtime-request-v1` request, waits for the deterministic
+`XI Football C deterministic runtime` workflow, reads the persisted
+`xi_runtime_results/<request-id>.json`, and continues in the same turn. The
+user should not have to type `/resume` to obtain the engine result.
 
 WAIT requires an explicitly evidenced reachable target. A lone screenshot does
 not prove same-line odds will improve.

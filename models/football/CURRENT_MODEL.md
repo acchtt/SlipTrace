@@ -31,9 +31,12 @@ The active command surface is:
 Conversation type is an operational surface, not model authority. Football C and
 the native V4/runtime receipts remain authoritative regardless of chat surface.
 For `/xi`, normal chat gathers evidence but official ACT/WAIT/PASS is owned by
-`engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. If that
-runtime cannot be executed or validated, return `ANALYSIS_ONLY` rather than
-improvising an official decision.
+`engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. When
+local execution is unavailable, normal chat must use the on-demand GitHub XI
+runtime bridge and consume its persisted result in the same turn. Local Python
+absence by itself is **not** grounds for ANALYSIS_ONLY. ANALYSIS_ONLY remains the
+last-resort state only when the deterministic runtime and backend are genuinely
+unavailable or return a concrete failure.
 
 
 Retired V1-V3 source/checkpoint/ZIP machinery and retired model policies are
@@ -226,11 +229,16 @@ engine/adapter.py and engine/xi_portable.py.
 Every /xi:
 
 1. completes Football C assessment without requiring odds;
-2. if the user supplied an observed screenshot, evaluates exactly that quote
+2. executes the deterministic runtime directly when callable, otherwise through
+   `xi_runtime_backend.py` via the request/result GitHub bridge;
+3. if the user supplied an observed screenshot, evaluates exactly that quote
    through adapter.evaluate_observed_quote();
-3. if a genuinely executable current prematch quote exists, uses
+4. if a genuinely executable current prematch quote exists, uses
    adapter.run_decision();
-4. persists/readbacks once when persistence is required.
+5. persists/readbacks once when persistence is required.
+
+The backend bridge is transport only. It does not create a second policy, fetch
+replacement odds, or loosen Football C.
 
 There is no second screenshot-specific ACT/WAIT/PASS policy and no second model
 whose result can override or dilute C.

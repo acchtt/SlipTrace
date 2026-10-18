@@ -1,4 +1,4 @@
-name: XI Football C thin runtime artifact
+name: XI Football C deterministic runtime
 
 on:
   push:
@@ -6,44 +6,114 @@ on:
     paths:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
+      - "models/football/engine/xi_runtime_backend.py"
+      - "models/football/engine/xi_runtime_requests/**"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
       - "models/football/engine/competition_reliability.py"
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/step2_queue_guard.py"
+      - "models/football/engine/tests/test_xi_runtime_backend.py"
   pull_request:
     paths:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
+      - "models/football/engine/xi_runtime_backend.py"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
       - "models/football/engine/step2_publication_guard.py"
       - "models/football/engine/step2_queue_guard.py"
+      - "models/football/engine/tests/test_xi_runtime_backend.py"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   xi-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Verify thin shared Football C runtime
         run: |
           python models/football/qa/check_xi_portable_runtime.py
           python models/football/engine/xi_portable.py self-check
-      - name: Test observed quote and strict publication boundaries
+
+      - name: Test observed quote, backend bridge and publication boundaries
         run: |
           PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_xi_user_screenshot_only.py' -v
+          PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_xi_runtime_backend.py' -v
           PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_step2_publication_guard.py' -v
+
+      - name: Select exactly one newly added XI request
+        id: req
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" != "push" ]; then
+            echo "request=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          files="$(git diff --name-only --diff-filter=A HEAD^ HEAD -- models/football/engine/xi_runtime_requests/ | grep '\.json$' || true)"
+          count="$(printf '%s\n' "$files" | sed '/^$/d' | wc -l)"
+          test "$count" -le 1
+          echo "request=$files" >> "$GITHUB_OUTPUT"
+
+      - name: Execute requested Football C XI runtime
+        if: steps.req.outputs.request != ''
+        id: execute
+        shell: bash
+        run: |
+          set -euo pipefail
+          stem="$(basename "${{ steps.req.outputs.request }}" .json)"
+          mkdir -p xi-runtime-result
+          python models/football/engine/xi_runtime_backend.py             --request "${{ steps.req.outputs.request }}"             --output "xi-runtime-result/${stem}.json"
+          echo "stem=$stem" >> "$GITHUB_OUTPUT"
+
+      - name: Persist XI runtime result to main
+        if: steps.req.outputs.request != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          stem="${{ steps.execute.outputs.stem }}"
+          stash="/tmp/${stem}.json"
+          cp "xi-runtime-result/${stem}.json" "$stash"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+          dest="models/football/engine/xi_runtime_results/${stem}.json"
+          mkdir -p "$(dirname "$dest")"
+          cp "$stash" "$dest"
+          git add "$dest"
+          if ! git diff --cached --quiet; then
+            git commit -m "Persist XI runtime result ${stem}"
+            git push origin HEAD:main
+          fi
+
+      - name: Upload XI runtime result
+        if: steps.req.outputs.request != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: xi-runtime-result-${{ steps.execute.outputs.stem }}
+          retention-days: 7
+          if-no-files-found: error
+          path: xi-runtime-result/
+
       - name: Record revision
+        if: steps.req.outputs.request == ''
         run: git rev-parse HEAD > XI_RUNTIME_COMMIT.txt
+
       - name: Export thin runner with its real dependencies
+        if: steps.req.outputs.request == ''
         uses: actions/upload-artifact@v4
         with:
           name: xi-football-c-thin-runtime
@@ -52,6 +122,7 @@ jobs:
           path: |
             XI_RUNTIME_COMMIT.txt
             models/football/engine/xi_portable.py
+            models/football/engine/xi_runtime_backend.py
             models/football/engine/core.py
             models/football/engine/adapter.py
             models/football/engine/competition_reliability.py

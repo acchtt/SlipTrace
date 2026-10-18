@@ -22,10 +22,18 @@ Conversation surface: NORMAL CHAT
 5. Run the deterministic Football C runtime. Official ACT/WAIT/PASS is
    engine-owned; normal chat gathers evidence and explains the result.
 
-6. If runtime execution/validation is unavailable, return:
-   ANALYSIS_ONLY — NO OFFICIAL ENGINE VERDICT
+6. If local/direct Python is unavailable, submit one
+   football-c-xi-runtime-request-v1 request under
+   models/football/engine/xi_runtime_requests/, wait for the deterministic
+   GitHub backend to persist xi_runtime_results/<request-id>.json, then use that
+   result in the same /xi turn. Do NOT ask the user to /resume for runtime
+   execution.
 
-7. After kickoff, switch to /live current-epoch rules; never recreate a missed
+7. ANALYSIS_ONLY — NO OFFICIAL ENGINE VERDICT is allowed only when both direct
+   execution and the backend are genuinely unavailable, or the backend returns
+   a concrete execution/tool failure. Report that exact failure.
+
+8. After kickoff, switch to /live current-epoch rules; never recreate a missed
    prematch action.
 
 CRITICAL:

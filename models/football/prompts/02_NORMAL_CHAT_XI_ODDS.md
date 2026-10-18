@@ -22,17 +22,45 @@ path in `engine/core.py`, `engine/adapter.py` and `engine/xi_portable.py`
 when those components are callable. Conversational prose may explain the result
 but may not override it.
 
-If the runtime cannot execute, required inputs cannot be validated, or a runtime
-contract fails, complete the football research that is still possible and label
-the result `ANALYSIS_ONLY — NO OFFICIAL ENGINE VERDICT`. Never silently replace
-a missing runtime result with a free-form official action.
+If the runtime is not directly callable in normal chat, **do not immediately
+fall back to ANALYSIS_ONLY**. Use the on-demand deterministic backend:
+
+1. serialize the already-researched `c_football` payload and, when present,
+   the exact `USER_SCREENSHOT_ONLY` quote into
+   `models/football/engine/xi_runtime_requests/<request-id>.json`;
+2. the request must use schema `football-c-xi-runtime-request-v1` and the
+   filename stem must equal `request_id`;
+3. wait for the `XI Football C deterministic runtime` workflow to persist
+   `models/football/engine/xi_runtime_results/<request-id>.json`;
+4. read that exact result and use it as the official runtime output for the
+   current /xi turn.
+
+The backend executes the same `xi_portable.py -> adapter.py -> core.py` path.
+It performs no odds search and cannot replace the user's screenshot quote.
+
+The user must not be asked to type `/resume` merely because local Python is
+unavailable. Only when both direct runtime execution and the backend are
+genuinely unavailable, or the backend itself returns a concrete runtime/tool
+failure, may the response fall back to
+`ANALYSIS_ONLY — NO OFFICIAL ENGINE VERDICT`. Surface the exact failure class;
+never silently replace a missing runtime result with a free-form official action.
 
 
 ## Authority
 
-Use:
+Direct runtime when callable:
 
 python models/football/engine/xi_portable.py xi --c c_football.json
+
+Normal-chat backend when direct execution is unavailable:
+
+`xi_runtime_requests/<request-id>.json`
+→ `.github/workflows/xi-portable-artifact-transport.yml`
+→ `xi_runtime_backend.py`
+→ `xi_runtime_results/<request-id>.json`
+
+A successful backend result is equivalent runtime execution, not conversational
+analysis.
 
 Optional:
 
@@ -106,7 +134,7 @@ The first runtime pass returns
 already contains a completed disagreement recheck.
 
 When that state is returned, do not stop and do not issue a verdict. In the same
-Work task:
+normal-chat /xi turn:
 
 1. investigate the football reason for the disagreement using current factual
    evidence only;

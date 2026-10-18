@@ -23,8 +23,10 @@ source acquisition only. A RESEARCH_PENDING checkpoint is not a completed
 sweep, and manual fixture research cannot replace the source gate.
 
 Normal `/xi` is an interaction surface only: official ACT/WAIT/PASS remains
-owned by the deterministic Football C runtime. If runtime execution/validation
-is unavailable, return ANALYSIS_ONLY.
+owned by the deterministic Football C runtime. When direct execution is
+unavailable, use the on-demand GitHub XI request/result bridge and consume its
+persisted result in the same turn. Do not return ANALYSIS_ONLY merely because
+local Python is unavailable.
 
 Normal `/live` uses current-epoch Football C assessment. A live priced action
 exists only where a promoted deterministic live policy explicitly authorizes it.
