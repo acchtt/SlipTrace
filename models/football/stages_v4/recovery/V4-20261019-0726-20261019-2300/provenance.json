@@ -1,0 +1,32 @@
+[
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261019/7?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-19T00:26:56.003111+00:00",
+    "file": "raw/ICT-2026-10-19.json",
+    "sha256": "5403543a5437cd02bdc66be2cf7687e49b9af5d698041fe908392b191aa9c4e9"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261019/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-19T00:26:56.464891+00:00",
+    "file": "raw/UTC-2026-10-19.json",
+    "sha256": "eede16b0a2365379f6b9d951fecf78b611d074a92f20883c85118379db9e16ab"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261019/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-19T00:26:56.903597+00:00",
+    "file": "raw/terminal-2026-10-19.json",
+    "sha256": "eede16b0a2365379f6b9d951fecf78b611d074a92f20883c85118379db9e16ab"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7212/details?locale=en",
+    "observed_at_utc": "2026-10-19T00:26:57.260058+00:00",
+    "file": "raw/team-7212.json",
+    "sha256": "4c63c55c8c62fad01186438bd10359ae0a26daeb329bfed192589c4923d0c687"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/83207/details?locale=en",
+    "observed_at_utc": "2026-10-19T00:26:57.528474+00:00",
+    "file": "raw/team-83207.json",
+    "sha256": "11c3f0c94697434b0d5a4f06a22e4e3c4c5a59936ed342fabbc2117f1a79dcb8"
+  }
+]

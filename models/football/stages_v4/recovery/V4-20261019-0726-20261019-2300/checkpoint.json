@@ -1,0 +1,25 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "RESEARCH_COMPLETE",
+  "run_id": "V4-20261019-0726-20261019-2300",
+  "original_source_sha256": "8321b4b6d9d9993e6cafb14deb84492757ef94683c04fccb004120b247a37d1d",
+  "source_file_sha256": "b922edd6733806f06558c7e52a053e7c61ec01bd450a0bef0a450d97a9850394",
+  "native_receipt_integrity_sha256": "7e5373cbfd50697ad4154d9ca56d69ecf41aa7fd40e1fb50c30e16d0d12255f8",
+  "target_states": {
+    "1807291": {
+      "match_id": "1807291",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [],
+  "watch_match_ids": [
+    "1807291"
+  ],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
