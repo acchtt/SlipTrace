@@ -1,0 +1,295 @@
+{
+  "input_sha256": "ff6ab9185f86c673a835f50fe40945410bc61fd89860736a718a96c992bbcb72",
+  "ok": true,
+  "request_id": "XI-20261019-2300-1848402-omonia-olympiakos-o325",
+  "runtime": {
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-10-19T15:55:00+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "file_00000000c6c08206b623d78ec8ea27ee",
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "1848402",
+        "match_minute": null,
+        "observation_age_seconds": 0.0,
+        "observed_at_utc": "2026-10-19T15:55:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 3.25,
+          "odds": 2.11
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT"
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "bridge_used": false,
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "ACT",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+        "market_disagreement_gap_goals": -0.25,
+        "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "supported/protected line at normal price",
+        "snapshot_line_relation": "BELOW_SUPPORTED_BURDEN",
+        "supported_line": 3.5,
+        "wait_min_odds": null,
+        "wait_reachability_basis": "A protected lower line is not shown as a clearly reachable future target before kickoff.",
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "quote_research_required": false,
+    "quotes_required": false,
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Frozen C rank certified G4 / O3.5; post-XI compiler owns final certificate.",
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current 3-0 and 4-1 league mechanisms plus Tanase/Duverne/Evandro and late Tankovic availability preserve a conditional fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Opponent reply remains usable but not required for the carrier-funded fourth.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "3+1 remains plausible but secondary to the home carrier.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Current 3-0 and 4-1 league mechanisms plus Tanase/Duverne/Evandro and late Tankovic availability preserve a conditional fourth-goal carrier.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_two_route_funded": false,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Frozen Omonia G4 carrier remains substantially intact. Brouwers, Evandro, Duverne and Tanase start; Tankovic is on the bench, compatible with the previous documented late-goal role rather than removing it. Olympiakos retain a usable set-piece/reply route.",
+          "evidence_refs": [
+            "https://www.omonoiafc.com.cy/match-report-%CE%B5%CE%BD%CF%84%CF%8C%CF%82-%CE%AD%CE%B4%CF%81%CE%B1%CF%82-%CE%BD%CE%AF%CE%BA%CE%B7-%CE%BC%CE%B5-4-1-%CE%B1%CF%80%CE%AD%CE%BD%CE%B1%CE%BD%CF%84%CE%B9-%CF%83%CF%84%CE%B7%CE%BD-%CE%BA/",
+            "https://www.omonoiafc.com.cy/match-report-%CF%80%CE%B5%CE%BD%CF%84%CE%AC%CF%81%CE%B1-%CE%B5%CF%80%CE%AF-%CF%84%CE%BF%CF%85-%CE%BF%CE%BB%CF%85%CE%BC%CF%80%CE%B9%CE%B1%CE%BA%CE%BF%CF%8D-%CE%BA%CE%B1%CE%B9-8/",
+            "https://www.24sports.com.cy/gr/sports/podosfairo/kypros/a-katigoria/aris/o-efagke-fylage-to-kalytero-gia-to-90%E2%80%B2-kai-lygise-ton-olympiako-vid",
+            "USER_UPLOAD_image(20261019-154934).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "STRONG",
+      "incentive_effect": "NOT_APPLICABLE",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1848402",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "Omonia have 0-0 and low continental control endpoints; Olympiakos reply is inconsistent and a comfortable lead can stop at three.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current 3-0 and 4-1 league mechanisms plus Tanase/Duverne/Evandro and late Tankovic availability preserve a conditional fourth-goal carrier.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "b60d37f05fb9643dfecb3c8f2c26d0570fba2a11",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
