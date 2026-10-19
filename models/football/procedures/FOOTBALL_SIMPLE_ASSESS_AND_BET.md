@@ -44,6 +44,10 @@ authorize an upgrade.
 WAIT requires real reachability, an intact mechanism, no negative-information
 dependency and no material veto.
 
+For active Football C, an unsupported higher line can wait down to the certified
+burden only when the line gap is <=0.25. A 0.50+ disagreement must be rechecked
+and then either funded or passed; it cannot become a far-lower decay target.
+
 A lone screenshot is not directional evidence. Do not create a same-line
 micro-WAIT solely because odds might drift.
 
