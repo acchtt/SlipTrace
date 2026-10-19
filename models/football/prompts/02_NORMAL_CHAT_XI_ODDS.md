@@ -219,6 +219,12 @@ Require:
 A single screenshot does not prove the same line/price will improve. Near
 kickoff do not create a price-only micro-WAIT from speculative drift.
 
+For an unsupported higher line, the active C runtime may wait down to the
+certified burden only across **one 0.25 Asian-total step**. If the observed line
+is **0.50+ above** the certificate, complete the disagreement recheck and then
+ACT only if the burden becomes funded; otherwise PASS. Never issue a decay WAIT
+for a far lower O2.5/O3.5 target.
+
 The core owns target/minimum price. The normal minimum is 1.65; a 1.60
 supported-line soft zone is permitted only where the already-funded C
 certificate has the required football corroboration.
