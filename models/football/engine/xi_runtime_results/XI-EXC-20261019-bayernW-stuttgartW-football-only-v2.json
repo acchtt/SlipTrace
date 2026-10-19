@@ -1,0 +1,11 @@
+{
+  "error": "operational grade B requires market_observability HIGH/MEDIUM",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "0ec7f110d580f6fb4965535190c1ff7501654f4b5a957c7b7a656ad9e1306e49",
+  "ok": false,
+  "request_id": "XI-EXC-20261019-bayernW-stuttgartW-football-only-v2",
+  "runtime_commit": "69b4496eba993946f4779eb62ccdc3da88acddcd",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
