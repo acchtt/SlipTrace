@@ -4,6 +4,10 @@
 
 This file describes only the current production path.
 
+Prospective G4 research uses `procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`:
+negative, mixed and evidence-limited findings are distinct. Native evidence
+diagnostics and production-scope checks apply without changing C thresholds.
+
 - **Official and only active model:** Football C.
 - **Retired models:** C2, C3 and C4.
 - Historical C2/C3/C4 receipts, boards and accounting rows remain immutable

@@ -4,6 +4,9 @@ import json
 from datetime import datetime
 from typing import Any
 
+from evidence_contract import g4_evidence_review, g4_diagnostics
+from production_scope import scope_profile
+
 from competition_reliability import apply_reliability_cap, effective_state
 
 from core import (
@@ -693,8 +696,10 @@ G4_RESEARCH_STATUSES = frozenset({
     "G4_RESEARCH_INCOMPLETE",
     "G4_RESEARCH_COMPLETE_REJECTED",
     "G4_RESEARCH_COMPLETE_FUNDED",
+    "G4_RESEARCH_COMPLETE_MIXED",
+    "G4_RESEARCH_EVIDENCE_LIMITED",
 })
-G4_PATH_STATES = frozenset({"SUPPORTED", "FAILED", "UNAVAILABLE", "NOT_APPLICABLE"})
+G4_PATH_STATES = frozenset({"SUPPORTED", "FAILED", "MIXED", "UNAVAILABLE", "NOT_APPLICABLE"})
 G4_CONTINUATION_STATES = frozenset({"HIGH", "MEDIUM", "LOW", "UNAVAILABLE", "NOT_APPLICABLE"})
 G4_COMPLETENESS_FIELDS = frozenset({
     "g4_research_status",
@@ -787,7 +792,7 @@ def _g4_research_profile(
         raise ContractError(
             "G4_RESEARCH_COMPLETE_FUNDED requires the deterministic C compiler to fund G4"
         )
-    if status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_COMPLETE_REJECTED"} and goal4:
+    if status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_COMPLETE_REJECTED", "G4_RESEARCH_COMPLETE_MIXED", "G4_RESEARCH_EVIDENCE_LIMITED"} and goal4:
         raise ContractError(
             f"{status} contradicts a deterministic funded G4 certificate"
         )
@@ -795,7 +800,7 @@ def _g4_research_profile(
     paths: dict[str, str] = {}
     for field in ("g4_carrier_path", "g4_distributed_path", "g4_reply_path"):
         value = obj.get(field)
-        if value is None and status == "G4_RESEARCH_INCOMPLETE":
+        if value is None and status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}:
             value = "UNAVAILABLE"
         if not isinstance(value, str) or value not in G4_PATH_STATES:
             raise ContractError(
@@ -804,7 +809,7 @@ def _g4_research_profile(
         paths[field] = value
 
     continuation = obj.get("g4_continuation_after_g3")
-    if continuation is None and status == "G4_RESEARCH_INCOMPLETE":
+    if continuation is None and status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}:
         continuation = "UNAVAILABLE"
     if (
         not isinstance(continuation, str)
@@ -825,13 +830,13 @@ def _g4_research_profile(
                 "G4_RESEARCH_COMPLETE_FUNDED requires evaluated continuation after G3"
             )
 
-    return {
+    return g4_evidence_review(obj, {
         "g4_research_status": status,
         "g4_research_explicit": explicit,
         **paths,
         "g4_continuation_after_g3": continuation,
         "g4_research_basis": basis,
-    }
+    })
 
 
 def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
@@ -854,6 +859,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(raw_matches, list) or not raw_matches:
         raise ContractError("matches must be a non-empty array")
 
+    for raw in raw_matches:
+        scope = scope_profile(raw)
+        if not scope["production_allowed"]:
+            raise ContractError("PRODUCTION SCOPE BLOCKED — " + scope["status"])
     parsed = [
         parse_assessment(item, require_c_completion=(model == "c"))
         for item in raw_matches
@@ -917,6 +926,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "declared_supported_line_basis": item.supported_line_basis,
             **tail_profile,
             **g4_profile,
+            "certificate_diagnostics": g4_diagnostics(item),
+            "production_scope": scope_profile(raw),
             "common_evidence_basis": item.common_evidence_basis,
             "goal_signal_priority_score": item.goal_signal_priority_score,
             "goal_signal_mean_over_two_rate": item.goal_signal_mean_over_two_rate,
@@ -1066,11 +1077,16 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         if (
             len(g3_rows) >= 5
             and sum(
-                row.get("g4_research_status") == "G4_RESEARCH_INCOMPLETE"
+                row.get("g4_research_status") in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}
                 for row in g3_rows
             ) / len(g3_rows) >= 0.80
         ):
             qa_flags.append("UPPER_TAIL_RESEARCH_ANOMALY")
+        if any(row.get("g4_declared_research_status") == "G4_RESEARCH_COMPLETE_REJECTED"
+               and row.get("g4_evidence_gaps") for row in output):
+            qa_flags.append("G4_REJECTION_EVIDENCE_GAPS")
+        if any(not row["production_scope"]["production_allowed"] for row in output):
+            qa_flags.append("PRODUCTION_SCOPE_UNVERIFIED_OR_EXCLUDED")
         result["qa_flags"] = qa_flags
 
     return result
@@ -1183,6 +1199,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "declared_supported_line_basis": a.supported_line_basis,
         **tail_profile,
         **g4_profile,
+        "certificate_diagnostics": g4_diagnostics(a),
+        "production_scope": scope_profile(match_obj, ctx),
         "frozen_line_not_live_executable": True,
         "quote_required_for_football_assessment": False,
         "quote_requested": False,
@@ -1227,6 +1245,7 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 CERTIFICATE_UPGRADE_FIELDS = frozenset({
+    "g4_path_evidence", "grade_evidence", "failure_mechanisms", "g4_global_blockers",
     "home_route",
     "away_route",
     "carrier",
@@ -1282,12 +1301,12 @@ def _market_disagreement_recheck_gate(
     completeness_recheck = (
         material_gap
         and observed_line >= 3.0
-        and frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
+        and frozen_g4_status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}
     )
     prior_reclassification_recheck = (
         material_gap
         and observed_line >= 3.0
-        and frozen_g4_status == "G4_RESEARCH_COMPLETE_REJECTED"
+        and frozen_g4_status in {"G4_RESEARCH_COMPLETE_REJECTED", "G4_RESEARCH_COMPLETE_MIXED"}
     )
     if not material_gap:
         return {
@@ -1470,11 +1489,11 @@ def _certificate_upgrade_gate(
     )
     if upgraded:
         completion_repair = (
-            frozen_g4_status == "G4_RESEARCH_INCOMPLETE"
+            frozen_g4_status in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}
             and status == "VERIFIED_CERTIFICATE_COMPLETENESS_RESEARCH"
         )
         prior_misclassification_repair = (
-            frozen_g4_status == "G4_RESEARCH_COMPLETE_REJECTED"
+            frozen_g4_status in {"G4_RESEARCH_COMPLETE_REJECTED", "G4_RESEARCH_COMPLETE_MIXED"}
             and status == "VERIFIED_PRIOR_CERTIFICATE_MISCLASSIFICATION"
         )
         if completion_repair:
@@ -1574,6 +1593,8 @@ def evaluate_observed_quote(
     """
 
     football = run_football_assessment(payload)
+    if not football["production_scope"]["production_allowed"]:
+        raise ContractError("PRODUCTION SCOPE BLOCKED — " + football["production_scope"]["status"])
     model = football["model"]
     ctx_obj = _required(payload, "context")
     match_obj = _required(payload, "match")
@@ -1637,6 +1658,9 @@ def evaluate_observed_quote(
             "model_exposure_created": False,
         }
 
+
+    if football.get("g4_evidence_gaps"):
+        raise ContractError("G4 RESEARCH REQUIRED — " + ", ".join(football["g4_evidence_gaps"]))
 
     # A started fixture can still be assessed as football, but a prematch quote
     # action must not be recreated retrospectively.
@@ -1770,7 +1794,13 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     model = _active_model(payload)
 
     raw_match = _required(payload, "match")
+    scope = scope_profile(raw_match, payload.get("context"))
+    if not scope["production_allowed"]:
+        raise ContractError("PRODUCTION SCOPE BLOCKED — " + scope["status"])
     a = parse_assessment(raw_match, require_c_completion=(model == "c"))
+    evidence_profile = _g4_research_profile(raw_match, a, model=model)
+    if evidence_profile.get("g4_evidence_gaps"):
+        raise ContractError("G4 RESEARCH REQUIRED — " + ", ".join(evidence_profile["g4_evidence_gaps"]))
     compiled_burden = certified_supported_burden(a, model)
     compiled_basis = certified_supported_burden_basis(a, model)
 

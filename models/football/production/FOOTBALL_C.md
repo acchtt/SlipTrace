@@ -38,7 +38,7 @@ Ordinary domestic/small competition fixtures are admitted only when current evid
 - meaningful current competition context;
 - at least one usable mechanism/stat/news layer beyond bare final scores.
 
-A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, Japanese/Finnish, or women's football. Senior women's domestic top-flight leagues are a mandatory Step-0 discovery class and use the same viability/researchability standard as men's senior top flights. They should reach Football C only when they are both sufficiently researchable **and operationally viable**.
+A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, or Japanese/Finnish. Apply the current V4 registry scope: non-Japan domestic women's competitions are excluded. Japan women's league/cup remains eligible subject to source identity and researchability checks. An explicit out-of-scope user exception is labeled analysis, not routine production admission.
 
 Conversely, a small/obscure competition with inadequate current evidence should be excluded as:
 
@@ -168,9 +168,14 @@ After ranking, compare fixtures sharing the exact kickoff minute. At most two ma
 ## 6A. G4 research completeness
 
 Whenever C funds G3, separately state whether G4 research is complete. Persist
-`G4_RESEARCH_INCOMPLETE`, `G4_RESEARCH_COMPLETE_REJECTED`, or
+`G4_RESEARCH_INCOMPLETE`, `G4_RESEARCH_EVIDENCE_LIMITED`,
+`G4_RESEARCH_COMPLETE_MIXED`, `G4_RESEARCH_COMPLETE_REJECTED`, or
 `G4_RESEARCH_COMPLETE_FUNDED`; use `G4_NOT_APPLICABLE` only when G3 is not
 funded.
+
+Completed claims must satisfy `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`.
+Unavailable paths are not negative evidence; shared failure mechanisms retain
+one causal identity across grades. The compiler remains unchanged.
 
 A complete G4 decision evaluates the plausible carrier, distributed 2+2/3+1,
 reply-assisted and post-G3 continuation paths, together with the existing

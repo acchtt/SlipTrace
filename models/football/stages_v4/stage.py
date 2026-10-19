@@ -620,7 +620,7 @@ def _checkpoint_incomplete_g4_focus(
         row for row in rows
         if row.get("board_state") == "FOCUS"
         and row.get("goal3_funded") is True
-        and row.get("g4_research_status") == "G4_RESEARCH_INCOMPLETE"
+        and row.get("g4_research_status") in {"G4_RESEARCH_INCOMPLETE", "G4_RESEARCH_EVIDENCE_LIMITED"}
     ]
     if not incomplete:
         return c, unranked_reasons, [], {}
@@ -705,6 +705,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         c, unranked_reasons, reused_ids = _resume_research(
             previous_rank, sweep_receipt, c, unranked_reasons, status_refresh, at
         )
+    c = copy.deepcopy(c)
     crows = c.get("matches")
     if not isinstance(crows, list):
         raise StageError("actual source-backed C evidence array required")
@@ -723,6 +724,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
 
     for r in crows:
         mid = r["match_id"]
+        for field in ("country", "competition", "competition_kind"):
+            value = frozen[mid].get(field)
+            if r.get(field) is not None and r[field] != value:
+                raise StageError(f"{mid}: production scope identity drift in {field}")
+            r[field] = value
         if _time(r.get("kickoff_ict"), f"{mid}.model_kickoff") != _time(
             frozen[mid]["kickoff_utc"], f"{mid}.sweep_kickoff"
         ):

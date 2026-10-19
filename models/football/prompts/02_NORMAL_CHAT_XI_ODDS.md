@@ -1,5 +1,12 @@
 # /xi — Football C assessment
 
+Apply `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`. Use native result
+diagnostics and scope labels. A research-required or scope-blocked result cannot
+be replaced with a manually narrated ACT/WAIT/PASS. Complete mixed/rejected
+G4 findings still receive the material-disagreement recheck; only source-backed
+misclassification correction can revise a prior certificate. An out-of-scope
+exception is labeled analysis and does not silently become production execution.
+
 > **Normal chat role — XI ONLY.** This conversation is dedicated to
 > Football C prematch /xi assessments (including explicit exceptions),
 > screenshot-only quote comparisons, required football rechecks, and

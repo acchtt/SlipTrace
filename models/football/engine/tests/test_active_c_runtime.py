@@ -142,7 +142,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
         result = run_board(payload("c", row))
         self.assertEqual(
             result["matches"][0]["g4_research_status"],
-            "G4_RESEARCH_COMPLETE_REJECTED",
+            "G4_RESEARCH_INCOMPLETE",
         )
 
     def test_retired_c2_football_assessment_is_rejected(self):

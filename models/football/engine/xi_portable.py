@@ -293,7 +293,9 @@ def _football_and_optional_price(
         except Exception as exc:
             price = {
                 "ok": False,
-                "status": "OBSERVED_QUOTE_INVALID",
+                "status": ("G4_RESEARCH_REQUIRED" if str(exc).startswith("G4 RESEARCH REQUIRED")
+                           else "PRODUCTION_SCOPE_BLOCKED" if str(exc).startswith("PRODUCTION SCOPE BLOCKED")
+                           else "OBSERVED_QUOTE_INVALID"),
                 "reason": str(exc),
                 "execution_authorized": False,
                 "bet_authorized": False,

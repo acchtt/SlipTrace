@@ -11,6 +11,7 @@ import unittest
 ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 
+from evidence_fixtures import attach_g4_evidence
 from test_football_assessment_pair import football
 from xi_assessment_reconcile import (
     STATUS_COLUMN,
@@ -331,6 +332,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
                 "upper_tail_comparable_context_signal",
             ],
         )
+        attach_g4_evidence(c["match"])
         out = run_xi(c, snapshot(c, line=3.5, odds=1.72))
         price = out["price_check"]
         self.assertEqual(price["status"], "OBSERVED_QUOTE_EVALUATED")

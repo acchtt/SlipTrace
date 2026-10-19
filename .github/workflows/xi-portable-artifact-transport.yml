@@ -8,6 +8,9 @@ on:
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/xi_runtime_backend.py"
       - "models/football/engine/xi_runtime_requests/**"
+      - "models/football/engine/evidence_contract.py"
+      - "models/football/engine/production_scope.py"
+      - "models/football/stages_v4/league_registry.py"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
       - "models/football/engine/competition_reliability.py"
@@ -20,6 +23,9 @@ on:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/xi_runtime_backend.py"
+      - "models/football/engine/evidence_contract.py"
+      - "models/football/engine/production_scope.py"
+      - "models/football/stages_v4/league_registry.py"
       - "models/football/engine/core.py"
       - "models/football/engine/adapter.py"
       - "models/football/engine/step2_publication_guard.py"
@@ -125,6 +131,9 @@ jobs:
             XI_RUNTIME_COMMIT.txt
             models/football/engine/xi_portable.py
             models/football/engine/xi_runtime_backend.py
+            models/football/engine/evidence_contract.py
+            models/football/engine/production_scope.py
+            models/football/stages_v4/league_registry.py
             models/football/engine/core.py
             models/football/engine/adapter.py
             models/football/engine/competition_reliability.py
