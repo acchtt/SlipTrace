@@ -1,0 +1,11 @@
+{
+  "error": "invalid away_route='NONE'; allowed: WEAK, USABLE, STRONG",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "db1259a148f6c9d17df2e4ed46345b00bf44766c6fd3d866941398fb2655a3fb",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-degerfors-kalmar-v3",
+  "runtime_commit": "bb184dfea6f5bd1f1307e1f1c9a03edd3f9ca524",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
