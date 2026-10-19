@@ -1880,6 +1880,7 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         if (
             compiled_anchor is not None
             and abs(compiled_anchor - 2.50) <= 1e-9
+            and ctx.board_state == BoardState.FOCUS
             and not at_or_below
             and bool(book_profile["eligible"])
         ):
