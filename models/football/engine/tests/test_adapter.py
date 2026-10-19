@@ -1370,7 +1370,7 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
-    def test_c_wait_emits_target_without_assumed_exposure(self):
+    def test_c_g3_o275_emits_book_without_assumed_exposure(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1389,15 +1389,17 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["wait_target_line"], 2.5)
-        self.assertEqual(result["wait_min_odds"], 1.65)
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 2.75)
+        self.assertEqual(result["book_min_odds"], 1.85)
+        self.assertEqual(result["book_order_status"], "PENDING_UNFILLED")
+        self.assertFalse(result["book_order_is_exposure"])
         self.assertEqual(result["model_accounting_status"], "NONE")
         self.assertIsNone(result["model_accounting_line"])
         self.assertIsNone(result["model_accounting_odds"])
-        self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
+        self.assertEqual(result["wait_resolution_default"], "NOT_APPLICABLE")
 
-    def test_c_wait_rejects_material_unsupported_line_drop(self):
+    def test_c_g3_o300_material_gap_emits_book_not_far_decay_wait(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1416,11 +1418,12 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "PASS")
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 3.0)
+        self.assertEqual(result["book_min_odds"], 1.90)
         self.assertIsNone(result["wait_target_line"])
-        self.assertIn("more than 0.25", result["reason"])
 
-    def test_top_focus_wait_uses_soft_zone_minimum(self):
+    def test_top_focus_does_not_turn_book_into_wait(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1439,9 +1442,9 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["wait_target_line"], 2.5)
-        self.assertEqual(result["wait_min_odds"], 1.60)
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_min_odds"], 1.85)
+        self.assertIsNone(result["wait_target_line"])
 
     def test_active_adapter_rejects_retired_c2_decision(self):
         with self.assertRaisesRegex(ContractError, "active production model must be 'c'"):
