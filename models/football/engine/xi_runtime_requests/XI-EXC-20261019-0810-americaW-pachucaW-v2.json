@@ -1,0 +1,210 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-EXC-20261019-0810-americaW-pachucaW-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-EXC-20261019-0810-americaW-pachucaW-prematch-reconstruction",
+    "match": {
+      "match_id": "EXC-AMERICAW-PACHUCAW-20261018",
+      "kickoff_ict": "2026-10-19T08:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No trusted competition-specific override is established; current fixture has source-backed form, lineup and market observability.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "User supplied current starting-lineup evidence and the available total quote where applicable; current form/context is independently source-backed.",
+      "common_evidence_basis": "América Women are 1st after 10 matches at 8-1-1 with 45 scored and 11 conceded. Their latest six league matches all reached at least three goals and five reached at least four. Pachuca's latest six include 1-2, 4-1, 1-2, 0-1, 1-3 and 0-2. The supplied XI starts Geyse, Camberos, Luebbert, Antonio and Guerrero for América and Corral, Nicosia, Aline Gomes and Nieto for Pachuca, preserving a dominant home carrier plus a usable away reply.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "HIGH",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Pachuca have failed to score in two of their last six and can reduce the distributed route; the main risk is América carrying the total alone and stopping at three.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "OPEN",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent league H2H includes América 3-2 Pachuca, while other meetings vary; this corroborates openness but current América form and lineup remain the primary evidence.",
+      "supported_line": 3.5,
+      "supported_line_basis": "Exception declaration only; deterministic goal certificates control the compiled burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "América's 45 goals in 10 league matches and repeated 3+ team-goal outputs establish an independent home four-goal-capable carrier.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Five of América's last six league matches reached four or more total goals, with the current attacking core starting; a separate Pachuca reply also exists.",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "The four-goal mechanism is repeatedly present in current same-competition matches rather than relying on distant or weaker-comparison evidence.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_comparable_context_basis": "Current Liga MX Femenil evidence is directly comparable: América's last six average five total goals and Pachuca's latest six still reach three or more in four.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Current starting XI preserves the identified scoring routes; no lineup loss removes the primary mechanism.",
+      "material_suppression": false,
+      "material_suppression_basis": "Counterevidence is retained in reliability/continuation/stall grades but does not establish a total scoring veto.",
+      "goal_signal_priority_score": 75,
+      "goal_signal_mean_over_two_rate": 0.833,
+      "goal_signal_mean_over_three_rate": 0.583,
+      "goal_signal_low_draw_trap_rate": 0,
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "Domestic regular-season league match",
+      "competition_format": "Points-based regular season",
+      "draw_resolution": "A draw awards one point to each side; no extra time or penalties",
+      "aggregate_state": "Single league fixture with no aggregate tie",
+      "qualification_state": "Regular-season points race; victory is preferred and no aggregate protection applies",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous-result dependency creates a mandatory chase condition for this fixture",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "NEUTRAL",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "User exception admitted for current Football C football-first assessment.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_research_basis": "Current same-competition evidence plus the confirmed attacking XI funds a home-carrier fourth goal with a separate Pachuca reply path; G4 is supported. Chance quality is kept MEDIUM, so this does not automatically extend to G5.",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "country": "Mexico",
+      "competition": "Liga MX Femenil",
+      "competition_kind": "WOMENS_TOP_FLIGHT",
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned route_reliability state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned continuation_quality state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "burden_stall_risk": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned burden_stall_risk state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned failure_resistance state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned independent_upper_tail state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "failure_mechanisms": {
+        "weak-away-distributed-route": {
+          "kind": "SECOND_ROUTE_VOLATILITY",
+          "basis": "Pachuca have failed to score in two of the last six and are not a consistently strong second route, so the distributed 2+2 path is not the reason G4 is funded.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "affected_paths": [
+            "g4_distributed_path"
+          ]
+        }
+      },
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "América's current league output and confirmed attacking XI repeatedly produce four-goal-capable carrier states.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Pachuca's reply is usable but too volatile to independently certify 2+2.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": [
+            "weak-away-distributed-route"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Pachuca retain Corral, Nicosia and Aline Gomes, providing a separate reply route alongside América's dominant carrier.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        }
+      }
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-19T01:10:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "No bookmaker total was supplied for this fixture; football assessment only.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No WAIT is proposed.",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit /xi exception has no routine frozen Football C board row; the current certificate is built from source-backed exception research.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "scope_override": {
+        "match_id": "EXC-AMERICAW-PACHUCAW-20261018",
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+        "user_instruction_reference": "User explicitly requested /xi exceptions for this uploaded fixture block on 2026-10-19.",
+        "basis": "Domestic non-Japan women's football is outside routine production scope, but the user explicitly requested this fixture as an exception analysis."
+      }
+    }
+  }
+}
