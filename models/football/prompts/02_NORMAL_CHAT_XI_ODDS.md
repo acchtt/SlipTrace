@@ -24,8 +24,8 @@ new /xi work.
 ## Runtime authority in normal chat
 
 Normal chat is the evidence/interaction surface, not a second decision engine.
-Official C ACT/WAIT/PASS must be produced by the current deterministic runtime
-path in `engine/core.py`, `engine/adapter.py` and `engine/xi_portable.py`
+Official C ACT/BOOK/WAIT/PASS must be produced by the current deterministic
+runtime path in `engine/core.py`, `engine/adapter.py` and `engine/xi_portable.py`
 when those components are callable. Conversational prose may explain the result
 but may not override it.
 
@@ -131,10 +131,23 @@ The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
 policy used by strict execution.
 
 If the screenshot burden materially exceeds C's certificate, the runtime
-hard-gates the quote before any ACT/WAIT/PASS.
+normally hard-gates the observed burden before ACT/WAIT/PASS at that burden.
 
-Current material-disagreement threshold: observed screenshot line >= compiled
-Football C burden + 0.50 goals.
+A bounded **BOOK** is different because it does not accept the observed burden
+or upgrade the certificate. For a G3-only C-FOCUS row, the runtime may publish
+a lower settlement-aware target under the core extension policy:
+
+- BOOK O2.75 @1.85+ when the base G3 extension clears;
+- BOOK O3.00 @1.90+ when the stronger route extension clears;
+- BOOK O3.25 @2.00+ only when the strongest G3 extension gate clears;
+- never BOOK O3.50 from G3 alone; O3.50 requires funded G4.
+
+BOOK is a conditional target order and creates no model exposure until a fill is
+independently confirmed.
+
+Current material-disagreement threshold for accepting/upgrading the observed
+burden remains: observed screenshot line >= compiled Football C burden + 0.50
+goals.
 
 The first runtime pass returns
 `MARKET_DISAGREEMENT_RECHECK_REQUIRED` unless the current football payload
@@ -152,7 +165,9 @@ normal-chat /xi turn:
 4. record the researched certificate-relevant fields and source/evidence refs;
 5. rerun the deterministic C football certificate;
 6. invoke `xi_portable.py` again with the same user screenshot;
-7. only the second, cleared runtime result may produce ACT/WAIT/PASS.
+7. only the second, cleared runtime result may produce ACT/WAIT/PASS at the
+   observed burden. A bounded G3 BOOK target does not require a G4 upgrade
+   because it remains below O3.50 and preserves the O2.50 certificate.
 
 When the frozen board says `G4_RESEARCH_INCOMPLETE`, the runtime marks the
 material disagreement as a **certificate-completeness recheck**. The market is
@@ -221,9 +236,9 @@ kickoff do not create a price-only micro-WAIT from speculative drift.
 
 For an unsupported higher line, the active C runtime may wait down to the
 certified burden only across **one 0.25 Asian-total step**. If the observed line
-is **0.50+ above** the certificate, complete the disagreement recheck and then
-ACT only if the burden becomes funded; otherwise PASS. Never issue a decay WAIT
-for a far lower O2.5/O3.5 target.
+is **0.50+ above** the certificate, never issue a decay WAIT for a far lower
+O2.5/O3.5 target. The deterministic result must instead be ACT at a funded
+burden, a bounded settlement-aware BOOK target, or PASS.
 
 The core owns target/minimum price. The normal minimum is 1.65; a 1.60
 supported-line soft zone is permitted only where the already-funded C
@@ -244,6 +259,7 @@ events. Never recreate a prematch ACT/WAIT/PASS retrospectively.
 
 ## Output
 
-Give the C football verdict first, then any observed-price ACT/WAIT/PASS and its
-execution status. Do not mention retired models unless the user asks for
-historical audit.
+Give the C football verdict first, then any observed-price ACT/BOOK/WAIT/PASS
+and its execution status. For BOOK always print the protected certificate,
+target line, minimum odds, and that the order is **not exposure until filled**.
+Do not mention retired models unless the user asks for historical audit.
