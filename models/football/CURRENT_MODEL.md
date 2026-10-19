@@ -4,6 +4,21 @@
 
 This file describes only the current production path.
 
+### Authority hierarchy
+
+When two repository texts appear to disagree, use this order:
+
+1. executable contracts in `engine/core.py`, `engine/adapter.py` and V4
+   `stage.py`;
+2. this file for active model/routing/data boundaries;
+3. `production/FOOTBALL_C.md` for Football C semantic rules;
+4. the canonical stage launcher for the command being executed;
+5. procedure documents only when an authority above explicitly imports them.
+
+Historical/retired documents never override an active layer. Do not merge two
+conflicting rules by applying both.
+
+
 Prospective G4 research uses `procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`:
 negative, mixed and evidence-limited findings are distinct. Native evidence
 diagnostics and production-scope checks apply without changing C thresholds.
