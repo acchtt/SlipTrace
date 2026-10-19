@@ -1643,8 +1643,12 @@ def evaluate_observed_quote(
             "basis": "retired/non-C path",
         }
     )
+    observed_board_state = _enum(
+        BoardState, _required(ctx_obj, "board_state"), "board_state"
+    )
     bounded_book_candidate = bool(
         model == "c"
+        and observed_board_state == BoardState.FOCUS
         and compiled_burden is not None
         and abs(compiled_burden - 2.50) <= 1e-9
         and observed.line > compiled_burden
