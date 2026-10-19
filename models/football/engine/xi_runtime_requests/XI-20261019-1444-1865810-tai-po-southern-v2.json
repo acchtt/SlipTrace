@@ -1,0 +1,282 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-20261019-1444-1865810-tai-po-southern-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-20261019-1444-1865810-post-xi",
+    "match": {
+      "match_id": "1865810",
+      "country": "Hong Kong",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-19T15:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "The current reliability registry has no fixture-specific trusted upgrade; retain UNPROVEN separately from verified fixture researchability.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "User supplied the current starting XI and exact pre-kickoff Asian totals screenshot; frozen board research is source-backed and current XI observability is high.",
+      "common_evidence_basis": "Frozen C research supports a distributed 2+1/1+2 route: Tai Po's current domestic 3-2 and 4-1 outputs plus Southern's 3-2, 2-1, 1-3 and 3-0 profile fund G3. The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. No route-destroying absence is visible.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Tai Po's recent 1-1 and continental 0-1/0-3 endpoints plus finishing inconsistency can stall the home second goal; Southern's scoring continuity supports a reply but does not independently protect a fourth total goal.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Same-venue March 2026 Tai Po 1-0 Southern and February Southern 2-1 Tai Po were reviewed. They matter as endpoint warnings but do not create a current material suppression veto.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Frozen C board certified G3 only; deterministic compiler owns the supported burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Current evidence supports contributions from both sides rather than an opponent-independent single-team three-goal carrier.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "There is a plausible fourth-goal path through Southern's scoring continuity plus Tai Po's current attack, but reliability remains mixed rather than certificate-level.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current league contributions transfer at MEDIUM; exact same-venue 1-0 and Tai Po's latest low-completion endpoints limit reliability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Same-league high endpoints coexist with Tai Po 1-1 and the same-venue 1-0. Continental blanks are recovery/strength warnings rather than replacement evidence.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The final XI preserves the named service and finishing roles on both sides; no identified route is removed.",
+      "material_suppression": false,
+      "material_suppression_basis": "H2H and current endpoint risks remain completion cautions rather than a transferable tactical veto.",
+      "goal_signal_priority_score": 64,
+      "goal_signal_mean_over_two_rate": 0.7857,
+      "goal_signal_mean_over_three_rate": 0.3929,
+      "goal_signal_low_draw_trap_rate": 0.0714,
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Current named service and finishers preserve the frozen distributed third-goal path. Completion and continuation remain MEDIUM, so no robust G4 certificate is asserted.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Post-XI recheck preserves the frozen mixed G4 view: Tai Po can score multiple goals and Southern retain a reply, but neither a single-team four, 2+2, nor 3+1 is protected strongly enough to fund G4.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Tai Po's current attacking XI preserves the carrier possibility, but recent 1-1 and continental low-completion endpoints keep single-team four mixed.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Both teams retain usable routes, but the 2+2/3+1 completion remains mixed because Tai Po's second goal and post-G3 continuation are not reliably protected.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Southern start Golubovic and other current attackers, preserving a reply, but the extra goal after G3 remains completion-sensitive rather than robust.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. This removes no identified G3 route, but the frozen completion/control risks remain and do not establish a reliable fourth goal.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. This removes no identified G3 route, but the frozen completion/control risks remain and do not establish a reliable fourth goal.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. This removes no identified G3 route, but the frozen completion/control risks remain and do not establish a reliable fourth goal.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. This removes no identified G3 route, but the frozen completion/control risks remain and do not establish a reliable fourth goal.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The confirmed XI preserves Tai Po's Fernando, Marquinhos, Wallisson Bahia, Weverton Rangel and Wong Hin-Sum, while Southern start Golubovic, Danilo Santos, Sasaki and Poon Pui-Hin. This removes no identified G3 route, but the frozen completion/control risks remain and do not establish a reliable fourth goal.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Tai Po's recent league 1-1 and continental 0-1/0-3 endpoints plus completion inconsistency can stall the home second goal. Southern's recent scoring continuity supplies an independent reply, but their current evidence does not protect a fourth goal after G3.",
+          "evidence_refs": [
+            "https://www.hkfa.com/en/competitions/result/49940/detail",
+            "https://www.hkfa.com/en/competitions/result/49942/detail",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+            "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+            "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+            "USER_LINEUP_IMG_0438_0439"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "g4_global_blockers": null
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-19T07:44:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "The protected O2.5 burden is not shown in the supplied screenshot, and a 0.75-goal pre-kickoff drop from O3.25 is not established as realistically reachable.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No WAIT is proposed.",
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": 2.5,
+      "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "Final XI confirms the frozen G3 mechanisms but does not add new evidence strong enough to lift route reliability, completion quality, continuation, or independent-route quality to the G4 funding thresholds.",
+      "certificate_upgrade_new_evidence_fields": [
+        "FINAL_STARTING_XI"
+      ],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "The observed O3.25 burden is 0.75 goals above frozen O2.5, so the final XI, carrier/distributed/reply G4 paths, post-G3 continuation and comparable-context transferability were independently rechecked. The frozen G4 non-funding remains correct.",
+      "market_disagreement_recheck_fields": [
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "https://www.hkfa.com/en/competitions/result/49940/detail",
+        "https://www.hkfa.com/en/competitions/result/49942/detail",
+        "https://hk.on.cc/hk/bkn/cnt/sport/20261010/bkn-20261010150241355-1010_00882_001.html",
+        "https://hk.on.cc/hk/bkn/cnt/sport/20261011/bkn-20261011182615485-1011_00882_001.html",
+        "https://footballfixtures.org/match/wofoo-tai-po-vs-southern-district-2026-03-15",
+        "USER_LINEUP_IMG_0438_0439"
+      ]
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000c3508211962bade8ca2543eb",
+    "match_id": "1865810",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.94
+    },
+    "observed_at_utc": "2026-10-19T07:44:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
