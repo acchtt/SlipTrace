@@ -2231,10 +2231,12 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             frozen, "burden_stall_risk", {"LOW", "MEDIUM", "HIGH"}
         ),
         "c_action": _choice(
-            frozen, "c_action", {"C_BET", "C_WAIT", "C_PASS", "NONE"}
+            frozen, "c_action", {"C_BET", "C_BOOK", "C_WAIT", "C_PASS", "NONE"}
         ),
         "quote_line": _nullable_number(frozen, "quote_line"),
         "quote_odds": _nullable_number(frozen, "quote_odds"),
+        "book_target_line": _nullable_number(frozen, "book_target_line"),
+        "book_min_odds": _nullable_number(frozen, "book_min_odds"),
         "wait_target_line": _nullable_number(frozen, "wait_target_line"),
         "wait_min_odds": _nullable_number(frozen, "wait_min_odds"),
     }
@@ -2311,6 +2313,7 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             "WAIT_ASSUMED",
             "WAIT_USER_CONFIRMED",
             "WAIT_NOT_REACHED",
+            "BOOK_USER_CONFIRMED",
             "NONE",
         },
     )
@@ -2337,6 +2340,8 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
     c_action = frozen_out["c_action"]
     wait_target_line = frozen_out["wait_target_line"]
     wait_min_odds = frozen_out["wait_min_odds"]
+    book_target_line = frozen_out["book_target_line"]
+    book_min_odds = frozen_out["book_min_odds"]
 
     if c_action == "C_WAIT":
         if wait_target_line is None or wait_min_odds is None:
@@ -2358,6 +2363,17 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             raise ContractError("C-BET requires official_c_exposure_basis=DIRECT_BET")
         if wait_resolution != "NOT_APPLICABLE":
             raise ContractError("C-BET requires wait_resolution=NOT_APPLICABLE")
+    elif c_action == "C_BOOK":
+        if book_target_line is None or book_min_odds is None:
+            raise ContractError(
+                "C-BOOK audit requires frozen book_target_line and book_min_odds"
+            )
+        if official_exposure_basis not in {"NONE", "BOOK_USER_CONFIRMED"}:
+            raise ContractError(
+                "C-BOOK requires NONE or BOOK_USER_CONFIRMED exposure basis"
+            )
+        if wait_resolution != "NOT_APPLICABLE":
+            raise ContractError("C-BOOK requires wait_resolution=NOT_APPLICABLE")
     else:
         if official_exposure_basis != "NONE":
             raise ContractError("C-PASS/NONE requires official_c_exposure_basis=NONE")
@@ -2423,6 +2439,26 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         ):
             raise ContractError(
                 "DIRECT_BET exposure line/odds must equal frozen direct quote"
+            )
+
+    if official_exposure_basis == "BOOK_USER_CONFIRMED":
+        if c_action != "C_BOOK":
+            raise ContractError("BOOK_USER_CONFIRMED requires c_action=C-BOOK")
+        if not official_exposure:
+            raise ContractError("BOOK_USER_CONFIRMED requires official_c_exposure=true")
+        if not user_executed:
+            raise ContractError("BOOK_USER_CONFIRMED requires user_executed=true")
+        if official_exposure_line != book_target_line:
+            raise ContractError(
+                "BOOK_USER_CONFIRMED exposure line must equal frozen BOOK target"
+            )
+        if (
+            official_exposure_odds is None
+            or book_min_odds is None
+            or official_exposure_odds + 1e-9 < book_min_odds
+        ):
+            raise ContractError(
+                "BOOK_USER_CONFIRMED exposure odds must meet frozen BOOK minimum"
             )
 
     if official_exposure_basis == "NONE":
