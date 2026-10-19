@@ -1,0 +1,337 @@
+{
+  "input_sha256": "7c9c198a365b35e0369341aa45bd8ecfa4351d753abd2e0bdefaf22e5b49d09e",
+  "ok": true,
+  "request_id": "XI-20261019-2300-1732098-rfs-tukums-o4",
+  "runtime": {
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-10-19T15:55:00+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "file_000000003b0c82069c1854c86d156aab",
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "1732098",
+        "match_minute": null,
+        "observation_age_seconds": 0.0,
+        "observed_at_utc": "2026-10-19T15:55:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 4.0,
+          "odds": 2.0
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT"
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "bridge_used": false,
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "PASS",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+        "market_disagreement_gap_goals": 0.5,
+        "market_disagreement_recheck_basis": "Exact screenshot burden independently checked against the post-XI G4 certificate.",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [
+          "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+          "https://fkrfs.lv/match/9186/",
+          "https://fkrfs.lv/en/standings/",
+          "https://fkrfs.lv/en/results/page/3/",
+          "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+          "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+          "USER_UPLOAD_image(20261019-154933).png"
+        ],
+        "market_disagreement_recheck_fields": [
+          "g4_carrier_path",
+          "g4_distributed_path",
+          "g4_reply_path",
+          "g4_continuation_after_g3",
+          "upper_tail_transferability",
+          "upper_tail_comparable_context_signal"
+        ],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": true,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears",
+        "snapshot_line_relation": "ABOVE_SUPPORTED_BURDEN",
+        "supported_line": 3.5,
+        "wait_min_odds": null,
+        "wait_reachability_basis": "A protected lower line is not shown as a clearly reachable future target before kickoff.",
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "quote_research_required": false,
+    "quotes_required": false,
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Frozen C rank certified G4 / O3.5; post-XI compiler owns final certificate.",
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current same-league RFS carrier supports goal four, not goal five.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Opponent reply remains usable but not required for the carrier-funded fourth.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "3+1 remains plausible but secondary to the home carrier.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Current same-league RFS carrier supports goal four, not goal five.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_two_route_funded": false,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Frozen RFS G4 carrier is preserved. Odisharia and Panic start; Lemajic remains an available bench finisher, consistent with the recent mechanism.",
+          "evidence_refs": [
+            "https://fkrfs.lv/lemajics-vada-atspelesanos-9-minutes-pret-jelgavu/",
+            "https://fkrfs.lv/match/9186/",
+            "https://fkrfs.lv/en/standings/",
+            "https://fkrfs.lv/en/results/page/3/",
+            "https://fkrfs.lv/sesta-uzvara-pec-kartas/",
+            "https://lff.lv/speles/fk-tukums-2000-riga-fc-23300224/",
+            "USER_UPLOAD_image(20261019-154933).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "NEUTRAL",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1732098",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NO",
+      "tournament_incentive_effect": "NEUTRAL",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "RFS control and weak Tukums reply make exactly four or fewer a meaningful endpoint; goal five is not funded.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current same-league RFS carrier supports goal four, not goal five.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "46cc8ff7922acbd8d466447bb638a5248c7b2c84",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
