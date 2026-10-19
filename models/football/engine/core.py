@@ -1594,16 +1594,46 @@ def _healthy_wait(ctx: ModelQuoteContext) -> bool:
     return ctx.wait_reachable and not ctx.wait_requires_negative_info
 
 
-def _healthy_c_wait(a: MatchAssessment, ctx: ModelQuoteContext) -> bool:
-    """Require a stronger live revalidation before WATCH can convert to WAIT.
+MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP = 0.25
 
-    A fragile WATCH certificate may stay on the board for research, but a
-    reached price must not convert that fragile thesis into exposure unless the
-    current football assessment has improved to CONDITIONAL-or-better.
-    FOCUS remains governed by the normal reachability and football vetoes.
+
+def _c_wait_target_is_pregoal_reachable(
+    a: MatchAssessment,
+    ctx: ModelQuoteContext,
+) -> bool:
+    """Reject manufactured decay targets far below the observed burden.
+
+    WAIT is a pre-goal entry plan, not permission to hope that a materially
+    higher market total collapses to C's certificate. A higher unsupported
+    quote may wait only one normal Asian-total step (0.25) down to the
+    certified burden. A gap of 0.50+ is material disagreement: after the
+    football recheck it must either become funded or PASS.
+    """
+
+    compiled = certified_supported_burden(a, "c")
+    if compiled is None:
+        return False
+    if ctx.quote.line <= compiled + 1e-9:
+        return True
+    return (
+        ctx.quote.line - compiled
+        <= MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP + 1e-9
+    )
+
+
+def _healthy_c_wait(a: MatchAssessment, ctx: ModelQuoteContext) -> bool:
+    """Require a genuinely reachable pre-goal C WAIT.
+
+    A fragile WATCH certificate may stay visible for research, but a reached
+    price must not convert that fragile thesis into exposure unless the current
+    football assessment has improved to CONDITIONAL-or-better. FOCUS still
+    requires explicit reachability, no negative-information dependency, and a
+    target no more than one quarter-goal below an unsupported observed line.
     """
 
     if not _healthy_wait(ctx):
+        return False
+    if not _c_wait_target_is_pregoal_reachable(a, ctx):
         return False
     if ctx.board_state == BoardState.WATCH:
         return certificate_robustness(a, "c") >= 1
@@ -1639,12 +1669,17 @@ def model_wait_target(
 ) -> tuple[float, float]:
     """Compile the model's declared WAIT target/minimum price.
 
-    A tail-funded quote waits for price at the same quoted burden. An
-    unsupported higher burden may only wait for the certified supported_line.
-    This function never creates assumed exposure.
+    A tail-funded quote waits for price at the same quoted burden. Active
+    Football C may wait down to its certified burden only when the unsupported
+    line gap is at most 0.25. This function never creates assumed exposure.
     """
 
     compiled = certified_supported_burden(a, model) if model in {"c", "c2"} else None
+    if model == "c" and not _c_wait_target_is_pregoal_reachable(a, ctx):
+        raise ValueError(
+            "WAIT unavailable: certified target is not realistically reachable "
+            "before the first goal"
+        )
     if model in {"c", "c2"} and market_line_funded(a, ctx.quote.line, model):
         target_line = ctx.quote.line
     elif compiled is not None:
@@ -1740,7 +1775,19 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):
             return Decision(
                 Action.WAIT,
-                "quoted burden lacks prospective certificate; healthy certified target reachable",
+                "quoted burden lacks prospective certificate; one-step certified target reachable",
+            )
+        if (
+            compiled_anchor is not None
+            and not at_or_below
+            and ctx.wait_reachable
+            and ctx.quote.line - compiled_anchor
+                > MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP + 1e-9
+        ):
+            return Decision(
+                Action.PASS,
+                "unsupported market burden is more than 0.25 above the C certificate; "
+                "do not manufacture a pre-goal decay WAIT",
             )
         return Decision(
             Action.PASS,

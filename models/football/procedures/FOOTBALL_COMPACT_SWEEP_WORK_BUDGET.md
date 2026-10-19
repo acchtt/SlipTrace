@@ -1,3 +1,5 @@
+> **RETIRED V1–V3 WORKLOAD POLICY — historical audit only. The 8/12/15/20 fixture budgets and refill targets do not govern V4. New production has no fixed V4 board cap; use `stages_v4/SWEEP.md` and `RANK.md`.**
+
 > **V4 AUTHORITY NOTICE (2026-10-12):** This document contains historical V1–V3 or Football A operational instructions. Its legacy `ACTIVE` labels, Step0/Step1 capacity limits, AiScore-only rules, pre-XI fixture-specific odds/lineup blockers and old-model claims do **not** govern current `/sweep` or `/rank`. Canonical replacement: `models/football/stages_v4/SWEEP.md` and `RANK.md`; current C/C2 authority: `CURRENT_MODEL.md`. Only football safety guidance explicitly imported by those V4 launchers remains applicable. Historical receipts remain immutable.
 
 # Football Compact Sweep / Work Budget — v1

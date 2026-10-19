@@ -4,6 +4,21 @@
 
 This file describes only the current production path.
 
+### Authority hierarchy
+
+When two repository texts appear to disagree, use this order:
+
+1. executable contracts in `engine/core.py`, `engine/adapter.py` and V4
+   `stage.py`;
+2. this file for active model/routing/data boundaries;
+3. `production/FOOTBALL_C.md` for Football C semantic rules;
+4. the canonical stage launcher for the command being executed;
+5. procedure documents only when an authority above explicitly imports them.
+
+Historical/retired documents never override an active layer. Do not merge two
+conflicting rules by applying both.
+
+
 Prospective G4 research uses `procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`:
 negative, mixed and evidence-limited findings are distinct. Native evidence
 diagnostics and production-scope checks apply without changing C thresholds.
@@ -286,13 +301,19 @@ rules.
 WAIT requires:
 
 - wait_reachable=true;
-- a non-empty football/market reachability basis;
+- a non-empty contemporaneous reachability basis;
 - wait_requires_negative_info=false;
 - intact current football thesis;
 - no material veto.
 
+For an unsupported higher observed burden, the deterministic C core permits a
+pre-goal WAIT down to the certified burden only when the gap is at most **0.25
+goals**. A gap of **0.50+** is material disagreement: complete the football
+recheck, then either fund/evaluate that burden or PASS. Do not wait for a much
+lower line merely because C's frozen certificate is lower.
+
 A lone screenshot does not prove same-line odds will improve. Near kickoff,
-do not manufacture a micro-WAIT from a speculative price drift.
+do not manufacture a micro-WAIT from speculative price drift.
 
 The normal minimum price is 1.65. The supported-line 1.60 soft zone is allowed
 only by the C core where the already-funded burden has the required independent

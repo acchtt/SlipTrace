@@ -1,40 +1,41 @@
-# Football Step-2 Market-History Recheck
+# Football C — Step-2 Market-History Recheck
 
-**Status:** MANDATORY STEP-2 EVIDENCE BLOCK  
-**Applies to:** Football C official, C2 shadow  
-**Authority:** context/reinspection only; market history does not create football structure
+**Status:** ACTIVE ONLY FOR STRICT NON-SCREENSHOT EXECUTION CONTEXT  
+**Model:** Football C only  
+**Model effect:** none; market history can trigger football reinspection but cannot create a certificate
 
-## V4 USER_SCREENSHOT_ONLY override (2026-10-12)
+## USER_SCREENSHOT_ONLY boundary
 
-When the user supplies odds screenshots for /xi or /xi exception, the screenshot alone is the sole market source. **Do not search for new/replacement odds or historical bookmaker prices.** Preserve its exact line, odds, bookmaker where visible, original timestamp when known, score/minute and source reference. Log `MARKET_HISTORY_NOT_RESEARCHED_USER_SCREENSHOT_ONLY` as a qualitative limitation, not a fabricated `FOUND`, `PARTIAL` or `UNAVAILABLE_ATTEMPTED` market-history enum. If the legacy priced engine demands an attempted-history enum without an actual attempt, keep the C/C2 football result and explicitly conditional screenshot-price verdict; do not forge a status to authorize ACT. Football/XI/competition incentive research remains mandatory. Never request a replacement screenshot simply because execution was delayed.
+When the user supplies odds screenshots for `/xi` or `/xi exception`, the
+screenshot is the sole market source for that comparison.
 
-The historical mandatory-attempt rules below apply only to non-screenshot price evidence for which bookmaker research is separately authorized.
+- do not search for replacement/current odds;
+- do not search historical bookmaker prices merely to satisfy this procedure;
+- preserve the exact supplied line/odds and source reference;
+- record the limitation qualitatively when useful;
+- do not forge `FOUND`, `PARTIAL` or `UNAVAILABLE_ATTEMPTED`.
 
-## 1. Mandatory attempt
+Screenshot comparison remains non-executable. Football/XI/incentive research is
+separate and still applies.
 
-For every Step-2 fixture, attempt a lightweight Asian-total history trace before the final C/C2 action:
+## Strict executable quote context
 
-`OPEN -> PRE-XI -> POST-XI / CURRENT PREMATCH`
+For a genuinely executable current prematch quote using an authorized
+non-screenshot market source, the strict decision contract may require one
+lightweight Asian-total history attempt:
 
-Prefer the same bookmaker/source across snapshots. If same-source history is unavailable, use clearly timestamped comparable sources and mark limitations.
+`OPEN -> PRE-XI -> CURRENT PREMATCH`
 
-Set exactly one:
-- `MARKET HISTORY FOUND`
-- `MARKET HISTORY PARTIAL`
-- `MARKET HISTORY UNAVAILABLE — ATTEMPTED`
+Persist exactly one supported runtime state:
 
-Do not fabricate missing snapshots.
+- `FOUND`
+- `PARTIAL`
+- `UNAVAILABLE_ATTEMPTED`
 
-## 2. What to capture
+Never fabricate snapshots.
 
-When observable:
-- opening/main Asian total;
-- latest reliable pre-XI total;
-- current/post-XI main market center;
-- source and timestamp context;
-- movement direction.
+When observable, record opening/current center, timestamps/source and movement:
 
-Movement:
 - `UP_0.50_PLUS`
 - `UP_0.25`
 - `STABLE`
@@ -43,70 +44,21 @@ Movement:
 - `MIXED`
 - `UNCLEAR`
 
-The user's current executable quote remains execution authority. External current prices are context only.
+## Football conflict recheck
 
-## 3. Conflict recheck
+Market movement may trigger reinspection for late availability, formation/role
+changes, goalkeeper/centre-back changes, tactical suppression, tournament
+incentive, weather/pitch or source/time mismatch.
 
-Market history is a reinspection trigger, not a model.
+Persist the strict runtime conflict state required by the adapter:
 
-Recheck football evidence when:
-- XI looks damaged but the total strengthens by >=0.25;
-- XI looks stronger/intact but the total weakens by >=0.25;
-- current market center is >=0.25 below the frozen C supported line;
-- current market center is materially above the frozen C supported line;
-- sources disagree materially.
-
-Search specifically for:
-- late attacking/defensive absences;
-- formation/role changes;
-- goalkeeper/centre-back changes;
-- tactical suppression;
-- tournament incentive changes;
-- weather/pitch;
-- source/time mismatch;
-- stale or misidentified fixture data.
-
-Persist one:
 - `NOT_REQUIRED`
 - `RECHECKED_FOOTBALL_EXPLAINED`
 - `RECHECKED_UNEXPLAINED`
 - `LIMITED`
 
-## 4. Model boundary
+Market history may expose missing information. It may not create a route,
+upgrade Football C by price, raise supported burden, replace XI/H2H/incentive
+research, or override the deterministic certificate.
 
-Market movement may:
-- expose missing information;
-- reduce confidence;
-- force a football recheck;
-- help explain why a lower protected line is available.
-
-Market movement may not:
-- create a scoring route;
-- turn TWO_SIDED into burden-completing;
-- upgrade C/C2 rank by price alone;
-- raise supported burden;
-- replace H2H/tournament/XI research.
-
-A lower total is safer mechanically but is not automatically value.
-
-## 5. Research separation
-
-The market-history attempt does **not** satisfy the mandatory fresh post-XI football research gate.
-
-Both must be completed/declaratively attempted:
-- `POST-XI RESEARCH = ...`
-- `MARKET HISTORY = ...`
-
-## 6. Output
-
-Every /xi match block must show:
-- market-history status;
-- OPEN / PRE-XI / CURRENT trace when found;
-- movement classification;
-- conflict-recheck result;
-- current executable user quote separately.
-
-If unavailable:
-`MARKET HISTORY: UNAVAILABLE — ATTEMPTED`
-
-Do not hide the missing history.
+A lower total is mechanically safer but is not automatically value.

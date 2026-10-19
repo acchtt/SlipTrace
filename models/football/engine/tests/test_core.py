@@ -951,15 +951,15 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, Action.PASS)
 
-    def test_unfunded_higher_burden_waits_only_when_healthy_and_reachable(self):
-        # O3.0 needs a goal-four certificate. The default assessment has no
-        # independent upper tail, so this remains an unsupported higher burden.
+    def test_unfunded_higher_burden_waits_only_one_step_when_healthy(self):
+        # O2.75 is one normal Asian-total step above the default O2.5
+        # certificate, so an explicitly evidenced pre-goal WAIT may survive.
         healthy = decide_c(
             assessment(),
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
-                Quote(3.0, 1.85),
+                Quote(2.75, 1.85),
                 wait_reachable=True,
                 wait_requires_negative_info=False,
             ),
@@ -969,13 +969,27 @@ class FootballCExecutionTests(unittest.TestCase):
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
-                Quote(3.0, 1.85),
+                Quote(2.75, 1.85),
                 wait_reachable=True,
                 wait_requires_negative_info=True,
             ),
         )
         self.assertEqual(healthy.action, Action.WAIT)
         self.assertEqual(stale.action, Action.PASS)
+
+    def test_unfunded_material_gap_cannot_manufacture_decay_wait(self):
+        decision = decide_c(
+            assessment(),
+            context(
+                BoardState.FOCUS,
+                ThesisState.PRESERVED,
+                Quote(3.0, 1.85),
+                wait_reachable=True,
+                wait_requires_negative_info=False,
+            ),
+        )
+        self.assertEqual(decision.action, Action.PASS)
+        self.assertIn("more than 0.25", decision.reason)
 
     def test_fragile_watch_wait_requires_conditional_or_better_revalidation(self):
         fragile = assessment(
