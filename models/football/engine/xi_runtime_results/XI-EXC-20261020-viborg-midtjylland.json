@@ -1,0 +1,11 @@
+{
+  "error": "operational grade A requires market_observability=HIGH",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "398c1edcf9b90fd2afd7f84dc936f461a4d15409a319e8e878faf29af0292691",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-viborg-midtjylland",
+  "runtime_commit": "ac61f7384be830ce87f7cf3055c6c444210c6419",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
