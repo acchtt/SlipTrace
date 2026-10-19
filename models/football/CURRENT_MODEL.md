@@ -282,11 +282,12 @@ A ranked fixture also carries its frozen board certificate into `/xi`. A
 higher screenshot burden can never authorize an upgrade by itself.
 
 If the observed market burden materially exceeds C's certified burden, the
-disagreement normally triggers one independent football-evidence recheck before
-ACT at the observed burden or certificate upgrade. A bounded settlement-aware
-G3 BOOK target is not an observed-burden ACT and does not require G4 merely
-because the current market is higher. That recheck may produce a higher current
-certificate only through one of three explicit paths:
+disagreement triggers one independent football-evidence recheck before a final
+priced verdict. A bounded settlement-aware G3 BOOK target is not an
+observed-burden ACT and does not require that recheck to fund G4 merely because
+the current market is higher. After the recheck, C may BOOK within its bounded
+G3 extension or PASS; ACT at the observed burden still requires funding. A
+higher current certificate may arise only through one of three explicit paths:
 
 - genuinely changed football evidence:
   `VERIFIED_NEW_FOOTBALL_EVIDENCE`;
