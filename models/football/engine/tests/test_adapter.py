@@ -12,6 +12,7 @@ from decision_pair_cli import run_pair  # noqa: E402
 def match(match_id="m1", **overrides):
     row = {
         "match_id": match_id,
+        "country": "England", "competition": "Premier League", "competition_kind": "DOMESTIC_LEAGUE",
         "kickoff_ict": "2026-10-02T01:45:00+07:00",
         "operational_viability_grade": "A",
         "raw_operational_viability_grade": "A",

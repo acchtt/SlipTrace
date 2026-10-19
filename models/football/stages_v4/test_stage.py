@@ -17,6 +17,7 @@ sys.path.insert(0, str(ENGINE_TESTS))
 from league_registry import classify, REGISTRY
 from stage import StageError, sweep, rank as production_rank, verify_rank
 from test_board_pair import c_row, payload
+from evidence_fixtures import attach_g4_evidence
 
 NOW = "2026-10-11T16:00:00Z"
 KICKOFF = "2026-10-11T17:00:00Z"
@@ -81,6 +82,8 @@ def snapshot(fixtures=None):
 
 def model_input(mid="m1"):
     a = c_row()
+    for field in ('country', 'competition', 'competition_kind'):
+        a.pop(field, None)
     a["match_id"] = mid
     a["kickoff_ict"] = KICKOFF_ICT
     return payload("c", a)
@@ -611,7 +614,7 @@ class RankV4Tests(unittest.TestCase):
             g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
             g4_carrier_path="FAILED",
             g4_distributed_path="FAILED",
-            g4_reply_path="UNAVAILABLE",
+            g4_reply_path="FAILED",
             g4_continuation_after_g3="MEDIUM",
             g4_research_basis=(
                 "Carrier, distributed, reply and continuation paths were "
@@ -619,6 +622,7 @@ class RankV4Tests(unittest.TestCase):
             ),
         )
 
+        attach_g4_evidence(row)
         result = rank(
             src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
             now="2026-10-11T16:05:00Z",
@@ -647,6 +651,7 @@ class RankV4Tests(unittest.TestCase):
         )
         complete = c_row()
         complete["match_id"] = "m2"
+        complete.update(country="Netherlands", competition="Eerste Divisie")
         complete["kickoff_ict"] = KICKOFF_ICT
         c = payload("c", incomplete)
         c["matches"].append(complete)
@@ -696,6 +701,7 @@ class RankV4Tests(unittest.TestCase):
         focus["kickoff_ict"] = KICKOFF_ICT
         watch = c_row()
         watch["match_id"] = "m2"
+        watch.update(country="Netherlands", competition="Eerste Divisie")
         watch["kickoff_ict"] = KICKOFF_ICT
         watch["board_state"] = "C-WATCH"
         watch["board_state_basis"] = "credible research case, but below C focus admission"

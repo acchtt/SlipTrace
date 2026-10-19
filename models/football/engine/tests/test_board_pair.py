@@ -10,6 +10,7 @@ from board_pair_cli import run_board_pair  # noqa: E402
 
 
 COMMON = {
+    "country": "England", "competition": "Premier League", "competition_kind": "DOMESTIC_LEAGUE",
     "match_id": "alpha",
     "kickoff_ict": "2026-10-04T19:00:00+07:00",
     "operational_viability_grade": "A",

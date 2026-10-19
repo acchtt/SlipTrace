@@ -14,6 +14,12 @@
 
 This is the only active /rank procedure.
 
+Apply `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md` to explicit completed
+G4 claims. Missing evidence and unavailable paths remain checkpointed research;
+mixed evidence is distinct from negative evidence. Consume native diagnostics
+and QA flags. Bind scope metadata to the original source; never substitute
+new competition labels to admit an excluded fixture.
+
 ## Runtime availability
 
 A new Work task may not already contain a repository checkout. If shell/Python
