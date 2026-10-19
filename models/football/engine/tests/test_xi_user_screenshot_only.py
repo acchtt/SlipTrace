@@ -175,7 +175,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(out["model"], "c")
         self.assertEqual(out["result"]["model"], "c")
 
-    def test_wait_comes_from_explicit_reachability(self):
+    def test_material_gap_cannot_wait_for_far_lower_certificate(self):
         c = complete_market_disagreement_recheck(
             wait_ready(
                 football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
@@ -183,10 +183,22 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         )
         out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
         verdict = out["price_check"]["model"]
+        self.assertEqual(verdict["conditional_action"], "PASS")
+        self.assertIsNone(verdict["wait_target_line"])
+        self.assertIn("more than 0.25", verdict["reason"])
+        self.assertTrue(verdict["wait_reachable"])
+
+    def test_one_step_unsupported_line_can_still_wait_when_evidenced(self):
+        c = complete_market_disagreement_recheck(
+            wait_ready(
+                football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+            )
+        )
+        # This fixture compiles O3.5; O3.75 is one quarter-goal step above it.
+        out = run_xi(c, snapshot(c, line=3.75, odds=1.72))
+        verdict = out["price_check"]["model"]
         self.assertEqual(verdict["conditional_action"], "WAIT")
         self.assertEqual(verdict["wait_target_line"], 3.5)
-        self.assertEqual(verdict["wait_min_odds"], 1.65)
-        self.assertTrue(verdict["wait_reachable"])
 
     def test_material_market_disagreement_blocks_until_rechecked(self):
         c = wait_ready(
