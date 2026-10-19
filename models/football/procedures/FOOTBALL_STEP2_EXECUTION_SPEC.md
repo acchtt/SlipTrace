@@ -1,3 +1,5 @@
+> **RETIRED LEGACY STEP-2 SPEC — historical audit only. Current `/xi` authority is `prompts/02_NORMAL_CHAT_XI_ODDS.md` plus `engine/core.py`, `engine/adapter.py`, and `engine/xi_portable.py`.**
+
 # Football A — Compiled Step-2 Execution Specification (Historical)
 
 **Status:** RETIRED FOR NEW FOOTBALL C PRODUCTION — HISTORICAL FOOTBALL A ONLY
