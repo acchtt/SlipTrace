@@ -134,8 +134,10 @@ If the screenshot burden materially exceeds C's certificate, the runtime
 normally hard-gates the observed burden before ACT/WAIT/PASS at that burden.
 
 A bounded **BOOK** is different because it does not accept the observed burden
-or upgrade the certificate. For a G3-only C-FOCUS row, the runtime may publish
-a lower settlement-aware target under the core extension policy:
+or upgrade the certificate. The normal 0.50+ material-disagreement football
+recheck still runs first. After it completes, a G3-only C-FOCUS row may publish
+a lower settlement-aware target under the core extension policy even if G4
+remains unfunded/rejected:
 
 - BOOK O2.75 @1.85+ when the base G3 extension clears;
 - BOOK O3.00 @1.90+ when the stronger route extension clears;
@@ -165,9 +167,9 @@ normal-chat /xi turn:
 4. record the researched certificate-relevant fields and source/evidence refs;
 5. rerun the deterministic C football certificate;
 6. invoke `xi_portable.py` again with the same user screenshot;
-7. only the second, cleared runtime result may produce ACT/WAIT/PASS at the
-   observed burden. A bounded G3 BOOK target does not require a G4 upgrade
-   because it remains below O3.50 and preserves the O2.50 certificate.
+7. only the second, cleared runtime result may produce ACT/BOOK/WAIT/PASS.
+   A bounded G3 BOOK target does not require the recheck to fund G4 because it
+   remains below O3.50 and preserves the O2.50 certificate.
 
 When the frozen board says `G4_RESEARCH_INCOMPLETE`, the runtime marks the
 material disagreement as a **certificate-completeness recheck**. The market is
