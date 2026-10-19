@@ -1382,7 +1382,7 @@ class DecisionContractTests(unittest.TestCase):
                 ),
                 "context": decision_context(
                     board_state="C-FOCUS",
-                    quote={"line": 3.0, "odds": 1.85},
+                    quote={"line": 2.75, "odds": 1.85},
                     wait_reachable=True,
                     wait_requires_negative_info=False,
                     top_ranked_focus=False,
@@ -1397,7 +1397,7 @@ class DecisionContractTests(unittest.TestCase):
         self.assertIsNone(result["model_accounting_odds"])
         self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
 
-    def test_top_focus_wait_uses_soft_zone_minimum(self):
+    def test_c_wait_rejects_material_unsupported_line_drop(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1410,6 +1410,29 @@ class DecisionContractTests(unittest.TestCase):
                 "context": decision_context(
                     board_state="C-FOCUS",
                     quote={"line": 3.0, "odds": 1.85},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+        self.assertIsNone(result["wait_target_line"])
+        self.assertIn("more than 0.25", result["reason"])
+
+    def test_top_focus_wait_uses_soft_zone_minimum(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(
+                    board_state="C-FOCUS",
+                    supported_line=2.5,
+                ),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 2.75, "odds": 1.85},
                     wait_reachable=True,
                     wait_requires_negative_info=False,
                     top_ranked_focus=True,
