@@ -1643,34 +1643,6 @@ def evaluate_observed_quote(
             "basis": "retired/non-C path",
         }
     )
-    observed_board_state = _enum(
-        BoardState, _required(ctx_obj, "board_state"), "board_state"
-    )
-    bounded_book_candidate = bool(
-        model == "c"
-        and observed_board_state == BoardState.FOCUS
-        and compiled_burden is not None
-        and abs(compiled_burden - 2.50) <= 1e-9
-        and observed.line > compiled_burden
-        and book_profile["eligible"]
-    )
-    original_disagreement_required = bool(
-        disagreement_gate["market_disagreement_recheck_required"]
-    )
-    if bounded_book_candidate and original_disagreement_required:
-        # A BOOK does not accept the observed higher burden and does not upgrade
-        # the certificate. The order target is bounded by the G3 extension
-        # ceiling, so the market-gap recheck remains relevant only if a later
-        # caller wants to ACT at the observed burden / upgrade G4.
-        disagreement_gate = {
-            **disagreement_gate,
-            "market_disagreement_recheck_required": False,
-            "market_disagreement_recheck_completed": True,
-            "market_disagreement_recheck_basis": (
-                "NOT_REQUIRED_FOR_BOUNDED_G3_BOOK_EXTENSION"
-            ),
-            "certificate_upgrade_recheck_required_if_acting_at_observed_burden": True,
-        }
 
     if (
         disagreement_gate["market_disagreement_recheck_required"]
