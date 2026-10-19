@@ -190,10 +190,12 @@ If the recheck funds the market burden, evaluate it normally. If the recheck
 does not fund it, the market remains unsupported as a **certificate**.
 
 A bounded G3 BOOK extension is different: it does not accept the observed
-higher burden and does not create G4. When eligible, C may publish its lower
-settlement-aware target (maximum O3.25) without waiting for the market to decay
-to O2.5. A certificate-upgrade recheck is still required if C later wants to
-ACT at the materially higher observed burden.
+higher burden and does not create G4. Material 0.50+ disagreement still
+completes the existing football recheck first. After that recheck, C may publish
+its lower settlement-aware target (maximum O3.25) even when G4 remains
+unfunded/rejected; the recheck does not have to manufacture a certificate
+upgrade. ACT at the materially higher observed burden still requires that
+burden to be funded.
 
 Do not use a higher market total as proof that the missing certificate should
 exist.
