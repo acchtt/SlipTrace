@@ -1,0 +1,230 @@
+{
+  "input_sha256": "36a89ce028680a70a87975bfc7334b0fb1379c388c3816f86f697d8f07f4f069",
+  "ok": true,
+  "request_id": "XI-20261020-0100-1845666-hilal-hazm-postxi",
+  "runtime": {
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "MEDIUM",
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Frozen C certificate was O3.5 / G4 funded; final XI preserves the named carrier. Deterministic compiler owns final burden.",
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "affected_paths": [
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Primary frozen G4 carrier starters are confirmed and Mandash remains on bench.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Hazm contribution remains uncertain and unnecessary for G4 funding.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "3+1 remains possible but secondary; no away reply is required.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Watkins/Martinelli/Summerville start, Neves/Milinkovic-Savic service is intact, and Mandash remains an available late continuation scorer. This preserves the original home-carrier fourth-goal mechanism; distributed and away-reply routes remain secondary.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_two_route_funded": false,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "route_reliability": {
+          "basis": "The same frozen control risk remains: Al Hilal have also finished organized matches at 2-0/2-1 and Al Hazm may contribute little, so 3-0 or a controlled lower endpoint remains possible. The XI does not remove that stall risk, but it does not weaken the funded fourth-goal carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/watkins-wonderful-start-how-al-hilal-have-finally-found-their-lead-no-9",
+            "https://www.spl.com.sa/en/news/that-s-why-i-m-here-gabriel-martinelli-off-mark-at-al-hilal-with-hat-trick",
+            "USER_UPLOAD_image(20261019-175058).png"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "STRONG",
+      "incentive_effect": "NOT_APPLICABLE",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1845666",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "Same-season 6-0 and 3-2 evidence supports upper tail; closer organized endpoints remain suppressive comparators.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current four-plus carrier is preserved, but organized-opponent 2-0/2-1 controls cap transferability.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "fbf516910cd98c4b5e779b90d4b82984adabf9bd",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
