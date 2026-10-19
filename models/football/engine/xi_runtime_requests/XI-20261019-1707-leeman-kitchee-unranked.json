@@ -1,0 +1,269 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-20261019-1707-leeman-kitchee-unranked",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-20261019-1707-LEE-MAN-KITCHEE-CURRENT-PREMATCH",
+    "match": {
+      "match_id": "UNRANKED-LEE-MAN-KITCHEE-20261019",
+      "country": "Hong Kong",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-19T17:30:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No trusted registry upgrade established. Current fixture, results, official Kitchee team news, and user lineup/quote are source-backed.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "User displays prematch match total and confirmed starting XIs; relevant current source-backed league results and Kitchee official preview verified.",
+      "common_evidence_basis": "Through five 2026/27 league matches Lee Man have 13 scored, 1 conceded, five wins, with scorelines 3-0,3-0,3-0,2-1,2-0; Kitchee have 14 scored,4 conceded, record four wins and one draw, league scorelines 3-2,0-0,4-1,3-1,4-0. Goal3+ in 8/10 combined team-matches; goal4+ in 4/10; a 0-0 trap in one Kitchee game. Lee Man start Kraev, Luis Phelipe, Ichikawa, Tursunov and Giga u ri; Kitchee start Revilla, Mingazov, Camargo, Camarasa and Illarramendi. Kitchee keep Obieta and Juninho on bench, not in starting attack, following Thursday AFC Champions League Two trip to Kuching. Both routes exist, but top-table defensive strength and recovery make four-goal completion uncertain.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Last three 2025/26-to-2025 head-to-heads include Kitchee 1-4 Lee Man (April 2026), Kitchee 1-0 Lee Man (February 2026), Lee Man 2-3 Kitchee (September 2025). Mixed endpoints and personnel evolution mean H2H cannot certify or suppress G4 by itself.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Independent 2026/27 current-league two-sided scoring evidence supports G3 only; no frozen board is claimed and deterministic compiler owns actual certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Lee Man's three-goal wins came against lower table opponents, and in its last two league matches Lee Man scored twice; reliable self-funded three against unbeaten third-place Kitchee is not established.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Four-goal potential exists via Kitchee's recent 4-0/4-1/3-1 outputs and Lee Man attacking quality, but opposition and rest differences reduce transferability.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "High scores against lower opposition are only partly transferable to an unbeaten top-three matchup in which Lee Man have conceded 1 in five league games.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Kitchee have produced four goals in 4 of 5 league fixtures, but elite counterpart Lee Man are defensive leaders with three clean 3-0 wins, a recent 2-0 and a 2-1; Kitchee went 0-0 at North District. Same-competition evidence is mixed for an incremental fourth goal.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Both user-supplied starting elevens preserve meaningful direct or distributed scoring routes; weaknesses impact repeatability rather than remove them.",
+      "material_suppression": false,
+      "material_suppression_basis": "League-best Lee Man defence and Kitchee's short recovery cap goal continuation, but no verified absolute tactical veto against three goals is established.",
+      "goal_signal_priority_score": 65,
+      "goal_signal_mean_over_two_rate": 0.8,
+      "goal_signal_mean_over_three_rate": 0.4,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "Hong Kong Premier League 2026/27 regular season round 6",
+      "competition_format": "Domestic league points competition; season-long standings and AFC-place competition, not an aggregate knockout leg.",
+      "draw_resolution": "League draw gives one point to both teams; no extra time",
+      "aggregate_state": "Single regular-season fixture without aggregate scores",
+      "qualification_state": "League leaders Lee Man 15 points and third-placed Kitchee 13 through five matches; win valuable, but no mathematical clinch/elimination or compulsory winning margin",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous live result needed for qualification at this early stage.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "NEUTRAL",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "AD HOC XI research focus only, not a persisted official C rank. Strong source-backed goal-three signal deserves evaluation; G4 remains unprotected in top-table matchup.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Reviewed Lee Man single-team four, Kitchee single-team four, 2+2 and 3+1. Kitchee recorded 4-goal outputs vs lower sides, but away 0-0 against North District and Lee Man's 1 concession in 5 plus Thursday continental recovery limit top-opponent transfer. Lee Man's latest team totals are two and two. No high-reliability fourth-goal completion established.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Lee Man have three 3-goal wins but zero 4-goal league wins this season; Kitchee 4-0 and 4-1 exist against weaker sides, not directly transferable against a 1-conceded league leader.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "2+2 route possible given both attacks but demands Kitchee score twice against Lee Man who have conceded one in five games; additional recovery disadvantage.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "3+1 possible but Lee Man's recent two league outings produced exactly two goals each, while Kitchee's unbeaten status makes a home three-plus harder to protect.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "mechanism_ids": [
+            "CURRENT_DEFENSIVE_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CURRENT_DEFENSIVE_CONTROL": {
+          "kind": "CURRENT_TOP_OPPOSITION_DEFENSIVE_CONTROL",
+          "basis": "Lee Man conceded only one goal across five league matches and have repeatedly controlled results at 3-0 or 2-0; Kitchee were held 0-0 by unbeaten North District and have just played away in continental competition. Strong attacks do not independently guarantee a fourth goal in a top-three clash.",
+          "evidence_refs": [
+            "https://www.kitchee.com/en/article/20261019preview",
+            "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+            "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+            "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+            "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      }
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-19T10:07:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "O2.5 not offered in screenshot, and only 23 minutes before kickoff; one-half goal prematch drop has no evidenced reachable quote.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No WAIT planned.",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Fresh match-specific research due no persisted official C rank; no frozen assessment has been invented.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "Observed O3 @1.76 demands G4 while the new C football record funds only G3, so both carrier/distributed/reply paths, current XI and fatigue, tail transferability and comparable competition were independently rechecked.",
+      "market_disagreement_recheck_fields": [
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "https://www.kitchee.com/en/article/20261019preview",
+        "https://www.sportytrader.com/en/results-live/lee-man-warriors-kitchee-sc-8693194/",
+        "https://www.live-result.com/football/Hong-Kong/Premier-League/results",
+        "USER_UPLOAD_IMG_0447_LINEUP_20261019",
+        "USER_UPLOAD_IMG_0448_LINEUP_20261019"
+      ]
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000e7d08211911247280baec59e",
+    "match_id": "UNRANKED-LEE-MAN-KITCHEE-20261019",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3,
+      "odds": 1.76
+    },
+    "observed_at_utc": "2026-10-19T10:07:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
