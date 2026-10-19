@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='FINAL_XI_CONFIRMED'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "608d68c856cc428a0773a3f4ea66ed0510b0af95c681f60af8bc252553b9197d",
+  "ok": false,
+  "request_id": "XI-20261019-1444-1865810-tai-po-southern",
+  "runtime_commit": "ff4aea19f15af5ccf9d16c5170ffb6fc0e0c88ff",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
