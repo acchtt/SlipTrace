@@ -2235,8 +2235,14 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "quote_line": _nullable_number(frozen, "quote_line"),
         "quote_odds": _nullable_number(frozen, "quote_odds"),
-        "book_target_line": _nullable_number(frozen, "book_target_line"),
-        "book_min_odds": _nullable_number(frozen, "book_min_odds"),
+        "book_target_line": (
+            _nullable_number(frozen, "book_target_line")
+            if "book_target_line" in frozen else None
+        ),
+        "book_min_odds": (
+            _nullable_number(frozen, "book_min_odds")
+            if "book_min_odds" in frozen else None
+        ),
         "wait_target_line": _nullable_number(frozen, "wait_target_line"),
         "wait_min_odds": _nullable_number(frozen, "wait_min_odds"),
     }
