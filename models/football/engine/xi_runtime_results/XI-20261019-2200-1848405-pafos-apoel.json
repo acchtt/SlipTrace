@@ -1,0 +1,11 @@
+{
+  "error": "operational grade A requires market_observability=HIGH",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "f7cb8e38cc4ee2c0e66a7d575c2946a3256b2c5ad198a634fbc3dd7c98655011",
+  "ok": false,
+  "request_id": "XI-20261019-2200-1848405-pafos-apoel",
+  "runtime_commit": "bc9b5a560afcbba2ce10002f361e3b30edb98e00",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
