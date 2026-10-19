@@ -130,6 +130,18 @@ class ResearchedRegistryTests(unittest.TestCase):
         self.assertEqual(classify(fixture("a","England","Club Friendlies"))["lane"], "EXCLUDED")
         self.assertEqual(classify(fixture("a","Pakistan","Premier League"))["lane"], "DISCOVERY")
 
+    def test_latvia_domestic_leagues_are_excluded_but_continental_remains(self):
+        for league in ("Virsliga", "1. Liga", "Latvian First League"):
+            with self.subTest(league=league):
+                result = classify(fixture("lv", "Latvia", league, "DOMESTIC_LEAGUE"))
+                self.assertEqual(result["lane"], "EXCLUDED")
+                self.assertEqual(result["reason"], "USER_LATVIA_LEAGUE_EXCLUSION")
+
+        continental = classify(
+            fixture("lv-eu", "Latvia", "UEFA Conference League", "CONTINENTAL")
+        )
+        self.assertEqual(continental["lane"], "CONDITIONAL")
+
     def test_uefa_youth_league_is_specific_conditional_exception(self):
         for country, name, kind in (
             ("Europe", "UEFA Youth League", "YOUTH_CONTINENTAL"),
@@ -233,6 +245,22 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(egypt["reason"], "USER_AFRICA_DOMESTIC_EXCLUSION")
         self.assertNotIn("egy", out["research_order"])
         self.assertNotIn("egy", out["goal_research_order"])
+
+    def test_latvia_domestic_fixture_stays_visible_but_never_reaches_goal_research(self):
+        src = snapshot([
+            fixture("lat", "Latvia", "Virsliga"),
+            fixture("eng", "England", "Premier League"),
+        ])
+        out = sweep(src, now=NOW)
+        self.assertEqual(out["fixture_count"], 2)
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_queue"][0]["match_id"], "eng")
+        latvia = next(x for x in out["source_ledger"] if x["match_id"] == "lat")
+        self.assertEqual(latvia["registry_lane"], "EXCLUDED")
+        self.assertEqual(latvia["intake_lane"], "EXCLUDED")
+        self.assertEqual(latvia["reason"], "USER_LATVIA_LEAGUE_EXCLUSION")
+        self.assertNotIn("lat", out["research_order"])
+        self.assertNotIn("lat", out["goal_research_order"])
 
     def test_goal_quality_beats_urgency_and_registered_league_status(self):
         urgent=fixture("urgent","England","Premier League",
