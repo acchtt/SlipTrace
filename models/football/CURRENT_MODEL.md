@@ -158,7 +158,19 @@ Production supported burden is compiled from explicit goal certificates:
 - G6 -> O5.50
 - no G3 -> no certified burden
 
-Asian .75 lines require the next certificate for a full win.
+Asian .75 lines require the next certificate for a full-win **certificate**.
+
+The protected certificate is not the same thing as the maximum bookable Asian
+line. Active C has a separate settlement-aware G3 execution extension for
+C-FOCUS only:
+
+- O2.75 BOOK floor 1.85;
+- O3.00 BOOK floor 1.90;
+- O3.25 BOOK floor 2.00, with the strongest G3 extension shape;
+- O3.50 still requires funded G4.
+
+BOOK does not upgrade the certificate and creates no model exposure until fill
+confirmation.
 
 G3 may be funded by the explicit C carrier, two-route, distributed or
 matchup-leakage mechanisms. Market prices cannot manufacture certificates.
@@ -270,9 +282,12 @@ A ranked fixture also carries its frozen board certificate into `/xi`. A
 higher screenshot burden can never authorize an upgrade by itself.
 
 If the observed market burden materially exceeds C's certified burden, the
-disagreement triggers one independent football-evidence recheck. That recheck
-may produce a higher current certificate only through one of three explicit
-paths:
+disagreement triggers one independent football-evidence recheck before a final
+priced verdict. A bounded settlement-aware G3 BOOK target is not an
+observed-burden ACT and does not require that recheck to fund G4 merely because
+the current market is higher. After the recheck, C may BOOK within its bounded
+G3 extension or PASS; ACT at the observed burden still requires funding. A
+higher current certificate may arise only through one of three explicit paths:
 
 - genuinely changed football evidence:
   `VERIFIED_NEW_FOOTBALL_EVIDENCE`;
@@ -308,9 +323,10 @@ WAIT requires:
 
 For an unsupported higher observed burden, the deterministic C core permits a
 pre-goal WAIT down to the certified burden only when the gap is at most **0.25
-goals**. A gap of **0.50+** is material disagreement: complete the football
-recheck, then either fund/evaluate that burden or PASS. Do not wait for a much
-lower line merely because C's frozen certificate is lower.
+goals**. A gap of **0.50+** must never become a speculative far-lower WAIT. At the
+observed burden, complete the football recheck and either fund/evaluate it or
+PASS. Independently, an eligible G3-only C-FOCUS row may issue its bounded BOOK
+target up to O3.25 without changing the certificate.
 
 A lone screenshot does not prove same-line odds will improve. Near kickoff,
 do not manufacture a micro-WAIT from speculative price drift.
@@ -344,8 +360,10 @@ For new operations:
 - retired C2/C3/C4 fields may remain in historical Airtable rows for immutable audit only; all new C persistence uses Google Sheets;
 - WATCH creates no model bet;
 - Unresolved WAIT creates no model bet;
-- only a strict direct C BET or a user-confirmed reached WAIT may enter model
-  accounting;
+- a BOOK order creates no exposure when issued; any later fill must be
+  independently confirmed before reconciliation;
+- only a strict direct C BET, a user-confirmed reached WAIT, or a confirmed
+  booked-order fill may enter model accounting;
 - Actual Bets — Current is the only authority for physical user P/L.
 
 ## Website projection

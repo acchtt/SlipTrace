@@ -84,6 +84,7 @@ class Action(Enum):
     PASS = "PASS"
     WAIT = "WAIT"
     BET = "BET"
+    BOOK = "BOOK"
 
 
 class Settlement(Enum):
@@ -347,6 +348,8 @@ class Decision:
     action: Action
     reason: str
     bridge_used: bool = False
+    book_target_line: float | None = None
+    book_min_odds: float | None = None
 
 
 def _validate_quarter_line(line: float) -> None:
@@ -1575,6 +1578,107 @@ def market_line_funded(
     return False
 
 
+C_G3_BOOK_MIN_ODDS = {
+    2.75: 1.85,
+    3.00: 1.90,
+    3.25: 2.00,
+}
+
+
+def c_g3_book_extension_profile(
+    a: MatchAssessment,
+) -> dict[str, bool | float | str | None]:
+    """Compile a settlement-aware G3 booking ceiling without upgrading G4.
+
+    The certified burden remains O2.50. BOOK is a conditional order instruction,
+    not a funded certificate and not model exposure. The extension recognizes
+    that O2.75/O3.00/O3.25 have progressively softer settlement at exactly
+    three goals than O3.50, while still requiring current football quality.
+
+    O3.25 is deliberately restricted to strong G3 structures: a self-funded
+    STRONG carrier with either HIGH completion, distributed G3 corroboration,
+    or HIGH opponent leakage; or two independently STRONG routes with HIGH
+    completion. O3.50 still requires a funded G4 certificate.
+    """
+
+    require_c_completion(a)
+    if not c_goal3_funded(a) or c_goal4_funded(a):
+        return {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": "G3-only settlement extension not applicable",
+        }
+
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    base_healthy = (
+        a.burden_completion_quality >= Grade.MEDIUM
+        and effective_continuation >= Grade.MEDIUM
+        and effective_stall <= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+    if not base_healthy:
+        return {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": "G3 funded but current completion/continuation/stall quality blocks extension",
+        }
+
+    max_line = 2.75
+    route_extension = (
+        (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
+        or c_two_route_goal3_funded(a)
+        or c_distributed_goal3_funded(a)
+        or c_leakage_goal3_funded(a)
+    )
+    if route_extension:
+        max_line = 3.00
+
+    strong_carrier_extension = (
+        a.carrier == CarrierStrength.STRONG
+        and a.carrier_self_fund
+        and (
+            a.burden_completion_quality == Grade.HIGH
+            or c_distributed_goal3_funded(a)
+            or a.opponent_leakage == Grade.HIGH
+        )
+    )
+    two_strong_extension = (
+        a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+        and a.burden_completion_quality == Grade.HIGH
+    )
+    if route_extension and (strong_carrier_extension or two_strong_extension):
+        max_line = 3.25
+
+    return {
+        "eligible": True,
+        "max_book_line": max_line,
+        "book_min_odds": C_G3_BOOK_MIN_ODDS[max_line],
+        "basis": (
+            "G3 settlement-aware extension; certificate remains O2.50 and "
+            "O3.50 still requires G4"
+        ),
+    }
+
+
+def c_g3_book_min_odds(line: float) -> float:
+    """Return the pilot minimum price for an authorized G3 BOOK target."""
+
+    _validate_quarter_line(line)
+    if line not in C_G3_BOOK_MIN_ODDS:
+        raise ValueError("G3 BOOK target must be O2.75, O3.00, or O3.25")
+    return C_G3_BOOK_MIN_ODDS[line]
+
+
 def _quote_context(ctx: DecisionContext) -> ModelQuoteContext:
     """Drop execution-only fields while preserving the exact model policy state."""
 
@@ -1772,6 +1876,28 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
     if not line_funded:
+        book_profile = c_g3_book_extension_profile(a)
+        if (
+            compiled_anchor is not None
+            and abs(compiled_anchor - 2.50) <= 1e-9
+            and ctx.board_state == BoardState.FOCUS
+            and not at_or_below
+            and bool(book_profile["eligible"])
+        ):
+            max_book_line = float(book_profile["max_book_line"])
+            target_line = min(ctx.quote.line, max_book_line)
+            target_min_odds = c_g3_book_min_odds(target_line)
+            return Decision(
+                Action.BOOK,
+                (
+                    f"G3 protected certificate remains O2.50; settlement-aware "
+                    f"conditional order authorized at O{target_line:.2f} "
+                    f"@ {target_min_odds:.2f}+; O3.50 still requires G4"
+                ),
+                book_target_line=target_line,
+                book_min_odds=target_min_odds,
+            )
+
         if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):
             return Decision(
                 Action.WAIT,
@@ -1791,7 +1917,8 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             )
         return Decision(
             Action.PASS,
-            "C clearing-goal funding missing; prospective tail funding missing at quoted burden",
+            "C clearing-goal funding missing; prospective tail funding missing "
+            "and no settlement-aware BOOK extension clears",
         )
 
     if ctx.quote.odds >= 1.65:

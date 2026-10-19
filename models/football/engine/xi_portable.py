@@ -7,8 +7,9 @@ adapter.py/core.py for Football C.
 
 User-facing behavior:
 - football assessment never requires odds;
-- an observed/user-screenshot quote gets a conditional ACT/WAIT/PASS comparison
-  through adapter.evaluate_observed_quote(), with no execution authority;
+- an observed/user-screenshot quote gets a conditional ACT/BOOK/WAIT/PASS
+  comparison through adapter.evaluate_observed_quote(), with no execution
+  authority; BOOK is a target order and not exposure until independently filled;
 - a genuinely executable current quote uses adapter.run_decision();
 - started fixtures keep football analysis but never recreate prematch actions.
 """
@@ -187,6 +188,9 @@ def assess_user_screenshot(
         "snapshot_line_relation": result["line_relation"],
         "conditional_action": result["action"],
         "reason": result["reason"],
+        "book_target_line": result.get("book_target_line"),
+        "book_min_odds": result.get("book_min_odds"),
+        "book_order_is_exposure": result.get("book_order_is_exposure", False),
         "wait_target_line": result.get("wait_target_line"),
         "wait_min_odds": result.get("wait_min_odds"),
         "wait_reachable": result.get("wait_reachable"),

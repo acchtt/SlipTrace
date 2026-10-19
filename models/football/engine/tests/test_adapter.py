@@ -1291,6 +1291,63 @@ class AuditRecordContractTests(unittest.TestCase):
                 )
             )
 
+    def test_book_order_has_no_exposure_until_fill_is_confirmed(self):
+        pending = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-BOOK",
+                    "quote_line": 3.25,
+                    "quote_odds": 1.90,
+                    "book_target_line": 3.0,
+                    "book_min_odds": 1.90,
+                    "wait_target_line": None,
+                    "wait_min_odds": None,
+                },
+                observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
+                pnl_status={
+                    "official_c_exposure": False,
+                    "official_c_model_pnl": None,
+                    "official_c_exposure_basis": "NONE",
+                    "official_c_exposure_line": None,
+                    "official_c_exposure_odds": None,
+                    "wait_resolution": "NOT_APPLICABLE",
+                    "user_executed": False,
+                    "user_pnl": None,
+                },
+            )
+        )
+        self.assertFalse(pending["pnl_status"]["official_c_exposure"])
+
+        filled = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-BOOK",
+                    "quote_line": 3.25,
+                    "quote_odds": 1.90,
+                    "book_target_line": 3.0,
+                    "book_min_odds": 1.90,
+                    "wait_target_line": None,
+                    "wait_min_odds": None,
+                },
+                observed={"settlement": "PUSH"},
+                pnl_status={
+                    "official_c_exposure": True,
+                    "official_c_model_pnl": 0.0,
+                    "official_c_exposure_basis": "BOOK_USER_CONFIRMED",
+                    "official_c_exposure_line": 3.0,
+                    "official_c_exposure_odds": 2.00,
+                    "wait_resolution": "NOT_APPLICABLE",
+                    "user_executed": True,
+                    "user_pnl": 0.0,
+                },
+            )
+        )
+        self.assertTrue(filled["pnl_status"]["official_c_exposure"])
+        self.assertEqual(
+            filled["pnl_status"]["official_c_exposure_basis"],
+            "BOOK_USER_CONFIRMED",
+        )
+
     def test_compound_grade_is_rejected(self):
         with self.assertRaisesRegex(ContractError, "continuation_quality"):
             run_audit_record(
@@ -1370,7 +1427,7 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
-    def test_c_wait_emits_target_without_assumed_exposure(self):
+    def test_c_g3_o275_emits_book_without_assumed_exposure(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1389,15 +1446,17 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["wait_target_line"], 2.5)
-        self.assertEqual(result["wait_min_odds"], 1.65)
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 2.75)
+        self.assertEqual(result["book_min_odds"], 1.85)
+        self.assertEqual(result["book_order_status"], "PENDING_UNFILLED")
+        self.assertFalse(result["book_order_is_exposure"])
         self.assertEqual(result["model_accounting_status"], "NONE")
         self.assertIsNone(result["model_accounting_line"])
         self.assertIsNone(result["model_accounting_odds"])
-        self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
+        self.assertEqual(result["wait_resolution_default"], "NOT_APPLICABLE")
 
-    def test_c_wait_rejects_material_unsupported_line_drop(self):
+    def test_c_g3_o300_material_gap_emits_book_not_far_decay_wait(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1416,11 +1475,12 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "PASS")
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 3.0)
+        self.assertEqual(result["book_min_odds"], 1.90)
         self.assertIsNone(result["wait_target_line"])
-        self.assertIn("more than 0.25", result["reason"])
 
-    def test_top_focus_wait_uses_soft_zone_minimum(self):
+    def test_top_focus_does_not_turn_book_into_wait(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1439,9 +1499,9 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["wait_target_line"], 2.5)
-        self.assertEqual(result["wait_min_odds"], 1.60)
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_min_odds"], 1.85)
+        self.assertIsNone(result["wait_target_line"])
 
     def test_active_adapter_rejects_retired_c2_decision(self):
         with self.assertRaisesRegex(ContractError, "active production model must be 'c'"):

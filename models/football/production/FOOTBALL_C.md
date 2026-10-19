@@ -58,10 +58,22 @@ Supported burden is compiled from explicit goal certificates:
 - G6 -> O5.50
 - no G3 -> no certified burden
 
-Asian .75 lines require the next certificate for a full-win burden.
+Asian .75 lines require the next certificate for a **full-win certificate**.
 
-The researcher-declared line/basis is audit metadata only. The deterministic
-compiler owns production burden.
+The certificate is a protected football burden, not a universal execution
+ceiling. For G3-only C-FOCUS rows, the deterministic execution layer may issue
+a non-exposure `BOOK` order at O2.75/O3.00/O3.25 when the current football
+quality clears the settlement-aware extension contract:
+
+- O2.75: exactly 3 goals = half win; pilot minimum price 1.85;
+- O3.00: exactly 3 goals = push; pilot minimum price 1.90;
+- O3.25: exactly 3 goals = half loss; pilot minimum price 2.00 and a stronger
+  G3 structure is required;
+- O3.50: still requires funded G4.
+
+BOOK never upgrades G3 to G4 and never creates exposure until a fill is
+independently confirmed. The researcher-declared line/basis remains audit
+metadata only. The deterministic compiler owns production burden.
 
 ## 4. G3 mechanisms
 
@@ -160,9 +172,10 @@ User screenshots are `USER_SCREENSHOT_ONLY` observations:
 - do not infer a missing price;
 - do not re-time the screenshot.
 
-Observed-price ACT/WAIT/PASS is non-executable comparison. A strict current
-executable decision requires the separate runtime authorization/evidence
-contract.
+Observed-price ACT/BOOK/WAIT/PASS is non-executable comparison. A strict
+current executable decision requires the separate runtime authorization/evidence
+contract. BOOK is a target-order authorization, not a direct bet and not an
+assumed future fill.
 
 Normal acceptable price is >=1.65. The 1.60–1.64 supported-line soft zone is
 available only where the deterministic C core authorizes it from already-funded
@@ -174,7 +187,15 @@ If the observed burden is materially above C's frozen/current certificate,
 complete the required football recheck first.
 
 If the recheck funds the market burden, evaluate it normally. If the recheck
-does not fund it, the market remains unsupported.
+does not fund it, the market remains unsupported as a **certificate**.
+
+A bounded G3 BOOK extension is different: it does not accept the observed
+higher burden and does not create G4. Material 0.50+ disagreement still
+completes the existing football recheck first. After that recheck, C may publish
+its lower settlement-aware target (maximum O3.25) even when G4 remains
+unfunded/rejected; the recheck does not have to manufacture a certificate
+upgrade. ACT at the materially higher observed burden still requires that
+burden to be funded.
 
 Do not use a higher market total as proof that the missing certificate should
 exist.
@@ -196,10 +217,12 @@ All C WAITs require:
 For an **unsupported higher observed line**, active Football C may wait down to
 its certified burden only when the gap is at most **0.25 goals**.
 
-A gap of **0.50 goals or more** is material disagreement. After the mandatory
-football recheck it must either:
+A gap of **0.50 goals or more** must not become a speculative decay WAIT.
+After the football comparison it may:
 
-- become funded and be evaluated at the observed burden; or
+- become funded and be evaluated at the observed burden;
+- produce a bounded G3 BOOK target under the settlement-aware extension
+  contract; or
 - PASS.
 
 It must **not** become a WAIT for a much lower certified total.
@@ -224,6 +247,8 @@ Current accounting is exposure-conservative:
 - WATCH -> no model bet;
 - unresolved WAIT -> no model bet;
 - direct strict C BET -> official model exposure at actual terms;
+- BOOK -> no model exposure at order creation; a later actual fill must be
+  independently confirmed before reconciliation can treat it as exposure;
 - WAIT -> exposure only after the reached terms are actually confirmed under
   the active accounting contract;
 - physical user P/L -> `Actual Bets — Current` only.

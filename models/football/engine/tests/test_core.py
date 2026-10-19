@@ -951,10 +951,8 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, Action.PASS)
 
-    def test_unfunded_higher_burden_waits_only_one_step_when_healthy(self):
-        # O2.75 is one normal Asian-total step above the default O2.5
-        # certificate, so an explicitly evidenced pre-goal WAIT may survive.
-        healthy = decide_c(
+    def test_g3_o275_uses_book_order_not_decay_wait(self):
+        decision = decide_c(
             assessment(),
             context(
                 BoardState.FOCUS,
@@ -964,20 +962,11 @@ class FootballCExecutionTests(unittest.TestCase):
                 wait_requires_negative_info=False,
             ),
         )
-        stale = decide_c(
-            assessment(),
-            context(
-                BoardState.FOCUS,
-                ThesisState.PRESERVED,
-                Quote(2.75, 1.85),
-                wait_reachable=True,
-                wait_requires_negative_info=True,
-            ),
-        )
-        self.assertEqual(healthy.action, Action.WAIT)
-        self.assertEqual(stale.action, Action.PASS)
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 2.75)
+        self.assertEqual(decision.book_min_odds, 1.85)
 
-    def test_unfunded_material_gap_cannot_manufacture_decay_wait(self):
+    def test_g3_o300_material_gap_books_instead_of_waiting_for_o250(self):
         decision = decide_c(
             assessment(),
             context(
@@ -988,8 +977,68 @@ class FootballCExecutionTests(unittest.TestCase):
                 wait_requires_negative_info=False,
             ),
         )
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.0)
+        self.assertEqual(decision.book_min_odds, 1.90)
+        self.assertNotEqual(decision.action, Action.WAIT)
+
+    def test_strong_carrier_g3_can_book_o325_without_becoming_g4(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=59,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.45,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertFalse(c_goal4_funded(a))
+        decision = decide_c(a, context(quote=Quote(3.25, 2.00)))
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.25)
+        self.assertEqual(decision.book_min_odds, 2.00)
+
+    def test_g3_book_ceiling_never_authorizes_o350_without_g4(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+        )
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.25)
+        self.assertNotEqual(decision.action, Action.BET)
+
+    def test_high_stall_g3_does_not_gain_book_extension(self):
+        a = assessment(
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.HIGH,
+            goal_signal_priority_score=88,
+            goal_signal_mean_over_two_rate=0.9167,
+            goal_signal_mean_over_three_rate=0.6667,
+            goal_signal_low_draw_trap_rate=0.0833,
+        )
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        decision = decide_c(a, context(quote=Quote(3.25, 2.00)))
         self.assertEqual(decision.action, Action.PASS)
-        self.assertIn("more than 0.25", decision.reason)
 
     def test_fragile_watch_wait_requires_conditional_or_better_revalidation(self):
         fragile = assessment(

@@ -29,6 +29,7 @@ from core import (
     c2_selection_floor,
     c2_clearing_goal_funded,
     c_effective_incentive_grades,
+    c_g3_book_extension_profile,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -1632,6 +1633,16 @@ def evaluate_observed_quote(
         compiled_burden=compiled_burden,
         observed_line=observed.line,
     )
+    book_profile = (
+        c_g3_book_extension_profile(a)
+        if model == "c"
+        else {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": "retired/non-C path",
+        }
+    )
 
     if (
         disagreement_gate["market_disagreement_recheck_required"]
@@ -1768,6 +1779,10 @@ def evaluate_observed_quote(
         "action": "ACT" if decision.action == Action.BET else decision.action.value,
         "engine_action": decision.action.value,
         "reason": decision.reason,
+        "book_target_line": decision.book_target_line,
+        "book_min_odds": decision.book_min_odds,
+        "book_order_is_exposure": False,
+        "g3_book_extension_profile": book_profile,
         "bridge_used": decision.bridge_used,
         "supported_line": compiled_burden,
         "observed_line": observed.line,
@@ -1999,6 +2014,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     wait_min_odds = None
     accounting_line = None
     accounting_odds = None
+    book_order_status = "NOT_APPLICABLE"
     if decision.action == Action.WAIT:
         wait_target_line, wait_min_odds = wait_accounting_target(a, ctx, model)
         # A WAIT is a plan, not exposure. Do not assume that a future line was
@@ -2010,6 +2026,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         accounting_odds = ctx.quote.odds
         accounting_status = "DIRECT_BET" if model == "c" else "SHADOW_BET"
         wait_resolution_default = "NOT_APPLICABLE"
+    elif decision.action == Action.BOOK:
+        # BOOK authorizes a target order only. It creates no model exposure
+        # until an actual fill is independently confirmed in reconciliation.
+        accounting_status = "NONE"
+        wait_resolution_default = "NOT_APPLICABLE"
+        book_order_status = "PENDING_UNFILLED"
     else:
         accounting_status = "NONE"
         wait_resolution_default = "NOT_APPLICABLE"
@@ -2031,6 +2053,13 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "book_target_line": decision.book_target_line,
+        "book_min_odds": decision.book_min_odds,
+        "book_order_status": book_order_status,
+        "book_order_is_exposure": False,
+        "g3_book_extension_profile": (
+            c_g3_book_extension_profile(a) if model == "c" else None
+        ),
         "market_line_funded": market_line_funded(a, ctx.quote.line, model),
         **prospective_goal_funding(a, model),
         **upgrade_gate,
@@ -2178,10 +2207,18 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             frozen, "burden_stall_risk", {"LOW", "MEDIUM", "HIGH"}
         ),
         "c_action": _choice(
-            frozen, "c_action", {"C_BET", "C_WAIT", "C_PASS", "NONE"}
+            frozen, "c_action", {"C_BET", "C_BOOK", "C_WAIT", "C_PASS", "NONE"}
         ),
         "quote_line": _nullable_number(frozen, "quote_line"),
         "quote_odds": _nullable_number(frozen, "quote_odds"),
+        "book_target_line": (
+            _nullable_number(frozen, "book_target_line")
+            if "book_target_line" in frozen else None
+        ),
+        "book_min_odds": (
+            _nullable_number(frozen, "book_min_odds")
+            if "book_min_odds" in frozen else None
+        ),
         "wait_target_line": _nullable_number(frozen, "wait_target_line"),
         "wait_min_odds": _nullable_number(frozen, "wait_min_odds"),
     }
@@ -2258,6 +2295,7 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             "WAIT_ASSUMED",
             "WAIT_USER_CONFIRMED",
             "WAIT_NOT_REACHED",
+            "BOOK_USER_CONFIRMED",
             "NONE",
         },
     )
@@ -2284,6 +2322,8 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
     c_action = frozen_out["c_action"]
     wait_target_line = frozen_out["wait_target_line"]
     wait_min_odds = frozen_out["wait_min_odds"]
+    book_target_line = frozen_out["book_target_line"]
+    book_min_odds = frozen_out["book_min_odds"]
 
     if c_action == "C_WAIT":
         if wait_target_line is None or wait_min_odds is None:
@@ -2305,6 +2345,17 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
             raise ContractError("C-BET requires official_c_exposure_basis=DIRECT_BET")
         if wait_resolution != "NOT_APPLICABLE":
             raise ContractError("C-BET requires wait_resolution=NOT_APPLICABLE")
+    elif c_action == "C_BOOK":
+        if book_target_line is None or book_min_odds is None:
+            raise ContractError(
+                "C-BOOK audit requires frozen book_target_line and book_min_odds"
+            )
+        if official_exposure_basis not in {"NONE", "BOOK_USER_CONFIRMED"}:
+            raise ContractError(
+                "C-BOOK requires NONE or BOOK_USER_CONFIRMED exposure basis"
+            )
+        if wait_resolution != "NOT_APPLICABLE":
+            raise ContractError("C-BOOK requires wait_resolution=NOT_APPLICABLE")
     else:
         if official_exposure_basis != "NONE":
             raise ContractError("C-PASS/NONE requires official_c_exposure_basis=NONE")
@@ -2370,6 +2421,26 @@ def run_audit_record(payload: dict[str, Any]) -> dict[str, Any]:
         ):
             raise ContractError(
                 "DIRECT_BET exposure line/odds must equal frozen direct quote"
+            )
+
+    if official_exposure_basis == "BOOK_USER_CONFIRMED":
+        if c_action != "C_BOOK":
+            raise ContractError("BOOK_USER_CONFIRMED requires c_action=C-BOOK")
+        if not official_exposure:
+            raise ContractError("BOOK_USER_CONFIRMED requires official_c_exposure=true")
+        if not user_executed:
+            raise ContractError("BOOK_USER_CONFIRMED requires user_executed=true")
+        if official_exposure_line != book_target_line:
+            raise ContractError(
+                "BOOK_USER_CONFIRMED exposure line must equal frozen BOOK target"
+            )
+        if (
+            official_exposure_odds is None
+            or book_min_odds is None
+            or official_exposure_odds + 1e-9 < book_min_odds
+        ):
+            raise ContractError(
+                "BOOK_USER_CONFIRMED exposure odds must meet frozen BOOK minimum"
             )
 
     if official_exposure_basis == "NONE":
