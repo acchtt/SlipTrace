@@ -1917,7 +1917,8 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             )
         return Decision(
             Action.PASS,
-            "C clearing-goal funding missing; no settlement-aware BOOK extension clears",
+            "C clearing-goal funding missing; prospective tail funding missing "
+            "and no settlement-aware BOOK extension clears",
         )
 
     if ctx.quote.odds >= 1.65:
