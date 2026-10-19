@@ -1,0 +1,11 @@
+{
+  "error": "invalid board_state='C-RESERVE'; allowed: PASS, WATCH, FOCUS",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "b2c313336c2541cf389551026dd2471d906ea5ea0933e3fc0c5a20a07ff1052a",
+  "ok": false,
+  "request_id": "XI-PRICE-20261020-wis-rad-o25",
+  "runtime_commit": "969645fc096e3f62e1146fd0d5b9f58aed72ac60",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
