@@ -1,0 +1,11 @@
+{
+  "error": "operational grade A requires market_observability=HIGH",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "09654092763bae72b258f6d491be06cf63a33c9786db9bd34ea1455ebb0b7821",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-degerfors-kalmar",
+  "runtime_commit": "7019b80eebb789490b6c6b5cda895763d8fce9e0",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
