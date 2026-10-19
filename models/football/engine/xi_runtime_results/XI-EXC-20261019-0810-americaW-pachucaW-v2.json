@@ -1,0 +1,215 @@
+{
+  "input_sha256": "f6bde8a1edfe3a30129fdadd4daa596be9a80a210271534deb1da80b7e7a4806",
+  "ok": true,
+  "request_id": "XI-EXC-20261019-0810-americaW-pachucaW-v2",
+  "runtime": {
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "WIN_PREFERRED",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "CONDITIONAL",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 3.5,
+      "chance_quality": "MEDIUM",
+      "completion_mode": "MIXED",
+      "continuation_quality": "HIGH",
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Exception declaration only; deterministic goal certificates control the compiled burden.",
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "HIGH",
+      "failure_mechanisms": {
+        "weak-away-distributed-route": {
+          "affected_paths": [
+            "g4_distributed_path"
+          ],
+          "basis": "Pachuca have failed to score in two of the last six and are not a consistently strong second route, so the distributed 2+2 path is not the reason G4 is funded.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "kind": "SECOND_ROUTE_VOLATILITY"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 3.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3,DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "FAILED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "América's current league output and confirmed attacking XI repeatedly produce four-goal-capable carrier states.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Pachuca's reply is usable but too volatile to independently certify 2+2.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": [
+            "weak-away-distributed-route"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Pachuca retain Corral, Nicosia and Aline Gomes, providing a separate reply route alongside América's dominant carrier.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "g4_reply_path": "SUPPORTED",
+      "g4_research_basis": "Current same-competition evidence plus the confirmed attacking XI funds a home-carrier fourth goal with a separate Pachuca reply path; G4 is supported. Chance quality is kept MEDIUM, so this does not automatically extend to G5.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_two_route_funded": true,
+      "goal4_funded": true,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned burden_stall_risk state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned continuation_quality state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned failure_resistance state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned independent_upper_tail state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        },
+        "route_reliability": {
+          "basis": "Current same-competition form and the supplied XI directly support the assigned route_reliability state for the G4 review.",
+          "evidence_refs": [
+            "https://www.clubamerica.com.mx/clasificacion-femenil",
+            "https://www.clubamerica.com.mx/partidos/temporada-2025-2026-clausura-liga-bbva-mx-femenil-17-america-femenil-vs-pachuca-femenil",
+            "USER_LINEUP_IMG_0410_0411"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "home_incentive": "WIN_PREFERRED",
+      "home_route": "STRONG",
+      "incentive_effect": "NEUTRAL",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "EXC-AMERICAW-PACHUCAW-20261018",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": {
+          "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+          "basis": "Domestic non-Japan women's football is outside routine production scope, but the user explicitly requested this fixture as an exception analysis.",
+          "match_id": "EXC-AMERICAW-PACHUCAW-20261018",
+          "policy": "FOOTBALL_C_SCOPE_V1",
+          "user_instruction_reference": "User explicitly requested /xi exceptions for this uploaded fixture block on 2026-10-19."
+        },
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": false,
+        "reason": "USER_WOMENS_DOMESTIC_EXCLUSION",
+        "status": "EXPLICIT_OUT_OF_SCOPE_ANALYSIS"
+      },
+      "prospective_tail_ceiling": 3.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {},
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "NEUTRAL",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "Current Liga MX Femenil evidence is directly comparable: América's last six average five total goals and Pachuca's latest six still reach three or more in four.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_strength": "MEDIUM",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "The four-goal mechanism is repeatedly present in current same-competition matches rather than relying on distant or weaker-comparison evidence.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "54821fbdbd1a36dc924396e507e022cdeb7f1179",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
