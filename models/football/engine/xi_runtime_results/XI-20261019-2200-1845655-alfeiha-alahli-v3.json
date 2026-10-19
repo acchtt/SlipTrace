@@ -1,0 +1,11 @@
+{
+  "error": "G4_RESEARCH_COMPLETE_MIXED requires a funded G3 certificate",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "25e8439d8bdb9c194d080a9c3eb175aa305cae85b39fb9b122b421d41cc4ce50",
+  "ok": false,
+  "request_id": "XI-20261019-2200-1845655-alfeiha-alahli-v3",
+  "runtime_commit": "31ad8aeb0c787667215e4e2e46cda651c7f53f3b",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
