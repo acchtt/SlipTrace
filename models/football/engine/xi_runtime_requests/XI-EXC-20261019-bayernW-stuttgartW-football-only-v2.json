@@ -1,0 +1,238 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-EXC-20261019-bayernW-stuttgartW-football-only-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-EXC-20261019-bayernW-stuttgartW-current",
+    "match": {
+      "match_id": "EXC-BAYERNW-STUTTGARTW-20261019",
+      "country": "Germany",
+      "competition": "Google Pixel Frauen-Bundesliga",
+      "competition_kind": "WOMENS_TOP_FLIGHT",
+      "kickoff_ict": "2026-10-19T23:00:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Competition is deliberately outside normal production scope, but source quality for this exception is high: official Bayern/VfB/DFB results and user confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "LOW",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed user XI and high-quality official football evidence are available, but no bookmaker total/price was supplied, so market observability is LOW and operational grade is B.",
+      "common_evidence_basis": "Bayern league results through six: 4-1 Union, 2-0 Mainz, 4-1 Freiburg, 3-2 Leverkusen, 5-2 Köln, 1-0 Frankfurt = 19 scored, 6 conceded; 4/6 matches reached 4+ and Bayern scored 3+ in 4/6. Stuttgart through six: 2-1 Hoffenheim, 2-1 Hamburg, 3-3 Nürnberg, 0-2 Wolfsburg, 1-1 Bremen, 0-4 Union = 8 scored, 12 conceded; 4/6 reached 3+ and latest was a 0-4 home loss. The supplied Bayern XI starts Harder, Bühl, Imade, Dallmann, Tanikawa and Zadrazil, preserving multiple first-choice scoring/service routes. Stuttgart retain a compact 5-3-2 structure but have conceded 3+ in two of six and Bayern's home carrier is independently strong.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Bayern also produced controlled 2-0 and 1-0 league wins, so superior territory does not guarantee continued scoring after taking a multi-goal lead. Stuttgart may defend in a compact 5-3-2 and contribute little, leaving a 2-0 or 3-0 endpoint.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "NOT_MATERIAL",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "This is the clubs' first senior league meeting, so no senior H2H is promoted into the certificate.",
+      "supported_line": 3.5,
+      "supported_line_basis": "Exception declaration only; deterministic goal-certificate compiler owns the certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Bayern have scored 3+ in four of six league matches and 4+ in three of six, including 4-1 and 5-2 in two of three home league games. The user XI preserves Harder, Bühl, Imade and Dallmann, so goal three does not require a Stuttgart reply.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "A fourth goal can be supplied by Bayern alone: current same-competition evidence contains team totals of four, four and five, and Stuttgart have just conceded four to Union. A separate Stuttgart reply also exists from scoring in four of six league matches.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "The four-goal home-carrier pattern is current and same-competition, but not universal: Bayern's 2-0 Mainz and 1-0 Frankfurt wins cap transferability at MEDIUM rather than HIGH.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_comparable_context_basis": "Current Frauen-Bundesliga evidence is directly comparable. Bayern have four 4+ total matches in six and Stuttgart have two; Stuttgart's latest match was a 0-4 defeat while Bayern's strongest home outputs were 4-1 and 5-2.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The final XI preserves Bayern's identified service and finishing structure; absences in the official preview do not remove Harder/Bühl/Imade/Dallmann from the supplied starting XI.",
+      "material_suppression": false,
+      "material_suppression_basis": "Stuttgart's compact shape and Bayern's control endpoints are retained as stall risks, not a verified suppression mechanism that removes the home carrier.",
+      "goal_signal_priority_score": 72,
+      "goal_signal_mean_over_two_rate": 0.6667,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.0833,
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "Frauen-Bundesliga regular season matchday 7",
+      "competition_format": "14-team double round-robin domestic league",
+      "draw_resolution": "One league point to each team for a draw; no extra time",
+      "aggregate_state": "Single regular-season league fixture",
+      "qualification_state": "Bayern enter first and seek to retain the lead; Stuttgart enter eighth with eight points. No clinch/elimination or required winning margin.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous result dependency controls this standalone round-seven fixture.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "NEUTRAL",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Exception-only football classification: strong Bayern self-funded carrier plus current Stuttgart leakage supports serious upper-tail research; not an official production board entry.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "SUPPORTED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Bayern's current same-league carrier has independently produced four or five team goals in three of six league matches and is preserved by the supplied attacking XI. Stuttgart's latest 0-4 and usable reply make a fourth total goal independently plausible. Bayern's recent 2-0/1-0 controls cap continuation at MEDIUM but do not eliminate the carrier-four path.",
+      "failure_mechanisms": {
+        "TOP_SIDE_CONTROL_RISK": {
+          "kind": "CURRENT_CONTROL_ENDPOINT",
+          "basis": "Bayern's 2-0 Mainz and 1-0 Frankfurt wins show that dominant matches can terminate below four; Stuttgart's compact shape can reinforce that control risk.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "affected_paths": [
+            "g4_distributed_path"
+          ]
+        }
+      },
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Bayern scored four or five themselves in three current league matches, and the supplied XI retains Harder, Bühl, Imade and Dallmann.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": []
+        },
+        "g4_distributed_path": {
+          "basis": "Stuttgart scored in four of six league matches but are not a reliable two-goal route against Bayern; 2+2 remains mixed.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": [
+            "TOP_SIDE_CONTROL_RISK"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A 3+1 route is supported by Bayern's repeated three-plus team totals plus Stuttgart scoring in four of six league matches.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Bayern's 3+ team-goal rate is 4/6 and the key current attacking starters are confirmed.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Continuation is MEDIUM because Bayern combine repeated 4+/5-goal outputs with controlled 2-0 and 1-0 wins.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": [
+            "TOP_SIDE_CONTROL_RISK"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Stall risk is MEDIUM due to Bayern's control endpoints and Stuttgart's compact defensive plan.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": [
+            "TOP_SIDE_CONTROL_RISK"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Bayern can self-fund G3/G4 without needing a Stuttgart reply, but recent low endpoints prevent HIGH failure resistance.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": [
+            "TOP_SIDE_CONTROL_RISK"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The upper tail is current, same-competition and independently home-carrier funded by three Bayern 4+ team-goal outputs in six league games.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/matches/fixtures",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-fc-bayern-women-vfb-stuttgart-bundesliga-matchday-7",
+            "https://datencenter.dfb.de/teams/vfb-stuttgart-frauen",
+            "https://www.vfb.de/de/1893/frauen/frauen/bundesliga/2026-2027/bundesliga/spielberichte/",
+            "USER_UPLOAD_file_000000009f448206ab6c892049ca19c4"
+          ],
+          "mechanism_ids": []
+        }
+      }
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-19T15:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "No screenshot bookmaker total was supplied.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No WAIT is being proposed.",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception analysis; this fixture is excluded from routine production scope and has no frozen production board certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_REQUIRED",
+      "market_disagreement_recheck_basis": "NO_QUOTE",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "scope_override": {
+        "match_id": "EXC-BAYERNW-STUTTGARTW-20261019",
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+        "user_instruction_reference": "User explicitly asked to assess Bayern Munich Women vs Stuttgart Women and explain why it is absent from ranking.",
+        "basis": "The fixture is outside routine production because current policy excludes non-Japan domestic women's competitions; this override is analysis-only and does not admit it to the official board."
+      }
+    }
+  }
+}
