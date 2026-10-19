@@ -1,0 +1,229 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "RESEARCH_COMPLETE",
+  "run_id": "V4-20261019-2300-20261020-0300-EXPANDED",
+  "original_source_sha256": "b8cb6ab33aac134aa78e80d90272eee8429d3b7c70e30d498c0a45cc47c45d81",
+  "source_file_sha256": "6dc5da909831c283af34f69e192ce4b06be9315f1049f25954b07332e6b74f96",
+  "native_receipt_integrity_sha256": "c9e46b3b9ab5c60da7152f21817ba84e1f8c9e95d673e3e4cf2716918f18c2f4",
+  "target_states": {
+    "1799830": {
+      "match_id": "1799830",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799835": {
+      "match_id": "1799835",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799832": {
+      "match_id": "1799832",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1889081": {
+      "match_id": "1889081",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1784481": {
+      "match_id": "1784481",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1710464": {
+      "match_id": "1710464",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1821017": {
+      "match_id": "1821017",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1808312": {
+      "match_id": "1808312",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1795358": {
+      "match_id": "1795358",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1800246": {
+      "match_id": "1800246",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1848402": {
+      "match_id": "1848402",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1743755": {
+      "match_id": "1743755",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1732098": {
+      "match_id": "1732098",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1785398": {
+      "match_id": "1785398",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1785400": {
+      "match_id": "1785400",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1845666": {
+      "match_id": "1845666",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1845673": {
+      "match_id": "1845673",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1807287": {
+      "match_id": "1807287",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1793596": {
+      "match_id": "1793596",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1810731": {
+      "match_id": "1810731",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1811128": {
+      "match_id": "1811128",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1816381": {
+      "match_id": "1816381",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1718970": {
+      "match_id": "1718970",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1718967": {
+      "match_id": "1718967",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1832483": {
+      "match_id": "1832483",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1825308": {
+      "match_id": "1825308",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1825316": {
+      "match_id": "1825316",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1898116": {
+      "match_id": "1898116",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1806551": {
+      "match_id": "1806551",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1905804": {
+      "match_id": "1905804",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1799830",
+    "1799835",
+    "1889081",
+    "1821017",
+    "1808312",
+    "1795358",
+    "1800246",
+    "1848402",
+    "1743755",
+    "1732098",
+    "1845666",
+    "1807287",
+    "1793596",
+    "1832483",
+    "1825308"
+  ],
+  "watch_match_ids": [
+    "1799832",
+    "1784481",
+    "1710464",
+    "1785398",
+    "1785400",
+    "1845673",
+    "1810731",
+    "1811128",
+    "1816381",
+    "1718970",
+    "1718967",
+    "1825316",
+    "1898116",
+    "1806551",
+    "1905804"
+  ],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
