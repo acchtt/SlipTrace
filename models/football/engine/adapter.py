@@ -29,6 +29,7 @@ from core import (
     c2_selection_floor,
     c2_clearing_goal_funded,
     c_effective_incentive_grades,
+    c_g3_book_extension_profile,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -1632,6 +1633,40 @@ def evaluate_observed_quote(
         compiled_burden=compiled_burden,
         observed_line=observed.line,
     )
+    book_profile = (
+        c_g3_book_extension_profile(a)
+        if model == "c"
+        else {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": "retired/non-C path",
+        }
+    )
+    bounded_book_candidate = bool(
+        model == "c"
+        and compiled_burden is not None
+        and abs(compiled_burden - 2.50) <= 1e-9
+        and observed.line > compiled_burden
+        and book_profile["eligible"]
+    )
+    original_disagreement_required = bool(
+        disagreement_gate["market_disagreement_recheck_required"]
+    )
+    if bounded_book_candidate and original_disagreement_required:
+        # A BOOK does not accept the observed higher burden and does not upgrade
+        # the certificate. The order target is bounded by the G3 extension
+        # ceiling, so the market-gap recheck remains relevant only if a later
+        # caller wants to ACT at the observed burden / upgrade G4.
+        disagreement_gate = {
+            **disagreement_gate,
+            "market_disagreement_recheck_required": False,
+            "market_disagreement_recheck_completed": True,
+            "market_disagreement_recheck_basis": (
+                "NOT_REQUIRED_FOR_BOUNDED_G3_BOOK_EXTENSION"
+            ),
+            "certificate_upgrade_recheck_required_if_acting_at_observed_burden": True,
+        }
 
     if (
         disagreement_gate["market_disagreement_recheck_required"]
@@ -1768,6 +1803,10 @@ def evaluate_observed_quote(
         "action": "ACT" if decision.action == Action.BET else decision.action.value,
         "engine_action": decision.action.value,
         "reason": decision.reason,
+        "book_target_line": decision.book_target_line,
+        "book_min_odds": decision.book_min_odds,
+        "book_order_is_exposure": False,
+        "g3_book_extension_profile": book_profile,
         "bridge_used": decision.bridge_used,
         "supported_line": compiled_burden,
         "observed_line": observed.line,
@@ -1999,6 +2038,7 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     wait_min_odds = None
     accounting_line = None
     accounting_odds = None
+    book_order_status = "NOT_APPLICABLE"
     if decision.action == Action.WAIT:
         wait_target_line, wait_min_odds = wait_accounting_target(a, ctx, model)
         # A WAIT is a plan, not exposure. Do not assume that a future line was
@@ -2010,6 +2050,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         accounting_odds = ctx.quote.odds
         accounting_status = "DIRECT_BET" if model == "c" else "SHADOW_BET"
         wait_resolution_default = "NOT_APPLICABLE"
+    elif decision.action == Action.BOOK:
+        # BOOK authorizes a target order only. It creates no model exposure
+        # until an actual fill is independently confirmed in reconciliation.
+        accounting_status = "NONE"
+        wait_resolution_default = "NOT_APPLICABLE"
+        book_order_status = "PENDING_UNFILLED"
     else:
         accounting_status = "NONE"
         wait_resolution_default = "NOT_APPLICABLE"
@@ -2031,6 +2077,13 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "action": decision.action.value,
         "reason": decision.reason,
         "bridge_used": decision.bridge_used,
+        "book_target_line": decision.book_target_line,
+        "book_min_odds": decision.book_min_odds,
+        "book_order_status": book_order_status,
+        "book_order_is_exposure": False,
+        "g3_book_extension_profile": (
+            c_g3_book_extension_profile(a) if model == "c" else None
+        ),
         "market_line_funded": market_line_funded(a, ctx.quote.line, model),
         **prospective_goal_funding(a, model),
         **upgrade_gate,
