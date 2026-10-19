@@ -1,3 +1,5 @@
+> **RETIRED PRE-V4 DECISION SPEC — historical audit only. Current production authority is `CURRENT_MODEL.md`, `production/FOOTBALL_C.md`, V4 `RANK.md`, and the deterministic XI runtime.**
+
 # Football A — Compiled PRE Decision Specification (Historical)
 
 **Status:** RETIRED FOR NEW FOOTBALL C PRODUCTION — HISTORICAL FOOTBALL A ONLY
