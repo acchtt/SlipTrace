@@ -5,7 +5,7 @@
 
 ## Purpose
 
-Several Football C/C2 inputs are semantic football judgments rather than mechanically observed values. Their booleans/states may change a verdict, so a bare true/false declaration is insufficient for QA.
+Several Football C inputs are semantic football judgments rather than mechanically observed values. Retired C2 records remain historical read-only material. Their booleans/states may change a verdict, so a bare true/false declaration is insufficient for QA.
 
 This contract requires an explicit contemporaneous evidence basis for those judgments. The deterministic engine validates presence and persistence of the basis; it does not invent the football judgment.
 
@@ -93,9 +93,13 @@ The basis fields do not change the existing Boolean logic.
 
 ### WAIT
 
-`wait_reachable=true` still means the protected target is realistically reachable without expected thesis deterioration under the active Football C rule.
+`wait_reachable=true` means the protected target is realistically reachable
+without expected thesis deterioration under the active Football C rule.
 
-The new basis must state why that is believed at the decision epoch. It does not introduce a new timing/odds threshold.
+The basis must state why that is believed at the decision epoch. The deterministic
+runtime additionally enforces the active pre-goal line-gap invariant: an
+unsupported higher burden may wait down to C's certificate only across <=0.25
+goals. A 0.50+ gap cannot be made reachable by prose.
 
 ### Material veto
 
@@ -126,7 +130,7 @@ Frozen Step-1 basis remains historical. A Step-2 basis is a new current evidence
 This contract is a `PROCESS COMPLIANCE FIX`.
 
 It does not:
-- alter Football C/C2 thresholds;
+- alter Football C certificate thresholds;
 - create new exposure;
 - define a new numerical H2H recency rule;
 - change supported-burden policy;
