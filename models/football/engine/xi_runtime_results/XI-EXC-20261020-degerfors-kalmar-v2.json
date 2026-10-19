@@ -1,0 +1,11 @@
+{
+  "error": "invalid carrier='WEAK'; allowed: NONE, USABLE, STRONG",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "280814bc1ea78be6b3862a46fcdb95c0790687d3612dd7d34a7cde23fefe31b3",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-degerfors-kalmar-v2",
+  "runtime_commit": "ee0007a7a6a920616c81b40eb9ffa1d3beffa1e0",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
