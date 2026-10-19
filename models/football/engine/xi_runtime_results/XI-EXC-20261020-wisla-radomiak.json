@@ -1,0 +1,11 @@
+{
+  "error": "operational grade A requires market_observability=HIGH",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "3b17de8c423dc98df772ea2ee097c322b35fcf500fe31be252fb437a5b1b1901",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-wisla-radomiak",
+  "runtime_commit": "fc2c8c85283f6aa33b34d230b3a0c05e94d0a907",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
