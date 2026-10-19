@@ -93,7 +93,12 @@ pending count.
 
 The sweep must acquire complete provider date surfaces before filtering, apply
 the standing league/user exclusions, and use source-backed goal evidence to
-admit GOAL_PRIORITY fixtures. Intake never requires odds or lineups.
+admit GOAL_PRIORITY fixtures. **Latvian domestic leagues are excluded from
+production intake from 2026-10-20 onward** because of user-declared
+inconsistency; preserve them in the source ledger as
+`USER_LATVIA_LEAGUE_EXCLUSION` and do not research/rank them. Latvian clubs in
+continental competitions remain eligible through the normal tournament path.
+Intake never requires odds or lineups.
 
 The high-rate alternate research path is active alongside the original
 route-composite path. Both are research admission only; neither creates a goal
