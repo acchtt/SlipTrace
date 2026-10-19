@@ -1443,32 +1443,29 @@ class DecisionContractTests(unittest.TestCase):
         self.assertEqual(result["wait_target_line"], 2.5)
         self.assertEqual(result["wait_min_odds"], 1.60)
 
-    def test_shadow_wait_is_plan_without_assumed_exposure(self):
-        result = run_decision(
-            {
-                "schema_version": "football-engine-v1",
-                "stage": "decision",
-                "model": "c2",
-                "match": without_c_completion(
-                    match(
+    def test_active_adapter_rejects_retired_c2_decision(self):
+        with self.assertRaisesRegex(ContractError, "active production model must be 'c'"):
+            run_decision(
+                {
+                    "schema_version": "football-engine-v1",
+                    "stage": "decision",
+                    "model": "c2",
+                    "match": without_c_completion(
+                        match(
+                            board_state="C2-FOCUS",
+                            supported_line=2.5,
+                            independent_upper_tail=True,
+                        )
+                    ),
+                    "context": decision_context(
                         board_state="C2-FOCUS",
-                        supported_line=2.5,
-                        independent_upper_tail=True,
-                    )
-                ),
-                "context": decision_context(
-                    board_state="C2-FOCUS",
-                    quote={"line": 4.0, "odds": 1.80},
-                    wait_reachable=True,
-                    wait_requires_negative_info=False,
-                    top_ranked_focus=False,
-                ),
-            }
-        )
-        self.assertEqual(result["action"], "WAIT")
-        self.assertEqual(result["wait_target_line"], 3.5)
-        self.assertEqual(result["model_accounting_status"], "NONE")
-        self.assertEqual(result["wait_resolution_default"], "UNRESOLVED")
+                        quote={"line": 4.0, "odds": 1.80},
+                        wait_reachable=True,
+                        wait_requires_negative_info=False,
+                        top_ranked_focus=False,
+                    ),
+                }
+            )
 
     def test_material_h2h_effect_requires_verified_transferability_and_corroboration(self):
         row = match(
