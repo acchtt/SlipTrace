@@ -1,0 +1,19 @@
+{
+  "schema_version": "football-v4-rank-handoff-v1",
+  "status": "V4_RANK_HANDOFF_READY",
+  "run_id": "V4-20261019-2300-20261020-0300",
+  "source_run_id": "V4-20261019-2300-20261020-0300",
+  "source_filename": "source.json",
+  "source_file_sha256": "05485124c36ffd233fe1cdc5fb9ecfc84b55178901c0f08689c919ff5388c2e6",
+  "receipt_filename": "v4_sweep_ready.json",
+  "receipt_integrity_sha256": "a174ca33d8363129a99b9d5994bbd2e821833dc23b2571c2ff46f1b69a5bc8ea",
+  "active_research_complete": true,
+  "active_target_count": 7,
+  "eligible_target_count": 2,
+  "watch_target_count": 2,
+  "evidence_limited_target_count": 3,
+  "status_excluded_target_count": 0,
+  "deferred_source_backlog_count": 51,
+  "requires_fresh_status_refresh": true,
+  "rank_must_not_reconstruct_source_from_airtable": true
+}
