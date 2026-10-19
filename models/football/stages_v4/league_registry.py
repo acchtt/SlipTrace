@@ -170,6 +170,8 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
         return {"lane": "UNVERIFIED", "reason": "COUNTRY_COMPETITION_KIND_REQUIRED"}
     if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in AFRICAN_DOMESTIC_COUNTRIES:
         return {"lane": "EXCLUDED", "reason": "USER_AFRICA_DOMESTIC_EXCLUSION"}
+    if kind == "DOMESTIC_LEAGUE" and country == "latvia":
+        return {"lane": "EXCLUDED", "reason": "USER_LATVIA_LEAGUE_EXCLUSION"}
     womens_named = any(token in competition for token in (
         "women", "womens", "frauen", "feminina", "femenina", "feminin",
     ))
