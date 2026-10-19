@@ -1,288 +1,243 @@
-# Football C — Production Model
+# Football C — Production Model Semantics
 
 **Status:** ACTIVE OFFICIAL MODEL  
-**Architecture:** integrated end-to-end football screening, ranking and execution  
-**Intake:** RESEARCHABLE_SENIOR_PRODUCTION
+**Model:** Football C only  
+**Purpose:** predictive/decision semantics only
 
-## 1. Production flow
+Operational routing is owned by `models/football/CURRENT_MODEL.md`. Source and
+rank procedure are owned by `stages_v4/SWEEP.md` and `stages_v4/RANK.md`.
+XI execution is owned by `engine/core.py`, `engine/adapter.py` and
+`engine/xi_portable.py`. This file must not redefine workflow caps, storage,
+retired-model behavior or a second ACT/WAIT/PASS policy.
 
-`AISCORE SENIOR UNIVERSE -> OPERATIONAL VIABILITY -> RESEARCHABILITY/CAPACITY -> C SCREEN -> C RESEARCH/ASSESS -> BURDEN-COMPLETION FREEZE -> C RANK -> SAME-KICKOFF COMPARISON -> C XI CONFIRMATION -> C-BET/C-WAIT/C-PASS -> WAIT RESOLUTION -> AUDIT`
+## 1. Football-first assessment
 
-Football C is deliberately integrated. Do not rebuild Football A's multi-gate architecture inside C.
+Football C assesses the current matchup before price.
 
-## 2. Researchable-senior intake
+Research the current scoring mechanism, route reliability, chance quality,
+carrier capacity, burden completion, continuation, opponent leakage, stall
+risk, failure resistance, availability, relevant H2H and tournament incentive.
+Odds never create a scoring route or goal certificate.
 
-Step 0 must first discover the senior slate broadly, then apply:
+Availability is symmetric. An absence may reduce a route only after checking
+replacement creators/finishers, opponent independent scoring routes and
+defensive-rotation leakage.
 
-1. hard scope/identity/time exclusions;
-2. the mandatory **operational viability gate** in `models/football/procedures/FOOTBALL_OPERATIONAL_VIABILITY_GATE.md`;
-3. a cheap **researchability gate**;
-4. the 15-fixture normal Work admission cap.
+H2H is context only. It never creates a route. Suppressive H2H is material only
+when it is transferable to the current matchup and independently corroborated by
+current football evidence.
 
-Only operational grade A/B fixtures enter the normal Football C board. A can receive normal FOLLOW/RESERVE treatment. B is conditional and is capped at RESERVE at board time. C/D are excluded before Work unless explicitly reopened by the user.
+Tournament/qualifier incentive must be resolved whenever qualification,
+aggregate state, draw resolution, margin/tiebreaks or simultaneous results can
+change continuation. LIMITED/UNKNOWN incentive is incompleteness, not a
+football-quality PASS.
 
-Operational grade is evidence-derived, not a league-registry label. A
-CONDITIONAL/PILOT/DISCOVERY fixture whose current fixture-bound researchability
-channels are VERIFIED may be grade A. Registry lane remains separate metadata
-for acquisition/research priority and must never permanently force an otherwise
-verified C-FOCUS row to B/RESERVE/STOP. Grade B is reserved for a real remaining
-operational limitation such as uncertain XI availability or only MEDIUM market
-observability; once that limitation is actually resolved, a current reassessment
-may promote the grade without changing Football C's predictive thresholds.
+## 2. Football C state
 
-Protected senior international qualifiers/tournaments and major continental club competitions bypass the ordinary domestic researchability exclusion when identity/time are valid, but they do not bypass the operational viability declaration.
+The researched football state is exactly one of:
 
-Ordinary domestic/small competition fixtures are admitted only when current evidence is sufficient to support the Football C research schema:
-
-- recent team evidence for both sides;
-- meaningful current competition context;
-- at least one usable mechanism/stat/news layer beyond bare final scores.
-
-A competition must not be excluded merely because it is historically low-scoring, unfamiliar, a lower professional division, a cup, or Japanese/Finnish. Apply the current V4 registry scope: non-Japan domestic women's competitions are excluded. Japan women's league/cup remains eligible subject to source identity and researchability checks. An explicit out-of-scope user exception is labeled analysis, not routine production admission.
-
-Conversely, a small/obscure competition with inadequate current evidence should be excluded as:
-
-`INSUFFICIENT RESEARCHABILITY — STEP0 EXCLUDED`
-
-Football C still owns **football-quality** rejection and records that as C-PASS.
-
-## 3. Integrated screen
-
-A fixture survives serious consideration when there is at least one credible current scoring route **and a credible path to completing the protected burden**.
-
-Read and apply `models/football/procedures/FOOTBALL_BURDEN_COMPLETION_SELECTION.md`.
-
-Do not equate "both teams can score" with an Over thesis. Explicitly identify where the goal that clears the supported burden comes from.
-
-A WEAK second scoring route is not automatically suppressive when a STRONG carrier can self-fund and the opponent materially leaks.
-
-C-PASS when dominated by weak/uncertain routes, strong current suppression without a credible carrier, poor evidence quality, matchup/incentive compression, unsupported burden, or LOW burden-completion/continuation quality.
-
-Do not keep weak fixtures merely to fill a board. There is no predictive target board size; the upstream operational handoff is separately capped at 15 to control research workload.
-
-## 4. Football assessment
-
-For each admitted fixture determine:
-
-### Routes
-Per team: `STRONG / USABLE / WEAK`.
-
-Use actual scoring mechanisms: creation, finishing, service, transition, set pieces, box/territorial pressure, and repeatable opponent leakage. Scorelines support but do not create a route.
-
-### Carrier
-`STRONG CARRIER / USABLE CARRIER / NO RELIABLE CARRIER`.
-
-Carrier is football evidence, not market-derived.
-
-### Chance quality
-Prefer high-value chances, box/central access, quality SOT, xG/xGOT in context, dangerous transitions or credible data-poor equivalents. Possession/corners/raw shots do not substitute for chance quality.
-
-### Burden completion / continuation
-Freeze:
-- completion mode = NONE / TWO_SIDED / CARRIER_LED / FORCED_CHAOS / MIXED;
-- burden completion quality = LOW / MEDIUM / HIGH;
-- continuation quality = LOW / MEDIUM / HIGH;
-- opponent leakage = LOW / MEDIUM / HIGH;
-- burden stall risk = LOW / MEDIUM / HIGH.
-
-A plausible 1-1 is not HIGH completion for O2.5+. A carrier-led 3-0/4-0 path may be stronger than a balanced two-route match when the carrier can self-fund and the opponent leaks.
-
-### Main failure
-State the primary failure mechanism: compression, resistance, route disappearance, class-gap control, incentive, venue-specific suppression, or creation/finishing weakness.
-
-### Tournament format & incentive
-For any cup, tournament, qualifier, two-leg tie, final-round group/league state, or user-declared exception, run:
-`models/football/procedures/FOOTBALL_TOURNAMENT_INCENTIVE_INTEGRITY.md`
-
-Explicitly separate route quality from incentive/persistence. Verify draw resolution, aggregate/table state, qualification conditions, tiebreak/margin incentives, and whether a likely score state actually forces either side to chase.
-
-A strong XI does not by itself justify a higher total when parity, aggregate protection, direct penalties, or another control state is strategically acceptable.
-
-For an applicable tournament fixture, `LIMITED` or `UNKNOWN` incentive resolution is a **hard incompleteness state**, not a downgrade. Do not assign C-PASS/WATCH/FOCUS, C2 state, or an official supported burden until the exact qualification/tiebreak/margin/simultaneous-result implications are resolved.
-
-### H2H
-H2H is mandatory context when usable.
-
-Read and apply:
-`models/football/procedures/FOOTBALL_SEMANTIC_DECISION_BASIS.md`
-
-Priority:
-`CURRENT MECHANISM -> RECENT SAME-VENUE TRANSFERABLE H2H -> RECENT ALL-VENUE TRANSFERABLE H2H -> OLD BACKGROUND`
-
-Here, `recent` is a research-priority label, not a hidden numerical pass/fail cutoff. Football C has no active fixed match-count/year recency threshold.
-
-H2H never creates a route. Suppressive H2H materially downgrades only when the researcher records both why it is transferable to the current matchup and which current football evidence independently corroborates the same suppressive mechanism.
-
-Every H2H declaration must carry a non-empty `h2h_basis`. If transferability/current corroboration is not established, H2H may remain LIMITED / NOT_USABLE / not material but may not silently create `material_suppression=true`.
-
-## 5. Supported burden
-
-Choose one protected Asian-total line or narrow range before current price.
-
-Persist a non-empty `supported_line_basis` explaining why this is the highest burden supported without requiring an optimistic tail. The basis is audit evidence only and has no independent ranking weight.
-
-Question:
-> What is the highest total the football evidence supports without requiring an optimistic tail?
-
-Never raise burden for better price.
-
-For tournament/cup contexts, a post-XI burden increase is allowed only when the XI/mechanism evidence supports it **and** the verified tournament incentive does not materially suppress persistence.
-
-If tournament incentive is LIMITED/UNKNOWN, there is no actionable protected burden. Block the fixture as `INCENTIVE-INCOMPLETE` until the state is resolved; do not carry a provisional burden into Step 2.
-
-## 6. Ranking
-
-Rank survivors by:
-1. burden-completion quality;
-2. continuation quality;
-3. lower stall risk;
-4. self-funded independent upper-tail path;
-5. carrier strength;
-6. opponent leakage;
-7. burden protection;
-8. lower supported burden when completion quality is otherwise comparable;
-9. route reliability;
-10. current chance quality;
-11. failure resistance;
-12. evidence confidence;
-13. XI robustness;
-14. independent-route quality.
-
-Two-sidedness is one completion mode, not a ranking advantage by itself.
-
-States:
 - `C-FOCUS`
 - `C-WATCH`
 - `C-PASS`
 
-Persist a non-empty `board_state_basis` for the frozen state. This makes the existing semantic screen auditable; it does not create a new numerical FOCUS/WATCH/PASS threshold.
+FOCUS/WATCH/PASS is predictive football selection. FOLLOW/RESERVE/STOP is a
+separate operational workload lane and must not become a second prediction
+model.
 
-Under `FOOTBALL_MODEL_BET_ACCOUNTING.md`, every frozen `C-WATCH` is also a model-accounting bet at C's own supported line, assumed odds 1.65, 1u. This accounting convention does not promote WATCH to C-BET and does not create a Website Pick.
+There is no predictive board-size target and no fixed V4 rank-board cap.
+Unfinished research remains unresolved/checkpointed rather than being converted
+into PASS merely to finish a board.
 
-Persist every admitted fixture, including C-PASS, so false negatives can be audited.
+## 3. Deterministic supported-burden compiler
 
-Before finalizing C-PASS, apply the carrier-contradiction check from the burden-completion procedure. A HIGH-completion/HIGH-continuation STRONG self-funded carrier with upper-tail proof and opponent leakage cannot be passed solely because the second scoring route is weak.
+Supported burden is compiled from explicit goal certificates:
 
-After ranking, compare fixtures sharing the exact kickoff minute. At most two may receive routine FOLLOW at that kickoff; otherwise-qualified overflow falls to RESERVE subject to capacity.
+- G3 -> O2.50
+- G4 -> O3.50
+- G5 -> O4.50
+- G6 -> O5.50
+- no G3 -> no certified burden
 
-## 6A. G4 research completeness
+Asian .75 lines require the next certificate for a full-win burden.
 
-Whenever C funds G3, separately state whether G4 research is complete. Persist
-`G4_RESEARCH_INCOMPLETE`, `G4_RESEARCH_EVIDENCE_LIMITED`,
-`G4_RESEARCH_COMPLETE_MIXED`, `G4_RESEARCH_COMPLETE_REJECTED`, or
-`G4_RESEARCH_COMPLETE_FUNDED`; use `G4_NOT_APPLICABLE` only when G3 is not
-funded.
+The researcher-declared line/basis is audit metadata only. The deterministic
+compiler owns production burden.
 
-Completed claims must satisfy `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`.
-Unavailable paths are not negative evidence; shared failure mechanisms retain
-one causal identity across grades. The compiler remains unchanged.
+## 4. G3 mechanisms
 
-A complete G4 decision evaluates the plausible carrier, distributed 2+2/3+1,
-reply-assisted and post-G3 continuation paths, together with the existing
-upper-tail transferability/comparable-context and failure-resistance rules.
-These diagnostics do not add a new certificate path and do not lower the G4
-threshold. They distinguish "researched and rejected" from "not fully
-researched".
+G3 may be funded only through the existing deterministic Football C mechanisms,
+including carrier, independent two-route/distributed completion, and permitted
+matchup-leakage structures.
 
-A G3-only assessment with unfinished G4 work remains conservatively O2.50, but
-its incomplete status must be visible so Step 2 can complete the missing
-football research when a material disagreement triggers reinspection.
+A plausible 1-1 is not sufficient by itself. The assessment must identify the
+goal that clears the burden and the mechanism that supplies it.
 
-## 7. XI confirmation
+## 5. G4+ transferability and comparable context
 
-When XI/current odds arrive:
-1. verify fixture/status;
-2. map XI changes to route functions;
-3. run one mandatory fresh fixture-specific public-web football research pass;
-4. run the mandatory Asian-total market-history attempt from `FOOTBALL_MARKET_HISTORY_RECHECK.md`;
-5. verify/recheck tournament format and incentive state when applicable;
-6. re-check relevant H2H/matchup evidence;
-7. recheck completion mode, burden-completion quality, continuation quality, opponent leakage and stall risk;
-8. run any market-history conflict reinspection;
-9. classify thesis PRESERVED / DEGRADED / BROKEN;
-10. interpret the executable market;
-11. issue C-BET / C-WAIT / C-PASS.
+Whenever an independent upper tail is asserted, freeze:
 
-Market-history/odds lookup does not satisfy the football-research requirement. The market-history attempt is nevertheless mandatory and must be declared FOUND / PARTIAL / UNAVAILABLE-ATTEMPTED.
+- `upper_tail_transferability = LOW / MEDIUM / HIGH`;
+- a non-empty transferability basis;
+- `upper_tail_comparable_context_signal = SUPPORTIVE / MIXED / SUPPRESSIVE / UNAVAILABLE`;
+- a non-empty comparable-context basis.
 
-## 8. Market interpretation
+Evidence priority is prospective:
 
-The bookmaker is evidence, not authority.
+1. same competition / continental context;
+2. closely comparable senior opponent/competition strength;
+3. less-comparable domestic/cup history as corroboration.
 
-If market is above supported burden, do not buy unsupported burden. WAIT only when protected target can arrive without expected thesis deterioration.
+SUPPRESSIVE forces effective transferability LOW. MIXED caps effective
+transferability at MEDIUM. Raw scoreline frequency cannot override a closer
+contradictory context.
 
-If market is below supported burden, ask whether current football evidence explains the pessimism. If yes and mechanism is attacked, downgrade/PASS. If no, lower line may be useful protection.
+G4 completion still requires the deterministic carrier/distributed/reply,
+continuation and failure-resistance rules in the engine. This evidence contract
+does not lower a certificate threshold.
 
-No standalone market-undercut HOLD state.
+## 6. G4 research completeness
 
-## 9. Price
+Whenever G3 is funded, the G4 investigation must carry one explicit state:
 
-- >=1.65 normal acceptable zone.
-- 1.60–1.64 soft zone only for top-ranked C-FOCUS at/below supported burden with no material football veto.
-- <1.60 normally WAIT/PASS.
+- `G4_RESEARCH_INCOMPLETE`
+- `G4_RESEARCH_EVIDENCE_LIMITED`
+- `G4_RESEARCH_COMPLETE_MIXED`
+- `G4_RESEARCH_COMPLETE_REJECTED`
+- `G4_RESEARCH_COMPLETE_FUNDED`
 
-## 10. Final action
+Use `G4_NOT_APPLICABLE` only when G3 is not funded.
 
-Apply:
-- `models/football/procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`;
-- `models/football/procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md` for legacy operational C-WAIT persistence.
+A complete investigation checks the plausible carrier four-goal path,
+distributed 3+1/2+2 path, reply-assisted path, continuation after goal three,
+transferability/comparable context and shared failure/stall mechanisms.
 
-### C-BET
-Football thesis survives; line at/below supported burden; price acceptable; no material football veto.
+An unavailable source/path is not automatically negative evidence. Follow
+`procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`.
 
-### C-WAIT
-Thesis already good enough; current line/price is blocker; protected target realistically reachable without expected negative football information.
+A G3-funded C-FOCUS row with G4 research still INCOMPLETE or EVIDENCE_LIMITED
+is unfinished rank research and must not finalize onto the official board.
+The V4 rank stage checkpoints it for bounded completion.
 
-Predeclare target line, minimum odds, cancellation event, and thesis-health evidence required.
+## 7. Ranking
 
-For accounting/audit, C-WAIT creates the higher-priority C model-accounting entry at the target line/minimum odds. It replaces a C-WATCH accounting entry for the same fixture while the WAIT is countable. A matching user bet slip reconciles the WAIT to exact actual terms; an explicit "line never reached" removes the WAIT layer, after which a frozen C-WATCH remains independently countable under the all-model accounting policy.
+Price-blind Football C ranking order is:
 
-### C-PASS
-Thesis inadequate, burden unsupported, price unacceptable without healthy wait path, or wait depends on thesis deterioration.
+1. certificate robustness;
+2. highest funded certificate: G6 > G5 > G4 > G3 > none;
+3. endpoint/control risk;
+4. frozen V4 quantitative goal signal;
+5. remaining current football-mechanism quality.
 
-## 11. Decay integrity
+Compiled burden magnitude is not an independent bonus. A fragile deeper
+certificate does not automatically outrank a robust/conditional shallower one.
 
-`PRICE DECAY != THESIS DECAY`
+Within the same robustness/depth class, current completion and continuation
+must not be displaced by raw historical goal rates.
 
-At target:
-`TARGET REACHED + PREMATCH/XI THESIS NOT MATERIALLY INVALIDATED?`
+## 8. XI / current football confirmation
 
-Do **not** require positive live-stat confirmation for a scoreless Over wait. Shots, xG/xGOT, big chances, dangerous attacks, possession, corners, box entries and momentum feeds are not live execution gates.
+XI repeats the football decision at the current evidence epoch without requiring
+odds. Confirm whether availability actually changes named routes, whether the
+primary mechanism remains intact, and whether tournament/H2H/current-context
+information changes the certificate.
 
-No-goal clock decay by itself is not thesis decay.
+A ranked fixture carries its frozen board certificate and G4 research state.
+A higher current certificate requires one permitted non-market path:
 
-Live thesis decay may change the current football recommendation:
-`C-WAIT CANCELLED — THESIS DECAY`
+- verified new football evidence;
+- verified completion of previously unfinished certificate research;
+- verified source-backed correction of a prior certificate
+  misclassification.
 
-It does **not** retroactively erase the WAIT assumed-exposure accounting record. Accounting changes only from a matching user slip or explicit user declaration that the target line never reached.
+The market may trigger the recheck but never manufactures G3/G4/G5/G6.
+
+## 9. Observed quote policy
+
+User screenshots are `USER_SCREENSHOT_ONLY` observations:
+
+- use the exact supplied line/odds;
+- do not fetch a replacement quote;
+- do not infer a missing price;
+- do not re-time the screenshot.
+
+Observed-price ACT/WAIT/PASS is non-executable comparison. A strict current
+executable decision requires the separate runtime authorization/evidence
+contract.
+
+Normal acceptable price is >=1.65. The 1.60–1.64 supported-line soft zone is
+available only where the deterministic C core authorizes it from already-funded
+football evidence.
+
+## 10. Material market disagreement
+
+If the observed burden is materially above C's frozen/current certificate,
+complete the required football recheck first.
+
+If the recheck funds the market burden, evaluate it normally. If the recheck
+does not fund it, the market remains unsupported.
+
+Do not use a higher market total as proof that the missing certificate should
+exist.
+
+## 11. WAIT — reachable before the first goal
+
+WAIT is a concrete pre-goal entry plan, not a generic instruction to hope for
+decay.
+
+All C WAITs require:
+
+- `wait_reachable=true` with a non-empty contemporaneous basis;
+- `wait_requires_negative_info=false`;
+- intact football mechanism;
+- no material veto;
+- WATCH, if used as an explicit exception, revalidated to at least
+  CONDITIONAL robustness.
+
+For an **unsupported higher observed line**, active Football C may wait down to
+its certified burden only when the gap is at most **0.25 goals**.
+
+A gap of **0.50 goals or more** is material disagreement. After the mandatory
+football recheck it must either:
+
+- become funded and be evaluated at the observed burden; or
+- PASS.
+
+It must **not** become a WAIT for a much lower certified total.
+
+At/below a funded burden, a price-only WAIT still needs actual reachability
+evidence. A lone screenshot is not directional evidence that same-line odds
+will improve.
 
 ## 12. Live boundary
 
-Normal live use resolves a predeclared C-WAIT; an explicit match-specific exception may reopen a live fixture under the normal exception boundary. A goal/red card/major injury/material mechanism change invalidates the old quote and creates a new epoch.
+After kickoff, continue the Football C football assessment from actual
+score/minute/material events. Never recreate a prematch ACT/WAIT/PASS
+retrospectively.
 
-Live assessment proceeds regardless of provider live stats. Current score/minute/line/odds plus preserved prematch/XI football evidence are sufficient unless a separate integrity gate is unresolved.
+A live quote is comparison evidence only unless a separate live execution
+policy explicitly authorizes exposure.
 
-For tournament/cup fixtures, every new epoch must also recompute score/aggregate/table incentive: whether a draw is acceptable, whether penalties/extra time are reachable, whether margin is still required, and which side is genuinely forced to chase.
+## 13. Accounting
 
-## 13. Persistence
+Current accounting is exposure-conservative:
 
-Model identifier: `Football C`.
+- WATCH -> no model bet;
+- unresolved WAIT -> no model bet;
+- direct strict C BET -> official model exposure at actual terms;
+- WAIT -> exposure only after the reached terms are actually confirmed under
+  the active accounting contract;
+- physical user P/L -> `Actual Bets — Current` only.
 
-Daily Coverage Ledger must retain the full C funnel, including C-PASS.
+`WAIT_ASSUMED`, `WATCH_ASSUMED` and retired-model synthetic exposure are
+historical-read-only concepts. See
+`procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md` and
+`procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`.
 
-Decision States store material Step-2/live decisions.
+## 14. Audit invariant
 
-Website Picks store operational C-BET direct exposure and C-WAIT assumed exposure. C-WATCH accounting is audit/model-performance only and does not create a Website Pick.
+Audit compares frozen prospective evidence with outcomes. It may identify a
+selection, certificate, ranking, WAIT/execution or workflow defect, but it must
+not rewrite the earlier assessment from result knowledge.
 
-User bet slip remains physical execution truth and may reconcile a corresponding C-WAIT to exact actual line/odds/stake. Explicit user "line never reached" removes model exposure for that WAIT.
-
-Never overwrite historical Football A records.
-
-## 14. Audit
-
-Audit:
-`RAW SENIOR -> HARD EXCLUDED -> OPERATIONAL EXCLUDED -> RESEARCHABILITY EXCLUDED -> CAPACITY DEFERRED -> ADMITTED TO C -> C-PASS -> C-WATCH(accounted) -> C-FOCUS -> C-BET/C-WAIT(accounted)`
-
-A skipped visible senior fixture with no disposition is a coverage failure. A documented operational exclusion or capacity deferral is not automatically a model-screen error. A high-scoring admitted C-PASS remains a model-screen false negative. Keep those categories separate.
-
-Never retro-change states from FT.
+Retired C2/C3/C4 artifacts may be read only for historical audit. They have no
+new production path.
