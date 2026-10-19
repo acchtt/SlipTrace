@@ -1291,6 +1291,63 @@ class AuditRecordContractTests(unittest.TestCase):
                 )
             )
 
+    def test_book_order_has_no_exposure_until_fill_is_confirmed(self):
+        pending = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-BOOK",
+                    "quote_line": 3.25,
+                    "quote_odds": 1.90,
+                    "book_target_line": 3.0,
+                    "book_min_odds": 1.90,
+                    "wait_target_line": None,
+                    "wait_min_odds": None,
+                },
+                observed={"settlement": "NO_OFFICIAL_EXPOSURE"},
+                pnl_status={
+                    "official_c_exposure": False,
+                    "official_c_model_pnl": None,
+                    "official_c_exposure_basis": "NONE",
+                    "official_c_exposure_line": None,
+                    "official_c_exposure_odds": None,
+                    "wait_resolution": "NOT_APPLICABLE",
+                    "user_executed": False,
+                    "user_pnl": None,
+                },
+            )
+        )
+        self.assertFalse(pending["pnl_status"]["official_c_exposure"])
+
+        filled = run_audit_record(
+            self.audit_record(
+                frozen={
+                    "c_action": "C-BOOK",
+                    "quote_line": 3.25,
+                    "quote_odds": 1.90,
+                    "book_target_line": 3.0,
+                    "book_min_odds": 1.90,
+                    "wait_target_line": None,
+                    "wait_min_odds": None,
+                },
+                observed={"settlement": "PUSH"},
+                pnl_status={
+                    "official_c_exposure": True,
+                    "official_c_model_pnl": 0.0,
+                    "official_c_exposure_basis": "BOOK_USER_CONFIRMED",
+                    "official_c_exposure_line": 3.0,
+                    "official_c_exposure_odds": 2.00,
+                    "wait_resolution": "NOT_APPLICABLE",
+                    "user_executed": True,
+                    "user_pnl": 0.0,
+                },
+            )
+        )
+        self.assertTrue(filled["pnl_status"]["official_c_exposure"])
+        self.assertEqual(
+            filled["pnl_status"]["official_c_exposure_basis"],
+            "BOOK_USER_CONFIRMED",
+        )
+
     def test_compound_grade_is_rejected(self):
         with self.assertRaisesRegex(ContractError, "continuation_quality"):
             run_audit_record(
