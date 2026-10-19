@@ -1,3 +1,5 @@
+> **RETIRED V1–V3 / FOOTBALL A PROCEDURE — historical audit only. New production uses `CURRENT_MODEL.md` + `stages_v4/SWEEP.md`/`RANK.md`. Ignore every later `Status: ACTIVE`, AiScore-only, capacity, ZIP, Work-sweep, Football A/C2 statement in this file.**
+
 > **V4 AUTHORITY NOTICE (2026-10-12):** This document contains historical V1–V3 or Football A operational instructions. Its legacy `ACTIVE` labels, Step0/Step1 capacity limits, AiScore-only rules, pre-XI fixture-specific odds/lineup blockers and old-model claims do **not** govern current `/sweep` or `/rank`. Canonical replacement: `models/football/stages_v4/SWEEP.md` and `RANK.md`; current C/C2 authority: `CURRENT_MODEL.md`. Only football safety guidance explicitly imported by those V4 launchers remains applicable. Historical receipts remain immutable.
 
 # Football Match Sweep and Research Procedure
