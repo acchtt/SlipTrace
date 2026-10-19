@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_effect='SUPPORTIVE'; allowed: MIXED, NOT_MATERIAL, OPEN, SUPPRESSIVE, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "52b9628ef224e79a4a0d416c0c693ea377e293b84391832529c1474e19331ac7",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-viborg-midtjylland-v2",
+  "runtime_commit": "004a9ecafd630c505fffec30f7d08c6b21425478",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
