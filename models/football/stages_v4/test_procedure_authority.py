@@ -147,6 +147,47 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("WATCH creates no model bet", current)
         self.assertIn("Unresolved WAIT creates no model bet", current)
 
+    def test_active_production_spec_has_no_retired_rule_drift(self):
+        production = (FOOTBALL / "production" / "FOOTBALL_C.md").read_text()
+        core = (ENGINE / "core.py").read_text()
+        for forbidden in (
+            "15-fixture normal Work admission cap",
+            "every frozen `C-WATCH` is also a model-accounting bet",
+            "WAIT assumed-exposure accounting record",
+            "AISCORE SENIOR UNIVERSE",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, production)
+        self.assertIn("There is no predictive board-size target", production)
+        self.assertIn("unresolved WAIT -> no model bet", production)
+        self.assertIn("gap is at most **0.25 goals**", production)
+        self.assertIn("MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP = 0.25", core)
+
+    def test_legacy_procedure_files_are_hard_retired(self):
+        retired = (
+            "FOOTBALL_MATCH_SWEEP_AND_RESEARCH_PROCEDURE.md",
+            "FOOTBALL_COMPACT_SWEEP_WORK_BUDGET.md",
+            "FOOTBALL_CAPACITY_REPLENISHMENT.md",
+            "FOOTBALL_OPERATIONAL_VIABILITY_GATE.md",
+            "FOOTBALL_PRE_DECISION_SPEC.md",
+            "FOOTBALL_STEP2_EXECUTION_SPEC.md",
+            "FOOTBALL_XI_MARKET_FIRST_INTAKE.md",
+        )
+        procedures = FOOTBALL / "procedures"
+        for name in retired:
+            with self.subTest(name=name):
+                first = (procedures / name).read_text().splitlines()[0]
+                self.assertIn("RETIRED", first)
+
+    def test_active_wait_authority_blocks_material_decay_target(self):
+        current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
+        xi = (PROMPTS / "02_NORMAL_CHAT_XI_ODDS.md").read_text()
+        production = (FOOTBALL / "production" / "FOOTBALL_C.md").read_text()
+        for doc in (current, xi, production):
+            self.assertIn("0.25", doc)
+            self.assertIn("0.50", doc)
+        self.assertIn("do not manufacture a pre-goal decay WAIT", (ENGINE / "core.py").read_text())
+
     def test_actual_user_bets_are_user_pnl_authority(self):
         current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
         routing = (
