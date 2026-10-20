@@ -1,0 +1,219 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-EXC-HT-20261020-tolucaW-santosW-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-20261019-2200-1845655-alfeiha-alahli-post-xi",
+    "match": {
+      "match_id": "EXC-TOLUCAW-SANTOSW-20261020",
+      "country": "Mexico",
+      "competition": "Liga MX Femenil Apertura",
+      "competition_kind": "WOMENS_TOP_FLIGHT",
+      "kickoff_ict": "2026-10-20T07:00:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Explicit user exception at halftime. Current score is user-supplied; no live telemetry is required and no bookmaker total is supplied.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "UNCERTAIN",
+      "market_observability": "MEDIUM",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Halftime football-only exception assessment; no executable quote requested.",
+      "common_evidence_basis": "Toluca entered 3rd with 25 goals scored and 16 conceded through 10, while Santos entered 5th with 13 scored and 20 conceded. Recent results for both sides are high-variance, but the recent H2H series is notably low: 1-0, 1-0, 2-1 and 2-0 in the last four listed meetings. The 0-0 halftime state increases the burden sharply because any whole-match O2.5 now requires three second-half goals.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "LOW",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "LOW",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": true,
+      "h2h_basis": "Recent H2H is directly suppressive: 1-0, 1-0, 2-1, 2-0 in the last four listed meetings.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Halftime exception declaration only; deterministic compiler owns whole-match G3/G4 funding.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Toluca's season attack is strong but the 0-0 HT state and H2H do not support a current self-funded three-goal second half.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No protected four-goal route remains from 0-0 HT.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "No protected four-goal route remains from 0-0 HT.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+      "failure_attacks_route": true,
+      "failure_attacks_route_basis": "The 0-0 halftime state directly attacks the whole-match G3 burden.",
+      "material_suppression": true,
+      "material_suppression_basis": "Time decay plus repeated low H2H is a material current suppression.",
+      "goal_signal_priority_score": 46,
+      "goal_signal_mean_over_two_rate": 0.45,
+      "goal_signal_mean_over_three_rate": 0.25,
+      "goal_signal_low_draw_trap_rate": 0.3,
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "Apertura regular season",
+      "competition_format": "League phase",
+      "draw_resolution": "One point each.",
+      "aggregate_state": "Single-match group/league fixture.",
+      "qualification_state": "Toluca are in a strong position and Santos are chasing; incentive remains positive but not elimination-level.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous-result dependency is required for this halftime read.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "NEUTRAL",
+      "board_state": "WATCH",
+      "board_state_basis": "Second-half goal remains plausible, but 0-0 HT no longer supports a clean whole-match G3 certificate.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "FAILED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "LOW",
+      "g4_research_basis": "From 0-0 HT, four total goals would require an extreme four-goal second half; not protected.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "From 0-0 HT, four total goals would require an extreme four-goal second half; not protected.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "From 0-0 HT, four total goals would require an extreme four-goal second half; not protected.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "From 0-0 HT, four total goals would require an extreme four-goal second half; not protected.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "HALFTIME_STATE": {
+          "kind": "CURRENT_MATCH_STATE",
+          "basis": "The game has already consumed half its time at 0-0 and the matchup has repeatedly produced low totals. Three second-half goals are possible given both clubs' season volatility, but the current state no longer protects a full-match G3 route.",
+          "evidence_refs": [
+            "https://www.clubsantos.mx/partidos/temporada-2026-2027-1-liga-bbva-mx-femenil-11-toluca-femenil-vs-santos-laguna-femenil-2672131",
+            "https://www.fotmob.com/en-GB/matches/toluca-vs-santos-laguna/ojo1or9r"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "g4_global_blockers": null
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-20T00:47:00+00:00",
+      "fixture_status": "HALFTIME",
+      "score": "0-0",
+      "match_minute": 45,
+      "material_event_since_frozen": "OTHER_MATERIAL",
+      "board_state": "WATCH",
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "No current Asian total quote supplied.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No priced WAIT is being proposed.",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit halftime exception; no frozen production certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_REQUIRED",
+      "market_disagreement_recheck_basis": "NO_QUOTE",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "scope_override": {
+        "match_id": "EXC-TOLUCAW-SANTOSW-20261020",
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+        "user_instruction_reference": "User requested halftime exception assessment.",
+        "basis": "Analysis-only exception outside routine scope where applicable."
+      }
+    }
+  }
+}
