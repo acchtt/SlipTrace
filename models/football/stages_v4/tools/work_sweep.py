@@ -12,6 +12,8 @@ import json
 import re
 import sys
 import time
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -184,6 +186,9 @@ class Evidence:
     def __init__(self, output):
         self.output = output
         self.index = []
+        self._index_lock = threading.Lock()
+        self._footballinfo_history_detail_cache = {}
+        self._footballinfo_history_detail_lock = threading.Lock()
 
     def get(self, url, name):
         raw, observed = fetch(url)
@@ -194,8 +199,9 @@ class Evidence:
         path.write_bytes(raw)
         item = {"source_url": url, "observed_at_utc": observed,
                 "file": str(path.relative_to(self.output)), "sha256": digest(path)}
-        self.index.append(item)
-        save(self.output / "provenance.json", self.index)
+        with self._index_lock:
+            self.index.append(item)
+            save(self.output / "provenance.json", self.index)
         return payload, item
 
     def get_text(self, url, name):
@@ -206,8 +212,9 @@ class Evidence:
         path.write_bytes(raw)
         item = {"source_url": url, "observed_at_utc": observed,
                 "file": str(path.relative_to(self.output)), "sha256": digest(path)}
-        self.index.append(item)
-        save(self.output / "provenance.json", self.index)
+        with self._index_lock:
+            self.index.append(item)
+            save(self.output / "provenance.json", self.index)
         return text, item
 
 
@@ -596,8 +603,13 @@ def footballinfo_date_events(text, day):
     return events
 
 
-def footballinfo_fixture_detail(evidence, match):
+def footballinfo_fixture_detail(evidence, match, *, history_cache=False):
     mid = str(match)
+    if history_cache:
+        with evidence._footballinfo_history_detail_lock:
+            cached = evidence._footballinfo_history_detail_cache.get(mid)
+        if cached is not None:
+            return cached
     text, proof = evidence.get_text(FOOTBALLINFO_EVENT_URL.format(match=mid), "fi-event-" + mid)
     meta_match = re.search(r'<div class="fi-match-meta"[^>]*>(.*?)</div>', text, re.I | re.S)
     if not meta_match:
@@ -644,7 +656,7 @@ def footballinfo_fixture_detail(evidence, match):
         status = "FINISHED"
     else:
         status = "STARTED"
-    return {
+    result = ({
         "match_id": mid,
         "kickoff_utc": kickoff.isoformat(),
         "provider_team_ids": [team_matches[0][0], team_matches[1][0]],
@@ -653,7 +665,11 @@ def footballinfo_fixture_detail(evidence, match):
         "competition": competition,
         "score": score,
         "fixture_status": status,
-    }, proof
+    }, proof)
+    if history_cache:
+        with evidence._footballinfo_history_detail_lock:
+            evidence._footballinfo_history_detail_cache[mid] = result
+    return result
 
 
 def acquire_footballinfo(request, evidence):
@@ -867,6 +883,11 @@ def footballinfo_competitive_history(evidence, team, now):
 
     competition_links = list(dict.fromkeys(competition_links))
     competition_links.sort(key=lambda x: x[0])
+    # Six verified results is enough for a stable V4 goal screen while keeping
+    # the fallback bounded. The gate accepts 4..10; collecting ten over a remote
+    # HTML provider was causing hundreds of serial detail requests per sweep.
+    history_target = 6
+    candidate_target = 10
     for _, league, href in competition_links[:3]:
         page, proof = evidence.get_text(
             "https://www.footballinfo.net" + href,
@@ -874,19 +895,41 @@ def footballinfo_competitive_history(evidence, team, now):
         )
         history_proofs.append(proof)
         collect_ft(page)
-        if len(fixture_ids) >= 10:
+        if len(fixture_ids) >= candidate_target:
             break
 
     # Keep the landing-page cards as a conservative fallback for teams whose
     # competition table is absent or sparse.
-    if len(fixture_ids) < 10:
+    if len(fixture_ids) < candidate_target:
         recent_marker = text.find("<!-- Recent fixtures -->")
         section = text[recent_marker:] if recent_marker >= 0 else text
         collect_ft(section)
 
     results = {}
-    for mid in fixture_ids[:18]:
-        detail, _ = footballinfo_fixture_detail(evidence, mid)
+    candidate_ids = fixture_ids[:candidate_target]
+    # Detail pages are independent immutable historical fixtures. Fetch a small
+    # bounded batch concurrently; Evidence serializes provenance writes.
+    detail_rows = {}
+    with ThreadPoolExecutor(max_workers=min(4, max(1, len(candidate_ids)))) as pool:
+        pending = {
+            pool.submit(
+                footballinfo_fixture_detail, evidence, mid, history_cache=True
+            ): mid
+            for mid in candidate_ids
+        }
+        for future in as_completed(pending):
+            mid = pending[future]
+            try:
+                detail_rows[mid] = future.result()[0]
+            except Exception as exc:
+                detail_rows[mid] = exc
+
+    for mid in candidate_ids:
+        detail = detail_rows.get(mid)
+        if isinstance(detail, Exception):
+            continue
+        if not isinstance(detail, dict):
+            continue
         ids = tuple(detail["provider_team_ids"])
         if team not in ids:
             raise ValueError("unrelated event in FootballInfo team history")
@@ -908,10 +951,10 @@ def footballinfo_competitive_history(evidence, team, now):
             "competition": competition,
         }
         results[mid] = row
-        if len(results) >= 10:
+        if len(results) >= history_target:
             break
 
-    recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:10]
+    recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:history_target]
     used_proof = max(history_proofs, key=lambda x: x["observed_at_utc"])
     return recent, used_proof
 
