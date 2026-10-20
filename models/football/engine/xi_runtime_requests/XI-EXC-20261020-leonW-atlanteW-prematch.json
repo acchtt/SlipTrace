@@ -1,0 +1,240 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v1",
+  "request_id": "XI-EXC-20261020-leonW-atlanteW-prematch",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-20261019-2200-1845655-alfeiha-alahli-post-xi",
+    "match": {
+      "match_id": "EXC-LEONW-ATLANTEW-20261020",
+      "country": "Mexico",
+      "competition": "Liga MX Femenil Apertura",
+      "competition_kind": "WOMENS_TOP_FLIGHT",
+      "kickoff_ict": "2026-10-20T08:06:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Non-Japan domestic women's competition is outside normal production scope; this is an explicit user exception. Public current form and team news are available, but no confirmed XI or totals quote was supplied.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "UNCERTAIN",
+      "market_observability": "MEDIUM",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Prematch exception assessment from current season form, competition format/incentive and latest available team news; no confirmed XI and no Asian total screenshot.",
+      "common_evidence_basis": "León are 4-0-5 with 15 scored and 17 conceded through nine league matches. Their recent home results are volatile: 0-5 América, 0-2 Juárez, 5-2 Puebla, 0-1 Querétaro and 1-2 Tigres. Atlante are 2-1-7 with 6 scored and 13 conceded through ten; their last five are 0-1 Tijuana, 0-0 Pumas, 2-1 Querétaro, 0-1 Atlas and 0-1 Juárez. Atlante have scored only two goals across five listed away matches. León can produce an isolated high home tail, but the present distributed scoring structure is weak because Atlante's reply route is poor and León themselves have repeated home blanks.",
+      "home_route": "USABLE",
+      "away_route": "WEAK",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "LOW",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "LOW",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "LOW",
+      "continuation_quality": "LOW",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+      "h2h_state": "UNAVAILABLE",
+      "h2h_effect": "NOT_MATERIAL",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Atlante are a new entrant in the 2026 format and no useful senior H2H sample is available for current transfer.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Exception declaration only; deterministic compiler owns whether G3 is funded.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "León have isolated 5-goal and 3-goal outputs, but current home evidence is not a repeated three-goal carrier.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independent current G4 route is protected. León's high tails are isolated and Atlante's reply frequency is low.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The 5-2 Puebla and other high outputs are not stable enough to transfer into a protected upper tail against an Atlante side producing repeated low totals.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Recent home/away contexts are dominated by 0-2 total goals.",
+      "failure_attacks_route": true,
+      "failure_attacks_route_basis": "Atlante's weak scoring route directly attacks the distributed third-goal structure, while León's home blanks weaken a self-funded G3.",
+      "material_suppression": true,
+      "material_suppression_basis": "Atlante's recent away scoring scarcity plus León's repeated home blanks create a current suppression pattern.",
+      "goal_signal_priority_score": 38,
+      "goal_signal_mean_over_two_rate": 0.3,
+      "goal_signal_mean_over_three_rate": 0.15,
+      "goal_signal_low_draw_trap_rate": 0.3,
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "Apertura 2026 group stage, matchday 11 of 14",
+      "competition_format": "Two groups of nine; each club plays 14 regular-season matches; top four in each group qualify for quarterfinals.",
+      "draw_resolution": "One point each for a draw; no extra time.",
+      "aggregate_state": "Single regular-season fixture.",
+      "qualification_state": "Both teams are in the lower part of Group A with only four teams advancing; points are valuable and neither is in a protected qualification position.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous-result dependency controls this fixture.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "YES",
+      "incentive_effect": "NEUTRAL",
+      "board_state": "PASS",
+      "board_state_basis": "Explicit exception only: current scoring structure does not fund a clean G3 despite León favoritism.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_carrier_path": "FAILED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "LOW",
+      "g4_research_basis": "G4 is not supported because G3 itself is not reliably protected; neither a repeated León four-goal carrier nor an Atlante reply route is current enough.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "G4 is not supported because G3 itself is not reliably protected; neither a repeated León four-goal carrier nor an Atlante reply route is current enough.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "G4 is not supported because G3 itself is not reliably protected; neither a repeated León four-goal carrier nor an Atlante reply route is current enough.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "G4 is not supported because G3 itself is not reliably protected; neither a repeated León four-goal carrier nor an Atlante reply route is current enough.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "mechanism_ids": [
+            "CURRENT_LOW_COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CURRENT_LOW_COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "A strong León 1X2 price does not create a goals certificate. León have been shut out in four of their last five listed home league matches except the 5-2 Puebla outlier, while Atlante have scored only two goals in five listed away matches. The main failure endpoint is a controlled 1-0 or 2-0 León win.",
+          "evidence_refs": [
+            "https://www.zerozero.com.mx/equipo/club-leon/224306/todos-los-partidos?epoca_id=156",
+            "https://www.ceroacero.es/equipo/atlante/390876/todos-los-partidos",
+            "https://www.zerozero.com.mx/noticias/club-leon-vs-atlante-previa-ausencias-y-probables-alineaciones-titulares-liga-mx-femenil-20-10/1230260",
+            "https://www.jornada.com.mx/noticia/2026/07/23/deportes/liga-femenil-cambiara-su-formato-de-competencia-para-el-apertura-2026"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "g4_global_blockers": null
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-20T00:47:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "PASS",
+      "thesis_state": "DEGRADED",
+      "primary_mechanism_intact": false,
+      "material_veto": true,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_reachability_basis": "No Asian total quote supplied, so no reachable WAIT target can be defined.",
+      "wait_requires_negative_info": false,
+      "wait_negative_info_basis": "No WAIT without total price.",
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit scope exception; no official production board certificate exists.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_REQUIRED",
+      "market_disagreement_recheck_basis": "NO_TOTAL_QUOTE",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "scope_override": {
+        "match_id": "EXC-LEONW-ATLANTEW-20261020",
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+        "user_instruction_reference": "User explicitly requested assessment of León Women vs Atlante Women as an exception.",
+        "basis": "Non-Japan domestic women's competition is excluded from routine production; this override is analysis-only."
+      }
+    }
+  }
+}
