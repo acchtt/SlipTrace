@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html as html_lib
 import json
 import re
 import sys
@@ -31,6 +32,10 @@ SOFASCORE_DATE_URLS = (
 )
 SOFASCORE_TEAM_LAST_URL = "https://api.sofascore.com/api/v1/team/{team}/events/last/{page}"
 SOFASCORE_EVENT_URL = "https://api.sofascore.com/api/v1/event/{match}"
+FOOTBALLINFO_FAMILY = "FootballInfo complete fixtures HTML"
+FOOTBALLINFO_DATE_URL = "https://www.footballinfo.net/Fixtures?date={day}"
+FOOTBALLINFO_TEAM_URL = "https://www.footballinfo.net/Teams/Details/{team}"
+FOOTBALLINFO_EVENT_URL = "https://www.footballinfo.net/Fixtures/Details/{match}"
 THESPORTSDB_FAMILY = "TheSportsDB public eventsday API"
 THESPORTSDB_DATE_URL = "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={day}&s=Soccer"
 THESPORTSDB_TEAM_LAST_URL = "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id={team}"
@@ -192,6 +197,18 @@ class Evidence:
         self.index.append(item)
         save(self.output / "provenance.json", self.index)
         return payload, item
+
+    def get_text(self, url, name):
+        raw, observed = fetch(url)
+        text = raw.decode("utf-8", errors="strict")
+        path = self.output / "raw" / (name + ".html")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+        item = {"source_url": url, "observed_at_utc": observed,
+                "file": str(path.relative_to(self.output)), "sha256": digest(path)}
+        self.index.append(item)
+        save(self.output / "provenance.json", self.index)
+        return text, item
 
 
 def date_surface(evidence, day: str, offset: int, name: str):
@@ -488,6 +505,354 @@ def acquire_sofascore(request, evidence):
     }
 
 
+
+def _footballinfo_text(value):
+    if value is None:
+        return ""
+    no_tags = re.sub(r"<[^>]+>", " ", str(value))
+    return re.sub(r"\s+", " ", html_lib.unescape(no_tags)).strip()
+
+
+def _footballinfo_status(time_text, badge_text):
+    time_value = _footballinfo_text(time_text).upper()
+    badge = _footballinfo_text(badge_text).upper()
+    if badge in {"NS", "NOT STARTED", "SCHEDULED"}:
+        return "PREMATCH_CONFIRMED"
+    if badge in {"FT", "AET", "AP", "PEN"}:
+        return "FINISHED"
+    if badge in {"POSTP", "POSTPONED", "PST"}:
+        return "POSTPONED"
+    if badge in {"CANC", "CANCELLED", "CANCELED", "ABANDONED", "AWD"}:
+        return "CANCELLED"
+    if badge == "LIVE" or "live" in str(time_text).lower() or re.fullmatch(r"\d+(?:\+\d+)?'?", time_value):
+        return "STARTED"
+    if re.fullmatch(r"\d{1,2}:\d{2}", time_value):
+        return "PREMATCH_CONFIRMED"
+    return "UNKNOWN_PROVIDER_STATUS"
+
+
+def _footballinfo_datetime(day, time_text):
+    value = _footballinfo_text(time_text)
+    if not re.fullmatch(r"\d{1,2}:\d{2}", value):
+        return None
+    parsed = datetime.strptime(day + " " + value, "%Y-%m-%d %H:%M").replace(tzinfo=timezone.utc)
+    return parsed.isoformat()
+
+
+def footballinfo_date_events(text, day):
+    if not isinstance(text, str) or "fi-league-section" not in text:
+        raise ValueError("FootballInfo fixtures page missing league sections")
+    section_matches = list(re.finditer(
+        r'<div class="fi-league-section\b[^>]*data-fav-name="([^"]+)"[^>]*>',
+        text, re.I
+    ))
+    if not section_matches:
+        raise ValueError("FootballInfo fixtures page missing competition blocks")
+    events = []
+    seen = set()
+    for index, section in enumerate(section_matches):
+        start = section.start()
+        end = section_matches[index + 1].start() if index + 1 < len(section_matches) else len(text)
+        block = text[start:end]
+        competition = _footballinfo_text(section.group(1))
+        country_match = re.search(r'data-collapse-key="league:([^:"]+):\d+"', block, re.I)
+        country = _footballinfo_text(country_match.group(1).replace("-", " ")) if country_match else "International"
+        stage = {"Snm": competition, "Cnm": country}
+        if not senior(stage):
+            continue
+        for match in re.finditer(
+            r'<a class="fi-fixture[^"]*"[^>]*href="/Fixtures/Details/(\d+)"[^>]*>(.*?)</a>',
+            block, re.I | re.S
+        ):
+            mid, frag = match.group(1), match.group(2)
+            if mid in seen:
+                raise ValueError("FootballInfo duplicate event ID")
+            team_ids = re.findall(r'media\.api-sports\.io/football/teams/(\d+)\.png', frag, re.I)
+            team_names = [
+                _footballinfo_text(x)
+                for x in re.findall(r'<span class="fi-team-name[^"]*"[^>]*>(.*?)</span>', frag, re.I | re.S)
+            ]
+            if len(team_ids) < 2 or len(team_names) < 2:
+                raise ValueError("FootballInfo fixture team identity missing: " + mid)
+            time_match = re.search(r'<div class="fi-fixture-time[^"]*"[^>]*>(.*?)</div>', frag, re.I | re.S)
+            badge_match = re.search(r'<span class="fi-badge[^"]*"[^>]*>(.*?)</span>', frag, re.I | re.S)
+            if not time_match:
+                raise ValueError("FootballInfo fixture time/status missing: " + mid)
+            time_text = _footballinfo_text(time_match.group(1))
+            badge_text = _footballinfo_text(badge_match.group(1)) if badge_match else ""
+            status = _footballinfo_status(time_text, badge_text)
+            kickoff = _footballinfo_datetime(day, time_text)
+            seen.add(mid)
+            events.append({
+                "match_id": mid,
+                "country": country,
+                "competition": competition,
+                "home": team_names[0],
+                "away": team_names[1],
+                "provider_team_ids": [team_ids[0], team_ids[1]],
+                "fixture_status": status,
+                "kickoff_utc": kickoff,
+            })
+    return events
+
+
+def footballinfo_fixture_detail(evidence, match):
+    mid = str(match)
+    text, proof = evidence.get_text(FOOTBALLINFO_EVENT_URL.format(match=mid), "fi-event-" + mid)
+    meta_match = re.search(r'<div class="fi-match-meta"[^>]*>(.*?)</div>', text, re.I | re.S)
+    if not meta_match:
+        raise ValueError("FootballInfo fixture detail kickoff missing: " + mid)
+    meta = _footballinfo_text(meta_match.group(1))
+    try:
+        kickoff = datetime.strptime(meta, "%d %b %Y %H:%M").replace(tzinfo=timezone.utc)
+    except ValueError as exc:
+        raise ValueError("FootballInfo fixture detail kickoff invalid: " + mid) from exc
+    team_matches = re.findall(
+        r'href="/Teams/Details/(\d+)"[^>]*>.*?<div class="name">(.*?)</div>',
+        text, re.I | re.S
+    )
+    if len(team_matches) < 2:
+        raise ValueError("FootballInfo fixture detail team identity missing: " + mid)
+    score_match = re.search(r'<div class="fi-match-score"[^>]*>(.*?)</div>', text, re.I | re.S)
+    score = None
+    if score_match:
+        score_numbers = re.findall(r'\d+', _footballinfo_text(score_match.group(1)))
+        if len(score_numbers) >= 2:
+            score = (int(score_numbers[0]), int(score_numbers[1]))
+    league_match = re.search(
+        r'href="/Leagues/Details/\d+[^"]*"[^>]*>(.*?)</a>', text, re.I | re.S
+    )
+    competition = None
+    if league_match:
+        competition = _footballinfo_text(league_match.group(1)).split("·", 1)[0].strip()
+    now = stamp(proof["observed_at_utc"])
+    lowered = text.lower()
+    if kickoff > now:
+        status = "PREMATCH_CONFIRMED"
+    elif "fi-badge-ft" in lowered or score is not None:
+        status = "FINISHED"
+    else:
+        status = "STARTED"
+    return {
+        "match_id": mid,
+        "kickoff_utc": kickoff.isoformat(),
+        "provider_team_ids": [team_matches[0][0], team_matches[1][0]],
+        "home": _footballinfo_text(team_matches[0][1]),
+        "away": _footballinfo_text(team_matches[1][1]),
+        "competition": competition,
+        "score": score,
+        "fixture_status": status,
+    }, proof
+
+
+def acquire_footballinfo(request, evidence):
+    start, end, _ = parse_request(request)
+    start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
+    keys = required_surface_keys(start.isoformat(), end.isoformat())
+    fixtures, identities, surfaces = {}, {}, []
+    day_cache = {}
+    detail_cache = {}
+
+    for key in keys:
+        _, day = key.split(":")
+        if day not in day_cache:
+            text, proof = evidence.get_text(
+                FOOTBALLINFO_DATE_URL.format(day=day), "fi-date-" + day
+            )
+            day_cache[day] = (footballinfo_date_events(text, day), proof)
+        rows, proof = day_cache[day]
+        grouped = {}
+        ids = []
+        for raw in rows:
+            row = dict(raw)
+            mid = row["match_id"]
+            if row["kickoff_utc"] is None:
+                if mid not in detail_cache:
+                    detail_cache[mid] = footballinfo_fixture_detail(evidence, mid)
+                detail, _ = detail_cache[mid]
+                if detail["provider_team_ids"] != row["provider_team_ids"]:
+                    raise ValueError("FootballInfo detail/date team identity changed: " + mid)
+                if detail["home"] != row["home"] or detail["away"] != row["away"]:
+                    raise ValueError("FootballInfo detail/date team name changed: " + mid)
+                row["kickoff_utc"] = detail["kickoff_utc"]
+                row["fixture_status"] = detail["fixture_status"]
+            identity = tuple(row["provider_team_ids"])
+            if mid in identities and identities[mid] != identity:
+                raise ValueError("conflicting FootballInfo date-surface team identity: " + mid)
+            if mid in fixtures and fixtures[mid]["kickoff_utc"] != row["kickoff_utc"]:
+                raise ValueError("conflicting FootballInfo date-surface kickoff: " + mid)
+            identities[mid] = identity
+            stage = {"Snm": row["competition"], "Cnm": row["country"]}
+            fixtures[mid] = {
+                "match_id": mid,
+                "country": row["country"],
+                "competition": row["competition"],
+                "competition_kind": competition_kind(stage),
+                "is_friendly": any(x in row["competition"].lower() for x in ("friendly", "friendlies")),
+                "home": row["home"],
+                "away": row["away"],
+                "kickoff_utc": row["kickoff_utc"],
+                "fixture_status": row["fixture_status"],
+                "source_url": proof["source_url"],
+                "observed_at_utc": proof["observed_at_utc"],
+                "provider_team_ids": list(identity),
+            }
+            grouped.setdefault((row["country"], row["competition"]), []).append(mid)
+            ids.append(mid)
+        blocks = [
+            {
+                "country": country,
+                "competition": competition,
+                "provider_fixture_count": len(mids),
+                "extracted_fixture_ids": mids,
+            }
+            for (country, competition), mids in grouped.items()
+        ]
+        surfaces.append({
+            "surface_key": key,
+            "source_url": proof["source_url"],
+            "observed_at_utc": proof["observed_at_utc"],
+            "pagination_complete": True,
+            "provider_page_count": 1,
+            "pages_fetched": [1],
+            "provider_senior_fixture_count": len(ids),
+            "extracted_fixture_ids": ids,
+            "provider_senior_competition_block_count": len(blocks),
+            "competition_blocks": blocks,
+        })
+
+    terminal_start = max(start, end - timedelta(hours=6))
+    terminal_days = sorted({
+        terminal_start.date().isoformat(),
+        (end - timedelta(microseconds=1)).date().isoformat(),
+    })
+    terminal_ids = set()
+    terminal_proofs = []
+    for day in terminal_days:
+        text, proof = evidence.get_text(
+            FOOTBALLINFO_DATE_URL.format(day=day), "fi-terminal-" + day
+        )
+        terminal_proofs.append(proof)
+        for raw in footballinfo_date_events(text, day):
+            mid = raw["match_id"]
+            kickoff_value = raw["kickoff_utc"]
+            if kickoff_value is None:
+                detail, _ = footballinfo_fixture_detail(evidence, mid)
+                kickoff_value = detail["kickoff_utc"]
+                current_status = detail["fixture_status"]
+            else:
+                current_status = raw["fixture_status"]
+            kickoff = stamp(kickoff_value)
+            if terminal_start <= kickoff < end:
+                terminal_ids.add(mid)
+                if mid in fixtures and (
+                    tuple(raw["provider_team_ids"]) != identities[mid]
+                    or kickoff_value != fixtures[mid]["kickoff_utc"]
+                ):
+                    raise ValueError("FootballInfo terminal identity/kickoff changed: " + mid)
+            if mid in fixtures:
+                fixtures[mid].update(
+                    fixture_status=current_status,
+                    observed_at_utc=proof["observed_at_utc"],
+                    source_url=proof["source_url"],
+                )
+
+    now = utcnow()
+    return {
+        "schema_version": "football-stages-v4",
+        "run_id": request["run_id"],
+        "window_start_utc": start.isoformat(),
+        "window_end_utc": end.isoformat(),
+        "source_family": FOOTBALLINFO_FAMILY,
+        "source_url": surfaces[0]["source_url"],
+        "source_observed_at_utc": max(x["observed_at_utc"] for x in surfaces),
+        "fixtures": list(fixtures.values()),
+        "source_completeness_manifest": {
+            "schema_version": "football-v4-source-completeness-v2",
+            "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+            "league_query_mode": "DATE_SURFACE_ONLY",
+            "registry_prefilter_applied": False,
+            "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+            "extraction_complete": True,
+            "provider_family": FOOTBALLINFO_FAMILY,
+            "window_start_utc": start.isoformat(),
+            "window_end_utc": end.isoformat(),
+            "checked_at_utc": now,
+            "required_surface_keys": keys,
+            "date_surfaces": surfaces,
+            "terminal_sentinel": {
+                "interval_start_utc": terminal_start.isoformat(),
+                "interval_end_utc": end.isoformat(),
+                "checked_at_utc": max(x["observed_at_utc"] for x in terminal_proofs),
+                "complete": True,
+                "independent_refetch": True,
+                "source_urls": [x["source_url"] for x in terminal_proofs],
+                "provider_senior_fixture_count": len(terminal_ids),
+                "extracted_fixture_ids": sorted(terminal_ids),
+            },
+        },
+    }
+
+
+def footballinfo_competitive_history(evidence, team, now):
+    team = str(team)
+    text, proof = evidence.get_text(
+        FOOTBALLINFO_TEAM_URL.format(team=team), "fi-team-" + team
+    )
+    recent_marker = text.find("<!-- Recent fixtures -->")
+    section = text[recent_marker:] if recent_marker >= 0 else text
+    fixture_ids = []
+    for match in re.finditer(
+        r'<a class="fi-fixture[^"]*"[^>]*href="/Fixtures/Details/(\d+)"[^>]*>(.*?)</a>',
+        section, re.I | re.S
+    ):
+        frag = match.group(2)
+        badge_match = re.search(r'<span class="fi-badge[^"]*"[^>]*>(.*?)</span>', frag, re.I | re.S)
+        badge = _footballinfo_text(badge_match.group(1)).upper() if badge_match else ""
+        if badge == "FT":
+            fixture_ids.append(match.group(1))
+        if len(fixture_ids) >= 8:
+            break
+    results = {}
+    for mid in fixture_ids:
+        detail, _ = footballinfo_fixture_detail(evidence, mid)
+        ids = tuple(detail["provider_team_ids"])
+        if team not in ids:
+            raise ValueError("unrelated event in FootballInfo team history")
+        kickoff = stamp(detail["kickoff_utc"])
+        if not now - timedelta(days=120) <= kickoff <= now - timedelta(hours=2):
+            continue
+        competition = detail.get("competition") or ""
+        if any(x in competition.lower() for x in ("friendly", "friendlies", "testimonial")):
+            continue
+        if detail.get("score") is None:
+            continue
+        hg, ag = detail["score"]
+        home = ids[0] == team
+        row = {
+            "event_id": mid,
+            "kickoff_utc": kickoff.isoformat(),
+            "goals_for": hg if home else ag,
+            "goals_against": ag if home else hg,
+            "competition": competition,
+        }
+        results[mid] = row
+        if len(results) >= 6:
+            break
+    recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:10]
+    return recent, proof
+
+
+def footballinfo_fixture_refresh(evidence, fixture):
+    detail, proof = footballinfo_fixture_detail(evidence, fixture["match_id"])
+    ids = tuple(map(str, fixture.get("provider_team_ids") or []))
+    if tuple(detail["provider_team_ids"]) != ids:
+        raise ValueError("FootballInfo event detail team identity changed")
+    if detail["kickoff_utc"] != fixture["kickoff_utc"]:
+        raise ValueError("FootballInfo event detail kickoff changed")
+    return detail["fixture_status"], proof
+
+
 def thesportsdb_event_time(event):
     value = event.get("strTimestamp")
     if not isinstance(value, str) or not value.strip():
@@ -769,13 +1134,22 @@ def acquire(request, evidence):
             return acquire_sofascore(request, evidence)
         except Exception as sofascore_exc:
             try:
-                return acquire_thesportsdb(request, evidence)
-            except Exception as thesportsdb_exc:
-                raise RuntimeError(
-                    f"all canonical date-surface providers failed; "
-                    f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
-                    f"TheSportsDB: {thesportsdb_exc}"
-                ) from thesportsdb_exc
+                return acquire_footballinfo(request, evidence)
+            except Exception as footballinfo_exc:
+                try:
+                    candidate = acquire_thesportsdb(request, evidence)
+                    # The free TheSportsDB date endpoint can expose only a tiny
+                    # subset of worldwide football. Never certify that subset as
+                    # a global sweep surface.
+                    if len(candidate.get("fixtures") or []) < 20:
+                        raise ValueError("THESPORTSDB_DATE_SURFACE_COVERAGE_TOO_NARROW")
+                    return candidate
+                except Exception as thesportsdb_exc:
+                    raise RuntimeError(
+                        f"all canonical date-surface providers failed; "
+                        f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
+                        f"FootballInfo: {footballinfo_exc}; TheSportsDB: {thesportsdb_exc}"
+                    ) from thesportsdb_exc
 
 
 def sofascore_competitive_history(evidence, team, now):
