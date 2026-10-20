@@ -1147,20 +1147,15 @@ def acquire(request, evidence):
             try:
                 return acquire_footballinfo(request, evidence)
             except Exception as footballinfo_exc:
-                try:
-                    candidate = acquire_thesportsdb(request, evidence)
-                    # The free TheSportsDB date endpoint can expose only a tiny
-                    # subset of worldwide football. Never certify that subset as
-                    # a global sweep surface.
-                    if len(candidate.get("fixtures") or []) < 20:
-                        raise ValueError("THESPORTSDB_DATE_SURFACE_COVERAGE_TOO_NARROW")
-                    return candidate
-                except Exception as thesportsdb_exc:
-                    raise RuntimeError(
-                        f"all canonical date-surface providers failed; "
-                        f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
-                        f"FootballInfo: {footballinfo_exc}; TheSportsDB: {thesportsdb_exc}"
-                    ) from thesportsdb_exc
+                # TheSportsDB is intentionally not a canonical production
+                # fallback: its free date endpoint can expose a small subset of
+                # worldwide fixtures and therefore cannot satisfy the sweep's
+                # completeness invariant.
+                raise RuntimeError(
+                    f"all canonical date-surface providers failed; "
+                    f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
+                    f"FootballInfo: {footballinfo_exc}"
+                ) from footballinfo_exc
 
 
 def sofascore_competitive_history(evidence, team, now):
