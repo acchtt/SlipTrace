@@ -51,7 +51,7 @@ def parse_request(obj: dict) -> tuple[datetime, datetime, list[tuple[str, str]]]
     return start, end, keys
 
 
-def fetch(url: str, attempts: int = 2) -> tuple[bytes, str]:
+def fetch(url: str, attempts: int = 5) -> tuple[bytes, str]:
     errors = []
     for attempt in range(attempts):
         try:
@@ -69,7 +69,9 @@ def fetch(url: str, attempts: int = 2) -> tuple[bytes, str]:
         except (OSError, ValueError) as exc:
             errors.append(f"{type(exc).__name__}: {exc}")
             if attempt + 1 < attempts:
-                time.sleep(1)
+                # Provider 5xx bursts have repeatedly cleared after a few seconds.
+                # Keep retries bounded so source acquisition still fails closed.
+                time.sleep(min(8, 2 ** attempt))
     raise RuntimeError("; ".join(errors))
 
 
