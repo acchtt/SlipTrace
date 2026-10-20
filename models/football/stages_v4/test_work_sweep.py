@@ -49,10 +49,43 @@ class WorkSweepTests(unittest.TestCase):
         self.assertEqual([x["idEvent"] for x in work.thesportsdb_events({"events": [event]})], ["9001"])
         with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
              patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
-             patch.object(work, "acquire_thesportsdb", return_value={"source_family": work.THESPORTSDB_FAMILY}) as tdb:
+             patch.object(work, "acquire_footballinfo", return_value={"source_family": work.FOOTBALLINFO_FAMILY}) as fi, \
+             patch.object(work, "acquire_thesportsdb", side_effect=AssertionError("narrow fallback must not run")):
             result = work.acquire({"run_id": "V4-test"}, object())
-        self.assertEqual(result["source_family"], work.THESPORTSDB_FAMILY)
-        tdb.assert_called_once()
+        self.assertEqual(result["source_family"], work.FOOTBALLINFO_FAMILY)
+        fi.assert_called_once()
+
+    def test_footballinfo_date_parser_preserves_fixture_identity(self):
+        html = """
+        <div class="fi-league-section fi-fav-item" data-fav-name="Danish Superliga">
+          <div class="collapse show" data-collapse-key="league:Denmark:119">
+            <a class="fi-fixture text-decoration-none" href="/Fixtures/Details/12345">
+              <div class="fi-fixture-time ">18:00</div>
+              <div class="fi-team"><img src="https://media.api-sports.io/football/teams/11.png" />
+                <span class="fi-team-name">Viborg</span></div>
+              <div class="fi-score"><span class="vs">vs</span></div>
+              <div class="fi-team away"><img src="https://media.api-sports.io/football/teams/22.png" />
+                <span class="fi-team-name">FC Midtjylland</span></div>
+              <div class="text-end"><span class="fi-badge fi-badge-ns">NS</span></div>
+            </a>
+          </div>
+        </div>
+        """
+        rows = work.footballinfo_date_events(html, "2026-10-20")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["match_id"], "12345")
+        self.assertEqual(rows[0]["provider_team_ids"], ["11", "22"])
+        self.assertEqual(rows[0]["kickoff_utc"], "2026-10-20T18:00:00+00:00")
+        self.assertEqual(rows[0]["fixture_status"], "PREMATCH_CONFIRMED")
+        self.assertEqual(rows[0]["country"], "Denmark")
+
+    def test_thesportsdb_narrow_surface_is_not_accepted_after_all_broad_sources_fail(self):
+        with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
+             patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
+             patch.object(work, "acquire_footballinfo", side_effect=RuntimeError("html unavailable")), \
+             patch.object(work, "acquire_thesportsdb", return_value={"fixtures": [object()] * 3}):
+            with self.assertRaisesRegex(RuntimeError, "COVERAGE_TOO_NARROW"):
+                work.acquire({"run_id": "V4-test"}, object())
 
     def test_competition_scope_does_not_filter_adult_league_by_team_name(self):
         block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [event()]}
