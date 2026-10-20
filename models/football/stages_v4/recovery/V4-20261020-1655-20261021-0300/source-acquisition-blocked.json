@@ -89,6 +89,33 @@
           "result": "HTTP_403"
         }
       ]
+    },
+    {
+      "request": "resume-retry6",
+      "workflow_run_id": 39410817818,
+      "runner": "ubuntu-latest",
+      "observed_at_utc": "2026-10-20T10:52:06Z",
+      "providers": [
+        {
+          "provider": "LiveScore",
+          "routes": [
+            "app/date",
+            "react/date"
+          ],
+          "retry_count_per_route": 5,
+          "result": "HTTP_503"
+        },
+        {
+          "provider": "SofaScore",
+          "routes": [
+            "www/api scheduled-events",
+            "api scheduled-events"
+          ],
+          "retry_count_per_route": 5,
+          "result": "HTTP_403"
+        }
+      ],
+      "regression_tests_status": "PASS"
     }
   ],
   "protections": [
@@ -96,11 +123,12 @@
     "Do not reuse an older sweep receipt for this run.",
     "Do not issue /rank handoff until source.json and native v4_sweep_ready.json exist for this run."
   ],
-  "next_action": "Retry canonical source acquisition for this same run/window when at least one complete provider date surface is reachable; then execute bounded research and native V4 finalization.",
+  "next_action": "Resume this same run only after a canonical complete date-surface provider is reachable; do not create another blind retry before rechecking provider availability.",
   "backend_resilience_changes": [
     "bounded 5-attempt exponential source retry",
     "same-provider LiveScore react/date fallback",
     "canonical SofaScore date-surface/team-history failover",
     "empty-target sweep finalization support"
-  ]
+  ],
+  "last_checked_at_ict": "2026-10-20T17:52:06+07:00"
 }
