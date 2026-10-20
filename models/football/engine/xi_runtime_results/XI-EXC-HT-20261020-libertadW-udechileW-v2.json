@@ -1,0 +1,11 @@
+{
+  "error": "missing required field: thesis_state",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "8337ced8cceb879c6d75098c08b5bbb818703d59f0871a413993bdb45b2b2085",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-libertadW-udechileW-v2",
+  "runtime_commit": "437a525c58299217462e283812c6e0abbfadc99d",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
