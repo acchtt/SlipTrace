@@ -79,6 +79,25 @@ class WorkSweepTests(unittest.TestCase):
         self.assertEqual(rows[0]["fixture_status"], "PREMATCH_CONFIRMED")
         self.assertEqual(rows[0]["country"], "Denmark")
 
+    def test_footballinfo_detail_accepts_sept_abbreviation(self):
+        page = """
+        <div class="fi-match-header">
+          <a href="/Teams/Details/11"><div class="name">Home</div></a>
+          <div class="fi-match-score">2 <span class="sep">–</span> 1</div>
+          <div class="fi-match-meta">30 Sept 2025 13:00</div>
+          <a href="/Leagues/Details/100?season=2025">Youth League · 2025</a>
+          <a href="/Teams/Details/22"><div class="name">Away</div></a>
+        </div>
+        <span class="fi-badge fi-badge-ft">FT</span>
+        """
+        class Evidence:
+            def get_text(self, url, name):
+                return page, {"source_url": url, "observed_at_utc": NOW}
+        detail, _ = work.footballinfo_fixture_detail(Evidence(), "99")
+        self.assertEqual(detail["kickoff_utc"], "2025-09-30T13:00:00+00:00")
+        self.assertEqual(detail["score"], (2, 1))
+        self.assertEqual(detail["provider_team_ids"], ["11", "22"])
+
     def test_thesportsdb_narrow_surface_is_not_accepted_after_all_broad_sources_fail(self):
         with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
              patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
