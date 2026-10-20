@@ -24,6 +24,13 @@ FAMILY = "LiveScore public date API"
 DATE_URL = "https://prod-public-api.livescore.com/v1/api/app/date/soccer/{day}/{offset}?MD=1&countryCode=US&locale=en"
 REACT_DATE_URL = "https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1&countryCode=US&locale=en"
 TEAM_URL = "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/{team}/details?locale=en"
+SOFASCORE_FAMILY = "SofaScore public scheduled-events API"
+SOFASCORE_DATE_URLS = (
+    "https://www.sofascore.com/api/v1/sport/football/scheduled-events/{day}",
+    "https://api.sofascore.com/api/v1/sport/football/scheduled-events/{day}",
+)
+SOFASCORE_TEAM_LAST_URL = "https://api.sofascore.com/api/v1/team/{team}/events/last/{page}"
+SOFASCORE_EVENT_URL = "https://api.sofascore.com/api/v1/event/{match}"
 
 
 def utcnow():
@@ -203,7 +210,7 @@ def date_surface(evidence, day: str, offset: int, name: str):
             ) from fallback_exc
 
 
-def acquire(request, evidence):
+def acquire_livescore(request, evidence):
     start, end, _ = parse_request(request)
     start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
     keys = required_surface_keys(start.isoformat(), end.isoformat())
@@ -275,6 +282,284 @@ def acquire(request, evidence):
                     "complete": True, "independent_refetch": True,
                     "source_urls": [x["source_url"] for x in terminal_proofs],
                     "provider_senior_fixture_count": len(terminal_ids), "extracted_fixture_ids": sorted(terminal_ids)}}}
+
+
+def sofascore_event_time(event):
+    value = event.get("startTimestamp")
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or value <= 0:
+        raise ValueError("SofaScore event startTimestamp required")
+    return datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
+
+
+def sofascore_event_identity(event):
+    try:
+        return (str(event["homeTeam"]["id"]), str(event["awayTeam"]["id"]))
+    except (KeyError, TypeError) as exc:
+        raise ValueError("SofaScore home/away identity missing") from exc
+
+
+def sofascore_event_status(event):
+    value = str((event.get("status") or {}).get("type") or "").lower()
+    if value in {"notstarted", "not_started"}:
+        return "PREMATCH_CONFIRMED"
+    if value == "finished":
+        return "FINISHED"
+    if value in {"postponed", "delayed"}:
+        return "POSTPONED"
+    if value in {"canceled", "cancelled", "abandoned"}:
+        return "CANCELLED"
+    if value in {"inprogress", "in_progress", "live"}:
+        return "STARTED"
+    return "UNKNOWN_PROVIDER_STATUS"
+
+
+def sofascore_stage(event):
+    tournament = event.get("tournament") or {}
+    category = tournament.get("category") or {}
+    competition = tournament.get("name") or (tournament.get("uniqueTournament") or {}).get("name")
+    country = category.get("name")
+    if not isinstance(competition, str) or not competition.strip():
+        raise ValueError("SofaScore competition missing")
+    if not isinstance(country, str) or not country.strip():
+        country = "International"
+    return {"Snm": competition.strip(), "Cnm": country.strip()}
+
+
+def sofascore_senior(event):
+    stage = sofascore_stage(event)
+    label = stage["Snm"] + " " + stage["Cnm"]
+    if "uefa youth league" in label.lower():
+        return True
+    if any(x in label.lower() for x in ("premier league 2", "primavera")):
+        return False
+    return not re.search(r"\b(?:u[ -]?(?:1[5-9]|2[0-3])|under[ -]?(?:1[5-9]|2[0-3])|youth)\b", label, re.I)
+
+
+def sofascore_events(payload):
+    if not isinstance(payload, dict) or not isinstance(payload.get("events"), list):
+        raise ValueError("SofaScore scheduled-events response missing events")
+    if payload.get("hasNextPage") is True:
+        raise ValueError("SofaScore scheduled-events pagination unexpectedly required")
+    seen = set()
+    rows = []
+    for event in payload["events"]:
+        mid = str(event.get("id"))
+        if not mid or mid == "None" or mid in seen:
+            raise ValueError("SofaScore missing/duplicate event ID")
+        seen.add(mid)
+        sofascore_event_identity(event)
+        sofascore_event_time(event)
+        if sofascore_senior(event):
+            rows.append(event)
+    return rows
+
+
+def sofascore_date_surface(evidence, day, name):
+    errors = []
+    for index, template in enumerate(SOFASCORE_DATE_URLS):
+        url = template.format(day=day)
+        try:
+            return evidence.get(url, name + ("-www" if index == 0 else "-api"))
+        except Exception as exc:
+            errors.append(str(exc))
+    raise RuntimeError("SofaScore date surface failed: " + "; ".join(errors))
+
+
+def acquire_sofascore(request, evidence):
+    start, end, _ = parse_request(request)
+    start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
+    keys = required_surface_keys(start.isoformat(), end.isoformat())
+    fixtures, identities, surfaces = {}, {}, []
+
+    for key in keys:
+        _, day = key.split(":")
+        payload, proof = sofascore_date_surface(evidence, day, "sofa-" + key.replace(":", "-"))
+        events = sofascore_events(payload)
+        grouped = {}
+        ids = []
+        for event in events:
+            mid = str(event["id"])
+            identity = sofascore_event_identity(event)
+            kickoff = sofascore_event_time(event)
+            stage = sofascore_stage(event)
+            group_key = (stage["Cnm"], stage["Snm"])
+            grouped.setdefault(group_key, []).append(mid)
+            ids.append(mid)
+            if mid in identities and identities[mid] != identity:
+                raise ValueError("conflicting SofaScore date-surface team identity: " + mid)
+            if mid in fixtures and fixtures[mid]["kickoff_utc"] != kickoff:
+                raise ValueError("conflicting SofaScore date-surface kickoff: " + mid)
+            identities[mid] = identity
+            fixtures[mid] = {
+                "match_id": mid,
+                "country": stage["Cnm"],
+                "competition": stage["Snm"],
+                "competition_kind": competition_kind(stage),
+                "is_friendly": any(x in stage["Snm"].lower() for x in ("friendly", "friendlies")),
+                "home": event["homeTeam"]["name"],
+                "away": event["awayTeam"]["name"],
+                "kickoff_utc": kickoff,
+                "fixture_status": sofascore_event_status(event),
+                "source_url": proof["source_url"],
+                "observed_at_utc": proof["observed_at_utc"],
+                "provider_team_ids": list(identity),
+            }
+        blocks = [
+            {"country": country, "competition": competition,
+             "provider_fixture_count": len(mids), "extracted_fixture_ids": mids}
+            for (country, competition), mids in sorted(grouped.items())
+        ]
+        surfaces.append({
+            "surface_key": key,
+            "source_url": proof["source_url"],
+            "observed_at_utc": proof["observed_at_utc"],
+            "pagination_complete": True,
+            "provider_page_count": 1,
+            "pages_fetched": [1],
+            "provider_senior_fixture_count": len(ids),
+            "extracted_fixture_ids": ids,
+            "provider_senior_competition_block_count": len(blocks),
+            "competition_blocks": blocks,
+        })
+
+    terminal_start = max(start, end - timedelta(hours=6))
+    terminal_ids, terminal_proofs = set(), []
+    for key in required_surface_keys(terminal_start.isoformat(), end.isoformat()):
+        if not key.startswith("UTC:"):
+            continue
+        day = key.split(":")[1]
+        payload, proof = sofascore_date_surface(evidence, day, "sofa-terminal-" + day)
+        terminal_proofs.append(proof)
+        for event in sofascore_events(payload):
+            mid = str(event["id"])
+            kickoff = sofascore_event_time(event)
+            if terminal_start <= stamp(kickoff) < end:
+                terminal_ids.add(mid)
+                if mid in fixtures and (
+                    sofascore_event_identity(event) != identities[mid]
+                    or kickoff != fixtures[mid]["kickoff_utc"]
+                ):
+                    raise ValueError("SofaScore terminal identity/kickoff changed: " + mid)
+            if mid in fixtures:
+                fixtures[mid].update(
+                    fixture_status=sofascore_event_status(event),
+                    observed_at_utc=proof["observed_at_utc"],
+                    source_url=proof["source_url"],
+                )
+
+    now = utcnow()
+    return {
+        "schema_version": "football-stages-v4",
+        "run_id": request["run_id"],
+        "window_start_utc": start.isoformat(),
+        "window_end_utc": end.isoformat(),
+        "source_family": SOFASCORE_FAMILY,
+        "source_url": surfaces[0]["source_url"],
+        "source_observed_at_utc": max(x["observed_at_utc"] for x in surfaces),
+        "fixtures": list(fixtures.values()),
+        "source_completeness_manifest": {
+            "schema_version": "football-v4-source-completeness-v2",
+            "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+            "league_query_mode": "DATE_SURFACE_ONLY",
+            "registry_prefilter_applied": False,
+            "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+            "extraction_complete": True,
+            "provider_family": SOFASCORE_FAMILY,
+            "window_start_utc": start.isoformat(),
+            "window_end_utc": end.isoformat(),
+            "checked_at_utc": now,
+            "required_surface_keys": keys,
+            "date_surfaces": surfaces,
+            "terminal_sentinel": {
+                "interval_start_utc": terminal_start.isoformat(),
+                "interval_end_utc": end.isoformat(),
+                "checked_at_utc": max(x["observed_at_utc"] for x in terminal_proofs),
+                "complete": True,
+                "independent_refetch": True,
+                "source_urls": [x["source_url"] for x in terminal_proofs],
+                "provider_senior_fixture_count": len(terminal_ids),
+                "extracted_fixture_ids": sorted(terminal_ids),
+            },
+        },
+    }
+
+
+def acquire(request, evidence):
+    try:
+        return acquire_livescore(request, evidence)
+    except Exception as livescore_exc:
+        try:
+            return acquire_sofascore(request, evidence)
+        except Exception as sofascore_exc:
+            raise RuntimeError(
+                f"all canonical date-surface providers failed; "
+                f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}"
+            ) from sofascore_exc
+
+
+def sofascore_competitive_history(evidence, team, now):
+    results = {}
+    proofs = []
+    for page in range(3):
+        url = SOFASCORE_TEAM_LAST_URL.format(team=team, page=page)
+        payload, proof = evidence.get(url, f"sofa-team-{team}-{page}")
+        proofs.append(proof)
+        events = payload.get("events")
+        if not isinstance(events, list):
+            raise ValueError("SofaScore team history events missing")
+        for event in events:
+            if str((event.get("status") or {}).get("type") or "").lower() != "finished":
+                continue
+            stage = sofascore_stage(event)
+            if any(x in stage["Snm"].lower() for x in ("friendly", "friendlies", "testimonial")):
+                continue
+            identity = sofascore_event_identity(event)
+            if team not in identity:
+                raise ValueError("unrelated event in SofaScore team history")
+            kickoff = stamp(sofascore_event_time(event))
+            if not now - timedelta(days=120) <= kickoff <= now - timedelta(hours=2):
+                continue
+            hs = event.get("homeScore") or {}
+            aas = event.get("awayScore") or {}
+            hg, ag = hs.get("normaltime"), aas.get("normaltime")
+            if isinstance(hg, bool) or isinstance(ag, bool) or not isinstance(hg, int) or not isinstance(ag, int):
+                continue
+            home = identity[0] == team
+            row = {
+                "event_id": str(event["id"]),
+                "kickoff_utc": kickoff.isoformat(),
+                "goals_for": hg if home else ag,
+                "goals_against": ag if home else hg,
+                "competition": stage["Snm"],
+            }
+            existing = results.get(row["event_id"])
+            if existing is not None and existing != row:
+                raise ValueError("conflicting SofaScore historical event")
+            results[row["event_id"]] = row
+        if len(results) >= 10 or payload.get("hasNextPage") is not True:
+            break
+    recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:10]
+    if not proofs:
+        raise ValueError("SofaScore team history proof missing")
+    return recent, {
+        "source_url": proofs[0]["source_url"],
+        "observed_at_utc": max(x["observed_at_utc"] for x in proofs),
+    }
+
+
+def sofascore_fixture_refresh(evidence, fixture):
+    mid = str(fixture["match_id"])
+    url = SOFASCORE_EVENT_URL.format(match=mid)
+    payload, proof = evidence.get(url, "sofa-event-" + mid)
+    event = payload.get("event") if isinstance(payload, dict) else None
+    if not isinstance(event, dict) or str(event.get("id")) != mid:
+        raise ValueError("SofaScore event detail identity missing")
+    ids = tuple(map(str, fixture.get("provider_team_ids") or []))
+    if sofascore_event_identity(event) != ids:
+        raise ValueError("SofaScore event detail team identity changed")
+    if sofascore_event_time(event) != fixture["kickoff_utc"]:
+        raise ValueError("SofaScore event detail kickoff changed")
+    return sofascore_event_status(event), proof
 
 
 def competitive_history(payload, team, now):
