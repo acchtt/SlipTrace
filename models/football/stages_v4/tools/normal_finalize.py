@@ -37,8 +37,10 @@ def _targets(path: Path, run_id: str) -> list[dict]:
         seen.add(mid)
         row["match_id"] = mid
         result.append(row)
-    if not 1 <= len(result) <= 30:
-        raise ValueError("normal sweep target set must contain 1..30 fixtures")
+    # A provider-complete short window may legitimately have zero actionable
+    # research targets. Preserve its native empty V4 receipt rather than fail.
+    if len(result) > 30:
+        raise ValueError("normal sweep target set must contain 0..30 fixtures")
     return result
 
 
