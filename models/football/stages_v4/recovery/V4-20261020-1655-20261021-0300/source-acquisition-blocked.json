@@ -1,0 +1,106 @@
+{
+  "schema_version": "football-v4-source-acquisition-blocked-v1",
+  "status": "SOURCE_ACQUISITION_BLOCKED_EXTERNAL_PROVIDER",
+  "run_id": "V4-20261020-1655-20261021-0300",
+  "window_start_ict": "2026-10-20T16:55:33+07:00",
+  "window_end_ict": "2026-10-21T03:00:00+07:00",
+  "native_v4_sweep_ready": false,
+  "rank_handoff_ready": false,
+  "source_snapshot_persisted": false,
+  "model_logic_changed": false,
+  "regression_tests_status": "PASS",
+  "provider_attempts": [
+    {
+      "request": "resume-retry1",
+      "workflow_run_id": 39405752166,
+      "attempts": [
+        1,
+        2
+      ],
+      "provider": "LiveScore",
+      "routes": [
+        "app/date"
+      ],
+      "result": "HTTP_503"
+    },
+    {
+      "request": "resume-retry2",
+      "workflow_run_id": 39406905372,
+      "provider": "LiveScore",
+      "routes": [
+        "app/date"
+      ],
+      "retry_count": 5,
+      "result": "HTTP_503"
+    },
+    {
+      "request": "resume-retry3",
+      "workflow_run_id": 39407135448,
+      "provider": "LiveScore",
+      "routes": [
+        "app/date",
+        "react/date"
+      ],
+      "retry_count_per_route": 5,
+      "result": "HTTP_503"
+    },
+    {
+      "request": "resume-retry4",
+      "workflow_run_id": 39407618777,
+      "runner": "ubuntu-latest",
+      "providers": [
+        {
+          "provider": "LiveScore",
+          "routes": [
+            "app/date",
+            "react/date"
+          ],
+          "result": "HTTP_503"
+        },
+        {
+          "provider": "SofaScore",
+          "routes": [
+            "www/api scheduled-events",
+            "api scheduled-events"
+          ],
+          "result": "HTTP_403"
+        }
+      ]
+    },
+    {
+      "request": "resume-retry5",
+      "workflow_run_id": 39407954344,
+      "runner": "macos-latest",
+      "providers": [
+        {
+          "provider": "LiveScore",
+          "routes": [
+            "app/date",
+            "react/date"
+          ],
+          "result": "HTTP_503"
+        },
+        {
+          "provider": "SofaScore",
+          "routes": [
+            "www/api scheduled-events",
+            "api scheduled-events"
+          ],
+          "result": "HTTP_403"
+        }
+      ]
+    }
+  ],
+  "protections": [
+    "Do not construct a manual fixture shortlist before a canonical source gate succeeds.",
+    "Do not reuse an older sweep receipt for this run.",
+    "Do not issue /rank handoff until source.json and native v4_sweep_ready.json exist for this run."
+  ],
+  "next_action": "Retry canonical source acquisition for this same run/window when at least one complete provider date surface is reachable; then execute bounded research and native V4 finalization.",
+  "backend_resilience_changes": [
+    "bounded 5-attempt exponential source retry",
+    "same-provider LiveScore react/date fallback",
+    "canonical SofaScore date-surface/team-history failover",
+    "empty-target sweep finalization support"
+  ]
+}
