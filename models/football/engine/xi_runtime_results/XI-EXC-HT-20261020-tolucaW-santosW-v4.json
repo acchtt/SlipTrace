@@ -1,0 +1,11 @@
+{
+  "error": "G4_RESEARCH_COMPLETE_REJECTED requires a funded G3 certificate",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "324ae092b16b14cfc81c882f793fd661a83bf06c4f6632c11731860cd178924b",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-tolucaW-santosW-v4",
+  "runtime_commit": "e1ccdfe8040dec0d6c5bdf18493be62905447754",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
