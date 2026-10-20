@@ -31,6 +31,10 @@ SOFASCORE_DATE_URLS = (
 )
 SOFASCORE_TEAM_LAST_URL = "https://api.sofascore.com/api/v1/team/{team}/events/last/{page}"
 SOFASCORE_EVENT_URL = "https://api.sofascore.com/api/v1/event/{match}"
+THESPORTSDB_FAMILY = "TheSportsDB public eventsday API"
+THESPORTSDB_DATE_URL = "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={day}&s=Soccer"
+THESPORTSDB_TEAM_LAST_URL = "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id={team}"
+THESPORTSDB_EVENT_URL = "https://www.thesportsdb.com/api/v1/json/123/lookupevent.php?id={match}"
 
 
 def utcnow():
@@ -484,6 +488,276 @@ def acquire_sofascore(request, evidence):
     }
 
 
+def thesportsdb_event_time(event):
+    value = event.get("strTimestamp")
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError("TheSportsDB strTimestamp required")
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("TheSportsDB invalid strTimestamp") from exc
+    if parsed.tzinfo is None:
+        raise ValueError("TheSportsDB timezone-aware strTimestamp required")
+    return parsed.astimezone(timezone.utc).isoformat()
+
+
+def thesportsdb_event_identity(event):
+    home, away = event.get("idHomeTeam"), event.get("idAwayTeam")
+    if home is None or away is None:
+        raise ValueError("TheSportsDB home/away identity missing")
+    home, away = str(home), str(away)
+    if not home or not away or home == "None" or away == "None":
+        raise ValueError("TheSportsDB home/away identity missing")
+    return home, away
+
+
+def thesportsdb_event_status(event):
+    value = str(event.get("strStatus") or "").strip().lower()
+    if value in {"not started", "notstarted", "scheduled", "ns"}:
+        return "PREMATCH_CONFIRMED"
+    if value in {"match finished", "finished", "ft"}:
+        return "FINISHED"
+    if value in {"postponed", "delayed"}:
+        return "POSTPONED"
+    if value in {"cancelled", "canceled", "abandoned"}:
+        return "CANCELLED"
+    if value in {"in progress", "live", "1h", "2h", "ht"}:
+        return "STARTED"
+    return "UNKNOWN_PROVIDER_STATUS"
+
+
+def thesportsdb_stage(event):
+    competition = event.get("strLeague")
+    country = event.get("strCountry") or "International"
+    if not isinstance(competition, str) or not competition.strip():
+        raise ValueError("TheSportsDB competition missing")
+    if not isinstance(country, str) or not country.strip():
+        country = "International"
+    return {"Snm": competition.strip(), "Cnm": country.strip()}
+
+
+def thesportsdb_senior(event):
+    stage = thesportsdb_stage(event)
+    label = stage["Snm"] + " " + stage["Cnm"]
+    if "uefa youth league" in label.lower():
+        return True
+    if any(x in label.lower() for x in ("premier league 2", "primavera")):
+        return False
+    return not re.search(r"\b(?:u[ -]?(?:1[5-9]|2[0-3])|under[ -]?(?:1[5-9]|2[0-3])|youth)\b", label, re.I)
+
+
+def thesportsdb_events(payload):
+    if not isinstance(payload, dict) or "events" not in payload:
+        raise ValueError("TheSportsDB eventsday response missing events")
+    events = payload.get("events")
+    if events is None:
+        events = []
+    if not isinstance(events, list):
+        raise ValueError("TheSportsDB eventsday events must be a list or null")
+    seen, rows = set(), []
+    for event in events:
+        if not isinstance(event, dict):
+            raise ValueError("TheSportsDB malformed event")
+        if str(event.get("strSport") or "Soccer").lower() != "soccer":
+            continue
+        mid = str(event.get("idEvent"))
+        if not mid or mid == "None" or mid in seen:
+            raise ValueError("TheSportsDB missing/duplicate event ID")
+        seen.add(mid)
+        thesportsdb_event_identity(event)
+        thesportsdb_event_time(event)
+        if thesportsdb_senior(event):
+            rows.append(event)
+    return rows
+
+
+def thesportsdb_date_surface(evidence, day, name):
+    return evidence.get(THESPORTSDB_DATE_URL.format(day=day), name + "-thesportsdb")
+
+
+def acquire_thesportsdb(request, evidence):
+    start, end, _ = parse_request(request)
+    start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
+    keys = required_surface_keys(start.isoformat(), end.isoformat())
+    fixtures, identities, surfaces = {}, {}, []
+    cached = {}
+
+    for key in keys:
+        _, day = key.split(":")
+        if day not in cached:
+            cached[day] = thesportsdb_date_surface(evidence, day, "tdb-" + day)
+        payload, proof = cached[day]
+        events = thesportsdb_events(payload)
+        grouped, ids = {}, []
+        for event in events:
+            mid = str(event["idEvent"])
+            identity = thesportsdb_event_identity(event)
+            kickoff = thesportsdb_event_time(event)
+            stage = thesportsdb_stage(event)
+            group_key = (stage["Cnm"], stage["Snm"])
+            grouped.setdefault(group_key, []).append(mid)
+            ids.append(mid)
+            if mid in identities and identities[mid] != identity:
+                raise ValueError("conflicting TheSportsDB date-surface team identity: " + mid)
+            if mid in fixtures and fixtures[mid]["kickoff_utc"] != kickoff:
+                raise ValueError("conflicting TheSportsDB date-surface kickoff: " + mid)
+            identities[mid] = identity
+            fixtures[mid] = {
+                "match_id": mid,
+                "country": stage["Cnm"],
+                "competition": stage["Snm"],
+                "competition_kind": competition_kind(stage),
+                "is_friendly": any(x in stage["Snm"].lower() for x in ("friendly", "friendlies")),
+                "home": str(event.get("strHomeTeam") or "").strip(),
+                "away": str(event.get("strAwayTeam") or "").strip(),
+                "kickoff_utc": kickoff,
+                "fixture_status": thesportsdb_event_status(event),
+                "source_url": proof["source_url"],
+                "observed_at_utc": proof["observed_at_utc"],
+                "provider_team_ids": list(identity),
+            }
+            if not fixtures[mid]["home"] or not fixtures[mid]["away"]:
+                raise ValueError("TheSportsDB home/away names missing")
+        blocks = [
+            {"country": country, "competition": competition,
+             "provider_fixture_count": len(mids), "extracted_fixture_ids": mids}
+            for (country, competition), mids in sorted(grouped.items())
+        ]
+        surfaces.append({
+            "surface_key": key,
+            "source_url": proof["source_url"],
+            "observed_at_utc": proof["observed_at_utc"],
+            "pagination_complete": True,
+            "provider_page_count": 1,
+            "pages_fetched": [1],
+            "provider_senior_fixture_count": len(ids),
+            "extracted_fixture_ids": ids,
+            "provider_senior_competition_block_count": len(blocks),
+            "competition_blocks": blocks,
+        })
+
+    terminal_start = max(start, end - timedelta(hours=6))
+    terminal_days = sorted({
+        terminal_start.date().isoformat(),
+        (end - timedelta(microseconds=1)).date().isoformat(),
+    })
+    terminal_ids, terminal_proofs = set(), []
+    for day in terminal_days:
+        payload, proof = thesportsdb_date_surface(evidence, day, "tdb-terminal-" + day)
+        terminal_proofs.append(proof)
+        for event in thesportsdb_events(payload):
+            mid = str(event["idEvent"])
+            kickoff = stamp(thesportsdb_event_time(event))
+            if terminal_start <= kickoff < end:
+                terminal_ids.add(mid)
+                if mid in fixtures and (
+                    thesportsdb_event_identity(event) != identities[mid]
+                    or thesportsdb_event_time(event) != fixtures[mid]["kickoff_utc"]
+                ):
+                    raise ValueError("TheSportsDB terminal identity/kickoff changed: " + mid)
+            if mid in fixtures:
+                fixtures[mid].update(
+                    fixture_status=thesportsdb_event_status(event),
+                    observed_at_utc=proof["observed_at_utc"],
+                    source_url=proof["source_url"],
+                )
+    now = utcnow()
+    return {
+        "schema_version": "football-stages-v4",
+        "run_id": request["run_id"],
+        "window_start_utc": start.isoformat(),
+        "window_end_utc": end.isoformat(),
+        "source_family": THESPORTSDB_FAMILY,
+        "source_url": surfaces[0]["source_url"],
+        "source_observed_at_utc": max(x["observed_at_utc"] for x in surfaces),
+        "fixtures": list(fixtures.values()),
+        "source_completeness_manifest": {
+            "schema_version": "football-v4-source-completeness-v2",
+            "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+            "league_query_mode": "DATE_SURFACE_ONLY",
+            "registry_prefilter_applied": False,
+            "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+            "extraction_complete": True,
+            "provider_family": THESPORTSDB_FAMILY,
+            "window_start_utc": start.isoformat(),
+            "window_end_utc": end.isoformat(),
+            "checked_at_utc": now,
+            "required_surface_keys": keys,
+            "date_surfaces": surfaces,
+            "terminal_sentinel": {
+                "interval_start_utc": terminal_start.isoformat(),
+                "interval_end_utc": end.isoformat(),
+                "checked_at_utc": max(x["observed_at_utc"] for x in terminal_proofs),
+                "complete": True,
+                "independent_refetch": True,
+                "source_urls": [x["source_url"] for x in terminal_proofs],
+                "provider_senior_fixture_count": len(terminal_ids),
+                "extracted_fixture_ids": sorted(terminal_ids),
+            },
+        },
+    }
+
+
+def thesportsdb_competitive_history(evidence, team, now):
+    url = THESPORTSDB_TEAM_LAST_URL.format(team=team)
+    payload, proof = evidence.get(url, "tdb-team-" + str(team))
+    rows = payload.get("results") if isinstance(payload, dict) else None
+    if rows is None:
+        rows = []
+    if not isinstance(rows, list):
+        raise ValueError("TheSportsDB team history results missing")
+    results = {}
+    for event in rows:
+        if not isinstance(event, dict):
+            continue
+        if str(event.get("strSport") or "Soccer").lower() != "soccer":
+            continue
+        stage = thesportsdb_stage(event)
+        if any(x in stage["Snm"].lower() for x in ("friendly", "friendlies", "testimonial")):
+            continue
+        identity = thesportsdb_event_identity(event)
+        if str(team) not in identity:
+            raise ValueError("unrelated event in TheSportsDB team history")
+        kickoff = stamp(thesportsdb_event_time(event))
+        if not now - timedelta(days=120) <= kickoff <= now - timedelta(hours=2):
+            continue
+        try:
+            hg, ag = int(event.get("intHomeScore")), int(event.get("intAwayScore"))
+        except (TypeError, ValueError) as exc:
+            raise ValueError("TheSportsDB final score missing") from exc
+        home = identity[0] == str(team)
+        row = {
+            "event_id": str(event["idEvent"]),
+            "kickoff_utc": kickoff.isoformat(),
+            "goals_for": hg if home else ag,
+            "goals_against": ag if home else hg,
+            "competition": stage["Snm"],
+        }
+        existing = results.get(row["event_id"])
+        if existing is not None and existing != row:
+            raise ValueError("conflicting TheSportsDB historical event")
+        results[row["event_id"]] = row
+    recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:10]
+    return recent, proof
+
+
+def thesportsdb_fixture_refresh(evidence, fixture):
+    mid = str(fixture["match_id"])
+    payload, proof = evidence.get(THESPORTSDB_EVENT_URL.format(match=mid), "tdb-event-" + mid)
+    events = payload.get("events") if isinstance(payload, dict) else None
+    if not isinstance(events, list) or len(events) != 1:
+        raise ValueError("TheSportsDB event detail identity missing")
+    event = events[0]
+    if str(event.get("idEvent")) != mid:
+        raise ValueError("TheSportsDB event detail identity changed")
+    ids = tuple(map(str, fixture.get("provider_team_ids") or []))
+    if thesportsdb_event_identity(event) != ids:
+        raise ValueError("TheSportsDB event detail team identity changed")
+    if thesportsdb_event_time(event) != fixture["kickoff_utc"]:
+        raise ValueError("TheSportsDB event detail kickoff changed")
+    return thesportsdb_event_status(event), proof
+
+
 def acquire(request, evidence):
     try:
         return acquire_livescore(request, evidence)
@@ -491,10 +765,14 @@ def acquire(request, evidence):
         try:
             return acquire_sofascore(request, evidence)
         except Exception as sofascore_exc:
-            raise RuntimeError(
-                f"all canonical date-surface providers failed; "
-                f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}"
-            ) from sofascore_exc
+            try:
+                return acquire_thesportsdb(request, evidence)
+            except Exception as thesportsdb_exc:
+                raise RuntimeError(
+                    f"all canonical date-surface providers failed; "
+                    f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
+                    f"TheSportsDB: {thesportsdb_exc}"
+                ) from thesportsdb_exc
 
 
 def sofascore_competitive_history(evidence, team, now):
