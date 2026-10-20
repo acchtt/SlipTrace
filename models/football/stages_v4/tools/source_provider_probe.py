@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -72,6 +73,22 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
             extra["has_fixture_heading"] = any(
                 phrase in full_text for phrase in ("Football Fixtures", "Fixtures", "matches scheduled")
             )
+            lowered = full_text.lower()
+            extra["html_markers"] = {
+                marker: lowered.count(marker.lower())
+                for marker in (
+                    "hometeam", "awayteam", "fixture", "match", "kickoff",
+                    "__next_f.push", "data-event", "data-match", "competition"
+                )
+            }
+            hrefs = re.findall(r'href=["\\\']([^"\\\']+)["\\\']', full_text, re.I)
+            extra["sample_hrefs"] = hrefs[:20]
+            for marker in ("Champions League", "Premier League", "Superliga", "UEFA"):
+                at = full_text.find(marker)
+                if at >= 0:
+                    extra["sample_marker"] = marker
+                    extra["sample_fragment"] = re.sub(r"\\s+", " ", full_text[max(0, at-500):at+1500])[:2000]
+                    break
         item = {"provider": name, "status": status, "head": head, **extra, **summarize(name, payload)}
         usable = status == 200 and (isinstance(payload, dict) or len(full_text) > 5000)
         return item, usable
