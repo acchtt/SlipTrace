@@ -40,7 +40,7 @@ class WorkSweepTests(unittest.TestCase):
             "idHomeTeam": "11", "idAwayTeam": "22",
             "strHomeTeam": "Home", "strAwayTeam": "Away",
             "strLeague": "Superliga", "strCountry": "Denmark",
-            "strTimestamp": "2026-10-20T18:00:00+00:00",
+            "strTimestamp": "2026-10-20T18:00:00",
             "strStatus": "Not Started",
         }
         self.assertEqual(work.thesportsdb_event_identity(event), ("11", "22"))
