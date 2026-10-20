@@ -1,0 +1,11 @@
+{
+  "error": "H2H MATERIAL EFFECT BLOCKED — transferability must be VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "dd754af09aba27cef346cab83797eba1b069f4535c7ee5ffb72c05ee2e3194e9",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-tolucaW-santosW-v2",
+  "runtime_commit": "e06d7288bbde9c400d7a8500db57ff9030ae3b28",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
