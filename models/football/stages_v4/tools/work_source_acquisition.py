@@ -66,6 +66,15 @@ def fetch(url: str, attempts: int = 5) -> tuple[bytes, str]:
                 if len(body) > MAX_RESPONSE_BYTES:
                     raise ValueError("response exceeds size limit")
                 return body, datetime.now(timezone.utc).isoformat()
+        except urllib.error.HTTPError as exc:
+            errors.append(f"{type(exc).__name__}: {exc}")
+            # Authentication/anti-bot/client denials do not improve with blind
+            # retries from the same egress. Fail this route immediately so the
+            # next canonical provider can be tried.
+            if exc.code in {400, 401, 403, 404, 405, 410, 429}:
+                break
+            if attempt + 1 < attempts:
+                time.sleep(min(8, 2 ** attempt))
         except (OSError, ValueError) as exc:
             errors.append(f"{type(exc).__name__}: {exc}")
             if attempt + 1 < attempts:
