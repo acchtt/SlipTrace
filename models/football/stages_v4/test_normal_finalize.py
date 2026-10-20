@@ -74,5 +74,36 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertTrue((root/"out/v4_sweep_ready.json").exists())
 
 
+    def test_empty_research_cohort_returns_native_zero_target_receipt(self):
+        # A complete date-surface may have no priority research rows in
+        # a short requested window. No fabricated fixture is permissible.
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            src = source()
+            request = {
+                "run_id": src["run_id"],
+                "window_start_ict": src["window_start_utc"],
+                "window_end_ict": src["window_end_utc"],
+            }
+            (root / "request.json").write_text(json.dumps(request))
+            (root / "targets.json").write_text(
+                json.dumps({"run_id": src["run_id"], "targets": []})
+            )
+            with patch.object(normal_finalize.work_sweep, "utcnow", return_value=NOW), \
+                 patch.object(normal_finalize.work_sweep, "acquire", return_value=copy.deepcopy(src)):
+                self.assertEqual(
+                    normal_finalize.run(root/"request.json", root/"targets.json", root/"out"),
+                    0,
+                )
+            handoff = json.loads((root/"out/rank-handoff.json").read_text())
+            checkpoint = json.loads((root/"out/checkpoint.json").read_text())
+            receipt = json.loads((root/"out/v4_sweep_ready.json").read_text())
+            self.assertEqual(handoff["status"], "V4_RANK_HANDOFF_READY")
+            self.assertEqual(handoff["active_target_count"], 0)
+            self.assertEqual(checkpoint["resume_queue"], [])
+            self.assertEqual(checkpoint["target_states"], {})
+            self.assertEqual(receipt["status"], "V4_SWEEP_READY")
+
+
 if __name__ == "__main__":
     unittest.main()
