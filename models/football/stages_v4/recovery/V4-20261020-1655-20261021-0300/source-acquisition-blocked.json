@@ -1,12 +1,12 @@
 {
   "schema_version": "football-v4-source-acquisition-blocked-v1",
-  "status": "SOURCE_ACQUISITION_BLOCKED_EXTERNAL_PROVIDER",
+  "status": "SOURCE_ACQUISITION_RECOVERED",
   "run_id": "V4-20261020-1655-20261021-0300",
   "window_start_ict": "2026-10-20T16:55:33+07:00",
   "window_end_ict": "2026-10-21T03:00:00+07:00",
-  "native_v4_sweep_ready": false,
-  "rank_handoff_ready": false,
-  "source_snapshot_persisted": false,
+  "native_v4_sweep_ready": true,
+  "rank_handoff_ready": true,
+  "source_snapshot_persisted": true,
   "model_logic_changed": false,
   "regression_tests_status": "PASS",
   "provider_attempts": [
@@ -123,12 +123,17 @@
     "Do not reuse an older sweep receipt for this run.",
     "Do not issue /rank handoff until source.json and native v4_sweep_ready.json exist for this run."
   ],
-  "next_action": "Resume this same run only after a canonical complete date-surface provider is reachable; do not create another blind retry before rechecking provider availability.",
+  "next_action": "Use the persisted source.json, v4_sweep_ready.json and rank-handoff.json for this run. Do not retry the superseded blocked source path.",
   "backend_resilience_changes": [
     "bounded 5-attempt exponential source retry",
     "same-provider LiveScore react/date fallback",
     "canonical SofaScore date-surface/team-history failover",
     "empty-target sweep finalization support"
   ],
-  "last_checked_at_ict": "2026-10-20T17:52:06+07:00"
+  "last_checked_at_ict": "2026-10-20T17:52:06+07:00",
+  "recovered_at_utc": "2026-10-20T11:27:58Z",
+  "recovered_at_ict": "2026-10-20T18:27:58+07:00",
+  "recovered_commit": "81aa5f061db396d2e3aec6149a5a29d3fbd4ae4b",
+  "recovered_provider": "FootballInfo complete fixtures HTML",
+  "recovered_fixture_count": 427
 }
