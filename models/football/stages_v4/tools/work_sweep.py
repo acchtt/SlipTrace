@@ -497,7 +497,10 @@ def thesportsdb_event_time(event):
     except ValueError as exc:
         raise ValueError("TheSportsDB invalid strTimestamp") from exc
     if parsed.tzinfo is None:
-        raise ValueError("TheSportsDB timezone-aware strTimestamp required")
+        # TheSportsDB occasionally omits the explicit +00:00 suffix while
+        # keeping strTimestamp in its UTC event-time field. Normalize that
+        # documented provider field to UTC rather than rejecting the surface.
+        parsed = parsed.replace(tzinfo=timezone.utc)
     return parsed.astimezone(timezone.utc).isoformat()
 
 
