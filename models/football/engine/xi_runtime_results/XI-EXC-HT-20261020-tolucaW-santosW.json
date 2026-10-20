@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_current_corroboration='FOUND'; allowed: NOT_APPLICABLE, NOT_FOUND, UNKNOWN, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "2ead882f69124a6c64bd05620dfd3cd1b32aa4b1d3f1ddd8a2f071aaa0d05f60",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-tolucaW-santosW",
+  "runtime_commit": "d9070306547a39345c1637afe46440a7577c50e7",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
