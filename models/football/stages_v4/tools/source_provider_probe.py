@@ -105,6 +105,16 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
                     if at < 0:
                         at = team_text.lower().find("fixtures")
                     extra["team_detail_fragment"] = re.sub(r"\\s+", " ", team_text[max(0, at-500):at+4500])[:5000] if at >= 0 else team_text[:3000]
+                    detail_ids = re.findall(r'/Fixtures/Details/(\\d+)', team_text)
+                    if detail_ids:
+                        fixture_url = "https://www.footballinfo.net/Fixtures/Details/" + detail_ids[-1]
+                        try:
+                            _, _, _, detail_text = fetch(fixture_url)
+                            extra["fixture_detail_url"] = fixture_url
+                            extra["fixture_detail_length"] = len(detail_text)
+                            extra["fixture_detail_fragment"] = re.sub(r"\\s+", " ", detail_text[:9000])[:9000]
+                        except Exception as detail_exc:
+                            extra["fixture_detail_error"] = f"{type(detail_exc).__name__}: {detail_exc}"
                 except Exception as exc:
                     extra["team_detail_error"] = f"{type(exc).__name__}: {exc}"
         item = {"provider": name, "status": status, "head": head, **extra, **summarize(name, payload)}
