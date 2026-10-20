@@ -34,6 +34,26 @@ class WorkSweepTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unrelated'):
             work.competitive_history(payload, '1', work.stamp(NOW))
 
+    def test_thesportsdb_event_contract_and_fallback_order(self):
+        event = {
+            "idEvent": "9001", "strSport": "Soccer",
+            "idHomeTeam": "11", "idAwayTeam": "22",
+            "strHomeTeam": "Home", "strAwayTeam": "Away",
+            "strLeague": "Superliga", "strCountry": "Denmark",
+            "strTimestamp": "2026-10-20T18:00:00+00:00",
+            "strStatus": "Not Started",
+        }
+        self.assertEqual(work.thesportsdb_event_identity(event), ("11", "22"))
+        self.assertEqual(work.thesportsdb_event_time(event), "2026-10-20T18:00:00+00:00")
+        self.assertEqual(work.thesportsdb_event_status(event), "PREMATCH_CONFIRMED")
+        self.assertEqual([x["idEvent"] for x in work.thesportsdb_events({"events": [event]})], ["9001"])
+        with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
+             patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
+             patch.object(work, "acquire_thesportsdb", return_value={"source_family": work.THESPORTSDB_FAMILY}) as tdb:
+            result = work.acquire({"run_id": "V4-test"}, object())
+        self.assertEqual(result["source_family"], work.THESPORTSDB_FAMILY)
+        tdb.assert_called_once()
+
     def test_competition_scope_does_not_filter_adult_league_by_team_name(self):
         block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [event()]}
         self.assertEqual(len(work.stage_blocks({'Stages': [block]})), 1)
