@@ -1,0 +1,237 @@
+{
+  "input_sha256": "2fce47d98db3c2978f241f254c81da8c1b711c210b1e67c24b1ea576f9fc2d49",
+  "ok": true,
+  "request_id": "XI-EXC-HT-20261020-libertadW-udechileW-v3",
+  "runtime": {
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "MUST_WIN",
+      "away_route": "STRONG",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "LOW",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "ROBUST",
+        "distributed_branch_quality_met": true,
+        "explanation_only": true,
+        "failed_conditions": [],
+        "goal4_funded": true,
+        "tournament_tail_bias": "EXPANSIVE"
+      },
+      "certified_supported_burden": 4.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "TWO_SIDED",
+      "continuation_quality": "HIGH",
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Halftime exception declaration only; deterministic compiler owns whole-match G3/G4 funding.",
+      "effective_burden_stall_risk": "LOW",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "HIGH",
+      "failure_mechanisms": {
+        "HALFTIME_STATE": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "kind": "CURRENT_MATCH_STATE"
+        }
+      },
+      "failure_resistance": "HIGH",
+      "fixture_status": "HALFTIME",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 4.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3,DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "SUPPORTED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "The 2-0 score plus must-chase away state creates independent third- and fourth-goal routes: Libertad counterattack, U. de Chile reply, or a 2-1 state that remains open.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "The 2-0 score plus must-chase away state creates independent third- and fourth-goal routes: Libertad counterattack, U. de Chile reply, or a 2-1 state that remains open.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "The 2-0 score plus must-chase away state creates independent third- and fourth-goal routes: Libertad counterattack, U. de Chile reply, or a 2-1 state that remains open.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        }
+      },
+      "g4_reply_path": "SUPPORTED",
+      "g4_research_basis": "The 2-0 score plus must-chase away state creates independent third- and fourth-goal routes: Libertad counterattack, U. de Chile reply, or a 2-1 state that remains open.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_two_route_funded": true,
+      "goal4_funded": true,
+      "goal5_funded": true,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        },
+        "route_reliability": {
+          "basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+          "evidence_refs": [
+            "https://gol.conmebol.com/libertadores/en/news/cruzeiro-and-santa-fe-celebrated-wins-day-three-draws",
+            "https://www.udechile.cl/noticias/nos-estrenamos-en-la-conmebol-libertadores-igualando-con-nacional-de-uruguay",
+            "https://gol.conmebol.com/libertadores/en/news/conmebol-libertadores-femenina-2026-groups-confirmed"
+          ],
+          "mechanism_ids": [
+            "HALFTIME_STATE"
+          ]
+        }
+      },
+      "home_incentive": "PROTECT_RESULT",
+      "home_route": "STRONG",
+      "incentive_effect": "EXPANSIVE",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "EXC-LIBERTADW-UCHILEW-20261020",
+      "match_minute": 45,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": {
+          "authorization": "EXPLICIT_USER_SCOPE_EXCEPTION",
+          "basis": "Analysis-only exception outside routine scope where applicable.",
+          "match_id": "EXC-LIBERTADW-UCHILEW-20261020",
+          "policy": "FOOTBALL_C_SCOPE_V1",
+          "user_instruction_reference": "User requested halftime exception assessment."
+        },
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": false,
+        "reason": "COUNTRY_COMPETITION_KIND_REQUIRED",
+        "status": "EXPLICIT_OUT_OF_SCOPE_ANALYSIS"
+      },
+      "prospective_tail_ceiling": 4.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": "2-0",
+      "shared_failure_mechanisms": {
+        "HALFTIME_STATE": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "YES",
+      "tournament_incentive_effect": "EXPANSIVE",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_positive_pressure": true,
+      "tournament_suppressive_pressure": true,
+      "tournament_tail_bias": "EXPANSIVE",
+      "upper_tail_comparable_context_basis": "The main failure is Libertad protecting 2-0 successfully and U. de Chile again failing to convert despite possession/chances. That is possible, but the scoreline and group situation force the trailing side to take increasing risk.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_strength": "STRONG",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "At 2-0 HT, an away chase can produce a 2-1 state that keeps both fourth-goal routes live; Libertad counterattack or a second U. de Chile goal can supply G4.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "5c46ad1be51cf03ce115bdebb13604a53ceb2b68",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
