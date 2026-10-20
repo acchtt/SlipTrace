@@ -89,6 +89,10 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
                     extra["sample_marker"] = marker
                     extra["sample_fragment"] = re.sub(r"\\s+", " ", full_text[max(0, at-500):at+1500])[:2000]
                     break
+            for label, token in (("fixture_html", 'class="fi-fixture'), ("home_team_json", '"homeTeam"')):
+                at = full_text.find(token)
+                if at >= 0:
+                    extra[label] = re.sub(r"\\s+", " ", full_text[max(0, at-700):at+3500])[:4200]
         item = {"provider": name, "status": status, "head": head, **extra, **summarize(name, payload)}
         usable = status == 200 and (isinstance(payload, dict) or len(full_text) > 5000)
         return item, usable
