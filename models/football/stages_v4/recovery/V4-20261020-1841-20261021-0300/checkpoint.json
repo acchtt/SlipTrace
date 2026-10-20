@@ -1,0 +1,118 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "RESEARCH_COMPLETE",
+  "run_id": "V4-20261020-1841-20261021-0300",
+  "original_source_sha256": "9770b84c83067df892a24c063efccbf33826b77327849bc9cd0c4d4a3e07b413",
+  "source_file_sha256": "ee23693e265adfc7ad95bcb32b50313878eedead2ada695e2bbe6017b1b8c3ad",
+  "native_receipt_integrity_sha256": "4c32c236af1c7a2efcb2e3d41caebe05a74a96bf5f690621f80365bba965e3ac",
+  "target_states": {
+    "1602512": {
+      "match_id": "1602512",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637344": {
+      "match_id": "1637344",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637345": {
+      "match_id": "1637345",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637350": {
+      "match_id": "1637350",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637343": {
+      "match_id": "1637343",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637348": {
+      "match_id": "1637348",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637349": {
+      "match_id": "1637349",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637351": {
+      "match_id": "1637351",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637346": {
+      "match_id": "1637346",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1637347": {
+      "match_id": "1637347",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    }
+  },
+  "eligible_match_ids": [],
+  "watch_match_ids": [],
+  "evidence_limited_match_ids": [
+    "1602512",
+    "1637344",
+    "1637345",
+    "1637350",
+    "1637343",
+    "1637348",
+    "1637349",
+    "1637351",
+    "1637346",
+    "1637347"
+  ],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
