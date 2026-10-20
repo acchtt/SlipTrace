@@ -2,9 +2,9 @@
   "schema_version": "football-v4-sweep-research-checkpoint-v2",
   "status": "RESEARCH_COMPLETE",
   "run_id": "V4-20261020-1655-20261021-0300",
-  "original_source_sha256": "f69fa328c3abcb359f885a9ee8cf2f388bf126bba78e534ab7af20ccc69fae60",
-  "source_file_sha256": "01c5b950aa360ea3336c3c29c15082a9a9515f89be5b7860ac1d48c3d23d0778",
-  "native_receipt_integrity_sha256": "cc9a5d2b579348d15159210e0bce9d7f21f164e1e49a42fdcfff0e85e767b1f0",
+  "original_source_sha256": "fc332887817bd53e22e7e6a05d540f1d10cb3c60e44edd5a024e0abac9502225",
+  "source_file_sha256": "6d610bad4e2d8baedf732c67a3e085e2e4ca9bcdaebfcfa821c866a9ed06bcfe",
+  "native_receipt_integrity_sha256": "ab5b6a1e892c811134c5d3881611befecdd4b7137a78a0f74a84e30bb148b31e",
   "target_states": {
     "1602512": {
       "match_id": "1602512",
@@ -56,7 +56,7 @@
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
-        "AWAY: FootballInfo fixture detail kickoff invalid: 1637319: 10 Sept 2026 15:00"
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
@@ -65,7 +65,7 @@
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
-        "AWAY: FootballInfo fixture detail kickoff invalid: 1469063: 18 Sept 2025 15:00"
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
@@ -74,7 +74,7 @@
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
-        "AWAY: FootballInfo fixture detail kickoff invalid: 1469075: 30 Sept 2025 15:00"
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
@@ -82,7 +82,7 @@
       "match_id": "1637346",
       "attempted": true,
       "pending_reasons": [
-        "HOME: FootballInfo fixture detail kickoff invalid: 1479497: 30 Sept 2025 13:00",
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
         "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
       ],
       "research_disposition": "EVIDENCE_LIMITED"
@@ -91,7 +91,7 @@
       "match_id": "1637347",
       "attempted": true,
       "pending_reasons": [
-        "HOME: FootballInfo fixture detail kickoff invalid: 1469064: 18 Sept 2025 15:00",
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
         "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
       ],
       "research_disposition": "EVIDENCE_LIMITED"

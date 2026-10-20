@@ -5,7 +5,7 @@
   "window_end_utc": "2026-10-20T20:00:00+00:00",
   "source_family": "FootballInfo complete fixtures HTML",
   "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-  "source_observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+  "source_observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
   "fixtures": [
     {
       "match_id": "1632223",
@@ -18,7 +18,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "9118",
         "4570"
@@ -35,7 +35,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "9426",
         "4569"
@@ -52,7 +52,7 @@
       "kickoff_utc": "2026-10-20T14:25:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20780",
         "3475"
@@ -69,7 +69,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8012",
         "3532"
@@ -86,7 +86,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8019",
         "8020"
@@ -103,7 +103,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "12268",
         "3537"
@@ -120,7 +120,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "19116",
         "6432"
@@ -137,7 +137,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28151",
         "910"
@@ -154,7 +154,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4441",
         "3443"
@@ -171,7 +171,7 @@
       "kickoff_utc": "2026-10-20T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "121",
         "124"
@@ -188,7 +188,7 @@
       "kickoff_utc": "2026-10-20T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "127",
         "450"
@@ -205,7 +205,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28426",
         "20525"
@@ -222,7 +222,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28427",
         "20523"
@@ -239,7 +239,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7193",
         "9368"
@@ -256,7 +256,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20094",
         "10844"
@@ -273,7 +273,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11911",
         "24750"
@@ -290,7 +290,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7203",
         "22419"
@@ -307,7 +307,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7201",
         "26593"
@@ -324,7 +324,7 @@
       "kickoff_utc": "2026-10-20T17:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "611",
         "560"
@@ -341,7 +341,7 @@
       "kickoff_utc": "2026-10-20T17:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "13976",
         "165"
@@ -358,7 +358,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "497",
         "656"
@@ -375,7 +375,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "212",
         "197"
@@ -392,7 +392,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "40",
         "533"
@@ -409,7 +409,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "50",
         "575"
@@ -426,7 +426,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "492",
         "327"
@@ -443,7 +443,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "85",
         "529"
@@ -460,7 +460,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "172",
         "530"
@@ -477,7 +477,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7922",
         "7965"
@@ -494,7 +494,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28245",
         "7933"
@@ -511,7 +511,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "24986",
         "7890"
@@ -528,7 +528,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7966",
         "7934"
@@ -545,7 +545,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7917",
         "16553"
@@ -562,7 +562,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7921",
         "7885"
@@ -579,7 +579,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "10273",
         "7884"
@@ -596,7 +596,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7909",
         "17702"
@@ -613,7 +613,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7914",
         "7944"
@@ -630,7 +630,7 @@
       "kickoff_utc": "2026-10-20T01:15:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "476",
         "441"
@@ -647,7 +647,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18676",
         "18679"
@@ -664,7 +664,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18677",
         "18696"
@@ -681,7 +681,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18684",
         "27412"
@@ -698,7 +698,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "27271",
         "18689"
@@ -715,7 +715,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18691",
         "18693"
@@ -732,7 +732,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18698",
         "18700"
@@ -749,7 +749,7 @@
       "kickoff_utc": "2026-10-20T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "6281",
         "3697"
@@ -766,7 +766,7 @@
       "kickoff_utc": "2026-10-20T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11174",
         "25114"
@@ -783,7 +783,7 @@
       "kickoff_utc": "2026-10-20T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "3696",
         "27987"
@@ -800,7 +800,7 @@
       "kickoff_utc": "2026-10-20T09:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5011",
         "25415"
@@ -817,7 +817,7 @@
       "kickoff_utc": "2026-10-20T09:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28429",
         "5012"
@@ -834,7 +834,7 @@
       "kickoff_utc": "2026-10-20T09:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5014",
         "26882"
@@ -851,7 +851,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "15702",
         "3637"
@@ -868,7 +868,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "23262",
         "13117"
@@ -885,7 +885,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "26897",
         "26902"
@@ -902,7 +902,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7819",
         "18319"
@@ -919,7 +919,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28464",
         "28463"
@@ -936,7 +936,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "22821",
         "7853"
@@ -953,7 +953,7 @@
       "kickoff_utc": "2026-10-20T23:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "148",
         "1193"
@@ -970,7 +970,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2326",
         "2330"
@@ -987,7 +987,7 @@
       "kickoff_utc": "2026-10-20T02:05:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1126",
         "1141"
@@ -1004,7 +1004,7 @@
       "kickoff_utc": "2026-10-20T22:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1462",
         "1132"
@@ -1021,7 +1021,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1134",
         "1147"
@@ -1038,7 +1038,7 @@
       "kickoff_utc": "2026-10-20T20:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1145",
         "22099"
@@ -1055,7 +1055,7 @@
       "kickoff_utc": "2026-10-20T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "27411",
         "1460"
@@ -1072,7 +1072,7 @@
       "kickoff_utc": "2026-10-20T21:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1468",
         "1461"
@@ -1089,7 +1089,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8571",
         "24107"
@@ -1106,7 +1106,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8572",
         "27053"
@@ -1123,7 +1123,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "24105",
         "28513"
@@ -1140,7 +1140,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8574",
         "17764"
@@ -1157,7 +1157,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "26886",
         "8112"
@@ -1174,7 +1174,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "6435",
         "28512"
@@ -1191,7 +1191,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8578",
         "26887"
@@ -1208,7 +1208,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "21622",
         "15285"
@@ -1225,7 +1225,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "15286",
         "26885"
@@ -1242,7 +1242,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8064",
         "8077"
@@ -1259,7 +1259,7 @@
       "kickoff_utc": "2026-10-20T03:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2055",
         "19738"
@@ -1276,7 +1276,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2047",
         "823"
@@ -1293,7 +1293,7 @@
       "kickoff_utc": "2026-10-20T03:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "17377",
         "2045"
@@ -1310,7 +1310,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "15295",
         "561"
@@ -1327,7 +1327,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "13982",
         "10883"
@@ -1344,7 +1344,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "18021",
         "1040"
@@ -1361,7 +1361,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1046",
         "15570"
@@ -1378,7 +1378,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1039",
         "1036"
@@ -1395,7 +1395,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "13819",
         "1572"
@@ -1412,7 +1412,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "39",
         "1355"
@@ -1429,7 +1429,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1333",
         "1374"
@@ -1446,7 +1446,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1356",
         "1348"
@@ -1463,7 +1463,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1832",
         "46"
@@ -1480,7 +1480,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "748",
         "1343"
@@ -1497,7 +1497,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1370",
         "1358"
@@ -1514,7 +1514,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1354",
         "4686"
@@ -1531,7 +1531,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "37",
         "1350"
@@ -1548,7 +1548,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1359",
         "747"
@@ -1565,7 +1565,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1376",
         "74"
@@ -1582,7 +1582,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1338",
         "61"
@@ -1599,7 +1599,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1368",
         "1357"
@@ -1616,7 +1616,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1369",
         "1353"
@@ -1633,7 +1633,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1334",
         "1844"
@@ -1650,7 +1650,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1372",
         "1336"
@@ -1667,7 +1667,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1345",
         "1361"
@@ -1684,7 +1684,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1362",
         "1352"
@@ -1701,7 +1701,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1364",
         "1363"
@@ -1718,7 +1718,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1337",
         "1381"
@@ -1735,7 +1735,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1339",
         "1365"
@@ -1752,7 +1752,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "73",
         "1367"
@@ -1769,7 +1769,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1342",
         "1349"
@@ -1786,7 +1786,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1828",
         "1360"
@@ -1803,7 +1803,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1347",
         "1351"
@@ -1820,7 +1820,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1840",
         "7723"
@@ -1837,7 +1837,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8663",
         "19746"
@@ -1854,7 +1854,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1830",
         "11910"
@@ -1871,7 +1871,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7216",
         "4690"
@@ -1888,7 +1888,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7708",
         "7711"
@@ -1905,7 +1905,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8149",
         "8737"
@@ -1922,7 +1922,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7665",
         "8950"
@@ -1939,7 +1939,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7676",
         "4704"
@@ -1956,7 +1956,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8664",
         "4696"
@@ -1973,7 +1973,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7759",
         "7707"
@@ -1990,7 +1990,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4703",
         "7754"
@@ -2007,7 +2007,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8903",
         "1344"
@@ -2024,7 +2024,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7692",
         "7705"
@@ -2041,7 +2041,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7696",
         "8846"
@@ -2058,7 +2058,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4682",
         "4709"
@@ -2075,7 +2075,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8654",
         "7727"
@@ -2092,7 +2092,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7735",
         "7701"
@@ -2109,7 +2109,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8904",
         "7644"
@@ -2126,7 +2126,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "21712",
         "7622"
@@ -2143,7 +2143,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7743",
         "8656"
@@ -2160,7 +2160,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4710",
         "8681"
@@ -2177,7 +2177,7 @@
       "kickoff_utc": "2026-10-20T19:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7758",
         "7717"
@@ -2194,7 +2194,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7615",
         "8899"
@@ -2211,7 +2211,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8657",
         "1843"
@@ -2228,7 +2228,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7627",
         "7640"
@@ -2245,7 +2245,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7628",
         "7214"
@@ -2262,7 +2262,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "8811",
         "8147"
@@ -2279,7 +2279,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7738",
         "7645"
@@ -2296,7 +2296,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4711",
         "7619"
@@ -2313,7 +2313,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7257",
         "8870"
@@ -2330,7 +2330,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "7762",
         "7668"
@@ -2347,7 +2347,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20095",
         "20086"
@@ -2364,7 +2364,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "22173",
         "20091"
@@ -2381,7 +2381,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20097",
         "19877"
@@ -2398,7 +2398,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20092",
         "11912"
@@ -2415,7 +2415,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4127",
         "26880"
@@ -2432,7 +2432,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28446",
         "4117"
@@ -2449,7 +2449,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "9338",
         "20851"
@@ -2466,7 +2466,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "9373",
         "9371"
@@ -2483,7 +2483,7 @@
       "kickoff_utc": "2026-10-20T02:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "3656",
         "3667"
@@ -2500,7 +2500,7 @@
       "kickoff_utc": "2026-10-20T09:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "24993",
         "22409"
@@ -2517,7 +2517,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "17902",
         "11132"
@@ -2534,7 +2534,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2443",
         "4235"
@@ -2551,7 +2551,7 @@
       "kickoff_utc": "2026-10-20T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20802",
         "2702"
@@ -2568,7 +2568,7 @@
       "kickoff_utc": "2026-10-20T14:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20801",
         "24800"
@@ -2585,7 +2585,7 @@
       "kickoff_utc": "2026-10-20T14:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2706",
         "7502"
@@ -2602,7 +2602,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "22890",
         "2718"
@@ -2619,7 +2619,7 @@
       "kickoff_utc": "2026-10-20T02:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "25020",
         "3447"
@@ -2636,7 +2636,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "21987",
         "15521"
@@ -2653,7 +2653,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "14885",
         "14883"
@@ -2670,7 +2670,7 @@
       "kickoff_utc": "2026-10-20T02:06:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "14877",
         "28036"
@@ -2687,7 +2687,7 @@
       "kickoff_utc": "2026-10-20T03:05:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "24954",
         "19907"
@@ -2704,7 +2704,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11109",
         "11114"
@@ -2721,7 +2721,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11110",
         "5343"
@@ -2738,7 +2738,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5339",
         "5349"
@@ -2755,7 +2755,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11112",
         "5351"
@@ -2772,7 +2772,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5350",
         "5346"
@@ -2789,7 +2789,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5342",
         "11117"
@@ -2806,7 +2806,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5353",
         "5345"
@@ -2823,7 +2823,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "11118",
         "668"
@@ -2840,7 +2840,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5348",
         "2266"
@@ -2857,7 +2857,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "17241",
         "5338"
@@ -2874,7 +2874,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "22541",
         "2275"
@@ -2891,7 +2891,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "5354",
         "583"
@@ -2908,7 +2908,7 @@
       "kickoff_utc": "2026-10-20T02:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2889",
         "2885"
@@ -2925,7 +2925,7 @@
       "kickoff_utc": "2026-10-20T02:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "15620",
         "27364"
@@ -2942,7 +2942,7 @@
       "kickoff_utc": "2026-10-20T15:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2590",
         "2586"
@@ -2959,7 +2959,7 @@
       "kickoff_utc": "2026-10-20T15:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2948",
         "2992"
@@ -2976,7 +2976,7 @@
       "kickoff_utc": "2026-10-20T16:20:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2961",
         "2966"
@@ -2993,7 +2993,7 @@
       "kickoff_utc": "2026-10-20T17:50:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2977",
         "2950"
@@ -3010,7 +3010,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "26738",
         "10511"
@@ -3027,7 +3027,7 @@
       "kickoff_utc": "2026-10-20T16:10:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2936",
         "2933"
@@ -3044,7 +3044,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2934",
         "2938"
@@ -3061,7 +3061,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "2939",
         "10513"
@@ -3078,7 +3078,7 @@
       "kickoff_utc": "2026-10-20T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "1388",
         "901"
@@ -3095,7 +3095,7 @@
       "kickoff_utc": "2026-10-20T19:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "27924",
         "19794"
@@ -3112,7 +3112,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "10536",
         "10542"
@@ -3129,7 +3129,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "9591",
         "9690"
@@ -3146,7 +3146,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "378",
         "365"
@@ -3163,7 +3163,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "12264",
         "12272"
@@ -3180,7 +3180,7 @@
       "kickoff_utc": "2026-10-20T09:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "28519",
         "13313"
@@ -3197,7 +3197,7 @@
       "kickoff_utc": "2026-10-20T09:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "22389",
         "2783"
@@ -3214,7 +3214,7 @@
       "kickoff_utc": "2026-10-20T09:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "15284",
         "20066"
@@ -3231,7 +3231,7 @@
       "kickoff_utc": "2026-10-20T09:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "27002",
         "27279"
@@ -3248,7 +3248,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "12903",
         "21232"
@@ -3265,7 +3265,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "20297",
         "12459"
@@ -3282,7 +3282,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "12454",
         "28319"
@@ -3299,7 +3299,7 @@
       "kickoff_utc": "2026-10-20T14:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4219",
         "27800"
@@ -3316,7 +3316,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4217",
         "3695"
@@ -3333,7 +3333,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "4223",
         "4209"
@@ -3350,7 +3350,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "23309",
         "27588"
@@ -3367,7 +3367,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "27587",
         "27586"
@@ -3384,7 +3384,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-      "observed_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "observed_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "provider_team_ids": [
         "16381",
         "4211"
@@ -3401,7 +3401,7 @@
       "kickoff_utc": "2026-10-21T09:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8013",
         "23384"
@@ -3418,7 +3418,7 @@
       "kickoff_utc": "2026-10-21T10:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16066",
         "8015"
@@ -3435,7 +3435,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "12543",
         "2442"
@@ -3452,7 +3452,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8028",
         "21576"
@@ -3469,7 +3469,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5370",
         "17447"
@@ -3486,7 +3486,7 @@
       "kickoff_utc": "2026-10-21T03:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1050",
         "4299"
@@ -3503,7 +3503,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "22548",
         "22546"
@@ -3520,7 +3520,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15730",
         "1798"
@@ -3537,7 +3537,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "133",
         "451"
@@ -3554,7 +3554,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2365",
         "1062"
@@ -3571,7 +3571,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1400",
         "10268"
@@ -3588,7 +3588,7 @@
       "kickoff_utc": "2026-10-21T17:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "895",
         "33"
@@ -3605,7 +3605,7 @@
       "kickoff_utc": "2026-10-21T17:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "79",
         "645"
@@ -3622,7 +3622,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "66",
         "759"
@@ -3639,7 +3639,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "157",
         "42"
@@ -3656,7 +3656,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "543",
         "209"
@@ -3673,7 +3673,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "569",
         "116"
@@ -3690,7 +3690,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "505",
         "550"
@@ -3707,7 +3707,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "541",
         "173"
@@ -3724,7 +3724,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "228",
         "1026"
@@ -3741,7 +3741,7 @@
       "kickoff_utc": "2026-10-21T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "17728",
         "7960"
@@ -3758,7 +3758,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7908",
         "7900"
@@ -3775,7 +3775,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "24970",
         "16567"
@@ -3792,7 +3792,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7893",
         "22372"
@@ -3809,7 +3809,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7997",
         "28370"
@@ -3826,7 +3826,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7887",
         "22371"
@@ -3843,7 +3843,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "25195",
         "7981"
@@ -3860,7 +3860,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7903",
         "7929"
@@ -3877,7 +3877,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7926",
         "7924"
@@ -3894,7 +3894,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20817",
         "18685"
@@ -3911,7 +3911,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26250",
         "18683"
@@ -3928,7 +3928,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "18686",
         "18699"
@@ -3945,7 +3945,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "22938",
         "25592"
@@ -3962,7 +3962,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "18690",
         "27413"
@@ -3979,7 +3979,7 @@
       "kickoff_utc": "2026-10-21T23:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "18695",
         "18702"
@@ -3996,7 +3996,7 @@
       "kickoff_utc": "2026-10-21T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "24965",
         "27992"
@@ -4013,7 +4013,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4946",
         "1402"
@@ -4030,7 +4030,7 @@
       "kickoff_utc": "2026-10-21T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26966",
         "5573"
@@ -4047,7 +4047,7 @@
       "kickoff_utc": "2026-10-21T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5576",
         "4199"
@@ -4064,7 +4064,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5740",
         "5914"
@@ -4081,7 +4081,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6217",
         "5951"
@@ -4098,7 +4098,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5776",
         "5883"
@@ -4115,7 +4115,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3700",
         "3711"
@@ -4132,7 +4132,7 @@
       "kickoff_utc": "2026-10-21T23:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3708",
         "3702"
@@ -4149,7 +4149,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "19561",
         "3377"
@@ -4166,7 +4166,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "19562",
         "3369"
@@ -4183,7 +4183,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3370",
         "15290"
@@ -4200,7 +4200,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26989",
         "4285"
@@ -4217,7 +4217,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "21737",
         "3378"
@@ -4234,7 +4234,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3362",
         "17374"
@@ -4251,7 +4251,7 @@
       "kickoff_utc": "2026-10-21T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28055",
         "4291"
@@ -4268,7 +4268,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "17737",
         "13112"
@@ -4285,7 +4285,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "12278",
         "13106"
@@ -4302,7 +4302,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "23637",
         "13107"
@@ -4319,7 +4319,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "13113",
         "7815"
@@ -4336,7 +4336,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "23664",
         "13087"
@@ -4353,7 +4353,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "25084",
         "1205"
@@ -4370,7 +4370,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28466",
         "28465"
@@ -4387,7 +4387,7 @@
       "kickoff_utc": "2026-10-21T19:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "24121",
         "7857"
@@ -4404,7 +4404,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28220",
         "8509"
@@ -4421,7 +4421,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "14220",
         "8514"
@@ -4438,7 +4438,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "17306",
         "17307"
@@ -4455,7 +4455,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1408",
         "14568"
@@ -4472,7 +4472,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1425",
         "17308"
@@ -4489,7 +4489,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8536",
         "8532"
@@ -4506,7 +4506,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "21863",
         "6399"
@@ -4523,7 +4523,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16963",
         "8539"
@@ -4540,7 +4540,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6390",
         "1411"
@@ -4557,7 +4557,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8542",
         "1421"
@@ -4574,7 +4574,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "19832",
         "1407"
@@ -4591,7 +4591,7 @@
       "kickoff_utc": "2026-10-21T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1614",
         "3830"
@@ -4608,7 +4608,7 @@
       "kickoff_utc": "2026-10-21T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2323",
         "2327"
@@ -4625,7 +4625,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1466",
         "1138"
@@ -4642,7 +4642,7 @@
       "kickoff_utc": "2026-10-21T02:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1470",
         "1137"
@@ -4659,7 +4659,7 @@
       "kickoff_utc": "2026-10-21T00:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1464",
         "1127"
@@ -4676,7 +4676,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20468",
         "24108"
@@ -4693,7 +4693,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6437",
         "10007"
@@ -4710,7 +4710,7 @@
       "kickoff_utc": "2026-10-21T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3401",
         "3420"
@@ -4727,7 +4727,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "614",
         "3406"
@@ -4744,7 +4744,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26031",
         "27548"
@@ -4761,7 +4761,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "23310",
         "10111"
@@ -4778,7 +4778,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "21103",
         "2238"
@@ -4795,7 +4795,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "25736",
         "1988"
@@ -4812,7 +4812,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16476",
         "1150"
@@ -4829,7 +4829,7 @@
       "kickoff_utc": "2026-10-21T21:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1986",
         "19414"
@@ -4846,7 +4846,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7520",
         "16431"
@@ -4863,7 +4863,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1577",
         "13822"
@@ -4880,7 +4880,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "14651",
         "1041"
@@ -4897,7 +4897,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "53",
         "1373"
@@ -4914,7 +4914,7 @@
       "kickoff_utc": "2026-10-21T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7262",
         "7217"
@@ -4931,7 +4931,7 @@
       "kickoff_utc": "2026-10-21T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8690",
         "7693"
@@ -4948,7 +4948,7 @@
       "kickoff_utc": "2026-10-21T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7226",
         "8653"
@@ -4965,7 +4965,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7200",
         "20080"
@@ -4982,7 +4982,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20018",
         "20096"
@@ -4999,7 +4999,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15439",
         "14219"
@@ -5016,7 +5016,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15403",
         "1845"
@@ -5033,7 +5033,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1855",
         "15515"
@@ -5050,7 +5050,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1847",
         "4898"
@@ -5067,7 +5067,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15454",
         "15409"
@@ -5084,7 +5084,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "1856",
         "15406"
@@ -5101,7 +5101,7 @@
       "kickoff_utc": "2026-10-21T19:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15402",
         "1846"
@@ -5118,7 +5118,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4116",
         "26881"
@@ -5135,7 +5135,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9983",
         "4125"
@@ -5152,7 +5152,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4123",
         "20030"
@@ -5169,7 +5169,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5038",
         "12417"
@@ -5186,7 +5186,7 @@
       "kickoff_utc": "2026-10-21T03:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3664",
         "3658"
@@ -5203,7 +5203,7 @@
       "kickoff_utc": "2026-10-21T09:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2448",
         "26645"
@@ -5220,7 +5220,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10134",
         "2438"
@@ -5237,7 +5237,7 @@
       "kickoff_utc": "2026-10-21T14:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2737",
         "2743"
@@ -5254,7 +5254,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "516",
         "9517"
@@ -5271,7 +5271,7 @@
       "kickoff_utc": "2026-10-21T16:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28194",
         "24205"
@@ -5288,7 +5288,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28201",
         "26518"
@@ -5305,7 +5305,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "316",
         "293"
@@ -5322,7 +5322,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "292",
         "281"
@@ -5339,7 +5339,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "294",
         "289"
@@ -5356,7 +5356,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "302",
         "290"
@@ -5373,7 +5373,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "288",
         "291"
@@ -5390,7 +5390,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "310",
         "305"
@@ -5407,7 +5407,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "283",
         "303"
@@ -5424,7 +5424,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "285",
         "282"
@@ -5441,7 +5441,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "296",
         "306"
@@ -5458,7 +5458,7 @@
       "kickoff_utc": "2026-10-21T11:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "287",
         "301"
@@ -5475,7 +5475,7 @@
       "kickoff_utc": "2026-10-21T05:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "312",
         "279"
@@ -5492,7 +5492,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10409",
         "4315"
@@ -5509,7 +5509,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "299",
         "4326"
@@ -5526,7 +5526,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "311",
         "295"
@@ -5543,7 +5543,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "280",
         "298"
@@ -5560,7 +5560,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "313",
         "4322"
@@ -5577,7 +5577,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "286",
         "10075"
@@ -5594,7 +5594,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "308",
         "307"
@@ -5611,7 +5611,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "284",
         "7127"
@@ -5628,7 +5628,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7145",
         "4317"
@@ -5645,7 +5645,7 @@
       "kickoff_utc": "2026-10-21T05:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4318",
         "805"
@@ -5662,7 +5662,7 @@
       "kickoff_utc": "2026-10-21T05:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4323",
         "2235"
@@ -5679,7 +5679,7 @@
       "kickoff_utc": "2026-10-21T05:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "315",
         "7117"
@@ -5696,7 +5696,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "318",
         "309"
@@ -5713,7 +5713,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "297",
         "4324"
@@ -5730,7 +5730,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2236",
         "7129"
@@ -5747,7 +5747,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "317",
         "300"
@@ -5764,7 +5764,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "314",
         "4319"
@@ -5781,7 +5781,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7138",
         "7135"
@@ -5798,7 +5798,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "304",
         "756"
@@ -5815,7 +5815,7 @@
       "kickoff_utc": "2026-10-21T04:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16947",
         "16948"
@@ -5832,7 +5832,7 @@
       "kickoff_utc": "2026-10-21T05:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16946",
         "16956"
@@ -5849,7 +5849,7 @@
       "kickoff_utc": "2026-10-21T10:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16949",
         "16953"
@@ -5866,7 +5866,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26099",
         "14402"
@@ -5883,7 +5883,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4626",
         "696"
@@ -5900,7 +5900,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16533",
         "14507"
@@ -5917,7 +5917,7 @@
       "kickoff_utc": "2026-10-21T19:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4627",
         "659"
@@ -5934,7 +5934,7 @@
       "kickoff_utc": "2026-10-21T19:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4622",
         "4628"
@@ -5951,7 +5951,7 @@
       "kickoff_utc": "2026-10-21T01:07:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2278",
         "2288"
@@ -5968,7 +5968,7 @@
       "kickoff_utc": "2026-10-21T02:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2314",
         "2290"
@@ -5985,7 +5985,7 @@
       "kickoff_utc": "2026-10-21T02:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2298",
         "2312"
@@ -6002,7 +6002,7 @@
       "kickoff_utc": "2026-10-21T04:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2279",
         "2289"
@@ -6019,7 +6019,7 @@
       "kickoff_utc": "2026-10-21T04:07:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "14876",
         "14880"
@@ -6036,7 +6036,7 @@
       "kickoff_utc": "2026-10-21T22:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "17135",
         "19159"
@@ -6053,7 +6053,7 @@
       "kickoff_utc": "2026-10-21T19:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "5355",
         "697"
@@ -6070,7 +6070,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "758",
         "2153"
@@ -6087,7 +6087,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "16222",
         "7014"
@@ -6104,7 +6104,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "22264",
         "26149"
@@ -6121,7 +6121,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "27937",
         "16838"
@@ -6138,7 +6138,7 @@
       "kickoff_utc": "2026-10-21T16:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26178",
         "19619"
@@ -6155,7 +6155,7 @@
       "kickoff_utc": "2026-10-21T09:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10899",
         "28171"
@@ -6172,7 +6172,7 @@
       "kickoff_utc": "2026-10-21T09:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "17659",
         "15970"
@@ -6189,7 +6189,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "19903",
         "22191"
@@ -6206,7 +6206,7 @@
       "kickoff_utc": "2026-10-21T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28170",
         "22192"
@@ -6223,7 +6223,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "7574",
         "15560"
@@ -6240,7 +6240,7 @@
       "kickoff_utc": "2026-10-21T15:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2955",
         "10507"
@@ -6257,7 +6257,7 @@
       "kickoff_utc": "2026-10-21T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10503",
         "2937"
@@ -6274,7 +6274,7 @@
       "kickoff_utc": "2026-10-21T17:50:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2947",
         "2958"
@@ -6291,7 +6291,7 @@
       "kickoff_utc": "2026-10-21T12:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4204",
         "4206"
@@ -6308,7 +6308,7 @@
       "kickoff_utc": "2026-10-21T17:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "14044",
         "14053"
@@ -6325,7 +6325,7 @@
       "kickoff_utc": "2026-10-21T16:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "3553",
         "10535"
@@ -6342,7 +6342,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15976",
         "15982"
@@ -6359,7 +6359,7 @@
       "kickoff_utc": "2026-10-21T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "539",
         "531"
@@ -6376,7 +6376,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9681",
         "15343"
@@ -6393,7 +6393,7 @@
       "kickoff_utc": "2026-10-21T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "22148",
         "25036"
@@ -6410,7 +6410,7 @@
       "kickoff_utc": "2026-10-21T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28114",
         "17605"
@@ -6427,7 +6427,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "24611",
         "9799"
@@ -6444,7 +6444,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9800",
         "5269"
@@ -6461,7 +6461,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "27623",
         "20275"
@@ -6478,7 +6478,7 @@
       "kickoff_utc": "2026-10-21T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26851",
         "9807"
@@ -6495,7 +6495,7 @@
       "kickoff_utc": "2026-10-21T17:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9798",
         "22143"
@@ -6512,7 +6512,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9804",
         "20375"
@@ -6529,7 +6529,7 @@
       "kickoff_utc": "2026-10-21T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28113",
         "9797"
@@ -6546,7 +6546,7 @@
       "kickoff_utc": "2026-10-21T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "12217",
         "12220"
@@ -6563,7 +6563,7 @@
       "kickoff_utc": "2026-10-21T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "14504",
         "6618"
@@ -6580,7 +6580,7 @@
       "kickoff_utc": "2026-10-21T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6616",
         "10587"
@@ -6597,7 +6597,7 @@
       "kickoff_utc": "2026-10-21T19:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "12705",
         "6631"
@@ -6614,7 +6614,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2803",
         "2786"
@@ -6631,7 +6631,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20409",
         "28522"
@@ -6648,7 +6648,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6552",
         "2796"
@@ -6665,7 +6665,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "26998",
         "2771"
@@ -6682,7 +6682,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2780",
         "28516"
@@ -6699,7 +6699,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2772",
         "22368"
@@ -6716,7 +6716,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "22381",
         "6604"
@@ -6733,7 +6733,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "13285",
         "18395"
@@ -6750,7 +6750,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20413",
         "17910"
@@ -6767,7 +6767,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "13320",
         "2804"
@@ -6784,7 +6784,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2800",
         "6557"
@@ -6801,7 +6801,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10086",
         "2769"
@@ -6818,7 +6818,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20068",
         "27001"
@@ -6835,7 +6835,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28520",
         "2770"
@@ -6852,7 +6852,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "13309",
         "28518"
@@ -6869,7 +6869,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "25285",
         "6551"
@@ -6886,7 +6886,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "28521",
         "28517"
@@ -6903,7 +6903,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "6583",
         "6594"
@@ -6920,7 +6920,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2775",
         "6607"
@@ -6937,7 +6937,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2791",
         "13294"
@@ -6954,7 +6954,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15282",
         "2789"
@@ -6971,7 +6971,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2776",
         "6582"
@@ -6988,7 +6988,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2785",
         "6572"
@@ -7005,7 +7005,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "13303",
         "17914"
@@ -7022,7 +7022,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20430",
         "2797"
@@ -7039,7 +7039,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "10088",
         "6578"
@@ -7056,7 +7056,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "20433",
         "28515"
@@ -7073,7 +7073,7 @@
       "kickoff_utc": "2026-10-21T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "27004",
         "20071"
@@ -7090,7 +7090,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "8023",
         "13158"
@@ -7107,7 +7107,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "12449",
         "22699"
@@ -7124,7 +7124,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "15562",
         "28318"
@@ -7141,7 +7141,7 @@
       "kickoff_utc": "2026-10-21T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "24776",
         "12452"
@@ -7158,7 +7158,7 @@
       "kickoff_utc": "2026-10-21T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2358",
         "2369"
@@ -7175,7 +7175,7 @@
       "kickoff_utc": "2026-10-21T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "2242",
         "1615"
@@ -7192,7 +7192,7 @@
       "kickoff_utc": "2026-10-21T23:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "27252",
         "3989"
@@ -7209,7 +7209,7 @@
       "kickoff_utc": "2026-10-21T00:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "25959",
         "4000"
@@ -7226,7 +7226,7 @@
       "kickoff_utc": "2026-10-21T23:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "21289",
         "25485"
@@ -7243,7 +7243,7 @@
       "kickoff_utc": "2026-10-21T00:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "9033",
         "22785"
@@ -7260,7 +7260,7 @@
       "kickoff_utc": "2026-10-21T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-      "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+      "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
       "provider_team_ids": [
         "4216",
         "27585"
@@ -7277,7 +7277,7 @@
     "provider_family": "FootballInfo complete fixtures HTML",
     "window_start_utc": "2026-10-20T09:55:33+00:00",
     "window_end_utc": "2026-10-20T20:00:00+00:00",
-    "checked_at_utc": "2026-10-20T11:21:29.404007+00:00",
+    "checked_at_utc": "2026-10-20T11:27:04.290229+00:00",
     "required_surface_keys": [
       "ICT:2026-10-20",
       "ICT:2026-10-21",
@@ -7287,7 +7287,7 @@
       {
         "surface_key": "ICT:2026-10-20",
         "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-        "observed_at_utc": "2026-10-20T11:21:03.219345+00:00",
+        "observed_at_utc": "2026-10-20T11:26:40.708637+00:00",
         "pagination_complete": true,
         "provider_page_count": 1,
         "pages_fetched": [
@@ -8163,7 +8163,7 @@
       {
         "surface_key": "ICT:2026-10-21",
         "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-        "observed_at_utc": "2026-10-20T11:21:15.850554+00:00",
+        "observed_at_utc": "2026-10-20T11:26:52.106281+00:00",
         "pagination_complete": true,
         "provider_page_count": 1,
         "pages_fetched": [
@@ -9188,7 +9188,7 @@
       {
         "surface_key": "UTC:2026-10-20",
         "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-        "observed_at_utc": "2026-10-20T11:21:03.219345+00:00",
+        "observed_at_utc": "2026-10-20T11:26:40.708637+00:00",
         "pagination_complete": true,
         "provider_page_count": 1,
         "pages_fetched": [
@@ -10065,7 +10065,7 @@
     "terminal_sentinel": {
       "interval_start_utc": "2026-10-20T14:00:00+00:00",
       "interval_end_utc": "2026-10-20T20:00:00+00:00",
-      "checked_at_utc": "2026-10-20T11:21:18.590746+00:00",
+      "checked_at_utc": "2026-10-20T11:26:54.397835+00:00",
       "complete": true,
       "independent_refetch": true,
       "source_urls": [
