@@ -1,0 +1,19 @@
+{
+  "run_id": "V4-20261020-0725-20261020-0900",
+  "selection_mode": "VERIFIED_FIXTURE_TEAM_CHANNELS_FRESH_SOURCE",
+  "source_identity_run_id": "V4-20261020-0725-20261020-0900",
+  "targets": [
+    {
+      "match_id": "1808949",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4799/details?locale=en"
+    },
+    {
+      "match_id": "1892490",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/340183/details?locale=en"
+    },
+    {
+      "match_id": "1806368",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7363/details?locale=en"
+    }
+  ]
+}
