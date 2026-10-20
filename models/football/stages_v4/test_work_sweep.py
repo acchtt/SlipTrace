@@ -98,12 +98,12 @@ class WorkSweepTests(unittest.TestCase):
         self.assertEqual(detail["score"], (2, 1))
         self.assertEqual(detail["provider_team_ids"], ["11", "22"])
 
-    def test_thesportsdb_narrow_surface_is_not_accepted_after_all_broad_sources_fail(self):
+    def test_narrow_thesportsdb_is_not_a_canonical_source_fallback(self):
         with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
              patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
              patch.object(work, "acquire_footballinfo", side_effect=RuntimeError("html unavailable")), \
-             patch.object(work, "acquire_thesportsdb", return_value={"fixtures": [object()] * 3}):
-            with self.assertRaisesRegex(RuntimeError, "COVERAGE_TOO_NARROW"):
+             patch.object(work, "acquire_thesportsdb", side_effect=AssertionError("must not run")):
+            with self.assertRaisesRegex(RuntimeError, "FootballInfo: html unavailable"):
                 work.acquire({"run_id": "V4-test"}, object())
 
     def test_competition_scope_does_not_filter_adult_league_by_team_name(self):
