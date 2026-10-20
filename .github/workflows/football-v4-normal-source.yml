@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   sweep:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
