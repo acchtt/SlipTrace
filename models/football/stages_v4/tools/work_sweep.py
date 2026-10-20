@@ -22,6 +22,7 @@ from work_source_acquisition import fetch, parse_request
 
 FAMILY = "LiveScore public date API"
 DATE_URL = "https://prod-public-api.livescore.com/v1/api/app/date/soccer/{day}/{offset}?MD=1&countryCode=US&locale=en"
+REACT_DATE_URL = "https://prod-public-api.livescore.com/v1/api/react/date/soccer/{day}/{offset}.00?MD=1&countryCode=US&locale=en"
 TEAM_URL = "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/{team}/details?locale=en"
 
 
@@ -182,6 +183,26 @@ class Evidence:
         return payload, item
 
 
+def date_surface(evidence, day: str, offset: int, name: str):
+    """Fetch one LiveScore date surface, preserving the exact successful URL.
+
+    /app/date remains primary. /react/date is a same-provider schema-compatible
+    transport fallback used only when the primary route is unavailable.
+    """
+    primary = DATE_URL.format(day=day, offset=offset)
+    try:
+        return evidence.get(primary, name)
+    except Exception as primary_exc:
+        fallback = REACT_DATE_URL.format(day=day, offset=offset)
+        try:
+            return evidence.get(fallback, name + "-react")
+        except Exception as fallback_exc:
+            raise RuntimeError(
+                f"LiveScore date surface failed on app and react routes: "
+                f"{primary_exc}; {fallback_exc}"
+            ) from fallback_exc
+
+
 def acquire(request, evidence):
     start, end, _ = parse_request(request)
     start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
@@ -190,8 +211,9 @@ def acquire(request, evidence):
     for key in keys:
         basis, day = key.split(":")
         offset = 7 if basis == "ICT" else 0
-        url = DATE_URL.format(day=day.replace("-", ""), offset=offset)
-        payload, proof = evidence.get(url, key.replace(":", "-"))
+        requested_day = day.replace("-", "")
+        payload, proof = date_surface(evidence, requested_day, offset, key.replace(":", "-"))
+        url = proof["source_url"]
         blocks, ids = [], []
         for block in stage_blocks(payload):
             mids = [str(e["Eid"]) for e in block["Events"]]
@@ -223,8 +245,9 @@ def acquire(request, evidence):
         if not key.startswith("UTC:"):
             continue
         day = key.split(":")[1]
-        url = DATE_URL.format(day=day.replace("-", ""), offset=0)
-        payload, proof = evidence.get(url, "terminal-" + day)
+        requested_day = day.replace("-", "")
+        payload, proof = date_surface(evidence, requested_day, 0, "terminal-" + day)
+        url = proof["source_url"]
         terminal_proofs.append(proof)
         for block in stage_blocks(payload):
             for event in block["Events"]:
