@@ -1,0 +1,11 @@
+{
+  "error": "invalid home_incentive='MUST_CHASE'; allowed: DEAD_RUBBER, DRAW_ACCEPTABLE, MARGIN_NEEDED, MUST_WIN, NOT_APPLICABLE, PLACEMENT_ONLY, PROTECT_AGGREGATE, PROTECT_RESULT, UNKNOWN, WIN_PREFERRED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "0b1ffabc6f8746fad4dfbdfa2111b66c57e302566670db954c080b97b632b214",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-lduW-olimpiaW",
+  "runtime_commit": "f3b69621f1fc89ad2b1f98285c65f8bfb6d1d744",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
