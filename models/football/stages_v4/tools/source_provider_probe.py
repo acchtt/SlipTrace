@@ -105,7 +105,7 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
                     if at < 0:
                         at = team_text.lower().find("fixtures")
                     extra["team_detail_fragment"] = re.sub(r"\\s+", " ", team_text[max(0, at-500):at+4500])[:5000] if at >= 0 else team_text[:3000]
-                    detail_ids = re.findall(r'/Fixtures/Details/(\\d+)', team_text)
+                    detail_ids = re.findall(r'/Fixtures/Details/(\d+)', team_text)
                     if detail_ids:
                         fixture_url = "https://www.footballinfo.net/Fixtures/Details/" + detail_ids[-1]
                         try:
