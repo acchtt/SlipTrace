@@ -2,9 +2,9 @@
   "schema_version": "football-v4-sweep-research-checkpoint-v2",
   "status": "RESEARCH_COMPLETE",
   "run_id": "V4-20261020-0725-20261020-0900",
-  "original_source_sha256": "ea2a27f4e5c78ff33a232a1b23c604aa575404870a6dd7b29fbf689e4ba7ec11",
-  "source_file_sha256": "17a8fa176c4720b4cf5a9e5b53efcb670ee026f08a10ce64eff63dd101ba7c09",
-  "native_receipt_integrity_sha256": "665e6c531c53f84b5c1766089a9dfbd22d931ddf0e3e6ba9df8ac1e3ceb0afa9",
+  "original_source_sha256": "dfea9a30eda0012be3c53622cc0402e8df4240aeccb849dabd0b28878ecb4e6e",
+  "source_file_sha256": "05e8376aa28f495ecc3d710988e758ca11cb6e00612b5d39e0744a3ff988bf31",
+  "native_receipt_integrity_sha256": "54c7f3f22b6e310aa143e9672a2ffe6379b8a7cf2013fac8ce0b572caf38dffd",
   "target_states": {
     "1808949": {
       "match_id": "1808949",
@@ -25,14 +25,14 @@
       "research_disposition": "COMPLETE"
     }
   },
-  "eligible_match_ids": [],
-  "watch_match_ids": [
-    "1806368"
-  ],
-  "evidence_limited_match_ids": [
+  "eligible_match_ids": [
     "1808949",
     "1892490"
   ],
+  "watch_match_ids": [
+    "1806368"
+  ],
+  "evidence_limited_match_ids": [],
   "status_excluded_match_ids": [],
   "resume_queue": [],
   "rank_handoff_ready": true,

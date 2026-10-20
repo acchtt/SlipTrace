@@ -5,7 +5,7 @@
   "window_end_utc": "2026-10-20T02:00:00+00:00",
   "source_family": "LiveScore public date API",
   "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-  "source_observed_at_utc": "2026-10-20T00:37:45.808735+00:00",
+  "source_observed_at_utc": "2026-10-20T00:39:41.542867+00:00",
   "fixtures": [
     {
       "match_id": "1793596",
@@ -18,7 +18,7 @@
       "kickoff_utc": "2026-10-19T19:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3339",
         "3039"
@@ -35,7 +35,7 @@
       "kickoff_utc": "2026-10-19T19:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3379",
         "4253"
@@ -52,7 +52,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4410",
         "3178"
@@ -69,7 +69,7 @@
       "kickoff_utc": "2026-10-20T16:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4452",
         "6145"
@@ -86,7 +86,7 @@
       "kickoff_utc": "2026-10-20T16:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6181",
         "448"
@@ -103,7 +103,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "378",
         "291"
@@ -120,7 +120,7 @@
       "kickoff_utc": "2026-10-19T19:15:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4270",
         "3975"
@@ -137,7 +137,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3447",
         "444"
@@ -154,7 +154,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "445",
         "3372"
@@ -171,7 +171,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "406852",
         "229696"
@@ -188,7 +188,7 @@
       "kickoff_utc": "2026-10-20T15:10:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7",
         "12006"
@@ -205,7 +205,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "411918",
         "4545"
@@ -222,7 +222,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3787",
         "3298"
@@ -239,7 +239,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "209",
         "3555"
@@ -256,7 +256,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4354",
         "259"
@@ -273,7 +273,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "260",
         "4052"
@@ -290,7 +290,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4414",
         "273"
@@ -307,7 +307,7 @@
       "kickoff_utc": "2026-10-19T23:00:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "5031",
         "4509"
@@ -324,7 +324,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4193",
         "7742"
@@ -341,7 +341,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4142",
         "3269"
@@ -358,7 +358,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "237796",
         "456"
@@ -375,7 +375,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3268",
         "137717"
@@ -392,7 +392,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "9921",
         "7163"
@@ -409,7 +409,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4584",
         "4580"
@@ -426,7 +426,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "6080",
         "8019"
@@ -443,7 +443,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "6072",
         "4502"
@@ -460,7 +460,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "7662",
         "11090"
@@ -477,7 +477,7 @@
       "kickoff_utc": "2026-10-19T19:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "7650",
         "7661"
@@ -494,7 +494,7 @@
       "kickoff_utc": "2026-10-20T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7170",
         "271176"
@@ -511,7 +511,7 @@
       "kickoff_utc": "2026-10-20T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "414046",
         "7144"
@@ -528,7 +528,7 @@
       "kickoff_utc": "2026-10-20T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "339155",
         "7143"
@@ -545,7 +545,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7149",
         "376258"
@@ -562,7 +562,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7092",
         "7168"
@@ -579,7 +579,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12580",
         "8482"
@@ -596,7 +596,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "82114",
         "7086"
@@ -613,7 +613,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7107",
         "188065"
@@ -630,7 +630,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7085",
         "82089"
@@ -647,7 +647,7 @@
       "kickoff_utc": "2026-10-19T17:15:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "381729",
         "418059"
@@ -664,7 +664,7 @@
       "kickoff_utc": "2026-10-19T18:15:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "356603",
         "395621"
@@ -681,7 +681,7 @@
       "kickoff_utc": "2026-10-19T19:20:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "356611",
         "356609"
@@ -698,7 +698,7 @@
       "kickoff_utc": "2026-10-19T20:25:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "418058",
         "418060"
@@ -715,7 +715,7 @@
       "kickoff_utc": "2026-10-19T21:25:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "356607",
         "356606"
@@ -732,7 +732,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "5155",
         "6853"
@@ -749,7 +749,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "283927",
         "5174"
@@ -766,7 +766,7 @@
       "kickoff_utc": "2026-10-19T18:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "11941",
         "5140"
@@ -783,7 +783,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "82026",
         "6669"
@@ -800,7 +800,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4347",
         "87735"
@@ -817,7 +817,7 @@
       "kickoff_utc": "2026-10-20T11:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4357",
         "4663"
@@ -834,7 +834,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4857",
         "3827"
@@ -851,7 +851,7 @@
       "kickoff_utc": "2026-10-20T13:25:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "244029",
         "4215"
@@ -868,7 +868,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "8097",
         "87526"
@@ -885,7 +885,7 @@
       "kickoff_utc": "2026-10-19T22:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "5025",
         "4816"
@@ -902,7 +902,7 @@
       "kickoff_utc": "2026-10-19T22:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4742",
         "3604"
@@ -919,7 +919,7 @@
       "kickoff_utc": "2026-10-20T01:05:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7363",
         "285146"
@@ -936,7 +936,7 @@
       "kickoff_utc": "2026-10-19T19:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10778",
         "10774"
@@ -953,7 +953,7 @@
       "kickoff_utc": "2026-10-19T21:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "7577",
         "10095"
@@ -970,7 +970,7 @@
       "kickoff_utc": "2026-10-19T22:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10775",
         "9149"
@@ -987,7 +987,7 @@
       "kickoff_utc": "2026-10-19T23:00:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9148",
         "10093"
@@ -1004,7 +1004,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3395",
         "3663"
@@ -1021,7 +1021,7 @@
       "kickoff_utc": "2026-10-20T02:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "183966",
         "4334"
@@ -1038,7 +1038,7 @@
       "kickoff_utc": "2026-10-20T02:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4335",
         "228257"
@@ -1055,7 +1055,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "84466",
         "6151"
@@ -1072,7 +1072,7 @@
       "kickoff_utc": "2026-10-19T20:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "7840",
         "6617"
@@ -1089,7 +1089,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3257",
         "101098"
@@ -1106,7 +1106,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3236",
         "8303"
@@ -1123,7 +1123,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "5075",
         "5047"
@@ -1140,7 +1140,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4799",
         "4827"
@@ -1157,7 +1157,7 @@
       "kickoff_utc": "2026-10-19T17:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "5107",
         "6224"
@@ -1174,7 +1174,7 @@
       "kickoff_utc": "2026-10-19T19:15:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "11098",
         "11007"
@@ -1191,7 +1191,7 @@
       "kickoff_utc": "2026-10-20T08:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "411610",
         "334642"
@@ -1208,7 +1208,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6092",
         "10609"
@@ -1225,7 +1225,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "227906",
         "4990"
@@ -1242,7 +1242,7 @@
       "kickoff_utc": "2026-10-20T11:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "245142",
         "5046"
@@ -1259,7 +1259,7 @@
       "kickoff_utc": "2026-10-20T13:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "245897",
         "338432"
@@ -1276,7 +1276,7 @@
       "kickoff_utc": "2026-10-20T13:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4285",
         "4383"
@@ -1293,7 +1293,7 @@
       "kickoff_utc": "2026-10-20T14:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "284079",
         "4213"
@@ -1310,7 +1310,7 @@
       "kickoff_utc": "2026-10-19T17:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4391",
         "4390"
@@ -1327,7 +1327,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4767",
         "4331"
@@ -1344,7 +1344,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "189263",
         "12124"
@@ -1361,7 +1361,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3893",
         "4051"
@@ -1378,7 +1378,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4402",
         "4191"
@@ -1395,7 +1395,7 @@
       "kickoff_utc": "2026-10-20T13:30:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3852",
         "101041"
@@ -1412,7 +1412,7 @@
       "kickoff_utc": "2026-10-19T18:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3944",
         "3907"
@@ -1429,7 +1429,7 @@
       "kickoff_utc": "2026-10-19T22:05:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "4317",
         "4316"
@@ -1446,7 +1446,7 @@
       "kickoff_utc": "2026-10-20T01:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "340183",
         "4244"
@@ -1463,7 +1463,7 @@
       "kickoff_utc": "2026-10-20T12:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "189489",
         "3938"
@@ -1480,7 +1480,7 @@
       "kickoff_utc": "2026-10-20T13:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "236305",
         "236298"
@@ -1497,7 +1497,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "236300",
         "236301"
@@ -1514,7 +1514,7 @@
       "kickoff_utc": "2026-10-20T13:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "236302",
         "389553"
@@ -1531,7 +1531,7 @@
       "kickoff_utc": "2026-10-20T02:05:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "337928",
         "227665"
@@ -1548,7 +1548,7 @@
       "kickoff_utc": "2026-10-20T00:00:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12744",
         "12743"
@@ -1565,7 +1565,7 @@
       "kickoff_utc": "2026-10-20T01:06:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12746",
         "409942"
@@ -1582,7 +1582,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "244558",
         "10486"
@@ -1599,7 +1599,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10518",
         "10497"
@@ -1616,7 +1616,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10507",
         "10915"
@@ -1633,7 +1633,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "283353",
         "12378"
@@ -1650,7 +1650,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10494",
         "245912"
@@ -1667,7 +1667,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "10484",
         "283354"
@@ -1684,7 +1684,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "176843",
         "11455"
@@ -1701,7 +1701,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10056",
         "9487"
@@ -1718,7 +1718,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "213998",
         "9953"
@@ -1735,7 +1735,7 @@
       "kickoff_utc": "2026-10-20T16:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12180",
         "283134"
@@ -1752,7 +1752,7 @@
       "kickoff_utc": "2026-10-19T19:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "286014",
         "4695"
@@ -1769,7 +1769,7 @@
       "kickoff_utc": "2026-10-19T19:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "6466",
         "259633"
@@ -1786,7 +1786,7 @@
       "kickoff_utc": "2026-10-19T19:30:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "286013",
         "181264"
@@ -1803,7 +1803,7 @@
       "kickoff_utc": "2026-10-20T14:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "370857",
         "5282"
@@ -1820,7 +1820,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9621",
         "9581"
@@ -1837,7 +1837,7 @@
       "kickoff_utc": "2026-10-19T17:05:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "8564",
         "4903"
@@ -1854,7 +1854,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "2722",
         "367"
@@ -1871,7 +1871,7 @@
       "kickoff_utc": "2026-10-19T17:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "397",
         "11087"
@@ -1888,7 +1888,7 @@
       "kickoff_utc": "2026-10-19T23:00:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6424",
         "9915"
@@ -1905,7 +1905,7 @@
       "kickoff_utc": "2026-10-20T15:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "353252",
         "8287"
@@ -1922,7 +1922,7 @@
       "kickoff_utc": "2026-10-19T22:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "5202",
         "5230"
@@ -1939,7 +1939,7 @@
       "kickoff_utc": "2026-10-19T22:00:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "6872",
         "6839"
@@ -1956,7 +1956,7 @@
       "kickoff_utc": "2026-10-20T00:15:00+00:00",
       "fixture_status": "STARTED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6836",
         "5228"
@@ -1973,7 +1973,7 @@
       "kickoff_utc": "2026-10-19T18:45:00+00:00",
       "fixture_status": "FINISHED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
       "provider_team_ids": [
         "3302",
         "3282"
@@ -1990,7 +1990,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4237",
         "6793"
@@ -2007,7 +2007,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "262",
         "497"
@@ -2024,7 +2024,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3340",
         "3608"
@@ -2041,7 +2041,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12633",
         "4281"
@@ -2058,7 +2058,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3460",
         "329495"
@@ -2075,7 +2075,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3910",
         "2911"
@@ -2092,7 +2092,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4378",
         "2912"
@@ -2109,7 +2109,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2985",
         "2833"
@@ -2126,7 +2126,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2834",
         "2837"
@@ -2143,7 +2143,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2929",
         "3040"
@@ -2160,7 +2160,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4541",
         "2901"
@@ -2177,7 +2177,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3019",
         "2888"
@@ -2194,7 +2194,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2934",
         "2950"
@@ -2211,7 +2211,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2880",
         "3362"
@@ -2228,7 +2228,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2830",
         "2945"
@@ -2245,7 +2245,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2857",
         "2829"
@@ -2262,7 +2262,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3455",
         "3144"
@@ -2279,7 +2279,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3075",
         "3015"
@@ -2296,7 +2296,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2741",
         "2936"
@@ -2313,7 +2313,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3662",
         "2782"
@@ -2330,7 +2330,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2879",
         "2997"
@@ -2347,7 +2347,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2981",
         "3020"
@@ -2364,7 +2364,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4535",
         "2966"
@@ -2381,7 +2381,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2887",
         "2937"
@@ -2398,7 +2398,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2933",
         "2783"
@@ -2415,7 +2415,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2998",
         "2827"
@@ -2432,7 +2432,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3101",
         "2750"
@@ -2449,7 +2449,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3076",
         "2942"
@@ -2466,7 +2466,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2982",
         "2898"
@@ -2483,7 +2483,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3156",
         "2787"
@@ -2500,7 +2500,7 @@
       "kickoff_utc": "2026-10-20T19:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2946",
         "2742"
@@ -2517,7 +2517,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2754",
         "347"
@@ -2534,7 +2534,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "346",
         "331851"
@@ -2551,7 +2551,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3122",
         "3063"
@@ -2568,7 +2568,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4325",
         "4192"
@@ -2585,7 +2585,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4284",
         "102107"
@@ -2602,7 +2602,7 @@
       "kickoff_utc": "2026-10-20T17:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "366870",
         "338"
@@ -2619,7 +2619,7 @@
       "kickoff_utc": "2026-10-20T22:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4782",
         "4985"
@@ -2636,7 +2636,7 @@
       "kickoff_utc": "2026-10-20T21:00:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4717",
         "3594"
@@ -2653,7 +2653,7 @@
       "kickoff_utc": "2026-10-20T23:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6460",
         "6398"
@@ -2670,7 +2670,7 @@
       "kickoff_utc": "2026-10-20T21:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "8563",
         "7576"
@@ -2687,7 +2687,7 @@
       "kickoff_utc": "2026-10-20T23:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10101",
         "9320"
@@ -2704,7 +2704,7 @@
       "kickoff_utc": "2026-10-20T23:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "8425",
         "6561"
@@ -2721,7 +2721,7 @@
       "kickoff_utc": "2026-10-20T19:15:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9357",
         "10780"
@@ -2738,7 +2738,7 @@
       "kickoff_utc": "2026-10-20T20:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10099",
         "10781"
@@ -2755,7 +2755,7 @@
       "kickoff_utc": "2026-10-20T20:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10768",
         "9369"
@@ -2772,7 +2772,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "100139",
         "8704"
@@ -2789,7 +2789,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9501",
         "339774"
@@ -2806,7 +2806,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3147",
         "228422"
@@ -2823,7 +2823,7 @@
       "kickoff_utc": "2026-10-20T18:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4540",
         "230032"
@@ -2840,7 +2840,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3262",
         "3204"
@@ -2857,7 +2857,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3026",
         "3003"
@@ -2874,7 +2874,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3070",
         "10360"
@@ -2891,7 +2891,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101097",
         "2930"
@@ -2908,7 +2908,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3303",
         "3278"
@@ -2925,7 +2925,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3283",
         "11197"
@@ -2942,7 +2942,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3337",
         "9895"
@@ -2959,7 +2959,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3096",
         "3242"
@@ -2976,7 +2976,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3338",
         "3199"
@@ -2993,7 +2993,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "332465",
         "3501"
@@ -3010,7 +3010,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "323637",
         "10849"
@@ -3027,7 +3027,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3258",
         "3336"
@@ -3044,7 +3044,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3233",
         "186661"
@@ -3061,7 +3061,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3208",
         "3224"
@@ -3078,7 +3078,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3050",
         "3136"
@@ -3095,7 +3095,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10856",
         "10750"
@@ -3112,7 +3112,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "7961",
         "10348"
@@ -3129,7 +3129,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "225559",
         "4319"
@@ -3146,7 +3146,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3221",
         "10873"
@@ -3163,7 +3163,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3217",
         "10854"
@@ -3180,7 +3180,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10361",
         "263650"
@@ -3197,7 +3197,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3216",
         "6299"
@@ -3214,7 +3214,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10863",
         "3190"
@@ -3231,7 +3231,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3211",
         "3128"
@@ -3248,7 +3248,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3138",
         "101175"
@@ -3265,7 +3265,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10983",
         "323917"
@@ -3282,7 +3282,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "11012",
         "3180"
@@ -3299,7 +3299,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3140",
         "3158"
@@ -3316,7 +3316,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3210",
         "3171"
@@ -3333,7 +3333,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3127",
         "258352"
@@ -3350,7 +3350,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3100",
         "9729"
@@ -3367,7 +3367,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10532",
         "231788"
@@ -3384,7 +3384,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3237",
         "332468"
@@ -3401,7 +3401,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "269927",
         "3309"
@@ -3418,7 +3418,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "11030",
         "101104"
@@ -3435,7 +3435,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101166",
         "10345"
@@ -3452,7 +3452,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "186649",
         "8702"
@@ -3469,7 +3469,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "11209",
         "10746"
@@ -3486,7 +3486,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "186674",
         "11020"
@@ -3503,7 +3503,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101112",
         "10589"
@@ -3520,7 +3520,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9007",
         "3231"
@@ -3537,7 +3537,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "11194",
         "10749"
@@ -3554,7 +3554,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3159",
         "269930"
@@ -3571,7 +3571,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101170",
         "319147"
@@ -3588,7 +3588,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "375025",
         "3215"
@@ -3605,7 +3605,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "260575",
         "3213"
@@ -3622,7 +3622,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9660",
         "186819"
@@ -3639,7 +3639,7 @@
       "kickoff_utc": "2026-10-20T18:30:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "11191",
         "231662"
@@ -3656,7 +3656,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101107",
         "11022"
@@ -3673,7 +3673,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "8698",
         "231787"
@@ -3690,7 +3690,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10844",
         "10357"
@@ -3707,7 +3707,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3166",
         "11196"
@@ -3724,7 +3724,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "186673",
         "3207"
@@ -3741,7 +3741,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10356",
         "10751"
@@ -3758,7 +3758,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10860",
         "263653"
@@ -3775,7 +3775,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101179",
         "262235"
@@ -3792,7 +3792,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3303",
         "11011"
@@ -3809,7 +3809,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "186661",
         "2897"
@@ -3826,7 +3826,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3128",
         "10848"
@@ -3843,7 +3843,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3003",
         "3069"
@@ -3860,7 +3860,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2838",
         "3218"
@@ -3877,7 +3877,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2951",
         "3286"
@@ -3894,7 +3894,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3234",
         "2930"
@@ -3911,7 +3911,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3004",
         "2952"
@@ -3928,7 +3928,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101181",
         "4533"
@@ -3945,7 +3945,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101098",
         "4521"
@@ -3962,7 +3962,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3402",
         "3158"
@@ -3979,7 +3979,7 @@
       "kickoff_utc": "2026-10-20T17:30:00+00:00",
       "fixture_status": "UNKNOWN_PROVIDER_STATUS",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6094",
         "262534"
@@ -3996,7 +3996,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "203309",
         "277012"
@@ -4013,7 +4013,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "358",
         "4416"
@@ -4030,7 +4030,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "12172",
         "12236"
@@ -4047,7 +4047,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "266983",
         "2989"
@@ -4064,7 +4064,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3125",
         "3045"
@@ -4081,7 +4081,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "217932",
         "2991"
@@ -4098,7 +4098,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "359",
         "3148"
@@ -4115,7 +4115,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3163",
         "244110"
@@ -4132,7 +4132,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3169",
         "3126"
@@ -4149,7 +4149,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "223035",
         "2992"
@@ -4166,7 +4166,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "2990",
         "4415"
@@ -4183,7 +4183,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "82284",
         "2957"
@@ -4200,7 +4200,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "281793",
         "3168"
@@ -4217,7 +4217,7 @@
       "kickoff_utc": "2026-10-20T22:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "411607",
         "9217"
@@ -4234,7 +4234,7 @@
       "kickoff_utc": "2026-10-20T22:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "152797",
         "9454"
@@ -4251,7 +4251,7 @@
       "kickoff_utc": "2026-10-20T17:00:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "6111",
         "8371"
@@ -4268,7 +4268,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3025",
         "3094"
@@ -4285,7 +4285,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "179801",
         "3118"
@@ -4302,7 +4302,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10868",
         "269928"
@@ -4319,7 +4319,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "323645",
         "3177"
@@ -4336,7 +4336,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "179806",
         "3308"
@@ -4353,7 +4353,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "332467",
         "186666"
@@ -4370,7 +4370,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101160",
         "3004"
@@ -4387,7 +4387,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "101162",
         "261438"
@@ -4404,7 +4404,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10851",
         "376019"
@@ -4421,7 +4421,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "337720",
         "10875"
@@ -4438,7 +4438,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "9683",
         "11018"
@@ -4455,7 +4455,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3219",
         "3198"
@@ -4472,7 +4472,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "4394",
         "11025"
@@ -4489,7 +4489,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "3173",
         "3398"
@@ -4506,7 +4506,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "232125",
         "10843"
@@ -4523,7 +4523,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "269910",
         "10353"
@@ -4540,7 +4540,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10358",
         "10984"
@@ -4557,7 +4557,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10855",
         "10946"
@@ -4574,7 +4574,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "10359",
         "263652"
@@ -4591,7 +4591,7 @@
       "kickoff_utc": "2026-10-20T18:45:00+00:00",
       "fixture_status": "PREMATCH_CONFIRMED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "observed_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "provider_team_ids": [
         "413276",
         "10102"
@@ -4608,7 +4608,7 @@
     "provider_family": "LiveScore public date API",
     "window_start_utc": "2026-10-20T00:25:33+00:00",
     "window_end_utc": "2026-10-20T02:00:00+00:00",
-    "checked_at_utc": "2026-10-20T00:37:46.311082+00:00",
+    "checked_at_utc": "2026-10-20T00:39:41.852057+00:00",
     "required_surface_keys": [
       "ICT:2026-10-20",
       "UTC:2026-10-20"
@@ -4617,7 +4617,7 @@
       {
         "surface_key": "ICT:2026-10-20",
         "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/7?MD=1&countryCode=US&locale=en",
-        "observed_at_utc": "2026-10-20T00:37:45.251551+00:00",
+        "observed_at_utc": "2026-10-20T00:39:41.357480+00:00",
         "pagination_complete": true,
         "provider_page_count": 1,
         "pages_fetched": [
@@ -5327,7 +5327,7 @@
       {
         "surface_key": "UTC:2026-10-20",
         "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261020/0?MD=1&countryCode=US&locale=en",
-        "observed_at_utc": "2026-10-20T00:37:45.808735+00:00",
+        "observed_at_utc": "2026-10-20T00:39:41.542867+00:00",
         "pagination_complete": true,
         "provider_page_count": 1,
         "pages_fetched": [
@@ -6175,7 +6175,7 @@
     "terminal_sentinel": {
       "interval_start_utc": "2026-10-20T00:25:33+00:00",
       "interval_end_utc": "2026-10-20T02:00:00+00:00",
-      "checked_at_utc": "2026-10-20T00:37:46.305105+00:00",
+      "checked_at_utc": "2026-10-20T00:39:41.844183+00:00",
       "complete": true,
       "independent_refetch": true,
       "source_urls": [
