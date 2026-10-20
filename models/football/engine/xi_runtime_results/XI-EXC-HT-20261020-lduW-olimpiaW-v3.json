@@ -1,0 +1,11 @@
+{
+  "error": "G4_RESEARCH_COMPLETE_REJECTED requires a funded G3 certificate",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "4bd232997553a4eafe21c8ac5ab87d15f33ec2f6f148538c89b0dce420375524",
+  "ok": false,
+  "request_id": "XI-EXC-HT-20261020-lduW-olimpiaW-v3",
+  "runtime_commit": "dad040d0879027d1913a0701236baad6884ed310",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
