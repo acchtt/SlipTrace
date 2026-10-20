@@ -603,6 +603,9 @@ def footballinfo_fixture_detail(evidence, match):
     if not meta_match:
         raise ValueError("FootballInfo fixture detail kickoff missing: " + mid)
     meta = _footballinfo_text(meta_match.group(1))
+    # FootballInfo uses "Sept" on some historical pages while Python's
+    # locale-independent %b parser expects "Sep".
+    meta = re.sub(r"\bSept\b", "Sep", meta)
     meta_parts = re.search(
         r"(\d{1,2}\s+[A-Za-z]{3}\s+\d{4}).*?(\d{1,2}:\d{2})",
         meta
