@@ -78,7 +78,9 @@ jobs:
           import json,sys
           from pathlib import Path
           cp=json.loads(Path("v4-normal-source/checkpoint.json").read_text())
-          ids=list(dict.fromkeys(cp.get("research_order") or []))[:30]
+          # If the native priority cohort is empty, promote source-attested
+          # deferred rows instead of aborting the sweep on zero targets.
+          ids=list(dict.fromkeys(cp.get("research_order") or cp.get("deferred_research_backlog") or []))[:30]
           Path(sys.argv[1]).write_text(json.dumps({
               "run_id":sys.argv[2],
               "selection_mode":"AUTO_NATIVE_PRIORITY_FALLBACK",
