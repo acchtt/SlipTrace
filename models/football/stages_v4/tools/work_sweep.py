@@ -806,26 +806,86 @@ def acquire_footballinfo(request, evidence):
 
 
 def footballinfo_competitive_history(evidence, team, now):
+    """Collect recent regulation results from FootballInfo competition pages.
+
+    Team landing pages put the full future schedule ahead of completed matches,
+    so relying only on their ten "Recent Fixtures" cards can yield zero history
+    early in a season. Use the current-season competition links exposed on the
+    same team page, preferring non-friendly league competitions, then reconcile
+    every result through the canonical fixture-detail page.
+    """
     team = str(team)
-    text, proof = evidence.get_text(
+    text, team_proof = evidence.get_text(
         FOOTBALLINFO_TEAM_URL.format(team=team), "fi-team-" + team
     )
-    recent_marker = text.find("<!-- Recent fixtures -->")
-    section = text[recent_marker:] if recent_marker >= 0 else text
+    season = str(now.year)
     fixture_ids = []
-    for match in re.finditer(
-        r'<a class="fi-fixture[^"]*"[^>]*href="/Fixtures/Details/(\d+)"[^>]*>(.*?)</a>',
-        section, re.I | re.S
-    ):
-        frag = match.group(2)
-        badge_match = re.search(r'<span class="fi-badge[^"]*"[^>]*>(.*?)</span>', frag, re.I | re.S)
-        badge = _footballinfo_text(badge_match.group(1)).upper() if badge_match else ""
-        if badge == "FT":
-            fixture_ids.append(match.group(1))
-        if len(fixture_ids) >= 8:
+    seen_ids = set()
+    history_proofs = [team_proof]
+
+    def collect_ft(page_text):
+        for match in re.finditer(
+            r'<a class="fi-fixture[^"]*"[^>]*href="/Fixtures/Details/(\d+)"[^>]*>(.*?)</a>',
+            page_text, re.I | re.S
+        ):
+            frag = match.group(2)
+            badge_match = re.search(
+                r'<span class="fi-badge[^"]*"[^>]*>(.*?)</span>',
+                frag, re.I | re.S
+            )
+            badge = _footballinfo_text(badge_match.group(1)).upper() if badge_match else ""
+            mid = match.group(1)
+            if badge == "FT" and mid not in seen_ids:
+                seen_ids.add(mid)
+                fixture_ids.append(mid)
+
+    # Prefer the current domestic league page; then other current-season
+    # competitive pages. The row text lets us avoid friendlies without
+    # hard-coding provider league IDs.
+    competition_links = []
+    row_pattern = re.compile(r"<tr[^>]*>(.*?)</tr>", re.I | re.S)
+    href_pattern = re.compile(
+        rf'href="(/teams/{re.escape(team)}/fixtures\?league=(\d+)&(?:amp;)?season={re.escape(season)})"',
+        re.I,
+    )
+    for row in row_pattern.finditer(text):
+        frag = row.group(1)
+        link = href_pattern.search(frag)
+        if not link:
+            continue
+        label = _footballinfo_text(frag)
+        low = label.lower()
+        if "friendl" in low or "testimonial" in low:
+            continue
+        # Plain leagues first; cups/continental competitions remain useful
+        # fallback evidence if the league alone does not provide six results.
+        cupish = any(token in low for token in (
+            " cup", "cup ", "champions league", "europa league",
+            "conference league", "super cup", "trophy", "pokal", "copa"
+        ))
+        competition_links.append((1 if cupish else 0, link.group(2), html_lib.unescape(link.group(1))))
+
+    competition_links = list(dict.fromkeys(competition_links))
+    competition_links.sort(key=lambda x: x[0])
+    for _, league, href in competition_links[:3]:
+        page, proof = evidence.get_text(
+            "https://www.footballinfo.net" + href,
+            f"fi-team-{team}-league-{league}-{season}",
+        )
+        history_proofs.append(proof)
+        collect_ft(page)
+        if len(fixture_ids) >= 10:
             break
+
+    # Keep the landing-page cards as a conservative fallback for teams whose
+    # competition table is absent or sparse.
+    if len(fixture_ids) < 10:
+        recent_marker = text.find("<!-- Recent fixtures -->")
+        section = text[recent_marker:] if recent_marker >= 0 else text
+        collect_ft(section)
+
     results = {}
-    for mid in fixture_ids:
+    for mid in fixture_ids[:18]:
         detail, _ = footballinfo_fixture_detail(evidence, mid)
         ids = tuple(detail["provider_team_ids"])
         if team not in ids:
@@ -848,10 +908,12 @@ def footballinfo_competitive_history(evidence, team, now):
             "competition": competition,
         }
         results[mid] = row
-        if len(results) >= 6:
+        if len(results) >= 10:
             break
+
     recent = sorted(results.values(), key=lambda x: x["kickoff_utc"], reverse=True)[:10]
-    return recent, proof
+    used_proof = max(history_proofs, key=lambda x: x["observed_at_utc"])
+    return recent, used_proof
 
 
 def footballinfo_fixture_refresh(evidence, fixture):
