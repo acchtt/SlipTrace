@@ -1,0 +1,56 @@
+[
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+    "observed_at_utc": "2026-10-20T11:06:42.962498+00:00",
+    "file": "raw/tdb-2026-10-20-thesportsdb.json",
+    "sha256": "d0efdaf698ecb471423a4ce71cfd3c2406f38cafaca06d1f654b6b0cd1342788"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-21&s=Soccer",
+    "observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+    "file": "raw/tdb-2026-10-21-thesportsdb.json",
+    "sha256": "a1abd7e483a36e09c2f9ab2bc9531bad4850a92b4fa5d259ea8a7f20a7085511"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+    "observed_at_utc": "2026-10-20T11:06:43.004594+00:00",
+    "file": "raw/tdb-terminal-2026-10-20-thesportsdb.json",
+    "sha256": "d0efdaf698ecb471423a4ce71cfd3c2406f38cafaca06d1f654b6b0cd1342788"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=134165",
+    "observed_at_utc": "2026-10-20T11:06:43.136380+00:00",
+    "file": "raw/tdb-team-134165.json",
+    "sha256": "7ad985f527574775ac5de2e3baf09bd21e407e61c03e90d4bc41b7d18d65b589"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=134482",
+    "observed_at_utc": "2026-10-20T11:06:43.262250+00:00",
+    "file": "raw/tdb-team-134482.json",
+    "sha256": "19790a0db12ab83f80def5fa019170d66ab43113a6357fe5b4b8c7cb83596c20"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupevent.php?id=2412701",
+    "observed_at_utc": "2026-10-20T11:06:43.399429+00:00",
+    "file": "raw/tdb-event-2412701.json",
+    "sha256": "22b581f80164e158dd65de24534190c238b80805ee06a0db984cfdb4eea970ee"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=150846",
+    "observed_at_utc": "2026-10-20T11:06:43.541859+00:00",
+    "file": "raw/tdb-team-150846.json",
+    "sha256": "2fa9b64ff39de37821fd50f3f5fdc9ac62eb54d41b53b3b83bd387c130eb5c7f"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id=139380",
+    "observed_at_utc": "2026-10-20T11:06:43.659923+00:00",
+    "file": "raw/tdb-team-139380.json",
+    "sha256": "8447d262c7c591099353b0e729188a9e239c27705e8bbc0c2b2bf9fe1133079c"
+  },
+  {
+    "source_url": "https://www.thesportsdb.com/api/v1/json/123/lookupevent.php?id=2426799",
+    "observed_at_utc": "2026-10-20T11:06:43.778649+00:00",
+    "file": "raw/tdb-event-2426799.json",
+    "sha256": "375c1aac3b50345409607bf746008312237245e219903380e62b1720c13a6fe6"
+  }
+]

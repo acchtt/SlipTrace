@@ -1,0 +1,38 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "RESEARCH_COMPLETE",
+  "run_id": "V4-20261020-1655-20261021-0300",
+  "original_source_sha256": "4bab076e225aa827086025eaed9a2a472118b8829721b0270681b6ac697ac433",
+  "source_file_sha256": "1c3e71541598238d23dc6dd13a07edf82f9f43e26784cd1d8d825ff8b2c2b37f",
+  "native_receipt_integrity_sha256": "1757806344ee742c887b2efcb22aa793df5e683242205f2722e27be2283315cf",
+  "target_states": {
+    "2412701": {
+      "match_id": "2412701",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "2426799": {
+      "match_id": "2426799",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    }
+  },
+  "eligible_match_ids": [],
+  "watch_match_ids": [],
+  "evidence_limited_match_ids": [
+    "2412701",
+    "2426799"
+  ],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}

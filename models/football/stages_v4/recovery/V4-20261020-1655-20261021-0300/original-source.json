@@ -1,0 +1,269 @@
+{
+  "schema_version": "football-stages-v4",
+  "run_id": "V4-20261020-1655-20261021-0300",
+  "window_start_utc": "2026-10-20T09:55:33+00:00",
+  "window_end_utc": "2026-10-20T20:00:00+00:00",
+  "source_family": "TheSportsDB public eventsday API",
+  "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+  "source_observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+  "fixtures": [
+    {
+      "match_id": "2398136",
+      "country": "Argentina",
+      "competition": "Argentinian Primera Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Deportivo Riestra",
+      "away": "Unión",
+      "kickoff_utc": "2026-10-20T00:15:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:43.004594+00:00",
+      "provider_team_ids": [
+        "137782",
+        "135178"
+      ]
+    },
+    {
+      "match_id": "2412701",
+      "country": "Sweden",
+      "competition": "Swedish Superettan",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Norrköping",
+      "away": "Örebro",
+      "kickoff_utc": "2026-10-20T17:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:43.004594+00:00",
+      "provider_team_ids": [
+        "134165",
+        "134482"
+      ]
+    },
+    {
+      "match_id": "2426799",
+      "country": "Uzbekistan",
+      "competition": "Uzbekistan Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Xorazm Urganch",
+      "away": "Buxoro",
+      "kickoff_utc": "2026-10-20T15:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:43.004594+00:00",
+      "provider_team_ids": [
+        "150846",
+        "139380"
+      ]
+    },
+    {
+      "match_id": "2397251",
+      "country": "United States",
+      "competition": "American USL Championship",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Brooklyn FC",
+      "away": "Birmingham Legion",
+      "kickoff_utc": "2026-10-21T22:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-21&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+      "provider_team_ids": [
+        "154065",
+        "138893"
+      ]
+    },
+    {
+      "match_id": "2397367",
+      "country": "United States",
+      "competition": "American USL Championship",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sporting JAX",
+      "away": "Louisville City",
+      "kickoff_utc": "2026-10-21T23:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-21&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+      "provider_team_ids": [
+        "151793",
+        "139040"
+      ]
+    },
+    {
+      "match_id": "2397582",
+      "country": "United States",
+      "competition": "American USL League One",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sarasota Paradise",
+      "away": "FC Naples",
+      "kickoff_utc": "2026-10-21T22:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-21&s=Soccer",
+      "observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+      "provider_team_ids": [
+        "150930",
+        "150325"
+      ]
+    }
+  ],
+  "source_completeness_manifest": {
+    "schema_version": "football-v4-source-completeness-v2",
+    "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+    "league_query_mode": "DATE_SURFACE_ONLY",
+    "registry_prefilter_applied": false,
+    "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+    "extraction_complete": true,
+    "provider_family": "TheSportsDB public eventsday API",
+    "window_start_utc": "2026-10-20T09:55:33+00:00",
+    "window_end_utc": "2026-10-20T20:00:00+00:00",
+    "checked_at_utc": "2026-10-20T11:06:43.005680+00:00",
+    "required_surface_keys": [
+      "ICT:2026-10-20",
+      "ICT:2026-10-21",
+      "UTC:2026-10-20"
+    ],
+    "date_surfaces": [
+      {
+        "surface_key": "ICT:2026-10-20",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+        "observed_at_utc": "2026-10-20T11:06:42.962498+00:00",
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "pages_fetched": [
+          1
+        ],
+        "provider_senior_fixture_count": 3,
+        "extracted_fixture_ids": [
+          "2398136",
+          "2412701",
+          "2426799"
+        ],
+        "provider_senior_competition_block_count": 3,
+        "competition_blocks": [
+          {
+            "country": "Argentina",
+            "competition": "Argentinian Primera Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2398136"
+            ]
+          },
+          {
+            "country": "Sweden",
+            "competition": "Swedish Superettan",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2412701"
+            ]
+          },
+          {
+            "country": "Uzbekistan",
+            "competition": "Uzbekistan Super League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2426799"
+            ]
+          }
+        ]
+      },
+      {
+        "surface_key": "ICT:2026-10-21",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-21&s=Soccer",
+        "observed_at_utc": "2026-10-20T11:06:42.983254+00:00",
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "pages_fetched": [
+          1
+        ],
+        "provider_senior_fixture_count": 3,
+        "extracted_fixture_ids": [
+          "2397251",
+          "2397367",
+          "2397582"
+        ],
+        "provider_senior_competition_block_count": 2,
+        "competition_blocks": [
+          {
+            "country": "United States",
+            "competition": "American USL Championship",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "2397251",
+              "2397367"
+            ]
+          },
+          {
+            "country": "United States",
+            "competition": "American USL League One",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2397582"
+            ]
+          }
+        ]
+      },
+      {
+        "surface_key": "UTC:2026-10-20",
+        "source_url": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer",
+        "observed_at_utc": "2026-10-20T11:06:42.962498+00:00",
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "pages_fetched": [
+          1
+        ],
+        "provider_senior_fixture_count": 3,
+        "extracted_fixture_ids": [
+          "2398136",
+          "2412701",
+          "2426799"
+        ],
+        "provider_senior_competition_block_count": 3,
+        "competition_blocks": [
+          {
+            "country": "Argentina",
+            "competition": "Argentinian Primera Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2398136"
+            ]
+          },
+          {
+            "country": "Sweden",
+            "competition": "Swedish Superettan",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2412701"
+            ]
+          },
+          {
+            "country": "Uzbekistan",
+            "competition": "Uzbekistan Super League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "2426799"
+            ]
+          }
+        ]
+      }
+    ],
+    "terminal_sentinel": {
+      "interval_start_utc": "2026-10-20T14:00:00+00:00",
+      "interval_end_utc": "2026-10-20T20:00:00+00:00",
+      "checked_at_utc": "2026-10-20T11:06:43.004594+00:00",
+      "complete": true,
+      "independent_refetch": true,
+      "source_urls": [
+        "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d=2026-10-20&s=Soccer"
+      ],
+      "provider_senior_fixture_count": 2,
+      "extracted_fixture_ids": [
+        "2412701",
+        "2426799"
+      ]
+    }
+  }
+}
