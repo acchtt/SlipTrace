@@ -69,6 +69,7 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         raise ValueError("TARGET_NOT_ON_CANONICAL_SOURCE: " + ",".join(missing))
 
     feeds = {}
+    sofa_histories = {}
     states = {}
     now = work_sweep.utcnow()
     for mid, target in target_map.items():
@@ -95,6 +96,70 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         if len(ids) != 2:
             state["research_disposition"] = "EVIDENCE_LIMITED"
             state["pending_reasons"].append("PROVIDER_TEAM_ID_MAPPING_REQUIRED")
+            states[mid] = state
+            continue
+
+        if source.get("source_family") == work_sweep.SOFASCORE_FAMILY:
+            histories = {}
+            state["attempted"] = True
+            for side, team in zip(("home", "away"), ids):
+                team = str(team)
+                try:
+                    if not team.isdigit():
+                        raise ValueError("unsafe provider team ID")
+                    if team not in sofa_histories:
+                        try:
+                            sofa_histories[team] = work_sweep.sofascore_competitive_history(
+                                evidence, team, work_sweep.stamp(now)
+                            )
+                        except Exception as exc:
+                            sofa_histories[team] = exc
+                    if isinstance(sofa_histories[team], Exception):
+                        raise sofa_histories[team]
+                    recent, proof = sofa_histories[team]
+                    histories[side] = {
+                        "source_url": proof["source_url"],
+                        "observed_at_utc": proof["observed_at_utc"],
+                        "recent": recent,
+                    }
+                    if len(recent) < 4:
+                        state["pending_reasons"].append(
+                            side.upper() + "_COMPETITIVE_HISTORY_UNDER_FOUR"
+                        )
+                except Exception as exc:
+                    state["pending_reasons"].append(side.upper() + ": " + str(exc))
+
+            fixture["football_evidence"] = histories
+            try:
+                refreshed_status, refresh_proof = work_sweep.sofascore_fixture_refresh(
+                    evidence, fixture
+                )
+                fixture.update(
+                    fixture_status=refreshed_status,
+                    observed_at_utc=refresh_proof["observed_at_utc"],
+                    source_url=refresh_proof["source_url"],
+                )
+                # Exact current-event detail is a fixture-specific public channel.
+                # It can satisfy discovery researchability without inventing facts.
+                if not target.get("researchability_source_url"):
+                    fixture["researchability_status"] = "VERIFIED"
+                    fixture["researchability_proof"] = {
+                        "match_id": mid,
+                        "source_url": refresh_proof["source_url"],
+                        "checked_at_utc": refresh_proof["observed_at_utc"],
+                        "current_channels_checked": True,
+                    }
+            except Exception as exc:
+                fixture["fixture_status"] = "UNVERIFIED_STATUS_REFRESH"
+                state["pending_reasons"].append("STATUS_REFRESH: " + str(exc))
+
+            if state["pending_reasons"]:
+                state["research_disposition"] = "EVIDENCE_LIMITED"
+            elif fixture.get("fixture_status") != "PREMATCH_CONFIRMED":
+                state["research_disposition"] = "STATUS_EXCLUDED"
+                state["reason"] = "CURRENT_PROVIDER_STATUS_NOT_PREMATCH"
+            else:
+                state["research_disposition"] = "COMPLETE"
             states[mid] = state
             continue
 
