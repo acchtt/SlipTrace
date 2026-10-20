@@ -603,10 +603,18 @@ def footballinfo_fixture_detail(evidence, match):
     if not meta_match:
         raise ValueError("FootballInfo fixture detail kickoff missing: " + mid)
     meta = _footballinfo_text(meta_match.group(1))
+    meta_parts = re.search(
+        r"(\d{1,2}\s+[A-Za-z]{3}\s+\d{4}).*?(\d{1,2}:\d{2})",
+        meta
+    )
+    if not meta_parts:
+        raise ValueError("FootballInfo fixture detail kickoff invalid: " + mid + ": " + meta)
     try:
-        kickoff = datetime.strptime(meta, "%d %b %Y %H:%M").replace(tzinfo=timezone.utc)
+        kickoff = datetime.strptime(
+            meta_parts.group(1) + " " + meta_parts.group(2), "%d %b %Y %H:%M"
+        ).replace(tzinfo=timezone.utc)
     except ValueError as exc:
-        raise ValueError("FootballInfo fixture detail kickoff invalid: " + mid) from exc
+        raise ValueError("FootballInfo fixture detail kickoff invalid: " + mid + ": " + meta) from exc
     team_matches = re.findall(
         r'href="/Teams/Details/(\d+)"[^>]*>.*?<div class="name">(.*?)</div>',
         text, re.I | re.S
