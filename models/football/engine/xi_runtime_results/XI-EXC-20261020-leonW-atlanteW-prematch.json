@@ -1,0 +1,11 @@
+{
+  "error": "invalid thesis_state='DEGRADED'; allowed: BROKEN, PRESERVED, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "a4e5e470322332422c275d3c423a4c0c343180f9f98e57a6739df0b7e2a40220",
+  "ok": false,
+  "request_id": "XI-EXC-20261020-leonW-atlanteW-prematch",
+  "runtime_commit": "278414fb1187b79ed999b893aecb6c2167313b55",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
