@@ -2,12 +2,12 @@
   "schema_version": "football-v4-sweep-research-checkpoint-v2",
   "status": "RESEARCH_COMPLETE",
   "run_id": "V4-20261020-1841-20261021-0300",
-  "original_source_sha256": "9770b84c83067df892a24c063efccbf33826b77327849bc9cd0c4d4a3e07b413",
-  "source_file_sha256": "ee23693e265adfc7ad95bcb32b50313878eedead2ada695e2bbe6017b1b8c3ad",
-  "native_receipt_integrity_sha256": "4c32c236af1c7a2efcb2e3d41caebe05a74a96bf5f690621f80365bba965e3ac",
+  "original_source_sha256": "daf342badf7a183fbce6a7a4a79e70fd072d21e3861c8ad5adf8589d54d25406",
+  "source_file_sha256": "b44539a2b8f87cc2c8a21926c9f71ee56937a43c210484c6e0d2ddbeb25b2686",
+  "native_receipt_integrity_sha256": "fbb958575123064bfe45e5eb864000dcd0d9a9caf3810c20db2772d9dd32cf8c",
   "target_states": {
-    "1602512": {
-      "match_id": "1602512",
+    "1635661": {
+      "match_id": "1635661",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -15,8 +15,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637344": {
-      "match_id": "1637344",
+    "1635719": {
+      "match_id": "1635719",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -24,8 +24,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637345": {
-      "match_id": "1637345",
+    "1622800": {
+      "match_id": "1622800",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -33,8 +33,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637350": {
-      "match_id": "1637350",
+    "1622801": {
+      "match_id": "1622801",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -42,8 +42,14 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637343": {
-      "match_id": "1637343",
+    "1497724": {
+      "match_id": "1497724",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1604032": {
+      "match_id": "1604032",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -51,8 +57,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637348": {
-      "match_id": "1637348",
+    "1604030": {
+      "match_id": "1604030",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -60,8 +66,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637349": {
-      "match_id": "1637349",
+    "1604031": {
+      "match_id": "1604031",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -69,8 +75,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637351": {
-      "match_id": "1637351",
+    "1603054": {
+      "match_id": "1603054",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -78,8 +84,8 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637346": {
-      "match_id": "1637346",
+    "1603061": {
+      "match_id": "1603061",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -87,8 +93,179 @@
       ],
       "research_disposition": "EVIDENCE_LIMITED"
     },
-    "1637347": {
-      "match_id": "1637347",
+    "1603055": {
+      "match_id": "1603055",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1603059": {
+      "match_id": "1603059",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563150": {
+      "match_id": "1563150",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564367": {
+      "match_id": "1564367",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564368": {
+      "match_id": "1564368",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564369": {
+      "match_id": "1564369",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564370": {
+      "match_id": "1564370",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564371": {
+      "match_id": "1564371",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564372": {
+      "match_id": "1564372",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564373": {
+      "match_id": "1564373",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564374": {
+      "match_id": "1564374",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564375": {
+      "match_id": "1564375",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564376": {
+      "match_id": "1564376",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1564377": {
+      "match_id": "1564377",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563815": {
+      "match_id": "1563815",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563816": {
+      "match_id": "1563816",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563817": {
+      "match_id": "1563817",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563818": {
+      "match_id": "1563818",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563819": {
+      "match_id": "1563819",
+      "attempted": true,
+      "pending_reasons": [
+        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"
+      ],
+      "research_disposition": "EVIDENCE_LIMITED"
+    },
+    "1563820": {
+      "match_id": "1563820",
       "attempted": true,
       "pending_reasons": [
         "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
@@ -98,18 +275,39 @@
     }
   },
   "eligible_match_ids": [],
-  "watch_match_ids": [],
+  "watch_match_ids": [
+    "1497724"
+  ],
   "evidence_limited_match_ids": [
-    "1602512",
-    "1637344",
-    "1637345",
-    "1637350",
-    "1637343",
-    "1637348",
-    "1637349",
-    "1637351",
-    "1637346",
-    "1637347"
+    "1635661",
+    "1635719",
+    "1622800",
+    "1622801",
+    "1604032",
+    "1604030",
+    "1604031",
+    "1603054",
+    "1603061",
+    "1603055",
+    "1603059",
+    "1563150",
+    "1564367",
+    "1564368",
+    "1564369",
+    "1564370",
+    "1564371",
+    "1564372",
+    "1564373",
+    "1564374",
+    "1564375",
+    "1564376",
+    "1564377",
+    "1563815",
+    "1563816",
+    "1563817",
+    "1563818",
+    "1563819",
+    "1563820"
   ],
   "status_excluded_match_ids": [],
   "resume_queue": [],

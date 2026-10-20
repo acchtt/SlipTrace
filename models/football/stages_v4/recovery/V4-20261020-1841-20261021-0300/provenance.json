@@ -1,1070 +1,956 @@
 [
   {
     "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-    "observed_at_utc": "2026-10-20T11:43:29.937333+00:00",
+    "observed_at_utc": "2026-10-20T11:49:09.265739+00:00",
     "file": "raw/fi-date-2026-10-20.html",
-    "sha256": "eb854a76f2c053094d02aca0fc3fb61a791b5c979ca1bfbd3de9bbc625acfbcb"
+    "sha256": "8f20c20e78976b63467272404c6c79c73302c9838adb97d598bcf1b5440111a4"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1632223",
-    "observed_at_utc": "2026-10-20T11:43:30.354389+00:00",
+    "observed_at_utc": "2026-10-20T11:49:10.052255+00:00",
     "file": "raw/fi-event-1632223.html",
-    "sha256": "aea7965f7e847cf9d2cb9f6129796af4db24f8daccbcb8ddcb51475dc08d19b0"
+    "sha256": "f6e035e2bffe2112fd8a884e81fa0cf181be1be7e413b1599446567a3d8349f3"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637344",
-    "observed_at_utc": "2026-10-20T11:43:30.846136+00:00",
+    "observed_at_utc": "2026-10-20T11:49:10.816991+00:00",
     "file": "raw/fi-event-1637344.html",
-    "sha256": "4bf4cd5e5ecddebb4d2eb0f1563f6c0ae6011bcc9b07bcb45c94de5e4107aaeb"
+    "sha256": "fa1aa0fc90b324b2aa349961ceb47572e1afa5347bf578b23e252aa8b404286d"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637345",
-    "observed_at_utc": "2026-10-20T11:43:31.268240+00:00",
+    "observed_at_utc": "2026-10-20T11:49:11.579008+00:00",
     "file": "raw/fi-event-1637345.html",
-    "sha256": "9960230dc8276f02c5392a324e6a32bca6d46fdd7162a15c481de086fb74ddce"
+    "sha256": "4723bf1c46187512448e2722004f31bc4bf3c957a342d624ef1fa3f7c751df85"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637350",
-    "observed_at_utc": "2026-10-20T11:43:31.694990+00:00",
+    "observed_at_utc": "2026-10-20T11:49:12.204634+00:00",
     "file": "raw/fi-event-1637350.html",
-    "sha256": "a67560e63fed767bc854c82b51054217581a5117addf968da872d94478dc3de0"
+    "sha256": "f307114518cd7bb5bd252c3fc8176f8ee5e934f31bf170e8ca2758b42e7555a4"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1493187",
-    "observed_at_utc": "2026-10-20T11:43:32.278162+00:00",
+    "observed_at_utc": "2026-10-20T11:49:12.973302+00:00",
     "file": "raw/fi-event-1493187.html",
-    "sha256": "b0399e9e8ab81034d9706cb21ed440d132b5845cdf3008497ba070e234a32c95"
+    "sha256": "61eff416ed02dc6dd79f0ed72595662786db1dfe623d6f7d89b86b73e53ab5b1"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640231",
-    "observed_at_utc": "2026-10-20T11:43:32.726669+00:00",
+    "observed_at_utc": "2026-10-20T11:49:13.570229+00:00",
     "file": "raw/fi-event-1640231.html",
-    "sha256": "2d312a0d40fb157b760739c0f28c57703be4a263b2b18a3e79fba6f8e98dd9f0"
+    "sha256": "ed5184fb3134cd41380219e10dd7af6fb1ebe6c0a3b9af8c94c60c7749522296"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640232",
-    "observed_at_utc": "2026-10-20T11:43:33.176982+00:00",
+    "observed_at_utc": "2026-10-20T11:49:14.171975+00:00",
     "file": "raw/fi-event-1640232.html",
-    "sha256": "e0d59c52ac2ab32ac33775d361179b6c19ed3217bae68e0714150e5819820388"
+    "sha256": "cb3106a3e8520e7b3c2f6694b50a590014e75cd322137245fb8dd98694a657fa"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1646425",
-    "observed_at_utc": "2026-10-20T11:43:33.540823+00:00",
+    "observed_at_utc": "2026-10-20T11:49:14.907575+00:00",
     "file": "raw/fi-event-1646425.html",
-    "sha256": "a1607dda7eb7dddb78987878956bb7b306605f7c66821385124def905444663e"
+    "sha256": "b8d674ce5376973af83b5bb3acafaaabc7091f8d8c84c6dd4908f046cc4b7c4b"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1549827",
-    "observed_at_utc": "2026-10-20T11:43:34.080379+00:00",
+    "observed_at_utc": "2026-10-20T11:49:15.645293+00:00",
     "file": "raw/fi-event-1549827.html",
-    "sha256": "66502f20734101b7eeed49db825bf2fa026b895216f89cd31c5dee771b45eec9"
+    "sha256": "b827362b7f5616f81fa3b26245e07946e9c6be5b49e892f747b595b28a1a1b2e"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1601467",
-    "observed_at_utc": "2026-10-20T11:43:34.514465+00:00",
+    "observed_at_utc": "2026-10-20T11:49:16.280790+00:00",
     "file": "raw/fi-event-1601467.html",
-    "sha256": "3f791e615a89c3f4da15a4a7d2638dcb450391a1954178ce5dba31aefa2f9946"
+    "sha256": "117f440fcbaee2a43670be47e333c4dfd189c153c0040a638a98c642ffcc2d52"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1551705",
-    "observed_at_utc": "2026-10-20T11:43:35.071881+00:00",
+    "observed_at_utc": "2026-10-20T11:49:17.162372+00:00",
     "file": "raw/fi-event-1551705.html",
-    "sha256": "286d164627f0d029e0be7bc5a6e1d6b3f97ce1dfcbf91c39ea01e359f4e73c51"
+    "sha256": "1723783a777eceaf7fc0edf4664cfce42b0ccdb35ebde87ebb52340c6e1e91a0"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1598817",
-    "observed_at_utc": "2026-10-20T11:43:35.585404+00:00",
+    "observed_at_utc": "2026-10-20T11:49:18.076670+00:00",
     "file": "raw/fi-event-1598817.html",
-    "sha256": "f14c2d5190a2d2db4dfb8f58258cafbd7befcd3333fdd569c7ff9f406b44ef85"
+    "sha256": "ddfc347bbbd0370b18ee43d6b8f25bd01639f9bbff7ce63f80a47833f2988371"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1559673",
-    "observed_at_utc": "2026-10-20T11:43:36.039970+00:00",
+    "observed_at_utc": "2026-10-20T11:49:18.813236+00:00",
     "file": "raw/fi-event-1559673.html",
-    "sha256": "79173329485b1f7d20f6913713930838629799408597c68dba7daff6a5dc9542"
+    "sha256": "a1a24d3da05099debf86178b4343c9a9b8d2fd78cf318b8532fc1c1f5abc85e9"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1622799",
-    "observed_at_utc": "2026-10-20T11:43:36.412107+00:00",
+    "observed_at_utc": "2026-10-20T11:49:19.544314+00:00",
     "file": "raw/fi-event-1622799.html",
-    "sha256": "39efa01606f809e0929edd119a96ef126966160112f633929292fd8e1b4d13dc"
+    "sha256": "1eddb29cb1ddc99207071b2ed2b37c9314d440e2bebd457cf5aa3dfa0e8c273c"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640718",
-    "observed_at_utc": "2026-10-20T11:43:36.920990+00:00",
+    "observed_at_utc": "2026-10-20T11:49:20.170728+00:00",
     "file": "raw/fi-event-1640718.html",
-    "sha256": "7bb58eb02e1ed72f55178cbd81ded8a4c035c04d196f38a2eaa255871e6e88d2"
+    "sha256": "7505a3942493696c66ab1cc564dfed437df2eb07cf17f942b1dca175c9abdce9"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1646365",
-    "observed_at_utc": "2026-10-20T11:43:37.373471+00:00",
+    "observed_at_utc": "2026-10-20T11:49:20.906309+00:00",
     "file": "raw/fi-event-1646365.html",
-    "sha256": "1e7edd557ed3f1c1b915f35313b74521c3ec53dbd4536698f539dfc088334b9b"
+    "sha256": "651ce614f6a0a191e85aba6e7769683fd5ecc070823313f5022e93b3df0beb92"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1603397",
-    "observed_at_utc": "2026-10-20T11:43:37.846194+00:00",
+    "observed_at_utc": "2026-10-20T11:49:21.499711+00:00",
     "file": "raw/fi-event-1603397.html",
-    "sha256": "b3c83edf023902c9f1edb510062dc1b56587eecc34b5c19068e7351742259e53"
+    "sha256": "5bcef551fb372c2a2c08e1616c2af5330f387c3be18795fd07cd6866eb3378cd"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1603398",
-    "observed_at_utc": "2026-10-20T11:43:38.315346+00:00",
+    "observed_at_utc": "2026-10-20T11:49:22.241432+00:00",
     "file": "raw/fi-event-1603398.html",
-    "sha256": "3c33c2e6a7cb705aa61ef89c4d79eda5084ccfedc4c7a13960aa501522f9fa80"
+    "sha256": "7a96fb3f7e70443576fc14cd9f2ae125953c28b63369c39be6d66f56128de145"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1636004",
-    "observed_at_utc": "2026-10-20T11:43:38.701017+00:00",
+    "observed_at_utc": "2026-10-20T11:49:22.834130+00:00",
     "file": "raw/fi-event-1636004.html",
-    "sha256": "59966266a8b37b87c0db67b5674c34932a3aa91360c9aef664a5e189d495d5c8"
+    "sha256": "da29dc8d7be7947fbd91c2ded91fcfd81da968c06cf4252971296a84251ca3ea"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1583787",
-    "observed_at_utc": "2026-10-20T11:43:39.149624+00:00",
+    "observed_at_utc": "2026-10-20T11:49:23.712767+00:00",
     "file": "raw/fi-event-1583787.html",
-    "sha256": "bbcea14565e022ae831a98885957c9b00a95adacea3b6aa74f9c275fc5852546"
+    "sha256": "58464091cfa7914b767ee3c6b038622b5306332a2f59d4f58e4b1efdbd4a82f7"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645177",
-    "observed_at_utc": "2026-10-20T11:43:39.428960+00:00",
+    "observed_at_utc": "2026-10-20T11:49:24.163223+00:00",
     "file": "raw/fi-event-1645177.html",
-    "sha256": "b5fd116dcc214164ec7bdbf047eedc8fa97ee7fd7c033a52a25e0328eb1234ce"
+    "sha256": "e22ebf59c5bf4177649a2dabdb1eaba588e24adbab31b4980b550ae506c5f99f"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645187",
-    "observed_at_utc": "2026-10-20T11:43:39.792096+00:00",
+    "observed_at_utc": "2026-10-20T11:49:24.610901+00:00",
     "file": "raw/fi-event-1645187.html",
-    "sha256": "48b8b4767788652b3728348e0f11599aca084f16e54800142af5abe0607ddd9b"
+    "sha256": "c82d3b0c43ceea912bbad0d3e75e20c5351953300bf9f9a4b83ff84c368125e8"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645191",
-    "observed_at_utc": "2026-10-20T11:43:40.155375+00:00",
+    "observed_at_utc": "2026-10-20T11:49:25.215576+00:00",
     "file": "raw/fi-event-1645191.html",
-    "sha256": "e72e5f66e8ebc7e201131bee9f7754fb9f148f870d8107ef8db9312bcad980e9"
+    "sha256": "0300358be08dd6ef3ee0168c84ca15d8037efad466b0d66b2e1c746e11bfb866"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645195",
-    "observed_at_utc": "2026-10-20T11:43:40.604338+00:00",
+    "observed_at_utc": "2026-10-20T11:49:25.808395+00:00",
     "file": "raw/fi-event-1645195.html",
-    "sha256": "7e857375c0966cf59d5feb9658bf3357629e4c307a31d3b08439adb66a3902d3"
+    "sha256": "27a88cb23312612dea98d0f3d92a3b802645b11e2e64e1e6cf44864773a1e170"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1531115",
-    "observed_at_utc": "2026-10-20T11:43:41.093195+00:00",
+    "observed_at_utc": "2026-10-20T11:49:26.426943+00:00",
     "file": "raw/fi-event-1531115.html",
-    "sha256": "f1d7e992cb8bdd8851e60fdb6b35703244bd0dff084dcdb326f82254f06be7f6"
+    "sha256": "218453817f918eef1c6379133f072d02d73fbca613006fea5acf988659cfa846"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-21",
-    "observed_at_utc": "2026-10-20T11:43:41.784843+00:00",
+    "observed_at_utc": "2026-10-20T11:49:27.597920+00:00",
     "file": "raw/fi-date-2026-10-21.html",
-    "sha256": "c4d8c7eded8fd7334af0bebac2603064e0b78c9a89fb845832739a75d680c34e"
+    "sha256": "fd7b83875ac5ead534db5f2e96da1916da89b94a5b6870a21f78d9481f4193ed"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645169",
-    "observed_at_utc": "2026-10-20T11:43:42.195887+00:00",
+    "observed_at_utc": "2026-10-20T11:49:28.242057+00:00",
     "file": "raw/fi-event-1645169.html",
-    "sha256": "0800f88d2a4343113cb7575ae48bd805c7eb6c50aa62c8d6d295db267d9f3d45"
+    "sha256": "38bd6af2f747fa8ee7e2053dadc0cf18b8066dc98bfb2ed6b0d7633b195d143f"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645172",
-    "observed_at_utc": "2026-10-20T11:43:42.533060+00:00",
+    "observed_at_utc": "2026-10-20T11:49:28.863825+00:00",
     "file": "raw/fi-event-1645172.html",
-    "sha256": "bfb04a623ea7806e71d41dfc3416ee1cce6028579ff9e176c3df3b44ec5b853f"
+    "sha256": "0976183d13335a343033a693a2e9f5a257d90a256eef42f7a0a642b0db657edc"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645188",
-    "observed_at_utc": "2026-10-20T11:43:42.954837+00:00",
+    "observed_at_utc": "2026-10-20T11:49:29.349712+00:00",
     "file": "raw/fi-event-1645188.html",
-    "sha256": "1f6af1e176ea82089b7894c38b42d926820e2a1f613fe726f01eb7616413eb9c"
+    "sha256": "bf5226b1ae8b4a6d6ea4781b0dae6d8495f07342cafb1f497316fd3e889bca9e"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645192",
-    "observed_at_utc": "2026-10-20T11:43:43.460231+00:00",
+    "observed_at_utc": "2026-10-20T11:49:29.968896+00:00",
     "file": "raw/fi-event-1645192.html",
-    "sha256": "da1328d4825c4a9becaef610e37a452b829a9c9e815c6a2d26fb6420c903ac2f"
+    "sha256": "5f611c242fec004b612ba91f87492ae1dfb7236334fca3798169885aab3a2e39"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures?date=2026-10-20",
-    "observed_at_utc": "2026-10-20T11:43:44.209640+00:00",
+    "observed_at_utc": "2026-10-20T11:49:31.280811+00:00",
     "file": "raw/fi-terminal-2026-10-20.html",
-    "sha256": "823f664613ace5104f269bdf52e5a3a5a9944aa513bca685080a4f78387be35d"
+    "sha256": "c42c018a02908a4bcb29008dea05db89c233f761e3797f09221167be68cb6c88"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1632223",
-    "observed_at_utc": "2026-10-20T11:43:44.602163+00:00",
+    "observed_at_utc": "2026-10-20T11:49:31.912519+00:00",
     "file": "raw/fi-event-1632223.html",
-    "sha256": "6f36388e620dac3d5fadc9cf4d1887e46743443f01f49763f1a402625c10def1"
+    "sha256": "93737d571dd0d6eb7a57daea1b6dd56f3a573baea50c0907e9ab56ead4f170a4"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637344",
-    "observed_at_utc": "2026-10-20T11:43:45.085335+00:00",
+    "observed_at_utc": "2026-10-20T11:49:32.539406+00:00",
     "file": "raw/fi-event-1637344.html",
-    "sha256": "e7ce23ea0d1b36c4b6da96c517a725bc9b96a8d0f5b2457039ca8cf890ef68aa"
+    "sha256": "37c8f5cca9e66f515c11c8cfc718cc974481ebab816b8d13ec8b0c32bf0dbf70"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637345",
-    "observed_at_utc": "2026-10-20T11:43:45.532468+00:00",
+    "observed_at_utc": "2026-10-20T11:49:33.163964+00:00",
     "file": "raw/fi-event-1637345.html",
-    "sha256": "844d5c80ffebf7bdeb07da0f6b164748e6c8ee09fe1c5dda2444eb1fa909954a"
+    "sha256": "a617bb411c7cf5bf56263e25366015973ce7e96691a4856c6c4d0141d15041d0"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1637350",
-    "observed_at_utc": "2026-10-20T11:43:45.812107+00:00",
+    "observed_at_utc": "2026-10-20T11:49:33.645388+00:00",
     "file": "raw/fi-event-1637350.html",
-    "sha256": "a03fdc10bbab58f996e42b579593b77678cedb3d4a7a385e108ffde72889b568"
+    "sha256": "f41634939e327865ce316b5bb4f7b95c8eb73022cd73fb35a6dcd9be90e1428a"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1493187",
-    "observed_at_utc": "2026-10-20T11:43:46.352282+00:00",
+    "observed_at_utc": "2026-10-20T11:49:34.412809+00:00",
     "file": "raw/fi-event-1493187.html",
-    "sha256": "5e9ea765503ec6c1aa58ec20be7f0d1bc44d46d47b4adb4a09214bb3932a5149"
+    "sha256": "5defc97550915b4040482449448f08ce315c979c1c1b46f19514fe3186e81015"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640231",
-    "observed_at_utc": "2026-10-20T11:43:46.806971+00:00",
+    "observed_at_utc": "2026-10-20T11:49:35.010465+00:00",
     "file": "raw/fi-event-1640231.html",
-    "sha256": "4259e07c763c65e5b0e8dfadebd917ef9d02c8a966bb3696aa955d7d292b1eff"
+    "sha256": "208c42266d85a424b7ee2a8b96f4a26298b65bfb56a46f620441766b0abb6e7e"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640232",
-    "observed_at_utc": "2026-10-20T11:43:47.260185+00:00",
+    "observed_at_utc": "2026-10-20T11:49:35.606443+00:00",
     "file": "raw/fi-event-1640232.html",
-    "sha256": "ade04367c113ba61e3a3a38e0943cea9a45c18031cc405c02c5a15d2fee83de7"
+    "sha256": "0c69f04a0c5642b073a62dd55f4c4e6000a2ae1ff044ebd17266cdc746ad689a"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1646425",
-    "observed_at_utc": "2026-10-20T11:43:47.647720+00:00",
+    "observed_at_utc": "2026-10-20T11:49:36.207900+00:00",
     "file": "raw/fi-event-1646425.html",
-    "sha256": "3ac0f3cd7e7a21b5f7e3c265615580d20d0aac65eb818318ae8ff94ce2746965"
+    "sha256": "98d5f811d68a5aabc34a04c60a865bdc02f10ae2f0a6813ef23eb0e00f49e994"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1549827",
-    "observed_at_utc": "2026-10-20T11:43:48.351282+00:00",
+    "observed_at_utc": "2026-10-20T11:49:37.261014+00:00",
     "file": "raw/fi-event-1549827.html",
-    "sha256": "8b1a0076fa5086f53beddbdece08e77f7351cf6c7db7a2c4195e76e89404954e"
+    "sha256": "2ea69b17cab0ac3437f2f8fe52dce2c7ba23e4c7ced80683e17859ce0143d715"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1601467",
-    "observed_at_utc": "2026-10-20T11:43:48.714770+00:00",
+    "observed_at_utc": "2026-10-20T11:49:37.893518+00:00",
     "file": "raw/fi-event-1601467.html",
-    "sha256": "520477c6b9e6e260cbcb4d104185c0dd6f4dd25b6e4de72126898fca9c13d9b2"
+    "sha256": "4e0b3b0107a958042c5c70192c1212f5ec51e76d1c8005aee9b48f0a3fd0ba0f"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1551705",
-    "observed_at_utc": "2026-10-20T11:43:49.248808+00:00",
+    "observed_at_utc": "2026-10-20T11:49:38.641765+00:00",
     "file": "raw/fi-event-1551705.html",
-    "sha256": "86ab66a8cb49b772e49d5b3e334e03492d83ef015f51915978a31e5767470041"
+    "sha256": "76c32a1a06ba02a27fa155aa3db6863477a2af01c11c9285a6050f5a74ff8a6d"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1598817",
-    "observed_at_utc": "2026-10-20T11:43:49.690644+00:00",
+    "observed_at_utc": "2026-10-20T11:49:39.416990+00:00",
     "file": "raw/fi-event-1598817.html",
-    "sha256": "d6c2e82f366cdc5db94da93cd550c1b9a3e3b6e9b941e83ebb1b7581e70e9769"
+    "sha256": "4f5a01c8e8ea1a37dc09b43fb381c84baf235fe85a1b31b1231543d53f761d18"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1559673",
-    "observed_at_utc": "2026-10-20T11:43:50.159155+00:00",
+    "observed_at_utc": "2026-10-20T11:49:40.152440+00:00",
     "file": "raw/fi-event-1559673.html",
-    "sha256": "4eda026530f5bacbc00ac5969df40d044720dc05d1a0872e464d6970b9792cb3"
+    "sha256": "5e879b8a3285491619ddba3f206fa41982341340663c44d76fc682f7cb766140"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1622799",
-    "observed_at_utc": "2026-10-20T11:43:50.525744+00:00",
+    "observed_at_utc": "2026-10-20T11:49:40.746056+00:00",
     "file": "raw/fi-event-1622799.html",
-    "sha256": "eac8317e3ad4b6543e4bcb7435dcb3c68ae198e5ed6bc36e8538190415ef1a92"
+    "sha256": "d69bdcf1d9e878fa2e7e2f72ee8cb3ff2aaf35f74420c1de20921342bcd81c66"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1640718",
-    "observed_at_utc": "2026-10-20T11:43:50.891376+00:00",
+    "observed_at_utc": "2026-10-20T11:49:41.388531+00:00",
     "file": "raw/fi-event-1640718.html",
-    "sha256": "fb59abbe84492fadf6926612eae0f13c861f46fd88a7e2c5a2ebceabf5188593"
+    "sha256": "bc2b065bb260e5c20f311b388965ecae0c29986aee40e761014189bce22b3e70"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1646365",
-    "observed_at_utc": "2026-10-20T11:43:51.254558+00:00",
+    "observed_at_utc": "2026-10-20T11:49:41.976509+00:00",
     "file": "raw/fi-event-1646365.html",
-    "sha256": "0f6398697c592fb1a582040b4aaddf75b06775fa511ac4c19d1b91e0c0654d7a"
+    "sha256": "7dfe006aa9ea6a6bc2ff99e2cdc20d80703dad49b2d80f6992885bf5e1e80364"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1603397",
-    "observed_at_utc": "2026-10-20T11:43:51.707084+00:00",
+    "observed_at_utc": "2026-10-20T11:49:42.567139+00:00",
     "file": "raw/fi-event-1603397.html",
-    "sha256": "d89000648f96c9aef3a0487bfa10a604764da1c05fc347fbbec36a6d3e80003c"
+    "sha256": "8cf0bf8e2d11bdedca6374355f831915a03bae405cf2f5779cfb9e70bef5d24c"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1603398",
-    "observed_at_utc": "2026-10-20T11:43:52.095099+00:00",
+    "observed_at_utc": "2026-10-20T11:49:43.163454+00:00",
     "file": "raw/fi-event-1603398.html",
-    "sha256": "3efcb91c4622e030799181cc4eb94a2dbf82eb55852bf2edf22d2fd1290fb1f0"
+    "sha256": "f16ce52c00f4118910b8d6cf9c9c902c115fff573488e7af707632b8363d7e73"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1636004",
-    "observed_at_utc": "2026-10-20T11:43:52.464252+00:00",
+    "observed_at_utc": "2026-10-20T11:49:43.759457+00:00",
     "file": "raw/fi-event-1636004.html",
-    "sha256": "feb33f0a4af547a80b9f739c22ca63a03ea10fa349602a657e3f0a6ecb7ab17f"
+    "sha256": "2e03bb753e5251e19d6a5440ddba74c3f17f5c469d4541a0bbc0f53ce00835ca"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1583787",
-    "observed_at_utc": "2026-10-20T11:43:53.017554+00:00",
+    "observed_at_utc": "2026-10-20T11:49:44.494971+00:00",
     "file": "raw/fi-event-1583787.html",
-    "sha256": "698519945f742b16629973c401fb7166333ddba520959a33161f68e0533dc068"
+    "sha256": "034ec50447c0e4584ffacc7a48bc31eb8bb5c00771b4b46d30e7ff26cdac9ac3"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645177",
-    "observed_at_utc": "2026-10-20T11:43:53.292803+00:00",
+    "observed_at_utc": "2026-10-20T11:49:44.943889+00:00",
     "file": "raw/fi-event-1645177.html",
-    "sha256": "ca4b2e98a36ec69a700f819c9e39f56978d417d792687a85af3da1f7d2036671"
+    "sha256": "ecbc91bc955550ed83b06a8a02a0cc443b2c66e20e6994d4331858093e681815"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645187",
-    "observed_at_utc": "2026-10-20T11:43:53.570127+00:00",
+    "observed_at_utc": "2026-10-20T11:49:45.411674+00:00",
     "file": "raw/fi-event-1645187.html",
-    "sha256": "c9ab543b5fc885492b4bedb11cf62c4c7c90d3282ccd4096f749c6da17d5cacb"
+    "sha256": "4e54ef193910e6041255317ffd91f860a8cd2a0fdb30752f6f77c26464910df0"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645191",
-    "observed_at_utc": "2026-10-20T11:43:53.964095+00:00",
+    "observed_at_utc": "2026-10-20T11:49:46.004685+00:00",
     "file": "raw/fi-event-1645191.html",
-    "sha256": "564ed5cff5efa7d1e02cf96b2d44c37aad87b321f101240aa40004957e2806e7"
+    "sha256": "6fd94f122d425028ae28faab214456809fcaec370230e2d56dcea5af8ad05da2"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1645195",
-    "observed_at_utc": "2026-10-20T11:43:54.339654+00:00",
+    "observed_at_utc": "2026-10-20T11:49:46.597657+00:00",
     "file": "raw/fi-event-1645195.html",
-    "sha256": "2c5b74eb2c73492f8582f6263be903dfdc3020e248139f45732574fb09eb7b0f"
+    "sha256": "b2c22c4cd388284744b0a56e745395cbf9da2f4f3aaa11b4720ba9a89d838f09"
   },
   {
     "source_url": "https://www.footballinfo.net/Fixtures/Details/1531115",
-    "observed_at_utc": "2026-10-20T11:43:54.699557+00:00",
+    "observed_at_utc": "2026-10-20T11:49:47.217907+00:00",
     "file": "raw/fi-event-1531115.html",
-    "sha256": "61d702043f03e86b9d09c42f1600d1c4a00dbad7908a6201f6f6c562a6e5559d"
+    "sha256": "f13571925a30d5dd5df6e0b5ba4160ad7224b056e76bfb54eb02725e4a43e7de"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/2590",
-    "observed_at_utc": "2026-10-20T11:43:55.611129+00:00",
-    "file": "raw/fi-team-2590.html",
-    "sha256": "8a3ab22ce2220fd620c771fca4e293611b2674d0970a7e8e0f717ef3a85e715b"
+    "source_url": "https://www.footballinfo.net/Teams/Details/611",
+    "observed_at_utc": "2026-10-20T11:49:48.326168+00:00",
+    "file": "raw/fi-team-611.html",
+    "sha256": "83bedd0428c8384e93f244879e4244c701d1e8d95c6c812cc547bb99f83eac06"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/2586",
-    "observed_at_utc": "2026-10-20T11:43:56.170801+00:00",
-    "file": "raw/fi-team-2586.html",
-    "sha256": "2dcdc2fd80f21f1c0ef490ec50e4e78eb209322a2d9a4e2d84b5341673c2d465"
+    "source_url": "https://www.footballinfo.net/Teams/Details/560",
+    "observed_at_utc": "2026-10-20T11:49:49.231014+00:00",
+    "file": "raw/fi-team-560.html",
+    "sha256": "3ab6f0dc8e8df929001020259435b5e896e86563429c8b1bcd71ca6307d2819d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1602512",
-    "observed_at_utc": "2026-10-20T11:43:56.555067+00:00",
-    "file": "raw/fi-event-1602512.html",
-    "sha256": "f8ecda1a4def1b136ace6b3d14176c823b04e8aa5edee79686735ced6c3f9da4"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1635661",
+    "observed_at_utc": "2026-10-20T11:49:49.823862+00:00",
+    "file": "raw/fi-event-1635661.html",
+    "sha256": "6687907b5a75649b1fe4c29852d8ad72dbf8decc2a2f539db0ba6f2423d45116"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7922",
-    "observed_at_utc": "2026-10-20T11:43:56.956769+00:00",
-    "file": "raw/fi-team-7922.html",
-    "sha256": "d81b7884b9aa049d41373cf7a9450115b5660b5e1459c9a7357173e5790567e6"
+    "source_url": "https://www.footballinfo.net/Teams/Details/13976",
+    "observed_at_utc": "2026-10-20T11:49:50.605172+00:00",
+    "file": "raw/fi-team-13976.html",
+    "sha256": "0ebd7d289986de5f5359abc10028282d82ce8fe73b41cb597e66ad1e2df0e45b"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7965",
-    "observed_at_utc": "2026-10-20T11:43:57.337627+00:00",
-    "file": "raw/fi-team-7965.html",
-    "sha256": "060c0e85bb7d4863847a9e74ac8ff2318d349ea617e18856c88f4ca243b627d9"
+    "source_url": "https://www.footballinfo.net/Teams/Details/165",
+    "observed_at_utc": "2026-10-20T11:49:52.239867+00:00",
+    "file": "raw/fi-team-165.html",
+    "sha256": "47a6a62c429825e0a80c3c249f6c379892f68a941fbb94d3e89c037f6a782657"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508348",
-    "observed_at_utc": "2026-10-20T11:43:57.618645+00:00",
-    "file": "raw/fi-event-1508348.html",
-    "sha256": "6e684d83d49696b4133c5dc624d287564817745ea383fb1cc2035063472142eb"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1635719",
+    "observed_at_utc": "2026-10-20T11:49:52.697222+00:00",
+    "file": "raw/fi-event-1635719.html",
+    "sha256": "d152c407859b815d0ad8af134f053d642095d6112e513eb3d587c64fb203a913"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508341",
-    "observed_at_utc": "2026-10-20T11:43:57.994640+00:00",
-    "file": "raw/fi-event-1508341.html",
-    "sha256": "234f6e8a6df377186f094883e402f1d0c0dcdc8ba6c1fa98b65e4d36ad66963e"
+    "source_url": "https://www.footballinfo.net/Teams/Details/17902",
+    "observed_at_utc": "2026-10-20T11:49:53.310559+00:00",
+    "file": "raw/fi-team-17902.html",
+    "sha256": "817c4d5221827f2a031a962fde50021c072ea0102028d46ea35b13d400eadd46"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508337",
-    "observed_at_utc": "2026-10-20T11:43:58.372363+00:00",
-    "file": "raw/fi-event-1508337.html",
-    "sha256": "17eb711cf4b724103cd7a3a27c862bf239374d03d94aaf71b2ae4239564db8a4"
+    "source_url": "https://www.footballinfo.net/Teams/Details/11132",
+    "observed_at_utc": "2026-10-20T11:49:53.922645+00:00",
+    "file": "raw/fi-team-11132.html",
+    "sha256": "cb4d2006f7054b4e677ae8953fed9a83f141c56585643b426d95bb86b01bf6db"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508334",
-    "observed_at_utc": "2026-10-20T11:43:58.734933+00:00",
-    "file": "raw/fi-event-1508334.html",
-    "sha256": "c5f75bd309ccdc36f1ca055c1056a90e0f1248cefa4863704e9658ddb5144129"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1622800",
+    "observed_at_utc": "2026-10-20T11:49:54.546861+00:00",
+    "file": "raw/fi-event-1622800.html",
+    "sha256": "d4287631d8847124939d3e306d7f5091a38708d3915ac594fbc020c5d428ad87"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508323",
-    "observed_at_utc": "2026-10-20T11:43:59.121094+00:00",
-    "file": "raw/fi-event-1508323.html",
-    "sha256": "a3f91c37166b43bbdcedb2850780bbbd5e0de04f564e5f18a878d2446449e744"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2443",
+    "observed_at_utc": "2026-10-20T11:49:55.600231+00:00",
+    "file": "raw/fi-team-2443.html",
+    "sha256": "c15354427307906338c2e6fb6e26b8b048f6e04dc496664007fbf7b887da5fb4"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508330",
-    "observed_at_utc": "2026-10-20T11:43:59.484772+00:00",
-    "file": "raw/fi-event-1508330.html",
-    "sha256": "e277195dcb9d5a0dca3a3f1fa8ee72f730354cdc8d64dfd492eb7edcf3ec064a"
+    "source_url": "https://www.footballinfo.net/Teams/Details/4235",
+    "observed_at_utc": "2026-10-20T11:49:56.210259+00:00",
+    "file": "raw/fi-team-4235.html",
+    "sha256": "e993f24d90f9dc6b31effabca583b44398db2823003626cffca8c54e0d86839d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1533912",
-    "observed_at_utc": "2026-10-20T11:43:59.861968+00:00",
-    "file": "raw/fi-event-1533912.html",
-    "sha256": "00825ff096602093815a0002ac84e4cb3c3aea17bd739af443eb3e083bbc7b11"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1622801",
+    "observed_at_utc": "2026-10-20T11:49:56.843029+00:00",
+    "file": "raw/fi-event-1622801.html",
+    "sha256": "6dcd0202e98c59353c11c34ee39d7f5c113629435a4c90589a05d2934de7b1c0"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1508320",
-    "observed_at_utc": "2026-10-20T11:44:00.155209+00:00",
-    "file": "raw/fi-event-1508320.html",
-    "sha256": "c583b88295871bf1cec24f464c66f198dd27931c89f342cea8f9a28c41d05cb6"
+    "source_url": "https://www.footballinfo.net/Teams/Details/378",
+    "observed_at_utc": "2026-10-20T11:49:57.743743+00:00",
+    "file": "raw/fi-team-378.html",
+    "sha256": "6744a29f94920cf4c90d59946ad1a0c7142296254eb7488d46dc3da9fdf6866b"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637344",
-    "observed_at_utc": "2026-10-20T11:44:00.566428+00:00",
-    "file": "raw/fi-event-1637344.html",
-    "sha256": "c96feeb6cb3938ece301b89aea21aca0ecca3e692aa0218416e64003896706ec"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497716",
+    "observed_at_utc": "2026-10-20T11:49:58.488636+00:00",
+    "file": "raw/fi-event-1497716.html",
+    "sha256": "1781f15f5adb3373c45b71463b9b1fe93d5719834df65e9f3104a879ebe47e28"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/28245",
-    "observed_at_utc": "2026-10-20T11:44:00.945013+00:00",
-    "file": "raw/fi-team-28245.html",
-    "sha256": "c80d7261f8ae52f710cb8f4a874b59f8e77000a05b71410e0f498f11a24a2250"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1643233",
+    "observed_at_utc": "2026-10-20T11:49:59.101623+00:00",
+    "file": "raw/fi-event-1643233.html",
+    "sha256": "1bc23611435de2ac92d3276fed84c2d84a8eabc35250dd7b9c3004455cd6554e"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7933",
-    "observed_at_utc": "2026-10-20T11:44:01.325030+00:00",
-    "file": "raw/fi-team-7933.html",
-    "sha256": "e95c9bc6778ebaefa6a51f5ac7adba9633b84ea39f94e7b036d723044e828db7"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497709",
+    "observed_at_utc": "2026-10-20T11:49:59.836355+00:00",
+    "file": "raw/fi-event-1497709.html",
+    "sha256": "8938f83e6ff6a38a6d3c7e3456011daa1e81a149d74e90214403ee43e9470c39"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490727",
-    "observed_at_utc": "2026-10-20T11:44:01.710703+00:00",
-    "file": "raw/fi-event-1490727.html",
-    "sha256": "fd3287ba5f6e106aed71b2bf5f0cee64dafcf7a6d4cd6063a5057fcafc5f39ec"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497701",
+    "observed_at_utc": "2026-10-20T11:50:00.577324+00:00",
+    "file": "raw/fi-event-1497701.html",
+    "sha256": "90f84e195383790529db871caed7737dbe091d587a2eda7aeaa043ae81d54909"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490726",
-    "observed_at_utc": "2026-10-20T11:44:02.094534+00:00",
-    "file": "raw/fi-event-1490726.html",
-    "sha256": "5c7f2e576383a2fbd49dcc10cda356ce378d92550913a88163a2b0d37f65a24d"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497696",
+    "observed_at_utc": "2026-10-20T11:50:01.308047+00:00",
+    "file": "raw/fi-event-1497696.html",
+    "sha256": "ea972d6b8f8b3d57c84740d92226d70d900a62828b749189c49c9be2f181432c"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490715",
-    "observed_at_utc": "2026-10-20T11:44:02.365727+00:00",
-    "file": "raw/fi-event-1490715.html",
-    "sha256": "3b1ae26214de92755313a60859dbc406311d1b6899d1925bcd961f0d4865d710"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497684",
+    "observed_at_utc": "2026-10-20T11:50:02.043635+00:00",
+    "file": "raw/fi-event-1497684.html",
+    "sha256": "b7c6e696a6e71ef3293009adb457c3dd7ccc4faf3a558b7cac0c16b0af7b2f49"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490704",
-    "observed_at_utc": "2026-10-20T11:44:02.749733+00:00",
-    "file": "raw/fi-event-1490704.html",
-    "sha256": "d5159e88b32dfa1cffc1382f380818499547049288a49d5f058bfa2bf5bb00c6"
+    "source_url": "https://www.footballinfo.net/Teams/Details/365",
+    "observed_at_utc": "2026-10-20T11:50:02.955636+00:00",
+    "file": "raw/fi-team-365.html",
+    "sha256": "b07f9bc0ca9a2e4f6bef6b8c4de92d1d8b3bddebb09e4571b5d3a4f6fed853f7"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490700",
-    "observed_at_utc": "2026-10-20T11:44:03.126845+00:00",
-    "file": "raw/fi-event-1490700.html",
-    "sha256": "4504b1e9993ae858d19c194d3c8b87e1e84591f686c78f0124f06defb3948c4e"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497718",
+    "observed_at_utc": "2026-10-20T11:50:03.695015+00:00",
+    "file": "raw/fi-event-1497718.html",
+    "sha256": "63020d48520560121a18012d13c0a35d8428c0bc2d652ff52219ba49010ef44f"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490692",
-    "observed_at_utc": "2026-10-20T11:44:03.489677+00:00",
-    "file": "raw/fi-event-1490692.html",
-    "sha256": "0b6e8064b12c840a3d29dd36050a7c02ee5dbe1d70e1657f5862a1b518e040f1"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1642958",
+    "observed_at_utc": "2026-10-20T11:50:04.286558+00:00",
+    "file": "raw/fi-event-1642958.html",
+    "sha256": "f80d556e0f1a68d3346c492c890859c3212ae3312ae414fd47851cff3335fd0a"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490673",
-    "observed_at_utc": "2026-10-20T11:44:03.880977+00:00",
-    "file": "raw/fi-event-1490673.html",
-    "sha256": "e3fe46a8a856857fc2c9c068f69219d6873331658399e43c63e220ac0f293fdf"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497710",
+    "observed_at_utc": "2026-10-20T11:50:05.029495+00:00",
+    "file": "raw/fi-event-1497710.html",
+    "sha256": "292190d7d0d1b321c64e1d6de3166b09d862837cd7a66d1de1b2e97228fb0d3e"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1490669",
-    "observed_at_utc": "2026-10-20T11:44:04.172445+00:00",
-    "file": "raw/fi-event-1490669.html",
-    "sha256": "606fac48efeed50ca5a807ab2e6eb885514545882a06e5e3e43e28775f41b6c9"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497702",
+    "observed_at_utc": "2026-10-20T11:50:05.764394+00:00",
+    "file": "raw/fi-event-1497702.html",
+    "sha256": "2f6d69fca461c2be844a1607e0f0f59626bbcd101c219bd2baf7f407ed8a82ac"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637345",
-    "observed_at_utc": "2026-10-20T11:44:04.583756+00:00",
-    "file": "raw/fi-event-1637345.html",
-    "sha256": "afe70efc3c9131fa0fe15cbb2c91b525be3495a638325557405ebe1a00fefe07"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497695",
+    "observed_at_utc": "2026-10-20T11:50:06.509133+00:00",
+    "file": "raw/fi-event-1497695.html",
+    "sha256": "85da7e9a831f283755089703de98e395c4a73db1591e8a7d79cc24fbe39dc902"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/24986",
-    "observed_at_utc": "2026-10-20T11:44:04.885940+00:00",
-    "file": "raw/fi-team-24986.html",
-    "sha256": "a21fef5e1406e091105c33c8582684ce43f929e0268b52715b0f5f13bb325d7d"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497686",
+    "observed_at_utc": "2026-10-20T11:50:07.252573+00:00",
+    "file": "raw/fi-event-1497686.html",
+    "sha256": "f208843b08e8fe918139203495829d36472480ce3f279a87332dcba909963f43"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7890",
-    "observed_at_utc": "2026-10-20T11:44:05.423977+00:00",
-    "file": "raw/fi-team-7890.html",
-    "sha256": "4ede6e2211403951828f40842aa28e8083acb29b50ce4870a234e618c7cdbf51"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1497724",
+    "observed_at_utc": "2026-10-20T11:50:07.854648+00:00",
+    "file": "raw/fi-event-1497724.html",
+    "sha256": "ea852d920a610fb34a7f86cab3bebc4c2befc98b6a063cb00461177f87dd9753"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518429",
-    "observed_at_utc": "2026-10-20T11:44:05.788671+00:00",
-    "file": "raw/fi-event-1518429.html",
-    "sha256": "70b6b41501f6b4ef468b80e4856ed45f82eafd414bdb6586bd14f60c6a8e93fc"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2977",
+    "observed_at_utc": "2026-10-20T11:50:08.758942+00:00",
+    "file": "raw/fi-team-2977.html",
+    "sha256": "4868d2ea5905dd0f976414f180244585f417421507a5289ebd1ced7385bc86ca"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518406",
-    "observed_at_utc": "2026-10-20T11:44:06.168300+00:00",
-    "file": "raw/fi-event-1518406.html",
-    "sha256": "351d6fba6b22578a20925b73b4c0b139cd220d9e47a3c26cc58acc96c10ebca3"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2950",
+    "observed_at_utc": "2026-10-20T11:50:09.806875+00:00",
+    "file": "raw/fi-team-2950.html",
+    "sha256": "512fafb391a218427e15ff8b279c58c079c5ec0693e1aeed95b6c4719402afef"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518349",
-    "observed_at_utc": "2026-10-20T11:44:06.538131+00:00",
-    "file": "raw/fi-event-1518349.html",
-    "sha256": "1c097c9ce9c543b52b6f37bf140d3cc8c797d50c28fb9655972ce3e504b34671"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1604032",
+    "observed_at_utc": "2026-10-20T11:50:10.265775+00:00",
+    "file": "raw/fi-event-1604032.html",
+    "sha256": "b39e0cf0cdc3e4682e64d40d8105ae471c7e08d6ff760c65a44add635029dd51"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518377",
-    "observed_at_utc": "2026-10-20T11:44:06.923637+00:00",
-    "file": "raw/fi-event-1518377.html",
-    "sha256": "b444650bef830017980a706b216da2476d879469b9d654c642f2bf55371300ee"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2948",
+    "observed_at_utc": "2026-10-20T11:50:11.032841+00:00",
+    "file": "raw/fi-team-2948.html",
+    "sha256": "2584a2dffa1eb357560266450d513be11cc82d3bffa448ab637a1b3260bafde8"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518320",
-    "observed_at_utc": "2026-10-20T11:44:07.310436+00:00",
-    "file": "raw/fi-event-1518320.html",
-    "sha256": "49fafbf19508c0fd35726f8e923629b4e18c4bcf979ac275d90d0c2278508fb0"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2992",
+    "observed_at_utc": "2026-10-20T11:50:11.936329+00:00",
+    "file": "raw/fi-team-2992.html",
+    "sha256": "d19eb31514b5810ead5553d7febac2c9f2d571ff1aafab897369aaa474dc4139"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518294",
-    "observed_at_utc": "2026-10-20T11:44:07.693738+00:00",
-    "file": "raw/fi-event-1518294.html",
-    "sha256": "63d1b32d1abdcf887b4e364814429c1df5ed80e8942c7eb2e58abb4c0c303b4c"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1604030",
+    "observed_at_utc": "2026-10-20T11:50:12.386915+00:00",
+    "file": "raw/fi-event-1604030.html",
+    "sha256": "170f7aa5cc45a05711054c49df980dca83f2d4fba3c129b60e56b26de3cb83dd"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518268",
-    "observed_at_utc": "2026-10-20T11:44:08.057773+00:00",
-    "file": "raw/fi-event-1518268.html",
-    "sha256": "00b8dadde137c1f78624539f5cfd63bfae5efbae2a74e6f91edbfdceecd19240"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2961",
+    "observed_at_utc": "2026-10-20T11:50:13.580901+00:00",
+    "file": "raw/fi-team-2961.html",
+    "sha256": "c0ba62ad969b990b74fb37efee4d6f5892efbba734307348970eba9b034ab0c0"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518242",
-    "observed_at_utc": "2026-10-20T11:44:08.420568+00:00",
-    "file": "raw/fi-event-1518242.html",
-    "sha256": "17c6e824acf2ac84a0e2af49c9b8758849d935a9c47276c66adc7757bd2328ec"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2966",
+    "observed_at_utc": "2026-10-20T11:50:14.347330+00:00",
+    "file": "raw/fi-team-2966.html",
+    "sha256": "52a94055eb3b5ae252c4891dbca7a7a3adcaa14d93f2ad4ac514e48f8d8f7045"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637350",
-    "observed_at_utc": "2026-10-20T11:44:08.742711+00:00",
-    "file": "raw/fi-event-1637350.html",
-    "sha256": "3fbfa4997c1229c05e570f6662e925f22940b9d7c861f49e24b773800a7ce913"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1604031",
+    "observed_at_utc": "2026-10-20T11:50:14.950161+00:00",
+    "file": "raw/fi-event-1604031.html",
+    "sha256": "375bb3d2507ee7a46af60cf4b734ec0ab73eb003ea515deefd44ff44cde1a18a"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7966",
-    "observed_at_utc": "2026-10-20T11:44:09.208320+00:00",
-    "file": "raw/fi-team-7966.html",
-    "sha256": "84e4e67b777d78548a6bc6c29dd9ef2d4845c3cc4841307737972925dcd353ac"
+    "source_url": "https://www.footballinfo.net/Teams/Details/26738",
+    "observed_at_utc": "2026-10-20T11:50:15.571651+00:00",
+    "file": "raw/fi-team-26738.html",
+    "sha256": "22edb25f20c490d7a285378a338fd3217e2ea4bda0f7757265e24f88b53bafa4"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1201675",
-    "observed_at_utc": "2026-10-20T11:44:09.678169+00:00",
-    "file": "raw/fi-event-1201675.html",
-    "sha256": "45bc17f7121abd5f1b1304404cd0c2980c530f333e8997bb21c614f6b86ee121"
+    "source_url": "https://www.footballinfo.net/Teams/Details/10511",
+    "observed_at_utc": "2026-10-20T11:50:16.742952+00:00",
+    "file": "raw/fi-team-10511.html",
+    "sha256": "83074cb42e56ed636d061f5748d875d4d055450f78593869419a4d475dc0a321"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1201218",
-    "observed_at_utc": "2026-10-20T11:44:10.136320+00:00",
-    "file": "raw/fi-event-1201218.html",
-    "sha256": "04e2f165f9584149f74aff1ce2668cc18e33c617ff961f5e7c0892190951e9d4"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1603054",
+    "observed_at_utc": "2026-10-20T11:50:17.191706+00:00",
+    "file": "raw/fi-event-1603054.html",
+    "sha256": "d9bb4f96945d9f8b90160e113b84822ce6292a8552d4118f8acfee22c0c30736"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096374",
-    "observed_at_utc": "2026-10-20T11:44:10.582128+00:00",
-    "file": "raw/fi-event-1096374.html",
-    "sha256": "28e668dcc9d7ff8ea0fb95655057e48bde52daee6f6111a8a9f94fbf452c6e65"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2936",
+    "observed_at_utc": "2026-10-20T11:50:18.531020+00:00",
+    "file": "raw/fi-team-2936.html",
+    "sha256": "7a30676996771705d68a42be72f4d088d7014317cc5c0f160e08ec04b61dd5c4"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096363",
-    "observed_at_utc": "2026-10-20T11:44:11.038601+00:00",
-    "file": "raw/fi-event-1096363.html",
-    "sha256": "ca375970669c2eaee2a2d9cd6b0ac33f26165b22de7dfacac7c7d3adf2957132"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2933",
+    "observed_at_utc": "2026-10-20T11:50:19.868966+00:00",
+    "file": "raw/fi-team-2933.html",
+    "sha256": "acc315b50504515877063d68d23c7e72761834401f3759c4604ac156e0babd71"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096356",
-    "observed_at_utc": "2026-10-20T11:44:11.485280+00:00",
-    "file": "raw/fi-event-1096356.html",
-    "sha256": "180c0f5564eb060a1d04d7d91af3c7456b7199e31c37e2f610a3032e647d3267"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1603061",
+    "observed_at_utc": "2026-10-20T11:50:20.463823+00:00",
+    "file": "raw/fi-event-1603061.html",
+    "sha256": "3fdf3416c3f9101199d27004d7270eccd44e51de951395487f5912589a8555f2"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096347",
-    "observed_at_utc": "2026-10-20T11:44:11.951067+00:00",
-    "file": "raw/fi-event-1096347.html",
-    "sha256": "e5306bf72ef15377aae17e7d123c394d06dbe5771fdc280d1f12a722c6444d03"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2934",
+    "observed_at_utc": "2026-10-20T11:50:21.945508+00:00",
+    "file": "raw/fi-team-2934.html",
+    "sha256": "892c7080034e8d98003cd23496310d42aec09d8a2bdc1441c406d218b7cf8508"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096338",
-    "observed_at_utc": "2026-10-20T11:44:12.419401+00:00",
-    "file": "raw/fi-event-1096338.html",
-    "sha256": "f3f4a27aa53882153c164507161a61c60b3729b25b510aa25e536aa514e97bc7"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2938",
+    "observed_at_utc": "2026-10-20T11:50:23.437424+00:00",
+    "file": "raw/fi-team-2938.html",
+    "sha256": "266b6096fbab55339be617fd28eb47b0f94e8e5edc1bee04fa0025b66db07c57"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1096326",
-    "observed_at_utc": "2026-10-20T11:44:12.869340+00:00",
-    "file": "raw/fi-event-1096326.html",
-    "sha256": "e861c1583a2a5fb514753d30617689cb0f8dffbfc78056c262fd7e8838839de8"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1603055",
+    "observed_at_utc": "2026-10-20T11:50:24.043379+00:00",
+    "file": "raw/fi-event-1603055.html",
+    "sha256": "f09a93410107443b3e3af04a22a43efea0c3368ce65c3c87420f4ec0a76adb54"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7934",
-    "observed_at_utc": "2026-10-20T11:44:13.170773+00:00",
-    "file": "raw/fi-team-7934.html",
-    "sha256": "bfbd2c68eded58e7a854966c10104ac87fbd53a7f651b57a8a7af851791980b8"
+    "source_url": "https://www.footballinfo.net/Teams/Details/2939",
+    "observed_at_utc": "2026-10-20T11:50:25.522739+00:00",
+    "file": "raw/fi-team-2939.html",
+    "sha256": "3a7bdff249e3ffe3b3a86b77cf4ad5a6e2b0a9d2438b2b123f38baaadfb63c9a"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637343",
-    "observed_at_utc": "2026-10-20T11:44:13.495566+00:00",
-    "file": "raw/fi-event-1637343.html",
-    "sha256": "46e5bdf737b98097988c79c781d4b57c0b3075c543fac07a8fc343dd9a8eb6cd"
+    "source_url": "https://www.footballinfo.net/Teams/Details/10513",
+    "observed_at_utc": "2026-10-20T11:50:26.432393+00:00",
+    "file": "raw/fi-team-10513.html",
+    "sha256": "b3356b644ef071f5fb3a8ea3a6de468bf91c108b5966b5c365a1cbd17960efb4"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7917",
-    "observed_at_utc": "2026-10-20T11:44:13.892461+00:00",
-    "file": "raw/fi-team-7917.html",
-    "sha256": "3c5e9b20c8d623cc5c2f2eac716d05ef9c04f717bdcb352e7f4deb278b6150ae"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1603059",
+    "observed_at_utc": "2026-10-20T11:50:27.023848+00:00",
+    "file": "raw/fi-event-1603059.html",
+    "sha256": "ebc3938778f6d26c2bc633a55329303f1a86b61872539cacdf0e53571b975d08"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/16553",
-    "observed_at_utc": "2026-10-20T11:44:14.292457+00:00",
-    "file": "raw/fi-team-16553.html",
-    "sha256": "6450f5fbbfe8b2b8e273086a8bd72841ac716c2b5556437dba4234a9c118c5e1"
+    "source_url": "https://www.footballinfo.net/Teams/Details/39",
+    "observed_at_utc": "2026-10-20T11:50:28.367396+00:00",
+    "file": "raw/fi-team-39.html",
+    "sha256": "89edd316a088e833774b4de9265d9c2c03057a6e40cd291a37d8964e2199977d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637337",
-    "observed_at_utc": "2026-10-20T11:44:14.674619+00:00",
-    "file": "raw/fi-event-1637337.html",
-    "sha256": "03e902ea2cec268c719fbcebfc862b21076c75996f18e686869b291b765afe4d"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1355",
+    "observed_at_utc": "2026-10-20T11:50:29.696464+00:00",
+    "file": "raw/fi-team-1355.html",
+    "sha256": "226f07d7571e1ad5ba69ca0b06213fda6fbfd5a8e7d60ef78d42e6b06e23ff83"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637319",
-    "observed_at_utc": "2026-10-20T11:44:15.068626+00:00",
-    "file": "raw/fi-event-1637319.html",
-    "sha256": "8cad87c3fecf79cbaa315079572df95a1aa52e28477aaa14d62196db80b5bc24"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563150",
+    "observed_at_utc": "2026-10-20T11:50:30.295623+00:00",
+    "file": "raw/fi-event-1563150.html",
+    "sha256": "de8430f7cf2625c5da98caefdb19a64a7f1f7a2d9c8a050bf227b3ae096f8c28"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1515227",
-    "observed_at_utc": "2026-10-20T11:44:15.698760+00:00",
-    "file": "raw/fi-event-1515227.html",
-    "sha256": "931f88b2a4c3b07aa8172467ba6bd4d5a6f7a93bdb18a15056cf9215e9dca4c9"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1333",
+    "observed_at_utc": "2026-10-20T11:50:31.771417+00:00",
+    "file": "raw/fi-team-1333.html",
+    "sha256": "55ec042821c71157fed0d22663e8b3736e67ce00ff83e7be0652b554093fe378"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1515210",
-    "observed_at_utc": "2026-10-20T11:44:16.074777+00:00",
-    "file": "raw/fi-event-1515210.html",
-    "sha256": "2401d9e3e98fb3406bc3fa7485b5cbd186754df262f23ca6ed0c74cdac6a39fc"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1374",
+    "observed_at_utc": "2026-10-20T11:50:32.966105+00:00",
+    "file": "raw/fi-team-1374.html",
+    "sha256": "773829eea3bb9383f030fedff461f305830b1697b83972de7026ce585bb26b93"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1512719",
-    "observed_at_utc": "2026-10-20T11:44:16.444789+00:00",
-    "file": "raw/fi-event-1512719.html",
-    "sha256": "b54d9eb9e6aa80b74ed65147ce5bae34b744344473fc04d7053afea022df2f3c"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564367",
+    "observed_at_utc": "2026-10-20T11:50:33.572562+00:00",
+    "file": "raw/fi-event-1564367.html",
+    "sha256": "b1cd5d14dc5ae0f7f38a9ce7016a7bb1eae3d2149f40095ecc0954681efca40c"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1512716",
-    "observed_at_utc": "2026-10-20T11:44:16.804730+00:00",
-    "file": "raw/fi-event-1512716.html",
-    "sha256": "a31298ccea29e226fb08bfcc69c6ef3c589d4dc7da5999b1e0f10907975611b4"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1356",
+    "observed_at_utc": "2026-10-20T11:50:35.486969+00:00",
+    "file": "raw/fi-team-1356.html",
+    "sha256": "c2034bbd41cc1d3826c6198354838524e09844d53393ae7162fd76923cefd875"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637348",
-    "observed_at_utc": "2026-10-20T11:44:17.140562+00:00",
-    "file": "raw/fi-event-1637348.html",
-    "sha256": "ab11d5dadb8864d947ef58d60898b460f7fbbb407ac3f1a71616b396edba5dc8"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1348",
+    "observed_at_utc": "2026-10-20T11:50:36.689906+00:00",
+    "file": "raw/fi-team-1348.html",
+    "sha256": "3e58e4cfb28f03d3524584601e4a1959760c0228d64b0dd73339b823f9e6fa88"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7921",
-    "observed_at_utc": "2026-10-20T11:44:17.518157+00:00",
-    "file": "raw/fi-team-7921.html",
-    "sha256": "591c72236511abbbaa56e3dd8afad4eab8014416e286b251582499a6085bab73"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564368",
+    "observed_at_utc": "2026-10-20T11:50:37.293172+00:00",
+    "file": "raw/fi-event-1564368.html",
+    "sha256": "39c3b7f7db89862b4cb6ed0dd55c89903cdddd661848c2053cdaa004afdc7c81"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1534935",
-    "observed_at_utc": "2026-10-20T11:44:18.001928+00:00",
-    "file": "raw/fi-event-1534935.html",
-    "sha256": "03cc4c666740fd24427f71c7defa677e5fcbe23fafc19e67710415e0e8781aa2"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1832",
+    "observed_at_utc": "2026-10-20T11:50:39.101149+00:00",
+    "file": "raw/fi-team-1832.html",
+    "sha256": "9b1536dfb2d6fe46cbbaf6c8edd6de72d46637cb083df6fe632cc7638e8b253d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1528149",
-    "observed_at_utc": "2026-10-20T11:44:18.458798+00:00",
-    "file": "raw/fi-event-1528149.html",
-    "sha256": "d9ba75f06d709c664daab1cf08380bdef7e853bef50ccf321e5e85f0b6f52a7f"
+    "source_url": "https://www.footballinfo.net/Teams/Details/46",
+    "observed_at_utc": "2026-10-20T11:50:40.148873+00:00",
+    "file": "raw/fi-team-46.html",
+    "sha256": "1874ed4edc020ff34f2eac6344aada1d8fbd4f89dc22afd3c9d562511762628e"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1520398",
-    "observed_at_utc": "2026-10-20T11:44:18.941132+00:00",
-    "file": "raw/fi-event-1520398.html",
-    "sha256": "a11cc192fc2794ba709ed3b0c42f2044d5ebec60ed0ca9222e39a4ddcfb7507f"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564369",
+    "observed_at_utc": "2026-10-20T11:50:40.756451+00:00",
+    "file": "raw/fi-event-1564369.html",
+    "sha256": "2baedcd0332d23e79f43b9e2142f441e28ada45e6065f7fe44820ca2709be2a1"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491673",
-    "observed_at_utc": "2026-10-20T11:44:19.392803+00:00",
-    "file": "raw/fi-event-1491673.html",
-    "sha256": "45385582c2651135ee280e88aca89fcef7c94cd57b0245d2b15b09baff257f37"
+    "source_url": "https://www.footballinfo.net/Teams/Details/748",
+    "observed_at_utc": "2026-10-20T11:50:42.230370+00:00",
+    "file": "raw/fi-team-748.html",
+    "sha256": "61788c44c222cf61e773c30e869275293de5fe0e92f8cb237ea6dcc43d005a6e"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469171",
-    "observed_at_utc": "2026-10-20T11:44:19.839098+00:00",
-    "file": "raw/fi-event-1469171.html",
-    "sha256": "35f057d6ad92fe99c29e0795d9d837492a02e30f66be153c9c6fb49e4efca11a"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1343",
+    "observed_at_utc": "2026-10-20T11:50:43.868893+00:00",
+    "file": "raw/fi-team-1343.html",
+    "sha256": "2a06e983abe1486af5d0c6f6ef5d0a7de1040e8108750c8312e59d594ae201b5"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469124",
-    "observed_at_utc": "2026-10-20T11:44:20.293945+00:00",
-    "file": "raw/fi-event-1469124.html",
-    "sha256": "45a596a8285e08be3519d6576df5b7e47eeb5201ae4f94d7947bcfc6cd7e7742"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564370",
+    "observed_at_utc": "2026-10-20T11:50:44.463149+00:00",
+    "file": "raw/fi-event-1564370.html",
+    "sha256": "5c8539cde9a09f800417fe38eca4f811bfcd5c5d801e00f34d520f3b89650c7e"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469106",
-    "observed_at_utc": "2026-10-20T11:44:20.760126+00:00",
-    "file": "raw/fi-event-1469106.html",
-    "sha256": "c54cea2381a54a5d44418627c0fea1be042f670dc99771cc89087787e7852318"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1370",
+    "observed_at_utc": "2026-10-20T11:50:46.093941+00:00",
+    "file": "raw/fi-team-1370.html",
+    "sha256": "a27e35b8f04fe2474cab0b17456ed2723940f718ac2466ca37d71d8801bec9d5"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469088",
-    "observed_at_utc": "2026-10-20T11:44:21.217940+00:00",
-    "file": "raw/fi-event-1469088.html",
-    "sha256": "e1c7e5a5c4ee5398677da4ae43eef837156aa3bae9bb47c76905240d56b9b709"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1358",
+    "observed_at_utc": "2026-10-20T11:50:47.159848+00:00",
+    "file": "raw/fi-team-1358.html",
+    "sha256": "c90aa7c1ff4d3a04c1983cd5a81538687af41222ccaef6a7586539755b4096e7"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7885",
-    "observed_at_utc": "2026-10-20T11:44:21.606472+00:00",
-    "file": "raw/fi-team-7885.html",
-    "sha256": "61ff0b40a9dc747334a29ff55de18f818b08732029421cfc428df6271db973a7"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564371",
+    "observed_at_utc": "2026-10-20T11:50:47.750068+00:00",
+    "file": "raw/fi-event-1564371.html",
+    "sha256": "e2df7334c3f2aa8a0f3785be2aa1c712eee8b5c4856b3d5e00ca2269801833f3"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491678",
-    "observed_at_utc": "2026-10-20T11:44:22.052483+00:00",
-    "file": "raw/fi-event-1491678.html",
-    "sha256": "9bb2787e5ac9b0fe391884d662dcfbd7413db74cec9d0381c9fb0d8a47ca1752"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1354",
+    "observed_at_utc": "2026-10-20T11:50:48.807078+00:00",
+    "file": "raw/fi-team-1354.html",
+    "sha256": "ab7576ccb251d1dece902de71449e4a2e8d185b9edadf18397043d762c51ce30"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469132",
-    "observed_at_utc": "2026-10-20T11:44:22.504347+00:00",
-    "file": "raw/fi-event-1469132.html",
-    "sha256": "63519621e5827600b6a753b47c062dd354aa9906f641560241bf418cc3157296"
+    "source_url": "https://www.footballinfo.net/Teams/Details/4686",
+    "observed_at_utc": "2026-10-20T11:50:49.994503+00:00",
+    "file": "raw/fi-team-4686.html",
+    "sha256": "411b946cc6878f45af350a296623b6ae09501e77521ded91f626faf6275a40b0"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469115",
-    "observed_at_utc": "2026-10-20T11:44:22.956780+00:00",
-    "file": "raw/fi-event-1469115.html",
-    "sha256": "3511317497eef103ba630265ab4fcf010a6de926174129d2a29c67dd3022cf1e"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564372",
+    "observed_at_utc": "2026-10-20T11:50:50.595317+00:00",
+    "file": "raw/fi-event-1564372.html",
+    "sha256": "47efdc3ae3d2f3ccace5e1ea344681fcd7419ce853f844750602bb99eef1e2c8"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469107",
-    "observed_at_utc": "2026-10-20T11:44:23.433454+00:00",
-    "file": "raw/fi-event-1469107.html",
-    "sha256": "29de22d13730b3eca4459afee399c981869011126a7ca27a8efbc5f9f8133589"
+    "source_url": "https://www.footballinfo.net/Teams/Details/37",
+    "observed_at_utc": "2026-10-20T11:50:51.782763+00:00",
+    "file": "raw/fi-team-37.html",
+    "sha256": "62a0fb000b159917bf986c509516707f3aae88fbb7cc41c1fd328d9ef6a04971"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469083",
-    "observed_at_utc": "2026-10-20T11:44:23.899923+00:00",
-    "file": "raw/fi-event-1469083.html",
-    "sha256": "2dfa8e3a1ea1a0dc9c4ecbb78c72e19e3f5e0ba54946c6b76a8694b7cfa692ca"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1350",
+    "observed_at_utc": "2026-10-20T11:50:52.878311+00:00",
+    "file": "raw/fi-team-1350.html",
+    "sha256": "a683aaaca54e2e47d4be4024be32f6a702304016b69439a74a2298e05d6a289d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469078",
-    "observed_at_utc": "2026-10-20T11:44:24.365174+00:00",
-    "file": "raw/fi-event-1469078.html",
-    "sha256": "f1de72520b558d94207dfc2fbc35ec9c9f1db7046429131403c368384da9b703"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564373",
+    "observed_at_utc": "2026-10-20T11:50:53.465815+00:00",
+    "file": "raw/fi-event-1564373.html",
+    "sha256": "311d76d91edbfc072d05d1769f2dbdb949b84673dfafd77f6cdc81045e683010"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469063",
-    "observed_at_utc": "2026-10-20T11:44:24.814782+00:00",
-    "file": "raw/fi-event-1469063.html",
-    "sha256": "2671708162649a0745359d4cc69717ade6f9397b0003433ccf17cc26fb9f78e9"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1359",
+    "observed_at_utc": "2026-10-20T11:50:54.522432+00:00",
+    "file": "raw/fi-team-1359.html",
+    "sha256": "ff0e671bb404aead883b1f296e751d6844712f5b6ee5a27d9f5af06d4724eb62"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637349",
-    "observed_at_utc": "2026-10-20T11:44:25.161832+00:00",
-    "file": "raw/fi-event-1637349.html",
-    "sha256": "e7464af26d3d8a6e67737e265170a44fbdb56ff1a2103efe547297bbc919ccac"
+    "source_url": "https://www.footballinfo.net/Teams/Details/747",
+    "observed_at_utc": "2026-10-20T11:50:56.306378+00:00",
+    "file": "raw/fi-team-747.html",
+    "sha256": "a4b59ff61b7beb50c7a371a799ccc0c35174daa546aeedea99883da7eba4bc92"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/10273",
-    "observed_at_utc": "2026-10-20T11:44:25.562638+00:00",
-    "file": "raw/fi-team-10273.html",
-    "sha256": "9e928a90873b2f7d03a09437530a5d2d8a1614b0ae0d1eac1d6a368da15c3254"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564374",
+    "observed_at_utc": "2026-10-20T11:50:56.904634+00:00",
+    "file": "raw/fi-event-1564374.html",
+    "sha256": "c0a24f047b7e1b05c6653866f8b74cbf0942cdec575df8d365992b4c5141fd95"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1537040",
-    "observed_at_utc": "2026-10-20T11:44:25.926789+00:00",
-    "file": "raw/fi-event-1537040.html",
-    "sha256": "8ee71d63d073f23527424c0d3260d4655f9f4e8609793479f113bf6d52e2c109"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1376",
+    "observed_at_utc": "2026-10-20T11:50:58.100863+00:00",
+    "file": "raw/fi-team-1376.html",
+    "sha256": "b65d73cb095b1638b8fd02ee571808e0c09b93f2d45ed83d299b9107cefe6466"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518435",
-    "observed_at_utc": "2026-10-20T11:44:26.283988+00:00",
-    "file": "raw/fi-event-1518435.html",
-    "sha256": "0f5362a8a8017bdc2839d3bedcb6121aae46bdfe556392120f929b9063da5ec8"
+    "source_url": "https://www.footballinfo.net/Teams/Details/74",
+    "observed_at_utc": "2026-10-20T11:50:59.306816+00:00",
+    "file": "raw/fi-team-74.html",
+    "sha256": "8241eb0adb65558792c6048dd8bd9cf2870e101734a93a87ec7d21071b2a5995"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518412",
-    "observed_at_utc": "2026-10-20T11:44:26.648771+00:00",
-    "file": "raw/fi-event-1518412.html",
-    "sha256": "73ca04236f8f86344c4e3ea797965efd676afca29b2243126f22ac392a2627ec"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564375",
+    "observed_at_utc": "2026-10-20T11:50:59.898543+00:00",
+    "file": "raw/fi-event-1564375.html",
+    "sha256": "b978616aeb86f5cbb77dee1e5b7b2b39ea7454bfebb35e9461e231e4891be618"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518383",
-    "observed_at_utc": "2026-10-20T11:44:27.012638+00:00",
-    "file": "raw/fi-event-1518383.html",
-    "sha256": "a45f18122ffd7e8d0f3564cd0c47cbf92cbe3c016a205a305fc56db5960ac62c"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1338",
+    "observed_at_utc": "2026-10-20T11:51:00.943542+00:00",
+    "file": "raw/fi-team-1338.html",
+    "sha256": "7211c187d542910734ebccd92318a868ecbd4201ad3bdc388d6d8affff582aec"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518355",
-    "observed_at_utc": "2026-10-20T11:44:27.391390+00:00",
-    "file": "raw/fi-event-1518355.html",
-    "sha256": "e8c5e7cc1e5667aa7eed2351ab32cfd1aa71c4689efa27b247815b910a427463"
+    "source_url": "https://www.footballinfo.net/Teams/Details/61",
+    "observed_at_utc": "2026-10-20T11:51:02.308987+00:00",
+    "file": "raw/fi-team-61.html",
+    "sha256": "0df87113968f979cfd41c178fcd17781eb248f1fb2c7ec5f806bfff4b0b92129"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1525613",
-    "observed_at_utc": "2026-10-20T11:44:27.777363+00:00",
-    "file": "raw/fi-event-1525613.html",
-    "sha256": "821d5a45d33b0b116049705e4892211e5835e0ffcb195524bea7e4614cacb683"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564376",
+    "observed_at_utc": "2026-10-20T11:51:03.248684+00:00",
+    "file": "raw/fi-event-1564376.html",
+    "sha256": "527c023a82adfac3c6d23828d2e8e5f08b1953eb4188fc227fbad2cbca4d9569"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518326",
-    "observed_at_utc": "2026-10-20T11:44:28.179432+00:00",
-    "file": "raw/fi-event-1518326.html",
-    "sha256": "0e75f99993bda44f2f0c3871129ddc8ef4971ebc68b323cf1fece867b5c6445f"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1368",
+    "observed_at_utc": "2026-10-20T11:51:04.458659+00:00",
+    "file": "raw/fi-team-1368.html",
+    "sha256": "11520bc705d554b60c6cf59a3f8618c7d03091e0307b765480a372fb65b4eee2"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1518300",
-    "observed_at_utc": "2026-10-20T11:44:28.556022+00:00",
-    "file": "raw/fi-event-1518300.html",
-    "sha256": "43b1fcb626e25b16106d7cf2fa99691c5b7a5a6226b964075f059c4f82f68599"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1357",
+    "observed_at_utc": "2026-10-20T11:51:05.527572+00:00",
+    "file": "raw/fi-team-1357.html",
+    "sha256": "14397a7c0bb78465a8144a3d534b4621aad76a21ef860f82bec4a062d9a2bbb7"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7884",
-    "observed_at_utc": "2026-10-20T11:44:28.937268+00:00",
-    "file": "raw/fi-team-7884.html",
-    "sha256": "7b8016b6c762d9c53df8dfe20dad7c05a344c57ff265a3db6e26e18e77fdd195"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1564377",
+    "observed_at_utc": "2026-10-20T11:51:06.273986+00:00",
+    "file": "raw/fi-event-1564377.html",
+    "sha256": "4c28bda3308a366f3b66cbaa306fe25fd701ad67fd9b52ae95d7c3fa5e5884ef"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1528146",
-    "observed_at_utc": "2026-10-20T11:44:29.417376+00:00",
-    "file": "raw/fi-event-1528146.html",
-    "sha256": "a951b1cc0c8cbbcb560a27b1073bf71c7d221e8ad5b6ef96b57cbb7bb387e6e2"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1369",
+    "observed_at_utc": "2026-10-20T11:51:07.995364+00:00",
+    "file": "raw/fi-team-1369.html",
+    "sha256": "eba371ea7309a91f190dd077af76cb4b5803cf3a446b107474f9bb8956db01af"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1520394",
-    "observed_at_utc": "2026-10-20T11:44:29.871783+00:00",
-    "file": "raw/fi-event-1520394.html",
-    "sha256": "7895b41cbe4bd9e336f05f95f2eedfdc7c6c48d383e3ab50f569fdadaf5639dd"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1353",
+    "observed_at_utc": "2026-10-20T11:51:09.190411+00:00",
+    "file": "raw/fi-team-1353.html",
+    "sha256": "c5dd24deb1d0f72f9b0d79ab8a6969025a43ebd290da0338e54a3ce0e04813ae"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491674",
-    "observed_at_utc": "2026-10-20T11:44:30.318857+00:00",
-    "file": "raw/fi-event-1491674.html",
-    "sha256": "b1e22c1d686ac6a10cc45be2a1567a8678e92c276fdb0e9cd2ed726d89cd341c"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563815",
+    "observed_at_utc": "2026-10-20T11:51:10.109142+00:00",
+    "file": "raw/fi-event-1563815.html",
+    "sha256": "53b269a48d2c9c0401299a2ee09c42086d3cf539ab7e0add59570c05dd6ff977"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469138",
-    "observed_at_utc": "2026-10-20T11:44:30.771792+00:00",
-    "file": "raw/fi-event-1469138.html",
-    "sha256": "480f64be48aab16787cce7f0dda7a746d822ae3580fde9f574d4f341ba5d9c5a"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1334",
+    "observed_at_utc": "2026-10-20T11:51:11.770454+00:00",
+    "file": "raw/fi-team-1334.html",
+    "sha256": "7c29f5aaee9ea22e29c25d95438362b50d71f2a39479fea9ffec9c884d911ae1"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469123",
-    "observed_at_utc": "2026-10-20T11:44:31.226753+00:00",
-    "file": "raw/fi-event-1469123.html",
-    "sha256": "ba3a42fddf309f5abea48ac0b54cfe2bda82ecdd04a446694c4450820e9b92e8"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1844",
+    "observed_at_utc": "2026-10-20T11:51:12.817663+00:00",
+    "file": "raw/fi-team-1844.html",
+    "sha256": "64a1b37aff7013f9077bcfc9f645c063b011b205fd56d1580a8f033d1e4e60c8"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469166",
-    "observed_at_utc": "2026-10-20T11:44:31.700921+00:00",
-    "file": "raw/fi-event-1469166.html",
-    "sha256": "555b2576e483e20150d674d678b4824342a296d54f3a9781b61373e3be72f9f0"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563816",
+    "observed_at_utc": "2026-10-20T11:51:13.580382+00:00",
+    "file": "raw/fi-event-1563816.html",
+    "sha256": "506d8d3c1534a1e06eab587f5ed246cb81e389d47a094e699899f6e74629e664"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469086",
-    "observed_at_utc": "2026-10-20T11:44:32.179694+00:00",
-    "file": "raw/fi-event-1469086.html",
-    "sha256": "9c1bd87ce0c801d4012f5f5f12edbc8fec4e6ce4d4c419297a9ced2e62ea5024"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1372",
+    "observed_at_utc": "2026-10-20T11:51:14.639432+00:00",
+    "file": "raw/fi-team-1372.html",
+    "sha256": "fa69e80e6f2325c21b7793a0201c5bd2f7c03b64416f5e5c1ca8790a9e7ac8f0"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469075",
-    "observed_at_utc": "2026-10-20T11:44:32.635322+00:00",
-    "file": "raw/fi-event-1469075.html",
-    "sha256": "4208276789f7dffefd9c150e266c45dbd6eee33e18140e8d1daa156d4f7c44f4"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1336",
+    "observed_at_utc": "2026-10-20T11:51:16.009139+00:00",
+    "file": "raw/fi-team-1336.html",
+    "sha256": "2328b73892163ca58478212e61f84bc7dd4c94d38743a1cff6217f6ca85da1b8"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637351",
-    "observed_at_utc": "2026-10-20T11:44:32.996570+00:00",
-    "file": "raw/fi-event-1637351.html",
-    "sha256": "d20e7f5962283ab3cb74a766098e878f534ad956ab6093eb0187b50e45b6c850"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563817",
+    "observed_at_utc": "2026-10-20T11:51:16.603222+00:00",
+    "file": "raw/fi-event-1563817.html",
+    "sha256": "8c0d8cd281ba8a4bdec40d9b2139d868d0faed8d4b28e879c55f9ee93dd71d49"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7909",
-    "observed_at_utc": "2026-10-20T11:44:33.413006+00:00",
-    "file": "raw/fi-team-7909.html",
-    "sha256": "5e19f33accf22bc716b6833a7311345dfccb9ad22b7d536f1ded2716acf18760"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1345",
+    "observed_at_utc": "2026-10-20T11:51:17.654879+00:00",
+    "file": "raw/fi-team-1345.html",
+    "sha256": "0f5382145e4cd49d62d8a4b0cbec95adfe03e6c7d2cd54cc8f05c9705e91096d"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491682",
-    "observed_at_utc": "2026-10-20T11:44:33.879819+00:00",
-    "file": "raw/fi-event-1491682.html",
-    "sha256": "87a7de846ba2498d787c8bf587c2909cb7c5ecb26e9331f84e9bdae2457a4cac"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1361",
+    "observed_at_utc": "2026-10-20T11:51:18.701974+00:00",
+    "file": "raw/fi-team-1361.html",
+    "sha256": "41a7e5784c85381213b2fa5ef0e83cfa7a3a605ea03b87c14405a9e561569b80"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469137",
-    "observed_at_utc": "2026-10-20T11:44:34.357409+00:00",
-    "file": "raw/fi-event-1469137.html",
-    "sha256": "75c0aa7518590b1a78ba351ec3d2b82687f851412c9638427112d1eb0bcad94e"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563818",
+    "observed_at_utc": "2026-10-20T11:51:19.304705+00:00",
+    "file": "raw/fi-event-1563818.html",
+    "sha256": "8767ad37355093e5960f42ee2c78c2e26118a13775a115a366b059d52a0656d7"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469128",
-    "observed_at_utc": "2026-10-20T11:44:34.920694+00:00",
-    "file": "raw/fi-event-1469128.html",
-    "sha256": "4d2c0295e903fc731513cb78d203e43ce2407e860f536f23a13c80ba172ba90a"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1362",
+    "observed_at_utc": "2026-10-20T11:51:20.537679+00:00",
+    "file": "raw/fi-team-1362.html",
+    "sha256": "9530bd6a97de9642ff1c8c1ecb571c95392be2829032d464b90904c655dbc6dc"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469105",
-    "observed_at_utc": "2026-10-20T11:44:35.468040+00:00",
-    "file": "raw/fi-event-1469105.html",
-    "sha256": "6533b011573c8916875ccef6964cb6407f5f588d0bc4934596dd9dfd13a8f269"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1352",
+    "observed_at_utc": "2026-10-20T11:51:21.590361+00:00",
+    "file": "raw/fi-team-1352.html",
+    "sha256": "aa254de2455affbdf283e8f7c1baefcd29575a13f74e3350e26e333edc0753a2"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469091",
-    "observed_at_utc": "2026-10-20T11:44:35.949119+00:00",
-    "file": "raw/fi-event-1469091.html",
-    "sha256": "ede7cf24394e62ffef5cb554290f96554a431cb7e8a3093b74b57c7ff8cdd182"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563819",
+    "observed_at_utc": "2026-10-20T11:51:22.184807+00:00",
+    "file": "raw/fi-event-1563819.html",
+    "sha256": "7c6e9c8fe71f14a4bb8c4435d6c6a5a85aa15b63646d93aab3768f1d7719ae66"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1479497",
-    "observed_at_utc": "2026-10-20T11:44:36.398275+00:00",
-    "file": "raw/fi-event-1479497.html",
-    "sha256": "636287c6a89fdfd392709132979f4ffa0042d3992f9e4017309e817f798d90a9"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1364",
+    "observed_at_utc": "2026-10-20T11:51:23.385865+00:00",
+    "file": "raw/fi-team-1364.html",
+    "sha256": "f2cd6942adfc907e163355f6ae9bbdb9c9b7c4320d2dbe4aa8e61435cee2a7a0"
   },
   {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469058",
-    "observed_at_utc": "2026-10-20T11:44:36.869997+00:00",
-    "file": "raw/fi-event-1469058.html",
-    "sha256": "f722044585e22fa793242fd4b4b9369370de620f5b47a989c3a9b453a5cb94a7"
+    "source_url": "https://www.footballinfo.net/Teams/Details/1363",
+    "observed_at_utc": "2026-10-20T11:51:24.439170+00:00",
+    "file": "raw/fi-team-1363.html",
+    "sha256": "e7d417aba2113e02b045d0bed1dad62afd47905140ec1239ba4d84d848ea8048"
   },
   {
-    "source_url": "https://www.footballinfo.net/Teams/Details/17702",
-    "observed_at_utc": "2026-10-20T11:44:37.259936+00:00",
-    "file": "raw/fi-team-17702.html",
-    "sha256": "38fcd7ca685be2fb5a06fb1f39c01b2cd28523e7fd77a5c76f798976637989e8"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1528149",
-    "observed_at_utc": "2026-10-20T11:44:37.710094+00:00",
-    "file": "raw/fi-event-1528149.html",
-    "sha256": "81d2047a9df44c68c4bb4f611a7c83855c441d0e314e2f6513448f0626f80a6a"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1520400",
-    "observed_at_utc": "2026-10-20T11:44:38.160010+00:00",
-    "file": "raw/fi-event-1520400.html",
-    "sha256": "88ec4a2879b1cb5f5637aa4789a649971747ae7fe6dcffaf9060a8dc86afe06f"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491681",
-    "observed_at_utc": "2026-10-20T11:44:38.621452+00:00",
-    "file": "raw/fi-event-1491681.html",
-    "sha256": "f7a6878566a19ca236b76d6decefa94a8aa2fbbdc9d71a2ded261caa4bf9a748"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469144",
-    "observed_at_utc": "2026-10-20T11:44:39.176520+00:00",
-    "file": "raw/fi-event-1469144.html",
-    "sha256": "023e7c30d097680d27e3d490173f9158a3dfc250413d54a97d7409ac1ce8f1d5"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469118",
-    "observed_at_utc": "2026-10-20T11:44:39.630710+00:00",
-    "file": "raw/fi-event-1469118.html",
-    "sha256": "073df273223eb6be63b72fcd1175a1efa3cbb50fc0521e4eed34e882f0c720c0"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469108",
-    "observed_at_utc": "2026-10-20T11:44:40.168838+00:00",
-    "file": "raw/fi-event-1469108.html",
-    "sha256": "ec97cff82e64f5285b354677d856684f93a5e6bf8187e87866f0f63b90b97e8d"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469084",
-    "observed_at_utc": "2026-10-20T11:44:40.707148+00:00",
-    "file": "raw/fi-event-1469084.html",
-    "sha256": "725a37a00e9540f9955c2e81fa08811b22e9e63a9ed0eda2f0cfad4000e2e258"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469080",
-    "observed_at_utc": "2026-10-20T11:44:41.282882+00:00",
-    "file": "raw/fi-event-1469080.html",
-    "sha256": "10945d69748ac20a498d39525af8c41eb18d7d0d02d401dd8457fcf79a3a8e87"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637346",
-    "observed_at_utc": "2026-10-20T11:44:41.676437+00:00",
-    "file": "raw/fi-event-1637346.html",
-    "sha256": "48dea587cdaf5e678844d7f3c61e754781808db23ed7e4f0d97f4af1bcf86820"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7914",
-    "observed_at_utc": "2026-10-20T11:44:42.167977+00:00",
-    "file": "raw/fi-team-7914.html",
-    "sha256": "08f8784c67f00a70cc9c9898344ae0e1a9503bef3adf395934be48ddec6d9462"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1491675",
-    "observed_at_utc": "2026-10-20T11:44:42.717942+00:00",
-    "file": "raw/fi-event-1491675.html",
-    "sha256": "2e83531a351af724a545ac94de1de1f5d8ae9e48012f8ae3e2c8cd6406fc84c0"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469139",
-    "observed_at_utc": "2026-10-20T11:44:43.303065+00:00",
-    "file": "raw/fi-event-1469139.html",
-    "sha256": "c38f04f94f45ea357802422e90e3555d4c3ea73c941e1c4797f8c2b1a7b4f7e4"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469119",
-    "observed_at_utc": "2026-10-20T11:44:43.765551+00:00",
-    "file": "raw/fi-event-1469119.html",
-    "sha256": "636ccc80796afba231de8314da3cf7a527b9fee12fcd61d2a0192efbf089b90b"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469112",
-    "observed_at_utc": "2026-10-20T11:44:44.399780+00:00",
-    "file": "raw/fi-event-1469112.html",
-    "sha256": "e0c3c0bc847f4dcf98dde809fc581008fdf507ccad4007a221a82caa62d7360d"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469084",
-    "observed_at_utc": "2026-10-20T11:44:44.956408+00:00",
-    "file": "raw/fi-event-1469084.html",
-    "sha256": "2a299ae84e971f5521558bdb9bba0e0a5501295d7f29e46ea475d9a0a2c5a606"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469082",
-    "observed_at_utc": "2026-10-20T11:44:45.495651+00:00",
-    "file": "raw/fi-event-1469082.html",
-    "sha256": "6b7ccffdddf594c5ad7f1417522cc0264bc92de46876a0ca4ad617dea009b144"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1469064",
-    "observed_at_utc": "2026-10-20T11:44:46.076952+00:00",
-    "file": "raw/fi-event-1469064.html",
-    "sha256": "cb47675988d06c5cff5741ed8b2f34ee026303442b4ffac5fb9a6c4cc2b9a0a7"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Teams/Details/7944",
-    "observed_at_utc": "2026-10-20T11:44:46.562011+00:00",
-    "file": "raw/fi-team-7944.html",
-    "sha256": "2140234afd4fd029d20ee4f6b97cde01eaf4c765c3317035d77298202e029068"
-  },
-  {
-    "source_url": "https://www.footballinfo.net/Fixtures/Details/1637347",
-    "observed_at_utc": "2026-10-20T11:44:47.040377+00:00",
-    "file": "raw/fi-event-1637347.html",
-    "sha256": "ff9ced71f3fa4e32790cff4ecba26009aa10552e6564502975e61f83c38355bf"
+    "source_url": "https://www.footballinfo.net/Fixtures/Details/1563820",
+    "observed_at_utc": "2026-10-20T11:51:25.025159+00:00",
+    "file": "raw/fi-event-1563820.html",
+    "sha256": "bd78b71e94ff35c19dfd90d92774e7bdd790b88f2b8d5d73ccaf99847bd6876a"
   }
 ]
