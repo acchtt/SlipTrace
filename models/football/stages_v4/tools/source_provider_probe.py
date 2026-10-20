@@ -93,6 +93,20 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
                 at = full_text.find(token)
                 if at >= 0:
                     extra[label] = re.sub(r"\\s+", " ", full_text[max(0, at-700):at+3500])[:4200]
+        if name == "footballinfo" and payload is None:
+            team_ids = re.findall(r"media\.api-sports\.io/football/teams/(\d+)\.png", full_text)
+            if team_ids:
+                team_url = "https://www.footballinfo.net/Teams/Details/" + team_ids[0]
+                try:
+                    _, _, _, team_text = fetch(team_url)
+                    extra["team_detail_url"] = team_url
+                    extra["team_detail_length"] = len(team_text)
+                    at = team_text.find('fi-fixture')
+                    if at < 0:
+                        at = team_text.lower().find("fixtures")
+                    extra["team_detail_fragment"] = re.sub(r"\\s+", " ", team_text[max(0, at-500):at+4500])[:5000] if at >= 0 else team_text[:3000]
+                except Exception as exc:
+                    extra["team_detail_error"] = f"{type(exc).__name__}: {exc}"
         item = {"provider": name, "status": status, "head": head, **extra, **summarize(name, payload)}
         usable = status == 200 and (isinstance(payload, dict) or len(full_text) > 5000)
         return item, usable
