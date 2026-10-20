@@ -1,0 +1,98 @@
+{
+  "run_id": "V4-20261020-1841-20261021-0300",
+  "selection_mode": "EXPANDED_RESEARCHED_LEAGUE_COHORT_AFTER_AUTO_EVIDENCE_LIMITED",
+  "source_epoch_reference": "V4-20261020-1841-20261021-0300",
+  "target_count": 30,
+  "targets": [
+    {
+      "match_id": "1635661"
+    },
+    {
+      "match_id": "1635719"
+    },
+    {
+      "match_id": "1622800"
+    },
+    {
+      "match_id": "1622801"
+    },
+    {
+      "match_id": "1497724"
+    },
+    {
+      "match_id": "1604032"
+    },
+    {
+      "match_id": "1604030"
+    },
+    {
+      "match_id": "1604031"
+    },
+    {
+      "match_id": "1603054"
+    },
+    {
+      "match_id": "1603061"
+    },
+    {
+      "match_id": "1603055"
+    },
+    {
+      "match_id": "1603059"
+    },
+    {
+      "match_id": "1563150"
+    },
+    {
+      "match_id": "1564367"
+    },
+    {
+      "match_id": "1564368"
+    },
+    {
+      "match_id": "1564369"
+    },
+    {
+      "match_id": "1564370"
+    },
+    {
+      "match_id": "1564371"
+    },
+    {
+      "match_id": "1564372"
+    },
+    {
+      "match_id": "1564373"
+    },
+    {
+      "match_id": "1564374"
+    },
+    {
+      "match_id": "1564375"
+    },
+    {
+      "match_id": "1564376"
+    },
+    {
+      "match_id": "1564377"
+    },
+    {
+      "match_id": "1563815"
+    },
+    {
+      "match_id": "1563816"
+    },
+    {
+      "match_id": "1563817"
+    },
+    {
+      "match_id": "1563818"
+    },
+    {
+      "match_id": "1563819"
+    },
+    {
+      "match_id": "1563820"
+    }
+  ]
+}
