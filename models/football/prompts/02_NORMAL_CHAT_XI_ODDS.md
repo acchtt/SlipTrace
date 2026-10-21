@@ -77,7 +77,36 @@ Optional:
 
 ## Routine authority
 
-For every normal /xi, rank authority is the **first mandatory operation**:
+For every normal /xi, rank authority is the **first mandatory operation**.
+
+### Mandatory rank-discovery preflight
+
+Before choosing `authority.mode`, resolve whether the fixture is already ranked.
+This lookup is part of /xi; it is not optional conversational context.
+
+1. Resolve the exact fixture identity / match ID from the user's evidence.
+2. Read the active store route in
+   `../google_sheets/ACTIVE_STORE_ROUTING.json`, then query the exact fixture in
+   **Daily Coverage Ledger**. This ledger lookup is discovery/readback only; it
+   does not replace the sealed V4 rank package as execution authority.
+3. If the ledger has a current ranked FOCUS row, capture its Run ID, Match ID,
+   rank, supported line and rank-integrity hash, then locate the matching
+   portable verified rank artifact in the current conversation, Project files,
+   or Library. Do not stop at the GitHub checkout: a newest verified rank
+   artifact may be persisted outside `main`.
+4. Load the exact package and require
+   `V4_RANK_PERSISTENCE_VERIFIED` or
+   `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`, the exact FOCUS board row, and the
+   matching frozen model-input row.
+5. If the active ledger proves the fixture is ranked but the sealed package
+   cannot be loaded, return `RANK_RECEIPT_REQUIRED`. **Never convert that
+   fixture to EXCEPTION.**
+6. `authority.mode = EXCEPTION` is permitted only when the user's command
+   explicitly requests `/xi exception`; the runtime authority must carry
+   `user_requested_exception = true`. Normal `/xi` must never infer or
+   manufacture exception authority.
+
+After that preflight:
 
 1. resolve the newest verified V4 rank package that contains the requested
    fixture;
@@ -97,7 +126,9 @@ contract. A free-standing `c_football.json` is not a valid normal /xi input.
 
 Only an explicitly requested `/xi exception` may use
 `authority.mode = EXCEPTION` without a ranked FOCUS row. The exception reference
-must be non-empty and the result remains visibly tagged `EXCEPTION`.
+must be non-empty, `user_requested_exception` must be `true`, and the result
+remains visibly tagged `EXCEPTION`. A normal /xi ranked-ledger hit can never be
+downgraded or rerouted to EXCEPTION because a package lookup was skipped or failed.
 
 Do not replay Step-1 source/status in Step 2.
 
