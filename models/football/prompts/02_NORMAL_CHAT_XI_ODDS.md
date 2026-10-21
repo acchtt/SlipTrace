@@ -2,7 +2,7 @@
 
 Apply `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`. Use native result
 diagnostics and scope labels. A research-required or scope-blocked result cannot
-be replaced with a manually narrated ACT/WAIT/PASS. Complete mixed/rejected
+be replaced with a manually narrated ACT/BOOK/PASS. Complete mixed/rejected
 G4 findings still receive the material-disagreement recheck; only source-backed
 misclassification correction can revise a prior certificate. An out-of-scope
 exception is labeled analysis and does not silently become production execution.
@@ -24,7 +24,7 @@ new /xi work.
 ## Runtime authority in normal chat
 
 Normal chat is the evidence/interaction surface, not a second decision engine.
-Official C ACT/BOOK/WAIT/PASS must be produced by the current deterministic
+Official C ACT/BOOK/PASS must be produced by the current deterministic
 runtime path in `engine/core.py`, `engine/adapter.py` and `engine/xi_portable.py`
 when those components are callable. Conversational prose may explain the result
 but may not override it.
@@ -35,7 +35,7 @@ fall back to ANALYSIS_ONLY**. Use the on-demand deterministic backend:
 1. serialize the already-researched `c_football` payload and, when present,
    the exact `USER_SCREENSHOT_ONLY` quote into
    `models/football/engine/xi_runtime_requests/<request-id>.json`;
-2. the request must use schema `football-c-xi-runtime-request-v1` and the
+2. the request must use schema `football-c-xi-runtime-request-v2` and the
    filename stem must equal `request_id`;
 3. wait for the `XI Football C deterministic runtime` workflow to persist
    `models/football/engine/xi_runtime_results/<request-id>.json`;
@@ -57,7 +57,7 @@ never silently replace a missing runtime result with a free-form official action
 
 Direct runtime when callable:
 
-python models/football/engine/xi_portable.py xi --c c_football.json
+python models/football/engine/xi_portable.py xi --c c_football.json --authority xi_authority.json
 
 Normal-chat backend when direct execution is unavailable:
 
@@ -77,17 +77,29 @@ Optional:
 
 ## Routine authority
 
-For a routine V4 board match verify:
+For every normal /xi, rank authority is the **first mandatory operation**:
 
-- sealed V4 rank receipt;
-- V4_RANK_PERSISTENCE_VERIFIED or V4_RANK_PARTIAL_PERSISTENCE_VERIFIED receipt
-  (partial verifies the assessed board and retains its incomplete research label);
-- exact Football C board row.
+1. resolve the newest verified V4 rank package that contains the requested
+   fixture;
+2. require `V4_RANK_PERSISTENCE_VERIFIED` or
+   `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`;
+3. require the exact **FOCUS** board row and matching frozen model input;
+4. pass that package through the shared `engine/xi_authority.py` contract;
+5. inherit the frozen board state/certificate/evidence before current XI or
+   material football updates are applied.
+
+Do not ask the user to resubmit a rank receipt that is already available to the
+conversation/runtime. Do not silently build a new Football C assessment when the
+rank package cannot be resolved. Fail closed with `RANK_RECEIPT_REQUIRED`.
+
+The direct `xi_portable.py` path and the GitHub backend use the same authority
+contract. A free-standing `c_football.json` is not a valid normal /xi input.
+
+Only an explicitly requested `/xi exception` may use
+`authority.mode = EXCEPTION` without a ranked FOCUS row. The exception reference
+must be non-empty and the result remains visibly tagged `EXCEPTION`.
 
 Do not replay Step-1 source/status in Step 2.
-
-For an explicit /xi exception, assess the requested fixture from current
-Football C evidence without routine board authority.
 
 ## Football assessment
 
@@ -131,7 +143,7 @@ The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
 policy used by strict execution.
 
 If the screenshot burden materially exceeds C's certificate, the runtime
-normally hard-gates the observed burden before ACT/WAIT/PASS at that burden.
+normally hard-gates the observed burden before ACT/BOOK/PASS at that burden.
 
 A bounded **BOOK** is different because it does not accept the observed burden
 or upgrade the certificate. The normal 0.50+ material-disagreement football
@@ -167,7 +179,7 @@ normal-chat /xi turn:
 4. record the researched certificate-relevant fields and source/evidence refs;
 5. rerun the deterministic C football certificate;
 6. invoke `xi_portable.py` again with the same user screenshot;
-7. only the second, cleared runtime result may produce ACT/BOOK/WAIT/PASS.
+7. only the second, cleared runtime result may produce ACT/BOOK/PASS.
    A bounded G3 BOOK target does not require the recheck to fund G4 because it
    remains below O3.50 and preserves the O2.50 certificate.
 
@@ -215,37 +227,30 @@ A higher market total alone, merely confirming the same XI, or repeating the
 old rank conclusion is never enough. The independent football recheck must
 either confirm the rejection or produce a deterministic C certificate repair.
 
-## WAIT
+## Conditional BOOK targets
 
-WAIT must be researched, not manufactured.
+Active Football C no longer exposes WAIT as a normal user-facing price action.
 
-For a C-WATCH fixture, a reachable price is not enough when the current
-certificate is still FRAGILE. The current football recheck must lift the
-certificate to at least CONDITIONAL before C may issue WAIT. A fragile WATCH
-therefore remains PASS at the quote layer even when the nominal target appears
-reachable.
+When the football thesis is intact but the acceptable line/price is not
+currently available, C may return **BOOK** with an exact target line and minimum
+odds. BOOK means a conditional target order only:
 
-Require:
+- it creates no exposure until independently confirmed filled;
+- it must be reachable pre-goal without requiring negative football news;
+- one-step unsupported burden may target the certified burden only across
+  **0.25 goals**;
+- a gap of **0.50+** cannot manufacture a lower target;
+- a FRAGILE internal `C-WATCH`/`REVIEW_ONLY` exception cannot create a BOOK
+  target until the current football recheck validates the certificate to at
+  least CONDITIONAL.
 
-- wait_reachable=true;
-- non-empty reachability basis;
-- wait_requires_negative_info=false;
-- intact football mechanism;
-- no material veto.
+The normal minimum remains 1.65, with the existing supported-line 1.60 soft
+zone only where the deterministic C corroboration allows it. The settlement-
+aware G3 extension remains O2.75 @1.85+, O3.00 @1.90+, and O3.25 @2.00+ when
+its existing shape requirements clear. O3.50 still requires funded G4.
 
-A single screenshot does not prove the same line/price will improve. Near
-kickoff do not create a price-only micro-WAIT from speculative drift.
-
-For an unsupported higher line, the active C runtime may wait down to the
-certified burden only across **one 0.25 Asian-total step**. If the observed line
-is **0.50+ above** the certificate, never issue a decay WAIT for a far lower
-O2.5/O3.5 target. The deterministic result must instead be ACT at a funded
-burden, a bounded settlement-aware BOOK target, or PASS.
-
-The core owns target/minimum price. The normal minimum is 1.65; a 1.60
-supported-line soft zone is permitted only where the already-funded C
-certificate has the required football corroboration.
-
+If the target is not currently met, report `BOOK — PENDING/UNFILLED`, not ACT
+and not exposure.
 ## Strict executable decision
 
 A strict decision requires a current executable prematch quote plus all current
@@ -257,11 +262,27 @@ A screenshot comparison alone never authorizes execution/publication.
 ## Started fixtures
 
 After kickoff continue Football C assessment with current score/minute/material
-events. Never recreate a prematch ACT/WAIT/PASS retrospectively.
+events. Never recreate a prematch ACT/BOOK/PASS retrospectively.
 
 ## Output
 
-Give the C football verdict first, then any observed-price ACT/BOOK/WAIT/PASS
-and its execution status. For BOOK always print the protected certificate,
-target line, minimum odds, and that the order is **not exposure until filled**.
+The first line must be the **execution verdict**, never the inherited rank
+classification:
+
+- `ACT — <line> @ <odds>` when the current quote is accepted;
+- `BOOK — <target line> @ <minimum odds>+ — PENDING/UNFILLED` for a conditional
+  target;
+- `PASS — <reason>` when there is no acceptable current or conditional entry.
+
+Rank classification is metadata underneath the action. Display internal
+`C-WATCH` as **REVIEW_ONLY**. Never use WATCH/REVIEW_ONLY as the final /xi
+verdict and never confuse it with a price instruction.
+
+Also show a compact authority line for routine ranked fixtures:
+
+`RANK: #<n> FOCUS · cert O<line> · <rank run id>`
+
+For BOOK always print the protected certificate, target line, minimum odds, and
+that the order is **not exposure until independently confirmed filled**.
+
 Do not mention retired models unless the user asks for historical audit.
