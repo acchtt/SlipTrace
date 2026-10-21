@@ -38,22 +38,15 @@ jobs:
             run="${folder##*/}"
             cp "$folder/source.json" "v4-attested-artifacts/${run}-source.json"
 
-            # A post-rebuild historical source that predates the independent
-            # priority-surface contract is audit evidence only. Do not fail
-            # every future stage change by trying to mint a fresh production
-            # attestation from a source that current V4 correctly rejects.
-            if ! python - "$folder/source.json" <<'PY'
+            # Recovery sources that do not carry the current independent
+            # priority-completeness proof are immutable audit evidence. They
+            # must not be re-minted under today's production contract.
+            if ! test -f "$folder/intake-unattested.json" && ! python - "$folder/source.json" <<'PY'
           import json,sys
-          from datetime import datetime, timezone
           from pathlib import Path
           source=json.loads(Path(sys.argv[1]).read_text())
-          effective=datetime.fromisoformat("2026-10-12T18:00:00+00:00")
-          observed=source.get("source_observed_at_utc")
-          if not isinstance(observed,str):
-              raise SystemExit(1)
-          at=datetime.fromisoformat(observed.replace("Z","+00:00")).astimezone(timezone.utc)
           priority=(source.get("priority_completeness_verification") or {}).get("status")
-          if at >= effective and priority != "PRIORITY_COMPLETENESS_VERIFIED":
+          if priority != "PRIORITY_COMPLETENESS_VERIFIED":
               raise SystemExit(1)
           PY
             then
@@ -66,12 +59,63 @@ jobs:
             "schema_version":"football-v4-replay-blocked-v1",
             "status":"HISTORICAL_SOURCE_NOT_CURRENTLY_ATTESTABLE",
             "run_id":run,
-            "reason":"POST_REBUILD_SOURCE_LACKS_INDEPENDENT_PRIORITY_COMPLETENESS_PROOF",
+            "reason":"HISTORICAL_SOURCE_LACKS_CURRENT_PRIORITY_COMPLETENESS_PROOF",
             "production_rank_authorized":False,
             "source_run_id":source.get("run_id"),
           }
           Path(f"v4-attested-artifacts/{run}-replay_blocked.json").write_text(
               json.dumps(proof,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          PY
+              continue
+            fi
+
+            if test -f "$folder/repair-manifest.json"; then
+              # A fixture-status repair is a sealed derivative of an already
+              # researched source snapshot. Verify its chain of custody and
+              # receipt integrity; do not pretend the amended historical
+              # source is a fresh provider fetch.
+              python - "$folder/source.json" "$folder/v4_sweep_ready.json" "$folder/repair-manifest.json" "$folder/rank-handoff.json" "$run" <<'PY'
+          import hashlib,json,sys
+          from pathlib import Path
+
+          source_path=Path(sys.argv[1])
+          receipt_path=Path(sys.argv[2])
+          repair_path=Path(sys.argv[3])
+          handoff_path=Path(sys.argv[4])
+          run=sys.argv[5]
+
+          source_bytes=source_path.read_bytes()
+          source=json.loads(source_bytes)
+          receipt=json.loads(receipt_path.read_text())
+          repair=json.loads(repair_path.read_text())
+          handoff=json.loads(handoff_path.read_text())
+
+          def digest_payload(obj):
+              body={k:v for k,v in obj.items() if k!="integrity_sha256"}
+              raw=json.dumps(body,sort_keys=True,ensure_ascii=True,separators=(",",":")).encode("utf-8")
+              return hashlib.sha256(raw).hexdigest()
+
+          source_sha=hashlib.sha256(source_bytes).hexdigest()
+          assert source.get("run_id")==run
+          assert receipt.get("run_id")==run
+          assert handoff.get("run_id")==run
+          assert repair.get("status")=="SWEEP_RECEIPT_REPAIR_VERIFIED"
+          assert repair.get("replay_verified") is True
+          assert repair.get("preserved_source_rows_unchanged") is True
+          assert repair.get("preserved_researched_facts_unchanged") is True
+          assert repair.get("new_acquisition_performed") is False
+          assert repair.get("source_sha256")==source_sha
+          assert receipt.get("integrity_sha256")==digest_payload(receipt)
+          assert repair.get("receipt_integrity_sha256")==receipt.get("integrity_sha256")
+          assert handoff.get("source_file_sha256")==source_sha
+          assert handoff.get("receipt_integrity_sha256")==receipt.get("integrity_sha256")
+          assert (handoff.get("receipt_repair") or {}).get("excluded_match_id")==repair.get("excluded_match_id")
+
+          out=Path("v4-attested-artifacts")
+          (out/f"{run}-v4_sweep_ready.json").write_bytes(receipt_path.read_bytes())
+          (out/f"{run}-rank-handoff.json").write_bytes(handoff_path.read_bytes())
+          (out/f"{run}-repair-manifest.json").write_bytes(repair_path.read_bytes())
+          print("Verified sealed fixture-status repair:",run,receipt["integrity_sha256"])
           PY
               continue
             fi
