@@ -403,6 +403,83 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     return outcome
 
 
+def _attested_status_resolution(
+    row: dict[str, Any],
+    source: dict[str, Any],
+    sweep_receipt: dict[str, Any],
+    at: datetime,
+) -> dict[str, Any] | None:
+    """Validate a fixture-level authoritative postponement/cancellation.
+
+    Ordinary PREMATCH/STARTED/FINISHED refreshes remain bound to the frozen
+    provider URL and kickoff. A reschedule is different: the provider may be
+    stale while the competition/club has already published the new date. Two
+    independent HTTPS sources are therefore required, and a moved kickoff must
+    be outside the frozen sweep window before it can be status-excluded without
+    rebuilding the otherwise-valid cohort.
+    """
+    status = row.get("fixture_status")
+    resolution = row.get("status_resolution")
+    if status not in {"POSTPONED", "CANCELLED"} or not isinstance(resolution, dict):
+        return None
+
+    reason = resolution.get("reason")
+    if status == "POSTPONED" and reason not in {"RESCHEDULED", "POSTPONED"}:
+        raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_REASON_INVALID")
+    if status == "CANCELLED" and reason != "CANCELLED":
+        raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_REASON_INVALID")
+
+    urls = resolution.get("source_urls")
+    if not isinstance(urls, list) or len(urls) < 2:
+        raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_NEEDS_TWO_SOURCES")
+    cleaned = []
+    hosts = set()
+    for idx, value in enumerate(urls):
+        url = _url(value, f"{row.get('match_id')}.status_resolution.source_urls[{idx}]")
+        cleaned.append(url)
+        hosts.add(urlsplit(url).hostname.casefold())
+    if len(hosts) < 2:
+        raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_SOURCES_NOT_INDEPENDENT")
+
+    primary = _url(row.get("source_url"), f"{row.get('match_id')}.status_source_url")
+    if primary not in cleaned:
+        raise StageError(f"{row.get('match_id')}: status source must be one attesting source")
+
+    verified = _time(
+        resolution.get("verified_at_utc"),
+        f"{row.get('match_id')}.status_resolution.verified_at_utc",
+    )
+    if not at - timedelta(minutes=10) <= verified <= at:
+        raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_STALE")
+
+    frozen_ko = _time(source["kickoff_utc"], f"{row.get('match_id')}.frozen_kickoff")
+    updated_ko = _time(row.get("kickoff_utc"), f"{row.get('match_id')}.status_kickoff_utc")
+    new_ko = resolution.get("new_kickoff_utc")
+
+    if reason == "RESCHEDULED":
+        resolved_ko = _time(new_ko, f"{row.get('match_id')}.status_resolution.new_kickoff_utc")
+        if resolved_ko != updated_ko or resolved_ko == frozen_ko:
+            raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_KICKOFF_MISMATCH")
+        start = _time(sweep_receipt["window_start_utc"], "sweep.window_start_utc")
+        end = _time(sweep_receipt["window_end_utc"], "sweep.window_end_utc")
+        if start <= resolved_ko < end:
+            raise StageError(
+                f"{row.get('match_id')}: V4_KICKOFF_CHANGED_WITHIN_WINDOW; refresh sweep source"
+            )
+    else:
+        if updated_ko != frozen_ko:
+            raise StageError(
+                f"{row.get('match_id')}: cancelled fixture may not invent a replacement kickoff"
+            )
+
+    return {
+        "reason": reason,
+        "source_urls": cleaned,
+        "verified_at_utc": verified.isoformat(),
+        "new_kickoff_utc": updated_ko.isoformat() if reason == "RESCHEDULED" else None,
+    }
+
+
 def verify_rank_source_and_status(
     sweep_receipt: dict[str, Any], original_source: dict[str, Any],
     status_refresh: dict[str, Any], *, now: str,
@@ -454,6 +531,7 @@ def _check_rank_source_and_status(
         raise StageError("V4_STATUS_REFRESH_INCOMPLETE: full eligible cohort required")
     seen = set()
     statuses = {}
+    status_resolutions = {}
     for row in rows:
         if not isinstance(row, dict):
             raise StageError("V4_STATUS_REFRESH_MALFORMED")
@@ -462,23 +540,29 @@ def _check_rank_source_and_status(
             raise StageError("V4_STATUS_REFRESH_MISMATCH: duplicate/foreign fixture")
         seen.add(mid)
         source = frozen[mid]
-        _url(row.get("source_url"), f"{mid}.status_source_url")
-        if row["source_url"] != source["source_url"]:
-            raise StageError(f"{mid}: status source differs from frozen fixture source")
         observed = _time(row.get("observed_at_utc"), f"{mid}.status_observed_at_utc")
         if not at - timedelta(minutes=10) <= observed <= at or observed > checked:
             raise StageError(f"{mid}: V4_STATUS_REFRESH_STALE")
-        updated_ko = _time(row.get("kickoff_utc"), f"{mid}.status_kickoff_utc")
-        if updated_ko != _time(source["kickoff_utc"], f"{mid}.frozen_kickoff"):
-            raise StageError(f"{mid}: V4_KICKOFF_CHANGED; re-sweep the updated source epoch")
         status = row.get("fixture_status")
         if status not in VALID_MATCH_STATUSES:
             raise StageError(f"{mid}: V4_STATUS_REFRESH_UNKNOWN")
+
+        resolution = _attested_status_resolution(row, source, sweep_receipt, at)
+        if resolution is not None:
+            status_resolutions[mid] = resolution
+        else:
+            _url(row.get("source_url"), f"{mid}.status_source_url")
+            if row["source_url"] != source["source_url"]:
+                raise StageError(f"{mid}: status source differs from frozen fixture source")
+            updated_ko = _time(row.get("kickoff_utc"), f"{mid}.status_kickoff_utc")
+            if updated_ko != _time(source["kickoff_utc"], f"{mid}.frozen_kickoff"):
+                raise StageError(f"{mid}: V4_KICKOFF_CHANGED; re-sweep the updated source epoch")
         statuses[mid] = status
     return {
         "status_refresh_sha256": _hash(status_refresh),
         "original_source_sha256": _hash(original_source),
         "status_by_match": statuses,
+        "status_resolutions": status_resolutions,
     }
 
 
@@ -693,10 +777,6 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("active /rank requires one model=c stage=board payload")
     if not isinstance(c.get("matches"), list):
         raise StageError("actual source-backed C evidence array required")
-    for row in c["matches"]:
-        if (isinstance(row, dict) and row.get("match_id") in frozen
-                and at >= _time(frozen[row["match_id"]]["kickoff_utc"], "model.kickoff")):
-            raise StageError(f"{row['match_id']}: retroactive prematch rank forbidden")
     source_proof = verify_rank_source_and_status(
         sweep_receipt, original_source, status_refresh, now=at.isoformat()
     )
@@ -706,9 +786,28 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
             previous_rank, sweep_receipt, c, unranked_reasons, status_refresh, at
         )
     c = copy.deepcopy(c)
+    unranked_reasons = copy.deepcopy(unranked_reasons)
     crows = c.get("matches")
     if not isinstance(crows, list):
         raise StageError("actual source-backed C evidence array required")
+
+    # A fresh status closure supersedes stale research/model rows for that
+    # fixture only. Preserve the rest of the frozen cohort and continue rank;
+    # never force a whole-slate restart for an officially rescheduled match.
+    status_closed_ids = {
+        mid for mid in frozen
+        if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED"
+        or at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
+    }
+    if status_closed_ids:
+        crows = [
+            row for row in crows
+            if not (isinstance(row, dict) and row.get("match_id") in status_closed_ids)
+        ]
+        c["matches"] = crows
+        for mid in status_closed_ids:
+            unranked_reasons[mid] = "PREMATCH_WINDOW_CLOSED"
+
     ids = [r.get("match_id") for r in crows if isinstance(r, dict)]
     if len(ids) != len(crows) or len(ids) != len(set(ids)) or not set(ids).issubset(frozen):
         raise StageError("C ranked fixture cohort must be unique subset of frozen V4 fixtures")
