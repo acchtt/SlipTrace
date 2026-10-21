@@ -8,7 +8,7 @@ Operational routing is owned by `models/football/CURRENT_MODEL.md`. Source and
 rank procedure are owned by `stages_v4/SWEEP.md` and `stages_v4/RANK.md`.
 XI execution is owned by `engine/core.py`, `engine/adapter.py` and
 `engine/xi_portable.py`. This file must not redefine workflow caps, storage,
-retired-model behavior or a second ACT/WAIT/PASS policy.
+retired-model behavior or a second ACT/BOOK/PASS policy.
 
 ## 1. Football-first assessment
 
@@ -43,6 +43,10 @@ The researched football state is exactly one of:
 FOCUS/WATCH/PASS is predictive football selection. FOLLOW/RESERVE/STOP is a
 separate operational workload lane and must not become a second prediction
 model.
+
+Machine/frozen receipts retain `C-WATCH` for compatibility. User-facing
+surfaces render it as **REVIEW_ONLY**. REVIEW_ONLY is rank/research metadata,
+not an execution instruction and never a final /xi verdict.
 
 There is no predictive board-size target and no fixed V4 rank-board cap.
 Unfinished research remains unresolved/checkpointed rather than being converted
@@ -172,7 +176,7 @@ User screenshots are `USER_SCREENSHOT_ONLY` observations:
 - do not infer a missing price;
 - do not re-time the screenshot.
 
-Observed-price ACT/BOOK/WAIT/PASS is non-executable comparison. A strict
+Observed-price ACT/BOOK/PASS is non-executable comparison. A strict
 current executable decision requires the separate runtime authorization/evidence
 contract. BOOK is a target-order authorization, not a direct bet and not an
 assumed future fill.
@@ -200,41 +204,46 @@ burden to be funded.
 Do not use a higher market total as proof that the missing certificate should
 exist.
 
-## 11. WAIT — reachable before the first goal
+## 11. Conditional BOOK — reachable before the first goal
 
-WAIT is a concrete pre-goal entry plan, not a generic instruction to hope for
-decay.
+Active Football C does not issue a user-facing WAIT. The legacy
+`wait_reachable`, reachability-basis and negative-information fields remain
+internal compatibility evidence for deciding whether a conditional target is
+realistically reachable.
 
-All C WAITs require:
+When the current quote is not acceptable but a valid target can be expressed,
+C returns **BOOK** with the exact line and minimum odds. BOOK is a conditional
+target order, not a bet and not exposure until an actual fill is independently
+confirmed.
 
-- `wait_reachable=true` with a non-empty contemporaneous basis;
-- `wait_requires_negative_info=false`;
-- intact football mechanism;
+A conditional BOOK target requires:
+
+- a prospectively reachable pre-goal target with a contemporaneous basis;
+- no dependency on negative football information;
+- an intact football mechanism;
 - no material veto;
-- WATCH, if used as an explicit exception, revalidated to at least
-  CONDITIONAL robustness.
+- an internal C-WATCH/REVIEW_ONLY exception, if explicitly assessed, to
+  revalidate to at least CONDITIONAL robustness.
 
-For an **unsupported higher observed line**, active Football C may wait down to
-its certified burden only when the gap is at most **0.25 goals**.
+For an **unsupported higher observed line**, the target may move down to the
+certified burden only when the gap is at most **0.25 goals**.
 
-A gap of **0.50 goals or more** must not become a speculative decay WAIT.
-After the football comparison it may:
+A gap of **0.50 goals or more** must not manufacture a speculative far-lower
+target. After the football comparison it may:
 
 - become funded and be evaluated at the observed burden;
-- produce a bounded G3 BOOK target under the settlement-aware extension
-  contract; or
+- produce a bounded G3 settlement-aware BOOK target when that separate
+  extension contract clears; or
 - PASS.
 
-It must **not** become a WAIT for a much lower certified total.
-
-At/below a funded burden, a price-only WAIT still needs actual reachability
-evidence. A lone screenshot is not directional evidence that same-line odds
-will improve.
+A lone screenshot is not directional evidence that a target will become
+available. If a BOOK target is not currently met, it remains
+`PENDING_UNFILLED` and creates no exposure.
 
 ## 12. Live boundary
 
 After kickoff, continue the Football C football assessment from actual
-score/minute/material events. Never recreate a prematch ACT/WAIT/PASS
+score/minute/material events. Never recreate a prematch ACT/BOOK/PASS
 retrospectively.
 
 A live quote is comparison evidence only unless a separate live execution
@@ -244,16 +253,15 @@ policy explicitly authorizes exposure.
 
 Current accounting is exposure-conservative:
 
-- WATCH -> no model bet;
-- unresolved WAIT -> no model bet;
-- direct strict C BET -> official model exposure at actual terms;
+- internal WATCH/REVIEW_ONLY -> no model bet;
+- active C does not issue a user-facing WAIT; historical WAIT records remain
+  immutable audit/accounting history;
+- direct strict C BET/ACT -> official model exposure at actual terms;
 - BOOK -> no model exposure at order creation; a later actual fill must be
   independently confirmed before reconciliation can treat it as exposure;
-- WAIT -> exposure only after the reached terms are actually confirmed under
-  the active accounting contract;
 - physical user P/L -> `Actual Bets — Current` only.
 
-`WAIT_ASSUMED`, `WATCH_ASSUMED` and retired-model synthetic exposure are
+`WAIT_ASSUMED`, `WATCH_ASSUMED` and retired-model synthetic exposure remain
 historical-read-only concepts. See
 `procedures/FOOTBALL_WAIT_ASSUMED_EXPOSURE.md` and
 `procedures/FOOTBALL_MODEL_BET_ACCOUNTING.md`.
