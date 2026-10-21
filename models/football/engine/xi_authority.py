@@ -3,7 +3,9 @@
 
 Both the local/direct runtime and the GitHub transport backend must call this
 module before evaluating a normal ranked fixture. A routine /xi can never
-reconstruct Football C from a free-standing payload. Explicit user exceptions\nremain available only when the runtime authority records that the user explicitly\nrequested `/xi exception`; EXCEPTION is never an automatic fallback.
+reconstruct Football C from a free-standing payload. Explicit user exceptions
+remain available only when the runtime authority records that the user explicitly
+requested `/xi exception`; EXCEPTION is never an automatic fallback.
 """
 from __future__ import annotations
 
