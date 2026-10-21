@@ -2,12 +2,42 @@
   "schema_version": "football-v4-sweep-research-checkpoint-v2",
   "status": "RESEARCH_COMPLETE",
   "run_id": "V4-20261021-0933-20261021-1200",
-  "original_source_sha256": "0de07ce3dafa7fb4c6f6d310af24bf5ad8bfebfaa3b52943f4b62c9f31877461",
-  "source_file_sha256": "e592742cfd9fc453279e8a0fd97a667fdd82f18830a7642a3acfc11e9fd0d095",
-  "native_receipt_integrity_sha256": "59d335242f595f9271233d4e89ac0eb1380f6b1d802a98808ad3f21db00b9649",
+  "original_source_sha256": "e4fbd76a4a7a8dd2596c2e01b9e83f206ae5d18ee01fbb00b01f0f1e0afcb591",
+  "source_file_sha256": "3f9ea1bf1b1bf76c764a132cd63868089a18552cce992106b9ebd2b5863b1265",
+  "native_receipt_integrity_sha256": "ba890753478f8ab18422c308c7a4c9c01f22023b298112f22668d3348a7aca8f",
   "target_states": {
+    "1799036": {
+      "match_id": "1799036",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
     "1814242": {
       "match_id": "1814242",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1804064": {
+      "match_id": "1804064",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1853316": {
+      "match_id": "1853316",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1853317": {
+      "match_id": "1853317",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1853321": {
+      "match_id": "1853321",
       "attempted": true,
       "pending_reasons": [],
       "research_disposition": "COMPLETE"
@@ -19,13 +49,18 @@
       "research_disposition": "COMPLETE"
     }
   },
-  "eligible_match_ids": [],
+  "eligible_match_ids": [
+    "1814242",
+    "1853316"
+  ],
   "watch_match_ids": [
+    "1799036",
+    "1804064",
+    "1853317",
+    "1853321",
     "1814241"
   ],
-  "evidence_limited_match_ids": [
-    "1814242"
-  ],
+  "evidence_limited_match_ids": [],
   "status_excluded_match_ids": [],
   "resume_queue": [],
   "rank_handoff_ready": true,
