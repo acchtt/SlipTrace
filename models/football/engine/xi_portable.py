@@ -7,9 +7,9 @@ adapter.py/core.py for Football C.
 
 User-facing behavior:
 - football assessment never requires odds;
-- an observed/user-screenshot quote gets a conditional ACT/BOOK/WAIT/PASS
-  comparison through adapter.evaluate_observed_quote(), with no execution
-  authority; BOOK is a target order and not exposure until independently filled;
+- an observed/user-screenshot quote gets an ACT/BOOK/PASS comparison through
+  adapter.evaluate_observed_quote(), with no execution authority; BOOK is a
+  target order and not exposure until independently filled;
 - a genuinely executable current quote uses adapter.run_decision();
 - started fixtures keep football analysis but never recreate prematch actions.
 """
@@ -30,6 +30,7 @@ from adapter import (
     run_decision,
     run_football_assessment,
 )
+from xi_authority import RankAuthorityError, authorize_c_football
 
 
 MIN_PYTHON = (3, 10)
@@ -103,6 +104,24 @@ def _require_c(payload: dict[str, Any], stage: str | None = None) -> None:
         raise ValueError("active /xi accepts Football C only; C2/C3/C4 are retired")
     if stage is not None and payload.get("stage") != stage:
         raise ValueError(f"Football C payload must use stage={stage}")
+
+
+def _rank_state_presentation(c_input: dict[str, Any]) -> tuple[str, str]:
+    """Keep rank classification as metadata, never as the /xi verdict."""
+    context = c_input.get("context") if isinstance(c_input, dict) else None
+    match = c_input.get("match") if isinstance(c_input, dict) else None
+    raw = (
+        context.get("board_state")
+        if isinstance(context, dict) and context.get("board_state") is not None
+        else match.get("board_state")
+        if isinstance(match, dict)
+        else None
+    )
+    internal = str(raw or "UNKNOWN").strip().upper().replace("-", "_")
+    if internal.startswith("C_"):
+        internal = internal[2:]
+    display = "REVIEW_ONLY" if internal == "WATCH" else internal
+    return internal, display
 
 
 def assess_user_screenshot(
@@ -257,10 +276,13 @@ def assess_user_screenshot(
 def _football_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
     _require_c(c_input, "football_assessment")
     result = run_football_assessment(c_input)
+    rank_internal, rank_display = _rank_state_presentation(c_input)
     return {
         "ok": True,
         "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
         "model": "c",
+        "rank_state_internal": rank_internal,
+        "rank_state_display": rank_display,
         "quotes_required": False,
         "quote_research_required": False,
         "model_bets_created": False,
@@ -327,6 +349,17 @@ def _football_and_optional_price(
         raise ValueError(
             "strict C price decision must match football fixture/evidence epoch"
         )
+    # The strict price payload may update execution context, but it cannot
+    # provide a second copy of Football C evidence. Reuse the rank-authorized
+    # current match inherited by c_input.
+    price_c = dict(price_c)
+    price_c["match"] = dict(c_input["match"])
+    if isinstance(price_c.get("context"), dict):
+        price_context = dict(price_c["context"])
+        football_context = c_input.get("context") or {}
+        if isinstance(football_context, dict) and football_context.get("board_state") is not None:
+            price_context["board_state"] = football_context["board_state"]
+        price_c["context"] = price_context
 
     if c_input.get("context", {}).get("fixture_status") != "PREMATCH_CONFIRMED":
         return {
@@ -375,9 +408,11 @@ def main() -> int:
     xi.add_argument("--c", required=True)
     xi.add_argument("--price-c")
     xi.add_argument("--screenshot-quote")
+    xi.add_argument("--authority")
 
     decision = sub.add_parser("decision")
     decision.add_argument("--c", required=True)
+    decision.add_argument("--authority")
 
     football = sub.add_parser("football")
     football.add_argument("--c", required=True)
@@ -390,13 +425,26 @@ def main() -> int:
             return 0 if result.get("ok") else 2
 
         c_input = _load(args.c)
-        if args.command == "decision":
-            result = _decision_receipt(c_input)
-            print(json.dumps(result, indent=2, sort_keys=True))
-            return 0
         if args.command == "football":
             result = _football_receipt(c_input)
             print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        authority_path = getattr(args, "authority", None)
+        if not authority_path:
+            raise RankAuthorityError(
+                "RANK_RECEIPT_REQUIRED: direct /xi execution requires --authority "
+                "with RANKED verified receipt authority or an explicit EXCEPTION"
+            )
+        authority = _load(authority_path)
+        c_input, authority_trace = authorize_c_football(c_input, authority)
+
+        if args.command == "decision":
+            result = _decision_receipt(c_input)
+            print(json.dumps({
+                **result,
+                "authority": authority_trace,
+            }, indent=2, sort_keys=True))
             return 0
 
         if c_input.get("stage") == "decision":
@@ -406,6 +454,7 @@ def main() -> int:
             print(json.dumps({
                 **result,
                 "xi_mode": "STRICT_EXECUTABLE_PRICE_C",
+                "authority": authority_trace,
             }, indent=2, sort_keys=True))
             return 0
         if c_input.get("stage") != "football_assessment":
@@ -416,7 +465,10 @@ def main() -> int:
             price_c=_load(args.price_c) if args.price_c else None,
             screenshot=_load(args.screenshot_quote) if args.screenshot_quote else None,
         )
-        print(json.dumps(output, indent=2, sort_keys=True))
+        print(json.dumps({
+            **output,
+            "authority": authority_trace,
+        }, indent=2, sort_keys=True))
         return 0
 
     except Exception as exc:
@@ -426,12 +478,16 @@ def main() -> int:
         print(json.dumps({
             "ok": False,
             "status": (
-                "XI ENGINE CONTRACT REJECTED"
+                "RANK_RECEIPT_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                else "XI ENGINE CONTRACT REJECTED"
                 if is_contract
                 else "XI RUNTIME: EXECUTION FAILED"
             ),
             "failure_class": (
-                "PAYLOAD_OR_MODEL_CONTRACT"
+                "RANK_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                else "PAYLOAD_OR_MODEL_CONTRACT"
                 if is_contract
                 else "PYTHON_OR_RUNTIME"
             ),
