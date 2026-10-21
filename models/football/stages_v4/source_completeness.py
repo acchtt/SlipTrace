@@ -25,6 +25,7 @@ LEAGUE_QUERY_MODE = "DATE_SURFACE_ONLY"
 SCOPE_POLICY = "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS"
 ICT = ZoneInfo("Asia/Ho_Chi_Minh")
 MAX_AGE = timedelta(minutes=60)
+PRIORITY_GATE_EFFECTIVE_UTC = datetime(2026, 10, 21, tzinfo=timezone.utc)
 
 
 class SourceCompletenessError(ValueError):
@@ -100,7 +101,9 @@ def _fresh(value: Any, at: datetime, label: str) -> datetime:
     return observed
 
 
-def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[str, Any]:
+def validate_source_completeness(
+    source: dict[str, Any], *, now: str, require_priority: bool = True
+) -> dict[str, Any]:
     """Validate a complete date-surface acquisition manifest.
 
     This proves internal extraction completeness against the provider counts
@@ -136,6 +139,19 @@ def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[st
     if _time(manifest.get("window_end_utc"), "manifest.window_end_utc") != end:
         raise SourceCompletenessError("SWEEP_MANIFEST_WINDOW_END_MISMATCH")
     _fresh(manifest.get("checked_at_utc"), at, "manifest.checked_at_utc")
+    source_observed = _time(source.get("source_observed_at_utc"), "source_observed_at_utc")
+    priority = source.get("priority_completeness_verification")
+    if require_priority and source_observed >= PRIORITY_GATE_EFFECTIVE_UTC:
+        if (
+            not isinstance(priority, dict)
+            or priority.get("status") != "PRIORITY_COMPLETENESS_VERIFIED"
+            or priority.get("timezone_contract") != "ISO_8601_EXPLICIT_UTC"
+            or not isinstance(priority.get("validator_family"), str)
+            or priority.get("validator_family") == source.get("source_family")
+        ):
+            raise SourceCompletenessError(
+                "SWEEP_COMPLETENESS_BLOCKED: independent priority verification required"
+            )
 
     expected_keys = required_surface_keys(
         source.get("window_start_utc"), source.get("window_end_utc")
@@ -289,4 +305,8 @@ def validate_source_completeness(source: dict[str, Any], *, now: str) -> dict[st
         "terminal_fixture_count": len(sentinel_ids),
         "registry_prefilter_applied": False,
         "league_query_mode": LEAGUE_QUERY_MODE,
+        "priority_completeness_verified": (
+            isinstance(priority, dict)
+            and priority.get("status") == "PRIORITY_COMPLETENESS_VERIFIED"
+        ),
     }

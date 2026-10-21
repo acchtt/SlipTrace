@@ -51,7 +51,7 @@ def resolve_tab(
     if not isinstance(spec, dict):
         raise GoogleSheetsRouteError(f"unknown active sheet tab: {tab!r}")
     if tab == "Actual Bets — Current" and action != "read":
-        if not confirmed_user_slip or workflow not in {"model_accounting", "audit"}:
+        if not confirmed_user_slip or workflow not in {"xi", "model_accounting", "audit"}:
             raise GoogleSheetsRouteError(
                 "actual user bets require explicit verified user slip"
             )

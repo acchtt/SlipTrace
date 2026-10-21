@@ -33,6 +33,15 @@ REVIEW_MIN_PRIORITY_SCORE = 50
 REVIEW_MIN_MEAN_OVER_TWO_RATE = 0.50
 REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.35
 
+# A one-point-below-cutoff carrier lane prevents a concurrency threshold from
+# permanently discarding a fixture with an independently visible G3 mechanism.
+# This is secondary review only: it does not qualify, rank, or certify a match.
+SECONDARY_REVIEW_MIN_PRIORITY_SCORE = 49
+SECONDARY_REVIEW_MIN_CARRIER_ROUTE = 1.75
+SECONDARY_REVIEW_MIN_MEAN_OVER_TWO_RATE = 0.50
+SECONDARY_REVIEW_MIN_MEAN_OVER_THREE_RATE = 0.30
+SECONDARY_REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.25
+
 # Alternate evidence path for a fixture whose route-composite score is below
 # 60 but whose finished-match goal distribution is independently persuasive.
 # This remains a research-admission signal only; it never creates a C/C2
@@ -236,6 +245,22 @@ def _borderline_goal_review(
     )
 
 
+def _near_cutoff_carrier_review(
+    priority: int,
+    over_two: float,
+    over_three: float,
+    low_draw_trap: float,
+    carrier_route: float,
+) -> bool:
+    return (
+        priority >= SECONDARY_REVIEW_MIN_PRIORITY_SCORE
+        and carrier_route >= SECONDARY_REVIEW_MIN_CARRIER_ROUTE
+        and over_two >= SECONDARY_REVIEW_MIN_MEAN_OVER_TWO_RATE
+        and over_three >= SECONDARY_REVIEW_MIN_MEAN_OVER_THREE_RATE
+        and low_draw_trap <= SECONDARY_REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE
+    )
+
+
 def _qualifies_goal_research(
     priority: int,
     over_two: float,
@@ -307,12 +332,23 @@ def screen_discovery(
         carrier_route=carrier_route,
     )
     qualifies = qualification_path is not None
-    review = (
+    standard_review = (
         not qualifies
         and _borderline_goal_review(priority, over_two, low_draw_trap)
     )
+    carrier_review = (
+        not qualifies
+        and not standard_review
+        and _near_cutoff_carrier_review(
+            priority, over_two, over_three, low_draw_trap, carrier_route
+        )
+    )
+    review = standard_review or carrier_review
     if review:
-        qualification_path = "BORDERLINE_GOAL_REVIEW"
+        qualification_path = (
+            "BORDERLINE_GOAL_REVIEW" if standard_review
+            else "NEAR_CUTOFF_CARRIER_SECONDARY_REVIEW"
+        )
     fingerprint_payload = {
         "run_id": run_id,
         "source_payload_hash": source_payload_hash,
@@ -369,6 +405,11 @@ def screen_discovery(
             "review_minimum_priority_score": REVIEW_MIN_PRIORITY_SCORE,
             "review_minimum_mean_over_two_rate": REVIEW_MIN_MEAN_OVER_TWO_RATE,
             "review_maximum_mean_0_0_or_1_1_rate": REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE,
+            "secondary_review_minimum_priority_score": SECONDARY_REVIEW_MIN_PRIORITY_SCORE,
+            "secondary_review_minimum_carrier_route": SECONDARY_REVIEW_MIN_CARRIER_ROUTE,
+            "secondary_review_minimum_mean_over_two_rate": SECONDARY_REVIEW_MIN_MEAN_OVER_TWO_RATE,
+            "secondary_review_minimum_mean_over_three_rate": SECONDARY_REVIEW_MIN_MEAN_OVER_THREE_RATE,
+            "secondary_review_maximum_mean_0_0_or_1_1_rate": SECONDARY_REVIEW_MAX_MEAN_LOW_DRAW_TRAP_RATE,
             "alternate_minimum_mean_over_two_rate": ALT_MIN_MEAN_OVER_TWO_RATE,
             "alternate_minimum_mean_over_three_rate": ALT_MIN_MEAN_OVER_THREE_RATE,
             "alternate_maximum_mean_0_0_or_1_1_rate": ALT_MAX_MEAN_LOW_DRAW_TRAP_RATE,

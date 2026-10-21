@@ -70,6 +70,8 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertEqual(handoff["status"], "V4_RANK_HANDOFF_READY")
             self.assertTrue(handoff["active_research_complete"])
             self.assertTrue(checkpoint["rank_handoff_ready"])
+            self.assertEqual(checkpoint["status"], "ACTIVE_RESEARCH_QUEUE_COMPLETE")
+            self.assertTrue(checkpoint["active_research_queue_complete"])
             self.assertEqual(checkpoint["resume_queue"], [])
             self.assertTrue((root/"out/v4_sweep_ready.json").exists())
 
@@ -101,6 +103,7 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertEqual(handoff["status"], "V4_RANK_HANDOFF_READY")
             self.assertEqual(handoff["active_target_count"], 0)
             self.assertEqual(checkpoint["resume_queue"], [])
+            self.assertEqual(checkpoint["status"], "ACTIVE_RESEARCH_QUEUE_COMPLETE")
             self.assertEqual(checkpoint["target_states"], {})
             self.assertEqual(receipt["status"], "V4_SWEEP_READY")
 

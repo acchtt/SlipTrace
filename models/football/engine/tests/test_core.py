@@ -966,7 +966,7 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.book_target_line, 2.75)
         self.assertEqual(decision.book_min_odds, 1.85)
 
-    def test_g3_o300_material_gap_books_instead_of_waiting_for_o250(self):
+    def test_g3_o300_below_floor_is_no_action_target_only(self):
         decision = decide_c(
             assessment(),
             context(
@@ -977,9 +977,11 @@ class FootballCExecutionTests(unittest.TestCase):
                 wait_requires_negative_info=False,
             ),
         )
-        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.action, Action.PASS)
         self.assertEqual(decision.book_target_line, 3.0)
         self.assertEqual(decision.book_min_odds, 1.90)
+        self.assertTrue(decision.book_target_available)
+        self.assertFalse(decision.current_price_clears_book_target)
         self.assertNotEqual(decision.action, Action.WAIT)
 
     def test_strong_carrier_g3_can_book_o325_without_becoming_g4(self):

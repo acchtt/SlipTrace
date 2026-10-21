@@ -10,7 +10,10 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
 from stage import sweep,rank,StageError
 from league_registry import classify
-from discovery_goal_gate import _qualifies_goal_research, _borderline_goal_review
+from discovery_goal_gate import (
+    _qualifies_goal_research, _borderline_goal_review,
+    _near_cutoff_carrier_review,
+)
 
 NOW="2026-10-11T16:00:00Z"
 def row(mid,country="Brazil",competition="Serie A",kind="DOMESTIC_LEAGUE",
@@ -125,6 +128,12 @@ class Step0BoundaryRegressionTests(unittest.TestCase):
                 52, 0.625, 0.375, 0.1875, carrier_route=1.563
             )
         )
+
+    def test_viborg_shape_enters_targeted_secondary_review(self):
+        self.assertTrue(_near_cutoff_carrier_review(49, 0.50, 0.35, 0.25, 1.75))
+
+    def test_generic_below_cutoff_shape_remains_deferred(self):
+        self.assertFalse(_near_cutoff_carrier_review(49, 0.50, 0.25, 0.25, 1.50))
 
 
 class OpenLeagueGoalDiscoveryTests(unittest.TestCase):

@@ -190,6 +190,10 @@ def assess_user_screenshot(
         "reason": result["reason"],
         "book_target_line": result.get("book_target_line"),
         "book_min_odds": result.get("book_min_odds"),
+        "book_target_state": result.get("book_target_state", "NO_BOOK_TARGET"),
+        "current_price_clears_book_target": result.get(
+            "current_price_clears_book_target", False
+        ),
         "book_order_is_exposure": result.get("book_order_is_exposure", False),
         "wait_target_line": result.get("wait_target_line"),
         "wait_min_odds": result.get("wait_min_odds"),

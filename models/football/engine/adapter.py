@@ -1781,6 +1781,10 @@ def evaluate_observed_quote(
         "reason": decision.reason,
         "book_target_line": decision.book_target_line,
         "book_min_odds": decision.book_min_odds,
+        "book_target_state": (
+            "BOOK_TARGET_AVAILABLE" if decision.book_target_available else "NO_BOOK_TARGET"
+        ),
+        "current_price_clears_book_target": decision.current_price_clears_book_target,
         "book_order_is_exposure": False,
         "g3_book_extension_profile": book_profile,
         "bridge_used": decision.bridge_used,
@@ -2055,6 +2059,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "bridge_used": decision.bridge_used,
         "book_target_line": decision.book_target_line,
         "book_min_odds": decision.book_min_odds,
+        "book_target_state": (
+            "BOOK_TARGET_AVAILABLE" if decision.book_target_available else "NO_BOOK_TARGET"
+        ),
+        "current_price_clears_book_target": decision.current_price_clears_book_target,
         "book_order_status": book_order_status,
         "book_order_is_exposure": False,
         "g3_book_extension_profile": (
