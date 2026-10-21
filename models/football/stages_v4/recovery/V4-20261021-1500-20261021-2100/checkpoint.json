@@ -3,8 +3,8 @@
   "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
   "run_id": "V4-20261021-1500-20261021-2100",
   "original_source_sha256": "a70ef1701287bd9d34ce646f35174f6172784b18e032dd9c4a11875edc3c651e",
-  "source_file_sha256": "aa17abc16f7be01a671d2e64daea95472f0803139a1bf836bd940f37a255f9ac",
-  "native_receipt_integrity_sha256": "9663e7ca2b29969926bb4beb008813bb63a6d0a8a5da9a75036b7bf6dbce08fa",
+  "source_file_sha256": "e1bdd812e0661f37146ffa17a3f8303c6f37f919d7c8cbd83efde6f7f22a1427",
+  "native_receipt_integrity_sha256": "0b4905d53403bc29354ec1882dfe8cd22c03c4da803d4881e77265820426f3e1",
   "target_states": {
     "1814244": {
       "match_id": "1814244",
@@ -136,7 +136,8 @@
       "match_id": "1846937",
       "attempted": true,
       "pending_reasons": [],
-      "research_disposition": "COMPLETE"
+      "research_disposition": "STATUS_EXCLUDED",
+      "reason": "RESCHEDULED"
     },
     "1866191": {
       "match_id": "1866191",
@@ -210,7 +211,6 @@
     "1804068",
     "1804075",
     "1804076",
-    "1846937",
     "1866191"
   ],
   "watch_match_ids": [
@@ -234,7 +234,9 @@
     "1886590",
     "1886596"
   ],
-  "status_excluded_match_ids": [],
+  "status_excluded_match_ids": [
+    "1846937"
+  ],
   "resume_queue": [],
   "active_batch_complete": true,
   "active_research_queue_complete": true,

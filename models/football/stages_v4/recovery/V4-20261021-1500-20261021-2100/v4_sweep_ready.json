@@ -8,13 +8,13 @@
   "source_family": "LiveScore public date API",
   "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/7?MD=1&countryCode=US&locale=en",
   "source_observed_at_utc": "2026-10-21T06:47:07.717664+00:00",
-  "source_ledger_hash": "1a5a72905cf2da2d0fe3a06fc55734d4ceb291f026619435db4bb7b46ce59061",
+  "source_ledger_hash": "9c087903f6d1099ec23ad1e53d9d839d4b1ff15941e59345820471c126c653a1",
   "scope": "RESEARCHED_PLUS_SOURCE_SCREENED_UNREGISTERED_COMPETITIONS",
   "fixture_count": 299,
-  "eligible_count": 12,
+  "eligible_count": 11,
   "pending_researchability_count": 1,
   "pending_source_count": 17,
-  "excluded_or_closed_count": 240,
+  "excluded_or_closed_count": 241,
   "source_ledger": [
     {
       "source_row_index": 0,
@@ -1025,7 +1025,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "533791c6f503e129c85c5077feba284ce1da6f2b7afe55d4a3a2a900fa64090c"
+        "source_screen_fingerprint": "b8ba37ef8fcb84e80c2845049d189c04b9763b9fae17f3f202eaaa9acdfec521"
       }
     },
     {
@@ -1098,7 +1098,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "1c37212cdf216ec182a485481a3a8454456b8c470a2f8652a52330ba8aa66d04"
+        "source_screen_fingerprint": "3cec81cd06b2790c2c594c8cf5acd98c0af850975dc87bd8d487abde1edd8bd4"
       }
     },
     {
@@ -1171,7 +1171,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "e6105676f5bcf0ca600b45a9d94dc917b9249a9ab010ad781c4894635d77a431"
+        "source_screen_fingerprint": "33d3488d0e98596ec1de5397c6c46274b87fde4aec394cbb8bada71b3f567c9a"
       }
     },
     {
@@ -1244,7 +1244,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "25621d4a2baca09658b8d8bd4828a021495107868288a924c6c484044f803a98"
+        "source_screen_fingerprint": "b0dfa1bf4f4197609ff827c66ad3b2b46ebb73094603d6ba7817c6aa109d1eb2"
       }
     },
     {
@@ -1317,7 +1317,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d37ce99dd183c70bd54c78377b5a6f5fcd768ab1b4042a2c4f6df890884af013"
+        "source_screen_fingerprint": "a1eaccbb3d2f04e308640bf1d5c583626bcf72ecf06d90644be6c9b2d2c61960"
       }
     },
     {
@@ -1390,7 +1390,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "36104a19526466cb605b8a8550acc95a1edcbc9052e6e675d28b35925b08d22e"
+        "source_screen_fingerprint": "1df911c26a798906778cb447cc2643948f0149d5c6c4d0febbc7903aacdf455d"
       }
     },
     {
@@ -1463,7 +1463,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "0ac90c0e7c06ea1b517e6094a78c703b9784646e495fe3e84f39cd6eed069691"
+        "source_screen_fingerprint": "b7964bc8e0825206a35de3a7cfb5538e9677c691453ac767738ffdcf1ed61cea"
       }
     },
     {
@@ -1536,7 +1536,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "8ab8e2b996ba7cc9420fb0a1720731b777ed0890658bff2c0430c9664ff95898"
+        "source_screen_fingerprint": "3301668b64805012fa346a312c72eae2bba1164a4d2e76cb9022f140fb4396b4"
       }
     },
     {
@@ -1609,7 +1609,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "3f2ad5d6322974aba0c429f2d2be945c8c8e54cdaf1e41a2b77e329b2f98f75a"
+        "source_screen_fingerprint": "64484235e5777fde36caa7e692686be3886902eb6c34669c25fb878ba25c1a62"
       }
     },
     {
@@ -1682,7 +1682,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "c453288d3958facd2387ef1ef5cca98e3ea46d44e535d7174d6821a5f5b5750c"
+        "source_screen_fingerprint": "460420ec6154dc3890b4bf947f9056e1e81ab9c9c3bae22aa284ee0884bc1816"
       }
     },
     {
@@ -3979,7 +3979,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -4036,7 +4036,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       }
     },
     {
@@ -4097,7 +4097,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -4154,7 +4154,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       }
     },
     {
@@ -4312,7 +4312,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5f97b008765723e64ccd528208f00a80dad14b851edc660eaa09ee3f104138db"
+        "source_screen_fingerprint": "a4cad26f776ed65fda5f0e634f5cfcdc4da235e1a96665364a05821f80b8a34e"
       }
     },
     {
@@ -4385,7 +4385,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "c1497091f33eb1f57c23828a2b7050fe6c424daf8875948891525fcaa99e8a64"
+        "source_screen_fingerprint": "ff25643f5db90a176fbb5fdf22f8b90f4edda99963c407e057d47b1b00c2525f"
       }
     },
     {
@@ -4458,7 +4458,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "4f5e440ee5a2b26d79cf4526a57c2436457bfce162d7235328724597b8099b65"
+        "source_screen_fingerprint": "f9a952320531527636cd03346e42d7ab3407e46b9e1827dbf31de3c02dc0bcd5"
       }
     },
     {
@@ -4531,7 +4531,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "f8b35496871d7c4167b16eb3b0e0b3f33fc8fbd05aacfa104c329e538e26660f"
+        "source_screen_fingerprint": "13baed1e08f34853da437805b788a4e604bec8a64156a638a262ec2836e0c9cd"
       }
     },
     {
@@ -4604,7 +4604,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "e81e69b20f674799574d5e83c2fb3f5905767ce423de83d0139da7385964af45"
+        "source_screen_fingerprint": "bd6687ef07d0929bc3a127c4d8447ab7199ecd5dc5106d7b15cb15ff0e99c5c8"
       }
     },
     {
@@ -4677,7 +4677,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "a790ea0e3c9c014a67d8e70929cbd1b99bcfdc947b5b217e6c3cee63a82a813e"
+        "source_screen_fingerprint": "57f84d48044cf659a50ecdc2bea36372313e4f8a879d44981ab37e2f00b62696"
       }
     },
     {
@@ -4750,7 +4750,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "dfa78405fa7f88b104d3a2b37a0b3058dbde5e084108d15c9e55ffe0e0d0536a"
+        "source_screen_fingerprint": "9a9c257c0d35512675203f6c8c65ef2f64ca2621e2816041722c87af7a4ca6d8"
       }
     },
     {
@@ -4823,7 +4823,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "1e8ed8d4d02c3b77617507d230ca3f02cb802214561307e10af3efbea9cf375c"
+        "source_screen_fingerprint": "eed32d918cfaf46d3cea7b2182b43bf3872e10fff613f40439e66799af0d1b47"
       }
     },
     {
@@ -4896,7 +4896,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "40b2dfc40f6e40deac7079dfff8744ff2a0ee27ed9bdd08cca1236d1e1e11c30"
+        "source_screen_fingerprint": "df7e95929a6289771daa51c4be00b6a2aacef1c32e3392d6a314d85de4af8509"
       }
     },
     {
@@ -5372,7 +5372,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -5430,7 +5430,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       }
     },
     {
@@ -6082,7 +6082,7 @@
       "home": "Lion City Sailors FC",
       "away": "Tampines Rovers FC",
       "kickoff_utc": "2026-10-21T11:30:00+00:00",
-      "fixture_status": "PREMATCH_CONFIRMED",
+      "fixture_status": "POSTPONED",
       "source_family": "LiveScore public date API",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
       "observed_at_utc": "2026-10-21T06:47:19.904327+00:00",
@@ -6092,104 +6092,11 @@
         "checked_at_utc": "2026-10-21T06:47:08.281076+00:00",
         "current_channels_checked": true
       },
-      "discovery_screen": {
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "is_model_prediction": false,
-        "bookmaker_quote_required": false,
-        "status": "DISCOVERY_GOAL_REVIEW",
-        "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-        "priority_score": 50,
-        "home_sample_n": 5,
-        "away_sample_n": 5,
-        "mean_over_two_rate": 0.5,
-        "mean_over_three_rate": 0.4,
-        "mean_0_0_or_1_1_rate": 0.1,
-        "carrier_route": 1.6,
-        "second_route": 1.5,
-        "qualification_path": "BORDERLINE_GOAL_REVIEW",
-        "thresholds": {
-          "minimum_priority_score": 60,
-          "minimum_mean_over_two_rate": 0.55,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_priority_score": 50,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "secondary_review_minimum_priority_score": 49,
-          "secondary_review_minimum_carrier_route": 1.75,
-          "secondary_review_minimum_mean_over_two_rate": 0.5,
-          "secondary_review_minimum_mean_over_three_rate": 0.3,
-          "secondary_review_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "g3_distribution_minimum_priority_score": 50,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
-        },
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
-      },
+      "discovery_screen": null,
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
-      "intake_lane": "GOAL_REVIEW",
-      "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-      "cheap_filter": {
-        "schema_version": "football-sweep-cheap-filter-v1",
-        "priority": "NEUTRAL_RESEARCH",
-        "priority_rank": 4,
-        "reason": "NO_ACTIVE_CHEAP_FILTER_PROFILE",
-        "profile_as_of_utc": "2026-10-13T00:00:00Z",
-        "profile_expires_utc": "2026-11-13T00:00:00Z",
-        "hard_exclude": false,
-        "draw_trap_caution": false,
-        "requires_match_specific_goal_evidence": true,
-        "profile_expired": false
-      },
-      "goal_screen": {
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "is_model_prediction": false,
-        "bookmaker_quote_required": false,
-        "status": "DISCOVERY_GOAL_REVIEW",
-        "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-        "priority_score": 50,
-        "home_sample_n": 5,
-        "away_sample_n": 5,
-        "mean_over_two_rate": 0.5,
-        "mean_over_three_rate": 0.4,
-        "mean_0_0_or_1_1_rate": 0.1,
-        "carrier_route": 1.6,
-        "second_route": 1.5,
-        "qualification_path": "BORDERLINE_GOAL_REVIEW",
-        "thresholds": {
-          "minimum_priority_score": 60,
-          "minimum_mean_over_two_rate": 0.55,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_priority_score": 50,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "secondary_review_minimum_priority_score": 49,
-          "secondary_review_minimum_carrier_route": 1.75,
-          "secondary_review_minimum_mean_over_two_rate": 0.5,
-          "secondary_review_minimum_mean_over_three_rate": 0.3,
-          "secondary_review_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "g3_distribution_minimum_priority_score": 50,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
-        },
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
-      }
+      "intake_lane": "CLOSED",
+      "reason": "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
     },
     {
       "source_row_index": 221,
@@ -7751,7 +7658,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -7882,7 +7789,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -7956,7 +7863,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -8073,7 +7980,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -8304,7 +8211,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "1c37212cdf216ec182a485481a3a8454456b8c470a2f8652a52330ba8aa66d04"
+        "source_screen_fingerprint": "3cec81cd06b2790c2c594c8cf5acd98c0af850975dc87bd8d487abde1edd8bd4"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -8534,7 +8441,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "25621d4a2baca09658b8d8bd4828a021495107868288a924c6c484044f803a98"
+        "source_screen_fingerprint": "b0dfa1bf4f4197609ff827c66ad3b2b46ebb73094603d6ba7817c6aa109d1eb2"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -8764,7 +8671,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "36104a19526466cb605b8a8550acc95a1edcbc9052e6e675d28b35925b08d22e"
+        "source_screen_fingerprint": "1df911c26a798906778cb447cc2643948f0149d5c6c4d0febbc7903aacdf455d"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -8994,7 +8901,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "e6105676f5bcf0ca600b45a9d94dc917b9249a9ab010ad781c4894635d77a431"
+        "source_screen_fingerprint": "33d3488d0e98596ec1de5397c6c46274b87fde4aec394cbb8bada71b3f567c9a"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -9224,7 +9131,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "1e8ed8d4d02c3b77617507d230ca3f02cb802214561307e10af3efbea9cf375c"
+        "source_screen_fingerprint": "eed32d918cfaf46d3cea7b2182b43bf3872e10fff613f40439e66799af0d1b47"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -9454,7 +9361,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "4f5e440ee5a2b26d79cf4526a57c2436457bfce162d7235328724597b8099b65"
+        "source_screen_fingerprint": "f9a952320531527636cd03346e42d7ab3407e46b9e1827dbf31de3c02dc0bcd5"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -9684,7 +9591,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "40b2dfc40f6e40deac7079dfff8744ff2a0ee27ed9bdd08cca1236d1e1e11c30"
+        "source_screen_fingerprint": "df7e95929a6289771daa51c4be00b6a2aacef1c32e3392d6a314d85de4af8509"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -9914,7 +9821,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "c453288d3958facd2387ef1ef5cca98e3ea46d44e535d7174d6821a5f5b5750c"
+        "source_screen_fingerprint": "460420ec6154dc3890b4bf947f9056e1e81ab9c9c3bae22aa284ee0884bc1816"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -9929,211 +9836,6 @@
         "profile_expired": false
       },
       "queue_rank": 10
-    },
-    {
-      "source_row_index": 220,
-      "match_id": "1846937",
-      "country": "Singapore",
-      "competition": "Premier League",
-      "competition_kind": "DOMESTIC_LEAGUE",
-      "home": "Lion City Sailors FC",
-      "away": "Tampines Rovers FC",
-      "kickoff_utc": "2026-10-21T11:30:00+00:00",
-      "fixture_status": "PREMATCH_CONFIRMED",
-      "source_family": "LiveScore public date API",
-      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
-      "observed_at_utc": "2026-10-21T06:47:19.904327+00:00",
-      "researchability_proof": {
-        "match_id": "1846937",
-        "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10583/details?locale=en",
-        "checked_at_utc": "2026-10-21T06:47:08.281076+00:00",
-        "current_channels_checked": true
-      },
-      "discovery_screen": {
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "is_model_prediction": false,
-        "bookmaker_quote_required": false,
-        "status": "DISCOVERY_GOAL_REVIEW",
-        "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-        "priority_score": 50,
-        "home_sample_n": 5,
-        "away_sample_n": 5,
-        "mean_over_two_rate": 0.5,
-        "mean_over_three_rate": 0.4,
-        "mean_0_0_or_1_1_rate": 0.1,
-        "carrier_route": 1.6,
-        "second_route": 1.5,
-        "qualification_path": "BORDERLINE_GOAL_REVIEW",
-        "thresholds": {
-          "minimum_priority_score": 60,
-          "minimum_mean_over_two_rate": 0.55,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_priority_score": 50,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "secondary_review_minimum_priority_score": 49,
-          "secondary_review_minimum_carrier_route": 1.75,
-          "secondary_review_minimum_mean_over_two_rate": 0.5,
-          "secondary_review_minimum_mean_over_three_rate": 0.3,
-          "secondary_review_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "g3_distribution_minimum_priority_score": 50,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
-        },
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
-      },
-      "tournament_format_proof": null,
-      "registry_lane": "DISCOVERY",
-      "intake_lane": "GOAL_REVIEW",
-      "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-      "football_evidence": {
-        "home": {
-          "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10583/details?locale=en",
-          "observed_at_utc": "2026-10-21T06:47:19.719265+00:00",
-          "recent": [
-            {
-              "event_id": "1846938",
-              "kickoff_utc": "2026-10-18T11:30:00+00:00",
-              "goals_for": 2,
-              "goals_against": 0,
-              "competition": "Premier League"
-            },
-            {
-              "event_id": "1873897",
-              "kickoff_utc": "2026-10-15T10:00:00+00:00",
-              "goals_for": 1,
-              "goals_against": 0,
-              "competition": "AFC Champions League Two: Group F"
-            },
-            {
-              "event_id": "1846941",
-              "kickoff_utc": "2026-10-11T11:30:00+00:00",
-              "goals_for": 6,
-              "goals_against": 1,
-              "competition": "Premier League"
-            },
-            {
-              "event_id": "1873895",
-              "kickoff_utc": "2026-09-17T10:00:00+00:00",
-              "goals_for": 1,
-              "goals_against": 1,
-              "competition": "AFC Champions League Two: Group F"
-            },
-            {
-              "event_id": "1846934",
-              "kickoff_utc": "2026-09-12T11:30:00+00:00",
-              "goals_for": 2,
-              "goals_against": 2,
-              "competition": "Premier League"
-            }
-          ]
-        },
-        "away": {
-          "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4435/details?locale=en",
-          "observed_at_utc": "2026-10-21T06:47:19.904327+00:00",
-          "recent": [
-            {
-              "event_id": "1846940",
-              "kickoff_utc": "2026-10-18T11:30:00+00:00",
-              "goals_for": 4,
-              "goals_against": 1,
-              "competition": "Premier League"
-            },
-            {
-              "event_id": "1873873",
-              "kickoff_utc": "2026-10-15T12:15:00+00:00",
-              "goals_for": 0,
-              "goals_against": 1,
-              "competition": "AFC Champions League Two: Group G"
-            },
-            {
-              "event_id": "1846939",
-              "kickoff_utc": "2026-10-11T11:30:00+00:00",
-              "goals_for": 4,
-              "goals_against": 0,
-              "competition": "Premier League"
-            },
-            {
-              "event_id": "1873872",
-              "kickoff_utc": "2026-09-17T12:15:00+00:00",
-              "goals_for": 1,
-              "goals_against": 2,
-              "competition": "AFC Champions League Two: Group G"
-            },
-            {
-              "event_id": "1846930",
-              "kickoff_utc": "2026-09-11T11:30:00+00:00",
-              "goals_for": 2,
-              "goals_against": 0,
-              "competition": "Premier League"
-            }
-          ]
-        }
-      },
-      "operational_grade": "A",
-      "operational_grade_basis": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
-      "goal_screen": {
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "is_model_prediction": false,
-        "bookmaker_quote_required": false,
-        "status": "DISCOVERY_GOAL_REVIEW",
-        "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-        "priority_score": 50,
-        "home_sample_n": 5,
-        "away_sample_n": 5,
-        "mean_over_two_rate": 0.5,
-        "mean_over_three_rate": 0.4,
-        "mean_0_0_or_1_1_rate": 0.1,
-        "carrier_route": 1.6,
-        "second_route": 1.5,
-        "qualification_path": "BORDERLINE_GOAL_REVIEW",
-        "thresholds": {
-          "minimum_priority_score": 60,
-          "minimum_mean_over_two_rate": 0.55,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_priority_score": 50,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "secondary_review_minimum_priority_score": 49,
-          "secondary_review_minimum_carrier_route": 1.75,
-          "secondary_review_minimum_mean_over_two_rate": 0.5,
-          "secondary_review_minimum_mean_over_three_rate": 0.3,
-          "secondary_review_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "g3_distribution_minimum_priority_score": 50,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
-        },
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
-      },
-      "cheap_filter": {
-        "schema_version": "football-sweep-cheap-filter-v1",
-        "priority": "NEUTRAL_RESEARCH",
-        "priority_rank": 4,
-        "reason": "NO_ACTIVE_CHEAP_FILTER_PROFILE",
-        "profile_as_of_utc": "2026-10-13T00:00:00Z",
-        "profile_expires_utc": "2026-11-13T00:00:00Z",
-        "hard_exclude": false,
-        "draw_trap_caution": false,
-        "requires_match_specific_goal_evidence": true,
-        "profile_expired": false
-      },
-      "queue_rank": 11
     },
     {
       "source_row_index": 162,
@@ -10193,7 +9895,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       },
       "tournament_format_proof": null,
       "registry_lane": "DISCOVERY",
@@ -10324,7 +10026,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -10338,7 +10040,7 @@
         "requires_match_specific_goal_evidence": true,
         "profile_expired": false
       },
-      "queue_rank": 12
+      "queue_rank": 11
     }
   ],
   "research_order": [
@@ -10352,13 +10054,12 @@
     "1795802",
     "1795804",
     "1795805",
-    "1804075",
-    "1846937"
+    "1804075"
   ],
   "goal_screen_manifest": {
     "schema_version": "football-v4-goal-research-manifest-v3",
     "run_id": "V4-20261021-1500-20261021-2100",
-    "source_payload_hash": "1a5a72905cf2da2d0fe3a06fc55734d4ceb291f026619435db4bb7b46ce59061",
+    "source_payload_hash": "9c087903f6d1099ec23ad1e53d9d839d4b1ff15941e59345820471c126c653a1",
     "priority_profile": "GOAL_SIGNAL_FIRST_V3",
     "ordered_eligible_match_ids": [
       "1866191",
@@ -10371,8 +10072,7 @@
       "1795802",
       "1795804",
       "1795805",
-      "1804075",
-      "1846937"
+      "1804075"
     ],
     "original_rows": [
       {
@@ -10382,7 +10082,7 @@
         "operational_grade_basis": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 58,
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       },
       {
         "match_id": "1814244",
@@ -10391,7 +10091,7 @@
         "operational_grade_basis": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 57,
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       },
       {
         "match_id": "1795801",
@@ -10400,7 +10100,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 53,
-        "source_screen_fingerprint": "1c37212cdf216ec182a485481a3a8454456b8c470a2f8652a52330ba8aa66d04"
+        "source_screen_fingerprint": "3cec81cd06b2790c2c594c8cf5acd98c0af850975dc87bd8d487abde1edd8bd4"
       },
       {
         "match_id": "1795802",
@@ -10409,7 +10109,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 53,
-        "source_screen_fingerprint": "25621d4a2baca09658b8d8bd4828a021495107868288a924c6c484044f803a98"
+        "source_screen_fingerprint": "b0dfa1bf4f4197609ff827c66ad3b2b46ebb73094603d6ba7817c6aa109d1eb2"
       },
       {
         "match_id": "1795804",
@@ -10418,7 +10118,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 52,
-        "source_screen_fingerprint": "36104a19526466cb605b8a8550acc95a1edcbc9052e6e675d28b35925b08d22e"
+        "source_screen_fingerprint": "1df911c26a798906778cb447cc2643948f0149d5c6c4d0febbc7903aacdf455d"
       },
       {
         "match_id": "1795805",
@@ -10427,7 +10127,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 50,
-        "source_screen_fingerprint": "e6105676f5bcf0ca600b45a9d94dc917b9249a9ab010ad781c4894635d77a431"
+        "source_screen_fingerprint": "33d3488d0e98596ec1de5397c6c46274b87fde4aec394cbb8bada71b3f567c9a"
       },
       {
         "match_id": "1804068",
@@ -10436,7 +10136,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 58,
-        "source_screen_fingerprint": "1e8ed8d4d02c3b77617507d230ca3f02cb802214561307e10af3efbea9cf375c"
+        "source_screen_fingerprint": "eed32d918cfaf46d3cea7b2182b43bf3872e10fff613f40439e66799af0d1b47"
       },
       {
         "match_id": "1804075",
@@ -10445,7 +10145,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 50,
-        "source_screen_fingerprint": "4f5e440ee5a2b26d79cf4526a57c2436457bfce162d7235328724597b8099b65"
+        "source_screen_fingerprint": "f9a952320531527636cd03346e42d7ab3407e46b9e1827dbf31de3c02dc0bcd5"
       },
       {
         "match_id": "1804076",
@@ -10454,7 +10154,7 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 58,
-        "source_screen_fingerprint": "40b2dfc40f6e40deac7079dfff8744ff2a0ee27ed9bdd08cca1236d1e1e11c30"
+        "source_screen_fingerprint": "df7e95929a6289771daa51c4be00b6a2aacef1c32e3392d6a314d85de4af8509"
       },
       {
         "match_id": "1795806",
@@ -10463,28 +10163,19 @@
         "operational_grade_basis": "ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED",
         "screen_status": "QUANTIFIED",
         "priority_score": 54,
-        "source_screen_fingerprint": "c453288d3958facd2387ef1ef5cca98e3ea46d44e535d7174d6821a5f5b5750c"
+        "source_screen_fingerprint": "460420ec6154dc3890b4bf947f9056e1e81ab9c9c3bae22aa284ee0884bc1816"
       },
       {
-        "match_id": "1846937",
+        "match_id": "1866191",
         "queue_rank": 11,
         "operational_grade": "A",
         "operational_grade_basis": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
         "screen_status": "QUANTIFIED",
-        "priority_score": 50,
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
-      },
-      {
-        "match_id": "1866191",
-        "queue_rank": 12,
-        "operational_grade": "A",
-        "operational_grade_basis": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
-        "screen_status": "QUANTIFIED",
         "priority_score": 61,
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       }
     ],
-    "screen_fingerprint": "74b3e270f423e5b6adfeb8c63559e4d9b9d4c001f41cfe0aeeacf8bf05033faa"
+    "screen_fingerprint": "7a6bb0f89cbeceb9b25d2b5056f59d3d2683d684fba8e203eff6985f1aa35855"
   },
   "invalid_historical_form_sources": [],
   "no_fixed_eight_match_cap": true,
@@ -11153,7 +10844,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "533791c6f503e129c85c5077feba284ce1da6f2b7afe55d4a3a2a900fa64090c"
+        "source_screen_fingerprint": "b8ba37ef8fcb84e80c2845049d189c04b9763b9fae17f3f202eaaa9acdfec521"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11218,7 +10909,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5f97b008765723e64ccd528208f00a80dad14b851edc660eaa09ee3f104138db"
+        "source_screen_fingerprint": "a4cad26f776ed65fda5f0e634f5cfcdc4da235e1a96665364a05821f80b8a34e"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11283,7 +10974,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d37ce99dd183c70bd54c78377b5a6f5fcd768ab1b4042a2c4f6df890884af013"
+        "source_screen_fingerprint": "a1eaccbb3d2f04e308640bf1d5c583626bcf72ecf06d90644be6c9b2d2c61960"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11348,7 +11039,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "8ab8e2b996ba7cc9420fb0a1720731b777ed0890658bff2c0430c9664ff95898"
+        "source_screen_fingerprint": "3301668b64805012fa346a312c72eae2bba1164a4d2e76cb9022f140fb4396b4"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11413,7 +11104,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "c1497091f33eb1f57c23828a2b7050fe6c424daf8875948891525fcaa99e8a64"
+        "source_screen_fingerprint": "ff25643f5db90a176fbb5fdf22f8b90f4edda99963c407e057d47b1b00c2525f"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11478,7 +11169,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "0ac90c0e7c06ea1b517e6094a78c703b9784646e495fe3e84f39cd6eed069691"
+        "source_screen_fingerprint": "b7964bc8e0825206a35de3a7cfb5538e9677c691453ac767738ffdcf1ed61cea"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11543,7 +11234,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "f8b35496871d7c4167b16eb3b0e0b3f33fc8fbd05aacfa104c329e538e26660f"
+        "source_screen_fingerprint": "13baed1e08f34853da437805b788a4e604bec8a64156a638a262ec2836e0c9cd"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11608,7 +11299,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "dfa78405fa7f88b104d3a2b37a0b3058dbde5e084108d15c9e55ffe0e0d0536a"
+        "source_screen_fingerprint": "9a9c257c0d35512675203f6c8c65ef2f64ca2621e2816041722c87af7a4ca6d8"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11673,7 +11364,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "e81e69b20f674799574d5e83c2fb3f5905767ce423de83d0139da7385964af45"
+        "source_screen_fingerprint": "bd6687ef07d0929bc3a127c4d8447ab7199ecd5dc5106d7b15cb15ff0e99c5c8"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11738,7 +11429,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "a790ea0e3c9c014a67d8e70929cbd1b99bcfdc947b5b217e6c3cee63a82a813e"
+        "source_screen_fingerprint": "57f84d48044cf659a50ecdc2bea36372313e4f8a879d44981ab37e2f00b62696"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -11803,7 +11494,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "3f2ad5d6322974aba0c429f2d2be945c8c8e54cdaf1e41a2b77e329b2f98f75a"
+        "source_screen_fingerprint": "64484235e5777fde36caa7e692686be3886902eb6c34669c25fb878ba25c1a62"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12493,7 +12184,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "533791c6f503e129c85c5077feba284ce1da6f2b7afe55d4a3a2a900fa64090c"
+        "source_screen_fingerprint": "b8ba37ef8fcb84e80c2845049d189c04b9763b9fae17f3f202eaaa9acdfec521"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12558,7 +12249,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5f97b008765723e64ccd528208f00a80dad14b851edc660eaa09ee3f104138db"
+        "source_screen_fingerprint": "a4cad26f776ed65fda5f0e634f5cfcdc4da235e1a96665364a05821f80b8a34e"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12623,7 +12314,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d37ce99dd183c70bd54c78377b5a6f5fcd768ab1b4042a2c4f6df890884af013"
+        "source_screen_fingerprint": "a1eaccbb3d2f04e308640bf1d5c583626bcf72ecf06d90644be6c9b2d2c61960"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12688,7 +12379,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "8ab8e2b996ba7cc9420fb0a1720731b777ed0890658bff2c0430c9664ff95898"
+        "source_screen_fingerprint": "3301668b64805012fa346a312c72eae2bba1164a4d2e76cb9022f140fb4396b4"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12753,7 +12444,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "c1497091f33eb1f57c23828a2b7050fe6c424daf8875948891525fcaa99e8a64"
+        "source_screen_fingerprint": "ff25643f5db90a176fbb5fdf22f8b90f4edda99963c407e057d47b1b00c2525f"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12818,7 +12509,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "0ac90c0e7c06ea1b517e6094a78c703b9784646e495fe3e84f39cd6eed069691"
+        "source_screen_fingerprint": "b7964bc8e0825206a35de3a7cfb5538e9677c691453ac767738ffdcf1ed61cea"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12883,7 +12574,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "f8b35496871d7c4167b16eb3b0e0b3f33fc8fbd05aacfa104c329e538e26660f"
+        "source_screen_fingerprint": "13baed1e08f34853da437805b788a4e604bec8a64156a638a262ec2836e0c9cd"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -12948,7 +12639,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "dfa78405fa7f88b104d3a2b37a0b3058dbde5e084108d15c9e55ffe0e0d0536a"
+        "source_screen_fingerprint": "9a9c257c0d35512675203f6c8c65ef2f64ca2621e2816041722c87af7a4ca6d8"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -13013,7 +12704,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "e81e69b20f674799574d5e83c2fb3f5905767ce423de83d0139da7385964af45"
+        "source_screen_fingerprint": "bd6687ef07d0929bc3a127c4d8447ab7199ecd5dc5106d7b15cb15ff0e99c5c8"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -13078,7 +12769,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "a790ea0e3c9c014a67d8e70929cbd1b99bcfdc947b5b217e6c3cee63a82a813e"
+        "source_screen_fingerprint": "57f84d48044cf659a50ecdc2bea36372313e4f8a879d44981ab37e2f00b62696"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -13143,7 +12834,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "3f2ad5d6322974aba0c429f2d2be945c8c8e54cdaf1e41a2b77e329b2f98f75a"
+        "source_screen_fingerprint": "64484235e5777fde36caa7e692686be3886902eb6c34669c25fb878ba25c1a62"
       },
       "cheap_filter": {
         "schema_version": "football-sweep-cheap-filter-v1",
@@ -13166,7 +12857,7 @@
   "unresearched_goal_history_count": 19,
   "low_goal_signal_count": 11,
   "verified_goal_qualified_count": 6,
-  "goal_review_count": 6,
+  "goal_review_count": 5,
   "cheap_filter_policy": "RESEARCH_PRIORITY_V1",
   "cheap_filter_counts": {
     "PRIMARY_RESEARCH": 0,
@@ -13394,7 +13085,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "50a2255a7dbe02a2609bea6a86010f4969912b6b04638a6781aa4f25fea2531a"
+        "source_screen_fingerprint": "b26b205e0287d530b579877adc3359331e4ede58cad8c28f51b1cd2fcff96674"
       }
     },
     {
@@ -13445,7 +13136,7 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "d492442af3ab72084497402b287ba41cd38d821f96b5865452fde6989d685785"
+        "source_screen_fingerprint": "d41b5962b9c905ba8ddb4abbad41b8c09b7864bd7c485bd758494073aa6ec2d9"
       }
     },
     {
@@ -13632,60 +13323,9 @@
           "carrier_minimum_mean_over_three_rate": 0.3,
           "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
         },
-        "source_screen_fingerprint": "5a0c1bb3a94013582378993fba480ddab1cb1d858fbf6db4d2d27cef2cf4fbac"
-      }
-    },
-    {
-      "match_id": "1846937",
-      "country": "Singapore",
-      "competition": "Premier League",
-      "home": "Lion City Sailors FC",
-      "away": "Tampines Rovers FC",
-      "kickoff_utc": "2026-10-21T11:30:00+00:00",
-      "intake_lane": "GOAL_REVIEW",
-      "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-      "discovery_screen": {
-        "policy": "V4_EQUAL_SOURCE_BACKED_GOAL_HISTORY_V2",
-        "is_model_prediction": false,
-        "bookmaker_quote_required": false,
-        "status": "DISCOVERY_GOAL_REVIEW",
-        "reason": "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW",
-        "priority_score": 50,
-        "home_sample_n": 5,
-        "away_sample_n": 5,
-        "mean_over_two_rate": 0.5,
-        "mean_over_three_rate": 0.4,
-        "mean_0_0_or_1_1_rate": 0.1,
-        "carrier_route": 1.6,
-        "second_route": 1.5,
-        "qualification_path": "BORDERLINE_GOAL_REVIEW",
-        "thresholds": {
-          "minimum_priority_score": 60,
-          "minimum_mean_over_two_rate": 0.55,
-          "maximum_mean_0_0_or_1_1_rate": 0.35,
-          "review_minimum_priority_score": 50,
-          "review_minimum_mean_over_two_rate": 0.5,
-          "review_maximum_mean_0_0_or_1_1_rate": 0.35,
-          "secondary_review_minimum_priority_score": 49,
-          "secondary_review_minimum_carrier_route": 1.75,
-          "secondary_review_minimum_mean_over_two_rate": 0.5,
-          "secondary_review_minimum_mean_over_three_rate": 0.3,
-          "secondary_review_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "alternate_minimum_mean_over_two_rate": 0.65,
-          "alternate_minimum_mean_over_three_rate": 0.45,
-          "alternate_maximum_mean_0_0_or_1_1_rate": 0.2,
-          "g3_distribution_minimum_priority_score": 50,
-          "g3_distribution_minimum_mean_over_two_rate": 0.67,
-          "g3_distribution_maximum_mean_0_0_or_1_1_rate": 0.25,
-          "carrier_minimum_priority_score": 50,
-          "carrier_minimum_route": 1.75,
-          "carrier_minimum_mean_over_two_rate": 0.6,
-          "carrier_minimum_mean_over_three_rate": 0.3,
-          "carrier_maximum_mean_0_0_or_1_1_rate": 0.25
-        },
-        "source_screen_fingerprint": "275113b39ebf8c0f1eaed44e5f508e1e55a7e3330a60eab8f62b8aa579aa6893"
+        "source_screen_fingerprint": "4c02555bffa69c3e9a22130835e93b4003c7e9cd7ecc170acfb9aa6f81b078d0"
       }
     }
   ],
-  "integrity_sha256": "9663e7ca2b29969926bb4beb008813bb63a6d0a8a5da9a75036b7bf6dbce08fa"
+  "integrity_sha256": "0b4905d53403bc29354ec1882dfe8cd22c03c4da803d4881e77265820426f3e1"
 }

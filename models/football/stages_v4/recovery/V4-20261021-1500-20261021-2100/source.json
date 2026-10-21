@@ -7368,7 +7368,7 @@
       "home": "Lion City Sailors FC",
       "away": "Tampines Rovers FC",
       "kickoff_utc": "2026-10-21T11:30:00+00:00",
-      "fixture_status": "PREMATCH_CONFIRMED",
+      "fixture_status": "POSTPONED",
       "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
       "observed_at_utc": "2026-10-21T06:47:19.904327+00:00",
       "provider_team_ids": [
@@ -7465,6 +7465,16 @@
             }
           ]
         }
+      },
+      "status_disposition": "RESCHEDULED",
+      "status_correction": {
+        "checked_at_utc": "2026-10-21T08:29:33.838543+00:00",
+        "new_fixture_date": "2027-02-04",
+        "source_urls": [
+          "https://spl.sg/news/spl-fixture-update-lion-city-sailors-vs-tampines-rovers/",
+          "https://www.lioncitysailorsfc.sg/sailors-spl-home-fixture-against-tampines-rescheduled-to-february/"
+        ],
+        "basis": "League and club confirm 21 October fixture rescheduled to 4 February 2027; the old kickoff remains immutable provenance, not current eligibility."
       }
     },
     {

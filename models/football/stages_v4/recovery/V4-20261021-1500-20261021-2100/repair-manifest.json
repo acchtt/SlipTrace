@@ -1,0 +1,28 @@
+{
+  "status": "SWEEP_RECEIPT_REPAIR_VERIFIED",
+  "repaired_at_utc": "2026-10-21T08:29:33.895564+00:00",
+  "disposition": "RESCHEDULED",
+  "excluded_match_id": "1846937",
+  "parent_receipt_integrity_sha256": "9663e7ca2b29969926bb4beb008813bb63a6d0a8a5da9a75036b7bf6dbce08fa",
+  "parent_source_file_sha256": "aa17abc16f7be01a671d2e64daea95472f0803139a1bf836bd940f37a255f9ac",
+  "preserved_researched_match_ids": [
+    "1795801",
+    "1795802",
+    "1795804",
+    "1795805",
+    "1795806",
+    "1804068",
+    "1804075",
+    "1804076",
+    "1814244",
+    "1866180",
+    "1866191"
+  ],
+  "new_acquisition_performed": false,
+  "source_sha256": "e1bdd812e0661f37146ffa17a3f8303c6f37f919d7c8cbd83efde6f7f22a1427",
+  "receipt_integrity_sha256": "0b4905d53403bc29354ec1882dfe8cd22c03c4da803d4881e77265820426f3e1",
+  "preserved_source_rows_unchanged": true,
+  "preserved_researched_facts_unchanged": true,
+  "original_source_observation_times_preserved": true,
+  "replay_verified": true
+}
