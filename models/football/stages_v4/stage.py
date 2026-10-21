@@ -777,6 +777,25 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("active /rank requires one model=c stage=board payload")
     if not isinstance(c.get("matches"), list):
         raise StageError("actual source-backed C evidence array required")
+    refresh_rows = {
+        row.get("match_id"): row for row in (status_refresh or {}).get("matches", [])
+        if isinstance(row, dict)
+    }
+    for row in c["matches"]:
+        if not isinstance(row, dict) or row.get("match_id") not in frozen:
+            continue
+        mid = row["match_id"]
+        refresh_row = refresh_rows.get(mid) or {}
+        has_status_resolution = (
+            refresh_row.get("fixture_status") in {"POSTPONED", "CANCELLED"}
+            and isinstance(refresh_row.get("status_resolution"), dict)
+        )
+        if (
+            at >= _time(frozen[mid]["kickoff_utc"], "model.kickoff")
+            and not has_status_resolution
+        ):
+            raise StageError(f"{mid}: retroactive prematch rank forbidden")
+
     source_proof = verify_rank_source_and_status(
         sweep_receipt, original_source, status_refresh, now=at.isoformat()
     )
@@ -797,7 +816,6 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     status_closed_ids = {
         mid for mid in frozen
         if source_proof["status_by_match"][mid] != "PREMATCH_CONFIRMED"
-        or at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
     }
     if status_closed_ids:
         crows = [
@@ -806,6 +824,15 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         ]
         c["matches"] = crows
         for mid in status_closed_ids:
+            unranked_reasons[mid] = "PREMATCH_WINDOW_CLOSED"
+    assessed_ids_after_status = {
+        row.get("match_id") for row in crows if isinstance(row, dict)
+    }
+    for mid in frozen:
+        if (
+            mid not in assessed_ids_after_status
+            and at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff")
+        ):
             unranked_reasons[mid] = "PREMATCH_WINDOW_CLOSED"
 
     ids = [r.get("match_id") for r in crows if isinstance(r, dict)]
