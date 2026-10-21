@@ -36,6 +36,46 @@ jobs:
             test -f "$source" || continue
             folder="${source%/source.json}"
             run="${folder##*/}"
+            cp "$folder/source.json" "v4-attested-artifacts/${run}-source.json"
+
+            # A post-rebuild historical source that predates the independent
+            # priority-surface contract is audit evidence only. Do not fail
+            # every future stage change by trying to mint a fresh production
+            # attestation from a source that current V4 correctly rejects.
+            if ! python - "$folder/source.json" <<'PY'
+          import json,sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+          source=json.loads(Path(sys.argv[1]).read_text())
+          effective=datetime.fromisoformat("2026-10-12T18:00:00+00:00")
+          observed=source.get("source_observed_at_utc")
+          if not isinstance(observed,str):
+              raise SystemExit(1)
+          at=datetime.fromisoformat(observed.replace("Z","+00:00")).astimezone(timezone.utc)
+          priority=(source.get("priority_completeness_verification") or {}).get("status")
+          if at >= effective and priority != "PRIORITY_COMPLETENESS_VERIFIED":
+              raise SystemExit(1)
+          PY
+            then
+              python - "$folder/source.json" "$run" <<'PY'
+          import json,sys
+          from pathlib import Path
+          source=json.loads(Path(sys.argv[1]).read_text())
+          run=sys.argv[2]
+          proof={
+            "schema_version":"football-v4-replay-blocked-v1",
+            "status":"HISTORICAL_SOURCE_NOT_CURRENTLY_ATTESTABLE",
+            "run_id":run,
+            "reason":"POST_REBUILD_SOURCE_LACKS_INDEPENDENT_PRIORITY_COMPLETENESS_PROOF",
+            "production_rank_authorized":False,
+            "source_run_id":source.get("run_id"),
+          }
+          Path(f"v4-attested-artifacts/{run}-replay_blocked.json").write_text(
+              json.dumps(proof,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+          PY
+              continue
+            fi
+
             if test -f "$folder/intake-unattested.json"; then
               # Historic cross-chat repair: replay the exact saved snapshot;
               # do not treat the derived hash as a production certificate.
@@ -85,7 +125,6 @@ jobs:
           print("V4 native stage receipt verified:",done["integrity_sha256"])
           PY
             fi
-            cp "$folder/source.json" "v4-attested-artifacts/${run}-source.json"
             python - "$folder/source.json" "v4-attested-artifacts/${run}-v4_sweep_ready.json" "$run" <<'PY'
           import hashlib,json,sys
           from pathlib import Path
