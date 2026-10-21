@@ -24,7 +24,7 @@ There is one active price policy:
 - adapter.run_decision() for a genuinely executable current prematch quote.
 
 Both use the same Football C core rules. No wrapper-specific or second-model
-ACT/BOOK/WAIT/PASS logic is allowed.
+ACT/BOOK/PASS logic is allowed.
 
 ## User screenshot
 
@@ -42,19 +42,17 @@ evidence is explicitly verified and at least one certificate-relevant field
 changed. Market movement, price, or the same preserved lineup/mechanism cannot
 authorize an upgrade.
 
-## WAIT
+## Conditional BOOK
 
-WAIT requires real reachability, an intact mechanism, no negative-information
-dependency and no material veto.
+Active Football C does not expose a normal price WAIT. If an acceptable
+line/price is not currently available but the target is prospectively reachable
+without negative football information, return BOOK with the exact target line
+and minimum odds. BOOK is a conditional target order and remains zero exposure
+until an independently confirmed fill.
 
-For active Football C, an unsupported higher line can wait down to the certified
-burden only when the line gap is <=0.25. A 0.50+ disagreement cannot become a
-far-lower decay target. It may be funded, receive a bounded settlement-aware
-BOOK target, or PASS.
-
-A lone screenshot is not directional evidence. Do not create a same-line
-micro-WAIT solely because odds might drift.
-
+For an unsupported higher line, a target may move down to the certified burden
+only when the gap is <=0.25. A 0.50+ disagreement cannot become a far-lower
+target. A lone screenshot is not directional evidence.
 ## Persistence
 
 Persist one C assessment/decision result and independently read it back once.
@@ -63,6 +61,6 @@ Retired C2/C3/C4 fields are historical only and are not required for new rows.
 
 ## Accounting
 
-WATCH, BOOK, and unresolved WAIT create no exposure. BOOK is only a
-conditional target order until fill confirmation. Physical user P/L comes only
-from Actual Bets — Current.
+Internal WATCH/REVIEW_ONLY creates no model bet. BOOK creates no exposure until
+fill confirmation. Active C emits no user-facing WAIT; historical WAIT records
+remain immutable. Physical user P/L comes only from Actual Bets — Current.
