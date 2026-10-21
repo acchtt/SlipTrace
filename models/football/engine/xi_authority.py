@@ -3,8 +3,7 @@
 
 Both the local/direct runtime and the GitHub transport backend must call this
 module before evaluating a normal ranked fixture. A routine /xi can never
-reconstruct Football C from a free-standing payload. Explicit user exceptions
-remain available, but must be tagged as EXCEPTION.
+reconstruct Football C from a free-standing payload. Explicit user exceptions\nremain available only when the runtime authority records that the user explicitly\nrequested `/xi exception`; EXCEPTION is never an automatic fallback.
 """
 from __future__ import annotations
 
@@ -56,6 +55,11 @@ def authorize_c_football(
 
     mode = authority.get("mode")
     if mode == "EXCEPTION":
+        if authority.get("user_requested_exception") is not True:
+            raise RankAuthorityError(
+                "RANK_RECEIPT_REQUIRED: EXCEPTION authority requires an explicit "
+                "user /xi exception request"
+            )
         reference = authority.get("exception_reference")
         if not isinstance(reference, str) or not reference.strip():
             raise RankAuthorityError(
@@ -64,6 +68,7 @@ def authorize_c_football(
         return dict(supplied), {
             "mode": "EXCEPTION",
             "reference": reference.strip(),
+            "user_requested_exception": True,
             "rank_state_internal": None,
             "rank_state_display": "EXCEPTION",
         }
