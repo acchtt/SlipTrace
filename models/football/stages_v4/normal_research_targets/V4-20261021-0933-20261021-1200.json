@@ -1,0 +1,36 @@
+{
+  "run_id": "V4-20261021-0933-20261021-1200",
+  "selection_mode": "NORMAL_CHAT_COMPLETE_IN_WINDOW_ACTIONABLE_COHORT",
+  "source_identity_reference_run_id": "V4-20261021-0933-20261021-1200",
+  "rationale": "All seven non-excluded in-window fixtures promoted because the automatic cohort selected only two and the total actionable set is small enough for complete bounded research.",
+  "targets": [
+    {
+      "match_id": "1799036",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3671/details?locale=en"
+    },
+    {
+      "match_id": "1814242",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10007/details?locale=en"
+    },
+    {
+      "match_id": "1804064",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7362/details?locale=en"
+    },
+    {
+      "match_id": "1853316",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7379/details?locale=en"
+    },
+    {
+      "match_id": "1853317",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7374/details?locale=en"
+    },
+    {
+      "match_id": "1853321",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8668/details?locale=en"
+    },
+    {
+      "match_id": "1814241",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/173226/details?locale=en"
+    }
+  ]
+}
