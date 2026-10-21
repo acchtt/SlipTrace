@@ -1456,7 +1456,7 @@ class DecisionContractTests(unittest.TestCase):
         self.assertIsNone(result["model_accounting_odds"])
         self.assertEqual(result["wait_resolution_default"], "NOT_APPLICABLE")
 
-    def test_c_g3_o300_below_floor_is_target_only_no_action(self):
+    def test_c_g3_o300_below_floor_is_pending_book_target(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
@@ -1475,14 +1475,14 @@ class DecisionContractTests(unittest.TestCase):
                 ),
             }
         )
-        self.assertEqual(result["action"], "PASS")
+        self.assertEqual(result["action"], "BOOK")
         self.assertEqual(result["book_target_line"], 3.0)
         self.assertEqual(result["book_min_odds"], 1.90)
         self.assertEqual(result["book_target_state"], "BOOK_TARGET_AVAILABLE")
         self.assertFalse(result["current_price_clears_book_target"])
         self.assertIsNone(result["wait_target_line"])
 
-    def test_c_g3_o275_below_floor_is_target_only_no_action(self):
+    def test_c_g3_o275_below_floor_is_pending_book_target(self):
         result = run_decision({
             "schema_version": "football-engine-v1", "stage": "decision", "model": "c",
             "match": match(board_state="C-FOCUS", supported_line=2.5),
@@ -1492,7 +1492,7 @@ class DecisionContractTests(unittest.TestCase):
                 top_ranked_focus=False,
             ),
         })
-        self.assertEqual(result["action"], "PASS")
+        self.assertEqual(result["action"], "BOOK")
         self.assertEqual(result["book_target_state"], "BOOK_TARGET_AVAILABLE")
         self.assertEqual(result["book_min_odds"], 1.85)
         self.assertFalse(result["current_price_clears_book_target"])
