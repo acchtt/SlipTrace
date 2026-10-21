@@ -30,6 +30,7 @@ jobs:
         run: |
           set -euo pipefail
           for test in             test_core.py             test_active_c_runtime.py             test_evidence_contract.py             test_competition_reliability.py             test_model_store_routing.py             test_model_bet_accounting.py             test_simple_assess_bet_default.py             test_step2_publication_guard.py             test_step2_queue_guard.py             test_sweep_rank_retirement.py             test_xi_user_screenshot_only.py \
+            test_xi_runtime_backend.py \
             test_xi_v4_coordinated.py
           do
             python -m unittest discover -s models/football/engine/tests -p "$test" -v
