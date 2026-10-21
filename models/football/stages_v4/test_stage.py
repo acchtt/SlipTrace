@@ -549,20 +549,27 @@ class RankV4Tests(unittest.TestCase):
                 status_refresh=statuses,
             )
 
-    def test_started_status_and_stale_or_changed_ko_are_rejected(self):
+    def test_started_status_is_fixture_level_exclusion_but_unexplained_drift_rejects(self):
         src = sweep(snapshot(), now=NOW)
         c = model_input()
         reasons = {"m2": "RESEARCH_EVIDENCE_MISSING"}
 
         changed = fresh_status(src)
         changed["matches"][0]["fixture_status"] = "STARTED"
-        with self.assertRaisesRegex(StageError, "PREMATCH_WINDOW_CLOSED"):
-            production_rank(
-                src, c, reasons,
-                now="2026-10-11T16:05:00Z",
-                original_source=snapshot(),
-                status_refresh=changed,
-            )
+        result = production_rank(
+            src, c, reasons,
+            now="2026-10-11T16:05:00Z",
+            original_source=snapshot(),
+            status_refresh=changed,
+        )
+        self.assertEqual(result["status"], "V4_RANK_RESEARCH_PENDING")
+        self.assertEqual(result["unranked_reasons"]["m1"], "PREMATCH_WINDOW_CLOSED")
+        self.assertEqual(
+            next(x for x in result["coverage_manifest"] if x["match_id"] == "m1")[
+                "disposition"
+            ],
+            "STATUS_EXCLUDED",
+        )
 
         changed = fresh_status(src)
         changed["matches"][0]["kickoff_utc"] = "2026-10-11T17:30:00Z"
@@ -582,6 +589,93 @@ class RankV4Tests(unittest.TestCase):
                 now="2026-10-11T16:05:00Z",
                 original_source=snapshot(),
                 status_refresh=changed,
+            )
+
+    def test_attested_reschedule_excludes_only_fixture_and_preserves_other_rank(self):
+        src = sweep(snapshot(), now=NOW)
+        c = model_input("m2")
+        refresh = fresh_status(src)
+        moved = refresh["matches"][0]
+        moved.update(
+            kickoff_utc="2027-02-04T11:30:00Z",
+            fixture_status="POSTPONED",
+            source_url="https://spl.example.org/fixture-update",
+            status_resolution={
+                "reason": "RESCHEDULED",
+                "new_kickoff_utc": "2027-02-04T11:30:00Z",
+                "source_urls": [
+                    "https://spl.example.org/fixture-update",
+                    "https://club.example.org/fixture-update",
+                ],
+                "verified_at_utc": "2026-10-11T16:05:00Z",
+            },
+        )
+
+        result = production_rank(
+            src, c, {"m1": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
+            original_source=snapshot(),
+            status_refresh=refresh,
+        )
+
+        self.assertEqual(result["unranked_reasons"]["m1"], "PREMATCH_WINDOW_CLOSED")
+        self.assertEqual(
+            next(x for x in result["coverage_manifest"] if x["match_id"] == "m1")[
+                "disposition"
+            ],
+            "STATUS_EXCLUDED",
+        )
+        self.assertEqual(result["assessed_count"], 1)
+        self.assertEqual(result["ranked_count"], 1)
+        self.assertEqual(result["board"]["matches"][0]["match_id"], "m2")
+
+    def test_attested_reschedule_requires_two_independent_sources(self):
+        src = sweep(snapshot(), now=NOW)
+        refresh = fresh_status(src)
+        moved = refresh["matches"][0]
+        moved.update(
+            kickoff_utc="2027-02-04T11:30:00Z",
+            fixture_status="POSTPONED",
+            source_url="https://spl.example.org/fixture-update",
+            status_resolution={
+                "reason": "RESCHEDULED",
+                "new_kickoff_utc": "2027-02-04T11:30:00Z",
+                "source_urls": ["https://spl.example.org/fixture-update"],
+                "verified_at_utc": "2026-10-11T16:05:00Z",
+            },
+        )
+        with self.assertRaisesRegex(StageError, "NEEDS_TWO_SOURCES"):
+            production_rank(
+                src, model_input("m2"), {"m1": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=refresh,
+            )
+
+    def test_attested_reschedule_inside_same_window_requires_resweep(self):
+        src = sweep(snapshot(), now=NOW)
+        refresh = fresh_status(src)
+        moved = refresh["matches"][0]
+        moved.update(
+            kickoff_utc="2026-10-11T18:00:00Z",
+            fixture_status="POSTPONED",
+            source_url="https://spl.example.org/fixture-update",
+            status_resolution={
+                "reason": "RESCHEDULED",
+                "new_kickoff_utc": "2026-10-11T18:00:00Z",
+                "source_urls": [
+                    "https://spl.example.org/fixture-update",
+                    "https://club.example.org/fixture-update",
+                ],
+                "verified_at_utc": "2026-10-11T16:05:00Z",
+            },
+        )
+        with self.assertRaisesRegex(StageError, "KICKOFF_CHANGED_WITHIN_WINDOW"):
+            production_rank(
+                src, model_input("m2"), {"m1": "RESEARCH_EVIDENCE_MISSING"},
+                now="2026-10-11T16:05:00Z",
+                original_source=snapshot(),
+                status_refresh=refresh,
             )
 
     def test_full_status_cohort_mandatory(self):
