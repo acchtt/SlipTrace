@@ -49,18 +49,29 @@ def main() -> None:
     with TemporaryDirectory(prefix="xi-runtime-e2e-") as directory:
         root = Path(directory)
 
+        authority_file = write(root / "authority.json", {
+            "mode": "EXCEPTION",
+            "exception_reference": "qa-explicit-exception",
+        })
+
         decision = pair_payload("c")
         decision_file = write(root / "decision-c.json", decision)
-        code, first = command("decision", "--c", decision_file)
+        code, first = command(
+            "decision", "--c", decision_file, "--authority", authority_file
+        )
         assert code == 0, first
         assert first.get("engine_execution_status") == "EXECUTED_C_DECISION", first
-        code, repeated = command("decision", "--c", decision_file)
+        code, repeated = command(
+            "decision", "--c", decision_file, "--authority", authority_file
+        )
         assert code == 0 and repeated == first, (first, repeated)
 
         retired = copy.deepcopy(decision)
         retired["model"] = "c2"
         retired_file = write(root / "retired-c2.json", retired)
-        code, rejected = command("decision", "--c", retired_file)
+        code, rejected = command(
+            "decision", "--c", retired_file, "--authority", authority_file
+        )
         assert code != 0, rejected
         assert rejected.get("status") == "XI ENGINE CONTRACT REJECTED", rejected
 
@@ -68,15 +79,21 @@ def main() -> None:
             "c", status="PREMATCH_CONFIRMED", minute=None, score=None
         )
         football_file = write(root / "football-c.json", football_input)
-        code, assessed = command("xi", "--c", football_file)
+        code, missing_authority = command("xi", "--c", football_file)
+        assert code != 0, missing_authority
+        assert missing_authority.get("status") == "RANK_RECEIPT_REQUIRED", missing_authority
+
+        code, assessed = command(
+            "xi", "--c", football_file, "--authority", authority_file
+        )
         assert code == 0, assessed
         assert assessed.get("xi_mode") == "FOOTBALL_ASSESSMENT", assessed
         assert assessed.get("engine_execution_status") == "EXECUTED_C_FOOTBALL_ONLY", assessed
         assert assessed.get("model") == "c", assessed
 
     print(
-        "PASS — single-C /xi runner: self-check, deterministic strict C decision, "
-        "retired-C2 rejection and quote-free C assessment."
+        "PASS — single-C /xi runner: self-check, shared authority fail-closed, "
+        "deterministic strict C decision, retired-C2 rejection and quote-free C assessment."
     )
 
 if __name__ == "__main__":
