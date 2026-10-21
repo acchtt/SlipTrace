@@ -966,7 +966,7 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.book_target_line, 2.75)
         self.assertEqual(decision.book_min_odds, 1.85)
 
-    def test_g3_o300_below_floor_is_no_action_target_only(self):
+    def test_g3_o300_below_floor_is_pending_book_target(self):
         decision = decide_c(
             assessment(),
             context(
@@ -977,7 +977,7 @@ class FootballCExecutionTests(unittest.TestCase):
                 wait_requires_negative_info=False,
             ),
         )
-        self.assertEqual(decision.action, Action.PASS)
+        self.assertEqual(decision.action, Action.BOOK)
         self.assertEqual(decision.book_target_line, 3.0)
         self.assertEqual(decision.book_min_odds, 1.90)
         self.assertTrue(decision.book_target_available)
