@@ -20,7 +20,7 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
             "request_id": "XI-test-1",
             "c_football": c,
-            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception"},
+            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception", "user_requested_exception": True},
             "screenshot_quote": snapshot(c),
         }
         result = xi_runtime_backend.execute(request)
@@ -42,7 +42,7 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
             "request_id": "XI-test-2",
             "c_football": c,
-            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception"},
+            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception", "user_requested_exception": True},
             "screenshot_quote": bad,
         }
         result = xi_runtime_backend.execute(request)
@@ -54,6 +54,22 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "OBSERVED_QUOTE_INVALID",
         )
 
+    def test_exception_authority_requires_explicit_user_request(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-implicit-exception",
+            "c_football": c,
+            "authority": {
+                "mode": "EXCEPTION",
+                "exception_reference": "automatic-fallback-is-forbidden",
+            },
+            "screenshot_quote": snapshot(c),
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "RANK_RECEIPT_REQUIRED")
+        self.assertIn("explicit user /xi exception request", result["error"])
+
     def test_request_envelope_filename_must_match_id(self):
         with tempfile.TemporaryDirectory() as td:
             root = pathlib.Path(td)
@@ -64,7 +80,7 @@ class XIRuntimeBackendTests(unittest.TestCase):
                 "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
                 "request_id": "XI-test-3",
                 "c_football": c,
-                "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception"},
+                "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception", "user_requested_exception": True},
             }))
             self.assertEqual(xi_runtime_backend.run(req, out), 0)
             result = json.loads(out.read_text())
