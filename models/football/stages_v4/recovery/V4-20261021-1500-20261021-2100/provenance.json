@@ -1,38 +1,374 @@
 [
   {
     "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/7?MD=1&countryCode=US&locale=en",
-    "observed_at_utc": "2026-10-21T06:45:29.563616+00:00",
+    "observed_at_utc": "2026-10-21T06:47:07.208663+00:00",
     "file": "raw/ICT-2026-10-21.json",
-    "sha256": "9b6cf26640f7e51f57fe5c5d31055e7bd95597679ead2c4e08ee6f4a354dc45f"
+    "sha256": "8806cea80b45af7b4e6dbdbbe1858a01a5574324c479642ec359d23f02e1b16e"
   },
   {
     "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
-    "observed_at_utc": "2026-10-21T06:45:30.129797+00:00",
+    "observed_at_utc": "2026-10-21T06:47:07.717664+00:00",
     "file": "raw/UTC-2026-10-21.json",
-    "sha256": "68ebe9452b1600648d9f9bb6db653d51a1998a83402b3dba8a8b9d5bf4735f5b"
+    "sha256": "f6b0d5bc17a50e91affd184b184a99209dbaa23fd45e169e201db896cb7a09fd"
   },
   {
     "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
-    "observed_at_utc": "2026-10-21T06:45:30.462326+00:00",
+    "observed_at_utc": "2026-10-21T06:47:08.170073+00:00",
     "file": "raw/terminal-2026-10-21.json",
-    "sha256": "68ebe9452b1600648d9f9bb6db653d51a1998a83402b3dba8a8b9d5bf4735f5b"
+    "sha256": "f6b0d5bc17a50e91affd184b184a99209dbaa23fd45e169e201db896cb7a09fd"
   },
   {
     "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates=20261021&limit=1000",
-    "observed_at_utc": "2026-10-21T06:45:30.630651+00:00",
+    "observed_at_utc": "2026-10-21T06:47:08.265616+00:00",
     "file": "raw/espn-validator-20261021.json",
-    "sha256": "26665ac2b7500aa034d3d1843de2d37556df01eb4e1e22837fba903abca27720"
+    "sha256": "4b73a22203f6da9f8602c5705443db922fc8381e74a190388f2583ff97ed2648"
   },
   {
     "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10008/details?locale=en",
-    "observed_at_utc": "2026-10-21T06:45:30.931153+00:00",
+    "observed_at_utc": "2026-10-21T06:47:08.551754+00:00",
     "file": "raw/team-10008.json",
     "sha256": "302f3d5e44a558e2bf2bfeb7e4bf2831a5f1257065b26eb863920fb44c018f70"
   },
   {
     "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10003/details?locale=en",
-    "observed_at_utc": "2026-10-21T06:45:31.209774+00:00",
+    "observed_at_utc": "2026-10-21T06:47:08.841024+00:00",
     "file": "raw/team-10003.json",
     "sha256": "6b0317f6d3da6c606c7e411fcd8a14936feddf8265995377c85f332a8a8e3baa"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4436/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:09.068084+00:00",
+    "file": "raw/team-4436.json",
+    "sha256": "e568da38cf50aad080c5bb9ece949e695a55860710d2d00a9ed38550f69d0182"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4989/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:09.303513+00:00",
+    "file": "raw/team-4989.json",
+    "sha256": "967c0025e21bdd837d0f9f89b5df3b618e32fafc1323d39eeccc991653d26b62"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8659/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:09.635103+00:00",
+    "file": "raw/team-8659.json",
+    "sha256": "4abc0daf7fcd94ac13943a99f6dc3e8bb17202ea53d677636951926c4a576fd1"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7602/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:09.971824+00:00",
+    "file": "raw/team-7602.json",
+    "sha256": "33a28416ffc145cb963046ce6a06f229d572f7fc0f82ba55b61e3ece9132772b"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7606/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:10.268718+00:00",
+    "file": "raw/team-7606.json",
+    "sha256": "f30e1c91e6195e5258ff498901aa9e60515d51da3051e43fa1a1dc710ec44015"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8669/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:10.640250+00:00",
+    "file": "raw/team-8669.json",
+    "sha256": "20e61b45705c5d7127a93426aa12820a9d07d82781bf60bd332d1435f0c61829"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7608/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:10.977953+00:00",
+    "file": "raw/team-7608.json",
+    "sha256": "69f407ee0a7798820ef367b2e972e0d9f40c9ed7f52a335c753e3b974f3818e6"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4841/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:11.429435+00:00",
+    "file": "raw/team-4841.json",
+    "sha256": "0543b5424bbe17c141eb69b5d78f59c9600642644a0c1e4411e6cde1e398bcb4"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8670/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:11.751245+00:00",
+    "file": "raw/team-8670.json",
+    "sha256": "aa54fd7fd800b804e2d849c38b745adc0f26167431ffb0a189b065a344f34bf4"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4842/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:12.035368+00:00",
+    "file": "raw/team-4842.json",
+    "sha256": "47a2be5aec9f21ef57dfca777a310ee8f2802f6c8bb09df9923067dd04bb597d"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7529/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:12.294267+00:00",
+    "file": "raw/team-7529.json",
+    "sha256": "c769263b5b899d255d5e02825bb0e84a02513f9c7bbaea3c0a48af773870a6d5"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7548/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:12.578202+00:00",
+    "file": "raw/team-7548.json",
+    "sha256": "0248d88501449d461c65ef3805bc40320899d7fdfa578b38f70b589f09f75ee1"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8677/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:12.871520+00:00",
+    "file": "raw/team-8677.json",
+    "sha256": "3d3fe149a17f49d90cd94fe286a979e5b24f92ef610a922ac9e4a1788d7934fe"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8676/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:13.139333+00:00",
+    "file": "raw/team-8676.json",
+    "sha256": "3b1beb161cf124510f82e59c4064d15bc6475d85abac3b2155a12f531457a944"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6792/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:13.418959+00:00",
+    "file": "raw/team-6792.json",
+    "sha256": "0247985f4103abf350755a02c842b93da6f89e13b669d85a5659d41837b7b6ff"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8638/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:13.716677+00:00",
+    "file": "raw/team-8638.json",
+    "sha256": "f9d8bb8a061f60713fadc4255722f8a9545c161f1fae5d5d33d187a83397ad59"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6102/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:13.970555+00:00",
+    "file": "raw/team-6102.json",
+    "sha256": "2b3340f534fd8de63d25b19888208983dcf3497f9b4fe4c642562efc6aa41b21"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7564/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:14.263482+00:00",
+    "file": "raw/team-7564.json",
+    "sha256": "3e64962729f2c7f0867087aa338ce43d4b45a10420cec0b9dae5378519f3a523"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6097/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:14.567744+00:00",
+    "file": "raw/team-6097.json",
+    "sha256": "0d6a8fd7f5b2834fafd914574d358b4c3c0cbe5edd1f81ddf72b73c1d2516b1c"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8673/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:14.924742+00:00",
+    "file": "raw/team-8673.json",
+    "sha256": "df956897ab61ee81c31e4b737a412e4a59b06a074e21f3d1d2505440c4307ba8"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7601/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:15.102059+00:00",
+    "file": "raw/team-7601.json",
+    "sha256": "4333b8ca982f2f20b35577c4d0a25cffe3b0504361b627e85c6bc5542f7eedd5"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8667/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:15.370909+00:00",
+    "file": "raw/team-8667.json",
+    "sha256": "d091024354bd5317f88459b4389b86f58e11c965755e0edc3a208a8957e57d47"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6760/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:15.648485+00:00",
+    "file": "raw/team-6760.json",
+    "sha256": "48a6117f0138e990ac2586361df29c5de23e30b3388ea74bfd4be2e4cb6efa26"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7367/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:15.809237+00:00",
+    "file": "raw/team-7367.json",
+    "sha256": "e24452802e2f641675b14ff8cf16ab3aa3c771e75840aacd46b99f38d4d13629"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/11932/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:16.050247+00:00",
+    "file": "raw/team-11932.json",
+    "sha256": "644ee33ee6018ff491e15db68c5b92a6bf4c5104894b194fa8795ebe72f0bd8c"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7383/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:16.276228+00:00",
+    "file": "raw/team-7383.json",
+    "sha256": "9d44ca9c91db7b00d804ee7cc8737d759f855ed9ee18ac91261ecfb4b3b4c9d4"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8685/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:16.520231+00:00",
+    "file": "raw/team-8685.json",
+    "sha256": "a2ff173b521439f128a8b23f3e5fceefc1306cbbc44d3a7ea5cc66d765743682"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7609/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:16.698790+00:00",
+    "file": "raw/team-7609.json",
+    "sha256": "50b21a5737596edd2c56c170e598371d12ba16ed52d4cfb448528c434c2a77e6"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/101149/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:16.918331+00:00",
+    "file": "raw/team-101149.json",
+    "sha256": "4cc7b0914204492adbb02a062ddb34247ea4ecba4b31bc6eca0cdd463b26c839"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7352/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:17.162630+00:00",
+    "file": "raw/team-7352.json",
+    "sha256": "cc72a0c79b138f423575cb207b9dc036d8f0e7b85afc527843c2a2061fa721bd"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6759/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:17.377905+00:00",
+    "file": "raw/team-6759.json",
+    "sha256": "3a73a1ec2033d7303ff83c31461214fa5a6bf9162425a565601e2e82be5e25e5"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/11935/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:17.597223+00:00",
+    "file": "raw/team-11935.json",
+    "sha256": "79dc0413af82ba0734be458f162be10efa2c631ed57f67cd783429269277d889"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7565/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:17.833960+00:00",
+    "file": "raw/team-7565.json",
+    "sha256": "54065593a5e679118f2cfd224c2576746c657332be5e0dc604a30e12a1256f0e"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/13623/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:18.059798+00:00",
+    "file": "raw/team-13623.json",
+    "sha256": "0c9b4ba997a3d5ee6ef34a93f0c4a90db2354f40009b751e9b9a8f7981aa0096"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7554/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:18.277964+00:00",
+    "file": "raw/team-7554.json",
+    "sha256": "f94fbd24c5d08762cca9e1135758a26f3d78fb4b1db0b96b7629f5f0bb4119c4"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7547/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:18.515930+00:00",
+    "file": "raw/team-7547.json",
+    "sha256": "019040a1fe908802df395edb765828d60b5c319322bd32a914f9b1a54aa83785"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8071/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:18.744400+00:00",
+    "file": "raw/team-8071.json",
+    "sha256": "f65d6efe0b630e21150493188895b7baefaa1afd8d879d2081de88e9fbcb11ca"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7305/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:18.999472+00:00",
+    "file": "raw/team-7305.json",
+    "sha256": "fc79efc3090b288fc41763c9ad8ececcb355f4d6c29f1ea83659410fabf4b067"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8075/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:19.225284+00:00",
+    "file": "raw/team-8075.json",
+    "sha256": "1ce9f179a7dd3dfd58538f1f7256cc5a894a39ed39b9419f4f628a62d2179fa5"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8680/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:19.487861+00:00",
+    "file": "raw/team-8680.json",
+    "sha256": "83fb1a77898c6deaff3bb706c6ba035d08da60f4f67d9a13c8b6d7e77830238d"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10583/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:19.719265+00:00",
+    "file": "raw/team-10583.json",
+    "sha256": "cd2f2639ac223c33bcd91313df908831b5e4e3325f0f66f50af3f0d3ed890063"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4435/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:19.904327+00:00",
+    "file": "raw/team-4435.json",
+    "sha256": "bcc699f75bd8892c421b03257a45c81fcb20d4b1b69d4dded9b335f6d0cc7fa3"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6104/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.104343+00:00",
+    "file": "raw/team-6104.json",
+    "sha256": "13e1dbedec961352b1988b58e696033ad2806c8c64922ae1493a71069314b96c"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6065/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.288354+00:00",
+    "file": "raw/team-6065.json",
+    "sha256": "46044686fd9bafa826ba1824b2de5fd8a1433979e9517f49ccfc8908aa3f33a3"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/188372/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.473629+00:00",
+    "file": "raw/team-188372.json",
+    "sha256": "c9417d8c6c4a75541b57b8b902389ab3413f62f8fc3dfe2da805861f57cc829e"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/12556/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.643392+00:00",
+    "file": "raw/team-12556.json",
+    "sha256": "e43170742690334ef0e441c875fb0b580d577997d9bd33d7141720671742ac6f"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7099/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.815282+00:00",
+    "file": "raw/team-7099.json",
+    "sha256": "719d8f5682af757fe6561995e87823a9bd49c39eba0963cb6b6d47d8b470056c"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7093/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:20.990667+00:00",
+    "file": "raw/team-7093.json",
+    "sha256": "4ec7ec495c5a59c40fd8e195063d781ba8cd4ef3c7ad82adb73247aedc476db6"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/224076/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:21.178034+00:00",
+    "file": "raw/team-224076.json",
+    "sha256": "4aec45cccba267c93201afe4df207ea4648b16f7ba00288d13acb7a0b9150971"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/414045/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:21.366232+00:00",
+    "file": "raw/team-414045.json",
+    "sha256": "1a5bd8f4bd73598373975afe9b26b9e513a9b271ea70dfc099e123cb86051055"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/341963/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:21.558087+00:00",
+    "file": "raw/team-341963.json",
+    "sha256": "c1c23803ff8cb1ceedfdb7f411040829dbe8f1312d8dc1613b98780c1bae2487"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/271181/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:21.729931+00:00",
+    "file": "raw/team-271181.json",
+    "sha256": "e7b7c8556207e6793297dea7000365793bffd080be248ee1bf3022628e1ce880"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7088/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:21.889615+00:00",
+    "file": "raw/team-7088.json",
+    "sha256": "66dde2994ef705f9602a6f72718b50e6cddcf28576adbd921f2c0bb83e7ae901"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/271177/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:22.064300+00:00",
+    "file": "raw/team-271177.json",
+    "sha256": "c0eee12a1eb963322c1ff25adeec5b0683917d1e317d68b81d2d113bebefc00f"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/188110/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:22.249171+00:00",
+    "file": "raw/team-188110.json",
+    "sha256": "6a41fdadc3aa46669e3c72800e92c913c6fcba0620825eb4d85c408bd992b405"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/414047/details?locale=en",
+    "observed_at_utc": "2026-10-21T06:47:22.423125+00:00",
+    "file": "raw/team-414047.json",
+    "sha256": "1fcb6f003276b1fe730a41223f699877e7b56006d54a0a10a9ba826e4a9f17a5"
   }
 ]
