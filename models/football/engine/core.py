@@ -1897,15 +1897,17 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             target_min_odds = c_g3_book_min_odds(target_line)
             clears_target = ctx.quote.odds + 1e-9 >= target_min_odds
             return Decision(
-                Action.BOOK if clears_target else Action.PASS,
+                Action.BOOK,
                 (
                     f"G3 protected certificate remains O2.50; settlement-aware "
                     + (
-                        f"conditional order authorized at O{target_line:.2f} "
-                        f"@ {target_min_odds:.2f}+; O3.50 still requires G4"
+                        f"conditional order target O{target_line:.2f} "
+                        f"@ {target_min_odds:.2f}+ is currently fillable; "
+                        f"O3.50 still requires G4"
                         if clears_target else
-                        f"BOOK target O{target_line:.2f} @ {target_min_odds:.2f}+ is available, "
-                        f"but current {ctx.quote.odds:.2f} is below the floor — NO ACTION"
+                        f"conditional order target O{target_line:.2f} "
+                        f"@ {target_min_odds:.2f}+ is authorized but current "
+                        f"{ctx.quote.odds:.2f} is below the floor, so it remains unfilled"
                     )
                 ),
                 book_target_line=target_line,
