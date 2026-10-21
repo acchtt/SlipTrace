@@ -146,6 +146,29 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
                 at = full_text.find(token)
                 if at >= 0:
                     extra[label] = re.sub(r"\\s+", " ", full_text[max(0, at-700):at+3500])[:4200]
+        if name == "foxscore_web" and payload is None:
+            scripts = re.findall(r'<script[^>]+src=["\\\']([^"\\\']+)["\\\']', full_text, re.I)
+            same_origin = [x for x in scripts if x.startswith("/_nuxt/")][:3]
+            chunks = []
+            for idx, src in enumerate(same_origin):
+                try:
+                    _, _, _, js = fetch("https://web.foxscore.vn" + src)
+                    chunks.append({
+                        "src": src,
+                        "length": len(js),
+                        "api_hosts": sorted(set(re.findall(r'https?://[A-Za-z0-9._-]*foxscore\\.vn', js)))[:20],
+                        "paths": sorted(set(re.findall(r'["\\\'](/[^"\\\']*(?:match|schedule|fixture|league|live)[^"\\\']*)["\\\']', js, re.I)))[:40],
+                        "base_fragments": [
+                            re.sub(r"\\s+", " ", js[max(0, m.start()-300):m.start()+700])[:1000]
+                            for m in list(re.finditer(r'(?:api\\.foxscore\\.vn|baseURL|baseUrl)', js, re.I))[:8]
+                        ],
+                    })
+                except Exception as exc:
+                    chunks.append({"src": src, "error": f"{type(exc).__name__}: {exc}"})
+            extra["foxscore_chunks"] = chunks
+        if name == "foxsports_web" and payload is None:
+            keys = re.findall(r'(?:apikey|apiKey)[=:"\\\']+([A-Za-z0-9_-]{16,})', full_text, re.I)
+            extra["foxsports_public_key_candidates"] = list(dict.fromkeys(keys))[:5]
         if name == "footballinfo" and payload is None:
             team_ids = re.findall(r"media\.api-sports\.io/football/teams/(\d+)\.png", full_text)
             if team_ids:
