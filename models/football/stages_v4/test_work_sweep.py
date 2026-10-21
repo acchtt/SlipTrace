@@ -49,11 +49,14 @@ class WorkSweepTests(unittest.TestCase):
         self.assertEqual([x["idEvent"] for x in work.thesportsdb_events({"events": [event]})], ["9001"])
         with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
              patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
-             patch.object(work, "acquire_footballinfo", return_value={"source_family": work.FOOTBALLINFO_FAMILY}) as fi, \
+             patch.object(work, "acquire_fotmob", return_value={"source_family": work.FOTMOB_FAMILY}) as fm, \
+             patch.object(work, "validate_source_completeness", return_value={}), \
+             patch.object(work, "verify_priority_surface", side_effect=lambda src, _: src), \
+             patch.object(work, "acquire_footballinfo", side_effect=AssertionError("must not be kickoff authority")), \
              patch.object(work, "acquire_thesportsdb", side_effect=AssertionError("narrow fallback must not run")):
             result = work.acquire({"run_id": "V4-test"}, object())
-        self.assertEqual(result["source_family"], work.FOOTBALLINFO_FAMILY)
-        fi.assert_called_once()
+        self.assertEqual(result["source_family"], work.FOTMOB_FAMILY)
+        fm.assert_called_once()
 
     def test_footballinfo_date_parser_preserves_fixture_identity(self):
         html = """
@@ -101,10 +104,72 @@ class WorkSweepTests(unittest.TestCase):
     def test_narrow_thesportsdb_is_not_a_canonical_source_fallback(self):
         with patch.object(work, "acquire_livescore", side_effect=RuntimeError("503")), \
              patch.object(work, "acquire_sofascore", side_effect=RuntimeError("403")), \
-             patch.object(work, "acquire_footballinfo", side_effect=RuntimeError("html unavailable")), \
+             patch.object(work, "acquire_fotmob", side_effect=RuntimeError("api unavailable")), \
              patch.object(work, "acquire_thesportsdb", side_effect=AssertionError("must not run")):
-            with self.assertRaisesRegex(RuntimeError, "FootballInfo: html unavailable"):
+            with self.assertRaisesRegex(RuntimeError, "FotMob: api unavailable"):
                 work.acquire({"run_id": "V4-test"}, object())
+
+    def test_fotmob_explicit_utc_preserves_ucl_boundary(self):
+        match = {"id": 7, "home": {"id": 1, "name": "Porto"},
+                 "away": {"id": 2, "name": "PSV"},
+                 "status": {"utcTime": "2026-10-20T19:00:00Z"}}
+        self.assertEqual(work._fotmob_time(match), "2026-10-20T19:00:00+00:00")
+        self.assertEqual(
+            work.stamp(work._fotmob_time(match)).astimezone(
+                work.timezone(work.timedelta(hours=7))
+            ).isoformat(),
+            "2026-10-21T02:00:00+07:00",
+        )
+
+    def test_fotmob_ucl_regression_keeps_full_early_and_late_blocks(self):
+        fixtures = [
+            ("Fenerbahçe", "Slavia", "2026-10-20T16:45:00Z"),
+            ("Sabah", "Dortmund", "2026-10-20T16:45:00Z"),
+            ("Roma", "Slovan Bratislava", "2026-10-20T19:00:00Z"),
+            ("Porto", "PSV", "2026-10-20T19:00:00Z"),
+            ("Liverpool", "Villarreal", "2026-10-20T19:00:00Z"),
+            ("Manchester City", "AEK", "2026-10-20T19:00:00Z"),
+            ("Napoli", "Bodø/Glimt", "2026-10-20T19:00:00Z"),
+            ("PSG", "Barcelona", "2026-10-20T19:00:00Z"),
+            ("Stuttgart", "Atlético Madrid", "2026-10-20T19:00:00Z"),
+        ]
+        matches = [{
+            "id": i, "home": {"id": i * 2, "name": home},
+            "away": {"id": i * 2 + 1, "name": away},
+            "status": {"utcTime": kickoff},
+        } for i, (home, away, kickoff) in enumerate(fixtures, 1)]
+        rows = work._fotmob_events({"leagues": [{
+            "name": "UEFA Champions League", "ccode": "INT",
+            "matches": matches,
+        }]})
+        self.assertEqual(len(rows), 9)
+        late = [m for _, m in rows if work._fotmob_time(m).startswith("2026-10-20T19:00")]
+        self.assertEqual(len(late), 7)
+        self.assertTrue(all(
+            work.stamp(work._fotmob_time(m)).astimezone(
+                work.timezone(work.timedelta(hours=7))
+            ).hour == 2 for m in late
+        ))
+
+    def test_priority_validator_blocks_missing_fixture_and_kickoff_conflict(self):
+        source = {
+            "window_start_utc": "2026-10-20T16:00:00Z",
+            "window_end_utc": "2026-10-20T20:00:00Z",
+            "fixtures": [],
+        }
+        espn = {"events": [{
+            "date": "2026-10-20T19:00:00Z",
+            "league": {"name": "UEFA Champions League"},
+            "competitions": [{"competitors": [
+                {"homeAway": "home", "team": {"displayName": "Porto"}},
+                {"homeAway": "away", "team": {"displayName": "PSV"}},
+            ]}],
+        }]}
+        class Evidence:
+            def get(self, url, name):
+                return espn, {"source_url": url, "observed_at_utc": "2026-10-20T15:59:00Z"}
+        with self.assertRaisesRegex(ValueError, "SWEEP_COMPLETENESS_BLOCKED"):
+            work.verify_priority_surface(source, Evidence())
 
     def test_competition_scope_does_not_filter_adult_league_by_team_name(self):
         block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [event()]}
@@ -137,7 +202,7 @@ class WorkSweepTests(unittest.TestCase):
             self.assertEqual((root / 'saved.json').read_bytes(), before)
             self.assertEqual((root / 'out/original-source.json').read_bytes(), before)
             checkpoint = json.loads((root / 'out/checkpoint.json').read_text())
-            self.assertEqual(checkpoint['status'], 'RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS')
+            self.assertEqual(checkpoint['status'], 'WHOLE_REQUESTED_SURFACE_COMPLETE_WITH_EVIDENCE_LIMITS')
             handoff = json.loads((root / 'out/rank-handoff.json').read_text())
             final_source = json.loads((root / 'out/source.json').read_text())
             replay = work.sweep(final_source, now=NOW)
@@ -150,7 +215,9 @@ class WorkSweepTests(unittest.TestCase):
             fixture = event('100', 'NS', kickoff='20261012190000')
             block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': [fixture]}
             def fetch(url):
-                if '/date/' in url:
+                if 'site.api.espn.com' in url:
+                    payload = {'events': []}
+                elif '/date/' in url:
                     surface_event = copy.deepcopy(fixture)
                     # The ICT endpoint reports ICT wall time; UTC reports UTC.
                     surface_event['Esd'] = '20261013020000' if '/7?' in url else '20261012190000'
@@ -167,8 +234,8 @@ class WorkSweepTests(unittest.TestCase):
             receipt = json.loads((root / 'out/v4_sweep_ready.json').read_text())
             self.assertEqual(receipt['eligible_count'], 1)
             self.assertEqual(receipt['eligible_queue'][0]['intake_lane'], 'GOAL_PRIORITY')
-            self.assertEqual(fetcher.call_count, 5)  # ICT + UTC + independent terminal + two teams
-            self.assertEqual(json.loads((root / 'out/checkpoint.json').read_text())['status'], 'RESEARCH_COMPLETE')
+            self.assertEqual(fetcher.call_count, 7)  # canonical surfaces + ESPN UTC validator + two teams
+            self.assertEqual(json.loads((root / 'out/checkpoint.json').read_text())['status'], 'WHOLE_REQUESTED_SURFACE_COMPLETE')
 
     def test_terminal_union_mismatch_blocks_before_history_fetch(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -183,7 +250,9 @@ class WorkSweepTests(unittest.TestCase):
                          (b'{"Stages": []}', NOW)]
             with patch.object(work, 'utcnow', return_value=NOW), patch.object(work, 'fetch', side_effect=responses) as fetcher:
                 self.assertEqual(work.run(root / 'request.json', root / 'out'), 2)
-            self.assertEqual(fetcher.call_count, 3)
+            # Canonical providers may be tried after one surface fails its own
+            # terminal reconciliation, but team-history research must not run.
+            self.assertEqual(fetcher.call_count, 6)
             self.assertFalse((root / 'out/rank-handoff.json').exists())
             self.assertTrue((root / 'out/provenance.json').exists())
 
@@ -247,7 +316,7 @@ class WorkSweepTests(unittest.TestCase):
             ))
             checkpoint = {
                 'schema_version': work.CHECKPOINT_SCHEMA,
-                'status': 'RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS',
+                'status': 'WHOLE_REQUESTED_SURFACE_COMPLETE_WITH_EVIDENCE_LIMITS',
                 'run_id': original['run_id'],
                 'original_source_sha256': work.digest(previous / 'original-source.json'),
                 'research_order': order,

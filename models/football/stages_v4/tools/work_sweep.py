@@ -13,13 +13,14 @@ import re
 import sys
 import time
 import threading
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from league_registry import classify
-from source_completeness import required_surface_keys
+from source_completeness import required_surface_keys, validate_source_completeness
 from stage import sweep
 from work_source_acquisition import fetch, parse_request
 
@@ -42,6 +43,19 @@ THESPORTSDB_FAMILY = "TheSportsDB public eventsday API"
 THESPORTSDB_DATE_URL = "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={day}&s=Soccer"
 THESPORTSDB_TEAM_LAST_URL = "https://www.thesportsdb.com/api/v1/json/123/eventslast.php?id={team}"
 THESPORTSDB_EVENT_URL = "https://www.thesportsdb.com/api/v1/json/123/lookupevent.php?id={match}"
+FOTMOB_FAMILY = "FotMob explicit-UTC matches API"
+FOTMOB_DATE_URL = "https://www.fotmob.com/api/data/matches?date={day}"
+ESPN_VALIDATOR_FAMILY = "ESPN all-soccer independent UTC validator"
+ESPN_DATE_URL = (
+    "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard"
+    "?dates={day}&limit=1000"
+)
+
+PRIORITY_COMPETITION_TOKENS = (
+    "uefa champions league", "champions league", "europa league",
+    "uefa youth league", "premier league", "la liga", "serie a",
+    "bundesliga", "ligue 1", "afc champions", "afc cup",
+)
 
 
 def utcnow():
@@ -57,6 +71,23 @@ def save(path, obj):
     temp = path.with_suffix(path.suffix + ".tmp")
     temp.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temp.replace(path)
+
+
+def _norm_team(value):
+    value = unicodedata.normalize("NFKD", str(value or "")).encode("ascii", "ignore").decode()
+    tokens = re.findall(r"[a-z0-9]+", value.casefold())
+    tokens = [x for x in tokens if x not in {"fc", "cf", "afc", "fk", "sk", "club"}]
+    return "".join(tokens)
+
+
+def _same_team(left, right):
+    a, b = _norm_team(left), _norm_team(right)
+    return a == b or (min(len(a), len(b)) >= 4 and (a in b or b in a))
+
+
+def _priority_competition(value):
+    label = str(value or "").casefold()
+    return any(token in label for token in PRIORITY_COMPETITION_TOKENS)
 
 
 def digest(path):
@@ -1242,25 +1273,254 @@ def thesportsdb_fixture_refresh(evidence, fixture):
     return thesportsdb_event_status(event), proof
 
 
+def _fotmob_time(match):
+    raw = (match.get("status") or {}).get("utcTime")
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError("FotMob status.utcTime required")
+    parsed = stamp(raw)
+    if parsed.utcoffset() is None:
+        raise ValueError("FotMob status.utcTime must be timezone-aware")
+    return parsed.astimezone(timezone.utc).isoformat()
+
+
+def _fotmob_status(match):
+    status = match.get("status") or {}
+    if status.get("finished") is True:
+        return "FINISHED"
+    reason = str(status.get("reason") or {}).casefold()
+    if "postpon" in reason:
+        return "POSTPONED"
+    if "cancel" in reason or "abandon" in reason:
+        return "CANCELLED"
+    if status.get("started") is True:
+        return "STARTED"
+    return "PREMATCH_CONFIRMED"
+
+
+def _fotmob_events(payload):
+    leagues = payload.get("leagues") if isinstance(payload, dict) else None
+    if not isinstance(leagues, list):
+        raise ValueError("FotMob matches response missing leagues")
+    rows = []
+    for league in leagues:
+        if not isinstance(league, dict) or not isinstance(league.get("matches"), list):
+            raise ValueError("FotMob league block malformed")
+        competition = str(league.get("name") or "").strip()
+        country = str(league.get("ccode") or league.get("country") or "International").strip()
+        stage = {"Snm": competition, "Cnm": country}
+        if not competition or not senior(stage):
+            continue
+        for match in league["matches"]:
+            home, away = match.get("home") or {}, match.get("away") or {}
+            mid = str(match.get("id") or "")
+            if not mid or not home.get("name") or not away.get("name"):
+                raise ValueError("FotMob fixture identity missing")
+            rows.append((league, match))
+    return rows
+
+
+def acquire_fotmob(request, evidence):
+    start, end, _ = parse_request(request)
+    start, end = start.astimezone(timezone.utc), end.astimezone(timezone.utc)
+    keys = required_surface_keys(start.isoformat(), end.isoformat())
+    fixtures, surfaces = {}, []
+    cache = {}
+    for key in keys:
+        _, day = key.split(":")
+        compact = day.replace("-", "")
+        if compact not in cache:
+            cache[compact] = evidence.get(
+                FOTMOB_DATE_URL.format(day=compact), "fotmob-" + compact
+            )
+        payload, proof = cache[compact]
+        grouped, ids = {}, []
+        for league, match in _fotmob_events(payload):
+            mid = str(match["id"])
+            home, away = match["home"], match["away"]
+            kickoff = _fotmob_time(match)
+            competition = str(league["name"])
+            country = str(league.get("ccode") or league.get("country") or "International")
+            identity = (str(home.get("id") or home["name"]), str(away.get("id") or away["name"]))
+            if mid in fixtures and (
+                fixtures[mid]["kickoff_utc"] != kickoff
+                or tuple(fixtures[mid]["provider_team_ids"]) != identity
+            ):
+                raise ValueError("conflicting FotMob date-surface fixture: " + mid)
+            stage = {"Snm": competition, "Cnm": country}
+            fixtures[mid] = {
+                "match_id": mid, "country": country, "competition": competition,
+                "competition_kind": competition_kind(stage),
+                "is_friendly": "friendly" in competition.casefold(),
+                "home": home["name"], "away": away["name"],
+                "kickoff_utc": kickoff, "fixture_status": _fotmob_status(match),
+                "source_url": proof["source_url"],
+                "observed_at_utc": proof["observed_at_utc"],
+                "provider_team_ids": list(identity),
+            }
+            ids.append(mid)
+            grouped.setdefault((country, competition), []).append(mid)
+        blocks = [{
+            "country": country, "competition": competition,
+            "provider_fixture_count": len(mids), "extracted_fixture_ids": mids,
+        } for (country, competition), mids in sorted(grouped.items())]
+        surfaces.append({
+            "surface_key": key, "source_url": proof["source_url"],
+            "observed_at_utc": proof["observed_at_utc"], "pagination_complete": True,
+            "provider_page_count": 1, "pages_fetched": [1],
+            "provider_senior_fixture_count": len(ids), "extracted_fixture_ids": ids,
+            "provider_senior_competition_block_count": len(blocks),
+            "competition_blocks": blocks,
+        })
+    in_window = {
+        mid: row for mid, row in fixtures.items()
+        if start <= stamp(row["kickoff_utc"]) < end
+    }
+    terminal_start = max(start, end - timedelta(hours=6))
+    terminal_ids, terminal_proofs = set(), []
+    for day in sorted({
+        terminal_start.strftime("%Y%m%d"),
+        (end - timedelta(microseconds=1)).strftime("%Y%m%d"),
+    }):
+        payload, proof = evidence.get(
+            FOTMOB_DATE_URL.format(day=day), "fotmob-terminal-" + day
+        )
+        terminal_proofs.append(proof)
+        for _, match in _fotmob_events(payload):
+            kickoff = stamp(_fotmob_time(match))
+            if terminal_start <= kickoff < end:
+                mid = str(match["id"])
+                terminal_ids.add(mid)
+                if mid in fixtures and fixtures[mid]["kickoff_utc"] != _fotmob_time(match):
+                    raise ValueError("FotMob terminal identity/kickoff changed: " + mid)
+    expected_terminal = {
+        mid for mid, row in in_window.items()
+        if terminal_start <= stamp(row["kickoff_utc"]) < end
+    }
+    if terminal_ids != expected_terminal:
+        raise ValueError("FotMob terminal union differs from main date surfaces")
+    now = utcnow()
+    return {
+        "schema_version": "football-stages-v4", "run_id": request["run_id"],
+        "window_start_utc": start.isoformat(), "window_end_utc": end.isoformat(),
+        "source_family": FOTMOB_FAMILY, "source_url": surfaces[0]["source_url"],
+        "source_observed_at_utc": max(x["observed_at_utc"] for x in surfaces),
+        "fixtures": list(fixtures.values()),
+        "source_completeness_manifest": {
+            "schema_version": "football-v4-source-completeness-v2",
+            "acquisition_mode": "DATE_SURFACE_BATCH_V2", "league_query_mode": "DATE_SURFACE_ONLY",
+            "registry_prefilter_applied": False,
+            "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+            "extraction_complete": True, "provider_family": FOTMOB_FAMILY,
+            "window_start_utc": start.isoformat(), "window_end_utc": end.isoformat(),
+            "checked_at_utc": now, "required_surface_keys": keys,
+            "date_surfaces": surfaces,
+            "terminal_sentinel": {
+                "interval_start_utc": terminal_start.isoformat(),
+                "interval_end_utc": end.isoformat(),
+                "checked_at_utc": max(x["observed_at_utc"] for x in terminal_proofs),
+                "complete": True, "independent_refetch": True,
+                "source_urls": [x["source_url"] for x in terminal_proofs],
+                "provider_senior_fixture_count": len(terminal_ids),
+                "extracted_fixture_ids": sorted(terminal_ids),
+            },
+        },
+    }
+
+
+def _espn_priority_rows(payload, start, end):
+    events = payload.get("events") if isinstance(payload, dict) else None
+    if not isinstance(events, list):
+        raise ValueError("ESPN all-soccer response missing events")
+    rows = []
+    for event in events:
+        competition = str(((event.get("league") or {}).get("name")) or event.get("name") or "")
+        competitions = event.get("competitions") or []
+        if not competitions or not isinstance(competitions[0], dict):
+            continue
+        comp = competitions[0]
+        league = comp.get("league") or event.get("league") or {}
+        competition = str(league.get("name") or league.get("abbreviation") or competition)
+        if not _priority_competition(competition):
+            continue
+        kickoff = stamp(str(event.get("date") or comp.get("date")))
+        if not start <= kickoff < end:
+            continue
+        teams = {}
+        for item in comp.get("competitors") or []:
+            if isinstance(item, dict):
+                teams[item.get("homeAway")] = (item.get("team") or {}).get("displayName")
+        if teams.get("home") and teams.get("away"):
+            rows.append({"home": teams["home"], "away": teams["away"],
+                         "kickoff_utc": kickoff.astimezone(timezone.utc).isoformat(),
+                         "competition": competition})
+    return rows
+
+
+def verify_priority_surface(source, evidence):
+    """Fail closed when an independent UTC provider exposes a missing or shifted priority fixture."""
+    start, end = stamp(source["window_start_utc"]), stamp(source["window_end_utc"])
+    days = sorted({d.strftime("%Y%m%d") for d in (
+        start, end - timedelta(microseconds=1),
+        start.astimezone(timezone(timedelta(hours=7))),
+        (end - timedelta(microseconds=1)).astimezone(timezone(timedelta(hours=7))),
+    )})
+    independent, proofs = [], []
+    for day in days:
+        payload, proof = evidence.get(ESPN_DATE_URL.format(day=day), "espn-validator-" + day)
+        proofs.append(proof)
+        independent.extend(_espn_priority_rows(payload, start, end))
+    canonical = list(source.get("fixtures") or [])
+    checked = []
+    for row in independent:
+        found = next((item for item in canonical if
+                      _same_team(item.get("home"), row["home"])
+                      and _same_team(item.get("away"), row["away"])), None)
+        if found is None:
+            raise ValueError(
+                "SWEEP_COMPLETENESS_BLOCKED: independent priority fixture missing: "
+                f"{row['home']} - {row['away']}"
+            )
+        delta = abs((stamp(found["kickoff_utc"]) - stamp(row["kickoff_utc"])).total_seconds())
+        if delta > 60:
+            raise ValueError(
+                "SWEEP_COMPLETENESS_BLOCKED: priority kickoff conflict changes source trust: "
+                f"{row['home']} - {row['away']} canonical={found['kickoff_utc']} "
+                f"independent={row['kickoff_utc']}"
+            )
+        checked.append(found["match_id"])
+    source["priority_completeness_verification"] = {
+        "status": "PRIORITY_COMPLETENESS_VERIFIED",
+        "validator_family": ESPN_VALIDATOR_FAMILY,
+        "source_urls": [p["source_url"] for p in proofs],
+        "checked_at_utc": max(p["observed_at_utc"] for p in proofs),
+        "independent_priority_fixture_count": len(independent),
+        "verified_canonical_match_ids": sorted(set(checked)),
+        "timezone_contract": "ISO_8601_EXPLICIT_UTC",
+    }
+    return source
+
+
 def acquire(request, evidence):
-    try:
-        return acquire_livescore(request, evidence)
-    except Exception as livescore_exc:
+    errors = []
+    for label, provider in (
+        ("LiveScore", acquire_livescore),
+        ("SofaScore", acquire_sofascore),
+        ("FotMob", acquire_fotmob),
+    ):
         try:
-            return acquire_sofascore(request, evidence)
-        except Exception as sofascore_exc:
-            try:
-                return acquire_footballinfo(request, evidence)
-            except Exception as footballinfo_exc:
-                # TheSportsDB is intentionally not a canonical production
-                # fallback: its free date endpoint can expose a small subset of
-                # worldwide fixtures and therefore cannot satisfy the sweep's
-                # completeness invariant.
-                raise RuntimeError(
-                    f"all canonical date-surface providers failed; "
-                    f"LiveScore: {livescore_exc}; SofaScore: {sofascore_exc}; "
-                    f"FootballInfo: {footballinfo_exc}"
-                ) from footballinfo_exc
+            source = provider(request, evidence)
+            validate_source_completeness(source, now=utcnow(), require_priority=False)
+            return verify_priority_surface(source, evidence)
+        except Exception as exc:
+            if any(token in str(exc) for token in (
+                "SWEEP_COMPLETENESS_BLOCKED", "terminal identity/kickoff changed",
+                "terminal union", "terminal", "conflicting date-surface",
+            )):
+                raise
+            errors.append(f"{label}: {exc}")
+    # FootballInfo remains available for supplementary history only. Its
+    # timezone-less fixture cards can never establish kickoff/window authority.
+    raise RuntimeError("all canonical date-surface providers failed; " + "; ".join(errors))
 
 
 def sofascore_competitive_history(evidence, team, now):
@@ -1512,13 +1772,22 @@ def run(request_path, output, source_path=None, resume_from=None):
         }
         actionable_pending = [r for r in pending if r.get("match_id") not in limited_ids]
         if checkpoint.get("unfinished_research_order") or actionable_pending or checkpoint.get("resume_queue"):
-            research_status = "RESEARCH_PENDING"
+            research_status = "ACTIVE_RESEARCH_QUEUE_PENDING"
         elif pending:
-            research_status = "RESEARCH_COMPLETE_WITH_EVIDENCE_LIMITS"
+            research_status = "WHOLE_REQUESTED_SURFACE_COMPLETE_WITH_EVIDENCE_LIMITS"
         else:
-            research_status = "RESEARCH_COMPLETE"
+            research_status = "WHOLE_REQUESTED_SURFACE_COMPLETE"
+        whole_complete = research_status.startswith("WHOLE_REQUESTED_SURFACE_COMPLETE")
         checkpoint.update(
             status=research_status,
+            active_batch_complete=whole_complete,
+            active_research_queue_complete=whole_complete,
+            whole_requested_surface_complete=whole_complete,
+            unresolved_or_deferred_candidates_remain=not whole_complete,
+            priority_completeness_verified=(
+                source.get("priority_completeness_verification", {}).get("status")
+                == "PRIORITY_COMPLETENESS_VERIFIED"
+            ),
             native_v4_executed=True,
             pending_rows=actionable_pending,
             evidence_limited_rows=[r for r in pending if r.get("match_id") in limited_ids],

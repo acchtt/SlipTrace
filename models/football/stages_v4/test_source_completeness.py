@@ -102,6 +102,19 @@ class SourceCompletenessContractTests(unittest.TestCase):
         self.assertFalse(proof["registry_prefilter_applied"])
         self.assertEqual(proof["league_query_mode"], "DATE_SURFACE_ONLY")
 
+    def test_new_source_requires_independent_priority_verification(self):
+        item = source()
+        item["source_observed_at_utc"] = "2026-10-21T00:00:00Z"
+        with self.assertRaisesRegex(SourceCompletenessError, "SWEEP_COMPLETENESS_BLOCKED"):
+            validate_source_completeness(item, now=NOW)
+        item["priority_completeness_verification"] = {
+            "status": "PRIORITY_COMPLETENESS_VERIFIED",
+            "timezone_contract": "ISO_8601_EXPLICIT_UTC",
+            "validator_family": "Independent Provider",
+        }
+        proof = validate_source_completeness(item, now=NOW)
+        self.assertTrue(proof["priority_completeness_verified"])
+
     def test_missing_required_ict_or_utc_surface_fails(self):
         item = source()
         item["source_completeness_manifest"]["date_surfaces"].pop()

@@ -122,7 +122,7 @@ class ActiveModelStoreRoutingTests(unittest.TestCase):
         ):
             resolve_tab("xi", "Actual Bets — Current", action="upsert")
         ok = resolve_tab(
-            "model_accounting",
+            "xi",
             "Actual Bets — Current",
             action="upsert",
             confirmed_user_slip=True,

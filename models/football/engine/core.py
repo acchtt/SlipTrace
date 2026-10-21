@@ -350,6 +350,8 @@ class Decision:
     bridge_used: bool = False
     book_target_line: float | None = None
     book_min_odds: float | None = None
+    book_target_available: bool = False
+    current_price_clears_book_target: bool = False
 
 
 def _validate_quarter_line(line: float) -> None:
@@ -1887,15 +1889,23 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             max_book_line = float(book_profile["max_book_line"])
             target_line = min(ctx.quote.line, max_book_line)
             target_min_odds = c_g3_book_min_odds(target_line)
+            clears_target = ctx.quote.odds + 1e-9 >= target_min_odds
             return Decision(
-                Action.BOOK,
+                Action.BOOK if clears_target else Action.PASS,
                 (
                     f"G3 protected certificate remains O2.50; settlement-aware "
-                    f"conditional order authorized at O{target_line:.2f} "
-                    f"@ {target_min_odds:.2f}+; O3.50 still requires G4"
+                    + (
+                        f"conditional order authorized at O{target_line:.2f} "
+                        f"@ {target_min_odds:.2f}+; O3.50 still requires G4"
+                        if clears_target else
+                        f"BOOK target O{target_line:.2f} @ {target_min_odds:.2f}+ is available, "
+                        f"but current {ctx.quote.odds:.2f} is below the floor — NO ACTION"
+                    )
                 ),
                 book_target_line=target_line,
                 book_min_odds=target_min_odds,
+                book_target_available=True,
+                current_price_clears_book_target=clears_target,
             )
 
         if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):

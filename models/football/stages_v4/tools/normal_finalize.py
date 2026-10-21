@@ -399,6 +399,8 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         "receipt_filename": "v4_sweep_ready.json",
         "receipt_integrity_sha256": receipt["integrity_sha256"],
         "active_research_complete": True,
+        "active_batch_complete": True,
+        "active_research_queue_complete": True,
         "active_target_count": len(target_map),
         "eligible_target_count": len(completed),
         "watch_target_count": len(watch),
@@ -407,13 +409,23 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         "deferred_source_backlog_count": max(
             0, len(receipt.get("goal_research_order", [])) - len(target_map)
         ),
+        "whole_requested_surface_complete": (
+            len(receipt.get("goal_research_order", [])) <= len(target_map)
+        ),
+        "unresolved_or_deferred_candidates_remain": (
+            len(receipt.get("goal_research_order", [])) > len(target_map)
+        ),
+        "priority_completeness_verified": (
+            source.get("priority_completeness_verification", {}).get("status")
+            == "PRIORITY_COMPLETENESS_VERIFIED"
+        ),
         "requires_fresh_status_refresh": True,
         "rank_must_not_reconstruct_source_from_airtable": True,
     }
     _save(output / "rank-handoff.json", handoff)
     checkpoint = {
         "schema_version": "football-v4-sweep-research-checkpoint-v2",
-        "status": "RESEARCH_COMPLETE",
+        "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
         "run_id": source["run_id"],
         "original_source_sha256": work_sweep.digest(output / "original-source.json"),
         "source_file_sha256": source_sha,
@@ -424,6 +436,12 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         "evidence_limited_match_ids": limited,
         "status_excluded_match_ids": closed,
         "resume_queue": [],
+        "active_batch_complete": True,
+        "active_research_queue_complete": True,
+        "whole_requested_surface_complete": handoff["whole_requested_surface_complete"],
+        "unresolved_or_deferred_candidates_remain": handoff["unresolved_or_deferred_candidates_remain"],
+        "deferred_source_backlog_count": handoff["deferred_source_backlog_count"],
+        "priority_completeness_verified": handoff["priority_completeness_verified"],
         "rank_handoff_ready": True,
         "native_v4_sweep_ready": True,
     }
