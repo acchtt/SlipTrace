@@ -49,7 +49,7 @@ The active command surface is:
 
 Conversation type is an operational surface, not model authority. Football C and
 the native V4/runtime receipts remain authoritative regardless of chat surface.
-For `/xi`, normal chat gathers evidence but official ACT/WAIT/PASS is owned by
+For `/xi`, normal chat gathers evidence but official ACT/BOOK/PASS is owned by
 `engine/core.py` + `engine/adapter.py` + `engine/xi_portable.py`. When
 local execution is unavailable, normal chat must use the on-demand GitHub XI
 runtime bridge and consume its persisted result in the same turn. Local Python
@@ -256,6 +256,11 @@ There is no automatic UCL or Norway adjustment.
 
 ## /xi — one C assessment and one price policy
 
+**Presentation rule:** internal C-WATCH is displayed as REVIEW_ONLY metadata.
+The final /xi headline is always ACT, BOOK or PASS (or an explicit blocker such
+as RANK_RECEIPT_REQUIRED / MARKET_DISAGREEMENT_RECHECK_REQUIRED), never WATCH.
+
+
 **Conversation surface: NORMAL CHAT; deterministic runtime remains decision authority.**
 
 Authority: prompts/02_NORMAL_CHAT_XI_ODDS.md,
@@ -264,19 +269,26 @@ engine/adapter.py and engine/xi_portable.py.
 
 Every /xi:
 
-1. completes Football C assessment without requiring odds;
-2. executes the deterministic runtime directly when callable, otherwise through
+1. resolves shared authority first: normal fixtures require the newest verified
+   rank package and exact FOCUS row; only explicit `/xi exception` may use
+   EXCEPTION authority;
+2. completes Football C assessment without requiring odds;
+3. executes the deterministic runtime directly when callable, otherwise through
    `xi_runtime_backend.py` via the request/result GitHub bridge;
-3. if the user supplied an observed screenshot, evaluates exactly that quote
+4. if the user supplied an observed screenshot, evaluates exactly that quote
    through adapter.evaluate_observed_quote();
-4. if a genuinely executable current prematch quote exists, uses
+5. if a genuinely executable current prematch quote exists, uses
    adapter.run_decision();
-5. persists/readbacks once when persistence is required.
+6. persists/readbacks once when persistence is required.
+
+Both direct `xi_portable.py` and the GitHub backend call
+`engine/xi_authority.py`. A free-standing routine Football C payload is
+invalid and fails closed with `RANK_RECEIPT_REQUIRED`.
 
 The backend bridge is transport only. It does not create a second policy, fetch
 replacement odds, or loosen Football C.
 
-There is no second screenshot-specific ACT/WAIT/PASS policy and no second model
+There is no second screenshot-specific ACT/BOOK/PASS policy and no second model
 whose result can override or dilute C.
 
 ### Screenshot/market disagreement
@@ -308,37 +320,29 @@ remains only the trigger and never creates G3/G4/G5/G6.
 
 Do not fetch a replacement quote.
 
-### Fragile WATCH WAIT activation
+### REVIEW_ONLY and conditional BOOK
 
-A WATCH certificate can remain visible for research when it is FRAGILE, but a
-reachable price does not by itself convert that fragile thesis into WAIT. C
-requires the current WATCH assessment to revalidate to at least CONDITIONAL
-before WAIT is emitted. FOCUS retains the normal reachability and football-veto
-rules.
+`C-WATCH` remains an internal frozen research classification for audit
+compatibility. User-facing surfaces render it as **REVIEW_ONLY**. It is not a
+post-/xi verdict and does not authorize routine Step 2.
 
-### WAIT
+Active Football C has three user-facing prematch price actions:
 
-WAIT requires:
+- **ACT** — accept the current quote;
+- **BOOK** — place/record an exact conditional target; zero exposure until an
+  independently confirmed fill;
+- **PASS** — no acceptable current or conditional entry.
 
-- wait_reachable=true;
-- a non-empty contemporaneous reachability basis;
-- wait_requires_negative_info=false;
-- intact current football thesis;
-- no material veto.
+Legacy WAIT fields remain only as internal reachability evidence and historical
+compatibility. When the old price-only WAIT conditions are valid, active C emits
+BOOK instead. A FRAGILE REVIEW_ONLY exception must revalidate to at least
+CONDITIONAL before such a target is allowed.
 
-For an unsupported higher observed burden, the deterministic C core permits a
-pre-goal WAIT down to the certified burden only when the gap is at most **0.25
-goals**. A gap of **0.50+** must never become a speculative far-lower WAIT. At the
-observed burden, complete the football recheck and either fund/evaluate it or
-PASS. Independently, an eligible G3-only C-FOCUS row may issue its bounded BOOK
-target up to O3.25 without changing the certificate.
-
-A lone screenshot does not prove same-line odds will improve. Near kickoff,
-do not manufacture a micro-WAIT from speculative price drift.
-
-The normal minimum price is 1.65. The supported-line 1.60 soft zone is allowed
-only by the C core where the already-funded burden has the required independent
-football corroboration. Unsupported higher burdens do not inherit that zone.
+For an unsupported higher observed burden, a conditional target may move down to
+the certified burden only across one **0.25-goal** Asian-total step. A gap of
+**0.50+** cannot manufacture a far-lower target. The normal minimum remains
+1.65, with the existing supported-line 1.60 soft zone where deterministic C
+corroboration permits it.
 
 ## /live
 
@@ -351,7 +355,7 @@ After kickoff:
 
 - continue football assessment;
 - invalidate prematch execution assumptions;
-- never recreate a prematch ACT/WAIT/PASS retrospectively;
+- never recreate a prematch ACT/BOOK/PASS retrospectively;
 - a live quote is comparison evidence only unless a separate live execution
   policy explicitly authorizes it.
 
@@ -363,12 +367,13 @@ For new operations:
 
 - persist only active Football C model outputs;
 - retired C2/C3/C4 fields may remain in historical Airtable rows for immutable audit only; all new C persistence uses Google Sheets;
-- WATCH creates no model bet;
-- Unresolved WAIT creates no model bet;
+- internal WATCH/REVIEW_ONLY creates no model bet;
+- active C does not issue a user-facing WAIT; historical WAIT records remain
+  immutable audit/accounting history;
 - a BOOK order creates no exposure when issued; any later fill must be
   independently confirmed before reconciliation;
-- only a strict direct C BET, a user-confirmed reached WAIT, or a confirmed
-  booked-order fill may enter model accounting;
+- only a strict direct C BET/ACT or a confirmed booked-order fill may enter new
+  model accounting;
 - Actual Bets — Current is the only authority for physical user P/L.
 
 ## Website projection
