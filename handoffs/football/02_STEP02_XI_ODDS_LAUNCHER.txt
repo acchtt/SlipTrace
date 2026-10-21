@@ -11,19 +11,31 @@ Conversation surface: NORMAL CHAT
    models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md
    models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md
 
-2. Resolve the exact fixture and frozen Football C board evidence when ranked.
-   /xi exception may assess outside routine board authority.
+2. BEFORE choosing ranked versus exception authority, run the rank-discovery preflight:
+   - resolve the exact fixture / Match ID;
+   - read models/football/google_sheets/ACTIVE_STORE_ROUTING.json and query the
+     exact fixture in Daily Coverage Ledger;
+   - when a current FOCUS row exists, capture its Run ID / Match ID / rank /
+     certified line / rank-integrity hash;
+   - load the matching portable verified rank package from the current
+     conversation, Project files, or Library (do not assume newest artifacts are
+     committed to GitHub main);
+   - verify the exact FOCUS row and frozen model input through xi_authority.py.
+   The ledger is discovery/readback only, not substitute rank authority.
+   If the ledger proves the fixture is ranked but the sealed package is
+   unavailable, return RANK_RECEIPT_REQUIRED. Never convert it to EXCEPTION.
+   Only a literal user /xi exception request may set authority.mode=EXCEPTION,
+   and it must set user_requested_exception=true.
 
 3. Use the user's lineup/current football evidence and exact screenshot quote.
    USER_SCREENSHOT_ONLY means no replacement odds search.
 
 4. Complete required XI/football/incentive/H2H rechecks.
 
-5. Run the deterministic Football C runtime. Official ACT/WAIT/PASS is
-   engine-owned; normal chat gathers evidence and explains the result.
+5. Run the deterministic Football C runtime. Official ACT/BOOK/PASS is\n   engine-owned; normal chat gathers evidence and explains the result.
 
 6. If local/direct Python is unavailable, submit one
-   football-c-xi-runtime-request-v1 request under
+   football-c-xi-runtime-request-v2 request under
    models/football/engine/xi_runtime_requests/, wait for the deterministic
    GitHub backend to persist xi_runtime_results/<request-id>.json, then use that
    result in the same /xi turn. Do NOT ask the user to /resume for runtime
