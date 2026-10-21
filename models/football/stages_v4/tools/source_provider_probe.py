@@ -14,6 +14,10 @@ URLS = {
     "footballinfo": "https://www.footballinfo.net/Fixtures?date={date}",
     "livescoresx": "https://livescoresx.com/fixtures/{date}",
     "thesportsdb": "https://www.thesportsdb.com/api/v1/json/123/eventsday.php?d={date}&s=Soccer",
+    "espn_all": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates={date_compact}&limit=1000",
+    "fotmob": "https://www.fotmob.com/api/data/matches?date={date_compact}",
+    "foxscore_web": "https://web.foxscore.vn/",
+    "foxsports_web": "https://www.foxsports.com/scores/soccer",
 }
 
 
@@ -43,18 +47,63 @@ def summarize(name: str, payload: object) -> dict[str, object]:
             if payload["events"]:
                 ev = payload["events"][0]
                 if isinstance(ev, dict):
+                    competition = None
+                    competitions = ev.get("competitions")
+                    if isinstance(competitions, list) and competitions:
+                        c0 = competitions[0]
+                        if isinstance(c0, dict):
+                            competition = {
+                                "date": c0.get("date"),
+                                "type": (c0.get("type") or {}).get("text") if isinstance(c0.get("type"), dict) else None,
+                                "competitors": [
+                                    ((x.get("team") or {}).get("displayName") if isinstance(x.get("team"), dict) else None)
+                                    for x in (c0.get("competitors") or [])
+                                    if isinstance(x, dict)
+                                ][:2],
+                            }
                     out["sample_keys"] = sorted(ev.keys())[:20]
                     out["sample"] = {
                         "id": ev.get("id"),
+                        "date": ev.get("date"),
+                        "name": ev.get("name"),
                         "startTimestamp": ev.get("startTimestamp"),
                         "homeTeam": (ev.get("homeTeam") or {}).get("name") if isinstance(ev.get("homeTeam"), dict) else None,
                         "awayTeam": (ev.get("awayTeam") or {}).get("name") if isinstance(ev.get("awayTeam"), dict) else None,
                         "tournament": ((ev.get("tournament") or {}).get("name") if isinstance(ev.get("tournament"), dict) else None),
+                        "competition": competition,
                     }
         elif isinstance(payload.get("event"), list):
             out["event_count"] = len(payload["event"])
         elif isinstance(payload.get("events"), dict):
             out["events_type"] = "dict"
+        elif isinstance(payload.get("leagues"), list):
+            leagues = payload["leagues"]
+            out["league_count"] = len(leagues)
+            out["match_count"] = sum(
+                len(x.get("matches") or []) for x in leagues if isinstance(x, dict)
+            )
+            samples = []
+            for league in leagues:
+                if not isinstance(league, dict):
+                    continue
+                for match in league.get("matches") or []:
+                    if isinstance(match, dict):
+                        samples.append({
+                            "id": match.get("id"),
+                            "league": league.get("name"),
+                            "home": (match.get("home") or {}).get("name") if isinstance(match.get("home"), dict) else None,
+                            "away": (match.get("away") or {}).get("name") if isinstance(match.get("away"), dict) else None,
+                            "utcTime": ((match.get("status") or {}).get("utcTime") if isinstance(match.get("status"), dict) else None),
+                        })
+                    if len(samples) >= 5:
+                        break
+                if len(samples) >= 5:
+                    break
+            out["samples"] = samples
+        elif isinstance(payload.get("events"), list):
+            pass
+        elif isinstance(payload.get("sports"), list):
+            out["sports_count"] = len(payload["sports"])
         else:
             out["keys"] = sorted(payload.keys())[:30]
     else:
@@ -64,7 +113,7 @@ def summarize(name: str, payload: object) -> dict[str, object]:
 
 def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object], bool]:
     """Probe one independent provider without blocking other providers."""
-    url = template.format(date=date_value)
+    url = template.format(date=date_value, date_compact=date_value.replace("-", ""))
     try:
         status, head, payload, full_text = fetch(url)
         extra: dict[str, object] = {}
@@ -83,6 +132,10 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
             }
             hrefs = re.findall(r'href=["\\\']([^"\\\']+)["\\\']', full_text, re.I)
             extra["sample_hrefs"] = hrefs[:20]
+            scripts = re.findall(r'<script[^>]+src=["\\\']([^"\\\']+)["\\\']', full_text, re.I)
+            extra["sample_scripts"] = scripts[:20]
+            urls = re.findall(r'https?://[^"\\\'<> ]+', full_text, re.I)
+            extra["api_like_urls"] = [u for u in urls if "api" in u.lower() or "score" in u.lower()][:20]
             for marker in ("Champions League", "Premier League", "Superliga", "UEFA"):
                 at = full_text.find(marker)
                 if at >= 0:
