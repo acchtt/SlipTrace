@@ -90,15 +90,21 @@ def wait_ready(payload, *, top=False):
     return payload
 
 
-def run_xi(c=None, shot=None):
+def run_xi(c=None, shot=None, authority=None):
     c = c or football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
     shot = shot if shot is not None else snapshot(c)
+    authority = authority or {
+        "mode": "EXCEPTION",
+        "exception_reference": "test-user-explicit-exception",
+    }
     with tempfile.TemporaryDirectory() as td:
         root = pathlib.Path(td)
         cp = root / "c.json"
         sp = root / "shot.json"
+        ap = root / "authority.json"
         cp.write_text(json.dumps(c), encoding="utf-8")
         sp.write_text(json.dumps(shot), encoding="utf-8")
+        ap.write_text(json.dumps(authority), encoding="utf-8")
         proc = subprocess.run(
             [
                 sys.executable,
@@ -108,6 +114,8 @@ def run_xi(c=None, shot=None):
                 str(cp),
                 "--screenshot-quote",
                 str(sp),
+                "--authority",
+                str(ap),
             ],
             text=True,
             capture_output=True,
@@ -120,6 +128,34 @@ def run_xi(c=None, shot=None):
 
 
 class ScreenshotOnlyXIRegression(unittest.TestCase):
+    def test_direct_xi_without_authority_fails_closed(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        shot = snapshot(c)
+        with tempfile.TemporaryDirectory() as td:
+            root = pathlib.Path(td)
+            cp, sp = root / "c.json", root / "shot.json"
+            cp.write_text(json.dumps(c), encoding="utf-8")
+            sp.write_text(json.dumps(shot), encoding="utf-8")
+            proc = subprocess.run(
+                [
+                    sys.executable,
+                    str(ENGINE / "xi_portable.py"),
+                    "xi",
+                    "--c",
+                    str(cp),
+                    "--screenshot-quote",
+                    str(sp),
+                ],
+                text=True,
+                capture_output=True,
+                timeout=30,
+                check=False,
+            )
+            self.assertNotEqual(proc.returncode, 0)
+            payload = json.loads(proc.stderr)
+            self.assertEqual(payload["status"], "RANK_RECEIPT_REQUIRED")
+            self.assertEqual(payload["failure_class"], "RANK_AUTHORITY")
+
     def test_exact_screenshot_quote_is_preserved(self):
         out = run_xi()
         self.assertEqual(out["xi_mode"], "FOOTBALL_AND_OBSERVED_QUOTE")
@@ -188,7 +224,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertIn("more than 0.25", verdict["reason"])
         self.assertTrue(verdict["wait_reachable"])
 
-    def test_one_step_unsupported_line_can_still_wait_when_evidenced(self):
+    def test_one_step_unsupported_line_becomes_book_target_when_evidenced(self):
         c = complete_market_disagreement_recheck(
             wait_ready(
                 football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
@@ -197,8 +233,10 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         # This fixture compiles O3.5; O3.75 is one quarter-goal step above it.
         out = run_xi(c, snapshot(c, line=3.75, odds=1.72))
         verdict = out["price_check"]["model"]
-        self.assertEqual(verdict["conditional_action"], "WAIT")
-        self.assertEqual(verdict["wait_target_line"], 3.5)
+        self.assertEqual(verdict["conditional_action"], "BOOK")
+        self.assertEqual(verdict["book_target_line"], 3.5)
+        self.assertTrue(verdict["book_target_state"] == "BOOK_TARGET_AVAILABLE")
+        self.assertIsNone(verdict["wait_target_line"])
 
     def test_material_market_disagreement_blocks_until_rechecked(self):
         c = wait_ready(
@@ -223,7 +261,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         )
         self.assertIn(
             second["price_check"]["model"]["conditional_action"],
-            {"ACT", "WAIT", "PASS"},
+            {"ACT", "BOOK", "PASS"},
         )
 
     def test_incomplete_frozen_g4_marks_certificate_completeness_recheck(self):
