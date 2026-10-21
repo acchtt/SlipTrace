@@ -18,6 +18,15 @@ USER_SCREENSHOT_ONLY means the screenshot is the sole market-price source.
 
 
 Routine /xi must resolve and pass shared rank authority before execution.
+Before selecting RANKED versus EXCEPTION, perform the mandatory rank-discovery
+preflight in `02_NORMAL_CHAT_XI_ODDS.md`: check the active Daily Coverage Ledger
+for the exact fixture, then load the matching portable verified rank package from
+the current conversation / Project / Library. The ledger is discovery/readback,
+not a substitute sealed receipt. A ranked-ledger hit that cannot load its package
+fails closed with `RANK_RECEIPT_REQUIRED`; it never becomes an exception.
+EXCEPTION authority requires an explicit user `/xi exception` request and
+`user_requested_exception=true`.
+
 The direct and GitHub-backend paths both use `engine/xi_authority.py`.
 A normal ranked fixture without an exact verified FOCUS row fails closed with
 `RANK_RECEIPT_REQUIRED`. Only explicit `/xi exception` may use EXCEPTION
