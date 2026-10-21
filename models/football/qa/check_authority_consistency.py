@@ -73,7 +73,7 @@ require(
     "same competition / continental context",
     "SUPPRESSIVE",
     "G4 completion reliability",
-    "Fragile WATCH WAIT activation",
+    "REVIEW_ONLY and conditional BOOK",
 )
 require(
     "models/football/engine/core.py",
@@ -97,6 +97,15 @@ require(
     "EXECUTED_C_FOOTBALL_ONLY",
     "EXECUTED_C_DECISION",
     "from adapter import",
+    "authorize_c_football",
+    "RANK_RECEIPT_REQUIRED",
+)
+require(
+    "models/football/engine/xi_authority.py",
+    "routine /xi requires an exact ranked FOCUS board row",
+    "V4_RANK_PERSISTENCE_VERIFIED",
+    "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
+    "REVIEW_ONLY",
 )
 forbid(
     "models/football/engine/xi_portable.py",
