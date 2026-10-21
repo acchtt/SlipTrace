@@ -96,6 +96,7 @@ def run_xi(c=None, shot=None, authority=None):
     authority = authority or {
         "mode": "EXCEPTION",
         "exception_reference": "test-user-explicit-exception",
+        "user_requested_exception": True,
     }
     with tempfile.TemporaryDirectory() as td:
         root = pathlib.Path(td)
