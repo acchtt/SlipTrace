@@ -1042,7 +1042,7 @@ class FootballCExecutionTests(unittest.TestCase):
         decision = decide_c(a, context(quote=Quote(3.25, 2.00)))
         self.assertEqual(decision.action, Action.PASS)
 
-    def test_fragile_watch_wait_requires_conditional_or_better_revalidation(self):
+    def test_fragile_review_only_target_requires_conditional_or_better_revalidation(self):
         fragile = assessment(
             home_route=RouteStrength.USABLE,
             away_route=RouteStrength.USABLE,
@@ -1083,7 +1083,11 @@ class FootballCExecutionTests(unittest.TestCase):
             }
         )
         self.assertEqual(certificate_robustness(revalidated, "c"), 1)
-        self.assertEqual(decide_c(revalidated, ctx).action, Action.WAIT)
+        decision = decide_c(revalidated, ctx)
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertTrue(decision.book_target_available)
+        self.assertEqual(decision.book_target_line, 2.5)
+        self.assertFalse(decision.current_price_clears_book_target)
 
     def test_supported_line_is_anchor_when_frozen_goal5_tail_is_strong(self):
         a = assessment(
