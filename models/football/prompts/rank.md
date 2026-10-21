@@ -18,6 +18,12 @@ refs as a normal ranking mechanism.
 
 No odds are required for football ranking.
 
+A verified reschedule/cancellation outside the frozen sweep window is a
+fixture-level status exclusion, not a whole-board blocker. Apply RANK.md's
+`status_resolution` contract, preserve unchanged research for every unaffected
+fixture, and continue ranking the remaining cohort. Do not restart the sweep
+solely because one stale provider row was officially moved out of the window.
+
 Before finalizing any G3-funded C-FOCUS assessment, perform the bounded G4
 completion pass defined in RANK.md. A row still marked
 `G4_RESEARCH_INCOMPLETE` is unfinished research, not a completed O2.50 board
