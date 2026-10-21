@@ -29,3 +29,6 @@ jobs:
           tomorrow="$(date -u -d '+1 day' +%F)"
           python models/football/stages_v4/tools/source_provider_probe.py "$today"
           python models/football/stages_v4/tools/source_provider_probe.py "$tomorrow"
+          # Fixed regression date: validates UTC handling against the 20 Oct
+          # Champions League block that FootballInfo shifted by +1 hour.
+          python models/football/stages_v4/tools/source_provider_probe.py "2026-10-20"
