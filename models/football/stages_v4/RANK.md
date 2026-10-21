@@ -81,8 +81,36 @@ Before Football C execution:
 2. require the replayed receipt to match V4_SWEEP_READY;
 3. refresh every eligible fixture's kickoff/status;
 4. require freshness within the V4 bound;
-5. reject changed-kickoff/source fixtures;
-6. mark already-started fixtures PREMATCH_WINDOW_CLOSED.
+5. reject unexplained changed-kickoff/source fixtures;
+6. mark already-started/finished fixtures PREMATCH_WINDOW_CLOSED;
+7. treat an independently attested postponement/cancellation as a fixture-level
+   status exclusion rather than blocking the otherwise-valid cohort.
+
+For a reschedule exception, the status-refresh row must use
+`fixture_status=POSTPONED` and include:
+
+```json
+{
+  "status_resolution": {
+    "reason": "RESCHEDULED",
+    "new_kickoff_utc": "2027-02-04T11:30:00Z",
+    "source_urls": [
+      "https://competition.example.org/official-fixture-update",
+      "https://club.example.org/official-fixture-update"
+    ],
+    "verified_at_utc": "2026-10-21T07:50:00Z"
+  }
+}
+```
+
+The two HTTPS sources must be on independent hostnames, one must be the
+status-refresh row's `source_url`, and the verification must be fresh. The
+new kickoff must lie outside the frozen sweep window. When those conditions
+hold, mark that fixture `PREMATCH_WINDOW_CLOSED / STATUS_EXCLUDED`, discard
+any stale C row for it, preserve the other frozen research rows, and continue
+`/rank` without restarting the sweep. If the kickoff merely moves elsewhere
+inside the same requested window, or the reschedule is not independently
+attested, fail closed and refresh/re-sweep the source epoch.
 
 The native CLI is:
 
