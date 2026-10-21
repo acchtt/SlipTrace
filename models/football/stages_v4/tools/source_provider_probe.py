@@ -18,6 +18,8 @@ URLS = {
     "fotmob": "https://www.fotmob.com/api/data/matches?date={date_compact}",
     "foxscore_web": "https://web.foxscore.vn/",
     "foxsports_web": "https://www.foxsports.com/scores/soccer",
+    "foxscore_api_list": "https://api.foxscore.vn/v100/match/list",
+    "foxsports_ucl": "https://api.foxsports.com/bifrost/v1/soccer/scoreboard/segment/c7d{date_compact}?apikey=jE7yBJVRNAwdDesMgTzTXUUSx1It41Fq&groupId=7",
 }
 
 
@@ -136,6 +138,12 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
             extra["sample_scripts"] = scripts[:20]
             urls = re.findall(r'https?://[^"\\\'<> ]+', full_text, re.I)
             extra["api_like_urls"] = [u for u in urls if "api" in u.lower() or "score" in u.lower()][:20]
+            if name == "foxscore_web":
+                host_at = full_text.find("api.foxscore.vn")
+                if host_at >= 0:
+                    extra["foxscore_runtime_fragment"] = re.sub(
+                        r"\\s+", " ", full_text[max(0, host_at-1200):host_at+2200]
+                    )[:3400]
             for marker in ("Champions League", "Premier League", "Superliga", "UEFA"):
                 at = full_text.find(marker)
                 if at >= 0:
@@ -153,11 +161,19 @@ def probe(name: str, template: str, date_value: str) -> tuple[dict[str, object],
             for idx, src in enumerate(same_origin):
                 try:
                     _, _, _, js = fetch("https://web.foxscore.vn" + src)
+                    match_list_fragments = []
+                    for token in ("/v100/match/list", "/v100/match/count/day", "/v100/match/info"):
+                        at = js.find(token)
+                        if at >= 0:
+                            match_list_fragments.append(
+                                re.sub(r"\\s+", " ", js[max(0, at-1400):at+2200])[:3600]
+                            )
                     chunks.append({
                         "src": src,
                         "length": len(js),
                         "api_hosts": sorted(set(re.findall(r'https?://[A-Za-z0-9._-]*foxscore\\.vn', js)))[:20],
                         "paths": sorted(set(re.findall(r'["\\\'](/[^"\\\']*(?:match|schedule|fixture|league|live)[^"\\\']*)["\\\']', js, re.I)))[:40],
+                        "match_api_fragments": match_list_fragments,
                         "base_fragments": [
                             re.sub(r"\\s+", " ", js[max(0, m.start()-300):m.start()+700])[:1000]
                             for m in list(re.finditer(r'(?:api\\.foxscore\\.vn|baseURL|baseUrl)', js, re.I))[:8]
