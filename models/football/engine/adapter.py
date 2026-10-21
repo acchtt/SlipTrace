@@ -105,6 +105,11 @@ def _enum(enum_cls, value: Any, field: str):
         ) from exc
 
 
+def _display_board_state(state: BoardState) -> str:
+    """User-facing rank label; WATCH is internal metadata, not an /xi verdict."""
+    return "REVIEW_ONLY" if state == BoardState.WATCH else state.name
+
+
 def _bool(obj: dict[str, Any], key: str, default: bool = False) -> bool:
     value = obj.get(key, default)
     if not isinstance(value, bool):
@@ -997,6 +1002,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         )
         board_state_basis = _string(raw, "board_state_basis")
         row["board_state"] = state.name
+        row["display_state"] = _display_board_state(state)
         row["board_state_basis"] = board_state_basis
         if model == "c":
             validate_c_screen_state(item, state)
@@ -1183,6 +1189,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "match_minute": minute,
         "material_event_since_frozen": event,
         "board_state": board_state.value,
+        "rank_state_internal": board_state.name,
+        "rank_state_display": _display_board_state(board_state),
         "football_read": read,
         "football_assessment_completed": True,
         "limitations": needs,
@@ -1588,9 +1596,9 @@ def evaluate_observed_quote(
     Decision State persistence, XI authorization and publication are not
     manufactured here.
 
-    WAIT is available only when the caller explicitly established
-    wait_reachable=true and wait_requires_negative_info=false for this model's
-    supported burden. No line-gap heuristic is invented by the wrapper.
+    Active Football C exposes ACT/BOOK/PASS. Legacy wait-reachability fields
+    remain internal evidence that a conditional target can be reached without a
+    negative football event; when valid, C returns BOOK rather than WAIT.
     """
 
     football = run_football_assessment(payload)
@@ -1657,7 +1665,7 @@ def evaluate_observed_quote(
             "reason": (
                 "observed screenshot burden materially exceeds the current "
                 "Football C certificate; complete the required football recheck "
-                "and rerun the deterministic certificate before any ACT/WAIT/PASS"
+                "and rerun the deterministic certificate before any ACT/BOOK/PASS"
             ),
             "supported_line": compiled_burden,
             "observed_line": observed.line,
@@ -1682,7 +1690,7 @@ def evaluate_observed_quote(
             "model": model,
             "match_id": a.match_id,
             "action": "LIVE_PRICE_BURDEN_COMPARISON_ONLY",
-            "reason": "started fixture; prematch ACT/WAIT/PASS not re-created",
+            "reason": "started fixture; prematch ACT/BOOK/PASS not re-created",
             "supported_line": compiled_burden,
             "observed_line": observed.line,
             "observed_odds": observed.odds,
@@ -1776,6 +1784,8 @@ def evaluate_observed_quote(
         "stage": "observed_quote_evaluation",
         "model": model,
         "match_id": a.match_id,
+        "rank_state_internal": board_state.name,
+        "rank_state_display": _display_board_state(board_state),
         "action": "ACT" if decision.action == Action.BET else decision.action.value,
         "engine_action": decision.action.value,
         "reason": decision.reason,
@@ -2020,9 +2030,9 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
     accounting_odds = None
     book_order_status = "NOT_APPLICABLE"
     if decision.action == Action.WAIT:
+        # Retired-model compatibility only. Active Football C converts
+        # price-only reachable targets into BOOK before this point.
         wait_target_line, wait_min_odds = wait_accounting_target(a, ctx, model)
-        # A WAIT is a plan, not exposure. Do not assume that a future line was
-        # reached or synthesize a model bet at the target price.
         accounting_status = "NONE"
         wait_resolution_default = "UNRESOLVED"
     elif decision.action == Action.BET:
@@ -2045,6 +2055,8 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "decision_result",
         "model": model,
         "match_id": a.match_id,
+        "rank_state_internal": board_state.name,
+        "rank_state_display": _display_board_state(board_state),
         "common_evidence_basis": a.common_evidence_basis,
         "supported_line": compiled_burden,
         "supported_line_basis": compiled_basis,
