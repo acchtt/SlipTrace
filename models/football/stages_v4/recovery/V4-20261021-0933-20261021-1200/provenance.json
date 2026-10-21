@@ -1,0 +1,44 @@
+[
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/7?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-21T02:33:56.689399+00:00",
+    "file": "raw/ICT-2026-10-21.json",
+    "sha256": "8f65c264c5d78974b090934c23dc2f2415be9b1d7f69470cd6eb24d44eb37bd8"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-21T02:33:57.181947+00:00",
+    "file": "raw/UTC-2026-10-21.json",
+    "sha256": "2724445a3be65f549281d9f89148ea78dfbb1531bad0df384c9726473c640270"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261021/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-21T02:33:57.364025+00:00",
+    "file": "raw/terminal-2026-10-21.json",
+    "sha256": "2724445a3be65f549281d9f89148ea78dfbb1531bad0df384c9726473c640270"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10007/details?locale=en",
+    "observed_at_utc": "2026-10-21T02:33:57.605212+00:00",
+    "file": "raw/team-10007.json",
+    "sha256": "1fd67efcd544c76a963a2ad2df8b743734846639de92c730720f0e137b2f5299"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10011/details?locale=en",
+    "observed_at_utc": "2026-10-21T02:33:57.849017+00:00",
+    "file": "raw/team-10011.json",
+    "sha256": "1522b3e2b6b4f0e415f529bfbafec7dba02aa8a550d5c0986c9e144a01ec55fe"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/173226/details?locale=en",
+    "observed_at_utc": "2026-10-21T02:33:58.083134+00:00",
+    "file": "raw/team-173226.json",
+    "sha256": "fd7cb0a34090976465eb8ad606bdb1298b04964b4a459cdad6b24c7d3c1e47ea"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10014/details?locale=en",
+    "observed_at_utc": "2026-10-21T02:33:58.339404+00:00",
+    "file": "raw/team-10014.json",
+    "sha256": "9538fed25e0b4baf7d535641edf9712dfa3b8ad29e4dcba90a533fb7bab23daa"
+  }
+]
