@@ -52,6 +52,7 @@ def main() -> None:
         authority_file = write(root / "authority.json", {
             "mode": "EXCEPTION",
             "exception_reference": "qa-explicit-exception",
+            "user_requested_exception": True,
         })
 
         decision = pair_payload("c")
