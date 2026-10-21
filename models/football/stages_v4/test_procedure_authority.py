@@ -144,8 +144,8 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
             "SHADOW_WAIT_ASSUMED",
         ):
             self.assertNotIn(forbidden, accounting)
-        self.assertIn("WATCH creates no model bet", current)
-        self.assertIn("Unresolved WAIT creates no model bet", current)
+        self.assertIn("internal WATCH/REVIEW_ONLY creates no model bet", current)
+        self.assertIn("active C does not issue a user-facing WAIT", current)
 
     def test_active_production_spec_has_no_retired_rule_drift(self):
         production = (FOOTBALL / "production" / "FOOTBALL_C.md").read_text()
@@ -159,7 +159,7 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(forbidden, production)
         self.assertIn("There is no predictive board-size target", production)
-        self.assertIn("unresolved WAIT -> no model bet", production)
+        self.assertIn("active C does not issue a user-facing WAIT", production)
         self.assertIn("gap is at most **0.25 goals**", production)
         self.assertIn("MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP = 0.25", core)
 
