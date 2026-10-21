@@ -131,6 +131,11 @@ only rows frozen as `C-FOCUS` enter the official ranked board. `C-WATCH` and
 inflate the official board. There is **no fixed numeric board cap**: every
 genuine C-FOCUS survives admission.
 
+Presentation rule: keep `C-WATCH` unchanged in sealed machine receipts, but
+render it to the user as **REVIEW_ONLY**. REVIEW_ONLY means researched and
+retained for audit/explicit exception review, not an execution instruction and
+not a normal /xi candidate. Never display WATCH as though it were WAIT.
+
 No odds quote is required at Step 1.
 
 ## Football C research
@@ -439,8 +444,9 @@ summaries during Work execution. Do not hide unresolved fixtures or describe the
 C rejection. Resume pending work in the rank task; the user supplies only the
 normal command and any genuinely unavailable evidence.
 
-Report run ID, total C-assessed count, official ranked-board count, WATCH/PASS
-counts, explicit evidence/status unranked reasons, board exclusions, the
+Report run ID, total C-assessed count, official ranked-board count, REVIEW_ONLY/PASS
+counts (REVIEW_ONLY is internal C-WATCH), explicit evidence/status unranked reasons,
+board exclusions, the
 C-FOCUS official board, FOLLOW/RESERVE/STOP for those board rows, supported
 burdens and persistence verification. The full research assessment remains
 available for audit but is not the main ranked board.
