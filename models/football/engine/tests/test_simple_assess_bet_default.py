@@ -24,6 +24,7 @@ def run(command, c):
             ap.write_text(json.dumps({
                 "mode": "EXCEPTION",
                 "exception_reference": "test-explicit-exception",
+                "user_requested_exception": True,
             }), encoding="utf-8")
             args.extend(["--authority", str(ap)])
         proc = subprocess.run(
