@@ -27,6 +27,44 @@ REQUEST_SCHEMA = "football-c-xi-runtime-request-v2"
 RESULT_SCHEMA = "football-c-xi-runtime-result-v1"
 
 
+def _canonical(value: Any) -> bytes:
+    return json.dumps(
+        value, sort_keys=True, ensure_ascii=True, separators=(",", ":")
+    ).encode("utf-8")
+
+
+def _load_request(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError("request must be a JSON object")
+    if value.get("schema_version") != REQUEST_SCHEMA:
+        raise ValueError(f"schema_version must be {REQUEST_SCHEMA}")
+    request_id = value.get("request_id")
+    if not isinstance(request_id, str) or not request_id.strip():
+        raise ValueError("request_id required")
+    if path.stem != request_id:
+        raise ValueError("request_id must equal request filename stem")
+    c_football = value.get("c_football")
+    if not isinstance(c_football, dict):
+        raise ValueError("c_football object required")
+    screenshot = value.get("screenshot_quote")
+    strict = value.get("strict_price_c")
+    if screenshot is not None and not isinstance(screenshot, dict):
+        raise ValueError("screenshot_quote must be an object")
+    if strict is not None and not isinstance(strict, dict):
+        raise ValueError("strict_price_c must be an object")
+    if screenshot is not None and strict is not None:
+        raise ValueError("choose screenshot_quote or strict_price_c, not both")
+    authority = value.get("authority")
+    if not isinstance(authority, dict) or authority.get("mode") not in {
+        "RANKED", "EXCEPTION"
+    }:
+        raise RankAuthorityError(
+            "RANK_RECEIPT_REQUIRED: authority.mode must be RANKED or EXCEPTION"
+        )
+    return value
+
+
 def _authorized_c_football(request: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
     return authorize_c_football(
         request.get("c_football"),
@@ -74,7 +112,9 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 else "XI RUNTIME: EXECUTION FAILED"
             ),
             "failure_class": (
-                "PAYLOAD_OR_MODEL_CONTRACT"
+                "RANK_AUTHORITY"
+                if isinstance(exc, RankAuthorityError)
+                else "PAYLOAD_OR_MODEL_CONTRACT"
                 if isinstance(exc, (xi_portable.ContractError, ValueError, KeyError))
                 else "PYTHON_OR_RUNTIME"
             ),
