@@ -1842,7 +1842,13 @@ def _validate_step2_authorization(
 
 
 def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
-    """Deterministic Football C ACT/WAIT/PASS policy with no execution authority."""
+    """Deterministic Football C ACT/BOOK/PASS policy with no execution authority.
+
+    Active C no longer emits a user-facing WAIT for a price-only condition.
+    When a previously valid WAIT target is reachable, it is represented as an
+    unfilled BOOK target instead. BOOK remains zero exposure until a fill is
+    independently confirmed.
+    """
 
     require_c_completion(a)
 
@@ -1909,9 +1915,18 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             )
 
         if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):
+            target_line, target_min_odds = model_wait_target(a, ctx, "c")
             return Decision(
-                Action.WAIT,
-                "quoted burden lacks prospective certificate; one-step certified target reachable",
+                Action.BOOK,
+                (
+                    "quoted burden lacks prospective certificate; the one-step "
+                    f"certified target is reachable as BOOK O{target_line:.2f} "
+                    f"@ {target_min_odds:.2f}+"
+                ),
+                book_target_line=target_line,
+                book_min_odds=target_min_odds,
+                book_target_available=True,
+                current_price_clears_book_target=False,
             )
         if (
             compiled_anchor is not None
@@ -1959,23 +1974,27 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         )
 
     if _healthy_c_wait(a, ctx):
+        target_line, target_min_odds = model_wait_target(a, ctx, "c")
         return Decision(
-            Action.WAIT,
+            Action.BOOK,
             (
-                "price blocker with healthy reachable wait"
-                if at_or_below
-                else "tail-funded quoted burden; price blocker with healthy reachable wait"
+                f"price blocker; conditional BOOK O{target_line:.2f} "
+                f"@ {target_min_odds:.2f}+ is reachable"
             ),
+            book_target_line=target_line,
+            book_min_odds=target_min_odds,
+            book_target_available=True,
+            current_price_clears_book_target=False,
         )
 
-    return Decision(Action.PASS, "price unacceptable without healthy wait path")
+    return Decision(Action.PASS, "price unacceptable without a valid conditional BOOK target")
 
 
 def decide_c(a: MatchAssessment, ctx: DecisionContext) -> Decision:
     """Strict Football C execution policy.
 
-    Execution authorization is validated here, then the exact same model quote
-    policy used by observed-price assessment is applied.
+    Execution authorization is validated here, then the exact same active-C
+    ACT/BOOK/PASS quote policy used by observed-price assessment is applied.
     """
 
     require_c_completion(a)
