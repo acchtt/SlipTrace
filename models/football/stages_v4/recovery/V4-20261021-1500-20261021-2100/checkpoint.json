@@ -1,0 +1,31 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261021-1500-20261021-2100",
+  "original_source_sha256": "4115a15774849b2493ed2be600d236a051c5f3eb4af14319f8d65741b9f003b4",
+  "source_file_sha256": "46609f17f5dd4ecd449ee22882d4fcf0a13939245f23f8c3a123e766b8fa8df9",
+  "native_receipt_integrity_sha256": "3202570dbc935188b75a5056139d2d9abe27f3ed2fb7caaf9d926d8f09824fef",
+  "target_states": {
+    "1814244": {
+      "match_id": "1814244",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [],
+  "watch_match_ids": [],
+  "evidence_limited_match_ids": [
+    "1814244"
+  ],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "whole_requested_surface_complete": false,
+  "unresolved_or_deferred_candidates_remain": true,
+  "deferred_source_backlog_count": 41,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
