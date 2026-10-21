@@ -32,7 +32,8 @@ Conversation surface: NORMAL CHAT
 
 4. Complete required XI/football/incentive/H2H rechecks.
 
-5. Run the deterministic Football C runtime. Official ACT/BOOK/PASS is\n   engine-owned; normal chat gathers evidence and explains the result.
+5. Run the deterministic Football C runtime. Official ACT/BOOK/PASS is
+   engine-owned; normal chat gathers evidence and explains the result.
 
 6. If local/direct Python is unavailable, submit one
    football-c-xi-runtime-request-v2 request under
