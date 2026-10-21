@@ -18,8 +18,16 @@ def run(command, c):
         root = pathlib.Path(td)
         cp = root / "c.json"
         cp.write_text(json.dumps(c), encoding="utf-8")
+        args = [sys.executable, str(RUNNER), command, "--c", str(cp)]
+        if command in {"xi", "decision"}:
+            ap = root / "authority.json"
+            ap.write_text(json.dumps({
+                "mode": "EXCEPTION",
+                "exception_reference": "test-explicit-exception",
+            }), encoding="utf-8")
+            args.extend(["--authority", str(ap)])
         proc = subprocess.run(
-            [sys.executable, str(RUNNER), command, "--c", str(cp)],
+            args,
             text=True,
             capture_output=True,
             check=False,
