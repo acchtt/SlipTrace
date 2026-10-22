@@ -52,7 +52,35 @@ def main() -> None:
 
         decision = pair_payload("c")
         decision_file = write(root / "decision-c.json", decision)
-        direct_decision_authority = write(root / "decision-authority.json", {
+        frozen = dict(decision["match"])
+        ranked_authority = write(root / "ranked-decision-authority.json", {
+            "mode": "RANKED",
+            "match_id": frozen["match_id"],
+            "verified_rank_package": {
+                "status": "V4_RANK_PERSISTENCE_VERIFIED",
+                "native_rank": {
+                    "run_id": "V4-qa-ranked-decision",
+                    "integrity_sha256": "qa-ranked-decision-hash",
+                    "board": {
+                        "matches": [{
+                            "match_id": frozen["match_id"],
+                            "rank": 1,
+                            "board_state": "FOCUS",
+                            "supported_line": 2.5,
+                        }]
+                    },
+                    "frozen_model_input": {"matches": [frozen]},
+                },
+            },
+            "material_evidence_updates": [],
+        })
+        code, first = command(
+            "decision", "--c", decision_file, "--authority", ranked_authority
+        )
+        assert code == 0, first
+        assert first.get("engine_execution_status") == "EXECUTED_C_DECISION", first
+
+        direct_decision_authority = write(root / "decision-exception-authority.json", {
             "mode": "EXCEPTION",
             "exception_reference": "qa-direct-decision-exception",
             "user_requested_exception": True,
@@ -94,7 +122,7 @@ def main() -> None:
 
     print(
         "PASS — single-C /xi runner: self-check, shared authority fail-closed, "
-        "decision-stage exception replay block, retired-C2 rejection and quote-free C assessment."
+        "ranked strict C decision, decision-stage exception replay block, retired-C2 rejection and quote-free C assessment."
     )
 
 if __name__ == "__main__":
