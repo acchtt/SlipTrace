@@ -1,0 +1,11 @@
+{
+  "error": "H2H MATERIAL EFFECT BLOCKED — transferability must be VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "f024dab1e0d1ce4860fa1fd97c98da77c71bd77deb291d20e38047ed8e16d657",
+  "ok": false,
+  "request_id": "XI-20261022-SHABAB-ALAIN-EXCEPTION-2212-v2",
+  "runtime_commit": "cce39c2c40e0dd71cb43dc722323e45a0a9688a0",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
