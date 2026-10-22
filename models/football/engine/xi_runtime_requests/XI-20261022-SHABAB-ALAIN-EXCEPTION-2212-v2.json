@@ -1,0 +1,202 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261022-SHABAB-ALAIN-EXCEPTION-2212-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "shabab-alain-exception-20261022T151200Z-v2",
+    "match": {
+      "match_id": "1905374",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "kickoff_ict": "2026-10-22T23:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No fixture-specific competition reliability promotion is asserted; use current official UAEFA and club evidence with the standard frozen operational proof.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Official competition/club sources, confirmed user-supplied starting XI and user-supplied Asian totals are available.",
+      "common_evidence_basis": "Fresh exception research: the sweep signal was strong (priority 70, mean O2.5 rate .7917, mean O3.5 rate .5833, zero low-draw-trap rate). Al Ain's current sequence includes 4-1 Air Force, 2-2 Kalba, 2-3 Ajman, 2-3 Al Wasl and 4-0 Al Nasr before the latest 0-2 at this venue; their confirmed XI retains Soufiane Rahimi, Kaku, Matias Palacios and Ramy Rabia. Shabab won the same matchup 2-0 five days ago and also beat Al Ittihad 2-1 and United 2-1, but today's supplied XI is materially rotated: Kauan Santos and Nemanja Maksimovic start while Sardar Azmoun is absent and Thiago, Mateusao and Cartabia are on the bench. That preserves a home contribution route but weakens home self-carry. Current evidence therefore supports a two-sided/distributed third goal more clearly than an independent fourth.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Shabab's attacking XI is rotated relative to the 2-0 league win, with Azmoun absent and several attacking options held on the bench; the same-opponent match five days ago finished only 2-0. The single-match cup can also remain level through 90 minutes because extra time and penalties are available, so no regulation-time margin is forced. These factors leave the fourth-goal tail mixed even though Al Ain's recent scoring and leakage keep G3 live.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": true,
+      "h2h_basis": "The most relevant current H2H is Shabab Al Ahli 2-0 Al Ain at the same Rashid Stadium five days earlier. It is a real control counterexample, but current lineups differ materially and cup incentives differ, so it constrains the upper tail rather than vetoing G3.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Fresh exception research declaration only; the deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Al Ain have a real high-output ceiling, but current evidence does not protect a repeatable three-goal single-team carry against this Shabab defense; Shabab's own attacking XI is rotated.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Recent Al Ain high totals show ceiling, but the latest same-opponent 2-0, Shabab's defensive league profile and today's home rotation do not establish an independently transferable fourth-goal route.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Al Ain's 4-1, 4-0 and multiple four/five-goal totals support some tail, while the latest same-venue 2-0 and Shabab's current rotation constrain transfer. Net transferability is MEDIUM.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "The closest same-opponent/same-venue senior match was 2-0 only five days ago, while Al Ain's other current matches have frequently reached four or five total goals. Comparable context is therefore mixed.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed XIs preserve at least one usable route on both sides: Kauan Santos/bench attacking depth for Shabab and Rahimi/Kaku/Palacios for Al Ain. The risk is completion/continuation, not disappearance of scoring routes.",
+      "material_suppression": false,
+      "material_suppression_basis": "No current red card, weather veto or verified tactical/injury event removes both scoring mechanisms. Rotation and knockout control are reflected in medium completion and stall grades instead.",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+      "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+      "draw_resolution": "90 minutes, then 30 minutes extra time and penalties if still level under the verified UAEFA President's Cup format; Football C goal certificates concern regulation time only.",
+      "aggregate_state": "No aggregate tie or away-goal requirement.",
+      "qualification_state": "Both clubs must advance today; Al Ain explicitly state their objective is to win, advance and continue defending the title, but no fixed regulation-time winning margin is required.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Independent knockout tie; no external simultaneous result changes qualification.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "tournament_incentive_basis": "Al Ain's coach and Ramy Rabia explicitly describe the match as win-and-advance title defence. Shabab host a Round-of-16 knockout. Extra time and penalties mean the incentive is strong to advance but neutral rather than automatically expansive for regulation-time goals.",
+      "goal_signal_priority_score": 70,
+      "goal_signal_mean_over_two_rate": 0.7917,
+      "goal_signal_mean_over_three_rate": 0.5833,
+      "goal_signal_low_draw_trap_rate": 0,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Carrier: Al Ain's high-output games and strong attacking XI show ceiling, but the latest same-opponent 0-2 and Shabab's defensive resistance do not protect a single-team four. Distributed: Al Ain 2 plus Shabab 1 is well supported for G3; a repeatable 2+2 is weakened by Shabab's rotated attack. Reply: both benches offer continuation, but no protected post-third finish is established. Comparable context is mixed because the same venue produced 2-0 five days ago while Al Ain's other recent totals were often 4+.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Al Ain retain Rahimi, Kaku and Palacios and have recent 4-1/4-0 outputs, but the same-opponent 0-2 and Shabab's defensive record leave an independent four-goal carrier mixed.",
+          "evidence_refs": [
+            "https://alainclub.ae/fc/fixtures-results/",
+            "https://alainclub.ae/fc/ramy-rabia-we-are-determined-to-show-our-true-character-and-fight-for-the-al-ain-badge/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A two-sided 2+1 route is credible, but Shabab's rotated attacking XI does not independently protect the second home goal needed for 2+2.",
+          "evidence_refs": [
+            "https://www.shababalahli.ae/",
+            "https://alainclub.ae/fc/fixtures-results/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Bench depth can extend the game after goal three, but no prospectively protected timed fourth-goal reply is established in this knockout context.",
+          "evidence_refs": [
+            "https://www.shababalahli.ae/",
+            "https://alainclub.ae/fc/ivic-we-know-our-mistakes-and-are-working-to-correct-them-as-we-aim-to-defend-the-prestigious-title/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "historical_form_policy": "Recent senior league, continental and cup results are used as current mechanism evidence; one-off own goals, penalties and competition mismatches are not allowed to manufacture G4.",
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh source-backed exception research plus the strong frozen goal signal funds distributed G3; current XI and knockout context cap the assessment at three.",
+      "source_urls": [
+        "https://www.uaefa.ae/match/88503",
+        "https://www.shababalahli.ae/",
+        "https://alainclub.ae/fc/fixtures-results/",
+        "https://alainclub.ae/fc/ivic-we-know-our-mistakes-and-are-working-to-correct-them-as-we-aim-to-defend-the-prestigious-title/",
+        "https://alainclub.ae/fc/ramy-rabia-we-are-determined-to-show-our-true-character-and-fight-for-the-al-ain-badge/",
+        "Football-C-rank-20261022-1500-2100-cup-resolved-verified.json#UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-22T15:14:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception has no sealed ranked Football C certificate.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "SHABAB-ALAIN-20261022-PREMATCH-EXCEPTION-v2",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "shabab-alain-exception-20261022T151200Z-v2",
+      "researched_at_utc": "2026-10-22T15:14:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261022-2100-20261023-0300-verified.json pending discovery + fresh official UAEFA/Shabab/Al Ain research",
+      "evidence_refs": [
+        "https://www.uaefa.ae/match/88503",
+        "https://www.shababalahli.ae/",
+        "https://alainclub.ae/fc/fixtures-results/",
+        "https://alainclub.ae/fc/ivic-we-know-our-mistakes-and-are-working-to-correct-them-as-we-aim-to-defend-the-prestigious-title/",
+        "https://alainclub.ae/fc/ramy-rabia-we-are-determined-to-show-our-true-character-and-fight-for-the-al-ain-badge/",
+        "Football-C-rank-20261022-1500-2100-cup-resolved-verified.json#UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_000000008d308211987ea554c83ea597",
+    "match_id": "1905374",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 2.75,
+      "odds": 2.05
+    },
+    "observed_at_utc": "2026-10-22T15:14:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
