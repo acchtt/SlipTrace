@@ -27,6 +27,274 @@ AUTHORITY_OWNED_FIELDS = {
 }
 
 
+EXCEPTION_REQUIRED_RESEARCH_FIELDS = frozenset({
+    "fixture_identity_status",
+    "competition_format_incentive",
+    "home_scoring_route",
+    "away_scoring_route",
+    "carrier_and_chance_creation",
+    "availability_and_replacements",
+    "failure_mechanisms",
+    "completion_continuation_stall",
+    "upper_tail_and_comparable_context",
+    "h2h_materiality",
+    "g4_research_if_g3_funded",
+})
+EXCEPTION_UPSTREAM_STATES = {
+    "FOCUS",
+    "WATCH",
+    "PASS",
+    "UNVERIFIED",
+    "NOT_RANKED",
+    "OUT_OF_SCOPE",
+}
+EXCEPTION_STATE_CHANGE_STATUSES = {
+    "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+    "VERIFIED_PRIOR_MISCLASSIFICATION",
+}
+EXCEPTION_STATE_CHANGE_FIELDS = frozenset({
+    "home_route",
+    "away_route",
+    "carrier",
+    "route_reliability",
+    "independent_route_quality",
+    "chance_quality",
+    "failure_resistance",
+    "evidence_confidence",
+    "burden_protection",
+    "carrier_self_fund",
+    "independent_upper_tail",
+    "upper_tail_transferability",
+    "upper_tail_comparable_context_signal",
+    "completion_mode",
+    "burden_completion_quality",
+    "continuation_quality",
+    "opponent_leakage",
+    "burden_stall_risk",
+    "material_suppression",
+    "failure_attacks_route",
+    "tournament_incentive",
+    "g4_research_status",
+    "g4_carrier_path",
+    "g4_distributed_path",
+    "g4_reply_path",
+    "g4_continuation_after_g3",
+})
+
+
+def _required_text(obj: dict[str, Any], key: str, *, label: str) -> str:
+    value = obj.get(key)
+    if not isinstance(value, str) or not value.strip():
+        raise RankAuthorityError(
+            f"EXCEPTION_RESEARCH_REQUIRED: {label}.{key} must be non-empty"
+        )
+    return value.strip()
+
+
+def _required_string_list(
+    obj: dict[str, Any],
+    key: str,
+    *,
+    label: str,
+    minimum: int = 1,
+) -> list[str]:
+    value = obj.get(key)
+    if (
+        not isinstance(value, list)
+        or len(value) < minimum
+        or any(not isinstance(x, str) or not x.strip() for x in value)
+    ):
+        raise RankAuthorityError(
+            f"EXCEPTION_RESEARCH_REQUIRED: {label}.{key} must contain "
+            f"at least {minimum} non-empty string(s)"
+        )
+    normalized = [x.strip() for x in value]
+    if len(set(normalized)) != len(normalized):
+        raise RankAuthorityError(
+            f"EXCEPTION_RESEARCH_REQUIRED: {label}.{key} must not contain duplicates"
+        )
+    return normalized
+
+
+def _validate_exception_research(
+    supplied: dict[str, Any],
+    authority: dict[str, Any],
+    *,
+    exception_reference: str,
+) -> dict[str, Any]:
+    """Require a source-backed fresh research epoch for every /xi exception.
+
+    Exception authority is deliberately stricter than a normal ranked /xi:
+    there is no sealed FOCUS row to inherit, so the runtime must receive proof
+    that the conversational research layer actually rebuilt the full Football C
+    evidence package. A user challenge must create a new epoch rather than
+    replaying the previous exception payload.
+    """
+
+    research = authority.get("exception_research")
+    if not isinstance(research, dict):
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: exception_research object missing"
+        )
+    if research.get("fresh_research_completed") is not True:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: fresh_research_completed must be true"
+        )
+    if research.get("market_independent") is not True:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: market_independent must be true"
+        )
+
+    epoch = _required_text(
+        research, "research_epoch_id", label="exception_research"
+    )
+    supplied_epoch = supplied.get("evidence_epoch_id")
+    if not isinstance(supplied_epoch, str) or not supplied_epoch.strip():
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: c_football.evidence_epoch_id missing"
+        )
+    if epoch != supplied_epoch.strip():
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: research_epoch_id must equal "
+            "c_football.evidence_epoch_id"
+        )
+
+    context = supplied.get("context")
+    if not isinstance(context, dict):
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: c_football.context object missing"
+        )
+    researched_at = _required_text(
+        research, "researched_at_utc", label="exception_research"
+    )
+    assessment_at = context.get("assessment_at_utc")
+    if not isinstance(assessment_at, str) or researched_at != assessment_at.strip():
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: researched_at_utc must equal "
+            "context.assessment_at_utc"
+        )
+
+    upstream_state = _required_text(
+        research, "upstream_state", label="exception_research"
+    ).upper().replace("-", "_")
+    if upstream_state.startswith("C_"):
+        upstream_state = upstream_state[2:]
+    if upstream_state not in EXCEPTION_UPSTREAM_STATES:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: unsupported upstream_state="
+            + upstream_state
+        )
+
+    source_reference = _required_text(
+        research, "source_reference", label="exception_research"
+    )
+    evidence_refs = _required_string_list(
+        research,
+        "evidence_refs",
+        label="exception_research",
+        minimum=2,
+    )
+    checked_fields = set(_required_string_list(
+        research,
+        "checked_fields",
+        label="exception_research",
+        minimum=len(EXCEPTION_REQUIRED_RESEARCH_FIELDS),
+    ))
+    missing = sorted(EXCEPTION_REQUIRED_RESEARCH_FIELDS - checked_fields)
+    if missing:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: full Football C exception research "
+            "missing checked fields: " + ", ".join(missing)
+        )
+
+    revision = str(research.get("revision") or "INITIAL").strip().upper()
+    if revision not in {"INITIAL", "REASSESSMENT"}:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: revision must be INITIAL or REASSESSMENT"
+        )
+
+    supersedes_reference = None
+    supersedes_epoch = None
+    challenge_reason = None
+    if revision == "REASSESSMENT":
+        supersedes_reference = _required_text(
+            research, "supersedes_exception_reference", label="exception_research"
+        )
+        supersedes_epoch = _required_text(
+            research, "supersedes_evidence_epoch_id", label="exception_research"
+        )
+        challenge_reason = _required_text(
+            research, "challenge_reason", label="exception_research"
+        )
+        if supersedes_reference == exception_reference:
+            raise RankAuthorityError(
+                "EXCEPTION_RESEARCH_REQUIRED: reassessment must use a new "
+                "exception_reference"
+            )
+        if supersedes_epoch == epoch:
+            raise RankAuthorityError(
+                "EXCEPTION_RESEARCH_REQUIRED: reassessment must create a new "
+                "evidence epoch"
+            )
+
+    supplied_match = supplied.get("match")
+    if not isinstance(supplied_match, dict):
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: c_football.match object missing"
+        )
+    current_state = _normalize_board_state(
+        context.get("board_state", supplied_match.get("board_state"))
+    )
+    state_change_status = research.get("state_change_status")
+    state_change_fields: list[str] = []
+    state_change_basis = research.get("state_change_basis")
+    if upstream_state in {"WATCH", "PASS"} and current_state == "FOCUS":
+        if state_change_status not in EXCEPTION_STATE_CHANGE_STATUSES:
+            raise RankAuthorityError(
+                "EXCEPTION_RESEARCH_REQUIRED: WATCH/PASS -> FOCUS exception "
+                "requires a verified football state-change status"
+            )
+        if not isinstance(state_change_basis, str) or not state_change_basis.strip():
+            raise RankAuthorityError(
+                "EXCEPTION_RESEARCH_REQUIRED: WATCH/PASS -> FOCUS exception "
+                "requires state_change_basis"
+            )
+        state_change_fields = _required_string_list(
+            research,
+            "state_change_fields",
+            label="exception_research",
+            minimum=1,
+        )
+        invalid = sorted(set(state_change_fields) - EXCEPTION_STATE_CHANGE_FIELDS)
+        if invalid:
+            raise RankAuthorityError(
+                "EXCEPTION_RESEARCH_REQUIRED: unsupported state-change fields: "
+                + ", ".join(invalid)
+            )
+
+    return {
+        "fresh_research_completed": True,
+        "market_independent": True,
+        "research_epoch_id": epoch,
+        "researched_at_utc": researched_at,
+        "upstream_state": upstream_state,
+        "source_reference": source_reference,
+        "evidence_ref_count": len(evidence_refs),
+        "checked_fields": sorted(checked_fields),
+        "revision": revision,
+        "supersedes_exception_reference": supersedes_reference,
+        "supersedes_evidence_epoch_id": supersedes_epoch,
+        "challenge_reason": challenge_reason,
+        "state_change_status": state_change_status,
+        "state_change_fields": state_change_fields,
+        "state_change_basis": (
+            state_change_basis.strip()
+            if isinstance(state_change_basis, str) and state_change_basis.strip()
+            else None
+        ),
+    }
+
+
 def _normalize_board_state(value: Any) -> str:
     text = str(value or "").strip().upper().replace("-", "_")
     if text.startswith("C_"):
@@ -67,12 +335,26 @@ def authorize_c_football(
             raise RankAuthorityError(
                 "RANK_RECEIPT_REQUIRED: exception authority must be explicitly tagged"
             )
-        return dict(supplied), {
+        reference = reference.strip()
+        research_trace = _validate_exception_research(
+            supplied,
+            authority,
+            exception_reference=reference,
+        )
+        exception_payload = dict(supplied)
+        exception_context = dict(exception_payload.get("context") or {})
+        exception_context["exception_research_completed"] = True
+        exception_context["exception_research_epoch_id"] = research_trace["research_epoch_id"]
+        exception_context["exception_upstream_state"] = research_trace["upstream_state"]
+        exception_context["exception_revision"] = research_trace["revision"]
+        exception_payload["context"] = exception_context
+        return exception_payload, {
             "mode": "EXCEPTION",
-            "reference": reference.strip(),
+            "reference": reference,
             "user_requested_exception": True,
             "rank_state_internal": None,
             "rank_state_display": "EXCEPTION",
+            "exception_research": research_trace,
         }
 
     if mode != "RANKED":
