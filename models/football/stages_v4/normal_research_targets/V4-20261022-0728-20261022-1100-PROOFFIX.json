@@ -1,0 +1,47 @@
+{
+  "run_id": "V4-20261022-0728-20261022-1100-PROOFFIX",
+  "selection_mode": "SOURCE_CANONICAL_RESEARCHABILITY_CORRECTION",
+  "notes": "Provider-complete same window corrective sweep. All 10 canonical goal-research IDs from original run, with fixture identity/time-checkable team detail source URLs. 11th fixture 1894831 source competition_kind is UNVERIFIED and must not be admitted without classification. Do not retroactively admit started fixtures.",
+  "targets": [
+    {
+      "match_id": "1895264",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/12113/details?locale=en"
+    },
+    {
+      "match_id": "1904059",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10779/details?locale=en"
+    },
+    {
+      "match_id": "1799057",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3626/details?locale=en"
+    },
+    {
+      "match_id": "1799039",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/371/details?locale=en"
+    },
+    {
+      "match_id": "1799034",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4226/details?locale=en"
+    },
+    {
+      "match_id": "1869525",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4934/details?locale=en"
+    },
+    {
+      "match_id": "1799027",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4605/details?locale=en"
+    },
+    {
+      "match_id": "1806261",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8330/details?locale=en"
+    },
+    {
+      "match_id": "1844475",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4704/details?locale=en"
+    },
+    {
+      "match_id": "1799030",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/178284/details?locale=en"
+    }
+  ]
+}
