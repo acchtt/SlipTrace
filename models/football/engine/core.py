@@ -1407,6 +1407,236 @@ def required_full_win_goal(line: float) -> int:
     return whole + (2 if quarter == 0.75 else 1)
 
 
+def credible_burden_profile(
+    a: MatchAssessment,
+    model: str,
+) -> dict[str, bool | str | float | int | None]:
+    """Describe a market-independent credible tail without changing certificates.
+
+    The certified burden remains the only execution-authoritative line. This
+    diagnostic layer exists to prevent the coarse G3->2.50, G4->3.50,
+    G5->4.50 ladder from making materially different football shapes look
+    identical. It is frozen from football evidence only and must never be
+    upgraded by bookmaker prices or final scores.
+    """
+
+    if model != "c":
+        return {
+            "credible_tail_state": "REJECTED",
+            "credible_tail_target_goal": None,
+            "credible_burden_band_low": None,
+            "credible_burden_band_high": None,
+            "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+            "credible_tail_market_independent": True,
+            "credible_tail_execution_authority": False,
+            "credible_tail_basis": "ACTIVE_C_ONLY",
+        }
+
+    goal3 = c_goal3_funded(a)
+    goal4 = c_goal4_funded(a)
+    goal5 = c_goal5_funded(a)
+    goal6 = c_goal6_funded(a)
+    certified = (
+        5.50 if goal6 else
+        4.50 if goal5 else
+        3.50 if goal4 else
+        2.50 if goal3 else
+        None
+    )
+    if certified is None:
+        return {
+            "credible_tail_state": "REJECTED",
+            "credible_tail_target_goal": 3,
+            "credible_burden_band_low": None,
+            "credible_burden_band_high": None,
+            "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+            "credible_tail_market_independent": True,
+            "credible_tail_execution_authority": False,
+            "credible_tail_basis": "G3_NOT_FUNDED",
+        }
+
+    funded_depth = 6 if goal6 else 5 if goal5 else 4 if goal4 else 3
+    if funded_depth >= 6:
+        return {
+            "credible_tail_state": "FUNDED",
+            "credible_tail_target_goal": None,
+            "credible_burden_band_low": certified,
+            "credible_burden_band_high": certified,
+            "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+            "credible_tail_market_independent": True,
+            "credible_tail_execution_authority": False,
+            "credible_tail_basis": "G6_ALREADY_FUNDED; no higher production certificate is defined",
+        }
+
+    target_goal = funded_depth + 1
+    continuation, stall = c_effective_incentive_grades(a)
+    transfer = a.upper_tail_transferability
+    comparable = a.upper_tail_comparable_context_signal
+    tail_bias = tournament_incentive_profile(a)["tail_bias"]
+    sample_over_three = a.goal_signal_mean_over_three_rate
+    low_draw = a.goal_signal_low_draw_trap_rate
+
+    transferable_signal = bool(
+        transfer is not None
+        and transfer >= Grade.MEDIUM
+        and comparable != "SUPPRESSIVE"
+    )
+    sample_tail_support = bool(
+        sample_over_three is not None
+        and sample_over_three >= 0.50
+        and (low_draw is None or low_draw <= 0.25)
+    )
+    hard_reject = bool(
+        a.material_suppression
+        or a.failure_attacks_route
+        or tail_bias == "SUPPRESSIVE"
+        or comparable == "SUPPRESSIVE"
+        or transfer is None
+        or transfer < Grade.MEDIUM
+        or stall > Grade.MEDIUM
+    )
+
+    near_funded = False
+    mixed = False
+
+    if target_goal == 4:
+        carrier_near = (
+            a.carrier == CarrierStrength.STRONG
+            and a.carrier_self_fund
+            and a.route_reliability >= Grade.MEDIUM
+            and a.chance_quality == Grade.HIGH
+            and a.failure_resistance >= Grade.MEDIUM
+            and a.evidence_confidence >= Grade.MEDIUM
+            and a.burden_completion_quality >= Grade.MEDIUM
+            and continuation >= Grade.MEDIUM
+        )
+        distributed_near = (
+            a.home_route == RouteStrength.STRONG
+            and a.away_route == RouteStrength.STRONG
+            and a.independent_route_quality == Grade.HIGH
+            and a.route_reliability >= Grade.MEDIUM
+            and a.chance_quality >= Grade.MEDIUM
+            and a.failure_resistance >= Grade.MEDIUM
+            and a.burden_completion_quality == Grade.HIGH
+            and continuation == Grade.HIGH
+        )
+        near_funded = bool(
+            not hard_reject
+            and transferable_signal
+            and sample_tail_support
+            and (carrier_near or distributed_near)
+        )
+        mixed = bool(
+            not hard_reject
+            and transferable_signal
+            and continuation >= Grade.MEDIUM
+            and (
+                (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
+                or (
+                    a.home_route >= RouteStrength.USABLE
+                    and a.away_route >= RouteStrength.USABLE
+                    and max(a.home_route, a.away_route) == RouteStrength.STRONG
+                )
+            )
+        )
+    elif target_goal == 5:
+        near_funded = bool(
+            not hard_reject
+            and goal4
+            and transferable_signal
+            and sample_tail_support
+            and a.carrier == CarrierStrength.STRONG
+            and a.carrier_self_fund
+            and a.independent_upper_tail
+            and a.route_reliability == Grade.HIGH
+            and a.independent_route_quality >= Grade.MEDIUM
+            and a.chance_quality == Grade.HIGH
+            and a.failure_resistance >= Grade.MEDIUM
+            and a.evidence_confidence == Grade.HIGH
+            and a.burden_protection >= Grade.MEDIUM
+            and a.burden_completion_quality >= Grade.MEDIUM
+            and continuation == Grade.HIGH
+        )
+        mixed = bool(
+            not hard_reject
+            and goal4
+            and transferable_signal
+            and continuation >= Grade.MEDIUM
+        )
+    elif target_goal == 6:
+        near_funded = bool(
+            not hard_reject
+            and goal5
+            and transferable_signal
+            and sample_over_three is not None
+            and sample_over_three >= 0.60
+            and a.independent_route_quality >= Grade.MEDIUM
+            and a.failure_resistance >= Grade.MEDIUM
+            and a.xi_robustness >= Grade.MEDIUM
+            and a.burden_protection == Grade.HIGH
+            and (
+                (
+                    a.home_route == RouteStrength.STRONG
+                    and a.away_route == RouteStrength.STRONG
+                )
+                or (
+                    a.completion_mode in {CompletionMode.MIXED, CompletionMode.FORCED_CHAOS}
+                    and a.opponent_leakage == Grade.HIGH
+                )
+            )
+        )
+        mixed = bool(
+            not hard_reject
+            and goal5
+            and transferable_signal
+            and continuation >= Grade.MEDIUM
+        )
+
+    if near_funded:
+        state = "NEAR_FUNDED"
+        band_low = certified + 0.25
+        band_high = certified + 0.75
+        basis = (
+            f"G{target_goal}_NEAR_FUNDED_PREMARKET: strong next-goal mechanisms "
+            "remain just below the full certificate; band is diagnostic only"
+        )
+    elif funded_depth >= 4:
+        state = "FUNDED"
+        band_low = certified
+        band_high = certified
+        basis = (
+            f"G{funded_depth}_FUNDED; G{target_goal} not near-funded under the "
+            "market-independent diagnostic gate"
+        )
+    elif mixed:
+        state = "MIXED"
+        band_low = certified
+        band_high = certified + 0.50
+        basis = (
+            f"G{target_goal}_MIXED_PREMARKET: credible upper-tail evidence exists "
+            "but lacks the protected carrier/distributed shape for NEAR_FUNDED"
+        )
+    else:
+        state = "REJECTED"
+        band_low = certified
+        band_high = certified
+        basis = (
+            f"G{target_goal}_REJECTED_PREMARKET: next-goal tail lacks sufficient "
+            "transferable or continuation support"
+        )
+
+    return {
+        "credible_tail_state": state,
+        "credible_tail_target_goal": target_goal,
+        "credible_burden_band_low": band_low,
+        "credible_burden_band_high": band_high,
+        "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+        "credible_tail_market_independent": True,
+        "credible_tail_execution_authority": False,
+        "credible_tail_basis": basis,
+    }
+
+
 def prospective_goal_funding(
     a: MatchAssessment,
     model: str,
@@ -1465,6 +1695,7 @@ def prospective_goal_funding(
     effective_stall = None
     if model == "c":
         effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    credible_profile = credible_burden_profile(a, model)
     return {
         "upper_tail_transferability": (
             a.upper_tail_transferability.name
@@ -1508,6 +1739,7 @@ def prospective_goal_funding(
         "effective_burden_stall_risk": (
             effective_stall.name if effective_stall is not None else None
         ),
+        **credible_profile,
     }
 
 
