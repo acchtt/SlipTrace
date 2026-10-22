@@ -17,6 +17,7 @@ sys.path.insert(0, str(TESTS))
 
 from test_adapter import pair_payload  # noqa: E402
 from test_football_assessment_pair import football  # noqa: E402
+from test_xi_user_screenshot_only import exception_authority  # noqa: E402
 
 def command(*args: str) -> tuple[int, dict]:
     proc = subprocess.run(
@@ -49,35 +50,34 @@ def main() -> None:
     with TemporaryDirectory(prefix="xi-runtime-e2e-") as directory:
         root = Path(directory)
 
-        authority_file = write(root / "authority.json", {
-            "mode": "EXCEPTION",
-            "exception_reference": "qa-explicit-exception",
-            "user_requested_exception": True,
-        })
-
         decision = pair_payload("c")
         decision_file = write(root / "decision-c.json", decision)
-        code, first = command(
-            "decision", "--c", decision_file, "--authority", authority_file
+        direct_decision_authority = write(root / "decision-authority.json", {
+            "mode": "EXCEPTION",
+            "exception_reference": "qa-direct-decision-exception",
+            "user_requested_exception": True,
+        })
+        code, blocked_decision = command(
+            "decision", "--c", decision_file, "--authority", direct_decision_authority
         )
-        assert code == 0, first
-        assert first.get("engine_execution_status") == "EXECUTED_C_DECISION", first
-        code, repeated = command(
-            "decision", "--c", decision_file, "--authority", authority_file
-        )
-        assert code == 0 and repeated == first, (first, repeated)
+        assert code != 0, blocked_decision
+        assert blocked_decision.get("status") == "EXCEPTION_RESEARCH_REQUIRED", blocked_decision
 
-        retired = copy.deepcopy(decision)
-        retired["model"] = "c2"
+        retired = football("c2", status="PREMATCH_CONFIRMED", minute=None, score=None)
         retired_file = write(root / "retired-c2.json", retired)
-        code, rejected = command(
-            "decision", "--c", retired_file, "--authority", authority_file
-        )
+        code, rejected = command("football", "--c", retired_file)
         assert code != 0, rejected
         assert rejected.get("status") == "XI ENGINE CONTRACT REJECTED", rejected
 
         football_input = football(
             "c", status="PREMATCH_CONFIRMED", minute=None, score=None
+        )
+        authority_file = write(
+            root / "authority.json",
+            exception_authority(
+                football_input,
+                reference="qa-explicit-exception",
+            ),
         )
         football_file = write(root / "football-c.json", football_input)
         code, missing_authority = command("xi", "--c", football_file)
@@ -94,7 +94,7 @@ def main() -> None:
 
     print(
         "PASS — single-C /xi runner: self-check, shared authority fail-closed, "
-        "deterministic strict C decision, retired-C2 rejection and quote-free C assessment."
+        "decision-stage exception replay block, retired-C2 rejection and quote-free C assessment."
     )
 
 if __name__ == "__main__":
