@@ -10,7 +10,11 @@ import sys
 sys.path.insert(0, str(ENGINE))
 
 import xi_runtime_backend
-from tests.test_xi_user_screenshot_only import football, snapshot
+from tests.test_xi_user_screenshot_only import (
+    exception_authority,
+    football,
+    snapshot,
+)
 
 
 class XIRuntimeBackendTests(unittest.TestCase):
@@ -20,7 +24,7 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
             "request_id": "XI-test-1",
             "c_football": c,
-            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception", "user_requested_exception": True},
+            "authority": exception_authority(c, reference="test-user-exception"),
             "screenshot_quote": snapshot(c),
         }
         result = xi_runtime_backend.execute(request)
@@ -69,6 +73,59 @@ class XIRuntimeBackendTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(result["status"], "RANK_RECEIPT_REQUIRED")
         self.assertIn("explicit user /xi exception request", result["error"])
+
+    def test_exception_requires_fresh_full_research_proof(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-thin-exception",
+            "c_football": c,
+            "authority": {
+                "mode": "EXCEPTION",
+                "exception_reference": "thin-exception",
+                "user_requested_exception": True,
+            },
+            "screenshot_quote": snapshot(c),
+        })
+        self.assertFalse(result["ok"])
+        self.assertIn("EXCEPTION_RESEARCH_REQUIRED", result["error"])
+
+    def test_challenged_exception_cannot_reuse_same_evidence_epoch(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        authority = exception_authority(
+            c,
+            reference="exception-v2",
+            revision="REASSESSMENT",
+            supersedes_reference="exception-v1",
+            supersedes_epoch=c["evidence_epoch_id"],
+            challenge_reason="user challenged the first assessment as incomplete",
+        )
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-reused-exception-epoch",
+            "c_football": c,
+            "authority": authority,
+            "screenshot_quote": snapshot(c),
+        })
+        self.assertFalse(result["ok"])
+        self.assertIn("new evidence epoch", result["error"])
+
+    def test_watch_to_focus_exception_requires_explicit_state_change_evidence(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        authority = exception_authority(
+            c,
+            reference="watch-to-focus-without-proof",
+            upstream_state="WATCH",
+        )
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-watch-focus-proof",
+            "c_football": c,
+            "authority": authority,
+            "screenshot_quote": snapshot(c),
+        })
+        self.assertFalse(result["ok"])
+        self.assertIn("WATCH/PASS -> FOCUS", result["error"])
 
     def test_request_envelope_filename_must_match_id(self):
         with tempfile.TemporaryDirectory() as td:
