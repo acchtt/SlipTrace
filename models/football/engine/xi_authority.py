@@ -131,6 +131,13 @@ def _validate_exception_research(
     replaying the previous exception payload.
     """
 
+    if supplied.get("stage") != "football_assessment":
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: explicit /xi exception must begin "
+            "with a fresh football_assessment stage; direct decision-stage "
+            "exception replay is forbidden"
+        )
+
     research = authority.get("exception_research")
     if not isinstance(research, dict):
         raise RankAuthorityError(
