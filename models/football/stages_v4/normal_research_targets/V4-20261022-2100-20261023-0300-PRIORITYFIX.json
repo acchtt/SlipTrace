@@ -1,0 +1,127 @@
+{
+  "run_id": "V4-20261022-2100-20261023-0300-PRIORITYFIX",
+  "selection_mode": "SOURCE_CANONICAL_UEFA_AND_GOAL_PRIORITY",
+  "notes": "Corrects auto-cohort missing all 18 02:00 ICT Europa+Conference League fixtures in provider-confirmed window. Includes all 18 02:00 UEFA and 12 verified source-ID high-priority 21:30/22:00/23:45 UEFA, Qatar, and Finnish-goal fixtures. Keep 30 <= bounded active research; deferred unselected backlog must remain explicit. No ranking or odds.",
+  "targets": [
+    {
+      "match_id": "1883488",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4186/details?locale=en"
+    },
+    {
+      "match_id": "1883505",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6476/details?locale=en"
+    },
+    {
+      "match_id": "1883520",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4700/details?locale=en"
+    },
+    {
+      "match_id": "1883551",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3928/details?locale=en"
+    },
+    {
+      "match_id": "1883560",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6078/details?locale=en"
+    },
+    {
+      "match_id": "1883562",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/356/details?locale=en"
+    },
+    {
+      "match_id": "1883564",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7877/details?locale=en"
+    },
+    {
+      "match_id": "1883571",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3333/details?locale=en"
+    },
+    {
+      "match_id": "1883577",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/291/details?locale=en"
+    },
+    {
+      "match_id": "1883595",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7082/details?locale=en"
+    },
+    {
+      "match_id": "1883611",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4270/details?locale=en"
+    },
+    {
+      "match_id": "1883613",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3476/details?locale=en"
+    },
+    {
+      "match_id": "1883620",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4328/details?locale=en"
+    },
+    {
+      "match_id": "1883625",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4580/details?locale=en"
+    },
+    {
+      "match_id": "1883654",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4513/details?locale=en"
+    },
+    {
+      "match_id": "1883657",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7221/details?locale=en"
+    },
+    {
+      "match_id": "1883693",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4583/details?locale=en"
+    },
+    {
+      "match_id": "1883701",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/2856/details?locale=en"
+    },
+    {
+      "match_id": "1838579",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4609/details?locale=en"
+    },
+    {
+      "match_id": "1838585",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4610/details?locale=en"
+    },
+    {
+      "match_id": "1883673",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/378/details?locale=en"
+    },
+    {
+      "match_id": "1883513",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6179/details?locale=en"
+    },
+    {
+      "match_id": "1883539",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4888/details?locale=en"
+    },
+    {
+      "match_id": "1883590",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3925/details?locale=en"
+    },
+    {
+      "match_id": "1883685",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6790/details?locale=en"
+    },
+    {
+      "match_id": "1883470",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4238/details?locale=en"
+    },
+    {
+      "match_id": "1883689",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/5043/details?locale=en"
+    },
+    {
+      "match_id": "1883536",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/2963/details?locale=en"
+    },
+    {
+      "match_id": "1883627",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6492/details?locale=en"
+    },
+    {
+      "match_id": "1907647",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/5061/details?locale=en"
+    }
+  ]
+}
