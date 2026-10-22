@@ -2099,6 +2099,146 @@ class TournamentIncentiveModelTests(unittest.TestCase):
         self.assertFalse(c2_goal5_funded(suppressive))
 
 
+
+class CredibleBurdenProfileTests(unittest.TestCase):
+    def test_villa_style_g3_can_be_near_funded_g4_without_certificate_upgrade(self):
+        a = assessment(
+            match_id="villa_style_near_g4",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=67,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.55,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        profile = prospective_goal_funding(a, "c")
+        self.assertTrue(profile["goal3_funded"])
+        self.assertFalse(profile["goal4_funded"])
+        self.assertEqual(profile["certified_supported_burden"], 2.5)
+        self.assertEqual(profile["credible_tail_state"], "NEAR_FUNDED")
+        self.assertEqual(profile["credible_tail_target_goal"], 4)
+        self.assertEqual(profile["credible_burden_band_low"], 2.75)
+        self.assertEqual(profile["credible_burden_band_high"], 3.25)
+        self.assertFalse(profile["credible_tail_execution_authority"])
+        self.assertFalse(market_line_funded(a, 3.0, "c"))
+
+    def test_betis_style_two_route_mixed_tail_is_not_promoted_to_near_funded(self):
+        a = assessment(
+            match_id="betis_style_mixed_g4",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=79,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.70,
+            goal_signal_low_draw_trap_rate=0.05,
+        )
+        profile = prospective_goal_funding(a, "c")
+        self.assertTrue(profile["goal3_funded"])
+        self.assertFalse(profile["goal4_funded"])
+        self.assertEqual(profile["certified_supported_burden"], 2.5)
+        self.assertEqual(profile["credible_tail_state"], "MIXED")
+        self.assertEqual(profile["credible_burden_band_low"], 2.5)
+        self.assertEqual(profile["credible_burden_band_high"], 3.0)
+
+    def test_madrid_style_g4_can_be_near_funded_g5_without_g5_authority(self):
+        a = assessment(
+            match_id="madrid_style_near_g5",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=75,
+            goal_signal_mean_over_two_rate=0.7889,
+            goal_signal_mean_over_three_rate=0.6333,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        profile = prospective_goal_funding(a, "c")
+        self.assertTrue(profile["goal4_funded"])
+        self.assertFalse(profile["goal5_funded"])
+        self.assertEqual(profile["certified_supported_burden"], 3.5)
+        self.assertEqual(profile["credible_tail_state"], "NEAR_FUNDED")
+        self.assertEqual(profile["credible_tail_target_goal"], 5)
+        self.assertEqual(profile["credible_burden_band_low"], 3.75)
+        self.assertEqual(profile["credible_burden_band_high"], 4.25)
+        self.assertFalse(market_line_funded(a, 4.0, "c"))
+
+    def test_brugge_style_funded_g4_with_weaker_tail_sample_stays_at_funded_band(self):
+        a = assessment(
+            match_id="brugge_style_funded_g4",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=60,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.40,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        profile = prospective_goal_funding(a, "c")
+        self.assertTrue(profile["goal4_funded"])
+        self.assertFalse(profile["goal5_funded"])
+        self.assertEqual(profile["credible_tail_state"], "FUNDED")
+        self.assertEqual(profile["credible_burden_band_low"], 3.5)
+        self.assertEqual(profile["credible_burden_band_high"], 3.5)
+
+
+
 class SettlementTests(unittest.TestCase):
     def test_o225_two_goals_is_half_loss(self):
         result, pnl = settle_over(2.25, 2, 1.90)
