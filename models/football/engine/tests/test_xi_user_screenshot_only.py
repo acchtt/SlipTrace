@@ -46,6 +46,10 @@ def exception_authority(
     supersedes_epoch=None,
     challenge_reason=None,
 ):
+    c["match"].setdefault("source_urls", [
+        "test-football-source-1",
+        "test-football-source-2",
+    ])
     research = {
         "fresh_research_completed": True,
         "market_independent": True,
