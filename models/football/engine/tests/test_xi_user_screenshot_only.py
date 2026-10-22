@@ -21,6 +21,58 @@ from xi_assessment_reconcile import (
 
 CAPTURE = "2026-10-11T05:05:00+00:00"
 
+EXCEPTION_RESEARCH_FIELDS = [
+    "fixture_identity_status",
+    "competition_format_incentive",
+    "home_scoring_route",
+    "away_scoring_route",
+    "carrier_and_chance_creation",
+    "availability_and_replacements",
+    "failure_mechanisms",
+    "completion_continuation_stall",
+    "upper_tail_and_comparable_context",
+    "h2h_materiality",
+    "g4_research_if_g3_funded",
+]
+
+
+def exception_authority(
+    c,
+    *,
+    reference="test-user-explicit-exception",
+    upstream_state="NOT_RANKED",
+    revision="INITIAL",
+    supersedes_reference=None,
+    supersedes_epoch=None,
+    challenge_reason=None,
+):
+    research = {
+        "fresh_research_completed": True,
+        "market_independent": True,
+        "research_epoch_id": c["evidence_epoch_id"],
+        "researched_at_utc": c["context"]["assessment_at_utc"],
+        "upstream_state": upstream_state,
+        "source_reference": "test-source-surface",
+        "evidence_refs": [
+            "test-football-source-1",
+            "test-football-source-2",
+        ],
+        "checked_fields": list(EXCEPTION_RESEARCH_FIELDS),
+        "revision": revision,
+    }
+    if revision == "REASSESSMENT":
+        research.update({
+            "supersedes_exception_reference": supersedes_reference,
+            "supersedes_evidence_epoch_id": supersedes_epoch,
+            "challenge_reason": challenge_reason,
+        })
+    return {
+        "mode": "EXCEPTION",
+        "exception_reference": reference,
+        "user_requested_exception": True,
+        "exception_research": research,
+    }
+
 
 def snapshot(c, *, line=2.5, odds=1.70, captured=CAPTURE, **changes):
     obj = {
@@ -93,11 +145,7 @@ def wait_ready(payload, *, top=False):
 def run_xi(c=None, shot=None, authority=None):
     c = c or football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
     shot = shot if shot is not None else snapshot(c)
-    authority = authority or {
-        "mode": "EXCEPTION",
-        "exception_reference": "test-user-explicit-exception",
-        "user_requested_exception": True,
-    }
+    authority = authority or exception_authority(c)
     with tempfile.TemporaryDirectory() as td:
         root = pathlib.Path(td)
         cp = root / "c.json"
