@@ -339,9 +339,19 @@ Run the deterministic Football C assessment once across the researched cohort.
 - C2/C3/C4 are retired.
 - `C-FOCUS` -> official ranked board.
 - `C-WATCH` / `C-PASS` -> retained outside the official board in the frozen research assessment.
-- FOLLOW / RESERVE / STOP remains the operational workload lane **inside** C's
-  already-frozen football selection; it must not become a second predictive
-  selector.
+- FOLLOW / RESERVE / FOCUS_UNFOLLOWED is the operational workload lane
+  **inside** C's already-frozen FOCUS selection. STOP is reserved for
+  WATCH/PASS/non-FOCUS rows. Workload allocation must not relabel a valid
+  Football C FOCUS as a football rejection.
+- FOLLOW is allocated by the frozen floor/ceiling portfolio profile, not by
+  taking the first rows from the ordinary lexicographic rank. At an exact
+  kickoff, one slot prioritizes protected floor strength and the second
+  prioritizes credible scoring ceiling when available.
+- The FOLLOW profile is market-independent and uses current football structure,
+  certificate depth/robustness, completion/continuation/stall, carrier and
+  credible-tail evidence. Historical Step-0 goal signal contributes only a
+  bounded supporting component and cannot dominate materially stronger current
+  mechanisms.
 - there is no fixed board-size cap.
 - no price or Website Pick is created by /rank.
 - every eligible fixture not researched still requires an explicit allowed reason.
