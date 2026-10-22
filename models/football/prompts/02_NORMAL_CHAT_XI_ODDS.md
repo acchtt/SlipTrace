@@ -130,6 +130,12 @@ must be non-empty, `user_requested_exception` must be `true`, and the result
 remains visibly tagged `EXCEPTION`. A normal /xi ranked-ledger hit can never be
 downgraded or rerouted to EXCEPTION because a package lookup was skipped or failed.
 
+A ranked `C-FOCUS` row with lane `FOCUS_UNFOLLOWED` remains an ordinary
+ranked Football C fixture. It is outside automatic FOLLOW workload capacity,
+not a football rejection. A direct user /xi request for that exact ranked row
+uses the sealed FOCUS evidence normally and must not be forced through
+`/xi exception`.
+
 ### Explicit exception research contract
 
 An exception has no sealed ranked FOCUS evidence to inherit, so it must perform
