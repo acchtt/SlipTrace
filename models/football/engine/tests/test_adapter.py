@@ -573,9 +573,12 @@ class BoardContractTests(unittest.TestCase):
         self.assertEqual(rows[0]["follow_lane"], "FOLLOW")
         self.assertEqual(rows[1]["follow_lane"], "STOP")
         self.assertEqual(rows[0]["rank"], 1)
-        self.assertEqual(board["ranking_policy"], "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION")
+        self.assertEqual(
+            board["ranking_policy"],
+            "FOOTBALL_C_FOCUS_FIRST_FLOOR_CEILING_PORTFOLIO",
+        )
 
-    def test_c_board_reports_burden_completion_ranking_policy(self):
+    def test_c_board_reports_floor_ceiling_portfolio_policy(self):
         result = run_board(
             {
                 "schema_version": "football-engine-v1",
@@ -586,10 +589,10 @@ class BoardContractTests(unittest.TestCase):
         )
         self.assertEqual(
             result["ranking_policy"],
-            "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION",
+            "FOOTBALL_C_FOCUS_FIRST_FLOOR_CEILING_PORTFOLIO",
         )
 
-    def test_same_kickoff_follow_is_capped_at_two_best_candidates(self):
+    def test_same_kickoff_follow_uses_floor_and_ceiling_portfolio(self):
         result = run_board(
             {
                 "schema_version": "football-engine-v1",
@@ -597,31 +600,174 @@ class BoardContractTests(unittest.TestCase):
                 "model": "c",
                 "matches": [
                     match(
-                        "high_burden",
-                        carrier="STRONG",
-                        supported_line=3.0,
+                        "floor_safe",
                         board_state="C-FOCUS",
+                        carrier="USABLE",
+                        carrier_self_fund=False,
+                        independent_upper_tail=False,
+                        route_reliability="HIGH",
+                        independent_route_quality="HIGH",
+                        chance_quality="HIGH",
+                        failure_resistance="HIGH",
+                        burden_protection="HIGH",
+                        burden_completion_quality="HIGH",
+                        continuation_quality="HIGH",
+                        burden_stall_risk="LOW",
+                        goal_signal_priority_score=58,
+                        goal_signal_mean_over_two_rate=0.65,
+                        goal_signal_mean_over_three_rate=0.40,
+                        goal_signal_low_draw_trap_rate=0.05,
                     ),
                     match(
-                        "mid_burden",
-                        carrier="STRONG",
-                        supported_line=2.75,
+                        "ceiling_upside",
                         board_state="C-FOCUS",
+                        home_route="STRONG",
+                        away_route="USABLE",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=False,
+                        route_reliability="MEDIUM",
+                        independent_route_quality="MEDIUM",
+                        chance_quality="HIGH",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        burden_stall_risk="MEDIUM",
+                        upper_tail_transferability="MEDIUM",
+                        upper_tail_comparable_context_signal="MIXED",
+                        goal_signal_priority_score=67,
+                        goal_signal_mean_over_two_rate=0.75,
+                        goal_signal_mean_over_three_rate=0.55,
+                        goal_signal_low_draw_trap_rate=0.10,
                     ),
                     match(
-                        "low_burden",
-                        carrier="STRONG",
-                        supported_line=2.5,
+                        "middle",
                         board_state="C-FOCUS",
+                        carrier="USABLE",
+                        carrier_self_fund=False,
+                        independent_upper_tail=False,
+                        route_reliability="MEDIUM",
+                        independent_route_quality="MEDIUM",
+                        chance_quality="MEDIUM",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        burden_stall_risk="MEDIUM",
+                        goal_signal_priority_score=65,
+                        goal_signal_mean_over_two_rate=0.70,
+                        goal_signal_mean_over_three_rate=0.50,
+                        goal_signal_low_draw_trap_rate=0.10,
                     ),
                 ],
             }
         )
-        lanes = {row["match_id"]: row["follow_lane"] for row in result["matches"]}
-        self.assertEqual(lanes["low_burden"], "FOLLOW")
-        self.assertEqual(lanes["mid_burden"], "FOLLOW")
-        self.assertEqual(lanes["high_burden"], "RESERVE")
+        rows = {row["match_id"]: row for row in result["matches"]}
+        self.assertEqual(rows["floor_safe"]["follow_lane"], "FOLLOW")
+        self.assertEqual(rows["floor_safe"]["follow_portfolio_role"], "FLOOR")
+        self.assertEqual(rows["ceiling_upside"]["follow_lane"], "FOLLOW")
+        self.assertEqual(rows["ceiling_upside"]["follow_portfolio_role"], "CEILING")
+        self.assertEqual(rows["middle"]["follow_lane"], "RESERVE")
         self.assertEqual(result["max_follow_per_exact_kickoff"], 2)
+
+    def test_focus_outside_workload_capacity_is_not_called_stop(self):
+        rows = [
+            match(
+                f"focus-{i}",
+                board_state="C-FOCUS",
+                goal_signal_priority_score=70 - i,
+                goal_signal_mean_over_two_rate=0.70,
+                goal_signal_mean_over_three_rate=0.50,
+                goal_signal_low_draw_trap_rate=0.10,
+            )
+            for i in range(7)
+        ]
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": rows,
+            }
+        )
+        lanes = [row["follow_lane"] for row in result["matches"]]
+        self.assertEqual(lanes.count("FOLLOW"), 2)
+        self.assertEqual(lanes.count("RESERVE"), 4)
+        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 1)
+        self.assertNotIn("STOP", lanes)
+        self.assertEqual(result["focus_unfollowed_count"], 1)
+
+    def test_historical_signal_is_bounded_support_not_follow_veto(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        "current_structure",
+                        board_state="C-FOCUS",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                        route_reliability="HIGH",
+                        chance_quality="HIGH",
+                        failure_resistance="HIGH",
+                        burden_protection="HIGH",
+                        burden_completion_quality="HIGH",
+                        continuation_quality="HIGH",
+                        goal_signal_priority_score=55,
+                        goal_signal_mean_over_two_rate=0.60,
+                        goal_signal_mean_over_three_rate=0.40,
+                        goal_signal_low_draw_trap_rate=0.10,
+                    ),
+                    match(
+                        "history_only",
+                        board_state="C-FOCUS",
+                        carrier="USABLE",
+                        carrier_self_fund=False,
+                        independent_upper_tail=False,
+                        route_reliability="MEDIUM",
+                        independent_route_quality="MEDIUM",
+                        chance_quality="MEDIUM",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        burden_stall_risk="MEDIUM",
+                        goal_signal_priority_score=90,
+                        goal_signal_mean_over_two_rate=0.90,
+                        goal_signal_mean_over_three_rate=0.80,
+                        goal_signal_low_draw_trap_rate=0.05,
+                    ),
+                    match(
+                        "other_current",
+                        board_state="C-FOCUS",
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=False,
+                        route_reliability="MEDIUM",
+                        chance_quality="HIGH",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        burden_stall_risk="MEDIUM",
+                        goal_signal_priority_score=60,
+                        goal_signal_mean_over_two_rate=0.70,
+                        goal_signal_mean_over_three_rate=0.50,
+                        goal_signal_low_draw_trap_rate=0.10,
+                    ),
+                ],
+            }
+        )
+        by_id = {row["match_id"]: row for row in result["matches"]}
+        self.assertLessEqual(by_id["history_only"]["follow_history_support_points"], 10)
+        self.assertGreater(
+            by_id["current_structure"]["follow_floor_score"],
+            by_id["history_only"]["follow_floor_score"],
+        )
 
     def test_high_completion_carrier_path_cannot_be_c_pass(self):
         with self.assertRaisesRegex(
@@ -1913,7 +2059,7 @@ class DecisionContractTests(unittest.TestCase):
                 }
             )
 
-    def test_stop_lane_without_exception_is_blocked(self):
+    def test_focus_unfollowed_lane_without_exception_is_blocked(self):
         with self.assertRaisesRegex(
             ValueError,
             "STEP2 AUTHORIZATION/LANE MISMATCH",
@@ -1924,7 +2070,9 @@ class DecisionContractTests(unittest.TestCase):
                     "stage": "decision",
                     "model": "c",
                     "match": match(board_state="C-FOCUS"),
-                    "context": decision_context(official_follow_lane="STOP"),
+                    "context": decision_context(
+                        official_follow_lane="FOCUS_UNFOLLOWED"
+                    ),
                 }
             )
 
