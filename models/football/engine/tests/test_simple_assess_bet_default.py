@@ -11,6 +11,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 from test_adapter import pair_payload
 from test_football_assessment_pair import football
+from test_xi_user_screenshot_only import exception_authority
 
 
 def run(command, c):
@@ -21,11 +22,18 @@ def run(command, c):
         args = [sys.executable, str(RUNNER), command, "--c", str(cp)]
         if command in {"xi", "decision"}:
             ap = root / "authority.json"
-            ap.write_text(json.dumps({
-                "mode": "EXCEPTION",
-                "exception_reference": "test-explicit-exception",
-                "user_requested_exception": True,
-            }), encoding="utf-8")
+            if c.get("stage") == "football_assessment":
+                authority = exception_authority(
+                    c,
+                    reference="test-explicit-exception",
+                )
+            else:
+                authority = {
+                    "mode": "EXCEPTION",
+                    "exception_reference": "test-direct-decision-exception",
+                    "user_requested_exception": True,
+                }
+            ap.write_text(json.dumps(authority), encoding="utf-8")
             args.extend(["--authority", str(ap)])
         proc = subprocess.run(
             args,
@@ -67,18 +75,15 @@ class SimpleAssessBetDefaultTests(unittest.TestCase):
             "EXECUTED_C_FOOTBALL_ONLY",
         )
 
-    def test_xi_with_decision_payload_runs_strict_c(self):
+    def test_direct_decision_stage_exception_replay_is_blocked(self):
         proc = run("xi", pair_payload("c"))
-        self.assertEqual(proc.returncode, 0, proc.stderr)
-        out = json.loads(proc.stdout)
-        self.assertEqual(out["xi_mode"], "STRICT_EXECUTABLE_PRICE_C")
-        self.assertEqual(out["engine_execution_status"], "EXECUTED_C_DECISION")
-        self.assertEqual(out["model"], "c")
+        self.assertNotEqual(proc.returncode, 0)
+        out = json.loads(proc.stderr)
+        self.assertIn("EXCEPTION_RESEARCH_REQUIRED", out["error"])
+        self.assertIn("football_assessment", out["error"])
 
     def test_retired_c2_is_rejected(self):
-        retired = pair_payload("c")
-        retired["model"] = "c2"
-        proc = run("decision", retired)
+        proc = run("football", football("c2"))
         self.assertNotEqual(proc.returncode, 0)
         out = json.loads(proc.stderr)
         self.assertEqual(out["status"], "XI ENGINE CONTRACT REJECTED")
