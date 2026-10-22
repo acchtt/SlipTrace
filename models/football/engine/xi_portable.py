@@ -478,7 +478,10 @@ def main() -> int:
         print(json.dumps({
             "ok": False,
             "status": (
-                "RANK_RECEIPT_REQUIRED"
+                "EXCEPTION_RESEARCH_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
                 if is_contract
