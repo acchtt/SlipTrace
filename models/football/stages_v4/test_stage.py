@@ -921,8 +921,14 @@ class RankV4Tests(unittest.TestCase):
         self.assertEqual(result["board"]["match_count"], 11)
         self.assertEqual(len(result["board"]["matches"]), 11)
         self.assertGreater(
-            sum(x["follow_lane"] == "STOP" for x in result["board"]["matches"]),
+            sum(
+                x["follow_lane"] == "FOCUS_UNFOLLOWED"
+                for x in result["board"]["matches"]
+            ),
             0,
+        )
+        self.assertFalse(
+            any(x["follow_lane"] == "STOP" for x in result["board"]["matches"])
         )
 
     def test_rank_binds_cohort_clock_and_unranked_reasons(self):
