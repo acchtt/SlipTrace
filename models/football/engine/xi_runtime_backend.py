@@ -105,7 +105,10 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
             "runtime_commit": os.environ.get("GITHUB_SHA"),
             "input_sha256": hashlib.sha256(_canonical(request)).hexdigest(),
             "status": (
-                "RANK_RECEIPT_REQUIRED"
+                "EXCEPTION_RESEARCH_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
                 if isinstance(exc, (xi_portable.ContractError, ValueError, KeyError))
