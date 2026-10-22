@@ -39,6 +39,7 @@ class BoardState(IntEnum):
 
 class FollowLane(Enum):
     STOP = "STOP"
+    FOCUS_UNFOLLOWED = "FOCUS_UNFOLLOWED"
     RESERVE = "RESERVE"
     FOLLOW = "FOLLOW"
 
@@ -1791,6 +1792,126 @@ def certified_supported_burden_basis(
         f"comparable_context={comparable_context_text}"
     )
 
+
+
+def follow_priority_profile(
+    a: MatchAssessment,
+) -> dict[str, int | str | bool | float | None]:
+    """Score FOCUS workload priority without changing Football C selection.
+
+    The official C rank and G3/G4/G5/G6 certificates remain untouched. This
+    bounded workload profile separates protected floor strength from credible
+    scoring ceiling so scarce FOLLOW slots are not allocated by a single
+    lexicographic cutoff. Bookmaker prices and eventual match results are not
+    inputs.
+
+    Historical Step-0 goal signals are deliberately capped at 10 ceiling
+    points, so a small rate/priority difference can break a close tie but cannot
+    overwhelm materially stronger current football structure.
+    """
+
+    require_c_completion(a)
+    depth = funded_goal_certificate_depth(a, "c")
+    robustness = certificate_robustness(a, "c")
+    credible = credible_burden_profile(a, "c")
+    certified = certified_supported_burden(a, "c")
+
+    floor = 0
+    if depth:
+        floor += 8 + max(0, depth - 3) * 6
+    floor += robustness * 12
+    floor += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[a.route_reliability]
+    floor += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[a.failure_resistance]
+    floor += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[a.burden_protection]
+    floor += {Grade.LOW: 0, Grade.MEDIUM: 3, Grade.HIGH: 6}[a.burden_completion_quality]
+    _, effective_stall = c_effective_incentive_grades(a)
+    floor += {Grade.LOW: 8, Grade.MEDIUM: 4, Grade.HIGH: 0}[effective_stall]
+    trap = a.goal_signal_low_draw_trap_rate
+    if trap is not None:
+        floor += 6 if trap <= 0.10 else 3 if trap <= 0.20 else 0
+
+    tail_state = str(credible["credible_tail_state"])
+    tail_points = {
+        "REJECTED": 0,
+        "MIXED": 8,
+        "FUNDED": 10,
+        "NEAR_FUNDED": 18,
+    }.get(tail_state, 0)
+    ceiling = max(0, depth - 3) * 8 + tail_points
+
+    band_high = credible.get("credible_burden_band_high")
+    if (
+        certified is not None
+        and isinstance(band_high, (int, float))
+        and band_high > certified
+    ):
+        ceiling += min(9, round((float(band_high) - certified) * 12))
+
+    if a.carrier == CarrierStrength.STRONG and a.carrier_self_fund:
+        ceiling += 10
+    if a.independent_upper_tail:
+        ceiling += 8
+    if a.home_route == RouteStrength.STRONG and a.away_route == RouteStrength.STRONG:
+        ceiling += 6
+    elif (
+        a.home_route >= RouteStrength.USABLE
+        and a.away_route >= RouteStrength.USABLE
+    ):
+        ceiling += 3
+
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    ceiling += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[effective_continuation]
+    ceiling += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[a.burden_completion_quality]
+    ceiling += {Grade.LOW: 0, Grade.MEDIUM: 4, Grade.HIGH: 8}[a.chance_quality]
+    ceiling += {Grade.LOW: 0, Grade.MEDIUM: 3, Grade.HIGH: 6}[a.opponent_leakage]
+
+    historical_support = 0
+    if a.goal_signal_priority_score is not None:
+        historical_support += (
+            4 if a.goal_signal_priority_score >= 70
+            else 3 if a.goal_signal_priority_score >= 60
+            else 2 if a.goal_signal_priority_score >= 50
+            else 0
+        )
+    if a.goal_signal_mean_over_three_rate is not None:
+        historical_support += (
+            4 if a.goal_signal_mean_over_three_rate >= 0.60
+            else 3 if a.goal_signal_mean_over_three_rate >= 0.50
+            else 2 if a.goal_signal_mean_over_three_rate >= 0.40
+            else 0
+        )
+    if trap is not None:
+        historical_support += 2 if trap <= 0.10 else 1 if trap <= 0.20 else 0
+    historical_support = min(10, historical_support)
+    ceiling += historical_support
+
+    if floor >= 58:
+        floor_tier = "HIGH"
+    elif floor >= 42:
+        floor_tier = "MEDIUM"
+    else:
+        floor_tier = "LOW"
+
+    if ceiling >= 58:
+        ceiling_tier = "HIGH"
+    elif ceiling >= 38:
+        ceiling_tier = "MEDIUM"
+    else:
+        ceiling_tier = "LOW"
+
+    balanced = floor + ceiling
+    profile = f"{floor_tier}_FLOOR_{ceiling_tier}_CEILING"
+    return {
+        "follow_floor_score": floor,
+        "follow_ceiling_score": ceiling,
+        "follow_priority_score": balanced,
+        "follow_floor_tier": floor_tier,
+        "follow_ceiling_tier": ceiling_tier,
+        "follow_priority_profile": profile,
+        "follow_history_support_points": historical_support,
+        "follow_priority_market_independent": True,
+        "follow_priority_execution_authority": False,
+    }
 
 def market_line_funded(
     a: MatchAssessment,
