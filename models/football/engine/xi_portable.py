@@ -488,7 +488,10 @@ def main() -> int:
                 else "XI RUNTIME: EXECUTION FAILED"
             ),
             "failure_class": (
-                "RANK_AUTHORITY"
+                "EXCEPTION_RESEARCH"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "RANK_AUTHORITY"
                 if isinstance(exc, RankAuthorityError)
                 else "PAYLOAD_OR_MODEL_CONTRACT"
                 if is_contract
