@@ -127,6 +127,53 @@ class XIRuntimeBackendTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertIn("WATCH/PASS -> FOCUS", result["error"])
 
+    def test_cartagines_olimpia_challenge_requires_new_full_exception_epoch(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["match"]["match_id"] = "1894831"
+        c["evidence_epoch_id"] = "cartagines-olimpia-exception-v1"
+        first = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-cartagines-olimpia-thin-v1",
+            "c_football": c,
+            "authority": {
+                "mode": "EXCEPTION",
+                "exception_reference": "cartagines-olimpia-v1",
+                "user_requested_exception": True,
+            },
+            "screenshot_quote": snapshot(c),
+        })
+        self.assertFalse(first["ok"])
+        self.assertEqual(first["status"], "EXCEPTION_RESEARCH_REQUIRED")
+
+        c2 = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c2["match"]["match_id"] = "1894831"
+        c2["evidence_epoch_id"] = "cartagines-olimpia-exception-v2"
+        c2["context"]["assessment_at_utc"] = "2026-10-22T02:34:07+00:00"
+        authority = exception_authority(
+            c2,
+            reference="cartagines-olimpia-v2",
+            upstream_state="UNVERIFIED",
+            revision="REASSESSMENT",
+            supersedes_reference="cartagines-olimpia-v1",
+            supersedes_epoch="cartagines-olimpia-exception-v1",
+            challenge_reason="user flagged the first exception assessment as half-baked",
+        )
+        second = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-cartagines-olimpia-research-v2",
+            "c_football": c2,
+            "authority": authority,
+            "screenshot_quote": snapshot(c2, captured=None),
+        })
+        self.assertTrue(second["ok"])
+        trace = second["authority"]["exception_research"]
+        self.assertEqual(trace["revision"], "REASSESSMENT")
+        self.assertEqual(
+            trace["supersedes_evidence_epoch_id"],
+            "cartagines-olimpia-exception-v1",
+        )
+        self.assertEqual(trace["upstream_state"], "UNVERIFIED")
+
     def test_request_envelope_filename_must_match_id(self):
         with tempfile.TemporaryDirectory() as td:
             root = pathlib.Path(td)
