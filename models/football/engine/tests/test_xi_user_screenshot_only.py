@@ -173,6 +173,22 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertIn("model", price)
         self.assertNotIn("models", price)
 
+    def test_credible_tail_profile_is_invariant_to_screenshot_line(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        low = run_xi(c, snapshot(c, line=2.5, odds=1.70))
+        high = run_xi(c, snapshot(c, line=4.0, odds=2.00))
+        fields = (
+            "credible_tail_state",
+            "credible_tail_target_goal",
+            "credible_burden_band_low",
+            "credible_burden_band_high",
+            "credible_tail_basis",
+        )
+        for field in fields:
+            self.assertEqual(low["result"][field], high["result"][field])
+        self.assertTrue(low["result"]["credible_tail_market_independent"])
+        self.assertFalse(low["result"]["credible_tail_execution_authority"])
+
     def test_no_external_or_replacement_quote(self):
         out = run_xi()
         evidence = out["price_check"]["evidence"]
