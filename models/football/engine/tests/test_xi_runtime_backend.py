@@ -46,7 +46,7 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
             "request_id": "XI-test-2",
             "c_football": c,
-            "authority": {"mode": "EXCEPTION", "exception_reference": "test-user-exception", "user_requested_exception": True},
+            "authority": exception_authority(c, reference="test-user-exception"),
             "screenshot_quote": bad,
         }
         result = xi_runtime_backend.execute(request)
