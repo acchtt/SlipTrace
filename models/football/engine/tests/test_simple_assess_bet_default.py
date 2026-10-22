@@ -35,6 +35,9 @@ def run(command, c):
                 }
             ap.write_text(json.dumps(authority), encoding="utf-8")
             args.extend(["--authority", str(ap)])
+        # exception_authority attaches the audited source refs to the payload;
+        # persist any such authority-owned test fixture enrichment before run.
+        cp.write_text(json.dumps(c), encoding="utf-8")
         proc = subprocess.run(
             args,
             text=True,
