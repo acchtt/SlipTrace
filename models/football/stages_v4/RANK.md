@@ -299,6 +299,35 @@ Asian .75 lines require the next certificate for a full win.
 
 Research-declared supported_line remains audit metadata only.
 
+### Credible burden band — diagnostic only
+
+To avoid certificate-ladder compression, every completed C assessment also
+publishes a market-independent credible-tail diagnostic from the same frozen
+football evidence:
+
+- `credible_tail_state = FUNDED / NEAR_FUNDED / MIXED / REJECTED`;
+- `credible_tail_target_goal`;
+- `credible_burden_band_low` / `credible_burden_band_high`;
+- `credible_tail_basis`;
+- `credible_tail_market_independent = true`;
+- `credible_tail_execution_authority = false`.
+
+This layer does **not** change G3/G4/G5/G6 certificates, board admission,
+ranking priority, FOLLOW/RESERVE/STOP, or ACT/BOOK/PASS authorization. It is not
+a fair bookmaker line or a probability estimate.
+
+The deterministic diagnostic distinguishes strong next-goal shapes that narrowly
+miss the next full certificate from genuinely mixed/rejected tails. A
+`NEAR_FUNDED` next-goal state publishes an intermediate quarter-line band
+(e.g. certified O2.50 -> diagnostic 2.75–3.25; certified O3.50 -> diagnostic
+3.75–4.25). `MIXED` may extend only 0.50 goals above the certificate;
+`REJECTED` stays at the certificate. A funded upper-tail certificate with no
+near-funded next rung remains `FUNDED` at the certified burden.
+
+Bookmaker odds, user screenshots and eventual match results must never set or
+upgrade these fields. They are frozen before market comparison and retained for
+audit/calibration only.
+
 ## Execute research assessment and admit the board
 
 Run the deterministic Football C assessment once across the researched cohort.
