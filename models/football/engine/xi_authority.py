@@ -201,6 +201,25 @@ def _validate_exception_research(
         label="exception_research",
         minimum=2,
     )
+    supplied_match = supplied.get("match")
+    if not isinstance(supplied_match, dict):
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: c_football.match object missing"
+        )
+    source_urls = _required_string_list(
+        supplied_match,
+        "source_urls",
+        label="c_football.match",
+        minimum=2,
+    )
+    missing_source_links = sorted(set(evidence_refs) - set(source_urls))
+    if missing_source_links:
+        raise RankAuthorityError(
+            "EXCEPTION_RESEARCH_REQUIRED: exception evidence_refs must be "
+            "attached to c_football.match.source_urls: "
+            + ", ".join(missing_source_links)
+        )
+
     checked_fields = set(_required_string_list(
         research,
         "checked_fields",
@@ -244,11 +263,6 @@ def _validate_exception_research(
                 "evidence epoch"
             )
 
-    supplied_match = supplied.get("match")
-    if not isinstance(supplied_match, dict):
-        raise RankAuthorityError(
-            "EXCEPTION_RESEARCH_REQUIRED: c_football.match object missing"
-        )
     current_state = _normalize_board_state(
         context.get("board_state", supplied_match.get("board_state"))
     )
