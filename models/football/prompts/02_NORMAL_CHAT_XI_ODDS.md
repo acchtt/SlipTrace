@@ -130,6 +130,40 @@ must be non-empty, `user_requested_exception` must be `true`, and the result
 remains visibly tagged `EXCEPTION`. A normal /xi ranked-ledger hit can never be
 downgraded or rerouted to EXCEPTION because a package lookup was skipped or failed.
 
+### Explicit exception research contract
+
+An exception has no sealed ranked FOCUS evidence to inherit, so it must perform
+a **fresh full Football C research pass before runtime**. Do not synthesize a
+thin `c_football` payload from the screenshot, the prior chat conclusion, or a
+WATCH/UNVERIFIED screening row.
+
+The exception authority must carry `exception_research` with:
+
+- `fresh_research_completed=true` and `market_independent=true`;
+- a new `research_epoch_id` exactly matching `c_football.evidence_epoch_id`;
+- `researched_at_utc` exactly matching the assessment epoch;
+- the upstream state/reference (FOCUS/WATCH/PASS/UNVERIFIED/NOT_RANKED/OUT_OF_SCOPE);
+- at least two football evidence references;
+- explicit checked fields covering fixture/status, competition format + incentive,
+  both scoring routes, carrier/chance creation, replacements, failure mechanisms,
+  completion/continuation/stall, upper-tail/comparable context, H2H materiality,
+  and G4 research when G3 is funded.
+
+A direct decision-stage exception is forbidden. Exception execution must begin
+from the fresh football-assessment stage.
+
+If the user challenges the first exception assessment as incomplete, stale or
+half-baked, **invalidate that exception epoch immediately**. The reassessment
+must use `revision=REASSESSMENT`, a new exception reference, a new evidence
+epoch, the superseded reference/epoch, and a concrete challenge reason. Repeating
+the same payload, sources or conclusion without rebuilding the football evidence
+is not a reassessment and must fail closed with
+`EXCEPTION_RESEARCH_REQUIRED`.
+
+If the upstream state was WATCH/PASS and the fresh exception payload asserts
+FOCUS, require an explicit source-backed state-change status, basis and changed
+football fields. Exception authority never silently promotes WATCH/PASS to FOCUS.
+
 Do not replay Step-1 source/status in Step 2.
 
 ## Football assessment
