@@ -1,0 +1,38 @@
+[
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-22T05:20:58.308320+00:00",
+    "file": "raw/ICT-2026-10-22.json",
+    "sha256": "a9db60fd8e31944a7d5701d531bf0a38071cb4b9bcd4d652d1a92ae1426db63d"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-22T05:20:58.564793+00:00",
+    "file": "raw/UTC-2026-10-22.json",
+    "sha256": "db051c19935bfaca5c79b1697351a5ec0aa3b0c55e6716f4cb03351ace258f99"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-22T05:20:58.931403+00:00",
+    "file": "raw/terminal-2026-10-22.json",
+    "sha256": "db051c19935bfaca5c79b1697351a5ec0aa3b0c55e6716f4cb03351ace258f99"
+  },
+  {
+    "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates=20261022&limit=1000",
+    "observed_at_utc": "2026-10-22T05:20:59.027221+00:00",
+    "file": "raw/espn-validator-20261022.json",
+    "sha256": "72eef429b3e8244a46b41b52e119838ede34e0dde12b8d80223c079f5b48512e"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/247476/details?locale=en",
+    "observed_at_utc": "2026-10-22T05:20:59.310188+00:00",
+    "file": "raw/team-247476.json",
+    "sha256": "0dd09e7e418e18a5886e11e7335d02555877bd89b7addfe983b25e1917e18ea7"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7549/details?locale=en",
+    "observed_at_utc": "2026-10-22T05:20:59.577730+00:00",
+    "file": "raw/team-7549.json",
+    "sha256": "cfd25d5a0f73b047529205b2389d35e8382e17ed3b79958ccfb24909246653ee"
+  }
+]
