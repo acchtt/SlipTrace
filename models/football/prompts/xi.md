@@ -16,6 +16,11 @@ runtime cannot execute or validate, return
 
 USER_SCREENSHOT_ONLY means the screenshot is the sole market-price source.
 
+Always preserve the frozen Football C credible-tail diagnostic from rank:
+`credible_tail_state`, target goal and credible burden band. It is a
+pre-market calibration/display layer only; it never replaces the certified
+burden and never authorizes ACT/BOOK.
+
 
 Routine /xi must resolve and pass shared rank authority before execution.
 Before selecting RANKED versus EXCEPTION, perform the mandatory rank-discovery
