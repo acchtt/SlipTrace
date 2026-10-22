@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_current_corroboration='PARTIAL'; allowed: NOT_APPLICABLE, NOT_FOUND, UNKNOWN, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "096f1521206b3fc0837cb2eac4b46482572ee1261d4f1457733e22ed91eaa5b3",
+  "ok": false,
+  "request_id": "XI-20261022-PSM-PERSEBAYA-EXCEPTION-0903",
+  "runtime_commit": "0946df6e4b01eb35d7959667f1043e89da857638",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
