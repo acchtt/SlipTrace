@@ -591,6 +591,56 @@ class RankV4Tests(unittest.TestCase):
                 status_refresh=changed,
             )
 
+    def test_one_second_provider_kickoff_tick_preserves_frozen_source_and_other_fixtures(self):
+        src = sweep(snapshot(), now=NOW)
+        c = model_input()
+        statuses = fresh_status(src)
+        statuses["matches"][0]["kickoff_utc"] = "2026-10-11T17:00:01Z"
+        result = production_rank(
+            src, c, {"m2": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
+            original_source=snapshot(), status_refresh=statuses,
+        )
+        self.assertEqual(result["assessed_count"], 1)
+        self.assertEqual(result["frozen_model_input"]["matches"][0]["kickoff_ict"], KICKOFF_ICT)
+        self.assertEqual(
+            result["kickoff_precision_reconciliations"]["m1"],
+            {
+                "reason": "ONE_SECOND_PROVIDER_KICKOFF_PRECISION_JITTER",
+                "frozen_kickoff_utc": "2026-10-11T17:00:00+00:00",
+                "observed_kickoff_utc": "2026-10-11T17:00:01+00:00",
+                "frozen_kickoff_retained": True,
+            },
+        )
+        self.assertEqual(result["kickoff_precision_reconciliations"].keys(), {"m1"})
+
+    def test_kickoff_jitter_guard_rejects_two_seconds_and_real_schedule_changes(self):
+        src = sweep(snapshot(), now=NOW)
+        for kickoff in (
+            "2026-10-11T17:00:02Z",  # Larger than one provider second.
+            "2026-10-11T17:01:00Z",  # Actual minute-level change.
+            "2026-10-11T17:00:00.500000Z",  # Fractional-second drift is not documented.
+        ):
+            with self.subTest(kickoff=kickoff):
+                statuses = fresh_status(src)
+                statuses["matches"][0]["kickoff_utc"] = kickoff
+                with self.assertRaisesRegex(StageError, "V4_KICKOFF_CHANGED"):
+                    production_rank(
+                        src, model_input(), {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                        now="2026-10-11T16:05:00Z",
+                        original_source=snapshot(), status_refresh=statuses,
+                    )
+
+    def test_one_second_jitter_never_reopens_a_closed_prematch(self):
+        src = sweep(snapshot(), now=NOW)
+        statuses = fresh_status(src, now=KICKOFF)
+        statuses["matches"][0]["kickoff_utc"] = "2026-10-11T17:00:01Z"
+        with self.assertRaisesRegex(StageError, "retroactive prematch rank forbidden"):
+            production_rank(
+                src, model_input(), {"m2": "RESEARCH_EVIDENCE_MISSING"},
+                now=KICKOFF, original_source=snapshot(), status_refresh=statuses,
+            )
+
     def test_attested_reschedule_excludes_only_fixture_and_preserves_other_rank(self):
         src = sweep(snapshot(), now=NOW)
         c = model_input("m2")

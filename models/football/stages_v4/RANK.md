@@ -81,7 +81,10 @@ Before Football C execution:
 2. require the replayed receipt to match V4_SWEEP_READY;
 3. refresh every eligible fixture's kickoff/status;
 4. require freshness within the V4 bound;
-5. reject unexplained changed-kickoff/source fixtures;
+5. reject unexplained changed-kickoff/source fixtures; tolerate only a single
+   whole-second `00↔01` provider precision tick inside the identical minute.
+   Audit any such tick in the rank receipt without changing the frozen kickoff;
+   reject two-second, fractional-second, cross-minute, or attested schedule drift;
 6. mark already-started/finished fixtures PREMATCH_WINDOW_CLOSED;
 7. treat an independently attested postponement/cancellation as a fixture-level
    status exclusion rather than blocking the otherwise-valid cohort.

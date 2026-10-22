@@ -480,6 +480,21 @@ def _attested_status_resolution(
     }
 
 
+def _provider_kickoff_second_jitter(frozen: datetime, observed: datetime) -> bool:
+    """Accept only a ±1s provider precision tick at an unchanged minute boundary.
+
+    Never shift the frozen kickoff or accept minute-level drift, a schedule
+    change, or an arbitrary seconds difference. Prematch closes at the frozen
+    timestamp, even when the provider supplies 00:01 instead of 00:00.
+    """
+    return (
+        frozen.replace(second=0, microsecond=0)
+        == observed.replace(second=0, microsecond=0)
+        and frozen.microsecond == observed.microsecond == 0
+        and {frozen.second, observed.second} == {0, 1}
+    )
+
+
 def verify_rank_source_and_status(
     sweep_receipt: dict[str, Any], original_source: dict[str, Any],
     status_refresh: dict[str, Any], *, now: str,
@@ -532,6 +547,7 @@ def _check_rank_source_and_status(
     seen = set()
     statuses = {}
     status_resolutions = {}
+    kickoff_precision_reconciliations = {}
     for row in rows:
         if not isinstance(row, dict):
             raise StageError("V4_STATUS_REFRESH_MALFORMED")
@@ -555,14 +571,23 @@ def _check_rank_source_and_status(
             if row["source_url"] != source["source_url"]:
                 raise StageError(f"{mid}: status source differs from frozen fixture source")
             updated_ko = _time(row.get("kickoff_utc"), f"{mid}.status_kickoff_utc")
-            if updated_ko != _time(source["kickoff_utc"], f"{mid}.frozen_kickoff"):
-                raise StageError(f"{mid}: V4_KICKOFF_CHANGED; re-sweep the updated source epoch")
+            frozen_ko = _time(source["kickoff_utc"], f"{mid}.frozen_kickoff")
+            if updated_ko != frozen_ko:
+                if not _provider_kickoff_second_jitter(frozen_ko, updated_ko):
+                    raise StageError(f"{mid}: V4_KICKOFF_CHANGED; re-sweep the updated source epoch")
+                kickoff_precision_reconciliations[mid] = {
+                    "reason": "ONE_SECOND_PROVIDER_KICKOFF_PRECISION_JITTER",
+                    "frozen_kickoff_utc": frozen_ko.isoformat(),
+                    "observed_kickoff_utc": updated_ko.isoformat(),
+                    "frozen_kickoff_retained": True,
+                }
         statuses[mid] = status
     return {
         "status_refresh_sha256": _hash(status_refresh),
         "original_source_sha256": _hash(original_source),
         "status_by_match": statuses,
         "status_resolutions": status_resolutions,
+        "kickoff_precision_reconciliations": kickoff_precision_reconciliations,
     }
 
 
@@ -922,6 +947,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "assessed_open_fraction": len(ids) / (len(frozen) - closed) if len(frozen) > closed else None,
     }
     checkpoint = {
+        "kickoff_precision_reconciliations": source_proof["kickoff_precision_reconciliations"],
         "coverage_manifest": [
             {"match_id": mid, "home": frozen[mid].get("home"),
              "away": frozen[mid].get("away"),
