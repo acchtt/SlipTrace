@@ -156,6 +156,20 @@ Research:
 
 Odds are not required.
 
+### Credible burden diagnostic
+
+Carry the frozen rank row's `credible_tail_state`,
+`credible_tail_target_goal`, `credible_burden_band_low/high`, and
+`credible_tail_basis` through /xi. These fields are computed from football
+evidence only and are **diagnostic, not execution authority**.
+
+Present the certified burden first. When useful, show the credible band beside
+it so an O2.50 certificate with a near-funded fourth-goal tail is not narrated
+as equivalent to an O2.50 certificate with a rejected tail. Never convert the
+credible band into ACT/BOOK authorization and never upgrade it because the
+bookmaker line is higher. ACT/BOOK/PASS remains governed by the certified
+G3/G4/G5/G6 burden and existing settlement-aware BOOK policy.
+
 Availability is symmetric: do not suppress the total merely because attacking
 players are absent. Check replacements, opponent routes and defensive rotation.
 
