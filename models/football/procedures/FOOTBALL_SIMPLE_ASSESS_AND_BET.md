@@ -15,6 +15,22 @@ after replacements, opponent scoring and defensive rotation are considered.
 After kickoff keep football analysis but never create retrospective prematch
 exposure.
 
+## Explicit exception integrity
+
+`/xi exception` must start from a fresh, source-backed Football C assessment
+epoch. It may not reuse a thin or challenged exception payload and may not jump
+straight to a decision-stage request.
+
+When the user disputes an exception assessment, discard that exception epoch and
+rebuild the football research before rerunning the deterministic engine. A
+reassessment must identify the superseded exception/epoch and use a new evidence
+epoch. The same deterministic verdict is allowed only if the **new full research**
+independently reaches it; the old verdict itself is not evidence.
+
+A WATCH/PASS upstream state may be reconsidered by explicit exception, but any
+promotion to FOCUS requires named changed/reclassified football fields and a
+source-backed basis. Market odds cannot supply that promotion.
+
 ## One quote policy
 
 There is one active price policy:
