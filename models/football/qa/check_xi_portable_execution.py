@@ -66,7 +66,7 @@ def main() -> None:
                             "match_id": frozen["match_id"],
                             "rank": 1,
                             "board_state": "FOCUS",
-                            "supported_line": 2.5,
+                            "supported_line": 5.5,
                         }]
                     },
                     "frozen_model_input": {"matches": [frozen]},
