@@ -26,6 +26,18 @@ Conversation surface: NORMAL CHAT
    unavailable, return RANK_RECEIPT_REQUIRED. Never convert it to EXCEPTION.
    Only a literal user /xi exception request may set authority.mode=EXCEPTION,
    and it must set user_requested_exception=true.
+   Explicit exception additionally requires a fresh full exception_research
+   epoch: source-backed fixture/status, competition format/incentive, both
+   routes, carrier/chance creation, replacements, failure mechanisms,
+   completion/continuation/stall, upper-tail/comparable context, H2H materiality,
+   and G4 research if G3 is funded. Direct decision-stage exception replay is
+   forbidden.
+   If the user challenges an exception assessment, invalidate the old epoch and
+   rerun with revision=REASSESSMENT, a new exception reference/evidence epoch,
+   and the superseded reference/epoch. Reusing the prior payload must return
+   EXCEPTION_RESEARCH_REQUIRED.
+   WATCH/PASS -> FOCUS under exception requires explicit source-backed
+   state-change status, basis, and changed football fields.
 
 3. Use the user's lineup/current football evidence and exact screenshot quote.
    USER_SCREENSHOT_ONLY means no replacement odds search.
