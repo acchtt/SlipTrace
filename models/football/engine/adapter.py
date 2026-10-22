@@ -38,6 +38,7 @@ from core import (
     evaluate_c_quote,
     evaluate_c2_quote,
     follow_through_lane,
+    follow_priority_profile,
     rank_assessments,
     rank_assessments_c2,
     ranking_key,
@@ -856,6 +857,136 @@ def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
         raise ContractError(f"stage must be {expected_stage!r}")
 
 
+def _follow_portfolio_weight(row: dict[str, Any], role: str) -> int:
+    """Comparable workload score for global FOLLOW capacity arbitration."""
+
+    floor = int(row.get("follow_floor_score", 0))
+    ceiling = int(row.get("follow_ceiling_score", 0))
+    if role == "FLOOR":
+        return 2 * floor + ceiling
+    if role == "CEILING":
+        return 2 * ceiling + floor
+    return floor + ceiling
+
+
+def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
+    """Allocate scarce FOLLOW slots as a floor/ceiling portfolio.
+
+    C-FOCUS selection and official rank are already frozen before this function.
+    This mutates only workload-lane fields. A-grade FOCUS rows compete for one
+    floor and one ceiling nomination per exact kickoff; global FOLLOW capacity
+    then chooses the strongest nominations. Remaining FOCUS rows may receive
+    RESERVE, otherwise they remain visibly FOCUS_UNFOLLOWED rather than STOP.
+    """
+
+    for row in rows:
+        if row.get("board_state") != "FOCUS":
+            row["follow_lane"] = FollowLane.STOP.value
+            row["follow_portfolio_role"] = "NOT_FOCUS"
+            row["follow_portfolio_score"] = None
+        else:
+            row["follow_lane"] = FollowLane.FOCUS_UNFOLLOWED.value
+            row["follow_portfolio_role"] = "UNALLOCATED"
+            row["follow_portfolio_score"] = None
+
+    blocks: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        if (
+            row.get("board_state") == "FOCUS"
+            and row.get("operational_viability_grade") == "A"
+        ):
+            blocks.setdefault(str(row["kickoff_ict"]), []).append(row)
+
+    nominations: list[tuple[dict[str, Any], str, int]] = []
+    for kickoff in sorted(blocks):
+        candidates = blocks[kickoff]
+        floor_pick = max(
+            candidates,
+            key=lambda row: (
+                int(row["follow_floor_score"]),
+                int(row["follow_ceiling_score"]),
+                int(row["follow_priority_score"]),
+                -int(row["rank"]),
+            ),
+        )
+        nominations.append(
+            (floor_pick, "FLOOR", _follow_portfolio_weight(floor_pick, "FLOOR"))
+        )
+
+        remaining = [row for row in candidates if row is not floor_pick]
+        if remaining and MAX_FOLLOW_PER_KICKOFF > 1:
+            ceiling_pick = max(
+                remaining,
+                key=lambda row: (
+                    int(row["follow_ceiling_score"]),
+                    int(row["follow_floor_score"]),
+                    int(row["follow_priority_score"]),
+                    -int(row["rank"]),
+                ),
+            )
+            nominations.append(
+                (
+                    ceiling_pick,
+                    "CEILING",
+                    _follow_portfolio_weight(ceiling_pick, "CEILING"),
+                )
+            )
+
+    selected: list[tuple[dict[str, Any], str, int]] = []
+    seen: set[str] = set()
+    for row, role, score in sorted(
+        nominations,
+        key=lambda item: (
+            item[2],
+            int(item[0]["follow_priority_score"]),
+            int(item[0]["follow_floor_score"]),
+            int(item[0]["follow_ceiling_score"]),
+            -int(item[0]["rank"]),
+        ),
+        reverse=True,
+    ):
+        match_id = str(row["match_id"])
+        if match_id in seen:
+            continue
+        if len(selected) >= MAX_FOLLOW:
+            break
+        selected.append((row, role, score))
+        seen.add(match_id)
+
+    for row, role, score in selected:
+        row["follow_lane"] = FollowLane.FOLLOW.value
+        row["follow_portfolio_role"] = role
+        row["follow_portfolio_score"] = score
+
+    reserve_pool = [
+        row for row in rows
+        if row.get("board_state") == "FOCUS"
+        and row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
+    ]
+    reserve_pool.sort(
+        key=lambda row: (
+            1 if row.get("operational_viability_grade") == "A" else 0,
+            int(row.get("follow_priority_score", 0)),
+            int(row.get("follow_floor_score", 0)),
+            int(row.get("follow_ceiling_score", 0)),
+            -int(row["rank"]),
+        ),
+        reverse=True,
+    )
+    for row in reserve_pool[:MAX_RESERVE]:
+        row["follow_lane"] = FollowLane.RESERVE.value
+        row["follow_portfolio_role"] = "RESERVE"
+        row["follow_portfolio_score"] = int(row.get("follow_priority_score", 0))
+
+    for row in rows:
+        if (
+            row.get("board_state") == "FOCUS"
+            and row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
+        ):
+            row["follow_portfolio_role"] = "FOCUS_UNFOLLOWED"
+            row["follow_portfolio_score"] = int(row.get("follow_priority_score", 0))
+
+
 def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
 
@@ -903,9 +1034,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         block_rank_by_id[item.match_id] = block_counts[block]
 
     output = []
-    follow_used = 0
-    reserve_used = 0
-    follow_by_block: dict[str, int] = {}
 
     for rank, ranked_item in enumerate(ranked, start=1):
         item = ranked_item
@@ -914,6 +1042,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         operational_gate = validate_operational_viability(raw)
         incentive_gate = validate_tournament_incentive(raw)
         tail_profile = prospective_goal_funding(item, model)
+        follow_profile = follow_priority_profile(item) if model == "c" else {}
         g4_profile = _g4_research_profile(raw, item, model=model)
         compiled_burden = certified_supported_burden(item, model)
         compiled_basis = certified_supported_burden_basis(item, model)
@@ -931,6 +1060,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "declared_supported_line": item.supported_line,
             "declared_supported_line_basis": item.supported_line_basis,
             **tail_profile,
+            **follow_profile,
             **g4_profile,
             "certificate_diagnostics": g4_diagnostics(item),
             "production_scope": scope_profile(raw),
@@ -1009,35 +1139,6 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         else:
             validate_c2_screen_state(item, state)
 
-        if model == "c" and state is not None:
-            base_lane = follow_through_lane(item, state)
-            lane = FollowLane.STOP
-
-            if operational_gate["grade"] == "B":
-                if (
-                    base_lane in {FollowLane.FOLLOW, FollowLane.RESERVE}
-                    and reserve_used < MAX_RESERVE
-                ):
-                    lane = FollowLane.RESERVE
-                    reserve_used += 1
-            elif base_lane == FollowLane.FOLLOW:
-                block_follow_used = follow_by_block.get(kickoff_block, 0)
-                if (
-                    follow_used < MAX_FOLLOW
-                    and block_follow_used < MAX_FOLLOW_PER_KICKOFF
-                ):
-                    lane = FollowLane.FOLLOW
-                    follow_used += 1
-                    follow_by_block[kickoff_block] = block_follow_used + 1
-                elif reserve_used < MAX_RESERVE:
-                    lane = FollowLane.RESERVE
-                    reserve_used += 1
-            elif base_lane == FollowLane.RESERVE and reserve_used < MAX_RESERVE:
-                lane = FollowLane.RESERVE
-                reserve_used += 1
-
-            row["follow_lane"] = lane.value
-
         if model == "c2":
             floor, reasons = c2_selection_floor(item)
             row["selection_floor"] = floor.value
@@ -1049,12 +1150,15 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
         output.append(row)
 
+    if model == "c":
+        _allocate_c_follow_lanes(output)
+
     result = {
         "schema_version": SCHEMA_VERSION,
         "stage": "board_result",
         "model": model,
         "ranking_policy": (
-            "FOOTBALL_C_FOCUS_FIRST_BURDEN_COMPLETION"
+            "FOOTBALL_C_FOCUS_FIRST_FLOOR_CEILING_PORTFOLIO"
             if model == "c"
             else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
         ),
@@ -1068,6 +1172,10 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         )
         result["reserve_count"] = sum(
             row.get("follow_lane") == FollowLane.RESERVE.value for row in output
+        )
+        result["focus_unfollowed_count"] = sum(
+            row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
+            for row in output
         )
         result["stop_count"] = sum(
             row.get("follow_lane") == FollowLane.STOP.value for row in output
