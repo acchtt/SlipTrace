@@ -1,0 +1,975 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261022-ALWASL-KALBA-1941",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "xi-20261022-alwasl-kalba-1941",
+    "match": {
+      "match_id": "1905372",
+      "kickoff_ict": "2026-10-22T20:00:00+07:00",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Four distinct current same-opponent finishes include separate transition, threaded pass, box execution and late run-behind paths, with actual substitute continuation after the second and third. Surviving Pereira/Palacios/Sidibe service preserves the carrier independently of Kalba scoring.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The frozen G4 transfer depended on the same-opponent Pereira/Palacios/Sidibe service chain plus late Saldanha continuation. With that service chain absent from the supplied matchday squad, Taremi/Serginho/Spadacio preserve G3 but do not independently re-establish a transferable fourth-goal route.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+      "material_suppression": false,
+      "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent Wasl4-0Kalba and league3-0 are close current comparable evidence; older2-1/2-2/1-1 and previous PresidentsCup2-0 coexist. Current multi-finisher/bench mechanisms carry the tail; old totals do not create it. Different knockout stakes cap transferability at MEDIUM.",
+      "board_state": "FOCUS",
+      "board_state_basis": "Actual same-opponent multi-finisher carry plus post-third substitute continuation fund G4; first-half stall, knockout control and unconfirmed availability cap robustness.",
+      "common_evidence_basis": "Confirmed XI materially changes the frozen Wasl G4 route. Taremi, Serginho and Leandro Spadacio start and Matheus Saldanha remains available from the bench, preserving a strong G3 carrier and real continuation. However Pereira, Palacios and Sidibe—the specific service/penetration chain behind the frozen same-opponent G4 evidence—do not appear in the supplied matchday XI/squad, so the exact independently transferable fourth-goal route is no longer fully preserved.",
+      "main_failure": "The confirmed XI removes the Pereira/Palacios/Sidibe service chain that underpinned the frozen same-opponent four-goal carrier. Taremi/Serginho/Spadacio plus Saldanha off the bench preserve three-goal quality, but current evidence no longer protects an independent fourth; knockout control and the prior 0-0 halftime in the 4-0 remain live failure modes.",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Original fixture-bound operational grade and research channels retained. Current football reports were checked; final XI and a price quote are not required for rank.",
+      "tournament_incentive_required": true,
+      "source_urls": [
+        "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+        "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+        "https://kalbafc.ae/",
+        "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+        "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+        "https://www.uaefa.ae/",
+        "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+        "https://uaefa.platinumlist.net/ar/",
+        "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+        "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+        "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+      ],
+      "evidence_observed_at_utc": "2026-10-22T10:55:44.504599+00:00",
+      "goal_signal_priority_score": 70,
+      "goal_signal_mean_over_two_rate": 0.7917,
+      "goal_signal_mean_over_three_rate": 0.5833,
+      "goal_signal_low_draw_trap_rate": 0,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_research_basis": "Carrier: Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites. Distributed: Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Reply: Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply. Comparable context: Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+      "historical_form_policy": "Original sweep goal-signal inputs retained unchanged. Cup mismatches, penalties, own goals and red-card advantage are discounted in the independent current mechanism assessment.",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+      "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+      "draw_resolution": "90minutes, then30minutes extra time and penalties if still level under UAEFA regulation22.3. C goal certificates concern90minutes only.",
+      "aggregate_state": "No aggregate tie or away-goal requirement.",
+      "qualification_state": "Each side must advance today; no fixed regulation-time winning margin is required.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Independent knockout ties; no external result can alter advancement.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "HIGH",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_comparable_context_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Wasl current same-opponent domestic-cup4-0 supplies four separate finishes: Renato from Pereira transition service, Palacios from Sidibe through pass, Spadacio box finish and Saldanha late run behind from Pereira. Two late substitute finishes demonstrate actual bench continuation. Current preview preserves Pereira/Serginho, Palacios and Sidibe, with Taremi/Gimenez additional expected options rather than confirmed XI. Kalba Tetteh/Ghoddos and Biro are current reply routes, but latest forced injury changes require caution. Home carrier survives if away reply weakens. The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+            "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+            "https://kalbafc.ae/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "tournament_incentive_basis": "Both seek advancement; extra time remains available at a draw. Knockout status alone does not prove all-out regulation attack or tactical suppression.",
+      "home": "Al-Wasl",
+      "away": "Al Ittihad Kalba",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP"
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-22T12:41:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": true,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": 3.5,
+      "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "Confirmed XI recheck does not justify any upward certificate change.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "O3.50 is the frozen burden, but the confirmed XI materially removes the Pereira/Palacios/Sidibe service chain that funded the same-opponent fourth. Taremi/Serginho/Spadacio and bench Saldanha preserve G3, while independent upper-tail transferability is no longer verified for G4.",
+      "market_disagreement_recheck_fields": [
+        "route_reliability",
+        "continuation_quality",
+        "independent_upper_tail",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000c5d88211baf5e5c563d80bff",
+        "USER_ODDS_SCREENSHOT:file_00000000e0988211b0953845ef8165f2"
+      ]
+    }
+  },
+  "authority": {
+    "mode": "RANKED",
+    "match_id": "1905372",
+    "verified_rank_package": {
+      "status": "V4_RANK_PERSISTENCE_VERIFIED",
+      "native_rank": {
+        "run_id": "V4-20261022-1500-20261022-2100-CUPRESOLVED",
+        "integrity_sha256": "06d72aa785e48d66b0486a410a5abb341d36b9a749ee645fe45b6dd514c21487",
+        "board": {
+          "matches": [
+            {
+              "rank": 1,
+              "match_id": "1905372",
+              "ranking_key": [
+                1,
+                4,
+                -1,
+                1,
+                0,
+                2,
+                1,
+                1,
+                7000,
+                7917,
+                5833,
+                0,
+                2,
+                1,
+                2,
+                2,
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                0
+              ],
+              "kickoff_ict": "2026-10-22T20:00:00+07:00",
+              "same_kickoff_rank": 1,
+              "supported_line": 3.5,
+              "supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=MEDIUM; comparable_context=SUPPORTIVE",
+              "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+              "declared_supported_line": 2.5,
+              "declared_supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "upper_tail_comparable_context_signal": "SUPPORTIVE",
+              "upper_tail_comparable_context_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "effective_upper_tail_transferability": "MEDIUM",
+              "goal3_funded": true,
+              "goal4_funded": true,
+              "goal5_funded": false,
+              "goal6_funded": false,
+              "goal3_carrier_funded": true,
+              "goal3_two_route_funded": false,
+              "goal3_distributed_funded": false,
+              "goal3_leakage_funded": false,
+              "upper_tail_strength": "MEDIUM",
+              "prospective_tail_ceiling": 3.5,
+              "certified_supported_burden": 3.5,
+              "tournament_incentive_resolution": "VERIFIED",
+              "tournament_incentive_effect": "NEUTRAL",
+              "tournament_tail_bias": "NEUTRAL",
+              "tournament_positive_pressure": false,
+              "tournament_suppressive_pressure": false,
+              "effective_continuation_quality": "HIGH",
+              "effective_burden_stall_risk": "MEDIUM",
+              "credible_tail_state": "NEAR_FUNDED",
+              "credible_tail_target_goal": 5,
+              "credible_burden_band_low": 3.75,
+              "credible_burden_band_high": 4.25,
+              "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+              "credible_tail_market_independent": true,
+              "credible_tail_execution_authority": false,
+              "credible_tail_basis": "G5_NEAR_FUNDED_PREMARKET: strong next-goal mechanisms remain just below the full certificate; band is diagnostic only",
+              "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_research_explicit": true,
+              "g4_carrier_path": "SUPPORTED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "HIGH",
+              "g4_research_basis": "Carrier: Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites. Distributed: Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Reply: Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply. Comparable context: Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_evidence_disposition": "FUNDED",
+              "g4_evidence_gaps": [],
+              "g4_research_complete": true,
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "Wasl current same-opponent domestic-cup4-0 supplies four separate finishes: Renato from Pereira transition service, Palacios from Sidibe through pass, Spadacio box finish and Saldanha late run behind from Pereira. Two late substitute finishes demonstrate actual bench continuation. Current preview preserves Pereira/Serginho, Palacios and Sidibe, with Taremi/Gimenez additional expected options rather than confirmed XI. Kalba Tetteh/Ghoddos and Biro are current reply routes, but latest forced injury changes require caution. Home carrier survives if away reply weakens. The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "g4_global_blockers": null,
+              "shared_failure_mechanisms": {
+                "COMPLETION_CONTEXT": [
+                  "burden_stall_risk",
+                  "continuation_quality",
+                  "failure_resistance",
+                  "independent_upper_tail",
+                  "route_reliability"
+                ]
+              },
+              "predictive_grades_changed_by_evidence_contract": false,
+              "certificate_diagnostics": {
+                "goal4_funded": true,
+                "failed_conditions": [
+                  "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+                ],
+                "carrier_branch_quality_met": true,
+                "distributed_branch_quality_met": false,
+                "tournament_tail_bias": "NEUTRAL",
+                "certificate_robustness": "CONDITIONAL",
+                "explanation_only": true
+              },
+              "production_scope": {
+                "policy": "FOOTBALL_C_SCOPE_V1",
+                "status": "IN_SCOPE",
+                "reason": "UNREGISTERED_OFFICIAL_CUP_GOAL_RESEARCH_REQUIRED",
+                "production_allowed": true,
+                "override": null
+              },
+              "common_evidence_basis": "Wasl current same-opponent domestic-cup4-0 supplies four separate finishes: Renato from Pereira transition service, Palacios from Sidibe through pass, Spadacio box finish and Saldanha late run behind from Pereira. Two late substitute finishes demonstrate actual bench continuation. Current preview preserves Pereira/Serginho, Palacios and Sidibe, with Taremi/Gimenez additional expected options rather than confirmed XI. Kalba Tetteh/Ghoddos and Biro are current reply routes, but latest forced injury changes require caution. Home carrier survives if away reply weakens.",
+              "goal_signal_priority_score": 70,
+              "goal_signal_mean_over_two_rate": 0.7917,
+              "goal_signal_mean_over_three_rate": 0.5833,
+              "goal_signal_low_draw_trap_rate": 0,
+              "main_failure": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Recent Wasl4-0Kalba and league3-0 are close current comparable evidence; older2-1/2-2/1-1 and previous PresidentsCup2-0 coexist. Current multi-finisher/bench mechanisms carry the tail; old totals do not create it. Different knockout stakes cap transferability at MEDIUM.",
+              "carrier_self_fund": true,
+              "carrier_self_fund_basis": "Four distinct current same-opponent finishes include separate transition, threaded pass, box execution and late run-behind paths, with actual substitute continuation after the second and third. Surviving Pereira/Palacios/Sidibe service preserves the carrier independently of Kalba scoring.",
+              "independent_upper_tail": true,
+              "independent_upper_tail_basis": "Same-opponent4-0 includes two late independent substitute finishes and a fourth supplied by a separate timed run; it does not depend on a Kalba reply.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+              "material_suppression": false,
+              "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_effective_state": "UNPROVEN",
+              "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "tournament_incentive_required": true,
+              "tournament_format_status": "VERIFIED",
+              "home_incentive": "WIN_PREFERRED",
+              "away_incentive": "WIN_PREFERRED",
+              "tiebreak_margin_relevance": "NO",
+              "incentive_effect": "NEUTRAL",
+              "tournament_incentive_recheck_required": true,
+              "tournament_incentive_unresolved_fields": [],
+              "supported_line_status": "FROZEN_FOOTBALL_PRE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "completion_mode": "CARRIER_LED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "HIGH",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "board_state": "FOCUS",
+              "display_state": "FOCUS",
+              "board_state_basis": "Actual same-opponent multi-finisher carry plus post-third substitute continuation fund G4; first-half stall, knockout control and unconfirmed availability cap robustness.",
+              "follow_lane": "FOLLOW"
+            }
+          ]
+        },
+        "frozen_model_input": {
+          "matches": [
+            {
+              "match_id": "1905372",
+              "kickoff_ict": "2026-10-22T20:00:00+07:00",
+              "home_route": "STRONG",
+              "away_route": "USABLE",
+              "carrier": "STRONG",
+              "route_reliability": "HIGH",
+              "independent_route_quality": "MEDIUM",
+              "chance_quality": "HIGH",
+              "failure_resistance": "MEDIUM",
+              "xi_robustness": "MEDIUM",
+              "evidence_confidence": "HIGH",
+              "burden_protection": "MEDIUM",
+              "supported_line": 2.5,
+              "supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+              "carrier_self_fund": true,
+              "carrier_self_fund_basis": "Four distinct current same-opponent finishes include separate transition, threaded pass, box execution and late run-behind paths, with actual substitute continuation after the second and third. Surviving Pereira/Palacios/Sidibe service preserves the carrier independently of Kalba scoring.",
+              "independent_upper_tail": true,
+              "independent_upper_tail_basis": "Same-opponent4-0 includes two late independent substitute finishes and a fourth supplied by a separate timed run; it does not depend on a Kalba reply.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+              "material_suppression": false,
+              "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+              "completion_mode": "CARRIER_LED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "HIGH",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Recent Wasl4-0Kalba and league3-0 are close current comparable evidence; older2-1/2-2/1-1 and previous PresidentsCup2-0 coexist. Current multi-finisher/bench mechanisms carry the tail; old totals do not create it. Different knockout stakes cap transferability at MEDIUM.",
+              "board_state": "FOCUS",
+              "board_state_basis": "Actual same-opponent multi-finisher carry plus post-third substitute continuation fund G4; first-half stall, knockout control and unconfirmed availability cap robustness.",
+              "common_evidence_basis": "Wasl current same-opponent domestic-cup4-0 supplies four separate finishes: Renato from Pereira transition service, Palacios from Sidibe through pass, Spadacio box finish and Saldanha late run behind from Pereira. Two late substitute finishes demonstrate actual bench continuation. Current preview preserves Pereira/Serginho, Palacios and Sidibe, with Taremi/Gimenez additional expected options rather than confirmed XI. Kalba Tetteh/Ghoddos and Biro are current reply routes, but latest forced injury changes require caution. Home carrier survives if away reply weakens.",
+              "main_failure": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "operational_viability_reason": "Original fixture-bound operational grade and research channels retained. Current football reports were checked; final XI and a price quote are not required for rank.",
+              "tournament_incentive_required": true,
+              "source_urls": [
+                "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                "https://kalbafc.ae/",
+                "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                "https://www.uaefa.ae/",
+                "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                "https://uaefa.platinumlist.net/ar/",
+                "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+              ],
+              "evidence_observed_at_utc": "2026-10-22T10:55:44.504599+00:00",
+              "goal_signal_priority_score": 70,
+              "goal_signal_mean_over_two_rate": 0.7917,
+              "goal_signal_mean_over_three_rate": 0.5833,
+              "goal_signal_low_draw_trap_rate": 0,
+              "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_research_basis": "Carrier: Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites. Distributed: Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Reply: Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply. Comparable context: Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "historical_form_policy": "Original sweep goal-signal inputs retained unchanged. Cup mismatches, penalties, own goals and red-card advantage are discounted in the independent current mechanism assessment.",
+              "tournament_format_status": "VERIFIED",
+              "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+              "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+              "draw_resolution": "90minutes, then30minutes extra time and penalties if still level under UAEFA regulation22.3. C goal certificates concern90minutes only.",
+              "aggregate_state": "No aggregate tie or away-goal requirement.",
+              "qualification_state": "Each side must advance today; no fixed regulation-time winning margin is required.",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "simultaneous_results_note": "Independent knockout ties; no external result can alter advancement.",
+              "home_incentive": "WIN_PREFERRED",
+              "away_incentive": "WIN_PREFERRED",
+              "tiebreak_margin_relevance": "NO",
+              "incentive_effect": "NEUTRAL",
+              "g4_carrier_path": "SUPPORTED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "HIGH",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "upper_tail_comparable_context_signal": "SUPPORTIVE",
+              "upper_tail_comparable_context_basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "Current home four is independently repeatable through Pereira service, Palacios/Sidibe penetration and distinct Spadacio/Saldanha late finishing. Expected Taremi/Gimenez are additions, not prerequisites.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "Wasl current same-opponent domestic-cup4-0 supplies four separate finishes: Renato from Pereira transition service, Palacios from Sidibe through pass, Spadacio box finish and Saldanha late run behind from Pereira. Two late substitute finishes demonstrate actual bench continuation. Current preview preserves Pereira/Serginho, Palacios and Sidibe, with Taremi/Gimenez additional expected options rather than confirmed XI. Kalba Tetteh/Ghoddos and Biro are current reply routes, but latest forced injury changes require caution. Home carrier survives if away reply weakens. The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "Kalba Tetteh and Biro current early finishes plus Ghoddos service permit contribution; injury recovery is unconfirmed, so two away goals remain mixed. Away reply is usable but not necessary for supported home four. Substitutions preserve alternatives without assuming full recovery or a reliable timed post-third reply.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "The prior4-0 was0-0at halftime and came in another domestic cup. Current Wasl2-0and continental1-3 show conversion/control limits. Kalba Cisse, Biro, Caio and Saile injury substitutions do not establish current absences; predicted XI is not recovery confirmation. Reserves Nito/MarwanFahd/Darmaki/BadrAhmed/NourAllah were used, preserving alternatives with MEDIUM reply reliability. The home carrier, rather than a required away goal, owns the fourth. No fifth is protected.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "Closest same-opponent domestic-cup4-0 and league3-0 support transfer of the actual carrier routes. Other cup/continental control and current squad uncertainty limit transferability to MEDIUM; context is SUPPORTIVE rather than a claim of universal repeatability.",
+                  "evidence_refs": [
+                    "https://www.uaeproleague.ae/en/news-and-gallery/al-wasl-thrash-kalba-4-0-in-adib-cup",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-19-1.2093988",
+                    "https://kalbafc.ae/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.365scores.com/ar/news/magazine/%D8%A7%D9%84%D9%88%D8%B5%D9%84-%D8%B6%D8%AF-%D9%83%D9%84%D8%A8%D8%A7%D8%A1-%D8%A7%D9%84%D9%85%D9%88%D8%B9%D8%AF-%D9%88%D8%A7%D9%84%D9%82%D9%86%D9%88%D8%A7%D8%AA-%D8%A7%D9%84%D9%86%D8%A7%D9%82%D9%84/",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4809/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "tournament_incentive_basis": "Both seek advancement; extra time remains available at a draw. Knockout status alone does not prove all-out regulation attack or tactical suppression.",
+              "home": "Al-Wasl",
+              "away": "Al Ittihad Kalba",
+              "country": "United Arab Emirates",
+              "competition": "President's Cup",
+              "competition_kind": "DOMESTIC_CUP"
+            }
+          ]
+        }
+      }
+    },
+    "material_evidence_updates": [
+      "route_reliability",
+      "continuation_quality",
+      "independent_upper_tail",
+      "common_evidence_basis",
+      "main_failure",
+      "independent_upper_tail_basis"
+    ]
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000e0988211b0953845ef8165f2",
+    "match_id": "1905372",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.5,
+      "odds": 1.87
+    },
+    "observed_at_utc": "2026-10-22T12:41:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
