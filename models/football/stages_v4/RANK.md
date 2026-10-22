@@ -452,7 +452,7 @@ checkpoints; reuse their sourced facts through an explicitly validated new input
 For each **official board** fixture persist:
 
 - C state/rank/compiled supported burden;
-- C FOLLOW/RESERVE/STOP lane;
+- C FOLLOW/RESERVE/FOCUS_UNFOLLOWED lane;
 - exact Step1 Engine C Result JSON;
 - declared line/basis only as audit comparison fields.
 
