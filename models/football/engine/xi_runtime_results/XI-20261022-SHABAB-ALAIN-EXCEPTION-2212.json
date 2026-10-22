@@ -1,0 +1,11 @@
+{
+  "error": "H2H MATERIAL EFFECT BLOCKED — material H2H effect requires h2h_effect=SUPPRESSIVE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "2cf8f67d1bfc75d73c601fbd7b5b1bec8353ea1b64c650e7548f9d75457aff3b",
+  "ok": false,
+  "request_id": "XI-20261022-SHABAB-ALAIN-EXCEPTION-2212",
+  "runtime_commit": "0d6be3f5eace664edfe6e9953865abac2107f0e1",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
