@@ -1,0 +1,51 @@
+{
+  "run_id": "V4-20261022-1500-20261022-2100-FULLRESEARCH",
+  "selection_mode": "SOURCE_CANONICAL_ALL_ELIGIBLE_RESEARCHED_LEAGUES",
+  "notes": "Provider-backed targeted cohort from earlier same-window source: all 11 researchable non-Africa senior fixtures; cross-check IDs, teams, kickoff and league exclusions during native finalization. Provider team-details URLs are sourced by canonical provider team IDs and must actually resolve; retain pending or excluded status on failure. No fabricated goal admission.",
+  "targets": [
+    {
+      "match_id": "1895574",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10971/details?locale=en"
+    },
+    {
+      "match_id": "1866187",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/6067/details?locale=en"
+    },
+    {
+      "match_id": "1866183",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8586/details?locale=en"
+    },
+    {
+      "match_id": "1866192",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/5310/details?locale=en"
+    },
+    {
+      "match_id": "1880349",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/141637/details?locale=en"
+    },
+    {
+      "match_id": "1849060",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/247476/details?locale=en"
+    },
+    {
+      "match_id": "1905373",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en"
+    },
+    {
+      "match_id": "1905372",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4682/details?locale=en"
+    },
+    {
+      "match_id": "1893575",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/5024/details?locale=en"
+    },
+    {
+      "match_id": "1743569",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4894/details?locale=en"
+    },
+    {
+      "match_id": "1845678",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/444/details?locale=en"
+    }
+  ]
+}
