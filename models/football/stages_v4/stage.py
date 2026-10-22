@@ -1002,8 +1002,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     # Only Football C FOCUS rows become the official ranked board. WATCH/PASS
     # stay frozen in the research assessment for audit/review, but they do not
     # inflate the main board. There is intentionally no fixed board-size cap:
-    # every genuine FOCUS survives admission, even when workload FOLLOW/RESERVE
-    # capacity later marks some FOCUS rows STOP.
+    # every genuine FOCUS survives admission. Scarce workload capacity may
+    # leave a valid FOCUS as FOCUS_UNFOLLOWED; STOP is reserved for non-FOCUS.
     board_rows = [row for row in assessed_rows if row.get("board_state") == "FOCUS"]
     outside_board = [row for row in assessed_rows if row.get("board_state") != "FOCUS"]
     official_board = {
@@ -1013,6 +1013,9 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "matches": board_rows,
         "follow_count": sum(row.get("follow_lane") == "FOLLOW" for row in board_rows),
         "reserve_count": sum(row.get("follow_lane") == "RESERVE" for row in board_rows),
+        "focus_unfollowed_count": sum(
+            row.get("follow_lane") == "FOCUS_UNFOLLOWED" for row in board_rows
+        ),
         "stop_count": sum(row.get("follow_lane") == "STOP" for row in board_rows),
         "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
         "assessed_match_count": len(assessed_rows),
@@ -1124,7 +1127,9 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         if stored_result != model_row:
             raise StageError(f"{mid}: C exact Step1 engine evidence differs from Google Sheets")
         if observed[mid].get("follow_lane") != model_row.get("follow_lane"):
-            raise StageError(f"{mid}: official C FOLLOW/RESERVE/STOP lane differs")
+            raise StageError(
+                f"{mid}: official C FOLLOW/RESERVE/FOCUS_UNFOLLOWED lane differs"
+            )
 
     model_evidence_sha256 = _hash(original)
     return {
