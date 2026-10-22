@@ -1,0 +1,3560 @@
+{
+  "schema_version": "football-stages-v4",
+  "run_id": "V4-20261022-0728-20261022-1100",
+  "window_start_utc": "2026-10-22T00:28:26+00:00",
+  "window_end_utc": "2026-10-22T04:00:00+00:00",
+  "source_family": "LiveScore public date API",
+  "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+  "source_observed_at_utc": "2026-10-22T00:29:05.373087+00:00",
+  "fixtures": [
+    {
+      "match_id": "1810663",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Levante",
+      "away": "Athletic Club",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "4164",
+        "3408"
+      ]
+    },
+    {
+      "match_id": "1696636",
+      "country": "USA",
+      "competition": "MLS",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Cincinnati",
+      "away": "DC United",
+      "kickoff_utc": "2026-10-21T23:15:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8948",
+        "8901"
+      ]
+    },
+    {
+      "match_id": "1711589",
+      "country": "USA",
+      "competition": "USL Championship",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Brooklyn",
+      "away": "Birmingham Legion",
+      "kickoff_utc": "2026-10-21T22:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "390140",
+        "10291"
+      ]
+    },
+    {
+      "match_id": "1711709",
+      "country": "USA",
+      "competition": "USL Championship",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sporting Jax",
+      "away": "Louisville City FC",
+      "kickoff_utc": "2026-10-21T23:30:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "353460",
+        "9107"
+      ]
+    },
+    {
+      "match_id": "1896512",
+      "country": "USA",
+      "competition": "US Open Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Columbus Crew",
+      "away": "St. Louis City",
+      "kickoff_utc": "2026-10-22T00:10:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8990",
+        "244836"
+      ]
+    },
+    {
+      "match_id": "1882786",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Aston Villa",
+      "away": "Viking",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3863",
+        "7351"
+      ]
+    },
+    {
+      "match_id": "1882737",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Bayern Munich",
+      "away": "Arsenal",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "2940",
+        "2773"
+      ]
+    },
+    {
+      "match_id": "1882799",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Club Brugge",
+      "away": "Lens",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3365",
+        "4715"
+      ]
+    },
+    {
+      "match_id": "1882750",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Inter",
+      "away": "Shakhtar Donetsk",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3415",
+        "6389"
+      ]
+    },
+    {
+      "match_id": "1882800",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Real Betis",
+      "away": "Feyenoord",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3352",
+        "449"
+      ]
+    },
+    {
+      "match_id": "1882744",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Real Madrid",
+      "away": "RB Leipzig",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "4009",
+        "4707"
+      ]
+    },
+    {
+      "match_id": "1882781",
+      "country": "Champions League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sporting CP",
+      "away": "LASK",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3442",
+        "5268"
+      ]
+    },
+    {
+      "match_id": "1883604",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Ararat Armenia",
+      "away": "AZ Alkmaar",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8049",
+        "236"
+      ]
+    },
+    {
+      "match_id": "1883513",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Dinamo Zagreb",
+      "away": "NEC Nijmegen",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6179",
+        "4202"
+      ]
+    },
+    {
+      "match_id": "1883501",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Ferencvaros",
+      "away": "Torreense",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "380",
+        "4093"
+      ]
+    },
+    {
+      "match_id": "1883470",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Juventus",
+      "away": "Rennes",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4238",
+        "205"
+      ]
+    },
+    {
+      "match_id": "1883539",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Lech Poznan",
+      "away": "Sunderland",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4888",
+        "2949"
+      ]
+    },
+    {
+      "match_id": "1883590",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "OFI Crete",
+      "away": "Bayer Leverkusen",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3925",
+        "15"
+      ]
+    },
+    {
+      "match_id": "1883536",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sturm Graz",
+      "away": "Marseille",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "2963",
+        "206"
+      ]
+    },
+    {
+      "match_id": "1883510",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Union St.Gilloise",
+      "away": "Hapoel Beer Sheva",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3468",
+        "3316"
+      ]
+    },
+    {
+      "match_id": "1883670",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Kairat Almaty",
+      "away": "Panathinaikos",
+      "kickoff_utc": "2026-10-22T14:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7366",
+        "4189"
+      ]
+    },
+    {
+      "match_id": "1883710",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Iberia 1999",
+      "away": "Mjaellby",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7299",
+        "8332"
+      ]
+    },
+    {
+      "match_id": "1883689",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Nordsjaelland",
+      "away": "PFC CSKA Sofia",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "5043",
+        "6663"
+      ]
+    },
+    {
+      "match_id": "1883627",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FK Crvena Zvezda",
+      "away": "FC Copenhagen",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6492",
+        "178282"
+      ]
+    },
+    {
+      "match_id": "1883704",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FK Kauno Zalgiris",
+      "away": "Brann",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8487",
+        "7916"
+      ]
+    },
+    {
+      "match_id": "1883642",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Getafe",
+      "away": "Lugano",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3379",
+        "334"
+      ]
+    },
+    {
+      "match_id": "1883696",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Inter Club d'Escaldes",
+      "away": "CS Universitatea Craiova",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6292",
+        "5269"
+      ]
+    },
+    {
+      "match_id": "1883685",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Jablonec",
+      "away": "Brighton",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6790",
+        "2918"
+      ]
+    },
+    {
+      "match_id": "1883637",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Pafos FC",
+      "away": "Riga FC",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "357",
+        "9818"
+      ]
+    },
+    {
+      "match_id": "1883673",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Trabzonspor",
+      "away": "Hearts",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "378",
+        "4669"
+      ]
+    },
+    {
+      "match_id": "1802976",
+      "country": "England",
+      "competition": "League 1",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Reading",
+      "away": "Leyton Orient",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3059",
+        "2749"
+      ]
+    },
+    {
+      "match_id": "1869525",
+      "country": "Copa Libertadores",
+      "competition": "Semi-Finals",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Palmeiras",
+      "away": "Fluminense",
+      "kickoff_utc": "2026-10-22T00:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4934",
+        "4840"
+      ]
+    },
+    {
+      "match_id": "1894992",
+      "country": "Copa Sudamericana",
+      "competition": "Semi-Finals",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Montevideo City Torque",
+      "away": "Atletico MG",
+      "kickoff_utc": "2026-10-21T22:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "9914",
+        "4882"
+      ]
+    },
+    {
+      "match_id": "1845678",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Hazm",
+      "away": "Al Feiha",
+      "kickoff_utc": "2026-10-22T13:40:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "444",
+        "3420"
+      ]
+    },
+    {
+      "match_id": "1845674",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Fateh",
+      "away": "Al Shabab",
+      "kickoff_utc": "2026-10-22T14:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8",
+        "445"
+      ]
+    },
+    {
+      "match_id": "1799057",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Atlas",
+      "away": "CF America",
+      "kickoff_utc": "2026-10-22T01:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3626",
+        "4753"
+      ]
+    },
+    {
+      "match_id": "1799027",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Puebla",
+      "away": "Monterrey",
+      "kickoff_utc": "2026-10-22T01:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4605",
+        "4719"
+      ]
+    },
+    {
+      "match_id": "1799039",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Toluca",
+      "away": "Tijuana",
+      "kickoff_utc": "2026-10-22T01:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "371",
+        "411"
+      ]
+    },
+    {
+      "match_id": "1799034",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Pachuca",
+      "away": "Cruz Azul",
+      "kickoff_utc": "2026-10-22T03:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4226",
+        "3625"
+      ]
+    },
+    {
+      "match_id": "1799030",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Club Santos Laguna",
+      "away": "Pumas",
+      "kickoff_utc": "2026-10-22T03:10:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "178284",
+        "4225"
+      ]
+    },
+    {
+      "match_id": "1857525",
+      "country": "Egypt",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Ahly",
+      "away": "Olympic El Qanah FC",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "2860",
+        "137721"
+      ]
+    },
+    {
+      "match_id": "1857529",
+      "country": "Egypt",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Ceramica Cleopatra",
+      "away": "Petrojet",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "102109",
+        "7480"
+      ]
+    },
+    {
+      "match_id": "1894831",
+      "country": "International",
+      "competition": "Central American Cup: Knockout Stage",
+      "competition_kind": "UNVERIFIED",
+      "is_friendly": false,
+      "home": "C.S. Cartagines",
+      "away": "CD Olimpia",
+      "kickoff_utc": "2026-10-22T02:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4263",
+        "4351"
+      ]
+    },
+    {
+      "match_id": "1846790",
+      "country": "Armenia",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sardarapat",
+      "away": "Urartu FC",
+      "kickoff_utc": "2026-10-22T15:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "409805",
+        "8050"
+      ]
+    },
+    {
+      "match_id": "1895574",
+      "country": "Australia",
+      "competition": "Australian Championship 2026: Group D",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Lions FC",
+      "away": "Preston Lions",
+      "kickoff_utc": "2026-10-22T08:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "10971",
+        "244238"
+      ]
+    },
+    {
+      "match_id": "1900597",
+      "country": "Bahrain",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Najma",
+      "away": "Ali CSC",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4852",
+        "257948"
+      ]
+    },
+    {
+      "match_id": "1900593",
+      "country": "Bahrain",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sitra",
+      "away": "Al-Riffa",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "12105",
+        "4440"
+      ]
+    },
+    {
+      "match_id": "1843161",
+      "country": "Belgium",
+      "competition": "National Division 1 ACFF",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Renaissance Mons",
+      "away": "Union Rochefortoise",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "333106",
+        "175294"
+      ]
+    },
+    {
+      "match_id": "1843302",
+      "country": "Belgium",
+      "competition": "National Division 1 VV",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "KSK Heist",
+      "away": "Tienen",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3574",
+        "100663"
+      ]
+    },
+    {
+      "match_id": "1878478",
+      "country": "Botswana",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Extension Gunners",
+      "away": "Galaxy",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "2804",
+        "3800"
+      ]
+    },
+    {
+      "match_id": "1894214",
+      "country": "Canada",
+      "competition": "Canadian Championship",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "CF Montreal",
+      "away": "Forge FC",
+      "kickoff_utc": "2026-10-21T23:10:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8104",
+        "9960"
+      ]
+    },
+    {
+      "match_id": "1900370",
+      "country": "Chile",
+      "competition": "Cup Final Stage",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Universidad de Chile",
+      "away": "Antofagasta",
+      "kickoff_utc": "2026-10-21T22:00:00+00:00",
+      "fixture_status": "UNKNOWN_PROVIDER_STATUS",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "4743",
+        "7203"
+      ]
+    },
+    {
+      "match_id": "1806296",
+      "country": "Colombia",
+      "competition": "Primera A: Clausura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Llaneros FC",
+      "away": "Deportivo Cali",
+      "kickoff_utc": "2026-10-21T23:15:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "10769",
+        "7162"
+      ]
+    },
+    {
+      "match_id": "1806261",
+      "country": "Colombia",
+      "competition": "Primera A: Clausura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Santa Fe",
+      "away": "CD Jaguares",
+      "kickoff_utc": "2026-10-22T01:20:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8330",
+        "10098"
+      ]
+    },
+    {
+      "match_id": "1905828",
+      "country": "Colombia",
+      "competition": "Copa Colombia",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Santa Fe",
+      "away": "Once Caldas",
+      "kickoff_utc": "2026-10-21T20:00:00+00:00",
+      "fixture_status": "UNKNOWN_PROVIDER_STATUS",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "8330",
+        "10094"
+      ]
+    },
+    {
+      "match_id": "1904059",
+      "country": "Colombia",
+      "competition": "Copa Colombia",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Barranquilla FC",
+      "away": "America de Cali",
+      "kickoff_utc": "2026-10-22T00:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "10779",
+        "7356"
+      ]
+    },
+    {
+      "match_id": "1895264",
+      "country": "CONCACAF",
+      "competition": "CONCACAF Central American Cup: Play-In",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "CD Luis Angel Firpo",
+      "away": "Deportivo Saprissa",
+      "kickoff_utc": "2026-10-22T00:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "12113",
+        "3664"
+      ]
+    },
+    {
+      "match_id": "1897065",
+      "country": "Denmark",
+      "competition": "DBU Pokalen",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Vanloese",
+      "away": "Nykoebing FC",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "9562",
+        "8910"
+      ]
+    },
+    {
+      "match_id": "1894986",
+      "country": "Denmark",
+      "competition": "Kvinde LP",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Ballerup-Skovlunde W",
+      "away": "OB Q W",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "9450",
+        "8745"
+      ]
+    },
+    {
+      "match_id": "1894982",
+      "country": "Denmark",
+      "competition": "Kvinde LP",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Kolding IF W",
+      "away": "Fortuna Hjoerring W",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "8742",
+        "8743"
+      ]
+    },
+    {
+      "match_id": "1894983",
+      "country": "Denmark",
+      "competition": "Kvinde LP",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Team Viborg",
+      "away": "AGF W",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "230524",
+        "99987"
+      ]
+    },
+    {
+      "match_id": "1894985",
+      "country": "Denmark",
+      "competition": "Kvinde LP",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Vejle Boldklub W",
+      "away": "Midtjylland W",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "10564",
+        "9485"
+      ]
+    },
+    {
+      "match_id": "1883886",
+      "country": "Ecuador",
+      "competition": "Serie B Relegation Group",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "22 de Julio",
+      "away": "LDU Portoviejo",
+      "kickoff_utc": "2026-10-21T20:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "353834",
+        "6618"
+      ]
+    },
+    {
+      "match_id": "1843743",
+      "country": "Egypt",
+      "competition": "2. Division A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Nasr",
+      "away": "El Dakhleya",
+      "kickoff_utc": "2026-10-22T12:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7563",
+        "11837"
+      ]
+    },
+    {
+      "match_id": "1843731",
+      "country": "Egypt",
+      "competition": "2. Division A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Dayrot",
+      "away": "El Sekka El Hadid",
+      "kickoff_utc": "2026-10-22T12:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "208358",
+        "237815"
+      ]
+    },
+    {
+      "match_id": "1843745",
+      "country": "Egypt",
+      "competition": "2. Division A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Itesalat",
+      "away": "Baladiyyat Al-Mehalla",
+      "kickoff_utc": "2026-10-22T12:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "208356",
+        "237820"
+      ]
+    },
+    {
+      "match_id": "1843744",
+      "country": "Egypt",
+      "competition": "2. Division A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Maleyeit Kafr El Zayiat",
+      "away": "Kahrbaa Alasmalia",
+      "kickoff_utc": "2026-10-22T12:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "370622",
+        "237823"
+      ]
+    },
+    {
+      "match_id": "1843738",
+      "country": "Egypt",
+      "competition": "2. Division A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Mega Sport",
+      "away": "Tanta",
+      "kickoff_utc": "2026-10-22T12:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "409477",
+        "4471"
+      ]
+    },
+    {
+      "match_id": "1844475",
+      "country": "El Salvador",
+      "competition": "Primera Division: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "CD FAS",
+      "away": "Isidro Metapan",
+      "kickoff_utc": "2026-10-22T01:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4704",
+        "4728"
+      ]
+    },
+    {
+      "match_id": "1837473",
+      "country": "England",
+      "competition": "Northern Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Avro",
+      "away": "Ashton United",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "232126",
+        "3176"
+      ]
+    },
+    {
+      "match_id": "1839118",
+      "country": "England",
+      "competition": "Southern League Premier: South",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Frome Town",
+      "away": "Gloucester City",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "UNKNOWN_PROVIDER_STATUS",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "9658",
+        "2951"
+      ]
+    },
+    {
+      "match_id": "1837029",
+      "country": "England",
+      "competition": "Isthmian League Premier Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Whyteleafe",
+      "away": "Burgess Hill Town",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "10638",
+        "10847"
+      ]
+    },
+    {
+      "match_id": "1880189",
+      "country": "England",
+      "competition": "Isthmian League: North Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Gorleston",
+      "away": "Little Oakley",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "225557",
+        "186651"
+      ]
+    },
+    {
+      "match_id": "1858015",
+      "country": "England",
+      "competition": "Isthmian League: North Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Grays Athletic",
+      "away": "Walthamstow",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "9884",
+        "11077"
+      ]
+    },
+    {
+      "match_id": "1859247",
+      "country": "England",
+      "competition": "Isthmian League: South East Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sevenoaks Town",
+      "away": "AFC Croydon Athletic",
+      "kickoff_utc": "2026-10-21T18:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "10747",
+        "269962"
+      ]
+    },
+    {
+      "match_id": "1870275",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Burnley W",
+      "away": "Aston Villa W",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "82861",
+        "4486"
+      ]
+    },
+    {
+      "match_id": "1870276",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Durham W",
+      "away": "Birmingham City W",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "6994",
+        "3869"
+      ]
+    },
+    {
+      "match_id": "1870286",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Everton W",
+      "away": "Newcastle United W",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3393",
+        "102126"
+      ]
+    },
+    {
+      "match_id": "1870287",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Liverpool W",
+      "away": "Manchester United W",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3744",
+        "202112"
+      ]
+    },
+    {
+      "match_id": "1870278",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Southampton W",
+      "away": "Crystal Palace W",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "82839",
+        "6993"
+      ]
+    },
+    {
+      "match_id": "1870281",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "West Ham United W",
+      "away": "London City Lionesses",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3923",
+        "6985"
+      ]
+    },
+    {
+      "match_id": "1870285",
+      "country": "England",
+      "competition": "Women's League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Charlton Athletic W",
+      "away": "Bristol City W",
+      "kickoff_utc": "2026-10-21T18:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "6881",
+        "3825"
+      ]
+    },
+    {
+      "match_id": "1743756",
+      "country": "Estonia",
+      "competition": "Esiliiga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Flora Tallinn U21",
+      "away": "Nomme United U21",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "9744",
+        "393856"
+      ]
+    },
+    {
+      "match_id": "1907647",
+      "country": "Finland",
+      "competition": "Ykkosliiga: Qualification",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "RoPS",
+      "away": "KaPa Kapylan Pallo",
+      "kickoff_utc": "2026-10-22T15:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "5061",
+        "84386"
+      ]
+    },
+    {
+      "match_id": "1829914",
+      "country": "Germany",
+      "competition": "Oberliga: Niedersachsen",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "SV Drochtersen/Assel II",
+      "away": "Luneburger SK Hansa",
+      "kickoff_utc": "2026-10-21T18:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "408180",
+        "7463"
+      ]
+    },
+    {
+      "match_id": "1808965",
+      "country": "Guatemala",
+      "competition": "Liga Nacional: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Mixco",
+      "away": "CSD Municipal",
+      "kickoff_utc": "2026-10-21T21:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "4833",
+        "4825"
+      ]
+    },
+    {
+      "match_id": "1866187",
+      "country": "Indonesia",
+      "competition": "Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "PSM Makassar",
+      "away": "Persebaya Surabaya",
+      "kickoff_utc": "2026-10-22T08:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6067",
+        "6100"
+      ]
+    },
+    {
+      "match_id": "1866183",
+      "country": "Indonesia",
+      "competition": "Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Persik Kediri",
+      "away": "PSS Sleman",
+      "kickoff_utc": "2026-10-22T08:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "8586",
+        "5308"
+      ]
+    },
+    {
+      "match_id": "1866192",
+      "country": "Indonesia",
+      "competition": "Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Madura United",
+      "away": "Persib Bandung",
+      "kickoff_utc": "2026-10-22T12:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "5310",
+        "6066"
+      ]
+    },
+    {
+      "match_id": "1893575",
+      "country": "Iran",
+      "competition": "Persian Gulf Pro League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Tractor FC",
+      "away": "Sanat Naft Abadan",
+      "kickoff_utc": "2026-10-22T13:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "5024",
+        "5018"
+      ]
+    },
+    {
+      "match_id": "1871263",
+      "country": "Iraq",
+      "competition": "Iraq Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Zakho",
+      "away": "Erbil",
+      "kickoff_utc": "2026-10-22T14:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6471",
+        "6464"
+      ]
+    },
+    {
+      "match_id": "1871261",
+      "country": "Iraq",
+      "competition": "Iraq Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Gharraf",
+      "away": "Al Naft",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "376949",
+        "6421"
+      ]
+    },
+    {
+      "match_id": "1902100",
+      "country": "Jordan",
+      "competition": "Pro League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Hussein SC",
+      "away": "Doqara",
+      "kickoff_utc": "2026-10-22T15:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "12081",
+        "413846"
+      ]
+    },
+    {
+      "match_id": "1906577",
+      "country": "Libya",
+      "competition": "Premier League: Group B",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Sharara",
+      "away": "Al Ahli Benghazi",
+      "kickoff_utc": "2026-10-22T13:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "417790",
+        "142659"
+      ]
+    },
+    {
+      "match_id": "1906578",
+      "country": "Libya",
+      "competition": "Premier League: Group B",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Nasr",
+      "away": "Wefaq Ajdabiya",
+      "kickoff_utc": "2026-10-22T16:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4254",
+        "350273"
+      ]
+    },
+    {
+      "match_id": "1817824",
+      "country": "Malta",
+      "competition": "Malta Premier: Opening Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Mosta",
+      "away": "Valletta",
+      "kickoff_utc": "2026-10-21T18:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3248",
+        "3048"
+      ]
+    },
+    {
+      "match_id": "1817818",
+      "country": "Malta",
+      "competition": "Malta Premier: Opening Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Zabbar St. Patrick",
+      "away": "Sliema Wanderers",
+      "kickoff_utc": "2026-10-21T18:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "262289",
+        "3287"
+      ]
+    },
+    {
+      "match_id": "1817834",
+      "country": "Malta",
+      "competition": "Malta Premier: Opening Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Birkirkara",
+      "away": "Floriana",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4115",
+        "4114"
+      ]
+    },
+    {
+      "match_id": "1881581",
+      "country": "Mexico",
+      "competition": "Liga Premier: Serie A Clausura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Calor de San Pedro",
+      "away": "CD Avispones de Chilpancingo",
+      "kickoff_utc": "2026-10-21T21:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "394",
+        "227435"
+      ]
+    },
+    {
+      "match_id": "1903190",
+      "country": "Northern Ireland",
+      "competition": "League Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Warrenpoint Town",
+      "away": "Crusaders",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "3116",
+        "280"
+      ]
+    },
+    {
+      "match_id": "1709525",
+      "country": "Norway",
+      "competition": "1. Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sogndal",
+      "away": "Raufoss",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "8679",
+        "9731"
+      ]
+    },
+    {
+      "match_id": "1838579",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Shahaniya",
+      "away": "Al-Sadd",
+      "kickoff_utc": "2026-10-22T14:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4609",
+        "4450"
+      ]
+    },
+    {
+      "match_id": "1838585",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al-Gharafa",
+      "away": "Al-Ahli",
+      "kickoff_utc": "2026-10-22T16:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4610",
+        "4677"
+      ]
+    },
+    {
+      "match_id": "1849060",
+      "country": "Romania",
+      "competition": "Liga II",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Bihor Oradea",
+      "away": "CSM Resita",
+      "kickoff_utc": "2026-10-22T13:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "247476",
+        "7549"
+      ]
+    },
+    {
+      "match_id": "1817575",
+      "country": "Switzerland",
+      "competition": "Promotion League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Kreuzlingen",
+      "away": "Bulle",
+      "kickoff_utc": "2026-10-21T17:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "224860",
+        "8873"
+      ]
+    },
+    {
+      "match_id": "1817572",
+      "country": "Switzerland",
+      "competition": "Promotion League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Bellinzona",
+      "away": "SC Bruehl",
+      "kickoff_utc": "2026-10-21T17:30:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "8939",
+        "8863"
+      ]
+    },
+    {
+      "match_id": "1905373",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Al-Jazira",
+      "away": "Ajman",
+      "kickoff_utc": "2026-10-22T13:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4776",
+        "4666"
+      ]
+    },
+    {
+      "match_id": "1905372",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Al-Wasl",
+      "away": "Al Ittihad Kalba",
+      "kickoff_utc": "2026-10-22T13:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4682",
+        "4809"
+      ]
+    },
+    {
+      "match_id": "1905374",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Shabab Al-Ahli Dubai FC",
+      "away": "Al-Ain",
+      "kickoff_utc": "2026-10-22T16:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4671",
+        "4670"
+      ]
+    },
+    {
+      "match_id": "1902158",
+      "country": "Uruguay",
+      "competition": "Copa Uruguay",
+      "competition_kind": "DOMESTIC_CUP",
+      "is_friendly": false,
+      "home": "Liverpool FC",
+      "away": "Cerro Largo",
+      "kickoff_utc": "2026-10-21T19:00:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "7386",
+        "6546"
+      ]
+    },
+    {
+      "match_id": "1711371",
+      "country": "USA",
+      "competition": "USL League One",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Sarasota Paradise",
+      "away": "Naples",
+      "kickoff_utc": "2026-10-21T22:30:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "250753",
+        "349781"
+      ]
+    },
+    {
+      "match_id": "1711351",
+      "country": "USA",
+      "competition": "USL League One",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "New York Cosmos",
+      "away": "Spokane Velocity",
+      "kickoff_utc": "2026-10-21T23:50:00+00:00",
+      "fixture_status": "STARTED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "100419",
+        "280166"
+      ]
+    },
+    {
+      "match_id": "1743569",
+      "country": "Uzbekistan",
+      "competition": "Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Bunyodkor Tashkent",
+      "away": "Mashal Muborak",
+      "kickoff_utc": "2026-10-22T13:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4894",
+        "86390"
+      ]
+    },
+    {
+      "match_id": "1880349",
+      "country": "Vietnam",
+      "competition": "V-League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Cong An Ha Noi",
+      "away": "Dong A Thanh Hoa",
+      "kickoff_utc": "2026-10-22T12:15:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "141637",
+        "8391"
+      ]
+    },
+    {
+      "match_id": "1880698",
+      "country": "England",
+      "competition": "Northern Premier League: Midlands Division",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Coventry United",
+      "away": "Basford United",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "186660",
+        "3089"
+      ]
+    },
+    {
+      "match_id": "1859563",
+      "country": "England",
+      "competition": "Southern League: Central Divison",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "London Lions",
+      "away": "Flackwell Heath",
+      "kickoff_utc": "2026-10-21T18:45:00+00:00",
+      "fixture_status": "FINISHED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+      "provider_team_ids": [
+        "332574",
+        "11116"
+      ]
+    },
+    {
+      "match_id": "1883551",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "AFC Bournemouth",
+      "away": "AC Milan",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3928",
+        "2988"
+      ]
+    },
+    {
+      "match_id": "1883577",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Beşiktaş",
+      "away": "Crystal Palace",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "291",
+        "2772"
+      ]
+    },
+    {
+      "match_id": "1883520",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Celtic",
+      "away": "Celta Vigo",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4700",
+        "4162"
+      ]
+    },
+    {
+      "match_id": "1883571",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Hoffenheim",
+      "away": "Lyon",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3333",
+        "3656"
+      ]
+    },
+    {
+      "match_id": "1883560",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Jagiellonia Bialystok",
+      "away": "Anderlecht",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6078",
+        "472"
+      ]
+    },
+    {
+      "match_id": "1883595",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Lillestroem",
+      "away": "Real Sociedad",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7082",
+        "4169"
+      ]
+    },
+    {
+      "match_id": "1883564",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "NK Celje",
+      "away": "FC Salzburg",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7877",
+        "4661"
+      ]
+    },
+    {
+      "match_id": "1883488",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Olympiacos",
+      "away": "Sparta Prague",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4186",
+        "6613"
+      ]
+    },
+    {
+      "match_id": "1883562",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Omonia Nicosia",
+      "away": "Benfica",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "356",
+        "304"
+      ]
+    },
+    {
+      "match_id": "1883505",
+      "country": "Europa League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Viktoria Plzen",
+      "away": "Levski Sofia",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6476",
+        "6552"
+      ]
+    },
+    {
+      "match_id": "1883693",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "AGF",
+      "away": "KF Egnatia",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4583",
+        "185282"
+      ]
+    },
+    {
+      "match_id": "1883620",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "AS Monaco",
+      "away": "Freiburg",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4328",
+        "365"
+      ]
+    },
+    {
+      "match_id": "1883613",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Ajax",
+      "away": "Atalanta",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3476",
+        "3416"
+      ]
+    },
+    {
+      "match_id": "1883657",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Borac Banja Luka",
+      "away": "KuPS",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "7221",
+        "5077"
+      ]
+    },
+    {
+      "match_id": "1883625",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "FC Midtjylland",
+      "away": "St.Truiden",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4580",
+        "4387"
+      ]
+    },
+    {
+      "match_id": "1883654",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Lincoln Red Imps FC",
+      "away": "FC Twente",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4513",
+        "3519"
+      ]
+    },
+    {
+      "match_id": "1883611",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "SC Braga",
+      "away": "Gent",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4270",
+        "390"
+      ]
+    },
+    {
+      "match_id": "1883701",
+      "country": "Conference League",
+      "competition": "League Stage",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Thun",
+      "away": "Hajduk Split",
+      "kickoff_utc": "2026-10-22T19:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "2856",
+        "6272"
+      ]
+    },
+    {
+      "match_id": "1845668",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Ahli",
+      "away": "Al Khaleej",
+      "kickoff_utc": "2026-10-22T18:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "4379",
+        "7878"
+      ]
+    },
+    {
+      "match_id": "1883883",
+      "country": "Ecuador",
+      "competition": "Serie B Relegation Group",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Cumbaya",
+      "away": "El Nacional",
+      "kickoff_utc": "2026-10-22T20:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "147215",
+        "6595"
+      ]
+    },
+    {
+      "match_id": "1876524",
+      "country": "Ecuador",
+      "competition": "Serie B. Promotion Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Club Deportivo Cuenca Juniors",
+      "away": "Atletico FC",
+      "kickoff_utc": "2026-10-22T18:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "361933",
+        "395908"
+      ]
+    },
+    {
+      "match_id": "1876531",
+      "country": "Ecuador",
+      "competition": "Serie B. Promotion Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "San Antonio",
+      "away": "Nueve de Octubre",
+      "kickoff_utc": "2026-10-22T18:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "288106",
+        "86392"
+      ]
+    },
+    {
+      "match_id": "1876525",
+      "country": "Ecuador",
+      "competition": "Serie B. Promotion Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Vinotinto del Ecuador",
+      "away": "Independiente Juniors",
+      "kickoff_utc": "2026-10-22T18:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "248991",
+        "7199"
+      ]
+    },
+    {
+      "match_id": "1871265",
+      "country": "Iraq",
+      "competition": "Iraq Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Al Talaba",
+      "away": "Al Quwa Al Jawiya",
+      "kickoff_utc": "2026-10-22T17:00:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "6463",
+        "6465"
+      ]
+    },
+    {
+      "match_id": "1817816",
+      "country": "Malta",
+      "competition": "Malta Premier: Opening Round",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "is_friendly": false,
+      "home": "Hibernians",
+      "away": "Gzira United",
+      "kickoff_utc": "2026-10-22T18:30:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+      "observed_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "provider_team_ids": [
+        "3301",
+        "4382"
+      ]
+    }
+  ],
+  "source_completeness_manifest": {
+    "schema_version": "football-v4-source-completeness-v2",
+    "acquisition_mode": "DATE_SURFACE_BATCH_V2",
+    "league_query_mode": "DATE_SURFACE_ONLY",
+    "registry_prefilter_applied": false,
+    "scope_policy": "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS",
+    "extraction_complete": true,
+    "provider_family": "LiveScore public date API",
+    "window_start_utc": "2026-10-22T00:28:26+00:00",
+    "window_end_utc": "2026-10-22T04:00:00+00:00",
+    "checked_at_utc": "2026-10-22T00:29:05.705827+00:00",
+    "required_surface_keys": [
+      "ICT:2026-10-22",
+      "UTC:2026-10-22"
+    ],
+    "date_surfaces": [
+      {
+        "surface_key": "ICT:2026-10-22",
+        "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/7?MD=1&countryCode=US&locale=en",
+        "observed_at_utc": "2026-10-22T00:29:04.941714+00:00",
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "pages_fetched": [
+          1
+        ],
+        "provider_senior_fixture_count": 116,
+        "extracted_fixture_ids": [
+          "1810663",
+          "1696636",
+          "1711589",
+          "1711709",
+          "1896512",
+          "1882786",
+          "1882737",
+          "1882799",
+          "1882750",
+          "1882800",
+          "1882744",
+          "1882781",
+          "1883604",
+          "1883513",
+          "1883501",
+          "1883470",
+          "1883539",
+          "1883590",
+          "1883536",
+          "1883510",
+          "1883670",
+          "1883710",
+          "1883689",
+          "1883627",
+          "1883704",
+          "1883642",
+          "1883696",
+          "1883685",
+          "1883637",
+          "1883673",
+          "1802976",
+          "1869525",
+          "1894992",
+          "1845678",
+          "1845674",
+          "1799057",
+          "1799027",
+          "1799039",
+          "1799034",
+          "1799030",
+          "1857525",
+          "1857529",
+          "1894831",
+          "1846790",
+          "1895574",
+          "1900597",
+          "1900593",
+          "1843161",
+          "1843302",
+          "1878478",
+          "1894214",
+          "1900370",
+          "1806296",
+          "1806261",
+          "1905828",
+          "1904059",
+          "1895264",
+          "1897065",
+          "1894986",
+          "1894982",
+          "1894983",
+          "1894985",
+          "1883886",
+          "1843743",
+          "1843731",
+          "1843745",
+          "1843744",
+          "1843738",
+          "1844475",
+          "1837473",
+          "1839118",
+          "1837029",
+          "1880189",
+          "1858015",
+          "1859247",
+          "1870275",
+          "1870276",
+          "1870286",
+          "1870287",
+          "1870278",
+          "1870281",
+          "1870285",
+          "1743756",
+          "1907647",
+          "1829914",
+          "1808965",
+          "1866187",
+          "1866183",
+          "1866192",
+          "1893575",
+          "1871263",
+          "1871261",
+          "1902100",
+          "1906577",
+          "1906578",
+          "1817824",
+          "1817818",
+          "1817834",
+          "1881581",
+          "1903190",
+          "1709525",
+          "1838579",
+          "1838585",
+          "1849060",
+          "1817575",
+          "1817572",
+          "1905373",
+          "1905372",
+          "1905374",
+          "1902158",
+          "1711371",
+          "1711351",
+          "1743569",
+          "1880349",
+          "1880698",
+          "1859563"
+        ],
+        "provider_senior_competition_block_count": 59,
+        "competition_blocks": [
+          {
+            "country": "Spain",
+            "competition": "LaLiga",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1810663"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "MLS",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1696636"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "USL Championship",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1711589",
+              "1711709"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "US Open Cup",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1896512"
+            ]
+          },
+          {
+            "country": "Champions League",
+            "competition": "League Stage",
+            "provider_fixture_count": 7,
+            "extracted_fixture_ids": [
+              "1882786",
+              "1882737",
+              "1882799",
+              "1882750",
+              "1882800",
+              "1882744",
+              "1882781"
+            ]
+          },
+          {
+            "country": "Europa League",
+            "competition": "League Stage",
+            "provider_fixture_count": 8,
+            "extracted_fixture_ids": [
+              "1883604",
+              "1883513",
+              "1883501",
+              "1883470",
+              "1883539",
+              "1883590",
+              "1883536",
+              "1883510"
+            ]
+          },
+          {
+            "country": "Conference League",
+            "competition": "League Stage",
+            "provider_fixture_count": 10,
+            "extracted_fixture_ids": [
+              "1883670",
+              "1883710",
+              "1883689",
+              "1883627",
+              "1883704",
+              "1883642",
+              "1883696",
+              "1883685",
+              "1883637",
+              "1883673"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "League 1",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1802976"
+            ]
+          },
+          {
+            "country": "Copa Libertadores",
+            "competition": "Semi-Finals",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1869525"
+            ]
+          },
+          {
+            "country": "Copa Sudamericana",
+            "competition": "Semi-Finals",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1894992"
+            ]
+          },
+          {
+            "country": "Saudi Arabia",
+            "competition": "Saudi Professional League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1845678",
+              "1845674"
+            ]
+          },
+          {
+            "country": "Mexico",
+            "competition": "Liga MX: Apertura",
+            "provider_fixture_count": 5,
+            "extracted_fixture_ids": [
+              "1799057",
+              "1799027",
+              "1799039",
+              "1799034",
+              "1799030"
+            ]
+          },
+          {
+            "country": "Egypt",
+            "competition": "Premier League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1857525",
+              "1857529"
+            ]
+          },
+          {
+            "country": "International",
+            "competition": "Central American Cup: Knockout Stage",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1894831"
+            ]
+          },
+          {
+            "country": "Armenia",
+            "competition": "Premier League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1846790"
+            ]
+          },
+          {
+            "country": "Australia",
+            "competition": "Australian Championship 2026: Group D",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1895574"
+            ]
+          },
+          {
+            "country": "Bahrain",
+            "competition": "Premier League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1900597",
+              "1900593"
+            ]
+          },
+          {
+            "country": "Belgium",
+            "competition": "National Division 1 ACFF",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1843161"
+            ]
+          },
+          {
+            "country": "Belgium",
+            "competition": "National Division 1 VV",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1843302"
+            ]
+          },
+          {
+            "country": "Botswana",
+            "competition": "Premier League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1878478"
+            ]
+          },
+          {
+            "country": "Canada",
+            "competition": "Canadian Championship",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1894214"
+            ]
+          },
+          {
+            "country": "Chile",
+            "competition": "Cup Final Stage",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1900370"
+            ]
+          },
+          {
+            "country": "Colombia",
+            "competition": "Primera A: Clausura",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1806296",
+              "1806261"
+            ]
+          },
+          {
+            "country": "Colombia",
+            "competition": "Copa Colombia",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1905828",
+              "1904059"
+            ]
+          },
+          {
+            "country": "CONCACAF",
+            "competition": "CONCACAF Central American Cup: Play-In",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1895264"
+            ]
+          },
+          {
+            "country": "Denmark",
+            "competition": "DBU Pokalen",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1897065"
+            ]
+          },
+          {
+            "country": "Denmark",
+            "competition": "Kvinde LP",
+            "provider_fixture_count": 4,
+            "extracted_fixture_ids": [
+              "1894986",
+              "1894982",
+              "1894983",
+              "1894985"
+            ]
+          },
+          {
+            "country": "Ecuador",
+            "competition": "Serie B Relegation Group",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1883886"
+            ]
+          },
+          {
+            "country": "Egypt",
+            "competition": "2. Division A",
+            "provider_fixture_count": 5,
+            "extracted_fixture_ids": [
+              "1843743",
+              "1843731",
+              "1843745",
+              "1843744",
+              "1843738"
+            ]
+          },
+          {
+            "country": "El Salvador",
+            "competition": "Primera Division: Apertura",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1844475"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Northern Premier League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1837473"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Southern League Premier: South",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1839118"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Isthmian League Premier Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1837029"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Isthmian League: North Division",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1880189",
+              "1858015"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Isthmian League: South East Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1859247"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Women's League Cup",
+            "provider_fixture_count": 7,
+            "extracted_fixture_ids": [
+              "1870275",
+              "1870276",
+              "1870286",
+              "1870287",
+              "1870278",
+              "1870281",
+              "1870285"
+            ]
+          },
+          {
+            "country": "Estonia",
+            "competition": "Esiliiga",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1743756"
+            ]
+          },
+          {
+            "country": "Finland",
+            "competition": "Ykkosliiga: Qualification",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1907647"
+            ]
+          },
+          {
+            "country": "Germany",
+            "competition": "Oberliga: Niedersachsen",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1829914"
+            ]
+          },
+          {
+            "country": "Guatemala",
+            "competition": "Liga Nacional: Apertura",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1808965"
+            ]
+          },
+          {
+            "country": "Indonesia",
+            "competition": "Super League",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1866187",
+              "1866183",
+              "1866192"
+            ]
+          },
+          {
+            "country": "Iran",
+            "competition": "Persian Gulf Pro League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1893575"
+            ]
+          },
+          {
+            "country": "Iraq",
+            "competition": "Iraq Stars League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1871263",
+              "1871261"
+            ]
+          },
+          {
+            "country": "Jordan",
+            "competition": "Pro League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1902100"
+            ]
+          },
+          {
+            "country": "Libya",
+            "competition": "Premier League: Group B",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1906577",
+              "1906578"
+            ]
+          },
+          {
+            "country": "Malta",
+            "competition": "Malta Premier: Opening Round",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1817824",
+              "1817818",
+              "1817834"
+            ]
+          },
+          {
+            "country": "Mexico",
+            "competition": "Liga Premier: Serie A Clausura",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1881581"
+            ]
+          },
+          {
+            "country": "Northern Ireland",
+            "competition": "League Cup",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1903190"
+            ]
+          },
+          {
+            "country": "Norway",
+            "competition": "1. Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1709525"
+            ]
+          },
+          {
+            "country": "Qatar",
+            "competition": "Qatar Stars League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1838579",
+              "1838585"
+            ]
+          },
+          {
+            "country": "Romania",
+            "competition": "Liga II",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1849060"
+            ]
+          },
+          {
+            "country": "Switzerland",
+            "competition": "Promotion League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1817575",
+              "1817572"
+            ]
+          },
+          {
+            "country": "United Arab Emirates",
+            "competition": "President's Cup",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1905373",
+              "1905372",
+              "1905374"
+            ]
+          },
+          {
+            "country": "Uruguay",
+            "competition": "Copa Uruguay",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1902158"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "USL League One",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1711371",
+              "1711351"
+            ]
+          },
+          {
+            "country": "Uzbekistan",
+            "competition": "Super League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1743569"
+            ]
+          },
+          {
+            "country": "Vietnam",
+            "competition": "V-League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1880349"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Northern Premier League: Midlands Division",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1880698"
+            ]
+          },
+          {
+            "country": "England",
+            "competition": "Southern League: Central Divison",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1859563"
+            ]
+          }
+        ]
+      },
+      {
+        "surface_key": "UTC:2026-10-22",
+        "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+        "observed_at_utc": "2026-10-22T00:29:05.373087+00:00",
+        "pagination_complete": true,
+        "provider_page_count": 1,
+        "pages_fetched": [
+          1
+        ],
+        "provider_senior_fixture_count": 92,
+        "extracted_fixture_ids": [
+          "1696636",
+          "1711709",
+          "1896512",
+          "1883604",
+          "1883513",
+          "1883501",
+          "1883470",
+          "1883539",
+          "1883590",
+          "1883536",
+          "1883510",
+          "1883551",
+          "1883577",
+          "1883520",
+          "1883571",
+          "1883560",
+          "1883595",
+          "1883564",
+          "1883488",
+          "1883562",
+          "1883505",
+          "1883670",
+          "1883710",
+          "1883689",
+          "1883627",
+          "1883704",
+          "1883642",
+          "1883696",
+          "1883685",
+          "1883637",
+          "1883673",
+          "1883693",
+          "1883620",
+          "1883613",
+          "1883657",
+          "1883625",
+          "1883654",
+          "1883611",
+          "1883701",
+          "1869525",
+          "1845678",
+          "1845674",
+          "1845668",
+          "1799057",
+          "1799027",
+          "1799039",
+          "1799034",
+          "1799030",
+          "1894831",
+          "1846790",
+          "1895574",
+          "1900597",
+          "1900593",
+          "1894214",
+          "1806296",
+          "1806261",
+          "1904059",
+          "1895264",
+          "1883883",
+          "1876524",
+          "1876531",
+          "1876525",
+          "1843743",
+          "1843731",
+          "1843745",
+          "1843744",
+          "1843738",
+          "1844475",
+          "1743756",
+          "1907647",
+          "1866187",
+          "1866183",
+          "1866192",
+          "1893575",
+          "1871263",
+          "1871261",
+          "1871265",
+          "1902100",
+          "1906577",
+          "1906578",
+          "1817834",
+          "1817816",
+          "1838579",
+          "1838585",
+          "1849060",
+          "1905373",
+          "1905372",
+          "1905374",
+          "1711371",
+          "1711351",
+          "1743569",
+          "1880349"
+        ],
+        "provider_senior_competition_block_count": 34,
+        "competition_blocks": [
+          {
+            "country": "USA",
+            "competition": "MLS",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1696636"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "USL Championship",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1711709"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "US Open Cup",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1896512"
+            ]
+          },
+          {
+            "country": "Europa League",
+            "competition": "League Stage",
+            "provider_fixture_count": 18,
+            "extracted_fixture_ids": [
+              "1883604",
+              "1883513",
+              "1883501",
+              "1883470",
+              "1883539",
+              "1883590",
+              "1883536",
+              "1883510",
+              "1883551",
+              "1883577",
+              "1883520",
+              "1883571",
+              "1883560",
+              "1883595",
+              "1883564",
+              "1883488",
+              "1883562",
+              "1883505"
+            ]
+          },
+          {
+            "country": "Conference League",
+            "competition": "League Stage",
+            "provider_fixture_count": 18,
+            "extracted_fixture_ids": [
+              "1883670",
+              "1883710",
+              "1883689",
+              "1883627",
+              "1883704",
+              "1883642",
+              "1883696",
+              "1883685",
+              "1883637",
+              "1883673",
+              "1883693",
+              "1883620",
+              "1883613",
+              "1883657",
+              "1883625",
+              "1883654",
+              "1883611",
+              "1883701"
+            ]
+          },
+          {
+            "country": "Copa Libertadores",
+            "competition": "Semi-Finals",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1869525"
+            ]
+          },
+          {
+            "country": "Saudi Arabia",
+            "competition": "Saudi Professional League",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1845678",
+              "1845674",
+              "1845668"
+            ]
+          },
+          {
+            "country": "Mexico",
+            "competition": "Liga MX: Apertura",
+            "provider_fixture_count": 5,
+            "extracted_fixture_ids": [
+              "1799057",
+              "1799027",
+              "1799039",
+              "1799034",
+              "1799030"
+            ]
+          },
+          {
+            "country": "International",
+            "competition": "Central American Cup: Knockout Stage",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1894831"
+            ]
+          },
+          {
+            "country": "Armenia",
+            "competition": "Premier League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1846790"
+            ]
+          },
+          {
+            "country": "Australia",
+            "competition": "Australian Championship 2026: Group D",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1895574"
+            ]
+          },
+          {
+            "country": "Bahrain",
+            "competition": "Premier League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1900597",
+              "1900593"
+            ]
+          },
+          {
+            "country": "Canada",
+            "competition": "Canadian Championship",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1894214"
+            ]
+          },
+          {
+            "country": "Colombia",
+            "competition": "Primera A: Clausura",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1806296",
+              "1806261"
+            ]
+          },
+          {
+            "country": "Colombia",
+            "competition": "Copa Colombia",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1904059"
+            ]
+          },
+          {
+            "country": "CONCACAF",
+            "competition": "CONCACAF Central American Cup: Play-In",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1895264"
+            ]
+          },
+          {
+            "country": "Ecuador",
+            "competition": "Serie B Relegation Group",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1883883"
+            ]
+          },
+          {
+            "country": "Ecuador",
+            "competition": "Serie B. Promotion Round",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1876524",
+              "1876531",
+              "1876525"
+            ]
+          },
+          {
+            "country": "Egypt",
+            "competition": "2. Division A",
+            "provider_fixture_count": 5,
+            "extracted_fixture_ids": [
+              "1843743",
+              "1843731",
+              "1843745",
+              "1843744",
+              "1843738"
+            ]
+          },
+          {
+            "country": "El Salvador",
+            "competition": "Primera Division: Apertura",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1844475"
+            ]
+          },
+          {
+            "country": "Estonia",
+            "competition": "Esiliiga",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1743756"
+            ]
+          },
+          {
+            "country": "Finland",
+            "competition": "Ykkosliiga: Qualification",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1907647"
+            ]
+          },
+          {
+            "country": "Indonesia",
+            "competition": "Super League",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1866187",
+              "1866183",
+              "1866192"
+            ]
+          },
+          {
+            "country": "Iran",
+            "competition": "Persian Gulf Pro League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1893575"
+            ]
+          },
+          {
+            "country": "Iraq",
+            "competition": "Iraq Stars League",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1871263",
+              "1871261",
+              "1871265"
+            ]
+          },
+          {
+            "country": "Jordan",
+            "competition": "Pro League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1902100"
+            ]
+          },
+          {
+            "country": "Libya",
+            "competition": "Premier League: Group B",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1906577",
+              "1906578"
+            ]
+          },
+          {
+            "country": "Malta",
+            "competition": "Malta Premier: Opening Round",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1817834",
+              "1817816"
+            ]
+          },
+          {
+            "country": "Qatar",
+            "competition": "Qatar Stars League",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1838579",
+              "1838585"
+            ]
+          },
+          {
+            "country": "Romania",
+            "competition": "Liga II",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1849060"
+            ]
+          },
+          {
+            "country": "United Arab Emirates",
+            "competition": "President's Cup",
+            "provider_fixture_count": 3,
+            "extracted_fixture_ids": [
+              "1905373",
+              "1905372",
+              "1905374"
+            ]
+          },
+          {
+            "country": "USA",
+            "competition": "USL League One",
+            "provider_fixture_count": 2,
+            "extracted_fixture_ids": [
+              "1711371",
+              "1711351"
+            ]
+          },
+          {
+            "country": "Uzbekistan",
+            "competition": "Super League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1743569"
+            ]
+          },
+          {
+            "country": "Vietnam",
+            "competition": "V-League",
+            "provider_fixture_count": 1,
+            "extracted_fixture_ids": [
+              "1880349"
+            ]
+          }
+        ]
+      }
+    ],
+    "terminal_sentinel": {
+      "interval_start_utc": "2026-10-22T00:28:26+00:00",
+      "interval_end_utc": "2026-10-22T04:00:00+00:00",
+      "checked_at_utc": "2026-10-22T00:29:05.702648+00:00",
+      "complete": true,
+      "independent_refetch": true,
+      "source_urls": [
+        "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en"
+      ],
+      "provider_senior_fixture_count": 11,
+      "extracted_fixture_ids": [
+        "1799027",
+        "1799030",
+        "1799034",
+        "1799039",
+        "1799057",
+        "1806261",
+        "1844475",
+        "1869525",
+        "1894831",
+        "1895264",
+        "1904059"
+      ]
+    }
+  },
+  "priority_completeness_verification": {
+    "status": "PRIORITY_COMPLETENESS_VERIFIED",
+    "validator_family": "ESPN all-soccer independent UTC validator",
+    "source_urls": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates=20261022&limit=1000"
+    ],
+    "checked_at_utc": "2026-10-22T00:29:06.014187+00:00",
+    "independent_priority_fixture_count": 0,
+    "verified_canonical_match_ids": [],
+    "timezone_contract": "ISO_8601_EXPLICIT_UTC"
+  }
+}
