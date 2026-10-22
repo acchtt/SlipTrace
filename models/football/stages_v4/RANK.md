@@ -316,7 +316,8 @@ football evidence:
 - `credible_tail_execution_authority = false`.
 
 This layer does **not** change G3/G4/G5/G6 certificates, board admission,
-ranking priority, FOLLOW/RESERVE/STOP, or ACT/BOOK/PASS authorization. It is not
+or ACT/BOOK/PASS authorization. It may inform the separate FOLLOW workload
+portfolio but never upgrades a certificate. It is not
 a fair bookmaker line or a probability estimate.
 
 The deterministic diagnostic distinguishes strong next-goal shapes that narrowly
@@ -489,7 +490,7 @@ normal command and any genuinely unavailable evidence.
 Report run ID, total C-assessed count, official ranked-board count, REVIEW_ONLY/PASS
 counts (REVIEW_ONLY is internal C-WATCH), explicit evidence/status unranked reasons,
 board exclusions, the
-C-FOCUS official board, FOLLOW/RESERVE/STOP for those board rows, supported
+C-FOCUS official board, FOLLOW/RESERVE/FOCUS_UNFOLLOWED for those board rows, supported
 burdens and persistence verification. The full research assessment remains
 available for audit but is not the main ranked board.
 
