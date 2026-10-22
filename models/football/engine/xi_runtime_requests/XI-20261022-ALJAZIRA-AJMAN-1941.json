@@ -1,0 +1,974 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261022-ALJAZIRA-AJMAN-1941",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "xi-20261022-aljazira-ajman-1941",
+    "match": {
+      "match_id": "1905373",
+      "kickoff_ict": "2026-10-22T20:00:00+07:00",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "The same-opponent three includes an own goal and latest2-1includes a penalty. Preserve home multi-route strength without claiming a protected standalone three-goal carry.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The bounded fourth-goal review is recorded separately. Neither rates nor one distorted large score automatically establishes an independent upper tail.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+      "material_suppression": false,
+      "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Current-season Jazira3-0Ajman reviewed at the same venue: two actual finishers, own goal from Milson delivery, Banza saved, Azaro hit post. This supports home chances and a possible away contribution but not an independent four-goal carrier; old3-0 adds no separate current mechanism.",
+      "board_state": "FOCUS",
+      "board_state_basis": "Current home service and usable away contribution, independently corroborated by unchanged frozen high-rate history, fund distributed G3. Completion/control risks retain MEDIUM grades.",
+      "common_evidence_basis": "Confirmed XI preserves the ranked distributed G3: Malcom, Milson, Bruno and Vinicius Mello all start, with Mujkic also starting as a current alternative. Ajman retain Victor Hugo and other current reply pieces. Banza is not required for the existing distributed certificate, so the primary three-goal mechanisms remain intact.",
+      "main_failure": "Confirmed XI does not remove the existing G3 routes, but it also does not repair the frozen G4 limitations: recent Jazira control endpoints, error/own-goal contamination in comparable results and no protected post-third Ajman finish keep the fourth mixed.",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Original fixture-bound operational grade and research channels retained. Current football reports were checked; final XI and a price quote are not required for rank.",
+      "tournament_incentive_required": true,
+      "source_urls": [
+        "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+        "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+        "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+        "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+        "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+        "https://www.uaefa.ae/",
+        "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+        "https://uaefa.platinumlist.net/ar/",
+        "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+        "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+        "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+      ],
+      "evidence_observed_at_utc": "2026-10-22T10:55:44.504599+00:00",
+      "goal_signal_priority_score": 68,
+      "goal_signal_mean_over_two_rate": 0.7778,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.1111,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_basis": "Carrier: Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed. Distributed: Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Reply: Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility. Comparable context: Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+      "historical_form_policy": "Original sweep goal-signal inputs retained unchanged. Cup mismatches, penalties, own goals and red-card advantage are discounted in the independent current mechanism assessment.",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+      "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+      "draw_resolution": "90minutes, then30minutes extra time and penalties if still level under UAEFA regulation22.3. C goal certificates concern90minutes only.",
+      "aggregate_state": "No aggregate tie or away-goal requirement.",
+      "qualification_state": "Each side must advance today; no fixed regulation-time winning margin is required.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Independent knockout ties; no external result can alter advancement.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Jazira have Malcom creation/finishing, Milson delivery, Bruno finishing, with Banza box chances and Mello combinations; the August same-opponent3-0 had two clean finishes plus an own goal, not three independent open-play goals. Latest Arkadag2-1 used a Malcom penalty and Mujkic late alternative. Ajman latest Victor Henrique goal came from goalkeeper error, but three first-half shots on target and a separately disallowed second preserve a usable reply. Frozen.7778third/.50fourth supports a distributed third alongside this current home service. The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+          "evidence_refs": [
+            "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+            "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+            "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+            "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+            "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+            "https://www.uaefa.ae/",
+            "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+            "https://uaefa.platinumlist.net/ar/",
+            "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+            "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "tournament_incentive_basis": "Both seek advancement; extra time remains available at a draw. Knockout status alone does not prove all-out regulation attack or tactical suppression.",
+      "home": "Al-Jazira",
+      "away": "Ajman",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP"
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-22T12:41:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": 2.5,
+      "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "Confirmed XI recheck does not justify any upward certificate change.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "O3.00 is 0.50 above the frozen O2.50 certificate. Confirmed XI preserves Malcom/Milson/Bruno/Mello and Ajman's usable reply, so G3 remains intact; the existing G4 evidence remains mixed with no independently protected fourth.",
+      "market_disagreement_recheck_fields": [
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_0000000011808211893be7a20d68ea3d",
+        "USER_ODDS_SCREENSHOT:file_00000000e0988211b0953845ef8165f2"
+      ]
+    }
+  },
+  "authority": {
+    "mode": "RANKED",
+    "match_id": "1905373",
+    "verified_rank_package": {
+      "status": "V4_RANK_PERSISTENCE_VERIFIED",
+      "native_rank": {
+        "run_id": "V4-20261022-1500-20261022-2100-CUPRESOLVED",
+        "integrity_sha256": "06d72aa785e48d66b0486a410a5abb341d36b9a749ee645fe45b6dd514c21487",
+        "board": {
+          "matches": [
+            {
+              "rank": 2,
+              "match_id": "1905373",
+              "ranking_key": [
+                1,
+                3,
+                -1,
+                1,
+                -1111,
+                1,
+                1,
+                1,
+                6800,
+                7778,
+                5000,
+                -1111,
+                1,
+                1,
+                1,
+                1,
+                1,
+                2,
+                1,
+                1,
+                0,
+                1,
+                0
+              ],
+              "kickoff_ict": "2026-10-22T20:00:00+07:00",
+              "same_kickoff_rank": 2,
+              "supported_line": 2.5,
+              "supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED",
+              "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+              "declared_supported_line": 2.5,
+              "declared_supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "upper_tail_comparable_context_signal": "MIXED",
+              "upper_tail_comparable_context_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "effective_upper_tail_transferability": "MEDIUM",
+              "goal3_funded": true,
+              "goal4_funded": false,
+              "goal5_funded": false,
+              "goal6_funded": false,
+              "goal3_carrier_funded": false,
+              "goal3_two_route_funded": false,
+              "goal3_distributed_funded": true,
+              "goal3_leakage_funded": false,
+              "upper_tail_strength": "WEAK",
+              "prospective_tail_ceiling": 2.5,
+              "certified_supported_burden": 2.5,
+              "tournament_incentive_resolution": "VERIFIED",
+              "tournament_incentive_effect": "NEUTRAL",
+              "tournament_tail_bias": "NEUTRAL",
+              "tournament_positive_pressure": false,
+              "tournament_suppressive_pressure": false,
+              "effective_continuation_quality": "MEDIUM",
+              "effective_burden_stall_risk": "MEDIUM",
+              "credible_tail_state": "MIXED",
+              "credible_tail_target_goal": 4,
+              "credible_burden_band_low": 2.5,
+              "credible_burden_band_high": 3,
+              "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+              "credible_tail_market_independent": true,
+              "credible_tail_execution_authority": false,
+              "credible_tail_basis": "G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED",
+              "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+              "g4_research_explicit": true,
+              "g4_carrier_path": "MIXED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "MEDIUM",
+              "g4_research_basis": "Carrier: Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed. Distributed: Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Reply: Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility. Comparable context: Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "g4_declared_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+              "g4_evidence_disposition": "MIXED",
+              "g4_evidence_gaps": [],
+              "g4_research_complete": true,
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "Jazira have Malcom creation/finishing, Milson delivery, Bruno finishing, with Banza box chances and Mello combinations; the August same-opponent3-0 had two clean finishes plus an own goal, not three independent open-play goals. Latest Arkadag2-1 used a Malcom penalty and Mujkic late alternative. Ajman latest Victor Henrique goal came from goalkeeper error, but three first-half shots on target and a separately disallowed second preserve a usable reply. Frozen.7778third/.50fourth supports a distributed third alongside this current home service. The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "g4_global_blockers": null,
+              "shared_failure_mechanisms": {
+                "COMPLETION_CONTEXT": [
+                  "burden_stall_risk",
+                  "continuation_quality",
+                  "failure_resistance",
+                  "independent_upper_tail",
+                  "route_reliability"
+                ]
+              },
+              "predictive_grades_changed_by_evidence_contract": false,
+              "certificate_diagnostics": {
+                "goal4_funded": false,
+                "failed_conditions": [
+                  "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+                  "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+                  "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+                ],
+                "carrier_branch_quality_met": false,
+                "distributed_branch_quality_met": false,
+                "tournament_tail_bias": "NEUTRAL",
+                "certificate_robustness": "CONDITIONAL",
+                "explanation_only": true
+              },
+              "production_scope": {
+                "policy": "FOOTBALL_C_SCOPE_V1",
+                "status": "IN_SCOPE",
+                "reason": "UNREGISTERED_OFFICIAL_CUP_GOAL_RESEARCH_REQUIRED",
+                "production_allowed": true,
+                "override": null
+              },
+              "common_evidence_basis": "Jazira have Malcom creation/finishing, Milson delivery, Bruno finishing, with Banza box chances and Mello combinations; the August same-opponent3-0 had two clean finishes plus an own goal, not three independent open-play goals. Latest Arkadag2-1 used a Malcom penalty and Mujkic late alternative. Ajman latest Victor Henrique goal came from goalkeeper error, but three first-half shots on target and a separately disallowed second preserve a usable reply. Frozen.7778third/.50fourth supports a distributed third alongside this current home service.",
+              "goal_signal_priority_score": 68,
+              "goal_signal_mean_over_two_rate": 0.7778,
+              "goal_signal_mean_over_three_rate": 0.5,
+              "goal_signal_low_draw_trap_rate": 0.1111,
+              "main_failure": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Current-season Jazira3-0Ajman reviewed at the same venue: two actual finishers, own goal from Milson delivery, Banza saved, Azaro hit post. This supports home chances and a possible away contribution but not an independent four-goal carrier; old3-0 adds no separate current mechanism.",
+              "carrier_self_fund": false,
+              "carrier_self_fund_basis": "The same-opponent three includes an own goal and latest2-1includes a penalty. Preserve home multi-route strength without claiming a protected standalone three-goal carry.",
+              "independent_upper_tail": false,
+              "independent_upper_tail_basis": "The bounded fourth-goal review is recorded separately. Neither rates nor one distorted large score automatically establishes an independent upper tail.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+              "material_suppression": false,
+              "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_effective_state": "UNPROVEN",
+              "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "tournament_incentive_required": true,
+              "tournament_format_status": "VERIFIED",
+              "home_incentive": "WIN_PREFERRED",
+              "away_incentive": "WIN_PREFERRED",
+              "tiebreak_margin_relevance": "NO",
+              "incentive_effect": "NEUTRAL",
+              "tournament_incentive_recheck_required": true,
+              "tournament_incentive_unresolved_fields": [],
+              "supported_line_status": "FROZEN_FOOTBALL_PRE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "completion_mode": "TWO_SIDED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "MEDIUM",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "board_state": "FOCUS",
+              "display_state": "FOCUS",
+              "board_state_basis": "Current home service and usable away contribution, independently corroborated by unchanged frozen high-rate history, fund distributed G3. Completion/control risks retain MEDIUM grades.",
+              "follow_lane": "FOLLOW"
+            }
+          ]
+        },
+        "frozen_model_input": {
+          "matches": [
+            {
+              "match_id": "1905373",
+              "kickoff_ict": "2026-10-22T20:00:00+07:00",
+              "home_route": "STRONG",
+              "away_route": "USABLE",
+              "carrier": "USABLE",
+              "route_reliability": "MEDIUM",
+              "independent_route_quality": "MEDIUM",
+              "chance_quality": "MEDIUM",
+              "failure_resistance": "MEDIUM",
+              "xi_robustness": "MEDIUM",
+              "evidence_confidence": "HIGH",
+              "burden_protection": "MEDIUM",
+              "supported_line": 2.5,
+              "supported_line_basis": "Research declaration is audit metadata; the unchanged deterministic Football C certificate compiler owns the supported burden.",
+              "carrier_self_fund": false,
+              "carrier_self_fund_basis": "The same-opponent three includes an own goal and latest2-1includes a penalty. Preserve home multi-route strength without claiming a protected standalone three-goal carry.",
+              "independent_upper_tail": false,
+              "independent_upper_tail_basis": "The bounded fourth-goal review is recorded separately. Neither rates nor one distorted large score automatically establishes an independent upper tail.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "Current alternatives and surviving service are included. Completion risk is reflected in the grades; no verified loss of all scoring routes is asserted.",
+              "material_suppression": false,
+              "material_suppression_basis": "H2H and current control are evaluated as completion risks; no independently corroborated total-route suppression veto is established.",
+              "completion_mode": "TWO_SIDED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "MEDIUM",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Current-season Jazira3-0Ajman reviewed at the same venue: two actual finishers, own goal from Milson delivery, Banza saved, Azaro hit post. This supports home chances and a possible away contribution but not an independent four-goal carrier; old3-0 adds no separate current mechanism.",
+              "board_state": "FOCUS",
+              "board_state_basis": "Current home service and usable away contribution, independently corroborated by unchanged frozen high-rate history, fund distributed G3. Completion/control risks retain MEDIUM grades.",
+              "common_evidence_basis": "Jazira have Malcom creation/finishing, Milson delivery, Bruno finishing, with Banza box chances and Mello combinations; the August same-opponent3-0 had two clean finishes plus an own goal, not three independent open-play goals. Latest Arkadag2-1 used a Malcom penalty and Mujkic late alternative. Ajman latest Victor Henrique goal came from goalkeeper error, but three first-half shots on target and a separately disallowed second preserve a usable reply. Frozen.7778third/.50fourth supports a distributed third alongside this current home service.",
+              "main_failure": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_reason": "No fixture-specific reliability upgrade is asserted; preserve the frozen operational proof.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "operational_viability_reason": "Original fixture-bound operational grade and research channels retained. Current football reports were checked; final XI and a price quote are not required for rank.",
+              "tournament_incentive_required": true,
+              "source_urls": [
+                "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                "https://www.uaefa.ae/",
+                "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                "https://uaefa.platinumlist.net/ar/",
+                "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+              ],
+              "evidence_observed_at_utc": "2026-10-22T10:55:44.504599+00:00",
+              "goal_signal_priority_score": 68,
+              "goal_signal_mean_over_two_rate": 0.7778,
+              "goal_signal_mean_over_three_rate": 0.5,
+              "goal_signal_low_draw_trap_rate": 0.1111,
+              "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+              "g4_research_basis": "Carrier: Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed. Distributed: Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Reply: Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility. Comparable context: Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "historical_form_policy": "Original sweep goal-signal inputs retained unchanged. Cup mismatches, penalties, own goals and red-card advantage are discounted in the independent current mechanism assessment.",
+              "tournament_format_status": "VERIFIED",
+              "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+              "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+              "draw_resolution": "90minutes, then30minutes extra time and penalties if still level under UAEFA regulation22.3. C goal certificates concern90minutes only.",
+              "aggregate_state": "No aggregate tie or away-goal requirement.",
+              "qualification_state": "Each side must advance today; no fixed regulation-time winning margin is required.",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "simultaneous_results_note": "Independent knockout ties; no external result can alter advancement.",
+              "home_incentive": "WIN_PREFERRED",
+              "away_incentive": "WIN_PREFERRED",
+              "tiebreak_margin_relevance": "NO",
+              "incentive_effect": "NEUTRAL",
+              "g4_carrier_path": "MIXED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "MEDIUM",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "upper_tail_comparable_context_signal": "MIXED",
+              "upper_tail_comparable_context_basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "Two clean same-opponent home finishes plus own goal, penalty-assisted Arkadag2-1 and ten-man Kalba equalizer leave carrier four mixed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "Jazira have Malcom creation/finishing, Milson delivery, Bruno finishing, with Banza box chances and Mello combinations; the August same-opponent3-0 had two clean finishes plus an own goal, not three independent open-play goals. Latest Arkadag2-1 used a Malcom penalty and Mujkic late alternative. Ajman latest Victor Henrique goal came from goalkeeper error, but three first-half shots on target and a separately disallowed second preserve a usable reply. Frozen.7778third/.50fourth supports a distributed third alongside this current home service. The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "Ajman have actual current shooting and a possible reply, but recent error-dependent goal and home control make repeatable2+2 mixed. Home leakage permits a reply; no protected post-third away finish is established, and the home fourth must not be manufactured from that possibility.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "The latest Jazira equalizer at Kalba was versus ten after injury substitutions; its0-0Sharjah and0-0GolGohar warn of control. Ajman conceded another own goal to Sharjah, so repeated three-goal concessions overstate independent completion. Current mechanisms fund distributed G3 without treating penalties, own goals, red-assisted finishes or cup advancement as protected fourth-goal evidence. No verified current absence of every named route is asserted; final XI is unconfirmed.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "Nearest same-opponent3-0 contains an own goal; latest domestic2-2has numerical advantage, while cup0-0Sharjah is a current control counterweight. Different cup stakes and current finishing leave transferable tail MEDIUM/MIXED.",
+                  "evidence_refs": [
+                    "https://jc.ae/en/fixtures-and-results/match-reports/aljazira_ajman-league-26_27-match-report/",
+                    "https://uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-987",
+                    "https://www.uaeproleague.ae/en/news-and-gallery/adnoc-pro-league-997",
+                    "https://www.persianfootball.com/news/2026/10/18/ghoddos-assists-in-draw-with-al-jazira-video/",
+                    "https://www.emaratalyoum.com/sports/local/2026-10-22-1.2094882",
+                    "https://www.uaefa.ae/",
+                    "https://fanet.ae/UAEFA/img.ashx?guid=D7AFD6F3CEB442A1ADED63A1BC9CBA0A",
+                    "https://uaefa.platinumlist.net/ar/",
+                    "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261022/0?MD=1&countryCode=US&locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4776/details?locale=en",
+                    "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4666/details?locale=en"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "tournament_incentive_basis": "Both seek advancement; extra time remains available at a draw. Knockout status alone does not prove all-out regulation attack or tactical suppression.",
+              "home": "Al-Jazira",
+              "away": "Ajman",
+              "country": "United Arab Emirates",
+              "competition": "President's Cup",
+              "competition_kind": "DOMESTIC_CUP"
+            }
+          ]
+        }
+      }
+    },
+    "material_evidence_updates": [
+      "common_evidence_basis",
+      "main_failure"
+    ]
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000e0988211b0953845ef8165f2",
+    "match_id": "1905373",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3,
+      "odds": 2.14
+    },
+    "observed_at_utc": "2026-10-22T12:41:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
