@@ -1,0 +1,244 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-ALSHAMAL-QATARSC-EXCEPTION-2123-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "al-shamal-qatar-sc-exception-20261023T142700Z-v2",
+    "match": {
+      "match_id": "1838578",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-23T21:30:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No competition-level reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Official QSL preview/results and user-supplied confirmed XI plus Asian totals are available.",
+      "common_evidence_basis": "Fresh exception research does not fully overturn the frozen STOP. Al Shamal's first four league games produced 2,3,4,1 goals, but their latest league sequence is 0-4 and 0-0 and they also drew 0-0 with Tractor in Asia. Qatar SC have six goals and fourteen conceded through six league matches; their current sequence includes 0-3 Al Rayyan and 2-2 Al Sailiya after earlier 0-0/0-1 control endpoints. The confirmed XI restores Baghdad Bounedjah and a normal Al Shamal attack, while Qatar SC also field a normal senior XI. That restores route presence but does not establish a repeatable three-goal carrier or remove the current low-endpoint failure mechanism.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "Recent joint conversion weakness remains material: Al Shamal have three consecutive blanks across league/Asia and Qatar SC had three straight league blanks before the 2-2 at Sailiya. Repeated 0-0/1-0/2-0 endpoints remain credible. Bounedjah starting improves route presence, but not enough to turn a current usable route into a protected three-goal carrier.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent direct evidence is mixed and not required for the decision; current league conversion and confirmed XI carry more weight.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research metadata only; deterministic Football C compiler owns the actual certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Neither side has a current repeatable independent three-goal carry. Al Shamal scored 3+ in two of six league matches but have three straight blanks across current competitions; Qatar SC have not scored three in a league match this season.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The early-season high totals do not remain independently transferable after Al Shamal's current blanks and Qatar SC's repeated low endpoints. No protected fourth-goal route is asserted.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Both clubs have some 4+ total games this season, but recent comparable league control endpoints cap transferability at MEDIUM.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "The closest current comparable sample includes Al Shamal 0-4 and 0-0 plus Qatar SC 0-3 and 2-2, alongside earlier 0-0/0-1 results. The recent sample suppresses rather than confirms a protected upper tail.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed XIs preserve usable scoring routes; the problem is completion and failure resistance, not disappearance of all attacking mechanisms.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified injury/red-card/weather event suppresses both routes; low completion is represented through failure resistance and stall risk.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 52,
+      "goal_signal_mean_over_two_rate": 0.5833,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.3333,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "Goal three is not prospectively funded after the fresh exception review; G4 therefore remains not applicable.",
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Both confirmed XIs preserve normal senior routes, but current conversion is inconsistent. MEDIUM.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/node/22465",
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Early-season high totals show some continuation, but current blanks and control endpoints cap the grade at MEDIUM.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Three current Al Shamal blanks and repeated Qatar SC low endpoints make one/two-goal finishes materially credible. HIGH.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Bounedjah/Al Shamal fail again, Qatar SC have not shown enough independent scoring to rescue the total; the reverse is also true. LOW.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal route survives the current comparable-control evidence.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Current conversion weakness and repeated low draws/blanks make a one- or two-goal endpoint credible despite normal confirmed attackers.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/node/22465",
+            "https://www.qsl.qa/en/al-shamal",
+            "https://www.qsl.qa/en/qatar-sc"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Fresh exception research improves lineup certainty but does not newly fund goal three.",
+      "source_urls": [
+        "https://www.qsl.qa/en/node/22465",
+        "https://www.qsl.qa/en/al-shamal",
+        "https://www.qsl.qa/en/qatar-sc",
+        "https://qsl.qa/en/doha-bank-stars-league-fixtures-results",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1838578"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T14:27:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception reassessment is independent of routine WATCH/STOP rank authority.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "ALSHAMAL-QATARSC-20261023-PREMATCH-EXCEPTION-v2",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "al-shamal-qatar-sc-exception-20261023T142700Z-v2",
+      "researched_at_utc": "2026-10-23T14:27:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "V4-20261023-2100-20261024-0300-SCOPEFIX rank #20 + fresh official QSL exception research + confirmed XI",
+      "evidence_refs": [
+        "https://www.qsl.qa/en/node/22465",
+        "https://www.qsl.qa/en/al-shamal",
+        "https://www.qsl.qa/en/qatar-sc",
+        "https://qsl.qa/en/doha-bank-stars-league-fixtures-results",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1838578"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000efe08211b4115df04225bcb6",
+    "match_id": "1838578",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.82
+    },
+    "observed_at_utc": "2026-10-23T14:27:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
