@@ -561,23 +561,30 @@ def c_two_route_goal3_funded(a: MatchAssessment) -> bool:
 def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
     """Fund goal three through a genuine two-sided 2+1 / 1+2 mechanism.
 
-    This is the Strømmen–Åsane correction: neither team must be a three-goal
-    carrier when both routes are usable and the frozen Step-0 history strongly
-    corroborates a distributed third goal.
+    Frozen scoreline history is corroboration, never a substitute for current
+    football strength. Two merely USABLE routes with an all-MEDIUM profile no
+    longer combine into a protected G3 certificate by themselves.
     """
 
     require_c_completion(a)
-    effective_continuation, _ = c_effective_incentive_grades(a)
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    strong_current_support = (
+        max(a.home_route, a.away_route) == RouteStrength.STRONG
+        or a.independent_route_quality == Grade.HIGH
+    )
     return (
         goal_signal_supports_distributed_goal3(a)
         and a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
         and a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
         and a.carrier >= CarrierStrength.USABLE
+        and strong_current_support
         and a.burden_completion_quality >= Grade.MEDIUM
         and effective_continuation >= Grade.MEDIUM
+        and effective_stall <= Grade.MEDIUM
         and a.route_reliability >= Grade.MEDIUM
         and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
         and a.burden_protection >= Grade.MEDIUM
         and a.opponent_leakage >= Grade.MEDIUM
@@ -824,6 +831,84 @@ def _independent_scoring_structure(a: MatchAssessment) -> bool:
     return two_route or self_funded_carrier
 
 
+def c_endpoint_control_pressure(a: MatchAssessment) -> str:
+    """Compile low-endpoint/control pressure from frozen football fields.
+
+    This deliberately sits between ordinary caution and material suppression.
+    It never parses prose and never uses bookmaker information or final scores.
+    HIGH pressure is a conservative execution warning, not a claim that all
+    scoring routes are destroyed.
+    """
+
+    require_c_completion(a)
+    _, effective_stall = c_effective_incentive_grades(a)
+    trap = a.goal_signal_low_draw_trap_rate
+
+    hard_control = (
+        effective_stall == Grade.HIGH
+        or (trap is not None and trap >= 0.25)
+        or (
+            a.h2h_effect == "SUPPRESSIVE"
+            and a.h2h_transferability == "VERIFIED"
+            and a.h2h_current_corroboration == "VERIFIED"
+        )
+    )
+    if hard_control:
+        return "HIGH"
+
+    cautions = 0
+    if effective_stall == Grade.MEDIUM:
+        cautions += 1
+    if a.burden_completion_quality == Grade.MEDIUM:
+        cautions += 1
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    if effective_continuation == Grade.MEDIUM:
+        cautions += 1
+    if a.failure_resistance == Grade.MEDIUM:
+        cautions += 1
+    if (
+        a.h2h_effect in {"SUPPRESSIVE", "MIXED"}
+        and a.h2h_transferability in {"VERIFIED", "LIMITED"}
+    ):
+        cautions += 1
+    if a.upper_tail_comparable_context_signal in {"MIXED", "SUPPRESSIVE"}:
+        cautions += 1
+
+    if cautions >= 3:
+        return "HIGH"
+    if cautions:
+        return "MODERATE"
+    return "NONE"
+
+
+def c_execution_strength(a: MatchAssessment) -> str:
+    """Expose execution quality separately from rank/FOLLOW workload priority."""
+
+    return ("FRAGILE", "CONDITIONAL", "ROBUST")[certificate_robustness(a, "c")]
+
+
+def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
+    """Highest line allowed for direct ACT under the execution-strength gate.
+
+    FRAGILE never ACTs. CONDITIONAL may ACT only with a 0.25-goal protection
+    below the certified burden and only when endpoint-control pressure is NONE.
+    ROBUST may ACT at the certified burden subject to the ordinary quote gates.
+    """
+
+    anchor = certified_supported_burden(a, "c")
+    if anchor is None:
+        return None
+    robustness = certificate_robustness(a, "c")
+    if robustness <= 0:
+        return None
+    if robustness == 1:
+        if c_endpoint_control_pressure(a) != "NONE":
+            return None
+        protected = round(anchor - 0.25, 2)
+        return protected if protected >= 0 else None
+    return anchor
+
+
 def certificate_robustness(a: MatchAssessment, model: str) -> int:
     """Classify funded certificates as FRAGILE=0, CONDITIONAL=1, ROBUST=2.
 
@@ -846,6 +931,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         transferability_cap = 2
 
     completion_cap = 2
+    endpoint_cap = 2
     if model == "c" and depth == 3:
         effective_continuation, _ = c_effective_incentive_grades(a)
         if (
@@ -853,6 +939,14 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
             and effective_continuation == Grade.MEDIUM
         ):
             completion_cap = 1
+        distributed_only = (
+            c_distributed_goal3_funded(a)
+            and not c_carrier_goal3_funded(a)
+            and not c_two_route_goal3_funded(a)
+            and not c_leakage_goal3_funded(a)
+        )
+        if distributed_only and c_endpoint_control_pressure(a) == "HIGH":
+            endpoint_cap = 1
     if a.material_suppression or a.failure_attacks_route:
         return 0
     if (
@@ -914,7 +1008,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         or repeatable_current_quality
         or strong_carrier_quality
     ):
-        return min(2, transferability_cap, completion_cap)
+        return min(2, transferability_cap, completion_cap, endpoint_cap)
 
     # CONDITIONAL requires at least one independently strong current football
     # dimension. A row of broad MEDIUM grades is deliberately not laundered
@@ -2165,10 +2259,10 @@ def _healthy_c_wait(a: MatchAssessment, ctx: ModelQuoteContext) -> bool:
     if not _c_wait_target_is_pregoal_reachable(a, ctx):
         return False
 
-    # FRAGILE certificates never create BOOK instructions. This closes the
-    # legacy FOCUS loophole where a weak funded G3 could fail the extension
-    # gate yet still book back to its certificate through the old WAIT path.
-    if certificate_robustness(a, "c") < 1:
+    # BOOK is an execution path, so workload priority and a merely
+    # CONDITIONAL certificate cannot authorize it. Only ROBUST football may
+    # create a conditional order target.
+    if certificate_robustness(a, "c") < 2:
         return False
     return True
 
@@ -2189,10 +2283,9 @@ def _supported_soft_price_zone(
         return False
     if not market_line_funded(a, ctx.quote.line, model):
         return False
-    return (
-        certificate_robustness(a, model) >= 1
-        or goal_signal_supports_distributed_goal3(a)
-    )
+    if model == "c":
+        return certificate_robustness(a, model) >= 2
+    return certificate_robustness(a, model) >= 1
 
 
 def model_wait_target(
@@ -2289,11 +2382,26 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         return Decision(Action.PASS, "material football veto remains")
 
     compiled_anchor = certified_supported_burden(a, "c")
+    execution_strength = c_execution_strength(a)
+    endpoint_pressure = c_endpoint_control_pressure(a)
+    direct_act_ceiling = c_direct_act_ceiling(a)
     goal3_counterweight = (
         c_leakage_goal3_funded(a)
         or c_distributed_goal3_funded(a)
     )
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
+
+    if execution_strength == "FRAGILE":
+        return Decision(
+            Action.PASS,
+            "FRAGILE certificate has no direct ACT or BOOK authority",
+        )
+
+    if execution_strength == "CONDITIONAL" and endpoint_pressure != "NONE":
+        return Decision(
+            Action.PASS,
+            "CONDITIONAL certificate blocked by endpoint-control pressure",
+        )
 
     if effective_stall == Grade.HIGH and not goal3_counterweight:
         return Decision(Action.PASS, "current effective burden stall risk is HIGH")
@@ -2375,18 +2483,30 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             "and no settlement-aware BOOK extension clears",
         )
 
+    if direct_act_ceiling is None or ctx.quote.line > direct_act_ceiling + 1e-9:
+        return Decision(
+            Action.PASS,
+            (
+                "CONDITIONAL certificate requires a 0.25-goal protected line "
+                "with no endpoint-control warning"
+                if execution_strength == "CONDITIONAL"
+                else "direct ACT ceiling unavailable"
+            ),
+        )
+
     if ctx.quote.odds >= 1.65:
         return Decision(
             Action.BET,
             (
-                "supported/protected line at normal price"
-                if at_or_below
-                else "prospective tail certificate funds quoted line"
+                "ROBUST supported/protected line at normal price"
+                if execution_strength == "ROBUST"
+                else "CONDITIONAL protected line at normal price"
             ),
         )
 
     if (
-        at_or_below
+        execution_strength == "ROBUST"
+        and at_or_below
         and 1.60 <= ctx.quote.odds < 1.65
         and (
             (ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus)
@@ -2396,9 +2516,9 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         return Decision(
             Action.BET,
             (
-                "top-focus soft-zone price"
+                "ROBUST top-focus soft-zone price"
                 if ctx.board_state == BoardState.FOCUS and ctx.top_ranked_focus
-                else "certified supported-line soft-zone price"
+                else "ROBUST certified supported-line soft-zone price"
             ),
         )
 
