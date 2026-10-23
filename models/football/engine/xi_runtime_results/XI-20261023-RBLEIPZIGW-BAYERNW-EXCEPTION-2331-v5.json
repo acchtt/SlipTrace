@@ -1,0 +1,315 @@
+{
+  "authority": {
+    "exception_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 4,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "rb-leipzig-w-bayern-w-exception-20261023T164100Z-v5",
+      "researched_at_utc": "2026-10-23T16:41:00+00:00",
+      "revision": "INITIAL",
+      "source_reference": "Fresh official Bayern/DFB exception research + confirmed XI; fixture was excluded from normal intake by user women's-domestic scope rule",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "EXCEPTION",
+    "rank_state_display": "EXCEPTION",
+    "rank_state_internal": null,
+    "reference": "RBLEIPZIGW-BAYERNW-20261023-PREMATCH-EXCEPTION-v5",
+    "user_requested_exception": true
+  },
+  "input_sha256": "cd5208aa29395ab7d7401049a362bb669598aa5ab18e79ff3916e8241fdf5cc6",
+  "ok": true,
+  "request_id": "XI-20261023-RBLEIPZIGW-BAYERNW-EXCEPTION-2331-v5",
+  "runtime": {
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-10-23T16:41:00+00:00",
+        "Assessment ID": "XI-C-rb-leipzig-w-bayern-w-exception-20261023T164100Z-v5",
+        "C Action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 4.5,
+        "Engine C Result": "{\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"STRONG\",\"bet_authorized\":false,\"board_state\":2,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"ROBUST\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":true,\"tournament_tail_bias\":\"NEUTRAL\"},\"certified_supported_burden\":4.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"credible_burden_band_high\":4.5,\"credible_burden_band_low\":4.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G5_FUNDED; G6 not near-funded under the market-independent diagnostic gate\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"FUNDED\",\"credible_tail_target_goal\":6,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_supported_line\":3.5,\"declared_supported_line_basis\":\"Research declaration only; deterministic compiler owns certified burden.\",\"direct_act_ceiling\":4.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"HIGH\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"ROBUST\",\"failure_mechanisms\":{\"COMPLETION_CONTEXT\":{\"affected_paths\":[\"g4_distributed_path\"],\"basis\":\"The main failure is an exact 3-0 Bayern control endpoint or Leipzig's improved defence suppressing the fourth.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":4.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE\",\"frozen_supported_line_funding\":true,\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"FUNDED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Bayern have 24 goals in seven league games, latest 5-0, and 21 goals across six meetings with Leipzig; confirmed XI preserves Schueller/Buehl/Harder.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"g4_distributed_path\":{\"basis\":\"Leipzig have scored eight in two but Bayern have conceded only six in seven; 3+1/2+2 is credible but not required for G4.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"g4_reply_path\":{\"basis\":\"If Bayern reach three, either their own continuation or Leipzig's current attacking form supplies a credible independent fourth.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Bayern's current and same-opponent carrier independently supports four, while Leipzig's current scoring provides an additional reply path. Exact 3-0 H2Hs keep the distributed path mixed but do not erase the independently funded carrier/reply routes.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":false,\"goal3_funded\":true,\"goal3_leakage_funded\":false,\"goal3_two_route_funded\":false,\"goal4_funded\":true,\"goal5_funded\":true,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Recent 3-0 H2Hs and Leipzig's two clean sheets create some exact-three/control risk, so stall is MEDIUM rather than LOW.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"continuation_quality\":{\"basis\":\"Multiple elite Bayern finishers plus Leipzig's current attack support HIGH continuation beyond goal three.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"failure_resistance\":{\"basis\":\"Bayern can self-carry; Leipzig have also scored eight in two, giving an alternative contribution route. HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"independent_upper_tail\":{\"basis\":\"Same-season Bayern output plus repeated same-opponent history establishes an independent fourth-goal tail.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\",\"https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"route_reliability\":{\"basis\":\"Bayern's seven straight league wins, 24 goals and 6-0 H2H record make the primary route HIGH.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\",\"https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]}},\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"USABLE\",\"incentive_effect\":\"NOT_APPLICABLE\",\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_id\":\"1834783\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":false,\"reason\":\"USER_WOMENS_DOMESTIC_EXCLUSION\",\"status\":\"SCOPE_EXCLUDED\"},\"prospective_tail_ceiling\":4.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"COMPLETION_CONTEXT\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_incentive_effect\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"tournament_incentive_resolution\":\"NOT_APPLICABLE\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"NEUTRAL\",\"upper_tail_comparable_context_basis\":\"Current league form: Bayern 5-0 last match and 24-6 overall; Leipzig 5-0 and 3-0 in their last two; same-opponent historical average is above 3.5 Bayern goals per game.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_strength\":\"STRONG\",\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"Same-competition current season and repeated same-opponent history both support the tail.\",\"wait_authorized\":false}}",
+        "Engine Source Revision": "70e557cc112c9322dee59df0a65a7a48c3d89edd",
+        "Evaluated Line": null,
+        "Evaluated Odds": null,
+        "Evidence Epoch ID": "rb-leipzig-w-bayern-w-exception-20261023T164100Z-v5",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "1834783",
+        "Match Minute": null,
+        "Payload JSON": "{\"context\":{\"assessment_at_utc\":\"2026-10-23T16:41:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Explicit exception outside normal ranked production surface.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"exception_research_completed\":true,\"exception_research_epoch_id\":\"rb-leipzig-w-bayern-w-exception-20261023T164100Z-v5\",\"exception_revision\":\"INITIAL\",\"exception_upstream_state\":\"NOT_RANKED\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\",\"top_ranked_focus\":false,\"wait_reachable\":false,\"wait_requires_negative_info\":false},\"evidence_epoch_id\":\"rb-leipzig-w-bayern-w-exception-20261023T164100Z-v5\",\"match\":{\"aggregate_state\":\"NOT_APPLICABLE\",\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"STRONG\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Exception football evidence funds G3 and G4, subject to standing production-scope exclusion.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Bayern average over three goals per league match, have just scored five, and have averaged 3.5 goals per match across six meetings with Leipzig. The confirmed XI retains multiple elite finishers, so the away side can plausibly self-fund four without requiring a Leipzig reply.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Fresh exception football research is strongly goal-positive. Bayern have won all seven league matches with a 24-6 goal difference and arrive from a 5-0 win over Stuttgart. They are 6-for-6 against Leipzig with a 21-2 aggregate; both meetings last season ended 3-0. Leipzig themselves enter on consecutive 5-0 and 3-0 league wins. The confirmed Bayern XI preserves elite attacking routes including Lea Schueller, Klara Buehl and Pernille Harder, while Leipzig field a normal senior XI after scoring eight without reply in two league matches. This creates both a strong Bayern carrier and a credible Leipzig reply/secondary route.\",\"competition\":\"Frauen-Bundesliga\",\"competition_format\":\"NOT_APPLICABLE\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"Football evidence is strong, but production scope separately excludes non-Japan domestic women's competitions.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"NOT_APPLICABLE\",\"completion_mode\":\"CARRIER_LED\",\"continuation_quality\":\"HIGH\",\"country\":\"Germany\",\"demoted_probation\":false,\"draw_resolution\":\"NOT_APPLICABLE\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"Confirmed XI preserves Bayern's principal scorers and Leipzig's current attack; no route-destroying absence is present in the supplied XI.\",\"failure_mechanisms\":{\"COMPLETION_CONTEXT\":{\"affected_paths\":[\"g4_distributed_path\"],\"basis\":\"The main failure is an exact 3-0 Bayern control endpoint or Leipzig's improved defence suppressing the fourth.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"HIGH\",\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Bayern have 24 goals in seven league games, latest 5-0, and 21 goals across six meetings with Leipzig; confirmed XI preserves Schueller/Buehl/Harder.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"g4_distributed_path\":{\"basis\":\"Leipzig have scored eight in two but Bayern have conceded only six in seven; 3+1/2+2 is credible but not required for G4.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"g4_reply_path\":{\"basis\":\"If Bayern reach three, either their own continuation or Leipzig's current attacking form supplies a credible independent fourth.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]}},\"g4_reply_path\":\"SUPPORTED\",\"g4_research_basis\":\"Bayern's current and same-opponent carrier independently supports four, while Leipzig's current scoring provides an additional reply path. Exact 3-0 H2Hs keep the distributed path mixed but do not erase the independently funded carrier/reply routes.\",\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal_signal_low_draw_trap_rate\":0.03,\"goal_signal_mean_over_three_rate\":0.65,\"goal_signal_mean_over_two_rate\":0.82,\"goal_signal_priority_score\":88,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Recent 3-0 H2Hs and Leipzig's two clean sheets create some exact-three/control risk, so stall is MEDIUM rather than LOW.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"continuation_quality\":{\"basis\":\"Multiple elite Bayern finishers plus Leipzig's current attack support HIGH continuation beyond goal three.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"failure_resistance\":{\"basis\":\"Bayern can self-carry; Leipzig have also scored eight in two, giving an alternative contribution route. HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"independent_upper_tail\":{\"basis\":\"Same-season Bayern output plus repeated same-opponent history establishes an independent fourth-goal tail.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\",\"https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]},\"route_reliability\":{\"basis\":\"Bayern's seven straight league wins, 24 goals and 6-0 H2H record make the primary route HIGH.\",\"evidence_refs\":[\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\",\"https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859\"],\"mechanism_ids\":[\"COMPLETION_CONTEXT\"]}},\"h2h_basis\":\"Six Bayern wins in six league meetings, 21-2 aggregate. Last season's two 3-0 wins confirm a repeatable three-goal Bayern carrier; the broader 21-2 aggregate plus current 5-0 form supports a real fourth-goal tail, while exact 3-0 endpoints prevent treating the tail as unlimited.\",\"h2h_current_corroboration\":\"VERIFIED\",\"h2h_effect\":\"OPEN\",\"h2h_material_effect\":false,\"h2h_state\":\"REVIEWED\",\"h2h_transferability\":\"VERIFIED\",\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"USABLE\",\"incentive_effect\":\"NOT_APPLICABLE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Bayern's 24 goals in seven matches, latest 5-0, six-match H2H 21-2 and Leipzig's own eight goals in two games establish a transferable fourth-goal path independent of a single distorted result.\",\"kickoff_ict\":\"2026-10-23T23:30:00+07:00\",\"main_failure\":\"Bayern have twice beaten Leipzig 3-0 recently, showing an exact-three control endpoint, and Leipzig's current defensive form is two straight clean sheets. These cap confidence above four even though current attacking strength is exceptional.\",\"market_observability\":\"HIGH\",\"match_id\":\"1834783\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified prematch event suppresses both routes.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Official Bayern/DFB current evidence and user-confirmed starting XI available.\",\"opponent_leakage\":\"MEDIUM\",\"qualification_state\":\"NOT_APPLICABLE\",\"raw_operational_viability_grade\":\"A\",\"route_reliability\":\"HIGH\",\"shared_failure_mechanisms\":{\"COMPLETION_CONTEXT\":[\"burden_stall_risk\"]},\"simultaneous_results_note\":\"NOT_APPLICABLE\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"source_urls\":[\"USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed\",\"https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8\",\"https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859\",\"Football-C-rank-20261023-2100-20261024-0300-verified.json#1834783\"],\"supported_line\":3.5,\"supported_line_basis\":\"Research declaration only; deterministic compiler owns certified burden.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_format_status\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"upper_tail_comparable_context_basis\":\"Current league form: Bayern 5-0 last match and 24-6 overall; Leipzig 5-0 and 3-0 in their last two; same-opponent historical average is above 3.5 Bayern goals per game.\",\"upper_tail_comparable_context_signal\":\"SUPPORTIVE\",\"upper_tail_transferability\":\"HIGH\",\"upper_tail_transferability_basis\":\"Same-competition current season and repeated same-opponent history both support the tail.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_ONLY"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "STRONG",
+      "bet_authorized": false,
+      "board_state": 2,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "ROBUST",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 4.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "CARRIER_LED",
+      "continuation_quality": "HIGH",
+      "credible_burden_band_high": 4.5,
+      "credible_burden_band_low": 4.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G5_FUNDED; G6 not near-funded under the market-independent diagnostic gate",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "FUNDED",
+      "credible_tail_target_goal": 6,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_supported_line": 3.5,
+      "declared_supported_line_basis": "Research declaration only; deterministic compiler owns certified burden.",
+      "direct_act_ceiling": 4.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "HIGH",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "ROBUST",
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "affected_paths": [
+            "g4_distributed_path"
+          ],
+          "basis": "The main failure is an exact 3-0 Bayern control endpoint or Leipzig's improved defence suppressing the fourth.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "HIGH",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 4.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3; upper_tail_transferability=HIGH; comparable_context=SUPPORTIVE",
+      "frozen_supported_line_funding": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Bayern have 24 goals in seven league games, latest 5-0, and 21 goals across six meetings with Leipzig; confirmed XI preserves Schueller/Buehl/Harder.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Leipzig have scored eight in two but Bayern have conceded only six in seven; 3+1/2+2 is credible but not required for G4.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "If Bayern reach three, either their own continuation or Leipzig's current attacking form supplies a credible independent fourth.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "g4_reply_path": "SUPPORTED",
+      "g4_research_basis": "Bayern's current and same-opponent carrier independently supports four, while Leipzig's current scoring provides an additional reply path. Exact 3-0 H2Hs keep the distributed path mixed but do not erase the independently funded carrier/reply routes.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": false,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_two_route_funded": false,
+      "goal4_funded": true,
+      "goal5_funded": true,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Recent 3-0 H2Hs and Leipzig's two clean sheets create some exact-three/control risk, so stall is MEDIUM rather than LOW.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Multiple elite Bayern finishers plus Leipzig's current attack support HIGH continuation beyond goal three.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Bayern can self-carry; Leipzig have also scored eight in two, giving an alternative contribution route. HIGH.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000002e888211a3270af5957808ed",
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Same-season Bayern output plus repeated same-opponent history establishes an independent fourth-goal tail.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8",
+            "https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Bayern's seven straight league wins, 24 goals and 6-0 H2H record make the primary route HIGH.",
+          "evidence_refs": [
+            "https://fcbayern.com/frauen/en/news/previews/2026/10/preview-rb-leipzig-vs.-fc-bayern-women-bundesliga-matchday-8",
+            "https://datencenter.dfb.de/datencenter/google-pixel-frauen-bundesliga/google-pixel-frauen-bundesliga-2026-2027/8-spieltag/rb-leipzig-fc-bayern-muenchen-2426859"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "USABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1834783",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": false,
+        "reason": "USER_WOMENS_DOMESTIC_EXCLUSION",
+        "status": "SCOPE_EXCLUDED"
+      },
+      "prospective_tail_ceiling": 4.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "Current league form: Bayern 5-0 last match and 24-6 overall; Leipzig 5-0 and 3-0 in their last two; same-opponent historical average is above 3.5 Bayern goals per game.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_strength": "STRONG",
+      "upper_tail_transferability": "HIGH",
+      "upper_tail_transferability_basis": "Same-competition current season and repeated same-opponent history both support the tail.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "70e557cc112c9322dee59df0a65a7a48c3d89edd",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
