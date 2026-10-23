@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: WATCH/PASS -> FOCUS exception requires a verified football state-change status",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "143b8566a76a10730d29eeecf4bc989701f365ee0831f24fbd609b633d9fd104",
+  "ok": false,
+  "request_id": "XI-20261024-QADSIAH-HILAL-EXCEPTION-0037",
+  "runtime_commit": "ac27cf97ca53588ac0aad4357250d5c090c61312",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
