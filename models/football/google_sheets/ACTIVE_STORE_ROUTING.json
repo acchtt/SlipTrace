@@ -126,5 +126,27 @@
       "RESERVE": "WATCHLIST",
       "STOP": "PASS"
     }
+  },
+  "xi_decision_state_persistence_contract": {
+    "runtime_manifest_field": "decision_state_persistence",
+    "sheet": "Decision States",
+    "key_column": "Assessment ID",
+    "write_mode": "UPSERT_IMMUTABLE_KEY",
+    "independent_readback_required": true,
+    "publication_fail_closed": true,
+    "publication_blocker_before_readback": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "required_readback_fields": [
+      "Assessment ID",
+      "Evidence Epoch ID",
+      "XI Assessment Execution Status",
+      "C Action",
+      "C Supported Line",
+      "Evaluated Line",
+      "Evaluated Odds",
+      "Engine C Result",
+      "Engine Source Revision"
+    ],
+    "failure_behavior": "ENGINE_EVALUATED_NOT_PUBLISHED",
+    "historical_backfill": false
   }
 }
