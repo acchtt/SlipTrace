@@ -1,0 +1,616 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-ALSHAMAL-QATARSC-2123",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "al-shamal-qatar-sc-xi-20261023T142300Z",
+    "match": {
+      "match_id": "1838578",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Al-Shamal",
+      "away": "Qatar SC",
+      "kickoff_ict": "2026-10-23T21:30:00+07:00",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "carrier_self_fund": false,
+      "independent_upper_tail": false,
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "supported_line": 2.5,
+      "board_state": "C-WATCH",
+      "common_evidence_basis": "Confirmed XI removes lineup uncertainty but does not repair the frozen scoring weakness. Al Shamal start Baghdad Bounedjah and a normal attacking XI; Qatar SC also field a normal senior XI with their current forward options. Those starters preserve usable routes, but the frozen evidence still contains three consecutive Al Shamal blanks, earlier one-goal draws, Qatar SC's recent blank sequence before scoring two against Sailiya, and a latest 0-2 H2H. No confirmed starter creates an independently strong three-goal carrier or materially raises failure resistance.",
+      "main_failure": "The confirmed starters preserve both routes but do not change the central failure mechanism: recent joint conversion weakness and repeated low-control endpoints keep one or two total goals credible. Bounedjah starting improves route presence, not enough to fund goal three by himself.",
+      "board_state_basis": "Prospective current routes and completion assessment; certificate and rank compiled natively.",
+      "supported_line_basis": "Declared research metadata; native goal certificates alone set protected burden.",
+      "failure_attacks_route_basis": "Confirmed XIs show no route-destroying absence; both routes remain usable. The rejection is completion/failure-resistance based rather than availability based.",
+      "material_suppression_basis": "Control risks are graded rather than promoted to an unsupported all-route veto.",
+      "carrier_self_fund_basis": "Bounedjah starts for Al Shamal and Qatar SC field a normal senior attack, but neither side has current evidence of a repeatable independent three-goal carry. Carrier self-funding remains false.",
+      "independent_upper_tail_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "operational_viability_reason": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability upgrade asserted.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Latest April meeting finished 0-2. Current blanks partially corroborate control, while changed season limits exact transfer.",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "goal_signal_priority_score": 52,
+      "goal_signal_mean_over_two_rate": 0.5833,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.3333,
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Closest current competition results and control evidence: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "Bounded carrier, distributed, reply and continuation review: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current carrier finishers and control endpoints considered; three-goal strength does not remove the mixed fourth-goal completion risk.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Current two-sided scoring and blanks tested for 3+1 / 2+2; control and conversion keep this path mixed.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Surviving away/home replies were considered after goal three; reply reliability remains mixed.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Current identified finishing alternatives and frozen recent conversion govern this grade.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Current late/substitute production is balanced against low control endpoints.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Control endpoints and conversion failures are the shared completion mechanism.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Surviving alternatives support recovery, with current blanks and concentration limiting confidence.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent transferable fourth is asserted after the bounded completion review.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+          "evidence_refs": [
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+            "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "g4_global_blockers": null,
+      "research_revalidation": {
+        "checked_at_utc": "2026-10-23T13:27:06.126258+00:00",
+        "source_urls": [
+          "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+          "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+        ],
+        "basis_type": "SOURCED_FACTS_WITH_PROSPECTIVE_OPERATOR_INFERENCE",
+        "availability": "Pre-XI evidence only. Unknown absence or starter confirmation is not invented."
+      }
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T14:23:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "G4_NOT_APPLICABLE",
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "Confirmed XI preserves usable routes but does not fund goal three; no certificate is created.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "RANKED",
+    "match_id": "1838578",
+    "verified_rank_package": {
+      "status": "V4_RANK_PERSISTENCE_VERIFIED",
+      "native_rank": {
+        "run_id": "V4-20261023-2100-20261024-0300-SCOPEFIX",
+        "integrity_sha256": "966ced86ff3b84bbfa4d00d923f714664e297aa86006f6339d126e605d56a88c",
+        "board": {
+          "matches": [
+            {
+              "rank": 20,
+              "match_id": "1838578",
+              "ranking_key": [
+                0,
+                0,
+                -2,
+                1,
+                -3333,
+                1,
+                1,
+                1,
+                5200,
+                5833,
+                5000,
+                -3333,
+                1,
+                1,
+                1,
+                1,
+                0,
+                1,
+                1,
+                1,
+                0,
+                1,
+                0
+              ],
+              "kickoff_ict": "2026-10-23T21:30:00+07:00",
+              "same_kickoff_rank": 1,
+              "supported_line": null,
+              "supported_line_basis": "NO_CERTIFIED_BURDEN: goal three is not funded by frozen football evidence",
+              "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+              "declared_supported_line": 2.5,
+              "declared_supported_line_basis": "Declared research metadata; native goal certificates alone set protected burden.",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "upper_tail_comparable_context_signal": "MIXED",
+              "upper_tail_comparable_context_basis": "Closest current competition results and control evidence: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "effective_upper_tail_transferability": "MEDIUM",
+              "goal3_funded": false,
+              "goal4_funded": false,
+              "goal5_funded": false,
+              "goal6_funded": false,
+              "goal3_carrier_funded": false,
+              "goal3_two_route_funded": false,
+              "goal3_distributed_funded": false,
+              "goal3_leakage_funded": false,
+              "upper_tail_strength": "NONE",
+              "prospective_tail_ceiling": null,
+              "certified_supported_burden": null,
+              "tournament_incentive_resolution": "NOT_APPLICABLE",
+              "tournament_incentive_effect": "NOT_APPLICABLE",
+              "tournament_tail_bias": "NEUTRAL",
+              "tournament_positive_pressure": false,
+              "tournament_suppressive_pressure": false,
+              "effective_continuation_quality": "MEDIUM",
+              "effective_burden_stall_risk": "HIGH",
+              "credible_tail_state": "REJECTED",
+              "credible_tail_target_goal": 3,
+              "credible_burden_band_low": null,
+              "credible_burden_band_high": null,
+              "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+              "credible_tail_market_independent": true,
+              "credible_tail_execution_authority": false,
+              "credible_tail_basis": "G3_NOT_FUNDED",
+              "follow_floor_score": 11,
+              "follow_ceiling_score": 23,
+              "follow_priority_score": 34,
+              "follow_clearability_score": 11,
+              "follow_upside_score": 23,
+              "follow_balanced_score": 34,
+              "follow_burden_penalty_clearability": 0,
+              "follow_burden_penalty_upside": 0,
+              "follow_burden_penalty_balanced": 0,
+              "follow_mechanism_class": "OTHER",
+              "follow_floor_tier": "LOW",
+              "follow_ceiling_tier": "LOW",
+              "follow_priority_profile": "LOW_FLOOR_LOW_CEILING",
+              "follow_history_support_points": 5,
+              "follow_priority_market_independent": true,
+              "follow_priority_execution_authority": false,
+              "g4_research_status": "G4_NOT_APPLICABLE",
+              "g4_research_explicit": true,
+              "g4_carrier_path": "NOT_APPLICABLE",
+              "g4_distributed_path": "NOT_APPLICABLE",
+              "g4_reply_path": "NOT_APPLICABLE",
+              "g4_continuation_after_g3": "NOT_APPLICABLE",
+              "g4_research_basis": "Bounded carrier, distributed, reply and continuation review: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "certificate_diagnostics": {
+                "goal4_funded": false,
+                "failed_conditions": [
+                  "G3_REQUIRED",
+                  "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+                  "STALL_AT_MOST_MEDIUM",
+                  "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+                  "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+                ],
+                "carrier_branch_quality_met": false,
+                "distributed_branch_quality_met": false,
+                "tournament_tail_bias": "NEUTRAL",
+                "certificate_robustness": "FRAGILE",
+                "explanation_only": true
+              },
+              "production_scope": {
+                "policy": "FOOTBALL_C_SCOPE_V1",
+                "status": "IN_SCOPE",
+                "reason": "RESEARCHED_LEAGUE_CONDITIONAL",
+                "production_allowed": true,
+                "override": null
+              },
+              "common_evidence_basis": "Shamal have three consecutive blanks and earlier one-goal draws. Qatar restored two goals against Sailiya after three blanks. Current league preview confirms normal points competition; individual lineup certainty is not asserted. Earlier home three- and four-goal results do not establish a current strong route.",
+              "goal_signal_priority_score": 52,
+              "goal_signal_mean_over_two_rate": 0.5833,
+              "goal_signal_mean_over_three_rate": 0.5,
+              "goal_signal_low_draw_trap_rate": 0.3333,
+              "main_failure": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Latest April meeting finished 0-2. Current blanks partially corroborate control, while changed season limits exact transfer.",
+              "carrier_self_fund": false,
+              "carrier_self_fund_basis": "No independent team-level three-goal carry asserted.",
+              "independent_upper_tail": false,
+              "independent_upper_tail_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "Availability effects and surviving alternatives considered; no verified destruction of every scoring route.",
+              "material_suppression": false,
+              "material_suppression_basis": "Control risks are graded rather than promoted to an unsupported all-route veto.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_effective_state": "UNPROVEN",
+              "competition_reliability_reason": "No reliability upgrade asserted.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "tournament_incentive_required": false,
+              "tournament_format_status": "NOT_APPLICABLE",
+              "home_incentive": "NOT_APPLICABLE",
+              "away_incentive": "NOT_APPLICABLE",
+              "tiebreak_margin_relevance": "NOT_APPLICABLE",
+              "incentive_effect": "NOT_APPLICABLE",
+              "tournament_incentive_recheck_required": false,
+              "tournament_incentive_unresolved_fields": [],
+              "supported_line_status": "FROZEN_FOOTBALL_PRE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "completion_mode": "TWO_SIDED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "MEDIUM",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "HIGH",
+              "execution_strength": "FRAGILE",
+              "endpoint_control_pressure": "HIGH",
+              "direct_act_ceiling": null,
+              "board_state": "WATCH",
+              "display_state": "REVIEW_ONLY",
+              "board_state_basis": "Prospective current routes and completion assessment; certificate and rank compiled natively.",
+              "follow_lane": "STOP",
+              "follow_portfolio_role": "NOT_FOCUS",
+              "follow_portfolio_score": null
+            }
+          ]
+        },
+        "frozen_model_input": {
+          "matches": [
+            {
+              "match_id": "1838578",
+              "country": "Qatar",
+              "competition": "Qatar Stars League",
+              "competition_kind": "DOMESTIC_LEAGUE",
+              "home": "Al-Shamal",
+              "away": "Qatar SC",
+              "kickoff_ict": "2026-10-23T21:30:00+07:00",
+              "home_route": "USABLE",
+              "away_route": "USABLE",
+              "carrier": "USABLE",
+              "route_reliability": "MEDIUM",
+              "independent_route_quality": "MEDIUM",
+              "chance_quality": "MEDIUM",
+              "failure_resistance": "LOW",
+              "xi_robustness": "MEDIUM",
+              "evidence_confidence": "MEDIUM",
+              "burden_protection": "MEDIUM",
+              "completion_mode": "TWO_SIDED",
+              "burden_completion_quality": "MEDIUM",
+              "continuation_quality": "MEDIUM",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "HIGH",
+              "carrier_self_fund": false,
+              "independent_upper_tail": false,
+              "failure_attacks_route": false,
+              "material_suppression": false,
+              "supported_line": 2.5,
+              "board_state": "C-WATCH",
+              "common_evidence_basis": "Shamal have three consecutive blanks and earlier one-goal draws. Qatar restored two goals against Sailiya after three blanks. Current league preview confirms normal points competition; individual lineup certainty is not asserted. Earlier home three- and four-goal results do not establish a current strong route.",
+              "main_failure": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "board_state_basis": "Prospective current routes and completion assessment; certificate and rank compiled natively.",
+              "supported_line_basis": "Declared research metadata; native goal certificates alone set protected burden.",
+              "failure_attacks_route_basis": "Availability effects and surviving alternatives considered; no verified destruction of every scoring route.",
+              "material_suppression_basis": "Control risks are graded rather than promoted to an unsupported all-route veto.",
+              "carrier_self_fund_basis": "No independent team-level three-goal carry asserted.",
+              "independent_upper_tail_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "operational_viability_reason": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_reason": "No reliability upgrade asserted.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Latest April meeting finished 0-2. Current blanks partially corroborate control, while changed season limits exact transfer.",
+              "tournament_format_status": "NOT_APPLICABLE",
+              "competition_stage": "NOT_APPLICABLE",
+              "competition_format": "NOT_APPLICABLE",
+              "draw_resolution": "NOT_APPLICABLE",
+              "aggregate_state": "NOT_APPLICABLE",
+              "home_incentive": "NOT_APPLICABLE",
+              "away_incentive": "NOT_APPLICABLE",
+              "tiebreak_margin_relevance": "NOT_APPLICABLE",
+              "incentive_effect": "NOT_APPLICABLE",
+              "qualification_state": "NOT_APPLICABLE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "simultaneous_results_note": "NOT_APPLICABLE",
+              "tournament_incentive_required": false,
+              "goal_signal_priority_score": 52,
+              "goal_signal_mean_over_two_rate": 0.5833,
+              "goal_signal_mean_over_three_rate": 0.5,
+              "goal_signal_low_draw_trap_rate": 0.3333,
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "upper_tail_comparable_context_signal": "MIXED",
+              "upper_tail_comparable_context_basis": "Closest current competition results and control evidence: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "g4_research_status": "G4_NOT_APPLICABLE",
+              "g4_carrier_path": "NOT_APPLICABLE",
+              "g4_distributed_path": "NOT_APPLICABLE",
+              "g4_reply_path": "NOT_APPLICABLE",
+              "g4_continuation_after_g3": "NOT_APPLICABLE",
+              "g4_research_basis": "Bounded carrier, distributed, reply and continuation review: Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "Current carrier finishers and control endpoints considered; three-goal strength does not remove the mixed fourth-goal completion risk.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Current two-sided scoring and blanks tested for 3+1 / 2+2; control and conversion keep this path mixed.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Surviving away/home replies were considered after goal three; reply reliability remains mixed.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "Current identified finishing alternatives and frozen recent conversion govern this grade.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "Current late/substitute production is balanced against low control endpoints.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "Control endpoints and conversion failures are the shared completion mechanism.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "Surviving alternatives support recovery, with current blanks and concentration limiting confidence.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "No independent transferable fourth is asserted after the bounded completion review.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "Recent joint scoring weakness and repeated low draws make a one- or two-goal endpoint credible. Defensive leakage alone does not protect goal three.",
+                  "evidence_refs": [
+                    "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                    "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "g4_global_blockers": null,
+              "research_revalidation": {
+                "checked_at_utc": "2026-10-23T13:27:06.126258+00:00",
+                "source_urls": [
+                  "https://www.qsl.qa/en/news/doha-bank-stars-league-week-7-al-shamal-vs-qatar-sc",
+                  "https://footsam.com/matches/1597949/al-shamal-vs-qatar-sc"
+                ],
+                "basis_type": "SOURCED_FACTS_WITH_PROSPECTIVE_OPERATOR_INFERENCE",
+                "availability": "Pre-XI evidence only. Unknown absence or starter confirmation is not invented."
+              }
+            }
+          ]
+        }
+      }
+    },
+    "material_evidence_updates": [
+      "common_evidence_basis",
+      "main_failure",
+      "carrier_self_fund_basis",
+      "failure_attacks_route_basis"
+    ]
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000efe08211b4115df04225bcb6",
+    "match_id": "1838578",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.82
+    },
+    "observed_at_utc": "2026-10-23T14:23:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
