@@ -229,6 +229,35 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertIn("model", price)
         self.assertNotIn("models", price)
 
+    def test_screenshot_xi_emits_fail_closed_decision_state_manifest(self):
+        out = run_xi()
+        manifest = out["decision_state_persistence"]
+        self.assertTrue(manifest["required"])
+        self.assertEqual(manifest["sheet_name"], "Decision States")
+        self.assertEqual(manifest["key_column"], "Assessment ID")
+        self.assertTrue(manifest["readback_required"])
+        self.assertTrue(manifest["publication_fail_closed"])
+        self.assertFalse(manifest["publication_authorized_before_readback"])
+        self.assertFalse(out["priced_publication_authorized"])
+        self.assertEqual(
+            out["publication_blocker"],
+            "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+        )
+        row = manifest["row"]
+        self.assertEqual(row["Match ID"], out["result"]["match_id"])
+        self.assertEqual(
+            row["Evidence Epoch ID"],
+            out["decision_state_persistence"]["row"]["Assessment ID"][5:],
+        )
+        self.assertEqual(
+            row["XI Assessment Execution Status"],
+            "EXECUTED_C_FOOTBALL_AND_PRICE",
+        )
+        self.assertEqual(row["Evaluated Line"], 2.5)
+        self.assertEqual(row["Evaluated Odds"], 1.7)
+        self.assertTrue(row["C Action"].startswith("OBSERVED_"))
+        self.assertFalse(row["Published"])
+
     def test_credible_tail_profile_is_invariant_to_screenshot_line(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         low = run_xi(c, snapshot(c, line=2.5, odds=1.70))
