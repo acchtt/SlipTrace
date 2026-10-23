@@ -1,0 +1,275 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-NAC-HERACLES-EXCEPTION-0037",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "nac-heracles-exception-20261023T173700Z",
+    "match": {
+      "match_id": "1799875",
+      "country": "Netherlands",
+      "competition": "Eerste Divisie",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T01:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current-form research plus user-confirmed starting XI are available.",
+      "common_evidence_basis": "Confirmed XI preserves the top-ranked upper-tail thesis. NAC start Brym and Soumano-type current routes, while Heracles retain Ndjoli, Van Gilst and multiple supporting finishers. Current form still shows strong scoring on both sides, and the sealed research already identified a repeatable Heracles carrier with multiple independent finishers.",
+      "home_route": "STRONG",
+      "away_route": "STRONG",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "HIGH",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "NAC's recent defensive control, including low-goal wins, can compress the match. That risk limits robustness but does not erase Heracles' repeatable carrier-led fourth-goal path.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent meetings are mixed between controlled and open outcomes; current scoring personnel, not H2H alone, fund the tail.",
+      "supported_line": 3.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Heracles retain multiple current finishers and repeated three-plus team production, allowing the away carrier to reach four without requiring two NAC goals.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Multiple Heracles finishers plus recurring high-output results provide an independent fourth-goal path; NAC's own attack adds a second route.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "The fourth is funded by current carrier depth, but NAC's clean-sheet/control sequence prevents HIGH transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "High Heracles output coexists with recent NAC low-control endpoints.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve the identified scoring routes; the remaining risk is completion/control rather than route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event suppresses every identified scoring route.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 72,
+      "goal_signal_mean_over_two_rate": 0.75,
+      "goal_signal_mean_over_three_rate": 0.65,
+      "goal_signal_low_draw_trap_rate": 0,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "SUPPORTED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Confirmed XI preserves the funded carrier-led G4 path; distributed and reply branches remain mixed.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Heracles retain a repeatable multi-finisher current carrier capable of supplying four.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "NAC can contribute, but 2+2 is not independently required or fully protected.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Reply path is credible but secondary to the carrier branch.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Both confirmed XIs preserve strong current routes; HIGH.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Continuation beyond three is credible through the Heracles carrier but NAC control caps it at MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "NAC's recent low-goal wins keep stall risk MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "The Heracles carrier can survive a weaker NAC contribution; MEDIUM overall.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Independent carrier-led fourth is preserved.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "NAC's recent defensive control, including low-goal wins, can compress the match. That risk limits robustness but does not erase Heracles' repeatable carrier-led fourth-goal path.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+            "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+            "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Confirmed XI preserves the #1 ranked O3.5 football certificate.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+        "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+        "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T17:37:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": true,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit user-requested exception reassessment with confirmed XI.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "NAC-HERACLES-20261024-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "nac-heracles-exception-20261023T173700Z",
+      "researched_at_utc": "2026-10-23T17:37:00+00:00",
+      "upstream_state": "FOCUS",
+      "source_reference": "Current #1 FOCUS/FOLLOW rank row + fresh current-form exception research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000005f888206a74408b990da5f91",
+        "https://www.fotmob.com/matches/nac-breda-vs-heracles/35t7xr",
+        "https://www.heracles.nl/2026/10/22/heilmann-verwacht-mooie-wedstrijd-in-breda-ik-kijk-er-enorm-naar-uit/",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799875"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
