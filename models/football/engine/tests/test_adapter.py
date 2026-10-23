@@ -592,7 +592,7 @@ class BoardContractTests(unittest.TestCase):
             "FOOTBALL_C_FOCUS_FIRST_FLOOR_CEILING_PORTFOLIO",
         )
 
-    def test_same_kickoff_follow_uses_floor_and_ceiling_portfolio(self):
+    def test_same_kickoff_follow_uses_clear_balanced_upside_portfolio(self):
         result = run_board(
             {
                 "schema_version": "football-engine-v1",
@@ -665,11 +665,14 @@ class BoardContractTests(unittest.TestCase):
         )
         rows = {row["match_id"]: row for row in result["matches"]}
         self.assertEqual(rows["floor_safe"]["follow_lane"], "FOLLOW")
-        self.assertEqual(rows["floor_safe"]["follow_portfolio_role"], "FLOOR")
+        self.assertEqual(rows["floor_safe"]["follow_portfolio_role"], "CLEARABILITY")
         self.assertEqual(rows["ceiling_upside"]["follow_lane"], "FOLLOW")
-        self.assertEqual(rows["ceiling_upside"]["follow_portfolio_role"], "CEILING")
-        self.assertEqual(rows["middle"]["follow_lane"], "RESERVE")
-        self.assertEqual(result["max_follow_per_exact_kickoff"], 2)
+        self.assertIn(
+            rows["ceiling_upside"]["follow_portfolio_role"],
+            {"BALANCED", "UPSIDE"},
+        )
+        self.assertEqual(rows["middle"]["follow_lane"], "FOLLOW")
+        self.assertEqual(result["max_follow_per_exact_kickoff"], 3)
 
     def test_focus_outside_workload_capacity_is_not_called_stop(self):
         rows = [
@@ -692,11 +695,11 @@ class BoardContractTests(unittest.TestCase):
             }
         )
         lanes = [row["follow_lane"] for row in result["matches"]]
-        self.assertEqual(lanes.count("FOLLOW"), 2)
+        self.assertEqual(lanes.count("FOLLOW"), 3)
         self.assertEqual(lanes.count("RESERVE"), 4)
-        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 1)
+        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 0)
         self.assertNotIn("STOP", lanes)
-        self.assertEqual(result["focus_unfollowed_count"], 1)
+        self.assertEqual(result["focus_unfollowed_count"], 0)
 
     def test_historical_signal_is_bounded_support_not_follow_veto(self):
         result = run_board(
@@ -768,6 +771,65 @@ class BoardContractTests(unittest.TestCase):
             by_id["current_structure"]["follow_floor_score"],
             by_id["history_only"]["follow_floor_score"],
         )
+
+
+    def test_follow_workload_normalizes_higher_certificate_burden(self):
+        result = run_board(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "board",
+                "model": "c",
+                "matches": [
+                    match(
+                        "g4_carrier",
+                        board_state="C-FOCUS",
+                        supported_line=3.5,
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=True,
+                        route_reliability="HIGH",
+                        chance_quality="HIGH",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="HIGH",
+                        goal_signal_priority_score=58,
+                        goal_signal_mean_over_two_rate=0.60,
+                        goal_signal_mean_over_three_rate=0.45,
+                        goal_signal_low_draw_trap_rate=0.15,
+                    ),
+                    match(
+                        "g3_carrier",
+                        board_state="C-FOCUS",
+                        supported_line=2.5,
+                        carrier="STRONG",
+                        carrier_self_fund=True,
+                        independent_upper_tail=False,
+                        route_reliability="MEDIUM",
+                        chance_quality="HIGH",
+                        failure_resistance="MEDIUM",
+                        burden_protection="MEDIUM",
+                        burden_completion_quality="MEDIUM",
+                        continuation_quality="MEDIUM",
+                        goal_signal_priority_score=54,
+                        goal_signal_mean_over_two_rate=0.65,
+                        goal_signal_mean_over_three_rate=0.30,
+                        goal_signal_low_draw_trap_rate=0.10,
+                    ),
+                ],
+            }
+        )
+        rows = {row["match_id"]: row for row in result["matches"]}
+        self.assertGreater(
+            rows["g4_carrier"]["follow_ceiling_score"],
+            rows["g3_carrier"]["follow_ceiling_score"],
+        )
+        self.assertGreater(
+            rows["g4_carrier"]["follow_burden_penalty_upside"],
+            rows["g3_carrier"]["follow_burden_penalty_upside"],
+        )
+        self.assertEqual(rows["g3_carrier"]["follow_burden_penalty_upside"], 0)
+        self.assertTrue(rows["g4_carrier"]["follow_priority_market_independent"])
 
     def test_high_completion_carrier_path_cannot_be_c_pass(self):
         with self.assertRaisesRegex(
