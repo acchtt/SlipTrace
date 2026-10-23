@@ -344,10 +344,16 @@ Run the deterministic Football C assessment once across the researched cohort.
   **inside** C's already-frozen FOCUS selection. STOP is reserved for
   WATCH/PASS/non-FOCUS rows. Workload allocation must not relabel a valid
   Football C FOCUS as a football rejection.
-- FOLLOW is allocated by the frozen floor/ceiling portfolio profile, not by
+- FOLLOW is allocated by a frozen burden-normalized portfolio profile, not by
   taking the first rows from the ordinary lexicographic rank. At an exact
-  kickoff, one slot prioritizes protected floor strength and the second
-  prioritizes credible scoring ceiling when available.
+  kickoff, up to three complementary workload roles are available:
+  CLEARABILITY, BALANCED, and UPSIDE.
+- Higher certificate depth does not automatically win FOLLOW workload. The
+  protected burden itself is normalized in workload comparison so O3.50 cannot
+  displace a materially stronger O2.50 opportunity merely because G4 is funded.
+- Global FOLLOW capacity is 7 and exact-kickoff capacity is 3. One
+  CLEARABILITY candidate per kickoff is protected first, then remaining slots
+  go to the strongest BALANCED/UPSIDE nominations across the board.
 - The FOLLOW profile is market-independent and uses current football structure,
   certificate depth/robustness, completion/continuation/stall, carrier and
   credible-tail evidence. Historical Step-0 goal signal contributes only a
