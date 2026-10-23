@@ -2,9 +2,9 @@
   "schema_version": "football-v4-sweep-research-checkpoint-v2",
   "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
   "run_id": "V4-20261023-2100-20261024-0300-PRIORITYFIX",
-  "original_source_sha256": "7efbdc17958f6d3e7b5c55f9aa1b313ff7884e660593100d85baa125c13c2610",
-  "source_file_sha256": "57bb7376e5814dc664f851742009f6978a6ceefdc57496f75b3a251ae4badd71",
-  "native_receipt_integrity_sha256": "ce2d971cd8b30baf02ca226cd63048493acb9e2abc35dcec4b04f90afa109c3a",
+  "original_source_sha256": "90af045224b0726873f799003f863e8f88735c185e5782dc779c2eb79b0e8884",
+  "source_file_sha256": "80f2275fded09a10d5e99b03deeb81dc805894b4670d6940d9d538358ed1d4b8",
+  "native_receipt_integrity_sha256": "f4bb81eda0b58bce431209615230b28c1b62934bf1e8510f253c68a88747f4ff",
   "target_states": {
     "1799870": {
       "match_id": "1799870",
