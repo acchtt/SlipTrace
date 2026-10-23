@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception evidence_refs must be attached to c_football.match.source_urls: USER_LINEUP_SCREENSHOT:file_0000000050d8820785a0db527fe7b22f",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "bb44e79947cf8bd73575c97867ab5cde65d2a00a56016b6a89375b60f3196ce3",
+  "ok": false,
+  "request_id": "XI-20261023-ALITTIHAD-DIRIYAH-EXCEPTION-2220-v5",
+  "runtime_commit": "ce87459eb568e68ec9aef2f52abb14a8ca996e3f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
