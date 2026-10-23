@@ -1,0 +1,26 @@
+[
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261023/7?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-23T02:00:53.709988+00:00",
+    "file": "raw/ICT-2026-10-23.json",
+    "sha256": "4fcd45af0c82a43d9c129c069aa1001cf6b29dcfc47e854aa72065e6f5ce05df"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261023/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-23T02:00:54.262603+00:00",
+    "file": "raw/UTC-2026-10-23.json",
+    "sha256": "40f9d0b15fa87c8f088aad5255d02bdb8f074476fa3bc0232f96d716e59bc1ac"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261023/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-23T02:00:54.904346+00:00",
+    "file": "raw/terminal-2026-10-23.json",
+    "sha256": "40f9d0b15fa87c8f088aad5255d02bdb8f074476fa3bc0232f96d716e59bc1ac"
+  },
+  {
+    "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates=20261023&limit=1000",
+    "observed_at_utc": "2026-10-23T02:00:54.978963+00:00",
+    "file": "raw/espn-validator-20261023.json",
+    "sha256": "6f6d4e53814d165ec69dce5e4a0bc9173aad852b8e294f4fdf8e232bdc57446a"
+  }
+]
