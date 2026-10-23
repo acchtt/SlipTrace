@@ -83,3 +83,33 @@ Tests enforce:
 - uncapped official FOCUS board remains intact;
 - strict C decision authorization still rejects unfollowed workload without an
   authorized execution path while ranked football evidence remains available.
+
+
+## Immediate v2 correction after frozen replay
+
+The first floor/ceiling allocator was replayed against the sealed 22 Oct
+21:00–03:00 board using only frozen prematch evidence. It failed the replay:
+certificate depth still inflated workload priority, especially for an O3.50
+candidate, and the exact-kickoff cap of two remained too brittle.
+
+Production was corrected immediately:
+
+- FOLLOW workload now has three roles: CLEARABILITY, BALANCED, UPSIDE.
+- Workload scores are normalized for certified burden; O3.50 receives a larger
+  workload comparison penalty than O2.50 while the certificate itself remains
+  untouched.
+- exact-kickoff FOLLOW capacity is 3;
+- global FOLLOW capacity is 7;
+- one CLEARABILITY candidate per kickoff is protected first;
+- remaining capacity is allocated to the strongest BALANCED/UPSIDE
+  nominations globally.
+- final scores remain excluded from every scoring field and threshold.
+
+The sealed replay now nominates:
+- 22:00: RoPS–KaPa (CLEARABILITY);
+- 23:45: OFI–Leverkusen (CLEARABILITY), Trabzonspor–Hearts (BALANCED),
+  Crvena Zvezda–Copenhagen (UPSIDE);
+- 02:00: Monaco–Freiburg (CLEARABILITY), Beşiktaş–Crystal Palace (BALANCED),
+  Hoffenheim–Lyon (UPSIDE).
+
+The replay is diagnostic only; historical receipts remain immutable.
