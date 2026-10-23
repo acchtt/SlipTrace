@@ -101,6 +101,19 @@ def assessment(**overrides):
     return MatchAssessment(**base)
 
 
+def robust_g3_assessment(**overrides):
+    """ROBUST G3 fixture with no G4 authority unless explicitly added."""
+
+    base = dict(
+        goal_signal_priority_score=70,
+        goal_signal_mean_over_two_rate=0.75,
+        goal_signal_mean_over_three_rate=0.50,
+        goal_signal_low_draw_trap_rate=0.10,
+    )
+    base.update(overrides)
+    return assessment(**base)
+
+
 def context(
     board_state=BoardState.FOCUS,
     thesis_state=ThesisState.PRESERVED,
@@ -953,7 +966,7 @@ class FootballCExecutionTests(unittest.TestCase):
 
     def test_g3_o275_uses_book_order_not_decay_wait(self):
         decision = decide_c(
-            assessment(),
+            robust_g3_assessment(),
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
@@ -965,10 +978,14 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.action, Action.BOOK)
         self.assertEqual(decision.book_target_line, 2.75)
         self.assertEqual(decision.book_min_odds, 1.85)
-
     def test_g3_o300_below_floor_is_pending_book_target(self):
+        a = robust_g3_assessment(
+            independent_upper_tail=True,
+            failure_resistance=Grade.MEDIUM,
+        )
+        self.assertFalse(c_goal4_funded(a))
         decision = decide_c(
-            assessment(),
+            a,
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
@@ -983,46 +1000,25 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertTrue(decision.book_target_available)
         self.assertFalse(decision.current_price_clears_book_target)
         self.assertNotEqual(decision.action, Action.WAIT)
-
-    def test_strong_carrier_g3_can_book_o325_without_becoming_g4(self):
-        a = assessment(
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=False,
-            completion_mode=CompletionMode.MIXED,
-            burden_completion_quality=Grade.MEDIUM,
-            continuation_quality=Grade.MEDIUM,
-            opponent_leakage=Grade.HIGH,
-            burden_stall_risk=Grade.MEDIUM,
-            goal_signal_priority_score=59,
-            goal_signal_mean_over_two_rate=0.70,
-            goal_signal_mean_over_three_rate=0.45,
-            goal_signal_low_draw_trap_rate=0.10,
+    def test_g3_only_o325_is_capped_at_o300_without_g4(self):
+        a = robust_g3_assessment(
+            independent_upper_tail=True,
+            failure_resistance=Grade.MEDIUM,
         )
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.25, 2.00)))
         self.assertEqual(decision.action, Action.BOOK)
-        self.assertEqual(decision.book_target_line, 3.25)
-        self.assertEqual(decision.book_min_odds, 2.00)
-
+        self.assertEqual(decision.book_target_line, 3.0)
+        self.assertEqual(decision.book_min_odds, 1.90)
     def test_g3_book_ceiling_never_authorizes_o350_without_g4(self):
-        a = assessment(
-            carrier=CarrierStrength.STRONG,
-            carrier_self_fund=True,
-            independent_upper_tail=False,
-            completion_mode=CompletionMode.MIXED,
-            burden_completion_quality=Grade.HIGH,
-            continuation_quality=Grade.MEDIUM,
-            opponent_leakage=Grade.HIGH,
-            burden_stall_risk=Grade.MEDIUM,
-        )
+        a = robust_g3_assessment()
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
         self.assertEqual(decision.action, Action.BOOK)
-        self.assertEqual(decision.book_target_line, 3.25)
+        self.assertEqual(decision.book_target_line, 2.75)
         self.assertNotEqual(decision.action, Action.BET)
-
     def test_high_stall_g3_does_not_gain_book_extension(self):
         a = assessment(
             carrier=CarrierStrength.USABLE,
