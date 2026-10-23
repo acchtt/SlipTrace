@@ -878,7 +878,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(c_execution_strength(robust_g3_assessment()), "ROBUST")
         self.assertEqual(decision.action, Action.BET)
-    def test_soft_zone_requires_top_focus(self):
+    def test_robust_supported_line_keeps_existing_soft_price_zone(self):
         a = robust_g3_assessment()
         top = decide_c(
             a,
@@ -899,7 +899,7 @@ class FootballCExecutionTests(unittest.TestCase):
             ),
         )
         self.assertEqual(top.action, Action.BET)
-        self.assertEqual(not_top.action, Action.PASS)
+        self.assertEqual(not_top.action, Action.BET)
     def test_o225_leakage_counterweight_no_longer_overrides_execution_strength(self):
         a = assessment(
             supported_line=2.25,
@@ -1533,6 +1533,94 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
         )
 
 
+class ProductionIncidentExecutionControls(unittest.TestCase):
+    def test_hagl_slna_distributed_history_only_shape_no_longer_funds_c_g3(self):
+        """Frozen pre-match HAGL shape: no final score is used by this replay."""
+
+        a = assessment(
+            match_id="1880352",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            upper_tail_comparable_context_signal="MIXED",
+            upper_tail_comparable_context_basis=(
+                "same-league high games coexist with current low-control endpoints"
+            ),
+            h2h_effect="MIXED",
+            h2h_transferability="LIMITED",
+            h2h_current_corroboration="NOT_FOUND",
+            goal_signal_priority_score=66,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.60,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertFalse(c_distributed_goal3_funded(a))
+        self.assertIsNone(certified_supported_burden(a, "c"))
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.5, 1.85))).action,
+            Action.PASS,
+        )
+
+    def test_teleoptik_fragile_g4_cannot_act_before_result_is_known(self):
+        """Frozen Teleoptik/TSC pre-result control for ACT robustness bypass."""
+
+        a = assessment(
+            match_id="1800282",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_transferability_basis=(
+                "current same-league carrier evidence transfers only at MEDIUM"
+            ),
+            upper_tail_comparable_context_signal="SUPPORTIVE",
+            upper_tail_comparable_context_basis=(
+                "repeated current carrier scoring supports the fourth-goal route"
+            ),
+            goal_signal_priority_score=51,
+            goal_signal_mean_over_two_rate=0.55,
+            goal_signal_mean_over_three_rate=0.35,
+            goal_signal_low_draw_trap_rate=0.30,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertEqual(certificate_robustness(a, "c"), 0)
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(c_endpoint_control_pressure(a), "HIGH")
+        self.assertIsNone(c_direct_act_ceiling(a))
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(3.25, 1.81))).action,
+            Action.PASS,
+        )
+
+
 class XiAssessmentCalibrationTests(unittest.TestCase):
     def test_history_only_usable_routes_no_longer_fund_c_distributed_g3(self):
         a = assessment(
@@ -1592,7 +1680,7 @@ class XiAssessmentCalibrationTests(unittest.TestCase):
             wait_reachability_basis="single pre-kickoff snapshot",
         )
         self.assertEqual(decide_c(a, ctx).action, Action.PASS)
-        self.assertEqual(decide_c2(a, ctx).action, Action.BET)
+        self.assertEqual(decide_c2(a, ctx).action, Action.WAIT)
     def test_soft_price_zone_never_funds_unsupported_higher_burden(self):
         a = assessment(
             home_route=RouteStrength.USABLE,
