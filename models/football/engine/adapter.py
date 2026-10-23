@@ -53,9 +53,9 @@ from core import (
 
 
 SCHEMA_VERSION = "football-engine-v1"
-MAX_FOLLOW = 6
+MAX_FOLLOW = 7
 MAX_RESERVE = 4
-MAX_FOLLOW_PER_KICKOFF = 2
+MAX_FOLLOW_PER_KICKOFF = 3
 
 
 class ContractError(ValueError):
@@ -858,25 +858,29 @@ def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
 
 
 def _follow_portfolio_weight(row: dict[str, Any], role: str) -> int:
-    """Comparable workload score for global FOLLOW capacity arbitration."""
+    """Comparable workload score for one FOLLOW role."""
 
-    floor = int(row.get("follow_floor_score", 0))
-    ceiling = int(row.get("follow_ceiling_score", 0))
-    if role == "FLOOR":
-        return 2 * floor + ceiling
-    if role == "CEILING":
-        return 2 * ceiling + floor
-    return floor + ceiling
+    if role == "CLEARABILITY":
+        return int(row.get("follow_clearability_score", 0))
+    if role == "UPSIDE":
+        return int(row.get("follow_upside_score", 0))
+    return int(row.get("follow_balanced_score", row.get("follow_priority_score", 0)))
 
 
 def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
-    """Allocate scarce FOLLOW slots as a floor/ceiling portfolio.
+    """Allocate FOLLOW as burden-normalized clear/balanced/upside coverage.
 
-    C-FOCUS selection and official rank are already frozen before this function.
-    This mutates only workload-lane fields. A-grade FOCUS rows compete for one
-    floor and one ceiling nomination per exact kickoff; global FOLLOW capacity
-    then chooses the strongest nominations. Remaining FOCUS rows may receive
-    RESERVE, otherwise they remain visibly FOCUS_UNFOLLOWED rather than STOP.
+    Football C state and certificates are frozen before this allocator runs.
+    FOLLOW is workload capacity only. Each exact kickoff can contribute up to
+    three complementary nominations:
+
+    1. CLEARABILITY — strongest burden-normalized protected-floor candidate;
+    2. BALANCED — strongest remaining all-round current mechanism candidate;
+    3. UPSIDE — strongest remaining burden-normalized ceiling candidate.
+
+    This avoids two previous failure modes: certificate depth winning workload
+    priority automatically, and a two-row exact-kickoff cap pretending there is
+    predictive separation when several FOCUS rows remain credible.
     """
 
     for row in rows:
@@ -897,61 +901,105 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
         ):
             blocks.setdefault(str(row["kickoff_ict"]), []).append(row)
 
-    nominations: list[tuple[dict[str, Any], str, int]] = []
+    primary: list[tuple[dict[str, Any], str, int]] = []
+    secondary: list[tuple[dict[str, Any], str, int]] = []
+
     for kickoff in sorted(blocks):
         candidates = blocks[kickoff]
-        floor_pick = max(
+        clear_pick = max(
             candidates,
             key=lambda row: (
-                int(row["follow_floor_score"]),
-                int(row["follow_ceiling_score"]),
-                int(row["follow_priority_score"]),
+                int(row.get("follow_clearability_score", 0)),
+                int(row.get("follow_balanced_score", 0)),
+                int(row.get("follow_upside_score", 0)),
                 -int(row["rank"]),
             ),
         )
-        nominations.append(
-            (floor_pick, "FLOOR", _follow_portfolio_weight(floor_pick, "FLOOR"))
+        primary.append(
+            (
+                clear_pick,
+                "CLEARABILITY",
+                _follow_portfolio_weight(clear_pick, "CLEARABILITY"),
+            )
         )
 
-        remaining = [row for row in candidates if row is not floor_pick]
+        remaining = [row for row in candidates if row is not clear_pick]
         if remaining and MAX_FOLLOW_PER_KICKOFF > 1:
-            ceiling_pick = max(
+            balanced_pick = max(
                 remaining,
                 key=lambda row: (
-                    int(row["follow_ceiling_score"]),
-                    int(row["follow_floor_score"]),
-                    int(row["follow_priority_score"]),
+                    int(row.get("follow_balanced_score", 0)),
+                    int(row.get("follow_upside_score", 0)),
+                    int(row.get("follow_clearability_score", 0)),
                     -int(row["rank"]),
                 ),
             )
-            nominations.append(
+            secondary.append(
                 (
-                    ceiling_pick,
-                    "CEILING",
-                    _follow_portfolio_weight(ceiling_pick, "CEILING"),
+                    balanced_pick,
+                    "BALANCED",
+                    _follow_portfolio_weight(balanced_pick, "BALANCED"),
+                )
+            )
+            remaining = [row for row in remaining if row is not balanced_pick]
+
+        if remaining and MAX_FOLLOW_PER_KICKOFF > 2:
+            upside_pick = max(
+                remaining,
+                key=lambda row: (
+                    int(row.get("follow_upside_score", 0)),
+                    int(row.get("follow_balanced_score", 0)),
+                    int(row.get("follow_clearability_score", 0)),
+                    -int(row["rank"]),
+                ),
+            )
+            secondary.append(
+                (
+                    upside_pick,
+                    "UPSIDE",
+                    _follow_portfolio_weight(upside_pick, "UPSIDE"),
                 )
             )
 
     selected: list[tuple[dict[str, Any], str, int]] = []
     seen: set[str] = set()
+
+    # First protect one burden-normalized floor candidate at every exact kickoff
+    # while capacity permits. This prevents a congested later block from
+    # consuming the whole board.
     for row, role, score in sorted(
-        nominations,
+        primary,
+        key=lambda item: (
+            item[0]["kickoff_ict"],
+            int(item[0].get("follow_clearability_score", 0)),
+            -int(item[0]["rank"]),
+        ),
+    ):
+        if len(selected) >= MAX_FOLLOW:
+            break
+        mid = str(row["match_id"])
+        if mid not in seen:
+            selected.append((row, role, score))
+            seen.add(mid)
+
+    # Remaining slots go to the strongest complementary nominations globally.
+    for row, role, score in sorted(
+        secondary,
         key=lambda item: (
             item[2],
-            int(item[0]["follow_priority_score"]),
-            int(item[0]["follow_floor_score"]),
-            int(item[0]["follow_ceiling_score"]),
+            int(item[0].get("follow_balanced_score", 0)),
+            int(item[0].get("follow_upside_score", 0)),
+            int(item[0].get("follow_clearability_score", 0)),
             -int(item[0]["rank"]),
         ),
         reverse=True,
     ):
-        match_id = str(row["match_id"])
-        if match_id in seen:
-            continue
         if len(selected) >= MAX_FOLLOW:
             break
-        selected.append((row, role, score))
-        seen.add(match_id)
+        mid = str(row["match_id"])
+        if mid not in seen:
+            selected.append((row, role, score))
+            seen.add(mid)
 
     for row, role, score in selected:
         row["follow_lane"] = FollowLane.FOLLOW.value
@@ -966,9 +1014,9 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     reserve_pool.sort(
         key=lambda row: (
             1 if row.get("operational_viability_grade") == "A" else 0,
-            int(row.get("follow_priority_score", 0)),
-            int(row.get("follow_floor_score", 0)),
-            int(row.get("follow_ceiling_score", 0)),
+            int(row.get("follow_balanced_score", row.get("follow_priority_score", 0))),
+            int(row.get("follow_upside_score", 0)),
+            int(row.get("follow_clearability_score", 0)),
             -int(row["rank"]),
         ),
         reverse=True,
@@ -976,7 +1024,9 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     for row in reserve_pool[:MAX_RESERVE]:
         row["follow_lane"] = FollowLane.RESERVE.value
         row["follow_portfolio_role"] = "RESERVE"
-        row["follow_portfolio_score"] = int(row.get("follow_priority_score", 0))
+        row["follow_portfolio_score"] = int(
+            row.get("follow_balanced_score", row.get("follow_priority_score", 0))
+        )
 
     for row in rows:
         if (
@@ -984,8 +1034,9 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
             and row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
         ):
             row["follow_portfolio_role"] = "FOCUS_UNFOLLOWED"
-            row["follow_portfolio_score"] = int(row.get("follow_priority_score", 0))
-
+            row["follow_portfolio_score"] = int(
+                row.get("follow_balanced_score", row.get("follow_priority_score", 0))
+            )
 
 def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
