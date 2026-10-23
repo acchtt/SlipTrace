@@ -87,6 +87,21 @@ def match(match_id="m1", **overrides):
     return row
 
 
+def robust_g3_book_match(**overrides):
+    """Synthetic ROBUST G3 row that deliberately does not fund G4 by default."""
+
+    row = match(
+        board_state="C-FOCUS",
+        supported_line=2.5,
+        goal_signal_priority_score=70,
+        goal_signal_mean_over_two_rate=0.75,
+        goal_signal_mean_over_three_rate=0.50,
+        goal_signal_low_draw_trap_rate=0.10,
+    )
+    row.update(overrides)
+    return row
+
+
 C_COMPLETION_FIELDS = (
     "completion_mode",
     "burden_completion_quality",
@@ -1643,16 +1658,13 @@ class AuditRecordContractTests(unittest.TestCase):
 
 
 class DecisionContractTests(unittest.TestCase):
-    def test_c_g3_o275_emits_book_without_assumed_exposure(self):
+    def test_robust_c_g3_o275_emits_book_without_assumed_exposure(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
                 "stage": "decision",
                 "model": "c",
-                "match": match(
-                    board_state="C-FOCUS",
-                    supported_line=2.5,
-                ),
+                "match": robust_g3_book_match(),
                 "context": decision_context(
                     board_state="C-FOCUS",
                     quote={"line": 2.75, "odds": 1.85},
@@ -1672,15 +1684,35 @@ class DecisionContractTests(unittest.TestCase):
         self.assertIsNone(result["model_accounting_odds"])
         self.assertEqual(result["wait_resolution_default"], "NOT_APPLICABLE")
 
-    def test_c_g3_o300_below_floor_is_pending_book_target(self):
+    def test_robust_g3_without_fourth_goal_support_caps_book_at_o275(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
                 "stage": "decision",
                 "model": "c",
-                "match": match(
+                "match": robust_g3_book_match(),
+                "context": decision_context(
                     board_state="C-FOCUS",
-                    supported_line=2.5,
+                    quote={"line": 3.0, "odds": 2.05},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 2.75)
+        self.assertEqual(result["book_min_odds"], 1.85)
+
+    def test_robust_g3_with_independent_fourth_goal_support_can_book_o300(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": robust_g3_book_match(
+                    independent_upper_tail=True,
+                    failure_resistance="MEDIUM",
                 ),
                 "context": decision_context(
                     board_state="C-FOCUS",
@@ -1698,31 +1730,105 @@ class DecisionContractTests(unittest.TestCase):
         self.assertFalse(result["current_price_clears_book_target"])
         self.assertIsNone(result["wait_target_line"])
 
-    def test_c_g3_o275_below_floor_is_pending_book_target(self):
-        result = run_decision({
-            "schema_version": "football-engine-v1", "stage": "decision", "model": "c",
-            "match": match(board_state="C-FOCUS", supported_line=2.5),
-            "context": decision_context(
-                board_state="C-FOCUS", quote={"line": 2.75, "odds": 1.81},
-                wait_reachable=True, wait_requires_negative_info=False,
-                top_ranked_focus=False,
-            ),
-        })
-        self.assertEqual(result["action"], "BOOK")
-        self.assertEqual(result["book_target_state"], "BOOK_TARGET_AVAILABLE")
-        self.assertEqual(result["book_min_odds"], 1.85)
-        self.assertFalse(result["current_price_clears_book_target"])
-
-    def test_top_focus_does_not_turn_book_into_wait(self):
+    def test_g3_only_o325_is_capped_at_o300_even_with_fourth_goal_support(self):
         result = run_decision(
             {
                 "schema_version": "football-engine-v1",
                 "stage": "decision",
                 "model": "c",
-                "match": match(
-                    board_state="C-FOCUS",
-                    supported_line=2.5,
+                "match": robust_g3_book_match(
+                    independent_upper_tail=True,
+                    failure_resistance="MEDIUM",
                 ),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 3.25, "odds": 2.10},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "BOOK")
+        self.assertEqual(result["book_target_line"], 3.0)
+        self.assertEqual(result["book_min_odds"], 1.90)
+
+    def test_fragile_g3_cannot_book_extension_or_legacy_wait_target(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(board_state="C-FOCUS", supported_line=2.5),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 2.75, "odds": 1.85},
+                    wait_reachable=True,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+        self.assertIsNone(result["book_target_line"])
+
+    def test_conditional_g3_cannot_extend_above_certificate(self):
+        conditional = match(
+            board_state="C-FOCUS",
+            supported_line=2.5,
+            route_reliability="MEDIUM",
+            chance_quality="MEDIUM",
+            goal_signal_priority_score=70,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": conditional,
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 3.0, "odds": 2.05},
+                    wait_reachable=False,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+        self.assertIsNone(result["book_target_line"])
+
+    def test_robust_g3_with_medium_continuation_cannot_book_extension(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": robust_g3_book_match(
+                    continuation_quality="MEDIUM",
+                ),
+                "context": decision_context(
+                    board_state="C-FOCUS",
+                    quote={"line": 3.0, "odds": 2.05},
+                    wait_reachable=False,
+                    wait_requires_negative_info=False,
+                    top_ranked_focus=False,
+                ),
+            }
+        )
+        self.assertEqual(result["action"], "PASS")
+        self.assertIsNone(result["book_target_line"])
+
+    def test_top_focus_does_not_override_robust_book_gate(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": robust_g3_book_match(),
                 "context": decision_context(
                     board_state="C-FOCUS",
                     quote={"line": 2.75, "odds": 1.85},
