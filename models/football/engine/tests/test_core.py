@@ -30,6 +30,9 @@ from core import (  # noqa: E402
     c2_low_burden_leakage_goal3_funded,
     c_effective_incentive_grades,
     c_distributed_goal3_funded,
+    c_endpoint_control_pressure,
+    c_execution_strength,
+    c_direct_act_ceiling,
     c_goal4_funded,
     c_goal5_funded,
     certificate_robustness,
@@ -579,7 +582,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(g3, "c2"), 2.5)
         self.assertEqual(rank_assessments_c2([g3, g4])[0].match_id, "c2_g4")
 
-    def test_frozen_norway_regressions_rank_stuttgart_by_evidence_not_outcome(self):
+    def test_hardened_distributed_g3_demotes_high_stall_history_only_shape(self):
         stuttgart = assessment(
             match_id="slovan_stuttgart",
             home_route=RouteStrength.USABLE,
@@ -708,15 +711,13 @@ class RankingTests(unittest.TestCase):
             [item.match_id for item in c_ranked],
             [
                 "stromsgodset_kongsvinger",
-                "slovan_stuttgart",
                 "hodd_ranheim",
                 "bryne_raufoss",
                 "sogndal_odd",
+                "slovan_stuttgart",
             ],
         )
 
-        # C2 remains independent: its certificate functions differ from C, but
-        # the same frozen common evidence must still demote broad-MEDIUM tails.
         c2_ranked = rank_assessments_c2(
             [hodd, sogndal, bryne, stuttgart, stromsgodset]
         )
@@ -733,7 +734,6 @@ class RankingTests(unittest.TestCase):
             [item.match_id for item in c2_ranked].index("bryne_raufoss"),
         )
         self.assertEqual(c2_ranked[0].match_id, "stromsgodset_kongsvinger")
-
     def test_rotation_is_not_suppressive_without_route_specific_failure(self):
         alternative_routes_intact = assessment(
             match_id="alternative_routes_intact",
@@ -802,6 +802,8 @@ class FootballCExecutionTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=True,
         )
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
         for line, odds in ((2.5, 1.96), (2.25, 1.89)):
             with self.subTest(line=line):
                 ctx = context(
@@ -810,20 +812,20 @@ class FootballCExecutionTests(unittest.TestCase):
                     quote=Quote(line, odds),
                 )
                 result = decide_c(a, ctx)
-                self.assertEqual(result.action, Action.BET)
-
-    def test_strong_carrier_retains_legitimate_bet(self):
-        a = assessment(
+                self.assertEqual(result.action, Action.PASS)
+    def test_strong_carrier_retains_legitimate_bet_when_robust(self):
+        a = robust_g3_assessment(
             carrier=CarrierStrength.STRONG,
             carrier_self_fund=True,
-            independent_upper_tail=True,
+            independent_upper_tail=False,
             completion_mode=CompletionMode.CARRIER_LED,
             away_route=RouteStrength.WEAK,
-            continuation_quality=Grade.MEDIUM,
-            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_completion_quality=Grade.HIGH,
+            burden_stall_risk=Grade.LOW,
         )
+        self.assertEqual(c_execution_strength(a), "ROBUST")
         self.assertEqual(decide_c(a, context()).action, Action.BET)
-
     def test_unfunded_c_wait_is_not_assumed_model_exposure(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
@@ -849,38 +851,37 @@ class FootballCExecutionTests(unittest.TestCase):
 
     def test_stop_lane_is_allowed_only_by_user_exception(self):
         decision = decide_c(
-            assessment(),
+            robust_g3_assessment(),
             context(
                 official_follow_lane=FollowLane.STOP,
                 step2_authorization=Step2Authorization.USER_EXCEPTION,
             ),
         )
         self.assertEqual(decision.action, Action.BET)
-
     def test_reserve_activation_requires_reserve_lane(self):
         decision = decide_c(
-            assessment(),
+            robust_g3_assessment(),
             context(
                 official_follow_lane=FollowLane.RESERVE,
                 step2_authorization=Step2Authorization.RESERVE_ACTIVATED,
             ),
         )
         self.assertEqual(decision.action, Action.BET)
-
     def test_normal_price_at_supported_line_bets(self):
         decision = decide_c(
-            assessment(),
+            robust_g3_assessment(),
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
                 Quote(2.5, 1.70),
             ),
         )
+        self.assertEqual(c_execution_strength(robust_g3_assessment()), "ROBUST")
         self.assertEqual(decision.action, Action.BET)
-
     def test_soft_zone_requires_top_focus(self):
+        a = robust_g3_assessment()
         top = decide_c(
-            assessment(),
+            a,
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
@@ -889,7 +890,7 @@ class FootballCExecutionTests(unittest.TestCase):
             ),
         )
         not_top = decide_c(
-            assessment(),
+            a,
             context(
                 BoardState.FOCUS,
                 ThesisState.PRESERVED,
@@ -899,8 +900,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(top.action, Action.BET)
         self.assertEqual(not_top.action, Action.PASS)
-
-    def test_o225_leakage_counterweight_prevents_stall_and_low_continuation_auto_pass(self):
+    def test_o225_leakage_counterweight_no_longer_overrides_execution_strength(self):
         a = assessment(
             supported_line=2.25,
             away_route=RouteStrength.WEAK,
@@ -915,10 +915,13 @@ class FootballCExecutionTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=False,
         )
-        decision = decide_c(a, context(quote=Quote(2.25, 1.70)))
-        self.assertEqual(decision.action, Action.BET)
-
-    def test_o250_same_leakage_shape_is_goal3_funded(self):
+        self.assertTrue(clearing_goal_funded(a, 2.25))
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.25, 1.70))).action,
+            Action.PASS,
+        )
+    def test_o250_same_leakage_shape_is_funded_but_not_execution_ready(self):
         a = assessment(
             supported_line=2.5,
             away_route=RouteStrength.WEAK,
@@ -933,9 +936,12 @@ class FootballCExecutionTests(unittest.TestCase):
             carrier_self_fund=False,
             independent_upper_tail=False,
         )
-        decision = decide_c(a, context(quote=Quote(2.5, 1.70)))
-        self.assertEqual(decision.action, Action.BET)
-
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.5, 1.70))).action,
+            Action.PASS,
+        )
     def test_high_current_stall_risk_passes(self):
         decision = decide_c(
             assessment(burden_stall_risk=Grade.HIGH),
@@ -1069,22 +1075,20 @@ class FootballCExecutionTests(unittest.TestCase):
             wait_reachable=True,
             wait_requires_negative_info=False,
         )
-        self.assertEqual(certificate_robustness(fragile, "c"), 0)
+        self.assertEqual(c_execution_strength(fragile), "FRAGILE")
         self.assertEqual(decide_c(fragile, ctx).action, Action.PASS)
 
-        revalidated = assessment(
+        conditional = assessment(
             **{
                 **fragile.__dict__,
                 "route_reliability": Grade.HIGH,
+                "independent_route_quality": Grade.HIGH,
             }
         )
-        self.assertEqual(certificate_robustness(revalidated, "c"), 1)
-        decision = decide_c(revalidated, ctx)
-        self.assertEqual(decision.action, Action.BOOK)
-        self.assertTrue(decision.book_target_available)
-        self.assertEqual(decision.book_target_line, 2.5)
-        self.assertFalse(decision.current_price_clears_book_target)
-
+        self.assertEqual(c_execution_strength(conditional), "CONDITIONAL")
+        self.assertEqual(c_endpoint_control_pressure(conditional), "HIGH")
+        self.assertIsNone(c_direct_act_ceiling(conditional))
+        self.assertEqual(decide_c(conditional, ctx).action, Action.PASS)
     def test_supported_line_is_anchor_when_frozen_goal5_tail_is_strong(self):
         a = assessment(
             supported_line=2.75,
@@ -1092,7 +1096,7 @@ class FootballCExecutionTests(unittest.TestCase):
             completion_mode=CompletionMode.CARRIER_LED,
             burden_completion_quality=Grade.HIGH,
             continuation_quality=Grade.HIGH,
-            burden_stall_risk=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
             carrier_self_fund=True,
             independent_upper_tail=True,
             route_reliability=Grade.HIGH,
@@ -1101,12 +1105,17 @@ class FootballCExecutionTests(unittest.TestCase):
             failure_resistance=Grade.HIGH,
             evidence_confidence=Grade.HIGH,
             burden_protection=Grade.HIGH,
+            goal_signal_priority_score=82,
+            goal_signal_mean_over_two_rate=0.80,
+            goal_signal_mean_over_three_rate=0.60,
+            goal_signal_low_draw_trap_rate=0.05,
         )
         profile = prospective_goal_funding(a, "c")
         self.assertTrue(profile["goal4_funded"])
         self.assertTrue(profile["goal5_funded"])
         self.assertFalse(profile["goal6_funded"])
         self.assertEqual(profile["upper_tail_strength"], "STRONG")
+        self.assertEqual(c_execution_strength(a), "ROBUST")
         self.assertTrue(market_line_funded(a, 4.0, "c"))
         self.assertTrue(market_line_funded(a, 4.5, "c"))
         self.assertFalse(market_line_funded(a, 4.75, "c"))
@@ -1115,7 +1124,6 @@ class FootballCExecutionTests(unittest.TestCase):
             decide_c(a, context(quote=Quote(4.0, 1.81))).action,
             Action.BET,
         )
-
     def test_kashiwa_style_o225_leakage_anchor_does_not_inherit_market_tail(self):
         a = assessment(
             supported_line=2.25,
@@ -1140,32 +1148,25 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertTrue(market_line_funded(a, 2.5, "c"))
         self.assertFalse(market_line_funded(a, 2.75, "c"))
         self.assertFalse(market_line_funded(a, 4.0, "c"))
-        profile = prospective_goal_funding(a, "c")
-        self.assertTrue(profile["goal3_funded"])
-        self.assertTrue(profile["goal3_leakage_funded"])
-        self.assertEqual(profile["upper_tail_strength"], "WEAK")
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
         result = decide_c(a, context(quote=Quote(4.0, 1.81)))
         self.assertEqual(result.action, Action.PASS)
-        self.assertIn("tail funding missing", result.reason)
-
-
-class SupportedBurdenCompilerTests(unittest.TestCase):
-    def test_strommen_asane_distributed_g3_compiles_o250(self):
+    def test_strong_independent_distributed_g3_compiles_o250(self):
         a = assessment(
             supported_line=2.25,
             home_route=RouteStrength.USABLE,
             away_route=RouteStrength.USABLE,
             carrier=CarrierStrength.USABLE,
             completion_mode=CompletionMode.TWO_SIDED,
-            burden_completion_quality=Grade.MEDIUM,
-            continuation_quality=Grade.MEDIUM,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
             opponent_leakage=Grade.MEDIUM,
-            burden_stall_risk=Grade.HIGH,
-            route_reliability=Grade.MEDIUM,
-            independent_route_quality=Grade.MEDIUM,
-            chance_quality=Grade.MEDIUM,
-            failure_resistance=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
             evidence_confidence=Grade.MEDIUM,
             burden_protection=Grade.MEDIUM,
             carrier_self_fund=False,
@@ -1179,13 +1180,13 @@ class SupportedBurdenCompilerTests(unittest.TestCase):
         self.assertTrue(c2_distributed_goal3_funded(a))
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertEqual(certified_supported_burden(a, "c2"), 2.5)
+        self.assertEqual(c_execution_strength(a), "ROBUST")
         self.assertTrue(market_line_funded(a, 2.5, "c"))
         self.assertFalse(market_line_funded(a, 2.75, "c"))
         self.assertEqual(
             decide_c(a, context(quote=Quote(2.5, 1.70))).action,
             Action.BET,
         )
-
     def test_declared_line_does_not_change_compiled_burden(self):
         common = dict(
             carrier=CarrierStrength.STRONG,
@@ -1533,7 +1534,7 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
 
 
 class XiAssessmentCalibrationTests(unittest.TestCase):
-    def test_san_diego_houston_high_rate_signal_funds_g3_below_priority_sixty(self):
+    def test_history_only_usable_routes_no_longer_fund_c_distributed_g3(self):
         a = assessment(
             home_route=RouteStrength.USABLE,
             away_route=RouteStrength.USABLE,
@@ -1556,12 +1557,11 @@ class XiAssessmentCalibrationTests(unittest.TestCase):
             goal_signal_mean_over_three_rate=0.50,
             goal_signal_low_draw_trap_rate=0.125,
         )
-        self.assertTrue(c_distributed_goal3_funded(a))
+        self.assertFalse(c_distributed_goal3_funded(a))
         self.assertTrue(c2_distributed_goal3_funded(a))
-        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertIsNone(certified_supported_burden(a, "c"))
         self.assertEqual(certified_supported_burden(a, "c2"), 2.5)
-
-    def test_supported_high_rate_o250_at_163_acts_instead_of_micro_wait(self):
+    def test_history_only_high_rate_o250_no_longer_acts_for_c(self):
         a = assessment(
             home_route=RouteStrength.USABLE,
             away_route=RouteStrength.USABLE,
@@ -1591,9 +1591,8 @@ class XiAssessmentCalibrationTests(unittest.TestCase):
             wait_reachable=True,
             wait_reachability_basis="single pre-kickoff snapshot",
         )
-        self.assertEqual(decide_c(a, ctx).action, Action.BET)
+        self.assertEqual(decide_c(a, ctx).action, Action.PASS)
         self.assertEqual(decide_c2(a, ctx).action, Action.BET)
-
     def test_soft_price_zone_never_funds_unsupported_higher_burden(self):
         a = assessment(
             home_route=RouteStrength.USABLE,
