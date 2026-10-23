@@ -30,6 +30,9 @@ from core import (
     c2_clearing_goal_funded,
     c_effective_incentive_grades,
     c_g3_book_extension_profile,
+    c_endpoint_control_pressure,
+    c_execution_strength,
+    c_direct_act_ceiling,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -1175,6 +1178,9 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["continuation_quality"] = item.continuation_quality.name
             row["opponent_leakage"] = item.opponent_leakage.name
             row["burden_stall_risk"] = item.burden_stall_risk.name
+            row["execution_strength"] = c_execution_strength(item)
+            row["endpoint_control_pressure"] = c_endpoint_control_pressure(item)
+            row["direct_act_ceiling"] = c_direct_act_ceiling(item)
 
         state = _enum(
             BoardState,
@@ -1398,6 +1404,9 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
             "burden_completion_quality": a.burden_completion_quality.name,
             "continuation_quality": a.continuation_quality.name,
             "burden_stall_risk": a.burden_stall_risk.name,
+            "execution_strength": c_execution_strength(a),
+            "endpoint_control_pressure": c_endpoint_control_pressure(a),
+            "direct_act_ceiling": c_direct_act_ceiling(a),
         })
     else:
         floor, reasons = c2_selection_floor(a)
@@ -1962,6 +1971,15 @@ def evaluate_observed_quote(
         "observed_odds": observed.odds,
         "line_relation": relation,
         "market_line_funded": market_line_funded(a, observed.line, model),
+        "execution_strength": (
+            c_execution_strength(a) if model == "c" else "RETIRED_SHADOW"
+        ),
+        "endpoint_control_pressure": (
+            c_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "direct_act_ceiling": (
+            c_direct_act_ceiling(a) if model == "c" else None
+        ),
         **prospective_goal_funding(a, model),
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
@@ -2240,6 +2258,15 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
             c_g3_book_extension_profile(a) if model == "c" else None
         ),
         "market_line_funded": market_line_funded(a, ctx.quote.line, model),
+        "execution_strength": (
+            c_execution_strength(a) if model == "c" else "RETIRED_SHADOW"
+        ),
+        "endpoint_control_pressure": (
+            c_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "direct_act_ceiling": (
+            c_direct_act_ceiling(a) if model == "c" else None
+        ),
         **prospective_goal_funding(a, model),
         **upgrade_gate,
         "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
