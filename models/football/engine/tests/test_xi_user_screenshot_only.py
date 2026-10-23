@@ -128,6 +128,10 @@ def wait_ready(payload, *, top=False):
         independent_upper_tail_basis=(
             "Separate current non-market upper-tail route is verified."
         ),
+        goal_signal_priority_score=70,
+        goal_signal_mean_over_two_rate=0.75,
+        goal_signal_mean_over_three_rate=0.50,
+        goal_signal_low_draw_trap_rate=0.10,
     )
     payload["context"].update(
         thesis_state="PRESERVED",
