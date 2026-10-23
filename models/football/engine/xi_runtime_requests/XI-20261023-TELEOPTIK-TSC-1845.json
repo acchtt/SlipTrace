@@ -1,0 +1,779 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-TELEOPTIK-TSC-1845",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "teleoptik-tsc-xi-20261023T114500Z",
+    "match": {
+      "h2h_basis": "Direct 2017-2019 meetings included 0-4 and 3-0 but are distant with changed squads. Current same-league reports take precedence; no direct historical scoring boost.",
+      "match_id": "1800282",
+      "kickoff_ict": "2026-10-23T19:00:00+07:00",
+      "country": "Serbia",
+      "competition": "Prva Liga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Teleoptik",
+      "away": "TSC Backa Topola",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "HIGH",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier_self_fund": true,
+      "independent_upper_tail": true,
+      "failure_attacks_route": false,
+      "material_suppression": false,
+      "supported_line": 3.5,
+      "board_state": "C-FOCUS",
+      "common_evidence_basis": "Confirmed XI preserves the frozen TSC carrier: Neskovic and Stancic start, while Jovanovic remains available from the bench. The rank-time mechanism was Neskovic scoring multiple times plus Jovanovic and late Stancic continuation; moving Stancic into the XI and retaining Jovanovic as a substitute does not remove the independent away four-goal route. Teleoptik also field a normal senior XI, so the home contribution route is not erased. No verified current absence attacks the named carrier.",
+      "main_failure": "Teleoptik's recent clean sheets and TSC's earlier low draws remain the main stall risk. The confirmed XI does not add a new suppressive mechanism, so the prior MEDIUM transferability/failure-resistance caution is retained rather than upgraded.",
+      "board_state_basis": "Current source-backed mechanisms support Football C assessment; the deterministic compiler owns goal funding and burden.",
+      "supported_line_basis": "Research metadata only; actual burden is owned by the unchanged deterministic certificate compiler.",
+      "failure_attacks_route_basis": "No verified removal of all named current scoring routes; surviving alternatives and opponent contribution were checked.",
+      "material_suppression_basis": "Current control risks are graded explicitly; no independently corroborated destruction of all goal routes is established.",
+      "carrier_self_fund_basis": "Confirmed XI preserves the named TSC carrier: Neskovic starts, Stancic starts and Jovanovic remains a bench continuation option. This keeps the multi-finisher four-goal route intact without requiring a Teleoptik reply.",
+      "independent_upper_tail_basis": "The closest same-league carrier sample remains supportive: TSC have three straight league wins scoring four, four and five. Confirmed XI retains Neskovic/Stancic with Jovanovic available, so the fourth-goal route remains transferable at MEDIUM rather than being downgraded.",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "operational_viability_reason": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No additional operational reliability upgrade asserted in this revalidation.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "goal_signal_priority_score": 51,
+      "goal_signal_mean_over_two_rate": 0.55,
+      "goal_signal_mean_over_three_rate": 0.35,
+      "goal_signal_low_draw_trap_rate": 0.3,
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+      "upper_tail_comparable_context_signal": "SUPPORTIVE",
+      "upper_tail_comparable_context_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_research_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Distributed 3+1/2+2 review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Reply and post-third completion review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+          "evidence_refs": [
+            "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+            "https://www.fktsc.com/",
+            "https://sportmeridian.com/en/football/match/1554203/",
+            "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "g4_global_blockers": null,
+      "research_revalidation": {
+        "checked_at_utc": "2026-10-23T08:25:09.756627+00:00",
+        "source_urls": [
+          "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+          "https://www.fktsc.com/",
+          "https://sportmeridian.com/en/football/match/1554203/",
+          "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+        ],
+        "reuse": "Previously saved factual descriptions independently checked against frozen sweep history and current fetched sources. New native execution; no prior receipt fabricated."
+      }
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T11:45:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": 3.5,
+      "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "No upgrade requested. Confirmed XI preserves the existing funded G4 and O3.50 certificate.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "RANKED",
+    "match_id": "1800282",
+    "verified_rank_package": {
+      "status": "V4_RANK_PERSISTENCE_VERIFIED",
+      "native_rank": {
+        "run_id": "V4-20261023-1500-20261023-2100-PROOFFIX",
+        "integrity_sha256": "7d5547c81761f8b40cfdb6a5d8b15d4b2494eaeb36969f0546d097cee20a31a9",
+        "board": {
+          "matches": [
+            {
+              "rank": 5,
+              "match_id": "1800282",
+              "ranking_key": [
+                0,
+                4,
+                -1,
+                1,
+                -3000,
+                2,
+                2,
+                1,
+                5100,
+                5500,
+                3500,
+                -3000,
+                2,
+                1,
+                1,
+                2,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                0
+              ],
+              "kickoff_ict": "2026-10-23T19:00:00+07:00",
+              "same_kickoff_rank": 1,
+              "supported_line": 3.5,
+              "supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G4 highest funded; max fully-funded Asian Over=3.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3; upper_tail_transferability=MEDIUM; comparable_context=SUPPORTIVE",
+              "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+              "declared_supported_line": 3.5,
+              "declared_supported_line_basis": "Research metadata only; actual burden is owned by the unchanged deterministic certificate compiler.",
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "upper_tail_comparable_context_signal": "SUPPORTIVE",
+              "upper_tail_comparable_context_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "effective_upper_tail_transferability": "MEDIUM",
+              "goal3_funded": true,
+              "goal4_funded": true,
+              "goal5_funded": false,
+              "goal6_funded": false,
+              "goal3_carrier_funded": true,
+              "goal3_two_route_funded": true,
+              "goal3_distributed_funded": false,
+              "goal3_leakage_funded": false,
+              "upper_tail_strength": "MEDIUM",
+              "prospective_tail_ceiling": 3.5,
+              "certified_supported_burden": 3.5,
+              "tournament_incentive_resolution": "NOT_APPLICABLE",
+              "tournament_incentive_effect": "NOT_APPLICABLE",
+              "tournament_tail_bias": "NEUTRAL",
+              "tournament_positive_pressure": false,
+              "tournament_suppressive_pressure": false,
+              "effective_continuation_quality": "HIGH",
+              "effective_burden_stall_risk": "MEDIUM",
+              "credible_tail_state": "FUNDED",
+              "credible_tail_target_goal": 5,
+              "credible_burden_band_low": 3.5,
+              "credible_burden_band_high": 3.5,
+              "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+              "credible_tail_market_independent": true,
+              "credible_tail_execution_authority": false,
+              "credible_tail_basis": "G4_FUNDED; G5 not near-funded under the market-independent diagnostic gate",
+              "follow_floor_score": 40,
+              "follow_ceiling_score": 64,
+              "follow_priority_score": 92,
+              "follow_clearability_score": 30,
+              "follow_upside_score": 46,
+              "follow_balanced_score": 92,
+              "follow_burden_penalty_clearability": 10,
+              "follow_burden_penalty_upside": 18,
+              "follow_burden_penalty_balanced": 12,
+              "follow_mechanism_class": "CARRIER",
+              "follow_floor_tier": "LOW",
+              "follow_ceiling_tier": "HIGH",
+              "follow_priority_profile": "LOW_FLOOR_HIGH_CEILING",
+              "follow_history_support_points": 2,
+              "follow_priority_market_independent": true,
+              "follow_priority_execution_authority": false,
+              "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_research_explicit": true,
+              "g4_carrier_path": "SUPPORTED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "HIGH",
+              "g4_research_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_evidence_disposition": "FUNDED",
+              "g4_evidence_gaps": [],
+              "g4_research_complete": true,
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Distributed 3+1/2+2 review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Reply and post-third completion review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "g4_global_blockers": null,
+              "shared_failure_mechanisms": {
+                "COMPLETION_CONTEXT": [
+                  "burden_stall_risk",
+                  "continuation_quality",
+                  "failure_resistance",
+                  "independent_upper_tail",
+                  "route_reliability"
+                ]
+              },
+              "predictive_grades_changed_by_evidence_contract": false,
+              "certificate_diagnostics": {
+                "goal4_funded": true,
+                "failed_conditions": [
+                  "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+                ],
+                "carrier_branch_quality_met": true,
+                "distributed_branch_quality_met": false,
+                "tournament_tail_bias": "NEUTRAL",
+                "certificate_robustness": "FRAGILE",
+                "explanation_only": true
+              },
+              "production_scope": {
+                "policy": "FOOTBALL_C_SCOPE_V1",
+                "status": "IN_SCOPE",
+                "reason": "RESEARCHED_LEAGUE_CONDITIONAL",
+                "production_allowed": true,
+                "override": null
+              },
+              "common_evidence_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "goal_signal_priority_score": 51,
+              "goal_signal_mean_over_two_rate": 0.55,
+              "goal_signal_mean_over_three_rate": 0.35,
+              "goal_signal_low_draw_trap_rate": 0.3,
+              "main_failure": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "h2h_basis": "Direct 2017-2019 meetings included 0-4 and 3-0 but are distant with changed squads. Current same-league reports take precedence; no direct historical scoring boost.",
+              "carrier_self_fund": true,
+              "carrier_self_fund_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "independent_upper_tail": true,
+              "independent_upper_tail_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "failure_attacks_route": false,
+              "failure_attacks_route_basis": "No verified removal of all named current scoring routes; surviving alternatives and opponent contribution were checked.",
+              "material_suppression": false,
+              "material_suppression_basis": "Current control risks are graded explicitly; no independently corroborated destruction of all goal routes is established.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_effective_state": "UNPROVEN",
+              "competition_reliability_reason": "No additional operational reliability upgrade asserted in this revalidation.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "tournament_incentive_required": false,
+              "tournament_format_status": "NOT_APPLICABLE",
+              "home_incentive": "NOT_APPLICABLE",
+              "away_incentive": "NOT_APPLICABLE",
+              "tiebreak_margin_relevance": "NOT_APPLICABLE",
+              "incentive_effect": "NOT_APPLICABLE",
+              "tournament_incentive_recheck_required": false,
+              "tournament_incentive_unresolved_fields": [],
+              "supported_line_status": "FROZEN_FOOTBALL_PRE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "completion_mode": "MIXED",
+              "burden_completion_quality": "HIGH",
+              "continuation_quality": "HIGH",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "board_state": "FOCUS",
+              "display_state": "FOCUS",
+              "board_state_basis": "Current source-backed mechanisms support Football C assessment; the deterministic compiler owns goal funding and burden.",
+              "follow_lane": "FOLLOW",
+              "follow_portfolio_role": "CLEARABILITY",
+              "follow_portfolio_score": 30
+            }
+          ]
+        },
+        "frozen_model_input": {
+          "matches": [
+            {
+              "h2h_basis": "Direct 2017-2019 meetings included 0-4 and 3-0 but are distant with changed squads. Current same-league reports take precedence; no direct historical scoring boost.",
+              "match_id": "1800282",
+              "kickoff_ict": "2026-10-23T19:00:00+07:00",
+              "country": "Serbia",
+              "competition": "Prva Liga",
+              "competition_kind": "DOMESTIC_LEAGUE",
+              "home": "Teleoptik",
+              "away": "TSC Backa Topola",
+              "home_route": "USABLE",
+              "away_route": "STRONG",
+              "carrier": "STRONG",
+              "route_reliability": "HIGH",
+              "independent_route_quality": "MEDIUM",
+              "chance_quality": "MEDIUM",
+              "failure_resistance": "MEDIUM",
+              "xi_robustness": "MEDIUM",
+              "evidence_confidence": "MEDIUM",
+              "burden_protection": "MEDIUM",
+              "completion_mode": "MIXED",
+              "burden_completion_quality": "HIGH",
+              "continuation_quality": "HIGH",
+              "opponent_leakage": "MEDIUM",
+              "burden_stall_risk": "MEDIUM",
+              "carrier_self_fund": true,
+              "independent_upper_tail": true,
+              "failure_attacks_route": false,
+              "material_suppression": false,
+              "supported_line": 3.5,
+              "board_state": "C-FOCUS",
+              "common_evidence_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "main_failure": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "board_state_basis": "Current source-backed mechanisms support Football C assessment; the deterministic compiler owns goal funding and burden.",
+              "supported_line_basis": "Research metadata only; actual burden is owned by the unchanged deterministic certificate compiler.",
+              "failure_attacks_route_basis": "No verified removal of all named current scoring routes; surviving alternatives and opponent contribution were checked.",
+              "material_suppression_basis": "Current control risks are graded explicitly; no independently corroborated destruction of all goal routes is established.",
+              "carrier_self_fund_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "independent_upper_tail_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+              "operational_viability_grade": "A",
+              "raw_operational_viability_grade": "A",
+              "operational_viability_reason": "CURRENT_FIXTURE_BOUND_RESEARCHABILITY_VERIFIED",
+              "competition_reliability_state": "UNPROVEN",
+              "competition_reliability_reason": "No additional operational reliability upgrade asserted in this revalidation.",
+              "competition_reliability_manual_override": "NONE",
+              "demoted_probation": false,
+              "xi_expected": "YES",
+              "market_observability": "HIGH",
+              "team_news_observability": "MEDIUM",
+              "h2h_state": "REVIEWED",
+              "h2h_effect": "MIXED",
+              "h2h_transferability": "LIMITED",
+              "h2h_current_corroboration": "NOT_FOUND",
+              "h2h_material_effect": false,
+              "tournament_format_status": "NOT_APPLICABLE",
+              "competition_stage": "NOT_APPLICABLE",
+              "competition_format": "NOT_APPLICABLE",
+              "draw_resolution": "NOT_APPLICABLE",
+              "aggregate_state": "NOT_APPLICABLE",
+              "home_incentive": "NOT_APPLICABLE",
+              "away_incentive": "NOT_APPLICABLE",
+              "tiebreak_margin_relevance": "NOT_APPLICABLE",
+              "incentive_effect": "NOT_APPLICABLE",
+              "qualification_state": "NOT_APPLICABLE",
+              "simultaneous_results_status": "NOT_APPLICABLE",
+              "simultaneous_results_note": "NOT_APPLICABLE",
+              "tournament_incentive_required": false,
+              "goal_signal_priority_score": 51,
+              "goal_signal_mean_over_two_rate": 0.55,
+              "goal_signal_mean_over_three_rate": 0.35,
+              "goal_signal_low_draw_trap_rate": 0.3,
+              "upper_tail_transferability": "MEDIUM",
+              "upper_tail_transferability_basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "upper_tail_comparable_context_signal": "SUPPORTIVE",
+              "upper_tail_comparable_context_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+              "g4_carrier_path": "SUPPORTED",
+              "g4_distributed_path": "MIXED",
+              "g4_reply_path": "MIXED",
+              "g4_continuation_after_g3": "HIGH",
+              "g4_research_basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+              "g4_path_evidence": {
+                "g4_carrier_path": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_distributed_path": {
+                  "basis": "Distributed 3+1/2+2 review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "g4_reply_path": {
+                  "basis": "Reply and post-third completion review: TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "grade_evidence": {
+                "route_reliability": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "continuation_quality": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "burden_stall_risk": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "failure_resistance": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                },
+                "independent_upper_tail": {
+                  "basis": "TSC have three consecutive same-league wins scoring four, four and five. Latest official club report identifies Neskovic hat-trick, Jovanovic at 72 and substitute Stancic at 86, independently continuing after goal three. Current same-league finishing and bench continuation support an away carrier without needing a Teleoptik reply. Teleoptik recent 3-0 and 2-0 preserve an independent home route, while latest 0-1 and earlier TSC 0-0/1-1 draws limit transferability and failure resistance. No unverified current absence is asserted. Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "mechanism_ids": [
+                    "COMPLETION_CONTEXT"
+                  ]
+                }
+              },
+              "failure_mechanisms": {
+                "COMPLETION_CONTEXT": {
+                  "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+                  "basis": "Teleoptik recently kept consecutive clean sheets and TSC earlier had low draws. Multiple current carrier and bench finishers support four, while the stronger home resistance caps transferable tail at MEDIUM and does not eliminate a stall.",
+                  "evidence_refs": [
+                    "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                    "https://www.fktsc.com/",
+                    "https://sportmeridian.com/en/football/match/1554203/",
+                    "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                  ],
+                  "affected_paths": [
+                    "g4_carrier_path",
+                    "g4_distributed_path",
+                    "g4_reply_path"
+                  ]
+                }
+              },
+              "g4_global_blockers": null,
+              "research_revalidation": {
+                "checked_at_utc": "2026-10-23T08:25:09.756627+00:00",
+                "source_urls": [
+                  "https://www.fktsc.com/news/prva-liga-26-27-14-kolo-fk-tsc-fk-metalac-gm-51/",
+                  "https://www.fktsc.com/",
+                  "https://sportmeridian.com/en/football/match/1554203/",
+                  "https://www.prvaliga.rs/en/utakmica/15-kolo-teleoptik-tsc/"
+                ],
+                "reuse": "Previously saved factual descriptions independently checked against frozen sweep history and current fetched sources. New native execution; no prior receipt fabricated."
+              }
+            }
+          ]
+        }
+      }
+    },
+    "material_evidence_updates": [
+      "common_evidence_basis",
+      "main_failure",
+      "carrier_self_fund_basis",
+      "independent_upper_tail_basis"
+    ]
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000fb0c8206b9892936f4ce9eff",
+    "match_id": "1800282",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.81
+    },
+    "observed_at_utc": "2026-10-23T11:45:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
