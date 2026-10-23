@@ -66,7 +66,10 @@ class PublicationGuardTests(unittest.TestCase):
 
     def test_forged_action_blocked(self):
         row = sample()
-        row["decision_state_snapshot"]["c_action"] = "C-PASS"
+        original = row["decision_state_snapshot"]["c_action"]
+        row["decision_state_snapshot"]["c_action"] = (
+            "C-ACT" if original != "C-ACT" else "C-PASS"
+        )
         with self.assertRaisesRegex(PublicationBlocked, "c_action"):
             check_publication(row)
 
