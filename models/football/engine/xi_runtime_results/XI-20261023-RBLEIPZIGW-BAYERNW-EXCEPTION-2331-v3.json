@@ -1,0 +1,11 @@
+{
+  "error": "H2H MATERIAL EFFECT BLOCKED — material H2H effect requires h2h_effect=SUPPRESSIVE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "5b21463b4ab5f60c3f2a7570848544f386b6afd4213da274d06dd3c67c37684c",
+  "ok": false,
+  "request_id": "XI-20261023-RBLEIPZIGW-BAYERNW-EXCEPTION-2331-v3",
+  "runtime_commit": "9833d2856844614e28b827e7243b40eb2e4379c2",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
