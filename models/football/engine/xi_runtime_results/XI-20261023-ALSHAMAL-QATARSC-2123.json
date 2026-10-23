@@ -1,0 +1,11 @@
+{
+  "error": "RANK_RECEIPT_REQUIRED: routine /xi requires an exact ranked FOCUS board row",
+  "error_type": "RankAuthorityError",
+  "failure_class": "RANK_AUTHORITY",
+  "input_sha256": "ae53b6f577cb3f43394fe7b48f34b929641d897ffa8aa4b697767db48b5e15ea",
+  "ok": false,
+  "request_id": "XI-20261023-ALSHAMAL-QATARSC-2123",
+  "runtime_commit": "5ed2374fbd1a9907671b1c9caea295f210b3ad22",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "RANK_RECEIPT_REQUIRED"
+}
