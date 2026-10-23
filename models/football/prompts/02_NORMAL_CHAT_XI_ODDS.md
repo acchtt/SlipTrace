@@ -67,7 +67,10 @@ Normal-chat backend when direct execution is unavailable:
 → `xi_runtime_results/<request-id>.json`
 
 A successful backend result is equivalent runtime execution, not conversational
-analysis.
+analysis. It is **not yet publishable** as an official ACT/BOOK/PASS until the
+runtime's `decision_state_persistence` row has been written to **Decision
+States** and independently read back exactly. Runtime execution and publication
+authority are separate states.
 
 Optional:
 
@@ -213,6 +216,35 @@ G3/G4/G5/G6 burden and existing settlement-aware BOOK policy.
 Availability is symmetric: do not suppress the total merely because attacking
 players are absent. Check replacements, opponent routes and defensive rotation.
 
+## Execution-strength gate
+
+Rank, FOCUS and FOLLOW are **workload/research priority only**. They never
+create execution authority. Every current Football C assessment exposes a
+separate `execution_strength` compiled from the funded certificate:
+
+- **FRAGILE** — no ACT and no BOOK. Final priced verdict is PASS.
+- **CONDITIONAL** — no direct ACT at the full certified burden. A direct ACT is
+  possible only at least **0.25 goals below** the current certified burden and
+  only when `endpoint_control_pressure=NONE`. CONDITIONAL cannot create a
+  conditional BOOK target.
+- **ROBUST** — may ACT at or below the certified burden when all ordinary
+  current-football, line and price gates clear; only ROBUST may create BOOK.
+
+The runtime also exposes `endpoint_control_pressure=NONE|MODERATE|HIGH`.
+This is a market-independent control-risk diagnostic between ordinary caution
+and the hard `material_suppression` veto. HIGH pressure blocks CONDITIONAL
+execution rather than pretending that all scoring routes are destroyed.
+
+A user-requested `/xi exception` bypasses rank-lane eligibility only. It does
+**not** bypass execution strength, endpoint control, certificate funding, or the
+ACT/BOOK gates.
+
+For `DISTRIBUTED_G3`, frozen scoreline history is corroboration only. Two
+merely USABLE routes with an all-MEDIUM current profile no longer combine into
+G3 by themselves. The C certificate requires, among the existing protections,
+failure resistance at least MEDIUM, stall no worse than MEDIUM, and either one
+STRONG route or HIGH independent-route quality.
+
 ## Screenshot quote
 
 A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Use the exact
@@ -332,9 +364,9 @@ odds. BOOK means a conditional target order only:
 - one-step unsupported burden may target the certified burden only across
   **0.25 goals**;
 - a gap of **0.50+** cannot manufacture a lower target;
-- a FRAGILE internal `C-WATCH`/`REVIEW_ONLY` exception cannot create a BOOK
-  target until the current football recheck validates the certificate to at
-  least CONDITIONAL.
+- FRAGILE and CONDITIONAL certificates cannot create BOOK targets;
+- only ROBUST football may create a BOOK target, regardless of FOCUS rank,
+  FOLLOW lane or explicit user exception.
 
 The normal minimum remains 1.65, with the existing supported-line 1.60 soft
 zone only where the deterministic C corroboration allows it. Above-certificate
@@ -350,8 +382,28 @@ and not exposure.
 A strict decision requires a current executable prematch quote plus all current
 XI/tournament/evidence requirements. It returns one C decision receipt.
 
-Persist once, independently read back once, then run the publication guard.
-A screenshot comparison alone never authorizes execution/publication.
+Every football-only, screenshot-priced, or strict-decision runtime result emits
+`decision_state_persistence`. Treat that object as a mandatory write contract:
+
+1. upsert its exact `row` to the active Google Sheet **Decision States** using
+   **Assessment ID** as the immutable key;
+2. set `Persisted At UTC` at write time;
+3. independently refetch the same Assessment ID;
+4. verify the fields named by `readback_assertions`, including the exact
+   `Engine C Result`, action, supported/evaluated line, odds and engine source
+   revision;
+5. only after exact readback may the publication guard create an official
+   user-facing ACT/BOOK/PASS or Website Pick.
+
+Before readback, `publication_authorized=false` and
+`publication_blocker=DECISION_STATE_PERSISTENCE_READBACK_REQUIRED` are
+binding. If the write or readback cannot be completed, report
+`ENGINE_EVALUATED — NOT PUBLISHED`; do **not** narrate the runtime's candidate
+ACT/BOOK as an official verdict.
+
+A screenshot comparison is the user's sole odds authority, but it is still not
+a physical bet or persistence receipt. Actual user exposure remains separate
+and requires the existing verified-slip accounting path.
 
 ## Started fixtures
 
@@ -360,8 +412,12 @@ events. Never recreate a prematch ACT/BOOK/PASS retrospectively.
 
 ## Output
 
-The first line must be the **execution verdict**, never the inherited rank
-classification:
+After verified Decision States readback, the first line must be the **execution
+verdict**, never the inherited rank classification. Before that readback, the
+first line must be `ENGINE_EVALUATED — NOT PUBLISHED`, followed by the
+candidate action only as non-official diagnostic output.
+
+After readback:
 
 - `ACT — <line> @ <odds>` when the current quote is accepted;
 - `BOOK — <target line> @ <minimum odds>+ — PENDING/UNFILLED` for a conditional
