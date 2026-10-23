@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_effect='SUPPORTIVE'; allowed: MIXED, NOT_MATERIAL, OPEN, SUPPRESSIVE, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "59857c8749c0169e0eff5da2b83c847fd5f595d06f60c5721c9d1426e27a2b59",
+  "ok": false,
+  "request_id": "XI-20261023-RBLEIPZIGW-BAYERNW-EXCEPTION-2331",
+  "runtime_commit": "8f877019d6f0fb9bdd723fa541563ee586a3215b",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
