@@ -1981,17 +1981,16 @@ C_G3_BOOK_MIN_ODDS = {
 def c_g3_book_extension_profile(
     a: MatchAssessment,
 ) -> dict[str, bool | float | str | None]:
-    """Compile a settlement-aware G3 booking ceiling without upgrading G4.
+    """Compile a football-strength-gated G3 BOOK ceiling.
 
-    The certified burden remains O2.50. BOOK is a conditional order instruction,
-    not a funded certificate and not model exposure. The extension recognizes
-    that O2.75/O3.00/O3.25 have progressively softer settlement at exactly
-    three goals than O3.50, while still requiring current football quality.
+    The certified burden remains O2.50. A BOOK extension is not a fallback for
+    every funded G3 row: FRAGILE and CONDITIONAL certificates may not extend
+    above the certificate. Only ROBUST G3 rows with strong current completion
+    quality can reach O2.75, and O3.00 additionally requires independent,
+    transferable fourth-goal evidence. G3 alone never emits O3.25/O3.50.
 
-    O3.25 is deliberately restricted to strong G3 structures: a self-funded
-    STRONG carrier with either HIGH completion, distributed G3 corroboration,
-    or HIGH opponent leakage; or two independently STRONG routes with HIGH
-    completion. O3.50 still requires a funded G4 certificate.
+    This policy is market-independent. The screenshot is evaluated only after
+    the football target has been authorized.
     """
 
     require_c_completion(a)
@@ -2003,65 +2002,98 @@ def c_g3_book_extension_profile(
             "basis": "G3-only settlement extension not applicable",
         }
 
+    robustness = certificate_robustness(a, "c")
+    if robustness < 2:
+        return {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": (
+                "G3 BOOK extension requires ROBUST certificate; "
+                "FRAGILE/CONDITIONAL G3 cannot extend above O2.50"
+            ),
+        }
+
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
-    base_healthy = (
-        a.burden_completion_quality >= Grade.MEDIUM
-        and effective_continuation >= Grade.MEDIUM
+    strong_completion = (
+        a.burden_completion_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
-        and a.route_reliability >= Grade.MEDIUM
-        and a.chance_quality >= Grade.MEDIUM
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
         and a.burden_protection >= Grade.MEDIUM
         and not a.material_suppression
         and not a.failure_attacks_route
     )
-    if not base_healthy:
+    if not strong_completion:
         return {
             "eligible": False,
             "max_book_line": None,
             "book_min_odds": None,
-            "basis": "G3 funded but current completion/continuation/stall quality blocks extension",
+            "basis": (
+                "ROBUST G3 lacks HIGH completion/continuation/current-route "
+                "quality required for BOOK extension"
+            ),
         }
 
-    max_line = 2.75
-    route_extension = (
-        (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
-        or c_two_route_goal3_funded(a)
-        or c_distributed_goal3_funded(a)
-        or c_leakage_goal3_funded(a)
-    )
-    if route_extension:
-        max_line = 3.00
-
-    strong_carrier_extension = (
+    strong_carrier = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
-        and (
-            a.burden_completion_quality == Grade.HIGH
-            or c_distributed_goal3_funded(a)
-            or a.opponent_leakage == Grade.HIGH
-        )
     )
-    two_strong_extension = (
-        a.home_route == RouteStrength.STRONG
-        and a.away_route == RouteStrength.STRONG
-        and a.independent_route_quality == Grade.HIGH
-        and a.burden_completion_quality == Grade.HIGH
+    independent_g3 = (
+        c_two_route_goal3_funded(a)
+        or c_distributed_goal3_funded(a)
     )
-    if route_extension and (strong_carrier_extension or two_strong_extension):
-        max_line = 3.25
+    if not (strong_carrier or independent_g3):
+        return {
+            "eligible": False,
+            "max_book_line": None,
+            "book_min_odds": None,
+            "basis": (
+                "ROBUST G3 lacks a self-funded STRONG carrier or genuine "
+                "independent/distributed route structure"
+            ),
+        }
+
+    # O2.75 is the maximum generic ROBUST-G3 settlement extension.
+    max_line = 2.75
+
+    # O3.00 requires an independently evidenced fourth-goal route even though
+    # the full G4/O3.50 certificate remains unfunded. This is deliberately
+    # stricter than the generic G3 gate and does not use bookmaker information.
+    effective_tail = c_effective_upper_tail_transferability(a)
+    over_three = a.goal_signal_mean_over_three_rate
+    trap = a.goal_signal_low_draw_trap_rate
+    fourth_goal_support = (
+        a.independent_upper_tail
+        and effective_tail is not None
+        and effective_tail >= Grade.MEDIUM
+        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
+        and a.independent_route_quality >= Grade.MEDIUM
+        and over_three is not None
+        and over_three >= 0.45
+        and trap is not None
+        and trap <= 0.20
+    )
+    if fourth_goal_support:
+        max_line = 3.00
 
     return {
         "eligible": True,
         "max_book_line": max_line,
         "book_min_odds": C_G3_BOOK_MIN_ODDS[max_line],
         "basis": (
-            "G3 settlement-aware extension; certificate remains O2.50 and "
-            "O3.50 still requires G4"
+            "ROBUST G3 football-strength gate; certificate remains O2.50; "
+            + (
+                "independent transferable fourth-goal evidence permits O3.00"
+                if max_line == 3.00
+                else "generic extension capped at O2.75"
+            )
+            + "; O3.25/O3.50 require stronger certificate authority"
         ),
     }
-
 
 def c_g3_book_min_odds(line: float) -> float:
     """Return the pilot minimum price for an authorized G3 BOOK target."""
@@ -2132,8 +2164,12 @@ def _healthy_c_wait(a: MatchAssessment, ctx: ModelQuoteContext) -> bool:
         return False
     if not _c_wait_target_is_pregoal_reachable(a, ctx):
         return False
-    if ctx.board_state == BoardState.WATCH:
-        return certificate_robustness(a, "c") >= 1
+
+    # FRAGILE certificates never create BOOK instructions. This closes the
+    # legacy FOCUS loophole where a weak funded G3 could fail the extension
+    # gate yet still book back to its certificate through the old WAIT path.
+    if certificate_robustness(a, "c") < 1:
+        return False
     return True
 
 
