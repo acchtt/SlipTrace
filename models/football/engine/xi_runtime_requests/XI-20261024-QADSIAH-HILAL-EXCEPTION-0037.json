@@ -1,0 +1,286 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-QADSIAH-HILAL-EXCEPTION-0037",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "qadsiah-hilal-exception-20261023T173700Z",
+    "match": {
+      "match_id": "1845669",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T01:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current-form research plus user-confirmed starting XI are available.",
+      "common_evidence_basis": "Fresh confirmed-XI exception materially strengthens the pre-XI WATCH. Al Qadsiah field Retegui, Quinones and Baah within a normal first-choice attacking structure after scoring 24 league goals in ten matches, including recent 5-0, 3-3 and 3-2 outputs. Al Hilal field a strong senior attack including Summerville, Milinkovic-Savic and other established starters; their recent league sequence includes 6-0 and 3-2 wins alongside a 1-0 control win. Both routes are now clearly live and at least one current team-level three-goal carrier exists.",
+      "home_route": "STRONG",
+      "away_route": "STRONG",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Both teams' latest league wins were 1-0, demonstrating real control/conversion risk. Strong defences can still compress this into 1-1, 2-0 or 2-1; the confirmed XI upgrades goal three but does not independently protect goal four.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "The last two league meetings were 2-2, preceded by a 2-0 Hilal result. Current personnel and form support G3, while mixed control limits direct H2H transfer to G4.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Both sides have current same-competition three-plus outputs; Al Hilal's 6-0 and Qadsiah's 5-0/3-3/3-2 provide independent team-level G3 carry evidence.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Despite elite attackers, current 1-0 control wins and strong defensive records mean the fourth is not independently protected.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current high outputs support some tail, but latest control endpoints cap transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "The closest sample combines 5/6-goal spikes with successive 1-0 control wins.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve the identified scoring routes; the remaining risk is completion/control rather than route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event suppresses every identified scoring route.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 67,
+      "goal_signal_mean_over_two_rate": 0.68,
+      "goal_signal_mean_over_three_rate": 0.45,
+      "goal_signal_low_draw_trap_rate": 0.05,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Confirmed XI upgrades the matchup to funded G3 but all fourth-goal paths remain mixed because recent control endpoints are genuine.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Both have shown three-plus self-carry, but neither has a protected repeatable four-goal carrier against current top opposition.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "2+2/3+1 is credible with both strong attacks but not protected against two strong defences.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Post-third reply is plausible but recent 1-0 controls keep it mixed.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Confirmed lineups plus current scoring make both routes HIGH reliability.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Multiple finishers support continuation to three, but latest control wins cap post-third continuation at MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Strong defensive control on both sides leaves meaningful 1-2 goal endpoints; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Either side can self-carry three in the current season, improving resistance to one route failing; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal path survives the control evidence.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Both teams' latest league wins were 1-0, demonstrating real control/conversion risk. Strong defences can still compress this into 1-1, 2-0 or 2-1; the confirmed XI upgrades goal three but does not independently protect goal four.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+            "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+            "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+            "https://alhilal.com/en/video",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Confirmed XI plus fresh current form upgrade the pre-XI WATCH to a funded G3 candidate; G4 remains mixed.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+        "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+        "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+        "https://alhilal.com/en/video",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T17:37:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit user-requested exception reassessment with confirmed XI.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "QADSIAH-HILAL-20261024-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "qadsiah-hilal-exception-20261023T173700Z",
+      "researched_at_utc": "2026-10-23T17:37:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "Current WATCH row + fresh current-form exception research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000e3948206b1d7daec6c64bbe5",
+        "https://www.thestatszone.com/al-qadsiah-vs-al-hilal-preview-prediction-231906",
+        "https://alqadsiah.com/en/posts/alkadsy-ykhtf-foza-katla-mn-altaaaon",
+        "https://alhilal.com/en/video",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845669"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
