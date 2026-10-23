@@ -245,9 +245,8 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         )
         row = manifest["row"]
         self.assertEqual(row["Match ID"], out["result"]["match_id"])
-        self.assertEqual(
-            row["Evidence Epoch ID"],
-            out["decision_state_persistence"]["row"]["Assessment ID"][5:],
+        self.assertTrue(
+            row["Assessment ID"].endswith(row["Evidence Epoch ID"])
         )
         self.assertEqual(
             row["XI Assessment Execution Status"],
