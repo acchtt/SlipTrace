@@ -1,0 +1,11 @@
+{
+  "error": "invalid completion_mode='CARRIER'; allowed: NONE, TWO_SIDED, CARRIER_LED, FORCED_CHAOS, MIXED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "5d8bbe8380c167ff8588bd55a42e2e1e5a00a6f850ca18ade7fcb414fb93b896",
+  "ok": false,
+  "request_id": "XI-20261023-ALITTIHAD-DIRIYAH-EXCEPTION-2220-v2",
+  "runtime_commit": "a1943d3e7baea6b59757b74d825eb62c4cd9010f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
