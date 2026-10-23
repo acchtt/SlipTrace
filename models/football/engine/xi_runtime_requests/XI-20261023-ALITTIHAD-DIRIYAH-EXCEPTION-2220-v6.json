@@ -1,0 +1,306 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-ALITTIHAD-DIRIYAH-EXCEPTION-2220-v6",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "al-ittihad-diriyah-exception-20261023T153100Z-v6",
+    "match": {
+      "match_id": "1845671",
+      "country": "Saudi Arabia",
+      "competition": "Saudi Professional League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-23T22:30:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No competition reliability promotion asserted; use current official SPL evidence plus the sealed discovery evidence.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Official SPL fixture/current-form sources and the user's current Asian totals are available; exact confirmed XI was not supplied by the user.",
+      "common_evidence_basis": "Confirmed XI now removes availability uncertainty. Al Ittihad start Houssem Aouar, Georginio Wijnaldum and George Ilenikhena in the attacking structure, preserving the current carrier that funded G3. However, Steven Bergwijn is not in the starting XI, whereas the recent Al Ettifaq carrier template included Aouar, Wijnaldum, Bergwijn and Ilenikhena. The XI therefore preserves rather than strengthens the three-goal carrier. Diriyah field a normal senior XI and their recent 1-0, 1-1 and 0-0 control endpoints remain relevant. G3 remains carrier-funded; G4 remains unprotected.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "HIGH",
+      "continuation_quality": "HIGH",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "The confirmed Al Ittihad XI preserves Aouar/Wijnaldum/Ilenikhena but does not add a stronger fourth-goal path; Bergwijn is absent from the starting XI relative to the recent 4-1 template. Diriyah's repeated 1-0, 1-1 and 0-0 control endpoints therefore remain a credible cap after Al Ittihad establish a lead.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "UNAVAILABLE",
+      "h2h_transferability": "UNAVAILABLE",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "This is the first current top-flight meeting between the clubs; no material H2H is used.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Aouar, Wijnaldum and Ilenikhena all start, preserving the current Al Ittihad three-goal carrier. Recent same-competition evidence includes a 4-1 at Al Ettifaq and other three-goal outputs. The confirmed XI does not require a Diriyah reply for G3, but the absence of Bergwijn from the starting XI prevents treating the lineup as an upper-tail upgrade.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Confirmed XI preserves the three-goal carrier but does not strengthen independent fourth-goal evidence: Bergwijn is absent from the starting XI relative to the recent 4-1 template, Diriyah's reply route remains only usable, and comparable control endpoints remain suppressive.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "Current Ittihad carrier evidence supports three; the combined current sample and Diriyah control endpoints do not support a transferable fourth.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Diriyah's closest current league sample includes 1-0, 1-1, 0-3 and 0-0, so comparable context suppresses the fourth-goal tail.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "No current evidence removes Al Ittihad's primary scoring route; the concern is continuation after goal three, not loss of the carrier.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified red-card, weather or route-destroying event is present prematch.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 45,
+      "goal_signal_mean_over_two_rate": 0.55,
+      "goal_signal_mean_over_three_rate": 0.25,
+      "goal_signal_low_draw_trap_rate": 0.25,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Carrier G4 is mixed: Al Ittihad have a real three-goal self-carry but not a protected four-goal current carrier. Distributed G4 is mixed because Diriyah's reply is usable rather than strong. Reply/continuation is mixed because Diriyah frequently terminate games at 0-1 total goals. Goal four is not funded.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Al Ittihad's current league route supports three, not a repeatable independent four.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/",
+            "https://www.spl.com.sa/en/teams/al-ittihad"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Diriyah have scored in some recent games but their current route is not strong enough to protect 3+1 or 2+2.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+            "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Diriyah's repeated 1-0/1-1/0-0 endpoints leave post-third continuation unprotected.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+            "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Al Ittihad have scored 4,2,3,2,2 in the cited recent league sample; the home route is repeatable enough for HIGH reliability.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/",
+            "https://www.spl.com.sa/en/teams/al-ittihad",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Al Ittihad's current multi-goal run supports continuation to goal three, but Diriyah's control profile blocks a G4 upgrade; continuation through G3 is HIGH.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/",
+            "https://www.spl.com.sa/en/teams/al-ittihad",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Diriyah's low-endpoint sequence is real, but Al Ittihad's current three-goal self-carry lowers total stall risk to MEDIUM rather than HIGH.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/",
+            "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+            "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Diriyah do not contribute, Al Ittihad have current evidence to reach three alone; if Ittihad underperform, Diriyah are not strong enough to rescue the total. Failure resistance is MEDIUM.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/",
+            "https://www.spl.com.sa/en/teams/al-ittihad",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal path is established by the current comparable sample.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+            "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Diriyah's low-scoring control endpoints can cap the game after an Al Ittihad lead; this constrains G4 but does not erase the current Ittihad G3 carrier.",
+          "evidence_refs": [
+            "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+            "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh exception research identifies a strong current Al Ittihad carrier that the equal-history discovery screen did not admit to full rank research; G3 is carrier-funded, G4 remains mixed.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_0000000050d8820785a0db527fe7b22f",
+        "https://www.spl.com.sa/en/match/ba18210d49514ad28132915b0d090879/al-ittihad-vs-diriyah",
+        "https://www.spl.com.sa/en/",
+        "https://www.spl.com.sa/en/teams/al-ittihad",
+        "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+        "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T15:31:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "CONFIRMED_XI_AVAILABLE",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception has no sealed ranked Football C certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "With confirmed XI added, the observed O3.25 burden remains 0.75 above the O2.50 certificate. Aouar, Wijnaldum and Ilenikhena preserve the strong Al Ittihad G3 carrier, but Bergwijn's absence from the starting XI means the lineup does not upgrade the upper tail. Diriyah's 1-0, 1-1 and 0-0 control endpoints remain suppressive; G4 carrier/distributed/reply paths stay mixed, continuation after G3 remains MEDIUM and upper-tail transferability remains LOW. No certificate upgrade.",
+      "market_disagreement_recheck_fields": [
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal",
+        "independent_upper_tail",
+        "route_reliability",
+        "failure_resistance"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_0000000050d8820785a0db527fe7b22f",
+        "https://www.spl.com.sa/en/match/ba18210d49514ad28132915b0d090879/al-ittihad-vs-diriyah",
+        "https://www.spl.com.sa/en/",
+        "https://www.spl.com.sa/en/teams/al-ittihad",
+        "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+        "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+      ]
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "ALITTIHAD-DIRIYAH-20261023-PREMATCH-EXCEPTION-v6",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "al-ittihad-diriyah-exception-20261023T153100Z-v6",
+      "researched_at_utc": "2026-10-23T15:31:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "V4-20261023-2100-20261024-0300-SCOPEFIX discovery watchlist + fresh official SPL exception research",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_0000000050d8820785a0db527fe7b22f",
+        "https://www.spl.com.sa/en/match/ba18210d49514ad28132915b0d090879/al-ittihad-vs-diriyah",
+        "https://www.spl.com.sa/en/",
+        "https://www.spl.com.sa/en/teams/al-ittihad",
+        "https://www.spl.com.sa/en/news/the-new-boys-how-abha-al-faisaly-and-diriyah-club-have-settled-in-rsl",
+        "https://www.spl.com.sa/en/news/on-to-the-next-ronaldo-hits-980-career-goals-as-champions-al-nassr-move-joint-top",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1845671"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "REASSESSMENT",
+      "supersedes_exception_reference": "ALITTIHAD-DIRIYAH-20261023-PREMATCH-EXCEPTION-v5",
+      "supersedes_evidence_epoch_id": "al-ittihad-diriyah-exception-20261023T152900Z-v5",
+      "challenge_reason": "Confirmed XI supplied by user after the initial exception reassessment; test whether Aouar/Wijnaldum/Ilenikhena starting changes certificate robustness or upper-tail authority."
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_0000000083008211baddc8bd31e7dc25",
+    "match_id": "1845671",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 2.04
+    },
+    "observed_at_utc": "2026-10-23T15:31:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
