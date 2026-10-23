@@ -232,14 +232,21 @@ normally hard-gates the observed burden before ACT/BOOK/PASS at that burden.
 
 A bounded **BOOK** is different because it does not accept the observed burden
 or upgrade the certificate. The normal 0.50+ material-disagreement football
-recheck still runs first. After it completes, a G3-only C-FOCUS row may publish
-a lower settlement-aware target under the core extension policy even if G4
-remains unfunded/rejected:
+recheck still runs first. After it completes, a G3-only C-FOCUS row may publish a lower
+settlement-aware target only when the football thesis itself clears the strict
+BOOK-strength gate. Market disagreement never creates that eligibility:
 
-- BOOK O2.75 @1.85+ when the base G3 extension clears;
-- BOOK O3.00 @1.90+ when the stronger route extension clears;
-- BOOK O3.25 @2.00+ only when the strongest G3 extension gate clears;
-- never BOOK O3.50 from G3 alone; O3.50 requires funded G4.
+- FRAGILE G3: no BOOK path;
+- CONDITIONAL G3: no extension above the O2.50 certificate;
+- ROBUST G3 with HIGH completion/continuation/current-route quality:
+  BOOK may extend to O2.75 @1.85+;
+- ROBUST G3 additionally carrying independent, transferable fourth-goal
+  evidence: BOOK may extend to O3.00 @1.90+;
+- G3-only BOOK no longer emits O3.25;
+- O3.50 still requires funded G4.
+
+The credible-burden diagnostic remains non-authoritative and cannot by itself
+create an O3.00 target.
 
 BOOK is a conditional target order and creates no model exposure until a fill is
 independently confirmed.
@@ -330,9 +337,11 @@ odds. BOOK means a conditional target order only:
   least CONDITIONAL.
 
 The normal minimum remains 1.65, with the existing supported-line 1.60 soft
-zone only where the deterministic C corroboration allows it. The settlement-
-aware G3 extension remains O2.75 @1.85+, O3.00 @1.90+, and O3.25 @2.00+ when
-its existing shape requirements clear. O3.50 still requires funded G4.
+zone only where the deterministic C corroboration allows it. Above-certificate
+G3 BOOK is now football-strength gated: only ROBUST G3 can extend, O2.75
+requires HIGH completion/continuation/current-route quality, and O3.00 also
+requires independent transferable fourth-goal evidence. G3-only O3.25 BOOK is
+disabled. O3.50 still requires funded G4.
 
 If the target is not currently met, report `BOOK — PENDING/UNFILLED`, not ACT
 and not exposure.
