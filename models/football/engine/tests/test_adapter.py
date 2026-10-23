@@ -811,10 +811,10 @@ class BoardContractTests(unittest.TestCase):
                         burden_protection="MEDIUM",
                         burden_completion_quality="MEDIUM",
                         continuation_quality="MEDIUM",
-                        goal_signal_priority_score=54,
-                        goal_signal_mean_over_two_rate=0.65,
-                        goal_signal_mean_over_three_rate=0.30,
-                        goal_signal_low_draw_trap_rate=0.10,
+                        goal_signal_priority_score=72,
+                        goal_signal_mean_over_two_rate=0.70,
+                        goal_signal_mean_over_three_rate=0.40,
+                        goal_signal_low_draw_trap_rate=0.05,
                     ),
                 ],
             }
@@ -827,6 +827,14 @@ class BoardContractTests(unittest.TestCase):
         self.assertGreater(
             rows["g4_carrier"]["follow_burden_penalty_upside"],
             rows["g3_carrier"]["follow_burden_penalty_upside"],
+        )
+        self.assertGreater(
+            rows["g4_carrier"]["follow_ceiling_score"],
+            rows["g3_carrier"]["follow_ceiling_score"],
+        )
+        self.assertLess(
+            rows["g4_carrier"]["follow_upside_score"],
+            rows["g3_carrier"]["follow_upside_score"],
         )
         self.assertEqual(rows["g3_carrier"]["follow_burden_penalty_upside"], 0)
         self.assertTrue(rows["g4_carrier"]["follow_priority_market_independent"])
