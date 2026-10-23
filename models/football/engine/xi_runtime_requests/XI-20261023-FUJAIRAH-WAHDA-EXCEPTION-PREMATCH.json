@@ -1,0 +1,284 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-FUJAIRAH-WAHDA-EXCEPTION-PREMATCH",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "fujairah-wahda-exception-prematch-20261023T125800Z",
+    "match": {
+      "match_id": "ALFUJ-WAHDA-20261023",
+      "country": "United Arab Emirates",
+      "competition": "President's Cup",
+      "competition_kind": "DOMESTIC_CUP",
+      "kickoff_ict": "2026-10-23T19:55:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No competition-level promotion asserted; use current UAEFA schedule, current team results and user-confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "UAEFA confirms the Round-of-16 fixture; current results are available and the user supplied confirmed starting XI plus Asian totals.",
+      "common_evidence_basis": "Fresh exception research. Fujairah's last five competitive totals are 6,5,2,5,6; they scored 2,3,1,4,4 across those games, including President's Cup wins 4-2 and 4-1 plus a 1-1 tie advanced on penalties. Al Wahda arrive from 3-2 at Khorfakkan, 2-1 at Nasaf, 2-0 vs Al Dhafra, 1-3 at Bani Yas and 0-1 at Al Jazira. The user-confirmed Wahda XI is close to a senior first-choice structure, matching the Insfran/Saleh/Ghorbani/Pimenta/Diarra/Jadsom/Kruspzky/Hamad/Cerin/Diarra/Benteke group shown by current lineup sources. That supports a strong away route, while Fujairah's repeated current scoring gives a genuine home reply route. The strongest prospective third-goal mechanism is distributed 2+1 or 1+2 rather than a protected single-team three-goal carry.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "The quality gap can create a one-sided control game, and Al Wahda have several recent 1-0/2-0 type outcomes. Fujairah's scoring evidence comes mainly against lower-level opposition, so it is not enough to protect a 2+2 or independent fourth. Extra time also remains available if level, so regulation-time margin pressure is not forced.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Older direct meetings favour Al Wahda but are not used as a primary scoring boost; current 2026 form and confirmed XI take precedence.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Fresh exception research declaration only; the deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Al Wahda have scored three in two recent matches but only two or fewer in the rest of the current sample; that is insufficient for a protected independent three-goal carrier against this specific opponent.",
+      "independent_upper_tail": true,
+      "independent_upper_tail_basis": "Both teams' current result environments contain repeated four-plus totals, especially Fujairah's 6,5,5,6 sequence and Al Wahda's 5- and 4-goal matches. This supports a real upper tail, but not enough independent quality to fund goal four under the current lineup/context.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current same-season senior results support some transfer of a four-goal tail, but Fujairah's lower-division opposition and Al Wahda's recent control wins cap transferability at MEDIUM.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Fujairah's current cup/league games are highly open, while Al Wahda also have recent low-endpoint 1-0 and 2-0 matches. Comparable current context is mixed rather than uniformly expansive.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed lineups preserve the principal Wahda scoring core and Fujairah retain the current players behind their recent scoring run; no verified absence destroys either route.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified weather, red-card, injury or tactical event materially suppresses both scoring routes in the prematch treatment.",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "UAE_PRESIDENTS_CUP_2026_27_ROUND_OF_16",
+      "competition_format": "Single-match knockout; winner advances to quarterfinal.",
+      "draw_resolution": "If level after 90 minutes, extra time and then penalties can decide the tie; recent UAEFA Round-of-16 results show both extra-time and penalty resolution.",
+      "aggregate_state": "No aggregate tie or away-goal rule.",
+      "qualification_state": "Both teams must advance today, but no fixed regulation-time winning margin is required.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Independent knockout tie.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "tournament_incentive_basis": "UAEFA confirms this as President's Cup Round of 16. Other ties in the same round have been decided after 90 minutes by extra time or penalties, so advancing is mandatory but regulation-time margin pressure is neutral rather than expansive.",
+      "goal_signal_priority_score": 68,
+      "goal_signal_mean_over_two_rate": 0.7,
+      "goal_signal_mean_over_three_rate": 0.6,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Carrier: Al Wahda are clearly the stronger side but do not show enough repeated three-goal self-carry to protect four alone. Distributed: Fujairah's reply route is credible, but the division gap prevents a HIGH independent-route grade needed to protect 2+2. Reply/continuation: both teams show current high-total games, yet Al Wahda also have 1-0/2-0 control endpoints and knockout extra time is available. G4 is therefore mixed, not funded.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Al Wahda retain a strong senior XI and recent 3-2 output, but repeated independent three/four-goal self-carry is not established in the current sample.",
+          "evidence_refs": [
+            "https://www.uaeproleague.ae/en/clubs/al-wahda",
+            "https://www.vavel.com/en-us/data/al-wahda/results/",
+            "https://www.startingxi.net/match/6428996"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Fujairah have scored repeatedly and can contribute, but their evidence comes mainly against lower-level opposition; 2+2 is not independently protected.",
+          "evidence_refs": [
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.uaeproleague.ae/en/clubs/al-wahda"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Both benches and current form allow continuation, but recent Wahda 1-0/2-0 endpoints and neutral knockout incentive leave the fourth timing mixed.",
+          "evidence_refs": [
+            "https://www.uaefa.ae/competition/2570",
+            "https://www.uaeproleague.ae/en/clubs/al-wahda",
+            "https://www.vavel.com/en-us/data/al-wahda/results/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Al Wahda's strong route is current and XI-backed; Fujairah's route is current but lower-division, so combined reliability is MEDIUM.",
+          "evidence_refs": [
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.uaeproleague.ae/en/clubs/al-wahda",
+            "https://www.startingxi.net/match/6428996"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Both sides have recent high-total games, but Al Wahda also have control wins and the knockout does not force a regulation-time margin. Continuation is MEDIUM.",
+          "evidence_refs": [
+            "https://www.uaefa.ae/competition/2570",
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.vavel.com/en-us/data/al-wahda/results/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Al Wahda's recent 1-0/2-0 outcomes plus extra-time availability create real control endpoints, offset by Fujairah's very open current profile. Stall risk is MEDIUM.",
+          "evidence_refs": [
+            "https://www.uaefa.ae/competition/2570",
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.vavel.com/en-us/data/al-wahda/results/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If one route underperforms, the other remains usable: Wahda have the stronger XI and Fujairah have scored in four of their last five. Failure resistance is MEDIUM.",
+          "evidence_refs": [
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.vavel.com/en-us/data/al-wahda/results/",
+            "https://www.startingxi.net/match/6428996"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Repeated 4+ totals exist in the current combined sample, but not with enough same-level, same-context protection to fund G4. Upper-tail evidence exists at MEDIUM transferability.",
+          "evidence_refs": [
+            "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+            "https://www.vavel.com/en-us/data/al-wahda/results/"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Division gap, recent Wahda low endpoints and the option of extra time create plausible 0-2/1-1/1-2 regulation-time finishes; these constrain G4 without erasing G3.",
+          "evidence_refs": [
+            "https://www.uaefa.ae/competition/2570",
+            "https://www.uaeproleague.ae/en/clubs/al-wahda",
+            "https://www.vavel.com/en-us/data/al-wahda/results/"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh source-backed exception research funds a distributed third goal through a strong Al Wahda route plus a usable Fujairah reply, while G4 remains mixed.",
+      "source_urls": [
+        "https://www.uaefa.ae/en/matches?locale=cs",
+        "https://www.uaefa.ae/competition/2570",
+        "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+        "https://www.uaeproleague.ae/en/clubs/al-wahda",
+        "https://www.vavel.com/en-us/data/al-wahda/results/",
+        "https://www.startingxi.net/match/6428996"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T12:58:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception has no sealed ranked Football C certificate.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "FUJAIRAH-WAHDA-20261023-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "fujairah-wahda-exception-prematch-20261023T125800Z",
+      "researched_at_utc": "2026-10-23T12:58:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Fresh UAEFA/current-form/confirmed-XI research",
+      "evidence_refs": [
+        "https://www.uaefa.ae/en/matches?locale=cs",
+        "https://www.uaefa.ae/competition/2570",
+        "https://www.betexplorer.com/football/team/al-fujairah/b1keFgcs/results/",
+        "https://www.uaeproleague.ae/en/clubs/al-wahda",
+        "https://www.vavel.com/en-us/data/al-wahda/results/",
+        "https://www.startingxi.net/match/6428996"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000ee7c8211b0d20bc77365e5c6",
+    "match_id": "ALFUJ-WAHDA-20261023",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.88
+    },
+    "observed_at_utc": "2026-10-23T12:58:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
