@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_current_corroboration='FOUND'; allowed: NOT_APPLICABLE, NOT_FOUND, UNKNOWN, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "847cc2b8aba5870477463a5891b501d8f9e35736f2daba9177abd1992ac2adfb",
+  "ok": false,
+  "request_id": "XI-20261023-RBLEIPZIGW-BAYERNW-EXCEPTION-2331-v2",
+  "runtime_commit": "e2e55b626863a8d2b6b575741ea982366f70dffa",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
