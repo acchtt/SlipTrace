@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_AVAILABLE'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "15aa62133458f86dad9e38a698d425e0458cdf4a57cf99913dc673e434ccc2f0",
+  "ok": false,
+  "request_id": "XI-20261023-ALITTIHAD-DIRIYAH-EXCEPTION-2220-v6",
+  "runtime_commit": "8f97cd69e26abcbaab025c0615dde0fdd268608f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
