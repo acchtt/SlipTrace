@@ -1,0 +1,11 @@
+{
+  "error": "g4_carrier_path must be one of: FAILED, MIXED, NOT_APPLICABLE, SUPPORTED, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "2e000e964ae2369398b67c0837513470991b7935010628486218e46a52006137",
+  "ok": false,
+  "request_id": "XI-20261023-RBLEIPZIGW-BAYERNW-EXCEPTION-2331-v4",
+  "runtime_commit": "df0bd13a499a1a24d99236d86740216f1bd0845b",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
