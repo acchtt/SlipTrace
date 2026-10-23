@@ -1,0 +1,275 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-JONGAZ-HELMOND-EXCEPTION-0037",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "jong-az-helmond-exception-20261023T173700Z",
+    "match": {
+      "match_id": "1799873",
+      "country": "Netherlands",
+      "competition": "Eerste Divisie",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T01:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current-form research plus user-confirmed starting XI are available.",
+      "common_evidence_basis": "Confirmed XI preserves the ranked goal-three thesis. Jong AZ field a normal youth attacking XI after a 4-4 at VVV and have 26 scored / 22 conceded through eleven league games. Helmond also field a normal senior XI but arrive with five winless results and have conceded in each of their latest away losses. The match remains two-route/league-leakage driven rather than an independent three-goal carrier.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Helmond have blanked in recent matches and have been poor away; the latest 4-4 Jong AZ result cannot by itself protect goal four. A 2-0/2-1/1-1 type endpoint remains credible.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent direct history is mixed and not required for the current thesis; current league scoring and confirmed XI carry more weight.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Neither team has a sufficiently repeatable independent three-goal carry in the current sample; G3 depends on combined routes and leakage.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independently protected fourth-goal route survives Helmond's blank risk and the youth-side variance.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Jong AZ's high-event profile creates tail potential, but Helmond's current blanks suppress repeatability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Recent results contain both 4+ totals and low Helmond endpoints.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve the identified scoring routes; the remaining risk is completion/control rather than route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event suppresses every identified scoring route.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 73,
+      "goal_signal_mean_over_two_rate": 0.75,
+      "goal_signal_mean_over_three_rate": 0.55,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Confirmed XI does not materially upgrade the fourth-goal tail; all G4 paths remain mixed.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "No repeatable independent four-goal carrier.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "2+2/3+1 remains possible but Helmond's current contribution is not protected.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Late reply/continuation remains mixed after recent Helmond blanks.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Both starting XIs preserve usable routes, but Helmond's current conversion keeps reliability at MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Jong AZ can sustain open games but Helmond's current attack limits continuation confidence.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Helmond's current blanks preserve a meaningful low endpoint.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Jong AZ underperform, Helmond are not reliable enough to rescue the total; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal route is established.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Helmond have blanked in recent matches and have been poor away; the latest 4-4 Jong AZ result cannot by itself protect goal four. A 2-0/2-1/1-1 type endpoint remains credible.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+            "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+            "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh XI review preserves the ranked G3 certificate; G4 remains mixed.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+        "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+        "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T17:37:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit user-requested exception reassessment with confirmed XI.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "JONGAZ-HELMOND-20261024-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "jong-az-helmond-exception-20261023T173700Z",
+      "researched_at_utc": "2026-10-23T17:37:00+00:00",
+      "upstream_state": "FOCUS",
+      "source_reference": "Current #4 FOCUS/FOLLOW rank row + fresh current-form exception research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000009470820695922930d6ef111a",
+        "https://prematchstats.com/netherlands/eerste-divisie/jong-az-alkmaar-vs-helmond-sport-stats/87339126",
+        "https://keukenkampioendivisie.nl/nieuws/voorbeschouwing-speelronde-12-3",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1799873"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
