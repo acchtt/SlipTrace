@@ -17,6 +17,7 @@ User-facing behavior:
 from __future__ import annotations
 
 import argparse
+import hashlib
 from datetime import datetime
 import json
 import math
@@ -300,14 +301,31 @@ def _decision_state_persistence_manifest(
     if not isinstance(match_id, str) or not match_id.strip():
         raise ValueError("Decision States persistence requires match_id")
     assessment_at = context.get("assessment_at_utc")
-    assessment_time = _time(assessment_at, "assessment_at_utc")
+    assessment_time = None
+    missing_persistence_inputs: list[str] = []
+    if isinstance(assessment_at, str) and assessment_at.strip():
+        assessment_time = _time(assessment_at, "assessment_at_utc")
+    else:
+        assessment_at = None
+        missing_persistence_inputs.append("Assessment At UTC")
+
     if not isinstance(epoch, str) or not epoch.strip():
-        # Historical/runtime-compatible fallback. The identity is deterministic
-        # and derived only from the assessment evidence epoch, never wall clock.
-        epoch = (
-            f"C-XI-{match_id.strip()}-"
-            f"{assessment_time.strftime('%Y%m%d%H%M%S%f%z')}"
-        )
+        # Historical/runtime-compatible fallback. Prefer the true assessment
+        # timestamp when present; otherwise use a deterministic payload digest.
+        # Never invent a wall-clock assessment time.
+        if assessment_time is not None:
+            epoch = (
+                f"C-XI-{match_id.strip()}-"
+                f"{assessment_time.strftime('%Y%m%d%H%M%S%f%z')}"
+            )
+        else:
+            digest = hashlib.sha256(
+                json.dumps(
+                    c_input, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+                ).encode("utf-8")
+            ).hexdigest()[:16]
+            epoch = f"C-XI-{match_id.strip()}-LEGACY-{digest}"
+            missing_persistence_inputs.append("Evidence Epoch ID")
     else:
         epoch = epoch.strip()
 
@@ -362,6 +380,8 @@ def _decision_state_persistence_manifest(
         "sheet_name": "Decision States",
         "key_column": "Assessment ID",
         "row": row,
+        "persistence_input_complete": not missing_persistence_inputs,
+        "missing_persistence_inputs": missing_persistence_inputs,
         "readback_required": True,
         "readback_assertions": [
             "Assessment ID",
@@ -376,7 +396,11 @@ def _decision_state_persistence_manifest(
         ],
         "publication_fail_closed": True,
         "publication_authorized_before_readback": False,
-        "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+        "status_before_readback": (
+            "DECISION_STATE_PERSISTENCE_REQUIRED"
+            if not missing_persistence_inputs
+            else "DECISION_STATE_PERSISTENCE_INPUT_INCOMPLETE"
+        ),
     }
 
 
