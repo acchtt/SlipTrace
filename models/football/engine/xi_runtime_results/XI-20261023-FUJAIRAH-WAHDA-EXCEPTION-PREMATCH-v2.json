@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: revision must be INITIAL or REASSESSMENT",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "bbbe0f198a15203e20db47d1c0925618cd3e4e6b306875d1e81329491a4b918c",
+  "ok": false,
+  "request_id": "XI-20261023-FUJAIRAH-WAHDA-EXCEPTION-PREMATCH-v2",
+  "runtime_commit": "bb9cebe4a5addd403f0b7450dacc47647d37e633",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
