@@ -1899,12 +1899,50 @@ def follow_priority_profile(
     else:
         ceiling_tier = "LOW"
 
-    balanced = floor + ceiling
+    # Workload comparison must normalize for the protected burden itself.
+    # A G4/O3.50 certificate is stronger evidence than G3/O2.50, but it is also
+    # a materially harder line to clear. FOLLOW is scarce research/assessment
+    # capacity, not certificate prestige, so higher burden may not win merely
+    # because its raw tail score is larger.
+    burden_steps = (
+        max(0.0, float(certified) - 2.50)
+        if certified is not None
+        else 0.0
+    )
+    floor_burden_penalty = round(burden_steps * 10)
+    upside_burden_penalty = round(burden_steps * 18)
+    balanced_burden_penalty = round(burden_steps * 12)
+
+    clearability = floor - floor_burden_penalty
+    upside = ceiling - upside_burden_penalty
+    balanced = floor + ceiling - balanced_burden_penalty
+
+    carrier_g3 = c_carrier_goal3_funded(a)
+    distributed_g3 = c_distributed_goal3_funded(a)
+    leakage_g3 = c_leakage_goal3_funded(a)
+    if carrier_g3 and distributed_g3:
+        mechanism_class = "HYBRID"
+    elif carrier_g3:
+        mechanism_class = "CARRIER"
+    elif distributed_g3:
+        mechanism_class = "DISTRIBUTED"
+    elif leakage_g3:
+        mechanism_class = "LEAKAGE"
+    else:
+        mechanism_class = "OTHER"
+
     profile = f"{floor_tier}_FLOOR_{ceiling_tier}_CEILING"
     return {
         "follow_floor_score": floor,
         "follow_ceiling_score": ceiling,
         "follow_priority_score": balanced,
+        "follow_clearability_score": clearability,
+        "follow_upside_score": upside,
+        "follow_balanced_score": balanced,
+        "follow_burden_penalty_clearability": floor_burden_penalty,
+        "follow_burden_penalty_upside": upside_burden_penalty,
+        "follow_burden_penalty_balanced": balanced_burden_penalty,
+        "follow_mechanism_class": mechanism_class,
         "follow_floor_tier": floor_tier,
         "follow_ceiling_tier": ceiling_tier,
         "follow_priority_profile": profile,
