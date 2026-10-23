@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception_research.supersedes_exception_reference must be non-empty",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "4692ea3ddfd65d1f2bbabf3f3b3f963682731f59e66bddcda503aaa2e3eb1aa4",
+  "ok": false,
+  "request_id": "XI-20261023-FUJAIRAH-WAHDA-EXCEPTION-PREMATCH-v3",
+  "runtime_commit": "8eaa78edfd858695687c8c5a6a19d23ccc254bec",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
