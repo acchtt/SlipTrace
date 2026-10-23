@@ -1,0 +1,303 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-SAILIYA-RAYYAN-PRICE-1640-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "al-sailiya-al-rayyan-price-20261023T164300Z-v2",
+    "match": {
+      "match_id": "1838583",
+      "country": "Qatar",
+      "competition": "Qatar Stars League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-23T23:45:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Official QSL preview/current results and user-confirmed starting XI available.",
+      "common_evidence_basis": "Fresh exception review preserves the ranked G3 thesis. Al Rayyan's confirmed XI includes Roger Guedes, Gabriel Pereira, Yacine Brahimi and Gregore in a normal senior attacking structure, preserving the strong away route behind recent 3-0 league output. Al Sailiya also field a normal senior XI and arrive from a 2-2 draw, preserving a usable home reply. QSL confirms Rayyan lead the league on 14 points while Sailiya are bottom on one point; both have normal result incentives rather than a tournament margin requirement.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Rayyan have recent control/clean-sheet endpoints including 0-0, and Sailiya can blank despite defensive leakage. The confirmed XI preserves goal-three routes but does not independently protect the fourth.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "The current-season cup meeting ended Rayyan 2-0; useful for control risk but not sufficient to erase current league leakage and Rayyan's multiple finishers.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Rayyan have repeated three-goal wins but the strongest prospective route remains distributed/combined rather than an independently protected three-goal carrier in this exact matchup.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Confirmed XI preserves G3 but Rayyan control endpoints and Sailiya scoring volatility leave the fourth unprotected.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current Rayyan finishing supports some tail, but control endpoints prevent a HIGH transferability grade.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Recent comparable league evidence contains both Rayyan 3-0 wins and 0-0/clean-sheet control.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve both scoring routes; risk is completion, not disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event suppresses both routes.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 63,
+      "goal_signal_mean_over_two_rate": 0.6458,
+      "goal_signal_mean_over_three_rate": 0.3958,
+      "goal_signal_low_draw_trap_rate": 0.125,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Confirmed XI strengthens availability certainty but not the fourth-goal tail. Rayyan can produce three, Sailiya can reply, yet current control endpoints and inconsistent Sailiya contribution leave every G4 path mixed.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Rayyan's attacking XI is strong but recent control endpoints prevent a protected independent four.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan",
+            "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Sailiya's recent 2-2 preserves a reply, but their repeated blanks keep 2+2/3+1 unprotected.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Post-third reply/continuation remains mixed because Rayyan can control once ahead.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Confirmed senior XI preserves a strong Rayyan route and usable Sailiya route; current conversion remains mixed enough for MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57",
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Rayyan have multiple finishers but recent 0-0/control endpoints cap continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Control endpoints and Sailiya conversion failures remain material. MEDIUM.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If one route underperforms, the other still exists but is not strong enough to fully rescue the total. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57",
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent transferable fourth is established.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Rayyan's control outcomes and Sailiya's blank risk can terminate at two or three goals.",
+          "evidence_refs": [
+            "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+            "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani",
+            "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh exception XI review preserves funded G3 and mixed G4.",
+      "source_urls": [
+        "USER_ODDS_SCREENSHOT:file_00000000bf488211aea50356bceaf5b2",
+        "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57",
+        "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+        "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani",
+        "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1838583"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T16:43:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception reassessment is independent of normal ranked authority.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "Observed O3 @1.65 is 0.50 above the O2.50 Football C certificate. Recheck with confirmed XI preserves Al Rayyan's strong route and Al Sailiya's usable reply, but does not establish an independent three-goal carrier or protected fourth-goal path. Rayyan's recent 0-0/clean-sheet control and Sailiya's blank risk remain live failure mechanisms. G3 remains funded only at O2.50; no certificate upgrade to O3 is justified.",
+      "market_disagreement_recheck_fields": [
+        "carrier_self_fund",
+        "goal3_two_route_funded",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3",
+        "upper_tail_transferability",
+        "upper_tail_comparable_context_signal",
+        "failure_resistance",
+        "burden_stall_risk"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57",
+        "USER_ODDS_SCREENSHOT:file_00000000bf488211aea50356bceaf5b2",
+        "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+        "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani",
+        "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan"
+      ]
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "ALSAILIYA-ALRAYYAN-20261023-PREMATCH-PRICE-v2",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "al-sailiya-al-rayyan-price-20261023T164300Z-v2",
+      "researched_at_utc": "2026-10-23T16:43:00+00:00",
+      "upstream_state": "FOCUS",
+      "source_reference": "Current #8 ranked row + fresh official QSL exception research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000003b9c8211893d8f45757e8b57",
+        "https://qsl.qa/index.php/en/news/doha-bank-stars-league-week-7-al-sailiya-vs-al-rayyan",
+        "https://www.qsl.qa/en/news/difficult-match-against-al-rayyan-awaits-us-al-sailiya-coach-mirghani",
+        "https://www.qsl.qa/en/news/doha-bank-stars-league-week-5-qatar-sc-0-3-al-rayyan",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1838583"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "REASSESSMENT",
+      "supersedes_exception_reference": "ALSAILIYA-ALRAYYAN-20261023-PREMATCH-PRICE-v1",
+      "supersedes_evidence_epoch_id": "al-sailiya-al-rayyan-price-20261023T164000Z",
+      "challenge_reason": "Mandatory market-disagreement recheck for observed O3 @1.65, 0.50 goals above the O2.50 certificate."
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000bf488211aea50356bceaf5b2",
+    "match_id": "1838583",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3,
+      "odds": 1.65
+    },
+    "observed_at_utc": "2026-10-23T16:43:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
