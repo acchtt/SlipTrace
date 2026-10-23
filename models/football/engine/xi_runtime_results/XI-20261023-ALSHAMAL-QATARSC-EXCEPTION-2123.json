@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: unsupported upstream_state=RANKED_WATCH_STOP",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "2407eb5cb07fe61682156a97aeadb328509b3973ec19421d18f291479b55445a",
+  "ok": false,
+  "request_id": "XI-20261023-ALSHAMAL-QATARSC-EXCEPTION-2123",
+  "runtime_commit": "28fc4b64dcb7eb3c39b5ad19e9363e29c1f1d435",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
