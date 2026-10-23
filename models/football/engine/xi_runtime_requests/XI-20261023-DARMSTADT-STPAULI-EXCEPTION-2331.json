@@ -1,0 +1,260 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261023-DARMSTADT-STPAULI-EXCEPTION-2331",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "darmstadt-stpauli-exception-20261023T164200Z",
+    "match": {
+      "match_id": "1813362",
+      "country": "Germany",
+      "competition": "2. Bundesliga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-23T23:30:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official league/club evidence and confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Current official preview, fixture-bound results and user-confirmed XI available.",
+      "common_evidence_basis": "Fresh exception review improves the intake screen. Darmstadt's confirmed XI includes Lee Ho-jae, Milan Smit, Marco Richter and Lance Duijvestijn, preserving a usable home route; their recent league totals include 4,4,6,3 and 3 in the last five, with heavy defensive leakage. St Pauli start Abdoulie Ceesay, Connor Metcalfe, Youssoupha Niang and Mathias Rasmussen; they are unbeaten in five and Ceesay has four league goals, but their last five totals are controlled at 2,2,2,1,4. The matchup therefore supports an away-led 2+1 / 1+2 third-goal route, but not a protected fourth.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "St Pauli's unbeaten run is built on control: 1-1, 2-0, 1-1, 1-0, 2-2. If Darmstadt's home reply fails, 0-1/0-2/1-1 remain live endpoints despite Darmstadt's defensive leakage. Their current injuries also reduce home failure resistance.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Older meetings range from 4-0 Darmstadt to 0-3 St Pauli and are too old/mixed to drive the 2026 assessment.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "St Pauli's current attack is reliable but has not shown a repeatable three-goal self-carry; Darmstadt's attack is too volatile to carry three alone.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Darmstadt's high-total losses create leakage, but St Pauli's current control profile suppresses a transferable fourth.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Darmstadt provide leakage but St Pauli's five-match control run prevents HIGH transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Current Darmstadt games are volatile while current St Pauli games are compressed; comparable signals conflict.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed XI preserves both routes despite listed injuries; risk is completion rather than route destruction.",
+      "material_suppression": false,
+      "material_suppression_basis": "No all-route prematch suppression is verified.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 48,
+      "goal_signal_mean_over_two_rate": 0.5556,
+      "goal_signal_mean_over_three_rate": 0.3333,
+      "goal_signal_low_draw_trap_rate": 0.1667,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Darmstadt leakage creates a real four-goal tail, but St Pauli's recent control endpoints mean neither carrier, distributed nor continuation routes independently protect goal four.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Neither side has a repeatable current four-goal carrier.",
+          "evidence_refs": [
+            "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A 2+2 path exists but Darmstadt's reply and St Pauli's second contribution are not both independently protected.",
+          "evidence_refs": [
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "St Pauli's control after taking a lead limits post-third continuation.",
+          "evidence_refs": [
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Confirmed starters support both routes, but Darmstadt are volatile and St Pauli are controlled. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000002b608207b86d65e10d94c148",
+            "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Darmstadt leakage supports continuation, St Pauli control suppresses it. MEDIUM.",
+          "evidence_refs": [
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "St Pauli's recent sequence contains multiple one/two-goal endpoints. HIGH.",
+          "evidence_refs": [
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Darmstadt blank, St Pauli rarely self-carry three; if St Pauli control, Darmstadt may not rescue. MEDIUM.",
+          "evidence_refs": [
+            "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No protected independent fourth-goal route is established.",
+          "evidence_refs": [
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "St Pauli's current control profile can suppress Darmstadt's reply and terminate the game at one or two goals.",
+          "evidence_refs": [
+            "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+            "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+            "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh XI-specific exception research upgrades the fixture from intake WATCH to an away-led G3 candidate; G4 remains mixed.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_000000002b608207b86d65e10d94c148",
+        "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+        "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-23T16:42:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception has no sealed ranked certificate.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "DARMSTADT-STPAULI-20261023-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "darmstadt-stpauli-exception-20261023T164200Z",
+      "researched_at_utc": "2026-10-23T16:42:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Discovery intake WATCH priority 48 + fresh official exception research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000002b608207b86d65e10d94c148",
+        "https://www.sv98.de/we-have-to-provide-the-answer-on-the-pitch/",
+        "https://www.bundesliga.com/en/2bundesliga/matchday/2026-2027/9/sv-darmstadt-98-vs-fc-st-pauli/accessibility",
+        "Football-C-rank-20261023-2100-20261024-0300-verified.json#1813362"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
