@@ -50,6 +50,20 @@ Persist one Decision States row per Assessment ID/evidence epoch. Preserve the
 exact C result and ordinary Evaluated Line / Evaluated Odds columns when an
 observed user screenshot was compared.
 
+The runtime now emits this requirement as
+`decision_state_persistence`. Orchestration must upsert the exact emitted row
+by **Assessment ID**, stamp `Persisted At UTC`, independently refetch the same
+row, and verify every field listed in `readback_assertions`. Until that
+readback succeeds, an evaluated ACT/BOOK/PASS is not publishable and Website
+Picks must not be written. The fail-closed status is
+`DECISION_STATE_PERSISTENCE_READBACK_REQUIRED`; a write/readback failure is
+reported as `ENGINE_EVALUATED_NOT_PUBLISHED`, never silently promoted to an
+official verdict.
+
+This is a process-compliance boundary, not model exposure. Screenshot quotes
+remain user-supplied market evidence; `Actual Bets — Current` remains separate
+and still requires verified user-slip authority.
+
 ## Website Picks and Actual Bets
 
 Only an authorized strict C decision may create a Website Picks row.
