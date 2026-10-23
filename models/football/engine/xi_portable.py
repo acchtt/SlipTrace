@@ -294,15 +294,22 @@ def _decision_state_persistence_manifest(
     epoch = c_input.get("evidence_epoch_id")
     match = c_input.get("match")
     context = c_input.get("context")
-    if not isinstance(epoch, str) or not epoch.strip():
-        raise ValueError("Decision States persistence requires evidence_epoch_id")
     if not isinstance(match, dict) or not isinstance(context, dict):
         raise ValueError("Decision States persistence requires match/context")
     match_id = match.get("match_id")
     if not isinstance(match_id, str) or not match_id.strip():
         raise ValueError("Decision States persistence requires match_id")
     assessment_at = context.get("assessment_at_utc")
-    _time(assessment_at, "assessment_at_utc")
+    assessment_time = _time(assessment_at, "assessment_at_utc")
+    if not isinstance(epoch, str) or not epoch.strip():
+        # Historical/runtime-compatible fallback. The identity is deterministic
+        # and derived only from the assessment evidence epoch, never wall clock.
+        epoch = (
+            f"C-XI-{match_id.strip()}-"
+            f"{assessment_time.strftime('%Y%m%d%H%M%S%f%z')}"
+        )
+    else:
+        epoch = epoch.strip()
 
     supported = None
     if isinstance(engine_output.get("result"), dict):
@@ -320,11 +327,13 @@ def _decision_state_persistence_manifest(
         or os.environ.get("GITHUB_SHA")
         or os.environ.get("SLIPTRACE_REVISION")
     )
-    assessment_id = f"XI-C-{epoch.strip()}"
+    assessment_id = (
+        f"XI-{epoch}" if epoch.startswith("C-") else f"XI-C-{epoch}"
+    )
     row = {
         "Assessment ID": assessment_id,
         "Match ID": match_id.strip(),
-        "Evidence Epoch ID": epoch.strip(),
+        "Evidence Epoch ID": epoch,
         "Assessment At UTC": assessment_at,
         "Fixture Status": context.get("fixture_status"),
         "Score": context.get("score"),
