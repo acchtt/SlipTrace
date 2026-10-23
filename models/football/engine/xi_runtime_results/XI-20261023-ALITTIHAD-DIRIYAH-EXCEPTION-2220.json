@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_transferability='NOT_APPLICABLE'; allowed: LIMITED, NOT_TRANSFERABLE, UNAVAILABLE, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "060049dfe89920d0642922fc1ca8a30fad0e8367369c98cd2bbc7b4dfaacaf3b",
+  "ok": false,
+  "request_id": "XI-20261023-ALITTIHAD-DIRIYAH-EXCEPTION-2220",
+  "runtime_commit": "2ce8ab18f68e9da29121648e0993fde2a61b7d60",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
