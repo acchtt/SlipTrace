@@ -20,6 +20,7 @@ import argparse
 from datetime import datetime
 import json
 import math
+import os
 from pathlib import Path
 import sys
 from typing import Any
@@ -273,11 +274,108 @@ def assess_user_screenshot(
     }
 
 
+def _decision_state_persistence_manifest(
+    c_input: dict[str, Any],
+    engine_output: dict[str, Any],
+    *,
+    execution_status: str,
+    c_action: str,
+    evaluated_line: float | None = None,
+    evaluated_odds: float | None = None,
+) -> dict[str, Any]:
+    """Build the exact Decision States row that orchestration must persist.
+
+    The runtime cannot write Google Sheets itself. Instead it emits a complete
+    immutable-row contract and fails publication closed until the orchestration
+    layer writes this row and independently reads it back. This turns the
+    existing routing requirement into a machine-visible runtime obligation.
+    """
+
+    epoch = c_input.get("evidence_epoch_id")
+    match = c_input.get("match")
+    context = c_input.get("context")
+    if not isinstance(epoch, str) or not epoch.strip():
+        raise ValueError("Decision States persistence requires evidence_epoch_id")
+    if not isinstance(match, dict) or not isinstance(context, dict):
+        raise ValueError("Decision States persistence requires match/context")
+    match_id = match.get("match_id")
+    if not isinstance(match_id, str) or not match_id.strip():
+        raise ValueError("Decision States persistence requires match_id")
+    assessment_at = context.get("assessment_at_utc")
+    _time(assessment_at, "assessment_at_utc")
+
+    supported = None
+    if isinstance(engine_output.get("result"), dict):
+        supported = (
+            engine_output["result"].get("supported_line")
+            or engine_output["result"].get("frozen_supported_line")
+        )
+    if supported is None and isinstance(engine_output.get("price_check"), dict):
+        model = engine_output["price_check"].get("model")
+        if isinstance(model, dict):
+            supported = model.get("supported_line")
+
+    revision = (
+        c_input.get("authority_commit")
+        or os.environ.get("GITHUB_SHA")
+        or os.environ.get("SLIPTRACE_REVISION")
+    )
+    assessment_id = f"XI-C-{epoch.strip()}"
+    row = {
+        "Assessment ID": assessment_id,
+        "Match ID": match_id.strip(),
+        "Evidence Epoch ID": epoch.strip(),
+        "Assessment At UTC": assessment_at,
+        "Fixture Status": context.get("fixture_status"),
+        "Score": context.get("score"),
+        "Match Minute": context.get("match_minute"),
+        "XI Assessment Execution Status": execution_status,
+        "C Board State": _rank_state_presentation(c_input)[0],
+        "C Action": c_action,
+        "C Supported Line": supported,
+        "Evaluated Line": evaluated_line,
+        "Evaluated Odds": evaluated_odds,
+        "Engine C Result": json.dumps(
+            engine_output, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+        ),
+        "Engine Source Revision": revision,
+        "Publication Key": None,
+        "Published": False,
+        "Persisted At UTC": None,
+        "Payload JSON": json.dumps(
+            c_input, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+        ),
+    }
+    return {
+        "required": True,
+        "store": "GOOGLE_SHEETS",
+        "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+        "sheet_name": "Decision States",
+        "key_column": "Assessment ID",
+        "row": row,
+        "readback_required": True,
+        "readback_assertions": [
+            "Assessment ID",
+            "Evidence Epoch ID",
+            "XI Assessment Execution Status",
+            "C Action",
+            "C Supported Line",
+            "Evaluated Line",
+            "Evaluated Odds",
+            "Engine C Result",
+            "Engine Source Revision",
+        ],
+        "publication_fail_closed": True,
+        "publication_authorized_before_readback": False,
+        "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+    }
+
+
 def _football_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
     _require_c(c_input, "football_assessment")
     result = run_football_assessment(c_input)
     rank_internal, rank_display = _rank_state_presentation(c_input)
-    return {
+    receipt = {
         "ok": True,
         "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
         "model": "c",
@@ -289,17 +387,37 @@ def _football_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
         "model_accounting_status": "NONE",
         "result": result,
     }
+    receipt["decision_state_persistence"] = _decision_state_persistence_manifest(
+        c_input,
+        receipt,
+        execution_status="EXECUTED_C_FOOTBALL_ONLY",
+        c_action="NOT_EVALUATED_NO_CURRENT_PRICE",
+    )
+    return receipt
 
 
 def _decision_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
     _require_c(c_input, "decision")
     result = run_decision(c_input)
-    return {
+    context = c_input.get("context") or {}
+    quote = context.get("quote") if isinstance(context, dict) else None
+    receipt = {
         "ok": True,
         "engine_execution_status": "EXECUTED_C_DECISION",
         "model": "c",
         "result": result,
     }
+    receipt["decision_state_persistence"] = _decision_state_persistence_manifest(
+        c_input,
+        receipt,
+        execution_status="EXECUTED_C_FOOTBALL_AND_PRICE",
+        c_action=result["action"],
+        evaluated_line=quote.get("line") if isinstance(quote, dict) else None,
+        evaluated_odds=quote.get("odds") if isinstance(quote, dict) else None,
+    )
+    receipt["publication_authorized"] = False
+    receipt["publication_blocker"] = "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+    return receipt
 
 
 def _football_and_optional_price(
@@ -331,11 +449,40 @@ def _football_and_optional_price(
                 "bet_authorized": False,
             }
             mode = "FOOTBALL_ASSESSMENT"
-        return {
+        output = {
             **receipt,
             "xi_mode": mode,
             "price_check": price,
         }
+        quote = (
+            price.get("evidence", {}).get("quote")
+            if isinstance(price, dict)
+            else None
+        )
+        action = (
+            price.get("model", {}).get("conditional_action")
+            if isinstance(price, dict)
+            else None
+        )
+        output["decision_state_persistence"] = _decision_state_persistence_manifest(
+            c_input,
+            output,
+            execution_status=(
+                "EXECUTED_C_FOOTBALL_AND_PRICE"
+                if price.get("ok") and isinstance(quote, dict)
+                else "EXECUTED_C_FOOTBALL_ONLY"
+            ),
+            c_action=(
+                f"OBSERVED_{action}_NON_EXECUTABLE"
+                if isinstance(action, str) and action
+                else "NOT_EVALUATED_NO_CURRENT_PRICE"
+            ),
+            evaluated_line=quote.get("line") if isinstance(quote, dict) else None,
+            evaluated_odds=quote.get("odds") if isinstance(quote, dict) else None,
+        )
+        output["priced_publication_authorized"] = False
+        output["publication_blocker"] = "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED"
+        return output
 
     if price_c is None:
         return {**receipt, "xi_mode": "FOOTBALL_ASSESSMENT"}
@@ -395,7 +542,12 @@ def _football_and_optional_price(
             "receipt": priced,
             "execution_authorized": True,
             "publication_requires_persistence_readback": True,
+            "publication_authorized": False,
+            "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
         },
+        "decision_state_persistence": priced["decision_state_persistence"],
+        "publication_authorized": False,
+        "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
     }
 
 
