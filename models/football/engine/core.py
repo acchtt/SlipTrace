@@ -834,14 +834,14 @@ def _independent_scoring_structure(a: MatchAssessment) -> bool:
 def c_endpoint_control_pressure(a: MatchAssessment) -> str:
     """Compile low-endpoint/control pressure from frozen football fields.
 
-    This deliberately sits between ordinary caution and material suppression.
-    It never parses prose and never uses bookmaker information or final scores.
-    HIGH pressure is a conservative execution warning, not a claim that all
-    scoring routes are destroyed.
+    HIGH is reserved for a direct hard-control signal: HIGH effective stall,
+    a material low-draw trap, or verified+corroborated suppressive H2H.
+    Ordinary MEDIUM completion/continuation/stall grades and MIXED context are
+    cautions, not synthetic hard vetoes, regardless of how many coexist.
     """
 
     require_c_completion(a)
-    _, effective_stall = c_effective_incentive_grades(a)
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
     trap = a.goal_signal_low_draw_trap_rate
 
     hard_control = (
@@ -856,29 +856,18 @@ def c_endpoint_control_pressure(a: MatchAssessment) -> str:
     if hard_control:
         return "HIGH"
 
-    cautions = 0
-    if effective_stall == Grade.MEDIUM:
-        cautions += 1
-    if a.burden_completion_quality == Grade.MEDIUM:
-        cautions += 1
-    effective_continuation, _ = c_effective_incentive_grades(a)
-    if effective_continuation == Grade.MEDIUM:
-        cautions += 1
-    if a.failure_resistance == Grade.MEDIUM:
-        cautions += 1
-    if (
-        a.h2h_effect in {"SUPPRESSIVE", "MIXED"}
-        and a.h2h_transferability in {"VERIFIED", "LIMITED"}
-    ):
-        cautions += 1
-    if a.upper_tail_comparable_context_signal in {"MIXED", "SUPPRESSIVE"}:
-        cautions += 1
-
-    if cautions >= 3:
-        return "HIGH"
-    if cautions:
-        return "MODERATE"
-    return "NONE"
+    cautions = (
+        effective_stall == Grade.MEDIUM
+        or a.burden_completion_quality == Grade.MEDIUM
+        or effective_continuation == Grade.MEDIUM
+        or a.failure_resistance == Grade.MEDIUM
+        or (
+            a.h2h_effect in {"SUPPRESSIVE", "MIXED"}
+            and a.h2h_transferability in {"VERIFIED", "LIMITED"}
+        )
+        or a.upper_tail_comparable_context_signal in {"MIXED", "SUPPRESSIVE"}
+    )
+    return "MODERATE" if cautions else "NONE"
 
 
 def c_execution_strength(a: MatchAssessment) -> str:
@@ -887,25 +876,66 @@ def c_execution_strength(a: MatchAssessment) -> str:
     return ("FRAGILE", "CONDITIONAL", "ROBUST")[certificate_robustness(a, "c")]
 
 
+def c_goal3_execution_floor_authorized(a: MatchAssessment) -> bool:
+    """Retain direct O2.50 authority for a genuinely funded current G3 floor.
+
+    Certificate robustness may be FRAGILE because the upper tail is weak or
+    because broader confidence is conditional. That must not erase an already
+    funded third-goal burden. Hard endpoint-control evidence still vetoes the
+    floor, and BOOK/unsupported tail extensions remain ROBUST-only.
+    """
+
+    require_c_completion(a)
+    if not c_goal3_funded(a):
+        return False
+
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    return (
+        c_endpoint_control_pressure(a) != "HIGH"
+        and a.burden_completion_quality >= Grade.MEDIUM
+        and effective_continuation >= Grade.MEDIUM
+        and effective_stall <= Grade.MEDIUM
+        and a.route_reliability >= Grade.MEDIUM
+        and a.chance_quality >= Grade.MEDIUM
+        and a.failure_resistance >= Grade.MEDIUM
+        and a.evidence_confidence >= Grade.MEDIUM
+        and a.burden_protection >= Grade.MEDIUM
+        and not a.material_suppression
+        and not a.failure_attacks_route
+    )
+
+
 def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
     """Highest line allowed for direct ACT under the execution-strength gate.
 
-    FRAGILE never ACTs. CONDITIONAL may ACT only with a 0.25-goal protection
-    below the certified burden and only when endpoint-control pressure is NONE.
-    ROBUST may ACT at the certified burden subject to the ordinary quote gates.
+    ROBUST may ACT at the certified burden. CONDITIONAL keeps the certified
+    G3 floor when it is genuinely funded; higher certificates retain 0.25-goal
+    protection unless hard endpoint control blocks them. FRAGILE never receives
+    upper-tail authority, but may retain only the independently funded O2.50
+    G3 floor when current completion and endpoint controls remain acceptable.
+    BOOK remains separately ROBUST-only.
     """
 
     anchor = certified_supported_burden(a, "c")
     if anchor is None:
         return None
+
     robustness = certificate_robustness(a, "c")
+    endpoint_pressure = c_endpoint_control_pressure(a)
+
     if robustness <= 0:
+        if c_goal3_execution_floor_authorized(a):
+            return min(anchor, 2.50)
         return None
+
     if robustness == 1:
-        if c_endpoint_control_pressure(a) != "NONE":
+        if endpoint_pressure == "HIGH":
             return None
+        if anchor <= 2.50 and c_goal3_execution_floor_authorized(a):
+            return anchor
         protected = round(anchor - 0.25, 2)
         return protected if protected >= 0 else None
+
     return anchor
 
 
@@ -2391,18 +2421,6 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     )
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
 
-    if execution_strength == "FRAGILE":
-        return Decision(
-            Action.PASS,
-            "FRAGILE certificate has no direct ACT or BOOK authority",
-        )
-
-    if execution_strength == "CONDITIONAL" and endpoint_pressure != "NONE":
-        return Decision(
-            Action.PASS,
-            "CONDITIONAL certificate blocked by endpoint-control pressure",
-        )
-
     if effective_stall == Grade.HIGH and not goal3_counterweight:
         return Decision(Action.PASS, "current effective burden stall risk is HIGH")
 
@@ -2483,15 +2501,20 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             "and no settlement-aware BOOK extension clears",
         )
 
-    if direct_act_ceiling is None or ctx.quote.line > direct_act_ceiling + 1e-9:
+    if direct_act_ceiling is None:
         return Decision(
             Action.PASS,
             (
-                "CONDITIONAL certificate requires a 0.25-goal protected line "
-                "with no endpoint-control warning"
-                if execution_strength == "CONDITIONAL"
+                "hard endpoint-control or current G3-floor quality blocks direct ACT"
+                if endpoint_pressure == "HIGH" or execution_strength == "FRAGILE"
                 else "direct ACT ceiling unavailable"
             ),
+        )
+
+    if ctx.quote.line > direct_act_ceiling + 1e-9:
+        return Decision(
+            Action.PASS,
+            f"quoted burden exceeds direct ACT ceiling O{direct_act_ceiling:.2f}",
         )
 
     if ctx.quote.odds >= 1.65:
@@ -2500,7 +2523,11 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             (
                 "ROBUST supported/protected line at normal price"
                 if execution_strength == "ROBUST"
-                else "CONDITIONAL protected line at normal price"
+                else (
+                    "CONDITIONAL supported/protected line at normal price"
+                    if execution_strength == "CONDITIONAL"
+                    else "FRAGILE certificate retained only at funded G3 floor"
+                )
             ),
         )
 
