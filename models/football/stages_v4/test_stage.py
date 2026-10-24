@@ -207,6 +207,21 @@ class ResearchedRegistryTests(unittest.TestCase):
 
 
 class SweepV4Tests(unittest.TestCase):
+    def test_requested_end_time_is_inclusive(self):
+        end_fixture = fixture(
+            "at-end",
+            "England",
+            "Premier League",
+            ko="2026-10-11T23:00:00Z",
+            goals="HIGH",
+        )
+        out = sweep(snapshot([end_fixture]), now=NOW)
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(out["eligible_queue"][0]["match_id"], "at-end")
+        self.assertNotEqual(out["source_ledger"][0]["intake_lane"], "CLOSED")
+        self.assertEqual(out["window_status"], "COMPLETE")
+        self.assertTrue(out["whole_requested_surface_complete"])
+
     def test_intake_does_not_require_odds_xi_or_worldwide_women_proof(self):
         result = sweep(snapshot(), now=NOW)
         self.assertEqual(result["status"],"V4_SWEEP_READY")
@@ -519,6 +534,21 @@ def rank(src, c, reasons, *, now, original_source=None, status_refresh=None):
 
 
 class RankV4Tests(unittest.TestCase):
+    def test_rank_refuses_partial_upstream_window_even_with_eligible_rows(self):
+        pending = fixture(
+            "pending-discovery",
+            "Pakistan",
+            "Premier League",
+            goals="HIGH",
+        )
+        src = sweep(snapshot([fixture("m1"), pending]), now=NOW)
+        self.assertEqual(src["window_status"], "PARTIAL")
+        self.assertFalse(src["whole_requested_surface_complete"])
+        self.assertEqual(src["upstream_remaining_fixture_count"], 1)
+        self.assertEqual(src["eligible_count"], 1)
+        with self.assertRaisesRegex(StageError, "V4_SWEEP_INTAKE_INCOMPLETE"):
+            production_rank(src, model_input(), {}, now="2026-10-11T16:05:00Z")
+
     def test_missing_source_and_status_are_fail_closed(self):
         src = sweep(snapshot(), now=NOW)
         c = model_input()
