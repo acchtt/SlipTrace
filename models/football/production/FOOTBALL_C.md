@@ -223,7 +223,7 @@ A conditional BOOK target requires:
 - an intact football mechanism;
 - no material veto;
 - an internal C-WATCH/REVIEW_ONLY exception, if explicitly assessed, to
-  revalidate to at least CONDITIONAL robustness.
+  revalidate to ROBUST robustness. FRAGILE/CONDITIONAL may never create BOOK.
 
 For an **unsupported higher observed line**, the target may move down to the
 certified burden only when the gap is at most **0.25 goals**.
