@@ -1,0 +1,332 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-NECAXA-JUAREZ-EXCEPTION-0759",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "necaxa-juarez-exception-20261024T005900Z",
+    "match": {
+      "match_id": "1799087",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T08:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current research plus user-confirmed starting XI are available.",
+      "common_evidence_basis": "The upstream WATCH was pre-XI and specifically noted Carranza and Owen Gonzalez only as recent bench introductions. The confirmed XI now starts Julian Carranza and Owen Gonzalez for Necaxa, with Matias Espindola and attacking support behind them. Juarez also start Oscar Estupinan with Jose Luis Rodriguez and multiple senior creators. This is verified new XI evidence that strengthens both scoring routes, although both clubs' recent blanks remain material.",
+      "home_route": "STRONG",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Both teams recently produced consecutive blanks and neither has a repeatable independent three-goal carrier. Even with stronger confirmed XIs, 1-1, 2-0 and 2-1 remain credible endpoints.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Recent direct meetings include 2-1, 1-1 and 2-2; useful as context but current conversion volatility prevents direct certification.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Exception research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Confirmed attacking starters improve both routes but do not create a repeatable independent team-level three-goal carry.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No protected fourth-goal route; current blank/control evidence remains live.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Confirmed starters improve the third-goal route but recent blanks cap transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Direct history and current XI support some G3 tail, while recent conversion failures remain conflicting.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve the surviving scoring routes; remaining risk is completion rather than route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event removes all scoring routes.",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "REGULAR_LEAGUE_PHASE",
+      "competition_format": "Matchday fourteen with four games left; both sides prefer a win, with no verified must-margin condition.",
+      "draw_resolution": "Regular-phase draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "Necaxa and Juarez are low in the table and need points; no aggregate or must-margin state is verified.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No verified simultaneous-score or required-margin dependency.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "goal_signal_priority_score": 53,
+      "goal_signal_mean_over_two_rate": 0.55,
+      "goal_signal_mean_over_three_rate": 0.35,
+      "goal_signal_low_draw_trap_rate": 0.15,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_MIXED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Fresh XI evidence upgrades goal-three route quality, but neither side independently protects goal four.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "No repeatable independent four-goal carrier.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "2+2 is plausible but not independently protected given recent blanks.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Post-third reply exists but remains inconsistent.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Carranza/Gonzalez now start for Necaxa and Estupinan/Rodriguez remain in Juarez's confirmed XI; both routes improve to strong but overall reliability remains MEDIUM because of recent blanks.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Multiple starters can continue after the first goal, but neither side has sustained recent conversion; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Recent blanks preserve stall risk, reduced from HIGH to MEDIUM by stronger confirmed XIs.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Either side has enough starting quality to contribute if the other route underperforms, but not enough for HIGH resistance.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal route is verified.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Both teams recently produced consecutive blanks and neither has a repeatable independent three-goal carrier. Even with stronger confirmed XIs, 1-1, 2-0 and 2-1 remain credible endpoints.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+            "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+            "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Confirmed XI materially improves both routes versus the pre-XI WATCH and supports a G3 exception candidate.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+        "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+        "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+        "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+        "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+        "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-24T00:59:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception reassessment with confirmed XI.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "NECAXA-JUAREZ-20261024-PREMATCH-EXCEPTION-v1",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "necaxa-juarez-exception-20261024T005900Z",
+      "researched_at_utc": "2026-10-24T00:59:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "Current WATCH row + user-confirmed XI + fresh same-day lineup verification",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000edd082078a9ea9655adae1c2",
+        "USER_LINEUP_SCREENSHOT:file_000000006f18821194ad436ea007e742",
+        "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+        "https://elpais.com/deportes/resultados/futbol/mexico_apertura/2026/directo/regular-a-14-6a2d4a0547f1088/alineaciones/",
+        "https://www.clarosports.com/futbol/liga-mx/necaxa-vs-juarez-en-vivo-el-partido-de-la-jornada-14-de-la-liga-mx-resultado-y-goles-hoy-apertura-2026/",
+        "Football-C-rank-20261024-0726-1200-verified.json#1799087"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "REASSESSMENT",
+      "supersedes_exception_reference": null,
+      "supersedes_evidence_epoch_id": null,
+      "challenge_reason": "Confirmed starters materially strengthen the two pre-XI routes; reassess WATCH-to-FOCUS and evaluate the user's prematch O2.75 @1.91 screenshot.",
+      "state_change_status": "VERIFIED_NEW_FOOTBALL_EVIDENCE",
+      "state_change_fields": [
+        "home_route",
+        "away_route",
+        "route_reliability",
+        "chance_quality",
+        "failure_resistance",
+        "burden_stall_risk",
+        "completion_mode",
+        "burden_completion_quality",
+        "g4_research_status",
+        "g4_carrier_path",
+        "g4_distributed_path",
+        "g4_reply_path",
+        "g4_continuation_after_g3"
+      ],
+      "state_change_basis": "The ranked WATCH explicitly treated Carranza and Owen Gonzalez as recent bench introductions. The confirmed XI starts both for Necaxa, while Juarez retain Estupinan and Rodriguez with senior creative support. That is verified new football evidence improving both home and away scoring routes while leaving recent blank risk intact."
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_000000009ab8820783ed6bb63c1f7610",
+    "match_id": "1799087",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 2.75,
+      "odds": 1.91
+    },
+    "observed_at_utc": "2026-10-24T00:58:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
