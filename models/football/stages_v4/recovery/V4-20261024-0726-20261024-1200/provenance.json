@@ -1,0 +1,50 @@
+[
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261024/7?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-24T00:26:53.973498+00:00",
+    "file": "raw/ICT-2026-10-24.json",
+    "sha256": "a9c90c2d869bba4e5d996301c2ebbf40817d5d95aaa7f4f244418cafa3eb7736"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261024/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-24T00:26:54.860755+00:00",
+    "file": "raw/UTC-2026-10-24.json",
+    "sha256": "1337c64bc30b9df7cf90ec66cbd62fa33ab93a738189c5bf130e57f937c1a907"
+  },
+  {
+    "source_url": "https://prod-public-api.livescore.com/v1/api/app/date/soccer/20261024/0?MD=1&countryCode=US&locale=en",
+    "observed_at_utc": "2026-10-24T00:26:55.789097+00:00",
+    "file": "raw/terminal-2026-10-24.json",
+    "sha256": "1337c64bc30b9df7cf90ec66cbd62fa33ab93a738189c5bf130e57f937c1a907"
+  },
+  {
+    "source_url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard?dates=20261024&limit=1000",
+    "observed_at_utc": "2026-10-24T00:26:56.128991+00:00",
+    "file": "raw/espn-validator-20261024.json",
+    "sha256": "d59a92da85a90952b06b9aadb635a3266ca6ca681e51af6fa8d8dd79ba27d179"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10015/details?locale=en",
+    "observed_at_utc": "2026-10-24T00:26:56.479250+00:00",
+    "file": "raw/team-10015.json",
+    "sha256": "2c76a1122fa8fb20ff8fc66b83cd9c93e1745f34d6c9394f1448b0765e249fe4"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/173226/details?locale=en",
+    "observed_at_utc": "2026-10-24T00:26:56.688929+00:00",
+    "file": "raw/team-173226.json",
+    "sha256": "c209467d7481ab3bf89a20af6ac3830e71e3c054fc29a423941d28c945ae21e2"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10003/details?locale=en",
+    "observed_at_utc": "2026-10-24T00:26:56.944160+00:00",
+    "file": "raw/team-10003.json",
+    "sha256": "9155faaca57af8a3581dd19bffe83e917aadc376deb996da36a03528646e1f69"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10011/details?locale=en",
+    "observed_at_utc": "2026-10-24T00:26:57.189739+00:00",
+    "file": "raw/team-10011.json",
+    "sha256": "615274cdd52076ebe78d5a78baef5fa4ce67cfbb4d45e7abd80e6595401cd0c7"
+  }
+]

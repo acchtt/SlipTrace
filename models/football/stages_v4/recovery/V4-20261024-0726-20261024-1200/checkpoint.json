@@ -1,0 +1,39 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261024-0726-20261024-1200",
+  "original_source_sha256": "f17e7ac36a6e831476e5f01a0f9c42359ac0ecdfc0b05d2fbb6c1926642139ca",
+  "source_file_sha256": "98c1707d3cf022cb7d8d483e8dc5be83a4bd43465a54a150be870130a9eda4ed",
+  "native_receipt_integrity_sha256": "5df08f78b8bdcafab7b052e9883b386dee157a87c0d814406993ea36235bd6f0",
+  "target_states": {
+    "1814252": {
+      "match_id": "1814252",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1814248": {
+      "match_id": "1814248",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [],
+  "watch_match_ids": [
+    "1814248"
+  ],
+  "evidence_limited_match_ids": [
+    "1814252"
+  ],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "whole_requested_surface_complete": false,
+  "unresolved_or_deferred_candidates_remain": true,
+  "deferred_source_backlog_count": 11,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
