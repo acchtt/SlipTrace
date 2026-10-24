@@ -15,7 +15,15 @@ sys.path.insert(0, str(DIR))
 sys.path.insert(0, str(ENGINE_TESTS))
 
 from league_registry import classify, REGISTRY
-from stage import StageError, sweep, rank as production_rank, verify_rank, _unresolved_sweep_intake_rows
+from stage import (
+    StageError,
+    sweep,
+    rank as production_rank,
+    verify_rank,
+    _unresolved_sweep_intake_rows,
+    _validate_match_context_contract,
+    _validate_g3_challenger_review,
+)
 from test_board_pair import c_row, payload
 from evidence_fixtures import attach_g4_evidence
 from goals_first_intake import select as select_goal_candidates
@@ -129,6 +137,72 @@ class DeferredResearchBoundaryTests(unittest.TestCase):
     def test_unmarked_unresearched_candidate_remains_pending(self):
         out = sweep(snapshot([fixture("no-proof", goals=None)]), now=NOW)
         self.assertTrue(_unresolved_sweep_intake_rows(out))
+
+
+class ContextAndChallengerContractTests(unittest.TestCase):
+    def checked_context_row(self):
+        row = model_input("context-control")["matches"][0]
+        row.update(
+            match_context_review_status="CHECKED_NEUTRAL",
+            rivalry_context="NOT_APPLICABLE",
+            rest_load_context="BALANCED",
+            travel_load_context="NORMAL",
+            fatigue_context="NONE",
+            match_context_effect="NEUTRAL",
+            match_context_basis="fixture context checked prospectively with no material load effect",
+            match_context_evidence_refs=[
+                "https://club.example.org/context-control",
+            ],
+        )
+        return row
+
+    def test_new_match_context_contract_distinguishes_checked_from_unchecked(self):
+        row = self.checked_context_row()
+        _validate_match_context_contract(row)
+        missing = dict(row)
+        missing.pop("fatigue_context")
+        with self.assertRaisesRegex(StageError, "MATCH_CONTEXT_RESEARCH_REQUIRED"):
+            _validate_match_context_contract(missing)
+
+    def test_willem_style_high_signal_usable_route_cliff_requires_second_review(self):
+        row = self.checked_context_row()
+        row.update(
+            home_route="USABLE",
+            away_route="USABLE",
+            carrier="USABLE",
+            independent_route_quality="MEDIUM",
+            goal_signal_mean_over_two_rate=0.7778,
+            goal_signal_mean_over_three_rate=0.6667,
+            goal_signal_low_draw_trap_rate=0.1111,
+            material_suppression=False,
+            failure_attacks_route=False,
+        )
+        with self.assertRaisesRegex(StageError, "G3_CHALLENGER_REVIEW_REQUIRED"):
+            _validate_g3_challenger_review(row)
+        row.update(
+            g3_challenger_reviewed=True,
+            g3_challenger_review_basis=(
+                "bounded second review rechecked current routes, completion, "
+                "stall and failure resistance without using market or outcome"
+            ),
+        )
+        _validate_g3_challenger_review(row)
+
+    def test_strong_route_high_signal_row_does_not_need_challenger_redundancy(self):
+        row = self.checked_context_row()
+        row.update(
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="STRONG",
+            independent_route_quality="MEDIUM",
+            goal_signal_mean_over_two_rate=0.80,
+            goal_signal_mean_over_three_rate=0.65,
+            goal_signal_low_draw_trap_rate=0.05,
+            material_suppression=False,
+            failure_attacks_route=False,
+        )
+        _validate_g3_challenger_review(row)
+
 
 
 class SweepIntakeRepairTests(unittest.TestCase):
