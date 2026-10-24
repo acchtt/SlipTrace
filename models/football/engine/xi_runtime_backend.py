@@ -108,6 +108,9 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 "EXCEPTION_RESEARCH_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("EXCEPTION_RESEARCH_REQUIRED:")
+                else "RANK_ENGINE_POLICY_DRIFT"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("RANK_ENGINE_POLICY_DRIFT:")
                 else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
