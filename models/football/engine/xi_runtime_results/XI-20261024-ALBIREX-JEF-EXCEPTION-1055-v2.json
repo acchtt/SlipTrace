@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_transferability='MEDIUM'; allowed: LIMITED, NOT_TRANSFERABLE, UNAVAILABLE, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "d39c8270e9e0920763d67280cc70c7c9a7e06fae23f97c0c4dec4a906e6d4b2e",
+  "ok": false,
+  "request_id": "XI-20261024-ALBIREX-JEF-EXCEPTION-1055-v2",
+  "runtime_commit": "e5e1855448c3103b312ac3694ea6d11e1441d22f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
