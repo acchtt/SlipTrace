@@ -87,7 +87,8 @@ burden profile may authorize O2.75/O3.00/O3.25 execution without claiming G4:
   through independently transferable fourth-goal evidence;
 - O3.25: exactly 3 goals = half loss; minimum direct price 2.00 and therefore
   requires ROBUST football, independent transferable fourth-goal evidence,
-  HIGH continuation/reliability/chance/completion/failure resistance, and the
+  HIGH continuation/reliability/chance/completion, at least MEDIUM failure
+  resistance, and the
   stricter frozen tail-rate/trap controls in core.py;
 - O3.50: still requires funded G4.
 
