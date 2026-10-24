@@ -63,14 +63,14 @@ rows. Do not require the user to manually resubmit fixtures already in the bundl
 ## Upstream completeness boundary
 
 Upstream sweep-pending rows and rank-research-pending rows are different states.
-If the sweep checkpoint reports unresolved upstream research, /rank may assess
-only the verified eligible cohort it actually received and must report:
+If the sweep checkpoint reports unresolved upstream research, `/rank` must
+fail closed with the exact pending fixture identities and return control to the
+same sweep checkpoint. It must not assess only the smaller eligible subset,
+convert pending fixtures into PASS/WATCH, or call the requested window complete.
 
-`PARTIAL — <N> FIXTURES STILL PENDING UPSTREAM SWEEP RESEARCH`
-
-It must preserve those fixture identities for sweep resume, must not convert
-them into PASS/WATCH, must not call the window complete, and must not ask the
-user to manually resubmit them.
+After a **complete upstream sweep**, rank may still checkpoint its own missing
+C/G4 research as `V4_RANK_RESEARCH_PENDING`; that is a rank-research state,
+not permission to omit unresolved sweep intake.
 
 ## Mandatory original-source replay and full-cohort status
 
