@@ -281,9 +281,9 @@ the normal football recheck first; after that recheck it may:
   extension contract clears; or
 - PASS.
 
-A lone screenshot is not directional evidence that a target will become
-available. If a BOOK target is not currently met, it remains
-`PENDING_UNFILLED` and creates no exposure.
+A screenshot is not evidence of the current odds on a non-visible custom line.
+If a BOOK target is not independently selected and filled at or above its
+minimum odds, it remains `PENDING_UNFILLED` and creates no exposure.
 
 ## 12. Live boundary
 
