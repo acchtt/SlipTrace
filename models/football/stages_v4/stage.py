@@ -238,6 +238,22 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 start <= ko <= end if inclusive_end else start <= ko < end
             )
             if status not in VALID_MATCH_STATUSES and in_requested_window_for_status and ko > at:
+                if raw.get("research_cohort_disposition") == "DEFERRED_RESEARCH_BACKLOG":
+                    # Outside this immutable <=30 research cohort, never
+                    # convert an unknown provider status into prematch or
+                    # force an unrelated fixture's status repair onto /rank.
+                    # Remain visible as genuinely *unverified* deferred work.
+                    ledger.append({
+                        "source_row_index": i, "match_id": mid,
+                        "country": raw.get("country"),
+                        "competition": raw.get("competition"),
+                        "competition_kind": raw.get("competition_kind"),
+                        "home": home, "away": away, "kickoff_utc": ko.isoformat(),
+                        "fixture_status": status, "source_url": link,
+                        "intake_lane": "DEFERRED_RESEARCH_BACKLOG",
+                        "reason": "UNVERIFIED_PROVIDER_STATUS_OUTSIDE_ACTIVE_COHORT",
+                    })
+                    continue
                 raise StageError(f"{mid}: source-confirmed fixture status required")
             result = classify(raw)
             # Historical source replay must preserve the policy and digest

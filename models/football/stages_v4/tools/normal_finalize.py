@@ -405,7 +405,9 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
     for mid, fixture in fixtures.items():
         kickoff = work_sweep.stamp(fixture["kickoff_utc"])
         if (mid not in target_map
-                and fixture.get("fixture_status") == "PREMATCH_CONFIRMED"
+                and fixture.get("fixture_status") not in {
+                    "STARTED", "FINISHED", "POSTPONED", "CANCELLED"
+                }
                 and start <= kickoff <= end):
             fixture["research_cohort_disposition"] = "DEFERRED_RESEARCH_BACKLOG"
             deferred_ids.append(mid)

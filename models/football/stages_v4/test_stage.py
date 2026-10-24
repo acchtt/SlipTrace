@@ -109,6 +109,23 @@ class DeferredResearchBoundaryTests(unittest.TestCase):
         self.assertNotIn("missing", [r["match_id"] for r in out["eligible_queue"]])
         self.assertEqual(_unresolved_sweep_intake_rows(out), [])
 
+    def test_unselected_unknown_status_is_deferred_not_falsely_prematch(self):
+        unknown = fixture("unknown-status")
+        unknown["fixture_status"] = "UNVERIFIED_STATUS_REFRESH"
+        unknown["research_cohort_disposition"] = "DEFERRED_RESEARCH_BACKLOG"
+        out = sweep(snapshot([unknown]), now=NOW)
+        row = out["source_ledger"][0]
+        self.assertEqual(row["intake_lane"], "DEFERRED_RESEARCH_BACKLOG")
+        self.assertEqual(row["reason"], "UNVERIFIED_PROVIDER_STATUS_OUTSIDE_ACTIVE_COHORT")
+        self.assertEqual(out["eligible_count"], 0)
+        self.assertEqual(_unresolved_sweep_intake_rows(out), [])
+
+        # Without an explicit deferral the exact same unknown status still
+        # blocks the active prospective sweep.
+        del unknown["research_cohort_disposition"]
+        blocked = sweep(snapshot([unknown]), now=NOW)
+        self.assertEqual(blocked["source_ledger"][0]["intake_lane"], "PENDING_SOURCE")
+
     def test_unmarked_unresearched_candidate_remains_pending(self):
         out = sweep(snapshot([fixture("no-proof", goals=None)]), now=NOW)
         self.assertTrue(_unresolved_sweep_intake_rows(out))
