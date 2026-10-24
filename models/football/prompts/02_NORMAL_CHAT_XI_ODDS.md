@@ -250,8 +250,9 @@ separate `execution_strength` compiled from the funded certificate:
   canonical intermediate policy. O3.00 may also clear through independent
   transferable fourth-goal evidence. O3.25 is available only through the
   strict ROBUST gate because three goals is a half-loss: independent
-  transferable tail plus HIGH continuation/reliability/chance/completion/
-  failure resistance and the tighter frozen tail-rate/trap controls.
+  transferable tail plus HIGH continuation/reliability/chance/completion,
+  at least MEDIUM failure resistance, and the tighter frozen tail-rate/trap
+  controls.
 
 The runtime also exposes `endpoint_control_pressure=NONE|MODERATE|HIGH`.
 This is a market-independent control-risk diagnostic between ordinary caution
