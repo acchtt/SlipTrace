@@ -13,6 +13,8 @@ import argparse
 import copy
 import hashlib
 import json
+import os
+import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -53,6 +55,12 @@ SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-24T00:00:00+00:00"
 )
 
+CONTEXT_CONTRACT_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-24T18:00:00+00:00"
+)
+ENGINE_REVISION_LOCK_EFFECTIVE_UTC = CONTEXT_CONTRACT_EFFECTIVE_UTC
+CONTEXT_CONTRACT_VERSION = "football-context-v1"
+
 
 class StageError(ValueError):
     pass
@@ -82,6 +90,107 @@ def _url(value: Any, name: str) -> str:
 def _hash(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=True,
                       separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _engine_source_revision() -> str | None:
+    """Return the exact repository revision used for this stage execution."""
+
+    for key in ("GITHUB_SHA", "SLIPTRACE_REVISION"):
+        value = os.environ.get(key)
+        if isinstance(value, str) and len(value.strip()) >= 7:
+            return value.strip()
+    try:
+        value = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=Path(__file__).resolve().parents[3],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+    return value or None
+
+
+def _validate_match_context_contract(row: dict[str, Any]) -> None:
+    """Require checked rivalry/rest/travel/fatigue context on new C rows."""
+
+    required = (
+        "match_context_review_status",
+        "rivalry_context",
+        "rest_load_context",
+        "travel_load_context",
+        "fatigue_context",
+        "match_context_effect",
+        "match_context_basis",
+        "match_context_evidence_refs",
+    )
+    missing = [key for key in required if key not in row]
+    if missing:
+        raise StageError(
+            f"{row.get('match_id')}: MATCH_CONTEXT_RESEARCH_REQUIRED missing={missing}"
+        )
+    status = row.get("match_context_review_status")
+    effect = row.get("match_context_effect")
+    if status not in {"CHECKED_NEUTRAL", "VERIFIED_MATERIAL"}:
+        raise StageError(
+            f"{row.get('match_id')}: invalid match_context_review_status"
+        )
+    if status == "CHECKED_NEUTRAL" and effect != "NEUTRAL":
+        raise StageError(
+            f"{row.get('match_id')}: checked-neutral context must be NEUTRAL"
+        )
+    if status == "VERIFIED_MATERIAL" and effect not in {
+        "EXPANSIVE", "SUPPRESSIVE", "MIXED"
+    }:
+        raise StageError(
+            f"{row.get('match_id')}: material context needs evidence-backed direction"
+        )
+    basis = row.get("match_context_basis")
+    if not isinstance(basis, str) or not basis.strip():
+        raise StageError(f"{row.get('match_id')}: match_context_basis required")
+    refs = row.get("match_context_evidence_refs")
+    if (
+        not isinstance(refs, list)
+        or not refs
+        or any(not isinstance(x, str) or not x.strip() for x in refs)
+    ):
+        raise StageError(
+            f"{row.get('match_id')}: match_context_evidence_refs required"
+        )
+
+
+def _high_signal_g3_challenger_raw(row: dict[str, Any]) -> bool:
+    """Bounded second-review trigger; never an automatic G3 promotion."""
+
+    route_order = {"NONE": 0, "USABLE": 1, "STRONG": 2}
+    carrier_order = {"NONE": 0, "USABLE": 1, "STRONG": 2}
+    try:
+        return (
+            float(row.get("goal_signal_mean_over_two_rate")) >= 0.70
+            and float(row.get("goal_signal_mean_over_three_rate")) >= 0.55
+            and float(row.get("goal_signal_low_draw_trap_rate")) <= 0.15
+            and route_order.get(str(row.get("home_route")), -1) >= 1
+            and route_order.get(str(row.get("away_route")), -1) >= 1
+            and carrier_order.get(str(row.get("carrier")), -1) >= 1
+            and not bool(row.get("material_suppression"))
+            and not bool(row.get("failure_attacks_route"))
+        )
+    except (TypeError, ValueError):
+        return False
+
+
+def _validate_g3_challenger_review(row: dict[str, Any]) -> None:
+    if not _high_signal_g3_challenger_raw(row):
+        return
+    if row.get("g3_challenger_reviewed") is not True:
+        raise StageError(
+            f"{row.get('match_id')}: G3_CHALLENGER_REVIEW_REQUIRED"
+        )
+    basis = row.get("g3_challenger_review_basis")
+    if not isinstance(basis, str) or not basis.strip():
+        raise StageError(
+            f"{row.get('match_id')}: g3_challenger_review_basis required"
+        )
 
 
 def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any]]:
@@ -890,6 +999,9 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     """Evaluate the single active Football C input against frozen V4 eligible set."""
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
+    engine_revision = _engine_source_revision()
+    if at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC and not engine_revision:
+        raise StageError("ENGINE_REVISION_LOCK_REQUIRED: repository revision unavailable")
     if not _time(sweep_receipt["created_at_utc"], "created") <= at:
         raise StageError("rank clock predates sweep")
     if at > _time(sweep_receipt["created_at_utc"], "created") + timedelta(hours=12):
@@ -1004,6 +1116,14 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     )
     reused_ids = []
     if previous_rank is not None:
+        previous_revision = previous_rank.get("engine_source_revision")
+        if (
+            at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC
+            and previous_revision != engine_revision
+        ):
+            raise StageError(
+                "RANK_ENGINE_REVISION_DRIFT: resume requires the exact pinned engine revision"
+            )
         c, unranked_reasons, reused_ids = _resume_research(
             previous_rank, sweep_receipt, c, unranked_reasons, status_refresh, at
         )
@@ -1012,6 +1132,12 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     crows = c.get("matches")
     if not isinstance(crows, list):
         raise StageError("actual source-backed C evidence array required")
+    if at >= CONTEXT_CONTRACT_EFFECTIVE_UTC:
+        for row in crows:
+            if not isinstance(row, dict):
+                raise StageError("C assessment row must be an object")
+            _validate_match_context_contract(row)
+            _validate_g3_challenger_review(row)
 
     # A fresh status closure supersedes stale research/model rows for that
     # fixture only. Preserve the rest of the frozen cohort and continue rank;
@@ -1125,6 +1251,13 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "assessed_open_fraction": len(ids) / (len(frozen) - closed) if len(frozen) > closed else None,
     }
     checkpoint = {
+        "engine_source_revision": engine_revision,
+        "engine_policy_lock": "SLATE_PINNED_V1",
+        "context_contract_version": (
+            CONTEXT_CONTRACT_VERSION
+            if at >= CONTEXT_CONTRACT_EFFECTIVE_UTC
+            else "LEGACY_PRE_CONTEXT_CONTRACT"
+        ),
         "kickoff_precision_reconciliations": source_proof["kickoff_precision_reconciliations"],
         "coverage_manifest": [
             {"match_id": mid, "home": frozen[mid].get("home"),
@@ -1343,6 +1476,9 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "run_id": rank_receipt["run_id"],
         "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
+        "engine_source_revision": rank_receipt.get("engine_source_revision"),
+        "engine_policy_lock": rank_receipt.get("engine_policy_lock"),
+        "context_contract_version": rank_receipt.get("context_contract_version"),
         "active_model": "c",
         "retired_models": ["c2", "c3", "c4"],
         "no_bet_created": True,
