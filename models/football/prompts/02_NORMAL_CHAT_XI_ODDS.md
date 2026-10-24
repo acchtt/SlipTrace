@@ -127,6 +127,12 @@ rank package cannot be resolved. Fail closed with `RANK_RECEIPT_REQUIRED`.
 The direct `xi_portable.py` path and the GitHub backend use the same authority
 contract. A free-standing `c_football.json` is not a valid normal /xi input.
 
+For a new sealed slate, that authority also verifies the rank receipt's
+`engine_policy_fingerprint`. If the active Football C policy files changed
+after rank sealed the slate, routine /xi fails closed with
+`RANK_ENGINE_POLICY_DRIFT`; do not execute one slate under multiple Football C
+policy revisions.
+
 Only an explicitly requested `/xi exception` may use
 `authority.mode = EXCEPTION` without a ranked FOCUS row. The exception reference
 must be non-empty, `user_requested_exception` must be `true`, and the result
@@ -154,9 +160,9 @@ The exception authority must carry `exception_research` with:
 - the upstream state/reference (FOCUS/WATCH/PASS/UNVERIFIED/NOT_RANKED/OUT_OF_SCOPE);
 - at least two football evidence references;
 - explicit checked fields covering fixture/status, competition format + incentive,
-  both scoring routes, carrier/chance creation, replacements, failure mechanisms,
-  completion/continuation/stall, upper-tail/comparable context, H2H materiality,
-  and G4 research when G3 is funded.
+  rivalry/rest/travel/fatigue context, both scoring routes, carrier/chance creation,
+  replacements, failure mechanisms, completion/continuation/stall,
+  upper-tail/comparable context, H2H materiality, and G4 research when G3 is funded.
 
 A direct decision-stage exception is forbidden. Exception execution must begin
 from the fresh football-assessment stage.
@@ -194,8 +200,16 @@ Research:
 - same-competition / comparable-context direction for that G4+ evidence;
 - H2H only if materially transferable;
 - tournament incentive where applicable;
+- rivalry/derby context;
+- rest/congestion and continental/intercontinental travel/recovery;
+- verified fatigue evidence and its evidence-backed net effect;
 - frozen V4 goal signal;
 - whether availability actually attacks an identified scoring route.
+
+For new production rows, checked-neutral context is distinct from not checked.
+Do not assume derby = under or congestion = under. At /xi, newly verified
+context is certificate-relevant football evidence and must be named in
+material-evidence updates when it changes the frozen state.
 
 Odds are not required.
 
@@ -229,13 +243,15 @@ separate `execution_strength` compiled from the funded certificate:
   blanket-vetoed from its funded O2.50 floor merely because its current grades
   are broad MEDIUM.
 - **CONDITIONAL** — a funded O2.50 G3 certificate may ACT at O2.50 when the
-  current G3 floor clears. A separate intermediate-burden profile may authorize
-  exact visible O2.75/O3.00 when genuinely HIGH predictive football structure
-  supports the settlement risk. Evidence confidence alone cannot create that
-  strength.
-- **ROBUST** — may ACT at or below the certified burden and may also use the
-  same intermediate-burden profile when all current-football and price gates
-  clear. BOOK remains zero exposure and must satisfy reachability.
+  current G3 floor clears. The single canonical intermediate-burden profile may
+  authorize O2.75 and, for a NEAR_FUNDED fourth-goal shape, O3.00. It cannot
+  authorize O3.25.
+- **ROBUST** — may ACT at or below the certified burden and uses the same
+  canonical intermediate policy. O3.00 may also clear through independent
+  transferable fourth-goal evidence. O3.25 is available only through the
+  strict ROBUST gate because three goals is a half-loss: independent
+  transferable tail plus HIGH continuation/reliability/chance/completion/
+  failure resistance and the tighter frozen tail-rate/trap controls.
 
 The runtime also exposes `endpoint_control_pressure=NONE|MODERATE|HIGH`.
 This is a market-independent control-risk diagnostic between ordinary caution
@@ -388,11 +404,12 @@ odds. BOOK means a zero-exposure target instruction only:
   separate football-strength gate.
 
 The normal minimum remains 1.65, with the existing supported-line 1.60 soft
-zone only where the deterministic C corroboration allows it. Above-certificate
-G3 BOOK is now football-strength gated: only ROBUST G3 can extend, O2.75
-requires HIGH completion/continuation/current-route quality, and O3.00 also
-requires independent transferable fourth-goal evidence. G3-only O3.25 BOOK is
-disabled. O3.50 still requires funded G4.
+zone only where deterministic C corroboration allows it. There is **one**
+above-certificate G3 extension policy for both visible ACT and custom BOOK:
+O2.75 requires non-fragile current football; O3.00 requires either a
+CONDITIONAL NEAR_FUNDED tail or the ROBUST independent-tail path; O3.25 requires
+the strict ROBUST gate and 2.00+; O3.50 still requires funded G4. No second
+BOOK-only robustness policy exists.
 
 If the target is not currently met, report `BOOK — PENDING/UNFILLED`, not ACT
 and not exposure.
