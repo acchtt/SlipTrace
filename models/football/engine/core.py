@@ -2803,24 +2803,35 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             max_book_line = float(book_profile["max_book_line"])
             target_line = min(ctx.quote.line, max_book_line)
             target_min_odds = c_g3_book_min_odds(target_line)
+            same_line_observed = abs(ctx.quote.line - target_line) <= 1e-9
             clears_target = (
-                abs(ctx.quote.line - target_line) <= 1e-9
+                same_line_observed
                 and ctx.quote.odds + 1e-9 >= target_min_odds
             )
+            if not same_line_observed:
+                reason = (
+                    f"G3 protected certificate remains O2.50; custom non-visible "
+                    f"BOOK O{target_line:.2f} @ {target_min_odds:.2f}+ is authorized; "
+                    "the visible higher-line odds are not reused for this target; "
+                    "PENDING_UNFILLED with zero exposure until the custom fill is confirmed"
+                )
+            elif clears_target:
+                reason = (
+                    f"G3 protected certificate remains O2.50; settlement-aware "
+                    f"conditional order target O{target_line:.2f} "
+                    f"@ {target_min_odds:.2f}+ is currently fillable; "
+                    "O3.50 still requires G4"
+                )
+            else:
+                reason = (
+                    f"G3 protected certificate remains O2.50; conditional order "
+                    f"target O{target_line:.2f} @ {target_min_odds:.2f}+ is authorized "
+                    f"but current same-line {ctx.quote.odds:.2f} is below the floor; "
+                    "PENDING_UNFILLED with zero exposure"
+                )
             return Decision(
                 Action.BOOK,
-                (
-                    f"G3 protected certificate remains O2.50; settlement-aware "
-                    + (
-                        f"conditional order target O{target_line:.2f} "
-                        f"@ {target_min_odds:.2f}+ is currently fillable; "
-                        f"O3.50 still requires G4"
-                        if clears_target else
-                        f"conditional order target O{target_line:.2f} "
-                        f"@ {target_min_odds:.2f}+ is authorized but current "
-                        f"{ctx.quote.odds:.2f} is below the floor, so it remains unfilled"
-                    )
-                ),
+                reason,
                 book_target_line=target_line,
                 book_min_odds=target_min_odds,
                 book_target_available=True,
