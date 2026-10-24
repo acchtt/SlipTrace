@@ -1,0 +1,11 @@
+{
+  "error": "match context block is partial; missing: match_context_evidence_refs",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "55bb19328cfc6755441e860e9d597b24cc92955693cc445c439c20d01d20e5bc",
+  "ok": false,
+  "request_id": "XI-20261025-ATLETICO-DEPORTIVO-EXCEPTION-0156-v2",
+  "runtime_commit": "2cc3f46e79fc76c1d4304e16c481661484f2435d",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
