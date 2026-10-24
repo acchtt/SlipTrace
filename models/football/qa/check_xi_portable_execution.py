@@ -51,6 +51,12 @@ def main() -> None:
         root = Path(directory)
 
         decision = pair_payload("c")
+        # Legacy-unlocked authority is valid only for a historical
+        # pre-policy-lock assessment epoch. Current production assessments must
+        # use a SLATE_PINNED_V1 rank receipt.
+        decision.setdefault("context", {})["assessment_at_utc"] = (
+            "2026-10-11T05:05:00+00:00"
+        )
         decision_file = write(root / "decision-c.json", decision)
         frozen = dict(decision["match"])
         ranked_authority = write(root / "ranked-decision-authority.json", {
