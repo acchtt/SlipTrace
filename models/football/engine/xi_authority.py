@@ -9,11 +9,33 @@ requested `/xi exception`; EXCEPTION is never an automatic fallback.
 """
 from __future__ import annotations
 
+import hashlib
+from pathlib import Path
 from typing import Any
 
 
 class RankAuthorityError(ValueError):
     pass
+
+
+def _engine_policy_fingerprint() -> str:
+    """Hash the same active policy files pinned by stages_v4/stage.py."""
+
+    football_root = Path(__file__).resolve().parents[1]
+    paths = (
+        football_root / "engine" / "core.py",
+        football_root / "engine" / "adapter.py",
+        football_root / "engine" / "xi_authority.py",
+        football_root / "engine" / "xi_portable.py",
+        football_root / "stages_v4" / "stage.py",
+    )
+    digest = hashlib.sha256()
+    for file_path in paths:
+        digest.update(str(file_path.relative_to(football_root)).encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(file_path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
 
 
 VERIFIED_RANK_STATUSES = {
@@ -389,6 +411,25 @@ def authorize_c_football(
         raise RankAuthorityError("RANK_RECEIPT_REQUIRED: verified rank package missing")
 
     rank = _rank_payload(package)
+    policy_lock = rank.get("engine_policy_lock") or package.get("engine_policy_lock")
+    pinned_fingerprint = (
+        rank.get("engine_policy_fingerprint")
+        or package.get("engine_policy_fingerprint")
+    )
+    if policy_lock == "SLATE_PINNED_V1":
+        if not isinstance(pinned_fingerprint, str) or not pinned_fingerprint.strip():
+            raise RankAuthorityError(
+                "RANK_RECEIPT_REQUIRED: pinned slate is missing engine policy fingerprint"
+            )
+        current_fingerprint = _engine_policy_fingerprint()
+        if current_fingerprint != pinned_fingerprint:
+            raise RankAuthorityError(
+                "RANK_ENGINE_POLICY_DRIFT: current Football C policy differs from "
+                "the revision that sealed this rank receipt; do not mix policies "
+                "inside one slate"
+            )
+    else:
+        current_fingerprint = None
     board = rank.get("board") or {}
     rows = board.get("matches")
     frozen = rank.get("frozen_model_input") or {}
@@ -482,6 +523,9 @@ def authorize_c_football(
         "match_id": mid,
         "rank_run_id": rank.get("run_id"),
         "rank_integrity_sha256": rank.get("integrity_sha256"),
+        "engine_policy_lock": policy_lock,
+        "pinned_engine_policy_fingerprint": pinned_fingerprint,
+        "current_engine_policy_fingerprint": current_fingerprint,
         "rank": board_row.get("rank"),
         "frozen_board_state": board_row.get("board_state"),
         "rank_state_internal": "WATCH" if frozen_board_state == "WATCH" else frozen_board_state,
