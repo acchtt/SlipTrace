@@ -1,0 +1,612 @@
+{
+  "authority": {
+    "frozen_board_state": "FOCUS",
+    "frozen_g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+    "frozen_supported_line": 2.5,
+    "match_id": "1790245",
+    "material_evidence_updates": [],
+    "mode": "RANKED",
+    "rank": 7,
+    "rank_integrity_sha256": "e0cdc9a6303431d3cc5b57de0ef2601b60be7fcadefe11c88147b2ded65fe306",
+    "rank_run_id": "V4-20261024-1800-20261025-0000-PRIORITYFIX",
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS"
+  },
+  "input_sha256": "dd1406567454a53a7a54454493d11d62559ded4c1f185eff63cc938701f2b1bd",
+  "ok": true,
+  "request_id": "xi-1790245-20261024-2113-utrecht",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "MIXED",
+      "decision": "PASS",
+      "direct_act_ceiling": 2.5,
+      "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+      "entry_feasibility_state": "UNSUPPORTED_MARKET",
+      "evidence_epoch": "20261024-141300Z-1790245",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "1790245",
+      "pass_had_lower_supported_visible_line": true,
+      "rank": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "FRAGILE",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 2.5,
+          "odds": 1.52
+        },
+        {
+          "line": 2.75,
+          "odds": 1.65
+        },
+        {
+          "line": 3.0,
+          "odds": 1.83
+        },
+        {
+          "line": 3.25,
+          "odds": 2.09
+        },
+        {
+          "line": 3.5,
+          "odds": 2.31
+        }
+      ],
+      "selected_evaluated_line": 2.5,
+      "selected_evaluated_odds": 1.52,
+      "selection_authority": "ZERO",
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-10-24T14:13:00+00:00",
+        "Assessment ID": "XI-C-20261024-141300Z-1790245",
+        "C Action": "OBSERVED_PASS_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"evidence_epoch\":\"20261024-141300Z-1790245\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"1790245\",\"pass_had_lower_supported_visible_line\":true,\"rank\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":2.5,\"odds\":1.52},{\"line\":2.75,\"odds\":1.65},{\"line\":3.0,\"odds\":1.83},{\"line\":3.25,\"odds\":2.09},{\"line\":3.5,\"odds\":2.31}],\"selected_evaluated_line\":2.5,\"selected_evaluated_odds\":1.52,\"selection_authority\":\"ZERO\",\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-10-24T14:13:00+00:00\",\"bookmaker\":null,\"capture_reference\":\"file_000000000f6882068a0285d9717598ae\",\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"1790245\",\"match_minute\":null,\"observation_age_seconds\":null,\"observed_at_utc\":null,\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":2.5,\"odds\":1.52},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":2.5,\"odds\":1.52},{\"line\":2.75,\"odds\":1.65},{\"line\":3.0,\"odds\":1.83},{\"line\":3.25,\"odds\":2.09},{\"line\":3.5,\"odds\":2.31}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\",\"SCREENSHOT_CAPTURE_TIME_UNKNOWN\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"decision\":\"PASS\",\"direct_act_ceiling\":2.5,\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"evidence_epoch\":\"20261024-141300Z-1790245\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"1790245\",\"pass_had_lower_supported_visible_line\":true,\"rank\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"FRAGILE\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":2.5,\"odds\":1.52},{\"line\":2.75,\"odds\":1.65},{\"line\":3.0,\"odds\":1.83},{\"line\":3.25,\"odds\":2.09},{\"line\":3.5,\"odds\":2.31}],\"selected_evaluated_line\":2.5,\"selected_evaluated_odds\":1.52,\"selection_authority\":\"ZERO\",\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"PASS\",\"current_price_clears_book_target\":false,\"entry_feasibility_basis\":\"the visible market contains no line/price clearing direct or conditional football authority\",\"entry_feasibility_state\":\"UNSUPPORTED_MARKET\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":0.0,\"market_disagreement_recheck_basis\":\"NOT_REQUIRED\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":true,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"price unacceptable without a valid conditional BOOK target\",\"selected_visible_line\":2.5,\"selected_visible_odds\":1.52,\"snapshot_line_relation\":\"AT_SUPPORTED_BURDEN\",\"supported_line\":2.5,\"supported_visible_line_found\":true,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":2.5,\"line_relation\":\"AT_SUPPORTED_BURDEN\",\"odds\":1.52,\"reason\":\"price unacceptable without a valid conditional BOOK target\"},{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":2.75,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.65,\"reason\":\"C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears\"},{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.0,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":1.83,\"reason\":\"unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT\"},{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":2.09,\"reason\":\"unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT\"},{\"action\":\"PASS\",\"direct_act_ceiling\":2.5,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.5,\"line_relation\":\"ABOVE_SUPPORTED_BURDEN\",\"odds\":2.31,\"reason\":\"unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT\"}],\"visible_ladder_selection_basis\":\"HIGHEST_VISIBLE_LINE_WITHIN_DIRECT_CEILING\",\"wait_min_odds\":null,\"wait_reachability_basis\":\"User's bookmaker supports custom prematch line-and-odds orders, so an authorized target can be placed before kickoff without requiring a goal or adverse football event.\",\"wait_reachable\":true,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"FRAGILE\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"NEUTRAL\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"MEDIUM\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":3.0,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"MIXED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Declared research metadata only; actual protected burden is compiled from native certificates.\",\"direct_act_ceiling\":2.5,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"MEDIUM\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"FRAGILE\",\"failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_distributed_path\":{\"basis\":\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_reply_path\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"continuation_quality\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"failure_resistance\":{\"basis\":\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"independent_upper_tail\":{\"basis\":\"Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"route_reliability\":{\"basis\":\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"STRONG\",\"incentive_effect\":\"NOT_APPLICABLE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_id\":\"1790245\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"RESEARCHED_LEAGUE_ROUTINE\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"route_reliability\":\"MEDIUM\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_incentive_effect\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"tournament_incentive_resolution\":\"NOT_APPLICABLE\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"NEUTRAL\",\"upper_tail_comparable_context_basis\":\"February 1-1 and previous August Utrecht 2-0 are low; new coaches and present replacement production limit direct transfer. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "22f8ff54a7f38f7f44c3c678e81001a6b2c70de8",
+        "Evaluated Line": 2.5,
+        "Evaluated Odds": 1.52,
+        "Evidence Epoch ID": "20261024-141300Z-1790245",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "1790245",
+        "Match Minute": null,
+        "Payload JSON": "{\"context\":{\"assessment_at_utc\":\"2026-10-24T14:13:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Confirmed XI preserves the ranked G3 route but supplies no source-backed G4 upgrade.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NOT_UPGRADED\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":true,\"frozen_board_certified_burden\":2.5,\"frozen_board_g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"market_disagreement_recheck_basis\":\"Confirmed XI keeps Utrecht's Alarcon and Cathline starting and PEC's Van Hooijdonk and Oosting starting. Krastev remains absent as already reflected in frozen research. G3 survives; G4 remains mixed/rejected and is not upgraded by the market.\",\"market_disagreement_recheck_evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_00000000a9408206bd11855b3f23111d\",\"USER_ODDS_SCREENSHOT:file_000000000f6882068a0285d9717598ae\",\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"market_disagreement_recheck_fields\":[\"home_route\",\"away_route\",\"carrier\",\"route_reliability\",\"chance_quality\",\"failure_resistance\",\"independent_upper_tail\",\"upper_tail_transferability\",\"upper_tail_comparable_context_signal\",\"burden_completion_quality\",\"continuation_quality\",\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\",\"g4_continuation_after_g3\"],\"market_disagreement_recheck_status\":\"COMPLETED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\",\"top_ranked_focus\":false,\"wait_negative_info_basis\":null,\"wait_reachability_basis\":\"User's bookmaker supports custom prematch line-and-odds orders, so an authorized target can be placed before kickoff without requiring a goal or adverse football event.\",\"wait_reachable\":true,\"wait_requires_negative_info\":false,\"xi_confirmation_basis\":\"User lineup screenshot confirms Alarcon and Cathline start for Utrecht; Van Hooijdonk and Oosting start for PEC; Krastev is missing.\"},\"evidence_epoch_id\":\"20261024-141300Z-1790245\",\"match\":{\"aggregate_state\":\"NOT_APPLICABLE\",\"away\":\"PEC Zwolle\",\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\",\"burden_completion_quality\":\"MEDIUM\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply.\",\"chance_quality\":\"MEDIUM\",\"common_evidence_basis\":\"Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply.\",\"competition\":\"Eredivisie\",\"competition_format\":\"NOT_APPLICABLE\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"No unsupported reliability upgrade.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"NOT_APPLICABLE\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Netherlands\",\"demoted_probation\":false,\"draw_resolution\":\"NOT_APPLICABLE\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"Current availability and surviving creators/finishers reviewed symmetrically; no verified total removal of all identified routes.\",\"failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"MIXED\",\"g4_global_blockers\":null,\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_distributed_path\":{\"basis\":\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_reply_path\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0,\"goal_signal_mean_over_three_rate\":0.6111,\"goal_signal_mean_over_two_rate\":0.8333,\"goal_signal_priority_score\":76,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"continuation_quality\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"failure_resistance\":{\"basis\":\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"independent_upper_tail\":{\"basis\":\"Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"route_reliability\":{\"basis\":\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"evidence_refs\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"h2h_basis\":\"February 1-1 and previous August Utrecht 2-0 are low; new coaches and present replacement production limit direct transfer.\",\"h2h_current_corroboration\":\"NOT_FOUND\",\"h2h_effect\":\"MIXED\",\"h2h_material_effect\":false,\"h2h_state\":\"REVIEWED\",\"h2h_transferability\":\"LIMITED\",\"home\":\"FC Utrecht\",\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"STRONG\",\"incentive_effect\":\"NOT_APPLICABLE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":false,\"independent_upper_tail_basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"kickoff_ict\":\"2026-10-24T21:30:00+07:00\",\"main_failure\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"market_observability\":\"HIGH\",\"match_id\":\"1790245\",\"material_suppression\":false,\"material_suppression_basis\":\"Current control and conversion counterevidence are graded explicitly; no unsupported all-route veto is asserted.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"NOT_APPLICABLE\",\"raw_operational_viability_grade\":\"A\",\"research_revalidation\":{\"checked_at_utc\":\"2026-10-24T10:38:40.234486+00:00\",\"facts_are_sourced\":true,\"grades_are_prospective_operator_inference\":true,\"pre_xi_only\":true,\"source_urls\":[\"https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html\",\"https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht\",\"https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026\"]},\"route_reliability\":\"MEDIUM\",\"simultaneous_results_note\":\"NOT_APPLICABLE\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"supported_line\":2.5,\"supported_line_basis\":\"Declared research metadata only; actual protected burden is compiled from native certificates.\",\"team_news_observability\":\"MEDIUM\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_format_status\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"upper_tail_comparable_context_basis\":\"February 1-1 and previous August Utrecht 2-0 are low; new coaches and present replacement production limit direct transfer. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"MEDIUM\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-10-24T14:13:00+00:00",
+        "bookmaker": null,
+        "capture_reference": "file_000000000f6882068a0285d9717598ae",
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "1790245",
+        "match_minute": null,
+        "observation_age_seconds": null,
+        "observed_at_utc": null,
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 2.5,
+          "odds": 1.52
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 2.5,
+            "odds": 1.52
+          },
+          {
+            "line": 2.75,
+            "odds": 1.65
+          },
+          {
+            "line": 3.0,
+            "odds": 1.83
+          },
+          {
+            "line": 3.25,
+            "odds": 2.09
+          },
+          {
+            "line": 3.5,
+            "odds": 2.31
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE",
+        "SCREENSHOT_CAPTURE_TIME_UNKNOWN"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 2.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "MIXED",
+          "decision": "PASS",
+          "direct_act_ceiling": 2.5,
+          "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+          "entry_feasibility_state": "UNSUPPORTED_MARKET",
+          "evidence_epoch": "20261024-141300Z-1790245",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "CARRIER",
+          "goal4_funded": false,
+          "goal5_funded": false,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "1790245",
+          "pass_had_lower_supported_visible_line": true,
+          "rank": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "FRAGILE",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 2.5,
+              "odds": 1.52
+            },
+            {
+              "line": 2.75,
+              "odds": 1.65
+            },
+            {
+              "line": 3.0,
+              "odds": 1.83
+            },
+            {
+              "line": 3.25,
+              "odds": 2.09
+            },
+            {
+              "line": 3.5,
+              "odds": 2.31
+            }
+          ],
+          "selected_evaluated_line": 2.5,
+          "selected_evaluated_odds": 1.52,
+          "selection_authority": "ZERO",
+          "sweep_state": null,
+          "upper_tail_pressure": "MODERATE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "PASS",
+        "current_price_clears_book_target": false,
+        "entry_feasibility_basis": "the visible market contains no line/price clearing direct or conditional football authority",
+        "entry_feasibility_state": "UNSUPPORTED_MARKET",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+        "goal3_mechanism_class": "CARRIER",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": 0.0,
+        "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "pass_had_lower_supported_visible_line": true,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "price unacceptable without a valid conditional BOOK target",
+        "selected_visible_line": 2.5,
+        "selected_visible_odds": 1.52,
+        "snapshot_line_relation": "AT_SUPPORTED_BURDEN",
+        "supported_line": 2.5,
+        "supported_visible_line_found": true,
+        "visible_ladder_evaluations": [
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 2.5,
+            "line_relation": "AT_SUPPORTED_BURDEN",
+            "odds": 1.52,
+            "reason": "price unacceptable without a valid conditional BOOK target"
+          },
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 2.75,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 1.65,
+            "reason": "C clearing-goal funding missing; prospective tail funding missing and no settlement-aware BOOK extension clears"
+          },
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.0,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 1.83,
+            "reason": "unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT"
+          },
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.25,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 2.09,
+            "reason": "unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT"
+          },
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 2.5,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.5,
+            "line_relation": "ABOVE_SUPPORTED_BURDEN",
+            "odds": 2.31,
+            "reason": "unsupported market burden is more than 0.25 above the C certificate; do not manufacture a pre-goal decay WAIT"
+          }
+        ],
+        "visible_ladder_selection_basis": "HIGHEST_VISIBLE_LINE_WITHIN_DIRECT_CEILING",
+        "wait_min_odds": null,
+        "wait_reachability_basis": "User's bookmaker supports custom prematch line-and-odds orders, so an authorized target can be placed before kickoff without requiring a goal or adverse football event.",
+        "wait_reachable": true,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": false,
+        "certificate_robustness": "FRAGILE",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+          "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "MEDIUM",
+      "completion_mode": "MIXED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 3.0,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "MIXED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Declared research metadata only; actual protected burden is compiled from native certificates.",
+      "direct_act_ceiling": 2.5,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "FRAGILE",
+      "failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=CARRIER_G3,DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "MIXED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Bounded review of carrier, 2+2/3+1, reply and post-third continuation: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Current carrier three was compared with team-level fourth evidence. Alarcon and Cathline scored three and two across successive Utrecht wins despite Stepanov absence. PEC new interim coaches just restored production through Van Hooijdonk, Oosting and substitute Kostons after three blanks; Namli/Krastev remain absent. Multiple replacement routes preserve a home carry and usable away reply. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+          "evidence_refs": [
+            "https://www.sportsmole.co.uk/football/fc-utrecht/preview/utrecht-vs-pec-zwolle-prediction-team-news-lineups_607501.html",
+            "https://peczwolle.nl/index.php/nieuws/pec-zwolle-zaterdagmiddag-naar-utrecht",
+            "https://www.worldsoccerdata.com/stats/netherlands/eredivisie/matches/utrecht-vs-pec-zwolle-24-10-2026"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "STRONG",
+      "incentive_effect": "NOT_APPLICABLE",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1790245",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "RESEARCHED_LEAGUE_ROUTINE",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "route_reliability": "MEDIUM",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "February 1-1 and previous August Utrecht 2-0 are low; new coaches and present replacement production limit direct transfer. PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "PEC coaching reset and a single derby four do not erase three preceding blanks; Utrecht recent defensive collapses and controlled 2-1 cap four-goal confidence.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "22f8ff54a7f38f7f44c3c678e81001a6b2c70de8",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
