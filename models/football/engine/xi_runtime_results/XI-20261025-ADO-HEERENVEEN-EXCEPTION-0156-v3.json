@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_AND_OFFICIAL_AVAILABILITY'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "ad84ea42bd2bc0517f5207de04ebdaf8c775b0dc0de7084e4db0603f6dc40cd2",
+  "ok": false,
+  "request_id": "XI-20261025-ADO-HEERENVEEN-EXCEPTION-0156-v3",
+  "runtime_commit": "7133e07e0a16266ba85b1c3126f38859a7b725b7",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
