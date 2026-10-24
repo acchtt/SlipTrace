@@ -87,9 +87,12 @@ than carrier/two-route/leakage mechanisms for ranking, and
 strength by itself.
 
 BOOK never upgrades G3 to G4 and never creates exposure until a fill is
-independently confirmed. A manufactured lower target more than 0.25 below the
-visible line is not a valid pre-goal BOOK plan. The researcher-declared
-line/basis remains audit metadata only.
+independently confirmed. The user's bookmaker supports custom total-line/odds
+selection, so an authorized BOOK target may be lower than every line visible in
+the screenshot. This does not permit inferred prices: the target stores its own
+minimum odds and remains unfilled until the actual custom selection/fill is
+independently confirmed. The researcher-declared line/basis remains audit
+metadata only.
 
 ## 4. G3 mechanisms
 
