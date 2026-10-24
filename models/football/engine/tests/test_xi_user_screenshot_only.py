@@ -408,7 +408,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(out["model"], "c")
         self.assertEqual(out["result"]["model"], "c")
 
-    def test_material_gap_cannot_wait_for_far_lower_certificate(self):
+    def test_material_gap_can_custom_book_after_required_recheck(self):
         c = complete_market_disagreement_recheck(
             wait_ready(
                 football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
@@ -416,9 +416,12 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         )
         out = run_xi(c, snapshot(c, line=5.0, odds=1.72))
         verdict = out["price_check"]["model"]
-        self.assertEqual(verdict["conditional_action"], "PASS")
+        self.assertEqual(verdict["conditional_action"], "BOOK")
+        self.assertEqual(verdict["book_target_line"], 3.5)
+        self.assertEqual(verdict["book_min_odds"], 1.65)
+        self.assertFalse(verdict["current_price_clears_book_target"])
         self.assertIsNone(verdict["wait_target_line"])
-        self.assertIn("more than 0.25", verdict["reason"])
+        self.assertIn("custom", verdict["reason"].lower())
         self.assertTrue(verdict["wait_reachable"])
 
     def test_one_step_unsupported_line_becomes_book_target_when_evidenced(self):
