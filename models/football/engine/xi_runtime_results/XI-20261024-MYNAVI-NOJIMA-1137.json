@@ -1,0 +1,11 @@
+{
+  "error": "RANK_RECEIPT_REQUIRED: undeclared override of frozen field board_state_basis",
+  "error_type": "RankAuthorityError",
+  "failure_class": "RANK_AUTHORITY",
+  "input_sha256": "ffc29304da3a71df438228fabac377d7a7051197a7d409be2abb26c6b1a5266e",
+  "ok": false,
+  "request_id": "XI-20261024-MYNAVI-NOJIMA-1137",
+  "runtime_commit": "c0e1d49955de15b54b5ae9118f33bd0dc34f2037",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "RANK_RECEIPT_REQUIRED"
+}
