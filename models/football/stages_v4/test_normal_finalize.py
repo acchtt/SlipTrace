@@ -16,6 +16,8 @@ class NormalFinalizeTests(unittest.TestCase):
             src = source()
             fixture = src["fixtures"][0]
             fixture["provider_team_ids"] = ["1", "2"]
+            # LiveScore canonical fixture times are normalized to +00:00.
+            fixture["kickoff_utc"] = "2026-10-12T19:00:00+00:00"
             request = {
                 "run_id": src["run_id"],
                 "window_start_ict": src["window_start_utc"],
