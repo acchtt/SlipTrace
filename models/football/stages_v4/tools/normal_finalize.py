@@ -382,6 +382,25 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
             fixture["research_disposition"] = "EVIDENCE_LIMITED"
             fixture["research_limit_reasons"] = list(reasons)
 
+    # Preserve the entire provider source union while explicitly accounting
+    # for all in-window prematch fixtures not selected in this <=30 batch.
+    # Deferred rows are NOT researched or judged negative. A separate run may
+    # promote those exact canonical IDs; no unverified result is invented.
+    deferred_ids = []
+    for mid, fixture in fixtures.items():
+        kickoff = work_sweep.stamp(fixture["kickoff_utc"])
+        if (mid not in target_map
+                and fixture.get("fixture_status") == "PREMATCH_CONFIRMED"
+                and start <= kickoff <= end):
+            fixture["research_cohort_disposition"] = "DEFERRED_RESEARCH_BACKLOG"
+            deferred_ids.append(mid)
+    source["research_cohort"] = {
+        "active_target_match_ids": list(target_map),
+        "deferred_source_visible_prematch_ids": deferred_ids,
+        "active_research_cap": 30,
+        "research_exhaustive": not bool(deferred_ids),
+    }
+
     _save(output / "source.json", source)
     receipt = work_sweep.sweep(source, now=work_sweep.utcnow())
     _save(output / "v4_sweep_ready.json", receipt)
@@ -400,6 +419,10 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
 
     ledger = {row.get("match_id"): row for row in receipt.get("source_ledger", [])}
     eligible = {row.get("match_id") for row in receipt.get("eligible_queue", [])}
+    deferred_ledger_ids = [
+        mid for mid, row in ledger.items()
+        if row.get("intake_lane") == "DEFERRED_RESEARCH_BACKLOG"
+    ]
     completed, watch, limited, closed = [], [], [], []
     for mid in target_map:
         state = states[mid]
@@ -444,15 +467,14 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
         "watch_target_count": len(watch),
         "evidence_limited_target_count": len(limited),
         "status_excluded_target_count": len(closed),
-        "deferred_source_backlog_count": max(
-            0, len(receipt.get("goal_research_order", [])) - len(target_map)
-        ),
+        "deferred_source_backlog_count": len(deferred_ledger_ids),
+        "deferred_source_backlog_match_ids": deferred_ledger_ids,
+        "research_exhaustive": len(deferred_ledger_ids) == 0,
         "whole_requested_surface_complete": (
-            len(receipt.get("goal_research_order", [])) <= len(target_map)
+            receipt.get("window_status") == "COMPLETE"
+            and receipt.get("whole_requested_surface_complete") is True
         ),
-        "unresolved_or_deferred_candidates_remain": (
-            len(receipt.get("goal_research_order", [])) > len(target_map)
-        ),
+        "unresolved_or_deferred_candidates_remain": bool(deferred_ledger_ids),
         "priority_completeness_verified": (
             source.get("priority_completeness_verification", {}).get("status")
             == "PRIORITY_COMPLETENESS_VERIFIED"

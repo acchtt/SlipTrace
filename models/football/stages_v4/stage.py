@@ -481,6 +481,14 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     if at >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC and not _historical_replay:
         unresolved_intake = _unresolved_sweep_intake_rows(outcome)
         outcome["window_status"] = "PARTIAL" if unresolved_intake else "COMPLETE"
+        # COMPLETE denotes accountable source dispositions, NOT exhaustive
+        # deep research. Explicit deferred rows remain source-visible.
+        outcome["deferred_source_backlog_count"] = sum(
+            r.get("intake_lane") == "DEFERRED_RESEARCH_BACKLOG" for r in ledger
+        )
+        outcome["research_exhaustive"] = (
+            outcome["deferred_source_backlog_count"] == 0
+        )
         outcome["whole_requested_surface_complete"] = not unresolved_intake
         outcome["upstream_remaining_fixture_count"] = len(unresolved_intake)
         outcome["upstream_resume_fixtures"] = [

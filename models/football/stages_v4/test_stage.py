@@ -90,6 +90,30 @@ def model_input(mid="m1"):
     return payload("c", a)
 
 
+class DeferredResearchBoundaryTests(unittest.TestCase):
+    def test_proved_source_scope_deferred_history_not_silently_pending_or_pass(self):
+        high = fixture("high")
+        missing = fixture("missing", goals=None)
+        missing["research_cohort_disposition"] = "DEFERRED_RESEARCH_BACKLOG"
+        src = snapshot([high, missing])
+        src["research_cohort"] = {
+            "active_target_match_ids": ["high"],
+            "deferred_source_visible_prematch_ids": ["missing"],
+            "active_research_cap": 30,
+            "research_exhaustive": False,
+        }
+        out = sweep(src, now=NOW)
+        byid = {r["match_id"]: r for r in out["source_ledger"]}
+        self.assertEqual(out["eligible_count"], 1)
+        self.assertEqual(byid["missing"]["intake_lane"], "DEFERRED_RESEARCH_BACKLOG")
+        self.assertNotIn("missing", [r["match_id"] for r in out["eligible_queue"]])
+        self.assertEqual(_unresolved_sweep_intake_rows(out), [])
+
+    def test_unmarked_unresearched_candidate_remains_pending(self):
+        out = sweep(snapshot([fixture("no-proof", goals=None)]), now=NOW)
+        self.assertTrue(_unresolved_sweep_intake_rows(out))
+
+
 class SweepIntakeRepairTests(unittest.TestCase):
     def test_post_repair_negative_screen_control_lane_is_bounded(self):
         sources = [fixture(f"negative-{i}", goals="TRAP") for i in range(6)]

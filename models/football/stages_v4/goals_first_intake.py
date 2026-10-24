@@ -175,6 +175,19 @@ def select(
                 item["intake_lane"] = "EVIDENCE_LIMITED"
                 item["reason"] = ";".join(reasons)
 
+        # The caller may explicitly cap a provider-complete source to a
+        # bounded set of researched canonical IDs. Unselected missing-history
+        # rows are accounted for as a visible research backlog, not pending
+        # obligations of the selected cohort and never model PASS/WATCH.
+        # Positive source-backed qualification cannot be marked deferred.
+        if (source.get("research_cohort_disposition") == "DEFERRED_RESEARCH_BACKLOG"
+                and item["intake_lane"] not in {
+                    "GOAL_PRIORITY", "GOAL_REVIEW", "WATCH_GOAL_SIGNAL",
+                    "CONTROL_REVIEW", "EVIDENCE_LIMITED",
+                }):
+            item["intake_lane"] = "DEFERRED_RESEARCH_BACKLOG"
+            item["reason"] = "UNSELECTED_BOUNDED_RESEARCH_COHORT"
+
         if item["intake_lane"] not in {"GOAL_PRIORITY", "GOAL_REVIEW"}:
             research.append({
                 "match_id": mid, "country": item["country"],
