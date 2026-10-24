@@ -494,6 +494,94 @@
           "type": "string",
           "minLength": 1,
           "description": "Prospective factual basis for the comparable-context signal. Must identify whether same-competition/comparable senior evidence is supportive, mixed, suppressive or unavailable."
+        },
+        "match_context_review_status": {
+          "type": "string",
+          "enum": [
+            "CHECKED_NEUTRAL",
+            "VERIFIED_MATERIAL"
+          ],
+          "description": "Prospective review status for rivalry/rest/travel/fatigue context. New production rank rows must provide this block; historical frozen rows may omit it."
+        },
+        "rivalry_context": {
+          "type": "string",
+          "enum": [
+            "NOT_APPLICABLE",
+            "NEUTRAL",
+            "DERBY",
+            "RIVALRY"
+          ],
+          "description": "Verified rivalry context; label alone never determines direction."
+        },
+        "rest_load_context": {
+          "type": "string",
+          "enum": [
+            "BALANCED",
+            "HOME_SHORT_REST",
+            "AWAY_SHORT_REST",
+            "BOTH_SHORT_REST",
+            "HOME_CONGESTED",
+            "AWAY_CONGESTED",
+            "BOTH_CONGESTED",
+            "MIXED"
+          ]
+        },
+        "travel_load_context": {
+          "type": "string",
+          "enum": [
+            "NORMAL",
+            "HOME_CONTINENTAL",
+            "AWAY_CONTINENTAL",
+            "BOTH_CONTINENTAL",
+            "HOME_INTERCONTINENTAL",
+            "AWAY_INTERCONTINENTAL",
+            "BOTH_INTERCONTINENTAL",
+            "TIMEZONE_STRESS",
+            "MIXED"
+          ]
+        },
+        "fatigue_context": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "HOME_VERIFIED",
+            "AWAY_VERIFIED",
+            "BOTH_VERIFIED",
+            "MIXED"
+          ]
+        },
+        "match_context_effect": {
+          "type": "string",
+          "enum": [
+            "NEUTRAL",
+            "EXPANSIVE",
+            "SUPPRESSIVE",
+            "MIXED"
+          ],
+          "description": "Evidence-backed net effect on continuation/stall; not inferred mechanically from derby/rest/travel labels."
+        },
+        "match_context_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "match_context_evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Source references supporting the checked context block."
+        },
+        "g3_challenger_reviewed": {
+          "type": "boolean",
+          "description": "Required by V4 rank for high-signal two-usable-route rows that would otherwise risk a silent G3 false negative."
+        },
+        "g3_challenger_review_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Bounded second-review basis for the high-signal G3 challenger."
         }
       },
       "allOf": [
@@ -1174,7 +1262,11 @@
                   "TOURNAMENT_INCENTIVE_MISS",
                   "FORMAT_DATA_MISSING",
                   "STALE_INCENTIVE_EPOCH",
-                  "INCENTIVE_RESOLUTION_BYPASS"
+                  "INCENTIVE_RESOLUTION_BYPASS",
+                  "CONTEXTUAL_LOAD_MISS",
+                  "DERBY_CONTEXT_MISS",
+                  "FATIGUE_CONTEXT_MISS",
+                  "POLICY_REVISION_DRIFT"
                 ]
               }
             },
