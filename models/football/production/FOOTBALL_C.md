@@ -70,18 +70,24 @@ Supported burden is compiled from explicit goal certificates:
 Asian .75 lines require the next certificate for a **full-win certificate**.
 
 The certificate is a protected football burden, not a universal execution
-ceiling. For G3-only C-FOCUS rows, the deterministic execution layer may issue
-a non-exposure `BOOK` order at O2.75/O3.00 when the current football
-quality clears the settlement-aware extension contract:
+ceiling. For G3-only C-FOCUS rows, a separate market-independent intermediate
+burden profile may authorize exact visible O2.75/O3.00 execution without
+claiming G4:
 
-- O2.75: exactly 3 goals = half win; pilot minimum price 1.85;
-- O3.00: exactly 3 goals = push; pilot minimum price 1.90;
-- O3.25: never authorized by G3 alone;
+- O2.75: exactly 3 goals = half win; minimum direct price 1.85;
+- O3.00: exactly 3 goals = push; minimum direct price 1.90 and a NEAR_FUNDED
+  fourth-goal profile is required;
+- O3.25: explicitly evaluated but never authorized by G3 alone;
 - O3.50: still requires funded G4.
 
+A broadly-MEDIUM distributed-only G3 may remain FOCUS/research-visible but does
+not receive direct execution authority unless at least one genuinely predictive
+dimension is HIGH. `evidence_confidence=HIGH` does not satisfy that requirement.
+
 BOOK never upgrades G3 to G4 and never creates exposure until a fill is
-independently confirmed. The researcher-declared line/basis remains audit
-metadata only. The deterministic compiler owns production burden.
+independently confirmed. A manufactured lower target more than 0.25 below the
+visible line is not a valid pre-goal BOOK plan. The researcher-declared
+line/basis remains audit metadata only.
 
 ## 4. G3 mechanisms
 
