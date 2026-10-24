@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "884006707be6139fd292519164e3b14af59d4e0e9fff4c8e3ffead98ad2021f1",
+  "ok": false,
+  "request_id": "XI-20261025-ATLETICO-DEPORTIVO-EXCEPTION-0156-v3",
+  "runtime_commit": "d0e13cea3ffcf92afa284a817daab0bf62ba80ec",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
