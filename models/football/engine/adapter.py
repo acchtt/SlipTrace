@@ -30,6 +30,8 @@ from core import (
     c2_clearing_goal_funded,
     c_effective_incentive_grades,
     c_g3_book_extension_profile,
+    c_intermediate_burden_profile,
+    c_goal3_mechanism_class,
     c_endpoint_control_pressure,
     c_g3_endpoint_control_pressure,
     c_upper_tail_control_pressure,
@@ -1242,6 +1244,8 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             row["upper_tail_control_pressure"] = c_upper_tail_control_pressure(item)
             row["endpoint_control_pressure"] = c_endpoint_control_pressure(item)
             row["direct_act_ceiling"] = c_direct_act_ceiling(item)
+            row["goal3_mechanism_class"] = c_goal3_mechanism_class(item)
+            row["intermediate_burden_profile"] = c_intermediate_burden_profile(item)
 
         declared_state, declared_basis, declared_state_source = (
             _declared_board_state(raw)
@@ -1490,6 +1494,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
             "upper_tail_control_pressure": c_upper_tail_control_pressure(a),
             "endpoint_control_pressure": c_endpoint_control_pressure(a),
             "direct_act_ceiling": c_direct_act_ceiling(a),
+            "goal3_mechanism_class": c_goal3_mechanism_class(a),
+            "intermediate_burden_profile": c_intermediate_burden_profile(a),
         })
     else:
         floor, reasons = c2_selection_floor(a)
@@ -2080,6 +2086,12 @@ def evaluate_observed_quote(
         "direct_act_ceiling": (
             c_direct_act_ceiling(a) if model == "c" else None
         ),
+        "goal3_mechanism_class": (
+            c_goal3_mechanism_class(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "intermediate_burden_profile": (
+            c_intermediate_burden_profile(a) if model == "c" else None
+        ),
         **prospective_goal_funding(a, model),
         "wait_target_line": wait_target_line,
         "wait_min_odds": wait_min_odds,
@@ -2153,6 +2165,42 @@ def evaluate_visible_quote_ladder(
             selection_basis = "NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC"
             supported_visible = False
 
+    direct_ceilings = [
+        float(row["direct_act_ceiling"])
+        for row in evaluations
+        if isinstance(row.get("direct_act_ceiling"), (int, float))
+    ]
+    direct_ceiling = max(direct_ceilings) if direct_ceilings else None
+    book_candidates = [
+        row for row in evaluations
+        if row.get("action") == "BOOK"
+        and row.get("book_target_state") == "BOOK_TARGET_AVAILABLE"
+    ]
+    lowest_visible = min(item["line"] for item in normalized)
+
+    if act_candidates:
+        entry_state = "EXECUTABLE_NOW"
+        entry_basis = "an exact visible screenshot line clears direct ACT policy"
+    elif book_candidates:
+        entry_state = "REALISTIC_PREGOAL_TARGET"
+        entry_basis = (
+            "no direct ACT is visible, but an exact conditional BOOK target is "
+            "authorized without inventing a line or requiring a goal"
+        )
+    elif direct_ceiling is not None and lowest_visible > direct_ceiling + 1e-9:
+        entry_state = "PHANTOM_FLOOR"
+        entry_basis = (
+            f"football direct ceiling is O{direct_ceiling:.2f}, but the lowest "
+            f"visible screenshot line is O{lowest_visible:.2f}; the captured "
+            "market contained no supported entry"
+        )
+    else:
+        entry_state = "UNSUPPORTED_MARKET"
+        entry_basis = (
+            "the visible market contains no line/price clearing direct or "
+            "conditional football authority"
+        )
+
     result = dict(selected)
     result.update(
         {
@@ -2164,6 +2212,8 @@ def evaluate_visible_quote_ladder(
                     "action": row.get("action"),
                     "reason": row.get("reason"),
                     "line_relation": row.get("line_relation"),
+                    "direct_act_ceiling": row.get("direct_act_ceiling"),
+                    "intermediate_burden_profile": row.get("intermediate_burden_profile"),
                 }
                 for row in evaluations
             ],
@@ -2171,6 +2221,13 @@ def evaluate_visible_quote_ladder(
             "selected_visible_odds": selected.get("observed_odds"),
             "supported_visible_line_found": supported_visible,
             "visible_ladder_selection_basis": selection_basis,
+            "entry_feasibility_state": entry_state,
+            "entry_feasibility_basis": entry_basis,
+            "pass_had_lower_supported_visible_line": bool(
+                selected.get("action") == "PASS"
+                and direct_ceiling is not None
+                and any(item["line"] <= direct_ceiling + 1e-9 for item in normalized)
+            ),
             "external_price_searches": 0,
             "inferred_prices": 0,
         }
@@ -2467,6 +2524,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "direct_act_ceiling": (
             c_direct_act_ceiling(a) if model == "c" else None
+        ),
+        "goal3_mechanism_class": (
+            c_goal3_mechanism_class(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "intermediate_burden_profile": (
+            c_intermediate_burden_profile(a) if model == "c" else None
         ),
         **prospective_goal_funding(a, model),
         **upgrade_gate,
