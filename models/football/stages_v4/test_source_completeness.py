@@ -171,6 +171,14 @@ class SourceCompletenessContractTests(unittest.TestCase):
         with self.assertRaisesRegex(SourceCompletenessError, "PRECEDES_MAIN_DATE_SURFACE"):
             validate_source_completeness(item, now=NOW)
 
+    def test_terminal_sentinel_includes_fixture_exactly_at_requested_end(self):
+        item = source()
+        item["fixtures"][0]["kickoff_utc"] = END
+        proof = validate_source_completeness(item, now=NOW)
+        self.assertEqual(proof["terminal_fixture_count"], 1)
+        out = sweep(item, now=NOW)
+        self.assertNotEqual(out["source_ledger"][0]["intake_lane"], "CLOSED")
+
     def test_terminal_sentinel_is_independent_and_exact(self):
         item = source()
         item["source_completeness_manifest"]["terminal_sentinel"]["extracted_fixture_ids"] = []
