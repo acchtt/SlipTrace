@@ -1,0 +1,30 @@
+{
+  "schema_version": "football-v4-priority-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-25T00:00:00+07:00",
+    "end": "2026-10-25T07:30:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261025-0000-20261025-0730",
+  "authority": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261025-0000-20261025-0730-PRIORITYFIX",
+  "authoritative_handoff": "models/football/stages_v4/recovery/V4-20261025-0000-20261025-0730-PRIORITYFIX/rank-handoff.json",
+  "reason": "Automatic 14-target cohort omitted top-five European fixtures, Portugal, Saudi, Mexico and many Brazil/Argentina fixtures. Source-verified 30-fixture balanced research selection replaces it.",
+  "source_coverage": {
+    "total_source_date_union": 1829,
+    "window_fixture_count": 177,
+    "active_researched_count": 30,
+    "goal_priority": 12,
+    "goal_review": 2,
+    "control_review": 4,
+    "watch_negative": 12,
+    "unresearched_deferred": 133,
+    "excluded_by_policy": 14
+  },
+  "native_receipt": "COMPLETE",
+  "upstream_remaining_fixture_count": 0,
+  "deep_research_exhaustive": false,
+  "old_history_preserved": true,
+  "no_betting_action_issued": true,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40108989075"
+}
