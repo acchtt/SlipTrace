@@ -1,0 +1,313 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-TEPA-CANCUN-EXCEPTION-0759-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "tepa-cancun-exception-20261024T005900Z-v2",
+    "match": {
+      "match_id": "1819355",
+      "country": "Mexico",
+      "competition": "Liga de Expansion MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T08:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; use current official QSL evidence plus confirmed XI.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current research plus user-confirmed starting XI are available.",
+      "common_evidence_basis": "The confirmed XI validates rather than repairs the upstream WATCH. Tepatitlan start Julio Cruz, Alfonso Tamay and supporting midfielders but remain a low-output side. Cancun's confirmed XI omits suspended top scorer Christopher Trejo and Armando Chavez, exactly the absences that weakened the ranked away route. Jose Rodriguez is not in the displayed starting XI either, so the surviving away carrier is no stronger than pre-XI.",
+      "home_route": "WEAK",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "LOW",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "LOW",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "Tepatitlan have only ten league goals and Cancun are without their top scorer Trejo and Armando Chavez. The confirmed XI therefore preserves a major one-route/blank risk; defensive leakage alone cannot protect goal three.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "The latest 2-2 included Trejo, whose suspension reduces direct transfer. Earlier meetings contain several low totals.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Exception research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Without Trejo and Chavez, Cancun do not have a verified independent three-goal carrier in the confirmed XI; Tepa clearly do not.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independent upper-tail route is present.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Tepa defensive leakage creates theoretical tail but current attacking personnel do not reliably complete it.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "The 2-2 H2H and Tepa leakage are offset by the exact absence of Cancun's main scorer and Tepa's low output.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed starters preserve the surviving scoring routes; remaining risk is completion rather than route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch event removes all scoring routes.",
+      "tournament_incentive_required": true,
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "REGULAR_LEAGUE_PHASE",
+      "competition_format": "Final regular-season away trip for Cancun with a top-eight Liguilla place to consolidate; Tepatitlan are eliminated and play for pride. No aggregate or must-margin rule applies.",
+      "draw_resolution": "Regular-phase draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "Cancun seek to consolidate a top-eight place; Tepatitlan are eliminated. No required winning margin applies.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No verified simultaneous-score or required-margin dependency.",
+      "home_incentive": "PLACEMENT_ONLY",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "goal_signal_priority_score": 60,
+      "goal_signal_mean_over_two_rate": 0.65,
+      "goal_signal_mean_over_three_rate": 0.5,
+      "goal_signal_low_draw_trap_rate": 0.15,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "Goal three is not sufficiently protected to require a fourth-goal research branch.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Not applicable without a funded G3 carrier.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Not applicable without funded G3.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Not applicable without funded G3.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Confirmed XI validates the weak Tepa route and only usable Cancun route; MEDIUM reliability at best.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Cancun can sustain pressure but the missing top scorer and Tepa's low scoring cap continuation.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Tepa's scoring record plus Trejo/Chavez absences keep HIGH stall risk.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Cancun fail to self-carry, Tepa are not reliable enough to rescue the total; LOW.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent upper-tail mechanism exists.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "mechanism_ids": [
+            "COMPLETION_CONTEXT"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "COMPLETION_CONTEXT": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Tepatitlan have only ten league goals and Cancun are without their top scorer Trejo and Armando Chavez. The confirmed XI therefore preserves a major one-route/blank risk; defensive leakage alone cannot protect goal three.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+            "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+            "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+            "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+            "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+            "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "COMPLETION_CONTEXT": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Confirmed XI validates the ranked WATCH rather than supplying new evidence for an upgrade.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+        "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+        "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+        "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+        "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+        "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-24T00:59:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception reassessment with confirmed XI.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "TEPA-CANCUN-20261024-PREMATCH-EXCEPTION-v2",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "tepa-cancun-exception-20261024T005900Z-v2",
+      "researched_at_utc": "2026-10-24T00:59:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "Current WATCH row + confirmed XI validating the researched absences",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000d47082079f01a819ece36db8",
+        "USER_LINEUP_SCREENSHOT:file_0000000096f882079469c9b009e8a57e",
+        "USER_ODDS_SCREENSHOT:file_000000009ab8820783ed6bb63c1f7610",
+        "https://www.cancunfc.mx/blogs/news/cancun-fc-por-una-victoria-de-altura-en-tepatitlan",
+        "https://www.zerozero.com.mx/noticias/tepatitlan-vs-cancun-fc-previa-ausencias-y-probables-alineaciones-titulares-mx-ascenso-apertura-24-10/1235593",
+        "Football-C-rank-20261024-0726-1200-verified.json#1819355"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL",
+      "challenge_reason": "Confirmed XI validates the ranked Trejo/Chavez suppression; reassess and evaluate the user's prematch O3.25 @1.83 screenshot."
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_000000009ab8820783ed6bb63c1f7610",
+    "match_id": "1819355",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 3.25,
+      "odds": 1.83
+    },
+    "observed_at_utc": "2026-10-24T00:58:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
