@@ -1,0 +1,19 @@
+{
+  "schema_version": "football-v4-native-intake-repair-v1",
+  "old_run_id": "V4-20261024-1046-20261024-1200-FULLRESEARCH",
+  "old_native_window_status": "PARTIAL",
+  "old_eligible_target_count": 7,
+  "reason": "Out-of-window UNKNOWN_PROVIDER_STATUS rows were marked PENDING_SOURCE; quantified WATCH_GOAL_SIGNAL screens marked pending; source evidence limitation distinct from pending",
+  "new_authoritative_run_id": "V4-20261024-1046-20261024-1200-INTAKEFIX",
+  "new_native_window_status": "COMPLETE",
+  "new_whole_requested_surface_complete": true,
+  "new_upstream_remaining_fixture_count": 0,
+  "new_eligible_target_count": 7,
+  "new_terminal_watch_count": 9,
+  "new_closed_target_count": 4,
+  "previous_source_and_receipts_preserved": true,
+  "corrected_native_handoff": "models/football/stages_v4/recovery/V4-20261024-1046-20261024-1200-INTAKEFIX/rank-handoff.json",
+  "successful_backend_run": "https://github.com/acchtt/SlipTrace/actions/runs/40061573156",
+  "patch_commit": "a0c15ec731f0b4f92efee817dc195769dd17d0f6",
+  "note": "No retroactive ranking of already-started 11:00 fixtures; rank only after fresh current status verification, before noon kickoff."
+}
