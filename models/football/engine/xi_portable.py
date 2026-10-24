@@ -234,6 +234,13 @@ def assess_user_screenshot(
         ],
         "supported_visible_line_found": result["supported_visible_line_found"],
         "visible_ladder_evaluations": result["visible_ladder_evaluations"],
+        "entry_feasibility_state": result["entry_feasibility_state"],
+        "entry_feasibility_basis": result["entry_feasibility_basis"],
+        "pass_had_lower_supported_visible_line": result.get(
+            "pass_had_lower_supported_visible_line", False
+        ),
+        "goal3_mechanism_class": result.get("goal3_mechanism_class"),
+        "intermediate_burden_profile": result.get("intermediate_burden_profile"),
         "snapshot_line_relation": result["line_relation"],
         "conditional_action": result["action"],
         "reason": result["reason"],
