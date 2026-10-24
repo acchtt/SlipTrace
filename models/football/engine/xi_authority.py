@@ -368,6 +368,7 @@ def authorize_c_football(
         exception_context["exception_research_epoch_id"] = research_trace["research_epoch_id"]
         exception_context["exception_upstream_state"] = research_trace["upstream_state"]
         exception_context["exception_revision"] = research_trace["revision"]
+        exception_context["exception_flag"] = True
         exception_payload["context"] = exception_context
         return exception_payload, {
             "mode": "EXCEPTION",

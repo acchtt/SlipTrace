@@ -31,7 +31,7 @@ A WATCH/PASS upstream state may be reconsidered by explicit exception, but any
 promotion to FOCUS requires named changed/reclassified football fields and a
 source-backed basis. Market odds cannot supply that promotion.
 
-## One quote policy
+## One policy path
 
 There is one active price policy:
 
@@ -44,13 +44,16 @@ ACT/BOOK/PASS logic is allowed.
 
 ## User screenshot
 
-Use exactly the supplied line/odds. Do not fetch replacement odds.
+Extract exactly the visible screenshot ladder. Do not infer missing prices and
+do not fetch replacement odds. Evaluate each visible line through the same C
+policy, then select the highest currently supported/executable visible line. A
+rejected higher total does not erase a lower supported visible total.
 
 A materially higher market total may trigger one football-evidence recheck but
 cannot create a certificate. A G3-only C-FOCUS row may instead receive a
-settlement-aware BOOK target without upgrading G4: O2.75 >=1.85, O3.00 >=1.90,
-or O3.25 >=2.00 when the deterministic extension-quality gates clear. O3.50
-still requires funded G4.
+settlement-aware BOOK target without upgrading G4: O2.75 >=1.85 or O3.00
+>=1.90 when the deterministic extension-quality gates clear. G3 alone never
+authorizes O3.25; O3.50 requires funded G4.
 
 For ranked fixtures, persist the frozen board certified burden into the `/xi`
 context. An upward current-certificate change is valid only when new football

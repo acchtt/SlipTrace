@@ -86,9 +86,9 @@ tool/provider failure is a checkpoint, not a completed handoff. Normal source
 acquisition, bounded history research, native V4 execution and durable
 rank-handoff persistence are one backend unit and must not be exposed as
 separate user Resume steps. Preserve the source snapshot and resume only the
-unresolved queue after a real interruption. If a partial verified subset is
-handed to rank, both stages must label it PARTIAL and preserve the exact upstream
-pending count.
+unresolved queue after a real interruption. An upstream PARTIAL sweep is not
+rankable: `/rank` must fail closed and return the exact pending identities to
+the same sweep checkpoint.
 
 
 The sweep must acquire complete provider date surfaces before filtering, apply
@@ -120,13 +120,15 @@ Before C board execution:
 8. persist exact C result JSON plus C board/rank/lane fields;
 9. independently refetch once and verify.
 
-Research completion and persistence verification are separate. New rank receipts
-freeze all eligible dispositions and reusable factual C input. Unfinished
-research stays in an ordered resume queue; bare evidence-missing labels cannot
-establish completed research. `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED` verifies the
-assessed board while explicitly retaining unresolved work. Repeated `/rank` on
-the same source epoch resumes its native checkpoint and reuses completed facts.
-No predictive C thresholds or sweep admission rules change through this repair.
+Research completion and persistence verification are separate. Only after the
+upstream sweep is COMPLETE may rank checkpoint its own C/G4 research. New rank
+receipts freeze all eligible dispositions and reusable factual C input.
+Unfinished rank research stays in an ordered resume queue; bare
+evidence-missing labels cannot establish completed research.
+`V4_RANK_PARTIAL_PERSISTENCE_VERIFIED` refers only to that downstream rank
+research state and never authorizes a PARTIAL upstream sweep. Repeated `/rank`
+on the same complete source epoch resumes its native checkpoint and reuses
+completed facts.
 
 ### Ranking calibration
 
@@ -142,7 +144,7 @@ completion certificate.
 
 ### Ranking order
 
-The active C ranking key is:
+The active champion C ranking key is:
 
 1. certificate robustness;
 2. highest funded certificate G6 > G5 > G4 > G3 > none;
@@ -152,6 +154,12 @@ The active C ranking key is:
 
 Compiled burden magnitude itself is not a ranking bonus. A fragile G4/G5 does
 not automatically outrank a robust or conditional G3.
+
+A frozen clearability challenger is emitted for replay only. It moves the
+existing burden-normalized clearability and current G3 floor ahead of
+certificate depth. It has zero production authority until same-information,
+settled multi-board replay demonstrates useful separation without collapsing
+coverage.
 
 ## Football C supported-burden compiler
 
@@ -171,7 +179,7 @@ C-FOCUS only:
 
 - O2.75 BOOK floor 1.85;
 - O3.00 BOOK floor 1.90;
-- O3.25 BOOK floor 2.00, with the strongest G3 extension shape;
+- no G3-only O3.25 BOOK;
 - O3.50 still requires funded G4.
 
 BOOK does not upgrade the certificate and creates no model exposure until fill

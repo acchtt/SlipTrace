@@ -31,8 +31,11 @@ from core import (
     c_effective_incentive_grades,
     c_g3_book_extension_profile,
     c_endpoint_control_pressure,
+    c_g3_endpoint_control_pressure,
+    c_upper_tail_control_pressure,
     c_execution_strength,
     c_direct_act_ceiling,
+    compile_c_board_state,
     c2_low_burden_leakage_goal3_funded,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -45,6 +48,7 @@ from core import (
     rank_assessments,
     rank_assessments_c2,
     ranking_key,
+    ranking_key_clearability_challenger,
     c2_ranking_key,
     model_wait_target,
     wait_accounting_target,
@@ -112,6 +116,44 @@ def _enum(enum_cls, value: Any, field: str):
 def _display_board_state(state: BoardState) -> str:
     """User-facing rank label; WATCH is internal metadata, not an /xi verdict."""
     return "REVIEW_ONLY" if state == BoardState.WATCH else state.name
+
+
+def _declared_board_state(
+    obj: dict[str, Any],
+    *,
+    fallback: dict[str, Any] | None = None,
+    allow_fallback_without_basis: bool = False,
+) -> tuple[BoardState, str, str]:
+    """Read the research declaration without granting it production authority.
+
+    New payloads use declared_board_state. Historical receipts with board_state
+    remain readable. The basis follows the same precedence.
+    """
+
+    if "declared_board_state" in obj:
+        field = "declared_board_state"
+        raw = obj[field]
+        basis_field = "declared_board_state_basis"
+        if basis_field not in obj:
+            basis_field = "board_state_basis"
+    elif "board_state" in obj:
+        field = "board_state"
+        raw = obj[field]
+        basis_field = "board_state_basis"
+    elif isinstance(fallback, dict) and "board_state" in fallback:
+        field = "board_state"
+        raw = fallback[field]
+        basis_field = "board_state_basis"
+        obj = fallback
+    else:
+        raise ContractError("missing required field: declared_board_state")
+
+    state = _enum(BoardState, raw, field)
+    if basis_field not in obj and allow_fallback_without_basis:
+        basis = "LEGACY_CONTEXT_STATE_WITHOUT_DECLARATION_BASIS"
+    else:
+        basis = _string(obj, basis_field)
+    return state, basis, field
 
 
 def _bool(obj: dict[str, Any], key: str, default: bool = False) -> bool:
@@ -782,7 +824,15 @@ def _g4_research_profile(
             "g4_research_status must be one of: "
             + ", ".join(sorted(G4_RESEARCH_STATUSES))
         )
-    status = raw_status
+    declared_status = raw_status
+    # Historical/runtime compatibility: old payloads may declare COMPLETE_MIXED.
+    # Production completeness is binary.  Keep MIXED path diagnostics, but
+    # compile the terminal non-funded state as COMPLETE_REJECTED.
+    status = (
+        "G4_RESEARCH_COMPLETE_REJECTED"
+        if raw_status == "G4_RESEARCH_COMPLETE_MIXED"
+        else raw_status
+    )
     if status == "G4_NOT_APPLICABLE":
         if goal3:
             raise ContractError("G4_NOT_APPLICABLE is invalid when G3 is funded")
@@ -840,13 +890,19 @@ def _g4_research_profile(
                 "G4_RESEARCH_COMPLETE_FUNDED requires evaluated continuation after G3"
             )
 
-    return g4_evidence_review(obj, {
+    reviewed = g4_evidence_review(obj, {
         "g4_research_status": status,
+        "g4_declared_research_status": declared_status,
         "g4_research_explicit": explicit,
         **paths,
         "g4_continuation_after_g3": continuation,
         "g4_research_basis": basis,
     })
+    reviewed["g4_declared_research_status"] = declared_status
+    reviewed["g4_status_normalized_from_mixed"] = (
+        declared_status == "G4_RESEARCH_COMPLETE_MIXED"
+    )
+    return reviewed
 
 
 def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
@@ -1061,16 +1117,16 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     raw_by_id = {str(item["match_id"]): item for item in raw_matches}
     if len(raw_by_id) != len(raw_matches):
         raise ContractError("duplicate match_id in board input")
+    compiled_state_by_id = {
+        item.match_id: compile_c_board_state(item) for item in parsed
+    } if model == "c" else {}
     if model == "c":
-        # The declared football selection state is the first workload tier.
-        # A mechanically funded O2.0 WATCH must not rank above an otherwise
-        # valid FOCUS merely because the former's Asian burden can push at 2.
-        # Preserve the existing clearing-goal-first ranking *within* each
-        # state and all separately enforced Step2 funding/price gates.
+        # Football C owns production state. Researcher-declared state remains
+        # visible below solely as audit metadata.
         ranked = sorted(
             parsed,
             key=lambda item: (
-                _enum(BoardState, _required(raw_by_id[item.match_id], "board_state"), "board_state"),
+                compiled_state_by_id[item.match_id],
                 ranking_key(item),
                 item.match_id,
             ),
@@ -1173,24 +1229,38 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         }
 
         if model == "c":
+            row["ranking_challenger_key"] = list(
+                ranking_key_clearability_challenger(item)
+            )
             row["completion_mode"] = item.completion_mode.value
             row["burden_completion_quality"] = item.burden_completion_quality.name
             row["continuation_quality"] = item.continuation_quality.name
             row["opponent_leakage"] = item.opponent_leakage.name
             row["burden_stall_risk"] = item.burden_stall_risk.name
             row["execution_strength"] = c_execution_strength(item)
+            row["g3_endpoint_control_pressure"] = c_g3_endpoint_control_pressure(item)
+            row["upper_tail_control_pressure"] = c_upper_tail_control_pressure(item)
             row["endpoint_control_pressure"] = c_endpoint_control_pressure(item)
             row["direct_act_ceiling"] = c_direct_act_ceiling(item)
 
-        state = _enum(
-            BoardState,
-            _required(raw, "board_state"),
-            "board_state",
+        declared_state, declared_basis, declared_state_source = (
+            _declared_board_state(raw)
         )
-        board_state_basis = _string(raw, "board_state_basis")
+        state = (
+            compiled_state_by_id[item.match_id]
+            if model == "c" else declared_state
+        )
         row["board_state"] = state.name
         row["display_state"] = _display_board_state(state)
-        row["board_state_basis"] = board_state_basis
+        row["board_state_basis"] = (
+            "DETERMINISTIC_C_CERTIFICATE_COMPILER: funded G3 => FOCUS; "
+            "direct route destruction/material suppression => PASS; otherwise REVIEW_ONLY"
+            if model == "c" else declared_basis
+        )
+        row["declared_board_state"] = declared_state.name
+        row["declared_board_state_basis"] = declared_basis
+        row["declared_board_state_source"] = declared_state_source
+        row["board_state_mismatch"] = declared_state != state
         if model == "c":
             validate_c_screen_state(item, state)
         else:
@@ -1215,7 +1285,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         "stage": "board_result",
         "model": model,
         "ranking_policy": (
-            "FOOTBALL_C_FOCUS_FIRST_FLOOR_CEILING_PORTFOLIO"
+            "FOOTBALL_C_COMPILED_STATE_CHAMPION_RANK_CLEARABILITY_SHADOW"
             if model == "c"
             else "FOOTBALL_C2_FROZEN_ROUTE_QUALITY"
         ),
@@ -1312,8 +1382,15 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
     veto = ctx.get("material_veto")
     if veto is not None and type(veto) is not bool:
         raise ContractError("material_veto must be true/false/null")
-    board_state = _enum(
-        BoardState, _required(ctx, "board_state"), "board_state"
+    declared_board_state, declared_board_state_basis, declared_state_source = (
+        _declared_board_state(
+            match_obj,
+            fallback=ctx,
+            allow_fallback_without_basis=True,
+        )
+    )
+    board_state = (
+        compile_c_board_state(a) if model == "c" else declared_board_state
     )
     incentive = validate_tournament_incentive(match_obj)
     needs = []
@@ -1354,6 +1431,10 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
         "match_minute": minute,
         "material_event_since_frozen": event,
         "board_state": board_state.value,
+        "declared_board_state": declared_board_state.name,
+        "declared_board_state_basis": declared_board_state_basis,
+        "declared_board_state_source": declared_state_source,
+        "board_state_mismatch": board_state != declared_board_state,
         "rank_state_internal": board_state.name,
         "rank_state_display": _display_board_state(board_state),
         "football_read": read,
@@ -1405,6 +1486,8 @@ def run_football_assessment(payload: dict[str, Any]) -> dict[str, Any]:
             "continuation_quality": a.continuation_quality.name,
             "burden_stall_risk": a.burden_stall_risk.name,
             "execution_strength": c_execution_strength(a),
+            "g3_endpoint_control_pressure": c_g3_endpoint_control_pressure(a),
+            "upper_tail_control_pressure": c_upper_tail_control_pressure(a),
             "endpoint_control_pressure": c_endpoint_control_pressure(a),
             "direct_act_ceiling": c_direct_act_ceiling(a),
         })
@@ -1885,8 +1968,15 @@ def evaluate_observed_quote(
             "model_exposure_created": False,
         }
 
-    board_state = _enum(
-        BoardState, _required(ctx_obj, "board_state"), "board_state"
+    declared_board_state, declared_board_state_basis, declared_state_source = (
+        _declared_board_state(
+            match_obj,
+            fallback=ctx_obj,
+            allow_fallback_without_basis=True,
+        )
+    )
+    board_state = (
+        compile_c_board_state(a) if model == "c" else declared_board_state
     )
     thesis_state = _enum(
         ThesisState, _required(ctx_obj, "thesis_state"), "thesis_state"
@@ -1954,6 +2044,10 @@ def evaluate_observed_quote(
         "match_id": a.match_id,
         "rank_state_internal": board_state.name,
         "rank_state_display": _display_board_state(board_state),
+        "declared_board_state": declared_board_state.name,
+        "declared_board_state_basis": declared_board_state_basis,
+        "declared_board_state_source": declared_state_source,
+        "board_state_mismatch": board_state != declared_board_state,
         "action": "ACT" if decision.action == Action.BET else decision.action.value,
         "engine_action": decision.action.value,
         "reason": decision.reason,
@@ -1977,6 +2071,12 @@ def evaluate_observed_quote(
         "endpoint_control_pressure": (
             c_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
         ),
+        "g3_endpoint_control_pressure": (
+            c_g3_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "upper_tail_control_pressure": (
+            c_upper_tail_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
         "direct_act_ceiling": (
             c_direct_act_ceiling(a) if model == "c" else None
         ),
@@ -1992,6 +2092,90 @@ def evaluate_observed_quote(
         "publication_authorized": False,
         "model_exposure_created": False,
     }
+
+
+def evaluate_visible_quote_ladder(
+    payload: dict[str, Any],
+    quotes: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Evaluate only the complete ladder explicitly visible in one screenshot.
+
+    A higher unsupported quote is diagnostic evidence, not authority to erase a
+    lower executable line that is visible in the same image.  Selection is
+    deterministic: prefer the highest visible ACT; otherwise retain the
+    highest line at or below Football C's direct ceiling and return its normal
+    BOOK/PASS result.  No line or price is interpolated.
+    """
+
+    if not isinstance(quotes, list) or not quotes:
+        raise ContractError("visible screenshot ladder must be a non-empty array")
+
+    normalized: list[dict[str, float]] = []
+    seen_lines: set[float] = set()
+    for index, quote in enumerate(quotes):
+        if not isinstance(quote, dict):
+            raise ContractError(f"visible ladder quote {index} must be an object")
+        line = quote.get("line")
+        odds = quote.get("odds")
+        if isinstance(line, bool) or not isinstance(line, (int, float)):
+            raise ContractError(f"visible ladder quote {index}.line must be numeric")
+        if isinstance(odds, bool) or not isinstance(odds, (int, float)):
+            raise ContractError(f"visible ladder quote {index}.odds must be numeric")
+        item = {"line": float(line), "odds": float(odds)}
+        if item["line"] in seen_lines:
+            raise ContractError("visible screenshot ladder contains a duplicate line")
+        seen_lines.add(item["line"])
+        normalized.append(item)
+
+    evaluations = [evaluate_observed_quote(payload, quote) for quote in normalized]
+    act_candidates = [row for row in evaluations if row.get("action") == "ACT"]
+    if act_candidates:
+        selected = max(act_candidates, key=lambda row: float(row["observed_line"]))
+        selection_basis = "HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE"
+        supported_visible = True
+    else:
+        supported_candidates = [
+            row
+            for row in evaluations
+            if isinstance(row.get("direct_act_ceiling"), (int, float))
+            and float(row["observed_line"]) <= float(row["direct_act_ceiling"])
+        ]
+        if supported_candidates:
+            selected = max(
+                supported_candidates, key=lambda row: float(row["observed_line"])
+            )
+            selection_basis = "HIGHEST_VISIBLE_LINE_WITHIN_DIRECT_CEILING"
+            supported_visible = True
+        else:
+            # Retain a deterministic diagnostic when no visible line is
+            # supported.  This does not invent a replacement price.
+            selected = min(evaluations, key=lambda row: float(row["observed_line"]))
+            selection_basis = "NO_SUPPORTED_VISIBLE_LINE_LOWEST_VISIBLE_DIAGNOSTIC"
+            supported_visible = False
+
+    result = dict(selected)
+    result.update(
+        {
+            "visible_ladder": normalized,
+            "visible_ladder_evaluations": [
+                {
+                    "line": row.get("observed_line"),
+                    "odds": row.get("observed_odds"),
+                    "action": row.get("action"),
+                    "reason": row.get("reason"),
+                    "line_relation": row.get("line_relation"),
+                }
+                for row in evaluations
+            ],
+            "selected_visible_line": selected.get("observed_line"),
+            "selected_visible_odds": selected.get("observed_odds"),
+            "supported_visible_line_found": supported_visible,
+            "visible_ladder_selection_basis": selection_basis,
+            "external_price_searches": 0,
+            "inferred_prices": 0,
+        }
+    )
+    return result
 
 
 def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
@@ -2148,8 +2332,15 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
                 "DECISION BLOCKED — C2 ROUTE-QUALITY RECHECK MISSING"
             )
 
-    board_state = _enum(
-        BoardState, _required(ctx_obj, "board_state"), "board_state"
+    declared_board_state, declared_board_state_basis, declared_state_source = (
+        _declared_board_state(
+            raw_match,
+            fallback=ctx_obj,
+            allow_fallback_without_basis=True,
+        )
+    )
+    board_state = (
+        compile_c_board_state(a) if model == "c" else declared_board_state
     )
     official_follow_lane = _enum(
         FollowLane,
@@ -2234,6 +2425,10 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         "match_id": a.match_id,
         "rank_state_internal": board_state.name,
         "rank_state_display": _display_board_state(board_state),
+        "declared_board_state": declared_board_state.name,
+        "declared_board_state_basis": declared_board_state_basis,
+        "declared_board_state_source": declared_state_source,
+        "board_state_mismatch": board_state != declared_board_state,
         "common_evidence_basis": a.common_evidence_basis,
         "supported_line": compiled_burden,
         "supported_line_basis": compiled_basis,
@@ -2263,6 +2458,12 @@ def run_decision(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "endpoint_control_pressure": (
             c_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "g3_endpoint_control_pressure": (
+            c_g3_endpoint_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
+        ),
+        "upper_tail_control_pressure": (
+            c_upper_tail_control_pressure(a) if model == "c" else "NOT_APPLICABLE"
         ),
         "direct_act_ceiling": (
             c_direct_act_ceiling(a) if model == "c" else None

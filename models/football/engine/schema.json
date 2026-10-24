@@ -201,7 +201,17 @@
           "default": false
         },
         "board_state": {
-          "$ref": "#/$defs/boardState"
+          "$ref": "#/$defs/boardState",
+          "description": "Historical research declaration retained for replay compatibility. New Football C research should use declared_board_state; production state is compiled by the engine."
+        },
+        "declared_board_state": {
+          "$ref": "#/$defs/boardState",
+          "description": "Researcher declaration for audit/mismatch reporting only. It has zero Football C production-state authority."
+        },
+        "declared_board_state_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Prospective basis for the researcher declaration; audit metadata only."
         },
         "main_failure": {
           "type": "string",

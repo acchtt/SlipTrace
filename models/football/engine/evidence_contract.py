@@ -89,16 +89,28 @@ def g4_evidence_review(obj, profile):
         status = ('G4_RESEARCH_EVIDENCE_LIMITED' if all(
             g.endswith('.unavailable') or g == 'g4_continuation_after_g3' for g in gaps
         ) else 'G4_RESEARCH_INCOMPLETE')
-    elif declared == 'G4_RESEARCH_COMPLETE_REJECTED' and any(profile[f] == 'MIXED' for f in PATH_FIELDS):
-        status = 'G4_RESEARCH_COMPLETE_MIXED'
+    path_diagnostic = (
+        'MIXED' if any(profile[f] == 'MIXED' for f in PATH_FIELDS)
+        else 'NEGATIVE' if declared != 'G4_RESEARCH_COMPLETE_FUNDED'
+        else 'FUNDED'
+    )
     dispositions = {'G4_NOT_APPLICABLE': 'NOT_APPLICABLE',
                     'G4_RESEARCH_INCOMPLETE': 'INCOMPLETE',
                     'G4_RESEARCH_EVIDENCE_LIMITED': 'EVIDENCE_LIMITED',
                     'G4_RESEARCH_COMPLETE_REJECTED': 'NEGATIVE',
+                    # Legacy declarations are normalized by adapter.py before
+                    # reaching production completeness. Kept readable here for
+                    # historical callers only.
                     'G4_RESEARCH_COMPLETE_MIXED': 'MIXED',
                     'G4_RESEARCH_COMPLETE_FUNDED': 'FUNDED'}
+    disposition = (
+        path_diagnostic
+        if status == 'G4_RESEARCH_COMPLETE_REJECTED'
+        else dispositions[status]
+    )
     return {**profile, 'g4_declared_research_status': declared,
-            'g4_research_status': status, 'g4_evidence_disposition': dispositions[status],
+            'g4_research_status': status, 'g4_evidence_disposition': disposition,
+            'g4_path_diagnostic': path_diagnostic,
             'g4_evidence_gaps': sorted(set(gaps)), 'g4_research_complete': completed and not gaps,
             'g4_path_evidence': obj.get('g4_path_evidence'),
             'grade_evidence': obj.get('grade_evidence'), 'failure_mechanisms': obj.get('failure_mechanisms'),

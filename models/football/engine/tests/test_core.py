@@ -31,12 +31,15 @@ from core import (  # noqa: E402
     c_effective_incentive_grades,
     c_distributed_goal3_funded,
     c_endpoint_control_pressure,
+    c_g3_endpoint_control_pressure,
+    c_upper_tail_control_pressure,
     c_execution_strength,
     c_direct_act_ceiling,
     c_goal4_funded,
     c_goal5_funded,
     certificate_robustness,
     certified_supported_burden,
+    compile_c_board_state,
     c2_selection_floor,
     clearing_goal_funded,
     low_burden_leakage_goal3_funded,
@@ -1653,6 +1656,7 @@ class ProductionIncidentExecutionControls(unittest.TestCase):
         )
         self.assertFalse(c_distributed_goal3_funded(a))
         self.assertIsNone(certified_supported_burden(a, "c"))
+        self.assertEqual(compile_c_board_state(a), BoardState.WATCH)
         self.assertEqual(c_execution_strength(a), "FRAGILE")
         self.assertEqual(
             decide_c(a, context(quote=Quote(2.5, 1.85))).action,
@@ -1698,11 +1702,30 @@ class ProductionIncidentExecutionControls(unittest.TestCase):
         self.assertEqual(certificate_robustness(a, "c"), 0)
         self.assertEqual(c_execution_strength(a), "FRAGILE")
         self.assertEqual(c_endpoint_control_pressure(a), "HIGH")
+        self.assertEqual(c_g3_endpoint_control_pressure(a), "HIGH")
+        self.assertEqual(c_upper_tail_control_pressure(a), "HIGH")
         self.assertIsNone(c_direct_act_ceiling(a))
         self.assertEqual(
             decide_c(a, context(quote=Quote(3.25, 1.81))).action,
             Action.PASS,
         )
+
+    def test_upper_tail_suppression_does_not_erase_funded_g3_floor(self):
+        a = robust_g3_assessment(
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.LOW,
+            upper_tail_transferability_basis=(
+                "upper-tail route is not transferable to the current context"
+            ),
+            upper_tail_comparable_context_signal="SUPPRESSIVE",
+            upper_tail_comparable_context_basis=(
+                "closest current context suppresses continuation after G3"
+            ),
+        )
+        self.assertEqual(compile_c_board_state(a), BoardState.FOCUS)
+        self.assertEqual(c_g3_endpoint_control_pressure(a), "MODERATE")
+        self.assertEqual(c_upper_tail_control_pressure(a), "HIGH")
+        self.assertEqual(c_direct_act_ceiling(a), 2.5)
 
 
 class XiAssessmentCalibrationTests(unittest.TestCase):

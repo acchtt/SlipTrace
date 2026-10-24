@@ -40,6 +40,11 @@ The researched football state is exactly one of:
 - `C-WATCH`
 - `C-PASS`
 
+Production state is compiled by Football C from the frozen certificate and
+direct route-destruction/suppression fields. The researcher-supplied value is
+retained as `declared_board_state` for mismatch audit only. A funded G3 cannot
+be manually demoted and a no-certificate row cannot be manually promoted.
+
 FOCUS/WATCH/PASS is predictive football selection. FOLLOW/RESERVE/STOP is a
 separate operational workload lane and must not become a second prediction
 model.
@@ -66,13 +71,12 @@ Asian .75 lines require the next certificate for a **full-win certificate**.
 
 The certificate is a protected football burden, not a universal execution
 ceiling. For G3-only C-FOCUS rows, the deterministic execution layer may issue
-a non-exposure `BOOK` order at O2.75/O3.00/O3.25 when the current football
+a non-exposure `BOOK` order at O2.75/O3.00 when the current football
 quality clears the settlement-aware extension contract:
 
 - O2.75: exactly 3 goals = half win; pilot minimum price 1.85;
 - O3.00: exactly 3 goals = push; pilot minimum price 1.90;
-- O3.25: exactly 3 goals = half loss; pilot minimum price 2.00 and a stronger
-  G3 structure is required;
+- O3.25: never authorized by G3 alone;
 - O3.50: still requires funded G4.
 
 BOOK never upgrades G3 to G4 and never creates exposure until a fill is
@@ -89,6 +93,19 @@ A plausible 1-1 is not sufficient by itself. The assessment must identify the
 goal that clears the burden and the mechanism that supplies it.
 
 ## 5. G4+ transferability and comparable context
+
+Endpoint control is compiled as two diagnostics:
+
+- `g3_endpoint_control_pressure` covers evidence that attacks reaching goal
+  three, including genuine high stall, material low-draw trap, verified and
+  currently corroborated suppressive H2H, material suppression, and
+  route-destroying failure;
+- `upper_tail_control_pressure` covers continuation to four/five, including
+  non-transferable or suppressive upper-tail context.
+
+Upper-tail pressure may suppress a higher direct ceiling but cannot by itself
+erase an independently funded G3 floor. The historical
+`endpoint_control_pressure` field remains a compatibility alias for G3 pressure.
 
 Whenever an independent upper tail is asserted, freeze:
 
@@ -117,9 +134,13 @@ Whenever G3 is funded, the G4 investigation must carry one explicit state:
 
 - `G4_RESEARCH_INCOMPLETE`
 - `G4_RESEARCH_EVIDENCE_LIMITED`
-- `G4_RESEARCH_COMPLETE_MIXED`
 - `G4_RESEARCH_COMPLETE_REJECTED`
 - `G4_RESEARCH_COMPLETE_FUNDED`
+
+Individual carrier/distributed/reply paths may remain `MIXED`, but completed
+production status is binary: FUNDED or REJECTED. Historical
+`G4_RESEARCH_COMPLETE_MIXED` input remains readable and is normalized to
+REJECTED with the original declaration and path diagnostics retained.
 
 Use `G4_NOT_APPLICABLE` only when G3 is not funded.
 
@@ -136,7 +157,7 @@ The V4 rank stage checkpoints it for bounded completion.
 
 ## 7. Ranking
 
-Price-blind Football C ranking order is:
+The active price-blind champion ranking order is:
 
 1. certificate robustness;
 2. highest funded certificate: G6 > G5 > G4 > G3 > none;
@@ -149,6 +170,11 @@ certificate does not automatically outrank a robust/conditional shallower one.
 
 Within the same robustness/depth class, current completion and continuation
 must not be displaced by raw historical goal rates.
+
+The engine also emits a frozen, zero-authority challenger key that prioritizes
+burden-normalized clearability and the current G3 floor before certificate
+depth. It may replace the champion only after settled same-information replay
+improves useful separation without collapsing coverage.
 
 ## 8. XI / current football confirmation
 
@@ -171,10 +197,15 @@ The market may trigger the recheck but never manufactures G3/G4/G5/G6.
 
 User screenshots are `USER_SCREENSHOT_ONLY` observations:
 
-- use the exact supplied line/odds;
+- extract every genuinely visible line/odds pair;
+- select the highest supported/executable visible line before applying the
+  ordinary price and execution-strength rules;
 - do not fetch a replacement quote;
 - do not infer a missing price;
 - do not re-time the screenshot.
+
+A rejected higher line cannot turn the match into PASS when the same screenshot
+contains a lower executable supported line.
 
 Observed-price ACT/BOOK/PASS is non-executable comparison. A strict
 current executable decision requires the separate runtime authorization/evidence

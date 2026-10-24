@@ -831,8 +831,8 @@ def _independent_scoring_structure(a: MatchAssessment) -> bool:
     return two_route or self_funded_carrier
 
 
-def c_endpoint_control_pressure(a: MatchAssessment) -> str:
-    """Compile low-endpoint/control pressure from frozen football fields.
+def c_g3_endpoint_control_pressure(a: MatchAssessment) -> str:
+    """Compile pressure that directly attacks the third-goal mechanism.
 
     HIGH is reserved for a direct hard-control signal: HIGH effective stall,
     a material low-draw trap, or verified+corroborated suppressive H2H.
@@ -870,6 +870,60 @@ def c_endpoint_control_pressure(a: MatchAssessment) -> str:
     return "MODERATE" if cautions else "NONE"
 
 
+def c_upper_tail_control_pressure(a: MatchAssessment) -> str:
+    """Compile G4+ control pressure without erasing an independent G3 floor.
+
+    This diagnostic deliberately reuses existing frozen evidence and changes
+    no numerical threshold.  A direct G3 hard control is also a tail hard
+    control.  Tail-specific non-transferability or suppressive comparable
+    context can block G4+ while leaving a separately funded G3 intact.
+    """
+
+    require_c_completion(a)
+    g3_pressure = c_g3_endpoint_control_pressure(a)
+    if g3_pressure == "HIGH":
+        return "HIGH"
+    if (
+        a.upper_tail_comparable_context_signal == "SUPPRESSIVE"
+        or (
+            a.independent_upper_tail
+            and c_effective_upper_tail_transferability(a) == Grade.LOW
+        )
+    ):
+        return "HIGH"
+    if (
+        g3_pressure == "MODERATE"
+        or a.upper_tail_comparable_context_signal in {"MIXED", "UNAVAILABLE"}
+        or not a.independent_upper_tail
+    ):
+        return "MODERATE"
+    return "NONE"
+
+
+def c_endpoint_control_pressure(a: MatchAssessment) -> str:
+    """Historical compatibility alias for the G3-specific pressure field."""
+
+    return c_g3_endpoint_control_pressure(a)
+
+
+def compile_c_board_state(a: MatchAssessment) -> BoardState:
+    """Compile production C board state from certificates and direct vetoes.
+
+    Researcher labels are audit metadata only.  A funded G3 is FOCUS; a
+    route-destroying/material suppressive state is PASS; every other researched
+    row is REVIEW_ONLY/WATCH.  This introduces no new score threshold and
+    prevents both manual demotion of funded structure and manual promotion of
+    a no-certificate row.
+    """
+
+    require_c_completion(a)
+    if c_goal3_funded(a):
+        return BoardState.FOCUS
+    if a.material_suppression or a.failure_attacks_route:
+        return BoardState.PASS
+    return BoardState.WATCH
+
+
 def c_execution_strength(a: MatchAssessment) -> str:
     """Expose execution quality separately from rank/FOLLOW workload priority."""
 
@@ -891,7 +945,7 @@ def c_goal3_execution_floor_authorized(a: MatchAssessment) -> bool:
 
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
     return (
-        c_endpoint_control_pressure(a) != "HIGH"
+        c_g3_endpoint_control_pressure(a) != "HIGH"
         and a.burden_completion_quality >= Grade.MEDIUM
         and effective_continuation >= Grade.MEDIUM
         and effective_stall <= Grade.MEDIUM
@@ -921,7 +975,11 @@ def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
         return None
 
     robustness = certificate_robustness(a, "c")
-    endpoint_pressure = c_endpoint_control_pressure(a)
+    g3_endpoint_pressure = c_g3_endpoint_control_pressure(a)
+    upper_tail_pressure = c_upper_tail_control_pressure(a)
+
+    if g3_endpoint_pressure == "HIGH":
+        return None
 
     if robustness <= 0:
         if c_goal3_execution_floor_authorized(a):
@@ -929,13 +987,15 @@ def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
         return None
 
     if robustness == 1:
-        if endpoint_pressure == "HIGH":
-            return None
         if anchor <= 2.50 and c_goal3_execution_floor_authorized(a):
             return anchor
         protected = round(anchor - 0.25, 2)
+        if upper_tail_pressure == "HIGH":
+            return 2.50 if c_goal3_execution_floor_authorized(a) else None
         return protected if protected >= 0 else None
 
+    if anchor > 2.50 and upper_tail_pressure == "HIGH":
+        return 2.50 if c_goal3_execution_floor_authorized(a) else None
     return anchor
 
 
@@ -1120,6 +1180,59 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
         upper_tail_self_fund,
         int(a.xi_robustness),
         tournament_incentive_rank_score(a),
+    )
+
+
+def ranking_key_clearability_challenger(a: MatchAssessment) -> tuple[int, ...]:
+    """Frozen market-independent challenger; never outcome-trained.
+
+    The challenger moves the existing burden-normalized clearability and G3
+    floor ahead of certificate depth.  It is intentionally separate from the
+    champion key until a same-information replay earns promotion.
+    """
+
+    require_c_completion(a)
+    profile = follow_priority_profile(a)
+    endpoint = _c_endpoint_control_key(a)
+    goal_signal = _goal_signal_rank_key(a)
+    effective_continuation, _ = c_effective_incentive_grades(a)
+    g3_floor = (
+        int(c_goal3_funded(a)),
+        int(c_goal3_execution_floor_authorized(a)),
+        int(a.burden_completion_quality),
+        int(effective_continuation),
+        int(a.route_reliability),
+        int(a.failure_resistance),
+        int(a.burden_protection),
+    )
+    return (
+        certificate_robustness(a, "c"),
+        int(profile["follow_clearability_score"]),
+        *g3_floor,
+        *endpoint,
+        funded_goal_certificate_depth(a, "c"),
+        int(profile["follow_upside_score"]),
+        int(profile["follow_balanced_score"]),
+        *goal_signal,
+        int(a.independent_route_quality),
+        int(a.chance_quality),
+        int(a.carrier),
+        int(a.evidence_confidence),
+        int(a.opponent_leakage),
+        int(a.xi_robustness),
+        tournament_incentive_rank_score(a),
+    )
+
+
+def rank_assessments_clearability_challenger(
+    items: Iterable[MatchAssessment],
+) -> list[MatchAssessment]:
+    """Rank the frozen clearability challenger without changing production."""
+
+    return sorted(
+        items,
+        key=lambda item: (ranking_key_clearability_challenger(item), item.match_id),
+        reverse=True,
     )
 
 
@@ -2098,7 +2211,6 @@ def market_line_funded(
 C_G3_BOOK_MIN_ODDS = {
     2.75: 1.85,
     3.00: 1.90,
-    3.25: 2.00,
 }
 
 
@@ -2215,7 +2327,7 @@ def c_g3_book_extension_profile(
                 if max_line == 3.00
                 else "generic extension capped at O2.75"
             )
-            + "; O3.25/O3.50 require stronger certificate authority"
+            + "; O3.25 is never a G3-only BOOK and O3.50 requires funded G4"
         ),
     }
 
@@ -2224,7 +2336,7 @@ def c_g3_book_min_odds(line: float) -> float:
 
     _validate_quarter_line(line)
     if line not in C_G3_BOOK_MIN_ODDS:
-        raise ValueError("G3 BOOK target must be O2.75, O3.00, or O3.25")
+        raise ValueError("G3 BOOK target must be O2.75 or O3.00")
     return C_G3_BOOK_MIN_ODDS[line]
 
 

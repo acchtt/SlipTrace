@@ -58,6 +58,22 @@ Keep the output compact:
 If the issue can be resolved from those records, stop there. Do not escalate
 merely because the outcome was surprising or because one decision was wrong.
 
+When the zero-authority calibration ledger is available, `/audit` must use its
+universal denominator and report:
+
+- ACT count and win/push/half-win/half-loss/loss, clear rate, average evaluated
+  burden, and coverage;
+- priced PASS count, correct rejects, false negatives/rate, and PASSes that had
+  a lower supported visible screenshot line;
+- GOAL_PRIORITY, GOAL_REVIEW, CONTROL_REVIEW, and terminal-negative counts,
+  plus settled 3+/4+ outcomes by screen state;
+- FOCUS versus REVIEW_ONLY 3+/4+, supported-burden reach, top-3/top-5
+  clearability, certificate-depth and robustness distributions;
+- exceptions as a separate list while retaining them in the universal ledger.
+
+Outcome fields are appended only after settlement and have zero selection or
+automatic-threshold-learning authority.
+
 ## Automatic deep-escalation rule
 
 The user should not need to choose a deep audit. Emit `DEEP AUDIT REQUIRED`

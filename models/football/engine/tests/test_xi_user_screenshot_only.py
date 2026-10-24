@@ -12,6 +12,7 @@ ENGINE = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ENGINE))
 
 from evidence_fixtures import attach_g4_evidence
+from test_adapter import robust_g3_book_match
 from test_football_assessment_pair import football
 from xi_assessment_reconcile import (
     STATUS_COLUMN,
@@ -185,6 +186,61 @@ def run_xi(c=None, shot=None, authority=None):
 
 
 class ScreenshotOnlyXIRegression(unittest.TestCase):
+    def test_full_visible_ladder_selects_lower_supported_line(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        row = robust_g3_book_match(
+            independent_upper_tail=False,
+            independent_upper_tail_basis="completed research rejects G4",
+            g4_research_status="G4_RESEARCH_COMPLETE_REJECTED",
+            g4_carrier_path="FAILED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="FAILED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis="all current fourth-goal paths were checked",
+        )
+        c["match"] = attach_g4_evidence(row)
+        c["context"].update(
+            thesis_state="PRESERVED",
+            primary_mechanism_intact=True,
+            material_veto=False,
+            material_event_since_frozen="NONE_VERIFIED",
+            frozen_board_certified_burden=2.5,
+        )
+        shot = snapshot(c)
+        shot.pop("quote")
+        shot["quotes"] = [
+            {"line": 2.5, "odds": 1.70},
+            {"line": 2.75, "odds": 1.86},
+            {"line": 3.0, "odds": 1.94},
+            {"line": 3.25, "odds": 2.04},
+        ]
+        out = run_xi(c, shot)
+        check = out["price_check"]
+        self.assertEqual(check["model"]["conditional_action"], "ACT")
+        self.assertEqual(check["model"]["selected_visible_line"], 2.5)
+        self.assertEqual(check["evidence"]["quote"], {"line": 2.5, "odds": 1.7})
+        self.assertEqual(len(check["evidence"]["visible_ladder"]), 4)
+        persisted = out["decision_state_persistence"]["row"]
+        self.assertEqual(persisted["Evaluated Line"], 2.5)
+        self.assertEqual(persisted["Evaluated Odds"], 1.7)
+        calibration = out["calibration_record"]
+        self.assertEqual(calibration["selected_evaluated_line"], 2.5)
+        self.assertEqual(len(calibration["screenshot_visible_ladder"]), 4)
+        self.assertEqual(calibration["decision"], "ACT")
+        self.assertTrue(calibration["exception_flag"])
+
+    def test_visible_ladder_rejects_any_missing_price(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        shot = snapshot(c)
+        shot.pop("quote")
+        shot["quotes"] = [
+            {"line": 2.5, "odds": 1.70},
+            {"line": 2.75},
+        ]
+        out = run_xi(c, shot)
+        self.assertFalse(out["price_check"]["ok"])
+        self.assertEqual(out["price_check"]["status"], "OBSERVED_QUOTE_INVALID")
+
     def test_direct_xi_without_authority_fails_closed(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         shot = snapshot(c)

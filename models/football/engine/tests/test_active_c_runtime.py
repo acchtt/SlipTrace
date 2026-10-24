@@ -18,6 +18,7 @@ from adapter import (
 from test_adapter import pair_payload
 from test_board_pair import c_row, payload
 from test_football_assessment_pair import football
+from evidence_fixtures import attach_g4_evidence
 
 
 class ActiveCRuntimeTests(unittest.TestCase):
@@ -26,6 +27,42 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(result["model"], "c")
         self.assertEqual(result["stage"], "board_result")
         self.assertEqual(len(result["matches"]), 1)
+
+    def test_c_compiles_state_and_retains_researcher_mismatch(self):
+        funded = c_row()
+        funded["declared_board_state"] = "C-WATCH"
+        funded["declared_board_state_basis"] = (
+            "researcher attempted a manual demotion"
+        )
+        row = run_board(payload("c", funded))["matches"][0]
+        self.assertEqual(row["board_state"], "FOCUS")
+        self.assertEqual(row["declared_board_state"], "WATCH")
+        self.assertTrue(row["board_state_mismatch"])
+        self.assertEqual(row["declared_board_state_source"], "declared_board_state")
+
+        unfunded = c_row()
+        unfunded.update(
+            home_route="WEAK",
+            away_route="WEAK",
+            carrier="NONE",
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent upper-tail route",
+            completion_mode="CARRIER_LED",
+            burden_completion_quality="LOW",
+            continuation_quality="LOW",
+            opponent_leakage="LOW",
+            route_reliability="LOW",
+            independent_route_quality="LOW",
+            chance_quality="LOW",
+            failure_resistance="LOW",
+            declared_board_state="C-FOCUS",
+            declared_board_state_basis="researcher attempted a manual promotion",
+        )
+        row = run_board(payload("c", unfunded))["matches"][0]
+        self.assertEqual(row["board_state"], "WATCH")
+        self.assertEqual(row["declared_board_state"], "FOCUS")
+        self.assertTrue(row["board_state_mismatch"])
 
     def test_retired_c2_board_is_rejected(self):
         retired = payload("c2", {
@@ -88,6 +125,25 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertTrue(row["goal3_funded"])
         self.assertFalse(row["goal4_funded"])
         self.assertEqual(row["g4_research_status"], "G4_RESEARCH_INCOMPLETE")
+
+    def test_legacy_complete_mixed_normalizes_to_rejected_terminal(self):
+        source = c_row()
+        source.update(
+            independent_upper_tail=False,
+            independent_upper_tail_basis="completed research does not fund G4",
+            g4_research_status="G4_RESEARCH_COMPLETE_MIXED",
+            g4_carrier_path="MIXED",
+            g4_distributed_path="FAILED",
+            g4_reply_path="MIXED",
+            g4_continuation_after_g3="MEDIUM",
+            g4_research_basis="resolved mixed paths do not fund G4",
+        )
+        source = attach_g4_evidence(source)
+        row = run_board(payload("c", source))["matches"][0]
+        self.assertEqual(row["g4_research_status"], "G4_RESEARCH_COMPLETE_REJECTED")
+        self.assertEqual(row["g4_declared_research_status"], "G4_RESEARCH_COMPLETE_MIXED")
+        self.assertTrue(row["g4_status_normalized_from_mixed"])
+        self.assertEqual(row["g4_path_diagnostic"], "MIXED")
 
     def test_board_flags_systematic_incomplete_g4_research(self):
         rows = []

@@ -8,6 +8,7 @@ never labelled a C/C2 PASS or assumed to be a profitable Over.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from typing import Any
 from discovery_goal_gate import screen_discovery
 from cheap_sweep_filters import classify_research_priority
@@ -15,6 +16,28 @@ from cheap_sweep_filters import classify_research_priority
 CANDIDATE_LANES = frozenset({"ROUTINE","CONDITIONAL","PILOT","DISCOVERY"})
 ADMITTED_LANES = CANDIDATE_LANES
 PENDING_LANES = frozenset({"PENDING_DISCOVERY","PENDING_RESEARCHABILITY"})
+CONTROL_REVIEW_MAX_PER_SWEEP = 4
+CONTROL_REVIEW_EFFECTIVE_UTC = datetime(2026, 10, 24, tzinfo=timezone.utc)
+
+
+def _control_review_order(row: dict[str, Any]) -> tuple[Any, ...]:
+    """Frozen-evidence ordering for the bounded negative-screen control lane."""
+
+    screen = row["goal_screen"]
+    cheap = row.get("cheap_filter") or {}
+    cheap_rank = cheap.get("priority_rank")
+    if not isinstance(cheap_rank, int):
+        cheap_rank = 4
+    return (
+        cheap_rank,
+        -float(screen.get("carrier_route") or 0),
+        -float(screen.get("mean_over_two_rate") or 0),
+        -float(screen.get("mean_over_three_rate") or 0),
+        float(screen.get("mean_0_0_or_1_1_rate") or 1),
+        -float(screen.get("priority_score") or 0),
+        row["kickoff_utc"],
+        row["match_id"],
+    )
 
 
 def _research_order(row: dict[str, Any]) -> tuple[Any, ...]:
@@ -57,7 +80,7 @@ def select(
         if isinstance(raw, dict) and isinstance(raw.get("match_id"), str)
     }
     queue_map = {item["match_id"]: item for item in provisional_queue}
-    selected, research = [], []
+    selected, research, control_candidates = [], [], []
     for item in ledger:
         if (item.get("registry_lane") not in CANDIDATE_LANES
                 or item.get("intake_lane") not in ADMITTED_LANES | PENDING_LANES):
@@ -118,6 +141,15 @@ def select(
             if channels_verified and cup_verified:
                 item["intake_lane"] = "WATCH_GOAL_SIGNAL"
                 item["reason"] = screen["reason"]
+                if mid in queue_map:
+                    control_candidates.append({
+                        "ledger": item,
+                        "queue": queue_map[mid],
+                        "goal_screen": screen,
+                        "cheap_filter": cheap_filter,
+                        "kickoff_utc": item["kickoff_utc"],
+                        "match_id": mid,
+                    })
 
         # Explicit source-backed short history is a terminal evidence gap,
         # never a GOAL-qualified fixture and never a fabricated fourth result.
@@ -155,6 +187,41 @@ def select(
                 **({"cheap_filter": cheap_filter} if cheap_filter is not None else {}),
                 "source_url": item["source_url"],
             })
+    selected_at = datetime.fromisoformat(at_utc.replace("Z", "+00:00")).astimezone(
+        timezone.utc
+    )
+    chosen_controls = (
+        sorted(control_candidates, key=_control_review_order)[
+            :CONTROL_REVIEW_MAX_PER_SWEEP
+        ]
+        if selected_at >= CONTROL_REVIEW_EFFECTIVE_UTC
+        else []
+    )
+    control_ids = {row["match_id"] for row in chosen_controls}
+    for control_rank, candidate in enumerate(chosen_controls, start=1):
+        item = candidate["ledger"]
+        item["intake_lane"] = "CONTROL_REVIEW"
+        item["reason"] = "BOUNDED_NEGATIVE_SCREEN_CONTROL_REVIEW"
+        item["control_review_selected"] = True
+        item["control_review_rank"] = control_rank
+        item["control_review_basis"] = (
+            "fixed four-fixture workload cap; ordered only by frozen cheap-filter "
+            "priority, carrier route, O2/O3 rates, draw-trap rate and screen score"
+        )
+        queued = candidate["queue"]
+        queued.update({
+            "intake_lane": "CONTROL_REVIEW",
+            "reason": item["reason"],
+            "goal_screen": candidate["goal_screen"],
+            "control_review_selected": True,
+            "control_review_rank": control_rank,
+            "control_review_basis": item["control_review_basis"],
+        })
+        if candidate["cheap_filter"] is not None:
+            queued["cheap_filter"] = candidate["cheap_filter"]
+        selected.append(queued)
+
+    research = [row for row in research if row["match_id"] not in control_ids]
     research.sort(key=_research_order)
     priority_research = [
         row for row in research
@@ -194,6 +261,11 @@ def select(
         "goal_review_count": sum(
             r.get("intake_lane") == "GOAL_REVIEW" for r in selected
         ),
+        "control_review_count": len(chosen_controls),
+        "terminal_negative_screen_count": sum(
+            r["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL" for r in research
+        ),
+        "control_review_capacity": CONTROL_REVIEW_MAX_PER_SWEEP,
         **({
             "cheap_filter_counts": {
                 state: sum(

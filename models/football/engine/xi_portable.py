@@ -29,9 +29,11 @@ from typing import Any
 from adapter import (
     ContractError,
     evaluate_observed_quote,
+    evaluate_visible_quote_ladder,
     run_decision,
     run_football_assessment,
 )
+from calibration_ledger import xi_record
 from xi_authority import RankAuthorityError, authorize_c_football
 
 
@@ -45,7 +47,12 @@ def self_check() -> dict[str, Any]:
             "status": "XI RUNTIME: FAIL",
             "error": f"Python {MIN_PYTHON[0]}.{MIN_PYTHON[1]}+ required",
         }
-    required = (run_football_assessment, run_decision, evaluate_observed_quote)
+    required = (
+        run_football_assessment,
+        run_decision,
+        evaluate_observed_quote,
+        evaluate_visible_quote_ladder,
+    )
     if not all(callable(item) for item in required):
         return {
             "ok": False,
@@ -145,7 +152,17 @@ def assess_user_screenshot(
     if screenshot.get("match_id") != match_id:
         raise ValueError("screenshot match_id differs from Football C fixture")
 
-    quote = _quote(screenshot.get("quote"))
+    has_single = screenshot.get("quote") is not None
+    has_ladder = screenshot.get("quotes") is not None
+    if has_single == has_ladder:
+        raise ValueError("screenshot must provide exactly one of quote or quotes")
+    if has_ladder:
+        raw_quotes = screenshot.get("quotes")
+        if not isinstance(raw_quotes, list) or not raw_quotes:
+            raise ValueError("screenshot quotes must be a non-empty visible ladder")
+        quotes = [_quote(item) for item in raw_quotes]
+    else:
+        quotes = [_quote(screenshot.get("quote"))]
     c_ctx = c_football.get("context")
     if not isinstance(c_ctx, dict):
         raise ValueError("Football C context required")
@@ -177,7 +194,7 @@ def assess_user_screenshot(
         "capture_reference": capture_reference,
         "match_id": match_id,
         "bookmaker": screenshot.get("bookmaker"),
-        "quote": quote,
+        "visible_ladder": quotes,
         "observed_at_utc": captured,
         "assessment_at_utc": c_ctx.get("assessment_at_utc"),
         "observation_age_seconds": (
@@ -200,12 +217,23 @@ def assess_user_screenshot(
     if fixture != "PREMATCH_CONFIRMED":
         limitations.append("STARTED_FIXTURE_PREMATCH_ACTION_NOT_RECREATED")
 
-    result = evaluate_observed_quote(c_football, quote)
+    result = evaluate_visible_quote_ladder(c_football, quotes)
+    evidence["quote"] = {
+        "line": result["selected_visible_line"],
+        "odds": result["selected_visible_odds"],
+    }
     recheck_required = (
         result.get("action") == "MARKET_DISAGREEMENT_RECHECK_REQUIRED"
     )
     model = {
         "supported_line": result["supported_line"],
+        "selected_visible_line": result["selected_visible_line"],
+        "selected_visible_odds": result["selected_visible_odds"],
+        "visible_ladder_selection_basis": result[
+            "visible_ladder_selection_basis"
+        ],
+        "supported_visible_line_found": result["supported_visible_line_found"],
+        "visible_ladder_evaluations": result["visible_ladder_evaluations"],
         "snapshot_line_relation": result["line_relation"],
         "conditional_action": result["action"],
         "reason": result["reason"],
@@ -252,6 +280,7 @@ def assess_user_screenshot(
             "prior_certificate_reclassification_recheck_required", False
         ),
         "execution_authorized": False,
+        "calibration_record": xi_record(c_football, football_result, result),
     }
 
     if recheck_required:
@@ -348,6 +377,9 @@ def _decision_state_persistence_manifest(
     assessment_id = (
         f"XI-{epoch}" if epoch.startswith("C-") else f"XI-C-{epoch}"
     )
+    compiled_state = None
+    if isinstance(engine_output.get("result"), dict):
+        compiled_state = engine_output["result"].get("rank_state_internal")
     row = {
         "Assessment ID": assessment_id,
         "Match ID": match_id.strip(),
@@ -357,7 +389,7 @@ def _decision_state_persistence_manifest(
         "Score": context.get("score"),
         "Match Minute": context.get("match_minute"),
         "XI Assessment Execution Status": execution_status,
-        "C Board State": _rank_state_presentation(c_input)[0],
+        "C Board State": compiled_state or _rank_state_presentation(c_input)[0],
         "C Action": c_action,
         "C Supported Line": supported,
         "Evaluated Line": evaluated_line,
@@ -419,6 +451,7 @@ def _football_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
         "model_bets_created": False,
         "model_accounting_status": "NONE",
         "result": result,
+        "calibration_record": xi_record(c_input, result),
     }
     receipt["decision_state_persistence"] = _decision_state_persistence_manifest(
         c_input,
@@ -434,11 +467,24 @@ def _decision_receipt(c_input: dict[str, Any]) -> dict[str, Any]:
     result = run_decision(c_input)
     context = c_input.get("context") or {}
     quote = context.get("quote") if isinstance(context, dict) else None
+    # A strict decision payload already contains the compiled football result.
+    # Do not reinterpret it as a quote-free football_assessment: that contract
+    # has live-observation fields which are intentionally not required by the
+    # prematch price decision contract.
+    quote_calibration = {
+        "action": "ACT" if result["action"] == "BET" else result["action"],
+        "visible_ladder": [quote] if isinstance(quote, dict) else [],
+        "selected_visible_line": quote.get("line") if isinstance(quote, dict) else None,
+        "selected_visible_odds": quote.get("odds") if isinstance(quote, dict) else None,
+    }
     receipt = {
         "ok": True,
         "engine_execution_status": "EXECUTED_C_DECISION",
         "model": "c",
         "result": result,
+        "calibration_record": xi_record(
+            c_input, result, quote_calibration
+        ),
     }
     receipt["decision_state_persistence"] = _decision_state_persistence_manifest(
         c_input,
@@ -487,6 +533,13 @@ def _football_and_optional_price(
             "xi_mode": mode,
             "price_check": price,
         }
+        priced_calibration = (
+            price.get("model", {}).get("calibration_record")
+            if isinstance(price, dict) and isinstance(price.get("model"), dict)
+            else None
+        )
+        if isinstance(priced_calibration, dict):
+            output["calibration_record"] = priced_calibration
         quote = (
             price.get("evidence", {}).get("quote")
             if isinstance(price, dict)

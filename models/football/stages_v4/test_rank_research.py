@@ -16,6 +16,23 @@ def c_input(mid='m1'):
     return data
 
 
+def make_unfunded_watch(row):
+    row.update(
+        board_state='C-WATCH',
+        board_state_basis='Current evidence does not fund G3',
+        home_route='WEAK', away_route='WEAK', carrier='NONE',
+        carrier_self_fund=False,
+        carrier_self_fund_basis='No current self-funded carrier',
+        independent_upper_tail=False,
+        independent_upper_tail_basis='No independent upper-tail route',
+        route_reliability='LOW', independent_route_quality='LOW',
+        chance_quality='LOW', failure_resistance='LOW',
+        burden_protection='LOW', burden_completion_quality='LOW',
+        continuation_quality='LOW', opponent_leakage='LOW',
+    )
+    return row
+
+
 def gap(mid='m2'):
     return {
         'reason': 'RESEARCH_EVIDENCE_MISSING', 'match_id': mid,
@@ -71,8 +88,7 @@ class RankResearchTests(unittest.TestCase):
         for i in range(5, 15):
             row = c_input(f"m{i}")['matches'][0]
             if i >= 7:
-                row['board_state'] = 'C-WATCH'
-                row['board_state_basis'] = 'Mechanism is below focus admission'
+                make_unfunded_watch(row)
             data['matches'].append(row)
         reasons = {f"m{i}": ('PREMATCH_WINDOW_CLOSED' if i < 5
                               else 'RESEARCH_EVIDENCE_MISSING')
@@ -196,8 +212,7 @@ class RankResearchTests(unittest.TestCase):
 
     def test_watch_stays_reusable_without_inflating_focus_board(self):
         data = c_input()
-        data['matches'][0]['board_state'] = 'C-WATCH'
-        data['matches'][0]['board_state_basis'] = 'Below focus with current usable mechanism'
+        make_unfunded_watch(data['matches'][0])
         previous = execute(data)
         resumed = execute(c_input('m2'), {}, previous=previous, at=LATER)
         self.assertEqual(resumed['assessed_count'], 2)

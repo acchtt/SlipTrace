@@ -20,10 +20,13 @@ An explicit completed G4 declaration must carry:
 
 UNAVAILABLE is not FAILED. Missing proof becomes G4_RESEARCH_INCOMPLETE;
 documented unavailable paths become G4_RESEARCH_EVIDENCE_LIMITED. Resolved but
-mixed evidence uses G4_RESEARCH_COMPLETE_MIXED, distinct from a supported
-negative conclusion. Pending rows remain resumable and cannot silently finalize
-a G3-only FOCUS board row. Complete mixed evidence may retain G3 support but
-must receive the same material-disagreement recheck as complete rejection.
+mixed paths remain individually `MIXED`, while the unambiguous production
+terminal status is `G4_RESEARCH_COMPLETE_REJECTED` when G4 is not funded.
+Historical `G4_RESEARCH_COMPLETE_MIXED` declarations are readable but normalize
+to REJECTED with their path diagnostic retained. Pending rows remain resumable
+and cannot silently finalize a G3-only FOCUS board row. Complete mixed evidence
+may retain G3 support but receives the same material-disagreement recheck as
+complete rejection.
 
 The existing inferred-funded legacy path stays readable. New research should
 use explicit status and provenance. No status, rate, market quote or evidence

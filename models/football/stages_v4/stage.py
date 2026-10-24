@@ -22,6 +22,7 @@ from urllib.parse import urlsplit
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))
 from adapter import run_board
+from calibration_ledger import board_records, sweep_records
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
@@ -47,6 +48,9 @@ SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC = datetime.fromisoformat(
 )
 WINDOW_END_INCLUSIVE_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-24T03:38:00+00:00"
+)
+SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-24T00:00:00+00:00"
 )
 
 
@@ -83,9 +87,10 @@ def _hash(value: Any) -> str:
 def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any]]:
     """Return genuinely unresolved in-window intake rows.
 
-    A quantified WATCH_GOAL_SIGNAL is a terminal screen and must not block the
-    rank merely because it is not goal-positive. Missing source/history,
-    unresolved researchability and unresolved discovery remain open work.
+    A quantified WATCH_GOAL_SIGNAL is complete screening evidence. A bounded
+    subset may be admitted as CONTROL_REVIEW; the remainder does not block rank.
+    Missing source/history, unresolved researchability and unresolved discovery
+    remain open work.
     """
     ledger = receipt.get("source_ledger")
     if not isinstance(ledger, list):
@@ -364,7 +369,11 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
     ordered_rows = sorted(
         queue,
         key=lambda q: (
-            0 if q.get("intake_lane") == "GOAL_PRIORITY" else 1,
+            {
+                "GOAL_PRIORITY": 0,
+                "GOAL_REVIEW": 1,
+                "CONTROL_REVIEW": 2,
+            }.get(q.get("intake_lane"), 3),
             -int(isinstance((q.get("goal_screen") or {}).get("priority_score"), (int, float))),
             -float((q.get("goal_screen") or {}).get("priority_score") or 0),
             (q.get("cheap_filter") or {}).get("priority_rank", 4),
@@ -377,7 +386,12 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "schema_version": "football-v4-goal-research-manifest-v3",
         "run_id": run_id,
         "source_payload_hash": _hash(ledger),
-        "priority_profile": "GOAL_SIGNAL_FIRST_V3",
+        "priority_profile": (
+            "GOAL_SIGNAL_FIRST_V4_CONTROL_REVIEW"
+            if at >= SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC
+            and not _historical_replay
+            else "GOAL_SIGNAL_FIRST_V3"
+        ),
         "ordered_eligible_match_ids": order,
         "original_rows": [
             {
@@ -442,6 +456,13 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
         outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
         outcome["goal_review_count"] = goal_selection.get("goal_review_count", 0)
+        outcome["control_review_count"] = goal_selection.get("control_review_count", 0)
+        outcome["terminal_negative_screen_count"] = goal_selection.get(
+            "terminal_negative_screen_count", 0
+        )
+        outcome["control_review_capacity"] = goal_selection.get(
+            "control_review_capacity", 0
+        )
         if "cheap_filter_counts" in goal_selection:
             outcome["cheap_filter_policy"] = "RESEARCH_PRIORITY_V1"
             outcome["cheap_filter_counts"] = goal_selection["cheap_filter_counts"]
@@ -452,7 +473,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             "intake_lane": x["intake_lane"], "reason": x["reason"],
             "discovery_screen": x.get("discovery_screen"),
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
-          and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
+          and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW", "CONTROL_REVIEW",
                                      "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
     # Prospective completeness metadata. Do not retrofit this policy onto an
     # immutable source epoch that predates the repair; old receipts remain
@@ -477,6 +498,8 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             }
             for row in unresolved_intake
         ]
+    if at >= SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC and not _historical_replay:
+        outcome["calibration_ledger"] = sweep_records(outcome)
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
@@ -889,7 +912,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if sweep_receipt.get("goal_selection_policy") == "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1":
         if any(
             not isinstance(row, dict)
-            or row.get("intake_lane") not in {"GOAL_PRIORITY", "GOAL_REVIEW"}
+            or row.get("intake_lane") not in {"GOAL_PRIORITY", "GOAL_REVIEW", "CONTROL_REVIEW"}
             or not isinstance(row.get("goal_screen"), dict)
             or (
                 row.get("intake_lane") == "GOAL_PRIORITY"
@@ -899,17 +922,24 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
                 row.get("intake_lane") == "GOAL_REVIEW"
                 and row["goal_screen"].get("status") != "DISCOVERY_GOAL_REVIEW"
             )
+            or (
+                row.get("intake_lane") == "CONTROL_REVIEW"
+                and row["goal_screen"].get("status") != "WATCH_GOAL_SIGNAL"
+            )
             for row in queue
         ):
             raise StageError(
-                "goal-first shortlist violated: only qualified or borderline "
-                "review matches can enter C rank"
+                "goal-first shortlist violated: only qualified, borderline, or "
+                "bounded negative-screen control matches can enter C rank"
             )
         manifest = sweep_receipt.get("goal_screen_manifest")
         if queue and (
             not isinstance(manifest, dict)
             or manifest.get("priority_profile")
-            not in {"GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2", "GOAL_SIGNAL_FIRST_V3"}
+            not in {
+                "GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2",
+                "GOAL_SIGNAL_FIRST_V3", "GOAL_SIGNAL_FIRST_V4_CONTROL_REVIEW",
+            }
             or manifest.get("ordered_eligible_match_ids")
             != sweep_receipt.get("research_order")
         ):
@@ -1108,6 +1138,9 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
             "rank_at_utc": at.isoformat(), "unranked_reasons": unranked_reasons,
             "full_queue_count": len(frozen), "assessed_count": 0, "ranked_count": 0,
             "board": None, "research_assessment": None,
+            "calibration_ledger": copy.deepcopy(
+                sweep_receipt.get("calibration_ledger", [])
+            ),
             "publication_authorized": False, "bet_recorded": False,
             **checkpoint,
         }
@@ -1155,6 +1188,24 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         }
         for row in outside_board
     ]
+    sweep_calibration = {
+        row["match_id"]: row
+        for row in sweep_receipt.get("calibration_ledger", [])
+        if isinstance(row, dict) and isinstance(row.get("match_id"), str)
+    }
+    ranked_calibration = {
+        row["match_id"]: row
+        for row in board_records(
+            result,
+            evidence_epoch=sweep_receipt["run_id"],
+            sweep_by_id=sweep_calibration,
+        )
+    }
+    calibration_ledger = [
+        ranked_calibration.get(row.get("match_id"), copy.deepcopy(row))
+        for row in sweep_receipt.get("calibration_ledger", [])
+        if isinstance(row, dict)
+    ]
 
     out = {
         **checkpoint,
@@ -1174,6 +1225,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "board_exclusions": board_exclusions,
         "board": official_board,
         "research_assessment": result,
+        "calibration_ledger": calibration_ledger,
         "active_spreadsheet_id": SPREADSHEET_ID,
         "active_sheet": COVERAGE_SHEET,
         "active_model": "c",

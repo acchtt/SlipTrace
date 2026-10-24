@@ -121,17 +121,24 @@ python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_
 ## Rank cohort
 
 Use the frozen V4 eligible_queue as the **research cohort**, not as the
-official board. The queue may contain `GOAL_PRIORITY` and `GOAL_REVIEW` rows;
-both require full Football C research, and the review lane carries no positive
-certificate assumption. Research the complete cohort in goals-first order,
-with priority rows before review rows. Do not silently skip a higher-priority
-fixture without an explicit allowed evidence/status reason.
+official board. The queue may contain `GOAL_PRIORITY`, `GOAL_REVIEW`, and at
+most four deterministic `CONTROL_REVIEW` rows. All require full Football C
+research; neither review lane carries a positive certificate assumption.
+Research in priority, review, then control order. CONTROL_REVIEW exists only to
+measure/prevent screen false negatives and cannot itself create FOCUS or a
+certificate. Do not silently skip a higher-priority fixture without an explicit
+allowed evidence/status reason.
 
 After Football C research, board admission is a separate deterministic step:
 only rows frozen as `C-FOCUS` enter the official ranked board. `C-WATCH` and
 `C-PASS` remain in the frozen research assessment for audit/review but do not
 inflate the official board. There is **no fixed numeric board cap**: every
 genuine C-FOCUS survives admission.
+
+Football C compiles this production state from its certificate and direct
+route-destruction/suppression fields. Research input is retained as
+`declared_board_state` for mismatch audit only; it cannot demote a funded G3 or
+promote a no-certificate row.
 
 Presentation rule: keep `C-WATCH` unchanged in sealed machine receipts, but
 render it to the user as **REVIEW_ONLY**. REVIEW_ONLY means researched and
@@ -216,7 +223,7 @@ the normal rank-resume path.
 
 ## Ranking contract
 
-Ranking is price-blind and deterministic.
+The active champion ranking is price-blind and deterministic.
 
 Comparison order:
 
@@ -225,6 +232,20 @@ Comparison order:
 3. endpoint/control risk;
 4. frozen V4 quantitative goal signal;
 5. remaining C football-mechanism quality.
+
+The engine also freezes a zero-authority challenger key:
+
+1. certificate/execution robustness;
+2. burden-normalized clearability;
+3. current G3 floor strength;
+4. G3 endpoint pressure;
+5. certificate depth;
+6. ceiling/upside;
+7. remaining goal-signal and football fields.
+
+The challenger is replay-only. It replaces the champion only after settled,
+same-information multi-board replay improves useful separation without
+collapsing coverage or falsely demoting strong transferable upper-tail cases.
 
 A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
 inflation must not be hidden inside otherwise-HIGH route grades. When C asserts

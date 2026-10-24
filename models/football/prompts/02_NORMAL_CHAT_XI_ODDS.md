@@ -252,17 +252,21 @@ STRONG route or HIGH independent-route quality.
 
 ## Screenshot quote
 
-A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Use the exact
-screenshot only and persist its normal evaluated line/odds fields when readback
-is required.
+A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Extract every
+line/price pair that is genuinely visible, evaluate that exact ladder, and
+persist the selected visible line/odds in the normal evaluated line/odds fields
+when readback is required. Choose the
+highest currently supported/executable visible line before ordinary price and
+execution-strength gates. A rejected higher line cannot erase a lower supported
+visible line.
 
 - no replacement odds search;
 - no inferred missing price;
 - no re-timing;
 - no new screenshot request merely because processing took time.
 
-The runtime calls adapter.evaluate_observed_quote(), the same Football C quote
-policy used by strict execution.
+The runtime calls `adapter.evaluate_visible_quote_ladder()`, which delegates
+each exact quote to the same Football C policy used by strict execution.
 
 If the screenshot burden materially exceeds C's certificate, the runtime
 normally hard-gates the observed burden before ACT/BOOK/PASS at that burden.

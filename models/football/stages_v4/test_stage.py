@@ -18,6 +18,7 @@ from league_registry import classify, REGISTRY
 from stage import StageError, sweep, rank as production_rank, verify_rank, _unresolved_sweep_intake_rows
 from test_board_pair import c_row, payload
 from evidence_fixtures import attach_g4_evidence
+from goals_first_intake import select as select_goal_candidates
 
 NOW = "2026-10-11T16:00:00Z"
 KICKOFF = "2026-10-11T17:00:00Z"
@@ -90,6 +91,45 @@ def model_input(mid="m1"):
 
 
 class SweepIntakeRepairTests(unittest.TestCase):
+    def test_post_repair_negative_screen_control_lane_is_bounded(self):
+        sources = [fixture(f"negative-{i}", goals="TRAP") for i in range(6)]
+        for source in sources:
+            source["kickoff_utc"] = "2026-10-24T13:00:00Z"
+            source["observed_at_utc"] = "2026-10-24T11:59:00Z"
+            for side in ("home", "away"):
+                source["football_evidence"][side]["observed_at_utc"] = (
+                    "2026-10-24T11:58:00Z"
+                )
+        ledger = [{
+            "match_id": source["match_id"],
+            "country": source["country"],
+            "competition": source["competition"],
+            "home": source["home"],
+            "away": source["away"],
+            "kickoff_utc": source["kickoff_utc"],
+            "source_url": source["source_url"],
+            "registry_lane": "ROUTINE",
+            "intake_lane": "ROUTINE",
+            "reason": "REGISTERED",
+        } for source in sources]
+        queue = [{**row, "operational_grade": "A"} for row in ledger]
+        result = select_goal_candidates(
+            run_id="V4-20261024-control",
+            at_utc="2026-10-24T12:00:00Z",
+            source_hash="frozen-source-hash",
+            source_rows=sources,
+            ledger=ledger,
+            provisional_queue=queue,
+        )
+        self.assertEqual(result["control_review_count"], 4)
+        self.assertEqual(result["terminal_negative_screen_count"], 2)
+        self.assertEqual(len(result["eligible_queue"]), 4)
+        self.assertTrue(all(
+            row["intake_lane"] == "CONTROL_REVIEW"
+            and row["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL"
+            for row in result["eligible_queue"]
+        ))
+
     def test_outside_window_unknown_provider_status_is_closed(self):
         outside = fixture("past-unknown", ko="2026-10-11T14:00:00Z")
         outside["fixture_status"] = "UNKNOWN_PROVIDER_STATUS"
@@ -960,8 +1000,19 @@ class RankV4Tests(unittest.TestCase):
         watch["match_id"] = "m2"
         watch.update(country="Netherlands", competition="Eerste Divisie")
         watch["kickoff_ict"] = KICKOFF_ICT
-        watch["board_state"] = "C-WATCH"
-        watch["board_state_basis"] = "credible research case, but below C focus admission"
+        watch.update(
+            board_state="C-WATCH",
+            board_state_basis="current evidence does not fund G3",
+            home_route="WEAK", away_route="WEAK", carrier="NONE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="no current self-funded carrier",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent upper-tail route",
+            route_reliability="LOW", independent_route_quality="LOW",
+            chance_quality="LOW", failure_resistance="LOW",
+            burden_protection="LOW", burden_completion_quality="LOW",
+            continuation_quality="LOW", opponent_leakage="LOW",
+        )
         c = payload("c", focus)
         c["matches"].append(watch)
 
