@@ -593,6 +593,53 @@ def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
+def c_predictive_high_dimension(a: MatchAssessment) -> bool:
+    """Return whether current football quality contains a genuinely HIGH dimension.
+
+    Evidence confidence is deliberately excluded. HIGH evidence confidence means
+    that the inputs are well sourced; it is not itself evidence that the scoring
+    mechanism is strong enough to upgrade execution.
+    """
+
+    require_c_completion(a)
+    return any(
+        value == Grade.HIGH
+        for value in (
+            a.route_reliability,
+            a.chance_quality,
+            a.independent_route_quality,
+            a.burden_completion_quality,
+        )
+    )
+
+
+def c_goal3_mechanism_class(a: MatchAssessment) -> str:
+    """Describe the strongest funded G3 mechanism for ranking/execution audit."""
+
+    require_c_completion(a)
+    if c_carrier_goal3_funded(a):
+        return "CARRIER"
+    if c_two_route_goal3_funded(a):
+        return "TWO_ROUTE"
+    if c_leakage_goal3_funded(a):
+        return "LEAKAGE"
+    if c_distributed_goal3_funded(a):
+        return "DISTRIBUTED"
+    return "NONE"
+
+
+def c_goal3_mechanism_rank(a: MatchAssessment) -> int:
+    """Rank mechanism independence without using market or outcome information."""
+
+    return {
+        "NONE": 0,
+        "DISTRIBUTED": 1,
+        "LEAKAGE": 2,
+        "TWO_ROUTE": 3,
+        "CARRIER": 4,
+    }[c_goal3_mechanism_class(a)]
+
+
 def c_leakage_goal3_funded(a: MatchAssessment) -> bool:
     """Fund goal three from a STRONG route plus matchup-specific HIGH leakage.
 
@@ -944,6 +991,15 @@ def c_goal3_execution_floor_authorized(a: MatchAssessment) -> bool:
         return False
 
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    distributed_only = (
+        c_distributed_goal3_funded(a)
+        and not c_carrier_goal3_funded(a)
+        and not c_two_route_goal3_funded(a)
+        and not c_leakage_goal3_funded(a)
+    )
+    if distributed_only and not c_predictive_high_dimension(a):
+        return False
+
     return (
         c_g3_endpoint_control_pressure(a) != "HIGH"
         and a.burden_completion_quality >= Grade.MEDIUM
@@ -960,14 +1016,12 @@ def c_goal3_execution_floor_authorized(a: MatchAssessment) -> bool:
 
 
 def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
-    """Highest line allowed for direct ACT under the execution-strength gate.
+    """Highest line allowed for direct ACT under current football structure.
 
-    ROBUST may ACT at the certified burden. CONDITIONAL keeps the certified
-    G3 floor when it is genuinely funded; higher certificates retain 0.25-goal
-    protection unless hard endpoint control blocks them. FRAGILE never receives
-    upper-tail authority, but may retain only the independently funded O2.50
-    G3 floor when current completion and endpoint controls remain acceptable.
-    BOOK remains separately ROBUST-only.
+    The G3 certificate remains O2.50. A separate settlement-aware intermediate
+    profile may authorize O2.75/O3.00/O3.25 without fabricating a G4 certificate.
+    Weak distributed-only G3 rows do not receive a floor merely because their
+    evidence is well documented.
     """
 
     anchor = certified_supported_burden(a, "c")
@@ -981,22 +1035,29 @@ def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
     if g3_endpoint_pressure == "HIGH":
         return None
 
+    base: float | None
     if robustness <= 0:
-        if c_goal3_execution_floor_authorized(a):
-            return min(anchor, 2.50)
-        return None
-
-    if robustness == 1:
+        base = min(anchor, 2.50) if c_goal3_execution_floor_authorized(a) else None
+    elif robustness == 1:
         if anchor <= 2.50 and c_goal3_execution_floor_authorized(a):
-            return anchor
-        protected = round(anchor - 0.25, 2)
-        if upper_tail_pressure == "HIGH":
-            return 2.50 if c_goal3_execution_floor_authorized(a) else None
-        return protected if protected >= 0 else None
+            base = anchor
+        else:
+            protected = round(anchor - 0.25, 2)
+            if upper_tail_pressure == "HIGH":
+                base = 2.50 if c_goal3_execution_floor_authorized(a) else None
+            else:
+                base = protected if protected >= 0 else None
+    elif anchor > 2.50 and upper_tail_pressure == "HIGH":
+        base = 2.50 if c_goal3_execution_floor_authorized(a) else None
+    else:
+        base = anchor
 
-    if anchor > 2.50 and upper_tail_pressure == "HIGH":
-        return 2.50 if c_goal3_execution_floor_authorized(a) else None
-    return anchor
+    if abs(anchor - 2.50) <= 1e-9 and not c_goal4_funded(a):
+        bridge = c_intermediate_burden_profile(a)
+        if bridge["eligible"] and isinstance(bridge["max_direct_line"], (int, float)):
+            candidate = float(bridge["max_direct_line"])
+            base = candidate if base is None else max(base, candidate)
+    return base
 
 
 def certificate_robustness(a: MatchAssessment, model: str) -> int:
@@ -1103,15 +1164,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     # CONDITIONAL requires at least one independently strong current football
     # dimension. A row of broad MEDIUM grades is deliberately not laundered
     # into robustness merely because the raw scoreline history is high.
-    supporting_high_dimension = any(
-        value == Grade.HIGH
-        for value in (
-            a.chance_quality,
-            a.route_reliability,
-            a.evidence_confidence,
-            a.independent_route_quality,
-        )
-    )
+    supporting_high_dimension = c_predictive_high_dimension(a)
     if (
         strong_frozen_signal
         and independent_structure
@@ -1147,11 +1200,12 @@ def _c2_endpoint_control_key(a: MatchAssessment) -> tuple[int, int]:
 
 
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
-    """Return the deterministic lexicographic Football C ranking key.
+    """Return the deterministic Football C ranking key.
 
-    Higher is better. Ranking now follows certificate robustness and certificate
-    depth before endpoint/control risk and the frozen Step-0 goal signal.
-    Compiled burden magnitude is not a rank advantage or penalty.
+    Execution-relevant current structure now precedes the coarse robustness
+    label. This prevents a broadly-MEDIUM distributed G3 from vaulting above a
+    self-funded carrier merely because documentation quality pushed the former
+    across a robustness boundary.
     """
 
     require_c_completion(a)
@@ -1161,8 +1215,12 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     upper_tail_self_fund = int(
         a.carrier_self_fund and c_upper_tail_transferable(a)
     )
+    profile = follow_priority_profile(a)
 
     return (
+        int(c_goal3_execution_floor_authorized(a)),
+        c_goal3_mechanism_rank(a),
+        int(profile["follow_clearability_score"]),
         certificate_robustness(a, "c"),
         funded_goal_certificate_depth(a, "c"),
         *endpoint,
@@ -2208,6 +2266,114 @@ def market_line_funded(
     return False
 
 
+C_INTERMEDIATE_MIN_ODDS = {
+    2.75: 1.85,
+    3.00: 1.90,
+    3.25: 2.00,
+}
+
+
+def c_intermediate_burden_profile(
+    a: MatchAssessment,
+) -> dict[str, bool | float | str | list[float] | None]:
+    """Compile settlement-aware authority between G3/O2.50 and G4/O3.50.
+
+    This is football-first and market-independent. It never upgrades the G3
+    certificate to G4. O2.75 can be supported when a strong G3 has credible
+    fourth-goal continuation; O3.00 requires a near-funded fourth-goal profile;
+    O3.25 additionally requires strong independent upper-tail evidence because
+    exactly three goals is a half-loss at that line.
+    """
+
+    require_c_completion(a)
+    if not c_goal3_funded(a) or c_goal4_funded(a):
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        }
+    if not c_goal3_execution_floor_authorized(a):
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "G3_FLOOR_NOT_EXECUTION_AUTHORIZED",
+        }
+    if certificate_robustness(a, "c") < 1:
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "FRAGILE_G3_HAS_NO_INTERMEDIATE_BURDEN_AUTHORITY",
+        }
+    if not c_predictive_high_dimension(a):
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "NO_GENUINELY_HIGH_PREDICTIVE_DIMENSION",
+        }
+    if c_upper_tail_control_pressure(a) == "HIGH":
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "UPPER_TAIL_CONTROL_PRESSURE_HIGH",
+        }
+
+    credible = credible_burden_profile(a, "c")
+    state = str(credible["credible_tail_state"])
+    if state not in {"MIXED", "NEAR_FUNDED"}:
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": f"CREDIBLE_TAIL_{state}_DOES_NOT_SUPPORT_INTERMEDIATE_BURDEN",
+        }
+
+    authorized = [2.75]
+    max_line = 2.75
+    effective_continuation, _ = c_effective_incentive_grades(a)
+
+    if (
+        state == "NEAR_FUNDED"
+        and effective_continuation >= Grade.MEDIUM
+        and (
+            (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
+            or a.independent_route_quality == Grade.HIGH
+        )
+    ):
+        authorized.append(3.00)
+        max_line = 3.00
+
+    transfer = c_effective_upper_tail_transferability(a)
+    if (
+        state == "NEAR_FUNDED"
+        and a.independent_upper_tail
+        and transfer is not None
+        and transfer >= Grade.MEDIUM
+        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.burden_completion_quality == Grade.HIGH
+        and effective_continuation == Grade.HIGH
+        and a.failure_resistance >= Grade.MEDIUM
+    ):
+        authorized.append(3.25)
+        max_line = 3.25
+
+    return {
+        "eligible": True,
+        "max_direct_line": max_line,
+        "authorized_lines": authorized,
+        "basis": (
+            "SETTLEMENT_AWARE_G3_TO_G4_BRIDGE; certificate remains O2.50; "
+            f"credible_tail={state}; authorized={authorized}"
+        ),
+    }
+
+
 C_G3_BOOK_MIN_ODDS = {
     2.75: 1.85,
     3.00: 1.90,
@@ -2549,6 +2715,43 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
     line_funded = market_line_funded(a, ctx.quote.line, "c")
 
     if not line_funded:
+        intermediate = c_intermediate_burden_profile(a)
+        authorized_intermediate = (
+            bool(intermediate["eligible"])
+            and ctx.quote.line in set(intermediate["authorized_lines"])
+        )
+        if authorized_intermediate:
+            min_odds = C_INTERMEDIATE_MIN_ODDS[ctx.quote.line]
+            if ctx.quote.odds + 1e-9 >= min_odds:
+                return Decision(
+                    Action.BET,
+                    (
+                        f"settlement-aware intermediate burden O{ctx.quote.line:.2f} "
+                        f"clears football bridge and price floor {min_odds:.2f}; "
+                        "G3 certificate remains O2.50 and no G4 is fabricated"
+                    ),
+                )
+            if ctx.quote.line <= 3.00:
+                return Decision(
+                    Action.BOOK,
+                    (
+                        f"intermediate burden O{ctx.quote.line:.2f} is football-authorized "
+                        f"but requires {min_odds:.2f}+; current {ctx.quote.odds:.2f} "
+                        "remains an unfilled target"
+                    ),
+                    book_target_line=ctx.quote.line,
+                    book_min_odds=min_odds,
+                    book_target_available=True,
+                    current_price_clears_book_target=False,
+                )
+            return Decision(
+                Action.PASS,
+                (
+                    f"O{ctx.quote.line:.2f} intermediate burden requires {min_odds:.2f}+; "
+                    "O3.25 is not converted into a generic G3 BOOK target"
+                ),
+            )
+
         book_profile = c_g3_book_extension_profile(a)
         if (
             compiled_anchor is not None
