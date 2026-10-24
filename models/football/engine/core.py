@@ -2803,7 +2803,10 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
             max_book_line = float(book_profile["max_book_line"])
             target_line = min(ctx.quote.line, max_book_line)
             target_min_odds = c_g3_book_min_odds(target_line)
-            clears_target = ctx.quote.odds + 1e-9 >= target_min_odds
+            clears_target = (
+                abs(ctx.quote.line - target_line) <= 1e-9
+                and ctx.quote.odds + 1e-9 >= target_min_odds
+            )
             return Decision(
                 Action.BOOK,
                 (
