@@ -77,6 +77,34 @@ def _hash(value: Any) -> str:
                       separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
+def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any]]:
+    """Return genuinely unresolved in-window intake rows.
+
+    A quantified WATCH_GOAL_SIGNAL is a terminal screen and must not block the
+    rank merely because it is not goal-positive. Missing source/history,
+    unresolved researchability and unresolved discovery remain open work.
+    """
+    ledger = receipt.get("source_ledger")
+    if not isinstance(ledger, list):
+        return []
+    unresolved = []
+    for row in ledger:
+        if not isinstance(row, dict):
+            continue
+        lane = row.get("intake_lane")
+        if lane in {"PENDING_SOURCE", "PENDING_RESEARCHABILITY", "PENDING_DISCOVERY"}:
+            unresolved.append(row)
+            continue
+        if lane == "PENDING_GOAL_RESEARCH":
+            screen = row.get("goal_screen") or {}
+            if screen.get("status") in {
+                "PENDING_GOAL_HISTORY",
+                "PENDING_SOURCE_SCORING_EVIDENCE",
+            }:
+                unresolved.append(row)
+    return unresolved
+
+
 def _intake_operational_grade(registry_lane: str, raw: dict[str, Any]) -> tuple[str, str]:
     """Grade the actual evidence, never the league-registry label.
 
@@ -198,7 +226,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 }
             lane, reason = result["lane"], result["reason"]
             discovery_screen = None
-            if not (start <= ko < end) or ko <= at or status != "PREMATCH_CONFIRMED":
+            if not (start <= ko <= end) or ko <= at or status != "PREMATCH_CONFIRMED":
                 lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
             elif lane in ("CONDITIONAL", "PILOT", "DISCOVERY"):
                 # Unknown league = investigate football; it is NOT model PASS.
@@ -399,6 +427,25 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
           and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
                                      "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
+    unresolved_intake = _unresolved_sweep_intake_rows(outcome)
+    outcome["window_status"] = "PARTIAL" if unresolved_intake else "COMPLETE"
+    outcome["whole_requested_surface_complete"] = not unresolved_intake
+    outcome["upstream_remaining_fixture_count"] = len(unresolved_intake)
+    outcome["upstream_resume_fixtures"] = [
+        {
+            "source_row_index": row.get("source_row_index"),
+            "match_id": row.get("match_id"),
+            "country": row.get("country"),
+            "competition": row.get("competition"),
+            "competition_kind": row.get("competition_kind"),
+            "home": row.get("home"),
+            "away": row.get("away"),
+            "kickoff_utc": row.get("kickoff_utc"),
+            "intake_lane": row.get("intake_lane"),
+            "reason": row.get("reason"),
+        }
+        for row in unresolved_intake
+    ]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
@@ -462,7 +509,7 @@ def _attested_status_resolution(
             raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_KICKOFF_MISMATCH")
         start = _time(sweep_receipt["window_start_utc"], "sweep.window_start_utc")
         end = _time(sweep_receipt["window_end_utc"], "sweep.window_end_utc")
-        if start <= resolved_ko < end:
+        if start <= resolved_ko <= end:
             raise StageError(
                 f"{row.get('match_id')}: V4_KICKOFF_CHANGED_WITHIN_WINDOW; refresh sweep source"
             )
@@ -761,6 +808,23 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("rank clock predates sweep")
     if at > _time(sweep_receipt["created_at_utc"], "created") + timedelta(hours=12):
         raise StageError("sweep source epoch stale; refresh new V4 fixture source")
+
+    unresolved_intake = _unresolved_sweep_intake_rows(sweep_receipt)
+    explicit_partial = (
+        sweep_receipt.get("window_status") == "PARTIAL"
+        or sweep_receipt.get("whole_requested_surface_complete") is False
+        or int(sweep_receipt.get("upstream_remaining_fixture_count") or 0) > 0
+    )
+    if explicit_partial or unresolved_intake:
+        unresolved_ids = [
+            row.get("match_id") for row in unresolved_intake
+            if isinstance(row.get("match_id"), str)
+        ]
+        raise StageError(
+            "V4_SWEEP_INTAKE_INCOMPLETE: /rank cannot seal a partial requested "
+            f"window; unresolved={unresolved_ids[:12]}"
+        )
+
     queue = sweep_receipt["eligible_queue"]
     if sweep_receipt.get("goal_selection_policy") == "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1":
         if any(
