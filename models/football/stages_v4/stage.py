@@ -111,6 +111,30 @@ def _engine_source_revision() -> str | None:
     return value or None
 
 
+def _engine_policy_fingerprint() -> str:
+    """Hash only files that can change rank/XI policy.
+
+    Evidence/request/result persistence commits therefore do not invalidate a
+    sealed slate, while any actual policy-code change does.
+    """
+
+    football_root = Path(__file__).resolve().parents[1]
+    paths = (
+        football_root / "engine" / "core.py",
+        football_root / "engine" / "adapter.py",
+        football_root / "engine" / "xi_authority.py",
+        football_root / "engine" / "xi_portable.py",
+        Path(__file__).resolve(),
+    )
+    digest = hashlib.sha256()
+    for file_path in paths:
+        digest.update(str(file_path.relative_to(football_root)).encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(file_path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def _validate_match_context_contract(row: dict[str, Any]) -> None:
     """Require checked rivalry/rest/travel/fatigue context on new C rows."""
 
@@ -1000,8 +1024,9 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
     engine_revision = _engine_source_revision()
-    if at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC and not engine_revision:
-        raise StageError("ENGINE_REVISION_LOCK_REQUIRED: repository revision unavailable")
+    engine_policy_fingerprint = _engine_policy_fingerprint()
+    if at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC and not engine_policy_fingerprint:
+        raise StageError("ENGINE_POLICY_LOCK_REQUIRED: policy fingerprint unavailable")
     if not _time(sweep_receipt["created_at_utc"], "created") <= at:
         raise StageError("rank clock predates sweep")
     if at > _time(sweep_receipt["created_at_utc"], "created") + timedelta(hours=12):
@@ -1116,13 +1141,13 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     )
     reused_ids = []
     if previous_rank is not None:
-        previous_revision = previous_rank.get("engine_source_revision")
+        previous_fingerprint = previous_rank.get("engine_policy_fingerprint")
         if (
             at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC
-            and previous_revision != engine_revision
+            and previous_fingerprint != engine_policy_fingerprint
         ):
             raise StageError(
-                "RANK_ENGINE_REVISION_DRIFT: resume requires the exact pinned engine revision"
+                "RANK_ENGINE_POLICY_DRIFT: resume requires the exact pinned policy fingerprint"
             )
         c, unranked_reasons, reused_ids = _resume_research(
             previous_rank, sweep_receipt, c, unranked_reasons, status_refresh, at
@@ -1252,6 +1277,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     }
     checkpoint = {
         "engine_source_revision": engine_revision,
+        "engine_policy_fingerprint": engine_policy_fingerprint,
         "engine_policy_lock": "SLATE_PINNED_V1",
         "context_contract_version": (
             CONTEXT_CONTRACT_VERSION
@@ -1477,6 +1503,7 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "rank_sha256": rank_receipt["integrity_sha256"],
         "ranked_count": rank_receipt["ranked_count"],
         "engine_source_revision": rank_receipt.get("engine_source_revision"),
+        "engine_policy_fingerprint": rank_receipt.get("engine_policy_fingerprint"),
         "engine_policy_lock": rank_receipt.get("engine_policy_lock"),
         "context_contract_version": rank_receipt.get("context_contract_version"),
         "active_model": "c",
