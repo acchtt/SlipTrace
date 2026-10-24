@@ -1030,9 +1030,9 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
-        self.assertEqual(decision.action, Action.BOOK)
-        self.assertEqual(decision.book_target_line, 2.75)
-        self.assertNotEqual(decision.action, Action.BET)
+        self.assertEqual(decision.action, Action.PASS)
+        self.assertIsNone(decision.book_target_line)
+        self.assertIn("not realistically reachable", decision.reason)
     def test_high_stall_g3_does_not_gain_book_extension(self):
         a = assessment(
             carrier=CarrierStrength.USABLE,
