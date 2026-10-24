@@ -203,6 +203,39 @@ class XIRuntimeBackendTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertEqual(result["status"], "RANK_RECEIPT_REQUIRED")
 
+    def test_post_activation_assessment_requires_locked_rank_receipt(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["context"]["assessment_at_utc"] = "2026-10-24T18:01:00+00:00"
+        frozen = dict(c["match"])
+        package = {
+            "status": "V4_RANK_PERSISTENCE_VERIFIED",
+            "native_rank": {
+                "run_id": "V4-test-legacy-unlocked",
+                "integrity_sha256": "legacy-unlocked-hash",
+                "board": {"matches": [{
+                    "match_id": frozen["match_id"],
+                    "rank": 1,
+                    "board_state": "FOCUS",
+                    "supported_line": 2.5,
+                }]},
+                "frozen_model_input": {"matches": [frozen]},
+            },
+        }
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-legacy-unlocked-after-activation",
+            "c_football": c,
+            "authority": {
+                "mode": "RANKED",
+                "match_id": frozen["match_id"],
+                "verified_rank_package": package,
+                "material_evidence_updates": [],
+            },
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "RANK_POLICY_LOCK_REQUIRED")
+        self.assertIn("rerank/reseal", result["error"])
+
     def test_ranked_policy_fingerprint_drift_fails_closed(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         frozen = dict(c["match"])
