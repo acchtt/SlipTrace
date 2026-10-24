@@ -248,6 +248,12 @@ principle—clearability before certificate depth—is now part of the champion
 because the previous certificate-first ordering created a demonstrated
 same-timeline ranking inversion.
 
+Execution-quality note: a distributed-only G3 with broad MEDIUM current
+football grades remains research-visible, but HIGH evidence confidence alone
+does not grant execution-floor authority and does not outrank a self-funded
+carrier. This specifically protects the latest Mynavi/Urawa false-positive
+control class without converting all distributed G3 rows into PASS.
+
 A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
 inflation must not be hidden inside otherwise-HIGH route grades. When C asserts
 an independent upper tail, it must freeze:
