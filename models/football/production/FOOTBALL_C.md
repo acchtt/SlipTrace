@@ -80,9 +80,11 @@ claiming G4:
 - O3.25: explicitly evaluated but never authorized by G3 alone;
 - O3.50: still requires funded G4.
 
-A broadly-MEDIUM distributed-only G3 may remain FOCUS/research-visible but does
-not receive direct execution authority unless at least one genuinely predictive
-dimension is HIGH. `evidence_confidence=HIGH` does not satisfy that requirement.
+A broadly-MEDIUM distributed-only G3 may retain the funded O2.50 execution
+floor when the ordinary G3 floor checks clear. It remains structurally weaker
+than carrier/two-route/leakage mechanisms for ranking, and
+`evidence_confidence=HIGH` still cannot upgrade its robustness or mechanism
+strength by itself.
 
 BOOK never upgrades G3 to G4 and never creates exposure until a fill is
 independently confirmed. A manufactured lower target more than 0.25 below the
