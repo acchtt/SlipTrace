@@ -251,32 +251,30 @@ burden to be funded.
 Do not use a higher market total as proof that the missing certificate should
 exist.
 
-## 11. Conditional BOOK — reachable before the first goal
+## 11. Conditional BOOK — custom line, zero exposure
 
-Active Football C does not issue a user-facing WAIT. The legacy
-`wait_reachable`, reachability-basis and negative-information fields remain
-internal compatibility evidence for deciding whether a conditional target is
-realistically reachable.
+Active Football C does not issue a user-facing WAIT. Legacy reachability fields
+remain compatibility evidence, but BOOK is not limited to waiting for the
+visible ladder to decay. The user's bookmaker allows a custom total line and
+target odds to be selected directly.
 
-When the current quote is not acceptable but a valid target can be expressed,
-C returns **BOOK** with the exact line and minimum odds. BOOK is a conditional
-target order, not a bet and not exposure until an actual fill is independently
+When the current visible quote is not acceptable but Football C has a valid
+direct ceiling/extension, C returns **BOOK** with the exact target line and
+minimum odds. The target line does not need to appear in the screenshot.
+BOOK is not a bet and not exposure until the actual custom fill is independently
 confirmed.
 
 A conditional BOOK target requires:
 
-- a prospectively reachable pre-goal target with a contemporaneous basis;
-- no dependency on negative football information;
 - an intact football mechanism;
 - no material veto;
-- an internal C-WATCH/REVIEW_ONLY exception, if explicitly assessed, to
-  revalidate to ROBUST robustness. FRAGILE/CONDITIONAL may never create BOOK.
+- a deterministic direct ACT ceiling or authorized settlement-aware extension;
+- at least CONDITIONAL robustness for a custom direct-ceiling target;
+- no use of an unseen target price as though it were observed.
 
-For an **unsupported higher observed line**, the target may move down to the
-certified burden only when the gap is at most **0.25 goals**.
-
-A gap of **0.50 goals or more** must not manufacture a speculative far-lower
-target. After the football comparison it may:
+For an **unsupported higher observed line**, there is no 0.25 visible-gap limit
+on the custom target. A **0.50+** market/certificate disagreement still requires
+the normal football recheck first; after that recheck it may:
 
 - become funded and be evaluated at the observed burden;
 - produce a bounded G3 settlement-aware BOOK target when that separate
