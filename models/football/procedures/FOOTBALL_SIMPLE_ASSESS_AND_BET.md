@@ -50,10 +50,16 @@ policy, then select the highest currently supported/executable visible line. A
 rejected higher total does not erase a lower supported visible total.
 
 A materially higher market total may trigger one football-evidence recheck but
-cannot create a certificate. A G3-only C-FOCUS row may instead receive a
-settlement-aware BOOK target without upgrading G4: O2.75 >=1.85 or O3.00
->=1.90 when the deterministic extension-quality gates clear. G3 alone never
-authorizes O3.25; O3.50 requires funded G4.
+cannot create a certificate. A G3-only C-FOCUS row may instead use the single
+canonical settlement-aware intermediate policy without upgrading G4: O2.75
+>=1.85, O3.00 >=1.90, and O3.25 >=2.00 only when their progressively stronger
+football gates clear. O3.25 is ROBUST-only and requires independently
+transferable near-G4 evidence; O3.50 still requires funded G4.
+
+For ranked fixtures, carry the frozen checked match context—rivalry/derby,
+rest/congestion, travel/recovery and verified fatigue—into `/xi`. Recheck
+only genuinely changed context and name it as material football evidence when
+it changes continuation/stall or the certificate.
 
 For ranked fixtures, persist the frozen board certified burden into the `/xi`
 context. An upward current-certificate change is valid only when new football
@@ -64,14 +70,16 @@ authorize an upgrade.
 ## Conditional BOOK
 
 Active Football C does not expose a normal price WAIT. If an acceptable
-line/price is not currently available but the target is prospectively reachable
-without negative football information, return BOOK with the exact target line
-and minimum odds. BOOK is a conditional target order and remains zero exposure
+visible line/price is not available but current football authorizes a custom
+direct ceiling/intermediate line, return BOOK with the exact target line and
+minimum odds. BOOK is a conditional target order and remains zero exposure
 until an independently confirmed fill.
 
-For an unsupported higher line, a target may move down to the certified burden
-only when the gap is <=0.25. A 0.50+ disagreement cannot become a far-lower
-target. A lone screenshot is not directional evidence.
+A custom BOOK target does not need to be visible and is not limited by the
+legacy 0.25 one-step decay-WAIT gap. Screenshot odds are never transferred to
+that unseen target. A 0.50+ market/certificate disagreement still requires the
+independent football recheck before a lower custom target can be published. A
+lone screenshot is not directional evidence.
 ## Persistence
 
 Persist one C assessment/decision result and independently read it back once.
