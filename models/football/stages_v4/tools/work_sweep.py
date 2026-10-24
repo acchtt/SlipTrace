@@ -20,7 +20,10 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from league_registry import classify
-from source_completeness import required_surface_keys, validate_source_completeness
+from source_completeness import (
+    required_surface_keys, validate_source_completeness,
+    WINDOW_END_INCLUSIVE_EFFECTIVE_UTC,
+)
 from stage import sweep
 from work_source_acquisition import fetch, parse_request
 
@@ -71,6 +74,24 @@ def save(path, obj):
     temp = path.with_suffix(path.suffix + ".tmp")
     temp.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temp.replace(path)
+
+
+def _window_contains(kickoff, start, end):
+    """Use the same end-time contract as V4 source/rank validation.
+
+    New V4 windows include fixtures at exactly the requested end. Older
+    snapshots retain the historical half-open behavior. Never soften the
+    independent terminal-sentinel equality check.
+    """
+    inclusive = stamp(utcnow()) >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC
+    return start <= kickoff <= end if inclusive else start <= kickoff < end
+
+
+def _window_last_date(end):
+    """Return the terminal date under the active inclusive-end policy."""
+    if stamp(utcnow()) >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC:
+        return end
+    return end - timedelta(microseconds=1)
 
 
 def _norm_team(value):
@@ -318,7 +339,7 @@ def acquire_livescore(request, evidence):
         for block in stage_blocks(payload):
             for event in block["Events"]:
                 mid = str(event["Eid"])
-                if terminal_start <= stamp(event_time(event)) < end:
+                if _window_contains(stamp(event_time(event)), terminal_start, end):
                     terminal_ids.add(mid)
                     if mid in fixtures and (event_identity(event) != identities[mid] or event_time(event) != fixtures[mid]["kickoff_utc"]):
                         raise ValueError("terminal identity/kickoff changed: " + mid)
@@ -492,7 +513,7 @@ def acquire_sofascore(request, evidence):
         for event in sofascore_events(payload):
             mid = str(event["id"])
             kickoff = sofascore_event_time(event)
-            if terminal_start <= stamp(kickoff) < end:
+            if _window_contains(stamp(kickoff), terminal_start, end):
                 terminal_ids.add(mid)
                 if mid in fixtures and (
                     sofascore_event_identity(event) != identities[mid]
@@ -782,7 +803,7 @@ def acquire_footballinfo(request, evidence):
     terminal_start = max(start, end - timedelta(hours=6))
     terminal_days = sorted({
         terminal_start.date().isoformat(),
-        (end - timedelta(microseconds=1)).date().isoformat(),
+        _window_last_date(end).date().isoformat(),
     })
     terminal_ids = set()
     terminal_proofs = []
@@ -801,7 +822,7 @@ def acquire_footballinfo(request, evidence):
             else:
                 current_status = raw["fixture_status"]
             kickoff = stamp(kickoff_value)
-            if terminal_start <= kickoff < end:
+            if _window_contains(kickoff, terminal_start, end):
                 terminal_ids.add(mid)
                 if mid in fixtures and (
                     tuple(raw["provider_team_ids"]) != identities[mid]
@@ -1154,7 +1175,7 @@ def acquire_thesportsdb(request, evidence):
     terminal_start = max(start, end - timedelta(hours=6))
     terminal_days = sorted({
         terminal_start.date().isoformat(),
-        (end - timedelta(microseconds=1)).date().isoformat(),
+        _window_last_date(end).date().isoformat(),
     })
     terminal_ids, terminal_proofs = set(), []
     for day in terminal_days:
@@ -1163,7 +1184,7 @@ def acquire_thesportsdb(request, evidence):
         for event in thesportsdb_events(payload):
             mid = str(event["idEvent"])
             kickoff = stamp(thesportsdb_event_time(event))
-            if terminal_start <= kickoff < end:
+            if _window_contains(kickoff, terminal_start, end):
                 terminal_ids.add(mid)
                 if mid in fixtures and (
                     thesportsdb_event_identity(event) != identities[mid]
@@ -1373,13 +1394,13 @@ def acquire_fotmob(request, evidence):
         })
     in_window = {
         mid: row for mid, row in fixtures.items()
-        if start <= stamp(row["kickoff_utc"]) < end
+        if _window_contains(stamp(row["kickoff_utc"]), start, end)
     }
     terminal_start = max(start, end - timedelta(hours=6))
     terminal_ids, terminal_proofs = set(), []
     for day in sorted({
         terminal_start.strftime("%Y%m%d"),
-        (end - timedelta(microseconds=1)).strftime("%Y%m%d"),
+        _window_last_date(end).strftime("%Y%m%d"),
     }):
         payload, proof = evidence.get(
             FOTMOB_DATE_URL.format(day=day), "fotmob-terminal-" + day
@@ -1387,14 +1408,14 @@ def acquire_fotmob(request, evidence):
         terminal_proofs.append(proof)
         for _, match in _fotmob_events(payload):
             kickoff = stamp(_fotmob_time(match))
-            if terminal_start <= kickoff < end:
+            if _window_contains(kickoff, terminal_start, end):
                 mid = str(match["id"])
                 terminal_ids.add(mid)
                 if mid in fixtures and fixtures[mid]["kickoff_utc"] != _fotmob_time(match):
                     raise ValueError("FotMob terminal identity/kickoff changed: " + mid)
     expected_terminal = {
         mid for mid, row in in_window.items()
-        if terminal_start <= stamp(row["kickoff_utc"]) < end
+        if _window_contains(stamp(row["kickoff_utc"]), terminal_start, end)
     }
     if terminal_ids != expected_terminal:
         raise ValueError("FotMob terminal union differs from main date surfaces")
@@ -1443,7 +1464,7 @@ def _espn_priority_rows(payload, start, end):
         if not _priority_competition(competition):
             continue
         kickoff = stamp(str(event.get("date") or comp.get("date")))
-        if not start <= kickoff < end:
+        if not _window_contains(kickoff, start, end):
             continue
         teams = {}
         for item in comp.get("competitors") or []:
@@ -1460,9 +1481,9 @@ def verify_priority_surface(source, evidence):
     """Fail closed when an independent UTC provider exposes a missing or shifted priority fixture."""
     start, end = stamp(source["window_start_utc"]), stamp(source["window_end_utc"])
     days = sorted({d.strftime("%Y%m%d") for d in (
-        start, end - timedelta(microseconds=1),
+        start, _window_last_date(end),
         start.astimezone(timezone(timedelta(hours=7))),
-        (end - timedelta(microseconds=1)).astimezone(timezone(timedelta(hours=7))),
+        _window_last_date(end).astimezone(timezone(timedelta(hours=7))),
     )})
     independent, proofs = [], []
     for day in days:
