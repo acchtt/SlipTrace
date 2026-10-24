@@ -789,7 +789,7 @@ class RankingTests(unittest.TestCase):
 
 
 class FootballCExecutionTests(unittest.TestCase):
-    def test_kashima_style_high_leakage_now_receives_goal3_certificate(self):
+    def test_fragile_funded_g3_floor_can_execute_without_hard_control(self):
         a = assessment(
             carrier=CarrierStrength.STRONG,
             route_reliability=Grade.MEDIUM,
@@ -804,6 +804,8 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertTrue(clearing_goal_funded(a, 2.5))
         self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(c_endpoint_control_pressure(a), "MODERATE")
+        self.assertEqual(c_direct_act_ceiling(a), 2.5)
         for line, odds in ((2.5, 1.96), (2.25, 1.89)):
             with self.subTest(line=line):
                 ctx = context(
@@ -812,7 +814,7 @@ class FootballCExecutionTests(unittest.TestCase):
                     quote=Quote(line, odds),
                 )
                 result = decide_c(a, ctx)
-                self.assertEqual(result.action, Action.PASS)
+                self.assertEqual(result.action, Action.BET)
     def test_strong_carrier_retains_legitimate_bet_when_robust(self):
         a = robust_g3_assessment(
             carrier=CarrierStrength.STRONG,
@@ -1086,9 +1088,91 @@ class FootballCExecutionTests(unittest.TestCase):
             }
         )
         self.assertEqual(c_execution_strength(conditional), "CONDITIONAL")
-        self.assertEqual(c_endpoint_control_pressure(conditional), "HIGH")
-        self.assertIsNone(c_direct_act_ceiling(conditional))
+        self.assertEqual(c_endpoint_control_pressure(conditional), "MODERATE")
+        self.assertEqual(c_direct_act_ceiling(conditional), 2.5)
         self.assertEqual(decide_c(conditional, ctx).action, Action.PASS)
+        self.assertEqual(
+            decide_c(
+                conditional,
+                context(
+                    board_state=BoardState.WATCH,
+                    official_follow_lane=FollowLane.STOP,
+                    step2_authorization=Step2Authorization.USER_EXCEPTION,
+                    quote=Quote(2.5, 1.82),
+                ),
+            ).action,
+            Action.BET,
+        )
+    def test_stacked_medium_and_mixed_cautions_are_moderate_not_high(self):
+        a = assessment(
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            h2h_effect="MIXED",
+            h2h_transferability="LIMITED",
+            h2h_current_corroboration="NOT_FOUND",
+            goal_signal_priority_score=66,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.45,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(c_endpoint_control_pressure(a), "MODERATE")
+
+    def test_hard_low_draw_trap_still_compiles_high_endpoint_pressure(self):
+        a = robust_g3_assessment(
+            goal_signal_low_draw_trap_rate=0.25,
+            burden_stall_risk=Grade.MEDIUM,
+        )
+        self.assertEqual(c_endpoint_control_pressure(a), "HIGH")
+
+    def test_fragile_g4_retains_only_funded_g3_floor_not_upper_tail(self):
+        a = assessment(
+            match_id="fragile_tail_with_g3_floor",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="SUPPORTIVE",
+            goal_signal_priority_score=51,
+            goal_signal_mean_over_two_rate=0.55,
+            goal_signal_mean_over_three_rate=0.35,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertEqual(c_execution_strength(a), "FRAGILE")
+        self.assertEqual(c_endpoint_control_pressure(a), "MODERATE")
+        self.assertEqual(c_direct_act_ceiling(a), 2.5)
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.5, 1.70))).action,
+            Action.BET,
+        )
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(3.25, 1.81))).action,
+            Action.PASS,
+        )
+
     def test_supported_line_is_anchor_when_frozen_goal5_tail_is_strong(self):
         a = assessment(
             supported_line=2.75,
