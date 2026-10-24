@@ -35,6 +35,9 @@ from core import (  # noqa: E402
     c_upper_tail_control_pressure,
     c_execution_strength,
     c_direct_act_ceiling,
+    c_goal3_execution_floor_authorized,
+    c_goal3_mechanism_class,
+    c_intermediate_burden_profile,
     c_goal4_funded,
     c_goal5_funded,
     certificate_robustness,
@@ -1726,6 +1729,123 @@ class ProductionIncidentExecutionControls(unittest.TestCase):
         self.assertEqual(c_g3_endpoint_control_pressure(a), "MODERATE")
         self.assertEqual(c_upper_tail_control_pressure(a), "HIGH")
         self.assertEqual(c_direct_act_ceiling(a), 2.5)
+
+
+class LatestSelectionInversionRepairTests(unittest.TestCase):
+    def test_high_evidence_confidence_alone_cannot_promote_distributed_g3_to_act(self):
+        a = assessment(
+            match_id="mynavi_nojima_frozen_shape",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=66,
+            goal_signal_mean_over_two_rate=0.70,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        self.assertTrue(c_distributed_goal3_funded(a))
+        self.assertEqual(c_goal3_mechanism_class(a), "DISTRIBUTED")
+        self.assertEqual(certificate_robustness(a, "c"), 0)
+        self.assertFalse(c_goal3_execution_floor_authorized(a))
+        self.assertIsNone(c_direct_act_ceiling(a))
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(2.5, 2.09))).action,
+            Action.PASS,
+        )
+
+    def test_self_funded_carrier_outranks_broad_medium_distributed_signal(self):
+        distributed = assessment(
+            match_id="urawa_inac_frozen_shape",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.USABLE,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=False,
+            independent_upper_tail=False,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=74,
+            goal_signal_mean_over_two_rate=0.875,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.0,
+        )
+        carrier = assessment(
+            match_id="sanfrecce_carrier_shape",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            independent_upper_tail=False,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=52,
+            goal_signal_mean_over_two_rate=0.60,
+            goal_signal_mean_over_three_rate=0.35,
+            goal_signal_low_draw_trap_rate=0.05,
+        )
+        self.assertFalse(c_goal3_execution_floor_authorized(distributed))
+        self.assertTrue(c_goal3_execution_floor_authorized(carrier))
+        self.assertEqual(c_goal3_mechanism_class(carrier), "CARRIER")
+        self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, carrier.match_id)
+
+    def test_middle_burden_is_distinct_from_g4_certificate(self):
+        a = robust_g3_assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            route_reliability=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="SUPPORTIVE",
+            independent_route_quality=Grade.HIGH,
+        )
+        self.assertFalse(c_goal4_funded(a))
+        profile = c_intermediate_burden_profile(a)
+        self.assertTrue(profile["eligible"])
+        self.assertIn(2.75, profile["authorized_lines"])
+        self.assertIn(3.00, profile["authorized_lines"])
+        self.assertIn(3.25, profile["authorized_lines"])
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(3.0, 1.95))).action,
+            Action.BET,
+        )
 
 
 class XiAssessmentCalibrationTests(unittest.TestCase):
