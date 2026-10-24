@@ -2502,13 +2502,31 @@ def c_intermediate_burden_profile(
             or a.independent_route_quality == Grade.HIGH
         )
     )
-    if strong_near_tail:
-        authorized.append(3.00)
-        line_states["3.00"] = "AUTHORIZED"
 
     effective_tail = c_effective_upper_tail_transferability(a)
     over_three = a.goal_signal_mean_over_three_rate
     trap = a.goal_signal_low_draw_trap_rate
+
+    # Preserve the prior legitimate ROBUST independent-tail O3 path while
+    # keeping Chelsea-style CONDITIONAL O3 tied to a NEAR_FUNDED tail. Both
+    # paths now live in this single function, so branch ordering cannot change
+    # the robustness standard.
+    robust_independent_o300 = (
+        robustness >= 2
+        and a.independent_upper_tail
+        and effective_tail is not None
+        and effective_tail >= Grade.MEDIUM
+        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
+        and a.independent_route_quality >= Grade.MEDIUM
+        and over_three is not None
+        and over_three >= 0.45
+        and trap is not None
+        and trap <= 0.20
+    )
+    if strong_near_tail or robust_independent_o300:
+        authorized.append(3.00)
+        line_states["3.00"] = "AUTHORIZED"
+
     strict_o325 = (
         robustness >= 2
         and strong_near_tail
