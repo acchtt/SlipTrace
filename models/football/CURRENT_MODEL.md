@@ -203,7 +203,8 @@ profile** between G3/O2.50 and G4/O3.50.
   independent transferable fourth-goal evidence;
 - O3.25 may ACT/BOOK at 2.00+ only through the strict ROBUST intermediate gate:
   independent transferable fourth-goal evidence plus HIGH current
-  continuation/reliability/chance/completion/failure resistance and the
+  continuation/reliability/chance/completion, at least MEDIUM failure
+  resistance, and the
   stricter frozen tail-rate/trap controls;
 - O3.50 still requires funded G4.
 
