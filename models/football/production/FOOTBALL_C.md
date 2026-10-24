@@ -196,7 +196,7 @@ does not fund it, the market remains unsupported as a **certificate**.
 A bounded G3 BOOK extension is different: it does not accept the observed
 higher burden and does not create G4. Material 0.50+ disagreement still
 completes the existing football recheck first. After that recheck, C may publish
-its lower settlement-aware target (maximum O3.25) even when G4 remains
+its lower settlement-aware target (maximum O3.00) even when G4 remains
 unfunded/rejected; the recheck does not have to manufacture a certificate
 upgrade. ACT at the materially higher observed burden still requires that
 burden to be funded.
