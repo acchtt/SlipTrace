@@ -163,14 +163,18 @@ class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
         ]
         res=sweep(source(fixtures),now=NOW)
         self.assertEqual(res["eligible_count"],0)
-        self.assertEqual(res["pending_discovery_count"],3)
+        self.assertEqual(res["pending_discovery_count"],2)
         self.assertEqual(res["pending_goal_research_count"],1)
         self.assertEqual(res["discovery_qualified_count"],0)
-        self.assertEqual(len(res["discovery_watchlist"]),3)
+        self.assertEqual(len(res["discovery_watchlist"]),2)
         signals={i["match_id"]:i for i in res["discovery_watchlist"]}
         self.assertEqual(signals["br1"]["discovery_screen"]["status"],"DISCOVERY_GOAL_QUALIFIED")
         self.assertEqual(signals["mx1"]["discovery_screen"]["status"],"PENDING_GOAL_HISTORY")
-        self.assertEqual(signals["br2"]["discovery_screen"]["status"],"WATCH_GOAL_SIGNAL")
+        # Completed quantified negative form is a terminal WATCH, not an
+        # unresolved discovery or a rank admission.
+        low=next(r for r in res["source_ledger"] if r["match_id"]=="br2")
+        self.assertEqual(low["discovery_screen"]["status"],"WATCH_GOAL_SIGNAL")
+        self.assertEqual(low["intake_lane"],"WATCH_GOAL_SIGNAL")
         self.assertEqual(res["excluded_or_closed_count"],0)
         self.assertIn("br1",{i["match_id"] for i in res["source_ledger"]})
 
