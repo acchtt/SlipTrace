@@ -1164,7 +1164,19 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     # CONDITIONAL requires at least one independently strong current football
     # dimension. A row of broad MEDIUM grades is deliberately not laundered
     # into robustness merely because the raw scoreline history is high.
-    supporting_high_dimension = c_predictive_high_dimension(a)
+    supporting_high_dimension = (
+        c_predictive_high_dimension(a)
+        if model == "c"
+        else any(
+            value == Grade.HIGH
+            for value in (
+                a.chance_quality,
+                a.route_reliability,
+                a.evidence_confidence,
+                a.independent_route_quality,
+            )
+        )
+    )
     if (
         strong_frozen_signal
         and independent_structure
