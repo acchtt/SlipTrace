@@ -1,0 +1,28 @@
+{
+  "schema_version": "football-v4-sweep-priority-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-24T18:00:00+07:00",
+    "end": "2026-10-25T00:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261024-1800-20261025-0000-STATUSFIX",
+  "authority": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261024-1800-20261025-0000-PRIORITYFIX",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261024-1800-20261025-0000-PRIORITYFIX/rank-handoff.json",
+  "supersession_reason": "Auto-selected cohort missed Premier League, Bundesliga, Serie A and LaLiga; source-verified 30 fixture ID priority correction includes main European and independently strong goal signals.",
+  "source_coverage": {
+    "source_union_fixture_count": 1852,
+    "window_fixture_count": 845,
+    "active_researched_fixture_count": 30,
+    "rank_eligible_fixture_count": 27,
+    "terminal_watch_fixture_count": 3,
+    "deferred_unresearched_fixture_count": 716,
+    "excluded_fixture_count": 97,
+    "unverified_competition_kind_fixture_count": 2
+  },
+  "native_receipt_status": "COMPLETE",
+  "upstream_remaining_fixture_count": 0,
+  "legacy_artifacts_preserved": true,
+  "no_rank_or_xi_or_bet_performed": true,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40085396116"
+}
