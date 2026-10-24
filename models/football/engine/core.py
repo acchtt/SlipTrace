@@ -195,6 +195,18 @@ class MatchAssessment:
     incentive_effect: str = "NOT_APPLICABLE"
     simultaneous_results_status: str = "NOT_APPLICABLE"
 
+    # Common frozen contextual load. Legacy rows may omit this block; all new
+    # production rank rows after the context-contract activation must supply it.
+    # Direction is evidence-backed: a derby or short rest is never assumed to
+    # be suppressive/expansive merely from its label.
+    match_context_review_status: str = "LEGACY_NOT_CHECKED"
+    rivalry_context: str = "NOT_CHECKED"
+    rest_load_context: str = "NOT_CHECKED"
+    travel_load_context: str = "NOT_CHECKED"
+    fatigue_context: str = "NOT_CHECKED"
+    match_context_effect: str = "NOT_CHECKED"
+    match_context_basis: str | None = None
+
     def __post_init__(self) -> None:
         if not self.common_evidence_basis.strip():
             raise ValueError("common_evidence_basis must be non-empty")
@@ -279,6 +291,53 @@ class MatchAssessment:
             "NOT_APPLICABLE", "VERIFIED", "LIMITED", "UNKNOWN"
         }:
             raise ValueError("invalid simultaneous_results_status")
+
+        allowed_context_status = {
+            "LEGACY_NOT_CHECKED", "CHECKED_NEUTRAL", "VERIFIED_MATERIAL"
+        }
+        if self.match_context_review_status not in allowed_context_status:
+            raise ValueError("invalid match_context_review_status")
+        if self.rivalry_context not in {
+            "NOT_CHECKED", "NOT_APPLICABLE", "NEUTRAL", "DERBY", "RIVALRY"
+        }:
+            raise ValueError("invalid rivalry_context")
+        if self.rest_load_context not in {
+            "NOT_CHECKED", "BALANCED", "HOME_SHORT_REST", "AWAY_SHORT_REST",
+            "BOTH_SHORT_REST", "HOME_CONGESTED", "AWAY_CONGESTED",
+            "BOTH_CONGESTED", "MIXED"
+        }:
+            raise ValueError("invalid rest_load_context")
+        if self.travel_load_context not in {
+            "NOT_CHECKED", "NORMAL", "HOME_CONTINENTAL", "AWAY_CONTINENTAL",
+            "BOTH_CONTINENTAL", "HOME_INTERCONTINENTAL",
+            "AWAY_INTERCONTINENTAL", "BOTH_INTERCONTINENTAL",
+            "TIMEZONE_STRESS", "MIXED"
+        }:
+            raise ValueError("invalid travel_load_context")
+        if self.fatigue_context not in {
+            "NOT_CHECKED", "NONE", "HOME_VERIFIED", "AWAY_VERIFIED",
+            "BOTH_VERIFIED", "MIXED"
+        }:
+            raise ValueError("invalid fatigue_context")
+        if self.match_context_effect not in {
+            "NOT_CHECKED", "NEUTRAL", "EXPANSIVE", "SUPPRESSIVE", "MIXED"
+        }:
+            raise ValueError("invalid match_context_effect")
+        if self.match_context_review_status == "LEGACY_NOT_CHECKED":
+            if self.match_context_effect != "NOT_CHECKED":
+                raise ValueError("legacy unchecked context must use NOT_CHECKED effect")
+        else:
+            if not (self.match_context_basis and self.match_context_basis.strip()):
+                raise ValueError("checked match context requires non-empty basis")
+            if self.match_context_review_status == "CHECKED_NEUTRAL":
+                if self.match_context_effect != "NEUTRAL":
+                    raise ValueError("CHECKED_NEUTRAL context must use NEUTRAL effect")
+            elif self.match_context_effect not in {
+                "EXPANSIVE", "SUPPRESSIVE", "MIXED"
+            }:
+                raise ValueError(
+                    "VERIFIED_MATERIAL context requires EXPANSIVE/SUPPRESSIVE/MIXED effect"
+                )
 
 
 @dataclass(frozen=True)
@@ -449,30 +508,86 @@ def tournament_incentive_profile(a: MatchAssessment) -> dict[str, int | str | bo
     }
 
 
+def match_context_profile(a: MatchAssessment) -> dict[str, int | str | bool]:
+    """Compile verified rivalry/rest/travel/fatigue context conservatively.
+
+    Context can strengthen or weaken continuation/stall by at most one grade.
+    It never creates a scoring route, a G3 certificate, or a positive tail by
+    itself. MIXED and checked-neutral context are deliberately zero-delta.
+    """
+
+    status = a.match_context_review_status
+    effect = a.match_context_effect
+    if status == "LEGACY_NOT_CHECKED":
+        return {
+            "status": status,
+            "effect": "NOT_CHECKED",
+            "continuation_delta": 0,
+            "stall_delta": 0,
+            "positive_pressure": False,
+            "suppressive_pressure": False,
+        }
+    if status == "CHECKED_NEUTRAL":
+        return {
+            "status": status,
+            "effect": "NEUTRAL",
+            "continuation_delta": 0,
+            "stall_delta": 0,
+            "positive_pressure": False,
+            "suppressive_pressure": False,
+        }
+    if effect == "EXPANSIVE":
+        continuation_delta, stall_delta = 1, -1
+    elif effect == "SUPPRESSIVE":
+        continuation_delta, stall_delta = -1, 1
+    else:
+        continuation_delta = stall_delta = 0
+    return {
+        "status": status,
+        "effect": effect,
+        "continuation_delta": continuation_delta,
+        "stall_delta": stall_delta,
+        "positive_pressure": effect == "EXPANSIVE",
+        "suppressive_pressure": effect == "SUPPRESSIVE",
+    }
+
+
 def c_effective_incentive_grades(a: MatchAssessment) -> tuple[Grade, Grade]:
-    """Return C continuation/stall grades after verified tournament context."""
+    """Return C continuation/stall after tournament + verified match context."""
 
     require_c_completion(a)
-    profile = tournament_incentive_profile(a)
-    continuation_delta = int(profile["continuation_delta"])
-    stall_delta = int(profile["stall_delta"])
+    tournament = tournament_incentive_profile(a)
+    context = match_context_profile(a)
+    continuation_delta = (
+        int(tournament["continuation_delta"])
+        + int(context["continuation_delta"])
+    )
+    stall_delta = int(tournament["stall_delta"]) + int(context["stall_delta"])
 
-    # Positive tournament pressure cannot create a scoring mechanism. Require a
-    # real STRONG route and at least a usable carrier before applying the boost.
-    if continuation_delta > 0 and not (
+    # Positive pressure cannot manufacture a route. Suppressive context remains
+    # active even when no STRONG route exists; only positive deltas are clipped.
+    positive_route_support = (
         max(a.home_route, a.away_route) == RouteStrength.STRONG
         and a.carrier >= CarrierStrength.USABLE
         and not a.material_suppression
         and not a.failure_attacks_route
-    ):
+    )
+    if continuation_delta > 0 and not positive_route_support:
         continuation_delta = 0
+    if stall_delta < 0 and not positive_route_support:
         stall_delta = 0
 
     continuation = Grade(
-        max(int(Grade.LOW), min(int(Grade.HIGH), int(a.continuation_quality) + continuation_delta))
+        max(
+            int(Grade.LOW),
+            min(int(Grade.HIGH), int(a.continuation_quality) + continuation_delta),
+        )
     )
     stall = Grade(
-        max(int(Grade.LOW), min(int(Grade.HIGH), int(a.burden_stall_risk) + stall_delta))
+        max(
+            int(Grade.LOW),
+            min(int(Grade.HIGH), int(a.burden_stall_risk) + stall_delta),
+        )
     )
     return continuation, stall
 
@@ -744,6 +859,17 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         and a.away_route == RouteStrength.STRONG
         and a.independent_route_quality == Grade.HIGH
     )
+    effective_tail = c_effective_upper_tail_transferability(a)
+    mixed_medium_tail = (
+        effective_tail == Grade.MEDIUM
+        and a.upper_tail_comparable_context_signal == "MIXED"
+    )
+    mixed_medium_corroborated = (
+        not mixed_medium_tail
+        or a.failure_resistance == Grade.HIGH
+        or a.independent_route_quality == Grade.HIGH
+        or two_strong_routes
+    )
     carrier_route = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
@@ -758,6 +884,7 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         and a.burden_completion_quality >= Grade.MEDIUM
         and effective_continuation >= Grade.MEDIUM
         and effective_stall <= Grade.MEDIUM
+        and mixed_medium_corroborated
     )
     distributed_tail = (
         a.independent_upper_tail
@@ -2280,19 +2407,22 @@ def market_line_funded(
 C_INTERMEDIATE_MIN_ODDS = {
     2.75: 1.85,
     3.00: 1.90,
+    3.25: 2.00,
 }
 
 
 def c_intermediate_burden_profile(
     a: MatchAssessment,
 ) -> dict[str, bool | float | str | list[float] | dict[str, str] | None]:
-    """Compile settlement-aware authority between G3/O2.50 and G4/O3.50.
+    """Canonical settlement-aware authority between G3/O2.50 and G4/O3.50.
 
-    This is football-first and market-independent. It never upgrades the G3
-    certificate to G4. O2.75 can be supported when a strong G3 has credible
-    fourth-goal continuation; O3.00 requires a near-funded fourth-goal profile;
-    O3.25 additionally requires strong independent upper-tail evidence because
-    exactly three goals is a half-loss at that line.
+    This is the single active G3 extension policy for both visible ACT and
+    non-visible/custom BOOK targets. The protected certificate remains O2.50.
+    O2.75 and O3.00 can be authorized for CONDITIONAL-or-better football when
+    the prospective near-tail is strong enough. O3.25 is intentionally much
+    stricter because exactly three goals is a half-loss: it requires ROBUST
+    football plus independent transferable fourth-goal evidence. O3.50 still
+    requires a funded G4 certificate.
     """
 
     require_c_completion(a)
@@ -2310,7 +2440,9 @@ def c_intermediate_burden_profile(
             "authorized_lines": [],
             "basis": "G3_FLOOR_NOT_EXECUTION_AUTHORIZED",
         }
-    if certificate_robustness(a, "c") < 1:
+
+    robustness = certificate_robustness(a, "c")
+    if robustness < 1:
         return {
             "eligible": False,
             "max_direct_line": None,
@@ -2342,169 +2474,109 @@ def c_intermediate_burden_profile(
             "basis": f"CREDIBLE_TAIL_{state}_DOES_NOT_SUPPORT_INTERMEDIATE_BURDEN",
         }
 
+    effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    if (
+        a.burden_completion_quality < Grade.MEDIUM
+        or a.failure_resistance < Grade.MEDIUM
+        or effective_continuation < Grade.MEDIUM
+        or effective_stall > Grade.MEDIUM
+    ):
+        return {
+            "eligible": False,
+            "max_direct_line": None,
+            "authorized_lines": [],
+            "basis": "CURRENT_COMPLETION_OR_STALL_CONTEXT_BLOCKS_EXTENSION",
+        }
+
     authorized = [2.75]
-    max_line = 2.75
     line_states = {
         "2.75": "AUTHORIZED",
         "3.00": "NOT_AUTHORIZED",
-        "3.25": "REQUIRES_G4",
+        "3.25": "NOT_AUTHORIZED",
     }
-    effective_continuation, _ = c_effective_incentive_grades(a)
 
-    if (
+    strong_near_tail = (
         state == "NEAR_FUNDED"
-        and effective_continuation >= Grade.MEDIUM
         and (
             (a.carrier == CarrierStrength.STRONG and a.carrier_self_fund)
             or a.independent_route_quality == Grade.HIGH
         )
-    ):
+    )
+    if strong_near_tail:
         authorized.append(3.00)
-        max_line = 3.00
         line_states["3.00"] = "AUTHORIZED"
 
+    effective_tail = c_effective_upper_tail_transferability(a)
+    over_three = a.goal_signal_mean_over_three_rate
+    trap = a.goal_signal_low_draw_trap_rate
+    strict_o325 = (
+        robustness >= 2
+        and strong_near_tail
+        and a.independent_upper_tail
+        and effective_tail is not None
+        and effective_tail >= Grade.MEDIUM
+        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
+        and effective_continuation == Grade.HIGH
+        and effective_stall <= Grade.MEDIUM
+        and a.failure_resistance == Grade.HIGH
+        and a.route_reliability == Grade.HIGH
+        and a.chance_quality == Grade.HIGH
+        and a.burden_completion_quality == Grade.HIGH
+        and over_three is not None
+        and over_three >= 0.55
+        and trap is not None
+        and trap <= 0.15
+    )
+    if strict_o325:
+        authorized.append(3.25)
+        line_states["3.25"] = "AUTHORIZED"
+
+    max_line = max(authorized)
     return {
         "eligible": True,
         "max_direct_line": max_line,
         "authorized_lines": authorized,
         "line_states": line_states,
         "basis": (
-            "SETTLEMENT_AWARE_G3_TO_G4_BRIDGE; certificate remains O2.50; "
-            f"credible_tail={state}; authorized={authorized}; "
-            "O3.25 explicitly remains G4-required because three goals is a half-loss"
+            "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; "
+            f"robustness={robustness}; credible_tail={state}; authorized={authorized}; "
+            "O3.25 requires ROBUST independent transferable fourth-goal evidence; "
+            "O3.50 requires funded G4"
         ),
     }
 
 
-C_G3_BOOK_MIN_ODDS = {
-    2.75: 1.85,
-    3.00: 1.90,
-}
+# Compatibility surface: BOOK and visible-line execution must consume the same
+# canonical intermediate policy. This function no longer owns a second risk gate.
+C_G3_BOOK_MIN_ODDS = C_INTERMEDIATE_MIN_ODDS
 
 
 def c_g3_book_extension_profile(
     a: MatchAssessment,
 ) -> dict[str, bool | float | str | None]:
-    """Compile a football-strength-gated G3 BOOK ceiling.
-
-    The certified burden remains O2.50. A BOOK extension is not a fallback for
-    every funded G3 row: FRAGILE and CONDITIONAL certificates may not extend
-    above the certificate. Only ROBUST G3 rows with strong current completion
-    quality can reach O2.75, and O3.00 additionally requires independent,
-    transferable fourth-goal evidence. G3 alone never emits O3.25/O3.50.
-
-    This policy is market-independent. The screenshot is evaluated only after
-    the football target has been authorized.
-    """
-
-    require_c_completion(a)
-    if not c_goal3_funded(a) or c_goal4_funded(a):
+    profile = c_intermediate_burden_profile(a)
+    if not bool(profile["eligible"]):
         return {
             "eligible": False,
             "max_book_line": None,
             "book_min_odds": None,
-            "basis": "G3-only settlement extension not applicable",
+            "basis": f"CANONICAL_INTERMEDIATE_POLICY: {profile['basis']}",
         }
-
-    robustness = certificate_robustness(a, "c")
-    if robustness < 2:
-        return {
-            "eligible": False,
-            "max_book_line": None,
-            "book_min_odds": None,
-            "basis": (
-                "G3 BOOK extension requires ROBUST certificate; "
-                "FRAGILE/CONDITIONAL G3 cannot extend above O2.50"
-            ),
-        }
-
-    effective_continuation, effective_stall = c_effective_incentive_grades(a)
-    strong_completion = (
-        a.burden_completion_quality == Grade.HIGH
-        and effective_continuation == Grade.HIGH
-        and effective_stall <= Grade.MEDIUM
-        and a.route_reliability == Grade.HIGH
-        and a.chance_quality == Grade.HIGH
-        and a.failure_resistance >= Grade.MEDIUM
-        and a.evidence_confidence >= Grade.MEDIUM
-        and a.burden_protection >= Grade.MEDIUM
-        and not a.material_suppression
-        and not a.failure_attacks_route
-    )
-    if not strong_completion:
-        return {
-            "eligible": False,
-            "max_book_line": None,
-            "book_min_odds": None,
-            "basis": (
-                "ROBUST G3 lacks HIGH completion/continuation/current-route "
-                "quality required for BOOK extension"
-            ),
-        }
-
-    strong_carrier = (
-        a.carrier == CarrierStrength.STRONG
-        and a.carrier_self_fund
-    )
-    independent_g3 = (
-        c_two_route_goal3_funded(a)
-        or c_distributed_goal3_funded(a)
-    )
-    if not (strong_carrier or independent_g3):
-        return {
-            "eligible": False,
-            "max_book_line": None,
-            "book_min_odds": None,
-            "basis": (
-                "ROBUST G3 lacks a self-funded STRONG carrier or genuine "
-                "independent/distributed route structure"
-            ),
-        }
-
-    # O2.75 is the maximum generic ROBUST-G3 settlement extension.
-    max_line = 2.75
-
-    # O3.00 requires an independently evidenced fourth-goal route even though
-    # the full G4/O3.50 certificate remains unfunded. This is deliberately
-    # stricter than the generic G3 gate and does not use bookmaker information.
-    effective_tail = c_effective_upper_tail_transferability(a)
-    over_three = a.goal_signal_mean_over_three_rate
-    trap = a.goal_signal_low_draw_trap_rate
-    fourth_goal_support = (
-        a.independent_upper_tail
-        and effective_tail is not None
-        and effective_tail >= Grade.MEDIUM
-        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
-        and a.independent_route_quality >= Grade.MEDIUM
-        and over_three is not None
-        and over_three >= 0.45
-        and trap is not None
-        and trap <= 0.20
-    )
-    if fourth_goal_support:
-        max_line = 3.00
-
+    max_line = float(profile["max_direct_line"])
     return {
         "eligible": True,
         "max_book_line": max_line,
-        "book_min_odds": C_G3_BOOK_MIN_ODDS[max_line],
-        "basis": (
-            "ROBUST G3 football-strength gate; certificate remains O2.50; "
-            + (
-                "independent transferable fourth-goal evidence permits O3.00"
-                if max_line == 3.00
-                else "generic extension capped at O2.75"
-            )
-            + "; O3.25 is never a G3-only BOOK and O3.50 requires funded G4"
-        ),
+        "book_min_odds": C_INTERMEDIATE_MIN_ODDS[max_line],
+        "basis": f"CANONICAL_INTERMEDIATE_POLICY: {profile['basis']}",
     }
+
 
 def c_g3_book_min_odds(line: float) -> float:
     """Return the pilot minimum price for an authorized G3 BOOK target."""
 
     _validate_quarter_line(line)
     if line not in C_G3_BOOK_MIN_ODDS:
-        raise ValueError("G3 BOOK target must be O2.75 or O3.00")
+        raise ValueError("G3 BOOK target must be O2.75, O3.00 or O3.25")
     return C_G3_BOOK_MIN_ODDS[line]
 
 
@@ -2771,7 +2843,7 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
                         "G3 certificate remains O2.50 and no G4 is fabricated"
                     ),
                 )
-            if ctx.quote.line <= 3.00:
+            if ctx.quote.line <= 3.25:
                 return Decision(
                     Action.BOOK,
                     (
