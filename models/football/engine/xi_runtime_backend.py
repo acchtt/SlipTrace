@@ -111,6 +111,9 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
                 else "RANK_ENGINE_POLICY_DRIFT"
                 if isinstance(exc, RankAuthorityError)
                 and str(exc).startswith("RANK_ENGINE_POLICY_DRIFT:")
+                else "RANK_POLICY_LOCK_REQUIRED"
+                if isinstance(exc, RankAuthorityError)
+                and str(exc).startswith("RANK_POLICY_LOCK_REQUIRED:")
                 else "RANK_RECEIPT_REQUIRED"
                 if isinstance(exc, RankAuthorityError)
                 else "XI ENGINE CONTRACT REJECTED"
