@@ -25,6 +25,7 @@ CAPTURE = "2026-10-11T05:05:00+00:00"
 EXCEPTION_RESEARCH_FIELDS = [
     "fixture_identity_status",
     "competition_format_incentive",
+    "rivalry_rest_travel_fatigue_context",
     "home_scoring_route",
     "away_scoring_route",
     "carrier_and_chance_creation",
