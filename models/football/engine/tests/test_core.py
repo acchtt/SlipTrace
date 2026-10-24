@@ -388,7 +388,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(c_ranked[0].match_id, "completion_first")
         self.assertEqual(c2_ranked[0].match_id, "route_first")
 
-    def test_hearts_style_medium_completion_g3_does_not_outrank_mixed_context_g4(self):
+    def test_mixed_context_medium_failure_no_longer_creates_g4_rank_bonus(self):
         hearts = assessment(
             match_id="hearts_medium_g3",
             home_route=RouteStrength.STRONG,
@@ -443,10 +443,14 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(certificate_robustness(hearts, "c"), 1)
         self.assertEqual(certificate_robustness(lech, "c"), 1)
         self.assertEqual(certified_supported_burden(hearts, "c"), 2.5)
-        self.assertEqual(certified_supported_burden(lech, "c"), 3.5)
+        self.assertEqual(certified_supported_burden(lech, "c"), 2.5)
+        self.assertFalse(c_goal4_funded(lech))
+        # The old G4 depth advantage is gone; remaining rank order is driven
+        # by current clearability/mechanism evidence rather than a MEDIUM/MIXED
+        # fourth-goal certificate.
         self.assertEqual(
             rank_assessments([hearts, lech])[0].match_id,
-            "lech_mixed_g4",
+            "hearts_medium_g3",
         )
 
     def test_c2_ranking_does_not_use_supported_line_as_rank_factor(self):
@@ -2506,7 +2510,7 @@ class CredibleBurdenProfileTests(unittest.TestCase):
         self.assertEqual(profile["credible_burden_band_low"], 2.5)
         self.assertEqual(profile["credible_burden_band_high"], 3.0)
 
-    def test_madrid_style_g4_can_be_near_funded_g5_without_g5_authority(self):
+    def test_madrid_style_mixed_medium_tail_is_demoted_below_g4_without_corroboration(self):
         a = assessment(
             match_id="madrid_style_near_g5",
             home_route=RouteStrength.STRONG,
@@ -2532,16 +2536,16 @@ class CredibleBurdenProfileTests(unittest.TestCase):
             goal_signal_low_draw_trap_rate=0.0,
         )
         profile = prospective_goal_funding(a, "c")
-        self.assertTrue(profile["goal4_funded"])
+        self.assertFalse(profile["goal4_funded"])
         self.assertFalse(profile["goal5_funded"])
-        self.assertEqual(profile["certified_supported_burden"], 3.5)
+        self.assertEqual(profile["certified_supported_burden"], 2.5)
         self.assertEqual(profile["credible_tail_state"], "NEAR_FUNDED")
-        self.assertEqual(profile["credible_tail_target_goal"], 5)
-        self.assertEqual(profile["credible_burden_band_low"], 3.75)
-        self.assertEqual(profile["credible_burden_band_high"], 4.25)
+        self.assertEqual(profile["credible_tail_target_goal"], 4)
+        self.assertEqual(profile["credible_burden_band_low"], 2.75)
+        self.assertEqual(profile["credible_burden_band_high"], 3.25)
         self.assertFalse(market_line_funded(a, 4.0, "c"))
 
-    def test_brugge_style_funded_g4_with_weaker_tail_sample_stays_at_funded_band(self):
+    def test_brugge_style_mixed_medium_tail_is_demoted_below_g4(self):
         a = assessment(
             match_id="brugge_style_funded_g4",
             home_route=RouteStrength.STRONG,
@@ -2567,11 +2571,12 @@ class CredibleBurdenProfileTests(unittest.TestCase):
             goal_signal_low_draw_trap_rate=0.0,
         )
         profile = prospective_goal_funding(a, "c")
-        self.assertTrue(profile["goal4_funded"])
+        self.assertFalse(profile["goal4_funded"])
         self.assertFalse(profile["goal5_funded"])
-        self.assertEqual(profile["credible_tail_state"], "FUNDED")
-        self.assertEqual(profile["credible_burden_band_low"], 3.5)
-        self.assertEqual(profile["credible_burden_band_high"], 3.5)
+        self.assertEqual(profile["certified_supported_burden"], 2.5)
+        self.assertEqual(profile["credible_tail_state"], "MIXED")
+        self.assertEqual(profile["credible_burden_band_low"], 2.5)
+        self.assertEqual(profile["credible_burden_band_high"], 3.0)
 
 
 
