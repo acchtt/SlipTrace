@@ -133,6 +133,11 @@ after rank sealed the slate, routine /xi fails closed with
 `RANK_ENGINE_POLICY_DRIFT`; do not execute one slate under multiple Football C
 policy revisions.
 
+For assessment epochs after the slate-lock activation boundary, a legacy rank
+receipt with no `SLATE_PINNED_V1` fingerprint is also invalid for routine /xi.
+Return `RANK_POLICY_LOCK_REQUIRED` and rerank/reseal first. This does not
+invalidate historical pre-activation audit/replay.
+
 Only an explicitly requested `/xi exception` may use
 `authority.mode = EXCEPTION` without a ranked FOCUS row. The exception reference
 must be non-empty, `user_requested_exception` must be `true`, and the result
