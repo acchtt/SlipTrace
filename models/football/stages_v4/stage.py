@@ -45,6 +45,9 @@ MAX_SOURCE_AGE_MINUTES = 60
 SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-12T18:00:00+00:00"
 )
+WINDOW_END_INCLUSIVE_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-24T03:38:00+00:00"
+)
 
 
 class StageError(ValueError):
@@ -175,9 +178,21 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         raise StageError("source fixture list must be explicit and bounded")
     completeness = None
     strict_completeness = at >= SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC and not _historical_replay
+    # New production requests use the user's stated end time inclusively.
+    # Frozen historical replay preserves the half-open contract that sealed
+    # those source manifests, so old receipts remain byte-replayable.
+    inclusive_end = (
+        not _historical_replay
+        and (
+            at >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC
+            or source.get("source_completeness_manifest") is None
+        )
+    )
     if strict_completeness or source.get("source_completeness_manifest") is not None:
         try:
-            completeness = validate_source_completeness(source, now=at.isoformat())
+            completeness = validate_source_completeness(
+                source, now=at.isoformat(), inclusive_end=inclusive_end
+            )
         except SourceCompletenessError as exc:
             raise StageError(str(exc)) from exc
     elif at >= SWEEP_COMPLETENESS_V2_EFFECTIVE_UTC and _historical_replay:
@@ -226,7 +241,12 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 }
             lane, reason = result["lane"], result["reason"]
             discovery_screen = None
-            if not (start <= ko <= end) or ko <= at or status != "PREMATCH_CONFIRMED":
+            in_requested_window = (
+                start <= ko <= end
+                if inclusive_end
+                else start <= ko < end
+            )
+            if not in_requested_window or ko <= at or status != "PREMATCH_CONFIRMED":
                 lane, reason = "CLOSED", "OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH"
             elif lane in ("CONDITIONAL", "PILOT", "DISCOVERY"):
                 # Unknown league = investigate football; it is NOT model PASS.
@@ -509,7 +529,15 @@ def _attested_status_resolution(
             raise StageError(f"{row.get('match_id')}: V4_STATUS_RESOLUTION_KICKOFF_MISMATCH")
         start = _time(sweep_receipt["window_start_utc"], "sweep.window_start_utc")
         end = _time(sweep_receipt["window_end_utc"], "sweep.window_end_utc")
-        if start <= resolved_ko <= end:
+        inclusive_end = bool(
+            (sweep_receipt.get("source_completeness") or {}).get("window_end_inclusive")
+        )
+        moved_within_window = (
+            start <= resolved_ko <= end
+            if inclusive_end
+            else start <= resolved_ko < end
+        )
+        if moved_within_window:
             raise StageError(
                 f"{row.get('match_id')}: V4_KICKOFF_CHANGED_WITHIN_WINDOW; refresh sweep source"
             )
