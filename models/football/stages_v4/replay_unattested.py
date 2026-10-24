@@ -32,6 +32,13 @@ IGNORABLE = {
     "integrity_sha256",
     "implementation_note",
     "goal_screen_manifest",
+    # Added prospectively in the 2026-10-24 window-completeness repair.
+    # Historical derived receipts predate these deterministic summary fields;
+    # the underlying source ledger/intake lanes still have to match exactly.
+    "window_status",
+    "whole_requested_surface_complete",
+    "upstream_remaining_fixture_count",
+    "upstream_resume_fixtures",
 }
 
 
