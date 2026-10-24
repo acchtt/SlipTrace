@@ -1,0 +1,268 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-ATLETICO-DEPORTIVO-EXCEPTION-0156-v3",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "atletico-deportivo-exception-20261024T185600Z",
+    "match": {
+      "match_id": "1810725",
+      "country": "Spain",
+      "competition": "LaLiga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-25T02:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No competition reliability upgrade asserted; current LaLiga/club evidence and confirmed XIs are used directly.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Official LaLiga table/match data, official Atlético and Deportivo team news, current form and confirmed XIs are available.",
+      "common_evidence_basis": "Fresh exception research confirms a materially attacking Atlético XI: Oblak; Llorente, Pubill, Hancko, Grimaldo; Barrios, Hjulmand; Kang-In Lee, Lookman, Baena; Julián Álvarez. LaLiga lists Atlético 2nd with 22 points, 19 scored and 8 conceded after nine; Deportivo are 9th with 11 points, 13 scored and 12 conceded. Atlético's recent sequence is 1-1 Stuttgart, 1-0 Espanyol, 2-0 Manchester United, 2-1 Alavés, 2-1 Real Madrid and 4-0 Osasuna. Deportivo recently drew Levante 1-1, lost 2-3 at Real Sociedad, drew Betis 1-1, lost 0-1 Sevilla, drew Getafe 1-1 and won 3-2 at Villarreal. Deportivo officially confirm Aubameyang, Eddahchouri, Casadó and Bright Ede unavailable, but the confirmed XI still contains Mella, Yeremay, Nsongo and Mario Soriano. The new XI clearly upgrades Atlético chance quality, but the current league sample still contains repeated one/two-goal Atlético endpoints and repeated Deportivo 1-1s.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "TWO_SIDED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "The confirmed Atlético XI is aggressively selected, but their recent competitive run repeatedly stops at one or two goals and Deportivo have three recent 1-1 league draws. Atlético played in Stuttgart on Tuesday before this Saturday match. Deportivo's current attack remains usable but not strong enough to guarantee a rescue route. The evidence therefore improves route quality without establishing a protected third goal.",
+      "h2h_state": "REVIEWED_LIMITED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "The direct series is old and not used as a tactical veto; the current comparable league scoring/control sample is more relevant. Historical Deportivo scoring difficulty in Madrid is only a secondary caution.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research metadata only; deterministic Football C compiler owns the actual certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Atlético have one recent 4-0 league result but their more recent competitive sequence is mostly one or two goals; the confirmed front four does not by itself prove a repeatable independent three-goal carrier.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "A protected fourth-goal path is not established because Atlético's recent completion often stops at one/two and Deportivo's current reply is weakened by forward absences.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The isolated 4-0 home result is outweighed by the closest current one/two-goal endpoints and Deportivo's repeated 1-1s for purposes of a four-goal tail.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "The closest current senior sample is dominated by Atlético 1-0/2-0/2-1 and Deportivo 1-1/0-1/1-1 outcomes rather than repeated four-goal completion.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Atlético's confirmed XI preserves elite attacking routes; Deportivo still field Mella, Yeremay, Nsongo and Soriano despite other forward absences. The issue is completion, not route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified event removes both routes; European turnaround and current control are represented as completion/stall risk rather than an all-route veto.",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "HOME_CONGESTED",
+      "travel_load_context": "HOME_CONTINENTAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Atlético returned from Tuesday's Champions League trip to Stuttgart before the Saturday home match; Deportivo had normal weekly recovery. The confirmed XI remains strong, so no team-wide exhaustion is asserted, but the shorter recovery is retained as a mixed completion risk.",
+      "goal_signal_priority_score": 46,
+      "goal_signal_mean_over_two_rate": 0.5167,
+      "goal_signal_mean_over_three_rate": 0.2667,
+      "goal_signal_low_draw_trap_rate": 0.3278,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "Fresh exception research does not fund goal three, so a protected G4 certificate is not applicable.",
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "The confirmed Atlético front of Kang-In, Lookman, Baena and Julián Álvarez materially improves current route reliability, while Deportivo retain Mella, Yeremay, Nsongo and Soriano.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e2588206813d2797097ce8cc",
+            "https://www.atleticodemadrid.com/noticias/descubre-las-alineaciones-titulares-del-atletico-de-madrid-rc-deportivo",
+            "https://www.rcdeportivo.es/es/noticias/exigente-examen-del-depor-este-sabado-24-de-octubre-a-las-21-00-en-el-estadio-riyadh-air-metropo"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_COMPLETION"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Recent Atlético one/two-goal competitive results and Deportivo's repeated 1-1s keep continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_COMPLETION"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The current low-endpoint sample plus Atlético's Tuesday European trip make two-goal-or-lower completion materially credible; HIGH.",
+          "evidence_refs": [
+            "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+            "https://www.atleticodemadrid.com/prepartidos/atletico-de-madrid-rc-deportivo-25-10-2026-22-09"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_COMPLETION"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Atlético retain multiple elite creators/finishers, but if their finishing stalls the weakened Deportivo route may not independently rescue goal three; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e2588206813d2797097ce8cc",
+            "https://www.rcdeportivo.es/es/noticias/exigente-examen-del-depor-este-sabado-24-de-octubre-a-las-21-00-en-el-estadio-riyadh-air-metropo"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_COMPLETION"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent current fourth-goal path survives the closest comparable control sample.",
+          "evidence_refs": [
+            "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+            "https://www.laliga.com/en-GB/laliga-easports/results/2026-27/gameweek-10"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_COMPLETION"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CONTROL_AND_COMPLETION": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "Strong attacking names improve route presence, but Atlético's current completion often stops at one/two while Deportivo's reply is inconsistent and weakened by forward absences.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000e2588206813d2797097ce8cc",
+            "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+            "https://www.rcdeportivo.es/es/noticias/exigente-examen-del-depor-este-sabado-24-de-octubre-a-las-21-00-en-el-estadio-riyadh-air-metropo"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "CONTROL_AND_COMPLETION": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Confirmed XI materially upgrades Atlético's route quality, but current completion/stall evidence still does not prospectively fund goal three.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000e2588206813d2797097ce8cc",
+        "https://www.atleticodemadrid.com/noticias/descubre-las-alineaciones-titulares-del-atletico-de-madrid-rc-deportivo",
+        "https://www.rcdeportivo.es/es/noticias/exigente-examen-del-depor-este-sabado-24-de-octubre-a-las-21-00-en-el-estadio-riyadh-air-metropo",
+        "https://www.laliga.com/en-BR/match/temporada-2026-2027-laliga-ea-sports-atletico-de-madrid-rc-deportivo-10",
+        "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+        "Football-C-rerank-20261025-0151-policy-locked-verified.json#1810725"
+      ],
+      "match_context_evidence_refs": [
+        "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+        "https://www.atleticodemadrid.com/prepartidos/atletico-de-madrid-rc-deportivo-25-10-2026-22-09"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-24T18:56:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "CONFIRMED_XI",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit user-requested exception remains independent of routine WATCH certificate authority.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "ATLETICO-DEPORTIVO-20261025-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "atletico-deportivo-exception-20261024T185600Z",
+      "researched_at_utc": "2026-10-24T18:56:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "Policy-locked rank #10 WATCH + fresh official team-news/current-form research + confirmed XI",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000e2588206813d2797097ce8cc",
+        "https://www.atleticodemadrid.com/noticias/descubre-las-alineaciones-titulares-del-atletico-de-madrid-rc-deportivo",
+        "https://www.rcdeportivo.es/es/noticias/exigente-examen-del-depor-este-sabado-24-de-octubre-a-las-21-00-en-el-estadio-riyadh-air-metropo",
+        "https://www.laliga.com/en-BR/match/temporada-2026-2027-laliga-ea-sports-atletico-de-madrid-rc-deportivo-10",
+        "https://www.skysports.com/football/atletico-madrid-vs-deportivo-la-coruna/5862308553417751232",
+        "Football-C-rerank-20261025-0151-policy-locked-verified.json#1810725"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_0000000070848206ab0ab49715e41370",
+    "match_id": "1810725",
+    "bookmaker": "User-displayed bookmaker",
+    "quotes": [
+      {
+        "line": 3,
+        "odds": 1.72
+      },
+      {
+        "line": 3.25,
+        "odds": 1.98
+      },
+      {
+        "line": 3.5,
+        "odds": 2.19
+      }
+    ],
+    "observed_at_utc": "2026-10-24T18:55:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
