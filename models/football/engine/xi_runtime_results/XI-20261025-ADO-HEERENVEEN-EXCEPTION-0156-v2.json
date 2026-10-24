@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: unsupported state-change fields: xi_robustness",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "54cdfa0987066c7e6ec6d6c1f512b0415701b989cbb155bfa8b0d49422c92df6",
+  "ok": false,
+  "request_id": "XI-20261025-ADO-HEERENVEEN-EXCEPTION-0156-v2",
+  "runtime_commit": "480951c0554188b6e68ed846adb4e488e1853321",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
