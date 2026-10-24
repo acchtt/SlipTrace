@@ -1,0 +1,657 @@
+{
+  "authority": {
+    "frozen_board_state": "FOCUS",
+    "frozen_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+    "frozen_supported_line": 4.5,
+    "match_id": "1793618",
+    "material_evidence_updates": [
+      "carrier_self_fund_basis",
+      "common_evidence_basis",
+      "failure_attacks_route_basis",
+      "failure_mechanisms",
+      "g4_path_evidence",
+      "grade_evidence",
+      "material_suppression_basis",
+      "research_revalidation",
+      "team_news_observability",
+      "xi_robustness"
+    ],
+    "mode": "RANKED",
+    "rank": 4,
+    "rank_integrity_sha256": "e0cdc9a6303431d3cc5b57de0ef2601b60be7fcadefe11c88147b2ded65fe306",
+    "rank_run_id": "V4-20261024-1800-20261025-0000-PRIORITYFIX",
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS"
+  },
+  "input_sha256": "5cec3820fcbcf4ac391f57437593485abe569678f0275e2b634238a38486e4f9",
+  "ok": true,
+  "request_id": "XI-20261024-ASTONVILLA-MANCITY-1811",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 4.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "FUNDED",
+      "decision": "ACT",
+      "direct_act_ceiling": 4.25,
+      "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+      "entry_feasibility_state": "EXECUTABLE_NOW",
+      "evidence_epoch": "astonvilla-mancity-xi-20261024T111109Z",
+      "exception_flag": false,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "CARRIER",
+      "goal4_funded": true,
+      "goal5_funded": true,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "match_id": "1793618",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "CONDITIONAL",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [
+        {
+          "line": 3.0,
+          "odds": 1.54
+        },
+        {
+          "line": 3.25,
+          "odds": 1.74
+        },
+        {
+          "line": 3.5,
+          "odds": 1.96
+        },
+        {
+          "line": 3.75,
+          "odds": 2.17
+        },
+        {
+          "line": 4.0,
+          "odds": 2.49
+        }
+      ],
+      "selected_evaluated_line": 4.0,
+      "selected_evaluated_odds": 2.49,
+      "selection_authority": "ZERO",
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-10-24T11:11:09+00:00",
+        "Assessment ID": "XI-C-astonvilla-mancity-xi-20261024T111109Z",
+        "C Action": "OBSERVED_ACT_NON_EXECUTABLE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 4.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":4.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"FUNDED\",\"decision\":\"ACT\",\"direct_act_ceiling\":4.25,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"astonvilla-mancity-xi-20261024T111109Z\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":true,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"1793618\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"CONDITIONAL\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.54},{\"line\":3.25,\"odds\":1.74},{\"line\":3.5,\"odds\":1.96},{\"line\":3.75,\"odds\":2.17},{\"line\":4.0,\"odds\":2.49}],\"selected_evaluated_line\":4.0,\"selected_evaluated_odds\":2.49,\"selection_authority\":\"ZERO\",\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"decision_state_persistence\":{\"key_column\":\"Assessment ID\",\"missing_persistence_inputs\":[],\"persistence_input_complete\":true,\"publication_authorized_before_readback\":false,\"publication_fail_closed\":true,\"readback_assertions\":[\"Assessment ID\",\"Evidence Epoch ID\",\"XI Assessment Execution Status\",\"C Action\",\"C Supported Line\",\"Evaluated Line\",\"Evaluated Odds\",\"Engine C Result\",\"Engine Source Revision\"],\"readback_required\":true,\"required\":true,\"row\":{\"Assessment At UTC\":\"2026-10-24T11:11:09+00:00\",\"Assessment ID\":\"XI-C-astonvilla-mancity-xi-20261024T111109Z\",\"C Action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"C Board State\":\"FOCUS\",\"C Supported Line\":4.5,\"Engine C Result\":\"{\\\"calibration_record\\\":{\\\"automatic_threshold_learning\\\":false,\\\"certified_burden\\\":4.5,\\\"compiled_board_state\\\":\\\"FOCUS\\\",\\\"control_review\\\":false,\\\"credible_tail_state\\\":\\\"FUNDED\\\",\\\"decision\\\":\\\"REVIEW_ONLY\\\",\\\"direct_act_ceiling\\\":4.25,\\\"entry_feasibility_basis\\\":null,\\\"entry_feasibility_state\\\":null,\\\"evidence_epoch\\\":\\\"astonvilla-mancity-xi-20261024T111109Z\\\",\\\"exception_flag\\\":false,\\\"follow_lane\\\":null,\\\"g3_endpoint_pressure\\\":\\\"MODERATE\\\",\\\"goal3_funded\\\":true,\\\"goal3_mechanism_class\\\":\\\"CARRIER\\\",\\\"goal4_funded\\\":true,\\\"goal5_funded\\\":true,\\\"goal6_funded\\\":false,\\\"goal_screen_state\\\":null,\\\"intermediate_burden_profile\\\":{\\\"authorized_lines\\\":[],\\\"basis\\\":\\\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\\\",\\\"eligible\\\":false,\\\"max_direct_line\\\":null},\\\"match_id\\\":\\\"1793618\\\",\\\"pass_had_lower_supported_visible_line\\\":false,\\\"rank\\\":null,\\\"researcher_declared_board_state\\\":\\\"FOCUS\\\",\\\"robustness\\\":\\\"CONDITIONAL\\\",\\\"schema_version\\\":\\\"football-c-calibration-v1\\\",\\\"screenshot_visible_ladder\\\":[],\\\"selected_evaluated_line\\\":null,\\\"selected_evaluated_odds\\\":null,\\\"selection_authority\\\":\\\"ZERO\\\",\\\"sweep_state\\\":null,\\\"upper_tail_pressure\\\":\\\"MODERATE\\\"},\\\"engine_execution_status\\\":\\\"EXECUTED_C_FOOTBALL_ONLY\\\",\\\"model\\\":\\\"c\\\",\\\"model_accounting_status\\\":\\\"NONE\\\",\\\"model_bets_created\\\":false,\\\"ok\\\":true,\\\"quote_research_required\\\":false,\\\"quotes_required\\\":false,\\\"rank_state_display\\\":\\\"FOCUS\\\",\\\"rank_state_internal\\\":\\\"FOCUS\\\",\\\"result\\\":{\\\"actual_user_bet\\\":null,\\\"away_incentive\\\":\\\"NOT_APPLICABLE\\\",\\\"away_route\\\":\\\"STRONG\\\",\\\"bet_authorized\\\":false,\\\"board_state\\\":2,\\\"board_state_mismatch\\\":false,\\\"burden_completion_quality\\\":\\\"HIGH\\\",\\\"burden_stall_risk\\\":\\\"MEDIUM\\\",\\\"carrier\\\":\\\"STRONG\\\",\\\"certificate_diagnostics\\\":{\\\"carrier_branch_quality_met\\\":true,\\\"certificate_robustness\\\":\\\"CONDITIONAL\\\",\\\"distributed_branch_quality_met\\\":false,\\\"explanation_only\\\":true,\\\"failed_conditions\\\":[\\\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\\\"],\\\"goal4_funded\\\":true,\\\"tournament_tail_bias\\\":\\\"NEUTRAL\\\"},\\\"certified_supported_burden\\\":4.5,\\\"chance_quality\\\":\\\"HIGH\\\",\\\"completion_mode\\\":\\\"MIXED\\\",\\\"continuation_quality\\\":\\\"HIGH\\\",\\\"credible_burden_band_high\\\":4.5,\\\"credible_burden_band_low\\\":4.5,\\\"credible_burden_band_role\\\":\\\"PREMARKET_DIAGNOSTIC_ONLY\\\",\\\"credible_tail_basis\\\":\\\"G5_FUNDED; G6 not near-funded under the market-independent diagnostic gate\\\",\\\"credible_tail_execution_authority\\\":false,\\\"credible_tail_market_independent\\\":true,\\\"credible_tail_state\\\":\\\"FUNDED\\\",\\\"credible_tail_target_goal\\\":6,\\\"decision_action\\\":\\\"NOT_EVALUATED_NO_CURRENT_PRICE\\\",\\\"declared_board_state\\\":\\\"FOCUS\\\",\\\"declared_board_state_basis\\\":\\\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\\\",\\\"declared_board_state_source\\\":\\\"board_state\\\",\\\"declared_supported_line\\\":2.5,\\\"declared_supported_line_basis\\\":\\\"Declared research metadata only; actual protected burden is compiled from native certificates.\\\",\\\"direct_act_ceiling\\\":4.25,\\\"effective_burden_stall_risk\\\":\\\"MEDIUM\\\",\\\"effective_continuation_quality\\\":\\\"HIGH\\\",\\\"effective_upper_tail_transferability\\\":\\\"MEDIUM\\\",\\\"endpoint_control_pressure\\\":\\\"MODERATE\\\",\\\"execution_strength\\\":\\\"CONDITIONAL\\\",\\\"failure_mechanisms\\\":{\\\"CONTROL_AND_CONVERSION\\\":{\\\"affected_paths\\\":[\\\"g4_carrier_path\\\",\\\"g4_distributed_path\\\",\\\"g4_reply_path\\\"],\\\"basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"kind\\\":\\\"COMPLETION_OR_CONTROL_CONTEXT\\\"}},\\\"failure_resistance\\\":\\\"MEDIUM\\\",\\\"fixture_status\\\":\\\"PREMATCH_CONFIRMED\\\",\\\"football_assessment_completed\\\":true,\\\"football_read\\\":\\\"FOOTBALL_THESIS_CURRENTLY_INTACT\\\",\\\"frozen_line_not_live_executable\\\":true,\\\"frozen_supported_line\\\":4.5,\\\"frozen_supported_line_basis\\\":\\\"DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3,DISTRIBUTED_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED\\\",\\\"frozen_supported_line_funding\\\":true,\\\"g3_endpoint_control_pressure\\\":\\\"MODERATE\\\",\\\"g4_carrier_path\\\":\\\"SUPPORTED\\\",\\\"g4_continuation_after_g3\\\":\\\"HIGH\\\",\\\"g4_declared_research_status\\\":\\\"G4_RESEARCH_COMPLETE_FUNDED\\\",\\\"g4_distributed_path\\\":\\\"MIXED\\\",\\\"g4_evidence_disposition\\\":\\\"FUNDED\\\",\\\"g4_evidence_gaps\\\":[],\\\"g4_global_blockers\\\":null,\\\"g4_path_diagnostic\\\":\\\"MIXED\\\",\\\"g4_path_evidence\\\":{\\\"g4_carrier_path\\\":{\\\"basis\\\":\\\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"g4_distributed_path\\\":{\\\"basis\\\":\\\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"g4_reply_path\\\":{\\\"basis\\\":\\\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]}},\\\"g4_reply_path\\\":\\\"MIXED\\\",\\\"g4_research_basis\\\":\\\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"g4_research_complete\\\":true,\\\"g4_research_explicit\\\":true,\\\"g4_research_status\\\":\\\"G4_RESEARCH_COMPLETE_FUNDED\\\",\\\"g4_status_normalized_from_mixed\\\":false,\\\"goal3_carrier_funded\\\":true,\\\"goal3_distributed_funded\\\":true,\\\"goal3_funded\\\":true,\\\"goal3_leakage_funded\\\":false,\\\"goal3_mechanism_class\\\":\\\"CARRIER\\\",\\\"goal3_two_route_funded\\\":true,\\\"goal4_funded\\\":true,\\\"goal5_funded\\\":true,\\\"goal6_funded\\\":false,\\\"grade_evidence\\\":{\\\"burden_stall_risk\\\":{\\\"basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"continuation_quality\\\":{\\\"basis\\\":\\\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"failure_resistance\\\":{\\\"basis\\\":\\\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"independent_upper_tail\\\":{\\\"basis\\\":\\\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"route_reliability\\\":{\\\"basis\\\":\\\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]}},\\\"home_incentive\\\":\\\"NOT_APPLICABLE\\\",\\\"home_route\\\":\\\"USABLE\\\",\\\"incentive_effect\\\":\\\"NOT_APPLICABLE\\\",\\\"intermediate_burden_profile\\\":{\\\"authorized_lines\\\":[],\\\"basis\\\":\\\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\\\",\\\"eligible\\\":false,\\\"max_direct_line\\\":null},\\\"interpretation\\\":\\\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\\\",\\\"limitations\\\":[],\\\"match_id\\\":\\\"1793618\\\",\\\"match_minute\\\":null,\\\"material_event_since_frozen\\\":\\\"NONE_VERIFIED\\\",\\\"model\\\":\\\"c\\\",\\\"model_accounting_status\\\":\\\"NONE\\\",\\\"predictive_grades_changed_by_evidence_contract\\\":false,\\\"production_scope\\\":{\\\"override\\\":null,\\\"policy\\\":\\\"FOOTBALL_C_SCOPE_V1\\\",\\\"production_allowed\\\":true,\\\"reason\\\":\\\"RESEARCHED_LEAGUE_ROUTINE\\\",\\\"status\\\":\\\"IN_SCOPE\\\"},\\\"prospective_tail_ceiling\\\":4.5,\\\"quote_requested\\\":false,\\\"quote_required_for_football_assessment\\\":false,\\\"quote_status\\\":\\\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\\\",\\\"rank_state_display\\\":\\\"FOCUS\\\",\\\"rank_state_internal\\\":\\\"FOCUS\\\",\\\"route_reliability\\\":\\\"HIGH\\\",\\\"schema_version\\\":\\\"football-engine-v1\\\",\\\"score\\\":null,\\\"shared_failure_mechanisms\\\":{\\\"CONTROL_AND_CONVERSION\\\":[\\\"burden_stall_risk\\\",\\\"continuation_quality\\\",\\\"failure_resistance\\\",\\\"independent_upper_tail\\\",\\\"route_reliability\\\"]},\\\"stage\\\":\\\"football_assessment_result\\\",\\\"supported_line_role\\\":\\\"DETERMINISTIC_CERTIFIED_BURDEN\\\",\\\"tiebreak_margin_relevance\\\":\\\"NOT_APPLICABLE\\\",\\\"tournament_incentive_effect\\\":\\\"NOT_APPLICABLE\\\",\\\"tournament_incentive_required\\\":false,\\\"tournament_incentive_resolution\\\":\\\"NOT_APPLICABLE\\\",\\\"tournament_positive_pressure\\\":false,\\\"tournament_suppressive_pressure\\\":false,\\\"tournament_tail_bias\\\":\\\"NEUTRAL\\\",\\\"upper_tail_comparable_context_basis\\\":\\\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"upper_tail_comparable_context_signal\\\":\\\"MIXED\\\",\\\"upper_tail_control_pressure\\\":\\\"MODERATE\\\",\\\"upper_tail_strength\\\":\\\"STRONG\\\",\\\"upper_tail_transferability\\\":\\\"MEDIUM\\\",\\\"upper_tail_transferability_basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"wait_authorized\\\":false}}\",\"Engine Source Revision\":\"5653339c78ec80bfd641a7b5929b689933d3c2c1\",\"Evaluated Line\":null,\"Evaluated Odds\":null,\"Evidence Epoch ID\":\"astonvilla-mancity-xi-20261024T111109Z\",\"Fixture Status\":\"PREMATCH_CONFIRMED\",\"Match ID\":\"1793618\",\"Match Minute\":null,\"Payload JSON\":\"{\\\"context\\\":{\\\"assessment_at_utc\\\":\\\"2026-10-24T11:11:09+00:00\\\",\\\"board_state\\\":\\\"C-FOCUS\\\",\\\"certificate_upgrade_basis\\\":\\\"Confirmed XI verifies the frozen routes and G5 premise; no higher G6 certificate is asserted.\\\",\\\"certificate_upgrade_new_evidence_fields\\\":[],\\\"certificate_upgrade_status\\\":\\\"NOT_UPGRADED\\\",\\\"fixture_status\\\":\\\"PREMATCH_CONFIRMED\\\",\\\"frozen_board_available\\\":true,\\\"frozen_board_certified_burden\\\":4.5,\\\"frozen_board_g4_research_status\\\":\\\"G4_RESEARCH_COMPLETE_FUNDED\\\",\\\"match_minute\\\":null,\\\"material_event_since_frozen\\\":\\\"NONE_VERIFIED\\\",\\\"material_veto\\\":false,\\\"primary_mechanism_intact\\\":true,\\\"score\\\":null,\\\"thesis_state\\\":\\\"PRESERVED\\\",\\\"top_ranked_focus\\\":false,\\\"wait_reachable\\\":false,\\\"wait_requires_negative_info\\\":false},\\\"evidence_epoch_id\\\":\\\"astonvilla-mancity-xi-20261024T111109Z\\\",\\\"match\\\":{\\\"aggregate_state\\\":\\\"NOT_APPLICABLE\\\",\\\"away\\\":\\\"Manchester City\\\",\\\"away_incentive\\\":\\\"NOT_APPLICABLE\\\",\\\"away_route\\\":\\\"STRONG\\\",\\\"board_state\\\":\\\"C-FOCUS\\\",\\\"board_state_basis\\\":\\\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\\\",\\\"burden_completion_quality\\\":\\\"HIGH\\\",\\\"burden_protection\\\":\\\"MEDIUM\\\",\\\"burden_stall_risk\\\":\\\"MEDIUM\\\",\\\"carrier\\\":\\\"STRONG\\\",\\\"carrier_self_fund\\\":true,\\\"carrier_self_fund_basis\\\":\\\"Confirmed City XI now directly verifies the frozen strong carrier: Haaland starts with Doku, Cherki and Ndiaye, while Foden remains a bench alternative. City's repeated league threes/fives and multiple service routes remain available.\\\",\\\"chance_quality\\\":\\\"HIGH\\\",\\\"common_evidence_basis\\\":\\\"Confirmed XI preserves and strengthens the frozen mechanisms. Manchester City officially start Haaland with Doku, Cherki and Ndiaye, with Guéhi, Dias, Gvardiol and Khusanov behind them; Foden is a bench alternative and Semenyo remains unavailable. Aston Villa's confirmed XI starts Jackson with Alysson, Manzambi and McGinn, plus João Gomes and Kamara; Barkley and Buendía remain bench alternatives. The frozen strong City carrier, independent upper tail and usable Villa reply are therefore intact.\\\",\\\"competition\\\":\\\"Premier League\\\",\\\"competition_format\\\":\\\"NOT_APPLICABLE\\\",\\\"competition_kind\\\":\\\"DOMESTIC_LEAGUE\\\",\\\"competition_reliability_manual_override\\\":\\\"NONE\\\",\\\"competition_reliability_reason\\\":\\\"No unsupported reliability upgrade.\\\",\\\"competition_reliability_state\\\":\\\"UNPROVEN\\\",\\\"competition_stage\\\":\\\"NOT_APPLICABLE\\\",\\\"completion_mode\\\":\\\"MIXED\\\",\\\"continuation_quality\\\":\\\"HIGH\\\",\\\"country\\\":\\\"England\\\",\\\"demoted_probation\\\":false,\\\"draw_resolution\\\":\\\"NOT_APPLICABLE\\\",\\\"evidence_confidence\\\":\\\"HIGH\\\",\\\"failure_attacks_route\\\":false,\\\"failure_attacks_route_basis\\\":\\\"Confirmed XIs preserve both identified routes. City restore Haaland/Doku/Ndiaye and Villa start Jackson/Alysson/Manzambi/McGinn; no verified availability change removes the carrier or reply route.\\\",\\\"failure_mechanisms\\\":{\\\"CONTROL_AND_CONVERSION\\\":{\\\"affected_paths\\\":[\\\"g4_carrier_path\\\",\\\"g4_distributed_path\\\",\\\"g4_reply_path\\\"],\\\"basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"kind\\\":\\\"COMPLETION_OR_CONTROL_CONTEXT\\\"}},\\\"failure_resistance\\\":\\\"MEDIUM\\\",\\\"g4_carrier_path\\\":\\\"SUPPORTED\\\",\\\"g4_continuation_after_g3\\\":\\\"HIGH\\\",\\\"g4_distributed_path\\\":\\\"MIXED\\\",\\\"g4_global_blockers\\\":null,\\\"g4_path_evidence\\\":{\\\"g4_carrier_path\\\":{\\\"basis\\\":\\\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"g4_distributed_path\\\":{\\\"basis\\\":\\\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"g4_reply_path\\\":{\\\"basis\\\":\\\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]}},\\\"g4_reply_path\\\":\\\"MIXED\\\",\\\"g4_research_basis\\\":\\\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"g4_research_status\\\":\\\"G4_RESEARCH_COMPLETE_FUNDED\\\",\\\"goal_signal_low_draw_trap_rate\\\":0.05,\\\"goal_signal_mean_over_three_rate\\\":0.6,\\\"goal_signal_mean_over_two_rate\\\":0.7,\\\"goal_signal_priority_score\\\":66,\\\"grade_evidence\\\":{\\\"burden_stall_risk\\\":{\\\"basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"continuation_quality\\\":{\\\"basis\\\":\\\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"failure_resistance\\\":{\\\"basis\\\":\\\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"independent_upper_tail\\\":{\\\"basis\\\":\\\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]},\\\"route_reliability\\\":{\\\"basis\\\":\\\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"evidence_refs\\\":[\\\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\\\",\\\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\\\",\\\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\\\",\\\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\\\",\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"],\\\"mechanism_ids\\\":[\\\"CONTROL_AND_CONVERSION\\\"]}},\\\"h2h_basis\\\":\\\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer.\\\",\\\"h2h_current_corroboration\\\":\\\"NOT_FOUND\\\",\\\"h2h_effect\\\":\\\"MIXED\\\",\\\"h2h_material_effect\\\":false,\\\"h2h_state\\\":\\\"REVIEWED\\\",\\\"h2h_transferability\\\":\\\"LIMITED\\\",\\\"home\\\":\\\"Aston Villa\\\",\\\"home_incentive\\\":\\\"NOT_APPLICABLE\\\",\\\"home_route\\\":\\\"USABLE\\\",\\\"incentive_effect\\\":\\\"NOT_APPLICABLE\\\",\\\"independent_route_quality\\\":\\\"MEDIUM\\\",\\\"independent_upper_tail\\\":true,\\\"independent_upper_tail_basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"kickoff_ict\\\":\\\"2026-10-24T18:30:00+07:00\\\",\\\"main_failure\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"market_observability\\\":\\\"HIGH\\\",\\\"match_id\\\":\\\"1793618\\\",\\\"material_suppression\\\":false,\\\"material_suppression_basis\\\":\\\"No confirmed-XI event creates an all-route suppression veto. Villa's restrictive direct history remains the existing control risk rather than route destruction.\\\",\\\"operational_viability_grade\\\":\\\"A\\\",\\\"operational_viability_reason\\\":\\\"ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED\\\",\\\"opponent_leakage\\\":\\\"MEDIUM\\\",\\\"qualification_state\\\":\\\"NOT_APPLICABLE\\\",\\\"raw_operational_viability_grade\\\":\\\"A\\\",\\\"research_revalidation\\\":{\\\"checked_at_utc\\\":\\\"2026-10-24T11:11:09+00:00\\\",\\\"facts_are_sourced\\\":true,\\\"grades_are_prospective_operator_inference\\\":true,\\\"pre_xi_only\\\":false,\\\"source_urls\\\":[\\\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\\\",\\\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\\\"]},\\\"route_reliability\\\":\\\"HIGH\\\",\\\"simultaneous_results_note\\\":\\\"NOT_APPLICABLE\\\",\\\"simultaneous_results_status\\\":\\\"NOT_APPLICABLE\\\",\\\"supported_line\\\":2.5,\\\"supported_line_basis\\\":\\\"Declared research metadata only; actual protected burden is compiled from native certificates.\\\",\\\"team_news_observability\\\":\\\"HIGH\\\",\\\"tiebreak_margin_relevance\\\":\\\"NOT_APPLICABLE\\\",\\\"tournament_format_status\\\":\\\"NOT_APPLICABLE\\\",\\\"tournament_incentive_required\\\":false,\\\"upper_tail_comparable_context_basis\\\":\\\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"upper_tail_comparable_context_signal\\\":\\\"MIXED\\\",\\\"upper_tail_transferability\\\":\\\"MEDIUM\\\",\\\"upper_tail_transferability_basis\\\":\\\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\\\",\\\"xi_expected\\\":\\\"YES\\\",\\\"xi_robustness\\\":\\\"HIGH\\\"},\\\"model\\\":\\\"c\\\",\\\"schema_version\\\":\\\"football-engine-v1\\\",\\\"stage\\\":\\\"football_assessment\\\"}\",\"Persisted At UTC\":null,\"Publication Key\":null,\"Published\":false,\"Score\":null,\"XI Assessment Execution Status\":\"EXECUTED_C_FOOTBALL_ONLY\"},\"sheet_name\":\"Decision States\",\"spreadsheet_id\":\"1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM\",\"status_before_readback\":\"DECISION_STATE_PERSISTENCE_REQUIRED\",\"store\":\"GOOGLE_SHEETS\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"price_check\":{\"bet_authorized\":false,\"evidence\":{\"assessment_at_utc\":\"2026-10-24T11:11:09+00:00\",\"bookmaker\":\"User-displayed bookmaker\",\"capture_reference\":\"file_0000000001388206809cdde12a811093\",\"external_price_searches\":0,\"fixture_status\":\"PREMATCH_CONFIRMED\",\"match_id\":\"1793618\",\"match_minute\":null,\"observation_age_seconds\":369.0,\"observed_at_utc\":\"2026-10-24T11:05:00+00:00\",\"price_evidence_mode\":\"USER_SCREENSHOT_ONLY\",\"quote\":{\"line\":4.0,\"odds\":2.49},\"replacement_quotes\":0,\"score\":null,\"source\":\"USER_SCREENSHOT\",\"visible_ladder\":[{\"line\":3.0,\"odds\":1.54},{\"line\":3.25,\"odds\":1.74},{\"line\":3.5,\"odds\":1.96},{\"line\":3.75,\"odds\":2.17},{\"line\":4.0,\"odds\":2.49}]},\"execution_authorized\":false,\"limitations\":[\"SCREENSHOT_NOT_EXECUTION_EVIDENCE\",\"SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH\"],\"model\":{\"book_min_odds\":null,\"book_order_is_exposure\":false,\"book_target_line\":null,\"book_target_state\":\"NO_BOOK_TARGET\",\"bridge_used\":false,\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":4.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"FUNDED\",\"decision\":\"ACT\",\"direct_act_ceiling\":4.25,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"evidence_epoch\":\"astonvilla-mancity-xi-20261024T111109Z\",\"exception_flag\":false,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"CARRIER\",\"goal4_funded\":true,\"goal5_funded\":true,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"match_id\":\"1793618\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"CONDITIONAL\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[{\"line\":3.0,\"odds\":1.54},{\"line\":3.25,\"odds\":1.74},{\"line\":3.5,\"odds\":1.96},{\"line\":3.75,\"odds\":2.17},{\"line\":4.0,\"odds\":2.49}],\"selected_evaluated_line\":4.0,\"selected_evaluated_odds\":2.49,\"selection_authority\":\"ZERO\",\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"certificate_completeness_recheck_required\":false,\"conditional_action\":\"ACT\",\"current_price_clears_book_target\":false,\"entry_feasibility_basis\":\"an exact visible screenshot line clears direct ACT policy\",\"entry_feasibility_state\":\"EXECUTABLE_NOW\",\"execution_authorized\":false,\"frozen_board_g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal3_mechanism_class\":\"CARRIER\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"market_disagreement_gap_goals\":-0.5,\"market_disagreement_recheck_basis\":\"NOT_REQUIRED\",\"market_disagreement_recheck_completed\":true,\"market_disagreement_recheck_evidence_refs\":[],\"market_disagreement_recheck_fields\":[],\"market_disagreement_recheck_missing_fields\":[],\"market_disagreement_recheck_required\":false,\"pass_had_lower_supported_visible_line\":false,\"prior_certificate_reclassification_recheck_required\":false,\"reason\":\"CONDITIONAL supported/protected line at normal price\",\"selected_visible_line\":4.0,\"selected_visible_odds\":2.49,\"snapshot_line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"supported_line\":4.5,\"supported_visible_line_found\":true,\"visible_ladder_evaluations\":[{\"action\":\"PASS\",\"direct_act_ceiling\":4.25,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.0,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":1.54,\"reason\":\"price unacceptable without a valid conditional BOOK target\"},{\"action\":\"ACT\",\"direct_act_ceiling\":4.25,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.25,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":1.74,\"reason\":\"CONDITIONAL supported/protected line at normal price\"},{\"action\":\"ACT\",\"direct_act_ceiling\":4.25,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.5,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":1.96,\"reason\":\"CONDITIONAL supported/protected line at normal price\"},{\"action\":\"ACT\",\"direct_act_ceiling\":4.25,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":3.75,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":2.17,\"reason\":\"CONDITIONAL supported/protected line at normal price\"},{\"action\":\"ACT\",\"direct_act_ceiling\":4.25,\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"line\":4.0,\"line_relation\":\"BELOW_SUPPORTED_BURDEN\",\"odds\":2.49,\"reason\":\"CONDITIONAL supported/protected line at normal price\"}],\"visible_ladder_selection_basis\":\"HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE\",\"wait_min_odds\":null,\"wait_reachability_basis\":null,\"wait_reachable\":false,\"wait_target_line\":null},\"model_bets_created\":false,\"ok\":true,\"priced_publication_authorized\":false,\"quote_research_required\":false,\"status\":\"OBSERVED_QUOTE_EVALUATED\"},\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"STRONG\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"HIGH\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":true,\"certificate_robustness\":\"CONDITIONAL\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":true,\"tournament_tail_bias\":\"NEUTRAL\"},\"certified_supported_burden\":4.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"HIGH\",\"credible_burden_band_high\":4.5,\"credible_burden_band_low\":4.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G5_FUNDED; G6 not near-funded under the market-independent diagnostic gate\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"FUNDED\",\"credible_tail_target_goal\":6,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Declared research metadata only; actual protected burden is compiled from native certificates.\",\"direct_act_ceiling\":4.25,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"HIGH\",\"effective_upper_tail_transferability\":\"MEDIUM\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"CONDITIONAL\",\"failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":4.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3,DISTRIBUTED_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"FUNDED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_distributed_path\":{\"basis\":\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_reply_path\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":true,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":false,\"goal3_mechanism_class\":\"CARRIER\",\"goal3_two_route_funded\":true,\"goal4_funded\":true,\"goal5_funded\":true,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"continuation_quality\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"failure_resistance\":{\"basis\":\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"independent_upper_tail\":{\"basis\":\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"route_reliability\":{\"basis\":\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"USABLE\",\"incentive_effect\":\"NOT_APPLICABLE\",\"intermediate_burden_profile\":{\"authorized_lines\":[],\"basis\":\"INTERMEDIATE_BURDEN_NOT_APPLICABLE\",\"eligible\":false,\"max_direct_line\":null},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_id\":\"1793618\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"RESEARCHED_LEAGUE_ROUTINE\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":4.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"route_reliability\":\"HIGH\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_incentive_effect\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"tournament_incentive_resolution\":\"NOT_APPLICABLE\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"NEUTRAL\",\"upper_tail_comparable_context_basis\":\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"STRONG\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"wait_authorized\":false},\"xi_mode\":\"FOOTBALL_AND_OBSERVED_QUOTE\"}",
+        "Engine Source Revision": "5653339c78ec80bfd641a7b5929b689933d3c2c1",
+        "Evaluated Line": 4.0,
+        "Evaluated Odds": 2.49,
+        "Evidence Epoch ID": "astonvilla-mancity-xi-20261024T111109Z",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "1793618",
+        "Match Minute": null,
+        "Payload JSON": "{\"context\":{\"assessment_at_utc\":\"2026-10-24T11:11:09+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Confirmed XI verifies the frozen routes and G5 premise; no higher G6 certificate is asserted.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NOT_UPGRADED\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":true,\"frozen_board_certified_burden\":4.5,\"frozen_board_g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\",\"top_ranked_focus\":false,\"wait_reachable\":false,\"wait_requires_negative_info\":false},\"evidence_epoch_id\":\"astonvilla-mancity-xi-20261024T111109Z\",\"match\":{\"aggregate_state\":\"NOT_APPLICABLE\",\"away\":\"Manchester City\",\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"STRONG\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.\",\"burden_completion_quality\":\"HIGH\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"STRONG\",\"carrier_self_fund\":true,\"carrier_self_fund_basis\":\"Confirmed City XI now directly verifies the frozen strong carrier: Haaland starts with Doku, Cherki and Ndiaye, while Foden remains a bench alternative. City's repeated league threes/fives and multiple service routes remain available.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Confirmed XI preserves and strengthens the frozen mechanisms. Manchester City officially start Haaland with Doku, Cherki and Ndiaye, with Guéhi, Dias, Gvardiol and Khusanov behind them; Foden is a bench alternative and Semenyo remains unavailable. Aston Villa's confirmed XI starts Jackson with Alysson, Manzambi and McGinn, plus João Gomes and Kamara; Barkley and Buendía remain bench alternatives. The frozen strong City carrier, independent upper tail and usable Villa reply are therefore intact.\",\"competition\":\"Premier League\",\"competition_format\":\"NOT_APPLICABLE\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"No unsupported reliability upgrade.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"NOT_APPLICABLE\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"HIGH\",\"country\":\"England\",\"demoted_probation\":false,\"draw_resolution\":\"NOT_APPLICABLE\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"Confirmed XIs preserve both identified routes. City restore Haaland/Doku/Ndiaye and Villa start Jackson/Alysson/Manzambi/McGinn; no verified availability change removes the carrier or reply route.\",\"failure_mechanisms\":{\"CONTROL_AND_CONVERSION\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"g4_carrier_path\":\"SUPPORTED\",\"g4_continuation_after_g3\":\"HIGH\",\"g4_distributed_path\":\"MIXED\",\"g4_global_blockers\":null,\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_distributed_path\":{\"basis\":\"The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"g4_reply_path\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Bounded review of carrier, 2+2/3+1, reply and post-third continuation: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"g4_research_status\":\"G4_RESEARCH_COMPLETE_FUNDED\",\"goal_signal_low_draw_trap_rate\":0.05,\"goal_signal_mean_over_three_rate\":0.6,\"goal_signal_mean_over_two_rate\":0.7,\"goal_signal_priority_score\":66,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"continuation_quality\":{\"basis\":\"Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"failure_resistance\":{\"basis\":\"Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"independent_upper_tail\":{\"basis\":\"Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]},\"route_reliability\":{\"basis\":\"Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"evidence_refs\":[\"https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096\",\"https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html\",\"USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1\",\"USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111\",\"USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093\",\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"],\"mechanism_ids\":[\"CONTROL_AND_CONVERSION\"]}},\"h2h_basis\":\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer.\",\"h2h_current_corroboration\":\"NOT_FOUND\",\"h2h_effect\":\"MIXED\",\"h2h_material_effect\":false,\"h2h_state\":\"REVIEWED\",\"h2h_transferability\":\"LIMITED\",\"home\":\"Aston Villa\",\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"USABLE\",\"incentive_effect\":\"NOT_APPLICABLE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":true,\"independent_upper_tail_basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"kickoff_ict\":\"2026-10-24T18:30:00+07:00\",\"main_failure\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"market_observability\":\"HIGH\",\"match_id\":\"1793618\",\"material_suppression\":false,\"material_suppression_basis\":\"No confirmed-XI event creates an all-route suppression veto. Villa's restrictive direct history remains the existing control risk rather than route destruction.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"ROUTINE_SOURCE_AND_RESEARCHABILITY_CONTRACT_VERIFIED\",\"opponent_leakage\":\"MEDIUM\",\"qualification_state\":\"NOT_APPLICABLE\",\"raw_operational_viability_grade\":\"A\",\"research_revalidation\":{\"checked_at_utc\":\"2026-10-24T11:11:09+00:00\",\"facts_are_sourced\":true,\"grades_are_prospective_operator_inference\":true,\"pre_xi_only\":false,\"source_urls\":[\"https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427\",\"https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/\"]},\"route_reliability\":\"HIGH\",\"simultaneous_results_note\":\"NOT_APPLICABLE\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"supported_line\":2.5,\"supported_line_basis\":\"Declared research metadata only; actual protected burden is compiled from native certificates.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_format_status\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"upper_tail_comparable_context_basis\":\"Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_AND_PRICE"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "price_check": {
+      "bet_authorized": false,
+      "evidence": {
+        "assessment_at_utc": "2026-10-24T11:11:09+00:00",
+        "bookmaker": "User-displayed bookmaker",
+        "capture_reference": "file_0000000001388206809cdde12a811093",
+        "external_price_searches": 0,
+        "fixture_status": "PREMATCH_CONFIRMED",
+        "match_id": "1793618",
+        "match_minute": null,
+        "observation_age_seconds": 369.0,
+        "observed_at_utc": "2026-10-24T11:05:00+00:00",
+        "price_evidence_mode": "USER_SCREENSHOT_ONLY",
+        "quote": {
+          "line": 4.0,
+          "odds": 2.49
+        },
+        "replacement_quotes": 0,
+        "score": null,
+        "source": "USER_SCREENSHOT",
+        "visible_ladder": [
+          {
+            "line": 3.0,
+            "odds": 1.54
+          },
+          {
+            "line": 3.25,
+            "odds": 1.74
+          },
+          {
+            "line": 3.5,
+            "odds": 1.96
+          },
+          {
+            "line": 3.75,
+            "odds": 2.17
+          },
+          {
+            "line": 4.0,
+            "odds": 2.49
+          }
+        ]
+      },
+      "execution_authorized": false,
+      "limitations": [
+        "SCREENSHOT_NOT_EXECUTION_EVIDENCE",
+        "SCREENSHOT_OBSERVATION_NOT_SAME_AS_ASSESSMENT_EPOCH"
+      ],
+      "model": {
+        "book_min_odds": null,
+        "book_order_is_exposure": false,
+        "book_target_line": null,
+        "book_target_state": "NO_BOOK_TARGET",
+        "bridge_used": false,
+        "calibration_record": {
+          "automatic_threshold_learning": false,
+          "certified_burden": 4.5,
+          "compiled_board_state": "FOCUS",
+          "control_review": false,
+          "credible_tail_state": "FUNDED",
+          "decision": "ACT",
+          "direct_act_ceiling": 4.25,
+          "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+          "entry_feasibility_state": "EXECUTABLE_NOW",
+          "evidence_epoch": "astonvilla-mancity-xi-20261024T111109Z",
+          "exception_flag": false,
+          "follow_lane": null,
+          "g3_endpoint_pressure": "MODERATE",
+          "goal3_funded": true,
+          "goal3_mechanism_class": "CARRIER",
+          "goal4_funded": true,
+          "goal5_funded": true,
+          "goal6_funded": false,
+          "goal_screen_state": null,
+          "intermediate_burden_profile": {
+            "authorized_lines": [],
+            "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+            "eligible": false,
+            "max_direct_line": null
+          },
+          "match_id": "1793618",
+          "pass_had_lower_supported_visible_line": false,
+          "rank": null,
+          "researcher_declared_board_state": "FOCUS",
+          "robustness": "CONDITIONAL",
+          "schema_version": "football-c-calibration-v1",
+          "screenshot_visible_ladder": [
+            {
+              "line": 3.0,
+              "odds": 1.54
+            },
+            {
+              "line": 3.25,
+              "odds": 1.74
+            },
+            {
+              "line": 3.5,
+              "odds": 1.96
+            },
+            {
+              "line": 3.75,
+              "odds": 2.17
+            },
+            {
+              "line": 4.0,
+              "odds": 2.49
+            }
+          ],
+          "selected_evaluated_line": 4.0,
+          "selected_evaluated_odds": 2.49,
+          "selection_authority": "ZERO",
+          "sweep_state": null,
+          "upper_tail_pressure": "MODERATE"
+        },
+        "certificate_completeness_recheck_required": false,
+        "conditional_action": "ACT",
+        "current_price_clears_book_target": false,
+        "entry_feasibility_basis": "an exact visible screenshot line clears direct ACT policy",
+        "entry_feasibility_state": "EXECUTABLE_NOW",
+        "execution_authorized": false,
+        "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+        "goal3_mechanism_class": "CARRIER",
+        "intermediate_burden_profile": {
+          "authorized_lines": [],
+          "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+          "eligible": false,
+          "max_direct_line": null
+        },
+        "market_disagreement_gap_goals": -0.5,
+        "market_disagreement_recheck_basis": "NOT_REQUIRED",
+        "market_disagreement_recheck_completed": true,
+        "market_disagreement_recheck_evidence_refs": [],
+        "market_disagreement_recheck_fields": [],
+        "market_disagreement_recheck_missing_fields": [],
+        "market_disagreement_recheck_required": false,
+        "pass_had_lower_supported_visible_line": false,
+        "prior_certificate_reclassification_recheck_required": false,
+        "reason": "CONDITIONAL supported/protected line at normal price",
+        "selected_visible_line": 4.0,
+        "selected_visible_odds": 2.49,
+        "snapshot_line_relation": "BELOW_SUPPORTED_BURDEN",
+        "supported_line": 4.5,
+        "supported_visible_line_found": true,
+        "visible_ladder_evaluations": [
+          {
+            "action": "PASS",
+            "direct_act_ceiling": 4.25,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.0,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 1.54,
+            "reason": "price unacceptable without a valid conditional BOOK target"
+          },
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 4.25,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.25,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 1.74,
+            "reason": "CONDITIONAL supported/protected line at normal price"
+          },
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 4.25,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.5,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 1.96,
+            "reason": "CONDITIONAL supported/protected line at normal price"
+          },
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 4.25,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 3.75,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 2.17,
+            "reason": "CONDITIONAL supported/protected line at normal price"
+          },
+          {
+            "action": "ACT",
+            "direct_act_ceiling": 4.25,
+            "intermediate_burden_profile": {
+              "authorized_lines": [],
+              "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+              "eligible": false,
+              "max_direct_line": null
+            },
+            "line": 4.0,
+            "line_relation": "BELOW_SUPPORTED_BURDEN",
+            "odds": 2.49,
+            "reason": "CONDITIONAL supported/protected line at normal price"
+          }
+        ],
+        "visible_ladder_selection_basis": "HIGHEST_VISIBLE_EXECUTABLE_SUPPORTED_LINE",
+        "wait_min_odds": null,
+        "wait_reachability_basis": null,
+        "wait_reachable": false,
+        "wait_target_line": null
+      },
+      "model_bets_created": false,
+      "ok": true,
+      "priced_publication_authorized": false,
+      "quote_research_required": false,
+      "status": "OBSERVED_QUOTE_EVALUATED"
+    },
+    "priced_publication_authorized": false,
+    "publication_blocker": "DECISION_STATE_PERSISTENCE_READBACK_REQUIRED",
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "STRONG",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "STRONG",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": true,
+        "certificate_robustness": "CONDITIONAL",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": true,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 4.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "MIXED",
+      "continuation_quality": "HIGH",
+      "credible_burden_band_high": 4.5,
+      "credible_burden_band_low": 4.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G5_FUNDED; G6 not near-funded under the market-independent diagnostic gate",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "FUNDED",
+      "credible_tail_target_goal": 6,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Current prospective scoring mechanisms and completion assessed; native compiler owns certificate, burden and rank.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Declared research metadata only; actual protected burden is compiled from native certificates.",
+      "direct_act_ceiling": 4.25,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "HIGH",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "CONDITIONAL",
+      "failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 4.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G5 highest funded; max fully-funded Asian Over=4.50; G3 mechanisms=CARRIER_G3,TWO_ROUTE_G3,DISTRIBUTED_G3; upper_tail_transferability=MEDIUM; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "SUPPORTED",
+      "g4_continuation_after_g3": "HIGH",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "FUNDED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Bounded review of carrier, 2+2/3+1, reply and post-third continuation: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_FUNDED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": true,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": false,
+      "goal3_mechanism_class": "CARRIER",
+      "goal3_two_route_funded": true,
+      "goal4_funded": true,
+      "goal5_funded": true,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Reply and post-third continuation were checked against current service, substitutes and controlled outcomes: Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Alternative current finishers permit recovery, while the fixture-specific control and conversion counterexamples keep resistance MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "Current transferable team-level four-plus carry is supported. Official current teams restore Haaland, Doku, Ndiaye and Guehi; Foden is a bench alternative and Semenyo remains absent. Villa have Jackson/Manzambi, with Barkley/Buendia bench routes after their midweek goals. City repeated league threes/fives and distinct service support a strong carry and independent fourth; Villa retain a meaningful reply. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence. The prospective 2+2/3+1 route uses the identified opposite attack, with its current conversion constraints: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Current distinct finishers supply alternatives, while conversion/control counterexamples keep route repeatability MEDIUM: Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+          "evidence_refs": [
+            "https://beta.mancity.com/news/mens/aston-villa-v-city-match-preview-pl-24-oct-63928096",
+            "https://www.sportsmole.co.uk/football/aston-villa/preview/aston-villa-vs-man-city-prediction-team-news-lineups_607406.html",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4848206915d9af62d26e0f1",
+            "USER_LINEUP_SCREENSHOT:file_00000000f69c8206bbc66d990fc6e111",
+            "USER_ODDS_SCREENSHOT:file_0000000001388206809cdde12a811093",
+            "https://www.mancity.com/news/mens/aston-villa-v-city-premier-league-team-news-63928427",
+            "https://next.avfc.co.uk/news/2026/october/23/prematch-team-news-for-city-clash/"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "USABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "intermediate_burden_profile": {
+        "authorized_lines": [],
+        "basis": "INTERMEDIATE_BURDEN_NOT_APPLICABLE",
+        "eligible": false,
+        "max_direct_line": null
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_id": "1793618",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "RESEARCHED_LEAGUE_ROUTINE",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 4.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "route_reliability": "HIGH",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "upper_tail_comparable_context_basis": "Villa won both last-season league meetings, including home 1-0; current City league production and returned attack limit full suppression transfer. Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "STRONG",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Villa recent 1-0 win and historically restrictive direct games limit repeatable conversion and fifth-goal protection. European wins against weaker opposition are not the primary comparable evidence.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_AND_OBSERVED_QUOTE"
+  },
+  "runtime_commit": "5653339c78ec80bfd641a7b5929b689933d3c2c1",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
