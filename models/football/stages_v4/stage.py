@@ -447,25 +447,29 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
           and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
                                      "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
-    unresolved_intake = _unresolved_sweep_intake_rows(outcome)
-    outcome["window_status"] = "PARTIAL" if unresolved_intake else "COMPLETE"
-    outcome["whole_requested_surface_complete"] = not unresolved_intake
-    outcome["upstream_remaining_fixture_count"] = len(unresolved_intake)
-    outcome["upstream_resume_fixtures"] = [
-        {
-            "source_row_index": row.get("source_row_index"),
-            "match_id": row.get("match_id"),
-            "country": row.get("country"),
-            "competition": row.get("competition"),
-            "competition_kind": row.get("competition_kind"),
-            "home": row.get("home"),
-            "away": row.get("away"),
-            "kickoff_utc": row.get("kickoff_utc"),
-            "intake_lane": row.get("intake_lane"),
-            "reason": row.get("reason"),
-        }
-        for row in unresolved_intake
-    ]
+    # Prospective completeness metadata. Do not retrofit this policy onto an
+    # immutable source epoch that predates the repair; old receipts remain
+    # replayable under the authority that originally sealed them.
+    if at >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC and not _historical_replay:
+        unresolved_intake = _unresolved_sweep_intake_rows(outcome)
+        outcome["window_status"] = "PARTIAL" if unresolved_intake else "COMPLETE"
+        outcome["whole_requested_surface_complete"] = not unresolved_intake
+        outcome["upstream_remaining_fixture_count"] = len(unresolved_intake)
+        outcome["upstream_resume_fixtures"] = [
+            {
+                "source_row_index": row.get("source_row_index"),
+                "match_id": row.get("match_id"),
+                "country": row.get("country"),
+                "competition": row.get("competition"),
+                "competition_kind": row.get("competition_kind"),
+                "home": row.get("home"),
+                "away": row.get("away"),
+                "kickoff_utc": row.get("kickoff_utc"),
+                "intake_lane": row.get("intake_lane"),
+                "reason": row.get("reason"),
+            }
+            for row in unresolved_intake
+        ]
     outcome["integrity_sha256"] = _hash(outcome)
     return outcome
 
@@ -843,7 +847,28 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         or sweep_receipt.get("whole_requested_surface_complete") is False
         or int(sweep_receipt.get("upstream_remaining_fixture_count") or 0) > 0
     )
-    if explicit_partial or unresolved_intake:
+    receipt_created = _time(sweep_receipt["created_at_utc"], "created")
+    completeness_metadata_present = all(
+        key in sweep_receipt
+        for key in (
+            "window_status",
+            "whole_requested_surface_complete",
+            "upstream_remaining_fixture_count",
+            "upstream_resume_fixtures",
+        )
+    )
+    if receipt_created >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC:
+        if not completeness_metadata_present:
+            raise StageError(
+                "V4_SWEEP_COMPLETENESS_METADATA_REQUIRED: prospective sweep "
+                "receipt lacks upstream completeness state"
+            )
+        if unresolved_intake and not explicit_partial:
+            raise StageError(
+                "V4_SWEEP_COMPLETENESS_MISMATCH: unresolved intake cannot be "
+                "sealed as a complete requested window"
+            )
+    if explicit_partial:
         unresolved_ids = [
             row.get("match_id") for row in unresolved_intake
             if isinstance(row.get("match_id"), str)
