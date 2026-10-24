@@ -105,9 +105,8 @@ class SweepIntakeRepairTests(unittest.TestCase):
 
     def test_verified_negative_screens_are_terminal_without_new_admission(self):
         routine = fixture("routine-low", goals="TRAP")
-        discovery = fixture("discovery-low", country="Australia",
-                            league="Australian Championship 2026: Group B",
-                            proof="VERIFIED", goals="TRAP")
+        discovery = fixture("discovery-low", country="Brazil",
+                            league="Serie A", proof="VERIFIED", goals="TRAP")
         receipt = sweep(snapshot([routine, discovery]), now=NOW)
         by_id = {r["match_id"]: r for r in receipt["source_ledger"]}
         for mid in ("routine-low", "discovery-low"):
