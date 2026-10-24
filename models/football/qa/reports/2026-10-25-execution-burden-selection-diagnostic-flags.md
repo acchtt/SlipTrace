@@ -52,3 +52,30 @@ Run one coordinated frozen replay evaluating:
 3. symmetric G3/G4 mechanism calibration using same-slate controls.
 
 No production threshold change is authorized by this flag alone.
+
+
+## Flag 4 — overlapping G3 extension policies / Chelsea BOOK path conflict
+
+Chelsea — Tottenham (match 1793619) exposed two active Football C extension policies with different robustness standards.
+
+The evaluated Chelsea state was:
+- compiled certificate O2.50 / G3 funded;
+- G4 rejected;
+- certificate robustness CONDITIONAL;
+- credible tail NEAR_FUNDED;
+- STRONG self-funded carrier;
+- chance quality HIGH;
+- continuation MEDIUM;
+- upper-tail control pressure MODERATE.
+
+`c_intermediate_burden_profile()` accepts CONDITIONAL-or-better rows and authorized O2.75 plus O3.00 for this profile. `evaluate_c_quote()` evaluates that intermediate profile first, so visible O3.00 @1.80 became BOOK O3.00 @1.90+.
+
+However, `c_g3_book_extension_profile()` separately states that FRAGILE and CONDITIONAL G3 rows may not extend above O2.50 and requires ROBUST football. Because the intermediate branch returns first, the stricter ROBUST-only branch never governs Chelsea.
+
+Required audit label:
+
+`OVERLAPPING_G3_EXTENSION_POLICY_CHELSEA_20261024`
+
+Audit requirement: collapse these overlapping extension authorities into one settlement-aware policy with one explicit robustness standard. Preserve the distinction between O3.00 push-at-three and O3.25 half-loss-at-three, but do not allow branch ordering to decide which risk standard applies.
+
+No retrospective settlement or exposure rewrite is authorized by this flag.
