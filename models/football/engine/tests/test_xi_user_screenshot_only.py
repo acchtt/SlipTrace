@@ -231,7 +231,7 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         self.assertEqual(calibration["decision"], "ACT")
         self.assertTrue(calibration["exception_flag"])
 
-    def test_unreachable_lower_target_is_phantom_floor(self):
+    def test_non_visible_lower_line_can_be_custom_book_target(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
         row = robust_g3_book_match(
             independent_upper_tail=False,
@@ -255,12 +255,19 @@ class ScreenshotOnlyXIRegression(unittest.TestCase):
         shot = snapshot(c, line=3.25, odds=2.04)
         out = run_xi(c, shot)
         check = out["price_check"]["model"]
-        self.assertEqual(check["conditional_action"], "PASS")
-        self.assertEqual(check["entry_feasibility_state"], "PHANTOM_FLOOR")
-        self.assertIn("no supported entry", check["entry_feasibility_basis"])
+        self.assertEqual(check["conditional_action"], "BOOK")
+        self.assertEqual(check["book_target_line"], 2.75)
+        self.assertEqual(check["book_min_odds"], 1.85)
+        self.assertIn(
+            check["entry_feasibility_state"],
+            {"CUSTOM_BOOK_TARGET", "REALISTIC_PREGOAL_TARGET"},
+        )
         self.assertEqual(check["intermediate_burden_profile"]["max_direct_line"], 2.75)
         calibration = out["calibration_record"]
-        self.assertEqual(calibration["entry_feasibility_state"], "PHANTOM_FLOOR")
+        self.assertIn(
+            calibration["entry_feasibility_state"],
+            {"CUSTOM_BOOK_TARGET", "REALISTIC_PREGOAL_TARGET"},
+        )
 
     def test_visible_ladder_rejects_any_missing_price(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
