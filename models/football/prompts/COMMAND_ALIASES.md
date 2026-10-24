@@ -65,7 +65,10 @@ do not use Work acquisition orchestration as the default new-sweep route.
 
 ## /rank
 
-Use the newest/explicit native V4_SWEEP_READY receipt.
+Use the newest/explicit native V4_SWEEP_READY receipt only when its requested
+window is upstream-complete. A receipt with unresolved intake, PARTIAL status,
+or a nonzero upstream remaining count is not rankable and must resume the same
+sweep checkpoint first.
 
 The rank stage performs original-source replay and a fresh full-cohort status
 check before executing the single official Football C board, then independently
