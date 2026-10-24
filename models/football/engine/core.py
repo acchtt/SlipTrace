@@ -2762,6 +2762,18 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         ):
             max_book_line = float(book_profile["max_book_line"])
             target_line = min(ctx.quote.line, max_book_line)
+            if (
+                ctx.quote.line - target_line
+                > MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP + 1e-9
+            ):
+                return Decision(
+                    Action.PASS,
+                    (
+                        f"generic G3 BOOK target O{target_line:.2f} is more than "
+                        "0.25 below the visible burden and is not realistically "
+                        "reachable before a goal"
+                    ),
+                )
             target_min_odds = c_g3_book_min_odds(target_line)
             clears_target = ctx.quote.odds + 1e-9 >= target_min_odds
             return Decision(
