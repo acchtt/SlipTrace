@@ -16,8 +16,16 @@ Football C assesses the current matchup before price.
 
 Research the current scoring mechanism, route reliability, chance quality,
 carrier capacity, burden completion, continuation, opponent leakage, stall
-risk, failure resistance, availability, relevant H2H and tournament incentive.
+risk, failure resistance, availability, relevant H2H, tournament incentive,
+and the checked match-context layer: rivalry/derby, rest differential, schedule
+congestion, continental/intercontinental travel/recovery, and verified fatigue.
 Odds never create a scoring route or goal certificate.
+
+For new production rows, match context must be explicitly CHECKED_NEUTRAL or
+VERIFIED_MATERIAL with source-backed basis. A derby or short turnaround has no
+automatic direction: only verified evidence may label the net context
+EXPANSIVE, SUPPRESSIVE or MIXED. Context may move continuation/stall by at most
+one grade and can never manufacture a scoring route by itself.
 
 Availability is symmetric. An absence may reduce a route only after checking
 replacement creators/finishers, opponent independent scoring routes and
@@ -71,13 +79,16 @@ Asian .75 lines require the next certificate for a **full-win certificate**.
 
 The certificate is a protected football burden, not a universal execution
 ceiling. For G3-only C-FOCUS rows, a separate market-independent intermediate
-burden profile may authorize exact visible O2.75/O3.00 execution without
-claiming G4:
+burden profile may authorize O2.75/O3.00/O3.25 execution without claiming G4:
 
 - O2.75: exactly 3 goals = half win; minimum direct price 1.85;
-- O3.00: exactly 3 goals = push; minimum direct price 1.90 and a NEAR_FUNDED
-  fourth-goal profile is required;
-- O3.25: explicitly evaluated but never authorized by G3 alone;
+- O3.00: exactly 3 goals = push; minimum direct price 1.90. CONDITIONAL rows
+  require a NEAR_FUNDED fourth-goal profile; ROBUST rows may also qualify
+  through independently transferable fourth-goal evidence;
+- O3.25: exactly 3 goals = half loss; minimum direct price 2.00 and therefore
+  requires ROBUST football, independent transferable fourth-goal evidence,
+  HIGH continuation/reliability/chance/completion/failure resistance, and the
+  stricter frozen tail-rate/trap controls in core.py;
 - O3.50: still requires funded G4.
 
 A broadly-MEDIUM distributed-only G3 may retain the funded O2.50 execution
@@ -136,8 +147,11 @@ transferability at MEDIUM. Raw scoreline frequency cannot override a closer
 contradictory context.
 
 G4 completion still requires the deterministic carrier/distributed/reply,
-continuation and failure-resistance rules in the engine. This evidence contract
-does not lower a certificate threshold.
+continuation and failure-resistance rules in the engine. When effective
+upper-tail transferability is only MEDIUM and the closest comparable context is
+MIXED, a single-carrier G4 also requires independent corroboration: HIGH
+failure resistance, HIGH independent-route quality, or two independently STRONG
+routes. This evidence contract does not lower a certificate threshold.
 
 ## 6. G4 research completeness
 
@@ -196,8 +210,9 @@ defect.
 
 XI repeats the football decision at the current evidence epoch without requiring
 odds. Confirm whether availability actually changes named routes, whether the
-primary mechanism remains intact, and whether tournament/H2H/current-context
-information changes the certificate.
+primary mechanism remains intact, and whether tournament/H2H/rivalry/rest/travel/
+fatigue context changes continuation, stall, failure resistance or the
+certificate.
 
 A ranked fixture carries its frozen board certificate and G4 research state.
 A higher current certificate requires one permitted non-market path:
@@ -243,10 +258,10 @@ does not fund it, the market remains unsupported as a **certificate**.
 A bounded G3 BOOK extension is different: it does not accept the observed
 higher burden and does not create G4. Material 0.50+ disagreement still
 completes the existing football recheck first. After that recheck, C may publish
-its lower settlement-aware target (maximum O3.00) even when G4 remains
-unfunded/rejected; the recheck does not have to manufacture a certificate
-upgrade. ACT at the materially higher observed burden still requires that
-burden to be funded.
+its lower settlement-aware target (up to O3.25 only when the strict ROBUST
+O3.25 gate clears) even when G4 remains unfunded/rejected; the recheck does not
+have to manufacture a certificate upgrade. ACT at the materially higher
+observed burden still requires that burden to be funded.
 
 Do not use a higher market total as proof that the missing certificate should
 exist.
@@ -273,7 +288,9 @@ A conditional BOOK target requires:
 - no use of an unseen target price as though it were observed.
 
 For an **unsupported higher observed line**, there is no 0.25 visible-gap limit
-on the custom target. A **0.50+** market/certificate disagreement still requires
+on the custom target. The legacy one-step decay-WAIT compatibility path remains
+bounded to a gap of at most **0.25 goals**, but it is not the authority for a
+direct custom BOOK. A **0.50+** market/certificate disagreement still requires
 the normal football recheck first; after that recheck it may:
 
 - become funded and be evaluated at the observed burden;
