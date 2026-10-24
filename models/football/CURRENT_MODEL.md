@@ -144,22 +144,27 @@ completion certificate.
 
 ### Ranking order
 
-The active champion C ranking key is:
+The active champion C ranking key is now execution-structure first:
 
-1. certificate robustness;
-2. highest funded certificate G6 > G5 > G4 > G3 > none;
-3. endpoint/control risk;
-4. frozen V4 quantitative goal signal;
-5. remaining C football-mechanism quality.
+1. current G3 execution-floor authorization;
+2. funded G3 mechanism strength (self-funded carrier > two-route > leakage >
+   distributed-only);
+3. burden-normalized clearability;
+4. certificate robustness;
+5. highest funded certificate G6 > G5 > G4 > G3 > none;
+6. endpoint/control risk;
+7. frozen V4 quantitative goal signal;
+8. remaining C football-mechanism quality.
 
-Compiled burden magnitude itself is not a ranking bonus. A fragile G4/G5 does
-not automatically outrank a robust or conditional G3.
+This prevents a broadly-MEDIUM distributed G3 from outranking a stronger
+self-funded carrier merely because evidence documentation is HIGH or recent
+score rates are stronger. Evidence confidence is a sourcing-quality field and
+does not count as the genuinely HIGH predictive dimension required to promote
+active C execution robustness.
 
-A frozen clearability challenger is emitted for replay only. It moves the
-existing burden-normalized clearability and current G3 floor ahead of
-certificate depth. It has zero production authority until same-information,
-settled multi-board replay demonstrates useful separation without collapsing
-coverage.
+Compiled burden magnitude itself is not a ranking bonus. Deeper certificates
+remain important, but certificate depth no longer wins before current mechanism
+strength and clearability.
 
 ## Football C supported-burden compiler
 
