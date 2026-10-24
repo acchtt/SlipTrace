@@ -355,18 +355,20 @@ Active Football C has three user-facing prematch price actions:
   independently confirmed fill;
 - **PASS** — no acceptable current or conditional entry.
 
-Legacy WAIT fields remain only as internal reachability evidence and historical
-compatibility. When the old price-only WAIT conditions are valid, active C emits
-BOOK instead. BOOK remains ROBUST-only. A FRAGILE REVIEW_ONLY exception may
-retain a direct O2.50 ACT only when G3 itself is already funded, the current
-G3 execution-floor checks clear, and endpoint-control pressure is not HIGH;
-FRAGILE never receives upper-tail or BOOK authority.
+Legacy WAIT fields remain only as internal compatibility evidence. Active C
+uses BOOK for zero-exposure target instructions. A custom BOOK may be created
+for **CONDITIONAL or ROBUST** football at the deterministic direct ACT ceiling;
+FRAGILE still cannot create BOOK. A FRAGILE REVIEW_ONLY exception may retain a
+direct O2.50 ACT only when G3 itself is already funded, the current G3
+execution-floor checks clear, and endpoint-control pressure is not HIGH.
 
-For an unsupported higher observed burden, a conditional target may move down to
-the certified burden only across one **0.25-goal** Asian-total step. A gap of
-**0.50+** cannot manufacture a far-lower target. The normal minimum remains
-1.65, with the existing supported-line 1.60 soft zone where deterministic C
-corroboration permits it.
+For an unsupported higher observed burden, the visible-line gap does not limit a
+custom BOOK because the user can directly select a different total line. A
+material **0.50+** disagreement still requires the existing football recheck
+before any lower custom target is published. The target carries its own minimum
+odds and creates no exposure until the user confirms the actual custom fill.
+The normal direct-ACT minimum remains 1.65, with the existing supported-line
+1.60 soft zone where deterministic C corroboration permits it.
 
 ## /live
 
