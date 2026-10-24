@@ -307,7 +307,8 @@ BOOK-strength gate. Market disagreement never creates that eligibility:
   intermediate-burden profile;
 - O3.00 @1.90+ additionally requires a NEAR_FUNDED fourth-goal profile plus
   stronger carrier/independent structure;
-- O3.25 is evaluated explicitly but remains unsupported by G3 alone;
+- O3.25 is not generic G3 authority; it is available only through the strict
+  ROBUST near-G4 intermediate gate at 2.00+;
 - generic G3 BOOK may target only O2.75/O3.00 when its football-strength gate
   clears; the target does not need to appear in the visible ladder;
 - O3.50 still requires funded G4.
