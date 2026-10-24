@@ -76,6 +76,32 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertTrue((root/"out/v4_sweep_ready.json").exists())
 
 
+    def test_finalizer_cannot_mark_a_partial_native_receipt_ready(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            src = source()
+            (root / "request.json").write_text(json.dumps({
+                "run_id": src["run_id"],
+                "window_start_ict": src["window_start_utc"],
+                "window_end_ict": src["window_end_utc"],
+            }))
+            (root / "targets.json").write_text(json.dumps({
+                "run_id": src["run_id"], "targets": []
+            }))
+            original_sweep = normal_finalize.work_sweep.sweep
+            def partial_sweep(s, now):
+                r = original_sweep(s, now=now)
+                r["window_status"] = "PARTIAL"
+                r["whole_requested_surface_complete"] = False
+                r["upstream_resume_fixtures"] = [{"match_id": "pending"}]
+                return r
+            with patch.object(normal_finalize.work_sweep, "utcnow", return_value=NOW), \
+                 patch.object(normal_finalize.work_sweep, "acquire", return_value=copy.deepcopy(src)), \
+                 patch.object(normal_finalize.work_sweep, "sweep", side_effect=partial_sweep):
+                with self.assertRaisesRegex(ValueError, "FINALIZER_NATIVE_SWEEP_PARTIAL"):
+                    normal_finalize.run(root/"request.json", root/"targets.json", root/"out")
+            self.assertFalse((root/"out/rank-handoff.json").exists())
+
     def test_empty_research_cohort_returns_native_zero_target_receipt(self):
         # A complete date-surface may have no priority research rows in
         # a short requested window. No fabricated fixture is permissible.

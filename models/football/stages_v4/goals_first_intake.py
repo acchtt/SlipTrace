@@ -100,6 +100,49 @@ def select(
             else:
                 item["intake_lane"] = "PENDING_GOAL_RESEARCH"
                 item["reason"] = screen["reason"]
+        # A fully quantified negative goal screen is terminal WATCH, not
+        # incomplete research. An unverified discovery source or a cup missing
+        # mandatory format/incentive proof remains pending, however.
+        if screen["status"] == "WATCH_GOAL_SIGNAL":
+            channels_verified = (
+                old_lane in ADMITTED_LANES
+                or source.get("researchability_status") == "VERIFIED"
+            )
+            cup_verified = (
+                source.get("competition_kind") != "DOMESTIC_CUP"
+                or (
+                    isinstance(source.get("tournament_format_proof"), dict)
+                    and source["tournament_format_proof"].get("competition_format_verified") is True
+                )
+            )
+            if channels_verified and cup_verified:
+                item["intake_lane"] = "WATCH_GOAL_SIGNAL"
+                item["reason"] = screen["reason"]
+
+        # Explicit source-backed short history is a terminal evidence gap,
+        # never a GOAL-qualified fixture and never a fabricated fourth result.
+        if (screen["status"] == "PENDING_GOAL_HISTORY"
+                and source.get("research_disposition") == "EVIDENCE_LIMITED"
+                and source.get("researchability_status") == "VERIFIED"):
+            reasons = source.get("research_limit_reasons")
+            histories = source.get("football_evidence")
+            if (isinstance(reasons, list) and bool(reasons)
+                    and all(x in {
+                        "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+                        "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR",
+                    } for x in reasons)
+                    and isinstance(histories, dict)
+                    and all(
+                        isinstance(histories.get(side), dict)
+                        and isinstance(histories[side].get("recent"), list)
+                        and isinstance(histories[side].get("source_url"), str)
+                        and histories[side]["source_url"].startswith("https://")
+                        for side in ("home", "away")
+                    )
+                    and any(len(histories[side]["recent"]) < 4 for side in ("home", "away"))):
+                item["intake_lane"] = "EVIDENCE_LIMITED"
+                item["reason"] = ";".join(reasons)
+
         if item["intake_lane"] not in {"GOAL_PRIORITY", "GOAL_REVIEW"}:
             research.append({
                 "match_id": mid, "country": item["country"],

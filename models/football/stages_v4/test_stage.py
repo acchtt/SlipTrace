@@ -15,7 +15,7 @@ sys.path.insert(0, str(DIR))
 sys.path.insert(0, str(ENGINE_TESTS))
 
 from league_registry import classify, REGISTRY
-from stage import StageError, sweep, rank as production_rank, verify_rank
+from stage import StageError, sweep, rank as production_rank, verify_rank, _unresolved_sweep_intake_rows
 from test_board_pair import c_row, payload
 from evidence_fixtures import attach_g4_evidence
 
@@ -88,6 +88,49 @@ def model_input(mid="m1"):
     a["kickoff_ict"] = KICKOFF_ICT
     return payload("c", a)
 
+
+class SweepIntakeRepairTests(unittest.TestCase):
+    def test_outside_window_unknown_provider_status_is_closed(self):
+        outside = fixture("past-unknown", ko="2026-10-11T14:00:00Z")
+        outside["fixture_status"] = "UNKNOWN_PROVIDER_STATUS"
+        ongoing = fixture("window-valid")
+        receipt = sweep(snapshot([outside, ongoing]), now=NOW)
+        by_id = {r["match_id"]: r for r in receipt["source_ledger"]}
+        self.assertEqual(by_id["past-unknown"]["intake_lane"], "CLOSED")
+        self.assertNotIn("past-unknown", [r.get("match_id") for r in _unresolved_sweep_intake_rows(receipt)])
+        unknown = fixture("window-unknown")
+        unknown["fixture_status"] = "UNKNOWN_PROVIDER_STATUS"
+        blocked = sweep(snapshot([unknown]), now=NOW)
+        self.assertEqual(blocked["source_ledger"][0]["intake_lane"], "PENDING_SOURCE")
+
+    def test_verified_negative_screens_are_terminal_without_new_admission(self):
+        routine = fixture("routine-low", goals="TRAP")
+        discovery = fixture("discovery-low", country="Australia",
+                            league="Australian Championship 2026: Group B",
+                            proof="VERIFIED", goals="TRAP")
+        receipt = sweep(snapshot([routine, discovery]), now=NOW)
+        by_id = {r["match_id"]: r for r in receipt["source_ledger"]}
+        for mid in ("routine-low", "discovery-low"):
+            self.assertEqual(by_id[mid]["goal_screen"]["status"], "WATCH_GOAL_SIGNAL")
+            self.assertEqual(by_id[mid]["intake_lane"], "WATCH_GOAL_SIGNAL")
+        self.assertEqual(receipt["eligible_count"], 0)
+        self.assertEqual(_unresolved_sweep_intake_rows(receipt), [])
+
+    def test_evidence_limited_only_for_proved_short_history(self):
+        short = fixture("short", country="Australia", league="A-League",
+                        proof="VERIFIED")
+        short["football_evidence"]["away"]["recent"] = short["football_evidence"]["away"]["recent"][:2]
+        short["research_disposition"] = "EVIDENCE_LIMITED"
+        short["research_limit_reasons"] = ["AWAY_COMPETITIVE_HISTORY_UNDER_FOUR"]
+        receipt = sweep(snapshot([short]), now=NOW)
+        row = receipt["source_ledger"][0]
+        self.assertEqual(row["intake_lane"], "EVIDENCE_LIMITED")
+        self.assertEqual(receipt["eligible_count"], 0)
+        self.assertEqual(_unresolved_sweep_intake_rows(receipt), [])
+        unproved = copy.deepcopy(short)
+        unproved.pop("research_limit_reasons")
+        partial = sweep(snapshot([unproved]), now=NOW)
+        self.assertEqual(partial["source_ledger"][0]["intake_lane"], "PENDING_DISCOVERY")
 
 class ResearchedRegistryTests(unittest.TestCase):
     def test_top_five_and_key_pilots_are_present(self):

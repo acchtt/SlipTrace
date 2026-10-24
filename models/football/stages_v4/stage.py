@@ -225,7 +225,14 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             if not at - timedelta(minutes=MAX_SOURCE_AGE_MINUTES) <= checked <= at:
                 raise StageError(f"{mid}: fixture evidence stale/future")
             status = raw.get("fixture_status")
-            if status not in VALID_MATCH_STATUSES:
+            # Source-date unions legitimately include many completed/unknown
+            # fixtures outside the requested window. They are CLOSED, not
+            # upstream PENDING_SOURCE. Still fail closed on any future
+            # in-window fixture whose status cannot be confirmed.
+            in_requested_window_for_status = (
+                start <= ko <= end if inclusive_end else start <= ko < end
+            )
+            if status not in VALID_MATCH_STATUSES and in_requested_window_for_status and ko > at:
                 raise StageError(f"{mid}: source-confirmed fixture status required")
             result = classify(raw)
             # Historical source replay must preserve the policy and digest

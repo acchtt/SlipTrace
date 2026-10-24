@@ -356,9 +356,47 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
             state["research_disposition"] = "COMPLETE"
         states[mid] = state
 
+    # Make only proved, static short-history limitations terminal in the
+    # native source replay. A status/identity/cup-format failure cannot be
+    # converted into EVIDENCE_LIMITED by this shortcut.
+    for mid, state in states.items():
+        if state.get("research_disposition") != "EVIDENCE_LIMITED":
+            continue
+        reasons = state.get("pending_reasons") or []
+        fixture = fixtures[mid]
+        histories = fixture.get("football_evidence")
+        if (
+            reasons
+            and all(reason in {
+                "HOME_COMPETITIVE_HISTORY_UNDER_FOUR",
+                "AWAY_COMPETITIVE_HISTORY_UNDER_FOUR",
+            } for reason in reasons)
+            and fixture.get("fixture_status") == "PREMATCH_CONFIRMED"
+            and isinstance(histories, dict)
+            and all(
+                isinstance(histories.get(side), dict)
+                and isinstance(histories[side].get("recent"), list)
+                for side in ("home", "away")
+            )
+        ):
+            fixture["research_disposition"] = "EVIDENCE_LIMITED"
+            fixture["research_limit_reasons"] = list(reasons)
+
     _save(output / "source.json", source)
     receipt = work_sweep.sweep(source, now=work_sweep.utcnow())
     _save(output / "v4_sweep_ready.json", receipt)
+
+    # Never advertise READY while the actual native receipt is PARTIAL.
+    if receipt.get("window_status") == "PARTIAL" or receipt.get(
+        "whole_requested_surface_complete"
+    ) is False:
+        raise ValueError(
+            "FINALIZER_NATIVE_SWEEP_PARTIAL: unresolved="
+            + ",".join(
+                str(x.get("match_id"))
+                for x in receipt.get("upstream_resume_fixtures", [])[:25]
+            )
+        )
 
     ledger = {row.get("match_id"): row for row in receipt.get("source_ledger", [])}
     eligible = {row.get("match_id") for row in receipt.get("eligible_queue", [])}
