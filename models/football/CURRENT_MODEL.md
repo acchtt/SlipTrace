@@ -335,8 +335,10 @@ Active Football C has three user-facing prematch price actions:
 
 Legacy WAIT fields remain only as internal reachability evidence and historical
 compatibility. When the old price-only WAIT conditions are valid, active C emits
-BOOK instead. A FRAGILE REVIEW_ONLY exception must revalidate to at least
-CONDITIONAL before such a target is allowed.
+BOOK instead. BOOK remains ROBUST-only. A FRAGILE REVIEW_ONLY exception may
+retain a direct O2.50 ACT only when G3 itself is already funded, the current
+G3 execution-floor checks clear, and endpoint-control pressure is not HIGH;
+FRAGILE never receives upper-tail or BOOK authority.
 
 For an unsupported higher observed burden, a conditional target may move down to
 the certified burden only across one **0.25-goal** Asian-total step. A gap of
