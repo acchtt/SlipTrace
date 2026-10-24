@@ -141,9 +141,11 @@ research rows left unresolved. If time/tool limits interrupt research:
 - do not repeat resolved research;
 - do not present the partial handoff as the completed newest sweep.
 
-A user may explicitly send a partial verified subset to `/rank`, but it must
-remain labelled PARTIAL on both sides and its pending upstream count must stay
-visible. Rank must never make that partial board look like a completed window.
+A partial upstream sweep must **not** be sealed into `/rank`. Preserve its
+resume queue and finish the unresolved in-window intake first. `/rank` is
+allowed only after the requested sweep window is complete; rank's own later
+research checkpoint may still be partial, but upstream acquisition/research may
+not disappear behind a smaller eligible subset.
 
 For the normal bounded sweep path, source acquisition and native finalization are
 a single backend responsibility. Do not surface intermediate "full source
