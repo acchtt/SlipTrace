@@ -1,0 +1,11 @@
+{
+  "error": "RANK_RECEIPT_REQUIRED: undeclared override of frozen field board_state_basis",
+  "error_type": "RankAuthorityError",
+  "failure_class": "RANK_AUTHORITY",
+  "input_sha256": "1859f5b1c0321998ee575c5939cff069baa7190a83f2daead1113a610bc0bdfa",
+  "ok": false,
+  "request_id": "XI-20261024-URAWA-INAC-1137",
+  "runtime_commit": "fc378bf082cfa7872956a22afbeb87123a8f250a",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "RANK_RECEIPT_REQUIRED"
+}
