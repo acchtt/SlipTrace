@@ -74,17 +74,30 @@ require(
     "SUPPRESSIVE",
     "G4 completion reliability",
     "REVIEW_ONLY and conditional BOOK",
+    "engine_policy_fingerprint",
+    "SLATE_PINNED_V1",
+    "rivalry/derby",
+    "O3.25 may ACT/BOOK at 2.00+",
 )
 require(
     "models/football/engine/core.py",
     "two_strong_routes",
     "completion_cap",
     "_healthy_c_wait",
+    "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION",
+    "match_context_profile",
+    "match_context_review_status",
+    "3.25: 2.00",
+    "mixed_medium_corroborated",
 )
 require(
     "models/football/stages_v4/stage.py",
     "from adapter import run_board",
     '"active_model": "c"',
+    "engine_policy_fingerprint",
+    "SLATE_PINNED_V1",
+    "MATCH_CONTEXT_RESEARCH_REQUIRED",
+    "G3_CHALLENGER_REVIEW_REQUIRED",
 )
 forbid(
     "models/football/stages_v4/stage.py",
@@ -106,6 +119,8 @@ require(
     "V4_RANK_PERSISTENCE_VERIFIED",
     "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
     "REVIEW_ONLY",
+    "RANK_ENGINE_POLICY_DRIFT",
+    "pinned_engine_policy_fingerprint",
 )
 forbid(
     "models/football/engine/xi_portable.py",
@@ -189,6 +204,33 @@ forbid(
 )
 
 # Active docs must not create a second model policy.
+require(
+    "models/football/stages_v4/RANK.md",
+    "Slate policy lock",
+    "rivalry/derby context",
+    "g3_challenger_reviewed=true",
+)
+require(
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "RANK_ENGINE_POLICY_DRIFT",
+    "rivalry/rest/travel/fatigue context",
+    "O3.25 requires",
+    "No second",
+)
+for rel in (
+    "models/football/CURRENT_MODEL.md",
+    "models/football/production/FOOTBALL_C.md",
+    "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
+    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+):
+    forbid(
+        rel,
+        "G3 alone never authorizes O3.25",
+        "G3-only O3.25 BOOK is disabled",
+        "only ROBUST G3 can extend",
+        "target may move down to the certified burden only when the gap is <=0.25",
+    )
+
 for rel in (
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
     "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
