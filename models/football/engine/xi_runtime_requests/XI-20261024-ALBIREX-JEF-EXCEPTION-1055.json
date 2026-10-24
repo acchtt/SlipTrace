@@ -1,0 +1,360 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261024-ALBIREX-JEF-EXCEPTION-1055",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "albirex-jef-exception-20261024T035500Z",
+    "match": {
+      "match_id": "1814248",
+      "country": "Japan",
+      "competition": "Women's WE League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "kickoff_ict": "2026-10-24T11:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No reliability promotion asserted; current official league, club and confirmed XI evidence used.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Fresh current official results plus user-supplied official starting XIs are available.",
+      "common_evidence_basis": "Fresh same-day review: Albirex enter with three consecutive scoreless results (0-1 Nojima, 0-0 Nagano, 0-1 Elfen), while JEF enter with three consecutive multi-goal wins (3-1 Nojima, 2-1 Urawa, 2-1 INAC). The official lineup posts confirm Albirex start Kawasumi, Sonoda, Yamaya, Tanaka and Shiroiwa, while JEF start Inoue with Ogawa, Kobayashi, Inayama and other senior support. JEF therefore own the stronger current scoring route, but Albirex's recent defensive endpoints and their own repeated blanks make the total highly carrier-dependent.",
+      "home_route": "WEAK",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "LOW",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "LOW",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "LOW",
+      "completion_mode": "CARRIER",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "LOW",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "The principal failure is a 0-1, 0-2, 1-1 or 1-2 endpoint: Albirex have failed to score in three straight and have conceded only one in each of their last two completed league/cup matches, while this H2H has been dominated by one-goal and two-goal totals. JEF's recent two-goal production is strong but does not independently protect a third.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "MEDIUM",
+      "h2h_current_corroboration": "FOUND",
+      "h2h_material_effect": true,
+      "h2h_basis": "WE League H2H is low-scoring: the last three listed league meetings before today were 0-1, 0-1 and 0-1, preceded by 1-0 and 1-0; only one of the ten listed league meetings reached four total goals. Current Albirex three-match scoring drought corroborates that suppression.",
+      "supported_line": 2,
+      "supported_line_basis": "Exception research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "JEF have scored 3, 2 and 2 in their latest three, but only one of those reaches three and the current opponent has conceded 0,1,1 across its latest three; an independent three-goal away carry is not protected.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independent fourth-goal route; current H2H and Albirex scoring drought are suppressive.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "Closest current same-league and direct context is suppressive rather than supportive of four goals.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Recent direct meetings and Albirex current endpoints are overwhelmingly low-scoring.",
+      "failure_attacks_route": true,
+      "failure_attacks_route_basis": "Albirex's repeated current conversion failure attacks the secondary route needed to distribute a third goal; JEF's route survives but is not a protected three-goal carrier.",
+      "material_suppression": true,
+      "material_suppression_basis": "Three consecutive Albirex blanks plus current direct low-total history form current, corroborated suppression of the distributed G3 route.",
+      "tournament_incentive_required": false,
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "REGULAR_LEAGUE_EARLY_PHASE",
+      "competition_format": "Standard regular-season league match; no aggregate, knockout, must-win or required-margin state.",
+      "draw_resolution": "Regular-season draw stands.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "Early regular-season points race; no verified qualification or margin dependency.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous-score dependency.",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "goal_signal_priority_score": 46,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_mean_over_three_rate": 0.2,
+      "goal_signal_low_draw_trap_rate": 0.2,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "Goal three is not funded by the fresh exception research; goal-four research is therefore not applicable.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "G3 not funded; no G4 carrier review required.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "G3 not funded; no distributed G4 path.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "G3 not funded; no reply G4 path.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "JEF's 3-1, 2-1, 2-1 run is reliable; Albirex's three straight blanks make total-route reliability only MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "JEF can continue to two goals, but a third lacks independent protection; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Albirex have three straight blanks and the direct series is low-scoring; HIGH stall risk.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If JEF stop at one or two, Albirex have not shown a current reliable rescue route; LOW.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent upper-tail route is verified.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "mechanism_ids": [
+            "CONTROL_AND_CONVERSION"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The principal failure is a 0-1, 0-2, 1-1 or 1-2 endpoint: Albirex have failed to score in three straight and have conceded only one in each of their last two completed league/cup matches, while this H2H has been dominated by one-goal and two-goal totals. JEF's recent two-goal production is strong but does not independently protect a third.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+            "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+            "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+            "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+            "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+            "https://jefunited.co.jp/matches/stats/1538",
+            "https://jefunited.co.jp/news/detail/5582",
+            "https://weleague.jp/standings/",
+            "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "CONTROL_AND_CONVERSION": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-PASS",
+      "board_state_basis": "Fresh exception research confirms JEF's stronger route but also current, corroborated suppression of Albirex contribution and no funded G3 certificate.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+        "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+        "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+        "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+        "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+        "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+        "https://jefunited.co.jp/matches/stats/1538",
+        "https://jefunited.co.jp/news/detail/5582",
+        "https://weleague.jp/standings/",
+        "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-24T03:55:54+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "CONFIRMED_XI_AND_FRESH_CURRENT_RESULTS",
+      "board_state": "C-PASS",
+      "thesis_state": "WEAKENED",
+      "primary_mechanism_intact": false,
+      "material_veto": true,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Explicit exception from NOT_RANKED intake.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "ALBIREX-JEF-20261024-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "albirex-jef-exception-20261024T035500Z",
+      "researched_at_utc": "2026-10-24T03:55:54+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Newest 07:26-12:00 rank package NOT_RANKED screen + official current results + user official XI posts",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000f0d482119c16bec2987d3d63",
+        "USER_LINEUP_SCREENSHOT:file_00000000798882079a760c81b0e58623",
+        "USER_ODDS_SCREENSHOT:file_00000000e9908211b476aaf8a40ca670",
+        "https://data.weleague.jp/SFMS04/?opponentTeamId=379&teamId=383",
+        "https://data.weleague.jp/SFMS04/?opponentTeamId=383&teamId=379",
+        "https://albirex-niigata-ladies.com/matches/result/stats/26-27-we5",
+        "https://jefunited.co.jp/matches/stats/1538",
+        "https://jefunited.co.jp/news/detail/5582",
+        "https://weleague.jp/standings/",
+        "Football-C-rank-20261024-0726-1200-verified.json#1814248"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL",
+      "challenge_reason": "User explicitly requested /xi exception after confirmed XI and screenshot odds became available.",
+      "state_change_status": null,
+      "state_change_fields": [],
+      "state_change_basis": null
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_00000000e9908211b476aaf8a40ca670",
+    "match_id": "1814248",
+    "bookmaker": "User-displayed bookmaker",
+    "quote": {
+      "line": 2.25,
+      "odds": 1.88
+    },
+    "observed_at_utc": "2026-10-24T03:55:00+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
