@@ -1,0 +1,87 @@
+{
+  "run_id": "V4-20261024-1046-20261024-1200-INTAKEFIX",
+  "selection_mode": "SOURCE_CANONICAL_FULL_IN_SCOPE_INCLUSIVE_NOON",
+  "notes": "Use newly acquired 10:46–12:00 ICT source after inclusive-end terminal-sentinel repair (NOT discarded 07:26 receipt). Research all 20 source-attested in-scope prematch rows: 3 Japan WE League women, 3 Australia senior, Japan J1/J2/J3, six Korea K-League 1 and K League 2. Exclude non-Japan domestic women's A-League Women 1. 12:00 exact endpoint is INCLUDED by current V4 policy. Independent cup/tournament format and incentives verification required. No retroactive rank or screenshot odds. Intake-state repair only: do not turn WATCH into goal-positive, retain evidence-limited legitimate history gaps; preserve exact frozen window and source ID selection.",
+  "targets": [
+    {
+      "match_id": "1843495",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/348/details?locale=en"
+    },
+    {
+      "match_id": "1795837",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7564/details?locale=en"
+    },
+    {
+      "match_id": "1723733",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8792/details?locale=en"
+    },
+    {
+      "match_id": "1723732",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8286/details?locale=en"
+    },
+    {
+      "match_id": "1723736",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/303/details?locale=en"
+    },
+    {
+      "match_id": "1723734",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8260/details?locale=en"
+    },
+    {
+      "match_id": "1723735",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8277/details?locale=en"
+    },
+    {
+      "match_id": "1723737",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7860/details?locale=en"
+    },
+    {
+      "match_id": "1895557",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7355/details?locale=en"
+    },
+    {
+      "match_id": "1895569",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8905/details?locale=en"
+    },
+    {
+      "match_id": "1804163",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7383/details?locale=en"
+    },
+    {
+      "match_id": "1804168",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8071/details?locale=en"
+    },
+    {
+      "match_id": "1853364",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/11639/details?locale=en"
+    },
+    {
+      "match_id": "1853365",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/11866/details?locale=en"
+    },
+    {
+      "match_id": "1853369",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7353/details?locale=en"
+    },
+    {
+      "match_id": "1853368",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7380/details?locale=en"
+    },
+    {
+      "match_id": "1814248",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10003/details?locale=en"
+    },
+    {
+      "match_id": "1814256",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10012/details?locale=en"
+    },
+    {
+      "match_id": "1814249",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10014/details?locale=en"
+    },
+    {
+      "match_id": "1729414",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/9823/details?locale=en"
+    }
+  ]
+}
