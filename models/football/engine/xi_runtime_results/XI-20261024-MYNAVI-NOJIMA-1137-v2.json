@@ -1,0 +1,11 @@
+{
+  "error": "declared material update absent from match: research_revalidation",
+  "error_type": "RankAuthorityError",
+  "failure_class": "RANK_AUTHORITY",
+  "input_sha256": "4090b6e7f69ff6caebbea4344e3de60c2d60685c70adb793683ade9e24027394",
+  "ok": false,
+  "request_id": "XI-20261024-MYNAVI-NOJIMA-1137-v2",
+  "runtime_commit": "c4cc7cae76030a4c9f39f54f9938ce65fcb25ed9",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "RANK_RECEIPT_REQUIRED"
+}
