@@ -76,6 +76,7 @@ require(
     "REVIEW_ONLY and conditional BOOK",
     "engine_policy_fingerprint",
     "SLATE_PINNED_V1",
+    "RANK_POLICY_LOCK_REQUIRED",
     "rivalry/derby",
     "O3.25 may ACT/BOOK at 2.00+",
 )
@@ -120,6 +121,8 @@ require(
     "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
     "REVIEW_ONLY",
     "RANK_ENGINE_POLICY_DRIFT",
+    "RANK_POLICY_LOCK_REQUIRED",
+    "POLICY_LOCK_EFFECTIVE_UTC",
     "pinned_engine_policy_fingerprint",
 )
 forbid(
