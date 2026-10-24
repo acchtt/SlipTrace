@@ -2508,6 +2508,44 @@ def c_g3_book_min_odds(line: float) -> float:
     return C_G3_BOOK_MIN_ODDS[line]
 
 
+def c_custom_book_target(
+    a: MatchAssessment,
+    board_state: BoardState,
+) -> tuple[float, float] | None:
+    """Return a non-visible/custom BOOK target authorized by current football.
+
+    A BOOK target is not an observed quote and creates zero exposure until the
+    user independently selects the custom line and confirms the actual fill.
+    Therefore the target line does not need to be present in the screenshot.
+    Screenshot-only authority still applies to every observed price.
+    """
+
+    require_c_completion(a)
+    if board_state != BoardState.FOCUS:
+        return None
+    if certificate_robustness(a, "c") < 1:
+        return None
+
+    ceiling = c_direct_act_ceiling(a)
+    if ceiling is None:
+        return None
+
+    compiled = certified_supported_burden(a, "c")
+    if compiled is None:
+        return None
+
+    if ceiling > compiled + 1e-9:
+        min_odds = C_INTERMEDIATE_MIN_ODDS.get(ceiling)
+        if min_odds is None:
+            return None
+    else:
+        # Non-visible target at or below the direct ceiling uses the ordinary
+        # active-C execution price floor. Do not infer a current price.
+        min_odds = 1.65
+
+    return float(ceiling), float(min_odds)
+
+
 def _quote_context(ctx: DecisionContext) -> ModelQuoteContext:
     """Drop execution-only fields while preserving the exact model policy state."""
 
@@ -2764,18 +2802,6 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         ):
             max_book_line = float(book_profile["max_book_line"])
             target_line = min(ctx.quote.line, max_book_line)
-            if (
-                ctx.quote.line - target_line
-                > MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP + 1e-9
-            ):
-                return Decision(
-                    Action.PASS,
-                    (
-                        f"generic G3 BOOK target O{target_line:.2f} is more than "
-                        "0.25 below the visible burden and is not realistically "
-                        "reachable before a goal"
-                    ),
-                )
             target_min_odds = c_g3_book_min_odds(target_line)
             clears_target = ctx.quote.odds + 1e-9 >= target_min_odds
             return Decision(
@@ -2796,6 +2822,27 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
                 book_min_odds=target_min_odds,
                 book_target_available=True,
                 current_price_clears_book_target=clears_target,
+            )
+
+        custom_target = c_custom_book_target(a, ctx.board_state)
+        if (
+            compiled_anchor is not None
+            and not at_or_below
+            and custom_target is not None
+        ):
+            target_line, target_min_odds = custom_target
+            return Decision(
+                Action.BOOK,
+                (
+                    f"custom non-visible BOOK target O{target_line:.2f} "
+                    f"@ {target_min_odds:.2f}+ is football-authorized; "
+                    "screenshot does not need to display the target line or price; "
+                    "zero exposure until independently selected and fill-confirmed"
+                ),
+                book_target_line=target_line,
+                book_min_odds=target_min_odds,
+                book_target_available=True,
+                current_price_clears_book_target=False,
             )
 
         if compiled_anchor is not None and not at_or_below and _healthy_c_wait(a, ctx):
@@ -2841,6 +2888,22 @@ def evaluate_c_quote(a: MatchAssessment, ctx: ModelQuoteContext) -> Decision:
         )
 
     if ctx.quote.line > direct_act_ceiling + 1e-9:
+        custom_target = c_custom_book_target(a, ctx.board_state)
+        if custom_target is not None:
+            target_line, target_min_odds = custom_target
+            return Decision(
+                Action.BOOK,
+                (
+                    f"visible burden exceeds direct ACT ceiling O{direct_act_ceiling:.2f}; "
+                    f"custom BOOK O{target_line:.2f} @ {target_min_odds:.2f}+ "
+                    "is authorized without requiring that line to appear in the screenshot; "
+                    "zero exposure until independently selected and fill-confirmed"
+                ),
+                book_target_line=target_line,
+                book_min_odds=target_min_odds,
+                book_target_available=True,
+                current_price_clears_book_target=False,
+            )
         return Decision(
             Action.PASS,
             f"quoted burden exceeds direct ACT ceiling O{direct_act_ceiling:.2f}",
