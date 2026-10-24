@@ -570,6 +570,108 @@ def validate_tournament_incentive(
     }
 
 
+def validate_match_context(obj: dict[str, Any]) -> dict[str, Any]:
+    """Validate optional historical-compatible match context.
+
+    Legacy frozen rows may omit the block entirely. New production rank rows
+    are required by stages_v4/stage.py to provide a complete checked block.
+    """
+
+    keys = {
+        "match_context_review_status",
+        "rivalry_context",
+        "rest_load_context",
+        "travel_load_context",
+        "fatigue_context",
+        "match_context_effect",
+        "match_context_basis",
+        "match_context_evidence_refs",
+    }
+    present = keys.intersection(obj)
+    if not present:
+        return {
+            "match_context_review_status": "LEGACY_NOT_CHECKED",
+            "rivalry_context": "NOT_CHECKED",
+            "rest_load_context": "NOT_CHECKED",
+            "travel_load_context": "NOT_CHECKED",
+            "fatigue_context": "NOT_CHECKED",
+            "match_context_effect": "NOT_CHECKED",
+            "match_context_basis": None,
+        }
+    missing = sorted(keys - set(obj))
+    if missing:
+        raise ContractError(
+            "match context block is partial; missing: " + ", ".join(missing)
+        )
+
+    status = _choice(
+        obj,
+        "match_context_review_status",
+        {"CHECKED_NEUTRAL", "VERIFIED_MATERIAL"},
+    )
+    rivalry = _choice(
+        obj,
+        "rivalry_context",
+        {"NOT_APPLICABLE", "NEUTRAL", "DERBY", "RIVALRY"},
+    )
+    rest = _choice(
+        obj,
+        "rest_load_context",
+        {
+            "BALANCED", "HOME_SHORT_REST", "AWAY_SHORT_REST",
+            "BOTH_SHORT_REST", "HOME_CONGESTED", "AWAY_CONGESTED",
+            "BOTH_CONGESTED", "MIXED",
+        },
+    )
+    travel = _choice(
+        obj,
+        "travel_load_context",
+        {
+            "NORMAL", "HOME_CONTINENTAL", "AWAY_CONTINENTAL",
+            "BOTH_CONTINENTAL", "HOME_INTERCONTINENTAL",
+            "AWAY_INTERCONTINENTAL", "BOTH_INTERCONTINENTAL",
+            "TIMEZONE_STRESS", "MIXED",
+        },
+    )
+    fatigue = _choice(
+        obj,
+        "fatigue_context",
+        {"NONE", "HOME_VERIFIED", "AWAY_VERIFIED", "BOTH_VERIFIED", "MIXED"},
+    )
+    effect = _choice(
+        obj,
+        "match_context_effect",
+        {"NEUTRAL", "EXPANSIVE", "SUPPRESSIVE", "MIXED"},
+    )
+    basis = _string(obj, "match_context_basis")
+    refs = obj.get("match_context_evidence_refs")
+    if (
+        not isinstance(refs, list)
+        or not refs
+        or any(not isinstance(x, str) or not x.strip() for x in refs)
+    ):
+        raise ContractError(
+            "match_context_evidence_refs must contain at least one non-empty source reference"
+        )
+    if status == "CHECKED_NEUTRAL" and effect != "NEUTRAL":
+        raise ContractError(
+            "CHECKED_NEUTRAL match context must use match_context_effect=NEUTRAL"
+        )
+    if status == "VERIFIED_MATERIAL" and effect == "NEUTRAL":
+        raise ContractError(
+            "VERIFIED_MATERIAL match context must use EXPANSIVE/SUPPRESSIVE/MIXED"
+        )
+    return {
+        "match_context_review_status": status,
+        "rivalry_context": rivalry,
+        "rest_load_context": rest,
+        "travel_load_context": travel,
+        "fatigue_context": fatigue,
+        "match_context_effect": effect,
+        "match_context_basis": basis,
+    }
+
+
 def parse_assessment(
     obj: dict[str, Any],
     *,
@@ -580,6 +682,7 @@ def parse_assessment(
 
     validate_operational_viability(obj)
     incentive_gate = validate_tournament_incentive(obj)
+    context_gate = validate_match_context(obj)
     h2h_gate = validate_h2h_semantics(obj)
     _kickoff_block(obj)
     if not require_c_completion and (
@@ -742,6 +845,13 @@ def parse_assessment(
         tiebreak_margin_relevance=incentive_gate["tiebreak_margin_relevance"],
         incentive_effect=incentive_gate["incentive_effect"],
         simultaneous_results_status=incentive_gate["simultaneous_results_status"],
+        match_context_review_status=context_gate["match_context_review_status"],
+        rivalry_context=context_gate["rivalry_context"],
+        rest_load_context=context_gate["rest_load_context"],
+        travel_load_context=context_gate["travel_load_context"],
+        fatigue_context=context_gate["fatigue_context"],
+        match_context_effect=context_gate["match_context_effect"],
+        match_context_basis=context_gate["match_context_basis"],
     )
 
 
