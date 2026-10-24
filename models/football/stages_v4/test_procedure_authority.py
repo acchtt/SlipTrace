@@ -160,7 +160,8 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
                 self.assertNotIn(forbidden, production)
         self.assertIn("There is no predictive board-size target", production)
         self.assertIn("active C does not issue a user-facing WAIT", production)
-        self.assertIn("gap is at most **0.25 goals**", production)
+        self.assertIn("legacy one-step decay-WAIT compatibility path", production)
+        self.assertIn("no 0.25 visible-gap limit", production)
         self.assertIn("MAX_C_PREGOAL_UNSUPPORTED_WAIT_DROP = 0.25", core)
 
     def test_legacy_procedure_files_are_hard_retired(self):
@@ -179,13 +180,16 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
                 first = (procedures / name).read_text().splitlines()[0]
                 self.assertIn("RETIRED", first)
 
-    def test_active_wait_authority_blocks_material_decay_target(self):
+    def test_decay_wait_and_custom_book_are_distinct_authorities(self):
         current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
         xi = (PROMPTS / "02_NORMAL_CHAT_XI_ODDS.md").read_text()
         production = (FOOTBALL / "production" / "FOOTBALL_C.md").read_text()
         for doc in (current, xi, production):
-            self.assertIn("0.25", doc)
             self.assertIn("0.50", doc)
+        self.assertIn("0.25", current)
+        self.assertIn("0.25", production)
+        self.assertIn("custom BOOK", current)
+        self.assertIn("custom target", production)
         self.assertIn("do not manufacture a pre-goal decay WAIT", (ENGINE / "core.py").read_text())
 
     def test_actual_user_bets_are_user_pnl_authority(self):
