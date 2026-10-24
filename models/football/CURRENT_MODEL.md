@@ -178,17 +178,23 @@ Production supported burden is compiled from explicit goal certificates:
 
 Asian .75 lines require the next certificate for a full-win **certificate**.
 
-The protected certificate is not the same thing as the maximum bookable Asian
-line. Active C has a separate settlement-aware G3 execution extension for
-C-FOCUS only:
+The protected certificate is not the same thing as the maximum executable
+Asian line. Active C now has a separate market-independent **intermediate burden
+profile** between G3/O2.50 and G4/O3.50.
 
-- O2.75 BOOK floor 1.85;
-- O3.00 BOOK floor 1.90;
-- no G3-only O3.25 BOOK;
+- O2.75 may ACT at 1.85+ when a non-fragile G3 has a genuinely HIGH predictive
+  football dimension and a credible fourth-goal continuation state;
+- O3.00 may ACT at 1.90+ only when the fourth-goal profile is NEAR_FUNDED plus a
+  strong carrier or HIGH independent-route structure;
+- O3.25 is explicitly evaluated but remains unsupported by G3 alone; it does
+  not become a generic G3 BOOK target;
 - O3.50 still requires funded G4.
 
-BOOK does not upgrade the certificate and creates no model exposure until fill
-confirmation.
+The certified line remains O2.50 unless G4 is actually funded. Intermediate
+authority is settlement-aware execution authority, not a certificate upgrade.
+BOOK remains zero exposure until fill confirmation, and a lower BOOK target
+more than 0.25 below the visible line is rejected as not realistically
+pre-goal reachable.
 
 G3 may be funded by the explicit C carrier, two-route, distributed or
 matchup-leakage mechanisms. Market prices cannot manufacture certificates.
