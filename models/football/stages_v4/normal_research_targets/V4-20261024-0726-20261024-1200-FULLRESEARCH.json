@@ -1,0 +1,59 @@
+{
+  "run_id": "V4-20261024-0726-20261024-1200-FULLRESEARCH",
+  "selection_mode": "SOURCE_CANONICAL_ALL_IN_SCOPE_PREMATCH_WITH_JAPAN_WOMEN",
+  "notes": "Correct initial 2-target auto research undercoverage. Research all 13 source-attested prematch fixtures in the 24 Oct 07:26–12:00 ICT window that are not excluded: 11 senior and two Japan WE League women. Exclude USA NWSL 2, Mexico Women's Liga MX 1, and Australia A-League Women 2 under non-Japan women's rule. For promotion playoff/qualification and Australian Championship group games verify official competition incentives and format; evidence-limit if unverified. Do not alter prematch clock/odds/rank.",
+  "targets": [
+    {
+      "match_id": "1799087",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4798/details?locale=en"
+    },
+    {
+      "match_id": "1907480",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/12357/details?locale=en"
+    },
+    {
+      "match_id": "1901314",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/225965/details?locale=en"
+    },
+    {
+      "match_id": "1819355",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/3514/details?locale=en"
+    },
+    {
+      "match_id": "1892776",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/455/details?locale=en"
+    },
+    {
+      "match_id": "1806391",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7357/details?locale=en"
+    },
+    {
+      "match_id": "1842295",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/183966/details?locale=en"
+    },
+    {
+      "match_id": "1799088",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/4242/details?locale=en"
+    },
+    {
+      "match_id": "1814252",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10015/details?locale=en"
+    },
+    {
+      "match_id": "1843495",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/348/details?locale=en"
+    },
+    {
+      "match_id": "1895557",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7355/details?locale=en"
+    },
+    {
+      "match_id": "1895569",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8905/details?locale=en"
+    },
+    {
+      "match_id": "1814248",
+      "researchability_source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/10003/details?locale=en"
+    }
+  ]
+}
