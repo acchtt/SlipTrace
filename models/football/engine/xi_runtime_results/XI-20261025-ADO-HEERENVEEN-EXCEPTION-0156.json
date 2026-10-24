@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception_research.checked_fields must contain at least 12 non-empty string(s)",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "a016c0a608008490230cb9a8566d1a0db8b33519a10b3561988cb5309b3ae3f6",
+  "ok": false,
+  "request_id": "XI-20261025-ADO-HEERENVEEN-EXCEPTION-0156",
+  "runtime_commit": "c74ce91fc25d9d8184f500848cadc4c855709970",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
