@@ -104,14 +104,13 @@ class SweepIntakeRepairTests(unittest.TestCase):
         self.assertEqual(blocked["source_ledger"][0]["intake_lane"], "PENDING_SOURCE")
 
     def test_verified_negative_screens_are_terminal_without_new_admission(self):
+        # Registered negative screen; unregistered negative screen is covered
+        # separately in test_discovery_goal_gate.
         routine = fixture("routine-low", goals="TRAP")
-        discovery = fixture("discovery-low", country="Brazil",
-                            league="Serie A", proof="VERIFIED", goals="TRAP")
-        receipt = sweep(snapshot([routine, discovery]), now=NOW)
+        receipt = sweep(snapshot([routine]), now=NOW)
         by_id = {r["match_id"]: r for r in receipt["source_ledger"]}
-        for mid in ("routine-low", "discovery-low"):
-            self.assertEqual(by_id[mid]["goal_screen"]["status"], "WATCH_GOAL_SIGNAL")
-            self.assertEqual(by_id[mid]["intake_lane"], "WATCH_GOAL_SIGNAL")
+        self.assertEqual(by_id["routine-low"]["goal_screen"]["status"], "WATCH_GOAL_SIGNAL")
+        self.assertEqual(by_id["routine-low"]["intake_lane"], "WATCH_GOAL_SIGNAL")
         self.assertEqual(receipt["eligible_count"], 0)
         self.assertEqual(_unresolved_sweep_intake_rows(receipt), [])
 
