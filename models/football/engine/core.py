@@ -2281,7 +2281,6 @@ def market_line_funded(
 C_INTERMEDIATE_MIN_ODDS = {
     2.75: 1.85,
     3.00: 1.90,
-    3.25: 2.00,
 }
 
 
@@ -2346,6 +2345,11 @@ def c_intermediate_burden_profile(
 
     authorized = [2.75]
     max_line = 2.75
+    line_states = {
+        "2.75": "AUTHORIZED",
+        "3.00": "NOT_AUTHORIZED",
+        "3.25": "REQUIRES_G4",
+    }
     effective_continuation, _ = c_effective_incentive_grades(a)
 
     if (
@@ -2358,30 +2362,17 @@ def c_intermediate_burden_profile(
     ):
         authorized.append(3.00)
         max_line = 3.00
-
-    transfer = c_effective_upper_tail_transferability(a)
-    if (
-        state == "NEAR_FUNDED"
-        and a.independent_upper_tail
-        and transfer is not None
-        and transfer >= Grade.MEDIUM
-        and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
-        and a.route_reliability == Grade.HIGH
-        and a.chance_quality == Grade.HIGH
-        and a.burden_completion_quality == Grade.HIGH
-        and effective_continuation == Grade.HIGH
-        and a.failure_resistance >= Grade.MEDIUM
-    ):
-        authorized.append(3.25)
-        max_line = 3.25
+        line_states["3.00"] = "AUTHORIZED"
 
     return {
         "eligible": True,
         "max_direct_line": max_line,
         "authorized_lines": authorized,
+        "line_states": line_states,
         "basis": (
             "SETTLEMENT_AWARE_G3_TO_G4_BRIDGE; certificate remains O2.50; "
-            f"credible_tail={state}; authorized={authorized}"
+            f"credible_tail={state}; authorized={authorized}; "
+            "O3.25 explicitly remains G4-required because three goals is a half-loss"
         ),
     }
 
