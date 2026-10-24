@@ -223,15 +223,17 @@ create execution authority. Every current Football C assessment exposes a
 separate `execution_strength` compiled from the funded certificate:
 
 - **FRAGILE** — no upper-tail ACT and no BOOK. It may retain only the
-  already-funded **O2.50 G3 floor** when the current G3 completion floor clears
-  and `endpoint_control_pressure` is not HIGH. A FRAGILE G4/G5 label therefore
-  cannot erase a valid G3 burden, but it cannot authorize O2.75/O3.00/O3.25/O3.50.
+  already-funded **O2.50 G3 floor** when the current G3 completion floor clears,
+  endpoint pressure is not HIGH, and a distributed-only mechanism is not merely
+  broad MEDIUM football supported by HIGH documentation confidence.
 - **CONDITIONAL** — a funded O2.50 G3 certificate may ACT at O2.50 when the
-  current G3 floor clears and endpoint pressure is not HIGH. A deeper
-  certificate keeps the existing **0.25-goal protection** below its certified
-  burden. CONDITIONAL cannot create a conditional BOOK target.
-- **ROBUST** — may ACT at or below the certified burden when all ordinary
-  current-football, line and price gates clear; only ROBUST may create BOOK.
+  current G3 floor clears. A separate intermediate-burden profile may authorize
+  exact visible O2.75/O3.00 when genuinely HIGH predictive football structure
+  supports the settlement risk. Evidence confidence alone cannot create that
+  strength.
+- **ROBUST** — may ACT at or below the certified burden and may also use the
+  same intermediate-burden profile when all current-football and price gates
+  clear. BOOK remains zero exposure and must satisfy reachability.
 
 The runtime also exposes `endpoint_control_pressure=NONE|MODERATE|HIGH`.
 This is a market-independent control-risk diagnostic between ordinary caution
