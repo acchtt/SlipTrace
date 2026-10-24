@@ -189,13 +189,17 @@ def _high_signal_g3_challenger_raw(row: dict[str, Any]) -> bool:
     route_order = {"NONE": 0, "USABLE": 1, "STRONG": 2}
     carrier_order = {"NONE": 0, "USABLE": 1, "STRONG": 2}
     try:
+        home = route_order.get(str(row.get("home_route")), -1)
+        away = route_order.get(str(row.get("away_route")), -1)
+        independent = str(row.get("independent_route_quality"))
         return (
             float(row.get("goal_signal_mean_over_two_rate")) >= 0.70
             and float(row.get("goal_signal_mean_over_three_rate")) >= 0.55
             and float(row.get("goal_signal_low_draw_trap_rate")) <= 0.15
-            and route_order.get(str(row.get("home_route")), -1) >= 1
-            and route_order.get(str(row.get("away_route")), -1) >= 1
+            and home == route_order["USABLE"]
+            and away == route_order["USABLE"]
             and carrier_order.get(str(row.get("carrier")), -1) >= 1
+            and independent != "HIGH"
             and not bool(row.get("material_suppression"))
             and not bool(row.get("failure_attacks_route"))
         )
