@@ -227,25 +227,26 @@ The active champion ranking is price-blind and deterministic.
 
 Comparison order:
 
-1. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
-2. highest funded certificate: G6 > G5 > G4 > G3 > none;
-3. endpoint/control risk;
-4. frozen V4 quantitative goal signal;
-5. remaining C football-mechanism quality.
+1. current G3 execution-floor authorization;
+2. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
+   distributed-only;
+3. burden-normalized clearability;
+4. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
+5. highest funded certificate: G6 > G5 > G4 > G3 > none;
+6. endpoint/control risk;
+7. frozen V4 quantitative goal signal;
+8. remaining C football-mechanism quality.
 
-The engine also freezes a zero-authority challenger key:
+This order prevents the Mynavi/Urawa defect class: a distributed-only G3 with
+broad MEDIUM predictive grades cannot jump above a stronger self-funded carrier
+because `evidence_confidence=HIGH` crossed the robustness boundary. Evidence
+confidence remains sourcing-quality metadata and is not a predictive HIGH
+dimension for active C execution robustness.
 
-1. certificate/execution robustness;
-2. burden-normalized clearability;
-3. current G3 floor strength;
-4. G3 endpoint pressure;
-5. certificate depth;
-6. ceiling/upside;
-7. remaining goal-signal and football fields.
-
-The challenger is replay-only. It replaces the champion only after settled,
-same-information multi-board replay improves useful separation without
-collapsing coverage or falsely demoting strong transferable upper-tail cases.
+The clearability challenger remains available for audit, but its former core
+principle—clearability before certificate depth—is now part of the champion
+because the previous certificate-first ordering created a demonstrated
+same-timeline ranking inversion.
 
 A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
 inflation must not be hidden inside otherwise-HIGH route grades. When C asserts
