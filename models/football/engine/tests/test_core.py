@@ -1025,14 +1025,40 @@ class FootballCExecutionTests(unittest.TestCase):
         self.assertEqual(decision.action, Action.BOOK)
         self.assertEqual(decision.book_target_line, 3.0)
         self.assertEqual(decision.book_min_odds, 1.90)
-    def test_g3_book_ceiling_never_authorizes_o350_without_g4(self):
+    def test_g3_custom_book_target_does_not_need_to_be_visible(self):
         a = robust_g3_assessment()
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertFalse(c_goal4_funded(a))
         decision = decide_c(a, context(quote=Quote(3.5, 2.00)))
-        self.assertEqual(decision.action, Action.PASS)
-        self.assertIsNone(decision.book_target_line)
-        self.assertIn("not realistically reachable", decision.reason)
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 2.75)
+        self.assertEqual(decision.book_min_odds, 1.85)
+        self.assertFalse(decision.current_price_clears_book_target)
+        self.assertIn("zero exposure", decision.reason)
+    def test_conditional_g4_can_custom_book_protected_o325(self):
+        a = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_transferability=Grade.MEDIUM,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            goal_signal_priority_score=70,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(c_goal4_funded(a))
+        self.assertFalse(c_goal5_funded(a))
+        self.assertEqual(certificate_robustness(a, "c"), 1)
+        self.assertEqual(c_direct_act_ceiling(a), 3.25)
+        decision = decide_c(a, context(quote=Quote(3.5, 1.78)))
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.25)
+        self.assertEqual(decision.book_min_odds, 1.65)
+        self.assertFalse(decision.current_price_clears_book_target)
+
     def test_high_stall_g3_does_not_gain_book_extension(self):
         a = assessment(
             carrier=CarrierStrength.USABLE,
