@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception_research.supersedes_exception_reference must be non-empty",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "f9dc6d5f1f00c1b1257cf3ad5f5da9c01a0f7f9e770e49a6e60b0cec5023d548",
+  "ok": false,
+  "request_id": "XI-20261024-NECAXA-JUAREZ-EXCEPTION-0759",
+  "runtime_commit": "8cce32bbab28a0486f0234e19f5fc419aa51f2f4",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
