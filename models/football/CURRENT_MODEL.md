@@ -192,9 +192,12 @@ profile** between G3/O2.50 and G4/O3.50.
 
 The certified line remains O2.50 unless G4 is actually funded. Intermediate
 authority is settlement-aware execution authority, not a certificate upgrade.
-BOOK remains zero exposure until fill confirmation, and a lower BOOK target
-more than 0.25 below the visible line is rejected as not realistically
-pre-goal reachable.
+BOOK remains zero exposure until fill confirmation. The user's bookmaker
+supports custom total lines/target odds, so a BOOK target does **not** need to
+appear in the screenshot ladder and is not limited by the visible-line gap.
+Screenshot-only authority still applies to observed prices: no unseen current
+price is inferred, and exposure exists only after the custom line/odds are
+independently selected and the fill is confirmed.
 
 G3 may be funded by the explicit C carrier, two-route, distributed or
 matchup-leakage mechanisms. Market prices cannot manufacture certificates.
