@@ -52,11 +52,10 @@ The resolver does not search historical runs to substitute a different source
 bundle. A failed or partial newest run remains explicit rather than falling back
 silently.
 
-A `RESEARCH_PENDING` sweep bundle may rank its verified eligible subset only
-as a **PARTIAL** board. The rank response must state the exact upstream pending
-count and must not describe the date window as fully ranked. Zero verified
-eligible fixtures is not a ranked board. Do not equate `V4_SWEEP_READY` with
-completed goal research.
+A `RESEARCH_PENDING` or otherwise PARTIAL sweep bundle is **not rankable**.
+Resume the exact upstream sweep checkpoint until its requested window is
+complete. Zero verified eligible fixtures is not a ranked board. Do not equate
+`V4_SWEEP_READY` with completed goal research.
 
 Do not reconstruct receipts from Google Sheets, historical Airtable, or ledger
 rows. Do not require the user to manually resubmit fixtures already in the bundle.
