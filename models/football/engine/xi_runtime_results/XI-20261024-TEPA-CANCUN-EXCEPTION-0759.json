@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception_research.supersedes_exception_reference must be non-empty",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "9ceaa78abe84259a08c3ac6eec642cc96b6ecb064881a2b77116432b335a9cb7",
+  "ok": false,
+  "request_id": "XI-20261024-TEPA-CANCUN-EXCEPTION-0759",
+  "runtime_commit": "29794693e0ee640c314afb859f37f5dc02227d97",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
