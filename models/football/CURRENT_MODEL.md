@@ -144,6 +144,12 @@ policy fingerprint. Evidence/request/result persistence may create later Git
 commits, but a change to the active rank/XI policy files blocks the old slate
 with `RANK_ENGINE_POLICY_DRIFT` rather than mixing two Football C versions.
 
+After the policy-lock activation boundary, a fresh routine /xi may not use a
+legacy unlocked rank receipt. It fails closed with
+`RANK_POLICY_LOCK_REQUIRED` and the fixture must be reranked/resealed under the
+current checked-context contract. Historical pre-activation assessment epochs
+remain readable for immutable audit/replay.
+
 ### Ranking calibration
 
 C ranks certificate robustness and depth first. For C G3, a structure with both
