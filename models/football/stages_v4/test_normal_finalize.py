@@ -76,7 +76,7 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertTrue((root/"out/v4_sweep_ready.json").exists())
             enriched = json.loads((root/"out/source.json").read_text())
             actual = enriched["fixtures"][0]
-            self.assertEqual(actual["researchability_status"], "VERIFIED")
+            self.assertEqual(actual.get("researchability_status"), "VERIFIED", repr((actual, checkpoint["target_states"])))
             self.assertEqual(actual["researchability_proof"]["match_id"], actual["match_id"])
             self.assertEqual(actual["researchability_proof"]["current_channels_checked"], True)
             self.assertTrue(actual["researchability_proof"]["source_url"].startswith("https://"))
