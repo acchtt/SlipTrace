@@ -38,6 +38,7 @@ from core import (  # noqa: E402
     c_goal3_execution_floor_authorized,
     c_goal3_mechanism_class,
     c_intermediate_burden_profile,
+    c_g3_book_extension_profile,
     c_goal4_funded,
     c_goal5_funded,
     certificate_robustness,
@@ -2577,6 +2578,147 @@ class CredibleBurdenProfileTests(unittest.TestCase):
         self.assertEqual(profile["credible_tail_state"], "MIXED")
         self.assertEqual(profile["credible_burden_band_low"], 2.5)
         self.assertEqual(profile["credible_burden_band_high"], 3.0)
+
+
+
+class CoordinatedRepairRegressionTests(unittest.TestCase):
+    def chelsea_like(self, **overrides):
+        values = dict(
+            match_id="chelsea_context_control",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=65,
+            goal_signal_mean_over_two_rate=0.6667,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.1667,
+        )
+        values.update(overrides)
+        return assessment(**values)
+
+    def test_chelsea_conditional_o3_uses_one_canonical_extension_policy(self):
+        a = self.chelsea_like()
+        self.assertTrue(clearing_goal_funded(a, selected_line=2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certificate_robustness(a, "c"), 1)
+
+        direct = c_intermediate_burden_profile(a)
+        book = c_g3_book_extension_profile(a)
+        self.assertTrue(direct["eligible"])
+        self.assertEqual(direct["max_direct_line"], 3.0)
+        self.assertEqual(book["max_book_line"], 3.0)
+        self.assertEqual(book["book_min_odds"], 1.90)
+
+        decision = decide_c(a, context(quote=Quote(3.0, 1.80)))
+        self.assertEqual(decision.action, Action.BOOK)
+        self.assertEqual(decision.book_target_line, 3.0)
+        self.assertEqual(decision.book_min_odds, 1.90)
+
+    def test_verified_suppressive_context_blocks_chelsea_extension(self):
+        a = self.chelsea_like(
+            match_context_review_status="VERIFIED_MATERIAL",
+            rivalry_context="DERBY",
+            rest_load_context="AWAY_SHORT_REST",
+            travel_load_context="NORMAL",
+            fatigue_context="AWAY_VERIFIED",
+            match_context_effect="SUPPRESSIVE",
+            match_context_basis=(
+                "verified short recovery and fatigue reduce continuation "
+                "without manufacturing a route veto"
+            ),
+        )
+        continuation, stall = c_effective_incentive_grades(a)
+        self.assertEqual(continuation, Grade.LOW)
+        self.assertEqual(stall, Grade.HIGH)
+        self.assertFalse(c_intermediate_burden_profile(a)["eligible"])
+        self.assertEqual(
+            decide_c(a, context(quote=Quote(3.0, 1.90))).action,
+            Action.PASS,
+        )
+
+    def test_robust_near_g4_can_authorize_o325_without_funding_o35(self):
+        a = assessment(
+            match_id="strict_o325_middle_state",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+            completion_mode=CompletionMode.CARRIER_LED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=82,
+            goal_signal_mean_over_two_rate=0.80,
+            goal_signal_mean_over_three_rate=0.60,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(clearing_goal_funded(a, selected_line=2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certificate_robustness(a, "c"), 2)
+        profile = c_intermediate_burden_profile(a)
+        self.assertEqual(profile["max_direct_line"], 3.25)
+        self.assertIn(3.25, profile["authorized_lines"])
+
+        act = decide_c(a, context(quote=Quote(3.25, 2.00)))
+        self.assertEqual(act.action, Action.BET)
+
+        pending = decide_c(a, context(quote=Quote(3.25, 1.95)))
+        self.assertEqual(pending.action, Action.BOOK)
+        self.assertEqual(pending.book_target_line, 3.25)
+        self.assertEqual(pending.book_min_odds, 2.00)
+
+    def test_hamkam_like_mixed_medium_tail_cannot_fund_g4(self):
+        a = assessment(
+            match_id="hamkam_like_mixed_medium_g4",
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.MEDIUM,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            upper_tail_transferability=Grade.MEDIUM,
+            upper_tail_comparable_context_signal="MIXED",
+            goal_signal_priority_score=76,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.60,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertTrue(clearing_goal_funded(a, selected_line=2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
 
 
 
