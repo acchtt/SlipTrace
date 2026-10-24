@@ -458,7 +458,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(ranked[0].match_id, "z_high")
 
 
-    def test_c_certificate_depth_precedes_old_lower_burden_preference(self):
+    def test_clearability_can_precede_deeper_certificate(self):
         g4 = assessment(
             match_id="g4",
             carrier=CarrierStrength.STRONG,
@@ -483,7 +483,7 @@ class RankingTests(unittest.TestCase):
 
         self.assertEqual(certified_supported_burden(g4, "c"), 3.5)
         self.assertEqual(certified_supported_burden(g3, "c"), 2.5)
-        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g4")
+        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g3")
 
     def test_robust_g3_can_outrank_fragile_g4(self):
         robust_g3 = assessment(
@@ -718,8 +718,8 @@ class RankingTests(unittest.TestCase):
             [
                 "stromsgodset_kongsvinger",
                 "hodd_ranheim",
-                "bryne_raufoss",
                 "sogndal_odd",
+                "bryne_raufoss",
                 "slovan_stuttgart",
             ],
         )
@@ -978,7 +978,7 @@ class FootballCExecutionTests(unittest.TestCase):
         )
         self.assertEqual(decision.action, Action.PASS)
 
-    def test_g3_o275_uses_book_order_not_decay_wait(self):
+    def test_strong_g3_o275_can_act_via_middle_burden_profile(self):
         decision = decide_c(
             robust_g3_assessment(),
             context(
@@ -989,9 +989,9 @@ class FootballCExecutionTests(unittest.TestCase):
                 wait_requires_negative_info=False,
             ),
         )
-        self.assertEqual(decision.action, Action.BOOK)
-        self.assertEqual(decision.book_target_line, 2.75)
-        self.assertEqual(decision.book_min_odds, 1.85)
+        self.assertEqual(decision.action, Action.BET)
+        self.assertIsNone(decision.book_target_line)
+        self.assertIsNone(decision.book_min_odds)
     def test_g3_o300_below_floor_is_pending_book_target(self):
         a = robust_g3_assessment(
             independent_upper_tail=True,
@@ -1830,7 +1830,7 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
             failure_resistance=Grade.HIGH,
             burden_completion_quality=Grade.HIGH,
             continuation_quality=Grade.HIGH,
-            independent_upper_tail=True,
+            independent_upper_tail=False,
             upper_tail_transferability=Grade.HIGH,
             upper_tail_comparable_context_signal="SUPPORTIVE",
             independent_route_quality=Grade.HIGH,
@@ -1840,7 +1840,7 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
         self.assertTrue(profile["eligible"])
         self.assertIn(2.75, profile["authorized_lines"])
         self.assertIn(3.00, profile["authorized_lines"])
-        self.assertIn(3.25, profile["authorized_lines"])
+        self.assertNotIn(3.25, profile["authorized_lines"])
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
         self.assertEqual(
             decide_c(a, context(quote=Quote(3.0, 1.95))).action,
