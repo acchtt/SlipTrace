@@ -249,10 +249,11 @@ because the previous certificate-first ordering created a demonstrated
 same-timeline ranking inversion.
 
 Execution-quality note: a distributed-only G3 with broad MEDIUM current
-football grades remains research-visible, but HIGH evidence confidence alone
-does not grant execution-floor authority and does not outrank a self-funded
-carrier. This specifically protects the latest Mynavi/Urawa false-positive
-control class without converting all distributed G3 rows into PASS.
+football grades may retain its funded O2.50 execution floor when ordinary floor
+checks clear, but HIGH evidence confidence alone does not upgrade robustness or
+mechanism rank. A self-funded carrier still outranks this shape. Replay showed
+that banning the O2.50 floor for this whole class removed too many winning
+controls, so ranking demotion—not blanket execution veto—is the active repair.
 
 A high raw scoreline history alone is insufficient. Red-card/cup/opponent-level
 inflation must not be hidden inside otherwise-HIGH route grades. When C asserts
