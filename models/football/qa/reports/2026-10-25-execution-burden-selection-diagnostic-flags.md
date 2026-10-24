@@ -79,3 +79,33 @@ Required audit label:
 Audit requirement: collapse these overlapping extension authorities into one settlement-aware policy with one explicit robustness standard. Preserve the distinction between O3.00 push-at-three and O3.25 half-loss-at-three, but do not allow branch ordering to decide which risk standard applies.
 
 No retrospective settlement or exposure rewrite is authorized by this flag.
+
+
+## Flag 5 — contextual football load is not first-class in Football C
+
+The active MatchAssessment schema contains structured tournament-format/incentive fields, but it has no dedicated deterministic fields for:
+- derby/rivalry state and rivalry-specific control/tempo risk;
+- rest-days differential;
+- schedule congestion;
+- continental/intercontinental travel load and time-zone recovery;
+- cumulative minutes / fatigue burden;
+- recovery disadvantage after a short turnaround.
+
+RANK.md requires tournament format/incentive where applicable, but does not require derby, rest, travel or congestion as first-class frozen fields. These factors may appear opportunistically in prose/team-news research, yet the deterministic compiler cannot distinguish "researched and neutral" from "never checked" and cannot apply them consistently to continuation, stall, failure resistance or burden ceilings.
+
+Chelsea — Tottenham (1793619) is a control example. The frozen Football C record classified tournament incentive as NOT_APPLICABLE and contained no structured derby/rest-load modifier. Public pre-match information identified the fixture as a London derby and Tottenham's coach explicitly reported player fatigue after the Monday league match. These contextual facts were not represented as named deterministic inputs in the frozen assessment.
+
+Required audit label:
+
+`CONTEXTUAL_LOAD_DERBY_FATIGUE_GAP_20261024_SLATE`
+
+Required repair investigation:
+1. add a market-independent context layer frozen before pricing;
+2. distinguish checked-neutral from unchecked;
+3. represent rivalry/derby, rest differential, congestion, travel/recovery and cumulative fatigue;
+4. map verified context conservatively into continuation, stall risk, failure resistance and upper-tail control;
+5. do not assume a derby is automatically suppressive or expansive—direction must be evidence-backed;
+6. do not double-count lineup absences that already capture the same fatigue mechanism;
+7. replay on frozen same-information controls before production adoption.
+
+No retrospective action rewrite is authorized by this flag.
