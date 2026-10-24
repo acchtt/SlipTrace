@@ -2125,6 +2125,7 @@ def prospective_goal_funding(
         None
     )
     incentive = tournament_incentive_profile(a)
+    match_context = match_context_profile(a) if model == "c" else None
     effective_continuation = None
     effective_stall = None
     if model == "c":
@@ -2167,6 +2168,21 @@ def prospective_goal_funding(
         "tournament_tail_bias": incentive["tail_bias"],
         "tournament_positive_pressure": incentive["positive_pressure"],
         "tournament_suppressive_pressure": incentive["suppressive_pressure"],
+        "match_context_review_status": (
+            a.match_context_review_status if model == "c" else None
+        ),
+        "rivalry_context": a.rivalry_context if model == "c" else None,
+        "rest_load_context": a.rest_load_context if model == "c" else None,
+        "travel_load_context": a.travel_load_context if model == "c" else None,
+        "fatigue_context": a.fatigue_context if model == "c" else None,
+        "match_context_effect": a.match_context_effect if model == "c" else None,
+        "match_context_basis": a.match_context_basis if model == "c" else None,
+        "match_context_positive_pressure": (
+            match_context["positive_pressure"] if match_context is not None else None
+        ),
+        "match_context_suppressive_pressure": (
+            match_context["suppressive_pressure"] if match_context is not None else None
+        ),
         "effective_continuation_quality": (
             effective_continuation.name if effective_continuation is not None else None
         ),
