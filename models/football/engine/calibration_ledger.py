@@ -63,6 +63,10 @@ def sweep_records(receipt: dict[str, Any]) -> list[dict[str, Any]]:
             "g3_endpoint_pressure": None,
             "upper_tail_pressure": None,
             "direct_act_ceiling": None,
+            "goal3_mechanism_class": None,
+            "intermediate_burden_profile": None,
+            "entry_feasibility_state": None,
+            "entry_feasibility_basis": None,
             "screenshot_visible_ladder": [],
             "selected_evaluated_line": None,
             "selected_evaluated_odds": None,
@@ -110,6 +114,12 @@ def board_records(
             "g3_endpoint_pressure": item.get("g3_endpoint_control_pressure"),
             "upper_tail_pressure": item.get("upper_tail_control_pressure"),
             "direct_act_ceiling": item.get("direct_act_ceiling"),
+            "goal3_mechanism_class": item.get("goal3_mechanism_class"),
+            "intermediate_burden_profile": deepcopy(
+                item.get("intermediate_burden_profile")
+            ),
+            "entry_feasibility_state": None,
+            "entry_feasibility_basis": None,
             "screenshot_visible_ladder": [],
             "selected_evaluated_line": None,
             "selected_evaluated_odds": None,
@@ -199,6 +209,18 @@ def xi_record(
         "g3_endpoint_pressure": football_result.get("g3_endpoint_control_pressure"),
         "upper_tail_pressure": football_result.get("upper_tail_control_pressure"),
         "direct_act_ceiling": football_result.get("direct_act_ceiling"),
+        "goal3_mechanism_class": football_result.get("goal3_mechanism_class"),
+        "intermediate_burden_profile": deepcopy(
+            football_result.get("intermediate_burden_profile")
+        ),
+        "entry_feasibility_state": (
+            quote_result.get("entry_feasibility_state")
+            if quote_result is not None else None
+        ),
+        "entry_feasibility_basis": (
+            quote_result.get("entry_feasibility_basis")
+            if quote_result is not None else None
+        ),
         "screenshot_visible_ladder": visible,
         "selected_evaluated_line": selected_line,
         "selected_evaluated_odds": selected_odds,
