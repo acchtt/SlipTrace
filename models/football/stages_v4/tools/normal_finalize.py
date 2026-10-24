@@ -342,10 +342,25 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
 
         fixture["football_evidence"] = histories
         if len(checks) == 2 and checks[0]["status"] == checks[1]["status"]:
+            checked_at = max(x["observed_at_utc"] for x in checks)
             fixture.update(
                 fixture_status=checks[0]["status"],
-                observed_at_utc=max(x["observed_at_utc"] for x in checks),
+                observed_at_utc=checked_at,
             )
+            # Automatic cohorts previously omitted the current researchability
+            # proof that manually curated targets supplied. Bind VERIFIED only
+            # to TWO successfully fetched team pages that independently match
+            # both the canonical fixture identity/kickoff and current status.
+            # This never stands in for cup-format/tournament incentive proof.
+            if (not target.get("researchability_source_url")
+                    and checks[0]["status"] == "PREMATCH_CONFIRMED"):
+                fixture["researchability_status"] = "VERIFIED"
+                fixture["researchability_proof"] = {
+                    "match_id": mid,
+                    "source_url": checks[0]["source_url"],
+                    "checked_at_utc": checked_at,
+                    "current_channels_checked": True,
+                }
         else:
             fixture["fixture_status"] = "UNVERIFIED_STATUS_REFRESH"
             state["pending_reasons"].append("BOTH_TEAM_STATUS_REFRESH_NOT_RECONCILED")
@@ -411,8 +426,10 @@ def run(request_path: Path, targets_path: Path, output: Path) -> int:
     ) is False:
         raise ValueError(
             "FINALIZER_NATIVE_SWEEP_PARTIAL: unresolved="
-            + ",".join(
-                str(x.get("match_id"))
+            + ";".join(
+                str(x.get("match_id")) + ":" + str(x.get("intake_lane"))
+                + ":" + str(x.get("reason"))[:90]
+                + (":ACTIVE" if x.get("match_id") in target_map else ":NOT_ACTIVE")
                 for x in receipt.get("upstream_resume_fixtures", [])[:25]
             )
         )
