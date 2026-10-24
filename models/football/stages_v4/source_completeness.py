@@ -62,8 +62,8 @@ def _hash(value: Any) -> str:
 
 
 def _dates_touched(start: datetime, end: datetime, tz) -> list[date]:
-    """Return calendar dates touched by [start, end), preserving local basis."""
-    last = end - timedelta(microseconds=1)
+    """Return calendar dates touched by inclusive [start, end]."""
+    last = end
     first_date = start.astimezone(tz).date()
     last_date = last.astimezone(tz).date()
     days: list[date] = []
@@ -283,7 +283,7 @@ def validate_source_completeness(
             kickoff = _time(row.get("kickoff_utc"), f"{row['match_id']}.kickoff_utc")
         except SourceCompletenessError:
             continue
-        if terminal_start <= kickoff < end:
+        if terminal_start <= kickoff <= end:
             expected_terminal.add(row["match_id"])
     if set(sentinel_ids) != expected_terminal:
         missing = sorted(expected_terminal - set(sentinel_ids))
