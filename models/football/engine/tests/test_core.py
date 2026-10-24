@@ -1732,7 +1732,7 @@ class ProductionIncidentExecutionControls(unittest.TestCase):
 
 
 class LatestSelectionInversionRepairTests(unittest.TestCase):
-    def test_high_evidence_confidence_alone_cannot_promote_distributed_g3_to_act(self):
+    def test_high_evidence_confidence_cannot_promote_robustness_but_floor_survives(self):
         a = assessment(
             match_id="mynavi_nojima_frozen_shape",
             home_route=RouteStrength.STRONG,
@@ -1760,11 +1760,11 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
         self.assertTrue(c_distributed_goal3_funded(a))
         self.assertEqual(c_goal3_mechanism_class(a), "DISTRIBUTED")
         self.assertEqual(certificate_robustness(a, "c"), 0)
-        self.assertFalse(c_goal3_execution_floor_authorized(a))
-        self.assertIsNone(c_direct_act_ceiling(a))
+        self.assertTrue(c_goal3_execution_floor_authorized(a))
+        self.assertEqual(c_direct_act_ceiling(a), 2.5)
         self.assertEqual(
             decide_c(a, context(quote=Quote(2.5, 2.09))).action,
-            Action.PASS,
+            Action.BET,
         )
 
     def test_self_funded_carrier_outranks_broad_medium_distributed_signal(self):
@@ -1816,7 +1816,7 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
             goal_signal_mean_over_three_rate=0.35,
             goal_signal_low_draw_trap_rate=0.05,
         )
-        self.assertFalse(c_goal3_execution_floor_authorized(distributed))
+        self.assertTrue(c_goal3_execution_floor_authorized(distributed))
         self.assertTrue(c_goal3_execution_floor_authorized(carrier))
         self.assertEqual(c_goal3_mechanism_class(carrier), "CARRIER")
         self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, carrier.match_id)
