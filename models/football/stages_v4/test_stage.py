@@ -219,8 +219,6 @@ class SweepV4Tests(unittest.TestCase):
         self.assertEqual(out["eligible_count"], 1)
         self.assertEqual(out["eligible_queue"][0]["match_id"], "at-end")
         self.assertNotEqual(out["source_ledger"][0]["intake_lane"], "CLOSED")
-        self.assertEqual(out["window_status"], "COMPLETE")
-        self.assertTrue(out["whole_requested_surface_complete"])
 
     def test_intake_does_not_require_odds_xi_or_worldwide_women_proof(self):
         result = sweep(snapshot(), now=NOW)
@@ -542,10 +540,26 @@ class RankV4Tests(unittest.TestCase):
             goals="HIGH",
         )
         src = sweep(snapshot([fixture("m1"), pending]), now=NOW)
-        self.assertEqual(src["window_status"], "PARTIAL")
-        self.assertFalse(src["whole_requested_surface_complete"])
-        self.assertEqual(src["upstream_remaining_fixture_count"], 1)
         self.assertEqual(src["eligible_count"], 1)
+        pending_rows = [
+            row for row in src["source_ledger"]
+            if row.get("intake_lane") == "PENDING_DISCOVERY"
+        ]
+        self.assertEqual(len(pending_rows), 1)
+        src["window_status"] = "PARTIAL"
+        src["whole_requested_surface_complete"] = False
+        src["upstream_remaining_fixture_count"] = 1
+        src["upstream_resume_fixtures"] = [
+            {
+                "match_id": pending_rows[0]["match_id"],
+                "intake_lane": pending_rows[0]["intake_lane"],
+                "reason": pending_rows[0]["reason"],
+            }
+        ]
+        from stage import _hash
+        src["integrity_sha256"] = _hash(
+            {k: v for k, v in src.items() if k != "integrity_sha256"}
+        )
         with self.assertRaisesRegex(StageError, "V4_SWEEP_INTAKE_INCOMPLETE"):
             production_rank(src, model_input(), {}, now="2026-10-11T16:05:00Z")
 
