@@ -2113,10 +2113,10 @@ def evaluate_visible_quote_ladder(
     """Evaluate only the complete ladder explicitly visible in one screenshot.
 
     A higher unsupported quote is diagnostic evidence, not authority to erase a
-    lower executable line that is visible in the same image.  Selection is
-    deterministic: prefer the highest visible ACT; otherwise retain the
-    highest line at or below Football C's direct ceiling and return its normal
-    BOOK/PASS result.  No line or price is interpolated.
+    lower executable line. Selection is deterministic: prefer the highest
+    visible ACT; otherwise preserve Football C's BOOK/PASS result. BOOK targets
+    may be custom/non-visible because they are zero-exposure instructions, but
+    no unseen current price is ever interpolated or treated as observed.
     """
 
     if not isinstance(quotes, list) or not quotes:
@@ -2182,17 +2182,32 @@ def evaluate_visible_quote_ladder(
         entry_state = "EXECUTABLE_NOW"
         entry_basis = "an exact visible screenshot line clears direct ACT policy"
     elif book_candidates:
-        entry_state = "REALISTIC_PREGOAL_TARGET"
-        entry_basis = (
-            "no direct ACT is visible, but an exact conditional BOOK target is "
-            "authorized without inventing a line or requiring a goal"
-        )
+        visible_lines = {item["line"] for item in normalized}
+        custom_targets = {
+            float(row["book_target_line"])
+            for row in book_candidates
+            if isinstance(row.get("book_target_line"), (int, float))
+            and float(row["book_target_line"]) not in visible_lines
+        }
+        if custom_targets:
+            entry_state = "CUSTOM_BOOK_TARGET"
+            entry_basis = (
+                "football authorizes a custom BOOK target that does not need to "
+                "appear in the screenshot ladder; screenshot-only authority still "
+                "applies to observed prices, and zero exposure exists until the "
+                "custom line/odds are independently selected and fill-confirmed"
+            )
+        else:
+            entry_state = "REALISTIC_PREGOAL_TARGET"
+            entry_basis = (
+                "no direct ACT is visible, but an exact conditional BOOK target "
+                "is authorized; zero exposure exists until fill confirmation"
+            )
     elif direct_ceiling is not None and lowest_visible > direct_ceiling + 1e-9:
         entry_state = "PHANTOM_FLOOR"
         entry_basis = (
-            f"football direct ceiling is O{direct_ceiling:.2f}, but the lowest "
-            f"visible screenshot line is O{lowest_visible:.2f}; the captured "
-            "market contained no supported entry"
+            f"football direct ceiling is O{direct_ceiling:.2f}, but no ACT or "
+            "authorized custom BOOK target clears current execution policy"
         )
     else:
         entry_state = "UNSUPPORTED_MARKET"
