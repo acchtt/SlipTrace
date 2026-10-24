@@ -301,7 +301,9 @@ Asian-total quotes do not block goal-history screening or initial research.
 
 Read `league_registry.py` and `README.md`. Interpret the requested
 sweep window in ICT; start at the actual current time unless an explicit
-future start is given, and never include already-started fixtures.
+future start is given, and never include already-started fixtures. The stated
+end time is **inclusive**: `/sweep ... to 12:00` includes fixtures kicking off
+exactly at 12:00 ICT.
 
 Fetch complete provider **date/listing surfaces** (AiScore if available; an
 independently checkable source otherwise), not a hand-picked league list.
