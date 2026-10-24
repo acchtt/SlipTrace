@@ -237,6 +237,57 @@ class WorkSweepTests(unittest.TestCase):
             self.assertEqual(fetcher.call_count, 7)  # canonical surfaces + ESPN UTC validator + two teams
             self.assertEqual(json.loads((root / 'out/checkpoint.json').read_text())['status'], 'WHOLE_REQUESTED_SURFACE_COMPLETE')
 
+    def test_terminal_sentinel_includes_exact_noon_boundary_since_policy_activation(self):
+        # Regression for 2026-10-24 10:46-12:00 ICT: noon rows must be in
+        # both the first date surfaces and the independent terminal refetch.
+        run_at = '2026-10-24T03:50:00+00:00'
+        request = {
+            'run_id': 'V4-20261024-NOON',
+            'window_start_ict': '2026-10-24T10:46:00+07:00',
+            'window_end_ict': '2026-10-24T12:00:00+07:00',
+        }
+        ict = {'Snm': 'Premier League', 'Cnm': 'England',
+               'Events': [event('noon', 'NS', home='13', away='14',
+                                kickoff='20261024120000')]}
+        utc = {'Snm': 'Premier League', 'Cnm': 'England',
+               'Events': [event('noon', 'NS', home='13', away='14',
+                                kickoff='20261024050000')]}
+        class LiveSurface:
+            def __init__(self, missing_terminal=False):
+                self.missing_terminal = missing_terminal
+            def get(self, url, name):
+                block = ict if '/7?' in url else utc
+                if self.missing_terminal and name.startswith('terminal-'):
+                    block = {'Snm': 'Premier League', 'Cnm': 'England', 'Events': []}
+                return {'Stages': [block]}, {'source_url': url, 'observed_at_utc': run_at}
+
+        with patch.object(work, 'utcnow', return_value=run_at):
+            captured = work.acquire_livescore(request, LiveSurface())
+            proof = work.validate_source_completeness(
+                captured, now=run_at, require_priority=False)
+            self.assertTrue(proof['window_end_inclusive'])
+            self.assertEqual(proof['terminal_fixture_count'], 1)
+            self.assertEqual(
+                captured['source_completeness_manifest']['terminal_sentinel']
+                ['extracted_fixture_ids'], ['noon'])
+            self.assertEqual(len(captured['fixtures']), 1)
+
+            # Still fail closed when the actual independent reread misses it.
+            bad = work.acquire_livescore(request, LiveSurface(missing_terminal=True))
+            with self.assertRaisesRegex(
+                work.SourceCompletenessError if hasattr(work, 'SourceCompletenessError')
+                else ValueError,
+                'SENTINEL_RECONCILIATION_MISMATCH'
+            ):
+                work.validate_source_completeness(bad, now=run_at, require_priority=False)
+
+        # Historical acquisitions retain their original exclusive-end result.
+        with patch.object(work, 'utcnow', return_value='2026-10-24T03:30:00+00:00'):
+            historical = work.acquire_livescore(request, LiveSurface())
+            self.assertEqual(
+                historical['source_completeness_manifest']['terminal_sentinel']
+                ['extracted_fixture_ids'], [])
+
     def test_terminal_union_mismatch_blocks_before_history_fetch(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
