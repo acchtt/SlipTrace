@@ -373,18 +373,19 @@ either confirm the rejection or produce a deterministic C certificate repair.
 
 Active Football C no longer exposes WAIT as a normal user-facing price action.
 
-When the football thesis is intact but the acceptable line/price is not
-currently available, C may return **BOOK** with an exact target line and minimum
-odds. BOOK means a conditional target order only:
+When the football thesis is intact but the acceptable visible line/price is
+not available, C may return **BOOK** with an exact custom target line and minimum
+odds. BOOK means a zero-exposure target instruction only:
 
 - it creates no exposure until independently confirmed filled;
-- it must be reachable pre-goal without requiring negative football news;
-- one-step unsupported burden may target the certified burden only across
-  **0.25 goals**;
-- a gap of **0.50+** cannot manufacture a lower target;
-- FRAGILE and CONDITIONAL certificates cannot create BOOK targets;
-- only ROBUST football may create a BOOK target, regardless of FOCUS rank,
-  FOLLOW lane or explicit user exception.
+- the target line does not need to appear in the screenshot;
+- no unseen current target price may be inferred;
+- a **0.50+** market/certificate disagreement still requires the football
+  recheck before publishing the lower target;
+- FRAGILE certificates cannot create BOOK targets;
+- CONDITIONAL or ROBUST football may create a custom BOOK at its deterministic
+  direct ACT ceiling; above-certificate G3 extensions still require their
+  separate football-strength gate.
 
 The normal minimum remains 1.65, with the existing supported-line 1.60 soft
 zone only where the deterministic C corroboration allows it. Above-certificate
