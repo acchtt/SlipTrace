@@ -223,9 +223,11 @@ create execution authority. Every current Football C assessment exposes a
 separate `execution_strength` compiled from the funded certificate:
 
 - **FRAGILE** — no upper-tail ACT and no BOOK. It may retain only the
-  already-funded **O2.50 G3 floor** when the current G3 completion floor clears,
-  endpoint pressure is not HIGH, and a distributed-only mechanism is not merely
-  broad MEDIUM football supported by HIGH documentation confidence.
+  already-funded **O2.50 G3 floor** when the ordinary G3 completion, endpoint,
+  reliability, chance, failure-resistance and protection checks clear. A
+  distributed-only mechanism is ranked below stronger mechanisms, but is not
+  blanket-vetoed from its funded O2.50 floor merely because its current grades
+  are broad MEDIUM.
 - **CONDITIONAL** — a funded O2.50 G3 certificate may ACT at O2.50 when the
   current G3 floor clears. A separate intermediate-burden profile may authorize
   exact visible O2.75/O3.00 when genuinely HIGH predictive football structure
