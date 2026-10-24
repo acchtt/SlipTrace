@@ -1,0 +1,26 @@
+{
+  "schema_version": "football-v4-sweep-supersession-notice-v1",
+  "run_id": "V4-20261024-1046-20261024-1200",
+  "requested_window_ict": {
+    "start": "2026-10-24T10:46:00+07:00",
+    "end": "2026-10-24T12:00:00+07:00"
+  },
+  "user_instruction": "DISCARD_PREVIOUS_SWEEP_REPLACE_WITH_FRESH_WINDOW",
+  "superseded_run_id": "V4-20261024-0726-20261024-1200-FULLRESEARCH",
+  "superseded_usage": "HISTORICAL_ONLY_DO_NOT_USE_AS_CURRENT_RANK_HANDOFF",
+  "new_run_status": "SOURCE_ACQUISITION_FAILED",
+  "new_rank_handoff_ready": false,
+  "rank_eligibility": "NO_ACTIVE_RANK_HANDOFF_FOR_THIS_NEW_WINDOW",
+  "automatic_fallback_to_superseded_run_allowed": false,
+  "source_gate_failure": {
+    "primary": "SWEEP_TERMINAL_SENTINEL_RECONCILIATION_MISMATCH",
+    "providers": [
+      "LiveScore",
+      "FotMob",
+      "SofaScore"
+    ],
+    "safeguard": "Do not invent/attest a native V4 receipt while canonical date surfaces disagree"
+  },
+  "execution_url": "https://github.com/acchtt/SlipTrace/actions/runs/40059688525",
+  "original_receipts_preserved_for_audit": true
+}
