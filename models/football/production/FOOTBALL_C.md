@@ -165,22 +165,27 @@ The V4 rank stage checkpoints it for bounded completion.
 
 The active price-blind champion ranking order is:
 
-1. certificate robustness;
-2. highest funded certificate: G6 > G5 > G4 > G3 > none;
-3. endpoint/control risk;
-4. frozen V4 quantitative goal signal;
-5. remaining current football-mechanism quality.
+1. current G3 execution-floor authorization;
+2. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
+   distributed-only;
+3. burden-normalized clearability;
+4. certificate robustness;
+5. highest funded certificate: G6 > G5 > G4 > G3 > none;
+6. endpoint/control risk;
+7. frozen V4 quantitative goal signal;
+8. remaining current football-mechanism quality.
 
-Compiled burden magnitude is not an independent bonus. A fragile deeper
-certificate does not automatically outrank a robust/conditional shallower one.
+Compiled burden magnitude is not an independent bonus. A deeper certificate
+cannot outrank stronger current execution structure merely by depth.
 
-Within the same robustness/depth class, current completion and continuation
-must not be displaced by raw historical goal rates.
+`evidence_confidence` measures trust in the evidence. For active C it cannot,
+by itself, supply the genuinely HIGH predictive dimension needed to upgrade an
+otherwise broad-MEDIUM distributed G3 into executable CONDITIONAL strength.
 
-The engine also emits a frozen, zero-authority challenger key that prioritizes
-burden-normalized clearability and the current G3 floor before certificate
-depth. It may replace the champion only after settled same-information replay
-improves useful separation without collapsing coverage.
+The zero-authority challenger remains frozen for audit comparisons, but
+clearability-before-depth is now part of the production champion after the
+same-timeline Mynavi/Urawa versus carrier controls exposed the prior ordering
+defect.
 
 ## 8. XI / current football confirmation
 
