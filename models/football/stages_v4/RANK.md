@@ -118,6 +118,15 @@ The native CLI is:
 
 python models/football/stages_v4/stage.py --output v4_rank.json rank --sweep v4_sweep.json --source source.json --status-refresh status_refresh.json --c c.json --unranked unranked.json
 
+### Slate policy lock
+
+Every new rank receipt freezes `engine_policy_fingerprint` and
+`engine_policy_lock=SLATE_PINNED_V1`. The fingerprint hashes only active
+ranking/XI policy code, not evidence/request/result files. Rank resume and
+routine /xi must use the exact same fingerprint. If active policy changes after
+the slate was sealed, fail closed with `RANK_ENGINE_POLICY_DRIFT`; do not mix
+old rank evidence with a new execution policy inside the same slate.
+
 ## Rank cohort
 
 Use the frozen V4 eligible_queue as the **research cohort**, not as the
@@ -128,6 +137,14 @@ Research in priority, review, then control order. CONTROL_REVIEW exists only to
 measure/prevent screen false negatives and cannot itself create FOCUS or a
 certificate. Do not silently skip a higher-priority fixture without an explicit
 allowed evidence/status reason.
+
+Before final board admission, run the bounded high-signal G3 challenger review
+when all of these hold: mean O2 >=0.70, mean O3 >=0.55, low-draw trap <=0.15,
+both current scoring routes are USABLE but neither is STRONG, the carrier is at
+least USABLE, independent-route quality is not HIGH, and there is no material
+suppression/route-destroying failure. Freeze `g3_challenger_reviewed=true` and
+its basis. This review can confirm the rejection or identify misgraded current
+football; it never auto-promotes G3 from historical rates.
 
 After Football C research, board admission is a separate deterministic step:
 only rows frozen as `C-FOCUS` enter the official ranked board. `C-WATCH` and
@@ -159,9 +176,18 @@ Freeze current factual football evidence including:
 - endpoint/control risk;
 - H2H only when materially transferable;
 - tournament format/incentive where applicable;
+- rivalry/derby context;
+- rest-day differential and schedule congestion;
+- continental/intercontinental travel, timezone/recovery load, and verified fatigue;
+- an evidence-backed match-context effect = NEUTRAL / EXPANSIVE / SUPPRESSIVE / MIXED;
 - fourth/fifth/sixth-goal evidence where higher burden needs it;
 - upper-tail transferability grade + basis whenever independent_upper_tail=true;
 - frozen V4 priority, mean 3+, mean 4+, and low-draw trap.
+
+For new production rows, context must finish as CHECKED_NEUTRAL or
+VERIFIED_MATERIAL with source references. A derby, short rest or travel load has
+no automatic direction. Context may modify continuation/stall conservatively
+but cannot manufacture a route or certificate by label alone.
 
 C additionally owns completion mode, burden completion, continuation,
 opponent leakage and stall risk.
@@ -208,7 +234,10 @@ once, the plausible:
 6. failure resistance, stall risk and applicable tournament incentive.
 
 Do not stop merely because O2.50 is already funded. Do not use odds or the
-market to decide any of these fields.
+market to decide any of these fields. When effective upper-tail transferability
+is only MEDIUM and the nearest comparable context is MIXED, a single-carrier G4
+requires independent corroboration: HIGH failure resistance, HIGH
+independent-route quality, or two independently STRONG routes.
 
 The pass must finish as either
 `G4_RESEARCH_COMPLETE_FUNDED` or
