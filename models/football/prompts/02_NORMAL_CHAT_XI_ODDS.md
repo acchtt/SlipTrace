@@ -222,18 +222,23 @@ Rank, FOCUS and FOLLOW are **workload/research priority only**. They never
 create execution authority. Every current Football C assessment exposes a
 separate `execution_strength` compiled from the funded certificate:
 
-- **FRAGILE** — no ACT and no BOOK. Final priced verdict is PASS.
-- **CONDITIONAL** — no direct ACT at the full certified burden. A direct ACT is
-  possible only at least **0.25 goals below** the current certified burden and
-  only when `endpoint_control_pressure=NONE`. CONDITIONAL cannot create a
-  conditional BOOK target.
+- **FRAGILE** — no upper-tail ACT and no BOOK. It may retain only the
+  already-funded **O2.50 G3 floor** when the current G3 completion floor clears
+  and `endpoint_control_pressure` is not HIGH. A FRAGILE G4/G5 label therefore
+  cannot erase a valid G3 burden, but it cannot authorize O2.75/O3.00/O3.25/O3.50.
+- **CONDITIONAL** — a funded O2.50 G3 certificate may ACT at O2.50 when the
+  current G3 floor clears and endpoint pressure is not HIGH. A deeper
+  certificate keeps the existing **0.25-goal protection** below its certified
+  burden. CONDITIONAL cannot create a conditional BOOK target.
 - **ROBUST** — may ACT at or below the certified burden when all ordinary
   current-football, line and price gates clear; only ROBUST may create BOOK.
 
 The runtime also exposes `endpoint_control_pressure=NONE|MODERATE|HIGH`.
 This is a market-independent control-risk diagnostic between ordinary caution
-and the hard `material_suppression` veto. HIGH pressure blocks CONDITIONAL
-execution rather than pretending that all scoring routes are destroyed.
+and the hard `material_suppression` veto. HIGH is now reserved for direct
+hard-control evidence: HIGH effective stall, low-draw trap >=0.25, or
+verified+corroborated suppressive H2H. Multiple MEDIUM grades or MIXED context
+remain MODERATE cautions and do not combine into a synthetic hard veto.
 
 A user-requested `/xi exception` bypasses rank-lane eligibility only. It does
 **not** bypass execution strength, endpoint control, certificate funding, or the
