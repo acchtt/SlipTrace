@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_AND_FRESH_CURRENT_RESULTS'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "5b77bae0d7a09b9807e7d8f08c11ce17c65f50c20249bcbc407f92741fa2996b",
+  "ok": false,
+  "request_id": "XI-20261024-ALBIREX-JEF-EXCEPTION-1055-v3",
+  "runtime_commit": "f652cabf815f89a17428b833198bdc514b774894",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
