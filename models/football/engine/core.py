@@ -2536,7 +2536,7 @@ def c_intermediate_burden_profile(
         and a.upper_tail_comparable_context_signal in {"SUPPORTIVE", "MIXED"}
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
-        and a.failure_resistance == Grade.HIGH
+        and a.failure_resistance >= Grade.MEDIUM
         and a.route_reliability == Grade.HIGH
         and a.chance_quality == Grade.HIGH
         and a.burden_completion_quality == Grade.HIGH
