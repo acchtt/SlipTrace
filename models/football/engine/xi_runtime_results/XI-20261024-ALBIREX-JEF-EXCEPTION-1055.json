@@ -1,0 +1,11 @@
+{
+  "error": "non-tournament assessment must use NOT_APPLICABLE for competition_stage",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "cb425f0af04d4a3f1b98b68d7de32cc119e62873dd5e2145f5c5251ba53954f1",
+  "ok": false,
+  "request_id": "XI-20261024-ALBIREX-JEF-EXCEPTION-1055",
+  "runtime_commit": "3d4f089a0eb0450d2fc0db15208dc563f473f229",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
