@@ -10,6 +10,7 @@ requested `/xi exception`; EXCEPTION is never an automatic fallback.
 from __future__ import annotations
 
 import hashlib
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -42,6 +43,8 @@ VERIFIED_RANK_STATUSES = {
     "V4_RANK_PERSISTENCE_VERIFIED",
     "V4_RANK_PARTIAL_PERSISTENCE_VERIFIED",
 }
+
+POLICY_LOCK_EFFECTIVE_UTC = datetime.fromisoformat("2026-10-24T18:00:00+00:00")
 AUTHORITY_OWNED_FIELDS = {
     "board_state",
     "follow_lane",
@@ -346,6 +349,25 @@ def _validate_exception_research(
     }
 
 
+def _assessment_at_utc(payload: dict[str, Any]) -> datetime:
+    context = payload.get("context")
+    if not isinstance(context, dict):
+        raise ValueError("c_football.context object required")
+    raw = context.get("assessment_at_utc")
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError("c_football.context.assessment_at_utc required")
+    value = raw.strip()
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError("invalid c_football.context.assessment_at_utc") from exc
+    if parsed.tzinfo is None:
+        raise ValueError("c_football.context.assessment_at_utc must be timezone-aware")
+    return parsed
+
+
 def _normalize_board_state(value: Any) -> str:
     text = str(value or "").strip().upper().replace("-", "_")
     if text.startswith("C_"):
@@ -424,6 +446,17 @@ def authorize_c_football(
         rank.get("engine_policy_fingerprint")
         or package.get("engine_policy_fingerprint")
     )
+    assessment_at = _assessment_at_utc(supplied)
+    if (
+        assessment_at >= POLICY_LOCK_EFFECTIVE_UTC
+        and policy_lock != "SLATE_PINNED_V1"
+    ):
+        raise RankAuthorityError(
+            "RANK_POLICY_LOCK_REQUIRED: this /xi assessment is after the "
+            "Football C slate-lock activation, but the verified rank receipt "
+            "was sealed under the legacy unlocked contract; rerank/reseal the "
+            "fixture before routine execution"
+        )
     if policy_lock == "SLATE_PINNED_V1":
         if not isinstance(pinned_fingerprint, str) or not pinned_fingerprint.strip():
             raise RankAuthorityError(
