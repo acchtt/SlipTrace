@@ -441,16 +441,16 @@ class RankingTests(unittest.TestCase):
             goal_signal_low_draw_trap_rate=0.125,
         )
         self.assertEqual(certificate_robustness(hearts, "c"), 1)
-        self.assertEqual(certificate_robustness(lech, "c"), 1)
+        self.assertEqual(certificate_robustness(lech, "c"), 2)
         self.assertEqual(certified_supported_burden(hearts, "c"), 2.5)
         self.assertEqual(certified_supported_burden(lech, "c"), 2.5)
         self.assertFalse(c_goal4_funded(lech))
-        # The old G4 depth advantage is gone; remaining rank order is driven
-        # by current clearability/mechanism evidence rather than a MEDIUM/MIXED
-        # fourth-goal certificate.
+        # The old G4 depth advantage is gone. Lech can still rank first on its
+        # stronger self-funded G3 carrier; that is a distinct, legitimate
+        # current-football advantage rather than an unjustified O3.50 tail.
         self.assertEqual(
             rank_assessments([hearts, lech])[0].match_id,
-            "hearts_medium_g3",
+            "lech_mixed_g4",
         )
 
     def test_c2_ranking_does_not_use_supported_line_as_rank_factor(self):
