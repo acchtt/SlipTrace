@@ -10,6 +10,7 @@ import sys
 sys.path.insert(0, str(ENGINE))
 
 import xi_runtime_backend
+from xi_authority import _engine_policy_fingerprint
 from tests.test_xi_user_screenshot_only import (
     exception_authority,
     football,
@@ -201,6 +202,73 @@ class XIRuntimeBackendTests(unittest.TestCase):
         })
         self.assertFalse(result["ok"])
         self.assertEqual(result["status"], "RANK_RECEIPT_REQUIRED")
+
+    def test_ranked_policy_fingerprint_drift_fails_closed(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        frozen = dict(c["match"])
+        package = {
+            "status": "V4_RANK_PERSISTENCE_VERIFIED",
+            "native_rank": {
+                "run_id": "V4-test-policy-drift",
+                "integrity_sha256": "sealed-policy-drift-hash",
+                "engine_policy_lock": "SLATE_PINNED_V1",
+                "engine_policy_fingerprint": "not-the-current-policy",
+                "board": {"matches": [{
+                    "match_id": frozen["match_id"],
+                    "rank": 1,
+                    "board_state": "FOCUS",
+                    "supported_line": 2.5,
+                }]},
+                "frozen_model_input": {"matches": [frozen]},
+            },
+        }
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-policy-drift",
+            "c_football": c,
+            "authority": {
+                "mode": "RANKED",
+                "match_id": frozen["match_id"],
+                "verified_rank_package": package,
+                "material_evidence_updates": [],
+            },
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "RANK_ENGINE_POLICY_DRIFT")
+        self.assertIn("differs from the revision", result["error"])
+
+    def test_ranked_matching_policy_fingerprint_executes(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        frozen = dict(c["match"])
+        fingerprint = _engine_policy_fingerprint()
+        package = {
+            "status": "V4_RANK_PERSISTENCE_VERIFIED",
+            "native_rank": {
+                "run_id": "V4-test-policy-match",
+                "integrity_sha256": "sealed-policy-match-hash",
+                "engine_policy_lock": "SLATE_PINNED_V1",
+                "engine_policy_fingerprint": fingerprint,
+                "board": {"matches": [{
+                    "match_id": frozen["match_id"],
+                    "rank": 1,
+                    "board_state": "FOCUS",
+                    "supported_line": 2.5,
+                }]},
+                "frozen_model_input": {"matches": [frozen]},
+            },
+        }
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-policy-match",
+            "c_football": c,
+            "authority": {
+                "mode": "RANKED",
+                "match_id": frozen["match_id"],
+                "verified_rank_package": package,
+                "material_evidence_updates": [],
+            },
+        })
+        self.assertTrue(result["ok"], result)
 
     def test_ranked_fixture_cannot_override_context_board_state(self):
         c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
