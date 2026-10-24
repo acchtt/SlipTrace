@@ -2286,7 +2286,7 @@ C_INTERMEDIATE_MIN_ODDS = {
 
 def c_intermediate_burden_profile(
     a: MatchAssessment,
-) -> dict[str, bool | float | str | list[float] | None]:
+) -> dict[str, bool | float | str | list[float] | dict[str, str] | None]:
     """Compile settlement-aware authority between G3/O2.50 and G4/O3.50.
 
     This is football-first and market-independent. It never upgrades the G3
