@@ -279,13 +279,14 @@ recheck still runs first. After it completes, a G3-only C-FOCUS row may publish 
 settlement-aware target only when the football thesis itself clears the strict
 BOOK-strength gate. Market disagreement never creates that eligibility:
 
-- FRAGILE G3: no BOOK path;
-- CONDITIONAL G3: no extension above the O2.50 certificate;
-- ROBUST G3 with HIGH completion/continuation/current-route quality:
-  BOOK may extend to O2.75 @1.85+;
-- ROBUST G3 additionally carrying independent, transferable fourth-goal
-  evidence: BOOK may extend to O3.00 @1.90+;
-- G3-only BOOK no longer emits O3.25;
+- FRAGILE G3: no intermediate extension and no BOOK path;
+- CONDITIONAL/ROBUST G3 may ACT O2.75 @1.85+ only through the deterministic
+  intermediate-burden profile;
+- O3.00 @1.90+ additionally requires a NEAR_FUNDED fourth-goal profile plus
+  stronger carrier/independent structure;
+- O3.25 is evaluated explicitly but remains unsupported by G3 alone;
+- generic G3 BOOK may target only O2.75/O3.00 and never more than 0.25 below the
+  visible burden;
 - O3.50 still requires funded G4.
 
 The credible-burden diagnostic remains non-authoritative and cannot by itself
