@@ -130,6 +130,20 @@ research state and never authorizes a PARTIAL upstream sweep. Repeated `/rank`
 on the same complete source epoch resumes its native checkpoint and reuses
 completed facts.
 
+New production rank rows must also freeze a source-backed match-context block:
+rivalry/derby, rest/congestion, continental/intercontinental travel/recovery,
+verified fatigue, and an evidence-backed net context effect. Checked-neutral is
+distinct from not checked. A high-signal two-USABLE-route row with no STRONG
+route and no HIGH independent-route quality must complete the bounded
+`g3_challenger_review` before the board seals; this is a second review, not an
+automatic G3 promotion.
+
+Every new sealed rank receipt stores `engine_policy_fingerprint` with
+`engine_policy_lock=SLATE_PINNED_V1`. Routine /xi must execute under that exact
+policy fingerprint. Evidence/request/result persistence may create later Git
+commits, but a change to the active rank/XI policy files blocks the old slate
+with `RANK_ENGINE_POLICY_DRIFT` rather than mixing two Football C versions.
+
 ### Ranking calibration
 
 C ranks certificate robustness and depth first. For C G3, a structure with both
@@ -184,10 +198,13 @@ profile** between G3/O2.50 and G4/O3.50.
 
 - O2.75 may ACT at 1.85+ when a non-fragile G3 has a genuinely HIGH predictive
   football dimension and a credible fourth-goal continuation state;
-- O3.00 may ACT at 1.90+ only when the fourth-goal profile is NEAR_FUNDED plus a
-  strong carrier or HIGH independent-route structure;
-- O3.25 is explicitly evaluated but remains unsupported by G3 alone; it does
-  not become a generic G3 BOOK target;
+- O3.00 may ACT/BOOK at 1.90+ through the canonical intermediate profile:
+  CONDITIONAL needs a NEAR_FUNDED fourth-goal shape, while ROBUST may also use
+  independent transferable fourth-goal evidence;
+- O3.25 may ACT/BOOK at 2.00+ only through the strict ROBUST intermediate gate:
+  independent transferable fourth-goal evidence plus HIGH current
+  continuation/reliability/chance/completion/failure resistance and the
+  stricter frozen tail-rate/trap controls;
 - O3.50 still requires funded G4.
 
 The certified line remains O2.50 unless G4 is actually funded. Intermediate
@@ -240,7 +257,10 @@ For G4:
   routes are independently STRONG with HIGH independent-route quality;
 - a reply-dependent TWO_SIDED/MIXED path with only one STRONG route requires
   HIGH failure resistance;
-- two independently STRONG routes may retain G4 with MEDIUM failure resistance.
+- two independently STRONG routes may retain G4 with MEDIUM failure resistance;
+- when effective transferability is only MEDIUM and comparable context is
+  MIXED, a single-carrier G4 additionally needs HIGH failure resistance, HIGH
+  independent-route quality, or two independently STRONG routes.
 
 This preserves genuine City/Villa/Brighton/Lech and two-strong-route shapes
 while preventing a broad high-goal history from upgrading a fragile 3+1/2+2
@@ -363,8 +383,10 @@ direct O2.50 ACT only when G3 itself is already funded, the current G3
 execution-floor checks clear, and endpoint-control pressure is not HIGH.
 
 For an unsupported higher observed burden, the visible-line gap does not limit a
-custom BOOK because the user can directly select a different total line. A
-material **0.50+** disagreement still requires the existing football recheck
+custom BOOK because the user can directly select a different total line. The
+legacy one-step decay-WAIT compatibility path is still limited to **0.25 goals**;
+that limit does not govern direct custom BOOK. A material **0.50+** disagreement
+still requires the existing football recheck
 before any lower custom target is published. The target carries its own minimum
 odds and creates no exposure until the user confirms the actual custom fill.
 The normal direct-ACT minimum remains 1.65, with the existing supported-line
