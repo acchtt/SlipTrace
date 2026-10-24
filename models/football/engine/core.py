@@ -991,15 +991,13 @@ def c_goal3_execution_floor_authorized(a: MatchAssessment) -> bool:
         return False
 
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
-    distributed_only = (
-        c_distributed_goal3_funded(a)
-        and not c_carrier_goal3_funded(a)
-        and not c_two_route_goal3_funded(a)
-        and not c_leakage_goal3_funded(a)
-    )
-    if distributed_only and not c_predictive_high_dimension(a):
-        return False
 
+    # Replay showed that a blanket execution veto on broad-MEDIUM
+    # distributed-only G3 rows removed 18 ACT-capable fixtures, 14 of which
+    # later cleared O2.50. Keep evidence_confidence out of robustness/ranking
+    # promotion, but do not use the absence of a HIGH predictive dimension as
+    # a hard veto on an already funded O2.50 floor. Ranking handles the
+    # mechanism-quality distinction separately.
     return (
         c_g3_endpoint_control_pressure(a) != "HIGH"
         and a.burden_completion_quality >= Grade.MEDIUM
@@ -1020,8 +1018,9 @@ def c_direct_act_ceiling(a: MatchAssessment) -> float | None:
 
     The G3 certificate remains O2.50. A separate settlement-aware intermediate
     profile may authorize O2.75/O3.00/O3.25 without fabricating a G4 certificate.
-    Weak distributed-only G3 rows do not receive a floor merely because their
-    evidence is well documented.
+    Distributed-only G3 rows may retain the funded O2.50 floor when the
+    ordinary floor checks clear. Evidence confidence still cannot upgrade
+    robustness or ranking strength; mechanism quality is handled separately.
     """
 
     anchor = certified_supported_burden(a, "c")
