@@ -259,13 +259,17 @@ STRONG route or HIGH independent-route quality.
 A user screenshot is `USER_SCREENSHOT_ONLY` observed evidence. Extract every
 line/price pair that is genuinely visible, evaluate that exact ladder, and
 persist the selected visible line/odds in the normal evaluated line/odds fields
-when readback is required. Choose the
-highest currently supported/executable visible line before ordinary price and
-execution-strength gates. A rejected higher line cannot erase a lower supported
+when readback is required. Choose the highest currently supported/executable
+**visible** line for ACT. A rejected higher line cannot erase a lower supported
 visible line.
 
+The user's bookmaker also supports custom total lines/target odds. Therefore a
+BOOK target may name a line that is **not visible** in the screenshot. That
+target is not an observed quote and must never be reported as ACT or exposure
+until the user independently selects it and confirms the actual fill.
+
 - no replacement odds search;
-- no inferred missing price;
+- no inferred current price for a non-visible custom line;
 - no re-timing;
 - no new screenshot request merely because processing took time.
 
