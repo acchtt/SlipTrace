@@ -267,3 +267,36 @@ the resulting slate is pinned to one policy fingerprint through /xi.
 
 Historical receipts remain readable under compatibility defaults and are not
 silently migrated into the new context contract.
+
+
+## Post-activation legacy-slate boundary
+
+The final validation identified one additional operational loophole: the active
+00:00–07:30 ICT board had been sealed before the new slate-policy fingerprint
+and checked-context contract existed. Allowing a fresh post-activation /xi to
+consume that legacy unlocked receipt would reproduce the original same-slate
+policy drift.
+
+This is now fail-closed.
+
+For a routine ranked /xi whose assessment epoch is on/after
+2026-10-24T18:00:00Z (01:00 ICT on 2026-10-25):
+
+- `engine_policy_lock=SLATE_PINNED_V1` is mandatory;
+- an unlocked legacy rank receipt returns `RANK_POLICY_LOCK_REQUIRED`;
+- the fixture must be reranked/resealed under the new checked-context contract
+  before routine execution;
+- historical pre-activation assessment epochs remain readable for immutable
+  replay/audit.
+
+This prevents the existing pre-lock board from silently using the repaired XI
+policy without first being recompiled under the same policy/context authority.
+
+Regression coverage:
+- post-activation legacy unlocked rank -> RANK_POLICY_LOCK_REQUIRED;
+- matching pinned fingerprint -> executable;
+- mismatching pinned fingerprint -> RANK_ENGINE_POLICY_DRIFT;
+- pre-activation historical legacy authority remains readable.
+
+Final production-invariant validation passed at commit
+`414f2c058c3c718e19ce3c24e566f4427468243a`, workflow run 40121631226.
