@@ -402,7 +402,14 @@ def _decision_state_persistence_manifest(
         "Evaluated Line": evaluated_line,
         "Evaluated Odds": evaluated_odds,
         "Engine C Result": json.dumps(
-            engine_output, sort_keys=True, separators=(",", ":"), ensure_ascii=False
+            {
+                key: value
+                for key, value in engine_output.items()
+                if key != "decision_state_persistence"
+            },
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
         ),
         "Engine Source Revision": revision,
         "Publication Key": None,
