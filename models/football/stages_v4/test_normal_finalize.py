@@ -74,6 +74,13 @@ class NormalFinalizeTests(unittest.TestCase):
             self.assertTrue(checkpoint["active_research_queue_complete"])
             self.assertEqual(checkpoint["resume_queue"], [])
             self.assertTrue((root/"out/v4_sweep_ready.json").exists())
+            enriched = json.loads((root/"out/source.json").read_text())
+            actual = enriched["fixtures"][0]
+            self.assertEqual(actual["researchability_status"], "VERIFIED")
+            self.assertEqual(actual["researchability_proof"]["match_id"], actual["match_id"])
+            self.assertEqual(actual["researchability_proof"]["current_channels_checked"], True)
+            self.assertTrue(actual["researchability_proof"]["source_url"].startswith("https://"))
+
 
 
     def test_finalizer_cannot_mark_a_partial_native_receipt_ready(self):
