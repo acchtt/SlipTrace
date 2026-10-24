@@ -214,10 +214,10 @@ The market may trigger the recheck but never manufactures G3/G4/G5/G6.
 User screenshots are `USER_SCREENSHOT_ONLY` observations:
 
 - extract every genuinely visible line/odds pair;
-- select the highest supported/executable visible line before applying the
-  ordinary price and execution-strength rules;
+- select the highest supported/executable visible line for direct ACT;
+- a BOOK target may use a custom line that is not visible in the screenshot;
 - do not fetch a replacement quote;
-- do not infer a missing price;
+- do not infer a missing current price for a non-visible target;
 - do not re-time the screenshot.
 
 A rejected higher line cannot turn the match into PASS when the same screenshot
