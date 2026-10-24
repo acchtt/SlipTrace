@@ -26,6 +26,9 @@ SCOPE_POLICY = "ALL_SOURCE_VISIBLE_SENIOR_FOOTBALL_BLOCKS"
 ICT = ZoneInfo("Asia/Ho_Chi_Minh")
 MAX_AGE = timedelta(minutes=60)
 PRIORITY_GATE_EFFECTIVE_UTC = datetime(2026, 10, 21, tzinfo=timezone.utc)
+WINDOW_END_INCLUSIVE_EFFECTIVE_UTC = datetime(
+    2026, 10, 24, 3, 38, tzinfo=timezone.utc
+)
 
 
 class SourceCompletenessError(ValueError):
@@ -61,9 +64,11 @@ def _hash(value: Any) -> str:
     ).encode("utf-8")).hexdigest()
 
 
-def _dates_touched(start: datetime, end: datetime, tz) -> list[date]:
-    """Return calendar dates touched by inclusive [start, end]."""
-    last = end
+def _dates_touched(
+    start: datetime, end: datetime, tz, *, inclusive_end: bool = True
+) -> list[date]:
+    """Return calendar dates touched by the requested interval semantics."""
+    last = end if inclusive_end else end - timedelta(microseconds=1)
     first_date = start.astimezone(tz).date()
     last_date = last.astimezone(tz).date()
     days: list[date] = []
@@ -74,13 +79,21 @@ def _dates_touched(start: datetime, end: datetime, tz) -> list[date]:
     return days
 
 
-def required_surface_keys(window_start_utc: str, window_end_utc: str) -> list[str]:
+def required_surface_keys(
+    window_start_utc: str, window_end_utc: str, *, inclusive_end: bool = True
+) -> list[str]:
     start = _time(window_start_utc, "window_start_utc")
     end = _time(window_end_utc, "window_end_utc")
     if end <= start:
         raise SourceCompletenessError("window end must be after start")
-    keys = [f"ICT:{d.isoformat()}" for d in _dates_touched(start, end, ICT)]
-    keys += [f"UTC:{d.isoformat()}" for d in _dates_touched(start, end, timezone.utc)]
+    keys = [
+        f"ICT:{d.isoformat()}"
+        for d in _dates_touched(start, end, ICT, inclusive_end=inclusive_end)
+    ]
+    keys += [
+        f"UTC:{d.isoformat()}"
+        for d in _dates_touched(start, end, timezone.utc, inclusive_end=inclusive_end)
+    ]
     return keys
 
 
@@ -102,7 +115,8 @@ def _fresh(value: Any, at: datetime, label: str) -> datetime:
 
 
 def validate_source_completeness(
-    source: dict[str, Any], *, now: str, require_priority: bool = True
+    source: dict[str, Any], *, now: str, require_priority: bool = True,
+    inclusive_end: bool | None = None,
 ) -> dict[str, Any]:
     """Validate a complete date-surface acquisition manifest.
 
@@ -113,6 +127,8 @@ def validate_source_completeness(
     if not isinstance(source, dict):
         raise SourceCompletenessError("source snapshot object required")
     at = _time(now, "now")
+    if inclusive_end is None:
+        inclusive_end = at >= WINDOW_END_INCLUSIVE_EFFECTIVE_UTC
     start = _time(source.get("window_start_utc"), "window_start_utc")
     end = _time(source.get("window_end_utc"), "window_end_utc")
     manifest = source.get("source_completeness_manifest")
@@ -154,7 +170,9 @@ def validate_source_completeness(
             )
 
     expected_keys = required_surface_keys(
-        source.get("window_start_utc"), source.get("window_end_utc")
+        source.get("window_start_utc"),
+        source.get("window_end_utc"),
+        inclusive_end=inclusive_end,
     )
     declared_keys = manifest.get("required_surface_keys")
     if declared_keys != expected_keys:
@@ -283,7 +301,12 @@ def validate_source_completeness(
             kickoff = _time(row.get("kickoff_utc"), f"{row['match_id']}.kickoff_utc")
         except SourceCompletenessError:
             continue
-        if terminal_start <= kickoff <= end:
+        in_terminal = (
+            terminal_start <= kickoff <= end
+            if inclusive_end
+            else terminal_start <= kickoff < end
+        )
+        if in_terminal:
             expected_terminal.add(row["match_id"])
     if set(sentinel_ids) != expected_terminal:
         missing = sorted(expected_terminal - set(sentinel_ids))
@@ -303,6 +326,7 @@ def validate_source_completeness(
         "terminal_interval_start_utc": terminal_start.isoformat(),
         "terminal_interval_end_utc": end.isoformat(),
         "terminal_fixture_count": len(sentinel_ids),
+        "window_end_inclusive": inclusive_end,
         "registry_prefilter_applied": False,
         "league_query_mode": LEAGUE_QUERY_MODE,
         "priority_completeness_verified": (
