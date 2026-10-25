@@ -849,6 +849,7 @@
               "type": "string",
               "enum": [
                 "FOLLOW",
+                "FOCUS_UNFOLLOWED",
                 "RESERVE",
                 "STOP"
               ]
@@ -858,6 +859,7 @@
               "enum": [
                 "ROUTINE_FOLLOW",
                 "RESERVE_ACTIVATED",
+                "RANKED_DIRECT_REQUEST",
                 "USER_EXCEPTION"
               ]
             },
