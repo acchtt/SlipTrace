@@ -1,0 +1,413 @@
+{
+  "authority": {
+    "exception_research": {
+      "challenge_reason": null,
+      "checked_fields": [
+        "availability_and_replacements",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "competition_format_incentive",
+        "completion_continuation_stall",
+        "failure_mechanisms",
+        "fixture_identity_status",
+        "g4_research_if_g3_funded",
+        "h2h_materiality",
+        "home_scoring_route",
+        "rivalry_rest_travel_fatigue_context",
+        "upper_tail_and_comparable_context"
+      ],
+      "evidence_ref_count": 7,
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "wellington-ccm-exception-retroprematch-20261025T015500Z",
+      "researched_at_utc": "2026-10-25T01:55:00+00:00",
+      "revision": "INITIAL",
+      "source_reference": "Policy-locked verified receipt row 1843491 was not ranked because it was closed OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH; explicit user exception reconstructs the prematch football state from confirmed XI and pre-kickoff sources only.",
+      "state_change_basis": null,
+      "state_change_fields": [],
+      "state_change_status": null,
+      "supersedes_evidence_epoch_id": null,
+      "supersedes_exception_reference": null,
+      "upstream_state": "NOT_RANKED"
+    },
+    "mode": "EXCEPTION",
+    "rank_state_display": "EXCEPTION",
+    "rank_state_internal": null,
+    "reference": "WELLINGTON-CCM-20261025-RETRO-PREMATCH-EXCEPTION",
+    "user_requested_exception": true
+  },
+  "input_sha256": "da8f186836948dea624ca84d32837ef7c819665597e3f746ddb55dbfcd16bcc4",
+  "ok": true,
+  "request_id": "XI-20261025-WELLINGTON-CCM-EXCEPTION-RETROPRE-0855",
+  "runtime": {
+    "calibration_record": {
+      "automatic_threshold_learning": false,
+      "certified_burden": 2.5,
+      "compiled_board_state": "FOCUS",
+      "control_review": false,
+      "credible_tail_state": "MIXED",
+      "decision": "REVIEW_ONLY",
+      "direct_act_ceiling": 2.75,
+      "entry_feasibility_basis": null,
+      "entry_feasibility_state": null,
+      "evidence_epoch": "wellington-ccm-exception-retroprematch-20261025T015500Z",
+      "exception_flag": true,
+      "follow_lane": null,
+      "g3_endpoint_pressure": "MODERATE",
+      "goal3_funded": true,
+      "goal3_mechanism_class": "LEAKAGE",
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "goal_screen_state": null,
+      "intermediate_burden_profile": {
+        "authorized_lines": [
+          2.75
+        ],
+        "basis": "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; robustness=1; credible_tail=MIXED; authorized=[2.75]; O3.25 requires ROBUST independent transferable fourth-goal evidence; O3.50 requires funded G4",
+        "eligible": true,
+        "line_states": {
+          "2.75": "AUTHORIZED",
+          "3.00": "NOT_AUTHORIZED",
+          "3.25": "NOT_AUTHORIZED"
+        },
+        "max_direct_line": 2.75
+      },
+      "match_id": "1843491",
+      "pass_had_lower_supported_visible_line": false,
+      "rank": null,
+      "researcher_declared_board_state": "FOCUS",
+      "robustness": "CONDITIONAL",
+      "schema_version": "football-c-calibration-v1",
+      "screenshot_visible_ladder": [],
+      "selected_evaluated_line": null,
+      "selected_evaluated_odds": null,
+      "selection_authority": "ZERO",
+      "sweep_state": null,
+      "upper_tail_pressure": "MODERATE"
+    },
+    "decision_state_persistence": {
+      "key_column": "Assessment ID",
+      "missing_persistence_inputs": [],
+      "persistence_input_complete": true,
+      "publication_authorized_before_readback": false,
+      "publication_fail_closed": true,
+      "readback_assertions": [
+        "Assessment ID",
+        "Evidence Epoch ID",
+        "XI Assessment Execution Status",
+        "C Action",
+        "C Supported Line",
+        "Evaluated Line",
+        "Evaluated Odds",
+        "Engine C Result",
+        "Engine Source Revision"
+      ],
+      "readback_required": true,
+      "required": true,
+      "row": {
+        "Assessment At UTC": "2026-10-25T01:55:00+00:00",
+        "Assessment ID": "XI-C-wellington-ccm-exception-retroprematch-20261025T015500Z",
+        "C Action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+        "C Board State": "FOCUS",
+        "C Supported Line": 2.5,
+        "Engine C Result": "{\"calibration_record\":{\"automatic_threshold_learning\":false,\"certified_burden\":2.5,\"compiled_board_state\":\"FOCUS\",\"control_review\":false,\"credible_tail_state\":\"MIXED\",\"decision\":\"REVIEW_ONLY\",\"direct_act_ceiling\":2.75,\"entry_feasibility_basis\":null,\"entry_feasibility_state\":null,\"evidence_epoch\":\"wellington-ccm-exception-retroprematch-20261025T015500Z\",\"exception_flag\":true,\"follow_lane\":null,\"g3_endpoint_pressure\":\"MODERATE\",\"goal3_funded\":true,\"goal3_mechanism_class\":\"LEAKAGE\",\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"goal_screen_state\":null,\"intermediate_burden_profile\":{\"authorized_lines\":[2.75],\"basis\":\"CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; robustness=1; credible_tail=MIXED; authorized=[2.75]; O3.25 requires ROBUST independent transferable fourth-goal evidence; O3.50 requires funded G4\",\"eligible\":true,\"line_states\":{\"2.75\":\"AUTHORIZED\",\"3.00\":\"NOT_AUTHORIZED\",\"3.25\":\"NOT_AUTHORIZED\"},\"max_direct_line\":2.75},\"match_id\":\"1843491\",\"pass_had_lower_supported_visible_line\":false,\"rank\":null,\"researcher_declared_board_state\":\"FOCUS\",\"robustness\":\"CONDITIONAL\",\"schema_version\":\"football-c-calibration-v1\",\"screenshot_visible_ladder\":[],\"selected_evaluated_line\":null,\"selected_evaluated_odds\":null,\"selection_authority\":\"ZERO\",\"sweep_state\":null,\"upper_tail_pressure\":\"MODERATE\"},\"engine_execution_status\":\"EXECUTED_C_FOOTBALL_ONLY\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"model_bets_created\":false,\"ok\":true,\"quote_research_required\":false,\"quotes_required\":false,\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"result\":{\"actual_user_bet\":null,\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"USABLE\",\"bet_authorized\":false,\"board_state\":2,\"board_state_mismatch\":false,\"burden_completion_quality\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"certificate_diagnostics\":{\"carrier_branch_quality_met\":false,\"certificate_robustness\":\"CONDITIONAL\",\"distributed_branch_quality_met\":false,\"explanation_only\":true,\"failed_conditions\":[\"INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED\",\"CARRIER_BRANCH_REQUIREMENTS_NOT_MET\",\"DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET\"],\"goal4_funded\":false,\"tournament_tail_bias\":\"NEUTRAL\"},\"certified_supported_burden\":2.5,\"chance_quality\":\"HIGH\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"MEDIUM\",\"credible_burden_band_high\":3.0,\"credible_burden_band_low\":2.5,\"credible_burden_band_role\":\"PREMARKET_DIAGNOSTIC_ONLY\",\"credible_tail_basis\":\"G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED\",\"credible_tail_execution_authority\":false,\"credible_tail_market_independent\":true,\"credible_tail_state\":\"MIXED\",\"credible_tail_target_goal\":4,\"decision_action\":\"NOT_EVALUATED_NO_CURRENT_PRICE\",\"declared_board_state\":\"FOCUS\",\"declared_board_state_basis\":\"Fresh exception research funds G3 through a STRONG Wellington route plus HIGH Central Coast leakage and an independent usable away route. The current sample supplies a HIGH chance-quality dimension but only mixed fourth-goal continuation, so G4 remains rejected.\",\"declared_board_state_source\":\"board_state\",\"declared_supported_line\":2.5,\"declared_supported_line_basis\":\"Research declaration only; deterministic Football C compiler owns the certified burden.\",\"direct_act_ceiling\":2.75,\"effective_burden_stall_risk\":\"MEDIUM\",\"effective_continuation_quality\":\"MEDIUM\",\"effective_upper_tail_transferability\":\"MEDIUM\",\"endpoint_control_pressure\":\"MODERATE\",\"execution_strength\":\"CONDITIONAL\",\"failure_mechanisms\":{\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The main failure is continuation beyond the third goal: Wellington can control games and Central Coast's opening scoring was penalty-led. This attacks G4 more than the funded G3 route.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"football_assessment_completed\":true,\"football_read\":\"FOOTBALL_THESIS_CURRENTLY_INTACT\",\"frozen_line_not_live_executable\":true,\"frozen_supported_line\":2.5,\"frozen_supported_line_basis\":\"DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED\",\"frozen_supported_line_funding\":true,\"g3_endpoint_control_pressure\":\"MODERATE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_declared_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_distributed_path\":\"MIXED\",\"g4_evidence_disposition\":\"MIXED\",\"g4_evidence_gaps\":[],\"g4_global_blockers\":null,\"g4_path_diagnostic\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Piper/Duran with Rufer restored strengthen Wellington, but the current sample does not establish a repeatable independent three-plus home carrier; carrier-four remains MIXED.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"g4_distributed_path\":{\"basis\":\"Central Coast start both opening-round scorers Auglah and Lavale, so a Wellington 2+ Central 1+ distribution is credible. A protected 2+2/3+1 fourth-goal route is not established because their opening goals were penalty-led and controlled endpoints remain live.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"g4_reply_path\":{\"basis\":\"Central Coast retain enough transition/finishing personnel for a reply, but Sainsbury's absence primarily weakens their defence rather than proving an extra away goal; post-third reply remains MIXED.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Fresh confirmed-XI G4 review: Wellington's stronger home XI and Central Coast's defensive absences make three goals credible, but no repeatable solo-four path exists; the 2+2/3+1 and post-third reply routes remain mixed because Central Coast's current scoring is partly penalty-dependent and both teams retain controlled endpoints.\",\"g4_research_complete\":true,\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"g4_status_normalized_from_mixed\":false,\"goal3_carrier_funded\":false,\"goal3_distributed_funded\":true,\"goal3_funded\":true,\"goal3_leakage_funded\":true,\"goal3_mechanism_class\":\"LEAKAGE\",\"goal3_two_route_funded\":false,\"goal4_funded\":false,\"goal5_funded\":false,\"goal6_funded\":false,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Wellington have recent 1-0/0-2 league results and two of the last three H2Hs finished with two or fewer goals, so stall risk remains MEDIUM rather than LOW.\",\"evidence_refs\":[\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"continuation_quality\":{\"basis\":\"Both teams scored at least twice in Matchweek 1 and the current lineups preserve attacking routes, but recent controlled endpoints and mixed H2H keep post-third continuation at MEDIUM.\",\"evidence_refs\":[\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"failure_resistance\":{\"basis\":\"If Wellington do not self-carry, Central Coast still start Auglah/Lavale and can supply the third goal; if the away route fails, Wellington have the stronger home structure. That gives MEDIUM failure resistance.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"independent_upper_tail\":{\"basis\":\"The current evidence does not independently protect goal four after accounting for penalty dependence, controlled recent endpoints and mixed H2H.\",\"evidence_refs\":[\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"route_reliability\":{\"basis\":\"Wellington's route is strengthened by Rufer's return and a Piper-Duran front two, while Central Coast preserve a separate scoring route through Auglah/Lavale; one side is STRONG and the other USABLE, so reliability remains MEDIUM rather than HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]}},\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"STRONG\",\"incentive_effect\":\"NOT_APPLICABLE\",\"intermediate_burden_profile\":{\"authorized_lines\":[2.75],\"basis\":\"CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; robustness=1; credible_tail=MIXED; authorized=[2.75]; O3.25 requires ROBUST independent transferable fourth-goal evidence; O3.50 requires funded G4\",\"eligible\":true,\"line_states\":{\"2.75\":\"AUTHORIZED\",\"3.00\":\"NOT_AUTHORIZED\",\"3.25\":\"NOT_AUTHORIZED\"},\"max_direct_line\":2.75},\"interpretation\":\"This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.\",\"limitations\":[],\"match_context_basis\":\"Both teams had a full week after Matchweek 1. Central Coast's trans-Tasman trip is routine league travel and there is no continental turnaround, derby or verified squad-wide fatigue.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_positive_pressure\":false,\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_context_suppressive_pressure\":false,\"match_id\":\"1843491\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"model\":\"c\",\"model_accounting_status\":\"NONE\",\"predictive_grades_changed_by_evidence_contract\":false,\"production_scope\":{\"override\":null,\"policy\":\"FOOTBALL_C_SCOPE_V1\",\"production_allowed\":true,\"reason\":\"UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED\",\"status\":\"IN_SCOPE\"},\"prospective_tail_ceiling\":2.5,\"quote_requested\":false,\"quote_required_for_football_assessment\":false,\"quote_status\":\"UNPRICED_NOT_REQUIRED_FOR_FOOTBALL\",\"rank_state_display\":\"FOCUS\",\"rank_state_internal\":\"FOCUS\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"schema_version\":\"football-engine-v1\",\"score\":null,\"shared_failure_mechanisms\":{\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\":[\"burden_stall_risk\",\"continuation_quality\",\"failure_resistance\",\"independent_upper_tail\",\"route_reliability\"]},\"stage\":\"football_assessment_result\",\"supported_line_role\":\"DETERMINISTIC_CERTIFIED_BURDEN\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_incentive_effect\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"tournament_incentive_resolution\":\"NOT_APPLICABLE\",\"tournament_positive_pressure\":false,\"tournament_suppressive_pressure\":false,\"tournament_tail_bias\":\"NEUTRAL\",\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Wellington's and Central Coast's recent league samples include both 3+/4-goal games and controlled 1-0/0-2/0-1 outcomes; the latest H2H sequence also mixes 0, 2 and 4 total goals.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_control_pressure\":\"MODERATE\",\"upper_tail_strength\":\"WEAK\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current A-League samples and the 3-1 December H2H are comparable, but they are mixed with several two-goal-or-lower endpoints and therefore only transfer at MEDIUM strength.\",\"wait_authorized\":false}}",
+        "Engine Source Revision": "6c0da589da6c0cf2426fffac18f272dd7f11e616",
+        "Evaluated Line": null,
+        "Evaluated Odds": null,
+        "Evidence Epoch ID": "wellington-ccm-exception-retroprematch-20261025T015500Z",
+        "Fixture Status": "PREMATCH_CONFIRMED",
+        "Match ID": "1843491",
+        "Match Minute": null,
+        "Payload JSON": "{\"context\":{\"assessment_at_utc\":\"2026-10-25T01:55:00+00:00\",\"board_state\":\"C-FOCUS\",\"certificate_upgrade_basis\":\"Fixture was not ranked in the sealed receipt because the row was closed as OUT_OF_WINDOW_STARTED_OR_NOT_PREMATCH; this explicit exception rebuilds the football evidence independently.\",\"certificate_upgrade_new_evidence_fields\":[],\"certificate_upgrade_status\":\"NO_FROZEN_BOARD\",\"exception_flag\":true,\"exception_research_completed\":true,\"exception_research_epoch_id\":\"wellington-ccm-exception-retroprematch-20261025T015500Z\",\"exception_revision\":\"INITIAL\",\"exception_upstream_state\":\"NOT_RANKED\",\"fixture_status\":\"PREMATCH_CONFIRMED\",\"frozen_board_available\":false,\"frozen_board_certified_burden\":null,\"frozen_board_g4_research_status\":\"LEGACY_UNKNOWN\",\"match_minute\":null,\"material_event_since_frozen\":\"NONE_VERIFIED\",\"material_veto\":false,\"primary_mechanism_intact\":true,\"score\":null,\"thesis_state\":\"PRESERVED\",\"top_ranked_focus\":false,\"wait_reachable\":false,\"wait_requires_negative_info\":false},\"evidence_epoch_id\":\"wellington-ccm-exception-retroprematch-20261025T015500Z\",\"match\":{\"aggregate_state\":\"NOT_APPLICABLE\",\"away\":\"Central Coast Mariners\",\"away_incentive\":\"NOT_APPLICABLE\",\"away_route\":\"USABLE\",\"board_state\":\"C-FOCUS\",\"board_state_basis\":\"Fresh exception research funds G3 through a STRONG Wellington route plus HIGH Central Coast leakage and an independent usable away route. The current sample supplies a HIGH chance-quality dimension but only mixed fourth-goal continuation, so G4 remains rejected.\",\"burden_completion_quality\":\"MEDIUM\",\"burden_protection\":\"MEDIUM\",\"burden_stall_risk\":\"MEDIUM\",\"carrier\":\"USABLE\",\"carrier_self_fund\":false,\"carrier_self_fund_basis\":\"Wellington have a strong home route with Piper/Duran and Rufer restored, but current evidence does not establish a repeatable independent three-goal home carrier.\",\"chance_quality\":\"HIGH\",\"common_evidence_basis\":\"Retrospective prematch-style exception using only information that was available before kickoff plus the user-supplied confirmed XI, with no live score/event evidence. Wellington start Gray; Sheridan, Tuiloma, Kelly-Heald, McGarry; Duke, Anderson, Rufer, Nagasawa; Piper and Duran in a 4-4-2. Rufer returns after missing round one through illness and Duran is fit enough to start, strengthening a Wellington side that opened with a 2-1 home win over Melbourne Victory. Central Coast start Redmayne; Mauragis, McCann, Herrington, McKibbin; Donnell; Bolton, Eames, Brandtman, Auglah; Lavale in a 4-1-4-1. Auglah and Lavale both scored in the opening 2-2 draw with Newcastle, preserving an away reply route, but Sainsbury remains injured and Hisamatsu unavailable, while Gordon and Popovic were not selected. Recent competitive league totals support a third-goal route: Wellington's last five league matches had 3+ goals in three of five, Central Coast's in four of five. The same sample is materially weaker for four-goal protection, and the last three H2Hs were 0-0, 1-1 and 3-1.\",\"competition\":\"A-League\",\"competition_format\":\"NOT_APPLICABLE\",\"competition_kind\":\"DOMESTIC_LEAGUE\",\"competition_reliability_manual_override\":\"NONE\",\"competition_reliability_reason\":\"No unsupported competition reliability upgrade; current exception uses official A-League/club team news, confirmed XI and current competitive form.\",\"competition_reliability_state\":\"UNPROVEN\",\"competition_stage\":\"NOT_APPLICABLE\",\"completion_mode\":\"MIXED\",\"continuation_quality\":\"MEDIUM\",\"country\":\"Australia\",\"demoted_probation\":false,\"draw_resolution\":\"NOT_APPLICABLE\",\"evidence_confidence\":\"HIGH\",\"failure_attacks_route\":false,\"failure_attacks_route_basis\":\"No verified absence destroys the current G3 routes: Wellington start Piper, Duran, Rufer, Duke, Anderson and Nagasawa; Central Coast start Auglah, Lavale, Brandtman and Bolton.\",\"failure_mechanisms\":{\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\":{\"affected_paths\":[\"g4_carrier_path\",\"g4_distributed_path\",\"g4_reply_path\"],\"basis\":\"The main failure is continuation beyond the third goal: Wellington can control games and Central Coast's opening scoring was penalty-led. This attacks G4 more than the funded G3 route.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"kind\":\"COMPLETION_OR_CONTROL_CONTEXT\"}},\"failure_resistance\":\"MEDIUM\",\"fatigue_context\":\"NONE\",\"g4_carrier_path\":\"MIXED\",\"g4_continuation_after_g3\":\"MEDIUM\",\"g4_distributed_path\":\"MIXED\",\"g4_path_evidence\":{\"g4_carrier_path\":{\"basis\":\"Piper/Duran with Rufer restored strengthen Wellington, but the current sample does not establish a repeatable independent three-plus home carrier; carrier-four remains MIXED.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"g4_distributed_path\":{\"basis\":\"Central Coast start both opening-round scorers Auglah and Lavale, so a Wellington 2+ Central 1+ distribution is credible. A protected 2+2/3+1 fourth-goal route is not established because their opening goals were penalty-led and controlled endpoints remain live.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"g4_reply_path\":{\"basis\":\"Central Coast retain enough transition/finishing personnel for a reply, but Sainsbury's absence primarily weakens their defence rather than proving an extra away goal; post-third reply remains MIXED.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]}},\"g4_reply_path\":\"MIXED\",\"g4_research_basis\":\"Fresh confirmed-XI G4 review: Wellington's stronger home XI and Central Coast's defensive absences make three goals credible, but no repeatable solo-four path exists; the 2+2/3+1 and post-third reply routes remain mixed because Central Coast's current scoring is partly penalty-dependent and both teams retain controlled endpoints.\",\"g4_research_explicit\":true,\"g4_research_status\":\"G4_RESEARCH_COMPLETE_REJECTED\",\"goal_signal_low_draw_trap_rate\":0,\"goal_signal_mean_over_three_rate\":0.4,\"goal_signal_mean_over_two_rate\":0.7,\"goal_signal_priority_score\":60,\"grade_evidence\":{\"burden_stall_risk\":{\"basis\":\"Wellington have recent 1-0/0-2 league results and two of the last three H2Hs finished with two or fewer goals, so stall risk remains MEDIUM rather than LOW.\",\"evidence_refs\":[\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"continuation_quality\":{\"basis\":\"Both teams scored at least twice in Matchweek 1 and the current lineups preserve attacking routes, but recent controlled endpoints and mixed H2H keep post-third continuation at MEDIUM.\",\"evidence_refs\":[\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"failure_resistance\":{\"basis\":\"If Wellington do not self-carry, Central Coast still start Auglah/Lavale and can supply the third goal; if the away route fails, Wellington have the stronger home structure. That gives MEDIUM failure resistance.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"independent_upper_tail\":{\"basis\":\"The current evidence does not independently protect goal four after accounting for penalty dependence, controlled recent endpoints and mixed H2H.\",\"evidence_refs\":[\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]},\"route_reliability\":{\"basis\":\"Wellington's route is strengthened by Rufer's return and a Piper-Duran front two, while Central Coast preserve a separate scoring route through Auglah/Lavale; one side is STRONG and the other USABLE, so reliability remains MEDIUM rather than HIGH.\",\"evidence_refs\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"mechanism_ids\":[\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\"]}},\"h2h_basis\":\"The last three competitive meetings were Wellington 0-0 Central Coast, Central Coast 1-1 Wellington and Wellington 3-1 Central Coast. The mixed sequence is useful as a fourth-goal caution but not a veto on the current G3 route.\",\"h2h_current_corroboration\":\"NOT_FOUND\",\"h2h_effect\":\"MIXED\",\"h2h_material_effect\":false,\"h2h_state\":\"REVIEWED\",\"h2h_transferability\":\"LIMITED\",\"home\":\"Wellington Phoenix\",\"home_incentive\":\"NOT_APPLICABLE\",\"home_route\":\"STRONG\",\"incentive_effect\":\"NOT_APPLICABLE\",\"independent_route_quality\":\"MEDIUM\",\"independent_upper_tail\":false,\"independent_upper_tail_basis\":\"The fourth goal still depends on either Central Coast converting a reply or Wellington continuing beyond the funded third; recent controlled league and H2H endpoints prevent an independent protected fourth-goal claim.\",\"kickoff_ict\":\"2026-10-25T09:00:00+07:00\",\"main_failure\":\"The current evidence is strongest for reaching three, not four. Central Coast's opening two goals both came from penalties and their away route is usable rather than strong; Wellington also have recent 1-0/0-2 control endpoints, while two of the last three H2Hs ended 0-0 and 1-1. A 2-0, 2-1 or 1-1 endpoint remains credible even with the stronger Wellington XI.\",\"market_observability\":\"HIGH\",\"match_context_basis\":\"Both teams had a full week after Matchweek 1. Central Coast's trans-Tasman trip is routine league travel and there is no continental turnaround, derby or verified squad-wide fatigue.\",\"match_context_effect\":\"NEUTRAL\",\"match_context_evidence_refs\":[\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\"],\"match_context_review_status\":\"CHECKED_NEUTRAL\",\"match_id\":\"1843491\",\"material_suppression\":false,\"material_suppression_basis\":\"No verified tactical, availability, fatigue or tournament state removes both scoring routes. The principal concern is fourth-goal continuation rather than route disappearance.\",\"operational_viability_grade\":\"A\",\"operational_viability_reason\":\"Confirmed starting XIs, official Matchweek 2 availability, club previews and current A-League form are available.\",\"opponent_leakage\":\"HIGH\",\"qualification_state\":\"NOT_APPLICABLE\",\"raw_operational_viability_grade\":\"A\",\"rest_load_context\":\"BALANCED\",\"rivalry_context\":\"NEUTRAL\",\"route_reliability\":\"MEDIUM\",\"shared_failure_mechanisms\":{\"CONFIRMED_XI_G3_WITH_MIXED_TAIL\":[\"route_reliability\",\"continuation_quality\",\"burden_stall_risk\",\"failure_resistance\",\"independent_upper_tail\"]},\"simultaneous_results_note\":\"NOT_APPLICABLE\",\"simultaneous_results_status\":\"NOT_APPLICABLE\",\"source_urls\":[\"USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b\",\"USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b\",\"https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/\",\"https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/\",\"https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/\",\"https://www.ultimatealeague.com/match/?match_id=3278\",\"Football-C-rerank-20261025-0151-policy-locked-verified.json#1843491\"],\"supported_line\":2.5,\"supported_line_basis\":\"Research declaration only; deterministic Football C compiler owns the certified burden.\",\"team_news_observability\":\"HIGH\",\"tiebreak_margin_relevance\":\"NOT_APPLICABLE\",\"tournament_format_status\":\"NOT_APPLICABLE\",\"tournament_incentive_required\":false,\"tournament_incentive_resolution\":\"NOT_APPLICABLE\",\"travel_load_context\":\"NORMAL\",\"upper_tail_comparable_context_basis\":\"Wellington's and Central Coast's recent league samples include both 3+/4-goal games and controlled 1-0/0-2/0-1 outcomes; the latest H2H sequence also mixes 0, 2 and 4 total goals.\",\"upper_tail_comparable_context_signal\":\"MIXED\",\"upper_tail_transferability\":\"MEDIUM\",\"upper_tail_transferability_basis\":\"Current A-League samples and the 3-1 December H2H are comparable, but they are mixed with several two-goal-or-lower endpoints and therefore only transfer at MEDIUM strength.\",\"xi_expected\":\"YES\",\"xi_robustness\":\"HIGH\"},\"model\":\"c\",\"schema_version\":\"football-engine-v1\",\"stage\":\"football_assessment\"}",
+        "Persisted At UTC": null,
+        "Publication Key": null,
+        "Published": false,
+        "Score": null,
+        "XI Assessment Execution Status": "EXECUTED_C_FOOTBALL_ONLY"
+      },
+      "sheet_name": "Decision States",
+      "spreadsheet_id": "1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM",
+      "status_before_readback": "DECISION_STATE_PERSISTENCE_REQUIRED",
+      "store": "GOOGLE_SHEETS"
+    },
+    "engine_execution_status": "EXECUTED_C_FOOTBALL_ONLY",
+    "model": "c",
+    "model_accounting_status": "NONE",
+    "model_bets_created": false,
+    "ok": true,
+    "quote_research_required": false,
+    "quotes_required": false,
+    "rank_state_display": "FOCUS",
+    "rank_state_internal": "FOCUS",
+    "result": {
+      "actual_user_bet": null,
+      "away_incentive": "NOT_APPLICABLE",
+      "away_route": "USABLE",
+      "bet_authorized": false,
+      "board_state": 2,
+      "board_state_mismatch": false,
+      "burden_completion_quality": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "carrier": "USABLE",
+      "certificate_diagnostics": {
+        "carrier_branch_quality_met": false,
+        "certificate_robustness": "CONDITIONAL",
+        "distributed_branch_quality_met": false,
+        "explanation_only": true,
+        "failed_conditions": [
+          "INDEPENDENT_TRANSFERABLE_TAIL_REQUIRED",
+          "CARRIER_BRANCH_REQUIREMENTS_NOT_MET",
+          "DISTRIBUTED_BRANCH_REQUIREMENTS_NOT_MET"
+        ],
+        "goal4_funded": false,
+        "tournament_tail_bias": "NEUTRAL"
+      },
+      "certified_supported_burden": 2.5,
+      "chance_quality": "HIGH",
+      "completion_mode": "MIXED",
+      "continuation_quality": "MEDIUM",
+      "credible_burden_band_high": 3.0,
+      "credible_burden_band_low": 2.5,
+      "credible_burden_band_role": "PREMARKET_DIAGNOSTIC_ONLY",
+      "credible_tail_basis": "G4_MIXED_PREMARKET: credible upper-tail evidence exists but lacks the protected carrier/distributed shape for NEAR_FUNDED",
+      "credible_tail_execution_authority": false,
+      "credible_tail_market_independent": true,
+      "credible_tail_state": "MIXED",
+      "credible_tail_target_goal": 4,
+      "decision_action": "NOT_EVALUATED_NO_CURRENT_PRICE",
+      "declared_board_state": "FOCUS",
+      "declared_board_state_basis": "Fresh exception research funds G3 through a STRONG Wellington route plus HIGH Central Coast leakage and an independent usable away route. The current sample supplies a HIGH chance-quality dimension but only mixed fourth-goal continuation, so G4 remains rejected.",
+      "declared_board_state_source": "board_state",
+      "declared_supported_line": 2.5,
+      "declared_supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "direct_act_ceiling": 2.75,
+      "effective_burden_stall_risk": "MEDIUM",
+      "effective_continuation_quality": "MEDIUM",
+      "effective_upper_tail_transferability": "MEDIUM",
+      "endpoint_control_pressure": "MODERATE",
+      "execution_strength": "CONDITIONAL",
+      "failure_mechanisms": {
+        "CONFIRMED_XI_G3_WITH_MIXED_TAIL": {
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ],
+          "basis": "The main failure is continuation beyond the third goal: Wellington can control games and Central Coast's opening scoring was penalty-led. This attacks G4 more than the funded G3 route.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/",
+            "https://www.ultimatealeague.com/match/?match_id=3278"
+          ],
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT"
+        }
+      },
+      "failure_resistance": "MEDIUM",
+      "fatigue_context": "NONE",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "football_assessment_completed": true,
+      "football_read": "FOOTBALL_THESIS_CURRENTLY_INTACT",
+      "frozen_line_not_live_executable": true,
+      "frozen_supported_line": 2.5,
+      "frozen_supported_line_basis": "DETERMINISTIC_CERTIFICATE_COMPILER: G3 highest funded; max fully-funded Asian Over=2.50; G3 mechanisms=DISTRIBUTED_G3,LEAKAGE_G3; upper_tail_transferability=NOT_APPLICABLE; comparable_context=MIXED",
+      "frozen_supported_line_funding": true,
+      "g3_endpoint_control_pressure": "MODERATE",
+      "g4_carrier_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_declared_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_distributed_path": "MIXED",
+      "g4_evidence_disposition": "MIXED",
+      "g4_evidence_gaps": [],
+      "g4_global_blockers": null,
+      "g4_path_diagnostic": "MIXED",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Piper/Duran with Rufer restored strengthen Wellington, but the current sample does not establish a repeatable independent three-plus home carrier; carrier-four remains MIXED.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/",
+            "https://www.ultimatealeague.com/match/?match_id=3278"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Central Coast start both opening-round scorers Auglah and Lavale, so a Wellington 2+ Central 1+ distribution is credible. A protected 2+2/3+1 fourth-goal route is not established because their opening goals were penalty-led and controlled endpoints remain live.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/",
+            "https://www.ultimatealeague.com/match/?match_id=3278"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Central Coast retain enough transition/finishing personnel for a reply, but Sainsbury's absence primarily weakens their defence rather than proving an extra away goal; post-third reply remains MIXED.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        }
+      },
+      "g4_reply_path": "MIXED",
+      "g4_research_basis": "Fresh confirmed-XI G4 review: Wellington's stronger home XI and Central Coast's defensive absences make three goals credible, but no repeatable solo-four path exists; the 2+2/3+1 and post-third reply routes remain mixed because Central Coast's current scoring is partly penalty-dependent and both teams retain controlled endpoints.",
+      "g4_research_complete": true,
+      "g4_research_explicit": true,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_status_normalized_from_mixed": false,
+      "goal3_carrier_funded": false,
+      "goal3_distributed_funded": true,
+      "goal3_funded": true,
+      "goal3_leakage_funded": true,
+      "goal3_mechanism_class": "LEAKAGE",
+      "goal3_two_route_funded": false,
+      "goal4_funded": false,
+      "goal5_funded": false,
+      "goal6_funded": false,
+      "grade_evidence": {
+        "burden_stall_risk": {
+          "basis": "Wellington have recent 1-0/0-2 league results and two of the last three H2Hs finished with two or fewer goals, so stall risk remains MEDIUM rather than LOW.",
+          "evidence_refs": [
+            "https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/",
+            "https://www.ultimatealeague.com/match/?match_id=3278"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Both teams scored at least twice in Matchweek 1 and the current lineups preserve attacking routes, but recent controlled endpoints and mixed H2H keep post-third continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/",
+            "https://www.ultimatealeague.com/match/?match_id=3278"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Wellington do not self-carry, Central Coast still start Auglah/Lavale and can supply the third goal; if the away route fails, Wellington have the stronger home structure. That gives MEDIUM failure resistance.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "The current evidence does not independently protect goal four after accounting for penalty dependence, controlled recent endpoints and mixed H2H.",
+          "evidence_refs": [
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/",
+            "https://www.ultimatealeague.com/match/?match_id=3278",
+            "https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        },
+        "route_reliability": {
+          "basis": "Wellington's route is strengthened by Rufer's return and a Piper-Duran front two, while Central Coast preserve a separate scoring route through Auglah/Lavale; one side is STRONG and the other USABLE, so reliability remains MEDIUM rather than HIGH.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000000508821183ec2e016bd91b9b",
+            "USER_LINEUP_SCREENSHOT:file_00000000675c82119b3d2e80f483f67b",
+            "https://wellingtonphoenix.com/news/a-league-men-matchweek-2-preview/",
+            "https://ccmariners.com.au/news/f3-derby-ends-all-square-as-mariners-twice-lead-in-four-goal-thriller-at-polytec-stadium/"
+          ],
+          "mechanism_ids": [
+            "CONFIRMED_XI_G3_WITH_MIXED_TAIL"
+          ]
+        }
+      },
+      "home_incentive": "NOT_APPLICABLE",
+      "home_route": "STRONG",
+      "incentive_effect": "NOT_APPLICABLE",
+      "intermediate_burden_profile": {
+        "authorized_lines": [
+          2.75
+        ],
+        "basis": "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION; certificate remains O2.50; robustness=1; credible_tail=MIXED; authorized=[2.75]; O3.25 requires ROBUST independent transferable fourth-goal evidence; O3.50 requires funded G4",
+        "eligible": true,
+        "line_states": {
+          "2.75": "AUTHORIZED",
+          "3.00": "NOT_AUTHORIZED",
+          "3.25": "NOT_AUTHORIZED"
+        },
+        "max_direct_line": 2.75
+      },
+      "interpretation": "This is an independent model football assessment, NOT a priced BET/WAIT/PASS. Frozen supported burden is compiled deterministically from goal certificates, not chosen by the researcher or market. Only an independently verified current quote and separate authorization can create a betting action.",
+      "limitations": [],
+      "match_context_basis": "Both teams had a full week after Matchweek 1. Central Coast's trans-Tasman trip is routine league travel and there is no continental turnaround, derby or verified squad-wide fatigue.",
+      "match_context_effect": "NEUTRAL",
+      "match_context_positive_pressure": false,
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "match_context_suppressive_pressure": false,
+      "match_id": "1843491",
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "model": "c",
+      "model_accounting_status": "NONE",
+      "predictive_grades_changed_by_evidence_contract": false,
+      "production_scope": {
+        "override": null,
+        "policy": "FOOTBALL_C_SCOPE_V1",
+        "production_allowed": true,
+        "reason": "UNREGISTERED_COMPETITIVE_LEAGUE_GOAL_RESEARCH_REQUIRED",
+        "status": "IN_SCOPE"
+      },
+      "prospective_tail_ceiling": 2.5,
+      "quote_requested": false,
+      "quote_required_for_football_assessment": false,
+      "quote_status": "UNPRICED_NOT_REQUIRED_FOR_FOOTBALL",
+      "rank_state_display": "FOCUS",
+      "rank_state_internal": "FOCUS",
+      "rest_load_context": "BALANCED",
+      "rivalry_context": "NEUTRAL",
+      "route_reliability": "MEDIUM",
+      "schema_version": "football-engine-v1",
+      "score": null,
+      "shared_failure_mechanisms": {
+        "CONFIRMED_XI_G3_WITH_MIXED_TAIL": [
+          "burden_stall_risk",
+          "continuation_quality",
+          "failure_resistance",
+          "independent_upper_tail",
+          "route_reliability"
+        ]
+      },
+      "stage": "football_assessment_result",
+      "supported_line_role": "DETERMINISTIC_CERTIFIED_BURDEN",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "tournament_incentive_effect": "NOT_APPLICABLE",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_positive_pressure": false,
+      "tournament_suppressive_pressure": false,
+      "tournament_tail_bias": "NEUTRAL",
+      "travel_load_context": "NORMAL",
+      "upper_tail_comparable_context_basis": "Wellington's and Central Coast's recent league samples include both 3+/4-goal games and controlled 1-0/0-2/0-1 outcomes; the latest H2H sequence also mixes 0, 2 and 4 total goals.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_control_pressure": "MODERATE",
+      "upper_tail_strength": "WEAK",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current A-League samples and the 3-1 December H2H are comparable, but they are mixed with several two-goal-or-lower endpoints and therefore only transfer at MEDIUM strength.",
+      "wait_authorized": false
+    },
+    "xi_mode": "FOOTBALL_ASSESSMENT"
+  },
+  "runtime_commit": "6c0da589da6c0cf2426fffac18f272dd7f11e616",
+  "schema_version": "football-c-xi-runtime-result-v1"
+}
