@@ -29,16 +29,22 @@ class NormalSourceTests(unittest.TestCase):
             self.assertTrue((root/"out/original-source.json").exists())
             self.assertTrue((root/"out/source.json").exists())
             self.assertTrue((root/"out/listing-receipt.json").exists())
+            listing = json.loads((root/"out/listing-receipt.json").read_text())
+            priority = listing.get("priority_research_order", [])
+            self.assertTrue(set(priority).issubset(set(cp["research_order"])))
+            self.assertEqual(cp["slate_research_order"], cp["research_order"])
             self.assertEqual(
-                cp["research_order"],
-                json.loads((root/"out/listing-receipt.json").read_text()).get("priority_research_order", []),
+                cp["slate_research_scope"],
+                "NATIVE_PRIORITY_PLUS_ALL_REGISTERED_RESEARCHED_LEAGUES_V1",
             )
             self.assertEqual(
                 cp["pending_research_count"],
                 len(cp["research_order"]),
             )
             self.assertGreaterEqual(cp["deferred_research_backlog_count"], 0)
-            self.assertEqual(cp["candidate_promotion_limit"], 30)
+            self.assertIsNone(cp["candidate_promotion_limit"])
+            self.assertEqual(cp["research_batch_size"], 30)
+            self.assertEqual(cp["slate_research_target_count"], len(cp["research_order"]))
 
 
 if __name__=="__main__":
