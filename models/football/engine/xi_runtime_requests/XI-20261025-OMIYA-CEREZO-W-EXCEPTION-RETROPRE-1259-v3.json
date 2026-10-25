@@ -1,0 +1,295 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-OMIYA-CEREZO-W-EXCEPTION-RETROPRE-1259-v3",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "omiya-cerezo-w-exception-retroprematch-20261025T035900Z",
+    "match": {
+      "match_id": "1814251",
+      "country": "Japan",
+      "competition": "Women's WE League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Omiya Ardija Ventus W",
+      "away": "Cerezo Osaka Sakai W",
+      "kickoff_ict": "2026-10-25T11:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No unsupported WE League reliability promotion; retrospective exception uses the verified sweep row, confirmed XIs, exact recent same-matchup evidence and pre-kickoff club sources only.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed starting XIs and current same-competition/same-matchup evidence were available before kickoff.",
+      "common_evidence_basis": "Retrospective prematch-style exception using only information available before kickoff plus the user-supplied confirmed XIs; no live score, live event or current-match result is used. Omiya start Imamura, Sugisawa, Norimatsu, Kanehira, Iwashita, Takahashi, Makino, Oshima, Hamada, Nishio and Kadowaki. Cerezo start Nishinaka; Asayama, Nakatani, Yoneda, Ogikubo; Wada, Takarada, Takawa, Monomo, Wakisaka and Tago. The frozen Step-0 screen was weak (priority 36, mean over-two 0.375, mean over-three 0.25, low-draw trap 0.125), but it omitted highly relevant current matchup context: two weeks earlier Omiya beat Cerezo 3-2 in the WE League cup. Cerezo's preview says they created chances early, fell 3-0 behind, then Takarada produced a goal and assist and Ikeda scored in the comeback. Cerezo then drew 2-2 with Nojima on October 18, scoring twice before halftime. Omiya, however, lost 0-2 to Elfen on October 18 despite 12 shots, and have now conceded two in consecutive highly current referenced matches (the 3-2 cup win and 0-2 league loss). That preserves an Omiya reply route but makes Cerezo the stronger current scoring route and creates a matchup-specific leakage path to goal three.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Omiya's present league scoring route is fragile: they were shut out 0-2 last week and the frozen league-only sample is low-event. If Cerezo fail to exploit the repeated two-goal leakage, Omiya are not a dependable enough independent scorer to protect a distributed G3. The certificate, if funded, is therefore leakage-led and fragile rather than a robust two-route or carrier thesis.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "OPEN",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "The same teams met in the WE League cup only two weeks earlier and Omiya won 3-2. Cerezo created early chances, trailed 3-0, then scored twice through a Takarada-led response. The recency, same teams and same season make this a verified open-game comparator rather than remote H2H history.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Neither side is asserted as an independent repeatable three-goal carrier. The prospective G3 case is Cerezo STRONG route plus matchup-specific HIGH Omiya leakage, with only a usable Omiya reply route.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The recent 3-2 proves a fourth/fifth goal is possible but does not independently protect it. Omiya's current league scoring is weak and the frozen over-three rate is only 0.25.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "The exact recent 3-2 and Cerezo's 2-2 last week support upside, but Omiya's 0-2 last week and weak league-only Step-0 sample prevent HIGH tail transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Exact same-matchup 3-2 and Cerezo 2-2 are supportive; Omiya 0-2 and the frozen 0.25 over-three rate are suppressive. Net comparable context is MIXED.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Both confirmed XIs retain the principal attackers involved in the current routes; the risk is Omiya completion and whether Cerezo exploit leakage, not route disappearance.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified prematch availability or tactical event removes the identified Cerezo route or the Omiya reply route.",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both clubs had a full week from their October 18 league matches. No derby, continental turnaround, abnormal travel or verified fatigue modifier is asserted.",
+      "match_context_evidence_refs": [
+        "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+        "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report"
+      ],
+      "goal_signal_priority_score": 36,
+      "goal_signal_mean_over_two_rate": 0.375,
+      "goal_signal_mean_over_three_rate": 0.25,
+      "goal_signal_low_draw_trap_rate": 0.125,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Fresh G4 review is rejected. The exact recent 3-2 and Cerezo's 2-2 last week make a fourth plausible, but there is no independent carrier-four, Omiya's current league route is only USABLE, and the frozen over-three rate is 0.25. The fourth remains dependent on the same leakage/reply mechanism rather than separately protected.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Neither team is a verified solo-four carrier in current same-competition evidence. MIXED.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+            "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "A 2+2/3+1 route is plausible from the recent 3-2 and Cerezo 2-2, but Omiya's 0-2 and weak frozen over-three rate prevent protected distribution. MIXED.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+            "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "The recent same-matchup comeback shows a reply path exists, but it is not dependable enough to independently protect goal four. MIXED.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "USER_LINEUP_SCREENSHOT:file_0000000076608206aec252eacd2c429c",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4a88206bf2d75481defb19a"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Cerezo retain Takarada, Wakisaka and Tago after scoring twice last week and twice in the recent same-matchup cup loss; Omiya retain a reply route but were blanked last week. MEDIUM overall.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000076608206aec252eacd2c429c",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4a88206bf2d75481defb19a",
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "The exact recent 3-2 and Cerezo's 2-2 last week support responses after scoring, but Omiya's 0-2 shows continuation can still fail. MEDIUM.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Frozen low-draw trap is only 0.125 and the exact recent matchup reached five, but Omiya were shut out last week. MEDIUM rather than LOW.",
+          "evidence_refs": [
+            "Football-C-rank-20261025-0909-1200-verified.json#1814251",
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Omiya do not contribute, Cerezo would need to carry most of G3; Cerezo are STRONG but not certified as a solo-three carrier. If Cerezo score first, Omiya have a usable response route shown in the recent 3-2. MEDIUM.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal mechanism survives the mixed same-context evidence.",
+          "evidence_refs": [
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+            "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+          ],
+          "mechanism_ids": [
+            "CEREZO_ROUTE_OMIYA_LEAKAGE_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CEREZO_ROUTE_OMIYA_LEAKAGE_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The G3 thesis depends primarily on Cerezo's stronger current route exploiting Omiya's repeated two-goal leakage, with Omiya as a secondary reply route. If Cerezo under-convert, the low-output Omiya league attack may not independently finish the third goal.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000076608206aec252eacd2c429c",
+            "USER_LINEUP_SCREENSHOT:file_00000000c4a88206bf2d75481defb19a",
+            "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+            "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+            "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+            "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "CEREZO_ROUTE_OMIYA_LEAKAGE_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh confirmed-XI and exact same-matchup research materially upgrades the screened-out Step-0 view. Cerezo retain a STRONG current route and Omiya show matchup-specific HIGH leakage, which supports a leakage-led G3/O2.50 certificate. The route is FRAGILE and does not extend to G4.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_0000000076608206aec252eacd2c429c",
+        "USER_LINEUP_SCREENSHOT:file_00000000c4a88206bf2d75481defb19a",
+        "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+        "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+        "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+        "https://weleague.jp/news/2100/",
+        "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T03:59:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "The sealed slate recorded 1814251 as WATCH_GOAL_SIGNAL / SCREENED_OUT despite complete research disposition. Explicit user exception reconstructs the prematch football state from confirmed XIs and pre-kickoff current same-matchup evidence only.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "OMIYA-CEREZO-W-20261025-RETRO-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "omiya-cerezo-w-exception-retroprematch-20261025T035900Z",
+      "researched_at_utc": "2026-10-25T03:59:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0909-1200-verified.json#1814251 plus confirmed XI and pre-kickoff club evidence; no current-match outcome/live evidence admitted.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_0000000076608206aec252eacd2c429c",
+        "USER_LINEUP_SCREENSHOT:file_00000000c4a88206bf2d75481defb19a",
+        "https://www.cerezo.jp/ladies/news/2026-1024-1100/",
+        "https://www.cerezo.jp/ladies/matches/result/2026101810/",
+        "https://www.rbomiya.com/jp-ja/match/match-2026101807/omiya-match-26271018-report",
+        "https://weleague.jp/news/2100/",
+        "Football-C-rank-20261025-0909-1200-verified.json#1814251"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
