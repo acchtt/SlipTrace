@@ -456,8 +456,10 @@ refresh the public-safe projection using
 
 Only Daily Coverage Ledger and Website Picks are valid projection inputs.
 Decision States, Actual Bets, engine-result JSON and generic payload JSON must
-never be published. Website tier mapping FOLLOW→FOCUS, RESERVE→WATCHLIST and
-STOP→PASS remains display-only.
+never be published. Website tier mapping is FOLLOW→FOCUS,
+RESERVE→WATCHLIST, FOCUS_UNFOLLOWED→QUALIFIED and STOP→PASS. The mapping is
+display-only: legacy C-FOCUS remains the frozen qualification state and must not
+be presented as though every qualified row were priority FOCUS.
 
 The projection is a view of already-verified Sheets state. It cannot authorize
 a model decision or physical exposure.
