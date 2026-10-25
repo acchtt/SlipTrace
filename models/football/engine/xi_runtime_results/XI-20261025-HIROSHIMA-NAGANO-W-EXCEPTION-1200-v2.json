@@ -1,0 +1,11 @@
+{
+  "error": "g4_distributed_path must be one of: FAILED, MIXED, NOT_APPLICABLE, SUPPORTED, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "50a102222602a2b981948a19febc2c656f235e10bec84f4ec8d167fbe1e203f9",
+  "ok": false,
+  "request_id": "XI-20261025-HIROSHIMA-NAGANO-W-EXCEPTION-1200-v2",
+  "runtime_commit": "14c366c4a5f95fa514689d56dc653bf51c71df6f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
