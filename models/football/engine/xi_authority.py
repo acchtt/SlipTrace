@@ -547,6 +547,13 @@ def authorize_c_football(
     inherited_context["board_state"] = "C-FOCUS"
     inherited_context["frozen_board_available"] = True
     inherited_context["frozen_board_certified_burden"] = board_row.get("supported_line")
+    inherited_context["rank"] = board_row.get("rank")
+    inherited_context["current_rank"] = board_row.get(
+        "current_rank", board_row.get("rank")
+    )
+    inherited_context["slate_rank"] = board_row.get("slate_rank")
+    inherited_context["slate_rank_status"] = board_row.get("slate_rank_status")
+    inherited_context["rank_scope"] = board_row.get("rank_scope")
     frozen_g4 = (
         frozen_row.get("g4_research_status")
         or board_row.get("g4_research_status")
@@ -568,6 +575,10 @@ def authorize_c_football(
         "pinned_engine_policy_fingerprint": pinned_fingerprint,
         "current_engine_policy_fingerprint": current_fingerprint,
         "rank": board_row.get("rank"),
+        "current_rank": board_row.get("current_rank", board_row.get("rank")),
+        "slate_rank": board_row.get("slate_rank"),
+        "slate_rank_status": board_row.get("slate_rank_status"),
+        "rank_scope": board_row.get("rank_scope"),
         "frozen_board_state": board_row.get("board_state"),
         "rank_state_internal": "WATCH" if frozen_board_state == "WATCH" else frozen_board_state,
         "rank_state_display": "REVIEW_ONLY" if frozen_board_state == "WATCH" else frozen_board_state,
