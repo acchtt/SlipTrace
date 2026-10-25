@@ -1,0 +1,25 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-25T09:09:00+07:00",
+    "end": "2026-10-25T12:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261025-0909-20261025-1200",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_USE_FOR_NEW_RANK",
+  "authoritative_run_id": "V4-20261025-0909-20261025-1200-FULLRESEARCH",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261025-0909-20261025-1200-FULLRESEARCH/rank-handoff.json",
+  "reason": "Initial auto-selection left 20 source-visible prematch candidates deferred even though 24 source-canonical targets fit below 30; all 24 researched in corrected final.",
+  "source_coverage": {
+    "in_window_fixture_count": 25,
+    "closed_at_acquisition_count": 1,
+    "active_researched_count": 24,
+    "rank_eligible_count": 12,
+    "negative_watch_count": 12,
+    "deferred_count": 0,
+    "unresolved_upstream_count": 0
+  },
+  "native_receipt_status": "COMPLETE",
+  "source_and_old_evidence_preserved": true,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40153600239"
+}
