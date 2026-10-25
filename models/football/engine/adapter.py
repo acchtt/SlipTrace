@@ -1209,6 +1209,64 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
                 row.get("follow_balanced_score", row.get("follow_priority_score", 0))
             )
 
+def _apply_c_semantic_axes(rows: list[dict[str, Any]]) -> None:
+    """Separate qualification, priority and execution diagnostics.
+
+    Legacy board_state remains unchanged for frozen receipt compatibility.
+    Priority is derived from the already-frozen FOLLOW allocator; this helper
+    does not change certificates, rank order, or lane allocation.
+    """
+
+    for row in rows:
+        state = str(row.get("board_state") or "")
+        lane = str(row.get("follow_lane") or "")
+
+        if state == "FOCUS":
+            qualification = "QUALIFIED"
+        elif state == "WATCH":
+            qualification = "REVIEW_ONLY"
+        elif state == "PASS":
+            qualification = "REJECTED"
+        else:
+            qualification = "UNRESOLVED"
+
+        if lane == FollowLane.FOLLOW.value:
+            priority = "FOCUS"
+            allocation_reason = "FOLLOW:" + str(
+                row.get("follow_portfolio_role") or "ALLOCATED"
+            )
+        elif lane == FollowLane.RESERVE.value:
+            priority = "WATCHLIST"
+            allocation_reason = "RESERVE:SCARCE_WORKLOAD_CAPACITY"
+        elif lane == FollowLane.FOCUS_UNFOLLOWED.value:
+            priority = "QUALIFIED"
+            allocation_reason = (
+                "QUALIFIED_UNALLOCATED:OUTSIDE_FOLLOW_RESERVE_CAPACITY"
+            )
+        elif state == "WATCH":
+            priority = "REVIEW_ONLY"
+            allocation_reason = "NOT_QUALIFIED:REVIEW_ONLY"
+        elif state == "PASS":
+            priority = "PASS"
+            allocation_reason = "NOT_QUALIFIED:PASS"
+        else:
+            priority = "UNRESOLVED"
+            allocation_reason = "NOT_ALLOCATED"
+
+        if qualification != "QUALIFIED":
+            execution_eligibility = "NOT_QUALIFIED"
+        elif row.get("direct_act_ceiling") is None:
+            execution_eligibility = "NO_DIRECT_EXECUTION"
+        else:
+            execution_eligibility = "DIRECT_CEILING_AVAILABLE"
+
+        row["qualification_state"] = qualification
+        row["priority_state"] = priority
+        row["execution_eligibility"] = execution_eligibility
+        row["allocation_reason"] = allocation_reason
+        row["display_state"] = priority
+
+
 def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     _check_envelope(payload, "board")
 
@@ -1393,6 +1451,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
 
     if model == "c":
         _allocate_c_follow_lanes(output)
+        _apply_c_semantic_axes(output)
 
     result = {
         "schema_version": SCHEMA_VERSION,
@@ -1417,6 +1476,18 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["focus_unfollowed_count"] = sum(
             row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
             for row in output
+        )
+        result["qualified_count"] = sum(
+            row.get("qualification_state") == "QUALIFIED" for row in output
+        )
+        result["priority_focus_count"] = sum(
+            row.get("priority_state") == "FOCUS" for row in output
+        )
+        result["watchlist_count"] = sum(
+            row.get("priority_state") == "WATCHLIST" for row in output
+        )
+        result["qualified_unallocated_count"] = sum(
+            row.get("priority_state") == "QUALIFIED" for row in output
         )
         result["stop_count"] = sum(
             row.get("follow_lane") == FollowLane.STOP.value for row in output
