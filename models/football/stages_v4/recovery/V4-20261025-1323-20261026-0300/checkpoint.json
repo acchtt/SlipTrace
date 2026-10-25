@@ -1,0 +1,164 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261025-1323-20261026-0300",
+  "original_source_sha256": "0648ae0934d78afb533f79bcf310dbe960de5ddb7204359aeaf642df942df459",
+  "source_file_sha256": "e3f9550a693a82d38c57483f05607f18abec0d67cec7fb4b0c0fb976db99308b",
+  "native_receipt_integrity_sha256": "c640ec83e9a963a1b7efb6667d2a1b06bc2625e1cbf095388488126ce42d1efd",
+  "target_states": {
+    "1849070": {
+      "match_id": "1849070",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790229": {
+      "match_id": "1790229",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790237": {
+      "match_id": "1790237",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790242": {
+      "match_id": "1790242",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790257": {
+      "match_id": "1790257",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1795380": {
+      "match_id": "1795380",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1905271": {
+      "match_id": "1905271",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1849065": {
+      "match_id": "1849065",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1849066": {
+      "match_id": "1849066",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1795385": {
+      "match_id": "1795385",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1709188": {
+      "match_id": "1709188",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1795378": {
+      "match_id": "1795378",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1718164": {
+      "match_id": "1718164",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1784493": {
+      "match_id": "1784493",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799201": {
+      "match_id": "1799201",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1709189": {
+      "match_id": "1709189",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1709193": {
+      "match_id": "1709193",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1807302": {
+      "match_id": "1807302",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1709192": {
+      "match_id": "1709192",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1790252": {
+      "match_id": "1790252",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1849070",
+    "1790229",
+    "1790237",
+    "1790242",
+    "1790257",
+    "1795380",
+    "1905271",
+    "1849065",
+    "1849066",
+    "1795385",
+    "1709188",
+    "1795378",
+    "1718164",
+    "1784493",
+    "1799201",
+    "1709189",
+    "1709193",
+    "1807302",
+    "1709192",
+    "1790252"
+  ],
+  "watch_match_ids": [],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "whole_requested_surface_complete": true,
+  "unresolved_or_deferred_candidates_remain": true,
+  "deferred_source_backlog_count": 560,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
