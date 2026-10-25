@@ -1,0 +1,280 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-FCTOKYO-MITO-EXCEPTION-RETROPRE-1400",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "fctokyo-mito-exception-retroprematch-20261025T065900Z",
+    "match": {
+      "match_id": "1795832",
+      "country": "Japan",
+      "competition": "J1 League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "FC Tokyo",
+      "away": "Mito Hollyhock",
+      "kickoff_ict": "2026-10-25T14:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No league-level reliability promotion; retrospective exception uses confirmed XI plus official FC Tokyo/J.League evidence available before kickoff.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed XI and detailed current official club/J.League evidence were available before kickoff.",
+      "common_evidence_basis": "Retrospective prematch-style exception using only pre-kickoff football information plus the user-supplied confirmed XI. FC Tokyo start Kim Seung-gyu; Ishihara, Scholz, Inamura, Bangnagande; Sato, Tokiwa and Ko; Anzai and Nagakura in the attacking structure, preserving the principal current home route even though Marcelo Ryan is not in the starting XI. Official FC Tokyo preview says the club entered unbeaten in ten league matches with six consecutive clean sheets, after a five-match winning streak ended in a 0-0 draw with Kashiwa. The same preview notes Tokyo had recently produced 4-0, 3-0 and 4-0 wins before that draw, and describes the Kashiwa 0-0 as a finishing problem despite created chances. Mito entered after five straight league defeats and had scored only once during that run. The important counterevidence is matchup-specific: Mito beat Tokyo 1-0 in the cup on October 14 and restricted their build-up with an effective high press, while the two clubs also produced 1-1 earlier in 2026. However, an April meeting at Ajinomoto finished Tokyo 5-2 Mito, demonstrating that the current matchup can also open dramatically.",
+      "home_route": "STRONG",
+      "away_route": "WEAK",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "CARRIER_LED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Mito have very recent matchup-specific proof that they can disrupt Tokyo's build-up and hold them to one or fewer goals: the cup meeting ended 1-0 to Mito, and Tokyo's latest league match was 0-0 despite territorial/chance control. Marcelo Ryan not starting also reduces finishing redundancy. Therefore G3 depends primarily on Tokyo's carrier and Mito leakage rather than a reliable two-sided scoring game.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "Current-season matchup evidence is genuinely mixed: Mito won 1-0 in the cup on October 14, while Tokyo won 5-2 at Ajinomoto in April and the March meeting was 1-1. This is useful control/ceiling evidence but does not independently decide G3.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Tokyo retain Nagakura, Anzai, Tokiwa and Ko in the starting XI and entered after current league wins of 4-0, 3-0 and 4-0 before the 0-0 Kashiwa draw. Nagakura had seven league goals and Anzai four. That supports an independent home G3 carrier even without Marcelo Ryan starting.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "The April 5-2 and recent Tokyo blowouts prove upside but do not protect a fourth independently because Mito recently held Tokyo to 0 in the cup and Tokyo themselves were just held 0-0.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Tokyo's current multi-goal wins and the 5-2 same-venue meeting support upside, while the 1-0 cup loss, 1-1 meeting and 0-0 Kashiwa draw make HIGH transferability unjustified.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Exact current-season matchup and current Tokyo form span 5-2/4-0/3-0/4-0 on the high side and 1-0/1-1/0-0 on the controlled side. Net tail context is MIXED.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The confirmed XI retains Nagakura, Anzai, Tokiwa and Ko; the route remains present despite Marcelo Ryan being outside the starting XI.",
+      "material_suppression": false,
+      "material_suppression_basis": "No pre-kickoff injury or lineup event eliminates Tokyo's principal scoring route; Mito's press/control threat is represented as completion and stall risk.",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "REGULAR_LEAGUE_PHASE",
+      "competition_format": "J1 League regular season.",
+      "draw_resolution": "Regular-season draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "FC Tokyo entered in the title race, level/near the leaders and explicitly framing this as a match they need to win after the Kashiwa draw and recent cup loss to Mito. Mito entered 16th and in a five-loss league run, needing points but without a verified fixed-margin condition.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous score or exact margin was required for either team's incentive classification.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "EXPANSIVE",
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BOTH_SHORT_REST",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Both clubs played October 21 and therefore share short Wednesday-to-Sunday recovery. Tokyo are at home while Mito travel domestically. The more material context is tactical familiarity from the October 14 cup meeting, where Mito's high press disrupted Tokyo; this is treated as a control risk, not a fatigue modifier.",
+      "match_context_evidence_refs": [
+        "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+        "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/"
+      ],
+      "goal_signal_priority_score": 55,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_mean_over_three_rate": 0.35,
+      "goal_signal_low_draw_trap_rate": 0.2,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "FAILED",
+      "g4_reply_path": "FAILED",
+      "g4_continuation_after_g3": "LOW",
+      "g4_research_basis": "Tokyo have clear four-goal upside, but the fourth is not separately protected because Mito's own current scoring route is weak and the recent 1-0 cup control result proves the same matchup can suppress Tokyo.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Tokyo have repeated current team-four/team-three outcomes, but no independent fourth-goal guarantee survives the latest 0-0 and Mito 1-0 control evidence.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+            "https://www.jleague.jp/en/match/100yj1/2026/042402/preview/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Mito have scored only once across their five-match league losing run, so a protected two-sided fourth-goal path fails.",
+          "evidence_refs": [
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/",
+            "https://www.jleague.jp/en/match/j1/2026/102505/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Mito's current attack is too weak to depend on a post-third reply.",
+          "evidence_refs": [
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/",
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Nagakura, Anzai, Tokiwa and Ko start after repeated current multi-goal Tokyo wins; the home route is HIGH reliability even with Marcelo Ryan not starting.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+            "https://www.jleague.jp/en/match/j1/2026/102505/",
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Tokyo's current title-race need and repeated multi-goal wins support continuation, but the exact recent Mito cup control result keeps base quality at MEDIUM before incentive adjustment.",
+          "evidence_refs": [
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "The 1-0 Mito cup win and Tokyo's 0-0 Kashiwa draw are direct current counterexamples to automatic G3; stall remains MEDIUM.",
+          "evidence_refs": [
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Tokyo retain multiple attacking starters and Mito have repeatedly conceded during a five-loss run, but if Tokyo under-convert Mito's weak attack may not rescue the burden. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent protected fourth-goal mechanism survives the control evidence and weak Mito reply route.",
+          "evidence_refs": [
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+            "https://www.jleague.jp/en/match/100yj1/2026/042402/preview/"
+          ],
+          "mechanism_ids": [
+            "TOKYO_CARRIER_MITO_LEAKAGE_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "TOKYO_CARRIER_MITO_LEAKAGE_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "G3 is primarily a Tokyo carrier plus Mito leakage thesis. It fails if Mito reproduce the recent cup press/control and Tokyo repeat their latest finishing inefficiency; Mito are not expected to independently rescue the third.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+            "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+            "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/",
+            "https://www.jleague.jp/en/match/100yj1/2026/042402/preview/"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "TOKYO_CARRIER_MITO_LEAKAGE_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh prematch exception research upgrades the window-closed upstream state: Tokyo retain a strong current carrier and Mito provide meaningful leakage, while title-race incentive supports continuation. Recent 1-0/0-0 control evidence keeps the certificate at G3 only.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+        "Football-C-rank-20261025-0000-0730-verified.json#1795832",
+        "https://www.jleague.jp/en/match/j1/2026/102505/",
+        "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+        "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/",
+        "https://www.jleague.jp/en/match/100yj1/2026/042402/preview/"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T06:59:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "The sealed sweep closed this 14:00 ICT fixture as outside its operating window before normal research/rank. Explicit exception reconstructs the prematch football state from confirmed XI and pre-kickoff evidence only.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "FCTOKYO-MITO-20261025-RETRO-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "fctokyo-mito-exception-retroprematch-20261025T065900Z",
+      "researched_at_utc": "2026-10-25T06:59:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0000-0730-verified.json#1795832 was CLOSED/OUT_OF_WINDOW before normal research; explicit user exception reconstructs prematch football state.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_000000007d74820686e61c5fa673f45f",
+        "Football-C-rank-20261025-0000-0730-verified.json#1795832",
+        "https://www.jleague.jp/en/match/j1/2026/102505/",
+        "https://www.fctokyo.co.jp/en/fan/fanzone/detail/343129/",
+        "https://www.fctokyo.co.jp/en/match/schedule/info/20261025/",
+        "https://www.jleague.jp/en/match/100yj1/2026/042402/preview/"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
