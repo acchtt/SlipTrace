@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: unsupported upstream_state=SCREENED_OUT",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "8ff72bfede27e51830e958e1201fca033ce5e4898d855b4fe918d4ebf3bc8047",
+  "ok": false,
+  "request_id": "XI-20261025-OMIYA-CEREZO-W-EXCEPTION-RETROPRE-1259",
+  "runtime_commit": "056c49e5f4d580b06e902bedf28c046a90831d08",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
