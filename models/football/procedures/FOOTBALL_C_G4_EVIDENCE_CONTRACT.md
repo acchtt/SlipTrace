@@ -6,6 +6,10 @@ the predictive predicates in `engine/core.py`. Historical receipts are immutable
 An explicit completed G4 declaration must carry:
 
 - Upper-tail transferability and comparable-context signal, each with its basis.
+- Competition provenance for any extreme tail: `upper_tail_competition_provenance_verified`
+  and its basis must prove the competition scope of the results used. Generic
+  all-competition recent-form feeds may be corroboration but cannot be labelled
+  same-competition. G5/G6 fail closed without verified scope provenance.
 - `g4_path_evidence`, keyed by `g4_carrier_path`, `g4_distributed_path`,
   `g4_reply_path`. Each record has a nonempty `basis` and `evidence_refs`.
 - Every FAILED path references `mechanism_ids` in `failure_mechanisms`. Each
