@@ -2,9 +2,10 @@
 import copy
 import json
 import unittest
+from datetime import datetime, timezone
 
 from test_stage import snapshot, sweep, NOW, model_input, fresh_status, fixture
-from stage import rank, verify_rank, StageError
+from stage import rank, verify_rank, StageError, _canonical_slate_profile
 
 AT = '2026-10-11T16:05:00Z'
 LATER = '2026-10-11T16:07:00Z'
@@ -78,6 +79,25 @@ def readback(result):
 
 
 class RankResearchTests(unittest.TestCase):
+    def test_canonical_main_and_secondary_slate_classification(self):
+        main = _canonical_slate_profile(
+            datetime.fromisoformat("2026-10-25T15:00:00+07:00").astimezone(timezone.utc),
+            datetime.fromisoformat("2026-10-26T03:00:00+07:00").astimezone(timezone.utc),
+        )
+        self.assertEqual(main["slate_window_class"], "MAIN_1500_0300_ICT")
+        secondary = _canonical_slate_profile(
+            datetime.fromisoformat("2026-10-25T03:00:00+07:00").astimezone(timezone.utc),
+            datetime.fromisoformat("2026-10-25T11:00:00+07:00").astimezone(timezone.utc),
+        )
+        self.assertEqual(
+            secondary["slate_window_class"], "SECONDARY_0300_1100_ICT"
+        )
+        custom = _canonical_slate_profile(
+            datetime.fromisoformat("2026-10-25T18:00:00+07:00").astimezone(timezone.utc),
+            datetime.fromisoformat("2026-10-26T00:00:00+07:00").astimezone(timezone.utc),
+        )
+        self.assertEqual(custom["slate_window_class"], "CUSTOM_EXPLICIT_WINDOW")
+
     def test_39_fixture_incident_reports_24_pending_and_5_closed(self):
         source = snapshot([fixture(f"m{i}", ko=("2026-10-11T16:03:00Z" if i < 5
                                                  else "2026-10-11T17:00:00Z"))
@@ -164,10 +184,24 @@ class RankResearchTests(unittest.TestCase):
 
     def test_resume_reuses_completed_facts_and_only_needs_new_fixture(self):
         previous = execute()
+        self.assertFalse(previous["research_complete"])
+        self.assertFalse(previous["slate_rank_frozen"])
+        partial_row = previous["board"]["matches"][0]
+        self.assertIsNone(partial_row["slate_rank"])
+        self.assertEqual(partial_row["current_rank"], partial_row["rank"])
+        self.assertEqual(
+            partial_row["rank_scope"], "PROVISIONAL_PARTIAL_RESEARCH"
+        )
         untouched = copy.deepcopy(previous)
         result = execute(c_input('m2'), {}, previous=previous, at=LATER)
         self.assertEqual(result['assessed_count'], 2)
         self.assertTrue(result['research_complete'])
+        self.assertTrue(result['slate_rank_frozen'])
+        self.assertIsNotNone(result['slate_rank_frozen_at_utc'])
+        for row in result["research_assessment"]["matches"]:
+            self.assertEqual(row["current_rank"], row["rank"])
+            self.assertEqual(row["slate_rank"], row["rank"])
+            self.assertEqual(row["rank_scope"], "FULL_SLATE_ROLLING_CURRENT")
         self.assertEqual(result['resume_queue'], [])
         self.assertEqual(result['reused_match_ids'], ['m1'])
         self.assertEqual(result['previous_rank_sha256'], previous['integrity_sha256'])
@@ -179,11 +213,24 @@ class RankResearchTests(unittest.TestCase):
         self.assertTrue(persisted['research_complete'])
 
     def test_resume_excludes_started_reused_fixture_and_preserves_old_receipt(self):
-        previous = execute()
+        partial = execute()
+        previous = execute(c_input('m2'), {}, previous=partial, at=LATER)
+        frozen_m2 = next(
+            row["slate_rank"]
+            for row in previous["research_assessment"]["matches"]
+            if row["match_id"] == "m2"
+        )
         statuses = fresh_status(sweep(snapshot(), now=NOW), now=LATER)
         statuses['matches'][0]['fixture_status'] = 'STARTED'
         result = execute(c_input('m2'), {}, previous=previous, status=statuses, at=LATER)
         self.assertEqual([r['match_id'] for r in result['board']['matches']], ['m2'])
+        live_row = result["board"]["matches"][0]
+        self.assertEqual(live_row["current_rank"], 1)
+        self.assertEqual(live_row["rank"], 1)
+        self.assertEqual(live_row["slate_rank"], frozen_m2)
+        self.assertEqual(
+            live_row["slate_rank_status"], "PRESERVED_FROM_INITIAL_FULL_SLATE"
+        )
         self.assertEqual(result['unranked_reasons']['m1'], 'PREMATCH_WINDOW_CLOSED')
         self.assertEqual(result['research_coverage']['status_excluded_count'], 1)
         self.assertEqual(previous['board']['matches'][0]['match_id'], 'm1')
