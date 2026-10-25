@@ -72,6 +72,7 @@ def main() -> None:
                             "match_id": frozen["match_id"],
                             "rank": 1,
                             "board_state": "FOCUS",
+                            "follow_lane": "FOLLOW",
                             "supported_line": 5.5,
                         }]
                     },
