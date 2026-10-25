@@ -61,6 +61,13 @@ CONTEXT_CONTRACT_EFFECTIVE_UTC = datetime.fromisoformat(
 ENGINE_REVISION_LOCK_EFFECTIVE_UTC = CONTEXT_CONTRACT_EFFECTIVE_UTC
 CONTEXT_CONTRACT_VERSION = "football-context-v1"
 
+ICT = timezone(timedelta(hours=7))
+CANONICAL_MAIN_SLATE_START_HOUR = 15
+CANONICAL_MAIN_SLATE_END_HOUR = 3
+CANONICAL_SECONDARY_SLATE_START_HOUR = 3
+CANONICAL_SECONDARY_SLATE_END_HOUR = 11
+SLATE_RANK_POLICY = "FULL_COHORT_FREEZE_PLUS_ROLLING_CURRENT_V1"
+
 
 class StageError(ValueError):
     pass
@@ -221,6 +228,103 @@ def _validate_g3_challenger_review(row: dict[str, Any]) -> None:
         )
 
 
+def _canonical_slate_profile(start_utc: datetime, end_utc: datetime) -> dict[str, Any]:
+    """Classify the requested window without changing explicit user windows."""
+
+    start_ict = start_utc.astimezone(ICT)
+    end_ict = end_utc.astimezone(ICT)
+    main = (
+        start_ict.hour == CANONICAL_MAIN_SLATE_START_HOUR
+        and start_ict.minute == 0
+        and end_ict.hour == CANONICAL_MAIN_SLATE_END_HOUR
+        and end_ict.minute == 0
+        and end_ict.date() == (start_ict + timedelta(days=1)).date()
+    )
+    secondary = (
+        start_ict.hour == CANONICAL_SECONDARY_SLATE_START_HOUR
+        and start_ict.minute == 0
+        and end_ict.hour == CANONICAL_SECONDARY_SLATE_END_HOUR
+        and end_ict.minute == 0
+        and end_ict.date() == start_ict.date()
+    )
+    if main:
+        slate = "MAIN_1500_0300_ICT"
+    elif secondary:
+        slate = "SECONDARY_0300_1100_ICT"
+    else:
+        slate = "CUSTOM_EXPLICIT_WINDOW"
+    return {
+        "slate_window_class": slate,
+        "slate_window_start_ict": start_ict.isoformat(),
+        "slate_window_end_ict": end_ict.isoformat(),
+        "ranking_universe_policy": (
+            "ONE_RECEIPT_ONE_SHARED_RANKING_UNIVERSE; research may batch "
+            "inside the receipt but must not create sub-window rank universes"
+        ),
+    }
+
+
+def _previous_slate_rank_state(
+    previous_rank: dict[str, Any] | None,
+) -> tuple[dict[str, int], str | None]:
+    """Read immutable slate ranks from the last full-cohort rank receipt."""
+
+    if not isinstance(previous_rank, dict) or not previous_rank.get("research_complete"):
+        return {}, None
+    rows = (previous_rank.get("research_assessment") or {}).get("matches")
+    if not isinstance(rows, list):
+        rows = (previous_rank.get("board") or {}).get("matches")
+    if not isinstance(rows, list):
+        return {}, previous_rank.get("slate_rank_frozen_at_utc")
+    ranks: dict[str, int] = {}
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        mid = row.get("match_id")
+        value = row.get("slate_rank")
+        if value is None:
+            value = row.get("rank")
+        if isinstance(mid, str) and isinstance(value, int):
+            ranks[mid] = value
+    return ranks, previous_rank.get("slate_rank_frozen_at_utc")
+
+
+def _annotate_rank_semantics(
+    rows: list[dict[str, Any]],
+    *,
+    research_complete: bool,
+    previous_rank: dict[str, Any] | None,
+    ranked_at_utc: str,
+) -> tuple[str | None, bool]:
+    """Attach immutable Slate Rank plus rolling Current Rank to one cohort."""
+
+    previous_slate, previous_frozen_at = _previous_slate_rank_state(previous_rank)
+    preserve_previous = bool(previous_slate)
+    freeze_now = research_complete and not preserve_previous
+    frozen_at = previous_frozen_at or (ranked_at_utc if freeze_now else None)
+
+    for row in rows:
+        current = row.get("rank")
+        row["current_rank"] = current
+        mid = row.get("match_id")
+        if isinstance(mid, str) and mid in previous_slate:
+            row["slate_rank"] = previous_slate[mid]
+            row["slate_rank_status"] = "PRESERVED_FROM_INITIAL_FULL_SLATE"
+        elif freeze_now:
+            row["slate_rank"] = current
+            row["slate_rank_status"] = "FROZEN_INITIAL_FULL_SLATE"
+        else:
+            row["slate_rank"] = None
+            row["slate_rank_status"] = "PENDING_FULL_COHORT_RESEARCH"
+        row["rank_scope"] = (
+            "FULL_SLATE_ROLLING_CURRENT"
+            if research_complete or preserve_previous
+            else "PROVISIONAL_PARTIAL_RESEARCH"
+        )
+    return frozen_at, bool(frozen_at)
+
+
+
 def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any]]:
     """Return genuinely unresolved in-window intake rows.
 
@@ -306,6 +410,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         raise StageError("fresh V4- run ID required (old retired runs cannot resume)")
     start, end = _time(source.get("window_start_utc"), "window_start_utc"), _time(
         source.get("window_end_utc"), "window_end_utc")
+    slate_profile = _canonical_slate_profile(start, end)
     if end <= start or end - start > timedelta(days=2) or end <= at:
         raise StageError("future sweep window must be > 0 and <= 48h")
     provider = source.get("source_family")
@@ -568,6 +673,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "schema_version": SCHEMA, "status": "V4_SWEEP_READY",
         "run_id": run_id, "created_at_utc": at.isoformat(),
         "window_start_utc": start.isoformat(), "window_end_utc": end.isoformat(),
+        **slate_profile,
         "source_family": provider, "source_url": source["source_url"],
         "source_observed_at_utc": observed.isoformat(),
         "source_ledger_hash": _hash(ledger),
@@ -1027,6 +1133,10 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     """Evaluate the single active Football C input against frozen V4 eligible set."""
     _verified(sweep_receipt, "V4_SWEEP_READY")
     at = _time(now, "now")
+    slate_profile = _canonical_slate_profile(
+        _time(sweep_receipt["window_start_utc"], "window_start_utc"),
+        _time(sweep_receipt["window_end_utc"], "window_end_utc"),
+    )
     engine_revision = _engine_source_revision()
     engine_policy_fingerprint = _engine_policy_fingerprint()
     if at >= ENGINE_REVISION_LOCK_EFFECTIVE_UTC and not engine_policy_fingerprint:
@@ -1280,6 +1390,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "assessed_open_fraction": len(ids) / (len(frozen) - closed) if len(frozen) > closed else None,
     }
     checkpoint = {
+        **slate_profile,
+        "slate_rank_policy": SLATE_RANK_POLICY,
         "engine_source_revision": engine_revision,
         "engine_policy_fingerprint": engine_policy_fingerprint,
         "engine_policy_lock": "SLATE_PINNED_V1",
@@ -1342,6 +1454,24 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if not isinstance(assessed_rows, list) or len(assessed_rows) != len(ids):
         raise StageError("Football C assessment cohort/result count mismatch")
 
+    slate_rank_frozen_at_utc, slate_rank_frozen = _annotate_rank_semantics(
+        assessed_rows,
+        research_complete=coverage["research_complete"],
+        previous_rank=previous_rank,
+        ranked_at_utc=at.isoformat(),
+    )
+    result["slate_rank_policy"] = SLATE_RANK_POLICY
+    result["slate_rank_frozen"] = slate_rank_frozen
+    result["slate_rank_frozen_at_utc"] = slate_rank_frozen_at_utc
+    result["rank_semantics"] = {
+        "rank": "LEGACY_ALIAS_OF_CURRENT_RANK",
+        "current_rank": "ROLLING_POSITION_AMONG_CURRENTLY_OPEN_ASSESSED_FIXTURES",
+        "slate_rank": (
+            "IMMUTABLE_POSITION_FROM_FIRST_FULL_COHORT_RANK; null while "
+            "research is partial"
+        ),
+    }
+
     # Research eligibility is deliberately broader than board admission.
     # Only Football C FOCUS rows become the official ranked board. WATCH/PASS
     # stay frozen in the research assessment for audit/review, but they do not
@@ -1363,6 +1493,10 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "stop_count": sum(row.get("follow_lane") == "STOP" for row in board_rows),
         "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
         "assessed_match_count": len(assessed_rows),
+        "slate_rank_policy": SLATE_RANK_POLICY,
+        "slate_rank_frozen": slate_rank_frozen,
+        "slate_rank_frozen_at_utc": slate_rank_frozen_at_utc,
+        "rank_semantics": copy.deepcopy(result["rank_semantics"]),
     }
     board_exclusions = [
         {
@@ -1412,6 +1546,10 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "board_exclusions": board_exclusions,
         "board": official_board,
         "research_assessment": result,
+        "slate_rank_policy": SLATE_RANK_POLICY,
+        "slate_rank_frozen": slate_rank_frozen,
+        "slate_rank_frozen_at_utc": slate_rank_frozen_at_utc,
+        "rank_semantics": copy.deepcopy(result["rank_semantics"]),
         "calibration_ledger": calibration_ledger,
         "active_spreadsheet_id": SPREADSHEET_ID,
         "active_sheet": COVERAGE_SHEET,
