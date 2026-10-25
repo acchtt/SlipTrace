@@ -47,6 +47,7 @@ class FollowLane(Enum):
 class Step2Authorization(Enum):
     ROUTINE_FOLLOW = "ROUTINE_FOLLOW"
     RESERVE_ACTIVATED = "RESERVE_ACTIVATED"
+    RANKED_DIRECT_REQUEST = "RANKED_DIRECT_REQUEST"
     USER_EXCEPTION = "USER_EXCEPTION"
 
 
@@ -2797,11 +2798,29 @@ def _validate_step2_authorization(
     if ctx.step2_authorization == Step2Authorization.USER_EXCEPTION:
         return
 
-    expected_lane = (
-        FollowLane.FOLLOW
-        if ctx.step2_authorization == Step2Authorization.ROUTINE_FOLLOW
-        else FollowLane.RESERVE
-    )
+    if ctx.step2_authorization == Step2Authorization.RANKED_DIRECT_REQUEST:
+        if ctx.official_follow_lane != FollowLane.FOCUS_UNFOLLOWED:
+            raise ValueError(
+                "DECISION BLOCKED — RANKED_DIRECT_REQUEST REQUIRES "
+                "FOCUS_UNFOLLOWED: "
+                f"official_follow_lane={ctx.official_follow_lane.value}"
+            )
+        if require_c_focus and ctx.board_state != BoardState.FOCUS:
+            raise ValueError(
+                "DECISION BLOCKED — RANKED_DIRECT_REQUEST REQUIRES C-FOCUS"
+            )
+        return
+
+    if ctx.step2_authorization == Step2Authorization.ROUTINE_FOLLOW:
+        expected_lane = FollowLane.FOLLOW
+    elif ctx.step2_authorization == Step2Authorization.RESERVE_ACTIVATED:
+        expected_lane = FollowLane.RESERVE
+    else:
+        raise ValueError(
+            "DECISION BLOCKED — UNSUPPORTED STEP2 AUTHORIZATION: "
+            f"{ctx.step2_authorization.value}"
+        )
+
     if ctx.official_follow_lane != expected_lane:
         raise ValueError(
             "DECISION BLOCKED — STEP2 AUTHORIZATION/LANE MISMATCH: "
