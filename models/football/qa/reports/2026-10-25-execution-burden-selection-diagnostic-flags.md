@@ -109,3 +109,44 @@ Required repair investigation:
 7. replay on frozen same-information controls before production adoption.
 
 No retrospective action rewrite is authorized by this flag.
+
+
+## Flag 6 — Portland–Charlotte negative market-disagreement / draw-control suppression
+
+**Fixture:** Portland Timbers — Charlotte FC (1696739)  
+**Prematch exception epoch:** 2026-10-25 09:28 ICT  
+**Frozen rank state:** WATCH / REVIEW_ONLY  
+**Exception result:** WATCH / PASS, no G3 certificate  
+**Observed early state for audit only:** 1-1 at 10'  
+**Backfill prohibited:** YES
+
+The prematch exception retained HIGH effective stall risk and rejected G3 even though the visible bookmaker ladder was centered materially higher than the comparable San Diego FC — Seattle Sounders fixture assessed immediately beforehand.
+
+Common visible lines:
+- Portland — Charlotte: O3.00 @1.57, O3.25 @1.78, O3.50 @2.01;
+- San Diego — Seattle: O3.00 @1.61, O3.25 @1.83, O3.50 @2.05.
+
+Thus the market assigned at least as much, and slightly more, upper-goal pressure to Portland — Charlotte. Football C nevertheless produced the reverse football ordering:
+- San Diego — Seattle: FOCUS, G3 funded, O2.50 certificate, O2.75 bridge authorized;
+- Portland — Charlotte: WATCH, G3 not funded, no certified burden, PASS.
+
+This is not evidence that market pricing should create football authority. It is a disagreement-control failure candidate: when Football C has **no G3 certificate** while the observed market is centered around O3.00/O3.25 or higher, the current runtime can report `market_disagreement_recheck_required=false` because there is no certified burden to compare against. That prevents a forced football recheck in the exact negative-disagreement case where the model may be over-suppressing a plausible third-goal route.
+
+A second candidate defect is incentive-state handling. Charlotte could clinch with a draw, and the exception encoded `DRAW_ACCEPTABLE` on the away side while Portland remained `WIN_PREFERRED`. That mixed state contributed to HIGH stall pressure. The post-kickoff 1-1 at 10' is to be retained only as diagnostic evidence that the suppressed alternative route existed; it must not be used to backfill an ACT or to rewrite the frozen evidence epoch.
+
+Required audit labels:
+
+`NEGATIVE_MARKET_DISAGREEMENT_NO_G3_PORTLAND_CHARLOTTE_20261025`
+
+`DRAW_ACCEPTABLE_STATE_DEPENDENCE_PORTLAND_CHARLOTTE_20261025`
+
+Post-slate audit requirements:
+1. compare Portland — Charlotte against San Diego — Seattle using only their frozen prematch evidence epochs;
+2. test a mandatory negative-disagreement recheck when `goal3_funded=false` and the visible market burden is materially above the model's no-certificate state;
+3. ensure the market can trigger re-research but cannot create or raise a football certificate;
+4. make `DRAW_ACCEPTABLE` state-dependent rather than an automatic prematch suppressor when the opponent is win-seeking and both teams retain scoring routes;
+5. separate base stall risk from game-state-contingent control risk;
+6. replay nearby same-slate WATCH/FOCUS controls to ensure the repair does not broadly inflate G3 admission;
+7. retain the 1-1 at 10' and final score only as outcome diagnostics after the frozen replay is complete.
+
+No production threshold change, retrospective ACT, BOOK fill, or accounting rewrite is authorized by this flag alone.
