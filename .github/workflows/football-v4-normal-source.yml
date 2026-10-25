@@ -30,7 +30,7 @@ permissions:
 jobs:
   sweep:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -86,7 +86,12 @@ jobs:
           cp=json.loads(Path("v4-normal-source/checkpoint.json").read_text())
           # If the native priority cohort is empty, promote source-attested
           # deferred rows instead of aborting the sweep on zero targets.
-          ids=list(dict.fromkeys(cp.get("research_order") or cp.get("deferred_research_backlog") or []))[:30]
+          ids=list(dict.fromkeys(
+              cp.get("slate_research_order")
+              or cp.get("research_order")
+              or cp.get("deferred_research_backlog")
+              or []
+          ))
           Path(sys.argv[1]).write_text(json.dumps({
               "run_id":sys.argv[2],
               "selection_mode":"AUTO_NATIVE_PRIORITY_FALLBACK",
@@ -101,7 +106,12 @@ jobs:
       - name: Finalize bounded research and native V4
         if: steps.req.outputs.request != ''
         run: |
-          python models/football/stages_v4/tools/normal_finalize.py             --request "${{ steps.req.outputs.request }}"             --targets "${{ steps.target.outputs.targets }}"             --output v4-normal-final
+          python models/football/stages_v4/tools/normal_finalize.py \
+            --request "${{ steps.req.outputs.request }}" \
+            --targets "${{ steps.target.outputs.targets }}" \
+            --source-checkpoint v4-normal-source/checkpoint.json \
+            --source v4-normal-source/source.json \
+            --output v4-normal-final
 
       - name: Upload final canonical bundle
         if: steps.req.outputs.request != ''
@@ -163,6 +173,8 @@ jobs:
               out.write(f"State: **{cp['status']}**\n\n")
               out.write(f"Native V4 ready: **{cp['native_v4_sweep_ready']}**\n\n")
               out.write(f"Rank handoff ready: **{cp['rank_handoff_ready']}**\n\n")
+              out.write(f"Slate research targets: **{cp.get('slate_research_target_count', len(cp['target_states']))}**\n\n")
+              out.write(f"Internal research chunks: **{cp.get('internal_research_chunk_count', 1)}** (one sweep universe)\n\n")
               out.write(f"Eligible targets: **{len(cp['eligible_match_ids'])}**\n\n")
               out.write(f"Watch targets: **{len(cp['watch_match_ids'])}**\n\n")
               out.write(f"Evidence-limited: **{len(cp['evidence_limited_match_ids'])}**\n\n")
