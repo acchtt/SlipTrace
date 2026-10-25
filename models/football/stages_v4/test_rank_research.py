@@ -220,6 +220,7 @@ class RankResearchTests(unittest.TestCase):
             for row in previous["research_assessment"]["matches"]
             if row["match_id"] == "m2"
         )
+        untouched = copy.deepcopy(previous)
         statuses = fresh_status(sweep(snapshot(), now=NOW), now=LATER)
         statuses['matches'][0]['fixture_status'] = 'STARTED'
         result = execute(c_input('m2'), {}, previous=previous, status=statuses, at=LATER)
@@ -233,7 +234,7 @@ class RankResearchTests(unittest.TestCase):
         )
         self.assertEqual(result['unranked_reasons']['m1'], 'PREMATCH_WINDOW_CLOSED')
         self.assertEqual(result['research_coverage']['status_excluded_count'], 1)
-        self.assertEqual(previous['board']['matches'][0]['match_id'], 'm1')
+        self.assertEqual(previous, untouched)
 
     def test_resume_carries_gaps_and_does_not_silently_drop_completed_rows(self):
         previous = execute(reasons={'m2': gap()})
