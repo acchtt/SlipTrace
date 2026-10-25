@@ -1,0 +1,96 @@
+{
+  "schema_version": "football-v4-same-slate-research-continuation-v1",
+  "source_run_id": "V4-20261025-1323-20261026-0300",
+  "source_sha256": "e3f9550a693a82d38c57483f05607f18abec0d67cec7fb4b0c0fb976db99308b",
+  "initial_receipt_integrity_sha256": "c640ec83e9a963a1b7efb6667d2a1b06bc2625e1cbf095388488126ce42d1efd",
+  "window_start_ict": "2026-10-25T13:23:00+07:00",
+  "window_end_ict": "2026-10-26T03:00:00+07:00",
+  "initial_active_researched_count": 20,
+  "initial_rank_admitted_count": 20,
+  "initial_deferred_unresearched_count": 560,
+  "phase": "NEXT_BATCH_IDENTIFIED_NOT_RESEARCHED",
+  "batch_size": 30,
+  "next_research_batch_ids": [
+    "1793623",
+    "1793624",
+    "1793626",
+    "1793627",
+    "1793628",
+    "1785394",
+    "1785377",
+    "1785392",
+    "1785396",
+    "1785412",
+    "1810727",
+    "1810717",
+    "1810723",
+    "1810721",
+    "1794728",
+    "1794727",
+    "1794714",
+    "1794733",
+    "1794730",
+    "1794736",
+    "1813359",
+    "1813371",
+    "1813375",
+    "1816443",
+    "1816446",
+    "1816442",
+    "1798171",
+    "1798172",
+    "1798170",
+    "1798173"
+  ],
+  "league_groups": {
+    "England Premier League": [
+      "1793623",
+      "1793624",
+      "1793626",
+      "1793627",
+      "1793628"
+    ],
+    "Italy Serie A": [
+      "1785394",
+      "1785377",
+      "1785392",
+      "1785396",
+      "1785412"
+    ],
+    "Spain LaLiga": [
+      "1810727",
+      "1810717",
+      "1810723",
+      "1810721"
+    ],
+    "France Ligue 1": [
+      "1794728",
+      "1794727",
+      "1794714",
+      "1794733",
+      "1794730",
+      "1794736"
+    ],
+    "Germany 2. Bundesliga": [
+      "1813359",
+      "1813371",
+      "1813375"
+    ],
+    "Portugal Primeira Liga": [
+      "1816443",
+      "1816446",
+      "1816442"
+    ],
+    "Belgium Belgian Pro League": [
+      "1798171",
+      "1798172",
+      "1798170",
+      "1798173"
+    ]
+  },
+  "canonical_source_validation": "Exact IDs verified in existing original-source/source.json, all 30 unresearched PREMATCH_CONFIRMED and in requested window at source epoch; no odds or goal certificate asserted",
+  "required_flow": "Continue source-backed goal histories against existing source_sha256 under this same slate/receipt. Do not create a new source epoch, time sub-window or independent /rank universe. Research and freeze evidence before kickoff; update one canonical receipt and checkpoint after native replay.",
+  "blocker": "Existing normal-chat backend permits <=30 in one fresh normal_finalize.run and lacks persisted same-source additional-batch execution; hence the main five European leagues remain out of initial research.",
+  "exhaustive_slate_research": false,
+  "rank_handoff_source_valid_but_not_slate_exhaustive": true
+}
