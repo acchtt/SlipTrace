@@ -490,6 +490,16 @@ def run(
     deferred_non_target_ids = [
         mid for mid in deferred_ledger_ids if mid not in target_map
     ]
+    registered_deferred_ids = [
+        mid for mid in deferred_non_target_ids
+        if (ledger.get(mid) or {}).get("registry_lane")
+        in {"ROUTINE", "CONDITIONAL", "PILOT"}
+    ]
+    if registered_deferred_ids:
+        raise ValueError(
+            "FINALIZER_REGISTERED_SLATE_RESEARCH_GAP: "
+            + ",".join(registered_deferred_ids[:40])
+        )
     completed, watch, limited, closed = [], [], [], []
     for mid in target_map:
         state = states[mid]
