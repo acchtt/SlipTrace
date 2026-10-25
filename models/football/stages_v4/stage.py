@@ -1503,7 +1503,21 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
             row.get("follow_lane") == "FOCUS_UNFOLLOWED" for row in board_rows
         ),
         "stop_count": sum(row.get("follow_lane") == "STOP" for row in board_rows),
+        "qualified_count": sum(
+            row.get("qualification_state") == "QUALIFIED" for row in board_rows
+        ),
+        "priority_focus_count": sum(
+            row.get("priority_state") == "FOCUS" for row in board_rows
+        ),
+        "watchlist_count": sum(
+            row.get("priority_state") == "WATCHLIST" for row in board_rows
+        ),
+        "qualified_unallocated_count": sum(
+            row.get("priority_state") == "QUALIFIED" for row in board_rows
+        ),
         "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
+        "qualification_policy": "FUNDED_G3_EQUALS_QUALIFIED_LEGACY_C_FOCUS",
+        "priority_policy": "FOLLOW_FOCUS_RESERVE_WATCHLIST_UNALLOCATED_QUALIFIED",
         "assessed_match_count": len(assessed_rows),
         "slate_rank_policy": SLATE_RANK_POLICY,
         "slate_rank_frozen": slate_rank_frozen,
