@@ -1,0 +1,291 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-PUMAS-TIGRES-EXCEPTION-RETROPRE-1009-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "pumas-tigres-exception-retroprematch-20261025T030900Z",
+    "match": {
+      "match_id": "1799071",
+      "country": "Mexico",
+      "competition": "Liga MX: Apertura",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Pumas",
+      "away": "Tigres",
+      "kickoff_ict": "2026-10-25T10:10:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No unsupported Liga MX reliability upgrade; retrospective exception uses the frozen sweep signal, confirmed XI and pre-kickoff club/current-form sources only.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed starting XI and current club/incentive/form evidence were available before kickoff.",
+      "common_evidence_basis": "Retrospective prematch-style exception using only information available before kickoff plus the user-supplied confirmed XI; no live score/event or live price evidence is used. Pumas start Keylor Navas; Rodrigo Lopez, Nathan Silva, Ruben Duarte, Pablo Bennevendo; Uriel Antuna, Adalberto Carrasquilla, Pedro Vite, Cesar Huerta; Robert Morales and Juninho. That preserves a meaningful home scoring route after recent 3-3 Cruz Azul, 2-3 San Luis and 2-1 Atlante league results, though the immediate prior match was a 0-2 loss at Santos conditioned by a first-minute red card. Tigres start Nahuel Guzman with a 4-2-3-1 that includes Fernando Gorriaran, Cesar Araujo, Diego Lainez, Juan Brunetta and Rodrigo Aguirre, so Brunetta's return materially improves the creative route. The counterweight is strong: Tigres entered winless away in the Apertura and had scored only one goal in their previous 429 away league minutes; the last three Pumas-Tigres meetings were 1-0, 1-1 and 2-1. Frozen sweep history was also suppressive: priority 35, mean over-two 0.35, mean over-three 0.20 and 0-0/1-1 trap rate 0.35.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "HIGH",
+      "main_failure": "Tigres' current away scoring route remains fragile despite Brunetta's return: one away goal in 429 minutes and no away win are directly relevant. Recent H2H endpoints are 1-0, 1-1 and 2-1, while the frozen goal-signal sample produced only 35% over-two and 20% over-three. Pumas carry the stronger current attacking route, but a 1-0, 1-1, 2-0 or 2-1 endpoint remains materially credible, so the third goal is not protected enough to treat the matchup as a normal FOCUS.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "SUPPRESSIVE",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "FOUND",
+      "h2h_material_effect": true,
+      "h2h_basis": "The three most recent meetings finished Pumas 1-0 Tigres, Pumas 1-1 Tigres and Pumas 2-1 Tigres. That current low-endpoint sequence is corroborated by Tigres' one away goal in 429 minutes and therefore receives material suppressive weight for G3 completion.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research metadata only; deterministic Football C compiler owns the actual certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Pumas have a meaningful home route but no source-backed repeatable independent three-goal carrier against this matchup; Tigres' away drought prevents an away carrier claim.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No protected fourth-goal path exists; even the third-goal route is challenged by current away suppression and recent H2H control.",
+      "upper_tail_transferability": "LOW",
+      "upper_tail_transferability_basis": "The nearest matchup and away-context evidence is suppressive: three recent H2Hs all stopped at three or fewer and Tigres have only one goal in 429 away minutes.",
+      "upper_tail_comparable_context_signal": "SUPPRESSIVE",
+      "upper_tail_comparable_context_basis": "Frozen current-form screen rates are low and the closest away/H2H comparators are predominantly controlled, so high-tail transfer is weak.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed attackers remain present for both teams; the concern is completion and away-route reliability rather than total disappearance of scoring mechanisms.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified lineup or injury event removes both routes; suppression is represented through stall, H2H and away-route completion rather than a hard all-route veto.",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "REGULAR_LEAGUE_PHASE",
+      "competition_format": "Liga MX Apertura regular phase; both clubs are chasing the final-phase places with four matches remaining after this round.",
+      "draw_resolution": "Regular-season draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "Pumas entered four points behind eighth place with little margin for error; Tigres entered two points behind Pumas and also needed a positive result to preserve a realistic final-phase route. Pumas publicly described the match as a final.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous score or fixed victory margin was required for either team's incentive classification.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "EXPANSIVE",
+      "match_context_review_status": "VERIFIED_MATERIAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BOTH_SHORT_REST",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Both teams were in a short-turnaround week: Pumas played Santos on Wednesday and Tigres played Leon on Tuesday. Pumas therefore had one day less recovery, while Tigres traveled to Mexico City. No verified squad-wide fatigue or derby effect is asserted; the short-rest context is retained as mixed rather than directionally forcing the total.",
+      "match_context_evidence_refs": [
+        "https://pumas.mx/noticias/3723/pumas-cae-en-su-visita-a-torre%C3%B3n",
+        "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561"
+      ],
+      "goal_signal_priority_score": 35,
+      "goal_signal_mean_over_two_rate": 0.35,
+      "goal_signal_mean_over_three_rate": 0.2,
+      "goal_signal_low_draw_trap_rate": 0.35,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "SUPPRESSIVE",
+      "g4_distributed_path": "SUPPRESSIVE",
+      "g4_reply_path": "SUPPRESSIVE",
+      "g4_continuation_after_g3": "LOW",
+      "g4_research_basis": "Fresh G4 review is rejected: no independent carrier-four exists, Tigres' away route is currently low-output, and the recent H2H plus frozen current-form sample offer no protected 2+2/3+1 or post-third reply mechanism.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Neither Pumas nor Tigres has a source-backed repeatable solo-four or independent solo-three-plus route in the current matchup; carrier path is SUPPRESSIVE.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://sportstatsapi.com/matches/mexico/liga-mx/2026-10-24/unam-pumas-v-tigres-uanl/",
+            "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Both XIs contain viable attackers, but Tigres' one away goal in 429 minutes and the recent 1-0/1-1/2-1 H2H sequence do not protect a 2+2 or 3+1 route; distributed path is SUPPRESSIVE.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+            "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A reply remains possible, especially with Brunetta restored, but current away scoring evidence does not make a post-third reply dependable; reply path is SUPPRESSIVE.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Pumas' confirmed attacking six preserve a strong home route, while Brunetta/Lainez/Aguirre improve Tigres to a usable route; Tigres' away drought prevents HIGH reliability.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+            "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Both teams need points, which supports continuation, but low current Tigres away output and controlled H2Hs keep base continuation at MEDIUM before incentive adjustment.",
+          "evidence_refs": [
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Tigres have one away goal in 429 minutes, no away win, a 35% frozen over-two rate and a recent 1-0/1-1/2-1 H2H run. Base stall risk is HIGH despite both teams' qualification pressure.",
+          "evidence_refs": [
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+            "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Tigres' restored creators still fail to convert away, Pumas must largely self-carry the third goal; the home route is meaningful but not a repeatable solo-three carrier. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent protected fourth-goal mechanism survives the current away and H2H suppressive evidence.",
+          "evidence_refs": [
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://sportstatsapi.com/matches/mexico/liga-mx/2026-10-24/unam-pumas-v-tigres-uanl/",
+            "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+          ],
+          "mechanism_ids": [
+            "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The main failure is third/fourth-goal completion: Tigres' away scoring drought and the current low-endpoint H2H sequence can hold the game below the burden even though both teams retain attacking personnel and qualification motivation.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+            "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+            "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+            "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "CURRENT_AWAY_SUPPRESSION_AND_H2H_CONTROL": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Confirmed XI improves the route picture versus the sweep screen, but current Tigres away completion and recent H2H suppression remain too strong to prospectively protect G3. Qualification pressure is positive but cannot create the missing third-goal mechanism.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+        "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+        "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+        "https://pumas.mx/noticias/3723/pumas-cae-en-su-visita-a-torre%C3%B3n",
+        "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561",
+        "https://sportstatsapi.com/matches/mexico/liga-mx/2026-10-24/unam-pumas-v-tigres-uanl/",
+        "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T03:09:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "The sealed 09:09-12:00 surface left this fixture at WATCH_GOAL_SIGNAL without rank research; the explicit user exception reconstructs the prematch football state from confirmed XI and pre-kickoff sources only.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "PUMAS-TIGRES-20261025-RETRO-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "pumas-tigres-exception-retroprematch-20261025T030900Z",
+      "researched_at_utc": "2026-10-25T03:09:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0909-1200-verified.json#1799071 remained WATCH_GOAL_SIGNAL and was not ranked; explicit user exception reconstructs prematch football state from confirmed XI and pre-kickoff sources only.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_0000000018dc8206bacbc35892ece307",
+        "https://pumas.mx/noticias/3731/pumas-encara-un-duelo-clave-por-liguilla",
+        "https://pumas.mx/noticias/3727/antecedentes-num%C3%A9ricos-vs-tigres",
+        "https://pumas.mx/noticias/3723/pumas-cae-en-su-visita-a-torre%C3%B3n",
+        "https://www.record.com.mx/historia/tigres-cierra-preparacion-y-recupera-a-brunetta-para-visitar-a-pumas-2026102317211906561",
+        "https://sportstatsapi.com/matches/mexico/liga-mx/2026-10-24/unam-pumas-v-tigres-uanl/",
+        "Football-C-rank-20261025-0909-1200-verified.json#1799071"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
