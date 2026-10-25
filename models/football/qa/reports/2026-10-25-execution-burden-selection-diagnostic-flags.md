@@ -150,3 +150,25 @@ Post-slate audit requirements:
 7. retain the 1-1 at 10' and final score only as outcome diagnostics after the frozen replay is complete.
 
 No production threshold change, retrospective ACT, BOOK fill, or accounting rewrite is authorized by this flag alone.
+
+
+### Halftime checkpoint — Portland/Charlotte vs San Diego/Seattle
+
+**Observed HT states (audit evidence only):**
+- Portland Timbers — Charlotte FC: **2-1 HT**;
+- San Diego FC — Seattle Sounders: **0-0 HT**.
+
+These outcomes do not alter the frozen prematch decisions and must not be used for retrospective ACT/BOOK fills. They are retained because they sharpen the ordering diagnostic already flagged above:
+
+- Portland — Charlotte received **WATCH / no G3 certificate / PASS** despite the market carrying slightly higher common-line over prices than San Diego — Seattle;
+- San Diego — Seattle received **FOCUS / G3 funded / O2.50 certificate / O2.75 bridge / BOOK**;
+- by halftime, the rejected Portland fixture had already cleared G3, while the stronger-certified San Diego fixture had not produced a goal.
+
+Required post-slate analysis:
+1. replay both frozen prematch epochs without result leakage;
+2. compare route evidence, stall/control penalties, incentive modifiers and market-disagreement triggers side by side;
+3. determine whether Portland's `HIGH` prematch stall/control assessment was over-weighted relative to San Diego's route evidence;
+4. determine whether San Diego's certificate relied too heavily on route availability while under-weighting plausible 0-0 control failure;
+5. use HT/FT states only after the frozen replay as calibration diagnostics, never as authority for changing historical exposure.
+
+No threshold change is authorized from this halftime snapshot alone.
