@@ -1,0 +1,11 @@
+{
+  "error": "H2H MATERIAL EFFECT BLOCKED — material H2H effect requires h2h_effect=SUPPRESSIVE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "4e043988685b14c2fe69b396a3c4ff542a7fa7888801879d3969935664436e33",
+  "ok": false,
+  "request_id": "XI-20261025-OMIYA-CEREZO-W-EXCEPTION-RETROPRE-1259-v2",
+  "runtime_commit": "0371e6fe84622766758218f6a551a7f1f21d7642",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
