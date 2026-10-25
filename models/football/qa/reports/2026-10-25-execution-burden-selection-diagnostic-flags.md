@@ -172,3 +172,29 @@ Required post-slate analysis:
 5. use HT/FT states only after the frozen replay as calibration diagnostics, never as authority for changing historical exposure.
 
 No threshold change is authorized from this halftime snapshot alone.
+
+
+### Full-time checkpoint — Portland/Charlotte vs San Diego/Seattle
+
+**Observed FT states (audit evidence only):**
+- Portland Timbers — Charlotte FC: **3-2 FT**;
+- San Diego FC — Seattle Sounders: **2-2 FT**.
+
+This resolves the halftime diagnostic in an important way:
+
+- **Portland — Charlotte** was frozen as **WATCH / no G3 certificate / PASS** and finished with **5 goals**. The previously flagged negative-market-disagreement / draw-control case is therefore now a **confirmed G3 false negative at the football-assessment layer**. This does not prove that every higher burden was actionable, but it does prove the model rejected the third-goal mechanism incorrectly for this fixture.
+- **San Diego — Seattle** was frozen as **FOCUS / G3 funded / O2.50 certificate / O2.75 bridge** and finished with **4 goals**. The 0-0 HT / low first-half production was a variance/control stress event, not a final invalidation of the prematch G3 certificate.
+
+Post-slate audit interpretation:
+1. do **not** use the 0-0 San Diego halftime state as evidence that its prematch G3 certificate was wrong; the FT outcome supports the certificate at the target-goal level;
+2. treat Portland as the stronger confirmed selection-inversion example because its no-G3 decision failed while a nearby same-slate G3-certified fixture ultimately cleared as expected;
+3. compare frozen Portland and San Diego evidence side by side to identify why Portland's control/stall penalties overrode a viable third-goal route;
+4. inspect whether `DRAW_ACCEPTABLE` and other control/context signals were given too much prematch veto power relative to independent route evidence;
+5. keep the market comparison as a **recheck trigger diagnostic only**: Portland carried slightly higher common-line market goal expectation, but market pricing must not manufacture the certificate;
+6. preserve all historical actions, BOOK states and accounting exactly as frozen. No retrospective ACT/BOOK fill is created by these outcomes.
+
+Confirmed audit label:
+
+`PORTLAND_CHARLOTTE_CONFIRMED_G3_FALSE_NEGATIVE_20261025`
+
+San Diego remains a **certificate-hit / first-half-stress control**, not a confirmed assessment failure.
