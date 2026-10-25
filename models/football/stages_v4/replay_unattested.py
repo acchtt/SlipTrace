@@ -39,6 +39,13 @@ IGNORABLE = {
     "whole_requested_surface_complete",
     "upstream_remaining_fixture_count",
     "upstream_resume_fixtures",
+    # Added prospectively in the 2026-10-25 canonical-slate repair. These are
+    # derived orchestration/rank-scope labels, not historical fixture
+    # eligibility or business evidence.
+    "slate_window_class",
+    "slate_window_start_ict",
+    "slate_window_end_ict",
+    "ranking_universe_policy",
 }
 
 
