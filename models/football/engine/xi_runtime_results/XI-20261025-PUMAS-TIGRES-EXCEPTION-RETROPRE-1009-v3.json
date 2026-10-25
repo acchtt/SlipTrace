@@ -1,0 +1,11 @@
+{
+  "error": "G4_RESEARCH_COMPLETE_REJECTED requires a funded G3 certificate",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "db6143326236ec808b10d6b74671954743ad39d75100c1cb947d933b5c8fbe04",
+  "ok": false,
+  "request_id": "XI-20261025-PUMAS-TIGRES-EXCEPTION-RETROPRE-1009-v3",
+  "runtime_commit": "02a8c6be95990600af6eddd67b05b3d2f6fd3171",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
