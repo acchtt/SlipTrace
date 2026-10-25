@@ -10,7 +10,15 @@ Conversation surface: NORMAL CHAT
    models/football/prompts/COMMAND_ALIASES.md
    models/football/stages_v4/SWEEP.md
 
-2. Freeze the requested ICT window. Before any goal-history research, require
+2. Freeze the requested ICT window. Canonical operating windows are:
+   - MAIN: 15:00 ICT -> 03:00 ICT next day;
+   - SECONDARY: 03:00 ICT -> 11:00 ICT.
+   If the user gives an explicit custom window, preserve it exactly. If the user
+   invokes /sweep without a window, use the next/current canonical surface rather
+   than inventing a 3-6 hour sub-window. Once a canonical surface has a durable
+   receipt, later research batches and /rank calls must reuse that same receipt;
+   do not create a new sub-window ranking universe inside 15:00->03:00.
+   Before any goal-history research, require
    SOURCE_READY_FOR_RESEARCH. If local acquisition is unavailable, commit one
    request under models/football/stages_v4/normal_source_requests/. The
    football-v4-normal-source.yml backend must continue through bounded research,
@@ -21,11 +29,14 @@ Conversation surface: NORMAL CHAT
    original-source.json, source.json and listing-receipt.json first.
 
 4. Create/update the durable v2 research checkpoint. Start from native
-   priority_research_order, then promote only exact canonical source IDs needed
-   for this window. Keep the total active research cohort <=30; leave all other
-   missing-history rows as visible DEFERRED_RESEARCH_BACKLOG. Research
-   GOAL_PRIORITY before GOAL_REVIEW and checkpoint after at most 4 fixture
-   dispositions.
+   priority_research_order, then promote exact canonical source IDs needed for
+   this slate. A batch may contain at most 30 active research rows, but 30 is a
+   workload batch size, NOT a whole-slate ranking cap. Continue further batches
+   inside the same immutable receipt until all targeted in-scope rows for the
+   canonical surface are resolved. Non-target discovery backlog may remain
+   visible as DEFERRED_RESEARCH_BACKLOG, but it must never be described as part
+   of a globally exhaustive ranking. Research GOAL_PRIORITY before GOAL_REVIEW
+   and checkpoint after at most 4 fixture dispositions.
 
 5. On /resume, load the checkpoint first and process only `resume_queue`.
    Never repeat resolved fixture research. Do not reacquire date surfaces unless
