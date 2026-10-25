@@ -48,14 +48,22 @@ class CurrentProcedureAuthorityTests(unittest.TestCase):
         self.assertIn("reused_match_ids", runner)
         self.assertIn("EVIDENCE_LIMITED", runner)
 
-    def test_sweep_scope_keeps_exclusions_and_youth_exception(self):
+    def test_sweep_scope_keeps_exclusions_youth_exception_and_womens_topflight_parity(self):
         sweep = (STAGES / "SWEEP.md").read_text()
         registry = (STAGES / "league_registry.py").read_text()
+        current = (FOOTBALL / "CURRENT_MODEL.md").read_text()
+        cheap = (STAGES / "cheap_sweep_filters.py").read_text()
         self.assertIn("USER_AFRICA_DOMESTIC_EXCLUSION", sweep)
         self.assertIn("AFRICAN_DOMESTIC_COUNTRIES", registry)
         self.assertIn("UEFA Youth League", sweep)
         self.assertIn("UEFA_YOUTH_LEAGUE_NAMES", registry)
         self.assertIn("Generic youth competitions remain excluded", sweep)
+        self.assertNotIn("USER_WOMENS_DOMESTIC_EXCLUSION", registry)
+        self.assertNotIn("non-Japan women's domestic competitions", sweep)
+        self.assertIn("WOMENS_SENIOR_TOP_FLIGHT_SOURCE_AND_IDENTITY_CHECK", registry)
+        self.assertIn("WOMENS_DOMESTIC_TOP_FLIGHT_IDENTITY_CHECK_REQUIRED", registry)
+        self.assertIn("WOMENS_TOP_FLIGHT_MATCH_SPECIFIC_RESEARCH", cheap)
+        self.assertIn("Senior women's domestic top flights outside Africa", current)
 
     def test_big_five_is_not_automatic_goal_admission(self):
         cheap = (STAGES / "cheap_sweep_filters.py").read_text()
