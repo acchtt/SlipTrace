@@ -117,6 +117,10 @@ COMPETITIVE_KINDS = {
     "DOMESTIC_LEAGUE", "WOMENS_TOP_FLIGHT", "DOMESTIC_CUP",
     "CONTINENTAL", "PROTECTED_OFFICIAL", "YOUTH_CONTINENTAL",
 }
+WOMENS_NAME_TOKENS = (
+    "women", "womens", "frauen", "feminina", "femenina", "femenil",
+    "feminin", "feminine", "ladies",
+)
 UEFA_YOUTH_LEAGUE_NAMES = frozenset({
     "uefa youth league",
     "uefa u19 youth league",
@@ -172,21 +176,21 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
         return {"lane": "EXCLUDED", "reason": "USER_AFRICA_DOMESTIC_EXCLUSION"}
     if kind == "DOMESTIC_LEAGUE" and country == "latvia":
         return {"lane": "EXCLUDED", "reason": "USER_LATVIA_LEAGUE_EXCLUSION"}
-    womens_named = any(token in competition for token in (
-        "women", "womens", "frauen", "feminina", "femenina", "feminin",
-    ))
-    if (
-        kind in {"DOMESTIC_LEAGUE", "WOMENS_TOP_FLIGHT", "DOMESTIC_CUP"}
-        and (kind == "WOMENS_TOP_FLIGHT" or womens_named)
-        and country != "japan"
-    ):
-        return {"lane": "EXCLUDED", "reason": "USER_WOMENS_DOMESTIC_EXCLUSION"}
+    womens_named = any(token in competition for token in WOMENS_NAME_TOKENS)
     if kind in {"DOMESTIC_LEAGUE","WOMENS_TOP_FLIGHT","DOMESTIC_CUP"} and country in DOMESTIC_EXCLUSIONS:
         return {"lane": "EXCLUDED", "reason": "USER_DOMESTIC_COUNTRY_EXCLUSION"}
     if (country, competition) in EXCLUDED_EXACT:
         return {"lane": "EXCLUDED", "reason": "USER_EXPLICIT_LEAGUE_EXCLUSION"}
     if kind == "WOMENS_TOP_FLIGHT":
-        return {"lane": "CONDITIONAL", "reason": "WOMENS_SENIOR_TOP_FLIGHT_SOURCE_AND_IDENTITY_CHECK"}
+        return {
+            "lane": "CONDITIONAL",
+            "reason": "WOMENS_SENIOR_TOP_FLIGHT_SOURCE_AND_IDENTITY_CHECK",
+        }
+    if kind == "DOMESTIC_LEAGUE" and womens_named:
+        return {
+            "lane": "CONDITIONAL",
+            "reason": "WOMENS_DOMESTIC_TOP_FLIGHT_IDENTITY_CHECK_REQUIRED",
+        }
     if kind in {"CONTINENTAL", "PROTECTED_OFFICIAL"}:
         return {"lane": "CONDITIONAL", "reason": "OFFICIAL_TOURNAMENT_FORMAT_INCENTIVES_REQUIRED"}
     if kind == "DOMESTIC_CUP":
