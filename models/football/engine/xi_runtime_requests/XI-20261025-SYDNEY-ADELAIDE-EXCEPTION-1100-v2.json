@@ -1,0 +1,302 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-SYDNEY-ADELAIDE-EXCEPTION-1100-v2",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "sydney-adelaide-exception-20261025T040019Z",
+    "match": {
+      "match_id": "1843492",
+      "country": "Australia",
+      "competition": "A-League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Sydney FC",
+      "away": "Adelaide United",
+      "kickoff_ict": "2026-10-25T11:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No unsupported A-League reliability promotion; exception uses the verified sweep row, confirmed XI and current official A-League/club evidence.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Verified pre-kickoff sweep evidence, confirmed starting XI and user-supplied prematch totals are available.",
+      "common_evidence_basis": "Fresh confirmed-XI exception recheck of deferred fixture 1843492. Sydney start Devenish-Meares; Grant, Alexandar Popovic, Courtney-Perkins, Garuccio; Al Hassan Toure, Youlley, Kamijo, Sekine; Quintal behind Oriola Sunday. Hollman is out with a knock and Farrell/Walatee remain unavailable. Sydney's league opener finished 0-0 against Western Sydney and the official report described few clear-cut first-half chances and poor end product, so the XI preserves a usable route but does not justify HIGH chance quality by personnel alone. Adelaide start Smits; Crawford, Phillis, Kikianis, Kitto, Talladira; Anselmo, Burkitt, Alagich; Muniz and Craig Goodwin. Bart Vriends is unavailable. Adelaide arrive with current competitive scoring evidence from 3-0 and 2-1 AFC Champions League Two wins, preserving the stronger current scoring route. The last three league meetings were 3-2, 1-2 and 2-1, all reaching three and both teams scoring, which supports a reply mechanism but is not strong enough to erase Sydney's current low-output opener. Frozen Step-0 evidence was borderline: priority 49, mean over-two 0.575, mean over-three 0.20, low-draw trap 0.10, carrier route 1.625.",
+      "home_route": "USABLE",
+      "away_route": "STRONG",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Sydney's first league match produced a 0-0 and limited clear-cut chance creation, while the frozen sample has only a 0.20 mean over-three rate. Adelaide provide the stronger route and recent H2H supports replies, but if Sydney again fail to convert possession/width into dangerous chances the game can settle at 0-1, 1-1 or 1-2. That prevents treating the third goal as protected solely from attacking names or historical H2H.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "SUPPORTIVE",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "The last three listed A-League meetings were Adelaide 2-3 Sydney, Adelaide 2-1 Sydney and Sydney 1-2 Adelaide. All reached three and both sides scored, so the matchup supports a reply route. Transferability is LIMITED because the current Sydney attack opened the season 0-0 and Adelaide's domestic season is only beginning.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Adelaide are the stronger current route but are not established as a repeatable independent three-goal carrier in this specific away matchup; Sydney are usable rather than strong.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "There is no current protected fourth-goal mechanism. H2H can corroborate a third but cannot by itself fund an independent fourth, and Sydney's current chance production is still unproven.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Recent H2H contains 3-5 goal totals and Adelaide's current AFC scoring is positive, but Sydney's 0-0 opener and early-season domestic evidence keep tail transferability at MEDIUM.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Comparable evidence is mixed: the three recent H2Hs all reached three, but Sydney's only current league match was 0-0 with limited clear chances and the frozen over-three rate is only 0.20.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed XI retains Sunday, Quintal, Sekine and Toure for Sydney and Goodwin, Muniz, Burkitt and Alagich for Adelaide. Missing players reduce depth/defence but do not remove both scoring routes.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified hard tactical, availability or tournament state eliminates the scoring routes; the concern is completion quality rather than route disappearance.",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "Regular-season draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Sydney had normal recovery after the October 16 derby. Adelaide's most recent verified AFC match in the frozen evidence was October 15, leaving normal recovery before this fixture; there is no verified short-turnaround or derby modifier. Adelaide's Sydney trip is routine domestic travel.",
+      "match_context_evidence_refs": [
+        "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus"
+      ],
+      "goal_signal_priority_score": 49,
+      "goal_signal_mean_over_two_rate": 0.575,
+      "goal_signal_mean_over_three_rate": 0.2,
+      "goal_signal_low_draw_trap_rate": 0.1,
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "The frozen prematch football evidence does not establish a protected G3 certificate; protected G4 research is therefore not applicable.",
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Adelaide's Goodwin-Muniz-Burkitt-Alagich structure and current AFC scoring make the away route STRONG; Sydney retain multiple attacking starters but current league output keeps the home route USABLE. Overall route reliability is MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+            "https://adelaideunited.com.au/news/andrioli-belief-and-unity-key-ahead-of-sydney-opener/",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus",
+            "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/"
+          ],
+          "mechanism_ids": [
+            "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Recent H2H supports response goals and Adelaide have current scoring form, but Sydney's 0-0 opener provides a live control endpoint. Base continuation remains MEDIUM.",
+          "evidence_refs": [
+            "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+            "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus"
+          ],
+          "mechanism_ids": [
+            "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Low-draw trap is only 0.10 and H2H is supportive, but Sydney's current 0-0 opener and limited clear-cut chance creation prevent LOW stall. MEDIUM is appropriate.",
+          "evidence_refs": [
+            "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+            "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+            "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+          ],
+          "mechanism_ids": [
+            "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Adelaide underperform, Sydney have an independent but only USABLE route; if Sydney repeat their poor end product, Adelaide can still supply goals but are not a protected solo-three carrier. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+            "https://sydneyfc.com/news/rhyan-grant-pre-match-press-conference-adelaide-united-sydney-fc/",
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus"
+          ],
+          "mechanism_ids": [
+            "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No source independently protects goal four after accounting for Sydney's low-output opener and the small current domestic sample.",
+          "evidence_refs": [
+            "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+            "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+            "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+          ],
+          "mechanism_ids": [
+            "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "The main failure is Sydney's present chance-generation/completion reliability. Adelaide can create and score, but the third goal still needs a credible Sydney reply or Adelaide multi-goal carry; neither is protected strongly enough in current evidence.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+            "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+            "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+            "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "ADELAIDE_STRONG_SYDNEY_USABLE_MIXED_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-WATCH",
+      "board_state_basis": "Fresh XI research improves the case above the raw sweep screen because Adelaide retain a STRONG current route and recent H2H is supportive, but Sydney's current chance production and the weak frozen over-three rate do not protect goal three. This remains WATCH rather than FOCUS.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+        "USER_SCREENSHOT:file_0000000088408206a34479cdee2d75d7",
+        "https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/",
+        "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+        "https://sydneyfc.com/news/rhyan-grant-pre-match-press-conference-adelaide-united-sydney-fc/",
+        "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+        "https://adelaideunited.com.au/news/andrioli-belief-and-unity-key-ahead-of-sydney-opener/",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus",
+        "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T04:00:19+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Fixture was acquired but deferred by RESEARCH_PRIORITY_V1 and never received normal rank research. Explicit user exception performs fresh confirmed-XI football research.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "COMPLETED",
+      "market_disagreement_recheck_basis": "User screenshot shows a prematch totals ladder centered from O2.75 upward while the frozen Step-0 signal was WATCH. Fresh exception research rechecked current XI, chance creation, H2H transferability, availability and completion before comparing price; the market did not create football authority.",
+      "market_disagreement_recheck_fields": [
+        "confirmed_xi",
+        "chance_quality",
+        "home_scoring_route",
+        "away_scoring_route",
+        "h2h_materiality",
+        "burden_completion_quality",
+        "burden_stall_risk",
+        "upper_tail_transferability"
+      ],
+      "market_disagreement_recheck_evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+        "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+        "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+        "https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus",
+        "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+      ]
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "SYDNEY-ADELAIDE-20261025-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "sydney-adelaide-exception-20261025T040019Z",
+      "researched_at_utc": "2026-10-25T04:00:19+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0909-1200-verified.json#1843492 was acquired but deferred by the bounded research selector; explicit user exception performs fresh confirmed-XI research.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000358c8206a4a03e2e5d600b3c",
+        "https://aleagues.com.au/news/aleague-men-ins-and-outs-matchweek-2/",
+        "https://aleagues.com.au/news/a-league-men-preview-what-you-need-to-know-for-matchweek-2/",
+        "https://sydneyfc.com/news/rhyan-grant-pre-match-press-conference-adelaide-united-sydney-fc/",
+        "https://aleagues.com.au/news/news-sydney-western-sydney-wanderers-match-report/",
+        "https://adelaideunited.com.au/news/andrioli-belief-and-unity-key-ahead-of-sydney-opener/",
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-f-bg-pathum-united-tha-1-2-adelaide-united-fc-aus",
+        "Football-C-rank-20261025-0909-1200-verified.json#1843492"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  },
+  "screenshot_quote": {
+    "evidence_mode": "USER_SCREENSHOT_ONLY",
+    "source": "USER_SCREENSHOT",
+    "capture_reference": "file_0000000088408206a34479cdee2d75d7",
+    "match_id": "1843492",
+    "bookmaker": "User-displayed bookmaker",
+    "quotes": [
+      {
+        "line": 2.75,
+        "odds": 1.79
+      },
+      {
+        "line": 3,
+        "odds": 2.05
+      },
+      {
+        "line": 3.25,
+        "odds": 2.31
+      }
+    ],
+    "observed_at_utc": "2026-10-25T03:57:41+00:00",
+    "fixture_status": "PREMATCH_CONFIRMED",
+    "score": null,
+    "match_minute": null
+  }
+}
