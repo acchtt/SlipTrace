@@ -495,6 +495,15 @@
           "minLength": 1,
           "description": "Prospective factual basis for the comparable-context signal. Must identify whether same-competition/comparable senior evidence is supportive, mixed, suppressive or unavailable."
         },
+        "upper_tail_competition_provenance_verified": {
+          "type": "boolean",
+          "description": "True only when the competitions/results used for the upper-tail comparable-context sample were independently verified. Required by the runtime for G5/G6 funding."
+        },
+        "upper_tail_competition_provenance_basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identify the verified competition scope of the upper-tail sample. Generic all-competition form feeds must not be described as same-competition evidence."
+        },
         "match_context_review_status": {
           "type": "string",
           "enum": [
