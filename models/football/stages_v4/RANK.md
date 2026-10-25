@@ -329,6 +329,19 @@ Use the closest available senior context first: same competition/continental
 competition, then closely comparable opponent/competition strength, then less
 comparable domestic/cup history.
 
+**Competition provenance is mandatory for extreme tails.** A generic team
+"recent matches" endpoint is an all-competition feed unless each result's
+competition has been independently verified. Never describe an all-competition
+sequence as "same-competition form". For any row that can fund G5/G6, freeze:
+
+- `upper_tail_competition_provenance_verified=true`;
+- `upper_tail_competition_provenance_basis` naming the verified competition
+  scope/results used for the G4+/G5 tail.
+
+If that proof is absent or the sample mixes competitions without explicit
+separation, G5/G6 must fail closed. Cross-competition results may still be
+corroboration, but cannot masquerade as same-competition evidence.
+
 Deterministic precedence:
 
 - SUPPRESSIVE -> effective transferability LOW; G4/G5/G6 blocked;
