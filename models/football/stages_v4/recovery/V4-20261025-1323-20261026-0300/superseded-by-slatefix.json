@@ -1,0 +1,25 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-25T13:23:00+07:00",
+    "end": "2026-10-26T03:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261025-1323-20261026-0300",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_USE_FOR_NEW_RANK",
+  "authoritative_run_id": "V4-20261025-1323-20261026-0300-SLATEFIX",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261025-1323-20261026-0300-SLATEFIX/rank-handoff.json",
+  "reason": "Initial backend finalized after only 20 active research targets and exposed a second continuation batch. The repaired backend treats 30 only as an internal chunk size and completed all 171 mandatory slate targets under one source epoch before emitting one rank handoff.",
+  "source_coverage": {
+    "mandatory_slate_target_count": 171,
+    "internal_research_chunk_count": 6,
+    "rank_eligible_count": 54,
+    "negative_watch_count": 26,
+    "evidence_limited_count": 91,
+    "deferred_low_priority_discovery_count": 405,
+    "unresolved_slate_target_count": 0
+  },
+  "native_receipt_status": "COMPLETE",
+  "source_and_old_evidence_preserved": true,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40171333077"
+}
