@@ -1,0 +1,274 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-TOYAMA-SAPPORO-EXCEPTION-1200",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "toyama-sapporo-exception-20261025T044234Z",
+    "match": {
+      "match_id": "1804167",
+      "country": "Japan",
+      "competition": "J2 League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Kataller Toyama",
+      "away": "Consadole Sapporo",
+      "kickoff_ict": "2026-10-25T12:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No league-level reliability promotion; exception preserves sealed rank evidence and checks the confirmed XI against the current official J.League match context.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Sealed FOCUS rank evidence, confirmed starting XI and current official J.League preview are available before kickoff.",
+      "common_evidence_basis": "Confirmed-XI exception on ranked #4 FOCUS. Toyama retain Furukawa, Yoshihira and Tanimoto in the starting XI, preserving the ranked home carrier mechanism built on league-leading current creation and the recent 3-0 win. Kunitake and Takahashi are not both starting, which trims redundancy but does not remove the main chance-generation route. Sapporo start Kido with Hasegawa/Omori and retain a usable reply route after their 2-0 win. The official J.League preview confirms Toyama entered unbeaten in eight after the 3-0 Omiya win and Sapporo entered on consecutive wins. The frozen Step-0 signal itself was modest (priority 41, O2 0.45, O3 0.20, trap 0.25), so G3 remains carrier-led rather than history-distributed.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Toyama have controlled 1-1 outcomes in the nearby sample and Sapporo also carry 1-0/0-1 endpoints. The confirmed XI preserves the home third-goal carrier but does not independently protect a fourth or guarantee a Sapporo reply.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "The 2025 Toyama 1-2 Sapporo meeting is a useful three-goal comparator but is less transferable than current 2026 creation/form; it neither vetoes G3 nor protects G4.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic compiler owns certification.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Furukawa and Yoshihira both start and Tanimoto remains in the XI, preserving the ranked Toyama carrier built from current league-leading chance volume and multiple finishing outlets despite reduced bench/start redundancy.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No repeatable team-four or protected post-third reply mechanism is established.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Current 3-0 and strong creation support three; controlled 1-1/1-0/0-1 endpoints and no repeatable four keep tail transferability MEDIUM.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Current same-league evidence contains both Toyama 3-0 and controlled low endpoints for both teams.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Confirmed XI retains Furukawa, Yoshihira and Tanimoto; the main ranked scoring route survives.",
+      "material_suppression": false,
+      "material_suppression_basis": "No confirmed XI removal or prematch context event eliminates Toyama's principal chance-generation route.",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BOTH_SHORT_REST",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both sides are on the Wednesday-to-Sunday turnaround already frozen at rank; domestic same-time-zone travel and no verified fatigue modifier. No directional goal adjustment.",
+      "match_context_evidence_refs": [
+        "https://www.jleague.jp/match/j2/2026/102510/",
+        "https://www.jleague.jp/en/news/article/35189/"
+      ],
+      "goal_signal_priority_score": 41,
+      "goal_signal_mean_over_two_rate": 0.45,
+      "goal_signal_mean_over_three_rate": 0.2,
+      "goal_signal_low_draw_trap_rate": 0.25,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Carrier/distributed/reply review remains mixed: Toyama's third is credible, but no independent team-four or dependable Sapporo post-third reply is established.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Toyama's retained carrier supports G3, not an independent fourth.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/match/j2/2026/102510/"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Sapporo retain a reply route but current low endpoints prevent protected 2+2/3+1.",
+          "evidence_refs": [
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/match/j2/2026/102510/"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A Sapporo reply is plausible but not dependable enough to protect goal four.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Furukawa, Yoshihira and Tanimoto start, preserving the current high-volume Toyama route; Sapporo remain usable.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/match/j2/2026/102510/"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Both clubs enter in form, but controlled endpoints keep continuation MEDIUM.",
+          "evidence_refs": [
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/en/news/article/35189/"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Nearby 1-1 and Sapporo 1-0/0-1 results preserve a real stall route; MEDIUM.",
+          "evidence_refs": [
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Toyama retain multiple starting outlets, but a poor home finishing game is not fully rescued by Sapporo; MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal mechanism is protected.",
+          "evidence_refs": [
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/match/j2/2026/102510/"
+          ],
+          "mechanism_ids": [
+            "TOYAMA_CARRIER_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "TOYAMA_CARRIER_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "G3 primarily depends on Toyama converting their strong current creation; Sapporo's usable route is secondary rather than a guaranteed rescue.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+            "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+            "https://www.jleague.jp/match/j2/2026/102510/"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "TOYAMA_CARRIER_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Confirmed XI preserves the ranked Toyama carrier and HIGH chance quality; G3/O2.50 remains the prospective football certificate while G4 remains rejected.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+        "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+        "https://www.jleague.jp/match/j2/2026/102510/",
+        "https://www.jleague.jp/en/news/article/35189/"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T04:42:34+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": true,
+      "frozen_board_certified_burden": 2.5,
+      "frozen_board_g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "certificate_upgrade_status": "PRESERVED",
+      "certificate_upgrade_basis": "Confirmed XI preserves the ranked FOCUS carrier certificate; no burden upgrade is asserted.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "TOYAMA-SAPPORO-20261025-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "toyama-sapporo-exception-20261025T044234Z",
+      "researched_at_utc": "2026-10-25T04:42:34+00:00",
+      "upstream_state": "FOCUS",
+      "source_reference": "Football-C-rank-20261025-0909-1200-verified.json#1804167 plus confirmed XI and official current J.League match context.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000aeac82069844e435e1be29c6",
+        "Football-C-rank-20261025-0909-1200-verified.json#1804167",
+        "https://www.jleague.jp/match/j2/2026/102510/",
+        "https://www.jleague.jp/en/news/article/35189/"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
