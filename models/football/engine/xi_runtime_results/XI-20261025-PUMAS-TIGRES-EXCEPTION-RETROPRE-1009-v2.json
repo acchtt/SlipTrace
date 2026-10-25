@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_current_corroboration='FOUND'; allowed: NOT_APPLICABLE, NOT_FOUND, UNKNOWN, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "7586a68fdb432f94ba4ede0749d4ce315f964a64d3ed5509feb15508b46f00b2",
+  "ok": false,
+  "request_id": "XI-20261025-PUMAS-TIGRES-EXCEPTION-RETROPRE-1009-v2",
+  "runtime_commit": "bdcacf4a42529eadd3a59552289541fa6a5640ef",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
