@@ -40,11 +40,19 @@ def run(request_path: Path, output: Path) -> int:
         mid for mid in dict.fromkeys(receipt.get("goal_research_order", []))
         if mid not in excluded_ids
     ]
-    # Source completeness and deep-research completeness are different. A raw
-    # missing-history backlog can contain hundreds of low-priority fixtures.
-    # Only native cheap-priority rows start as active obligations; normal chat
-    # may promote additional exact fixture IDs after the source gate.
-    order = priority_order
+    # One slate must not hide researched-league fixtures behind the old
+    # <=30 active-cohort boundary. The mandatory slate research universe is:
+    #   1) every native high-priority goal candidate, including discovery; plus
+    #   2) every still-open fixture from a registered/researched league lane.
+    # Low-priority unregistered discovery rows may remain deferred and visible.
+    registered_open = [
+        str(row.get("match_id"))
+        for row in receipt.get("source_ledger", [])
+        if row.get("registry_lane") in {"ROUTINE", "CONDITIONAL", "PILOT"}
+        and row.get("intake_lane") not in {"EXCLUDED", "CLOSED", "UNVERIFIED"}
+        and row.get("match_id")
+    ]
+    order = list(dict.fromkeys(priority_order + registered_open))
     deferred = [mid for mid in full_goal_order if mid not in set(order)]
     checkpoint = {
         "schema_version": "football-v4-sweep-research-checkpoint-v2",
@@ -56,17 +64,27 @@ def run(request_path: Path, output: Path) -> int:
         "source_file_sha256": work_sweep.digest(output / "source.json"),
         "native_listing_receipt_integrity_sha256": receipt["integrity_sha256"],
         "research_order": order,
+        "slate_research_order": order,
+        "slate_research_scope": (
+            "NATIVE_PRIORITY_PLUS_ALL_REGISTERED_RESEARCHED_LEAGUES_V1"
+        ),
+        "slate_research_target_count": len(order),
         "resume_queue": order,
         "deferred_research_backlog": deferred,
         "deferred_research_backlog_count": len(deferred),
-        "candidate_promotion_limit": 30,
+        "research_batch_size": 30,
+        "candidate_promotion_limit": None,
         "fixtures": {},
         "completed_research_count": 0,
         "pending_research_count": len(order),
         "resume_generation": 0,
         "native_v4_sweep_ready": False,
         "rank_handoff_ready": False,
-        "next_action": "Normal chat may promote exact source IDs into a total active cohort of <=30, then researches only resume_queue and checkpoints every <=4 dispositions.",
+        "next_action": (
+            "Research the entire slate_research_order under this same source "
+            "epoch. Process internally in chunks of <=30 if needed; chunks are "
+            "not separate sweep/rank universes."
+        ),
     }
     work_sweep.save(output / "checkpoint.json", checkpoint)
     return 0
