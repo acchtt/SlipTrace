@@ -699,7 +699,7 @@ class BoardContractTests(unittest.TestCase):
                 goal_signal_mean_over_three_rate=0.50,
                 goal_signal_low_draw_trap_rate=0.10,
             )
-            for i in range(7)
+            for i in range(12)
         ]
         result = run_board(
             {
@@ -712,9 +712,20 @@ class BoardContractTests(unittest.TestCase):
         lanes = [row["follow_lane"] for row in result["matches"]]
         self.assertEqual(lanes.count("FOLLOW"), 3)
         self.assertEqual(lanes.count("RESERVE"), 4)
-        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 0)
+        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 5)
         self.assertNotIn("STOP", lanes)
-        self.assertEqual(result["focus_unfollowed_count"], 0)
+        self.assertEqual(result["focus_unfollowed_count"], 5)
+        unallocated = [
+            row for row in result["matches"]
+            if row["follow_lane"] == "FOCUS_UNFOLLOWED"
+        ]
+        self.assertTrue(all(row["qualification_state"] == "QUALIFIED" for row in unallocated))
+        self.assertTrue(all(row["priority_state"] == "QUALIFIED" for row in unallocated))
+        self.assertTrue(all(row["display_state"] == "QUALIFIED" for row in unallocated))
+        self.assertEqual(result["qualified_count"], 12)
+        self.assertEqual(result["priority_focus_count"], 3)
+        self.assertEqual(result["watchlist_count"], 4)
+        self.assertEqual(result["qualified_unallocated_count"], 5)
 
     def test_historical_signal_is_bounded_support_not_follow_veto(self):
         result = run_board(
@@ -2251,6 +2262,22 @@ class DecisionContractTests(unittest.TestCase):
                     ),
                 }
             )
+
+    def test_focus_unfollowed_ranked_direct_request_is_authorized(self):
+        result = run_decision(
+            {
+                "schema_version": "football-engine-v1",
+                "stage": "decision",
+                "model": "c",
+                "match": match(board_state="C-FOCUS"),
+                "context": decision_context(
+                    official_follow_lane="FOCUS_UNFOLLOWED",
+                    step2_authorization="RANKED_DIRECT_REQUEST",
+                ),
+            }
+        )
+        self.assertEqual(result["step2_authorization"], "RANKED_DIRECT_REQUEST")
+        self.assertEqual(result["official_follow_lane"], "FOCUS_UNFOLLOWED")
 
     def test_stop_lane_user_exception_can_reopen(self):
         result = run_decision(
