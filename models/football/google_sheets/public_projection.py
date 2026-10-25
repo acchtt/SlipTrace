@@ -29,6 +29,7 @@ FORBIDDEN_INPUT_TABS = frozenset((
 LANE_TO_TIER = {
     "FOLLOW": "FOCUS",
     "RESERVE": "WATCHLIST",
+    "FOCUS_UNFOLLOWED": "QUALIFIED",
     "STOP": "PASS",
 }
 
@@ -96,6 +97,12 @@ def _coverage_row(row: dict[str, Any]) -> dict[str, Any] | None:
         "displayKickoff": kickoff,
         "tier": LANE_TO_TIER[lane],
         "followLane": lane,
+        "qualificationState": (
+            "QUALIFIED"
+            if lane in {"FOLLOW", "RESERVE", "FOCUS_UNFOLLOWED"}
+            else "NOT_QUALIFIED"
+        ),
+        "priorityState": LANE_TO_TIER[lane],
         "cBoardState": _text(
             row.get("C Board State") or row.get("c_board_state")
         ),
