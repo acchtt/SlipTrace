@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_effect='SUPPORTIVE'; allowed: MIXED, NOT_MATERIAL, OPEN, SUPPRESSIVE, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "c60ada3eed24c6173475fb0b7fbcf8382dadbb820576ed0b4be7b4625bf362e0",
+  "ok": false,
+  "request_id": "XI-20261025-SYDNEY-ADELAIDE-EXCEPTION-1100-v3",
+  "runtime_commit": "1bdf00b4aa541dd6b7440d900237e09eecd3326e",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
