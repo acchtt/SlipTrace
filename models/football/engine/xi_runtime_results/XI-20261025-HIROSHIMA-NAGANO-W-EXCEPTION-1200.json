@@ -1,0 +1,11 @@
+{
+  "error": "invalid material_event_since_frozen='CONFIRMED_XI_AND_MATCHUP_RESEARCH'; allowed: GOAL, NONE_VERIFIED, OTHER_MATERIAL, RED_CARD, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "8d6b35ea2251df5f136438949e3b500c6f62a50285fbd5fa8ed6e74500a72db2",
+  "ok": false,
+  "request_id": "XI-20261025-HIROSHIMA-NAGANO-W-EXCEPTION-1200",
+  "runtime_commit": "4d31349f10b6a3cb29b90ba5ad57d07b7ddbedde",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
