@@ -417,12 +417,21 @@ Run the deterministic Football C assessment once across the researched cohort.
 
 - C is official.
 - C2/C3/C4 are retired.
-- `C-FOCUS` -> official ranked board.
+- Legacy machine `C-FOCUS` means **QUALIFIED**: a funded G3 certificate is
+  retained on the official ranked board. It is not, by itself, a user-facing
+  priority label.
 - `C-WATCH` / `C-PASS` -> retained outside the official board in the frozen research assessment.
 - FOLLOW / RESERVE / FOCUS_UNFOLLOWED is the operational workload lane
-  **inside** C's already-frozen FOCUS selection. STOP is reserved for
-  WATCH/PASS/non-FOCUS rows. Workload allocation must not relabel a valid
-  Football C FOCUS as a football rejection.
+  **inside** C's already-frozen qualified selection. STOP is reserved for
+  WATCH/PASS/non-FOCUS rows.
+- Additive semantic axes are authoritative for presentation:
+  `qualification_state=QUALIFIED` for legacy C-FOCUS; `priority_state=FOCUS`
+  for FOLLOW; `priority_state=WATCHLIST` for RESERVE; and
+  `priority_state=QUALIFIED` for FOCUS_UNFOLLOWED. Do not present every
+  qualified row as priority FOCUS.
+- `execution_eligibility=DIRECT_CEILING_AVAILABLE|NO_DIRECT_EXECUTION` is a
+  diagnostic only; XI, price, screenshot and publication guards still decide
+  executable action.
 - FOLLOW is allocated by a frozen burden-normalized portfolio profile, not by
   taking the first rows from the ordinary lexicographic rank. At an exact
   kickoff, up to three complementary workload roles are available:
