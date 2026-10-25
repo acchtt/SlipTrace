@@ -434,6 +434,29 @@ def classify_research_priority(
             "requires_match_specific_goal_evidence": True,
         }
 
+    womens_named = any(token in comp for token in (
+        "women", "womens", "frauen", "feminina", "femenina", "femenil",
+        "feminin", "feminine", "ladies",
+    ))
+    if country != "japan" and (
+        fixture.get("competition_kind") == "WOMENS_TOP_FLIGHT"
+        or (
+            fixture.get("competition_kind") == "DOMESTIC_LEAGUE"
+            and womens_named
+        )
+    ):
+        return {
+            **base,
+            "priority": SPECIAL,
+            "priority_rank": PRIORITY_RANK[SPECIAL],
+            "reason": "WOMENS_TOP_FLIGHT_MATCH_SPECIFIC_RESEARCH",
+            "league_profile": "WOMENS_TOP_FLIGHT_IDENTITY_AND_GOAL_RESEARCH",
+            "requires_match_specific_goal_evidence": True,
+            "requires_competition_identity_check": (
+                fixture.get("competition_kind") != "WOMENS_TOP_FLIGHT"
+            ),
+        }
+
     if (country, comp) in TOP_FIVE_NO_AUTO_PROMOTION:
         return {
             **base,
