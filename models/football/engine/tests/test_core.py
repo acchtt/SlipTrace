@@ -871,6 +871,24 @@ class FootballCExecutionTests(unittest.TestCase):
             ),
         )
         self.assertEqual(decision.action, Action.BET)
+    def test_ranked_direct_request_requires_focus_unfollowed_lane(self):
+        decision = decide_c(
+            robust_g3_assessment(),
+            context(
+                official_follow_lane=FollowLane.FOCUS_UNFOLLOWED,
+                step2_authorization=Step2Authorization.RANKED_DIRECT_REQUEST,
+            ),
+        )
+        self.assertEqual(decision.action, Action.BET)
+        with self.assertRaisesRegex(ValueError, "RANKED_DIRECT_REQUEST REQUIRES"):
+            decide_c(
+                robust_g3_assessment(),
+                context(
+                    official_follow_lane=FollowLane.FOLLOW,
+                    step2_authorization=Step2Authorization.RANKED_DIRECT_REQUEST,
+                ),
+            )
+
     def test_reserve_activation_requires_reserve_lane(self):
         decision = decide_c(
             robust_g3_assessment(),
