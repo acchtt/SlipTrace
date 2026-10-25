@@ -81,6 +81,13 @@ research directly, and emits the same native V4 source/receipt contract consumed
 by Work `/rank`. Work acquisition/orchestration is fallback infrastructure,
 not the default sweep route.
 
+Canonical defaults are MAIN **15:00->03:00 ICT** and SECONDARY
+**03:00->11:00 ICT**. Explicit user windows override these defaults. The MAIN
+surface is one immutable sweep/ranking universe: smaller time blocks may be
+used only as internal research batches and must not create separate receipts or
+independent "#1" rankings. Early-next-day 00:00->03:00 fixtures belong to the
+preceding MAIN slate.
+
 A sweep with actionable upstream research still pending after a genuine
 tool/provider failure is a checkpoint, not a completed handoff. Normal source
 acquisition, bounded history research, native V4 execution and durable
@@ -129,6 +136,13 @@ evidence-missing labels cannot establish completed research.
 research state and never authorizes a PARTIAL upstream sweep. Repeated `/rank`
 on the same complete source epoch resumes its native checkpoint and reuses
 completed facts.
+
+Ranking now has two explicit positions. `Slate Rank` is frozen only when the
+first full eligible research cohort completes and is immutable thereafter.
+`Current Rank` is recalculated among still-open assessed fixtures on each
+status refresh; legacy `rank` is its compatibility alias. Partial rank
+checkpoints have no final Slate Rank and must not be presented as a global
+ordering.
 
 New production rank rows must also freeze a source-backed match-context block:
 rivalry/derby, rest/congestion, continental/intercontinental travel/recovery,
