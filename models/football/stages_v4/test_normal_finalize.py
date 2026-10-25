@@ -10,6 +10,17 @@ from models.football.stages_v4.test_source_completeness import source, NOW
 
 
 class NormalFinalizeTests(unittest.TestCase):
+    def test_target_manifest_over_thirty_is_internal_chunking_not_slate_cap(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            run_id = "V4-TEST-ONE-SLATE"
+            ids = [f"m{i}" for i in range(61)]
+            path = root / "targets.json"
+            path.write_text(json.dumps({"run_id": run_id, "targets": ids}))
+            parsed = normal_finalize._targets(path, run_id)
+            self.assertEqual([row["match_id"] for row in parsed], ids)
+            self.assertEqual(len(parsed), 61)
+
     def test_finalizer_emits_native_rank_handoff_without_resume(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
