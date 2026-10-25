@@ -162,6 +162,14 @@ class MatchAssessment:
     upper_tail_comparable_context_signal: str | None = None
     upper_tail_comparable_context_basis: str | None = None
 
+    # Explicit competition-scope provenance for extreme upper-tail claims.
+    # Generic all-competition recent-form feeds may support broad route research,
+    # but they must never be represented as same-competition evidence.  G5/G6
+    # fail closed unless the competitions/results underlying the comparable
+    # upper-tail sample were independently verified.
+    upper_tail_competition_provenance_verified: bool = False
+    upper_tail_competition_provenance_basis: str | None = None
+
     # Frozen V4 Step-0 goal signal. These are common evidence, never market
     # evidence. They are optional for historical compatibility, but the
     # distributed goal-three certificate cannot activate without them.
@@ -263,6 +271,18 @@ class MatchAssessment:
         elif self.upper_tail_comparable_context_basis is not None:
             raise ValueError(
                 "upper_tail_comparable_context_basis requires a signal"
+            )
+        if self.upper_tail_competition_provenance_verified:
+            if not (
+                self.upper_tail_competition_provenance_basis
+                and self.upper_tail_competition_provenance_basis.strip()
+            ):
+                raise ValueError(
+                    "verified upper-tail competition provenance requires a non-empty basis"
+                )
+        elif self.upper_tail_competition_provenance_basis is not None:
+            raise ValueError(
+                "upper_tail_competition_provenance_basis requires verified provenance"
             )
         if self.c2_opponent_leakage is not None and not (
             self.c2_opponent_leakage_basis
@@ -1760,6 +1780,7 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence == Grade.HIGH
         and a.burden_protection >= Grade.MEDIUM
+        and a.upper_tail_competition_provenance_verified
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
