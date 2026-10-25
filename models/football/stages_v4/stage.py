@@ -1143,8 +1143,20 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("ENGINE_POLICY_LOCK_REQUIRED: policy fingerprint unavailable")
     if not _time(sweep_receipt["created_at_utc"], "created") <= at:
         raise StageError("rank clock predates sweep")
-    if at > _time(sweep_receipt["created_at_utc"], "created") + timedelta(hours=12):
-        raise StageError("sweep source epoch stale; refresh new V4 fixture source")
+    created_at = _time(sweep_receipt["created_at_utc"], "created")
+    if slate_profile["slate_window_class"] in {
+        "MAIN_1500_0300_ICT", "SECONDARY_0300_1100_ICT"
+    }:
+        source_valid_until = (
+            _time(sweep_receipt["window_end_utc"], "window_end_utc")
+            + timedelta(minutes=30)
+        )
+    else:
+        source_valid_until = created_at + timedelta(hours=12)
+    if at > source_valid_until:
+        raise StageError(
+            "sweep source epoch stale; refresh new V4 fixture source"
+        )
 
     unresolved_intake = _unresolved_sweep_intake_rows(sweep_receipt)
     explicit_partial = (
@@ -1152,7 +1164,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         or sweep_receipt.get("whole_requested_surface_complete") is False
         or int(sweep_receipt.get("upstream_remaining_fixture_count") or 0) > 0
     )
-    receipt_created = _time(sweep_receipt["created_at_utc"], "created")
+    receipt_created = created_at
     completeness_metadata_present = all(
         key in sweep_receipt
         for key in (
