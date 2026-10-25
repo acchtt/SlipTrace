@@ -198,3 +198,39 @@ Confirmed audit label:
 `PORTLAND_CHARLOTTE_CONFIRMED_G3_FALSE_NEGATIVE_20261025`
 
 San Diego remains a **certificate-hit / first-half-stress control**, not a confirmed assessment failure.
+
+
+## Flag 7 — four-fixture G3 endpoint cluster: certified O2.50, all stop at two goals
+
+**Observed FT outcomes (audit evidence only):**
+- Kataller Toyama — Hokkaido Consadole Sapporo: **2 total goals**;
+- Seongnam FC — Suwon Bluewings: **2 total goals**;
+- Nagoya Grampus — Yokohama F. Marinos: **2 total goals**;
+- Sanfrecce Hiroshima Regina — AC Nagano Parceiro: **2 total goals**.
+
+All four fixtures were assessed pre-kickoff as **FOCUS / G3 funded / O2.50 certified / FRAGILE**, and all four failed at the exact same boundary: **goal three never arrived**.
+
+This is materially different from a G4/upper-tail miss. The model did not merely overestimate four-plus continuation; it repeatedly certified the third-goal floor and then landed one goal short across four contemporaneous fixtures.
+
+The cluster spans two authority types:
+- Toyama — Sapporo, Seongnam — Suwon and Nagoya — Yokohama were normal ranked FOCUS rows whose confirmed XIs preserved the G3 certificate;
+- Hiroshima Regina — Nagano was an exception recovery from a screened-out state and was upgraded to leakage-led G3/O2.50 after confirmed-XI and exact-matchup research.
+
+Required audit label:
+
+`FOUR_FIXTURE_G3_ENDPOINT_CLUSTER_20261025`
+
+Primary audit questions:
+1. test whether `carrier_self_fund=true` is too permissive when route reliability, completion, continuation and failure resistance are only MEDIUM and robustness is FRAGILE;
+2. inspect whether Football C is treating **route existence** as equivalent to **third-goal completion protection**;
+3. inspect whether `MEDIUM` stall/control penalties are too weak at the G3 admission boundary, especially when the opposite route is only USABLE or WEAK;
+4. separate "can create/scoring route exists" from "third goal is protected across plausible low-endpoint game states";
+5. test whether FRAGILE G3 should require stronger independent completion evidence before O2.50 is certified, rather than merely blocking O2.75/O3 extensions;
+6. compare these four misses against same-slate G3 hits, including San Diego — Seattle, to identify which evidence dimensions actually discriminated successful third-goal completion;
+7. keep Hiroshima separate as a screen-to-FOCUS exception so any repair does not simply reverse the earlier recall fixes and reintroduce selection-inversion misses;
+8. replay the exact frozen pre-kickoff evidence epochs before changing any threshold. Outcomes are diagnostics only and must not be fed back as retrospective evidence.
+
+Interpretation for the post-slate audit:
+- this cluster is evidence of a possible **G3 floor-calibration problem**, not an execution/BOOK problem;
+- the common failure point is the **third goal**, so the audit should prioritize certificate admission and endpoint-control logic ahead of market-line extension policy;
+- do not rewrite historical actions or create retrospective exposure from these results.
