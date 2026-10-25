@@ -127,6 +127,28 @@ routine /xi must use the exact same fingerprint. If active policy changes after
 the slate was sealed, fail closed with `RANK_ENGINE_POLICY_DRIFT`; do not mix
 old rank evidence with a new execution policy inside the same slate.
 
+## Slate and current rank semantics
+
+For canonical MAIN (15:00->03:00 ICT) and SECONDARY (03:00->11:00 ICT)
+receipts, the entire receipt is one ranking universe. Research may be completed
+in batches, but a batch must never become a separate rank universe.
+
+Every assessed row exposes:
+
+- `current_rank` — rolling position among the currently open assessed cohort;
+- legacy `rank` — alias of `current_rank` for persistence compatibility;
+- `slate_rank` — immutable position from the first **full-cohort research
+  complete** rank for this receipt.
+
+While research is partial, `slate_rank=null` with
+`slate_rank_status=PENDING_FULL_COHORT_RESEARCH`. Do not present partial rank
+numbers as the final slate order. Once Slate Rank freezes, later status refreshes
+remove started/closed fixtures and recalculate Current Rank while preserving
+Slate Rank for audit/comparison.
+
+This means a fixture can remain Slate #7 but become Current #2 after five
+earlier fixtures start. Do not overwrite Slate Rank.
+
 ## Rank cohort
 
 Use the frozen V4 eligible_queue as the **research cohort**, not as the
