@@ -698,6 +698,13 @@ def parse_assessment(
     transfer_basis_present = "upper_tail_transferability_basis" in obj
     context_signal_present = "upper_tail_comparable_context_signal" in obj
     context_basis_present = "upper_tail_comparable_context_basis" in obj
+    competition_provenance_verified = _bool(
+        obj, "upper_tail_competition_provenance_verified", False
+    )
+    competition_provenance_basis_present = (
+        "upper_tail_competition_provenance_basis" in obj
+        and obj.get("upper_tail_competition_provenance_basis") is not None
+    )
     if transfer_grade_present != transfer_basis_present:
         raise ContractError(
             "upper-tail transferability requires both "
@@ -718,6 +725,16 @@ def parse_assessment(
         raise ContractError(
             "Football C independent_upper_tail requires explicit "
             "upper_tail_comparable_context_signal and basis"
+        )
+    if competition_provenance_verified and not competition_provenance_basis_present:
+        raise ContractError(
+            "verified upper-tail competition provenance requires "
+            "upper_tail_competition_provenance_basis"
+        )
+    if competition_provenance_basis_present and not competition_provenance_verified:
+        raise ContractError(
+            "upper_tail_competition_provenance_basis requires "
+            "upper_tail_competition_provenance_verified=true"
         )
 
     return MatchAssessment(
@@ -800,6 +817,12 @@ def parse_assessment(
         upper_tail_comparable_context_basis=(
             _string(obj, "upper_tail_comparable_context_basis")
             if context_basis_present
+            else None
+        ),
+        upper_tail_competition_provenance_verified=competition_provenance_verified,
+        upper_tail_competition_provenance_basis=(
+            _string(obj, "upper_tail_competition_provenance_basis")
+            if competition_provenance_basis_present
             else None
         ),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
@@ -1368,6 +1391,12 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "upper_tail_transferability_basis": item.upper_tail_transferability_basis,
             "upper_tail_comparable_context_signal": item.upper_tail_comparable_context_signal,
             "upper_tail_comparable_context_basis": item.upper_tail_comparable_context_basis,
+            "upper_tail_competition_provenance_verified": (
+                item.upper_tail_competition_provenance_verified
+            ),
+            "upper_tail_competition_provenance_basis": (
+                item.upper_tail_competition_provenance_basis
+            ),
             "failure_attacks_route": item.failure_attacks_route,
             "failure_attacks_route_basis": item.failure_attacks_route_basis,
             "material_suppression": item.material_suppression,
@@ -1706,6 +1735,8 @@ CERTIFICATE_UPGRADE_FIELDS = frozenset({
     "independent_upper_tail",
     "upper_tail_transferability",
     "upper_tail_comparable_context_signal",
+    "upper_tail_competition_provenance_verified",
+    "upper_tail_competition_provenance_basis",
     "burden_completion_quality",
     "continuation_quality",
     "opponent_leakage",
