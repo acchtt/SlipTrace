@@ -5,6 +5,13 @@
 
 Retired V1–V3 `resume`, `repair`, `Sweep Runs` checkpoints and the old
 `00_NORMAL_CHAT_AISCORE_FETCH.md` procedure do not apply to new V4 runs.
+
+Default window policy when the user does not specify one:
+- MAIN = 15:00 ICT -> 03:00 ICT next day;
+- SECONDARY = 03:00 ICT -> 11:00 ICT.
+An explicit user window overrides these defaults. MAIN is one immutable sweep
+receipt/ranking universe; internal research batches must not create sub-window
+receipts or separate rank universes.
 Capture complete provider date/listing surfaces for every ICT+UTC date touched
 by the requested window, treating the stated end time as inclusive (a 12:00
 endpoint includes 12:00 kickoffs), exhaust pagination, reconcile senior competition
