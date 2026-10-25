@@ -1,0 +1,279 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-KAWASAKI-OKAYAMA-EXCEPTION-RETROPRE-1400",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "kawasaki-okayama-exception-retroprematch-20261025T065900Z",
+    "match": {
+      "match_id": "1795835",
+      "country": "Japan",
+      "competition": "J1 League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Kawasaki Frontale",
+      "away": "Fagiano Okayama FC",
+      "kickoff_ict": "2026-10-25T14:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No league-level reliability promotion; retrospective exception uses confirmed XI plus official current J.League form and match evidence available before kickoff.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed XI and current official J.League evidence were available before kickoff.",
+      "common_evidence_basis": "Retrospective prematch-style exception using only pre-kickoff football information plus the user-supplied confirmed XI. Kawasaki start Brodersen; Yamahara, Pedro Romano, Uremovic, Miura; Tachibana and Yamamoto; Wakizaka, Ito, Marcinho; Derik Lacerda. That preserves Kawasaki's main current scoring structure. Official J.League form before kickoff shows Kawasaki scoring 2 against Kobe, 4 against Cerezo, 4 against Iwata, 1 against Nagoya, 3 against Kashima and 1 against Mito. Marcinho entered with seven league goals, Wakizaka four, while Yamamoto and Marcinho are among the club's leading current chance creators. Okayama entered after a 2-0 win over Mito, but had conceded 3 to Kobe, 2 to Fukuoka and 3 in the 3-3 cup draw with Nagoya. Their current attack is usable rather than absent, but the stronger prospective mechanism is Kawasaki's carrier attacking repeated recent leakage.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "HIGH",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "HIGH",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "HIGH",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Okayama can still compress the match: they just beat Mito 2-0 and Kawasaki have a nearby 1-0 league win over Mito. If Kawasaki's strong creation under-converts, Okayama are not a reliable enough independent scorer to guarantee the third goal. The G3 case is strong but still primarily Kawasaki-led rather than a fully robust two-route structure.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "No exact current same-matchup result is used as a decisive input. Current team form and confirmed XI are more transferable than older H2H; H2H therefore remains non-material.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic Football C compiler owns the certified burden.",
+      "carrier_self_fund": true,
+      "carrier_self_fund_basis": "Kawasaki retain Marcinho, Wakizaka, Ito, Yamamoto and Derik Lacerda after current results of 4-2, 2-1 and 4-0 across the immediate run, with a 3-3 league result also in the recent sample. That is sufficient current team-level evidence for an independent G3 carrier.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "Four-plus outcomes are present, but no independent protected fourth-goal mechanism survives once Okayama's 2-0 control win and Kawasaki's own 1-0 controlled endpoint are included.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Kawasaki's 4-2, 4-0 and 3-3 support upside while nearby controlled endpoints and Okayama's ability to shut out Mito prevent HIGH transferability.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Closest current contexts include several 4+ goal Kawasaki/Okayama matches but also 1-0/2-0 control outcomes. Net tail context is MIXED.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "The confirmed XI preserves Kawasaki's principal creators and finishers; no pre-kickoff availability event removes the carrier.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified lineup, rest or tactical event materially suppresses the principal Kawasaki scoring route.",
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "REGULAR_LEAGUE_PHASE",
+      "competition_format": "J1 League regular season.",
+      "draw_resolution": "Regular-season draw stands; no extra time or shootout.",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "Kawasaki entered seventh and Okayama tenth. Both remain in ordinary league-position competition with points valuable, but there is no verified must-win/clinching condition that warrants an expansive tail adjustment.",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "No simultaneous result or fixed margin was required for either team's incentive classification.",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "NEUTRAL",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BOTH_SHORT_REST",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both clubs played on October 21 and therefore share the same short Wednesday-to-Sunday turnaround. Okayama travel domestically to Kawasaki; no verified squad-wide fatigue or asymmetric continental burden is present.",
+      "match_context_evidence_refs": [
+        "https://www.jleague.jp/en/match/j1/2026/102109/",
+        "https://www.jleague.jp/en/club/okayama/"
+      ],
+      "goal_signal_priority_score": 50,
+      "goal_signal_mean_over_two_rate": 0.6,
+      "goal_signal_mean_over_three_rate": 0.4,
+      "goal_signal_low_draw_trap_rate": 0.15,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "MIXED",
+      "g4_reply_path": "MIXED",
+      "g4_continuation_after_g3": "MEDIUM",
+      "g4_research_basis": "Kawasaki's current four-goal results make G4 plausible, but the fourth is not independently protected: Okayama can produce controlled endpoints and their own scoring route is not strong enough to guarantee a reply after goal three.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Kawasaki have recent team-four outcomes but not enough independent repeatability to certify the fourth.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+            "https://www.jleague.jp/en/club/kawasakif/",
+            "https://www.jleague.jp/en/match/j1/2026/102109/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Okayama can contribute, but their current route is only USABLE and includes a 0-3 defeat plus controlled 2-0 win; no protected 2+2/3+1 structure.",
+          "evidence_refs": [
+            "https://www.jleague.jp/en/club/okayama/",
+            "https://www.jleague.jp/en/match/j1/2026/102506/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "A reply after the third remains possible but not dependable enough to protect goal four.",
+          "evidence_refs": [
+            "https://www.jleague.jp/en/club/okayama/",
+            "https://www.jleague.jp/en/club/kawasakif/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Marcinho, Wakizaka, Ito, Yamamoto and Derik Lacerda all start after repeated current multi-goal Kawasaki performances. HIGH.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+            "https://www.jleague.jp/en/match/j1/2026/102506/",
+            "https://www.jleague.jp/en/club/kawasakif/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Kawasaki have repeatedly continued beyond one goal in the current run and Okayama have recently conceded multiple goals in several matches; HIGH.",
+          "evidence_refs": [
+            "https://www.jleague.jp/en/club/kawasakif/",
+            "https://www.jleague.jp/en/club/okayama/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Okayama's 2-0 win over Mito and Kawasaki's nearby 1-0 controlled win preserve a meaningful low endpoint. MEDIUM.",
+          "evidence_refs": [
+            "https://www.jleague.jp/en/club/kawasakif/",
+            "https://www.jleague.jp/en/club/okayama/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "Kawasaki retain several independent starters, but if they under-convert Okayama are not a strong enough co-carrier to rescue G3 automatically. MEDIUM.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+            "https://www.jleague.jp/en/club/okayama/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent fourth-goal mechanism is protected despite current four-goal examples.",
+          "evidence_refs": [
+            "https://www.jleague.jp/en/club/kawasakif/",
+            "https://www.jleague.jp/en/club/okayama/"
+          ],
+          "mechanism_ids": [
+            "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "G3 is driven primarily by Kawasaki's strong current carrier plus Okayama's recent multi-goal leakage. If Kawasaki fail to convert their volume, Okayama alone are unlikely to guarantee the third.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+            "https://www.jleague.jp/en/club/kawasakif/",
+            "https://www.jleague.jp/en/club/okayama/"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "KAWASAKI_CARRIER_OKAYAMA_LEAKAGE_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh prematch exception research upgrades the fixture from the window-closed upstream state: Kawasaki's current carrier is strong and survives the confirmed XI, with Okayama leakage providing additional G3 support. G4 remains unprotected.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+        "Football-C-rank-20261025-0000-0730-verified.json#1795835",
+        "https://www.jleague.jp/en/match/j1/2026/102506/",
+        "https://www.jleague.jp/en/club/kawasakif/",
+        "https://www.jleague.jp/en/club/okayama/",
+        "https://www.jleague.jp/en/match/j1/2026/102109/"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T06:59:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "The sealed sweep closed this 14:00 ICT fixture as outside its operating window before normal research/rank. Explicit exception reconstructs the prematch football state from confirmed XI and pre-kickoff evidence only.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "KAWASAKI-OKAYAMA-20261025-RETRO-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "kawasaki-okayama-exception-retroprematch-20261025T065900Z",
+      "researched_at_utc": "2026-10-25T06:59:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0000-0730-verified.json#1795835 was CLOSED/OUT_OF_WINDOW before normal research; explicit user exception reconstructs prematch football state.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000bea08206a17dab795ba32e7f",
+        "Football-C-rank-20261025-0000-0730-verified.json#1795835",
+        "https://www.jleague.jp/en/match/j1/2026/102506/",
+        "https://www.jleague.jp/en/club/kawasakif/",
+        "https://www.jleague.jp/en/club/okayama/",
+        "https://www.jleague.jp/en/match/j1/2026/102109/"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
