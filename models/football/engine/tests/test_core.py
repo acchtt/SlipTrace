@@ -102,6 +102,11 @@ def assessment(**overrides):
             "same-competition or closely comparable senior evidence supports "
             "the current goal-four-plus mechanism"
         ),
+        upper_tail_competition_provenance_verified=True,
+        upper_tail_competition_provenance_basis=(
+            "each result used for the upper-tail sample has verified competition "
+            "scope; generic all-competition rows are separated"
+        ),
         failure_attacks_route=False,
         failure_attacks_route_basis="main failure does not directly remove the current scoring route",
         material_suppression=False,
@@ -2374,6 +2379,41 @@ class TournamentIncentiveModelTests(unittest.TestCase):
             tournament_incentive_profile(unresolved)["tail_bias"],
             "UNRESOLVED",
         )
+
+    def test_g5_fails_closed_without_verified_competition_provenance(self):
+        strong = assessment(
+            supported_line=4.5,
+            home_route=RouteStrength.STRONG,
+            away_route=RouteStrength.STRONG,
+            carrier=CarrierStrength.STRONG,
+            completion_mode=CompletionMode.MIXED,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            opponent_leakage=Grade.HIGH,
+            burden_stall_risk=Grade.MEDIUM,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.HIGH,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="SUPPORTIVE",
+        )
+        self.assertTrue(c_goal4_funded(strong))
+        self.assertTrue(c_goal5_funded(strong))
+        unverified = assessment(
+            **{
+                **strong.__dict__,
+                "upper_tail_competition_provenance_verified": False,
+                "upper_tail_competition_provenance_basis": None,
+            }
+        )
+        self.assertTrue(c_goal4_funded(unverified))
+        self.assertFalse(c_goal5_funded(unverified))
+        self.assertEqual(certified_supported_burden(unverified, "c"), 3.5)
 
     def test_suppressive_incentive_caps_c_goal5_tail(self):
         strong = dict(
