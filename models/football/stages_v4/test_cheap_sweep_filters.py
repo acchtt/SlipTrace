@@ -50,14 +50,31 @@ class CheapSweepFilterTests(unittest.TestCase):
         self.assertTrue(result["requires_match_specific_goal_evidence"])
         self.assertFalse(result["hard_exclude"])
 
-    def test_non_japan_womens_domestic_top_flight_is_excluded_even_when_provider_kind_is_generic(self):
+    def test_non_japan_womens_top_flights_are_conditional_and_researchable(self):
         generic = fixture("Netherlands", "Women's Eredivisie", "Club W", "Other W", "DOMESTIC_LEAGUE")
         explicit = fixture("Germany", "Frauen-Bundesliga", "Club W", "Other W", "WOMENS_TOP_FLIGHT")
         japan = fixture("Japan", "WE League", "Club W", "Other W", "WOMENS_TOP_FLIGHT")
-        self.assertEqual(classify(generic)["lane"], "EXCLUDED")
-        self.assertEqual(classify(generic)["reason"], "USER_WOMENS_DOMESTIC_EXCLUSION")
-        self.assertEqual(classify(explicit)["lane"], "EXCLUDED")
+
+        generic_scope = classify(generic)
+        explicit_scope = classify(explicit)
+        self.assertEqual(generic_scope["lane"], "CONDITIONAL")
+        self.assertEqual(
+            generic_scope["reason"],
+            "WOMENS_DOMESTIC_TOP_FLIGHT_IDENTITY_CHECK_REQUIRED",
+        )
+        self.assertEqual(explicit_scope["lane"], "CONDITIONAL")
+        self.assertEqual(
+            explicit_scope["reason"],
+            "WOMENS_SENIOR_TOP_FLIGHT_SOURCE_AND_IDENTITY_CHECK",
+        )
         self.assertNotEqual(classify(japan)["lane"], "EXCLUDED")
+
+        generic_priority = classify_research_priority(generic, at_utc=NOW)
+        explicit_priority = classify_research_priority(explicit, at_utc=NOW)
+        self.assertEqual(generic_priority["priority"], SPECIAL)
+        self.assertEqual(explicit_priority["priority"], SPECIAL)
+        self.assertTrue(generic_priority["requires_competition_identity_check"])
+        self.assertFalse(explicit_priority["requires_competition_identity_check"])
 
     def test_big_five_league_status_is_never_auto_research_priority(self):
         for country, competition in (
@@ -444,7 +461,7 @@ class CheapSweepFilterTests(unittest.TestCase):
         self.assertEqual(liga_base["priority"], DEFERRED)
         self.assertEqual(usl_base["priority"], DEFERRED)
 
-    def test_americas_filters_do_not_match_nearby_unresearched_competitions(self):
+    def test_americas_nearby_unresearched_competition_stays_neutral_but_womens_top_flight_is_special(self):
         mls_next = classify_research_priority(
             fixture("USA", "MLS Next Pro", "Club A", "Club B"), at_utc=NOW
         )
@@ -453,7 +470,11 @@ class CheapSweepFilterTests(unittest.TestCase):
             at_utc=NOW,
         )
         self.assertEqual(mls_next["priority"], NEUTRAL)
-        self.assertEqual(liga_mx_fem["priority"], NEUTRAL)
+        self.assertEqual(liga_mx_fem["priority"], SPECIAL)
+        self.assertEqual(
+            liga_mx_fem["reason"],
+            "WOMENS_TOP_FLIGHT_MATCH_SPECIFIC_RESEARCH",
+        )
 
     def test_americas_filters_do_not_require_registry_promotion(self):
         checks = (
