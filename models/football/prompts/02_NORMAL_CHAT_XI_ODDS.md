@@ -144,11 +144,19 @@ must be non-empty, `user_requested_exception` must be `true`, and the result
 remains visibly tagged `EXCEPTION`. A normal /xi ranked-ledger hit can never be
 downgraded or rerouted to EXCEPTION because a package lookup was skipped or failed.
 
-A ranked `C-FOCUS` row with lane `FOCUS_UNFOLLOWED` remains an ordinary
-ranked Football C fixture. It is outside automatic FOLLOW workload capacity,
-not a football rejection. A direct user /xi request for that exact ranked row
-uses the sealed FOCUS evidence normally and must not be forced through
-`/xi exception`.
+A ranked legacy `C-FOCUS` row with lane `FOCUS_UNFOLLOWED` is
+`qualification_state=QUALIFIED`, not priority FOCUS. It is outside automatic
+FOLLOW workload capacity, not a football rejection. A direct user /xi request
+for that exact ranked row uses the sealed rank evidence normally and must not be
+forced through `/xi exception`.
+
+For that exact direct request, the authority package must set
+`ranked_direct_request=true`. The shared authority contract then inherits the
+sealed `FOCUS_UNFOLLOWED` lane and sets
+`step2_authorization=RANKED_DIRECT_REQUEST`. This authority is valid only for
+that exact ranked QUALIFIED row; it does not add the fixture to automatic FOLLOW
+workload and does not bypass XI, certificate, screenshot, price or publication
+guards.
 
 ### Explicit exception research contract
 
