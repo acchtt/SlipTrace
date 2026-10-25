@@ -1,0 +1,285 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-20261025-HIROSHIMA-NAGANO-W-EXCEPTION-1200",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "hiroshima-nagano-w-exception-20261025T044235Z",
+    "match": {
+      "match_id": "1814254",
+      "country": "Japan",
+      "competition": "Women's WE League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Sanfrecce Hiroshima Regina W",
+      "away": "AC Nagano Parceiro W",
+      "kickoff_ict": "2026-10-25T12:00:00+07:00",
+      "operational_viability_grade": "A",
+      "raw_operational_viability_grade": "A",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No league-level promotion; exception uses confirmed XIs, exact current-season same-matchup evidence and current official club results.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "HIGH",
+      "team_news_observability": "HIGH",
+      "operational_viability_reason": "Confirmed XIs and current official match evidence available before kickoff.",
+      "common_evidence_basis": "Confirmed-XI exception. Hiroshima start Ishida; Watanabe, Asakura, Sayama, Fujio; Yanase, Ogawa, Ueno; Takizawa, Lee and Nakajima. Nagano start Umemura; Oomitsu, Tachibana, Okugawa, Suzuki; Osajima, Mitani, Chiku; Yoshino, Shiotani and Matsuura. The frozen Step-0 screen was only priority 44 (O2 0.55, O3 0.325, low-draw trap 0.20), but exact current-season matchup evidence is stronger: Hiroshima beat Nagano 3-0 at this same stadium on October 3, with Asakura scoring and much of Nagano's current defensive core involved. Hiroshima then scored twice against Tokyo Verdy Beleza on October 18 through Takizawa, who starts today. Nagano's latest league match was 0-0 and their October 11 cup match was 1-1 with only one shot, so the away route is usable but not a protected co-carrier. The stronger mechanism is Hiroshima's current home route against matchup-specific Nagano leakage.",
+      "home_route": "STRONG",
+      "away_route": "USABLE",
+      "carrier": "STRONG",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "HIGH",
+      "evidence_confidence": "HIGH",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "HIGH",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Nagano have also shown control with a 0-0 league draw and 1-1 cup draw, while Hiroshima's recent 2-3 loss shows scoring without full game control. If Hiroshima fail to reproduce the same-matchup penetration, Nagano are not strong enough to independently finish G3. The third-goal case is therefore leakage-led and fragile, not a robust distributed thesis.",
+      "h2h_state": "REVIEWED",
+      "h2h_effect": "OPEN",
+      "h2h_transferability": "VERIFIED",
+      "h2h_current_corroboration": "VERIFIED",
+      "h2h_material_effect": false,
+      "h2h_basis": "Hiroshima beat Nagano 3-0 at Edion Peace Wing on October 3, 2026. Same teams, same season and same venue make this highly transferable corroboration of the home route, while current Nagano low-event results prevent treating it as automatic four-goal evidence.",
+      "supported_line": 2.5,
+      "supported_line_basis": "Research declaration only; deterministic compiler owns certification.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "Hiroshima have a strong current route but the third goal is protected primarily by matchup-specific Nagano leakage, not a repeatable independent solo-three carrier claim.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independent fourth-goal path is protected; Nagano's 0-0 and 1-1 current results are direct upper-tail counterevidence.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Exact 3-0 same-matchup and Hiroshima 2-3 support upside, while Nagano 0-0 and 1-1 suppress repeatable fourth-goal continuation.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Closest contexts split between Hiroshima 3-0 Nagano / Hiroshima 2-3 Tokyo and Nagano's 0-0 / 1-1 current control.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Today's Hiroshima XI retains Asakura and Takizawa plus Ogawa/Ueno/Lee; Nagano retain their normal front route. No lineup event removes the identified home mechanism.",
+      "material_suppression": false,
+      "material_suppression_basis": "No verified red-card, fatigue or lineup event suppresses the home route before kickoff.",
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both teams had a full week since their prior league matches; domestic same-time-zone travel and no verified congestion or derby modifier.",
+      "match_context_evidence_refs": [
+        "https://www.sanfrecce.co.jp/regina/matches/20261018/report",
+        "https://parceiro.co.jp/ladies/matches/detail/596"
+      ],
+      "goal_signal_priority_score": 44,
+      "goal_signal_mean_over_two_rate": 0.55,
+      "goal_signal_mean_over_three_rate": 0.325,
+      "goal_signal_low_draw_trap_rate": 0.2,
+      "g4_research_status": "G4_RESEARCH_COMPLETE_REJECTED",
+      "g4_research_explicit": true,
+      "g4_carrier_path": "MIXED",
+      "g4_distributed_path": "SUPPRESSIVE",
+      "g4_reply_path": "SUPPRESSIVE",
+      "g4_continuation_after_g3": "LOW",
+      "g4_research_basis": "Fourth-goal review rejected: Hiroshima have same-matchup team-three evidence, but Nagano's current 0-0/1-1 control and weak shot production do not protect a reply or 2+2 continuation.",
+      "g4_path_evidence": {
+        "g4_carrier_path": {
+          "basis": "Hiroshima produced three against Nagano recently but no repeatable independent team-four is established.",
+          "evidence_refs": [
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://www.sanfrecce.co.jp/regina/matches/20261018/report"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "g4_distributed_path": {
+          "basis": "Nagano's current 0-0 and 1-1 results do not protect a two-sided fourth-goal route.",
+          "evidence_refs": [
+            "https://parceiro.co.jp/ladies/matches/detail/596",
+            "https://parceiro.co.jp/ladies/matches/detail/620"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "g4_reply_path": {
+          "basis": "Nagano's current attacking output is too weak to depend on a post-third reply.",
+          "evidence_refs": [
+            "https://parceiro.co.jp/ladies/matches/detail/596",
+            "https://parceiro.co.jp/ladies/matches/detail/620"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        }
+      },
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Hiroshima retain Asakura and Takizawa after a recent 3-0 same-matchup win and Takizawa brace; Nagano remain only usable.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeb08206a94b45bca10c76f3",
+            "USER_LINEUP_SCREENSHOT:file_00000000b9b882068097befe91b5e593",
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://www.sanfrecce.co.jp/regina/matches/20261018/report"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "continuation_quality": {
+          "basis": "Hiroshima have recent multi-goal continuation, but Nagano's control results keep continuation at MEDIUM.",
+          "evidence_refs": [
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://www.sanfrecce.co.jp/regina/matches/20261018/report",
+            "https://parceiro.co.jp/ladies/matches/detail/596"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "burden_stall_risk": {
+          "basis": "Nagano's 0-0 and 1-1 create a real stall route despite the exact 3-0 comparator; MEDIUM.",
+          "evidence_refs": [
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://parceiro.co.jp/ladies/matches/detail/596",
+            "https://parceiro.co.jp/ladies/matches/detail/620"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "failure_resistance": {
+          "basis": "If Hiroshima underperform, Nagano are not a reliable independent G3 carrier; failure resistance remains MEDIUM.",
+          "evidence_refs": [
+            "https://parceiro.co.jp/ladies/matches/detail/596",
+            "https://parceiro.co.jp/ladies/matches/detail/620"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        },
+        "independent_upper_tail": {
+          "basis": "No independent goal-four mechanism is protected.",
+          "evidence_refs": [
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://parceiro.co.jp/ladies/matches/detail/596",
+            "https://parceiro.co.jp/ladies/matches/detail/620"
+          ],
+          "mechanism_ids": [
+            "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3"
+          ]
+        }
+      },
+      "failure_mechanisms": {
+        "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3": {
+          "kind": "COMPLETION_OR_CONTROL_CONTEXT",
+          "basis": "G3 depends on Hiroshima reproducing a strong home route into Nagano's matchup leakage; Nagano's own route is insufficient to rescue a poor Hiroshima game.",
+          "evidence_refs": [
+            "USER_LINEUP_SCREENSHOT:file_00000000aeb08206a94b45bca10c76f3",
+            "USER_LINEUP_SCREENSHOT:file_00000000b9b882068097befe91b5e593",
+            "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+            "https://parceiro.co.jp/ladies/matches/detail/596"
+          ],
+          "affected_paths": [
+            "g4_carrier_path",
+            "g4_distributed_path",
+            "g4_reply_path"
+          ]
+        }
+      },
+      "shared_failure_mechanisms": {
+        "HIROSHIMA_ROUTE_NAGANO_LEAKAGE_G3": [
+          "route_reliability",
+          "continuation_quality",
+          "burden_stall_risk",
+          "failure_resistance",
+          "independent_upper_tail"
+        ]
+      },
+      "board_state": "C-FOCUS",
+      "board_state_basis": "Fresh confirmed-XI and exact same-matchup research upgrades the Step-0 WATCH state: Hiroshima have a STRONG route and Nagano matchup leakage is HIGH, funding a fragile leakage-led G3.",
+      "source_urls": [
+        "USER_LINEUP_SCREENSHOT:file_00000000aeb08206a94b45bca10c76f3",
+        "USER_LINEUP_SCREENSHOT:file_00000000b9b882068097befe91b5e593",
+        "Football-C-rank-20261025-0909-1200-verified.json#1814254",
+        "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+        "https://www.sanfrecce.co.jp/regina/matches/20261018/report",
+        "https://parceiro.co.jp/ladies/matches/detail/596",
+        "https://parceiro.co.jp/ladies/matches/detail/620"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-25T04:42:35+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "CONFIRMED_XI_AND_MATCHUP_RESEARCH",
+      "board_state": "C-FOCUS",
+      "thesis_state": "PRESERVED",
+      "primary_mechanism_intact": true,
+      "material_veto": false,
+      "top_ranked_focus": false,
+      "wait_reachable": false,
+      "wait_requires_negative_info": false,
+      "frozen_board_available": false,
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "LEGACY_UNKNOWN",
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Fixture remained WATCH_GOAL_SIGNAL / SCREENED_OUT in the sealed slate; explicit exception adds confirmed XI and exact current-season same-matchup evidence.",
+      "certificate_upgrade_new_evidence_fields": []
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "HIROSHIMA-NAGANO-W-20261025-PREMATCH-EXCEPTION",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "hiroshima-nagano-w-exception-20261025T044235Z",
+      "researched_at_utc": "2026-10-25T04:42:35+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "Football-C-rank-20261025-0909-1200-verified.json#1814254 plus confirmed XIs and current official same-matchup evidence.",
+      "evidence_refs": [
+        "USER_LINEUP_SCREENSHOT:file_00000000aeb08206a94b45bca10c76f3",
+        "USER_LINEUP_SCREENSHOT:file_00000000b9b882068097befe91b5e593",
+        "Football-C-rank-20261025-0909-1200-verified.json#1814254",
+        "https://www.sanfrecce.co.jp/regina/matches/20261003/matchdata",
+        "https://www.sanfrecce.co.jp/regina/matches/20261018/report",
+        "https://parceiro.co.jp/ladies/matches/detail/596",
+        "https://parceiro.co.jp/ladies/matches/detail/620"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
