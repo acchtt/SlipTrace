@@ -1,0 +1,53 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261025-0909-20261025-1200",
+  "original_source_sha256": "fa6d59b4036c0bdf5f66292090794c942c8c5786769cdd71695debcf36f3fea6",
+  "source_file_sha256": "ee8d04245561190a3d58245cd3cd3d17a493cdef5efb36ad358555603c28b53f",
+  "native_receipt_integrity_sha256": "462234f527e59844090ff4cd6462728e8d49ac905eef1e43b811d8bea564bf56",
+  "target_states": {
+    "1696734": {
+      "match_id": "1696734",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1696739": {
+      "match_id": "1696739",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1814251": {
+      "match_id": "1814251",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1814254": {
+      "match_id": "1814254",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1696734",
+    "1696739"
+  ],
+  "watch_match_ids": [
+    "1814251",
+    "1814254"
+  ],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "whole_requested_surface_complete": true,
+  "unresolved_or_deferred_candidates_remain": true,
+  "deferred_source_backlog_count": 20,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
