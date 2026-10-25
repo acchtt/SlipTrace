@@ -1,0 +1,11 @@
+{
+  "error": "invalid h2h_transferability='MEDIUM'; allowed: LIMITED, NOT_TRANSFERABLE, UNAVAILABLE, VERIFIED",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "6bff9eb0f2824fc92e308dd05bf4cd959146318722b7cfd31be5ef21665c128b",
+  "ok": false,
+  "request_id": "XI-20261025-PUMAS-TIGRES-EXCEPTION-RETROPRE-1009",
+  "runtime_commit": "4d18c1822989cbb6ac83f8150926720c0ba7d269",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
