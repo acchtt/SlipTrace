@@ -501,6 +501,18 @@ def authorize_c_football(
         raise RankAuthorityError(
             "RANK_RECEIPT_REQUIRED: routine /xi requires an exact ranked FOCUS board row"
         )
+    frozen_follow_lane = str(board_row.get("follow_lane") or "").strip()
+    if frozen_follow_lane not in {"FOLLOW", "RESERVE", "FOCUS_UNFOLLOWED"}:
+        raise RankAuthorityError(
+            "RANK_RECEIPT_REQUIRED: ranked FOCUS row is missing a valid frozen follow lane"
+        )
+    ranked_direct_request = authority.get("ranked_direct_request") is True
+    if frozen_follow_lane == "FOCUS_UNFOLLOWED" and not ranked_direct_request:
+        raise RankAuthorityError(
+            "RANKED_DIRECT_REQUEST_REQUIRED: FOCUS_UNFOLLOWED is qualified but "
+            "outside automatic workload capacity; an exact user /xi request must "
+            "set ranked_direct_request=true"
+        )
 
     declared = authority.get("material_evidence_updates") or []
     if not isinstance(declared, list) or any(not isinstance(x, str) for x in declared):
@@ -545,6 +557,9 @@ def authorize_c_football(
         )
     inherited_context = dict(context)
     inherited_context["board_state"] = "C-FOCUS"
+    inherited_context["official_follow_lane"] = frozen_follow_lane
+    if frozen_follow_lane == "FOCUS_UNFOLLOWED":
+        inherited_context["step2_authorization"] = "RANKED_DIRECT_REQUEST"
     inherited_context["frozen_board_available"] = True
     inherited_context["frozen_board_certified_burden"] = board_row.get("supported_line")
     inherited_context["rank"] = board_row.get("rank")
@@ -580,6 +595,9 @@ def authorize_c_football(
         "slate_rank_status": board_row.get("slate_rank_status"),
         "rank_scope": board_row.get("rank_scope"),
         "frozen_board_state": board_row.get("board_state"),
+        "frozen_follow_lane": frozen_follow_lane,
+        "ranked_direct_request": ranked_direct_request,
+        "step2_authorization": inherited_context.get("step2_authorization"),
         "rank_state_internal": "WATCH" if frozen_board_state == "WATCH" else frozen_board_state,
         "rank_state_display": "REVIEW_ONLY" if frozen_board_state == "WATCH" else frozen_board_state,
         "frozen_supported_line": board_row.get("supported_line"),
