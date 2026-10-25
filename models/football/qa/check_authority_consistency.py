@@ -43,6 +43,9 @@ require(
     "models/football/prompts/COMMAND_ALIASES.md",
     "/sweep", "/rank", "/xi", "/live", "/audit", "/report",
     "C2/C3/C4: retired for all new work",
+    "15:00 ICT -> 03:00 ICT",
+    "Slate Rank",
+    "Current Rank",
 )
 require(
     "models/football/stages_v4/RANK.md",
@@ -79,6 +82,9 @@ require(
     "RANK_POLICY_LOCK_REQUIRED",
     "rivalry/derby",
     "O3.25 may ACT/BOOK at 2.00+",
+    "15:00->03:00 ICT",
+    "Slate Rank",
+    "Current Rank",
 )
 require(
     "models/football/engine/core.py",
@@ -99,6 +105,10 @@ require(
     "SLATE_PINNED_V1",
     "MATCH_CONTEXT_RESEARCH_REQUIRED",
     "G3_CHALLENGER_REVIEW_REQUIRED",
+    "MAIN_1500_0300_ICT",
+    "SECONDARY_0300_1100_ICT",
+    "FULL_COHORT_FREEZE_PLUS_ROLLING_CURRENT_V1",
+    "PENDING_FULL_COHORT_RESEARCH",
 )
 forbid(
     "models/football/stages_v4/stage.py",
@@ -212,6 +222,10 @@ require(
     "Slate policy lock",
     "rivalry/derby context",
     "g3_challenger_reviewed=true",
+    "15:00->03:00 ICT",
+    "current_rank",
+    "slate_rank",
+    "PENDING_FULL_COHORT_RESEARCH",
 )
 require(
     "models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md",
