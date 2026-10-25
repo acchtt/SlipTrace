@@ -42,8 +42,19 @@ receipts/evidence, not previous-chat reasoning. Do not silently chain stages.
 
 ## /sweep
 
-Use V4 only. Start from the actual requested/current ICT window and never
-retroactively admit already-started fixtures.
+Use V4 only. Default schedule when the user does not specify a window:
+
+- **MAIN slate:** 15:00 ICT -> 03:00 ICT next day;
+- **SECONDARY slate:** 03:00 ICT -> 11:00 ICT.
+
+An explicit user window always overrides the default. Never retroactively admit
+already-started fixtures.
+
+The MAIN 15:00->03:00 surface is one ranking universe. Do not automatically
+split it into 15-18 / 18-21 / 21-00 / 00-03 receipts. Research may run in
+bounded batches, but all batches must remain attached to the same immutable
+sweep receipt. Repeated /rank refreshes that receipt and reranks the remaining
+open fixtures rather than creating a new ranking universe.
 
 The sweep acquires complete provider date surfaces before registry/filtering.
 A new normal-chat sweep must first reach `SOURCE_READY_FOR_RESEARCH`; if local
@@ -80,6 +91,13 @@ ordered unresolved queue. Report full cohort dispositions and research
 completeness separately from persistence. A partial saved board uses
 `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`; no user resubmission of omitted IDs is
 needed. This does not schedule background work.
+
+Rank display has two positions. `Slate Rank` freezes only on the first
+full-research cohort rank and remains immutable for that receipt.
+`Current Rank` is recalculated among still-open assessed fixtures on each
+status refresh. Legacy `rank` remains an alias of Current Rank. While rank
+research is partial, Slate Rank is null/pending; never present a partial-cohort
+rank as the final slate ordering.
 
 Routine Step 2 trusts the resulting verified C rank+persistence receipt; it
 does not repeat source replay.
