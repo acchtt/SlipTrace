@@ -1,0 +1,11 @@
+{
+  "error": "non-tournament assessment must use NOT_APPLICABLE for competition_stage",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "b3a0e08a4633f9806f6e91d1e7272c8c49c6ecb6d91570d60f6ff4f1fc32c45e",
+  "ok": false,
+  "request_id": "XI-20261025-SYDNEY-ADELAIDE-EXCEPTION-1100",
+  "runtime_commit": "3752b8e0f44768f06bde61edb7fed10bcb3694ef",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
