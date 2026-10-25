@@ -11,9 +11,26 @@
 This is the only current /sweep launcher. Do not load the retired
 `00_NORMAL_CHAT_AISCORE_FETCH.md` or V1–V3 Step0 engines.
 
+## Canonical slate lifecycle
+
+Default operating surfaces are **15:00->03:00 ICT (MAIN)** and
+**03:00->11:00 ICT (SECONDARY)**. An explicit user-supplied window remains
+authoritative.
+
+The MAIN surface is one immutable acquisition/ranking universe. Never create
+automatic 15-18, 18-21, 21-00 or 00-03 sub-receipts merely to reduce research
+work. Bounded research batches are allowed, but they must update the same
+checkpoint/source epoch. Early-next-day 00:00->03:00 fixtures remain attached
+to the preceding 15:00 slate.
+
+If /sweep is invoked again while the matching canonical receipt is still the
+active valid source epoch, resume/reuse that receipt. Create a new source epoch
+only for a concrete freshness/source-integrity requirement or an explicit new
+window.
+
 ## Normal-chat execution route
 
-1. Freeze the requested ICT window.
+1. Freeze the requested/canonical ICT window.
 2. **SOURCE GATE — before any goal-history research:** obtain one canonical
    complete date-surface source epoch and persist it. If the normal chat cannot
    execute the local acquisition code directly, create exactly one request under
@@ -78,14 +95,15 @@ missing-history row into an active resume obligation.** The source-only backend
 starts the active cohort from native `priority_research_order`. Normal chat may
 then promote exact canonical source IDs from the deferred backlog using the
 standing researched-league scope, same-run schedule relevance, and any
-fixture-specific prior already established in this sweep. Keep the total active
-cohort at **30 or fewer** for one sweep window.
+fixture-specific prior already established in this sweep. Keep each active
+research **batch** at **30 or fewer**, but continue further batches in the same
+receipt when more targeted in-scope rows require history.
 
-This is workload control only. It cannot create GOAL_PRIORITY/GOAL_REVIEW or a
-Football C certificate. Unpromoted rows remain visible as
-`DEFERRED_RESEARCH_BACKLOG`; they do not block the active sweep from handing
-verified admissions to /rank. Always report the deferred count so coverage is
-not misrepresented as exhaustive.
+This is workload control only, not a whole-slate cap. It cannot create
+GOAL_PRIORITY/GOAL_REVIEW or a Football C certificate. Non-target discovery
+rows may remain visible as `DEFERRED_RESEARCH_BACKLOG`; those rows are outside
+the claimed rank universe and the deferred count must be reported. Never call a
+ranking globally exhaustive beyond the resolved/admitted eligible cohort.
 
 If accidental manual research already happened before the source gate, preserve
 it as provisional evidence. After the canonical source arrives, attach it only
