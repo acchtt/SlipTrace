@@ -71,6 +71,56 @@ def _independent_g4_path_quality(raw: dict[str, Any], a: MatchAssessment) -> str
     return "UNVERIFIED"
 
 
+
+def grade_provenance_dependency(raw: dict[str, Any]) -> dict[str, Any]:
+    """Expose recycled grade evidence, without pretending URLs equal mechanisms.
+
+    One source may legitimately support many separate claims. This diagnostic
+    flags a *repeated set of citations* behind all nominally independent HIGH
+    components, requiring a field-by-field current-football review before an
+    analyst can assert genuinely separate third/fourth-goal support.
+    """
+    evidence = raw.get("grade_evidence")
+    if not isinstance(evidence, dict):
+        return {
+            "status": "UNKNOWN_LEGACY",
+            "assessed_grade_dimensions": 0,
+            "distinct_reference_sets": 0,
+            "shared_reference_count": 0,
+        }
+    fields = (
+        "route_reliability", "chance_quality", "failure_resistance",
+        "burden_completion_quality", "continuation_quality",
+    )
+    sets = []
+    for field in fields:
+        claim = evidence.get(field)
+        if not isinstance(claim, dict):
+            continue
+        refs = claim.get("evidence_refs")
+        if not isinstance(refs, list):
+            continue
+        normalized = frozenset(
+            url.strip() for url in refs if isinstance(url, str) and url.strip()
+        )
+        if normalized:
+            sets.append(normalized)
+    distinct = len(set(sets))
+    shared = len(set.intersection(*(set(x) for x in sets))) if sets else 0
+    status = (
+        "UNKNOWN_LEGACY" if len(sets) < 3 else
+        "REPEATED_SOURCE_SET" if distinct == 1 else
+        "HEAVILY_OVERLAPPING_SOURCES" if shared >= 2 and len(sets) >= 4 else
+        "DIVERSE_REFERENCES_NOT_MECHANISM_PROOF"
+    )
+    return {
+        "status": status,
+        "assessed_grade_dimensions": len(sets),
+        "distinct_reference_sets": distinct,
+        "shared_reference_count": shared,
+    }
+
+
 def selection_quality_profile(a: MatchAssessment, raw: dict[str, Any],
                               frozen_at_utc: str | None = None) -> dict[str, Any]:
     """Selection-tier hypothesis, separately from funded certificate / C action.
@@ -131,6 +181,7 @@ def selection_quality_profile(a: MatchAssessment, raw: dict[str, Any],
         "single_route_penalty": one_route_risk,
     }
     g4_path = _independent_g4_path_quality(raw, a)
+    provenance = grade_provenance_dependency(raw)
     blockers = []
     if not g3:
         blockers.append("NO_INDEPENDENT_G3_CERTIFICATE")
@@ -162,6 +213,7 @@ def selection_quality_profile(a: MatchAssessment, raw: dict[str, Any],
         "selection_challenger_score": score,
         "selection_challenger_mechanism": mechanism,
         "selection_challenger_risk": risk,
+        "selection_challenger_grade_provenance": provenance,
         "selection_challenger_blockers": blockers,
         "selection_challenger_goal4_proof": g4_path,
         "selection_challenger_route_scenarios": (
