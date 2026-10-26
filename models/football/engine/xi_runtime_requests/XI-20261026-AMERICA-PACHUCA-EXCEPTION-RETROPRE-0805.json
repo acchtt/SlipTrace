@@ -264,7 +264,7 @@
       "fresh_research_completed": true,
       "market_independent": true,
       "research_epoch_id": "america-pachuca-exception-retroprematch-20261026T005800Z",
-      "researched_at_utc": "2026-10-26T01:08:00+00:00",
+      "researched_at_utc": "2026-10-26T00:58:00+00:00",
       "upstream_state": "NOT_RANKED",
       "source_reference": "Football-C-rank-20261025-MAIN-1500-0300-verified.json#1799069 was CLOSED/OUT_OF_WINDOW before normal research; explicit user exception reconstructs the prematch football state.",
       "evidence_refs": [
