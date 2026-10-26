@@ -1,0 +1,11 @@
+{
+  "error": "invalid thesis_state='DEGRADED'; allowed: BROKEN, PRESERVED, UNKNOWN",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "d0923a0e31d221478ad5b0066140a97dab98b93b2cab99806d534d3687012691",
+  "ok": false,
+  "request_id": "XI-EXC-1873570-20261026-133355-G3FAIL",
+  "runtime_commit": "af705ffcdcb1a1ee08e6978fd3d33315ae59d644",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
