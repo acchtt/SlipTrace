@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Any
 
 from evidence_contract import g4_evidence_review, g4_diagnostics
+from selection_challenger import selection_quality_profile, shadow_follow_allocation
 from production_scope import scope_profile
 
 from competition_reliability import apply_reliability_cap, effective_state
@@ -1380,6 +1381,12 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         incentive_gate = validate_tournament_incentive(raw)
         tail_profile = prospective_goal_funding(item, model)
         follow_profile = follow_priority_profile(item) if model == "c" else {}
+        challenger_profile = (
+            selection_quality_profile(
+                item, raw,
+                raw.get("research_frozen_at_utc") or payload.get("rank_at_utc"),
+            ) if model == "c" else {}
+        )
         g4_profile = _g4_research_profile(raw, item, model=model)
         compiled_burden = certified_supported_burden(item, model)
         compiled_basis = certified_supported_burden_basis(item, model)
@@ -1398,6 +1405,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
             "declared_supported_line_basis": item.supported_line_basis,
             **tail_profile,
             **follow_profile,
+            **challenger_profile,
             **g4_profile,
             "certificate_diagnostics": g4_diagnostics(item),
             "production_scope": scope_profile(raw),
@@ -1530,6 +1538,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
     if model == "c":
+        result["selection_challenger"] = shadow_follow_allocation(output)
         result["follow_count"] = sum(
             row.get("follow_lane") == FollowLane.FOLLOW.value for row in output
         )
