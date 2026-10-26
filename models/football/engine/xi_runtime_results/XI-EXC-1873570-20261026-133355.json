@@ -1,0 +1,11 @@
+{
+  "error": "match context block is partial; missing: match_context_evidence_refs",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "b81ae0b52f737d174d2652f7f0639b0fa3a262a2fedbe22760b74eb7de87b5a5",
+  "ok": false,
+  "request_id": "XI-EXC-1873570-20261026-133355",
+  "runtime_commit": "97357aa7401b40c93cb7d08db65acc0c26f31f4f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
