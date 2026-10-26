@@ -351,5 +351,59 @@ class ActiveCRuntimeTests(unittest.TestCase):
             evaluate_observed_quote(retired, {"line": 2.5, "odds": 1.70})
 
 
+    def test_follow_global_capacity_prefers_quality_over_earlier_kickoff(self):
+        rows = []
+        for i in range(7):
+            row = c_row()
+            row.update(
+                match_id=f"early-weak-{i}",
+                kickoff_ict=f"2026-10-26T{10 + i:02d}:00:00+07:00",
+                route_reliability="MEDIUM",
+                chance_quality="MEDIUM",
+                failure_resistance="MEDIUM",
+                evidence_confidence="MEDIUM",
+                burden_protection="MEDIUM",
+                burden_completion_quality="MEDIUM",
+                continuation_quality="MEDIUM",
+                burden_stall_risk="MEDIUM",
+                independent_upper_tail=False,
+                independent_upper_tail_basis="no independently funded upper tail",
+                upper_tail_transferability="LOW",
+                upper_tail_transferability_basis="upper tail not transferable",
+                upper_tail_comparable_context_signal="UNAVAILABLE",
+                upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            )
+            rows.append(row)
+
+        later = c_row()
+        later.update(
+            match_id="later-strong",
+            kickoff_ict="2026-10-26T23:00:00+07:00",
+        )
+        rows.append(later)
+
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": rows,
+        })
+        by_id = {row["match_id"]: row for row in result["matches"]}
+
+        self.assertEqual(result["follow_count"], 7)
+        self.assertEqual(by_id["later-strong"]["follow_lane"], "FOLLOW")
+        self.assertEqual(
+            by_id["later-strong"]["follow_portfolio_role"],
+            "CLEARABILITY",
+        )
+        self.assertEqual(
+            sum(
+                by_id[f"early-weak-{i}"]["follow_lane"] != "FOLLOW"
+                for i in range(7)
+            ),
+            1,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()
