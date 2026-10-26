@@ -3,7 +3,7 @@ import unittest
 
 from test_adapter import match
 from adapter import run_board
-from selection_challenger import entry_readiness, shadow_follow_allocation
+from selection_challenger import entry_readiness, shadow_follow_allocation, grade_provenance_dependency
 
 
 def board(rows, **kwargs):
@@ -17,6 +17,26 @@ def board(rows, **kwargs):
 
 
 class CoordinatedSelectionChallengerTests(unittest.TestCase):
+    def test_repeated_grade_sources_are_flagged_not_counted_independently(self):
+        reused = {
+            "grade_evidence": {
+                key: {"basis": f"{key}: generic same scoreline history", "evidence_refs": [
+                    "https://source.example/team-1",
+                    "https://source.example/team-2",
+                ]}
+                for key in (
+                    "route_reliability", "chance_quality", "failure_resistance",
+                    "burden_completion_quality", "continuation_quality"
+                )
+            }
+        }
+        result = grade_provenance_dependency(reused)
+        self.assertEqual(result["status"], "REPEATED_SOURCE_SET")
+        self.assertEqual(result["assessed_grade_dimensions"], 5)
+        self.assertEqual(result["distinct_reference_sets"], 1)
+        self.assertEqual(result["shared_reference_count"], 2)
+        self.assertEqual(grade_provenance_dependency({})["status"], "UNKNOWN_LEGACY")
+
     def test_entry_access_is_not_inferred_from_final_score_or_missing_clock(self):
         self.assertEqual(entry_readiness("2026-10-26T18:00:00+07:00", None)["entry_state"], "UNKNOWN")
         self.assertEqual(entry_readiness(
