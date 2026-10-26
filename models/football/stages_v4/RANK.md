@@ -151,14 +151,16 @@ earlier fixtures start. Do not overwrite Slate Rank.
 
 ## Rank cohort
 
-Use the frozen V4 eligible_queue as the **research cohort**, not as the
-official board. The queue may contain `GOAL_PRIORITY`, `GOAL_REVIEW`, and at
-most four deterministic `CONTROL_REVIEW` rows. All require full Football C
-research; neither review lane carries a positive certificate assumption.
-Research in priority, review, then control order. CONTROL_REVIEW exists only to
-measure/prevent screen false negatives and cannot itself create FOCUS or a
-certificate. Do not silently skip a higher-priority fixture without an explicit
-allowed evidence/status reason.
+Use the frozen V4 `eligible_queue` as the **production research cohort**,
+not as the official board. It contains only `GOAL_PRIORITY` and `GOAL_REVIEW`
+rows. Deterministic `CONTROL_REVIEW` rows remain in the sweep research/audit
+backlog only: they may be researched for calibration and false-negative
+measurement, but they have **zero production rank authority** and must never be
+copied into `eligible_queue`, a production certificate, FOLLOW/RESERVE, or
+automatic /xi workload. Research production priority/review rows first; control
+research is a separate calibration obligation. Do not silently skip a
+higher-priority production fixture without an explicit allowed evidence/status
+reason.
 
 Before final board admission, run the bounded high-signal G3 challenger review
 when all of these hold: mean O2 >=0.70, mean O3 >=0.55, low-draw trap <=0.15,
@@ -452,8 +454,11 @@ Run the deterministic Football C assessment once across the researched cohort.
 - Higher certificate depth does not automatically win FOLLOW workload. The
   protected burden itself is normalized in workload comparison so O3.50 cannot
   displace a materially stronger O2.50 opportunity merely because G4 is funded.
-- Global FOLLOW capacity is 7 and exact-kickoff capacity is 3. One
-  CLEARABILITY candidate per kickoff is protected first, then remaining slots
+- Global FOLLOW capacity is 7 and exact-kickoff capacity is 3. Each exact
+  kickoff may nominate one primary CLEARABILITY candidate, but those primary
+  nominations are compared **globally by clearability quality before the cap is
+  applied**. Kickoff chronology is only a deterministic tie-breaker and may not
+  consume capacity ahead of a stronger later primary. Any remaining slots then
   go to the strongest BALANCED/UPSIDE nominations across the board.
 - The FOLLOW profile is market-independent and uses current football structure,
   certificate depth/robustness, completion/continuation/stall, carrier and
