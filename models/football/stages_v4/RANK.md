@@ -216,6 +216,65 @@ but cannot manufacture a route or certificate by label alone.
 C additionally owns completion mode, burden completion, continuation,
 opponent leakage and stall risk.
 
+### Independent goal-route evidence trial (V1, opt-in until validated)
+
+**Do not repeat the same historical scoreline sample as independent proof of
+third-goal supply, opponent reply, conversion strength and post-third continuation.**
+One source may legitimately document several different observations, but each
+independent mechanism needs a *different dated football fact*, not a second
+description of the same fact. The sample Over rates remain corroboration only.
+
+For a **prospective research-contract trial**, put
+`goal_route_proof_contract="SOURCE_INDEPENDENT_GOAL_PATHS_V1"` in the
+top-level `model=c, stage=board` rank input. This is **not enabled for
+historical frozen receipts**; retain exact engine/policy fingerprint and never
+retrofit proofs from final scores or results from after the rank cutoff.
+
+Every assessed fixture, including C-WATCH / C-PASS controls, requires a
+`goal_route_proof` object with `version` equal to that contract and:
+
+- `facts`: individually identified `fact_id`, concrete `basis`, nonempty
+  independently checkable `evidence_refs`, and the original
+  `observed_at_utc`. The timestamp must be no later than the rank cutoff and
+  strictly earlier than kickoff. Do not relabel a late discovery as prematch.
+- `goal3_primary`: `SUPPORTED` or `REJECTED` and a specific three-goal
+  route, including likely scorer/supply mechanism or an explicit failed route.
+- `goal3_reply`: `SUPPORTED`, `REJECTED`, or
+  `INDEPENDENT_REPLY_NOT_REQUIRED` for a demonstrably self-funded carrier.
+  A two-sided 2+1 thesis needs a distinct current reply fact; the same
+  source website is allowed if it reports *different observations*.
+- `two_goal_endpoint`: `CONTROL_RESISTANCE_SUPPORTED`,
+  `CONTROL_RISK_MATERIAL`, or `REJECTED`. Explain the 0–0 / 1–1 / 2–0 /
+  1–0 stop, especially whether a leading team protects the result.
+- `fourth_goal_after_three`: `SUPPORTED`, `REJECTED`, or
+  `NOT_APPLICABLE`. Positive fourth-goal claims require at least one
+  additional dated supporting fact not already used by `goal3_primary`.
+  A documented negative fourth-goal assessment is **not** an automatic G3
+  rejection.
+- `main_failure`: `ASSESSED` with the strongest realistic failure scenario.
+- `grade_fact_links`: explicit `fact_id` links for
+  `route_reliability`, `chance_quality`, `failure_resistance`,
+  `burden_completion_quality` and `continuation_quality`. Cloning the
+  identical fact set behind all these grades is **incomplete research**.
+
+All five route/failure claims need substantive `basis` and `fact_ids`.
+Do not fabricate fact IDs to satisfy the contract: if required current
+evidence does not exist, leave the field missing and report exactly which
+fact/route could not be verified. Bounded resumption is appropriate.
+
+Under an opted-in trial, `/rank` checks proof before the existing G4
+preflight. Missing, recycled, unsupported or post-kickoff evidence is
+checkpointed as `GOAL_ROUTE_PROOF_PENDING` with exact missing-field
+diagnostics. It **must not** be counted as C-PASS, a valid completed rank,
+or a retrospectively rejected winner. Existing `G4_RESEARCH_PENDING`
+is unchanged. A proof-complete record is **not** necessarily a winning bet:
+the compiler still independently owns G3/G4/G5, selection and /xi verdicts.
+
+Only promote the contract from trial to mandatory routine research after
+forward-collected evidence shows multi-day improvement in goal-route recall,
+exact certificate clears, ACT false positives and genuinely reachable entries.
+No update of the numerical C weights is authorized by this contract alone.
+
 ### Mandatory G4 research completeness
 
 Whenever G3 is funded, do not freeze O2.50 merely because the first research
