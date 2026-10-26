@@ -1,0 +1,29 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-26T07:31:00+07:00",
+    "end": "2026-10-26T23:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261026-0731-20261026-2300",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261026-0731-20261026-2300-FULLRESEARCH",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261026-0731-20261026-2300-FULLRESEARCH/rank-handoff.json",
+  "supersession_reason": "Initial automatic slate researched 5, left 26 in-scope fixture IDs deferred despite 31 total; corrected same-window run used all 31 canonical IDs in two bounded internal batches.",
+  "verified_coverage": {
+    "date_surface_fixture_count": 242,
+    "in_window_fixture_count": 39,
+    "in_scope_researched_count": 31,
+    "eligible_count": 17,
+    "terminal_watch_count": 13,
+    "evidence_limited_count": 1,
+    "policy_excluded_count": 8,
+    "deferred_count": 0,
+    "internal_batch_count": 2
+  },
+  "native_receipt_status": "COMPLETE",
+  "research_exhaustive_for_in_scope": true,
+  "original_artifacts_preserved": true,
+  "booking_or_xi_performed": false,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40250161142"
+}
