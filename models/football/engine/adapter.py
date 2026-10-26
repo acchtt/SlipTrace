@@ -1158,15 +1158,20 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     selected: list[tuple[dict[str, Any], str, int]] = []
     seen: set[str] = set()
 
-    # First protect one burden-normalized floor candidate at every exact kickoff
-    # while capacity permits. This prevents a congested later block from
-    # consuming the whole board.
+    # Protect at most one burden-normalized floor candidate per exact kickoff,
+    # but compare those primary nominations globally by quality before applying
+    # the scarce FOLLOW cap. Kickoff time is only a deterministic tie-breaker;
+    # it must not let earlier blocks consume FOLLOW capacity before stronger
+    # later candidates are considered.
     for row, role, score in sorted(
         primary,
         key=lambda item: (
-            item[0]["kickoff_ict"],
-            int(item[0].get("follow_clearability_score", 0)),
-            -int(item[0]["rank"]),
+            -int(item[2]),
+            -int(item[0].get("follow_balanced_score", 0)),
+            -int(item[0].get("follow_upside_score", 0)),
+            int(item[0]["rank"]),
+            str(item[0]["kickoff_ict"]),
+            str(item[0]["match_id"]),
         ),
     ):
         if len(selected) >= MAX_FOLLOW:
