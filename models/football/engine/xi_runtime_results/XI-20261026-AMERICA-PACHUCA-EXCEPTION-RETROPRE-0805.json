@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: researched_at_utc must equal context.assessment_at_utc",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "ff6acf6bf823548c2f77b6f87852c38d938f24f0cdc2ce13d47097377d6fb0b3",
+  "ok": false,
+  "request_id": "XI-20261026-AMERICA-PACHUCA-EXCEPTION-RETROPRE-0805",
+  "runtime_commit": "5fe5754df3385cd2a7c0824d24784bf968bf929f",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
