@@ -737,6 +737,34 @@ def parse_assessment(
             "upper_tail_competition_provenance_verified=true"
         )
 
+    # G5 is never created from generic HIGH grades alone. A complete factual
+    # fifth-goal route and its independently checkable source references must
+    # be frozen before the market comparison. Absent legacy fields fail closed.
+    goal5_verified = _bool(obj, "goal5_fifth_goal_route_verified", False)
+    goal5_basis = obj.get("goal5_fifth_goal_route_basis")
+    goal5_refs = obj.get("goal5_fifth_goal_source_refs")
+    if goal5_verified:
+        if not isinstance(goal5_basis, str) or not goal5_basis.strip():
+            raise ContractError(
+                "verified G5 fifth-goal route requires a non-empty independent basis"
+            )
+        if (
+            not isinstance(goal5_refs, list)
+            or not goal5_refs
+            or any(not isinstance(ref, str) or not ref.strip() for ref in goal5_refs)
+        ):
+            raise ContractError(
+                "verified G5 fifth-goal route requires source references"
+            )
+        if not independent_upper_tail or not competition_provenance_verified:
+            raise ContractError(
+                "verified G5 requires transferable upper tail and competition provenance"
+            )
+    elif goal5_basis is not None or goal5_refs is not None:
+        raise ContractError(
+            "unverified G5 route cannot carry an affirmative basis/source proof"
+        )
+
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
         home_route=_enum(
@@ -825,6 +853,9 @@ def parse_assessment(
             if competition_provenance_basis_present
             else None
         ),
+        goal5_fifth_goal_route_verified=goal5_verified,
+        goal5_fifth_goal_route_basis=goal5_basis.strip() if goal5_verified else None,
+        goal5_fifth_goal_source_refs=tuple(goal5_refs) if goal5_verified else (),
         failure_attacks_route=_required_bool(obj, "failure_attacks_route"),
         failure_attacks_route_basis=_string(obj, "failure_attacks_route_basis"),
         material_suppression=_required_bool(obj, "material_suppression"),
@@ -1158,19 +1189,17 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
     selected: list[tuple[dict[str, Any], str, int]] = []
     seen: set[str] = set()
 
-    # Protect at most one burden-normalized floor candidate per exact kickoff,
-    # but compare those primary nominations globally by quality before applying
-    # the scarce FOLLOW cap. Kickoff time is only a deterministic tie-breaker;
-    # it must not let earlier blocks consume FOLLOW capacity before stronger
-    # later candidates are considered.
+    # The 23-26 Oct frozen replay showed that global clearability nominations
+    # promoted over-certified O4.5 rows at the expense of valid low-burden G3s.
+    # Roll this portfolio stage back to kickoff-protected primaries, preserving
+    # the separate CONTROL_REVIEW zero-authority invariant upstream. Revisit
+    # global allocation only after prospective exact-certificate replay improves.
     for row, role, score in sorted(
         primary,
         key=lambda item: (
-            -int(item[2]),
-            -int(item[0].get("follow_balanced_score", 0)),
-            -int(item[0].get("follow_upside_score", 0)),
-            int(item[0]["rank"]),
             str(item[0]["kickoff_ict"]),
+            -int(item[0].get("follow_clearability_score", 0)),
+            int(item[0]["rank"]),
             str(item[0]["match_id"]),
         ),
     ):

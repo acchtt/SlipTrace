@@ -170,6 +170,13 @@ class MatchAssessment:
     upper_tail_competition_provenance_verified: bool = False
     upper_tail_competition_provenance_basis: str | None = None
 
+    # Dedicated independent prospective evidence for goal FIVE. General G4+
+    # transferability, historical Over rates, or strong qualitative grades
+    # cannot independently manufacture a fifth-goal certificate.
+    goal5_fifth_goal_route_verified: bool = False
+    goal5_fifth_goal_route_basis: str | None = None
+    goal5_fifth_goal_source_refs: tuple[str, ...] = ()
+
     # Frozen V4 Step-0 goal signal. These are common evidence, never market
     # evidence. They are optional for historical compatibility, but the
     # distributed goal-three certificate cannot activate without them.
@@ -1762,7 +1769,9 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
     """Prospective C certificate for goal five, frozen before market comparison.
 
     This deliberately requires a materially stronger football shape than goal
-    four. It uses only the pre-market assessment and never bookmaker input.
+    four, including a sourced, explicitly independent current fifth-goal route.
+    A G4+ context grade or high historical Over rate is insufficient.
+    It uses only the pre-market assessment and never bookmaker input.
     """
 
     require_c_completion(a)
@@ -1781,6 +1790,9 @@ def c_goal5_funded(a: MatchAssessment) -> bool:
         and a.evidence_confidence == Grade.HIGH
         and a.burden_protection >= Grade.MEDIUM
         and a.upper_tail_competition_provenance_verified
+        and a.goal5_fifth_goal_route_verified
+        and bool(a.goal5_fifth_goal_route_basis and a.goal5_fifth_goal_route_basis.strip())
+        and bool(a.goal5_fifth_goal_source_refs)
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM

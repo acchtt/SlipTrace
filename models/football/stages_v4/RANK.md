@@ -344,6 +344,24 @@ If that proof is absent or the sample mixes competitions without explicit
 separation, G5/G6 must fail closed. Cross-competition results may still be
 corroboration, but cannot masquerade as same-competition evidence.
 
+**Separate fifth-goal route proof (coordinated 26-Oct repair).** Competition
+provenance and broadly HIGH grades alone can fund at most G4; G5/G6 must
+also freeze the following before kickoff and before any bookmaker comparison:
+
+- `goal5_fifth_goal_route_verified=true`;
+- `goal5_fifth_goal_route_basis`: a concrete current scoring path for goal FIVE
+  beyond those already counted toward G3/G4, with explicitly named scorer/
+  supply/opponent-leakage routes and the principal failure mode;
+- `goal5_fifth_goal_source_refs`: non-empty independently checkable
+  prematch source references supporting that specific fifth-goal path.
+
+The route is not self-proving because a recent scoreline contains five goals.
+Do not reuse generic Over rates, the G4 transferability grade, or bookmaker
+opening totals as the sole proof. If the evidence is insufficient, omit all
+three new fields: the compiler preserves a funded G4/O3.50 when justified,
+but does not silently upgrade to G5/O4.50. Historical sealed rows keep their
+original frozen values; replay the new gate without backfilling proof.
+
 Deterministic precedence:
 
 - SUPPRESSIVE -> effective transferability LOW; G4/G5/G6 blocked;

@@ -2521,5 +2521,38 @@ class DecisionContractTests(unittest.TestCase):
         self.assertNotEqual(result["selection_floor"], "CLEAR")
 
 
+
+class G5IndependentProofTests(unittest.TestCase):
+    def test_g5_requires_independent_source_proof(self):
+        strong = match(
+            board_state="C-FOCUS",
+            carrier="STRONG",
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            upper_tail_competition_provenance_verified=True,
+            upper_tail_competition_provenance_basis="Independently verified current competition scope",
+            goal_signal_priority_score=83,
+            goal_signal_mean_over_two_rate=0.80,
+            goal_signal_mean_over_three_rate=0.61,
+            goal_signal_low_draw_trap_rate=0.06,
+        )
+        base = run_board({"schema_version":"football-engine-v1","stage":"board","model":"c","matches":[strong]})
+        self.assertTrue(base["matches"][0]["goal4_funded"])
+        self.assertFalse(base["matches"][0]["goal5_funded"])
+        self.assertEqual(base["matches"][0]["supported_line"], 3.5)
+        proven = dict(
+            strong,
+            goal5_fifth_goal_route_verified=True,
+            goal5_fifth_goal_route_basis="Current independent fifth-goal route, not merely a G4 grade",
+            goal5_fifth_goal_source_refs=["synthetic-current-five-goal-route"],
+        )
+        upgraded = run_board({"schema_version":"football-engine-v1","stage":"board","model":"c","matches":[proven]})
+        self.assertTrue(upgraded["matches"][0]["goal5_funded"])
+        with self.assertRaises(ContractError):
+            run_board({"schema_version":"football-engine-v1","stage":"board","model":"c","matches":[{
+                **proven, "goal5_fifth_goal_source_refs":[]
+            }]})
+
+
 if __name__ == "__main__":
     unittest.main()

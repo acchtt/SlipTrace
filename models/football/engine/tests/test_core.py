@@ -107,6 +107,12 @@ def assessment(**overrides):
             "each result used for the upper-tail sample has verified competition "
             "scope; generic all-competition rows are separated"
         ),
+        goal5_fifth_goal_route_verified=True,
+        goal5_fifth_goal_route_basis=(
+            "Synthetic prospective current fifth-goal route, independently "
+            "corroborated beyond the fourth-goal tail."
+        ),
+        goal5_fifth_goal_source_refs=("synthetic-fixture-independent-current-route",),
         failure_attacks_route=False,
         failure_attacks_route_basis="main failure does not directly remove the current scoring route",
         material_suppression=False,
@@ -2379,6 +2385,34 @@ class TournamentIncentiveModelTests(unittest.TestCase):
             tournament_incentive_profile(unresolved)["tail_bias"],
             "UNRESOLVED",
         )
+
+    def test_c_goal5_requires_independent_fifth_goal_proof(self):
+        strong = assessment(
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=True,
+            route_reliability=Grade.HIGH,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.HIGH,
+            failure_resistance=Grade.HIGH,
+            evidence_confidence=Grade.HIGH,
+            burden_protection=Grade.MEDIUM,
+            burden_completion_quality=Grade.HIGH,
+            continuation_quality=Grade.HIGH,
+            upper_tail_transferability=Grade.HIGH,
+            upper_tail_comparable_context_signal="SUPPORTIVE",
+        )
+        self.assertTrue(c_goal4_funded(strong))
+        self.assertTrue(c_goal5_funded(strong))
+        no_fifth = assessment(**{
+            **strong.__dict__,
+            "goal5_fifth_goal_route_verified": False,
+            "goal5_fifth_goal_route_basis": None,
+            "goal5_fifth_goal_source_refs": (),
+        })
+        self.assertTrue(c_goal4_funded(no_fifth))
+        self.assertFalse(c_goal5_funded(no_fifth))
+        self.assertEqual(certified_supported_burden(no_fifth, "c"), 3.5)
 
     def test_g5_fails_closed_without_verified_competition_provenance(self):
         strong = assessment(
