@@ -1,0 +1,11 @@
+{
+  "error": "g4_carrier_path must be one of: FAILED, MIXED, NOT_APPLICABLE, SUPPORTED, UNAVAILABLE",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "f97ea0e649d1a3f2492cb2471ef5a0e249e12622004b889dbf034cdca2e14e51",
+  "ok": false,
+  "request_id": "XI-20261026-AMERICA-PACHUCA-EXCEPTION-RETROPRE-0805-v3",
+  "runtime_commit": "ab84b1e77118cf05e9e492a841443a9b985c7a4a",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
