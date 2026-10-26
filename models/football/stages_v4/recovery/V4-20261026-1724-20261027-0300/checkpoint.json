@@ -1,0 +1,120 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261026-1724-20261027-0300",
+  "original_source_sha256": "fa0eb777fce7c5a3f24aa3ab50c183e7b07b40efbe3a3d50bc8976787d49eb8d",
+  "source_file_sha256": "b5dac0fe2dc40e0643f6344c58dd6c33b3e3726c0e7bcffd8845b4eb92a368f8",
+  "native_receipt_integrity_sha256": "4172c929a1398b0cbd410029f1549cdfcb7866ae24caf42537458e6eab6f8162",
+  "target_states": {
+    "1849068": {
+      "match_id": "1849068",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1808319": {
+      "match_id": "1808319",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1784486": {
+      "match_id": "1784486",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1807307": {
+      "match_id": "1807307",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1718166": {
+      "match_id": "1718166",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1873570": {
+      "match_id": "1873570",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1873571": {
+      "match_id": "1873571",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1873575": {
+      "match_id": "1873575",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1810722": {
+      "match_id": "1810722",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1794711": {
+      "match_id": "1794711",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1873573": {
+      "match_id": "1873573",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1873584": {
+      "match_id": "1873584",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1816444": {
+      "match_id": "1816444",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1784486",
+    "1718166",
+    "1873570",
+    "1873571",
+    "1810722",
+    "1794711",
+    "1873573"
+  ],
+  "watch_match_ids": [
+    "1849068",
+    "1808319",
+    "1807307",
+    "1873575",
+    "1873584",
+    "1816444"
+  ],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "slate_research_scope_complete": true,
+  "slate_research_target_count": 13,
+  "internal_research_batch_size": 30,
+  "internal_research_chunk_count": 1,
+  "whole_requested_surface_complete": true,
+  "unresolved_or_deferred_candidates_remain": true,
+  "deferred_source_backlog_count": 52,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
