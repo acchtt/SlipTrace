@@ -219,22 +219,32 @@ def select(
         item["control_review_rank"] = control_rank
         item["control_review_basis"] = (
             "fixed four-fixture workload cap; ordered only by frozen cheap-filter "
-            "priority, carrier route, O2/O3 rates, draw-trap rate and screen score"
+            "priority, carrier route, O2/O3 rates, draw-trap rate and screen score; "
+            "calibration/research only with zero production rank authority"
         )
-        queued = candidate["queue"]
-        queued.update({
+
+        # CONTROL_REVIEW is a negative-screen calibration lane. Keep the
+        # selected controls visible in the research backlog and calibration
+        # denominator, but never append them to the production eligible_queue.
+        # This enforces the 24-Oct authority contract: a control row may be
+        # researched, but it cannot create a production certificate, priority
+        # lane or automatic /xi workload.
+        research_row = next(
+            (row for row in research if row["match_id"] == candidate["match_id"]),
+            None,
+        )
+        if research_row is None:
+            raise AssertionError(
+                f"{candidate['match_id']}: CONTROL_REVIEW must remain in research backlog"
+            )
+        research_row.update({
             "intake_lane": "CONTROL_REVIEW",
             "reason": item["reason"],
-            "goal_screen": candidate["goal_screen"],
             "control_review_selected": True,
             "control_review_rank": control_rank,
             "control_review_basis": item["control_review_basis"],
         })
-        if candidate["cheap_filter"] is not None:
-            queued["cheap_filter"] = candidate["cheap_filter"]
-        selected.append(queued)
 
-    research = [row for row in research if row["match_id"] not in control_ids]
     research.sort(key=_research_order)
     priority_research = [
         row for row in research
@@ -275,6 +285,8 @@ def select(
             r.get("intake_lane") == "GOAL_REVIEW" for r in selected
         ),
         "control_review_count": len(chosen_controls),
+        "control_review_match_ids": sorted(control_ids),
+        "control_review_production_authority": False,
         "terminal_negative_screen_count": sum(
             r["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL" for r in research
         ),
