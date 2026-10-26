@@ -1,0 +1,14 @@
+[
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/7911/details?locale=en",
+    "observed_at_utc": "2026-10-26T00:47:09.141927+00:00",
+    "file": "raw/team-7911.json",
+    "sha256": "1cfee87f9db290d791a86b3f15abcd3804739817f205db0efc4d641db2ffca54"
+  },
+  {
+    "source_url": "https://prod-cdn-team-api.lsmedia1.com/v1/api/app/team/8900/details?locale=en",
+    "observed_at_utc": "2026-10-26T00:47:09.583279+00:00",
+    "file": "raw/team-8900.json",
+    "sha256": "d3c912e80efa19c83d6d6bab10926a651d0222cb53a57612a8122678df0c7bb4"
+  }
+]
