@@ -473,11 +473,13 @@ Run the deterministic Football C assessment once across the researched cohort.
   protected burden itself is normalized in workload comparison so O3.50 cannot
   displace a materially stronger O2.50 opportunity merely because G4 is funded.
 - Global FOLLOW capacity is 7 and exact-kickoff capacity is 3. Each exact
-  kickoff may nominate one primary CLEARABILITY candidate, but those primary
-  nominations are compared **globally by clearability quality before the cap is
-  applied**. Kickoff chronology is only a deterministic tie-breaker and may not
-  consume capacity ahead of a stronger later primary. Any remaining slots then
-  go to the strongest BALANCED/UPSIDE nominations across the board.
+  kickoff may nominate one primary CLEARABILITY candidate. The **validated
+  portfolio champion protects primary nominations in kickoff order** until
+  capacity is reached; quality breaks ties within an exact kickoff. Remaining
+  slots then go to strongest BALANCED/UPSIDE nominations. The formerly promoted
+  global-clearability primary allocation is *not* active: the 23–26 Oct frozen
+  result replay found lower exact-certificate precision despite stronger raw
+  workload scores. This is a workload-only policy, not predictive evidence.
 - The FOLLOW profile is market-independent and uses current football structure,
   certificate depth/robustness, completion/continuation/stall, carrier and
   credible-tail evidence. Historical Step-0 goal signal contributes only a
