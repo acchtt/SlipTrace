@@ -1,0 +1,13 @@
+{
+  "run_id": "V4-20261026-0744-20261026-1100-FULLRESEARCH",
+  "selection_mode": "SOURCE_CANONICAL_FULL_PREMATCH_IN_SCOPE_RESEARCH",
+  "notes": "Complete six fixture identities observed on native date surfaces for 26 October 2026 07:44–11:00 ICT inclusive, including all five deferred by the automatic normal-source shortlist. Research complete cohort in one receipt (internal batch only); exclude started fixtures after fresh status refresh, do not backfill; do not promote reserves or quote invented odds. Supersedes underscoped V4-20261026-0744-20261026-1100 automatic handoff.",
+  "targets": [
+    "1696712",
+    "1799059",
+    "1799069",
+    "1806408",
+    "1908042",
+    "1799060"
+  ]
+}
