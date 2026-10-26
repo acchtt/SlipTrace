@@ -288,7 +288,7 @@ def select(
         "control_review_match_ids": sorted(control_ids),
         "control_review_production_authority": False,
         "terminal_negative_screen_count": sum(
-            r["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL" for r in research
+            r["intake_lane"] == "WATCH_GOAL_SIGNAL" for r in research
         ),
         "control_review_capacity": CONTROL_REVIEW_MAX_PER_SWEEP,
         **({
