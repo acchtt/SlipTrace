@@ -351,7 +351,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
             evaluate_observed_quote(retired, {"line": 2.5, "odds": 1.70})
 
 
-    def test_follow_global_capacity_prefers_quality_over_earlier_kickoff(self):
+    def test_follow_kickoff_protection_retained_until_global_allocator_revalidated(self):
         rows = []
         for i in range(7):
             row = c_row()
@@ -391,17 +391,17 @@ class ActiveCRuntimeTests(unittest.TestCase):
         by_id = {row["match_id"]: row for row in result["matches"]}
 
         self.assertEqual(result["follow_count"], 7)
-        self.assertEqual(by_id["later-strong"]["follow_lane"], "FOLLOW")
+        self.assertEqual(by_id["later-strong"]["follow_lane"], "RESERVE")
         self.assertEqual(
             by_id["later-strong"]["follow_portfolio_role"],
-            "CLEARABILITY",
+            "RESERVE",
         )
         self.assertEqual(
             sum(
-                by_id[f"early-weak-{i}"]["follow_lane"] != "FOLLOW"
+                by_id[f"early-weak-{i}"]["follow_lane"] == "FOLLOW"
                 for i in range(7)
             ),
-            1,
+            7,
         )
 
 
