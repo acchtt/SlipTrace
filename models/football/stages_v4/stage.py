@@ -24,6 +24,7 @@ from urllib.parse import urlsplit
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
 sys.path.insert(0, str(ENGINE))
 from adapter import run_board
+from goal_route_proof import POLICY as GOAL_ROUTE_PROOF_POLICY, review_goal_route_proof
 from calibration_ledger import board_records, sweep_records
 from league_registry import classify
 from discovery_goal_gate import screen_discovery
@@ -1087,6 +1088,51 @@ def _resume_research(previous, sweep_receipt, current, reasons, status_refresh, 
     return merged, reasons, reused
 
 
+def _checkpoint_incomplete_goal_route_proof(
+    c: dict[str, Any],
+    frozen: dict[str, dict[str, Any]],
+    unranked_reasons: dict[str, Any],
+    at: datetime,
+) -> tuple[dict[str, Any], dict[str, Any], list[str], dict[str, Any]]:
+    """Versioned *prospective* research gate: no backfill and no silent PASS.
+
+    The contract checks every assessed row, including WATCH/PASS, to avoid
+    hiding eventual winning matches simply because no G3 was funded. Existing
+    sealed inputs without the explicit contract version remain byte-compatible.
+    """
+    declared = c.get("goal_route_proof_contract")
+    if declared is None:
+        return c, unranked_reasons, [], {}
+    if declared != GOAL_ROUTE_PROOF_POLICY:
+        raise StageError("UNKNOWN_GOAL_ROUTE_PROOF_CONTRACT")
+
+    reviews: dict[str, Any] = {}
+    pending: list[str] = []
+    for row in c["matches"]:
+        mid = row["match_id"]
+        review = review_goal_route_proof(
+            row, rank_at_utc=at.isoformat(),
+            kickoff_utc=frozen[mid]["kickoff_utc"],
+        )
+        reviews[mid] = review
+        if review["status"] != "COMPLETE":
+            pending.append(mid)
+    if not pending:
+        return c, unranked_reasons, [], reviews
+
+    ids = set(pending)
+    filtered = copy.deepcopy(c)
+    filtered["matches"] = [
+        row for row in filtered["matches"] if row["match_id"] not in ids
+    ]
+    reasons = copy.deepcopy(unranked_reasons)
+    for mid in pending:
+        if mid in reasons:
+            raise StageError(f"{mid}: proof-incomplete row already excluded")
+        reasons[mid] = "RESEARCH_EVIDENCE_MISSING"
+    return filtered, reasons, pending, reviews
+
+
 def _checkpoint_incomplete_g4_focus(
     c: dict[str, Any],
     board_result: dict[str, Any],
@@ -1342,6 +1388,16 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         if at >= _time(frozen[mid]["kickoff_utc"], f"{mid}.kickoff"):
             raise StageError(f"{mid}: retroactive prematch rank forbidden")
 
+    # New opt-in research contracts validate independent dated facts before
+    # G3/G4 preflight; legacy sealed receipts remain under their frozen policy.
+    c, unranked_reasons, goal_route_pending_ids, goal_route_proof_reviews = (
+        _checkpoint_incomplete_goal_route_proof(c, frozen, unranked_reasons, at)
+    )
+    crows = c["matches"]
+    ids = [row["match_id"] for row in crows]
+    if set(unranked_reasons) != set(frozen) - set(ids):
+        raise StageError("goal-route proof checkpoint lost full cohort accounting")
+
     # A provisional C-FOCUS may fund G3 before its G4 investigation is
     # complete. Do not freeze that provisional O2.50 as a completed board row.
     # Run the deterministic engine once as a preflight, then checkpoint any
@@ -1368,14 +1424,20 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if len(order) != len(frozen) or set(order) != set(frozen):
         raise StageError("source-reconciled full research order corrupted")
     g4_incomplete_set = set(g4_incomplete_match_ids)
+    goal_route_incomplete_set = set(goal_route_pending_ids)
     resume_queue = [
         {**copy.deepcopy(frozen[mid]),
          "research_status": (
+             "GOAL_ROUTE_PROOF_PENDING" if mid in goal_route_incomplete_set else
              "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else dispositions[mid]
          ),
          "reason": unranked_reasons[mid],
          "research_trace": research_trace.get(mid),
          "next_action": (
+             "Independently source goal-three route and reply, two-goal stop risk, "
+             "post-third-goal continuation, counterevidence and dated distinct "
+             "facts; correct the exact missing proof fields before re-ranking"
+             if mid in goal_route_incomplete_set else
              "Complete one bounded G4 pass: carrier four-goal path, distributed "
              "3+1/2+2 path, reply-assisted path, continuation after G3, "
              "upper-tail transferability/comparable context, and failure/stall risk"
@@ -1420,6 +1482,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              "kickoff_utc": frozen[mid]["kickoff_utc"],
              "disposition": (
                  "C_ASSESSED" if mid in ids else
+                 "GOAL_ROUTE_PROOF_PENDING" if mid in goal_route_incomplete_set else
                  "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else
                  dispositions[mid]
              ),
@@ -1436,6 +1499,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "research_exclusion_trace": research_trace,
         "resume_queue": resume_queue,
         "frozen_model_input": copy.deepcopy(c),
+        "goal_route_proof_policy": (
+            c.get("goal_route_proof_contract") or "LEGACY_FROZEN_COMPATIBILITY"
+        ),
+        "goal_route_incomplete_match_ids": list(goal_route_pending_ids),
+        "goal_route_proof_reviews": copy.deepcopy(goal_route_proof_reviews),
         "g4_incomplete_match_ids": list(g4_incomplete_match_ids),
         "g4_incomplete_assessments": copy.deepcopy(g4_incomplete_assessments),
         "reused_match_ids": reused_ids,
