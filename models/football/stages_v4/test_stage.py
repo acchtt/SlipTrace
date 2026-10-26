@@ -238,11 +238,17 @@ class SweepIntakeRepairTests(unittest.TestCase):
         )
         self.assertEqual(result["control_review_count"], 4)
         self.assertEqual(result["terminal_negative_screen_count"], 2)
-        self.assertEqual(len(result["eligible_queue"]), 4)
+        self.assertEqual(len(result["eligible_queue"]), 0)
+        self.assertFalse(result["control_review_production_authority"])
+        self.assertEqual(len(result["control_review_match_ids"]), 4)
+        control_rows = [
+            row for row in result["goal_research_queue"]
+            if row["intake_lane"] == "CONTROL_REVIEW"
+        ]
+        self.assertEqual(len(control_rows), 4)
         self.assertTrue(all(
-            row["intake_lane"] == "CONTROL_REVIEW"
-            and row["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL"
-            for row in result["eligible_queue"]
+            row["goal_screen"]["status"] == "WATCH_GOAL_SIGNAL"
+            for row in control_rows
         ))
 
     def test_outside_window_unknown_provider_status_is_closed(self):
