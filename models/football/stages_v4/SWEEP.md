@@ -280,13 +280,15 @@ from hiding a potentially valid match before Football C sees it.
 
 Registered matches with no usable scoring data remain in `goal_research_queue`
 as `PENDING_GOAL_RESEARCH`; genuinely weak or trap-heavy signals stay on the
-watchlist, not model PASS. From fully quantified negative screens, admit at
+watchlist, not model PASS. From fully quantified negative screens, select at
 most four `CONTROL_REVIEW` fixtures per sweep. Order them only by frozen
 cheap-filter priority, strongest carrier route, mean 3+/4+ rates, lowest draw
 trap, then screen score and fixture identity. This fixed capacity is workload
-control, not a predictive cutoff. CONTROL_REVIEW cannot create a certificate,
-FOCUS, or ACT; it lets Football C measure and prevent intake false negatives
-without rebuilding a 60–100 fixture deep-research queue.
+control, not a predictive cutoff. **CONTROL_REVIEW remains in the research/audit
+backlog and is never copied into the production `eligible_queue`.** It cannot
+create a production certificate, FOCUS, FOLLOW/RESERVE, or automatic /xi
+workload; it exists only to measure intake false negatives without rebuilding a
+60–100 fixture production deep-research queue.
 
 The quantitative screen has **four league-neutral research-admission paths**.
 The original route-composite path remains: priority score >=60, mean 3+ rate
