@@ -1,0 +1,25 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-26T07:44:00+07:00",
+    "end": "2026-10-26T11:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261026-0744-20261026-1100",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261026-0744-20261026-1100-FULLRESEARCH",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261026-0744-20261026-1100-FULLRESEARCH/rank-handoff.json",
+  "supersession_reason": "Initial automatic priority screen researched 1 and deferred 5 of 6 in-window fixtures; corrected source-attested sweep completed all 6 canonical match IDs.",
+  "verified_coverage": {
+    "in_window_fixture_count": 6,
+    "in_scope_researched_count": 6,
+    "eligible_count": 5,
+    "watch_count": 1,
+    "evidence_limited_count": 0,
+    "deferred_count": 0,
+    "internal_batch_count": 1
+  },
+  "native_receipt_status": "COMPLETE",
+  "booking_or_xi_performed": false,
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40251159053"
+}
