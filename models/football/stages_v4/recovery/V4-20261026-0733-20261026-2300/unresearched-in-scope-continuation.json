@@ -1,0 +1,112 @@
+{
+  "schema_version": "football-v4-same-source-research-coverage-v1",
+  "run_id": "V4-20261026-0733-20261026-2300",
+  "window_start_ict": "2026-10-26T07:33:00+07:00",
+  "window_end_ict": "2026-10-26T23:00:00+07:00",
+  "canonical_source_file_sha256": "12e8d219c2666ceb00fcba0ddcdf3efaecde246f77b2c47c5783d12f1fc74d5e",
+  "initial_receipt_integrity_sha256": "20ef746d44c648ed7e720bdd40a5edf62117fe7131516f44536a7cc0dc893b69",
+  "initial_active_researched": 5,
+  "initial_rank_admitted": 5,
+  "deferred_non_excluded_count": 26,
+  "deferred_canonical_match_ids": [
+    "1799059",
+    "1799069",
+    "1799060",
+    "1866182",
+    "1866197",
+    "1866190",
+    "1821024",
+    "1821036",
+    "1846946",
+    "1900649",
+    "1743570",
+    "1806408",
+    "1896845",
+    "1896847",
+    "1896846",
+    "1896859",
+    "1786369",
+    "1846791",
+    "1733509",
+    "1838062",
+    "1890702",
+    "1753169",
+    "1848397",
+    "1725568",
+    "1903635",
+    "1908042"
+  ],
+  "by_league": {
+    "Mexico Liga MX": [
+      "1799059",
+      "1799069",
+      "1799060"
+    ],
+    "Indonesia Super League": [
+      "1866182",
+      "1866197",
+      "1866190"
+    ],
+    "Turkiye Super Lig": [
+      "1821024",
+      "1821036"
+    ],
+    "Singapore Premier League": [
+      "1846946"
+    ],
+    "India Super League": [
+      "1900649"
+    ],
+    "Uzbekistan Super League": [
+      "1743570"
+    ],
+    "Colombia Primera A": [
+      "1806408"
+    ],
+    "Iran Azadegan League": [
+      "1896845",
+      "1896847",
+      "1896846",
+      "1896859"
+    ],
+    "Bulgaria Parva Liga": [
+      "1786369"
+    ],
+    "Armenia Premier League": [
+      "1846791"
+    ],
+    "Georgia Erovnuli Liga": [
+      "1733509"
+    ],
+    "Croatia Prva NL": [
+      "1838062"
+    ],
+    "Greece Super League 2": [
+      "1890702"
+    ],
+    "Argentina Primera Nacional": [
+      "1753169"
+    ],
+    "Cyprus 1st Division": [
+      "1848397"
+    ],
+    "Norway 3 Division": [
+      "1725568"
+    ],
+    "Peru Liga 2 Promotion Group": [
+      "1903635"
+    ],
+    "USA MLS Next Pro Playoff": [
+      "1908042"
+    ]
+  },
+  "completion_status": "IDENTIFIED_NOT_RESEARCHED",
+  "reason": "Native priority plus registered-league selector did not promote 26 source-visible in-scope DISCOVERY fixtures, including explicitly requested Turkey, Indonesia, Singapore and Uzbekistan. Not false C-PASS/WATCH and not rank-eligible until proof/research.",
+  "research_batch_size_required": 26,
+  "rank_handoff_status": "VALID_FOR_INITIAL_5_ONLY_NOT_WHOLE_SLATE_RESEARCH",
+  "required_next_action": "Extend research against this exact canonical source epoch and unchanged match identity without creating a competing ranking universe. Fresh status verification required; no retrospective prematch admission.",
+  "source_complete": true,
+  "active_cohort_complete": true,
+  "full_in_scope_research_complete": false,
+  "exclude_started_fixtures_from_new_rank": true
+}
