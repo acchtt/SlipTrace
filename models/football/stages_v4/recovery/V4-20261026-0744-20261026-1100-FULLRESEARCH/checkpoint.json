@@ -1,0 +1,71 @@
+{
+  "schema_version": "football-v4-sweep-research-checkpoint-v2",
+  "status": "ACTIVE_RESEARCH_QUEUE_COMPLETE",
+  "run_id": "V4-20261026-0744-20261026-1100-FULLRESEARCH",
+  "original_source_sha256": "88524fbaf9e800057325571fd5e50b87d9e6c40c7bd2e82113472e1ff2bff235",
+  "source_file_sha256": "b56fd6e119d97c2af8f4e7bc418a7fec7f507103e08e99ff1ceb413aa4c4cd61",
+  "native_receipt_integrity_sha256": "d9e5eef3c8bfb2dd26809b6f50cde79431904cad8c78ee8e4d07961f9d9b4041",
+  "target_states": {
+    "1696712": {
+      "match_id": "1696712",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799059": {
+      "match_id": "1799059",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799069": {
+      "match_id": "1799069",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1806408": {
+      "match_id": "1806408",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1908042": {
+      "match_id": "1908042",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    },
+    "1799060": {
+      "match_id": "1799060",
+      "attempted": true,
+      "pending_reasons": [],
+      "research_disposition": "COMPLETE"
+    }
+  },
+  "eligible_match_ids": [
+    "1696712",
+    "1799059",
+    "1799069",
+    "1908042",
+    "1799060"
+  ],
+  "watch_match_ids": [
+    "1806408"
+  ],
+  "evidence_limited_match_ids": [],
+  "status_excluded_match_ids": [],
+  "resume_queue": [],
+  "active_batch_complete": true,
+  "active_research_queue_complete": true,
+  "slate_research_scope_complete": true,
+  "slate_research_target_count": 6,
+  "internal_research_batch_size": 30,
+  "internal_research_chunk_count": 1,
+  "whole_requested_surface_complete": true,
+  "unresolved_or_deferred_candidates_remain": false,
+  "deferred_source_backlog_count": 0,
+  "priority_completeness_verified": true,
+  "rank_handoff_ready": true,
+  "native_v4_sweep_ready": true
+}
