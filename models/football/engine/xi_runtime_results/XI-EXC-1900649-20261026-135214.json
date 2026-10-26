@@ -1,0 +1,11 @@
+{
+  "error": "non-tournament assessment must use NOT_APPLICABLE for competition_stage",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "e09078a3dec5868142f4b6f5c341bf3bb1afc6ee1a98f7230c9dd5581a5dfe3e",
+  "ok": false,
+  "request_id": "XI-EXC-1900649-20261026-135214",
+  "runtime_commit": "470789cf54b292ff02d9efb7dfa7c5cd38c4f6a0",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
