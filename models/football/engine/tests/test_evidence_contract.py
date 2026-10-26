@@ -40,7 +40,11 @@ class EvidenceContractTests(unittest.TestCase):
 
     def test_xi_scope_block_does_not_emit_manual_price_verdict(self):
         data = football('c', status='PREMATCH_CONFIRMED', score=None, minute=None, event='NONE_VERIFIED')
-        data['match'].update(country='Netherlands', competition='Eredivisie Women', competition_kind='WOMENS_TOP_FLIGHT')
+        data['match'].update(
+            country='South Africa',
+            competition='Hollywoodbets Super League',
+            competition_kind='WOMENS_TOP_FLIGHT',
+        )
         result = _football_and_optional_price(data, price_c=None, screenshot=snapshot(data))
         self.assertEqual(result['price_check']['status'], 'PRODUCTION_SCOPE_BLOCKED')
         self.assertFalse(result['price_check']['execution_authorized'])
@@ -91,24 +95,35 @@ class EvidenceContractTests(unittest.TestCase):
         self.assertTrue(c_goal4_funded(a))
         self.assertTrue(g4_diagnostics(a)['goal4_funded'])
 
-    def test_scope_excludes_dutch_women_but_allows_japan(self):
+    def test_scope_allows_non_africa_womens_top_flights(self):
         row = c_row()
-        row.update(country='Netherlands', competition='Eredivisie Women', competition_kind='WOMENS_TOP_FLIGHT')
-        self.assertFalse(scope_profile(row)['production_allowed'])
-        with self.assertRaisesRegex(ContractError, 'SCOPE'):
-            run_board(payload('c', row))
+        row.update(
+            country='Netherlands',
+            competition='Eredivisie Women',
+            competition_kind='WOMENS_TOP_FLIGHT',
+        )
+        self.assertTrue(scope_profile(row)['production_allowed'])
+        self.assertEqual(scope_profile(row)['status'], 'IN_SCOPE')
+        self.assertEqual(scope_profile(row)['reason'], 'WOMENS_SENIOR_TOP_FLIGHT_SOURCE_AND_IDENTITY_CHECK')
+        self.assertEqual(run_board(payload('c', row))['model'], 'c')
+
         row.update(country='Japan', competition='WE League')
         self.assertTrue(scope_profile(row)['production_allowed'])
 
     def test_missing_scope_and_exception_are_not_production(self):
         self.assertFalse(scope_profile({})['production_allowed'])
         row = c_row()
-        row.update(country='Netherlands', competition='Eredivisie Women', competition_kind='WOMENS_TOP_FLIGHT')
+        row.update(
+            country='South Africa',
+            competition='Hollywoodbets Super League',
+            competition_kind='WOMENS_TOP_FLIGHT',
+        )
         context = {'scope_override': {'match_id': row['match_id'], 'policy': 'FOOTBALL_C_SCOPE_V1',
                    'authorization': 'EXPLICIT_USER_SCOPE_EXCEPTION', 'user_instruction_reference': 'user-message', 'basis': 'explicit exception'}}
         result = scope_profile(row, context)
         self.assertEqual(result['status'], 'EXPLICIT_OUT_OF_SCOPE_ANALYSIS')
         self.assertFalse(result['production_allowed'])
+        self.assertEqual(result['reason'], 'USER_AFRICA_DOMESTIC_EXCLUSION')
 
 
 if __name__ == '__main__':
