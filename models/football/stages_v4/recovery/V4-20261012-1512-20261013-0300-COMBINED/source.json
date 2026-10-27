@@ -1,0 +1,560 @@
+{
+  "schema_version": "football-stages-v4",
+  "run_id": "V4-20261012-1512-20261013-0300-COMBINED",
+  "window_start_utc": "2026-10-12T08:12:00Z",
+  "window_end_utc": "2026-10-12T20:00:00Z",
+  "source_family": "TWO_SOURCE_EPOCHS_AISCORE_MATCH_PAGES_PLUS_LIVESCORE_DAY_INDEX",
+  "source_url": "https://www.livescore.mobi/football/2026-10-12/",
+  "source_observed_at_utc": "2026-10-12T09:26:06Z",
+  "fixtures": [
+    {
+      "match_id": "l6kegi858m8av75",
+      "country": "Ukraine",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "FC Livyi Bereh",
+      "away": "Zorya Luhansk",
+      "kickoff_utc": "2026-10-12T10:00:00Z",
+      "source_url": "https://m.aiscore.com/match-fc-livyi-bereh-zorya/l6kegi858m8av75/odds",
+      "observed_at_utc": "2026-10-12T09:26:06Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "34kgmiol8nlseko",
+      "country": "Singapore",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Hougang United FC",
+      "away": "Balestier Khalsa FC",
+      "kickoff_utc": "2026-10-12T11:30:00Z",
+      "source_url": "https://www.aiscore.com/match-hougang-united-fc-balestier-khalsa-fc/34kgmiol8nlseko",
+      "observed_at_utc": "2026-10-12T09:26:06Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "34kgmio9n4rieko",
+      "country": "Greece",
+      "competition": "Super League 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Panionios G.S.S.",
+      "away": "PAOK Saloniki B",
+      "kickoff_utc": "2026-10-12T11:45:00Z",
+      "source_url": "https://m.aiscore.com/et/match-panionios-g-s-s--paok-saloniki-b/34kgmio9n4rieko",
+      "observed_at_utc": "2026-10-12T09:26:06Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "m2q15iz3416ue76",
+      "country": "Spain",
+      "competition": "La Liga 2",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Real Valladolid CF",
+      "away": "Albacete Balompié",
+      "kickoff_utc": "2026-10-12T12:00:00Z",
+      "source_url": "https://es.aiscore.com/match-real-valladolid-cf-albacete-balompie-sad/m2q15iz3416ue76/h2h",
+      "observed_at_utc": "2026-10-12T09:26:06Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "j374oi025ndagqo",
+      "country": "Uzbekistan",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Pakhtakor Tashkent",
+      "away": "Al Qadsiah",
+      "kickoff_utc": "2026-10-12T13:45:00Z",
+      "source_url": "https://www.aiscore.com/match-pakhtakor-al-qadsiah/j374oi025ndagqo/h2h",
+      "observed_at_utc": "2026-10-12T09:26:06Z",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "researchability_status": "VERIFIED",
+      "researchability_proof": {
+        "match_id": "j374oi025ndagqo",
+        "source_url": "https://www.aiscore.com/match-pakhtakor-al-qadsiah/j374oi025ndagqo/h2h",
+        "checked_at_utc": "2026-10-12T08:21:09Z",
+        "current_channels_checked": true,
+        "evidence_scope": "AFC competition fixture, official match broadcasting and AiScore match stats/lineup/news navigation; starting XI not yet confirmed"
+      },
+      "football_evidence": {
+        "home": {
+          "source_url": "https://www.aiscore.com/head-to-head/soccer-al-qadsiah-vs-pakhtakor",
+          "observed_at_utc": "2026-10-12T08:21:09Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-09T14:00:00Z",
+              "goals_for": 3,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-19T13:00:00Z",
+              "goals_for": 2,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-09T13:30:00Z",
+              "goals_for": 3,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-04T15:15:00Z",
+              "goals_for": 3,
+              "goals_against": 0
+            }
+          ]
+        },
+        "away": {
+          "source_url": "https://www.goal.com/en-qa/team/al-qadasiya/fixtures-results/90k2kbbkk2cj55yhkivdqn0ym",
+          "observed_at_utc": "2026-10-12T08:21:09Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-09T13:50:00Z",
+              "goals_for": 5,
+              "goals_against": 0
+            },
+            {
+              "kickoff_utc": "2026-09-14T18:15:00Z",
+              "goals_for": 2,
+              "goals_against": 1
+            },
+            {
+              "kickoff_utc": "2026-09-11T15:25:00Z",
+              "goals_for": 3,
+              "goals_against": 3
+            },
+            {
+              "kickoff_utc": "2026-09-08T18:00:00Z",
+              "goals_for": 3,
+              "goals_against": 2
+            }
+          ]
+        }
+      }
+    },
+    {
+      "match_id": "ndkz6i3eg14sxq3",
+      "country": "United Arab Emirates",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Al-Wasl SC",
+      "away": "Al Ahli SC",
+      "kickoff_utc": "2026-10-12T16:00:00Z",
+      "source_url": "https://www.aiscore.com/match-al-wasl-sc-al-ahli-sc/ndkz6i3eg14sxq3",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "researchability_status": "VERIFIED",
+      "researchability_proof": {
+        "match_id": "ndkz6i3eg14sxq3",
+        "source_url": "https://www.aiscore.com/match-al-wasl-sc-al-ahli-sc/ndkz6i3eg14sxq3",
+        "checked_at_utc": "2026-10-12T09:22:18Z",
+        "current_channels_checked": true,
+        "scope": "match identity, official competitive status, lineup/news and bookmaker publication navigation; NOT executable price nor confirmed starting XI",
+        "evidence_summary": "AiScore AFC Elite current round-2 fixture and match-specific odds/H2H/standings accessible; football evidence independently crosslinked to 4 real historical fixture pages per club."
+      },
+      "football_evidence": {
+        "home": {
+          "source_url": "https://www.aiscore.com/head-to-head/soccer-al-ahli-sc-vs-al-wasl-sc",
+          "observed_at_utc": "2026-10-12T09:22:18Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-08T15:45:00Z",
+              "goals_for": 2,
+              "goals_against": 1,
+              "match_id": "o07dninypw2cmkn"
+            },
+            {
+              "kickoff_utc": "2026-10-02T13:15:00Z",
+              "goals_for": 4,
+              "goals_against": 0,
+              "match_id": "m2q15izoyrrhe76"
+            },
+            {
+              "kickoff_utc": "2026-09-19T16:15:00Z",
+              "goals_for": 3,
+              "goals_against": 2,
+              "match_id": "o07dni5jrm2cmkn"
+            },
+            {
+              "kickoff_utc": "2026-09-14T18:15:00Z",
+              "goals_for": 1,
+              "goals_against": 2,
+              "match_id": "o17pjio23vyby7j"
+            }
+          ]
+        },
+        "away": {
+          "source_url": "https://www.aiscore.com/head-to-head/soccer-al-ahli-sc-vs-al-wasl-sc",
+          "observed_at_utc": "2026-10-12T09:22:18Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-10-09T14:55:00Z",
+              "goals_for": 4,
+              "goals_against": 0,
+              "match_id": "l6kegi82n6vsv75"
+            },
+            {
+              "kickoff_utc": "2026-09-14T18:15:00Z",
+              "goals_for": 1,
+              "goals_against": 1,
+              "match_id": "ezk96i3ve66a1kn"
+            },
+            {
+              "kickoff_utc": "2026-09-11T18:00:00Z",
+              "goals_for": 3,
+              "goals_against": 1,
+              "match_id": "34kgmiol3w6teko"
+            },
+            {
+              "kickoff_utc": "2026-09-08T18:00:00Z",
+              "goals_for": 2,
+              "goals_against": 3,
+              "match_id": "ndkz6i3py62axq3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "match_id": "zrkn6i4z200awql",
+      "country": "Iran",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Tractor S.C.",
+      "away": "Al-Shamal Sports Club",
+      "kickoff_utc": "2026-10-12T16:00:00Z",
+      "source_url": "https://www.aiscore.com/match-tractor-s-c--al-shamal-sports-club/zrkn6i4z200awql",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "edq09il1mzlseqx",
+      "country": "Italy",
+      "competition": "Serie A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Atalanta",
+      "away": "Venezia",
+      "kickoff_utc": "2026-10-12T16:30:00Z",
+      "source_url": "https://www.aiscore.com/match-atalanta-venezia/edq09il1mzlseqx",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "xvkjoi8jv38a879",
+      "country": "Turkey",
+      "competition": "Super League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Eyupspor",
+      "away": "Goztepe",
+      "kickoff_utc": "2026-10-12T17:00:00Z",
+      "source_url": "https://www.aiscore.com/match-eyupspor-goztepe/xvkjoi8jv38a879",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "researchability_status": "VERIFIED",
+      "researchability_proof": {
+        "match_id": "xvkjoi8jv38a879",
+        "source_url": "https://www.aiscore.com/match-eyupspor-goztepe/xvkjoi8jv38a879",
+        "checked_at_utc": "2026-10-12T09:22:18Z",
+        "current_channels_checked": true,
+        "scope": "match identity, official competitive status, lineup/news and bookmaker publication navigation; NOT executable price nor confirmed starting XI",
+        "evidence_summary": "AiScore Turkish Super League round-7 match page has lineup, odds, news H2H/standings publishing channels; no specific price or upcoming lineup claimed."
+      },
+      "football_evidence": {
+        "home": {
+          "source_url": "https://www.aiscore.com/head-to-head/eyupspor-vs-goztepe",
+          "observed_at_utc": "2026-10-12T09:22:18Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-09-20T14:00:00Z",
+              "goals_for": 0,
+              "goals_against": 8,
+              "match_id": "o07dni59g8eumkn"
+            },
+            {
+              "kickoff_utc": "2026-09-12T14:00:00Z",
+              "goals_for": 0,
+              "goals_against": 2,
+              "match_id": "9gklzi12pjxbm7x"
+            },
+            {
+              "kickoff_utc": "2026-09-06T14:00:00Z",
+              "goals_for": 0,
+              "goals_against": 3,
+              "match_id": "j374oi0xw6wcgqo"
+            },
+            {
+              "kickoff_utc": "2026-08-30T16:00:00Z",
+              "goals_for": 2,
+              "goals_against": 1,
+              "match_id": "69759ig90xytgk2"
+            }
+          ]
+        },
+        "away": {
+          "source_url": "https://www.aiscore.com/head-to-head/eyupspor-vs-goztepe",
+          "observed_at_utc": "2026-10-12T09:22:18Z",
+          "recent": [
+            {
+              "kickoff_utc": "2026-09-20T17:00:00Z",
+              "goals_for": 2,
+              "goals_against": 2,
+              "match_id": "vrqwni4pzmra4qn"
+            },
+            {
+              "kickoff_utc": "2026-09-12T17:00:00Z",
+              "goals_for": 2,
+              "goals_against": 2,
+              "match_id": "vmqy9iv3zx9agk9"
+            },
+            {
+              "kickoff_utc": "2026-09-07T17:00:00Z",
+              "goals_for": 2,
+              "goals_against": 4,
+              "match_id": "l6kegi8d34wuv75"
+            },
+            {
+              "kickoff_utc": "2026-08-29T18:30:00Z",
+              "goals_for": 2,
+              "goals_against": 3,
+              "match_id": "8lk2dirmyd5tz73"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "match_id": "edq09ild542beqx",
+      "country": "Sweden",
+      "competition": "Allsvenskan",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Malmo FF",
+      "away": "Kalmar",
+      "kickoff_utc": "2026-10-12T17:00:00Z",
+      "source_url": "https://www.aiscore.com/match-malmo-ff-kalmar/edq09ild542beqx",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "jr7owip3jrmagq0",
+      "country": "Sweden",
+      "competition": "Allsvenskan",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Elfsborg",
+      "away": "Halmstads",
+      "kickoff_utc": "2026-10-12T17:00:00Z",
+      "source_url": "https://www.aiscore.com/en/match-elfsborg-halmstads/jr7owip3jrmagq0",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "69759ige04jhgk2",
+      "country": "Denmark",
+      "competition": "Superliga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Aarhus AGF",
+      "away": "Sonderjyske",
+      "kickoff_utc": "2026-10-12T17:00:00Z",
+      "source_url": "https://m.aiscore.com/match-aarhus-agf-sonderjyske/69759ige04jhgk2",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "jek33i823y2a9ko",
+      "country": "Saudi Arabia",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Al Nassr",
+      "away": "Neftchi Fergana",
+      "kickoff_utc": "2026-10-12T18:15:00Z",
+      "source_url": "https://www.aiscore.com/match-al-nassr-neftchi-fergana/jek33i823y2a9ko",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "l6kegi8jy36iv75",
+      "country": "Iraq",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Al Quwa Al Jawiya",
+      "away": "Al-Ain FC",
+      "kickoff_utc": "2026-10-12T18:15:00Z",
+      "source_url": "https://es.aiscore.com/match-al-quwa-al-jawiya-al-ain-fc/l6kegi8jy36iv75",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "69759igo119igk2",
+      "country": "Qatar",
+      "competition": "AFC Champions League Elite",
+      "competition_kind": "CONTINENTAL",
+      "home": "Al-Gharafa Sports Club",
+      "away": "Esteghlal Tehran",
+      "kickoff_utc": "2026-10-12T18:15:00Z",
+      "source_url": "https://www.aiscore.com/match-al-gharafa-sports-club-esteghlal-tehran/69759igo119igk2",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "o17pjiomgnvby7j",
+      "country": "Poland",
+      "competition": "Ekstraklasa",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "GKS Katowice",
+      "away": "KS Wieczysta Krakow",
+      "kickoff_utc": "2026-10-12T18:30:00Z",
+      "source_url": "https://es.aiscore.com/match-gks-katowice-ks-wieczysta-krakow/o17pjiomgnvby7j",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "xvkjoi8y9ymb879",
+      "country": "Italy",
+      "competition": "Serie A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Torino",
+      "away": "Udinese",
+      "kickoff_utc": "2026-10-12T18:45:00Z",
+      "source_url": "https://www.aiscore.com/en/match-torino-udinese/xvkjoi8y9ymb879",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "ndkz6i3y0xmfxq3",
+      "country": "England",
+      "competition": "Premier League",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Coventry City",
+      "away": "Newcastle United",
+      "kickoff_utc": "2026-10-12T19:00:00Z",
+      "source_url": "https://www.aiscore.com/match-coventry-city-newcastle-united/ndkz6i3y0xmfxq3",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "vrqwni4j680t4qn",
+      "country": "Spain",
+      "competition": "La Liga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Levante",
+      "away": "Sevilla FC",
+      "kickoff_utc": "2026-10-12T19:00:00Z",
+      "source_url": "https://vnm.aiscore.com/sv/match-levante-sevilla-fc/vrqwni4j680t4qn",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "o07dni5md02tmkn",
+      "country": "Brazil",
+      "competition": "Serie A",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Coritiba",
+      "away": "Botafogo",
+      "kickoff_utc": "2026-10-12T19:00:00Z",
+      "source_url": "https://www.aiscore.com/match-coritiba-saf---pr-botafogo---rj/o07dni5md02tmkn",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "o07dni552gpbmkn",
+      "country": "Brazil",
+      "competition": "Serie B",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "Fortaleza",
+      "away": "CRB",
+      "kickoff_utc": "2026-10-12T19:00:00Z",
+      "source_url": "https://www.aiscore.com/en/match-fortaleza-crb-al/o07dni552gpbmkn",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    },
+    {
+      "match_id": "xvkjoi8jxgmb879",
+      "country": "Portugal",
+      "competition": "Primeira Liga",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "home": "FC Famalicao",
+      "away": "Alverca",
+      "kickoff_utc": "2026-10-12T19:15:00Z",
+      "source_url": "https://www.aiscore.com/es/match-fc-famalicao-alverca/xvkjoi8jxgmb879",
+      "observed_at_utc": "2026-10-12T09:22:18Z",
+      "fixture_status": "PREMATCH_CONFIRMED"
+    }
+  ],
+  "parent_sweep_attestations": [
+    {
+      "run_id": "V4-20261012-1512-2100",
+      "source_file": "models/football/stages_v4/recovery/V4-20261012-1512-2100/source.json",
+      "integrity_sha256": "247c25d2c17c834fce95b4d11dec4a3820f04222bef75e3209d6be612c969913",
+      "native_actions_run": "38223133961",
+      "original_window_start_utc": "2026-10-12T08:12:00Z",
+      "original_window_end_utc": "2026-10-12T14:00:00Z",
+      "fixture_count": 5
+    },
+    {
+      "run_id": "V4-20261012-2200-20261013-0300",
+      "source_file": "models/football/stages_v4/recovery/V4-20261012-2200-20261013-0300/source.json",
+      "integrity_sha256": "b3fae4a1d17fb7e94ea8196e14d965da495896b005b840909393105902feb1d6",
+      "native_actions_run": "38229666726",
+      "original_window_start_utc": "2026-10-12T15:00:00Z",
+      "original_window_end_utc": "2026-10-12T20:00:00Z",
+      "fixture_count": 17
+    }
+  ],
+  "combination_policy": "FRESH_NATIVE_V4_RECEIPT_OVER_ORIGINAL_IMMUTABLE_AISCORE_IDS; NO_MUTATION_OR_RANKING_ACROSS_TWO_RECEIPTS",
+  "source_window_audit": {
+    "early_evidence_rechecked_utc": "2026-10-12T09:26:06Z",
+    "late_evidence_observed_utc": "2026-10-12T09:22:18Z",
+    "distinct_fixtures": 22,
+    "unverified_date_index_leads": [
+      {
+        "home": "Mes Kerman",
+        "away": "Mes Rafsanjan",
+        "country": "Iran",
+        "competition": "Azadegan League",
+        "kickoff_utc": "2026-10-12T11:30:00Z",
+        "blocker": "canonical fixture ID/researchability not independently validated"
+      },
+      {
+        "home": "FC Syunik",
+        "away": "Shirak",
+        "country": "Armenia",
+        "competition": "Premier League",
+        "kickoff_utc": "2026-10-12T12:00:00Z",
+        "blocker": "kickoff conflicts across date source, canonical ID unverified"
+      },
+      {
+        "home": "Anagennisi Karditsas",
+        "away": "Zakynthos APS",
+        "country": "Greece",
+        "competition": "Super League 2",
+        "kickoff_utc": "2026-10-12T12:00:00Z",
+        "blocker": "canonical ID and form unverified"
+      },
+      {
+        "home": "Mes Sungun",
+        "away": "Niroye Zamini",
+        "country": "Iran",
+        "competition": "Azadegan League",
+        "kickoff_utc": "2026-10-12T12:30:00Z",
+        "blocker": "canonical ID and form unverified"
+      },
+      {
+        "match": "KFUM Oslo–Valerenga",
+        "ko": "2026-10-12T17:00:00Z"
+      },
+      {
+        "match": "Pyramids–Ceramica Cleopatra",
+        "ko": "2026-10-12T17:00:00Z"
+      },
+      {
+        "match": "AEK Larnaca–Omonia Aradippou",
+        "ko": "2026-10-12T16:00:00Z"
+      },
+      {
+        "match": "Tenerife–Girona",
+        "ko": "2026-10-12T19:00:00Z"
+      },
+      {
+        "match": "Shamrock Rovers–Bohemians",
+        "ko": "2026-10-12T19:00:00Z"
+      }
+    ]
+  },
+  "notes": "One new complete time-scoped V4 intake for legitimate single-receipt rank; original two source snapshots and attested hashes retained in separate GitHub paths. Source-visible fixture set, not worldwide exhaustive. Includes only verified unique canonical fixture IDs; source statuses should be rechecked at later /rank. No quote or official bet."
+}
