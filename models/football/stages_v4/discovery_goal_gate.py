@@ -62,6 +62,17 @@ CARRIER_MIN_MEAN_OVER_TWO_RATE = 0.60
 CARRIER_MIN_MEAN_OVER_THREE_RATE = 0.30
 CARRIER_MAX_MEAN_LOW_DRAW_TRAP_RATE = 0.25
 
+# Source-backed four-match RECENT-FORM review is prospective only.
+# The 28-Oct 16:20 ICT source must remain byte-identical and cannot be
+# re-screened as a prematch selection after its 17:00 kickoff.
+RECENT_G3_REVIEW_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-28T10:05:00+00:00"
+)
+RECENT_G3_REVIEW_CARRIER_TOTAL_3PLUS_MIN = 3
+RECENT_G3_REVIEW_CARRIER_GOALS_FOR_2PLUS_MIN = 3
+RECENT_G3_REVIEW_REPLY_TOTAL_3PLUS_MIN = 2
+RECENT_G3_REVIEW_MAX_LOW_DRAW_TRAP = 0.25
+
 
 class GoalHistoryError(ValueError):
     pass
@@ -261,6 +272,63 @@ def _near_cutoff_carrier_review(
     )
 
 
+def _recent_four_match_goal_review(
+    evidence: dict[str, Any], *, at: datetime, kickoff_utc: Any,
+    low_draw_trap: float,
+) -> dict[str, Any] | None:
+    """Admit strong RECENT goal-form outliers for RESEARCH only, never G3.
+
+    Both source-backed complete histories have already passed _team_evidence.
+    This second review path prevents long-sample arithmetic from concealing
+    sharp current 2+ carrier patterns. It is not a match forecast and cannot
+    create an ACT/BOOK or change a Football C certificate.
+    """
+    if at < RECENT_G3_REVIEW_EFFECTIVE_UTC:
+        return None
+    if at >= _time(kickoff_utc, "fixture.kickoff_utc"):
+        return None  # never revive a started fixture as prematch research
+    if low_draw_trap > RECENT_G3_REVIEW_MAX_LOW_DRAW_TRAP:
+        return None
+    summaries = {}
+    for side in ("home", "away"):
+        observed = evidence.get(side)
+        if not isinstance(observed, dict):
+            return None
+        raw = observed.get("recent")
+        if not isinstance(raw, list) or len(raw) < 4:
+            return None
+        last_four = sorted(
+            raw, key=lambda game: _time(
+                game["kickoff_utc"], f"{side}.recent.kickoff_utc"
+            ), reverse=True
+        )[:4]
+        summaries[side] = {
+            "total_3plus_count": sum(
+                item["goals_for"] + item["goals_against"] >= 3
+                for item in last_four
+            ),
+            "scored_2plus_count": sum(
+                item["goals_for"] >= 2 for item in last_four
+            ),
+        }
+    for carrier, reply in (("home", "away"), ("away", "home")):
+        if (
+            summaries[carrier]["total_3plus_count"]
+            >= RECENT_G3_REVIEW_CARRIER_TOTAL_3PLUS_MIN
+            and summaries[carrier]["scored_2plus_count"]
+            >= RECENT_G3_REVIEW_CARRIER_GOALS_FOR_2PLUS_MIN
+            and summaries[reply]["total_3plus_count"]
+            >= RECENT_G3_REVIEW_REPLY_TOTAL_3PLUS_MIN
+        ):
+            return {
+                "path": "RECENT_4_MATCH_2PLUS_CARRIER_SECOND_ROUTE_REVIEW",
+                "carrier_side": carrier,
+                "recent_four": summaries,
+                "production_certificate_authority": False,
+            }
+    return None
+
+
 def _qualifies_goal_research(
     priority: int,
     over_two: float,
@@ -343,11 +411,22 @@ def screen_discovery(
             priority, over_two, over_three, low_draw_trap, carrier_route
         )
     )
-    review = standard_review or carrier_review
+    # Only a previously unadmitted candidate needs the prospective extra
+    # research-review path. Legacy source epochs keep their old fingerprint.
+    recency_review = (
+        _recent_four_match_goal_review(
+            evidence, at=now, kickoff_utc=fixture.get("kickoff_utc"),
+            low_draw_trap=low_draw_trap,
+        )
+        if not qualifies and not standard_review and not carrier_review
+        else None
+    )
+    review = standard_review or carrier_review or recency_review is not None
     if review:
         qualification_path = (
             "BORDERLINE_GOAL_REVIEW" if standard_review
-            else "NEAR_CUTOFF_CARRIER_SECONDARY_REVIEW"
+            else "NEAR_CUTOFF_CARRIER_SECONDARY_REVIEW" if carrier_review
+            else recency_review["path"]
         )
     fingerprint_payload = {
         "run_id": run_id,
@@ -385,6 +464,8 @@ def screen_discovery(
         "reason": (
             "SOURCE_BACKED_HIGH_SCORING_RESEARCH"
             if qualifies
+            else "SOURCE_BACKED_RECENT_G3_FORM_REVIEW"
+            if recency_review is not None
             else "SOURCE_BACKED_BORDERLINE_GOAL_REVIEW"
             if review
             else "GOAL_ROUTE_OR_LOW_DRAW_TRAP_SCREEN_NOT_YET_PERSUASIVE"
@@ -422,5 +503,7 @@ def screen_discovery(
             "carrier_minimum_mean_over_three_rate": CARRIER_MIN_MEAN_OVER_THREE_RATE,
             "carrier_maximum_mean_0_0_or_1_1_rate": CARRIER_MAX_MEAN_LOW_DRAW_TRAP_RATE,
         },
+        **({"recency_research_review": recency_review}
+           if recency_review is not None else {}),
         "source_screen_fingerprint": fingerprint,
     }
