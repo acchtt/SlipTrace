@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: exception_research.supersedes_exception_reference must be non-empty",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "31ea595653b01c8aea4d5e99ced3c6d04244e7d673e1f64617f9a5855ace402a",
+  "ok": false,
+  "request_id": "XI-EXC-1733100-20261028-155500-REVFIX",
+  "runtime_commit": "28609e150e69294573e38c31964c8ad6317fb461",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
