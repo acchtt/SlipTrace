@@ -1,0 +1,235 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-EXC-tnt21877652-20261028-160600",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-EXC-tnt21877652-20261028T160600Z",
+    "match": {
+      "match_id": "tnt21877652",
+      "country": "AFC",
+      "competition": "AFC Champions League Two West Group B",
+      "competition_kind": "INTERNATIONAL_GROUP",
+      "source_urls": [
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+        "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+        "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+        "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+      ],
+      "kickoff_ict": "2026-10-28T23:00:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No verified current league-specific reliability upgrade; conservative neutral/unproven.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "MEDIUM",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Match identifiable from provided screenshot, published team news and source fixtures; only 1X2 odds visible, so no Over quote observed or price evaluation and no confirmed XI.",
+      "common_evidence_basis": "Al Jazira 0-0 away Gol Gohar and 2-1 home Arkadag in first two ACL Two matches, latter winner from centre-back Nermin Mujkic very late not repeatable forward scoring route. Their last five across competitions 0-0,1-0,2-0,0-0,2-1, only one match 3+ total goals. Al Muharraq 0-1 Arkadag and 2-0 Gol Gohar in ACL Two; last five 2-0,0-1,0-3,2-2,1-2. Both teams have conceded one total in two Group B games each. Al Jazira lead four points, Muharraq three, Arkadag three, Gol Gohar one. Draw useful to home leader; away needs points but can remain competitive with draw. No user confirmed starting XIs.",
+      "home_route": "USABLE",
+      "away_route": "WEAK",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+      "h2h_state": "REVIEWED_NOT_MATERIAL",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "No previous fixture or current transferable H2H mechanism found.",
+      "supported_line": 0,
+      "supported_line_basis": "No current funded G3 under these external verified route and continuation grades; source/research context not a frozen C certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "No verified repeatable three-goal single-team carry against current opposition with named current starting XI; high-score examples have opponent-context transfer limits.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independently funded four-goal tail in this matchup; away/high-scoring other competition results insufficient to certify G4.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Inadequate high-quality completion evidence, not a verified elimination of all scoring paths.",
+      "material_suppression": false,
+      "material_suppression_basis": "No confirmed material veto; failure scenarios handled as risks rather than arbitrary negative info.",
+      "goal_signal_mean_over_two_rate": 0.4,
+      "goal_signal_mean_over_three_rate": 0.15,
+      "goal_signal_low_draw_trap_rate": 0.2,
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "GROUP_B_MATCHDAY_3_OF_6",
+      "competition_format": "FOUR_TEAM_SIX_MATCH_GROUP_TOP_TWO_ADVANCE",
+      "draw_resolution": "GROUP_MATCH_DRAW_ONE_POINT",
+      "aggregate_state": "GROUP_POINTS_NOT_TWO_LEG_AGGREGATE",
+      "qualification_state": "JAZIRA_4PTS_MUHARRAQ_3PTS_ARKADAG_3PTS_GOL_GOHAR_1PT_BEFORE_KICKOFF",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Group competitor Arkadag has match this round; no verified simultaneous direct outcome controlling this match at kickoff.",
+      "home_incentive": "DRAW_ACCEPTABLE",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "MIXED",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "Group B competitors face regional travel and a home leader who can accept a draw. No additional verified fatigue or derby modifier; no material goal upgrade.",
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "No funded third-goal mechanism after conservative source-backed research. No G4 research upgrade is appropriate.",
+      "board_state": "C-WATCH",
+      "board_state_basis": "No upstream ranked FOCUS; explicit exception source research did not yield robust named current G3 completion and continuation proof; REVIEW_ONLY pending starting XIs.",
+      "g4_path_evidence": {},
+      "failure_mechanisms": {},
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Al Jazira 0-0 away Gol Gohar and 2-1 home Arkadag in first two ACL Two matches, latter winner from centre-back Nermin Mujkic very late not repeatable forward scoring route. Their last five across competitions 0-0,1-0,2-0,0-0,2-1, only one match 3+ total goals. Al Muharraq 0-1 Arkadag and 2-0 Gol Gohar in ACL Two; last five 2-0,0-1,0-3,2-2,1-2. Both teams have conceded one total in two Group B games each. Al Jazira lead four points, Muharraq three, Arkadag three, Gol Gohar one. Draw useful to home leader; away needs points but can remain competitive with draw. No user confirmed starting XIs.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        },
+        "chance_quality": {
+          "basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        },
+        "burden_stall_risk": {
+          "basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "Low league-phase continental scoring after two matches each, repeated 0-0/1-0/2-0 states, and home leader's useful draw make three-goal completion weak. Late winner from defender vs Arkadag is not a high-quality carrier goal 3. Muharraq no away ACL2 goals yet.",
+          "evidence_refs": [
+            "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+            "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+            "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+            "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "match_context_evidence_refs": [
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+        "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+        "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+        "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-28T16:06:00+00:00",
+      "fixture_status": "STARTED",
+      "score": "0-0",
+      "match_minute": 2,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "UNKNOWN",
+      "thesis_state_basis": "Unconfirmed current starting XI and no independently funded G3 goal mechanism. User's 0-0 at minute 1/2 is screenshot historical status; not used to upgrade or downgrade football thesis.",
+      "primary_mechanism_intact": true,
+      "primary_mechanism_basis": "Prematch team-level mechanisms remain possible; this does not assert the actual XI has been independently confirmed.",
+      "material_veto": false,
+      "material_veto_basis": "No specific sending-off or destructive team news confirmed.",
+      "xi_status": "UNCONFIRMED",
+      "post_xi_research_status": "NOT_FOUND",
+      "post_xi_research_note": "User screenshot at 23:01 ICT shows teams started 0-0, 1'/2'. Current starting XIs are not supplied, web sources are prior lineup/provisional. No Over screenshot quote.",
+      "tournament_incentive_rechecked": false,
+      "tournament_incentive_recheck_status": "NOT_APPLICABLE",
+      "frozen_board_available": false,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Match absent from verified active slate; exception assesses from fresh sources only, never inherits FOCUS or an unsupported Over certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_APPLICABLE",
+      "market_disagreement_recheck_basis": "Screenshot has 1X2 or score only; no current/user Over quote to check.",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "G4_NOT_APPLICABLE"
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "user-three-match-xi-exception-tnt21877652-20261028-160600",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "XI-EXC-tnt21877652-20261028T160600Z",
+      "researched_at_utc": "2026-10-28T16:06:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "User supplied 28-Oct-2026 23:01 ICT screenshot; match absent from V4-20261028-1610-20261029-0300-LEAGUEPROOF 34-fixture verified rank cohort. Stable source match identifier tnt21877652 from Eurosport/TNT fixture path. Explicit /xi exception: research and assess started fixture 0-0 captured minute 1-2, NO bookmaker Over totals supplied.",
+      "evidence_refs": [
+        "https://www.the-afc.com/en/club/afc_champions_league_two.html/news/group-b-al-jazira-club-uae-2-1-fc-arkadag-tkm",
+        "https://www.fotmob.com/matches/muharraq-vs-al-jazira/9j44w8z",
+        "https://www.tntsports.co.uk/football/afc-champions-league-two/2026-2027/al-jazira-al-muharraq_mtc21877652/live-table.shtml",
+        "https://www.envivo24.com/international/AFC/Champions-League-Two/2026-2027/Group-B/"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
