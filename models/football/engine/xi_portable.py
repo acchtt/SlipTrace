@@ -133,6 +133,58 @@ def _rank_state_presentation(c_input: dict[str, Any]) -> tuple[str, str]:
     return internal, display
 
 
+def _unquoted_custom_line_review(
+    screenshot: dict[str, Any],
+    ladder: list[dict[str, float]],
+    evaluated: dict[str, Any],
+    fixture_status: str,
+) -> dict[str, Any]:
+    """Offer a model-supported *request* for a custom line, never a fake quote.
+
+    Exact odds on alternative lines are absent from the screenshot. This helper
+    cannot turn PASS into ACT/BOOK, assume any minimum odds, or assume a started
+    match was available before kickoff. Selection belongs to the separate
+    photographed/confirmed quote epoch.
+    """
+    supported = evaluated.get("supported_line")
+    if not isinstance(supported, (int, float)):
+        return {
+            "status": "NO_FUNDED_CUSTOM_LINE",
+            "reason": "Football C has no certificate for a custom goal burden",
+            "execution_authorized": False,
+        }
+    if not ladder:
+        return {"status": "NO_VISIBLE_LADDER", "execution_authorized": False}
+    target = min(float(supported), 2.5)
+    if target >= min(q["line"] for q in ladder):
+        return {
+            "status": "CUSTOM_LINE_NOT_BELOW_VISIBLE_LADDER",
+            "execution_authorized": False,
+        }
+    return {
+        "status": (
+            "STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE"
+            if fixture_status != "PREMATCH_CONFIRMED"
+            else "UNQUOTED_CUSTOM_LINE_REVIEW"
+        ),
+        "candidate_line": target,
+        "candidate_odds": None,
+        "source": "FROZEN_C_CERTIFICATE_NOT_MARKET_QUOTE",
+        "user_bookmaker_custom_line_supported": screenshot.get(
+            "custom_lines_available"
+        ) is True,
+        "minimum_odds": None,
+        "requires_user_confirmed_quote": True,
+        "execution_authorized": False,
+        "bet_authorized": False,
+        "reason": (
+            "Ask for actual offered custom-line odds; do not assume availability "
+            "or execute from the original screenshot. Preserve score, minute and "
+            "timestamp for started-fixture exceptions."
+        ),
+    }
+
+
 def assess_user_screenshot(
     screenshot: dict[str, Any],
     c_football: dict[str, Any],
@@ -218,6 +270,10 @@ def assess_user_screenshot(
         limitations.append("STARTED_FIXTURE_PREMATCH_ACTION_NOT_RECREATED")
 
     result = evaluate_visible_quote_ladder(c_football, quotes)
+    custom_line_review = _unquoted_custom_line_review(
+        screenshot, quotes, result, fixture,
+    )
+    evidence["custom_line_review"] = custom_line_review
     evidence["quote"] = {
         "line": result["selected_visible_line"],
         "odds": result["selected_visible_odds"],
@@ -287,6 +343,7 @@ def assess_user_screenshot(
             "prior_certificate_reclassification_recheck_required", False
         ),
         "execution_authorized": False,
+        "custom_line_review": custom_line_review,
         "calibration_record": xi_record(c_football, football_result, result),
     }
 
