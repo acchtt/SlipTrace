@@ -30,6 +30,7 @@ from league_registry import classify
 from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
 from rank_session_audit import prematch_opportunity, rank_transitions
+from goal_burden_shadow import review_goal_burden_shadow
 from source_completeness import (
     CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
     SourceCompletenessError,
@@ -1558,6 +1559,14 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     result["slate_rank_policy"] = SLATE_RANK_POLICY
     result["slate_rank_frozen"] = slate_rank_frozen
     result["slate_rank_frozen_at_utc"] = slate_rank_frozen_at_utc
+    # Shadow warnings are diagnostic only; never participate in model rank keys,
+    # funded goal certificates, FOCUS or FOLLOW allocation.
+    goal_burden_shadow = {
+        row["match_id"]: review_goal_burden_shadow(row)
+        for row in assessed_rows
+    }
+    result["goal_burden_shadow_policy"] = "SHADOW_GOAL_PATH_AND_ENDPOINT_STRESS_V1"
+    result["goal_burden_shadow_reviews"] = copy.deepcopy(goal_burden_shadow)
     result["rank_semantics"] = {
         "rank": "LEGACY_ALIAS_OF_CURRENT_RANK",
         "current_rank": "ROLLING_POSITION_AMONG_CURRENTLY_OPEN_ASSESSED_FIXTURES",
@@ -1655,6 +1664,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "board_exclusions": board_exclusions,
         "board": official_board,
         "research_assessment": result,
+        "goal_burden_shadow_policy": result["goal_burden_shadow_policy"],
+        "goal_burden_shadow_reviews": copy.deepcopy(goal_burden_shadow),
         "rank_transition_manifest": rank_transitions(
             assessed_rows, previous_rank=previous_rank,
             coverage_manifest=checkpoint["coverage_manifest"],
