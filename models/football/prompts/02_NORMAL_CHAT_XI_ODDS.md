@@ -303,6 +303,17 @@ until the user independently selects it and confirms the actual fill.
 - no re-timing;
 - no new screenshot request merely because processing took time.
 
+If the screenshot's lowest line is still above Football C's funded protected
+G3 floor, the runtime includes `price_check.model.custom_line_review`.
+`UNQUOTED_CUSTOM_LINE_REVIEW` is **not** an executable BOOK/ACT or a price;
+`candidate_odds=null` and an independent actual quote is mandatory before
+entry. `NO_FUNDED_CUSTOM_LINE` cannot be overridden by assuming a custom line.
+For started-match exceptions the review is labeled
+`STARTED_MATCH_CUSTOM_LINE_NOT_PREMATCH_EXECUTABLE`, never a late synthetic
+prematch offer. Keep all visible quarter-lines separate: O2.75 at three total
+goals half-wins, whereas O3.0 pushes. User screenshot evidence remains the sole
+odds source.
+
 The runtime calls `adapter.evaluate_visible_quote_ladder()`, which delegates
 each exact quote to the same Football C policy used by strict execution.
 
@@ -432,6 +443,17 @@ and not exposure.
 
 A strict decision requires a current executable prematch quote plus all current
 XI/tournament/evidence requirements. It returns one C decision receipt.
+
+The on-demand GitHub backend additionally emits `xi_assessment_index` with
+`request_id`, Match ID, evidence epoch, screenshot reference/time, the entire
+visible ladder, selected line/odds, action and custom-line review. The stored
+`xi_runtime_results/<request-id>.json` provides an append-only **audit
+fallback** for normal-chat and explicit exceptions; it is **not proof** of
+Google Sheets persistence or bet execution. A future audit must reconcile
+the assessment index against Decision States by Assessment ID, report missing
+rows separately, and include all /xi calls rather than using ranked rows as
+surrogates. Do not publish an official verdict on the strength of GitHub
+storage alone.
 
 Every football-only, screenshot-priced, or strict-decision runtime result emits
 `decision_state_persistence`. Treat that object as a mandatory write contract:
