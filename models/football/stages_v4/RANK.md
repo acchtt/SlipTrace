@@ -72,6 +72,30 @@ After a **complete upstream sweep**, rank may still checkpoint its own missing
 C/G4 research as `V4_RANK_RESEARCH_PENDING`; that is a rank-research state,
 not permission to omit unresolved sweep intake.
 
+## Prospective research deadlines and dual-rank audit (28 October repair)
+
+The frozen cohort remains one sweep and one accounting universe. Current
+`research_complete` means *every row reached a terminal rank state*, not that
+every fixture was assessed before kickoff. On each `/rank` publish the new
+`research_coverage.never_assessed_before_kickoff_count` and the per-fixture
+`prematch_opportunity_manifest`. A started, never-assessed fixture must read
+`PREMATCH_RESEARCH_MISSED` even when its terminal disposition is
+`PREMATCH_WINDOW_CLOSED`. Never convert that missed opportunity to model PASS.
+
+The `prematch_research_priority_open_ids` field lists remaining open fixtures
+in **kickoff-first** deadline order; work this queue when doing research or
+resuming the same receipt, while still completing every source-eligible fixture.
+Research priority is not the final Football C rank or a bookmaker decision.
+
+When re-ranking, publish `rank_transition_manifest` including earlier FOLLOW
+membership, current lane and prior/current certified burden. Distinguish
+DEMOTED from CLOSED. Never erase a successful earlier FOLLOW merely because
+the fixture subsequently kicked off. The `goal_burden_shadow_reviews` flag
+stacked MEDIUM G3 endpoint pressure and G4 continuation weakness for
+**prospective research only**; they have zero predictive, lane, or odds authority.
+The PR #200 independent goal route fact contract remains opt-in; ordinary
+legacy C cards are not silently retrofitted with new research facts.
+
 ## Mandatory original-source replay and full-cohort status
 
 Before Football C execution:
