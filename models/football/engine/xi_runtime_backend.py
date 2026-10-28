@@ -72,6 +72,45 @@ def _authorized_c_football(request: dict[str, Any]) -> tuple[dict[str, Any], dic
     )
 
 
+def _assessment_index(request: dict[str, Any], runtime: dict[str, Any]) -> dict[str, Any]:
+    """Compact immutable /xi index, backed by the full per-request result.
+
+    This survives absent/failed Sheets orchestration, but NEVER asserts Sheets
+    persistence or an actual bet. Index the original quote/epoch, not later odds.
+    """
+    c = request.get("c_football") or {}
+    context = c.get("context") or {}
+    match = c.get("match") or {}
+    screenshot = request.get("screenshot_quote") or {}
+    persistence = runtime.get("decision_state_persistence") or {}
+    row = persistence.get("row") or {}
+    evidence = (runtime.get("price_check") or {}).get("evidence") or {}
+    model = (runtime.get("price_check") or {}).get("model") or {}
+    return {
+        "contract": "XI_APPEND_ONLY_EXECUTION_INDEX_V1",
+        "request_id": request.get("request_id"),
+        "assessment_id": row.get("Assessment ID"),
+        "match_id": match.get("match_id"),
+        "evidence_epoch_id": c.get("evidence_epoch_id"),
+        "assessment_at_utc": context.get("assessment_at_utc"),
+        "fixture_status": context.get("fixture_status"),
+        "score": context.get("score"),
+        "match_minute": context.get("match_minute"),
+        "authority_mode": (request.get("authority") or {}).get("mode"),
+        "screenshot_capture_reference": screenshot.get("capture_reference"),
+        "screenshot_observed_at_utc": screenshot.get("observed_at_utc"),
+        "visible_user_quote_ladder": evidence.get("visible_ladder"),
+        "evaluated_line": row.get("Evaluated Line"),
+        "evaluated_odds": row.get("Evaluated Odds"),
+        "decision": model.get("conditional_action") or row.get("C Action"),
+        "custom_line_review": model.get("custom_line_review"),
+        "decision_state_persistence_required": True,
+        "decision_state_readback_verified": False,
+        "real_bet_fill_verified": False,
+        "source": "GITHUB_XI_RUNTIME_RESULT_NOT_ACTUAL_GOOGLE_SHEETS_READBACK",
+    }
+
+
 def execute(request: dict[str, Any]) -> dict[str, Any]:
     try:
         c_football, authority_trace = _authorized_c_football(request)
@@ -95,6 +134,7 @@ def execute(request: dict[str, Any]) -> dict[str, Any]:
             "runtime_commit": os.environ.get("GITHUB_SHA"),
             "input_sha256": hashlib.sha256(_canonical(request)).hexdigest(),
             "authority": authority_trace,
+            "xi_assessment_index": _assessment_index(request, runtime),
             "runtime": runtime,
         }
     except Exception as exc:
