@@ -1,7 +1,7 @@
 {
   "run_id": "V4-20261028-1610-20261029-0300-FULLRESEARCH",
   "selection_mode": "SOURCE_CANONICAL_FULL_PREMATCH_IN_SCOPE_RESEARCH",
-  "notes": "Complete date surface 28 Oct 16:10–29 Oct 03:00 ICT, all source-attested in-window prematch senior 11-a-side competitions plus explicit UEFA Youth League exception, including women's continental/cup, all domestic cups, lower divisions and high-goal discovery. Include all 32 original normal-target IDs and 186 previously deferred PREMATCH 11v11 IDs in one native receipt, internally chunk <=30. Omit source UNKNOWN Greece Cup Levadiakos–Kifisia match 1882522 (source status unverified; do not assume PRE) and development/reserve fixtures 1827161,1863274,1855691,1817565; preserve them in ledger as deferred/unrankable. Maintain hard exclusions already in native source ledger (Africa, Israel, Kenya, Kuwait, Ligue 2, friendlies). No invented odds, rankings or actions. Check exact kickoff/status at rank; do not claim model picks in sweep.",
+  "notes": "Complete date surface 28 Oct 16:10–29 Oct 03:00 ICT, all source-attested in-window prematch senior 11-a-side competitions plus explicit UEFA Youth League exception, including women's continental/cup, all domestic cups, lower divisions and high-goal discovery. Include all 32 original normal-target IDs and 186 previously deferred PREMATCH 11v11 IDs in one native receipt, internally chunk <=30. Include SSV Jeddeloh II in DFB Cup, where II is part of the club name, not a reserve identity. Omit source UNKNOWN Greece Cup Levadiakos–Kifisia match 1882522 (source status unverified; do not assume PRE) and development/reserve fixtures 1827161,1863274,1855691,1817565; preserve them in ledger as deferred/unrankable. Maintain hard exclusions already in native source ledger (Africa, Israel, Kenya, Kuwait, Ligue 2, friendlies). No invented odds, rankings or actions. Check exact kickoff/status at rank; do not claim model picks in sweep.",
   "targets": [
     "1710472",
     "1710476",
@@ -219,6 +219,7 @@
     "1858674",
     "1858663",
     "1859890",
-    "1859839"
+    "1859839",
+    "1888395"
   ]
 }
