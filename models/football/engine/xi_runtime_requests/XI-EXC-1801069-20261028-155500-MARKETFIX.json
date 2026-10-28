@@ -1,0 +1,226 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-EXC-1801069-20261028-155500-MARKETFIX",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-EXC-1801069-20261028T155500Z",
+    "match": {
+      "match_id": "1801069",
+      "country": "Slovenia",
+      "competition": "2. SNL",
+      "competition_kind": "DOMESTIC_LEAGUE",
+      "source_urls": [
+        "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+        "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+        "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+      ],
+      "kickoff_ict": "2026-10-28T23:00:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "Ranked C-WATCH, no independent current certified third-goal route; league context verified without promotion.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "MEDIUM",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "B: fixture market is identifiable through screenshot 1X2, but totals are not displayed and no confirmed XI is provided; football-only exception.",
+      "common_evidence_basis": "Official NZS confirms Krško 14th, Dravinja 15th, 9 and 8 points respectively from 11. Krško latest 1-2 Brežice, 0-2 Triglav, 0-0 Vrhnika, 3-1 Bilje; Dravinja 2-1 Jesenice, 1-1 Primorje, 1-4 Slovan and 1-3 Rudar. Krško Nadarević and Žuljević scored against Bilje but no consistent conversion over intervening fixtures. Dravinja's latest winning goal came late after a penalty; isolated late pressure does not fund reliable G3.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+      "h2h_state": "REVIEWED_NOT_MATERIAL",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Limited previous meetings with one victory each, one over 2.5 from two; not strong transferable mechanism.",
+      "supported_line": 0,
+      "supported_line_basis": "Do not invent G3. Upstream 28-Oct rank compiler found no G3 certificate, fresh source-backed evidence has not established HIGH completion/continuation or independent carrier.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "No independently verified recurring home/away three-goal self-funding against current opposition and verified XI.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No funded G3 or independent current four-goal route; prevent transferred blowout/defensive leakage from funding G4.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Weak proof of 3rd goal is not a verified direct route destruction.",
+      "material_suppression": false,
+      "material_suppression_basis": "No direct material suppression verified; retain scoring route concerns rather than hard veto.",
+      "goal_signal_mean_over_two_rate": 0.55,
+      "goal_signal_mean_over_three_rate": 0.45,
+      "goal_signal_low_draw_trap_rate": 0.25,
+      "tournament_incentive_required": false,
+      "tournament_incentive_resolution": "NOT_APPLICABLE",
+      "tournament_format_status": "NOT_APPLICABLE",
+      "competition_stage": "NOT_APPLICABLE",
+      "competition_format": "NOT_APPLICABLE",
+      "draw_resolution": "NOT_APPLICABLE",
+      "aggregate_state": "NOT_APPLICABLE",
+      "qualification_state": "NOT_APPLICABLE",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "NOT_APPLICABLE",
+      "home_incentive": "NOT_APPLICABLE",
+      "away_incentive": "NOT_APPLICABLE",
+      "tiebreak_margin_relevance": "NOT_APPLICABLE",
+      "incentive_effect": "NOT_APPLICABLE",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "BALANCED",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "NEUTRAL",
+      "match_context_basis": "Both clubs are near bottom at 9 and 8 points. Survival pressure checked; no independently proven open-match tactical incentive or margin requirement.",
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "G3 not funded, so G4 not applicable under C contract; opponent leakage and isolated four-goal outcomes insufficient.",
+      "board_state": "C-WATCH",
+      "board_state_basis": "Previously sealed C-WATCH; fresh exception does not corroborate adequate HIGH G3 completion or a named self-funding carrier.",
+      "g4_path_evidence": {},
+      "failure_mechanisms": {},
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Official NZS confirms Krško 14th, Dravinja 15th, 9 and 8 points respectively from 11. Krško latest 1-2 Brežice, 0-2 Triglav, 0-0 Vrhnika, 3-1 Bilje; Dravinja 2-1 Jesenice, 1-1 Primorje, 1-4 Slovan and 1-3 Rudar. Krško Nadarević and Žuljević scored against Bilje but no consistent conversion over intervening fixtures. Dravinja's latest winning goal came late after a penalty; isolated late pressure does not fund reliable G3.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        },
+        "chance_quality": {
+          "basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        },
+        "burden_stall_risk": {
+          "basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "Krško have failed to score in two of three prior league matches and Dravinja's scoring is episodic, with 0-0/1-1/1-0/2-0 traps. Both clubs have relegation pressure but may play conservatively; conceding alone does not fund a high-quality third-goal route.",
+          "evidence_refs": [
+            "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+            "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+            "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "match_context_evidence_refs": [
+        "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+        "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+        "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-28T15:55:00+00:00",
+      "fixture_status": "PREMATCH_CONFIRMED",
+      "score": null,
+      "match_minute": null,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "UNKNOWN",
+      "thesis_state_basis": "No confirmed XI or verified higher-quality current completion route to certify G3; context remains unresolved.",
+      "primary_mechanism_intact": true,
+      "primary_mechanism_basis": "Existing team-level offensive routes remain plausible, not independently confirmed from XI.",
+      "material_veto": false,
+      "material_veto_basis": "No direct material football veto established.",
+      "xi_status": "UNCONFIRMED",
+      "post_xi_research_status": "NOT_FOUND",
+      "post_xi_research_note": "User submitted fixture IDs and 1X2 only, no starting XI; verified pre-match research is team-based rather than lineup-upgraded.",
+      "tournament_incentive_rechecked": false,
+      "tournament_incentive_recheck_status": "NOT_APPLICABLE",
+      "frozen_board_available": true,
+      "certificate_upgrade_status": "NOT_UPGRADED",
+      "certificate_upgrade_basis": "Existing C-WATCH/no certified Over retained; no new independent goal-three mechanism and no lineup.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_APPLICABLE",
+      "market_disagreement_recheck_basis": "No Over line/odds in user screenshot, only 1X2. No market disagreement inferred.",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "G4_NOT_APPLICABLE"
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "user-explicit-exception-1801069-20261028-155500-marketfix",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "XI-EXC-1801069-20261028T155500Z",
+      "researched_at_utc": "2026-10-28T15:55:00+00:00",
+      "upstream_state": "WATCH",
+      "source_reference": "Verified 2026-10-28 V4-20261028-1610-20261029-0300-LEAGUEPROOF sealed C-WATCH rank/coverage match 1801069; no FOCUS row; user explicit /xi exceptions 3 fixtures.",
+      "evidence_refs": [
+        "https://www.nzs.si/klubi/moski/2-slovenska-nogometna-liga/tekme/nk-krsko-nd-dravinja-2snl2627-2026-10-28-170000",
+        "https://ligatoday.com/match/krsko-vs-dravinja-1558978/",
+        "https://www.sportytrader.com/en/results-live/nk-krsko-nd-dravinja-8565687/"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
