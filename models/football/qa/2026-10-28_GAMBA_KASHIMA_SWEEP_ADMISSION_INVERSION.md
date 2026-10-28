@@ -25,7 +25,7 @@ The historic screen averages the full validated recent history, up to 10 results
 
 Kashima's four newest totals were **5,4,2,1** (only 2/4 were 3+); Pohang's latest four were **4,0,2,3** (2/4 3+). Kashima's historical mean O2.5 0.55, priority 49 and computed route 1.9 admitted it to the near-carrier research lane. Football C then assessed opponent compactness, fatigue, injury, striker availability (Leo Ceara) and a plausible 1-0/2-0 or 1-1 endpoint; WATCH/REVIEW and later /xi PASS are thus **not logically contradictory**.
 
-This demonstrates **selection inversion at the source-history admission boundary**. The earlier PR #201 added research-deadline tracking for the *34 eligible fixtures*, not coverage of the **screened-out 519** source fixtures. It therefore could not have rescued Gamba from a terminal historic goal-screen rejection.
+This demonstrates **selection inversion at the source-history admission boundary**. The earlier PR #201 added research-deadline tracking for the *34 eligible fixtures*, not coverage of the **other 519 source fixtures** (which contain different types of non-eligibility, including screen exclusions). It therefore could not have rescued Gamba from a terminal historic goal-screen rejection.
 
 ### Prospective repair: research admission only
 
