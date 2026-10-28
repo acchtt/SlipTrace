@@ -1,0 +1,11 @@
+{
+  "error": "operational grade A requires market_observability=HIGH",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "a6e8253d4221faf1395859c773a0f67201a6e7f82163b6e276a5cfd0c4bb4dd5",
+  "ok": false,
+  "request_id": "XI-EXC-1801069-20261028-155500-INITFIX",
+  "runtime_commit": "3bfadadcd7b688ee227f78b1bbff2adaaf4c1148",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
