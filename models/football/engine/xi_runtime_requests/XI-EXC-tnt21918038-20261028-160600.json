@@ -1,0 +1,235 @@
+{
+  "schema_version": "football-c-xi-runtime-request-v2",
+  "request_id": "XI-EXC-tnt21918038-20261028-160600",
+  "c_football": {
+    "schema_version": "football-engine-v1",
+    "stage": "football_assessment",
+    "model": "c",
+    "evidence_epoch_id": "XI-EXC-tnt21918038-20261028T160600Z",
+    "match": {
+      "match_id": "tnt21918038",
+      "country": "Denmark",
+      "competition": "DBU Pokalen (Betano Pokalen) Round of 16",
+      "competition_kind": "DOMESTIC_CUP",
+      "source_urls": [
+        "https://efb.dk/truppen-mod-fcn-2/",
+        "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+        "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+        "https://www.viasport.no/fotball/kamp/1640478"
+      ],
+      "kickoff_ict": "2026-10-28T23:00:00+07:00",
+      "operational_viability_grade": "B",
+      "raw_operational_viability_grade": "B",
+      "competition_reliability_state": "UNPROVEN",
+      "competition_reliability_reason": "No verified current league-specific reliability upgrade; conservative neutral/unproven.",
+      "competition_reliability_manual_override": "NONE",
+      "demoted_probation": false,
+      "xi_expected": "YES",
+      "market_observability": "MEDIUM",
+      "team_news_observability": "MEDIUM",
+      "operational_viability_reason": "Match identifiable from provided screenshot, published team news and source fixtures; only 1X2 odds visible, so no Over quote observed or price evaluation and no confirmed XI.",
+      "common_evidence_basis": "Esbjerg cup scored 16 goals conceded one in wins 6-0 Bogense, 5-1 Skive and 5-0 HIK, but opponent tiers weaker than FC Nordsjaelland. Esbjerg form includes league 2-1, 0-0, 3-3, 0-3, 0-0. FCN last five competitive results: 1-1 Silkeborg,2-2 CSKA Sofia,3-3 Lyngby,1-1 Hearts,0-0 OB; conceded in four of five, but scored at most twice in those matches. 3-goal path plausible through Esbjerg cup attack and Nordsjaelland recent defensive leakage, yet neither independent third-goal carrier nor repeated same-tier 2+1 completion established. Club released 19-player match squad including Brajanac, Strunck, Ahmad but full starters not confirmed.",
+      "home_route": "USABLE",
+      "away_route": "USABLE",
+      "carrier": "USABLE",
+      "route_reliability": "MEDIUM",
+      "independent_route_quality": "MEDIUM",
+      "chance_quality": "MEDIUM",
+      "failure_resistance": "MEDIUM",
+      "xi_robustness": "MEDIUM",
+      "evidence_confidence": "MEDIUM",
+      "burden_protection": "MEDIUM",
+      "completion_mode": "MIXED",
+      "burden_completion_quality": "MEDIUM",
+      "continuation_quality": "MEDIUM",
+      "opponent_leakage": "MEDIUM",
+      "burden_stall_risk": "MEDIUM",
+      "main_failure": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+      "h2h_state": "REVIEWED_NOT_MATERIAL",
+      "h2h_effect": "MIXED",
+      "h2h_transferability": "LIMITED",
+      "h2h_current_corroboration": "NOT_FOUND",
+      "h2h_material_effect": false,
+      "h2h_basis": "Historic 2020 meeting Esbjerg 1-2 FCN; older 2019 2-0 and 0-0 endpoints. Distant seasons, no transferable current H2H mechanism.",
+      "supported_line": 0,
+      "supported_line_basis": "No current funded G3 under these external verified route and continuation grades; source/research context not a frozen C certificate.",
+      "carrier_self_fund": false,
+      "carrier_self_fund_basis": "No verified repeatable three-goal single-team carry against current opposition with named current starting XI; high-score examples have opponent-context transfer limits.",
+      "independent_upper_tail": false,
+      "independent_upper_tail_basis": "No independently funded four-goal tail in this matchup; away/high-scoring other competition results insufficient to certify G4.",
+      "upper_tail_transferability": "MEDIUM",
+      "upper_tail_transferability_basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+      "upper_tail_comparable_context_signal": "MIXED",
+      "upper_tail_comparable_context_basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+      "failure_attacks_route": false,
+      "failure_attacks_route_basis": "Inadequate high-quality completion evidence, not a verified elimination of all scoring paths.",
+      "material_suppression": false,
+      "material_suppression_basis": "No confirmed material veto; failure scenarios handled as risks rather than arbitrary negative info.",
+      "goal_signal_mean_over_two_rate": 0.5,
+      "goal_signal_mean_over_three_rate": 0.3,
+      "goal_signal_low_draw_trap_rate": 0.15,
+      "tournament_incentive_required": true,
+      "tournament_incentive_resolution": "VERIFIED",
+      "tournament_format_status": "VERIFIED",
+      "competition_stage": "ROUND_OF_16",
+      "competition_format": "SINGLE_MATCH_DOMESTIC_CUP_KNOCKOUT",
+      "draw_resolution": "LEVEL_AFTER_90_MIN_DECIDED_BY_CUP_TIEBREAK_PROCESS",
+      "aggregate_state": "NO_AGGREGATE_FIRST_LEG",
+      "qualification_state": "WINNER_ADVANCES",
+      "simultaneous_results_status": "NOT_APPLICABLE",
+      "simultaneous_results_note": "Single knockout fixture, no simultaneous group result dependency",
+      "home_incentive": "WIN_PREFERRED",
+      "away_incentive": "WIN_PREFERRED",
+      "tiebreak_margin_relevance": "NO",
+      "incentive_effect": "MIXED",
+      "match_context_review_status": "CHECKED_NEUTRAL",
+      "rivalry_context": "NEUTRAL",
+      "rest_load_context": "AWAY_SHORT_REST",
+      "travel_load_context": "NORMAL",
+      "fatigue_context": "NONE",
+      "match_context_effect": "MIXED",
+      "match_context_basis": "FCN competed 22 October in Europe and 25 October in league before 28 October cup at second-tier Esbjerg. Rotation and away short rest could impair or induce errors; net mixed.",
+      "g4_research_status": "G4_NOT_APPLICABLE",
+      "g4_carrier_path": "NOT_APPLICABLE",
+      "g4_distributed_path": "NOT_APPLICABLE",
+      "g4_reply_path": "NOT_APPLICABLE",
+      "g4_continuation_after_g3": "NOT_APPLICABLE",
+      "g4_research_basis": "No funded third-goal mechanism after conservative source-backed research. No G4 research upgrade is appropriate.",
+      "board_state": "C-WATCH",
+      "board_state_basis": "No upstream ranked FOCUS; explicit exception source research did not yield robust named current G3 completion and continuation proof; REVIEW_ONLY pending starting XIs.",
+      "g4_path_evidence": {},
+      "failure_mechanisms": {},
+      "grade_evidence": {
+        "route_reliability": {
+          "basis": "Esbjerg cup scored 16 goals conceded one in wins 6-0 Bogense, 5-1 Skive and 5-0 HIK, but opponent tiers weaker than FC Nordsjaelland. Esbjerg form includes league 2-1, 0-0, 3-3, 0-3, 0-0. FCN last five competitive results: 1-1 Silkeborg,2-2 CSKA Sofia,3-3 Lyngby,1-1 Hearts,0-0 OB; conceded in four of five, but scored at most twice in those matches. 3-goal path plausible through Esbjerg cup attack and Nordsjaelland recent defensive leakage, yet neither independent third-goal carrier nor repeated same-tier 2+1 completion established. Club released 19-player match squad including Brajanac, Strunck, Ahmad but full starters not confirmed.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        },
+        "chance_quality": {
+          "basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        },
+        "continuation_quality": {
+          "basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        },
+        "burden_stall_risk": {
+          "basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        },
+        "failure_resistance": {
+          "basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        },
+        "independent_upper_tail": {
+          "basis": "Nordsjaelland could contain lower-tier Esbjerg in a 0-2 or 0-1, and FCN's last five results include 0-0/1-1/1-1. Esbjerg's 16 cup goals primarily against weaker opponents cannot prove 3-goal self-funding or reliable home reply against FCN. Recent FCN short rest after Conference League and league creates rotation uncertainty.",
+          "evidence_refs": [
+            "https://efb.dk/truppen-mod-fcn-2/",
+            "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+            "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+            "https://www.viasport.no/fotball/kamp/1640478"
+          ],
+          "mechanism_ids": []
+        }
+      },
+      "match_context_evidence_refs": [
+        "https://efb.dk/truppen-mod-fcn-2/",
+        "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+        "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+        "https://www.viasport.no/fotball/kamp/1640478"
+      ]
+    },
+    "context": {
+      "assessment_at_utc": "2026-10-28T16:06:00+00:00",
+      "fixture_status": "STARTED",
+      "score": "0-0",
+      "match_minute": 1,
+      "material_event_since_frozen": "NONE_VERIFIED",
+      "board_state": "C-WATCH",
+      "thesis_state": "UNKNOWN",
+      "thesis_state_basis": "Unconfirmed current starting XI and no independently funded G3 goal mechanism. User's 0-0 at minute 1/2 is screenshot historical status; not used to upgrade or downgrade football thesis.",
+      "primary_mechanism_intact": true,
+      "primary_mechanism_basis": "Prematch team-level mechanisms remain possible; this does not assert the actual XI has been independently confirmed.",
+      "material_veto": false,
+      "material_veto_basis": "No specific sending-off or destructive team news confirmed.",
+      "xi_status": "UNCONFIRMED",
+      "post_xi_research_status": "NOT_FOUND",
+      "post_xi_research_note": "User screenshot at 23:01 ICT shows teams started 0-0, 1'/2'. Current starting XIs are not supplied, web sources are prior lineup/provisional. No Over screenshot quote.",
+      "tournament_incentive_rechecked": false,
+      "tournament_incentive_recheck_status": "NOT_APPLICABLE",
+      "frozen_board_available": false,
+      "certificate_upgrade_status": "NO_FROZEN_BOARD",
+      "certificate_upgrade_basis": "Match absent from verified active slate; exception assesses from fresh sources only, never inherits FOCUS or an unsupported Over certificate.",
+      "certificate_upgrade_new_evidence_fields": [],
+      "market_disagreement_recheck_status": "NOT_APPLICABLE",
+      "market_disagreement_recheck_basis": "Screenshot has 1X2 or score only; no current/user Over quote to check.",
+      "market_disagreement_recheck_fields": [],
+      "market_disagreement_recheck_evidence_refs": [],
+      "frozen_board_certified_burden": null,
+      "frozen_board_g4_research_status": "G4_NOT_APPLICABLE"
+    }
+  },
+  "authority": {
+    "mode": "EXCEPTION",
+    "exception_reference": "user-three-match-xi-exception-tnt21918038-20261028-160600",
+    "user_requested_exception": true,
+    "exception_research": {
+      "fresh_research_completed": true,
+      "market_independent": true,
+      "research_epoch_id": "XI-EXC-tnt21918038-20261028T160600Z",
+      "researched_at_utc": "2026-10-28T16:06:00+00:00",
+      "upstream_state": "NOT_RANKED",
+      "source_reference": "User supplied 28-Oct-2026 23:01 ICT screenshot; match absent from V4-20261028-1610-20261029-0300-LEAGUEPROOF 34-fixture verified rank cohort. Stable source match identifier tnt21918038 from Eurosport/TNT fixture path. Explicit /xi exception: research and assess started fixture 0-0 captured minute 1-2, NO bookmaker Over totals supplied.",
+      "evidence_refs": [
+        "https://efb.dk/truppen-mod-fcn-2/",
+        "https://www.tntsports.co.uk/football/oddset-pokalen/2026-2027/live-esbjerg-fb-fc-nordsjaelland_mtc21918038/live-stats.shtml",
+        "https://www.fotmob.com/matches/esbjerg-fb-vs-nordsjaelland/2tr0wx",
+        "https://www.viasport.no/fotball/kamp/1640478"
+      ],
+      "checked_fields": [
+        "fixture_identity_status",
+        "competition_format_incentive",
+        "rivalry_rest_travel_fatigue_context",
+        "home_scoring_route",
+        "away_scoring_route",
+        "carrier_and_chance_creation",
+        "availability_and_replacements",
+        "failure_mechanisms",
+        "completion_continuation_stall",
+        "upper_tail_and_comparable_context",
+        "h2h_materiality",
+        "g4_research_if_g3_funded"
+      ],
+      "revision": "INITIAL"
+    }
+  }
+}
