@@ -1,0 +1,11 @@
+{
+  "error": "CHECKED_NEUTRAL match context must use match_context_effect=NEUTRAL",
+  "error_type": "ContractError",
+  "failure_class": "PAYLOAD_OR_MODEL_CONTRACT",
+  "input_sha256": "03ad0d1397d8dabbea136ecd347039278ee0287e0ae68515308bef371b1497dd",
+  "ok": false,
+  "request_id": "XI-EXC-tnt21877663-20261028-160600",
+  "runtime_commit": "ef253a4fa5be6a1f25391a643fa30701754ffc4b",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "XI ENGINE CONTRACT REJECTED"
+}
