@@ -285,6 +285,8 @@ def _recent_four_match_goal_review(
     """
     if at < RECENT_G3_REVIEW_EFFECTIVE_UTC:
         return None
+    if not isinstance(kickoff_utc, str):
+        return None
     if at >= _time(kickoff_utc, "fixture.kickoff_utc"):
         return None  # never revive a started fixture as prematch research
     if low_draw_trap > RECENT_G3_REVIEW_MAX_LOW_DRAW_TRAP:
