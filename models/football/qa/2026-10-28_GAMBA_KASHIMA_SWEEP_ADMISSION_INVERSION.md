@@ -45,3 +45,20 @@ An isolated review on the frozen 553-fixture source, restricted to terminal WATC
 - Existing verified Oct 28 16:20 ranking is immutable; Gamba kicked off at 17:00 ICT and must **not** be retroactively ranked as prematch.
 - Regression controls enforce old-source replay, Kashima unchanged, newly reviewable later prematch cases, no retroactive started-fixture admission and no synthetic betting authority.
 - PR changes `discovery_goal_gate.py` and regression tests, not Football C core/adapter scoring or current XI policy.
+
+## Postmatch outcome overlay — supplied by user, 28 Oct ICT
+
+**Source class:** user-reported full-time results in the active audit conversation; these scores are *postmatch observations*, never admissible as frozen sweep/rank or /xi research evidence. No claim of an actual user bet or fill.
+
+| Match | Frozen stage | /xi exception | User-reported FT | Settlement at proposed/visible line |
+|---|---|---|---|---|
+| Kashima–Pohang (1873638) | GOAL_REVIEW → Football C WATCH / no G3 | PASS O2.5 @1.82 | **3–0 (3 goals)** | **O2.5 would fully WIN**; a missed candidate, not a verified actual bet |
+| Gamba–Buriram (1873639) | WATCH_GOAL_SIGNAL, not C-ranked | Conditional G3 stronger than Kashima; visible O2.75 @1.94; conditional custom O2.5 @1.65+ | **1–1 (2 goals)** | **Both O2.75 and O2.5 would fully LOSE**; no direct ACT or verified actual bet |
+
+### Interpretation and follow-up control
+
+This pair is a **relative-selection inversion** in the exception comparison: Gamba's recent-form evidence persuaded the model more strongly, but Gamba did not produce a third goal; Kashima's one-team 3–0 carrier cleared O2.5 despite being rejected by Football C. The outcome highlights two separate diagnostic concerns: **overcrediting recent four-match goal surges** for Gamba and **undercrediting a one-team carrier route** for Kashima. Neither concern proves a general causal rule from two matches.
+
+The already-merged PR #202 does **not** certify Gamba or authorize an ACT: it only sends future Gamba-like cases into **GOAL_REVIEW**, making a full football check possible. Therefore the losing Gamba FT does not show that a new funded bet was lost. It does require future review-lane evaluation to test whether this rule adds recall or merely adds low-quality research workload. Maintain the future-only cutoff and untouched original source epoch.
+
+**Recommended diagnostic tests before any model scoring adjustment:** preserve the original prospective facts; compare team-carrier goal supply, opposition reply and 1–1/2–0 stopping mechanism for the pair; replay G3 scoring-route reliability on more matches in the same AFC competition using out-of-sample evidence. Do not flip Kashima from PASS to ACT retrospectively or tune G3 weights from these two final scores.
