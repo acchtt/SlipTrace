@@ -1,0 +1,11 @@
+{
+  "error": "EXCEPTION_RESEARCH_REQUIRED: revision must be INITIAL or REASSESSMENT",
+  "error_type": "RankAuthorityError",
+  "failure_class": "EXCEPTION_RESEARCH",
+  "input_sha256": "dcda1ec8b8a06a3ea5ed1377603024ae6dc70819ff682d9fc5bccd8f582801c1",
+  "ok": false,
+  "request_id": "XI-EXC-1733100-20261028-155500",
+  "runtime_commit": "5a7a5f1d1f413dc488e4b6716c1145d00bc52cc9",
+  "schema_version": "football-c-xi-runtime-result-v1",
+  "status": "EXCEPTION_RESEARCH_REQUIRED"
+}
