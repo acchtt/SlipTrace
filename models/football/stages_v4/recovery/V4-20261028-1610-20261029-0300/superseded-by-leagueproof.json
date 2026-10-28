@@ -1,0 +1,34 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-28T16:10:00+07:00",
+    "end": "2026-10-29T03:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261028-1610-20261029-0300",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "intermediate_failed_runs": [
+    "V4-20261028-1610-20261029-0300-FULLRESEARCH",
+    "V4-20261028-1610-20261029-0300-CUPPROOFFIX"
+  ],
+  "intermediate_failure": "FINALIZER_NATIVE_SWEEP_PARTIAL: OFFICIAL_CUP_FORMAT_AND_INCENTIVES_NOT_VERIFIED; no fabricated tournament proof",
+  "authoritative_run_id": "V4-20261028-1610-20261029-0300-LEAGUEPROOF",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261028-1610-20261029-0300-LEAGUEPROOF/rank-handoff.json",
+  "verified_coverage": {
+    "provider_fixture_universe": 553,
+    "in_window_fixture_count": 257,
+    "active_target_count": 92,
+    "rank_eligible_count": 34,
+    "watch_count": 34,
+    "evidence_limited_count": 24,
+    "deferred_count": 131,
+    "hard_excluded_count": 34,
+    "internal_research_chunks": 4
+  },
+  "research_exhaustive": false,
+  "deferred_reason": "129 domestic cup rows lacking confirmed format/incentive proof, minus any promoted source priority that became evidence-limited; plus five provider-unknown/reserve rows; official rank universe limited to completed active cohort.",
+  "native_status": "V4_SWEEP_READY",
+  "rank_handoff_status": "V4_RANK_HANDOFF_READY",
+  "native_receipt_integrity_sha256": "2cc4b2c87c07bb635f8406066dd0b111b91cc44d522f1569040b65f2f561f861",
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40663451307"
+}
