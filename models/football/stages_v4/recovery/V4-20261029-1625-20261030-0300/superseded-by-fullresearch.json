@@ -1,0 +1,29 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "requested_window_ict": {
+    "start": "2026-10-29T16:25:05+07:00",
+    "end": "2026-10-30T03:00:00+07:00",
+    "inclusive_end": true
+  },
+  "superseded_run_id": "V4-20261029-1625-20261030-0300",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261029-1625-20261030-0300-FULLRESEARCH",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261029-1625-20261030-0300-FULLRESEARCH/rank-handoff.json",
+  "reason": "Completed wider 83-target source-attested research over same requested window; old 50-target default receipt omitted Saudi Pro League, UAE and UEFA women's Champions League matches. All pending cup proof rows retain CUP_PROOF_LIMITED not-rankable; no unverified tournament proof invented.",
+  "counts": {
+    "date_source_fixtures": 370,
+    "requested_window_fixtures": 117,
+    "active_research_targets": 83,
+    "eligible": 19,
+    "watch": 17,
+    "evidence_limited": 47,
+    "remaining_deferred": 2,
+    "cup_proof_limited": 52,
+    "internal_research_batches": 3,
+    "unresolved_active": 0
+  },
+  "native_status": "V4_SWEEP_READY",
+  "rank_status": "V4_RANK_HANDOFF_READY",
+  "native_receipt_integrity_sha256": "02d10fe38069ce18097f976eb2313c5301fa81a312553b28280adaff85960569",
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/40849796783"
+}
