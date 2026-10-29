@@ -34,6 +34,43 @@ def fixture(country, competition, home="Home", away="Away", kind="DOMESTIC_LEAGU
 
 
 class CheapSweepFilterTests(unittest.TestCase):
+    def test_prospective_cup_aliases_recover_round_specific_research_only(self):
+        at = "2026-10-29T02:01:00Z"
+        cases = [
+            ("Germany", "DFB Cup: Round 2"),
+            ("Netherlands", "KNVB Beker: Round 1"),
+            ("England", "EFL Cup: Round 4"),
+            ("England", "Women's League Cup"),
+            ("Spain", "Copa del Rey: Round 1"),
+            ("Norway", "NM Cup: Round 3"),
+            ("Greece", "Greece Cup: Group Stage"),
+            ("Romania", "Romanian Cup: Group B"),
+        ]
+        for country, competition in cases:
+            with self.subTest(competition=competition):
+                row = fixture(country, competition, kind="DOMESTIC_CUP")
+                self.assertEqual(classify(row, at_utc=at)["lane"], "CONDITIONAL")
+                res = classify_research_priority(row, at_utc=at)
+                self.assertEqual(res["priority"], SPECIAL)
+                self.assertTrue(res["requires_competition_format_proof"])
+                self.assertTrue(res["requires_match_specific_goal_evidence"])
+
+    def test_cup_repair_does_not_mutate_frozen_oct28_or_bypass_exclusions(self):
+        frozen = "2026-10-28T09:43:08Z"
+        prospective = "2026-10-29T02:01:00Z"
+        row = fixture("Germany", "DFB Cup: Round 2", kind="DOMESTIC_CUP")
+        self.assertEqual(classify(row, at_utc=frozen)["lane"], "DISCOVERY")
+        self.assertEqual(classify_research_priority(row, at_utc=frozen)["priority"], NEUTRAL)
+        for bad in [
+            fixture("Israel", "EFL Cup: Round 4", kind="DOMESTIC_CUP"),
+            fixture("Germany", "DFB Cup U19: Round 2", kind="DOMESTIC_CUP"),
+            fixture("Germany", "DFB Cup: Round 2 Friendly", kind="DOMESTIC_CUP"),
+            fixture("Germany", "DFB Cup: Round 2", kind="YOUTH_CONTINENTAL"),
+        ]:
+            with self.subTest(bad=bad):
+                self.assertNotEqual(classify(bad, at_utc=prospective)["lane"], "CONDITIONAL")
+                self.assertEqual(classify_research_priority(bad, at_utc=prospective)["priority"], NEUTRAL)
+
     def test_uefa_youth_league_gets_specific_research_priority_not_auto_goal_positive(self):
         result = classify_research_priority(
             fixture(
