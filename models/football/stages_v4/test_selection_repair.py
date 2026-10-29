@@ -100,8 +100,12 @@ class ProspectiveSelectionRepairTests(unittest.TestCase):
         with patch("stage.validate_source_completeness", return_value=evidence):
             unverified = sweep(src, now="2026-10-29T02:00:00Z")
             lane = unverified["source_ledger"][0]["intake_lane"]
-            self.assertEqual(lane, "PENDING_DISCOVERY")
+            self.assertEqual(lane, "CUP_PROOF_LIMITED")
             self.assertEqual(unverified["eligible_count"], 0)
+            self.assertEqual(unverified["window_status"], "COMPLETE")
+            self.assertTrue(unverified["whole_requested_surface_complete"])
+            self.assertEqual(unverified["upstream_remaining_fixture_count"], 0)
+            self.assertEqual(unverified["cup_proof_limited_count"], 1)
             self.assertIn("CUP_FORMAT_AND_INCENTIVES", unverified["source_ledger"][0]["reason"])
 
             src["fixtures"][0]["tournament_format_proof"] = {
@@ -112,9 +116,27 @@ class ProspectiveSelectionRepairTests(unittest.TestCase):
                 "incentive_review_verified": True,
             }
             proven = sweep(src, now="2026-10-29T02:00:00Z")
-            self.assertNotEqual(proven["source_ledger"][0]["intake_lane"], "PENDING_DISCOVERY")
+            self.assertNotEqual(proven["source_ledger"][0]["intake_lane"], "CUP_PROOF_LIMITED")
             # Format proof is necessary, never sufficient for G3 admission.
             self.assertEqual(proven["eligible_count"], 0)
+
+    def test_cup_proof_limited_is_terminal_without_blocking_ready_rows(self):
+        from stage import _unresolved_sweep_intake_rows
+        receipt = {
+            "source_ledger": [
+                {
+                    "match_id": "CUP-1",
+                    "intake_lane": "CUP_PROOF_LIMITED",
+                    "reason": "APPROVED_CUP_FORMAT_AND_INCENTIVES_PROOF_REQUIRED",
+                },
+                {
+                    "match_id": "LEAGUE-1",
+                    "intake_lane": "GOAL_PRIORITY",
+                    "reason": "DISCOVERY_GOAL_QUALIFIED",
+                },
+            ]
+        }
+        self.assertEqual(_unresolved_sweep_intake_rows(receipt), [])
 
     def test_unverified_g3_proof_requires_recheck_but_never_vetoes(self):
         row = {"match_id": "M1", "goal3_funded": True,
