@@ -552,6 +552,34 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                     lane, reason = "PENDING_DISCOVERY", "UNREGISTERED_MATCH_NEEDS_CURRENT_RESEARCHABILITY_PROOF"
                 else:
                     lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
+                if (
+                    at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC
+                    and raw.get("competition_kind") == "DOMESTIC_CUP"
+                    and result["lane"] == "CONDITIONAL"
+                    and lane == "CONDITIONAL"
+                ):
+                    # Research admission is not a format/incentive bypass.
+                    # Unverified official cups remain actionable research,
+                    # never an automatically qualified /rank fixture.
+                    fmt = raw.get("tournament_format_proof")
+                    proven = False
+                    if isinstance(fmt, dict):
+                        try:
+                            t_fmt = _time(fmt.get("checked_at_utc"), "cup.format.checked_at_utc")
+                            _url(fmt.get("source_url"), "cup.format.source_url")
+                            proven = (
+                                at - timedelta(days=7) <= t_fmt <= at
+                                and fmt.get("match_id") == mid
+                                and fmt.get("competition_format_verified") is True
+                                and fmt.get("incentive_review_verified") is True
+                            )
+                        except StageError:
+                            proven = False
+                    if not proven:
+                        lane, reason = (
+                            "PENDING_DISCOVERY",
+                            "APPROVED_CUP_FORMAT_AND_INCENTIVES_PROOF_REQUIRED",
+                        )
                 if result["lane"] == "DISCOVERY" and lane == "DISCOVERY":
                     if raw.get("competition_kind") == "DOMESTIC_CUP":
                         format_proof = raw.get("tournament_format_proof")
@@ -579,7 +607,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 "researchability_proof": raw.get("researchability_proof") if result["lane"] in ("CONDITIONAL", "PILOT", "DISCOVERY") else None,
                 **({} if _historical_registry_only else {
                     "discovery_screen": discovery_screen,
-                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] == "DISCOVERY" and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
+                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] in {"DISCOVERY", "CONDITIONAL"} and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
                 }),
                 "registry_lane": result["lane"],
                 "intake_lane": lane, "reason": reason,
