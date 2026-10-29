@@ -699,7 +699,7 @@ class BoardContractTests(unittest.TestCase):
                 goal_signal_mean_over_three_rate=0.50,
                 goal_signal_low_draw_trap_rate=0.10,
             )
-            for i in range(12)
+            for i in range(15)
         ]
         result = run_board(
             {
@@ -710,22 +710,23 @@ class BoardContractTests(unittest.TestCase):
             }
         )
         lanes = [row["follow_lane"] for row in result["matches"]]
-        self.assertEqual(lanes.count("FOLLOW"), 3)
+        self.assertEqual(lanes.count("FOLLOW"), 8)
         self.assertEqual(lanes.count("RESERVE"), 4)
-        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 5)
+        self.assertEqual(lanes.count("FOCUS_UNFOLLOWED"), 3)
         self.assertNotIn("STOP", lanes)
-        self.assertEqual(result["focus_unfollowed_count"], 5)
+        self.assertEqual(result["focus_unfollowed_count"], 3)
         unallocated = [
             row for row in result["matches"]
             if row["follow_lane"] == "FOCUS_UNFOLLOWED"
         ]
         self.assertTrue(all(row["qualification_state"] == "QUALIFIED" for row in unallocated))
-        self.assertTrue(all(row["priority_state"] == "QUALIFIED" for row in unallocated))
-        self.assertTrue(all(row["display_state"] == "QUALIFIED" for row in unallocated))
-        self.assertEqual(result["qualified_count"], 12)
-        self.assertEqual(result["priority_focus_count"], 3)
-        self.assertEqual(result["watchlist_count"], 4)
-        self.assertEqual(result["qualified_unallocated_count"], 5)
+        self.assertTrue(all(row["priority_state"] == "RESERVE" for row in unallocated))
+        self.assertTrue(all(row["display_state"] == "RESERVE" for row in unallocated))
+        self.assertEqual(result["qualified_count"], 15)
+        self.assertEqual(result["priority_focus_count"], 8)
+        self.assertEqual(result["watchlist_count"], 7)
+        self.assertEqual(result["reserve_priority_count"], 7)
+        self.assertEqual(result["qualified_unallocated_count"], 3)
 
     def test_historical_signal_is_bounded_support_not_follow_veto(self):
         result = run_board(

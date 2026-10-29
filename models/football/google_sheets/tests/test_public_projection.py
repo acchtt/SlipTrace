@@ -42,6 +42,8 @@ class PublicProjectionTests(unittest.TestCase):
         )
         self.assertEqual(out["sourceStore"], "GOOGLE_SHEETS")
         self.assertEqual(out["schedule"][0]["tier"], "FOCUS")
+        self.assertTrue(out["schedule"][0]["isSelected"])
+        self.assertEqual(out["schedule"][0]["priorityState"], "FOCUS")
         self.assertEqual(out["schedule"][0]["cSupportedLine"], 3.5)
         self.assertEqual(out["picks"][0]["pickId"], "PUB-1")
         raw = str(out)
@@ -52,7 +54,9 @@ class PublicProjectionTests(unittest.TestCase):
 
     def test_lane_mapping_is_display_only(self):
         rows = []
-        for index, lane in enumerate(("FOLLOW", "RESERVE", "STOP"), start=1):
+        for index, lane in enumerate(
+            ("FOLLOW", "RESERVE", "FOCUS_UNFOLLOWED", "STOP"), start=1
+        ):
             rows.append({
                 "Coverage ID": f"RUN|m{index}",
                 "Run ID": "RUN",
@@ -68,8 +72,56 @@ class PublicProjectionTests(unittest.TestCase):
         self.assertEqual(by_lane, {
             "FOLLOW": "FOCUS",
             "RESERVE": "WATCHLIST",
+            "FOCUS_UNFOLLOWED": "WATCHLIST",
             "STOP": "PASS",
         })
+        by_lane = {
+            row["followLane"]: row["priorityState"] for row in out["schedule"]
+        }
+        self.assertEqual(by_lane, {
+            "FOLLOW": "FOCUS",
+            "RESERVE": "RESERVE",
+            "FOCUS_UNFOLLOWED": "RESERVE",
+            "STOP": "PASS",
+        })
+
+    def test_public_selected_priority_fails_closed_above_eight(self):
+        rows = [{
+            "Coverage ID": f"RUN|m{index}",
+            "Run ID": "RUN",
+            "Match": f"H{index} – A{index}",
+            "Kickoff ICT": f"2026-10-15T{10 + index:02d}:00:00+07:00",
+            "C Follow Lane": "FOLLOW",
+            "C Rank": index,
+        } for index in range(1, 10)]
+        with self.assertRaisesRegex(ProjectionError, "exceeds max 8"):
+            build_projection(rows, [])
+
+    def test_selection_is_frozen_before_kickoff_display_sort(self):
+        rows = [
+            {
+                "Coverage ID": "RUN|rank1",
+                "Run ID": "RUN",
+                "Match": "Later best",
+                "Kickoff ICT": "2026-10-15T22:00:00+07:00",
+                "C Follow Lane": "FOLLOW",
+                "C Rank": 1,
+            },
+            {
+                "Coverage ID": "RUN|rank2",
+                "Run ID": "RUN",
+                "Match": "Earlier second",
+                "Kickoff ICT": "2026-10-15T20:00:00+07:00",
+                "C Follow Lane": "FOLLOW",
+                "C Rank": 2,
+            },
+        ]
+        out = build_projection(rows, [])
+        self.assertEqual(
+            [row["id"] for row in out["schedule"]],
+            ["RUN|rank2", "RUN|rank1"],
+        )
+        self.assertEqual(out["selectedCountByBoard"], {"RUN": 2})
 
     def test_missing_identity_fails_closed_by_omission(self):
         out = build_projection([{

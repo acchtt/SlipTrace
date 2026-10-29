@@ -1153,7 +1153,10 @@ class RankV4Tests(unittest.TestCase):
         self.assertEqual(result["ranked_count"], 1)
         self.assertEqual(result["watch_count"], 1)
         self.assertEqual(result["pass_count"], 0)
-        self.assertEqual(result["board_admission_policy"], "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP")
+        self.assertEqual(
+            result["board_admission_policy"],
+            "C_QUALIFIED_LEGACY_BOARD_SELECTED_GLOBAL_TOP_8",
+        )
         self.assertEqual([x["match_id"] for x in result["board"]["matches"]], ["m1"])
         self.assertEqual(result["research_assessment"]["match_count"], 2)
         self.assertEqual(result["board_excluded_count"], 1)
@@ -1190,6 +1193,16 @@ class RankV4Tests(unittest.TestCase):
         self.assertEqual(result["board"]["follow_count"], 8)
         self.assertEqual(result["board"]["reserve_count"], 3)
         self.assertEqual(result["board"]["focus_unfollowed_count"], 0)
+        self.assertEqual(result["selected_count"], 8)
+        self.assertEqual(result["selected_priority_board"]["match_count"], 8)
+        self.assertTrue(all(
+            row["follow_lane"] == "FOLLOW"
+            for row in result["selected_priority_board"]["matches"]
+        ))
+        self.assertEqual(
+            result["selected_priority_board"]["presentation_order"],
+            "KICKOFF_AFTER_SELECTION",
+        )
         self.assertFalse(
             any(x["follow_lane"] == "STOP" for x in result["board"]["matches"])
         )

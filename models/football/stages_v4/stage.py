@@ -1652,14 +1652,33 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         ),
     }
 
-    # Research eligibility is deliberately broader than board admission.
-    # Only Football C FOCUS rows become the official ranked board. WATCH/PASS
-    # stay frozen in the research assessment for audit/review, but they do not
-    # inflate the main board. There is intentionally no fixed board-size cap:
-    # every genuine FOCUS survives admission. Scarce workload capacity may
-    # leave a valid FOCUS as FOCUS_UNFOLLOWED; STOP is reserved for non-FOCUS.
+    # Research eligibility is deliberately broader than qualification, and
+    # qualification is deliberately broader than selected priority.  The
+    # legacy board retains every compiled C-FOCUS row for receipt and /xi
+    # compatibility.  The public/operational selected board is exactly the
+    # globally ranked FOLLOW set, capped in the engine before kickoff display
+    # ordering.  Kickoff therefore never participates in selection.
     board_rows = [row for row in assessed_rows if row.get("board_state") == "FOCUS"]
     outside_board = [row for row in assessed_rows if row.get("board_state") != "FOCUS"]
+    selected_rows = sorted(
+        (row for row in board_rows if row.get("follow_lane") == "FOLLOW"),
+        key=lambda row: (
+            str(row.get("kickoff_ict") or ""),
+            int(row.get("rank") or 10**9),
+            str(row.get("match_id") or ""),
+        ),
+    )
+    if len(selected_rows) > 8:
+        raise StageError("selected priority board exceeds the global cap of 8")
+    selected_priority_board = {
+        "schema_version": result["schema_version"],
+        "stage": "selected_priority_board",
+        "model": "c",
+        "selection_policy": "GLOBAL_C_RANK_TOP_N_MAX_8",
+        "presentation_order": "KICKOFF_AFTER_SELECTION",
+        "match_count": len(selected_rows),
+        "matches": selected_rows,
+    }
     official_board = {
         **result,
         "ranking_policy": result.get("ranking_policy", "") + "_FOCUS_ADMISSION",
@@ -1677,15 +1696,20 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "priority_focus_count": sum(
             row.get("priority_state") == "FOCUS" for row in board_rows
         ),
+        "reserve_priority_count": sum(
+            row.get("priority_state") == "RESERVE" for row in board_rows
+        ),
         "watchlist_count": sum(
-            row.get("priority_state") == "WATCHLIST" for row in board_rows
+            row.get("priority_state") == "RESERVE" for row in board_rows
         ),
         "qualified_unallocated_count": sum(
-            row.get("priority_state") == "QUALIFIED" for row in board_rows
+            row.get("follow_lane") == "FOCUS_UNFOLLOWED" for row in board_rows
         ),
-        "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
+        "selected_count": len(selected_rows),
+        "selected_match_ids": [row["match_id"] for row in selected_rows],
+        "board_admission_policy": "C_QUALIFIED_LEGACY_BOARD_SELECTED_GLOBAL_TOP_8",
         "qualification_policy": "FUNDED_G3_EQUALS_QUALIFIED_LEGACY_C_FOCUS",
-        "priority_policy": "FOLLOW_FOCUS_RESERVE_WATCHLIST_UNALLOCATED_QUALIFIED",
+        "priority_policy": "FOLLOW_SELECTED_FOCUS_OTHER_QUALIFIED_RESERVE",
         "assessed_match_count": len(assessed_rows),
         "slate_rank_policy": SLATE_RANK_POLICY,
         "slate_rank_frozen": slate_rank_frozen,
@@ -1732,13 +1756,16 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "full_queue_count": len(frozen),
         "assessed_count": len(ids),
         "ranked_count": len(board_rows),
+        "selected_count": len(selected_rows),
+        "selected_match_ids": [row["match_id"] for row in selected_rows],
         "watch_count": sum(row.get("board_state") == "WATCH" for row in assessed_rows),
         "pass_count": sum(row.get("board_state") == "PASS" for row in assessed_rows),
         "board_excluded_count": len(outside_board),
-        "board_admission_policy": "C_FOCUS_ONLY_NO_FIXED_COUNT_CAP",
+        "board_admission_policy": "C_QUALIFIED_LEGACY_BOARD_SELECTED_GLOBAL_TOP_8",
         "unranked_reasons": unranked_reasons,
         "board_exclusions": board_exclusions,
         "board": official_board,
+        "selected_priority_board": selected_priority_board,
         "research_assessment": result,
         "goal_burden_shadow_policy": result["goal_burden_shadow_policy"],
         "goal_burden_shadow_reviews": copy.deepcopy(goal_burden_shadow),

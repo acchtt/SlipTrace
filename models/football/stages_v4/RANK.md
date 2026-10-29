@@ -196,11 +196,12 @@ suppression/route-destroying failure. Freeze `g3_challenger_reviewed=true` and
 its basis. This review can confirm the rejection or identify misgraded current
 football; it never auto-promotes G3 from historical rates.
 
-After Football C research, board admission is a separate deterministic step:
-only rows frozen as `C-FOCUS` enter the official ranked board. `C-WATCH` and
-`C-PASS` remain in the frozen research assessment for audit/review but do not
-inflate the official board. There is **no fixed numeric board cap**: every
-genuine C-FOCUS survives admission.
+After Football C research, selection is a separate deterministic step. Rows
+frozen as `C-FOCUS` remain **QUALIFIED** in the legacy ranked board for receipt
+and `/xi` compatibility. Only the globally highest-ranked eight qualified
+Grade-A rows become selected priority/FOLLOW. Other qualified rows are
+RESERVE. `C-WATCH` and `C-PASS` remain in the frozen research assessment for
+audit/review. Kickoff sorts the selected display only after selection freezes.
 
 Football C compiles this production state from its certificate and direct
 route-destruction/suppression fields. Research input is retained as
@@ -539,38 +540,31 @@ Run the deterministic Football C assessment once across the researched cohort.
   retained on the official ranked board. It is not, by itself, a user-facing
   priority label.
 - `C-WATCH` / `C-PASS` -> retained outside the official board in the frozen research assessment.
-- FOLLOW / RESERVE / FOCUS_UNFOLLOWED is the operational workload lane
+- FOLLOW / RESERVE / FOCUS_UNFOLLOWED is the legacy operational workload lane
   **inside** C's already-frozen qualified selection. STOP is reserved for
   WATCH/PASS/non-FOCUS rows.
 - Additive semantic axes are authoritative for presentation:
   `qualification_state=QUALIFIED` for legacy C-FOCUS; `priority_state=FOCUS`
-  for FOLLOW; `priority_state=WATCHLIST` for RESERVE; and
-  `priority_state=QUALIFIED` for FOCUS_UNFOLLOWED. Do not present every
-  qualified row as priority FOCUS.
+  for FOLLOW; and `priority_state=RESERVE` for RESERVE or
+  FOCUS_UNFOLLOWED. WATCHLIST is a public display tier, not a predictive
+  state. Do not present every qualified row as priority FOCUS.
 - `execution_eligibility=DIRECT_CEILING_AVAILABLE|NO_DIRECT_EXECUTION` is a
   diagnostic only; XI, price, screenshot and publication guards still decide
   executable action.
-- FOLLOW is allocated by a frozen burden-normalized portfolio profile, not by
-  taking the first rows from the ordinary lexicographic rank. At an exact
-  kickoff, up to three complementary workload roles are available:
-  CLEARABILITY, BALANCED, and UPSIDE.
+- FOLLOW is the operational state of the first eight Grade-A qualified rows in
+  the official global Football C rank. It is not a second ranking engine.
 - Higher certificate depth does not automatically win FOLLOW workload. The
   protected burden itself is normalized in workload comparison so O3.50 cannot
   displace a materially stronger O2.50 opportunity merely because G4 is funded.
-- Global FOLLOW capacity is 7 and exact-kickoff capacity is 3. Each exact
-  kickoff may nominate one primary CLEARABILITY candidate. The **validated
-  portfolio champion protects primary nominations in kickoff order** until
-  capacity is reached; quality breaks ties within an exact kickoff. Remaining
-  slots then go to strongest BALANCED/UPSIDE nominations. The formerly promoted
-  global-clearability primary allocation is *not* active: the 23–26 Oct frozen
-  result replay found lower exact-certificate precision despite stronger raw
-  workload scores. This is a workload-only policy, not predictive evidence.
+- Global selected/FOLLOW capacity is 8. Exact kickoff has no quota and no
+  protected slot. Kickoff chronology is presentation order only after the
+  selected identities are frozen.
 - The FOLLOW profile is market-independent and uses current football structure,
   certificate depth/robustness, completion/continuation/stall, carrier and
   credible-tail evidence. Historical Step-0 goal signal contributes only a
   bounded supporting component and cannot dominate materially stronger current
   mechanisms.
-- there is no fixed board-size cap.
+- the legacy qualified board is uncapped; selected priority is capped at 8.
 - no price or Website Pick is created by /rank.
 - every eligible fixture not researched still requires an explicit allowed reason.
   An allowed reason is accounting, not proof that research was completed.

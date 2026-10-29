@@ -124,8 +124,11 @@
     "website_tier_mapping": {
       "FOLLOW": "FOCUS",
       "RESERVE": "WATCHLIST",
+      "FOCUS_UNFOLLOWED": "WATCHLIST",
       "STOP": "PASS"
-    }
+    },
+    "selected_priority_cap_per_run": 8,
+    "selection_policy": "GLOBAL_C_RANK_TOP_N_THEN_KICKOFF_DISPLAY"
   },
   "xi_decision_state_persistence_contract": {
     "runtime_manifest_field": "decision_state_persistence",

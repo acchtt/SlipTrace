@@ -1170,12 +1170,12 @@ def _apply_c_semantic_axes(rows: list[dict[str, Any]]) -> None:
                 row.get("follow_portfolio_role") or "ALLOCATED"
             )
         elif lane == FollowLane.RESERVE.value:
-            priority = "WATCHLIST"
+            priority = "RESERVE"
             allocation_reason = "RESERVE:SCARCE_WORKLOAD_CAPACITY"
         elif lane == FollowLane.FOCUS_UNFOLLOWED.value:
-            priority = "QUALIFIED"
+            priority = "RESERVE"
             allocation_reason = (
-                "QUALIFIED_UNALLOCATED:OUTSIDE_FOLLOW_RESERVE_CAPACITY"
+                "RESERVE:QUALIFIED_OUTSIDE_SELECTED_PRIORITY_CAP"
             )
         elif state == "WATCH":
             priority = "REVIEW_ONLY"
@@ -1423,11 +1423,15 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["priority_focus_count"] = sum(
             row.get("priority_state") == "FOCUS" for row in output
         )
-        result["watchlist_count"] = sum(
-            row.get("priority_state") == "WATCHLIST" for row in output
+        result["reserve_priority_count"] = sum(
+            row.get("priority_state") == "RESERVE" for row in output
         )
+        # Legacy aggregate retained for receipt consumers.  The semantic value
+        # is now RESERVE; WATCHLIST is only a public display tier.
+        result["watchlist_count"] = result["reserve_priority_count"]
         result["qualified_unallocated_count"] = sum(
-            row.get("priority_state") == "QUALIFIED" for row in output
+            row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
+            for row in output
         )
         result["stop_count"] = sum(
             row.get("follow_lane") == FollowLane.STOP.value for row in output

@@ -29,9 +29,16 @@ FORBIDDEN_INPUT_TABS = frozenset((
 LANE_TO_TIER = {
     "FOLLOW": "FOCUS",
     "RESERVE": "WATCHLIST",
-    "FOCUS_UNFOLLOWED": "QUALIFIED",
+    "FOCUS_UNFOLLOWED": "WATCHLIST",
     "STOP": "PASS",
 }
+LANE_TO_PRIORITY = {
+    "FOLLOW": "FOCUS",
+    "RESERVE": "RESERVE",
+    "FOCUS_UNFOLLOWED": "RESERVE",
+    "STOP": "PASS",
+}
+MAX_SELECTED_PER_BOARD = 8
 
 
 class ProjectionError(ValueError):
@@ -97,12 +104,13 @@ def _coverage_row(row: dict[str, Any]) -> dict[str, Any] | None:
         "displayKickoff": kickoff,
         "tier": LANE_TO_TIER[lane],
         "followLane": lane,
+        "isSelected": lane == "FOLLOW",
         "qualificationState": (
             "QUALIFIED"
             if lane in {"FOLLOW", "RESERVE", "FOCUS_UNFOLLOWED"}
             else "NOT_QUALIFIED"
         ),
-        "priorityState": LANE_TO_TIER[lane],
+        "priorityState": LANE_TO_PRIORITY[lane],
         "cBoardState": _text(
             row.get("C Board State") or row.get("c_board_state")
         ),
@@ -161,6 +169,22 @@ def build_projection(
         raise ProjectionError("coverage_rows and pick_rows must be lists")
     schedule = [item for row in coverage_rows if (item := _coverage_row(row))]
     picks = [item for row in pick_rows if (item := _pick_row(row))]
+    selected_by_board: dict[str, int] = {}
+    for row in schedule:
+        if row["isSelected"]:
+            board_id = row["boardId"]
+            selected_by_board[board_id] = selected_by_board.get(board_id, 0) + 1
+    over_cap = {
+        board_id: count for board_id, count in selected_by_board.items()
+        if count > MAX_SELECTED_PER_BOARD
+    }
+    if over_cap:
+        raise ProjectionError(
+            "public selected priority exceeds max 8 for board(s): "
+            + ", ".join(
+                f"{board_id}={count}" for board_id, count in sorted(over_cap.items())
+            )
+        )
     schedule.sort(key=lambda row: (row["kickoff"], row["cRank"] or 10**9, row["id"]))
     picks.sort(key=lambda row: (row["recordedAt"], row["id"]), reverse=True)
     return {
@@ -169,6 +193,8 @@ def build_projection(
         "sourceWorkbook": SOURCE_WORKBOOK,
         "generatedAt": generated_at or datetime.now(timezone.utc).isoformat(),
         "projectionPolicy": "PUBLIC_SAFE_GOOGLE_SHEETS_V1",
+        "selectionPolicy": "GLOBAL_C_RANK_TOP_N_MAX_8_THEN_KICKOFF_DISPLAY",
+        "selectedCountByBoard": selected_by_board,
         "schedule": schedule,
         "picks": picks,
     }

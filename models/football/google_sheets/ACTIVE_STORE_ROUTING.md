@@ -113,7 +113,13 @@ Website display mapping remains display-only:
 
 - FOLLOW -> FOCUS
 - RESERVE -> WATCHLIST
+- FOCUS_UNFOLLOWED -> WATCHLIST
 - STOP -> PASS
+
+FOLLOW is the globally selected priority set and is capped at eight per run.
+Qualified rows outside that cap remain RESERVE priority. The projection fails
+closed if a run contains more than eight FOLLOW rows, and kickoff is used only
+to sort the already-selected display.
 
 A projection refresh never creates model authority, a bet, or a persistence
 receipt. The Google Sheets verified row remains authoritative.
