@@ -500,7 +500,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                     })
                     continue
                 raise StageError(f"{mid}: source-confirmed fixture status required")
-            result = classify(raw)
+            result = classify(raw, at_utc=at.isoformat())
             # Historical source replay must preserve the policy and digest
             # originally executed, not reinterpret last night's fixtures.
             if _historical_registry_only and result["lane"] == "DISCOVERY":
