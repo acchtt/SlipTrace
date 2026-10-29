@@ -9,6 +9,8 @@ from route import (
     GoogleSheetsRouteError,
     _configuration,
     resolve_tab,
+    parent_first_persistence_plan,
+    verify_parent_before_children,
     verify_receipt,
 )
 
@@ -39,6 +41,55 @@ class ActiveModelStoreRoutingTests(unittest.TestCase):
             resolve_tab("rank", "Daily Coverage Ledger", action="upsert")["keyColumn"],
             "Coverage ID",
         )
+
+    def test_rank_persistence_plan_is_parent_first(self):
+        plan = parent_first_persistence_plan(
+            run_id="RUN",
+            coverage_ids=["RUN|m1", "RUN|m2"],
+        )
+        self.assertEqual(
+            [(step["step"], step["sheet"], step["operation"])
+             for step in plan["steps"]],
+            [
+                (1, "Sweep Runs", "UPSERT"),
+                (2, "Sweep Runs", "INDEPENDENT_REFETCH"),
+                (3, "Daily Coverage Ledger", "UPSERT"),
+                (4, "Daily Coverage Ledger", "INDEPENDENT_REFETCH"),
+            ],
+        )
+        with self.assertRaisesRegex(GoogleSheetsRouteError, "children"):
+            parent_first_persistence_plan(
+                run_id="RUN", coverage_ids=["OTHER|m1"]
+            )
+
+    def test_parent_readback_must_precede_coverage(self):
+        parent = {
+            "spreadsheet_id": SPREADSHEET_ID,
+            "sheet_name": "Sweep Runs",
+            "method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            "run_id": "RUN",
+            "sweep_integrity_sha256": "abc",
+            "exists": True,
+            "readback_at_utc": "2026-10-29T01:00:00Z",
+        }
+        self.assertTrue(verify_parent_before_children(
+            run_id="RUN",
+            sweep_integrity_sha256="abc",
+            parent_readback=parent,
+            coverage_write_started_at_utc="2026-10-29T01:01:00Z",
+            coverage_readback_at_utc="2026-10-29T01:02:00Z",
+        ))
+        parent["readback_at_utc"] = "2026-10-29T01:03:00Z"
+        with self.assertRaisesRegex(
+            GoogleSheetsRouteError, "PARENT_CHILD_PERSISTENCE_ORDER_INVALID"
+        ):
+            verify_parent_before_children(
+                run_id="RUN",
+                sweep_integrity_sha256="abc",
+                parent_readback=parent,
+                coverage_write_started_at_utc="2026-10-29T01:01:00Z",
+                coverage_readback_at_utc="2026-10-29T01:02:00Z",
+            )
         self.assertEqual(
             resolve_tab("xi", "Decision States", action="upsert")["keyColumn"],
             "Assessment ID",

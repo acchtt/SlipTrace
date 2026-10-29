@@ -66,6 +66,19 @@
   "field_resolution": "COLUMN_HEADER_EXACT_MATCH",
   "receipt_policy": "ONE_WRITE_ONE_INDEPENDENT_READBACK_PER_STAGE",
   "readback_method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+  "rank_parent_child_persistence": {
+    "policy": "SWEEP_PARENT_READBACK_BEFORE_COVERAGE_CHILDREN_V1",
+    "parent_sheet": "Sweep Runs",
+    "child_sheet": "Daily Coverage Ledger",
+    "write_order": [
+      "UPSERT_PARENT",
+      "REFETCH_PARENT",
+      "UPSERT_CHILDREN",
+      "REFETCH_CHILDREN",
+      "PUBLISH"
+    ],
+    "publication_fail_closed": true
+  },
   "xi_assessment_execution_status_column": {
     "sheet": "Decision States",
     "column_name": "XI Assessment Execution Status",

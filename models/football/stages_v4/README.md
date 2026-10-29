@@ -14,7 +14,8 @@ This README is descriptive. It must not redefine the executable V4 contracts.
 `/rank` runs in ChatGPT Work, consumes that exact receipt plus the unchanged
 original source, refreshes the full eligible cohort's fixture status/kickoff,
 researches Football C, executes the deterministic C board, persists official
-FOCUS rows to Google Sheets, then independently verifies the readback once.
+qualified rows and their selected/reserve state to Google Sheets, then
+independently verifies the parent and child readbacks.
 
 There is no active C2/C3/C4 rank path, paired-model requirement, Airtable
 production write, Step0 ZIP, fixed 8/12/15 Work budget, or legacy capacity
@@ -42,8 +43,8 @@ The source-completeness contract is implemented by
 - Football C only;
 - WATCH/PASS remain in the frozen research assessment but outside the official
   ranked board;
-- every genuine C-FOCUS survives board admission; there is no fixed numeric
-  board-size cap;
+- every genuine C-FOCUS remains qualified for compatibility, while globally
+  ranked selected priority is capped at eight and kickoff only sorts display;
 - unresolved research remains checkpointed/resumable;
 - G3-funded C-FOCUS with G4 research INCOMPLETE or EVIDENCE_LIMITED cannot
   finalize on the official board;
@@ -68,6 +69,8 @@ Spreadsheet ID:
 `1ojWKj5aT3VEJUyX3NSbAOZNTaUM0Mb8I8e4lvFy7kGM`
 
 The `Daily Coverage Ledger` is the active rank persistence surface.
+Its matching `Sweep Runs` parent must be written and independently refetched
+before any coverage child is written. Missing parent integrity fails closed.
 Historical Airtable rows and retired-model fields are immutable audit material
 only.
 

@@ -33,6 +33,17 @@ Unlike the retired Airtable routing split, Sweep Runs is now part of the same
 active workbook. The frozen V4 source/receipt artifacts remain the ranking
 authority; the sheet is an operational ledger, not a substitute source.
 
+Every Daily Coverage child must have an exact Sweep Runs parent in this order:
+
+1. upsert the parent Run ID;
+2. independently refetch and verify that parent;
+3. upsert the Coverage ID children;
+4. independently refetch and verify the children;
+5. only then refresh/publish the board.
+
+Missing or late parent readback fails closed. A child-only run may not be
+declared persisted or published.
+
 ## /rank
 
 Persist each ranked fixture to Daily Coverage Ledger with the exact

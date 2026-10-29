@@ -22,8 +22,15 @@ from typing import Any
 from urllib.parse import urlsplit
 
 ENGINE = Path(__file__).resolve().parents[1] / "engine"
+GOOGLE_SHEETS = Path(__file__).resolve().parents[1] / "google_sheets"
 sys.path.insert(0, str(ENGINE))
+sys.path.insert(0, str(GOOGLE_SHEETS))
 from adapter import run_board
+from route import (
+    GoogleSheetsRouteError,
+    parent_first_persistence_plan,
+    verify_parent_before_children,
+)
 from goal_route_proof import POLICY as GOAL_ROUTE_PROOF_POLICY, review_goal_route_proof
 from calibration_ledger import board_records, sweep_records
 from league_registry import classify
@@ -61,6 +68,9 @@ SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
 
 G3_BRIDGE_SHADOW_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-29T01:40:00+00:00"
+)
+PARENT_FIRST_PERSISTENCE_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-29T00:00:00+00:00"
 )
 
 CONTEXT_CONTRACT_EFFECTIVE_UTC = datetime.fromisoformat(
@@ -1799,6 +1809,14 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "source_replayed": True,
         "current_fixture_status_checked": True,
     }
+    if at >= PARENT_FIRST_PERSISTENCE_EFFECTIVE_UTC:
+        out["persistence_contract"] = parent_first_persistence_plan(
+            run_id=sweep_receipt["run_id"],
+            coverage_ids=[
+                f"{sweep_receipt['run_id']}|{row['match_id']}"
+                for row in board_rows
+            ],
+        )
     out["integrity_sha256"] = _hash(out)
     return out
 
@@ -1836,6 +1854,20 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
     ranked_at = _time(rank_receipt["rank_at_utc"], "rank_at_utc")
     if not ranked_at <= read_at <= ranked_at + timedelta(minutes=30):
         raise StageError("independent Google Sheets readback timestamp is stale/future")
+
+    if rank_receipt.get("persistence_contract") is not None:
+        try:
+            verify_parent_before_children(
+                run_id=rank_receipt["run_id"],
+                sweep_integrity_sha256=rank_receipt["sweep_integrity_sha256"],
+                parent_readback=readback.get("parent_run_readback"),
+                coverage_write_started_at_utc=readback.get(
+                    "coverage_write_started_at_utc"
+                ),
+                coverage_readback_at_utc=readback.get("readback_at_utc"),
+            )
+        except GoogleSheetsRouteError as exc:
+            raise StageError(str(exc)) from exc
 
     original = rank_receipt.get("board")
     if not isinstance(original, dict) or original.get("model") != "c":
@@ -1888,6 +1920,12 @@ def verify_rank(readback: dict[str, Any], rank_receipt: dict[str, Any]) -> dict[
         "retired_models": ["c2", "c3", "c4"],
         "no_bet_created": True,
         "model_evidence_readback_verified": True,
+        "sweep_parent_readback_verified": (
+            rank_receipt.get("persistence_contract") is not None
+        ),
+        "referential_integrity_verified": (
+            rank_receipt.get("persistence_contract") is not None
+        ),
         "model_evidence_sha256": model_evidence_sha256,
         "active_spreadsheet_id": SPREADSHEET_ID,
         "active_sheet": COVERAGE_SHEET,

@@ -673,6 +673,12 @@ and board-exclusion trace; they are not persisted as ranked board rows.
 
 Retired C2 fields may remain on historical Airtable rows, but all new rank persistence and independent readback use the Google Sheets `Daily Coverage Ledger` tab.
 
+Before any Daily Coverage write, upsert the matching `Sweep Runs` parent by
+Run ID and independently refetch it. Coverage writes may begin only after that
+parent readback succeeds. Then independently refetch every Coverage ID. A
+missing parent, a parent verified after child writes began, or any failed child
+readback blocks persistence verification and public projection.
+
 Then independently refetch once and run:
 
 python models/football/stages_v4/stage.py verify --rank v4_rank.json --readback readback.json

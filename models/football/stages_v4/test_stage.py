@@ -20,6 +20,7 @@ from stage import (
     sweep,
     rank as production_rank,
     verify_rank,
+    parent_first_persistence_plan,
     _unresolved_sweep_intake_rows,
     _validate_match_context_contract,
     _validate_g3_challenger_review,
@@ -1333,6 +1334,56 @@ class RankV4Tests(unittest.TestCase):
         readback["rank_integrity_sha256"] = "forged"
         with self.assertRaisesRegex(StageError, "hashes required"):
             verify_rank(readback, result)
+
+    def test_new_rank_persistence_requires_verified_parent_before_children(self):
+        src = sweep(snapshot(), now=NOW)
+        result = rank(
+            src,
+            model_input(),
+            {"m2": "RESEARCH_EVIDENCE_MISSING"},
+            now="2026-10-11T16:05:00Z",
+        )
+        cr = result["board"]["matches"][0]
+        result.pop("integrity_sha256")
+        result["persistence_contract"] = parent_first_persistence_plan(
+            run_id=result["run_id"],
+            coverage_ids=[result["run_id"] + "|m1"],
+        )
+        result["integrity_sha256"] = _hash_for_test(result)
+        readback = {
+            "spreadsheet_id": result["active_spreadsheet_id"],
+            "sheet_name": "Daily Coverage Ledger",
+            "method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            "run_id": result["run_id"],
+            "rank_integrity_sha256": result["integrity_sha256"],
+            "sweep_integrity_sha256": result["sweep_integrity_sha256"],
+            "coverage_write_started_at_utc": "2026-10-11T16:05:30Z",
+            "readback_at_utc": "2026-10-11T16:06:00Z",
+            "ranked_rows": [{
+                "match_id": "m1",
+                "coverage_id": result["run_id"] + "|m1",
+                "follow_lane": cr["follow_lane"],
+                "c_rank": cr["rank"],
+                "c_board_state": "C-" + cr["board_state"],
+                "c_supported_line": cr["supported_line"],
+                "step1_engine_c_result": json.dumps(cr, sort_keys=True),
+                "step1_engine_c_result_column": "Step1 Engine C Result",
+            }],
+        }
+        with self.assertRaisesRegex(StageError, "SWEEP_PARENT_READBACK_REQUIRED"):
+            verify_rank(readback, result)
+        readback["parent_run_readback"] = {
+            "spreadsheet_id": result["active_spreadsheet_id"],
+            "sheet_name": "Sweep Runs",
+            "method": "INDEPENDENT_GOOGLE_SHEETS_REFETCH",
+            "run_id": result["run_id"],
+            "sweep_integrity_sha256": result["sweep_integrity_sha256"],
+            "exists": True,
+            "readback_at_utc": "2026-10-11T16:05:15Z",
+        }
+        verified = verify_rank(readback, result)
+        self.assertTrue(verified["sweep_parent_readback_verified"])
+        self.assertTrue(verified["referential_integrity_verified"])
 
 
 if __name__ == "__main__":
