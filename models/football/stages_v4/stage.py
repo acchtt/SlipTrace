@@ -31,6 +31,7 @@ from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
 from rank_session_audit import prematch_opportunity, rank_transitions
 from goal_burden_shadow import review_goal_burden_shadow
+from g3_bridge_shadow import review_g3_bridge, portfolio_challengers, POLICY as G3_BRIDGE_POLICY
 from source_completeness import (
     CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
     SourceCompletenessError,
@@ -56,6 +57,10 @@ WINDOW_END_INCLUSIVE_EFFECTIVE_UTC = datetime.fromisoformat(
 )
 SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-24T00:00:00+00:00"
+)
+
+G3_BRIDGE_SHADOW_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-29T01:40:00+00:00"
 )
 
 CONTEXT_CONTRACT_EFFECTIVE_UTC = datetime.fromisoformat(
@@ -1567,6 +1572,22 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     }
     result["goal_burden_shadow_policy"] = "SHADOW_GOAL_PATH_AND_ENDPOINT_STRESS_V1"
     result["goal_burden_shadow_reviews"] = copy.deepcopy(goal_burden_shadow)
+    if at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC:
+        # Version-gated read-only proof and allocation probes. No retroactive
+        # difference to Oct 28 rank receipts, certificates, or FOLLOW lanes.
+        frozen_c = {row["match_id"]: row for row in crows}
+        g3_rechecks = {
+            row["match_id"]: review_g3_bridge(
+                row, frozen_c.get(row["match_id"], {})
+            )
+            for row in assessed_rows
+        }
+        result["g3_bridge_shadow_policy"] = G3_BRIDGE_POLICY
+        result["g3_bridge_shadow_reviews"] = g3_rechecks
+        result["follow_portfolio_challengers"] = portfolio_challengers(
+            assessed_rows
+        )
+
     result["rank_semantics"] = {
         "rank": "LEGACY_ALIAS_OF_CURRENT_RANK",
         "current_rank": "ROLLING_POSITION_AMONG_CURRENTLY_OPEN_ASSESSED_FIXTURES",
@@ -1666,6 +1687,15 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "research_assessment": result,
         "goal_burden_shadow_policy": result["goal_burden_shadow_policy"],
         "goal_burden_shadow_reviews": copy.deepcopy(goal_burden_shadow),
+        **({
+            "g3_bridge_shadow_policy": G3_BRIDGE_POLICY,
+            "g3_bridge_shadow_reviews": copy.deepcopy(
+                result["g3_bridge_shadow_reviews"]
+            ),
+            "follow_portfolio_challengers": copy.deepcopy(
+                result["follow_portfolio_challengers"]
+            ),
+        } if at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC else {}),
         "rank_transition_manifest": rank_transitions(
             assessed_rows, previous_rank=previous_rank,
             coverage_manifest=checkpoint["coverage_manifest"],
