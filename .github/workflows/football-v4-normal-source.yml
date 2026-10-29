@@ -22,6 +22,12 @@ on:
       - "models/football/stages_v4/test_normal_source.py"
       - "models/football/stages_v4/test_normal_finalize.py"
       - "models/football/stages_v4/test_work_sweep.py"
+      - "models/football/stages_v4/test_cheap_sweep_filters.py"
+      - "models/football/stages_v4/test_selection_repair.py"
+      - "models/football/stages_v4/league_registry.py"
+      - "models/football/stages_v4/cheap_sweep_filters.py"
+      - "models/football/stages_v4/g3_bridge_shadow.py"
+      - "models/football/stages_v4/stage.py"
       - ".github/workflows/football-v4-normal-source.yml"
 
 permissions:
@@ -41,7 +47,7 @@ jobs:
 
       - name: Offline regressions
         run: |
-          python -m unittest             models.football.stages_v4.test_normal_source             models.football.stages_v4.test_normal_finalize             models.football.stages_v4.test_work_sweep             models.football.stages_v4.test_work_source_acquisition -v
+          python -m unittest             models.football.stages_v4.test_normal_source             models.football.stages_v4.test_normal_finalize             models.football.stages_v4.test_work_sweep             models.football.stages_v4.test_work_source_acquisition             models.football.stages_v4.test_cheap_sweep_filters             models.football.stages_v4.test_selection_repair -v
 
       - name: Select exactly one newly added normal-chat request
         id: req

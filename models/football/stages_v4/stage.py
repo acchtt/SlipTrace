@@ -31,6 +31,7 @@ from discovery_goal_gate import screen_discovery
 from goals_first_intake import select as select_goal_candidates
 from rank_session_audit import prematch_opportunity, rank_transitions
 from goal_burden_shadow import review_goal_burden_shadow
+from g3_bridge_shadow import review_g3_bridge, portfolio_challengers, POLICY as G3_BRIDGE_POLICY
 from source_completeness import (
     CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
     SourceCompletenessError,
@@ -56,6 +57,10 @@ WINDOW_END_INCLUSIVE_EFFECTIVE_UTC = datetime.fromisoformat(
 )
 SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-24T00:00:00+00:00"
+)
+
+G3_BRIDGE_SHADOW_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-10-29T01:40:00+00:00"
 )
 
 CONTEXT_CONTRACT_EFFECTIVE_UTC = datetime.fromisoformat(
@@ -500,7 +505,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                     })
                     continue
                 raise StageError(f"{mid}: source-confirmed fixture status required")
-            result = classify(raw)
+            result = classify(raw, at_utc=at.isoformat())
             # Historical source replay must preserve the policy and digest
             # originally executed, not reinterpret last night's fixtures.
             if _historical_registry_only and result["lane"] == "DISCOVERY":
@@ -547,6 +552,34 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                     lane, reason = "PENDING_DISCOVERY", "UNREGISTERED_MATCH_NEEDS_CURRENT_RESEARCHABILITY_PROOF"
                 else:
                     lane, reason = "PENDING_RESEARCHABILITY", "RESEARCHED_LEAGUE_NEEDS_CURRENT_CHANNEL_PROOF"
+                if (
+                    at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC
+                    and raw.get("competition_kind") == "DOMESTIC_CUP"
+                    and result["lane"] == "CONDITIONAL"
+                    and lane == "CONDITIONAL"
+                ):
+                    # Research admission is not a format/incentive bypass.
+                    # Unverified official cups remain actionable research,
+                    # never an automatically qualified /rank fixture.
+                    fmt = raw.get("tournament_format_proof")
+                    proven = False
+                    if isinstance(fmt, dict):
+                        try:
+                            t_fmt = _time(fmt.get("checked_at_utc"), "cup.format.checked_at_utc")
+                            _url(fmt.get("source_url"), "cup.format.source_url")
+                            proven = (
+                                at - timedelta(days=7) <= t_fmt <= at
+                                and fmt.get("match_id") == mid
+                                and fmt.get("competition_format_verified") is True
+                                and fmt.get("incentive_review_verified") is True
+                            )
+                        except StageError:
+                            proven = False
+                    if not proven:
+                        lane, reason = (
+                            "PENDING_DISCOVERY",
+                            "APPROVED_CUP_FORMAT_AND_INCENTIVES_PROOF_REQUIRED",
+                        )
                 if result["lane"] == "DISCOVERY" and lane == "DISCOVERY":
                     if raw.get("competition_kind") == "DOMESTIC_CUP":
                         format_proof = raw.get("tournament_format_proof")
@@ -574,7 +607,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                 "researchability_proof": raw.get("researchability_proof") if result["lane"] in ("CONDITIONAL", "PILOT", "DISCOVERY") else None,
                 **({} if _historical_registry_only else {
                     "discovery_screen": discovery_screen,
-                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] == "DISCOVERY" and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
+                    "tournament_format_proof": raw.get("tournament_format_proof") if result["lane"] in {"DISCOVERY", "CONDITIONAL"} and raw.get("competition_kind") == "DOMESTIC_CUP" else None,
                 }),
                 "registry_lane": result["lane"],
                 "intake_lane": lane, "reason": reason,
@@ -1567,6 +1600,22 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     }
     result["goal_burden_shadow_policy"] = "SHADOW_GOAL_PATH_AND_ENDPOINT_STRESS_V1"
     result["goal_burden_shadow_reviews"] = copy.deepcopy(goal_burden_shadow)
+    if at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC:
+        # Version-gated read-only proof and allocation probes. No retroactive
+        # difference to Oct 28 rank receipts, certificates, or FOLLOW lanes.
+        frozen_c = {row["match_id"]: row for row in crows}
+        g3_rechecks = {
+            row["match_id"]: review_g3_bridge(
+                row, frozen_c.get(row["match_id"], {})
+            )
+            for row in assessed_rows
+        }
+        result["g3_bridge_shadow_policy"] = G3_BRIDGE_POLICY
+        result["g3_bridge_shadow_reviews"] = g3_rechecks
+        result["follow_portfolio_challengers"] = portfolio_challengers(
+            assessed_rows
+        )
+
     result["rank_semantics"] = {
         "rank": "LEGACY_ALIAS_OF_CURRENT_RANK",
         "current_rank": "ROLLING_POSITION_AMONG_CURRENTLY_OPEN_ASSESSED_FIXTURES",
@@ -1666,6 +1715,15 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "research_assessment": result,
         "goal_burden_shadow_policy": result["goal_burden_shadow_policy"],
         "goal_burden_shadow_reviews": copy.deepcopy(goal_burden_shadow),
+        **({
+            "g3_bridge_shadow_policy": G3_BRIDGE_POLICY,
+            "g3_bridge_shadow_reviews": copy.deepcopy(
+                result["g3_bridge_shadow_reviews"]
+            ),
+            "follow_portfolio_challengers": copy.deepcopy(
+                result["follow_portfolio_challengers"]
+            ),
+        } if at >= G3_BRIDGE_SHADOW_EFFECTIVE_UTC else {}),
         "rank_transition_manifest": rank_transitions(
             assessed_rows, previous_rank=previous_rank,
             coverage_manifest=checkpoint["coverage_manifest"],
