@@ -140,6 +140,65 @@ CUPS = {
     ("japan", "jfa empress s cup"),
 }
 
+# Prospective research-scope repair. Old sealed receipts must re-evaluate
+# under the exact Oct 28 code path, not acquire retrospective admission.
+CUP_ALIAS_EFFECTIVE_UTC = "2026-10-29T01:40:00+00:00"
+
+# These country-qualified labels are approved *research identities* only.
+# A cup name never confers source verification, GOAL_PRIORITY, G3, or FOCUS.
+CUP_RESEARCH_ALIASES = {
+    ("germany", "dfb cup"),
+    ("norway", "nm cup"),
+    ("austria", "ofb cup"),
+    ("poland", "poland cup"),
+    ("greece", "greece cup"),
+    ("romania", "romanian cup"),
+    ("denmark", "dbu pokalen"),
+    ("england", "women s league cup"),
+    ("england", "womens league cup"),
+    ("czechia", "czech cup"),
+}
+CUP_STAGE_SUFFIX = re.compile(
+    r" (?:round (?:of )?[0-9]+|group stage|groups? [a-z]|"
+    r"quarter finals?|semi finals?|final|qualification)$"
+)
+
+
+def approved_cup_research_identity(
+    fixture: dict[str, Any], *, at_utc: str | None = None,
+) -> bool:
+    """Recognise bounded official senior cup variants, but only prospectively.
+
+    This affects research priority, not goal qualification, fixture identity,
+    competition-format proof or exclusion rules. Never alter a frozen epoch.
+    """
+    from datetime import datetime, timezone
+
+    if at_utc is None:
+        return False
+    at = datetime.fromisoformat(at_utc.replace("Z", "+00:00"))
+    if at.tzinfo is None or at.astimezone(timezone.utc) < datetime.fromisoformat(CUP_ALIAS_EFFECTIVE_UTC):
+        return False
+    country = norm(fixture.get("country"))
+    country = COUNTRIES.get(country, country)
+    comp = norm(fixture.get("competition"))
+    if (fixture.get("competition_kind") != "DOMESTIC_CUP"
+            or fixture.get("is_friendly") is True
+            or "friendly" in comp
+            or country in AFRICAN_DOMESTIC_COUNTRIES
+            or country in DOMESTIC_EXCLUSIONS):
+        return False
+    # Anchor once at end: unrelated names that merely *contain* a cup token
+    # are not granted the approved identity.
+    base = comp
+    for _ in range(2):  # allow '... group stage group b' without loose matching
+        next_base = CUP_STAGE_SUFFIX.sub("", base)
+        if next_base == base:
+            break
+        base = next_base
+    return (country, base) in CUPS or (country, base) in CUP_RESEARCH_ALIASES
+
+
 def registry() -> dict[str, dict[str, set[str]]]:
     return {
         lane: {country: {norm(x) for x in options.split("|")}
@@ -151,7 +210,7 @@ def registry() -> dict[str, dict[str, set[str]]]:
 
 REGISTRY = registry()
 
-def classify(fixture: dict[str, Any]) -> dict[str, str]:
+def classify(fixture: dict[str, Any], *, at_utc: str | None = None) -> dict[str, str]:
     country = norm(fixture.get("country"))
     country = COUNTRIES.get(country, country)
     competition = norm(fixture.get("competition"))
@@ -196,6 +255,8 @@ def classify(fixture: dict[str, Any]) -> dict[str, str]:
     if kind == "DOMESTIC_CUP":
         if (country, competition) in CUPS:
             return {"lane": "CONDITIONAL", "reason": "MAJOR_CUP_MATCH_FORMAT_REQUIRED"}
+        if approved_cup_research_identity(fixture, at_utc=at_utc):
+            return {"lane": "CONDITIONAL", "reason": "APPROVED_CUP_ALIAS_MATCH_FORMAT_REQUIRED"}
         return {"lane": "DISCOVERY", "reason": "UNREGISTERED_OFFICIAL_CUP_GOAL_RESEARCH_REQUIRED"}
     for lane in ("ROUTINE", "CONDITIONAL", "PILOT"):
         if competition in REGISTRY[lane].get(country, set()):
