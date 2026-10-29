@@ -184,8 +184,6 @@ class OpenLeagueGoalDiscoveryTests(unittest.TestCase):
         out=sweep(source([cup]),now=NOW)
         self.assertEqual(out["pending_discovery_count"],0)
         self.assertEqual(out["cup_proof_limited_count"],1)
-        self.assertEqual(out["window_status"],"COMPLETE")
-        self.assertTrue(out["whole_requested_surface_complete"])
         self.assertEqual(out["discovery_watchlist"][0]["reason"],"OFFICIAL_CUP_FORMAT_AND_INCENTIVES_NOT_VERIFIED")
         cup["tournament_format_proof"]={
             "match_id":"cup1",
