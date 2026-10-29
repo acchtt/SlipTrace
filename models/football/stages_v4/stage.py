@@ -348,8 +348,10 @@ def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any
 
     A quantified WATCH_GOAL_SIGNAL is complete screening evidence. A bounded
     subset may be admitted as DEPRIORITIZED_RESEARCH; controls and the remainder
-    do not block rank. Missing source/history, unresolved researchability and
-    unresolved discovery remain open work.
+    do not block rank. CUP_PROOF_LIMITED is terminal for the current sweep:
+    the cup stays visible and non-rankable until proof exists, while unrelated
+    fixtures may finalize. Missing source/history, unresolved researchability
+    and unresolved discovery remain open work.
     """
     ledger = receipt.get("source_ledger")
     if not isinstance(ledger, list):
@@ -586,24 +588,37 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
                         except StageError:
                             proven = False
                     if not proven:
+                        # Missing cup format/incentive proof is terminal for
+                        # this fixture, not unfinished source acquisition.
+                        # Keep it visible and non-rankable without blocking
+                        # unrelated verified matches in the same sweep.
                         lane, reason = (
-                            "PENDING_DISCOVERY",
+                            "CUP_PROOF_LIMITED",
                             "APPROVED_CUP_FORMAT_AND_INCENTIVES_PROOF_REQUIRED",
                         )
                 if result["lane"] == "DISCOVERY" and lane == "DISCOVERY":
                     if raw.get("competition_kind") == "DOMESTIC_CUP":
                         format_proof = raw.get("tournament_format_proof")
-                        if not isinstance(format_proof, dict):
-                            lane, reason = "PENDING_DISCOVERY", "OFFICIAL_CUP_FORMAT_AND_INCENTIVES_NOT_VERIFIED"
-                        else:
-                            _url(format_proof.get("source_url"), f"{mid}.tournament_format_proof.source_url")
-                            format_checked = _time(format_proof.get("checked_at_utc"),
-                                                   f"{mid}.tournament_format_proof.checked_at_utc")
-                            if not at - timedelta(days=7) <= format_checked <= at or (
-                                format_proof.get("match_id") != mid
-                                or format_proof.get("competition_format_verified") is not True
-                            ):
-                                raise StageError(f"{mid}: cup format proof must be current and fixture-bound")
+                        format_verified = False
+                        if isinstance(format_proof, dict):
+                            try:
+                                _url(format_proof.get("source_url"), f"{mid}.tournament_format_proof.source_url")
+                                format_checked = _time(
+                                    format_proof.get("checked_at_utc"),
+                                    f"{mid}.tournament_format_proof.checked_at_utc",
+                                )
+                                format_verified = (
+                                    at - timedelta(days=7) <= format_checked <= at
+                                    and format_proof.get("match_id") == mid
+                                    and format_proof.get("competition_format_verified") is True
+                                )
+                            except StageError:
+                                format_verified = False
+                        if not format_verified:
+                            lane, reason = (
+                                "CUP_PROOF_LIMITED",
+                                "OFFICIAL_CUP_FORMAT_AND_INCENTIVES_NOT_VERIFIED",
+                            )
                     if lane == "DISCOVERY" and discovery_screen["status"] not in {"DISCOVERY_GOAL_QUALIFIED", "DISCOVERY_GOAL_REVIEW"}:
                         lane, reason = "PENDING_DISCOVERY", discovery_screen["reason"]
             item = {
@@ -748,6 +763,9 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["pending_discovery_count"] = sum(
             x["intake_lane"] == "PENDING_DISCOVERY" for x in ledger
         )
+        outcome["cup_proof_limited_count"] = sum(
+            x["intake_lane"] == "CUP_PROOF_LIMITED" for x in ledger
+        )
         outcome["discovery_qualified_count"] = sum(
             x.get("registry_lane") == "DISCOVERY" and x["intake_lane"] == "GOAL_PRIORITY"
             for x in ledger
@@ -794,6 +812,7 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
           and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
                                      "DEPRIORITIZED_RESEARCH", "CONTROL_REVIEW",
+                                     "CUP_PROOF_LIMITED",
                                      "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
     # Prospective completeness metadata. Do not retrofit this policy onto an
     # immutable source epoch that predates the repair; old receipts remain
