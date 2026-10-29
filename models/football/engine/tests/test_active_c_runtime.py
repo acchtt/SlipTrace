@@ -351,9 +351,9 @@ class ActiveCRuntimeTests(unittest.TestCase):
             evaluate_observed_quote(retired, {"line": 2.5, "odds": 1.70})
 
 
-    def test_follow_kickoff_protection_retained_until_global_allocator_revalidated(self):
+    def test_follow_selection_is_global_and_kickoff_does_not_consume_capacity(self):
         rows = []
-        for i in range(7):
+        for i in range(8):
             row = c_row()
             row.update(
                 match_id=f"early-weak-{i}",
@@ -390,18 +390,55 @@ class ActiveCRuntimeTests(unittest.TestCase):
         })
         by_id = {row["match_id"]: row for row in result["matches"]}
 
-        self.assertEqual(result["follow_count"], 7)
-        self.assertEqual(by_id["later-strong"]["follow_lane"], "RESERVE")
+        self.assertEqual(result["follow_count"], 8)
+        self.assertEqual(result["follow_selection_policy"], "GLOBAL_C_RANK_TOP_N")
+        self.assertEqual(by_id["later-strong"]["follow_lane"], "FOLLOW")
         self.assertEqual(
             by_id["later-strong"]["follow_portfolio_role"],
-            "RESERVE",
+            "GLOBAL_RANK",
         )
         self.assertEqual(
             sum(
                 by_id[f"early-weak-{i}"]["follow_lane"] == "FOLLOW"
-                for i in range(7)
+                for i in range(8)
             ),
             7,
+        )
+        displaced = [
+            by_id[f"early-weak-{i}"]
+            for i in range(8)
+            if by_id[f"early-weak-{i}"]["follow_lane"] != "FOLLOW"
+        ]
+        self.assertEqual(len(displaced), 1)
+        self.assertEqual(displaced[0]["follow_lane"], "RESERVE")
+
+    def test_global_selection_does_not_reward_higher_burden_depth_by_itself(self):
+        strong_g3 = c_row()
+        strong_g3.update(
+            match_id="strong-lower-burden-g3",
+            kickoff_ict="2026-10-26T10:00:00+07:00",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent upper-tail certificate",
+        )
+        higher_burden = c_row()
+        higher_burden.update(
+            match_id="later-g4-depth",
+            kickoff_ict="2026-10-26T23:00:00+07:00",
+        )
+
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [higher_burden, strong_g3],
+        })
+        by_id = {row["match_id"]: row for row in result["matches"]}
+
+        self.assertFalse(by_id["strong-lower-burden-g3"]["goal4_funded"])
+        self.assertTrue(by_id["later-g4-depth"]["goal4_funded"])
+        self.assertLess(
+            by_id["strong-lower-burden-g3"]["rank"],
+            by_id["later-g4-depth"]["rank"],
         )
 
 

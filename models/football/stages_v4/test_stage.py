@@ -1187,13 +1187,9 @@ class RankV4Tests(unittest.TestCase):
         self.assertEqual(result["ranked_count"], 11)
         self.assertEqual(result["board"]["match_count"], 11)
         self.assertEqual(len(result["board"]["matches"]), 11)
-        self.assertGreater(
-            sum(
-                x["follow_lane"] == "FOCUS_UNFOLLOWED"
-                for x in result["board"]["matches"]
-            ),
-            0,
-        )
+        self.assertEqual(result["board"]["follow_count"], 8)
+        self.assertEqual(result["board"]["reserve_count"], 3)
+        self.assertEqual(result["board"]["focus_unfollowed_count"], 0)
         self.assertFalse(
             any(x["follow_lane"] == "STOP" for x in result["board"]["matches"])
         )

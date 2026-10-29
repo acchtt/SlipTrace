@@ -62,9 +62,11 @@ from core import (
 
 
 SCHEMA_VERSION = "football-engine-v1"
-MAX_FOLLOW = 7
+MAX_FOLLOW = 8
 MAX_RESERVE = 4
-MAX_FOLLOW_PER_KICKOFF = 3
+# FOLLOW is selected globally.  This legacy result field remains for receipt
+# compatibility, but the only effective per-kickoff ceiling is the global cap.
+MAX_FOLLOW_PER_KICKOFF = MAX_FOLLOW
 
 
 class ContractError(ValueError):
@@ -1082,30 +1084,13 @@ def _check_envelope(payload: dict[str, Any], expected_stage: str) -> None:
         raise ContractError(f"stage must be {expected_stage!r}")
 
 
-def _follow_portfolio_weight(row: dict[str, Any], role: str) -> int:
-    """Comparable workload score for one FOLLOW role."""
-
-    if role == "CLEARABILITY":
-        return int(row.get("follow_clearability_score", 0))
-    if role == "UPSIDE":
-        return int(row.get("follow_upside_score", 0))
-    return int(row.get("follow_balanced_score", row.get("follow_priority_score", 0)))
-
-
 def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
-    """Allocate FOLLOW as burden-normalized clear/balanced/upside coverage.
+    """Allocate scarce FOLLOW capacity from the official global C rank.
 
-    Football C state and certificates are frozen before this allocator runs.
-    FOLLOW is workload capacity only. Each exact kickoff can contribute up to
-    three complementary nominations:
-
-    1. CLEARABILITY — strongest burden-normalized protected-floor candidate;
-    2. BALANCED — strongest remaining all-round current mechanism candidate;
-    3. UPSIDE — strongest remaining burden-normalized ceiling candidate.
-
-    This avoids two previous failure modes: certificate depth winning workload
-    priority automatically, and a two-row exact-kickoff cap pretending there is
-    predictive separation when several FOCUS rows remain credible.
+    Football C certificates and global rank are frozen before this allocator
+    runs.  FOLLOW is an operational state for the already-ranked top-N, never a
+    second predictive ordering.  Kickoff time is deliberately absent from the
+    selection key and may be used only after selection for presentation.
     """
 
     for row in rows:
@@ -1118,137 +1103,29 @@ def _allocate_c_follow_lanes(rows: list[dict[str, Any]]) -> None:
             row["follow_portfolio_role"] = "UNALLOCATED"
             row["follow_portfolio_score"] = None
 
-    blocks: dict[str, list[dict[str, Any]]] = {}
-    for row in rows:
-        if (
-            row.get("board_state") == "FOCUS"
+    candidates = sorted(
+        (
+            row for row in rows
+            if row.get("board_state") == "FOCUS"
             and row.get("operational_viability_grade") == "A"
-        ):
-            blocks.setdefault(str(row["kickoff_ict"]), []).append(row)
-
-    primary: list[tuple[dict[str, Any], str, int]] = []
-    secondary: list[tuple[dict[str, Any], str, int]] = []
-
-    for kickoff in sorted(blocks):
-        candidates = blocks[kickoff]
-        clear_pick = max(
-            candidates,
-            key=lambda row: (
-                int(row.get("follow_clearability_score", 0)),
-                int(row.get("follow_balanced_score", 0)),
-                int(row.get("follow_upside_score", 0)),
-                -int(row["rank"]),
-            ),
-        )
-        primary.append(
-            (
-                clear_pick,
-                "CLEARABILITY",
-                _follow_portfolio_weight(clear_pick, "CLEARABILITY"),
-            )
-        )
-
-        remaining = [row for row in candidates if row is not clear_pick]
-        if remaining and MAX_FOLLOW_PER_KICKOFF > 1:
-            balanced_pick = max(
-                remaining,
-                key=lambda row: (
-                    int(row.get("follow_balanced_score", 0)),
-                    int(row.get("follow_upside_score", 0)),
-                    int(row.get("follow_clearability_score", 0)),
-                    -int(row["rank"]),
-                ),
-            )
-            secondary.append(
-                (
-                    balanced_pick,
-                    "BALANCED",
-                    _follow_portfolio_weight(balanced_pick, "BALANCED"),
-                )
-            )
-            remaining = [row for row in remaining if row is not balanced_pick]
-
-        if remaining and MAX_FOLLOW_PER_KICKOFF > 2:
-            upside_pick = max(
-                remaining,
-                key=lambda row: (
-                    int(row.get("follow_upside_score", 0)),
-                    int(row.get("follow_balanced_score", 0)),
-                    int(row.get("follow_clearability_score", 0)),
-                    -int(row["rank"]),
-                ),
-            )
-            secondary.append(
-                (
-                    upside_pick,
-                    "UPSIDE",
-                    _follow_portfolio_weight(upside_pick, "UPSIDE"),
-                )
-            )
-
-    selected: list[tuple[dict[str, Any], str, int]] = []
-    seen: set[str] = set()
-
-    # The 23-26 Oct frozen replay showed that global clearability nominations
-    # promoted over-certified O4.5 rows at the expense of valid low-burden G3s.
-    # Roll this portfolio stage back to kickoff-protected primaries, preserving
-    # the separate CONTROL_REVIEW zero-authority invariant upstream. Revisit
-    # global allocation only after prospective exact-certificate replay improves.
-    for row, role, score in sorted(
-        primary,
-        key=lambda item: (
-            str(item[0]["kickoff_ict"]),
-            -int(item[0].get("follow_clearability_score", 0)),
-            int(item[0]["rank"]),
-            str(item[0]["match_id"]),
         ),
-    ):
-        if len(selected) >= MAX_FOLLOW:
-            break
-        mid = str(row["match_id"])
-        if mid not in seen:
-            selected.append((row, role, score))
-            seen.add(mid)
+        key=lambda row: (int(row["rank"]), str(row["match_id"])),
+    )
+    selected = candidates[:MAX_FOLLOW]
 
-    # Remaining slots go to the strongest complementary nominations globally.
-    for row, role, score in sorted(
-        secondary,
-        key=lambda item: (
-            item[2],
-            int(item[0].get("follow_balanced_score", 0)),
-            int(item[0].get("follow_upside_score", 0)),
-            int(item[0].get("follow_clearability_score", 0)),
-            -int(item[0]["rank"]),
-        ),
-        reverse=True,
-    ):
-        if len(selected) >= MAX_FOLLOW:
-            break
-        mid = str(row["match_id"])
-        if mid not in seen:
-            selected.append((row, role, score))
-            seen.add(mid)
-
-    for row, role, score in selected:
+    for row in selected:
         row["follow_lane"] = FollowLane.FOLLOW.value
-        row["follow_portfolio_role"] = role
-        row["follow_portfolio_score"] = score
+        row["follow_portfolio_role"] = "GLOBAL_RANK"
+        row["follow_portfolio_score"] = int(
+            row.get("follow_clearability_score", 0)
+        )
 
     reserve_pool = [
         row for row in rows
         if row.get("board_state") == "FOCUS"
         and row.get("follow_lane") == FollowLane.FOCUS_UNFOLLOWED.value
     ]
-    reserve_pool.sort(
-        key=lambda row: (
-            1 if row.get("operational_viability_grade") == "A" else 0,
-            int(row.get("follow_balanced_score", row.get("follow_priority_score", 0))),
-            int(row.get("follow_upside_score", 0)),
-            int(row.get("follow_clearability_score", 0)),
-            -int(row["rank"]),
-        ),
-        reverse=True,
-    )
+    reserve_pool.sort(key=lambda row: (int(row["rank"]), str(row["match_id"])))
     for row in reserve_pool[:MAX_RESERVE]:
         row["follow_lane"] = FollowLane.RESERVE.value
         row["follow_portfolio_role"] = "RESERVE"
@@ -1558,6 +1435,7 @@ def run_board(payload: dict[str, Any]) -> dict[str, Any]:
         result["follow_capacity"] = MAX_FOLLOW
         result["reserve_capacity"] = MAX_RESERVE
         result["max_follow_per_exact_kickoff"] = MAX_FOLLOW_PER_KICKOFF
+        result["follow_selection_policy"] = "GLOBAL_C_RANK_TOP_N"
         qa_flags: list[str] = []
         if len(output) >= 5 and all(
             row.get("operational_viability_grade") == "B" for row in output
