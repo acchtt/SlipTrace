@@ -43,7 +43,8 @@ def review_g3_bridge(row: dict[str, Any], frozen: dict[str, Any]) -> dict[str, A
             unresolved.append(name + ".dated_facts_not_verified")
             continue
         claim_ids[name] = set(ids)
-    if (proof.get("goal3_reply", {}).get("status") == "SUPPORTED"
+    reply_claim = proof.get("goal3_reply")
+    if (isinstance(reply_claim, dict) and reply_claim.get("status") == "SUPPORTED"
             and "goal3_primary" in claim_ids and "goal3_reply" in claim_ids
             and claim_ids["goal3_primary"] & claim_ids["goal3_reply"]):
         unresolved.append("goal3_reply.reuses_primary_fact")
