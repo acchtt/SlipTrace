@@ -65,6 +65,57 @@ class ProspectiveSelectionRepairTests(unittest.TestCase):
             self.assertEqual(classify_research_priority(row, at_utc=at)["priority"],
                              "NEUTRAL_RESEARCH")
 
+    def test_future_cup_requires_fixture_bound_format_and_incentive_evidence(self):
+        from unittest.mock import patch
+        from stage import sweep
+        src = {
+            "schema_version": "football-stages-v4",
+            "run_id": "V4-20261029-0910-1100-CUP-PROOF",
+            "source_family": "Frozen Provider Test",
+            "source_url": "https://example.org/fixtures",
+            "window_start_utc": "2026-10-29T02:10:00Z",
+            "window_end_utc": "2026-10-29T04:00:00Z",
+            "source_observed_at_utc": "2026-10-29T01:59:00Z",
+            "fixtures": [{
+                "match_id": "CUP-1",
+                **fixture("Netherlands", "KNVB Beker: Round 1"),
+                "home": "MVV", "away": "Excelsior",
+                "fixture_status": "PREMATCH_CONFIRMED",
+                "kickoff_utc": "2026-10-29T03:00:00Z",
+                "source_url": "https://example.org/fixtures/CUP-1",
+                "observed_at_utc": "2026-10-29T01:59:00Z",
+                "researchability_status": "VERIFIED",
+                "researchability_proof": {
+                    "match_id": "CUP-1",
+                    "checked_at_utc": "2026-10-29T01:59:00Z",
+                    "source_url": "https://example.org/fixtures/CUP-1",
+                    "current_channels_checked": True,
+                },
+            }],
+        }
+        evidence = {
+            "source_completeness_contract": "V2_TEST",
+            "source_completeness_sha256": "test",
+        }
+        with patch("stage.validate_source_completeness", return_value=evidence):
+            unverified = sweep(src, now="2026-10-29T02:00:00Z")
+            lane = unverified["source_ledger"][0]["intake_lane"]
+            self.assertEqual(lane, "PENDING_DISCOVERY")
+            self.assertEqual(unverified["eligible_count"], 0)
+            self.assertIn("CUP_FORMAT_AND_INCENTIVES", unverified["source_ledger"][0]["reason"])
+
+            src["fixtures"][0]["tournament_format_proof"] = {
+                "match_id": "CUP-1",
+                "source_url": "https://example.org/rules",
+                "checked_at_utc": "2026-10-29T01:59:00Z",
+                "competition_format_verified": True,
+                "incentive_review_verified": True,
+            }
+            proven = sweep(src, now="2026-10-29T02:00:00Z")
+            self.assertNotEqual(proven["source_ledger"][0]["intake_lane"], "PENDING_DISCOVERY")
+            # Format proof is necessary, never sufficient for G3 admission.
+            self.assertEqual(proven["eligible_count"], 0)
+
     def test_unverified_g3_proof_requires_recheck_but_never_vetoes(self):
         row = {"match_id": "M1", "goal3_funded": True,
                "goal3_mechanism_class": "DISTRIBUTED"}
