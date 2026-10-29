@@ -337,9 +337,9 @@ def _unresolved_sweep_intake_rows(receipt: dict[str, Any]) -> list[dict[str, Any
     """Return genuinely unresolved in-window intake rows.
 
     A quantified WATCH_GOAL_SIGNAL is complete screening evidence. A bounded
-    subset may be admitted as CONTROL_REVIEW; the remainder does not block rank.
-    Missing source/history, unresolved researchability and unresolved discovery
-    remain open work.
+    subset may be admitted as DEPRIORITIZED_RESEARCH; controls and the remainder
+    do not block rank. Missing source/history, unresolved researchability and
+    unresolved discovery remain open work.
     """
     ledger = receipt.get("source_ledger")
     if not isinstance(ledger, list):
@@ -666,7 +666,8 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             {
                 "GOAL_PRIORITY": 0,
                 "GOAL_REVIEW": 1,
-                "CONTROL_REVIEW": 2,
+                "DEPRIORITIZED_RESEARCH": 2,
+                "CONTROL_REVIEW": 3,
             }.get(q.get("intake_lane"), 3),
             -int(isinstance((q.get("goal_screen") or {}).get("priority_score"), (int, float))),
             -float((q.get("goal_screen") or {}).get("priority_score") or 0),
@@ -681,7 +682,10 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         "run_id": run_id,
         "source_payload_hash": _hash(ledger),
         "priority_profile": (
-            "GOAL_SIGNAL_FIRST_V4_CONTROL_REVIEW"
+            "GOAL_SIGNAL_FIRST_V5_DEPRIORITIZED_RESEARCH"
+            if goal_selection is not None
+            and goal_selection.get("deprioritized_research_capacity", 0) > 0
+            else "GOAL_SIGNAL_FIRST_V4_CONTROL_REVIEW"
             if at >= SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC
             and not _historical_replay
             else "GOAL_SIGNAL_FIRST_V3"
@@ -751,6 +755,16 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
         outcome["low_goal_signal_count"] = goal_selection["low_goal_signal_count"]
         outcome["verified_goal_qualified_count"] = goal_selection["verified_goal_qualified_count"]
         outcome["goal_review_count"] = goal_selection.get("goal_review_count", 0)
+        outcome["deprioritized_research_count"] = goal_selection.get(
+            "deprioritized_research_count", 0
+        )
+        outcome["deprioritized_research_capacity"] = goal_selection.get(
+            "deprioritized_research_capacity", 0
+        )
+        outcome["deprioritized_research_match_ids"] = goal_selection.get(
+            "deprioritized_research_match_ids", []
+        )
+        outcome["deprioritized_research_certificate_authority"] = False
         outcome["control_review_count"] = goal_selection.get("control_review_count", 0)
         outcome["terminal_negative_screen_count"] = goal_selection.get(
             "terminal_negative_screen_count", 0
@@ -768,7 +782,8 @@ def sweep(source: dict[str, Any], *, now: str, _historical_registry_only: bool =
             "intake_lane": x["intake_lane"], "reason": x["reason"],
             "discovery_screen": x.get("discovery_screen"),
         } for x in ledger if x.get("registry_lane") == "DISCOVERY"
-          and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW", "CONTROL_REVIEW",
+          and x.get("intake_lane") in ("GOAL_PRIORITY", "GOAL_REVIEW",
+                                     "DEPRIORITIZED_RESEARCH", "CONTROL_REVIEW",
                                      "PENDING_DISCOVERY", "PENDING_GOAL_RESEARCH")]
     # Prospective completeness metadata. Do not retrofit this policy onto an
     # immutable source epoch that predates the repair; old receipts remain
@@ -1280,7 +1295,10 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     if sweep_receipt.get("goal_selection_policy") == "EQUAL_SOURCE_BACKED_GOAL_SIGNAL_ALL_LEAGUES_V1":
         if any(
             not isinstance(row, dict)
-            or row.get("intake_lane") not in {"GOAL_PRIORITY", "GOAL_REVIEW", "CONTROL_REVIEW"}
+            or row.get("intake_lane") not in {
+                "GOAL_PRIORITY", "GOAL_REVIEW", "DEPRIORITIZED_RESEARCH",
+                "CONTROL_REVIEW",
+            }
             or not isinstance(row.get("goal_screen"), dict)
             or (
                 row.get("intake_lane") == "GOAL_PRIORITY"
@@ -1289,6 +1307,14 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
             or (
                 row.get("intake_lane") == "GOAL_REVIEW"
                 and row["goal_screen"].get("status") != "DISCOVERY_GOAL_REVIEW"
+            )
+            or (
+                row.get("intake_lane") == "DEPRIORITIZED_RESEARCH"
+                and (
+                    row["goal_screen"].get("status") != "WATCH_GOAL_SIGNAL"
+                    or row.get("deprioritized_research_selected") is not True
+                    or row.get("deprioritized_research_certificate_authority") is not False
+                )
             )
             or (
                 row.get("intake_lane") == "CONTROL_REVIEW"
@@ -1307,6 +1333,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
             not in {
                 "GOAL_SIGNAL_FIRST_V1", "GOAL_SIGNAL_FIRST_V2",
                 "GOAL_SIGNAL_FIRST_V3", "GOAL_SIGNAL_FIRST_V4_CONTROL_REVIEW",
+                "GOAL_SIGNAL_FIRST_V5_DEPRIORITIZED_RESEARCH",
             }
             or manifest.get("ordered_eligible_match_ids")
             != sweep_receipt.get("research_order")

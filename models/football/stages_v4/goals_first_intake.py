@@ -1,10 +1,10 @@
 """V4 source-backed goals-first qualification for every researched league.
 
 A league registration is NOT goals evidence. All non-excluded competitive
-fixtures enter an acquisition/research pool, but only source-quantified
-goal-positive fixtures enter the official rank-eligible shortlist.
-Evidence-limited or weak-goal matches remain visible and researchable,
-never labelled a C/C2 PASS or assumed to be a profitable Over.
+fixtures enter an acquisition/research pool. Source-quantified goal-positive
+fixtures retain first priority, while a bounded set of the strongest quantified
+negative screens may enter lower-priority Football C research. Evidence-limited
+or weak-goal matches are never labelled a C PASS or assumed to be an Over.
 """
 from __future__ import annotations
 
@@ -18,6 +18,11 @@ ADMITTED_LANES = CANDIDATE_LANES
 PENDING_LANES = frozenset({"PENDING_DISCOVERY","PENDING_RESEARCHABILITY"})
 CONTROL_REVIEW_MAX_PER_SWEEP = 4
 CONTROL_REVIEW_EFFECTIVE_UTC = datetime(2026, 10, 24, tzinfo=timezone.utc)
+DEPRIORITIZED_RESEARCH_MIN_PER_SWEEP = 8
+DEPRIORITIZED_RESEARCH_MAX_PER_SWEEP = 12
+DEPRIORITIZED_RESEARCH_EFFECTIVE_UTC = datetime(
+    2026, 10, 29, tzinfo=timezone.utc
+)
 
 
 def _control_review_order(row: dict[str, Any]) -> tuple[Any, ...]:
@@ -29,14 +34,27 @@ def _control_review_order(row: dict[str, Any]) -> tuple[Any, ...]:
     if not isinstance(cheap_rank, int):
         cheap_rank = 4
     return (
-        cheap_rank,
-        -float(screen.get("carrier_route") or 0),
-        -float(screen.get("mean_over_two_rate") or 0),
+        -float(screen.get("priority_score") or 0),
         -float(screen.get("mean_over_three_rate") or 0),
         float(screen.get("mean_0_0_or_1_1_rate") or 1),
-        -float(screen.get("priority_score") or 0),
+        -float(screen.get("second_route") or 0),
+        -float(screen.get("carrier_route") or 0),
+        -float(screen.get("mean_over_two_rate") or 0),
+        cheap_rank,
         row["kickoff_utc"],
         row["match_id"],
+    )
+
+
+def _deprioritized_research_budget(primary_eligible_count: int) -> int:
+    """Bound negative-screen recovery without making the backlog exhaustive."""
+
+    return min(
+        DEPRIORITIZED_RESEARCH_MAX_PER_SWEEP,
+        max(
+            DEPRIORITIZED_RESEARCH_MIN_PER_SWEEP,
+            DEPRIORITIZED_RESEARCH_MAX_PER_SWEEP - primary_eligible_count,
+        ),
     )
 
 
@@ -203,10 +221,51 @@ def select(
     selected_at = datetime.fromisoformat(at_utc.replace("Z", "+00:00")).astimezone(
         timezone.utc
     )
-    chosen_controls = (
-        sorted(control_candidates, key=_control_review_order)[
-            :CONTROL_REVIEW_MAX_PER_SWEEP
+    ordered_negative = sorted(control_candidates, key=_control_review_order)
+    secondary_budget = (
+        _deprioritized_research_budget(len(selected))
+        if selected_at >= DEPRIORITIZED_RESEARCH_EFFECTIVE_UTC
+        else 0
+    )
+    chosen_secondary = ordered_negative[:secondary_budget]
+    secondary_ids = {row["match_id"] for row in chosen_secondary}
+    for secondary_rank, candidate in enumerate(chosen_secondary, start=1):
+        item = candidate["ledger"]
+        item["intake_lane"] = "DEPRIORITIZED_RESEARCH"
+        item["reason"] = "BOUNDED_NEGATIVE_SCREEN_SECONDARY_ADMISSION"
+        item["deprioritized_research_selected"] = True
+        item["deprioritized_research_rank"] = secondary_rank
+        item["deprioritized_research_basis"] = (
+            "bounded frozen-screen recovery ordered by existing screen score, "
+            "O3 support, draw-trap rate, second/carrier routes, O2 support and "
+            "cheap-filter priority; permits Football C research but creates no certificate"
+        )
+
+        queue_row = candidate["queue"]
+        queue_row.update({
+            "intake_lane": "DEPRIORITIZED_RESEARCH",
+            "reason": item["reason"],
+            "goal_screen": candidate["goal_screen"],
+            "deprioritized_research_selected": True,
+            "deprioritized_research_rank": secondary_rank,
+            "deprioritized_research_basis": item["deprioritized_research_basis"],
+            "deprioritized_research_certificate_authority": False,
+            "deprioritized_research_rank_permission": True,
+        })
+        if candidate["cheap_filter"] is not None:
+            queue_row["cheap_filter"] = candidate["cheap_filter"]
+        selected.append(queue_row)
+
+    if secondary_ids:
+        research = [
+            row for row in research if row["match_id"] not in secondary_ids
         ]
+
+    chosen_controls = (
+        [
+            row for row in ordered_negative
+            if row["match_id"] not in secondary_ids
+        ][:CONTROL_REVIEW_MAX_PER_SWEEP]
         if selected_at >= CONTROL_REVIEW_EFFECTIVE_UTC
         else []
     )
@@ -284,6 +343,12 @@ def select(
         "goal_review_count": sum(
             r.get("intake_lane") == "GOAL_REVIEW" for r in selected
         ),
+        "deprioritized_research_count": len(chosen_secondary),
+        "deprioritized_research_match_ids": [
+            row["match_id"] for row in chosen_secondary
+        ],
+        "deprioritized_research_capacity": secondary_budget,
+        "deprioritized_research_certificate_authority": False,
         "control_review_count": len(chosen_controls),
         "control_review_match_ids": sorted(control_ids),
         "control_review_production_authority": False,

@@ -116,6 +116,13 @@ The high-rate alternate research path is active alongside the original
 route-composite path. Both are research admission only; neither creates a goal
 certificate, supported burden or bet.
 
+A quantified negative goal screen is lower research priority, not a Football C
+rejection. Each prospective sweep may admit only the deterministic best 8–12
+negative screens as `DEPRIORITIZED_RESEARCH`, using already-frozen screen and
+cheap-filter fields. This bounded lane grants a Football C assessment only; it
+does not create G3, FOCUS, FOLLOW, /xi authority or exposure. Remaining
+negative-screen controls retain zero production rank authority.
+
 ## /rank — Football C only
 
 Authority: stages_v4/RANK.md and stages_v4/stage.py.

@@ -176,13 +176,15 @@ earlier fixtures start. Do not overwrite Slate Rank.
 ## Rank cohort
 
 Use the frozen V4 `eligible_queue` as the **production research cohort**,
-not as the official board. It contains only `GOAL_PRIORITY` and `GOAL_REVIEW`
-rows. Deterministic `CONTROL_REVIEW` rows remain in the sweep research/audit
+not as the official board. It contains `GOAL_PRIORITY`, `GOAL_REVIEW`, and the
+bounded `DEPRIORITIZED_RESEARCH` lane. Deprioritized admission grants only a
+full Football C assessment; it creates no certificate, FOCUS or FOLLOW by
+itself. Deterministic `CONTROL_REVIEW` rows remain in the sweep research/audit
 backlog only: they may be researched for calibration and false-negative
 measurement, but they have **zero production rank authority** and must never be
 copied into `eligible_queue`, a production certificate, FOLLOW/RESERVE, or
-automatic /xi workload. Research production priority/review rows first; control
-research is a separate calibration obligation. Do not silently skip a
+automatic /xi workload. Research priority, review, then deprioritized rows;
+control research is a separate calibration obligation. Do not silently skip a
 higher-priority production fixture without an explicit allowed evidence/status
 reason.
 
