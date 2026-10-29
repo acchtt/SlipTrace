@@ -14,7 +14,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
-from league_registry import COUNTRIES, UEFA_YOUTH_LEAGUE_NAMES, norm
+from league_registry import COUNTRIES, UEFA_YOUTH_LEAGUE_NAMES, norm, approved_cup_research_identity
 
 SCHEMA = "football-sweep-cheap-filter-v1"
 
@@ -422,6 +422,19 @@ def classify_research_priority(
     }
     if expired:
         return base
+
+    if approved_cup_research_identity(fixture, at_utc=at_utc):
+        # Research-time urgency only. Never classify a cup as goals-positive
+        # without source-backed histories, channels and knockout incentives.
+        return {
+            **base,
+            "priority": SPECIAL,
+            "priority_rank": PRIORITY_RANK[SPECIAL],
+            "reason": "APPROVED_SENIOR_CUP_NEEDS_GOAL_FORMAT_RESEARCH",
+            "league_profile": "SENIOR_CUP_SOURCE_RESEARCH_V1",
+            "requires_tier_round_context": True,
+            "requires_competition_format_proof": True,
+        }
 
     if comp in UEFA_YOUTH_LEAGUE_NAMES:
         return {
