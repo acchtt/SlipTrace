@@ -1,0 +1,33 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "window_start_ict": "2026-10-30T15:00:00+07:00",
+  "window_end_ict": "2026-10-31T03:00:00+07:00",
+  "end_inclusive": true,
+  "authoritative_run_id": "V4-20261030-1500-20261031-0300-COMPLETE",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261030-1500-20261031-0300-COMPLETE/rank-handoff.json",
+  "superseded_run_ids": [
+    "V4-20261030-1500-20261031-0300",
+    "V4-20261030-1500-20261031-0300-FULLRESEARCH"
+  ],
+  "supersession_reason": "Single comprehensive 134-fixture research epoch includes newly discovered source-visible French National 1 fixture, whereas first native pass screened 27 and expanded interim pass screened 133. Do not rank either superseded receipt.",
+  "provider_date_surface_fixture_count": 1039,
+  "requested_window_fixture_count": 186,
+  "verified_counts": {
+    "active_targets": 134,
+    "goal_priority": 50,
+    "goal_review": 24,
+    "deprioritized_admission": 4,
+    "eligible": 78,
+    "watch": 52,
+    "evidence_limited": 4,
+    "deferred_source_backlog": 13,
+    "unresolved_active": 0,
+    "internal_chunks": 5
+  },
+  "whole_requested_surface_complete": true,
+  "research_exhaustive": false,
+  "source_integrity_sha256": "645197ab435e80a0c2e1092491bc25efe7e5420687677b44a4ce99537e8c6ebb",
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/41015819802",
+  "notes": "Retain 13 outstanding provider-UNKNOWN/reserve youth source-backed matches as visible backlog; not Football C PASS. /rank must refresh all 78 eligible KO/status and complete model assessment. No bets/XI or website publication.",
+  "superseded_run_id": "V4-20261030-1500-20261031-0300-FULLRESEARCH"
+}
