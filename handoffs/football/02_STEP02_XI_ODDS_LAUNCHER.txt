@@ -20,10 +20,20 @@ Conversation surface: NORMAL CHAT
    - load the matching portable verified rank package from the current
      conversation, Project files, or Library (do not assume newest artifacts are
      committed to GitHub main);
+   - if a Library/Project text read fails with a transport error (including
+     "Transport closed") or the verified artifact is a large/minified JSON,
+     do NOT treat the package as unavailable yet. Materialize the exact raw file
+     bytes, then run models/football/engine/rank_package_transport.py to produce
+     a transport-safe authority capsule. The capsule must preserve the verified
+     persistence status, rank-integrity hash, policy fingerprint, exact FOCUS
+     board row(s), and matching frozen model-input row(s) from that sealed
+     artifact. It is a byte-derived projection of the sealed package, never a
+     ledger reconstruction;
    - verify the exact FOCUS row and frozen model input through xi_authority.py.
    The ledger is discovery/readback only, not substitute rank authority.
-   If the ledger proves the fixture is ranked but the sealed package is
-   unavailable, return RANK_RECEIPT_REQUIRED. Never convert it to EXCEPTION.
+   Only if both normal loading and raw-file materialization/capsule extraction
+   fail may the sealed package be called unavailable and RANK_RECEIPT_REQUIRED
+   returned. Never convert it to EXCEPTION.
    Only a literal user /xi exception request may set authority.mode=EXCEPTION,
    and it must set user_requested_exception=true.
    Explicit exception additionally requires a fresh full exception_research
