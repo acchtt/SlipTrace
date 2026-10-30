@@ -101,9 +101,19 @@ This lookup is part of /xi; it is not optional conversational context.
    `V4_RANK_PERSISTENCE_VERIFIED` or
    `V4_RANK_PARTIAL_PERSISTENCE_VERIFIED`, the exact FOCUS board row, and the
    matching frozen model-input row.
-5. If the active ledger proves the fixture is ranked but the sealed package
-   cannot be loaded, return `RANK_RECEIPT_REQUIRED`. **Never convert that
-   fixture to EXCEPTION.**
+   - A large/minified Library artifact may exceed the text transport even when
+     it exists and is valid. If a read fails with a transport error such as
+     `Transport closed`, do not immediately classify it as missing.
+   - Materialize the exact raw artifact bytes and run
+     `models/football/engine/rank_package_transport.py` to build a compact
+     authority capsule. This capsule must be derived from the sealed artifact
+     itself and preserve its verified persistence status, rank-integrity hash,
+     policy lock/fingerprint, exact ranked board row(s), and matching frozen
+     model-input row(s). The Daily Coverage Ledger is never an input to capsule
+     construction.
+5. If the active ledger proves the fixture is ranked but both normal package
+   loading and raw-file materialization/capsule extraction fail, return
+   `RANK_RECEIPT_REQUIRED`. **Never convert that fixture to EXCEPTION.**
 6. `authority.mode = EXCEPTION` is permitted only when the user's command
    explicitly requests `/xi exception`; the runtime authority must carry
    `user_requested_exception = true`. Normal `/xi` must never infer or
