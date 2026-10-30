@@ -7,6 +7,8 @@ on:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/xi_runtime_backend.py"
+      - "models/football/engine/xi_authority.py"
+      - "models/football/engine/rank_package_transport.py"
       - "models/football/engine/xi_runtime_requests/**"
       - "models/football/engine/evidence_contract.py"
       - "models/football/engine/production_scope.py"
@@ -18,11 +20,14 @@ on:
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/tests/test_xi_runtime_backend.py"
       - "models/football/engine/tests/test_xi_user_screenshot_only.py"
+      - "models/football/engine/tests/test_rank_package_transport.py"
   pull_request:
     paths:
       - ".github/workflows/xi-portable-artifact-transport.yml"
       - "models/football/engine/xi_portable.py"
       - "models/football/engine/xi_runtime_backend.py"
+      - "models/football/engine/xi_authority.py"
+      - "models/football/engine/rank_package_transport.py"
       - "models/football/engine/evidence_contract.py"
       - "models/football/engine/production_scope.py"
       - "models/football/stages_v4/league_registry.py"
@@ -32,6 +37,7 @@ on:
       - "models/football/engine/step2_queue_guard.py"
       - "models/football/engine/tests/test_xi_runtime_backend.py"
       - "models/football/engine/tests/test_xi_user_screenshot_only.py"
+      - "models/football/engine/tests/test_rank_package_transport.py"
   workflow_dispatch:
 
 permissions:
@@ -58,6 +64,7 @@ jobs:
         run: |
           PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_xi_user_screenshot_only.py' -v
           PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_xi_runtime_backend.py' -v
+          PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_rank_package_transport.py' -v
           PYTHONPATH=models/football/engine python -m unittest discover             -s models/football/engine/tests             -p 'test_step2_publication_guard.py' -v
 
       - name: Select exactly one newly added XI request
@@ -131,6 +138,8 @@ jobs:
             XI_RUNTIME_COMMIT.txt
             models/football/engine/xi_portable.py
             models/football/engine/xi_runtime_backend.py
+            models/football/engine/xi_authority.py
+            models/football/engine/rank_package_transport.py
             models/football/engine/evidence_contract.py
             models/football/engine/production_scope.py
             models/football/stages_v4/league_registry.py
