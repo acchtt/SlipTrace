@@ -367,14 +367,19 @@ The active champion ranking is price-blind and deterministic.
 Comparison order:
 
 1. current G3 execution-floor authorization;
-2. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
+2. highest funded certificate: G6 > G5 > G4 > G3 > none;
+3. frozen V4 high-total strength, led by the independently observed 4+ rate,
+   then 3+ rate, aggregate goal priority and low-draw resistance;
+4. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
    distributed-only;
-3. burden-normalized clearability;
-4. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
-5. highest funded certificate: G6 > G5 > G4 > G3 > none;
-6. endpoint/control risk;
-7. frozen V4 quantitative goal signal;
+5. burden-normalized clearability;
+6. certificate robustness: ROBUST > CONDITIONAL > FRAGILE;
+7. endpoint/control risk;
 8. remaining C football-mechanism quality.
+
+This precedence applies only after the execution floor clears. It changes no
+G3/G4/G5/G6 funding threshold and cannot rescue a fixture blocked by endpoint
+control, material suppression or route destruction.
 
 This order prevents the Mynavi/Urawa defect class: a distributed-only G3 with
 broad MEDIUM predictive grades cannot jump above a stronger self-funded carrier
