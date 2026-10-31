@@ -32,18 +32,18 @@ def run(request_path: Path, output: Path) -> int:
         row.get("match_id") for row in receipt.get("source_ledger", [])
         if row.get("registry_lane") == "EXCLUDED" or row.get("intake_lane") == "EXCLUDED"
     }
-    priority_order = [
-        mid for mid in dict.fromkeys(receipt.get("priority_research_order", []))
+    selected_goal_order = [
+        mid for mid in dict.fromkeys(receipt.get("research_order", []))
         if mid not in excluded_ids
     ]
     full_goal_order = [
         mid for mid in dict.fromkeys(receipt.get("goal_research_order", []))
         if mid not in excluded_ids
     ]
-    # One slate must not hide researched-league fixtures behind the old
-    # <=30 active-cohort boundary. The mandatory slate research universe is:
-    #   1) every native high-priority goal candidate, including discovery; plus
-    #   2) every still-open fixture from a registered/researched league lane.
+    # Preserve the native goals-first order for every production-eligible
+    # fixture. Registry coverage expands the research universe only AFTER the
+    # quantified goal-positive/review/deprioritized cohort; it must never move a
+    # weaker registered fixture ahead of a stronger frozen goal signal.
     # Low-priority unregistered discovery rows may remain deferred and visible.
     registered_open = [
         str(row.get("match_id"))
@@ -52,7 +52,7 @@ def run(request_path: Path, output: Path) -> int:
         and row.get("intake_lane") not in {"EXCLUDED", "CLOSED", "UNVERIFIED"}
         and row.get("match_id")
     ]
-    order = list(dict.fromkeys(priority_order + registered_open))
+    order = list(dict.fromkeys(selected_goal_order + registered_open))
     deferred = [mid for mid in full_goal_order if mid not in set(order)]
     checkpoint = {
         "schema_version": "football-v4-sweep-research-checkpoint-v2",
