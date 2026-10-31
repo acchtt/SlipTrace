@@ -1,0 +1,28 @@
+{
+  "schema_version": "football-v4-sweep-supersession-v1",
+  "window_start_ict": "2026-10-31T07:46:49+07:00",
+  "window_end_ict": "2026-10-31T12:00:00+07:00",
+  "end_inclusive": true,
+  "superseded_run_id": "V4-20261031-0746-1200",
+  "superseded_status": "HISTORICAL_ONLY_DO_NOT_RANK",
+  "authoritative_run_id": "V4-20261031-0746-1200-FULLRESEARCH",
+  "authoritative_rank_handoff": "models/football/stages_v4/recovery/V4-20261031-0746-1200-FULLRESEARCH/rank-handoff.json",
+  "reason": "Expanded full source-confirmed morning cohort from 18 to 48 actionable senior fixtures; first native receipt omitted Liga MX, K3, J3, USL and Australia's domestic fixtures. One MLS Next Pro reserve fixture remains source-visible but deferred. Final receipt has no active research pending and matching native integrity hash.",
+  "coverage": {
+    "provider_date_fixtures": 1075,
+    "requested_window_fixtures": 49,
+    "researched": 48,
+    "eligible": 32,
+    "watch": 14,
+    "evidence_limited": 2,
+    "deferred": 1,
+    "pending": 0
+  },
+  "native_sweep_ready": true,
+  "rank_handoff_ready": true,
+  "source_in_window_complete": true,
+  "research_exhaustive": false,
+  "receipt_integrity_sha256": "19473623724d89fcd3822ffc459b473a6ce232fd82e3bb5ad06c1faeb0ab6b64",
+  "workflow_url": "https://github.com/acchtt/SlipTrace/actions/runs/41152149607",
+  "notes": "No ranking, XI, odds, betting or publication performed. /rank must refresh prematch status and assess football evidence for all eligible source matches."
+}
