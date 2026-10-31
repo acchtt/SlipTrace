@@ -474,7 +474,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(ranked[0].match_id, "z_high")
 
 
-    def test_clearability_can_precede_deeper_certificate(self):
+    def test_funded_depth_precedes_clearability_once_execution_floor_clears(self):
         g4 = assessment(
             match_id="g4",
             carrier=CarrierStrength.STRONG,
@@ -497,9 +497,60 @@ class RankingTests(unittest.TestCase):
             goal_signal_low_draw_trap_rate=0.05,
         )
 
+        self.assertTrue(c_goal3_execution_floor_authorized(g4))
+        self.assertTrue(c_goal3_execution_floor_authorized(g3))
         self.assertEqual(certified_supported_burden(g4, "c"), 3.5)
         self.assertEqual(certified_supported_burden(g3, "c"), 2.5)
-        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g3")
+        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g4")
+
+    def test_high_total_signal_precedes_g3_mechanism_class_after_floor(self):
+        high_tail_distributed = assessment(
+            match_id="high_tail_distributed",
+            home_route=RouteStrength.USABLE,
+            away_route=RouteStrength.USABLE,
+            carrier=CarrierStrength.USABLE,
+            carrier_self_fund=False,
+            completion_mode=CompletionMode.TWO_SIDED,
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            opponent_leakage=Grade.MEDIUM,
+            burden_stall_risk=Grade.LOW,
+            route_reliability=Grade.MEDIUM,
+            independent_route_quality=Grade.HIGH,
+            chance_quality=Grade.MEDIUM,
+            failure_resistance=Grade.MEDIUM,
+            evidence_confidence=Grade.MEDIUM,
+            burden_protection=Grade.MEDIUM,
+            goal_signal_priority_score=82,
+            goal_signal_mean_over_two_rate=0.90,
+            goal_signal_mean_over_three_rate=0.75,
+            goal_signal_low_draw_trap_rate=0.05,
+        )
+        lower_tail_carrier = assessment(
+            match_id="lower_tail_carrier",
+            carrier=CarrierStrength.STRONG,
+            carrier_self_fund=True,
+            independent_upper_tail=False,
+            goal_signal_priority_score=62,
+            goal_signal_mean_over_two_rate=0.60,
+            goal_signal_mean_over_three_rate=0.45,
+            goal_signal_low_draw_trap_rate=0.15,
+        )
+
+        self.assertEqual(
+            c_goal3_mechanism_class(high_tail_distributed), "DISTRIBUTED"
+        )
+        self.assertEqual(c_goal3_mechanism_class(lower_tail_carrier), "CARRIER")
+        self.assertTrue(c_goal3_execution_floor_authorized(high_tail_distributed))
+        self.assertTrue(c_goal3_execution_floor_authorized(lower_tail_carrier))
+        self.assertEqual(
+            certified_supported_burden(high_tail_distributed, "c"), 2.5
+        )
+        self.assertEqual(certified_supported_burden(lower_tail_carrier, "c"), 2.5)
+        self.assertEqual(
+            rank_assessments([lower_tail_carrier, high_tail_distributed])[0].match_id,
+            "high_tail_distributed",
+        )
 
     def test_robust_g3_can_outrank_fragile_g4(self):
         robust_g3 = assessment(
