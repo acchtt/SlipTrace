@@ -1018,6 +1018,44 @@ def _goal_signal_rank_key(a: MatchAssessment) -> tuple[int, int, int, int, int]:
     return complete, priority, over_two, over_three, low_draw
 
 
+def _goal_tail_rank_key(a: MatchAssessment) -> tuple[int, int, int, int, int]:
+    """Frozen high-total comparator used before G3 mechanism preference.
+
+    This is the same Step-0 evidence as _goal_signal_rank_key, but orders the
+    independently observed 4+ rate before 3+ rate and the aggregate priority
+    score. It changes no admission threshold or certificate funding rule.
+    """
+
+    values = (
+        a.goal_signal_priority_score,
+        a.goal_signal_mean_over_two_rate,
+        a.goal_signal_mean_over_three_rate,
+        a.goal_signal_low_draw_trap_rate,
+    )
+    complete = int(all(value is not None for value in values))
+    over_three = (
+        round(a.goal_signal_mean_over_three_rate * 10000)
+        if a.goal_signal_mean_over_three_rate is not None
+        else -1
+    )
+    over_two = (
+        round(a.goal_signal_mean_over_two_rate * 10000)
+        if a.goal_signal_mean_over_two_rate is not None
+        else -1
+    )
+    priority = (
+        round(a.goal_signal_priority_score * 100)
+        if a.goal_signal_priority_score is not None
+        else -1
+    )
+    low_draw = (
+        -round(a.goal_signal_low_draw_trap_rate * 10000)
+        if a.goal_signal_low_draw_trap_rate is not None
+        else -10001
+    )
+    return complete, over_three, over_two, priority, low_draw
+
+
 def _independent_scoring_structure(a: MatchAssessment) -> bool:
     """Common evidence that the certificate does not rely on one brittle path."""
 
@@ -1368,15 +1406,18 @@ def _c2_endpoint_control_key(a: MatchAssessment) -> tuple[int, int]:
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic Football C ranking key.
 
-    Execution-relevant current structure now precedes the coarse robustness
-    label. This prevents a broadly-MEDIUM distributed G3 from vaulting above a
-    self-funded carrier merely because documentation quality pushed the former
-    across a robustness boundary.
+    Once the current G3 execution floor is genuinely authorized, independently
+    funded burden depth and frozen high-total evidence outrank mechanism-class
+    preference. This repairs the selection-inversion class where a lower-tail
+    carrier could displace a stronger O3.5/G4 or materially stronger 4+ signal.
+    Certificate thresholds, endpoint vetoes and execution-floor rules are
+    unchanged.
     """
 
     require_c_completion(a)
     effective_continuation, _ = c_effective_incentive_grades(a)
     endpoint = _c_endpoint_control_key(a)
+    tail_signal = _goal_tail_rank_key(a)
     goal_signal = _goal_signal_rank_key(a)
     upper_tail_self_fund = int(
         a.carrier_self_fund and c_upper_tail_transferable(a)
@@ -1385,10 +1426,11 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
 
     return (
         int(c_goal3_execution_floor_authorized(a)),
+        funded_goal_certificate_depth(a, "c"),
+        *tail_signal,
         c_goal3_mechanism_rank(a),
         int(profile["follow_clearability_score"]),
         certificate_robustness(a, "c"),
-        funded_goal_certificate_depth(a, "c"),
         *endpoint,
         int(effective_continuation),
         int(a.burden_completion_quality),
