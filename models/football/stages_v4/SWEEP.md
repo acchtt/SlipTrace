@@ -38,6 +38,12 @@ window.
    `football-v4-normal-source.yml` backend runs source-only acquisition and
    returns `original-source.json`, `source.json`, `listing-receipt.json`
    and a v2 checkpoint with status `SOURCE_READY_FOR_RESEARCH`.
+   **Trigger contract:** create/commit the request JSON on `main`; the resulting
+   `push` is the production trigger for `football-v4-normal-source.yml`. Do not
+   attempt a separate `workflow_dispatch` call and do not report a dispatch
+   blocker when the request-file write path is available. After the commit,
+   verify the Actions run created for that exact head SHA before declaring the
+   backend unavailable.
 3. Do not manually assemble a fixture list or research goal histories while
    source status is absent/incomplete. Web searches may verify a source failure,
    but they cannot replace the canonical date-surface union.
