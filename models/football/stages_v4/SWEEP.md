@@ -99,12 +99,16 @@ blocking because the full provider union was never captured.
 
 A complete provider surface can expose hundreds of fixtures. **Do not turn every
 missing-history row into an active resume obligation.** The source-only backend
-starts the active cohort from native `priority_research_order`. Normal chat may
-then promote exact canonical source IDs from the deferred backlog using the
-standing researched-league scope, same-run schedule relevance, and any
-fixture-specific prior already established in this sweep. Keep each active
-research **batch** at **30 or fewer**, but continue further batches in the same
-receipt when more targeted in-scope rows require history.
+must preserve native `research_order` for the production-eligible goals-first
+cohort. Only after that ordered cohort may registered/researched-league coverage
+expand the active universe. Registry membership, source familiarity or league
+prestige must never move a weaker frozen goal signal ahead of a stronger
+GOAL_PRIORITY/GOAL_REVIEW candidate. Normal chat may then promote exact
+canonical source IDs from the deferred backlog using the standing researched-
+league scope, same-run schedule relevance, and any fixture-specific prior
+already established in this sweep. Keep each active research **batch** at
+**30 or fewer**, but continue further batches in the same receipt when more
+targeted in-scope rows require history.
 
 This is workload control only, not a whole-slate cap. It cannot create
 GOAL_PRIORITY/GOAL_REVIEW or a Football C certificate. Non-target discovery
