@@ -412,7 +412,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(len(displaced), 1)
         self.assertEqual(displaced[0]["follow_lane"], "RESERVE")
 
-    def test_global_selection_does_not_reward_higher_burden_depth_by_itself(self):
+    def test_global_selection_follows_funded_depth_after_execution_floor(self):
         strong_g3 = c_row()
         strong_g3.update(
             match_id="strong-lower-burden-g3",
@@ -436,9 +436,11 @@ class ActiveCRuntimeTests(unittest.TestCase):
 
         self.assertFalse(by_id["strong-lower-burden-g3"]["goal4_funded"])
         self.assertTrue(by_id["later-g4-depth"]["goal4_funded"])
+        # Since the 31 Oct ranking repair, funded certificate depth precedes
+        # clearability once both rows clear the execution floor.
         self.assertLess(
-            by_id["strong-lower-burden-g3"]["rank"],
             by_id["later-g4-depth"]["rank"],
+            by_id["strong-lower-burden-g3"]["rank"],
         )
 
 
