@@ -93,10 +93,11 @@ burden profile may authorize O2.75/O3.00/O3.25 execution without claiming G4:
 - O3.50: still requires funded G4.
 
 A broadly-MEDIUM distributed-only G3 may retain the funded O2.50 execution
-floor when the ordinary G3 floor checks clear. It remains structurally weaker
-than carrier/two-route/leakage mechanisms for ranking, and
-`evidence_confidence=HIGH` still cannot upgrade its robustness or mechanism
-strength by itself.
+floor when the ordinary G3 floor checks clear. Under the active risk-tightening
+quarantine, TWO_ROUTE receives no route-count ranking bonus over a genuine
+distributed G3; carrier and matchup-leakage evidence may still rank above them
+on their own independent mechanism strength. `evidence_confidence=HIGH` still
+cannot upgrade robustness or mechanism strength by itself.
 
 BOOK never upgrades G3 to G4 and never creates exposure until a fill is
 independently confirmed. The user's bookmaker supports custom total-line/odds
@@ -114,6 +115,22 @@ matchup-leakage structures.
 
 A plausible 1-1 is not sufficient by itself. The assessment must identify the
 goal that clears the burden and the mechanism that supplies it.
+
+### Active risk-tightening quarantine — two-route overvaluation
+
+Effective prospectively from the 2026-11-01 production patch:
+
+- `TWO_ROUTE_G3` remains valid only as a third-goal funding mechanism;
+- route count by itself receives no G3 ranking bonus;
+- two independently STRONG routes cannot corroborate, relax, or substitute for
+  carrier/distributed requirements in G4;
+- two-route structure alone cannot create ROBUST strength;
+- G4/O3.50 requires its own independent continuation/failure-resistance
+  evidence after goal three.
+
+This quarantine is exposure-tightening only. It does not lower any G3/G4/G5
+threshold, create a new positive route, or rewrite historical decisions. It is
+reviewed prospectively under the frozen 2026-11-01 challenger record.
 
 ## 5. G4+ transferability and comparable context
 
@@ -150,9 +167,10 @@ contradictory context.
 G4 completion still requires the deterministic carrier/distributed/reply,
 continuation and failure-resistance rules in the engine. When effective
 upper-tail transferability is only MEDIUM and the closest comparable context is
-MIXED, a single-carrier G4 also requires independent corroboration: HIGH
-failure resistance, HIGH independent-route quality, or two independently STRONG
-routes. This evidence contract does not lower a certificate threshold.
+MIXED, a single-carrier G4 also requires independent corroboration from HIGH
+failure resistance or HIGH independent-route quality. Two independently STRONG
+routes are G3 evidence only and cannot serve as G4 corroboration. This evidence
+contract does not lower a certificate threshold.
 
 ## 6. G4 research completeness
 
@@ -186,8 +204,8 @@ The V4 rank stage checkpoints it for bounded completion.
 The active price-blind champion ranking order is:
 
 1. current G3 execution-floor authorization;
-2. funded G3 mechanism strength: self-funded carrier > two-route > leakage >
-   distributed-only;
+2. funded G3 mechanism strength: self-funded carrier > matchup leakage >
+   two-route = distributed-only; route count itself has no ranking bonus;
 3. burden-normalized clearability;
 4. certificate robustness;
 5. highest funded certificate: G6 > G5 > G4 > G3 > none;

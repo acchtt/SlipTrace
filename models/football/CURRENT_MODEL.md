@@ -193,8 +193,8 @@ completion certificate.
 The active champion C ranking key is now execution-structure first:
 
 1. current G3 execution-floor authorization;
-2. funded G3 mechanism strength (self-funded carrier > two-route > leakage >
-   distributed-only);
+2. funded G3 mechanism strength (self-funded carrier > matchup leakage >
+   two-route = distributed-only; route count itself has no ranking bonus);
 3. burden-normalized clearability;
 4. certificate robustness;
 5. highest funded certificate G6 > G5 > G4 > G3 > none;
@@ -284,20 +284,20 @@ Transferability alone does not certify the fourth goal. C now distinguishes a
 self-funded/strong-route completion from a fourth goal that depends on a more
 fragile opponent reply.
 
-For G4:
+For G4 under the active 2026-11-01 risk-tightening quarantine:
 
-- a STRONG carrier path must have HIGH route reliability, unless both scoring
-  routes are independently STRONG with HIGH independent-route quality;
-- a reply-dependent TWO_SIDED/MIXED path with only one STRONG route requires
-  HIGH failure resistance;
-- two independently STRONG routes may retain G4 with MEDIUM failure resistance;
+- a STRONG carrier path requires HIGH route reliability;
+- a reply-dependent TWO_SIDED/MIXED path requires HIGH failure resistance;
+- two independently STRONG routes do not relax either requirement and never
+  corroborate G4 by themselves;
 - when effective transferability is only MEDIUM and comparable context is
-  MIXED, a single-carrier G4 additionally needs HIGH failure resistance, HIGH
-  independent-route quality, or two independently STRONG routes.
+  MIXED, a single-carrier G4 additionally needs HIGH failure resistance or HIGH
+  independent-route quality.
 
-This preserves genuine City/Villa/Brighton/Lech and two-strong-route shapes
-while preventing a broad high-goal history from upgrading a fragile 3+1/2+2
-completion path.
+`TWO_ROUTE_G3` remains valid for goal three, but route count itself is neutral
+for ranking and cannot create ROBUST/G4 authority. This quarantine is
+prospective, exposure-tightening, and must be reviewed against the frozen
+2026-11-01 challenger record; historical decisions remain unchanged.
 
 C now freezes a second structured field for G4+:
 `upper_tail_comparable_context_signal` = SUPPORTIVE / MIXED / SUPPRESSIVE /

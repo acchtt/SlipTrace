@@ -37,6 +37,7 @@ from core import (  # noqa: E402
     c_direct_act_ceiling,
     c_goal3_execution_floor_authorized,
     c_goal3_mechanism_class,
+    c_goal3_mechanism_rank,
     c_intermediate_burden_profile,
     c_g3_book_extension_profile,
     c_goal4_funded,
@@ -1580,9 +1581,9 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
         self.assertFalse(c_goal4_funded(a))
         self.assertEqual(certified_supported_burden(a, "c"), 2.5)
 
-    def test_two_strong_route_medium_reliability_control_keeps_g4(self):
+    def test_two_strong_routes_do_not_corroborate_mixed_medium_g4(self):
         a = assessment(
-            match_id="stromsgodset_kongsvinger_positive_control",
+            match_id="two_route_g4_quarantine_control",
             home_route=RouteStrength.STRONG,
             away_route=RouteStrength.STRONG,
             carrier=CarrierStrength.STRONG,
@@ -1609,8 +1610,28 @@ class UpperTailTransferabilityCalibrationTests(unittest.TestCase):
             goal_signal_mean_over_three_rate=0.625,
             goal_signal_low_draw_trap_rate=0.125,
         )
-        self.assertTrue(c_goal4_funded(a))
-        self.assertEqual(certified_supported_burden(a, "c"), 3.5)
+        self.assertTrue(clearing_goal_funded(a, 2.5))
+        self.assertFalse(c_goal4_funded(a))
+        self.assertEqual(certified_supported_burden(a, "c"), 2.5)
+
+    def test_two_route_gets_no_mechanism_rank_bonus_over_distributed(self):
+        two_route = assessment(match_id="two_route_neutral")
+        distributed = assessment(
+            match_id="distributed_neutral",
+            burden_completion_quality=Grade.MEDIUM,
+            continuation_quality=Grade.MEDIUM,
+            goal_signal_priority_score=70,
+            goal_signal_mean_over_two_rate=0.75,
+            goal_signal_mean_over_three_rate=0.50,
+            goal_signal_low_draw_trap_rate=0.10,
+        )
+        self.assertEqual(c_goal3_mechanism_class(two_route), "TWO_ROUTE")
+        self.assertEqual(c_goal3_mechanism_class(distributed), "DISTRIBUTED")
+        self.assertEqual(c_goal3_mechanism_rank(two_route), 1)
+        self.assertEqual(
+            c_goal3_mechanism_rank(two_route),
+            c_goal3_mechanism_rank(distributed),
+        )
 
     def test_city_psg_style_current_independent_routes_keep_g4(self):
         a = assessment(

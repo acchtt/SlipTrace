@@ -762,23 +762,28 @@ def c_goal3_mechanism_class(a: MatchAssessment) -> str:
     require_c_completion(a)
     if c_carrier_goal3_funded(a):
         return "CARRIER"
-    if c_two_route_goal3_funded(a):
-        return "TWO_ROUTE"
     if c_leakage_goal3_funded(a):
         return "LEAKAGE"
+    if c_two_route_goal3_funded(a):
+        return "TWO_ROUTE"
     if c_distributed_goal3_funded(a):
         return "DISTRIBUTED"
     return "NONE"
 
 
 def c_goal3_mechanism_rank(a: MatchAssessment) -> int:
-    """Rank mechanism independence without using market or outcome information."""
+    """Rank G3 mechanism quality without rewarding route count by itself.
+
+    TWO_ROUTE remains a valid G3 certificate, but it is neutral with a genuine
+    distributed G3 for ranking. Only independently stronger carrier or
+    matchup-leakage evidence receives a mechanism-specific preference.
+    """
 
     return {
         "NONE": 0,
         "DISTRIBUTED": 1,
+        "TWO_ROUTE": 1,
         "LEAKAGE": 2,
-        "TWO_ROUTE": 3,
         "CARRIER": 4,
     }[c_goal3_mechanism_class(a)]
 
@@ -882,11 +887,9 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
             and effective_stall <= Grade.MEDIUM
         )
 
-    two_strong_routes = (
-        a.home_route == RouteStrength.STRONG
-        and a.away_route == RouteStrength.STRONG
-        and a.independent_route_quality == Grade.HIGH
-    )
+    # Route count is a G3 property only. Two STRONG routes do not independently
+    # corroborate goal four; G4 needs its own carrier/distributed continuation
+    # evidence.
     effective_tail = c_effective_upper_tail_transferability(a)
     mixed_medium_tail = (
         effective_tail == Grade.MEDIUM
@@ -896,16 +899,12 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         not mixed_medium_tail
         or a.failure_resistance == Grade.HIGH
         or a.independent_route_quality == Grade.HIGH
-        or two_strong_routes
     )
     carrier_route = (
         a.carrier == CarrierStrength.STRONG
         and a.carrier_self_fund
         and a.independent_upper_tail
-        and (
-            a.route_reliability == Grade.HIGH
-            or two_strong_routes
-        )
+        and a.route_reliability == Grade.HIGH
         and a.chance_quality >= Grade.MEDIUM
         and a.failure_resistance >= Grade.MEDIUM
         and a.evidence_confidence >= Grade.MEDIUM
@@ -923,10 +922,7 @@ def c_goal4_funded(a: MatchAssessment) -> bool:
         and a.independent_route_quality == Grade.HIGH
         and a.route_reliability == Grade.HIGH
         and a.chance_quality >= Grade.MEDIUM
-        and (
-            two_strong_routes
-            or a.failure_resistance == Grade.HIGH
-        )
+        and a.failure_resistance == Grade.HIGH
         and a.burden_completion_quality == Grade.HIGH
         and effective_continuation == Grade.HIGH
         and effective_stall <= Grade.MEDIUM
@@ -1330,11 +1326,6 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     )
     strong_frozen_signal = legacy_strong_signal or high_rate_signal
     independent_structure = _independent_scoring_structure(a)
-    both_routes_strong = (
-        a.home_route == RouteStrength.STRONG
-        and a.away_route == RouteStrength.STRONG
-        and a.independent_route_quality == Grade.HIGH
-    )
     repeatable_current_quality = (
         a.route_reliability == Grade.HIGH
         and a.chance_quality == Grade.HIGH
@@ -1347,8 +1338,7 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         and a.chance_quality == Grade.HIGH
     )
     if strong_frozen_signal and (
-        both_routes_strong
-        or repeatable_current_quality
+        repeatable_current_quality
         or strong_carrier_quality
     ):
         return min(2, transferability_cap, completion_cap, endpoint_cap)
