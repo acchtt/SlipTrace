@@ -44,6 +44,24 @@ window.
    blocker when the request-file write path is available. After the commit,
    verify the Actions run created for that exact head SHA before declaring the
    backend unavailable.
+
+   **Post-submit closure is mandatory.** A queued or in-progress Actions run is
+   an internal transient state, never a user-facing terminal result. After the
+   request commit, keep checking that exact-head workflow and the matching
+   `recovery/<run-id>/` bundle in the SAME chat turn until one of these
+   terminal states is reached:
+
+   - workflow SUCCESS + persisted `checkpoint.json`,
+     `v4_sweep_ready.json` and `rank-handoff.json`: report the verified
+     sweep result;
+   - workflow FAILURE/CANCELLED: report the exact failing step/error;
+   - connector/tool transport failure that prevents further verification:
+     report that concrete tooling failure.
+
+   A one-shot read that finds no recovery bundle while the workflow is still
+   queued/in-progress is NOT sufficient. Do not return "awaiting native sweep
+   results", "checkpoint not yet available", "press Resume", or equivalent for
+   that transient condition.
 3. Do not manually assemble a fixture list or research goal histories while
    source status is absent/incomplete. Web searches may verify a source failure,
    but they cannot replace the canonical date-surface union.
