@@ -88,7 +88,8 @@ require(
 )
 require(
     "models/football/engine/core.py",
-    "two_strong_routes",
+    "Route count is a G3 property only",
+    '"TWO_ROUTE": 1',
     "completion_cap",
     "_healthy_c_wait",
     "CANONICAL_SETTLEMENT_AWARE_G3_EXTENSION",

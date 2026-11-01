@@ -784,8 +784,8 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(
             [item.match_id for item in c_ranked],
             [
-                "stromsgodset_kongsvinger",
                 "hodd_ranheim",
+                "stromsgodset_kongsvinger",
                 "sogndal_odd",
                 "bryne_raufoss",
                 "slovan_stuttgart",
