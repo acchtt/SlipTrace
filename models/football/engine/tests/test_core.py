@@ -1899,7 +1899,7 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
             Action.BET,
         )
 
-    def test_self_funded_carrier_outranks_broad_medium_distributed_signal(self):
+    def test_frozen_high_total_signal_precedes_medium_carrier_after_floor(self):
         distributed = assessment(
             match_id="urawa_inac_frozen_shape",
             home_route=RouteStrength.STRONG,
@@ -1951,7 +1951,10 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
         self.assertTrue(c_goal3_execution_floor_authorized(distributed))
         self.assertTrue(c_goal3_execution_floor_authorized(carrier))
         self.assertEqual(c_goal3_mechanism_class(carrier), "CARRIER")
-        self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, carrier.match_id)
+        # Since 31 Oct, frozen high-total evidence deliberately precedes
+        # mechanism-class preference after both rows clear the G3 execution
+        # floor. This is independent of the TWO_ROUTE quarantine.
+        self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, distributed.match_id)
 
     def test_middle_burden_is_distinct_from_g4_certificate(self):
         a = robust_g3_assessment(

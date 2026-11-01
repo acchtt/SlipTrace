@@ -1326,6 +1326,11 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
     )
     strong_frozen_signal = legacy_strong_signal or high_rate_signal
     independent_structure = _independent_scoring_structure(a)
+    both_routes_strong = (
+        a.home_route == RouteStrength.STRONG
+        and a.away_route == RouteStrength.STRONG
+        and a.independent_route_quality == Grade.HIGH
+    )
     repeatable_current_quality = (
         a.route_reliability == Grade.HIGH
         and a.chance_quality == Grade.HIGH
@@ -1338,7 +1343,8 @@ def certificate_robustness(a: MatchAssessment, model: str) -> int:
         and a.chance_quality == Grade.HIGH
     )
     if strong_frozen_signal and (
-        repeatable_current_quality
+        (model != "c" and both_routes_strong)
+        or repeatable_current_quality
         or strong_carrier_quality
     ):
         return min(2, transferability_cap, completion_cap, endpoint_cap)
