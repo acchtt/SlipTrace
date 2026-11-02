@@ -1402,18 +1402,22 @@ def _c2_endpoint_control_key(a: MatchAssessment) -> tuple[int, int]:
 def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
     """Return the deterministic Football C ranking key.
 
-    Once the current G3 execution floor is genuinely authorized, independently
-    funded burden depth and frozen high-total evidence outrank mechanism-class
-    preference. This repairs the selection-inversion class where a lower-tail
-    carrier could displace a stronger O3.5/G4 or materially stronger 4+ signal.
-    Certificate thresholds, endpoint vetoes and execution-floor rules are
-    unchanged.
+    Selection priority is execution-first and burden-normalized.  Once a row
+    clears the current G3 execution floor, the quality of the funded mechanism
+    and how realistically its protected burden can be cleared must outrank
+    certificate prestige.  Deeper G4/G5/G6 certificates and frozen historical
+    goal signals remain useful corroboration, but they cannot vault a harder,
+    less-clearable profile above a stronger current G3 mechanism merely because
+    the nominal certified total is higher.
+
+    This restores the prospective ordering that was accidentally reversed by
+    the 31 Oct depth-first rank patch.  Certificate thresholds, board-state
+    admission, endpoint vetoes and execution rules are unchanged.
     """
 
     require_c_completion(a)
     effective_continuation, _ = c_effective_incentive_grades(a)
     endpoint = _c_endpoint_control_key(a)
-    tail_signal = _goal_tail_rank_key(a)
     goal_signal = _goal_signal_rank_key(a)
     upper_tail_self_fund = int(
         a.carrier_self_fund and c_upper_tail_transferable(a)
@@ -1422,11 +1426,10 @@ def ranking_key(a: MatchAssessment) -> tuple[int, ...]:
 
     return (
         int(c_goal3_execution_floor_authorized(a)),
-        funded_goal_certificate_depth(a, "c"),
-        *tail_signal,
         c_goal3_mechanism_rank(a),
         int(profile["follow_clearability_score"]),
         certificate_robustness(a, "c"),
+        funded_goal_certificate_depth(a, "c"),
         *endpoint,
         int(effective_continuation),
         int(a.burden_completion_quality),
