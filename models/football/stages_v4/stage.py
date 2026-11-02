@@ -1663,6 +1663,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         {**copy.deepcopy(frozen[mid]),
          "research_status": (
              "GOAL_ROUTE_PROOF_PENDING" if mid in goal_route_incomplete_set else
+             "G3_BORDERLINE_RESEARCH_PENDING" if mid in selection_recheck_incomplete_set else
+             "BLOCK_COMPARISON_PENDING" if mid in block_comparison_incomplete_set else
              "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else dispositions[mid]
          ),
          "reason": unranked_reasons[mid],
@@ -1672,6 +1674,17 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              "post-third-goal continuation, counterevidence and dated distinct "
              "facts; correct the exact missing proof fields before re-ranking"
              if mid in goal_route_incomplete_set else
+             "Run G3_BORDERLINE_DISCRIMINATION_V2: verify the STRONG primary route, "
+             "independent reply/completion path, 0-0/1-1/2-0 stop risk, continuation "
+             "after goal two and the exact missing G3 requirement; update grades only "
+             "when source-backed, otherwise freeze a substantive REVIEW_ONLY basis"
+             if mid in selection_recheck_incomplete_set else
+             "Complete BLOCK_DISCRIMINATION_V2 for the entire kickoff block at equal "
+             "research depth; compare G3/G4, carrier self-funding, reply dependence, "
+             "0-0/1-1/2-0 exposure, continuation, incentive and supported burden. "
+             "If the football ordering disagrees with engine rank, reconcile the "
+             "source-backed grades rather than overriding the engine."
+             if mid in block_comparison_incomplete_set else
              "Complete one bounded G4 pass: carrier four-goal path, distributed "
              "3+1/2+2 path, reply-assisted path, continuation after G3, "
              "upper-tail transferability/comparable context, and failure/stall risk"
@@ -1729,6 +1742,8 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
              "disposition": (
                  "C_ASSESSED" if mid in ids else
                  "GOAL_ROUTE_PROOF_PENDING" if mid in goal_route_incomplete_set else
+                 "G3_BORDERLINE_RESEARCH_PENDING" if mid in selection_recheck_incomplete_set else
+                 "BLOCK_COMPARISON_PENDING" if mid in block_comparison_incomplete_set else
                  "G4_RESEARCH_PENDING" if mid in g4_incomplete_set else
                  dispositions[mid]
              ),
