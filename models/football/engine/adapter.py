@@ -1046,6 +1046,27 @@ def _g4_research_profile(
         else raw_status
     )
     if status == "G4_NOT_APPLICABLE":
+        if goal3 and a.g3_current_structure_verified:
+            # A bounded G3 recheck may newly fund the third goal on a row whose
+            # frozen metadata correctly said G4 was not applicable while G3 was
+            # unfunded. Do not reject the row or pretend G4 is complete: reopen
+            # the upper-tail investigation and let the stage checkpoint fail
+            # closed until G4 is explicitly completed.
+            return {
+                "g4_research_status": "G4_RESEARCH_INCOMPLETE",
+                "g4_declared_research_status": declared_status,
+                "g4_research_explicit": True,
+                "g4_carrier_path": "UNAVAILABLE",
+                "g4_distributed_path": "UNAVAILABLE",
+                "g4_reply_path": "UNAVAILABLE",
+                "g4_continuation_after_g3": "UNAVAILABLE",
+                "g4_research_basis": (
+                    "CURRENT_STRUCTURE_G3_NEWLY_FUNDED: frozen G4_NOT_APPLICABLE "
+                    "is reopened; complete the bounded G4 investigation before rank "
+                    "may finalize this FOCUS row."
+                ),
+                "g4_status_normalized_from_mixed": False,
+            }
         if goal3:
             raise ContractError("G4_NOT_APPLICABLE is invalid when G3 is funded")
         return {
