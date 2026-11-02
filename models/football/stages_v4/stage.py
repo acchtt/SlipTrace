@@ -43,6 +43,11 @@ from selection_discrimination import (
     POLICY as SELECTION_DISCRIMINATION_POLICY,
     review_borderline_recheck,
 )
+from block_discrimination import (
+    POLICY as BLOCK_DISCRIMINATION_POLICY,
+    comparison_blocks,
+    review_block as review_block_discrimination,
+)
 from source_completeness import (
     CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
     SourceCompletenessError,
@@ -1276,6 +1281,46 @@ def _checkpoint_incomplete_selection_discrimination(
     return filtered, reasons, pending, reviews
 
 
+def _checkpoint_incomplete_block_discrimination(
+    c: dict[str, Any],
+    board_result: dict[str, Any],
+    unranked_reasons: dict[str, Any],
+    *,
+    at: datetime,
+) -> tuple[dict[str, Any], dict[str, Any], list[str], list[dict[str, Any]]]:
+    """Fail closed when a multi-candidate kickoff block lacks a real comparison."""
+
+    if at < SELECTION_DISCRIMINATION_EFFECTIVE_UTC:
+        return c, unranked_reasons, [], []
+
+    compiled_rows = board_result.get("matches")
+    if not isinstance(compiled_rows, list):
+        raise StageError("Football C block preflight result missing matches")
+
+    reviews: list[dict[str, Any]] = []
+    pending_ids: set[str] = set()
+    for block in comparison_blocks(c.get("matches", []), compiled_rows):
+        review = review_block_discrimination(block)
+        reviews.append(review)
+        if review.get("status") != "COMPLETE":
+            pending_ids.update(str(mid) for mid in review["candidate_match_ids"])
+
+    if not pending_ids:
+        return c, unranked_reasons, [], reviews
+
+    filtered = copy.deepcopy(c)
+    filtered["matches"] = [
+        row for row in filtered["matches"]
+        if str(row.get("match_id")) not in pending_ids
+    ]
+    reasons = copy.deepcopy(unranked_reasons)
+    for mid in sorted(pending_ids):
+        if mid in reasons:
+            raise StageError(f"{mid}: block-comparison row already excluded")
+        reasons[mid] = "RESEARCH_EVIDENCE_MISSING"
+    return filtered, reasons, sorted(pending_ids), reviews
+
+
 def _checkpoint_incomplete_g4_focus(
     c: dict[str, Any],
     board_result: dict[str, Any],
@@ -1586,6 +1631,22 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         if set(unranked_reasons) != set(frozen) - set(ids):
             raise StageError("G4 checkpoint accounting does not cover the frozen cohort")
 
+    block_comparison_pending_ids: list[str] = []
+    block_comparison_reviews: list[dict[str, Any]] = []
+    if ids:
+        preflight = run_board(c)
+        c, unranked_reasons, block_comparison_pending_ids, block_comparison_reviews = (
+            _checkpoint_incomplete_block_discrimination(
+                c, preflight, unranked_reasons, at=at
+            )
+        )
+        crows = c["matches"]
+        ids = [row["match_id"] for row in crows]
+        if set(unranked_reasons) != set(frozen) - set(ids):
+            raise StageError(
+                "block-discrimination checkpoint lost full cohort accounting"
+            )
+
     unranked_reasons, research_trace, dispositions = _research_dispositions(
         unranked_reasons, frozen, source_proof, at,
         _time(sweep_receipt["created_at_utc"], "sweep.created"),
@@ -1597,6 +1658,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     g4_incomplete_set = set(g4_incomplete_match_ids)
     goal_route_incomplete_set = set(goal_route_pending_ids)
     selection_recheck_incomplete_set = set(selection_recheck_pending_ids)
+    block_comparison_incomplete_set = set(block_comparison_pending_ids)
     resume_queue = [
         {**copy.deepcopy(frozen[mid]),
          "research_status": (
@@ -1697,6 +1759,13 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         ),
         "selection_recheck_pending_ids": list(selection_recheck_pending_ids),
         "selection_recheck_reviews": copy.deepcopy(selection_recheck_reviews),
+        "block_discrimination_policy": (
+            BLOCK_DISCRIMINATION_POLICY
+            if at >= SELECTION_DISCRIMINATION_EFFECTIVE_UTC
+            else "LEGACY_PRE_BLOCK_DISCRIMINATION_V2"
+        ),
+        "block_comparison_pending_ids": list(block_comparison_pending_ids),
+        "block_comparison_reviews": copy.deepcopy(block_comparison_reviews),
         "g4_incomplete_match_ids": list(g4_incomplete_match_ids),
         "g4_incomplete_assessments": copy.deepcopy(g4_incomplete_assessments),
         "reused_match_ids": reused_ids,
