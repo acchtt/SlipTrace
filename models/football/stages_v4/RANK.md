@@ -203,7 +203,7 @@ mechanism quality and burden-normalized clearability come before certificate
 depth or historical high-total corroboration.
 
 Scarce FOLLOW capacity also applies `REVIEW_PARETO_DOMINANCE_GUARD_V1`.
-A Grade-A `C-WATCH` / REVIEW_ONLY row with no hard G3-control veto is a
+A Grade-A/B `C-WATCH` / REVIEW_ONLY row with no hard G3-control veto is a
 **review-priority challenger** when its existing clearability score and scoring
 ceiling both meet or exceed a candidate FOCUS row, with at least one strictly
 higher. Such a challenger never gains a certificate, FOLLOW lane, or execution
@@ -213,8 +213,11 @@ one bounded source-backed re-review. This prevents a hard G3 admission cliff
 from silently hiding a stronger overall candidate while preserving the funded
 certificate boundary.
 
-Only the globally highest-ranked non-dominated qualified Grade-A rows become
-selected priority/FOLLOW, capped at eight. Other qualified rows are RESERVE.
+Only the globally highest-ranked non-dominated qualified Grade-A/B rows become
+selected priority/FOLLOW, capped at eight. Operational Grade B is an execution-
+readiness caution (XI/market/news observability), **not a football-quality veto**.
+It remains visible as `CONDITIONAL_B_RECHECK_AT_XI` and is refreshed at /xi.
+Other qualified rows are RESERVE.
 `C-WATCH` and `C-PASS` remain in the frozen research assessment for
 audit/review. Kickoff sorts the selected display only after selection freezes.
 
@@ -399,7 +402,7 @@ material suppression or route destruction.
 
 ### G3 borderline discrimination — mandatory prospectively
 
-From the `G3_BORDERLINE_DISCRIMINATION_V2` activation, a Grade-A REVIEW_ONLY
+From the `G3_BORDERLINE_DISCRIMINATION_V2` activation, a Grade-A/B REVIEW_ONLY
 row cannot be treated as a completed negative qualification when it has:
 
 - one STRONG current scoring route and the other route at least USABLE;
@@ -421,7 +424,7 @@ launder uncertainty into REVIEW_ONLY/PASS.
 ### Block discrimination — mandatory prospectively
 
 `BLOCK_DISCRIMINATION_V2` makes the former block-comparison instruction
-fail-closed. Grade-A FOCUS/REVIEW_ONLY candidates in a deterministic nearby
+fail-closed. Grade-A/B FOCUS/REVIEW_ONLY candidates in a deterministic nearby
 kickoff block are researched to equal depth and each freezes:
 
 - exact candidate IDs and block rank;
