@@ -827,13 +827,21 @@ def c_goal3_mechanism_class(a: MatchAssessment) -> str:
 
 
 def c_goal3_mechanism_rank(a: MatchAssessment) -> int:
-    """Rank G3 mechanism quality without rewarding route count by itself.
+    """Rank G3 mechanism quality without rewarding generic route count.
 
-    TWO_ROUTE remains a valid G3 certificate, but it is neutral with a genuine
-    distributed G3 for ranking. Only independently stronger carrier or
-    matchup-leakage evidence receives a mechanism-specific preference.
+    A bounded, source-backed current-structure verification is distinct from a
+    generic DISTRIBUTED/TWO_ROUTE card: it exists specifically because research
+    independently re-established the strong-primary + usable-reply mechanism
+    after the historical rate gate lost that distinction. Give that verified
+    mechanism the highest selection/workload priority without changing its
+    execution robustness or granting any G4 authority.
+
+    Ordinary carrier, leakage and distributed mechanisms retain their previous
+    relative order.
     """
 
+    if c_verified_current_structure_goal3(a):
+        return 5
     return {
         "NONE": 0,
         "DISTRIBUTED": 1,
@@ -1135,9 +1143,12 @@ def c_g3_endpoint_control_pressure(a: MatchAssessment) -> str:
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
     trap = a.goal_signal_low_draw_trap_rate
 
+    trap_hard_threshold = (
+        0.30 if c_verified_current_structure_goal3(a) else 0.25
+    )
     hard_control = (
         effective_stall == Grade.HIGH
-        or (trap is not None and trap >= 0.25)
+        or (trap is not None and trap >= trap_hard_threshold)
         or (
             a.h2h_effect == "SUPPRESSIVE"
             and a.h2h_transferability == "VERIFIED"
