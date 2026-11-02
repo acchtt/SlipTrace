@@ -64,16 +64,16 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(row["declared_board_state"], "FOCUS")
         self.assertTrue(row["board_state_mismatch"])
 
-    def test_strong_primary_plus_usable_reply_funds_current_structure_g3_without_rate_gate(self):
+    def test_verified_current_structure_g3_funds_strong_primary_plus_usable_reply(self):
         row = c_row()
         row.update(
-            match_id="current-structure-g3",
+            match_id="verified-current-structure-g3",
             home_route="STRONG",
             away_route="USABLE",
             carrier="USABLE",
             carrier_self_fund=False,
             carrier_self_fund_basis=(
-                "primary route is strong but no autonomous three-goal carrier is claimed"
+                "no autonomous three-goal carrier; distributed route verified separately"
             ),
             completion_mode="MIXED",
             route_reliability="MEDIUM",
@@ -92,6 +92,15 @@ class ActiveCRuntimeTests(unittest.TestCase):
             upper_tail_transferability_basis="upper tail not transferable",
             upper_tail_comparable_context_signal="UNAVAILABLE",
             upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Two independent frozen sources verify a STRONG primary route and "
+                "a separate USABLE reply path with no LOW G3 control axis."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/current-primary-route",
+                "https://example.org/current-reply-route",
+            ],
         )
         for field in (
             "goal_signal_priority_score",
@@ -104,14 +113,15 @@ class ActiveCRuntimeTests(unittest.TestCase):
         result = run_board(payload("c", row))["matches"][0]
         self.assertEqual(result["board_state"], "FOCUS")
         self.assertTrue(result["goal3_funded"])
+        self.assertTrue(result["g3_current_structure_verified"])
         self.assertEqual(result["goal3_mechanism_class"], "DISTRIBUTED")
         self.assertFalse(result["goal4_funded"])
 
-    def test_usable_plus_usable_all_medium_still_needs_independent_goal_signal(self):
+    def test_unverified_strong_primary_plus_usable_reply_still_needs_rate_gate(self):
         row = c_row()
         row.update(
-            match_id="generic-two-route-medium",
-            home_route="USABLE",
+            match_id="unverified-current-structure",
+            home_route="STRONG",
             away_route="USABLE",
             carrier="USABLE",
             carrier_self_fund=False,
@@ -145,13 +155,12 @@ class ActiveCRuntimeTests(unittest.TestCase):
         result = run_board(payload("c", row))["matches"][0]
         self.assertEqual(result["board_state"], "WATCH")
         self.assertFalse(result["goal3_funded"])
-        self.assertEqual(result["goal3_mechanism_class"], "NONE")
 
-    def test_current_structure_path_does_not_override_low_continuation(self):
+    def test_verified_current_structure_does_not_rescue_generic_usable_plus_usable(self):
         row = c_row()
         row.update(
-            match_id="strong-route-low-continuation",
-            home_route="STRONG",
+            match_id="verified-generic-two-route",
+            home_route="USABLE",
             away_route="USABLE",
             carrier="USABLE",
             carrier_self_fund=False,
@@ -164,7 +173,7 @@ class ActiveCRuntimeTests(unittest.TestCase):
             evidence_confidence="HIGH",
             burden_protection="MEDIUM",
             burden_completion_quality="MEDIUM",
-            continuation_quality="LOW",
+            continuation_quality="MEDIUM",
             opponent_leakage="MEDIUM",
             burden_stall_risk="MEDIUM",
             independent_upper_tail=False,
@@ -173,6 +182,14 @@ class ActiveCRuntimeTests(unittest.TestCase):
             upper_tail_transferability_basis="upper tail not transferable",
             upper_tail_comparable_context_signal="UNAVAILABLE",
             upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+            g3_current_structure_verified=True,
+            g3_current_structure_basis=(
+                "Sources were reviewed but neither current scoring route is STRONG."
+            ),
+            g3_current_structure_source_refs=[
+                "https://example.com/route-one",
+                "https://example.org/route-two",
+            ],
         )
         for field in (
             "goal_signal_priority_score",
