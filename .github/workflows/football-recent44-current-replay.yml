@@ -1,0 +1,36 @@
+name: Football recent 44 current-repair replay
+
+on:
+  push:
+    branches:
+      - audit/replay-44-current-repair-20261102
+    paths:
+      - "models/football/qa/replay_recent_44_current_repair.py"
+      - "models/football/qa/replays/2026-11-02_recent_44_frozen_assessments.json"
+      - ".github/workflows/football-recent44-current-replay.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run same-information 44-match replay
+        env:
+          PYTHONPATH: models/football/engine:models/football/stages_v4
+        run: |
+          set -euo pipefail
+          python models/football/qa/replay_recent_44_current_repair.py | tee recent44-current-repair.log
+      - name: Upload replay output
+        uses: actions/upload-artifact@v4
+        with:
+          name: recent44-current-repair
+          path: recent44-current-repair.log
+          if-no-files-found: error
