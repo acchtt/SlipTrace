@@ -135,6 +135,11 @@ require(
     "RANK_POLICY_LOCK_REQUIRED",
     "POLICY_LOCK_EFFECTIVE_UTC",
     "pinned_engine_policy_fingerprint",
+    "ASSESSMENT_DEPTH_V1",
+    "ASSESSMENT_RESEARCH_INCOMPLETE",
+    "stall_0_0",
+    "stall_1_1",
+    "continuation_2_0",
 )
 forbid(
     "models/football/engine/xi_portable.py",

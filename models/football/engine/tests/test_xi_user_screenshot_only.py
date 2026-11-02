@@ -22,6 +22,25 @@ from xi_assessment_reconcile import (
 
 CAPTURE = "2026-10-11T05:05:00+00:00"
 
+ASSESSMENT_DEPTH_CHECKS = [
+    "primary_scoring_route",
+    "secondary_reply_route",
+    "carrier_capacity",
+    "current_chance_creation",
+    "goal3_mechanism",
+    "goal4_mechanism",
+    "stall_0_0",
+    "stall_1_1",
+    "continuation_2_0",
+    "opponent_leakage",
+    "named_failure_mechanism",
+    "availability_replacements",
+    "h2h_transferability",
+    "tournament_incentive",
+    "match_context",
+    "supported_burden_basis",
+]
+
 EXCEPTION_RESEARCH_FIELDS = [
     "fixture_identity_status",
     "competition_format_incentive",
@@ -36,6 +55,34 @@ EXCEPTION_RESEARCH_FIELDS = [
     "h2h_materiality",
     "g4_research_if_g3_funded",
 ]
+
+
+def assessment_depth(c):
+    refs = ["test-football-source-1", "test-football-source-2"]
+    c["match"].setdefault("source_urls", list(refs))
+    checks = {
+        key: f"Verified substantive football conclusion for {key.replace('_', ' ')}."
+        for key in ASSESSMENT_DEPTH_CHECKS
+    }
+    checks.update({
+        "goal3_mechanism": "Goal three is explicitly funded by the current carrier/reply structure.",
+        "goal4_mechanism": "Goal four is independently tested and either funded or explicitly rejected.",
+        "stall_0_0": "At 0-0 the assessment names whether creation persists or the match can remain controlled.",
+        "stall_1_1": "At 1-1 the assessment names whether both sides still have reason and mechanism to continue.",
+        "continuation_2_0": "At 2-0 the assessment names whether the leader or trailing side can still produce another goal.",
+        "named_failure_mechanism": "Primary failure mechanism is explicitly named rather than represented by a generic grade.",
+        "tournament_incentive": "Tournament incentive is verified or explicitly not applicable with a factual competition basis.",
+        "supported_burden_basis": "Supported burden is tied to the funded goal path rather than route count or market price.",
+    })
+    return {
+        "contract": "ASSESSMENT_DEPTH_V1",
+        "completed": True,
+        "market_independent": True,
+        "evidence_epoch_id": c["evidence_epoch_id"],
+        "assessed_at_utc": c["context"]["assessment_at_utc"],
+        "evidence_refs": refs,
+        "checks": checks,
+    }
 
 
 def exception_authority(

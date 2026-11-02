@@ -12,6 +12,7 @@ sys.path.insert(0, str(ENGINE))
 import xi_runtime_backend
 from xi_authority import _engine_policy_fingerprint
 from tests.test_xi_user_screenshot_only import (
+    assessment_depth,
     exception_authority,
     football,
     snapshot,
@@ -174,6 +175,51 @@ class XIRuntimeBackendTests(unittest.TestCase):
             "cartagines-olimpia-exception-v1",
         )
         self.assertEqual(trace["upstream_state"], "UNVERIFIED")
+
+    def test_post_activation_assessment_requires_substantive_depth_manifest(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["context"]["assessment_at_utc"] = "2026-11-02T01:46:00+00:00"
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-depth-missing",
+            "c_football": c,
+            "authority": exception_authority(c, reference="depth-missing"),
+            "screenshot_quote": snapshot(c, captured=None),
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "ASSESSMENT_RESEARCH_INCOMPLETE")
+        self.assertEqual(result["failure_class"], "ASSESSMENT_DEPTH")
+
+    def test_post_activation_assessment_rejects_checked_only_endpoint_label(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["context"]["assessment_at_utc"] = "2026-11-02T01:46:00+00:00"
+        c["assessment_depth"] = assessment_depth(c)
+        c["assessment_depth"]["checks"]["stall_1_1"] = "CHECKED"
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-depth-thin-endpoint",
+            "c_football": c,
+            "authority": exception_authority(c, reference="depth-thin"),
+            "screenshot_quote": snapshot(c, captured=None),
+        })
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["status"], "ASSESSMENT_RESEARCH_INCOMPLETE")
+        self.assertIn("stall_1_1", result["error"])
+
+    def test_post_activation_substantive_assessment_depth_executes(self):
+        c = football("c", status="PREMATCH_CONFIRMED", minute=None, score=None)
+        c["context"]["assessment_at_utc"] = "2026-11-02T01:46:00+00:00"
+        c["assessment_depth"] = assessment_depth(c)
+        result = xi_runtime_backend.execute({
+            "schema_version": xi_runtime_backend.REQUEST_SCHEMA,
+            "request_id": "XI-test-depth-complete",
+            "c_football": c,
+            "authority": exception_authority(c, reference="depth-complete"),
+            "screenshot_quote": snapshot(c, captured=None),
+        })
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(result["authority"]["assessment_depth"]["contract"], "ASSESSMENT_DEPTH_V1")
+        self.assertEqual(result["authority"]["assessment_depth"]["evidence_ref_count"], 2)
 
     def test_request_envelope_filename_must_match_id(self):
         with tempfile.TemporaryDirectory() as td:
