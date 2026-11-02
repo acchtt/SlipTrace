@@ -1708,6 +1708,29 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "match_count": len(selected_rows),
         "matches": selected_rows,
     }
+    review_challenger_rows = sorted(
+        (
+            row for row in assessed_rows
+            if row.get("selection_review_challenger") is True
+        ),
+        key=lambda row: (
+            str(row.get("kickoff_ict") or ""),
+            -int(row.get("follow_clearability_score", 0)),
+            -int(row.get("follow_ceiling_score", 0)),
+            str(row.get("match_id") or ""),
+        ),
+    )
+    priority_review_board = {
+        "schema_version": result["schema_version"],
+        "stage": "priority_review_board",
+        "model": "c",
+        "selection_policy": "REVIEW_PARETO_DOMINANCE_GUARD_V1",
+        "execution_authority": False,
+        "requires_bounded_reresearch_before_promotion": True,
+        "presentation_order": "KICKOFF_THEN_CLEARABILITY",
+        "match_count": len(review_challenger_rows),
+        "matches": review_challenger_rows,
+    }
     official_board = {
         **result,
         "ranking_policy": result.get("ranking_policy", "") + "_FOCUS_ADMISSION",
@@ -1736,6 +1759,11 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         ),
         "selected_count": len(selected_rows),
         "selected_match_ids": [row["match_id"] for row in selected_rows],
+        "review_priority_count": len(review_challenger_rows),
+        "review_priority_match_ids": [
+            row["match_id"] for row in review_challenger_rows
+        ],
+        "selection_dominance_policy": result.get("selection_dominance_policy"),
         "board_admission_policy": "C_QUALIFIED_LEGACY_BOARD_SELECTED_GLOBAL_TOP_8",
         "qualification_policy": "FUNDED_G3_EQUALS_QUALIFIED_LEGACY_C_FOCUS",
         "priority_policy": "FOLLOW_SELECTED_FOCUS_OTHER_QUALIFIED_RESERVE",
@@ -1795,6 +1823,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         "board_exclusions": board_exclusions,
         "board": official_board,
         "selected_priority_board": selected_priority_board,
+        "priority_review_board": priority_review_board,
         "research_assessment": result,
         "goal_burden_shadow_policy": result["goal_burden_shadow_policy"],
         "goal_burden_shadow_reviews": copy.deepcopy(goal_burden_shadow),
