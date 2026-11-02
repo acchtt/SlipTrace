@@ -102,6 +102,16 @@ rank as the final slate ordering.
 Routine Step 2 trusts the resulting verified C rank+persistence receipt; it
 does not repeat source replay.
 
+For new rank epochs, the launcher must also satisfy the prospective selection
+research contracts defined by RANK.md. A strong-primary/usable-reply
+REVIEW_ONLY row may require `G3_BORDERLINE_DISCRIMINATION_V2`; populate its
+source-backed `selection_recheck` instead of accepting a generic MEDIUM card.
+Nearby Grade-A/B credible candidates may require `BLOCK_DISCRIMINATION_V2`;
+research the full block at equal depth and populate each `block_comparison`.
+A pending contract resumes the exact rank checkpoint. Do not bypass it by
+dropping the candidate, changing its operational grade, or copying the engine
+order without reconciling the underlying football evidence.
+
 ## /xi
 
 /xi is one command. The user does not need separate assess/bet commands.
