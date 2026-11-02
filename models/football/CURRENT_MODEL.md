@@ -35,6 +35,7 @@ diagnostics and production-scope checks apply without changing C thresholds.
 The active command surface is:
 
 - /sweep -> models/football/stages_v4/SWEEP.md
+- /block -> models/football/prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md
 - /rank -> models/football/stages_v4/RANK.md
 - /xi and /xi exception -> models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md
 - /live -> the same Football C assessment with current live state
@@ -44,8 +45,8 @@ The active command surface is:
 
 ### Conversation/runtime routing
 
-- **Normal chat:** `/sweep`, `/xi`, `/xi exception`, `/live`, `/audit`, `/report`.
-- **ChatGPT Work:** `/rank`; `/audit deep` only after normal `/audit` emits `DEEP AUDIT REQUIRED`.
+- **Normal chat:** `/block` (primary), `/sweep`, `/xi`, `/xi exception`, `/live`, `/audit`, `/report`.
+- **ChatGPT Work:** `/rank` is a secondary whole-slate comparison/audit board; `/audit deep` only after normal `/audit` emits `DEEP AUDIT REQUIRED`.
 
 Conversation type is an operational surface, not model authority. Football C and
 the native V4/runtime receipts remain authoritative regardless of chat surface.
@@ -63,11 +64,14 @@ not production dependencies.
 
 ## Production sequence
 
-SOURCE DATE SURFACES -> V4 GOALS-FIRST INTAKE -> V4_SWEEP_READY ->
-ORIGINAL-SOURCE REPLAY + FRESH FULL-COHORT STATUS -> FOOTBALL C BOARD ->
-ONE GOOGLE SHEETS READBACK -> /xi FOOTBALL C -> OPTIONAL OBSERVED-QUOTE
-EVALUATION OR STRICT C PRICE DECISION -> ONE DECISION READBACK/PUBLICATION
-GATE -> LIVE/AUDIT
+SOURCE/BLOCK DATE SURFACES -> COMPLETE KICKOFF BLOCK -> EQUAL-DEPTH FOOTBALL C
+BLOCK ASSESSMENT -> FOOTBALL-FIRST BLOCK COMPARISON -> OPTIONAL SECONDARY /rank
+WHOLE-SLATE BOARD -> /xi OR BLOCK-OWNED PRICE EVALUATION -> ONE DECISION
+READBACK/PUBLICATION GATE -> LIVE/AUDIT
+
+Primary selection is now block-first. /rank remains available for whole-slate
+comparison, website/audit state and regression measurement, but it is not the
+admission gate that decides which fixtures receive Football C assessment.
 
 There is no active shadow model and no model-voting/consensus layer.
 
@@ -123,7 +127,41 @@ cheap-filter fields. This bounded lane grants a Football C assessment only; it
 does not create G3, FOCUS, FOLLOW, /xi authority or exposure. Remaining
 negative-screen controls retain zero production rank authority.
 
+## /block — primary equal-depth block assessment
+
+**Conversation surface: NORMAL CHAT.**
+
+Authority: `prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md` plus
+`procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md`.
+
+This is the primary production assessment workflow from 2026-11-03 onward.
+Resolve the complete requested kickoff block first, then assess every in-scope
+candidate to the same ASSESSMENT_DEPTH_V1 floor before comparing them. Do not
+use /rank position, FOLLOW capacity, league prestige or an existing certificate
+as a pre-assessment filter.
+
+A block request is an explicit user authorization to run the existing full
+EXCEPTION research/authority path for each block candidate when independent
+Football C runtime authority is needed. This is an orchestration use of the
+already-existing exception contract, not a relaxation of certificate, price,
+XI, H2H, incentive, persistence or publication gates. Every candidate keeps a
+distinct evidence epoch and Decision States row.
+
+If a valid rank row exists, retain it only as secondary comparison metadata.
+The block assessment itself must remain independently researched and must not
+inherit rank ordering as football evidence. /rank may be run later for
+whole-slate comparison/audit, but a no-rank or low-rank state cannot prevent a
+fixture from receiving block assessment.
+
+No odds are required for the football assessment. When the user supplies a
+screenshot for a block candidate, evaluate only that screenshot through the
+same deterministic Football C quote policy. Do not search replacement odds.
+
 ## /rank — Football C only
+
+**Operational role from 2026-11-03: SECONDARY WHOLE-SLATE COMPARISON/AUDIT.**
+It remains authoritative for its own persisted board, but its ordering/lane
+must not screen fixtures out of primary block assessment.
 
 Authority: stages_v4/RANK.md and stages_v4/stage.py.
 
