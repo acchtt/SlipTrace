@@ -38,6 +38,12 @@ class SelectionDiscriminationTests(unittest.TestCase):
     def test_strong_plus_usable_all_medium_watch_requires_recheck(self):
         self.assertTrue(requires_borderline_recheck(raw(), compiled()))
 
+    def test_grade_b_strong_route_watch_also_requires_recheck(self):
+        row = raw()
+        out = compiled()
+        out["operational_viability_grade"] = "B"
+        self.assertTrue(requires_borderline_recheck(row, out))
+
     def test_focus_never_enters_borderline_negative_recheck(self):
         self.assertFalse(requires_borderline_recheck(raw(), compiled("FOCUS")))
 
