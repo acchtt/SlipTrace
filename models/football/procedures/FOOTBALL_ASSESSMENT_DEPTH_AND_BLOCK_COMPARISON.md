@@ -56,3 +56,47 @@ Comparison is football-first. League prestige, popularity and the mere existence
 ## Non-goals
 
 This contract does not change Football C certificate thresholds, G3/G4/G5 funding rules, the two-route quarantine, or historical decisions. It is an orchestration and evidence-completeness repair only.
+
+
+## G3_BORDERLINE_DISCRIMINATION_V2
+
+The 44-match same-information replay showed that the prior Pareto guard could
+not recover false negatives after research compressed them into generic MEDIUM
+grades. For new rank epochs, a REVIEW_ONLY row with a STRONG primary route,
+USABLE reply, at-least-MEDIUM carrier and core G3 axes, no high stall and no
+hard veto is therefore **research-incomplete** until one bounded second pass is
+frozen.
+
+The `selection_recheck` object must use
+`contract=G3_BORDERLINE_DISCRIMINATION_V2`, be market-independent, contain at
+least two football references, name the exact missing G3 requirement, and give
+substantive conclusions for primary goal-three path, reply/independent
+completion, 0-0/1-1/2-0 stop risk, continuation after goal two, principal
+failure, and grade reconciliation.
+
+This contract never upgrades a certificate. If the second pass finds stronger
+facts, update the ordinary Football C evidence fields and rerun the unchanged
+compiler. Otherwise freeze `CONFIRMED_REVIEW_ONLY`. Missing proof becomes
+`G3_BORDERLINE_RESEARCH_PENDING`, not a negative football verdict.
+
+## BLOCK_DISCRIMINATION_V2
+
+The prior BLOCK_COMPARISON_V1 prose requirement is now fail-closed for
+production rank. Deterministic Grade-A candidate blocks are formed from nearby
+kickoffs (adjacent gap no more than 60 minutes, total block span no more than 90
+minutes) when the block contains at least one FOCUS row.
+
+Each candidate freezes a `block_comparison` object with equal-depth completion,
+candidate IDs, block rank, market independence, at least two football evidence
+references, and substantive bases for G3, G4, carrier/self-funding, reply
+dependence, endpoint exposure, continuation, tournament incentive, supported
+burden and beats-next reasoning.
+
+The comparison does not override Football C. Its relative order must reconcile
+with the deterministic engine inputs. A disagreement means the grades/research
+are not yet internally coherent; the whole block checkpoints as
+`BLOCK_COMPARISON_PENDING` until the factual grades and football comparison
+agree.
+
+This is deliberately a research-completeness repair rather than a result-fitted
+new scoring threshold.
