@@ -412,6 +412,43 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(len(displaced), 1)
         self.assertEqual(displaced[0]["follow_lane"], "RESERVE")
 
+    def test_grade_b_observability_does_not_veto_football_follow_priority(self):
+        grade_b = c_row()
+        grade_b.update(
+            match_id="grade-b-football-strong",
+            operational_viability_grade="B",
+            raw_operational_viability_grade="B",
+            xi_expected="UNCERTAIN",
+            market_observability="MEDIUM",
+            team_news_observability="HIGH",
+        )
+        grade_a = c_row()
+        grade_a.update(
+            match_id="grade-a-football-peer",
+            operational_viability_grade="A",
+            raw_operational_viability_grade="A",
+            xi_expected="YES",
+            market_observability="HIGH",
+            team_news_observability="HIGH",
+        )
+        result = run_board({
+            "schema_version": "football-engine-v1",
+            "stage": "board",
+            "model": "c",
+            "matches": [grade_b, grade_a],
+        })
+        by_id = {row["match_id"]: row for row in result["matches"]}
+        self.assertEqual(by_id["grade-b-football-strong"]["board_state"], "FOCUS")
+        self.assertEqual(by_id["grade-b-football-strong"]["follow_lane"], "FOLLOW")
+        self.assertEqual(
+            by_id["grade-b-football-strong"]["follow_operational_readiness"],
+            "CONDITIONAL_B_RECHECK_AT_XI",
+        )
+        self.assertEqual(
+            by_id["grade-a-football-peer"]["follow_operational_readiness"],
+            "READY_A",
+        )
+
     def test_global_selection_prefers_clearability_before_funded_depth(self):
         strong_g3 = c_row()
         strong_g3.update(
