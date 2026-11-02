@@ -178,11 +178,11 @@ remain readable for immutable audit/replay.
 
 ### Ranking calibration
 
-C ranks certificate robustness and depth first. For C G3, a structure with both
-MEDIUM burden-completion quality and MEDIUM continuation is capped at
-CONDITIONAL even when the frozen Step-0 rate signal is strong. Within equal
-robustness/depth, current continuation and completion are compared before raw
-historical goal-rate strength.
+C ranks current G3 mechanism quality and burden-normalized clearability before
+certificate robustness/depth. For C G3, a structure with both MEDIUM
+burden-completion quality and MEDIUM continuation is capped at CONDITIONAL even
+when the frozen Step-0 rate signal is strong. Historical goal-rate strength is
+corroboration after current execution structure, not a leading selection key.
 
 This prevents a Hearts-style medium-completion G3 from taking rank priority
 solely because its historical goal signal is stronger than a current higher-
@@ -211,6 +211,26 @@ active C execution robustness.
 Compiled burden magnitude itself is not a ranking bonus. Deeper certificates
 remain important, but certificate depth no longer wins before current mechanism
 strength and clearability.
+
+
+### Prospective selection-discrimination gate
+
+From `G3_BORDERLINE_DISCRIMINATION_V2`, a Grade-A REVIEW_ONLY row with one
+STRONG route, a usable reply, an at-least-USABLE carrier, all core G3 axes at
+least MEDIUM, no high stall and no hard veto is not a completed negative
+qualification until one bounded source-backed second pass is frozen. The pass
+must name the exact missing G3 requirement and reconcile the primary path,
+reply/completion, 0-0/1-1/2-0 stop risk, continuation, principal failure and
+grades. It never auto-promotes; revised facts flow back through the unchanged C
+compiler.
+
+`BLOCK_DISCRIMINATION_V2` is also mandatory for new multi-candidate Grade-A
+kickoff blocks. Every candidate must be researched to equal depth and freeze a
+football-first block comparison. The declared comparison has no override
+authority: its order must reconcile with the engine inputs, otherwise the block
+is checkpointed as `BLOCK_COMPARISON_PENDING` until the source-backed grades
+and comparison agree. This prevents isolated plausible assessments from silently
+becoming priority without proving why they beat their nearby alternatives.
 
 ## Football C supported-burden compiler
 
