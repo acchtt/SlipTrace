@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Complete same-information replay of the frozen recent 44 through current Football C.
 
+Replay target includes the verified-current-structure ranking priority and the
+verified-only 0.30 hard-trap boundary introduced by the surgical G3 repair.
+
 Research-completeness objects are reconstructed only from the frozen prematch
 payload. Match outcomes are joined strictly after the repaired board is fully
 compiled and validated.
