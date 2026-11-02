@@ -226,6 +226,10 @@ row is barred from scarce FOLLOW capacity and the review row is surfaced for a
 bounded re-review. Qualification and execution authority remain unchanged.
 
 
+Operational Grade B is not a football-selection veto. A/B qualified fixtures
+compete for FOLLOW on football evidence; Grade B retains
+`CONDITIONAL_B_RECHECK_AT_XI` so execution observability is refreshed separately.
+
 The Pareto guard is not the only false-negative defence. Prospectively,
 `G3_BORDERLINE_DISCRIMINATION_V2` treats a strong-primary/usable-reply
 REVIEW_ONLY row with all core G3 axes at least MEDIUM and no hard veto as
@@ -234,7 +238,7 @@ G3 proof. This prevents the all-MEDIUM compression observed in the recent
 44-match audit from becoming an unquestioned negative certificate.
 
 `BLOCK_DISCRIMINATION_V2` then requires equal-depth football comparison inside
-nearby Grade-A candidate blocks. The comparison must explicitly cover G3/G4,
+nearby Grade-A/B candidate blocks. The comparison must explicitly cover G3/G4,
 carrier self-funding, reply dependence, endpoint exposure, continuation,
 incentive and supported burden. Its order must reconcile with the deterministic
 engine; disagreement is a research/grade reconciliation blocker, never a manual
