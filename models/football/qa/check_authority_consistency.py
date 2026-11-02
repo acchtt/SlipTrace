@@ -239,6 +239,20 @@ require(
     "rivalry/rest/travel/fatigue context",
     "O3.25 requires",
     "No second",
+    "FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md",
+)
+require(
+    "models/football/procedures/FOOTBALL_SIMPLE_ASSESS_AND_BET.md",
+    "FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md",
+)
+require(
+    "models/football/procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md",
+    "ASSESSMENT_DEPTH_V1",
+    "BLOCK_COMPARISON_V1",
+    "ASSESSMENT_RESEARCH_INCOMPLETE",
+    "0-0 stall",
+    "1-1 stall",
+    "continuation from 2-0",
 )
 for rel in (
     "models/football/CURRENT_MODEL.md",
