@@ -82,7 +82,7 @@ compiler. Otherwise freeze `CONFIRMED_REVIEW_ONLY`. Missing proof becomes
 ## BLOCK_DISCRIMINATION_V2
 
 The prior BLOCK_COMPARISON_V1 prose requirement is now fail-closed for
-production rank. Deterministic Grade-A candidate blocks are formed from nearby
+production rank. Deterministic Grade-A/B candidate blocks are formed from nearby
 kickoffs (adjacent gap no more than 60 minutes, total block span no more than 90
 minutes) when the block contains at least one FOCUS row.
 
