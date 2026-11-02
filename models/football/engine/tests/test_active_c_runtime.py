@@ -64,6 +64,128 @@ class ActiveCRuntimeTests(unittest.TestCase):
         self.assertEqual(row["declared_board_state"], "FOCUS")
         self.assertTrue(row["board_state_mismatch"])
 
+    def test_strong_primary_plus_usable_reply_funds_current_structure_g3_without_rate_gate(self):
+        row = c_row()
+        row.update(
+            match_id="current-structure-g3",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis=(
+                "primary route is strong but no autonomous three-goal carrier is claimed"
+            ),
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="MEDIUM",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+        )
+        for field in (
+            "goal_signal_priority_score",
+            "goal_signal_mean_over_two_rate",
+            "goal_signal_mean_over_three_rate",
+            "goal_signal_low_draw_trap_rate",
+        ):
+            row.pop(field, None)
+
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertEqual(result["board_state"], "FOCUS")
+        self.assertTrue(result["goal3_funded"])
+        self.assertEqual(result["goal3_mechanism_class"], "DISTRIBUTED")
+        self.assertFalse(result["goal4_funded"])
+
+    def test_usable_plus_usable_all_medium_still_needs_independent_goal_signal(self):
+        row = c_row()
+        row.update(
+            match_id="generic-two-route-medium",
+            home_route="USABLE",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="no autonomous carrier-three proof",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="MEDIUM",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="MEDIUM",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+        )
+        for field in (
+            "goal_signal_priority_score",
+            "goal_signal_mean_over_two_rate",
+            "goal_signal_mean_over_three_rate",
+            "goal_signal_low_draw_trap_rate",
+        ):
+            row.pop(field, None)
+
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertEqual(result["board_state"], "WATCH")
+        self.assertFalse(result["goal3_funded"])
+        self.assertEqual(result["goal3_mechanism_class"], "NONE")
+
+    def test_current_structure_path_does_not_override_low_continuation(self):
+        row = c_row()
+        row.update(
+            match_id="strong-route-low-continuation",
+            home_route="STRONG",
+            away_route="USABLE",
+            carrier="USABLE",
+            carrier_self_fund=False,
+            carrier_self_fund_basis="no autonomous carrier-three proof",
+            completion_mode="MIXED",
+            route_reliability="MEDIUM",
+            independent_route_quality="MEDIUM",
+            chance_quality="MEDIUM",
+            failure_resistance="MEDIUM",
+            evidence_confidence="HIGH",
+            burden_protection="MEDIUM",
+            burden_completion_quality="MEDIUM",
+            continuation_quality="LOW",
+            opponent_leakage="MEDIUM",
+            burden_stall_risk="MEDIUM",
+            independent_upper_tail=False,
+            independent_upper_tail_basis="no independent fourth-goal proof",
+            upper_tail_transferability="LOW",
+            upper_tail_transferability_basis="upper tail not transferable",
+            upper_tail_comparable_context_signal="UNAVAILABLE",
+            upper_tail_comparable_context_basis="no comparable upper-tail evidence",
+        )
+        for field in (
+            "goal_signal_priority_score",
+            "goal_signal_mean_over_two_rate",
+            "goal_signal_mean_over_three_rate",
+            "goal_signal_low_draw_trap_rate",
+        ):
+            row.pop(field, None)
+
+        result = run_board(payload("c", row))["matches"][0]
+        self.assertEqual(result["board_state"], "WATCH")
+        self.assertFalse(result["goal3_funded"])
+
     def test_retired_c2_board_is_rejected(self):
         retired = payload("c2", {
             k: v for k, v in c_row().items()
