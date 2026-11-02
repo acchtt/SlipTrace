@@ -39,6 +39,10 @@ from goals_first_intake import select as select_goal_candidates
 from rank_session_audit import prematch_opportunity, rank_transitions
 from goal_burden_shadow import review_goal_burden_shadow
 from g3_bridge_shadow import review_g3_bridge, portfolio_challengers, POLICY as G3_BRIDGE_POLICY
+from selection_discrimination import (
+    POLICY as SELECTION_DISCRIMINATION_POLICY,
+    review_borderline_recheck,
+)
 from source_completeness import (
     CONTRACT as SOURCE_COMPLETENESS_CONTRACT,
     SourceCompletenessError,
@@ -68,6 +72,9 @@ SELECTION_INVERSION_REPAIR_EFFECTIVE_UTC = datetime.fromisoformat(
 
 G3_BRIDGE_SHADOW_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-29T01:40:00+00:00"
+)
+SELECTION_DISCRIMINATION_EFFECTIVE_UTC = datetime.fromisoformat(
+    "2026-11-02T05:25:00+00:00"
 )
 PARENT_FIRST_PERSISTENCE_EFFECTIVE_UTC = datetime.fromisoformat(
     "2026-10-29T00:00:00+00:00"
@@ -1212,6 +1219,63 @@ def _checkpoint_incomplete_goal_route_proof(
     return filtered, reasons, pending, reviews
 
 
+def _checkpoint_incomplete_selection_discrimination(
+    c: dict[str, Any],
+    board_result: dict[str, Any],
+    unranked_reasons: dict[str, Any],
+    *,
+    at: datetime,
+) -> tuple[dict[str, Any], dict[str, Any], list[str], dict[str, Any]]:
+    """Checkpoint near-boundary WATCH rows until a source-backed recheck exists.
+
+    This gate does not modify grades, certificates or board state. Research must
+    either update the factual row and let the existing compiler decide again, or
+    freeze a substantive explanation for why the strong-route candidate remains
+    REVIEW_ONLY.
+    """
+
+    if at < SELECTION_DISCRIMINATION_EFFECTIVE_UTC:
+        return c, unranked_reasons, [], {}
+
+    rows = board_result.get("matches")
+    if not isinstance(rows, list):
+        raise StageError("Football C preflight board result missing matches")
+    compiled_by_id = {
+        str(row.get("match_id")): row
+        for row in rows if isinstance(row, dict) and row.get("match_id") is not None
+    }
+
+    reviews: dict[str, Any] = {}
+    pending: list[str] = []
+    for raw in c.get("matches", []):
+        if not isinstance(raw, dict):
+            continue
+        mid = str(raw.get("match_id"))
+        compiled = compiled_by_id.get(mid)
+        if not isinstance(compiled, dict):
+            raise StageError(f"{mid}: selection discrimination missing preflight row")
+        review = review_borderline_recheck(raw, compiled)
+        reviews[mid] = review
+        if review.get("required") is True and review.get("status") != "COMPLETE":
+            pending.append(mid)
+
+    if not pending:
+        return c, unranked_reasons, [], reviews
+
+    ids = set(pending)
+    filtered = copy.deepcopy(c)
+    filtered["matches"] = [
+        row for row in filtered["matches"]
+        if str(row.get("match_id")) not in ids
+    ]
+    reasons = copy.deepcopy(unranked_reasons)
+    for mid in pending:
+        if mid in reasons:
+            raise StageError(f"{mid}: selection-recheck row already excluded")
+        reasons[mid] = "RESEARCH_EVIDENCE_MISSING"
+    return filtered, reasons, pending, reviews
+
+
 def _checkpoint_incomplete_g4_focus(
     c: dict[str, Any],
     board_result: dict[str, Any],
@@ -1496,6 +1560,22 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
     # below after the incomplete rows are removed.
     g4_incomplete_match_ids: list[str] = []
     g4_incomplete_assessments: dict[str, Any] = {}
+    selection_recheck_pending_ids: list[str] = []
+    selection_recheck_reviews: dict[str, Any] = {}
+    if ids:
+        preflight = run_board(c)
+        c, unranked_reasons, selection_recheck_pending_ids, selection_recheck_reviews = (
+            _checkpoint_incomplete_selection_discrimination(
+                c, preflight, unranked_reasons, at=at
+            )
+        )
+        crows = c["matches"]
+        ids = [row["match_id"] for row in crows]
+        if set(unranked_reasons) != set(frozen) - set(ids):
+            raise StageError(
+                "selection-discrimination checkpoint lost full cohort accounting"
+            )
+
     if ids:
         preflight = run_board(c)
         c, unranked_reasons, g4_incomplete_match_ids, g4_incomplete_assessments = (
@@ -1516,6 +1596,7 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         raise StageError("source-reconciled full research order corrupted")
     g4_incomplete_set = set(g4_incomplete_match_ids)
     goal_route_incomplete_set = set(goal_route_pending_ids)
+    selection_recheck_incomplete_set = set(selection_recheck_pending_ids)
     resume_queue = [
         {**copy.deepcopy(frozen[mid]),
          "research_status": (
@@ -1609,6 +1690,13 @@ def rank(sweep_receipt: dict[str, Any], c: dict[str, Any],
         ),
         "goal_route_incomplete_match_ids": list(goal_route_pending_ids),
         "goal_route_proof_reviews": copy.deepcopy(goal_route_proof_reviews),
+        "selection_discrimination_policy": (
+            SELECTION_DISCRIMINATION_POLICY
+            if at >= SELECTION_DISCRIMINATION_EFFECTIVE_UTC
+            else "LEGACY_PRE_G3_BORDERLINE_DISCRIMINATION_V2"
+        ),
+        "selection_recheck_pending_ids": list(selection_recheck_pending_ids),
+        "selection_recheck_reviews": copy.deepcopy(selection_recheck_reviews),
         "g4_incomplete_match_ids": list(g4_incomplete_match_ids),
         "g4_incomplete_assessments": copy.deepcopy(g4_incomplete_assessments),
         "reused_match_ids": reused_ids,
