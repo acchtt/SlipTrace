@@ -1,6 +1,6 @@
 # /xi — Football C assessment
 
-Apply `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md`. Use native result
+Apply `../procedures/FOOTBALL_C_G4_EVIDENCE_CONTRACT.md` and `../procedures/FOOTBALL_ASSESSMENT_DEPTH_AND_BLOCK_COMPARISON.md`. Use native result
 diagnostics and scope labels. A research-required or scope-blocked result cannot
 be replaced with a manually narrated ACT/BOOK/PASS. Complete mixed/rejected
 G4 findings still receive the material-disagreement recheck; only source-backed
