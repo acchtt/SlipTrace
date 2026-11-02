@@ -47,7 +47,10 @@ def requires_borderline_recheck(
 
     if str(compiled.get("board_state")) != "WATCH":
         return False
-    if str(compiled.get("operational_viability_grade")) != "A":
+    # Grade B is an execution-readiness caution, not a football-quality veto.
+    # Restrict only to A/B because C/D are blocked upstream by the operational
+    # contract itself.
+    if str(compiled.get("operational_viability_grade")) not in {"A", "B"}:
         return False
     if bool(raw.get("material_suppression")) or bool(raw.get("failure_attacks_route")):
         return False
