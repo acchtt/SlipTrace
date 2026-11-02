@@ -6,6 +6,8 @@ requirement. Source discovery and Google Sheets refetch are explicit operations 
 the caller; this code never claims to browse sites or publish by itself.
 Actual model assessments are computed by the single active Football C
 engine. C2/C3/C4 are retired; frozen historical receipts remain immutable.
+Bounded G3 discrimination may freeze explicit source-backed current-structure
+verification, but never by inflating predictive grades or borrowing outcomes.
 """
 from __future__ import annotations
 
