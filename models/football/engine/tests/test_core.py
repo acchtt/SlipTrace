@@ -475,7 +475,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(ranked[0].match_id, "z_high")
 
 
-    def test_funded_depth_precedes_clearability_once_execution_floor_clears(self):
+    def test_clearability_precedes_funded_depth_once_execution_floor_clears(self):
         g4 = assessment(
             match_id="g4",
             carrier=CarrierStrength.STRONG,
@@ -502,9 +502,11 @@ class RankingTests(unittest.TestCase):
         self.assertTrue(c_goal3_execution_floor_authorized(g3))
         self.assertEqual(certified_supported_burden(g4, "c"), 3.5)
         self.assertEqual(certified_supported_burden(g3, "c"), 2.5)
-        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g4")
+        # A deeper nominal certificate is not itself a reason to consume scarce
+        # priority ahead of an easier protected burden once both clear G3.
+        self.assertEqual(rank_assessments([g3, g4])[0].match_id, "g3")
 
-    def test_high_total_signal_precedes_g3_mechanism_class_after_floor(self):
+    def test_g3_mechanism_precedes_high_total_signal_after_floor(self):
         high_tail_distributed = assessment(
             match_id="high_tail_distributed",
             home_route=RouteStrength.USABLE,
@@ -550,7 +552,7 @@ class RankingTests(unittest.TestCase):
         self.assertEqual(certified_supported_burden(lower_tail_carrier, "c"), 2.5)
         self.assertEqual(
             rank_assessments([lower_tail_carrier, high_tail_distributed])[0].match_id,
-            "high_tail_distributed",
+            "lower_tail_carrier",
         )
 
     def test_robust_g3_can_outrank_fragile_g4(self):
@@ -1899,7 +1901,7 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
             Action.BET,
         )
 
-    def test_frozen_high_total_signal_precedes_medium_carrier_after_floor(self):
+    def test_current_carrier_precedes_frozen_high_total_signal_after_floor(self):
         distributed = assessment(
             match_id="urawa_inac_frozen_shape",
             home_route=RouteStrength.STRONG,
@@ -1951,10 +1953,10 @@ class LatestSelectionInversionRepairTests(unittest.TestCase):
         self.assertTrue(c_goal3_execution_floor_authorized(distributed))
         self.assertTrue(c_goal3_execution_floor_authorized(carrier))
         self.assertEqual(c_goal3_mechanism_class(carrier), "CARRIER")
-        # Since 31 Oct, frozen high-total evidence deliberately precedes
-        # mechanism-class preference after both rows clear the G3 execution
-        # floor. This is independent of the TWO_ROUTE quarantine.
-        self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, distributed.match_id)
+        # Frozen historical high-total rates remain corroborative. They cannot
+        # outrank a stronger current self-funded carrier after both rows clear
+        # the G3 execution floor. This is independent of the TWO_ROUTE quarantine.
+        self.assertEqual(rank_assessments([distributed, carrier])[0].match_id, carrier.match_id)
 
     def test_middle_burden_is_distinct_from_g4_certificate(self):
         a = robust_g3_assessment(
