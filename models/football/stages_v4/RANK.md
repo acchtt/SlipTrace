@@ -198,9 +198,24 @@ football; it never auto-promotes G3 from historical rates.
 
 After Football C research, selection is a separate deterministic step. Rows
 frozen as `C-FOCUS` remain **QUALIFIED** in the legacy ranked board for receipt
-and `/xi` compatibility. Only the globally highest-ranked eight qualified
-Grade-A rows become selected priority/FOLLOW. Other qualified rows are
-RESERVE. `C-WATCH` and `C-PASS` remain in the frozen research assessment for
+and `/xi` compatibility. The active rank is execution-first: current G3
+mechanism quality and burden-normalized clearability come before certificate
+depth or historical high-total corroboration.
+
+Scarce FOLLOW capacity also applies `REVIEW_PARETO_DOMINANCE_GUARD_V1`.
+A Grade-A `C-WATCH` / REVIEW_ONLY row with no hard G3-control veto is a
+**review-priority challenger** when its existing clearability score and scoring
+ceiling both meet or exceed a candidate FOCUS row, with at least one strictly
+higher. Such a challenger never gains a certificate, FOLLOW lane, or execution
+authority automatically. Instead, the dominated FOCUS row cannot consume
+FOLLOW capacity and the challenger is surfaced in `priority_review_board` for
+one bounded source-backed re-review. This prevents a hard G3 admission cliff
+from silently hiding a stronger overall candidate while preserving the funded
+certificate boundary.
+
+Only the globally highest-ranked non-dominated qualified Grade-A rows become
+selected priority/FOLLOW, capped at eight. Other qualified rows are RESERVE.
+`C-WATCH` and `C-PASS` remain in the frozen research assessment for
 audit/review. Kickoff sorts the selected display only after selection freezes.
 
 Football C compiles this production state from its certificate and direct
