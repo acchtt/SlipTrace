@@ -213,9 +213,16 @@ remain important, but certificate depth no longer wins before current mechanism
 strength and clearability.
 
 
+### Operational readiness is separate from football priority
+
+Grade A and Grade B qualified fixtures compete for FOLLOW on the same football
+rank. Grade B means execution observability needs a current /xi recheck; it does
+not mean the scoring thesis is weaker and cannot be used as a popularity/coverage
+proxy to suppress a high-total candidate. Grade C/D remain blocked upstream.
+
 ### Prospective selection-discrimination gate
 
-From `G3_BORDERLINE_DISCRIMINATION_V2`, a Grade-A REVIEW_ONLY row with one
+From `G3_BORDERLINE_DISCRIMINATION_V2`, a Grade-A/B REVIEW_ONLY row with one
 STRONG route, a usable reply, an at-least-USABLE carrier, all core G3 axes at
 least MEDIUM, no high stall and no hard veto is not a completed negative
 qualification until one bounded source-backed second pass is frozen. The pass
