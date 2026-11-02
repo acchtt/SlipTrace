@@ -528,8 +528,6 @@ def authorize_c_football(
     if not isinstance(authority, dict):
         raise RankAuthorityError("RANK_RECEIPT_REQUIRED: explicit authority missing")
 
-    assessment_depth_trace = _validate_assessment_depth(supplied)
-
     mode = authority.get("mode")
     if mode == "EXCEPTION":
         if authority.get("user_requested_exception") is not True:
@@ -548,6 +546,7 @@ def authorize_c_football(
             authority,
             exception_reference=reference,
         )
+        assessment_depth_trace = _validate_assessment_depth(supplied)
         exception_payload = dict(supplied)
         exception_context = dict(exception_payload.get("context") or {})
         exception_context["exception_research_completed"] = True
@@ -570,6 +569,8 @@ def authorize_c_football(
         raise RankAuthorityError(
             "RANK_RECEIPT_REQUIRED: ranked or exception authority required"
         )
+
+    assessment_depth_trace = _validate_assessment_depth(supplied)
 
     package = authority.get("verified_rank_package")
     if not isinstance(package, dict) or package.get("status") not in VERIFIED_RANK_STATUSES:
