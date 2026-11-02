@@ -1,0 +1,38 @@
+name: Football recent 44 G3 boundary repair replay
+
+on:
+  push:
+    branches:
+      - repair/g3-current-structure-20261102
+    paths:
+      - "models/football/qa/replay_recent_44_g3_boundary_repair.py"
+      - "models/football/qa/replays/2026-11-02_recent_44_frozen_assessments.json"
+      - ".github/workflows/football-recent44-g3-boundary-replay.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run repaired G3 boundary replay
+        env:
+          PYTHONPATH: models/football/engine:models/football/stages_v4
+        run: |
+          set -euo pipefail
+          python models/football/qa/replay_recent_44_g3_boundary_repair.py | tee recent44-g3-boundary-replay.log
+      - name: Upload replay output
+        uses: actions/upload-artifact@v4
+        with:
+          name: recent44-g3-boundary-replay
+          path: |
+            recent44-g3-boundary-replay.log
+            recent44-complete-replay.json
+          if-no-files-found: error
