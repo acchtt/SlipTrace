@@ -701,22 +701,48 @@ def c_two_route_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
+def c_current_structure_supports_distributed_goal3(a: MatchAssessment) -> bool:
+    """Accept an independently researched current 2+1 / 1+2 route without rate gating.
+
+    This is deliberately narrower than generic two-route support. One current
+    route must be STRONG, the other at least USABLE, and a USABLE carrier must
+    survive. Merely USABLE+USABLE all-MEDIUM cards remain dependent on the
+    frozen Step-0 corroboration path.
+
+    The helper changes only G3 qualification. G4/G5/G6 retain their independent
+    upper-tail contracts.
+    """
+
+    require_c_completion(a)
+    return (
+        max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and min(a.home_route, a.away_route) >= RouteStrength.USABLE
+        and a.carrier >= CarrierStrength.USABLE
+    )
+
+
 def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
     """Fund goal three through a genuine two-sided 2+1 / 1+2 mechanism.
 
-    Frozen scoreline history is corroboration, never a substitute for current
-    football strength. Two merely USABLE routes with an all-MEDIUM profile no
-    longer combine into a protected G3 certificate by themselves.
+    Frozen Step-0 rates remain one corroboration route. A second, narrower
+    current-structure route prevents strong-primary + usable-reply fixtures from
+    being collapsed into the same all-MEDIUM bucket solely because historical
+    rates miss a numerical threshold.
+
+    Two merely USABLE routes with an all-MEDIUM profile still cannot combine
+    into a protected G3 certificate by themselves.
     """
 
     require_c_completion(a)
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    structure_supported = c_current_structure_supports_distributed_goal3(a)
+    signal_supported = goal_signal_supports_distributed_goal3(a)
     strong_current_support = (
         max(a.home_route, a.away_route) == RouteStrength.STRONG
         or a.independent_route_quality == Grade.HIGH
     )
     return (
-        goal_signal_supports_distributed_goal3(a)
+        (signal_supported or structure_supported)
         and a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
         and a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
