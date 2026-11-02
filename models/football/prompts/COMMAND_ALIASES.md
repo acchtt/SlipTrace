@@ -6,8 +6,9 @@ Only the first slash command routes the message.
 
 | Command | Active authority |
 |---|---|
-| /sweep [window] | V4 source-backed intake: models/football/stages_v4/SWEEP.md |
-| /rank | V4 Football C rank: models/football/stages_v4/RANK.md |
+| /block [window] | **Primary** equal-depth Football C kickoff-block assessment |
+| /sweep [window] | V4 source-backed intake/supporting source capture |
+| /rank | **Secondary** V4 Football C whole-slate comparison/audit board |
 | /xi | One Football C assessment with optional observed/executable price check |
 | /xi exception | Explicit user-requested C assessment outside routine board authority |
 | /live | Same Football C assessment using current started-match state |
@@ -21,8 +22,9 @@ Aliases are case-insensitive. Text after the command is normal launcher input.
 
 | Stage | Conversation surface | Canonical launcher |
 |---|---|---|
+| BLOCK | **Normal chat — PRIMARY** | `models/football/prompts/02A_NORMAL_CHAT_BLOCK_ASSESSMENT.md` |
 | SWEEP | **Normal chat** | `models/football/stages_v4/SWEEP.md` |
-| RANK | **ChatGPT Work** | `models/football/stages_v4/RANK.md` |
+| RANK | **ChatGPT Work — SECONDARY** | `models/football/stages_v4/RANK.md` |
 | XI / XI exception | **Normal chat** | `models/football/prompts/02_NORMAL_CHAT_XI_ODDS.md` |
 | LIVE | **Normal chat** | `models/football/prompts/03_NORMAL_CHAT_LIVE.md` |
 | AUDIT | **Normal chat** | `models/football/prompts/04_NORMAL_CHAT_AUDIT.md` |
@@ -74,6 +76,28 @@ epoch, then remap reusable research by exact fixture identity.
 Do not invoke retired V1-V3 checkpoint, repair, ZIP or capacity workflows, and
 do not use Work acquisition orchestration as the default new-sweep route.
 
+## /block — primary workflow
+
+A user request such as `/block 23:00-00:00`, `assess the 23:00 block`, or
+`assess matches from 23:00 to 00:00` routes here.
+
+Resolve the complete requested kickoff cohort before judging any candidate.
+Assess every in-scope unstarted fixture to ASSESSMENT_DEPTH_V1, then run the
+football-first block comparison. No candidate may be omitted because /rank
+did not select it, because FOLLOW is full, or because another fixture already
+has a cleaner certificate.
+
+For runtime authority, the block request itself is explicit user authorization
+to use the existing full EXCEPTION research contract for each candidate. This
+does not relax Football C: each candidate still needs fresh source-backed
+research, H2H/incentive/context checks, certificate funding, screenshot-only
+price handling and Decision States persistence/readback. Existing rank data is
+secondary comparison metadata only.
+
+No odds are required to finish the football assessment and supported-burden
+read. If the user supplies a screenshot in the block request, evaluate that
+exact visible ladder after the football assessment.
+
 ## /rank
 
 Use the newest/explicit native V4_SWEEP_READY receipt only when its requested
@@ -99,8 +123,9 @@ status refresh. Legacy `rank` remains an alias of Current Rank. While rank
 research is partial, Slate Rank is null/pending; never present a partial-cohort
 rank as the final slate ordering.
 
-Routine Step 2 trusts the resulting verified C rank+persistence receipt; it
-does not repeat source replay.
+Ranked Step 2 may still trust the resulting verified C rank+persistence
+receipt, but primary block assessment does not depend on /rank and must not
+inherit rank ordering as football evidence.
 
 For new rank epochs, the launcher must also satisfy the prospective selection
 research contracts defined by RANK.md. A strong-primary/usable-reply
