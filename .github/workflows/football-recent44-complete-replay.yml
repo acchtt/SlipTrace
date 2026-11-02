@@ -1,0 +1,37 @@
+name: Football recent 44 complete replay
+
+on:
+  push:
+    branches:
+      - audit/replay-44-current-repair-20261102
+    paths:
+      - "models/football/qa/complete_recent_44_replay.py"
+      - ".github/workflows/football-recent44-complete-replay.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run completed same-information replay
+        env:
+          PYTHONPATH: models/football/engine:models/football/stages_v4
+        run: |
+          set -euo pipefail
+          python models/football/qa/complete_recent_44_replay.py | tee recent44-complete-replay.log
+      - name: Upload completed replay
+        uses: actions/upload-artifact@v4
+        with:
+          name: recent44-complete-replay
+          path: |
+            recent44-complete-replay.log
+            recent44-complete-replay.json
+          if-no-files-found: error
