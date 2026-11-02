@@ -185,6 +185,14 @@ class MatchAssessment:
     goal_signal_mean_over_three_rate: float | None = None
     goal_signal_low_draw_trap_rate: float | None = None
 
+    # Explicit bounded-research verification for the narrow current-structure
+    # G3 path. This does not infer quality from prose or outcomes: research must
+    # freeze the source-backed verification before the deterministic compiler
+    # may bypass a weak historical Step-0 rate signal.
+    g3_current_structure_verified: bool = False
+    g3_current_structure_basis: str | None = None
+    g3_current_structure_source_refs: tuple[str, ...] = ()
+
     # Football C-owned burden-completion diagnostics. These are deliberately
     # optional in the shared assessment object so C2 does not need to carry
     # C policy labels merely to satisfy a generic parser. The C parser and all
@@ -252,6 +260,30 @@ class MatchAssessment:
         ):
             if value is not None and not low <= value <= high:
                 raise ValueError(f"{name} outside {low}..{high}")
+        if self.g3_current_structure_verified:
+            if not (
+                self.g3_current_structure_basis
+                and self.g3_current_structure_basis.strip()
+            ):
+                raise ValueError(
+                    "verified current-structure G3 requires a non-empty basis"
+                )
+            refs = tuple(
+                ref.strip()
+                for ref in self.g3_current_structure_source_refs
+                if isinstance(ref, str) and ref.strip()
+            )
+            if len(set(refs)) < 2:
+                raise ValueError(
+                    "verified current-structure G3 requires at least two source references"
+                )
+        elif (
+            self.g3_current_structure_basis is not None
+            or self.g3_current_structure_source_refs
+        ):
+            raise ValueError(
+                "current-structure G3 basis/source refs require verified=true"
+            )
         if self.upper_tail_transferability is not None and not (
             self.upper_tail_transferability_basis
             and self.upper_tail_transferability_basis.strip()
@@ -701,22 +733,45 @@ def c_two_route_goal3_funded(a: MatchAssessment) -> bool:
     )
 
 
+def c_verified_current_structure_goal3(a: MatchAssessment) -> bool:
+    """Return whether bounded research verifies the narrow current 2+1 / 1+2 path.
+
+    This is intentionally not a generic two-route rule. Research must explicitly
+    verify the current structure from at least two frozen sources, one route must
+    be STRONG, the reply route at least USABLE, and a USABLE carrier must survive.
+    """
+
+    require_c_completion(a)
+    return (
+        a.g3_current_structure_verified
+        and max(a.home_route, a.away_route) == RouteStrength.STRONG
+        and min(a.home_route, a.away_route) >= RouteStrength.USABLE
+        and a.carrier >= CarrierStrength.USABLE
+    )
+
+
 def c_distributed_goal3_funded(a: MatchAssessment) -> bool:
     """Fund goal three through a genuine two-sided 2+1 / 1+2 mechanism.
 
-    Frozen scoreline history is corroboration, never a substitute for current
-    football strength. Two merely USABLE routes with an all-MEDIUM profile no
-    longer combine into a protected G3 certificate by themselves.
+    The ordinary path still requires frozen Step-0 corroboration. A second,
+    explicit bounded-research path can certify strong-primary + usable-reply
+    current structure when historical rate thresholds are the only missing
+    requirement.
+
+    Two merely USABLE routes with an all-MEDIUM profile remain unfunded unless
+    the ordinary Step-0 path clears.
     """
 
     require_c_completion(a)
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
+    signal_supported = goal_signal_supports_distributed_goal3(a)
+    verified_structure = c_verified_current_structure_goal3(a)
     strong_current_support = (
         max(a.home_route, a.away_route) == RouteStrength.STRONG
         or a.independent_route_quality == Grade.HIGH
     )
     return (
-        goal_signal_supports_distributed_goal3(a)
+        (signal_supported or verified_structure)
         and a.completion_mode in {CompletionMode.TWO_SIDED, CompletionMode.MIXED}
         and a.home_route >= RouteStrength.USABLE
         and a.away_route >= RouteStrength.USABLE
@@ -772,13 +827,21 @@ def c_goal3_mechanism_class(a: MatchAssessment) -> str:
 
 
 def c_goal3_mechanism_rank(a: MatchAssessment) -> int:
-    """Rank G3 mechanism quality without rewarding route count by itself.
+    """Rank G3 mechanism quality without rewarding generic route count.
 
-    TWO_ROUTE remains a valid G3 certificate, but it is neutral with a genuine
-    distributed G3 for ranking. Only independently stronger carrier or
-    matchup-leakage evidence receives a mechanism-specific preference.
+    A bounded, source-backed current-structure verification is distinct from a
+    generic DISTRIBUTED/TWO_ROUTE card: it exists specifically because research
+    independently re-established the strong-primary + usable-reply mechanism
+    after the historical rate gate lost that distinction. Give that verified
+    mechanism the highest selection/workload priority without changing its
+    execution robustness or granting any G4 authority.
+
+    Ordinary carrier, leakage and distributed mechanisms retain their previous
+    relative order.
     """
 
+    if c_verified_current_structure_goal3(a):
+        return 5
     return {
         "NONE": 0,
         "DISTRIBUTED": 1,
@@ -1080,9 +1143,12 @@ def c_g3_endpoint_control_pressure(a: MatchAssessment) -> str:
     effective_continuation, effective_stall = c_effective_incentive_grades(a)
     trap = a.goal_signal_low_draw_trap_rate
 
+    trap_hard_threshold = (
+        0.30 if c_verified_current_structure_goal3(a) else 0.25
+    )
     hard_control = (
         effective_stall == Grade.HIGH
-        or (trap is not None and trap >= 0.25)
+        or (trap is not None and trap >= trap_hard_threshold)
         or (
             a.h2h_effect == "SUPPRESSIVE"
             and a.h2h_transferability == "VERIFIED"
@@ -2228,6 +2294,15 @@ def prospective_goal_funding(
             else None
         ),
         "goal3_funded": goal3,
+        "g3_current_structure_verified": (
+            a.g3_current_structure_verified if model == "c" else False
+        ),
+        "g3_current_structure_basis": (
+            a.g3_current_structure_basis if model == "c" else None
+        ),
+        "g3_current_structure_source_refs": (
+            list(a.g3_current_structure_source_refs) if model == "c" else []
+        ),
         "goal4_funded": goal4,
         "goal5_funded": goal5,
         "goal6_funded": goal6,
