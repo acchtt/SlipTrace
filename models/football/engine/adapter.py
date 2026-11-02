@@ -767,6 +767,35 @@ def parse_assessment(
             "unverified G5 route cannot carry an affirmative basis/source proof"
         )
 
+    g3_current_structure_verified = _bool(
+        obj, "g3_current_structure_verified", False
+    )
+    g3_current_structure_basis = obj.get("g3_current_structure_basis")
+    g3_current_structure_refs = obj.get("g3_current_structure_source_refs")
+    if g3_current_structure_verified:
+        if (
+            not isinstance(g3_current_structure_basis, str)
+            or not g3_current_structure_basis.strip()
+        ):
+            raise ContractError(
+                "verified current-structure G3 requires a non-empty basis"
+            )
+        if (
+            not isinstance(g3_current_structure_refs, list)
+            or len({
+                ref.strip()
+                for ref in g3_current_structure_refs
+                if isinstance(ref, str) and ref.strip()
+            }) < 2
+        ):
+            raise ContractError(
+                "verified current-structure G3 requires at least two source references"
+            )
+    elif g3_current_structure_basis is not None or g3_current_structure_refs is not None:
+        raise ContractError(
+            "current-structure G3 basis/source refs require verified=true"
+        )
+
     return MatchAssessment(
         match_id=str(_required(obj, "match_id")),
         home_route=_enum(
@@ -866,6 +895,21 @@ def parse_assessment(
         goal_signal_mean_over_two_rate=_optional_number(obj, "goal_signal_mean_over_two_rate"),
         goal_signal_mean_over_three_rate=_optional_number(obj, "goal_signal_mean_over_three_rate"),
         goal_signal_low_draw_trap_rate=_optional_number(obj, "goal_signal_low_draw_trap_rate"),
+        g3_current_structure_verified=g3_current_structure_verified,
+        g3_current_structure_basis=(
+            g3_current_structure_basis.strip()
+            if g3_current_structure_verified else None
+        ),
+        g3_current_structure_source_refs=(
+            tuple(
+                dict.fromkeys(
+                    ref.strip()
+                    for ref in g3_current_structure_refs
+                    if isinstance(ref, str) and ref.strip()
+                )
+            )
+            if g3_current_structure_verified else ()
+        ),
         completion_mode=(
             _enum(CompletionMode, _required(obj, "completion_mode"), "completion_mode")
             if require_c_completion else None
@@ -1002,6 +1046,27 @@ def _g4_research_profile(
         else raw_status
     )
     if status == "G4_NOT_APPLICABLE":
+        if goal3 and a.g3_current_structure_verified:
+            # A bounded G3 recheck may newly fund the third goal on a row whose
+            # frozen metadata correctly said G4 was not applicable while G3 was
+            # unfunded. Do not reject the row or pretend G4 is complete: reopen
+            # the upper-tail investigation and let the stage checkpoint fail
+            # closed until G4 is explicitly completed.
+            return {
+                "g4_research_status": "G4_RESEARCH_INCOMPLETE",
+                "g4_declared_research_status": declared_status,
+                "g4_research_explicit": True,
+                "g4_carrier_path": "UNAVAILABLE",
+                "g4_distributed_path": "UNAVAILABLE",
+                "g4_reply_path": "UNAVAILABLE",
+                "g4_continuation_after_g3": "UNAVAILABLE",
+                "g4_research_basis": (
+                    "CURRENT_STRUCTURE_G3_NEWLY_FUNDED: frozen G4_NOT_APPLICABLE "
+                    "is reopened; complete the bounded G4 investigation before rank "
+                    "may finalize this FOCUS row."
+                ),
+                "g4_status_normalized_from_mixed": False,
+            }
         if goal3:
             raise ContractError("G4_NOT_APPLICABLE is invalid when G3 is funded")
         return {
